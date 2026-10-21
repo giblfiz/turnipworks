@@ -1,0 +1,428 @@
+{
+ "blind_flash": {
+  "axe-woodcutter": {
+   "row": 1,
+   "object": "axe",
+   "pose": "on_side",
+   "front": "none",
+   "why": "hand tool has no distinct front",
+   "conf": 0.95
+  },
+  "bush--s1": {
+   "row": 2,
+   "object": "green bush",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural bush with no front face",
+   "conf": 1.0
+  },
+  "bush--s2": {
+   "row": 3,
+   "object": "green bush",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural bush with no front face",
+   "conf": 1.0
+  },
+  "bush--s3": {
+   "row": 4,
+   "object": "flowering bush",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural bush with no front face",
+   "conf": 1.0
+  },
+  "bush-berry": {
+   "row": 1,
+   "object": "flowering bush",
+   "pose": "upright",
+   "front": "none",
+   "why": "round symmetric plant with no distinct side",
+   "conf": 0.95
+  },
+  "clothesline": {
+   "row": 2,
+   "object": "clothesline with hanging laundry",
+   "pose": "upright",
+   "front": "A",
+   "why": "front of the hanging tunic and garments",
+   "conf": 0.75
+  },
+  "compost-heap": {
+   "row": 3,
+   "object": "wooden compost bin",
+   "pose": "upright",
+   "front": "A",
+   "why": "low front opening for access",
+   "conf": 0.95
+  },
+  "dog-kennel": {
+   "row": 4,
+   "object": "doghouse",
+   "pose": "upright",
+   "front": "A",
+   "why": "entrance doorway",
+   "conf": 1.0
+  },
+  "fence-picket": {
+   "row": 1,
+   "object": "wooden picket fence section",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on front and back",
+   "conf": 0.95
+  },
+  "fence-post-corner": {
+   "row": 2,
+   "object": "wooden fence post",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical post has no front",
+   "conf": 0.98
+  },
+  "fence-post-rail": {
+   "row": 3,
+   "object": "wooden rail fence section",
+   "pose": "upright",
+   "front": "C",
+   "why": "carved triangle emblem on top rail",
+   "conf": 0.85
+  },
+  "fence-wattle": {
+   "row": 4,
+   "object": "woven wattle fence section",
+   "pose": "upright",
+   "front": "none",
+   "why": "woven fence looks equivalent on both sides",
+   "conf": 0.95
+  },
+  "flowerbed": {
+   "row": 1,
+   "object": "stone garden bed",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical square planter",
+   "conf": 0.95
+  },
+  "flowerbox-window": {
+   "row": 2,
+   "object": "wooden flower planter box",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical rectangular planter",
+   "conf": 0.85
+  },
+  "garden-tools-leaning": {
+   "row": 3,
+   "object": "tied garden tools bundle",
+   "pose": "upright",
+   "front": "none",
+   "why": "radial tripod arrangement of tools",
+   "conf": 0.85
+  },
+  "gate-fence": {
+   "row": 4,
+   "object": "wooden fence gate",
+   "pose": "upright",
+   "front": "A",
+   "why": "outer face of the gate opposite the diagonal brace",
+   "conf": 0.85
+  },
+  "gatepost-stone": {
+   "row": 1,
+   "object": "stone pillar with ball finial",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric pillar",
+   "conf": 0.95
+  },
+  "hedge-corner": {
+   "row": 2,
+   "object": "L-shaped hedge",
+   "pose": "upright",
+   "front": "none",
+   "why": "hedge section with no distinct front",
+   "conf": 0.95
+  },
+  "hedge-end-block": {
+   "row": 3,
+   "object": "cubic hedge block",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric hedge cube",
+   "conf": 0.98
+  },
+  "hedge-gap-arch": {
+   "row": 4,
+   "object": "hedge archway",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical pass-through archway on opposite sides",
+   "conf": 0.9
+  },
+  "hedge-straight--low": {
+   "row": 1,
+   "object": "hedge section",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 1.0
+  },
+  "hitching-post--s2": {
+   "row": 2,
+   "object": "hitching rail",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 1.0
+  },
+  "hitching-post--s3": {
+   "row": 3,
+   "object": "wooden fence with rope",
+   "pose": "upright",
+   "front": "none",
+   "why": "fence section identical on opposite sides",
+   "conf": 0.95
+  },
+  "log-seat": {
+   "row": 4,
+   "object": "log bench",
+   "pose": "upright",
+   "front": "none",
+   "why": "plain bench without backrest has no front",
+   "conf": 1.0
+  },
+  "planter-barrel--s1": {
+   "row": 1,
+   "object": "flowers in a barrel planter",
+   "pose": "upright",
+   "front": "none",
+   "why": "round planter with no distinct front",
+   "conf": 0.95
+  },
+  "planter-barrel--s2": {
+   "row": 2,
+   "object": "flowers in a barrel planter",
+   "pose": "upright",
+   "front": "none",
+   "why": "round planter with no distinct front",
+   "conf": 0.95
+  },
+  "planter-stone": {
+   "row": 3,
+   "object": "topiary in square stone planter",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical square planter on all sides",
+   "conf": 0.9
+  },
+  "rake": {
+   "row": 4,
+   "object": "wooden garden rake",
+   "pose": "on_side",
+   "front": "B",
+   "why": "tines face forward toward the user",
+   "conf": 0.75
+  },
+  "sawhorse": {
+   "row": 1,
+   "object": "wooden bench",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.95
+  },
+  "sign-post-inn": {
+   "row": 2,
+   "object": "hanging tavern signpost",
+   "pose": "upright",
+   "front": "A",
+   "why": "painted face of the sign",
+   "conf": 0.85
+  },
+  "signpost": {
+   "row": 3,
+   "object": "directional arrow signpost",
+   "pose": "upright",
+   "front": "B",
+   "why": "front face of arrow boards with mounting bolts",
+   "conf": 0.9
+  },
+  "spade-garden": {
+   "row": 4,
+   "object": "shovel",
+   "pose": "on_side",
+   "front": "none",
+   "why": "tool lying flat on the ground with no distinct front side facing camera",
+   "conf": 0.85
+  },
+  "table-picnic": {
+   "row": 1,
+   "object": "wooden picnic table",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical seating on both sides",
+   "conf": 0.95
+  },
+  "trade-herb-bed": {
+   "row": 2,
+   "object": "wooden planter box with plants",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical rectangular planter",
+   "conf": 0.9
+  },
+  "tree-birch--l": {
+   "row": 3,
+   "object": "stylized birch tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "trees do not have a front",
+   "conf": 1.0
+  },
+  "tree-birch--s": {
+   "row": 4,
+   "object": "tall stylized tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "trees do not have a front",
+   "conf": 1.0
+  },
+  "tree-birch--s2": {
+   "row": 1,
+   "object": "birch tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "trees do not have a front",
+   "conf": 1.0
+  },
+  "tree-deciduous--l": {
+   "row": 2,
+   "object": "low-poly leafy tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "trees do not have a front",
+   "conf": 1.0
+  },
+  "tree-deciduous--s": {
+   "row": 3,
+   "object": "low-poly leafy tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "trees do not have a front",
+   "conf": 1.0
+  },
+  "tree-deciduous--s2": {
+   "row": 4,
+   "object": "low-poly leafy tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "trees do not have a front",
+   "conf": 1.0
+  },
+  "tree-fruit--l": {
+   "row": 1,
+   "object": "stylized apple tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural tree has no front",
+   "conf": 0.95
+  },
+  "tree-fruit--s": {
+   "row": 2,
+   "object": "stylized apple tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural tree has no front",
+   "conf": 0.95
+  },
+  "tree-fruit--s2": {
+   "row": 3,
+   "object": "stylized fruit tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural tree has no front",
+   "conf": 0.95
+  },
+  "tree-oak-great": {
+   "row": 4,
+   "object": "stylized leafy tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural tree has no front",
+   "conf": 0.95
+  },
+  "trellis-vine": {
+   "row": 1,
+   "object": "trellis with flowering vine",
+   "pose": "upright",
+   "front": "A",
+   "why": "flowering side of the trellis",
+   "conf": 0.95
+  },
+  "trowel-garden": {
+   "row": 2,
+   "object": "hand trowel",
+   "pose": "upright",
+   "front": "none",
+   "why": "hand tool with no canonical front side",
+   "conf": 0.8
+  },
+  "vegetable-patch": {
+   "row": 3,
+   "object": "vegetable garden plot",
+   "pose": "upright",
+   "front": "none",
+   "why": "garden bed viewed and tended from any side",
+   "conf": 0.9
+  },
+  "wall-drystone": {
+   "row": 4,
+   "object": "stone wall segment",
+   "pose": "upright",
+   "front": "none",
+   "why": "wall section looks the same from both sides",
+   "conf": 0.95
+  },
+  "wall-drystone-gate": {
+   "row": 1,
+   "object": "stone wall opening",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on both sides",
+   "conf": 0.95
+  },
+  "wall-drystone-pier": {
+   "row": 2,
+   "object": "stone pillar",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric post",
+   "conf": 0.95
+  },
+  "watering-can": {
+   "row": 3,
+   "object": "watering can",
+   "pose": "upright",
+   "front": "none",
+   "why": "spout side is not a front",
+   "conf": 0.9
+  },
+  "well-house": {
+   "row": 4,
+   "object": "water well with roof",
+   "pose": "upright",
+   "front": "A",
+   "why": "open side to draw water with crank on the right",
+   "conf": 0.85
+  },
+  "woodpile-long": {
+   "row": 1,
+   "object": "firewood rack",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical opposite sides showing cut log ends",
+   "conf": 0.9
+  }
+ }
+}

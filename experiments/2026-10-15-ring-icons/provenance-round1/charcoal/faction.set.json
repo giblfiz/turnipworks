@@ -1,0 +1,53 @@
+{
+  "id": "faction.set",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: Two overlapping stout pennant banners, one muted teal and one ochre, each on a short pole. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--faction.set.png",
+  "source_sha256": "753b662e64c3d3752564cdabebc4b3cc0051fa34da0a0de832fd41641b6e99a5",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/faction.set.webp",
+    "19": "charcoal/sizes/19/faction.set.webp",
+    "22": "charcoal/sizes/22/faction.set.webp",
+    "26": "charcoal/sizes/26/faction.set.webp",
+    "31": "charcoal/sizes/31/faction.set.webp",
+    "36": "charcoal/sizes/36/faction.set.webp",
+    "38": "charcoal/sizes/38/faction.set.webp",
+    "42": "charcoal/sizes/42/faction.set.webp",
+    "44": "charcoal/sizes/44/faction.set.webp",
+    "50": "charcoal/sizes/50/faction.set.webp",
+    "52": "charcoal/sizes/52/faction.set.webp",
+    "62": "charcoal/sizes/62/faction.set.webp",
+    "84": "charcoal/sizes/84/faction.set.webp",
+    "100": "charcoal/sizes/100/faction.set.webp",
+    "128": "charcoal/faction.set.webp"
+  },
+  "sha256": {
+    "18": "c4fca5b90120a40d24f5c309e20060929fb1ad15f44edd2c150a7c965ca5735b",
+    "19": "3113387ca99b11746ae25ef9007b97852984af205963abfc6f8e739ed72f9cfd",
+    "22": "59dd2965ef0e4b06c45d6d8f02880b991af6ccd88718443365c56ab9cad78833",
+    "26": "3be8e0e27efa6060a647aed3c5dedb0556a59468f92915b5f10cd5184d673d79",
+    "31": "17eb48f02c41ed6d9edf85a1668aee9b4d3a78758adf01d4731b4b6874c4d31b",
+    "36": "a8a9f28fbf733f517a8a050bf872ec03fb1c065adcf062ba49a5b79c759ed6c1",
+    "38": "9ffcc922468fc0788a091d699711b6208a319539dab3785bafa9860ad7fa509b",
+    "42": "53aa68d246b11e510931f972e3bcd3a8ec6e55379da21ce7f21b50b1abb9d69e",
+    "44": "e0a31b49e0fb20582af1c20291b7ff997f5a070f605812ede7f22a96e81a698a",
+    "50": "c69918fb0800a39dccc69222cbd71cb99be405c64d99109f4e4e0d85ae08fd77",
+    "52": "ebfa62801a584c785c59b113d7abe0f9e9c19c3334d77a47e0e4ad841650b5d1",
+    "62": "c814b14dc7060cfa11833a15746bcbdcb19d659ac647f9804260b8ef87690392",
+    "84": "7428dea2f488399744b3cfe962efda4a43330afbf3de94036e5c4565e872acd2",
+    "100": "0f85c6027a1f92293a1203850b981ca30602a85be61893ea7df0ad5a21ab9081",
+    "128": "60049288cac965d4ad2317ee756494e99c2591d0b91bf7356d0fe9a7c8896f09"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "0c1e68cd7d1551b02189c36bd8a3f1253d61b7a14da7de487ac335533ae2431a"
+}

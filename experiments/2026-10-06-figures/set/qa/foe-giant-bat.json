@@ -1,0 +1,144 @@
+{
+ "file": "foe-giant-bat.glb",
+ "tris": 48322,
+ "kb": 2971,
+ "native_extent": [
+  0.745,
+  1.0,
+  0.645
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  65,
+  37,
+  16
+ ],
+ "mean_saturation": 0.769,
+ "sized_by": "its highest point",
+ "overall_ft": 3.0,
+ "pieces": {
+  "connected_parts": 824,
+  "main_part_area_share": 0.994,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 2.9998,
+ "y0": -1.5012,
+ "stated_ft": {
+  "body": 3.0,
+  "figure_top": 3.0,
+  "overall": 3.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3568,
+   -0.5007,
+   -0.3224
+  ],
+  [
+   0.3881,
+   0.4998,
+   0.3225
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48322,
+   "tex": 2048,
+   "kb": 2971
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1130
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 473
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.41,
+    "z": -0.53,
+    "size_ft": [
+     0.75,
+     1.36
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.66,
+    "sole_p90_ft": 0.135
+   },
+   {
+    "x": 0.41,
+    "z": 0.52,
+    "size_ft": [
+     0.75,
+     1.36
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.67,
+    "sole_p90_ft": 0.13
+   },
+   {
+    "x": -0.67,
+    "z": -0.01,
+    "size_ft": [
+     0.4,
+     0.69
+    ],
+    "off_ground_ft": 0.067,
+    "sole_level_share": 0.48,
+    "sole_p90_ft": 0.23
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.067,
+  "lowest_slab_area_sqft": 0.7,
+  "plan_hull_area_sqft": 2.9,
+  "lowest_slab_share_of_plan": 0.24
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.23,
+   "d": 1.93,
+   "h": 3.0
+  },
+  "centre": [
+   0.094,
+   0.0
+  ],
+  "contacts_radius_ft": 1.16,
+  "reach_radius_ft": 1.12,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.924,
+  "plate_lost_share": 0.023,
+  "added_share": 0.057,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.924,
+  "view_yaw_deg": 300,
+  "view_elev_deg": 8
+ },
+ "id": "foe-giant-bat",
+ "sha1": "e670d8a18b9b15952e7e7c344394fa5e17d5e642",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 12.6
+}

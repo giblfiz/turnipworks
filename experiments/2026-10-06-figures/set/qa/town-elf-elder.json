@@ -1,0 +1,166 @@
+{
+ "file": "town-elf-elder.glb",
+ "tris": 48920,
+ "kb": 2885,
+ "native_extent": [
+  0.471,
+  1.002,
+  0.455
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0006,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  81,
+  75,
+  53
+ ],
+ "mean_saturation": 0.458,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 4.24,
+  "length_ft": 4.56,
+  "low_end_ft": [
+   -1.01,
+   0.08,
+   -0.33
+  ],
+  "high_end_ft": [
+   -1.03,
+   4.62,
+   -0.07
+  ],
+  "tilt_from_upright_deg": 3.3,
+  "thickness_ft": 0.23,
+  "clear_share": 0.91,
+  "joined_share": 0.09,
+  "broken_share": 0.0,
+  "walk_low_to_high": "--------------------------------------#####----------"
+ },
+ "overall_ft": 5.21,
+ "pieces": {
+  "connected_parts": 49,
+  "main_part_area_share": 0.9941,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.2065,
+ "y0": -2.6076,
+ "stated_ft": {
+  "body": 5.2,
+  "figure_top": 5.2,
+  "overall": 5.2
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.241,
+   -0.5008,
+   -0.227
+  ],
+  [
+   0.23,
+   0.5008,
+   0.228
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48920,
+   "tex": 2048,
+   "kb": 2885
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1061
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 454
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.56,
+    "z": -0.39,
+    "size_ft": [
+     0.52,
+     1.13
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.052
+   },
+   {
+    "x": 0.61,
+    "z": 0.76,
+    "size_ft": [
+     0.48,
+     0.89
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.045
+   },
+   {
+    "x": -0.17,
+    "z": 0.54,
+    "size_ft": [
+     0.7,
+     0.72
+    ],
+    "off_ground_ft": 0.406,
+    "sole_level_share": 0.97,
+    "sole_p90_ft": 0.462
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.406,
+  "lowest_slab_area_sqft": 0.7,
+  "plan_hull_area_sqft": 4.02,
+  "lowest_slab_share_of_plan": 0.174
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.45,
+   "d": 2.37,
+   "h": 5.21
+  },
+  "centre": [
+   -0.191,
+   0.38
+  ],
+  "contacts_radius_ft": 1.19,
+  "reach_radius_ft": 1.6,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.93,
+  "plate_lost_share": 0.009,
+  "added_share": 0.066,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.93,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "town-elf-elder",
+ "sha1": "f39b0a55d027b9f70c5e0f7bc1b1e8f1dc52a7a4",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.41 ft off the ground"
+ ],
+ "qa_seconds": 13.6
+}

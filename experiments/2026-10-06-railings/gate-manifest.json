@@ -1,0 +1,54 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "railing-iron": {
+   "id": "railing-iron",
+   "group": null,
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-railings/work/railing-iron.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized section of weathered, rusted metal railing or fence shown against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized section of weathered, rusted metal railing or fence shown against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single standalone object, best identified as a metal railing or fence section (second guess: a balustrade or low gate). It is composed of two thicker vertical end posts, each capped at top and bottom with beveled square caps; two long horizontal rectangular rails running between the posts; and seven vertical square-profile balusters or bars evenly spaced between the rails. Each of the seven inner bars features a small cube-shaped faceted decorative collar around its center. The object is rendered in a hand-painted/stylized 3D game asset aesthetic, textured to look like aged, dark brown-grey hammered iron or steel with prominent orange-brown rust mottling and lighter edge highlights. The entire object is fully visible within the frame and is uncropped. The background is a solid, completely uniform bright blue with no shadows, ground plane, or scenery.",
+       "reference_differences": [
+        "The candidate is a wide, horizontal fence or railing section, whereas the reference is a tall, narrow vertical arched door or gate.",
+        "The candidate has two thick vertical outer posts with capped ends and bases, whereas the reference has a continuous perimeter frame with an arched top.",
+        "The candidate has seven vertical square balusters each decorated with a central faceted cube collar, while the reference has vertical bars without central collars.",
+        "The candidate lacks the two side-mounted barrel hinges present on the left side of the reference.",
+        "The candidate lacks the lock mechanism, keyhole, and swinging ring pull handle present on the right side of the reference.",
+        "The candidate lacks the horizontal reinforcing straps with rounded rivets/bolts and the solid lower kick-plate with a diamond boss seen on the reference.",
+        "The candidate has an open bottom supported between posts, whereas the reference has a solid bottom metal panel."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2932,
+      "soft": 0.0116,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9845,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5545,
+   "tokens_out": 1754,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

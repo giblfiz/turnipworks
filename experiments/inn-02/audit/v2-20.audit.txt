@@ -1,0 +1,6 @@
+#1 semantic=PASS mask=PASS — Matches unlit torch bracket; mask is clean.
+#2 semantic=PASS mask=PASS — Matches unlit wooden candelabrum; mask is clean.
+#3 semantic=PASS mask=PASS — Matches unlit brass candelabrum; mask is clean.
+#4 semantic=PASS mask=PASS — Matches unlit torch stand; mask is clean.
+#5 semantic=PASS mask=FAIL — Matches unlit lamp; mask leaves background visible through glass.
+#6 semantic=PASS mask=FAIL — Matches unlit clay lamp; mask leaves background inside the top opening.

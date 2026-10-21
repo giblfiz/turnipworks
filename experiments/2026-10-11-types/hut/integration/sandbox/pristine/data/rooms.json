@@ -1,0 +1,8205 @@
+[
+ {
+  "key": "common",
+  "label": "Common room",
+  "program": "common",
+  "family": "rough-timber",
+  "cells": [
+   6,
+   4
+  ],
+  "floors": [
+   "floor-planks-worn",
+   "floor-planks-stained",
+   "floor-planks-rushes",
+   "floor-planks-dark",
+   "floor-flagstone-irregular",
+   "floor-flagstone-large"
+  ],
+  "recipes": [
+   "tav-common-room",
+   "tav-bar-service",
+   "tav-place-setting",
+   "tav-supper-service",
+   "tav-adventurers-table",
+   "tav-bard-corner",
+   "tav-common-fare"
+  ],
+  "color": "#d9a441",
+  "slots": {
+   "anchor": [
+    "fireplace-wall",
+    "bar-counter",
+    "back-bar-shelves",
+    "cask-rack",
+    "table-square",
+    "table-trestle",
+    "notice-board",
+    "bard-instrument-stand"
+   ],
+   "furnish": [
+    "table-round-small",
+    "table-square",
+    "table-trestle",
+    "bench-long",
+    "chair-plain",
+    "stool-bar",
+    "settle"
+   ],
+   "store": [
+    "barrel",
+    "crate",
+    "shelf-wall",
+    "backpack",
+    "loot-sack"
+   ],
+   "light": [
+    "chandelier-ring",
+    "candle",
+    "candlestick",
+    "lantern-hanging",
+    "candle-tree",
+    "sconce-candle-double",
+    "sconce-reflector",
+    "lantern-wall-iron",
+    "lantern-pierced-tin"
+   ],
+   "dress": [
+    "tankard",
+    "plate",
+    "pitcher",
+    "bottle",
+    "bottle-wine-green",
+    "bottle-of-wine-open",
+    "bread-loaf",
+    "dice-and-cup",
+    "notice-board",
+    "trophy-head",
+    "shield-display",
+    "rug-small",
+    "rug-hearth-halfmoon",
+    "rug-oval",
+    "rug-round",
+    "rug-striped-woven",
+    "rug-bearskin",
+    "tray-wood-round",
+    "tray-long-tavern",
+    "tankard-tipped-spill",
+    "bottle-broken",
+    "jug-puzzle",
+    "soup-bowl",
+    "stew-bowl",
+    "plate-roast-veg",
+    "plate-cheese-bread",
+    "bread-roll",
+    "bread-slice",
+    "drumstick",
+    "meat-roast-joint",
+    "chicken-roast-whole",
+    "cheese-slice",
+    "apple",
+    "pear",
+    "pretzel",
+    "jar-pickles",
+    "trencher-meal",
+    "plate-scraps",
+    "pie-meat",
+    "ribs-roasted",
+    "chicken-half-eaten",
+    "bounty-poster",
+    "map-treasure",
+    "sword-long",
+    "dagger",
+    "coin-stack",
+    "key-large",
+    "playing-cards",
+    "fiddle",
+    "monster-head-trophy",
+    "journal-leather",
+    "proclamation-scroll",
+    "bard-tip-hat",
+    "bard-songbook",
+    "bard-recorder",
+    "bard-citole",
+    "bard-dulcimer",
+    "bard-sheet-music-scatter",
+    "bard-masks-theatre",
+    "bard-lute-case",
+    "bard-lute-broken",
+    "bard-playbill",
+    "pie-slice",
+    "pie-cut-missing-slice",
+    "plate-pie-slice",
+    "pie-fruit-lattice",
+    "pasty",
+    "bread-bowl-stew",
+    "plate-sausage-mash",
+    "plate-eggs-bacon",
+    "plate-fish-chips",
+    "fish-cooked-plate",
+    "sausages-pan",
+    "egg-fried-pan",
+    "egg-boiled-cup",
+    "omelette-pan",
+    "meatballs-bowl",
+    "dumplings-bowl",
+    "tripe-bowl",
+    "beans-bowl",
+    "eel-pie",
+    "shepherds-pie-dish",
+    "cookies-plate",
+    "scones-plate",
+    "muffin",
+    "bun-sweet",
+    "rabbit-roast",
+    "bone-meaty",
+    "monster-egg-cooked",
+    "stinking-cheese-giant",
+    "cheese-moldy-blue",
+    "apple-bitten",
+    "apple-core",
+    "bread-long-loaf-torn",
+    "noodles-bowl",
+    "rice-bowl",
+    "mussels-bucket",
+    "shrimp-bowl",
+    "oysters-plate",
+    "trout-smoked",
+    "salad-bowl",
+    "bread-burnt",
+    "bread-rye-dark",
+    "crab"
+   ],
+   "sets": [
+    "tavern-table-dressed",
+    "bottle-row-bar",
+    "mugs-empty-cluster"
+   ],
+   "pour": [
+    "flagon",
+    "jug-clay",
+    "pitcher-pewter",
+    "pitcher-of-ale",
+    "cask-small-spigot"
+   ],
+   "bottles": [
+    "bottle-wine-green",
+    "bottle-squat-spirit",
+    "bottle-clay",
+    "bottle-wicker"
+   ],
+   "drink": [
+    "tankard-of-ale",
+    "mug-of-ale",
+    "tankard-lidded",
+    "mug-glazed",
+    "tankard-of-stout",
+    "cup-clay",
+    "cup-pewter"
+   ],
+   "plate": [
+    "trencher-wood",
+    "plate-pewter",
+    "plate-wood-round",
+    "bowl-soup-empty"
+   ],
+   "cutlery": [
+    "knife-table",
+    "spoon-wooden",
+    "spoon-pewter"
+   ],
+   "extra": [
+    "napkin-folded",
+    "mug-chipped",
+    "tankard-dented",
+    "cutlery-roll"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "kitchen",
+  "floors": [
+   "floor-flagstone-irregular",
+   "floor-brick-herringbone-bw",
+   "floor-checker-bw",
+   "floor-checker-red",
+   "floor-tile-kitchen-small",
+   "floor-brick-herringbone",
+   "floor-terracotta",
+   "floor-tile-hex",
+   "floor-planks-worn"
+  ],
+  "label": "Kitchen",
+  "program": "kitchen",
+  "family": "rough-timber",
+  "cells": [
+   4,
+   3
+  ],
+  "recipes": [
+   "tav-kitchen",
+   "tav-kitchen-tools",
+   "tav-kitchen-larder"
+  ],
+  "color": "#d9654f",
+  "slots": {
+   "anchor": [
+    "cook-hearth-spit",
+    "bread-oven",
+    "table-kitchen-prep"
+   ],
+   "sets": [
+    "pantry-shelf",
+    "kitchen-prep-dressed",
+    "pot-rack-hanging"
+   ],
+   "store": [
+    "sack",
+    "barrel",
+    "crock",
+    "cupboard",
+    "salt-box",
+    "jar-oil",
+    "jar-pickles",
+    "jug-stoneware-large",
+    "potato-pile",
+    "vegetable-basket-mixed",
+    "turnip-basket",
+    "apple-basket",
+    "cheese-wheel-cut"
+   ],
+   "light": [
+    "candle",
+    "lantern-hanging",
+    "lamp-wall-bracket",
+    "lantern-pierced-tin",
+    "sconce-reflector"
+   ],
+   "dress": [
+    "cooking-pot",
+    "cauldron",
+    "pan-frying",
+    "cutting-board",
+    "ham-hanging",
+    "onion-string",
+    "turnip-pile",
+    "utensil-rack-wall",
+    "knife-rack-wall",
+    "pot-hook-chain",
+    "washing-bowl-dishes",
+    "dish-rag-hanging",
+    "colander",
+    "sieve-hair",
+    "whisk-twig",
+    "potato",
+    "carrot",
+    "onion",
+    "turnip",
+    "cabbage-single",
+    "egg",
+    "sausage-link",
+    "bread-long-loaf",
+    "stew-pot-full",
+    "garlic-braid",
+    "flour-sack-open",
+    "dough-kneading",
+    "potato-peeled",
+    "onion-sliced",
+    "herb-bundle-fresh",
+    "butter-pat",
+    "cheese-wedge"
+   ],
+   "cook": [
+    "pot-iron-small",
+    "cauldron-small",
+    "pan-long-handle",
+    "griddle-iron",
+    "pot-lidded",
+    "kettle-hanging"
+   ],
+   "tools": [
+    "ladle",
+    "cleaver",
+    "knife-carving",
+    "rolling-pin",
+    "spoon-stirring-long",
+    "chopping-block-kitchen"
+   ],
+   "serve": [
+    "tureen-pewter",
+    "platter-wood",
+    "serving-bowl-large",
+    "bowl-wood-small"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "storeroom",
+  "floors": [
+   "floor-boards-rough",
+   "floor-planks-worn",
+   "floor-earth-packed",
+   "floor-flagstone-irregular",
+   "floor-flagstone-large"
+  ],
+  "label": "Storeroom",
+  "program": "store",
+  "family": "rough-timber",
+  "cells": [
+   3,
+   3
+  ],
+  "recipes": [
+   "tav-storeroom"
+  ],
+  "color": "#9c7a4a",
+  "slots": {
+   "anchor": [
+    "shelving-freestanding",
+    "cask-rack",
+    "floor-trapdoor"
+   ],
+   "store": [
+    "barrel",
+    "crate",
+    "sack",
+    "potato-sack-open",
+    "apple-crate",
+    "wine-rack",
+    "strongbox"
+   ],
+   "light": [
+    "lantern-hand",
+    "candle",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "ham-hanging",
+    "cheese-wheel",
+    "onion-string",
+    "turnip-pile",
+    "rope-coil",
+    "mousetrap-cheese",
+    "broom",
+    "ledger-accounts"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cellar",
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-broken",
+   "floor-flagstone-large",
+   "floor-flagstone-square",
+   "floor-earth-packed",
+   "floor-cobble"
+  ],
+  "label": "Cellar / pantry",
+  "program": "store",
+  "family": "dressed-stone",
+  "cells": [
+   4,
+   3
+  ],
+  "recipes": [
+   "tav-cellar",
+   "tav-pantry-cellar"
+  ],
+  "color": "#7d8a99",
+  "slots": {
+   "anchor": [
+    "cask-rack",
+    "tun-large",
+    "floor-trapdoor",
+    "stair-straight",
+    "shelving-freestanding"
+   ],
+   "store": [
+    "barrel",
+    "crate",
+    "wine-rack",
+    "bottle-wine-dusty",
+    "bottle-wine-green",
+    "sack",
+    "shelving-freestanding",
+    "potato-sack-open",
+    "beans-dried-sack",
+    "salt-sack",
+    "barley-sack",
+    "cheese-shelf-aging",
+    "smoked-meat-rack",
+    "preserves-shelf-jars"
+   ],
+   "light": [
+    "lantern-hand",
+    "candle",
+    "torch-bracket-rough",
+    "lantern-wall-iron"
+   ],
+   "dress": [
+    "ham-hanging",
+    "cheese-wheel",
+    "decal-cobweb",
+    "jam-jar",
+    "sauerkraut-crock",
+    "oil-jar",
+    "vinegar-jug",
+    "dried-herbs-jar",
+    "dried-fruit-string",
+    "salted-fish-stack",
+    "cheese-wax-sealed",
+    "cheese-small-round",
+    "butter-crock",
+    "honey-jar-dipper",
+    "hops-bundle",
+    "bacon-slab",
+    "jerky-bundle",
+    "biscuits-hard",
+    "cream-jug",
+    "eggs-bowl",
+    "egg-cracked",
+    "oats-bowl-dry",
+    "dough-bowl",
+    "cabbage-cut",
+    "cucumber",
+    "herb-pot",
+    "turnip-sliced",
+    "curds-bowl",
+    "yogurt-bowl",
+    "mulberries-bowl",
+    "strawberries-bowl",
+    "blackberry-handful",
+    "apple-green",
+    "pear-pile",
+    "carrot-pile",
+    "grapes-crushed-tub",
+    "chocolate-bar",
+    "acorns-pile",
+    "bread-stale-moldy",
+    "gruel-bowl",
+    "bread-flatbread",
+    "wafers-stack",
+    "honey-cake",
+    "garlic-bulb",
+    "pumpkin-carved",
+    "chicken-carcass-bones",
+    "fish-bones",
+    "fruit-crate-mixed",
+    "mushroom-cluster-edible",
+    "kebab-grill"
+   ],
+   "sets": [
+    "pantry-shelf"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "guest",
+  "floors": [
+   "floor-planks-worn",
+   "floor-planks-dark",
+   "floor-boards-rough"
+  ],
+  "label": "Guest room",
+  "program": "bedroom",
+  "family": "rough-timber",
+  "cells": [
+   3,
+   3
+  ],
+  "recipes": [
+   "tav-guest-room",
+   "tav-guest-room-full"
+  ],
+  "color": "#8fb35a",
+  "slots": {
+   "anchor": [
+    "bed-single",
+    "bed-double",
+    "washstand"
+   ],
+   "furnish": [
+    "chair-plain",
+    "table-side"
+   ],
+   "store": [
+    "chest-plain",
+    "wardrobe",
+    "linen-chest",
+    "clothes-chest-open"
+   ],
+   "light": [
+    "candle",
+    "candlestick",
+    "sconce-candle-single",
+    "lamp-wall-shelf",
+    "lamp-oil-brass"
+   ],
+   "dress": [
+    "rug-small",
+    "pitcher",
+    "bowl",
+    "rug-round",
+    "rug-braided-round",
+    "rug-sheepskin",
+    "rug-striped-woven",
+    "water-jug-basin",
+    "chamber-pot",
+    "blankets-folded",
+    "towel-stack",
+    "pillows-cushions",
+    "basket-laundry"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "fine",
+  "floors": [
+   "floor-planks-polished",
+   "floor-parquet-herringbone",
+   "floor-checker-stone",
+   "floor-tile-delft",
+   "floor-tile-harlequin",
+   "floor-checker-bw"
+  ],
+  "label": "Fine guest room",
+  "program": "bedroom",
+  "family": "rough-timber",
+  "cells": [
+   4,
+   4
+  ],
+  "recipes": [
+   "tav-guest-room-fine"
+  ],
+  "color": "#b07cc6",
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "bed-canopy",
+    "fireplace-wall",
+    "wardrobe"
+   ],
+   "furnish": [
+    "chair-upholstered",
+    "table-vanity",
+    "desk-writing",
+    "table-side",
+    "screen-folding"
+   ],
+   "store": [
+    "linen-chest",
+    "chest-ironbound",
+    "quilt-rack"
+   ],
+   "light": [
+    "candelabra",
+    "candlestick",
+    "sconce-candle-triple",
+    "lantern-wall-brass",
+    "lamp-pole",
+    "candlestand-pricket",
+    "lamp-oil-brass"
+   ],
+   "dress": [
+    "rug-grand",
+    "curtains-drapes",
+    "painting-portrait",
+    "mirror-standing",
+    "washstand",
+    "chamber-pot",
+    "bathtub-wood",
+    "pillows-cushions",
+    "vase-flowers",
+    "rug-round-fine",
+    "rug-bearskin",
+    "rug-sheepskin",
+    "rug-oval",
+    "mirror-wall"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "privy",
+  "floors": [
+   "floor-boards-rough",
+   "floor-earth-packed",
+   "floor-earth-bare"
+  ],
+  "label": "Privy",
+  "program": "privy",
+  "family": "rough-timber",
+  "cells": [
+   2,
+   2
+  ],
+  "recipes": [
+   "tav-privy"
+  ],
+  "color": "#6f8f7a",
+  "slots": {
+   "anchor": [
+    "privy-seat-single",
+    "privy-seat-double",
+    "outhouse"
+   ],
+   "store": [
+    "bucket-slop",
+    "chamber-pot",
+    "bucket"
+   ],
+   "light": [
+    "candle",
+    "lantern-hand",
+    "sconce-candle-single"
+   ],
+   "dress": [
+    "washstand",
+    "water-jug-basin",
+    "broom",
+    "mop"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "hallway",
+  "floors": [
+   "floor-planks-dark",
+   "floor-planks-worn",
+   "floor-flagstone-square",
+   "floor-tile-harlequin",
+   "floor-flagstone-large"
+  ],
+  "label": "Hallway",
+  "program": "hallway",
+  "family": "rough-timber",
+  "cells": [
+   6,
+   2
+  ],
+  "recipes": [
+   "tav-hallway"
+  ],
+  "color": "#c8b89a",
+  "slots": {
+   "anchor": [
+    "wall-straight",
+    "door-plank",
+    "door-reinforced",
+    "stair-straight",
+    "stair-landing"
+   ],
+   "furnish": [
+    "bench-long",
+    "table-side",
+    "chest-plain",
+    "coat-pegs"
+   ],
+   "light": [
+    "torch-sconce",
+    "candle",
+    "lantern-hanging",
+    "lantern-wall-iron",
+    "lantern-wall-brass",
+    "sconce-candle-single",
+    "torch-bracket-fine",
+    "lamp-wall-bracket",
+    "lantern-post-indoor"
+   ],
+   "dress": [
+    "rug-runner",
+    "painting-landscape",
+    "railing-wood",
+    "gallery-interior",
+    "key-hook-board",
+    "broom",
+    "rug-oval"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "desk",
+  "floors": [
+   "floor-planks-dark",
+   "floor-tile-harlequin",
+   "floor-tile-hex",
+   "floor-tile-delft",
+   "floor-checker-bw",
+   "floor-flagstone-square",
+   "floor-checker-stone",
+   "floor-planks-polished"
+  ],
+  "label": "Front desk",
+  "program": "desk",
+  "family": "rough-timber",
+  "cells": [
+   3,
+   3
+  ],
+  "recipes": [
+   "tav-front-desk"
+  ],
+  "color": "#5fa8a0",
+  "slots": {
+   "anchor": [
+    "counter-shop",
+    "sign-hanging",
+    "door-double-grand"
+   ],
+   "store": [
+    "strongbox",
+    "key-hook-board",
+    "shelf-wall"
+   ],
+   "light": [
+    "candlestick",
+    "lantern-hanging",
+    "lamp-oil-brass",
+    "lamp-wall-shelf",
+    "lantern-wall-brass"
+   ],
+   "dress": [
+    "ledger-counter-bell",
+    "ledger-accounts",
+    "key-simple",
+    "key-ring",
+    "notice-board",
+    "coin-stack",
+    "rug-striped-woven",
+    "rug-oval"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "stable",
+  "floors": [
+   "floor-earth-straw",
+   "floor-earth-bare",
+   "floor-cobble",
+   "floor-boards-rough",
+   "floor-flagstone-large",
+   "floor-flagstone-broken"
+  ],
+  "label": "Stable",
+  "program": "stable",
+  "family": "rough-timber",
+  "cells": [
+   6,
+   4
+  ],
+  "recipes": [
+   "tav-stable",
+   "tav-stable-row"
+  ],
+  "color": "#a8834f",
+  "slots": {
+   "anchor": [
+    "stable-stall",
+    "stable-stall-door",
+    "stable-stall-gate",
+    "stable-stall-partition",
+    "rural-straw-bedding",
+    "rural-manger-wall"
+   ],
+   "furnish": [
+    "grain-bin-stable",
+    "farrier-stand",
+    "rural-saddle-riding",
+    "bridle-hanging"
+   ],
+   "store": [
+    "tack-wall",
+    "horse-blanket-rail",
+    "hay-bale",
+    "rural-oat-sack",
+    "rural-water-bucket-stable",
+    "rural-grooming-box"
+   ],
+   "dress": [
+    "manure-heap",
+    "wheel-spare",
+    "bucket",
+    "rug-hay-scatter",
+    "decal-dirt-patch",
+    "rural-horse-brasses",
+    "rural-nosebag",
+    "rural-manure-barrow",
+    "hay-bale"
+   ],
+   "light": [
+    "rural-lantern-barn",
+    "lantern-pierced-tin",
+    "lantern-post-indoor",
+    "lantern-hanging"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "barn",
+  "floors": [
+   "floor-earth-straw",
+   "floor-earth-bare",
+   "floor-boards-rough",
+   "floor-flagstone-large",
+   "floor-cobble"
+  ],
+  "label": "Barn",
+  "program": "barn",
+  "family": "rough-timber",
+  "cells": [
+   6,
+   5
+  ],
+  "recipes": [
+   "tav-barn"
+  ],
+  "color": "#8a5a3a",
+  "slots": {
+   "anchor": [
+    "door-barn-double",
+    "stable-stall",
+    "floor-hayloft",
+    "ladder-wood",
+    "stable-stall-gate",
+    "stable-stall-partition"
+   ],
+   "furnish": [
+    "hay-bale",
+    "hay-pile",
+    "feed-trough",
+    "water-trough",
+    "wagon",
+    "cart-hand"
+   ],
+   "store": [
+    "saddle-rack",
+    "sack",
+    "barrel",
+    "bridle-hanging",
+    "horse-collar"
+   ],
+   "light": [
+    "lantern-hanging",
+    "lantern-hand",
+    "lantern-pierced-tin",
+    "torch-bracket-rough",
+    "rural-lantern-barn"
+   ],
+   "dress": [
+    "pitchfork",
+    "wheelbarrow",
+    "rural-curry-comb",
+    "rural-hoof-pick",
+    "horseshoe-single",
+    "manure-heap",
+    "blankets-folded",
+    "rural-saddle-riding",
+    "rug-hay-scatter",
+    "decal-dirt-patch"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "yard",
+  "floors": [
+   "floor-grass",
+   "floor-earth-packed",
+   "floor-cobble",
+   "floor-gravel",
+   "floor-earth-bare",
+   "floor-grass-worn",
+   "floor-grass-meadow",
+   "floor-cobble-mossy"
+  ],
+  "label": "Yard",
+  "program": "outdoors",
+  "family": "rough-timber",
+  "cells": [
+   6,
+   5
+  ],
+  "recipes": [
+   "tav-yard"
+  ],
+  "color": "#6fae5c",
+  "outdoor": true,
+  "slots": {
+   "anchor": [
+    "well",
+    "horse-trough-stone",
+    "firepit-stone-round",
+    "firepit-log-spit",
+    "well-house"
+   ],
+   "furnish": [
+    "bench-village",
+    "bench-street",
+    "bench-long",
+    "woodpile",
+    "woodpile-long",
+    "chopping-block",
+    "cart-hand",
+    "hitching-post",
+    "water-trough",
+    "feed-trough",
+    "notice-board",
+    "rural-mounting-block",
+    "outhouse",
+    "woodshed",
+    "cart-shed",
+    "wagon",
+    "table-picnic",
+    "sign-post-inn",
+    "log-seat"
+   ],
+   "store": [
+    "barrel",
+    "crate",
+    "rain-barrel",
+    "sack",
+    "hay-bale",
+    "bucket",
+    "baskets-stack",
+    "bottles-empty-crate",
+    "firewood-basket",
+    "vegetable-crate-mixed",
+    "cabbage-crate",
+    "potato-crate",
+    "apple-crate",
+    "washtub",
+    "washboard-tub",
+    "wheelbarrow",
+    "rural-manure-barrow",
+    "manure-heap",
+    "turnip-pile",
+    "broom",
+    "compost-heap"
+   ],
+   "light": [
+    "lantern-post",
+    "lamp-post-wood",
+    "torch-stand",
+    "lantern-wall-iron",
+    "lantern-wall-brass",
+    "lantern-wall-horn",
+    "lamp-wall-bracket",
+    "lantern-pierced-tin",
+    "rural-lantern-barn",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "sign-hanging",
+    "bounty-poster",
+    "proclamation-scroll",
+    "rug-hay-scatter",
+    "decal-path-worn",
+    "decal-grass-tuft",
+    "decal-grass-worn",
+    "flowerbox-window",
+    "trellis-vine",
+    "garden-tools-leaning",
+    "clothesline",
+    "dog-kennel",
+    "trade-herb-bed",
+    "vegetable-patch"
+   ],
+   "plants": [
+    "bush",
+    "bush-berry",
+    "planter-barrel",
+    "flowerbed",
+    "planter-stone",
+    "tree-deciduous",
+    "tree-fruit",
+    "tree-birch",
+    "tree-oak-great"
+   ],
+   "edge": [
+    "fence-post-rail",
+    "fence-wattle",
+    "fence-picket",
+    "fence-post-corner",
+    "gate-fence",
+    "hedge-straight",
+    "hedge-corner",
+    "hedge-end-block",
+    "hedge-gap-arch",
+    "wall-drystone",
+    "wall-drystone-gate",
+    "wall-drystone-pier"
+   ]
+  },
+  "missing": [
+   "flowers-wild",
+   "grass-tall"
+  ]
+ },
+ {
+  "key": "crypt-antechamber",
+  "label": "Antechamber",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-tomb-slabs",
+   "floor-flagstone-broken"
+  ],
+  "recipes": [
+   "cry-antechamber"
+  ],
+  "color": "#8a8fa8",
+  "group": "Crypt",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "statue-weeping-angel",
+    "monument-urn-draped",
+    "crypt-gate-iron",
+    "door-crypt"
+   ],
+   "furnish": [
+    "bench-stone",
+    "urn-decorative",
+    "pillar-square",
+    "pedestal-display"
+   ],
+   "light": [
+    "brazier-standing",
+    "torch-sconce",
+    "torch-bracket-rough",
+    "brazier-tripod",
+    "torch-stand",
+    "rite-sacred-flame-bowl"
+   ],
+   "dress": [
+    "burial-urn-niche",
+    "rite-death-mask",
+    "decal-cobweb",
+    "rite-memorial-plaque",
+    "tomb-door-sealed",
+    "decal-moss",
+    "candle-drippings-mound"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "crypt-vault",
+  "label": "Burial vault",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-tomb-slabs",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-flagstone-broken"
+  ],
+  "recipes": [
+   "cry-burial-vault",
+   "cry-crypt",
+   "cry-royal-tomb"
+  ],
+  "color": "#6f7590",
+  "group": "Crypt",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "sarcophagus",
+    "wall-crypt-niches",
+    "coffin",
+    "effigy-knight",
+    "stone-coffin-lidless"
+   ],
+   "furnish": [
+    "pillar-square",
+    "bench-stone",
+    "rite-mummified-remains",
+    "monument-urn-draped"
+   ],
+   "light": [
+    "torch-sconce",
+    "torch-bracket-rough",
+    "rite-pillar-candle-tall",
+    "candlestand-pricket",
+    "candle-tree",
+    "candlestick-floor"
+   ],
+   "dress": [
+    "burial-urn-niche",
+    "rite-death-mask",
+    "skull-single",
+    "rite-canopic-jars-set",
+    "urn-decorative",
+    "rite-memorial-plaque",
+    "candle-drippings-mound",
+    "decal-cobweb",
+    "decal-grave-ledger",
+    "skull-pile",
+    "bones-pile",
+    "effigy-knight",
+    "crown",
+    "scepter",
+    "helm-great",
+    "shield-kite",
+    "casket-ornate",
+    "reliquary-hand"
+   ]
+  },
+  "missing": [
+   "candle-cluster",
+   "holy-water-vial",
+   "necklace-jeweled",
+   "orb-regal",
+   "sword-great",
+   "tiara",
+   "tomb-slab"
+  ]
+ },
+ {
+  "key": "crypt-ossuary",
+  "label": "Ossuary",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-bone-strewn"
+  ],
+  "recipes": [
+   "cry-ossuary",
+   "cry-catacombs"
+  ],
+  "color": "#a39a86",
+  "group": "Crypt",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "ossuary-shrine",
+    "ossuary-wall",
+    "skull-pile",
+    "ossuary-pillar",
+    "catacomb-shelf-bones",
+    "stone-coffin-lidless"
+   ],
+   "furnish": [
+    "catacomb-shelf-bones",
+    "bones-pile",
+    "charnel-trough"
+   ],
+   "light": [
+    "torch-bracket-rough",
+    "rite-bone-candelabra",
+    "rite-pillar-candle-tall",
+    "skull-candle",
+    "candle-drippings-mound"
+   ],
+   "dress": [
+    "skull-single",
+    "decal-cobweb",
+    "burial-urn-niche",
+    "urn-ashes-small",
+    "decal-bones-scatter",
+    "candle-drippings-mound"
+   ]
+  },
+  "missing": [
+   "floor-cracked-tile",
+   "root-ceiling-hanging"
+  ]
+ },
+ {
+  "key": "crypt-catacomb",
+  "label": "Catacomb corridor",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   10,
+   3
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-bone-strewn"
+  ],
+  "recipes": [
+   "cry-catacomb-corridor",
+   "cry-catacombs"
+  ],
+  "color": "#5e6b7a",
+  "group": "Crypt",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "wall-crypt-niches",
+    "catacomb-shelf-bones",
+    "burial-urn-niche",
+    "ossuary-wall",
+    "stone-coffin-lidless"
+   ],
+   "furnish": [
+    "coffin",
+    "skull-pile",
+    "bones-pile",
+    "rite-mummified-remains",
+    "stone-coffin-lidless"
+   ],
+   "light": [
+    "torch-sconce",
+    "torch-bracket-rough",
+    "lantern-wall-iron"
+   ],
+   "dress": [
+    "decal-cobweb",
+    "skull-single",
+    "candle-drippings-mound",
+    "decal-bones-scatter",
+    "rite-memorial-plaque",
+    "decal-moss",
+    "burial-urn-niche"
+   ]
+  },
+  "missing": [
+   "floor-cracked-tile",
+   "root-ceiling-hanging"
+  ]
+ },
+ {
+  "key": "crypt-chapel",
+  "label": "Chapel of rest",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   4,
+   7
+  ],
+  "floors": [
+   "floor-tomb-slabs",
+   "floor-flagstone-square",
+   "floor-flagstone-large",
+   "floor-checker-stone",
+   "floor-flagstone-damp"
+  ],
+  "recipes": [
+   "cry-chapel-of-rest"
+  ],
+  "color": "#b0a7c0",
+  "group": "Crypt",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "altar-stone",
+    "statue-weeping-angel",
+    "monument-urn-draped",
+    "rite-funeral-pall",
+    "rite-funeral-bier"
+   ],
+   "furnish": [
+    "bench-stone",
+    "pew",
+    "lectern"
+   ],
+   "light": [
+    "rite-pillar-candle-tall",
+    "rite-sanctuary-lamp",
+    "candelabra",
+    "candle-tree",
+    "candlestand-pricket",
+    "candlestick-floor",
+    "rite-memorial-sand-tray",
+    "sconce-candle-single"
+   ],
+   "dress": [
+    "rite-altar-cloth",
+    "rite-offering-candles-tray",
+    "censer-hanging",
+    "urn-decorative",
+    "tome-holy",
+    "vase-flowers",
+    "flowers-dried",
+    "rite-memorial-plaque"
+   ]
+  },
+  "missing": [
+   "holy-symbol-sun",
+   "statue-deity"
+  ]
+ },
+ {
+  "key": "crypt-embalming",
+  "label": "Embalming room",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-square",
+   "floor-flagstone-large",
+   "floor-tile-kitchen-small"
+  ],
+  "recipes": [
+   "cry-embalming-workroom",
+   "cry-embalming-room"
+  ],
+  "color": "#7f9a94",
+  "group": "Crypt",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "embalming-table",
+    "rite-corpse-on-slab"
+   ],
+   "furnish": [
+    "table-kitchen-prep",
+    "shelving-freestanding",
+    "natron-tub",
+    "coffin",
+    "coffin-maker-stack",
+    "washstand",
+    "basin-stone"
+   ],
+   "store": [
+    "rite-canopic-jar",
+    "rite-canopic-jars-set",
+    "bucket",
+    "jar-lidded-stoneware",
+    "storage-jar",
+    "oil-jar",
+    "linen-wrappings-basket"
+   ],
+   "light": [
+    "candle",
+    "lantern-hanging",
+    "candlestick",
+    "lantern-wall-iron",
+    "rite-sanctuary-lamp"
+   ],
+   "dress": [
+    "rite-embalming-tools",
+    "rite-burial-shroud-folded",
+    "rite-death-mask",
+    "shelf-wall",
+    "bucket-slop"
+   ]
+  },
+  "missing": [
+   "rite-salt-line"
+  ]
+ },
+ {
+  "key": "crypt-relic",
+  "label": "Relic chamber",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-checker-stone",
+   "floor-tomb-slabs",
+   "floor-flagstone-large",
+   "floor-flagstone-damp"
+  ],
+  "recipes": [
+   "cry-relic-chamber",
+   "cry-grave-offerings"
+  ],
+  "color": "#c9b458",
+  "group": "Crypt",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "reliquary-shrine",
+    "pedestal-display",
+    "chest-treasure"
+   ],
+   "store": [
+    "chest-ironbound",
+    "chest-plain",
+    "coin-pile",
+    "rite-grave-goods-pile",
+    "urn-decorative"
+   ],
+   "light": [
+    "torch-sconce",
+    "torch-bracket-rough",
+    "brazier-standing",
+    "brazier-tripod",
+    "rite-sacred-flame-bowl",
+    "candlestand-pricket"
+   ],
+   "dress": [
+    "casket-ornate",
+    "rite-death-mask",
+    "coin-stack",
+    "reliquary",
+    "reliquary-hand",
+    "rite-relic-bone-fragment",
+    "urn-ashes-small",
+    "monument-urn-draped",
+    "flowers-dried",
+    "skull-single"
+   ]
+  },
+  "missing": [
+   "figurine-offering",
+   "flower-crown",
+   "hair-ribbon",
+   "locket"
+  ]
+ },
+ {
+  "key": "great-hall",
+  "label": "Great hall",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   10,
+   6
+  ],
+  "floors": [
+   "floor-flagstone-rushes",
+   "floor-flagstone-square",
+   "floor-flagstone-large",
+   "floor-checker-stone",
+   "floor-planks-rushes"
+  ],
+  "recipes": [
+   "cas-hall-high-table",
+   "cas-great-hall",
+   "cas-high-table-setting",
+   "cas-feast-spread"
+  ],
+  "color": "#b5533c",
+  "group": "Castle",
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "fireplace-grand",
+    "table-feast",
+    "dais",
+    "fireplace-wall",
+    "throne",
+    "table-trestle"
+   ],
+   "furnish": [
+    "chair-armed",
+    "bench-long",
+    "table-trestle",
+    "pillar-round",
+    "faldstool"
+   ],
+   "light": [
+    "chandelier-ring",
+    "brazier-large",
+    "torch-bracket-fine",
+    "candelabra",
+    "candle-tree",
+    "torch-sconce",
+    "brazier-standing",
+    "candlestick"
+   ],
+   "dress": [
+    "heraldic-shield",
+    "banner-wall",
+    "banner-pole",
+    "tapestry",
+    "goblet",
+    "goblet-silver",
+    "platter-silver",
+    "salt-cellar-ship",
+    "boar-head-platter",
+    "pig-on-spit",
+    "rug-fur",
+    "trophy-head",
+    "shield-display",
+    "window-stained-glass",
+    "plate",
+    "rug-small",
+    "tablecloth-white",
+    "napkin-folded",
+    "salt-cellar-plain",
+    "table-runner-embroidered",
+    "ewer-and-basin",
+    "wassail-bowl",
+    "feast-platter-meats",
+    "ham-whole-glazed",
+    "ham-sliced",
+    "goose-roast",
+    "bread-braided",
+    "bread-rolls-basket",
+    "cake-round",
+    "tart-fruit",
+    "cheese-board",
+    "roast-slices-plate",
+    "oysters-plate",
+    "leg-of-mutton"
+   ],
+   "plate": [
+    "plate-pewter",
+    "trencher-wood",
+    "plate-silver"
+   ],
+   "cutlery": [
+    "knife-carving",
+    "fork-two-tine",
+    "knife-table",
+    "spoon-pewter"
+   ],
+   "drink": [
+    "goblet-silver",
+    "horn-drinking-banded",
+    "cup-pewter"
+   ],
+   "serve": [
+    "tureen-pewter",
+    "platter-silver",
+    "platter-pewter-oval",
+    "dish-covered-pewter"
+   ]
+  },
+  "missing": [
+   "almonds-bowl",
+   "cake-poisoned",
+   "cake-slice",
+   "cake-tiered",
+   "charger-brass",
+   "drumstick-pile",
+   "feast-platter-fish",
+   "feast-platter-fruit",
+   "goblet-of-wine",
+   "grapes-single-bunch-green",
+   "horn-of-mead",
+   "lobster",
+   "marzipan-figures",
+   "mazer",
+   "melon-sliced",
+   "pheasant-roast-dressed",
+   "plate-fruit-cut",
+   "pudding-steamed",
+   "quaich",
+   "sauce-boat",
+   "tartlets-tray",
+   "venison-haunch"
+  ]
+ },
+ {
+  "key": "throne-room",
+  "label": "Throne room",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   5,
+   8
+  ],
+  "floors": [
+   "floor-checker-stone",
+   "floor-tile-encaustic",
+   "floor-flagstone-square",
+   "floor-checker-bw",
+   "floor-tile-harlequin"
+  ],
+  "recipes": [
+   "cas-throne-dais",
+   "cas-throne-room"
+  ],
+  "color": "#c9a227",
+  "group": "Castle",
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "throne",
+    "dais",
+    "door-double-grand"
+   ],
+   "furnish": [
+    "faldstool",
+    "pillar-round",
+    "armor-stand",
+    "chair-armed"
+   ],
+   "light": [
+    "brazier-large",
+    "brazier-standing",
+    "torch-stand",
+    "chandelier-ring",
+    "torch-bracket-fine",
+    "torch-sconce"
+   ],
+   "dress": [
+    "banner-pole",
+    "banner-wall",
+    "heraldic-shield",
+    "crown",
+    "scepter",
+    "regalia-cushion",
+    "chest-treasure",
+    "rug-runner",
+    "window-stained-glass",
+    "tapestry",
+    "armor-stand",
+    "pillar-square"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "armoury",
+  "label": "Armoury",
+  "program": "generic",
+  "family": "castle-rough",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-irregular",
+   "floor-flagstone-square",
+   "floor-boards-rough"
+  ],
+  "recipes": [
+   "cas-armoury-racks",
+   "cas-armory",
+   "cas-armory-full",
+   "cas-armory-smalls"
+  ],
+  "color": "#7d8791",
+  "group": "Castle",
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "weapon-rack",
+    "armor-stand",
+    "grindstone"
+   ],
+   "furnish": [
+    "mil-armor-repair-bench"
+   ],
+   "store": [
+    "arrow-barrel",
+    "mil-shield-stack",
+    "mil-crossbow-rack",
+    "mil-spear-tripod",
+    "smith-helm-row-shelf",
+    "chest-ironbound",
+    "mil-pavise"
+   ],
+   "light": [
+    "torch-bracket-rough",
+    "lantern-wall-iron",
+    "torch-sconce"
+   ],
+   "dress": [
+    "shield-heater",
+    "shield-round",
+    "shield-kite",
+    "helm-great",
+    "helm-open",
+    "armor-breastplate",
+    "crossbow",
+    "sword-long",
+    "sword-short",
+    "mace-flanged",
+    "warhammer",
+    "quiver-arrows",
+    "heraldic-shield",
+    "shield-display",
+    "training-dummy"
+   ]
+  },
+  "missing": [
+   "armor-chainmail-heap",
+   "armor-plate-pile",
+   "armory-rack-filled",
+   "axe-hand",
+   "baldric-sword",
+   "banner-standard-war",
+   "boots-armored",
+   "bow-long",
+   "coif-mail",
+   "crossbow-heavy",
+   "drum-war",
+   "gambeson-folded",
+   "glaive",
+   "gorget",
+   "greaves-pair",
+   "halberd",
+   "jester-hat",
+   "pauldron-single",
+   "pike",
+   "scabbard-empty",
+   "sheath-dagger",
+   "shield-tower",
+   "spear",
+   "spear-bundle",
+   "tabard-heraldic",
+   "trumpet-herald",
+   "vambraces-pair",
+   "weapon-rack-enchanted",
+   "whetstone"
+  ]
+ },
+ {
+  "key": "barracks",
+  "label": "Barracks / guard room",
+  "program": "generic",
+  "family": "castle-rough",
+  "cells": [
+   7,
+   5
+  ],
+  "floors": [
+   "floor-planks-rushes",
+   "floor-flagstone-rushes",
+   "floor-boards-rough",
+   "floor-flagstone-large",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "cas-barracks-rows",
+   "cas-barracks",
+   "cas-barracks-kit",
+   "dun-guard-room"
+  ],
+  "color": "#8c6b4f",
+  "group": "Castle",
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "bunk-bed",
+    "mil-footlocker",
+    "table-square",
+    "door-reinforced"
+   ],
+   "furnish": [
+    "cot",
+    "table-square",
+    "bench-long",
+    "stool-three-leg"
+   ],
+   "store": [
+    "mil-helmet-peg-rack",
+    "weapon-rack",
+    "armor-stand",
+    "mil-shield-stack",
+    "smith-helm-row-shelf",
+    "chest-plain",
+    "mil-crossbow-rack",
+    "chest-ironbound",
+    "barrel"
+   ],
+   "light": [
+    "mil-guard-lantern",
+    "lantern-hanging",
+    "torch-bracket-rough",
+    "torch-sconce",
+    "brazier-standing"
+   ],
+   "dress": [
+    "dice-and-cup",
+    "tankard",
+    "helm-open",
+    "sword-short",
+    "horn-hunting",
+    "mil-wasters-rack",
+    "training-dummy",
+    "mil-duty-roster",
+    "lever-wall",
+    "bread-loaf"
+   ]
+  },
+  "missing": [
+   "armor-chainmail-heap",
+   "mil-dispatch-sealed",
+   "mil-weapon-oil-flask"
+  ]
+ },
+ {
+  "key": "castle-kitchen",
+  "label": "Castle kitchen",
+  "program": "generic",
+  "family": "castle-rough",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-irregular",
+   "floor-flagstone-large",
+   "floor-brick-herringbone",
+   "floor-terracotta",
+   "floor-flagstone-damp"
+  ],
+  "recipes": [
+   "cas-castle-kitchen",
+   "cas-great-kitchen"
+  ],
+  "color": "#c4703d",
+  "group": "Castle",
+  "borrow": [
+   "tav-kitchen",
+   "tav-kitchen-tools",
+   "tav-kitchen-larder"
+  ],
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "cook-hearth-spit",
+    "bread-oven",
+    "cauldron-crane",
+    "table-kitchen-prep"
+   ],
+   "furnish": [
+    "table-kitchen-prep",
+    "butcher-block",
+    "cauldron-huge",
+    "pig-on-spit",
+    "basin-stone"
+   ],
+   "store": [
+    "cheese-shelf-aging",
+    "potato-crate",
+    "salt-sack",
+    "grain-sack-open",
+    "firkin",
+    "bread-rack",
+    "dough-trough",
+    "vegetable-crate-mixed",
+    "jar-oil",
+    "sack",
+    "barrel",
+    "crock",
+    "cupboard",
+    "salt-box",
+    "jar-pickles",
+    "jug-stoneware-large",
+    "potato-pile",
+    "vegetable-basket-mixed",
+    "turnip-basket",
+    "apple-basket",
+    "cheese-wheel-cut"
+   ],
+   "light": [
+    "lamp-wall-bracket",
+    "lantern-wall-iron",
+    "cresset-wall",
+    "candle",
+    "lantern-hanging",
+    "lantern-pierced-tin",
+    "sconce-reflector"
+   ],
+   "dress": [
+    "trade-butcher-hooks-rail",
+    "ham-hanging",
+    "carcass-hanging",
+    "poultry-plucked-hanging",
+    "saucepan-copper",
+    "fish-kettle",
+    "pot-copper",
+    "pot-iron-large",
+    "roasting-pan",
+    "knife-rack-wall",
+    "utensil-rack-wall",
+    "smoked-meat-rack",
+    "soup-cauldron-full",
+    "roast-pig",
+    "chopping-block-kitchen",
+    "plate-stack-pewter",
+    "trencher-stack",
+    "andirons",
+    "pie-dish",
+    "cooking-pot",
+    "cauldron",
+    "pan-frying",
+    "cutting-board",
+    "onion-string",
+    "turnip-pile",
+    "pot-hook-chain",
+    "washing-bowl-dishes",
+    "dish-rag-hanging",
+    "colander",
+    "sieve-hair",
+    "whisk-twig",
+    "potato",
+    "carrot",
+    "onion",
+    "turnip",
+    "cabbage-single",
+    "egg",
+    "sausage-link",
+    "bread-long-loaf",
+    "stew-pot-full",
+    "garlic-braid",
+    "flour-sack-open",
+    "dough-kneading",
+    "potato-peeled",
+    "onion-sliced",
+    "herb-bundle-fresh",
+    "butter-pat",
+    "cheese-wedge"
+   ],
+   "cook": [
+    "cauldron-huge",
+    "pot-iron-large",
+    "pot-copper",
+    "saucepan-copper",
+    "fish-kettle",
+    "roasting-pan",
+    "pot-iron-small",
+    "cauldron-small",
+    "pan-long-handle",
+    "griddle-iron",
+    "pot-lidded",
+    "kettle-hanging"
+   ],
+   "tools": [
+    "skimmer-iron",
+    "mallet-meat",
+    "scoop-flour",
+    "ladle",
+    "cleaver",
+    "knife-carving",
+    "rolling-pin",
+    "spoon-stirring-long",
+    "chopping-block-kitchen"
+   ],
+   "sets": [
+    "pantry-shelf",
+    "kitchen-prep-dressed",
+    "pot-rack-hanging"
+   ],
+   "serve": [
+    "tureen-pewter",
+    "platter-wood",
+    "serving-bowl-large",
+    "bowl-wood-small"
+   ]
+  },
+  "missing": [
+   "baking-tin",
+   "bread-stamp",
+   "bucket-leather",
+   "fork-flesh",
+   "funnel",
+   "grater-iron",
+   "knife-bread",
+   "knife-cheese",
+   "knife-paring",
+   "meat-hook-single",
+   "mezzaluna",
+   "mortar-large-stone",
+   "pastry-cutter",
+   "scouring-sand-box",
+   "skewer-iron",
+   "skewers-bundle",
+   "spice-grinder-hand",
+   "spit-jack",
+   "spoon-slotted",
+   "wafer-iron"
+  ]
+ },
+ {
+  "key": "chapel",
+  "label": "Castle chapel",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   4,
+   7
+  ],
+  "floors": [
+   "floor-checker-stone",
+   "floor-tile-encaustic",
+   "floor-flagstone-square",
+   "floor-tomb-slabs"
+  ],
+  "recipes": [
+   "cas-castle-chapel",
+   "tem-castle-chapel",
+   "tem-chapel",
+   "tem-sanctuary-service",
+   "tem-altar-service"
+  ],
+  "color": "#9a8fb5",
+  "group": "Castle",
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "dais",
+    "altar-stone",
+    "window-stained-glass",
+    "pew",
+    "lectern",
+    "rite-altar-cloth"
+   ],
+   "light": [
+    "sconce-candle-triple",
+    "candelabra-standing",
+    "prayer-candle-rack",
+    "candlestick-floor",
+    "candle-tree",
+    "rite-sanctuary-lamp",
+    "rite-offering-candles-tray",
+    "rite-pillar-candle-tall",
+    "rite-sacred-flame-bowl"
+   ],
+   "furnish": [
+    "pew",
+    "lectern",
+    "font-holy"
+   ],
+   "dress": [
+    "rite-altar-emblem-stand",
+    "chalice-altar",
+    "tome-holy",
+    "reliquary",
+    "pillar-round",
+    "rite-kneeler-cushion",
+    "font-holy",
+    "book-open",
+    "tablecloth-white"
+   ],
+   "vessels": [
+    "chalice-altar"
+   ]
+  },
+  "missing": [
+   "bowl-alms",
+   "candle-cluster",
+   "cauldron-bronze-ritual",
+   "chalice-of-wine",
+   "chalice-plain",
+   "flask-pilgrim",
+   "rite-alms-box",
+   "rite-aspergillum",
+   "rite-collection-plate",
+   "rite-hymnal-stack",
+   "rite-icon-panel-large",
+   "rite-prayer-book-small",
+   "spoon-apostle",
+   "statue-deity"
+  ]
+ },
+ {
+  "key": "dungeon",
+  "label": "Dungeon",
+  "program": "generic",
+  "family": "castle-rough",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-broken",
+   "floor-flagstone-large",
+   "floor-earth-packed"
+  ],
+  "recipes": [
+   "cas-castle-dungeon",
+   "dun-castle-dungeon",
+   "dun-cell-block",
+   "dun-interrogation",
+   "dun-jailer-station",
+   "dun-prisoner-ration"
+  ],
+  "color": "#55606b",
+  "group": "Castle",
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "furnish": [
+    "stocks",
+    "cell-bench-plank",
+    "bed-straw-pallet",
+    "pillory",
+    "cage-floor",
+    "block-headsman",
+    "cot",
+    "stool-three-leg"
+   ],
+   "light": [
+    "torch-bracket-rough",
+    "mil-guard-lantern",
+    "brazier-irons",
+    "brazier-standing",
+    "torch-sconce"
+   ],
+   "anchor": [
+    "cell-bars",
+    "rack-torture",
+    "iron-maiden",
+    "table-square",
+    "key-hook-board"
+   ],
+   "store": [
+    "bucket-slop",
+    "chest-ironbound",
+    "chest-treasure"
+   ],
+   "dress": [
+    "manacles-wall",
+    "shackles-leg",
+    "oubliette-hatch",
+    "lever-wall",
+    "bones-pile",
+    "skull-pile",
+    "key-hook-board",
+    "decal-blood",
+    "floor-drain-grate",
+    "decal-cobweb",
+    "iron-maiden",
+    "key-ring",
+    "key-large",
+    "crossbow",
+    "dagger",
+    "helm-open",
+    "spoon-wooden"
+   ],
+   "vessels": [
+    "mug-chipped",
+    "bowl-wood-small"
+   ]
+  },
+  "missing": [
+   "cage-hanging",
+   "cup-of-water",
+   "door-cell-bars",
+   "flail",
+   "jug-of-water-cell",
+   "lockpick-roll",
+   "meat-hook-single",
+   "morningstar",
+   "padlock",
+   "plate-broken",
+   "skeleton-chained",
+   "table-experiment"
+  ]
+ },
+ {
+  "key": "gatehouse",
+  "label": "Gatehouse",
+  "program": "generic",
+  "family": "castle-rough",
+  "cells": [
+   3,
+   5
+  ],
+  "floors": [
+   "floor-cobble",
+   "floor-setts-courtyard",
+   "floor-flagstone-large",
+   "floor-flagstone-broken"
+  ],
+  "recipes": [
+   "cas-gatehouse",
+   "cas-gate-defense",
+   "dun-guard-room"
+  ],
+  "color": "#6d7f5c",
+  "group": "Castle",
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "portcullis",
+    "windlass",
+    "door-reinforced",
+    "sentry-box",
+    "mil-pavise",
+    "table-square"
+   ],
+   "furnish": [
+    "table-square",
+    "bench-long",
+    "sentry-box",
+    "mil-boiling-oil-pot",
+    "stool-three-leg",
+    "cot"
+   ],
+   "store": [
+    "weapon-rack",
+    "arrow-barrel",
+    "mil-spear-tripod",
+    "mil-crossbow-rack",
+    "mil-pavise",
+    "armor-stand",
+    "chest-ironbound",
+    "barrel"
+   ],
+   "light": [
+    "brazier-large",
+    "fire-basket-stand",
+    "mil-guard-lantern",
+    "torch-bracket-rough",
+    "watch-lantern-bell",
+    "mil-signal-beacon",
+    "torch-sconce",
+    "brazier-standing"
+   ],
+   "dress": [
+    "lever-wall",
+    "horn-hunting",
+    "banner-pole",
+    "mil-cheval-de-frise",
+    "oubliette-hatch",
+    "mil-helmet-peg-rack",
+    "dice-and-cup",
+    "key-hook-board",
+    "mil-catapult-stones",
+    "heraldic-shield",
+    "mil-duty-roster",
+    "ballista",
+    "mil-pavise",
+    "mil-boiling-oil-pot",
+    "tankard",
+    "bread-loaf"
+   ]
+  },
+  "missing": [
+   "mil-arrow-sheaf",
+   "mil-ballista-bolts",
+   "mil-siege-ladder",
+   "mil-watch-rattle"
+  ]
+ },
+ {
+  "key": "courtyard",
+  "label": "Courtyard",
+  "program": "outdoors",
+  "family": "castle-rough",
+  "cells": [
+   8,
+   7
+  ],
+  "floors": [
+   "floor-setts-courtyard",
+   "floor-cobble",
+   "floor-cobble-mossy",
+   "floor-earth-packed",
+   "floor-sand-training",
+   "floor-gravel",
+   "floor-grass-worn"
+  ],
+  "recipes": [
+   "cas-courtyard",
+   "cas-training-yard",
+   "cas-gate-defense"
+  ],
+  "color": "#8f9b7a",
+  "group": "Castle",
+  "outdoor": true,
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "well",
+    "training-dummy",
+    "archery-target",
+    "horse-trough-stone",
+    "mil-quintain",
+    "mil-pell",
+    "sentry-box",
+    "mil-pavise"
+   ],
+   "furnish": [
+    "mil-pell",
+    "mil-wasters-rack",
+    "weapon-rack",
+    "grindstone",
+    "sentry-box",
+    "stocks",
+    "cauldron-crane",
+    "sawhorse",
+    "block-headsman",
+    "tourney-lists-rail",
+    "ballista"
+   ],
+   "store": [
+    "arrow-barrel",
+    "mil-shield-stack",
+    "mil-spear-tripod",
+    "stone-blocks-stack",
+    "mil-catapult-stones",
+    "manure-heap",
+    "grain-bin-stable",
+    "mil-cheval-de-frise",
+    "mil-pavise",
+    "mil-wasters-rack"
+   ],
+   "light": [
+    "brazier-large",
+    "mil-signal-beacon",
+    "torch-stand",
+    "fire-basket-stand",
+    "torch-bracket-rough",
+    "watch-lantern-bell",
+    "mil-guard-lantern"
+   ],
+   "dress": [
+    "banner-pole",
+    "banner-wall",
+    "pig-on-spit",
+    "mil-armor-repair-bench",
+    "mil-pavise",
+    "mil-boiling-oil-pot",
+    "mil-cheval-de-frise"
+   ],
+   "edge": [
+    "city-wall",
+    "city-wall-turret",
+    "portcullis",
+    "gate-double-timber"
+   ]
+  },
+  "missing": [
+   "mil-arrow-sheaf",
+   "mil-ballista-bolts",
+   "mil-horse-barding-stand",
+   "mil-siege-ladder",
+   "mil-watch-rattle"
+  ]
+ },
+ {
+  "key": "mansion-hall",
+  "label": "Entrance hall",
+  "program": "generic",
+  "family": "noble-panel",
+  "cells": [
+   5,
+   6
+  ],
+  "floors": [
+   "floor-marble-cabochon",
+   "floor-checker-bw",
+   "floor-tile-harlequin",
+   "floor-checker-stone",
+   "floor-planks-polished"
+  ],
+  "recipes": [
+   "nob-entrance-hall"
+  ],
+  "color": "#d8c27a",
+  "group": "Mansion",
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "stair-grand",
+    "stair-half",
+    "table-pedestal-round",
+    "door-double-grand",
+    "door-panelled"
+   ],
+   "furnish": [
+    "table-console",
+    "bench-upholstered",
+    "clock-longcase",
+    "hall-stand",
+    "chair-salon-gilt",
+    "pedestal-display"
+   ],
+   "store": [
+    "trunk-travel",
+    "chest-ironbound"
+   ],
+   "light": [
+    "chandelier-grand",
+    "candelabra-standing",
+    "sconce-candle-triple",
+    "lantern-wall-brass",
+    "candelabra"
+   ],
+   "dress": [
+    "mirror-pier-gilt",
+    "statue-bust",
+    "urn-decorative",
+    "armor-stand",
+    "palm-potted",
+    "planter-topiary",
+    "vase-flowers",
+    "painting-landscape",
+    "painting-portrait",
+    "painting-still-life",
+    "tapestry",
+    "rug-grand",
+    "rug-runner",
+    "rug-round-fine",
+    "trophy-head",
+    "cloak-hanging"
+   ]
+  },
+  "missing": [
+   "doormat",
+   "stair-quarter-turn"
+  ]
+ },
+ {
+  "key": "mansion-drawing",
+  "label": "Drawing room",
+  "program": "generic",
+  "family": "noble-paper",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-parquet-versailles",
+   "floor-parquet-herringbone",
+   "floor-planks-polished",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "nob-drawing-room",
+   "nob-parlor"
+  ],
+  "color": "#a9c4a0",
+  "group": "Mansion",
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "fireplace-marble",
+    "sofa",
+    "fireplace-wall"
+   ],
+   "furnish": [
+    "settee",
+    "chair-upholstered",
+    "footstool",
+    "table-round-small",
+    "table-side",
+    "table-card",
+    "table-games",
+    "table-billiards",
+    "desk-bureau",
+    "chair-salon-gilt",
+    "cabinet-china",
+    "table-console",
+    "screen-folding"
+   ],
+   "light": [
+    "chandelier-grand",
+    "candelabra",
+    "candelabra-standing",
+    "sconce-candle-triple",
+    "lamp-oil-brass"
+   ],
+   "dress": [
+    "mirror-pier-gilt",
+    "mirror-wall",
+    "clock-mantel",
+    "fire-screen",
+    "andirons",
+    "fire-irons",
+    "firewood-basket",
+    "tea-service-tray",
+    "vase-flowers",
+    "urn-decorative",
+    "statue-bust",
+    "palm-potted",
+    "fern-potted",
+    "pillows-cushions",
+    "board-game",
+    "harp",
+    "painting-landscape",
+    "painting-still-life",
+    "curtains-drapes",
+    "rug-grand",
+    "rug-round-fine",
+    "rug-hearth-halfmoon",
+    "rug-bearskin"
+   ]
+  },
+  "missing": [
+   "birdcage",
+   "daybed"
+  ]
+ },
+ {
+  "key": "mansion-dining",
+  "label": "Dining room",
+  "program": "generic",
+  "family": "noble-panel",
+  "cells": [
+   6,
+   4
+  ],
+  "floors": [
+   "floor-planks-polished",
+   "floor-parquet-herringbone",
+   "floor-parquet-versailles",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "nob-dining-room",
+   "nob-dining",
+   "nob-silver-service"
+  ],
+  "color": "#b98b5e",
+  "group": "Mansion",
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "table-feast",
+    "fireplace-marble",
+    "table-trestle",
+    "fireplace-wall"
+   ],
+   "furnish": [
+    "chair-plain",
+    "chair-armed",
+    "sideboard",
+    "cabinet-china",
+    "table-side",
+    "dresser-plates",
+    "screen-folding"
+   ],
+   "light": [
+    "candelabra",
+    "chandelier-grand",
+    "sconce-candle-triple",
+    "candelabra-standing",
+    "candlestick"
+   ],
+   "dress": [
+    "centerpiece-epergne",
+    "goblet-silver",
+    "plate-silver",
+    "platter-silver",
+    "decanter-glass-plain",
+    "carafe-glass",
+    "napkin-folded",
+    "tureen-ceramic",
+    "wassail-bowl",
+    "feast-platter-meats",
+    "roast-fowl",
+    "ham-whole-glazed",
+    "goose-roast",
+    "pie-fruit-lattice",
+    "cake-round",
+    "cheese-board",
+    "bread-basket-cloth",
+    "bottle-wine-green",
+    "bottle-of-wine-open",
+    "vase-flowers",
+    "painting-still-life",
+    "painting-landscape",
+    "mirror-pier-gilt",
+    "tablecloth-white",
+    "table-runner-embroidered",
+    "curtains-drapes",
+    "rug-grand",
+    "goblet",
+    "plate",
+    "painting-portrait",
+    "rug-small",
+    "bottle",
+    "bottle-wine-dusty",
+    "butter-dish"
+   ],
+   "store": [
+    "cupboard"
+   ],
+   "plate": [
+    "plate-silver"
+   ],
+   "drink": [
+    "goblet-silver"
+   ]
+  },
+  "missing": [
+   "bowl-painted",
+   "bowl-silver",
+   "cake-stand",
+   "cruet-set",
+   "cup-gold",
+   "cup-silver",
+   "cutlery-set-silver",
+   "decanter-crystal",
+   "egg-cup",
+   "fork-silver",
+   "goblet-glass",
+   "goblet-gold",
+   "goblet-of-poison",
+   "goblet-of-wine",
+   "knife-silver",
+   "ladle-silver",
+   "nutcracker",
+   "pitcher-silver",
+   "plate-gold",
+   "plate-painted",
+   "platter-silver-domed",
+   "porringer",
+   "saucer-small",
+   "spice-box",
+   "spoon-silver",
+   "sugar-nippers",
+   "tray-silver"
+  ]
+ },
+ {
+  "key": "mansion-library",
+  "label": "Library",
+  "program": "generic",
+  "family": "noble-panel",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-planks-dark",
+   "floor-parquet-herringbone",
+   "floor-planks-polished",
+   "floor-parquet-versailles"
+  ],
+  "recipes": [
+   "nob-library",
+   "nob-study",
+   "nob-study-desk"
+  ],
+  "color": "#7a5c3e",
+  "group": "Mansion",
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "bookcase-ladder",
+    "bookshelf",
+    "desk-partners",
+    "desk-writing"
+   ],
+   "furnish": [
+    "table-library",
+    "chair-upholstered",
+    "chair-armed",
+    "desk-writing",
+    "desk-bureau",
+    "table-games",
+    "table-billiards",
+    "table-side",
+    "library-steps",
+    "footstool"
+   ],
+   "store": [
+    "chest-ironbound",
+    "strongbox"
+   ],
+   "light": [
+    "candelabra",
+    "candlestick",
+    "lamp-oil-brass",
+    "lamp-pole",
+    "sconce-candle-triple",
+    "candelabra-standing",
+    "candle"
+   ],
+   "dress": [
+    "trade-globe-terrestrial",
+    "telescope",
+    "book-stack",
+    "book-open",
+    "book-pile-floor",
+    "books-row-bookends",
+    "inkwell-quill",
+    "letters-bundle",
+    "ledger-accounts",
+    "journal-leather",
+    "statue-bust",
+    "clock-longcase",
+    "fireplace-marble",
+    "fire-screen",
+    "painting-landscape",
+    "trophy-head",
+    "rug-grand",
+    "rug-round-fine",
+    "curtains-drapes",
+    "painting-portrait",
+    "rug-small"
+   ],
+   "papers": [
+    "letters-bundle"
+   ],
+   "books": [
+    "books-row-bookends"
+   ]
+  },
+  "missing": [
+   "blotting-sand-shaker",
+   "book-closed",
+   "book-pocket",
+   "candle-snuffer",
+   "chess-piece",
+   "contract-signed",
+   "ink-bottle",
+   "invitation-card",
+   "letter-folded",
+   "letter-open",
+   "magnifying-lens",
+   "map-sheet",
+   "notebook-small",
+   "paper-crumpled",
+   "parchment-sheet",
+   "parchment-stack",
+   "puzzle-box",
+   "quill-case",
+   "quill-single",
+   "quills-bundle",
+   "scroll-case",
+   "scroll-closed",
+   "scroll-open",
+   "sketchbook",
+   "tin-box"
+  ]
+ },
+ {
+  "key": "mansion-bedroom",
+  "label": "Master bedroom",
+  "program": "generic",
+  "family": "noble-paper",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-parquet-herringbone",
+   "floor-planks-polished",
+   "floor-parquet-versailles",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "nob-master-bedroom",
+   "nob-bedchamber",
+   "nob-dressing-room",
+   "nob-dressing-room-2"
+  ],
+  "color": "#c59bb0",
+  "group": "Mansion",
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "bed-canopy",
+    "fireplace-marble",
+    "wardrobe",
+    "fireplace-wall",
+    "table-vanity"
+   ],
+   "furnish": [
+    "table-vanity",
+    "commode",
+    "bench-upholstered",
+    "chair-upholstered",
+    "stool-upholstered",
+    "table-side",
+    "desk-bureau",
+    "screen-folding",
+    "footstool",
+    "chair-armed"
+   ],
+   "store": [
+    "linen-chest",
+    "chest-ironbound",
+    "trunk-travel",
+    "quilt-rack",
+    "wardrobe",
+    "chest-plain"
+   ],
+   "light": [
+    "candelabra",
+    "candlestick",
+    "sconce-candle-triple",
+    "candelabra-standing",
+    "lamp-oil-brass",
+    "candle"
+   ],
+   "dress": [
+    "mirror-standing",
+    "mirror-wall",
+    "washstand",
+    "water-jug-basin",
+    "ewer-and-basin",
+    "jewelry-box",
+    "perfume-bottles",
+    "hand-mirror",
+    "gown-on-form",
+    "clock-mantel",
+    "fire-screen",
+    "vase-flowers",
+    "pillows-cushions",
+    "chamber-pot",
+    "bathtub-wood",
+    "towel-stack",
+    "painting-landscape",
+    "painting-portrait",
+    "curtains-drapes",
+    "rug-grand",
+    "rug-round-fine",
+    "rug-sheepskin",
+    "tapestry",
+    "rug-small",
+    "goblet",
+    "rug-bearskin",
+    "clothes-folded",
+    "cloak-hanging"
+   ],
+   "vanity": [
+    "hand-mirror",
+    "shaving-kit"
+   ]
+  },
+  "missing": [
+   "belt-leather",
+   "boots-pair",
+   "box-carved",
+   "brooch",
+   "cane-ornate",
+   "cape-fur",
+   "cloak-folded",
+   "comb",
+   "cosmetic-pots",
+   "daybed",
+   "fan-folding",
+   "gloves-leather",
+   "hairbrush",
+   "handkerchief",
+   "hat-feathered",
+   "hats-assorted",
+   "jewelry-pouch",
+   "locket",
+   "mask-masquerade",
+   "monocle",
+   "necklace-jeweled",
+   "parasol",
+   "perfume-vial",
+   "portrait-miniature",
+   "razor-straight",
+   "shoes-pair",
+   "slippers",
+   "snuffbox",
+   "tiara",
+   "washcloth-folded",
+   "wig-on-stand"
+  ]
+ },
+ {
+  "key": "mansion-ballroom",
+  "label": "Ballroom",
+  "program": "generic",
+  "family": "noble-paper",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-parquet-versailles",
+   "floor-marble-cabochon",
+   "floor-parquet-herringbone",
+   "floor-tile-harlequin"
+  ],
+  "recipes": [
+   "nob-ballroom",
+   "nob-music-room"
+  ],
+  "color": "#e2d6a8",
+  "group": "Mansion",
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "harpsichord",
+    "chandelier-grand"
+   ],
+   "furnish": [
+    "chair-salon-gilt",
+    "bench-upholstered",
+    "stool-upholstered",
+    "table-console",
+    "sofa",
+    "settee",
+    "sideboard"
+   ],
+   "light": [
+    "candelabra-standing",
+    "sconce-candle-triple",
+    "candelabra"
+   ],
+   "dress": [
+    "mirror-pier-gilt",
+    "harp",
+    "music-stand",
+    "bard-instrument-stand",
+    "lute",
+    "bard-songbook",
+    "bard-sheet-music-scatter",
+    "urn-decorative",
+    "statue-bust",
+    "pedestal-display",
+    "palm-potted",
+    "planter-topiary",
+    "vase-flowers",
+    "wassail-bowl",
+    "goblet-silver",
+    "curtains-drapes",
+    "painting-landscape",
+    "tapestry"
+   ]
+  },
+  "missing": [
+   "bard-psaltery",
+   "decanter-crystal",
+   "tray-silver"
+  ]
+ },
+ {
+  "key": "mansion-conservatory",
+  "label": "Conservatory",
+  "program": "generic",
+  "family": "conservatory",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-tile-encaustic",
+   "floor-terracotta",
+   "floor-tile-hex",
+   "floor-flagstone-square",
+   "floor-brick-herringbone"
+  ],
+  "recipes": [
+   "nob-conservatory"
+  ],
+  "color": "#8fbf8f",
+  "group": "Mansion",
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "palm-potted",
+    "plant-stand-tiered",
+    "fountain-wall"
+   ],
+   "furnish": [
+    "craft-wicker-chair",
+    "bench-garden",
+    "table-round-small",
+    "bench-potting",
+    "chair-salon-gilt"
+   ],
+   "store": [
+    "watering-can",
+    "garden-tools-leaning",
+    "trowel-garden"
+   ],
+   "light": [
+    "lantern-post-indoor",
+    "lantern-wall-brass",
+    "lamp-pole"
+   ],
+   "dress": [
+    "fern-potted",
+    "citrus-tree-tub",
+    "planter-topiary",
+    "planter-stone",
+    "urn-garden",
+    "plant-pot",
+    "herb-pot",
+    "vase-flowers",
+    "trellis-vine",
+    "statue-bust",
+    "birdbath",
+    "tea-service-tray"
+   ],
+   "plants": [
+    "palm-potted",
+    "fern-potted",
+    "citrus-tree-tub",
+    "planter-topiary",
+    "bush-rose",
+    "flowerbed"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mansion-garden",
+  "label": "Formal garden",
+  "program": "outdoors",
+  "family": "noble-panel",
+  "cells": [
+   7,
+   6
+  ],
+  "floors": [
+   "floor-lawn-mown",
+   "floor-grass",
+   "floor-gravel",
+   "floor-grass-meadow",
+   "floor-cobble"
+  ],
+  "recipes": [
+   "nob-formal-garden",
+   "nob-garden",
+   "nob-manor-grounds"
+  ],
+  "color": "#6fae5c",
+  "group": "Mansion",
+  "outdoor": true,
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "fountain-courtyard",
+    "gazebo",
+    "lily-pond",
+    "sundial",
+    "balustrade-stone",
+    "stair-grand",
+    "gatepost-stone",
+    "hedge-straight"
+   ],
+   "furnish": [
+    "bench-garden",
+    "bench-street",
+    "statue-garden",
+    "urn-garden",
+    "birdbath",
+    "gatepost-stone",
+    "bench-long",
+    "hedge-corner",
+    "planter-stone",
+    "flowerbed"
+   ],
+   "light": [
+    "lantern-post",
+    "lantern-wall-brass"
+   ],
+   "dress": [
+    "decal-grass-tuft",
+    "trellis-vine",
+    "flowerbox-window",
+    "garden-tools-leaning",
+    "watering-can",
+    "dog-kennel",
+    "planter-topiary",
+    "tree-deciduous",
+    "statue-weeping-angel"
+   ],
+   "plants": [
+    "planter-topiary",
+    "bush-rose",
+    "flowerbed",
+    "planter-stone",
+    "bush",
+    "tree-fruit",
+    "tree-deciduous",
+    "citrus-tree-tub"
+   ],
+   "edge": [
+    "hedge-straight",
+    "hedge-corner",
+    "hedge-end-block",
+    "hedge-gap-arch",
+    "balustrade-stone",
+    "balustrade-stone-pier"
+   ]
+  },
+  "missing": [
+   "balcony-stone",
+   "beehive-skep",
+   "dovecote",
+   "flowers-wild",
+   "lamp-post-iron",
+   "lily-pads",
+   "plaza-tile",
+   "pond-edge",
+   "roof-conical",
+   "statue-heroic",
+   "street-cobble-tile",
+   "tree-willow",
+   "wayshrine-lantern"
+  ]
+ },
+ {
+  "key": "mansion-kitchen",
+  "label": "Servants' kitchen",
+  "program": "generic",
+  "family": "noble-interior",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-checker-red",
+   "floor-tile-kitchen-small",
+   "floor-brick-herringbone",
+   "floor-flagstone-irregular",
+   "floor-terracotta"
+  ],
+  "recipes": [
+   "nob-servants-kitchen"
+  ],
+  "color": "#d9654f",
+  "group": "Mansion",
+  "borrow": [
+   "tav-kitchen",
+   "tav-kitchen-tools",
+   "tav-kitchen-larder"
+  ],
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "cook-hearth-spit",
+    "table-kitchen-prep",
+    "bread-oven"
+   ],
+   "furnish": [
+    "dresser-plates",
+    "cupboard",
+    "bench-long"
+   ],
+   "dress": [
+    "bell-board-servants",
+    "pot-copper",
+    "kettle-copper",
+    "pastry-tray",
+    "tureen-ceramic",
+    "serving-tray",
+    "jars-preserves",
+    "spice-jars",
+    "game-brace-hanging",
+    "towel-hanging",
+    "cooking-pot",
+    "cauldron",
+    "pan-frying",
+    "cutting-board",
+    "ham-hanging",
+    "onion-string",
+    "turnip-pile",
+    "utensil-rack-wall",
+    "knife-rack-wall",
+    "pot-hook-chain",
+    "washing-bowl-dishes",
+    "dish-rag-hanging",
+    "colander",
+    "sieve-hair",
+    "whisk-twig",
+    "potato",
+    "carrot",
+    "onion",
+    "turnip",
+    "cabbage-single",
+    "egg",
+    "sausage-link",
+    "bread-long-loaf",
+    "stew-pot-full",
+    "garlic-braid",
+    "flour-sack-open",
+    "dough-kneading",
+    "potato-peeled",
+    "onion-sliced",
+    "herb-bundle-fresh",
+    "butter-pat",
+    "cheese-wedge"
+   ],
+   "sets": [
+    "pantry-shelf",
+    "kitchen-prep-dressed",
+    "pot-rack-hanging"
+   ],
+   "store": [
+    "sack",
+    "barrel",
+    "crock",
+    "cupboard",
+    "salt-box",
+    "jar-oil",
+    "jar-pickles",
+    "jug-stoneware-large",
+    "potato-pile",
+    "vegetable-basket-mixed",
+    "turnip-basket",
+    "apple-basket",
+    "cheese-wheel-cut"
+   ],
+   "light": [
+    "candle",
+    "lantern-hanging",
+    "lamp-wall-bracket",
+    "lantern-pierced-tin",
+    "sconce-reflector"
+   ],
+   "cook": [
+    "pot-iron-small",
+    "cauldron-small",
+    "pan-long-handle",
+    "griddle-iron",
+    "pot-lidded",
+    "kettle-hanging"
+   ],
+   "tools": [
+    "ladle",
+    "cleaver",
+    "knife-carving",
+    "rolling-pin",
+    "spoon-stirring-long",
+    "chopping-block-kitchen"
+   ],
+   "serve": [
+    "tureen-pewter",
+    "platter-wood",
+    "serving-bowl-large",
+    "bowl-wood-small"
+   ]
+  },
+  "missing": [
+   "platter-silver-domed",
+   "tray-silver"
+  ]
+ },
+ {
+  "key": "mansion-cellar",
+  "label": "Wine cellar",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-flagstone-square",
+   "floor-brick-herringbone",
+   "floor-cobble"
+  ],
+  "recipes": [
+   "nob-wine-cellar"
+  ],
+  "color": "#7d8a99",
+  "group": "Mansion",
+  "borrow": [
+   "tav-cellar",
+   "tav-pantry-cellar"
+  ],
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "wine-rack",
+    "cask-rack",
+    "tun-large",
+    "floor-trapdoor",
+    "stair-straight",
+    "shelving-freestanding"
+   ],
+   "furnish": [
+    "table-round-small"
+   ],
+   "store": [
+    "demijohn",
+    "trade-barrel-chalked",
+    "barrel",
+    "crate",
+    "wine-rack",
+    "bottle-wine-dusty",
+    "bottle-wine-green",
+    "sack",
+    "shelving-freestanding",
+    "potato-sack-open",
+    "beans-dried-sack",
+    "salt-sack",
+    "barley-sack",
+    "cheese-shelf-aging",
+    "smoked-meat-rack",
+    "preserves-shelf-jars"
+   ],
+   "dress": [
+    "bottle-wine-dusty",
+    "bottle-wine-green",
+    "bottle-cluster",
+    "bottle-of-wine-open",
+    "decanter-glass-plain",
+    "goblet-silver",
+    "cup-glass-green",
+    "ledger-accounts",
+    "ham-hanging",
+    "cheese-wheel",
+    "decal-cobweb",
+    "jam-jar",
+    "sauerkraut-crock",
+    "oil-jar",
+    "vinegar-jug",
+    "dried-herbs-jar",
+    "dried-fruit-string",
+    "salted-fish-stack",
+    "cheese-wax-sealed",
+    "cheese-small-round",
+    "butter-crock",
+    "honey-jar-dipper",
+    "hops-bundle",
+    "bacon-slab",
+    "jerky-bundle",
+    "biscuits-hard",
+    "cream-jug",
+    "eggs-bowl",
+    "egg-cracked",
+    "oats-bowl-dry",
+    "dough-bowl",
+    "cabbage-cut",
+    "cucumber",
+    "herb-pot",
+    "turnip-sliced",
+    "curds-bowl",
+    "yogurt-bowl",
+    "mulberries-bowl",
+    "strawberries-bowl",
+    "blackberry-handful",
+    "apple-green",
+    "pear-pile",
+    "carrot-pile",
+    "grapes-crushed-tub",
+    "chocolate-bar",
+    "acorns-pile",
+    "bread-stale-moldy",
+    "gruel-bowl",
+    "bread-flatbread",
+    "wafers-stack",
+    "honey-cake",
+    "garlic-bulb",
+    "pumpkin-carved",
+    "chicken-carcass-bones",
+    "fish-bones",
+    "fruit-crate-mixed",
+    "mushroom-cluster-edible",
+    "kebab-grill"
+   ],
+   "light": [
+    "lantern-hand",
+    "candle",
+    "torch-bracket-rough",
+    "lantern-wall-iron"
+   ],
+   "sets": [
+    "pantry-shelf"
+   ]
+  },
+  "missing": [
+   "wine-bin-arched"
+  ]
+ },
+ {
+  "key": "castle-passage",
+  "label": "Passage",
+  "program": "generic",
+  "family": "castle-rough",
+  "cells": [
+   6,
+   2
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-irregular",
+   "floor-flagstone-square",
+   "floor-flagstone-rushes"
+  ],
+  "recipes": [
+   "cas-passage"
+  ],
+  "color": "#8a8f84",
+  "group": "Castle",
+  "tiers": [
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "wall-straight",
+    "door-reinforced"
+   ],
+   "furnish": [
+    "armor-stand",
+    "bench-long",
+    "chest-plain"
+   ],
+   "light": [
+    "torch-bracket-rough",
+    "torch-sconce",
+    "torch-stand"
+   ],
+   "dress": [
+    "banner-wall",
+    "tapestry",
+    "shield-display",
+    "weapon-rack",
+    "trophy-head"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mansion-corridor",
+  "label": "Corridor",
+  "program": "generic",
+  "family": "noble-panel",
+  "cells": [
+   6,
+   2
+  ],
+  "floors": [
+   "floor-planks-polished",
+   "floor-parquet-herringbone",
+   "floor-checker-bw",
+   "floor-marble-cabochon"
+  ],
+  "recipes": [
+   "nob-corridor"
+  ],
+  "color": "#cdbb8a",
+  "group": "Mansion",
+  "tiers": [
+   "noble",
+   "ccm"
+  ],
+  "wealth": "fine",
+  "slots": {
+   "anchor": [
+    "wall-straight",
+    "door-panelled"
+   ],
+   "furnish": [
+    "table-console",
+    "bench-upholstered",
+    "urn-decorative",
+    "pedestal-display",
+    "statue-bust",
+    "clock-longcase"
+   ],
+   "light": [
+    "sconce-candle-triple"
+   ],
+   "dress": [
+    "rug-runner",
+    "painting-landscape",
+    "painting-portrait",
+    "painting-still-life",
+    "mirror-pier-gilt",
+    "vase-flowers",
+    "clock-mantel",
+    "candelabra"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "crypt-passage",
+  "label": "Passage",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   6,
+   2
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-broken",
+   "floor-flagstone-large",
+   "floor-earth-packed"
+  ],
+  "recipes": [
+   "cry-passage"
+  ],
+  "color": "#6b7383",
+  "group": "Crypt",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "wall-straight",
+    "door-crypt"
+   ],
+   "furnish": [
+    "bench-stone",
+    "urn-decorative"
+   ],
+   "light": [
+    "torch-sconce",
+    "torch-bracket-rough",
+    "rite-pillar-candle-tall",
+    "candlestand-pricket"
+   ],
+   "dress": [
+    "decal-cobweb",
+    "decal-bones-scatter",
+    "decal-moss",
+    "rite-memorial-plaque",
+    "burial-urn-niche"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "temple-nave",
+  "label": "Temple nave",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   5,
+   8
+  ],
+  "floors": [
+   "floor-checker-stone",
+   "floor-flagstone-square",
+   "floor-marble-cabochon",
+   "floor-tile-encaustic"
+  ],
+  "recipes": [
+   "tem-nave"
+  ],
+  "color": "#d8cfa4",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "altar-stone",
+    "dais",
+    "flavor-idol",
+    "flavor-altarpiece"
+   ],
+   "furnish": [
+    "pew",
+    "pulpit",
+    "lectern",
+    "font-holy",
+    "rite-choir-stall",
+    "organ-pipe",
+    "confessional",
+    "pillar-round",
+    "rite-alms-box",
+    "prayer-candle-rack"
+   ],
+   "light": [
+    "flavor-censer",
+    "candle-tree",
+    "candelabra-standing",
+    "rite-pillar-candle-tall",
+    "sconce-candle-triple"
+   ],
+   "dress": [
+    "flavor-banner",
+    "flavor-relief",
+    "flavor-sigil",
+    "flavor-sculpture",
+    "flavor-buttress",
+    "buttress",
+    "rite-kneeler-cushion",
+    "window-stained-glass"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cathedral",
+  "label": "Cathedral",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   8,
+   14
+  ],
+  "floors": [
+   "floor-marble-cabochon",
+   "floor-checker-stone",
+   "floor-flagstone-square",
+   "floor-tile-encaustic"
+  ],
+  "recipes": [
+   "tem-nave"
+  ],
+  "color": "#e3d9a8",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "altar-stone",
+    "dais",
+    "flavor-idol",
+    "flavor-altarpiece"
+   ],
+   "furnish": [
+    "pew",
+    "pulpit",
+    "lectern",
+    "font-holy",
+    "rite-choir-stall",
+    "organ-pipe",
+    "confessional",
+    "pillar-round",
+    "rite-alms-box",
+    "prayer-candle-rack"
+   ],
+   "light": [
+    "flavor-censer",
+    "candle-tree",
+    "candelabra-standing",
+    "rite-pillar-candle-tall",
+    "sconce-candle-triple"
+   ],
+   "dress": [
+    "flavor-banner",
+    "flavor-relief",
+    "flavor-sigil",
+    "flavor-sculpture",
+    "flavor-buttress",
+    "buttress",
+    "rite-kneeler-cushion",
+    "window-stained-glass"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cathedral-dark",
+  "label": "Dark cathedral",
+  "program": "generic",
+  "family": "crypt-stone",
+  "cells": [
+   8,
+   14
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-tomb-slabs",
+   "floor-checker-stone",
+   "floor-flagstone-large"
+  ],
+  "recipes": [
+   "tem-nave"
+  ],
+  "color": "#6f5a6e",
+  "group": "Temple",
+  "tiers": [
+   "crypt",
+   "ccm"
+  ],
+  "flavors": [
+   "devils",
+   "spiders",
+   "skulls",
+   "dragons",
+   "tentacles"
+  ],
+  "slots": {
+   "anchor": [
+    "altar-stone",
+    "dais",
+    "flavor-idol",
+    "flavor-altarpiece"
+   ],
+   "furnish": [
+    "pew",
+    "pulpit",
+    "lectern",
+    "font-holy",
+    "rite-choir-stall",
+    "organ-pipe",
+    "confessional",
+    "pillar-round",
+    "prayer-candle-rack"
+   ],
+   "light": [
+    "flavor-censer",
+    "candle-tree",
+    "candelabra-standing",
+    "rite-pillar-candle-tall",
+    "sconce-candle-triple"
+   ],
+   "dress": [
+    "flavor-banner",
+    "flavor-relief",
+    "flavor-sigil",
+    "flavor-sculpture",
+    "flavor-buttress",
+    "buttress",
+    "rite-kneeler-cushion",
+    "window-stained-glass"
+   ]
+  },
+  "missing": [
+   "rite-alms-box"
+  ]
+ },
+ {
+  "key": "temple-shrine",
+  "label": "Shrine",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   3,
+   4
+  ],
+  "floors": [
+   "floor-checker-stone",
+   "floor-flagstone-square",
+   "floor-marble-cabochon",
+   "floor-tile-encaustic"
+  ],
+  "recipes": [
+   "tem-shrine"
+  ],
+  "color": "#cfc08a",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "flavor-idol",
+    "flavor-sigil"
+   ],
+   "furnish": [
+    "rite-prie-dieu",
+    "prayer-candle-rack",
+    "bench-stone",
+    "rite-alms-box",
+    "rite-memorial-sand-tray"
+   ],
+   "light": [
+    "flavor-censer",
+    "rite-pillar-candle-tall",
+    "rite-offering-candles-tray"
+   ],
+   "dress": [
+    "flavor-relief",
+    "flavor-banner",
+    "rite-kneeler-cushion"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "temple-vestry",
+  "label": "Vestry",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-checker-stone",
+   "floor-tile-encaustic"
+  ],
+  "recipes": [
+   "tem-vestry-room"
+  ],
+  "color": "#c4b79a",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "rite-vestments-stand"
+   ],
+   "furnish": [
+    "chest-plain",
+    "table-trestle",
+    "bench-long",
+    "flavor-altarpiece"
+   ],
+   "light": [
+    "candle-tree",
+    "sconce-candle-triple",
+    "candelabra"
+   ],
+   "dress": [
+    "chalice-altar",
+    "tome-holy",
+    "flavor-banner"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "temple-cloister",
+  "label": "Cloister walk",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   8,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "tem-cloister-walk"
+  ],
+  "color": "#b9c2a0",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "pillar-round"
+   ],
+   "furnish": [
+    "bench-stone",
+    "urn-decorative",
+    "fountain-wall",
+    "flavor-sculpture"
+   ],
+   "light": [
+    "torch-stand",
+    "cresset-wall"
+   ],
+   "dress": [
+    "flavor-relief",
+    "flavor-sigil"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "temple-scriptorium",
+  "label": "Scriptorium",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-tile-encaustic",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "tem-scriptorium-room"
+  ],
+  "color": "#c9b98c",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "scriptorium-desk"
+   ],
+   "furnish": [
+    "scroll-rack",
+    "lectern",
+    "stool-three-leg",
+    "chest-plain"
+   ],
+   "light": [
+    "candle-tree",
+    "lamp-pole",
+    "candlestick-floor"
+   ],
+   "dress": [
+    "book-stack",
+    "book-open",
+    "flavor-relief"
+   ]
+  },
+  "missing": [
+   "bookshelf"
+  ]
+ },
+ {
+  "key": "temple-infirmary",
+  "label": "Infirmary",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   7,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-checker-stone",
+   "floor-tile-encaustic"
+  ],
+  "recipes": [
+   "tem-infirmary-ward"
+  ],
+  "color": "#cdd3c4",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "sickbed"
+   ],
+   "furnish": [
+    "trade-treatment-bench",
+    "apothecary-drawers",
+    "stool-three-leg",
+    "basin-stone",
+    "chest-plain"
+   ],
+   "light": [
+    "lamp-pole",
+    "candlestick-floor",
+    "sconce-candle-triple"
+   ],
+   "dress": [
+    "flavor-relief",
+    "trade-fever-basin"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "temple-cell",
+  "label": "Priest's cell",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   2,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-flagstone-large"
+  ],
+  "recipes": [
+   "tem-priest-cell"
+  ],
+  "color": "#b7ad98",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "sickbed",
+    "rite-prie-dieu"
+   ],
+   "furnish": [
+    "desk-writing",
+    "stool-three-leg",
+    "chest-plain"
+   ],
+   "light": [
+    "candlestick-floor"
+   ],
+   "dress": [
+    "flavor-relief",
+    "rug-rush-mat",
+    "book-stack"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "temple-belltower",
+  "label": "Bell tower base",
+  "program": "generic",
+  "family": "temple-stone",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-flagstone-large"
+  ],
+  "recipes": [
+   "tem-bell-tower"
+  ],
+  "color": "#bfb18f",
+  "group": "Temple",
+  "tiers": [
+   "temple",
+   "ccm"
+  ],
+  "flavors": [
+   "sun",
+   "moon",
+   "nature",
+   "sword-shield"
+  ],
+  "slots": {
+   "anchor": [
+    "bell-on-frame"
+   ],
+   "furnish": [
+    "chest-plain",
+    "bench-long",
+    "barrel"
+   ],
+   "light": [
+    "torch-stand",
+    "cresset-wall"
+   ],
+   "dress": [
+    "flavor-relief"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "dun-corridor",
+  "label": "Corridor",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   8,
+   2
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-flagstone-dungeon",
+   "floor-flagstone-damp",
+   "floor-flagstone-broken"
+  ],
+  "recipes": [
+   "dun-corridor"
+  ],
+  "color": "#5d646e",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "statue-guardian",
+    "collapse-rubble"
+   ],
+   "furnish": [
+    "rubble-pile",
+    "bones-pile",
+    "pillar-square",
+    "obelisk-rune"
+   ],
+   "light": [
+    "torch-bracket-rough",
+    "torch-sconce"
+   ],
+   "dress": [
+    "manacles-wall",
+    "adventurer-remains",
+    "decal-cobweb",
+    "decal-cracks",
+    "decal-rubble-scatter",
+    "decal-moss",
+    "puddle",
+    "decal-bones-scatter"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "dun-trap-corridor",
+  "label": "Trap corridor",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   8,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-dungeon",
+   "floor-cut-rock",
+   "floor-flagstone-large"
+  ],
+  "recipes": [
+   "dun-trap-corridor",
+   "dun-dropped-gear"
+  ],
+  "color": "#a5523f",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "pressure-plate",
+    "trap-spikes",
+    "trap-spike-pit",
+    "pit-open",
+    "trap-blade",
+    "trap-dart-wall"
+   ],
+   "furnish": [
+    "trap-flame-jet",
+    "trap-crossbow",
+    "boulder-rolling",
+    "lever-floor",
+    "lever-wall",
+    "bear-trap"
+   ],
+   "light": [
+    "torch-bracket-rough",
+    "torch-sconce"
+   ],
+   "dress": [
+    "adventurer-remains",
+    "bones-pile",
+    "decal-blood",
+    "decal-cracks",
+    "decal-bones-scatter"
+   ],
+   "traps": [
+    "bear-trap"
+   ],
+   "gear": [
+    "bandage-roll",
+    "key-simple"
+   ],
+   "remains": [
+    "skull-single",
+    "shackles-leg"
+   ]
+  },
+  "missing": [
+   "alarm-bells-string",
+   "arrow-single",
+   "boot-single",
+   "caltrops-scatter",
+   "chain-length",
+   "chalk-marks",
+   "coins-scattered",
+   "femur-bone",
+   "iron-spikes",
+   "jawbone",
+   "lock-door",
+   "manacles-loose",
+   "map-fragment-torn",
+   "note-clue",
+   "oil-flask",
+   "potion-empty-cracked",
+   "ribcage",
+   "rope-knotted",
+   "rope-length",
+   "satchel-leather",
+   "scroll-closed",
+   "shield-broken",
+   "ten-foot-pole",
+   "tripwire"
+  ]
+ },
+ {
+  "key": "dun-dead-end",
+  "label": "Dead end",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   4,
+   2
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-flagstone-broken",
+   "floor-flagstone-dungeon"
+  ],
+  "recipes": [
+   "dun-dead-end"
+  ],
+  "color": "#4a4f57",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "collapse-rubble",
+    "door-rune-sealed",
+    "door-face-carved",
+    "statue-guardian",
+    "mimic-chest",
+    "chest-treasure"
+   ],
+   "furnish": [
+    "rubble-pile",
+    "shoring-timber",
+    "shrine-wayside"
+   ],
+   "light": [
+    "torch-bracket-rough",
+    "torch-stand"
+   ],
+   "dress": [
+    "adventurer-remains",
+    "decal-blood",
+    "decal-rubble-scatter",
+    "decal-cracks",
+    "decal-cobweb"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "dun-cell-block",
+  "label": "Cell block",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   8,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-dungeon",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-flagstone-broken"
+  ],
+  "recipes": [
+   "dun-cell-block",
+   "dun-cell-block-kit",
+   "dun-prisoner-ration"
+  ],
+  "color": "#66707c",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "cell-bars",
+    "door-cell-bars"
+   ],
+   "furnish": [
+    "bed-straw-pallet",
+    "cot",
+    "bed-cell-stone",
+    "cell-bench-plank",
+    "table-square",
+    "stool-three-leg",
+    "stocks"
+   ],
+   "store": [
+    "bucket-slop",
+    "chest-ironbound",
+    "barrel"
+   ],
+   "light": [
+    "torch-sconce",
+    "torch-bracket-rough",
+    "mil-guard-lantern"
+   ],
+   "dress": [
+    "manacles-wall",
+    "bones-pile",
+    "skeleton-chained",
+    "floor-drain-grate",
+    "decal-cobweb",
+    "ball-and-chain",
+    "chain-pile",
+    "key-hook-board",
+    "key-ring",
+    "lever-wall",
+    "decal-straw-scatter",
+    "spoon-wooden"
+   ],
+   "vessels": [
+    "mug-chipped",
+    "bowl-wood-small"
+   ]
+  },
+  "missing": [
+   "cup-of-water",
+   "jug-of-water-cell",
+   "meat-hook-single",
+   "plate-broken"
+  ]
+ },
+ {
+  "key": "dun-guard-room",
+  "label": "Guard room",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-dungeon",
+   "floor-flagstone-large",
+   "floor-flagstone-damp"
+  ],
+  "recipes": [
+   "dun-guard-room",
+   "dun-jailer-station",
+   "dun-guard-post"
+  ],
+  "color": "#8a7355",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "table-square",
+    "door-reinforced",
+    "key-hook-board"
+   ],
+   "furnish": [
+    "stool-three-leg",
+    "bench-long",
+    "cot"
+   ],
+   "store": [
+    "weapon-rack",
+    "chest-ironbound",
+    "barrel"
+   ],
+   "light": [
+    "torch-sconce",
+    "brazier-standing",
+    "torch-bracket-rough",
+    "mil-guard-lantern"
+   ],
+   "dress": [
+    "dice-and-cup",
+    "tankard",
+    "lever-wall",
+    "bread-loaf",
+    "key-ring",
+    "key-large",
+    "crossbow",
+    "dagger",
+    "helm-open",
+    "key-hook-board",
+    "mil-duty-roster",
+    "mil-crossbow-rack",
+    "mil-helmet-peg-rack",
+    "shield-round"
+   ]
+  },
+  "missing": [
+   "flail",
+   "lockpick-roll",
+   "morningstar",
+   "padlock"
+  ]
+ },
+ {
+  "key": "dun-interrogation",
+  "label": "Interrogation room",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-dungeon",
+   "floor-flagstone-broken"
+  ],
+  "recipes": [
+   "dun-interrogation",
+   "dun-interrogation-kit",
+   "dun-executioners-room"
+  ],
+  "color": "#7c4a4a",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "rack-torture",
+    "chair-interrogation",
+    "iron-maiden",
+    "table-torture-tools"
+   ],
+   "furnish": [
+    "stool-three-leg",
+    "whipping-post",
+    "gibbet-cage-standing",
+    "cage-floor",
+    "block-headsman",
+    "stocks"
+   ],
+   "store": [
+    "chest-ironbound",
+    "bucket-slop"
+   ],
+   "light": [
+    "brazier-irons",
+    "torch-sconce",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "manacles-wall",
+    "iron-maiden",
+    "decal-blood",
+    "skeleton-chained",
+    "shackles-leg"
+   ]
+  },
+  "missing": [
+   "bone-saw",
+   "cage-hanging",
+   "chain-length",
+   "hood-executioner",
+   "manacles-loose",
+   "sledgehammer",
+   "table-experiment"
+  ]
+ },
+ {
+  "key": "dun-vault",
+  "label": "Treasure vault",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-dungeon",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "dun-vault",
+   "dun-treasure-vault"
+  ],
+  "color": "#c9a640",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "chest-treasure",
+    "door-reinforced",
+    "chest-treasure-open",
+    "dun-treasure-hoard"
+   ],
+   "store": [
+    "chest-ironbound",
+    "coin-pile",
+    "strongbox-stack",
+    "gold-bars",
+    "silver-plate-pile",
+    "armor-chainmail-heap"
+   ],
+   "light": [
+    "torch-sconce",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "trap-spikes",
+    "pressure-plate",
+    "bones-pile",
+    "mimic-chest",
+    "adventurer-remains",
+    "door-rune-sealed",
+    "casket-ornate"
+   ],
+   "furnish": [
+    "statue-guardian",
+    "pedestal-display",
+    "vault-shelf-treasure"
+   ]
+  },
+  "missing": [
+   "treasure-hoard"
+  ]
+ },
+ {
+  "key": "dun-sewer",
+  "label": "Sewer",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   8,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-broken",
+   "floor-flagstone-dungeon"
+  ],
+  "recipes": [
+   "dun-sewers",
+   "dun-sewer-access"
+  ],
+  "color": "#5f7a5a",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "sewer-outflow",
+    "sewer-sluice-gate",
+    "sewer-channel-strip",
+    "sewer-grate"
+   ],
+   "dress": [
+    "sewer-debris-clog",
+    "refuse-pile",
+    "puddle",
+    "flotsam-crate",
+    "decal-slime",
+    "decal-moss"
+   ],
+   "furnish": [
+    "sewer-sluice-gate",
+    "ladder-wood",
+    "barrel"
+   ],
+   "light": [
+    "torch-bracket-rough"
+   ]
+  },
+  "missing": [
+   "root-ceiling-hanging",
+   "sewer-channel",
+   "sewer-junction",
+   "sewer-ladder-manhole",
+   "sewer-walkway",
+   "slime-mold-floor"
+  ]
+ },
+ {
+  "key": "dun-puzzle-hall",
+  "label": "Puzzle hall",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   6,
+   6
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-dungeon",
+   "floor-cut-rock"
+  ],
+  "recipes": [
+   "dun-puzzle-hall",
+   "dun-puzzle-hall-kit"
+  ],
+  "color": "#6a6fb0",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "door-rune-sealed",
+    "orb-socket-pedestal",
+    "statue-rotating",
+    "door-face-carved",
+    "rune-tile",
+    "floor-mosaic"
+   ],
+   "furnish": [
+    "rune-tile",
+    "block-sliding",
+    "pressure-plate",
+    "orb-socket-pedestal",
+    "puzzle-dial-pillar",
+    "obelisk-rune",
+    "lever-floor"
+   ],
+   "light": [
+    "torch-sconce",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "lever-wall",
+    "floor-mosaic",
+    "door-face-carved",
+    "decal-glyph-warding",
+    "adventurer-remains",
+    "decal-drag-marks"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "dun-chasm",
+  "label": "Chasm crossing",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   7,
+   5
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-flagstone-broken"
+  ],
+  "recipes": [
+   "dun-chasm-crossing",
+   "dun-trial-of-crossing"
+  ],
+  "color": "#3d4654",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "chasm-strip",
+    "chasm-strip-wide",
+    "bridge-stone-natural",
+    "stepping-pillars",
+    "stair-wall-hugging"
+   ],
+   "furnish": [
+    "stepping-pillars",
+    "plank-bridge",
+    "bridge-post-rope",
+    "statue-guardian"
+   ],
+   "light": [
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "rubble-pile",
+    "adventurer-remains",
+    "decal-cracks",
+    "decal-rubble-scatter",
+    "chain-pile"
+   ]
+  },
+  "missing": [
+   "chasm-edge",
+   "claw-marks-wall",
+   "egg-sacs-cluster",
+   "floor-cracked-tile",
+   "straw-scatter"
+  ]
+ },
+ {
+  "key": "dun-den",
+  "label": "Monster den",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-earth-packed",
+   "floor-bone-strewn"
+  ],
+  "recipes": [
+   "dun-monster-den",
+   "dun-last-party"
+  ],
+  "color": "#7a6a4a",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "nest-monster",
+    "carcass-ribcage",
+    "eggs-monster",
+    "adventurer-remains"
+   ],
+   "furnish": [
+    "web-cocoon",
+    "stalagmite",
+    "mushroom-cave-giant"
+   ],
+   "store": [
+    "bones-pile",
+    "skull-pile",
+    "refuse-pile",
+    "loot-sack",
+    "backpack"
+   ],
+   "light": [
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "adventurer-remains",
+    "decal-web-floor",
+    "decal-claw-marks",
+    "decal-bones-scatter",
+    "decal-blood",
+    "decal-slime",
+    "sword-long",
+    "shield-round",
+    "helm-open",
+    "armor-chainmail-heap",
+    "journal-leather",
+    "map-treasure",
+    "dagger",
+    "key-large"
+   ]
+  },
+  "missing": [
+   "arrows-stuck",
+   "bandages-bloody",
+   "boots-pair",
+   "crowbar",
+   "healer-kit",
+   "holy-symbol-sun",
+   "sword-broken",
+   "torch-bundle",
+   "torch-dropped"
+  ]
+ },
+ {
+  "key": "dun-shrine",
+  "label": "Shrine",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-flagstone-large",
+   "floor-flagstone-dungeon"
+  ],
+  "recipes": [
+   "dun-shrine-niche"
+  ],
+  "color": "#9c8fb8",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "shrine-wayside",
+    "statue-forgotten-god"
+   ],
+   "furnish": [
+    "statue-guardian"
+   ],
+   "light": [
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "decal-moss",
+    "decal-cracks"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "dun-flooded",
+  "label": "Flooded chamber",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-water-flooded"
+  ],
+  "recipes": [
+   "dun-flooded-chamber"
+  ],
+  "color": "#3f6f7a",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "pillar-waterline",
+    "statue-forgotten-god",
+    "statue-guardian"
+   ],
+   "furnish": [
+    "stepping-pillars",
+    "flotsam-crate",
+    "column-drums-fallen",
+    "fountain-wall-skull"
+   ],
+   "light": [
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "rubble-pile",
+    "sewer-grate"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "dun-collapsed",
+  "label": "Collapsed hall",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-broken",
+   "floor-cut-rock",
+   "floor-flagstone-dungeon"
+  ],
+  "recipes": [
+   "dun-collapsed-hall"
+  ],
+  "color": "#857f73",
+  "group": "Dungeon",
+  "tiers": [
+   "dun",
+   "crypt",
+   "castle",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "collapse-rubble",
+    "pillar-broken",
+    "column-drums-fallen"
+   ],
+   "furnish": [
+    "ceiling-slab-fallen",
+    "shoring-timber",
+    "rubble-pile"
+   ],
+   "light": [
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "adventurer-remains",
+    "decal-rubble-scatter",
+    "decal-cracks"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "wiz-lab",
+  "label": "Alchemy laboratory",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-tile-hex",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "arc-tower-laboratory"
+  ],
+  "color": "#7fae6a",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "alch-athanor",
+    "alch-bench-dressed",
+    "alch-still-copper-large",
+    "alch-cauldron-bubbling-green"
+   ],
+   "furnish": [
+    "table-kitchen-prep",
+    "stool-three-leg",
+    "alch-homunculus-vat",
+    "alch-specimen-jar-large"
+   ],
+   "store": [
+    "alch-reagent-shelf-tall",
+    "apothecary-drawers",
+    "alch-carboy-wicker",
+    "barrel",
+    "shelving-freestanding"
+   ],
+   "light": [
+    "candle-tree",
+    "candlestand-pricket",
+    "lantern-hanging",
+    "sconce-candle-single",
+    "brazier-tripod"
+   ],
+   "dress": [
+    "alembic",
+    "mortar-pestle",
+    "potion-bottles",
+    "book-open",
+    "book-stack",
+    "skull-single",
+    "bottle-cluster",
+    "jar-lidded-stoneware",
+    "alch-mandrake-pot",
+    "cauldron"
+   ]
+  },
+  "missing": [
+   "alch-retort",
+   "alch-vial-rack",
+   "table-experiment"
+  ]
+ },
+ {
+  "key": "wiz-study",
+  "label": "Library & study",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-planks-dark",
+   "floor-planks-worn",
+   "floor-planks-stained",
+   "floor-flagstone-square"
+  ],
+  "recipes": [
+   "arc-tower-study"
+  ],
+  "color": "#9a7bb8",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "desk-writing",
+    "spellbook-lectern",
+    "bookshelf",
+    "desk-partners"
+   ],
+   "furnish": [
+    "chair-armed",
+    "table-library",
+    "scroll-rack",
+    "staff-rack",
+    "armillary-great",
+    "trade-globe-terrestrial",
+    "library-steps",
+    "alch-formula-chalkboard",
+    "cabinet-curios",
+    "chair-upholstered"
+   ],
+   "light": [
+    "candle-tree",
+    "candlestick",
+    "candlestand-pricket",
+    "sconce-candle-single",
+    "lantern-hanging"
+   ],
+   "dress": [
+    "book-pile-floor",
+    "book-stack",
+    "book-open",
+    "tome-grimoire",
+    "scroll-pile",
+    "inkwell-quill",
+    "map-rolled",
+    "crystal-ball",
+    "alch-hourglass-sand-colored",
+    "skull-single",
+    "statue-bust",
+    "rug-round",
+    "map-wall"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "wiz-summoning",
+  "label": "Summoning chamber",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-square",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "arc-tower-summoning"
+  ],
+  "color": "#b0483f",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "decal-ritual-circle",
+    "arcane-pylon",
+    "elemental-brazier"
+   ],
+   "furnish": [
+    "spellbook-lectern",
+    "pedestal-display",
+    "chest-ironbound"
+   ],
+   "light": [
+    "rite-pillar-candle-tall",
+    "candle-drippings-mound",
+    "elemental-brazier",
+    "torch-sconce",
+    "candlestick-floor"
+   ],
+   "dress": [
+    "tome-grimoire",
+    "skull-single",
+    "skull-candle",
+    "crystal-glowing",
+    "scroll-pile",
+    "decal-blood"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "wiz-observatory",
+  "label": "Observatory",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-planks-dark",
+   "floor-flagstone-square",
+   "floor-checker-stone",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "arc-tower-observatory"
+  ],
+  "color": "#c9a84a",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "telescope-great",
+    "armillary-great",
+    "orrery",
+    "decal-star-floor"
+   ],
+   "furnish": [
+    "telescope",
+    "table-library",
+    "chair-armed",
+    "desk-writing",
+    "trade-globe-terrestrial",
+    "library-steps",
+    "bookshelf"
+   ],
+   "light": [
+    "candle-tree",
+    "lantern-hanging",
+    "candlestand-pricket"
+   ],
+   "dress": [
+    "map-rolled",
+    "book-open",
+    "book-stack",
+    "scroll-pile",
+    "alch-hourglass-sand-colored",
+    "map-wall",
+    "inkwell-quill"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "wiz-scrying",
+  "label": "Scrying room",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-checker-stone",
+   "floor-tile-encaustic",
+   "floor-flagstone-square",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "arc-tower-scrying"
+  ],
+  "color": "#8fb0b8",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "scrying-pool",
+    "orb-socket-pedestal",
+    "mirror-standing"
+   ],
+   "furnish": [
+    "table-round-small",
+    "chair-armed",
+    "pillows-cushions",
+    "stool-three-leg",
+    "pedestal-display"
+   ],
+   "light": [
+    "candle-tree",
+    "candlestick-floor",
+    "brazier-tripod",
+    "rite-pillar-candle-tall"
+   ],
+   "dress": [
+    "crystal-ball",
+    "curtains-drapes",
+    "rug-round",
+    "candle",
+    "tome-grimoire",
+    "crystal-glowing",
+    "hand-mirror"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "wiz-store",
+  "label": "Potion store",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-flagstone-large",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "arc-tower-store"
+  ],
+  "color": "#6d8a55",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "alch-reagent-shelf-tall",
+    "apothecary-drawers"
+   ],
+   "store": [
+    "cabinet-curios",
+    "shelving-freestanding",
+    "alch-potion-crate-straw",
+    "alch-carboy-wicker",
+    "barrel",
+    "crate",
+    "sack",
+    "storage-jar",
+    "alch-specimen-jar-large",
+    "chest-plain"
+   ],
+   "light": [
+    "lantern-hanging",
+    "lantern-wall-iron",
+    "candlestick"
+   ],
+   "dress": [
+    "potion-bottles",
+    "bottle-cluster",
+    "jar-lidded-stoneware",
+    "mortar-pestle",
+    "herb-bundle-fresh",
+    "dried-herbs-jar",
+    "skull-single"
+   ]
+  },
+  "missing": [
+   "specimen-jar"
+  ]
+ },
+ {
+  "key": "wiz-apothecary",
+  "label": "Apothecary shop",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-planks-worn",
+   "floor-planks-stained",
+   "floor-tile-hex",
+   "floor-flagstone-square"
+  ],
+  "recipes": [
+   "arc-tower-apothecary"
+  ],
+  "color": "#c98a4a",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "alch-counter-apothecary",
+    "counter-shop",
+    "apothecary-drawers",
+    "wall-shop-window"
+   ],
+   "furnish": [
+    "alch-reagent-shelf-tall",
+    "cabinet-curios",
+    "stool-bar",
+    "bench-long",
+    "shelf-wall"
+   ],
+   "store": [
+    "alch-potion-crate-straw",
+    "alch-carboy-wicker",
+    "barrel",
+    "crate"
+   ],
+   "light": [
+    "lantern-hanging",
+    "candlestick",
+    "sconce-candle-single"
+   ],
+   "dress": [
+    "alch-sign-apothecary",
+    "mortar-pestle",
+    "potion-bottles",
+    "bottle-cluster",
+    "alch-mandrake-pot",
+    "ledger-counter-bell",
+    "herb-bundle-fresh",
+    "plant-pot",
+    "rug-small"
+   ]
+  },
+  "missing": [
+   "scales-balance"
+  ]
+ },
+ {
+  "key": "wiz-bedchamber",
+  "label": "Wizard's bedchamber",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-planks-dark",
+   "floor-planks-worn",
+   "floor-planks-stained",
+   "floor-flagstone-square"
+  ],
+  "recipes": [
+   "arc-tower-bedchamber"
+  ],
+  "color": "#7a5ca8",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "bed-canopy",
+    "hatstand-wizard"
+   ],
+   "furnish": [
+    "table-side",
+    "wardrobe",
+    "trunk-travel",
+    "desk-bureau",
+    "chair-upholstered",
+    "bookshelf",
+    "alch-familiar-perch",
+    "washstand",
+    "mirror-standing"
+   ],
+   "light": [
+    "candlestick",
+    "candle-tree",
+    "sconce-candle-single",
+    "fireplace-wall"
+   ],
+   "dress": [
+    "book-stack",
+    "book-pile-floor",
+    "wizard-hat",
+    "cat-bed-basket",
+    "rug-round",
+    "rug-sheepskin",
+    "crystal-ball",
+    "tome-grimoire",
+    "curtains-drapes"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "wiz-menagerie",
+  "label": "Familiars' menagerie",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-rushes",
+   "floor-planks-rushes",
+   "floor-flagstone-square",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "arc-tower-menagerie"
+  ],
+  "color": "#a8a05c",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "birdcage-standing",
+    "perch-tree",
+    "cage-floor",
+    "vivarium"
+   ],
+   "furnish": [
+    "animal-hutch",
+    "alch-familiar-perch",
+    "egg-nest-great",
+    "cat-tree",
+    "feed-trough",
+    "table-kitchen-prep"
+   ],
+   "store": [
+    "sack",
+    "grain-bin-stable",
+    "barrel",
+    "rural-water-bucket-stable",
+    "hay-bale"
+   ],
+   "light": [
+    "lantern-hanging",
+    "lantern-wall-iron",
+    "lantern-post-indoor"
+   ],
+   "dress": [
+    "cat-bed-basket",
+    "nest-bird",
+    "rug-hay-scatter",
+    "fern-potted",
+    "rural-feed-sack-open",
+    "plant-pot"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "wiz-stair",
+  "label": "Tower stair",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-square",
+   "floor-checker-stone",
+   "floor-flagstone-large",
+   "floor-tile-hex"
+  ],
+  "recipes": [
+   "arc-tower-stair"
+  ],
+  "color": "#8a8fa0",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "stair-spiral-wide",
+    "statue-bust"
+   ],
+   "furnish": [
+    "bookshelf",
+    "bench-long",
+    "chest-plain",
+    "pedestal-display",
+    "armillary-great"
+   ],
+   "light": [
+    "torch-sconce",
+    "lantern-wall-iron",
+    "candle-tree"
+   ],
+   "dress": [
+    "tapestry",
+    "rug-runner",
+    "book-pile-floor",
+    "staff-rack",
+    "map-wall"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "wiz-workshop",
+  "label": "Enchanter's workshop",
+  "program": "generic",
+  "family": "tower-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-checker-stone",
+   "floor-flagstone-square",
+   "floor-tile-encaustic",
+   "floor-flagstone-large"
+  ],
+  "recipes": [
+   "arc-tower-workshop"
+  ],
+  "color": "#b06fb0",
+  "group": "Wizard's tower",
+  "tiers": [
+   "wizard",
+   "noble",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "enchanting-table",
+    "portal-arch",
+    "arcane-pylon"
+   ],
+   "furnish": [
+    "table-kitchen-prep",
+    "staff-rack",
+    "crystal-formation",
+    "scroll-rack",
+    "cabinet-curios",
+    "chest-ironbound",
+    "stool-three-leg",
+    "pedestal-display"
+   ],
+   "light": [
+    "elemental-brazier",
+    "candle-tree",
+    "lantern-hanging",
+    "crystal-glowing"
+   ],
+   "dress": [
+    "tome-grimoire",
+    "scroll-pile",
+    "crystal-ball",
+    "potion-bottles",
+    "book-stack",
+    "alch-hourglass-sand-colored"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mkt-square",
+  "label": "Market square",
+  "program": "outdoors",
+  "family": "half-timber",
+  "cells": [
+   8,
+   7
+  ],
+  "floors": [
+   "floor-cobble",
+   "floor-setts-courtyard",
+   "floor-cobble-mossy",
+   "floor-earth-packed",
+   "floor-gravel",
+   "floor-grass-worn"
+  ],
+  "recipes": [
+   "mkt-market-square",
+   "mkt-square",
+   "mkt-produce-stalls"
+  ],
+  "color": "#c98f4e",
+  "group": "Market & village",
+  "outdoor": true,
+  "tiers": [
+   "mkt",
+   "mkt-general",
+   "mkt-bakery",
+   "mkt-apoth",
+   "mkt-tailor",
+   "mkt-curio"
+  ],
+  "slots": {
+   "anchor": [
+    "market-stall",
+    "market-cross",
+    "well",
+    "well-house",
+    "fountain-courtyard",
+    "pump-trough-village",
+    "notice-board"
+   ],
+   "furnish": [
+    "craft-display-table-goods",
+    "cart-merchant-covered",
+    "cart-hand",
+    "wagon",
+    "town-crier-platform",
+    "bench-village",
+    "bench-street",
+    "stocks",
+    "pillory"
+   ],
+   "store": [
+    "shop-floor-stock",
+    "pottery-for-sale",
+    "rug-merchant-stack",
+    "spice-sacks-open",
+    "fish-barrel-salted",
+    "flower-buckets",
+    "apple-crate",
+    "cabbage-crate",
+    "vegetable-crate-mixed",
+    "fruit-crate-mixed",
+    "potato-crate",
+    "barrel",
+    "crate",
+    "sack",
+    "baskets-stack",
+    "turnip-pile",
+    "vegetable-basket-mixed",
+    "apple-basket",
+    "potato-pile",
+    "turnip-basket"
+   ],
+   "light": [
+    "lamp-post-iron",
+    "lamp-post-wood",
+    "lantern-post"
+   ],
+   "dress": [
+    "notice-board",
+    "signpost",
+    "bollard-stone",
+    "awning",
+    "shop-sign",
+    "sign-hanging",
+    "planter-stone",
+    "planter-barrel",
+    "horse-trough-stone",
+    "hitching-post",
+    "stocks",
+    "turnip-pile",
+    "pear",
+    "apple",
+    "carrot",
+    "onion",
+    "cabbage-single",
+    "bread-long-loaf",
+    "cheese-wheel-cut",
+    "cabbage-crate",
+    "onion-pile",
+    "carrot-basket",
+    "bread-pile",
+    "cheese-stack",
+    "kebab-grill",
+    "pretzel-rack",
+    "crab",
+    "potato-crate",
+    "apple-crate",
+    "vegetable-crate-mixed",
+    "spice-jars",
+    "sausage-coil",
+    "grain-sack-open",
+    "cucumber",
+    "walnuts-pile",
+    "salt-block",
+    "meat-raw-joint",
+    "bacon-slab"
+   ],
+   "plants": [
+    "planter-barrel",
+    "planter-stone"
+   ],
+   "edge": [
+    "bollard-stone"
+   ],
+   "sets": [
+    "crate-stack",
+    "stall-produce"
+   ]
+  },
+  "missing": [
+   "apricot-handful",
+   "beet-bunch",
+   "berries-basket",
+   "blood-pudding",
+   "candied-apple",
+   "candy-pile",
+   "candy-sticks",
+   "celery-bunch",
+   "cherries-cluster",
+   "chestnuts-roasting",
+   "cinnamon-sticks",
+   "corn-ears",
+   "dragon-pepper",
+   "eel",
+   "egg-crate",
+   "eggs-nest",
+   "fig-cluster",
+   "fish-basket",
+   "fish-crate-iced",
+   "fish-fillet",
+   "fish-single",
+   "fish-string",
+   "gingerbread-figure",
+   "greens-bunch",
+   "hazelnuts-basket",
+   "honeycomb",
+   "leek-bunch",
+   "lemon",
+   "lettuce",
+   "meat-raw-steak",
+   "meat-ribs-raw",
+   "meat-skewers",
+   "melon",
+   "mushroom-basket",
+   "orange",
+   "parsnip-bunch",
+   "peach",
+   "pear-basket",
+   "peas-pods",
+   "pepper-pouch",
+   "plum-handful",
+   "pomegranate-split",
+   "pork-chop",
+   "quince",
+   "radish-bunch",
+   "rhubarb-bunch",
+   "saffron-box",
+   "sausage-pile",
+   "squash-gourd",
+   "tentacle-grilled",
+   "toffee-slab",
+   "turnip-giant",
+   "wheat-sheaf"
+  ]
+ },
+ {
+  "key": "mkt-street",
+  "label": "Town street",
+  "program": "outdoors",
+  "family": "half-timber",
+  "cells": [
+   10,
+   3
+  ],
+  "floors": [
+   "floor-cobble",
+   "floor-setts-courtyard",
+   "floor-earth-packed",
+   "floor-cobble-mossy",
+   "floor-gravel"
+  ],
+  "recipes": [
+   "mkt-street",
+   "mkt-town-street"
+  ],
+  "color": "#9aa0a6",
+  "group": "Market & village",
+  "outdoor": true,
+  "tiers": [
+   "mkt",
+   "mkt-general",
+   "mkt-bakery",
+   "mkt-apoth",
+   "mkt-tailor",
+   "mkt-curio"
+  ],
+  "slots": {
+   "anchor": [
+    "lamp-post-iron",
+    "lamp-post-wood",
+    "lantern-post",
+    "well",
+    "well-house",
+    "market-cross",
+    "fountain-wall"
+   ],
+   "furnish": [
+    "bench-street",
+    "bench-village",
+    "horse-trough-stone",
+    "pump-trough-village",
+    "hitching-post",
+    "cart-hand",
+    "cart-merchant-covered",
+    "wagon",
+    "bollard-stone",
+    "planter-stone"
+   ],
+   "store": [
+    "barrel",
+    "crate",
+    "sack",
+    "rain-barrel",
+    "flower-buckets",
+    "shop-floor-stock"
+   ],
+   "light": [
+    "lantern-wall-iron",
+    "lamp-post-wood",
+    "lamp-post-iron"
+   ],
+   "dress": [
+    "shop-sign",
+    "sign-hanging",
+    "trade-sign-pretzel",
+    "awning",
+    "bollard-stone",
+    "notice-board",
+    "signpost",
+    "planter-stone",
+    "planter-barrel",
+    "flowerbox-window",
+    "puddle",
+    "balcony-wood",
+    "stair-exterior-wood"
+   ],
+   "plants": [
+    "planter-barrel",
+    "planter-stone"
+   ],
+   "edge": [
+    "bollard-stone"
+   ]
+  },
+  "missing": [
+   "downspout-gutter",
+   "jetty-overhang",
+   "plaza-tile",
+   "scaffold",
+   "street-cobble-tile",
+   "street-gutter"
+  ]
+ },
+ {
+  "key": "mkt-general",
+  "label": "General store",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-planks-worn",
+   "floor-planks-stained",
+   "floor-boards-rough",
+   "floor-flagstone-irregular",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "mkt-shop-general",
+   "mkt-general-store"
+  ],
+  "color": "#b98a4a",
+  "group": "Market & village",
+  "tiers": [
+   "mkt-general",
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "counter-shop",
+    "shop-shelf-stocked",
+    "bins-dry-goods",
+    "wall-window-shop"
+   ],
+   "furnish": [
+    "craft-display-table-goods",
+    "stool-three-leg",
+    "shelving-freestanding"
+   ],
+   "store": [
+    "shop-floor-stock",
+    "barrel",
+    "crate",
+    "sack",
+    "baskets-stack",
+    "spice-sacks-open",
+    "pottery-for-sale",
+    "rope-coil"
+   ],
+   "light": [
+    "lantern-hanging",
+    "lantern-wall-iron",
+    "candle"
+   ],
+   "dress": [
+    "scales-balance",
+    "ledger-counter-bell",
+    "price-board",
+    "strongbox",
+    "shop-sign",
+    "bundle-wrapped",
+    "broom",
+    "bins-dry-goods"
+   ]
+  },
+  "missing": [
+   "goods-shelves-general"
+  ]
+ },
+ {
+  "key": "mkt-bakery",
+  "label": "Bakery",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-brick-herringbone",
+   "floor-terracotta",
+   "floor-flagstone-irregular",
+   "floor-planks-worn",
+   "floor-tile-kitchen-small"
+  ],
+  "recipes": [
+   "mkt-shop-bakery",
+   "mkt-bakery"
+  ],
+  "color": "#e0b56a",
+  "group": "Market & village",
+  "tiers": [
+   "mkt-bakery",
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "counter-shop",
+    "bread-oven",
+    "shop-shelf-stocked",
+    "dough-trough"
+   ],
+   "furnish": [
+    "bread-rack",
+    "dough-trough",
+    "craft-display-table-goods",
+    "pretzel-rack"
+   ],
+   "store": [
+    "shop-floor-stock",
+    "flour-bin",
+    "flour-sack-open",
+    "sack"
+   ],
+   "light": [
+    "lantern-hanging",
+    "lantern-wall-iron",
+    "candle"
+   ],
+   "dress": [
+    "bread-peel",
+    "pastry-tray",
+    "bread-loaf",
+    "bread-pile",
+    "bread-rolls-basket",
+    "cake-round",
+    "trade-loaf-tray-rising",
+    "trade-proofing-basket",
+    "scales-balance",
+    "ledger-counter-bell",
+    "price-board",
+    "trade-sign-pretzel"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mkt-apothecary",
+  "label": "Apothecary",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-tile-hex",
+   "floor-planks-dark",
+   "floor-planks-stained",
+   "floor-checker-stone",
+   "floor-flagstone-square"
+  ],
+  "recipes": [
+   "mkt-shop-apothecary",
+   "mkt-apothecary-shop",
+   "mkt-apothecary"
+  ],
+  "color": "#7fae7a",
+  "group": "Market & village",
+  "tiers": [
+   "mkt-apoth",
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "counter-shop",
+    "apothecary-drawers",
+    "shop-shelf-stocked"
+   ],
+   "furnish": [
+    "craft-display-table-goods",
+    "stool-three-leg",
+    "table-side",
+    "trade-tincture-rack"
+   ],
+   "store": [
+    "shop-floor-stock",
+    "spice-sacks-open",
+    "crate",
+    "shelf-wall"
+   ],
+   "light": [
+    "lantern-hanging",
+    "candle"
+   ],
+   "dress": [
+    "scales-balance",
+    "dried-herbs-jar",
+    "herb-bundle-fresh",
+    "spice-jars",
+    "ledger-counter-bell",
+    "price-board",
+    "shop-sign"
+   ]
+  },
+  "missing": [
+   "alch-apothecary-jar-lidded",
+   "alch-apothecary-scale",
+   "alch-bark-strips",
+   "alch-counter-apothecary",
+   "alch-garlic-braid-ward",
+   "alch-herb-bundle-lavender",
+   "alch-herb-bundle-sage",
+   "alch-mandrake-root",
+   "alch-mortar-brass",
+   "alch-mortar-marble",
+   "alch-pestle-single",
+   "alch-petals-bowl",
+   "alch-pill-box",
+   "alch-potion-bandolier",
+   "alch-potion-blue-tall",
+   "alch-potion-crate-straw",
+   "alch-potion-giant-jug",
+   "alch-potion-green-skull",
+   "alch-potion-heart-bottle",
+   "alch-potion-red-round",
+   "alch-potion-red-small",
+   "alch-reagent-box-compartments",
+   "alch-reagent-shelf-tall",
+   "alch-shrunken-head",
+   "alch-sign-apothecary",
+   "alch-spell-component-pouch",
+   "alch-spirit-lamp",
+   "alch-tincture-bottles-dropper",
+   "alch-wand-case",
+   "alch-wand-oak",
+   "alch-weights-set",
+   "apothecary-jars",
+   "herb-drying-rack",
+   "leech-jar",
+   "salve-tin",
+   "tarot-spread"
+  ]
+ },
+ {
+  "key": "mkt-tailor",
+  "label": "Tailor & draper",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-planks-stained",
+   "floor-planks-polished",
+   "floor-planks-worn",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "mkt-shop-tailor",
+   "mkt-tailor",
+   "mkt-tailor-shop"
+  ],
+  "color": "#b0527a",
+  "group": "Market & village",
+  "tiers": [
+   "mkt-tailor",
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "counter-shop",
+    "shop-shelf-stocked",
+    "dress-form",
+    "craft-display-table-goods",
+    "cutting-table-tailor"
+   ],
+   "furnish": [
+    "cutting-table-tailor",
+    "craft-display-table-goods",
+    "stool-three-leg",
+    "dress-form"
+   ],
+   "store": [
+    "shop-floor-stock",
+    "chest-plain",
+    "baskets-stack",
+    "shelf-wall"
+   ],
+   "light": [
+    "lantern-hanging",
+    "candlestick",
+    "candle"
+   ],
+   "dress": [
+    "gown-on-form",
+    "clothes-folded",
+    "cloak-hanging",
+    "hat-wide-brim",
+    "boots-row",
+    "scales-balance",
+    "ledger-counter-bell",
+    "shop-sign",
+    "rug-striped-woven"
+   ]
+  },
+  "missing": [
+   "cloth-bolt",
+   "cloth-bolts-rack",
+   "craft-cloak-hanging-new",
+   "craft-cloth-bolt-blue",
+   "craft-cloth-bolt-green",
+   "craft-cloth-bolt-linen",
+   "craft-cloth-bolt-red",
+   "craft-cloth-bolt-silk",
+   "craft-cloth-bolt-undyed",
+   "craft-cloth-bolt-velvet",
+   "craft-cloth-folded-pile",
+   "craft-display-cloth-racks",
+   "craft-gown-noble-hanging",
+   "craft-hat-felt-new",
+   "craft-livery-tabard",
+   "craft-sewing-needle-case",
+   "craft-shopsign-shears",
+   "craft-tailor-buttons-dish",
+   "craft-tailor-chalk",
+   "craft-tailor-dummy-gown",
+   "craft-tailor-dummy-half",
+   "craft-tailor-hat-forms",
+   "craft-tailor-measuring-cord",
+   "craft-tailor-pattern-pieces",
+   "craft-tailor-ribbons-spools",
+   "craft-tailor-shears-large",
+   "craft-tunic-folded-stack",
+   "craft-work-stool-low",
+   "craft-workshop-lantern-hook",
+   "craft-yarn-ball",
+   "sewing-basket",
+   "yarn-skeins"
+  ]
+ },
+ {
+  "key": "mkt-curio",
+  "label": "Magic & curio shop",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-planks-dark",
+   "floor-checker-stone",
+   "floor-planks-stained",
+   "floor-tile-encaustic"
+  ],
+  "recipes": [
+   "mkt-shop-curio",
+   "mkt-magic-shop",
+   "mkt-pawn-curio"
+  ],
+  "color": "#8a63b5",
+  "group": "Market & village",
+  "tiers": [
+   "mkt-curio",
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "counter-shop",
+    "display-case-glass",
+    "shop-shelf-stocked",
+    "shelving-freestanding"
+   ],
+   "furnish": [
+    "craft-display-table-goods"
+   ],
+   "store": [
+    "shop-floor-stock",
+    "chest-ironbound",
+    "chest-plain",
+    "crate"
+   ],
+   "light": [
+    "lantern-hanging",
+    "candle"
+   ],
+   "dress": [
+    "bard-masks-theatre",
+    "scales-balance",
+    "ledger-counter-bell",
+    "shop-sign",
+    "fiddle"
+   ]
+  },
+  "missing": [
+   "bagpipes",
+   "compass",
+   "crowbar",
+   "crystal-ball",
+   "cursed-doll",
+   "drum-hand",
+   "flute-pan",
+   "glow-orb",
+   "hats-assorted",
+   "horns-pair",
+   "hurdy-gurdy",
+   "key-ornate",
+   "magic-item-cluster",
+   "mask-masquerade",
+   "necklace-jeweled",
+   "padlock",
+   "pelts-stack",
+   "pipe-tobacco",
+   "potion-shop-shelf",
+   "potion-single-glowing",
+   "rings-tray",
+   "scroll-sealed-glowing",
+   "spectacles",
+   "spyglass",
+   "staff-rack",
+   "statuette-jade",
+   "stuffed-crocodile",
+   "sweets-jar",
+   "tiara",
+   "tusks"
+  ]
+ },
+ {
+  "key": "mkt-backroom",
+  "label": "Shop back room",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-boards-rough",
+   "floor-planks-worn",
+   "floor-flagstone-irregular",
+   "floor-earth-packed"
+  ],
+  "recipes": [
+   "mkt-shop-backroom"
+  ],
+  "borrow": [
+   "tav-storeroom"
+  ],
+  "color": "#8c7355",
+  "group": "Market & village",
+  "tiers": [
+   "mkt",
+   "mkt-general",
+   "mkt-bakery",
+   "mkt-apoth",
+   "mkt-tailor",
+   "mkt-curio"
+  ],
+  "slots": {
+   "anchor": [
+    "shelving-freestanding",
+    "shop-shelf-stocked",
+    "cask-rack",
+    "floor-trapdoor"
+   ],
+   "furnish": [
+    "stool-three-leg",
+    "ladder-wood"
+   ],
+   "store": [
+    "crate",
+    "barrel",
+    "sack",
+    "shop-floor-stock",
+    "baskets-stack",
+    "chest-plain",
+    "strongbox",
+    "firkin",
+    "bundle-wrapped",
+    "rug-merchant-stack",
+    "fish-barrel-salted",
+    "pottery-for-sale",
+    "potato-sack-open",
+    "apple-crate",
+    "wine-rack"
+   ],
+   "light": [
+    "lantern-hanging",
+    "lantern-hand",
+    "candle",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "ledger-accounts",
+    "broom",
+    "rope-coil",
+    "ham-hanging",
+    "cheese-wheel",
+    "onion-string",
+    "turnip-pile",
+    "mousetrap-cheese"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mkt-passage",
+  "label": "Shop passage & stair",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   2,
+   7
+  ],
+  "floors": [
+   "floor-planks-worn",
+   "floor-boards-rough",
+   "floor-planks-stained",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "mkt-shop-passage"
+  ],
+  "borrow": [
+   "tav-hallway"
+  ],
+  "color": "#a89a7c",
+  "group": "Market & village",
+  "tiers": [
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "stair-straight",
+    "wall-straight",
+    "door-plank",
+    "door-reinforced",
+    "stair-landing"
+   ],
+   "furnish": [
+    "table-side",
+    "chest-plain",
+    "bench-long",
+    "coat-pegs"
+   ],
+   "light": [
+    "lantern-wall-iron",
+    "lantern-hanging",
+    "torch-sconce",
+    "candle",
+    "lantern-wall-brass",
+    "sconce-candle-single",
+    "torch-bracket-fine",
+    "lamp-wall-bracket",
+    "lantern-post-indoor"
+   ],
+   "dress": [
+    "boots-row",
+    "cloak-hanging",
+    "broom",
+    "rug-runner",
+    "painting-landscape",
+    "railing-wood",
+    "gallery-interior",
+    "key-hook-board",
+    "rug-oval"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mkt-watch",
+  "label": "Watch post",
+  "program": "generic",
+  "family": "fieldstone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-irregular",
+   "floor-boards-rough",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "mkt-watch-house",
+   "mkt-watch-post"
+  ],
+  "borrow": [
+   "dun-guard-room"
+  ],
+  "color": "#6f7f8f",
+  "group": "Market & village",
+  "tiers": [
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "watch-desk",
+    "cell-holding-wood",
+    "notice-board",
+    "table-square",
+    "door-reinforced"
+   ],
+   "furnish": [
+    "chair-plain",
+    "stool-three-leg",
+    "bench-village",
+    "bench-long",
+    "cot"
+   ],
+   "store": [
+    "weapon-rack",
+    "chest-ironbound",
+    "cell-holding-wood",
+    "barrel"
+   ],
+   "light": [
+    "mil-guard-lantern",
+    "lantern-wall-iron",
+    "lantern-hanging",
+    "torch-sconce",
+    "brazier-standing"
+   ],
+   "dress": [
+    "notice-board",
+    "bounty-poster",
+    "proclamation-scroll",
+    "watch-lantern-bell",
+    "bucket",
+    "stocks",
+    "ledger-accounts",
+    "sentry-box",
+    "dice-and-cup",
+    "tankard",
+    "lever-wall",
+    "bread-loaf"
+   ]
+  },
+  "missing": [
+   "map-wall",
+   "stocks-arms-rack"
+  ]
+ },
+ {
+  "key": "mkt-house",
+  "label": "Town house: living room",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-planks-worn",
+   "floor-planks-stained",
+   "floor-planks-rushes",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "mkt-town-house"
+  ],
+  "borrow": [
+   "hut-cottage",
+   "hut-kitchen-lived-in"
+  ],
+  "color": "#c7a36b",
+  "group": "Market & village",
+  "tiers": [
+   "mkt"
+  ],
+  "slots": {
+   "furnish": [
+    "chair-plain",
+    "cupboard",
+    "stool-three-leg",
+    "table-square",
+    "bench-long",
+    "rocking-chair",
+    "footstool"
+   ],
+   "store": [
+    "chest-plain",
+    "baskets-stack",
+    "barrel",
+    "sack",
+    "shelf-wall",
+    "utensil-rack",
+    "jars-preserves"
+   ],
+   "light": [
+    "candlestick",
+    "candle",
+    "lantern-hanging",
+    "oil-lamp",
+    "lantern-hand",
+    "candle-stubs-dish"
+   ],
+   "dress": [
+    "cooking-pot",
+    "plate",
+    "bread-loaf",
+    "pitcher",
+    "mug-glazed",
+    "bowl",
+    "shelf-wall",
+    "broom",
+    "turnip-pile",
+    "woodpile",
+    "rug-small",
+    "rug-rush-mat",
+    "rug-braided-round",
+    "rug-sheepskin",
+    "rug-cowhide",
+    "cup-wooden",
+    "spoon-jar",
+    "dish-tub",
+    "poker-set",
+    "firewood-basket",
+    "bellows-hand",
+    "mousetrap-cheese",
+    "cat-bed-basket"
+   ],
+   "anchor": [
+    "hearth-central",
+    "bed-straw-pallet",
+    "table-square"
+   ]
+  },
+  "missing": [
+   "basket-lidded",
+   "basket-wicker",
+   "cups-stack",
+   "tinderbox"
+  ]
+ },
+ {
+  "key": "mkt-bedroom",
+  "label": "Town house: bedroom",
+  "program": "generic",
+  "family": "half-timber",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-planks-stained",
+   "floor-planks-worn",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "mkt-town-bedroom"
+  ],
+  "borrow": [
+   "tav-guest-room",
+   "tav-guest-room-full"
+  ],
+  "color": "#b9a0c0",
+  "group": "Market & village",
+  "tiers": [
+   "mkt"
+  ],
+  "slots": {
+   "furnish": [
+    "table-side",
+    "chair-plain",
+    "stool-three-leg"
+   ],
+   "store": [
+    "chest-plain",
+    "wardrobe",
+    "linen-chest",
+    "clothes-chest-open"
+   ],
+   "light": [
+    "candlestick",
+    "candle",
+    "oil-lamp",
+    "sconce-candle-single",
+    "lamp-wall-shelf",
+    "lamp-oil-brass"
+   ],
+   "dress": [
+    "rug-small",
+    "water-jug-basin",
+    "blankets-folded",
+    "pillows-cushions",
+    "pitcher",
+    "bowl",
+    "rug-round",
+    "rug-braided-round",
+    "rug-sheepskin",
+    "rug-striped-woven",
+    "chamber-pot",
+    "towel-stack",
+    "basket-laundry"
+   ],
+   "anchor": [
+    "bed-single",
+    "bed-double",
+    "washstand"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "min-tunnel",
+  "label": "Mine tunnel",
+  "program": "generic",
+  "family": "mine-timbered",
+  "cells": [
+   8,
+   2
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-earth-packed",
+   "floor-flagstone-broken",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "min-tunnel",
+   "min-gallery"
+  ],
+  "color": "#6b5a45",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "mine-rail-strip",
+    "shoring-timber",
+    "mine-cart"
+   ],
+   "furnish": [
+    "wheelbarrow",
+    "cart-hand",
+    "rural-pit-props-stack",
+    "ore-pile",
+    "collapse-rubble",
+    "rubble-pile",
+    "mine-cart"
+   ],
+   "store": [
+    "crate",
+    "barrel",
+    "ore-pile"
+   ],
+   "light": [
+    "lantern-wall-iron",
+    "lantern-wall-horn",
+    "torch-bracket-rough",
+    "lantern-hanging",
+    "torch-sconce"
+   ],
+   "dress": [
+    "rural-sign-danger-mine",
+    "decal-rubble-scatter",
+    "decal-ore-scatter",
+    "decal-cracks",
+    "decal-coal-dust",
+    "puddle",
+    "rope-coil",
+    "collapse-rubble",
+    "stalagmite",
+    "bucket"
+   ]
+  },
+  "missing": [
+   "mine-rail",
+   "mine-timber-set",
+   "pick-and-shovel",
+   "powder-keg",
+   "wall-cave-rough"
+  ]
+ },
+ {
+  "key": "min-junction",
+  "label": "Tunnel junction",
+  "program": "generic",
+  "family": "mine-timbered",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-earth-packed",
+   "floor-flagstone-broken",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "min-junction",
+   "min-gallery"
+  ],
+  "color": "#7a6a52",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "mine-rail-cross",
+    "shoring-timber",
+    "signpost"
+   ],
+   "furnish": [
+    "mine-cart",
+    "wheelbarrow",
+    "rural-pit-props-stack",
+    "ore-pile",
+    "mine-tool-rack"
+   ],
+   "store": [
+    "crate",
+    "barrel",
+    "sack",
+    "ore-pile"
+   ],
+   "light": [
+    "lantern-wall-iron",
+    "lantern-wall-horn",
+    "lantern-hanging",
+    "torch-sconce"
+   ],
+   "dress": [
+    "decal-rubble-scatter",
+    "decal-ore-scatter",
+    "decal-cracks",
+    "rope-coil",
+    "collapse-rubble",
+    "stalagmite",
+    "bucket"
+   ]
+  },
+  "missing": [
+   "mine-rail",
+   "mine-timber-set",
+   "pick-and-shovel",
+   "powder-keg",
+   "wall-cave-rough"
+  ]
+ },
+ {
+  "key": "min-face",
+  "label": "Working face",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-earth-packed",
+   "floor-flagstone-broken",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "min-face",
+   "min-ore-face",
+   "min-working-face"
+  ],
+  "color": "#8a7440",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "ore-vein",
+    "collapse-rubble",
+    "rubble-pile",
+    "rural-pit-props-stack"
+   ],
+   "furnish": [
+    "mine-cart",
+    "wheelbarrow",
+    "shoring-timber",
+    "mine-tool-rack",
+    "garden-tools-leaning",
+    "rural-ore-bucket"
+   ],
+   "store": [
+    "ore-pile",
+    "rural-tailings-pile",
+    "mil-catapult-stones",
+    "crate",
+    "bucket"
+   ],
+   "light": [
+    "lantern-post-indoor",
+    "lantern-wall-iron",
+    "lantern-hanging",
+    "crystal-glowing"
+   ],
+   "dress": [
+    "decal-rubble-scatter",
+    "decal-ore-scatter",
+    "decal-cracks",
+    "mine-rail-end",
+    "stalagmite",
+    "rural-tailings-pile",
+    "rural-sign-danger-mine"
+   ]
+  },
+  "missing": [
+   "crystal-shard",
+   "mine-timber-set",
+   "pick-and-shovel",
+   "rock-small",
+   "rural-coal-lump",
+   "rural-gem-in-matrix",
+   "rural-hammer-and-gad",
+   "rural-helmet-candle",
+   "rural-lamp-miners",
+   "rural-ore-basket",
+   "rural-ore-gold-chunk",
+   "rural-ore-iron-chunk",
+   "rural-pick-miners",
+   "rural-timber-set-cracked",
+   "wall-cave-rough"
+  ]
+ },
+ {
+  "key": "min-collapsed",
+  "label": "Collapsed tunnel",
+  "program": "generic",
+  "family": "mine-timbered",
+  "cells": [
+   6,
+   3
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-flagstone-broken",
+   "floor-earth-packed"
+  ],
+  "recipes": [
+   "min-collapsed"
+  ],
+  "color": "#857f73",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "collapse-rubble",
+    "rubble-pile",
+    "shoring-timber"
+   ],
+   "furnish": [
+    "rural-ore-cart-tipped",
+    "mine-cart",
+    "wheelbarrow",
+    "beam-collapsed",
+    "ceiling-slab-fallen"
+   ],
+   "light": [
+    "lantern-wall-iron"
+   ],
+   "dress": [
+    "rural-sign-danger-mine",
+    "decal-rubble-scatter",
+    "decal-cracks",
+    "mine-rail-strip"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "min-flooded",
+  "label": "Flooded gallery",
+  "program": "generic",
+  "family": "mine-timbered",
+  "cells": [
+   6,
+   3
+  ],
+  "floors": [
+   "floor-water-flooded"
+  ],
+  "recipes": [
+   "min-flooded"
+  ],
+  "color": "#3f6f7a",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "rural-water-pump-mine",
+    "post-timber",
+    "collapse-rubble"
+   ],
+   "furnish": [
+    "mine-cart",
+    "wheelbarrow",
+    "flotsam-crate",
+    "barrel",
+    "crate",
+    "bucket"
+   ],
+   "store": [
+    "rural-pit-props-stack",
+    "rubble-pile"
+   ],
+   "light": [
+    "lantern-wall-iron",
+    "lantern-wall-horn"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "min-shaft-head",
+  "label": "Shaft head",
+  "program": "generic",
+  "family": "mine-timbered",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-earth-packed",
+   "floor-flagstone-broken",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "min-shaft",
+   "min-shaft-head"
+  ],
+  "color": "#a08456",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "mine-shaft-collar",
+    "pit-open",
+    "well",
+    "windlass",
+    "ladder-wood",
+    "mine-headframe",
+    "smelter"
+   ],
+   "furnish": [
+    "rural-ore-bucket",
+    "bucket",
+    "mine-cart",
+    "wheelbarrow",
+    "watch-lantern-bell",
+    "mine-lamp-rack",
+    "mine-tool-rack",
+    "sorting-table"
+   ],
+   "store": [
+    "crate",
+    "barrel",
+    "sack",
+    "rural-pit-props-stack",
+    "ore-pile",
+    "coal-bin"
+   ],
+   "light": [
+    "lantern-wall-iron",
+    "lantern-wall-horn",
+    "lantern-post",
+    "lantern-hanging"
+   ],
+   "dress": [
+    "mil-helmet-peg-rack",
+    "coat-pegs",
+    "rural-sign-danger-mine",
+    "decal-rubble-scatter",
+    "decal-ore-scatter",
+    "puddle"
+   ]
+  },
+  "missing": [
+   "boulder",
+   "lumber-pile",
+   "rock-outcrop",
+   "tree-conifer"
+  ]
+ },
+ {
+  "key": "min-sorting",
+  "label": "Ore-sorting chamber",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-earth-packed",
+   "floor-flagstone-broken",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "min-sorting",
+   "min-ore-sorting"
+  ],
+  "color": "#9a6b3f",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "sorting-table",
+    "table-trestle",
+    "table-square",
+    "ore-pile",
+    "rural-tailings-pile"
+   ],
+   "furnish": [
+    "mine-cart",
+    "wheelbarrow",
+    "mine-rail-strip",
+    "mil-catapult-stones",
+    "stone-blocks-stack"
+   ],
+   "store": [
+    "crate",
+    "barrel",
+    "sack",
+    "bucket"
+   ],
+   "light": [
+    "lantern-wall-iron",
+    "lantern-wall-horn"
+   ],
+   "dress": [
+    "sieve-wooden-drum",
+    "salt-block",
+    "decal-ore-scatter",
+    "decal-rubble-scatter",
+    "decal-coal-dust",
+    "rural-slag-heap"
+   ]
+  },
+  "missing": [
+   "rural-coal-pile-floor",
+   "rural-geode-split",
+   "rural-gold-dust-pouch",
+   "rural-gold-nuggets",
+   "rural-ore-copper-chunk",
+   "rural-ore-mithral-chunk",
+   "rural-ore-silver-chunk",
+   "rural-ore-tin-chunk"
+  ]
+ },
+ {
+  "key": "min-tool-store",
+  "label": "Tool store",
+  "program": "generic",
+  "family": "mine-timbered",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-cut-rock",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "min-tools",
+   "min-tool-store"
+  ],
+  "color": "#7d6b4d",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "mine-tool-rack",
+    "garden-tools-leaning",
+    "rural-pit-props-stack"
+   ],
+   "furnish": [
+    "spade-garden",
+    "axe-woodcutter",
+    "ladder-wood",
+    "sawhorse",
+    "grindstone",
+    "wheelbarrow"
+   ],
+   "store": [
+    "crate",
+    "barrel",
+    "sack",
+    "bucket",
+    "shelving-freestanding"
+   ],
+   "light": [
+    "lantern-wall-iron"
+   ],
+   "dress": [
+    "mil-helmet-peg-rack",
+    "coat-pegs",
+    "key-hook-board"
+   ]
+  },
+  "missing": [
+   "lumber-pile",
+   "rural-crowbar-mine",
+   "rural-drill-hand",
+   "rural-pick-broken",
+   "rural-pick-double",
+   "rural-shovel-coal",
+   "rural-sledge-mining",
+   "rural-tool-cache-mine",
+   "rural-wedges-set"
+  ]
+ },
+ {
+  "key": "min-mess",
+  "label": "Miners' mess",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   6,
+   4
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-cut-rock",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "min-mess"
+  ],
+  "color": "#b08a5a",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "table-trestle",
+    "table-square",
+    "cauldron-crane",
+    "firepit-stone-round"
+   ],
+   "furnish": [
+    "bench-long",
+    "stool-three-leg",
+    "bunk-bed",
+    "cot",
+    "brazier-standing"
+   ],
+   "store": [
+    "barrel",
+    "crate",
+    "rain-barrel",
+    "sack",
+    "bucket"
+   ],
+   "light": [
+    "lantern-wall-iron",
+    "lantern-hand"
+   ],
+   "dress": [
+    "pasty",
+    "tankard",
+    "bread-loaf",
+    "mug-wooden",
+    "jerky-bundle",
+    "mil-helmet-peg-rack",
+    "coat-pegs"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "min-powder-store",
+  "label": "Powder & lamp store",
+  "program": "generic",
+  "family": "mine-timbered",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-cut-rock"
+  ],
+  "recipes": [
+   "min-powder"
+  ],
+  "color": "#a5523f",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "powder-keg-stack",
+    "barrel"
+   ],
+   "furnish": [
+    "mine-lamp-rack",
+    "shelving-freestanding",
+    "crate"
+   ],
+   "store": [
+    "bucket",
+    "sack"
+   ],
+   "light": [
+    "lantern-wall-horn",
+    "lantern-wall-iron"
+   ],
+   "dress": [
+    "rural-sign-danger-mine",
+    "key-hook-board"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "min-seam",
+  "label": "Crystal seam",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-cut-rock",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "min-seam",
+   "min-strike"
+  ],
+  "color": "#8f6fc0",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "crystal-formation",
+    "ore-vein",
+    "crystal-glowing"
+   ],
+   "furnish": [
+    "geode-cluster",
+    "mine-tool-rack",
+    "mine-cart",
+    "wheelbarrow"
+   ],
+   "store": [
+    "ore-pile",
+    "crate"
+   ],
+   "light": [
+    "lantern-wall-iron"
+   ],
+   "dress": [
+    "decal-ore-scatter",
+    "decal-rubble-scatter",
+    "warhammer"
+   ]
+  },
+  "missing": [
+   "climbing-kit",
+   "crowbar",
+   "crystal-shard",
+   "gems-raw-cluster",
+   "maul-great",
+   "torch-dropped"
+  ]
+ },
+ {
+  "key": "min-pithead",
+  "label": "Pithead yard",
+  "program": "outdoors",
+  "family": "fieldstone",
+  "cells": [
+   8,
+   7
+  ],
+  "floors": [
+   "floor-earth-bare",
+   "floor-gravel",
+   "floor-earth-packed",
+   "floor-cobble"
+  ],
+  "recipes": [
+   "min-pithead"
+  ],
+  "color": "#8c7a5e",
+  "group": "Mine",
+  "outdoor": true,
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "mine-headframe",
+    "well-house",
+    "well",
+    "windlass"
+   ],
+   "furnish": [
+    "mine-cart",
+    "cart-hand",
+    "wheelbarrow",
+    "cart-shed",
+    "water-trough",
+    "signpost",
+    "notice-board"
+   ],
+   "store": [
+    "rural-tailings-pile",
+    "ore-pile",
+    "rural-slag-heap",
+    "mil-catapult-stones",
+    "stone-blocks-stack",
+    "rural-pit-props-stack",
+    "crate",
+    "barrel",
+    "sack",
+    "rain-barrel"
+   ],
+   "light": [
+    "lantern-post",
+    "lamp-post-wood"
+   ],
+   "dress": [
+    "decal-ore-scatter",
+    "decal-rubble-scatter",
+    "decal-coal-dust",
+    "puddle"
+   ]
+  },
+  "missing": [
+   "lumber-pile",
+   "sluice-box"
+  ]
+ },
+ {
+  "key": "min-smelter",
+  "label": "Smelter house",
+  "program": "generic",
+  "family": "fieldstone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-flagstone-irregular",
+   "floor-cobble",
+   "floor-flagstone-broken"
+  ],
+  "recipes": [
+   "min-smeltery"
+  ],
+  "color": "#c96a3a",
+  "group": "Mine",
+  "tiers": [
+   "min",
+   "dun",
+   "wizard",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "smelter",
+    "hearth-raised-square",
+    "hearth-central-hood"
+   ],
+   "furnish": [
+    "coal-bin",
+    "quench-trough",
+    "rural-bellows-ventilation",
+    "ingot-stack",
+    "washtub",
+    "water-trough",
+    "grindstone",
+    "wheelbarrow"
+   ],
+   "store": [
+    "ore-pile",
+    "rural-tailings-pile",
+    "mil-catapult-stones",
+    "crate",
+    "barrel",
+    "sack",
+    "chest-plain",
+    "rain-barrel",
+    "bucket"
+   ],
+   "light": [
+    "lantern-wall-iron"
+   ],
+   "dress": [
+    "smith-soot-bucket",
+    "decal-coal-dust",
+    "decal-ore-scatter"
+   ]
+  },
+  "missing": [
+   "decal-scorch"
+  ]
+ },
+ {
+  "key": "cult-entry",
+  "label": "Hidden entrance",
+  "program": "generic",
+  "family": "dressed-stone",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-flagstone-broken",
+   "floor-earth-packed"
+  ],
+  "recipes": [
+   "clt-hidden-entry"
+  ],
+  "color": "#7a6f5c",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "door-secret-bookcase",
+    "wall-secret-door",
+    "floor-trapdoor"
+   ],
+   "furnish": [
+    "barrel",
+    "crate",
+    "sack",
+    "shelving-freestanding"
+   ],
+   "light": [
+    "lantern-hanging",
+    "torch-sconce",
+    "candlestick"
+   ],
+   "dress": [
+    "rug-small",
+    "decal-cobweb",
+    "bucket"
+   ]
+  },
+  "missing": [
+   "bookshelf"
+  ]
+ },
+ {
+  "key": "cult-passage",
+  "label": "Processional passage",
+  "program": "generic",
+  "family": "black-stone",
+  "cells": [
+   8,
+   3
+  ],
+  "floors": [
+   "floor-basalt-dark",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "clt-passage"
+  ],
+  "color": "#5a4a52",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "statue-hooded",
+    "wall-alcove",
+    "flavor-sculpture"
+   ],
+   "furnish": [
+    "pillar-square",
+    "bench-stone"
+   ],
+   "light": [
+    "brazier-standing",
+    "torch-sconce",
+    "brazier-tripod",
+    "rite-pillar-candle-tall"
+   ],
+   "dress": [
+    "flavor-banner",
+    "flavor-relief",
+    "rug-runner",
+    "candle-drippings-mound"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cult-sanctum",
+  "label": "Sanctum",
+  "program": "generic",
+  "family": "black-stone",
+  "cells": [
+   6,
+   9
+  ],
+  "floors": [
+   "floor-basalt-dark",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "clt-great-sanctum",
+   "clt-sanctum"
+  ],
+  "color": "#8c2f39",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "altar-sacrificial",
+    "flavor-idol",
+    "decal-ritual-circle"
+   ],
+   "furnish": [
+    "pew",
+    "bench-stone",
+    "pillar-square",
+    "dais",
+    "rite-kneeler-cushion",
+    "statue-hooded",
+    "flavor-sculpture",
+    "flavor-buttress",
+    "cage-sacrifice"
+   ],
+   "light": [
+    "flavor-censer",
+    "brazier-standing",
+    "brazier-large",
+    "elemental-brazier",
+    "firepit-sunken",
+    "rite-pillar-candle-tall",
+    "torch-sconce",
+    "candle-cluster"
+   ],
+   "dress": [
+    "flavor-altarpiece",
+    "flavor-banner",
+    "flavor-relief",
+    "flavor-sigil",
+    "dagger-ritual",
+    "chalice-dark",
+    "rite-blood-bowl",
+    "candle-black",
+    "candle-cluster",
+    "rug-runner",
+    "skull-pile",
+    "decal-blood",
+    "skull-candle"
+   ],
+   "store": [
+    "chest-ironbound",
+    "robe-rack"
+   ]
+  },
+  "missing": [
+   "cult-banner",
+   "idol-dark",
+   "phylactery",
+   "tentacles-floor"
+  ]
+ },
+ {
+  "key": "cult-summoning",
+  "label": "Summoning chamber",
+  "program": "generic",
+  "family": "black-stone",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-basalt-dark",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "clt-summoning",
+   "clt-ritual-circle"
+  ],
+  "color": "#6d3fa0",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "decal-ritual-circle",
+    "flavor-sigil",
+    "portal-arch",
+    "rite-sigil-stone"
+   ],
+   "furnish": [
+    "rite-sigil-stone",
+    "spellbook-lectern",
+    "pedestal-display"
+   ],
+   "light": [
+    "rite-pillar-candle-tall",
+    "elemental-brazier",
+    "brazier-tripod",
+    "candle-drippings-mound",
+    "candle-black"
+   ],
+   "dress": [
+    "tome-grimoire",
+    "rite-ritual-hand-bell",
+    "rite-blood-bowl",
+    "flavor-relief",
+    "rite-hooded-robe-folded"
+   ]
+  },
+  "missing": [
+   "alch-summoning-candles-ring",
+   "rite-bone-chime",
+   "rite-cult-mask-blank",
+   "rite-cult-mask-horned",
+   "rite-effigy-straw-bound",
+   "rite-grave-dirt-sack"
+  ]
+ },
+ {
+  "key": "cult-cells",
+  "label": "Holding cells",
+  "program": "generic",
+  "family": "black-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-basalt-dark",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "clt-cells"
+  ],
+  "color": "#4f5560",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "cage-sacrifice",
+    "cage-floor",
+    "cell-bars"
+   ],
+   "furnish": [
+    "manacles-wall",
+    "cell-bench-plank",
+    "bed-straw-pallet",
+    "bucket-slop",
+    "stool-three-leg",
+    "table-square"
+   ],
+   "light": [
+    "brazier-standing",
+    "torch-sconce",
+    "lantern-hanging"
+   ],
+   "dress": [
+    "rural-straw-bedding",
+    "key-hook-board",
+    "chest-ironbound"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cult-vestry",
+  "label": "Robing room",
+  "program": "generic",
+  "family": "black-stone",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-basalt-dark",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "clt-vestry"
+  ],
+  "color": "#6b5a4a",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "robe-stand",
+    "robe-rack"
+   ],
+   "furnish": [
+    "bench-long",
+    "chest-plain",
+    "wardrobe",
+    "table-trestle",
+    "washstand",
+    "basin-stone"
+   ],
+   "light": [
+    "candlestand-pricket",
+    "candle-tree",
+    "sconce-candle-single",
+    "torch-sconce"
+   ],
+   "dress": [
+    "rite-hooded-robe-folded",
+    "candle-black",
+    "mirror-wall",
+    "coat-pegs"
+   ]
+  },
+  "missing": [
+   "rite-cult-mask-blank"
+  ]
+ },
+ {
+  "key": "cult-library",
+  "label": "Forbidden library",
+  "program": "generic",
+  "family": "black-stone",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-basalt-dark",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "clt-library"
+  ],
+  "color": "#3f5d4a",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm",
+   "noble"
+  ],
+  "slots": {
+   "anchor": [
+    "spellbook-lectern",
+    "bookshelf",
+    "bookcase-ladder"
+   ],
+   "furnish": [
+    "table-library",
+    "desk-writing",
+    "stool-three-leg",
+    "shelving-freestanding"
+   ],
+   "light": [
+    "candlestand-pricket",
+    "candle-tree",
+    "candelabra",
+    "rite-pillar-candle-tall"
+   ],
+   "dress": [
+    "tome-chained",
+    "tome-grimoire",
+    "rite-tome-stack-forbidden",
+    "book-stack",
+    "book-open",
+    "book-pile-floor",
+    "inkwell-quill",
+    "skull-single",
+    "candle-black"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cult-quarters",
+  "label": "Acolytes' quarters",
+  "program": "generic",
+  "family": "black-stone",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-basalt-dark",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "clt-quarters"
+  ],
+  "color": "#7d7468",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "bed-straw-pallet",
+    "bunk-bed"
+   ],
+   "furnish": [
+    "chest-plain",
+    "table-trestle",
+    "bench-long",
+    "stool-three-leg",
+    "robe-rack"
+   ],
+   "light": [
+    "candlestick-floor",
+    "sconce-candle-single",
+    "lantern-hanging"
+   ],
+   "dress": [
+    "rite-hooded-robe-folded",
+    "candle-black",
+    "bucket",
+    "rite-kneeler-cushion"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cult-vault",
+  "label": "Inner sanctum",
+  "program": "generic",
+  "family": "black-stone",
+  "cells": [
+   3,
+   4
+  ],
+  "floors": [
+   "floor-basalt-dark",
+   "floor-flagstone-damp",
+   "floor-flagstone-large",
+   "floor-checker-stone"
+  ],
+  "recipes": [
+   "clt-idol-vault",
+   "clt-inner-sanctum"
+  ],
+  "color": "#b08d2f",
+  "group": "Cult sanctum",
+  "tiers": [
+   "cult",
+   "ccm"
+  ],
+  "slots": {
+   "anchor": [
+    "flavor-idol",
+    "dais",
+    "altar-sacrificial"
+   ],
+   "furnish": [
+    "cauldron-bronze-ritual",
+    "pedestal-display",
+    "chest-treasure",
+    "chest-ironbound"
+   ],
+   "light": [
+    "flavor-censer",
+    "elemental-brazier",
+    "rite-sacred-flame-bowl",
+    "rite-pillar-candle-tall",
+    "candle-cluster"
+   ],
+   "dress": [
+    "flavor-sigil",
+    "flavor-banner",
+    "chalice-dark",
+    "tome-grimoire",
+    "candle-cluster",
+    "dagger-ritual",
+    "tome-chained"
+   ]
+  },
+  "missing": [
+   "amulet-glowing",
+   "cursed-doll",
+   "cursed-mask",
+   "soul-gem",
+   "staff-crystal",
+   "unholy-symbol"
+  ]
+ }
+]

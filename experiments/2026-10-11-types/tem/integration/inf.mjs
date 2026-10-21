@@ -1,0 +1,4 @@
+import { loadTree, makeHarness } from './ccm_lib.mjs';
+const S = await loadTree('tem'), H = makeHarness(S), mk = H.mk; let n = 0;
+for (const [w, d] of [[7, 4], [5, 4], [4, 6], [8, 5], [4, 4], [10, 5]]) for (let seed = 1; seed <= 6; seed++) { const s = seed * 97 + w * 7 + d; const B = H.build([mk('h', 'temple-cloister', 10, 7, Math.max(w, 4), 3, s + 1, 1), mk('r', 'temple-infirmary', 10, 10, w, d, s, 2)]), L = B.solve('r');
+  if (!L.paths.every(p => p.ok) && n++ < 2) { console.log(w, d, s, JSON.stringify(B.E.openings.get('r')), JSON.stringify(L.paths.map(p => [p.kind, p.ok, p.len && +p.len.toFixed(1)])), L.notes); for (const p of L.placements.filter(p => p.y < 0.5 && !/sconce|relief|lantern/.test(p.id))) console.log('  ', p.id, p.rule, p.x.toFixed(1), p.z.toFixed(1), p.dims.map(v => v.toFixed(1)).join('x'), (p.rot*57.3).toFixed(0)); } }

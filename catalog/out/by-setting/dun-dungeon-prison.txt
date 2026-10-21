@@ -1,0 +1,309 @@
+DUN — dungeon-prison: 307 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  door-cell-bars             [kit/edge] blocks movement, not sight
+! P1  chest-treasure             [floor/sub] the reward shot
+! P1  dun-treasure-hoard         [floor/2x2] vault and dragon-lair focus; warm gold
+! P1  torch-sconce               [wall/tiny] every stone corridor
+! P1  torch-bracket-rough        [wall/tiny] cellars, stables, dungeons; charred unlit torch head, engine fire FX adds the flame
+! P1  chasm-strip                [floor/1] laid in a row from wall to wall; a bridge crosses it
+! P1  floor-cut-rock             [kit/1] hewn dungeons, dens, shrines
+! P1  floor-flagstone-dungeon    [kit/1] cell blocks, guard rooms, corridors
+! P1  floor-water-flooded        [kit/1] flooded chambers, cisterns; difficult terrain
+! P1  pit-open                   [floor/1] the pit trap, sprung
+! P1  sewer-channel-strip        [floor/1] laid in a row down a sewer
+! P1  bones-pile                 [floor/sub] cell corners, monster lairs
+! P1  brazier-irons              [floor/sub] torture room
+! P1  cage-hanging               [ceiling/sub] over pits, at crossroads
+! P1  cell-bars                  [kit/edge] pairs with door-cell-bars; blocks moves, not sight
+! P1  lever-wall                 [wall/tiny] opens gates, trips traps; scene-state trigger
+! P1  manacles-wall              [wall/sub] cells, torture rooms
+! P1  rack-torture               [floor/1x2] interrogation room anchor
+! P1  lever-floor                [floor/sub] opens the portcullis, drains the room, springs the trap
+! P1  trap-spike-pit             [floor/1] trap corridors; reads as a pit although it stands on the floor
+! P1  chair-interrogation        [floor/sub] interrogation room focus
+! P1  table-torture-tools        [floor/1x2] the tools are fused to the top; beside the rack or the chair
+! P1  door-rune-sealed           [kit/edge] the puzzle's lock; runes go dark when solved
+! P1  pedestal-display           [floor/sub] the "don't touch the thing on the pedestal" shot
+! P1  statue-guardian            [floor/1] flanks corridors, vault doors and shrines
+! P1  key-ring                   [surface/tiny] jailer's belt
+! P1  sewer-channel              [kit/1] pair with fx-water-surface
+! P1  sewer-walkway              [kit/1] the path that follows the channel
+! P1  manacles-loose             [floor/tiny] the prisoner escaped
+! P2  floor-drain-grate          [kit/1] cells, kitchens, torture rooms
+! P2  chasm-strip-wide           [floor/1x2] the wide crossing
+! P2  skeleton-chained           [wall/sub] the forgotten prisoner
+! P2  trap-spikes                [floor/1] retracted vs sprung
+! P2  cell-bench-plank           [wall/1x2] one in each cell, along the side wall
+! P2  trap-flame-jet             [floor/sub] the engine adds the fire; pair with a soot decal
+! P2  ball-and-chain             [floor/tiny] cell floors
+! P2  gibbet-cage-standing       [floor/sub] the floor-standing gibbet; `cage-hanging` is the one on a chain
+! P2  puzzle-dial-pillar         [floor/sub] the combination lock of a puzzle hall
+! P2  jug-of-water-cell          [surface/tiny] prison ration
+! P3  oubliette-hatch            [floor/1] the forgotten cell
+! P3  bed-cell-stone             [floor/1x2] built into a cell wall
+! P3  hood-executioner           [surface/tiny] torture rooms, scaffolds
+  P1  door-reinforced            [kit/edge] vaults, keeps, lockable rooms
+  P1  floor-flagstone-broken     [kit/1] ruins, old cellars, stables
+  P1  floor-flagstone-damp       [kit/1] cellars, dungeons
+  P1  floor-flagstone-large      [kit/1] halls, stables, cellars
+  P1  floor-trapdoor             [kit/1] cellar access; secret exits
+  P1  wall-breach                [kit/edge] secret routes, siege damage, ruin reveals
+  P1  wall-cave-rough            [kit/edge] mines and caves; hides the grid
+  P1  door-cell-bars-open        [kit/edge] open state of door-cell-bars; the prisoner is gone
+  P1  floor-basalt-dark          [kit/1] sanctum floors; dark charcoal, never pure black, so furniture reads on it
+  P1  wall-secret-door           [kit/edge] the hidden way in, found open
+  P1  door-reinforced-open       [kit/edge] open state of door-reinforced
+  P1  decal-bones-scatter        [floor/sub] loose bones are flat on purpose (thin meshes break); scattered thinly in ossuaries and catacombs
+  P1  door-crypt                 [kit/edge] hangs in `wall-doorway--crypt-stone`; a leaf like `door-plank--leaf`, hinged by the engine
+  P1  bed-straw-pallet           [floor/1x2] the poorest bed; prison cells
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  cot                        [floor/1x2] infirmaries, cells
+  P1  shelving-freestanding      [floor/1] storerooms, cellars
+  P1  table-experiment           [floor/1x2] mad-science lab (Grimward) or interrogation
+  P1  table-square               [floor/1] the workhorse table
+  P1  bucket-slop                [floor/tiny] the mundane completeness test, again
+  P1  chest-ironbound            [floor/sub] locked; worth a check
+  P1  coin-pile                  [floor/sub] hoards; tip of a dragon's pile
+  P1  chest-ironbound-open       [floor/sub] open state of chest-ironbound; looted or searched
+  P1  chest-treasure-open        [floor/sub] open state of chest-treasure
+  P1  strongbox-stack            [floor/1] vault walls; counting houses
+  P1  brazier-standing           [floor/sub] throne rooms, torture chambers, shrines
+  P1  candle-cluster             [surface/tiny] altars, ritual spots, spooky shelves
+  P1  crystal-glowing            [floor/sub] deep mines; Room 2's crystal puzzle
+  P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
+  P1  lantern-wall-iron          [wall/tiny] corridors and porches; generated unlit, engine fire FX adds the flame
+  P1  torch-stand                [floor/sub] doorways, yards, halls; charred unlit torch head, engine fire FX adds the flame
+  P1  dice-and-cup               [surface/tiny] gambling tables; guard rooms
+  P1  tankard                    [surface/tiny] one per drinker; scatter
+  P1  arcane-pylon               [floor/sub] activate-four-crystals puzzles (Room 2)
+  P1  collapse-rubble            [floor/1] dead ends; scene-state "cave-in"
+  P1  hay-pile                   [floor/1] lofts; hide in it
+  P1  pick-and-shovel            [wall/sub] everywhere in a mine
+  P1  specimen-jar               [surface/tiny] Grimward's lab
+  P1  mine-lamp-rack             [wall/sub] the lamp store, the shaft head; the engine adds the flames
+  P1  mine-shaft-collar          [floor/1] the shaft head: the way down; reads as a hole although it stands on the floor
+  P1  mine-tool-rack             [wall/1] tool stores, working faces; reads as "picks" from above
+  P1  powder-keg-stack           [floor/1] the powder store; the fuse everyone watches
+  P1  weapon-rack                [wall/1] armories, guard rooms
+  P1  cage-floor                 [floor/1] menageries, slavers' camps
+  P1  iron-maiden                [floor/sub] horror beat
+  P1  pressure-plate             [floor/1] trap trigger (GM-hidden)
+  P1  skull-pile                 [floor/sub] ossuaries, cult sites
+  P1  idol-dark                  [floor/sub] cult chambers
+  P1  charnel-trough             [floor/1x2] along ossuary walls; the bones are one solid heap
+  P1  embalming-table            [floor/1x2] embalming room focus; `rite-corpse-on-slab` is the same table occupied
+  P1  shrine-wayside             [floor/1] back to a wall; the engine may light the candles
+  P1  cave-column                [floor/1] cavern pillars
+  P1  stalactite                 [ceiling/sub] caves (FPV mood)
+  P1  stalagmite                 [floor/sub] caves
+  P1  rubble-pile                [floor/1] the ruin workhorse; varied sizes
+  P1  column-drums-fallen        [floor/1x2] beside its stump
+  P1  pillar-broken              [floor/1] collapsed halls; stands where a `pillar-round` did
+  P1  decal-cobweb               [wall/sub] corners of anything abandoned
+  P1  decal-ritual-circle        [floor/2x2] summonings; can glow
+  P1  fx-force-wall              [floor/edge] barriers that aren't walls
+  P1  fx-lava                    [floor/1] deep mines, volcano lairs
+  P1  fx-miasma                  [floor/2x2] trap gas, swamp lairs
+  P1  giant-web-floor            [floor/2x2] a spider nest's floor; difficult terrain; laid under cocoons and across doorways
+  P1  egg-sacs-floor             [floor/sub] burn before they hatch
+  P1  web-funnel                 [floor/2x2] the spider's own corner; what comes out of it
+  P1  adventurer-remains         [floor/1] "the last party" — loot and foreshadowing
+  P1  altar-sacrificial          [floor/1x2] the cult's climax set-piece
+  P1  block-sliding              [floor/1] push puzzles
+  P1  floor-mosaic               [floor/2x2] the map is on the floor
+  P1  giant-web                  [wall/1x2] difficult terrain; burn it
+  P1  magic-item-cluster         [surface/tiny] shops, hoards, reward reveals
+  P1  mimic-chest                [floor/sub] closed = looks like chest-plain; open = surprise
+  P1  orb-socket-pedestal        [floor/sub] "four crystals must be activated" rooms
+  P1  rune-tile                  [kit/1] step-in-the-right-order puzzles
+  P1  statue-rotating            [floor/1] point them all at the door
+  P1  web-cocoon                 [floor/sub] hang from ceiling or lie in corners
+  P1  carcass-ribcage            [floor/1x2] the den's larder; fat ribs
+  P1  nest-monster               [floor/2x2] monster den focus
+  P1  armor-chainmail-heap       [floor/sub] loot pile staple
+  P1  casket-ornate              [surface/tiny] the box everyone wants opened
+  P1  crossbow                   [surface/tiny] guards, assassins
+  P1  gems-loose                 [surface/tiny] the sparkle in any hoard
+  P1  gold-bars                  [floor/sub] vaults, royal treasury
+  P1  helm-open                  [surface/tiny] guards; the everyman helmet
+  P1  holy-symbol-sun            [surface/tiny] cleric's focus; generic dawn faith
+  P1  key-hook-board             [wall/sub] innkeeper's room keys, jailer's station
+  P1  map-treasure               [surface/tiny] the adventure's opening beat
+  P1  shield-round               [surface/sub] raiders, hall walls
+  P1  sword-long                 [surface/tiny] the default loot sword; lay on tables, bodies, pedestals
+  P1  sword-short                [surface/tiny] guards, rogues, starter gear
+  P1  torch-dropped              [floor/tiny] someone was here recently
+  P1  unholy-symbol              [surface/tiny] cultists' mark; evidence
+  P1  catacomb-shelf-bones       [wall/1] catacomb walls
+  P1  cave-ceiling-rough         [ceiling/1] FPV and cutaway mood
+  P1  cave-floor-tile            [kit/1] the cave-rock family's floor
+  P1  cave-pool                  [floor/1] pair with fx-water-surface
+  P1  cave-ramp-natural          [kit/1x2] levels in a cavern
+  P1  cave-tunnel-narrow         [kit/edge] crawl spaces
+  P1  cave-wall-corner           [kit/edge] lets caves read as caves, not rooms
+  P1  refuse-pile                [floor/1] alleys, lair corners
+  P1  root-ceiling-hanging       [ceiling/1] barrows, shallow dungeons
+  P1  sewer-debris-clog          [floor/1] something lives in there
+  P1  sewer-junction             [kit/2x2] crossroads under the city
+  P1  sewer-ladder-manhole       [kit/1] the way out
+  P1  sewer-outflow              [kit/2x2] where the sewer meets the river
+  P1  sewer-sluice-gate          [floor/1] flood the tunnel as a scene state
+  P1  slime-mold-floor           [floor/1] slippery, maybe acidic
+  P1  stone-coffin-lidless       [floor/1x2] already robbed, or not
+  P1  mug-chipped                [surface/tiny] cheap tavern; prison
+  P1  bear-trap                  [floor/sub] sprung vs set
+  P1  caltrops-scatter           [floor/1] difficult terrain
+  P1  femur-bone                 [floor/tiny] scatter; improvised club
+  P1  iron-spikes                [surface/tiny] spike doors shut
+  P1  map-fragment-torn          [surface/tiny] quest hook; collect all pieces
+  P1  pickaxe                    [floor/tiny] the miner's tool, alone
+  P1  smith-gem-tray             [surface/tiny] heist target; appraisal scenes
+  P1  smith-ingot-silver         [surface/tiny] treasury, jeweler; loot
+  P1  trade-apron-bloody         [wall/sub] butcher's shop — or something worse
+  P1  rural-sign-danger-mine     [wall/tiny] warnings nobody heeds
+  P1  mil-crossbow-rack          [wall/1] gatehouses
+  P1  mil-duty-roster            [wall/sub] who's on watch tonight — a clue
+  P1  mil-guard-lantern          [surface/tiny] night watch; shutters make it a cue
+  P1  mil-helmet-peg-rack        [wall/1] barracks and guard rooms
+  P1  rite-blood-bowl            [surface/tiny] the ritual's ink
+  P1  rite-corpse-on-slab        [floor/1x2] morgue, embalming room, fresh reanimation
+  P2  floor-broken-hole          [kit/1] reveals the level below
+  P2  floor-pit-edge             [kit/edge] chasms, oubliettes, collapsed floors
+  P2  floor-rushes               [kit/1] peasant and cheap-tavern floor family
+  P2  portcullis                 [kit/edge] gatehouses; raised by a winch
+  P2  stair-cut-rock             [kit/1x2] descending into the depths
+  P2  portcullis-raised          [kit/edge] open state of portcullis; the passage is clear
+  P2  corbel-stone               [wall/sub] carries a stone balcony, a wall-walk, a beam end or an oversailing parapet
+  P2  railing-iron               [kit/edge] round the hole a stair cuts in a stone building's floor (2026-10-06); also a gallery or wall-walk edge
+  P2  vault-shelf-treasure       [floor/1] along vault walls, back to the wall
+  P2  cresset-wall               [wall/tiny] yards and great halls; cold charred wood, no fire, engine fire FX adds it
+  P2  fire-basket-stand          [floor/sub] yards and gatehouses; cold split logs, no fire, engine fire FX adds it
+  P2  skull-candle               [surface/tiny] necromancer shorthand
+  P2  decal-ore-scatter          [floor/sub] round heaps, carts and sorting tables
+  P2  decal-claw-marks           [floor/sub] the warning before the reveal
+  P2  decal-rubble-scatter       [floor/sub] round rubble piles and collapses
+  P2  decal-slime                [floor/sub] sewers, dens; slippery
+  P2  decal-web-floor            [floor/1] difficult terrain; burn it
+  P2  sewer-grate                [wall/1] escape routes
+  P2  stocks                     [ground/1] town squares, dungeon yards
+  P2  iron-maiden-open           [floor/sub] open state of iron-maiden
+  P2  trap-crossbow              [floor/sub] at the end of a corridor, aimed down it
+  P2  whipping-post              [floor/sub] interrogation rooms, castle yards
+  P2  statue-forgotten-god       [floor/1] shrine focus
+  P2  debris-planks              [floor/1] floor dressing
+  P2  furniture-smashed          [floor/1] aftermath of a brawl
+  P2  ceiling-slab-fallen        [floor/1x2] collapsed halls
+  P2  flotsam-crate              [floor/sub] flooded chambers and sewers; sits on the water plane
+  P2  pillar-waterline           [floor/1] flooded chambers; stands where a `pillar-square` would
+  P2  shoring-timber             [floor/1] holds up a doubtful ceiling; a token walks through it
+  P2  decal-blood                [floor/sub] crime scenes, torture rooms
+  P2  decal-cracks               [floor/1] aging layer
+  P2  decal-moss                 [floor/1] aging layer for ruins
+  P2  decal-glyph-warding        [floor/sub] magical trap marker (GM-hidden)
+  P2  scroll-sealed-glowing      [surface/tiny] loot and quest deliveries
+  P2  teleport-circle-dais       [floor/2x2] fast travel, escape hatches, villain exits
+  P2  obelisk-rune               [floor/sub] puzzle halls and shrines; runes are dull, the engine may light them
+  P2  arrows-stuck               [floor/sub] aftermath of an ambush
+  P2  eggs-monster               [floor/sub] clutch that shouldn't hatch
+  P2  grappling-hook             [surface/tiny] heist gear
+  P2  halberd                    [surface/sub] gate guards
+  P2  healer-kit                 [surface/tiny] field hospitals
+  P2  lockpick-roll              [surface/tiny] rogue's kit
+  P2  morningstar                [surface/tiny] brutes and guards
+  P2  rations-bundle             [surface/tiny] travellers' food
+  P2  shield-tower               [floor/sub] portable cover
+  P2  silver-plate-pile          [floor/sub] looted manor goods
+  P2  sword-broken               [surface/tiny] battlefield remains; quest to reforge
+  P2  bridge-rope                [kit/1x3] chasm crossings; cut the ropes
+  P2  bridge-stone-natural       [kit/1x3] spans chasms and rivers underground
+  P2  chasm-edge                 [kit/edge] the fall; bridges span it
+  P2  claw-marks-wall            [wall/1] the warning before the reveal
+  P2  creeper-roots-wall         [wall/1] the forest reclaiming masonry
+  P2  egg-sacs-cluster           [wall/sub] burn before they hatch
+  P2  floor-bone-strewn          [floor/1] lair floor layer
+  P2  floor-cracked-tile         [kit/1] aging floor family
+  P2  fungus-forest-stalk        [ground/1] underground forests
+  P2  plank-bridge               [kit/1x2] improvised crossings
+  P2  root-giant                 [floor/1x2] the world-tree's underside
+  P2  rubble-small-scatter       [floor/sub] edges of rubble piles
+  P2  stepping-pillars           [floor/1] jump puzzles
+  P2  bread-heel                 [surface/tiny] prison rations; the last scrap
+  P2  gruel-bowl                 [surface/tiny] prison meal
+  P2  porridge-bowl              [surface/tiny] breakfast, orphanages, prisons
+  P2  chain-length               [floor/1] across gates, round chests
+  P2  plague-mask                [surface/tiny] plague towns; memorable NPCs
+  P2  puzzle-box                 [surface/tiny] the lock is the box
+  P2  rope-knotted               [wall/edge] hangs down walls and shafts
+  P2  scabbard-empty             [surface/tiny] the sword is missing
+  P2  shackles-leg               [floor/sub] chain gangs
+  P2  sledgehammer               [floor/tiny] break walls, mine stores
+  P2  tripwire                   [floor/1] GM-hidden trap trigger
+  P2  vial-stoppered             [surface/tiny] unidentified potion; poison
+  P2  alch-brain-jar             [surface/tiny] mad-science shorthand
+  P2  alch-dissection-tray       [surface/tiny] Grimward's bench
+  P2  alch-heart-preserved-glowing [surface/tiny] lich/golem heart; distinct from plain heart jar
+  P2  alch-homunculus-vat        [floor/1] creation lab set piece
+  P2  alch-slime-jar             [surface/tiny] harvested from the dungeon
+  P2  alch-specimen-jar-large    [floor/sub] mad-lab floor piece
+  P2  smith-chain-coil-heavy     [floor/sub] portcullis and drawbridge stock
+  P2  craft-crossbow-bolts-crate [floor/sub] armories
+  P2  rite-corpse-shrouded       [floor/1x2] plague streets, temple floors
+  P2  rite-idol-small            [surface/tiny] shrine shelves; cursed souvenir
+  P3  ladder-rope                [wall/edge] pits and escapes
+  P3  cistern-hatch              [floor/1] underworld access
+  P3  decal-drag-marks           [floor/sub] beside a sliding block
+  P3  decal-straw-scatter        [floor/sub] cell floors
+  P3  boulder-rolling            [floor/1] you know the scene
+  P3  pillory                    [ground/sub] public punishment
+  P3  trap-blade                 [floor/1] corridor gauntlets
+  P3  trap-dart-wall             [wall/1] tomb corridors
+  P3  block-headsman             [floor/1] the far end of a dungeon, or the courtyard on a bad day
+  P3  fountain-wall-skull        [wall/1] the engine adds the water
+  P3  pottery-shards             [floor/tiny] floor dressing
+  P3  bridge-post-rope           [floor/sub] stands in pairs at the ends of a chasm crossing
+  P3  mushroom-cave-giant        [floor/sub] dens and wet caves
+  P3  door-face-carved           [kit/edge] riddle doors
+  P3  surgeon-tools-tray         [surface/tiny] barber-surgeon; grim interrogation
+  P3  bandages-bloody            [surface/tiny] infirmary aftermath
+  P3  bedroll-tied               [surface/tiny] strapped to packs
+  P3  bolt-case                  [surface/tiny] pairs with crossbows
+  P3  crowbar                    [surface/tiny] open that crate
+  P3  flail                      [surface/tiny] villain weapon
+  P3  chain-pile                 [floor/sub] dungeons, drawbridge rooms
+  P3  climbing-chain             [wall/edge] shafts and pits
+  P3  flowstone-curtain          [wall/1] show caves
+  P3  fungus-puffball            [floor/sub] spore traps
+  P3  fungus-shelf               [wall/sub] damp walls; glow variant
+  P3  glowworm-ceiling           [ceiling/1] soft cave light
+  P3  stair-wall-hugging         [kit/1x2] tower interiors
+  P3  straw-scatter              [floor/sub] stables, cells, barns
+  P3  bottle-broken              [surface/tiny] brawl aftermath; improvised weapon
+  P3  meat-hook-single           [ceiling/tiny] beams, butchers, dungeons
+  P3  plate-broken               [surface/tiny] after the brawl
+  P3  pot-shattered              [surface/tiny] debris
+  P3  biscuits-hard              [surface/tiny] rations, sieges
+  P3  bread-stale-moldy          [surface/tiny] cells, abandoned kitchens
+  P3  cheese-moldy-blue          [surface/tiny] comedic smell; lure
+  P3  chicken-carcass-bones      [surface/tiny] aftermath
+  P3  fish-bones                 [surface/tiny] aftermath, cat bait
+  P3  pottage-pot                [surface/tiny] peasant hearth
+  P3  alarm-bells-string         [wall/1] camp perimeters
+  P3  bloodletting-basin         [surface/tiny] barber-surgeons
+  P3  bone-saw                   [surface/tiny] field surgeons; Grimward
+  P3  book-waterlogged           [surface/tiny] sewers, flooded libraries
+  P3  chalk-marks                [wall/sub] another party mapped this
+  P3  heart-jar                  [surface/tiny] necromancy components
+  P3  hooks-iron                 [surface/tiny] smithies, butchers
+  P3  jawbone                    [floor/tiny] scatter
+  P3  potion-empty-cracked       [floor/tiny] the last party tried
+  P3  ribcage                    [floor/tiny] lair floors
+  P3  shield-broken              [floor/sub] battlefield, lair floors
+  P3  alch-binding-chains-runed  [wall/sub] hold what was summoned
+  P3  alch-scalpel-set           [surface/tiny] dissection kit
+  P3  smith-key-mould-wax        [surface/tiny] evidence of a planned break-in
+  P3  smith-lock-cutaway         [wall/sub] thieves' guild training
+  P3  smith-shackles-new         [wall/tiny] a grim commission
+  P3  trade-blood-bucket         [floor/tiny] butchers and cultists alike
+  P3  rural-crowbar-mine         [floor/tiny] levering loose rock; opening crates
+  P3  mil-armor-empty-sprawled   [floor/1] haunted armories; who wore it?
+  P3  mil-prisoner-yoke          [surface/sub] slavers and war camps

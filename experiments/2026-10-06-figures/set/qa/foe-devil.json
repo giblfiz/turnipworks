@@ -1,0 +1,198 @@
+{
+ "file": "foe-devil.glb",
+ "tris": 48309,
+ "kb": 2747,
+ "native_extent": [
+  0.82,
+  1.001,
+  0.502
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0021,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  66,
+  34,
+  24
+ ],
+ "mean_saturation": 0.654,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 7.88,
+  "length_ft": 7.88,
+  "low_end_ft": [
+   -2.0,
+   0.19,
+   0.43
+  ],
+  "high_end_ft": [
+   -2.98,
+   8.01,
+   0.73
+  ],
+  "tilt_from_upright_deg": 7.5,
+  "thickness_ft": 0.38,
+  "clear_share": 0.87,
+  "joined_share": 0.13,
+  "broken_share": 0.0,
+  "walk_low_to_high": "------------------------------######-------------##------------"
+ },
+ "overall_ft": 8.07,
+ "pieces": {
+  "connected_parts": 139,
+  "main_part_area_share": 0.9047,
+  "floating": [
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.07
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.07
+   }
+  ],
+  "floating_count": 4,
+  "floating_area_share": 4e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 8.0661,
+ "y0": -4.0379,
+ "stated_ft": {
+  "body": 8.0,
+  "figure_top": 8.0,
+  "overall": 8.0
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4073,
+   -0.5007,
+   -0.2511
+  ],
+  [
+   0.4128,
+   0.4999,
+   0.2507
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48309,
+   "tex": 2048,
+   "kb": 2747
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1120
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 481
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 2.0,
+    "z": -0.77,
+    "size_ft": [
+     1.21,
+     2.25
+    ],
+    "off_ground_ft": 0.082,
+    "sole_level_share": 0.08,
+    "sole_p90_ft": 0.626
+   },
+   {
+    "x": 1.18,
+    "z": 0.92,
+    "size_ft": [
+     1.11,
+     1.71
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.67,
+    "sole_p90_ft": 0.362
+   },
+   {
+    "x": -0.94,
+    "z": -0.36,
+    "size_ft": [
+     1.38,
+     1.38
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.66,
+    "sole_p90_ft": 0.382
+   },
+   {
+    "x": -2.0,
+    "z": 0.43,
+    "size_ft": [
+     0.87,
+     0.91
+    ],
+    "off_ground_ft": 0.187,
+    "sole_level_share": 0.57,
+    "sole_p90_ft": 0.406
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.187,
+  "lowest_slab_area_sqft": 2.31,
+  "plan_hull_area_sqft": 16.93,
+  "lowest_slab_share_of_plan": 0.136
+ },
+ "plan": {
+  "size_ft": {
+   "w": 6.61,
+   "d": 4.04,
+   "h": 8.07
+  },
+  "centre": [
+   0.356,
+   -0.022
+  ],
+  "contacts_radius_ft": 2.81,
+  "reach_radius_ft": 3.63,
+  "share_outside_2p5ft": 0.094
+ },
+ "silhouette": {
+  "iou": 0.89,
+  "plate_lost_share": 0.033,
+  "added_share": 0.087,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.89,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 8
+ },
+ "id": "foe-devil",
+ "sha1": "b90bebc26dee56036af59fcdc5adadcfff3dd0da",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.19 ft off the ground"
+ ],
+ "qa_seconds": 17.8
+}

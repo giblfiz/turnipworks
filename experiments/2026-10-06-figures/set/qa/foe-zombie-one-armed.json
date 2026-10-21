@@ -1,0 +1,133 @@
+{
+ "file": "foe-zombie-one-armed.glb",
+ "tris": 49500,
+ "kb": 2795,
+ "native_extent": [
+  0.59,
+  1.0,
+  0.562
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0646,
+  "seen": 0.0005
+ },
+ "mean_rgb": [
+  47,
+  32,
+  18
+ ],
+ "mean_saturation": 0.697,
+ "sized_by": "its highest point",
+ "overall_ft": 5.7,
+ "pieces": {
+  "connected_parts": 190,
+  "main_part_area_share": 0.9855,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.7001,
+ "y0": -2.8502,
+ "stated_ft": {
+  "body": 5.7,
+  "figure_top": 5.7,
+  "overall": 5.7
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2918,
+   -0.5001,
+   -0.2807
+  ],
+  [
+   0.2986,
+   0.5001,
+   0.2812
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49500,
+   "tex": 2048,
+   "kb": 2795
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1123
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 487
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.22,
+    "z": -0.41,
+    "size_ft": [
+     0.85,
+     1.52
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.68,
+    "sole_p90_ft": 0.099
+   },
+   {
+    "x": -1.21,
+    "z": -0.69,
+    "size_ft": [
+     0.9,
+     1.45
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.68,
+    "sole_p90_ft": 0.101
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.002,
+  "lowest_slab_area_sqft": 1.57,
+  "plan_hull_area_sqft": 7.04,
+  "lowest_slab_share_of_plan": 0.223
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.36,
+   "d": 3.19,
+   "h": 5.7
+  },
+  "centre": [
+   0.017,
+   -0.356
+  ],
+  "contacts_radius_ft": 1.69,
+  "reach_radius_ft": 2.15,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.894,
+  "plate_lost_share": 0.035,
+  "added_share": 0.08,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.894,
+  "view_yaw_deg": 0,
+  "view_elev_deg": 0
+ },
+ "id": "foe-zombie-one-armed",
+ "sha1": "324c3e2ea74173846732d1b72116a065a83b2341",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 12.6
+}

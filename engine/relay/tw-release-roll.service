@@ -1,0 +1,12 @@
+# The nightly release roll for turnipworks.net (2026-10-19; tools/release.sh "roll"; docs/NETCODE.md "Two servers").
+[Unit]
+Description=Turnip Works nightly release roll (prod = the release candidate)
+After=network.target tw-relay.service
+
+[Service]
+Type=oneshot
+User=fauna
+Group=fauna
+WorkingDirectory=/opt/turnip-works
+ExecStart=/opt/turnip-works/tools/release.sh roll
+TimeoutStartSec=30min

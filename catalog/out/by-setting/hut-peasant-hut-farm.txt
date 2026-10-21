@@ -1,0 +1,865 @@
+HUT — peasant-hut-farm: 863 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  door-barn-double           [kit/2x2] barns and stables; open = daylight floods in
+! P1  fence-wattle               [kit/edge] gardens, pens
+! P1  floor-boards-rough         [kit/1] privies, storerooms, hovels
+! P1  floor-earth-packed         [ground/1] barns, privies, hovels
+! P1  floor-hayloft              [kit/1] the upper storey of a barn; hide in the hay
+! P1  hearth-central             [floor/1] center of a one-room cottage
+! P1  outhouse                   [ground/1] the yard behind any building
+! P1  well                       [floor/1] village and courtyard centerpiece
+! P1  floor-field-furrows        [ground/1] the field's ground; the furrows run on from tile to tile
+! P1  nest-box-row               [floor/1] the coop's signature: along its walls
+! P1  bed-straw-pallet           [floor/1x2] the poorest bed; prison cells
+! P1  turnip-pile                [floor/sub] house mascot; ship this first and make it beautiful
+! P1  chicken-perch-ladder       [floor/1] coop signature; perches as thick as a wrist
+! P1  scarecrow-post             [ground/sub] fields and gardens; post as thick as a fence post
+! P1  hay-bale                   [floor/sub] barns, stables
+! P1  tools-farm-leaning         [wall/sub] by the door
+! P1  woodpile                   [floor/1] by the hearth or outside wall
+! P1  rug-braided-round          [floor/1] cottages, cheap rooms
+! P1  rug-hay-scatter            [floor/1] stables, barns, byres; breaks up dirt floors
+! P1  rug-rush-mat               [floor/1] peasant floors, monk cells
+! P1  haystack-field             [ground/1] fields; hide in it
+! P1  tree-fruit                 [ground/1] orchards in rows; manor gardens
+! P1  vegetable-patch            [ground/1x2] cottage gardens (turnips, obviously)
+! P1  axe-woodcutter             [floor/tiny] woodpiles, stumps
+! P1  pitchfork                  [floor/tiny] barns; angry-mob standard issue
+! P1  craft-loom-warp-weighted   [wall/1x2] peasant weaving; stones hang below
+! P1  rural-fishing-rod-leaning  [wall/tiny] riverbanks, cottage walls
+! P1  rural-grain-stook          [ground/sub] harvest fields; rows of them
+! P1  rural-hurdle-wattle        [floor/edge] temporary pens
+! P2  floor-rushes               [kit/1] peasant and cheap-tavern floor family
+! P2  roof-thatch                [kit/1] exterior; hide with a cut plane when indoors
+! P2  roofing-thatch             [kit/1] cottage and poor-inn roofs
+! P2  rushlight-holder-wall      [wall/tiny] the poorest light; generated unlit, engine fire FX adds the flame
+! P2  onion-string               [ceiling/tiny] hangs from beams
+! P2  chicken-coop               [ground/1] cottage yards
+! P2  chopping-block             [floor/sub] yards
+! P2  spinning-wheel             [floor/sub] peasant home signature
+! P2  scythe                     [floor/tiny] fields; grim-reaper silhouette
+! P2  sickle                     [surface/tiny] harvest; druid's golden sickle
+! P2  trade-curds-draining       [surface/tiny] dairy bench
+! P3  rushlight-holder           [floor/sub] the peasant's candle
+! P3  butter-churn               [floor/sub] farm kitchens
+! P3  scarecrow                  [ground/sub] fields; spooky variant
+! P3  milk-pail-stool            [floor/sub] byre dressing
+! P3  quern-hand                 [surface/tiny] peasant grinding
+! P3  clogs-wooden               [floor/tiny] peasant doorways
+! P3  hat-straw                  [surface/tiny] farmers, fields
+! P3  spindle-drop               [surface/tiny] peasant hearthside; cursed-spindle tales
+  P1  floor-earth-bare           [ground/1] barns and stables under hay and mud scatter
+  P1  floor-earth-straw          [ground/1] stables, barns
+  P1  floor-planks-rushes        [kit/1] medieval hall floor
+  P1  floor-planks-worn          [kit/1] tavern default; tiles seamlessly
+  P1  floor-trapdoor             [kit/1] cellar access; secret exits
+  P1  post-timber                [floor/sub] timber buildings, taverns, barns
+  P1  door-barn-double-open      [kit/2x2] open state of door-barn-double; daylight floods in
+  P1  decal-grass-tuft           [ground/sub] scattered over floor-grass so a lawn is not one flat green; generated 2026-10-05 (4 shapes)
+  P1  decal-grass-worn           [ground/sub] scattered thinly over floor-grass; generated 2026-10-05 (3 shapes)
+  P1  decal-path-worn            [ground/sub] laid along the yard's door-to-gate path; the yard grammar lays it by itself once it exists; generated 2026-10-05
+  P1  floor-grass                [ground/1] the yard's default ground; generated 2026-10-05 (4 variants)
+  P1  bread-oven                 [wall/1] kitchens and village bakeries
+  P1  cook-hearth-spit           [wall/1x2] kitchen anchor
+  P1  fireplace-wall             [wall/1x2] anchor for common rooms; seating faces it
+  P1  grindstone                 [floor/sub] sharpening corner; armories
+  P1  hitching-post              [ground/1] outside taverns and shops
+  P1  privy-seat-single          [wall/1] the mundane completeness test
+  P1  water-trough               [ground/1x2] stables and yards
+  P1  windlass                   [floor/1] shafts, portcullis rooms, wells
+  P1  bed-double                 [floor/2x2] the good inn room
+  P1  bed-single                 [floor/1x2] inn rooms
+  P1  bedroll                    [floor/1x2] camps; floor of a cheap room
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  cot                        [floor/1x2] infirmaries, cells
+  P1  shelving-freestanding      [floor/1] storerooms, cellars
+  P1  table-kitchen-prep         [floor/1x2] center of a kitchen
+  P1  table-square               [floor/1] the workhorse table
+  P1  table-trestle              [floor/1x2] pairs with two long benches
+  P1  table-work                 [floor/1x2] every trade's bench
+  P1  wardrobe                   [wall/1] bedrooms; hide inside
+  P1  bucket-slop                [floor/tiny] the mundane completeness test, again
+  P1  linen-chest-open           [floor/sub] open state of linen-chest
+  P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
+  P1  lamp-wall-shelf            [wall/tiny] bedrooms and the front desk; generated unlit, engine fire FX adds the flame
+  P1  lantern-pierced-tin        [wall/tiny] stables and back stairs; generated unlit, engine fire FX adds the flame
+  P1  sconce-candle-double       [wall/tiny] common-room walls; generated unlit (dark wicks), engine fire FX adds the flames
+  P1  sconce-reflector           [wall/tiny] throws light back into the room; generated unlit, engine fire FX adds the flame
+  P1  lantern-post-indoor        [floor/sub] hallway and stable-aisle light posts; generated unlit, engine fire FX adds the flame
+  P1  cauldron                   [floor/sub] kitchen, witch's hut, alchemist
+  P1  cooking-tripod             [floor/sub] over campfires
+  P1  mortar-pestle              [surface/tiny] apothecaries, herb-wives
+  P1  tankard                    [surface/tiny] one per drinker; scatter
+  P1  butcher-block              [floor/sub] butcher stall, castle kitchen
+  P1  cheese-wheel               [surface/tiny] larders, market stalls
+  P1  ham-hanging                [ceiling/tiny] kitchens, cellars
+  P1  poultry-plucked-hanging    [ceiling/tiny] kitchens, butcher stalls; the chicken, as a prop
+  P1  feed-trough                [floor/1] stalls, pens
+  P1  hay-pile                   [floor/1] lofts; hide in it
+  P1  stable-stall               [kit/edge] stable rows
+  P1  wheelbarrow                [floor/sub] yards, mines
+  P1  decal-dirt-patch           [ground/sub] scatter on earth floors; breaks up repetition
+  P1  rug-hearth-halfmoon        [floor/1] in front of every fireplace
+  P1  rug-round                  [floor/1] under round tables, bedside
+  P1  rug-sheepskin              [floor/sub] bedside, by the fire
+  P1  rug-striped-woven          [floor/1] common rooms, guest rooms
+  P1  cart-hand                  [ground/1] streets, farms
+  P1  log-seat                   [ground/1x2] around a campfire
+  P1  planter-barrel             [ground/sub] either side of an inn door; generated 2026-10-05
+  P1  grass-tall                 [ground/sub] ruin overgrowth, fields
+  P1  tree-conifer               [ground/1] mountain mines, forests
+  P1  tree-deciduous             [ground/2x2] exteriors; the ground plane's anchor
+  P1  fairy-ring                 [ground/2x2] don't step in it (or do)
+  P1  baskets-stack              [floor/sub] store corners
+  P1  bench-village              [ground/1x2] squares, tavern fronts
+  P1  bread-peel                 [wall/sub] by the oven
+  P1  candle-stubs-dish          [surface/tiny] poor households
+  P1  carpenter-bench            [floor/1x2] joiner's shop
+  P1  chamber-pot                [floor/tiny] under every bed; mundane completeness
+  P1  clothes-chest-open         [floor/sub] ransacked rooms, packing
+  P1  cup-wooden                 [surface/tiny] peasant tables, camps
+  P1  flour-bin                  [floor/sub] kitchens, bakeries
+  P1  footstool                  [floor/tiny] before armchairs
+  P1  grain-bin-stable           [floor/sub] feed room
+  P1  jars-preserves             [surface/tiny] larders
+  P1  linen-chest                [floor/sub] bedroom storage
+  P1  malt-sacks                 [floor/sub] brewhouse store
+  P1  manure-heap                [ground/1] honest stable yards
+  P1  maypole                    [ground/1] festivals; plot-hook celebrations
+  P1  pump-trough-village        [ground/1x2] village squares
+  P1  quilt-rack                 [floor/sub] cottage bedrooms
+  P1  rocking-chair              [floor/sub] grandmother's chair; spooky when it moves
+  P1  spoon-jar                  [surface/tiny] kitchen counters
+  P1  stable-stall-door          [kit/edge] closes stable-stall rows
+  P1  stable-stall-gate          [kit/edge] closes the 5-ft front of a horse stall
+  P1  stable-stall-partition     [kit/edge] divides 5-ft-wide, 10-ft-deep stalls
+  P1  stile                      [ground/edge] field boundaries
+  P1  tack-wall                  [wall/1] tack rooms
+  P1  utensil-rack               [wall/1] every working kitchen
+  P1  washstand                  [floor/sub] guest rooms
+  P1  water-jug-basin            [surface/tiny] bedrooms and inn rooms
+  P1  well-sweep                 [ground/1x2] poorer villages instead of a windlass
+  P1  wheel-spare                [floor/sub] wheelwrights, stable yards, anywhere
+  P1  bramble-thicket            [ground/1] difficult terrain
+  P1  bridge-covered             [ground/1x3] troll-bridge territory
+  P1  bridge-stone-arch          [ground/1x3] over rivers and moats
+  P1  bush-berry                 [ground/sub] foraging, druid gardens
+  P1  cart-shed                  [ground/2x2] inn yards
+  P1  chimney-standing-alone     [ground/1] the saddest silhouette in a raided village
+  P1  crop-field-tile            [ground/1] tile outward for farmland
+  P1  dirt-path-tile             [ground/1] roads between places
+  P1  dovecote                   [ground/1] manor grounds, farmsteads
+  P1  dung-heap                  [floor/1] something undigested glitters
+  P1  fence-picket               [kit/edge] tidier yards
+  P1  flowerbed                  [ground/1] cottage fronts, manor paths
+  P1  grave-marker-wood          [ground/tiny] paupers' graves, battlefield burials
+  P1  hide-drying-rack           [ground/1] hunters, goblin camps
+  P1  hill-mound-terrain         [ground/2x2] breaks flat ground
+  P1  lamp-post-wood             [ground/sub] village lanes
+  P1  leaf-litter                [ground/1] seasonal dressing; hides pressure plates
+  P1  mill-wheel                 [wall/1x2] village mills
+  P1  pigsty                     [ground/2x2] farmyards (no pigs, per the prop rule)
+  P1  pond-edge                  [kit/edge] ponds and lakes
+  P1  porch-covered              [kit/1x2] tavern fronts, farmhouses
+  P1  refuse-pile                [floor/1] alleys, lair corners
+  P1  roof-collapsed             [ceiling/2x2] lets rain and light in
+  P1  roof-shingle-wood          [kit/1] middle-wealth roofs
+  P1  stair-exterior-wood        [kit/1x2] outside stairs to rented rooms
+  P1  tree-birch                 [ground/1] light woodland; cluster 3–5
+  P1  tree-oak-great             [ground/3x3] village greens, grove edges; hang a swing or a body
+  P1  tree-willow                [ground/2x2] stream banks, pond edges
+  P1  well-house                 [ground/1] village square centerpiece
+  P1  woodshed                   [ground/1x2] behind cottages
+  P1  bowl-soup-empty            [surface/tiny] fill it from the food list (soup-bowl, stew-bowl)
+  P1  cauldron-small             [attach/tiny] over the fire on a chain
+  P1  cleaver                    [surface/tiny] stuck in a chopping board
+  P1  cup-clay                   [surface/tiny] the peasant's cup
+  P1  jar-oil                    [surface/tiny] pantries
+  P1  jar-pickles                [surface/tiny] pantries
+  P1  knife-table                [surface/tiny] beside every plate
+  P1  mug-chipped                [surface/tiny] cheap tavern; prison
+  P1  mug-of-ale                 [surface/tiny] the default drink on a table
+  P1  pan-long-handle            [surface/tiny] reaches into the hearth
+  P1  placemat-rush              [surface/tiny] cottage table
+  P1  plate-wood-round           [surface/tiny] cottage table
+  P1  platter-wood               [surface/tiny] bread and cheese boards
+  P1  pot-hook-chain             [attach/tiny] hangs from the hearth crane
+  P1  salt-box                   [wall/tiny] hangs by the hearth
+  P1  spoon-horn                 [surface/tiny] herders and travellers
+  P1  tray-wood-round            [surface/tiny] the serving girl's tray
+  P1  trencher-wood              [surface/tiny] the common plate
+  P1  utensil-rack-wall          [wall/sub] beside the hearth
+  P1  apple-basket               [surface/sub] kitchens, stalls, cart beds
+  P1  beans-dried-sack           [floor/sub] larders
+  P1  bread-long-loaf            [surface/tiny] under an arm; poking out of baskets
+  P1  cheese-wheel-cut           [surface/tiny] tables, larders
+  P1  chicken-roast-whole        [surface/tiny] dinner centrepiece
+  P1  jam-jar                    [surface/tiny] pantries
+  P1  pie-cut-missing-slice      [surface/tiny] someone's been at it
+  P1  pie-slice                  [surface/tiny] plates
+  P1  plate-pie-slice            [surface/tiny] dessert course
+  P1  potato-pile                [floor/sub] root cellars, sacks spilling
+  P1  potato-sack-open           [floor/sub] cellars, kitchens
+  P1  sauerkraut-crock           [surface/tiny] cellars
+  P1  turnip-basket              [surface/sub] the mascot, portable
+  P1  vegetable-basket-mixed     [surface/sub] kitchens, stalls, doorsteps
+  P1  bear-trap                  [floor/sub] sprung vs set
+  P1  bridle-hanging             [wall/tiny] stables
+  P1  candle-black               [surface/tiny] cult circles
+  P1  crutch                     [floor/tiny] infirmaries, veterans
+  P1  doll-rag                   [floor/tiny] the haunted doll; the lost child
+  P1  icon-painted               [wall/tiny] peasant corners, chapels
+  P1  alch-cauldron-bubbling-green [floor/sub] the witch's cauldron in action
+  P1  alch-mandrake-root         [surface/tiny] iconic plant reagent
+  P1  craft-cloth-bolt-undyed    [surface/tiny] common stock
+  P1  craft-distaff-and-wool     [surface/tiny] the spinner's staff
+  P1  craft-hide-drying-hung     [ceiling/1x2] drying lofts
+  P1  craft-hide-raw-folded      [floor/sub] trappers' delivery
+  P1  craft-loom-weights         [surface/tiny] archaeology-true ruin dressing
+  P1  craft-saw-pit-frame        [floor/1x3] top man and pit man
+  P1  craft-shavings-pile        [floor/sub] under every bench; kindling
+  P1  craft-tanner-bark-pile     [floor/1] tannin source
+  P1  craft-tanner-fleshing-beam [floor/1x2] tannery signature
+  P1  craft-wood-offcut-bin      [floor/sub] kindling for the whole street
+  P1  craft-work-stool-low       [floor/sub] every workshop
+  P1  craft-workshop-lantern-hook [surface/tiny] bench light
+  P1  craft-yarn-ball            [surface/tiny] every cottage
+  P1  craft-yoke-ox              [wall/1] barns, workshops
+  P1  trade-fever-basin          [surface/tiny] sickroom bedside
+  P1  trade-herbal-book-open     [surface/tiny] identify the poison
+  P1  trade-pot-on-wheel         [floor/sub] caught mid-work; the potter just stepped out
+  P1  trade-salting-trough       [floor/1x2] curing larder
+  P1  trade-scalding-tub         [floor/1] slaughter yard
+  P1  rural-antlers-shed         [surface/tiny] forest floor finds
+  P1  rural-bait-pot             [surface/tiny] fisher's kit
+  P1  rural-catch-bucket         [floor/tiny] end of a good day
+  P1  rural-fish-trap-basket     [floor/tiny] shallows, hut walls
+  P1  rural-game-bag             [surface/tiny] hunters' gear
+  P1  rural-horse-brasses        [wall/tiny] tavern decoration
+  P1  rural-lantern-barn         [wall/tiny] barns and stables
+  P1  rural-manger-wall          [wall/1] every stall
+  P1  rural-mooring-post         [ground/tiny] river landings
+  P1  rural-net-drying-rack      [ground/1x2] fishing huts
+  P1  rural-oars-pair            [floor/tiny] leaning by boats
+  P1  rural-oat-sack             [floor/tiny] feed rooms
+  P1  rural-pelt-wolf            [surface/tiny] trappers' cabins, markets
+  P1  rural-saddle-riding        [floor/sub] stables, tack rooms
+  P1  rural-scythe-snath-leaning [wall/tiny] the grim-reaper silhouette
+  P1  rural-seed-basket          [surface/tiny] spring sowing
+  P1  rural-smoke-rack-meat      [ground/1] jerky over coals
+  P1  rural-straw-bedding        [floor/1] stall floors; sleep in the stables
+  P1  rural-straw-bundle         [floor/tiny] thatching, bedding
+  P1  rural-water-bucket-stable  [floor/tiny] every stall
+  P1  bard-recorder              [surface/tiny] shepherds and minstrels
+  P1  rite-prayer-book-small     [surface/tiny] pews, bedside tables
+  P1  rite-salt-line             [floor/1] broken salt = something got in
+  P2  beam-ceiling               [ceiling/edge] FPV texture; hang lanterns and hams from it
+  P2  fence-post-rail            [kit/edge] paddocks, stable yards
+  P2  floor-tile-kitchen-small   [kit/1] kitchens, dairies
+  P2  gate-fence                 [kit/edge] pens and yards
+  P2  railing-wood               [kit/edge] galleries over common rooms
+  P2  wall-drystone              [kit/edge] countryside boundaries
+  P2  jetty-bracket              [wall/sub] one under each joist end where an upper storey oversails the lower by 2.5 ft
+  P2  roofing-shingle-wood       [kit/1] middle-wealth and woodland roofs
+  P2  floor-grass-worn           [ground/1] busy yards, paddocks; generated 2026-10-05
+  P2  roof-hatch                 [kit/1] the way onto a roof; sits over the head of a ladder
+  P2  roof-hatch-open            [kit/1] open state of roof-hatch
+  P2  fire-ring-iron             [floor/1] yards and camps; logs and grey ash, no fire, engine fire FX adds it
+  P2  firepit-log-spit           [floor/1x2] yards, camps, feast nights; empty spit, cold logs and ash, engine fire FX adds the fire
+  P2  firepit-stone-round        [floor/1] centre of a hall or yard; logs and grey ash, no fire, engine fire FX adds it
+  P2  firepit-sunken             [floor/2x2] old halls; logs and grey ash, no fire, engine fire FX adds it
+  P2  hearth-central-hood        [floor/2x2] a hall's centrepiece; logs and grey ash, no fire, engine fire FX adds it
+  P2  hearth-raised-square       [floor/2x2] longhouse-style common rooms; logs and grey ash, no fire, engine fire FX adds it
+  P2  dresser-plates             [wall/1] display the household's plates
+  P2  settle                     [floor/1x2] beside the fire; blocks drafts
+  P2  stable-stall-back          [kit/edge] solid plank wall between two stall rows that share a spine
+  P2  storage-jar                [floor/sub] oil, grain, wine; ruins full of broken ones
+  P2  bread-oven-open            [wall/1] open state of bread-oven; unlit, engine fire FX adds coals
+  P2  salt-box-open              [wall/tiny] open state of salt-box
+  P2  candle-box-sconce          [wall/tiny] cottage and back-room walls; generated unlit, engine fire FX adds the flame
+  P2  lantern-wall-horn          [wall/tiny] cheap medieval light; generated unlit, engine fire FX adds the flame
+  P2  cutting-board              [surface/tiny] prep tables
+  P2  rite-prie-dieu             [floor/sub] before shrines, in cells and side chapels
+  P2  apple-pile                 [surface/tiny] baskets, bowls, barrels
+  P2  cabbage                    [floor/tiny] gardens, stalls, cellars
+  P2  fish                       [surface/tiny] stalls, kitchens
+  P2  game-brace-hanging         [ceiling/tiny] hunting lodges, cottage doors, poachers
+  P2  herbs-drying               [ceiling/tiny] hang from beams; apothecary mood
+  P2  bean-poles-wigwam          [ground/sub] vegetable gardens: height among the beds
+  P2  egg-basket                 [surface/tiny] coops, kitchens, market stalls
+  P2  loft-ladder-head           [floor/1] lofts: how you came up
+  P2  pot-hook-tripod            [floor/sub] over the cottage's open hearth; legs drawn stout
+  P2  root-sand-box              [floor/1] root cellars: the signature piece
+  P2  windfall-apples-scatter    [ground/1] under orchard trees
+  P2  lumber-pile                [floor/1x2] workyards, mine stores
+  P2  animal-hutch               [wall/1] familiars and specimens
+  P2  perch-tree                 [floor/sub] the menagerie's tall silhouette
+  P2  shrine-roadside            [ground/sub] crossroads, village edges
+  P2  rug-wolfskin               [floor/1] hunters' cabins, mercenary rooms
+  P2  signpost                   [ground/sub] crossroads, village edges
+  P2  wagon                      [ground/2x3] caravans, stable yards
+  P2  fence-post-corner          [kit/edge] closes fence runs at corners and gates; generated 2026-10-05
+  P2  flowerbox-window           [wall/sub] under a window on the wall facing the yard; generated 2026-10-05
+  P2  garden-tools-leaning       [wall/sub] one chunky mesh instead of three thin ones; against the wall by the kitchen door; generated 2026-10-05
+  P2  hedge-end-block            [kit/edge] ends a hedge run and stands at its corners, a little taller than the hedge
+  P2  table-picnic               [ground/1x2] beer gardens and inn yards; generated 2026-10-05
+  P2  wall-drystone-pier         [kit/edge] ends a dry-stone wall run and stands at its corners
+  P2  woodpile-long              [ground/1x2] runs along an outside wall in place of two short stacks side by side
+  P2  bench-garden               [ground/1] facing the fountain
+  P2  bench-potting              [wall/1] the conservatory's working corner
+  P2  log-fallen                 [ground/1x2] forest cover
+  P2  timbers-burnt              [floor/1] raided villages
+  P2  bundle-wrapped             [floor/tiny] caravans, smugglers
+  P2  firewood-basket            [floor/tiny] hearthsides
+  P2  fishing-net-hanging        [wall/1x2] fishing villages; lakeside huts
+  P2  hide-stretching-frame      [floor/1] tanners, hunters' camps
+  P2  kiln-pottery               [floor/1] potter's yard
+  P2  millstones                 [floor/2x2] mill interior anchor
+  P2  poker-set                  [floor/tiny] every fireplace
+  P2  potters-wheel              [floor/1] potter anchor
+  P2  rowboat-beached            [ground/1x2] lakes and rivers without a full docks pack
+  P2  waterwheel                 [ground/2x2] mill exterior; stream side
+  P2  cloak-hanging              [wall/sub] by the door; disguises
+  P2  fiddle                     [surface/tiny] tavern music
+  P2  hide-stretched             [floor/1] hunters' camps, tanners
+  P2  holy-symbol-tree           [surface/tiny] druids' focus
+  P2  pelts-stack                [floor/sub] fur traders, trappers
+  P2  staff-gnarled              [surface/sub] druids and hedge witches
+  P2  hedge-straight             [kit/edge] manor gardens, mazes; overgrown in ruins
+  P2  mud-patch                  [ground/1] difficult terrain after rain
+  P2  reeds                      [ground/sub] water edges; hide in them
+  P2  roof-gable-end             [kit/edge] closes a pitched roof
+  P2  stepping-stones            [ground/1x2] the careful crossing
+  P2  stream-bank                [kit/edge] rivers are banks plus fx-water-surface
+  P2  stream-bend                [kit/edge] meanders
+  P2  bottle-clay                [surface/tiny] cider, beer
+  P2  bowl-clay                  [surface/tiny] the cottage bowl
+  P2  bowl-stack                 [surface/tiny] shelves
+  P2  bowl-wood-large            [surface/tiny] kitchen prep
+  P2  bread-basket-cloth         [surface/tiny] fill from the food list
+  P2  cauldron-witch             [floor/sub] green glow; pair with fx
+  P2  cutting-board-round        [surface/tiny] cut bread at table
+  P2  fire-irons                 [floor/tiny] by every fireplace
+  P2  griddle-iron               [surface/tiny] flatbreads, oatcakes
+  P2  jug-stoneware-large        [surface/tiny] cider jug with a thumb loop
+  P2  kettle-hanging             [attach/tiny] over the hearth
+  P2  knife-bread                [surface/tiny] on the bread board
+  P2  ladle-wooden               [surface/tiny] peasant pots
+  P2  mug-glazed                 [surface/tiny] second-best mug
+  P2  mug-wooden                 [surface/tiny] stave-built; cheap
+  P2  pitcher-of-milk            [surface/tiny] breakfast table
+  P2  plate-ceramic              [surface/tiny] merchant homes
+  P2  plate-stack-wood           [surface/tiny] shelves, washing up
+  P2  platter-board-handled      [surface/tiny] cheese and bread boards
+  P2  pot-clay                   [surface/tiny] peasant cookery
+  P2  pot-lidded                 [surface/tiny] simmering
+  P2  rolling-pin                [surface/tiny] pastry table
+  P2  spoon-stirring-long        [surface/tiny] in cauldrons and pots
+  P2  tankard-wooden             [surface/tiny] bands of iron; common rooms
+  P2  apple-crate                [floor/sub] market stacks, cellars
+  P2  berries-basket             [surface/tiny] foragers, fey tables
+  P2  bread-heel                 [surface/tiny] prison rations; the last scrap
+  P2  cabbage-crate              [floor/sub] stalls, deliveries
+  P2  carrot-basket              [surface/sub] stalls, kitchens
+  P2  cheese-small-round         [surface/tiny] farm cheeses
+  P2  cheese-stack               [floor/sub] cellars, dairies
+  P2  eggs-bowl                  [surface/tiny] kitchens
+  P2  fish-basket                [surface/sub] stalls, riverbanks
+  P2  fish-cooked-plate          [surface/tiny] meals
+  P2  fish-string                [surface/tiny] anglers
+  P2  flour-sack-open            [floor/sub] bakeries, kitchens
+  P2  garlic-braid               [wall/tiny] hung on doors against the undead
+  P2  grain-sack-open            [floor/sub] mills, granaries
+  P2  gruel-bowl                 [surface/tiny] prison meal
+  P2  honeycomb                  [surface/tiny] beekeepers, bear lures
+  P2  mushroom-cluster-edible    [surface/tiny] foragers
+  P2  onion-pile                 [floor/sub] kitchens, stalls
+  P2  pasty                      [surface/tiny] miners' lunch; rations
+  P2  pear-basket                [surface/sub] orchards, stalls
+  P2  pie-fruit-lattice          [surface/tiny] windowsill cooling
+  P2  pie-meat                   [surface/tiny] tavern fare
+  P2  plate-scraps               [surface/tiny] after the meal
+  P2  porridge-bowl              [surface/tiny] breakfast, orphanages, prisons
+  P2  pumpkin-carved             [floor/sub] harvest festival; spooky nights
+  P2  trencher-meal              [surface/tiny] medieval place setting
+  P2  turnip-giant               [floor/sub] harvest fairs; the fairy-tale turnip
+  P2  turnip-stew-bowl           [surface/tiny] the house dish
+  P2  vegetable-crate-mixed      [floor/sub] deliveries, stall stacks
+  P2  wheat-sheaf                [floor/sub] harvest, altars
+  P2  letters-bundle             [surface/tiny] love letters, blackmail
+  P2  locket                     [surface/tiny] plot keepsake; the ghost's lost love
+  P2  talisman-twig              [wall/tiny] hung over doors; hag country warning
+  P2  toy-sword-wooden           [floor/tiny] children's corners
+  P2  alch-bat-dried             [ceiling/tiny] hang from beams
+  P2  alch-herb-bundle-sage      [surface/tiny] smudging, cleansing
+  P2  alch-herb-bundle-wolfsbane [surface/tiny] werewolf ward (Lupin!)
+  P2  alch-herb-chopping-board   [surface/tiny] prep station
+  P2  alch-knife-herb-curved     [surface/tiny] ritual harvesting
+  P2  alch-toadstool-red         [surface/tiny] classic fairy fungus
+  P2  craft-basket-half-woven    [surface/tiny] work in progress
+  P2  craft-cooper-shaving-horse [floor/1] drawknife seat
+  P2  craft-dye-pot-small        [floor/sub] home dyeing
+  P2  craft-froe-and-club        [surface/tiny] splitting shakes and staves
+  P2  craft-fur-pelts-bundle     [floor/sub] trading post goods
+  P2  craft-grinding-wheel-hand  [floor/sub] sharpening corner
+  P2  craft-log-debarked         [floor/1x2] ready to hew
+  P2  craft-loom-cloth-in-progress [floor/1x2] the tapestry-in-progress
+  P2  craft-rope-coil-thin       [surface/tiny] light cord
+  P2  craft-wheel-broken         [floor/1] roadside, wrecks, repair queue
+  P2  craft-withies-bundle       [floor/sub] soaking stock
+  P2  trade-bushel-measure       [floor/tiny] toll-taking; market scales
+  P2  trade-cheese-aging-shelf   [wall/1] cool cellar wall
+  P2  trade-clay-lump            [surface/tiny] on the wheel bench; a sculptor's raw stuff
+  P2  trade-glaze-pots           [surface/tiny] glazing bench
+  P2  trade-greenware-board      [surface/sub] shelves and window ledges
+  P2  trade-herb-bed             [ground/1x2] infirmary garden
+  P2  trade-kiln-shelf-wares     [floor/sub] by the kiln; unload scene
+  P2  trade-pot-unfired          [surface/tiny] drying boards; fragile loot joke
+  P2  rural-feed-sack-open       [floor/tiny] barn floors
+  P2  rural-grain-heap-threshed  [floor/sub] barn floors
+  P2  rural-harness-draft        [wall/sub] carthorse gear
+  P2  rural-jetty-small          [kit/1x2] pond edges, ferries
+  P2  rural-milk-churn-tall      [floor/sub] dairy corners
+  P2  rural-nest-box-straw       [floor/tiny] coop interior
+  P2  rural-stool-milking        [floor/tiny] byres
+  P2  rural-wool-bale            [floor/sub] trade goods; barns
+  P2  rural-wool-fleece-single   [surface/tiny] shearing sheds
+  P2  rite-holy-symbol-wooden    [surface/tiny] the poor priest's symbol
+  P2  rite-saint-statuette       [surface/tiny] wall niches, bedside shrines
+  P2  rite-shrine-small-household [wall/sub] every home has one
+  P3  chimney-stack              [kit/1] pairs with interior fireplaces
+  P3  door-cellar-hatch          [kit/1] outside-to-cellar
+  P3  doorway-curtain            [kit/edge] cheap privacy; blocks sight only
+  P3  shutters-pair              [wall/edge] lets a window become a scene cue
+  P3  roof-ridge                 [kit/edge] laid along the ridge line and sunk into both roof planes; one per roof material
+  P3  weathervane                [attach/sub] one per building at most, on the highest ridge end
+  P3  floor-grass-meadow         [ground/1] gardens and orchards; generated 2026-10-05
+  P3  washtub                    [floor/sub] yards and sculleries
+  P3  coat-pegs                  [wall/sub] by the door
+  P3  cradle                     [floor/sub] family homes; plot hooks
+  P3  basket-back                [floor/tiny] foragers, porters
+  P3  rain-barrel                [ground/sub] exteriors
+  P3  kettle                     [surface/tiny] hearthside
+  P3  pan-frying                 [surface/tiny] kitchen walls
+  P3  carcass-hanging            [ceiling/sub] butcher, castle kitchen
+  P3  carrots-bunch              [surface/tiny] prep tables
+  P3  deer-dressed               [ground/1] hunting lodges, woodsman's yard
+  P3  eggs-basket                [surface/tiny] farm kitchens
+  P3  fish-gutting-board         [surface/tiny] fishwives, kitchens
+  P3  honey-pot                  [surface/tiny] beekeepers, pantries
+  P3  pie                        [surface/tiny] windowsills, feasts
+  P3  pumpkin                    [floor/sub] harvest scenes
+  P3  sausage-string             [ceiling/tiny] larders, butchers
+  P3  apple-rack-slatted         [floor/1] lofts and cellars in autumn
+  P3  bread-trough-kneading      [floor/sub] farm kitchens
+  P3  cellar-steps-earth         [floor/1] root cellar entrance
+  P3  cold-frame                 [ground/1] kitchen gardens
+  P3  dung-fork                  [floor/tiny] byres; draw the tines stout
+  P3  mounting-stone             [ground/sub] farmyards
+  P3  staddle-stones             [ground/sub] under and beside granaries
+  P3  truckle-bed                [floor/1] rolled under the big bed
+  P3  beehive-skep               [ground/sub] gardens
+  P3  laundry-line               [ground/1x2] yards, alleys
+  P3  loom                       [floor/1x2] weaver's cottage
+  P3  plough                     [ground/1x2] field edges
+  P3  sawhorse                   [floor/1] repair scenes
+  P3  toolbox                    [surface/tiny] anywhere work happens
+  P3  decal-straw-scatter        [floor/sub] cell floors
+  P3  cat-tree                   [floor/1] cat furniture for a house or an inn common room; no cat; generated 2026-10-06 (A playtester asked for it)
+  P3  rug-cowhide                [floor/1] farmhouses, rustic inns
+  P3  bridge-small               [ground/1x2] streams
+  P3  cart-hay                   [ground/1x2] hide in the hay
+  P3  milestone                  [ground/tiny] roads
+  P3  clothesline                [ground/1x2] kitchen garden, wash day; thin rope, test first; generated 2026-10-05
+  P3  compost-heap               [ground/1] the far corner of a kitchen garden; generated 2026-10-05
+  P3  dog-kennel                 [ground/sub] by the gate; no dog; generated 2026-10-05
+  P3  hedge-gap-arch             [kit/edge] the gate in a hedged yard; generated 2026-10-05
+  P3  trellis-vine               [wall/1] on the building wall facing the yard; lattice is thin, test first; generated 2026-10-05
+  P3  wall-drystone-gate         [kit/edge] the gate in a walled yard; generated 2026-10-05
+  P3  birdbath                   [ground/sub] among the flowerbeds; generated dry
+  P3  bush-rose                  [ground/sub] formal beds and along paths
+  P3  flowers-wild               [ground/sub] gardens, graves
+  P3  mound-overgrown            [ground/1] barrows, buried rooms
+  P3  basket-laundry             [floor/tiny] sculleries, yards
+  P3  basket-lidded              [floor/tiny] picnics, pantries
+  P3  bellows-hand               [surface/tiny] hearthside
+  P3  boots-row                  [floor/sub] shop display; by the inn door
+  P3  bucket-well-rope           [attach/tiny] hangs from well windlass
+  P3  carding-bench              [floor/1] wool processing
+  P3  cat-bed-basket             [floor/tiny] lived-in; the familiar's bed
+  P3  cheese-press               [floor/sub] dairy
+  P3  cider-press                [floor/1] orchard farms, vineyards
+  P3  cloth-bolt                 [surface/tiny] on counters and cutting tables
+  P3  dish-tub                   [surface/sub] scullery reality
+  P3  drying-racks-fish          [ground/1x2] fishing villages
+  P3  feathers-basket            [surface/tiny] fletching supply
+  P3  fishing-rods-rack          [wall/sub] riverside cottages
+  P3  grape-crush-vat            [floor/1] harvest festivals
+  P3  herb-drying-rack           [floor/1] herbalist cottages
+  P3  hop-bines-drying           [wall/1] oast and brewhouse
+  P3  lobster-pots               [ground/sub] waterside villages
+  P3  mousetrap-cheese           [floor/tiny] cellars and larders; comedy
+  P3  pole-lathe                 [floor/1x2] bodgers, turners
+  P3  sewing-basket              [surface/tiny] by the fire; any home
+  P3  shaving-horse              [floor/1] coopers and woodworkers
+  P3  smokehouse                 [ground/1] fish and meat curing
+  P3  tallow-pot                 [floor/sub] candle and soap making
+  P3  washboard-tub              [floor/tiny] wash day
+  P3  windmill-sail              [ground/2x2] the landmark on the hill
+  P3  wood-shavings-pile         [floor/sub] workshop floors
+  P3  wool-fleece-pile           [floor/sub] shearing sheds, wool stores
+  P3  yarn-skeins                [wall/sub] weavers' cottages
+  P3  yoke-buckets               [floor/sub] water carriers, milkmaids
+  P3  cursed-doll                [surface/tiny] hag's hut
+  P3  flute-pan                  [surface/tiny] shepherds, fey
+  P3  hats-assorted              [wall/tiny] hatter, wizard's pointed hat among them
+  P3  pipe-tobacco               [surface/tiny] halfling hearths
+  P3  prayer-beads               [surface/tiny] pilgrims, monks
+  P3  sling-and-stones           [surface/tiny] shepherds, halfling kit
+  P3  ford-stones                [ground/1x2] road-meets-river
+  P3  stair-rope-trapdoor        [kit/1] sleeping lofts
+  P3  straw-scatter              [floor/sub] stables, cells, barns
+  P3  tree-sapling               [ground/sub] clearings, replanted fields
+  P3  apron-hanging              [wall/tiny] kitchen doors
+  P3  bellows-kitchen-small      [surface/tiny] coaxing coals
+  P3  bowl-drinking-wood         [surface/tiny] shared by herders
+  P3  bread-pan-clay             [surface/tiny] domestic baking
+  P3  butter-churn-paddle        [surface/tiny] lies beside the churn
+  P3  butter-dish                [surface/tiny] breakfast table
+  P3  butter-mold                [surface/tiny] stamped butter pats
+  P3  cheese-mold                [surface/tiny] dripping curds
+  P3  cup-horn                   [surface/tiny] shepherds, soldiers
+  P3  cup-of-milk                [surface/tiny] farm breakfast
+  P3  cup-painted                [surface/tiny] festival cup
+  P3  demijohn                   [floor/sub] cellar floors
+  P3  dish-rag-hanging           [wall/tiny] sculleries
+  P3  egg-cup                    [surface/tiny] breakfast
+  P3  fork-toasting              [surface/tiny] leans by the hearth
+  P3  goblet-wood                [surface/tiny] peasant wedding cup
+  P3  gourd-water                [surface/tiny] druids and herders
+  P3  jar-honey-glass            [surface/tiny] pantries
+  P3  jar-lidded-stoneware       [surface/tiny] preserves
+  P3  jug-of-cider               [surface/tiny] harvest
+  P3  knife-bone-handle          [surface/tiny] cottage and camp tables
+  P3  knife-paring               [surface/tiny] prep tables
+  P3  mortar-large-stone         [floor/sub] grinding for many
+  P3  mortar-wood                [surface/tiny] spice grinding
+  P3  mug-of-cider               [surface/tiny] harvest festival
+  P3  nutcracker                 [surface/tiny] winter tables
+  P3  pan-skillet-footed         [surface/tiny] sits in coals
+  P3  pie-dish                   [surface/tiny] fill with pie from the food list
+  P3  pitcher-glazed             [surface/tiny] farmhouse
+  P3  plate-painted              [surface/tiny] on the dresser rack
+  P3  porringer                  [surface/tiny] children's bowl
+  P3  scoop-flour                [surface/tiny] in the flour sack
+  P3  sieve-hair                 [surface/tiny] flour sifting
+  P3  sieve-wooden-drum          [surface/tiny] sifting grain
+  P3  spatula-wooden             [surface/tiny] griddle work
+  P3  spoon-bone                 [surface/tiny] goblin camps, poor homes
+  P3  tablecloth-checked         [floor/1] homely tables
+  P3  teacup-herbal              [surface/tiny] the hedge-witch's hospitality
+  P3  tongs-kitchen              [surface/tiny] hearthside
+  P3  towel-hanging              [wall/tiny] washstands
+  P3  trivet                     [surface/tiny] under hot pots
+  P3  washing-bowl-dishes        [surface/tiny] scullery
+  P3  whisk-twig                 [surface/tiny] egg beating
+  P3  yoke-pails                 [floor/sub] water carrier
+  P3  acorns-pile                [surface/tiny] forest floors, druid offerings
+  P3  apple-green                [surface/tiny] colour variety beside red apples
+  P3  bacon-slab                 [surface/tiny] larders
+  P3  barley-sack                [floor/sub] brewing and bread
+  P3  beans-bowl                 [surface/tiny] camp fare
+  P3  beet-bunch                 [surface/tiny] stalls
+  P3  blackberry-handful         [surface/tiny] hedgerow forage
+  P3  blood-pudding              [surface/tiny] butcher counters
+  P3  bread-burnt                [surface/tiny] kitchen disaster
+  P3  bread-flatbread            [surface/tiny] campfires, travellers
+  P3  bread-long-loaf-torn       [surface/tiny] mid-meal
+  P3  bread-rye-dark             [surface/tiny] peasant and soldier bread
+  P3  bread-stale-moldy          [surface/tiny] cells, abandoned kitchens
+  P3  butter-crock               [surface/tiny] farm kitchens
+  P3  cabbage-cut                [surface/tiny] kitchens
+  P3  carrot-pile                [floor/sub] stalls, root cellars
+  P3  celery-bunch               [surface/tiny] stew prep
+  P3  cheese-shelf-aging         [wall/1] cheese cellars
+  P3  cheese-wax-sealed          [surface/tiny] trade goods, sieges
+  P3  chestnuts-roasting         [surface/tiny] winter street vendor
+  P3  cookies-plate              [surface/tiny] hospitality
+  P3  corn-ears                  [surface/tiny] harvest stalls
+  P3  cream-jug                  [surface/tiny] dairy tables
+  P3  cucumber                   [surface/tiny] garden baskets
+  P3  curds-bowl                 [surface/tiny] dairy kitchens
+  P3  dough-bowl                 [surface/tiny] bakery and kitchen prep
+  P3  dough-kneading             [surface/tiny] bakers' tables
+  P3  dried-fruit-string         [ceiling/tiny] hung from beams
+  P3  dumplings-bowl             [surface/tiny] hearty fare
+  P3  eel                        [surface/tiny] river markets
+  P3  egg-cracked                [surface/tiny] prep mess
+  P3  egg-crate                  [floor/sub] market carts
+  P3  egg-fried-pan              [surface/tiny] breakfast scenes
+  P3  eggs-nest                  [surface/tiny] coops
+  P3  fruit-crate-mixed          [floor/sub] stalls, deliveries
+  P3  gingerbread-figure         [surface/tiny] festivals; witch's-cottage hook
+  P3  grapes-crushed-tub         [floor/sub] wine-making
+  P3  greens-bunch               [surface/tiny] garden baskets
+  P3  hazelnuts-basket           [surface/tiny] autumn forage
+  P3  herb-pot                   [surface/tiny] windowsills
+  P3  honey-cake                 [surface/tiny] offerings, festivals
+  P3  honey-jar-dipper           [surface/tiny] breakfast tables
+  P3  hops-bundle                [ceiling/tiny] brewhouse beams
+  P3  leek-bunch                 [surface/tiny] stalls, stews
+  P3  leg-of-mutton              [surface/tiny] stews, roasts
+  P3  lettuce                    [surface/tiny] gardens, stalls
+  P3  meatballs-bowl             [surface/tiny] tavern fare
+  P3  muffin                     [surface/tiny] bakery window
+  P3  mulberries-bowl            [surface/tiny] summer forage
+  P3  mushroom-basket            [surface/sub] forage haul
+  P3  oats-bowl-dry              [surface/tiny] stables, larders
+  P3  omelette-pan               [surface/tiny] breakfast
+  P3  onion-sliced               [surface/tiny] cutting boards
+  P3  parsnip-bunch              [surface/tiny] root cellars
+  P3  pear-pile                  [surface/tiny] stalls, bowls
+  P3  peas-pods                  [surface/tiny] shelling scenes
+  P3  plate-eggs-bacon           [surface/tiny] inn breakfast
+  P3  plum-handful               [surface/tiny] fruit bowls
+  P3  potato-crate               [floor/sub] deliveries
+  P3  potato-peeled              [surface/tiny] prep tables
+  P3  potion-soup-bubbling       [surface/tiny] witch's supper or witch's work
+  P3  pottage-pot                [surface/tiny] peasant hearth
+  P3  preserves-shelf-jars       [surface/tiny] larder shelves
+  P3  pudding-steamed            [surface/tiny] winter feasts
+  P3  quince                     [surface/tiny] medieval orchards
+  P3  rabbit-roast               [surface/tiny] poachers' supper
+  P3  radish-bunch               [surface/tiny] salad plates
+  P3  rhubarb-bunch              [surface/tiny] kitchen gardens
+  P3  salad-bowl                 [surface/tiny] summer tables
+  P3  salt-block                 [surface/tiny] larders, trade goods
+  P3  sausages-pan               [surface/tiny] breakfast
+  P3  shepherds-pie-dish         [surface/tiny] tavern fare
+  P3  smoked-meat-rack           [wall/1] smokehouses
+  P3  squash-gourd               [surface/tiny] harvest scenes
+  P3  strawberries-bowl          [surface/tiny] summer, fey offerings
+  P3  tripe-bowl                 [surface/tiny] cheap tavern fare
+  P3  trout-smoked               [surface/tiny] smokehouses
+  P3  turnip-sliced              [surface/tiny] prep tables
+  P3  vinegar-jug                [surface/tiny] kitchens
+  P3  walnuts-pile               [surface/tiny] bowls, sacks
+  P3  yogurt-bowl                [surface/tiny] farm fare
+  P3  adze                       [surface/tiny] shipwrights, carpenters
+  P3  awl                        [surface/tiny] cobblers, saddlers
+  P3  ball-leather               [floor/tiny] courtyards
+  P3  billhook                   [surface/tiny] hedgers, woodsmen
+  P3  bindle                     [floor/tiny] wanderers, runaways
+  P3  bird-trap                  [ground/tiny] fowlers
+  P3  bonnet                     [surface/tiny] village women's pegs
+  P3  cap-knit                   [surface/tiny] miners, peasants
+  P3  chisel                     [surface/tiny] benches
+  P3  clothes-iron               [surface/tiny] laundries
+  P3  cowbell                    [surface/tiny] pastures
+  P3  creel-basket               [surface/tiny] riverbanks
+  P3  distaff                    [floor/tiny] spinners
+  P3  doll-porcelain             [surface/tiny] creepy nurseries
+  P3  doormat                    [floor/sub] the key under the mat
+  P3  drawknife                  [surface/tiny] shaving horses
+  P3  embroidery-hoop            [surface/tiny] solars
+  P3  feed-bag                   [floor/tiny] stables
+  P3  fishing-rod                [floor/tiny] riverbanks
+  P3  flower-crown               [surface/tiny] festivals, fey gifts
+  P3  flowers-dried              [surface/tiny] graves, windowsills
+  P3  flute-wooden               [surface/tiny] shepherds, bards
+  P3  grease-pot                 [surface/tiny] wheelwrights
+  P3  hairbrush                  [surface/tiny] vanity dressing
+  P3  hand-drill                 [surface/tiny] carpenters
+  P3  hand-puppet                [surface/tiny] fairs
+  P3  hobby-horse                [floor/tiny] village greens
+  P3  hoe                        [floor/tiny] vegetable patches
+  P3  hooks-iron                 [surface/tiny] smithies, butchers
+  P3  hoop-and-stick             [floor/tiny] village streets
+  P3  horse-collar               [wall/tiny] barns
+  P3  kindling-bundle            [floor/tiny] hearthside
+  P3  kite                       [floor/tiny] fair days
+  P3  knitting-in-progress       [surface/tiny] armchairs
+  P3  mallet-wood                [surface/tiny] carpenters, tent pegs
+  P3  marbles-bag                [surface/tiny] improvised caltrops
+  P3  mattock                    [floor/tiny] digging crews
+  P3  nails-pile                 [surface/tiny] workbenches
+  P3  ocarina                    [surface/tiny] wanderers
+  P3  pincushion                 [surface/tiny] tailors
+  P3  plane-wood                 [surface/tiny] carpenter benches with shavings
+  P3  poultice-jar               [surface/tiny] wise-woman shelves
+  P3  rabbit-snare               [ground/tiny] poachers
+  P3  rake                       [floor/tiny] barns, yards
+  P3  rattle-baby                [surface/tiny] beside cradles
+  P3  runestones-bag             [surface/tiny] seers
+  P3  saddle                     [floor/sub] dropped after a long ride
+  P3  sage-bundle                [surface/tiny] hedge-witch rites
+  P3  sandals                    [floor/tiny] monks, pilgrims
+  P3  saw-bow                    [wall/tiny] woodsheds
+  P3  seed-bag                   [floor/tiny] barns
+  P3  shears-large               [surface/tiny] sheep, hedges, tailors
+  P3  shepherds-crook            [floor/tiny] pastures
+  P3  sieve                      [surface/tiny] millers, prospectors
+  P3  spade-garden               [floor/tiny] gardens
+  P3  spinning-top               [floor/tiny] nursery floors
+  P3  teeth-jar                  [surface/tiny] hag hovels
+  P3  tether-stake               [ground/tiny] camps, pastures
+  P3  thimble                    [surface/tiny] sewing tables
+  P3  thread-spool               [surface/tiny] sewing baskets
+  P3  tobacco-pouch              [surface/tiny] beside pipes
+  P3  toy-boat                   [surface/tiny] by ponds
+  P3  toy-horse-wooden           [floor/tiny] nurseries
+  P3  toy-soldiers               [surface/tiny] noble nurseries
+  P3  trowel-garden              [surface/tiny] gardens
+  P3  watering-can               [surface/tiny] gardens
+  P3  wedge-iron                 [surface/tiny] woodpiles
+  P3  winnowing-basket           [surface/tiny] threshing floors
+  P3  witch-bottle               [surface/tiny] buried under hearths
+  P3  alch-bark-strips           [surface/tiny] pain remedy
+  P3  alch-bones-divination      [surface/tiny] hedge-witch divination
+  P3  alch-drying-rack-reagents  [ceiling/1] ceiling clutter
+  P3  alch-familiar-cushion      [surface/tiny] cat familiar's bed
+  P3  alch-garlic-braid-ward     [wall/tiny] vampire country (Noctar)
+  P3  alch-herb-bundle-lavender  [surface/tiny] calming draughts
+  P3  alch-toad-dried            [surface/tiny] bench clutter
+  P3  smith-cauldron-mend        [floor/sub] repair queue
+  P3  smith-nail-keg-open        [floor/tiny] hardware sales
+  P3  smith-plowshare            [floor/tiny] village smith's bread and butter
+  P3  smith-pot-hook             [surface/tiny] household orders
+  P3  smith-sickle-blank         [wall/tiny] harvest season
+  P3  smith-soot-bucket          [floor/tiny] ash to the midden
+  P3  craft-basket-bodkin        [surface/tiny] tools
+  P3  craft-besom-bundle         [wall/sub] market stock
+  P3  craft-cart-shafts          [wall/1x2] leaning on the wall
+  P3  craft-carving-knife-set    [surface/tiny] carver's bench
+  P3  craft-cloth-folded-pile    [surface/tiny] counter stock
+  P3  craft-dye-plants-bundles   [ceiling/tiny] hung to dry
+  P3  craft-figure-carved        [surface/tiny] toys, saints, idols
+  P3  craft-fleece-raw-single    [floor/sub] shearing day
+  P3  craft-goose-feathers-bundle [surface/tiny] fletching stock
+  P3  craft-hamper-lidded        [floor/sub] picnic, travel
+  P3  craft-harness-collar       [wall/sub] stable walls
+  P3  craft-hemp-bundle          [floor/sub] fiber stock
+  P3  craft-lathe-bowl-blank     [surface/tiny] turner's work
+  P3  craft-loom-shuttle         [surface/tiny] on the loom bench
+  P3  craft-mending-pile         [surface/tiny] by the hearth
+  P3  craft-net-fishing-folded   [floor/sub] fishers' cottages
+  P3  craft-niddy-noddy          [surface/tiny] winding skeins
+  P3  craft-pattens-pair         [floor/tiny] mud streets
+  P3  craft-rush-mat-rolled      [floor/sub] floor covering stock
+  P3  craft-sewing-needle-case   [surface/tiny] pocket item
+  P3  craft-spoon-blank-rough    [surface/tiny] whittler's evening
+  P3  craft-straw-plait-coil     [surface/tiny] hats and skeps
+  P3  craft-swift-yarn           [floor/sub] winding balls
+  P3  craft-tanner-urine-barrel  [floor/sub] historically true; players will ask
+  P3  craft-twine-balls-basket   [surface/tiny] general store
+  P3  craft-whittling-stool      [floor/sub] porch loafer
+  P3  craft-wicker-chair         [floor/sub] garden seat
+  P3  craft-wicker-screen        [wall/edge] windbreaks, pens
+  P3  craft-withies-soaking-trough [floor/1x2] basketmaker's yard
+  P3  craft-wool-carders         [surface/tiny] prepping fleece
+  P3  craft-wool-rolags-basket   [surface/tiny] ready to spin
+  P3  craft-yarn-skein-single    [surface/tiny] dyed colors
+  P3  trade-ash-leach-barrel     [floor/sub] lye making
+  P3  trade-beeswax-cakes        [surface/tiny] the good candles
+  P3  trade-birthing-stool       [floor/sub] midwife's cottage
+  P3  trade-bisque-bowl-stack    [surface/tiny] waiting for glaze
+  P3  trade-bolting-box          [floor/sub] sifting flour
+  P3  trade-cheese-stamp         [surface/tiny] branded rinds
+  P3  trade-cheese-trier         [surface/tiny] tasting the aging wheels
+  P3  trade-cheese-turning-board [surface/tiny] dairy shelf
+  P3  trade-cheese-vat           [floor/1] dairy anchor
+  P3  trade-clay-slab-rolled     [surface/tiny] slab-building table
+  P3  trade-coil-pot-building    [surface/tiny] hand-building bench
+  P3  trade-curd-harp            [surface/tiny] cutting the curd
+  P3  trade-fermenting-crock     [floor/sub] small-batch ale
+  P3  trade-glaze-test-tiles     [wall/tiny] hung by the kiln
+  P3  trade-grain-sample-bowl    [surface/tiny] haggling over quality
+  P3  trade-grape-trug           [surface/tiny] harvest scenes
+  P3  trade-gruit-bundle         [surface/tiny] old-style ale
+  P3  trade-herb-drying-screen   [surface/tiny] sunny sill or loft
+  P3  trade-herb-sachets         [surface/tiny] sold at the stall
+  P3  trade-kiln-bricks-pile     [floor/sub] kiln repair; rubble substitute
+  P3  trade-lard-crock           [surface/tiny] kitchen and butcher shelf
+  P3  trade-lye-crock            [surface/tiny] caustic; hazard
+  P3  trade-malting-floor-heap   [floor/1] malthouse floor
+  P3  trade-mead-crock-sealed    [surface/tiny] gifts and feasts
+  P3  trade-medicinal-honey      [surface/tiny] wound dressing
+  P3  trade-mill-bill            [surface/tiny] millstone dressing
+  P3  trade-mill-rynd            [floor/sub] mill repair
+  P3  trade-millstone-blank      [floor/1] quarry to mill
+  P3  trade-pie-tins-stack       [surface/tiny] pastry bench
+  P3  trade-plague-cross         [wall/sub] quarantine; grim story beat
+  P3  trade-pot-misfired         [surface/tiny] waster heap; ruin dressing
+  P3  trade-potter-ribs-tools    [surface/tiny] wheel-side clutter
+  P3  trade-potter-stamp         [surface/tiny] clue: who made this pot?
+  P3  trade-rendering-kettle     [floor/sub] fat into tallow
+  P3  trade-rennet-flask         [surface/tiny] cheese starter
+  P3  trade-rushlights-bundle    [surface/tiny] the cheap light
+  P3  trade-sausage-stuffer      [surface/tiny] sausage day
+  P3  trade-slip-bucket          [floor/tiny] beside the wheel
+  P3  trade-tallow-block         [surface/tiny] smelly raw material
+  P3  trade-tally-board-miller   [wall/sub] who owes what
+  P3  trade-tile-drying-rack     [floor/1] tilery yard
+  P3  trade-tile-mould           [surface/tiny] tilery bench
+  P3  trade-tile-stack-fired     [floor/sub] ready for the roofer
+  P3  trade-toll-dish            [surface/tiny] the miller's cut
+  P3  trade-waster-heap          [floor/sub] behind every pottery
+  P3  trade-whey-tub             [floor/sub] pig feed later
+  P3  trade-wine-press-basket    [floor/1] vineyard house anchor
+  P3  rural-apple-ladder         [wall/edge] orchards
+  P3  rural-bee-smoker           [surface/tiny] beside the hives
+  P3  rural-beehive-box          [ground/sub] orchard edges
+  P3  rural-beekeeper-veil       [surface/tiny] on a peg
+  P3  rural-chaff-pile           [floor/sub] winnowing aftermath
+  P3  rural-cheese-mould         [surface/tiny] dairy dressing
+  P3  rural-chicken-feeder       [ground/sub] by the coop
+  P3  rural-coracle              [ground/1] riverbank fishers
+  P3  rural-crayfish-trap        [floor/tiny] river margins
+  P3  rural-creel-full           [surface/tiny] end of the day
+  P3  rural-curd-cloth-hanging   [ceiling/tiny] dairy dressing
+  P3  rural-curry-comb           [surface/tiny] grooming kit
+  P3  rural-decoy-duck           [surface/tiny] marsh blinds
+  P3  rural-drag-sledge          [ground/1x2] hauling kills home
+  P3  rural-dung-fork            [floor/tiny] byres and stables
+  P3  rural-eel-trap             [floor/tiny] river margins
+  P3  rural-feed-scoop           [surface/tiny] feed bins
+  P3  rural-fence-post-bundle    [floor/sub] mending fences
+  P3  rural-field-boundary-stone [ground/tiny] land disputes
+  P3  rural-fish-smoker          [ground/1] fishing villages
+  P3  rural-fishing-spear        [wall/tiny] reed-bed fishers
+  P3  rural-floats-bundle        [surface/tiny] net making
+  P3  rural-halter-rope          [wall/tiny] stall doors
+  P3  rural-harrow               [ground/1x2] field edges
+  P3  rural-harvest-basket-strap [floor/tiny] picking season
+  P3  rural-hay-rake-wooden      [floor/tiny] haymaking
+  P3  rural-hive-frame           [surface/tiny] honey harvest
+  P3  rural-hoof-pick            [surface/tiny] grooming kit
+  P3  rural-manure-barrow        [floor/sub] mucking out
+  P3  rural-mud-wallow           [floor/1] sty dressing
+  P3  rural-net-cast             [surface/tiny] riverbanks
+  P3  rural-peat-stack           [ground/1] bog country fuel
+  P3  rural-pelt-deer            [surface/tiny] tanning stock
+  P3  rural-pelt-rabbit-bundle   [surface/tiny] poachers
+  P3  rural-pen-gate-hurdle      [ground/edge] sheepfolds
+  P3  rural-pig-sty-trough       [ground/1] sty; no live pigs
+  P3  rural-plough-share         [floor/tiny] in for repair at the smith
+  P3  rural-pruning-hook         [wall/tiny] orchards
+  P3  rural-punt-pole            [floor/tiny] fens
+  P3  rural-reed-bundle-cut      [floor/sub] thatch and baskets
+  P3  rural-salt-lick            [ground/tiny] pastures
+  P3  rural-scaling-table        [floor/1] landings
+  P3  rural-sheep-shears-small   [surface/tiny] shearing day
+  P3  rural-sickle-pair          [wall/tiny] harvest season
+  P3  rural-skinning-knife       [surface/tiny] next to pelts
+  P3  rural-snare-wire           [ground/tiny] game trails
+  P3  rural-tackle-box           [surface/tiny] fisher's hut
+  P3  rural-thatch-bundles       [floor/1] roof repairs
+  P3  rural-threshing-floor-flail-pair [floor/1] barn floor dressing
+  P3  rural-trap-box-rabbit      [ground/tiny] hedgerows
+  P3  rural-turf-spade           [floor/tiny] peat cutting
+  P3  rural-water-yoke-bucket-pair [floor/tiny] by the well
+  P3  rite-effigy-straw-bound    [surface/tiny] hexes; found in walls
+  P3  rite-monk-habit-hook       [wall/sub] monastery cells
+  P3  rite-offering-stones       [ground/sub] waysides, sacred springs
+  P3  rite-ribbon-tree-offerings [ground/sub] wishing trees
+  P3  rite-wicker-effigy         [ground/1] harvest festival or something darker

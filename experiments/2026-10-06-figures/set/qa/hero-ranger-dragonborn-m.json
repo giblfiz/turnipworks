@@ -1,0 +1,181 @@
+{
+ "file": "hero-ranger-dragonborn-m.glb",
+ "tris": 49162,
+ "kb": 3006,
+ "native_extent": [
+  0.557,
+  1.001,
+  0.575
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  99,
+  80,
+  45
+ ],
+ "mean_saturation": 0.652,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 5.24,
+  "length_ft": 6.15,
+  "low_end_ft": [
+   1.12,
+   0.43,
+   0.84
+  ],
+  "high_end_ft": [
+   0.76,
+   6.53,
+   1.54
+  ],
+  "tilt_from_upright_deg": 7.3,
+  "thickness_ft": 0.3,
+  "clear_share": 0.88,
+  "joined_share": 0.12,
+  "broken_share": 0.0,
+  "walk_low_to_high": "--------------------------######--------------------"
+ },
+ "overall_ft": 6.52,
+ "pieces": {
+  "connected_parts": 111,
+  "main_part_area_share": 0.9895,
+  "floating": [
+   {
+    "area_share": 0.00131,
+    "gap_ft": 0.03,
+    "size_ft": 1.35
+   },
+   {
+    "area_share": 0.00122,
+    "gap_ft": 0.04,
+    "size_ft": 1.47
+   },
+   {
+    "area_share": 6e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.14
+   },
+   {
+    "area_share": 6e-05,
+    "gap_ft": 0.07,
+    "size_ft": 0.25
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.14,
+    "size_ft": 0.1
+   }
+  ],
+  "floating_count": 5,
+  "floating_area_share": 0.00266,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.5144,
+ "y0": -3.2627,
+ "stated_ft": {
+  "body": 6.5,
+  "figure_top": 6.5,
+  "overall": 6.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.278,
+   -0.5008,
+   -0.2873
+  ],
+  [
+   0.279,
+   0.5003,
+   0.2877
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49162,
+   "tex": 2048,
+   "kb": 3006
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1136
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 494
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.96,
+    "z": 0.53,
+    "size_ft": [
+     0.87,
+     1.58
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.83,
+    "sole_p90_ft": 0.081
+   },
+   {
+    "x": -1.14,
+    "z": -0.5,
+    "size_ft": [
+     1.14,
+     1.36
+    ],
+    "off_ground_ft": 0.006,
+    "sole_level_share": 0.8,
+    "sole_p90_ft": 0.097
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.006,
+  "lowest_slab_area_sqft": 2.0,
+  "plan_hull_area_sqft": 8.39,
+  "lowest_slab_share_of_plan": 0.239
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.63,
+   "d": 3.74,
+   "h": 6.52
+  },
+  "centre": [
+   -0.196,
+   0.317
+  ],
+  "contacts_radius_ft": 1.73,
+  "reach_radius_ft": 2.11,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.895,
+  "plate_lost_share": 0.024,
+  "added_share": 0.09,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.895,
+  "view_yaw_deg": 40,
+  "view_elev_deg": 8
+ },
+ "id": "hero-ranger-dragonborn-m",
+ "sha1": "860ed7a1bfce142f5b3314a505722502f1753ea7",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "3 separate part(s) lying within 0.07 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 17.8
+}

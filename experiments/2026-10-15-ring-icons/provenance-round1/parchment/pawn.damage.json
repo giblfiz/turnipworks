@@ -1,0 +1,53 @@
+{
+  "id": "pawn.damage",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A vivid red heart with a wide diagonal ivory slash cutting through it. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/parchment--pawn.damage.png",
+  "source_sha256": "151d91f65693ed32cd9805742c581cb127f8bb2036575072d099c3a4809a3153",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/pawn.damage.webp",
+    "19": "parchment/sizes/19/pawn.damage.webp",
+    "22": "parchment/sizes/22/pawn.damage.webp",
+    "26": "parchment/sizes/26/pawn.damage.webp",
+    "31": "parchment/sizes/31/pawn.damage.webp",
+    "36": "parchment/sizes/36/pawn.damage.webp",
+    "38": "parchment/sizes/38/pawn.damage.webp",
+    "42": "parchment/sizes/42/pawn.damage.webp",
+    "44": "parchment/sizes/44/pawn.damage.webp",
+    "50": "parchment/sizes/50/pawn.damage.webp",
+    "52": "parchment/sizes/52/pawn.damage.webp",
+    "62": "parchment/sizes/62/pawn.damage.webp",
+    "84": "parchment/sizes/84/pawn.damage.webp",
+    "100": "parchment/sizes/100/pawn.damage.webp",
+    "128": "parchment/pawn.damage.webp"
+  },
+  "sha256": {
+    "18": "ef95761e1b3a5655df8d2145244706532ea78fd1de56f822716943307faa305c",
+    "19": "34e2948650c9d92ebbd93a4a178fe769167bd7e03139ddd51474251dd9753524",
+    "22": "2ef1dbbf2bd8b4d94634a332e26f07cdca5c9a09951cc35e9d06b6724f07b36b",
+    "26": "d0d291a49a2843669fe726a271563b221eb9657b576dc3ae916adeb6bc03f52f",
+    "31": "75ce7111e3cee1341f27061bbfed841645fea3c82fdaa0c3d36a94ec40786b87",
+    "36": "f93400b6ad5395078cb5a5ed39a73975ac28493ade122891f4595f98f29b87de",
+    "38": "10a1e22d893a965501213e8b5cf758e6b381260f0456f10da2324d1d092dbf24",
+    "42": "12c4c7dc4edd2f44d9289eb228165298a2ecd89ee055c5b4c28139ec81df4a6b",
+    "44": "f77cc2faae8edd151aef50d656c637391739122de968167e2ec415d40086f83f",
+    "50": "db6c401eb87daf7cf858acd42e250810819cc508d1c513264275352bbcf58afc",
+    "52": "e068263540e44b0e6a3829fd93144166398fc4f7eb19dede6965c73e9fdd2641",
+    "62": "e6765bc576c57c1c8f25f332597acb1c451e29b4e7e0f618889e86c7f60d8f7c",
+    "84": "7ee5a33572ff9657113b4fa876a97b148bc2ab3478f33c61d8868dbf987e3391",
+    "100": "d5ecd4ddd795c5988e0959c6aa6277668664f082769c09c047b5681753714ea0",
+    "128": "9759b2a71c3e62b1f138e53e0b062b11a314281e6d4da52e0f13d53f5620cdcb"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "6ea836dc32ea9a32bb08ac4e545c261499803a8cba78672ca8c578e9d102da57"
+}

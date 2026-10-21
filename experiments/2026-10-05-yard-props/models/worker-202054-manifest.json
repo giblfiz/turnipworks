@@ -1,0 +1,19 @@
+{
+  "model": "microsoft/TRELLIS.2-4B",
+  "image_encoder": "/workspace/.cache/huggingface/hub/models--camenduru--dinov3-vitl16-pretrain-lvd1689m/snapshots/3c276edd87d6f6e569ff0c4400e086807d0f3881",
+  "pipeline_type": "512",
+  "faces": 50000,
+  "texture_size": 1024,
+  "resident": false,
+  "assets": [
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/hoe.png",
+      "output": "/workspace/tw-runs/yard-props/models/hoe.glb",
+      "seconds": 28.18,
+      "bytes": 1757624,
+      "seed": 851619814,
+      "status": "complete"
+    }
+  ],
+  "total_seconds": 206.79
+}

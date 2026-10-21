@@ -1,0 +1,14 @@
+{
+  "name": "turnip-works-engine",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "description": "Turnip Works engine core: shared command core, relay, browser client",
+  "scripts": {
+    "relay": "node relay/server.js",
+    "test": "node test/core.test.mjs && node test/relay.test.mjs && node test/llm.test.mjs && node test/notice.test.mjs && node test/tickets.test.mjs && node test/harness.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

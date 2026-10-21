@@ -1,0 +1,59 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+alch-athanor	accept	-	brick furnace	0.85	0.0	0	0	2.2x2.63x4	30x30x48	1.2	1.05	prop	1	
+alch-bench-dressed--s1	accept	-	alchemy bench	0.95	0.0	0	0	6x3.28x5.55	72x30x56	1.31	1.19	prop	1	
+alch-bench-dressed--s2	accept	-	alchemy bench	0.95	0.0	0	0	6x2.92x4.63	72x30x56	1.17	1.01	prop	1	
+alch-carboy-wicker	accept	-	demijohn / wicker carboy	0.9	0.0	0	0	1.51x1.47x1.83	16x16x22	1.02	1.13	prop	1	
+alch-cauldron-bubbling-green	accept	-	cauldron	0.98	0.0	0	0	2.17x1.92x1.9	26x26x24	1.13	1.05	prop	1	
+alch-counter-apothecary	accept	-	apothecary counter	0.95	0.0	0	0	8x2.86x4.36	96x28x38	1.23	1.38	prop	1	gemini note: Jars feature colored striped label bands.
+alch-familiar-perch	accept	-	bird perch	0.85	0.0	0	0	2.74x1.7x3.67	18x12x44	1.07	1.82	prop	1	height proportion 1.82x off the catalog | gemini note: crossbar slightly wider than catalog proportions relative to height, but reads cleanly as requested
+alch-formula-chalkboard	accept	-	A-frame chalkboard	0.95	0.0	0	0	5.16x3.34x6	48x24x72	1.29	1.29	prop	1	
+alch-homunculus-vat	accept	-	alchemical vat	0.9	0.0	0	0	2.58x2.75x5	30x30x60	1.07	1.1	prop	1	gemini note: faint glowing bubble/dot texture details inside the green liquid
+alch-hourglass-sand-colored	accept	-	hourglass	0.85	0.0	0	0	0.81x0.81x1.17	8x8x14	1.0	1.22	prop	1	
+alch-mandrake-pot	accept	-	potted plant	0.85	0.0	0	0	0.87x0.78x1.17	8x8x14	1.11	1.3	prop	1	
+alch-potion-crate-straw	accept	-	potion crate	0.85	0.0	0	0	1.67x1.47x0.83	20x14x12	1.26	1.21	prop	1	
+alch-reagent-shelf-tall--s1	accept	-	potion shelf	0.95	0.0	0	0	4.92x1.8x7	48x14x84	1.26	1.23	prop	1	
+alch-reagent-shelf-tall--s2	accept	-	alchemy reagent shelf	0.95	0.0	0	0	4.98x1.87x7	48x14x84	1.28	1.24	prop	1	
+alch-sign-apothecary	accept	-	hanging shop sign	0.85	0.0	0	0	1.83x0.27x1.64	22x3x22	1.08	1.12	prop	1	
+alch-specimen-jar-large	accept	-	ceramic jar	0.9	0.0	0	0	1.93x2.05x2.5	16x16x30	1.06	1.53	prop	1	height proportion 1.53x off the catalog | gemini note: slightly stockier proportions than catalog target but clearly taller than wide
+alch-still-copper-large	accept	-	alchemy still	0.95	0.0	0	0	3.8x4.88x5	36x36x60	1.28	1.63	prop	1	height proportion 1.63x off the catalog | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: slightly wider footprint than catalog ratio
+alembic	accept	override: the round board under it is specified (it stands on a table; base=False): the gate read it as an unwanted plinth (was reroll-plate: gemini: unwanted circular base plinth)	alembic / distillation apparatus	0.9	0.0	0	0	1.81x1.8x2	18x12x24	1.49	1.21	prop	1	footprint proportion 1.49x off the catalog (1.8 x 1.8 ft)
+animal-hutch	accept	-	rabbit hutch	0.95	0.002	0	0	4.33x1.48x3.39	48x24x52	1.46	1.39	prop	1	footprint proportion 1.46x off the catalog (4.3 x 1.5 ft) | gemini note: footprint slightly narrower than catalog ratio, but well within acceptable tabletop background prop tolerances
+apothecary-drawers	accept	-	apothecary cabinet	0.95	0.0	0	0	4.4x1.32x6	60x12x72	1.5	1.14	prop	1	footprint proportion 1.5x off the catalog (4.4 x 1.3 ft)
+arcane-pylon--s1	accept	-	crystal pylon	0.9	0.0	0	0	1.22x1.21x5	20x20x60	1.0	1.37	prop	1	
+arcane-pylon--s2	accept	-	crystal torch or pylon	0.95	0.0	0	0	1.59x1.59x5	20x20x60	1.0	1.05	prop	1	
+armillary-great	accept	-	armillary sphere	0.95	0.0	0	0	3.46x4.07x5.5	42x42x66	1.18	1.16	prop	1	
+bed-canopy--wizard	accept	-	canopy bed	0.98	0.0	0	0	6.91x6.66x7.17	66x86x84	1.26	1.06	prop	1	gemini note: curtains lean deep red rather than distinctly purple/plum | gemini note: footprint is nearly square rather than elongated rectangular
+birdcage-standing	accept	-	standing birdcage	0.95	0.0	0	0	2.14x2.11x6.17	26x26x74	1.01	1.01	prop	1	
+bookshelf--arcane	accept	-	bookshelf	0.98	0.0	0	0	1.64x3.97x6.5	40x14x78	1.18	1.19	prop	1	
+bookshelf--arcane--s2	accept	-	bookshelf	0.98	0.003	0	0	3.89x1.89x6.5	40x14x78	1.39	1.17	prop	1	gemini note: small rectangular hole in lower back panel
+cabinet-curios	accept	-	curio cabinet	0.95	0.0	0	0	4.12x1.75x6.67	48x16x80	1.27	1.03	prop	1	gemini note: interior curio specimens are backface-culled or missing when viewed from behind | gemini note: minor mesh denting along top right crown edge
+crystal-ball	accept	-	crystal ball on a stand	0.75	0.0	0	0	0.8x0.85x0.92	8x8x11	1.07	1.28	prop	1	
+crystal-formation--s1	accept	-	crystal cluster	0.95	0.0	0	0	3.62x3.73x4	36x36x48	1.03	1.24	prop	1	
+crystal-glowing	accept	-	orange crystal cluster	0.95	0.012	0	0	1.5x1.51x2	18x18x24	1.01	1.01	prop	1	
+door-tower--leaf	accept	-	arched wooden door	0.95	0.0	0	0	3.65x1.22x7	40x9x84	1.49	1.1	prop	1	footprint proportion 1.49x off the catalog (3.6 x 1.2 ft)
+egg-nest-great	accept	-	bird nest with egg	0.95	0.0	0	0	2.83x2.83x1.83	34x34x26	1.0	1.18	prop	1	
+elemental-brazier	accept	-	brazier	0.85	0.0	0	0	2.49x2.52x3	20x20x36	1.01	1.51	prop	1	height proportion 1.51x off the catalog | gemini note: height proportion slightly wider than catalog target but reads correctly as a brazier
+enchanting-table	accept	-	enchanting table	0.95	0.0	0	0	2.77x4x3.17	48x30x34	1.11	1.12	prop	1	
+hatstand-wizard	accept	-	wizard hatstand	0.95	0.0	0	0	2.12x2.04x6.33	22x22x76	1.04	1.16	prop	1	
+mortar-pestle	accept	-	mortar and pestle	0.4	0.0	0	0	0.6x0.62x0.67	8x8x8	1.03	1.07	prop	1	
+orb-socket-pedestal	accept	-	crystal ball on a pedestal	0.95	0.0	0	0	1.37x1.37x3.33	18x18x40	1.0	1.1	prop	1	gemini note: sphere has a pale lavender tint rather than plain milky-white
+orrery	accept	-	orrery	0.95	0.0	0	0	3.42x3.52x4	36x36x48	1.03	1.17	prop	1	
+perch-tree	accept	-	perch tree	0.85	0.0	0	0	3.15x2.37x6.5	40x40x78	1.33	1.06	prop	1	
+pillows-cushions	accept	-	stack of cushions and pillows	0.85	0.002	0	0	2.94x3x1.54	36x24x18	1.47	1.03	prop	1	footprint proportion 1.47x off the catalog (3.0 x 2.9 ft) | gemini note: Footprint is roughly square (3.0 x 2.9 ft) rather than rectangular (3.0 x 2.0 ft)
+portal-arch	accept	-	stone portal arch	0.95	0.0	0	0	5.93x2.11x7.67	56x22x92	1.1	1.27	prop	1	
+potion-bottles--s1	accept	-	potion bottles	0.55	0.0	0	0	0.83x0.75x0.69	10x8x8	1.13	1.04	prop	1	
+potion-bottles--s2	accept	-	potion bottles	0.8	0.0	0	0	0.83x0.83x0.73	10x8x8	1.24	1.09	prop	1	
+scroll-pile	accept	-	pile of scrolls	0.6	0.0	0	0	1x1x0.47	12x10x5	1.2	1.12	prop	1	
+scroll-rack	accept	-	scroll rack	0.95	0.0	0	0	3.89x1.55x4	40x14x48	1.14	1.17	prop	1	
+scrying-pool	accept	-	stone basin	0.85	0.0	0	0	3.99x4x2.42	48x48x30	1.0	1.03	prop	1	
+spellbook-lectern	accept	-	lectern with open book	0.98	0.0	0	0	2.52x1.71x3.83	22x20x46	1.34	1.38	prop	1	
+staff-rack	accept	-	staff rack	0.95	0.0	0	0	3.97x1.31x6	40x10x72	1.32	1.19	prop	1	
+telescope-great	accept	-	great telescope on wheeled carriage	0.95	0.001	0	0	4.61x7.18x7.5	48x84x90	1.12	1.03	prop	1	
+tome-grimoire	accept	-	spellbook	0.95	0.0	0	0	1.17x0.85x0.36	10x14x4	1.02	1.08	prop	1	
+vivarium	accept	-	terrarium	0.9	0.0	0	0	2.29x4.67x4.17	48x22x56	1.07	1.31	prop	1	
+wall-doorway--tower-stone	accept	-	stone archway	0.95	0.0	0	0	4.4x1.21x9	60x12x108	1.38	1.14	wall	1	wall door: w:h 0.49, depth:h 0.14, largest opening 55% x 74%, filled 63%
+wall-shop-window--half-timber	accept	-	half-timber shop window wall	0.85	0.0	0	0	5.87x1.22x9	60x18x108	1.45	1.17	wall	1	wall panel: w:h 0.65, depth:h 0.14, largest opening 4% x 8%, filled 99%
+wall-straight--tower-stone	accept	-	stone wall section	0.95	0.0	0	0	4.54x0.98x9	60x12x108	1.08	1.1	wall	1	wall solid: w:h 0.50, depth:h 0.11, largest opening 0% x 0%, filled 100%
+wall-straight--tower-stone--s2	accept	-	straight brick wall section	0.95	0.0	0	0	4.45x1.11x9	60x12x108	1.25	1.12	wall	1	wall solid: w:h 0.49, depth:h 0.12, largest opening 0% x 0%, filled 98%
+wall-window-small--tower-stone	accept	-	stone wall with arched window	0.95	0.0	0	0	4.37x1.16x9	60x12x108	1.33	1.15	wall	1	wall window: w:h 0.48, depth:h 0.13, largest opening 1% x 1%, filled 100%
+wizard-hat	accept	-	wizard hat	0.95	0.0	0	0	1.66x1.67x1.33	14x14x20	1.0	1.79	prop	1	height proportion 1.79x off the catalog | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: crown is slightly squatter / more bent than catalog proportions

@@ -1,0 +1,847 @@
+{
+  "source": [
+    "engine/client/commands.js",
+    "engine/client/menu.js"
+  ],
+  "kinds": {
+    "pawn:gm": {
+      "primary": [
+        {
+          "id": "edit.rotate",
+          "label": "Turn",
+          "icon": "rotate-cw",
+          "drag": "rotate",
+          "slot": 10
+        },
+        {
+          "id": "pawn.sheet",
+          "label": "Sheet",
+          "icon": "file-text",
+          "drag": null,
+          "slot": 11.34
+        },
+        {
+          "id": "pawn.damage",
+          "label": "Damage",
+          "icon": "heart-crack",
+          "drag": "damage",
+          "slot": 12.66
+        }
+      ],
+      "secondary": [
+        {
+          "id": "pawn.cond.",
+          "label": "Conditions",
+          "icon": "badge-alert",
+          "children": [
+            {
+              "id": "pawn.cond.blinded",
+              "label": "blinded",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.charmed",
+              "label": "charmed",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.frightened",
+              "label": "frightened",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.grappled",
+              "label": "grappled",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.invisible",
+              "label": "invisible",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.poisoned",
+              "label": "poisoned",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.prone",
+              "label": "prone",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.restrained",
+              "label": "restrained",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.stunned",
+              "label": "stunned",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.unconscious",
+              "label": "unconscious",
+              "icon": "badge-alert",
+              "drag": null
+            }
+          ]
+        },
+        {
+          "id": "pawn.mark.",
+          "label": "Indicators",
+          "icon": "star",
+          "children": [
+            {
+              "id": "pawn.mark.star",
+              "label": "Star",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.circle",
+              "label": "Circle",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.diamond",
+              "label": "Diamond",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.triangle",
+              "label": "Triangle",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.moon",
+              "label": "Moon",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.square",
+              "label": "Square",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.cross",
+              "label": "Cross",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.skull",
+              "label": "Skull",
+              "icon": "star",
+              "drag": null
+            }
+          ]
+        },
+        {
+          "id": "edit.lift",
+          "label": "Raise / lower",
+          "icon": "move-vertical",
+          "drag": "lift",
+          "opens": null
+        },
+        {
+          "id": "thing.hide",
+          "label": "Hide from players",
+          "icon": "eye-off",
+          "drag": null,
+          "opens": null
+        }
+      ]
+    },
+    "prop:gm": {
+      "primary": [
+        {
+          "id": "edit.rotate",
+          "label": "Turn",
+          "icon": "rotate-cw",
+          "drag": "rotate",
+          "slot": 10
+        },
+        {
+          "id": "edit.resize",
+          "label": "Resize",
+          "icon": "scaling",
+          "drag": "size",
+          "slot": 11.34
+        },
+        {
+          "id": "thing.pin",
+          "label": "Pin",
+          "icon": "pin",
+          "drag": null,
+          "slot": 12.66
+        }
+      ],
+      "secondary": [
+        {
+          "id": "thing.replace",
+          "label": "Replace with similar…",
+          "icon": "replace",
+          "drag": null,
+          "opens": "replace"
+        },
+        {
+          "id": "edit.lift",
+          "label": "Raise / lower",
+          "icon": "move-vertical",
+          "drag": "lift",
+          "opens": null
+        },
+        {
+          "id": "thing.tilt",
+          "label": "Roll",
+          "icon": "rotate-cw-square",
+          "drag": "tilt",
+          "opens": null
+        },
+        {
+          "id": "thing.rename",
+          "label": "Rename / label…",
+          "icon": "pencil",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "thing.lock",
+          "label": "Lock",
+          "icon": "lock",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "thing.hide",
+          "label": "Hide from players",
+          "icon": "eye-off",
+          "drag": null,
+          "opens": null
+        }
+      ]
+    },
+    "openable:gm": {
+      "primary": [
+        {
+          "id": "edit.rotate",
+          "label": "Turn",
+          "icon": "rotate-cw",
+          "drag": "rotate",
+          "slot": 10
+        },
+        {
+          "id": "edit.resize",
+          "label": "Resize",
+          "icon": "scaling",
+          "drag": "size",
+          "slot": 4
+        },
+        {
+          "id": "thing.open",
+          "label": "Open",
+          "icon": "door-open",
+          "drag": null,
+          "slot": 11
+        },
+        {
+          "id": "thing.pin",
+          "label": "Pin",
+          "icon": "pin",
+          "drag": null,
+          "slot": 12
+        }
+      ],
+      "secondary": [
+        {
+          "id": "thing.replace",
+          "label": "Replace with similar…",
+          "icon": "replace",
+          "drag": null,
+          "opens": "replace"
+        },
+        {
+          "id": "edit.lift",
+          "label": "Raise / lower",
+          "icon": "move-vertical",
+          "drag": "lift",
+          "opens": null
+        },
+        {
+          "id": "thing.tilt",
+          "label": "Roll",
+          "icon": "rotate-cw-square",
+          "drag": "tilt",
+          "opens": null
+        },
+        {
+          "id": "thing.rename",
+          "label": "Rename / label…",
+          "icon": "pencil",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "thing.lock",
+          "label": "Lock",
+          "icon": "lock",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "thing.hide",
+          "label": "Hide from players",
+          "icon": "eye-off",
+          "drag": null,
+          "opens": null
+        }
+      ]
+    },
+    "light:gm": {
+      "primary": [
+        {
+          "id": "edit.rotate",
+          "label": "Turn",
+          "icon": "rotate-cw",
+          "drag": "rotate",
+          "slot": 10
+        },
+        {
+          "id": "edit.resize",
+          "label": "Resize",
+          "icon": "scaling",
+          "drag": "size",
+          "slot": 11.34
+        },
+        {
+          "id": "thing.pin",
+          "label": "Pin",
+          "icon": "pin",
+          "drag": null,
+          "slot": 12.66
+        }
+      ],
+      "secondary": [
+        {
+          "id": "thing.light",
+          "label": "Put out",
+          "icon": "flame",
+          "drag": null,
+          "slot": 1,
+          "opens": null
+        },
+        {
+          "id": "thing.replace",
+          "label": "Replace with similar…",
+          "icon": "replace",
+          "drag": null,
+          "opens": "replace"
+        },
+        {
+          "id": "edit.lift",
+          "label": "Raise / lower",
+          "icon": "move-vertical",
+          "drag": "lift",
+          "opens": null
+        },
+        {
+          "id": "thing.tilt",
+          "label": "Roll",
+          "icon": "rotate-cw-square",
+          "drag": "tilt",
+          "opens": null
+        },
+        {
+          "id": "thing.rename",
+          "label": "Rename / label…",
+          "icon": "pencil",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "thing.lock",
+          "label": "Lock",
+          "icon": "lock",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "thing.hide",
+          "label": "Hide from players",
+          "icon": "eye-off",
+          "drag": null,
+          "opens": null
+        }
+      ]
+    },
+    "room:gm": {
+      "primary": [
+        {
+          "id": "thing.hide",
+          "label": "Hide from players",
+          "icon": "eye-off",
+          "drag": null,
+          "slot": 1
+        },
+        {
+          "id": "room.reroll",
+          "label": "Re-roll",
+          "icon": "dice-5",
+          "drag": null,
+          "slot": 12
+        },
+        {
+          "id": "room.rotate",
+          "label": "Turn 90°",
+          "icon": "rotate-cw",
+          "drag": null,
+          "slot": 10
+        }
+      ],
+      "secondary": [
+        {
+          "id": "room.walls.",
+          "label": "Walls",
+          "icon": "brick-wall",
+          "children": [
+            {
+              "id": "room.walls.rough-timber",
+              "label": "rough timber",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.log-cabin",
+              "label": "log cabin",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.half-timber",
+              "label": "half timber",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.fieldstone",
+              "label": "fieldstone",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.dressed-stone",
+              "label": "dressed stone",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.noble-interior",
+              "label": "noble interior",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.crypt-stone",
+              "label": "crypt stone",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.castle-rough",
+              "label": "castle rough",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.noble-panel",
+              "label": "noble panel",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.noble-paper",
+              "label": "noble paper",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.conservatory",
+              "label": "conservatory",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.temple-stone",
+              "label": "temple stone",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.cut-rock",
+              "label": "cut rock",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.tower-stone",
+              "label": "tower stone",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.mine-timbered",
+              "label": "mine timbered",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.black-stone",
+              "label": "black stone",
+              "icon": "brick-wall",
+              "drag": null
+            },
+            {
+              "id": "room.walls.wattle-daub",
+              "label": "wattle daub",
+              "icon": "brick-wall",
+              "drag": null
+            }
+          ]
+        },
+        {
+          "id": "room.fog",
+          "label": "Fog height",
+          "icon": "cloud-fog",
+          "drag": "fog",
+          "opens": "fog"
+        },
+        {
+          "id": "thing.lock",
+          "label": "Lock",
+          "icon": "lock",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "room.height.taller",
+          "label": "Taller",
+          "icon": "chevrons-up",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "faction.set",
+          "label": "Faction",
+          "icon": "sun",
+          "drag": null,
+          "opens": "faction"
+        }
+      ]
+    },
+    "building:gm": {
+      "primary": [
+        {
+          "id": "thing.hide",
+          "label": "Hide from players",
+          "icon": "eye-off",
+          "drag": null,
+          "slot": 10
+        }
+      ],
+      "secondary": [
+        {
+          "id": "faction.set",
+          "label": "Faction",
+          "icon": "sun",
+          "drag": null,
+          "opens": "faction"
+        },
+        {
+          "id": "building.roof.",
+          "label": "Roof style",
+          "icon": "house",
+          "children": [
+            {
+              "id": "building.roof.thatch",
+              "label": "Thatch",
+              "icon": "house",
+              "drag": null
+            },
+            {
+              "id": "building.roof.tile",
+              "label": "Clay tile",
+              "icon": "house",
+              "drag": null
+            },
+            {
+              "id": "building.roof.slate",
+              "label": "Slate shingle",
+              "icon": "house",
+              "drag": null
+            },
+            {
+              "id": "building.roof.shingle",
+              "label": "Wood shingle",
+              "icon": "house",
+              "drag": null
+            },
+            {
+              "id": "building.roof.flat",
+              "label": "Flat",
+              "icon": "house",
+              "drag": null
+            }
+          ]
+        },
+        {
+          "id": "building.storeys.",
+          "label": "Storeys",
+          "icon": "layers",
+          "children": [
+            {
+              "id": "building.storeys.1",
+              "label": "1 storey",
+              "icon": "layers",
+              "drag": null
+            },
+            {
+              "id": "building.storeys.3",
+              "label": "3 storeys",
+              "icon": "layers",
+              "drag": null
+            }
+          ]
+        },
+        {
+          "id": "building.reroll",
+          "label": "Re-roll building",
+          "icon": "dice-5",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "thing.rename",
+          "label": "Rename / label…",
+          "icon": "pencil",
+          "drag": null,
+          "opens": null
+        },
+        {
+          "id": "thing.lock",
+          "label": "Lock",
+          "icon": "lock",
+          "drag": null,
+          "opens": null
+        }
+      ]
+    },
+    "pawn:player": {
+      "primary": [
+        {
+          "id": "edit.rotate",
+          "label": "Turn",
+          "icon": "rotate-cw",
+          "drag": "rotate",
+          "slot": 10
+        },
+        {
+          "id": "pawn.sheet",
+          "label": "Sheet",
+          "icon": "file-text",
+          "drag": null,
+          "slot": 11.34
+        },
+        {
+          "id": "pawn.damage",
+          "label": "Damage",
+          "icon": "heart-crack",
+          "drag": "damage",
+          "slot": 12.66
+        }
+      ],
+      "secondary": [
+        {
+          "id": "pawn.cond.",
+          "label": "Conditions",
+          "icon": "badge-alert",
+          "children": [
+            {
+              "id": "pawn.cond.blinded",
+              "label": "blinded",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.charmed",
+              "label": "charmed",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.frightened",
+              "label": "frightened",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.grappled",
+              "label": "grappled",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.invisible",
+              "label": "invisible",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.poisoned",
+              "label": "poisoned",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.prone",
+              "label": "prone",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.restrained",
+              "label": "restrained",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.stunned",
+              "label": "stunned",
+              "icon": "badge-alert",
+              "drag": null
+            },
+            {
+              "id": "pawn.cond.unconscious",
+              "label": "unconscious",
+              "icon": "badge-alert",
+              "drag": null
+            }
+          ]
+        },
+        {
+          "id": "pawn.mark.",
+          "label": "Indicators",
+          "icon": "star",
+          "children": [
+            {
+              "id": "pawn.mark.star",
+              "label": "Star",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.circle",
+              "label": "Circle",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.diamond",
+              "label": "Diamond",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.triangle",
+              "label": "Triangle",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.moon",
+              "label": "Moon",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.square",
+              "label": "Square",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.cross",
+              "label": "Cross",
+              "icon": "star",
+              "drag": null
+            },
+            {
+              "id": "pawn.mark.skull",
+              "label": "Skull",
+              "icon": "star",
+              "drag": null
+            }
+          ]
+        },
+        {
+          "id": "edit.lift",
+          "label": "Raise / lower",
+          "icon": "move-vertical",
+          "drag": "lift",
+          "opens": null
+        }
+      ]
+    },
+    "prop:player": {
+      "primary": [],
+      "secondary": []
+    },
+    "openable:player": {
+      "primary": [
+        {
+          "id": "thing.open",
+          "label": "Open",
+          "icon": "door-open",
+          "drag": null,
+          "slot": 11
+        }
+      ],
+      "secondary": []
+    },
+    "light:player": {
+      "primary": [],
+      "secondary": [
+        {
+          "id": "thing.light",
+          "label": "Put out",
+          "icon": "flame",
+          "drag": null,
+          "slot": 1,
+          "opens": null
+        }
+      ]
+    },
+    "room:player": {
+      "primary": [],
+      "secondary": []
+    },
+    "building:player": {
+      "primary": [],
+      "secondary": []
+    }
+  }
+}

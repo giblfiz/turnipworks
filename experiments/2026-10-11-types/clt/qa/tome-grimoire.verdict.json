@@ -1,0 +1,37 @@
+{
+ "sku": "tome-grimoire",
+ "glb_sha1": "0eee3ca569441b55ee4b8ad4f7f91a92a7750ea7",
+ "time": "2026-10-11T19:43:37-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "tome",
+  "second_guess": "book",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A thick, closed leatherbound fantasy tome or grimoire lying flat on the floor. It features a dark grey/black leather cover, brass or bronze corner brackets, two binding straps across the spine/cover, a circular metallic medallion in the center, a cream-colored block of parchment pages, and a small red ribbon bookmark extending from the page edge. Geometry is clean, solid, and fully continuous.",
+  "from_above": "A dark rectangular book cover oriented vertically, detailed with four metallic corner caps, two horizontal binding straps, a central round metallic plate, and a tiny red ribbon tail poking out from the right edge.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1/20th the height of the figure (roughly 3 to 4 inches thick), and roughly 1/3 the width of the figure's diameter (about 1 foot long and 10 inches wide)."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "tome",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "14% unpainted visible surface",
+   "slight cantilever on underside contact"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "unpainted 14% of the visible surface",
+  "underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)",
+  "gemini note: 14% unpainted visible surface",
+  "gemini note: slight cantilever on underside contact"
+ ],
+ "vision": true
+}

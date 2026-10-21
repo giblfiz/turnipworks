@@ -1,0 +1,89 @@
+{
+ "single-body": {
+  "src_faces": 49294,
+  "dims_xyz": [
+   1.0,
+   0.761,
+   0.611
+  ],
+  "boundary_edges": 24012,
+  "rim_top_frac_by_side": {
+   "front(-y)": 0.732,
+   "back(+y)": 1.0,
+   "left(-x)": 0.939,
+   "right(+x)": 0.939
+  },
+  "rim_level_spread_frac": 0.268,
+  "cavity_depth_frac_of_rim": 0.356,
+  "see_through_rays": "0/80"
+ },
+ "single-lid": {
+  "src_faces": 49264,
+  "dims_xyz": [
+   1.0,
+   0.799,
+   0.638
+  ],
+  "boundary_edges": 23334,
+  "underside_first_hit_frac_of_height": 0.176,
+  "underside": "solid block"
+ },
+ "trellis-body": {
+  "src_faces": 29316,
+  "dims_xyz": [
+   1.0,
+   1.011,
+   0.526
+  ],
+  "boundary_edges": 8568,
+  "rim_top_frac_by_side": {
+   "front(-y)": 0.998,
+   "back(+y)": 0.998,
+   "left(-x)": 0.995,
+   "right(+x)": 0.988
+  },
+  "rim_level_spread_frac": 0.01,
+  "cavity_depth_frac_of_rim": 0.811,
+  "see_through_rays": "0/80"
+ },
+ "trellis-lid": {
+  "src_faces": 29920,
+  "dims_xyz": [
+   1.0,
+   0.759,
+   0.624
+  ],
+  "boundary_edges": 10262,
+  "underside_first_hit_frac_of_height": 0.758,
+  "underside": "hollow"
+ },
+ "hunyuan-body": {
+  "src_faces": 499512,
+  "dims_xyz": [
+   1.0,
+   0.971,
+   0.536
+  ],
+  "boundary_edges": 43999,
+  "rim_top_frac_by_side": {
+   "front(-y)": 0.999,
+   "back(+y)": 0.999,
+   "left(-x)": 0.999,
+   "right(+x)": 0.999
+  },
+  "rim_level_spread_frac": 0.0,
+  "cavity_depth_frac_of_rim": 0.884,
+  "see_through_rays": "0/80"
+ },
+ "hunyuan-lid": {
+  "src_faces": 489934,
+  "dims_xyz": [
+   1.0,
+   0.92,
+   0.747
+  ],
+  "boundary_edges": 52742,
+  "underside_first_hit_frac_of_height": 0.879,
+  "underside": "hollow"
+ }
+}

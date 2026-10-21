@@ -1,0 +1,898 @@
+{
+  "charcoal/edit.rotate": {
+    "status": "accepted",
+    "note": "Rotate piece, high confidence."
+  },
+  "charcoal/edit.rotate--alt1": {
+    "status": "accepted",
+    "note": "Rotate around vertical axis, high confidence."
+  },
+  "parchment/edit.rotate": {
+    "status": "accepted",
+    "note": "Rotate piece, high confidence."
+  },
+  "charcoal/edit.resize": {
+    "status": "accepted",
+    "note": "Scale / Resize, high confidence."
+  },
+  "parchment/edit.resize": {
+    "status": "accepted",
+    "note": "Scale / Resize piece, high confidence."
+  },
+  "charcoal/room.reroll": {
+    "status": "learned",
+    "note": "Dice and Roll recognized; room/building regeneration is learned contextual meaning of Harry's settled two-dice metaphor."
+  },
+  "parchment/room.reroll": {
+    "status": "learned",
+    "note": "Roll recognized; Randomize explicitly offered. Exact regeneration behavior still contextual."
+  },
+  "charcoal/thing.replace": {
+    "status": "accepted",
+    "note": "Cycle alternate forms/textures first; Replace Piece explicitly offered. Correct exchange metaphor."
+  },
+  "parchment/thing.replace": {
+    "status": "accepted",
+    "note": "Swap or replace piece, high confidence."
+  },
+  "charcoal/thing.tilt": {
+    "status": "accepted",
+    "note": "Rotation recognized; blind explanation explicitly identifies horizontal-axis Flip/Roll, distinguishing Turn."
+  },
+  "parchment/thing.tilt": {
+    "status": "accepted",
+    "note": "Rotation recognized; over-top arrow explicitly read as turning over / Flip."
+  },
+  "charcoal/pawn.damage": {
+    "status": "accepted",
+    "note": "After repaint, Apply damage / reduce health, high confidence."
+  },
+  "charcoal/thing.hide": {
+    "status": "accepted",
+    "note": "Hide piece / toggle visibility, high confidence."
+  },
+  "charcoal/thing.hide--alt1": {
+    "status": "accepted",
+    "note": "Toggle visibility Hide/Reveal, medium confidence; private Peek alternative remains."
+  },
+  "parchment/thing.hide": {
+    "status": "accepted",
+    "note": "Hide piece from players, high confidence."
+  },
+  "charcoal/thing.lock": {
+    "status": "accepted",
+    "note": "Lock piece against movement/editing, high confidence."
+  },
+  "charcoal/thing.lock--alt1": {
+    "status": "accepted",
+    "note": "Lock piece against movement/editing, high confidence."
+  },
+  "parchment/thing.lock": {
+    "status": "accepted",
+    "note": "Lock piece, high confidence."
+  },
+  "charcoal/room.walls.": {
+    "status": "learned",
+    "note": "Wall recognized but guessed LOS/obstacle behavior. Exact material-picker action learned from label."
+  },
+  "charcoal/room.walls.--alt1": {
+    "status": "learned",
+    "note": "Wall corner recognized; guessed corner variant or structural properties. Walls material menu must be learned."
+  },
+  "charcoal/room.fog": {
+    "status": "learned",
+    "note": "Height adjustment recognized, with three visible wavy bands. Fog-specific height rather than entity elevation needs label; first context-free read explicitly named fog height."
+  },
+  "parchment/room.fog": {
+    "status": "learned",
+    "note": "Cloud/air layers and height adjustment recognized. Environmental fog height rather than entity flight is learned context."
+  },
+  "charcoal/room.height.": {
+    "status": "learned",
+    "note": "Height adjustment recognized; ceiling-height change versus entity elevation needs the Height label."
+  },
+  "charcoal/room.height.--alt1": {
+    "status": "learned",
+    "note": "Vertical size/ruler recognized. Exact room height command is learned rather than generic scaling/elevation."
+  },
+  "parchment/room.height.": {
+    "status": "learned",
+    "note": "Height adjustment recognized; scale-height explicitly offered. Room ceiling/storey semantics require label."
+  },
+  "charcoal/faction.set": {
+    "status": "accepted",
+    "note": "Set Faction / Change Team, high confidence."
+  },
+  "charcoal/faction.set--alt1": {
+    "status": "accepted",
+    "note": "After repaint, Assign Team / Change Faction, high confidence."
+  },
+  "parchment/faction.set": {
+    "status": "accepted",
+    "note": "Assign faction/team, high confidence."
+  },
+  "charcoal/thing.pin": {
+    "status": "learned",
+    "note": "Pin recognized; preserve through a re-roll rather than prevent movement is learned behavior."
+  },
+  "charcoal/thing.pin--alt1": {
+    "status": "learned",
+    "note": "Anchor recognized after repaint. Keeping through regeneration rather than immobilizing still needs label."
+  },
+  "charcoal/edit.lift": {
+    "status": "accepted",
+    "note": "Move piece vertically up/down, high confidence."
+  },
+  "charcoal/edit.lift--alt1": {
+    "status": "accepted",
+    "note": "Adjust piece elevation, high confidence."
+  },
+  "charcoal/pawn.sheet": {
+    "status": "accepted",
+    "note": "Open character sheet/view piece details, high confidence."
+  },
+  "charcoal/pawn.give--alt1": {
+    "status": "accepted",
+    "note": "Change ownership of selected piece, high confidence."
+  },
+  "charcoal/edit.duplicate": {
+    "status": "accepted",
+    "note": "Duplicate/clone selected piece, high confidence."
+  },
+  "charcoal/edit.duplicate--alt1": {
+    "status": "accepted",
+    "note": "Duplicate/clone selected piece, high confidence."
+  },
+  "charcoal/thing.open": {
+    "status": "learned",
+    "note": "After repaint chest opens; model first expects Inventory/Loot, explicitly offers toggle Open/Close for physical chest/door. Exact mechanical opening behavior contextual."
+  },
+  "charcoal/thing.light": {
+    "status": "accepted",
+    "note": "Toggle light source on piece, high confidence."
+  },
+  "charcoal/thing.rename": {
+    "status": "accepted",
+    "note": "Rename / Edit Label, high confidence."
+  },
+  "charcoal/pawn.cond.--alt1": {
+    "status": "accepted",
+    "note": "Open status effects/markers to apply conditions, high confidence."
+  },
+  "charcoal/pawn.mark.": {
+    "status": "learned",
+    "note": "Star marker alternative correctly recognized, but first guess Favorite. Indicator palette role and individual marker meaning require label/context."
+  },
+  "charcoal/pawn.damage--alt1": {
+    "status": "accepted",
+    "note": "After second repaint, Take damage / reduce HP is first guess, medium confidence; defense alternative remains."
+  },
+  "parchment/room.walls.": {
+    "status": "learned",
+    "note": "Stone wall recognized; guessed immovable/LOS obstacle. Exact wall-material picker learned."
+  },
+  "parchment/thing.pin": {
+    "status": "learned",
+    "note": "Pin recognized. Preserve through re-roll rather than immobilize requires label."
+  },
+  "parchment/edit.lift": {
+    "status": "accepted",
+    "note": "Adjust elevation up/down, high confidence."
+  },
+  "charcoal/pawn.sheet--alt1": {
+    "status": "accepted",
+    "note": "After repaint, View character sheet/piece stats, high confidence."
+  },
+  "parchment/pawn.sheet": {
+    "status": "accepted",
+    "note": "Open character sheet/view details, high confidence."
+  },
+  "parchment/thing.open": {
+    "status": "accepted",
+    "note": "Open/toggle open-closed state, high confidence."
+  },
+  "parchment/thing.light": {
+    "status": "accepted",
+    "note": "Toggle light emission, high confidence."
+  },
+  "parchment/thing.rename": {
+    "status": "accepted",
+    "note": "Rename / Edit Label, high confidence."
+  },
+  "charcoal/pawn.travel": {
+    "status": "accepted",
+    "note": "Send to another location/scene, medium confidence; destination necessarily contextual."
+  },
+  "parchment/pawn.travel": {
+    "status": "accepted",
+    "note": "Move piece to another location/zone, medium confidence."
+  },
+  "charcoal/room.height.taller": {
+    "status": "learned",
+    "note": "Raise recognized; increasing ceiling/storey height rather than token elevation requires room context."
+  },
+  "charcoal/room.height.shorter": {
+    "status": "learned",
+    "note": "Lower/drop recognized; reducing ceiling/storey height rather than floor snapping requires room context."
+  },
+  "charcoal/pawn.mark.circle": {
+    "status": "learned",
+    "note": "Orange circle recognizable. Choosing this marker rather than changing piece color requires labelled Indicators menu."
+  },
+  "charcoal/pawn.mark.diamond": {
+    "status": "accepted",
+    "note": "Add status marker/token, medium confidence; diamond/gem recognized."
+  },
+  "charcoal/pawn.mark.triangle": {
+    "status": "learned",
+    "note": "Triangle recognized but guessed elevation. This is a named selectable marker, whose meaning is assigned by players."
+  },
+  "charcoal/pawn.mark.moon": {
+    "status": "learned",
+    "note": "Moon recognized and read as sleep status. Indicator is user-defined; exact marker meaning learned."
+  },
+  "charcoal/pawn.mark.cross": {
+    "status": "learned",
+    "note": "Red X recognized but guessed Delete. Named marker choice requires labelled Indicators menu."
+  },
+  "charcoal/pawn.mark.skull": {
+    "status": "learned",
+    "note": "Skull recognized; death status offered after Delete. Named marker choice requires labelled Indicators menu."
+  },
+  "parchment/roof.style.": {
+    "status": "learned",
+    "note": "Roof recognized; first guess visibility, not material style. Roof style picker needs its label."
+  },
+  "parchment/room.height.shorter": {
+    "status": "learned",
+    "note": "Lower/drop-to-surface recognized; lowering ceiling height rather than moving a token needs room context."
+  },
+  "charcoal/stair.flip": {
+    "status": "learned",
+    "note": "Stairs and up/down direction recognized; exact stair direction toggle rather than elevation requires label."
+  },
+  "charcoal/cast.saveGroup": {
+    "status": "learned",
+    "note": "Grouped pawns visible; Group explicitly offered after Clone. Saving as a reusable cast group is learned workflow."
+  },
+  "charcoal/ring.menu": {
+    "status": "accepted",
+    "note": "Open menu / more options, high confidence."
+  },
+  "charcoal/ring.menu--alt1": {
+    "status": "accepted",
+    "note": "More options / extended menu, high confidence."
+  },
+  "charcoal/ring.close": {
+    "status": "learned",
+    "note": "X recognized; standalone guess Delete, with closing contextual menu explicitly offered. Actual menu-dismiss position supplies meaning."
+  },
+  "charcoal/measure.keep": {
+    "status": "learned",
+    "note": "Anchor/pin recognized. Keeping a ruler/template visible rather than freezing an entity is learned measuring context."
+  },
+  "charcoal/measure.keepRounds": {
+    "status": "learned",
+    "note": "Hourglass recognized; timer is offered after history. Persisting for game rounds needs label and measurement context."
+  },
+  "charcoal/measure.attach": {
+    "status": "accepted",
+    "note": "Link / Attach to another piece, high confidence."
+  },
+  "charcoal/measure.say": {
+    "status": "learned",
+    "note": "Speech bubble and pawn recognized; speech/chat offered after label/description. Announcing caught pawns requires measuring context."
+  },
+  "charcoal/template.remove": {
+    "status": "accepted",
+    "note": "Delete/remove selected item, high confidence; template context supplies target."
+  },
+  "parchment/edit.duplicate": {
+    "status": "accepted",
+    "note": "After repaint, Duplicate / Clone selected piece, high confidence."
+  },
+  "parchment/pawn.cond.": {
+    "status": "accepted",
+    "note": "After repaint, Manage status effects / conditions, high confidence."
+  },
+  "parchment/room.height.taller": {
+    "status": "learned",
+    "note": "Raise/lift recognized; increasing room ceiling/storey height requires label and room context."
+  },
+  "parchment/stair.flip": {
+    "status": "learned",
+    "note": "Stairs plus up/down recognized; exact stair direction toggle rather than elevation needs label."
+  },
+  "parchment/ring.menu": {
+    "status": "accepted",
+    "note": "Open menu / More options, high confidence."
+  },
+  "parchment/pawn.mark.circle": {
+    "status": "learned",
+    "note": "Orange circle recognized; label distinguishes named indicator from color tint/status ring."
+  },
+  "parchment/pawn.mark.diamond": {
+    "status": "accepted",
+    "note": "Toggle purple diamond status marker, medium confidence."
+  },
+  "parchment/pawn.mark.triangle": {
+    "status": "learned",
+    "note": "Green triangle recognized; labelled Indicators menu distinguishes marker from Move up."
+  },
+  "parchment/pawn.mark.moon": {
+    "status": "learned",
+    "note": "Moon/sleep status recognized. Actual indicator meaning remains player-defined."
+  },
+  "charcoal/pawn.mark.square": {
+    "status": "learned",
+    "note": "After repaint, blue square correctly recognized. Label distinguishes named marker from color/Stop."
+  },
+  "charcoal/measure.shape.cone": {
+    "status": "learned",
+    "note": "Cone-sector wedge shape recognized; standalone arrow/down guess. Shape choice needs labelled template palette."
+  },
+  "charcoal/measure.shape.circle": {
+    "status": "learned",
+    "note": "Ring/aura recognized; selecting circular measurement area needs measuring context."
+  },
+  "parchment/pawn.damage": {
+    "status": "accepted",
+    "note": "After second repaint, Decrease health / Subtract HP / take damage, high confidence."
+  },
+  "charcoal/pawn.give": {
+    "status": "accepted",
+    "note": "After repaint, Give/pass piece to another player, high confidence."
+  },
+  "parchment/pawn.give": {
+    "status": "accepted",
+    "note": "After repaint, Give piece / transfer ownership, high confidence."
+  },
+  "charcoal/thing.upright": {
+    "status": "accepted",
+    "note": "After repaint, Stand upright / Right piece, high confidence."
+  },
+  "charcoal/measure.shape.sphere": {
+    "status": "learned",
+    "note": "Sphere and crossed bands visibly recognized; standalone lock/package guess. Template shape choice requires labelled measurement palette."
+  },
+  "charcoal/thing.open--alt2": {
+    "status": "accepted",
+    "note": "Toggle open/closed state recognized, medium confidence; closed door supplies close direction."
+  },
+  "charcoal/thing.pin--alt2": {
+    "status": "accepted",
+    "note": "Unpin / unlock piece, high confidence."
+  },
+  "charcoal/stair.flip--alt3": {
+    "status": "learned",
+    "note": "Descending stairs and down-level direction recognized; changing stair connector direction requires label."
+  },
+  "charcoal/measure.keep--alt1": {
+    "status": "learned",
+    "note": "Pin/lock recognized. Keeping a measurement/template visible rather than freezing a piece needs measuring context."
+  },
+  "charcoal/pawn.cond.": {
+    "status": "accepted",
+    "note": "After repaint, Open status markers/conditions menu, high confidence."
+  },
+  "parchment/pawn.mark.": {
+    "status": "learned",
+    "note": "After ground correction, star clearly recognized; Favorite first, Add Star Status alternative. Palette versus individual marker needs label."
+  },
+  "charcoal/roof.style.": {
+    "status": "learned",
+    "note": "After repaint, solid house and teal tiled roof visible; model guesses Rest/Home. Roof-material picker is learned architecture context, not independently guessed."
+  },
+  "charcoal/building.storeys.": {
+    "status": "learned",
+    "note": "After repaint, three-tier tower recognized; change height/floor/level offered. Choosing generated storey count is learned context."
+  },
+  "parchment/cast.saveGroup": {
+    "status": "learned",
+    "note": "Group pieces recognized; saving a reusable cast group rather than grouping movement is learned workflow."
+  },
+  "parchment/ring.close": {
+    "status": "learned",
+    "note": "X recognized; closing/deselecting menu offered after Delete. Its menu-toggle location supplies meaning."
+  },
+  "parchment/pawn.mark.cross": {
+    "status": "learned",
+    "note": "Red X recognized; standalone Delete guess. Named marker requires labelled Indicators menu."
+  },
+  "parchment/pawn.mark.skull": {
+    "status": "learned",
+    "note": "Skull/dead status recognized; skull marker's exact meaning remains player-defined."
+  },
+  "charcoal/measure.start": {
+    "status": "accepted",
+    "note": "After repaint, Measure distance, high confidence."
+  },
+  "parchment/measure.keepRounds": {
+    "status": "learned",
+    "note": "Hourglass/timer recognized; duration in game rounds requires measuring context."
+  },
+  "parchment/measure.attach": {
+    "status": "accepted",
+    "note": "Link / Attach to another piece, high confidence."
+  },
+  "charcoal/measure.shape.line": {
+    "status": "learned",
+    "note": "After repaint, plain teal line on grid recognized as measuring/drawing line. Linear area template selected via labelled shape palette."
+  },
+  "parchment/measure.shape.cone": {
+    "status": "learned",
+    "note": "Cone-shaped field recognized as vision cone; choosing cone measurement template requires palette label."
+  },
+  "parchment/measure.shape.circle": {
+    "status": "learned",
+    "note": "Ring/aura recognized; circular measurement template chosen via labelled palette."
+  },
+  "parchment/measure.shape.sphere": {
+    "status": "learned",
+    "note": "Sphere with bands recognized; standalone rotation/target guess. Spherical template choice requires labelled palette."
+  },
+  "charcoal/thing.hide--alt2": {
+    "status": "accepted",
+    "note": "Eye read as toggle visibility Hide/Reveal, high confidence; un-slashed eye supplies reveal direction."
+  },
+  "charcoal/thing.lock--alt2": {
+    "status": "accepted",
+    "note": "Unlock piece, high confidence."
+  },
+  "parchment/thing.lock--alt2": {
+    "status": "accepted",
+    "note": "Unlock piece, high confidence."
+  },
+  "parchment/thing.open--alt2": {
+    "status": "accepted",
+    "note": "Toggle open/closed door state, high confidence; closed door supplies close direction."
+  },
+  "charcoal/room.fog--alt1": {
+    "status": "learned",
+    "note": "After third repaint, cloud and mist lines correctly recognized with vertical adjustment. Exact fog depth versus flight height still needs label."
+  },
+  "parchment/building.storeys.": {
+    "status": "learned",
+    "note": "After repaint, three-tier tower recognized; height adjustment first. Generated storey-count picker requires building context."
+  },
+  "parchment/measure.keep": {
+    "status": "learned",
+    "note": "Anchor/lock recognized; keep measurement/template visible versus freeze a piece requires measuring context."
+  },
+  "parchment/thing.pin--alt2": {
+    "status": "accepted",
+    "note": "Unpin/unlock, high confidence; pin lifting explicitly recognized."
+  },
+  "charcoal/thing.light--alt2": {
+    "status": "accepted",
+    "note": "Extinguish/turn off light, medium confidence."
+  },
+  "charcoal/stair.flip--alt2": {
+    "status": "learned",
+    "note": "Ascending stairs and upward direction recognized; changing stair connector direction requires label."
+  },
+  "charcoal/measure.start--alt1": {
+    "status": "accepted",
+    "note": "Measure distance / ruler tool, high confidence."
+  },
+  "charcoal/measure.attach--alt1": {
+    "status": "accepted",
+    "note": "Link piece to another object, medium confidence."
+  },
+  "parchment/pawn.mark.square": {
+    "status": "learned",
+    "note": "After repaint, plain blue square recognized. Label distinguishes named indicator from tint/Stop."
+  },
+  "parchment/measure.start": {
+    "status": "accepted",
+    "note": "Measure distance, high confidence."
+  },
+  "parchment/measure.say": {
+    "status": "learned",
+    "note": "Pawn/speech bubble recognized; speaking in chat offered after text properties. Announcing caught pawns needs measuring context."
+  },
+  "parchment/template.remove": {
+    "status": "accepted",
+    "note": "Delete / Remove, high confidence."
+  },
+  "parchment/thing.hide--alt2": {
+    "status": "accepted",
+    "note": "Toggle visibility Hide/Reveal to other players, high confidence."
+  },
+  "parchment/thing.light--alt2": {
+    "status": "learned",
+    "note": "Extinguished smoking candle correctly described; Disable light source offered after thematic death/delete. Literal extinguish action needs selected-light context."
+  },
+  "parchment/stair.flip--alt2": {
+    "status": "learned",
+    "note": "Ascending stairs and upward direction recognized; switching a connector to lead up requires label."
+  },
+  "parchment/stair.flip--alt3": {
+    "status": "learned",
+    "note": "Descending stairs and downward-level direction recognized; switching connector direction requires label."
+  },
+  "charcoal/measure.shape.cube": {
+    "status": "learned",
+    "note": "Blind read identifies cube geometry; selecting a cube measurement template requires shape-palette context."
+  },
+  "parchment/measure.shape.cube": {
+    "status": "learned",
+    "note": "Visible cube correctly identified. Generic 3D object interpretation; measurement-template meaning learned in shape palette."
+  },
+  "parchment/measure.shape.line": {
+    "status": "learned",
+    "note": "Plain horizontal template geometry is correct; read as minus/decrease in isolation. Line template depends on shape-palette context, not guessed action."
+  },
+  "parchment/thing.upright": {
+    "status": "accepted",
+    "note": "Final 31 px contextual blind read: Stand up (or right) the piece, high confidence. Built-in edit preserves the accepted original charcoal geometry; matching ochre material removes the transform/container cue."
+  },
+  "charcoal/pawn.cond.blinded": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names blinded with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.charmed": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names charmed with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.frightened": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names frightened with high confidence; group confusion check required separately."
+  },
+  "parchment/pawn.cond.blinded": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names blinded with high confidence; group confusion check required separately."
+  },
+  "parchment/pawn.cond.charmed": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names charmed with high confidence; group confusion check required separately."
+  },
+  "parchment/pawn.cond.frightened": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names frightened with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.grappled": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names grappled with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.grappled--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names grappled with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.invisible": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names invisible with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.invisible--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names invisible with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.poisoned": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names poisoned with high confidence; group confusion check required separately."
+  },
+  "parchment/pawn.cond.grappled": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names grappled with high confidence; group confusion check required separately."
+  },
+  "parchment/pawn.cond.grappled--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names grappled with high confidence; group confusion check required separately."
+  },
+  "parchment/pawn.cond.invisible": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names invisible with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.prone": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names prone with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.prone--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names prone with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.restrained": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names restrained with high confidence; group confusion check required separately."
+  },
+  "charcoal/pawn.cond.restrained--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read names restrained with high confidence; group confusion check required separately."
+  },
+  "charcoal/room.walls.auto": {
+    "status": "learned",
+    "note": "Room/house with settings cog recognized. By-room-type automatic material selection is contextual; structurally distinct from all material samples."
+  },
+  "charcoal/room.walls.rough-timber": {
+    "status": "accepted",
+    "note": "Read as wooden wall; uneven upright planks and diagonal brace correctly described."
+  },
+  "charcoal/room.walls.log-cabin": {
+    "status": "accepted",
+    "note": "Read as logs, with horizontal cylinders and circular cut ends correctly described."
+  },
+  "parchment/pawn.cond.invisible--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px read names invisible with high confidence; condition group confusion check required separately."
+  },
+  "parchment/pawn.cond.poisoned": {
+    "status": "accepted",
+    "note": "Independent 31px read names poisoned with high confidence; condition group confusion check required separately."
+  },
+  "parchment/pawn.cond.prone": {
+    "status": "accepted",
+    "note": "Independent 31px read names prone with high confidence; condition group confusion check required separately."
+  },
+  "charcoal/pawn.cond.stunned": {
+    "status": "accepted",
+    "note": "Independent 31px read names stunned with high confidence; condition group confusion check required separately."
+  },
+  "charcoal/pawn.cond.stunned--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px read names stunned with high confidence; condition group confusion check required separately."
+  },
+  "charcoal/pawn.cond.unconscious": {
+    "status": "accepted",
+    "note": "Independent 31px read names unconscious with high confidence; condition group confusion check required separately."
+  },
+  "charcoal/pawn.cond.unconscious--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px read names unconscious with high confidence; condition group confusion check required separately."
+  },
+  "charcoal/pawn.cond.clear": {
+    "status": "accepted",
+    "note": "Independent 31px read names clearing conditions with high confidence; condition group confusion check required separately."
+  },
+  "charcoal/room.walls.half-timber": {
+    "status": "accepted",
+    "note": "Blind 31px material read identifies the intended structure/material; exact observations retained below. Distinct silhouette within wall arc."
+  },
+  "charcoal/room.walls.fieldstone": {
+    "status": "accepted",
+    "note": "Blind 31px material read identifies the intended structure/material; exact observations retained below. Distinct silhouette within wall arc."
+  },
+  "charcoal/room.walls.dressed-stone": {
+    "status": "accepted",
+    "note": "Blind 31px material read identifies the intended structure/material; exact observations retained below. Distinct silhouette within wall arc."
+  },
+  "parchment/room.walls.rough-timber": {
+    "status": "accepted",
+    "note": "Blind 31px material read identifies the intended structure/material; exact observations retained below. Distinct silhouette within wall arc."
+  },
+  "parchment/room.walls.log-cabin": {
+    "status": "accepted",
+    "note": "Blind 31px material read identifies the intended structure/material; exact observations retained below. Distinct silhouette within wall arc."
+  },
+  "parchment/room.walls.half-timber": {
+    "status": "accepted",
+    "note": "Blind 31px material read identifies the intended structure/material; exact observations retained below. Distinct silhouette within wall arc."
+  },
+  "charcoal/building.storeys.1": {
+    "status": "accepted",
+    "note": "Blind 31px read correctly counts 1 storey/storeys."
+  },
+  "charcoal/building.storeys.2": {
+    "status": "accepted",
+    "note": "Blind 31px read correctly counts 2 storey/storeys."
+  },
+  "parchment/pawn.cond.prone--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read correctly names prone with high confidence. Group confusion check separately required."
+  },
+  "parchment/pawn.cond.restrained": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read correctly names restrained with high confidence. Group confusion check separately required."
+  },
+  "parchment/pawn.cond.restrained--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read correctly names restrained with high confidence. Group confusion check separately required."
+  },
+  "parchment/pawn.cond.stunned": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read correctly names stunned with high confidence. Group confusion check separately required."
+  },
+  "parchment/pawn.cond.stunned--alt1": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read correctly names stunned with high confidence. Group confusion check separately required."
+  },
+  "parchment/pawn.cond.unconscious": {
+    "status": "accepted",
+    "note": "Independent 31px D&D-condition read correctly names unconscious with high confidence. Group confusion check separately required."
+  },
+  "charcoal/room.walls.crypt-stone": {
+    "status": "accepted",
+    "note": "Blind read correctly describes the distinctive masonry structure/material shown; exact family label is supplied by the menu."
+  },
+  "charcoal/room.walls.castle-rough": {
+    "status": "accepted",
+    "note": "Blind read correctly describes the distinctive masonry structure/material shown; exact family label is supplied by the menu."
+  },
+  "charcoal/room.walls.noble-interior": {
+    "status": "learned",
+    "note": "Light architectural frame and red interior panel recognized; parchment reads doorway. Noble interior material choice needs menu label, but its red framed silhouette is unique in this wall arc."
+  },
+  "parchment/room.walls.fieldstone": {
+    "status": "accepted",
+    "note": "Blind read correctly describes the distinctive masonry structure/material shown; exact family label is supplied by the menu."
+  },
+  "parchment/room.walls.dressed-stone": {
+    "status": "accepted",
+    "note": "Blind read correctly describes the distinctive masonry structure/material shown; exact family label is supplied by the menu."
+  },
+  "parchment/room.walls.crypt-stone": {
+    "status": "accepted",
+    "note": "Blind read correctly describes the distinctive masonry structure/material shown; exact family label is supplied by the menu."
+  },
+  "parchment/room.walls.castle-rough": {
+    "status": "accepted",
+    "note": "Blind read correctly describes the distinctive masonry structure/material shown; exact family label is supplied by the menu."
+  },
+  "parchment/room.walls.noble-interior": {
+    "status": "learned",
+    "note": "Light architectural frame and red interior panel recognized; parchment reads doorway. Noble interior material choice needs menu label, but its red framed silhouette is unique in this wall arc."
+  },
+  "charcoal/building.storeys.3": {
+    "status": "accepted",
+    "note": "Blind 31px read correctly counts3 storeys."
+  },
+  "charcoal/roof.style.flat": {
+    "status": "accepted",
+    "note": "Flat roof correctly read at31px; visible parapet/tray silhouette."
+  },
+  "charcoal/roof.style.auto": {
+    "status": "learned",
+    "note": "Roof and gear/settings correctly recognized; automatic type-dependent choice needs context. Distinct from flat and material swatches."
+  },
+  "parchment/pawn.cond.unconscious--alt1": {
+    "status": "accepted",
+    "note": "Independent31px read: Unconscious (Sleep), high confidence."
+  },
+  "parchment/pawn.cond.clear": {
+    "status": "accepted",
+    "note": "Independent31px read explicitly recognizes clearing conditions, high confidence."
+  },
+  "charcoal/room.walls.noble-panel": {
+    "status": "accepted",
+    "note": "Wood paneling correctly read; recessed double-panel silhouette recognized."
+  },
+  "charcoal/room.walls.conservatory": {
+    "status": "accepted",
+    "note": "Glazed green frame/window correctly read; conservatory family supplied by menu label."
+  },
+  "parchment/room.walls.noble-panel": {
+    "status": "accepted",
+    "note": "Wood paneling correctly read; recessed double-panel silhouette recognized."
+  },
+  "parchment/room.walls.conservatory": {
+    "status": "accepted",
+    "note": "Glazed green frame/window correctly read; conservatory family supplied by menu label."
+  },
+  "charcoal/room.walls.noble-paper": {
+    "status": "learned",
+    "note": "Patterned flexible sheet/curl recognized, read as banner or tapestry; wallpaper covering needs material-menu label. Visually distinct from other wall samples."
+  },
+  "parchment/room.walls.noble-paper": {
+    "status": "accepted",
+    "note": "Wallpaper correctly read at31px; curl and repeating pattern recognized."
+  },
+  "parchment/building.storeys.1": {
+    "status": "accepted",
+    "note": "One storey correctly counted at31px."
+  },
+  "parchment/room.walls.auto": {
+    "status": "learned",
+    "note": "Blind read describes room frame and gear correctly but calls it Settings/Configuration (85%). Automatic material inheritance is learned from the wall-menu label; gear is not uniquely guessable."
+  },
+  "charcoal/room.walls.temple-stone": {
+    "status": "learned",
+    "note": "Blind read describes classical pediment and columns in pale carved stone/marble. Exact temple-stone kit is learned from the material menu; charcoal best action is Archway/Gate rather than the kit name."
+  },
+  "charcoal/room.walls.tower-stone": {
+    "status": "learned",
+    "note": "Blind read identifies grey-blue masonry and tower/window silhouette, best material Stone. The tower-stone kit label is learned; the material and structure are correct."
+  },
+  "charcoal/room.walls.mine-timbered": {
+    "status": "accepted",
+    "note": "Blind read identifies Mine Entrance (95%) with thick wooden support frame and rocky tunnel. This directly identifies the timbered-mine material family in the wall menu."
+  },
+  "charcoal/room.walls.wattle-daub": {
+    "status": "accepted",
+    "note": "Blind read identifies Wattle and Daub with clay over woven sticks, high confidence."
+  },
+  "parchment/room.walls.temple-stone": {
+    "status": "learned",
+    "note": "Blind read describes classical pediment and columns in pale carved stone/marble. Exact temple-stone kit is learned from the material menu; charcoal best action is Archway/Gate rather than the kit name."
+  },
+  "parchment/room.walls.tower-stone": {
+    "status": "learned",
+    "note": "Blind read identifies grey-blue masonry and tower/window silhouette, best material Stone. The tower-stone kit label is learned; the material and structure are correct."
+  },
+  "parchment/room.walls.mine-timbered": {
+    "status": "accepted",
+    "note": "Blind read identifies Mine Entrance (95%) with thick wooden support frame and rocky tunnel. This directly identifies the timbered-mine material family in the wall menu."
+  },
+  "parchment/room.walls.wattle-daub": {
+    "status": "accepted",
+    "note": "Blind read identifies Wattle and Daub with clay over woven sticks, high confidence."
+  },
+  "parchment/building.storeys.2": {
+    "status": "accepted",
+    "note": "Blind read correctly counts 2 storeys and distinct floor/window tiers, high confidence."
+  },
+  "parchment/building.storeys.3": {
+    "status": "accepted",
+    "note": "Blind read correctly counts 3 storeys and distinct floor/window tiers, high confidence."
+  },
+  "parchment/roof.style.flat": {
+    "status": "accepted",
+    "note": "Blind read identifies Flat Roof (95%) with flat plane and low parapet."
+  },
+  "parchment/roof.style.auto": {
+    "status": "learned",
+    "note": "Blind read identifies roof plus gear as Roof Settings. Automatic roof selection is learned from the menu label; the gear denotes configuration but does not uniquely imply auto."
+  },
+  "charcoal/ruler.keepfor.1": {
+    "status": "accepted",
+    "note": "Blind read identifies 1 Turn/1 Round (95%) from numeral 1 and hourglass."
+  },
+  "parchment/ruler.keepfor.1": {
+    "status": "learned",
+    "note": "Blind read identifies numeral 1 and hourglass (95%), proposing 1 Minute or 1 Turn. The unit of rounds is learned from the timing menu; count and duration are visible."
+  },
+  "charcoal/ruler.keepfor.n": {
+    "status": "learned",
+    "note": "Repaint removes misleading N. Blind read identifies three hourglasses as Long Timer/Extended Time (90%). Multiple-round duration is readable; choosing a custom round count requires the menu label."
+  },
+  "charcoal/roof.style.thatch": {
+    "status": "accepted",
+    "note": "Blind read correctly identifies fibrous golden thatch, high confidence."
+  },
+  "charcoal/roof.style.tile": {
+    "status": "accepted",
+    "note": "Blind read correctly identifies curved terracotta roof tiles (99%)."
+  },
+  "charcoal/roof.style.slate": {
+    "status": "accepted",
+    "note": "Blind read correctly identifies rough blue-grey slate tiles/shingles (95%)."
+  },
+  "parchment/roof.style.thatch": {
+    "status": "accepted",
+    "note": "Blind read correctly identifies fibrous golden thatch, high confidence."
+  },
+  "parchment/roof.style.tile": {
+    "status": "accepted",
+    "note": "Blind read correctly identifies curved terracotta roof tiles (99%)."
+  },
+  "parchment/roof.style.slate": {
+    "status": "accepted",
+    "note": "Blind read correctly identifies rough blue-grey slate tiles/shingles (95%)."
+  },
+  "charcoal/roof.style.shingle": {
+    "status": "accepted",
+    "note": "Blind read correctly identifies wood shingles/wood shakes with visible wood grain, high confidence."
+  },
+  "charcoal/room.walls.black-stone": {
+    "status": "learned",
+    "note": "Repaint replaces incorrect crystals with the actual kit: dressed near-black masonry with dark red band. Blind read describes dark blocks/red accent course correctly, calling it Brick Wall. Exact black-stone kit name is learned from the material menu."
+  },
+  "parchment/room.walls.black-stone": {
+    "status": "accepted",
+    "note": "Repaint replaces incorrect crystals with dressed near-black masonry and dark red band. Blind read correctly identifies dark stone with red band (85%)."
+  },
+  "parchment/ruler.keepfor.n": {
+    "status": "learned",
+    "note": "Repaint removes misleading N. Blind read describes three overlapping hourglasses correctly and calls it Timer (95%). Multiple-round timing is represented; exact custom count is learned from the label, distinct from numeral-1 duration."
+  },
+  "charcoal/room.walls.cut-rock": {
+    "status": "learned",
+    "note": "Repaint removes incorrect prison bars. Blind read sees one rough-hewn earth/brown-rock mass with diagonal grooves, but best label is Dirt/Earth. Exact hewn-rock kit requires its material label; silhouette correctly avoids block joints and bars."
+  },
+  "parchment/room.walls.cut-rock": {
+    "status": "accepted",
+    "note": "Repaint removes incorrect prison bars. Blind read identifies Stone/Rock (95%) as one rough monolithic chunk with diagonal striations, matching the hewn-rock wall family."
+  },
+  "parchment/roof.style.shingle": {
+    "status": "accepted",
+    "note": "Repaint replaces straw-like fibres with four broad wooden boards and round knots. Blind read now identifies Wood Shingles (95%), distinct from sibling thatch."
+  }
+}

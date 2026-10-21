@@ -1,0 +1,12 @@
+Edit task. The supplied image shows this object (wall with shuttered or slit window) in the Turnip Works hand-painted house style. Show the SAME object: identical colours, materials, ironwork, carving, proportions (about 60 × 12 × 108 in when closed) and painting style. Do not redesign it.
+
+Show this same object with its window shutters swung fully OPEN outward to the sides. The window opening is now clear: you can see straight through it. Keep the wall section identical. Thick, chunky parts so the open shape reconstructs cleanly in 3D. Camera: a three-quarter view from slightly above, as in the supplied image.
+
+Geometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.
+Finish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.
+Palette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.
+Avoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.
+
+Presentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.
+
+Corrections from a rejected previous attempt (fix these): Window sill material changed from wood to grey stone; Missing the inner window frame and glass panes shown in the reference

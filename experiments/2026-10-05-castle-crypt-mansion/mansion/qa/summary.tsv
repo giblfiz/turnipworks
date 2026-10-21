@@ -1,0 +1,121 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+balustrade-stone	accept	-	stone balustrade	0.95	0.0	0	0	5x0.66x2.65	60x8x36	1.01	1.13	prop	1	
+balustrade-stone-pier	accept	-	stone balustrade pier	0.95	0.0	0	0	1.4x1.4x3.83	14x14x46	1.0	1.2	prop	1	
+bed-canopy--state	accept	-	canopy bed	0.95	0.0	0	0	6.61x8x7.33	72x90x96	1.03	1.16	prop	1	
+bell-board-servants	accept	-	servant bell board	0.85	0.0	0	0	3.33x0.72x1.61	40x6x16	1.44	1.21	prop	1	
+bench-garden	accept	-	stone garden bench	0.98	0.0	0	0	5.5x2.24x3.09	66x24x36	1.12	1.03	prop	1	
+bench-potting	accept	override: supervisor: Gemini failed it only for a blue bucket on the lower shelf (the must-not protects the chroma matte; the bucket is intact and painted, 0 floating, 0 unpainted). Reads as a potting bench. (was reroll-plate: gemini: contains a blue bucket violating the must-not against blue objects)	potting bench	0.95	0.0	0	0	5x2.32x4.65	60x24x54	1.16	1.03	prop	1	
+bench-upholstered--s1	accept	-	upholstered bench	0.95	0.0	0	0	5x2.03x2.04	60x18x19	1.35	1.29	prop	1	
+bench-upholstered--s2	accept	-	upholstered bench	0.95	0.0	0	0	5x1.72x1.58	60x18x19	1.14	1.0	prop	1	
+birdbath	accept	-	birdbath	0.95	0.0	0	0	2.6x2.6x2.83	24x24x34	1.0	1.3	prop	1	
+book-open	accept	-	open book	0.98	0.0	0	0	1.33x1.05x0.27	16x11x3	1.14	1.07	prop	1	
+book-pile-floor	accept	-	pile of books	0.95	0.0	0	0	1.67x1.62x0.8	20x16x10	1.21	1.04	prop	1	
+book-stack	accept	-	stack of books	0.85	0.0	0	0	0.52x0.75x0.71	9x7x8	1.13	1.06	prop	1	
+bookcase-ladder	accept	-	bookcase with ladder	0.98	0.0	0	0	2.68x9x8.99	96x30x108	1.05	1.13	prop	1	
+books-row-bookends	accept	-	row of books with bookends	0.85	0.0	0	0	1.33x0.4x0.7	16x7x10	1.47	1.2	prop	1	footprint proportion 1.47x off the catalog (1.3 x 0.4 ft)
+bookshelf--fine--s1	accept	-	bookshelf	0.98	0.0	0	0	1.67x4.8x8	48x16x96	1.05	1.2	prop	1	
+bookshelf--fine--s2	accept	-	bookshelf	0.98	0.0	0	0	5.71x1.84x8	48x16x96	1.03	1.43	prop	1	
+bookshelf--fine--s3	accept	-	bookshelf	0.95	0.0	0	0	4.5x1.62x3.08	54x15x42	1.3	1.14	prop	1	
+bush-rose--s1	accept	-	rose bush	0.95	0.0	0	0	3.46x3.5x3.36	36x36x42	1.01	1.22	prop	1	
+bush-rose--s2	accept	-	rose bush	0.95	0.0	0	0	3.33x3.2x4.5	30x30x54	1.04	1.33	prop	1	
+cabinet-china	accept	-	china cabinet	0.95	0.0	0	0	3.8x2x7	44x16x84	1.45	1.04	prop	1	footprint proportion 1.45x off the catalog (3.8 x 2.0 ft) | gemini note: Footprint slightly deeper than catalog spec (2.0 ft vs 1.3 ft), but proportions remain tall and readable.
+cabinet-china-open	accept	-	china cabinet	0.95	0.0	0	0	4.34x3.23x7	44x34x84	1.04	1.18	prop	1	
+candelabra--fine--s2	accept	-	candelabra	0.95	0.0	0	0	0.74x1.36x1.67	14x14x20	1.84	1.17	prop	1	footprint proportion 1.84x off the catalog (1.4 x 0.7 ft) | gemini note: finished in bronze/brass rather than requested silver | gemini note: footprint is linear/planar rather than square
+candelabra-standing--s1	accept	-	candelabrum	0.95	0.0	0	0	2.16x1.98x5	18x18x60	1.09	1.44	prop	1	gemini note: Tiny black wick particles floating above several candles
+candelabra-standing--s2	accept	-	candelabra	0.95	0.0	0	0	1.67x2.18x5	18x18x60	1.3	1.46	prop	1	height proportion 1.46x off the catalog | gemini note: candle arms span slightly wider than catalog default ratio but fit floor candelabra design
+centerpiece-epergne	accept	-	fruit centerpiece	0.85	0.0	0	0	1.66x1.43x1.67	16x16x20	1.16	1.25	prop	1	
+chair-armed--fine--s2	accept	-	armchair	0.98	0.0	0	0	2.3x2.02x3.5	24x22x42	1.04	1.15	prop	1	
+chair-plain--fine--s1	accept	-	chair	1.0	0.0	0	0	1.67x1.95x3.33	20x20x40	1.17	1.17	prop	1	
+chair-plain--fine--s2	accept	-	wooden chair	1.0	0.0	0	0	1.78x1.85x3.33	20x20x40	1.04	1.11	prop	1	
+chair-plain--fine--s3	accept	-	chair	0.99	0.0	0	0	1.62x1.76x3.33	20x20x40	1.08	1.05	prop	1	
+chair-salon-gilt--s1	accept	-	chair	0.98	0.0	0	0	1.43x1.67x3.17	20x20x38	1.17	1.0	prop	1	
+chair-salon-gilt--s2	accept	-	chair	0.99	0.0	0	0	1.63x1.7x3.17	20x20x38	1.04	1.02	prop	1	
+chair-upholstered--fine--s1	accept	-	armchair	0.98	0.0	0	0	3.32x1.9x3.33	30x30x40	1.74	1.33	prop	1	footprint proportion 1.74x off the catalog (3.3 x 1.9 ft) | gemini note: footprint aspect ratio slightly elongated compared to square catalog ratio, but well within normal armchair dimensions
+chair-upholstered--fine--s2	accept	-	armchair	0.98	0.0	0	0	2.89x2.08x3.83	30x32x46	1.3	1.08	prop	1	
+chair-upholstered--fine--s3	accept	-	armchair	0.98	0.0	0	0	3.24x3.26x3.83	32x34x46	1.06	1.15	prop	1	
+chandelier-grand	accept	-	chandelier	0.95	0.0	0	0	5x5x4.19	60x60x60	1.0	1.19	prop	1	gemini note: some sconce arms appear slightly warped or irregularly connected to the rim
+chandelier-grand--s2	accept	-	chandelier	0.95	0.0	0	0	2.84x3.47x3.67	44x44x44	1.22	1.06	prop	1	gemini note: model rests on bottom crystal pendant as it lacks a ceiling mount
+citrus-tree-tub	accept	-	potted orange tree	0.95	0.0	0	0	3.23x3.19x5.5	30x30x66	1.01	1.29	prop	1	
+clock-longcase	accept	-	grandfather clock	0.98	0.0	0	0	2.13x1.18x7	20x12x84	1.08	1.28	prop	1	
+clock-mantel	accept	-	mantel clock	0.85	0.0	0	0	0.95x0.48x1.17	12x6x14	1.01	1.05	prop	1	
+commode	accept	-	commode / small dresser	0.95	0.0	0	0	3.67x2.43x2.93	44x22x36	1.32	1.03	prop	1	
+craft-wicker-chair	accept	-	wicker armchair	0.98	0.0	0	0	3x2.91x2.98	22x22x36	1.03	1.65	prop	1	height proportion 1.65x off the catalog | gemini note: proportions are roughly 1:1:1 cube rather than the narrower catalog estimate
+desk-bureau	accept	-	secretary desk	0.95	0.0	0	0	3.27x1.76x3.67	38x20x44	1.02	1.03	prop	1	
+desk-bureau-open	accept	-	secretary desk	0.95	0.002	0	0	3.19x2.76x3.67	38x34x44	1.03	1.01	prop	1	
+desk-partners	accept	-	executive desk	0.98	0.0	0	0	5.5x2.8x2.47	66x36x31	1.07	1.05	prop	1	
+door-double-grand--fine-leaf	accept	-	double door	0.98	0.0	0	0	6.48x1.29x10	72x4x120	3.58	1.08	prop	1	footprint proportion 3.58x off the catalog (6.5 x 1.3 ft) | gemini note: footprint thickness is somewhat deeper than real doors (1.3 ft thick), but acceptable for tabletop readability
+door-glazed--leaf	accept	-	door	0.95	0.0	0	0	3.32x1.35x7	36x3x84	4.88	1.11	prop	1	footprint proportion 4.88x off the catalog (3.3 x 1.4 ft) | gemini note: door leaf is slightly thick due to protruding doorknobs
+door-panelled--leaf	accept	-	door	0.98	0.0	0	0	3.75x0.95x7	36x3x84	3.05	1.25	prop	1	footprint proportion 3.05x off the catalog (3.8 x 0.9 ft) | gemini note: footprint thickness slightly exaggerated for tabletop readability
+fern-potted	accept	-	potted fern	0.95	0.0	0	0	3.47x3.46x3.67	30x30x44	1.0	1.39	prop	1	
+fire-screen	accept	-	fire screen	0.9	0.0	0	0	3x1.3x2.98	30x10x36	1.3	1.21	prop	1	
+fireplace-marble	accept	-	fireplace with mirror	0.95	0.0	0	0	4.92x2.09x9	72x24x108	1.28	1.22	prop	1	
+flowerbed--parterre	accept	-	circular flowerbed	0.95	0.0	0	0	6x5.99x1.73	72x72x18	1.0	1.15	prop	1	
+footstool--fine	accept	-	footstool	0.85	0.0	0	0	1.67x1.17x0.91	20x15x13	1.07	1.18	prop	1	
+fountain-courtyard	accept	-	tiered stone fountain	0.98	0.0	0	0	8x8x7.7	96x96x72	1.0	1.28	prop	1	
+fountain-courtyard--s2	accept	-	stone fountain	0.95	0.0	0	0	5x4.99x3.68	60x60x48	1.0	1.09	prop	1	
+fountain-wall	accept	-	wall fountain	0.95	0.001	0	0	2.67x1.96x5	34x20x60	1.25	1.06	prop	1	
+gazebo	accept	-	gazebo	0.98	0.0	0	0	13x12.99x12.99	132x132x156	1.0	1.18	prop	1	
+gown-on-form	accept	-	ballgown on dress form	0.95	0.0	0	0	5.33x5.23x5.33	30x28x64	1.05	2.13	prop	1	2 separate piece(s) standing on the floor (3%) | height proportion 2.13x off the catalog | gemini note: Skirt is wider than catalog estimate (1:1 width to height ratio due to full bell/crinoline skirt)
+hall-stand	accept	-	hall tree	0.95	0.006	0	0	3.94x1.77x6.5	30x14x78	1.04	1.58	prop	1	height proportion 1.58x off the catalog | gemini note: wider than standard catalog proportions due to integrated bench and umbrella stand
+harp	accept	-	harp	0.98	0.0	0	0	1.8x3.41x5	24x18x60	1.42	1.71	prop	1	height proportion 1.71x off the catalog
+harpsichord	accept	-	harpsichord	0.95	0.0	0	0	3.38x7.67x3.42	36x92x36	1.13	1.14	prop	1	
+inkwell-quill	accept	-	inkstand	0.4	0.047	0	0	0.83x0.61x0.57	3x3x10	1.36	4.89	prop	1	height proportion 4.89x off the catalog | gemini note: Observer noted confidence 0.4 at table distance due to small prop scale, but correctly identified inkstand, inkwell, and quill
+jewelry-box	accept	-	jewelry box	0.9	0.0	0	0	0.83x0.57x0.56	10x7x6	1.02	1.12	prop	1	
+library-steps	accept	-	library steps	0.95	0.0	0	0	1.94x1.9x2.83	20x24x34	1.17	1.03	prop	1	
+lily-pond	accept	-	stone basin / empty fountain	0.85	0.0	0	0	9x9x1.37	108x108x16	1.0	1.03	prop	1	
+mirror-pier-gilt	accept	-	ornate mirror	0.95	0.0	0	0	3.27x0.54x6.5	36x5x78	1.2	1.09	prop	1	
+mirror-standing--fine	accept	-	cheval mirror	0.95	0.0	0	0	3.64x2.46x5.83	26x20x70	1.14	1.68	prop	1	height proportion 1.68x off the catalog | gemini note: slightly wider footprint than catalog ratio
+palm-potted--s1	accept	-	potted palm plant	1.0	0.0	0	0	7.78x7.62x8	48x48x96	1.02	1.94	prop	1	height proportion 1.94x off the catalog | gemini note: crown spread is wider relative to height than catalog ratio, but reads naturally as a palm with arching fronds
+palm-potted--s2	accept	-	potted plant	0.98	0.0	0	0	5x4.51x4.99	48x48x60	1.11	1.25	prop	1	
+pedestal-display--marble	accept	-	marble pedestal	0.95	0.0	0	0	1.68x1.69x3.33	18x18x40	1.0	1.13	prop	1	
+perfume-bottles	accept	-	perfume tray	0.4	0.0	0	0	0.83x0.63x0.53	10x7x7	1.07	1.1	prop	1	gemini note: miniature scale makes individual bottles read soft at tabletop distance
+plant-pot--s1	accept	-	potted plant	0.95	0.0	0	0	0.88x0.84x1	9x9x12	1.05	1.18	prop	1	
+plant-pot--s2	accept	-	potted orchid	0.85	0.0	0	0	1.05x0.6x1.33	9x9x16	1.77	1.41	prop	1	footprint proportion 1.77x off the catalog (1.1 x 0.6 ft)
+plant-stand-tiered	accept	-	tiered plant stand	0.9	0.013	0	0	4.5x2.68x4.38	54x26x54	1.24	1.03	prop	1	
+planter-topiary--s1	accept	-	potted spiral topiary	0.98	0.0	0	0	1.6x1.52x4	22x22x48	1.05	1.15	prop	1	
+planter-topiary--s2	accept	-	potted topiary plant	0.95	0.0	0	0	2.42x2.41x4.5	24x24x54	1.01	1.21	prop	1	
+planter-topiary--s3	accept	-	topiary in a planter	0.95	0.069	0	0	2.23x2.22x5	26x26x60	1.0	1.03	prop	1	gemini note: Planter box color is light tan/stone rather than grey
+plate-silver	accept	-	plate	0.5	0.0	0	0	0.83x0.83x0.1	10x10x0.8	1.0	1.44	prop	1	gemini note: appears in a gold/brass tone rather than silver
+sconce-candle-triple--fine	accept	-	wall sconce	0.7	0.003	0	0	1.65x0.45x2.17	18x9x26	1.85	1.1	prop	1	footprint proportion 1.85x off the catalog (1.6 x 0.5 ft)
+screen-folding--fine	accept	-	folding screen	0.98	0.0	0	0	5.5x0.77x4.52	60x12x66	1.42	1.34	prop	1	
+settee	accept	-	ornate settee	0.95	0.0	0	0	4.67x2.19x3.43	56x30x38	1.14	1.08	prop	1	
+sideboard	accept	-	sideboard	0.95	0.0	0	0	6x2.04x2.83	72x22x38	1.11	1.12	prop	1	
+sideboard-open	accept	-	sideboard	0.9	0.0	0	0	6x2.33x2.79	72x40x38	1.43	1.13	prop	1	
+sofa	accept	-	ornate sofa	0.98	0.0	0	0	7x2.44x3.92	84x34x38	1.16	1.24	prop	1	
+statue-bust--s1	accept	-	bust on a pedestal	0.95	0.0	0	0	1.21x1.2x4.5	16x16x54	1.01	1.1	prop	1	
+statue-garden--s1	accept	-	garden statue	0.95	0.0	0	0	2.19x1.85x7.5	30x30x90	1.18	1.14	prop	1	
+statue-garden--s2	accept	-	garden statue	0.95	0.0	0	0	2.24x1.8x7.5	30x30x90	1.25	1.11	prop	1	
+stool-upholstered	accept	-	upholstered stool	0.95	0.0	0	0	1.83x1.33x1.62	22x16x19	1.01	1.02	prop	1	
+sundial	accept	-	sundial	0.95	0.0	0	0	1.9x1.9x3.5	20x20x42	1.0	1.14	prop	1	
+table-billiards	accept	-	billiard table	1.0	0.0	0	0	5.33x9x2.97	60x108x33	1.07	1.08	prop	1	
+table-card	accept	-	card table	0.95	0.0	0	0	3x3x2.02	36x36x29	1.0	1.19	prop	1	
+table-console	accept	-	console table	0.98	0.0	0	0	4x2.04x3.28	48x18x34	1.36	1.16	prop	1	
+table-feast--fine	accept	-	long dining table	0.95	0.0	0	0	12x4.03x2.75	144x44x30	1.1	1.1	prop	1	
+table-feast--fine--s2	accept	-	dining table	0.95	0.0	0	0	8x4.07x2.88	96x44x30	1.11	1.15	prop	1	
+table-games	accept	-	chess table	0.95	0.0	0	0	2.22x2.21x2.5	30x30x29	1.01	1.16	prop	1	
+table-library	accept	-	library desk	0.95	0.0	0	0	7x3.32x2.99	84x40x30	1.0	1.2	prop	1	
+table-pedestal-round	accept	-	round pedestal table	0.95	0.0	0	0	4.5x4.5x2.44	54x54x30	1.0	1.02	prop	1	gemini note: base has four claw feet branching from pedestal rather than three
+table-round-small--fine	accept	-	round side table	0.98	0.0	0	0	2.5x2.5x2.24	30x30x29	1.0	1.08	prop	1	gemini note: model features four cabriole legs instead of three
+table-side--fine--s2	accept	-	nightstand	0.95	0.0	0	0	1.5x1.29x2.33	18x18x28	1.17	1.0	prop	1	
+table-vanity--fine	accept	-	vanity table	0.95	0.0	0	0	4.22x2.37x5.17	42x20x62	1.18	1.21	prop	1	
+tea-service-tray	accept	-	tea service tray	0.9	0.0	0	0	1.67x1.21x0.56	20x14x9	1.04	1.34	prop	1	
+telescope	accept	-	telescope on a tripod	0.95	0.0	0	0	2.31x3.29x5	20x20x60	1.42	1.98	prop	1	height proportion 1.98x off the catalog | gemini note: tripod footprint slightly wider than catalog expectation but realistic for stability
+trade-globe-terrestrial	accept	-	floor globe	0.95	0.0	0	0	2.32x2.31x3	20x20x36	1.01	1.39	prop	1	
+urn-decorative--floor-vase	accept	-	floor vase with decorative foliage	0.9	0.0	0	0	2.3x2.22x3.5	18x18x42	1.04	1.53	prop	1	height proportion 1.53x off the catalog | gemini note: Plumes are wider and more orange/rust toned than the requested cream sheaf, but reads clearly as intended background prop
+urn-decorative--porcelain	accept	-	decorative urn	0.95	0.0	0	0	2.04x1.63x3	16x16x36	1.26	1.53	prop	1	height proportion 1.53x off the catalog | gemini note: proportions slightly wider than catalog due to handle span
+urn-garden--s1	accept	-	garden urn with flowers	0.95	0.038	0	0	4.02x3.01x4.5	26x26x54	1.34	1.86	prop	1	height proportion 1.86x off the catalog | gemini note: wider profile due to side handles compared to catalog ratio
+urn-garden--s2	accept	-	garden urn on pedestal	0.95	0.0	0	0	1.45x1.45x5	22x22x60	1.0	1.26	prop	1	
+wall-doorway--conservatory	accept	-	conservatory doorway wall	0.95	0.0	0	0	5.01x0.99x9	60x12x108	1.01	1.0	wall	1	wall door: w:h 0.56, depth:h 0.11, largest opening 40% x 76%, filled 70%
+wall-doorway--noble-interior	accept	-	doorway wall section	0.95	0.0	0	0	5.78x0.99x9	60x12x108	1.16	1.16	wall	1	wall door: w:h 0.64, depth:h 0.11, largest opening 47% x 77%, filled 61%
+wall-doorway--noble-panel	accept	-	doorway wall segment	0.95	0.0	0	0	5.67x1.03x9	60x12x108	1.11	1.13	wall	1	wall door: w:h 0.63, depth:h 0.11, largest opening 40% x 65%, filled 75%
+wall-doorway--noble-paper	reject	override: REJECTED: panel 0.79 wide:tall (catalog 0.56) and the opening only 33% of the width: about 20 in at the 60-in box, against a 36-in leaf. The one re-roll (new plate with the TALL, NARROW sentence) was refused by the plate gate for the same fault, so there is no second mesh. (was reroll-plate: panel width:height 0.79, catalog 0.56; doorway not clear from the floor (largest opening 33% x 70%, reaches floor: True))	wall segment with doorway	0.95	0.0	0	0	7.14x1.36x9	60x12x108	1.05	1.43	wall	1	wall door: w:h 0.79, depth:h 0.15, largest opening 33% x 70%, filled 72% | gemini note: slightly wider than catalog target (7.1 ft vs 5.0 ft), but remains taller than wide
+wall-straight--conservatory	accept	-	conservatory window wall section	0.95	0.0	0	0	4.95x1x9	60x12x108	1.02	1.01	wall	1	wall solid: w:h 0.55, depth:h 0.11, largest opening 0% x 0%, filled 100%
+wall-straight--noble-panel	accept	-	wood-panelled wall section	0.95	0.0	0	0	5.64x1.29x9	60x12x108	1.14	1.13	wall	1	wall solid: w:h 0.63, depth:h 0.14, largest opening 0% x 0%, filled 98%
+wall-straight--noble-panel--s2	accept	-	wood-panelled half wall	0.9	0.0	0	0	5.58x1.11x9	60x12x108	1.01	1.12	wall	1	wall solid: w:h 0.62, depth:h 0.12, largest opening 0% x 0%, filled 100% | gemini note: small recessed framed niche on back face
+wall-straight--noble-paper	accept	-	wall section with wallpaper and wainscoting	0.95	0.0	0	0	5.27x0.94x9	60x12x108	1.12	1.05	wall	1	wall solid: w:h 0.58, depth:h 0.10, largest opening 0% x 0%, filled 90%
+wall-straight--noble-paper--s2	accept	-	interior wall section	0.85	0.0	0	0	5.18x0.88x9	60x12x108	1.18	1.04	wall	1	wall solid: w:h 0.57, depth:h 0.10, largest opening 0% x 0%, filled 96% | gemini note: small wall-mounted decorative brackets present on the wallpaper section
+wall-window-small--noble-panel	accept	-	interior wall section with window and wood wainscoting	0.95	0.0	0	0	5.51x1.22x9	60x12x108	1.11	1.1	wall	1	wall window: w:h 0.61, depth:h 0.14, largest opening 0% x 0%, filled 100%
+wall-window-small--noble-paper	accept	-	interior wall section with window	0.95	0.0	0	0	5.28x1.05x9	60x12x108	1.0	1.06	wall	1	wall window: w:h 0.59, depth:h 0.12, largest opening 0% x 0%, filled 94%
+wall-window-small-open--noble-panel	accept	-	open window wall segment	0.95	0.0	0	0	5.51x2.67x9	60x24x108	1.21	1.1	wall	1	wall window-open: w:h 0.61, depth:h 0.30, largest opening 39% x 47%, filled 82%
+wall-window-small-open--noble-paper	accept	-	interior wall section with open window	0.95	0.0	0	0	6.02x1.67x9	60x24x108	1.44	1.2	wall	1	wall window-open: w:h 0.67, depth:h 0.19, largest opening 40% x 46%, filled 76%
+washstand--state	accept	-	washstand	0.95	0.0	0	0	2.32x1.71x3	24x18x36	1.01	1.16	prop	1	

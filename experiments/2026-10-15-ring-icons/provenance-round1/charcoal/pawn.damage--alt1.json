@@ -1,0 +1,53 @@
+{
+  "id": "pawn.damage",
+  "set": "charcoal",
+  "alt": 1,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A battered blue steel shield visibly split by a huge sharp red impact burst across its center. The jagged red burst occupies more than half the shield, with one deep dark crack radiating through the blue shield. Strong visual hit and damage, not a pristine defense emblem. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--pawn.damage--alt1.png",
+  "source_sha256": "b0f2e1564db881689cdf158866754464f6b8888a0b463818588fd317439191d7",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/pawn.damage--alt1.webp",
+    "19": "charcoal/sizes/19/pawn.damage--alt1.webp",
+    "22": "charcoal/sizes/22/pawn.damage--alt1.webp",
+    "26": "charcoal/sizes/26/pawn.damage--alt1.webp",
+    "31": "charcoal/sizes/31/pawn.damage--alt1.webp",
+    "36": "charcoal/sizes/36/pawn.damage--alt1.webp",
+    "38": "charcoal/sizes/38/pawn.damage--alt1.webp",
+    "42": "charcoal/sizes/42/pawn.damage--alt1.webp",
+    "44": "charcoal/sizes/44/pawn.damage--alt1.webp",
+    "50": "charcoal/sizes/50/pawn.damage--alt1.webp",
+    "52": "charcoal/sizes/52/pawn.damage--alt1.webp",
+    "62": "charcoal/sizes/62/pawn.damage--alt1.webp",
+    "84": "charcoal/sizes/84/pawn.damage--alt1.webp",
+    "100": "charcoal/sizes/100/pawn.damage--alt1.webp",
+    "128": "charcoal/pawn.damage--alt1.webp"
+  },
+  "sha256": {
+    "18": "d77c51c1e385a454c6367bcb538429ac385472068221c7979addba2edb3f2e94",
+    "19": "66744293801f0f7482eafe7c32ffacc79f15afab3dec8e4e7bccf870bc19644d",
+    "22": "30b1cae2e97cd12b4e8ec319351304a73eb84522c12441b00c7d4b12bb7a7deb",
+    "26": "a93cc5c05684da36fb6b8f8bd813f22e6406240ed325a51f20c5b0a7887e116e",
+    "31": "f403af4659a1c202dc7abcf1f08b1bbcd5898f358114960589fb6c3d4d9a1424",
+    "36": "601df8caee0b0721b19d5f3e59dd26b4c24631a465962473cebad3697dd058eb",
+    "38": "875527e4da67e454cd8d66cd179e348fcf9c02bfc40b6b604cafebbb5b756707",
+    "42": "ae9bad422a52407e5086978010afb6fcd5594bae67b736b81e18bd142739d816",
+    "44": "0624128881dc076a77090ed840a3489d81270ecfb42c5b00b5f058295a79e7d0",
+    "50": "46bf69bbd1c54821023a11eacd21f9bb1017d3d477bfa0d54c85d40614e88ec1",
+    "52": "7129ac052121df6ee2ba01606949c69af9f64d4308fb9e6af4911ec8f386394a",
+    "62": "638b6e57b84f70d771912ff2ae2b6a7a5500315d748b671db9cce6ad537b2ab4",
+    "84": "3390880c076d6fb9a6f940b6995e97ab22a019e182ca6d40e3f8b97455c0bbbe",
+    "100": "92ea2df4318d3aadc99bcefd8092089925a19b2e7b57bbd95eb4ebd0b1054643",
+    "128": "5661ea23733b54e0b09e39b405bf8941d74bbeb8e0d24fa4bcb768f27c923c8b"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "e48092332cb483d7c5a770b922377d51b1f5b5f04efd707c3ae5bb3a1b3dd0f5"
+}

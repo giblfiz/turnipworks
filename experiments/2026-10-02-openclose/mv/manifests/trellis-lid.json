@@ -1,0 +1,24 @@
+{
+ "job": "trellis-lid",
+ "endpoint": "fal-ai/trellis/multi",
+ "request_id": "01a0fddc-b2b2-7020-a8e7-2734b1d81a30",
+ "started_at": "2026-10-02T18:24:53.925195+00:00",
+ "finished_at": "2026-10-02T18:25:49.928382+00:00",
+ "inputs": {
+  "image_urls": [
+   "lid-front",
+   "lid-top",
+   "lid-under"
+  ],
+  "multiimage_algo": "stochastic",
+  "texture_size": 1024
+ },
+ "input_sha256": {
+  "lid-front": "2cb77254d5ab91ab",
+  "lid-top": "aff90e2b851d858f",
+  "lid-under": "66d9eda358f3a990"
+ },
+ "output": "models/trellis-lid.glb",
+ "output_bytes": 1824332,
+ "estimated_cost_usd": 0.02
+}

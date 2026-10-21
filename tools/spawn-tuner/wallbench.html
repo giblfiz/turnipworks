@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wall fit bench · Spawn Tuner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
+<style>
+  body { grid-template-rows: auto minmax(0, 1fr); }
+  #wbWrap { display: grid; grid-template-columns: 372px minmax(0, 1fr); min-height: 0; }
+  #wbSide { padding: 10px 12px; overflow: auto; border-right: 1px solid var(--line); background: var(--panel); font-size: 12.5px; }
+  #wbSide h3 { font-family: Fraunces, serif; margin: 12px 0 5px; font-size: 14px; }
+  #wbStage { position: relative; min-height: 0; overflow: hidden; } #wbStage canvas { display: block; width: 100%; height: 100%; }
+  #wbTitle { font-family: Fraunces, serif; font-size: 26px; color: var(--turnip); } #wbBuilt { color: var(--muted); font-size: 11.5px; }
+  ul.wb { list-style: none; margin: 0; padding: 0; } ul.wb li { padding: 3px 6px; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; gap: 6px; align-items: baseline; }
+  ul.wb li.on { background: #3a4524; } ul.wb li:hover { background: #2f3a1f; }
+  #wbQueue { max-height: 235px; overflow: auto; } #wbPieces { max-height: 190px; overflow: auto; } #wbFind { max-height: 230px; overflow: auto; }
+  #wbQueue .fn { flex: 1; } .chip { font-size: 10.5px; padding: 0 6px; border-radius: 9px; border: 1px solid var(--line); color: var(--muted); } .chip.approved { color: #a9c77a; border-color: #5d6e33; } .chip.marks { color: #ff7a6b; border-color: #8a3b2e; } .chip.in-progress { color: #e0b04a; }
+  .sc { min-width: 30px; text-align: right; } .ok { color: #a9c77a; } .warn { color: #f0b429; } .bad { color: #ff6a58; } .muted { color: var(--muted); } .small { font-size: 12px; } .chg { color: #6fc3e8; }
+  #wbFind li.bad { color: #ff8a7a; } #wbFind li.warn { color: #f0c24a; } #wbFind li.ok { color: #a9c77a; cursor: default; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: #7fbf6a; flex: none; } .dot.warn { background: #f0b429; } .dot.bad { background: #ff4d3d; } .pn { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .row2 { display: flex; gap: 8px; align-items: baseline; margin: 4px 0; flex-wrap: wrap; } .row2 .k { color: var(--muted); } .row2 .k.ax { color: #6fc3e8; font-weight: 500; }
+  .btns { display: flex; gap: 5px; flex-wrap: wrap; margin: 6px 0; } .btns button, #wbSide button { padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--deep); color: var(--ink); font: inherit; cursor: pointer; }
+  #wbSide button.primary { background: #3a4524; border-color: #5d6e33; } .snap { margin: 6px 0; padding: 6px; border: 1px solid #6fc3e8; border-radius: 6px; }
+  #wbMarkNote { width: 100%; background: var(--deep); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 5px; font: inherit; }
+  #wbToast { position: absolute; left: 12px; bottom: 12px; background: #000b; padding: 6px 10px; border-radius: 6px; display: none; max-width: 70%; z-index: 5; }
+  .lab { position: absolute; left: 0; top: 0; font: 500 11px "DM Mono", monospace; padding: 0 4px; border-radius: 4px; pointer-events: none; display: none; background: #000c; z-index: 3; } .lab.bad { color: #ff6a58; border: 1px solid #ff4d3d; } .lab.warn { color: #f0b429; border: 1px solid #f0b429; }
+  #wbBar { position: absolute; top: 8px; left: 8px; display: flex; gap: 5px; flex-wrap: wrap; z-index: 4; } #wbBar button { padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: #000a; color: var(--ink); font: inherit; cursor: pointer; }
+  kbd { background: var(--deep); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: 11px; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "postprocessing": "./js/vendor/postprocessing-6.39.5.js",
+  "n8ao": "./js/vendor/n8ao-2.0.1.js",
+  "three-good-godrays": "./js/vendor/three-good-godrays-0.12.1.js",
+  "three.quarks": "./js/vendor/three.quarks-0.16.0.js",
+  "quarks.core": "./js/vendor/quarks.core-0.16.0.js",
+  "three-fire": "./js/vendor/three-fire-1.4.0.js",
+  "three-mesh-bvh": "./js/vendor/three-mesh-bvh-0.8.3.js"
+} }
+</script>
+</head>
+<body>
+<header><div class="brand"><a href="./">Spawn Tuner</a><strong>Wall fit bench</strong></div><div class="muted small">One wall family at a time, two storeys, built by the game's own wall code. Red marks are joints out of tolerance, in inches.</div></header>
+<div id="wbWrap">
+  <aside id="wbSide">
+    <div id="wbTitle">…</div><div id="wbBuilt"></div>
+    <h3 id="wbQueueHead">Families</h3>
+    <ul class="wb" id="wbQueue"></ul>
+    <h3>This piece <span class="muted small" id="wbPieceHead"></span></h3>
+    <ul class="wb" id="wbPieces"></ul>
+    <div id="wbPiece"></div>
+    <div class="small muted" id="wbCurFit"></div>
+    <div id="wbMarkRow" hidden><input id="wbMarkNote" placeholder="what does not fit? Enter to mark, Esc to cancel"></div>
+    <div class="btns"><button id="wbSnap" title="s">Snap to fit <kbd>s</kbd></button><button id="wbMark" title="m">Doesn't fit <kbd>m</kbd></button><button id="wbClearMark" title="M">Clear mark <kbd>M</kbd></button><button id="wbApprove" title="a">Approve piece <kbd>a</kbd></button><button id="wbApproveFam" class="primary" title="A">Approve family <kbd>A</kbd></button><button id="wbReset" title="0">Reset <kbd>0</kbd></button><button id="wbUndo" title="ctrl-z">Undo <kbd>^Z</kbd></button></div>
+    <div id="wbDoors"></div>
+    <h3 id="wbFindHead">Measured</h3>
+    <ul class="wb" id="wbFind"></ul>
+    <h3>Ship it</h3>
+    <div class="btns"><button id="wbSend">Send</button><button id="wbHouse">Use in game</button></div>
+    <div class="btns"><button id="wbScan">Measure every family</button></div>
+    <div class="muted small" style="margin-top:8px"><kbd>[</kbd> <kbd>]</kbd> family · <kbd>n</kbd> next open · <kbd>Tab</kbd> piece · <kbd>1</kbd>-<kbd>5</kbd> front / ¾ / inside / seam / panels · <kbd>i</kbd> inside⇄outside · <kbd>h</kbd> roof · <kbd>l</kbd> labels<br><kbd>x</kbd><kbd>y</kbd><kbd>z</kbd> pick scale axis (<kbd>u</kbd> all) then <kbd>-</kbd> <kbd>=</kbd> (shift fine, ctrl coarse) · arrows / PgUp PgDn offset · <kbd>,</kbd> <kbd>.</kbd> yaw · <kbd>U</kbd> use in game</div>
+  </aside>
+  <div id="wbStage"><div id="wbBar"><button data-view="front">Front 1</button><button data-view="three">¾ 2</button><button data-view="inside">Inside 3</button><button data-view="seam">Seam 4</button><button data-view="panels">Panels 5</button><button id="wbFace">outside</button><button id="wbRoof">Roof</button></div><div id="wbToast"></div></div>
+</div>
+<script type="module">
+  const v = await fetch('version.json?t=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+  const m = await import('./js/wallbench.js?v=' + (v?.v || 'dev' + Date.now()));
+  m.start({ v: v?.v || null });
+</script>
+</body>
+</html>

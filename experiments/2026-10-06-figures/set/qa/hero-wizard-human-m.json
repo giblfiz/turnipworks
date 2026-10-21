@@ -1,0 +1,155 @@
+{
+ "file": "hero-wizard-human-m.glb",
+ "tris": 48020,
+ "kb": 3040,
+ "native_extent": [
+  0.566,
+  1.002,
+  0.42
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  109,
+  51,
+  34
+ ],
+ "mean_saturation": 0.768,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 6.09,
+  "length_ft": 6.37,
+  "low_end_ft": [
+   -1.33,
+   0.21,
+   0.34
+  ],
+  "high_end_ft": [
+   -1.61,
+   6.56,
+   0.77
+  ],
+  "tilt_from_upright_deg": 4.6,
+  "thickness_ft": 0.3,
+  "clear_share": 0.84,
+  "joined_share": 0.16,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-----------------------####----#####---------------------"
+ },
+ "overall_ft": 6.94,
+ "pieces": {
+  "connected_parts": 326,
+  "main_part_area_share": 0.9197,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.9289,
+ "y0": -3.471,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.9,
+  "overall": 6.9
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2835,
+   -0.501,
+   -0.2047
+  ],
+  [
+   0.2827,
+   0.5006,
+   0.2149
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48020,
+   "tex": 2048,
+   "kb": 3040
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1192
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 510
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.11,
+    "z": 0.25,
+    "size_ft": [
+     2.11,
+     3.12
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.66,
+    "sole_p90_ft": 0.498
+   },
+   {
+    "x": 0.59,
+    "z": -1.19,
+    "size_ft": [
+     0.23,
+     0.72
+    ],
+    "off_ground_ft": 0.567,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.621
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.567,
+  "lowest_slab_area_sqft": 2.1,
+  "plan_hull_area_sqft": 8.85,
+  "lowest_slab_share_of_plan": 0.237
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.92,
+   "d": 2.91,
+   "h": 6.94
+  },
+  "centre": [
+   0.155,
+   0.292
+  ],
+  "contacts_radius_ft": 1.64,
+  "reach_radius_ft": 2.1,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.934,
+  "plate_lost_share": 0.02,
+  "added_share": 0.049,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.934,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 8
+ },
+ "id": "hero-wizard-human-m",
+ "sha1": "4be355e08fc9da4e91cf2dd07b3cf025619ad88c",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.57 ft off the ground"
+ ],
+ "qa_seconds": 16.9
+}

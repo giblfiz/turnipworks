@@ -1,0 +1,53 @@
+{
+  "id": "pawn.mark.cross",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One large bold red diagonal cross made of two wide strokes. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red for danger; preserve explicitly specified marker shape colors. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--pawn.mark.cross.png",
+  "source_sha256": "a0d804cfb221da39be68d37c6fd44f407ca18a62ef4deb508dcc9866e27daa71",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/pawn.mark.cross.webp",
+    "19": "charcoal/sizes/19/pawn.mark.cross.webp",
+    "22": "charcoal/sizes/22/pawn.mark.cross.webp",
+    "26": "charcoal/sizes/26/pawn.mark.cross.webp",
+    "31": "charcoal/sizes/31/pawn.mark.cross.webp",
+    "36": "charcoal/sizes/36/pawn.mark.cross.webp",
+    "38": "charcoal/sizes/38/pawn.mark.cross.webp",
+    "42": "charcoal/sizes/42/pawn.mark.cross.webp",
+    "44": "charcoal/sizes/44/pawn.mark.cross.webp",
+    "50": "charcoal/sizes/50/pawn.mark.cross.webp",
+    "52": "charcoal/sizes/52/pawn.mark.cross.webp",
+    "62": "charcoal/sizes/62/pawn.mark.cross.webp",
+    "84": "charcoal/sizes/84/pawn.mark.cross.webp",
+    "100": "charcoal/sizes/100/pawn.mark.cross.webp",
+    "128": "charcoal/pawn.mark.cross.webp"
+  },
+  "sha256": {
+    "18": "d46f331b56bec3d9b00d74a3c9a3adff7e772c140eb17f15b3c06c494faebf75",
+    "19": "8c02cf8459400d6f229015ccfdc70d22355db9a9070e3caae241d9a356f85459",
+    "22": "2ccda486fbd20aef886b70b3a7e51f5b8bff4269a236bb7ae794ff7e2b0297ee",
+    "26": "0a46cb72f551f428f9b6443b7d9f0c163a8d9b9717269b0159e81642b76bfee0",
+    "31": "9cab3aaeb175459db919486ca501e1770243b33e03f963227f792b03fe090854",
+    "36": "9d4cd31ef7733387c62b59ed47bf4392852852083a865439fe221a3f2f10cb19",
+    "38": "0850f66700aa3bb792c3d652076ec915628572b1700a92d51a92f143f1d37214",
+    "42": "7df387a56ab723b96784ce708993c7522d03e933520a2351d9d53e4142939fda",
+    "44": "d1aaade8b14e7ddaa6030ca91720a4276cd75845a75492bf19927d9d5786e6a0",
+    "50": "0bc8cc61a7492d5287881d7566698e0d0ecc2a688e039a5700e8215868c6d75c",
+    "52": "887dd9cc03b361c133e7299774a74e6ae947c9206b337df3041557c59a2f967a",
+    "62": "71d85c499ed581fd9412a28cfc9dacdd9dbb4a4fe56ae2d361e526bbb6d71c36",
+    "84": "38976b269ec18cf7a1efff9c8b0269626a5c5246ac23c63ba81efe14fa4beee2",
+    "100": "8fcc8caea79dce4443d75ab8b341ab22a0ddc4b46551e816b099eb5954f63a27",
+    "128": "69a842d7e106834aa7ff79a46a3d3b32eabbf65eae6ebd9991c819f235089457"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "5ba7fbe2904f3a9b5c080695bdb9b01bb779e5fb1bc10c5df246ac928facf653"
+}

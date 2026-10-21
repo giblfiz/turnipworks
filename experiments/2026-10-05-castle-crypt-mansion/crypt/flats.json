@@ -1,0 +1,75 @@
+{
+ "note": "Flat images wanted for the crypt (free image route; none are meshes). 'status' says whether the catalog line is new in objects-crypt.catalog.md or already existed without an image.",
+ "family": "crypt-stone",
+ "flats": [
+  {
+   "id": "floor-tomb-slabs",
+   "kind": "floor",
+   "status": "new line",
+   "variants": 4,
+   "rooms": [
+    "crypt-vault",
+    "crypt-chapel",
+    "crypt-antechamber",
+    "crypt-relic"
+   ],
+   "desc": "Seamless top-down floor of dark, worn tomb paving: big rectangular slate-grey and grey-green slabs in a loose running bond with thin dark joints, edges rounded by centuries of feet, a few slabs cracked. About one slab in six is a carved grave ledger: a slightly paler slab the size of a person (3 ft x 7 ft where it fits the tile, else half-length) with a shallow carved border and one simple emblem (ring-cross, sun-disc, shield, wreath), worn almost flat. NO letters or writing. Damp darkening and a little moss in some joints. Even, shadowless light; tiles on all four edges; reads as stone at table distance, not as a pattern of rectangles."
+  },
+  {
+   "id": "floor-bone-strewn",
+   "kind": "floor",
+   "status": "existing line (expansion-environment), no image yet",
+   "variants": 4,
+   "rooms": [
+    "crypt-ossuary",
+    "crypt-catacomb"
+   ],
+   "desc": "Seamless top-down floor of dark packed grave earth, grey-brown with paler dusty patches, strewn with old bones pressed half into the soil: scattered long bones, ribs, a few vertebrae, a jaw, and here and there a skull seen from above (about one skull per 5-ft tile, never in a regular pattern). Old ivory and tan bone, not white. Sparse enough that the earth is the main read and furniture can stand on it. Even, shadowless light; tiles on all four edges. No blood, no flesh."
+  },
+  {
+   "id": "decal-bones-scatter",
+   "kind": "decal",
+   "status": "new line",
+   "variants": 3,
+   "rooms": [
+    "crypt-ossuary",
+    "crypt-catacomb",
+    "crypt-vault"
+   ],
+   "desc": "Top-down decal on a transparent (keyed) background, about 3 ft x 2.5 ft: a small loose scatter of old bones lying on a floor with a soft contact shadow. Shape 1: a skull, two long bones and a few ribs. Shape 2: a broken ribcage and a pelvis. Shape 3: three long bones, a jaw and finger bones in a rough line. Old ivory and tan. Soft-edged, no ground painted."
+  },
+  {
+   "id": "decal-grave-ledger",
+   "kind": "decal",
+   "status": "new line",
+   "variants": 2,
+   "rooms": [
+    "crypt-vault",
+    "crypt-chapel"
+   ],
+   "desc": "Top-down opaque decal of one grave ledger stone set flush in a floor, 3 ft x 7 ft: a pale grey slab with a carved raised border and a worn emblem. Shape 1: a long-stemmed ring-cross and a small shield at the foot. Shape 2: a sun-disc over a sword laid down the middle. A thin dark joint line round the edge; NO letters. The flat twin of the tomb-slab mesh, for when a walkable marker is wanted."
+  },
+  {
+   "id": "decal-moss",
+   "kind": "decal",
+   "status": "existing line (fantasy-core), no image yet",
+   "variants": 3,
+   "rooms": [
+    "crypt-antechamber",
+    "crypt-catacomb",
+    "crypt-ossuary"
+   ],
+   "desc": "Top-down soft-edged decal on a transparent background: an irregular patch of dark green moss and paler grey-green lichen with a damp darker halo, as it grows along the foot of a wet wall. Three shapes: a long strip for wall feet, a corner fan, a round blotch."
+  },
+  {
+   "id": "rite-altar-cloth",
+   "kind": "cloth (surface flat)",
+   "status": "existing line (objects-rites-mil-bard), no image yet",
+   "variants": 1,
+   "rooms": [
+    "crypt-chapel"
+   ],
+   "desc": "Top-down flat image of an altar cloth, 6 ft x 3 ft: cream linen with a broad burgundy and dull-gold embroidered border and one gold sun-disc in the middle; soft fold lines. Lies on altar-stone. No blue."
+  }
+ ]
+}

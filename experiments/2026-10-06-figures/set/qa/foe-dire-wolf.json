@@ -1,0 +1,158 @@
+{
+ "file": "foe-dire-wolf.glb",
+ "tris": 48555,
+ "kb": 2816,
+ "native_extent": [
+  0.529,
+  0.706,
+  0.999
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0006,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  92,
+  72,
+  60
+ ],
+ "mean_saturation": 0.364,
+ "sized_by": "its highest point",
+ "overall_ft": 4.6,
+ "pieces": {
+  "connected_parts": 75,
+  "main_part_area_share": 0.9925,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.5138,
+ "y0": -2.2983,
+ "stated_ft": {
+  "body": 4.6,
+  "figure_top": 4.6,
+  "overall": 4.6,
+  "length": 4.6
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2641,
+   -0.3529,
+   -0.4999
+  ],
+  [
+   0.2651,
+   0.3535,
+   0.4996
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48555,
+   "tex": 2048,
+   "kb": 2816
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1097
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 472
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.11,
+    "z": 1.55,
+    "size_ft": [
+     1.13,
+     1.28
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.74,
+    "sole_p90_ft": 0.154
+   },
+   {
+    "x": -1.13,
+    "z": 1.55,
+    "size_ft": [
+     1.13,
+     1.26
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.72,
+    "sole_p90_ft": 0.145
+   },
+   {
+    "x": -0.85,
+    "z": -1.38,
+    "size_ft": [
+     0.94,
+     0.96
+    ],
+    "off_ground_ft": 0.01,
+    "sole_level_share": 0.65,
+    "sole_p90_ft": 0.185
+   },
+   {
+    "x": 0.83,
+    "z": -1.38,
+    "size_ft": [
+     0.94,
+     0.96
+    ],
+    "off_ground_ft": 0.012,
+    "sole_level_share": 0.65,
+    "sole_p90_ft": 0.189
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.012,
+  "lowest_slab_area_sqft": 2.62,
+  "plan_hull_area_sqft": 15.44,
+  "lowest_slab_share_of_plan": 0.17
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.44,
+   "d": 6.51,
+   "h": 4.6
+  },
+  "centre": [
+   -0.002,
+   0.283
+  ],
+  "contacts_radius_ft": 2.28,
+  "reach_radius_ft": 3.56,
+  "share_outside_2p5ft": 0.086
+ },
+ "silhouette": {
+  "iou": 0.905,
+  "plate_lost_share": 0.051,
+  "added_share": 0.05,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.863,
+  "view_yaw_deg": 315,
+  "view_elev_deg": 8
+ },
+ "id": "foe-dire-wolf",
+ "sha1": "1c32fa433630445a926d9ae6a5a3339f23ddfb3c",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "reaches 1.1 ft outside its square"
+ ],
+ "qa_seconds": 10.3
+}

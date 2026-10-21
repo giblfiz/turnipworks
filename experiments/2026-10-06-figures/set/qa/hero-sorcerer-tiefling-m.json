@@ -1,0 +1,146 @@
+{
+ "file": "hero-sorcerer-tiefling-m.glb",
+ "tris": 48005,
+ "kb": 2961,
+ "native_extent": [
+  0.521,
+  0.999,
+  0.498
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  106,
+  63,
+  29
+ ],
+ "mean_saturation": 0.735,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 342,
+  "main_part_area_share": 0.9774,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.0096,
+ "y0": -3.0095,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2598,
+   -0.5009,
+   -0.2486
+  ],
+  [
+   0.2608,
+   0.4982,
+   0.2496
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48005,
+   "tex": 2048,
+   "kb": 2961
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1129
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 484
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.5,
+    "z": -0.45,
+    "size_ft": [
+     0.78,
+     1.25
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.8,
+    "sole_p90_ft": 0.091
+   },
+   {
+    "x": 0.96,
+    "z": 0.83,
+    "size_ft": [
+     0.65,
+     1.33
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.81,
+    "sole_p90_ft": 0.089
+   },
+   {
+    "x": 0.98,
+    "z": -1.37,
+    "size_ft": [
+     0.18,
+     0.28
+    ],
+    "off_ground_ft": 0.451,
+    "sole_level_share": 0.75,
+    "sole_p90_ft": 0.527
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.451,
+  "lowest_slab_area_sqft": 1.36,
+  "plan_hull_area_sqft": 6.05,
+  "lowest_slab_share_of_plan": 0.225
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.12,
+   "d": 2.99,
+   "h": 6.0
+  },
+  "centre": [
+   0.466,
+   0.012
+  ],
+  "contacts_radius_ft": 1.58,
+  "reach_radius_ft": 2.02,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.894,
+  "plate_lost_share": 0.034,
+  "added_share": 0.081,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.894,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 8
+ },
+ "id": "hero-sorcerer-tiefling-m",
+ "sha1": "a71c47be4e5b0655f0ffd83eb0d6b4b56a448362",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.45 ft off the ground"
+ ],
+ "qa_seconds": 16.1
+}

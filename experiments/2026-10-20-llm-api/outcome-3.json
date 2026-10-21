@@ -1,0 +1,36 @@
+{
+ "rooms": [
+  {
+   "id": "room_7a4f20353bd7",
+   "label": "The Gilded Goose",
+   "hidden": false
+  },
+  {
+   "id": "room_6729180509a0",
+   "label": "Kitchen",
+   "hidden": false
+  }
+ ],
+ "pawns": [
+  {
+   "name": "Goblin Chief",
+   "figure": "foe-goblin-boss",
+   "room": "room_6729180509a0"
+  }
+ ],
+ "litNow": [],
+ "chat": [
+  {
+   "by": "Helper",
+   "text": "Chief damage",
+   "roll": {
+    "expr": "2d6+2",
+    "rolls": [
+     2,
+     2
+    ],
+    "total": 6
+   }
+  }
+ ]
+}

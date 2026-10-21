@@ -1,0 +1,205 @@
+CLT — cult-sanctum: 203 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  floor-basalt-dark          [kit/1] sanctum floors; dark charcoal, never pure black, so furniture reads on it
+! P1  wall-secret-door           [kit/edge] the hidden way in, found open
+! P1  idol-dark                  [floor/sub] cult chambers
+! P1  robe-stand                 [floor/1] robing rooms; the disguise opportunity, seen from above as a row of dark hoods
+! P1  statue-hooded              [floor/1] in pairs down a processional way and either side of a door
+! P1  flavor-altarpiece          [surface/sub] slot 1; one per altar, centred
+! P1  flavor-banner              [wall/1] slot 3; on the long walls and behind the idol
+! P1  flavor-buttress            [wall/1] slot 8 (Harry, 2026-10-11); the same box and place as the vertical kit's `buttress`, so it can stand in for it outside, and stands along the walls INSIDE a large nave or sanctum
+! P1  flavor-censer              [floor/sub] slot 6; in pairs flanking the altar or the idol
+! P1  flavor-idol                [floor/1] slot 2; on the end wall behind the altar, or alone in an inner shrine
+! P1  flavor-relief              [wall/1] slot 4 (a type with windows may fill this slot with a `flavor-window` kit panel instead)
+! P1  flavor-sculpture           [floor/1] slot 7 (Harry, 2026-10-11); at the door end of a nave, in a side aisle, a cloister or an antechamber
+! P1  flavor-sigil               [floor/2x2] slot 5; inside a ritual circle or before the altar
+! P1  decal-ritual-circle        [floor/2x2] summonings; can glow
+! P1  altar-sacrificial          [floor/1x2] the cult's climax set-piece
+! P1  cult-banner                [wall/1] tells you what they worship
+! P1  dagger-ritual              [surface/tiny] on the sacrificial altar
+! P1  unholy-symbol              [surface/tiny] cultists' mark; evidence
+! P1  candle-black               [surface/tiny] cult circles
+! P1  rite-blood-bowl            [surface/tiny] the ritual's ink
+! P1  rite-bone-wand             [surface/tiny] the necromancer's focus
+! P1  rite-hooded-robe-folded    [surface/tiny] the disguise on the bench
+! P1  rite-necro-lantern-green   [ceiling/tiny] the light tells you who's home
+! P1  rite-sigil-stone           [floor/tiny] place four at the circle's points
+! P1  rite-tome-flesh-bound      [surface/tiny] the evil book everyone recognises
+! P2  chalice-dark               [surface/tiny] poisoned wine; blood rites
+! P2  goblet-bone                [surface/tiny] the warlord's toast
+! P2  rite-contract-infernal     [surface/tiny] the deal that drives the plot
+! P2  rite-cult-mask-horned      [surface/tiny] hanging on hooks; disguise
+  P1  dais                       [floor/2x3] under thrones and altars; lifts the focal object
+  P1  door-reinforced            [kit/edge] vaults, keeps, lockable rooms
+  P1  door-secret-bookcase       [kit/edge] the classic reveal
+  P1  floor-flagstone-damp       [kit/1] cellars, dungeons
+  P1  floor-trapdoor             [kit/1] cellar access; secret exits
+  P1  wall-alcove                [kit/edge] a statue, an urn or candles stand in it; runs end to end along a processional wall
+  P1  door-crypt                 [kit/edge] hangs in `wall-doorway--crypt-stone`; a leaf like `door-plank--leaf`, hinged by the engine
+  P1  bed-straw-pallet           [floor/1x2] the poorest bed; prison cells
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  bookshelf                  [wall/1] libraries; line walls
+  P1  bunk-bed                   [floor/1x2] barracks, miners' dormitory
+  P1  desk-writing               [floor/1] study anchor
+  P1  pew                        [floor/1x2] rows facing the altar
+  P1  shelving-freestanding      [floor/1] storerooms, cellars
+  P1  table-square               [floor/1] the workhorse table
+  P1  table-trestle              [floor/1x2] pairs with two long benches
+  P1  wardrobe                   [wall/1] bedrooms; hide inside
+  P1  bookcase-ladder            [wall/1x2] the library's focal wall
+  P1  bucket-slop                [floor/tiny] the mundane completeness test, again
+  P1  chest-ironbound            [floor/sub] locked; worth a check
+  P1  chest-treasure             [floor/sub] the reward shot
+  P1  chest-ironbound-open       [floor/sub] open state of chest-ironbound; looted or searched
+  P1  chest-treasure-open        [floor/sub] open state of chest-treasure
+  P1  brazier-large              [floor/1] courtyards, ritual sites
+  P1  brazier-standing           [floor/sub] throne rooms, torture chambers, shrines
+  P1  candelabra                 [surface/tiny] feasts and chapels
+  P1  candle-cluster             [surface/tiny] altars, ritual spots, spooky shelves
+  P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
+  P1  torch-sconce               [wall/tiny] every stone corridor
+  P1  candle-tree                [floor/sub] common-room corners, chapels; dark unlit wicks, engine fire FX adds the flames
+  P1  candlestand-pricket        [floor/sub] flanking a hearth or an altar; dark unlit candles, engine fire FX adds the flames
+  P1  candlestick-floor          [floor/sub] bedsides in fine rooms; dark unlit wick, engine fire FX adds the flame
+  P1  book-open                  [surface/tiny] lecterns, desks
+  P1  book-stack                 [surface/tiny] desks, floors of messy studies
+  P1  cage-floor                 [floor/1] menageries, slavers' camps
+  P1  cell-bars                  [kit/edge] pairs with door-cell-bars; blocks moves, not sight
+  P1  manacles-wall              [wall/sub] cells, torture rooms
+  P1  skull-pile                 [floor/sub] ossuaries, cult sites
+  P1  chair-interrogation        [floor/sub] interrogation room focus
+  P1  table-torture-tools        [floor/1x2] the tools are fused to the top; beside the rack or the chair
+  P1  bench-stone                [floor/1] mourners' seats; antechamber walls and chapel rows
+  P1  charnel-trough             [floor/1x2] along ossuary walls; the bones are one solid heap
+  P1  embalming-table            [floor/1x2] embalming room focus; `rite-corpse-on-slab` is the same table occupied
+  P1  ossuary-pillar             [floor/sub] ossuary supports; stands where a `pillar-square` would
+  P1  ossuary-shrine             [wall/1x2] ossuary focus, centred on the wall facing the door
+  P1  rug-runner                 [floor/1x3] hallways and stair landings; tiles end to end
+  P1  decal-cobweb               [wall/sub] corners of anything abandoned
+  P1  fx-colored-flame           [attach/sub] evil braziers, necromancer candles
+  P1  fx-miasma                  [floor/2x2] trap gas, swamp lairs
+  P1  fx-portal                  [attach/1x2] fills portal-arch
+  P1  cage-sacrifice             [floor/1] the rescue beat
+  P1  elemental-brazier          [floor/sub] pair with fx-colored-flame
+  P1  obelisk-runed              [ground/1] ley lines, cursed sites
+  P1  orb-floating               [surface/tiny] power source, MacGuffin
+  P1  pedestal-display           [floor/sub] the "don't touch the thing on the pedestal" shot
+  P1  phylactery                 [surface/tiny] destroy it to end the lich
+  P1  portal-arch                [floor/1x2] pair with fx-portal; lit = active
+  P1  robe-rack                  [wall/sub] disguise opportunity
+  P1  spellbook-lectern          [floor/sub] the wizard's prize; reading it is a choice
+  P1  washstand                  [floor/sub] guest rooms
+  P1  amulet-glowing             [surface/tiny] quest item; lit/unlit state
+  P1  gem-large                  [surface/tiny] idol's eye, quest MacGuffin
+  P1  idol-golden                [surface/tiny] swap it with a sandbag
+  P1  key-hook-board             [wall/sub] innkeeper's room keys, jailer's station
+  P1  staff-crystal              [surface/sub] the wizard's staff, left behind
+  P1  tome-grimoire              [surface/tiny] villain's spellbook
+  P1  candle-drippings-mound     [floor/sub] centuries of vigils
+  P1  ossuary-wall               [kit/edge] ossuary chapels
+  P1  cauldron-huge              [floor/1] castle kitchen; witch's brew
+  P1  chalice-of-wine            [surface/tiny] rite in progress
+  P1  alch-cauldron-bubbling-green [floor/sub] the witch's cauldron in action
+  P1  alch-chalk-bundle          [surface/tiny] draws the circles
+  P1  alch-jar-eyes              [surface/tiny] the unmistakable ingredient
+  P1  alch-potion-green-skull    [surface/tiny] poison, obviously
+  P1  alch-summoning-candles-ring [floor/1] place on a ritual circle
+  P1  rural-straw-bedding        [floor/1] stall floors; sleep in the stables
+  P1  rite-bone-candelabra       [surface/sub] necromancer dining
+  P1  rite-canopic-jar           [surface/tiny] tomb treasure; keeps organs
+  P1  rite-canopic-jars-set      [surface/sub] beside a sarcophagus
+  P1  rite-corpse-on-slab        [floor/1x2] morgue, embalming room, fresh reanimation
+  P1  rite-cult-mask-blank       [surface/tiny] faceless cultists
+  P1  rite-embalming-tools       [surface/tiny] morticians and necromancers
+  P1  rite-pillar-candle-tall    [floor/sub] flanks altars
+  P1  rite-salt-line             [floor/1] broken salt = something got in
+  P1  rite-soul-jar              [surface/tiny] captured souls; break to free
+  P1  rite-tome-stack-forbidden  [surface/tiny] necromancer studies
+  P2  floor-checker-stone        [kit/1] great halls, chapels
+  P2  firepit-sunken             [floor/2x2] old halls; logs and grey ash, no fire, engine fire FX adds it
+  P2  mirror-wall                [wall/sub] fine guest rooms and washstands; silvered glass painted matte
+  P2  table-library              [floor/1x2] the middle of a library; books and a globe on and by it
+  P2  brazier-tripod             [floor/sub] warmth and ritual; cold charcoal and ash, no fire, engine fire FX adds it
+  P2  inkwell-quill              [surface/tiny] every desk
+  P2  skull-candle               [surface/tiny] necromancer shorthand
+  P2  cell-bench-plank           [wall/1x2] one in each cell, along the side wall
+  P2  trap-flame-jet             [floor/sub] the engine adds the fire; pair with a soot decal
+  P2  censer-hanging             [ceiling/tiny] over an altar or bier; chain drawn as thick rods; the engine may add smoke
+  P2  natron-tub                 [floor/sub] beside the embalming table
+  P2  statue-forgotten-god       [floor/1] shrine focus
+  P2  decal-blood                [floor/sub] crime scenes, torture rooms
+  P2  bone-throne                [floor/1] warlords, necromancers, goblin kings
+  P2  magic-mirror               [wall/1] talking mirrors, trapped souls, a way through
+  P2  totem-skull                [ground/sub] tribal borders, lair warnings
+  P2  obelisk-rune               [floor/sub] puzzle halls and shrines; runes are dull, the engine may light them
+  P2  book-pile-floor            [floor/sub] ransacked libraries
+  P2  cursed-mask                [wall/tiny] don't put it on
+  P2  skull-monster              [surface/sub] shelves, totems, lairs
+  P2  soul-gem                   [surface/tiny] necromancer's prize
+  P2  tome-chained               [surface/tiny] forbidden knowledge
+  P2  cauldron-witch             [floor/sub] green glow; pair with fx
+  P2  cup-of-blood               [surface/tiny] the vampire's nightcap (Noctar)
+  P2  goblet-of-poison           [surface/tiny] the assassination beat
+  P2  talisman-twig              [wall/tiny] hung over doors; hag country warning
+  P2  alch-bone-powder-jar       [surface/tiny] necromantic staple
+  P2  alch-brazier-tabletop      [surface/tiny] scrying and summoning
+  P2  alch-crystal-purple        [surface/tiny] Amethyst of Blackened Fate energy
+  P2  alch-grimoire-bound-flesh  [surface/tiny] evil book shorthand
+  P2  alch-grimoire-locked       [surface/tiny] needs a key
+  P2  alch-heart-preserved-glowing [surface/tiny] lich/golem heart; distinct from plain heart jar
+  P2  alch-herb-bundle-nightshade [surface/tiny] poisons
+  P2  alch-mummified-hand        [surface/tiny] hand of glory candle holder
+  P2  alch-ritual-bowl-blood     [surface/tiny] offerings
+  P2  alch-ritual-dagger         [surface/tiny] altar prop
+  P2  alch-soul-lantern          [surface/tiny] spooky light source
+  P2  alch-specimen-jar-tentacle [surface/tiny] eldritch hint
+  P2  alch-wand-bone             [surface/tiny] necromancer's wand
+  P2  rite-antler-crown          [surface/sub] grove priest, horned-god cult
+  P2  rite-bone-staff            [wall/sub] lich lieutenants, goblin shamans
+  P2  rite-idol-small            [surface/tiny] shrine shelves; cursed souvenir
+  P2  rite-sacred-flame-bowl     [floor/sub] temple centers; keep it lit
+  P3  door-secret-bookcase-open  [kit/edge] open state of door-secret-bookcase
+  P3  gargoyle-spout             [wall/sub] at parapet corners and gutter ends; one every 15 to 20 ft at most
+  P3  basin-stone                [wall/sub] kitchens, sculleries
+  P3  coat-pegs                  [wall/sub] by the door
+  P3  fountain-wall-skull        [wall/1] the engine adds the water
+  P3  tentacles-floor            [floor/1] something below is waking
+  P3  cursed-doll                [surface/tiny] hag's hut
+  P3  cauldron-bronze-ritual     [floor/sub] offerings and oaths
+  P3  goblet-of-wine-spilled     [surface/tiny] something went wrong
+  P3  plate-broken               [surface/tiny] after the brawl
+  P3  pot-shattered              [surface/tiny] debris
+  P3  potion-in-goblet           [surface/tiny] drink me?
+  P3  cake-poisoned              [surface/tiny] assassination plot
+  P3  book-burned                [surface/tiny] someone destroyed evidence
+  P3  chalk-ritual               [surface/tiny] beside a half-drawn circle
+  P3  heart-jar                  [surface/tiny] necromancy components
+  P3  teeth-jar                  [surface/tiny] hag hovels
+  P3  witch-bottle               [surface/tiny] buried under hearths
+  P3  alch-binding-chains-runed  [wall/sub] hold what was summoned
+  P3  alch-crystal-black         [surface/tiny] shadow-attuned
+  P3  alch-demon-idol-small      [surface/tiny] patron statue
+  P3  alch-feather-raven         [surface/tiny] dark rituals
+  P3  alch-finger-bones-dish     [surface/tiny] divination or necromancy
+  P3  alch-grimoire-eye          [surface/tiny] it's watching
+  P3  alch-hair-lock-bound       [surface/tiny] hex component
+  P3  alch-ichor-flask           [surface/tiny] demonic reagent
+  P3  alch-orb-scrying-smoke     [surface/tiny] distinct from crystal ball
+  P3  alch-pendulum-board        [surface/tiny] seance
+  P3  alch-potion-black-square   [surface/tiny] cursed or shadow
+  P3  alch-potion-smoking        [surface/tiny] volatile
+  P3  alch-shrunken-head         [surface/tiny] curio shop
+  P3  alch-staff-serpent         [floor/tiny] cult leader
+  P3  craft-mask-carved          [wall/sub] festival or ritual
+  P3  trade-blood-bucket         [floor/tiny] butchers and cultists alike
+  P3  bard-bone-flute            [surface/tiny] haunting melodies
+  P3  rite-bone-chime            [ceiling/tiny] warns of approach
+  P3  rite-effigy-straw-bound    [surface/tiny] hexes; found in walls
+  P3  rite-finger-bone-necklace  [surface/tiny] shaman's jewelry
+  P3  rite-grave-dirt-sack       [floor/tiny] a component the necromancer ordered
+  P3  rite-kneeler-cushion       [floor/tiny] before shrines and pews
+  P3  rite-ritual-hand-bell      [surface/tiny] rings to raise the dead
+  P3  rite-skull-lantern         [ceiling/tiny] lair lighting
+  P3  rite-summoning-circle-props [surface/tiny] someone was about to begin
+  P3  rite-teeth-string          [wall/tiny] orc camps, cannibal huts
+  P3  rite-wicker-effigy         [ground/1] harvest festival or something darker

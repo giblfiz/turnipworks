@@ -1,0 +1,177 @@
+{
+ "file": "foe-roper.glb",
+ "tris": 49501,
+ "kb": 3131,
+ "native_extent": [
+  0.986,
+  1.001,
+  0.615
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0059,
+  "seen": 0.0009
+ },
+ "mean_rgb": [
+  89,
+  71,
+  41
+ ],
+ "mean_saturation": 0.588,
+ "sized_by": "its highest point",
+ "overall_ft": 8.0,
+ "pieces": {
+  "connected_parts": 964,
+  "main_part_area_share": 0.478,
+  "floating": [
+   {
+    "area_share": 0.00181,
+    "gap_ft": 0.04,
+    "size_ft": 0.59
+   },
+   {
+    "area_share": 0.00164,
+    "gap_ft": 0.03,
+    "size_ft": 0.62
+   },
+   {
+    "area_share": 0.00126,
+    "gap_ft": 0.03,
+    "size_ft": 1.04
+   },
+   {
+    "area_share": 0.00018,
+    "gap_ft": 0.08,
+    "size_ft": 0.38
+   },
+   {
+    "area_share": 8e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.19
+   },
+   {
+    "area_share": 4e-05,
+    "gap_ft": 0.14,
+    "size_ft": 0.15
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.07,
+    "size_ft": 0.13
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.12,
+    "size_ft": 0.08
+   }
+  ],
+  "floating_count": 58,
+  "floating_area_share": 0.00512,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 7.9921,
+ "y0": -4.0035,
+ "stated_ft": {
+  "body": 8.0,
+  "figure_top": 8.0,
+  "overall": 8.0
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4932,
+   -0.5009,
+   -0.3076
+  ],
+  [
+   0.4931,
+   0.5002,
+   0.3077
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49501,
+   "tex": 2048,
+   "kb": 3131
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1127
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 464
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.08,
+    "z": 0.03,
+    "size_ft": [
+     4.63,
+     4.8
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.89,
+    "sole_p90_ft": 0.062
+   },
+   {
+    "x": 2.86,
+    "z": 0.8,
+    "size_ft": [
+     0.57,
+     0.67
+    ],
+    "off_ground_ft": 0.646,
+    "sole_level_share": 0.8,
+    "sole_p90_ft": 0.714
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.646,
+  "lowest_slab_area_sqft": 16.91,
+  "plan_hull_area_sqft": 26.92,
+  "lowest_slab_share_of_plan": 0.628
+ },
+ "plan": {
+  "size_ft": {
+   "w": 7.88,
+   "d": 4.91,
+   "h": 8.0
+  },
+  "centre": [
+   0.443,
+   0.054
+  ],
+  "contacts_radius_ft": 2.83,
+  "reach_radius_ft": 4.39,
+  "share_outside_2p5ft": 0.306
+ },
+ "silhouette": {
+  "iou": 0.922,
+  "plate_lost_share": 0.028,
+  "added_share": 0.054,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.922,
+  "view_yaw_deg": 340,
+  "view_elev_deg": 16
+ },
+ "id": "foe-roper",
+ "sha1": "c41cb24edd2303765d62111a5b43e69d3ccf1db4",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "5 separate part(s) lying within 0.08 ft of the body (not joined to it)",
+  "one foot is 0.65 ft off the ground"
+ ],
+ "qa_seconds": 16.5
+}

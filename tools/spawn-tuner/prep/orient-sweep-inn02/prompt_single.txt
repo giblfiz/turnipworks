@@ -1,0 +1,7 @@
+The image shows ONE 3D model (a prop for a fantasy tavern game) rendered from four horizontal directions 90 degrees apart (tiles A-D), standing on a brown floor disc.
+Describe what you see before anything else, without guessing from context:
+1. "object": what is it?
+2. "coherent": is it one coherent, complete object (true), or broken into floating fragments / large missing parts / melted or garbled geometry (false)?
+3. "pose": "upright" (resting the way such an object normally rests), "on_side" (tipped over or lying on a side that is normally vertical), "upside_down", or "flat_natural" (lying flat, which is the normal way this kind of object rests on a table or floor).
+4. "notes": one sentence on anything wrong with the model.
+Reply with JSON only: {"object":..., "coherent":..., "pose":..., "notes":...}

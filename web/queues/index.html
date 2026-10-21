@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is waiting — Turnip Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#f3ece0; --ink:#2c2218; --muted:#7a6a58; --cream:#fffaf2; --rule:#d9cbb6; --turnip:#8a3b2e; --leaf:#3f6b3a; color-scheme:light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1d1813; --ink:#efe5d6; --muted:#a8977f; --cream:#28211a; --rule:#3d3328; --turnip:#d0745f; --leaf:#4f7d49; color-scheme:dark; } }
+:root[data-theme="dark"] { --bg:#1d1813; --ink:#efe5d6; --muted:#a8977f; --cream:#28211a; --rule:#3d3328; --turnip:#d0745f; --leaf:#4f7d49; color-scheme:dark; }
+body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.5 "DM Mono", ui-monospace, monospace; }
+main { max-width:1100px; margin:0 auto; padding:18px 16px 60px; }
+a.back { color:var(--muted); text-decoration:none; font-size:12px; }
+p.lede { color:var(--muted); max-width:78ch; margin:.4rem 0 1.4rem; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← Turnip Works</a>
+  <p class="lede">Every asset in the library is listed in the tools it belongs in on each deploy. These are the queues with something left in them. A batch that lands later shows up here by itself.</p>
+  <section id="tw-queues" data-full="1"></section>
+</main>
+<script type="module" src="queues.js?v=0"></script>
+</body>
+</html>

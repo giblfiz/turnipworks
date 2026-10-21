@@ -1,0 +1,144 @@
+{
+ "file": "foe-kobold-winged.glb",
+ "tris": 47241,
+ "kb": 2846,
+ "native_extent": [
+  0.568,
+  0.994,
+  0.802
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  98,
+  43,
+  29
+ ],
+ "mean_saturation": 0.729,
+ "sized_by": "its highest point",
+ "overall_ft": 3.0,
+ "pieces": {
+  "connected_parts": 171,
+  "main_part_area_share": 0.9679,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.02,
+ "y0": -1.5103,
+ "stated_ft": {
+  "body": 3.0,
+  "figure_top": 3.0,
+  "overall": 3.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2836,
+   -0.5001,
+   -0.3984
+  ],
+  [
+   0.2843,
+   0.4934,
+   0.404
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47241,
+   "tex": 2048,
+   "kb": 2846
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1175
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 501
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.38,
+    "z": -0.68,
+    "size_ft": [
+     0.62,
+     0.89
+    ],
+    "off_ground_ft": 0.097,
+    "sole_level_share": 0.48,
+    "sole_p90_ft": 0.237
+   },
+   {
+    "x": 0.47,
+    "z": 0.58,
+    "size_ft": [
+     0.55,
+     0.73
+    ],
+    "off_ground_ft": 0.005,
+    "sole_level_share": 0.81,
+    "sole_p90_ft": 0.165
+   },
+   {
+    "x": -0.51,
+    "z": -0.01,
+    "size_ft": [
+     0.62,
+     0.68
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.81,
+    "sole_p90_ft": 0.145
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.097,
+  "lowest_slab_area_sqft": 0.41,
+  "plan_hull_area_sqft": 2.9,
+  "lowest_slab_share_of_plan": 0.143
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.71,
+   "d": 2.42,
+   "h": 3.0
+  },
+  "centre": [
+   0.219,
+   -0.101
+  ],
+  "contacts_radius_ft": 1.07,
+  "reach_radius_ft": 1.29,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.908,
+  "plate_lost_share": 0.036,
+  "added_share": 0.062,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.908,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "foe-kobold-winged",
+ "sha1": "fccf92d59cd8375358964d06aaf0d09ca476ff0e",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 14.0
+}

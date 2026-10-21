@@ -1,0 +1,133 @@
+{
+ "file": "hero-sorcerer-elf-m.glb",
+ "tris": 48562,
+ "kb": 2661,
+ "native_extent": [
+  0.499,
+  1.001,
+  0.471
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  126,
+  78,
+  47
+ ],
+ "mean_saturation": 0.666,
+ "sized_by": "its highest point",
+ "overall_ft": 5.9,
+ "pieces": {
+  "connected_parts": 49,
+  "main_part_area_share": 0.9993,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.8921,
+ "y0": -2.9517,
+ "stated_ft": {
+  "body": 5.9,
+  "figure_top": 5.9,
+  "overall": 5.9
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2492,
+   -0.501,
+   -0.2354
+  ],
+  [
+   0.25,
+   0.5004,
+   0.2359
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48562,
+   "tex": 2048,
+   "kb": 2661
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1077
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 473
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.36,
+    "z": -0.66,
+    "size_ft": [
+     0.66,
+     1.18
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.073
+   },
+   {
+    "x": 0.85,
+    "z": 0.78,
+    "size_ft": [
+     0.59,
+     1.25
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.73,
+    "sole_p90_ft": 0.079
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 1.09,
+  "plan_hull_area_sqft": 5.19,
+  "lowest_slab_share_of_plan": 0.21
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.94,
+   "d": 2.77,
+   "h": 5.9
+  },
+  "centre": [
+   0.12,
+   0.28
+  ],
+  "contacts_radius_ft": 1.38,
+  "reach_radius_ft": 1.72,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.871,
+  "plate_lost_share": 0.024,
+  "added_share": 0.12,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.866,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 8
+ },
+ "id": "hero-sorcerer-elf-m",
+ "sha1": "6e8f3d901880c702d4d0e88c77fb7fa457341ba7",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 20.0
+}

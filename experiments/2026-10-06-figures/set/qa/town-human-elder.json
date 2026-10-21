@@ -1,0 +1,153 @@
+{
+ "file": "town-human-elder.glb",
+ "tris": 48035,
+ "kb": 2486,
+ "native_extent": [
+  0.504,
+  1.002,
+  0.34
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  96,
+  70,
+  51
+ ],
+ "mean_saturation": 0.542,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 3.58,
+  "length_ft": 4.03,
+  "low_end_ft": [
+   -1.16,
+   0.06,
+   0.06
+  ],
+  "high_end_ft": [
+   -1.09,
+   4.03,
+   0.73
+  ],
+  "tilt_from_upright_deg": 9.7,
+  "thickness_ft": 0.24,
+  "clear_share": 0.86,
+  "joined_share": 0.14,
+  "broken_share": 0.0,
+  "walk_low_to_high": "--------------------------------######----"
+ },
+ "overall_ft": 5.52,
+ "pieces": {
+  "connected_parts": 19,
+  "main_part_area_share": 0.9998,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.5086,
+ "y0": -2.7595,
+ "stated_ft": {
+  "body": 5.5,
+  "figure_top": 5.5,
+  "overall": 5.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2515,
+   -0.5009,
+   -0.1692
+  ],
+  [
+   0.2527,
+   0.5006,
+   0.1709
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48035,
+   "tex": 2048,
+   "kb": 2486
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 990
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 444
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.6,
+    "z": -0.15,
+    "size_ft": [
+     1.13,
+     1.26
+    ],
+    "off_ground_ft": 0.008,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.118
+   },
+   {
+    "x": 0.87,
+    "z": 0.11,
+    "size_ft": [
+     0.92,
+     1.15
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.87,
+    "sole_p90_ft": 0.069
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.008,
+  "lowest_slab_area_sqft": 1.28,
+  "plan_hull_area_sqft": 4.45,
+  "lowest_slab_share_of_plan": 0.288
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.78,
+   "d": 1.87,
+   "h": 5.52
+  },
+  "centre": [
+   0.025,
+   0.308
+  ],
+  "contacts_radius_ft": 1.32,
+  "reach_radius_ft": 1.52,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.917,
+  "plate_lost_share": 0.05,
+  "added_share": 0.035,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.902,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 8
+ },
+ "id": "town-human-elder",
+ "sha1": "f28b8518b18ae2d06acaab859bd09d6746b57cd3",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 14.8
+}

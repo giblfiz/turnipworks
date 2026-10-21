@@ -1,0 +1,604 @@
+{
+ "blind_flash": {
+  "adventurer-remains": {
+   "row": 1,
+   "object": "lying corpse",
+   "pose": "upright",
+   "front": "none",
+   "why": "body lies flat facing upward",
+   "conf": 0.85
+  },
+  "adventurer-remains--s2": {
+   "row": 2,
+   "object": "slumped sitting corpse",
+   "pose": "upright",
+   "front": "A",
+   "why": "face and torso",
+   "conf": 0.95
+  },
+  "armor-chainmail-heap": {
+   "row": 3,
+   "object": "debris pile",
+   "pose": "upright",
+   "front": "none",
+   "why": "irregular mound has no front",
+   "conf": 0.9
+  },
+  "ball-and-chain": {
+   "row": 4,
+   "object": "ball and chain",
+   "pose": "upright",
+   "front": "none",
+   "why": "restraint chain has no front",
+   "conf": 0.9
+  },
+  "bed-cell-stone": {
+   "row": 1,
+   "object": "makeshift cot bed",
+   "pose": "upright",
+   "front": "A",
+   "why": "foot end of the bed",
+   "conf": 0.85
+  },
+  "block-sliding": {
+   "row": 2,
+   "object": "carved stone block",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical rune carving on all four sides",
+   "conf": 0.95
+  },
+  "boulder-rolling": {
+   "row": 3,
+   "object": "stone sphere",
+   "pose": "upright",
+   "front": "none",
+   "why": "spherical shape has no front",
+   "conf": 1.0
+  },
+  "bridge-plank-rickety": {
+   "row": 4,
+   "object": "wooden ladder lying flat",
+   "pose": "on_side",
+   "front": "none",
+   "why": "climbing face is oriented upwards",
+   "conf": 0.9
+  },
+  "bridge-stone-slab": {
+   "row": 1,
+   "object": "stone arch bridge",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical walkway with two identical approaches",
+   "conf": 0.95
+  },
+  "carcass-ribcage": {
+   "row": 2,
+   "object": "beast skeleton",
+   "pose": "upright",
+   "front": "C",
+   "why": "skull facing forward",
+   "conf": 0.9
+  },
+  "ceiling-slab-fallen": {
+   "row": 3,
+   "object": "stone platform block",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical rectangular stone slab",
+   "conf": 0.95
+  },
+  "chain-pile": {
+   "row": 4,
+   "object": "rubble pile",
+   "pose": "upright",
+   "front": "none",
+   "why": "irregular mound with no canonical front",
+   "conf": 0.95
+  },
+  "chair-interrogation": {
+   "row": 1,
+   "object": "torture chair",
+   "pose": "upright",
+   "front": "A",
+   "why": "seat and footrest",
+   "conf": 1.0
+  },
+  "chasm-post-pair": {
+   "row": 2,
+   "object": "wooden post with rope and hook",
+   "pose": "upright",
+   "front": "none",
+   "why": "round post with items hung around it",
+   "conf": 0.85
+  },
+  "chest-treasure-open": {
+   "row": 3,
+   "object": "open treasure chest",
+   "pose": "upright",
+   "front": "A",
+   "why": "chest opening",
+   "conf": 1.0
+  },
+  "coin-pile--s2": {
+   "row": 4,
+   "object": "money bags on pile of coins",
+   "pose": "upright",
+   "front": "none",
+   "why": "round pile with no designated front",
+   "conf": 0.9
+  },
+  "collapse-rubble": {
+   "row": 1,
+   "object": "pile of dark rock rubble",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural pile of rocks has no front",
+   "conf": 0.95
+  },
+  "collapse-rubble--s2": {
+   "row": 2,
+   "object": "pile of dark rocks",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural rock pile has no front",
+   "conf": 0.95
+  },
+  "column-drums-fallen": {
+   "row": 3,
+   "object": "fallen stone pillar",
+   "pose": "on_side",
+   "front": "none",
+   "why": "fallen column has no front",
+   "conf": 0.9
+  },
+  "crate-floating": {
+   "row": 4,
+   "object": "wooden crate and half-buried barrel in mud",
+   "pose": "upright",
+   "front": "none",
+   "why": "clutter prop with no canonical front",
+   "conf": 0.8
+  },
+  "door-cell-bars--leaf": {
+   "row": 1,
+   "object": "prison cell door",
+   "pose": "upright",
+   "front": "A",
+   "why": "lock mechanism on the outer face",
+   "conf": 0.8
+  },
+  "door-face-carved--leaf": {
+   "row": 2,
+   "object": "carved stone face wall",
+   "pose": "upright",
+   "front": "A",
+   "why": "carved face relief",
+   "conf": 1.0
+  },
+  "door-rune-sealed--leaf": {
+   "row": 3,
+   "object": "stone door with circular seal",
+   "pose": "upright",
+   "front": "C",
+   "why": "detailed circular dial mechanism",
+   "conf": 0.75
+  },
+  "dun-treasure-hoard": {
+   "row": 4,
+   "object": "treasure hoard pile",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular mound of treasure and weapons",
+   "conf": 0.9
+  },
+  "eggs-monster": {
+   "row": 1,
+   "object": "cluster of monster eggs in nest",
+   "pose": "upright",
+   "front": "none",
+   "why": "organic cluster without a distinct front",
+   "conf": 0.9
+  },
+  "fountain-skull": {
+   "row": 2,
+   "object": "skull wall fountain",
+   "pose": "upright",
+   "front": "A",
+   "why": "skull spout and basin",
+   "conf": 1.0
+  },
+  "gibbet-cage": {
+   "row": 3,
+   "object": "iron gibbet cage with skull",
+   "pose": "upright",
+   "front": "A",
+   "why": "skull inside faces forward and cage door latch",
+   "conf": 0.85
+  },
+  "gold-bars": {
+   "row": 4,
+   "object": "pyramid stack of gold bars",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric stack of ingots without a designated front",
+   "conf": 0.95
+  },
+  "lever-floor": {
+   "row": 1,
+   "object": "floor lever",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric mechanism and stone base without distinct front",
+   "conf": 0.8
+  },
+  "mimic-chest": {
+   "row": 2,
+   "object": "mimic chest",
+   "pose": "upright",
+   "front": "A",
+   "why": "chest lock, mouth with teeth, and tongue",
+   "conf": 1.0
+  },
+  "mushroom-cave-giant": {
+   "row": 3,
+   "object": "mushroom cluster",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural cluster of mushrooms facing all directions",
+   "conf": 0.95
+  },
+  "nest-monster": {
+   "row": 4,
+   "object": "pile of debris",
+   "pose": "upright",
+   "front": "none",
+   "why": "round mound of debris",
+   "conf": 0.95
+  },
+  "obelisk-rune": {
+   "row": 1,
+   "object": "runic obelisk",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical runes and geometry on all four sides",
+   "conf": 0.95
+  },
+  "offering-bowl": {
+   "row": 2,
+   "object": "bowl of crystals",
+   "pose": "upright",
+   "front": "none",
+   "why": "round bowl",
+   "conf": 0.95
+  },
+  "orb-socket-pedestal": {
+   "row": 3,
+   "object": "pedestal with orb",
+   "pose": "upright",
+   "front": "none",
+   "why": "four-fold symmetrical pedestal",
+   "conf": 0.9
+  },
+  "pillar-broken": {
+   "row": 4,
+   "object": "broken fluted column",
+   "pose": "upright",
+   "front": "none",
+   "why": "cylindrical architectural column",
+   "conf": 0.95
+  },
+  "pillar-flooded": {
+   "row": 1,
+   "object": "stone pedestal",
+   "pose": "upright",
+   "front": "none",
+   "why": "four-fold symmetric pillar",
+   "conf": 0.95
+  },
+  "pressure-plate": {
+   "row": 2,
+   "object": "square stone plinth base",
+   "pose": "upright",
+   "front": "none",
+   "why": "four-fold symmetric square base",
+   "conf": 0.95
+  },
+  "pressure-plate--s2": {
+   "row": 3,
+   "object": "stone pressure plate with circular emblem",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular concentric mechanism on square base",
+   "conf": 0.95
+  },
+  "puzzle-dial-pillar": {
+   "row": 4,
+   "object": "cylindrical rune puzzle pillar",
+   "pose": "upright",
+   "front": "none",
+   "why": "cylindrical column with rings of runes",
+   "conf": 0.9
+  },
+  "rubble-pile": {
+   "row": 1,
+   "object": "pile of rocks",
+   "pose": "upright",
+   "front": "none",
+   "why": "irregular rubble pile with no functional front",
+   "conf": 0.95
+  },
+  "rubble-pile--s2": {
+   "row": 2,
+   "object": "pile of stone blocks",
+   "pose": "upright",
+   "front": "none",
+   "why": "irregular pile of stones with no functional front",
+   "conf": 0.95
+  },
+  "sewer-debris-clog": {
+   "row": 3,
+   "object": "pile of debris",
+   "pose": "upright",
+   "front": "none",
+   "why": "irregular mound of rubble with no functional front",
+   "conf": 0.95
+  },
+  "sewer-grate": {
+   "row": 4,
+   "object": "barred stone arch window",
+   "pose": "upright",
+   "front": "A",
+   "why": "exterior face of the stone arch and bars",
+   "conf": 0.85
+  },
+  "sewer-pipe-mouth": {
+   "row": 1,
+   "object": "round sewer pipe segment",
+   "pose": "upright",
+   "front": "none",
+   "why": "tunnel segment open at both ends",
+   "conf": 0.8
+  },
+  "shoring-timber": {
+   "row": 2,
+   "object": "timber mine support frame",
+   "pose": "upright",
+   "front": "none",
+   "why": "open wooden archway identical on opposite sides",
+   "conf": 0.95
+  },
+  "shrine-wayside": {
+   "row": 3,
+   "object": "stone shrine with hooded figure",
+   "pose": "upright",
+   "front": "A",
+   "why": "niche with hooded statue and candles",
+   "conf": 1.0
+  },
+  "silver-plate-pile": {
+   "row": 4,
+   "object": "still life of dishes and pitcher",
+   "pose": "upright",
+   "front": "A",
+   "why": "dishes and pitcher arranged facing forward",
+   "conf": 0.9
+  },
+  "skeleton-chained": {
+   "row": 1,
+   "object": "skeleton chained to a wall",
+   "pose": "upright",
+   "front": "B",
+   "why": "chained skeleton facing forward",
+   "conf": 1.0
+  },
+  "sluice-wheel": {
+   "row": 2,
+   "object": "stone sluice gate",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric gate passage looks identical from both sides",
+   "conf": 0.95
+  },
+  "stalagmite": {
+   "row": 3,
+   "object": "stalagmites rock formation",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural rock cluster with no defined front",
+   "conf": 1.0
+  },
+  "stalagmite--s2": {
+   "row": 4,
+   "object": "stalagmites rock formation",
+   "pose": "upright",
+   "front": "none",
+   "why": "natural rock cluster with no defined front",
+   "conf": 1.0
+  },
+  "statue-forgotten-god": {
+   "row": 1,
+   "object": "seated robed statue holding a bowl",
+   "pose": "upright",
+   "front": "A",
+   "why": "face and bowl in lap",
+   "conf": 1.0
+  },
+  "statue-guardian": {
+   "row": 2,
+   "object": "standing knight statue with shield",
+   "pose": "upright",
+   "front": "A",
+   "why": "front of armor and shield",
+   "conf": 1.0
+  },
+  "statue-guardian--s2": {
+   "row": 3,
+   "object": "horned armored statue with folded arms",
+   "pose": "upright",
+   "front": "A",
+   "why": "face and folded arms",
+   "conf": 1.0
+  },
+  "statue-rotating": {
+   "row": 4,
+   "object": "hooded mage statue holding a staff",
+   "pose": "upright",
+   "front": "A",
+   "why": "face opening and hands with staff",
+   "conf": 1.0
+  },
+  "statue-rotating--s2": {
+   "row": 1,
+   "object": "knight statue on pedestal",
+   "pose": "upright",
+   "front": "A",
+   "why": "face and front of armor",
+   "conf": 1.0
+  },
+  "stepping-pillar": {
+   "row": 2,
+   "object": "low stone pedestal",
+   "pose": "upright",
+   "front": "none",
+   "why": "roughly circular rock platform",
+   "conf": 0.95
+  },
+  "strongbox-stack": {
+   "row": 3,
+   "object": "stack of three chests",
+   "pose": "upright",
+   "front": "A",
+   "why": "latches and locks",
+   "conf": 1.0
+  },
+  "table-torture-tools": {
+   "row": 4,
+   "object": "workbench with tools",
+   "pose": "upright",
+   "front": "A",
+   "why": "working side facing tools",
+   "conf": 0.75
+  },
+  "trap-bear": {
+   "row": 1,
+   "object": "bear trap",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric trap",
+   "conf": 0.95
+  },
+  "trap-blade": {
+   "row": 2,
+   "object": "pendulum scythe trap",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric archway",
+   "conf": 0.95
+  },
+  "trap-crossbow": {
+   "row": 3,
+   "object": "crossbow turret trap",
+   "pose": "upright",
+   "front": "D",
+   "why": "aimed firing direction",
+   "conf": 0.9
+  },
+  "trap-dart-wall": {
+   "row": 4,
+   "object": "wall trap with carved faces",
+   "pose": "upright",
+   "front": "A",
+   "why": "carved face reliefs",
+   "conf": 1.0
+  },
+  "trap-flame-jet": {
+   "row": 1,
+   "object": "beast head carving on stone block",
+   "pose": "upright",
+   "front": "A",
+   "why": "face and open mouth of the beast",
+   "conf": 1.0
+  },
+  "trap-spike-pit": {
+   "row": 2,
+   "object": "recessed spike trap pit",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric square floor trap",
+   "conf": 0.9
+  },
+  "trap-spikes": {
+   "row": 3,
+   "object": "spike trap floor plate",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric square floor trap",
+   "conf": 1.0
+  },
+  "vault-shelf-treasure": {
+   "row": 4,
+   "object": "wooden shelving unit with items",
+   "pose": "upright",
+   "front": "A",
+   "why": "open shelves containing items",
+   "conf": 1.0
+  },
+  "wall-doorway--cut-rock": {
+   "row": 1,
+   "object": "stone archway doorframe",
+   "pose": "upright",
+   "front": "none",
+   "why": "pass-through portal identical on both sides",
+   "conf": 0.9
+  },
+  "wall-straight--cut-rock": {
+   "row": 2,
+   "object": "stone wall segment",
+   "pose": "upright",
+   "front": "none",
+   "why": "two-sided stone wall panel",
+   "conf": 0.9
+  },
+  "wall-straight--cut-rock--s2": {
+   "row": 3,
+   "object": "stone wall segment with horizontal trim",
+   "pose": "upright",
+   "front": "none",
+   "why": "two-sided wall panel",
+   "conf": 0.85
+  },
+  "wall-straight--cut-rock--s3": {
+   "row": 4,
+   "object": "stone wall segment with niche",
+   "pose": "upright",
+   "front": "A",
+   "why": "recessed niche in the wall",
+   "conf": 0.9
+  },
+  "web-cocoon": {
+   "row": 1,
+   "object": "standing shrouded corpse",
+   "pose": "upright",
+   "front": "A",
+   "why": "wrapped face and torso",
+   "conf": 0.95
+  },
+  "web-cocoon--s2": {
+   "row": 2,
+   "object": "lying shrouded corpse",
+   "pose": "upright",
+   "front": "none",
+   "why": "corpse lying flat has no horizontal front",
+   "conf": 0.9
+  },
+  "whipping-post": {
+   "row": 3,
+   "object": "whipping post with shackles",
+   "pose": "upright",
+   "front": "A",
+   "why": "iron rings and shackle",
+   "conf": 0.95
+  }
+ }
+}

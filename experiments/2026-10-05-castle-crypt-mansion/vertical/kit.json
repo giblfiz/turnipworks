@@ -1,0 +1,787 @@
+{
+ "what": "Vertical kit: what each piece is for and where it goes. For the agent who builds storeys and roofs. Nothing here is generated or wired yet (2026-10-05).",
+ "conventions": {
+  "units": "inches; W = width (across the direction of travel), D = depth / run (the direction a stair climbs), H = height",
+  "storey": {
+   "floor_to_floor": 120,
+   "wall": 108,
+   "slab": 12,
+   "cell": 60,
+   "half_level": 60
+  },
+  "stair_rule": "Every stair cell rises exactly 60 in, one step of the world's 5-ft height lattice. Full flight = 1x2 cells (10 steps of 12 in x 12 in, 45 degrees); half flight = 1 cell (5 steps). A pawn on the first cell of a flight stands at about +2.5 ft, on the second at about +7.5 ft.",
+  "why_1x2_not_1x3": [
+   "a 1x2 flight is exactly two 5-ft cubes, so the half flight (dais, stage, half level) is literally half of it and the L and dog-leg stairs are made of the same half flights plus a 5-ft landing: one module, not two",
+   "at 1x3 a cell rises 3.33 ft, which is on no lattice, and the half flight would be 1.5 cells long",
+   "inn and cottage rooms are 4 to 6 cells across: three cells of stair plus a cell of floor at each end is most of a wall",
+   "ten 12-in steps read as steps from the top-down camera and survive image-to-3D; fifteen 8-in steps blur into a ramp",
+   "the cost is a 45-degree pitch (a real house stair is 35 to 38): acceptable at table distance. The one stair that is looked at, stair-grand, takes 3 cells of run at 8-in risers"
+  ],
+  "stair_top": "The top tread is level with the upper floor (z = 120). The upper slab is cut away over the stair's cells; the cell beyond the top tread is floor.",
+  "stair_width": "Treads are 48 in wide, centred in the 60-in cell: 6 in each side for the wall panel's thickness or a railing.",
+  "handed": "stair-quarter-turn, stair-wall-hugging and the ladders are right-handed as specified; mirror the mesh for the other hand.",
+  "fit": "Pieces marked fit:box must be scaled PER AXIS to their size_in (not uniformly by the largest dimension, which is what the library does today): the image-to-3D generator ignores stated proportions, and a stair that is 8% short does not meet the floor. A per-axis stretch of up to about 15% is invisible on steps; beyond that, regenerate.",
+  "sink": "Roof furniture (dormers, chimneys, ridges, finials) has a flat bottom and a plain lower part and is SUNK into the sloping roof plane; nothing is cut to the pitch, so one mesh serves every pitch.",
+  "sparse": "Harry: roof furniture 'will be sparse'. Guide: chimneys = one per fireplace stack; dormers = one per attic room or one per bay on a mansion; one weathervane per building; a gargoyle per 15 to 20 ft of parapet; a nest on one roof in three.",
+  "roof_surfaces": "See flats.json: four seamless roofing textures with courses along image X and eaves at image bottom."
+ },
+ "connectors": {
+  "stair": [
+   "stair-straight",
+   "stair-half",
+   "stair-landing",
+   "stair-quarter-turn",
+   "stair-spiral-wide",
+   "stair-wall-hugging",
+   "stair-grand",
+   "stair-exterior-wood (existing mesh)"
+  ],
+  "ladder": [
+   "ladder-wood--leaning under floor-trapdoor (existing mesh) or roof-hatch",
+   "ladder-wood--upright on a wall face"
+  ],
+  "hatch": [
+   "roof-hatch--wood / roof-hatch-open--wood",
+   "floor-trapdoor (existing)"
+  ],
+  "skylight": [
+   "roof-skylight--lead (one-way: a drop)"
+  ],
+  "chimney": [
+   "chimney-stack--* lines up over the fireplace below"
+  ]
+ },
+ "pieces": [
+  {
+   "sku": "stair-straight--dressed-stone--t10",
+   "object": "stair-straight",
+   "size_in": [
+    48,
+    120,
+    120
+   ],
+   "cells": "1x2",
+   "prio": 1,
+   "connector": "stair",
+   "anchor": "low end on the -D edge of cell 1 at floor level; top tread at the +D edge of cell 2, level with the upper floor (z=120). Needs a 1x2 opening in the upper floor above the flight (headroom); the cell beyond the top step must be floor",
+   "supersedes": "stair-straight--dressed-stone (inn-01: measures 61 w x 110 run x 84 rise, so it climbs 7 ft, not 10)",
+   "fit": "box",
+   "use": "The default storey stair in stone buildings (castle, crypt, dressed-stone inn). Rises one full storey (120 in) over 2 cells; 45 degrees, 12-in treads and risers. No rail: put it against a wall, or let the engine add railings."
+  },
+  {
+   "sku": "stair-straight--rough-timber--t10",
+   "object": "stair-straight",
+   "size_in": [
+    48,
+    120,
+    120
+   ],
+   "cells": "1x2",
+   "prio": 1,
+   "connector": "stair",
+   "anchor": "as stair-straight--dressed-stone--t10",
+   "supersedes": "stair-straight--rough-timber (inn-01: measures 110 x 77 x 94 high, wrong pitch and too wide for a cell)",
+   "fit": "box",
+   "use": "The default storey stair in timber buildings (inn, cottage, log cabin). Same geometry as the stone one, so the generator can swap them by wall family."
+  },
+  {
+   "sku": "stair-half--dressed-stone",
+   "object": "stair-half",
+   "size_in": [
+    48,
+    60,
+    60
+   ],
+   "cells": "1",
+   "prio": 1,
+   "connector": "stair",
+   "anchor": "low end at the -D edge of its cell, top tread at the +D edge at z=60",
+   "fit": "box",
+   "use": "Rises 5 ft in one cell: up to a dais, stage or half level (docs/VERTICAL.md: 5-ft half-steps). Half flight + landing + half flight = a dog-leg built from parts."
+  },
+  {
+   "sku": "stair-landing--dressed-stone--t10",
+   "object": "stair-landing",
+   "size_in": [
+    60,
+    60,
+    60
+   ],
+   "cells": "1",
+   "prio": 1,
+   "connector": "stair",
+   "anchor": "fills its cell; top surface at z=60",
+   "supersedes": "stair-landing--dressed-stone (inn-01: only about 35 in high, so it meets no half flight)",
+   "fit": "box",
+   "use": "A 5-ft-high landing cell, level with the top of a half flight. Turns a stair (dog-leg, U-turn) or extends a mezzanine. The timber one is open underneath (storage, a hiding place); the stone one is solid."
+  },
+  {
+   "sku": "stair-quarter-turn--dressed-stone",
+   "object": "stair-quarter-turn",
+   "size_in": [
+    120,
+    120,
+    120
+   ],
+   "cells": "2x2",
+   "prio": 2,
+   "connector": "stair",
+   "anchor": "upper floor needs an opening over the landing cell and the upper-flight cell",
+   "fit": "box",
+   "use": "One storey in a room corner, as ONE mesh. Right-hand turn; mirror it for a left-hand turn. Occupies three cells of a 2x2 block: lower flight in cell (0,0) climbing +D, landing in (0,1) at z=60, upper flight in (1,1) climbing +W, arriving at the +W edge at z=120."
+  },
+  {
+   "sku": "stair-half--rough-timber",
+   "object": "stair-half",
+   "size_in": [
+    48,
+    60,
+    60
+   ],
+   "cells": "1",
+   "prio": 1,
+   "connector": "stair",
+   "anchor": "low end at the -D edge of its cell, top tread at the +D edge at z=60",
+   "fit": "box",
+   "use": "Rises 5 ft in one cell: up to a dais, stage or half level (docs/VERTICAL.md: 5-ft half-steps). Half flight + landing + half flight = a dog-leg built from parts."
+  },
+  {
+   "sku": "stair-landing--rough-timber--t10",
+   "object": "stair-landing",
+   "size_in": [
+    60,
+    60,
+    60
+   ],
+   "cells": "1",
+   "prio": 1,
+   "connector": "stair",
+   "anchor": "fills its cell; top surface at z=60",
+   "supersedes": "stair-landing--rough-timber (inn-01: only about 35 in high, so it meets no half flight)",
+   "fit": "box",
+   "use": "A 5-ft-high landing cell, level with the top of a half flight. Turns a stair (dog-leg, U-turn) or extends a mezzanine. The timber one is open underneath (storage, a hiding place); the stone one is solid."
+  },
+  {
+   "sku": "stair-quarter-turn--rough-timber",
+   "object": "stair-quarter-turn",
+   "size_in": [
+    120,
+    120,
+    120
+   ],
+   "cells": "2x2",
+   "prio": 2,
+   "connector": "stair",
+   "anchor": "upper floor needs an opening over the landing cell and the upper-flight cell",
+   "fit": "box",
+   "use": "One storey in a room corner, as ONE mesh. Right-hand turn; mirror it for a left-hand turn. Occupies three cells of a 2x2 block: lower flight in cell (0,0) climbing +D, landing in (0,1) at z=60, upper flight in (1,1) climbing +W, arriving at the +W edge at z=120."
+  },
+  {
+   "sku": "stair-wall-hugging--dressed-stone",
+   "object": "stair-wall-hugging",
+   "size_in": [
+    48,
+    120,
+    120
+   ],
+   "cells": "1x2",
+   "prio": 2,
+   "connector": "stair",
+   "anchor": "as stair-straight--dressed-stone--t10",
+   "fit": "box",
+   "use": "Castle and dungeon version of the straight flight: runs along a wall with a sheer open side (a fall hazard, catalog aff:hazard). Flat side goes to the wall; mirror for the other hand."
+  },
+  {
+   "sku": "stair-spiral-wide--dressed-stone",
+   "object": "stair-spiral-wide",
+   "size_in": [
+    108,
+    108,
+    120
+   ],
+   "cells": "2x2",
+   "prio": 1,
+   "connector": "stair",
+   "anchor": "centre of the 2x2 block; bottom step and top step both on the -D side; the upper floor is cut away over the whole 2x2 except the arrival cell edge",
+   "fit": "box",
+   "use": "Tower stair: fills a 2x2 block (9 ft across, a 6-in margin for the tower wall). ONE full turn per storey, so the foot and the head are on the same bearing: copies stack floor on floor and every floor enters on the same side."
+  },
+  {
+   "sku": "stair-spiral-wide--rough-timber",
+   "object": "stair-spiral-wide",
+   "size_in": [
+    108,
+    108,
+    120
+   ],
+   "cells": "2x2",
+   "prio": 1,
+   "connector": "stair",
+   "anchor": "as stair-spiral-wide--dressed-stone",
+   "fit": "box",
+   "use": "Timber tower / mill / wizard's-loft stair. Same geometry and stacking rule as the stone spiral."
+  },
+  {
+   "sku": "stair-grand--noble-interior",
+   "object": "stair-grand",
+   "size_in": [
+    120,
+    180,
+    120
+   ],
+   "cells": "2x3",
+   "prio": 2,
+   "connector": "stair",
+   "anchor": "low end at the -D edge of a 2x3 block, top tread at the +D edge at z=120; upper floor open over the upper two rows (2x2)",
+   "fit": "box",
+   "use": "The mansion foyer's focal piece: 2 cells wide, 3 cells of run (the one stair at a natural 34-degree pitch, because it is looked at, not squeezed in). Arrives at a gallery or upper landing."
+  },
+  {
+   "sku": "ladder-wood--leaning",
+   "object": "ladder-wood",
+   "size_in": [
+    24,
+    34,
+    126
+   ],
+   "cells": "sub",
+   "prio": 1,
+   "connector": "ladder",
+   "anchor": "foot 34 in out from the wall or opening edge, head at z=120 on that edge",
+   "supersedes": "ladder-wood (inn-01: plate rated 1 star, 'what's with the jumbo rung?')",
+   "use": "Loft, hayloft and roof-hatch ladder: stands in one cell, head resting on the edge of the opening above (a floor-trapdoor or roof-hatch in the same cell). Its top passes 6 in above the upper floor so it shows at the upper cut height."
+  },
+  {
+   "sku": "ladder-wood--upright",
+   "object": "ladder-wood",
+   "size_in": [
+    24,
+    9,
+    120
+   ],
+   "cells": "edge",
+   "prio": 2,
+   "connector": "ladder",
+   "anchor": "flat against a wall face, foot at floor level, head at z=120",
+   "hung": true,
+   "use": "Wall-fixed ladder for shafts, towers, wells and wall-walk access; takes no floor cell (wall edge). Stack copies for taller climbs."
+  },
+  {
+   "sku": "post-timber--plain",
+   "object": "post-timber",
+   "size_in": [
+    12,
+    12,
+    108
+   ],
+   "cells": "sub",
+   "prio": 2,
+   "anchor": "on a cell corner or edge midpoint, top at z=108",
+   "use": "Carries the outer corner of a jetty, a porch roof or a gallery edge: one storey of wall height (108 in), so the slab or bracket sits on its head. The existing post-timber mesh has arms (it measures 67 in wide); this is the straight one."
+  },
+  {
+   "sku": "jetty-bracket--s1",
+   "object": "jetty-bracket",
+   "size_in": [
+    10,
+    30,
+    36
+   ],
+   "cells": "sub",
+   "prio": 2,
+   "anchor": "back face on the outside of the lower wall, top face at z=108 (under the slab), projecting 30 in outward",
+   "hung": true,
+   "use": "Under a jettied upper storey: the upper floor oversails the lower wall by 30 in (half a cell). One bracket under each joist end, i.e. at every cell boundary along the jettied side (every 5 ft) and at the corners."
+  },
+  {
+   "sku": "jetty-bracket--s2",
+   "object": "jetty-bracket",
+   "size_in": [
+    10,
+    30,
+    36
+   ],
+   "cells": "sub",
+   "prio": 3,
+   "anchor": "as jetty-bracket--s1",
+   "hung": true,
+   "use": "Shape variant of the jetty bracket for richer town houses and inns; also under a timber balcony (balcony-wood)."
+  },
+  {
+   "sku": "buttress--s1",
+   "object": "buttress",
+   "size_in": [
+    30,
+    48,
+    108
+   ],
+   "cells": "1",
+   "prio": 2,
+   "anchor": "flat back on the outside wall face, foot on the ground",
+   "use": "Exterior only: against the outside of stone walls of tall rooms (great hall, chapel, crypt above ground), on cell boundaries between windows, one per 10 ft. One storey high; stack two (the upper one scaled 0.8 in depth) for a 20-ft hall."
+  },
+  {
+   "sku": "buttress--s2",
+   "object": "buttress",
+   "size_in": [
+    36,
+    48,
+    108
+   ],
+   "cells": "1",
+   "prio": 3,
+   "anchor": "as buttress--s1",
+   "use": "Castle curtain walls, barns, old church walls, shored-up ruins. Same placement as buttress--s1."
+  },
+  {
+   "sku": "corbel-stone--s1",
+   "object": "corbel-stone",
+   "size_in": [
+    12,
+    18,
+    18
+   ],
+   "cells": "sub",
+   "prio": 2,
+   "anchor": "flat back on a wall face, flat top at the underside of what it carries (default mount 90 in = top at z=108)",
+   "hung": true,
+   "use": "Under a stone balcony, a projecting parapet or wall-walk (machicolation look), a hall's roof-beam ends, an oriel. In rows at 30-in centres under a parapet, or pairs under a balcony."
+  },
+  {
+   "sku": "corbel-stone--s2",
+   "object": "corbel-stone",
+   "size_in": [
+    12,
+    18,
+    18
+   ],
+   "cells": "sub",
+   "prio": 3,
+   "anchor": "as corbel-stone--s1",
+   "hung": true,
+   "use": "Mansion and temple version: under balcony-stone, mantel shelves, and the eaves cornice of a slate roof."
+  },
+  {
+   "sku": "roof-dormer--tile",
+   "object": "roof-dormer",
+   "size_in": [
+    48,
+    60,
+    66
+   ],
+   "cells": "1",
+   "prio": 1,
+   "anchor": "window front parallel to the eaves, centred on a cell, front face 1 to 2 ft up-slope of the wall line",
+   "supersedes": "roof-dormer--dressed-stone and --rough-timber for tiled roofs (the inn-01 pair stay as generic fallbacks)",
+   "use": "Dormer for clay-tile roofs (town house, better inn). Sink it into the roof plane until the sill is 6 in above the slope; the roof builder clips nothing, the plane simply hides the back."
+  },
+  {
+   "sku": "roof-dormer--thatch",
+   "object": "roof-dormer",
+   "size_in": [
+    54,
+    60,
+    54
+   ],
+   "cells": "1",
+   "prio": 2,
+   "anchor": "window front parallel to the eaves, centred on a cell, front face 1 to 2 ft up-slope of the wall line",
+   "use": "Dormer for thatched roofs (cottage, poor inn): the 'eyebrow' that lifts the thatch over an attic window. Sink it into the roof plane until the sill is 6 in above the slope; the roof builder clips nothing, the plane simply hides the back."
+  },
+  {
+   "sku": "roof-dormer--slate",
+   "object": "roof-dormer",
+   "size_in": [
+    44,
+    60,
+    78
+   ],
+   "cells": "1",
+   "prio": 2,
+   "anchor": "window front parallel to the eaves, centred on a cell, front face 1 to 2 ft up-slope of the wall line",
+   "use": "Dormer for slate roofs (mansion, town hall); in a regular row, one per bay, aligned over the windows below. Sink it into the roof plane until the sill is 6 in above the slope; the roof builder clips nothing, the plane simply hides the back."
+  },
+  {
+   "sku": "roof-dormer--shingle",
+   "object": "roof-dormer",
+   "size_in": [
+    72,
+    60,
+    42
+   ],
+   "cells": "1x2",
+   "prio": 3,
+   "anchor": "window front parallel to the eaves, centred on a cell, front face 1 to 2 ft up-slope of the wall line",
+   "use": "Dormer for wood-shingle roofs (lodge, mill, log house); lights a whole attic room. Sink it into the roof plane until the sill is 6 in above the slope; the roof builder clips nothing, the plane simply hides the back."
+  },
+  {
+   "sku": "chimney-stack--brick",
+   "object": "chimney-stack",
+   "size_in": [
+    28,
+    28,
+    84
+   ],
+   "cells": "sub",
+   "prio": 1,
+   "connector": "chimney",
+   "anchor": "over the hearth; top 3 ft above the ridge if within 5 ft of it",
+   "use": "The ordinary town / inn chimney; on tile and shingle roofs. A chimney is a vertical connector (docs/VERTICAL.md): place it straight above the fireplace on the wall below so the two line up through every storey; sink the plain lower shaft into the roof."
+  },
+  {
+   "sku": "chimney-stack--stone",
+   "object": "chimney-stack",
+   "size_in": [
+    30,
+    30,
+    84
+   ],
+   "cells": "sub",
+   "prio": 1,
+   "connector": "chimney",
+   "anchor": "as chimney-stack--brick",
+   "use": "Stone-built houses, castles' domestic ranges, log cabins. A chimney is a vertical connector (docs/VERTICAL.md): place it straight above the fireplace on the wall below so the two line up through every storey; sink the plain lower shaft into the roof."
+  },
+  {
+   "sku": "chimney-stack--mansion",
+   "object": "chimney-stack",
+   "size_in": [
+    48,
+    24,
+    132
+   ],
+   "cells": "sub",
+   "prio": 2,
+   "connector": "chimney",
+   "anchor": "long side parallel to the ridge",
+   "use": "Mansion skyline: one per pair of fireplaces, usually on the ridge or at a gable end; the tallest thing on the roof. A chimney is a vertical connector (docs/VERTICAL.md): place it straight above the fireplace on the wall below so the two line up through every storey; sink the plain lower shaft into the roof."
+  },
+  {
+   "sku": "chimney-stack--cottage",
+   "object": "chimney-stack",
+   "size_in": [
+    32,
+    32,
+    48
+   ],
+   "cells": "sub",
+   "prio": 2,
+   "connector": "chimney",
+   "anchor": "on the ridge line",
+   "use": "Thatched and peasant roofs: sits low on the ridge. A chimney is a vertical connector (docs/VERTICAL.md): place it straight above the fireplace on the wall below so the two line up through every storey; sink the plain lower shaft into the roof."
+  },
+  {
+   "sku": "parapet-straight--dressed-stone",
+   "object": "parapet-straight",
+   "size_in": [
+    60,
+    12,
+    36
+   ],
+   "cells": "edge",
+   "prio": 2,
+   "anchor": "on a cell edge at roof level (z = top of the wall), outer face flush with the wall face below",
+   "fit": "box",
+   "use": "The ledge of a flat or low-pitched roof and of a roof terrace: on the roof's cell edges, at the outside face of the wall below. Half cover. Also a terrace edge at ground level."
+  },
+  {
+   "sku": "parapet-corner--dressed-stone",
+   "object": "parapet-corner",
+   "size_in": [
+    16,
+    16,
+    44
+   ],
+   "cells": "edge",
+   "prio": 2,
+   "anchor": "on a cell vertex at roof level",
+   "fit": "box",
+   "use": "At every corner and free end of a parapet run (the way hedge-end-block ends a hedge). A roof-finial or gargoyle-spout may sit on / under it."
+  },
+  {
+   "sku": "wall-crenellated--dressed-stone",
+   "object": "wall-crenellated",
+   "size_in": [
+    60,
+    24,
+    60
+   ],
+   "cells": "edge",
+   "prio": 1,
+   "anchor": "on a cell edge at roof / wall-walk level, outer face flush with (or 6 in proud of, on corbel-stone) the wall below",
+   "fit": "box",
+   "use": "Castle roof and wall-walk edge (three-quarter cover behind the merlon, half behind the crenel). Copies butt into merlon / crenel / merlon at 5-ft rhythm. If the castle designer specifies the same role, keep one sku."
+  },
+  {
+   "sku": "wall-crenellated-corner--dressed-stone",
+   "object": "wall-crenellated-corner",
+   "size_in": [
+    28,
+    28,
+    66
+   ],
+   "cells": "edge",
+   "prio": 1,
+   "anchor": "on a cell vertex at roof level",
+   "fit": "box",
+   "use": "At every corner and free end of a battlement run."
+  },
+  {
+   "sku": "roof-ridge--thatch",
+   "object": "roof-ridge",
+   "size_in": [
+    60,
+    24,
+    12
+   ],
+   "cells": "edge",
+   "prio": 2,
+   "anchor": "centred on the ridge line, sunk 4 in",
+   "fit": "box",
+   "use": "Along the ridge of a thatched roof, end to end. Thatch ridges are the one ridge that really is a raised, sculpted thing, so it is worth a mesh."
+  },
+  {
+   "sku": "roof-ridge--tile",
+   "object": "roof-ridge",
+   "size_in": [
+    60,
+    12,
+    8
+   ],
+   "cells": "edge",
+   "prio": 2,
+   "anchor": "centred on the ridge line, sunk 2 in",
+   "fit": "box",
+   "use": "Along the ridge (and hips) of a clay-tile roof, end to end."
+  },
+  {
+   "sku": "roof-ridge--lead",
+   "object": "roof-ridge",
+   "size_in": [
+    60,
+    10,
+    6
+   ],
+   "cells": "edge",
+   "prio": 3,
+   "anchor": "centred on the ridge line, sunk 1 in",
+   "fit": "box",
+   "use": "Ridge and hips of slate roofs and (painted the same) of wood-shingle roofs; if the roof code can extrude a ridge roll itself, this mesh is not needed."
+  },
+  {
+   "sku": "roof-finial--s1",
+   "object": "roof-finial",
+   "size_in": [
+    10,
+    10,
+    24
+   ],
+   "cells": "sub",
+   "prio": 3,
+   "anchor": "on a ridge end or gable apex, sunk 3 in",
+   "use": "On gable peaks, parapet corner piers and at the ends of a ridge (stone, slate and tile roofs)."
+  },
+  {
+   "sku": "roof-finial--s2",
+   "object": "roof-finial",
+   "size_in": [
+    9,
+    9,
+    30
+   ],
+   "cells": "sub",
+   "prio": 3,
+   "anchor": "on a roof apex, skirt sunk over the point",
+   "use": "On the apex of a conical or pyramid tower cap (roof-conical), and on dormer peaks."
+  },
+  {
+   "sku": "weathervane--banner",
+   "object": "weathervane",
+   "size_in": [
+    30,
+    8,
+    48
+   ],
+   "cells": "sub",
+   "prio": 3,
+   "anchor": "on a ridge end or apex, post sunk 4 in",
+   "use": "Roof life: at most one per building, on the highest ridge end or tower apex. May turn slowly in the wind later (the engine can spin it about its post)."
+  },
+  {
+   "sku": "roof-skylight--lead",
+   "object": "roof-skylight",
+   "size_in": [
+    48,
+    48,
+    16
+   ],
+   "cells": "1",
+   "prio": 2,
+   "connector": "skylight",
+   "anchor": "centred on a cell of the room below, on the roof surface",
+   "use": "A vertical connector for thieves and rooftop chases: sits on a flat roof or the ridge-side of a low slope, directly over the room it lights (a mansion stair hall, a studio, a library). Drop through = a 10-ft fall into that room."
+  },
+  {
+   "sku": "roof-hatch--wood",
+   "object": "roof-hatch",
+   "size_in": [
+    48,
+    48,
+    10
+   ],
+   "cells": "1",
+   "prio": 1,
+   "connector": "hatch",
+   "anchor": "centred on its cell on the roof / floor surface; the floor below it is open",
+   "use": "The way onto a roof, or into a loft from below: placed in the cell over the head of a ladder (ladder-wood--leaning / --upright) or over a stair-spiral-wide top. Closed = floor you can stand on."
+  },
+  {
+   "sku": "roof-hatch-open--wood",
+   "object": "roof-hatch-open",
+   "size_in": [
+    48,
+    52,
+    50
+   ],
+   "cells": "1",
+   "prio": 1,
+   "connector": "hatch",
+   "anchor": "as roof-hatch--wood",
+   "twin_of": "roof-hatch--wood",
+   "use": "Open state of roof-hatch--wood (two-state swap; align on the Alignment Bench so the curb does not jump)."
+  },
+  {
+   "sku": "gargoyle-spout--s1",
+   "object": "gargoyle-spout",
+   "size_in": [
+    14,
+    36,
+    18
+   ],
+   "cells": "sub",
+   "prio": 2,
+   "anchor": "flat back in the outer wall face just below the parapet (default mount 96 in), pointing outward",
+   "hung": true,
+   "use": "Sparse: at parapet / battlement corners and gutter ends of temples, castles and old mansions, no more than one per 15 to 20 ft of eaves. Projects outward under the coping."
+  },
+  {
+   "sku": "gargoyle-spout--plain",
+   "object": "gargoyle-spout",
+   "size_in": [
+    10,
+    30,
+    14
+   ],
+   "cells": "sub",
+   "prio": 3,
+   "anchor": "as gargoyle-spout--s1",
+   "hung": true,
+   "use": "The everyday version: castles' wall-walk drains, town houses. Same placement as the gargoyle; can be denser (every 10 ft)."
+  },
+  {
+   "sku": "nest-bird--s1",
+   "object": "nest-bird",
+   "size_in": [
+    14,
+    14,
+    7
+   ],
+   "cells": "tiny",
+   "prio": 3,
+   "anchor": "on any flat-ish roof spot, sunk 1 in",
+   "use": "Optional roof life: beside a chimney, in a dormer valley, on a parapet corner pier, on a tower cap. At most one or two per building. (A pigeon is a creature and is left to the creature pipeline.)"
+  }
+ ],
+ "existing_library": [
+  {
+   "object": "stair-straight",
+   "skus": "--dressed-stone, --rough-timber (inn-01, 3 stars)",
+   "verdict": "superseded",
+   "why": "measured 61 x 110 x 84 high (stone) and 110 x 77 x 94 high (timber): neither climbs 10 ft, neither fits a 5-ft cell. New meshes are separate skus with the suffix --t10 (ten-foot storey); the inn-01 meshes stay in place for the rooms that use them."
+  },
+  {
+   "object": "stair-landing",
+   "skus": "--dressed-stone, --rough-timber (3 stars)",
+   "verdict": "superseded",
+   "why": "about 35 in high: meets neither floor nor half level. New 60-in-high landings are separate skus with the suffix --t10."
+  },
+  {
+   "object": "stair-exterior-wood",
+   "skus": "--dressed-stone, --rough-timber (3 stars; note 'outdoor carpets?')",
+   "verdict": "usable",
+   "why": "rise is about equal to run (62-65 w x 110 x 106-113 high): right pitch for this kit. Rescale to 120 rise and it is the outside stair to an upper door. Wider than a cell by a few inches. Not respecified."
+  },
+  {
+   "object": "ladder-wood",
+   "skus": "ladder-wood (plate 1 star: 'jumbo rung')",
+   "verdict": "superseded",
+   "why": "by ladder-wood--leaning and --upright (equal rungs demanded in the gate)."
+  },
+  {
+   "object": "floor-trapdoor",
+   "skus": "--dressed-stone, --rough-timber (3 stars)",
+   "verdict": "usable",
+   "why": "the indoor floor-side connector over a ladder (cellar, loft). Measures 18 to 23 in high at a 60-in width, far more than the catalog's 4 in: check whether it is a thick frame or an open lid before placing it flush. roof-hatch is the weathered outdoor one with a curb."
+  },
+  {
+   "object": "roof-dormer",
+   "skus": "--dressed-stone, --rough-timber (3 stars)",
+   "verdict": "usable as fallback",
+   "why": "proportions fine (49 x 39 x 60 and 57 x 53 x 60) but their roofing matches none of the four roof surfaces by design; the four material-matched dormers replace them on generated roofs."
+  },
+  {
+   "object": "roof-shingle-wood",
+   "skus": "both (3 stars, note 'is a whole roof')",
+   "verdict": "superseded",
+   "why": "each is a complete little roof, not a segment that tiles. Roof planes are code plus the roofing-shingle-wood flat. Keep as a ready-made roof for a 1-cell shed, well-house or porch."
+  },
+  {
+   "object": "balcony-wood",
+   "skus": "--rough-timber (3 stars), --dressed-stone (unrated: 'model isn't bad... specified as outside')",
+   "verdict": "usable",
+   "why": "about 60 x 50 x 50 with its own railing: an exterior piece hung at upper-floor level (bottom at z about 108), over jetty-bracket--s2 or corbel-stone. Harry's note is about placement, which is the generator's job."
+  },
+  {
+   "object": "railing-wood",
+   "skus": "both (3 stars)",
+   "verdict": "check before use",
+   "why": "catalog says 4 in deep; they measure 30 to 45 in deep at a 60-in length, so they are not a thin edge rail (a base, a return or a diagonal). Look before putting them on stair and gallery edges. No replacement specified: a thin railing is exactly what image-to-3D breaks; a code-made rail (posts + bar) is the better route."
+  },
+  {
+   "object": "gallery-interior",
+   "skus": "both (unrated: 'what is this?', 'not sure what this is supposed to be')",
+   "verdict": "not usable; retire",
+   "why": "a gallery is a floor slab at +10 ft with a rail and posts under it: storeys make it (slab + post-timber--plain + rail), no mesh needed."
+  },
+  {
+   "object": "porch-covered",
+   "skus": "both (3 stars)",
+   "verdict": "usable for now",
+   "why": "works as a whole prop at a door (about 110 x 87-100 x 100 high) but carries its own fixed roof; once roofs exist a porch is a lean-to roof plane on two post-timber--plain."
+  },
+  {
+   "object": "post-timber",
+   "skus": "post-timber (3 stars)",
+   "verdict": "usable indoors",
+   "why": "it measures 67 in wide at 108 tall, so it has arms or braces: good in a common room, wrong under a jetty corner. post-timber--plain added."
+  }
+ ],
+ "catalog_lines_to_correct": [
+  "stair-straight: size 36x110x108 -> 48x120x120 (the kit's flights are specified at this size; the core line is untouched)",
+  "stair-landing: 60x60x54 -> 60x60x60",
+  "stair-exterior-wood: 40x110x108 -> 40x120x120",
+  "stair-wall-hugging: 36x110x108 -> 48x120x120",
+  "stair-grand: fp 2x2, 110x110x108 -> fp 2x3, 120x180x120 (or keep 2x2 and accept a 45-degree grand stair)",
+  "ladder-wood: 18x6x120 -> 24x9x120 (chunky), and the leaning one occupies part of a floor cell",
+  "wall-crenellated: 60x24x60 is used as is",
+  "roof-thatch / roof-tile-slate / roof-shingle-wood (mesh roof segments): retire in favour of the roofing-* flats when roofs are planes",
+  "jetty-overhang (a whole overhanging storey as one kit piece): retire; a jetty is the upper storey offset 30 in plus jetty-bracket"
+ ],
+ "not_specified_on_purpose": [
+  "pigeon (creature)",
+  "stair-spiral in ONE cell (core line; a 5-ft spiral is too tight for 12-in chunky steps)",
+  "roof-conical tower cap and roof-gable-end (roof code makes them from the roofing flats)",
+  "railings (thin; code-made)",
+  "a U-turn dog-leg as one mesh (build it from stair-half + two stair-landing + stair-half, or use stair-quarter-turn)"
+ ]
+}

@@ -1,0 +1,50 @@
+{
+  "commit": "b0e750035f2d838332632f0880fca4ea4b3ac7ae",
+  "end_commit": "b0e750035f2d838332632f0880fca4ea4b3ac7ae",
+  "tracked_changes_at_start": [],
+  "golden_ref": "origin/main",
+  "golden_commit": "0368f8b8b1388a664edc00beae93efb60b88db32",
+  "runtime_seconds": 10.15,
+  "runs": [
+    {
+      "suite": "tools/spawn-tuner/test/house_buttons.py",
+      "attempt": 1,
+      "status": "PASS",
+      "exit": 0,
+      "child_exit": 0,
+      "passed": 9,
+      "failed": 0,
+      "expected_failures": 0,
+      "seconds": 4.28,
+      "wall_seconds": 4.51,
+      "command": [
+        "python3",
+        "tools/spawn-tuner/test/house_buttons.py",
+        "http://127.0.0.1:40383/tuner",
+        "http://127.0.0.1:8096"
+      ],
+      "log": "experiments/2026-10-17-fogwar-finish/landing-20261017T220917/matrix-house_buttons.py/tools__spawn-tuner__test__house_buttons.py.1.log",
+      "asserting": true,
+      "expected_assertions": null,
+      "ports": [],
+      "port_wait_seconds": 0.0
+    }
+  ],
+  "excluded": {
+    "engine/test/audit.py": "Imported browser audit helper.",
+    "engine/test/faction_ui_checks.py": "Imported faction assertions.",
+    "engine/test/corpus.mjs": "Imported read-only campaign corpus loader.",
+    "engine/test/node-eventsource.mjs": "Imported EventSource adapter.",
+    "tools/spawn-tuner/test/ccm_lib.mjs": "Imported room-suite helper.",
+    "tests/tw_sandbox.py": "Imported write isolation and throwaway cleanup.",
+    "tests/tw_test_site.py": "Local test server lifecycle helper.",
+    "tests/archive_review_test_writes.py": "Legacy data migration, rewrites live reviews; not a suite.",
+    "tools/spawn-tuner/test/archive_test_writes.py": "Legacy data migration, rewrites live reviews; not a suite.",
+    "tools/tool-sweep/sweep.py": "Build/publish utility; coverage is asserted by check.py.",
+    "tools/tool-sweep/membership.mjs": "Queue enumeration helper for check.py.",
+    "tools/tool-sweep/sku_free.py": "Preflight utility requiring a proposed asset manifest; sku_guard.py tests existing claims.",
+    "tools/spawn-tuner/test/building_debt.mjs": "Imported exact-case expected failure accounting; tested by building-debt.test.mjs."
+  },
+  "interrupted": false,
+  "not_started": []
+}

@@ -1,0 +1,176 @@
+{
+ "file": "foe-demon.glb",
+ "tris": 48946,
+ "kb": 3257,
+ "native_extent": [
+  0.652,
+  0.997,
+  0.677
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0206,
+  "seen": 0.0007
+ },
+ "mean_rgb": [
+  79,
+  25,
+  22
+ ],
+ "mean_saturation": 0.694,
+ "sized_by": "its highest point",
+ "overall_ft": 7.5,
+ "pieces": {
+  "connected_parts": 395,
+  "main_part_area_share": 0.8647,
+  "floating": [
+   {
+    "area_share": 0.00094,
+    "gap_ft": 0.07,
+    "size_ft": 0.38
+   },
+   {
+    "area_share": 0.00068,
+    "gap_ft": 0.08,
+    "size_ft": 0.32
+   },
+   {
+    "area_share": 0.00014,
+    "gap_ft": 0.04,
+    "size_ft": 0.14
+   },
+   {
+    "area_share": 0.00013,
+    "gap_ft": 0.04,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 0.0001,
+    "gap_ft": 0.05,
+    "size_ft": 0.2
+   },
+   {
+    "area_share": 9e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.12
+   },
+   {
+    "area_share": 9e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.17
+   },
+   {
+    "area_share": 8e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.16
+   }
+  ],
+  "floating_count": 38,
+  "floating_area_share": 0.00277,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 7.523,
+ "y0": -3.7664,
+ "stated_ft": {
+  "body": 7.5,
+  "figure_top": 7.5,
+  "overall": 7.5
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3275,
+   -0.5007,
+   -0.3384
+  ],
+  [
+   0.3245,
+   0.4966,
+   0.3389
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48946,
+   "tex": 2048,
+   "kb": 3257
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1328
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 543
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.23,
+    "z": 0.27,
+    "size_ft": [
+     1.38,
+     1.81
+    ],
+    "off_ground_ft": 0.008,
+    "sole_level_share": 0.68,
+    "sole_p90_ft": 0.367
+   },
+   {
+    "x": -1.56,
+    "z": -0.35,
+    "size_ft": [
+     1.38,
+     1.69
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.68,
+    "sole_p90_ft": 0.364
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.008,
+  "lowest_slab_area_sqft": 2.73,
+  "plan_hull_area_sqft": 15.61,
+  "lowest_slab_share_of_plan": 0.175
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.9,
+   "d": 5.09,
+   "h": 7.5
+  },
+  "centre": [
+   -0.173,
+   0.216
+  ],
+  "contacts_radius_ft": 2.12,
+  "reach_radius_ft": 2.74,
+  "share_outside_2p5ft": 0.01
+ },
+ "silhouette": {
+  "iou": 0.881,
+  "plate_lost_share": 0.032,
+  "added_share": 0.099,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.881,
+  "view_yaw_deg": 35,
+  "view_elev_deg": 8
+ },
+ "id": "foe-demon",
+ "sha1": "be938731e71d8fc5bea834de5111802a6bbf35ce",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "6 separate part(s) lying within 0.08 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 14.7
+}

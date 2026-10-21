@@ -1,0 +1,53 @@
+{
+  "id": "pawn.give",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A broad open ivory hand offering a small teal pawn. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/parchment--pawn.give.png",
+  "source_sha256": "333d3b6ff41aff63ea56711ec6d4a0caa664669ec0ff30111f4de3abc24c0fcb",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/pawn.give.webp",
+    "19": "parchment/sizes/19/pawn.give.webp",
+    "22": "parchment/sizes/22/pawn.give.webp",
+    "26": "parchment/sizes/26/pawn.give.webp",
+    "31": "parchment/sizes/31/pawn.give.webp",
+    "36": "parchment/sizes/36/pawn.give.webp",
+    "38": "parchment/sizes/38/pawn.give.webp",
+    "42": "parchment/sizes/42/pawn.give.webp",
+    "44": "parchment/sizes/44/pawn.give.webp",
+    "50": "parchment/sizes/50/pawn.give.webp",
+    "52": "parchment/sizes/52/pawn.give.webp",
+    "62": "parchment/sizes/62/pawn.give.webp",
+    "84": "parchment/sizes/84/pawn.give.webp",
+    "100": "parchment/sizes/100/pawn.give.webp",
+    "128": "parchment/pawn.give.webp"
+  },
+  "sha256": {
+    "18": "864bb18257805befa9b9de9e0e2aa84619f2c8df6d3047f48cbe10eaece11eaa",
+    "19": "697d310aec0c88560edbfe15a9bcdd0262db0d899da1f2bf5243388bb6490724",
+    "22": "38693275473268302a136384d51ea44cee0a62b25646ca6b78dae73d8296066a",
+    "26": "9b97741c2800f00a5cf8b1d973c77596cc90b28de6c417b625f2972c43280b78",
+    "31": "c34d589eb9d858d0f3b0a5ab35e751c013d08ebbbc9263febcb8d1bd8a4b2077",
+    "36": "4205d6b4ffa8d909c7b9a985a9d82b711df23ab5dddf2ecf8738549a261a2c2c",
+    "38": "1f8e6fbd4b7754dfef15da97ac09bf5616a60837ec028a516cacbf01a8428769",
+    "42": "d580d72f45e06727bbe734bc938b8ca6d1a70b5066889dc44f7cc371b9430ff7",
+    "44": "16200cc673064000d9f8cc4117376afe9de1ef7c6b95f3fc95a6eca8d8c469a7",
+    "50": "eaffb072d119f820e8684a50b27139939be32005c08ca3509468c50605ecf88c",
+    "52": "cccfd4fb7fa98c1b70e802063fd4490f927f466e7851aad98a357952e71f6be5",
+    "62": "7342523858d387502d3597b56f06388259c3c0e823f765012b93434fe09578cf",
+    "84": "cc1b60d26762c8fdba8823593d614079d202ee482fc336fd08ce49ec0a7b5e62",
+    "100": "1a41b816832390e966299255baea253f10f9b2e105630cfd43c24b66236d6f46",
+    "128": "74ce39b30dbe370b664f0611224a05669f53ba7fe617d7905c8fbc6e40f1cea4"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "0631e17ba5f516e8a6f020170a8667238950f50a1786139d55a7b4c156b00b93"
+}

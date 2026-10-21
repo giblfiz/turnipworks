@@ -1,0 +1,37 @@
+{
+  "id": "flavor-altar-piece--nature-fct",
+  "status": "accepted",
+  "time": "2026-10-13T13:17:50.120256+00:00",
+  "generator": "OpenAI built-in imagegen",
+  "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One small tabletop altar ornament depicting a serene green-man face framed by five broad oak leaves and two short stout antlers, compact and wide, integrated low plinth, no altar table included. Palette: moss green and warm oak brown. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 50 degrees so the top and front are visible. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+  "plate": "experiments/2026-10-13-factions/inputs/flavor-altar-piece--nature-fct.png",
+  "sha256": "5247210f95c3eabdf10c48f320c976b251876fd6d42ac93b144f9bc09ec1ce3e",
+  "refs": [],
+  "blind_110": "**Object & Symbol:**  \nA sculpted bust/carving representing a **Green Man** or antlered nature deity (such as Cernunnos). The face is woven into a beard of foliage, crowned with a large vertical oak leaf, flanked by side oak leaves, and has a prominent pair of wooden/antler horns branching upward. The bust rests on an ornate, low stone plinth.\n\n**Best Name & Alternative:**  \n* **Best name:** Green Man bust / shrine  \n* **Alternative:** Horned God / druidic nature altar  \n\n**Completeness & Readability:**  \nYes, the object is whole, clearly contoured, and easily readable from this perspective.\n\n**Viewing Angle:**  \nThe elevated three-quarter isometric view provides a clear look at the overall shape, front, antlers, and top framing leaves, though the very top and rear surface behind the tall central leaf cannot be seen.\n",
+  "table_gate": {
+    "ok": true,
+    "problems": []
+  },
+  "semantic": {
+    "what_i_see": "A decorative statuette depicting a Green Man or horned nature spirit bust emerging from oak leaves, set upon a carved pedestal against a plain white background.",
+    "ok": true,
+    "problems": [],
+    "blind": {
+      "what_i_see": "A decorative statuette depicting a Green Man or horned nature spirit bust emerging from oak leaves, set upon a carved pedestal against a plain white background.",
+      "details": "There are no texts, labels, or watermarks visible in the image. The image features a single standalone object: primarily a sculpted Green Man or foliate head statuette (second guess: a fantasy nature deity ornament or altar figurine). Counted parts include one central face with closed eyes and beard formed of leaves, two deer-like antlers protruding from the upper sides of the head, three large backdrop oak leaves (one tall central leaf and two flanking wings), smaller surrounding leaf layers, and one hexagonal/beveled decorative pedestal base. The pedestal features relief carvings of oak leaves and a central circular medallion displaying an acorn. There are no legs, wheels, doors, drawers, lids, or handles. The object appears to be crafted from painted cast resin, faux stone, or carved wood, featuring natural green shades on the foliage, brownish-tan wood tones on the antlers and skin, and weathered grayish-tan tones on the pedestal. The entire object is completely contained within the frame with no parts cropped. The background is completely solid, uniform white with no scenery or floor, casting only a subtle drop shadow directly beneath the base.",
+      "reference_differences": []
+    }
+  },
+  "matte": "native-alpha",
+  "mask_gate": {
+    "ok": false,
+    "problems": [
+      "Parts of the leaves behind the left and right antlers have been cut away and replaced with magenta"
+    ]
+  },
+  "mask_override": {
+    "verdict": "accept",
+    "reason": "Original native RGBA and masked RGBA pixels are identical (PIL ImageChops difference bbox None). Direct Codex inspection sees natural gaps between antlers and lobed leaves; no leaf material cut away. Vision confused original alpha presentation with magenta composite. Whole leaf outlines retained; raw negative verdict retained.",
+    "evidence": "work/flavor-altar-piece--nature-fct.comp.jpg"
+  }
+}

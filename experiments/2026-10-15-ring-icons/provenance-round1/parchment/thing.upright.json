@@ -1,0 +1,53 @@
+{
+  "id": "thing.upright",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: An upright ochre crate resting flat on a thick ground line with a broad ivory up arrow beside it. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/parchment--thing.upright.png",
+  "source_sha256": "fa8e8a56a2ed60ad0782cf7358a09b897b86c8e0716d599f4ff9ef74ccc223e4",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/thing.upright.webp",
+    "19": "parchment/sizes/19/thing.upright.webp",
+    "22": "parchment/sizes/22/thing.upright.webp",
+    "26": "parchment/sizes/26/thing.upright.webp",
+    "31": "parchment/sizes/31/thing.upright.webp",
+    "36": "parchment/sizes/36/thing.upright.webp",
+    "38": "parchment/sizes/38/thing.upright.webp",
+    "42": "parchment/sizes/42/thing.upright.webp",
+    "44": "parchment/sizes/44/thing.upright.webp",
+    "50": "parchment/sizes/50/thing.upright.webp",
+    "52": "parchment/sizes/52/thing.upright.webp",
+    "62": "parchment/sizes/62/thing.upright.webp",
+    "84": "parchment/sizes/84/thing.upright.webp",
+    "100": "parchment/sizes/100/thing.upright.webp",
+    "128": "parchment/thing.upright.webp"
+  },
+  "sha256": {
+    "18": "ba236427c489b8c6bdfbfc6a5eadab2f0cecae641ed883cf3c286929b799376c",
+    "19": "21f4f8726e61bd55eb075037196a3a3b25404d2a3584a72db6b2408844a9e40c",
+    "22": "f975dee3e896306db9ec44d526b5d1b5b1f7cf26c14577ffca17875a8134d6c9",
+    "26": "b3c971b623f5bb5de6b8aaeafac198b4c47727d11f0bc5bf2eae9e3afe462f45",
+    "31": "a776f8102c0dd7315641f7bb2367e43fc8f231f61a8bb238f0f0a362dbf4ed3b",
+    "36": "68e574d3915c703e5cc09f24b071de72ccfc75df1ae595d344be07e93febb317",
+    "38": "8a584c7f544fbac33fb067bd6a13aa7fe454da48f0ff1c30474216a0015a5768",
+    "42": "c605d8ed5b119e3cf0d538edeb05c53d302d73e423ead8a9bcfc5acbecf0fdba",
+    "44": "1f8186bdf64c56e9eae7e3e570b9dbbb5a29e1cd64f87a5648fd8d395c128045",
+    "50": "728f182eb8b0712d54026cffa10ed855ee0d6dd84ea3c1159b785698b5f5a65c",
+    "52": "be822f3467b45e4359bda118ed54c2b34903b62c86794c59fed1c40defb4e5f5",
+    "62": "d56b908ae9998882674d67b049fadbd8cffef840bceacb4a96d40c0a44bce4f2",
+    "84": "3a8be73c267fd4b7c8800174304563c09a1b544843dbe6b4804b4534460bebc9",
+    "100": "cd230d9f603e5fffd6b640cd97d09056f02f0f08f8f40574ed33689b822a626d",
+    "128": "0d2a5ed38925c4cdacab2cfd0b73fb4b7c919eb47502b701d9a3c63179fd3302"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "322e4e28e835e6e81220e09406f77c95061ae690dfacafeeab079e7d6bd95e51"
+}

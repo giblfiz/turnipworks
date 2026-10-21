@@ -1,0 +1,166 @@
+{
+ "file": "foe-skeleton-crossbow.glb",
+ "tris": 49001,
+ "kb": 3558,
+ "native_extent": [
+  0.484,
+  1.0,
+  0.696
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0005,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  99,
+  72,
+  52
+ ],
+ "mean_saturation": 0.556,
+ "sized_by": "its highest point",
+ "overall_ft": 5.8,
+ "pieces": {
+  "connected_parts": 382,
+  "main_part_area_share": 0.9402,
+  "floating": [
+   {
+    "area_share": 0.00045,
+    "gap_ft": 0.05,
+    "size_ft": 0.24
+   },
+   {
+    "area_share": 0.00015,
+    "gap_ft": 0.11,
+    "size_ft": 0.14
+   },
+   {
+    "area_share": 0.00011,
+    "gap_ft": 0.07,
+    "size_ft": 0.1
+   },
+   {
+    "area_share": 7e-05,
+    "gap_ft": 0.13,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.04
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.06
+   }
+  ],
+  "floating_count": 6,
+  "floating_area_share": 0.0008,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.8006,
+ "y0": -2.9,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2413,
+   -0.5001,
+   -0.3474
+  ],
+  [
+   0.2422,
+   0.5,
+   0.3488
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49001,
+   "tex": 2048,
+   "kb": 3558
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1409
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 585
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.82,
+    "z": 0.86,
+    "size_ft": [
+     1.16,
+     1.5
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.55,
+    "sole_p90_ft": 0.143
+   },
+   {
+    "x": -0.66,
+    "z": -1.57,
+    "size_ft": [
+     0.89,
+     1.57
+    ],
+    "off_ground_ft": 0.01,
+    "sole_level_share": 0.54,
+    "sole_p90_ft": 0.151
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.01,
+  "lowest_slab_area_sqft": 1.95,
+  "plan_hull_area_sqft": 8.49,
+  "lowest_slab_share_of_plan": 0.23
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.8,
+   "d": 4.03,
+   "h": 5.8
+  },
+  "centre": [
+   -0.087,
+   -0.215
+  ],
+  "contacts_radius_ft": 2.07,
+  "reach_radius_ft": 2.44,
+  "share_outside_2p5ft": 0.001
+ },
+ "silhouette": {
+  "iou": 0.884,
+  "plate_lost_share": 0.045,
+  "added_share": 0.08,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.859,
+  "view_yaw_deg": 45,
+  "view_elev_deg": 8
+ },
+ "id": "foe-skeleton-crossbow",
+ "sha1": "2864484acaf73f28f3c7166f3ba7bb744eae754f",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.05 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 16.7
+}

@@ -1,0 +1,53 @@
+{
+  "id": "thing.lock",
+  "set": "charcoal",
+  "alt": 1,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A chunky horizontal iron sliding door bolt in its brackets. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--thing.lock--alt1.png",
+  "source_sha256": "f34edfa74c9ab9c4895626f73bdad61fb5e5c4a81e89b9cc389136a6362bb5af",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/thing.lock--alt1.webp",
+    "19": "charcoal/sizes/19/thing.lock--alt1.webp",
+    "22": "charcoal/sizes/22/thing.lock--alt1.webp",
+    "26": "charcoal/sizes/26/thing.lock--alt1.webp",
+    "31": "charcoal/sizes/31/thing.lock--alt1.webp",
+    "36": "charcoal/sizes/36/thing.lock--alt1.webp",
+    "38": "charcoal/sizes/38/thing.lock--alt1.webp",
+    "42": "charcoal/sizes/42/thing.lock--alt1.webp",
+    "44": "charcoal/sizes/44/thing.lock--alt1.webp",
+    "50": "charcoal/sizes/50/thing.lock--alt1.webp",
+    "52": "charcoal/sizes/52/thing.lock--alt1.webp",
+    "62": "charcoal/sizes/62/thing.lock--alt1.webp",
+    "84": "charcoal/sizes/84/thing.lock--alt1.webp",
+    "100": "charcoal/sizes/100/thing.lock--alt1.webp",
+    "128": "charcoal/thing.lock--alt1.webp"
+  },
+  "sha256": {
+    "18": "d2ae39a9a532e9adcac2997ba582e3b743f30806f7e89764ce4020636dd3a2a2",
+    "19": "68e62caa5e4e023736262f5454f404530fc4be87b60b3914a4117de90af94eb3",
+    "22": "30f5c62be118e7aa57bd4d022612377320eb28120bd30e4fe948113e0a013b4d",
+    "26": "befa402a8e98a0bf4d4e4b8b97b2cfde4051f5d220e5a16d1155b7570469a202",
+    "31": "dd6196b8eac2a069506dccd7829cfe7f561a0eed4a2a31a9496581002f25b365",
+    "36": "16b3609d40933b5f5f83250a6bbb99b13587af7edf18d8f0c279b19e0957c58a",
+    "38": "13e899ca6511b3530b401b76b280829eb0b9d8d0554af3b3506a0ccf8d89aa63",
+    "42": "98eae75a22632e6b65b6dc4966725ce79dabf60e65f166ebd83e2d863be50eb2",
+    "44": "dcb952671f307acb771fc5de1f2fdb0d8d1c56d143e5503adf33890a489f21e4",
+    "50": "5ba77d24b538fc8d46579e813dfe635a855bccfc6386dd67d9a76b1611829584",
+    "52": "605082ae8f998f57d2b13f6a1fd15ad0e0428a3d5e0c2aa1c95c1c9d445717a7",
+    "62": "4f1c18aa40b52200272a4eb3e108481dfc6e9bc87c57e977e0c43958faafe3c5",
+    "84": "7b965755b040801647bc44084257a0b3a0f9bc5c8aeb2a666a42804127da3d0a",
+    "100": "eeeb217c40b9b1c753e0486603f6d5d7d849498be579a81ee4b720df9a420c66",
+    "128": "464d45e49569d3416698206f2716cd4da5edafafc0d0ecc605a4706c73097c80"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "943a3de2e24c1f25352808ed329129f6c1c6e99fe2ed4379b8ec92ddb9e6edce"
+}

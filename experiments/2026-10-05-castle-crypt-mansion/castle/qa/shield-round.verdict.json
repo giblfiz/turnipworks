@@ -1,0 +1,37 @@
+{
+ "sku": "shield-round",
+ "glb_sha1": "d93b39364bfeccea4c874505acdafcb2ec65f063",
+ "time": "2026-10-05T22:02:16-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "round shield",
+  "second_guess": "manhole cover",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A circular Viking-style round shield lying flat face-up on the ground. It features a central hemispherical metal boss encircled by a riveted metal ring, radial wooden planks alternating between natural light wood finish and muted green paint, and an outer reinforced metal rim held in place with metal rivets. The geometry is solid, smooth, and fully contiguous with clean stylized textures and no floating parts, plinth, or untextured surfaces.",
+  "from_above": "A circular emblem or target-like disc featuring a central silver dome boss ringed with studs, radiating segments of alternating light wood and dark green planks, bounded by a riveted outer circular metal band.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "Extremely low when lying flat (under 6 inches high), with a diameter of approximately 2.5 to 3 feet across (about half the height of the 5 ft 9 in figure).",
+  "name": "shield-round"
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "round shield",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "Shield is oriented lying flat on the ground plane rather than standing upright"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "footprint 2.5 x 2.5 ft, catalog 2.5 x 0.3 ft: squarer by 7.5x",
+  "height 0.7 ft at auto scale, catalog 2.5 ft (3.43x off)"
+ ],
+ "notes": [
+  "gemini note: Shield is oriented lying flat on the ground plane rather than standing upright"
+ ],
+ "vision": true
+}

@@ -1,0 +1,6 @@
+#1 semantic=PASS mask=PASS — The sign matches the prompt and the mask correctly removes all background, including inside the chain links.
+#2 semantic=PASS mask=FAIL — The wheelbarrow matches the prompt, but the mask fails to remove the blue background between the wheel spokes.
+#3 semantic=PASS mask=PASS — The sign matches the prompt and the mask is clean.
+#4 semantic=PASS mask=FAIL — The manger matches the prompt, but the mask fails to remove the blue background between the wooden slats of the hay rack.
+#5 semantic=PASS mask=FAIL — The partition matches the prompt, but the mask fails to remove the blue background between the vertical bars.
+#6 semantic=PASS mask=PASS — The sack matches the prompt and the mask is clean.

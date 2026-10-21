@@ -1,0 +1,146 @@
+{
+ "file": "hero-monk-dragonborn-m.glb",
+ "tris": 47666,
+ "kb": 2717,
+ "native_extent": [
+  0.577,
+  1.001,
+  0.67
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0048,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  128,
+  88,
+  51
+ ],
+ "mean_saturation": 0.64,
+ "sized_by": "its highest point",
+ "overall_ft": 6.5,
+ "pieces": {
+  "connected_parts": 16,
+  "main_part_area_share": 0.9949,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.4971,
+ "y0": -3.2483,
+ "stated_ft": {
+  "body": 6.5,
+  "figure_top": 6.5,
+  "overall": 6.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2892,
+   -0.5001,
+   -0.3359
+  ],
+  [
+   0.2882,
+   0.5006,
+   0.3337
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47666,
+   "tex": 2048,
+   "kb": 2717
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1107
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 486
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -1.22,
+    "z": -1.03,
+    "size_ft": [
+     1.08,
+     1.33
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.72,
+    "sole_p90_ft": 0.103
+   },
+   {
+    "x": 1.29,
+    "z": 1.45,
+    "size_ft": [
+     0.81,
+     1.44
+    ],
+    "off_ground_ft": 0.054,
+    "sole_level_share": 0.62,
+    "sole_p90_ft": 0.161
+   },
+   {
+    "x": 0.8,
+    "z": -1.88,
+    "size_ft": [
+     0.65,
+     0.79
+    ],
+    "off_ground_ft": 0.362,
+    "sole_level_share": 0.39,
+    "sole_p90_ft": 0.552
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.362,
+  "lowest_slab_area_sqft": 1.45,
+  "plan_hull_area_sqft": 9.9,
+  "lowest_slab_share_of_plan": 0.147
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.74,
+   "d": 4.35,
+   "h": 6.5
+  },
+  "centre": [
+   0.322,
+   0.044
+  ],
+  "contacts_radius_ft": 2.39,
+  "reach_radius_ft": 2.32,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.881,
+  "plate_lost_share": 0.033,
+  "added_share": 0.098,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.881,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 16
+ },
+ "id": "hero-monk-dragonborn-m",
+ "sha1": "95a9e90191993375350aac1664b4368ee9034e34",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.36 ft off the ground"
+ ],
+ "qa_seconds": 16.6
+}

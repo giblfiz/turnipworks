@@ -1,0 +1,3 @@
+Edit task. The supplied image shows one object in the Turnip Works hand-painted house style. Show the SAME object: identical materials, colours, carving, fittings, proportions and painting style. Do not redesign it.
+
+Show this same sideboard with its two end cupboard doors swung fully OPEN to about 100 degrees, showing clearly hollow, EMPTY cupboards with one shelf each. The drawers stay shut. Nothing on top. Thick, chunky doors and flaps so the open shape reconstructs cleanly in 3D. Camera: the same three-quarter view from slightly above as in the supplied image. Exactly one object, centred, whole and well inside the frame, on a perfectly uniform solid chroma-blue background: no floor, no shadow, no other objects. The object itself has NO blue anywhere.

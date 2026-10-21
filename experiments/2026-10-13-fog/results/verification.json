@@ -1,0 +1,394 @@
+{
+  "schema": 1,
+  "status": "verified_live",
+  "task": "Task G: client vision fog of war",
+  "deployment": {
+    "commit": "81914b5580b942a6ebb6e670c680b228674c817b",
+    "client_version": "20261014001649",
+    "tuner_version": "20261014001634",
+    "relay_restarted": true,
+    "pushed_to": "origin/main",
+    "log": "/tmp/tw-fog-recover.log",
+    "backups": [
+      {
+        "stage": "tuner deployment",
+        "campaigns": 301,
+        "archive": "/mnt/usb/turnip-works/relay-data-backups/data-20261014-001647-tuner-20261014001634.tar.zst"
+      },
+      {
+        "stage": "engine deployment",
+        "campaigns": 301,
+        "archive": "/mnt/usb/turnip-works/relay-data-backups/data-20261014-001656-engine-20261014001649.tar.zst"
+      },
+      {
+        "stage": "live two-tab restart test",
+        "campaigns": 302,
+        "archive": "/mnt/usb/turnip-works/relay-data-backups/data-20261014-003242-fog-live-two-tab.tar.zst"
+      }
+    ]
+  },
+  "node": {
+    "status": "passed",
+    "engine": {
+      "assertions": 920,
+      "parts": {
+        "core": 715,
+        "relay": 200,
+        "harness": 5
+      },
+      "log": "/tmp/tw-fog-landing-checks/engine-node.log"
+    },
+    "fog_and_picker": {
+      "tap_tests": 31,
+      "tap_passed": 31,
+      "fog_tests": 30,
+      "faction_picker_wrapper_tests": 1,
+      "faction_picker_internal_assertions": 21,
+      "note": "31 TAP tests comprise 30 fog tests plus one faction-picker file wrapper. The 21 picker assertions execute inside that wrapper and are not 21 additional TAP tests.",
+      "log": "/tmp/tw-fog-landing-checks/fog-node.log"
+    }
+  },
+  "locked_browser": {
+    "status": "passed",
+    "passed": 890,
+    "total": 890,
+    "note": "Final identical gated source: first four suites from landing attempt 2, remaining seven from final resumed gate. Failed attempts are retained below.",
+    "suites": [
+      {
+        "suite": "fog",
+        "passed": 43,
+        "total": 43,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-attempt2/fog.log"
+      },
+      {
+        "suite": "fogpass",
+        "passed": 28,
+        "total": 28,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-attempt2/fogpass.log"
+      },
+      {
+        "suite": "ui",
+        "passed": 87,
+        "total": 87,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-attempt2/ui.log"
+      },
+      {
+        "suite": "rooms",
+        "passed": 130,
+        "total": 130,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-attempt2/rooms.log"
+      },
+      {
+        "suite": "pawnring",
+        "passed": 105,
+        "total": 105,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-checks/pawnring.log"
+      },
+      {
+        "suite": "pawnsmenu",
+        "passed": 168,
+        "total": 168,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-checks/pawnsmenu.log"
+      },
+      {
+        "suite": "two_tab",
+        "passed": 28,
+        "total": 28,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-checks/two_tab.log"
+      },
+      {
+        "suite": "cut",
+        "passed": 140,
+        "total": 140,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-checks/cut.log"
+      },
+      {
+        "suite": "cuts",
+        "passed": 26,
+        "total": 26,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-checks/cuts.log"
+      },
+      {
+        "suite": "followons",
+        "passed": 42,
+        "total": 42,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-checks/followons.log"
+      },
+      {
+        "suite": "graphics",
+        "passed": 93,
+        "total": 93,
+        "status": "passed",
+        "log": "/tmp/tw-fog-landing-checks/graphics.log"
+      }
+    ]
+  },
+  "live_browser": {
+    "status": "passed",
+    "passed": 862,
+    "target_total": 862,
+    "note": "Ten real-table suites passed against deployed versions. The 28-check fog-pass instrument is counted only in the locked local total.",
+    "suites": [
+      {
+        "suite": "fog",
+        "passed": 43,
+        "total": 43,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-checks/fog.log"
+      },
+      {
+        "suite": "ui",
+        "passed": 87,
+        "total": 87,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-checks/ui.log"
+      },
+      {
+        "suite": "rooms",
+        "passed": 130,
+        "total": 130,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-checks/rooms.log"
+      },
+      {
+        "suite": "pawnring",
+        "passed": 105,
+        "total": 105,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-checks/pawnring.log"
+      },
+      {
+        "suite": "pawnsmenu",
+        "passed": 168,
+        "total": 168,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-retry/pawnsmenu.log"
+      },
+      {
+        "suite": "two_tab",
+        "passed": 28,
+        "total": 28,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-final/two_tab.log"
+      },
+      {
+        "suite": "cut",
+        "passed": 140,
+        "total": 140,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-cut-retry/cut.log",
+        "exit_code": 0,
+        "seconds": 276.3
+      },
+      {
+        "suite": "cuts",
+        "passed": 26,
+        "total": 26,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-cut-retry/cuts.log",
+        "exit_code": 0,
+        "seconds": 41.0
+      },
+      {
+        "suite": "followons",
+        "passed": 42,
+        "total": 42,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-cut-retry/followons.log",
+        "exit_code": 0,
+        "seconds": 75.8
+      },
+      {
+        "suite": "graphics",
+        "passed": 93,
+        "total": 93,
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-cut-retry/graphics.log",
+        "exit_code": 0,
+        "seconds": 167.7
+      }
+    ],
+    "total": 862,
+    "cleanup": [
+      {
+        "suite": "fog",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "ui",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "rooms",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "pawnring",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "pawnsmenu",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "two_tab",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "cut",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "cuts",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "followons",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      },
+      {
+        "suite": "graphics",
+        "throwaway_cleanup_reported": true,
+        "house_look_unchanged_reported": true
+      }
+    ]
+  },
+  "asset_integrity": {
+    "source_delivery": {
+      "delivered_copies": 23426,
+      "plain_tuner_paths": 24110,
+      "missing": 0,
+      "log": "/tmp/tw-fog-recover.log"
+    },
+    "live": {
+      "hosts": [
+        "implausible.enterprises",
+        "turnipworks.net"
+      ],
+      "checked_per_host": 47536,
+      "missing_per_host": 0,
+      "fresh_requests_per_host": 0,
+      "mode": "Cached validation: unchanged assets previously seen live; this was not --live-full.",
+      "log": "/tmp/tw-fog-live-assets.log"
+    }
+  },
+  "unsuccessful_attempts_and_retries": [
+    {
+      "phase": "prelanding regression",
+      "suite": "two_tab",
+      "result": "25/28 passed",
+      "log": "/tmp/tw-fog-regression-two_tab.log",
+      "cause": "Prior concurrent pawn drops left projected overlap; real selection clicked Brakka instead of the Innkeeper and three transfer assertions failed in cascade.",
+      "repair": "Move transfer fixture NPC to isolated (100,100) before actual mouse selection; preserve transfer, atomicity, PiP and undo assertions.",
+      "retry": {
+        "result": "28/28 passed",
+        "log": "/tmp/tw-fog-regression-two_tab-retry.log"
+      }
+    },
+    {
+      "phase": "locked landing attempt 1",
+      "suite": "pawnsmenu",
+      "result": "167/168 passed",
+      "log": "/tmp/tw-fog-landing-attempt1/pawnsmenu.log",
+      "cause": "First icon hover sampled the 180 ms tray entrance transform; tooltip was absent while later icons passed.",
+      "repair": "Wait for tray animations to finish and use actionability-stable locator.hover; retain 60 ms tooltip check and exact text assertions.",
+      "retry": {
+        "result": "168/168 passed",
+        "log": "/tmp/tw-fog-landing-checks/pawnsmenu.log",
+        "additional_bounded_retry_log": "/tmp/tw-fog-pawnmenu-retry.log"
+      }
+    },
+    {
+      "phase": "locked landing attempt 2",
+      "suite": "pawnring",
+      "result": "Process exited before assertions",
+      "log": "/tmp/tw-fog-landing-attempt2/pawnring.log",
+      "cause": "Port 18141 was busy.",
+      "repair": "Repeat remaining suites after port contention cleared; unchanged gated source.",
+      "retry": {
+        "result": "105/105 passed",
+        "log": "/tmp/tw-fog-landing-checks/pawnring.log"
+      }
+    },
+    {
+      "phase": "deployment before recovery",
+      "result": "Client copy deployed but relay restart refused",
+      "log": "/tmp/tw-fog-landing3.log",
+      "cause": "Deployment inherited isolated worktree engine/data, which was absent; required saved-campaign backup failed.",
+      "repair": "Repeat deployment of identical gated source with explicit live DATA_DIR; back up 301 campaigns before tuner and engine relay restarts.",
+      "retry": {
+        "result": "Deployed and pushed 81914b5580b942a6ebb6e670c680b228674c817b",
+        "log": "/tmp/tw-fog-recover.log"
+      }
+    },
+    {
+      "phase": "live initial",
+      "suite": "pawnsmenu",
+      "result": "Navigation timeout; no completed suite count",
+      "log": "/tmp/tw-fog-live-checks/pawnsmenu.log",
+      "cause": "Page.goto exceeded 30000 ms during seat navigation.",
+      "repair": "Bounded full-suite retry.",
+      "retry": {
+        "result": "168/168 passed",
+        "log": "/tmp/tw-fog-live-retry/pawnsmenu.log"
+      }
+    },
+    {
+      "phase": "live retry",
+      "suite": "two_tab",
+      "result": "Driver TypeError at relay-restart step; no completed suite count",
+      "log": "/tmp/tw-fog-live-retry/two_tab.log",
+      "cause": "Live driver omitted required --restart command.",
+      "repair": "Supply restart command that first backs up live campaign data.",
+      "retry": {
+        "result": "28/28 passed; backup contained 302 campaigns",
+        "log": "/tmp/tw-fog-live-final/two_tab.log"
+      }
+    },
+    {
+      "phase": "live final before cut driver correction",
+      "suite": "cut",
+      "result": "139/140 passed",
+      "log": "/tmp/tw-fog-live-final/cut.log",
+      "cause": "Live URL lacked explicit relay query parameter needed by test AI-seat GET request.",
+      "repair": "Correct live driver relay URL parameter; rerun cut and all subsequent suites.",
+      "retry": {
+        "status": "passed",
+        "log": "/tmp/tw-fog-live-cut-retry/cut.log",
+        "result": "cut: 140/140 passed"
+      }
+    }
+  ],
+  "evidence_policy": "No seat tokens, invite URLs, credentials or raw network transcripts are copied into this artifact. Log references preserve retry provenance.",
+  "verified_at_utc": "2026-10-14T07:47:00.680123+00:00",
+  "post_concurrent_deployment": {
+    "client_version": "20261014005016",
+    "tuner_version": "20261014005004",
+    "fog_checks": {
+      "passed": 43,
+      "total": 43
+    },
+    "log": "/tmp/tw-fog-live-after-wallbench/fog.log",
+    "throwaway_removed": true,
+    "house_look_and_ratings_unchanged": true
+  }
+}

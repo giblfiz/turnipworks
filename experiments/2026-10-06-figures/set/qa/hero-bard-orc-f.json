@@ -1,0 +1,133 @@
+{
+ "file": "hero-bard-orc-f.glb",
+ "tris": 49378,
+ "kb": 2965,
+ "native_extent": [
+  0.591,
+  1.001,
+  0.45
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0179,
+  "seen": 0.0119
+ },
+ "mean_rgb": [
+  93,
+  56,
+  27
+ ],
+ "mean_saturation": 0.75,
+ "sized_by": "its highest point",
+ "overall_ft": 6.56,
+ "pieces": {
+  "connected_parts": 306,
+  "main_part_area_share": 0.9979,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.5525,
+ "y0": -3.282,
+ "stated_ft": {
+  "body": 6.3,
+  "figure_top": 6.56,
+  "overall": 6.56
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2971,
+   -0.5009,
+   -0.2241
+  ],
+  [
+   0.2937,
+   0.5004,
+   0.2257
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49378,
+   "tex": 2048,
+   "kb": 2965
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1146
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 492
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.65,
+    "z": 0.69,
+    "size_ft": [
+     0.87,
+     1.61
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.82,
+    "sole_p90_ft": 0.079
+   },
+   {
+    "x": -1.31,
+    "z": -0.34,
+    "size_ft": [
+     1.23,
+     1.37
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.82,
+    "sole_p90_ft": 0.079
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 2.06,
+  "plan_hull_area_sqft": 8.43,
+  "lowest_slab_share_of_plan": 0.244
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.87,
+   "d": 2.95,
+   "h": 6.56
+  },
+  "centre": [
+   -0.431,
+   0.475
+  ],
+  "contacts_radius_ft": 1.66,
+  "reach_radius_ft": 2.27,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.932,
+  "plate_lost_share": 0.014,
+  "added_share": 0.057,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.932,
+  "view_yaw_deg": 35,
+  "view_elev_deg": 8
+ },
+ "id": "hero-bard-orc-f",
+ "sha1": "2aa18a39754655da8559d9e630c0245803c0bab0",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 16.8
+}

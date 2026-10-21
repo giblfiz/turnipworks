@@ -1,0 +1,1181 @@
+{
+  "runs": [
+    {
+      "set": "charcoal",
+      "configuration": "primary",
+      "evidence": "confusion/charcoal/primary/0bcb8fed4f39ea09",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "65b4a418ec32337a81cb38c8c88be0ec75659460ab70d794c0c05475b2957e43",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "charcoal",
+      "configuration": "pawn.cond.grappled--alt1",
+      "evidence": "confusion/charcoal/pawn.cond.grappled--alt1/bdffd12db3c59391",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "335aa3fb6599470146d9eba1b0bfc8f0d49dd63e8c7d185213cb32a7e968f172",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "charcoal",
+      "configuration": "pawn.cond.invisible--alt1",
+      "evidence": "confusion/charcoal/pawn.cond.invisible--alt1/64fc1a008710ebc0",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "6d03ffd71e386dfe34b55e7924b790f06448a2e356a9f421daccbe808a583486",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "charcoal",
+      "configuration": "pawn.cond.prone--alt1",
+      "evidence": "confusion/charcoal/pawn.cond.prone--alt1/170866f10d394cac",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "be10d3d7ccad4546c4fafe6f1f6817ee10f9d434f0c08ce9f2b13a9001f4f4c6",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "charcoal",
+      "configuration": "pawn.cond.restrained--alt1",
+      "evidence": "confusion/charcoal/pawn.cond.restrained--alt1/4990c1f285771130",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "199e8883f55cf72cea8b2a3185a54f46bfc6bdd7ae0b058c6f9d14c5c5877ec3",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "charcoal",
+      "configuration": "pawn.cond.stunned--alt1",
+      "evidence": "confusion/charcoal/pawn.cond.stunned--alt1/ab1472ddb2fa6fdb",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "3e6f0b0be8e41140528a18fda79fc2975e3363a61b8914987e30df7f7942a306",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "charcoal",
+      "configuration": "pawn.cond.unconscious--alt1",
+      "evidence": "confusion/charcoal/pawn.cond.unconscious--alt1/43f6021c6a3c9cef",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "f9b24e62375c534ff51f29f04b9de78e705437a8818d52160f85c26d54567fd1",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "parchment",
+      "configuration": "primary",
+      "evidence": "confusion/parchment/primary/1b53712066e8b42a",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "71c2b07c8f8c6c47a3010435c0a81abdf28c9c1994c2ab375f88f5eac13497c0",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "parchment",
+      "configuration": "pawn.cond.grappled--alt1",
+      "evidence": "confusion/parchment/pawn.cond.grappled--alt1/f6f0c33fdd34b3a4",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "ef9950cde7fa35c32527d342d89f0377cb28143a98f659a1a39c8f5627f24809",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "parchment",
+      "configuration": "pawn.cond.invisible--alt1",
+      "evidence": "confusion/parchment/pawn.cond.invisible--alt1/eb87a36f3a306c62",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "635540dec9fbc39d4094c8ceffeaf91b743c2a8d3fa1701d2cdf5ec17e5d6083",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "parchment",
+      "configuration": "pawn.cond.prone--alt1",
+      "evidence": "confusion/parchment/pawn.cond.prone--alt1/02d9fa6accc565de",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "da4a07adb1d81483b1f57ffe3e96c40cd2e8e48b5334413a577a1531388b0b5e",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "parchment",
+      "configuration": "pawn.cond.restrained--alt1",
+      "evidence": "confusion/parchment/pawn.cond.restrained--alt1/543e20e9ec72fd22",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "d6639b9cf128de3fec31a338cab2553523fece7ec7e7657bc90c920680790170",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "parchment",
+      "configuration": "pawn.cond.stunned--alt1",
+      "evidence": "confusion/parchment/pawn.cond.stunned--alt1/a8967d0755635e78",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "b32cf7f4208d455d707d4482e5e2eb03fb254fcf0d789b5a8f1b9b09eeb4306e",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    },
+    {
+      "set": "parchment",
+      "configuration": "pawn.cond.unconscious--alt1",
+      "evidence": "confusion/parchment/pawn.cond.unconscious--alt1/7464df1fc0e206d6",
+      "status": "scored",
+      "correct": 10,
+      "total": 10,
+      "one_to_one": true,
+      "uncertain": [],
+      "matches": [
+        {
+          "label": "A",
+          "expected": "Poisoned",
+          "predicted": "Poisoned",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "B",
+          "expected": "Unconscious",
+          "predicted": "Unconscious",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "C",
+          "expected": "Grappled",
+          "predicted": "Grappled",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "D",
+          "expected": "Frightened",
+          "predicted": "Frightened",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "E",
+          "expected": "Charmed",
+          "predicted": "Charmed",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "F",
+          "expected": "Prone",
+          "predicted": "Prone",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "G",
+          "expected": "Blinded",
+          "predicted": "Blinded",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "H",
+          "expected": "Invisible",
+          "predicted": "Invisible",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "I",
+          "expected": "Restrained",
+          "predicted": "Restrained",
+          "correct": true,
+          "uncertain": false
+        },
+        {
+          "label": "J",
+          "expected": "Stunned",
+          "predicted": "Stunned",
+          "correct": true,
+          "uncertain": false
+        }
+      ],
+      "candidate_sha256": "2228809318582509caf249d9a16f149482d52e16a8e790aecfd770810843a6ab",
+      "note": "Matching score is evidence only; no automatic acceptance."
+    }
+  ],
+  "pending": []
+}

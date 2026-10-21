@@ -1,0 +1,133 @@
+{
+ "file": "hero-cleric-dwarf-m.glb",
+ "tris": 49835,
+ "kb": 3584,
+ "native_extent": [
+  0.637,
+  0.999,
+  0.494
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.1103,
+  "seen": 0.0007
+ },
+ "mean_rgb": [
+  107,
+  68,
+  44
+ ],
+ "mean_saturation": 0.634,
+ "sized_by": "its highest point",
+ "overall_ft": 4.5,
+ "pieces": {
+  "connected_parts": 375,
+  "main_part_area_share": 0.9888,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 4.507,
+ "y0": -2.2548,
+ "stated_ft": {
+  "body": 4.5,
+  "figure_top": 4.5,
+  "overall": 4.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3185,
+   -0.5003,
+   -0.2467
+  ],
+  [
+   0.3189,
+   0.4985,
+   0.2475
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49835,
+   "tex": 2048,
+   "kb": 3584
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1382
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 560
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.87,
+    "z": 0.35,
+    "size_ft": [
+     0.81,
+     1.31
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.81,
+    "sole_p90_ft": 0.082
+   },
+   {
+    "x": -0.85,
+    "z": -0.45,
+    "size_ft": [
+     1.09,
+     1.12
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.8,
+    "sole_p90_ft": 0.072
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.4,
+  "plan_hull_area_sqft": 4.64,
+  "lowest_slab_share_of_plan": 0.302
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.87,
+   "d": 2.23,
+   "h": 4.5
+  },
+  "centre": [
+   -0.055,
+   0.245
+  ],
+  "contacts_radius_ft": 1.43,
+  "reach_radius_ft": 1.57,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.914,
+  "plate_lost_share": 0.052,
+  "added_share": 0.037,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.902,
+  "view_yaw_deg": 5,
+  "view_elev_deg": 8
+ },
+ "id": "hero-cleric-dwarf-m",
+ "sha1": "0fb3edd5cdc0392eb13345651d91f6096df2d7b1",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 16.3
+}

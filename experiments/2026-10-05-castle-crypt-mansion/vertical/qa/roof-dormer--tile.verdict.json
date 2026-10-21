@@ -1,0 +1,33 @@
+{
+ "sku": "roof-dormer--tile",
+ "glb_sha1": "3f88daebdb63172d3ddb88ffc309f93f6ef9f870",
+ "time": "2026-10-05T21:11:17-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "roof dormer window",
+  "second_guess": "dog house",
+  "confidence": 0.85,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized fantasy-themed roof dormer window structure. It features a pitched gable roof covered in terracotta-red curved clay tiles with a rounded ridge cap. The front facade has half-timbered dark wood framing, cream plaster infill, decorative scalloped wood trim under the eaves, and a four-pane window with light-toned wooden mullions and greenish-blue glass panes. The sides are clad in overlapping terracotta roof tiles sloping downward toward the base. The base sits flat on the ground with solid, continuous geometry and clean, hand-painted textures.",
+  "from_above": "From directly above, it appears as a nearly square gabled roof structure covered in textured reddish-brown rounded tiles, divided symmetrically down the center by a cylindrical ridge cap with transverse bands.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 0.7 times the height of the figure (around 4 feet tall) and roughly 3.5 feet wide and deep."
+ },
+ "match": {
+  "ok": false,
+  "reads_as": "roof dormer window",
+  "cause": "plate",
+  "problems": [
+   "window glass is greenish-blue (violates must-not: blue window glass)"
+  ],
+  "notes": []
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "gemini: window glass is greenish-blue (violates must-not: blue window glass)"
+ ],
+ "notes": [],
+ "vision": true
+}

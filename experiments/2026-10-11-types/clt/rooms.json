@@ -1,0 +1,194 @@
+{
+ "type": "cult",
+ "code": "CLT",
+ "genre": "fantasy",
+ "family": "black-stone",
+ "windows": false,
+ "wall_kit": {
+  "straight": [
+   "wall-straight--black-stone",
+   "wall-straight--black-stone--s2"
+  ],
+  "doorway": "wall-doorway--black-stone",
+  "special_panels": [
+   "wall-alcove--black-stone",
+   "wall-secret-door--black-stone"
+  ],
+  "corners": "borrow dressed-stone",
+  "doors": {
+   "default": "door-crypt",
+   "hidden": "door-secret-bookcase--leaf"
+  }
+ },
+ "flavors": {
+  "built": [
+   "devils",
+   "spiders"
+  ],
+  "slots": [
+   "flavor-altarpiece",
+   "flavor-idol",
+   "flavor-banner",
+   "flavor-relief",
+   "flavor-sigil",
+   "flavor-censer",
+   "flavor-sculpture",
+   "flavor-buttress"
+  ],
+  "neutral": "everything else: no emblem on walls, altar, statues, robes, braziers"
+ },
+ "hung_ids": [
+  "robe-rack"
+ ],
+ "lights": {
+  "candle": [
+   "candle-black",
+   "candle-cluster",
+   "flavor-censer"
+  ],
+  "brazier": [
+   "elemental-brazier"
+  ]
+ },
+ "rooms": [
+  {
+   "key": "cult-entry",
+   "label": "Hidden entrance",
+   "cells": [
+    4,
+    3
+   ],
+   "family": "dressed-stone",
+   "role": "passage",
+   "reads_as": "an ordinary cellar store; the way on is the bookcase door (door-secret-bookcase), straight across from the cellar door when the room stands alone",
+   "focal": [
+    "shelving-freestanding",
+    "barrel",
+    "crate"
+   ]
+  },
+  {
+   "key": "cult-passage",
+   "label": "Processional passage",
+   "cells": [
+    8,
+    3
+   ],
+   "family": "black-stone",
+   "role": "passage",
+   "reads_as": "a clear line on a runner between hooded statues and fire bowls in mirrored pairs; alcove panels in the long walls; the flavor's banners, reliefs and sculptures",
+   "focal": [
+    "statue-hooded",
+    "wall-alcove"
+   ]
+  },
+  {
+   "key": "cult-sanctum",
+   "label": "Sanctum",
+   "cells": [
+    5,
+    8
+   ],
+   "family": "black-stone",
+   "role": "terminal",
+   "reads_as": "the flavor's idol on the end wall, the altar slab before it with the altar-piece, the ritual circle with the sigil on the axis, seats behind it, pillars or flavor buttresses down the long walls",
+   "focal": [
+    "altar-sacrificial",
+    "flavor-idol",
+    "decal-ritual-circle"
+   ]
+  },
+  {
+   "key": "cult-summoning",
+   "label": "Summoning chamber",
+   "cells": [
+    5,
+    5
+   ],
+   "family": "black-stone",
+   "role": "terminal",
+   "reads_as": "the plain ritual circle with the sigil dead centre, four boundary stones, tall candles, the empty arch on the far wall, the chained book on its lectern",
+   "focal": [
+    "decal-ritual-circle",
+    "rite-sigil-stone",
+    "portal-arch"
+   ]
+  },
+  {
+   "key": "cult-cells",
+   "label": "Holding cells",
+   "cells": [
+    5,
+    4
+   ],
+   "family": "black-stone",
+   "role": "terminal",
+   "reads_as": "cages in a row facing the door, manacles, a pallet, the gaoler's table by the door, one fire",
+   "focal": [
+    "cage-sacrifice",
+    "cage-floor"
+   ]
+  },
+  {
+   "key": "cult-vestry",
+   "label": "Robing room",
+   "cells": [
+    4,
+    3
+   ],
+   "family": "black-stone",
+   "role": "uses",
+   "reads_as": "a rail of hooded robes standing in the open, peg rails of robes on the walls, a bench, chests, masks on a table",
+   "focal": [
+    "robe-stand",
+    "robe-rack"
+   ]
+  },
+  {
+   "key": "cult-library",
+   "label": "Forbidden library",
+   "cells": [
+    4,
+    4
+   ],
+   "family": "black-stone",
+   "role": "terminal",
+   "reads_as": "the chained book on its lectern in the middle, bookcases butted along the walls until half the wall is books, a reading table with bound tomes",
+   "focal": [
+    "spellbook-lectern",
+    "bookshelf"
+   ]
+  },
+  {
+   "key": "cult-quarters",
+   "label": "Acolytes' quarters",
+   "cells": [
+    5,
+    4
+   ],
+   "family": "black-stone",
+   "role": "terminal",
+   "reads_as": "pallets heads to the wall, a chest at each foot, robes by the door; no arms",
+   "focal": [
+    "bed-straw-pallet",
+    "bunk-bed"
+   ]
+  },
+  {
+   "key": "cult-vault",
+   "label": "Inner sanctum",
+   "cells": [
+    3,
+    4
+   ],
+   "family": "black-stone",
+   "role": "terminal",
+   "reads_as": "the flavor's idol facing the one door, the offering bowl before it on the sigil, a censer each side, treasure at the walls; a secret door ajar in one vault in three",
+   "focal": [
+    "flavor-idol",
+    "cauldron-bronze-ritual"
+   ]
+  }
+ ],
+ "note": "The designer's record. The live definitions are ROOM_TYPES in tools/spawn-tuner/build_data.py and the types:clt blocks in js/walls.js and js/solver2.js."
+}

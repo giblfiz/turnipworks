@@ -1,0 +1,144 @@
+{
+ "file": "foe-orc-crossbow.glb",
+ "tris": 49207,
+ "kb": 3333,
+ "native_extent": [
+  0.509,
+  1.0,
+  0.77
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  68,
+  58,
+  33
+ ],
+ "mean_saturation": 0.593,
+ "sized_by": "its highest point",
+ "overall_ft": 6.4,
+ "pieces": {
+  "connected_parts": 274,
+  "main_part_area_share": 0.8985,
+  "floating": [
+   {
+    "area_share": 0.00011,
+    "gap_ft": 0.06,
+    "size_ft": 0.11
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.07
+   }
+  ],
+  "floating_count": 2,
+  "floating_area_share": 0.00012,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.4008,
+ "y0": -3.2062,
+ "stated_ft": {
+  "body": 6.4,
+  "figure_top": 6.4,
+  "overall": 6.4
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2565,
+   -0.5009,
+   -0.3806
+  ],
+  [
+   0.2524,
+   0.4992,
+   0.3898
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49207,
+   "tex": 2048,
+   "kb": 3333
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1296
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 548
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.71,
+    "z": 0.75,
+    "size_ft": [
+     1.04,
+     1.73
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.135
+   },
+   {
+    "x": -0.64,
+    "z": -1.89,
+    "size_ft": [
+     0.99,
+     1.65
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.75,
+    "sole_p90_ft": 0.132
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 2.62,
+  "plan_hull_area_sqft": 9.54,
+  "lowest_slab_share_of_plan": 0.274
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.26,
+   "d": 4.93,
+   "h": 6.4
+  },
+  "centre": [
+   -0.188,
+   -0.336
+  ],
+  "contacts_radius_ft": 2.17,
+  "reach_radius_ft": 2.9,
+  "share_outside_2p5ft": 0.022
+ },
+ "silhouette": {
+  "iou": 0.891,
+  "plate_lost_share": 0.044,
+  "added_share": 0.073,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.851,
+  "view_yaw_deg": 40,
+  "view_elev_deg": 8
+ },
+ "id": "foe-orc-crossbow",
+ "sha1": "b8120f5386bc6c9e0304ef6b1fbef53857c068bc",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 17.0
+}

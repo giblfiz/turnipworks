@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="tw-tuner" content="../../tuner/">
+<!-- which server this page is (2026-10-19; docs/NETCODE.md "Two servers"): engine/deploy.sh stamps "dev", a release
+     (tools/release.sh) stamps "prod", the source says "source" (local test sites). Only "dev" shows the DEV ribbon. -->
+<meta name="tw-channel" content="source">
+<title>Turnip Works</title>
+<link rel="icon" type="image/svg+xml" href="mark.svg?v=dev">
+<!-- THE LOADING SCREEN (2026-10-07; docs/UI.md "The loading screen"). Its styles, markup and code are in this page so it
+     paints before any other request has answered. Only transform and opacity ever move (those keep moving while the
+     main thread is busy). The stylesheet link is in the body, after the screen, so it does not hold the first paint. -->
+<style>
+html { background: #2c2823; }
+#twl { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 24px; pointer-events: none; color: #f6ead2;
+  background: radial-gradient(ellipse 80% 70% at 50% 44%, #6a5c48 0%, #4a4136 46%, #2c2823 100%); font: 15px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif; will-change: opacity; }
+#twl[hidden] { display: none; }
+.twl-in { display: grid; justify-items: center; gap: 14px; width: min(340px, 100%); text-align: center; }
+.twl-mark { width: 104px; height: 104px; overflow: visible; will-change: transform; transform-origin: 50% 62%; animation: twl-sway 3.4s ease-in-out infinite alternate; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .35)); }
+@keyframes twl-sway { from { transform: rotate(-3.5deg); } to { transform: rotate(3.5deg); } }
+.twl-name { font: 700 30px/1.1 Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', serif; letter-spacing: .02em; text-shadow: 0 2px 0 rgba(0, 0, 0, .35); }
+.twl-bar { width: 100%; height: 8px; border-radius: 4px; background: rgba(20, 16, 12, .55); box-shadow: 0 0 0 1px rgba(246, 234, 210, .16); overflow: hidden; }
+.twl-fill { width: 100%; height: 100%; border-radius: 4px; background: #e0b04a; transform-origin: 0 50%; transform: scaleX(0); will-change: transform; }
+.twl-words { position: relative; width: 100%; min-height: 1.4em; }
+.twl-words > span { position: absolute; inset: 0; opacity: 0; will-change: opacity; }
+.twl-words > span.on { opacity: 1; }
+.twl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.twl-fail { display: none; gap: 14px; justify-items: center; text-wrap: balance; }
+.twl-fail button { font: inherit; font-weight: 600; color: #2c2823; background: #f6ead2; border: 0; border-radius: 8px; padding: 10px 16px; min-height: 44px; cursor: pointer; }
+#twl.failed { pointer-events: auto; } #twl.failed .twl-fail { display: grid; } #twl.failed .twl-bar, #twl.failed .twl-words { display: none; } #twl.failed .twl-mark { animation: none; }
+/* the small version (the table is reconnecting): a pill low in the middle, clear of the bar, the area's buttons and the chat; never in the way */
+#twl.pill { inset: auto auto 104px 50%; transform: translateX(-50%); padding: 7px 14px 7px 9px; border-radius: 999px; background: #4a4136; box-shadow: 0 6px 20px rgba(0, 0, 0, .4), 0 0 0 1px rgba(246, 234, 210, .16); display: block; max-width: calc(100% - 24px); }
+#twl.pill .twl-in { display: flex; align-items: center; gap: 9px; width: auto; }
+#twl.pill .twl-mark { width: 24px; height: 24px; filter: none; } #twl.pill .twl-name, #twl.pill .twl-bar { display: none; }
+#twl.pill .twl-words { width: auto; min-height: 0; white-space: nowrap; font-size: 13px; } #twl.pill .twl-words > span { position: static; display: none; } #twl.pill .twl-words > span.on { display: inline; }
+@media (max-width: 480px), (max-height: 480px) { .twl-mark { width: 76px; height: 76px; } .twl-name { font-size: 24px; } .twl-in { gap: 10px; } }
+@media (prefers-reduced-motion: reduce) { .twl-mark { animation: none; } }
+.reduce-motion .twl-mark { animation: none; }
+#tw-dev { position: fixed; top: 13px; right: -31px; z-index: 1001; width: 112px; padding: 2px 0; transform: rotate(45deg); pointer-events: none;
+  background: #a23a6c; color: #f6ead2; font: 800 11px/1.3 system-ui, -apple-system, 'Segoe UI', sans-serif; letter-spacing: .24em; text-indent: .24em; text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .45); }
+#tw-dev[hidden] { display: none; }
+</style>
+<script>window.TW_V = 'dev';</script>
+<!-- the tuner's FX and settle code import these by bare name; they live in the deployed tuner (../../tuner/) -->
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three-mesh-bvh": "../../tuner/js/vendor/three-mesh-bvh-0.8.3.js",
+  "postprocessing": "../../tuner/js/vendor/postprocessing-6.39.5.js",
+  "n8ao": "../../tuner/js/vendor/n8ao-2.0.1.js",
+  "three-good-godrays": "../../tuner/js/vendor/three-good-godrays-0.12.1.js",
+  "three.quarks": "../../tuner/js/vendor/three.quarks-0.16.0.js",
+  "quarks.core": "../../tuner/js/vendor/quarks.core-0.16.0.js",
+  "three-fire": "../../tuner/js/vendor/three-fire-1.4.0.js"
+} }
+</script>
+</head>
+<body>
+<div id="tw-dev" hidden aria-hidden="true">DEV</div>
+<script>if (document.querySelector('meta[name="tw-channel"]')?.content === 'dev') document.getElementById('tw-dev').hidden = false;</script>
+<div id="twl">
+  <div class="twl-in">
+    <svg class="twl-mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs><linearGradient id="twm-t" x1="0" y1="0" x2="0" y2="1"><stop offset=".38" stop-color="#a23a6c"/><stop offset=".66" stop-color="#f6ead2"/></linearGradient></defs>
+<g fill="#e0b04a" stroke="#201a15" stroke-width="2.2" stroke-linejoin="round"><g transform="rotate(-45 32 34)"><path fill-rule="evenodd" d="M28.5-5V5h7V-5L41-2a9.500 9.500 0 0 1-5.800 15v44.300a6.500 6.500 0 1 1-6.400 0V13A9.500 9.500 0 0 1 23-2zM32 60.300a2.700 2.700 0 1 0 .01 0z"/></g><g transform="rotate(45 32 34)"><path fill-rule="evenodd" d="M28.5-5V5h7V-5L41-2a9.500 9.500 0 0 1-5.800 15v44.300a6.500 6.500 0 1 1-6.400 0V13A9.500 9.500 0 0 1 23-2zM32 60.300a2.700 2.700 0 1 0 .01 0z"/></g></g>
+<g stroke="#201a15" stroke-width="2.2" stroke-linejoin="round">
+<g fill="#5c9a4c"><path d="M31.500 27C25 25 20 19.500 20.500 12c6 1 10.500 6 11 13z"/><path d="M32.500 27C39 25 44 19.500 43.500 12c-6 1-10.500 6-11 13z"/><path d="M32 27c-4-6-4-16 0-22.500 4 6.500 4 16.500 0 22.500z"/></g>
+<path fill="url(#twm-t)" d="M32 59c-1.200-5.500-13.500-8-13.500-20.500C18.500 30.500 24.500 26 32 26s13.500 4.500 13.500 12.500C45.500 51 33.200 53.500 32 59z"/></g>
+<g fill="#2a1420"><ellipse cx="27.4" cy="38" rx="2.5" ry="3.1"/><ellipse cx="36.6" cy="38" rx="2.5" ry="3.1"/></g></svg>
+    <div class="twl-name">Turnip Works</div>
+    <div class="twl-bar"><div class="twl-fill"></div></div>
+    <div class="twl-words" aria-hidden="true"></div>
+    <div class="twl-fail"><div class="twl-why"></div><button type="button"></button></div>
+    <div class="twl-sr" role="status" aria-live="polite"></div>
+  </div>
+</div>
+<script>
+// The loading screen's code (docs/UI.md "The loading screen"). main.js tells it what has happened: twLoad.at('code' |
+// 'look' | 'welcome' | 'state'), twLoad.done() at the first real frame, twLoad.fail(kind), twLoad.wait / twLoad.clear.
+// THE BAR IS NOT A MEASURE OF TIME LEFT (Harry 2026-10-07). The end of a load (the table is set out and the first
+// frame drawn) freezes this page, sometimes the whole browser, and nothing can be animated from here while it does. So:
+//   - while the game's code is fetched, files arriving move the bar for real, half way to a STALL point near 77%
+//     (somewhere in 70 to 80, new on each load);
+//   - the moment that code runs, the browser's compositor is handed the rest as one plan (on to the stall point in the
+//     time that took last time on this browser, then a creep of four points through the freeze, as long as the freeze
+//     took last time), so the bar keeps moving whether or not this page can still think;
+//   - when the first real frame is drawn the screen leaves, from wherever the bar is. It never waits in the nineties.
+// The console line says the real milliseconds.
+(() => {
+  const root = document.getElementById('twl'), fill = root.querySelector('.twl-fill'), box = root.querySelector('.twl-words'), sr = root.querySelector('.twl-sr');
+  const d = document.documentElement, KEY = 'tw.load', now = () => performance.now(), clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  let mem = {}; try { mem = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch { }
+  try { const q = new URLSearchParams(location.search).get('theme') || localStorage.getItem('tw.theme'); if (q === 'light' || q === 'dark') d.dataset.theme = q; else if (matchMedia('(prefers-color-scheme: light)').matches) d.dataset.theme = 'light';
+    if (JSON.parse(localStorage.getItem('tw.prefs') || '{}').reducedMotion) d.classList.add('reduce-motion'); } catch { }
+  const STALL = 0.70 + Math.random() * 0.10, CREEP = 0.04; // where the bar is when the freeze begins; how far it creeps through it (so: 70 to 84 in all)
+  const T = {}, L = window.twLoad = { times: T, stall: STALL, creep: CREEP, mode: 'load', log: [] };
+  let anim = null, wordAnims = [], seen = 0, gone = false, slow = null, key = '', cur = null, tick = null, shownFiles = -1;
+  // where the bar is now, worked out from the plan in force (asking the browser gives a stale answer after a freeze, and
+  // a bar restarted from a stale answer would jump backwards on screen)
+  const at = () => { if (!cur) return 0; const t = now() - cur.t0, P = cur.pts; for (let i = 1; i < P.length; i++) if (t < P[i][0]) { const [ta, va] = P[i - 1], [tb, vb] = P[i]; return va + (vb - va) * (t - ta) / Math.max(1, tb - ta); } return P[P.length - 1][1]; };
+  L.bar = at; L.barDrawn = () => { try { return new DOMMatrix(getComputedStyle(fill).transform).a; } catch { return null; } };
+  // the bar: from where it is now through each [value, ms] in turn, in straight lines. ONE compositor animation per
+  // plan, and few plans: a plan made while the page is about to freeze may never reach the compositor.
+  function run(steps) {
+    let p = at(), t = 0; const pts = [[0, p]];
+    for (const [v, ms] of steps) { p = Math.max(p, Math.min(1, v)); t += Math.max(1, ms); pts.push([t, p]); }
+    cur = { t0: now(), pts }; L.log.push([Math.round(cur.t0), ...pts.map(([tt, v]) => [Math.round(tt), +v.toFixed(3)])]);
+    try { const a = fill.animate(pts.map(([tt, v]) => ({ transform: `scaleX(${v})`, offset: tt / t })), { duration: t, fill: 'both' }); anim?.cancel(); anim = a; } catch (e) { fill.style.transform = `scaleX(${p})`; }
+  }
+  // the line under the bar: [[text, ms from now], ...]. Later lines cross in by themselves (opacity, on the compositor).
+  function say(lines) {
+    if (typeof lines === 'string') lines = [[lines, 0]];
+    for (const a of wordAnims) try { a.cancel(); } catch { } wordAnims = [];
+    box.textContent = ''; const D = lines[lines.length - 1][1] + 400;
+    lines.forEach(([text, t0], i) => {
+      const s = document.createElement('span'); s.textContent = text; box.appendChild(s); const t1 = lines[i + 1]?.[1];
+      const k = [{ opacity: i ? 0 : 1, offset: 0 }];
+      if (i) k.push({ opacity: 0, offset: (t0 + 120) / D }, { opacity: 1, offset: (t0 + 240) / D });
+      if (t1 != null) k.push({ opacity: 1, offset: t1 / D }, { opacity: 0, offset: (t1 + 120) / D });
+      k.push({ opacity: t1 != null ? 0 : 1, offset: 1 });
+      if (lines.length === 1) { s.className = 'on'; return; }
+      try { wordAnims.push(s.animate(k, { duration: D, fill: 'both' })); } catch { if (t1 == null) s.className = 'on'; }
+    });
+    L.words = lines.map(l => l[0]);
+  }
+  const tell = (text) => { if (sr.textContent !== text) sr.textContent = text; }; // the one polite live region: a few lines per load, never a stream
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch { } };
+  const reset = () => { try { anim?.cancel(); } catch { } anim = null; cur = null; clearInterval(tick); };
+  const watchdog = (ms = 25000) => { clearTimeout(slow); slow = setTimeout(() => { if (!gone && (L.mode === 'load' || L.mode === 'travel') && T.state == null && !root.classList.contains('failed')) fail('slow'); }, ms); };
+  // REAL progress while the game's own code is fetched (the page is free then): files that have arrived, against how
+  // many it took last time on this browser, over the first half of the way to the stall point. Looked at five times a second.
+  const HALF = STALL * 0.5, byFiles = () => HALF * Math.min(1, seen / Math.max(20, mem.filesToCode || 66));
+  const roomMs = () => clamp((mem.room && mem.room[key]) || mem.roomLast || 1500, 400, 600000);
+  const rest = (ms) => [[STALL, ms], [STALL + CREEP * 0.6, roomMs() * 0.35], [STALL + CREEP, roomMs() * 0.65]]; // on to the stall point, then the creep through the freeze (most of it early)
+  try { new PerformanceObserver((l) => { seen += l.getEntries().length; if (!gone && L.mode === 'load' && T.state == null) watchdog(); }).observe({ type: 'resource', buffered: true }); } catch { }
+  tick = setInterval(() => { if (gone || T.code != null || L.mode !== 'load') return clearInterval(tick); if (seen !== shownFiles) { shownFiles = seen; run([[byFiles(), 240]]); } }, 200);
+  say('Fetching the game'); tell('Turnip Works is loading'); watchdog();
+
+  L.at = (what, info) => {
+    if (L.mode === 'load' && T[what] != null) return; T[what] = Math.round(now());
+    if (L.mode !== 'load') { if (what === 'state') clearTimeout(slow); return; }
+    if (what === 'code') { // the game's own code is running. From here the page may freeze at any moment, so the compositor is handed the rest now: the bar's plan and the words
+      clearInterval(tick); mem.filesToCode = seen;
+      const look = clamp(mem.toLook || 500, 100, 30000), state = Math.max(look + 300, clamp(mem.toState || 1200, 300, 60000));
+      // (2026-10-11) where the room's pieces took a while last time, the state finds the bar a fifth short of the stall
+      // point, and the pieces arriving carry it the rest of the way (L.pieces): the stall is where the LAST freeze is
+      early = (mem.piecesLast || 0) > 600;
+      run(early ? [[STALL - 0.2, state], [STALL - 0.17, 2500]] : rest(state)); say([['Fetching the game', 0], ['Opening your table', look], ['Setting out the room', state]]); tell('Opening your table');
+    }
+    if (what === 'look') watchdog();
+    if (what === 'welcome') { key = info || ''; save(); watchdog(45000); L.mend('relay'); }
+    if (what === 'state') { clearTimeout(slow); L.mend('slow'); if (T.code != null && !L.created) { mem.toStates = [...(mem.toStates || []), T.state - T.code].slice(-3); mem.toState = Math.min(...mem.toStates); // (the QUICKEST of the last three: guessing short parks the bar at the stall point, which is the plan; guessing long would have the screen leave with the bar a third of the way
+      if (T.look != null) mem.toLook = T.look - T.code; } }
+  };
+  // THE ROOM'S PIECES (2026-10-11, Harry: "that first demo moment to pop instantly"): after the first frame the screen
+  // stays until the meshes the opening view needs are in (main.js "the hold"), and those arriving move the bar for real,
+  // up to the stall point; the frame that draws them all is the freeze the stall point is for.
+  let early = false, pcs = null;
+  L.pieces = (done, total) => {
+    if (gone || L.mode !== 'load') return;
+    if (!pcs) { const b = at(); pcs = { base: b, end: b < STALL - 0.02 ? STALL : STALL + CREEP, v: -1, t: 0 }; }
+    const all = done >= total, v = pcs.base + (pcs.end - pcs.base) * (total ? Math.min(1, done / total) : 1);
+    if (all) { if (T.pieces == null) { T.pieces = Math.round(now()); L.pcs = { done, total }; run([[v, 120], [Math.min(STALL + CREEP, v + CREEP), roomMs()]]); } return; }
+    if (now() - pcs.t < 250 || v - pcs.v < 0.004) return; // few plans: at most four a second, and only for a step that can be seen
+    pcs.v = v; pcs.t = now(); run([[v, 260], [Math.min(pcs.end, v + 0.01), 4000]]);
+  };
+  // the first frame with everything the opening view needs is drawn: leave. (No run to 100: nothing waits for the bar.)
+  L.done = () => {
+    if (gone || L.mode === 'net') return; gone = true; clearTimeout(slow); clearTimeout(L.timer); L.pending = null; T.frame = Math.round(now());
+    if (L.mode === 'load' && T.state != null) { const first = T.first ?? T.frame, ms = first - T.state, wait = T.frame - first; mem.piecesLast = wait; if (L.created) { mem.toCreated = T.state - L.created; L.created = 0; } const fr = Math.max(ms, T.pieces != null ? T.frame - T.pieces : 0); mem.roomLast = fr; mem.room = { ...(mem.room || {}), [key]: fr }; const ks = Object.keys(mem.room); if (ks.length > 12) delete mem.room[ks[0]]; save();
+      console.log(`tw load: game fetched ${T.code ?? '?'} ms, look ${T.look != null ? T.look - T.code : '?'} ms, table opened ${T.welcome != null ? T.welcome - T.look : '?'} ms, state ${T.welcome != null ? T.state - T.welcome : '?'} ms, room set out and first frame ${ms} ms, the room's pieces ${wait} ms${L.pcs ? ` (${L.pcs.total} of them)` : ''}; first frame at ${first} ms, screen left at ${T.frame} ms (bar held near ${Math.round(STALL * 100)}%)`); }
+    if (L.mode === 'travel' && T.travel != null) { mem.travel = T.frame - T.travel; save(); console.log(`tw travel: first frame ${T.frame - T.travel} ms`); }
+    L.left = { bar: +at().toFixed(3), at: T.frame, mode: L.mode };
+    const off = () => { root.hidden = true; root.className = ''; reset(); L.hiddenAt = Math.round(now()); };
+    try { const f = root.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-out', fill: 'forwards' }); L.fade = f; f.onfinish = () => { off(); f.cancel(); }; } catch { off(); }
+    tell('');
+  };
+  L.off = () => { gone = true; clearTimeout(slow); clearTimeout(L.timer); root.hidden = true; root.className = ''; reset(); tell(''); }; // (the start form is up: no fade, it is its own picture)
+  // something went wrong: one sentence and the one useful thing to do
+  const FAILS = {
+    webgl: ['This browser cannot draw the table: 3D graphics (WebGL) are switched off or missing. Try another browser, or switch on hardware acceleration in its settings.', 'Try again', () => location.reload()],
+    denied: ['This invite link does not open a table any more. Ask whoever runs the game for a new link.', 'Start a campaign of your own', () => { location.href = location.pathname + location.search + '#games'; }],
+    relay: ['The table cannot be reached just now. It may be restarting: this page keeps trying, and opens by itself when it answers.', 'Try again now', () => location.reload()],
+    code: ['The game did not finish downloading. Try again; if it fails a second time the fault is at our end, not yours: tell whoever sent you the link.', 'Try again', () => location.reload()],
+    slow: ['This is taking much longer than usual. It may still arrive; if the connection dropped, try again.', 'Try again', () => location.reload()],
+  };
+  function fail(kind, detail) {
+    if (gone && kind !== 'denied') return; const f = FAILS[kind] || FAILS.code; L.failed = kind; clearTimeout(slow);
+    if (gone) { gone = false; L.mode = 'load'; root.hidden = false; try { L.fade?.cancel(); } catch { } }
+    root.className = 'failed'; root.querySelector('.twl-why').textContent = f[0]; const b = root.querySelector('.twl-fail button'); b.textContent = f[1]; b.onclick = f[2]; tell(f[0]);
+    if (detail) console.warn('tw load:', kind, detail);
+  }
+  L.fail = fail;
+  L.mend = (kind) => { if (L.failed === kind) { L.failed = null; root.classList.remove('failed'); tell(''); } }; // it answered after all
+  // THE OTHER WAITS. travel: the same screen, only if the area is not there within a moment. net: a pill, and gone.
+  L.wait = (mode, text, { delay = 0 } = {}) => {
+    if (!gone || L.pending === mode) return; L.pending = mode; clearTimeout(L.timer);
+    if (mode === 'travel') { T.travel = Math.round(now()); T.state = null; }
+    L.timer = setTimeout(() => { if (L.pending !== mode || !gone) return; gone = false; L.mode = mode; try { L.fade?.cancel(); } catch { } root.className = mode === 'net' ? 'pill' : ''; root.hidden = false; say(text); tell(text);
+      if (mode === 'travel') { reset(); watchdog(); const ms = clamp(mem.travel || 900, 300, 600000); run([[STALL, ms * 0.5], [STALL + CREEP, ms * 0.5]]); try { root.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200 }); } catch { } }
+    }, delay);
+  };
+  L.clear = (mode) => { if (L.pending !== mode) return; L.pending = null; clearTimeout(L.timer); if (gone || L.mode !== mode) return; if (mode === 'net') { gone = true; root.hidden = true; root.className = ''; tell(''); } else L.done(); };
+  L.shown = () => !root.hidden && !gone;
+  L.again = (text) => { gone = false; L.mode = 'load'; delete T.welcome; delete T.state; delete T.frame; delete T.first; delete T.pieces; pcs = null; try { L.fade?.cancel(); } catch { } root.className = ''; root.hidden = false; reset(); const ms = clamp(mem.toCreated || 600, 200, 60000); run(rest(ms)); say([[text, 0], ['Setting out the room', ms]]); tell(text); watchdog(); L.created = Math.round(now()); }; // (the start form was submitted: the code is here already)
+  addEventListener('error', (ev) => { const t = ev.target; if (t && t.tagName === 'SCRIPT' && !gone) fail('code', t.src); }, true); // a script of the page did not arrive
+})();
+</script>
+<link rel="stylesheet" href="style.css?v=dev">
+<div id="start" hidden>
+  <div class="card">
+    <img class="mark" src="mark.svg?v=dev" alt="" width="72" height="72">
+    <h1>Turnip Works</h1>
+    <p>A shared world. Everyone's cursors, pawns and rooms, in the same order everywhere.</p>
+    <p id="gameNotice" role="status"></p>
+    <section aria-label="Games remembered in this browser">
+      <h2 class="games-title">Your games</h2>
+      <ul id="rememberedGames"></ul>
+      <p id="gamesEmpty" class="hint">No games remembered in this browser yet.</p>
+      <div class="games-actions"><button id="startNewCampaign" type="button">Start a new campaign</button><button id="forgetGames" type="button" hidden>Forget this browser's games</button></div>
+    </section>
+    <form id="newCampaign">
+      <label for="campaignName">Campaign</label><div class="campaign-name"><input id="campaignName" name="name" maxlength="80"><input id="rerollCampaign" type="button" value="⚄" title="Re-roll campaign name" aria-label="Re-roll campaign name"></div>
+      <label>Your name <input name="gm" value="GM" maxlength="40"></label>
+      <button type="submit" class="primary">Start a campaign (you are the GM)</button>
+    </form>
+    <p class="hint">Joining someone's game? Open the invite link they sent you.</p>
+  </div>
+</div>
+<div id="app" hidden>
+  <button id="otherGames" type="button">Other games / New game</button>
+  <canvas id="c"></canvas>
+  <div id="labels" aria-label="Room and building labels"></div>
+  <div id="ring" class="overlay" hidden></div>
+  <div id="launchers"></div>
+  <div id="buildMenu" hidden></div>
+  <div id="pawnsTray" hidden></div>
+  <div id="toolCursor" hidden></div>
+  <div id="introHint" hidden></div>
+  <div id="undoChips"></div>
+  <div id="levelMeter" role="status" aria-label="Levels"></div>
+  <div id="bar" role="search">
+    <span class="lead"></span>
+    <div class="field"><div class="chips"></div><input type="text" spellcheck="false" autocomplete="off" aria-label="Command bar"></div>
+    <span class="hint"></span>
+  </div>
+  <div id="results" class="clip" hidden role="listbox"></div>
+  <nav id="crumbs" hidden aria-label="Selection path"></nav>
+  <div id="roster" aria-label="Who is where"></div>
+  <div id="pipFrame" hidden><div class="bar" title="Drag to move · double-click for a bigger window"><span id="pipTitle"></span><button id="pipSwap" title="Swap with the main view">swap</button><button id="pipClose" title="Close">×</button></div><i class="rz" data-d="n"></i><i class="rz" data-d="s"></i><i class="rz" data-d="e"></i><i class="rz" data-d="w"></i><i class="rz" data-d="ne"></i><i class="rz" data-d="nw"></i><i class="rz" data-d="se"></i><i class="rz" data-d="sw"></i></div>
+  <div id="chat" title="Click to expand"></div>
+  <div id="bubbles"></div>
+  <div id="marquee" hidden></div>
+  <div id="modeLabel" hidden></div>
+  <div id="whichkey" hidden></div>
+  <div id="output" hidden></div>
+  <div id="sheet" hidden></div>
+  <div id="hud"></div>
+  <div id="toast" role="status"></div>
+  <canvas id="pv"></canvas>
+</div>
+<script type="module" src="main.js?v=dev"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+{
+ "file": "foe-ogre.glb",
+ "tris": 48864,
+ "kb": 2819,
+ "native_extent": [
+  0.711,
+  1.0,
+  0.533
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0233,
+  "seen": 0.0031
+ },
+ "mean_rgb": [
+  89,
+  71,
+  32
+ ],
+ "mean_saturation": 0.655,
+ "sized_by": "its highest point",
+ "overall_ft": 9.0,
+ "pieces": {
+  "connected_parts": 226,
+  "main_part_area_share": 0.999,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 9.0014,
+ "y0": -4.5003,
+ "stated_ft": {
+  "body": 9.0,
+  "figure_top": 9.0,
+  "overall": 9.0
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3574,
+   -0.5001,
+   -0.267
+  ],
+  [
+   0.3537,
+   0.5002,
+   0.2658
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48864,
+   "tex": 2048,
+   "kb": 2819
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1041
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 451
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.88,
+    "z": 1.08,
+    "size_ft": [
+     1.61,
+     2.59
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.55,
+    "sole_p90_ft": 0.204
+   },
+   {
+    "x": -1.46,
+    "z": -1.41,
+    "size_ft": [
+     2.14,
+     2.21
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.55,
+    "sole_p90_ft": 0.257
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 5.57,
+  "plan_hull_area_sqft": 20.47,
+  "lowest_slab_share_of_plan": 0.272
+ },
+ "plan": {
+  "size_ft": {
+   "w": 6.4,
+   "d": 4.79,
+   "h": 9.0
+  },
+  "centre": [
+   0.159,
+   0.0
+  ],
+  "contacts_radius_ft": 3.06,
+  "reach_radius_ft": 3.31,
+  "share_outside_2p5ft": 0.169
+ },
+ "silhouette": {
+  "iou": 0.937,
+  "plate_lost_share": 0.019,
+  "added_share": 0.047,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.937,
+  "view_yaw_deg": 10,
+  "view_elev_deg": 8
+ },
+ "id": "foe-ogre",
+ "sha1": "f429d1d73d9a2c416a11cfc4e5797639c20fa3f4",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 14.3
+}

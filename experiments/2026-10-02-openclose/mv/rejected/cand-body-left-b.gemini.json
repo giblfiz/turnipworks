@@ -1,0 +1,28 @@
+{
+  "provider": "google",
+  "model": "gemini-3.1-flash-image",
+  "interaction_id": null,
+  "started_at": "2026-10-02T18:22:18.203326+00:00",
+  "finished_at": "2026-10-02T18:22:27.389096+00:00",
+  "elapsed_seconds": 9.19,
+  "prompt_file": "prompts/body-left.md",
+  "prompt_sha256": "02cde1d9bc4b33639bf9420c699f307f2188cc81e866affb8f72ed7f90fc65fc",
+  "references": [
+    {
+      "path": "../ref/chest-ironbound.jpg",
+      "sha256": "4107a85a802f635bd2aac552d27ef0500c8fdcc6fb52649cb5edd55b31ce1bfc"
+    },
+    {
+      "path": "views/body-back.jpg",
+      "sha256": "80032874342c11994e05c3268ed92b3a8d636897ce4cbbc4003b94a59f6c1f96"
+    },
+    {
+      "path": "views/body-top.jpg",
+      "sha256": "c2415a9afc8559b28a3191f606061590532f7165df01df3db63f79f691784cc4"
+    }
+  ],
+  "output": "rejected/cand-body-left-b.jpg",
+  "output_bytes": 425215,
+  "output_sha256": "157a46f0ca9c16b27dc6e38f6115b5ff381b20e38d9f347c0ca02f82f68d9b26",
+  "image_size": "1K"
+}

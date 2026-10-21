@@ -1,0 +1,133 @@
+{
+ "file": "beast-chicken.glb",
+ "tris": 48990,
+ "kb": 2221,
+ "native_extent": [
+  0.611,
+  1.001,
+  0.869
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  147,
+  88,
+  29
+ ],
+ "mean_saturation": 0.819,
+ "sized_by": "its highest point",
+ "overall_ft": 1.6,
+ "pieces": {
+  "connected_parts": 2,
+  "main_part_area_share": 0.5052,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 1.599,
+ "y0": -0.7994,
+ "stated_ft": {
+  "body": 1.6,
+  "figure_top": 1.6,
+  "overall": 1.6
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3057,
+   -0.5002,
+   -0.4346
+  ],
+  [
+   0.3056,
+   0.5008,
+   0.4347
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48990,
+   "tex": 2048,
+   "kb": 2221
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 891
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 393
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.25,
+    "z": 0.26,
+    "size_ft": [
+     0.35,
+     0.44
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.99,
+    "sole_p90_ft": 0.034
+   },
+   {
+    "x": -0.26,
+    "z": -0.0,
+    "size_ft": [
+     0.39,
+     0.45
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.99,
+    "sole_p90_ft": 0.032
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.002,
+  "lowest_slab_area_sqft": 0.14,
+  "plan_hull_area_sqft": 1.04,
+  "lowest_slab_share_of_plan": 0.131
+ },
+ "plan": {
+  "size_ft": {
+   "w": 0.98,
+   "d": 1.39,
+   "h": 1.6
+  },
+  "centre": [
+   -0.015,
+   0.143
+  ],
+  "contacts_radius_ft": 0.5,
+  "reach_radius_ft": 0.82,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.912,
+  "plate_lost_share": 0.053,
+  "added_share": 0.038,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.872,
+  "view_yaw_deg": 35,
+  "view_elev_deg": 0
+ },
+ "id": "beast-chicken",
+ "sha1": "6c281a33b61c3f997604d1f07e13952c8219186b",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 15.1
+}

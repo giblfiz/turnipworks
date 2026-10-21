@@ -1,0 +1,38 @@
+{
+ "sku": "mace-flanged",
+ "glb_sha1": "54606e55357311c17cb5d82bd375705ad6797b41",
+ "time": "2026-10-05T22:01:59-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "flanged mace",
+  "second_guess": "morningstar",
+  "confidence": 0.9,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized one-handed flanged mace. It features a pointed copper/bronze head with radiating triangular flanges and a spiked central cap, a short segmented metallic shaft wrapped in reddish-brown leather, and a pommel with an attached looped leather wrist strap. Surfaces are solid, smooth, and fully textured with metallic and leather materials. There are no detached shards or unpainted areas, though the weapon hovers at a tilted diagonal angle in mid-air above the floor rather than resting flat.",
+  "from_above": "Resembles a multi-pointed metallic star from the flanged head connected to a straight handle pointing upward with a rounded leather loop at the end, accompanied by a sharp silhouette shadow to the upper-left.",
+  "defects": [
+   "floating in mid-air at an angle above the ground plane"
+  ],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1/3 the height of the 5 ft 9 in figure (roughly 1.8 to 2 feet long overall), with a head width of under 1 foot."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "flanged mace",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "oriented diagonally in mid-air rather than resting flat on the ground plane"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "footprint proportion 1.77x off the catalog (2.3 x 1.3 ft)",
+  "height proportion 6.96x off the catalog",
+  "underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)",
+  "gemini note: oriented diagonally in mid-air rather than resting flat on the ground plane"
+ ],
+ "vision": true
+}

@@ -1,0 +1,37 @@
+{
+ "sku": "scepter",
+ "glb_sha1": "7222dcbd8f8bb743cd79ec57221a9930b775b214",
+ "time": "2026-10-05T22:02:14-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "scepter",
+  "second_guess": "ornate key",
+  "confidence": 0.9,
+  "reads_clearly_at_distance": true,
+  "description": "A small golden ornamental scepter or wand resting horizontally on the floor. It features a decorative fleur-de-lis finial at one end set with a round red gemstone at its center, a slender cylindrical shaft interrupted by small raised ring moldings, and a rounded spherical pommel at the opposing base end. Surfaces are completely solid, smooth, and continuous metallic gold with reflective highlights. The object rests directly on the floor with no plinth, base, or detached parts.",
+  "from_above": "Seen from directly above, it appears as a horizontal rod with a fleur-de-lis finial bearing a red circular center on the left and a small rounded knob at the right tip.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "It lies flat on the ground, measuring only a few inches high, roughly 1.5 to 2 feet long, and about 8 inches across at the fleur-de-lis finial, tiny compared to the 5 ft 9 in scale figure."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "scepter",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "model lies horizontally on the floor rather than standing upright"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "height 0.3 ft at auto scale, catalog 2.2 ft (61.83x off)"
+ ],
+ "notes": [
+  "footprint proportion 3.14x off the catalog (2.2 x 0.7 ft)",
+  "underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)",
+  "gemini note: model lies horizontally on the floor rather than standing upright"
+ ],
+ "vision": true
+}

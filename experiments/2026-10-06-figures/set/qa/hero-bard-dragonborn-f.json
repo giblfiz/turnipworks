@@ -1,0 +1,146 @@
+{
+ "file": "hero-bard-dragonborn-f.glb",
+ "tris": 48986,
+ "kb": 2894,
+ "native_extent": [
+  0.615,
+  1.001,
+  0.481
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  105,
+  71,
+  39
+ ],
+ "mean_saturation": 0.655,
+ "sized_by": "its highest point",
+ "overall_ft": 6.56,
+ "pieces": {
+  "connected_parts": 48,
+  "main_part_area_share": 0.9972,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.5558,
+ "y0": -3.2836,
+ "stated_ft": {
+  "body": 6.3,
+  "figure_top": 6.56,
+  "overall": 6.56
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3083,
+   -0.5009,
+   -0.2408
+  ],
+  [
+   0.3066,
+   0.4999,
+   0.2398
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48986,
+   "tex": 2048,
+   "kb": 2894
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1097
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 474
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.08,
+    "z": 0.43,
+    "size_ft": [
+     1.04,
+     1.37
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.61,
+    "sole_p90_ft": 0.103
+   },
+   {
+    "x": -1.26,
+    "z": 0.24,
+    "size_ft": [
+     1.15,
+     1.26
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.58,
+    "sole_p90_ft": 0.107
+   },
+   {
+    "x": 0.23,
+    "z": -1.46,
+    "size_ft": [
+     0.16,
+     0.27
+    ],
+    "off_ground_ft": 0.518,
+    "sole_level_share": 0.94,
+    "sole_p90_ft": 0.572
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.518,
+  "lowest_slab_area_sqft": 1.74,
+  "plan_hull_area_sqft": 8.65,
+  "lowest_slab_share_of_plan": 0.201
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.03,
+   "d": 3.14,
+   "h": 6.56
+  },
+  "centre": [
+   -0.054,
+   0.214
+  ],
+  "contacts_radius_ft": 1.8,
+  "reach_radius_ft": 2.0,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.895,
+  "plate_lost_share": 0.036,
+  "added_share": 0.077,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.878,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 8
+ },
+ "id": "hero-bard-dragonborn-f",
+ "sha1": "55249c7bf49e9479f325a9bbc8d2b502e1e44f24",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.52 ft off the ground"
+ ],
+ "qa_seconds": 15.1
+}

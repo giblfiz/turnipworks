@@ -1,0 +1,139 @@
+{
+ "file": "foe-goblin-club.glb",
+ "tris": 49195,
+ "kb": 3256,
+ "native_extent": [
+  0.64,
+  1.0,
+  0.506
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0031,
+  "seen": 0.0006
+ },
+ "mean_rgb": [
+  69,
+  60,
+  18
+ ],
+ "mean_saturation": 0.813,
+ "sized_by": "its highest point",
+ "overall_ft": 3.5,
+ "pieces": {
+  "connected_parts": 345,
+  "main_part_area_share": 0.9674,
+  "floating": [
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.04
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 2e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.501,
+ "y0": -1.7508,
+ "stated_ft": {
+  "body": 3.5,
+  "figure_top": 3.5,
+  "overall": 3.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3214,
+   -0.5003,
+   -0.244
+  ],
+  [
+   0.3189,
+   0.4997,
+   0.2616
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49195,
+   "tex": 2048,
+   "kb": 3256
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1245
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 527
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.61,
+    "z": 0.35,
+    "size_ft": [
+     0.64,
+     1.06
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.7,
+    "sole_p90_ft": 0.094
+   },
+   {
+    "x": -0.54,
+    "z": -0.47,
+    "size_ft": [
+     0.85,
+     0.86
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.69,
+    "sole_p90_ft": 0.097
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 0.73,
+  "plan_hull_area_sqft": 2.45,
+  "lowest_slab_share_of_plan": 0.296
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.24,
+   "d": 1.77,
+   "h": 3.5
+  },
+  "centre": [
+   0.015,
+   0.022
+  ],
+  "contacts_radius_ft": 1.09,
+  "reach_radius_ft": 1.22,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.912,
+  "plate_lost_share": 0.034,
+  "added_share": 0.059,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.912,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 8
+ },
+ "id": "foe-goblin-club",
+ "sha1": "e76c012829c6b7e2fa561f6787a4e593876c202c",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 10.3
+}

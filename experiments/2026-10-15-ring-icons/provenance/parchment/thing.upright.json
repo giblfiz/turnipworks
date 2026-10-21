@@ -1,0 +1,61 @@
+{
+  "id": "thing.upright",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: style-transfer. Edit the supplied original Turnip Works charcoal Upright icon into its parchment style counterpart. Preserve EXACTLY the supplied composition, geometry, contours, relative sizes and placement: the same front-facing crate tilted on its corner at left, the same front-facing solid upright crate at right, the single curved arrow above and the shared floor line below. Both crates must retain the identical frontal viewing angles and wooden cross-bracing from the source; do not turn either crate into an open container or a different perspective. Change ONLY the background and palette treatment: pale warm parchment circular ground, thin antique brass rim, ivory arrow and floor changed to dark slate for strong contrast. Keep both crate shapes unchanged. Maintain heroic matte hand-painted texture. Preserve native transparency outside the circle. No new objects, symbols, text or labels. This is our own previously generated TW image, used as an edit source; no third-party reference. Important targeted correction: the tilted crate at left must be the SAME OCHRE WOOD MATERIAL AND CROSS-BRACING as the upright crate at right, shown as a faint semitransparent ghost of its previous tilted orientation. Remove all blue and teal from both crates. This is one crate returning from a tilted position to upright, not changing material or transforming into another object. Keep the exact two frontal outlines and arrow placement from the reference.",
+  "references": [
+    {
+      "path": "experiments/2026-10-15-ring-icons/sources/charcoal--thing.upright.png",
+      "sha256": "3d587009baa20b03caafb664202733cd93e7c656ea63531f8c7ef7e90394ad05",
+      "role": "Edit source: original accepted TW charcoal upright icon, generated with built-in image_gen from text only."
+    }
+  ],
+  "source": "experiments/2026-10-15-ring-icons/sources/parchment--thing.upright.png",
+  "source_sha256": "0c84451579afa28c83f7696aa2bfb9b76b90b4fece31378b4f6beea3f2e62ac1",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/thing.upright.webp",
+    "19": "parchment/sizes/19/thing.upright.webp",
+    "22": "parchment/sizes/22/thing.upright.webp",
+    "26": "parchment/sizes/26/thing.upright.webp",
+    "31": "parchment/sizes/31/thing.upright.webp",
+    "36": "parchment/sizes/36/thing.upright.webp",
+    "38": "parchment/sizes/38/thing.upright.webp",
+    "42": "parchment/sizes/42/thing.upright.webp",
+    "44": "parchment/sizes/44/thing.upright.webp",
+    "50": "parchment/sizes/50/thing.upright.webp",
+    "52": "parchment/sizes/52/thing.upright.webp",
+    "62": "parchment/sizes/62/thing.upright.webp",
+    "84": "parchment/sizes/84/thing.upright.webp",
+    "100": "parchment/sizes/100/thing.upright.webp",
+    "128": "parchment/thing.upright.webp"
+  },
+  "sha256": {
+    "18": "feab468fd303d6aadfd6db7a3d1352135643649f250ee6639b69795a9c9d51b2",
+    "19": "09228aa75d817cea17f6f49489c2251ba1e78269ca98a1a2126298d90172b6fb",
+    "22": "708c60ee5c6b94463e267e45378456085d5f6afdce356865f4a10f28f8bdbdea",
+    "26": "5468821ccca942a06e0b52f47719c99425db771d5c05ad9c6a16cf75efa3c91f",
+    "31": "12c3a012da26d4cf2c0f84dee8953591a97161194bcbe2bb4e4f5bf493434340",
+    "36": "2a43d3ef95602f68a9542100f4cd1ec25b1ad91687330534fb28136bff7abb02",
+    "38": "311a899a62387598b67c37cb5afbf6d4ebdd4502060ba96f6a3d4ba3ce848e3d",
+    "42": "9a470a6c07d2d8141e25e4f69a4e0fcda1c5a0bb1c2587a2f5f6f8645dcd46f8",
+    "44": "a33453b18beae0c02051ded0a9566808a976f57a0900e0744cbf7b0f19fd76a4",
+    "50": "a90c53bf685392d85e310a8c6e9802a7224396b557ee960174410aa0080973ab",
+    "52": "4b3b77af7ef81296ac532460d95444638e463338bf7158449ff423ea756681fe",
+    "62": "04026f735a47ba016a74cd69bf7ac94c3ec660b7844395dfac6819a7e0c6751a",
+    "84": "64fb5767c9f93d8804c4de2a6d6bd5f935d5bfad193ce12acec29bf79ab7354a",
+    "100": "10f76ab2c47314f180211e508d13516dc3857078dd3b45c02ec46de9d2ddf98a",
+    "128": "21734aa44ef8235981fc3567358a932be5209c6de1cf762e546a0cb098620e66"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button in the contextual menu around a selected piece\nin a browser 3D virtual tabletop. View it at its supplied size.\nWhat action does this button perform on the selected piece?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "efed4e02bef1898f73f642fe9d42fa7bbcc475c75f263519fc8f7b8b792391db",
+  "blind_prompt_sha256": "5c3061251ea3e03761074ead4edbb50de3627538ce1e8adb8d0c6c8952c4c7f1",
+  "read_directory": "reads/parchment/thing.upright/0c84451579afa28c-5c3061251e"
+}

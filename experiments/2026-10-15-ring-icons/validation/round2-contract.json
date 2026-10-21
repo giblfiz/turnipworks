@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "counts": {
+    "sibling_arcs_checked": 18,
+    "pictures_packaged": 224,
+    "images_checked": 3584,
+    "pictures_read": 224,
+    "accepted": 143,
+    "learned": 81,
+    "condition_confusions_checked": 14,
+    "actions": 113,
+    "sets": 2,
+    "planned_pictures": 224,
+    "planned_alternates": 44
+  },
+  "errors": [],
+  "pending": [],
+  "limitations": [
+    {
+      "arc": "faction",
+      "note": "Listed runtime image swatches are exempt only while the consumer preserves image precedence.",
+      "swatches": {
+        "faction.set(sun)": "tools/spawn-tuner/assets/emblems/sun.webp",
+        "faction.set(moon)": "tools/spawn-tuner/assets/emblems/moon.webp",
+        "faction.set(devils)": "tools/spawn-tuner/assets/emblems/devils.webp",
+        "faction.set(spiders)": "tools/spawn-tuner/assets/emblems/spiders.webp",
+        "faction.set(dragons)": "tools/spawn-tuner/assets/emblems/dragons.webp",
+        "faction.set(skulls)": "tools/spawn-tuner/assets/emblems/skulls.webp",
+        "faction.set(tentacles)": "tools/spawn-tuner/assets/emblems/tentacles.webp",
+        "faction.set(nature)": "tools/spawn-tuner/assets/emblems/nature.webp",
+        "faction.set(sword-shield)": "tools/spawn-tuner/assets/emblems/sword-shield.webp",
+        "faction.set(death)": "tools/spawn-tuner/assets/emblems/death.webp",
+        "faction.set(scales-coin)": "tools/spawn-tuner/assets/emblems/scales-coin.webp",
+        "faction.set(forge-hammer)": "tools/spawn-tuner/assets/emblems/forge-hammer.webp",
+        "faction.set(sea-storm)": "tools/spawn-tuner/assets/emblems/sea-storm.webp"
+      }
+    },
+    {
+      "arc": "travel",
+      "note": "Public areas with thumbnail metadata render distinct app.thumbs.url(area.id) screenshots. Hidden destinations all use eye-off; public destinations without thumbnails all use map. These can coexist. Static registry paintings cannot enforce arbitrary campaign-area uniqueness; requires runtime generated destination thumbnails or distinct initial/number badges. Do not claim full sibling rule solved by this finite batch."
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+ "file": "beast-mule.glb",
+ "tris": 47748,
+ "kb": 2258,
+ "native_extent": [
+  0.352,
+  0.953,
+  1.001
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  82,
+  59,
+  38
+ ],
+ "mean_saturation": 0.56,
+ "sized_by": "its highest point",
+ "overall_ft": 5.6,
+ "pieces": {
+  "connected_parts": 6,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.8782,
+ "y0": -2.802,
+ "stated_ft": {
+  "body": 5.6,
+  "figure_top": 5.6,
+  "overall": 5.6,
+  "length": 4.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.1761,
+   -0.4767,
+   -0.5006
+  ],
+  [
+   0.1762,
+   0.4763,
+   0.5001
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47748,
+   "tex": 2048,
+   "kb": 2258
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 871
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 389
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.69,
+    "z": 1.07,
+    "size_ft": [
+     0.65,
+     0.79
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.92,
+    "sole_p90_ft": 0.023
+   },
+   {
+    "x": -0.72,
+    "z": 1.07,
+    "size_ft": [
+     0.63,
+     0.82
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.92,
+    "sole_p90_ft": 0.019
+   },
+   {
+    "x": -0.61,
+    "z": -1.66,
+    "size_ft": [
+     0.58,
+     0.75
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.87,
+    "sole_p90_ft": 0.209
+   },
+   {
+    "x": 0.59,
+    "z": -1.66,
+    "size_ft": [
+     0.56,
+     0.72
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.88,
+    "sole_p90_ft": 0.199
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.33,
+  "plan_hull_area_sqft": 9.04,
+  "lowest_slab_share_of_plan": 0.147
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.07,
+   "d": 5.88,
+   "h": 5.6
+  },
+  "centre": [
+   0.002,
+   -0.236
+  ],
+  "contacts_radius_ft": 1.88,
+  "reach_radius_ft": 3.14,
+  "share_outside_2p5ft": 0.072
+ },
+ "silhouette": {
+  "iou": 0.857,
+  "plate_lost_share": 0.062,
+  "added_share": 0.094,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.737,
+  "view_yaw_deg": 225,
+  "view_elev_deg": 0
+ },
+ "id": "beast-mule",
+ "sha1": "be6ae574b7d2c7908a059acc603eb92e5a9adb8b",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "reaches 0.6 ft outside its square"
+ ],
+ "qa_seconds": 13.0
+}

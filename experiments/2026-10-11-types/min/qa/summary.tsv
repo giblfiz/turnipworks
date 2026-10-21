@@ -1,0 +1,32 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+beam-collapsed	accept	override: supervisor: sound mesh, reads as collapsed beam debris (Gemini 0.85). The beams lie CROSSED, so the footprint is 9.2 x 7.6 ft, not the catalog's 9.2 x 3.3: shipped at its own size (manifest_overrides.json). (was reroll-plate: footprint 9.2 x 7.6 ft, catalog 9.2 x 3.3 ft: squarer by 2.29x)	collapsed wooden beam debris	0.85	0.002	0	0	9.17x7.64x2.27	40x110x30	2.29	1.1	prop	1	gemini note: Footprint is squarer than catalog estimate due to the X-crossing angle of the beams
+coal-bin--mine	accept	-	coal bin with scoop	0.95	0.001	0	0	4x3.65x3.42	48x30x30	1.46	1.37	prop	1	footprint proportion 1.46x off the catalog (4.0 x 3.6 ft) | gemini note: footprint is squarer than catalog proportion
+crystal-formation--s3	accept	-	crystal cluster	0.95	0.0	0	0	5.5x5.44x5.13	54x54x66	1.01	1.31	prop	1	
+geode-cluster	accept	-	cracked geode	0.85	0.0	0	0	2x1.22x1.18	24x24x20	1.64	1.42	prop	1	footprint proportion 1.64x off the catalog (2.0 x 1.2 ft) | gemini note: interior crystals are purple and amber-yellow rather than violet and rose
+ingot-stack	accept	-	stack of metal ingots	0.9	0.0	0	0	2.07x2.5x1.61	30x22x16	1.13	1.21	prop	1	
+mine-cart	accept	-	mine cart	0.95	0.0	0	0	4x2.3x2.93	30x48x36	1.09	1.02	prop	1	
+mine-cart--s2	accept	-	mine cart	0.95	0.0	0	0	4x2.43x2.22	30x48x36	1.03	1.35	prop	1	
+mine-headframe	accept	-	mine headframe hoist	0.9	0.001	0	0	8.02x9.55x14	110x110x168	1.19	1.04	prop	1	
+mine-lamp-rack	accept	-	lantern rack	0.85	0.0	0	0	3.28x1.44x4.67	40x12x56	1.47	1.02	prop	1	footprint proportion 1.47x off the catalog (3.3 x 1.4 ft)
+mine-shaft-collar	accept	override: supervisor: sound mesh, reads as a mine shaft collar (Gemini 0.9). 3 ft tall because the ladder top stands out of the kerb; the black interior is the painted hole the design asks for. Shipped at its own size. (was reroll-plate: height 3.0 ft at auto scale, catalog 1.3 ft (2.22x off))	mine shaft collar	0.9	0.138	0	0	5.74x5.83x2.96	70x70x16	1.02	2.22	prop	1	unpainted 14% of the visible surface | gemini note: Height is slightly taller than requested catalog ratio due to pit depth/ladder | gemini note: Shaft interior fades into unpainted black to depict depth
+mine-tool-rack	accept	-	tool rack	0.95	0.0	0	0	2.12x4.49x5	48x14x60	1.62	1.12	prop	1	footprint proportion 1.62x off the catalog (4.5 x 2.1 ft) | gemini note: Footprint proportion is slightly deeper than catalog, but reads cleanly as intended.
+ore-pile	accept	-	ore pile	0.8	0.0	0	0	2.87x3x1.37	36x36x18	1.05	1.1	prop	1	
+ore-pile--s2	accept	-	ore pile	0.85	0.0	0	0	5.95x6x2.24	72x60x34	1.19	1.27	prop	1	gemini note: tool stuck in mound appears as a mining pick rather than a shovel
+ore-vein	accept	-	ore vein wall section	0.85	0.0	0	0	4.83x1.63x8.67	60x14x104	1.44	1.04	prop	1	
+ore-vein--s2	accept	-	crystal ore vein wall	0.95	0.0	0	0	4.68x1.88x8.67	60x14x104	1.72	1.07	prop	1	footprint proportion 1.72x off the catalog (4.7 x 1.9 ft)
+powder-keg-stack	accept	-	stack of powder kegs	0.95	0.021	0	0	3.33x1.33x3.04	40x30x40	1.89	1.1	prop	1	footprint proportion 1.89x off the catalog (3.3 x 1.3 ft) | gemini note: barrel body is primarily red rather than just having a red band | gemini note: footprint depth is narrower than catalog target but structurally sound for kegs on sides
+rural-bellows-ventilation	accept	-	blacksmith bellows	0.9	0.001	0	0	6x3.01x3.15	48x72x48	1.33	1.27	prop	1	
+rural-ore-bucket	accept	-	bucket of ore	0.9	0.001	0	0	1.79x1.59x2.33	24x24x28	1.12	1.12	prop	1	
+rural-ore-cart-tipped	accept	-	tipped ore cart with spilled ore	0.95	0.0	0	0	5x4.99x3.21	48x60x30	1.25	1.28	prop	1	
+rural-pit-props-stack	accept	-	stack of logs in a wooden frame	0.95	0.0	0	0	5x2.68x2.32	60x36x30	1.12	1.08	prop	1	
+rural-sign-danger-mine	accept	-	wooden warning sign	0.85	0.0	0	0	0.33x2.17x1.94	26x4x20	1.0	1.16	prop	1	
+rural-slag-heap	accept	-	slag heap	0.65	0.005	0	0	6x5.99x2.69	72x60x36	1.2	1.11	prop	1	gemini note: Low-contrast pile may occasionally be mistaken for a dung pile at tabletop distance
+rural-tailings-pile	accept	-	pile of rocks and dirt	0.9	0.0	0	0	6x5.99x3.37	72x60x40	1.2	1.01	prop	1	underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)
+rural-water-pump-mine	accept	-	hand-crank water pump	0.85	0.001	0	0	3.31x3.23x4	30x30x48	1.02	1.32	prop	1	
+shoring-timber--s2	accept	-	wooden mine support frame	0.85	0.001	0	0	3.22x8.33x8.2	60x20x100	1.16	1.69	prop	1	height proportion 1.69x off the catalog | gemini note: aspect ratio is wider than requested proportions
+sluice-box	reroll-plate	footprint 9.2 x 7.6 ft, catalog 9.2 x 2.0 ft: squarer by 3.8x	sluice box	0.9	0.003	0	0	7.59x9.17x3.82	24x110x30	3.8	1.53	prop	1	height proportion 1.53x off the catalog | gemini note: Asset is diagonally oriented within its bounding box, giving a wider footprint measurement than its actual long narrow profile.
+smelter--mine	accept	-	smelter	0.9	0.021	0	0	4.56x5.13x7	54x54x84	1.12	1.14	prop	1	
+sorting-table	accept	-	sorting table	0.85	0.0	0	0	6.5x2.91x2.9	78x34x36	1.03	1.04	prop	1	gemini note: glossy clumps read somewhat ambiguously as produce or ore clumps, but context supports sorting table
+wall-doorway--mine-timbered	accept	-	mine doorway with timber frame	0.95	0.0	0	0	4.71x1.67x9	60x12x108	1.77	1.06	wall	1	wall door: w:h 0.52, depth:h 0.18, largest opening 49% x 74%, filled 64%
+wall-straight--mine-timbered	accept	-	mine wall segment	0.95	0.0	0	0	4.8x1.44x9	60x12x108	1.49	1.04	wall	1	wall solid: w:h 0.53, depth:h 0.16, largest opening 23% x 1%, filled 100%
+wall-straight--mine-timbered--s2	accept	-	timbered mine wall section	0.95	0.0	0	0	1.48x4.75x9	60x12x108	1.56	1.05	wall	1	wall solid: w:h 0.53, depth:h 0.16, largest opening 0% x 0%, filled 100%

@@ -1,0 +1,53 @@
+{
+  "id": "room.walls.",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A chunky three-course stone brick wall with a clear staggered masonry silhouette. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--room.walls..png",
+  "source_sha256": "75e667028bf6a22b7774ff72f9b284a42719d342a04001b6e3cc8182c7390189",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/room.walls..webp",
+    "19": "charcoal/sizes/19/room.walls..webp",
+    "22": "charcoal/sizes/22/room.walls..webp",
+    "26": "charcoal/sizes/26/room.walls..webp",
+    "31": "charcoal/sizes/31/room.walls..webp",
+    "36": "charcoal/sizes/36/room.walls..webp",
+    "38": "charcoal/sizes/38/room.walls..webp",
+    "42": "charcoal/sizes/42/room.walls..webp",
+    "44": "charcoal/sizes/44/room.walls..webp",
+    "50": "charcoal/sizes/50/room.walls..webp",
+    "52": "charcoal/sizes/52/room.walls..webp",
+    "62": "charcoal/sizes/62/room.walls..webp",
+    "84": "charcoal/sizes/84/room.walls..webp",
+    "100": "charcoal/sizes/100/room.walls..webp",
+    "128": "charcoal/room.walls..webp"
+  },
+  "sha256": {
+    "18": "e2fc9f29624893e5ae86a955c49b65ef584dd34b5f642c91fba66006be0f4092",
+    "19": "05de112a9061f0e817cecd5559ff13ea76fcddd06f032f7c09964e887ec877e3",
+    "22": "f99c8d4e2e45a67e4f8aeabfe1da3a3f7253cf4a843d3ac2dca3fbfd6cbc3745",
+    "26": "45fd6a23578565071e9ace1e79984f628c402710b4504ad4cab31196c7e4adc9",
+    "31": "99226e7328726b3c9282f021c8dd6b35620cb9d1d2f156912d5ffc9d13200ddf",
+    "36": "7229adba90746aa16458a47d834227326d1a2abd2c3783a2b3400a9fb602b86c",
+    "38": "0c03c7294eda391d10174a33c95e577c1cc5d21635c694ed33b19f331f3612be",
+    "42": "ef86d6dbbe4dd4c54754cb8e93b7d35af75918b82af40b24c999edd3af3fa9db",
+    "44": "916bd2f93c0c243c15815f86eb144db6fd1e2a89b37bf361c700a80bc24d43f1",
+    "50": "ce228a6d3ed6cac4e414f2ab2a014406aa9c2a47023c6be3d451922ac6330606",
+    "52": "22e81f69f33947aafcfc40dfe89b9f6432262756c0709a15070fa6ecfac723bb",
+    "62": "d916556c99701c9054361bd753c1f3a8621a661554a6694070286fd965ff4e8e",
+    "84": "c664805399d48f3983bed44e7de747f3ada8380b3dc22ffd64d3beb7359f4ed7",
+    "100": "039a8cf31986c45f19627d728f4e44f63b2e1e09855a1410986d4c8e87311ea2",
+    "128": "396418217aab39ba9340c2b588cc82267694177a2658c26cdcbddd3f6a1afd53"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "b3d5b002803a468a6650e7146dd08d00879e2099e7fdc5e3228a9ca9d089840f"
+}

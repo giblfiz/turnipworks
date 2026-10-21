@@ -1,0 +1,37 @@
+The text and labels are identical in both images. They are:
+
+*   **Top Left Icons:** Pawns, Build, Settings
+*   **Top Center:**
+    *   Search bar placeholder: "Search commands, things to place, people, places... or say / roll"
+    *   Buttons: "Area 1", "Open to players", "Hide"
+*   **Top Right:** "Area 1" icon
+*   **On Buildings:** "Building 1", "Building 2"
+*   **Bottom Left:** Input field with "say ... or roll d20 in the bar"
+*   **Bottom Right:** "img_ext2 | 1ms | Area 1 time: 7 | 60 fps"
+
+***
+
+1.  **Roof Surface Description**
+    *   **A:** The roof surface is made of individual, overlapping 3D tiles or shingles. This is evident from the slight shadows each shingle casts on the one below it, creating a bumpy, textured surface with physical relief. The edges of the roof at the eaves and around the hole in Building 1 are jagged and irregular, which would only happen if they were composed of many small geometric pieces.
+    *   **B:** The roof surface is a flat 2D picture (a texture) applied to simple, flat 3D planes. This is clear because the surface is perfectly smooth, with no self-shadowing between the shingles in the image. The lighting is uniform across the pattern. It is a representation of a shingled roof, not a physical construction of one.
+
+2.  **Physicality and "Cheapness"**
+    *   Roof **A** looks significantly more like a physical model of a roof. The three-dimensional relief of the individual shingles gives it depth and texture, mimicking how a miniature would be built.
+    *   Roof **B** looks cheaper. The flat, repeating texture is a common shortcut in 3D modeling. It lacks depth, and the illusion breaks down immediately, making it look like a low-budget or older video game asset rather than a tangible model.
+
+3.  **Faults**
+    *   **Image A:**
+        *   **Valley:** There is a major, unacceptable fault in the valley of Building 1 where the two roof sections meet. It's a dark, jagged, geometric gap, showing the model is broken. The shingles do not meet or overlap correctly.
+        *   **Chimneys:** The shingles simply stop at the base of the chimneys, with no flashing or proper joinery, creating a harsh seam.
+        *   **Gable Ends:** The shingles end flush with the gable, lacking any overhang or trim, which looks unfinished.
+    *   **Image B:**
+        *   **Eaves & Gables:** The shingle texture is unnaturally and perfectly straight at the eaves and gable ends because it's cut off by the edge of the underlying geometry. Real shingles would create a staggered, uneven edge.
+        *   **Repetition:** The texture pattern is visibly repetitive. You can spot the same distinctive dark and light shingle clusters appearing over and over across the roof surfaces.
+        *   **Distortion:** The texture is stretched and distorted in the valley of Building 1 to make it fit the corner, which looks fake.
+        *   **Chimneys & Dormers:** The texture creates a sharp, artificial line where it meets the chimneys and the dormer on Building 2. There is no sense of the objects being integrated.
+
+4.  **Style Consistency**
+    Yes, one of them does. Roof **B**'s flat, clean, repetitive texture does not fit the "hand-painted, chunky" style of the walls. The walls have a physical, slightly exaggerated, model-like quality, whereas the roof in B is a flat illusion. Roof **A**, with its chunky, individual 3D shingles, perfectly matches and enhances that physical, hand-made model aesthetic, despite its flaws.
+
+5.  **Shipping Decision**
+    I would ship A, assuming the glaring geometric gap in the valley can be fixed. 95% sure.

@@ -1,0 +1,50 @@
+Excellent, this is a detailed request for a visual asset critique. Here is the analysis.
+
+### Visible Text and Labels
+
+The text is identical in both images:
+*   **Top Left Icons:** Pawns, Build, Settings
+*   **Top Center Search Bar:** "Search commands, things to place, people, places... or say / roll"
+*   **Under Search Bar:** "Area 1", "Open to players", "Hide"
+*   **Top Right:** A map icon labeled "Area 1"
+*   **Building Labels:** "Building 1" (on the larger L-shaped building), "Building 2" (on the smaller rectangular building)
+*   **Bottom Left Input Field:** "... or roll d20 in the bar"
+*   **Bottom Right Status:** "live: yes | 1ms | Area 1 uses 5 | 60 fps"
+
+---
+
+### Analysis
+
+**1. Description of Roof Surfaces**
+
+*   **Roof A:** The surface is a flat 2D texture applied to the 3D model of the roof planes. It is meant to look like thatch or perhaps rough wooden shingles. I know it's a flat picture because there is no self-shadowing or physical relief; the lighting and shadow are "painted on" as part of the image file. The lines representing the thatch are perfectly straight and parallel to the roof edges, which is characteristic of a simple texture map.
+*   **Roof B:** The surface is a composite of two elements. It uses the same flat, yellow 2D texture as Roof A for the base, but it has small, 3D geometric objects scattered across it. These objects look like mossy caps, clumps of thatch, or perhaps tile fasteners. I know they are physical relief because they have their own simple geometry and cast small, distinct shadows onto the roof texture beneath them.
+
+**2. Physical Model vs. Cheaper Look**
+
+*   **Roof B** looks more like a physical model. The addition of the small 3D elements gives the surface tangible depth and texture, which mimics the way details are often exaggerated on miniature models to make them visually interesting ("pop") on a tabletop.
+*   **Roof A** looks cheaper. A single, flat, repeating texture is a common technique for low-cost or background assets. It lacks depth and looks artificial, like a picture wrapped around a simple shape, which it is. The lack of any physical detail makes it feel less substantial and less convincing.
+
+**3. Faults and Imperfections**
+
+*   **Image A Faults:**
+    *   **Valley:** The texture mapping in the valley of Building 1 (where the two roof sections meet) is extremely poor. The texture is severely stretched and distorted, with the lines of the thatch meeting at an unnatural, sharp seam instead of weaving together or being covered by a proper valley cap.
+    *   **Ridge:** The ridge of the roof is just a seam where the textures from either side meet. There is no ridge cap model or texture, making it look fake and unfinished.
+    *   **Eaves/Gables:** The texture simply ends abruptly at the edges of the roof planes. There is no sense of thickness or overhang to the thatch material.
+    *   **Repetition:** The texture is visibly repetitive. You can clearly see horizontal bands of light and dark repeating across the entire length of the main roof.
+
+*   **Image B Faults:**
+    *   **Valley:** It suffers from the exact same severe texture stretching and distortion in the valley of Building 1 as image A. The added 3D props do nothing to hide this fundamental flaw.
+    *   **Ridge:** The ridge is still a bare seam. The 3D props stop short of the ridge, which arguably makes the unfinished seam even more obvious.
+    *   **Chimneys:** Some of the added 3D props appear to clip into the base of the chimneys on Building 1.
+    *   **Underlying Repetition:** The base texture is still visibly repetitive, just like in A.
+
+**4. Stylistic Cohesion**
+
+The walls have a "hand-painted, chunky" style with prominent wooden beams and textured infill.
+*   **Roof A** does **not** fit this style well. Its flat, clean, and repetitive nature clashes with the chunky, physical feel of the walls. It looks too digital and simple.
+*   **Roof B** fits the style **much better**. The addition of the small, chunky 3D props on the roof directly complements the chunky style of the walls, creating a more cohesive and believable building model.
+
+**5. Final Verdict**
+
+I would ship B, 95% sure.

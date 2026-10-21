@@ -1,0 +1,34 @@
+{
+ "sku": "cutting-table-tailor",
+ "glb_sha1": "cb979e5b58132d44979a0a1c0a909c39a71dea04",
+ "time": "2026-10-11T19:39:10-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "tailor cutting table",
+  "second_guess": "sewing craft workbench",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized low wooden tailor's workbench with four chunky legs and a lower storage shelf. The tabletop features a dark purple cutting mat with a roll of purple cloth unrolled across it, a round red pincushion, a pair of metal tailoring scissors, and an off-white fabric swatch. The lower shelf holds three neatly rolled bolts of cloth colored green, yellow, and red. The geometry is solid, clean, and hand-painted with smooth stylized textures, resting directly on its four wooden feet.",
+  "from_above": "A clean rectangle showing a warm wood frame enclosing a dark purple surface, with a purple fabric roll along the left side, a small circular red pincushion at top center-left, metal scissors at top center, and a rectangular light cloth scrap on the right.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 40% as tall as the 5 ft 9 in figure (roughly 2.3 ft high), and roughly 4.5 ft long by 3 ft wide."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "tailor cutting table",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "footprint slightly wider than requested catalog aspect ratio but clearly reads as workbench"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "footprint proportion 1.58x off the catalog (7.0 x 4.8 ft)",
+  "gemini note: footprint slightly wider than requested catalog aspect ratio but clearly reads as workbench"
+ ],
+ "vision": true
+}

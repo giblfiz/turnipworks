@@ -1,0 +1,667 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "treasure-hoard-heap": {
+   "id": "treasure-hoard-heap",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/treasure-hoard-heap.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy mound of gold coins shaped like a nest or pedestal with an indented circular center, embedded with various treasures, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy mound of gold coins shaped like a nest or pedestal with an indented circular center, embedded with various treasures, isolated against a solid blue background.",
+       "details": "There is no text, label, or watermark. The central subject is a single large mound or hoard of gold coins designed with a smooth circular crater or depression at the top, likely serving as a nest, base, or sleeping bed for a creature. Embedded around the sloped sides of the pile are several treasure items: a closed wooden chest with riveted metal bands on the upper left; a tipped-over golden chalice/goblet; a faceted red gemstone on the left edge; a sword or dagger hilt embedded point-down into the coins; a faceted emerald-green gemstone; a golden spiked royal crown; two rectangular gold ingots resting next to the crown; a second tilted golden chalice on the right; another small green gemstone on the far right; and the top half of an arched wooden shield with a metal rim and central boss on the upper right. All items are partially submerged within the thousands of stylized gold coins. The style is hand-painted 3D/2D digital video game art. The entire mound is fully visible and not cropped. The background is a flat, uniform, vibrant solid blue with no shadows, ground plane, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4242,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4260,
+   "tokens_out": 1592,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "dragon-skull": {
+   "id": "dragon-skull",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/dragon-skull.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, horned dragon or fantasy monster skull with sharp teeth and patches of moss, centered on a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, horned dragon or fantasy monster skull with sharp teeth and patches of moss, centered on a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image contains one separate object: a stylized dragon skull (second guess: a horned monster fossil or decorative sculpted bone mask). It consists of an elongated reptilian upper cranium, two ribbed horns curving back and upward, two hollow eye sockets, visible nasal cavities, and an upper jaw displaying a row of roughly 11 sharp, conical teeth along the visible side. The lower jaw (mandible) is absent. The eye socket and nasal openings are hollow and reveal shaded, dark interior cavities. The object is colored in warm ivory, beige, and tan tones resembling weathered bone or sculpted stone, with green moss or lichen growing along the upper ridge and the horn bases. The entire skull is fully visible and not cropped by the frame. The background is a completely uniform, solid chroma blue with no floor, lighting gradients, cast shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3353,
+      "soft": 0.0048,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9922,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4192,
+   "tokens_out": 1687,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "dragon-eggs": {
+   "id": "dragon-eggs",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/dragon-eggs.try1.jpg",
+     "semantic": {
+      "what_i_see": "Three scaled, reddish-brown and gold fantasy eggs sit resting within a circular textured nest against a bright solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "Three scaled, reddish-brown and gold fantasy eggs sit resting within a circular textured nest against a bright solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single assembled prop consisting of a round nest containing three large egg-shaped objects arranged in a cluster (two in front, one centered behind them). Best name: fantasy dragon eggs in a nest; second guess: decorative reptile eggs in a woven bowl. Each egg is ovoid and decorated with a layered, feather- or scale-like pattern in tones of deep crimson red, amber, and golden ochre. The egg on the front right features a visible jagged crack traversing its upper surface. The nest has a thick, ring-shaped rim textured with mottled grey, charcoal, and dry straw-yellow brushwork, forming a shallow depression holding the eggs. The object is completely contained within the frame with no parts cropped. The background is a flat, uniform, highly saturated bright blue with no shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4907,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9964,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4156,
+   "tokens_out": 1431,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "gnawed-carcass": {
+   "id": "gnawed-carcass",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/gnawed-carcass.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D digital model of a stylized horned animal skeleton and partially preserved carcass floating against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D digital model of a stylized horned animal skeleton and partially preserved carcass floating against a solid bright blue background.",
+       "details": "There is no text, label, or watermark visible. The image shows a single isolated object: a stylized animal carcass or skeleton, resembling a bison, bull, or fantasy beast. The structure comprises an elongated skull at the front-left with two curved horns (one pointing upward-backward, one pointing forward-downward), an articulated spinal column, a visible rib cage consisting of six large curved ribs on the near side, and patches of weathered brown hide or leather draped over the top spine and mummified over the rear flank. The bone parts are colored cream and ivory with brownish shading and weathered fissure textures, while the horns and skin remnants are medium brown with stylized sculpted details. The entire model is intact and fully contained within the frame, casting no shadow, against a flat, uniform, vibrant blue background. There are no people, scenery, or other objects present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2873,
+      "soft": 0.0065,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9879,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4171,
+   "tokens_out": 3701,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "web-funnel": {
+   "id": "web-funnel",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/web-funnel.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized spider web lair structure featuring a circular central entrance, embedded bones, and wrapped cocoons against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized spider web lair structure featuring a circular central entrance, embedded bones, and wrapped cocoons against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. There is a single isolated object: a funnel-web spider nest or fantasy monster lair (second guess: an organic silk-spun tent structure). The structure rests upon six outward-reaching web struts ending in bulbous anchor feet (three on the left side, three on the right side). At the top, the silk sheets rise into three peaked anchor points designed to fit into a room corner, forming a triangular funnel shape. The front face features a prominent, circular tunnel entrance that is wide open, exposing a deep, dark black void inside. Embedded in the silk surface around the entrance are several items: on the upper left, a wrapped cocoon and an exposed set of rib bones with a long bone; on the upper right, a smaller silk-wrapped cocoon and an animal skull with teeth and large eye sockets. The material is fibrous, woven spider silk in shades of beige, ivory, and cream, while the bones are yellowish-tan. The entire object is centered and uncropped. The background is a flat, uniform, bright chroma-key blue with no ground plane, shadows, people, or additional scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4919,
+      "soft": 0.0062,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9947,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4258,
+   "tokens_out": 1965,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "egg-sacs-floor": {
+   "id": "egg-sacs-floor",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/egg-sacs-floor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital illustration of an organic, alien-like egg cluster featuring four intact rounded sacs and one open, hollow sac joined by fleshy webbing against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital illustration of an organic, alien-like egg cluster featuring four intact rounded sacs and one open, hollow sac joined by fleshy webbing against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single composite object representing an alien egg sac or fungal spore cluster. It comprises five bulbous, rounded pods interconnected by a webbed, translucent fleshy membrane. Four of the pods are closed, smooth, and spherical with pale cream and beige leathery textures covered in fine, greenish-grey branching veins. The fifth pod, situated near the top right, has a wide, torn, ragged circular opening exposing a dark, shadowed hollow interior. The surrounding membrane base forms scalloped folds and stretch marks beneath the pods. The object is completely visible without cropping against a uniform, flat, bright blue background without floor, shadows, or background elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4818,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4131,
+   "tokens_out": 2326,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "nest-giant": {
+   "id": "nest-giant",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/nest-giant.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized circular tribal nest or pedestal constructed from rough logs, large bones, animal fur, straw, tattered cloths, a horned animal skull, and a green shield, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized circular tribal nest or pedestal constructed from rough logs, large bones, animal fur, straw, tattered cloths, a horned animal skull, and a green shield, set against a solid blue background.",
+       "details": "There is no text, watermark, or label in the image. The image shows a single main composite object, best described as a stylized tribal platform, barbarian nest, or game pedestal, viewed from an elevated three-quarters angle. It consists of an outer circular border formed from rough brown wooden logs intertwined with large animal bones, strips of tattered olive-green and crimson-red cloth, a large horned skull on the front-left side, and a round green wooden shield with a studded iron rim embedded into the logs on the front-right side. Inside the circular rim lies an inner border of grey-brown fur lining, and at the center is a circular bed of woven golden-yellow straw. A tattered red banner or cloth drapes from the rear rim down into the straw center. The object is completely uncropped and intact. The background is a flat, uniform, bright blue screen with no floor, scenery, or shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4995,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4208,
+   "tokens_out": 1645,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hide-drying-rack": {
+   "id": "hide-drying-rack",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/hide-drying-rack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon-style wooden tanning rack holding a stretched animal hide against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon-style wooden tanning rack holding a stretched animal hide against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos visible in the image. The image features a single standalone object: a primitive tanning rack (second guess: animal hide drying frame or primitive A-frame display). The frame is constructed from rounded wooden logs arranged as a rectangular front frame (two uprights, top and bottom crossbars) supported in the back by two angled wooden support poles forming an A-frame easel. Inside the frame, an animal hide is stretched taut by sixteen small loop straps fastened to the wooden bars. The hide has dense brown fur in the center with lighter cream-colored edges and irregular contouring. Dark reddish-brown leather bindings wrap the four corners of the front frame where the vertical and horizontal logs intersect, as well as the rear support attachment point. The wood is textured with stylized grain in a warm light-brown tone. The entire object is fully contained within the frame with no parts cropped. The background is a uniform, solid chroma-key blue with no ground surface, shadows, or background elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4363,
+      "soft": 0.0114,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9859,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4168,
+   "tokens_out": 1988,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bunk-crude": {
+   "id": "bunk-crude",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/bunk-crude.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered triple-decker wooden bunk bed with straw mattresses, ragged blankets, and a small ladder, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered triple-decker wooden bunk bed with straw mattresses, ragged blankets, and a small ladder, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one main object: a rustic, hand-hewn fantasy triple bunk bed (second guess: pirate or barrack-style three-tier wooden sleeping berth). The bed consists of four thick corner posts composed of segmented vertical wooden blocks, three horizontal sleeping tiers, a decorative circular wooden plate with an iron studded rim on the left end, and a wooden ladder with four rungs positioned on the front right. Each bunk contains a thick straw or hay mattress with rolled headrests and a tattered, torn cloth blanket: the top blanket is dark red, the middle blanket is olive green, and the bottom blanket is golden-ochre. The wood exhibits stylized grain, nicks, and worn patches of pale paint and mossy green weathering, joined together with round iron bolts or rivets. The bunk bed has four base feet resting evenly, with no openable drawers, doors, or lids. The object is completely visible without any cropping. The background is a flat, uniform, high-saturation blue with no cast shadows, floor surface, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.6055,
+      "soft": 0.0071,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.993,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 469
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4241,
+   "tokens_out": 4237,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bone-throne": {
+   "id": "bone-throne",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/bone-throne.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D-rendered fantasy bone throne decorated with an animal skull and red bindings, set atop an assortment of crates, sacks, barrels, a treasure chest, and a shield against a flat blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D-rendered fantasy bone throne decorated with an animal skull and red bindings, set atop an assortment of crates, sacks, barrels, a treasure chest, and a shield against a flat blue background.",
+       "details": "There are no visible text labels, signatures, or watermarks. The subject is a single composite game-asset prop representing a tribal or barbarian chieftain's throne on a pile of loot. The throne features a large horned skull at the top, thick ivory-colored bone or tusk pillars wrapped with red cords, upright bundles of dark wooden stakes on either side, bone armrests tipped with curved horns, and a seat covered in layered brown fur pelt. Beneath and around the throne base is an assortment of equipment: two wooden shipping crates on the left (with a red and yellow fringed cloth runner draped over the larger top crate), three tied tan burlap sacks, a horizontally resting wooden barrel with grey metal bands, another partially obscured barrel or tub behind it, a small closed wooden treasure chest with metal reinforcing bands and a latch, a rolled-up red and yellow patterned rug tied with rope, and a round wooden shield painted green with a central iron boss and rim propped against the front barrel. All containers, crates, and the chest are closed. The entire asset is uncropped and fully contained within the frame. The background is a solid, uniform, bright blue chroma key without shadows, floor plane, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4562,
+      "soft": 0.0082,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9901,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 11
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4301,
+   "tokens_out": 4132,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "totem-skull": {
+   "id": "totem-skull",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/totem-skull.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of a wooden tribal totem pole decorated with animal and human skulls, set into a stone base against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of a wooden tribal totem pole decorated with animal and human skulls, set into a stone base against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image shows a single composite object: a tribal marker post or totem pole (second guess: cross-shaped grave marker). It consists of a tall, vertical wooden post with painted diagonal red stripes, a horizontal crossbar lashed tightly with thick rope, a horned animal skull (bovine/bull) positioned at the center top, two human skulls bound with rope to the outer ends of the crossbar, dangling red fabric and dark feathers beneath the central skull, and a circular base of grey rocks with patches of green moss. There are no moving parts, lids, or doors. The materials appear to be carved wood, bone, natural rope fiber, fabric, feathers, and rough stone. The object is completely intact and fully enclosed in the frame without cropping. The background is a completely uniform, flat electric blue with no floor, shadows, or background elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1503,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9858,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 22
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4169,
+   "tokens_out": 1575,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cave-mouth": {
+   "id": "cave-mouth",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/cave-mouth.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone cave entrance marked with deep claw slashes around the opening, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone cave entrance marked with deep claw slashes around the opening, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single object: a rocky cave entrance, also describable as a fantasy monster den or stone cavern arch. It consists of multiple faceted, angular boulders fitted together to form an arched canopy over a wide, rounded cavern entrance. Large diagonal gouges resembling beast claw marks are visibly carved into the stone surfaces on both the left and right sides of the entrance. The entrance is fully open, though the interior is a flat, pitch-black void showing no internal depth or features. The stone material displays shades of tan, grey, and ochre, highlighted with patches of green moss growth in crevices and on upper surfaces. The entire structure is uncropped and fully visible, isolated on a seamless, uniform bright blue chroma background with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5407,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4150,
+   "tokens_out": 2263,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rock-outcrop": {
+   "id": "rock-outcrop",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/rock-outcrop.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital illustration of a stepped, moss-covered rock formation set against a flat, solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital illustration of a stepped, moss-covered rock formation set against a flat, solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one isolated object: a tiered rocky outcropping or cliff formation (second guess: a stylized boulder pedestal). The structure features roughly three to four distinct stepped elevations or ledges, descending from the highest plateau on the upper-left/center down towards the right and front. The surfaces are angular, fractured, and faceted, with deep vertical fissures, jagged cracks, and flat horizontal shelf areas. Patches of short green moss and sparse vegetation cling to the flat surfaces, crevices, and horizontal ledges. The primary materials depicted are grey, ochre, and warm brownish-tan stone, textured with painterly brushstrokes, along with yellowish-olive green plant growth. The entire rock formation is whole and completely contained within the frame without cropping. The background is a completely uniform, solid chroma-key blue with no cast shadows, floor plane, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4868,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9971,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4124,
+   "tokens_out": 1376,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "boulder-pile": {
+   "id": "boulder-pile",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/boulder-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized digital cluster of three mossy boulders against a vibrant, solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D stylized digital cluster of three mossy boulders against a vibrant, solid blue background.",
+       "details": "There is no text, watermark, or label in the image. The object consists of a cluster of three attached or tightly grouped stylized boulders or rocks (best name: boulder cluster; second guess: video game nature asset). One large boulder sits on the left, a smaller boulder sits in the upper right, and another medium boulder rests in the lower right. The stones have faceted, stylized painted surfaces with earthy tones of gray, tan, brown, and patches of mossy green. There are no moving parts, doors, drawers, or openings. The entire rock formation is whole and not cropped by the frame. The background is a flat, uniform pure blue screen with no visible ground plane, shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4723,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9974,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4061,
+   "tokens_out": 1362,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-burnt": {
+   "id": "tree-burnt",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/tree-burnt.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, gnarled tree stump with three splintered, broken branch stubs and sprawling roots, isolated against a uniform blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, gnarled tree stump with three splintered, broken branch stubs and sprawling roots, isolated against a uniform blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single object: a stylized tree stump (or fantasy 3D tree prop asset). The stump has a thick central trunk that splits into three jagged, broken vertical branch stubs at the top (left, center, and right). At the bottom, several prominent, claw-like roots (about six to seven main visible branches) flare outwards and anchor it down. Deep crevices and splintered sections run along the center and top breaks, exposing the warm, reddish-brown inner wood beneath the thick, dark charcoal-grey, weathered bark. The bark has a chiseled, painterly texture. The entire object is fully contained within the frame with no cropping. The background is a flat, uniform solid bright blue with no shadows, floor plane, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3218,
+      "soft": 0.0063,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9921,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4127,
+   "tokens_out": 1277,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "treasure-hoard-heap--s2": {
+   "id": "treasure-hoard-heap--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/lai/work/treasure-hoard-heap--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A rounded heap of gold coins with three gold ingots, an iron helmet, and a round shield partially buried inside, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A rounded heap of gold coins with three gold ingots, an iron helmet, and a round shield partially buried inside, set against a solid blue background.",
+       "details": "There is no text, label, or watermark visible. The image shows a single main heap or mound composed primarily of small, flat, round golden-yellow coins. Partially protruding from the mound are several distinct items: a rounded, dull grey metallic helmet with vertical visor slats on the upper left; three rectangular gold ingots (two near the center left and one slightly lower); and a large circular grey/silver rimmed shield or platter on the right side. The mound is fully contained within the frame, showing a slightly uneven, rounded contour. The background is a flat, uniform, vibrant cobalt blue screen with no shadows cast onto a floor.",
+       "reference_differences": [
+        "The candidate mound forms a solid, convex dome, whereas the reference mound has a wide, hollowed-out crater or basin in the center.",
+        "The candidate includes a grey metallic helmet, which is absent in the reference.",
+        "The reference features a small wooden and iron treasure chest, a sword hilt, a golden crown, two golden cups/bells, and red and green jewels, none of which appear in the candidate.",
+        "The candidate contains three rectangular gold ingots, whereas the reference shows two.",
+        "The shield in the candidate is entirely plain grey metal, whereas the shield in the reference has a visible red face with rivets and a grey rim."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3129,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9938,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5404,
+   "tokens_out": 1603,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

@@ -1,0 +1,144 @@
+{
+ "file": "beast-hawk.glb",
+ "tris": 49118,
+ "kb": 2452,
+ "native_extent": [
+  0.597,
+  0.999,
+  0.671
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  110,
+  62,
+  32
+ ],
+ "mean_saturation": 0.746,
+ "sized_by": "its highest point",
+ "overall_ft": 2.0,
+ "pieces": {
+  "connected_parts": 4,
+  "main_part_area_share": 0.5044,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 2.0037,
+ "y0": -0.9973,
+ "stated_ft": {
+  "body": 2.0,
+  "figure_top": 2.0,
+  "overall": 2.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2982,
+   -0.4981,
+   -0.3353
+  ],
+  [
+   0.2984,
+   0.5005,
+   0.3353
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49118,
+   "tex": 2048,
+   "kb": 2452
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 959
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 425
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.0,
+    "z": -0.55,
+    "size_ft": [
+     0.23,
+     0.76
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.34,
+    "sole_p90_ft": 0.159
+   },
+   {
+    "x": 0.32,
+    "z": 0.3,
+    "size_ft": [
+     0.44,
+     0.64
+    ],
+    "off_ground_ft": 0.068,
+    "sole_level_share": 0.73,
+    "sole_p90_ft": 0.143
+   },
+   {
+    "x": -0.33,
+    "z": 0.29,
+    "size_ft": [
+     0.44,
+     0.64
+    ],
+    "off_ground_ft": 0.068,
+    "sole_level_share": 0.73,
+    "sole_p90_ft": 0.143
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.068,
+  "lowest_slab_area_sqft": 0.03,
+  "plan_hull_area_sqft": 1.27,
+  "lowest_slab_share_of_plan": 0.021
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.19,
+   "d": 1.34,
+   "h": 2.0
+  },
+  "centre": [
+   -0.001,
+   0.031
+  ],
+  "contacts_radius_ft": 0.72,
+  "reach_radius_ft": 0.7,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.913,
+  "plate_lost_share": 0.04,
+  "added_share": 0.052,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.856,
+  "view_yaw_deg": 330,
+  "view_elev_deg": 8
+ },
+ "id": "beast-hawk",
+ "sha1": "237bad47dc3bf364adffdd3c71d891430891129a",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 14.6
+}

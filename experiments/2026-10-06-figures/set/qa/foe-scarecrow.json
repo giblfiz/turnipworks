@@ -1,0 +1,133 @@
+{
+ "file": "foe-scarecrow.glb",
+ "tris": 49751,
+ "kb": 3295,
+ "native_extent": [
+  0.542,
+  1.001,
+  0.628
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0438,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  107,
+  54,
+  19
+ ],
+ "mean_saturation": 0.849,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 72,
+  "main_part_area_share": 0.9994,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.9971,
+ "y0": -3.0009,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2716,
+   -0.5005,
+   -0.3112
+  ],
+  [
+   0.2707,
+   0.5003,
+   0.3172
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49751,
+   "tex": 2048,
+   "kb": 3295
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1268
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 538
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.0,
+    "z": 0.89,
+    "size_ft": [
+     0.88,
+     1.5
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.75,
+    "sole_p90_ft": 0.104
+   },
+   {
+    "x": -0.47,
+    "z": -1.49,
+    "size_ft": [
+     0.8,
+     1.5
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.73,
+    "sole_p90_ft": 0.104
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 1.93,
+  "plan_hull_area_sqft": 7.76,
+  "lowest_slab_share_of_plan": 0.249
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.24,
+   "d": 3.76,
+   "h": 6.0
+  },
+  "centre": [
+   0.023,
+   -0.056
+  ],
+  "contacts_radius_ft": 2.0,
+  "reach_radius_ft": 2.05,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.875,
+  "plate_lost_share": 0.053,
+  "added_share": 0.081,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.861,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 16
+ },
+ "id": "foe-scarecrow",
+ "sha1": "a78f449b68fcdfa0b770641d609f209ed5010586",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 17.8
+}

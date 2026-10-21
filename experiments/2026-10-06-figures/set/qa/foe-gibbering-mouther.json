@@ -1,0 +1,135 @@
+{
+ "file": "foe-gibbering-mouther.glb",
+ "tris": 48757,
+ "kb": 3087,
+ "native_extent": [
+  1.001,
+  0.987,
+  0.98
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  124,
+  76,
+  69
+ ],
+ "mean_saturation": 0.51,
+ "sized_by": "its highest point",
+ "overall_ft": 3.5,
+ "pieces": {
+  "connected_parts": 12,
+  "main_part_area_share": 0.9993,
+  "floating": [
+   {
+    "area_share": 0.00032,
+    "gap_ft": 0.06,
+    "size_ft": 0.21
+   },
+   {
+    "area_share": 0.00018,
+    "gap_ft": 0.08,
+    "size_ft": 0.15
+   }
+  ],
+  "floating_count": 2,
+  "floating_area_share": 0.0005,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.5486,
+ "y0": -1.7506,
+ "stated_ft": {
+  "body": 3.5,
+  "figure_top": 3.5,
+  "overall": 3.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.5003,
+   -0.4935,
+   -0.4903
+  ],
+  [
+   0.5003,
+   0.4934,
+   0.4894
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48757,
+   "tex": 2048,
+   "kb": 3087
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1196
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 513
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.01,
+    "z": -0.01,
+    "size_ft": [
+     3.46,
+     3.56
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.72,
+    "sole_p90_ft": 0.097
+   }
+  ],
+  "contact_count": 1,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 7.82,
+  "plan_hull_area_sqft": 9.41,
+  "lowest_slab_share_of_plan": 0.831
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.55,
+   "d": 3.48,
+   "h": 3.5
+  },
+  "centre": [
+   -0.006,
+   -0.027
+  ],
+  "contacts_radius_ft": 1.79,
+  "reach_radius_ft": 1.79,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.947,
+  "plate_lost_share": 0.036,
+  "added_share": 0.018,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.947,
+  "view_yaw_deg": 55,
+  "view_elev_deg": 8
+ },
+ "id": "foe-gibbering-mouther",
+ "sha1": "597d5cc94053a256c6e93a4dcabed5aa1abc7ed3",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.06 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 14.8
+}

@@ -1,0 +1,133 @@
+{
+ "file": "foe-bandit-axes.glb",
+ "tris": 49949,
+ "kb": 2996,
+ "native_extent": [
+  0.528,
+  1.001,
+  0.559
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  83,
+  53,
+  37
+ ],
+ "mean_saturation": 0.613,
+ "sized_by": "its highest point",
+ "overall_ft": 5.9,
+ "pieces": {
+  "connected_parts": 160,
+  "main_part_area_share": 0.9988,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.896,
+ "y0": -2.9499,
+ "stated_ft": {
+  "body": 5.9,
+  "figure_top": 5.9,
+  "overall": 5.9
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.265,
+   -0.5003,
+   -0.2778
+  ],
+  [
+   0.2632,
+   0.5004,
+   0.2817
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49949,
+   "tex": 2048,
+   "kb": 2996
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1133
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 489
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.07,
+    "z": 0.97,
+    "size_ft": [
+     0.74,
+     1.43
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.82,
+    "sole_p90_ft": 0.081
+   },
+   {
+    "x": -0.71,
+    "z": -1.12,
+    "size_ft": [
+     0.91,
+     1.4
+    ],
+    "off_ground_ft": 0.003,
+    "sole_level_share": 0.86,
+    "sole_p90_ft": 0.074
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.003,
+  "lowest_slab_area_sqft": 1.6,
+  "plan_hull_area_sqft": 6.33,
+  "lowest_slab_share_of_plan": 0.253
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.11,
+   "d": 3.3,
+   "h": 5.9
+  },
+  "centre": [
+   -0.042,
+   0.225
+  ],
+  "contacts_radius_ft": 1.89,
+  "reach_radius_ft": 1.95,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.882,
+  "plate_lost_share": 0.044,
+  "added_share": 0.084,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.856,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 16
+ },
+ "id": "foe-bandit-axes",
+ "sha1": "461eb9f477b218a73d292651dd18b17bef5f17f9",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 13.8
+}

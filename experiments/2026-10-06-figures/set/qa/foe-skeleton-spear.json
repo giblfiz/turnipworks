@@ -1,0 +1,196 @@
+{
+ "file": "foe-skeleton-spear.glb",
+ "tris": 49176,
+ "kb": 3338,
+ "native_extent": [
+  0.476,
+  1.0,
+  0.445
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0009,
+  "seen": 0.0003
+ },
+ "mean_rgb": [
+  96,
+  75,
+  51
+ ],
+ "mean_saturation": 0.549,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 6.2,
+  "length_ft": 6.47,
+  "low_end_ft": [
+   -1.18,
+   0.34,
+   -0.3
+  ],
+  "high_end_ft": [
+   -1.19,
+   6.81,
+   -0.32
+  ],
+  "tilt_from_upright_deg": 0.2,
+  "thickness_ft": 0.27,
+  "clear_share": 0.92,
+  "joined_share": 0.08,
+  "broken_share": 0.0,
+  "walk_low_to_high": "----------------------------#####---------------------------"
+ },
+ "overall_ft": 6.72,
+ "pieces": {
+  "connected_parts": 311,
+  "main_part_area_share": 0.5195,
+  "floating": [
+   {
+    "area_share": 0.38134,
+    "gap_ft": 0.04,
+    "size_ft": 3.23
+   },
+   {
+    "area_share": 0.0009,
+    "gap_ft": 0.31,
+    "size_ft": 0.27
+   },
+   {
+    "area_share": 0.00055,
+    "gap_ft": 0.3,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 0.00053,
+    "gap_ft": 0.84,
+    "size_ft": 0.19
+   },
+   {
+    "area_share": 0.00053,
+    "gap_ft": 0.33,
+    "size_ft": 0.17
+   },
+   {
+    "area_share": 0.0005,
+    "gap_ft": 0.26,
+    "size_ft": 0.17
+   },
+   {
+    "area_share": 0.00049,
+    "gap_ft": 0.31,
+    "size_ft": 0.17
+   },
+   {
+    "area_share": 0.00049,
+    "gap_ft": 0.24,
+    "size_ft": 0.18
+   }
+  ],
+  "floating_count": 193,
+  "floating_area_share": 0.39015,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.7284,
+ "y0": -3.3671,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2405,
+   -0.5005,
+   -0.2226
+  ],
+  [
+   0.2352,
+   0.4997,
+   0.2226
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49176,
+   "tex": 2048,
+   "kb": 3338
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1316
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 570
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.65,
+    "z": -0.6,
+    "size_ft": [
+     1.18,
+     1.51
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.48,
+    "sole_p90_ft": 0.149
+   },
+   {
+    "x": 1.11,
+    "z": 0.8,
+    "size_ft": [
+     0.92,
+     1.46
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.45,
+    "sole_p90_ft": 0.135
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.84,
+  "plan_hull_area_sqft": 5.71,
+  "lowest_slab_share_of_plan": 0.323
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.19,
+   "d": 2.99,
+   "h": 6.72
+  },
+  "centre": [
+   0.162,
+   0.235
+  ],
+  "contacts_radius_ft": 1.66,
+  "reach_radius_ft": 1.88,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.857,
+  "plate_lost_share": 0.085,
+  "added_share": 0.068,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.847,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 8
+ },
+ "id": "foe-skeleton-spear",
+ "sha1": "5245eebc82c7de12f354e2478270b2b7e333630b",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.04 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 11.9
+}

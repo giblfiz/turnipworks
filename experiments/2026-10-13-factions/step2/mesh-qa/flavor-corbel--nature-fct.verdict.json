@@ -1,0 +1,36 @@
+{
+ "sku": "flavor-corbel--nature-fct",
+ "glb_sha1": "c71849a71f6af9c2c506408450d0119fdb12c569",
+ "time": "2026-10-13T06:52:48-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "decorative corbel",
+  "second_guess": "carved wall shelf bracket",
+  "confidence": 0.85,
+  "reads_clearly_at_distance": true,
+  "description": "A carved architectural corbel or wall bracket in the Green Man motif. It consists of a flat, rectangular wooden top shelf supported by an ornate bracket depicting a bearded face emerging from green leaves and curling acanthus scrollwork, with a flat vertical back for wall mounting. The surfaces are continuous, solid, and sculpted cleanly with painted wood textures in brown and olive-green.",
+  "from_above": "A plain rectangular brown shelf surface.",
+  "defects": [
+   "floats unsupported in mid-air (wall-mounted asset rendered without a wall)"
+  ],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About one-third the height of the 5 ft 9 in figure (roughly 2 ft tall) and approximately 1.5 ft wide."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "decorative corbel",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "designed as wall-mounted corbel bracket without wall geometry"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)",
+  "gemini note: designed as wall-mounted corbel bracket without wall geometry"
+ ],
+ "vision": true
+}

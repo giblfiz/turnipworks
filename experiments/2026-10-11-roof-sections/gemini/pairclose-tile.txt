@@ -1,0 +1,50 @@
+Excellent, this is a clear comparison of asset implementation. Here is the detailed analysis.
+
+### Visible Text and Labels
+
+The text and labels are identical in both images:
+*   **Top Left:** Icons for "Pawns", "Build", and "Settings".
+*   **Top Center:** A search bar with the placeholder text "Search commands, things to place, people, places... or say / roll". Below it are buttons labeled "Area 1", "Open to players", and "Hide".
+*   **Center:** A label pointing to the building, reading "Building 1".
+*   **Top Right:** A minimap icon labeled "Area 1".
+*   **Bottom Left:** A text input field with the placeholder "say ... or roll d20 in the bar".
+*   **Bottom Right:** Status text reading "link: less 1 ms Area 1 loop: 6 160 fps".
+
+---
+
+### Analysis
+
+**1. Description of Roof Surfaces**
+
+*   **Roof A:** This surface is a flat 2D texture applied to the roof's geometry. It is a picture of tiles, not modeled tiles. This is evident because there is no self-shadowing; the "shadows" underneath each tile are painted into the texture itself and do not change with the light source. The highlights are also flat and part of the image. The ridge cap and the valley are simple, sharp geometric intersections with the texture stretched or cut abruptly.
+*   **Roof B:** This surface is made of 3D geometry. The rows of tiles are physically modeled, creating real depth and relief. You can see small, sharp shadows being cast by the overlapping edge of each tile onto the tile below it. The curved surfaces of the tiles catch the light, creating specular highlights that define their shape. The ridge cap is a distinct, rounded 3D model that sits on top of the roof planes.
+
+**2. Physical Model vs. Cheaper Appearance**
+
+*   **Roof B** looks vastly more like a physical model. The three-dimensional relief of the tiles gives it substance and weight. The way the light interacts with the individual tile shapes is convincing and mimics how a real-world miniature would look.
+*   **Roof A** looks significantly cheaper. It is a flat plane with a picture on it. This is a common performance-saving technique, but at this close distance, the illusion is completely broken. It looks like a low-quality or placeholder asset from an older video game.
+
+**3. Faults and Imperfections**
+
+*   **Image A (The flat texture):**
+    *   **Valley:** The valley where the two roof planes meet is a catastrophic failure. The two textures meet at a sharp, jagged, unnatural seam. There is no attempt to model a gutter or flashing, and the tile patterns collide horribly.
+    *   **Ridge:** The ridge cap is just a flat, painted stripe in the texture, which looks fake.
+    *   **Dormer:** The texture is crudely cut off where it meets the dormer window, with no sense of how tiles would be fitted around such a structure.
+    *   **Repetition:** The texture is visibly repetitive, a hallmark of a tiled image map.
+
+*   **Image B (The 3D model):**
+    *   **Hole:** There is a glaring hole in the roof. On the foreground roof plane, a single tile appears to be missing, leaving a dark, square gap. This is a major visual bug.
+    *   **Valley:** While vastly superior to A, the valley is not perfect. There is a visible dark seam where the tile geometry meets the central valley flashing model. It doesn't look perfectly sealed.
+    *   **Clipping:** The tiles appear to clip slightly into the side wall of the dormer.
+
+**4. Style Consistency**
+
+The walls, door, and chimney have a "hand-painted, chunky" style, implying they should have tangible volume and a slightly stylized, crafted feel.
+*   **Roof A** completely fails to match this style. Its flatness is the antithesis of "chunky." It looks like a cheap sticker placed on a high-quality model.
+*   **Roof B** perfectly matches the style. The tiles themselves are chunky, have real volume, and contribute to the overall aesthetic of a solid, hand-built structure.
+
+**5. Final Verdict**
+
+**Ship B, 100% sure.**
+
+Roof A is fundamentally the wrong approach for this art style and camera distance; its flaws are systemic. Roof B uses the correct approach and looks excellent, but it has a single, easily fixable bug (the hole). You fix the bug in B; you cannot "fix" A without replacing it entirely with something like B.

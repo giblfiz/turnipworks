@@ -1,0 +1,98 @@
+[
+  {
+    "suite": "ui",
+    "rc": 0,
+    "seconds": 123.3,
+    "counts": [
+      "browser UI: 87/87 passed"
+    ],
+    "log": "/tmp/tw-fog-regression-ui.log"
+  },
+  {
+    "suite": "rooms",
+    "rc": 0,
+    "seconds": 149.4,
+    "counts": [
+      "browser rooms: 130/130 passed"
+    ],
+    "log": "/tmp/tw-fog-regression-rooms.log"
+  },
+  {
+    "suite": "pawnring",
+    "rc": 0,
+    "seconds": 83.4,
+    "counts": [
+      "pawnring: 105/105 passed"
+    ],
+    "log": "/tmp/tw-fog-regression-pawnring.log"
+  },
+  {
+    "suite": "pawnsmenu",
+    "rc": 0,
+    "seconds": 103.6,
+    "counts": [
+      "pawnsmenu: 168/168 passed"
+    ],
+    "log": "/tmp/tw-fog-regression-pawnsmenu.log"
+  },
+  {
+    "suite": "two_tab",
+    "rc": 0,
+    "seconds": 44.8,
+    "counts": [
+      "browser two-tab: 28/28 passed"
+    ],
+    "log": "/tmp/tw-fog-regression-two_tab-retry.log",
+    "first_attempt": {
+      "rc": 1,
+      "counts": [
+        "browser two-tab: 25/28 passed"
+      ],
+      "log": "/tmp/tw-fog-regression-two_tab.log"
+    },
+    "fixture": "NPC placed100,100 before actual mouse selection; prior concurrent drops can overlap projected pawn positions",
+    "initialAttempt": {
+      "rc": 0,
+      "counts": [
+        "browser two-tab: 28/28 passed"
+      ],
+      "reason": "randomized pawn projections overlap at real click; target fixture separated before bounded rerun"
+    }
+  },
+  {
+    "suite": "cut",
+    "rc": 0,
+    "seconds": 331.6,
+    "counts": [
+      "cut: 140/140 passed"
+    ],
+    "log": "/tmp/tw-fog-regression-cut.log"
+  },
+  {
+    "suite": "cuts",
+    "rc": 0,
+    "seconds": 32.5,
+    "counts": [
+      "cuts: 26/26 passed"
+    ],
+    "log": "/tmp/tw-fog-regression-cuts.log"
+  },
+  {
+    "suite": "followons",
+    "rc": 0,
+    "seconds": 65.4,
+    "counts": [
+      "follow-ons: 42/42 passed"
+    ],
+    "log": "/tmp/tw-fog-regression-followons.log"
+  },
+  {
+    "suite": "graphics",
+    "rc": 0,
+    "seconds": 163.3,
+    "counts": [
+      "93/93 checks passed"
+    ],
+    "log": "/tmp/tw-fog-regression-graphics.log"
+  }
+]

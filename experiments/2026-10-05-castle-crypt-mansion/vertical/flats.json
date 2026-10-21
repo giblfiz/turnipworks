@@ -1,0 +1,105 @@
+{
+ "what": "Roof-surface flats for the vertical kit (2026-10-05). SPEC ONLY. Route: the free ground-texture route of experiments/2026-10-05-outdoors (codex exec image generation with the FLOOR prompt and the tavern style anchor -> inputs/<id>.jpg -> seamless/<id>.png).",
+ "naming": "Harry suggested roof-thatch / roof-tile-clay / roof-slate / roof-shingle-wood-flat. `roof-thatch` and `roof-shingle-wood` are already MESH kit roles in fantasy-core.catalog.md (roof-shingle-wood has two meshes in the library), so the flats take their own prefix, `roofing-`, the way ground textures are `floor-`. Catalog lines: catalog/objects-vertical.catalog.md, section A12.",
+ "directionality": [
+  "Courses run along image X; eaves at image bottom, ridge at image top. The roof builder maps U along the eaves and V up the slope, and turns the texture per roof plane so that 'image bottom' always points down-slope.",
+  "The texture is painted flat at true scale (60 in of slope per tile height). Map V over SLOPE length, not plan length, so courses keep their size on a steep roof.",
+  "Unlike floors, a roofing tile must NOT be laid in the floor's rotate/shuffle mode: rotating a cell by 90 degrees would stand the courses on end. Variants (v2) may be mixed per cell, unrotated, only if they are edge-matched like floor-gravel (edge_match.py); otherwise lay one variant per roof plane.",
+  "The only baked shading is the thin overlap shadow under each course, which is correct for any sun direction in a top-down view."
+ ],
+ "seamless_note": "make_seamless.py cross-fades the edges, which ghosted the cobbles in the outdoors batch; coursed textures need the CUT join (finish_new.py), and the prompt fixes a whole number of courses and tiles per row so the bond closes at the seam. Check with check_new.py's 3x3 tiling: a broken course at the top/bottom seam is the failure to look for.",
+ "prompt_subject_template": "the FLOOR prompt in experiments/2026-10-05-outdoors/gen.py with subject = 'a roofing material swatch: <id>' and 'ground' read as 'roof surface'; detail = prompt_detail below",
+ "flats": [
+  {
+   "id": "roofing-thatch",
+   "object": "roofing-thatch",
+   "kind": "roof-surface",
+   "size_ft": [
+    5,
+    5
+   ],
+   "variants": 2,
+   "description": "Combed golden-ochre straw thatch seen flat: fine, soft strokes running straight UP-AND-DOWN the image (the straw lies down the slope), in warm ochre with greyer weathered streaks, crossed by three faint, slightly darker horizontal bands 20 in apart (the edges of the thatch layers), each with a soft shadow below it. No rods, no netting, no ridge pattern.",
+   "courses": {
+    "direction": "straw strokes vertical (down-slope); 3 faint layer bands horizontal",
+    "count": 3,
+    "exposure_in": 20
+   },
+   "used_by": [
+    "cottage, peasant-hut and poor-inn roofs",
+    "matches roof-dormer--thatch, roof-ridge--thatch, chimney-stack--cottage"
+   ],
+   "prompt_detail": "Combed golden-ochre straw thatch seen flat: fine, soft strokes running straight UP-AND-DOWN the image (the straw lies down the slope), in warm ochre with greyer weathered streaks, crossed by three faint, slightly darker horizontal bands 20 in apart (the edges of the thatch layers), each with a soft shadow below it. No rods, no netting, no ridge pattern. Painted FLAT, as if the roof slope were laid on the ground and seen from straight above (top-down orthographic, no perspective, no foreshortening). Courses run exactly HORIZONTALLY across the image (along X); the eaves are at the BOTTOM of the image and the ridge at the top, so each course overlaps the one BELOW it and its small painted overlap shadow falls along its lower edge only. A whole number of courses fills the height, and the pattern continues across the left/right and top/bottom edges, so the 5 ft x 5 ft square tiles seamlessly. Even tone over the whole square, no big light or dark blotches, no moss landmarks, no missing pieces."
+  },
+  {
+   "id": "roofing-tile-clay",
+   "object": "roofing-tile-clay",
+   "kind": "roof-surface",
+   "size_ft": [
+    5,
+    5
+   ],
+   "variants": 2,
+   "description": "Plain flat terracotta roof tiles with slightly rounded lower edges, in SIX horizontal courses of 10 in, each tile about 7.5 in wide (eight per course), every other course shifted half a tile (broken bond). Orange-red clay with single tiles a little darker, browner or more ochre, spread evenly; a thin dark shadow under each course's lower edge.",
+   "courses": {
+    "direction": "horizontal",
+    "count": 6,
+    "exposure_in": 10,
+    "bond": "half-tile offset on alternate courses; 8 tiles across so the bond closes at the side seam"
+   },
+   "used_by": [
+    "town-house, better-inn and temple-outbuilding roofs",
+    "matches roof-dormer--tile, roof-ridge--tile, chimney-stack--brick"
+   ],
+   "prompt_detail": "Plain flat terracotta roof tiles with slightly rounded lower edges, in SIX horizontal courses of 10 in, each tile about 7.5 in wide (eight per course), every other course shifted half a tile (broken bond). Orange-red clay with single tiles a little darker, browner or more ochre, spread evenly; a thin dark shadow under each course's lower edge. Painted FLAT, as if the roof slope were laid on the ground and seen from straight above (top-down orthographic, no perspective, no foreshortening). Courses run exactly HORIZONTALLY across the image (along X); the eaves are at the BOTTOM of the image and the ridge at the top, so each course overlaps the one BELOW it and its small painted overlap shadow falls along its lower edge only. A whole number of courses fills the height, and the pattern continues across the left/right and top/bottom edges, so the 5 ft x 5 ft square tiles seamlessly. Even tone over the whole square, no big light or dark blotches, no moss landmarks, no missing pieces."
+  },
+  {
+   "id": "roofing-slate",
+   "object": "roofing-slate",
+   "kind": "roof-surface",
+   "size_ft": [
+    5,
+    5
+   ],
+   "variants": 2,
+   "description": "Roofing slates with square lower edges in EIGHT neat horizontal courses of 7.5 in, each slate 10 in wide (six per course), alternate courses shifted half a slate. Charcoal, warm grey and grey-green slates mixed evenly, a few with a rusty-ochre streak; crisp but soft-painted lower edges with a thin shadow line. No blue, no purple.",
+   "courses": {
+    "direction": "horizontal",
+    "count": 8,
+    "exposure_in": 7.5,
+    "bond": "half-slate offset on alternate courses; 6 slates across"
+   },
+   "used_by": [
+    "mansion, town-hall, chapel and castle-turret roofs",
+    "matches roof-dormer--slate, roof-ridge--lead, chimney-stack--mansion"
+   ],
+   "prompt_detail": "Roofing slates with square lower edges in EIGHT neat horizontal courses of 7.5 in, each slate 10 in wide (six per course), alternate courses shifted half a slate. Charcoal, warm grey and grey-green slates mixed evenly, a few with a rusty-ochre streak; crisp but soft-painted lower edges with a thin shadow line. No blue, no purple. Painted FLAT, as if the roof slope were laid on the ground and seen from straight above (top-down orthographic, no perspective, no foreshortening). Courses run exactly HORIZONTALLY across the image (along X); the eaves are at the BOTTOM of the image and the ridge at the top, so each course overlaps the one BELOW it and its small painted overlap shadow falls along its lower edge only. A whole number of courses fills the height, and the pattern continues across the left/right and top/bottom edges, so the 5 ft x 5 ft square tiles seamlessly. Even tone over the whole square, no big light or dark blotches, no moss landmarks, no missing pieces."
+  },
+  {
+   "id": "roofing-shingle-wood",
+   "object": "roofing-shingle-wood",
+   "kind": "roof-surface",
+   "size_ft": [
+    5,
+    5
+   ],
+   "variants": 2,
+   "description": "Split wooden shingles (shakes) in SIX horizontal courses of 10 in, the shingles of RANDOM widths between 4 and 9 in with ragged, uneven lower edges and broad painted grain running up-and-down. Weathered silver-grey and warm grey-brown mixed evenly, a few honey-coloured newer ones; a soft shadow under each course.",
+   "courses": {
+    "direction": "horizontal",
+    "count": 6,
+    "exposure_in": 10,
+    "bond": "random widths; no vertical joint lines up in two courses running"
+   },
+   "used_by": [
+    "lodge, mill, log-cabin and middle-wealth inn roofs; porch and lean-to roofs",
+    "matches roof-dormer--shingle, chimney-stack--stone"
+   ],
+   "prompt_detail": "Split wooden shingles (shakes) in SIX horizontal courses of 10 in, the shingles of RANDOM widths between 4 and 9 in with ragged, uneven lower edges and broad painted grain running up-and-down. Weathered silver-grey and warm grey-brown mixed evenly, a few honey-coloured newer ones; a soft shadow under each course. Painted FLAT, as if the roof slope were laid on the ground and seen from straight above (top-down orthographic, no perspective, no foreshortening). Courses run exactly HORIZONTALLY across the image (along X); the eaves are at the BOTTOM of the image and the ridge at the top, so each course overlaps the one BELOW it and its small painted overlap shadow falls along its lower edge only. A whole number of courses fills the height, and the pattern continues across the left/right and top/bottom edges, so the 5 ft x 5 ft square tiles seamlessly. Even tone over the whole square, no big light or dark blotches, no moss landmarks, no missing pieces."
+  }
+ ],
+ "flat_instead_of_mesh": [
+  "Ridge on slate and wood-shingle roofs: if the roof code extrudes a ridge strip, texture it lead-grey; roof-ridge--lead is the mesh alternative (prio 3).",
+  "Lead flashing round dormers and chimneys: a flat dark-grey skirt drawn by the roof code, no asset."
+ ]
+}

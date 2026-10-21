@@ -1,0 +1,2726 @@
+{
+ "_source": "commit 98734365 (HEAD of ringellipse; the worktree had uncommitted ring edits from another session, so a HEAD snapshot was probed)",
+ "_ringlab": "handled | partial | toast | missing ('partial' = present but degraded: see ringlabNote)",
+ "one pawn": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "pawn.sheet",
+    "title": "Character sheet and notes",
+    "where": "primary, slot 11.34",
+    "interaction": "click → app.emit('ring.sheet') → showSheet: card at the button (Name field, Moved by select [GM], sheet link / paste, Notes tab, GM notes tab [GM])",
+    "opens": [
+     "panel:sheet"
+    ],
+    "dispatch": {
+     "type": "token.set / token.owner",
+     "args": "token.set {id,name} (app.rename) · token.owner {id,owner} (GM, app.giveTo) · token.set {id,sheet} · token.set {id,notes} · token.set {id,gmNotes} (GM)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's showSheet card (still mounted, positioned at the hidden legacy button); dies with ring.js"
+   },
+   {
+    "id": "pawn.damage",
+    "title": "Damage (drag to change; click to type 7, -5 or =12)",
+    "where": "primary, slot 12.66",
+    "interaction": "drag 'damage' (6 px/point along the ray, out = more, in = heals, Shift 5s, badge = damage); click → openDamageEdit typed field (7 / -5 / =12)",
+    "opens": [
+     "field:damage"
+    ],
+    "dispatch": {
+     "type": "token.damage (app.batch)",
+     "args": "{id, damage} per selected pawn (app.damageDelta / app.damageSet)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "click toasts 'Drag this button along its track' (no typed field); drag only ADDS 0…tracks.length/6 (t∈[0,1]), cannot heal; no damage badge"
+   },
+   {
+    "id": "pawn.cond.",
+    "title": "Conditions",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: one tile per condition (title ✓ when set)",
+    "opens": [
+     "pawn.cond.blinded",
+     "pawn.cond.charmed",
+     "pawn.cond.frightened",
+     "pawn.cond.grappled",
+     "pawn.cond.invisible",
+     "pawn.cond.poisoned",
+     "pawn.cond.prone",
+     "pawn.cond.restrained",
+     "pawn.cond.stunned",
+     "pawn.cond.unconscious"
+    ],
+    "dispatch": {
+     "type": "token.set (app.batch)",
+     "args": "{id, conditions:[…]} (app.toggleCondition)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc 'conditions'; child → R.run"
+   },
+   {
+    "id": "pawn.mark.",
+    "title": "Indicators",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: 8 marker tiles with their pictures (+ pawn.mark.none when one is set)",
+    "opens": [
+     "pawn.mark.star",
+     "pawn.mark.circle",
+     "pawn.mark.diamond",
+     "pawn.mark.triangle",
+     "pawn.mark.moon",
+     "pawn.mark.square",
+     "pawn.mark.cross",
+     "pawn.mark.skull"
+    ],
+    "dispatch": {
+     "type": "token.mark (app.batch)",
+     "args": "{id, mark} ('' clears) (app.setMark)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run (every tile shows the same 'star' icon: the marker pictures are dropped)"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "pawn.travel",
+    "title": "Send to area…",
+    "where": "☰ (opens travel ▸)",
+    "interaction": "click → app.emit('ring.travel') → showFlyout(app.travelTiles): one tile per app.travelTargets() area (or one 'travel locked' / 'no other area' tile)",
+    "opens": [
+     "dynamic:areas (app.travelTargets)"
+    ],
+    "dispatch": {
+     "type": "travel (sync.submit, one per pawn)",
+     "args": "{id, from, to} (app.travel)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Send to area: this nested arc is not wired in Ring lab yet'"
+   }
+  ],
+  "player: own pawn": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "pawn.sheet",
+    "title": "Character sheet and notes",
+    "where": "primary, slot 11.34",
+    "interaction": "click → app.emit('ring.sheet') → showSheet: card at the button (Name field, Moved by select [GM], sheet link / paste, Notes tab, GM notes tab [GM])",
+    "opens": [
+     "panel:sheet"
+    ],
+    "dispatch": {
+     "type": "token.set / token.owner",
+     "args": "token.set {id,name} (app.rename) · token.owner {id,owner} (GM, app.giveTo) · token.set {id,sheet} · token.set {id,notes} · token.set {id,gmNotes} (GM)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's showSheet card (still mounted, positioned at the hidden legacy button); dies with ring.js"
+   },
+   {
+    "id": "pawn.damage",
+    "title": "Damage (drag to change; click to type 7, -5 or =12)",
+    "where": "primary, slot 12.66",
+    "interaction": "drag 'damage' (6 px/point along the ray, out = more, in = heals, Shift 5s, badge = damage); click → openDamageEdit typed field (7 / -5 / =12)",
+    "opens": [
+     "field:damage"
+    ],
+    "dispatch": {
+     "type": "token.damage (app.batch)",
+     "args": "{id, damage} per selected pawn (app.damageDelta / app.damageSet)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "click toasts 'Drag this button along its track' (no typed field); drag only ADDS 0…tracks.length/6 (t∈[0,1]), cannot heal; no damage badge"
+   },
+   {
+    "id": "pawn.cond.",
+    "title": "Conditions",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: one tile per condition (title ✓ when set)",
+    "opens": [
+     "pawn.cond.blinded",
+     "pawn.cond.charmed",
+     "pawn.cond.frightened",
+     "pawn.cond.grappled",
+     "pawn.cond.invisible",
+     "pawn.cond.poisoned",
+     "pawn.cond.prone",
+     "pawn.cond.restrained",
+     "pawn.cond.stunned",
+     "pawn.cond.unconscious"
+    ],
+    "dispatch": {
+     "type": "token.set (app.batch)",
+     "args": "{id, conditions:[…]} (app.toggleCondition)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc 'conditions'; child → R.run"
+   },
+   {
+    "id": "pawn.mark.",
+    "title": "Indicators",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: 8 marker tiles with their pictures (+ pawn.mark.none when one is set)",
+    "opens": [
+     "pawn.mark.star",
+     "pawn.mark.circle",
+     "pawn.mark.diamond",
+     "pawn.mark.triangle",
+     "pawn.mark.moon",
+     "pawn.mark.square",
+     "pawn.mark.cross",
+     "pawn.mark.skull"
+    ],
+    "dispatch": {
+     "type": "token.mark (app.batch)",
+     "args": "{id, mark} ('' clears) (app.setMark)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run (every tile shows the same 'star' icon: the marker pictures are dropped)"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "pawn.travel",
+    "title": "Send to area…",
+    "where": "☰ (opens travel ▸)",
+    "interaction": "click → app.emit('ring.travel') → showFlyout(app.travelTiles): one tile per app.travelTargets() area (or one 'travel locked' / 'no other area' tile)",
+    "opens": [
+     "dynamic:areas (app.travelTargets)"
+    ],
+    "dispatch": {
+     "type": "travel (sync.submit, one per pawn)",
+     "args": "{id, from, to} (app.travel)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Send to area: this nested arc is not wired in Ring lab yet'"
+   }
+  ],
+  "player: someone else's pawn": [
+   {
+    "id": "pawn.sheet",
+    "title": "Character sheet and notes",
+    "where": "primary, slot 11.34",
+    "interaction": "click → app.emit('ring.sheet') → showSheet: card at the button (Name field, Moved by select [GM], sheet link / paste, Notes tab, GM notes tab [GM])",
+    "opens": [
+     "panel:sheet"
+    ],
+    "dispatch": {
+     "type": "token.set / token.owner",
+     "args": "token.set {id,name} (app.rename) · token.owner {id,owner} (GM, app.giveTo) · token.set {id,sheet} · token.set {id,notes} · token.set {id,gmNotes} (GM)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's showSheet card (still mounted, positioned at the hidden legacy button); dies with ring.js"
+   },
+   {
+    "id": "pawn.damage",
+    "title": "Damage (drag to change; click to type 7, -5 or =12)",
+    "where": "primary, slot 12.66",
+    "interaction": "drag 'damage' (6 px/point along the ray, out = more, in = heals, Shift 5s, badge = damage); click → openDamageEdit typed field (7 / -5 / =12)",
+    "opens": [
+     "field:damage"
+    ],
+    "dispatch": {
+     "type": "token.damage (app.batch)",
+     "args": "{id, damage} per selected pawn (app.damageDelta / app.damageSet)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "click toasts 'Drag this button along its track' (no typed field); drag only ADDS 0…tracks.length/6 (t∈[0,1]), cannot heal; no damage badge"
+   },
+   {
+    "id": "pawn.mark.",
+    "title": "Indicators",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: 8 marker tiles with their pictures (+ pawn.mark.none when one is set)",
+    "opens": [
+     "pawn.mark.star",
+     "pawn.mark.circle",
+     "pawn.mark.diamond",
+     "pawn.mark.triangle",
+     "pawn.mark.moon",
+     "pawn.mark.square",
+     "pawn.mark.cross",
+     "pawn.mark.skull"
+    ],
+    "dispatch": {
+     "type": "token.mark (app.batch)",
+     "args": "{id, mark} ('' clears) (app.setMark)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run (every tile shows the same 'star' icon: the marker pictures are dropped)"
+   }
+  ]
+ },
+ "several pawns": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches; WITH SEVERAL SELECTED onDrag returns at once (needs ctx.one): only the click works"
+   },
+   {
+    "id": "pawn.damage",
+    "title": "Damage (drag to change; click to type 7, -5 or =12)",
+    "where": "primary, slot 12.66",
+    "interaction": "drag 'damage' (6 px/point along the ray, out = more, in = heals, Shift 5s, badge = damage); click → openDamageEdit typed field (7 / -5 / =12)",
+    "opens": [
+     "field:damage"
+    ],
+    "dispatch": {
+     "type": "token.damage (app.batch)",
+     "args": "{id, damage} per selected pawn (app.damageDelta / app.damageSet)"
+    },
+    "ringlab": "missing",
+    "ringlabNote": "click toasts 'Drag this button along its track' (no typed field); drag only ADDS 0…tracks.length/6 (t∈[0,1]), cannot heal; no damage badge; WITH SEVERAL SELECTED onDrag returns at once (needs ctx.one): click toasts, the drag does nothing"
+   },
+   {
+    "id": "pawn.cond.",
+    "title": "Conditions",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: one tile per condition (title ✓ when set)",
+    "opens": [
+     "pawn.cond.blinded",
+     "pawn.cond.charmed",
+     "pawn.cond.frightened",
+     "pawn.cond.grappled",
+     "pawn.cond.invisible",
+     "pawn.cond.poisoned",
+     "pawn.cond.prone",
+     "pawn.cond.restrained",
+     "pawn.cond.stunned",
+     "pawn.cond.unconscious"
+    ],
+    "dispatch": {
+     "type": "token.set (app.batch)",
+     "args": "{id, conditions:[…]} (app.toggleCondition)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc 'conditions'; child → R.run"
+   },
+   {
+    "id": "pawn.mark.",
+    "title": "Indicators",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: 8 marker tiles with their pictures (+ pawn.mark.none when one is set)",
+    "opens": [
+     "pawn.mark.star",
+     "pawn.mark.circle",
+     "pawn.mark.diamond",
+     "pawn.mark.triangle",
+     "pawn.mark.moon",
+     "pawn.mark.square",
+     "pawn.mark.cross",
+     "pawn.mark.skull"
+    ],
+    "dispatch": {
+     "type": "token.mark (app.batch)",
+     "args": "{id, mark} ('' clears) (app.setMark)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run (every tile shows the same 'star' icon: the marker pictures are dropped)"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "cast.saveGroup",
+    "title": "Save as group… (type: save group goblin patrol)",
+    "where": "☰",
+    "interaction": "click R.run with no args → app.emit('bar.open', 'save group ') (the bar asks the name)",
+    "dispatch": {
+     "type": "cast.save (sync.submit, campaign level)",
+     "args": "{id, kind:'group', name, members:[{name, fig?, size?, dx, dz}]}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run (opens the bar)"
+   },
+   {
+    "id": "pawn.travel",
+    "title": "Send to area…",
+    "where": "☰ (opens travel ▸)",
+    "interaction": "click → app.emit('ring.travel') → showFlyout(app.travelTiles): one tile per app.travelTargets() area (or one 'travel locked' / 'no other area' tile)",
+    "opens": [
+     "dynamic:areas (app.travelTargets)"
+    ],
+    "dispatch": {
+     "type": "travel (sync.submit, one per pawn)",
+     "args": "{id, from, to} (app.travel)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Send to area: this nested arc is not wired in Ring lab yet'"
+   }
+  ],
+  "player: all own": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches; WITH SEVERAL SELECTED onDrag returns at once (needs ctx.one): only the click works"
+   },
+   {
+    "id": "pawn.damage",
+    "title": "Damage (drag to change; click to type 7, -5 or =12)",
+    "where": "primary, slot 12.66",
+    "interaction": "drag 'damage' (6 px/point along the ray, out = more, in = heals, Shift 5s, badge = damage); click → openDamageEdit typed field (7 / -5 / =12)",
+    "opens": [
+     "field:damage"
+    ],
+    "dispatch": {
+     "type": "token.damage (app.batch)",
+     "args": "{id, damage} per selected pawn (app.damageDelta / app.damageSet)"
+    },
+    "ringlab": "missing",
+    "ringlabNote": "click toasts 'Drag this button along its track' (no typed field); drag only ADDS 0…tracks.length/6 (t∈[0,1]), cannot heal; no damage badge; WITH SEVERAL SELECTED onDrag returns at once (needs ctx.one): click toasts, the drag does nothing"
+   },
+   {
+    "id": "pawn.cond.",
+    "title": "Conditions",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: one tile per condition (title ✓ when set)",
+    "opens": [
+     "pawn.cond.blinded",
+     "pawn.cond.charmed",
+     "pawn.cond.frightened",
+     "pawn.cond.grappled",
+     "pawn.cond.invisible",
+     "pawn.cond.poisoned",
+     "pawn.cond.prone",
+     "pawn.cond.restrained",
+     "pawn.cond.stunned",
+     "pawn.cond.unconscious"
+    ],
+    "dispatch": {
+     "type": "token.set (app.batch)",
+     "args": "{id, conditions:[…]} (app.toggleCondition)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc 'conditions'; child → R.run"
+   },
+   {
+    "id": "pawn.mark.",
+    "title": "Indicators",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: 8 marker tiles with their pictures (+ pawn.mark.none when one is set)",
+    "opens": [
+     "pawn.mark.star",
+     "pawn.mark.circle",
+     "pawn.mark.diamond",
+     "pawn.mark.triangle",
+     "pawn.mark.moon",
+     "pawn.mark.square",
+     "pawn.mark.cross",
+     "pawn.mark.skull"
+    ],
+    "dispatch": {
+     "type": "token.mark (app.batch)",
+     "args": "{id, mark} ('' clears) (app.setMark)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run (every tile shows the same 'star' icon: the marker pictures are dropped)"
+   },
+   {
+    "id": "pawn.travel",
+    "title": "Send to area…",
+    "where": "☰ (opens travel ▸)",
+    "interaction": "click → app.emit('ring.travel') → showFlyout(app.travelTiles): one tile per app.travelTargets() area (or one 'travel locked' / 'no other area' tile)",
+    "opens": [
+     "dynamic:areas (app.travelTargets)"
+    ],
+    "dispatch": {
+     "type": "travel (sync.submit, one per pawn)",
+     "args": "{id, from, to} (app.travel)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Send to area: this nested arc is not wired in Ring lab yet'"
+   }
+  ],
+  "player: own + someone else's": [
+   {
+    "id": "pawn.damage",
+    "title": "Damage (drag to change; click to type 7, -5 or =12)",
+    "where": "primary, slot 12.66",
+    "interaction": "drag 'damage' (6 px/point along the ray, out = more, in = heals, Shift 5s, badge = damage); click → openDamageEdit typed field (7 / -5 / =12)",
+    "opens": [
+     "field:damage"
+    ],
+    "dispatch": {
+     "type": "token.damage (app.batch)",
+     "args": "{id, damage} per selected pawn (app.damageDelta / app.damageSet)"
+    },
+    "ringlab": "missing",
+    "ringlabNote": "click toasts 'Drag this button along its track' (no typed field); drag only ADDS 0…tracks.length/6 (t∈[0,1]), cannot heal; no damage badge; WITH SEVERAL SELECTED onDrag returns at once (needs ctx.one): click toasts, the drag does nothing"
+   },
+   {
+    "id": "pawn.mark.",
+    "title": "Indicators",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: 8 marker tiles with their pictures (+ pawn.mark.none when one is set)",
+    "opens": [
+     "pawn.mark.star",
+     "pawn.mark.circle",
+     "pawn.mark.diamond",
+     "pawn.mark.triangle",
+     "pawn.mark.moon",
+     "pawn.mark.square",
+     "pawn.mark.cross",
+     "pawn.mark.skull"
+    ],
+    "dispatch": {
+     "type": "token.mark (app.batch)",
+     "args": "{id, mark} ('' clears) (app.setMark)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run (every tile shows the same 'star' icon: the marker pictures are dropped)"
+   }
+  ]
+ },
+ "ordinary object (prop)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 11.34",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.tilt",
+    "title": "Roll (drag to tip it over)",
+    "where": "☰",
+    "interaction": "drag 'tilt' (roll about the view axis taken at the grab, ±180°, 45° notches + upright/side stops, Shift 15°); click = toast hint only",
+    "dispatch": {
+     "type": "object.set + object.move (app.batch)",
+     "args": "{id, quat} + {id, x, z, rot} (app.rollSelection)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "drag rolls 0…180° one way only (15° steps), no stops; CLICK = R.run → lays it over 90° / stands it upright (the legacy click deliberately does nothing); no-op drag with several selected"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "gm: rolled (tilted)": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 11.34",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.upright",
+    "title": "Stand upright",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.set (app.batch)",
+     "args": "{id, quat: identity} (app.standUpright)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.tilt",
+    "title": "Roll (drag to tip it over)",
+    "where": "☰",
+    "interaction": "drag 'tilt' (roll about the view axis taken at the grab, ±180°, 45° notches + upright/side stops, Shift 15°); click = toast hint only",
+    "dispatch": {
+     "type": "object.set + object.move (app.batch)",
+     "args": "{id, quat} + {id, x, z, rot} (app.rollSelection)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "drag rolls 0…180° one way only (15° steps), no stops; CLICK = R.run → lays it over 90° / stands it upright (the legacy click deliberately does nothing); no-op drag with several selected"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "gm: locked": [
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Unlock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "several props": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches; WITH SEVERAL SELECTED onDrag returns at once (needs ctx.one): only the click works"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.upright",
+    "title": "Stand upright",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.set (app.batch)",
+     "args": "{id, quat: identity} (app.standUpright)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.tilt",
+    "title": "Roll (drag to tip it over)",
+    "where": "☰",
+    "interaction": "drag 'tilt' (roll about the view axis taken at the grab, ±180°, 45° notches + upright/side stops, Shift 15°); click = toast hint only",
+    "dispatch": {
+     "type": "object.set + object.move (app.batch)",
+     "args": "{id, quat} + {id, x, z, rot} (app.rollSelection)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "drag rolls 0…180° one way only (15° steps), no stops; CLICK = R.run → lays it over 90° / stands it upright (the legacy click deliberately does nothing); no-op drag with several selected; WITH SEVERAL SELECTED onDrag returns at once (needs ctx.one): only the click works"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "faction object (flavor-*)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 11.34",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "faction.set",
+    "title": "Faction",
+    "where": "☰ (opens faction ▸)",
+    "interaction": "click → app.emit('ring.faction') → showPanel with factionGrid: an 'As the room's / building's' inherit button (not on a building) + 2 rows of emblems (8 + 5 sinister), a faction missing this object's slot disabled",
+    "opens": [
+     "inherit (not for buildings)",
+     "devils",
+     "dragons",
+     "forge-hammer",
+     "moon",
+     "nature",
+     "death",
+     "scales-coin",
+     "sea-storm",
+     "skulls",
+     "spiders",
+     "sun",
+     "sword-shield",
+     "tentacles"
+    ],
+    "dispatch": {
+     "type": "faction.set",
+     "args": "{id, flavor, swaps:[{id, cat, faction, sku, url, flat, name} | {id, missing}]} (app.setFaction → planFactionChange)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "own nested arc: 'faction.inherit' + 13 'faction.<id>' → app.setFaction directly; offers Inherit on a BUILDING too, does not disable factions with no slot for a flavor-* object, no emblems (all 'sun'), no current/inherited marking"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.tilt",
+    "title": "Roll (drag to tip it over)",
+    "where": "☰",
+    "interaction": "drag 'tilt' (roll about the view axis taken at the grab, ±180°, 45° notches + upright/side stops, Shift 15°); click = toast hint only",
+    "dispatch": {
+     "type": "object.set + object.move (app.batch)",
+     "args": "{id, quat} + {id, x, z, rot} (app.rollSelection)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "drag rolls 0…180° one way only (15° steps), no stops; CLICK = R.run → lays it over 90° / stands it upright (the legacy click deliberately does nothing); no-op drag with several selected"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "light (lightable prop: candle)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 11.34",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.light",
+    "title": "Put out",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.light (app.batch)",
+     "args": "{id, lit} (app.toggleLit)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.tilt",
+    "title": "Roll (drag to tip it over)",
+    "where": "☰",
+    "interaction": "drag 'tilt' (roll about the view axis taken at the grab, ±180°, 45° notches + upright/side stops, Shift 15°); click = toast hint only",
+    "dispatch": {
+     "type": "object.set + object.move (app.batch)",
+     "args": "{id, quat} + {id, x, z, rot} (app.rollSelection)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "drag rolls 0…180° one way only (15° steps), no stops; CLICK = R.run → lays it over 90° / stands it upright (the legacy click deliberately does nothing); no-op drag with several selected"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may light": [
+   {
+    "id": "thing.light",
+    "title": "Put out",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.light (app.batch)",
+     "args": "{id, lit} (app.toggleLit)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ]
+ },
+ "openable (door)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 4",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.open",
+    "title": "Open",
+    "where": "primary, slot 11",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.open",
+     "args": "{id, open} (app.toggleOpen)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may open": [
+   {
+    "id": "thing.open",
+    "title": "Open",
+    "where": "primary, slot 11",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.open",
+     "args": "{id, open} (app.toggleOpen)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ]
+ },
+ "openable (chest)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 4",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.open",
+    "title": "Open",
+    "where": "primary, slot 11",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.open",
+     "args": "{id, open} (app.toggleOpen)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.tilt",
+    "title": "Roll (drag to tip it over)",
+    "where": "☰",
+    "interaction": "drag 'tilt' (roll about the view axis taken at the grab, ±180°, 45° notches + upright/side stops, Shift 15°); click = toast hint only",
+    "dispatch": {
+     "type": "object.set + object.move (app.batch)",
+     "args": "{id, quat} + {id, x, z, rot} (app.rollSelection)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "drag rolls 0…180° one way only (15° steps), no stops; CLICK = R.run → lays it over 90° / stands it upright (the legacy click deliberately does nothing); no-op drag with several selected"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may open": [
+   {
+    "id": "thing.open",
+    "title": "Open",
+    "where": "primary, slot 11",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.open",
+     "args": "{id, open} (app.toggleOpen)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ]
+ },
+ "room": {
+  "gm": [
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "primary, slot 1",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "room.reroll",
+    "title": "Re-roll room (keeps pinned)",
+    "where": "primary, slot 12",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "room.reroll",
+     "args": "{id, seed, engineVersion, layout:{hash, summary, objects}} (app.rerollRoom)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "room.rotate",
+    "title": "Turn room 90°",
+    "where": "primary, slot 10",
+    "interaction": "click R.run (no drag in the legacy ring)",
+    "dispatch": {
+     "type": "room.rotate",
+     "args": "{id, turns: 1} (app.rotateRoom; refused locally with a toast on overlap)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run; ALSO a drag in the lab: room.rotate {id, turns: max(1, round(4t))}, skipping app.rotateRoom (no local overlap toast/flash; the relay still refuses an overlap, and refuses turns 4 = 0 at the far end of the track)"
+   },
+   {
+    "id": "room.walls.",
+    "title": "Walls",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: By room type + 17 wall families (minus the current one)",
+    "opens": [
+     "room.walls.rough-timber",
+     "room.walls.log-cabin",
+     "room.walls.half-timber",
+     "room.walls.fieldstone",
+     "room.walls.dressed-stone",
+     "room.walls.noble-interior",
+     "room.walls.crypt-stone",
+     "room.walls.castle-rough",
+     "room.walls.noble-panel",
+     "room.walls.noble-paper",
+     "room.walls.conservatory",
+     "room.walls.temple-stone",
+     "room.walls.cut-rock",
+     "room.walls.tower-stone",
+     "room.walls.mine-timbered",
+     "room.walls.black-stone",
+     "room.walls.wattle-daub"
+    ],
+    "dispatch": {
+     "type": "room.set",
+     "args": "{id, wallFamily} (app.setRoom)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run"
+   },
+   {
+    "id": "room.fog",
+    "title": "Fog height…",
+    "where": "☰ (opens fog ▸)",
+    "interaction": "click → app.emit('ring.fog') → showFogSlider: range 0–8 ft step 0.25 (notch: <0.38 = none), live local preview (world.fogPreview), 'Type default' button; one send on release / close",
+    "opens": [
+     "panel:fog slider"
+    ],
+    "dispatch": {
+     "type": "room.set",
+     "args": "{id, fog: ft} (fog: -1 = back to the type default)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "drag → room.set {fog: round(t·8)} whole feet only; no Type default (fog -1), no preview; click toasts 'Drag this button'"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "room.height.taller",
+    "title": "Taller (one more storey of height)",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "room.tall",
+     "args": "{id, tall: n+1}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "faction.set",
+    "title": "Faction",
+    "where": "☰ (opens faction ▸)",
+    "interaction": "click → app.emit('ring.faction') → showPanel with factionGrid: an 'As the room's / building's' inherit button (not on a building) + 2 rows of emblems (8 + 5 sinister), a faction missing this object's slot disabled",
+    "opens": [
+     "inherit (not for buildings)",
+     "devils",
+     "dragons",
+     "forge-hammer",
+     "moon",
+     "nature",
+     "death",
+     "scales-coin",
+     "sea-storm",
+     "skulls",
+     "spiders",
+     "sun",
+     "sword-shield",
+     "tentacles"
+    ],
+    "dispatch": {
+     "type": "faction.set",
+     "args": "{id, flavor, swaps:[{id, cat, faction, sku, url, flat, name} | {id, missing}]} (app.setFaction → planFactionChange)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "own nested arc: 'faction.inherit' + 13 'faction.<id>' → app.setFaction directly; offers Inherit on a BUILDING too, does not disable factions with no slot for a flavor-* object, no emblems (all 'sun'), no current/inherited marking"
+   }
+  ],
+  "gm: room of a building": [
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "primary, slot 1",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "room.reroll",
+    "title": "Re-roll room (keeps pinned)",
+    "where": "primary, slot 12",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "room.reroll",
+     "args": "{id, seed, engineVersion, layout:{hash, summary, objects}} (app.rerollRoom)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "room.rotate",
+    "title": "Turn room 90°",
+    "where": "primary, slot 10",
+    "interaction": "click R.run (no drag in the legacy ring)",
+    "dispatch": {
+     "type": "room.rotate",
+     "args": "{id, turns: 1} (app.rotateRoom; refused locally with a toast on overlap)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run; ALSO a drag in the lab: room.rotate {id, turns: max(1, round(4t))}, skipping app.rotateRoom (no local overlap toast/flash; the relay still refuses an overlap, and refuses turns 4 = 0 at the far end of the track)"
+   },
+   {
+    "id": "room.walls.",
+    "title": "Walls",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → openMenuFlyout: By room type + 17 wall families (minus the current one)",
+    "opens": [
+     "room.walls.rough-timber",
+     "room.walls.log-cabin",
+     "room.walls.half-timber",
+     "room.walls.fieldstone",
+     "room.walls.dressed-stone",
+     "room.walls.noble-interior",
+     "room.walls.crypt-stone",
+     "room.walls.castle-rough",
+     "room.walls.noble-panel",
+     "room.walls.noble-paper",
+     "room.walls.conservatory",
+     "room.walls.temple-stone",
+     "room.walls.cut-rock",
+     "room.walls.tower-stone",
+     "room.walls.mine-timbered",
+     "room.walls.black-stone",
+     "room.walls.wattle-daub"
+    ],
+    "dispatch": {
+     "type": "room.set",
+     "args": "{id, wallFamily} (app.setRoom)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run"
+   },
+   {
+    "id": "room.fog",
+    "title": "Fog height…",
+    "where": "☰ (opens fog ▸)",
+    "interaction": "click → app.emit('ring.fog') → showFogSlider: range 0–8 ft step 0.25 (notch: <0.38 = none), live local preview (world.fogPreview), 'Type default' button; one send on release / close",
+    "opens": [
+     "panel:fog slider"
+    ],
+    "dispatch": {
+     "type": "room.set",
+     "args": "{id, fog: ft} (fog: -1 = back to the type default)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "drag → room.set {fog: round(t·8)} whole feet only; no Type default (fog -1), no preview; click toasts 'Drag this button'"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "room.height.taller",
+    "title": "Taller (one more storey of height)",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "room.tall",
+     "args": "{id, tall: n+1}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "faction.set",
+    "title": "Faction",
+    "where": "☰ (opens faction ▸)",
+    "interaction": "click → app.emit('ring.faction') → showPanel with factionGrid: an 'As the room's / building's' inherit button (not on a building) + 2 rows of emblems (8 + 5 sinister), a faction missing this object's slot disabled",
+    "opens": [
+     "inherit (not for buildings)",
+     "devils",
+     "dragons",
+     "forge-hammer",
+     "moon",
+     "nature",
+     "death",
+     "scales-coin",
+     "sea-storm",
+     "skulls",
+     "spiders",
+     "sun",
+     "sword-shield",
+     "tentacles"
+    ],
+    "dispatch": {
+     "type": "faction.set",
+     "args": "{id, flavor, swaps:[{id, cat, faction, sku, url, flat, name} | {id, missing}]} (app.setFaction → planFactionChange)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "own nested arc: 'faction.inherit' + 13 'faction.<id>' → app.setFaction directly; offers Inherit on a BUILDING too, does not disable factions with no slot for a flavor-* object, no emblems (all 'sun'), no current/inherited marking"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "roof": {
+  "gm": [
+   {
+    "id": "roof.reroll",
+    "title": "Re-roll the roof (new dormers and finial)",
+    "where": "primary, slot 12",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "room.set",
+     "args": "{id: <room>, roof:{seed}}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "roof.style.",
+    "title": "Style",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → flyout: thatch, clay tile, slate, wood shingle, flat (swatch pictures; minus current) + \"The building's\" when the room has its own",
+    "opens": [
+     "roof.style.thatch",
+     "roof.style.tile",
+     "roof.style.slate",
+     "roof.style.flat"
+    ],
+    "dispatch": {
+     "type": "room.set",
+     "args": "{id: <room>, roof:{style}} ('auto' = the building's)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run (no swatches)"
+   },
+   {
+    "id": "roof.hide",
+    "title": "Hide roof (this room goes without one)",
+    "where": "☰",
+    "interaction": "click R.run (clears the selection)",
+    "dispatch": {
+     "type": "room.set",
+     "args": "{id: <room>, roof:{off:true}}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "building": {
+  "gm": [
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "primary, slot 10",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "faction.set",
+    "title": "Faction",
+    "where": "☰ (opens faction ▸)",
+    "interaction": "click → app.emit('ring.faction') → showPanel with factionGrid: an 'As the room's / building's' inherit button (not on a building) + 2 rows of emblems (8 + 5 sinister), a faction missing this object's slot disabled",
+    "opens": [
+     "inherit (not for buildings)",
+     "devils",
+     "dragons",
+     "forge-hammer",
+     "moon",
+     "nature",
+     "death",
+     "scales-coin",
+     "sea-storm",
+     "skulls",
+     "spiders",
+     "sun",
+     "sword-shield",
+     "tentacles"
+    ],
+    "dispatch": {
+     "type": "faction.set",
+     "args": "{id, flavor, swaps:[{id, cat, faction, sku, url, flat, name} | {id, missing}]} (app.setFaction → planFactionChange)"
+    },
+    "ringlab": "partial",
+    "ringlabNote": "own nested arc: 'faction.inherit' + 13 'faction.<id>' → app.setFaction directly; offers Inherit on a BUILDING too, does not disable factions with no slot for a flavor-* object, no emblems (all 'sun'), no current/inherited marking"
+   },
+   {
+    "id": "building.roof.",
+    "title": "Roof style",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → flyout: 5 roof styles with swatches (+ \"By its walls\" when one is set)",
+    "opens": [
+     "building.roof.thatch",
+     "building.roof.tile",
+     "building.roof.slate",
+     "building.roof.shingle",
+     "building.roof.flat"
+    ],
+    "dispatch": {
+     "type": "building.set",
+     "args": "{id, roof} ('auto' = by its walls)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run (no swatches)"
+   },
+   {
+    "id": "building.storeys.",
+    "title": "Storeys",
+    "where": "☰ (group ▸)",
+    "interaction": "☰ list → flyout: 1 / 2 / 3 storeys allowed by the programme, minus the current",
+    "opens": [
+     "building.storeys.1",
+     "building.storeys.3"
+    ],
+    "dispatch": {
+     "type": "batch (app.makeBuilding replace)",
+     "args": "room.delete (old rooms) + building.set + room.spawn ×N + object.place (stairs) [+ building.set {roof}]"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "nested arc; child → R.run"
+   },
+   {
+    "id": "building.reroll",
+    "title": "Re-roll the whole building (a new layout on the same footprint)",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "batch (app.makeBuilding replace, new seed)",
+     "args": "room.delete + building.set + room.spawn ×N + object.place"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "generated wall (wall:…)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 11.34",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "generated door (wall:…)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 4",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.open",
+    "title": "Open",
+    "where": "primary, slot 11",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.open",
+     "args": "{id, open} (app.toggleOpen)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may open": [
+   {
+    "id": "thing.open",
+    "title": "Open",
+    "where": "primary, slot 11",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "object.open",
+     "args": "{id, open} (app.toggleOpen)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ]
+ },
+ "generated window (wall:…)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 11.34",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "generated post (wall:c…)": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 11.34",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "bare wall (kind 'wall', no piece)": {
+  "gm": [],
+  "player": []
+ },
+ "stairs": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "click R.run (45°); drag onDrag → app.rotateSelection(round(t·24)·15°), 0–360° one way, no notches"
+   },
+   {
+    "id": "edit.resize",
+    "title": "Resize (drag)",
+    "where": "primary, slot 11.34",
+    "interaction": "drag 'size' (0.2×–5× soft stops, Shift 25%); click = toast hint",
+    "dispatch": {
+     "type": "object.set",
+     "args": "{id, s, dims} (scaled by k)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag k = 0.25 + 2.75·t (0.25×–3×); click toast"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "primary, slot 12.66",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.replace",
+    "title": "Replace with similar…",
+    "where": "☰ (opens replace ▸)",
+    "interaction": "click → app.emit('ring.replace') → showFlyout of app.assets.similar(cat): one tile per variant, live turning previews",
+    "opens": [
+     "dynamic:variants (app.assets.similar(cat))"
+    ],
+    "dispatch": {
+     "type": "object.replace",
+     "args": "{id, cat, sku, url, flat, s, dims, yaw, name} (app.replaceWith)"
+    },
+    "ringlab": "toast",
+    "ringlabNote": "'Replace: this nested arc is not wired in Ring lab yet'"
+   },
+   {
+    "id": "edit.lift",
+    "title": "Raise / lower (drag)",
+    "where": "☰",
+    "interaction": "drag 'lift' (vertical, frozen px/ft; pawn <5 ft settles; Shift 6 in / 5 ft); click = toast hint",
+    "dispatch": {
+     "type": "token.move | object.move",
+     "args": "{id, x, z, y} (+ parent, room for objects) via app.liftTo"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "drag → app.liftTo(start.y ± 20 ft, linear, integer ft); click toast"
+   },
+   {
+    "id": "stair.flip",
+    "title": "Stairs up (it leads up from this level)",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "stair.flip",
+     "args": "{id, y, down} (core/stairs.js stairFlip)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.rename",
+    "title": "Rename / label…",
+    "where": "☰",
+    "interaction": "click → app.emit('ring.rename') → startEdit: inline text field over the ring (a pawn: the sheet card on Name)",
+    "opens": [
+     "field:rename"
+    ],
+    "dispatch": {
+     "type": "object.set | building.set",
+     "args": "{id, name} (app.rename)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run → the LEGACY ring's inline field (lives in #ring); dies with ring.js"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player: may not touch": []
+ },
+ "mixed: pawn + prop": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "missing",
+    "ringlabNote": "not in Ring lab content: contentFor keeps a primary only if ring.kinds includes the selection's kind, and no command lists 'mixed' (legacy: any scalar slot shows on a mixed selection); edit.rotate has no menu:true, so it is on no ☰ either"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player": []
+ },
+ "mixed: pawn + light": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "missing",
+    "ringlabNote": "not in Ring lab content: contentFor keeps a primary only if ring.kinds includes the selection's kind, and no command lists 'mixed' (legacy: any scalar slot shows on a mixed selection); edit.rotate has no menu:true, so it is on no ☰ either"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player": []
+ },
+ "mixed: openable + prop": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "missing",
+    "ringlabNote": "not in Ring lab content: contentFor keeps a primary only if ring.kinds includes the selection's kind, and no command lists 'mixed' (legacy: any scalar slot shows on a mixed selection); edit.rotate has no menu:true, so it is on no ☰ either"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player": []
+ },
+ "mixed: openable + light": {
+  "gm": [
+   {
+    "id": "edit.rotate",
+    "title": "Turn (drag; click = 45°)",
+    "where": "primary, slot 10",
+    "interaction": "drag 'rotate' (free turn, 45° notches, Shift 15°); click = R.run → app.rotateSelection(45)",
+    "dispatch": {
+     "type": "token.move | object.move (app.batch)",
+     "args": "{id, x, z, rot}; several: positions turned about the centroid; a stair turns in 90° steps"
+    },
+    "ringlab": "missing",
+    "ringlabNote": "not in Ring lab content: contentFor keeps a primary only if ring.kinds includes the selection's kind, and no command lists 'mixed' (legacy: any scalar slot shows on a mixed selection); edit.rotate has no menu:true, so it is on no ☰ either"
+   },
+   {
+    "id": "thing.pin",
+    "title": "Pin (keeps it through a re-roll)",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, pinned}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player": []
+ },
+ "mixed: room + building": {
+  "gm": [
+   {
+    "id": "thing.lock",
+    "title": "Lock",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids, locked}"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   },
+   {
+    "id": "thing.hide",
+    "title": "Hide from players",
+    "where": "☰",
+    "interaction": "click R.run",
+    "dispatch": {
+     "type": "entity.flag",
+     "args": "{ids:[…+descendants], hidden} (app.setHidden)"
+    },
+    "ringlab": "handled",
+    "ringlabNote": "R.run"
+   }
+  ],
+  "player": []
+ },
+ "light + openable": {
+  "note": "no catalog object is both openable and lightable (checked: 0 of the library), so this kind cannot occur today; if it did, thing.light would sit at primary slot 1 (ring.kinds [openable]) and thing.open at 11"
+ },
+ "template": {
+  "note": "measuring templates are selected by surfaces/rulers.js's own selection, never app.sel: no ring (their commands live in the bar and keys)"
+ }
+}

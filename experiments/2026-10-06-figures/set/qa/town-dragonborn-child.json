@@ -1,0 +1,146 @@
+{
+ "file": "town-dragonborn-child.glb",
+ "tris": 49275,
+ "kb": 2758,
+ "native_extent": [
+  0.47,
+  1.001,
+  0.458
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0002
+ },
+ "mean_rgb": [
+  119,
+  65,
+  38
+ ],
+ "mean_saturation": 0.719,
+ "sized_by": "its highest point",
+ "overall_ft": 4.0,
+ "pieces": {
+  "connected_parts": 28,
+  "main_part_area_share": 0.9988,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.9972,
+ "y0": -2.0009,
+ "stated_ft": {
+  "body": 4.0,
+  "figure_top": 4.0,
+  "overall": 4.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2347,
+   -0.5006,
+   -0.227
+  ],
+  [
+   0.2358,
+   0.5003,
+   0.2312
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49275,
+   "tex": 2048,
+   "kb": 2758
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1042
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 446
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.62,
+    "z": 0.23,
+    "size_ft": [
+     0.58,
+     0.88
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.78,
+    "sole_p90_ft": 0.078
+   },
+   {
+    "x": -0.52,
+    "z": -0.16,
+    "size_ft": [
+     0.75,
+     0.8
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.81,
+    "sole_p90_ft": 0.074
+   },
+   {
+    "x": 0.42,
+    "z": -0.58,
+    "size_ft": [
+     0.32,
+     0.37
+    ],
+    "off_ground_ft": 0.319,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.355
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.319,
+  "lowest_slab_area_sqft": 0.66,
+  "plan_hull_area_sqft": 2.59,
+  "lowest_slab_share_of_plan": 0.253
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.88,
+   "d": 1.83,
+   "h": 4.0
+  },
+  "centre": [
+   0.05,
+   0.078
+  ],
+  "contacts_radius_ft": 0.96,
+  "reach_radius_ft": 1.09,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.94,
+  "plate_lost_share": 0.012,
+  "added_share": 0.051,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.939,
+  "view_yaw_deg": 0,
+  "view_elev_deg": 8
+ },
+ "id": "town-dragonborn-child",
+ "sha1": "f7fa67aedff888233526b2fc0864977697b44ee2",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.32 ft off the ground"
+ ],
+ "qa_seconds": 10.1
+}

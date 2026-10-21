@@ -1,0 +1,8 @@
+Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), paint a wall material swatch: dressed blue-gray stone ashlar masonry.
+
+Finish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte. Use rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone where appropriate. Avoid photorealism, gloss, fine scratches, tiny texture noise, comic outlines, text, logos and emblems.
+
+Presentation: a perfectly flat, straight-on orthographic elevation of a vertical wall surface, as if scanned. The wall surface fills the ENTIRE square canvas edge to edge: no border, no frame, no floor, no ceiling, no corners, no doors, windows, beams, furniture or objects, no background colour, no vignette, no perspective. Even, flat, shadowless lighting. The square shows a 6 ft wide x 6 ft tall patch of wall, so keep elements at true scale for that area. It must tile seamlessly: whatever leaves the left edge continues on the right edge, and top continues to bottom.
+
+Specific design: Squared, dressed blocks of blue-gray stone in level horizontal courses about 12 inches tall (exactly 6 courses top to bottom), blocks 16 to 28 inches long, joints staggered like brickwork, thin recessed pale mortar joints, softly rounded block edges, faint warm ochre and moss tints on some blocks. Keep tone even across the whole square: no single standout stone, knot, crack, stain or blotch that would be recognisable when the tile repeats.
+ Variation 2: a different patch of the same wall.

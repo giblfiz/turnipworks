@@ -1,0 +1,3827 @@
+{
+  "model": "microsoft/TRELLIS.2-4B",
+  "image_encoder": "/workspace/.cache/huggingface/hub/models--camenduru--dinov3-vitl16-pretrain-lvd1689m/snapshots/3c276edd87d6f6e569ff0c4400e086807d0f3881",
+  "pipeline_type": "512",
+  "faces": 50000,
+  "texture_size": 1024,
+  "resident": true,
+  "assets": [
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/yogurt-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/yogurt-bowl.glb",
+      "seconds": 25.85,
+      "bytes": 1790588,
+      "seed": 375293880,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/woodshed.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/woodshed.glb",
+      "seconds": 61.89,
+      "bytes": 2366028,
+      "seed": 577651003,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wine-rack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wine-rack.glb",
+      "seconds": 48.71,
+      "bytes": 1873860,
+      "seed": 773362975,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/whisk-twig.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/whisk-twig.glb",
+      "seconds": 33.36,
+      "bytes": 2150656,
+      "seed": 495648633,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wheelbarrow.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wheelbarrow.glb",
+      "seconds": 32.66,
+      "bytes": 1792204,
+      "seed": 160031346,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wheel-spare.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wheel-spare.glb",
+      "seconds": 34.51,
+      "bytes": 2075828,
+      "seed": 946664213,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/well.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/well.glb",
+      "seconds": 34.91,
+      "bytes": 2151024,
+      "seed": 809277344,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/water-trough.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/water-trough.glb",
+      "seconds": 22.11,
+      "bytes": 2048940,
+      "seed": 115687294,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/water-jug-basin--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/water-jug-basin--common.glb",
+      "seconds": 31.62,
+      "bytes": 1720040,
+      "seed": 545254499,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/washstand--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/washstand--fine.glb",
+      "seconds": 31.98,
+      "bytes": 1967708,
+      "seed": 894697720,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/washstand--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/washstand--common.glb",
+      "seconds": 38.24,
+      "bytes": 1976564,
+      "seed": 35811934,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/washing-bowl-dishes.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/washing-bowl-dishes.glb",
+      "seconds": 41.58,
+      "bytes": 1839340,
+      "seed": 69370939,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wardrobe--fine--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wardrobe--fine--s3.glb",
+      "seconds": 34.01,
+      "bytes": 1984112,
+      "seed": 819037304,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wardrobe--fine--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wardrobe--fine--s2.glb",
+      "seconds": 29.98,
+      "bytes": 1911032,
+      "seed": 59605214,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wardrobe--fine--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wardrobe--fine--s1.glb",
+      "seconds": 39.64,
+      "bytes": 1943792,
+      "seed": 870603144,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wardrobe--common--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wardrobe--common--s3.glb",
+      "seconds": 31.4,
+      "bytes": 2041080,
+      "seed": 79097860,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wardrobe--common--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wardrobe--common--s2.glb",
+      "seconds": 29.1,
+      "bytes": 1898528,
+      "seed": 930397235,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wardrobe--common--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wardrobe--common--s1.glb",
+      "seconds": 27.89,
+      "bytes": 2026064,
+      "seed": 254494238,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-window-small--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-window-small--rough-timber.glb",
+      "seconds": 28.39,
+      "bytes": 2001892,
+      "seed": 806079753,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-window-small--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-window-small--dressed-stone.glb",
+      "seconds": 25.97,
+      "bytes": 2013680,
+      "seed": 103131652,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-straight--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-straight--rough-timber.glb",
+      "seconds": 25.82,
+      "bytes": 1929324,
+      "seed": 845318535,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-straight--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-straight--dressed-stone.glb",
+      "seconds": 28.42,
+      "bytes": 2095844,
+      "seed": 268812941,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-doorway--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-doorway--rough-timber.glb",
+      "seconds": 30.76,
+      "bytes": 2136040,
+      "seed": 24838355,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-doorway--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-doorway--dressed-stone.glb",
+      "seconds": 27.92,
+      "bytes": 1885920,
+      "seed": 628600803,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-corner-outer--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-corner-outer--rough-timber.glb",
+      "seconds": 32.1,
+      "bytes": 2003592,
+      "seed": 867237246,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-corner-outer--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-corner-outer--dressed-stone.glb",
+      "seconds": 32.81,
+      "bytes": 2189276,
+      "seed": 907359004,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-corner-inner--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-corner-inner--rough-timber.glb",
+      "seconds": 27.97,
+      "bytes": 2201824,
+      "seed": 964987446,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wall-corner-inner--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wall-corner-inner--dressed-stone.glb",
+      "seconds": 29.57,
+      "bytes": 2124868,
+      "seed": 734420724,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wagon.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wagon.glb",
+      "seconds": 32.12,
+      "bytes": 2438488,
+      "seed": 136725217,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/wafers-stack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/wafers-stack.glb",
+      "seconds": 40.12,
+      "bytes": 2226124,
+      "seed": 794354111,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/vinegar-jug.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/vinegar-jug.glb",
+      "seconds": 32.6,
+      "bytes": 1913704,
+      "seed": 863014768,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/vegetable-basket-mixed.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/vegetable-basket-mixed.glb",
+      "seconds": 44.28,
+      "bytes": 2404396,
+      "seed": 22836310,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/vase-flowers.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/vase-flowers.glb",
+      "seconds": 30.46,
+      "bytes": 1987204,
+      "seed": 519794269,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/utensil-rack-wall.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/utensil-rack-wall.glb",
+      "seconds": 28.64,
+      "bytes": 1914904,
+      "seed": 103330162,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/turnip.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/turnip.glb",
+      "seconds": 22.85,
+      "bytes": 1754156,
+      "seed": 620742218,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/turnip-sliced.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/turnip-sliced.glb",
+      "seconds": 109.76,
+      "bytes": 1829164,
+      "seed": 667913488,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/turnip-pile.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/turnip-pile.glb",
+      "seconds": 41.27,
+      "bytes": 2068000,
+      "seed": 212577788,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/turnip-basket.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/turnip-basket.glb",
+      "seconds": 37.75,
+      "bytes": 2046336,
+      "seed": 778521002,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tureen-pewter.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tureen-pewter.glb",
+      "seconds": 20.87,
+      "bytes": 1887496,
+      "seed": 892148120,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tun-large.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tun-large.glb",
+      "seconds": 44.0,
+      "bytes": 2395772,
+      "seed": 991779152,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trout-smoked.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trout-smoked.glb",
+      "seconds": 27.54,
+      "bytes": 1875728,
+      "seed": 939707532,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trophy-head.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trophy-head.glb",
+      "seconds": 27.96,
+      "bytes": 2089852,
+      "seed": 533823271,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tripe-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tripe-bowl.glb",
+      "seconds": 46.9,
+      "bytes": 1977384,
+      "seed": 628260979,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trencher-wood.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trencher-wood.glb",
+      "seconds": 25.56,
+      "bytes": 1577500,
+      "seed": 496630947,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trencher-meal.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trencher-meal.glb",
+      "seconds": 27.98,
+      "bytes": 2108744,
+      "seed": 125697859,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tray-wood-round.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tray-wood-round.glb",
+      "seconds": 26.42,
+      "bytes": 1744252,
+      "seed": 240700973,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tray-long-tavern.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tray-long-tavern.glb",
+      "seconds": 28.89,
+      "bytes": 2154616,
+      "seed": 486870018,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trade-tincture-rack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trade-tincture-rack.glb",
+      "seconds": 35.94,
+      "bytes": 2641832,
+      "seed": 977914942,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trade-proofing-basket.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trade-proofing-basket.glb",
+      "seconds": 38.76,
+      "bytes": 2471512,
+      "seed": 968375463,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trade-oven-rake.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trade-oven-rake.glb",
+      "seconds": 103.93,
+      "bytes": 1680136,
+      "seed": 831663546,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trade-mash-fork.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trade-mash-fork.glb",
+      "seconds": 18.08,
+      "bytes": 1934980,
+      "seed": 500896741,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trade-loaf-tray-rising.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trade-loaf-tray-rising.glb",
+      "seconds": 35.04,
+      "bytes": 1982140,
+      "seed": 258693499,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trade-fever-basin.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trade-fever-basin.glb",
+      "seconds": 38.99,
+      "bytes": 2077804,
+      "seed": 853260939,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/trade-brewers-paddle.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/trade-brewers-paddle.glb",
+      "seconds": 25.55,
+      "bytes": 1888492,
+      "seed": 822638228,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/towel-stack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/towel-stack.glb",
+      "seconds": 52.23,
+      "bytes": 1795876,
+      "seed": 894038951,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/torch-sconce--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/torch-sconce--s3.glb",
+      "seconds": 32.7,
+      "bytes": 2259672,
+      "seed": 960742873,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/torch-sconce--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/torch-sconce--s2.glb",
+      "seconds": 21.75,
+      "bytes": 2182188,
+      "seed": 220595516,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/torch-sconce--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/torch-sconce--s1.glb",
+      "seconds": 23.65,
+      "bytes": 1959496,
+      "seed": 845227954,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tankard-tipped-spill.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tankard-tipped-spill.glb",
+      "seconds": 23.85,
+      "bytes": 2018584,
+      "seed": 174968016,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tankard-of-stout.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tankard-of-stout.glb",
+      "seconds": 33.77,
+      "bytes": 1996448,
+      "seed": 211760316,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tankard-of-ale.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tankard-of-ale.glb",
+      "seconds": 35.41,
+      "bytes": 2064656,
+      "seed": 769472531,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tankard-lidded.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tankard-lidded.glb",
+      "seconds": 28.18,
+      "bytes": 1852768,
+      "seed": 52912173,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tankard-dented.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tankard-dented.glb",
+      "seconds": 45.87,
+      "bytes": 1825936,
+      "seed": 220083534,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tankard--common--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tankard--common--s3.glb",
+      "seconds": 35.66,
+      "bytes": 1944488,
+      "seed": 655660602,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tankard--common--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tankard--common--s2.glb",
+      "seconds": 32.89,
+      "bytes": 1915616,
+      "seed": 836233175,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tankard--common--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tankard--common--s1.glb",
+      "seconds": 36.08,
+      "bytes": 1789392,
+      "seed": 661722175,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/tack-wall.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/tack-wall.glb",
+      "seconds": 32.71,
+      "bytes": 2382956,
+      "seed": 945667953,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-vanity.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-vanity.glb",
+      "seconds": 43.68,
+      "bytes": 2075736,
+      "seed": 321976515,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-trestle--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-trestle--s3.glb",
+      "seconds": 23.67,
+      "bytes": 1748612,
+      "seed": 191938522,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-trestle--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-trestle--s2.glb",
+      "seconds": 29.3,
+      "bytes": 1928320,
+      "seed": 735740941,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-trestle--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-trestle--s1.glb",
+      "seconds": 32.31,
+      "bytes": 1845668,
+      "seed": 606413013,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-square--common--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-square--common--s3.glb",
+      "seconds": 26.28,
+      "bytes": 1847252,
+      "seed": 887454474,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-square--common--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-square--common--s2.glb",
+      "seconds": 33.23,
+      "bytes": 1769684,
+      "seed": 287416293,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-square--common--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-square--common--s1.glb",
+      "seconds": 33.51,
+      "bytes": 1728080,
+      "seed": 506747857,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-side--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-side--fine.glb",
+      "seconds": 51.4,
+      "bytes": 1768412,
+      "seed": 935671188,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-side--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-side--common.glb",
+      "seconds": 37.84,
+      "bytes": 1725264,
+      "seed": 896829143,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-round-small--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-round-small--common.glb",
+      "seconds": 30.5,
+      "bytes": 1812732,
+      "seed": 761965133,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/table-kitchen-prep.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/table-kitchen-prep.glb",
+      "seconds": 33.75,
+      "bytes": 2077776,
+      "seed": 493133642,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sword-long--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sword-long--common.glb",
+      "seconds": 22.99,
+      "bytes": 1699944,
+      "seed": 14474368,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/strongbox.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/strongbox.glb",
+      "seconds": 46.08,
+      "bytes": 2007456,
+      "seed": 257738263,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/strawberries-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/strawberries-bowl.glb",
+      "seconds": 34.84,
+      "bytes": 2179872,
+      "seed": 904496296,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stool-three-leg--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stool-three-leg--s3.glb",
+      "seconds": 37.14,
+      "bytes": 1660228,
+      "seed": 419945782,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stool-three-leg--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stool-three-leg--s2.glb",
+      "seconds": 32.6,
+      "bytes": 1933176,
+      "seed": 585116624,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stool-three-leg--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stool-three-leg--s1.glb",
+      "seconds": 34.26,
+      "bytes": 2065544,
+      "seed": 795070817,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stool-bar.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stool-bar.glb",
+      "seconds": 23.9,
+      "bytes": 1939592,
+      "seed": 292541649,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stinking-cheese-giant.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stinking-cheese-giant.glb",
+      "seconds": 24.46,
+      "bytes": 1660368,
+      "seed": 474441896,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stew-pot-full.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stew-pot-full.glb",
+      "seconds": 40.39,
+      "bytes": 2172420,
+      "seed": 695570059,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stew-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stew-bowl.glb",
+      "seconds": 34.45,
+      "bytes": 2044772,
+      "seed": 367011796,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stair-straight--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stair-straight--rough-timber.glb",
+      "seconds": 35.04,
+      "bytes": 2165096,
+      "seed": 43526327,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stair-straight--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stair-straight--dressed-stone.glb",
+      "seconds": 32.35,
+      "bytes": 2061100,
+      "seed": 214916073,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stair-landing--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stair-landing--rough-timber.glb",
+      "seconds": 33.9,
+      "bytes": 2183088,
+      "seed": 219312536,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stair-landing--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stair-landing--dressed-stone.glb",
+      "seconds": 31.82,
+      "bytes": 2043680,
+      "seed": 563123428,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stair-exterior-wood--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stair-exterior-wood--rough-timber.glb",
+      "seconds": 45.1,
+      "bytes": 2126684,
+      "seed": 879072686,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stair-exterior-wood--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stair-exterior-wood--dressed-stone.glb",
+      "seconds": 35.05,
+      "bytes": 2326152,
+      "seed": 876123503,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stable-stall-door--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stable-stall-door--rough-timber.glb",
+      "seconds": 20.56,
+      "bytes": 1889080,
+      "seed": 123283625,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stable-stall-door--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stable-stall-door--dressed-stone.glb",
+      "seconds": 30.71,
+      "bytes": 2004232,
+      "seed": 686832680,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stable-stall--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stable-stall--rough-timber.glb",
+      "seconds": 34.43,
+      "bytes": 2072600,
+      "seed": 289991627,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/stable-stall--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/stable-stall--dressed-stone.glb",
+      "seconds": 47.73,
+      "bytes": 2222084,
+      "seed": 27518860,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/spoon-wooden.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/spoon-wooden.glb",
+      "seconds": 20.73,
+      "bytes": 1555304,
+      "seed": 407920236,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/spoon-stirring-long.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/spoon-stirring-long.glb",
+      "seconds": 27.59,
+      "bytes": 1692804,
+      "seed": 694989713,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/spoon-pewter.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/spoon-pewter.glb",
+      "seconds": 22.73,
+      "bytes": 1859492,
+      "seed": 769706201,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/soup-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/soup-bowl.glb",
+      "seconds": 36.65,
+      "bytes": 2697800,
+      "seed": 150338852,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/smoked-meat-rack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/smoked-meat-rack.glb",
+      "seconds": 31.59,
+      "bytes": 2159284,
+      "seed": 487905523,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/smith-shoeing-stocks.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/smith-shoeing-stocks.glb",
+      "seconds": 30.28,
+      "bytes": 1978060,
+      "seed": 374794676,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/smith-horseshoe-rack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/smith-horseshoe-rack.glb",
+      "seconds": 33.11,
+      "bytes": 2202076,
+      "seed": 203389998,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/smith-hoof-stand.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/smith-hoof-stand.glb",
+      "seconds": 31.28,
+      "bytes": 2040468,
+      "seed": 236499868,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/smith-hoof-rasp.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/smith-hoof-rasp.glb",
+      "seconds": 25.41,
+      "bytes": 2148632,
+      "seed": 457030883,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/smith-hoof-nippers.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/smith-hoof-nippers.glb",
+      "seconds": 21.55,
+      "bytes": 1905252,
+      "seed": 759689942,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/smith-farrier-box.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/smith-farrier-box.glb",
+      "seconds": 33.05,
+      "bytes": 2319028,
+      "seed": 167592952,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/skimmer-iron.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/skimmer-iron.glb",
+      "seconds": 19.06,
+      "bytes": 1832336,
+      "seed": 901203198,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sign-hanging--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sign-hanging--s3.glb",
+      "seconds": 21.27,
+      "bytes": 1862584,
+      "seed": 195901807,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sign-hanging--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sign-hanging--s2.glb",
+      "seconds": 24.23,
+      "bytes": 1988660,
+      "seed": 110273471,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sign-hanging--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sign-hanging--s1.glb",
+      "seconds": 24.05,
+      "bytes": 1946812,
+      "seed": 601403419,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sieve-hair.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sieve-hair.glb",
+      "seconds": 28.73,
+      "bytes": 2211876,
+      "seed": 564803731,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sickbed.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sickbed.glb",
+      "seconds": 39.46,
+      "bytes": 1970660,
+      "seed": 415177085,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/shrimp-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/shrimp-bowl.glb",
+      "seconds": 29.1,
+      "bytes": 1846436,
+      "seed": 683680452,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/shield-display.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/shield-display.glb",
+      "seconds": 29.47,
+      "bytes": 2066052,
+      "seed": 114784485,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/shepherds-pie-dish.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/shepherds-pie-dish.glb",
+      "seconds": 19.06,
+      "bytes": 2237172,
+      "seed": 626813826,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/shelving-freestanding.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/shelving-freestanding.glb",
+      "seconds": 29.31,
+      "bytes": 1937972,
+      "seed": 675376287,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/shelf-wall--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/shelf-wall--s3.glb",
+      "seconds": 29.86,
+      "bytes": 1804580,
+      "seed": 805198590,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/shelf-wall--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/shelf-wall--s2.glb",
+      "seconds": 26.66,
+      "bytes": 1966040,
+      "seed": 641134139,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/shelf-wall--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/shelf-wall--s1.glb",
+      "seconds": 23.27,
+      "bytes": 1783528,
+      "seed": 970281433,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/settle.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/settle.glb",
+      "seconds": 32.8,
+      "bytes": 1993692,
+      "seed": 751705703,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/serving-bowl-large.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/serving-bowl-large.glb",
+      "seconds": 28.33,
+      "bytes": 1665392,
+      "seed": 848155678,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/screen-folding.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/screen-folding.glb",
+      "seconds": 25.17,
+      "bytes": 2346256,
+      "seed": 588151404,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/scones-plate.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/scones-plate.glb",
+      "seconds": 24.48,
+      "bytes": 1965308,
+      "seed": 139646978,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sausages-pan.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sausages-pan.glb",
+      "seconds": 27.76,
+      "bytes": 2025364,
+      "seed": 691253841,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sausage-link.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sausage-link.glb",
+      "seconds": 27.1,
+      "bytes": 2013864,
+      "seed": 669426329,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sauerkraut-crock.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sauerkraut-crock.glb",
+      "seconds": 28.56,
+      "bytes": 2226828,
+      "seed": 346764174,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/salted-fish-stack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/salted-fish-stack.glb",
+      "seconds": 34.86,
+      "bytes": 2100416,
+      "seed": 403326484,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/salt-sack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/salt-sack.glb",
+      "seconds": 31.53,
+      "bytes": 1984852,
+      "seed": 425956967,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/salt-box.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/salt-box.glb",
+      "seconds": 35.34,
+      "bytes": 1856484,
+      "seed": 265351567,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/salad-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/salad-bowl.glb",
+      "seconds": 32.6,
+      "bytes": 2244204,
+      "seed": 535803715,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/saddle-rack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/saddle-rack.glb",
+      "seconds": 23.29,
+      "bytes": 2175412,
+      "seed": 834280418,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sack--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sack--s3.glb",
+      "seconds": 30.46,
+      "bytes": 1974328,
+      "seed": 244816863,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sack--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sack--s2.glb",
+      "seconds": 39.07,
+      "bytes": 1984556,
+      "seed": 850847606,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/sack--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/sack--s1.glb",
+      "seconds": 26.21,
+      "bytes": 2055824,
+      "seed": 204579265,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-water-bucket-stable.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-water-bucket-stable.glb",
+      "seconds": 34.3,
+      "bytes": 1913112,
+      "seed": 998751374,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-saddle-riding.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-saddle-riding.glb",
+      "seconds": 35.54,
+      "bytes": 2104408,
+      "seed": 308219935,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-oat-sack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-oat-sack.glb",
+      "seconds": 34.97,
+      "bytes": 2298652,
+      "seed": 509488915,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-nosebag.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-nosebag.glb",
+      "seconds": 45.85,
+      "bytes": 2435916,
+      "seed": 79045547,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-manure-barrow.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-manure-barrow.glb",
+      "seconds": 23.11,
+      "bytes": 2301328,
+      "seed": 17460975,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-manger-wall.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-manger-wall.glb",
+      "seconds": 36.13,
+      "bytes": 2440576,
+      "seed": 305204883,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-lantern-barn.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-lantern-barn.glb",
+      "seconds": 24.71,
+      "bytes": 2271532,
+      "seed": 752784347,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-horse-brasses.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-horse-brasses.glb",
+      "seconds": 23.39,
+      "bytes": 2353876,
+      "seed": 390043348,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-hoof-pick.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-hoof-pick.glb",
+      "seconds": 22.03,
+      "bytes": 1845824,
+      "seed": 904471815,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-grooming-box.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-grooming-box.glb",
+      "seconds": 33.67,
+      "bytes": 2173300,
+      "seed": 652024972,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rural-curry-comb.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rural-curry-comb.glb",
+      "seconds": 36.27,
+      "bytes": 2134268,
+      "seed": 447010946,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rope-coil.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rope-coil.glb",
+      "seconds": 44.26,
+      "bytes": 2529888,
+      "seed": 458985362,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/roof-shingle-wood--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/roof-shingle-wood--rough-timber.glb",
+      "seconds": 28.85,
+      "bytes": 2402176,
+      "seed": 311430384,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/roof-shingle-wood--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/roof-shingle-wood--dressed-stone.glb",
+      "seconds": 36.62,
+      "bytes": 2103124,
+      "seed": 328850962,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/roof-dormer--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/roof-dormer--rough-timber.glb",
+      "seconds": 55.49,
+      "bytes": 2237220,
+      "seed": 442148463,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/roof-dormer--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/roof-dormer--dressed-stone.glb",
+      "seconds": 42.04,
+      "bytes": 2333264,
+      "seed": 664404820,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rolling-pin.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rolling-pin.glb",
+      "seconds": 23.51,
+      "bytes": 1680868,
+      "seed": 329847129,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rice-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rice-bowl.glb",
+      "seconds": 34.2,
+      "bytes": 2325156,
+      "seed": 514538012,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/ribs-roasted.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/ribs-roasted.glb",
+      "seconds": 27.27,
+      "bytes": 1745312,
+      "seed": 254934916,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/refuse-pile.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/refuse-pile.glb",
+      "seconds": 37.37,
+      "bytes": 2453376,
+      "seed": 131481713,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/railing-wood--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/railing-wood--rough-timber.glb",
+      "seconds": 18.73,
+      "bytes": 2042692,
+      "seed": 911915816,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/railing-wood--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/railing-wood--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 1738216,
+      "seed": 838877249,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/rabbit-roast.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/rabbit-roast.glb",
+      "seconds": 0,
+      "bytes": 2011460,
+      "seed": 316575808,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/quilt-rack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/quilt-rack.glb",
+      "seconds": 0,
+      "bytes": 1822052,
+      "seed": 604175979,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pumpkin-carved.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pumpkin-carved.glb",
+      "seconds": 0,
+      "bytes": 2033708,
+      "seed": 947981181,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/privy-seat-single--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/privy-seat-single--common.glb",
+      "seconds": 0,
+      "bytes": 2087644,
+      "seed": 681604586,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/privy-seat-double.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/privy-seat-double.glb",
+      "seconds": 0,
+      "bytes": 1969396,
+      "seed": 880910683,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pretzel.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pretzel.glb",
+      "seconds": 0,
+      "bytes": 1935436,
+      "seed": 523140343,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/preserves-shelf-jars.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/preserves-shelf-jars.glb",
+      "seconds": 0,
+      "bytes": 2403888,
+      "seed": 331731453,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/potato.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/potato.glb",
+      "seconds": 0,
+      "bytes": 1544732,
+      "seed": 910935924,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/potato-sack-open.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/potato-sack-open.glb",
+      "seconds": 0,
+      "bytes": 2312320,
+      "seed": 39000259,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/potato-pile.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/potato-pile.glb",
+      "seconds": 0,
+      "bytes": 1895372,
+      "seed": 978605391,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/potato-peeled.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/potato-peeled.glb",
+      "seconds": 0,
+      "bytes": 1821888,
+      "seed": 607799891,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pot-lidded.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pot-lidded.glb",
+      "seconds": 0,
+      "bytes": 1990632,
+      "seed": 923874821,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pot-iron-small.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pot-iron-small.glb",
+      "seconds": 0,
+      "bytes": 1832184,
+      "seed": 249137706,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pot-iron-large.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pot-iron-large.glb",
+      "seconds": 0,
+      "bytes": 2050268,
+      "seed": 395053110,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pot-hook-chain.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pot-hook-chain.glb",
+      "seconds": 0,
+      "bytes": 1764092,
+      "seed": 160779487,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pot-copper.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pot-copper.glb",
+      "seconds": 0,
+      "bytes": 1820940,
+      "seed": 56959768,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/post-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/post-timber.glb",
+      "seconds": 0,
+      "bytes": 1861684,
+      "seed": 963461761,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/porch-covered--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/porch-covered--rough-timber.glb",
+      "seconds": 0,
+      "bytes": 2104772,
+      "seed": 644487227,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/porch-covered--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/porch-covered--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 2263708,
+      "seed": 67425247,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/platter-wood.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/platter-wood.glb",
+      "seconds": 0,
+      "bytes": 1657768,
+      "seed": 973734896,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-wood-round.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-wood-round.glb",
+      "seconds": 0,
+      "bytes": 1724268,
+      "seed": 772418535,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-scraps.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-scraps.glb",
+      "seconds": 0,
+      "bytes": 1958156,
+      "seed": 239301483,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-sausage-mash.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-sausage-mash.glb",
+      "seconds": 0,
+      "bytes": 2154380,
+      "seed": 273751151,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-roast-veg.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-roast-veg.glb",
+      "seconds": 0,
+      "bytes": 1924136,
+      "seed": 99174075,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-pie-slice.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-pie-slice.glb",
+      "seconds": 0,
+      "bytes": 1730148,
+      "seed": 598795773,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-pewter.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-pewter.glb",
+      "seconds": 0,
+      "bytes": 2268704,
+      "seed": 146084724,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-fish-chips.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-fish-chips.glb",
+      "seconds": 0,
+      "bytes": 2001444,
+      "seed": 14175792,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-eggs-bacon.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-eggs-bacon.glb",
+      "seconds": 0,
+      "bytes": 2120124,
+      "seed": 342353377,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate-cheese-bread.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate-cheese-bread.glb",
+      "seconds": 0,
+      "bytes": 1842020,
+      "seed": 597964469,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate--common--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate--common--s3.glb",
+      "seconds": 0,
+      "bytes": 1903260,
+      "seed": 783999890,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate--common--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate--common--s2.glb",
+      "seconds": 0,
+      "bytes": 1823688,
+      "seed": 783692275,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/plate--common--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/plate--common--s1.glb",
+      "seconds": 0,
+      "bytes": 1808936,
+      "seed": 484935800,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pitchfork.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pitchfork.glb",
+      "seconds": 0,
+      "bytes": 1728400,
+      "seed": 752391137,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pitcher-pewter.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pitcher-pewter.glb",
+      "seconds": 0,
+      "bytes": 2210220,
+      "seed": 958351031,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pitcher-of-ale.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pitcher-of-ale.glb",
+      "seconds": 0,
+      "bytes": 1862948,
+      "seed": 914024232,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pitcher--common--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pitcher--common--s3.glb",
+      "seconds": 0,
+      "bytes": 1626344,
+      "seed": 873509679,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pitcher--common--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pitcher--common--s2.glb",
+      "seconds": 0,
+      "bytes": 1943628,
+      "seed": 976073432,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pitcher--common--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pitcher--common--s1.glb",
+      "seconds": 0,
+      "bytes": 1606260,
+      "seed": 362844250,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pillows-cushions--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pillows-cushions--fine.glb",
+      "seconds": 0,
+      "bytes": 2110036,
+      "seed": 661508995,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pillows-cushions--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pillows-cushions--common.glb",
+      "seconds": 0,
+      "bytes": 2150624,
+      "seed": 181626522,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pillar-square--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pillar-square--s3.glb",
+      "seconds": 0,
+      "bytes": 1789324,
+      "seed": 302851344,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pillar-square--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pillar-square--s2.glb",
+      "seconds": 0,
+      "bytes": 1892908,
+      "seed": 389891254,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pillar-square--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pillar-square--s1.glb",
+      "seconds": 0,
+      "bytes": 2058352,
+      "seed": 78636400,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pie-slice.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pie-slice.glb",
+      "seconds": 0,
+      "bytes": 2066828,
+      "seed": 293058252,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pie-meat.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pie-meat.glb",
+      "seconds": 0,
+      "bytes": 2189916,
+      "seed": 145496068,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pie-fruit-lattice.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pie-fruit-lattice.glb",
+      "seconds": 0,
+      "bytes": 2162808,
+      "seed": 303155414,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pie-cut-missing-slice.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pie-cut-missing-slice.glb",
+      "seconds": 0,
+      "bytes": 2148524,
+      "seed": 539387018,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pear.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pear.glb",
+      "seconds": 0,
+      "bytes": 1572068,
+      "seed": 546974385,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pear-pile.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pear-pile.glb",
+      "seconds": 0,
+      "bytes": 1842148,
+      "seed": 354499740,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pasty.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pasty.glb",
+      "seconds": 0,
+      "bytes": 1920772,
+      "seed": 391080074,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pan-long-handle.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pan-long-handle.glb",
+      "seconds": 0,
+      "bytes": 1732548,
+      "seed": 181795931,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/pan-frying.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/pan-frying.glb",
+      "seconds": 0,
+      "bytes": 1888592,
+      "seed": 603330866,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/oysters-plate.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/oysters-plate.glb",
+      "seconds": 0,
+      "bytes": 2233400,
+      "seed": 978751216,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/outhouse.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/outhouse.glb",
+      "seconds": 0,
+      "bytes": 2412348,
+      "seed": 589663602,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/onion.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/onion.glb",
+      "seconds": 0,
+      "bytes": 1654892,
+      "seed": 680096145,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/onion-string.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/onion-string.glb",
+      "seconds": 0,
+      "bytes": 2172836,
+      "seed": 288687707,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/onion-sliced.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/onion-sliced.glb",
+      "seconds": 0,
+      "bytes": 2767160,
+      "seed": 754535568,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/omelette-pan.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/omelette-pan.glb",
+      "seconds": 0,
+      "bytes": 2077820,
+      "seed": 896124115,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/oil-jar.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/oil-jar.glb",
+      "seconds": 0,
+      "bytes": 1894784,
+      "seed": 108665742,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/oats-bowl-dry.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/oats-bowl-dry.glb",
+      "seconds": 0,
+      "bytes": 2295164,
+      "seed": 493088215,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/notice-board.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/notice-board.glb",
+      "seconds": 0,
+      "bytes": 2017884,
+      "seed": 997599083,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/noodles-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/noodles-bowl.glb",
+      "seconds": 0,
+      "bytes": 2502556,
+      "seed": 838777536,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/napkin-folded.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/napkin-folded.glb",
+      "seconds": 0,
+      "bytes": 1796232,
+      "seed": 771596685,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mussels-bucket.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mussels-bucket.glb",
+      "seconds": 0,
+      "bytes": 2083812,
+      "seed": 135876354,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mushroom-cluster-edible.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mushroom-cluster-edible.glb",
+      "seconds": 0,
+      "bytes": 2045592,
+      "seed": 146596506,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mulberries-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mulberries-bowl.glb",
+      "seconds": 0,
+      "bytes": 2573408,
+      "seed": 504386364,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mug-of-ale.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mug-of-ale.glb",
+      "seconds": 0,
+      "bytes": 2106856,
+      "seed": 586157236,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mug-glazed.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mug-glazed.glb",
+      "seconds": 0,
+      "bytes": 1610456,
+      "seed": 506990436,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mug-chipped.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mug-chipped.glb",
+      "seconds": 0,
+      "bytes": 1799072,
+      "seed": 803157924,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/muffin.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/muffin.glb",
+      "seconds": 0,
+      "bytes": 1673404,
+      "seed": 137294304,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mousetrap-cheese.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mousetrap-cheese.glb",
+      "seconds": 0,
+      "bytes": 2092944,
+      "seed": 5945150,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mop.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mop.glb",
+      "seconds": 0,
+      "bytes": 1955932,
+      "seed": 80582143,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/monster-head-trophy.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/monster-head-trophy.glb",
+      "seconds": 0,
+      "bytes": 2056144,
+      "seed": 578837149,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/monster-egg-cooked.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/monster-egg-cooked.glb",
+      "seconds": 0,
+      "bytes": 1867428,
+      "seed": 757819900,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mirror-standing.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mirror-standing.glb",
+      "seconds": 0,
+      "bytes": 1811396,
+      "seed": 413854085,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/meatballs-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/meatballs-bowl.glb",
+      "seconds": 0,
+      "bytes": 1933320,
+      "seed": 225929671,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/meat-roast-joint.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/meat-roast-joint.glb",
+      "seconds": 0,
+      "bytes": 1649708,
+      "seed": 168476211,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/mash-tun.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/mash-tun.glb",
+      "seconds": 0,
+      "bytes": 2140108,
+      "seed": 342558680,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/manure-heap.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/manure-heap.glb",
+      "seconds": 0,
+      "bytes": 1767236,
+      "seed": 908046021,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/malt-sacks.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/malt-sacks.glb",
+      "seconds": 0,
+      "bytes": 2478084,
+      "seed": 35573971,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/loot-sack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/loot-sack.glb",
+      "seconds": 0,
+      "bytes": 2168068,
+      "seed": 231090737,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/linen-chest.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/linen-chest.glb",
+      "seconds": 0,
+      "bytes": 2241988,
+      "seed": 271764603,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/ledger-counter-bell.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/ledger-counter-bell.glb",
+      "seconds": 0,
+      "bytes": 1938888,
+      "seed": 217858189,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/ledger-accounts.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/ledger-accounts.glb",
+      "seconds": 0,
+      "bytes": 1909724,
+      "seed": 281387594,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/lantern-hanging--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/lantern-hanging--s3.glb",
+      "seconds": 0,
+      "bytes": 2188852,
+      "seed": 522334324,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/lantern-hanging--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/lantern-hanging--s2.glb",
+      "seconds": 0,
+      "bytes": 2161368,
+      "seed": 532245987,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/lantern-hanging--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/lantern-hanging--s1.glb",
+      "seconds": 0,
+      "bytes": 2235536,
+      "seed": 4428962,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/lantern-hand.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/lantern-hand.glb",
+      "seconds": 0,
+      "bytes": 2079192,
+      "seed": 96182203,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/lamp-post-wood.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/lamp-post-wood.glb",
+      "seconds": 0,
+      "bytes": 1944408,
+      "seed": 258237095,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/ladle.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/ladle.glb",
+      "seconds": 0,
+      "bytes": 1626764,
+      "seed": 38195014,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/ladder-wood.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/ladder-wood.glb",
+      "seconds": 0,
+      "bytes": 1654624,
+      "seed": 985146987,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/knife-table.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/knife-table.glb",
+      "seconds": 0,
+      "bytes": 1622632,
+      "seed": 61656770,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/knife-rack-wall.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/knife-rack-wall.glb",
+      "seconds": 0,
+      "bytes": 1982892,
+      "seed": 70970372,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/knife-carving.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/knife-carving.glb",
+      "seconds": 0,
+      "bytes": 1731492,
+      "seed": 548585653,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/key-simple--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/key-simple--s3.glb",
+      "seconds": 0,
+      "bytes": 1700940,
+      "seed": 188709681,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/key-simple--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/key-simple--s2.glb",
+      "seconds": 0,
+      "bytes": 1789292,
+      "seed": 826672452,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/key-simple--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/key-simple--s1.glb",
+      "seconds": 0,
+      "bytes": 1693668,
+      "seed": 359952490,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/key-ring.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/key-ring.glb",
+      "seconds": 0,
+      "bytes": 2099048,
+      "seed": 721413093,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/key-large.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/key-large.glb",
+      "seconds": 0,
+      "bytes": 1889192,
+      "seed": 229986115,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/key-hook-board.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/key-hook-board.glb",
+      "seconds": 0,
+      "bytes": 2240316,
+      "seed": 50550362,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/kettle-hanging.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/kettle-hanging.glb",
+      "seconds": 0,
+      "bytes": 1961752,
+      "seed": 789571624,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/kebab-grill.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/kebab-grill.glb",
+      "seconds": 0,
+      "bytes": 2213840,
+      "seed": 237207016,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/jug-stoneware-large.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/jug-stoneware-large.glb",
+      "seconds": 0,
+      "bytes": 1828032,
+      "seed": 996310891,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/jug-puzzle.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/jug-puzzle.glb",
+      "seconds": 0,
+      "bytes": 2323156,
+      "seed": 972403952,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/jug-clay.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/jug-clay.glb",
+      "seconds": 0,
+      "bytes": 1677144,
+      "seed": 842104521,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/journal-leather.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/journal-leather.glb",
+      "seconds": 0,
+      "bytes": 2076772,
+      "seed": 5765734,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/jerky-bundle.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/jerky-bundle.glb",
+      "seconds": 0,
+      "bytes": 2173456,
+      "seed": 8639134,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/jar-pickles.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/jar-pickles.glb",
+      "seconds": 0,
+      "bytes": 2958108,
+      "seed": 845434145,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/jar-oil.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/jar-oil.glb",
+      "seconds": 0,
+      "bytes": 1669180,
+      "seed": 385694553,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/jam-jar.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/jam-jar.glb",
+      "seconds": 0,
+      "bytes": 1918472,
+      "seed": 71395791,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/horseshoe-single.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/horseshoe-single.glb",
+      "seconds": 0,
+      "bytes": 1704924,
+      "seed": 479012716,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/horse-trough-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/horse-trough-stone.glb",
+      "seconds": 0,
+      "bytes": 1758976,
+      "seed": 997322795,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/horse-collar.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/horse-collar.glb",
+      "seconds": 0,
+      "bytes": 1966224,
+      "seed": 328713811,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/horse-blanket-rail.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/horse-blanket-rail.glb",
+      "seconds": 0,
+      "bytes": 1990956,
+      "seed": 603595225,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/hops-bundle.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/hops-bundle.glb",
+      "seconds": 0,
+      "bytes": 1986772,
+      "seed": 746807294,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/honey-jar-dipper.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/honey-jar-dipper.glb",
+      "seconds": 0,
+      "bytes": 1820936,
+      "seed": 96638782,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/honey-cake.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/honey-cake.glb",
+      "seconds": 0,
+      "bytes": 1800076,
+      "seed": 739808397,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/hitching-post.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/hitching-post.glb",
+      "seconds": 0,
+      "bytes": 1878444,
+      "seed": 171363349,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/herb-pot.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/herb-pot.glb",
+      "seconds": 0,
+      "bytes": 2219532,
+      "seed": 304720056,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/herb-bundle-fresh.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/herb-bundle-fresh.glb",
+      "seconds": 0,
+      "bytes": 2377848,
+      "seed": 656907303,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/hay-pile.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/hay-pile.glb",
+      "seconds": 0,
+      "bytes": 2047340,
+      "seed": 69072369,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/hay-bale--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/hay-bale--s3.glb",
+      "seconds": 0,
+      "bytes": 2075508,
+      "seed": 634558934,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/hay-bale--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/hay-bale--s2.glb",
+      "seconds": 0,
+      "bytes": 1893404,
+      "seed": 852537993,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/hay-bale--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/hay-bale--s1.glb",
+      "seconds": 0,
+      "bytes": 1923660,
+      "seed": 37024424,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/ham-hanging.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/ham-hanging.glb",
+      "seconds": 0,
+      "bytes": 1872004,
+      "seed": 687239898,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/gruel-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/gruel-bowl.glb",
+      "seconds": 0,
+      "bytes": 1840676,
+      "seed": 588182637,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/griddle-iron.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/griddle-iron.glb",
+      "seconds": 0,
+      "bytes": 1715736,
+      "seed": 906521360,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/grapes-crushed-tub.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/grapes-crushed-tub.glb",
+      "seconds": 0,
+      "bytes": 2087616,
+      "seed": 853023496,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/grain-bin-stable.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/grain-bin-stable.glb",
+      "seconds": 0,
+      "bytes": 2058668,
+      "seed": 282432801,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/garlic-bulb.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/garlic-bulb.glb",
+      "seconds": 0,
+      "bytes": 1689520,
+      "seed": 147320693,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/garlic-braid.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/garlic-braid.glb",
+      "seconds": 0,
+      "bytes": 1989740,
+      "seed": 739049353,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/gallery-interior--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/gallery-interior--rough-timber.glb",
+      "seconds": 0,
+      "bytes": 2122044,
+      "seed": 751953530,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/gallery-interior--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/gallery-interior--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 2129036,
+      "seed": 988066571,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/fruit-crate-mixed.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/fruit-crate-mixed.glb",
+      "seconds": 0,
+      "bytes": 1940196,
+      "seed": 677586179,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/fork-two-tine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/fork-two-tine.glb",
+      "seconds": 0,
+      "bytes": 1786572,
+      "seed": 556383305,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/flour-sack-open.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/flour-sack-open.glb",
+      "seconds": 0,
+      "bytes": 2024656,
+      "seed": 216991398,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/flour-bin.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/flour-bin.glb",
+      "seconds": 0,
+      "bytes": 2059924,
+      "seed": 124873295,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/floor-trapdoor--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/floor-trapdoor--rough-timber.glb",
+      "seconds": 0,
+      "bytes": 1892156,
+      "seed": 426213728,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/floor-trapdoor--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/floor-trapdoor--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 1888192,
+      "seed": 448472989,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/floor-hayloft--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/floor-hayloft--rough-timber.glb",
+      "seconds": 0,
+      "bytes": 2049128,
+      "seed": 361336434,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/floor-hayloft--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/floor-hayloft--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 2155188,
+      "seed": 646621530,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/flagon.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/flagon.glb",
+      "seconds": 0,
+      "bytes": 1829264,
+      "seed": 394795636,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/fish-cooked-plate.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/fish-cooked-plate.glb",
+      "seconds": 0,
+      "bytes": 2128144,
+      "seed": 442786777,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/fish-bones.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/fish-bones.glb",
+      "seconds": 0,
+      "bytes": 1833704,
+      "seed": 90720035,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/fireplace-wall--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/fireplace-wall--fine.glb",
+      "seconds": 0,
+      "bytes": 2082928,
+      "seed": 663464554,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/fireplace-wall--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/fireplace-wall--common.glb",
+      "seconds": 0,
+      "bytes": 2239180,
+      "seed": 576030757,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/fiddle.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/fiddle.glb",
+      "seconds": 0,
+      "bytes": 2027040,
+      "seed": 143474880,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/feed-trough.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/feed-trough.glb",
+      "seconds": 0,
+      "bytes": 2055456,
+      "seed": 844435832,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/farrier-stand.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/farrier-stand.glb",
+      "seconds": 0,
+      "bytes": 2065872,
+      "seed": 407629000,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/eggs-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/eggs-bowl.glb",
+      "seconds": 0,
+      "bytes": 2116156,
+      "seed": 660991752,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/egg.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/egg.glb",
+      "seconds": 0,
+      "bytes": 2054348,
+      "seed": 879787113,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/egg-fried-pan.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/egg-fried-pan.glb",
+      "seconds": 0,
+      "bytes": 1823752,
+      "seed": 355349297,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/egg-cracked.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/egg-cracked.glb",
+      "seconds": 0,
+      "bytes": 1674152,
+      "seed": 722170206,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/egg-boiled-cup.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/egg-boiled-cup.glb",
+      "seconds": 0,
+      "bytes": 1798120,
+      "seed": 795787291,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/eel-pie.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/eel-pie.glb",
+      "seconds": 0,
+      "bytes": 1707480,
+      "seed": 552301492,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/dumplings-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/dumplings-bowl.glb",
+      "seconds": 0,
+      "bytes": 1899396,
+      "seed": 614828757,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/drumstick.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/drumstick.glb",
+      "seconds": 0,
+      "bytes": 2374912,
+      "seed": 1634084,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/dried-herbs-jar.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/dried-herbs-jar.glb",
+      "seconds": 0,
+      "bytes": 2487788,
+      "seed": 799239435,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/dried-fruit-string.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/dried-fruit-string.glb",
+      "seconds": 0,
+      "bytes": 2136788,
+      "seed": 295627537,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/dough-kneading.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/dough-kneading.glb",
+      "seconds": 0,
+      "bytes": 1818076,
+      "seed": 834587556,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/dough-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/dough-bowl.glb",
+      "seconds": 0,
+      "bytes": 2085232,
+      "seed": 135715974,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/door-reinforced--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/door-reinforced--rough-timber.glb",
+      "seconds": 0,
+      "bytes": 1967316,
+      "seed": 643758481,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/door-reinforced--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/door-reinforced--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 2168948,
+      "seed": 163819009,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/door-plank--rough-timber--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/door-plank--rough-timber--common.glb",
+      "seconds": 0,
+      "bytes": 1823776,
+      "seed": 94804752,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/door-plank--dressed-stone--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/door-plank--dressed-stone--common.glb",
+      "seconds": 0,
+      "bytes": 1890736,
+      "seed": 923649195,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/door-double-grand--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/door-double-grand--rough-timber.glb",
+      "seconds": 0,
+      "bytes": 1933624,
+      "seed": 727565965,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/door-double-grand--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/door-double-grand--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 2104916,
+      "seed": 204028965,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/door-barn-double--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/door-barn-double--rough-timber.glb",
+      "seconds": 0,
+      "bytes": 2037836,
+      "seed": 352762078,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/door-barn-double--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/door-barn-double--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 2050756,
+      "seed": 79387648,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/dish-rag-hanging.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/dish-rag-hanging.glb",
+      "seconds": 0,
+      "bytes": 2693748,
+      "seed": 130799043,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/dice-and-cup.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/dice-and-cup.glb",
+      "seconds": 0,
+      "bytes": 2037748,
+      "seed": 169713149,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/desk-writing--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/desk-writing--fine.glb",
+      "seconds": 0,
+      "bytes": 2038800,
+      "seed": 521644148,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/dagger--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/dagger--common.glb",
+      "seconds": 0,
+      "bytes": 1820212,
+      "seed": 101736037,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cutting-board.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cutting-board.glb",
+      "seconds": 0,
+      "bytes": 1940716,
+      "seed": 10847822,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cutlery-roll.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cutlery-roll.glb",
+      "seconds": 0,
+      "bytes": 2018400,
+      "seed": 72668993,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/curds-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/curds-bowl.glb",
+      "seconds": 0,
+      "bytes": 1878700,
+      "seed": 738836152,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cupboard--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cupboard--s3.glb",
+      "seconds": 0,
+      "bytes": 1821928,
+      "seed": 181044611,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cupboard--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cupboard--s2.glb",
+      "seconds": 0,
+      "bytes": 1930048,
+      "seed": 94206748,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cupboard--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cupboard--s1.glb",
+      "seconds": 0,
+      "bytes": 1984548,
+      "seed": 664213357,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cup-pewter.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cup-pewter.glb",
+      "seconds": 0,
+      "bytes": 1891680,
+      "seed": 446612774,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cup-clay.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cup-clay.glb",
+      "seconds": 0,
+      "bytes": 1681352,
+      "seed": 830971979,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cucumber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cucumber.glb",
+      "seconds": 0,
+      "bytes": 1544440,
+      "seed": 716359214,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/crock.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/crock.glb",
+      "seconds": 0,
+      "bytes": 1685904,
+      "seed": 242863785,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cream-jug.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cream-jug.glb",
+      "seconds": 0,
+      "bytes": 1675932,
+      "seed": 199412875,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/crate--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/crate--s3.glb",
+      "seconds": 0,
+      "bytes": 1839828,
+      "seed": 329668729,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/crate--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/crate--s2.glb",
+      "seconds": 0,
+      "bytes": 2123044,
+      "seed": 637189220,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/crate--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/crate--s1.glb",
+      "seconds": 0,
+      "bytes": 1908532,
+      "seed": 500706429,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/crab.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/crab.glb",
+      "seconds": 0,
+      "bytes": 1828292,
+      "seed": 860465471,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/counter-shop.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/counter-shop.glb",
+      "seconds": 0,
+      "bytes": 2239272,
+      "seed": 408745238,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cooking-pot.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cooking-pot.glb",
+      "seconds": 0,
+      "bytes": 1711660,
+      "seed": 199871178,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cookies-plate.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cookies-plate.glb",
+      "seconds": 0,
+      "bytes": 1794144,
+      "seed": 582792870,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cook-hearth-spit.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cook-hearth-spit.glb",
+      "seconds": 0,
+      "bytes": 2174372,
+      "seed": 790351150,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/colander.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/colander.glb",
+      "seconds": 0,
+      "bytes": 2016676,
+      "seed": 388524279,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/coin-stack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/coin-stack.glb",
+      "seconds": 0,
+      "bytes": 1915252,
+      "seed": 320555535,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/coat-pegs.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/coat-pegs.glb",
+      "seconds": 0,
+      "bytes": 2046000,
+      "seed": 345662967,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/clothes-folded--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/clothes-folded--common.glb",
+      "seconds": 0,
+      "bytes": 2120428,
+      "seed": 533546810,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/clothes-chest-open.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/clothes-chest-open.glb",
+      "seconds": 0,
+      "bytes": 2455600,
+      "seed": 649013040,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cleaver.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cleaver.glb",
+      "seconds": 0,
+      "bytes": 1877372,
+      "seed": 210857277,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chopping-block-kitchen.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chopping-block-kitchen.glb",
+      "seconds": 0,
+      "bytes": 1829828,
+      "seed": 923782629,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chocolate-bar.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chocolate-bar.glb",
+      "seconds": 0,
+      "bytes": 1759432,
+      "seed": 734243282,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chicken-roast-whole.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chicken-roast-whole.glb",
+      "seconds": 0,
+      "bytes": 2134764,
+      "seed": 787156123,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chicken-half-eaten.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chicken-half-eaten.glb",
+      "seconds": 0,
+      "bytes": 1731076,
+      "seed": 952001710,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chicken-carcass-bones.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chicken-carcass-bones.glb",
+      "seconds": 0,
+      "bytes": 2037164,
+      "seed": 238535273,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chest-plain--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chest-plain--s3.glb",
+      "seconds": 0,
+      "bytes": 2150756,
+      "seed": 897965129,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chest-plain--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chest-plain--s2.glb",
+      "seconds": 0,
+      "bytes": 2036480,
+      "seed": 506378779,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chest-plain--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chest-plain--s1.glb",
+      "seconds": 0,
+      "bytes": 2083860,
+      "seed": 25031511,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chest-ironbound.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chest-ironbound.glb",
+      "seconds": 0,
+      "bytes": 2129740,
+      "seed": 166401539,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-wheel-cut.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-wheel-cut.glb",
+      "seconds": 0,
+      "bytes": 2019248,
+      "seed": 93603957,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-wheel--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-wheel--s3.glb",
+      "seconds": 0,
+      "bytes": 1638384,
+      "seed": 129923960,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-wheel--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-wheel--s2.glb",
+      "seconds": 0,
+      "bytes": 1987488,
+      "seed": 376641171,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-wheel--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-wheel--s1.glb",
+      "seconds": 0,
+      "bytes": 2073104,
+      "seed": 593798673,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-wedge.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-wedge.glb",
+      "seconds": 0,
+      "bytes": 1722284,
+      "seed": 831173875,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-wax-sealed.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-wax-sealed.glb",
+      "seconds": 0,
+      "bytes": 1937660,
+      "seed": 971800219,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-small-round.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-small-round.glb",
+      "seconds": 0,
+      "bytes": 2201140,
+      "seed": 524576489,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-slice.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-slice.glb",
+      "seconds": 0,
+      "bytes": 1528360,
+      "seed": 879264109,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-shelf-aging.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-shelf-aging.glb",
+      "seconds": 0,
+      "bytes": 2330656,
+      "seed": 46240193,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cheese-moldy-blue.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cheese-moldy-blue.glb",
+      "seconds": 0,
+      "bytes": 2136472,
+      "seed": 454864761,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chandelier-ring.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chandelier-ring.glb",
+      "seconds": 0,
+      "bytes": 2313244,
+      "seed": 211789223,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chamber-pot--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chamber-pot--fine.glb",
+      "seconds": 0,
+      "bytes": 1652484,
+      "seed": 767867749,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chamber-pot--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chamber-pot--common.glb",
+      "seconds": 0,
+      "bytes": 1706440,
+      "seed": 335636141,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chair-upholstered.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chair-upholstered.glb",
+      "seconds": 0,
+      "bytes": 1961072,
+      "seed": 279267988,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chair-plain--common--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chair-plain--common--s3.glb",
+      "seconds": 0,
+      "bytes": 1730944,
+      "seed": 334119883,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chair-plain--common--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chair-plain--common--s2.glb",
+      "seconds": 0,
+      "bytes": 1949056,
+      "seed": 184698438,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/chair-plain--common--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/chair-plain--common--s1.glb",
+      "seconds": 0,
+      "bytes": 1812300,
+      "seed": 820244656,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cauldron.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cauldron.glb",
+      "seconds": 0,
+      "bytes": 1890852,
+      "seed": 71453376,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cauldron-small.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cauldron-small.glb",
+      "seconds": 0,
+      "bytes": 1953556,
+      "seed": 315989526,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cask-small-spigot.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cask-small-spigot.glb",
+      "seconds": 0,
+      "bytes": 2060916,
+      "seed": 599991547,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cask-rack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cask-rack.glb",
+      "seconds": 0,
+      "bytes": 2431776,
+      "seed": 6547475,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cart-shed.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cart-shed.glb",
+      "seconds": 0,
+      "bytes": 2012540,
+      "seed": 382500648,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cart-hand.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cart-hand.glb",
+      "seconds": 0,
+      "bytes": 2308016,
+      "seed": 117953809,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/carrot.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/carrot.glb",
+      "seconds": 0,
+      "bytes": 1749380,
+      "seed": 110371923,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/carrot-pile.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/carrot-pile.glb",
+      "seconds": 0,
+      "bytes": 2137624,
+      "seed": 141557453,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/candlestick--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/candlestick--fine.glb",
+      "seconds": 0,
+      "bytes": 2004768,
+      "seed": 780137753,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/candlestick--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/candlestick--common.glb",
+      "seconds": 0,
+      "bytes": 1914536,
+      "seed": 199966576,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/candle-stubs-dish.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/candle-stubs-dish.glb",
+      "seconds": 0,
+      "bytes": 1954160,
+      "seed": 337254039,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/candle--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/candle--s3.glb",
+      "seconds": 0,
+      "bytes": 1896096,
+      "seed": 733587170,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/candle--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/candle--s2.glb",
+      "seconds": 0,
+      "bytes": 1973512,
+      "seed": 208589090,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/candle--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/candle--s1.glb",
+      "seconds": 0,
+      "bytes": 1832224,
+      "seed": 624027678,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/candelabra--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/candelabra--fine.glb",
+      "seconds": 0,
+      "bytes": 1953788,
+      "seed": 643615364,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cabbage-single.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cabbage-single.glb",
+      "seconds": 0,
+      "bytes": 2057776,
+      "seed": 897043027,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/cabbage-cut.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/cabbage-cut.glb",
+      "seconds": 0,
+      "bytes": 1960340,
+      "seed": 953233226,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/butter-pat.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/butter-pat.glb",
+      "seconds": 0,
+      "bytes": 1672496,
+      "seed": 37910026,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/butter-crock.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/butter-crock.glb",
+      "seconds": 0,
+      "bytes": 1964084,
+      "seed": 33493067,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bun-sweet.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bun-sweet.glb",
+      "seconds": 0,
+      "bytes": 2074756,
+      "seed": 33661223,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bucket-slop.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bucket-slop.glb",
+      "seconds": 0,
+      "bytes": 2317788,
+      "seed": 776494963,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bucket--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bucket--s3.glb",
+      "seconds": 0,
+      "bytes": 2019296,
+      "seed": 608023698,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bucket--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bucket--s2.glb",
+      "seconds": 0,
+      "bytes": 2015784,
+      "seed": 121078347,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bucket--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bucket--s1.glb",
+      "seconds": 0,
+      "bytes": 2086408,
+      "seed": 360633048,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/broom.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/broom.glb",
+      "seconds": 0,
+      "bytes": 2083424,
+      "seed": 269092859,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bridle-hanging.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bridle-hanging.glb",
+      "seconds": 0,
+      "bytes": 2054612,
+      "seed": 326891723,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/brew-copper.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/brew-copper.glb",
+      "seconds": 0,
+      "bytes": 2333676,
+      "seed": 996542555,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-stale-moldy.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-stale-moldy.glb",
+      "seconds": 0,
+      "bytes": 1755044,
+      "seed": 62755798,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-slice.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-slice.glb",
+      "seconds": 0,
+      "bytes": 1644784,
+      "seed": 266687509,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-rye-dark.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-rye-dark.glb",
+      "seconds": 0,
+      "bytes": 2318372,
+      "seed": 689230057,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-round-loaf-cut.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-round-loaf-cut.glb",
+      "seconds": 0,
+      "bytes": 2265712,
+      "seed": 997835798,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-roll.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-roll.glb",
+      "seconds": 0,
+      "bytes": 1651292,
+      "seed": 442904389,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-rack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-rack.glb",
+      "seconds": 0,
+      "bytes": 2169700,
+      "seed": 37003622,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-peel.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-peel.glb",
+      "seconds": 0,
+      "bytes": 1919440,
+      "seed": 183208726,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-oven.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-oven.glb",
+      "seconds": 0,
+      "bytes": 2165456,
+      "seed": 185486513,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-long-loaf.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-long-loaf.glb",
+      "seconds": 0,
+      "bytes": 1599192,
+      "seed": 45537172,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-long-loaf-torn.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-long-loaf-torn.glb",
+      "seconds": 0,
+      "bytes": 1788540,
+      "seed": 299220580,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-loaf--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-loaf--s3.glb",
+      "seconds": 0,
+      "bytes": 1649540,
+      "seed": 66296416,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-loaf--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-loaf--s2.glb",
+      "seconds": 0,
+      "bytes": 1677992,
+      "seed": 170014688,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-loaf--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-loaf--s1.glb",
+      "seconds": 0,
+      "bytes": 1822796,
+      "seed": 797393460,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-flatbread.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-flatbread.glb",
+      "seconds": 0,
+      "bytes": 1975612,
+      "seed": 510117733,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-burnt.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-burnt.glb",
+      "seconds": 0,
+      "bytes": 1871556,
+      "seed": 67637571,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bread-bowl-stew.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bread-bowl-stew.glb",
+      "seconds": 0,
+      "bytes": 1832920,
+      "seed": 765047488,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bowl-wood-small.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bowl-wood-small.glb",
+      "seconds": 0,
+      "bytes": 1686568,
+      "seed": 667357055,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bowl-soup-empty.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bowl-soup-empty.glb",
+      "seconds": 0,
+      "bytes": 1947568,
+      "seed": 211454732,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bowl--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bowl--s3.glb",
+      "seconds": 0,
+      "bytes": 2174680,
+      "seed": 237918352,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bowl--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bowl--s2.glb",
+      "seconds": 0,
+      "bytes": 1854208,
+      "seed": 523283220,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bowl--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bowl--s1.glb",
+      "seconds": 0,
+      "bytes": 1808584,
+      "seed": 409604860,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bottle-wine-green.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bottle-wine-green.glb",
+      "seconds": 0,
+      "bytes": 1859104,
+      "seed": 718933112,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bottle-wicker.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bottle-wicker.glb",
+      "seconds": 0,
+      "bytes": 2498356,
+      "seed": 558127521,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bottle-squat-spirit.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bottle-squat-spirit.glb",
+      "seconds": 0,
+      "bytes": 1796844,
+      "seed": 725481661,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bottle-clay.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bottle-clay.glb",
+      "seconds": 0,
+      "bytes": 1737108,
+      "seed": 910347228,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bottle-broken.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bottle-broken.glb",
+      "seconds": 0,
+      "bytes": 2156920,
+      "seed": 191838187,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bone-meaty.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bone-meaty.glb",
+      "seconds": 0,
+      "bytes": 1586836,
+      "seed": 838186908,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/blankets-folded--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/blankets-folded--common.glb",
+      "seconds": 0,
+      "bytes": 2436064,
+      "seed": 857542843,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/blackberry-handful.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/blackberry-handful.glb",
+      "seconds": 0,
+      "bytes": 1940276,
+      "seed": 858643016,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/biscuits-hard.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/biscuits-hard.glb",
+      "seconds": 0,
+      "bytes": 1886332,
+      "seed": 423896965,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bench-street.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bench-street.glb",
+      "seconds": 0,
+      "bytes": 1952048,
+      "seed": 591507479,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bench-long--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bench-long--s3.glb",
+      "seconds": 0,
+      "bytes": 1840104,
+      "seed": 349507158,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bench-long--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bench-long--s2.glb",
+      "seconds": 0,
+      "bytes": 1744792,
+      "seed": 108902768,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bench-long--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bench-long--s1.glb",
+      "seconds": 0,
+      "bytes": 2019996,
+      "seed": 755709506,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bed-straw-pallet.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bed-straw-pallet.glb",
+      "seconds": 0,
+      "bytes": 2076884,
+      "seed": 242176776,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bed-single--common--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bed-single--common--s3.glb",
+      "seconds": 0,
+      "bytes": 1920916,
+      "seed": 267378816,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bed-single--common--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bed-single--common--s2.glb",
+      "seconds": 0,
+      "bytes": 1841192,
+      "seed": 179636549,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bed-single--common--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bed-single--common--s1.glb",
+      "seconds": 0,
+      "bytes": 1820536,
+      "seed": 574287321,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bed-double--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bed-double--common.glb",
+      "seconds": 0,
+      "bytes": 2153064,
+      "seed": 618696208,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bed-canopy.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bed-canopy.glb",
+      "seconds": 0,
+      "bytes": 1971760,
+      "seed": 132469082,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/beans-dried-sack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/beans-dried-sack.glb",
+      "seconds": 0,
+      "bytes": 2372592,
+      "seed": 123219176,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/beans-bowl.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/beans-bowl.glb",
+      "seconds": 0,
+      "bytes": 1631600,
+      "seed": 722428095,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bathtub-wood--fine.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bathtub-wood--fine.glb",
+      "seconds": 0,
+      "bytes": 2373432,
+      "seed": 533871822,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/basket-laundry.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/basket-laundry.glb",
+      "seconds": 0,
+      "bytes": 2288604,
+      "seed": 88604169,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/barrel--s3.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/barrel--s3.glb",
+      "seconds": 0,
+      "bytes": 2034636,
+      "seed": 469764012,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/barrel--s2.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/barrel--s2.glb",
+      "seconds": 0,
+      "bytes": 2173176,
+      "seed": 99602498,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/barrel--s1.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/barrel--s1.glb",
+      "seconds": 0,
+      "bytes": 2116472,
+      "seed": 134485250,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/barley-sack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/barley-sack.glb",
+      "seconds": 0,
+      "bytes": 2568744,
+      "seed": 862068109,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-tip-hat.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-tip-hat.glb",
+      "seconds": 0,
+      "bytes": 2241460,
+      "seed": 349188889,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-songbook.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-songbook.glb",
+      "seconds": 0,
+      "bytes": 1918716,
+      "seed": 400681218,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-recorder.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-recorder.glb",
+      "seconds": 0,
+      "bytes": 1631860,
+      "seed": 107907322,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-masks-theatre.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-masks-theatre.glb",
+      "seconds": 0,
+      "bytes": 2304868,
+      "seed": 883771295,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-lute-case.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-lute-case.glb",
+      "seconds": 0,
+      "bytes": 2092312,
+      "seed": 560550048,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-lute-broken.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-lute-broken.glb",
+      "seconds": 0,
+      "bytes": 1973884,
+      "seed": 793776769,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-instrument-stand.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-instrument-stand.glb",
+      "seconds": 0,
+      "bytes": 2068184,
+      "seed": 564266174,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-dulcimer.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-dulcimer.glb",
+      "seconds": 0,
+      "bytes": 2112636,
+      "seed": 953607227,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bard-citole.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bard-citole.glb",
+      "seconds": 0,
+      "bytes": 1846488,
+      "seed": 263940029,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bar-counter--rough-timber--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bar-counter--rough-timber--common.glb",
+      "seconds": 0,
+      "bytes": 2560960,
+      "seed": 883292592,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bar-counter--dressed-stone--common.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bar-counter--dressed-stone--common.glb",
+      "seconds": 0,
+      "bytes": 2155016,
+      "seed": 103918098,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bandage-roll.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bandage-roll.glb",
+      "seconds": 0,
+      "bytes": 1990872,
+      "seed": 107806520,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/balcony-wood--rough-timber.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/balcony-wood--rough-timber.glb",
+      "seconds": 0,
+      "bytes": 1935596,
+      "seed": 240858512,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/balcony-wood--dressed-stone.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/balcony-wood--dressed-stone.glb",
+      "seconds": 0,
+      "bytes": 2046444,
+      "seed": 664605044,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/bacon-slab.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/bacon-slab.glb",
+      "seconds": 0,
+      "bytes": 1857892,
+      "seed": 123341766,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/backpack.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/backpack.glb",
+      "seconds": 0,
+      "bytes": 2258660,
+      "seed": 593849524,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/back-bar-shelves.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/back-bar-shelves.glb",
+      "seconds": 0,
+      "bytes": 2122856,
+      "seed": 719811541,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/apple-green.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/apple-green.glb",
+      "seconds": 0,
+      "bytes": 2426140,
+      "seed": 288461393,
+      "status": "reused"
+    },
+    {
+      "input": "/workspace/tw-runs/inn-01-500/masked/apple-crate.png",
+      "output": "/workspace/tw-runs/inn-01-500/models/apple-crate.glb",
+      "seconds": 0,
+      "bytes": 2045352,
+      "seed": 27584251,
+      "status": "reused"
+    }
+  ],
+  "total_seconds": 5403.72
+}

@@ -1,0 +1,75 @@
+{
+  "model": "microsoft/TRELLIS.2-4B",
+  "image_encoder": "/workspace/.cache/huggingface/hub/models--camenduru--dinov3-vitl16-pretrain-lvd1689m/snapshots/3c276edd87d6f6e569ff0c4400e086807d0f3881",
+  "pipeline_type": "512",
+  "faces": 50000,
+  "texture_size": 1024,
+  "resident": false,
+  "assets": [
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/bush--s1.png",
+      "output": "/workspace/tw-runs/yard-props/models/bush--s1.glb",
+      "seconds": 100.63,
+      "bytes": 2712280,
+      "seed": 718759781,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/hedge-straight--low.png",
+      "output": "/workspace/tw-runs/yard-props/models/hedge-straight--low.glb",
+      "seconds": 55.73,
+      "bytes": 2504372,
+      "seed": 792219471,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-birch--s--chunky.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-birch--s--chunky.glb",
+      "seconds": 52.23,
+      "bytes": 2667452,
+      "seed": 959744514,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-birch--s.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-birch--s.glb",
+      "seconds": 28.21,
+      "bytes": 2541476,
+      "seed": 779900139,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-deciduous--s--chunky.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-deciduous--s--chunky.glb",
+      "seconds": 47.45,
+      "bytes": 2662232,
+      "seed": 885820039,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-deciduous--s.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-deciduous--s.glb",
+      "seconds": 22.38,
+      "bytes": 2770728,
+      "seed": 366225882,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-fruit--s--chunky.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-fruit--s--chunky.glb",
+      "seconds": 27.63,
+      "bytes": 2627616,
+      "seed": 629889284,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-fruit--s.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-fruit--s.glb",
+      "seconds": 22.0,
+      "bytes": 2328680,
+      "seed": 666278701,
+      "status": "complete"
+    }
+  ],
+  "total_seconds": 537.57
+}

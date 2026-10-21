@@ -1,0 +1,30 @@
+{
+  "total": 10,
+  "clients": [
+    {
+      "seat": "seat_pedz30kh87",
+      "commands": 5,
+      "bytes": 2054,
+      "intervalsMs": [
+        6687.4,
+        12154.6,
+        12562.3,
+        6383.5
+      ]
+    },
+    {
+      "seat": "seat_s9u13bllvt",
+      "commands": 5,
+      "bytes": 2066,
+      "intervalsMs": [
+        6695.3,
+        12832.9,
+        5364.7,
+        6569.5
+      ]
+    }
+  ],
+  "checks": "41/41",
+  "idleNoChanges": true,
+  "scenario": "three seats: doors, reconnect, sharing, reset/undo, fallback, ruler, delayed reset race, outdoor flyer"
+}

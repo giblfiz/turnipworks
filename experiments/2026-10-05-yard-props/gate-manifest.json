@@ -1,0 +1,2363 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "tree-fruit--s": {
+   "id": "tree-fruit--s",
+   "group": "test",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-fruit--s.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a leafy fruit tree bearing eleven bright red apples, isolated on a solid vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a leafy fruit tree bearing eleven bright red apples, isolated on a solid vivid blue background.",
+       "details": "There are no text, labels, or watermarks visible in the image. The single main object is a stylized apple tree (second guess: game asset or cartoon tree illustration). The tree features a thick, gnarled wooden trunk in shades of warm brown, tan, and caramel, complete with carved-looking vertical bark ridges and a visible oval knothole on the right side. The trunk flares at the base into multiple thick root feet that rest flat at the bottom. Near the top, the trunk divides into several sturdy branches supporting voluminous, rounded clusters of painted leaves. The leaves are rendered in gradients of lime green, medium green, and deep forest green with defined brushstroke-like edges. Embedded among the foliage are 11 glossy, spherical red apples with subtle yellow-orange blushes and soft white specular highlights (five on the left side, one in the upper center, one in the central cluster, and four on the right side). The entire tree is depicted fully within the frame without cropping. The background is a flat, uniform, solid primary/chroma blue with no floor, horizon, shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4249,
+      "soft": 0.0062,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 48
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4214,
+   "tokens_out": 3291,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-deciduous--s": {
+   "id": "tree-deciduous--s",
+   "group": "test",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-deciduous--s.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital painting of a lush green deciduous tree with a thick, textured trunk set against a flat, solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital painting of a lush green deciduous tree with a thick, textured trunk set against a flat, solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image features a single standalone object: a stylized deciduous tree (oak tree or game asset prop). The tree consists of a thick, twisted trunk with visible vertical bark ridges, a distinct knot/hollow on the right side, and patches of greenish moss growing along the root flares and lower bark. The base flares outward into several root projections resting flat at the bottom. Above the trunk, several main branches split off to support a rounded, dense canopy made of three to four distinct puffy lobes or clusters of bright green, stylized leaves with shaded undersides and highlighted tips. The tree is depicted using earthy browns, tans, olive greens, and vibrant mid-to-bright greens. The entire tree is complete and uncropped, positioned centrally in the frame. The background is a completely uniform, solid chroma-blue with no ground plane, shadows, scenery, or other objects.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3042,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 331
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4178,
+   "tokens_out": 1416,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-deciduous--s--chunky": {
+   "id": "tree-deciduous--s--chunky",
+   "group": "test",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-deciduous--s--chunky.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted digital illustration of a leafy green tree with a thick, twisting trunk isolated against a flat bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted digital illustration of a leafy green tree with a thick, twisting trunk isolated against a flat bright blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains a single object: a stylized tree, reminiscent of a video game or cartoon asset (second guess: an oak tree). Its visible components include a stout, twisting woody trunk that flares at the base into multiple thick root buttresses, three main ascending branches, and a dense, lush canopy formed from multiple rounded clusters of individual rounded/spade-like leaves. The tree has no legs, wheels, doors, drawers, or handles. The foliage shows a spectrum of greens, with warm lime and chartreuse highlights on top and deep forest greens in shadow. The bark features fibrous linear striations in shades of greyish-brown, tan, and warm beige, with subtle moss-green patches near the flared roots. The entire tree is depicted fully within the frame without any cropping. The background is a completely uniform, solid chroma-blue with no cast shadows, ground surface, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3641,
+      "soft": 0.0057,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9935,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 264
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4185,
+   "tokens_out": 1950,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-birch--s": {
+   "id": "tree-birch--s",
+   "group": "test",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-birch--s.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital model of a birch tree with clusters of green leaves against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital model of a birch tree with clusters of green leaves against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains a single object: a stylized cartoon birch tree (second guess: game prop or 3D digital asset). The tree has a tall, upright trunk with an expanded root flare at the bottom featuring five visible root spurs. The bark is pale cream-white decorated with dark grey-to-black horizontal stripes and markings, as well as three round brown cut-branch knot holes visible along the trunk. Branching begins about halfway up, supporting several dense, rounded clumps of chartreuse and lime-green stylized leaf scales arranged into a tall upper canopy, a left-side foliage clump, and a smaller lower-right foliage clump. The tree is entirely within the frame and not cropped. The background is completely flat, featureless, uniform blue with no floor, scenery, or shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1456,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9915,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 21
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4159,
+   "tokens_out": 1544,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-fruit--s--chunky": {
+   "id": "tree-fruit--s--chunky",
+   "group": "test",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-fruit--s--chunky.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, digital illustration of a gnarled apple tree laden with bright red apples, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, digital illustration of a gnarled apple tree laden with bright red apples, set against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. It shows a single object: a stylized cartoon apple tree, also identifiable as a casual game art asset. The tree consists of a thick, twisted wooden trunk with detailed painterly bark texture, a visible knot on the front, and flaring root bases resting flat. Branching outward, the canopy is composed of multiple puffy, rounded clumps of leafy foliage painted in varying shades of yellow-green and deep green. Nestled within these leaf clusters are 11 bright red apples featuring subtle highlights and dark stems. The entire tree is fully visible and not cropped by the edges of the frame. The background is an entirely uniform, flat vibrant blue chroma key color with no ground, floor shadow, scenery, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4157,
+      "soft": 0.0054,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 25
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "leftover background between branches"
+      ]
+     },
+     "chroma_gate": {
+      "ok": false,
+      "problems": [
+       "blue background patch left between branches"
+      ]
+     },
+     "verdict": "mask_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-fruit--s--chunky.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, cartoon-style apple tree bearing vibrant red apples, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, cartoon-style apple tree bearing vibrant red apples, set against a solid bright blue background.",
+       "details": "The image features a single stylized game asset of an apple tree, centered and fully contained within the frame. The tree has a thick, sculpted, golden-brown wooden trunk with visible vertical grain, flared root-like feet at the base, and a prominent round wood knot on its lower right branch junction. The foliage consists of several rounded, cloud-like puffs of leaves rendered in shades of lime green, olive, and deep forest green with painted highlights. Embedded across these foliage clusters are thirteen shiny, round red apples with visible top dimples and bright glossy highlights. There are no doors, drawers, or moving parts. The background is a completely flat, uniform chroma-key blue with no floor, shadows, scenery, people, or text present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4161,
+      "soft": 0.0055,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9948,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 26
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 10650,
+   "tokens_out": 5031,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-birch--s--chunky": {
+   "id": "tree-birch--s--chunky",
+   "group": "test",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-birch--s--chunky.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a single birch tree with rounded foliage clumps against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a single birch tree with rounded foliage clumps against a solid bright blue background.",
+       "details": "There are no text markings, labels, or watermarks. The image depicts a single isolated object: a stylized birch tree (alternatively, an aspen tree game asset). The tree has a tall, slightly curving trunk with a flared base showing several root toes, textured with an off-white to cream bark accented by dark brown horizontal lenticels and two distinct knot holes on the lower half. The canopy is composed of about six stacked, spherical clusters of foliage sprouting from short branches along the upper half, with leaves rendered in shades of chartreuse, bright lime green, and shadowed olive green. The tree is shown completely whole and uncropped, centered vertically. The background is entirely flat, uniform, and saturated blue with no shadows, floor surface, or additional scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.154,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.992,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 210
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4138,
+   "tokens_out": 1664,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bush--s1": {
+   "id": "bush--s1",
+   "group": "test",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/bush--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, rounded green bush composed of layered leaf clusters isolated against a vivid solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, rounded green bush composed of layered leaf clusters isolated against a vivid solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. It shows a single isolated object: a stylized green bush (best name: bush, second guess: shrub or hedge cluster). The bush consists of multiple rounded, puffy lobes or clusters of pointed leaves, with no visible branches, stems, trunk, flowers, or fruit. It has no mechanical parts, doors, drawers, or lids. The leaves are rendered in a painted digital style with smooth shading, displaying tones from bright lime/yellow-green on the sunlit upper surfaces to rich emerald and deep forest green in the crevices and shaded lower sections. The bush is depicted whole and completely contained within the frame. The background is a flat, uniform, saturated blue (chroma key blue) with no visible floor, ground plane, cast shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4891,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4104,
+   "tokens_out": 1099,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hedge-straight--low": {
+   "id": "hedge-straight--low",
+   "group": "test",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/hedge-straight--low.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, rectangularly trimmed green hedge section isolated against a solid vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, rectangularly trimmed green hedge section isolated against a solid vivid blue background.",
+       "details": "There is no text, label, or watermark. The image contains one main object: a rectangular trimmed hedge or shrub block, possibly a game asset or 3D illustration. The hedge is formed of dense, leafy green foliage with distinct leaf clusters in varying shades of yellow-green, medium green, and dark green shadows. At the bottom edge, several small woody brown branches or base trunks (approximately three visible clusters) emerge beneath the foliage. The entire rectangular hedge is intact and fully within the frame, showing its top, front, and left side faces in an axonometric/isometric-like perspective. The background is a solid, uniform, bright blue color with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4356,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9957,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4102,
+   "tokens_out": 913,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "planter-barrel--s1": {
+   "id": "planter-barrel--s1",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/planter-barrel--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden barrel planter filled with dark soil and blooming red, yellow, and white flowers, centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden barrel planter filled with dark soil and blooming red, yellow, and white flowers, centered against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single composite object: a wooden barrel planter (second guess: rustic flower tub). The planter consists of vertical wooden staves encircled by two horizontal dark grey metal bands, each studded with rounded metal rivets (about four to five visible on each band). The top of the barrel is open and filled with dark brown soil, densely planted with green leafy foliage and rounded, multi-petaled flowers in shades of primary red, golden yellow, and cream-white, each having a clustered yellow center. The wood is a warm honey-amber colour with painted woodgrain texture, and the metal hoops have a chiseled slate-grey appearance. The entire object is fully contained within the frame with no parts cropped. The background is a flat, uniform solid cobalt blue with no shadows, floor surface, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4817,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 12
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4113,
+   "tokens_out": 1322,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bush-berry": {
+   "id": "bush-berry",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/bush-berry.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, spherical green berry bush with clusters of glossy red berries, isolated against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, spherical green berry bush with clusters of glossy red berries, isolated against a solid bright blue background.",
+       "details": "The image displays a single, centrally positioned object: a lush, spherical shrub or bush rendered in a smooth, stylized digital art or video game asset style. The bush is densely covered with broad, serrated, fan-like green leaves showing soft painted shading, ranging from bright yellow-green highlights to deep forest green in the shadowed recesses. Dotted across the foliage are approximately seven distinct clusters of round, bright red berries, each featuring a slight top indentation/calyx reminiscent of cranberries, lingonberries, or holly berries. The entire bush forms an approximate globe shape and is completely uncropped, floating fully within the frame. There are no stems, trunks, or ground visible. The background is a flat, uniform, highly saturated royal blue with no shadows, texture, or gradients. There is no text, watermark, or person present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5726,
+      "soft": 0.0052,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4117,
+   "tokens_out": 1209,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bush--s3": {
+   "id": "bush--s3",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/bush--s3.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, rounded green bush adorned with small white flowers, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, rounded green bush adorned with small white flowers, isolated against a solid blue background.",
+       "details": "No text, labels, or watermarks are visible. The image features a single object: a stylized, rounded green bush or shrub (second guess: a video game hedge or foliage asset). It is composed of dense clusters of pointed, leafy foliage rendered in shades of light green, emerald, and dark green shadows, dotted with five small cream-white four-petaled blossoms with yellow centers. It has no legs, wheels, lids, handles, or moving compartments. The bush is depicted whole and completely within the frame. The background is a solid, uniform, vivid blue with no floor, cast shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3344,
+      "soft": 0.0029,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9972,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 92
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4065,
+   "tokens_out": 1171,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "planter-barrel--s2": {
+   "id": "planter-barrel--s2",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/planter-barrel--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D illustration of a round wooden barrel planter filled with a rounded green bush blooming with white and orange flowers, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D illustration of a round wooden barrel planter filled with a rounded green bush blooming with white and orange flowers, set against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos in the image. The image features a single main object: a flower planter in a wooden barrel (best name) or a potted shrub in a half-barrel tub (second guess). The container is made of vertical light-brown wooden staves encircled by two dark-gray metallic bands secured with round rivets. Inside the barrel grows a dense, hemispherical mound of stylized green leaves interspersed with seven visible five-petaled blossoms: three cream-white flowers with yellow centers and four bright orange flowers with yellow centers. There are no lids, doors, handles, or wheels. The entire asset is completely contained within the frame without cropping. The background is a flat, uniform bright blue screen with no floor surface or ground cast shadow. No people or scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4243,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9954,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4114,
+   "tokens_out": 1481,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bush--s2": {
+   "id": "bush--s2",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/bush--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a dense green leafy bush against a solid vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a dense green leafy bush against a solid vivid blue background.",
+       "details": "Text, labels, or watermarks: None. Object count and identity: Exactly one composite object, appearing as a stylized cartoon bush or shrub (second guess: a cluster of leafy foliage / hedge game asset). Parts: It is formed by three rounded clusters of overlapping, pointed teardrop-shaped leaves\u2014one taller cluster in the back right, one on the mid-left, and one lower clump in the front center. There are no branches, trunks, stems, flowers, legs, handles, or movable parts. Materials and colours: Digital 2D painting with soft gradient shading; colors include yellowish-lime green at the top crowns where highlights hit, standard leaf green in midtones, and deep dark forest green within the lower recesses and shadow areas. Cropping: The bush is fully contained within the frame, with clear margins around all edges. Background: Completely uniform, saturated royal blue background (chroma key style) with no floor, horizon, or cast drop shadows. People, text, or scenery: None present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4205,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 20
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4144,
+   "tokens_out": 1336,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "planter-stone": {
+   "id": "planter-stone",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/planter-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized isometric stone planter with carved quatrefoil side panels containing a dense, spherical green topiary bush, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized isometric stone planter with carved quatrefoil side panels containing a dense, spherical green topiary bush, centered against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single composite object: a square stone topiary planter (best guess) or a decorative garden urn/shrub box (second guess). The planter has a square footprint with a stepped base, four distinct corner blocks, and inset vertical panels on each visible side displaying a carved relief quatrefoil (four-leaf) design. Inside the square rim, dark soil supports a neatly trimmed, perfectly spherical bush of dense green leaves with painted stylized textures. The planter is rendered in neutral grey stone with beveled, chipped edges and subtle weathering highlights. The entire object is shown whole and uncropped from a high-angle isometric viewpoint. The background consists of a solid, uniform bright blue field with no shadows, floor surface, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3997,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9969,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 14
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4095,
+   "tokens_out": 1498,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fence-post-rail": {
+   "id": "fence-post-rail",
+   "group": "edge",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/fence-post-rail.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset representing a wooden fence section with two vertical posts and three horizontal rails secured by dark metal bolts against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset representing a wooden fence section with two vertical posts and three horizontal rails secured by dark metal bolts against a solid blue background.",
+       "details": "The image contains no text, labels, or watermarks. There is one distinct object: a stylized wooden fence section (or barricade/railing). It is composed of two vertical posts and three evenly spaced horizontal rectangular rails that extend past the posts on both sides. Each intersection where a rail meets a post is secured from the front with a large, faceted, hexagonal dark-gray metal bolt (six bolts in total, three on each vertical post). The wood features hand-painted stylized textures with visible wood grain, knots, and chiseled, slightly beveled edges in warm honey-brown and weathered gray-brown tones. The object is rendered from a slightly elevated three-quarter perspective, fully contained within the frame without cropping. The background is a solid, uniform bright blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2915,
+      "soft": 0.0073,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9899,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4151,
+   "tokens_out": 1226,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flowerbox-window": {
+   "id": "flowerbox-window",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/flowerbox-window.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, wall-mounted wooden flower box planter supported by two brackets and filled with blooming red and white flowers against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, wall-mounted wooden flower box planter supported by two brackets and filled with blooming red and white flowers against a solid bright blue background.",
+       "details": "There are no labels, text, or watermarks visible. The image contains one primary object: a stylized wooden window box planter (second guess: wall-mounted flower trough). The planter consists of a long rectangular wooden trough made of horizontal planks with thicker corner blocks, supported underneath by two downward-extending wooden wall brackets (corbels). The top opening is densely packed with stylized foliage and flowers: approximately seven deep red flowers and seven smaller cream-white flowers, all featuring textured yellow centers, surrounded by green leaves. The wood is depicted in a warm honey-brown finish with hand-painted stylized woodgrain and small notches. The object is completely intact and not cropped by the frame. The background is a solid, uniform vibrant blue with no floor, scenery, cast shadows, or other objects.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2569,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9969,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 283
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4110,
+   "tokens_out": 1543,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flowerbed": {
+   "id": "flowerbed",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/flowerbed.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric view of a square raised stone flower bed densely planted with red, orange, yellow, and cream-colored blossoms, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric view of a square raised stone flower bed densely planted with red, orange, yellow, and cream-colored blossoms, isolated on a solid blue background.",
+       "details": "The image features a single composite object: a raised square garden bed or stone planter, styled as a stylized isometric video game asset. The border consists of two tiers of chiseled, rounded cobblestone or masonry blocks in shades of cool grey and slate blue with subtle highlights and crevices. Inside the stone perimeter is a patch of dark brown soil filled with leafy green foliage and rounded clusters of five-petaled flowers in vivid colors, including crimson red, vibrant orange, golden yellow, and pale cream. The entire object is centered and complete with no cropping. There are no people, text, labels, or watermarks. The background is a flat, uniform bright blue with no cast shadows or ground plane visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2917,
+      "soft": 0.0018,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9979,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 15
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4084,
+   "tokens_out": 1230,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fence-wattle": {
+   "id": "fence-wattle",
+   "group": "edge",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/fence-wattle.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted 3D game asset representing a section of a rustic woven wattle fence floating against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted 3D game asset representing a section of a rustic woven wattle fence floating against a solid bright blue background.",
+       "details": "There is no text, label, or watermark. The image displays a single isolated object: a stylized wattle hurdle or woven wooden fence panel viewed at an oblique angle. It features four primary square wooden upright posts with faceted, beveled top caps, plus three thinner vertical support stakes evenly interspersed between them. Interwoven horizontally between these vertical posts are approximately nine to ten rounded, twisting wooden branches or boughs, showing undulating woven patterns. The material is stylized wood rendered in warm golden-brown and caramel tones with visible painted grain, knots, and edge wear. The object is completely uncropped and intact. The background is a flat, uniform, vibrant azure blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.324,
+      "soft": 0.0106,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9875,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4093,
+   "tokens_out": 2002,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fence-picket": {
+   "id": "fence-picket",
+   "group": "edge",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/fence-picket.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a wooden picket fence section with eight vertical pickets set against a vibrant solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a wooden picket fence section with eight vertical pickets set against a vibrant solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single isolated object: a section of a wooden picket fence (second guess: a low wooden gate or decorative garden barrier). It consists of eight vertical wooden pickets with pointed tops, fastened together by two horizontal crossbeams running along the back. Each picket has two round, metallic, dark-grey bolt heads or rivets (one upper and one lower), totaling 16 bolts visible on the front. The wood is textured in a hand-painted/stylized art style, featuring pale cream or light beige painted front faces with worn, weathered warm-brown edges. The object is completely intact, uncropped, and floats in the center with no ground plane or cast shadow. The background is a flat, uniform solid bright blue.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3317,
+      "soft": 0.0101,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9831,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4113,
+   "tokens_out": 1351,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "gatepost-stone": {
+   "id": "gatepost-stone",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/gatepost-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized grey stone pillar or fence post topped with a spherical finial, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized grey stone pillar or fence post topped with a spherical finial, centered against a solid blue background.",
+       "details": "There is no text, label, or watermark in the image. The image contains one single object: a decorative stone pillar (second guess: fence post or pedestal). It is viewed from an elevated, isometric three-quarter perspective. The structure has a carved stone sphere at the top resting on a small two-tier square platform, which sits atop a wide, beveled square capstone. The main vertical shaft is composed of four stacked courses of rectangular, slightly rounded masonry blocks. At the bottom, a stepped, molded stone trim transitions to a slightly wider foundation course of stone blocks. The object is rendered in a stylized, hand-painted texture with cool grey tones and soft warm tan/beige highlights along the upper edges. The pillar is entirely whole and not cropped. The background is a solid, completely uniform vivid blue screen with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1219,
+      "soft": 0.0019,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 40
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4120,
+   "tokens_out": 1728,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-drystone": {
+   "id": "wall-drystone",
+   "group": "edge",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/wall-drystone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted 3D asset of a dry stone wall section with moss growing on top, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted 3D asset of a dry stone wall section with moss growing on top, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single isolated object: a section of a dry stone wall (second guess: a low garden stone boundary). The wall is built from irregular, weathered stone blocks arranged in roughly four lower horizontal courses, topped with a row of vertically standing coping stones along the top crest. Several patches of green moss cling to the upper surfaces of the top stones. The stone material features a stylized, painterly texture with visible facets, rendered in cool slate-gray, muted blue, warm beige, and tan tones. There are no doors, drawers, legs, wheels, or moving parts. The entire structure is complete and fully contained within the frame. The background is an entirely uniform, vibrant solid blue with no ground plane, floor textures, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4192,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9973,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 28
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4131,
+   "tokens_out": 1440,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "table-picnic": {
+   "id": "table-picnic",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/table-picnic.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden picnic table with attached benches rendered against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden picnic table with attached benches rendered against a bright blue background.",
+       "details": "No text, labels, or watermarks are present. The image shows a single object: a picnic table with integrated bench seating (or an outdoor wooden dining bench). The tabletop is constructed from four thick, stylized wooden planks with beveled edges and painted wood knots. There are two matching attached benches, one on the foreground side and one on the far side, each made of two wooden planks resting on crossbars. The understructure consists of two A-frame leg assemblies connected by support crossbeams, with exposed wooden tenon or peg joints. The material is rendered as warm medium-brown wood in a stylized, hand-painted digital art style. The object is completely intact and not cropped. The background is a solid, vibrant blue color with subtle horizontal band divisions near the top and bottom edges, featuring no shadows or floor plane.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2395,
+      "soft": 0.0055,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9888,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4111,
+   "tokens_out": 2492,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "log-seat": {
+   "id": "log-seat",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/log-seat.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized rustic wooden log bench resting on two short log supports, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized rustic wooden log bench resting on two short log supports, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single object: a log bench (or rustic wooden bench). It consists of a long horizontal seat formed from a split log with a flattened top surface and bark-covered rounded sides, resting on two short perpendicular cylindrical log segments that function as feet or legs. The wood features stylized, painted textures with warm golden-brown heartwood, visible tree growth rings on the cut ends, and rough textured bark with patches of dark brown and mossy olive-green. The bench is completely uncropped and centered in the frame. The background is a uniform, solid, vivid blue screen without any floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2091,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9915,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4080,
+   "tokens_out": 1178,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "signpost": {
+   "id": "signpost",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/signpost.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden directional signpost with three arrow-shaped planks set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden directional signpost with three arrow-shaped planks set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object: a stylized wooden directional signpost (or cartoon guidepost/road sign). It consists of a vertical square-profile wooden post with a pyramidal cap at the top, along with three separate arrow-shaped wooden direction boards attached with two metallic grey rounded bolts each (six bolts total). One arrow plank points to the left, while two arrow planks point to the right at different heights. The wood has a warm light-to-medium brown painted texture showing wood grain, knots, and slight edge wear/chipping. The signpost is fully visible and not cropped by the frame. The background is a completely flat, uniform, vibrant blue with no floor, scenery, or shadows cast beneath the post.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1685,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9912,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4088,
+   "tokens_out": 1382,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "well-house": {
+   "id": "well-house",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/well-house.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a rustic stone and wood water well with a wooden bucket hanging from a windlass, centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a rustic stone and wood water well with a wooden bucket hanging from a windlass, centered against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one complete object: a medieval or fantasy-style water well (second guess: a miniature gaming prop or 3D asset). It consists of a circular base composed of four tiers of carved grey stone blocks, two vertical wooden posts supporting a gabled roof made of thick overlapping wooden shingles, a horizontal cylindrical wooden axle mounted between the posts, a wooden hand crank on the right side, and a rope coiled around the axle holding a small stave-built wooden bucket with two dark metal reinforcing hoops. The well shaft is open, leading down into a dark interior. The materials are textured wood, rough chiseled stone, twisted fiber rope, and dark iron. The entire well is fully visible and not cropped by the frame. The background is a flat, uniform, vibrant blue screen with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3824,
+      "soft": 0.0061,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9911,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4153,
+   "tokens_out": 2448,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hitching-post--s2": {
+   "id": "hitching-post--s2",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/hitching-post--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon wooden hitching rail supported by two upright log posts and fitted with two iron hitching rings, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon wooden hitching rail supported by two upright log posts and fitted with two iron hitching rings, isolated on a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single composite object: a wooden hitching rail (best guess: horse hitching post/rail; second guess: rustic low fence barrier). The object consists of two vertical, cylindrical wooden posts with carved bark/grain details, one horizontal wooden crossbar connecting them, two grey metal bands wrapping around the crossbar, and two circular grey iron rings hanging beneath each band. There are no doors, lids, or drawers. Materials are stylized carved light brown wood with visible grain and knots, and chipped matte grey iron/steel. The entire structure is shown intact and completely within the frame, with no cropping. The background is a solid, uniform vivid blue screen with no floor plane, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1637,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9904,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 22
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4105,
+   "tokens_out": 1217,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trellis-vine": {
+   "id": "trellis-vine",
+   "group": "plants",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/trellis-vine.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical wooden lattice trellis overgrown with a lush green flowering vine featuring vibrant orange-red blossoms, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical wooden lattice trellis overgrown with a lush green flowering vine featuring vibrant orange-red blossoms, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image shows a single composite object: a wooden garden trellis overgrown with climbing flowering vines (or a decorative foliage fence panel). The structure consists of two vertical wooden posts with squared capstones and base blocks, connected by top and bottom rails and an interior diagonal criss-cross wooden lattice. Thick green vines with scalloped/lobed leaves cover most of the lattice, bearing approximately six large, open bell-shaped flowers in bright red-orange with yellow centers, along with several smaller blossoms and flower buds. The wood has a warm, honey-brown carved appearance in a stylized, hand-painted 3D art style. The entire object is centered and fully visible, without any cropping. The background is a flat, uniform solid vibrant blue with no floor, scenery, or shadows cast."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4183,
+      "soft": 0.0056,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9918,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "unremoved blue background inside trellis lattice openings"
+      ]
+     },
+     "chroma_gate": {
+      "ok": false,
+      "problems": [
+       "unmasked blue background trapped inside trellis lattice openings"
+      ]
+     },
+     "verdict": "mask_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-yard-props/work/trellis-vine.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D wooden garden trellis panel covered in green ivy leaves and five red-orange blossoms against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D wooden garden trellis panel covered in green ivy leaves and five red-orange blossoms against a solid blue background.",
+       "details": "The image features no text, labels, or watermarks. There is one single composite object: a wooden garden trellis (second guess: garden lattice fence or privacy screen). It consists of a vertical rectangular wooden frame with thick corner blocks at the top and bottom of each post, an internal diagonal criss-cross lattice structure, a dense layer of broad green lobed leaves, and five five-petaled reddish-orange flowers featuring textured yellow/orange centers. It has no legs, wheels, doors, drawers, lids, or handles. The wood is depicted in a warm honey-brown tone with a hand-painted or stylized cartoon texture, the leaves are vibrant layered shades of green, and the flowers are saturated reddish-orange. The entire object is shown whole without cropping, angled slightly in a three-quarter perspective showing its right side and front face. The background is a flat, uniform, bright blue chroma screen with no ground, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4005,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 10598,
+   "tokens_out": 3529,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sign-post-inn": {
+   "id": "sign-post-inn",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/sign-post-inn.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D/hand-painted wooden signpost with a hanging wooden signboard depicting a turnip against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D/hand-painted wooden signpost with a hanging wooden signboard depicting a turnip against a solid blue background.",
+       "details": "There are no visible text, labels, or watermarks. The image contains one main object: a hanging wooden produce/shop signpost (second guess: decorative fantasy game prop). The object consists of a tall vertical square-profile wooden post topped with a faceted pointed cap, a horizontal wooden beam extending to the right supported by a curved wooden brace, two metal support bands with round rivets/bolts, two short metal link chains, and a rectangular hanging wooden board made of stacked horizontal planks with chamfered corners. Painted on the hanging board is an illustration of a turnip (or rutabaga) with vibrant green leafy tops and a root that fades from deep purple to creamy white with small rootlets at the base. The materials depicted are stylized warm brown wood and matte grey steel/iron. The object is completely intact and fully contained within the frame, not cropped. The background is a flat, uniform, solid vibrant blue with no cast shadows, floor, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.197,
+      "soft": 0.0056,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9867,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4160,
+   "tokens_out": 1415,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hitching-post--s3": {
+   "id": "hitching-post--s3",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/hitching-post--s3.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden fence section with three vertical posts, horizontal rails, and a tied rope, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden fence section with three vertical posts, horizontal rails, and a tied rope, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains a single primary object: a stylized low wooden fence or hitching rail. It consists of three vertical square wooden posts with faceted, pyramidal top caps, connected by a horizontal rectangular crossbeam in two segments. On the right crossbeam section, a light tan twisted rope is wrapped around and knotted, with two short frayed ends hanging downward. The wood is depicted in a stylized 3D video-game art style, colored in warm medium brown with visible wood grain lines, carved grooves, and knot details. The entire structure is shown intact and uncropped, floating in the center of the frame without touching any ground. The background is a solid, uniform, bright chroma-blue with no floor, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2039,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9879,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4102,
+   "tokens_out": 2278,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "axe-woodcutter": {
+   "id": "axe-woodcutter",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/axe-woodcutter.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of an axe with a carved wooden handle and a hammered metal head, displayed against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of an axe with a carved wooden handle and a hammered metal head, displayed against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single object: an axe (or hatchet). The axe consists of a long, gently curved wooden handle with stylized grain and two wood knots, ending in a flared pommel, and a heavy metal axe head attached near the top, through which the wooden tip protrudes. The axe head has a rough, hand-hammered dark grey faceted surface and a polished, bright silver-grey beveled cutting edge. The entire object is centered diagonally and fully visible without any cropping. The background is a flat, uniform, vivid blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1675,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9919,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4063,
+   "tokens_out": 1080,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sawhorse": {
+   "id": "sawhorse",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/sawhorse.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a wooden sawhorse or trestle bench against a uniform, solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a wooden sawhorse or trestle bench against a uniform, solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single object: a stylized wooden sawhorse or carpentry trestle (secondary guess: a rustic wooden bench). It consists of a top surface made of two long wooden planks lying side-by-side atop a horizontal supporting beam, four angled, splayed legs arranged in two A-frame pairs at either end, and two horizontal cross-stretchers connecting each pair of legs. There are no doors, drawers, lids, wheels, or handles. The object is rendered in a hand-painted, stylized digital art style with warm honey-brown wood tones, defined wood grain, visible knots, and softly chiseled or worn edges. The object is completely within the frame, with no parts cropped. The background is a flat, solid, vivid blue with no floor, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3482,
+      "soft": 0.0074,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9887,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4120,
+   "tokens_out": 1391,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "dog-kennel": {
+   "id": "dog-kennel",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/dog-kennel.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden doghouse with a reddish-brown shingled roof against a solid vivid cyan-blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden doghouse with a reddish-brown shingled roof against a solid vivid cyan-blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single object: a doghouse (best guess) or a miniature wooden cabin/shed (second guess). The structure is rendered in a stylized, hand-painted 3D art style. It features a gabled roof made of thick timber beams with red-orange wooden shingles arranged in two tiers of four slats along the visible left pitch. The left exterior wall is composed of four stacked horizontal wooden planks between corner posts resting on blocky square feet, while the front wall has vertical planks. The front features an open arched doorway framed by chunky wooden trim and an arch header; there is no door or flap attached, leaving the interior fully open and showing the wooden floorboards and back wall inside. The materials depicted are entirely wood with warm brown and reddish-terracotta tones and visible stylized grain and nicks. The object is completely contained within the frame with no cropping. The background is a flat, uniform bright cyan blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4636,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4154,
+   "tokens_out": 1618,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "woodpile--long": {
+   "id": "woodpile--long",
+   "group": "furn",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/woodpile--long.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a long stack of neatly piled split firewood contained between vertical wooden posts, shown from an elevated perspective against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a long stack of neatly piled split firewood contained between vertical wooden posts, shown from an elevated perspective against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single main object: a firewood stack (second guess: a low log barricade or rustic wooden fence). It is framed by four vertical wooden end posts (two at the left side and two at the right side) that hold dozens of split firewood logs stacked horizontally several rows high. The logs have wedge-shaped cut cross-sections facing outward, displaying smooth tan and yellow wood grain, while their curved outer surfaces show brown bark with occasional green mossy patches. The object is rendered in a clean, stylized cartoon/game asset aesthetic. The entire item is fully visible and not cropped. The background is a completely uniform, flat, bright blue studio color with no floor, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3072,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9946,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 12
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4102,
+   "tokens_out": 1323,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trade-herb-bed": {
+   "id": "trade-herb-bed",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/trade-herb-bed.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a long rectangular wooden herb planter box filled with four different varieties of plants and small wooden signposts, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a long rectangular wooden herb planter box filled with four different varieties of plants and small wooden signposts, isolated against a solid blue background.",
+       "details": "Text/labels/watermarks: There is no text, watermark, or writing visible; the four small wooden plant markers are completely blank. Number of separate objects: One primary composite object (a planter box assembly with soil, plants, and markers). Object identification: Herb planter box, or alternatively a raised wooden garden trough. Parts counted: The box has four vertical rectangular corner posts with beveled caps, two long side panels made of horizontal planks, two short end panels, interior dark brown soil, four distinct herb bunches, and four small T-shaped wooden plant marker stakes placed in front of each plant. State: Open top displaying the soil bed inside. Materials and colors: Golden-honey to warm amber wood with stylized woodgrain lines and chiseled edges; dark crumbly brown soil; various greens for foliage (matte sage green, darker needle-like rosemary green, bright leafy parsley green, and deep green foliage with small pale pink/purple flowers). Framing: The object is completely contained within the frame, whole and uncropped. Background: A uniform, flat, solid vivid chroma blue background with no floor plane, environmental scenery, people, or cast ground shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2552,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9899,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 68
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4179,
+   "tokens_out": 4218,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "vegetable-patch": {
+   "id": "vegetable-patch",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/vegetable-patch.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric 3D digital illustration of a rectangular patch of tilled garden soil planted with rows of vegetables, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric 3D digital illustration of a rectangular patch of tilled garden soil planted with rows of vegetables, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The central subject is a single raised garden bed viewed from an elevated isometric perspective. The bed consists of textured dark brown soil divided into four raised furrows or ridges. In the leftmost row, there are six purple-topped white turnips with green leafy stems growing partly out of the soil. In the second row, there are five round, layered green cabbages. The third row contains a continuous line of dense, ruffled leafy green plants (such as spinach, chard, or romaine lettuce) grouped into five clumps. The fourth and rightmost row contains six more purple-topped turnips identical in style to the first row. The plants feature smooth, stylized, painted textures with bright green foliage, white and violet roots, and moist-looking brown earth. The garden block is entirely contained within the frame with no parts cropped. The background is a uniform, solid chroma-blue with no ground plane, floor textures, or cast shadows underneath."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4097,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9943,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4129,
+   "tokens_out": 1308,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "garden-tools-leaning": {
+   "id": "garden-tools-leaning",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/garden-tools-leaning.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon bundle of three gardening tools\u2014a shovel, a wooden rake, and a hoe\u2014tied together with a rope against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon bundle of three gardening tools\u2014a shovel, a wooden rake, and a hoe\u2014tied together with a rope against a solid blue background.",
+       "details": "The image features no text, labels, or watermarks. It depicts a single bundle of three stylized agricultural or gardening tools standing together: a shovel on the left, a wooden rake in the center, and a hoe on the right. Their three long, faceted honey-brown wooden handles are bound tightly near the top by a double-wrapped twisted beige rope. The shovel features a triangular pointed spade blade made of dull, weathered grey metal attached to the handle via a metal sleeve with a single round rivet. The central tool is a rake constructed entirely of wood except for a central round metal bolt fixing the handle to a horizontal wooden bar with six rectangular wooden tines or teeth pointing downwards. The hoe on the right has a bent metal neck socket fastened with a rivet that angles down into a trapezoidal, curved metal blade. The wood has a carved, chunky, hand-painted aesthetic with warm yellow-brown tones, and the metal shows soft edge highlights and subtle surface texture. The entire bundle is shown whole without any cropping. The background is a completely uniform, flat, bright blue screen with no ground plane, shadow, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1758,
+      "soft": 0.0075,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9764,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4190,
+   "tokens_out": 3045,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "compost-heap": {
+   "id": "compost-heap",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/compost-heap.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D illustration of a wooden compost bin filled with organic waste, soil, and vegetable scraps, set against a flat bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D illustration of a wooden compost bin filled with organic waste, soil, and vegetable scraps, set against a flat bright blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one main object: a wooden compost bin (best name) or garden waste crate (second guess). The bin consists of five vertical posts made of light-brown stylized timber planks, connected by horizontal wooden slats along three full-height walls and a lowered front barrier. The top of the bin is completely open, exposing the interior contents. Inside is a mounded pile of rich dark-brown compost mixed with dry yellow straw, dry brown leaves, a green cabbage leaf, an intact turnip with purple-tinted root and leafy greens, a couple of wilted orange vegetable scraps, and two cracked brown eggshells with white interiors. The object is rendered in a smooth, stylized game-art style. The entire bin is fully contained within the frame with no parts cut off. The background is a solid, uniform, vibrant pure blue with no floor, scenery, shadows, or people visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5179,
+      "soft": 0.0066,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9928,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4141,
+   "tokens_out": 5918,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "clothesline": {
+   "id": "clothesline",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/clothesline.try1.jpg",
+     "semantic": {
+      "what_i_see": "A medieval-style clothesline strung between two wooden posts with five pieces of laundry hanging on it, isolated against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A medieval-style clothesline strung between two wooden posts with five pieces of laundry hanging on it, isolated against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks present. The image shows a single laundry line prop (or drying rack). The structure consists of two vertical wooden posts with carved woodgrain textures and segmented block footings, each topped with a horizontal bracket tied off with wrapped rope. A thick, twisted tan rope extends horizontally between the posts with a slight natural sag. Hanging across the rope are five distinct laundry items: on the far left, a beige towel with two green horizontal stripes; next, a large draped off-white bedsheet or fabric; in the center, a cream-colored medieval tunic or peasant shirt with rolled-up sleeves and crisscross laces at the collar; following that, a reddish-brown pleated skirt with pale horizontal bands near the hem; and on the far right, an olive-green hand towel with light horizontal stripes. The depicted materials are natural wood, fibrous hemp rope, and coarse linen or cotton cloth. The object is completely contained within the frame with no cropping. The background is a flat, uniform, vibrant cobalt-blue chroma background with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2492,
+      "soft": 0.0086,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9825,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4174,
+   "tokens_out": 1889,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "watering-can": {
+   "id": "watering-can",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/watering-can.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized terracotta watering can with a painted clay texture centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized terracotta watering can with a painted clay texture centered against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single object: a terracotta watering can (second guess: ceramic decorative jug with sprinkler). Its parts include a spherical, bulbous body with raised horizontal ridges, a thick curved loop handle on the left, a wide cylindrical open top with a rolled rim (completely open, showing a shadow inside the neck), and a short, conical spout on the right fitted with a circular sprinkler head with eight visible holes (one center hole surrounded by seven outer holes). The material resembles reddish-orange unglazed clay or terracotta with visible painterly brushstrokes and warm lighting highlights. The object is completely contained within the frame without cropping. The background is a completely uniform, solid chroma-blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3938,
+      "soft": 0.0048,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9937,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4077,
+   "tokens_out": 1270,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rake": {
+   "id": "rake",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/rake.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of an all-wooden garden rake angled diagonally against a flat blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of an all-wooden garden rake angled diagonally against a flat blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single object: a wooden rake (second guess: wooden hay rake). The rake is composed of a long cylindrical wooden handle joined perpendicularly to a thick, rectangular crossbar head, which features eight evenly spaced, rounded wooden tines or teeth along its length. The material appears to be warm honey-brown wood with stylized painted grain, edge highlights, and subtle carved weathering notches. The rake is completely visible and not cropped by the frame. The background is a solid, completely uniform vibrant blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1126,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9864,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 11
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4048,
+   "tokens_out": 1187,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trowel-garden": {
+   "id": "trowel-garden",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/trowel-garden.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized garden hand trowel with a dark metal scoop blade and a carved wooden handle, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized garden hand trowel with a dark metal scoop blade and a carved wooden handle, displayed against a solid blue background.",
+       "details": "There are no text markings, labels, or watermarks visible. The image features a single object: a hand trowel (or garden scoop/small spade), rendered in a painted 3D game asset style. The object consists of a pointed, concave dark grey/brown metal blade with a lighter worn metallic edge and a central reinforcing rib, a dark cylindrical metal ferrule/neck, and one turned wooden handle with carved ridges and a rounded pommel end. There are no doors, drawers, lids, wheels, or legs. The blade appears made of iron or steel with bronze/brass-toned edge wear, while the handle is made of polished warm honey-brown wood. The entire trowel is intact and uncropped, tilted diagonally from bottom-left to upper-right. The background is a completely flat, uniform bright blue surface with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1649,
+      "soft": 0.002,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9973,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 229
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4108,
+   "tokens_out": 1403,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "spade-garden": {
+   "id": "spade-garden",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/spade-garden.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted shovel with a wooden shaft, a T-handle, and a dark metal blade trimmed with gold, isolated against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "blade should be a flat iron blade rather than pointed triangular with a central rib"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted shovel with a wooden shaft, a T-handle, and a dark metal blade trimmed with gold, isolated against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single object: a shovel (or alternatively, an entrenching tool or garden spade). Its components consist of a single horizontal wooden T-grip, a cylindrical wooden handle/shaft, a dark metal ferrule/socket fastened with a single round brass rivet, and a pointed triangular/spade-shaped blade featuring a pronounced central rib and a golden beveled cutting edge. There are no opening parts such as lids or drawers. The materials appear to be carved warm-brown wood, dark grey hammered metal, and brass or gold metallic accents. The shovel is completely visible and not cropped by the frame. The background is a completely uniform, solid bright blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-yard-props/work/spade-garden.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a hand shovel with a wooden shaft and T-handle against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a hand shovel with a wooden shaft and T-handle against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single object: a shovel (or trenching spade). The shovel consists of a wooden T-bar grip at the top, a straight cylindrical wooden shaft, a dark metal socket secured with a rounded metal rivet/pin, and a rectangular, slightly curved dark metal scoop blade with folded-over side flanges and a polished, beveled cutting edge with worn metallic highlights. The wood is honey-brown with visible carved grain lines and small nicks; the metal head is textured, dark grey-brown with hammered mottling and light reflective edges. The entire shovel is fully visible within the frame, angled diagonally from the bottom-left to top-right. The background is a flat, uniform bright blue with no shadows, floor, or scenery, and there are no people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1323,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.994,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5838,
+   "tokens_out": 4629,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hoe": {
+   "id": "hoe",
+   "group": "garden",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/hoe.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized garden hoe with a long wooden handle and a broad metal blade sits diagonally against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized garden hoe with a long wooden handle and a broad metal blade sits diagonally against a solid blue background.",
+       "details": "The image features no text, labels, or watermarks. There is a single isolated object: a stylized garden hoe (second guess: adze or mattock). The object comprises two primary parts: a long, faceted wooden handle in warm tan-brown with visible woodgrain texture, and a dark grey, stone-like or hammered metal hoe blade attached via a collar/eyelet, with the rounded end of the wooden handle protruding through the front socket. The blade is broad, flat, and angled downward, showing subtle bevels and chips along its edges. The entire tool is contained within the frame without cropping. The background is completely flat, uniform saturated blue with no shadows, floor, people, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.0963,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9828,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4078,
+   "tokens_out": 1161,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-deciduous--l": {
+   "id": "tree-deciduous--l",
+   "group": "trees",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-deciduous--l.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, digital illustration of a leafy tree with multiple rounded green foliage clusters and a thick, textured golden-brown trunk against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, digital illustration of a leafy tree with multiple rounded green foliage clusters and a thick, textured golden-brown trunk against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single stylized tree (best guess: stylized deciduous tree asset; second guess: game prop illustration). The tree features a thick, sturdy trunk that flares outward at the base into multiple thick root spurs resting flatly, multiple branching limbs supporting four or five distinct rounded domes of clustered leaves, and a single circular cut-branch knot or stump protruding from the right side of the lower trunk. The foliage is composed of layered, clearly defined stylized leaves in various shades of green, ranging from lime highlights to deep forest green shadows. The bark is textured with painted vertical grooves in shades of warm ocher, honey brown, and beige. The entire tree is complete and uncropped, centered within the frame. The background is a completely flat, uniform vivid blue screen with no ground plane, floor textures, or shadows cast beneath the tree. No people or other scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.429,
+      "soft": 0.006,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9938,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 13
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4185,
+   "tokens_out": 1666,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-birch--l": {
+   "id": "tree-birch--l",
+   "group": "trees",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-birch--l.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a cartoon birch tree with rounded green foliage clusters isolated against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a cartoon birch tree with rounded green foliage clusters isolated against a solid bright blue background.",
+       "details": "No text, labels, or watermarks are visible. The image contains one single object: a stylized cartoon birch tree (second guess: video game deciduous tree prop). Its components include a slender, upright trunk that flares outward into segmented roots at the base, adorned with realistic yet stylized horizontal dark brown and beige birch bark stripes. From the upper section of the trunk, several short branches support six distinct, puffy spherical clusters composed of overlapping stylized green leaves in varying shades of chartreuse, lime, and forest green. The tree appears fully intact and centered without being cropped by the image boundaries. The background is a completely flat, uniform, vibrant blue backdrop with no floor plane, shadow, horizon, or surrounding environment.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2201,
+      "soft": 0.005,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9897,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 26
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4130,
+   "tokens_out": 1628,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-fruit--l": {
+   "id": "tree-fruit--l",
+   "group": "trees",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-fruit--l.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon apple tree with a twisting wooden trunk, rounded green foliage clusters, and six glossy red apples, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon apple tree with a twisting wooden trunk, rounded green foliage clusters, and six glossy red apples, isolated on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains a single isolated object: a stylized apple tree (game asset / cartoon tree). It features a thick, gnarled, twisting brown trunk with deep bark texture lines, a prominent circular knot on the right side, and heavily flared roots at the base. The canopy consists of about five or six rounded, puffy leaf clusters in shades of medium and olive green with yellowish-green highlights. Distributed among the foliage are exactly six shiny red apples with short brown stems (one at top-center, one on the far left, one on the lower left, one in the center-right, one on the upper right, and one on the lower right). The object is completely intact and not cropped by the frame. The background is a uniform, flat, solid chroma blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4022,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9939,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4180,
+   "tokens_out": 1716,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tree-oak-great": {
+   "id": "tree-oak-great",
+   "group": "trees",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/tree-oak-great.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted style oak tree with rounded clusters of green leaves and a thick, knotted wooden trunk centered on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted style oak tree with rounded clusters of green leaves and a thick, knotted wooden trunk centered on a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image contains one single isolated object: a stylized deciduous tree, best identified as a fantasy oak tree (or second guess: a cartoon ancient banyan or bonsai tree). It consists of a wide, gnarled wooden trunk featuring visible growth rings/a prominent knot hole in the center, multiple thick branches spreading outwards, and roughly five to six major rounded foliage canopies/clumps filled with scalloped, oak-like leaf shapes. The base features about six to seven prominent root flares or buttress roots spreading at the bottom. No doors, lids, drawers, or wheels are present. The trunk and branches are rendered in warm golden-brown, ochre, and tan shades with subtle green mossy highlights, while the foliage consists of shades of vibrant green, lime, and deep forest green. The tree is entirely whole and not cropped by the frame. The background is a completely uniform, solid chroma-key blue with no floor, horizon, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2756,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9937,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 299
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4206,
+   "tokens_out": 1297,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "gate-fence": {
+   "id": "gate-fence",
+   "group": "sib",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/gate-fence.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital 3D illustration of a wooden gate with metal hinges and a latch, rendered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital 3D illustration of a wooden gate with metal hinges and a latch, rendered against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one primary object: a wooden gate (best name: wooden gate; second guess: wooden fence door). The structure consists of two vertical square-profile wooden posts, four horizontal wooden rails, one diagonal crossbeam running diagonally from lower left to upper right, two dark gray metal strap hinges on the left post (each with a cylindrical barrel and two faceted bolts), and a horizontal sliding metal latch mechanism on the right post with two mounting bolts. Wood knots and stylized grain grooves are visible across all surfaces. The materials depicted are carved light brown and honey-toned wood with gray weathering, alongside dark gray hammered steel or iron hardware. The entire gate is completely visible within the frame without cropping. The background is a flat, uniform, solid bright blue with no floor, shadows, environment, or people.",
+       "reference_differences": [
+        "The candidate represents a gate with moving hardware, whereas the reference represents a stationary fence panel.",
+        "The candidate has four horizontal rails plus a diagonal crossbeam, whereas the reference has three horizontal rails and no diagonal beam.",
+        "The horizontal rails in the reference extend past the vertical posts on both the left and right sides, whereas in the candidate the rails do not overhang the posts.",
+        "The candidate features two large metal strap hinges on the left post and a latch on the right post, whereas the reference lacks hinges and latches, instead having six large faceted bolt heads fixing the rails to the front of the posts.",
+        "The overall proportions differ: the candidate is squarish and taller, while the reference is wide and horizontally elongated."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4359,
+      "soft": 0.0081,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9925,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5417,
+   "tokens_out": 2739,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hedge-corner": {
+   "id": "hedge-corner",
+   "group": "sib",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/hedge-corner.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric rendering of an L-shaped trimmed hedge against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric rendering of an L-shaped trimmed hedge against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single freestanding object, best described as an L-shaped hedge or corner garden bush. It is composed of a dense mass of stylized green lobed leaves forming a 90-degree corner wall, supported underneath by visible short brown woody trunks/stems. It has no legs, wheels, doors, drawers, lids, or handles. The object is rendered in green foliage tones with brown stems visible along the bottom edge, fully intact and uncropped. The background is a flat, uniform, bright blue with no shadows, floor, people, or scenery.",
+       "reference_differences": [
+        "The candidate forms an L-shaped corner hedge, whereas the reference is a straight rectangular hedge block.",
+        "The candidate has two rectangular wings meeting at a central 90-degree angle, while the reference consists of a single linear section."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3704,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9949,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 15
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5258,
+   "tokens_out": 1198,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fence-post-corner": {
+   "id": "fence-post-corner",
+   "group": "sib",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/fence-post-corner.try1.jpg",
+     "semantic": {
+      "what_i_see": "A single stylized vertical wooden post with a metal collar and a pointed cap set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A single stylized vertical wooden post with a metal collar and a pointed cap set against a solid blue background.",
+       "details": "There is no text, label, or watermark. The image depicts a single isolated object: a vertical wooden post or pillar (second guess: bollard or fence post). It consists of a long, square-profile wooden shaft with wood grain, knots, and weathered greyish patches, encircled near the top by a dark grey hammered metal band or collar, and surmounted by a multi-faceted, pyramidal wooden cap. There are no moving parts, doors, drawers, or handles. The object is rendered in a hand-painted/stylized digital art style, presented whole and uncropped, floating against a uniform solid blue background with no floor, shadows, people, or scenery.",
+       "reference_differences": [
+        "The candidate shows only a single isolated vertical post, whereas the reference shows a full fence panel made of two posts and three horizontal planks.",
+        "The candidate post has a distinct pyramid-faceted top cap and a dark metal collar band around its upper portion, both of which are absent in the reference.",
+        "The candidate lacks the horizontal rails and the large octagonal metal bolts/studs seen fastening the planks to the posts in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1854,
+      "soft": 0.0024,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9949,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5319,
+   "tokens_out": 1437,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hedge-gap-arch": {
+   "id": "hedge-gap-arch",
+   "group": "sib",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/hedge-gap-arch.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden farm gate with dark metal hinges and latch, floating against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Object is a wooden farm gate rather than a hedge section with an arched opening",
+       "Missing green foliage hedge material",
+       "Missing walk-through arched opening"
+      ],
+      "blind": {
+       "what_i_see": "A stylized wooden farm gate with dark metal hinges and latch, floating against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one primary object: a wooden gate or wooden fence panel. It consists of two vertical square-section timber posts, four horizontal wooden planks connecting across, one diagonal wooden cross-brace running from the lower-left to the upper-right, two dark grey metal strap hinges bolted to the left post, and a metal sliding bolt latch on the right post. The hinges and latch are secured with visible hexagonal bolt heads. The wood has a carved, stylized grain texture in light and medium warm brown tones with noticeable knots and chiseled bevels. The metal fittings are textured in matte dark iron gray. The object is complete, uncropped, and fully contained within the frame. There are no people or surrounding scenery. The background is a flat, uniform, bright solid blue with no shadows or floor.",
+       "reference_differences": [
+        "The candidate depicts a constructed wooden and metal gate, whereas the reference depicts a solid green foliage hedge.",
+        "The candidate is colored primarily in warm brown wood tones and dark gray iron, compared to the reference's varied shades of green leaves.",
+        "The candidate has open spaces between horizontal slats revealing the background, while the reference is a solid, opaque rectangular prism.",
+        "The candidate features manufactured hardware including metal hinges, bolts, and a latch, which are absent in the purely organic reference."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-yard-props/work/hedge-gap-arch.try2.jpg",
+     "semantic": {
+      "what_i_see": "A trimmed green hedge sculpted into an arched doorway or gateway with an open passage in the middle, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A trimmed green hedge sculpted into an arched doorway or gateway with an open passage in the middle, set against a solid bright blue background.",
+       "details": "The image features a single object: an isometric topiary hedge arch (or green foliage gateway). It consists of two vertical rectangular hedge pillars connected over the top by a curved foliage arch, creating an inverted U-shape with a clear arched opening underneath. The exterior is densely covered in stylized broad green leaves in varied tones of light, olive, and deep forest green. At the bottom edges of the vertical pillars, a few small brown woody stems or trunk bases peek out. The object is completely intact and fully contained within the frame. The background is a flat, uniform, vibrant blue with no cast shadows, floor surface, or additional scenery.",
+       "reference_differences": [
+        "The candidate forms a hollow, arched gateway with two vertical uprights and an overhead curve, whereas the reference is a solid, rectangular hedge wall without an opening.",
+        "The candidate is taller and U-shaped, whereas the reference is a straight, continuous horizontal cuboid block.",
+        "The brown branch bases on the candidate are located at the bottom of the two arch pillars, whereas on the reference they are spaced out along the bottom of the single elongated hedge wall."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4233,
+      "soft": 0.0057,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 9
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8330,
+   "tokens_out": 2475,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-drystone-gate": {
+   "id": "wall-drystone-gate",
+   "group": "sib",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/wall-drystone-gate.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone entranceway consisting of two stacked-stone pillars connected at the bottom by a flat stone threshold, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone entranceway consisting of two stacked-stone pillars connected at the bottom by a flat stone threshold, isolated on a solid blue background.",
+       "details": "The image shows a single connected masonry structure featuring two tall rectangular pillars joined at their base by a low, flat rectangular stone slab or step. Each pillar is constructed from multiple rounded, chiseled rectangular grey and tan stone blocks stacked in layers, topped with a larger, flat square capstone. Patches of green moss grow on the top surfaces, edges of the capstones, between some stone seams, and where the threshold meets the pillars. There are no doors, hinges, or moving parts. The entire structure is visible and not cropped. The background is a flat, uniform bright blue without shadows or floor plane. There are no people, labels, or text in the image.",
+       "reference_differences": [
+        "The candidate forms a U-shaped gateway or door frame with two tall vertical pillars and an open passage over a low bottom threshold, whereas the reference is a solid, continuous horizontal wall segment.",
+        "The top of the candidate features single, large flat square capstones on each pillar, whereas the top of the reference is crowned with a row of upright, vertically oriented coping stones.",
+        "The candidate's stones are stacked to form square pillar columns with prominent corner faces, while the reference has stones arranged in long horizontal courses across a continuous wall face.",
+        "The candidate is taller relative to its width at each pillar and contains a wide open gap between the pillars, whereas the reference has no gaps or openings."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3979,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5381,
+   "tokens_out": 2055,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hedge-end-block": {
+   "id": "hedge-end-block",
+   "group": "sib",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/hedge-end-block.try1.jpg",
+     "semantic": {
+      "what_i_see": "A single cube-shaped bush or leafy block shown in isometric perspective against a flat bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A single cube-shaped bush or leafy block shown in isometric perspective against a flat bright blue background.",
+       "details": "There is no text, watermark, or label present. The image contains one separate object, which appears to be a cubic hedge block (or foliage cube / bush). It is viewed from an isometric 3/4 angle, displaying three visible faces: the top, the front-left, and the front-right. The entire surface is covered in rendered, overlapping lobed green leaves ranging from bright lime green on highlighted surfaces to dark forest green in crevices and shadows. There are no doors, lids, handles, legs, or exposed trunks. The object is completely intact and centered within the frame without cropping. The background is a solid, uniform, saturated blue screen with no floor, horizon, or cast shadows. No people or other scenery are present.",
+       "reference_differences": [
+        "The candidate is cubic with roughly equal width, length, and height, whereas the reference is an elongated rectangular prism forming a hedge wall.",
+        "The candidate completely conceals any internal structure with foliage down to its lower edges, whereas the reference has several exposed brown tree trunks or thick branches visible at the bottom edge."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4161,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5328,
+   "tokens_out": 1292,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-drystone-pier": {
+   "id": "wall-drystone-pier",
+   "group": "sib",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-yard-props/work/wall-drystone-pier.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized vertical square stone pillar with moss on its capstone, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized vertical square stone pillar with moss on its capstone, isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single object: a stone pillar or post (second guess: a masonry pedestal or ruin column). It consists of five tiers of irregular, chiseled stone blocks fitted together, topped by a single flat, square capstone slab. It has no moving parts, doors, drawers, or handles. The material appears to be painted stone with faceted planes in shades of warm grey, beige, and slate blue, accented with patches of green moss clustered along the edges of the top slab and trickling slightly into upper crevices. The entire pillar is intact and fully visible, not cropped. The background is a flat, uniform solid bright blue screen with no floor, scenery, cast shadows, or people.",
+       "reference_differences": [
+        "Overall form: The candidate is a tall, vertical pillar with a square footprint, whereas the reference is a long, horizontal wall section.",
+        "Top cap structure: The candidate features a single large, flat square capstone slab over the top, while the reference has a continuous row of rounded, upright stones standing vertically along the top edge.",
+        "Arrangement of stones: The candidate is stacked in roughly five compact, column-like tiers, whereas the reference consists of an elongated run of horizontal masonry courses."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3172,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9954,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5351,
+   "tokens_out": 1287,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

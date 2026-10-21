@@ -1,0 +1,9117 @@
+{
+ "hit1": 608,
+ "hit3": 631,
+ "n": 631,
+ "cases": [
+  {
+   "q": "chapel",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.chapel",
+    "cmd:build.crypt-chapel",
+    "cmd:build.type.t:TEM"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:build.crypt-chapel",
+    "cmd:build.chapel",
+    "cmd:build.type.t:TEM",
+    "ent:room_s387sem64l"
+   ]
+  },
+  {
+   "q": "temple",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:TEM",
+    "cmd:build.temple-nave",
+    "cmd:build.temple-shrine"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-nave",
+    "cmd:build.type.t:TEM",
+    "cmd:build.temple-shrine",
+    "cmd:build.temple-vestry"
+   ]
+  },
+  {
+   "q": "build temple",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:TEM",
+    "cmd:build.temple-nave"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-nave",
+    "cmd:build.type.t:TEM",
+    "cmd:build.temple-shrine",
+    "cmd:build.temple-vestry"
+   ]
+  },
+  {
+   "q": "church",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:TEM",
+    "cmd:build.temple-nave",
+    "cmd:build.chapel",
+    "cmd:build.cathedral"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.chapel",
+    "cmd:build.temple-nave",
+    "cmd:build.cathedral",
+    "cmd:build.type.t:TEM"
+   ]
+  },
+  {
+   "q": "cathedral",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.cathedral",
+    "cmd:build.cathedral-dark"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.cathedral",
+    "cmd:build.cathedral-dark",
+    "ent:room_gnib54yrxx",
+    "cat:organ-pipe"
+   ]
+  },
+  {
+   "q": "shrine",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.temple-shrine",
+    "cmd:build.dun-shrine"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-shrine",
+    "cmd:build.dun-shrine",
+    "cat:shrine-wayside",
+    "cat:ossuary-shrine"
+   ]
+  },
+  {
+   "q": "nave",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.temple-nave"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-nave",
+    "cmd:view.labels",
+    "cmd:view.pawnNames",
+    "cmd:view.pawnNamesFace"
+   ]
+  },
+  {
+   "q": "cloister",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.temple-cloister"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-cloister",
+    "cat:bottle-cluster",
+    "cat:candle-cluster",
+    "cat:geode-cluster"
+   ]
+  },
+  {
+   "q": "bell tower",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.temple-belltower"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-belltower",
+    "ent:room_62ulwjtyxe",
+    "ent:room_q4ozwdmuil",
+    "cat:bell-on-frame"
+   ]
+  },
+  {
+   "q": "infirmary",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.temple-infirmary"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-infirmary",
+    "cat:sickbed",
+    "cat:trade-herb-bed",
+    "cat:trade-treatment-bench"
+   ]
+  },
+  {
+   "q": "hospital",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.temple-infirmary"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-infirmary",
+    "cat:cookies-plate",
+    "cat:scones-plate"
+   ]
+  },
+  {
+   "q": "cult",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:CLT",
+    "cmd:build.cult-sanctum"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:CLT",
+    "cmd:build.cult-entry",
+    "cmd:build.cult-passage",
+    "cmd:build.cult-sanctum"
+   ]
+  },
+  {
+   "q": "cult sanctum",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:CLT",
+    "cmd:build.cult-sanctum"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:CLT",
+    "cmd:build.cult-sanctum",
+    "cmd:build.cult-vault"
+   ]
+  },
+  {
+   "q": "sanctum",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.cult-sanctum",
+    "cmd:build.cult-vault",
+    "cmd:build.type.t:CLT"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.cult-sanctum",
+    "cmd:build.type.t:CLT",
+    "cmd:build.cult-vault"
+   ]
+  },
+  {
+   "q": "secret cult hideout",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:CLT",
+    "cmd:build.cult-entry",
+    "cmd:build.cult-sanctum"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:CLT",
+    "cmd:build.cult-entry"
+   ]
+  },
+  {
+   "q": "summoning circle room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.cult-summoning",
+    "cmd:build.wiz-summoning"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.cult-summoning"
+   ]
+  },
+  {
+   "q": "forbidden library",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.cult-library"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.cult-library"
+   ]
+  },
+  {
+   "q": "holding cells",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.cult-cells",
+    "cmd:build.dun-cell-block"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.cult-cells"
+   ]
+  },
+  {
+   "q": "market",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:MKT",
+    "cmd:build.mkt-square"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-square",
+    "cmd:build.type.t:MKT",
+    "cmd:pawn.addPlain",
+    "cat:market-cross"
+   ]
+  },
+  {
+   "q": "village",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:MKT",
+    "cmd:build.mkt-street",
+    "cmd:build.mkt-square"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:MKT",
+    "cmd:build.mkt-square",
+    "cmd:build.type.t:NOB",
+    "cat:bench-village"
+   ]
+  },
+  {
+   "q": "town",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:MKT",
+    "cmd:build.mkt-street",
+    "cmd:build.mkt-square",
+    "cmd:build.mkt-house"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:MKT",
+    "cmd:build.mkt-street",
+    "cmd:build.mkt-house",
+    "cmd:build.mkt-bedroom"
+   ]
+  },
+  {
+   "q": "market square",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-square"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-square",
+    "cat:flower-buckets",
+    "cat:market-stall"
+   ]
+  },
+  {
+   "q": "shop",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-general",
+    "cmd:build.mkt-curio",
+    "cmd:build.smi-shopfront",
+    "cmd:build.type.t:MKT"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-general",
+    "cmd:build.type.t:MKT",
+    "cmd:build.mkt-backroom",
+    "cmd:build.mkt-passage"
+   ]
+  },
+  {
+   "q": "general store",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-general"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-general",
+    "cmd:build.whole",
+    "cat:bins-dry-goods"
+   ]
+  },
+  {
+   "q": "bakery",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-bakery"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-bakery",
+    "cat:bread-pile",
+    "cat:bread-rack",
+    "cat:bun-sweet"
+   ]
+  },
+  {
+   "q": "tailor",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-tailor"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-tailor",
+    "fig:town-tailor",
+    "cat:cutting-table-tailor",
+    "cat:dress-form"
+   ]
+  },
+  {
+   "q": "magic shop",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-curio"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-curio"
+   ]
+  },
+  {
+   "q": "apothecary",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-apothecary",
+    "cmd:build.wiz-apothecary"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-apothecary",
+    "cmd:build.wiz-apothecary",
+    "cat:apothecary-drawers",
+    "cat:alch-counter-apothecary"
+   ]
+  },
+  {
+   "q": "street",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-street"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-street",
+    "cmd:build.type.t:MKT",
+    "fig:town-urchin",
+    "cat:bench-street"
+   ]
+  },
+  {
+   "q": "town house",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mkt-house",
+    "cmd:build.mkt-bedroom"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mkt-house",
+    "cmd:build.mkt-bedroom",
+    "cat:horse-trough-stone"
+   ]
+  },
+  {
+   "q": "mine",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:MIN",
+    "cmd:build.min-tunnel"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.min-tunnel",
+    "cmd:build.type.t:MIN",
+    "cmd:build.min-mess",
+    "cmd:build.min-shaft-head"
+   ]
+  },
+  {
+   "q": "mine tunnel",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.min-tunnel"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.min-tunnel",
+    "cmd:build.min-junction",
+    "cmd:build.min-collapsed",
+    "cat:mine-rail-strip"
+   ]
+  },
+  {
+   "q": "mineshaft",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.min-shaft-head",
+    "cmd:build.type.t:MIN"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.min-shaft-head",
+    "cmd:build.type.t:MIN"
+   ]
+  },
+  {
+   "q": "mine shaft",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.min-shaft-head",
+    "cmd:build.type.t:MIN"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.min-shaft-head",
+    "cmd:build.type.t:MIN",
+    "cat:mine-shaft-collar",
+    "cat:mine-headframe"
+   ]
+  },
+  {
+   "q": "crystal cave",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.min-seam"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.min-seam"
+   ]
+  },
+  {
+   "q": "smelter",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.min-smelter",
+    "cat:smelter"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:smelter",
+    "cat:decal-coal-dust",
+    "cat:ingot-stack",
+    "cat:scepter"
+   ]
+  },
+  {
+   "q": "smithy",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:SMI",
+    "cmd:build.smi-forge"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:SMI",
+    "cmd:build.smi-shopfront",
+    "cmd:build.smi-yard",
+    "cmd:build.smi-quarters"
+   ]
+  },
+  {
+   "q": "blacksmith",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.smi-forge",
+    "cmd:build.type.t:SMI"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:SMI",
+    "cmd:build.smi-forge"
+   ]
+  },
+  {
+   "q": "workshop",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:SMI",
+    "cmd:build.wiz-workshop",
+    "cmd:build.smi-carpenter"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:SMI",
+    "cmd:build.smi-passage",
+    "cmd:build.wiz-workshop",
+    "cmd:build.smi-potter"
+   ]
+  },
+  {
+   "q": "wizard tower",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:ARC"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:ARC"
+   ]
+  },
+  {
+   "q": "wizard's tower",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:ARC"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:ARC"
+   ]
+  },
+  {
+   "q": "wizards tower",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:ARC"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:ARC"
+   ]
+  },
+  {
+   "q": "alchemy lab",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.wiz-lab"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.wiz-lab"
+   ]
+  },
+  {
+   "q": "laboratory",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.wiz-lab"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.wiz-lab",
+    "cat:alch-bench-dressed"
+   ]
+  },
+  {
+   "q": "observatory",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.wiz-observatory"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.wiz-observatory",
+    "cat:decal-star-floor",
+    "cat:telescope-great"
+   ]
+  },
+  {
+   "q": "tavern",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:TAV",
+    "cmd:build.common"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:TAV",
+    "cmd:build.common",
+    "fig:town-elf-innkeeper",
+    "fig:town-innkeeper-m"
+   ]
+  },
+  {
+   "q": "inn",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:TAV",
+    "cmd:build.common"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:build.whole",
+    "cmd:build.type.t:TAV",
+    "cmd:build.common",
+    "cmd:build.cult-vault"
+   ]
+  },
+  {
+   "q": "pub",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:TAV",
+    "cmd:build.common"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.common",
+    "cmd:build.type.t:TAV",
+    "cat:pillory",
+    "fig:town-elf-innkeeper"
+   ]
+  },
+  {
+   "q": "common room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.common"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.common",
+    "ent:room_rgtd0yaecd",
+    "cat:candle-tree",
+    "cat:chandelier-ring"
+   ]
+  },
+  {
+   "q": "kitchen",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.kitchen",
+    "cmd:build.castle-kitchen",
+    "cmd:build.mansion-kitchen"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.kitchen",
+    "cmd:build.castle-kitchen",
+    "cmd:build.mansion-kitchen",
+    "cmd:build.hut-kitchen"
+   ]
+  },
+  {
+   "q": "bedroom",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.guest",
+    "cmd:build.mansion-bedroom",
+    "cmd:build.mkt-bedroom",
+    "cmd:build.hut-bedroom"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mansion-bedroom",
+    "cmd:build.mkt-bedroom",
+    "cmd:build.hut-bedroom",
+    "cmd:build.guest"
+   ]
+  },
+  {
+   "q": "guest room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.guest",
+    "cmd:build.fine"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.guest",
+    "cmd:build.fine",
+    "cat:shaving-kit",
+    "cat:washstand"
+   ]
+  },
+  {
+   "q": "cellar",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.cellar",
+    "cmd:build.mansion-cellar",
+    "cmd:build.hut-cellar",
+    "cmd:level.down"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.cellar",
+    "cmd:level.down",
+    "cmd:build.mansion-cellar",
+    "cmd:build.hut-cellar"
+   ]
+  },
+  {
+   "q": "castle",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:CAS"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:CAS",
+    "cmd:build.whole",
+    "cmd:build.castle-kitchen",
+    "cmd:build.chapel"
+   ]
+  },
+  {
+   "q": "throne room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.throne-room"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.throne-room",
+    "cat:throne",
+    "cat:brazier-standing",
+    "cat:crown"
+   ]
+  },
+  {
+   "q": "great hall",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.great-hall"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.great-hall",
+    "cat:fireplace-grand",
+    "cat:shield-display",
+    "cat:table-feast"
+   ]
+  },
+  {
+   "q": "armory",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.armoury",
+    "cmd:build.smi-armoury"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.armoury",
+    "cmd:build.smi-armoury",
+    "cat:mil-armor-repair-bench",
+    "cat:armor-breastplate"
+   ]
+  },
+  {
+   "q": "armoury",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.armoury"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.armoury",
+    "cmd:build.smi-armoury",
+    "cat:armor-breastplate",
+    "cat:armor-chainmail-heap"
+   ]
+  },
+  {
+   "q": "barracks",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.barracks"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.barracks",
+    "cat:bunk-bed",
+    "cat:mil-helmet-peg-rack",
+    "cat:blankets-folded"
+   ]
+  },
+  {
+   "q": "gatehouse",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.gatehouse"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.gatehouse",
+    "cat:mil-crossbow-rack",
+    "cat:fire-basket-stand"
+   ]
+  },
+  {
+   "q": "mansion",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:NOB"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:NOB",
+    "cmd:build.whole",
+    "cmd:build.mansion-hall",
+    "cmd:build.mansion-drawing"
+   ]
+  },
+  {
+   "q": "manor",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:NOB"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:NOB",
+    "cat:dovecote",
+    "cat:fountain-courtyard",
+    "cat:gatepost-stone"
+   ]
+  },
+  {
+   "q": "manor house",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:NOB"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:NOB"
+   ]
+  },
+  {
+   "q": "library",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mansion-library",
+    "cmd:build.wiz-study",
+    "cmd:build.cult-library"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:pref.libEven",
+    "cmd:build.mansion-library",
+    "cmd:build.wiz-study",
+    "cmd:build.cult-library"
+   ]
+  },
+  {
+   "q": "ballroom",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mansion-ballroom"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mansion-ballroom",
+    "cmd:build.privy",
+    "cmd:build.mkt-backroom",
+    "cat:chandelier-grand"
+   ]
+  },
+  {
+   "q": "dining room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mansion-dining"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mansion-dining",
+    "cat:cabinet-china",
+    "cat:painting-still-life",
+    "cat:sideboard"
+   ]
+  },
+  {
+   "q": "dungeon",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:DUN",
+    "cmd:build.dungeon",
+    "cmd:build.dun-corridor",
+    "area:@dungeon"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dungeon",
+    "cmd:build.type.t:DUN",
+    "cmd:level.down",
+    "cmd:build.dun-cell-block"
+   ]
+  },
+  {
+   "q": "prison",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:DUN",
+    "cmd:build.dun-cell-block"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:DUN",
+    "cmd:build.lair-pit",
+    "cmd:build.dun-cell-block",
+    "cat:gruel-bowl"
+   ]
+  },
+  {
+   "q": "jail",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-cell-block",
+    "cmd:build.type.t:DUN"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dun-cell-block",
+    "cmd:build.type.t:DUN",
+    "fig:town-jailer",
+    "cat:key-ring"
+   ]
+  },
+  {
+   "q": "jail cell",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-cell-block"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dun-cell-block"
+   ]
+  },
+  {
+   "q": "torture chamber",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-interrogation"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dun-interrogation",
+    "cat:brazier-standing"
+   ]
+  },
+  {
+   "q": "treasure room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-vault"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dun-vault"
+   ]
+  },
+  {
+   "q": "vault",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-vault",
+    "cmd:build.crypt-vault",
+    "cmd:build.cult-vault"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.crypt-vault",
+    "cmd:build.dun-vault",
+    "cmd:build.cult-vault",
+    "cat:vault-shelf-treasure"
+   ]
+  },
+  {
+   "q": "trap corridor",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-trap-corridor"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dun-trap-corridor",
+    "cat:trap-blade",
+    "cat:trap-crossbow",
+    "cat:trap-dart-wall"
+   ]
+  },
+  {
+   "q": "sewer",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-sewer"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dun-sewer",
+    "cat:sewer-channel-strip",
+    "cat:sewer-debris-clog",
+    "cat:sewer-grate"
+   ]
+  },
+  {
+   "q": "sewers",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-sewer"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dun-sewer",
+    "cat:sewer-channel-strip",
+    "cat:sewer-debris-clog",
+    "cat:sewer-grate"
+   ]
+  },
+  {
+   "q": "crypt",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:CRY"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:CRY",
+    "cmd:build.whole",
+    "cmd:build.crypt-antechamber",
+    "cmd:build.crypt-vault"
+   ]
+  },
+  {
+   "q": "tomb",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:CRY",
+    "cmd:build.crypt-vault"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:CRY",
+    "cmd:build.crypt-vault",
+    "cat:floor-tomb-slabs",
+    "cat:effigy-knight"
+   ]
+  },
+  {
+   "q": "catacombs",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.crypt-catacomb",
+    "cmd:build.type.t:CRY"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.crypt-catacomb",
+    "cmd:build.type.t:CRY",
+    "cat:catacomb-shelf-bones",
+    "cat:decal-bones-scatter"
+   ]
+  },
+  {
+   "q": "ossuary",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.crypt-ossuary"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.crypt-ossuary",
+    "cat:ossuary-pillar",
+    "cat:ossuary-shrine",
+    "cat:charnel-trough"
+   ]
+  },
+  {
+   "q": "mausoleum",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:CRY",
+    "cmd:build.crypt-vault"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.crypt-vault",
+    "cmd:build.type.t:CRY"
+   ]
+  },
+  {
+   "q": "graveyard",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:CRY",
+    "cmd:build.crypt-vault"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:CRY",
+    "cat:statue-weeping-angel"
+   ]
+  },
+  {
+   "q": "farm",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:HUT"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:HUT",
+    "cmd:build.hut-kitchen",
+    "cmd:build.hut-bedroom",
+    "cmd:build.hut-farmyard"
+   ]
+  },
+  {
+   "q": "farmhouse",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:HUT",
+    "cmd:build.hut-kitchen",
+    "cmd:build.hut-cottage"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:HUT",
+    "cmd:build.hut-kitchen",
+    "cmd:build.hut-bedroom",
+    "cat:pitcher-glazed"
+   ]
+  },
+  {
+   "q": "cottage",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.hut-cottage"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.hut-cottage",
+    "cat:candle-box-sconce",
+    "cat:flowerbed",
+    "cat:plate-wood-round"
+   ]
+  },
+  {
+   "q": "hut",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.hut-cottage",
+    "cmd:build.type.t:HUT"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.hut-cottage",
+    "cmd:build.hut-kitchen",
+    "cmd:build.hut-bedroom",
+    "cmd:build.hut-loft"
+   ]
+  },
+  {
+   "q": "barn",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.barn",
+    "cmd:build.hut-barn"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.barn",
+    "cmd:build.hut-barn",
+    "cmd:view.bar",
+    "cmd:build.common"
+   ]
+  },
+  {
+   "q": "stable",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.stable"
+   ],
+   "pos": 2,
+   "top": [
+    "fig:town-stable-hand",
+    "fig:town-constable",
+    "cmd:build.stable",
+    "cat:grain-bin-stable"
+   ]
+  },
+  {
+   "q": "chicken coop",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.hut-coop"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.hut-coop",
+    "cat:chicken-perch-ladder"
+   ]
+  },
+  {
+   "q": "cave",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.lair-mouth",
+    "cmd:build.lair-passage",
+    "cmd:build.type.t:LAI"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.lair-mouth",
+    "cmd:build.lair-passage",
+    "cmd:build.type.t:LAI",
+    "cmd:build.lair-trophy"
+   ]
+  },
+  {
+   "q": "lair",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:LAI"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:LAI",
+    "cmd:build.lair-mouth",
+    "cmd:build.lair-passage",
+    "cmd:build.lair-warren"
+   ]
+  },
+  {
+   "q": "monster lair",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:LAI"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.type.t:LAI",
+    "cat:bones-pile"
+   ]
+  },
+  {
+   "q": "dragon lair",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.lair-dragon"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.lair-dragon",
+    "cat:dragon-skull",
+    "cat:dun-treasure-hoard"
+   ]
+  },
+  {
+   "q": "dragon's hoard",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.lair-dragon"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.lair-dragon",
+    "cat:coin-pile",
+    "cat:treasure-hoard-heap",
+    "cat:dun-treasure-hoard"
+   ]
+  },
+  {
+   "q": "goblin cave",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.lair-warren"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.lair-warren"
+   ]
+  },
+  {
+   "q": "goblin warren",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.lair-warren"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.lair-warren",
+    "cat:bunk-crude"
+   ]
+  },
+  {
+   "q": "spider nest",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.lair-spider"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.lair-spider",
+    "cat:giant-web-floor"
+   ]
+  },
+  {
+   "q": "spider lair",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.lair-spider"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.lair-spider",
+    "cat:giant-web-floor"
+   ]
+  },
+  {
+   "q": "hallway",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.hallway",
+    "cmd:build.mansion-corridor"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.hallway",
+    "cmd:build.dun-trap-corridor",
+    "cat:lantern-post-indoor",
+    "cat:rug-runner"
+   ]
+  },
+  {
+   "q": "corridor",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-corridor",
+    "cmd:build.mansion-corridor",
+    "cmd:build.hallway"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mansion-corridor",
+    "cmd:build.dun-corridor",
+    "cmd:build.crypt-catacomb",
+    "cmd:build.dun-trap-corridor"
+   ]
+  },
+  {
+   "q": "courtyard",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.courtyard"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.courtyard",
+    "cat:fountain-courtyard",
+    "cat:floor-setts-courtyard",
+    "cat:brazier-large"
+   ]
+  },
+  {
+   "q": "garden",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.mansion-garden",
+    "cmd:build.hut-garden"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.mansion-garden",
+    "cmd:build.hut-garden",
+    "cat:garden-tools-leaning",
+    "cat:bench-garden"
+   ]
+  },
+  {
+   "q": "privy",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.privy"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.privy",
+    "cat:privy-seat-double",
+    "cat:privy-seat-single"
+   ]
+  },
+  {
+   "q": "toilet",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.privy"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.privy",
+    "cat:chamber-pot"
+   ]
+  },
+  {
+   "q": "bathroom",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.privy"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.privy",
+    "cmd:build.mansion-ballroom",
+    "cmd:build.mkt-backroom",
+    "cat:bench-upholstered"
+   ]
+  },
+  {
+   "q": "outhouse",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.privy",
+    "cat:outhouse"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:outhouse",
+    "cmd:build.privy"
+   ]
+  },
+  {
+   "q": "build a room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.menu",
+    "cmd:build.common"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.menu",
+    "cmd:build.common",
+    "cmd:build.storeroom",
+    "cmd:build.guest"
+   ]
+  },
+  {
+   "q": "new room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.menu",
+    "cmd:build.common"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.menu",
+    "fig:foe-fungus"
+   ]
+  },
+  {
+   "q": "build",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.menu"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.menu",
+    "cmd:build.common",
+    "cmd:build.kitchen",
+    "cmd:build.storeroom"
+   ]
+  },
+  {
+   "q": "build a building",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.whole",
+    "cmd:build.menu",
+    "cmd:build.type.t:TAV"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.whole",
+    "cmd:build.type.t:NOB",
+    "cmd:build.type.t:CAS",
+    "cmd:build.type.t:SMI"
+   ]
+  },
+  {
+   "q": "build inn 12x8",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.whole"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.whole",
+    "cmd:build.whole"
+   ]
+  },
+  {
+   "q": "chappel",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.chapel",
+    "cmd:build.crypt-chapel",
+    "cmd:build.type.t:TEM"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.crypt-chapel",
+    "cmd:build.chapel",
+    "cmd:build.type.t:TEM",
+    "cat:charnel-trough"
+   ]
+  },
+  {
+   "q": "dungeon cells",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.dun-cell-block"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.dun-cell-block",
+    "cmd:level.down",
+    "cat:torch-bracket-rough",
+    "cat:floor-flagstone-dungeon"
+   ]
+  },
+  {
+   "q": "templ",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.type.t:TEM",
+    "cmd:build.temple-nave"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.temple-nave",
+    "cmd:build.type.t:TEM",
+    "cmd:measure.shape.line",
+    "cmd:measure.shape.cone"
+   ]
+  },
+  {
+   "q": "torch",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:torch-sconce",
+    "cat:torch-stand",
+    "cat:torch-bracket-rough",
+    "cat:torch-bracket-fine"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cat:torch-bracket-fine",
+    "cat:torch-bracket-rough",
+    "cat:torch-sconce",
+    "cat:torch-stand"
+   ]
+  },
+  {
+   "q": "torches",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:torch-sconce",
+    "cat:torch-stand",
+    "cat:torch-bracket-rough",
+    "cat:torch-bracket-fine"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:torch-bracket-fine",
+    "cat:torch-bracket-rough",
+    "cat:torch-sconce",
+    "cat:torch-stand"
+   ]
+  },
+  {
+   "q": "wall torch",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:torch-sconce",
+    "cat:torch-bracket-rough",
+    "cat:torch-bracket-fine"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:torch-sconce",
+    "cat:torch-bracket-fine",
+    "cat:torch-bracket-rough"
+   ]
+  },
+  {
+   "q": "altar",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:altar-stone",
+    "cat:altar-sacrificial",
+    "cat:flavor-altarpiece"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cat:altar-sacrificial",
+    "cat:altar-stone",
+    "cat:chalice-altar",
+    "cat:rite-altar-cloth"
+   ]
+  },
+  {
+   "q": "sacrificial altar",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:altar-sacrificial"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:altar-sacrificial",
+    "cat:dagger-ritual"
+   ]
+  },
+  {
+   "q": "mine cart",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mine-cart",
+    "cat:rural-ore-cart-tipped"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cat:mine-cart",
+    "cat:mine-rail-cross",
+    "cat:mine-rail-strip"
+   ]
+  },
+  {
+   "q": "minecart",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mine-cart"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:mine-cart"
+   ]
+  },
+  {
+   "q": "rails",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mine-rail-strip",
+    "cat:mine-rail-cross",
+    "cat:mine-rail-end"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:mine-rail-cross",
+    "cat:mine-rail-end",
+    "cat:mine-rail-strip",
+    "cat:horse-blanket-rail"
+   ]
+  },
+  {
+   "q": "mine track",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mine-rail-strip"
+   ],
+   "pos": 2,
+   "top": [
+    "cat:mine-rail-cross",
+    "cat:mine-rail-end",
+    "cat:mine-rail-strip"
+   ]
+  },
+  {
+   "q": "chest",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chest-plain",
+    "cat:chest-ironbound",
+    "cat:chest-treasure"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:chest-ironbound",
+    "cat:chest-plain",
+    "cat:chest-treasure",
+    "cat:linen-chest"
+   ]
+  },
+  {
+   "q": "treasure chest",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chest-treasure"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:chest-treasure",
+    "cat:dun-treasure-hoard",
+    "ent:obj_barcat0hoard"
+   ]
+  },
+  {
+   "q": "treasure",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chest-treasure",
+    "cat:treasure-hoard-heap",
+    "cat:dun-treasure-hoard",
+    "cat:coin-pile"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:treasure-hoard-heap",
+    "cat:coin-pile",
+    "cat:dun-treasure-hoard",
+    "cat:chest-treasure"
+   ]
+  },
+  {
+   "q": "gold",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:gold-bars",
+    "cat:coin-pile",
+    "cat:coin-stack"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:coin-pile",
+    "cat:dun-treasure-hoard",
+    "cat:treasure-hoard-heap",
+    "cat:gold-bars"
+   ]
+  },
+  {
+   "q": "coins",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:coin-pile",
+    "cat:coin-stack"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:coin-pile",
+    "cat:coin-stack",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol"
+   ]
+  },
+  {
+   "q": "barrel",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:barrel"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:barrel",
+    "cat:arrow-barrel",
+    "cat:fish-barrel-salted",
+    "cat:planter-barrel"
+   ]
+  },
+  {
+   "q": "barrels",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:barrel"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:barrel",
+    "cat:arrow-barrel",
+    "cat:fish-barrel-salted",
+    "cat:planter-barrel"
+   ]
+  },
+  {
+   "q": "crate",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:crate"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:crate",
+    "cat:alch-potion-crate-straw",
+    "cat:apple-crate",
+    "cat:bottles-empty-crate"
+   ]
+  },
+  {
+   "q": "crates",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:crate"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:crate",
+    "cat:alch-potion-crate-straw",
+    "cat:apple-crate",
+    "cat:bottles-empty-crate"
+   ]
+  },
+  {
+   "q": "table",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:table-square",
+    "cat:table-trestle",
+    "cat:table-round-small",
+    "cat:table-kitchen-prep"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:table-kitchen-prep",
+    "cat:table-round-small",
+    "cat:table-square",
+    "cat:table-trestle"
+   ]
+  },
+  {
+   "q": "tables",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:table-square",
+    "cat:table-trestle",
+    "cat:table-round-small"
+   ],
+   "pos": 1,
+   "top": [
+    "cat:table-kitchen-prep",
+    "cat:table-round-small",
+    "cat:table-square",
+    "cat:table-trestle"
+   ]
+  },
+  {
+   "q": "chair",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chair-plain",
+    "cat:chair-armed"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:chair-armed",
+    "cat:chair-plain",
+    "cat:chair-interrogation",
+    "cat:chair-salon-gilt"
+   ]
+  },
+  {
+   "q": "stool",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:stool-bar",
+    "cat:stool-three-leg"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:stool-bar",
+    "cat:stool-three-leg",
+    "cat:stool-upholstered",
+    "cat:trade-ale-taster-stool"
+   ]
+  },
+  {
+   "q": "bed",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bed-single",
+    "cat:bed-double"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bed-double",
+    "cat:bed-single",
+    "cat:bed-canopy",
+    "cat:bed-cell-stone"
+   ]
+  },
+  {
+   "q": "beds",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bed-single",
+    "cat:bed-double"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bed-double",
+    "cat:bed-single",
+    "cat:bed-canopy",
+    "cat:bed-cell-stone"
+   ]
+  },
+  {
+   "q": "bunk bed",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bunk-bed"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bunk-bed",
+    "cat:bed-cell-stone"
+   ]
+  },
+  {
+   "q": "door",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:door-plank",
+    "cat:door-reinforced"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:door-plank",
+    "cat:door-reinforced",
+    "cat:door-barn-double",
+    "cat:door-double-grand"
+   ]
+  },
+  {
+   "q": "doors",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:door-plank",
+    "cat:door-reinforced"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:door-plank",
+    "cat:door-reinforced",
+    "cat:door-barn-double",
+    "cat:door-double-grand"
+   ]
+  },
+  {
+   "q": "double door",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:door-double-grand",
+    "cat:door-barn-double"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:door-barn-double",
+    "cat:door-double-grand"
+   ]
+  },
+  {
+   "q": "wall",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:wall-straight"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:wall-straight",
+    "cat:wall-doorway",
+    "cat:wall-window-small",
+    "cat:banner-wall"
+   ]
+  },
+  {
+   "q": "window",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:wall-window-small"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:wall-window-small",
+    "cat:flowerbox-window",
+    "cat:herb-pot",
+    "cat:pie"
+   ]
+  },
+  {
+   "q": "doorway",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:wall-doorway"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:wall-doorway",
+    "cat:torch-stand",
+    "cat:decal-cobweb",
+    "cat:giant-web-floor"
+   ]
+  },
+  {
+   "q": "stairs",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:stair-straight",
+    "cat:stair-grand",
+    "cat:stair-spiral-wide",
+    "cat:stair-half"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:stair-grand",
+    "cat:stair-half",
+    "cat:stair-spiral-wide",
+    "cat:stair-straight"
+   ]
+  },
+  {
+   "q": "staircase",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:stair-straight",
+    "cat:stair-grand",
+    "cat:stair-spiral-wide"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:stair-grand",
+    "cat:stair-half",
+    "cat:stair-spiral-wide",
+    "cat:stair-straight"
+   ]
+  },
+  {
+   "q": "spiral staircase",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:stair-spiral-wide"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:stair-spiral-wide"
+   ]
+  },
+  {
+   "q": "spiral stairs",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:stair-spiral-wide"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:stair-spiral-wide"
+   ]
+  },
+  {
+   "q": "ladder",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:ladder-wood",
+    "cat:loft-ladder-head"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:ladder-wood",
+    "cat:loft-ladder-head",
+    "cat:bookcase-ladder",
+    "cat:chicken-perch-ladder"
+   ]
+  },
+  {
+   "q": "fireplace",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:fireplace-wall",
+    "cat:fireplace-grand",
+    "cat:fireplace-marble"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:fireplace-grand",
+    "cat:fireplace-marble",
+    "cat:fireplace-wall",
+    "cat:poker-set"
+   ]
+  },
+  {
+   "q": "campfire",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:firepit-stone-round",
+    "cat:firepit-log-spit",
+    "cat:firepit-sunken",
+    "cat:fire-ring-iron"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:fire-ring-iron",
+    "cat:firepit-log-spit",
+    "cat:firepit-stone-round",
+    "cat:firepit-sunken"
+   ]
+  },
+  {
+   "q": "fire pit",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:firepit-stone-round",
+    "cat:firepit-sunken"
+   ],
+   "pos": 2,
+   "top": [
+    "cat:fire-ring-iron",
+    "cat:firepit-log-spit",
+    "cat:firepit-stone-round",
+    "cat:firepit-sunken"
+   ]
+  },
+  {
+   "q": "bonfire",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:firepit-stone-round",
+    "cat:firepit-log-spit"
+   ],
+   "pos": 1,
+   "top": [
+    "cat:fire-ring-iron",
+    "cat:firepit-log-spit",
+    "cat:firepit-stone-round",
+    "cat:firepit-sunken"
+   ]
+  },
+  {
+   "q": "candle",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:candle",
+    "cat:candle-cluster",
+    "cat:candlestick"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:candle",
+    "cat:candle-cluster",
+    "cat:candle-black",
+    "cat:candle-box-sconce"
+   ]
+  },
+  {
+   "q": "candles",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:candle",
+    "cat:candle-cluster"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:candle",
+    "cat:candle-cluster",
+    "cat:candle-black",
+    "cat:candle-box-sconce"
+   ]
+  },
+  {
+   "q": "lantern",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:lantern-hand",
+    "cat:lantern-hanging",
+    "cat:lantern-post"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:lantern-hand",
+    "cat:lantern-hanging",
+    "cat:lantern-pierced-tin",
+    "cat:lantern-post"
+   ]
+  },
+  {
+   "q": "lamp",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:oil-lamp",
+    "cat:lamp-oil-brass",
+    "cat:lamp-post-iron",
+    "cat:lamp-wall-bracket"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:lamp-oil-brass",
+    "cat:lamp-pole",
+    "cat:lamp-post-iron",
+    "cat:lamp-post-wood"
+   ]
+  },
+  {
+   "q": "chandelier",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chandelier-grand",
+    "cat:chandelier-ring"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:chandelier-grand",
+    "cat:chandelier-ring",
+    "cat:table-pedestal-round",
+    "ent:obj_4koh5kinaa"
+   ]
+  },
+  {
+   "q": "brazier",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:brazier-standing",
+    "cat:brazier-large",
+    "cat:brazier-tripod"
+   ],
+   "pos": 1,
+   "top": [
+    "cat:brazier-irons",
+    "cat:brazier-large",
+    "cat:brazier-standing",
+    "cat:brazier-tripod"
+   ]
+  },
+  {
+   "q": "rug",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:rug-small",
+    "cat:rug-oval",
+    "cat:rug-round",
+    "cat:rug-grand"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:rug-grand",
+    "cat:rug-oval",
+    "cat:rug-round",
+    "cat:rug-runner"
+   ]
+  },
+  {
+   "q": "carpet",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:rug-grand",
+    "cat:rug-runner",
+    "cat:rug-small",
+    "cat:rug-oval"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:rug-grand",
+    "cat:rug-oval",
+    "cat:rug-round",
+    "cat:rug-runner"
+   ]
+  },
+  {
+   "q": "bookshelf",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bookshelf"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bookshelf"
+   ]
+  },
+  {
+   "q": "bookcase",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bookshelf",
+    "cat:bookcase-ladder"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bookcase-ladder",
+    "cat:library-steps"
+   ]
+  },
+  {
+   "q": "books",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:book-stack",
+    "cat:book-pile-floor",
+    "cat:books-row-bookends"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:book-pile-floor",
+    "cat:book-stack",
+    "cat:bookcase-ladder",
+    "cat:books-row-bookends"
+   ]
+  },
+  {
+   "q": "throne",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:throne",
+    "cat:bone-throne"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:throne",
+    "cat:bone-throne",
+    "cat:banner-wall",
+    "cat:brazier-standing"
+   ]
+  },
+  {
+   "q": "coffin",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:coffin",
+    "cat:stone-coffin-lidless"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:coffin",
+    "cat:coffin-maker-stack",
+    "cat:stone-coffin-lidless",
+    "cat:rite-funeral-pall"
+   ]
+  },
+  {
+   "q": "sarcophagus",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:sarcophagus"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:sarcophagus",
+    "cat:rite-canopic-jars-set",
+    "cat:rite-death-mask"
+   ]
+  },
+  {
+   "q": "statue",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:statue-garden",
+    "cat:statue-guardian",
+    "cat:statue-hooded",
+    "cat:statue-bust",
+    "cat:statue-forgotten-god"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:statue-bust",
+    "cat:statue-forgotten-god",
+    "cat:statue-garden",
+    "cat:statue-guardian"
+   ]
+  },
+  {
+   "q": "well",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:well",
+    "cat:well-house"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:well",
+    "cat:well-house",
+    "cat:bucket",
+    "cat:ladder-wood"
+   ]
+  },
+  {
+   "q": "cauldron",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:cauldron",
+    "cat:cauldron-huge",
+    "cat:cauldron-small"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:cauldron",
+    "cat:cauldron-bronze-ritual",
+    "cat:cauldron-crane",
+    "cat:cauldron-huge"
+   ]
+  },
+  {
+   "q": "anvil",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:anvil"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:anvil",
+    "cat:tool-rack-smith"
+   ]
+  },
+  {
+   "q": "forge",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:forge",
+    "cmd:build.smi-forge",
+    "cmd:build.type.t:SMI"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:forge",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol",
+    "cat:flavor-banner"
+   ]
+  },
+  {
+   "q": "cage",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:cage-floor",
+    "cat:gibbet-cage-standing",
+    "cat:cage-sacrifice"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:cage-floor",
+    "cat:cage-sacrifice",
+    "cat:gibbet-cage-standing",
+    "cat:birdcage-standing"
+   ]
+  },
+  {
+   "q": "trap",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:trap-spikes",
+    "cat:trap-spike-pit",
+    "cat:bear-trap",
+    "cat:trap-blade",
+    "cat:trap-dart-wall",
+    "cat:trap-crossbow",
+    "cat:trap-flame-jet",
+    "cat:pressure-plate"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:trap-blade",
+    "cat:trap-crossbow",
+    "cat:trap-dart-wall",
+    "cat:trap-flame-jet"
+   ]
+  },
+  {
+   "q": "spike trap",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:trap-spikes",
+    "cat:trap-spike-pit"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:trap-spike-pit",
+    "cat:trap-spikes"
+   ]
+  },
+  {
+   "q": "bear trap",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bear-trap"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bear-trap"
+   ]
+  },
+  {
+   "q": "pit trap",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:trap-spike-pit",
+    "cat:oubliette-hatch"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:trap-spike-pit"
+   ]
+  },
+  {
+   "q": "bones",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bones-pile",
+    "cat:decal-bones-scatter",
+    "cat:skull-pile"
+   ],
+   "pos": 2,
+   "top": [
+    "cat:bone-meaty",
+    "cat:bone-throne",
+    "cat:bones-pile",
+    "cat:floor-bone-strewn"
+   ]
+  },
+  {
+   "q": "skull",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:skull-single",
+    "cat:skull-pile",
+    "cat:skull-candle"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:skull-candle",
+    "cat:skull-pile",
+    "cat:skull-single",
+    "cat:dragon-skull"
+   ]
+  },
+  {
+   "q": "pile of skulls",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:skull-pile"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:skull-pile",
+    "cat:totem-skull"
+   ]
+  },
+  {
+   "q": "pillar",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:pillar-round",
+    "cat:pillar-square",
+    "cat:pillar-broken"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:pillar-broken",
+    "cat:pillar-waterline",
+    "cat:pillar-round",
+    "cat:pillar-square"
+   ]
+  },
+  {
+   "q": "column",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:pillar-round",
+    "cat:pillar-square",
+    "cat:column-drums-fallen"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:column-drums-fallen",
+    "cat:gazebo",
+    "cat:pillar-broken",
+    "cat:pillar-round"
+   ]
+  },
+  {
+   "q": "banner",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:banner-wall",
+    "cat:banner-pole",
+    "cat:flavor-banner"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:banner-pole",
+    "cat:banner-wall",
+    "cat:flavor-banner",
+    "cat:flavor-banner"
+   ]
+  },
+  {
+   "q": "tapestry",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:tapestry"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:tapestry"
+   ]
+  },
+  {
+   "q": "potion",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:potion-bottles",
+    "cat:alch-potion-crate-straw"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:potion-bottles",
+    "cat:alch-potion-crate-straw",
+    "cat:alch-still-copper-large",
+    "cat:alch-sign-apothecary"
+   ]
+  },
+  {
+   "q": "potions",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:potion-bottles"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:potion-bottles",
+    "cat:alch-potion-crate-straw",
+    "cat:alch-still-copper-large",
+    "cat:alch-sign-apothecary"
+   ]
+  },
+  {
+   "q": "sword",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:sword-long",
+    "cat:sword-short"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:sword-long",
+    "cat:sword-short",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol"
+   ]
+  },
+  {
+   "q": "shield",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:shield-heater",
+    "cat:shield-kite",
+    "cat:shield-round",
+    "cat:shield-display"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:shield-display",
+    "cat:shield-heater",
+    "cat:shield-kite",
+    "cat:shield-round"
+   ]
+  },
+  {
+   "q": "weapon rack",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:weapon-rack"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:weapon-rack"
+   ]
+  },
+  {
+   "q": "tree",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:tree-oak-great",
+    "cat:tree-deciduous",
+    "cat:tree-birch",
+    "cat:tree-fruit"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:tree-birch",
+    "cat:tree-deciduous",
+    "cat:tree-fruit",
+    "cat:tree-oak-great"
+   ]
+  },
+  {
+   "q": "trees",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:tree-oak-great",
+    "cat:tree-deciduous",
+    "cat:tree-birch"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:tree-birch",
+    "cat:tree-deciduous",
+    "cat:tree-fruit",
+    "cat:tree-oak-great"
+   ]
+  },
+  {
+   "q": "rock",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:rock-outcrop",
+    "cat:boulder-pile"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:rock-outcrop",
+    "cat:rocking-chair",
+    "cat:floor-cut-rock",
+    "cat:ore-vein"
+   ]
+  },
+  {
+   "q": "boulder",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:boulder-pile",
+    "cat:boulder-rolling"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:boulder-pile",
+    "cat:boulder-rolling",
+    "cat:decal-grave-ledger"
+   ]
+  },
+  {
+   "q": "bush",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bush",
+    "cat:bush-berry"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bush",
+    "cat:bush-berry",
+    "cat:bush-rose",
+    "cat:statue-bust"
+   ]
+  },
+  {
+   "q": "fountain",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:fountain-courtyard",
+    "cat:fountain-wall"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:fountain-courtyard",
+    "cat:fountain-wall-skull",
+    "cat:fountain-wall",
+    "cat:bench-garden"
+   ]
+  },
+  {
+   "q": "cart",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:cart-hand",
+    "cat:cart-merchant-covered",
+    "cat:mine-cart",
+    "cat:wagon"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:cart-hand",
+    "cat:cart-merchant-covered",
+    "cat:cart-shed",
+    "cat:mine-cart"
+   ]
+  },
+  {
+   "q": "wagon",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:wagon"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:wagon",
+    "cat:cart-merchant-covered"
+   ]
+  },
+  {
+   "q": "hay",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:hay-bale",
+    "cat:hay-pile"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:hay-bale",
+    "cat:hay-pile",
+    "cat:rug-hay-scatter",
+    "cat:rural-manger-wall"
+   ]
+  },
+  {
+   "q": "hay bale",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:hay-bale"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:hay-bale"
+   ]
+  },
+  {
+   "q": "cobweb",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:decal-cobweb",
+    "cat:decal-web-floor",
+    "cat:web-funnel"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:decal-cobweb"
+   ]
+  },
+  {
+   "q": "spider web",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:decal-web-floor",
+    "cat:giant-web-floor",
+    "cat:web-cocoon",
+    "cat:decal-cobweb"
+   ],
+   "pos": 1,
+   "top": [
+    "cat:web-funnel",
+    "cat:decal-web-floor",
+    "cat:giant-web-floor"
+   ]
+  },
+  {
+   "q": "blood",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:decal-blood",
+    "cat:rite-blood-bowl"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:decal-blood",
+    "cat:rite-blood-bowl",
+    "cat:trade-apron-bloody",
+    "cat:altar-sacrificial"
+   ]
+  },
+  {
+   "q": "pew",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:pew"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:pew",
+    "cat:bowl-pewter",
+    "cat:cup-pewter",
+    "cat:dish-covered-pewter"
+   ]
+  },
+  {
+   "q": "pews",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:pew"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:pew",
+    "cat:bowl-pewter",
+    "cat:cup-pewter",
+    "cat:dish-covered-pewter"
+   ]
+  },
+  {
+   "q": "lectern",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:lectern",
+    "cat:spellbook-lectern"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:lectern",
+    "cat:spellbook-lectern",
+    "cat:tome-holy",
+    "cat:lantern-hand"
+   ]
+  },
+  {
+   "q": "holy water",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:font-holy"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:font-holy"
+   ]
+  },
+  {
+   "q": "font",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:font-holy"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:font-holy",
+    "cat:alch-counter-apothecary",
+    "cat:bench-upholstered",
+    "cat:bread-rack"
+   ]
+  },
+  {
+   "q": "idol",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:flavor-idol",
+    "cat:statue-forgotten-god"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:flavor-idol",
+    "cat:flavor-idol",
+    "cat:flavor-idol",
+    "cat:flavor-idol"
+   ]
+  },
+  {
+   "q": "mimic",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mimic-chest",
+    "fig:*mimic*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-mimic",
+    "cat:mimic-chest"
+   ]
+  },
+  {
+   "q": "portal",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:portal-arch"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:portal-arch"
+   ]
+  },
+  {
+   "q": "crystal ball",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:crystal-ball"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:crystal-ball",
+    "cat:chandelier-grand"
+   ]
+  },
+  {
+   "q": "ritual circle",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:decal-ritual-circle"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:decal-ritual-circle",
+    "cat:candle-black",
+    "cmd:build.cult-summoning"
+   ]
+  },
+  {
+   "q": "pentagram",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:decal-ritual-circle",
+    "cat:decal-star-floor"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:decal-ritual-circle",
+    "cat:decal-star-floor"
+   ]
+  },
+  {
+   "q": "summoning circle",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:decal-ritual-circle"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:decal-ritual-circle",
+    "cmd:build.cult-summoning"
+   ]
+  },
+  {
+   "q": "lever",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:lever-wall",
+    "cat:lever-floor"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:lever-floor",
+    "cat:lever-wall",
+    "cat:stair-half",
+    "cmd:level.up"
+   ]
+  },
+  {
+   "q": "pressure plate",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:pressure-plate"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:pressure-plate"
+   ]
+  },
+  {
+   "q": "rubble",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:rubble-pile",
+    "cat:collapse-rubble",
+    "cat:decal-rubble-scatter"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:rubble-pile",
+    "cat:collapse-rubble",
+    "cat:decal-rubble-scatter",
+    "cat:ceiling-slab-fallen"
+   ]
+  },
+  {
+   "q": "stalagmite",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:stalagmite"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:stalagmite",
+    "fig:foe-roper"
+   ]
+  },
+  {
+   "q": "mushrooms",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mushroom-cluster-edible",
+    "cat:mushroom-cave-giant"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:mushroom-cave-giant",
+    "cat:mushroom-cluster-edible",
+    "fig:foe-fungus"
+   ]
+  },
+  {
+   "q": "giant mushroom",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mushroom-cave-giant"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:mushroom-cave-giant"
+   ]
+  },
+  {
+   "q": "food",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:feast-platter-meats",
+    "cat:bread-loaf",
+    "cat:plate-roast-veg"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bread-loaf",
+    "cat:feast-platter-meats",
+    "cat:plate-roast-veg",
+    "cat:bone-meaty"
+   ]
+  },
+  {
+   "q": "ale",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mug-of-ale",
+    "cat:tankard-of-ale",
+    "cat:pitcher-of-ale"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:mug-of-ale",
+    "cat:pitcher-of-ale",
+    "cat:pitcher-of-milk",
+    "cat:tankard-of-ale"
+   ]
+  },
+  {
+   "q": "beer",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mug-of-ale",
+    "cat:tankard-of-ale",
+    "cat:pitcher-of-ale"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:mug-of-ale",
+    "cat:pitcher-of-ale",
+    "cat:pitcher-of-milk",
+    "cat:tankard-of-ale"
+   ]
+  },
+  {
+   "q": "mug",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:mug-wooden",
+    "cat:mug-large",
+    "cat:mug-glazed",
+    "cat:mug-of-ale"
+   ],
+   "pos": 1,
+   "top": [
+    "cat:mug-chipped",
+    "cat:mug-glazed",
+    "cat:mug-large",
+    "cat:mug-of-ale"
+   ]
+  },
+  {
+   "q": "bar counter",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:counter-shop",
+    "cat:back-bar-shelves"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:back-bar-shelves",
+    "cat:counter-shop",
+    "cat:shop-floor-stock",
+    "cat:stool-bar"
+   ]
+  },
+  {
+   "q": "counter",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:counter-shop"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:counter-shop",
+    "cat:alch-counter-apothecary",
+    "cat:back-bar-shelves",
+    "cat:ledger-counter-bell"
+   ]
+  },
+  {
+   "q": "sign",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:sign-hanging",
+    "cat:shop-sign",
+    "cat:signpost",
+    "cat:sign-post-inn"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:sign-hanging",
+    "cat:sign-post-inn",
+    "cat:signpost",
+    "cat:alch-sign-apothecary"
+   ]
+  },
+  {
+   "q": "signpost",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:signpost"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:signpost"
+   ]
+  },
+  {
+   "q": "gallows",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:gibbet-cage-standing",
+    "cat:block-headsman"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:block-headsman",
+    "cat:gibbet-cage-standing"
+   ]
+  },
+  {
+   "q": "stocks",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:stocks",
+    "cat:pillory"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:stocks",
+    "cat:metal-stock",
+    "cat:shop-floor-stock",
+    "cat:shop-shelf-stocked"
+   ]
+  },
+  {
+   "q": "iron maiden",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:iron-maiden"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:iron-maiden"
+   ]
+  },
+  {
+   "q": "rack",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:rack-torture"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:rack-torture",
+    "cat:bread-rack",
+    "cat:cask-rack",
+    "cat:hide-drying-rack"
+   ]
+  },
+  {
+   "q": "chains",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chain-pile",
+    "cat:manacles-wall",
+    "cat:shackles-leg"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:chain-pile",
+    "cat:armor-chainmail-heap",
+    "cat:ball-and-chain",
+    "cat:pot-hook-chain"
+   ]
+  },
+  {
+   "q": "manacles",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:manacles-wall"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:manacles-wall",
+    "cat:skeleton-chained",
+    "cat:whipping-post"
+   ]
+  },
+  {
+   "q": "stone floor",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:floor-*stone*",
+    "cat:floor-*flagstone*",
+    "cat:floor-*cobble*",
+    "cmd:room.floor.*"
+   ],
+   "pos": 1,
+   "top": [
+    "cat:floor-basalt-dark",
+    "cat:floor-checker-stone",
+    "cat:floor-cobble",
+    "cat:floor-cobble-mossy"
+   ]
+  },
+  {
+   "q": "wood floor",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:floor-*plank*",
+    "cat:floor-*boards*",
+    "cat:floor-*parquet*",
+    "cmd:room.floor.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:floor-boards-rough",
+    "cat:floor-parquet-herringbone",
+    "cat:floor-parquet-versailles",
+    "cat:floor-planks-dark"
+   ]
+  },
+  {
+   "q": "cobblestones",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:floor-*cobble*",
+    "cmd:room.floor.*cobble*"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:floor-cobble"
+   ]
+  },
+  {
+   "q": "grass",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:floor-*grass*",
+    "cat:decal-grass-tuft",
+    "cat:decal-grass-worn"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:floor-grass",
+    "cat:floor-grass-meadow",
+    "cat:floor-grass-worn",
+    "cat:floor-lawn-mown"
+   ]
+  },
+  {
+   "q": "dirt floor",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:floor-*dirt*",
+    "cat:floor-*earth*",
+    "cat:decal-dirt-patch",
+    "cmd:room.floor.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:floor-earth-bare",
+    "cat:floor-earth-packed",
+    "cat:floor-earth-straw",
+    "cat:floor-field-furrows"
+   ]
+  },
+  {
+   "q": "torche",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:torch-sconce",
+    "cat:torch-stand",
+    "cat:torch-bracket-rough",
+    "cat:torch-bracket-fine"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:torch-bracket-fine",
+    "cat:torch-bracket-rough",
+    "cat:torch-sconce",
+    "cat:torch-stand"
+   ]
+  },
+  {
+   "q": "lanturn",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:lantern-hand",
+    "cat:lantern-hanging",
+    "cat:lantern-post"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:lantern-hand",
+    "cat:lantern-hanging",
+    "cat:lantern-pierced-tin",
+    "cat:lantern-post"
+   ]
+  },
+  {
+   "q": "chandeleer",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chandelier-grand",
+    "cat:chandelier-ring"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:chandelier-grand",
+    "cat:chandelier-ring",
+    "cat:table-pedestal-round",
+    "ent:obj_4koh5kinaa"
+   ]
+  },
+  {
+   "q": "barel",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:barrel"
+   ],
+   "pos": 1,
+   "top": [
+    "cat:arrow-barrel",
+    "cat:barrel",
+    "cat:fish-barrel-salted",
+    "cat:planter-barrel"
+   ]
+  },
+  {
+   "q": "cofin",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:coffin"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:coffin",
+    "cat:coffin-maker-stack",
+    "cat:coin-pile",
+    "cat:coin-stack"
+   ]
+  },
+  {
+   "q": "sarcophogus",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:sarcophagus"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:sarcophagus",
+    "cat:rite-canopic-jars-set",
+    "cat:rite-death-mask"
+   ]
+  },
+  {
+   "q": "skelton",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*skeleton*",
+    "cat:skeleton-chained"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:skeleton-chained",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol",
+    "cat:flavor-banner"
+   ]
+  },
+  {
+   "q": "treasure chets",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chest-treasure"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:chest-treasure",
+    "cat:dun-treasure-hoard",
+    "ent:obj_barcat0hoard"
+   ]
+  },
+  {
+   "q": "bookshelve",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:bookshelf"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:bookshelf"
+   ]
+  },
+  {
+   "q": "chandeliers",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:chandelier-grand",
+    "cat:chandelier-ring"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:chandelier-grand",
+    "cat:chandelier-ring",
+    "cat:table-pedestal-round",
+    "ent:obj_4koh5kinaa"
+   ]
+  },
+  {
+   "q": "tourch",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cat:torch-sconce",
+    "cat:torch-stand",
+    "cat:torch-bracket-rough",
+    "cat:torch-bracket-fine"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:area.touch",
+    "cat:torch-bracket-fine",
+    "cat:torch-bracket-rough",
+    "cat:torch-sconce"
+   ]
+  },
+  {
+   "q": "goblin",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*goblin*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-goblin-boss",
+    "fig:foe-goblin-bow",
+    "fig:foe-goblin-club",
+    "fig:foe-goblin-brute"
+   ]
+  },
+  {
+   "q": "goblins",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*goblin*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-goblin-boss",
+    "fig:foe-goblin-bow",
+    "fig:foe-goblin-club",
+    "fig:foe-goblin-brute"
+   ]
+  },
+  {
+   "q": "add a goblin",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*goblin*"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "fig:foe-goblin-boss",
+    "fig:foe-goblin-bow",
+    "fig:foe-goblin-club",
+    "fig:foe-goblin-brute"
+   ]
+  },
+  {
+   "q": "6 goblins",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*goblin*"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "fig:foe-goblin-boss",
+    "fig:foe-goblin-bow",
+    "fig:foe-goblin-club",
+    "fig:foe-goblin-brute"
+   ]
+  },
+  {
+   "q": "add 4 orcs",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-orc-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-orc-bow",
+    "fig:foe-orc-axes",
+    "fig:foe-orc-mace",
+    "fig:foe-orc-brute"
+   ]
+  },
+  {
+   "q": "orc",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-orc-*",
+    "fig:hero-*-orc-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-orc-bow",
+    "fig:foe-orc-axes",
+    "fig:foe-orc-mace",
+    "fig:foe-orc-brute"
+   ]
+  },
+  {
+   "q": "skeleton",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-skeleton-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-skeleton-bow",
+    "fig:foe-skeleton-mace",
+    "fig:foe-skeleton-mage",
+    "fig:foe-skeleton-knight"
+   ]
+  },
+  {
+   "q": "skeletons",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-skeleton-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-skeleton-bow",
+    "fig:foe-skeleton-mace",
+    "fig:foe-skeleton-mage",
+    "fig:foe-skeleton-knight"
+   ]
+  },
+  {
+   "q": "zombie",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-zombie-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-zombie-woman",
+    "fig:foe-zombie-butcher",
+    "fig:foe-zombie-soldier",
+    "fig:foe-zombie-shambler"
+   ]
+  },
+  {
+   "q": "zombies",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-zombie-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-zombie-woman",
+    "fig:foe-zombie-butcher",
+    "fig:foe-zombie-soldier",
+    "fig:foe-zombie-shambler"
+   ]
+  },
+  {
+   "q": "dragon",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*dragon*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-dragon-wyrmling",
+    "fig:foe-dragon-young-red",
+    "fig:foe-dragon-young-black",
+    "fig:foe-dragon-young-green"
+   ]
+  },
+  {
+   "q": "wolf",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-wolf",
+    "fig:foe-dire-wolf"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-wolf",
+    "fig:foe-werewolf",
+    "fig:foe-dire-wolf",
+    "fig:foe-giant-spider"
+   ]
+  },
+  {
+   "q": "wolves",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-wolf",
+    "fig:foe-dire-wolf"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-wolf",
+    "fig:foe-werewolf",
+    "fig:foe-dire-wolf",
+    "fig:foe-giant-spider"
+   ]
+  },
+  {
+   "q": "horse",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:beast-horse",
+    "fig:beast-warhorse"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:beast-warhorse",
+    "fig:beast-horse",
+    "fig:foe-unicorn",
+    "fig:beast-pony"
+   ]
+  },
+  {
+   "q": "bandit",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*bandit*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-bandit-bow",
+    "fig:foe-bandit-mace",
+    "fig:foe-bandit-axes",
+    "fig:foe-bandit-club"
+   ]
+  },
+  {
+   "q": "guard",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*guard*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-orc-guard",
+    "fig:town-dwarf-guard",
+    "fig:town-elf-guard",
+    "fig:town-human-guard"
+   ]
+  },
+  {
+   "q": "town guard",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*guard*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-guard-f",
+    "fig:town-orc-guard",
+    "fig:town-dwarf-guard",
+    "fig:town-elf-guard"
+   ]
+  },
+  {
+   "q": "wizard",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:hero-wizard-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:hero-wizard-elf-m",
+    "fig:hero-wizard-orc-m",
+    "fig:hero-wizard-dwarf-m",
+    "fig:hero-wizard-elf-f"
+   ]
+  },
+  {
+   "q": "elf ranger",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:hero-ranger-elf-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:hero-ranger-elf-m",
+    "fig:hero-ranger-elf-f"
+   ]
+  },
+  {
+   "q": "dwarf fighter",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:hero-fighter-dwarf-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:hero-fighter-dwarf-m",
+    "fig:hero-fighter-dwarf-f"
+   ]
+  },
+  {
+   "q": "kobold",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-kobold-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-kobold-pick",
+    "fig:foe-kobold-sling",
+    "fig:foe-kobold-spear",
+    "fig:foe-kobold-winged"
+   ]
+  },
+  {
+   "q": "ogre",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*ogre*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-ogre",
+    "fig:foe-ogre-chief",
+    "cat:bone-meaty",
+    "cat:chicken-half-eaten"
+   ]
+  },
+  {
+   "q": "troll",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-troll"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-troll",
+    "cat:stinking-cheese-giant"
+   ]
+  },
+  {
+   "q": "owlbear",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-owlbear"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-owlbear"
+   ]
+  },
+  {
+   "q": "lich",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-lich"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-lich",
+    "cat:decal-moss"
+   ]
+  },
+  {
+   "q": "vampire",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-vampire-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-vampire-f",
+    "fig:foe-vampire-m",
+    "cat:coffin",
+    "cat:garlic-bulb"
+   ]
+  },
+  {
+   "q": "rat",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-giant-rat",
+    "fig:foe-rat-swarm"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-giant-rat",
+    "fig:foe-wererat",
+    "fig:foe-rat-swarm",
+    "fig:foe-triceratops"
+   ]
+  },
+  {
+   "q": "rats",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-giant-rat",
+    "fig:foe-rat-swarm"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-giant-rat",
+    "fig:foe-rat-swarm",
+    "fig:foe-wererat",
+    "fig:foe-triceratops"
+   ]
+  },
+  {
+   "q": "giant spider",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-giant-spider"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-giant-spider",
+    "fig:foe-drider",
+    "cat:giant-web-floor"
+   ]
+  },
+  {
+   "q": "spider",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-giant-spider",
+    "fig:*spider*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-giant-spider",
+    "fig:foe-drider",
+    "fig:foe-ettercap",
+    "cat:flavor-altarpiece"
+   ]
+  },
+  {
+   "q": "bear",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:beast-bear",
+    "fig:foe-owlbear"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-owlbear",
+    "fig:beast-bear",
+    "fig:foe-demon",
+    "fig:foe-devil"
+   ]
+  },
+  {
+   "q": "priest",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*priest*",
+    "fig:hero-cleric-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-orc-priest",
+    "fig:foe-cultist-fanatic",
+    "fig:hero-cleric-elf-m",
+    "fig:hero-cleric-orc-m"
+   ]
+  },
+  {
+   "q": "cleric",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:hero-cleric-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:hero-cleric-elf-m",
+    "fig:hero-cleric-orc-m",
+    "fig:hero-cleric-dwarf-m",
+    "fig:hero-cleric-elf-f"
+   ]
+  },
+  {
+   "q": "innkeeper",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*innkeeper*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-innkeeper-m",
+    "fig:town-elf-innkeeper",
+    "fig:town-orc-innkeeper",
+    "fig:town-dwarf-innkeeper"
+   ]
+  },
+  {
+   "q": "barkeep",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*innkeeper*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-elf-innkeeper",
+    "fig:town-innkeeper-m",
+    "fig:town-orc-innkeeper",
+    "fig:town-dwarf-innkeeper"
+   ]
+  },
+  {
+   "q": "bartender",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*innkeeper*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-elf-innkeeper",
+    "fig:town-innkeeper-m",
+    "fig:town-orc-innkeeper",
+    "fig:town-dwarf-innkeeper"
+   ]
+  },
+  {
+   "q": "merchant",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*merchant*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-orc-merchant",
+    "fig:town-dwarf-merchant",
+    "fig:town-elf-merchant",
+    "fig:town-human-merchant"
+   ]
+  },
+  {
+   "q": "shopkeeper",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*merchant*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-orc-merchant",
+    "fig:town-dwarf-merchant",
+    "fig:town-elf-merchant",
+    "fig:town-human-merchant"
+   ]
+  },
+  {
+   "q": "knight",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*knight*",
+    "fig:hero-paladin-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-death-knight",
+    "fig:hero-paladin-elf-m",
+    "fig:hero-paladin-orc-m",
+    "fig:hero-paladin-dwarf-m"
+   ]
+  },
+  {
+   "q": "paladin",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:hero-paladin-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:hero-paladin-elf-m",
+    "fig:hero-paladin-orc-m",
+    "fig:hero-paladin-dwarf-m",
+    "fig:hero-paladin-elf-f"
+   ]
+  },
+  {
+   "q": "rogue",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:hero-rogue-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:hero-rogue-elf-m",
+    "fig:hero-rogue-orc-m",
+    "fig:hero-rogue-dwarf-m",
+    "fig:hero-rogue-elf-f"
+   ]
+  },
+  {
+   "q": "thief",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:hero-rogue-*",
+    "fig:*bandit*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:hero-rogue-elf-m",
+    "fig:hero-rogue-orc-m",
+    "fig:hero-rogue-dwarf-m",
+    "fig:hero-rogue-elf-f"
+   ]
+  },
+  {
+   "q": "bard",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:hero-bard-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:hero-bard-elf-m",
+    "fig:hero-bard-orc-m",
+    "fig:hero-bard-dwarf-m",
+    "fig:hero-bard-elf-f"
+   ]
+  },
+  {
+   "q": "villager",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*commoner*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-elf-commoner-m",
+    "fig:town-orc-commoner-m",
+    "fig:town-dwarf-commoner-m",
+    "fig:town-elf-commoner-f"
+   ]
+  },
+  {
+   "q": "peasant",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*commoner*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-elf-commoner-m",
+    "fig:town-orc-commoner-m",
+    "fig:town-dwarf-commoner-m",
+    "fig:town-elf-commoner-f"
+   ]
+  },
+  {
+   "q": "farmer",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*commoner*",
+    "fig:*farmer*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-elf-commoner-m",
+    "fig:town-orc-commoner-m",
+    "fig:town-dwarf-commoner-m",
+    "fig:town-elf-commoner-f"
+   ]
+  },
+  {
+   "q": "cultist",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*cult*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-cultist-mace",
+    "fig:foe-cultist-candle",
+    "fig:foe-cultist-dagger",
+    "fig:foe-cultist-reader"
+   ]
+  },
+  {
+   "q": "necromancer",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-lich",
+    "fig:foe-skeleton-mage",
+    "fig:*necromancer*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-lich",
+    "fig:foe-skeleton-mage",
+    "cat:rite-bone-candelabra",
+    "cat:rite-tome-stack-forbidden"
+   ]
+  },
+  {
+   "q": "undead",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*skeleton*",
+    "fig:*zombie*",
+    "fig:foe-lich",
+    "fig:foe-vampire-*",
+    "fig:*ghoul*",
+    "fig:*ghost*",
+    "fig:*mummy*",
+    "fig:*wight*",
+    "fig:*death-knight*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-lich",
+    "fig:foe-ghost",
+    "fig:foe-mummy",
+    "fig:foe-wight"
+   ]
+  },
+  {
+   "q": "demon",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*demon*",
+    "fig:*devil*",
+    "fig:*dretch*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-demon",
+    "fig:foe-vulture-demon",
+    "fig:foe-dretch",
+    "cat:flavor-altarpiece"
+   ]
+  },
+  {
+   "q": "devil",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*devil*",
+    "fig:*imp*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-devil",
+    "fig:foe-imp",
+    "fig:foe-succubus",
+    "fig:foe-demon"
+   ]
+  },
+  {
+   "q": "ghost",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*ghost*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-ghost",
+    "fig:foe-banshee",
+    "fig:foe-wisp",
+    "fig:foe-ghoul-ghast"
+   ]
+  },
+  {
+   "q": "dog",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:beast-dog",
+    "fig:*dog*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:beast-dog-small",
+    "fig:beast-dog",
+    "fig:foe-hellhound",
+    "fig:foe-death-dog"
+   ]
+  },
+  {
+   "q": "cat",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*cat*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:beast-cat",
+    "fig:beast-ox",
+    "fig:beast-cow",
+    "fig:beast-lion"
+   ]
+  },
+  {
+   "q": "child",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*child*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-elf-child",
+    "fig:town-orc-child",
+    "fig:town-dwarf-child",
+    "fig:town-human-child"
+   ]
+  },
+  {
+   "q": "kid",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*child*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-elf-child",
+    "fig:town-orc-child",
+    "fig:town-dwarf-child",
+    "fig:town-human-child"
+   ]
+  },
+  {
+   "q": "king",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*king*",
+    "fig:*noble*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-king",
+    "fig:foe-lizardfolk-king",
+    "fig:foe-zombie-shambler",
+    "cmd:build.min-face"
+   ]
+  },
+  {
+   "q": "queen",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*noble*",
+    "fig:*king*",
+    "fig:*queen*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:town-queen",
+    "fig:foe-lizardfolk-king"
+   ]
+  },
+  {
+   "q": "add pawn",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.add",
+    "fig:plain"
+   ],
+   "pos": 1,
+   "top": [
+    "Add pawn: type a name (518 figures: owlbear, elf wizard, goblin spear, 6 goblins \u2026)",
+    "fig:plain",
+    "cmd:pawn.add",
+    "cmd:pawn.addPlain"
+   ]
+  },
+  {
+   "q": "add a plain pawn",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.addPlain",
+    "fig:plain"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.addPlain"
+   ]
+  },
+  {
+   "q": "token",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.addPlain",
+    "cmd:pawn.add",
+    "fig:plain"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.add",
+    "cmd:pawn.addPlain",
+    "cmd:pawns.menu",
+    "ent:tok_barcat0001"
+   ]
+  },
+  {
+   "q": "monster",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.add"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.add",
+    "cmd:build.dun-den",
+    "cmd:build.type.t:LAI",
+    "cmd:build.mansion-bedroom"
+   ]
+  },
+  {
+   "q": "npc",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.add"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.add",
+    "fig:town-elf-child",
+    "fig:town-elf-noble",
+    "fig:town-elf-smith"
+   ]
+  },
+  {
+   "q": "goblinn",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:*goblin*"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:build.lair-warren",
+    "fig:foe-goblin-boss",
+    "fig:foe-goblin-bow",
+    "fig:foe-goblin-club"
+   ]
+  },
+  {
+   "q": "orcs",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-orc-*",
+    "fig:hero-*-orc-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-orc-bow",
+    "fig:foe-orc-axes",
+    "fig:foe-orc-mace",
+    "fig:foe-orc-brute"
+   ]
+  },
+  {
+   "q": "skelletons",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "fig:foe-skeleton-*",
+    "cat:skeleton-chained"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:skeleton-chained",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol",
+    "cat:flavor-banner"
+   ]
+  },
+  {
+   "q": "hide labels",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labels"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:view.labels"
+   ]
+  },
+  {
+   "q": "show labels",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labels"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.labels"
+   ]
+  },
+  {
+   "q": "labels off",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labels"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.labels",
+    "cmd:view.pawnNames"
+   ]
+  },
+  {
+   "q": "turn off labels",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labels"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.labels"
+   ]
+  },
+  {
+   "q": "hide room names",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labels"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.labels"
+   ]
+  },
+  {
+   "q": "room labels",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labels"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.labels",
+    "cmd:view.labelLab"
+   ]
+  },
+  {
+   "q": "labels",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labels"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.labels",
+    "cmd:view.pawnNames",
+    "cmd:view.labelLab",
+    "cat:apothecary-drawers"
+   ]
+  },
+  {
+   "q": "no labels",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labels"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.labels"
+   ]
+  },
+  {
+   "q": "label lab",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.labelLab",
+    "cmd:view.labels"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:view.labelLab",
+    "cmd:view.labels",
+    "cmd:view.pawnNames",
+    "cat:apothecary-drawers"
+   ]
+  },
+  {
+   "q": "ring lab",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.ringLab"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.ringLab"
+   ]
+  },
+  {
+   "q": "make it dark",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.darkness.on",
+    "cmd:area.light.night",
+    "cmd:area.light.deep-night"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:area.darkness.on",
+    "cmd:area.darkness.off",
+    "cmd:area.light.night",
+    "cmd:view.theme"
+   ]
+  },
+  {
+   "q": "turn off the lights",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.darkness.on",
+    "cmd:area.light.night",
+    "cmd:area.light.deep-night"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:area.darkness.on",
+    "cmd:area.darkness.off"
+   ]
+  },
+  {
+   "q": "lights out",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.darkness.on",
+    "cmd:area.light.deep-night"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.darkness.on"
+   ]
+  },
+  {
+   "q": "darkness",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.darkness.on",
+    "cmd:area.darkness.off"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.darkness.on",
+    "cmd:area.darkness.off"
+   ]
+  },
+  {
+   "q": "darkness on",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.darkness.on"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.darkness.on",
+    "cmd:area.darkness.off"
+   ]
+  },
+  {
+   "q": "darkness off",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.darkness.off"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.darkness.off",
+    "cmd:area.darkness.on"
+   ]
+  },
+  {
+   "q": "turn on the lights",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.darkness.off",
+    "cmd:area.light.day",
+    "cmd:area.light.daylight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.darkness.off",
+    "cmd:area.darkness.on"
+   ]
+  },
+  {
+   "q": "night",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.night",
+    "cmd:area.light.deep-night"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.night",
+    "cmd:area.light.deep-night",
+    "cat:mil-guard-lantern",
+    "cat:firepit-log-spit"
+   ]
+  },
+  {
+   "q": "nighttime",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.night"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.night"
+   ]
+  },
+  {
+   "q": "day",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.day",
+    "cmd:area.light.daylight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.day",
+    "cmd:area.light.daylight",
+    "cmd:area.light.night",
+    "cmd:area.light.deep-night"
+   ]
+  },
+  {
+   "q": "daytime",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.day"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.day"
+   ]
+  },
+  {
+   "q": "morning",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.day"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.day",
+    "cmd:pref.lightMoves",
+    "fig:foe-bugbear-morningstar",
+    "cat:rural-mounting-block"
+   ]
+  },
+  {
+   "q": "dusk",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.night"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.night",
+    "cmd:build.desk",
+    "cat:decal-coal-dust",
+    "cat:desk-bureau"
+   ]
+  },
+  {
+   "q": "sunset",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.night"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.night"
+   ]
+  },
+  {
+   "q": "pitch black",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.deep-night",
+    "cmd:area.darkness.on"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.deep-night",
+    "cmd:area.darkness.on"
+   ]
+  },
+  {
+   "q": "lighting",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.day",
+    "cmd:area.light.night",
+    "cmd:area.light.house",
+    "cmd:area.light.deep-night",
+    "cmd:area.light.daylight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.day",
+    "cmd:area.light.night",
+    "cmd:area.light.deep-night",
+    "cmd:area.light.daylight"
+   ]
+  },
+  {
+   "q": "time of day",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.light.day",
+    "cmd:area.light.night",
+    "cmd:area.light.deep-night",
+    "cmd:area.light.daylight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.light.day",
+    "cmd:area.light.night",
+    "cmd:area.light.deep-night",
+    "cmd:area.light.daylight"
+   ]
+  },
+  {
+   "q": "fog of war",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.fogOfWar.on",
+    "cmd:area.fogOfWar.off",
+    "cmd:vision.fogOfWar.off",
+    "cmd:vision.fogOfWar.on"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.fogOfWar.on",
+    "cmd:area.fogOfWar.off",
+    "cmd:vision.fogOfWar.off",
+    "cmd:pref.fogFx"
+   ]
+  },
+  {
+   "q": "fog on",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.fogOfWar.on",
+    "cmd:pref.fogFx"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.fogOfWar.on",
+    "cmd:pref.fogFx",
+    "cmd:area.fogOfWar.off",
+    "cmd:vision.fogOfWar.off"
+   ]
+  },
+  {
+   "q": "fog off",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.fogOfWar.off",
+    "cmd:pref.fogFx"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.fogOfWar.off",
+    "cmd:pref.fogFx",
+    "cmd:vision.fogOfWar.off"
+   ]
+  },
+  {
+   "q": "reset fog",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:vision.reset"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:vision.reset"
+   ]
+  },
+  {
+   "q": "reveal map",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:vision.reveal",
+    "cmd:area.fogOfWar.off"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.fogOfWar.off",
+    "cmd:vision.reveal"
+   ]
+  },
+  {
+   "q": "reveal room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:vision.reveal"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:vision.reveal"
+   ]
+  },
+  {
+   "q": "hide fog",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.fogFx",
+    "cmd:area.fogOfWar.off"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.fogFx"
+   ]
+  },
+  {
+   "q": "mist",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.fogFx",
+    "cmd:room.fog"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.fogFx",
+    "fig:town-alchemist",
+    "cat:alch-athanor",
+    "cat:alch-bench-dressed"
+   ]
+  },
+  {
+   "q": "view as player",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:vision.view.player",
+    "cmd:vision.view.party",
+    "cmd:vision.view.seat.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:vision.view.player",
+    "cmd:vision.view.party"
+   ]
+  },
+  {
+   "q": "see what players see",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:vision.view.party",
+    "cmd:vision.view.player"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:vision.view.party",
+    "cmd:vision.view.player"
+   ]
+  },
+  {
+   "q": "roofs on",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.roofsOn"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.roofsOn",
+    "cmd:view.roofSurfacePainted",
+    "cmd:view.labels",
+    "cmd:build.common"
+   ]
+  },
+  {
+   "q": "show roofs",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.roofsOn"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.roofsOn",
+    "cmd:view.labels",
+    "cmd:vision.reveal",
+    "cmd:build.wiz-apothecary"
+   ]
+  },
+  {
+   "q": "roof",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.roofsOn",
+    "cmd:view.roofsOff"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.roofsOn",
+    "cmd:view.roofSurfacePainted",
+    "cmd:edit.selectAll",
+    "cmd:build.common"
+   ]
+  },
+  {
+   "q": "walls",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.walls",
+    "cat:wall-straight"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:wall-straight",
+    "cat:wall-doorway",
+    "cat:wall-window-small",
+    "cat:banner-wall"
+   ]
+  },
+  {
+   "q": "hide walls",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.walls"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.walls"
+   ]
+  },
+  {
+   "q": "x-ray",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.xray"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.xray"
+   ]
+  },
+  {
+   "q": "xray",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.xray"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.xray"
+   ]
+  },
+  {
+   "q": "where are the pawns",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.xray"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.xray",
+    "cmd:area.arrival"
+   ]
+  },
+  {
+   "q": "upstairs",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:level.up"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:level.up"
+   ]
+  },
+  {
+   "q": "go up",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:level.up"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:level.up"
+   ]
+  },
+  {
+   "q": "downstairs",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:level.down"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:level.down"
+   ]
+  },
+  {
+   "q": "basement",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:level.down"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:level.down"
+   ]
+  },
+  {
+   "q": "level 2",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:level.goto"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:level.goto",
+    "cmd:level.goto"
+   ]
+  },
+  {
+   "q": "one level",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:cut.on"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:cut.on",
+    "cmd:level.up",
+    "cmd:level.down",
+    "cat:lever-floor"
+   ]
+  },
+  {
+   "q": "zoom in",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.zoomIn"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.zoomIn",
+    "cmd:pref.wheel.zoom"
+   ]
+  },
+  {
+   "q": "zoom out",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.zoomOut"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.zoomOut"
+   ]
+  },
+  {
+   "q": "reset camera",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.reset"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.reset"
+   ]
+  },
+  {
+   "q": "reset view",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.reset"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.reset"
+   ]
+  },
+  {
+   "q": "rotate camera",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.turnLeft",
+    "cmd:view.turnRight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.turnLeft",
+    "cmd:view.turnRight"
+   ]
+  },
+  {
+   "q": "dark mode",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.theme"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.theme"
+   ]
+  },
+  {
+   "q": "light mode",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.theme"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.theme"
+   ]
+  },
+  {
+   "q": "grid",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.grid",
+    "cmd:pref.pawnSnap.always"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.grid",
+    "cmd:pref.pawnSnap.always",
+    "cat:griddle-iron"
+   ]
+  },
+  {
+   "q": "hide grid",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.grid"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.grid"
+   ]
+  },
+  {
+   "q": "snap to grid",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.pawnSnap.always",
+    "cmd:pref.pawnSnap.shift"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.pawnSnap.always"
+   ]
+  },
+  {
+   "q": "picture in picture",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.pipOpen"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.pipOpen",
+    "cmd:pref.lightMoves",
+    "cmd:pref.idleFps.0",
+    "cmd:pref.idleFps.30"
+   ]
+  },
+  {
+   "q": "ping",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.ping"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.ping",
+    "cmd:build.hut-loft",
+    "cat:candle-drippings-mound",
+    "cat:chopping-block"
+   ]
+  },
+  {
+   "q": "fps",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.fps"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.fps",
+    "cmd:pref.maxFps.0",
+    "cmd:pref.maxFps.30"
+   ]
+  },
+  {
+   "q": "low graphics",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.gfx.low"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.gfx.low",
+    "cmd:pref.graphics.low",
+    "cmd:pref.gfx.medium",
+    "cmd:pref.gfx.high"
+   ]
+  },
+  {
+   "q": "graphics",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.gfx.low",
+    "cmd:pref.gfx.medium",
+    "cmd:pref.gfx.high",
+    "cmd:pref.gfx.auto"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.gfx.low",
+    "cmd:pref.gfx.medium",
+    "cmd:pref.gfx.high",
+    "cmd:settings.me"
+   ]
+  },
+  {
+   "q": "laggy",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.gfx.low",
+    "cmd:pref.gfx.medium",
+    "cmd:view.fps"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.gfx.low",
+    "cmd:pref.gfx.medium",
+    "cmd:view.fps"
+   ]
+  },
+  {
+   "q": "performance",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.gfx.low",
+    "cmd:pref.gfx.medium",
+    "cmd:view.fps"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.gfx.low",
+    "cmd:pref.gfx.medium",
+    "cmd:pref.gfx.high",
+    "cmd:view.fps"
+   ]
+  },
+  {
+   "q": "shadows off",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.shadowsFx",
+    "cmd:pref.contactFx"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.shadowsFx",
+    "cmd:pref.contactFx"
+   ]
+  },
+  {
+   "q": "roll d20",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll",
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "d20",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll",
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll 2d6+3",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "/r 1d8",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll d20 advantage",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll 1d20+5 stealth",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "3d6",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "dice",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll",
+    "cat:dice-and-cup",
+    "fig:town-gambler",
+    "fig:foe-dire-wolf"
+   ]
+  },
+  {
+   "q": "roll dice",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll stealth",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll perception",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll a strength save",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll dex save",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll athletics +4",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll attack",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll to hit",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll death save",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll initiative",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start",
+    "cmd:turn.rollMine",
+    "cmd:turn.rollPcs"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start"
+   ]
+  },
+  {
+   "q": "roll for initiative",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start",
+    "cmd:turn.rollMine"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start"
+   ]
+  },
+  {
+   "q": "initiative",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start"
+   ]
+  },
+  {
+   "q": "start combat",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start"
+   ]
+  },
+  {
+   "q": "combat",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start"
+   ]
+  },
+  {
+   "q": "fight",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start",
+    "fig:hero-fighter-elf-m",
+    "fig:hero-fighter-orc-m",
+    "fig:hero-fighter-dwarf-m"
+   ]
+  },
+  {
+   "q": "start fight",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start"
+   ]
+  },
+  {
+   "q": "turn order",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start",
+    "cmd:turn.show"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start"
+   ]
+  },
+  {
+   "q": "battle",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start",
+    "cat:dragon-skull",
+    "cat:bottle",
+    "cat:bottle-broken"
+   ]
+  },
+  {
+   "q": "encounter",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.start",
+    "cmd:build.wiz-workshop"
+   ]
+  },
+  {
+   "q": "say hello everyone",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.say"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.say"
+   ]
+  },
+  {
+   "q": "chat",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.say"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.say",
+    "cmd:pref.announce",
+    "cat:cat-bed-basket",
+    "cat:cat-tree"
+   ]
+  },
+  {
+   "q": "whisper mira meet me outside",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.whisper"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.whisper",
+    "cmd:chat.whisper"
+   ]
+  },
+  {
+   "q": "whisper",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.whisper"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.whisper"
+   ]
+  },
+  {
+   "q": "message",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.say",
+    "cmd:chat.whisper"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.say",
+    "cmd:chat.whisper",
+    "cat:bard-sheet-music-scatter"
+   ]
+  },
+  {
+   "q": "measure",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.start",
+    "cmd:measure.shape.line",
+    "cmd:measure.shape.cone",
+    "cmd:measure.shape.circle"
+   ]
+  },
+  {
+   "q": "ruler",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.start",
+    "cmd:settings.area",
+    "cmd:settings.defaults",
+    "cat:pigsty"
+   ]
+  },
+  {
+   "q": "distance",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.start"
+   ]
+  },
+  {
+   "q": "how far",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.start"
+   ]
+  },
+  {
+   "q": "cone",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.shape.cone"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.shape.cone",
+    "cat:scones-plate",
+    "cat:apple-core",
+    "ent:obj_wbh501voti"
+   ]
+  },
+  {
+   "q": "cone 15",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.typed"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.typed"
+   ]
+  },
+  {
+   "q": "fireball",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.shape.sphere",
+    "cmd:measure.shape.circle"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.shape.circle",
+    "cmd:measure.shape.sphere",
+    "cat:decal-scorch"
+   ]
+  },
+  {
+   "q": "sphere 20",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.typed"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.typed"
+   ]
+  },
+  {
+   "q": "aoe",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.shape.cone",
+    "cmd:measure.shape.sphere",
+    "cmd:measure.shape.circle",
+    "cmd:measure.shape.line",
+    "cmd:measure.shape.cube"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.shape.line",
+    "cmd:measure.shape.cone",
+    "cmd:measure.shape.circle",
+    "cmd:measure.shape.sphere"
+   ]
+  },
+  {
+   "q": "line 30",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.typed"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.typed"
+   ]
+  },
+  {
+   "q": "template",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.shape.cone",
+    "cmd:measure.shape.sphere",
+    "cmd:measure.shape.circle",
+    "cmd:measure.shape.line",
+    "cmd:measure.shape.cube"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:measure.typed",
+    "cmd:measure.shape.line",
+    "cmd:measure.shape.cone",
+    "cmd:measure.shape.circle"
+   ]
+  },
+  {
+   "q": "radius",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:measure.shape.circle",
+    "cmd:measure.shape.sphere"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.shape.circle",
+    "cmd:measure.shape.sphere"
+   ]
+  },
+  {
+   "q": "invite",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:people.invite"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:people.invite",
+    "cmd:settings.admin"
+   ]
+  },
+  {
+   "q": "invite bob",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:people.invite"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:people.invite"
+   ]
+  },
+  {
+   "q": "add player",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:people.invite"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:people.invite",
+    "cmd:area.freeMoves",
+    "cmd:area.touch",
+    "cmd:vision.view.player"
+   ]
+  },
+  {
+   "q": "mira",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "seat:@mira",
+    "cmd:vision.view.seat.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:vision.view.seat.seat_t871qrkd2p",
+    "cmd:chat.whisper",
+    "seat:seat_t871qrkd2p"
+   ]
+  },
+  {
+   "q": "new player",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:people.invite"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:people.invite",
+    "fig:hero-bard-elf-m",
+    "fig:hero-bard-orc-m",
+    "fig:hero-monk-elf-m"
+   ]
+  },
+  {
+   "q": "ai assistant",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:people.agent"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:people.agent"
+   ]
+  },
+  {
+   "q": "new area",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.new"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.new"
+   ]
+  },
+  {
+   "q": "new area tavern",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.new"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.new"
+   ]
+  },
+  {
+   "q": "new map",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.new"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.new"
+   ]
+  },
+  {
+   "q": "go to dungeon",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "area:@dungeon"
+   ],
+   "pos": 0,
+   "top": [
+    "area:area_8ongn1fvv0",
+    "cmd:level.down"
+   ]
+  },
+  {
+   "q": "rename area",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.rename"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.rename"
+   ]
+  },
+  {
+   "q": "hide area",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.hide"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.hide",
+    "cmd:area.grid"
+   ]
+  },
+  {
+   "q": "close area",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:area.hide"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.hide"
+   ]
+  },
+  {
+   "q": "undo",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.undo"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.undo",
+    "cmd:people.undoOther"
+   ]
+  },
+  {
+   "q": "redo",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.redo"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.redo",
+    "cat:floor-checker-red",
+    "cat:apple",
+    "cat:apple-green"
+   ]
+  },
+  {
+   "q": "select all",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.selectAll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.selectAll"
+   ]
+  },
+  {
+   "q": "shortcuts",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.sheet"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.sheet"
+   ]
+  },
+  {
+   "q": "help",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.sheet",
+    "cmd:help.intro"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.sheet",
+    "cmd:help.intro",
+    "cat:armor-chainmail-heap",
+    "cat:compost-heap"
+   ]
+  },
+  {
+   "q": "hotkeys",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.sheet"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.sheet"
+   ]
+  },
+  {
+   "q": "keyboard shortcuts",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:view.sheet"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.sheet"
+   ]
+  },
+  {
+   "q": "tutorial",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:help.intro"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:help.intro"
+   ]
+  },
+  {
+   "q": "settings",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:settings.menu",
+    "cmd:settings.me"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:settings.menu",
+    "cmd:settings.nav",
+    "cmd:settings.me",
+    "cmd:settings.area"
+   ]
+  },
+  {
+   "q": "options",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:settings.menu"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:settings.menu",
+    "cat:onion-pile",
+    "cat:onion-string"
+   ]
+  },
+  {
+   "q": "preferences",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:settings.menu",
+    "cmd:settings.me"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:settings.me",
+    "cmd:settings.menu"
+   ]
+  },
+  {
+   "q": "export",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:settings.admin"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:settings.admin"
+   ]
+  },
+  {
+   "q": "save campaign",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:settings.admin"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:settings.admin"
+   ]
+  },
+  {
+   "q": "backup",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:settings.admin"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:settings.admin"
+   ]
+  },
+  {
+   "q": "feedback",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:settings.feedback"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:settings.feedback"
+   ]
+  },
+  {
+   "q": "bug",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:feedback.bug"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:feedback.bug",
+    "fig:foe-bugbear-chief",
+    "fig:foe-bugbear-morningstar"
+   ]
+  },
+  {
+   "q": "report a bug",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:feedback.bug"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:feedback.bug"
+   ]
+  },
+  {
+   "q": "reduce motion",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pref.reducedMotion"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.reducedMotion"
+   ]
+  },
+  {
+   "q": "pawns",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawns.menu"
+   ],
+   "pos": 2,
+   "top": [
+    "Add pawn: type a name (518 figures: owlbear, elf wizard, goblin spear, 6 goblins \u2026)",
+    "fig:plain",
+    "cmd:pawns.menu",
+    "cmd:pref.pawnSnap.always"
+   ]
+  },
+  {
+   "q": "party",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawns.menu",
+    "cmd:pawns.notes",
+    "cmd:vision.view.party"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawns.notes",
+    "cmd:vision.view.party",
+    "cmd:pawns.menu",
+    "cmd:vision.sharedPartyVision.on"
+   ]
+  },
+  {
+   "q": "notes",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawns.notes"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawns.notes",
+    "cmd:pref.lights.none",
+    "cat:bard-sheet-music-scatter",
+    "cat:journal-leather"
+   ]
+  },
+  {
+   "q": "journal",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawns.notes"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawns.notes",
+    "cat:journal-leather"
+   ]
+  },
+  {
+   "q": "my character",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:pawns.new",
+    "cmd:pawns.menu"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawns.new",
+    "cmd:pawns.menu"
+   ]
+  },
+  {
+   "q": "7 damage",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damageTyped"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damageTyped",
+    "cmd:pawn.damage"
+   ]
+  },
+  {
+   "q": "damage 7",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damageTyped"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damageTyped",
+    "cmd:pawn.damage"
+   ]
+  },
+  {
+   "q": "take 10 damage",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damageTyped"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damageTyped"
+   ]
+  },
+  {
+   "q": "hurt 5",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damageTyped"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damageTyped",
+    "cmd:pawn.damage"
+   ]
+  },
+  {
+   "q": "heal 5",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damageTyped"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damageTyped",
+    "cmd:pawn.damage",
+    "cmd:pref.density.1.5",
+    "cmd:pref.graphics.low"
+   ]
+  },
+  {
+   "q": "+7",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damageTyped"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damageTyped"
+   ]
+  },
+  {
+   "q": "-5",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damageTyped"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damageTyped",
+    "cmd:pawn.damage"
+   ]
+  },
+  {
+   "q": "hp",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damage"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damage"
+   ]
+  },
+  {
+   "q": "hit points",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damage"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damage",
+    "cat:floor-brick-herringbone-bw",
+    "cat:floor-checker-bw",
+    "cat:floor-checker-red"
+   ]
+  },
+  {
+   "q": "damage",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.damage"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.damage",
+    "cmd:pawn.damageUp",
+    "cmd:pawn.damageDown",
+    "cmd:pawn.damageTyped"
+   ]
+  },
+  {
+   "q": "poisoned",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.poisoned"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.poisoned",
+    "cmd:build.lair-pit",
+    "cat:chalice-dark",
+    "cat:skeleton-chained"
+   ]
+  },
+  {
+   "q": "prone",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.prone"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.prone"
+   ]
+  },
+  {
+   "q": "knocked prone",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.prone"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.prone"
+   ]
+  },
+  {
+   "q": "stunned",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.stunned"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.stunned",
+    "cat:floor-planks-stained",
+    "cat:bed-straw-pallet",
+    "cat:cabinet-curios"
+   ]
+  },
+  {
+   "q": "unconscious",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.unconscious"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.unconscious"
+   ]
+  },
+  {
+   "q": "knocked out",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.unconscious"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.unconscious"
+   ]
+  },
+  {
+   "q": "dead",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.unconscious",
+    "cmd:pawn.mark.skull"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.mark.skull",
+    "cmd:build.dun-dead-end",
+    "cmd:area.light.deep-night",
+    "cat:collapse-rubble"
+   ]
+  },
+  {
+   "q": "charmed",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.charmed"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.charmed",
+    "cat:charnel-trough",
+    "cat:pumpkin-carved",
+    "cat:skeleton-chained"
+   ]
+  },
+  {
+   "q": "frightened",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.frightened"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.frightened"
+   ]
+  },
+  {
+   "q": "scared",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.frightened"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.frightened",
+    "cmd:vision.sharedPartyVision.on",
+    "cmd:pawns.notes",
+    "cat:rite-sacred-flame-bowl"
+   ]
+  },
+  {
+   "q": "grappled",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.grappled"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.grappled"
+   ]
+  },
+  {
+   "q": "blind",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.blinded"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.blinded",
+    "fig:foe-death-dog"
+   ]
+  },
+  {
+   "q": "invisible",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.invisible"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.invisible",
+    "cmd:thing.hide",
+    "fig:foe-genie-djinni",
+    "fig:foe-air-elemental"
+   ]
+  },
+  {
+   "q": "restrained",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.restrained"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.restrained",
+    "cat:chair-interrogation"
+   ]
+  },
+  {
+   "q": "conditions",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.cond.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.cond.blinded",
+    "cmd:pawn.cond.charmed",
+    "cmd:pawn.cond.frightened",
+    "cmd:pawn.cond.grappled"
+   ]
+  },
+  {
+   "q": "mark skull",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.mark.skull"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.mark.skull"
+   ]
+  },
+  {
+   "q": "marker",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.mark.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.mark.star",
+    "cmd:pawn.mark.circle",
+    "cmd:pawn.mark.diamond",
+    "cmd:pawn.mark.triangle"
+   ]
+  },
+  {
+   "q": "darkvision 60",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.darkvision"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:pawn.darkvision",
+    "cmd:pawn.darkvision"
+   ]
+  },
+  {
+   "q": "darkvision",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.darkvision"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.darkvision",
+    "cmd:area.darkness.on"
+   ]
+  },
+  {
+   "q": "sees in the dark",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.darkvision"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.darkvision",
+    "cat:robe-stand"
+   ]
+  },
+  {
+   "q": "night vision",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.darkvision"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.darkvision"
+   ]
+  },
+  {
+   "q": "carries a torch",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.carryLight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.carryLight"
+   ]
+  },
+  {
+   "q": "holds a torch",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.carryLight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.carryLight"
+   ]
+  },
+  {
+   "q": "give him a torch",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.carryLight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.carryLight"
+   ]
+  },
+  {
+   "q": "torch 40",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.carryLight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.carryLight"
+   ]
+  },
+  {
+   "q": "carries light 20",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.carryLight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.carryLight"
+   ]
+  },
+  {
+   "q": "light radius",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.carryLight"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.carryLight"
+   ]
+  },
+  {
+   "q": "give to mira",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.give",
+    "give:@mira"
+   ],
+   "pos": 0,
+   "top": [
+    "give:seat_t871qrkd2p"
+   ]
+  },
+  {
+   "q": "give control",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.give"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.give"
+   ]
+  },
+  {
+   "q": "assign to player",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.give"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.give"
+   ]
+  },
+  {
+   "q": "send to dungeon",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "send:@dungeon",
+    "cmd:pawn.travel"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "send:area_8ongn1fvv0"
+   ]
+  },
+  {
+   "q": "send to area",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.travel",
+    "cmd:area.transfer"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.travel",
+    "cmd:area.transfer",
+    "cmd:pawn.travelTo"
+   ]
+  },
+  {
+   "q": "travel",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.travel"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:pawn.travelTo",
+    "cmd:pawn.travel",
+    "cmd:area.arrival",
+    "cmd:area.travelLock"
+   ]
+  },
+  {
+   "q": "move to dungeon",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "send:@dungeon",
+    "cmd:pawn.travel"
+   ],
+   "pos": 0,
+   "top": [
+    "send:area_8ongn1fvv0"
+   ]
+  },
+  {
+   "q": "sheet",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.sheet"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.sheet",
+    "cat:bard-sheet-music-scatter",
+    "cat:giant-web-floor",
+    "cat:decal-web-floor"
+   ]
+  },
+  {
+   "q": "character sheet",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.sheet"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.sheet"
+   ]
+  },
+  {
+   "q": "rename",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.rename"
+   ],
+   "pos": 2,
+   "top": [
+    "cmd:area.rename",
+    "cmd:cast.rename",
+    "cmd:thing.rename"
+   ]
+  },
+  {
+   "q": "fly",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.lift"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.lift",
+    "cmd:pref.cutFly",
+    "fig:foe-flying-sword"
+   ]
+  },
+  {
+   "q": "raise",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.lift"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.lift",
+    "cat:hearth-raised-square",
+    "cat:dais",
+    "cat:pulpit"
+   ]
+  },
+  {
+   "q": "turn",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.rotate"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.rotate",
+    "cmd:edit.rotateBack",
+    "cmd:view.turnLeft",
+    "cmd:view.turnRight"
+   ]
+  },
+  {
+   "q": "rotate",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.rotate"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.rotate",
+    "cmd:view.turnLeft",
+    "cmd:view.turnRight"
+   ]
+  },
+  {
+   "q": "face",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.rotate"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.rotate",
+    "cmd:pref.graphics.low",
+    "cmd:view.pawnNamesFace",
+    "cmd:pref.graphics.medium"
+   ]
+  },
+  {
+   "q": "change figure to orc",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "fig:foe-orc-*",
+    "fig:hero-*-orc-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-orc-bow",
+    "fig:foe-orc-axes",
+    "fig:foe-orc-mace",
+    "fig:foe-orc-brute"
+   ]
+  },
+  {
+   "q": "make it an orc",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "fig:foe-orc-*",
+    "fig:hero-*-orc-*"
+   ],
+   "pos": 0,
+   "top": [
+    "fig:foe-orc-bow",
+    "fig:foe-orc-axes",
+    "fig:foe-orc-mace",
+    "fig:foe-orc-brute"
+   ]
+  },
+  {
+   "q": "main pawn",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.main"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.main"
+   ]
+  },
+  {
+   "q": "duplicate",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.duplicate",
+    "cmd:edit.duplicate"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.duplicate",
+    "cmd:pawn.duplicate"
+   ]
+  },
+  {
+   "q": "delete",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.delete"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.delete"
+   ]
+  },
+  {
+   "q": "hide",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.hide"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.hide",
+    "cmd:view.labels",
+    "cmd:area.grid",
+    "cmd:pref.cursors"
+   ]
+  },
+  {
+   "q": "add to initiative",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.add",
+    "cmd:turn.rollMine"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:turn.setBonus",
+    "cmd:turn.rollMine",
+    "cmd:turn.add",
+    "cmd:turn.bonusTyped"
+   ]
+  },
+  {
+   "q": "roll initiative",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.rollMine",
+    "cmd:turn.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:turn.rollMine",
+    "cmd:turn.start"
+   ]
+  },
+  {
+   "q": "initiative bonus",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:turn.setBonus"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:turn.bonusTyped",
+    "cmd:turn.setBonus"
+   ]
+  },
+  {
+   "q": "add to cast",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:cast.saveOne"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:cast.saveOne",
+    "cmd:build.castle-kitchen",
+    "cmd:build.chapel",
+    "cmd:build.type.t:CAS"
+   ]
+  },
+  {
+   "q": "bigger",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.size",
+    "cmd:edit.resize"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.size"
+   ]
+  },
+  {
+   "q": "enlarge",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:pawn.size"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawn.size"
+   ]
+  },
+  {
+   "q": "bigger",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.resize"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:edit.resize"
+   ]
+  },
+  {
+   "q": "smaller",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.resize"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.resize",
+    "cmd:build.min-smelter",
+    "cat:ceiling-slab-fallen",
+    "cat:bowl-wood-small"
+   ]
+  },
+  {
+   "q": "make it bigger",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.resize"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.resize"
+   ]
+  },
+  {
+   "q": "resize",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.resize"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.resize"
+   ]
+  },
+  {
+   "q": "scale",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.resize"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.resize",
+    "cat:scales-balance",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol"
+   ]
+  },
+  {
+   "q": "tip over",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.tilt"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.tilt",
+    "cmd:thing.tilt",
+    "cat:mine-cart"
+   ]
+  },
+  {
+   "q": "knock over",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.tilt"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.tilt"
+   ]
+  },
+  {
+   "q": "roll 90",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.tilt"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.tilt"
+   ]
+  },
+  {
+   "q": "tilt",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.tilt"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.tilt",
+    "cat:tourney-lists-rail",
+    "cat:floor-tile",
+    "cat:floor-tile-delft"
+   ]
+  },
+  {
+   "q": "replace with similar",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.replace"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.replace"
+   ]
+  },
+  {
+   "q": "swap",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.replace"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.replace",
+    "cmd:pref.pawnSnap.always",
+    "cat:rite-altar-emblem-stand",
+    "cat:rural-saddle-soap-tin"
+   ]
+  },
+  {
+   "q": "different one",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.replace"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.replace"
+   ]
+  },
+  {
+   "q": "variant",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.replace"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.replace",
+    "cat:painting-portrait"
+   ]
+  },
+  {
+   "q": "pin",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.pin"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.pin",
+    "cmd:view.ping",
+    "cmd:edit.rotate",
+    "cmd:build.hut-loft"
+   ]
+  },
+  {
+   "q": "lock",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.lock"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.lock",
+    "cmd:area.freeMoves",
+    "cmd:area.travelLock",
+    "cmd:area.touch"
+   ]
+  },
+  {
+   "q": "hide from players",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.hide"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.hide",
+    "cmd:area.hide"
+   ]
+  },
+  {
+   "q": "secret",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.hide"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.hide",
+    "cmd:chat.whisper",
+    "cmd:build.cult-entry",
+    "cmd:build.type.t:CLT"
+   ]
+  },
+  {
+   "q": "delete",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.delete"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.delete"
+   ]
+  },
+  {
+   "q": "remove",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.delete"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.delete"
+   ]
+  },
+  {
+   "q": "rotate",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.rotate"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.rotate",
+    "cmd:view.turnLeft",
+    "cmd:view.turnRight"
+   ]
+  },
+  {
+   "q": "lift",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.lift"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.lift",
+    "cmd:edit.nudge5.left",
+    "cmd:edit.nudge.left",
+    "cmd:build.hut-loft"
+   ]
+  },
+  {
+   "q": "hang it up",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.lift"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.lift"
+   ]
+  },
+  {
+   "q": "copy",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.copy"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.copy",
+    "cmd:edit.duplicate",
+    "cat:scriptorium-desk"
+   ]
+  },
+  {
+   "q": "send to dungeon",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "send:@dungeon",
+    "cmd:area.transfer"
+   ],
+   "pos": 0,
+   "top": [
+    "send:area_8ongn1fvv0"
+   ]
+  },
+  {
+   "q": "comment on this asset",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:feedback.asset"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:feedback.asset"
+   ]
+  },
+  {
+   "q": "looks wrong",
+   "ctx": "prop",
+   "seat": "gm",
+   "want": [
+    "cmd:feedback.asset"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:feedback.asset"
+   ]
+  },
+  {
+   "q": "open",
+   "ctx": "door",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.open"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.open",
+    "cmd:view.pipOpen",
+    "cmd:area.touch",
+    "cat:apple-crate"
+   ]
+  },
+  {
+   "q": "open door",
+   "ctx": "door",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.open"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.open",
+    "cmd:area.touch",
+    "cat:door-plank",
+    "cat:door-barn-double"
+   ]
+  },
+  {
+   "q": "close",
+   "ctx": "door",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.open"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.open",
+    "cmd:area.hide",
+    "cmd:build.privy",
+    "cmd:edit.duplicate"
+   ]
+  },
+  {
+   "q": "shut",
+   "ctx": "door",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.open"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.open",
+    "cmd:chat.say",
+    "cat:mil-guard-lantern",
+    "cat:tome-chained"
+   ]
+  },
+  {
+   "q": "open it",
+   "ctx": "door",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.open"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.open",
+    "cmd:view.pipOpen",
+    "cmd:area.touch",
+    "cat:apple-crate"
+   ]
+  },
+  {
+   "q": "put out",
+   "ctx": "lantern",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.light"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.light",
+    "cmd:view.selFoot",
+    "cmd:build.privy",
+    "cmd:view.xray"
+   ]
+  },
+  {
+   "q": "extinguish",
+   "ctx": "lantern",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.light"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.light"
+   ]
+  },
+  {
+   "q": "snuff",
+   "ctx": "lantern",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.light"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.light",
+    "cat:bottle-wine-dusty"
+   ]
+  },
+  {
+   "q": "turn off",
+   "ctx": "lantern",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.light"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.light",
+    "cmd:view.labels",
+    "cmd:area.fogOfWar.off",
+    "cmd:area.darkness.on"
+   ]
+  },
+  {
+   "q": "blow out",
+   "ctx": "lantern",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.light"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.light",
+    "fig:foe-bandit-bow",
+    "fig:foe-gibbering-mouther"
+   ]
+  },
+  {
+   "q": "light radius 20",
+   "ctx": "lantern",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.lightRadius"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.lightRadius"
+   ]
+  },
+  {
+   "q": "brightness",
+   "ctx": "lantern",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.lightRadius"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.lightRadius"
+   ]
+  },
+  {
+   "q": "how far it lights",
+   "ctx": "lantern",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.lightRadius"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.lightRadius"
+   ]
+  },
+  {
+   "q": "reroll",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.reroll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.reroll"
+   ]
+  },
+  {
+   "q": "re-roll",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.reroll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.reroll"
+   ]
+  },
+  {
+   "q": "regenerate",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.reroll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.reroll"
+   ]
+  },
+  {
+   "q": "new layout",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.reroll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.reroll"
+   ]
+  },
+  {
+   "q": "shuffle",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.reroll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.reroll"
+   ]
+  },
+  {
+   "q": "rotate room",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.rotate"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.rotate",
+    "cmd:room.rotateBack"
+   ]
+  },
+  {
+   "q": "stone walls",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.walls.fieldstone",
+    "cmd:room.walls.dressed-stone",
+    "cmd:room.walls.crypt-stone",
+    "cmd:room.walls.temple-stone"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.walls.fieldstone",
+    "cmd:room.walls.dressed-stone",
+    "cmd:room.walls.crypt-stone",
+    "cmd:room.walls.temple-stone"
+   ]
+  },
+  {
+   "q": "walls",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.walls.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.walls.rough-timber",
+    "cmd:room.walls.log-cabin",
+    "cmd:room.walls.half-timber",
+    "cmd:room.walls.fieldstone"
+   ]
+  },
+  {
+   "q": "wood floor",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.floor.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.floor.floor-boards-rough",
+    "cmd:room.floor.floor-parquet-herringbone",
+    "cmd:room.floor.floor-parquet-versailles",
+    "cmd:room.floor.floor-planks-dark"
+   ]
+  },
+  {
+   "q": "floor",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.floor.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.floor.floor-basalt-dark",
+    "cmd:room.floor.floor-boards-rough",
+    "cmd:room.floor.floor-bone-strewn",
+    "cmd:room.floor.floor-brick-herringbone"
+   ]
+  },
+  {
+   "q": "make it a kitchen",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.type.kitchen",
+    "cmd:room.type.castle-kitchen",
+    "cmd:room.type.mansion-kitchen"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.type.kitchen",
+    "cmd:build.kitchen",
+    "cmd:room.type.castle-kitchen",
+    "cmd:room.type.mansion-kitchen"
+   ]
+  },
+  {
+   "q": "change to kitchen",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.type.kitchen",
+    "cmd:room.type.castle-kitchen"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.type.kitchen",
+    "cmd:room.type.castle-kitchen",
+    "cmd:room.type.mansion-kitchen",
+    "cmd:room.type.hut-kitchen"
+   ]
+  },
+  {
+   "q": "kitchen",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.type.kitchen",
+    "cmd:build.kitchen"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.kitchen",
+    "cmd:room.type.kitchen",
+    "cmd:room.type.castle-kitchen",
+    "cmd:room.type.mansion-kitchen"
+   ]
+  },
+  {
+   "q": "room type",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.type.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.type.kitchen",
+    "cmd:room.type.storeroom",
+    "cmd:room.type.cellar",
+    "cmd:room.type.guest"
+   ]
+  },
+  {
+   "q": "fog height",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.fog"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.fog"
+   ]
+  },
+  {
+   "q": "no fog",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.fog",
+    "cmd:pref.fogFx"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.fog",
+    "cmd:pref.fogFx",
+    "cmd:area.fogOfWar.off"
+   ]
+  },
+  {
+   "q": "taller",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.height.taller"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.height.taller",
+    "fig:town-fortune-teller"
+   ]
+  },
+  {
+   "q": "high ceiling",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.height.taller"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.height.taller"
+   ]
+  },
+  {
+   "q": "add stairs",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.stair",
+    "cat:stair-straight",
+    "cat:stair-grand",
+    "cat:stair-spiral-wide"
+   ],
+   "pos": 0,
+   "top": [
+    "cat:stair-grand",
+    "cat:stair-half",
+    "cat:stair-spiral-wide",
+    "cat:stair-straight"
+   ]
+  },
+  {
+   "q": "rename",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.rename"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.rename",
+    "cmd:area.rename",
+    "cmd:cast.rename"
+   ]
+  },
+  {
+   "q": "faction",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:faction.set"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:faction.set",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol",
+    "cat:flavor-censer"
+   ]
+  },
+  {
+   "q": "faction spiders",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:faction.set"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:faction.set",
+    "cmd:faction.set",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol"
+   ]
+  },
+  {
+   "q": "sun temple",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:faction.set"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:faction.set",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol",
+    "cat:flavor-censer"
+   ]
+  },
+  {
+   "q": "religion",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:faction.set"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:faction.set",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol",
+    "cat:flavor-censer"
+   ]
+  },
+  {
+   "q": "hide room",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.hide"
+   ],
+   "pos": 1,
+   "top": [
+    "cmd:view.labels",
+    "cmd:thing.hide",
+    "cmd:build.cult-entry",
+    "cmd:build.type.t:CLT"
+   ]
+  },
+  {
+   "q": "delete room",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.delete"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.delete"
+   ]
+  },
+  {
+   "q": "look inside",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:cut.room"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:cut.room"
+   ]
+  },
+  {
+   "q": "animate",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:room.replay"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.replay",
+    "fig:foe-animated-armour",
+    "fig:foe-flying-sword",
+    "fig:beast-ox"
+   ]
+  },
+  {
+   "q": "lights out",
+   "ctx": "room",
+   "seat": "gm",
+   "want": [
+    "cmd:area.darkness.on",
+    "cmd:area.light.deep-night"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:area.darkness.on"
+   ]
+  },
+  {
+   "q": "2 storeys",
+   "ctx": "building",
+   "seat": "gm",
+   "want": [
+    "cmd:building.storeys.2"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:building.storeys.2",
+    "cmd:level.goto",
+    "cmd:build.whole",
+    "cat:jetty-bracket"
+   ]
+  },
+  {
+   "q": "reroll building",
+   "ctx": "building",
+   "seat": "gm",
+   "want": [
+    "cmd:building.reroll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:building.reroll"
+   ]
+  },
+  {
+   "q": "slate roof",
+   "ctx": "building",
+   "seat": "gm",
+   "want": [
+    "cmd:building.roof.slate"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:building.roof.slate"
+   ]
+  },
+  {
+   "q": "thatch",
+   "ctx": "building",
+   "seat": "gm",
+   "want": [
+    "cmd:building.roof.thatch"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:building.roof.thatch",
+    "cat:rural-straw-bundle"
+   ]
+  },
+  {
+   "q": "roof style",
+   "ctx": "building",
+   "seat": "gm",
+   "want": [
+    "cmd:building.roof.*"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:building.roof.thatch",
+    "cmd:building.roof.tile",
+    "cmd:building.roof.slate",
+    "cmd:building.roof.shingle"
+   ]
+  },
+  {
+   "q": "faction moon",
+   "ctx": "building",
+   "seat": "gm",
+   "want": [
+    "cmd:faction.set"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:faction.set",
+    "cmd:faction.set",
+    "cat:flavor-altarpiece",
+    "cat:flavor-idol"
+   ]
+  },
+  {
+   "q": "rename",
+   "ctx": "building",
+   "seat": "gm",
+   "want": [
+    "cmd:thing.rename"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:thing.rename",
+    "cmd:area.rename",
+    "cmd:cast.rename"
+   ]
+  },
+  {
+   "q": "delete building",
+   "ctx": "building",
+   "seat": "gm",
+   "want": [
+    "cmd:room.delete"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:room.delete"
+   ]
+  },
+  {
+   "q": "send to dungeon",
+   "ctx": "pawn+crate",
+   "seat": "gm",
+   "want": [
+    "send:@dungeon"
+   ],
+   "pos": 0,
+   "top": [
+    "send:area_8ongn1fvv0"
+   ]
+  },
+  {
+   "q": "delete",
+   "ctx": "pawn+crate",
+   "seat": "gm",
+   "want": [
+    "cmd:edit.delete"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.delete"
+   ]
+  },
+  {
+   "q": "brakka",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "ent:@pawn"
+   ],
+   "pos": 0,
+   "top": [
+    "ent:tok_barcat0001"
+   ]
+  },
+  {
+   "q": "common room",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "cmd:build.common",
+    "ent:@room"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:build.common",
+    "ent:room_rgtd0yaecd",
+    "cat:candle-tree",
+    "cat:chandelier-ring"
+   ]
+  },
+  {
+   "q": "dungeon area",
+   "ctx": "none",
+   "seat": "gm",
+   "want": [
+    "area:@dungeon"
+   ],
+   "pos": 0,
+   "top": [
+    "area:area_8ongn1fvv0"
+   ]
+  },
+  {
+   "q": "roll d20",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll",
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "roll stealth",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "d20+5",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  },
+  {
+   "q": "say hi",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:chat.say"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.say"
+   ]
+  },
+  {
+   "q": "whisper harry psst",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:chat.whisper"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:chat.whisper"
+   ]
+  },
+  {
+   "q": "ping",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:view.ping"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.ping"
+   ]
+  },
+  {
+   "q": "measure",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:measure.start"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.start",
+    "cmd:measure.shape.line",
+    "cmd:measure.shape.cone",
+    "cmd:measure.shape.circle"
+   ]
+  },
+  {
+   "q": "fireball",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:measure.shape.sphere",
+    "cmd:measure.shape.circle"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:measure.shape.circle",
+    "cmd:measure.shape.sphere"
+   ]
+  },
+  {
+   "q": "settings",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:settings.menu",
+    "cmd:settings.me"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:settings.menu",
+    "cmd:settings.nav",
+    "cmd:settings.me",
+    "cmd:pref.reset"
+   ]
+  },
+  {
+   "q": "low graphics",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:pref.gfx.low"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pref.gfx.low",
+    "cmd:pref.graphics.low",
+    "cmd:pref.gfx.medium",
+    "cmd:pref.gfx.high"
+   ]
+  },
+  {
+   "q": "zoom in",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:view.zoomIn"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.zoomIn",
+    "cmd:pref.wheel.zoom"
+   ]
+  },
+  {
+   "q": "upstairs",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:level.up"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:level.up"
+   ]
+  },
+  {
+   "q": "help",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:view.sheet"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.sheet"
+   ]
+  },
+  {
+   "q": "undo",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:edit.undo"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:edit.undo"
+   ]
+  },
+  {
+   "q": "my character",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:pawns.new",
+    "cmd:pawns.menu"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawns.new",
+    "cmd:pawns.menu"
+   ]
+  },
+  {
+   "q": "party notes",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:pawns.notes"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:pawns.notes"
+   ]
+  },
+  {
+   "q": "bug",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:feedback.bug"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:feedback.bug"
+   ]
+  },
+  {
+   "q": "dark mode",
+   "ctx": "none",
+   "seat": "player",
+   "want": [
+    "cmd:view.theme"
+   ],
+   "pos": 0,
+   "top": [
+    "cmd:view.theme"
+   ]
+  },
+  {
+   "q": "send to the dungeon",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "send:@dungeon"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "send:area_8ongn1fvv0"
+   ]
+  },
+  {
+   "q": "roll stealth",
+   "ctx": "pawn",
+   "seat": "gm",
+   "want": [
+    "cmd:chat.roll"
+   ],
+   "must": true,
+   "pos": 0,
+   "top": [
+    "cmd:chat.roll"
+   ]
+  }
+ ]
+}

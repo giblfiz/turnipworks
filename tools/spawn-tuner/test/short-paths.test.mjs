@@ -1,0 +1,23 @@
+// Door approaches can be closer than the decorative-path minimum; blocked approaches still fail.
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import { Ctx2, solveRoom2 } from '../js/solver2.js';
+const root = new URL('..', import.meta.url).pathname;
+const lib=JSON.parse(readFileSync(root+'/data/library.json'));
+const type=JSON.parse(readFileSync(root+'/data/rooms.json')).find(t=>t.key==='crypt-passage');
+const orient=JSON.parse(readFileSync(root+'/data/orient.json'));
+const args={lib,type,room:{id:'short',type:type.key,x:0,z:0,w:2,d:1,seed:1,family:'crypt-stone'},openings:[{side:'N',index:0,kind:'door',to:'a'},{side:'S',index:0,kind:'door',to:'b'}],opts:{orient}};
+const pts=[[2.5,1.9],[2.5,3.1]];
+assert.equal(new Ctx2(args).walk('decorative',pts).ok,false);
+const short=new Ctx2(args).walk('through',pts,{allowShort:true});
+assert(short.ok && short.len>0 && short.len<3);
+const filled=new Ctx2(args);filled.mark(5,2.5,10,5);
+assert.equal(filled.walk('through',pts,{allowShort:true}).ok,false);
+const blockedEnd=new Ctx2(args);blockedEnd.mark(...pts[0],0.5,0.5);
+const snapped=blockedEnd.walk('through',[pts[0],pts[0]],{allowShort:true});
+assert(snapped.len>0);
+assert.equal(snapped.ok,false);
+const L=solveRoom2(args);
+assert.equal(L.purposeFail,null);
+assert(L.paths.some(p=>p.kind==='through'&&p.ok&&p.len>0&&p.len<3));
+console.log('short door paths: 7/7 passed');

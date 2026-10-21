@@ -1,0 +1,2525 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "wall-straight--tower-stone": {
+   "id": "wall-straight--tower-stone",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/wall-straight--tower-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, upright rectangular stone wall segment or architectural pillar set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, upright rectangular stone wall segment or architectural pillar set against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single object: a stylized masonry wall segment or decorative stone pillar (second guess: a modular 3D game asset for a castle or garden wall). The structure is a tall, narrow rectangular slab viewed from a three-quarter angle, showing its front and right side faces along with its top edge. It consists of multiple horizontal courses of rectangular stone blocks with chiseled, beveled edges. Near the top, beneath a row of flat capstones, is a protruding rounded trim strip in a dark purplish-brown hue. Roughly halfway down is another band of narrower rectangular blocks in the same dark purplish-brown. The remaining stone blocks are colored in varying shades of warm yellow-ochre, dusty terracotta, and muted purplish-grey. The object has no moving parts, doors, drawers, legs, or handles. The entire object is fully visible within the frame and not cropped. The background is a solid, uniform bright blue with no shadows, ground plane, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3549,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.994,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4226,
+   "tokens_out": 1712,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "door-tower--leaf": {
+   "id": "door-tower--leaf",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/door-tower--leaf.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized arched wooden door with iron strap hinges, studs, and a ring handle, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized arched wooden door with iron strap hinges, studs, and a ring handle, isolated against a solid blue background.",
+       "details": "There is no text, watermarks, or labels. The image features a single object: an arched wooden door (second guess: fantasy/medieval game prop). The door is constructed from five vertical, light-colored wooden planks forming a curved top arch. The wood has a pale, weathered beige-grey finish showing grain patterns, carved notches, and wood knots. Two horizontal dark-grey iron strap hinges span across the face, each terminating in an upward curled scroll on the right and attaching to hinge barrels on the left edge; each hinge band is studded with three faceted iron rivets. Seven round iron studs follow the curve along the top edge. On the lower right, there is a round iron ring handle attached to a circular mounting plate. The entire door is complete and not cropped by the frame, viewed from a three-quarter perspective. The background is a flat, uniform bright blue with no floor, lighting cast shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3926,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.995,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4180,
+   "tokens_out": 1878,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-shop-window--half-timber": {
+   "id": "wall-shop-window--half-timber",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/wall-shop-window--half-timber.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon-style medieval wall panel featuring dark timber framing, off-white plaster, and a projecting bay window filled with glowing amber panes and small potion bottles, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon-style medieval wall panel featuring dark timber framing, off-white plaster, and a projecting bay window filled with glowing amber panes and small potion bottles, set against a solid blue background.",
+       "details": "There is no text, labels, or watermarks. The image shows a single isolated architectural asset: a medieval timber-frame wall section with an integrated bay or display window. The frame consists of thick, brown stylized wooden beams enclosing plaster panels. The bottom section consists of two off-white plaster sections separated by a central vertical beam and bordered by horizontal beams. The middle section features a protruding wooden window box with a sloping wooden awning above and two curved support brackets below. The window contains a grid of 12 panes (3 rows by 4 columns) backlit in warm yellow; the bottom row of panes contains silhouettes/shapes of five small colored glass bottles (red, green, amber, red, and green). The upper plaster section has angled timber corner braces visible at the upper corners. The entire object is fully visible and not cropped. The background is a uniform, flat blue with no floor or shadows.",
+       "reference_differences": [
+        "The candidate features a protruding bay window with an awning and supporting brackets in the center, which is completely absent in the reference image.",
+        "The candidate's window includes a 4x3 pane lattice containing five colored potion bottles, whereas the reference has flat plaster in that area.",
+        "In the candidate image, the upper section has two corner braces framing the window roof, whereas the reference image has a single long diagonal timber beam spanning across the upper section from bottom-left to top-right."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3367,
+      "soft": 0.0027,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9975,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5466,
+   "tokens_out": 1682,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-athanor": {
+   "id": "alch-athanor",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-athanor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of an arched red-brick oven or kiln with an open metal door and a top chimney pipe, centered against a solid bright blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of an arched red-brick oven or kiln with an open metal door and a top chimney pipe, centered against a solid bright blue backdrop.",
+       "details": "There are no texts, labels, or watermarks in the image. The image contains one single object: a stylized brick kiln or oven (second guess: furnace/forge). It consists of a stepped rectangular base built from reddish-orange bricks with beige mortar, a domed upper section, a cylindrical tan-stone or clay chimney collar on top, a thick dark iron/metal reinforcement band secured with bolts wrapped around the upper perimeter, an arched central chamber opening, a large metal door mounted on two heavy hinges (swung open outward to the right at about a 90-degree angle, revealing a hollow, soot-stained interior floor and cavity), and a small closed rectangular iron hatch door directly below the main opening for ash or ventilation. The upper door is fully open, allowing a clear view inside the dark, empty chamber, while the lower small door is closed. The materials are textured masonry brick in various shades of orange, terracotta, and red, beige mortar, dark charcoal-grey wrought iron for the door and metal band with soot stains around the entrance, and a yellowish-tan clay or sandstone rim for the chimney. The object is completely uncropped and floating centrally without floor contact or cast shadows. The background is a solid, uniform, flat chroma-key blue, with no other people, scenery, or objects present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4316,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4266,
+   "tokens_out": 2420,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-bench-dressed--s1": {
+   "id": "alch-bench-dressed--s1",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-bench-dressed--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a wooden alchemy or apothecary workstation equipped with multiple shelves filled with potion bottles, distillation apparatus, a mortar and pestle, and an open book against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a wooden alchemy or apothecary workstation equipped with multiple shelves filled with potion bottles, distillation apparatus, a mortar and pestle, and an open book against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The central subject is a single assembled wooden workstation consisting of a four-legged worktable with an under-shelf and a two-tier hutch shelf unit mounted along the rear. On the top shelf sit eight corked jars and bottles in yellow, red, green, and cream ceramic or painted glass. On the middle shelf sit eight similar corked jars of various sizes in yellow, cream, green, red, and dark red. On the main tabletop surface from left to right sits a large spherical green flask supported on a dark grey three-legged metal tripod stand positioned over a brass burner; a red glass or ceramic retort flask resting on a small wooden four-legged cradle with its curved neck emptying into a mustard-yellow jar; a grey stone mortar containing a matching stone pestle; and an open hardcover book with cream pages and a red binding lying flat on the right front corner. On the lower under-shelf rests a large cream-coloured lidded jar on the left, a rectangular lidded wooden storage box in the middle (closed), and a large green lidded jar on the right. All jars are closed with cork stoppers. The entire structure is rendered in a hand-painted/stylized wood texture with distinct gouges and knots. The entire model is fully visible and not cropped. The background is a flat, uniform bright blue chroma screen with no floor plane or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.562,
+      "soft": 0.0055,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9947,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4304,
+   "tokens_out": 2620,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-reagent-shelf-tall--s1": {
+   "id": "alch-reagent-shelf-tall--s1",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-reagent-shelf-tall--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden shelving unit with five tiers filled with various colored potion bottles and jars against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden shelving unit with five tiers filled with various colored potion bottles and jars against a bright blue background.",
+       "details": "There are no labels, text, or watermarks. The primary object is a rustic wooden bookcase or potion shelf (second guess: apothecary display rack), filled with approximately 33 assorted small to large potion bottles and ceramic jars. The shelving unit consists of five open shelf levels supported by two chunky vertical side frames, four short wooden post legs/feet at the base, and vertical plank backing. All bottles and jars are capped or plugged with cork stoppers (all closed; interiors cannot be seen). The jars come in earthy and magical tones including ruby red, dull green, ochre yellow, and cream/beige. The bottom shelf contains two especially large rounded jars (one dark red, one cream). The structure is fully intact and entirely contained within the frame without cropping, viewed from a three-quarter perspective. The background is an entirely flat, uniform, vibrant blue screen with no shadows, floor surface, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5079,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.998,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 157
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4145,
+   "tokens_out": 2185,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-still-copper-large": {
+   "id": "alch-still-copper-large",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-still-copper-large.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon-style copper distillation alembic still connected by a swan neck pipe to a wooden barrel with a brass spigot, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon-style copper distillation alembic still connected by a swan neck pipe to a wooden barrel with a brass spigot, isolated on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks present. The main subject is a single connected distillation apparatus composed of a hammered copper alembic still and an open-topped wooden barrel. The copper still has a bulbous, round lower boiler resting on three visible flared, bolted copper legs, segmented with riveted horizontal bands showing traces of turquoise verdigris patina, leading up to an onion-dome cap and a curved swan-neck pipe. This pipe arches up and descends straight into the open top of an upright wooden bucket or barrel constructed from vertical golden-brown staves bound by two dark hammered-metal hoops with prominent round rivets. Near the base of the wooden barrel is a detailed brass or bronze spigot tap with a T-handle and curved nozzle. A short horizontal flange also connects the boiler body to the barrel. The barrel's top is completely open, exposing the copper pipe entering inside. The object is rendered in an illustrated game-asset art style, fully contained within the frame with no cropping, and floats against a seamless, uniform pure blue background with no shadows or floor.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4312,
+      "soft": 0.0069,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9917,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4205,
+   "tokens_out": 1847,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "apothecary-drawers": {
+   "id": "apothecary-drawers",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/apothecary-drawers.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized honey-brown wooden apothecary cabinet with thirty small label-bracket drawers and two wide lower drawers, topped by three ceramic jars against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized honey-brown wooden apothecary cabinet with thirty small label-bracket drawers and two wide lower drawers, topped by three ceramic jars against a solid blue background.",
+       "details": "There are no texts, visible watermarks, or legible labels (the label slots contain plain pale paper inserts). The image depicts four separate items: one large wooden multi-drawer cabinet (or card catalog / apothecary chest) and three small lidded ceramic canisters resting on top. The cabinet has 30 small square drawers arranged in a 5-row by 6-column grid, each fitted with a rectangular brass label holder and a central spherical brass knob, and 2 wide drawers at the bottom, each fitted with two spherical brass knobs (a total of 32 drawers and 34 knob handles). All 32 drawers are fully closed. The cabinet rests on four thick corner block feet. On top of the cabinet sit three round jars with flat lids (one terracotta red, one moss green, and one cream-colored), all with their lids closed. The cabinet is made of polished warm-toned brown wood with soft grain highlights. The entire object is fully contained within the frame with no cropping. The background is a flat, uniform, bright solid blue without flooring or cast shadows. There are no people or outdoor scenery present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4304,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9948,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4203,
+   "tokens_out": 1403,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "spellbook-lectern": {
+   "id": "spellbook-lectern",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/spellbook-lectern.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy-style wooden lectern supporting a large open book with a red ribbon bookmark and a single unlit candle, centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy-style wooden lectern supporting a large open book with a red ribbon bookmark and a single unlit candle, centered against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single composite object: a wooden lectern or reading pulpit (second guess: altar stand or book pedestal). It consists of an octagonal stepped base, a vertical octagonal pillar with recessed arch panel carvings, a slanted top desk with carved support brackets underneath, an open leather-bound book with blank parchment pages held by brass corner protectors and a hanging burgundy fabric bookmark, and a brass candle cup holding a thick off-white wax candle on the top right corner. The book is open flat displaying blank aged pages. The materials include dark polished carved wood with warm edge highlights, antique yellowish paper, gold/brass metallic fittings, dark red leather/cloth, and pale cream candle wax with a black wick. The entire object is fully visible and not cropped. The background is a solid, completely uniform pure blue with no shadows or floor contact.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3381,
+      "soft": 0.0048,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9922,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4158,
+   "tokens_out": 1214,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "armillary-great": {
+   "id": "armillary-great",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/armillary-great.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered brass armillary sphere set upon a dark wood tripod stand, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered brass armillary sphere set upon a dark wood tripod stand, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single complete object: an armillary sphere (second guess: a decorative celestial globe or gyroscope). It consists of several concentric, nested golden-brass rings enclosing a central textured sphere mounted on an angled axis rod. The rings are supported by a semi-circular cradle bracket attached via cylindrical pivot pins on either side. Below the cradle is a turned wooden and brass collar attached to a short tripod base featuring three dark reddish-brown wooden legs, each tipped with a stepped brass foot/shoe. There are no doors, drawers, or lids. Materials are depicted as polished/painted brass-colored metal and dark brown wood in a stylized, hand-painted digital art style. The entire object is centered and fully contained within the frame with no cropping. The background is a flat, uniform, saturated blue screen with no floor plane or drop shadow. There are no people or other scenery elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.259,
+      "soft": 0.0097,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.979,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4161,
+   "tokens_out": 2999,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "elemental-brazier": {
+   "id": "elemental-brazier",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/elemental-brazier.try1.jpg",
+     "semantic": {
+      "what_i_see": "A weathered bronze tripod brazier filled with ashes and charcoal embers, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A weathered bronze tripod brazier filled with ashes and charcoal embers, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single complete object: an antique-style metal brazier or tripod fire stand (first guess), or an incense burner / offering bowl (second guess). The object consists of a round hemispherical basin supported by three curved legs. Each leg terminates at the top with sculpted animal paws gripping the bowl's rim, and at the bottom with three-toed/four-toed clawed feet. A circular horizontal stabilizing ring connects the three legs midway down. The bowl is open and filled with light gray ash intermixed with small black chunks of charcoal. The material appears to be oxidized bronze or copper alloy with extensive green verdigris patina and tarnished brownish-gold highlights. The entire object is centered and fully visible without any cropping. The background is a solid, uniform bright blue chroma-key screen with no shadows, floor texture, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3487,
+      "soft": 0.0072,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9911,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4138,
+   "tokens_out": 1929,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "scroll-rack": {
+   "id": "scroll-rack",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/scroll-rack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden shelving unit with crisscross diamond cubbies packed with rolled parchment scrolls, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden shelving unit with crisscross diamond cubbies packed with rolled parchment scrolls, set against a solid blue background.",
+       "details": "There is no text, labels, or watermarks visible. The primary object is a wooden scroll rack (second guess: a diamond-pattern wine rack or cubby bookshelf) containing numerous rolled scrolls, along with four loose scrolls and a golden-metallic scroll canister resting on its flat top surface. The rack consists of a thick top slab, solid side panels with recessed detailing, a lower base supported by short rectangular wooden block feet (two visible in front), and an interior divided by a diagonal wooden lattice into diamond and triangular compartments. There are no doors, drawers, or handles. Inside the compartments are roughly 18 pairs of rolled parchment scrolls tied alternately with green and red ribbon bows. Four additional scrolls (two with red ribbons, two with green ribbons) flank a central cylindrical brass or gold case on top. The materials appear to be light honey-brown carved wood, aged cream/yellow parchment paper, colored fabric ribbons, and polished metal. The entire piece is fully visible and not cropped by the frame. The background is a completely uniform, flat chroma-blue with no cast shadows, floor plane, people, or external scenery.",
+       "reference_differences": [
+        "No background environment or floor plane is present, replaced entirely by solid flat blue.",
+        "Features a cylindrical metallic case/capsule alongside scrolls on the top surface.",
+        "Uses alternating red and green ribbons tied around all scrolls."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5466,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9967,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4232,
+   "tokens_out": 1726,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "arcane-pylon--s1": {
+   "id": "arcane-pylon--s1",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/arcane-pylon--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D fantasy stone obelisk or magic pylon with gold bands and a pointed purple crystal at its peak, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D fantasy stone obelisk or magic pylon with gold bands and a pointed purple crystal at its peak, centered against a solid blue background.",
+       "details": "There is no text, label, or watermark. The image displays a single isolated object, best described as a fantasy obelisk or magic spire (second guess: an ornate game-asset boundary marker or pylon). The object consists of a tall, tapered four-sided stone shaft with a wider flared base, two horizontal golden-bronze bands encircling the shaft at lower and upper sections, and a golden claw-like crown or setting at the very top that cradles a tall, multifaceted purple amethyst crystal point. There are no doors, drawers, lids, or moving parts. The main structure appears to be textured slate or dark greenish-gray stone with hand-painted facets, accented by weathered golden trim and a translucent, faceted lavender-purple crystal. The entire object is fully contained within the frame with no parts cropped. The background is a solid, uniform, flat blue chroma screen without any ground plane, floor textures, or cast shadows. No people, scenery, or other elements are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1712,
+      "soft": 0.0027,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 18
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4183,
+   "tokens_out": 1297,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "portal-arch": {
+   "id": "portal-arch",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/portal-arch.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized medieval or fantasy stone archway with two steps, metallic round studs, and a purple gemstone set in the keystone, isolated against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized medieval or fantasy stone archway with two steps, metallic round studs, and a purple gemstone set in the keystone, isolated against a solid blue backdrop.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The image contains one single primary structure: a stone archway (second guess: portal frame). The structure consists of two square masonry pillars resting on stepped molded pedestals, topped with molded capitals, supporting a semicircular voussoir arch. At the center keystone is an oval faceted purple gemstone set above a round bronze stud; six additional matching circular bronze studs are embedded along the arc (three on each side). At the base, a two-tiered low stone step connects the pillars. There are no doors, gates, lids, drawers, or moving parts; the central portal opening is completely open and unobstructed, exposing the blue background behind it. The structure is made of aged light tan/sandstone blocks with visible chiseled texture and patches of green moss in the mortar grooves and crevices. The entire object is fully visible within the frame without being cropped. The background is a solid, uniform vibrant blue with no ground plane or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3415,
+      "soft": 0.0064,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.99,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4191,
+   "tokens_out": 1528,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "enchanting-table": {
+   "id": "enchanting-table",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/enchanting-table.try1.jpg",
+     "semantic": {
+      "what_i_see": "A fantasy enchanter's low table crafted from dark carved wood and green marble, topped with a closed book on a purple runner, a large purple crystal on a brass tray, three small gems, a wand, and a candlestick, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A fantasy enchanter's low table crafted from dark carved wood and green marble, topped with a closed book on a purple runner, a large purple crystal on a brass tray, three small gems, a wand, and a candlestick, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The main object is a low wooden table or altar with an ornate carved frame, four thick legs terminating in carved claw or paw feet topped with stylized leaf carvings, a flat lower wooden shelf, and a thick rectangular green marble tabletop with fine lighter green veining. Draped over the left side of the tabletop is a maroon or deep purple velvet table runner with gold border trim. Resting on the runner is a thick, closed book with a dark red leather cover and brass clasps and corner guards. In the center of the marble tabletop is a circular brass dish holding a raised brass pedestal, inside of which sits a large faceted purple translucent crystal. To the right of the central dish are three small cut gemstones in amber-yellow, emerald-green, and ruby-red, as well as a carved wooden magic wand resting diagonally. Behind the wand on the far right stands a tall, ornate brass candlestick holding a single unlit cream-colored cylindrical candle with a dark wick. The entire composite piece is shown whole and uncropped, floating against a uniform solid blue background with no cast shadows, floor, or scenery."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4423,
+      "soft": 0.0069,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9921,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4244,
+   "tokens_out": 6451,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "telescope-great": {
+   "id": "telescope-great",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/telescope-great.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a large brass telescope mounted on a heavy timber wheeled carriage against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a large brass telescope mounted on a heavy timber wheeled carriage against a solid bright blue background.",
+       "details": "Text, labels or watermarks: None. Object count: One single composite object. What it is: A brass astronomical telescope on a mobile mount (best guess), or an artistic siege cannon/observatory spyglass (second guess). Parts counted: 1 main cylindrical telescope tube tapering toward the eyepiece, 1 large faceted dark glass objective lens, 4 small circular wooden wheels on metal axles, 1 geared elevation quadrant with cogs, 1 six-spoked handwheel control, 1 two-step wooden mounting block/stair platform at the rear, multiple heavy timber beams, and several grey metal reinforcing bands and corner brackets fastened with rounded bolts/rivets. State of lids/doors/drawers: No lids, doors, or drawers present; the front aperture reveals a dark, faceted glass lens. Materials and colours: Polished golden-yellow brass for the telescope tube and gears; warm medium-brown wood with visible grain for the structural frame, steps, and wheels; dark slate-grey/iron metal for the bands, corner brackets, and bolts; dark grey/black glass for the lens. Cropping: The object is completely intact and fully enclosed within the frame, not cropped. Background: Completely uniform, flat, solid chroma-key blue (#0000FF), with no floor, scenery, cast shadows, text, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3168,
+      "soft": 0.0058,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9899,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4247,
+   "tokens_out": 1707,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "scrying-pool": {
+   "id": "scrying-pool",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/scrying-pool.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone basin or pedestal bowl with bronze studs set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized carved stone basin or pedestal bowl with bronze studs set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object, best described as a stone basin or pedestal bowl, with a second guess of a birdbath, font, or brazier base. The object consists of a wide circular basin made of segmented beige stone blocks, decorated around its outer rim with circular, dome-shaped bronze or brass studs, resting atop a short fluted column pedestal and a stepped circular stone base. The interior cavity of the basin is open, hollow, empty, and shaded in smooth dark grey. The object is rendered in an intact, whole state without cropping. The background is a flat, uniform, bright blue screen with no floor plane, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4355,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4105,
+   "tokens_out": 1253,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "orb-socket-pedestal": {
+   "id": "orb-socket-pedestal",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/orb-socket-pedestal.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted crystal ball resting on an ornate carved wooden pedestal against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted crystal ball resting on an ornate carved wooden pedestal against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single composite object, best described as a magical crystal ball on a pedestal, or alternatively a fantasy divination stand or game prop. The structure consists of: a smooth spherical orb displaying swirling patterns of milky white, pale violet, and lavender; a cup-shaped holder with curved finger-like prongs securing the bottom half of the sphere; a square-cut burgundy/maroon fabric drape with ornate golden-yellow braided trim and dangling tassels hanging beneath the mount; a central spiraled or twisted carved wooden column; and a heavy, stepped three-tier circular wooden plinth base. There are no moving parts, lids, doors, or drawers. The colors consist of warm brown wood grain, rich crimson fabric, golden-yellow fringes, and pearlescent white and purple in the sphere. The object is shown completely intact and centered, with no cropping. The background is a completely uniform, flat chroma-blue with no floor plane or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.245,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9947,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4175,
+   "tokens_out": 1970,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-counter-apothecary": {
+   "id": "alch-counter-apothecary",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-counter-apothecary.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D-rendered wooden apothecary counter featuring a brass balance scale, four lidded ceramic jars, a stone mortar and pestle, and a small wooden rack with six colored potion bottles, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D-rendered wooden apothecary counter featuring a brass balance scale, four lidded ceramic jars, a stone mortar and pestle, and a small wooden rack with six colored potion bottles, set against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. The primary object is a long wooden shop counter or apothecary workbench viewed from a three-quarters perspective. The counter is made of warm honey-brown wood with five raised square panels along the front facade and a recessed panel on the visible left side. Resting on the counter top from left to right are: a gold-colored brass balance scale with two hanging circular pans; four cylindrical beige ceramic jars with knobbed lids and colored bands (red, green, tan/yellow, and brown); a light grey stone mortar with a pestle resting inside angled upwards; and a two-tiered wooden rack holding six small corked or capped bottles arranged in two rows of three (each row containing one red, one green, and one yellow bottle). All jars appear closed with their lids on. The entire structure and all objects are completely contained within the frame with no cropping. The background is a uniform, solid saturated blue with no shadows or floor plane visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3519,
+      "soft": 0.0073,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9885,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4210,
+   "tokens_out": 1890,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bed-canopy--wizard": {
+   "id": "bed-canopy--wizard",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/bed-canopy--wizard.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized four-poster wooden canopy bed featuring purple curtains, a red quilted bedspread, an olive-green runner, and a closed leather book, centered against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Contains an extra object on the bed (a leather book)"
+      ],
+      "blind": {
+       "what_i_see": "A stylized four-poster wooden canopy bed featuring purple curtains, a red quilted bedspread, an olive-green runner, and a closed leather book, centered against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one main composite object: a four-poster canopy bed (second guess: medieval bed). The bed consists of four thick turned wooden posts supporting a solid wooden canopy frame with a valance draped in purple fabric edged in yellow/gold. Purple fabric curtains hang at each post, each drawn and tied back with a thick golden-yellow rope tie. The bedframe includes a carved wooden footboard, headboard, and side rails resting on square plinth feet at each post corner. The bed is dressed with a cream-colored mattress base and two pillows, a red/burgundy diamond-tufted quilted bedspread, a folded olive-green blanket draped across the foot of the bed, and a single closed brown leather-bound book lying flat near the center. The bed is entirely intact and not cropped by the frame. The background is a flat, uniform, bright blue color with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/bed-canopy--wizard.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden four-poster canopy bed with tied-back purple curtains, pillows, and a layered duvet and blanket set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden four-poster canopy bed with tied-back purple curtains, pillows, and a layered duvet and blanket set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single primary object: a four-poster canopy bed (or medieval bedstead). It features four thick, carved wooden corner posts terminating in blocky square feet, connected by a rectangular wooden frame at the base and a flat wooden canopy frame at the top. An arched wooden panel serves as the headboard. Suspended from the top frame is a purple canopy valance with gold-yellow lower trim, accompanied by four purple curtains tied to each post using thick yellowish rope ties. Resting on the mattress are two off-white/cream pillows, cream-colored sheets, a tufted burgundy-red duvet, and a folded olive-green blanket positioned across the foot of the bed. The bed is rendered in a stylized, hand-painted 3D art style. The entire bed is contained within the frame with no parts cropped. The background is a flat, uniform, vibrant solid blue with no shadows, floor surface, or additional scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4927,
+      "soft": 0.0088,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9911,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5989,
+   "tokens_out": 3337,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "birdcage-standing": {
+   "id": "birdcage-standing",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/birdcage-standing.try1.jpg",
+     "semantic": {
+      "what_i_see": "A golden metal birdcage featuring an interior wooden perch, mounted atop a carved wooden pedestal stand against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A golden metal birdcage featuring an interior wooden perch, mounted atop a carved wooden pedestal stand against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The single main object is a standing birdcage (second guess: antique decorative bird cage on a pedestal). The upper section is a cylindrical, domed cage made of polished brass or gold-painted metal, topped with an ornate loop handle. It contains vertical bars segmented by horizontal rings and features a single small arched door on hinges, which is currently closed and latched. Visible inside is a single horizontal wooden branch or perch spanning across the cage, and a flat metal floor base. The lower section consists of a carved brown wooden stand featuring a turned baluster post resting on a three-legged or four-legged pedestal base with curved wooden feet. The object is entirely contained within the frame, with no parts cropped. The background is a flat, uniform, highly saturated solid blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1416,
+      "soft": 0.0092,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9644,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4145,
+   "tokens_out": 3423,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "hatstand-wizard": {
+   "id": "hatstand-wizard",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/hatstand-wizard.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy wooden coat rack holding a purple wizard hat, a matching robe with gold trim, and a spiral-topped wooden staff, set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "remove the unrequested wooden staff leaning against the coat rack"
+      ],
+      "blind": {
+       "what_i_see": "A stylized fantasy wooden coat rack holding a purple wizard hat, a matching robe with gold trim, and a spiral-topped wooden staff, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single assembled setup composed of four main elements: a wooden coat rack, a pointed wizard hat, a draped robe, and a walking staff. The coat rack consists of a vertical turned wooden pole, four peg hooks with rounded spherical knobs protruding near the top, and a four-legged curved base with block feet. Hanging on the rack is a purple/plum-colored pointed wizard hat featuring a folded tip and a golden-yellow band above a wide brim. Beneath the hat hangs a matching purple robe with thick golden-yellow hems along the sleeves and bottom. Leaning on the right side of the rack is a carved, twisted wooden staff terminating in a spiral curl at its top. The entire object is fully visible and not cropped by the frame. The background is a solid, uniform, vibrant blue with no visible floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/hatstand-wizard.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden coat rack draped with a purple wizard's robe and topped with a matching pointed wizard hat, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden coat rack draped with a purple wizard's robe and topped with a matching pointed wizard hat, set against a solid bright blue background.",
+       "details": "There are no visible text, labels, or watermarks. The scene contains a single primary object assembly: a stylized wooden coat tree holding wizard attire (second guess: a 3D fantasy game prop display). The coat rack features a central vertical post with turned wood detailing, supported at the base by four curved wooden legs, and topped with curved hanging hooks with spherical finials. Resting on the finial at the top is a pointed purple wizard hat with a floppy/curved tip, a broad brim, and a golden-yellow cloth band. Hanging from the hooks below the hat is an open purple robe or cloak featuring wide, hollow sleeves and thick golden-yellow borders around the cuffs and hemline. The materials look like hand-painted or stylized 3D rendered wood and smooth cloth in rich royal purple, warm golden yellow, and medium brown. The object is completely contained within the frame without cropping. The background is a completely uniform, flat, bright chroma-blue with no ground plane, cast shadows, scenery, or figures.",
+       "reference_differences": [
+        "No reference image was provided for comparison."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1537,
+      "soft": 0.0052,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9837,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5994,
+   "tokens_out": 3714,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--tower-stone--s2": {
+   "id": "wall-straight--tower-stone--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/wall-straight--tower-stone--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a rectangular stone wall segment with varying shades of yellow, reddish-brown, and purplish-grey blocks on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a rectangular stone wall segment with varying shades of yellow, reddish-brown, and purplish-grey blocks on a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains a single isolated object: a stylized upright stone or masonry wall section (or freestanding pillar/panel). It has no moving parts, doors, drawers, or lids. The object is composed of multiple horizontal courses of rectangular masonry blocks with beveled edges and stylized painted textures, capped at the top with two stones and bordered near the upper edge by a rounded horizontal trim band. A second, thinner dark purplish-brown band of stones runs across the lower-middle portion of the wall. The stones are colored in warm ochre-yellow tones, with selective accent bricks rendered in reddish-brown and muted purplish-grey. The entire object is fully visible and not cropped by the frame. The background is a solid, uniform royal blue with no floor, scenery, or cast shadows.",
+       "reference_differences": [
+        "The layout, proportions, and placement of the stone blocks differ throughout the face of the wall.",
+        "In the candidate, the course directly beneath the upper trim features a wide ochre block on the left and a reddish-brown block on the right, whereas the reference has two ochre blocks.",
+        "In the candidate, the second course down consists of three blocks (ochre, greyish-brown, ochre), whereas in the reference it consists of two blocks (reddish-brown on the left, ochre on the right).",
+        "The accent-colored blocks (reddish-brown and greyish-brown) are positioned at different heights and horizontal coordinates across the wall face compared to the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3545,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.994,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5498,
+   "tokens_out": 1789,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-doorway--tower-stone": {
+   "id": "wall-doorway--tower-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/wall-doorway--tower-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone archway constructed from warm yellow-tan and greyish-brown stone blocks, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone archway constructed from warm yellow-tan and greyish-brown stone blocks, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single object: a stylized stone archway (best name) or stone doorway frame (second guess). The structure consists of two vertical rectangular pillars joined at the top by a rounded stone arch and a horizontal top capping with two rectangular blocks over a rounded brown stone molding. The left and right pillars are each composed of vertically stacked square and rectangular stone blocks, including brown accent blocks embedded partway down each column. The arched opening is framed by five brown wedge-shaped arch stones (voussoirs) and is completely open, revealing the background. The surfaces are painted in a stylized, hand-painted video game asset style with visible facets and warm ochre, yellow, tan, and muted purple-brown tones. The entire object is fully visible and not cropped. The background is a flat, uniform, bright solid blue without floor or shadows. No people or scenery are present.",
+       "reference_differences": [
+        "The candidate image has an arched passageway cut entirely through its center, whereas the reference image is a completely solid rectangular stone wall panel.",
+        "The candidate image includes curved arch stones (voussoirs) forming an internal arch, which are absent in the reference.",
+        "The central portion of the candidate structure is hollow/open, exposing the blue background through the opening, while the reference has solid masonry across the entire interior face."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2508,
+      "soft": 0.0052,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9898,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 15
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5491,
+   "tokens_out": 2846,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-window-small--tower-stone": {
+   "id": "wall-window-small--tower-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/wall-window-small--tower-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized sandstone wall section featuring a central pointed-arch window with a diamond-latticed pane, displayed on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized sandstone wall section featuring a central pointed-arch window with a diamond-latticed pane, displayed on a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one isolated object: a vertical stone wall segment (second guess: a modular castle architecture prop). The piece is constructed from stacked rectangular sandstone blocks primarily in shades of warm yellow-ochre, tan, and light brown. Near the top runs a rounded horizontal trim band in dark grayish-brown stone. The upper-middle section features an inset pointed gothic-style arched window framed in dark gray-brown stone blocks, complete with an angled sill. Inside the window frame is a closed, glowing yellowish-amber glass surface overlaid with a dark diamond-pattern lattice grid. Below the window sill is another course of dark brown stone blocks. The object is completely in frame and uncropped. The background is a uniform, vivid solid blue with no ground plane, shadows, people, or other scenery.",
+       "reference_differences": [
+        "The candidate features a pointed-arch window with a diamond-pattern lattice grill, which is completely absent in the reference.",
+        "The reference shows a continuous solid facade of stacked stone blocks where the candidate's window opening is situated.",
+        "The candidate's lower dark horizontal trim course is broken and structured around the base of the window sill, whereas the reference has a continuous horizontal dark stone band running straight across the lower mid-section."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3545,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 11
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5482,
+   "tokens_out": 1515,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "arcane-pylon--s2": {
+   "id": "arcane-pylon--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/arcane-pylon--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of a tapering stone pillar capped with a cluster of orange crystals set in a golden socket, isolated against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of a tapering stone pillar capped with a cluster of orange crystals set in a golden socket, isolated against a bright blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery. The image features a single, whole, uncropped object centered in an isometric perspective. The object is a fantasy stone obelisk or pylon (second guess: a magic turret or ward). It consists of a flared, square, beveled stone base in muted greenish-grey slate, a tapering four-sided stone pillar encircled by a single golden-bronze metallic band, and a golden claw-like crown or socket at the top. The socket holds a cluster of three vertical, faceted orange-amber crystals (a tall central crystal flanked by two slightly shorter ones). There are no moving parts, doors, drawers, or lids. The background is a flat, uniform, solid primary blue without shadows or floor plane.",
+       "reference_differences": [
+        "The candidate has a cluster of three orange/amber crystals at the top, whereas the reference has a single large purple crystal.",
+        "The candidate pillar is shorter and stockier, whereas the reference pillar is much taller and more elongated.",
+        "The candidate has only one horizontal gold band around the stone shaft, whereas the reference has two horizontal gold bands.",
+        "The golden socket at the top in the candidate is wider to cradle the three crystal cluster, whereas the reference socket closely cups a single hexagonal prism crystal."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1872,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.992,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5378,
+   "tokens_out": 1623,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-reagent-shelf-tall--s2": {
+   "id": "alch-reagent-shelf-tall--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-reagent-shelf-tall--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden shelving unit filled with an assortment of jars, potion bottles, herb bundles, a skull, boxes, wicker-wrapped jugs, and a mortar, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden shelving unit filled with an assortment of jars, potion bottles, herb bundles, a skull, boxes, wicker-wrapped jugs, and a mortar, displayed against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single main piece of furniture: a wooden apothecary cabinet or bookshelf (second guess: alchemical display shelf). The unit has four short square legs, two vertical side panels, a solid top overhang, a vertical plank backboard, and five shelf surfaces creating five tiers of storage. Inside, there are 19 distinct items: Top shelf: 5 beige/cream ceramic jars with matching fitted lids. Second shelf: 5 spherical potion bottles with small neck openings sealed with cork stoppers (three green, two amber-yellow). Third shelf: 3 tied bundles of dried herbs (one green leafy bundle, one yellow/golden grain bundle, one purple lavender bundle) tied with cord, and 1 cream-colored human skull facing forward-right. Fourth shelf: 3 stacked/stepped square wooden lidded storage boxes (all closed) on the left, and 2 round red glass/ceramic potion bottles with cork stoppers on the right. Bottom shelf: 2 green jugs enclosed in woven wicker/basketry bases with cork stoppers, and 1 carved grey stone mortar/bowl (open and empty). The overall style is hand-painted stylized fantasy 3D art. The shelf is entirely wooden with a medium brown woodgrain finish. The object is completely visible and not cropped. The background is a uniform, flat, solid cobalt blue with no floor or shadows cast.",
+       "reference_differences": [
+        "The candidate shelf contains a variety of item types including dried herb bundles, a human skull, square wooden boxes, wicker-cased jugs, and a stone mortar, whereas the reference shelf contains strictly potion bottles and jars across all tiers.",
+        "The reference image has protruding vertical posts at the top corners, while the candidate shelf has a flat, solid wooden top board/cornice spanning across the unit.",
+        "The candidate shelf's side panels are solid vertical planks with subtle carving notches, whereas the reference shelf's sides feature distinct horizontal cross-braces/rungs joining outer posts.",
+        "The bottom shelf in the reference holds two very large squat lidded vessels (one red, one cream), whereas the candidate's bottom shelf holds two wicker-wrapped demijohn jugs and an open stone mortar.",
+        "The reference shelf is packed with much smaller, more numerous bottles per shelf (up to 8-9 items per shelf), while the candidate shelf has fewer, larger, and more spaced-out items (around 3 to 5 items per shelf)."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5201,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9962,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5633,
+   "tokens_out": 3470,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-bench-dressed--s2": {
+   "id": "alch-bench-dressed--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-bench-dressed--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D-rendered stylized wooden apothecary workbench outfitted with a copper distillation apparatus, potion bottles, a brass balance scale, and a dish of yellow powder against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D-rendered stylized wooden apothecary workbench outfitted with a copper distillation apparatus, potion bottles, a brass balance scale, and a dish of yellow powder against a solid blue background.",
+       "details": "The image features a complete, uncropped wooden workstation consisting of a heavy four-legged table, a lower storage shelf, and a two-tier shelving hutch mounted on the back. No text, labels, or watermarks are visible. On the main tabletop to the left sits a hammered copper pot still with a curved pipe feeding down into an amber-glazed ceramic jar. In the center tabletop, a small low wooden rack holds three spherical bottles (green, yellow, and red) with cork stoppers. To the right on the tabletop sits a dual-pan brass balance scale and a small stone bowl containing a lumpy yellow powder. The top shelf of the hutch holds eight small corked jars in varying colors (two green, two small red, two yellow, and two off-white). The lower shelf of the hutch holds eight corked jars in alternating colors (yellow, off-white, green, red, off-white, yellow, green, red). On the bottom storage shelf beneath the table, there is a large off-white jar with a cork lid on the left, a closed rectangular wooden storage box in the center, and a large green jar with a cork lid on the right. All jars appear sealed with cork stoppers, and the wooden box is completely closed. The entire asset is rendered in a hand-painted game-art style against a uniform bright blue background.",
+       "reference_differences": [
+        "The left apparatus on the candidate is a hammered copper alembic still, whereas the reference has a round green glass flask supported on a metal tripod over a small brass burner.",
+        "The center of the tabletop in the candidate contains a wooden rack with three round corked bottles (green, yellow, red), whereas the reference has a tilted red glass retort on a wooden stand feeding into a yellow jar.",
+        "The right side of the candidate tabletop features a brass balance scale and a stone bowl of yellow powder, whereas the reference features a stone mortar and pestle and an open book.",
+        "The arrangement, shapes, and neck designs of the bottles on the upper two shelves differ between the two images (e.g., the reference includes taller necked red and green bottles on the top shelf that are absent in the candidate)."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.6107,
+      "soft": 0.0059,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5611,
+   "tokens_out": 3934,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-cauldron-bubbling-green": {
+   "id": "alch-cauldron-bubbling-green",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-cauldron-bubbling-green.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cast-iron cauldron resting on three stubby feet, filled with bubbling lime-green liquid and containing a wooden stirring paddle against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cast-iron cauldron resting on three stubby feet, filled with bubbling lime-green liquid and containing a wooden stirring paddle against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos in the image. The image depicts a single primary composite object: a fantasy-style witch's cauldron (or cooking pot) containing potion and a stirrer. The cauldron features a round spherical belly, a thick rolled rim, two looped metal ring handles attached to brackets on opposite sides, and three visible curved, stubby legs supporting it at the base. The top is completely open, exposing a viscous, swirling bright lime-green liquid with three raised circular bubbles on its surface. Sticking out diagonally from the upper right side of the opening is a carved, flat wooden paddle or spoon. The cauldron is rendered with a dark grey-brown textured cast-iron finish exhibiting subtle scratches and rust spots, while the wooden utensil is light golden-brown with visible woodgrain facets. The object is completely centered and not cropped by any frame edges. The background is a flat, uniform, highly saturated solid royal blue screen with no cast shadows, floor, people, or background scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.4527,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9964,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "leftover blue background visible inside the handle rings"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 6555,
+   "tokens_out": 2952,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "alch-homunculus-vat": {
+   "id": "alch-homunculus-vat",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-homunculus-vat.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized brass and glass steampunk-style canister filled with green bubbling fluid, positioned against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized brass and glass steampunk-style canister filled with green bubbling fluid, positioned against a solid blue background.",
+       "details": "The image contains no text, labels, or watermarks. There is a single isolated object: a cylindrical steampunk chemical tank or fantasy fluid reservoir. The apparatus consists of a central translucent cylindrical glass chamber filled with murky green liquid containing several floating bubbles. The chamber is reinforced by a brass or bronze cage structure featuring riveted horizontal bands at top and bottom, vertical support struts, a rounded brass top dome with a spoked handwheel valve on top, and three visible stout, riveted brass feet/legs at the base. Attached to the right side is a vertical curved copper/bronze pipe secured by riveted bracket collars. The vessel is entirely sealed and enclosed. The object is depicted whole without cropping and is centered against a flat, uniform, solid blue chroma key background with no floor, ground shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.3336,
+      "soft": 0.0058,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9906,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "leftover blue background inside the valve wheel spokes at the top"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 6519,
+   "tokens_out": 3902,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "alch-specimen-jar-large": {
+   "id": "alch-specimen-jar-large",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-specimen-jar-large.try1.jpg",
+     "semantic": {
+      "what_i_see": "A glossy, ochre-colored ceramic amphora featuring a raised octopus tentacle relief, closed with a gathered cloth cover tied with rope and bearing a blank tag, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A glossy, ochre-colored ceramic amphora featuring a raised octopus tentacle relief, closed with a gathered cloth cover tied with rope and bearing a blank tag, set against a solid blue background.",
+       "details": "There are no readable texts, watermarks, or logos; a single blank rectangular tag hangs from the rope. The image depicts one central object: an antique ceramic jug or urn (second guess: fantasy potion jar or prop). The object consists of a wide bulbous body, a flared pedestal base, two curved loop handles attached at the upper sides, and a neck covered by a ruffled cloth or leather lid secured by a twisted rope with a tied knot. The cover is completely closed and fastened tight, hiding the interior. The front features a sculpted, raised relief of an octopus or kraken tentacle with visible suckers wrapping diagonally across the surface. The materials appear to be glazed earthenware/ceramic with an amber, ochre, and warm brown patina and glossy highlights, textured fibrous rope, and light beige parchment or linen. The object is completely intact and uncropped. The background is a flat, uniform, vivid blue screen without shadows or floor surface. There are no people or scenery present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4955,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9955,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4177,
+   "tokens_out": 2038,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "staff-rack": {
+   "id": "staff-rack",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/staff-rack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden weapon or staff rack holding four distinctly designed magical staffs, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden weapon or staff rack holding four distinctly designed magical staffs, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The subject consists of one primary wooden stand or rack holding four vertical staffs or canes. The rack is made of brown wood planks with a bottom trough, notched upper horizontal rails to hold shafts, and stepped side pillars. Left-to-right, the four staffs are: 1) a light beige, knobby wooden staff topped with three prongs cradling an amber-orange faceted crystal; 2) a straight reddish-brown wooden rod topped with a smooth, brass or golden metallic sphere; 3) a darker brown wooden staff with a braided, twisted trunk terminating in a curled crook; and 4) a knobby brown branch staff topped with a golden four-prong setting holding an emerald-green faceted gemstone. The entire assembly is fully within the frame without cropping. The background is a flat, uniform solid bright blue with no shadows, floor, or scenery, resembling a chroma key backdrop. No people are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3673,
+      "soft": 0.0048,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 21
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4158,
+   "tokens_out": 2084,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bookshelf--arcane": {
+   "id": "bookshelf--arcane",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/bookshelf--arcane.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy-style tall wooden bookcase filled with books, parchment scrolls, a skull, an hourglass, a potion jar, and a purple gem, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy-style tall wooden bookcase filled with books, parchment scrolls, a skull, an hourglass, a potion jar, and a purple gem, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The primary object is an open wooden bookcase (second guess: a miniature or game asset prop shelf). The bookcase stands upright on four thick blocky corner feet/legs (two front feet clearly visible) and features five internal shelf tiers beneath an occupied top surface. There are no doors, drawers, wheels, or handles; the compartments are entirely open to view. Resting atop and within the shelves are numerous items: on top sits a bundle of rolled scrolls tied with brown bands alongside a single thick reddish book lying flat; shelf one holds several upright and stacked books in shades of red, green, ochre, and purple, plus scrolls; shelf two contains books, rolled scrolls, and an off-white human skull; shelf three holds several books, a scroll, and a round amber-glass potion jug with a cork stopper; shelf four contains green and red books, scrolls, and a brass-framed hourglass; shelf five contains books, a rolled scroll, and a large faceted purple geometric crystal. The furniture is crafted from medium-brown timber with visible hand-painted grain and beveled trim. The entire object is depicted whole without cropping. The background is a flat, uniform, bright chroma-key blue with no visible floor, scenery, or shadows cast outside the object.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4396,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 48
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4255,
+   "tokens_out": 2367,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cabinet-curios": {
+   "id": "cabinet-curios",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/cabinet-curios.try1.jpg",
+     "semantic": {
+      "what_i_see": "A tall wooden curio cabinet with twelve open display cubbies filled with various natural specimens and curiosities above a closed two-door base, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A tall wooden curio cabinet with twelve open display cubbies filled with various natural specimens and curiosities above a closed two-door base, set against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks visible. The primary object is a wooden display cabinet (or specimen cabinet / cabinet of curiosities). Structurally, it features a molded top overhang, twelve square-to-rectangular open cubbies arranged in a 3-column by 4-row grid, and a bottom section enclosed by two hinged wooden panel doors. The two doors are fully closed, each featuring an outer metallic hinge and a small round golden-brass knob handle in the center. The cabinet rests on four short, blocky wooden legs. The open cubbies contain twelve distinct specimens/items: top row holds a horned animal skull, a coiled spiral seashell, and a cluster of purple crystals; second row holds a round dark green ceramic jar with a lid, a small standing dodo bird, and a large speckled egg resting on a brass pedestal; third row contains a coiled brown patterned snake, a piece of branching red coral, and a brass-framed hourglass; bottom cubby row contains a large fossilized shark/carnivore tooth, a split rocky geode revealing orange-amber crystals inside, and an arrangement of three feathers (cream, muted green, and maroon). The entire cabinet and its contents are rendered in a warm, painterly digital art style with dark brown wood tones. The cabinet is completely uncropped and centered against a uniform, solid chroma-key blue background with no floor plane or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.471,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9961,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4275,
+   "tokens_out": 2113,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "crystal-formation--s1": {
+   "id": "crystal-formation--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/crystal-formation--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital illustration of a stylized cluster of purple faceted crystals protruding from a jagged grey rock base against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital illustration of a stylized cluster of purple faceted crystals protruding from a jagged grey rock base against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image shows a single composite object: a cluster of amethyst crystals or fantasy mineral node set in rough matrix rock. The cluster consists of seven distinct hexagonal/faceted purple crystal columns of varying heights and angles, with the tallest crystal positioned vertically in the center, flanked and fronted by six shorter crystals with pointed pyramid-like terminations. The base is an irregular, multifaceted mound of dark grey to brownish-grey stone. The crystals exhibit shades of violet, purple, and magenta with softly highlighted edges and smooth faceted planes. The entire formation is fully visible and not cropped by the frame. The background is a flat, uniform, saturated royal blue with no visible floor, ground plane, or cast shadows. No people or background scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.458,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4108,
+   "tokens_out": 1444,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "orrery": {
+   "id": "orrery",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/orrery.try1.jpg",
+     "semantic": {
+      "what_i_see": "A mechanical brass and wood orrery with a central golden sphere and five orbiting planetary spheres, operated by a hand crank on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A mechanical brass and wood orrery with a central golden sphere and five orbiting planetary spheres, operated by a hand crank on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single composite object, best described as an orrery (second guess: mechanical planetary model or tabletop gear mechanism). It consists of a turned dark brown wooden circular pedestal base, a brass cylindrical gearbox body lined with gear teeth on the top and bottom perimeters, one brass crank handle with a dark wooden grip attached to the lower left side, a central vertical brass post holding a large textured bright yellow sphere representing a sun, and five curved brass armature arms radiating outward. Each arm supports an individual spherical planet: one mottled dark red sphere on the far left, a small olive-green sphere on an elevated arm to the upper-left, a warm orange sphere to the middle right, a larger cream-and-tan striped sphere at the upper right, and a small purple sphere at the lower right, making a total of six spheres (one central and five orbital). There are no legs, wheels, doors, drawers, or open lids. The materials consist of turned dark hardwood, brushed brass metal, and painted composite or wooden spheres. The object is completely whole and centered without any cropping. The background is a flat, uniform, solid royal blue field with no floor surface, scenery, shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3065,
+      "soft": 0.0101,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9833,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4227,
+   "tokens_out": 1856,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-sign-apothecary": {
+   "id": "alch-sign-apothecary",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-sign-apothecary.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy-style hanging apothecary sign depicting a mortar and pestle, suspended by metal chains from a wrought-iron wall bracket against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy-style hanging apothecary sign depicting a mortar and pestle, suspended by metal chains from a wrought-iron wall bracket against a solid blue background.",
+       "details": "No text, labels, or watermarks are present. The object is a single assembly consisting of a wall-mounted shop sign. Its components include a dark brownish-grey, rustic iron wall bracket with a vertical mounting plate secured by two large rivets, a horizontal beam with a faceted end cap, and a curved support scroll underneath; two sets of thick oval metal chain links; and a wooden sign shaped in the silhouette of a mortar and pestle with hanging loops on top. The sign features a carved light brown wood outer frame with visible wood grain, an inner recessed dark green border, and an illustrated central relief of a cream and moss-green stone mortar with a pestle resting diagonally inside. The entire sign assembly is fully contained within the frame with no cropping. The background is a flat, uniform, bright blue color with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.441,
+      "soft": 0.0078,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.992,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 27
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4115,
+   "tokens_out": 2337,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-potion-crate-straw": {
+   "id": "alch-potion-crate-straw",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-potion-crate-straw.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden crate containing nine corked potion bottles packed in straw, with its wooden lid leaning against the right side, floating against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden crate containing nine corked potion bottles packed in straw, with its wooden lid leaning against the right side, floating against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The main object is a wooden crate with potion bottles (or alternatively, an elixir storage box/goods container). The set consists of one open rectangular wooden crate, one detached rectangular wooden lid leaning upright against the right flank of the crate, and nine spherical glass bottles nested in yellow straw bedding. The crate features light brown wood grain planks with corner reinforcements secured by smooth grey metallic rivets, along with a thick twisted rope handle on the visible left side. The lid matches the wooden plank construction with end-batons and metallic rivets. The lid is open and detached, exposing the interior fully, which accommodates a 3x3 grid of nine glossy bulbous bottles sealed with light brown cork stoppers: three red bottles, three green bottles, and three amber-yellow bottles arranged in a repeating staggered diagonal pattern. The entire object is fully visible and not cropped by the frame. The background is a flat, uniform, vibrant pure blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.51,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9938,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4165,
+   "tokens_out": 2862,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-familiar-perch": {
+   "id": "alch-familiar-perch",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-familiar-perch.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D render of a wooden bird perch or stand with gold accents, featuring a horizontal wrapped crossbar, an attached feeding cup, and a circular catch tray against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D render of a wooden bird perch or stand with gold accents, featuring a horizontal wrapped crossbar, an attached feeding cup, and a circular catch tray against a solid bright blue background.",
+       "details": "There is no text, label, or watermark in the image. The image contains a single freestanding object, best described as a bird perch or parrot stand, with a second guess of a stylized game prop or display stand. The object consists of a heavy circular stepped wooden base segmented into wooden blocks and encircled by maroon and gold trim bands; a central turned wooden vertical post with maroon and gold accent rings and a rounded bulge; a shallow circular brass/gold tray mounted beneath the upper section; and a horizontal wooden T-bar crossbar at the top. The crossbar is wrapped around the center in a tan or light-brown leather-like strap, with rounded wooden finials at each end. Attached to the right side of the crossbar is a small brass or golden feeding cup suspended by a brass bracket with a rivet. Both the cup and the tray are open, showing empty interiors. The materials appear to be stylized carved wood, polished brass, and tan leather or fabric. The entire object is fully visible within the frame without cropping. The background is a flat, uniform, vivid blue screen without any floor, horizon, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2086,
+      "soft": 0.0059,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9849,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4202,
+   "tokens_out": 1628,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "vivarium": {
+   "id": "vivarium",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/vivarium.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden-framed terrarium or vivarium on a four-legged wooden stand with a lower shelf containing a sack and a pot, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden-framed terrarium or vivarium on a four-legged wooden stand with a lower shelf containing a sack and a pot, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The central subject is a single main terrarium furniture unit, supported by a wooden stand with four legs and a lower slatted shelf. On the lower shelf rest two distinct objects: a light tan tied cloth sack and a round, mustard-yellow ceramic jar or pot. The terrarium itself consists of glass side panels encased in thick brown wooden framing with decorative corner blocks. On top is a closed wooden lid attached with two golden/brass hinges along the back edge and featuring two circular brass mesh ventilation grates. Inside the enclosed glass chamber, visible behind the glass, is a natural diorama containing green fern-like plants, a curved moss-covered branch, several grey rocks, earthy soil substrate, and a red mushroom with white spots. The entire structure is complete and fully contained within the frame without cropping. The background is a solid, uniform, bright blue chroma field with no floor surface or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5604,
+      "soft": 0.0062,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4178,
+   "tokens_out": 4783,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "animal-hutch": {
+   "id": "animal-hutch",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/animal-hutch.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, two-tiered wooden animal hutch with a green roof, yellow bedding straw inside, and an attached ladder ramp on the right side, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, two-tiered wooden animal hutch with a green roof, yellow bedding straw inside, and an attached ladder ramp on the right side, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one single composite object: a two-story wooden animal hutch (best guess: rabbit hutch; second guess: chicken coop or nesting box). The structure has four thick wooden legs supporting the main body, plus a tilted wooden ramp/ladder with five rungs attached to the right side extending downward. The roof is a pitched gable style made of sage/olive-green painted wood planks with natural wood trim. The front is split into two tiers: each tier has a left section with five vertical rounded wooden bars revealing yellow straw inside, and a right section consisting of a closed wooden plank door with a round entrance hole and a small wooden latch/handle. Through the round holes and between the bars, golden-yellow straw bedding is visible in the interior. The material is stylized wood with visible grain in light cream, warm medium brown, and muted green. The entire object is fully visible and not cropped by the frame. The background is a solid, uniform vivid blue with no visible floor surface or cast shadows, and there are no people or scenery present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5145,
+      "soft": 0.006,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9935,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4204,
+   "tokens_out": 2124,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "egg-nest-great": {
+   "id": "egg-nest-great",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/egg-nest-great.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a single large speckled egg resting in a woven wooden nest padded with golden straw and feathers, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a single large speckled egg resting in a woven wooden nest padded with golden straw and feathers, displayed against a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image features one primary composite object: a large speckled egg nestled inside a bird's nest (second guess: a stylized fantasy game collectible or Easter decoration). The assembly consists of one large oval egg covered in irregular reddish-brown and deep purple speckles, set inside a circular bowl-shaped nest woven from thick, stylized brown wooden twigs and chunks of wood, lined extensively with tufts of bright golden-yellow straw or hay. Tucked into the straw are three pale cream-colored feathers (one upright on the far left, one small upright feather on the far right, and one lying horizontally across the front-right rim). There are no legs, wheels, doors, drawers, or lids. The whole object is depicted fully within the frame and is not cropped. The background is a completely uniform, flat, bright blue (chroma key style) with no cast shadows, floor, ground plane, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4877,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4167,
+   "tokens_out": 1468,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "perch-tree": {
+   "id": "perch-tree",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/perch-tree.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted wooden tree-branch stand rooted in a stone-filled wooden bucket, featuring a small golden bowl strapped to one branch and a dark feather tucked near the top, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Remove the unrequested bowl, strap, and feather attached to the tree limb"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted wooden tree-branch stand rooted in a stone-filled wooden bucket, featuring a small golden bowl strapped to one branch and a dark feather tucked near the top, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one composite object, best identified as a stylized bird perch or offering shrine, with a coat rack as a second guess. It consists of a lower wooden barrel base constructed of vertical staves held by two dark grey iron hoops, filled with smooth grey and olive-tinted stones around the base of a pale, debarked wooden branch trunk. The trunk features four blunt, cut branches pointing in different directions: one top-left main trunk, one upper-right branch supporting a shallow golden brass bowl secured with a red strap, one mid-height branch extending to the left, and one lower branch extending to the right. A single dark charcoal-grey feather is lodged in a crevice behind the top-left branch. There are no doors, drawers, or lids. The object is rendered with game-asset stylized hand-painted textures, fully contained within the frame without cropping. The background is a completely flat, uniform blue screen with no shadows, floor plane, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/perch-tree.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon bare tree trunk with cut branch pegs planted in a wooden bucket filled with smooth stones against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon bare tree trunk with cut branch pegs planted in a wooden bucket filled with smooth stones against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image features a single composite object: a stylized tree trunk or wooden coat rack (second guess: decorative bonsai driftwood sculpture) seated inside a wooden planter bucket. The trunk is made of smooth, light-blonde carved wood with pronounced grain lines and features four blunt, sawed-off branch ends (one top central terminal, one middle-left, one upper-right, and one lower-right), each displaying stylized radial end-grain cuts. The planter is a round wooden barrel constructed from warm honey-brown vertical staves held together by two dark grey metal hoops; its top is open and filled with smooth, rounded grey and mossy-green stones securing the base of the trunk. The entire object is fully visible and not cropped. The background is a solid, uniform, vibrant pure blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1832,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9874,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5970,
+   "tokens_out": 3203,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bookshelf--arcane--s2": {
+   "id": "bookshelf--arcane--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/bookshelf--arcane--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden bookshelf filled with colourful books, scrolls, a telescope, an owl figurine, and a potted plant, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden bookshelf filled with colourful books, scrolls, a telescope, an owl figurine, and a potted plant, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single main object: a tall wooden bookshelf or bookcase (second guess: display shelving unit). The shelf unit has 5 main interior shelf levels and rests on four squared wooden feet/corner bases, with no doors, drawers, or handles. On the top exterior surface rests an open, tented red book facing spine-up. The five interior shelves hold varied items: the first shelf contains eight vertical or slightly leaning books in purple, yellow, green, red, and ochre; the second shelf contains nine neatly upright books in green, purple, yellow, red, violet, and ochre; the third shelf contains a stack of five parchment scrolls, three upright books, a brass/gold spyglass telescope lying horizontally, and a small carved owl figurine; the fourth shelf contains a horizontal stack of three large books (green, red, yellow) next to a potted green fern in a rounded green bowl; the bottom shelf contains two horizontal stacks of two books each (purple/green on the left, yellow/red on the right). Materials depicted include textured brown wood with stylized grain and beveled moldings, paper/parchment, leather bookbindings, brass metal, and pottery. The entire bookcase is whole and uncropped. The background is a flat, uniform, saturated blue screen with no floor or drop shadows. There are no people present.",
+       "reference_differences": [
+        "On the top surface, the candidate features a single open tented book, whereas the reference has a stack of rolled scrolls and a flat closed book.",
+        "The candidate shelf contains a small owl figurine and a brass telescope on the third shelf, while the reference has a glass potion bottle and no telescope or owl.",
+        "The candidate includes a potted green plant on the fourth shelf, whereas the reference contains an hourglass in the same level.",
+        "The candidate has two stacks of books on the bottom shelf, whereas the reference features a large faceted purple crystal among books and a scroll.",
+        "The reference features a human skull on the second shelf, which is entirely absent in the candidate image (replaced by neat rows of upright books)."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4563,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5525,
+   "tokens_out": 3646,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "crystal-glowing": {
+   "id": "crystal-glowing",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/crystal-glowing.try1.jpg",
+     "semantic": {
+      "what_i_see": "A cluster of four stylized, amber-orange hexagonal crystal prisms growing out of a small dark grey rock base against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A cluster of four stylized, amber-orange hexagonal crystal prisms growing out of a small dark grey rock base against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single composite object: a stylized crystal cluster or ore deposit (second guess: fantasy gemstone prop). It consists of four distinct faceted crystal columns (one tall central spire in back, one medium on the left, one medium on the right, and one shorter in the front) emerging from a textured, dark grey stone matrix base. There are no legs, wheels, doors, drawers, lids, or handles. The crystals are rendered with warm amber, gold, orange, and pale yellow faceted surfaces with hand-painted mineral texture and chipped edges. The base is an irregular, jagged charcoal-grey rock. The entire object is fully visible and not cropped. The background is a solid, uniform, vivid blue (chroma key style) without any floor, horizon, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3221,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9939,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4116,
+   "tokens_out": 1038,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-carboy-wicker": {
+   "id": "alch-carboy-wicker",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-carboy-wicker.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital illustration of a dark green glass demijohn flagon encased in a chunky, woven golden-brown wicker basket with two handles and sealed with a cork stopper, centered on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital illustration of a dark green glass demijohn flagon encased in a chunky, woven golden-brown wicker basket with two handles and sealed with a cork stopper, centered on a solid blue background.",
+       "details": "Text, labels, or watermarks: None. Number of objects: One composite object, best described as a demijohn or flagon, with a second guess of a wicker-encased carboy or fantasy potion jug. Parts: It consists of an olive-green glass bottle neck and rounded shoulder, a thick circular glass lip, a cylindrical textured cork stopper plugged into the mouth, a thick woven wicker casing surrounding the base and body, and two twisted rope-style wicker handles affixed on the left and right sides. Lid state: The cork stopper is inserted tightly into the neck, fully closing the bottle so the interior cannot be seen. Materials and colours: Smooth, painted olive-green glass with soft highlights; warm golden-tan wicker weave with stylized wood-like grain; and light beige-tan cork. Framing: The object is completely depicted within the frame and is not cropped. Background: A completely flat, uniform bright blue background with no cast shadows, floor surface, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.445,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4164,
+   "tokens_out": 2234,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-formula-chalkboard": {
+   "id": "alch-formula-chalkboard",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-formula-chalkboard.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden chalkboard easel featuring a geometric diagram drawn in white chalk, complete with a red eraser cloth and three chalk sticks, isolated against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden chalkboard easel featuring a geometric diagram drawn in white chalk, complete with a red eraser cloth and three chalk sticks, isolated against a solid bright blue background.",
+       "details": "There are no written text labels or watermarks present. The image contains one primary composite object: a wooden chalkboard easel (best name: chalkboard easel; second guess: slate A-frame stand). It consists of a rectangular blackboard held in a chunky wooden frame supported by four legs (two front, two back in an A-frame configuration) with pegged joints. At the base of the blackboard is a wooden ledge or tray holding a folded dark red cloth eraser draped over the left side and three white cylindrical chalk pieces resting horizontally. The dark charcoal-grey chalkboard surface features a hand-drawn diagram made of white chalk consisting of interconnected circles and triangles forming a network. The wooden components have a warm, hand-painted golden-brown wood grain texture with beveled stylized edges. The entire easel is fully visible within the frame with no parts cropped. The background is a flat, uniform, untextured vibrant blue with no cast shadows, floor plane, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3467,
+      "soft": 0.0069,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9885,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4163,
+   "tokens_out": 1514,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pillows-cushions": {
+   "id": "pillows-cushions",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/pillows-cushions.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized pile of five plush, decorative fabric cushions with piping and tassels arranged in a cluster against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized pile of five plush, decorative fabric cushions with piping and tassels arranged in a cluster against a solid bright blue background.",
+       "details": "The image features a cluster of five decorative cushions painted in a semi-realistic digital art style. At the base are two thick, square-shaped floor cushions: one deep crimson red on the lower left and one muted purple/plum on the lower right, both featuring edge piping and hanging tassels from their front corners. Sitting atop the red cushion is a round olive-green tufted pillow with a horizontal middle seam/piping and a tassel on the left. To its right, resting partly behind and on the purple cushion, is an elongated mustard-yellow cylindrical bolster cushion with a circular end piece adorned with a central tassel. Resting diagonally atop the green cushion and yellow bolster is a square cream/ivory-colored pillow with a corded border and a corner tassel dangling forward. All cushions appear soft and plush with fabric creases. The entire group is completely contained within the frame with no parts cropped. The background is a flat, uniform, vibrant pure blue with no ground surface, shadows, text, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3931,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4149,
+   "tokens_out": 1253,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wizard-hat": {
+   "id": "wizard-hat",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/wizard-hat.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized purple witch hat with a wide brim, a crooked pointed tip, and a gold-buckled band floating against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized purple witch hat with a wide brim, a crooked pointed tip, and a gold-buckled band floating against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains a single isolated object: best identified as a witch hat, with a second guess being a wizard or sorcerer hat. It consists of a tall, creased conical crown that curves and tapers to a downturned point at the right, a wide undulating wavy brim, a golden-brown fabric or leather band around the base, and a rectangular gold buckle at the center front. There are no moving lids, doors, or drawers. The hat appears to be made of a soft purple felt or painted fabric, complemented by a matte golden band and a metallic gold buckle. The object is entirely contained within the frame without cropping. The background is a completely uniform, solid chroma-key blue with no visible floor, ground contact, or cast shadows. No people or scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3001,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4124,
+   "tokens_out": 1415,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alembic": {
+   "id": "alembic",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alembic.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy alchemical distillation apparatus or alembic set upon a circular wooden base, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy alchemical distillation apparatus or alembic set upon a circular wooden base, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The image displays a single multi-part composite object: an alembic distillation apparatus (second guess: an alchemical retort or miniature essential oil still). The apparatus rests on a thick circular wooden base with carved cracks and visible wood grain texture. The setup consists of: a dark grey metallic iron stand with three visible square-footed legs and riveted circular brackets; a small brass oil burner with a notched cap mounted low beneath the center; a large spherical boiling flask made of opaque, mottled olive-green material sitting inside the stand's upper ring; a conical copper still head with a finial on top of the green sphere; a curved copper tube (swan neck) descending from the cap into a golden-yellow/brass collection jug resting to the right on the wooden platform. The cap is sealed atop the green flask, and the delivery pipe fits into the neck of the receiver jug, meaning no interior contents are exposed. The primary colours are olive green, metallic copper orange, golden brass, dark slate grey, and warm wood brown. The object is completely intact and centered, uncropped by the frame. The background is a flat, uniform, solid bright blue with no shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4268,
+      "soft": 0.0066,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9925,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4218,
+   "tokens_out": 2428,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "crystal-ball": {
+   "id": "crystal-ball",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/crystal-ball.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized magical crystal ball with soft purple swirls resting on three ornate brass prongs mounted on a round wooden pedestal, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized magical crystal ball with soft purple swirls resting on three ornate brass prongs mounted on a round wooden pedestal, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one composite object: a decorative crystal ball or scrying orb (first guess) or a fantasy marble sphere display piece (second guess). The object consists of a large, smooth sphere held by three visible curved golden-bronze prongs or claw-like brackets with engraved spiral motifs, all set into a circular, tiered wooden base. There are no doors, drawers, or lids. The sphere is opaque white with ethereal swirling patterns in shades of lavender, soft violet, and pale gray. The prongs appear to be made of antiqued brass or gold, and the base is constructed of polished brown wood with visible grain rings. The entire object is fully visible and not cropped. The background is a solid, uniform royal blue chroma key screen with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4823,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4130,
+   "tokens_out": 2255,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "potion-bottles--s1": {
+   "id": "potion-bottles--s1",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/potion-bottles--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A painted cluster of five stylized potion bottles or flasks with cork stoppers set against a vibrant solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A painted cluster of five stylized potion bottles or flasks with cork stoppers set against a vibrant solid blue background.",
+       "details": "There are no visible text, labels, or watermarks. The image features five distinct bottles or flasks arranged closely together in two rows. The back row includes two taller bottles: on the left, a rounded, bulbous bottle in deep crimson red with a cylindrical neck; on the right, a taller, four-sided rectangular bottle in golden amber. The front row contains three shorter bottles: on the far left, a squat, spherical olive-green jar; in the middle, a pear-shaped ochre-yellow flask; and on the right, a squat, bulbous ceramic-like jar in off-white or light beige with weathered flecks. Each of the five bottles has a circular mouth securely plugged with a cylindrical, textured light-brown cork stopper. The objects exhibit a stylized, digital painted texture with painterly brushstrokes and soft highlights. The entire group is fully visible and not cropped by the frame. The background is a completely flat, uniform electric blue without shadows, ground, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4246,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4161,
+   "tokens_out": 3070,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "potion-bottles--s2": {
+   "id": "potion-bottles--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/potion-bottles--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital painting of a cluster of four fantasy-style potion bottles and jars in green, red, and yellow against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Missing a plum-colored bottle or flask",
+       "Amber vessel has a cloth lid instead of being a stoppered bottle or flask"
+      ],
+      "blind": {
+       "what_i_see": "A digital painting of a cluster of four fantasy-style potion bottles and jars in green, red, and yellow against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The composition contains four separate containers clustered together. On the left is a large, spherical moss-green bottle with a cylindrical cork stopper inserted into its short neck. At the upper center is a taller, deep maroon-red bottle with a bulbous neck and a matching spherical red stopper. In the lower center is a smaller ruby-red bottle shaped like a heart, topped with a small tan cork stopper. On the right is a rounded amber-yellow jar covered with a pleated, tan cloth or paper lid draped over the mouth. All four vessels are fully closed and their interiors are not visible. The objects have a painterly, textured finish resembling glazed pottery or tinted matte glass. The cluster is centered and fully visible without being cropped. The background is a flat, uniform, solid royal blue without any ground plane, cast shadows, or scenery. No people are present.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/potion-bottles--s2.try2.jpg",
+     "semantic": {
+      "what_i_see": "A digital illustration of four stylized potion bottles in different colors and shapes, clustered together on a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital illustration of four stylized potion bottles in different colors and shapes, clustered together on a solid vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains four distinct objects: four small bottles or flasks (second guess: ceramic decorative vases). The bottles include: 1) a bulbous olive-green bottle on the left sealed with a pitted light-brown cork stopper; 2) a taller round burgundy/red bottle in the upper center sealed with a spherical matching red ceramic or glass stopper; 3) a round warm-yellow/amber bottle on the right sealed with a light-brown cork stopper; and 4) a smaller heart-shaped purple bottle in the front center sealed with a light-brown cork stopper. In total, there are four bottles and four stoppers; no handles, legs, wheels, or drawers exist. All stoppers are firmly inserted and closed, completely obscuring the interiors. The vessels appear to have an opaque, painted ceramic, clay, or frosted glass texture with visible painterly highlights and mottled discoloration. All four objects are fully shown without cropping. The background is a flat, uniform solid royal blue with no visible floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5178,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9961,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5944,
+   "tokens_out": 3640,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "scroll-pile": {
+   "id": "scroll-pile",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/scroll-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized pile of six aged parchment scrolls, some bound with red ribbons or a red wax seal, against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized pile of six aged parchment scrolls, some bound with red ribbons or a red wax seal, against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The subject is a cluster of six separate aged parchment scrolls (or paper rolls). One scroll at the top is rolled up and tied with a knotted red ribbon. Another scroll lies behind it to the upper right. On the middle left, a scroll is sealed with a circular red wax seal. Beneath it on the bottom left rests an unsecured rolled scroll. To the middle right, another scroll is bound with a red ribbon. In the front foreground, the sixth scroll is partially unrolled, curving outward with slightly curled edges. The items are rendered in a warm tan and yellow-beige paper texture, with vivid dark red ribbons and wax. The entire object group is intact and not cropped by the frame. The background is a solid, uniform royal blue with no floor, shadows, people, or environmental scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4031,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9946,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4108,
+   "tokens_out": 1641,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tome-grimoire": {
+   "id": "tome-grimoire",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/tome-grimoire.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, thick red leather-bound book featuring brass or gold metal fittings, clasps, and a red bookmark, displayed on a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, thick red leather-bound book featuring brass or gold metal fittings, clasps, and a red bookmark, displayed on a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks present. The image depicts a single isolated object: primarily an antique or fantasy book or tome (second guess: leather journal or spellbook). The book is fully closed with its pages pressed tightly together; nothing of the interior is visible. It features a heavy dark red leather cover with four raised ribs across its curved spine. Golden-yellow metal reinforcements cap the corners of the front and back covers (six visible brackets in total), and two golden rectangular clasps secure the opening edge. In the center of the front cover rests a smooth, blank oval golden plate or medallion. The page edges appear as a thick, aged cream-colored text block, with a red ribbon bookmark hanging from the bottom edge with a V-notched swallowtail end. The entire object is fully contained within the frame with no cropping. The background is a flat, uniform, vibrant cobalt-blue void with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4399,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4160,
+   "tokens_out": 1568,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-hourglass-sand-colored": {
+   "id": "alch-hourglass-sand-colored",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-hourglass-sand-colored.try1.jpg",
+     "semantic": {
+      "what_i_see": "An illustration of an antique-style wooden hourglass containing sand, centered against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An illustration of an antique-style wooden hourglass containing sand, centered against a solid vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one primary object: an hourglass (second guess: sand timer or decorative desk ornament). Structurally, it consists of a flat circular wooden top plate, an identical circular wooden base, and four vertical turned-wood balusters or pillars connecting the two plates. Encased within the frame is a classic figures-of-eight double-bulb hourglass vessel. The wood has a warm, varnished medium-to-dark brown finish with painted woodgrain texture and shiny highlights. The glass vessel appears slightly translucent or milky off-white at the top, while the bottom chamber holds amber/golden-orange sand filling its lower half. The object is completely intact and not cropped by the frame. The background is completely flat, uniform chroma-blue with no cast shadows, floor surface, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.375,
+      "soft": 0.0078,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9894,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4118,
+   "tokens_out": 1788,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "alch-mandrake-pot": {
+   "id": "alch-mandrake-pot",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/alch-mandrake-pot.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital illustration of a stylized potted fantasy plant featuring bulbous tan roots, broad green leaves, and two purple berries in a terracotta pot against a vivid solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital illustration of a stylized potted fantasy plant featuring bulbous tan roots, broad green leaves, and two purple berries in a terracotta pot against a vivid solid blue background.",
+       "details": "There are no texts, labels, or watermarks present. The image shows a single complete object: a potted plant, likely a mandrake or fantasy tuber plant (second guess: potted ginger or turnip plant). It consists of an unglazed orange-brown terracotta clay pot filled with dark brown soil, from which emerges a bulbous, tuberous root system split into two rounded, dumpling-like lobes with textured surface bumps, resembling seated legs or a creature body. Emerging from the top of the root are five broad, stylized green leaves with detailed vein textures, framing two small, glossy purple spherical berries or fruits, each topped with a small brownish-green calyx. There are no doors, lids, handles, or moving parts. The object is rendered with painterly textures and soft highlights and is fully contained within the frame without cropping. The background is a flat, uniform, solid electric-blue chroma key with no floor or cast shadows. No people or background scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3451,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9927,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4166,
+   "tokens_out": 1357,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mortar-pestle": {
+   "id": "mortar-pestle",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/mortar-pestle.try1.jpg",
+     "semantic": {
+      "what_i_see": "A textured stone mortar and pestle containing ground yellow spice powder, set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Contains food (yellow spice powder) inside the bowl"
+      ],
+      "blind": {
+       "what_i_see": "A textured stone mortar and pestle containing ground yellow spice powder, set against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos visible in the image. The object consists of a stone mortar and pestle (with an alternative guess being a granite spice grinder or apothecary bowl). The assembly consists of two main stone parts: a thick, round stone bowl resting on an integrated circular pedestal base, and a matching club-shaped pestle tilted inside the bowl. The interior of the bowl is open and visible, containing a pile of granular, deep yellow-orange powder (resembling turmeric or curry powder). Both the mortar and pestle feature a stylized, speckled beige and grey stone texture with multi-toned flecks. The entire object is centered and fully visible without any cropping. The background is a flat, uniform solid bright blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-wizard-tower/wizard/work/mortar-pestle.try2.jpg",
+     "semantic": {
+      "what_i_see": "A mottled grey-brown stone mortar and pestle set depicted against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A mottled grey-brown stone mortar and pestle set depicted against a solid bright blue background.",
+       "details": "There is no text, label, or watermark in the image. The image displays two main connected/interacting items forming one set: a stone mortar (bowl) and a stone pestle (grinder). The mortar has a thick circular rim, rounded hollow interior bowl, and a slightly flared circular pedestal base. The pestle rests inside the bowl, tilted diagonally upwards toward the top right, with a bulbous grinding head and a contoured handle ending in a rounded pommel. Both objects are made from a mottled, textured stone material with earthy tones of grey, olive green, tan, and beige, stylistically rendered with faceted/painterly shading. The mortar bowl is completely open, showing the pestle resting inside its deep hollow. The entire object set is whole and fully contained within the frame, with no cropping. The background is a uniform, solid, chroma key blue (#0000FF) with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4213,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5861,
+   "tokens_out": 2032,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

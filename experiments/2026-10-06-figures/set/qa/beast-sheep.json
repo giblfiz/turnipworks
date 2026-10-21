@@ -1,0 +1,156 @@
+{
+ "file": "beast-sheep.glb",
+ "tris": 48130,
+ "kb": 2192,
+ "native_extent": [
+  0.649,
+  0.9,
+  0.998
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  155,
+  133,
+  102
+ ],
+ "mean_saturation": 0.34,
+ "sized_by": "its highest point",
+ "overall_ft": 2.8,
+ "pieces": {
+  "connected_parts": 29,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.1109,
+ "y0": -1.3977,
+ "stated_ft": {
+  "body": 2.8,
+  "figure_top": 2.8,
+  "overall": 2.8,
+  "length": 3.4
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3227,
+   -0.4493,
+   -0.4996
+  ],
+  [
+   0.3267,
+   0.451,
+   0.4987
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48130,
+   "tex": 2048,
+   "kb": 2192
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 845
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 384
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.45,
+    "z": -1.05,
+    "size_ft": [
+     0.41,
+     0.45
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.85,
+    "sole_p90_ft": 0.119
+   },
+   {
+    "x": -0.53,
+    "z": 0.58,
+    "size_ft": [
+     0.38,
+     0.48
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.82,
+    "sole_p90_ft": 0.104
+   },
+   {
+    "x": 0.51,
+    "z": 0.59,
+    "size_ft": [
+     0.41,
+     0.45
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.83,
+    "sole_p90_ft": 0.114
+   },
+   {
+    "x": 0.65,
+    "z": -0.93,
+    "size_ft": [
+     0.37,
+     0.45
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.83,
+    "sole_p90_ft": 0.122
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 0.48,
+  "plan_hull_area_sqft": 4.91,
+  "lowest_slab_share_of_plan": 0.097
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.02,
+   "d": 3.1,
+   "h": 2.8
+  },
+  "centre": [
+   0.011,
+   -0.197
+  ],
+  "contacts_radius_ft": 1.18,
+  "reach_radius_ft": 1.63,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.918,
+  "plate_lost_share": 0.039,
+  "added_share": 0.047,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.846,
+  "view_yaw_deg": 310,
+  "view_elev_deg": 0
+ },
+ "id": "beast-sheep",
+ "sha1": "25de6439a101013c0b1313f97f1bec72fdad59c6",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 13.2
+}

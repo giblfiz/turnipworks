@@ -1,0 +1,144 @@
+{
+ "file": "hero-cleric-orc-m.glb",
+ "tris": 48502,
+ "kb": 3815,
+ "native_extent": [
+  0.577,
+  1.0,
+  0.409
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0002,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  92,
+  61,
+  32
+ ],
+ "mean_saturation": 0.712,
+ "sized_by": "its highest point",
+ "overall_ft": 6.5,
+ "pieces": {
+  "connected_parts": 466,
+  "main_part_area_share": 0.9635,
+  "floating": [
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.03,
+    "size_ft": 0.04
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.03,
+    "size_ft": 0.04
+   }
+  ],
+  "floating_count": 2,
+  "floating_area_share": 0.0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.499,
+ "y0": -3.2553,
+ "stated_ft": {
+  "body": 6.5,
+  "figure_top": 6.5,
+  "overall": 6.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.286,
+   -0.5009,
+   -0.2024
+  ],
+  [
+   0.2914,
+   0.4994,
+   0.2067
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48502,
+   "tex": 2048,
+   "kb": 3815
+  },
+  "20k1024": {
+   "tris": 19998,
+   "tex": 1024,
+   "kb": 1475
+  },
+  "8k512": {
+   "tris": 7998,
+   "tex": 512,
+   "kb": 582
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -1.09,
+    "z": -0.6,
+    "size_ft": [
+     1.38,
+     1.46
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.74,
+    "sole_p90_ft": 0.124
+   },
+   {
+    "x": 1.26,
+    "z": 0.44,
+    "size_ft": [
+     1.08,
+     1.71
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.78,
+    "sole_p90_ft": 0.104
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 2.25,
+  "plan_hull_area_sqft": 7.14,
+  "lowest_slab_share_of_plan": 0.314
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.75,
+   "d": 2.65,
+   "h": 6.5
+  },
+  "centre": [
+   0.021,
+   0.383
+  ],
+  "contacts_radius_ft": 1.89,
+  "reach_radius_ft": 2.16,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.933,
+  "plate_lost_share": 0.022,
+  "added_share": 0.049,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.933,
+  "view_yaw_deg": 355,
+  "view_elev_deg": 8
+ },
+ "id": "hero-cleric-orc-m",
+ "sha1": "b066d05328f8302da42f304be081d0b1bfb9a524",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 15.3
+}

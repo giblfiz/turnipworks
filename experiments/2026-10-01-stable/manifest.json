@@ -1,0 +1,71 @@
+{
+  "experiment": "2026-10-01-stable",
+  "generated_at": "2026-10-02T00:32:28.053764+00:00",
+  "assets": [
+    {
+      "asset": "rural-manger-wall--s2",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0fa04-eff0-7362-bf10-29eb1054bcb9",
+      "started_at": "2026-10-02T00:30:22.240548+00:00",
+      "finished_at": "2026-10-02T00:32:28.041239+00:00",
+      "elapsed_seconds": 125.8,
+      "input": "inputs/rural-manger-wall--s2.jpg",
+      "input_sha256": "33c1062cf90fdcf4c1252ccf0805cdde188eeac0a07931c65f47a926a01f8397",
+      "output": "models/rural-manger-wall--s2.glb",
+      "output_sha256": "8bb3a81080885d4dc045f18a7107cf715461763a8c1a7932dc6d696d7a705cf9",
+      "output_bytes": 2567424,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "stable-stall-gate",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0fa04-efee-73d3-b818-b9e12ed48dfc",
+      "started_at": "2026-10-02T00:30:22.240774+00:00",
+      "finished_at": "2026-10-02T00:32:08.621916+00:00",
+      "elapsed_seconds": 106.38,
+      "input": "inputs/stable-stall-gate.jpg",
+      "input_sha256": "d4f504a7c30646896eb5cdd2554c6d8b73c49262501bf6031dc35484340f75d2",
+      "output": "models/stable-stall-gate.glb",
+      "output_sha256": "f0772f9f39ebe376f3b16ce5c88e25581da2bf1d6ee608c6abe524e1a2b7617a",
+      "output_bytes": 2609144,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "stable-stall-partition",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0fa04-eff4-7402-94f9-7ace925291bb",
+      "started_at": "2026-10-02T00:30:22.241012+00:00",
+      "finished_at": "2026-10-02T00:31:49.520607+00:00",
+      "elapsed_seconds": 87.28,
+      "input": "inputs/stable-stall-partition.jpg",
+      "input_sha256": "756dcedafbe45102af35cdb93f70ea45d308b40403f1da0b4037ec91c3147a78",
+      "output": "models/stable-stall-partition.glb",
+      "output_sha256": "029c487a5b982d26689b592333b808eec66fe4f2a5f8c03d22ff8525adb94735",
+      "output_bytes": 2206536,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    }
+  ],
+  "estimated_total_cost_usd": 0.8999999999999999,
+  "failed": []
+}

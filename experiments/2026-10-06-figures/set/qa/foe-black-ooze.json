@@ -1,0 +1,122 @@
+{
+ "file": "foe-black-ooze.glb",
+ "tris": 49520,
+ "kb": 2907,
+ "native_extent": [
+  1.0,
+  0.703,
+  0.923
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  77,
+  54,
+  57
+ ],
+ "mean_saturation": 0.251,
+ "sized_by": "its highest point",
+ "overall_ft": 1.5,
+ "pieces": {
+  "connected_parts": 594,
+  "main_part_area_share": 0.5186,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 2.1339,
+ "y0": -0.75,
+ "stated_ft": {
+  "body": 1.5,
+  "figure_top": 1.5,
+  "overall": 1.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.5002,
+   -0.3515,
+   -0.462
+  ],
+  [
+   0.4995,
+   0.3515,
+   0.4614
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49520,
+   "tex": 2048,
+   "kb": 2907
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1098
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 453
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.04,
+    "z": -0.0,
+    "size_ft": [
+     1.97,
+     2.1
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.046
+   }
+  ],
+  "contact_count": 1,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 2.77,
+  "plan_hull_area_sqft": 3.24,
+  "lowest_slab_share_of_plan": 0.856
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.13,
+   "d": 1.97,
+   "h": 1.5
+  },
+  "centre": [
+   -0.026,
+   0.012
+  ],
+  "contacts_radius_ft": 1.05,
+  "reach_radius_ft": 1.07,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.954,
+  "plate_lost_share": 0.014,
+  "added_share": 0.033,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.939,
+  "view_yaw_deg": 5,
+  "view_elev_deg": 16
+ },
+ "id": "foe-black-ooze",
+ "sha1": "32bddf432925536a072b829ab09e95402e9c8137",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 12.4
+}

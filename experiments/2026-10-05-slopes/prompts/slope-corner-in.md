@@ -1,0 +1,14 @@
+Create a new single asset in the Turnip Works house style (heroic hand-painted): inside corner of a grassy bank.
+
+The supplied image is the game's flat grass ground seen from straight above. This terrain piece will sit ON that ground, so every grassy surface of the piece must be the SAME grass: the same green hue, brightness and saturation, the same calm short-lawn texture and the same painting style, so that the piece blends into the ground with no visible colour change. Exposed rock is a neutral warm grey; exposed earth is a mid brown.
+
+Geometry: one solid, chunky landform with broad soft shapes; rocks are big rounded blocks, not gravel; no thin or fragile parts; no overhangs. Every part thick enough to reconstruct as 3D geometry.
+Finish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. The grass is a short, calm, even lawn painted as a soft surface (no individual tall blades sticking up).
+Avoid: trees, bushes, flowers, mushrooms, fences, signs, buildings, people, animals; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, black outlines, hard cel-shading bands, comic inking, flat vector art, text, logos.
+
+Presentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no sky, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no additional loose objects. The blue background is a removable mask and must not reflect blue light onto the asset.
+
+Specific design: The INSIDE (concave) corner piece of a grassy embankment, shaped like the inside corner of an amphitheatre or a quarter of a shallow bowl. Square footprint 9 ft x 9 ft, rising 5 ft. Two grass slopes at about 30 degrees meet in a soft concave valley crease: the piece is LOW at its front corner (a feather edge at the ground) and HIGH along its two back edges, which are straight and level, 5 ft up. The two back faces are flat vertical cuts at right angles; the two narrow side ends are flat vertical cuts showing brown earth, so straight bank pieces butt against them. This is a single freestanding terrain piece, like a wargaming terrain model: its underside is perfectly FLAT and it sits directly on the ground. NO base slab, NO plinth, NO platform, NO board and NO rim under or around it: where the slope meets the ground it simply thins out to nothing (a feather edge). NO trees, NO bushes, NO sky, NO water. Keep the WHOLE object well inside the frame with a generous margin.
+
+
+Corrections from a rejected previous attempt (fix these): Does not feature two sloping grass faces meeting in a concave crease; instead has an upper grassy tier stepping down via vertical soil walls into a depression.

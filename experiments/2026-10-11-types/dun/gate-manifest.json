@@ -1,0 +1,3325 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "wall-straight--cut-rock": {
+   "id": "wall-straight--cut-rock",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/wall-straight--cut-rock.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, vertical rectangular rock slab or stone wall segment with a mossy base, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, vertical rectangular rock slab or stone wall segment with a mossy base, isolated against a solid blue background.",
+       "details": "There are no visible text, labels, or watermarks. The image features a single object: a rectangular rock wall section or stone slab (second guess: stylized stone monolith or game asset rock pillar). The object consists of a single solid piece with no legs, wheels, doors, drawers, lids, or handles. Its surfaces display chiseled, angular planes and carved vertical/diagonal fissures, colored in earth-toned tans, browns, and muted grays, with patches of green moss accumulated near the bottom. The slab is completely visible within the frame and viewed from a three-quarter perspective showing the top, front, and right surfaces. The background is an entirely uniform, vibrant blue screen with no floor, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3383,
+      "soft": 0.0029,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9965,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 58
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4143,
+   "tokens_out": 1458,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "door-rune-sealed--leaf": {
+   "id": "door-rune-sealed--leaf",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/door-rune-sealed--leaf.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, rectangular grey stone tablet or slab carved with concentric circular rings containing engraved geometric symbols and reinforced with aged bronze corner brackets, isolated against a uniform blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, rectangular grey stone tablet or slab carved with concentric circular rings containing engraved geometric symbols and reinforced with aged bronze corner brackets, isolated against a uniform blue background.",
+       "details": "There are no texts, labels, or watermarks. There is one single object depicted in three-quarter perspective: a thick rectangular stone tablet or fantasy stone door (second guess: an ancient stone artifact or runic keystone). The slab has no legs, wheels, doors, or drawers. It features four L-shaped corner brackets made of tarnished golden-bronze metal with visible greenish patina and central circular rivets. The face of the slab is carved from segmented grey stone blocks forming a large circular motif with an outer ring inscribed with geometric runic/cuneiform-style symbols, an inner segmented stone ring, and a dark circular indentation or hole at the very center. The materials appear to be weathered grey chiseled stone and weathered oxidized bronze. The entire object is fully visible and not cropped. The background is a solid, uniform, bright blue chroma background with no floor, scenery, shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3984,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4195,
+   "tokens_out": 1534,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "door-cell-bars--leaf": {
+   "id": "door-cell-bars--leaf",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/door-cell-bars--leaf.try1.jpg",
+     "semantic": {
+      "what_i_see": "A heavy, weathered dark iron jail cell door with vertical bars, hinges, and a keyhole lock box against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A heavy, weathered dark iron jail cell door with vertical bars, hinges, and a keyhole lock box against a solid blue background.",
+       "details": "The image features a single standalone object: a medieval or dungeon-style iron prison cell door (second guess: metal security gate). It contains no text, labels, or watermarks. The door consists of a thick rectangular metal outer frame enclosing five thick vertical cylindrical bars, reinforced by two horizontal crossbeams each secured with five large circular rivets. On the left side, there are two heavy cylindrical barrel hinges attached with two rivets each. On the right side, there is a rectangular lock mechanism/box featuring a vertical keyhole and four corner rivets. The material is dark, worn, and pitted iron or steel with noticeable rust-colored weathering and metallic scuffs along the edges. The door is shown entirely within the frame without cropping. The background is a solid, uniform, vibrant blue screen with no shadows, floor, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2988,
+      "soft": 0.015,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9745,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4151,
+   "tokens_out": 1534,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pressure-plate": {
+   "id": "pressure-plate",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/pressure-plate.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy-style 3D stone floor tile or pressure plate mechanism set inside a dark stone frame, floating against a solid vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy-style 3D stone floor tile or pressure plate mechanism set inside a dark stone frame, floating against a solid vivid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The image shows a single isolated object, best described as a stone pressure plate or game floor tile, with a secondary guess of a ritual pedestal or altar base. The object consists of a dark grey stone perimeter frame made of segmented rectangular blocks with chipped edges and cracks, featuring an embossed skull carving on the foreground corner (and a matching skull detail at the opposite corner). Nestled inside the outer frame is a raised square slab made of lighter beige-grey weathered stone, which features a smooth, shallow circular depression in the center and chiseled, aged bevels around its perimeter. There are no doors, drawers, or openable lids. The entire asset is fully visible and not cropped. The background is a flat, uniform, bright blue screen with no shadows, floor surface, people, or surrounding environment.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3164,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4121,
+   "tokens_out": 1442,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trap-spikes": {
+   "id": "trap-spikes",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-spikes.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D rendering of a square spike trap with sixteen rusted conical spikes set into a stone slab bordered by a riveted metal frame, presented against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D rendering of a square spike trap with sixteen rusted conical spikes set into a stone slab bordered by a riveted metal frame, presented against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image depicts a single isolated object, best described as a floor spike trap or hazard plate, with an alternate guess being a medieval defensive barrier or spiked pressure plate. The object consists of a square stone or concrete base reinforced along its outer perimeter by a dark, rusted metal band with corner brackets secured by rounded metal rivets. Across the top stone surface are sixteen circular recesses arranged in a neat four-by-four grid, from each of which emerges a sturdy conical spike. The spikes are dark and rusted with slightly brighter, rounded metallic tips. The object is completely intact and uncropped, viewed from a high isometric perspective. There are no doors, lids, handles, or moving parts shown open. The background is a flat, uniform, vibrant solid blue with no shadows, floor surface, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3571,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.997,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 19
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4139,
+   "tokens_out": 1335,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trap-spike-pit": {
+   "id": "trap-spike-pit",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-spike-pit.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric video game asset depicting a square pit trap lined with mossy stone blocks, filled with sharpened wooden spikes and partially covered by broken wooden planks, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric video game asset depicting a square pit trap lined with mossy stone blocks, filled with sharpened wooden spikes and partially covered by broken wooden planks, set against a solid blue background.",
+       "details": "There are no text labels, watermarks, or characters in the image. The single composite structure is an isometric game asset representing a dungeon spike trap pit (second guess: an obstacle or hazard tile). It consists of a square rim constructed from 16 weathered, chipped grey stone blocks tinted with patches of green moss. Inside the recessed pit is a dark brown muddy floor from which 11 fully exposed, vertically planted sharpened wooden stakes protrude, along with at least 3 additional stakes supporting the damaged top structure. Covering the upper-right section of the pit is a partially collapsed walkway made of three honey-brown wooden planks that have been broken and splintered jaggedly along their exposed edge, leaving the pit beneath clearly visible. The entire asset is completely uncropped and isolated against a uniform, vivid solid blue background with no cast shadows."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3379,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9947,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4139,
+   "tokens_out": 2002,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trap-blade": {
+   "id": "trap-blade",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-blade.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D-rendered medieval swinging pendulum blade trap archway composed of two stone pillars, a wooden crossbeam, and a suspended crescent-shaped axe, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D-rendered medieval swinging pendulum blade trap archway composed of two stone pillars, a wooden crossbeam, and a suspended crescent-shaped axe, isolated on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one primary composite object: a dungeon pendulum blade trap or guillotine archway (second guess: a decorative garden gateway/swing). It features two vertical square pillars, each constructed from six stacked weathered stone blocks displaying chipping and greenish moss growth. A horizontal brown timber beam spans across the top between the two pillars, secured at both ends and the middle by dark iron bands with circular rivets. Suspended from a central hinged pivot on the beam is a vertical dark-metal pendulum arm, which terminates in a bolted mount holding a wide, downward-curving crescent axe blade with a polished, nicked metallic cutting edge. The entire structure is completely contained within the frame without cropping. The background is a flat, uniform, bright blue chroma background with no visible floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3954,
+      "soft": 0.0073,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9902,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4181,
+   "tokens_out": 1600,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "boulder-rolling": {
+   "id": "boulder-rolling",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/boulder-rolling.try1.jpg",
+     "semantic": {
+      "what_i_see": "A faceted stone sphere with a mottled grey-brown surface and a lighter horizontal sedimentary band, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A faceted stone sphere with a mottled grey-brown surface and a lighter horizontal sedimentary band, isolated on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one single object: a textured sphere or 3D material preview ball (second guess: an asteroid or rock planet model). It has no moving parts, doors, drawers, lids, legs, or handles. The object is completely solid with sharp, faceted rock fractures, chips, and chiseled edges. Its texture resembles rough granite or sandstone, dominated by speckled grey, tan, and yellowish-ochre tones, with a distinct horizontal whitish/light-beige mineral vein or band running across its center. The sphere is completely within frame, centered, and uncropped. The background is a solid, uniform, vivid blue (chroma blue) with no visible floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5344,
+      "soft": 0.0029,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9984,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 13
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4122,
+   "tokens_out": 1094,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "lever-floor": {
+   "id": "lever-floor",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/lever-floor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset depicting a rusty iron mechanical lever mounted on a rectangular cobblestone base, set against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset depicting a rusty iron mechanical lever mounted on a rectangular cobblestone base, set against a solid vibrant blue background.",
+       "details": "The image features no text, labels, or watermarks. It depicts a single isolated object, best described as a stylized mechanical switch lever, or alternatively a fantasy dungeon gate mechanism. The structure consists of a rectangular base made from two tiers of carved, chipped grey stone blocks, topped by a heavy rectangular iron plate secured with four faceted domed rivets (one at each corner). A central rectangular slot penetrates the iron plate, through which an angled cylindrical iron rod extends, capped by a faceted spherical metal handle. The lever is tilted backward at approximately a 60-degree angle. The materials consist of rough, weathered light grey stone and dark aged iron with visible patches of reddish-brown rust and wear. The entire object is fully visible and not cropped by the frame. The background is a completely uniform, flat chroma-key blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2943,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4152,
+   "tokens_out": 1441,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trap-dart-wall": {
+   "id": "trap-dart-wall",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-dart-wall.try1.jpg",
+     "semantic": {
+      "what_i_see": "A carved stone dungeon dart trap wall featuring twelve screaming face sculptures with open-mouthed apertures and three darts lying on its lower ledge, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Includes extra dart projectiles resting on the lower ledge instead of depicting only the stone slab"
+      ],
+      "blind": {
+       "what_i_see": "A carved stone dungeon dart trap wall featuring twelve screaming face sculptures with open-mouthed apertures and three darts lying on its lower ledge, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The scene displays one main composite object: a vertical stone trap wall with a lower ledge upon which three individual dart or bolt projectiles rest. The rectangular wall is bounded by a weathered greenish-bronze stone border and is organized into three stacked horizontal rows of four stylized, scowling stone faces (twelve faces total). Each face features deeply furrowed brows and a gaping, hollow mouth cavity that serves as an aperture for launching darts. On the projecting lower ledge, three projectiles with brown wooden shafts, dark metallic pointed heads, and four pale rear fins are resting flat. The masonry consists of textured light-grey and pale-beige stone bricks with green moss and patina buildup. The object is depicted in its entirety without cropping, shown from a three-quarter perspective floating against a completely flat, uniform blue background with no floor or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-dart-wall.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset depicting a stone wall panel featuring twelve sculpted grotesque faces with wide-open mouths, set inside a greenish weathered frame on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset depicting a stone wall panel featuring twelve sculpted grotesque faces with wide-open mouths, set inside a greenish weathered frame on a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single standalone object: a carved stone wall section or trap mechanism panel (second guess: an ancient dungeon gargoyle spouter relief). The panel consists of a rectangular frame with beveled corner caps and side pillars, an upper lintel, and a protruding three-block stone base at the bottom. Inside the panel surface, there are twelve sculpted stone heads/grotesque faces arranged in a grid of three rows and four columns. Each face features exaggerated angry or grimacing expressions with stylized brow ridges, foliage-like or horned hair, and a rounded, deep hollow hole for an open mouth. None of the mouths have coverings, exposing dark, hollow interiors suitable for shooting traps or fountains. The materials resemble textured beige/tan sandstone or limestone with green moss creeping into the cracks, while the outer frame has a greenish-brown oxidized bronze or weathered greenstone appearance. The entire object is fully visible and not cropped by the frame. The background is a flat, uniform, bright saturated blue screen with no floor plane or drop shadow. There are no people, text, or additional scenery."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5078,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.997,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5996,
+   "tokens_out": 4307,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "block-sliding": {
+   "id": "block-sliding",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/block-sliding.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric illustration of an ancient carved stone cube with geometric runes and mossy bronze corner reinforcements against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric illustration of an ancient carved stone cube with geometric runes and mossy bronze corner reinforcements against a solid blue background.",
+       "details": "There are no watermarks, text, or labels in the image. The image contains one single object: a carved stone block or relic cube (second guess: an ancient puzzle box or fantasy gaming die). It has no legs, wheels, doors, drawers, lids, or handles. The object is a solid cubic form with three faces visible from an isometric perspective. Each visible face has a recessed square panel containing carved geometric/runic symbols (an abstract arrow/leaf symbol on the left face, an angular hook-like rune on the right face, and a hooked geometric rune on the top face). Seven weathered bronze or brass bracket-style corner caps are visible along the corners and vertices. The primary material is textured, weathered grey and tan stone with green moss and yellow-brown lichen growing in cracks and along edges. The object is completely intact and uncropped. The background is a solid, uniform bright blue field with no ground plane, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5624,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9961,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4158,
+   "tokens_out": 1590,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "statue-rotating": {
+   "id": "statue-rotating",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/statue-rotating.try1.jpg",
+     "semantic": {
+      "what_i_see": "A carved weathered stone statue of a hooded monk or wizard holding a tall staff, standing on a circular gear-rimmed stone pedestal against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A carved weathered stone statue of a hooded monk or wizard holding a tall staff, standing on a circular gear-rimmed stone pedestal against a solid blue background.",
+       "details": "The image features a single standalone object: a stylized stone figurine or statue set centrally against a completely uniform bright blue background. There is no visible text, label, or watermark. The statue depicts a humanoid figure in flowing, faceted robes with a deep hood that completely shadows its face. The figure holds a tall hexagonal stone staff with a multifaceted head in its right hand, while its left hand points or curls slightly forward from a wide draped sleeve. The figure stands atop a round pedestal consisting of three tiered sections: an upper tiled circular stone floor, an intermediate green-and-bronze oxidized cog/gear ring featuring a small downward-pointing triangular marker at the front, and a lower base made of curved stone masonry blocks. Patches of greenish moss or lichen are weathered onto the rough beige-grey stone surfaces throughout. The entire statue and pedestal are fully captured within the frame without cropping, casting no shadows onto the backdrop.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.277,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9935,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4164,
+   "tokens_out": 1403,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "skeleton-chained": {
+   "id": "skeleton-chained",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/skeleton-chained.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D digital model of a human skeleton chained to a weathered stone wall and seated on a stone bench, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D digital model of a human skeleton chained to a weathered stone wall and seated on a stone bench, displayed against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image shows a single composite object representing a dungeon wall prop or tabletop miniature asset. It consists of a tall rectangular grey stone slab with chipped edges and mossy green patches, featuring an integrated raised stone block seat and a lower stone footrest base. Seated upon the block is a complete ivory-yellowish human skeleton wearing tattered, decayed brownish-grey loincloth rags around its pelvis. The skeleton's skull is bowed forward, its rib cage exposed, and its arms are raised upward at the sides, where both wrists are locked in heavy, rusted iron cuffs. Two short iron chains (approximately 4\u20135 links each) suspend the cuffs from large circular iron rings bolted into the upper face of the stone slab. The skeleton's legs are positioned forward with knees bent, and both bony feet rest flat on the lower base step. There are no doors, drawers, or moving parts. The object is entirely contained within the frame with no cropping, set against a completely flat, uniform chroma-blue background with no cast shadows or ground surface.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3087,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9939,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4185,
+   "tokens_out": 2077,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "statue-guardian": {
+   "id": "statue-guardian",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/statue-guardian.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone statue depicting a plate-armored soldier holding a large shield, set on a low stone plinth against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone statue depicting a plate-armored soldier holding a large shield, set on a low stone plinth against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one main object: a carved stone statue of a medieval or fantasy knight (or stone guardian / golem). The statue consists of a helmeted head with a defined face, broad shoulders with segmented pauldrons, a breastplate, two armored arms ending in blocky gauntlets resting on the upper edge of a large kite-like shield, two armored legs standing upright, and a flat rectangular pedestal made of stone blocks beneath the feet. Green moss or vegetation grows in crevices on the shoulders and around the base and bottom of the shield. The entire statue and plinth are rendered in a light brownish-gray, chiseled stone texture with stylized polygonal facets. The entire statue is fully visible and not cropped by the frame. The background is a uniform, solid, bright blue chroma screen with no shadows, floor, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2687,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9928,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4148,
+   "tokens_out": 1610,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "orb-socket-pedestal": {
+   "id": "orb-socket-pedestal",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/orb-socket-pedestal.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized weathered stone pedestal supporting a carved spherical orb held by decorative green-patinated metal brackets, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized weathered stone pedestal supporting a carved spherical orb held by decorative green-patinated metal brackets, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single object: an ancient or fantasy-style stone pillar/pedestal with an orb (second guess: a decorative garden plinth or arcane shrine monument). It consists of a stepped, chamfered octagonal/square base, a faceted vertical column shaft with inset carved panels, an expanded upper capital, and a round stone sphere resting on top held in place by three visible curved metal claws or brackets (likely four in total symmetrically). The brackets feature a bronze/brass border with a textured turquoise-green verdigris patina. The main body is rendered from weathered grey and brown stone showing surface cracks, edge chipping, and subtle mossy green/yellow aging. There are no moving parts, lids, doors, or drawers. The object is completely intact and uncropped within the frame. The background is a flat, uniform, vibrant blue screen with no floor surface or drop shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2949,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "blue background patches remaining between the stone ball and claws"
+      ]
+     },
+     "chroma_gate": {
+      "ok": false,
+      "problems": [
+       "unremoved blue background visible between the stone ball and the right claw"
+      ]
+     },
+     "verdict": "mask_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/dun/work/orb-socket-pedestal.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of an ancient weathered stone pedestal holding a faceted stone sphere, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of an ancient weathered stone pedestal holding a faceted stone sphere, isolated against a solid blue background.",
+       "details": "There is no text, label, or watermark. The image contains one single object: a stone pedestal or pillar (second guess: an ornamental finial or garden monument). It features a stepped square-to-octagonal base, an upright pillar shaft with recessed rectangular panels on each visible facet, a flared octagonal capital forming a shallow basin, three visible curved green claws or prongs (likely four in total symmetrically), and a large faceted stone sphere resting on top. There are no moving parts, doors, drawers, or lids. The object is rendered in a hand-painted/stylized art style made of weathered, moss-stained greyish-brown stone with greenish tint, and patinated green/bronze metal or jade-like brackets. The object is shown whole and is not cropped. The background is a flat, uniform bright blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2428,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9916,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 10658,
+   "tokens_out": 5078,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chair-interrogation": {
+   "id": "chair-interrogation",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/chair-interrogation.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a wooden restraint chair featuring heavy iron fittings, leather straps with buckles, and a metal base, centered on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a wooden restraint chair featuring heavy iron fittings, leather straps with buckles, and a metal base, centered on a solid blue background.",
+       "details": "There are no text labels, watermarks, people, or background scenery present. The image depicts a single primary object: a restraint chair (best name) or an execution/torture chair (second guess). The chair is constructed from chunky brown wooden planks and posts, reinforced with thick grey iron bands and dome-headed rivets. Its backrest is made of three vertical wooden planks clamped by an arched metal band across the top and side metal supports. The horizontal seat rest is supported by thick wooden legs and central supports mounted into a heavy rectangular metal or stone base plate with rounded bolt heads, including a low metal footrest bar attached near the front. There are four visible reddish-brown leather restraint straps equipped with gold-coloured square buckles: two strapped over the front corners of the armrests and two wrapped around the lower sections of the front legs. The chair is entirely rigid with no moving lids, doors, or drawers. The object is completely contained within the frame, showing no cropping, set against a completely uniform, flat, bright blue background with no environmental shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3968,
+      "soft": 0.005,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9943,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4186,
+   "tokens_out": 2319,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "table-torture-tools": {
+   "id": "table-torture-tools",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/table-torture-tools.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden workbench topped with various medieval-style tools and a coiled rope, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden workbench topped with various medieval-style tools and a coiled rope, set against a solid bright blue background.",
+       "details": "The image features no text, labels, or watermarks. The central subject is a sturdy, rustic wooden workbench or low table constructed from thick wooden planks. It has four chunky rectangular legs reinforced with horizontal wooden stretchers near the lower section. Arranged on top of the workbench from left to right are: a large pair of metallic serrated tongs or pincers, a cylindrical metal rod with a green wrapped grip, a pointed metal spike/chisel with a green wrapped grip, a small square-headed metal hammer with a green-banded handle, a roll of brown leather holding five miniature carving/lockpicking tools (chisel, curved pick, arrowhead pick, three-pronged fork, and ring tool), and a neatly coiled circle of thick tan rope. The wood is warm brown with visible grain, notches, and weathering. The metals are dark grey with highlights and rust stains. The entire assembly is fully visible and not cropped. The background is a flat, uniform, vibrant blue screen with no shadows cast on the ground, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.4234,
+      "soft": 0.007,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9858,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "tabletop inside the pincers jaws was mistakenly removed and replaced with background"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 6586,
+   "tokens_out": 3599,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "gold-bars": {
+   "id": "gold-bars",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/gold-bars.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, stepped pyramid stack of gold bullion bars set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, stepped pyramid stack of gold bullion bars set against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single composite structure consisting of multiple rectangular gold bars (gold ingots or bullion; second guess: yellow bricks) arranged in a neat pyramid or tiered stack. Each ingot has a standard trapezoidal prism shape with softened, rounded corners and an indented circular ring stamp centered on its top surface. The bars are painted in warm golden-yellow and amber tones with lighter yellow edge highlights and slightly mottled textures. The stack has four visible tiers, entirely uncropped and centered within the frame. There are no doors, drawers, legs, or moving parts. The background is an entirely flat, uniform, vibrant cobalt/royal blue with no scenery, floor surface, or drop shadows, giving the object an isolated digital asset appearance.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3683,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9925,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4081,
+   "tokens_out": 1267,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "dun-treasure-hoard": {
+   "id": "dun-treasure-hoard",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/dun-treasure-hoard.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon pile of treasure composed of gold coins, faceted gemstones, two chests, three swords, two urns, and a shield, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon pile of treasure composed of gold coins, faceted gemstones, two chests, three swords, two urns, and a shield, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The central subject is an island or mound of treasure consisting of hundreds of round gold coins forming a rounded platform. Embedded in and resting on top of the pile are several distinct items: two wooden treasure chests (the upper-left chest is open, revealing gold coins and jewels inside, while the upper-right chest is closed with a curved wooden lid and iron reinforcement bands); three short swords or daggers stuck vertically or at an angle into the coins, featuring straight blades, simple crossguards, and round pommels; one round wooden shield on the left with a reddish-brown wooden face, a central bronze boss, and a studded metal rim; two golden bulbous urns or pots without handles (one on the left, one on the right); and numerous large, faceted ruby-red and emerald-green gemstones scattered throughout the coins. Materials appear to be stylized wood, gold metal, iron/steel, and cut crystal/gemstones with smooth painterly textures. The entire treasure cluster is completely contained within the frame with no edges cropped. The background is a uniform, flat, solid bright blue with no floor texture, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4697,
+      "soft": 0.005,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9946,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4232,
+   "tokens_out": 1599,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "strongbox-stack": {
+   "id": "strongbox-stack",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/strongbox-stack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical stack of three heavy, weathered iron chests secured with padlocks, centered against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical stack of three heavy, weathered iron chests secured with padlocks, centered against a solid vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features three separate rectangular chests stacked neatly on top of one another from largest at the bottom to smallest at the top (or one stacked tower of three strongboxes/trunks). Each chest has a fully closed lid reinforced with thick metal strapping and round rivets or studs at the corners and edges. Each chest features a frontal latch/hasp locked by a rectangular padlock: the top padlock is brass or dull gold with a keyhole, while the middle and bottom padlocks are dark iron matching the chests. On the right visible side of each chest is a circular drop-ring metal carrying handle (totaling 3 visible side handles). The material appears to be weathered, oxidized dark iron or steel with mottled brown rust patches and rough, stylized textures. The entire stack is fully in frame and not cropped. The background is an entirely flat, uniform chroma-key blue with no visible floor, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5339,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9957,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4160,
+   "tokens_out": 1361,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "nest-monster": {
+   "id": "nest-monster",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/nest-monster.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted video game asset of a large nest filled with three speckled eggs, interspersed with bones, cloth strips, and damaged armor against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted video game asset of a large nest filled with three speckled eggs, interspersed with bones, cloth strips, and damaged armor against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single composite object: a stylized fantasy creature nest, possibly for a griffin, raptor, or giant bird. At the center of the nest are three large, off-white eggs covered in mottled brown and mossy-green speckles, nestled in a bed of pale feathers and fluff. The outer ring of the nest is constructed from thick, chunky brown wooden sticks and branches. Integrated into the structure are various scavenged items: several weathered ivory-colored bones (including leg bones and fragments), tattered fabric scraps in crimson red, olive green, and frayed off-white, a dented steel chestplate or gorget segment with star/flower-shaped engravings on the front-left, and a cracked red wooden kite shield with a riveted metal border split into two pieces on the front-right. The entire object is fully visible and not cropped, viewed from a three-quarters elevated perspective. The background is a flat, uniform, bright chroma-key blue with no floor, scenery, or cast shadows."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3821,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9948,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4181,
+   "tokens_out": 1425,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "web-cocoon": {
+   "id": "web-cocoon",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/web-cocoon.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D digital model of a humanoid figure entirely bound in thick, twisted cream-colored bandages with one brown shoe showing at the base, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D digital model of a humanoid figure entirely bound in thick, twisted cream-colored bandages with one brown shoe showing at the base, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object: a stylized 3D miniature of an upright mummified figure (best name: mummy miniature; second guess: bound cocoon statue). The figure stands upright with its head bowed slightly forward and features entirely obscured under layers of wrapped cloth; its arms and torso are tightly bound within vertical, rope-like twists of bandages that coalesce into a wide, pooling organic base. No distinct arms or legs are individually separated, though a single brown leather shoe or boot toe peeks out from an opening at the bottom center. The object is rendered with sculpted textures painted in off-white, cream, and beige with light brown shading in the crevices, while the exposed shoe is matte dark brown. The figurine is completely uncropped and centered within the frame. The background is a flat, uniform, bright blue chroma color with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2668,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9935,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4160,
+   "tokens_out": 1615,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "adventurer-remains": {
+   "id": "adventurer-remains",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/adventurer-remains.try1.jpg",
+     "semantic": {
+      "what_i_see": "A full-body model of an armored skeleton lying flat on a tattered red cloth with a sword and shield, set against an isolated solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A full-body model of an armored skeleton lying flat on a tattered red cloth with a sword and shield, set against an isolated solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one main composite object: a dead knight or skeletal warrior lying in state (second guess: a tomb effigy or 3D prop of a fallen armored soldier). The figure comprises a human skull wearing a rusted steel kettle hat, skeletal arms and fingers visible beneath rusted iron plate armor (breastplate, pauldrons, arm guards, greaves, and sabatons/boots), an unclasped rusted broadsword lying beside the right hand pointing toward the feet, and a circular wooden shield with worn green paint, an iron rim, and a central round metal boss resting atop the lap. The body lies on top of a shredded, frayed red/maroon mantle or cloak, which rests on a brown leather roll or bolster at the head. Materials include weathered bone, heavily rusted and oxidized iron/steel, aged green-painted wood planks, and tattered red textile. The entire figure is completely visible and not cropped. The background is a flat, uniform, bright chroma-blue with no ground, cast shadows, scenery, or living people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3268,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9943,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4189,
+   "tokens_out": 1624,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "collapse-rubble": {
+   "id": "collapse-rubble",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/collapse-rubble.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital 3D model of an angular rocky mound with a broken wooden beam protruding from its slope, set against a flat blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital 3D model of an angular rocky mound with a broken wooden beam protruding from its slope, set against a flat blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single composite object consisting of a pile of angular rocks, boulders, and rubble, likely intended as a video game or environment asset (second guess: a miniature diorama piece representing a cave-in or landslide). Protruding diagonally toward the upper right from the rock scree is a single splintered, broken wooden beam or log with jagged fracture fibers at the tip. The rocks are textured in shades of tan, beige, brown, and muted gray with sharp, faceted edges and stone fracture patterns. The entire rock formation is completely visible without cropping and is isolated against a solid, uniform royal blue chroma background with no floor or drop shadows. There are no people or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5123,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9961,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4103,
+   "tokens_out": 1372,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rubble-pile": {
+   "id": "rubble-pile",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/rubble-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric 3D asset depicting a pile of weathered ancient stone blocks, rubble, and a broken fluted column piece isolated against a vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric 3D asset depicting a pile of weathered ancient stone blocks, rubble, and a broken fluted column piece isolated against a vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks present. The subject is a single clustered pile of stone ruins or architectural rubble (second guess: stylized rock/masonry terrain prop). The structure consists of several large chiseled stone blocks with visible cracks, fractures, and eroded edges, a broken fluted column fragment lying horizontally with ridged grooves in the lower-right area, and various smaller gravel, pebbles, and cracked stone shards scattered around and between the larger pieces. The surfaces are rendered in earthy grey-brown and sandy beige tones, highlighting weathered masonry. The object is completely contained within the frame without cropping. The background is a solid, completely uniform saturated blue field with no shadows cast on it, no floor plane, and no people or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2974,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9947,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4089,
+   "tokens_out": 1416,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pillar-broken": {
+   "id": "pillar-broken",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/pillar-broken.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D rendering of a weathered, broken classical fluted stone column resting on a square base against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D rendering of a weathered, broken classical fluted stone column resting on a square base against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single isolated object: a broken classical column or pillar (second guess: a miniature architectural game asset). It consists of a square stone plinth base, a rounded torus molding, and a fluted shaft composed of three stacked drum sections. The lower two sections are intact cylindrical segments with deep vertical flutes, while the top section is violently fractured and sheared off at an irregular angle with jagged edges. Visible cracks run vertically down the top and middle drums. The material appears to be weathered sandstone or limestone, colored in mottled shades of beige, tan, warm grey, and greenish-olive moss or algae stains. The entire object is centered and fully visible, with none of it cropped by the frame. The background is a completely uniform, solid blue screen with no floor plane, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3033,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4135,
+   "tokens_out": 1247,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "carcass-ribcage": {
+   "id": "carcass-ribcage",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/carcass-ribcage.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy bone creature featuring a horned bovine skull and an elongated ribcage that acts as multiple walking legs, set against a flat blue background.",
+      "ok": false,
+      "problems": [
+       "Depicted as a walking fantasy bone creature with rib-legs rather than an animal ribcage and spine lying on the ground"
+      ],
+      "blind": {
+       "what_i_see": "A stylized fantasy bone creature featuring a horned bovine skull and an elongated ribcage that acts as multiple walking legs, set against a flat blue background.",
+       "details": "There is no text, label, or watermark visible. The image contains one single object: a fantasy bone beast or undead crawler (best guess), or a stylized 3D model of an armored bone-carapace monster (second guess). The creature has a horned bovine or bison skull at the front with two textured brown-toned curved horns, empty eye sockets, and a nasal opening. Its torso is constructed from a dorsal spinal column with prominent vertebrae crests and curved ribs that extend directly downward to serve as legs with flattened foot-like ends; six rib-legs are prominently visible along the front/flank, along with partial views of matching legs on the far side. A short segmented tail made of five small vertebrae extends from the rear. Beneath the spine and draped between the upper portions of the ribs is tattered, torn reddish-brown dried flesh or hide. There are no doors, lids, or drawers. Materials resemble sculpted, aged beige/cream bone with carved cracks and shading, dark brown horn material, and dark crimson/red-brown dried meat or leather. The entire creature is completely in view and not cropped by the frame. The background is a completely uniform, solid bright blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/dun/work/carcass-ribcage.try2.jpg",
+     "semantic": {
+      "what_i_see": "A 3D rendering of an animal skeleton, specifically a horned bovine carcass with attached ribs, spine, skull, and remnants of red meat or dried flesh, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D rendering of an animal skeleton, specifically a horned bovine carcass with attached ribs, spine, skull, and remnants of red meat or dried flesh, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The image contains one single composite object, best identified as a bovine carcass or animal skeleton (second guess: a dinosaur or fantasy creature fossil/ribcage prop). The object consists of a horned skull with two curved horns pointing downwards and outwards, eye sockets, and a nasal cavity; a segmented vertebral column (spine) extending along the top; a ribcage consisting of approximately eight to nine visible pairs of curved ribs; remnants of ragged, dried reddish-brown flesh or hide stretched along the upper portions of the ribs beneath the spine; and a short tail section composed of smaller vertebrae protruding at the rear right. It has no legs, feet, wheels, doors, or drawers. There are no moving parts or openable compartments. The materials appear to be aged, yellowish-ivory bone with realistic surface texture, and dry, fibrous, dark-red decayed meat or hide. The object is completely intact and fully contained within the frame without being cropped. The background is a flat, uniform, vibrant cobalt-blue chroma-key color with no floor, scenery, shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2838,
+      "soft": 0.0068,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9876,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6058,
+   "tokens_out": 3476,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "column-drums-fallen": {
+   "id": "column-drums-fallen",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/column-drums-fallen.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D rendering of a fallen ancient stone column lying horizontally in broken fluted sections over scattered rubble against a plain blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D rendering of a fallen ancient stone column lying horizontally in broken fluted sections over scattered rubble against a plain blue background.",
+       "details": "The image contains no text, labels, or watermarks. It depicts a single isolated 3D game asset representing a toppled, ruined classical column (or pillar ruin). The object consists of three thick, fluted cylindrical drum segments lying in a row along a diagonal axis, terminating at the upper-right in a stepped square pedestal/capital with cracked edges, all resting on a perimeter of small broken stones and gravel. There are no doors, drawers, legs, or moving parts. The material is chipped, weathered limestone or grey-beige stone with visible cracks, edge wear, and subtle ambient occlusion shading in a stylized video game art style. The asset is entirely contained within the frame without cropping. The background is a solid, uniform, vivid blue with no floor plane, environmental shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.269,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9949,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 9
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4128,
+   "tokens_out": 1231,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bridge-stone-slab": {
+   "id": "bridge-stone-slab",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/bridge-stone-slab.try1.jpg",
+     "semantic": {
+      "what_i_see": "An arched stone footbridge rendered in a stylized, isometric video game art style against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An arched stone footbridge rendered in a stylized, isometric video game art style against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks visible in the image. The image contains one single object, best described as a stone bridge or arch walkway (second guess: stone ramp or path section). It consists of an arched path made from five large rectangular stone paving slabs, bordered on each side by low stone curb blocks (approximately 11 individual stone blocks visible along the outer edge) set atop stacked stone block sides. There are no legs, wheels, doors, drawers, lids, or handles. The object is rendered with a hand-painted or stylized texture depicting weathered, chiseled rock in warm earthy shades of tan, beige, and slate grey with worn edges and light surface highlights. The bridge is completely uncropped and centered within the frame. The background is a completely flat, uniform, bright pure blue chroma screen with no ground plane, floor textures, or cast shadows. There are no people or other scenery elements present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2746,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9931,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4168,
+   "tokens_out": 1744,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sewer-pipe-mouth": {
+   "id": "sewer-pipe-mouth",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/sewer-pipe-mouth.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized brick sewer pipe section with a grey stone rim and dripping green slime, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized brick sewer pipe section with a grey stone rim and dripping green slime, centered against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single object: a masonry sewer pipe section (or drainage conduit / culvert; second guess: a brick well or tunnel opening). The object consists of a cylindrical body constructed of red-brown rectangular bricks with grey mortar lines, capped at the front circular opening by a rim composed of twelve carved grey stone blocks. A thick puddle of murky olive-green slime or ooze rests at the bottom inner edge of the opening and drips down over the rim in a teardrop shape. The pipe is wide open, offering a view into a dark interior lined with matching bricks that fades into complete blackness. The entire object is fully visible within the frame with no parts cropped. The background is a flat, uniform solid vibrant blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5237,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9962,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4135,
+   "tokens_out": 1277,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sewer-grate": {
+   "id": "sewer-grate",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/sewer-grate.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of an arched stone window or dungeon grate fitted with four rusted metal bars and dripping green slime, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of an arched stone window or dungeon grate fitted with four rusted metal bars and dripping green slime, centered against a solid blue background.",
+       "details": "Text/labels/watermarks: None. Separate objects: One single isolated game asset. Object identification: Best guess is an arched dungeon window or sewer grate; second guess is a medieval prison cell opening. Parts: A semicircular stone arch composed of 7 voussoirs/keystone blocks, supported by side jambs of stacked rectangular blocks with decorative protruding moldings near the springline; a stone base/sill made of rectangular blocks; 4 thick vertical cylindrical bars installed vertically within the opening; a dark interior recess behind the bars; and viscous olive-green slime pooled at the base of the bars dripping down the front of the sill. State: The opening is blocked by fixed bars; the interior behind the bars is dark and shallowly recessed, showing no deep visibility. Materials and colours: Weathered grey-brown stone with hand-painted stylized cracks, chips, and greenish-yellow moss patches; textured reddish-brown and dark grey rusted iron bars; glossy translucent green ooze; and a matte dark charcoal/mossy backing. Framing: The object is completely contained within the frame, whole and not cropped. Background: Flat, uniform solid pure blue (#0000FF style chroma key) with no shadows or floor. People, text, or scenery: None."
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.5292,
+      "soft": 0.0119,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.8787,
+      "verdict": "review",
+      "why": [
+       "BiRefNet vs chroma IoU 0.8787"
+      ],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "interior wall behind bars is partially cut away with jagged holes"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 6590,
+   "tokens_out": 2122,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "shrine-wayside": {
+   "id": "shrine-wayside",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/shrine-wayside.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone roadside shrine featuring a hooded figure statue within an arched niche, flanked by two candles, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone roadside shrine featuring a hooded figure statue within an arched niche, flanked by two candles, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single composite object: a fantasy-style stone wayside altar or shrine (second guess: tombstone monument). The structure rests on a stepped base made of three tiers of chiseled stone blocks. Above the base is an upright structure with a framed lower stone panel topped by a protruding shelf supported by two stone corbel brackets. Resting on the shelf is a central small stone bowl and two dripping cream-colored wax candles with black wicks, one on each side. Above the shelf is a pointed stone arch forming a recessed niche that houses a carved stone statue of a hooded, faceless monk or cloaked figure with draped robes and tucked hands. The structure is capped with a steeply pitched gabled stone roof. The materials are weathered grey and brownish-tan stone with patches of green moss in the crevices and joints. The object is completely intact and not cropped by the frame. The background is a flat, uniform solid bright blue with no cast shadows, floor, or scenery, presenting the object as an isolated 3D game asset.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3056,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4225,
+   "tokens_out": 1425,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--cut-rock--s3": {
+   "id": "wall-straight--cut-rock--s3",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/wall-straight--cut-rock--s3.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical, chiseled stone wall slab with an arched niche carved into its upper face, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical, chiseled stone wall slab with an arched niche carved into its upper face, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single object, an upright rectangular block of carved rocky wall or stone stele. The block has a textured, faceted rock surface rendered in earth tones of brown, tan, and grey, with green moss patches clinging to the lower portion. Carved into the upper center of the front face is a single recessed arched niche with a flat ledge at its bottom and a darkened, shadowed interior. The object is completely visible without any cropping. The background is a flat, uniform, bright blue with no shadows or floor.",
+       "reference_differences": [
+        "The candidate image features an arched hollow niche/recess carved into the upper-middle section of the front rock face, which is entirely absent in the reference image.",
+        "The crack patterns and faceted planes around the center of the slab in the candidate image are reshaped around the carved niche, whereas the reference shows an unbroken, continuous cracked rock surface across that area.",
+        "The candidate image shows dark shading/soot-like discoloration directly above and inside the arched niche."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.338,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9955,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 16
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5400,
+   "tokens_out": 1155,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--cut-rock--s2": {
+   "id": "wall-straight--cut-rock--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/wall-straight--cut-rock--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted rectangular stone wall slab isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted rectangular stone wall slab isolated against a solid blue background.",
+       "details": "There is no text, label, or watermark visible. The image contains one single object: an upright, rectangular rock wall section or stone slab asset. It is a solid rectangular prism with chipped, faceted, and fractured stone surfaces, featuring a small faceted shelf-like protrusion near the lower-right side, and patchy green moss growing along the bottom edge. A prominent diagonal crack traverses from the upper-left down toward the right-center. The primary material is stone painted in earthy brown, tan, and gray tones with green moss at the base and a horizontal beige-yellow stripe across the upper third. The object is completely in frame and uncropped. The background is a flat, uniform, bright blue void with no visible floor, scenery, or cast shadows.",
+       "reference_differences": [
+        "The candidate image features a prominent horizontal lighter tan/yellowish stone band across its upper third, which is completely absent in the reference image.",
+        "In the candidate image, the primary deep crack begins near the top-left corner and cuts diagonally downward to the right, whereas in the reference image, the top fissure starts near the top center and runs more vertically downward before branching.",
+        "The overall stone facet patterns, fissures, and the shape of the protruding rock shelf on the lower right differ slightly in placement and contour compared to the reference image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3383,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 39
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5415,
+   "tokens_out": 1350,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-doorway--cut-rock": {
+   "id": "wall-doorway--cut-rock",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/wall-doorway--cut-rock.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D-rendered stone archway or doorway frame against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D-rendered stone archway or doorway frame against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single object, best described as a stone archway or stone doorway frame (second guess: a stone portal or dolmen). The object consists of two vertical rectangular stone uprights connected at the top by a horizontal stone lintel, creating an open rectangular passage in the center. The center is entirely open, exposing the blue background through it. The structure is rendered in a hand-painted/stylized video game art style, depicting fractured, faceted brown and tan sedimentary or igneous rock with darker cracks and patches of green moss concentrated near the lower bases. The object is completely in frame and not cropped. The background is a flat, uniform, bright solid blue with no shadows or floor. There are no people or other scenery elements present.",
+       "reference_differences": [
+        "The candidate image features a large rectangular doorway opening carved completely through the center, forming a three-sided arch frame, whereas the reference image is a solid, continuous rectangular stone block or wall slab.",
+        "The interior stone faces lining the rectangular opening (the underside of the lintel and inside faces of the pillars) are visible in the candidate image.",
+        "The central rock surface and fracture patterns found on the solid face of the reference slab are hollowed out and absent in the candidate image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2347,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9928,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 135
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5490,
+   "tokens_out": 2516,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chest-treasure-open": {
+   "id": "chest-treasure-open",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/chest-treasure-open.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon illustration of an open wooden treasure chest overflowing with gold coins, a golden crown, two chalices, and gemstones, centered on a uniform vivid blue background.",
+      "ok": false,
+      "problems": [
+       "The chest lid is missing the metal cross-bands and rivets present on the reference object"
+      ],
+      "blind": {
+       "what_i_see": "A stylized cartoon illustration of an open wooden treasure chest overflowing with gold coins, a golden crown, two chalices, and gemstones, centered on a uniform vivid blue background.",
+       "details": "There is no text, label, or watermark visible. The image depicts a single primary object: a wooden treasure chest or coffer, overflowing with treasure. The chest consists of a rectangular lower box with four short round corner legs, heavy golden metal corner brackets secured with round studs or rivets, a central golden lockplate with a keyhole, and a curved wooden lid that is propped fully open. Inside and overflowing out of the chest is a massive pile of circular yellow-gold coins, cascading downwards over the front rim and covering the top half of the keyhole plate. Embedded within the pile are one golden crown with red hexagonal gems at the top center, two golden goblets or chalices (one on the upper-left, one on the right), three emerald-green faceted gems, and three ruby-red faceted gems. The primary materials depicted are warm brown wood and burnished yellow gold metal. The object is completely contained within the frame with no cropping. The background is a solid, flat, uniform royal blue with no floor, shadows, scenery, or people.",
+       "reference_differences": [
+        "The candidate image features a golden jeweled crown resting atop the coins, which is absent in the reference image.",
+        "The candidate image has two golden chalices/goblets (one on the left, one on the right), whereas the reference image has only one chalice (on the right).",
+        "In the candidate image, the gold coins overflow heavily, spilling over the front edge of the chest and draping down around the lock plate, whereas in the reference image the coins stay contained within the upper rim.",
+        "The metal banding and rivets on the open lid are visible in the reference image across the top and sides, whereas the candidate's lid lacks the front-facing metal cross-bands seen across the arch in the reference."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/dun/work/chest-treasure-open.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden treasure chest with golden metal trim, open and overflowing with gold coins, faceted gemstones, two golden chalices, and a golden crown, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden treasure chest with golden metal trim, open and overflowing with gold coins, faceted gemstones, two golden chalices, and a golden crown, set against a solid blue background.",
+       "details": "There is no text, label, or watermark visible. The image contains one main composite object: a treasure chest (second guess: lockbox or storage coffer). The chest consists of a main rectangular wooden box supported by four short, rounded golden feet, reinforced with chunky golden corner brackets with raised circular rivets, and a hinged arched lid propped open toward the back. The lid is fully open, revealing that the interior is packed to overflowing with treasure; coins cascade down over the front lip and partially cover the front wood paneling and the golden lock plate. Recognizable contents inside include dozens of rounded golden coins, several faceted octagonal gemstones in deep red and green, two golden chalices (one on the left side and one on the right), and a five-pointed golden crown adorned with red gems positioned near the rear center. The materials appear to be carved brown wood and polished yellow metal/gold. The object is completely intact and fully enclosed within the frame, not cropped. The background is a flat, uniform bright blue with no floor or shadows depicted.",
+       "reference_differences": [
+        "The candidate includes a golden crown with red jewels atop the treasure pile, which is absent in the reference.",
+        "The candidate features two golden chalices (one on the left and one on the right), whereas the reference only contains a single chalice on the right.",
+        "In the candidate, gold coins actively spill over the front edge and cascade down the front panel around the lock, while in the reference, the coins remain contained inside the chest.",
+        "The candidate chest appears more heavily filled and overflowing compared to the reference.",
+        "The perspective in the candidate is slightly more frontal and looking downward compared to the three-quarter view of the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5168,
+      "soft": 0.0052,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8644,
+   "tokens_out": 6020,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "door-face-carved--leaf": {
+   "id": "door-face-carved--leaf",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/door-face-carved--leaf.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized rectangular stone slab carved with a screaming face covered in moss, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized rectangular stone slab carved with a screaming face covered in moss, isolated on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The image contains one single object, best described as a carved stone relief slab or a fantasy stone wall block (second guess: an ancient stone totem or gargoyle tablet). The object consists of a tall rectangular block featuring a carved, angry face with two blank stone eyes, a furrowed brow, a broad nose, and a large, wide-open gaping mouth forming a deep recessed cavity. The mouth opening is empty, revealing a concave, carved stone interior. The object is rendered with stylized, hand-painted chiseled textures in shades of grey, beige, and olive green, with moss settling in the crevices between stone segments. The object is completely visible and not cropped. The background is a uniform, flat solid blue without floor plane or cast shadows. There are no people, text, or scenery present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4314,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9949,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4163,
+   "tokens_out": 1302,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trap-flame-jet": {
+   "id": "trap-flame-jet",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-flame-jet.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy dragon-head cannon or trap sculpted from patinated bronze, mounted atop a square stone block against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy dragon-head cannon or trap sculpted from patinated bronze, mounted atop a square stone block against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image displays a single isolated object: a dragon-shaped turret or trap nozzle mounted on a stone pedestal, second guess being a fantasy gargoyle fountain spout. The object consists of two main sections: a carved, rectangular stone base made of multiple chiseled limestone blocks with visible grooves, cracks, and weathered edges, and a sculpted dragon or gargoyle head positioned toward the back-right quadrant of the top surface. The dragon head has two prominent horns, ridged brow plates, reptilian eyes, a snout, and sharp fangs lining an agape mouth. Inside the open maw sits a cylindrical bronze or iron cannon barrel pointing forward. The dragon is rendered in polished golden-brown brass or bronze with heavy green-blue (verdigris) oxidation in the crevices. The top of the stone base shows black soot and scorch marks surrounding and in front of the dragon head. The entire object is complete and uncropped, set against a completely flat, uniform chroma blue background with no cast shadows or environment.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.3606,
+      "soft": 0.0085,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9878,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "semi_transparent_object_edge",
+       "background_artifact_on_right_edge"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 6575,
+   "tokens_out": 2931,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "trap-crossbow": {
+   "id": "trap-crossbow",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-crossbow.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a loaded ballista or heavy mounted crossbow resting on a wooden tripod stand against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a loaded ballista or heavy mounted crossbow resting on a wooden tripod stand against a bright blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The scene contains a single primary object: a stylized medieval ballista (second guess: mounted siege crossbow). The structure consists of a base with three thick, splayed wooden legs reinforced with metal bolts, an upper wooden frame with green-painted panels, curved heavy grey metal bow arms secured by bolted metal collars, a thick twisted rope bowstring, and a single wooden bolt with a chiseled metal arrowhead and red feathered fletching loaded in the flight groove. An additional wooden peg wrapped with rope hangs/attaches near the front leg. The materials are textured brown wood grain, pitted dark grey metal, green painted wood accents, beige rope, and crimson feathers. The object is completely uncropped and centered. The background is a flat, uniform, solid bright blue with no cast shadows or ground plane.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.3363,
+      "soft": 0.0085,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9863,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "leftover blue background patch in the slot at the top rear of the crossbow body"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 6530,
+   "tokens_out": 4429,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "obelisk-rune": {
+   "id": "obelisk-rune",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/obelisk-rune.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized grey stone obelisk with carved geometric runes resting on a tiered stone block base, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized grey stone obelisk with carved geometric runes resting on a tiered stone block base, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single complete object, best described as a stone obelisk or monument, with a second guess being a fantasy game asset or rune pillar. It consists of a tall, four-sided tapering stone shaft ending in a pointed pyramidion, mounted on a two-tiered stepped plinth made of rounded, weathered stone blocks. The two visible faces of the pillar are deeply engraved with runic geometric patterns, with the recesses highlighted in a dull yellowish-gold or rust-brown hue. The stone surface exhibits stylized chips, cracks, edge wear, and mottled grey textures. The object is completely intact, uncropped, and centered within the frame. There are no doors, lids, handles, people, or scenery. The background is a flat, uniform bright blue chroma-key screen with no ground plane or cast shadow.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2077,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9922,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4131,
+   "tokens_out": 1221,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "puzzle-dial-pillar": {
+   "id": "puzzle-dial-pillar",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/puzzle-dial-pillar.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone cylindrical puzzle column with four rotating rings carved with mystical symbols, centered on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone cylindrical puzzle column with four rotating rings carved with mystical symbols, centered on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object, best described as an ancient stone puzzle pillar or rotating rune column, with a second guess of a stone cryptex device. It features a circular, domed stone cap composed of segmented radial stones, four distinct cylindrical rotating tiers separated by tarnished bronze rings coated with greenish verdigris, and a wide circular stone base composed of rounded rectangular stone segments. Each of the four tiers contains rectangular stone tiles carved with distinct relief symbols, including a sun with radiating triangular rays, a spiral, a crescent moon, double wavy lines, a triangle, and an eye motif. There are no doors, drawers, lids, legs, wheels, or handles. The object is rendered from weathered grey-brown stone with patches of moss or green lichen and aged bronze spacers. The object is completely intact and uncropped. The background is a solid, uniform, bright chroma blue with no floor surface, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3713,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9965,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4153,
+   "tokens_out": 1372,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chain-pile": {
+   "id": "chain-pile",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/chain-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A mound of thick, heavily rusted chain links with a large curved metal hook draped across the front right, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A mound of thick, heavily rusted chain links with a large curved metal hook draped across the front right, isolated against a solid blue background.",
+       "details": "There are no visible texts, labels, or watermarks. The scene contains a single central object: a compact, mound-shaped tangle of interlocking rusted chain links, alongside a thick, curved metal hook (resembling a crane or cargo hook) integrated into the right side and curling upward at its tip. The overall silhouette subtly resembles a brain or rounded clump. The object has no legs, wheels, doors, or drawers. It appears made entirely of corroded iron or steel, textured with pitted, weathered patches of orange, reddish-brown, dark brown, and dull metallic grey rust. The entire object is fully visible and not cropped by the frame. The background is a completely uniform, solid chroma-key blue with no cast shadows, floor surface, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3603,
+      "soft": 0.0029,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9968,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4092,
+   "tokens_out": 1298,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "whipping-post": {
+   "id": "whipping-post",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/whipping-post.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a weathered wooden punishment post with iron shackles and bloodstains, anchored in a stone base against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a weathered wooden punishment post with iron shackles and bloodstains, anchored in a stone base against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The scene consists of a single isolated object: a medieval-style wooden whipping post or execution post. It features a tall, vertical rectangular wooden beam set into a square, chiseled stone plinth at the base. The wood is a warm brown with pronounced grain texture, deep carved grooves, gouges, and reddish-brown bloodstains spattered across the upper and middle sections. Mounted on the upper portion are iron fittings: two large hanging rings on the left and right sides, and two dangling iron wrist shackles or manacles chained to brackets on the front face. The stone base is light grey with visible cracks and patches of greenish moss. The entire object is fully visible within the frame without cropping, set against a completely uniform solid bright blue background with no shadows or ground plane.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1797,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9915,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4137,
+   "tokens_out": 1856,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "gibbet-cage": {
+   "id": "gibbet-cage",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/gibbet-cage.try1.jpg",
+     "semantic": {
+      "what_i_see": "A tall, cylindrical rusted iron gibbet cage with a hinged door, resting on four short feet and containing a single human skull, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A tall, cylindrical rusted iron gibbet cage with a hinged door, resting on four short feet and containing a single human skull, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains two primary objects: a tall cylindrical iron hanging cage (or gibbet / torture cage) and a small human skull resting inside on the bottom floor. The cage features a circular hanging ring loop at its domed top, vertical thick iron bars, and four horizontal reinforcing iron bands secured with large rounded rivets. It has a single narrow vertical door on the front-right side attached with two blocky exterior hinges and secured by a horizontal slide bolt latch, which is fully closed. At the bottom, the circular base is supported by four stubby trapezoidal feet, each secured with a central rivet. Inside the cage, visible between the bars, a small ivory/cream-colored human skull sits facing slightly forward-right. The metal structure has a dark grey metallic texture heavily mottled with reddish-brown rust and wear. The entire object is centered and uncropped. The background is a completely flat, uniform solid bright chroma blue with no shadow or ground plane.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2271,
+      "soft": 0.006,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9878,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4202,
+   "tokens_out": 4770,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ball-and-chain": {
+   "id": "ball-and-chain",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/ball-and-chain.try1.jpg",
+     "semantic": {
+      "what_i_see": "A heavily weathered, rusty cast iron ball and chain with an open hinged cuff, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A heavily weathered, rusty cast iron ball and chain with an open hinged cuff, displayed against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains a single composite object: an antique ball and chain, also identifiable as a prisoner shackle or leg iron. The object consists of a heavy spherical iron ball with a welded mounting bracket, a short chain made of three interlocked oval iron links, and a hinged two-piece circular leg cuff or manacle. The cuff features a mechanical pin hinge on one side and two extended tabs with round holes on the opposing side, which are spread apart in an open position. The entire assembly is textured with dark charcoal-gray metal covered in extensive patches of coarse, pitted orange-brown rust. The object is completely intact, uncropped, and floats centrally across the frame without casting any cast shadows. The background is a flat, uniform, vibrant pure blue color with no people or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1796,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9888,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4129,
+   "tokens_out": 2492,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "coin-pile--s2": {
+   "id": "coin-pile--s2",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/coin-pile--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "Three burlap sacks surrounded by and spilling into a large mound of golden coins against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "One sack is open and spilling coins instead of all sacks being bulging and tied closed"
+      ],
+      "blind": {
+       "what_i_see": "Three burlap sacks surrounded by and spilling into a large mound of golden coins against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The primary objects are three burlap money sacks (or treasure bags) and an extensive mound consisting of dozens of round, thick gold coins. Two of the sacks are standing upright and tied closed tightly near their ruffled tops with thick braided rope; the third sack on the right is tilted on its side, open, with gold coins visibly spilling out from its interior onto the pile. The materials appear to be rough, woven tan burlap fabric, twisted natural fiber rope, and smooth, reflective painted yellow-gold metal. The entire cluster of objects is fully visible and not cropped by the frame. The background is a flat, uniform, solid chroma-key royal blue with no visible floor, scenery, shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/dun/work/coin-pile--s2.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D pile of thick gold coins topped with three tied burlap sacks, isolated against a uniform vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D pile of thick gold coins topped with three tied burlap sacks, isolated against a uniform vivid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The scene consists of three tied cloth sacks resting on top of a low, rounded heap composed of numerous thick, circular gold coins. Two of the sacks stand upright (one to the upper-left and one to the upper-right), while the third sack rests horizontally in the center foreground with its tied neck pointing toward the right. Each sack is tied tightly around the neck with an off-white braided rope knotted in front, leaving a ruffled opening at the fabric spout; inside view is not visible as the ties cinch the necks closed. The sacks have a warm tan or ochre painted burlap/canvas appearance. The coins are thick, smooth-edged discs with an uneven, hand-painted gold texture and yellow-orange shading. The entire pile is fully enclosed within the frame without being cropped. The background is a solid, uniform, flat saturated royal blue screen with no floor plane, environmental shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.437,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9937,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5851,
+   "tokens_out": 3596,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mimic-chest": {
+   "id": "mimic-chest",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/mimic-chest.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon mimic treasure chest with teeth, an eye for a lock, and a long purple tongue carrying three gold coins, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon mimic treasure chest with teeth, an eye for a lock, and a long purple tongue carrying three gold coins, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image features one primary composite object: a fantasy mimic chest (first guess: mimic monster chest; second guess: animated treasure chest). The chest consists of a wooden base and a curved hinged lid, reinforced with heavy grey metal brackets, studs, and corner fittings. The lid is partially open like a mouth, revealing a dark reddish inner cavity lined with sharp, ivory-colored conical teeth along both the upper and lower edges. A thick, textured purple tongue extends out over the front edge of the lower chest, bearing three yellow-gold coins on its surface. The central lock plate on the lid features a glowing yellow eye with a vertical slit pupil above a keyhole slot. The chest is made of warm honey-brown wood with pronounced grain lines and grey stone-textured or weathered metal fittings. The entire object is fully contained within the frame with no cropping. The background is a completely flat, uniform, vibrant cobalt/chroma blue with no floor, horizon, or shadows underneath the object. There are no people, additional scenery, or text present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5082,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4206,
+   "tokens_out": 3517,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "silver-plate-pile": {
+   "id": "silver-plate-pile",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/silver-plate-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A collection of antique-style pewter or tarnished metal tableware items grouped together against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A collection of antique-style pewter or tarnished metal tableware items grouped together against a solid blue background.",
+       "details": "There is no text, label, or watermark. The arrangement contains several related metal objects: a stack of four large round plates resting upright at an angle; one large pitcher or ewer with a single curved handle, a flared pouring spout, and petal-like decorative relief around its neck; one covered round serving bowl or tureen with fluted paneling around its body and a fitted lid topped with a spherical knob finial (the lid is fully closed); three small flared drinking cups or goblets (one tilted on its side at the far left, one standing upright near the center, and one lying on its side pointing forward); and two turned metal candlesticks lying horizontally on their sides in the lower right foreground. All items appear made of a matte, hammered, or slightly weathered silver-grey or pewter metal with warm undertones and slight tarnish in crevices. The entire collection is whole and uncropped, casting slight self-shadows, set against an entirely flat, uniform chroma-blue background with no visible floor surface, scenery, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4992,
+      "soft": 0.0062,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9938,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4150,
+   "tokens_out": 2047,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "vault-shelf-treasure": {
+   "id": "vault-shelf-treasure",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/vault-shelf-treasure.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of a tall wooden shelving unit reinforced with riveted iron bands, holding various fantasy treasure items across four tiers, isolated against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of a tall wooden shelving unit reinforced with riveted iron bands, holding various fantasy treasure items across four tiers, isolated against a solid blue backdrop.",
+       "details": "There are no texts, labels, or watermarks. The central object is a stylized wooden shelving rack (second guess: treasure bookcase or vault shelving unit) containing numerous distinct items on four shelf levels. Structurally, the rack features vertical wooden planks at the back, thick wooden shelves, and four upright posts heavily banded with bolted or riveted dark grey iron metal collars; it rests on four square wooden/metal feet. On the top shelf sit 2 small arched-top wooden chests bound with iron straps and round rivets, both with closed lids. On the second shelf down sit 3 bulbous, hammered brass or gold urns/pots with short necks and open round rims. On the third shelf down rests a stacked pyramid of 6 shiny gold bullion bars (three on the bottom, two in the middle, one on top) next to 5 rolled tan parchment scrolls, each sealed with a red wax stamp. On the bottom shelf are 6 tied cloth resource sacks or money pouches in varying sizes and colors: two green, two golden-yellow, and two deep red/burgundy. The entire shelving unit and its contents are fully contained in the frame without cropping, shown at a three-quarter perspective. The background is a flat, uniform, bright chroma blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4994,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 26
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4268,
+   "tokens_out": 2836,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "eggs-monster": {
+   "id": "eggs-monster",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/eggs-monster.try1.jpg",
+     "semantic": {
+      "what_i_see": "A detailed 3D digital model of a cluster of five leathery alien eggs set into an organic, bubbling base against a solid blue chroma background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A detailed 3D digital model of a cluster of five leathery alien eggs set into an organic, bubbling base against a solid blue chroma background.",
+       "details": "There are no texts, labels, or watermarks. The subject consists of a single contiguous object: a cluster of five egg-shaped pods connected at their bottom by a spongy, bubbly organic mat or base. Best name: Alien or Xenomorph egg cluster miniature; second guess: fantasy organic seed pods or biological alien nest. Four of the eggs are closed, featuring segmented leathery lobes defined by thick, fleshy ridges that taper together at the top. The fifth egg, located at the front right, is open at the apex with petal-like outer flaps cracked open, revealing a dark, textured, hollow interior cavity. The surface texture is glossy, wrinkled, and organic, colored in mottled olive-green, brownish-black recesses, and mustard-yellow or amber veins, seams, and base bubbles. The entire object is fully contained within the frame with no parts cropped. The background is a solid, uniform royal blue with no visible floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5321,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4154,
+   "tokens_out": 2087,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stalagmite": {
+   "id": "stalagmite",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/stalagmite.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital model of a cluster of three rocky spires or stalagmites with melting or dripping mineral layers, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital model of a cluster of three rocky spires or stalagmites with melting or dripping mineral layers, set against a solid blue background.",
+       "details": "There is no text, label, or watermark in the image. The image shows a single unified object: a stylized geological spire formation (best guess: stalagmite cluster; second guess: dripstone or sandstone rock formation). It consists of three vertical peaks connected by a shared, terraced base: a primary tall peak on the left, a medium-height peak in the middle-right background, and a shorter peak in the foreground right. The surface shows distinct horizontal stratification with alternating layers of muted grey-brown rock, golden-ochre bands, and smooth, bulbous, pale cream-colored dripping layers resembling cave mineral deposits or melted wax. The object has no legs, wheels, lids, doors, or openable compartments. The entire formation is fully contained within the frame with no cropping. The background is a solid, completely uniform vivid blue chroma screen without any ground plane, horizon, or shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3512,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4132,
+   "tokens_out": 1689,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ceiling-slab-fallen": {
+   "id": "ceiling-slab-fallen",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/ceiling-slab-fallen.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, thick rectangular stone slab split in two by a jagged fissure down the center, resting atop a base of small stones against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, thick rectangular stone slab split in two by a jagged fissure down the center, resting atop a base of small stones against a solid blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The single main object is a broken stone platform or pedestal (second guess: an ancient stone altar or game environment tile). It consists of two primary large slab sections separated by a jagged vertical fracture down the middle, with a foundation skirt composed of approximately 25 to 30 small, chunky rough rocks encircling the base. Each large slab segment features a recessed rectangular inner border on its top surface and heavy chisel or wear marks around the beveled edges. The object is rendered in a hand-painted/stylized 3D asset style, colored in muted earth tones of brownish-grey, tan, and light stone highlights. It is completely contained within the frame with no parts cropped. The background is a completely uniform, solid bright blue with no shadows cast onto it.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3652,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4131,
+   "tokens_out": 2591,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bridge-plank-rickety": {
+   "id": "bridge-plank-rickety",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/bridge-plank-rickety.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized wooden ladder or rope-tied gangway with a missing middle rung, shown diagonally against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D stylized wooden ladder or rope-tied gangway with a missing middle rung, shown diagonally against a solid vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene contains a single object, a stylized wooden ladder (or rope-bound plank walkway/bridge). It consists of two long cylindrical wooden side poles and ten weathered, rectangular wooden rungs lashed to the poles with thick yellowish-tan ropes. There is a distinct gap in the middle where one rung is missing, leaving a hollow rectangular opening between the fifth and sixth rungs. The rungs and side rails feature visible wood grain, weathered cracks, and stylized beveled edges rendered in desaturated brown and grey tones. The exposed circular ends of the side rails show stylized growth rings. The object is completely visible without any cropping, floating against an entirely flat, uniform blue background without cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.23,
+      "soft": 0.0059,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9884,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 12
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4104,
+   "tokens_out": 3961,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shoring-timber": {
+   "id": "shoring-timber",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/shoring-timber.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered wooden frame structure consisting of two posts, a crossbeam, braces, and a central metal hook, isolated on a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Unwanted metal hook attached beneath the crossbeam"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered wooden frame structure consisting of two posts, a crossbeam, braces, and a central metal hook, isolated on a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single freestanding object: a stylized wooden archway or hoist frame (best guess: a wooden signpost or crane/gallows frame; second guess: a timber entrance portal). The structure consists of two vertical timber posts acting as legs/supports, one horizontal crossbeam resting atop the posts with protruding pegged caps and side wedges, two diagonal corner struts bracing the beam against the posts, and a single grey metal hook bolted beneath the center of the beam. The surfaces are rendered in a hand-painted/faceted cartoon style, showing brown weathered wood with chiseled edges, wood grain, cracks, and patches of greenish moss or lichen. The metal hook and bracket are matte grey. The object is completely visible and not cropped by the frame. The background is a flat, uniform, solid blue screen with no floor plane or cast shadows, and there are no people or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/dun/work/shoring-timber.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden post-and-lintel archway or doorframe isolated against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden post-and-lintel archway or doorframe isolated against a solid vibrant blue background.",
+       "details": "There are no visible text, labels, or watermarks. The image features a single object: a stylized, hand-painted wooden archway or entrance frame (second guess: a mine support frame or simple timber portal). It consists of two vertical timber posts, one horizontal lintel beam spanning across the top, two diagonal support braces in the upper interior corners, and two wooden joint collars/wedges securing the lintel to the vertical posts. The material is textured, weathered brown wood with chiseled facets, visible grain lines, and subtle greenish moss/lichen patches near the base and joints. The object is fully visible within the frame with no parts cropped. The background is a completely uniform, solid chroma-blue with no floor plane, cast shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3274,
+      "soft": 0.0067,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9888,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 8
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5917,
+   "tokens_out": 3140,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stepping-pillar": {
+   "id": "stepping-pillar",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/stepping-pillar.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, circular stone platform with a cracked surface and faceted rocky sides set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, circular stone platform with a cracked surface and faceted rocky sides set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains a single separate object: a round stone platform or rock dais (best name), alternatively a stone pedestal or rocky cliff chunk (second guess). It features a flat, circular top surface marked by surface cracks and edge seams, supported by thick, chunky, faceted stone sides resembling a rocky cliff base. It has no legs, wheels, doors, drawers, lids, or handles. The object is rendered in a stylized, hand-painted digital art style with earthy tan, beige, and warm gray/brown rock textures, accented by lighter highlight rims and dark brown crevices. The platform is entirely intact and not cropped by the frame, floating in the center. The background is a solid, uniform, vivid blue screen with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4301,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9973,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4101,
+   "tokens_out": 1069,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sewer-debris-clog": {
+   "id": "sewer-debris-clog",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/sewer-debris-clog.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D miniature diorama piece featuring a debris heap composed of logs, a broken barrel, bones, a skull, and green slime against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D miniature diorama piece featuring a debris heap composed of logs, a broken barrel, bones, a skull, and green slime against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains a single isolated object: a stylized tabletop gaming terrain piece or debris pile (second guess: an environmental asset for a video game). The pile rests on a mounded base of dark brown earth and small stones. Integrated into the heap are several broken logs with cartoonish wood-grain textures, a shattered wooden barrel bound with grey metal hoops lying on its side (its interior is hollow and partially visible), a single human skull resting near the lower-right side, several loose leg bones or femurs, torn greyish cloth draped over logs, puddles and drips of glossy toxic green slime, and scattered foliage including pointed green leaves and red/brown autumnal leaves. The barrel is open and broken, exposing its hollow wooden inner cavity. Materials look like painted resin or digitally sculpted stylized textures with shades of brown, tan, ivory, grey, toxic green, and brick red. The object is completely in frame and not cropped. The background is a uniform, flat, shadowless chroma blue with no scenery or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3538,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4166,
+   "tokens_out": 1552,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sluice-wheel": {
+   "id": "sluice-wheel",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/sluice-wheel.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital render of a fantasy-style medieval sluice gate featuring stone pillars, a wooden gate, and a top-mounted metal handwheel mechanism on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital render of a fantasy-style medieval sluice gate featuring stone pillars, a wooden gate, and a top-mounted metal handwheel mechanism on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one single composite object: a sluice gate (second guess: canal lock gate or penstock). The structure comprises two rectangular stone pillars made of stacked ashlar blocks capped with pyramidal tops, connected at the base by a low stone threshold or sill. Between the pillars rests a vertical sliding wooden gate constructed from vertical timber planks held together by two horizontal riveted iron bands. Atop the gate is a mechanical lifting apparatus consisting of an iron frame/crossbar, a threaded screw rod, and a four-spoke horizontal iron wheel at the very top. The gate is in a closed position, seated firmly against the bottom sill. Materials include chiseled gray-tan stone with patches of green moss, aged dark brown wood with green algae staining near the bottom, and tarnished dark gray iron. The object is shown in three-quarter isometric perspective and is completely contained within the frame without cropping. The background is a flat, uniform pure blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5856,
+      "soft": 0.0072,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 17
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4181,
+   "tokens_out": 1672,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pillar-flooded": {
+   "id": "pillar-flooded",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/pillar-flooded.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted stone pillar or pedestal with a moss-covered lower section, viewed from an isometric angle against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted stone pillar or pedestal with a moss-covered lower section, viewed from an isometric angle against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains a single isolated object, best described as a stone pillar (second guess: a stone pedestal or monument). The pillar consists of three main sections: a wide stepped top capital composed of segmented stone slabs, a central rectangular shaft featuring recessed rectangular panels bordered by stacked ashlar corner blocks, and a wider stepped square base made of individual stone blocks. There are no moving parts, doors, drawers, or lids. The object is rendered in a stylized video game asset style made of weathered grey and light brown stone masonry. The lower half of the column exhibits distinct dark olive-green moss, algae, and yellowish dripping water-stain marks defining a submerged waterline effect. The object is completely intact and not cropped by the frame. The background is a flat, uniform, solid bright blue chroma color with no floor, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2794,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9929,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4141,
+   "tokens_out": 1363,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "statue-forgotten-god": {
+   "id": "statue-forgotten-god",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/statue-forgotten-god.try1.jpg",
+     "semantic": {
+      "what_i_see": "A weathered stone statue of a seated crowned figure holding a shallow bowl in his lap, positioned against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A weathered stone statue of a seated crowned figure holding a shallow bowl in his lap, positioned against a solid vibrant blue background.",
+       "details": "There are no visible texts, watermarks, or labels. The scene contains one primary object: a stone statue of an enthroned ruler or deity (second guess: an ancient carved stone fountain basin figure). The sculpture features a seated, bearded male figure wearing a tall, segmented headdress or crown and loose, draped robes that part in front to reveal a bare, sculpted chest with a prominent diagonal fracture across the right pectoral. The figure sits in a cross-legged position. His proper right arm extends downward, resting its hand flat on the right knee, while his proper left forearm has snapped off, showing a rough, fractured stone break. Resting directly in the lap between the folded legs is a single wide, shallow circular stone bowl. The entire figure sits atop a low, blocky stone throne or plinth formed from rectangular masonry blocks. The material appears to be heavily weathered gray and beige stone with patches of green moss and yellowish-tan lichen concentrated on upper surfaces and recesses. The statue is entirely complete within the frame without being cropped, set against a completely flat, uniform chroma-blue background with no visible floor, ground contact, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3426,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4205,
+   "tokens_out": 1744,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "offering-bowl": {
+   "id": "offering-bowl",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/offering-bowl.try1.jpg",
+     "semantic": {
+      "what_i_see": "A weathered bronze bowl overflowing with an assortment of metallic coins, decorative carved buds, and a gold ring with a red gemstone, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A weathered bronze bowl overflowing with an assortment of metallic coins, decorative carved buds, and a gold ring with a red gemstone, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features one primary composite object: a filled offering bowl or treasure vessel (second guess: video game loot prop). The bowl consists of a wide circular basin, a rounded rim, and a short pedestal base, made of tarnished golden-brown bronze with mottled green patina (verdigris). Inside the open, uncovered bowl lies a pile of smooth circular coins in three finishes (yellow gold, silver, and copper), four sculpted flower bud or artichoke-like ornaments (two yellowish-gold and two dusty rose-red), and a thick gold ring set with an oval red cabochon gem placed atop the coins. The bowl is completely open and its contents are fully exposed. The object is entirely contained within the frame without cropping. The background is a completely uniform, flat chroma-key blue with no floor, scenery, or cast shadow.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4133,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4124,
+   "tokens_out": 1398,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "crate-floating": {
+   "id": "crate-floating",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/crate-floating.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset depicting a broken wooden crate and a partially submerged barrel resting in a murky puddle with floating leaves, isolated on a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Visible water puddle surrounds the asset instead of being joined only by a flat patch of scum"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset depicting a broken wooden crate and a partially submerged barrel resting in a murky puddle with floating leaves, isolated on a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single combined environmental prop composed of a sunken open wooden crate, a half-submerged wooden barrel on its side, and a muddy puddle base with four floating leaves. Best guess is a fantasy swamp game prop; second guess is a tabletop terrain miniature. The crate is lidless and open, constructed of thick brown wooden planks with moss growing near the waterline, allowing a clear view inside to its slanted bottom. The barrel lies horizontally half-buried in the mud, showing curved wooden staves secured by two dull gray metal hoops. The base is an irregular, scalloped pool of murky olive-green and brownish water, adorned with four distinct leaves (three yellow-brown and one green). The asset is entirely uncropped and floats cleanly in the frame. The background is a completely uniform, solid bright blue with no external shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/dun/work/crate-floating.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game prop depicting a wooden crate and a partially buried wooden barrel set into a mossy ground patch, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game prop depicting a wooden crate and a partially buried wooden barrel set into a mossy ground patch, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The asset consists of a single combined prop cluster composed of a wooden crate and a partially submerged barrel resting on a small scalloped ground patch. The primary object is a stylized sunken wooden crate and barrel prop (or swamp debris terrain asset). The crate is rectangular, tilted, built from brown wooden planks and sturdy framing, and closed. The barrel lies horizontally beside it, partially sunken into the base, bound with dark greyish-metal hoops. The lower sections of both the crate and barrel are coated in green moss or algae. The base is an irregular, scalloped patch of mossy green ground featuring three small yellowish-green leaves resting along its perimeter. There are no doors, drawers, open lids, legs, or wheels. The asset is entirely uncropped, centered, and set against a uniform, bright solid blue background with no scenery, cast floor shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.288,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9927,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5930,
+   "tokens_out": 3351,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pressure-plate--s2": {
+   "id": "pressure-plate--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/pressure-plate--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset depicting a square stone floor tile or pressure plate containing a circular disc with a carved spiral design, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset depicting a square stone floor tile or pressure plate containing a circular disc with a carved spiral design, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image displays a single object, best described as a stone puzzle tile, pressure plate, or platform, viewed from an elevated isometric perspective. It consists of an outer square frame constructed of eight weathered rectangular grey stone blocks, an intermediate circular ring with a greenish-patinated or mossy bronze/stone texture, and a raised central circular stone slab carved with a deep swirling spiral relief. The central stone slab shows small crack lines and is rendered in a warm, light tan-grey stone texture. No movable doors, lids, handles, or drawers are present. The object is completely contained within the frame without cropping. The background is a uniform, flat, solid blue with no visible ground plane or cast shadows, and there are no people or other scenery.",
+       "reference_differences": [
+        "The candidate's central element is a raised circular stone slab carved with a spiral pattern, whereas the reference has a square central stone slab with a smooth, shallow concave depression.",
+        "The candidate features an intermediate greenish-patinated circular ring between the central disc and the frame, which is not present in the reference.",
+        "The candidate's outer square border has plain, beveled corner blocks, whereas the reference features carved skulls decorating the outer corners.",
+        "The central stone in the candidate has a warm beige/tan coloration with visible carved grooves, whereas the reference center is a flatter, square pale grey slab."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3257,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5400,
+   "tokens_out": 2106,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "statue-rotating--s2": {
+   "id": "statue-rotating--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/statue-rotating--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A full-length carved stone statue of a knight in plate armor resting both hands on a downward-pointing sword, standing atop a circular cog-edged stone pedestal against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A full-length carved stone statue of a knight in plate armor resting both hands on a downward-pointing sword, standing atop a circular cog-edged stone pedestal against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image features a single standalone carved stone figurine or statue positioned vertically in the center. The figure depicts a knight in full medieval-style plate armor, complete with a bucket-style helmet with vertical eye/breathing slits, curved pauldrons, breastplate, articulated gauntlets, faulds, poleyns, greaves, and sabatons. Both hands grip the hilt of a wide stone broadsword pointing vertically straight down between the legs. The figure stands on an ornate circular stone pedestal consisting of a base of carved masonry blocks, an upper ring shaped like a mechanical cog or gear with green patinated bronze accents, a downward-pointing triangular gold-toned marker at the front, and a circular paved stone platform. The surface is textured stone in tan and gray shades, lightly weathered with green moss patches. The object is completely contained within the frame with no cropping, set against a completely flat, uniform saturated blue background with no shadows cast onto a floor.",
+       "reference_differences": [
+        "The candidate figure represents an armored knight with a helmet and plate armor, whereas the reference figure represents a hooded robed figure (such as a mage or monk) with deep fabric folds.",
+        "The candidate figure grasps a large two-handed sword pointing straight downwards between its feet with both hands, whereas the reference figure holds an upright hexagonal staff in its right hand and gestures forward with its left hand.",
+        "The candidate's head is an enclosed stone knight helm with slits, whereas the reference features a hollow, shadowed hood covering the face.",
+        "The candidate features two distinct armored feet planted on the pedestal, while the reference's feet are concealed beneath a flowing long robe."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2487,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9932,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5497,
+   "tokens_out": 1855,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "statue-guardian--s2": {
+   "id": "statue-guardian--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/statue-guardian--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A full-body rendering of a stylized stone minotaur statue with crossed arms, standing on a stone pedestal against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A full-body rendering of a stylized stone minotaur statue with crossed arms, standing on a stone pedestal against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one primary object: a carved stone statue depicting an anthropomorphic bull warrior (minotaur) or guardian figure, set upon a square stone base. The figure has a bull head with two large forward-and-upward curving horns, bovine ears, and a stern muzzle. Its upper body features a breastplate cuirass, tiered pauldrons on both shoulders, and two arms folded across the chest. The lower body is clad in a long, faceted stone robe or skirt that drapes down to the base, with no visible legs or feet. The pedestal consists of stone blocks with beveled edges. The statue is made of light beige and yellowish-tan stone with a faceted, chiseled texture and patches of green moss/lichen on the shoulders and base. The figure is shown fully within the frame without cropping, set against a solid, completely uniform blue background with no cast shadows on any ground plane.",
+       "reference_differences": [
+        "Head: The candidate features a bull/minotaur head with horns, ears, and a muzzle, whereas the reference features a human male face wearing an open-faced helmet.",
+        "Arms and pose: The candidate's arms are crossed over the chest, whereas the reference has hands placed on top of a shield.",
+        "Shield: The reference includes a large standing kite-shaped shield held in front of the body, which is entirely absent from the candidate.",
+        "Lower body: The candidate's lower half is covered by a long, faceted stone robe or gown concealing the legs and feet, whereas the reference shows exposed armored legs and sabatons standing on the base.",
+        "Armor design: The candidate has a simpler robe-based lower attire, while the reference depicts a fully armored warrior with greaves and a tasset/skirt over armored thighs."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2419,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9905,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5497,
+   "tokens_out": 1475,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "web-cocoon--s2": {
+   "id": "web-cocoon--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/web-cocoon--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A diagonal mummy-like bundle wrapped tightly in beige braided cloth, showing a single brown boot tip at its base against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A diagonal mummy-like bundle wrapped tightly in beige braided cloth, showing a single brown boot tip at its base against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single object, best described as a wrapped mummy bundle or a cocooned human figure (second guess: a stylized braided rope parcel). It is fully wrapped except for a smooth, rounded head form at the upper-left end and a small brown shoe or boot tip protruding from a circular opening at the lower-right end. The body of the bundle is formed from thick, interlocking beige ropes or cloth bands braided in a chevron pattern down its length, transitioning to circular wraps around the foot end and thinner horizontal bandages around the head. The colors are predominantly off-white and tan/cream with dark beige crevices, and dark brown for the exposed leather shoe. The object is completely within frame, not cropped. The background is a flat, uniform, bright blue with no floor, scenery, or cast shadows.",
+       "reference_differences": [
+        "Pose and orientation: The candidate is angled diagonally as a straight, rigid bundle lying down or floating, whereas the reference stands upright.",
+        "Base structure: The reference has a broad, melted-looking puddle or pooled mound of cloth at the ground level, while the candidate ends neatly in a wrapped cylindrical terminus without a pooled base.",
+        "Wrapping pattern: The candidate displays a pronounced central chevron/interlocking braid texture along its torso, while the reference features vertical twisted pillars along the flanks and diagonal crisscrossing bandages across the chest and torso.",
+        "Foot position: In the reference, the brown shoe tip peeks out from an archway in the draped ground pool; in the candidate, the shoe protrudes directly from the center of the cylinder's end.",
+        "Head position: The reference's head is tilted and slumped forward with defined shoulder contours, whereas the candidate's head is aligned straight along the cylindrical axis of the body."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2249,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9934,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5484,
+   "tokens_out": 1794,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "adventurer-remains--s2": {
+   "id": "adventurer-remains--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/adventurer-remains--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A sculpted figure of an armored skeleton reclining against a large pack, holding a lantern and resting with a round wooden shield and a sword.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A sculpted figure of an armored skeleton reclining against a large pack, holding a lantern and resting with a round wooden shield and a sword.",
+       "details": "There are no texts, labels, or watermarks. The subject is a single continuous figure depicting an armored skeleton seated in a slumped, reclining pose against a bulky brown rolled pack. The skeleton wears a rusty iron helmet, cuirass, arm guards, leg guards, and heavy boots. A tattered red cloak or cloth is draped beneath and across the body. Its right skeletal hand rests on top of a small, square, rustic metal lantern with glass panes. A large, chipped green-and-wood circular shield with a central metal boss covers its left side and lap. A wide, rusty double-edged sword lies diagonally downwards across its lap. The entire subject is intact, fully visible within the frame, set against a solid, untextured bright blue background.",
+       "reference_differences": [
+        "Pose: In the candidate image, the figure is propped up in a seated/reclining position against a large stack of bedrolls, whereas in the reference image, the figure is lying completely flat on its back.",
+        "Lantern: The candidate image includes a square metal lantern beside the right hip beneath the skeleton's right hand, which is absent in the reference image.",
+        "Sword position: In the candidate image, the sword lies diagonally across the lap/pelvis between the legs, whereas in the reference image it lies straight along the right flank.",
+        "Head angle: The candidate's skull tilts forward toward its chest, whereas the reference skull faces upward/slightly backwards.",
+        "Pack/bedroll size: The pack behind the figure in the candidate image is much larger, taller, and composed of multiple stacked rolls supporting the torso, compared to the smaller single roll under the head in the reference image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3887,
+      "soft": 0.0048,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.994,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5449,
+   "tokens_out": 1916,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stalagmite--s2": {
+   "id": "stalagmite--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/stalagmite--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a yellowish-tan mineral rock or stalagmite cluster with dripping layers on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a yellowish-tan mineral rock or stalagmite cluster with dripping layers on a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single contiguous stylized rock or stalagmite formation (second guess: dripping wax or clay formation). It consists of two rounded vertical spires rising from a shared, multi-tiered plateau base: a taller spire on the left and a shorter spire on the right. Each spire features layered, stepped sections with creamy pale beige-yellow drippings or flowstone hanging down over ochre, orange, and grey-brown textured rock layers. The object has no openable parts, doors, drawers, or wheels. The entire formation is fully visible within the frame without clipping. The background is a flat, uniform, bright blue with no shadows or floor.",
+       "reference_differences": [
+        "The candidate features two peaks, whereas the reference features three distinct peaks (including a small additional spire in the front right foreground).",
+        "The front right plateau in the candidate is relatively flat with draped drippings, while in the reference, an upright pointed spire emerges directly from that section.",
+        "The tallest left spire is noticeably shorter and stockier in the candidate compared to the taller, more elongated spire in the reference.",
+        "The candidate has a broader, squatter overall profile, whereas the reference has a taller, more vertically oriented composition."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.327,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9937,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5350,
+   "tokens_out": 1567,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rubble-pile--s2": {
+   "id": "rubble-pile--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/rubble-pile--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric stylized pile of weathered, chipped stone masonry blocks and rubble isolated against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric stylized pile of weathered, chipped stone masonry blocks and rubble isolated against a bright blue background.",
+       "details": "There are no text, labels, or watermarks. The scene features a single connected cluster consisting of four main large stone blocks resting amid smaller rubble and loose debris. The object can best be described as a pile of ruined stone blocks or, as a second guess, a stylized rock cluster. The blocks comprise one large, flat rectangular block in the lower left, a lower rectangular block on the lower right, an elevated block tilted diagonally upward on the upper left, and a fourth block behind the lower right. Numerous small gravel-sized and fist-sized fragments fill the crevices and surround the perimeter. The surfaces exhibit stylized hand-painted textures featuring grey-tan weathered surfaces with cracked, pitted, sandy-yellow and light tan chipped edges. The entire cluster is fully contained within the frame without cropping. The background is a solid, uniform, vibrant blue screen with no floor plane or drop shadow. There are no people, animals, or scenery.",
+       "reference_differences": [
+        "The candidate lacks the fluted classical column segment present in the lower right of the reference image.",
+        "The candidate has fewer large blocks (four primary blocks compared to at least six in the reference image).",
+        "The candidate forms a steeper, more pyramidal pile with a prominent tall block at the upper left, whereas the reference is flatter and more sprawling.",
+        "The candidate consists entirely of rectangular/blocky stones, whereas the reference includes explicitly carved architectural ruins."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2401,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9938,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5358,
+   "tokens_out": 1883,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "collapse-rubble--s2": {
+   "id": "collapse-rubble--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/collapse-rubble--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A conical mound composed of numerous faceted, stylized brown rocks and boulders isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A conical mound composed of numerous faceted, stylized brown rocks and boulders isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single main composite object: a pile of rocks or a rock mound (second guess: a miniature stylized mountain peak). It consists of dozens of blocky, angular stone boulders of varying sizes, ranging from small pebbles around the base and crevices to large chiseled boulders at the front and middle, tapering upward to a pointed apex. The stones have a stylized, painted texture with earthy tones of tan, beige, brown, and subtle gray shading along sharp polygonal edges. The entire object is fully visible and not cropped. The background is a flat, uniform solid bright blue with no ground plane, floor shadows, or surrounding scenery. No people or moving elements are present.",
+       "reference_differences": [
+        "The candidate image forms a roughly symmetrical conical/pyramidal mound, whereas the reference image depicts an asymmetrical rock formation that is taller on the left and slopes downward to the right.",
+        "The reference image includes a splintered, broken wooden beam or log protruding diagonally upward from the rock pile, while the candidate image contains no wood, logs, or foreign objects.",
+        "The summit of the candidate image tapers to a single central rock point, whereas the reference has taller vertical crags/pillars concentrated on the left side."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3428,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5335,
+   "tokens_out": 1392,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bed-cell-stone": {
+   "id": "bed-cell-stone",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/bed-cell-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone bench or low bed topped with a straw-stuffed burlap mattress and a tattered blanket, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone bench or low bed topped with a straw-stuffed burlap mattress and a tattered blanket, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one primary composite object: a stone bench (best name) or a primitive stone cot/bed (second guess). The structure consists of a long, carved stone horizontal slab resting on two thick rectangular stone pillar supports, each assembled from stacked, blocky stone bricks. The front face of the stone slab features carved geometric indentations. Resting on the slab is a long, padded mattress made of yellowish-tan burlap or sackcloth, tufted with dried straw clumps protruding along the edges. Draped across the right end of the mattress is a frayed, tattered brown fabric blanket. There are no doors, drawers, lids, or wheels. The materials depicted are grey weathered stone with slight greenish-yellow moss accents, rough yellowish fabric with straw, and worn brown cloth. The object is rendered in a hand-painted 3D game asset style, fully visible and uncropped. The background is a uniform, flat, bright blue screen with no floor plane or drop shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2746,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9927,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4182,
+   "tokens_out": 1307,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "armor-chainmail-heap": {
+   "id": "armor-chainmail-heap",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/armor-chainmail-heap.try1.jpg",
+     "semantic": {
+      "what_i_see": "A weathered medieval nasal helmet resting amid a folded pile of chainmail armor against an intense solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A weathered medieval nasal helmet resting amid a folded pile of chainmail armor against an intense solid blue background.",
+       "details": "There are no visible texts, labels, or watermarks. The image depicts a single combined bundle consisting of two armor pieces: an iron or steel helmet (nasal helmet / Spangenhelm) nestled into a crumpled chainmail shirt (hauberk). The helmet features a rounded, conical dome reinforced by riveted metallic bands running across the crown and circumference, complete with a straight nasal guard pointing downward. Beneath and around it rests the chainmail, made of tightly interwoven small metal rings, piled in folds with an open hollow sleeve cuff visible on the lower left. The materials appear to be worn, tarnished metal with highlights of grey, iron, and oxidized brownish-golden or rust patches. The object is completely intact and fully uncropped within the frame. The background is a flat, uniform, vibrant pure blue studio screen with no ground plane, floor textures, or cast shadows. No people, text, or additional scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2834,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9939,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4123,
+   "tokens_out": 1387,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trap-bear": {
+   "id": "trap-bear",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-bear.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D render of a rusted iron bear trap set in an open position against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Object is cropped by the frame edge (chain is cut off)"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D render of a rusted iron bear trap set in an open position against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one primary object: a bear trap (foothold trap; second guess: hunting jaw trap). The trap consists of two semicircular jaws armed with pointed triangular teeth, hinged on both sides to a central crossbar framework, a round circular pressure plate positioned in the center, and a short iron chain of four visible links extending from the right hinge area toward the upper-right corner. The jaws are laid flat in an open, armed state. The material appears to be weathered, oxidized iron or steel with a dark brownish-grey base, orange-brown rust spots, and beveled edge highlights rendered in a stylized video game asset style. The chain is slightly cropped by the upper-right edge of the frame. The background is a completely uniform, solid bright blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/dun/work/trap-bear.try2.jpg",
+     "semantic": {
+      "what_i_see": "A 3D rendering of an open, rusted metal bear trap with sharp teeth and an attached chain, floating against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D rendering of an open, rusted metal bear trap with sharp teeth and an attached chain, floating against a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image shows a single isolated object: an animal foothold trap or bear trap (second guess: medieval mechanical trap). It consists of two semicircular jaws lined with sharp triangular teeth (approximately seven teeth on each side), a circular central trigger pan/pressure plate, a central crossbar assembly with hinge pivots, and a metal chain link attached at the rear extending toward the upper right with four visible links. The trap is in an open/set position with the jaws resting flat. The material is heavy forged steel or cast iron covered in dark grey patina and patches of orange-brown rust. The entire trap is fully contained within the frame with no parts cropped. The background is an untextured, uniform solid chroma blue with no shadow cast or floor visible. No people or scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2326,
+      "soft": 0.0073,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9859,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 9
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5854,
+   "tokens_out": 3386,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mushroom-cave-giant": {
+   "id": "mushroom-cave-giant",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/mushroom-cave-giant.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cluster of five purple mushrooms with beige spots growing out of a small rocky dirt mound against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cluster of five purple mushrooms with beige spots growing out of a small rocky dirt mound against a solid blue background.",
+       "details": "There are no text labels, watermarks, or people visible. The image features a single composite game asset/prop consisting of a mound of five stylized mushrooms sprouting from an earthy, rock-rimmed patch of soil. The mushrooms vary in size: one large mushroom stands tallest in the center-back, flanked by two medium-sized mushrooms to the left and right, and two smaller mushrooms nestled lower in the front. Each mushroom features a rounded, dome-shaped cap colored in dull purple with irregular light-cream or beige spots, textured cream-colored gills underneath, and a thick, slightly tapered off-white to beige fibrous-looking stalk. The ground base is composed of dark brown dirt ringed by faceted, angular grey-brown stones and small pebbles. The entire asset is completely visible and not cropped. The background is a flat, uniform, bright saturated blue with no cast shadows on any surface outside the mound.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4921,
+      "soft": 0.0054,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 9
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4127,
+   "tokens_out": 1693,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chasm-post-pair": {
+   "id": "chasm-post-pair",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/chasm-post-pair.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of a wooden hitching post mounted in a mossy stone base, topped with a carved wooden sphere, with a coiled rope hung on the left and a metal hook protruding from the right, against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of a wooden hitching post mounted in a mossy stone base, topped with a carved wooden sphere, with a coiled rope hung on the left and a metal hook protruding from the right, against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one isolated composite object: a stylized wooden hitching post or mooring post. Its components include a carved wooden sphere at the top, a vertical cylindrical post with chiseled wood grain, an iron or dark metal curved hook set into a circular collar on the upper right, a thick coiled loop of braided tan rope hanging on the left, and a circular base formed by rough grey stones tinged with green moss. There are no doors, drawers, or lids. Materials are stylized, hand-painted textured wood in warm golden-brown, tan braided fiber for the rope, matte dark grey iron for the hook, and cool grey stone with moss accents. The object is completely intact and fully enclosed within the frame, not cropped. The background is a uniform, solid saturated blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2572,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9934,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4145,
+   "tokens_out": 2196,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fountain-skull": {
+   "id": "fountain-skull",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/dun/work/fountain-skull.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone wall fountain featuring a skull-shaped spout and a semi-circular basin, isolated on a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized carved stone wall fountain featuring a skull-shaped spout and a semi-circular basin, isolated on a bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single composite object: a stylized fantasy stone wall fountain (second guess: an ornate crypt or dungeon basin prop). It consists of an arched stone backplate with an arch keystone, flanked by two square-profile masonry pillars with stepped caps and bases. Mounted in high relief at the center is a carved skull with detailed eye sockets and nasal cavity, an open jaw displaying teeth, and a round dark pipe or nozzle protruding from its mouth. Below the skull sits a large semicircular stone basin assembled from carved blocks, resting on a small rectangular stone pedestal foot. The object shows weathering and moss/algae staining (greenish-brown) dripping down from the skull's chin into the basin interior. The fountain appears empty of water. The materials are light brownish-gray weathered stone with subtle hand-painted stylized textures. The entire object is fully visible and not cropped. The background is a solid, uniform pure blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5069,
+      "soft": 0.005,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4171,
+   "tokens_out": 1876,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

@@ -1,0 +1,181 @@
+{
+ "file": "foe-zombie-gravedigger.glb",
+ "tris": 49008,
+ "kb": 2599,
+ "native_extent": [
+  0.574,
+  1.002,
+  0.496
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0007,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  71,
+  51,
+  19
+ ],
+ "mean_saturation": 0.785,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 3.35,
+  "length_ft": 3.35,
+  "low_end_ft": [
+   -1.07,
+   1.21,
+   -0.34
+  ],
+  "high_end_ft": [
+   -1.13,
+   4.54,
+   0.03
+  ],
+  "tilt_from_upright_deg": 6.3,
+  "thickness_ft": 0.21,
+  "clear_share": 0.84,
+  "joined_share": 0.16,
+  "broken_share": 0.0,
+  "walk_low_to_high": "------------------------######--------"
+ },
+ "overall_ft": 5.75,
+ "pieces": {
+  "connected_parts": 111,
+  "main_part_area_share": 0.9987,
+  "floating": [
+   {
+    "area_share": 0.00046,
+    "gap_ft": 0.05,
+    "size_ft": 0.26
+   },
+   {
+    "area_share": 0.00024,
+    "gap_ft": 0.05,
+    "size_ft": 0.22
+   },
+   {
+    "area_share": 0.00014,
+    "gap_ft": 0.12,
+    "size_ft": 0.11
+   },
+   {
+    "area_share": 0.00012,
+    "gap_ft": 0.04,
+    "size_ft": 0.09
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.06,
+    "size_ft": 0.05
+   }
+  ],
+  "floating_count": 5,
+  "floating_area_share": 0.00099,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.7433,
+ "y0": -2.8761,
+ "stated_ft": {
+  "body": 5.7,
+  "figure_top": 5.7,
+  "overall": 5.7
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2887,
+   -0.5008,
+   -0.2484
+  ],
+  [
+   0.2849,
+   0.5007,
+   0.2474
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49008,
+   "tex": 2048,
+   "kb": 2599
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1056
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 453
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.68,
+    "z": -0.44,
+    "size_ft": [
+     1.29,
+     1.75
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.67,
+    "sole_p90_ft": 0.292
+   },
+   {
+    "x": 0.91,
+    "z": 0.73,
+    "size_ft": [
+     0.77,
+     1.41
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.047
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.69,
+  "plan_hull_area_sqft": 6.48,
+  "lowest_slab_share_of_plan": 0.261
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.29,
+   "d": 2.85,
+   "h": 5.75
+  },
+  "centre": [
+   -0.121,
+   0.42
+  ],
+  "contacts_radius_ft": 1.55,
+  "reach_radius_ft": 1.92,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.892,
+  "plate_lost_share": 0.068,
+  "added_share": 0.045,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.881,
+  "view_yaw_deg": 5,
+  "view_elev_deg": 8
+ },
+ "id": "foe-zombie-gravedigger",
+ "sha1": "8d71656ae6f100c5cf18762ba58bf8cfb3fb5596",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "2 separate part(s) lying within 0.05 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 14.6
+}

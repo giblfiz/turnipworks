@@ -1,0 +1,43 @@
+Based on the provided images, here is a detailed comparison of the two versions for each figure.
+
+*(Note: The figure in `close-fighter.png` and `close-wizard.png` is the same wizard character, shown from different camera angles. The analysis below refers to this character as the "Wizard".)*
+
+### **Wizard (labeled as "fighter" and "wizard" in filenames)**
+
+*   **`close-fighter.png` vs. `tierclose-fighter.png` (Close-up view)**
+    *   **Outline & Blockiness:** The difference is most dramatic here. In the `tierclose` version, the beard is extremely blocky, composed of large, flat polygons instead of flowing, curved shapes. The tip of the hat and the swirl on the staff are also visibly angular and simplified.
+    *   **Blur of the painting:** The texture quality is significantly reduced. The green trim on the robe and hat is blurry, and the gold tassels on the belt are an indistinct yellow smudge. The wood grain on the staff is completely lost.
+    *   **Face:** The face in the `tierclose` version is very low-detail. The eyes are blurry spots without clear pupils, and the mustache lacks definition, blending into the blocky beard.
+    *   **Hands:** The hand holding the staff is simplified into a "mitten" shape, with the fingers fused together into a single blocky form.
+    *   **Thing it holds (Staff):** The carved swirl at the top of the staff is no longer a smooth spiral but a jagged, angular approximation.
+    *   **Holes or cracks:** No visible holes, but the geometric simplification is severe.
+*   **Verdict:** The `tierclose` version is a major downgrade in both model complexity and texture resolution. It looks **clearly worse**.
+
+### **Goblin**
+
+*   **`close-goblin.png` vs. `tierclose-goblin.png`**
+    *   **Outline & Blockiness:** The model simplification is less severe than the wizard's but still noticeable. The pointy ears are less sharp, and the fingers and toes are slightly more clumped together.
+    *   **Blur of the painting:** The texture on the leather tunic is much blurrier in the `tierclose` version, losing the stitching and worn details visible in the original.
+    *   **Face:** The goblin's sneer and wrinkles are softened and less expressive due to the lower-resolution texture. The eyes and teeth are less distinct.
+    *   **Hands:** The fingers gripping the spear are less defined.
+    *   **Thing it holds (Spear):** The spearhead loses its metallic sheen and sharp-edged appearance, becoming a dull, blurry shape. The wood texture on the shaft is also gone.
+    *   **Holes or cracks:** None are visible.
+*   **Verdict:** The loss of texture detail, especially on the face and clothing, significantly degrades the figure's appearance. It is **clearly worse**.
+
+### **Wolf**
+
+*   **`close-wolf.png` vs. `tierclose-wolf.png`**
+    *   **Outline & Blockiness:** The wolf's overall shape and silhouette are very similar in both images. The geometric simplification is not obvious on its organic, furry form.
+    *   **Blur of the painting:** This is the primary difference. The fur texture in the `tierclose` version is significantly blurrier. The detailed strands and color variations that give the fur depth in the original are lost, resulting in a smudged, less realistic look.
+    *   **Face:** The eyes are less sharp, and the nose and mouth blend more into the surrounding fur due to the blurry texture.
+    *   **Hands/Paws:** No noticeable difference in the paws.
+    *   **Thing it holds:** N/A.
+    *   **Holes or cracks:** None are visible.
+*   **Verdict:** While the model's shape holds up well, the blurry texture makes the figure look flat and less detailed. The overall effect is a loss of sharpness. It looks **slightly softer**.
+
+***
+
+**Fighter:** clearly worse
+**Wizard:** clearly worse
+**Goblin:** clearly worse
+**Wolf:** slightly softer

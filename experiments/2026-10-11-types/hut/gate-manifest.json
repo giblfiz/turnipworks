@@ -1,0 +1,1002 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "butter-churn": {
+   "id": "butter-churn",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/butter-churn.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden butter churn with a tall dasher handle topped with a spherical knob, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden butter churn with a tall dasher handle topped with a spherical knob, set against a solid bright blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one primary object: a traditional wooden butter churn (second guess: wooden cask with a pestle/plunger). It consists of a tapered barrel-shaped base constructed from vertical light-brown wooden staves secured by three dark gray metal hoops (at the upper section, middle, and bottom), a fitted wooden circular lid, a tall cylindrical wooden dasher rod extending vertically from the center hole, and a spherical wooden finial/knob at the very top. A small dab or spill of yellowish-cream butter rests on the lid beside the dasher. The lid is fully closed. The object is rendered in a clean, digital hand-painted art style with visible wood grain and metallic texture. The entire object is centered and fully contained within the frame without cropping. The background is a flat, uniform solid bright blue with no floor, cast shadows, scenery, or persons present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1825,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9894,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4161,
+   "tokens_out": 1487,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-milk-churn-tall": {
+   "id": "rural-milk-churn-tall",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/rural-milk-churn-tall.try1.jpg",
+     "semantic": {
+      "what_i_see": "Two stylized wooden buckets with rope handles are set side by side against a solid bright blue background, one closed with a wooden lid and the other open and filled with white liquid.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "Two stylized wooden buckets with rope handles are set side by side against a solid bright blue background, one closed with a wooden lid and the other open and filled with white liquid.",
+       "details": "There are no text, labels, or watermarks in the image. The image displays two distinct wooden buckets or pails (second guess: small wooden tubs or firkins). Both buckets are constructed of vertical light-tan wooden staves encircled by two muted green bands (one near the top and one near the bottom). Each has two vertical wooden side posts or 'ears' extending upwards from the rim, between which is strung a thick, twisted beige rope handle spanning horizontally. The bucket on the left is sealed with a circular wooden lid featuring a raised rectangular handle in the center. The bucket on the right is open, lacking a lid, and filled almost to the brim with a flat, opaque white substance resembling milk or cream. Both objects are shown fully within the frame and are not cropped. The background is a solid, completely uniform vibrant blue screen with no ground, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5695,
+      "soft": 0.0073,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9931,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 9
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4154,
+   "tokens_out": 2933,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--wattle-daub": {
+   "id": "wall-straight--wattle-daub",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/wall-straight--wattle-daub.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized vertical section of a plastered wattle-and-daub wall framed by wooden beams at the top and bottom, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized vertical section of a plastered wattle-and-daub wall framed by wooden beams at the top and bottom, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image features a single object: a stylized rectangular wall segment or decorative architectural panel (second guess: a freestanding modular game asset wall). It consists of a tall rectangular slab covered in textured, cracked yellowish-beige plaster or daub, bordered at the top and bottom by chunky dark-brown wooden beams with carved end-grain and notch details. Two broken sections in the plaster reveal an underlying woven wicker or wattle lattice: a smaller hole in the upper-left quadrant and a larger irregular opening in the lower-right quadrant. The bottom portion of the plaster shows dark, weathered stains and dirt. The object is completely visible without cropping, shown in a three-quarters perspective. The background is a solid, uniform, bright blue screen with no floor, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3447,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9939,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4191,
+   "tokens_out": 1520,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cheese-press": {
+   "id": "cheese-press",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/cheese-press.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a wooden cheese press on a four-legged table holding a cloth-wrapped cheese wheel, next to a finished cheese wheel on a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a wooden cheese press on a four-legged table holding a cloth-wrapped cheese wheel, next to a finished cheese wheel on a bright blue background.",
+       "details": "There is no text, label, or watermark visible in the image. The primary object is a traditional wooden screw press (best name: cheese press, second guess: small cider or bookbinding press), accompanied by two cheese wheels. The structure consists of a four-legged wooden base painted in distressed, weathered green with exposed brown wood underneath; a thick plank tabletop; two vertical side uprights supporting a horizontal crossbeam; and a central large wooden screw threaded through the top beam. The screw is topped with a double-ended horizontal turning handle and terminates at the bottom in a segmented round wooden pressing disc. Beneath the disc, a circular wooden hoop or mold with a small front drainage spout holds a round wheel of cheese draped in an off-white cloth. To the left on the wooden tabletop rests a standalone, round, pale yellow cheese wheel. The entire object is fully visible and not cropped. The material is rendered in a stylized, hand-painted wooden texture with warm brown tones on top and weathered teal-green on the lower legs. The background is a solid, completely uniform vivid blue screen with no floor plane or drop shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.436,
+      "soft": 0.0084,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.989,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4232,
+   "tokens_out": 5260,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "nest-box-row": {
+   "id": "nest-box-row",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/nest-box-row.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a rustic wooden nesting box with three compartments, each containing a straw nest with three eggs, isolated on a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a rustic wooden nesting box with three compartments, each containing a straw nest with three eggs, isolated on a bright blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single main multi-part object: a wooden nesting crate or chicken coop nesting box (second guess: an egg display stand/trough). It is supported by four short square-profile wooden legs. The box has angled side walls and is partitioned into three open compartments by two vertical wooden dividers. The box is made of brown wood planks with heavily worn, peeling green paint on the exterior surfaces. Each of the three compartments contains a coiled golden-yellow straw nest, and each nest contains three smooth, oval, cream-colored eggs (nine eggs total). The unit has no doors, lids, or drawers, leaving the interior fully open and visible. The object is completely in frame and uncropped. The background is a solid, uniform vivid blue with no shadows, floor surface, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3902,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4163,
+   "tokens_out": 1809,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chicken-perch-ladder": {
+   "id": "chicken-perch-ladder",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/chicken-perch-ladder.try1.jpg",
+     "semantic": {
+      "what_i_see": "A weathered wooden chicken roost ladder structure with five horizontal rungs, feathers, and droppings, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A weathered wooden chicken roost ladder structure with five horizontal rungs, feathers, and droppings, set against a solid blue background.",
+       "details": "There are no visible texts, labels, or watermarks. The image features a single object: a rustic wooden chicken roost or perch ladder (second guess: poultry exercise stand or small A-frame ladder rack). It consists of an A-frame support structure with four legs/uprights painted in a worn, chipped olive-green finish, joined by side base stretchers and round wooden dowel pins. Five cylindrical, unpainted natural timber rungs span the front face, with four small feathers (three white and two brownish) resting on various rungs. A flat slatted wooden droppings tray sits across the interior bottom. Realistic white and yellowish bird droppings are splattered across the base tray, the lower rungs, and the green uprights. The entire object is centered and fully visible within the frame. The background is a flat, uniform chroma blue with no floor, shadows, or background elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3815,
+      "soft": 0.0109,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9838,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4162,
+   "tokens_out": 3353,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "egg-basket": {
+   "id": "egg-basket",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/egg-basket.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized woven basket with an arched handle filled with eleven eggs resting on a bed of straw against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized woven basket with an arched handle filled with eleven eggs resting on a bed of straw against a solid blue background.",
+       "details": "There is no text, watermark, or label in the image. The scene consists of a single composite object: a woven basket filled with straw and eleven whole eggs. The primary object is a basket (second guess: an egg container or decorative prop). It features a large, braided overhead handle joined to the rim with carved wooden block fittings, a woven bowl-shaped body made of light brown/tan wood-textured wicker, a bed of yellow-gold straw lining the interior, and eleven smooth eggs inside (five light reddish-brown and six pale off-white/cream). The basket has no lid, doors, drawers, or wheels; the interior is open and partially visible around the eggs and straw. The entire basket and its contents are fully contained in the frame with no cropping. The background is a flat, uniform, solid royal blue screen with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4235,
+      "soft": 0.0056,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4128,
+   "tokens_out": 1567,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pigsty": {
+   "id": "pigsty",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/pigsty.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D isometric model of an outdoor stone-and-wood animal pen or pigsty set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D isometric model of an outdoor stone-and-wood animal pen or pigsty set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image displays a single composite structure depicting an animal enclosure or livestock pen. It consists of low perimeter walls made of rounded grey and beige fieldstones patched with patches of green moss, enclosing a muddy brown dirt ground imprinted with circular hoof marks. At the front wall, there is a closed wooden fence gate made of two upright posts and horizontal light brown planks. Inside the enclosure on the right sits a small wooden rectangular feeding trough raised on four short legs, filled with light beige feed flecked with small brown bits. In the back-left corner is a covered stone shelter with an overhanging slanted roof constructed of wooden planks; its doorway has a wooden lintel and jambs with an open doorway revealing a yellow straw-covered interior floor. Next to the shelter entrance lies a rounded mound of bright golden-yellow straw or hay. The object is rendered in a cartoon/game asset art style, completely uncropped and isolated against a uniform solid bright blue background with no shadows cast onto the ground.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4495,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4194,
+   "tokens_out": 1494,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-grain-stook": {
+   "id": "rural-grain-stook",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/rural-grain-stook.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cluster of golden wheat sheaves tied with rope standing upright against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cluster of golden wheat sheaves tied with rope standing upright against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single arrangement (stook or shock) made up of several bundled sheaves of wheat (second guess: decorative straw bundles or broom clusters). Around four to five individual sheaves are visible, clustered together in a conical teepee-like formation with three prominently displayed in the foreground and sides. Each sheaf consists of rounded grains or wheat ears at the top, bound tightly by two thick twisted rope rings along the stem, and broad, fluted, cut-stalk bases that flare outward at the bottom. The object is rendered in a smooth digital illustration style using shades of golden yellow, warm amber, and straw-tan. The bundle is completely contained within the frame with no cropping. The background is a flat, uniform bright blue with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4043,
+      "soft": 0.0058,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9914,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4128,
+   "tokens_out": 1506,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "haystack-field": {
+   "id": "haystack-field",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/haystack-field.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon-like yellow thatched hut or rounded granary with a conical roof secured by ropes and stones, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon-like yellow thatched hut or rounded granary with a conical roof secured by ropes and stones, centered against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos visible in the image. The image features a single standalone object, best identified as a thatched hut or granary (second guess: a round straw storage container or basket with a conical lid). The structure consists of a bulbous, cylindrical lower body made of finely textured golden-yellow thatch or straw, and a matching conical roof with a slightly darker, warm ochre-yellow thatch texture. At the very top apex of the roof, a small vertical wooden peg or post protrudes. Ropes wrap tightly around the base of the top wooden peg and extend down across the conical roof, securing it. At the ends of these ropes, four visible faceted grey-brown stones or weights hang around the perimeter of the roof edge. The roof acts as a closed lid sitting flush on top of the base, with no visible interior, windows, or doors on the visible face. The entire structure is fully visible and not cropped by the frame. The background is a flat, uniform, bright blue color with no floor, ground, or cast shadows. There are no people or surrounding scenery elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4021,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4187,
+   "tokens_out": 1813,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "plough": {
+   "id": "plough",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/plough.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden and metal agricultural plow with two wheels at the front and two handles at the rear, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden and metal agricultural plow with two wheels at the front and two handles at the rear, isolated on a solid blue background.",
+       "details": "There is no text, labels, or watermarks visible in the image. The image displays a single object: an agricultural walking plow (second guess: a small hand-tilled cultivator). The plow features two round wooden wheels with bolted metal rims joined by a wooden axle at the front, a main curved wooden draft beam, two upright curved handles at the back reinforced with a horizontal crossbeam, and a downward-pointing metal plowshare with a wooden moldboard and metal fasteners. There are no doors, drawers, or lids. The materials consist of rough, weathered brown wood with worn-off green paint, and dark metallic/steel fittings, brackets, and blades showing signs of rust, dirt, and wear. The entire object is fully visible and not cropped. The background is a flat, uniform, vibrant blue screen with no shadows, floor, or additional scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2054,
+      "soft": 0.0069,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9829,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4168,
+   "tokens_out": 1369,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "scarecrow-post": {
+   "id": "scarecrow-post",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/scarecrow-post.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon-like scarecrow with button eyes, outstretched arms, and a patched tunic mounted on a wooden post against a vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon-like scarecrow with button eyes, outstretched arms, and a patched tunic mounted on a wooden post against a vivid blue background.",
+       "details": "There are no visible texts, labels, or watermarks. The image contains one single object: a scarecrow (best name: scarecrow, second guess: training dummy or garden decoy). The scarecrow features a round burlap head with stitched brown button eyes and a stitched cross-hatched mouth, wearing a floppy yellow straw hat with a reddish band. Tufts of golden straw emerge around the neck collar and out of the sleeves. It wears a ragged, dirt-brown tunic with frayed hems, held closed down the front with three light-colored stitches/ties, and embellished with three patches: one red patch on the chest, one red patch on the left shoulder/arm, and one yellow patch on the lower left side. A horizontal wooden pole runs through the sleeves with rounded ends protruding, and a vertical wooden square post supports the body, terminating in a four-pronged criss-cross wooden base at the bottom. No drawers, lids, or doors are present. Materials appear to be straw, burlap/cloth, and carved wood rendered in a smooth 3D digital painted style. The entire object is fully visible and not cropped. The background is a flat, uniform, solid bright blue with no floor, scenery, cast shadows, or other figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2383,
+      "soft": 0.0063,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9854,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4254,
+   "tokens_out": 1683,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "dovecote": {
+   "id": "dovecote",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/dovecote.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of a cylindrical stone dovecote tower with a wooden shingled roof, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of a cylindrical stone dovecote tower with a wooden shingled roof, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single freestanding object: primarily a medieval stone dovecote (or pigeon tower), or secondarily a small fortified stone watchtower. The structure is composed of a round masonry tower made of tan and cream-colored stone blocks, with green moss stains near the lower base and roofline. At the base is one closed arched wooden door with vertical planks and two horizontal dark metal strap hinges. Above the doorway are three tiers of small arched nesting alcoves or pigeon holes (around 15 visible across the front and sides), each fitted with a small protruding rectangular stone perch ledge beneath it and streaked with white bird droppings. The tower is capped with a conical roof covered in overlapping wooden shingles, topped by a small octagonal wooden cupola lantern with an open balustrade and a pointed wooden cap. The object is completely intact and fully enclosed within the frame, showing no cast shadow on the ground. The background is a uniform, flat bright blue screen with no scenery, floor, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2808,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9926,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4190,
+   "tokens_out": 4074,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "beehive-skep": {
+   "id": "beehive-skep",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/beehive-skep.try1.jpg",
+     "semantic": {
+      "what_i_see": "Two traditional coiled-straw beehives with stone toppers sit side-by-side atop a rustic wooden bench against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "Two traditional coiled-straw beehives with stone toppers sit side-by-side atop a rustic wooden bench against a solid vibrant blue background.",
+       "details": "The image features no text, labels, or watermarks. The central subject consists of three combined components: two traditional domed straw beehives (skeps) and a long wooden bench. Each skep is constructed from coiled golden-yellow straw rope, featuring approximately seven visible horizontal rings, a small arched entrance hole at the lower front revealing a dark interior, and a flat, rounded grey stone sitting squarely on top. The skeps rest on a rectangular, worn brown wooden bench with visible wood grain and distressed edges. The bench is supported by four square legs connected by lower horizontal cross-stretchers, all finished in chipped and weathered green paint revealing natural wood beneath. The entire object is fully contained within the frame with no cropping. The background is a flat, uniform, bright blue chroma-key color with no visible floor, ground shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3712,
+      "soft": 0.0073,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9877,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4146,
+   "tokens_out": 1529,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-grain-heap-threshed": {
+   "id": "rural-grain-heap-threshed",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/rural-grain-heap-threshed.try1.jpg",
+     "semantic": {
+      "what_i_see": "A cartoon-style mound of yellow grain or sand featuring an embedded wooden scoop on the left and a small wooden bucket filled with grain on the right, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A cartoon-style mound of yellow grain or sand featuring an embedded wooden scoop on the left and a small wooden bucket filled with grain on the right, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene consists of three primary elements: a large conical heap of fine, bright golden-yellow granular material (such as cornmeal, grain, or sand), a carved wooden hand scoop, and a small wooden tub or bucket. The wooden shovel/scoop is thrust diagonally into the left side of the pile, showing a thick handle with a rounded finial/grip and a wide, squared blade with low side walls, all with prominent wood grain texture in shades of light brown and tan. On the lower right sits a small circular wooden bucket composed of vertical wooden staves held together by two dull greenish-grey metal hoops; the bucket has no lid and is filled to the brim with the same yellow granular substance. The entire group is fully contained within the frame without cropping. The background is a completely uniform, solid chroma-key blue with no floor line, external shadow, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.1075,
+      "soft": 0.0036,
+      "comps": 2,
+      "border": 0.0,
+      "chroma_iou": 0.2911,
+      "verdict": "fail",
+      "why": [
+       "BiRefNet vs chroma disagree (IoU 0.2911)"
+      ],
+      "chroma_holes_removed_px": 0
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4169,
+   "tokens_out": 2154,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "bean-poles-wigwam": {
+   "id": "bean-poles-wigwam",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/bean-poles-wigwam.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital 3D rendering of a garden bean teepee support structure covered in climbing runner bean vines with red flowers and green pods, set on a circular patch of dirt against a plain blue background.",
+      "ok": false,
+      "problems": [
+       "Remove the circular patch of dirt/ground base (no floor plane or scenery allowed)"
+      ],
+      "blind": {
+       "what_i_see": "A digital 3D rendering of a garden bean teepee support structure covered in climbing runner bean vines with red flowers and green pods, set on a circular patch of dirt against a plain blue background.",
+       "details": "The image features a single freestanding garden structure. No text, watermarks, or labels are present. The object is a teepee-style plant trellis (best guess) or a runner bean wigwam (second guess). It consists of five or six smooth, cylindrical light-brown wooden poles bound together near their tops by a thick, coiled cream-colored rope. Climbing up the poles are lush green bean vines bearing heart-shaped leaves, clusters of small bright red/scarlet blossoms, and long, plump green bean pods dangling downward. The poles are anchored into a circular mound of textured dark brown soil sprinkled with small pebbles and clods of earth. The entire structure is complete and fully contained within the frame, with no parts cropped. The background is a solid, completely uniform vivid blue chroma key, with no other people, scenery, or environmental shadows present.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/hut/work/bean-poles-wigwam.try2.jpg",
+     "semantic": {
+      "what_i_see": "A digital illustration of a wooden pole bean teepee trellis overgrown with climbing green vines, red flowers, and hanging bean pods, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital illustration of a wooden pole bean teepee trellis overgrown with climbing green vines, red flowers, and hanging bean pods, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single composite object: a bean teepee or garden cane trellis (second guess: climbing runner bean plant support). The structure consists of approximately five round, light-brown wooden poles arranged in a conical teepee formation, tied together near their pointed apex by multiple loops of light beige rope. Climbing up all sides of the poles are dense green vines bearing broad leaves, clusters of vibrant scarlet/orange-red blossoms, and numerous hanging smooth green bean pods. The object is completely visible and fully centered, uncropped by the frame. The background is an entirely uniform, bright solid blue with no ground surface, cast shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.2294,
+      "soft": 0.0113,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9733,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 204
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "Leftover blue background patches trapped between interior leaves and stems"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8244,
+   "tokens_out": 3683,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "root-sand-box": {
+   "id": "root-sand-box",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/root-sand-box.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden planter box filled with sand containing rows of miniature root vegetables\u2014carrots, beets, and turnips\u2014alongside a wooden scoop, all set against a solid vibrant blue background.",
+      "ok": false,
+      "problems": [
+       "remove the extraneous wooden scoop leaning against the box"
+      ],
+      "blind": {
+       "what_i_see": "A stylized wooden planter box filled with sand containing rows of miniature root vegetables\u2014carrots, beets, and turnips\u2014alongside a wooden scoop, all set against a solid vibrant blue background.",
+       "details": "There are no text, labels, or watermarks present. The scene features a single primary composite object: a rectangular wooden garden box or market crate. It stands on four corner posts resting on rectangular wooden foot blocks. The walls of the box are built from two horizontal wooden planks per side with a hand-painted, stylized wood grain texture in warm medium-brown tones. Inside, the crate is filled with a granular, beige sand or soil substrate. Embedded within this substrate are three neatly arranged diagonal rows of stylized root vegetables with cut green stalk tops: approximately six orange carrots on the left, six deep magenta/purplish beets in the center, and five white-and-violet turnips on the right. A small wooden scoop with a round handle leans upright against the back-right corner of the crate. The entire object is fully visible within the frame, with no cropping. The background is a flat, uniform, bright blue void with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/hut/work/root-sand-box.try2.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized cartoon illustration of a rectangular wooden planter box filled with sand and neat rows of root vegetables including carrots, beets, and turnips, alongside a wooden scoop, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D stylized cartoon illustration of a rectangular wooden planter box filled with sand and neat rows of root vegetables including carrots, beets, and turnips, alongside a wooden scoop, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The main object is a raised wooden planter box or garden crate (best name: stylized wooden vegetable garden bed; second guess: toy wooden produce crate). The planter is constructed from warm brown wood planks with visible painted grain, featuring four corner posts, two horizontal side boards on each face, and two thick wooden base runner slats/skids supporting it from underneath. Inside the open-topped crate is a bed of pale beige sand or soil holding nineteen round root vegetables and one wooden hand scoop: a back row of 7 round orange carrots with cropped green leafy stems; a middle row of 6 dark red/maroon beets with short stalks; a front row of 6 two-toned round turnips (white bottom, violet-purple top, and short green stems); and 1 wooden scoop stuck upright into the sand in the back-right corner. The planter has no lid or doors. The entire model is fully contained within the frame with no cropping, floating without cast shadows against a uniform, flat blue chroma background.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3729,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9938,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6048,
+   "tokens_out": 9323,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "winnowing-basket": {
+   "id": "winnowing-basket",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/winnowing-basket.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital game-style illustration of a woven winnowing basket filled with grains, centered on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital game-style illustration of a woven winnowing basket filled with grains, centered on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one primary object: a scoop-shaped winnowing basket (second guess: grain tray or harvest scoop) containing loose grain seeds. The basket has two looped handles, one on each upper side, and a rim bound at regular intervals with olive-green straps or ties. It features an open-fronted, flat-lipped scoop design with a raised curved back wall made of woven wicker splints. Inside, it is filled with grains: rounded golden-amber kernels toward the back, transitioning into paler, elongated light-beige grains toward the front rim. The object is rendered in light brown, tan, olive green, and warm golden hues. The entire object is fully visible and not cropped. The background is a flat, uniform, vibrant blue with no floor, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4135,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9935,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4128,
+   "tokens_out": 2245,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "loft-ladder-head": {
+   "id": "loft-ladder-head",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/loft-ladder-head.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of an open square wooden trapdoor hatch with a ladder descending into darkness, displayed against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of an open square wooden trapdoor hatch with a ladder descending into darkness, displayed against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single composite object: a wooden trapdoor hatch (first guess) or a cellar entrance (second guess). The structure consists of a square base frame formed by thick, weathered dark brown wooden beams joined with cube-shaped corner posts, a vertically raised lid composed of four wooden planks painted weathered moss green with worn yellowish-brown edges, attached via two dark metal hinges with visible rivets, and a light golden-brown wooden ladder with two side rails and three visible rungs leaning down into the dark cavity. The lid is fully open at approximately a 90-degree angle, showing a dark, featureless interior. The object is completely intact and fully contained within the frame with no parts cut off. The background is a flat, uniform, vibrant cobalt blue chroma key with no floor or shadows cast.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4257,
+      "soft": 0.0049,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9925,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4148,
+   "tokens_out": 1641,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-doorway--wattle-daub": {
+   "id": "wall-doorway--wattle-daub",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/wall-doorway--wattle-daub.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized architectural wall segment featuring a rectangular doorway opening framed in dark timber, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized architectural wall segment featuring a rectangular doorway opening framed in dark timber, set against a solid blue background.",
+       "details": "The image contains a single object, best described as a stylized doorway wall segment or an arched entrance partition. It consists of a textured, sandy-beige stucco/mud wall body supported by a horizontal thick wooden beam along the top edge and two short wooden base blocks at the bottom. A central rectangular doorway cutout is lined by an inner wooden frame consisting of a lintel and two vertical jambs; the opening contains no door panel and allows a clear view through to the background. Two areas of wall damage reveal woven wattle beneath the plaster: one small diamond-shaped hole at the upper-left, and one elongated hole at the lower-right adjacent to the doorframe. The wood is dark brown with visible grain and knots, while the wall surface is pale yellow-ochre with surface cracks and subtle aging stains near the base. The object is completely contained within the frame with no cropping, casting no visible shadows, and is isolated against a uniform solid blue background. There are no people, labels, or text.",
+       "reference_differences": [
+        "The candidate features a large rectangular doorway opening in the center with an inner timber frame, whereas the reference is a solid, continuous wall panel.",
+        "The bottom wooden beam is split into two separate base blocks on the candidate to accommodate the opening, compared to the continuous full-width beam at the base of the reference.",
+        "The lower patch of exposed woven wattle is located directly against the right inner door jamb on the candidate, whereas on the reference it is a larger, rounded patch positioned further inwards on the lower right of the solid panel."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2572,
+      "soft": 0.0054,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9872,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5562,
+   "tokens_out": 1618,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--wattle-daub--s2": {
+   "id": "wall-straight--wattle-daub--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/wall-straight--wattle-daub--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical rectangular wall panel made of cracked beige plaster framed by dark wooden beams at the top and bottom, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical rectangular wall panel made of cracked beige plaster framed by dark wooden beams at the top and bottom, set against a solid blue background.",
+       "details": "The image displays a single isolated 3D object viewed from a three-quarters perspective. It appears to be a wall section or divider composed of cracked, textured yellowish-tan plaster or mud over a wattle core. The top and bottom are bounded by thick horizontal wooden beams with carved wood-grain details and end-grain rings on the right ends. On the left side of the panel, roughly midway up, there is a jagged broken hole exposing the brown woven wicker/wattle interior lattice. A prominent crack runs vertically upward from this exposed area toward the top wooden beam. The lower portion of the plaster shows darker weathering/grime stains. The entire object is fully visible and isolated against a uniform solid blue background with no shadows or supporting ground.",
+       "reference_differences": [
+        "The candidate image features a single, larger damaged hole located at the middle-left of the plaster face, whereas the reference image features two separate damaged holes (a small one at the top-left and a larger one at the lower-right).",
+        "The candidate image has a prominent vertical fissure/crack running upward from the hole to the top wooden beam, which is absent in the reference image.",
+        "The placement and extent of the plaster weathering and cracks differ across the surface between the two panels."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3448,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5475,
+   "tokens_out": 1413,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-window-small--wattle-daub": {
+   "id": "wall-window-small--wattle-daub",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/hut/work/wall-window-small--wattle-daub.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized segment of an adobe or wattle-and-daub wall bounded by wooden beams at the top and bottom, featuring a small barred window with an open wooden shutter, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized segment of an adobe or wattle-and-daub wall bounded by wooden beams at the top and bottom, featuring a small barred window with an open wooden shutter, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image shows a single complete, uncropped object: a rectangular architectural wall section, or partition. It is bounded at top and bottom by thick, dark brown carved wooden beams showing wood grain and split ends. The main surface consists of weathered, yellowish-beige stucco or plaster with hairline cracks, slight discoloration near the bottom, and two broken areas (one small near the upper left, one larger near the lower right) revealing tightly woven brown wattle or wicker underneath. In the upper-middle section, there is a small rectangular wooden window frame containing four vertical bars, with a single hinged wooden plank shutter mounted on the left and swung completely open flat against the wall. The object is rendered in a hand-painted 3D game asset style and floats centered against a completely uniform solid bright blue background with no floor or shadows.",
+       "reference_differences": [
+        "The candidate includes a framed window with vertical wooden bars and an attached wooden shutter opened to the left, which is completely absent on the reference wall.",
+        "The central surface of the reference wall is continuous plaster, whereas the candidate wall is broken by the window opening."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3393,
+      "soft": 0.0058,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9908,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 13
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "background between the window bars was not cut out (missing transparency through window opening)"
+      ]
+     },
+     "chroma_gate": {
+      "ok": false,
+      "problems": [
+       "window opening between bars was not cut out and contains leftover blue background"
+      ]
+     },
+     "verdict": "mask_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/hut/work/wall-window-small--wattle-daub.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized beige plaster wall panel with dark wood framing at the top and bottom and a small barred window with an open wooden shutter, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized beige plaster wall panel with dark wood framing at the top and bottom and a small barred window with an open wooden shutter, set against a solid blue background.",
+       "details": "No text, labels, or watermarks are visible. There is a single complete object, best described as a stylized plaster wall panel (second guess: game prop or architectural wall section), completely contained within the frame without cropping. The wall panel has a thick dark brown timber beam at the top and an identical one at the base. The main body consists of textured light beige or sand-colored plaster with visible cracking and weathering stains along the bottom edge. In the upper center is a small wooden window unit featuring a rectangular timber frame, four vertical cylindrical wooden bars, and a wooden shutter panel swung open to the left on two dark metal hinges. Two ragged holes in the plaster expose a woven wattle layer made of brown sticks beneath: a small opening at the upper left and a larger opening toward the bottom right. The background is a flat, uniform bright blue with no cast shadows, floor, or additional objects.",
+       "reference_differences": [
+        "The candidate image includes a rectangular wooden window frame with four vertical wooden bars in the upper center, which is entirely absent in the reference image.",
+        "The candidate image features a wooden shutter door mounted on metal hinges and swung open to the left of the window, whereas the reference image has no shutter or window hardware.",
+        "The central plaster surface in the reference image is continuous and unbroken where the candidate image's window is situated."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3347,
+      "soft": 0.0058,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9899,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 13349,
+   "tokens_out": 6237,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

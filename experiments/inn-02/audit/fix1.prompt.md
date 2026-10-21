@@ -1,0 +1,9 @@
+You are auditing a 3D asset factory's automatic gates. Each numbered tile shows LEFT: a concept plate that will be turned into a 3D game prop; RIGHT: the background-removed cut-out on magenta. First read every tile number. Then for EACH tile, using the key below, answer strictly:
+- semantic: is the left image really the requested object, whole, single, with correct structure and the listed requirements? (PASS/FAIL + reason)
+- mask: does the right cut-out keep the whole object (no eaten parts, interior of open containers kept) and drop all background? (PASS/FAIL + reason)
+Be skeptical: report anything an art director would reject. Output one line per tile: "#N semantic=PASS|FAIL mask=PASS|FAIL — reason".
+KEY:
+#1 [wall-corner-inner--dressed-stone]: must be inside corner piece (Harry: too much in one. An INSIDE corner, as seen from inside a room looking into the corner: ONLY two short dressed-stone wall sections, each about 2.5 ft long and 9 ft tall, meeting at a 90° concave corner that points AWAY from the viewer, both stone faces facing the viewer. Nothing else: NO floor, NO furniture, NO extra walls.); it is a CONCAVE inside corner (the corner points away from the viewer, both inner wall faces visible), NOT an outside corner
+#2 [wall-corner-inner--rough-timber]: must be inside corner piece; it is a CONCAVE inside corner (the corner points away from the viewer, both inner wall faces visible), NOT an outside corner
+#3 [sauerkraut-crock]: must be crock of sauerkraut (A stoneware crock with its heavy lid sitting down INSIDE the rim, closed, no gap at all between lid and crock: one solid object.); the lid is seated on/in the rim with no visible gap
+#4 [lantern-post]: must be street lantern on a post; UNLIT: no flame, fire, glow, embers or emitted light anywhere (dark wicks / charred torch heads / cold ash are correct)

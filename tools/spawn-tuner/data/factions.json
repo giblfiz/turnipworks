@@ -1,0 +1,574 @@
+{
+ "version": 1,
+ "slots": [
+  "flavor-altarpiece",
+  "flavor-idol",
+  "flavor-banner",
+  "flavor-relief",
+  "flavor-sigil",
+  "flavor-censer",
+  "flavor-sculpture",
+  "flavor-buttress",
+  "flavor-corbel"
+ ],
+ "factions": [
+  {
+   "id": "sun",
+   "label": "Sun",
+   "group": "good",
+   "pieceLabel": "Sun",
+   "aliases": [
+    "solar"
+   ],
+   "emblem": "assets/emblems/sun.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--sun"
+    ],
+    "flavor-idol": [
+     "flavor-idol--sun-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--sun"
+    ],
+    "flavor-relief": [
+     "flavor-relief--sun"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--sun"
+    ],
+    "flavor-censer": [
+     "flavor-censer--sun"
+    ],
+    "flavor-sculpture": [
+     "flavor-sculpture--sun"
+    ],
+    "flavor-buttress": [
+     "flavor-buttress--sun"
+    ],
+    "flavor-corbel": [
+     "flavor-corbel--sun-fct"
+    ]
+   },
+   "emptySlots": [],
+   "fallbacks": {}
+  },
+  {
+   "id": "moon",
+   "label": "Moon",
+   "group": "good",
+   "pieceLabel": "Moon",
+   "aliases": [
+    "lunar"
+   ],
+   "emblem": "assets/emblems/moon.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--moon"
+    ],
+    "flavor-idol": [
+     "flavor-idol--moon"
+    ],
+    "flavor-banner": [
+     "flavor-banner--moon"
+    ],
+    "flavor-relief": [
+     "flavor-relief--moon"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--moon"
+    ],
+    "flavor-censer": [
+     "flavor-censer--moon"
+    ],
+    "flavor-sculpture": [
+     "flavor-sculpture--moon"
+    ],
+    "flavor-buttress": [
+     "flavor-buttress--moon"
+    ],
+    "flavor-corbel": [
+     "flavor-corbel--moon-fct"
+    ]
+   },
+   "emptySlots": [],
+   "fallbacks": {}
+  },
+  {
+   "id": "devils",
+   "label": "Devils",
+   "group": "sinister",
+   "pieceLabel": "Devil",
+   "aliases": [
+    "devil",
+    "demonic",
+    "infernal"
+   ],
+   "emblem": "assets/emblems/devils.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--devils"
+    ],
+    "flavor-idol": [
+     "flavor-idol--devils"
+    ],
+    "flavor-banner": [
+     "flavor-banner--devils"
+    ],
+    "flavor-relief": [
+     "flavor-relief--devils"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--devils"
+    ],
+    "flavor-censer": [
+     "flavor-censer--devils"
+    ],
+    "flavor-sculpture": [
+     "flavor-sculpture--devils"
+    ],
+    "flavor-buttress": [
+     "flavor-buttress--devils"
+    ],
+    "flavor-corbel": [
+     "flavor-corbel--devils-fct"
+    ]
+   },
+   "emptySlots": [],
+   "fallbacks": {}
+  },
+  {
+   "id": "spiders",
+   "label": "Spiders",
+   "group": "sinister",
+   "pieceLabel": "Spider",
+   "aliases": [
+    "spider",
+    "arachnid"
+   ],
+   "emblem": "assets/emblems/spiders.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--spiders"
+    ],
+    "flavor-idol": [
+     "flavor-idol--spiders"
+    ],
+    "flavor-banner": [
+     "flavor-banner--spiders"
+    ],
+    "flavor-relief": [
+     "flavor-relief--spiders"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--spiders"
+    ],
+    "flavor-censer": [
+     "flavor-censer--spiders"
+    ],
+    "flavor-sculpture": [
+     "flavor-sculpture--spiders"
+    ],
+    "flavor-buttress": [
+     "flavor-buttress--spiders"
+    ],
+    "flavor-corbel": [
+     "flavor-corbel--spiders-fct"
+    ]
+   },
+   "emptySlots": [],
+   "fallbacks": {}
+  },
+  {
+   "id": "dragons",
+   "label": "Dragon",
+   "group": "sinister",
+   "pieceLabel": "Dragon",
+   "aliases": [],
+   "emblem": "assets/emblems/dragons.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--dragons-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--dragons-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--dragons-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--dragons-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--dragons-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--dragons-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  },
+  {
+   "id": "skulls",
+   "label": "Skulls & skeletons",
+   "group": "sinister",
+   "pieceLabel": "Skeleton",
+   "aliases": [],
+   "emblem": "assets/emblems/skulls.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--skulls-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--skulls-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--skulls-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--skulls-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--skulls-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--skulls-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  },
+  {
+   "id": "tentacles",
+   "label": "Tentacles",
+   "group": "sinister",
+   "pieceLabel": "Tentacle",
+   "aliases": [],
+   "emblem": "assets/emblems/tentacles.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--tentacles-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--tentacles-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--tentacles-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--tentacles-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--tentacles-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--tentacles-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  },
+  {
+   "id": "nature",
+   "label": "Nature",
+   "group": "good",
+   "pieceLabel": "Nature",
+   "aliases": [],
+   "emblem": "assets/emblems/nature.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--nature-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--nature-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--nature-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--nature-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--nature-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--nature-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  },
+  {
+   "id": "sword-shield",
+   "label": "Sword & shield",
+   "group": "good",
+   "pieceLabel": "Sword & shield",
+   "aliases": [],
+   "emblem": "assets/emblems/sword-shield.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--sword-shield-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--sword-shield-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--sword-shield-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--sword-shield-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--sword-shield-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--sword-shield-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  },
+  {
+   "id": "death",
+   "label": "Respectable death",
+   "group": "neutral",
+   "pieceLabel": "Respectable death",
+   "aliases": [],
+   "emblem": "assets/emblems/death.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--death-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--death-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--death-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--death-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--death-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--death-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  },
+  {
+   "id": "scales-coin",
+   "label": "Scales & coin",
+   "group": "neutral",
+   "pieceLabel": "Scales & coin",
+   "aliases": [],
+   "emblem": "assets/emblems/scales-coin.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--scales-coin-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--scales-coin-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--scales-coin-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--scales-coin-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--scales-coin-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--scales-coin-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  },
+  {
+   "id": "forge-hammer",
+   "label": "Forge & hammer",
+   "group": "neutral",
+   "pieceLabel": "Forge & hammer",
+   "aliases": [],
+   "emblem": "assets/emblems/forge-hammer.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--forge-hammer-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--forge-hammer-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--forge-hammer-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--forge-hammer-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--forge-hammer-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--forge-hammer-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  },
+  {
+   "id": "sea-storm",
+   "label": "Sea & storm",
+   "group": "neutral",
+   "pieceLabel": "Sea & storm",
+   "aliases": [],
+   "emblem": "assets/emblems/sea-storm.webp",
+   "available": true,
+   "slots": {
+    "flavor-altarpiece": [
+     "flavor-altarpiece--sea-storm-fct"
+    ],
+    "flavor-idol": [
+     "flavor-idol--sea-storm-fct"
+    ],
+    "flavor-banner": [
+     "flavor-banner--sea-storm-fct"
+    ],
+    "flavor-relief": [
+     "flavor-relief--sea-storm-fct"
+    ],
+    "flavor-sigil": [
+     "flavor-sigil--sea-storm-fct"
+    ],
+    "flavor-censer": [],
+    "flavor-sculpture": [],
+    "flavor-buttress": [],
+    "flavor-corbel": [
+     "flavor-corbel--sea-storm-fct"
+    ]
+   },
+   "emptySlots": [
+    "flavor-censer",
+    "flavor-sculpture",
+    "flavor-buttress"
+   ],
+   "fallbacks": {
+    "flavor-censer": {
+     "role": "censer-hanging",
+     "place": "ceiling"
+    }
+   }
+  }
+ ]
+}

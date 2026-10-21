@@ -1,0 +1,277 @@
+MIN — mine: 275 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  mine-timber-set            [kit/edge] repeats every cell or two down a gallery
+! P1  wall-cave-rough            [kit/edge] mines and caves; hides the grid
+! P1  mine-headframe             [ground/2x2] mine surface landmark
+! P1  smelter                    [floor/1] mine head or smith's yard
+! P1  windlass                   [floor/1] shafts, portcullis rooms, wells
+! P1  collapse-rubble            [floor/1] dead ends; scene-state "cave-in"
+! P1  mine-cart                  [floor/1] on rails; tipped over in a collapse
+! P1  mine-rail                  [kit/1] the mine's circulatory system
+! P1  ore-pile                   [floor/sub] cart ends, sorting areas
+! P1  ore-vein                   [wall/edge] the dig face; mix with wall-cave-rough
+! P1  pick-and-shovel            [wall/sub] everywhere in a mine
+! P1  mine-rail-cross            [floor/1] the middle of a junction
+! P1  mine-rail-strip            [floor/1] laid in a row down a tunnel; carts stand on it
+! P1  mine-lamp-rack             [wall/sub] the lamp store, the shaft head; the engine adds the flames
+! P1  mine-shaft-collar          [floor/1] the shaft head: the way down; reads as a hole although it stands on the floor
+! P1  mine-tool-rack             [wall/1] tool stores, working faces; reads as "picks" from above
+! P1  powder-keg-stack           [floor/1] the powder store; the fuse everyone watches
+! P1  crystal-formation          [floor/1] the deep mine wonder
+! P1  stalagmite                 [floor/sub] caves
+! P1  cave-mouth                 [kit/2x2] the transition from outside to under
+! P1  pickaxe                    [floor/tiny] the miner's tool, alone
+! P1  rural-hammer-and-gad       [surface/tiny] splitting ore at the face
+! P1  rural-helmet-candle        [surface/tiny] on hooks by the shaft
+! P1  rural-lamp-miners          [surface/tiny] hang on timber sets; the mine's light
+! P1  rural-ore-gold-chunk       [surface/tiny] the reason for the mine
+! P1  rural-ore-iron-chunk       [surface/tiny] the common ore; carts and piles
+! P1  rural-pick-miners          [floor/tiny] leaning on gallery walls; the mine's default tool
+! P1  rural-tailings-pile        [ground/1] outside every mine mouth
+! P1  rural-timber-set-cracked   [kit/edge] cave-in foreshadowing
+! P2  decal-ore-scatter          [floor/sub] round heaps, carts and sorting tables
+! P2  shoring-timber             [floor/1] holds up a doubtful ceiling; a token walks through it
+! P2  gems-raw-cluster           [surface/tiny] mining reward
+! P2  rural-gem-in-matrix        [surface/tiny] the lucky strike
+! P3  lift-cage                  [kit/1] moves between mine levels
+  P1  door-reinforced            [kit/edge] vaults, keeps, lockable rooms
+  P1  floor-earth-bare           [ground/1] barns and stables under hay and mud scatter
+  P1  floor-earth-packed         [ground/1] barns, privies, hovels
+  P1  floor-flagstone-broken     [kit/1] ruins, old cellars, stables
+  P1  post-timber                [floor/sub] timber buildings, taverns, barns
+  P1  wall-breach                [kit/edge] secret routes, siege damage, ruin reveals
+  P1  grindstone                 [floor/sub] sharpening corner; armories
+  P1  quench-trough              [floor/1] forge side; doubles as horse trough
+  P1  water-trough               [ground/1x2] stables and yards
+  P1  well                       [floor/1] village and courtyard centerpiece
+  P1  bedroll                    [floor/1x2] camps; floor of a cheap room
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  bunk-bed                   [floor/1x2] barracks, miners' dormitory
+  P1  cot                        [floor/1x2] infirmaries, cells
+  P1  shelving-freestanding      [floor/1] storerooms, cellars
+  P1  table-square               [floor/1] the workhorse table
+  P1  table-trestle              [floor/1x2] pairs with two long benches
+  P1  brazier-standing           [floor/sub] throne rooms, torture chambers, shrines
+  P1  crystal-glowing            [floor/sub] deep mines; Room 2's crystal puzzle
+  P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
+  P1  lantern-post               [ground/sub] streets, manor drives
+  P1  torch-sconce               [wall/tiny] every stone corridor
+  P1  lantern-wall-iron          [wall/tiny] corridors and porches; generated unlit, engine fire FX adds the flame
+  P1  torch-bracket-rough        [wall/tiny] cellars, stables, dungeons; charred unlit torch head, engine fire FX adds the flame
+  P1  lantern-post-indoor        [floor/sub] hallway and stable-aisle light posts; generated unlit, engine fire FX adds the flame
+  P1  tankard                    [surface/tiny] one per drinker; scatter
+  P1  coal-bin                   [floor/1] forge fuel
+  P1  powder-keg                 [floor/sub] the fuse everyone watches
+  P1  sorting-table              [floor/1x2] surface works
+  P1  wheelbarrow                [floor/sub] yards, mines
+  P1  chasm-strip                [floor/1] laid in a row from wall to wall; a bridge crosses it
+  P1  floor-cut-rock             [kit/1] hewn dungeons, dens, shrines
+  P1  floor-water-flooded        [kit/1] flooded chambers, cisterns; difficult terrain
+  P1  pit-open                   [floor/1] the pit trap, sprung
+  P1  bones-pile                 [floor/sub] cell corners, monster lairs
+  P1  lever-wall                 [wall/tiny] opens gates, trips traps; scene-state trigger
+  P1  lever-floor                [floor/sub] opens the portcullis, drains the room, springs the trap
+  P1  cart-hand                  [ground/1] streets, farms
+  P1  notice-board               [ground/sub] quest hook dispenser
+  P1  cave-column                [floor/1] cavern pillars
+  P1  mushrooms-giant            [ground/sub] underground gardens; glowing variant
+  P1  rock-outcrop               [ground/2x2] mine entrances, overlooks
+  P1  stalactite                 [ceiling/sub] caves (FPV mood)
+  P1  tree-conifer               [ground/1] mountain mines, forests
+  P1  rubble-pile                [floor/1] the ruin workhorse; varied sizes
+  P1  fx-lava                    [floor/1] deep mines, volcano lairs
+  P1  boulder-pile               [floor/1] caves, cave mouths, passages that wind
+  P1  adventurer-remains         [floor/1] "the last party" — loot and foreshadowing
+  P1  flowers-glowing            [ground/sub] feywild edges, underground gardens
+  P1  runestone                  [ground/sub] lore delivery
+  P1  watch-lantern-bell         [ground/sub] raise the alarm
+  P1  key-hook-board             [wall/sub] innkeeper's room keys, jailer's station
+  P1  torch-dropped              [floor/tiny] someone was here recently
+  P1  warhammer                  [surface/tiny] dwarves and knights
+  P1  cart-shed                  [ground/2x2] inn yards
+  P1  cave-ceiling-rough         [ceiling/1] FPV and cutaway mood
+  P1  cave-floor-tile            [kit/1] the cave-rock family's floor
+  P1  cave-pool                  [floor/1] pair with fx-water-surface
+  P1  cave-ramp-natural          [kit/1x2] levels in a cavern
+  P1  cave-tunnel-narrow         [kit/edge] crawl spaces
+  P1  cave-wall-corner           [kit/edge] lets caves read as caves, not rooms
+  P1  cliff-face                 [kit/edge] elevation changes outdoors
+  P1  lamp-post-wood             [ground/sub] village lanes
+  P1  slime-mold-floor           [floor/1] slippery, maybe acidic
+  P1  well-house                 [ground/1] village square centerpiece
+  P1  axe-woodcutter             [floor/tiny] woodpiles, stumps
+  P1  iron-spikes                [surface/tiny] spike doors shut
+  P1  alch-crystal-blue          [surface/tiny] water/mana-attuned
+  P1  alch-crystal-red           [surface/tiny] fire-attuned; part of a color set
+  P1  smith-assay-scales         [surface/tiny] checking the gold is real
+  P1  smith-bar-bundle           [floor/sub] deliveries; cart loads
+  P1  smith-charcoal-sack        [floor/tiny] against the forge wall
+  P1  smith-ingot-iron           [surface/tiny] raw goods, trade cargo
+  P1  smith-iron-bar             [surface/tiny] scatter; a stack in the corner
+  P1  rural-coal-lump            [surface/tiny] scatter around coal bins
+  P1  rural-ore-bucket           [floor/tiny] hauled up the shaft
+  P1  rural-pit-props-stack      [floor/1] mine stores
+  P1  rural-sign-danger-mine     [wall/tiny] warnings nobody heeds
+  P1  rural-trail-cairn          [ground/tiny] wilderness wayfinding
+  P1  mil-helmet-peg-rack        [wall/1] barracks and guard rooms
+  P2  floor-broken-hole          [kit/1] reveals the level below
+  P2  floor-pit-edge             [kit/edge] chasms, oubliettes, collapsed floors
+  P2  stair-cut-rock             [kit/1x2] descending into the depths
+  P2  firepit-stone-round        [floor/1] centre of a hall or yard; logs and grey ash, no fire, engine fire FX adds it
+  P2  hearth-central-hood        [floor/2x2] a hall's centrepiece; logs and grey ash, no fire, engine fire FX adds it
+  P2  hearth-raised-square       [floor/2x2] longhouse-style common rooms; logs and grey ash, no fire, engine fire FX adds it
+  P2  cauldron-crane             [floor/1] the middle of a castle kitchen, or the courtyard on a feast day; generated unlit, engine fire FX adds the fire
+  P2  lantern-wall-horn          [wall/tiny] cheap medieval light; generated unlit, engine fire FX adds the flame
+  P2  lumber-pile                [floor/1x2] workyards, mine stores
+  P2  metal-stock                [floor/sub] raw material
+  P2  ingot-stack                [floor/sub] the smelter's output; trade cargo
+  P2  chasm-strip-wide           [floor/1x2] the wide crossing
+  P2  decal-rubble-scatter       [floor/sub] round rubble piles and collapses
+  P2  decal-slime                [floor/sub] sewers, dens; slippery
+  P2  signpost                   [ground/sub] crossroads, village edges
+  P2  garden-tools-leaning       [wall/sub] one chunky mesh instead of three thin ones; against the wall by the kitchen door; generated 2026-10-05
+  P2  beam-collapsed             [floor/1x2] burned-out buildings, cave-ins
+  P2  debris-planks              [floor/1] floor dressing
+  P2  ceiling-slab-fallen        [floor/1x2] collapsed halls
+  P2  flotsam-crate              [floor/sub] flooded chambers and sewers; sits on the water plane
+  P2  decal-cracks               [floor/1] aging layer
+  P2  stone-blocks-stack         [floor/1] quarries, construction
+  P2  crystal-shard              [surface/tiny] puzzle pieces; the four crystals
+  P2  maul-great                 [surface/sub] ogre-sized swing
+  P2  bridge-rope                [kit/1x3] chasm crossings; cut the ropes
+  P2  bridge-stone-natural       [kit/1x3] spans chasms and rivers underground
+  P2  chasm-edge                 [kit/edge] the fall; bridges span it
+  P2  cliff-corner-inner         [kit/edge] canyons, quarries
+  P2  cliff-corner-outer         [kit/edge] pairs with cliff-face
+  P2  fungus-forest-stalk        [ground/1] underground forests
+  P2  mine-ladder-shaft          [kit/1] connects mine levels
+  P2  plank-bridge               [kit/1x2] improvised crossings
+  P2  root-giant                 [floor/1x2] the world-tree's underside
+  P2  rubble-small-scatter       [floor/sub] edges of rubble piles
+  P2  scree-slope                [ground/1x2] difficult terrain
+  P2  waterfall-small            [ground/1x2] the cave behind the falls; pair with fx-water-surface
+  P2  mug-wooden                 [surface/tiny] stave-built; cheap
+  P2  plate-tin-camp             [surface/tiny] soldiers and miners
+  P2  mushroom-glowing-edible    [surface/tiny] underground fare; eat at your own risk
+  P2  pasty                      [surface/tiny] miners' lunch; rations
+  P2  chain-length               [floor/1] across gates, round chests
+  P2  hammer-smith               [surface/tiny] on the anvil
+  P2  rope-knotted               [wall/edge] hangs down walls and shafts
+  P2  sledgehammer               [floor/tiny] break walls, mine stores
+  P2  alch-crystal-green         [surface/tiny] nature-attuned
+  P2  alch-crystal-purple        [surface/tiny] Amethyst of Blackened Fate energy
+  P2  alch-moss-glowing-dish     [surface/tiny] light source and reagent
+  P2  smith-bloom                [surface/tiny] fresh from the bloomery
+  P2  smith-chain-coil-heavy     [floor/sub] portcullis and drawbridge stock
+  P2  smith-coal-heap            [floor/sub] by the bellows side
+  P2  smith-forge-dwarven-hearth [floor/2x2] under-mountain halls
+  P2  smith-gem-uncut-single     [surface/tiny] pocket loot
+  P2  smith-ingot-copper         [surface/tiny] coppersmith and bellfounder
+  P2  smith-ingot-mould          [surface/tiny] pour station
+  P2  smith-molten-channel       [floor/1x2] dwarven foundry; lava-lit
+  P2  smith-rune-anvil           [floor/sub] dwarven or enchanted forge centerpiece
+  P2  craft-rope-coil-thick      [floor/sub] heavy rope; mine hoists
+  P2  craft-rope-hanks-hung      [wall/1] ropewalk store, mine store
+  P2  rural-coal-pile-floor      [floor/sub] forge corners, mine sidings
+  P2  rural-fuse-coil            [surface/tiny] next to powder kegs
+  P2  rural-geode-split          [surface/tiny] alchemists want these
+  P2  rural-gold-nuggets         [surface/tiny] panning reward
+  P2  rural-ore-basket           [floor/tiny] porters' load
+  P2  rural-ore-cart-tipped      [floor/1] after the collapse
+  P2  rural-ore-copper-chunk     [surface/tiny] variety at the ore face
+  P2  rural-ore-mithral-chunk    [surface/tiny] deep-mine treasure; fantasy metal
+  P2  rural-ore-silver-chunk     [surface/tiny] worth stealing
+  P2  rural-panning-dish         [surface/tiny] stream-side prospecting
+  P2  rural-pick-double          [floor/tiny] harder rock; racks and tool caches
+  P2  rural-saddle-pack          [floor/sub] caravans, mines
+  P2  rural-shaft-cover-planks   [floor/1] step carefully
+  P2  rural-shovel-coal          [floor/tiny] coal bins and forges
+  P2  rural-sledge-mining        [floor/tiny] breaking boulders in tight galleries
+  P2  rural-timber-prop-single   [floor/sub] stacked for repairs
+  P2  rural-tool-cache-mine      [floor/sub] dead-end caches; supply hooks
+  P3  ladder-rope                [wall/edge] pits and escapes
+  P3  ramp                       [kit/1x2] cart ramps, siege ramps
+  P3  washtub                    [floor/sub] yards and sculleries
+  P3  coat-pegs                  [wall/sub] by the door
+  P3  basket-back                [floor/tiny] foragers, porters
+  P3  rain-barrel                [ground/sub] exteriors
+  P3  cellar-steps-earth         [floor/1] root cellar entrance
+  P3  sawhorse                   [floor/1] repair scenes
+  P3  sluice-box                 [ground/1x2] streams outside the mine
+  P3  toolbox                    [surface/tiny] anywhere work happens
+  P3  decal-coal-dust            [floor/sub] tunnels, the smelter floor
+  P3  mine-rail-end              [floor/1] at the working face
+  P3  bridge-post-rope           [floor/sub] stands in pairs at the ends of a chasm crossing
+  P3  mushroom-cave-giant        [floor/sub] dens and wet caves
+  P3  decal-scorch               [floor/sub] aftermath of a fireball
+  P3  climbing-kit               [surface/tiny] cliff and shaft descents
+  P3  crowbar                    [surface/tiny] open that crate
+  P3  chain-pile                 [floor/sub] dungeons, drawbridge rooms
+  P3  cliff-ledge                [kit/1] ambush perches
+  P3  climbing-chain             [wall/edge] shafts and pits
+  P3  flowstone-curtain          [wall/1] show caves
+  P3  fungus-puffball            [floor/sub] spore traps
+  P3  fungus-shelf               [wall/sub] damp walls; glow variant
+  P3  geode-cluster              [floor/sub] gem-mine treasure
+  P3  glowworm-ceiling           [ceiling/1] soft cave light
+  P3  ice-floor-tile             [kit/1] ice caves; difficult terrain
+  P3  icicles-hanging            [ceiling/sub] ice caves, frost-giant lairs
+  P3  lava-crust-edge            [kit/edge] pair with fx-lava
+  P3  mine-rail-bridge           [kit/1x2] rail over a drop
+  P3  mine-support-braced        [kit/edge] the dangerous section
+  P3  rock-spire                 [ground/1] badlands, lair approaches
+  P3  snow-drift                 [ground/1] winter scenes
+  P3  snow-patch                 [ground/1] winter dressing
+  P3  tree-snowladen             [ground/1] winter mountains
+  P3  bowl-tin-camp              [surface/tiny] mess kit
+  P3  cup-tin-camp               [surface/tiny] miners and campaigners
+  P3  pot-dented-camp            [surface/tiny] over a campfire
+  P3  sieve-wooden-drum          [surface/tiny] sifting grain
+  P3  jerky-bundle               [surface/tiny] rations
+  P3  salt-block                 [surface/tiny] larders, trade goods
+  P3  stonebread-dwarven         [surface/tiny] dwarf rations; could stun a goblin
+  P3  cap-knit                   [surface/tiny] miners, peasants
+  P3  chalk-marks                [wall/sub] another party mapped this
+  P3  grease-pot                 [surface/tiny] wheelwrights
+  P3  mattock                    [floor/tiny] digging crews
+  P3  mineral-specimens          [surface/tiny] assayers, scholars
+  P3  sieve                      [surface/tiny] millers, prospectors
+  P3  spade-garden               [floor/tiny] gardens
+  P3  wedge-iron                 [surface/tiny] woodpiles
+  P3  alch-crystal-black         [surface/tiny] shadow-attuned
+  P3  alch-crystal-white         [surface/tiny] holy-attuned
+  P3  alch-fungus-jar-luminous   [surface/tiny] cave harvest
+  P3  alch-geode-cut             [surface/tiny] display curio
+  P3  smith-clinker-pile         [floor/sub] behind the smithy
+  P3  smith-cold-chisel          [surface/tiny] cutting cold iron and rivets
+  P3  smith-ore-crusher          [floor/1x2] industrial dwarves
+  P3  smith-soot-bucket          [floor/tiny] ash to the midden
+  P3  smith-touchstone           [surface/tiny] the assayer's test
+  P3  smith-trip-hammer          [floor/1x2] big forges beside a millrace
+  P3  trade-stone-chips-pile     [floor/sub] yard floor
+  P3  rural-assay-crucible       [surface/tiny] testing ore purity
+  P3  rural-assay-scale          [surface/tiny] mine office; ore buyers
+  P3  rural-bell-signal-mine     [wall/tiny] ring for the lift
+  P3  rural-bellows-ventilation  [floor/1] deep galleries
+  P3  rural-canary-cage-empty    [surface/tiny] ominous when empty
+  P3  rural-candle-box-mine      [surface/tiny] mine stores
+  P3  rural-cart-wheel-mine      [floor/tiny] broken-cart dressing
+  P3  rural-charge-bundle        [surface/tiny] the fuse everyone watches
+  P3  rural-claim-marker         [ground/tiny] disputed claims make plots
+  P3  rural-crowbar-mine         [floor/tiny] levering loose rock; opening crates
+  P3  rural-drill-hand           [surface/tiny] drilling charge holes
+  P3  rural-foreman-desk         [floor/sub] mine office
+  P3  rural-gold-dust-pouch      [surface/tiny] miner's payday
+  P3  rural-lunch-pail-miner     [surface/tiny] break-room dressing
+  P3  rural-mine-map-board       [wall/sub] foreman's office
+  P3  rural-ore-sack             [floor/tiny] porters' load
+  P3  rural-ore-tin-chunk        [surface/tiny] bronze-age flavor
+  P3  rural-pick-broken          [floor/tiny] abandoned-mine clue
+  P3  rural-powder-horn          [surface/tiny] blasting and hunting
+  P3  rural-rail-section-loose   [floor/1] track repair area
+  P3  rural-sieve-riddle         [floor/sub] sorting areas
+  P3  rural-slag-heap            [ground/1] mine surface dressing
+  P3  rural-survey-stakes        [floor/tiny] claim markers
+  P3  rural-water-pump-mine      [floor/1] flooded levels
+  P3  rural-wedges-set           [surface/tiny] beside the ore vein
+  P3  mil-catapult-stones        [ground/sub] beside siege engines

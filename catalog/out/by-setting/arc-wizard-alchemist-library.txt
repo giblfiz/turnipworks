@@ -1,0 +1,537 @@
+ARC — wizard-alchemist-library: 535 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  bookshelf                  [wall/1] libraries; line walls
+! P1  desk-writing               [floor/1] study anchor
+! P1  scroll-rack                [wall/1] scholars and archives
+! P1  glow-orb                   [attach/tiny] wizard's lab lighting
+! P1  cauldron                   [floor/sub] kitchen, witch's hut, alchemist
+! P1  mortar-pestle              [surface/tiny] apothecaries, herb-wives
+! P1  alembic                    [surface/sub] alchemy bench centerpiece
+! P1  book-stack                 [surface/tiny] desks, floors of messy studies
+! P1  crystal-ball               [surface/tiny] fortune tellers
+! P1  potion-bottles             [surface/tiny] shelves, benches, shops
+! P1  specimen-jar               [surface/tiny] Grimward's lab
+! P1  enchanting-table           [floor/1] item-crafting downtime scenes
+! P1  orb-floating               [surface/tiny] power source, MacGuffin
+! P1  portal-arch                [floor/1x2] pair with fx-portal; lit = active
+! P1  spellbook-lectern          [floor/sub] the wizard's prize; reading it is a choice
+! P1  staff-rack                 [wall/1] wizard armory
+! P1  staff-crystal              [surface/sub] the wizard's staff, left behind
+! P1  tome-grimoire              [surface/tiny] villain's spellbook
+! P1  wand-display               [surface/tiny] the magic shop's featured item
+! P1  wizard-hat                 [surface/tiny] the wizard's hat on the hatstand
+! P1  alch-alchemy-bench-plain   [floor/1x2] empty bench to dress per scene
+! P1  alch-apothecary-scale      [surface/tiny] weighing doses; shop counter
+! P1  alch-athanor               [floor/1] the alchemist's slow furnace; room anchor
+! P1  alch-bell-jar              [surface/tiny] display anything under glass
+! P1  alch-cauldron-bubbling-green [floor/sub] the witch's cauldron in action
+! P1  alch-chalk-bundle          [surface/tiny] draws the circles
+! P1  alch-counter-apothecary    [floor/1x2] shop front
+! P1  alch-crystal-blue          [surface/tiny] water/mana-attuned
+! P1  alch-crystal-red           [surface/tiny] fire-attuned; part of a color set
+! P1  alch-dragon-scale-single   [surface/tiny] iconic high-value reagent
+! P1  alch-flask-conical         [surface/tiny] the lab's workhorse vessel
+! P1  alch-flask-longneck        [surface/tiny] over a spirit lamp; bubbling state via fill
+! P1  alch-jar-eyes              [surface/tiny] the unmistakable ingredient
+! P1  alch-mandrake-root         [surface/tiny] iconic plant reagent
+! P1  alch-mortar-marble         [surface/tiny] fine powders; apothecary counter
+! P1  alch-potion-blue-tall      [surface/tiny] arcane restoration
+! P1  alch-potion-green-skull    [surface/tiny] poison, obviously
+! P1  alch-potion-red-round      [surface/tiny] THE healing potion
+! P1  alch-recipe-book-open      [surface/tiny] the lab's notebook
+! P1  alch-retort                [surface/tiny] the classic alchemy silhouette
+! P1  alch-spell-component-pouch [surface/tiny] every caster's belt
+! P1  alch-spirit-lamp           [surface/tiny] under every flask
+! P1  alch-summoning-candles-ring [floor/1] place on a ritual circle
+! P1  alch-test-tube-rack        [surface/tiny] instant lab read
+! P1  alch-vial-rack             [surface/tiny] bench centerpiece; loot many doses
+! P1  alch-wand-oak              [surface/tiny] the starter wand
+! P1  trade-map-in-progress      [wall/sub] the cartographer's current job; clue
+! P2  decal-star-floor           [floor/2x2] the middle of an observatory floor; a separate prop, not part of the floor
+! P2  door-tower                 [kit/edge] hangs in `wall-doorway--tower-stone`; a leaf like `door-plank--leaf`
+! P2  animal-hutch               [wall/1] familiars and specimens
+! P2  birdcage-standing          [floor/sub] familiars' menagerie; a creature token goes beside it
+! P2  egg-nest-great             [floor/sub] what will hatch?
+! P2  perch-tree                 [floor/sub] the menagerie's tall silhouette
+! P2  vivarium                   [wall/1] toads, snakes and stranger things
+! P2  alch-bench-dressed         [floor/1x2] the laboratory's main read from above: glass and brass in many colours on one bench
+! P2  armillary-great            [floor/1] observatories and studies
+! P2  cabinet-curios             [wall/1] studies, shops and reagent stores
+! P2  hatstand-wizard            [floor/sub] the one piece that says whose bedroom this is
+! P2  telescope-great            [floor/1x2] the observatory's focal piece, aimed up at a window
+! P2  teleport-circle-dais       [floor/2x2] fast travel, escape hatches, villain exits
+! P2  cauldron-witch             [floor/sub] green glow; pair with fx
+! P2  robe-wizard-folded         [surface/tiny] wizard wardrobes
+! P2  alch-apothecary-jar-lidded [surface/tiny] blue-glazed apothecary pot
+! P2  alch-bat-dried             [ceiling/tiny] hang from beams
+! P2  alch-beaker-spouted        [surface/tiny] measured pours
+! P2  alch-bone-powder-jar       [surface/tiny] necromantic staple
+! P2  alch-brain-jar             [surface/tiny] mad-science shorthand
+! P2  alch-brazier-tabletop      [surface/tiny] scrying and summoning
+! P2  alch-condenser-coil        [surface/tiny] links a still to a receiver flask
+! P2  alch-crucible-glowing      [surface/tiny] transmutation in progress
+! P2  alch-crystal-green         [surface/tiny] nature-attuned
+! P2  alch-crystal-purple        [surface/tiny] Amethyst of Blackened Fate energy
+! P2  alch-dissection-tray       [surface/tiny] Grimward's bench
+! P2  alch-dragon-blood-vial     [surface/tiny] the expensive vial
+! P2  alch-evaporating-dish      [surface/tiny] crystals forming
+! P2  alch-familiar-perch        [floor/sub] owl/raven perch — empty or with a creature token
+! P2  alch-feather-phoenix       [surface/tiny] rare reagent; quest reward
+! P2  alch-focus-amulet-rune     [surface/tiny] arcane focus
+! P2  alch-golem-heart-core      [surface/tiny] construct power source
+! P2  alch-grimoire-bound-flesh  [surface/tiny] evil book shorthand
+! P2  alch-grimoire-locked       [surface/tiny] needs a key
+! P2  alch-heart-preserved-glowing [surface/tiny] lich/golem heart; distinct from plain heart jar
+! P2  alch-herb-bundle-nightshade [surface/tiny] poisons
+! P2  alch-herb-bundle-sage      [surface/tiny] smudging, cleansing
+! P2  alch-herb-bundle-wolfsbane [surface/tiny] werewolf ward (Lupin!)
+! P2  alch-herb-chopping-board   [surface/tiny] prep station
+! P2  alch-homunculus-vat        [floor/1] creation lab set piece
+! P2  alch-jar-lightning         [surface/tiny] mad-science power source (arcane-coil)
+! P2  alch-knife-herb-curved     [surface/tiny] ritual harvesting
+! P2  alch-magnifier-stand       [surface/tiny] examining specimens
+! P2  alch-mercury-flask         [surface/tiny] prima materia
+! P2  alch-moss-glowing-dish     [surface/tiny] light source and reagent
+! P2  alch-mummified-hand        [surface/tiny] hand of glory candle holder
+! P2  alch-newts-jar             [surface/tiny] witch's staple
+! P2  alch-notes-pinned-wall     [wall/1] obsession board
+! P2  alch-philosophers-stone    [surface/tiny] the great work
+! P2  alch-potion-bandolier      [surface/tiny] adventurer's belt kit
+! P2  alch-potion-crate-straw    [floor/sub] shipment; stock room
+! P2  alch-potion-gold-ornate    [surface/tiny] rare/legendary draught
+! P2  alch-potion-purple-teardrop [surface/tiny] mystery effect
+! P2  alch-potion-red-small      [surface/tiny] lesser healing
+! P2  alch-powder-pouch-sparkle  [surface/tiny] fairy dust
+! P2  alch-reagent-box-compartments [surface/tiny] travelling kit
+! P2  alch-reagent-shelf-tall    [floor/1] floor-standing jar shelves
+! P2  alch-retort-stand          [surface/tiny] pairs with spirit lamp beneath
+! P2  alch-ritual-bowl-blood     [surface/tiny] offerings
+! P2  alch-ritual-dagger         [surface/tiny] altar prop
+! P2  alch-slime-jar             [surface/tiny] harvested from the dungeon
+! P2  alch-soul-lantern          [surface/tiny] spooky light source
+! P2  alch-specimen-cabinet      [wall/1] curiosity cabinet
+! P2  alch-specimen-jar-large    [floor/sub] mad-lab floor piece
+! P2  alch-specimen-jar-tentacle [surface/tiny] eldritch hint
+! P2  alch-spellbook-floating    [floor/sub] animate library
+! P2  alch-spellbook-travel      [surface/tiny] wizard's backpack book
+! P2  alch-staff-orb-cage        [floor/tiny] archmage staff
+! P2  alch-still-copper-large    [floor/1] potion or moonshine
+! P2  alch-sulfur-lump           [surface/tiny] brimstone; demon calls
+! P2  alch-tincture-bottles-dropper [surface/tiny] apothecary counter
+! P2  alch-toadstool-red         [surface/tiny] classic fairy fungus
+! P2  alch-tripod-stand          [surface/tiny] holds flasks over lamps
+! P2  alch-wand-bone             [surface/tiny] necromancer's wand
+! P2  alch-wand-crystal-tip      [surface/tiny] glowing tip
+! P2  alch-weights-set           [surface/tiny] next to the scale
+! P3  globe-armillary            [surface/sub] scholars' studies
+! P3  stuffed-crocodile          [ceiling/1] the oldest apothecary joke in the book
+! P3  telescope                  [floor/sub] tower tops
+! P3  astrolabe                  [surface/tiny] astronomers' desks
+! P3  alch-alembic-head          [surface/tiny] spare part; bench clutter
+! P3  alch-apron-stained         [wall/tiny] by the door
+! P3  alch-bark-strips           [surface/tiny] pain remedy
+! P3  alch-barrel-small-reagent  [floor/tiny] bulk solvent
+! P3  alch-beetle-case           [wall/tiny] specimen wall
+! P3  alch-bell-jar-empty        [surface/tiny] waiting for a specimen
+! P3  alch-bellows-small         [surface/tiny] feeds the athanor
+! P3  alch-binding-chains-runed  [wall/sub] hold what was summoned
+! P3  alch-bones-divination      [surface/tiny] hedge-witch divination
+! P3  alch-calipers              [surface/tiny] precise measurement
+! P3  alch-carboy-wicker         [floor/sub] bulk acid; floor-standing
+! P3  alch-charcoal-scuttle      [floor/tiny] fuel by the furnace
+! P3  alch-coal-dragon           [surface/tiny] fire reagent
+! P3  alch-crucible-tongs        [surface/tiny] beside the athanor
+! P3  alch-crystal-black         [surface/tiny] shadow-attuned
+! P3  alch-crystal-white         [surface/tiny] holy-attuned
+! P3  alch-demon-idol-small      [surface/tiny] patron statue
+! P3  alch-diagram-transmutation [surface/tiny] bench dressing
+! P3  alch-dropper               [surface/tiny] precision dosing
+! P3  alch-drying-rack-reagents  [ceiling/1] ceiling clutter
+! P3  alch-egg-speckled-strange  [surface/tiny] what will hatch?
+! P3  alch-fairy-in-lantern      [surface/tiny] fey lighting
+! P3  alch-familiar-cage-ornate  [surface/sub] empty; token goes inside
+! P3  alch-familiar-cushion      [surface/tiny] cat familiar's bed
+! P3  alch-familiar-treat-jar    [surface/tiny] cozy wizard dressing
+! P3  alch-feather-raven         [surface/tiny] dark rituals
+! P3  alch-finger-bones-dish     [surface/tiny] divination or necromancy
+! P3  alch-flask-gourd           [surface/tiny] eccentric shelf silhouette
+! P3  alch-flask-spiral          [surface/tiny] showpiece glass; unmistakably magical
+! P3  alch-flask-square          [surface/tiny] shelf repetition breaker
+! P3  alch-formula-chalkboard    [floor/sub] lecture corner
+! P3  alch-fume-hood             [wall/1] pairs with fx-smoke
+! P3  alch-fungus-jar-luminous   [surface/tiny] cave harvest
+! P3  alch-fungus-shelf-bracket  [surface/tiny] reagent on shelves
+! P3  alch-funnel-glass          [surface/tiny] stands in a flask neck
+! P3  alch-garlic-braid-ward     [wall/tiny] vampire country (Noctar)
+! P3  alch-geode-cut             [surface/tiny] display curio
+! P3  alch-gloves-leather-thick  [surface/tiny] caustic work
+! P3  alch-goggles-alchemist     [surface/tiny] hung on a hook
+! P3  alch-gold-leaf-book        [surface/tiny] gilding, transmutation
+! P3  alch-golem-head-clay       [surface/tiny] unfinished construct
+! P3  alch-grimoire-eye          [surface/tiny] it's watching
+! P3  alch-grinding-quern        [surface/tiny] heavy grinding
+! P3  alch-hair-lock-bound       [surface/tiny] hex component
+! P3  alch-herb-bundle-lavender  [surface/tiny] calming draughts
+! P3  alch-horn-powdered-bowl    [surface/tiny] ground reagent
+! P3  alch-hourglass-sand-colored [surface/tiny] timed rituals
+! P3  alch-ichor-flask           [surface/tiny] demonic reagent
+! P3  alch-ingot-strange         [surface/tiny] star-metal; forge quest
+! P3  alch-mandrake-pot          [surface/tiny] don't pull it
+! P3  alch-measuring-spoons      [surface/tiny] tiny bench detail
+! P3  alch-meteorite-chunk       [surface/tiny] sky-iron
+! P3  alch-mistletoe-bundle      [surface/tiny] druidic
+! P3  alch-mortar-brass          [surface/tiny] spice-sized grinding
+! P3  alch-orb-elemental-fire    [surface/tiny] elemental focus
+! P3  alch-orb-elemental-storm   [surface/tiny] elemental focus
+! P3  alch-orb-scrying-smoke     [surface/tiny] distinct from crystal ball
+! P3  alch-pelican-vessel        [surface/tiny] deep-lore circulating vessel
+! P3  alch-pendulum-board        [surface/tiny] seance
+! P3  alch-pestle-single         [surface/tiny] scatter
+! P3  alch-petals-bowl           [surface/tiny] perfumery, love philters
+! P3  alch-pill-box              [surface/tiny] remedies
+! P3  alch-potion-black-square   [surface/tiny] cursed or shadow
+! P3  alch-potion-clear-bubbling [surface/tiny] invisibility
+! P3  alch-potion-giant-jug      [surface/tiny] giant-strength; joke loot
+! P3  alch-potion-heart-bottle   [surface/tiny] comedy beat
+! P3  alch-potion-labels-sheet   [surface/tiny] bench dressing
+! P3  alch-potion-orange-flask   [surface/tiny] adventurer kit
+! P3  alch-potion-rainbow-swirl  [surface/tiny] wild magic
+! P3  alch-potion-smoking        [surface/tiny] volatile
+! P3  alch-potion-white-milky    [surface/tiny] holy water-ish
+! P3  alch-powder-heap-dish      [surface/tiny] mid-mixing
+! P3  alch-powder-pouch-blue     [surface/tiny] color-coded reagents
+! P3  alch-powder-pouch-red      [surface/tiny] color-coded reagents
+! P3  alch-press-herb            [floor/sub] oil extraction corner
+! P3  alch-quicksilver-dish      [surface/tiny] mirror-like surface
+! P3  alch-receiver-flask        [surface/tiny] end of the distilling chain
+! P3  alch-rod-iron-runed        [surface/tiny] rod of rulership-ish
+! P3  alch-root-gnarled-bundle   [surface/tiny] bench clutter
+! P3  alch-salt-crystals-jar     [surface/tiny] circles and wards
+! P3  alch-saltpeter-crock       [surface/tiny] volatile powders
+! P3  alch-sand-bath             [surface/tiny] gentle heating
+! P3  alch-scalpel-set           [surface/tiny] dissection kit
+! P3  alch-scorpion-pinned       [wall/tiny] specimen wall
+! P3  alch-seeds-pouch-glowing   [surface/tiny] magic beans
+! P3  alch-shrunken-head         [surface/tiny] curio shop
+! P3  alch-sieve-fine            [surface/tiny] sifting powders
+! P3  alch-snake-skin-coil       [surface/tiny] draped on shelves
+! P3  alch-spatula-bone          [surface/tiny] scraping residues
+! P3  alch-spider-jar            [surface/tiny] venom harvest
+! P3  alch-staff-antler          [floor/tiny] druid
+! P3  alch-staff-serpent         [floor/tiny] cult leader
+! P3  alch-star-chart            [surface/tiny] astrology
+! P3  alch-stool-alchemist       [floor/sub] at the bench
+! P3  alch-stuffed-owl           [surface/tiny] study shelves
+! P3  alch-test-tube-single      [surface/tiny] scatter; held by NPCs
+! P3  alch-toad-dried            [surface/tiny] bench clutter
+! P3  alch-tooth-giant           [surface/tiny] curio
+! P3  alch-troll-claw            [surface/tiny] regeneration research
+! P3  alch-tubing-glass          [surface/tiny] connects apparatus in compounds
+! P3  alch-tweezers-silver       [surface/tiny] handling reagents
+! P3  alch-wand-case             [surface/tiny] shop display
+! P3  alch-wand-twisted-root     [surface/tiny] druidic
+! P3  alch-watch-glass           [surface/tiny] tiny bench detail
+! P3  alch-water-bath            [surface/tiny] bain-marie; steam fx
+! P3  alch-wax-sealed-jar        [surface/tiny] don't open
+! P3  alch-wolf-fang-string      [surface/tiny] hedge-witch charm
+  P1  door-reinforced            [kit/edge] vaults, keeps, lockable rooms
+  P1  door-secret-bookcase       [kit/edge] the classic reveal
+  P1  floor-flagstone-square     [kit/1] dressed-stone default
+  P1  floor-planks-dark          [kit/1] common rooms, halls, front desks
+  P1  tower-round-segment        [kit/edge] towers; wizard towers
+  P1  door-panelled              [kit/edge] the mansion's room door; leaf only, it rotates to open
+  P1  fireplace-wall             [wall/1x2] anchor for common rooms; seating faces it
+  P1  bed-canopy                 [floor/2x2] noble bedchamber anchor
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  chair-armed                [floor/sub] head of table; study; by the fire
+  P1  chair-upholstered          [floor/sub] parlors; the "comfortable chair" test
+  P1  counter-shop               [floor/1x2] shop front; storekeeper behind
+  P1  shelving-freestanding      [floor/1] storerooms, cellars
+  P1  stool-bar                  [floor/sub] line them along the bar counter
+  P1  table-experiment           [floor/1x2] mad-science lab (Grimward) or interrogation
+  P1  table-kitchen-prep         [floor/1x2] center of a kitchen
+  P1  table-round-small          [floor/sub] 2–4 seats; scatter across a common room
+  P1  table-work                 [floor/1x2] every trade's bench
+  P1  wardrobe                   [wall/1] bedrooms; hide inside
+  P1  bookcase-ladder            [wall/1x2] the library's focal wall
+  P1  table-pedestal-round       [floor/1] the centre of the entrance hall, under the chandelier, with a vase on it
+  P1  chest-ironbound            [floor/sub] locked; worth a check
+  P1  candle-cluster             [surface/tiny] altars, ritual spots, spooky shelves
+  P1  crystal-glowing            [floor/sub] deep mines; Room 2's crystal puzzle
+  P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
+  P1  torch-sconce               [wall/tiny] every stone corridor
+  P1  lantern-wall-iron          [wall/tiny] corridors and porches; generated unlit, engine fire FX adds the flame
+  P1  candle-tree                [floor/sub] common-room corners, chapels; dark unlit wicks, engine fire FX adds the flames
+  P1  candlestand-pricket        [floor/sub] flanking a hearth or an altar; dark unlit candles, engine fire FX adds the flames
+  P1  candlestick-floor          [floor/sub] bedsides in fine rooms; dark unlit wick, engine fire FX adds the flame
+  P1  lantern-post-indoor        [floor/sub] hallway and stable-aisle light posts; generated unlit, engine fire FX adds the flame
+  P1  arcane-coil                [floor/1] mad-science flavor without leaving fantasy
+  P1  arcane-pylon               [floor/sub] activate-four-crystals puzzles (Room 2)
+  P1  book-open                  [surface/tiny] lecterns, desks
+  P1  feed-trough                [floor/1] stalls, pens
+  P1  hay-bale                   [floor/sub] barns, stables
+  P1  lectern                    [floor/sub] chapels, libraries
+  P1  map-rolled                 [surface/tiny] war tables, quest-givers
+  P1  scroll-pile                [surface/tiny] desks, scroll racks
+  P1  cage-floor                 [floor/1] menageries, slavers' camps
+  P1  curtains-drapes            [wall/1] scene state: drawn/open changes light
+  P1  rug-hay-scatter            [floor/1] stables, barns, byres; breaks up dirt floors
+  P1  rug-round                  [floor/1] under round tables, bedside
+  P1  rug-runner                 [floor/1x3] hallways and stair landings; tiles end to end
+  P1  rug-sheepskin              [floor/sub] bedside, by the fire
+  P1  tapestry                   [wall/1x2] great halls; hides secret doors
+  P1  crystal-formation          [floor/1] the deep mine wonder
+  P1  decal-ritual-circle        [floor/2x2] summonings; can glow
+  P1  fx-colored-flame           [attach/sub] evil braziers, necromancer candles
+  P1  fx-force-wall              [floor/edge] barriers that aren't walls
+  P1  fx-magic-glow              [attach/sub] pylons, idols, portals
+  P1  fx-portal                  [attach/1x2] fills portal-arch
+  P1  fx-sparkle-arcane          [attach/sub] ambient magic
+  P1  door-rune-sealed           [kit/edge] the puzzle's lock; runes go dark when solved
+  P1  elemental-brazier          [floor/sub] pair with fx-colored-flame
+  P1  magic-item-cluster         [surface/tiny] shops, hoards, reward reveals
+  P1  orb-socket-pedestal        [floor/sub] "four crystals must be activated" rooms
+  P1  pedestal-display           [floor/sub] the "don't touch the thing on the pedestal" shot
+  P1  rune-tile                  [kit/1] step-in-the-right-order puzzles
+  P1  apothecary-drawers         [wall/1] apothecary signature
+  P1  grain-bin-stable           [floor/sub] feed room
+  P1  map-wall                   [wall/1x2] quest planning, guard posts
+  P1  scales-balance             [surface/tiny] every haggle; counting houses
+  P1  scriptorium-desk           [floor/1] monastery scriptoria; rows of them
+  P1  washstand                  [floor/sub] guest rooms
+  P1  amulet-glowing             [surface/tiny] quest item; lit/unlit state
+  P1  dagger-ritual              [surface/tiny] on the sacrificial altar
+  P1  gem-large                  [surface/tiny] idol's eye, quest MacGuffin
+  P1  sword-enchanted            [surface/tiny] the magic weapon reward
+  P1  candle-drippings-mound     [floor/sub] centuries of vigils
+  P1  gallery-interior           [kit/1] common-room balconies, library upper levels
+  P1  cauldron-huge              [floor/1] castle kitchen; witch's brew
+  P1  cauldron-small             [attach/tiny] over the fire on a chain
+  P1  candle-black               [surface/tiny] cult circles
+  P1  hand-mirror                [surface/tiny] vanities; peek around corners; vampire tells
+  P1  incense-sticks             [surface/tiny] shrines
+  P1  scroll-open                [surface/tiny] reading desks, altars
+  P1  alch-sign-apothecary       [wall/sub] tells players it's the potion shop
+  P1  smith-anvil-small          [surface/tiny] fine work; tinkers carry these
+  P1  trade-arm-sling            [surface/tiny] recovering patients
+  P1  trade-chained-book         [surface/tiny] chained libraries; can't leave the room
+  P1  trade-copy-stand           [surface/tiny] the scribe copies from this
+  P1  trade-cupping-glasses      [surface/tiny] the physician's bench
+  P1  trade-herbal-book-open     [surface/tiny] identify the poison
+  P1  trade-illuminated-page     [surface/tiny] gold and colour; loot or clue
+  P1  trade-manuscript-in-progress [surface/tiny] the scriptorium's working page; readable clue
+  P1  trade-medicine-chest       [surface/sub] travels with the doctor
+  P1  trade-ruling-board         [surface/tiny] laying out lines
+  P1  trade-surgical-kit-roll    [surface/tiny] opened on the bench
+  P1  trade-tincture-rack        [surface/tiny] bench-top pharmacy
+  P1  rural-water-bucket-stable  [floor/tiny] every stall
+  P1  rite-bone-wand             [surface/tiny] the necromancer's focus
+  P1  rite-pillar-candle-tall    [floor/sub] flanks altars
+  P1  rite-soul-jar              [surface/tiny] captured souls; break to free
+  P1  rite-tome-flesh-bound      [surface/tiny] the evil book everyone recognises
+  P1  rite-tome-stack-forbidden  [surface/tiny] necromancer studies
+  P2  floor-checker-stone        [kit/1] great halls, chapels
+  P2  floor-tile-hex             [kit/1] kitchens, bathhouses, front desks
+  P2  stair-spiral               [kit/1] towers; compact in footprint
+  P2  wall-shop-window           [kit/edge] the apothecary's street wall; a special panel in the `half-timber` family
+  P2  floor-tile-encaustic       [kit/1] conservatories and garden halls
+  P2  roof-skylight              [kit/1] lights the room below; a thief's way in
+  P2  stair-spiral-wide          [kit/2x2] towers; one full turn per storey so copies stack and every floor enters on the same side
+  P2  desk-bureau                [wall/1] drawing rooms and bedchambers
+  P2  desk-bureau-open           [wall/1] open state of desk-bureau
+  P2  desk-partners              [floor/1x2] the study's command position
+  P2  table-games                [floor/sub] by a window, two chairs
+  P2  table-library              [floor/1x2] the middle of a library; books and a globe on and by it
+  P2  storage-jar                [floor/sub] oil, grain, wine; ruins full of broken ones
+  P2  trunk-travel               [floor/sub] guests' luggage
+  P2  brazier-tripod             [floor/sub] warmth and ritual; cold charcoal and ash, no fire, engine fire FX adds it
+  P2  bottle-cluster             [surface/tiny] bar backs, alchemy shelves
+  P2  herbs-drying               [ceiling/tiny] hang from beams; apothecary mood
+  P2  inkwell-quill              [surface/tiny] every desk
+  P2  skull-candle               [surface/tiny] necromancer shorthand
+  P2  statue-bust                [floor/sub] galleries, libraries
+  P2  fern-potted                [floor/sub] conservatories, landings
+  P2  decal-blood                [floor/sub] crime scenes, torture rooms
+  P2  decal-glyph-warding        [floor/sub] magical trap marker (GM-hidden)
+  P2  magic-mirror               [wall/1] talking mirrors, trapped souls, a way through
+  P2  scroll-sealed-glowing      [surface/tiny] loot and quest deliveries
+  P2  scrying-pool               [floor/1] visions; the villain watching the party
+  P2  obelisk-rune               [floor/sub] puzzle halls and shrines; runes are dull, the engine may light them
+  P2  puzzle-dial-pillar         [floor/sub] the combination lock of a puzzle hall
+  P2  apothecary-jars            [surface/tiny] shelves and counters
+  P2  display-case-glass         [floor/1] jewelers, curio shops, museums
+  P2  book-pile-floor            [floor/sub] ransacked libraries
+  P2  claw-giant                 [surface/tiny] proof of the kill
+  P2  crystal-shard              [surface/tiny] puzzle pieces; the four crystals
+  P2  cursed-mask                [wall/tiny] don't put it on
+  P2  gems-raw-cluster           [surface/tiny] mining reward
+  P2  key-ornate                 [surface/tiny] magic doors, quest keys
+  P2  ring-on-stand              [surface/tiny] shop display, reward reveal
+  P2  scales-pile                [floor/sub] dragon-lair dressing; armor material
+  P2  skull-monster              [surface/sub] shelves, totems, lairs
+  P2  soul-gem                   [surface/tiny] necromancer's prize
+  P2  tome-chained               [surface/tiny] forbidden knowledge
+  P2  roof-conical               [kit/1] wizard towers, castle turrets
+  P2  spoon-stirring-long        [surface/tiny] in cauldrons and pots
+  P2  vial-glass                 [surface/tiny] samples; poison
+  P2  candy-pile                 [surface/tiny] lures and rewards; FRANKIE LIKE CANDY
+  P2  fey-fruit                  [surface/tiny] fey feasts; never eat it
+  P2  mushroom-glowing-edible    [surface/tiny] underground fare; eat at your own risk
+  P2  ink-bottle                 [surface/tiny] spill it for a stain
+  P2  magnifying-lens            [surface/tiny] investigation scenes
+  P2  parchment-stack            [surface/tiny] scriptoria
+  P2  puzzle-box                 [surface/tiny] the lock is the box
+  P2  scroll-case                [surface/tiny] couriers, map carriers
+  P2  vial-stoppered             [surface/tiny] unidentified potion; poison
+  P2  smith-ingot-mithral        [surface/tiny] legendary metal; quest reward
+  P2  smith-melting-crucible     [surface/sub] melting down stolen goods
+  P2  smith-rune-anvil           [floor/sub] dwarven or enchanted forge centerpiece
+  P2  trade-annealing-shelf      [floor/sub] warm finished pieces
+  P2  trade-blowpipe             [surface/tiny] racked by the furnace
+  P2  trade-gaffer-bench         [floor/1x2] glasshouse anchor beside the furnace
+  P2  trade-gather-on-pipe       [surface/tiny] the working moment
+  P2  trade-globe-terrestrial    [floor/sub] study, cartographer's shop
+  P2  trade-palimpsest-page      [surface/tiny] hidden writing: a puzzle hook
+  P2  trade-portolan-chart       [surface/tiny] coastal adventures
+  P2  trade-sewing-frame         [surface/sub] bindery bench
+  P2  trade-skeleton-teaching    [floor/sub] surgeon's study; it moves?
+  P2  trade-sleeping-draught     [surface/tiny] sedate the guard; poison plot
+  P2  trade-vellum-stretched     [floor/sub] parchmenter's shop
+  P2  trade-wax-tablet           [surface/tiny] notes, lessons, messages
+  P2  rural-feed-sack-open       [floor/tiny] barn floors
+  P2  rural-gem-in-matrix        [surface/tiny] the lucky strike
+  P2  rural-geode-split          [surface/tiny] alchemists want these
+  P2  rite-contract-infernal     [surface/tiny] the deal that drives the plot
+  P2  rite-holy-symbol-eye       [surface/tiny] faiths of truth and foresight
+  P3  door-secret-bookcase-open  [kit/edge] open state of door-secret-bookcase
+  P3  roof-finial                [attach/sub] ends a ridge; tops a conical roof
+  P3  library-steps              [floor/tiny] in front of a bookcase
+  P3  sweets-jar                 [surface/tiny] lure for a certain flesh golem ("FRANKIE LIKE CANDY")
+  P3  hourglass                  [surface/tiny] desks; a time-magic villain's prop (Maldred)
+  P3  incense-burner             [surface/tiny] pair with fx-smoke
+  P3  cat-tree                   [floor/1] cat furniture for a house or an inn common room; no cat; generated 2026-10-06 (A playtester asked for it)
+  P3  mirror-standing            [floor/sub] bedchambers; vampire tells
+  P3  decal-papers               [floor/sub] ransacked studies
+  P3  decal-scorch               [floor/sub] aftermath of a fireball
+  P3  arcane-forge               [floor/1x2] magic weapon crafting
+  P3  golem-parts                [floor/1x2] unfinished construct; lab dressing
+  P3  orrery                     [floor/1] astrologer towers
+  P3  rocks-floating             [floor/1] wild-magic zones, tower tops
+  P3  abacus                     [surface/tiny] merchants and teachers
+  P3  book-press                 [surface/sub] bindery
+  P3  cat-bed-basket             [floor/tiny] lived-in; the familiar's bed
+  P3  crucible-small             [surface/tiny] goldsmiths, alchemists
+  P3  glass-furnace              [floor/1] glassblower anchor
+  P3  glassware-shelf            [wall/1] glass shop; alchemist's supplier
+  P3  ledger-counter-bell        [surface/tiny] ring for service
+  P3  leech-jar                  [surface/tiny] period medicine, played for laughs
+  P3  map-chest                  [floor/1] cartographers, war rooms
+  P3  pillows-cushions           [floor/sub] window seats, harems of pillows, bazaars
+  P3  school-bench-desk          [floor/1] schoolrooms; academy halls
+  P3  slate-board                [floor/sub] lessons; riddles
+  P3  still-copper               [floor/1] spirits; smugglers' hideouts
+  P3  teacher-lectern-rod        [floor/sub] head of the classroom
+  P3  wax-seal-set               [surface/tiny] letters of authority; forgery plots
+  P3  bag-of-holding             [surface/tiny] generic "bottomless bag"
+  P3  compass                    [surface/tiny] navigators, map tables
+  P3  cursed-doll                [surface/tiny] hag's hut
+  P3  dust-vial                  [surface/tiny] spell components
+  P3  feathers-giant             [surface/tiny] roc nests, quills of power
+  P3  gauntlet-arcane            [surface/tiny] artifact-tier loot
+  P3  ledger-arcane              [surface/tiny] lab notes of a mad mage
+  P3  spectacles                 [surface/tiny] scholars
+  P3  spyglass                   [surface/tiny] scouts, captains
+  P3  tarot-spread               [surface/tiny] seer's tent
+  P3  geode-cluster              [floor/sub] gem-mine treasure
+  P3  stair-wall-hugging         [kit/1x2] tower interiors
+  P3  beaker-glass               [surface/tiny] lab or luxury
+  P3  bottle-blue                [surface/tiny] apothecary or poison
+  P3  bottle-tall-neck           [surface/tiny] liqueurs
+  P3  cup-coconut                [surface/tiny] a curio cabinet exotic
+  P3  flask-glass-round          [surface/tiny] lab and apothecary
+  P3  funnel                     [surface/tiny] filling bottles
+  P3  jar-lidded-stoneware       [surface/tiny] preserves
+  P3  jug-of-cider               [surface/tiny] harvest
+  P3  mezzaluna                  [surface/tiny] herb board
+  P3  mug-of-cider               [surface/tiny] harvest festival
+  P3  mug-of-hot-cider           [surface/tiny] winter nights
+  P3  napkin-crumpled            [surface/tiny] after the meal
+  P3  pot-ointment               [surface/tiny] salves
+  P3  potion-in-goblet           [surface/tiny] drink me?
+  P3  teacup-herbal              [surface/tiny] the hedge-witch's hospitality
+  P3  towel-hanging              [wall/tiny] washstands
+  P3  dragon-pepper              [surface/tiny] breathe fire on a dare
+  P3  pomegranate-split          [surface/tiny] exotic fruit; underworld-myth prop
+  P3  potion-soup-bubbling       [surface/tiny] witch's supper or witch's work
+  P3  blotting-sand-shaker       [surface/tiny] clerks' desks
+  P3  bone-saw                   [surface/tiny] field surgeons; Grimward
+  P3  book-burned                [surface/tiny] someone destroyed evidence
+  P3  books-row-bookends         [surface/tiny] mantelpieces, desks
+  P3  candle-clock               [surface/tiny] monastery timekeeping
+  P3  candle-snuffer             [surface/tiny] chapels, studies
+  P3  chalk-ritual               [surface/tiny] beside a half-drawn circle
+  P3  chess-piece                [surface/tiny] clue; animated-chess rooms
+  P3  drafting-dividers          [surface/tiny] map tables
+  P3  heart-jar                  [surface/tiny] necromancy components
+  P3  insect-board               [wall/tiny] naturalist studies
+  P3  lodestone                  [surface/tiny] navigation, curiosity cabinets
+  P3  mineral-specimens          [surface/tiny] assayers, scholars
+  P3  monocle                    [surface/tiny] scholars, snobs
+  P3  pendulum-crystal           [surface/tiny] fortune tellers
+  P3  poultice-jar               [surface/tiny] wise-woman shelves
+  P3  prism-crystal              [surface/tiny] light puzzles
+  P3  quill-case                 [surface/tiny] scholars' kit
+  P3  quills-bundle              [surface/tiny] scriptoria
+  P3  runestones-bag             [surface/tiny] seers
+  P3  sage-bundle                [surface/tiny] hedge-witch rites
+  P3  salve-tin                  [surface/tiny] healers
+  P3  set-square                 [surface/tiny] masons, architects
+  P3  sieve                      [surface/tiny] millers, prospectors
+  P3  sketchbook                 [surface/tiny] artists, spies
+  P3  smith-elemental-bellows    [floor/1] arcane forge dressing
+  P3  smith-enchanting-quench    [floor/sub] blades quenched in moonwater
+  P3  smith-etching-tray         [surface/tiny] runes on steel
+  P3  smith-golem-arm-forging    [floor/1x2] construct commission
+  P3  smith-ingot-meteoric       [surface/tiny] sky-iron quest hook
+  P3  smith-pattern-billet       [surface/tiny] master bladesmith flex
+  P3  smith-rune-stamps          [surface/tiny] maker's marks; enchanter's order
+  P3  craft-dye-plants-bundles   [ceiling/tiny] hung to dry
+  P3  trade-anatomy-chart        [wall/sub] on the physician's wall
+  P3  trade-bezoar-box           [surface/tiny] antidote treasure
+  P3  trade-bone-folder          [surface/tiny] creasing tool
+  P3  trade-book-boards          [surface/tiny] awaiting covers
+  P3  trade-book-cradle          [surface/tiny] holds a precious volume open
+  P3  trade-bottle-blanks-rack   [floor/sub] bottle works
+  P3  trade-clasps-tray          [surface/tiny] binding hardware
+  P3  trade-cover-leathers       [surface/tiny] bindery shelf
+  P3  trade-crown-glass-disc     [surface/sub] before cutting into panes
+  P3  trade-cullet-bin           [floor/sub] recycling bin; sharp
+  P3  trade-glass-blocks-bucket  [floor/tiny] next to the bench
+  P3  trade-glass-jacks          [surface/tiny] bench tools
+  P3  trade-glass-marver         [floor/sub] rolling the gather
+  P3  trade-glass-rods-bundle    [surface/tiny] bead-making, stained glass
+  P3  trade-goblet-on-punty      [surface/tiny] finishing bench
+  P3  trade-ink-horn             [surface/tiny] slotted into the desk
+  P3  trade-jacob-staff          [surface/tiny] field surveying
+  P3  trade-lens-blanks-tray     [surface/tiny] spectacle-maker, astronomer
+  P3  trade-lunellum             [surface/tiny] scraping hides
+  P3  trade-map-weights          [surface/tiny] map table dressing
+  P3  trade-maquette-clay        [surface/tiny] sculptor's model
+  P3  trade-mirror-glass-unsilvered [surface/sub] mirror-maker's bench
+  P3  trade-penknife-scribe      [surface/tiny] quill trimming
+  P3  trade-pigment-shells       [surface/tiny] illuminator's palette
+  P3  trade-pigment-slab-muller  [surface/tiny] pigment prep
+  P3  trade-plane-table          [floor/sub] field mapping
+  P3  trade-pumice-block         [surface/tiny] smoothing vellum
+  P3  trade-punty-rod            [surface/tiny] finishing bench
+  P3  trade-sign-quill           [wall/sub] scrivener's shopfront
+  P3  trade-signatures-unbound   [surface/tiny] bindery table
+  P3  trade-survey-chain         [surface/tiny] land disputes
+  P3  trade-theriac-jar          [surface/tiny] cure-all; costly
+  P3  trade-urine-flask          [surface/tiny] diagnosis, medieval style
+  P3  trade-writing-slope        [surface/tiny] travelling clerk
+  P3  rural-assay-crucible       [surface/tiny] testing ore purity
+  P3  rural-assay-scale          [surface/tiny] mine office; ore buyers
+  P3  rite-illuminated-pages     [wall/1] scriptorium
+  P3  rite-scripture-scroll-case [surface/tiny] holy texts in older faiths
+  P3  rite-summoning-circle-props [surface/tiny] someone was about to begin

@@ -1,0 +1,141 @@
+{
+ "pawn": {
+  "x": 187.16,
+  "z": 64.78,
+  "id": "tok_lp4b95k7z4",
+  "dv": 15
+ },
+ "lights_lit": 143,
+ "by_kind": {
+  "fire": 6,
+  "candle": 54,
+  "chandelier": 28,
+  "lantern": 30,
+  "torch": 7,
+  "lamp": 15,
+  "glow": 3
+ },
+ "tables": {
+  "before (lamps as lanterns, 60)": {
+   "candle": 10,
+   "lamp": 60,
+   "lantern": 60,
+   "torch": 40,
+   "fire": 40,
+   "chandelier": 40,
+   "oven": 10,
+   "glow": 20
+  },
+  "after (new default, lamp 45)": {
+   "candle": 10,
+   "lamp": 45,
+   "lantern": 60,
+   "torch": 40,
+   "fire": 40,
+   "chandelier": 40,
+   "oven": 10,
+   "glow": 20
+  },
+  "after (Count dim light off)": {
+   "candle": 5,
+   "lamp": 15,
+   "lantern": 30,
+   "torch": 20,
+   "fire": 20,
+   "chandelier": 20,
+   "oven": 5,
+   "glow": 10
+  }
+ },
+ "flowerbed": [
+  136.18,
+  -10.93
+ ],
+ "lights_reaching_flowerbed": {
+  "before (lamps as lanterns, 60)": [
+   {
+    "cat": "lantern-hand",
+    "kind": "lantern",
+    "r": 60,
+    "at": [
+     106.53,
+     18.14
+    ],
+    "d": 41.5
+   },
+   {
+    "cat": "lamp-oil-brass",
+    "kind": "lamp",
+    "r": 60,
+    "at": [
+     116.67,
+     24.17
+    ],
+    "d": 40.2
+   },
+   {
+    "cat": "lantern-hanging",
+    "kind": "lantern",
+    "r": 60,
+    "at": [
+     86.5,
+     0
+    ],
+    "d": 50.9
+   },
+   {
+    "cat": "lantern-hanging",
+    "kind": "lantern",
+    "r": 60,
+    "at": [
+     95,
+     -5
+    ],
+    "d": 41.6
+   }
+  ],
+  "after (new default, lamp 45)": [
+   {
+    "cat": "lantern-hand",
+    "kind": "lantern",
+    "r": 60,
+    "at": [
+     106.53,
+     18.14
+    ],
+    "d": 41.5
+   },
+   {
+    "cat": "lamp-oil-brass",
+    "kind": "lamp",
+    "r": 45,
+    "at": [
+     116.67,
+     24.17
+    ],
+    "d": 40.2
+   },
+   {
+    "cat": "lantern-hanging",
+    "kind": "lantern",
+    "r": 60,
+    "at": [
+     86.5,
+     0
+    ],
+    "d": 50.9
+   },
+   {
+    "cat": "lantern-hanging",
+    "kind": "lantern",
+    "r": 60,
+    "at": [
+     95,
+     -5
+    ],
+    "d": 41.6
+   }
+  ],
+  "after (Count dim light off)": []
+ }
+}

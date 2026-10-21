@@ -1,0 +1,36 @@
+{
+ "sku": "wall-straight--castle-rough--s2",
+ "glb_sha1": "9ef47dab17a89c88b56aae0542fa0459f66b8529",
+ "time": "2026-10-05T20:48:43-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "stone wall section",
+  "second_guess": "masonry pillar",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A straight section of rough stone/masonry wall with rectangular cross-section. Constructed from varied irregular stone blocks in shades of brown, tan, and dark slate grey, held with lighter tan mortar and showing some greenish moss along the base. In Tile B, two narrow horizontal slit gaps are visible through the mortar/stone joints near mid-height. The surfaces are solid, stylized 3D geometry with beveled/rounded edges, standing directly on a flat base without an added plinth.",
+  "from_above": "A narrow elongated rectangle divided visually into three stone sections with rounded outer corners and slight indents along the mortar seams.",
+  "defects": [
+   "small see-through horizontal gaps/holes in the center mortar line"
+  ],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1.25 times taller than the 5 ft 9 in figure (roughly 7 feet tall), and about 3.5 to 4 feet wide."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "stone wall section",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "small see-through horizontal gaps in the center mortar seam"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "wall solid: w:h 0.57, depth:h 0.11, largest opening 6% x 2%, filled 99%",
+  "gemini note: small see-through horizontal gaps in the center mortar seam"
+ ],
+ "vision": true
+}

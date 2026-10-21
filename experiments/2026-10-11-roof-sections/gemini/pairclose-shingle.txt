@@ -1,0 +1,45 @@
+### Visible Text and Labels
+
+The text and labels are identical in both images:
+*   **Top Left Icons:** Pawns, Build, Settings
+*   **Top Center Search Bar:** "Search commands, things to place, people, places... or say / roll"
+*   **Under Search Bar:** "Area 1", "Open to player(s)", "Hide"
+*   **On the Building:** "Building 1"
+*   **Top Right:** "Area 1" with a map icon
+*   **Bottom Left Text Bar:** "say ... or not d20 in the bar"
+*   **Bottom Right Status:** "live less 1ms Area 1 loop 8 60 fps"
+
+---
+
+### Analysis
+
+**1. Description of Roof Surfaces**
+
+*   **Roof A:** The surface is made of individual, 3D-modeled tiles. This is evident from the distinct shadows each row of tiles casts on the row below it, creating a strong sense of depth and physical relief. The ridge cap is also a separate, rounded 3D object. The broken section of the roof on the left shows a physical hole with individual tiles missing, further confirming that the roof is constructed from geometric pieces rather than a flat image.
+*   **Roof B:** The surface is a flat plane with a 2D texture (a picture) applied to it. This is clear because there is no self-shadowing between the rows of tiles; the lighting and shadow are "baked" into the image itself. The entire surface is perfectly smooth and lacks any physical relief. The ridge cap is just a painted line within the texture, not a separate 3D object.
+
+**2. Physical Model vs. Cheaper Appearance**
+
+*   **Roof A** looks significantly more like a physical model. The chunky, 3D tiles give it weight and presence, much like a miniature terrain piece used in tabletop wargaming.
+*   **Roof B** looks cheaper. Using a flat texture is a common performance-saving shortcut in 3D graphics. It lacks depth and looks unconvincing at this close range, resembling a low-detail asset from an older video game. The lack of real shadows and depth is the primary deciding factor.
+
+**3. Faults and Imperfections**
+
+*   **Faults in A:**
+    *   **Valley:** The valley where the two roof sections meet is messy. The 3D tiles clip through each other and do not join cleanly, leaving visible geometric gaps and unnatural intersections. A real roof would have flashing in this area; this model just lets the two tile sets collide.
+    *   **Repetition:** The tiles are perfectly uniform in shape and placement, which can look slightly unnatural, but this is a minor stylistic point.
+*   **Faults in B:**
+    *   **Valley:** The texture is severely distorted and stretched in the valley. The lines of the tiles warp unnaturally to follow the geometry, a clear and ugly UV mapping artifact.
+    *   **Dormer:** The texture is stretched vertically on the side of the small dormer on the upper roof. The texture on the top of the dormer does not align with the main roof texture.
+    *   **Eaves:** The texture cuts off abruptly at the edges of the roof, making it look like a wallpapered box.
+    *   **Flatness:** The primary fault is its unconvincing flatness, which is especially jarring next to the 3D chimney and walls.
+
+**4. Style Consistency**
+
+The walls, chimney, and door have a "hand-painted, chunky" style, suggesting solid, physical objects.
+*   **Roof A** fits this style perfectly. Its 3D, chunky tiles are consistent with the aesthetic of the rest of the building.
+*   **Roof B** does not fit the style. The flat, painted-on texture clashes with the solid, 3D nature of the rest of the model, breaking the illusion of a physical, miniature world.
+
+**5. Final Verdict**
+
+Ship A, 99% sure.

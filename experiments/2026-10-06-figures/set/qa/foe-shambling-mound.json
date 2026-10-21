@@ -1,0 +1,176 @@
+{
+ "file": "foe-shambling-mound.glb",
+ "tris": 48095,
+ "kb": 3717,
+ "native_extent": [
+  0.939,
+  0.985,
+  0.651
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  83,
+  71,
+  16
+ ],
+ "mean_saturation": 0.813,
+ "sized_by": "its highest point",
+ "overall_ft": 8.0,
+ "pieces": {
+  "connected_parts": 3209,
+  "main_part_area_share": 0.925,
+  "floating": [
+   {
+    "area_share": 0.00013,
+    "gap_ft": 0.04,
+    "size_ft": 0.32
+   },
+   {
+    "area_share": 4e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.09,
+    "size_ft": 0.13
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.16
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.1
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.03,
+    "size_ft": 0.02
+   }
+  ],
+  "floating_count": 12,
+  "floating_area_share": 0.00031,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 8.1194,
+ "y0": -4.0635,
+ "stated_ft": {
+  "body": 8.0,
+  "figure_top": 8.0,
+  "overall": 8.0
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4619,
+   -0.5005,
+   -0.3288
+  ],
+  [
+   0.4774,
+   0.485,
+   0.3221
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48095,
+   "tex": 2048,
+   "kb": 3717
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1537
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 548
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.77,
+    "z": 0.83,
+    "size_ft": [
+     2.5,
+     2.97
+    ],
+    "off_ground_ft": 0.06,
+    "sole_level_share": 0.65,
+    "sole_p90_ft": 0.245
+   },
+   {
+    "x": 0.88,
+    "z": -1.35,
+    "size_ft": [
+     2.27,
+     2.63
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.65,
+    "sole_p90_ft": 0.164
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.06,
+  "lowest_slab_area_sqft": 8.55,
+  "plan_hull_area_sqft": 27.77,
+  "lowest_slab_share_of_plan": 0.308
+ },
+ "plan": {
+  "size_ft": {
+   "w": 7.62,
+   "d": 5.27,
+   "h": 8.0
+  },
+  "centre": [
+   -0.01,
+   -0.144
+  ],
+  "contacts_radius_ft": 2.66,
+  "reach_radius_ft": 4.04,
+  "share_outside_2p5ft": 0.282
+ },
+ "silhouette": {
+  "iou": 0.918,
+  "plate_lost_share": 0.037,
+  "added_share": 0.05,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.91,
+  "view_yaw_deg": 330,
+  "view_elev_deg": 0
+ },
+ "id": "foe-shambling-mound",
+ "sha1": "81a8310dd89c18d8428dc6a0ed061a60cd14695a",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "5 separate part(s) lying within 0.04 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 20.1
+}

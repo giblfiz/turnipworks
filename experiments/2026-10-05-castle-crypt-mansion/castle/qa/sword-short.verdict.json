@@ -1,0 +1,36 @@
+{
+ "sku": "sword-short",
+ "glb_sha1": "7af8fdc99db04169547d2a3a123236d6079ef0d1",
+ "time": "2026-10-05T22:02:24-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "short sword",
+  "second_guess": "dagger",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized fantasy short sword or dagger consisting of a double-edged steel blade with a wide fuller, a thick metallic crossguard with gold trim, a brown/reddish leather-wrapped grip, and a rounded pommel with a gold inset. Surfaces are solid, smooth, and fully manifold with hand-painted textures, floating or propped at an angle off the ground without an added plinth.",
+  "from_above": "Seen directly edge-on as a thin horizontal strip pointing to the right, showing the crossguard width and circular pommel on the left, casting a distinct sword silhouette shadow to the upper-left.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "The sword is roughly 2 to 2.5 feet long from pommel to tip (a little over one-third the height of the 5 ft 9 in cylinder), and around 8 to 10 inches wide across the guard."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "short sword",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "leaning orientation affects bounding box footprint"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "footprint proportion 2.27x off the catalog (2.5 x 0.4 ft)",
+  "height proportion 5.54x off the catalog",
+  "underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)",
+  "gemini note: leaning orientation affects bounding box footprint"
+ ],
+ "vision": true
+}

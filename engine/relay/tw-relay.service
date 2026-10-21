@@ -1,0 +1,29 @@
+# PROD relay for https://turnipworks.net/ (2026-10-19: two servers; docs/NETCODE.md "Two servers").
+# Runs the relay code of the CURRENT RELEASE (/var/lib/tw-releases/current, a link tools/release.sh moves) against the
+# real campaigns (engine/data of the main checkout, where they always were; the hourly backups cover it).
+# Restarted only by tools/release.sh (the nightly roll, promote-now, rollback). A deploy never touches it.
+[Unit]
+Description=Turnip Works PROD relay (turnipworks.net; the current release)
+After=network.target
+
+[Service]
+Type=simple
+User=fauna
+Group=fauna
+WorkingDirectory=/var/lib/tw-releases/current/app
+Environment=PORT=8097
+Environment=DATA_DIR=/opt/turnip-works/engine/data
+# the release's own copy of the tuner files the game imports (the same files prod serves at /look/)
+Environment=TUNER_DIR=/var/lib/tw-releases/current/tuner/js
+Environment=TUNER_DATA=/var/lib/tw-releases/current/tuner/data
+Environment=PUBLIC_BASE=https://{host}/api/tw-relay
+Environment=TW_CHANNEL=prod
+# (relative: node then sees the release folder's real path, which server.js compares with its own to know it is the main module)
+ExecStart=/usr/bin/node relay/server.js
+Restart=always
+RestartSec=1
+KillSignal=SIGTERM
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

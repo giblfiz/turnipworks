@@ -1,0 +1,141 @@
+{
+ "file": "town-princess.glb",
+ "tris": 49267,
+ "kb": 2949,
+ "native_extent": [
+  0.413,
+  1.0,
+  0.389
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  160,
+  114,
+  68
+ ],
+ "mean_saturation": 0.621,
+ "sized_by": "its highest point",
+ "overall_ft": 5.8,
+ "pieces": {
+  "connected_parts": 285,
+  "main_part_area_share": 0.9664,
+  "floating": [
+   {
+    "area_share": 0.00022,
+    "gap_ft": 0.03,
+    "size_ft": 0.2
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 0.00022,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.7994,
+ "y0": -2.9051,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2047,
+   -0.5009,
+   -0.191
+  ],
+  [
+   0.2082,
+   0.4995,
+   0.198
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49267,
+   "tex": 2048,
+   "kb": 2949
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1122
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 477
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.82,
+    "z": 0.11,
+    "size_ft": [
+     0.75,
+     1.06
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.84,
+    "sole_p90_ft": 0.08
+   },
+   {
+    "x": 0.8,
+    "z": 0.49,
+    "size_ft": [
+     0.6,
+     1.16
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.85,
+    "sole_p90_ft": 0.078
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 0.96,
+  "plan_hull_area_sqft": 4.65,
+  "lowest_slab_share_of_plan": 0.208
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.39,
+   "d": 2.25,
+   "h": 5.8
+  },
+  "centre": [
+   -0.024,
+   0.563
+  ],
+  "contacts_radius_ft": 1.16,
+  "reach_radius_ft": 1.79,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.93,
+  "plate_lost_share": 0.015,
+  "added_share": 0.06,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.931,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 8
+ },
+ "id": "town-princess",
+ "sha1": "1f29ec2d25e1596a08bfe3bd3d321fd49914ec99",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.03 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 13.2
+}

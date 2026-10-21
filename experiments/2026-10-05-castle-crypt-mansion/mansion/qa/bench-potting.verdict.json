@@ -1,0 +1,33 @@
+{
+ "sku": "bench-potting",
+ "glb_sha1": "e045a292cfa5df530481ccda490cd23a726352db",
+ "time": "2026-10-05T21:25:20-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "potting bench",
+  "second_guess": "gardening workbench",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized wooden potting bench with multiple tiers. The main wooden frame features four corner posts secured with bolt details and a solid wooden backboard. The top raised shelf holds four small terracotta pots (containing green leafy plants, white blossoms, and purple buds) alongside a coiled ball of twine. The main working tabletop has a loose pile of potting soil, a stack of terracotta pots, two potted seedlings, and a small dark wooden tool caddy. The lower bottom shelf stores a tied burlap sack of soil/fertilizer featuring a green leaf logo and a blue utility bucket with a wooden handle grip. All surfaces are solid, stylized, and fully textured with hand-painted wood grain and materials.",
+  "from_above": "A rectangular wooden structure viewed top-down; along the top edge sits a narrow shelf displaying a row of five small potted items and a twine spool; beneath it, the main shelf shows a dark spread of soil on the left, central terracotta pots, and an open wooden tool tray on the right.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About two-thirds as tall as the 5 ft 9 in figure (around 3.8 to 4 feet high) and roughly 3.5 to 4 feet wide."
+ },
+ "match": {
+  "ok": false,
+  "reads_as": "potting bench",
+  "cause": "plate",
+  "problems": [
+   "contains a blue bucket violating the must-not against blue objects"
+  ],
+  "notes": []
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "gemini: contains a blue bucket violating the must-not against blue objects"
+ ],
+ "notes": [],
+ "vision": true
+}

@@ -1,0 +1,128 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "cat-tree": {
+   "id": "cat-tree",
+   "group": "main",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-cat-tree/work/cat-tree.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, multi-tiered cat scratching tree featuring green plush platforms, sisal rope-wrapped posts, and a red cubic condo set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, multi-tiered cat scratching tree featuring green plush platforms, sisal rope-wrapped posts, and a red cubic condo set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains a single standalone object: a cat tree (or cat scratching tower/condo). It consists of a square, segmented natural-grain wooden base with raised edges, a red plush cubic cat house/condo with a circular entry hole leading into a visible hollow interior, two vertical posts wrapped in coiled yellowish-tan rope/twine, and three green plush tiers. The lowest post on the left supports a round green carpeted circular perch. The taller post on the right supports an elongated oval middle platform and extends upward to support a top circular perch with a raised plush rim/bolster. Suspended from the underside of the middle platform by a short piece of rope is a small, fluffy cream-colored pom-pom ball toy. Materials visible include smooth light brown wood, tan rope, and soft textured green and red carpeting. The entire object is centered and fully visible without any cropping. The background is a solid, uniform, bright blue chroma-style backdrop with no ground plane, floor shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2991,
+      "soft": 0.0064,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9874,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4234,
+   "tokens_out": 1382,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cat-tree-felt": {
+   "id": "cat-tree-felt",
+   "group": "felt",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-cat-tree/work/cat-tree-felt.try1.jpg",
+     "semantic": {
+      "what_i_see": "A multi-tiered stylized 3D model of a cat tree tower with scratching posts, platforms, a hanging ball toy, and a small condo house against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A multi-tiered stylized 3D model of a cat tree tower with scratching posts, platforms, a hanging ball toy, and a small condo house against a solid blue backdrop.",
+       "details": "There are no text, labels, or watermarks. The image contains one composite object, best identified as a cat tree (or alternatively, a cat scratching tower/pet play structure). The structure consists of a square light-brown wooden base supporting two vertical sisal rope-wound posts, three olive-green plush padded perches, a maroon/burgundy cube-shaped cat house, and a hanging toy. Specifically, resting on the base is a square cat condo upholstered in wine-red/maroon textured velvet with a large circular entry hole revealing the hollow interior cavity. To the right, a rope-wound scratching post rises from the base to support an elevated rounded-rectangular green platform, beneath which hangs a short rope with a suspended beige sphere ball. To the left, a taller rope-wound post extends upward from the base, supporting a lower green circular perch, then continuing upward through a middle collar to hold the top perch\u2014a round green bed with a low raised bolster rim. The materials appear to be polished light-brown wood, natural tan/yellowish coiled rope, and soft green and deep red velvet/plush. The entire object is centered, complete, and not cropped by the frame. The background is a uniform, solid, flat royal blue with no shadows or floor surface. There are no people, scenery, or other objects.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3137,
+      "soft": 0.0069,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9878,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4304,
+   "tokens_out": 1684,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cat-tree-stagger": {
+   "id": "cat-tree-stagger",
+   "group": "stagger",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-cat-tree/work/cat-tree-stagger.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized wooden cat tree featuring three tiered circular paw-print platforms, dangling toys, and a small red cat cave on a square wooden base, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D stylized wooden cat tree featuring three tiered circular paw-print platforms, dangling toys, and a small red cat cave on a square wooden base, isolated against a solid blue background.",
+       "details": "There are no visible text, labels, or watermarks. The image depicts a single composite object: a multi-tiered cat scratching post tower (second guess: stylized miniature pet furniture model). The structure is mounted on a light-brown wooden planked square base oriented at an angle. Anchored to the base is a central vertical wooden post wrapped largely in light beige sisal rope, along with a small maroon/red triangular-prism cat cave house featuring a circular front entrance opening with beige padded trim; the interior of the cave is visible and empty. Branching from the central post via wooden brackets are three round tiered platforms (one at the top center, one to the mid-right, and one to the lower-left). Each circular platform features a green fabric surface adorned with an embossed/stitched light beige paw print, edged with a padded cream-colored border. Underneath the left platform hangs a cream yarn ball suspended by a short rope, and underneath the right platform hangs an orange stitched fish toy with a black eye, also suspended by a rope. The materials appear to be stylized wood, rope, felt/fabric, and padding. The entire object is fully contained within the frame with no parts cropped. The background is a flat, uniform, highly saturated bright blue with no floor, scenery, or shadows visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3344,
+      "soft": 0.0069,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9891,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4344,
+   "tokens_out": 1782,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

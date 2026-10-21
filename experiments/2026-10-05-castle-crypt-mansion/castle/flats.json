@@ -1,0 +1,142 @@
+{
+ "flats": [
+  {
+   "id": "floor-flagstone-rushes",
+   "object": "floor-flagstone-rushes",
+   "kind": "floor",
+   "seamless": true,
+   "rooms": [
+    "great-hall",
+    "barracks"
+   ],
+   "desc": "Seamless top-down floor texture, 5 ft tile: big worn rectangular hall flagstones in warm grey and blue-grey with dark joints, strewn thinly and unevenly with fresh green-gold rushes and a few sprigs of herbs lying in all directions, the stone showing through over about half the area. Flat even light, no shadows, no objects, hand-painted house style."
+  },
+  {
+   "id": "floor-setts-courtyard",
+   "object": "floor-setts-courtyard",
+   "kind": "floor",
+   "seamless": true,
+   "rooms": [
+    "courtyard",
+    "gatehouse"
+   ],
+   "desc": "Seamless top-down ground texture, 5 ft tile: big, rounded, worn granite setts (each about 8 in) laid in slightly wavering rows, blue-grey, warm grey and a few ochre, with dark muddy joints, a little trodden straw and a wisp of moss here and there. Flat even light, no puddles with reflections, no objects, hand-painted house style."
+  },
+  {
+   "id": "floor-sand-training",
+   "object": "floor-sand-training",
+   "kind": "floor",
+   "seamless": true,
+   "rooms": [
+    "courtyard"
+   ],
+   "desc": "Seamless top-down ground texture, 5 ft tile: pale ochre training-ground sand mixed with trampled earth, softly raked in broad curved strokes and scuffed with shallow footprints and a few darker damp patches. Low contrast, flat even light, no objects, hand-painted house style."
+  },
+  {
+   "id": "banner-wall--s1",
+   "object": "banner-wall",
+   "kind": "wall card",
+   "rooms": [
+    "great-hall",
+    "throne-room",
+    "courtyard"
+   ],
+   "desc": "Flat keyed card, 30 x 72 in: a long heraldic wall banner hanging from a short wooden rod, swallow-tailed at the bottom, burgundy with one broad cream vertical stripe and a gold fringe; plain colour fields only, no emblem, no text, no blue. Seen square-on."
+  },
+  {
+   "id": "banner-wall--s2",
+   "object": "banner-wall",
+   "kind": "wall card",
+   "rooms": [
+    "great-hall",
+    "throne-room",
+    "gatehouse"
+   ],
+   "desc": "Flat keyed card, 30 x 72 in: a long wall banner with a pointed bottom, quartered moss green and ochre, gold fringe, hanging from a wooden rod; no emblem, no text, no blue. Seen square-on."
+  },
+  {
+   "id": "banner-wall--s3",
+   "object": "banner-wall",
+   "kind": "wall card",
+   "rooms": [
+    "great-hall",
+    "throne-room"
+   ],
+   "desc": "Flat keyed card, 30 x 72 in: a long wall banner with a straight fringed bottom, cream with a broad burgundy chevron and a burgundy border; no emblem, no text, no blue. Seen square-on."
+  },
+  {
+   "id": "tapestry--s1",
+   "object": "tapestry",
+   "kind": "wall card",
+   "rooms": [
+    "great-hall",
+    "throne-room"
+   ],
+   "desc": "Flat keyed card, 96 x 72 in: a large woven hall tapestry on a rod, a formal pattern of a stylised tree with big leaves and fruit inside a wide border of knotwork, in burgundy, moss green, ochre and cream; no figures, animals, text or blue. Seen square-on."
+  },
+  {
+   "id": "tapestry--s2",
+   "object": "tapestry",
+   "kind": "wall card",
+   "rooms": [
+    "great-hall"
+   ],
+   "desc": "Flat keyed card, 96 x 72 in: a large woven tapestry on a rod, a mille-fleurs field of small chunky flowers on dark green with three plain heater shields in a row (burgundy, cream, ochre; no emblems) and a striped border; no figures, animals, text or blue. Seen square-on."
+  },
+  {
+   "id": "rug-runner--royal",
+   "object": "rug-runner",
+   "kind": "rug",
+   "rooms": [
+    "throne-room",
+    "chapel"
+   ],
+   "desc": "Flat keyed rug seen from straight above, 36 x 160 in, tiles end to end: a rich burgundy carpet runner with a narrow ochre-gold border line each side and plain ends cut square (so tiles join); no fringe on the ends, no pattern in the field."
+  },
+  {
+   "id": "rug-fur",
+   "object": "rug-fur",
+   "kind": "rug",
+   "rooms": [
+    "great-hall"
+   ],
+   "desc": "Flat keyed rug seen from straight above, 48 x 72 in: a big shaggy grey-brown animal-skin rug with an irregular outline and four short leg flaps, no head, painted fur in broad strokes."
+  },
+  {
+   "id": "decal-blood",
+   "object": "decal-blood",
+   "kind": "decal",
+   "rooms": [
+    "dungeon"
+   ],
+   "desc": "Flat keyed decal seen from straight above, about 24 in: an old, dried, dark brown-red stain soaked into stone, soft-edged with a few drips and a smear; matte, no gloss, not bright red. Two shapes (--s1, --s2)."
+  },
+  {
+   "id": "floor-drain-grate",
+   "object": "floor-drain-grate",
+   "kind": "decal",
+   "rooms": [
+    "dungeon",
+    "castle-kitchen"
+   ],
+   "desc": "Flat keyed decal seen from straight above, about 24 in square: a square iron drain grate of six thick bars set in a worn stone frame, dark and wet-looking inside, with a damp stain spreading from it. (Catalog gen is kit; a flat decal on the room's floor is enough at table distance.)"
+  }
+ ],
+ "uses_from_other_batches": [
+  {
+   "id": "floor-tile-encaustic",
+   "from": "mansion batch (catalog/objects-mansion.catalog.md)",
+   "rooms": [
+    "throne-room",
+    "chapel"
+   ]
+  },
+  {
+   "id": "floor-tomb-slabs",
+   "from": "crypt batch (catalog/objects-crypt.catalog.md)",
+   "rooms": [
+    "chapel"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+bean-poles-wigwam	accept	-	bean pole wigwam trellis	0.9	0.0	0	0	4.3x4.32x7	40x40x84	1.0	1.3	prop	1	
+beehive-skep	accept	-	skep beehives on a bench	0.9	0.0	0	0	1.66x3.33x2.27	40x18x32	1.11	1.17	prop	1	
+butter-churn	accept	-	butter churn	0.95	0.0	0	0	1.41x1.4x3.5	16x16x42	1.0	1.06	prop	1	
+cheese-press	accept	-	cheese press	0.85	0.001	0	0	2.92x2.55x3.83	34x22x46	1.35	1.03	prop	1	
+chicken-perch-ladder	accept	-	chicken perch ladder	0.8	0.0	0	0	3.52x4.17x3.62	50x34x44	1.24	1.01	prop	1	
+dovecote	accept	-	dovecote	0.85	0.0	0	0	5.78x5.84x11	60x60x132	1.01	1.17	prop	1	
+egg-basket	accept	-	basket of eggs	0.85	0.0	0	0	1.33x1.33x1.04	16x16x11	1.0	1.14	prop	1	
+haystack-field	reject	override: supervisor: from above it is a smooth yellow pot under a leather lid, not hay (the 'one smooth solid surface' wording over-applied). Not shipped; re-plate with broad shaggy layers when a pod is next up (was reroll-plate: gemini: does not read as a haystack; looks like a smooth yellow pot or yurt with a leather lid)	covered grain storage pot	0.75	0.0	0	0	9x8.07x8.85	84x84x108	1.12	1.31	prop	1	gemini note: clean geometry and no mesh defects, but surface lacks hay/thatch texture so it fails to read as a haystack
+loft-ladder-head	accept	-	trapdoor with ladder	0.95	0.0	0	0	3.67x3.63x3.06	44x44x40	1.01	1.09	prop	1	
+nest-box-row	accept	-	nesting box row with eggs	0.95	0.0	0	0	4.5x2.09x2.18	54x20x30	1.26	1.15	prop	1	
+pigsty	accept	override: supervisor: the judge took the heap of golden straw at the sty's doorway for a sleeping pig (the plate asks for the straw heap; no animal was painted). Reads as a pigsty at 0.95; kept (was reroll-plate: gemini: contains a sleeping pig, violating the must-not requirement against animals)	pigsty	0.95	0.003	0	0	7.54x9.17x3.63	110x110x50	1.22	1.15	prop	1	
+plough	accept	-	plough	0.95	0.001	0	0	3.46x8.33x4.2	30x100x40	1.38	1.26	prop	1	
+root-sand-box	accept	-	vegetable storage sandbox crate	0.9	0.0	0	0	4.33x2.34x1.88	52x24x18	1.17	1.25	prop	1	
+rural-grain-heap-threshed	reject	override: supervisor, at room level: the heap meshed as a smooth ORANGE cone with the shovel's handle as a knob; from the table camera the granary read as a brewer's or alchemist's workshop round a still, 4 reads of 4. Not shipped; re-plate (paler wheat-gold, a slumped irregular heap, no shovel standing in it) (was accept: )	pile of grain with bucket and shovels	0.75	0.0	0	0	3.8x4.17x1.97	50x46x24	1.01	1.02	prop	1	
+rural-grain-stook	accept	-	wheat stook	0.9	0.0	0	0	4.33x4.33x3.76	40x36x52	1.11	1.5	prop	1	height proportion 1.5x off the catalog | gemini note: slightly squatter than catalog proportions
+rural-milk-churn-tall	accept	-	wooden milk buckets	0.85	0.007	0	0	1.21x2.17x1.76	26x15x26	1.03	1.23	prop	1	
+scarecrow-post	accept	-	scarecrow	0.95	0.0	0	0	5.83x2.5x6.67	52x16x80	1.39	1.35	prop	1	
+wall-doorway--wattle-daub	accept	-	doorway wall section	0.95	0.0	0	0	5.91x0.81x9	60x12x108	1.45	1.18	wall	1	wall door: w:h 0.66, depth:h 0.09, largest opening 51% x 65%, filled 64%
+wall-straight--wattle-daub	accept	-	straight wattle and daub wall section	0.95	0.0	0	0	5.77x0.75x9	60x12x108	1.53	1.15	wall	1	wall solid: w:h 0.64, depth:h 0.08, largest opening 62% x 1%, filled 97%
+wall-straight--wattle-daub--s2	accept	-	wattle and daub wall section	0.95	0.0	0	0	5.71x0.96x9	60x12x108	1.19	1.14	wall	1	wall solid: w:h 0.64, depth:h 0.11, largest opening 3% x 4%, filled 98% | gemini note: small loop fixture and pebble details on one face
+wall-window-small--wattle-daub	reject	override: supervisor, at room level: the three stout wooden bars read as a barred window from above (the passage 'a jail corridor', the cottage 'a guard's quarters'). Not shipped: a wattle-daub wall shows plain daub where a window was rolled. Re-plate: an unbarred opening with one plank shutter standing half open (was accept: )	medieval wall section with barred window	0.95	0.0	0	0	5.91x0.84x9	60x12x108	1.4	1.18	wall	1	wall window: w:h 0.66, depth:h 0.09, largest opening 5% x 19%, filled 92%
+winnowing-basket	accept	-	winnowing basket	0.85	0.0	0	0	2.67x2.62x1.04	32x26x8	1.21	1.56	prop	1	height proportion 1.56x off the catalog | gemini note: slightly taller than catalog reference proportion

@@ -1,0 +1,50 @@
+{
+  "experiment": "2026-10-01-doors",
+  "generated_at": "2026-10-01T19:21:23.976986+00:00",
+  "assets": [
+    {
+      "asset": "door-double-grand--leaf",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0f8e9-5044-7953-8c44-67b6381fe453",
+      "started_at": "2026-10-01T19:20:34.667083+00:00",
+      "finished_at": "2026-10-01T19:21:01.741507+00:00",
+      "elapsed_seconds": 27.07,
+      "input": "inputs/door-double-grand--leaf.jpg",
+      "input_sha256": "bb842a46a13568bef2d3eba0248318b53e615a49f582f7ff020d150d11390a81",
+      "output": "models/door-double-grand--leaf.glb",
+      "output_sha256": "b3bea33cf64d30d72832aeda53b4a79ff6b5b75df778fa96ce278a06df4cde3b",
+      "output_bytes": 2863884,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "door-plank--leaf",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0f8e9-5043-7e32-8f63-d39b34e3d2c7",
+      "started_at": "2026-10-01T19:20:34.667284+00:00",
+      "finished_at": "2026-10-01T19:21:23.969601+00:00",
+      "elapsed_seconds": 49.3,
+      "input": "inputs/door-plank--leaf.jpg",
+      "input_sha256": "65c690cf82c824ee968deff6465353203753dbdd0023cdc521d96aa7388475e3",
+      "output": "models/door-plank--leaf.glb",
+      "output_sha256": "126d19a9a997b70bdf49283c68337576aa502066b788a06d5a3c940117ff8cd6",
+      "output_bytes": 2644648,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    }
+  ],
+  "estimated_total_cost_usd": 0.6,
+  "failed": []
+}

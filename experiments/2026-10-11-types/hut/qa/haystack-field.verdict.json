@@ -1,0 +1,37 @@
+{
+ "sku": "haystack-field",
+ "glb_sha1": "278e0b90a8378334365a35a0ca57f4489fa4dcf9",
+ "time": "2026-10-12T18:31:05-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "covered grain storage pot",
+  "second_guess": "small round tent or yurt",
+  "confidence": 0.75,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized fantasy-style storage container or covered grain pot. It features a bulbous, rounded yellow body with a conical brown leather or canvas lid. A wooden peg protrudes from the apex, secured by tan ropes that branch out into six radiating strands tied down by small grey stone weights hanging along the lid's outer rim. Surfaces are solid, smooth, and cleanly modeled in a hand-painted cartoon art style without broken shards or floating pieces. It sits directly on the floor without an added base.",
+  "from_above": "A circular dome divided into six equal radial segments by taut ropes converging at a central knob, with six stone weights protruding symmetrically around the perimeter.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "Roughly 4.5 to 5 feet tall (about 80% of the figure's height) and about 4.5 feet in diameter."
+ },
+ "match": {
+  "ok": false,
+  "reads_as": "covered grain storage pot",
+  "cause": "plate",
+  "problems": [
+   "does not read as a haystack; looks like a smooth yellow pot or yurt with a leather lid"
+  ],
+  "notes": [
+   "clean geometry and no mesh defects, but surface lacks hay/thatch texture so it fails to read as a haystack"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "gemini: does not read as a haystack; looks like a smooth yellow pot or yurt with a leather lid"
+ ],
+ "notes": [
+  "gemini note: clean geometry and no mesh defects, but surface lacks hay/thatch texture so it fails to read as a haystack"
+ ],
+ "vision": true
+}

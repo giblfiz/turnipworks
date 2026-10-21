@@ -1,0 +1,160 @@
+# Temple, ritual, military & performer — object level
+
+One line = one distinct mesh. Grammar and legend: see `README.md`. Deliberately skips objects already present elsewhere (holy symbols sun/moon/tree/hammer/wave, censer, prayer beads, holy water, ritual dagger, black candle, soul gem, phylactery, grimoire, mess kit, canteen, gambeson, tabard, halberd, caltrops, lance, lute, fiddle, bagpipes, hurdy-gurdy, drums, tambourine, flutes, lyre, harp, jester hat, juggling clubs, puppets, herald's trumpet).
+
+## Y6. Temple, ritual, military & performer — object level
+
+### Y6a. Temple & priest
+- **rite-holy-symbol-eye** — all-seeing-eye holy symbol · surface · tiny · size:4x1x5 · metal · set:TEM,ARC · var:- · aff:carry · mesh · P2 · faiths of truth and foresight
+- **rite-holy-symbol-star** — eight-pointed star holy symbol · surface · tiny · size:4x1x4 · metal · set:TEM · var:- · aff:carry · mesh · P2 · faiths of travel and guidance
+- **rite-holy-symbol-scales** — balance-scales holy symbol · surface · tiny · size:5x2x5 · metal · set:TEM,CAS · var:- · aff:carry · mesh · P2 · justice faiths; courthouse chapels
+- **rite-holy-symbol-skull** — plain skull-and-hourglass death symbol · surface · tiny · size:3x1x4 · metal · set:TEM,CRY · var:- · aff:carry · mesh · P2 · the neutral god of endings, not evil
+- **rite-holy-symbol-flame** — flame holy symbol · surface · tiny · size:3x1x5 · metal · set:TEM · var:- · aff:carry · mesh · P3 · hearth and forge faiths
+- **rite-holy-symbol-wooden** — carved wooden holy symbol on a cord · surface · tiny · size:3x1x4 · wood · set:TEM,HUT · var:- · aff:carry · mesh · P2 · the poor priest's symbol
+- **rite-altar-cloth** — embroidered altar cloth · surface · 1x2 · size:72x36x0.3 · cloth · set:TEM!,CRY · var:ruin · aff:- · flat · P1 · drape over any altar; torn for ruins
+- **rite-altar-emblem-stand** — faith emblem on a tall stand · floor · sub · size:16x12x72 · metal · set:TEM! · var:ruin · aff:- · mesh · P2 · behind the altar; generic emblem swappable
+- **rite-sanctuary-lamp** — hanging red sanctuary lamp · ceiling · tiny · size:8x8x14 · mixed · set:TEM!,CRY · var:lit · aff:lit · thin · P1 · never goes out; its going out is a plot beat
+- **rite-pillar-candle-tall** — tall pillar candle on a pricket stand · floor · sub · size:10x10x48 · mixed · set:TEM,CRY,CLT,ARC · var:lit · aff:lit · mesh · P1 · flanks altars
+- **rite-offering-candles-tray** — tray of small lit offering candles · surface · sub · size:18x12x5 · mixed · set:TEM!,CRY · var:lit · aff:lit · mesh · P1 · shrine fronts, side altars
+- **rite-incense-boat** — boat-shaped incense holder with spoon · surface · tiny · size:7x3x3 · metal · set:TEM · var:- · aff:carry · mesh · P3 · pairs with the censer
+- **rite-aspergillum** — holy-water sprinkler with bucket · surface · tiny · size:10x8x12 · metal · set:TEM · var:- · aff:carry · mesh · P2 · blessings; splash the undead
+- **rite-prayer-book-small** — small worn prayer book · surface · tiny · size:5x4x1.5 · paper · set:TEM!,HUT,NOB · var:- · aff:carry · mesh · P1 · pews, bedside tables
+- **rite-hymnal-stack** — stack of hymnals · surface · tiny · size:8x6x8 · paper · set:TEM · var:- · aff:carry · mesh · P3 · end of a pew row
+- **rite-scripture-scroll-case** — ornate scroll case on a stand · surface · tiny · size:14x6x14 · mixed · set:TEM,ARC · var:open · aff:loot · mesh · P3 · holy texts in older faiths
+- **rite-collection-plate** — brass collection plate with coins · surface · tiny · size:12x12x2 · metal · set:TEM · var:fill · aff:loot · mesh · P2 · temptation for rogues
+- **rite-alms-box** — iron-banded alms box on a post · floor · sub · size:12x12x40 · mixed · set:TEM!,MKT · var:ruin · aff:loot · mesh · P1 · by the door; locked
+- **rite-votive-offerings** — wax votive limbs and tokens on a board · wall · sub · size:24x3x30 · mixed · set:TEM,GRV · var:- · aff:- · mesh · P3 · healing shrines; pilgrims' thanks
+- **rite-relic-bone-fragment** — bone relic on a velvet cushion · surface · tiny · size:8x8x3 · organic · set:TEM,CRY · var:- · aff:loot,carry · mesh · P2 · the saint's knuckle; quest object
+- **rite-relic-cloth** — scrap of holy cloth in a glass case · surface · tiny · size:8x6x4 · glass · set:TEM · var:- · aff:loot · mesh · P3 · relic chapels
+- **rite-vestments-stand** — priest's vestments on a stand · floor · sub · size:24x18x66 · cloth · set:TEM! · var:- · aff:loot · mesh · P1 · vestry; disguise opportunity
+- **rite-mitre** — bishop's tall hat · surface · tiny · size:10x8x14 · cloth · set:TEM · var:- · aff:carry · mesh · P3 · high-church dressing
+- **rite-crozier** — shepherd's-crook staff of office · wall · sub · size:12x4x72 · metal · set:TEM · var:- · aff:carry · thin · P2 · leaning by a throne-chair; high priests
+- **rite-stole-folded** — folded embroidered stole · surface · tiny · size:10x6x2 · cloth · set:TEM · var:- · aff:carry · mesh · P3 · vestry drawers
+- **rite-monk-habit-hook** — monk's habit on a wall hook · wall · sub · size:20x8x54 · cloth · set:TEM,HUT · var:- · aff:loot · mesh · P3 · monastery cells
+- **rite-kneeler-cushion** — kneeling cushion · floor · tiny · size:14x10x4 · cloth · set:TEM,NOB,CLT · var:- · aff:- · mesh · P3 · before shrines and pews
+- **rite-icon-panel-large** — large painted holy icon on the wall · wall · 1 · size:36x3x48~0.7-1.5 · mixed · set:TEM,NOB · var:ruin · aff:- · flat · P1 · chapel focal wall
+- **rite-saint-statuette** — small saint statuette · surface · tiny · size:4x4x10 · stone · set:TEM,HUT,NOB · var:ruin · aff:carry · mesh · P2 · wall niches, bedside shrines
+- **rite-sacred-flame-bowl** — bronze bowl with an eternal flame · floor · sub · size:24x24x36 · metal · set:TEM,CRY,CLT · var:lit · aff:lit · mesh · P2 · temple centers; keep it lit
+- **rite-temple-gong** — bronze gong on a frame · floor · 1 · size:48x24x60~0.6-1.4 · metal · set:TEM,CAS · var:- · aff:use · mesh · P2 · calls to prayer; alarms
+- **rite-bell-rope** — bell rope hanging from the ceiling · ceiling · sub · size:3x3x96 · organic · set:TEM · var:- · aff:use,climb · thin · P3 · the bell tower's base
+- **rite-holy-oil-ampulla** — small flask of anointing oil · surface · tiny · size:3x3x5 · glass · set:TEM · var:- · aff:carry · mesh · P3 · healing rites
+- **rite-baptism-ewer** — silver ewer and basin set · surface · tiny · size:12x10x10 · metal · set:TEM · var:- · aff:carry · mesh · P3 · font-side
+- **rite-pilgrim-staff** — pilgrim's staff with shell and gourd · wall · sub · size:8x6x66 · wood · set:TEM,TAV,CMP · var:- · aff:carry · thin · P3 · pilgrims at the inn
+- **rite-pilgrim-badges** — tray of pewter pilgrim badges · surface · tiny · size:10x8x2 · metal · set:TEM,MKT · var:- · aff:carry · mesh · P3 · shrine souvenir stalls
+- **rite-prayer-flags** — string of prayer flags · wall · 1x2 · size:110x1x18~0.6-1.6 · cloth · set:TEM,GRV,CMP · var:ruin · aff:- · flat · P3 · mountain shrines
+- **rite-memorial-plaque** — carved memorial plaque · wall · sub · size:20x2x14 · stone · set:TEM,CRY · var:ruin · aff:- · mesh · P3 · names of the fallen; clue text
+- **rite-memorial-sand-tray** — sand tray of memorial candles · floor · sub · size:30x18x36 · mixed · set:TEM,CRY · var:lit · aff:lit · mesh · P3 · side chapels
+- **rite-funeral-bier** — wooden funeral bier · floor · 1x2 · size:30x84x30 · wood · set:TEM,CRY · var:- · aff:- · mesh · P2 · lying in state
+- **rite-funeral-pall** — heavy pall draped over a coffin · floor · 1x2 · size:36x90x26 · cloth · set:TEM,CRY · var:- · aff:hide · mesh · P3 · pair with coffin
+- **rite-choir-stall** — carved choir stall · floor · 1x2 · size:84x30x60 · wood · set:TEM · var:ruin · aff:sit · mesh · P3 · cathedral chancels
+- **rite-confession-screen** — pierced confession screen · floor · 1 · size:48x6x72 · wood · set:TEM · var:- · aff:los,hide · mesh · P3 · secrets overheard
+- **rite-illuminated-pages** — illuminated pages drying on a line · wall · 1 · size:48x6x30 · paper · set:TEM,ARC · var:- · aff:- · flat · P3 · scriptorium
+- **rite-mistletoe-sickle** — golden sickle on a moss cloth · surface · tiny · size:12x8x2 · metal · set:GRV!,TEM · var:- · aff:carry · mesh · P2 · druid rites
+- **rite-antler-crown** — antler crown on a stand · surface · sub · size:16x12x18 · organic · set:GRV!,CLT · var:- · aff:carry · mesh · P2 · grove priest, horned-god cult
+- **rite-wicker-effigy** — tall wicker effigy · ground · 1 · size:48x36x144~0.5-2 · organic · set:GRV,HUT,CLT · var:lit,ruin · aff:lit · mesh · P3 · harvest festival or something darker
+- **rite-offering-stones** — cairn of offering stones · ground · sub · size:24x24x24~0.5-2 · stone · set:GRV,RUI,HUT,TEM · var:- · aff:- · mesh · P3 · waysides, sacred springs
+- **rite-ribbon-tree-offerings** — ribbons and tokens tied to a branch · ground · sub · size:36x24x60~0.6-1.6 · cloth · set:GRV,HUT,TEM · var:- · aff:- · thin · P3 · wishing trees
+- **rite-shrine-small-household** — small household shrine shelf · wall · sub · size:18x8x20 · mixed · set:HUT,NOB,TAV,TEM · var:lit · aff:lit · mesh · P2 · every home has one
+
+### Y6b. Necromancy, cults & the grave
+- **rite-bone-wand** — wand of carved bone · surface · tiny · size:1x1x12 · organic · set:CLT!,CRY,ARC · var:- · aff:carry,loot · mesh · P1 · the necromancer's focus
+- **rite-bone-staff** — staff topped with a skull · wall · sub · size:8x6x70 · organic · set:CLT,CRY,LAI · var:- · aff:carry,loot · mesh · P2 · lich lieutenants, goblin shamans
+- **rite-tome-flesh-bound** — book bound in pale leather with a face · surface · tiny · size:11x8x3 · organic · set:CLT!,CRY,ARC · var:- · aff:carry,loot · mesh · P1 · the evil book everyone recognises
+- **rite-tome-stack-forbidden** — stack of forbidden tomes · surface · tiny · size:12x9x10 · paper · set:CLT,ARC · var:- · aff:loot · mesh · P1 · necromancer studies
+- **rite-sigil-stone** — carved sigil stone · floor · tiny · size:8x8x4~0.6-2 · stone · set:CLT!,RUI,GRV · var:lit · aff:use · mesh · P1 · place four at the circle's points
+- **rite-blood-bowl** — stone bowl brimming with blood · surface · tiny · size:9x9x4 · stone · set:CLT!,DUN · var:fill · aff:use · mesh · P1 · the ritual's ink
+- **rite-soul-jar** — glass jar holding a wisp · surface · tiny · size:5x5x8 · glass · set:CLT,CRY,ARC · var:lit · aff:loot,lit · mesh · P1 · captured souls; break to free
+- **rite-salt-line** — protective line of salt · floor · 1 · size:60x3x0.5 · mixed · set:CLT,CRY,TEM,HUT,MKT · var:ruin · aff:- · flat · P1 · broken salt = something got in
+- **rite-bone-candelabra** — candelabra built of bones · surface · sub · size:14x8x20 · organic · set:CLT,CRY,LAI · var:lit · aff:lit · mesh · P1 · necromancer dining
+- **rite-skull-lantern** — skull hollowed into a lantern · ceiling · tiny · size:7x8x14 · organic · set:CLT,CRY,LAI · var:lit · aff:lit · mesh · P3 · lair lighting
+- **rite-necro-lantern-green** — iron lantern with green flame · ceiling · tiny · size:8x8x16 · metal · set:CLT!,CRY · var:lit · aff:lit · mesh · P1 · the light tells you who's home
+- **rite-cult-mask-horned** — horned animal cult mask · surface · tiny · size:10x6x14 · mixed · set:CLT!,GRV · var:- · aff:carry · mesh · P2 · hanging on hooks; disguise
+- **rite-cult-mask-blank** — blank white cult mask · surface · tiny · size:7x4x9 · ceramic · set:CLT · var:- · aff:carry · mesh · P1 · faceless cultists
+- **rite-hooded-robe-folded** — folded hooded cult robe · surface · tiny · size:14x10x4 · cloth · set:CLT!,CRY · var:- · aff:carry · mesh · P1 · the disguise on the bench
+- **rite-effigy-straw-bound** — straw effigy bound with hair · surface · tiny · size:4x3x10 · organic · set:CLT,HUT,GRV · var:- · aff:carry · mesh · P3 · hexes; found in walls
+- **rite-summoning-circle-props** — chalk, salt pouch and bowl set · surface · tiny · size:12x10x4 · mixed · set:CLT,ARC · var:- · aff:carry · mesh · P3 · someone was about to begin
+- **rite-contract-infernal** — glowing infernal contract · surface · tiny · size:9x12x0.3 · paper · set:CLT!,ARC,NOB · var:lit · aff:loot · mesh · P2 · the deal that drives the plot
+- **rite-idol-small** — small tabletop dark idol · surface · tiny · size:5x5x10 · stone · set:CLT,DUN,RUI · var:- · aff:carry,loot · mesh · P2 · shrine shelves; cursed souvenir
+- **rite-bone-chime** — wind chime of small bones · ceiling · tiny · size:8x8x18 · organic · set:CLT,GRV,LAI · var:- · aff:- · thin · P3 · warns of approach
+- **rite-teeth-string** — string of trophy teeth · wall · tiny · size:4x1x14 · organic · set:LAI,CLT,CMP · var:- · aff:- · thin · P3 · orc camps, cannibal huts
+- **rite-finger-bone-necklace** — necklace of finger bones · surface · tiny · size:6x6x1 · organic · set:CLT,LAI · var:- · aff:carry · mesh · P3 · shaman's jewelry
+- **rite-corpse-on-slab** — shrouded corpse on a stone slab · floor · 1x2 · size:30x80x34 · organic · set:CRY!,CLT,DUN · var:- · aff:- · mesh · P1 · morgue, embalming room, fresh reanimation
+- **rite-corpse-shrouded** — shrouded body on the floor · floor · 1x2 · size:22x70x12 · cloth · set:CRY,DUN,TEM,MKT · var:- · aff:loot · mesh · P2 · plague streets, temple floors
+- **rite-mummified-remains** — mummified remains · floor · 1x2 · size:20x68x12 · organic · set:CRY,RUI · var:- · aff:loot · mesh · P1 · tomb alcoves
+- **rite-embalming-tools** — roll of embalming hooks and knives · surface · tiny · size:14x8x2 · metal · set:CRY,CLT · var:open · aff:carry · mesh · P1 · morticians and necromancers
+- **rite-canopic-jar** — single canopic jar with animal lid · surface · tiny · size:5x5x12 · ceramic · set:CRY!,CLT · var:- · aff:loot,carry · mesh · P1 · tomb treasure; keeps organs
+- **rite-canopic-jars-set** — set of four canopic jars · surface · sub · size:18x18x12 · ceramic · set:CRY,CLT · var:- · aff:loot · mesh · P1 · beside a sarcophagus
+- **rite-burial-shroud-folded** — folded burial shroud · surface · tiny · size:14x10x4 · cloth · set:CRY,TEM · var:- · aff:carry · mesh · P1 · undertaker shelves
+- **rite-death-mask** — funerary death mask · wall · tiny · size:8x4x10 · metal · set:CRY,NOB · var:- · aff:loot · mesh · P1 · on a sarcophagus face or wall
+- **rite-grave-goods-pile** — grave goods: pots, weapon, coins · floor · sub · size:30x24x16~0.6-1.6 · mixed · set:CRY!,RUI · var:- · aff:loot · mesh · P1 · barrow and tomb loot
+- **rite-grave-dirt-sack** — sack of grave dirt · floor · tiny · size:12x10x14 · cloth · set:CLT,CRY · var:- · aff:carry · mesh · P3 · a component the necromancer ordered
+- **rite-corpse-cart** — dead-cart with shrouded bodies · ground · 1x2 · size:48x96x40 · wood · set:MKT,CRY · var:- · aff:cover · mesh · P3 · plague towns; bring out your dead
+- **rite-coffin-lid-scratched** — coffin lid scratched from inside · floor · 1x2 · size:26x76x3 · wood · set:CRY · var:- · aff:- · mesh · P3 · horror beat
+- **rite-ritual-hand-bell** — tarnished black hand bell · surface · tiny · size:4x4x7 · metal · set:CLT,CRY · var:- · aff:use,carry · mesh · P3 · rings to raise the dead
+
+### Y6c. Barracks & soldier kit
+- **mil-footlocker** — soldier's footlocker · floor · sub · size:30x16x16 · wood · set:CAS!,CMP · var:open · aff:loot,open · mesh · P1 · foot of every bunk
+- **mil-helmet-peg-rack** — wall pegs with hanging helmets · wall · 1 · size:48x10x24 · metal · set:CAS!,DUN,MIN,SMI · var:fill · aff:loot · mesh · P1 · barracks and guard rooms
+- **mil-shield-stack** — round shields leaning in a stack · floor · sub · size:36x20x36 · wood · set:CAS!,CMP,SMI,LAI · var:- · aff:cover,loot · mesh · P1 · armories, camp corners
+- **mil-spear-tripod** — spears stacked in a tripod · ground · sub · size:30x30x96 · wood · set:CMP!,CAS · var:- · aff:loot · thin · P1 · camp weapon stacks
+- **mil-pavise** — standing pavise shield · floor · sub · size:24x18x48 · wood · set:CAS,CMP · var:ruin · aff:cover · mesh · P1 · portable full cover for archers
+- **mil-guard-lantern** — shuttered guard's lantern · surface · tiny · size:7x7x13 · metal · set:CAS!,DUN,MKT,CMP · var:lit · aff:lit,carry · mesh · P1 · night watch; shutters make it a cue
+- **mil-signal-flag** — signal flag on a short pole · floor · sub · size:18x6x48 · cloth · set:CAS,CMP · var:- · aff:carry · flat · P1 · wall towers, field camps
+- **mil-signal-beacon** — iron fire-basket beacon on a pole · ground · sub · size:24x24x120 · metal · set:CAS,CMP,RUI · var:lit · aff:lit · mesh · P1 · light the beacons
+- **mil-arrow-sheaf** — tied sheaf of arrows · surface · tiny · size:6x6x32 · wood · set:CAS,CMP · var:- · aff:carry,loot · thin · P1 · resupply, wall-walks
+- **mil-weapon-oil-flask** — flask of weapon oil with rag · surface · tiny · size:6x4x5 · glass · set:CAS,SMI · var:- · aff:carry · mesh · P1 · barracks tables
+- **mil-duty-roster** — duty roster board · wall · sub · size:18x2x24 · wood · set:CAS,DUN · var:- · aff:use · mesh · P1 · who's on watch tonight — a clue
+- **mil-dispatch-sealed** — sealed military dispatch · surface · tiny · size:8x4x1 · paper · set:CAS,CMP · var:- · aff:carry,loot · mesh · P2 · intercepted orders
+- **mil-map-case** — leather map tube · surface · tiny · size:4x4x30 · organic · set:CAS,CMP · var:- · aff:carry,loot · mesh · P1 · officer's kit
+- **mil-campaign-chest** — brass-cornered campaign chest · floor · sub · size:32x18x20 · wood · set:CMP!,CAS · var:open · aff:loot,open · mesh · P1 · officer's tent
+- **mil-field-desk** — folding campaign desk · floor · sub · size:30x20x30 · wood · set:CMP,CAS · var:- · aff:use · mesh · P1 · command tent
+- **mil-ration-crate** — crate of hard rations · floor · sub · size:22x16x14 · wood · set:CAS,CMP · var:open · aff:loot · mesh · P1 · supply dumps
+- **mil-helmet-stew** — helmet used as a cooking pot over coals · floor · tiny · size:12x12x10 · metal · set:CMP · var:lit · aff:- · mesh · P3 · soldiers' supper
+- **mil-wasters-rack** — rack of wooden practice swords · wall · 1 · size:36x10x48 · wood · set:CAS! · var:fill · aff:loot · mesh · P1 · training yard
+- **mil-pell** — wooden practice post, hacked · ground · sub · size:10x10x66 · wood · set:CAS,CMP · var:ruin · aff:- · mesh · P1 · sword drill
+- **mil-quintain** — jousting quintain on a pivot · ground · 1 · size:60x12x84 · wood · set:CAS · var:- · aff:use · mesh · P1 · tourney grounds
+- **mil-horse-barding-stand** — horse barding on a frame · floor · 1 · size:30x72x60 · metal · set:CAS · var:- · aff:loot · mesh · P1 · knight's stable
+- **mil-armor-repair-bench** — bench with mail and rivets · floor · 1 · size:60x24x34 · mixed · set:CAS,SMI · var:- · aff:use · mesh · P1 · armory corner
+- **mil-crossbow-rack** — wall rack of crossbows · wall · 1 · size:48x10x36 · wood · set:CAS,DUN · var:fill · aff:loot · mesh · P1 · gatehouses
+- **mil-watch-rattle** — watchman's alarm rattle · surface · tiny · size:8x3x10 · wood · set:CAS,MKT · var:- · aff:use,carry · mesh · P3 · raise the alarm
+- **mil-cheval-de-frise** — spiked log barricade · ground · 1x2 · size:48x110x42 · wood · set:CAS,CMP · var:ruin · aff:block,hazard · mesh · P2 · road blocks, breach plugs
+- **mil-mantlet** — wheeled siege mantlet · ground · 1 · size:60x36x72 · wood · set:CMP,CAS · var:ruin · aff:cover · mesh · P2 · advance under fire
+- **mil-battering-ram** — small hand battering ram · floor · 1x2 · size:20x96x20 · wood · set:CMP,CAS · var:- · aff:carry,use · mesh · P2 · doors are negotiable
+- **mil-ram-covered** — roofed siege ram on wheels · ground · 2x3 · size:84x170x108 · wood · set:CMP,CAS · var:ruin · aff:cover,use · mesh · P3 · castle gate assault
+- **mil-siege-ladder** — tall siege ladder · wall · 1x2 · size:24x8x180 · wood · set:CAS,CMP · var:ruin · aff:climb,pass · thin · P1 · against the battlements
+- **mil-boiling-oil-pot** — cauldron of boiling oil on a gantry · floor · 1 · size:48x48x72 · metal · set:CAS · var:lit · aff:hazard,use · mesh · P1 · over the gate
+- **mil-catapult-stones** — pile of catapult stones · ground · sub · size:36x36x16~0.6-1.8 · stone · set:CAS,CMP,MIN · var:- · aff:cover · mesh · P3 · beside siege engines
+- **mil-ballista-bolts** — bundle of ballista bolts · floor · 1 · size:20x60x12 · wood · set:CAS · var:- · aff:- · mesh · P3 · tower tops
+- **mil-battlefield-debris** — broken spears, shields and helms · ground · 1 · size:60x60x14~0.6-1.6 · mixed · set:RUI,CMP,CAS · var:- · aff:loot · mesh · P2 · the day after
+- **mil-armor-empty-sprawled** — empty armor sprawled on the ground · floor · 1 · size:30x70x12 · metal · set:RUI,CAS,DUN · var:- · aff:loot · mesh · P3 · haunted armories; who wore it?
+- **mil-prisoner-yoke** — wooden prisoner yoke · surface · sub · size:30x8x12 · wood · set:DUN,CMP · var:- · aff:use · mesh · P3 · slavers and war camps
+- **mil-war-banner-tattered** — tattered war banner on a broken pole · ground · sub · size:30x10x96 · cloth · set:RUI,CAS · var:- · aff:- · flat · P3 · old battlefields
+
+### Y6d. Bard & performer
+- **bard-instrument-stand** — stand with lute and recorder · floor · sub · size:20x16x42 · wood · set:TAV!,NOB · var:- · aff:loot · mesh · P1 · the bard's corner
+- **bard-tip-hat** — felt hat lying upside down on the floor, brim up and crown down, holding a few coins · floor · tiny · size:12x12x5 · cloth · set:TAV!,MKT · var:fill · aff:loot · mesh · P1 · busking; rogues' temptation
+- **bard-songbook** — battered songbook · surface · tiny · size:9x7x2 · paper · set:TAV!,NOB · var:- · aff:carry · mesh · P1 · the bard's tavern stool
+- **bard-recorder** — wooden recorder · surface · tiny · size:1.5x1.5x12 · wood · set:TAV,HUT · var:- · aff:carry · mesh · P1 · shepherds and minstrels
+- **bard-citole** — small plucked citole · surface · tiny · size:10x4x26 · wood · set:TAV,NOB · var:- · aff:carry · mesh · P3 · a lute's scrappier cousin
+- **bard-shawm** — double-reed shawm · surface · tiny · size:3x3x24 · wood · set:MKT,CAS · var:- · aff:carry · mesh · P3 · loud outdoor music
+- **bard-psaltery** — psaltery on a table · surface · tiny · size:18x10x3 · wood · set:NOB,TEM · var:- · aff:use · mesh · P3 · courtly music
+- **bard-dulcimer** — hammered dulcimer · surface · sub · size:36x14x6 · wood · set:TAV,NOB · var:- · aff:use · mesh · P3 · tavern evenings
+- **bard-pipe-and-tabor** — pipe and small tabor drum set · surface · tiny · size:12x12x14 · mixed · set:MKT,TAV · var:- · aff:carry · mesh · P3 · dancing music
+- **bard-finger-cymbals** — finger cymbals · surface · tiny · size:4x2x1 · metal · set:MKT,TAV · var:- · aff:carry · mesh · P3 · dancers
+- **bard-bone-flute** — flute carved from bone · surface · tiny · size:1x1x9 · organic · set:LAI,CLT,GRV · var:- · aff:carry · mesh · P3 · haunting melodies
+- **bard-lute-case** — hard lute case · floor · sub · size:18x8x40 · wood · set:TAV,CMP · var:open · aff:carry,loot · mesh · P3 · smuggling in plain sight
+- **bard-lute-broken** — smashed lute · floor · tiny · size:16x10x20 · wood · set:TAV · var:- · aff:- · mesh · P3 · aftermath of a bad review
+- **bard-sheet-music-scatter** — scattered sheet music · floor · sub · size:30x24x0.3 · paper · set:TAV,NOB · var:- · aff:loot · flat · P2 · a hidden message in the notes
+- **bard-juggling-balls** — juggling balls · surface · tiny · size:8x6x3 · cloth · set:MKT,TAV · var:- · aff:carry · mesh · P3 · street performers
+- **bard-juggling-torches** — juggling torches · surface · tiny · size:14x6x4 · wood · set:MKT · var:lit · aff:carry,lit · mesh · P3 · fire acts
+- **bard-masks-theatre** — comedy and tragedy masks · wall · sub · size:24x3x14 · mixed · set:TAV,MKT,NOB · var:- · aff:carry · mesh · P2 · theatre and bard halls
+- **bard-costume-trunk** — open trunk spilling costumes · floor · sub · size:34x20x26 · mixed · set:MKT!,TAV · var:open · aff:loot,hide · mesh · P2 · disguise supply
+- **bard-costume-rack** — rack of costumes · floor · 1 · size:48x20x66 · cloth · set:MKT,NOB · var:- · aff:loot,los · mesh · P3 · backstage
+- **bard-makeup-kit** — performer's paint and powder box · surface · tiny · size:10x7x4 · mixed · set:MKT · var:open · aff:carry · mesh · P3 · backstage tables
+- **bard-stage-backdrop** — painted stage backdrop flat · floor · 1x2 · size:110x6x84 · cloth · set:MKT,TAV · var:ruin · aff:los · flat · P3 · players' stage
+- **bard-footlights** — row of stage footlight candles · floor · 1x2 · size:96x8x6 · mixed · set:MKT,TAV,NOB · var:lit · aff:lit · mesh · P3 · front of any stage
+- **bard-playbill** — playbill poster · wall · tiny · size:12x0.2x18 · paper · set:MKT,TAV · var:- · aff:- · flat · P2 · tonight only!
+- **bard-stilts** — pair of performer's stilts · wall · sub · size:10x4x72 · wood · set:MKT · var:- · aff:carry · thin · P3 · fairs
+- **bard-shadow-puppet-screen** — shadow-puppet screen with lamp · floor · 1 · size:48x24x48 · mixed · set:MKT,TAV · var:lit · aff:lit,los · mesh · P3 · storytelling nights
+- **bard-players-wagon** — travelling players' wagon that opens into a stage · ground · 2x3 · size:84x170x120 · wood · set:MKT!,CMP · var:open · aff:cover,climb · mesh · P3 · the troupe arrives
+- **bard-ribbon-wand** — dancer's ribbon wand · surface · tiny · size:2x2x36 · cloth · set:MKT · var:- · aff:carry · thin · P3 · festival dancers

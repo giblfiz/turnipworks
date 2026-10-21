@@ -1,0 +1,3389 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "crypt-gate-iron": {
+   "id": "crypt-gate-iron",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/crypt-gate-iron.try1.jpg",
+     "semantic": {
+      "what_i_see": "A heavy, weathered medieval iron dungeon gate with an arched top, vertical bars, and a ring handle set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A heavy, weathered medieval iron dungeon gate with an arched top, vertical bars, and a ring handle set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single object: a medieval or fantasy-style metal gate or jail door (second guess: an iron garden wicket gate). The gate features an arched/gabled top, two thick side stiles, five vertical square-section bars, two horizontal cross-strakes studded with four round rivets each, and a solid metal kick plate at the base adorned with a single central faceted diamond stud. On the left edge, there are two heavy cylindrical hinges, each fixed by two rivets. On the right middle edge, a rectangular lock plate features four corner rivets, an old-fashioned keyhole, and a hanging round iron pull ring. The door appears to be a standalone piece shown closed and viewed from a slight three-quarters angle. The material is dark forged iron or steel showing heavy texturing, edge wear, and extensive reddish-brown surface rust. The entire gate is intact and completely uncropped within the frame. The background is a uniform, flat, bright blue with no visible floor, scenery, cast shadows, or other objects.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3338,
+      "soft": 0.0113,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9857,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4212,
+   "tokens_out": 2570,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--crypt-stone": {
+   "id": "wall-straight--crypt-stone",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/wall-straight--crypt-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A freestanding section of a stylized stone wall with a top coping ledge, weathered with moss and mineral drips, rendered against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A freestanding section of a stylized stone wall with a top coping ledge, weathered with moss and mineral drips, rendered against a solid blue backdrop.",
+       "details": "There are no texts, labels, or watermarks visible. The image features a single standalone object: a section of a stone wall or masonry barrier (second guess: a stylized 3D game asset of a parapet). It consists of a top decorative coping layer composed of three stone blocks with an overhanging lower trim, followed by six rows of rectangular and semi-square cut stone blocks laid in a staggered ashlar pattern. There are no doors, drawers, lids, wheels, or legs. The material is chipped, rough-hewn dark grey stone with brownish highlights, fine surface cracks, green moss in the crevices and lower joints, and faded vertical whitish-green water/mineral drip marks. The wall is completely uncropped and seen from a three-quarters perspective showing its front face, top, and right-side profile. The background is a flat, uniform solid cobalt blue with no floor, horizon, cast shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5051,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9976,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 39
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4186,
+   "tokens_out": 1924,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "door-crypt--leaf": {
+   "id": "door-crypt--leaf",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/door-crypt--leaf.try1.jpg",
+     "semantic": {
+      "what_i_see": "A heavy, aged wooden plank door with forged iron reinforcement bands and a ring handle, isolated against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A heavy, aged wooden plank door with forged iron reinforcement bands and a ring handle, isolated against a bright blue background.",
+       "details": "There are no text labels, watermarks, or people in the image. The single object depicted is a medieval-style wooden door (or dungeon/castle door panel). It consists of roughly six vertical dark brown timber planks shaped into a slightly pointed arched top. The door is reinforced with three horizontal iron straps featuring decorative flared ends and domed rivet heads. On the right side, integrated with the middle strap, is a circular iron backplate holding a hanging round ring handle/knocker. Directly beneath the handle sits a square iron keyhole escutcheon plate with four corner rivets and a classic keyhole cutout. The bottom portion of the planks shows green moss or algae weathering. The object is completely intact and not cropped. The background is a solid, uniform vivid blue screen with no floor or cast shadows visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.398,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4140,
+   "tokens_out": 1350,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sarcophagus--s1": {
+   "id": "sarcophagus--s1",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/sarcophagus--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A detailed stone sarcophagus or ancient chest with a closed pitched lid against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A detailed stone sarcophagus or ancient chest with a closed pitched lid against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single separate object: an ancient carved stone sarcophagus, with a stone chest or reliquary as a second guess. The object consists of a heavy rectangular body with a stepped base and a gabled/pitched lid. The lid is fully closed, concealing any interior entirely; it features a central carved sunburst or dome emblem with radiating rays/spikes and rounded decorative ribs. The front face of the box is divided into three recessed square panels separated by classical-style pilasters/pillars, each panel featuring a central raised circular boss or medallion. The visible left short side has a matching recessed panel with a circular boss. The material is weathered, chiselled beige/tan sandstone or limestone with subtle greenish moss stains and chipped edges. The entire object is complete and uncropped, centered against a flat, solid, uniform blue background without cast shadows or ground.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3677,
+      "soft": 0.0023,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9985,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 135
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4165,
+   "tokens_out": 1091,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "statue-weeping-angel": {
+   "id": "statue-weeping-angel",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/statue-weeping-angel.try1.jpg",
+     "semantic": {
+      "what_i_see": "A weathered stone statue depicting a hooded weeping angel covering its face with its hands, standing atop a tiered stone pedestal against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A weathered stone statue depicting a hooded weeping angel covering its face with its hands, standing atop a tiered stone pedestal against a solid bright blue background.",
+       "details": "There is no text, labels, or watermarks visible on the image. The image contains one isolated object: a carved stone statue of a weeping angel (second guess: a gothic cemetery monument or mourning figure). The figure possesses two large feathered wings extending upwards and behind it, a deep hood covering the head, two arms raised with hands covering the hidden face, and flowing robes that fall straight to the base in heavy vertical folds. The statue rests on a tiered, square-profile stone plinth or pedestal with recessed side panels and bevelled mouldings. The statue is rendered in aged, light grey-beige stone texture with prominent green moss or lichen growing on upward-facing edges, crevices, and across the pedestal. The entire object is complete and uncropped, centered within the frame. The background is a flat, uniform, bright solid blue with no ground plane, shadow, or environmental elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2548,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9943,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4179,
+   "tokens_out": 1643,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "monument-urn-draped": {
+   "id": "monument-urn-draped",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/monument-urn-draped.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone funerary monument featuring a draped urn set atop a decorated square pedestal and stepped base, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized carved stone funerary monument featuring a draped urn set atop a decorated square pedestal and stepped base, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single composite object: a carved stone funerary monument or classical memorial urn on a pedestal (second guess: an ornate cemetery monument or garden plinth). The structure consists of three main sections: at the bottom, a stepped square base composed of two tiered layers of carved stone blocks; in the middle, a square pedestal column with recessed side panels featuring carved laurel wreaths with ribbons, capped by a thick projecting cornice; and on top, a classical lidded urn partially draped with a sculpted shroud or cloth that falls down the right side past the cornice. The urn has a fitted stepped lid topped with a rounded knob/finial, which is closed and fully covers the top. The entire monument is made of pale beige and grey weathered stone, with visible chiseled edges, minor surface cracks, and patches of greenish moss or lichen settled into the crevices and base blocks. The object is completely in frame and not cropped. The background is a flat, uniform, vibrant royal blue with no visible floor, ground, casting shadows, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3823,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4184,
+   "tokens_out": 1213,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "coffin--s1": {
+   "id": "coffin--s1",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/coffin--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A closed, stylized wooden coffin with metal ring handles and rivets set against a flat, solid blue background.",
+      "ok": false,
+      "problems": [
+       "Missing six-sided shape with angled shoulders wider near one end (described like a rectangular chest or casket)"
+      ],
+      "blind": {
+       "what_i_see": "A closed, stylized wooden coffin with metal ring handles and rivets set against a flat, solid blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. It depicts a single object: a wooden coffin or casket (second guess: an elongated storage chest or crate). The coffin consists of a base constructed from horizontal wooden planks and a fitted lid constructed from planks with a raised cross-bar and surface panels. Around the lid and edges are round iron rivets or studs. On the facing side of the coffin base, there are two dark grey iron ring-pull handles attached via rectangular mounting plates. The lid is completely closed, so the interior is entirely hidden. The wood is medium-to-dark brown with painted grain and chipped edge highlights, rendered in a 3D isometric video-game asset style. The object is shown in full without any cropping, floating against a uniform, solid vivid blue background with no shadows or floor.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/coffin--s1.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D wooden coffin with metal ring handles and rivets, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D wooden coffin with metal ring handles and rivets, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single object: a stylized wooden coffin (or casket/burial box). It has a traditional tapered hexagonal silhouette, constructed from dark brown wooden planks with painted wood grain and edge wear. The lid is fully closed, entirely concealing the interior, and features raised wooden slats forming a T-shape down the center. Around the outer rim of the lid are eight visible faceted silver-grey metal studs or rivets. On the visible long left flank, there are two circular grey metal ring handles suspended from brackets. The object is fully contained within the frame with no cropping. The background is a flat, uniform, saturated blue with no floor, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3784,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9947,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5860,
+   "tokens_out": 2967,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-funeral-pall": {
+   "id": "rite-funeral-pall",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-funeral-pall.try1.jpg",
+     "semantic": {
+      "what_i_see": "A coffin or casket draped in a rich red cloth featuring a golden sun symbol, resting atop a four-legged wooden bier against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A coffin or casket draped in a rich red cloth featuring a golden sun symbol, resting atop a four-legged wooden bier against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks present. The image shows a single main composite object: a funerary bier or catafalque supporting a draped coffin (second guess: an altar or ceremonial table). The structure consists of a carved wooden base with four baluster-turned wooden legs joined by horizontal side stretchers, supporting a flat wooden top. Atop the wooden stand rests a coffin-shaped form entirely covered by a pleated, deep red fabric pall with golden-yellow trim around the edges and bands, centered with a golden emblem of a stylized sun with pointed and wavy rays. The interior is completely covered and obscured by the draped fabric pall. The materials appear to be carved warm-brown wood and soft crimson and gold cloth. The entire object is centered and fully visible, with no parts cropped by the frame. The background is a flat, uniform, bright blue chroma-key color with no floor, scenery, cast shadows, or people visible."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4161,
+      "soft": 0.0055,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.993,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4181,
+   "tokens_out": 1870,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "altar-stone": {
+   "id": "altar-stone",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/altar-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone altar or tomb featuring arched relief panels, a central sunburst motif, and melted candle wax on the corners, presented against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Remove the melted candle wax from the corners of the altar."
+      ],
+      "blind": {
+       "what_i_see": "A stylized carved stone altar or tomb featuring arched relief panels, a central sunburst motif, and melted candle wax on the corners, presented against a solid blue background.",
+       "details": "There are no text, labels, or watermarks on the image. The scene contains one single object, best described as a stone altar, with a stone tomb or sarcophagus as a second guess. The structure consists of a thick, tiled stone top slab with chiseled edges, resting on a decorative body that sits on a stepped stone plinth. On the front-left and front-right top corners are small dollops of dripping, melted yellow candle wax. The front facade is divided into three recessed arched sections separated by square stone pilasters; the central arched recess contains a carved eight-pointed sun or star emblem, while the side arches are plain. The visible side has a rectangular recessed panel. It has no doors, drawers, handles, or openable lids, appearing as a solid masonry piece. The material resembles hand-painted beige and gray sandstone or limestone with subtle brown and mossy weathering. The object is completely contained within the frame with no cropping. The background is a solid, uniform bright blue with no floor, shadows, people, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/altar-stone.try2.jpg",
+     "semantic": {
+      "what_i_see": "A carved stone altar or monument with architectural detailing and a sun emblem, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A carved stone altar or monument with architectural detailing and a sun emblem, displayed against a solid blue background.",
+       "details": "The image features a single, uncropped object styled like a game asset: an ancient or fantasy stone altar, sarcophagus, or table viewed from an elevated three-quarters angle. It has a thick, flat rectangular top made of chiseled stone blocks. The front facade is divided into three arched niches separated by four round columns with square capitals and bases. The central niche contains a carved sun motif with a raised circle surrounded by eight pointed triangular rays, while the flanking arched niches are plain stone. The visible left end panel has a simple recessed rectangular profile. The entire structure rests on a stepped rectangular base made of heavy stone blocks. The material appears to be weathered pale beige and grey sandstone or limestone with subtle cracks, worn edges, and hints of faint greenish moss or patina. There are no doors, drawers, lids, or internal compartments visible. The background is a flat, uniform, bright solid blue with no ground plane, drop shadow, text, or watermarks.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.486,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9973,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5993,
+   "tokens_out": 3746,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "embalming-table": {
+   "id": "embalming-table",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/embalming-table.try1.jpg",
+     "semantic": {
+      "what_i_see": "A carved stone mortuary or sacrificial table with herringbone drainage channels and a drain spout, supported by two pillar bases and isolated against a vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A carved stone mortuary or sacrificial table with herringbone drainage channels and a drain spout, supported by two pillar bases and isolated against a vivid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single isolated object: an ancient or fantasy stone examination/embalming slab table, or alternatively a sacrificial altar or sluicing bench. It consists of a long, thick rectangular stone basin top with a raised border, supported underneath by two thick rectangular pedestal legs, each featuring a blind arched niche carved into the visible side face and a stepped base. At the elevated/far left end of the top surface is a raised, rounded rectangular stone headrest or pillow block. The recessed slab surface features a symmetrical herringbone or chevron pattern of angled runoff grooves leading toward a central drainage trough, terminating at a square protruding stone spout at the lower right end. The material is aged, weathered stone in muted beige, grey, and ochre tones, with greenish moss or lichen growth along the base and lower edges, and brownish weathering/staining concentrated along the carved grooves. The entire object is intact and fully within frame, set against a completely uniform solid bright blue background with no shadows or floor contact.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3865,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4202,
+   "tokens_out": 1510,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ossuary-shrine": {
+   "id": "ossuary-shrine",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/ossuary-shrine.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a fantasy stone altar or ossuary shrine adorned with carved bones, multiple skulls, and five melted wax candles, isolated against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a fantasy stone altar or ossuary shrine adorned with carved bones, multiple skulls, and five melted wax candles, isolated against a solid blue backdrop.",
+       "details": "There are no texts, labels, or watermarks visible. The primary object is a single composite structure\u2014a macabre stone altar or crypt shrine (second guess: an ossuary tomb monument or necromantic altar)\u2014featuring five small unlit wax candles resting on its horizontal ledge. The structure consists of a blocky, weathered grey-stone base resembling a low altar table, framed by an arched masonry back wall. The interior panel of the arch is intricately filled with carved yellowish-beige bone elements: an outer ring of five large human-like skulls along the upper curve, a radial pattern of femurs and long bones, and a recessed central circular medallion niche housing three stacked skulls (one on top, two below). In front of the bone relief, lined up on the flat stone shelf, are five short, thick, cream-colored candles with visible dripping wax and small dark wicks. There are no doors, drawers, or moving lids; the central circular niche is permanently open and shallow. The materials appear to be stylized hand-painted stone (textured grey with faint green-brown mossy stains) and aged ivory-yellow bone and wax. The object is completely intact, fully framed with no cropping, and presented at a three-quarter perspective. The background is a uniform, solid royal blue studio screen with no ground shadow, floor, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5163,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4269,
+   "tokens_out": 1771,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chest-treasure": {
+   "id": "chest-treasure",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/chest-treasure.try1.jpg",
+     "semantic": {
+      "what_i_see": "An open wooden treasure chest overflowing with gold coins, faceted gems, and a golden goblet against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An open wooden treasure chest overflowing with gold coins, faceted gems, and a golden goblet against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single primary composite object: a wooden treasure chest (or loot box / pirate chest). It consists of a rectangular box structure resting on four short, rounded feet/pegs, reinforced at the corners and center with thick golden-metal brackets and large round rivets. It has a single arched wooden lid that is fully open and angled back, revealing a large hoard of contents inside: an overflowing mound of round gold coins, two faceted red gems, two faceted green gems, and a single upright golden chalice/goblet. The deep interior base of the chest is hidden beneath the treasure. The materials are brown wood and warm yellow-gold metal, accented by deep ruby red and emerald green faceted stones. The entire object is fully visible and not cropped. The background is a flat, uniform, vibrant pure blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5004,
+      "soft": 0.0049,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9948,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4147,
+   "tokens_out": 1300,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "skull-pile--s1": {
+   "id": "skull-pile--s1",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/skull-pile--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized pyramid-shaped pile of weathered human skulls and thick bones isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized pyramid-shaped pile of weathered human skulls and thick bones isolated against a solid blue background.",
+       "details": "No text, labels, or watermarks are visible. The image depicts a single composite object: a mound of human skulls and bones (second guess: a stone ossuary sculpture or 3D asset). Approximately ten distinct skulls are visible in the pile, facing different angles, along with at least two prominent long bones (one oriented diagonally on the left side and one resting horizontally at the lower right base). The skulls lack lower mandibles, displaying only upper teeth rows, empty eye sockets, and nasal cavities, with aged cracks etched into their surfaces. The surfaces are rendered in matte shades of cream, beige, tan, and soft brown shading, giving them a carved bone or stone texture. The entire object is centered and uncropped, floating without contact shadows against an entirely flat, uniform, bright blue background.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4468,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4095,
+   "tokens_out": 1470,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "reliquary-shrine": {
+   "id": "reliquary-shrine",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/reliquary-shrine.try1.jpg",
+     "semantic": {
+      "what_i_see": "An ornate, house-shaped golden reliquary casket encrusted with red and green cabochon gems sits atop an aged, mossy stone pedestal against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Features cross-shaped finials on the roof peaks, which violates the requirement to not have cross-shaped or spire elements"
+      ],
+      "blind": {
+       "what_i_see": "An ornate, house-shaped golden reliquary casket encrusted with red and green cabochon gems sits atop an aged, mossy stone pedestal against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. It depicts a single composite object: a Gothic-style reliquary chasse (casket/shrine) resting on a rectangular carved stone altar or plinth. The base consists of weathered grey stone blocks with olive-green moss in the crevices, featuring tiered architectural moldings, corner pilasters, and three recessed quatrefoil relief carvings along the visible long side. Resting on top of the stone plinth is a gabled, golden-bronze reliquary box. The casket has corner buttress posts, pointed Gothic arch arcades containing alternating polished red and green oval cabochon gemstones, and a gabled roof set with four large oval gems (two red, two green). Along the roof ridge are decorative spherical knobs and two cross-shaped finials at each peak. The triangular end face features a prominent large central red gemstone within a quatrefoil frame surrounded by green enameled accents. The reliquary lid is completely closed, revealing no interior. The entire object is fully visible and uncropped. The background is a flat, uniform, bright blue chroma-key screen with no shadows cast on a floor, as the object appears isolated/rendered floating against it. No people or scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/reliquary-shrine.try2.jpg",
+     "semantic": {
+      "what_i_see": "A detailed 3D rendering of an ornate golden Gothic reliquary casket resting atop a carved stone pedestal, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A detailed 3D rendering of an ornate golden Gothic reliquary casket resting atop a carved stone pedestal, set against a solid bright blue background.",
+       "details": "The image contains no visible text, watermarks, or labels. It shows a single composite object: an ornate medieval-style reliquary or casket (best guess) resting on a carved stone altar or plinth (second guess). The upper reliquary has a house-like gabled roof design topped with a ridge of six spherical finials. Its surface features golden Gothic architectural tracery over olive-green panels, set with polished cabochon gemstones; the visible end gable holds one large ruby-red gem, while the visible long side features four roof-slope gems (alternating red and green) and four matching lower-wall gems (green and red) inset beneath rounded arches. The reliquary lid is completely closed, revealing no interior. The lower structure is an architectural pedestal made of pale grey-beige carved stone showing subtle weathering, surface cracks, and faint green moss within the crevices. The visible long side of the pedestal is divided into three rectangular panels with quatrefoil floral reliefs flanked by pilasters, while the short side has one matching panel. The entire object is fully contained within the frame without cropping, centered against a flat, uniform bright blue chroma-key background with no ground plane, cast shadows, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2972,
+      "soft": 0.0026,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9973,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 15
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6111,
+   "tokens_out": 3721,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "effigy-knight": {
+   "id": "effigy-knight",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/effigy-knight.try1.jpg",
+     "semantic": {
+      "what_i_see": "A detailed 3D rendering of a carved grey stone sarcophagus featuring a sculpted knight lying in repose on the closed lid, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A detailed 3D rendering of a carved grey stone sarcophagus featuring a sculpted knight lying in repose on the closed lid, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The scene contains a single primary object: a stone sarcophagus or funerary tomb with an effigy, possibly intended as a medieval tabletop miniature or video game asset. The sarcophagus consists of a rectangular base with a closed top slab. The base features architectural Gothic details, including recessed arched panels housing raised fleur-de-lis motifs, divided by small carved columns, with larger corner shields displaying fleur-de-lis carvings at the visible ends. The upper lid is fully closed, sculpted from grey stone blocks with chipped, weathered edges and trefoil corner accents. Resting atop the lid is a recumbent effigy of a knight laying on a stone pillow: wearing a full suit of plate armour, a closed helmet with a visor slit, and a chest plate bearing an indented cross patt\u00e9e. The knight's hands are clasped over the hilt of a longsword lying vertically along his torso and between his legs. The entire object appears intact and fully contained within the frame, sculpted in a stylized, hand-painted textured grey stone with subtle blue/slate undertones. The background is a uniform, solid, flat royal blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4853,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9967,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4236,
+   "tokens_out": 1476,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stone-coffin-lidless": {
+   "id": "stone-coffin-lidless",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/stone-coffin-lidless.try1.jpg",
+     "semantic": {
+      "what_i_see": "A low, open stone sarcophagus containing a bandage-wrapped mummy draped with a red cloth, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A low, open stone sarcophagus containing a bandage-wrapped mummy draped with a red cloth, set against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. It shows a single composite object: an open stone sarcophagus or tomb trough (second guess: a stylized crypt game prop). The sarcophagus consists of modular carved stone blocks forming a rectangular basin with one rounded end; the visible long side features three rectangular panels decorated with gothic-style arched reliefs containing trefoil or fleur-de-lis motifs. There is no lid present, and the interior is fully visible. Resting inside is a human-shaped figure completely encased in spiraled tan linen bandages, with its torso/midsection draped in a textured maroon cloth bordered on both edges by double gold or yellow stripes. The entire object is depicted whole without any cropping. The background is a flat, uniform chroma-blue with no shadows, floor surface, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2686,
+      "soft": 0.0023,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9974,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 30
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4128,
+   "tokens_out": 1516,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tomb-slab": {
+   "id": "tomb-slab",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/tomb-slab.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone tomb lid or sarcophagus slab bearing a Celtic cross and shield design, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "includes a base slab or plinth underneath the grave slab"
+      ],
+      "blind": {
+       "what_i_see": "A stylized carved stone tomb lid or sarcophagus slab bearing a Celtic cross and shield design, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single object: primarily an ancient stone sarcophagus lid or grave slab (second guess: stone altar or decorative memorial marker). The object consists of a thick, rectangular upper slab with bevelled edges, resting directly atop a darker grey rectangular base stone. The upper face of the slab features a raised relief sculpture of a Celtic ringed cross connected to a central shaft that terminates at the top of a small medieval-style heater shield divided into quarters. Around the outer border of the top surface is an inset rectangular rim with worn edges and carved seams. Small patches of green moss or lichen are visible along crevices, joints, and corners. The lid is closed flush against the base layer with no interior visible. The materials appear to be weathered beige limestone or sandstone for the lid and dark grey chiseled stone for the plinth, depicted in a stylized 3D game art aesthetic. The entire object is fully visible and not cropped by the frame. The background is a flat, uniform solid blue with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/tomb-slab.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, weathered stone grave slab or tombstone lying horizontally on a base, featuring a raised carving of a Celtic cross merged with a shovel, set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "includes an unwanted stone foundation/base slab underneath the grave slab"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, weathered stone grave slab or tombstone lying horizontally on a base, featuring a raised carving of a Celtic cross merged with a shovel, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image displays a single game-asset style object, best described as a stone grave slab or sarcophagus lid (second guess: stone memorial marker). The object consists of two stacked sections: a low, dark grey rectangular stone foundation or plinth composed of joined blocks, and a thicker rectangular stone slab resting on top. The top slab has a raised outer bevelled border and an inset field containing a high-relief carving of a Celtic cross whose lower shaft terminates into a spade or shovel blade. Patches of green moss or lichen are visible growing within the recessed crevices surrounding the carved cross and along the inner frame. The stone is visibly aged, chipped, and cracked, with prominent fissures on the lower right corner and top edges. The material is stylized textured stone in shades of light tan, warm grey, and earthy beige, with darker grey tones on the base. The object is completely contained within the frame without cropping. The background is a flat, uniform, saturated blue screen with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 3649,
+   "tokens_out": 3471,
+   "status": "rejected"
+  },
+  "pedestal-display": {
+   "id": "pedestal-display",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/pedestal-display.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylised, isometric stone pedestal or stool topped with a red velvet cushion, set against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Pedestal is not empty; remove the red velvet cushion from the top"
+      ],
+      "blind": {
+       "what_i_see": "A stylised, isometric stone pedestal or stool topped with a red velvet cushion, set against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object, best described as a carved stone pedestal or stool (or display plinth). It consists of a stepped, blocky stone base, a central pillar shaft featuring recessed vertical panels on its bevelled faces, a flared upper stone rim, and a thick, soft square cushion resting in the top recess. There are no doors, drawers, wheels, or moving parts. The main material is weathered grey-beige chiseled stone with subtle chips, edge highlights, and patches of green moss in the grooves, while the top cushion is made of rich crimson-red fabric or velvet with tufted folds. The object is rendered in an isometric game-asset art style and is entirely contained within the frame without cropping. The background is a completely uniform, flat electric blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/pedestal-display.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset representing a carved stone pedestal or plinth, centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset representing a carved stone pedestal or plinth, centered against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains a single freestanding object: a decorative stone pedestal (second guess: an altar or column base). It consists of a flat, square-shaped top platform with beveled edges and corner bevels forming an octagonal transition, a vertical central column shaft with recessed carved panels, and a tiered square base composed of stone blocks. The front panel features a relief carving resembling a stylized fleur-de-lis or leaf motif, while the visible side panels feature elongated diamond/lozenge reliefs. The object has zero legs, wheels, doors, drawers, lids, or handles, and contains no openings. It appears to be made of weathered grey-beige carved stone with patches of greenish moss and hand-painted texture highlights and shading. The pedestal is entirely contained within the frame with no cropping. The background is a flat, uniform, vibrant chroma-key blue with no floor, ground shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3382,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9957,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5919,
+   "tokens_out": 2504,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-funeral-bier": {
+   "id": "rite-funeral-bier",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-funeral-bier.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden stretcher or litter bench with carrying handles and a folded cloth, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "The stand is not empty; remove the folded cloth/towel draped over the rail"
+      ],
+      "blind": {
+       "what_i_see": "A stylized wooden stretcher or litter bench with carrying handles and a folded cloth, isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single complete object, best described as a wooden stretcher, medical exam bench, or litter bed. It features four sturdy legs with ornamental turned/carved centers and square blocks at the top and base, connected near the bottom by four straight horizontal wooden beams (two long side rails, two short end rails). The upper portion consists of a recessed bed surface made of longitudinal wooden planks bordered by raised side rails. Each of the four corner posts extends outward into a cylindrical horizontal carrying handle with a rounded end cap (two handles on each short end). Resting over the rail at the upper-right end is a folded off-white or beige cloth/towel with two thin yellow-tan accent stripes. The entire structure is made of warm, medium-brown wood rendered in a stylized, hand-painted video game asset aesthetic with visible grain lines and edge wear. The object is completely contained within the frame with no cropping. The background is a flat, uniform, solid bright blue with no shadows, floor surface, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-funeral-bier.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden litter or stretcher with four carved legs and carrying handles, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden litter or stretcher with four carved legs and carrying handles, isolated against a solid blue background.",
+       "details": "There are no watermarks, text, or labels in the image. It contains a single object, best identified as a wooden litter or stretcher, with a second guess being a low display trough or palanquin base. The object consists of a rectangular platform with a recessed planked surface bordered by low raised wooden side rails. At each of the four corners is a chunky square post ending in a turned decorative leg with a bulbous middle section and a square foot block; all four legs are visible. Three cylindrical wooden carrying handles extend outward from the posts (one projecting to the left from the front-left post, and two projecting to the right from the front-right and rear-right posts), each detailed with a reddish-brown collar band. There are no doors, lids, or drawers. The material appears to be warm brown wood with hand-painted stylized textures. The entire object is centered and fully visible within the frame without cropping, set against a completely flat and uniform bright blue background with no floor or shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2069,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 80
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5952,
+   "tokens_out": 4026,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bones-pile": {
+   "id": "bones-pile",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/bones-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, chunky 3D rendering of a mound of ancient skeletal remains, including three skulls, a ribcage, a pelvis, and numerous long bones, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, chunky 3D rendering of a mound of ancient skeletal remains, including three skulls, a ribcage, a pelvis, and numerous long bones, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single cohesive pile or heap of stylized bones (best guess: pile of bones / ossuary mound; second guess: stylized video game asset). The mound consists of several recognizable skeletal elements: three distinct human-like skulls (one positioned near top center facing left-forward, one at the lower left facing right-forward, and one at the lower right facing right), an intact set of curved ribs forming a ribcage section at the upper right, a prominent pelvic bone at the bottom center, and numerous thick limb/long bones (femurs or humeri) arranged haphazardly underneath and around them. There are no moving parts, lids, or doors. The material appears carved or sculpted with a chiseled, slightly stylized, matte bone or limestone texture in warm beige, tan, and light ochre tones with brown recessed shading. The mound is fully contained within the frame without cropping. The background is a flat, uniform, highly saturated bright cobalt blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3987,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4188,
+   "tokens_out": 1601,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "catacomb-shelf-bones--s1": {
+   "id": "catacomb-shelf-bones--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/catacomb-shelf-bones--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone shelving unit filled with alternating tiers of stacked human bones and skulls, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone shelving unit filled with alternating tiers of stacked human bones and skulls, set against a solid blue background.",
+       "details": "There is no text, labels, or watermarks. The image depicts a single main object: a stone ossuary shelving unit (or dungeon catacomb shelf), rendered in a stylized, hand-painted video game asset style. The structure consists of weathered, chiseled gray-tan stone blocks forming two vertical side pillars and four horizontal stone shelves with a low parapet along the top back. It has no doors, drawers, or lids, exposing four open tiers. The top and third tiers are densely packed with stylized long bones (resembling femurs) stacked with their rounded epiphyseal ends facing outward. The second and bottom tiers are filled with rows of human skulls arranged facing forward with dark hollow eye and nasal cavities. The bones and skulls have an aged yellowish-ivory color with soft brown shading. The entire object is fully visible within the frame in a three-quarter perspective, casting subtle self-shadows into the recesses. The background is a flat, uniform, bright blue chroma screen without any ground, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.6275,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.997,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4171,
+   "tokens_out": 1553,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "charnel-trough": {
+   "id": "charnel-trough",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/charnel-trough.try1.jpg",
+     "semantic": {
+      "what_i_see": "A rectangular carved stone ossuary or trough filled with human skulls and bones against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A rectangular carved stone ossuary or trough filled with human skulls and bones against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single main object: a rectangular stone ossuary or open sarcophagus, with a secondary guess of a macabre fantasy game prop or bone trough. The container is constructed from segmented weathered grey stone with four thick corner pillars extending to blocky base feet, a beveled block rim, and relief-framed recessed square panels along the sides (four visible along the front face and one visible on the left end). There is no lid; the top is completely open and packed to overflowing with aged, beige and tan human bones and skulls (at least ten distinct skulls and numerous limb bones are visible on the top surface). The stone shows realistic cracks, bevels, and subtle patches of greenish-yellow moss or weathering. The entire object is centered and complete within the frame, not cropped. The background is a uniform, flat blue chroma screen with no shadows, floor, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3099,
+      "soft": 0.0029,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9968,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 19
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4146,
+   "tokens_out": 1521,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "burial-urn-niche": {
+   "id": "burial-urn-niche",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/burial-urn-niche.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized grey stone arched wall niche holding three decorative lidded ceramic jars against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized grey stone arched wall niche holding three decorative lidded ceramic jars against a solid blue background.",
+       "details": "The image features no text, labels, or watermarks. The subject consists of a single stone arched niche structure containing three separate ceramic jars, giving four distinct items in total. The main structure is a medieval or fantasy-style arched stone wall niche or alcove shelf, with a second guess of a miniature stone shrine. It is constructed from roughly chiseled grey stone blocks, featuring an arched top with a central keystone, vertical side pillars, an inner back wall of irregular stones, and a thick flat bottom shelf. Resting on the shelf are three closed jars: on the left, an ochre-yellow jar etched with a band of triangles; in the center, a reddish-maroon jar adorned with beige petal-like leaf motifs; on the right, a two-tone jar of cream and sage green decorated with matching leaf motifs. Each of the three jars has a firmly closed domed lid topped with a small round knob handle. No contents can be seen inside. The materials appear as hand-painted, stylized stone and glazed pottery. The entire model is intact and not cropped by the frame. The background is a flat, uniform, solid bright blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4811,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9962,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4192,
+   "tokens_out": 1474,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ossuary-pillar": {
+   "id": "ossuary-pillar",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/ossuary-pillar.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset depicting an architectural pillar made of stacked skulls and long bones between chiseled stone caps against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset depicting an architectural pillar made of stacked skulls and long bones between chiseled stone caps against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single isolated object: an isometric bone pillar or dungeon column (second guess: ossuary totem/monument). It features a stepped square capital at the top made of cracked, chiseled grey-brown stone blocks, and a matching stone plinth base at the bottom. The main shaft between the stone ends is made up of alternating horizontal tiers of stylized ivory-colored human skulls and vertically oriented long bones (femurs). Looking at the two visible sides of the square pillar, there are four rows of skulls separated by three rows of vertical bones. The materials are rendered in a stylized cartoon/hand-painted style, featuring pale yellowish-beige bone with warm brown shadows and chipped, matte brown stone. The entire object is centered and fully visible without cropping. The background is a solid, uniform vibrant blue with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2272,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9921,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4172,
+   "tokens_out": 1448,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "urn-decorative--s1": {
+   "id": "urn-decorative--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/urn-decorative--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A carved classical stone urn adorned with moss and a pinecone finial, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A carved classical stone urn adorned with moss and a pinecone finial, displayed against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object: a decorative classical stone urn (best name) or an ornamental stone garden vase/finial (second guess). Its parts include a pinecone-shaped top finial, a single domed stone lid (closed completely, with no interior visible), two symmetrical small squared scroll handles on the upper neck, a central body decorated with a carved laurel leaf and berry garland, a lower bowl section featuring vertical fluted facets, a round waisted pedestal, and a square base plinth. The material appears to be weathered beige-gray carved stone or limestone, overgrown with green moss and lichen in the grooves and crevices. The entire object is fully contained within the frame with no cropping. The background is a flat, uniform solid bright blue screen with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3038,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4115,
+   "tokens_out": 1740,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bench-stone--s1": {
+   "id": "bench-stone--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/bench-stone--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, weathered stone bench with two carved pedestal legs set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, weathered stone bench with two carved pedestal legs set against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image features a single object, best described as an ancient or fantasy stone bench (second guess: a low stone table or altar). It consists of a long, beveled stone top slab supported by two thick stone pedestal legs, each detailed with a recessed archway design on the side and stepped, beveled bases. The bench has no lids, doors, drawers, handles, or wheels. The material appears to be weathered limestone or sandstone in tones of beige, warm gray, and tan, detailed with visible cracks, chipped corners, and patches of green moss. The entire bench is fully visible within the frame and is not cropped. The background is a completely uniform, flat bright blue with no floor texture, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2788,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9928,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4105,
+   "tokens_out": 1314,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-pillar-candle-tall--s1": {
+   "id": "rite-pillar-candle-tall--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-pillar-candle-tall--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of an ornate dark metal candlestick holding a tall, dripping wax candle, centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of an ornate dark metal candlestick holding a tall, dripping wax candle, centered against a solid bright blue background.",
+       "details": "There are no labels, text, or watermarks in the image. The image features a single freestanding object: a tall medieval-style candlestick holder supporting an unlit pillar candle. The candle is made of pale cream-colored wax with pronounced, stylized melted wax drips running down its sides and spilling over the rim of the dish; a short, curved black wick sits in a melted depression at the top. The candlestick stand appears to be made of dark, hand-hammered iron or bronze with warm brownish undertones and grey highlights. Its structure consists of a top circular drip tray (bobeche), an upper spiral-twisted metal rod, a central rounded bulbous knop, a lower spiral-twisted section, and a flared circular base resting on three short, claw-like or bracket feet. The object is completely intact and not cropped by the frame. The background is a solid, completely uniform blue screen with no floor plane, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1155,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.987,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4162,
+   "tokens_out": 1432,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-mummified-remains": {
+   "id": "rite-mummified-remains",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-mummified-remains.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a fully wrapped mummy lying on a segmented wooden board against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Remove the wooden plank platform/board beneath the body"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a fully wrapped mummy lying on a segmented wooden board against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single composite object consisting of a stylized Egyptian mummy lying flat on a low wooden plank base or stretcher. The mummy is completely enveloped in thick, off-white to beige cloth bandages spiraled around the body, with a dark crimson or reddish-brown cloth strip wrapped around its forehead. The figure's arms and legs are enclosed entirely beneath the wrappings in an elongated, tapered shape ending in a blunt foot section. The mummy rests on a platform constructed of approximately eight rectangular brown wooden blocks or planks arranged in two rows of four, showing distinct grain and beveled edges. The entire composite structure is intact and uncropped, viewed from an elevated isometric perspective. The background is a flat, uniform solid vibrant blue, with no cast shadows, floor surface, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-mummified-remains.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a fully wrapped mummy figure with a red head/neck band, floating diagonally against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a fully wrapped mummy figure with a red head/neck band, floating diagonally against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single object, best identified as a stylized mummy or secondarily as a wrapped bundled figure. It consists of a rounded head section wrapped in cloth, a reddish-maroon band encircling the neck/forehead, and a torso and lower body bound tightly in overlapping tan and beige bandages, tapering down to a blunt, rounded rectangular base. It features no separated arms, legs, wheels, lids, or openings. The material has a stylized, hand-painted textured finish suggesting aged linen strips. The entire object is uncropped and fully visible, floating at an angle against a uniform, flat bright blue background with no ground plane, shadows, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2729,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5827,
+   "tokens_out": 3320,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-memorial-sand-tray": {
+   "id": "rite-memorial-sand-tray",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-memorial-sand-tray.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a dark wooden or metal votive candle stand filled with sand and twelve unlit cream-colored candles, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a dark wooden or metal votive candle stand filled with sand and twelve unlit cream-colored candles, displayed against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image features a single standalone object: a medieval or fantasy-style votive candle stand (second guess: a rustic altar table or sand-filled offering tray). The stand consists of four blocky, faceted legs with square collar rings, a lower slatted shelf made of two planks, and a deep rectangular upper tray with notched front and side lips. Inside the upper basin is a layer of sculpted tan sand containing exactly 12 unlit pillar candles with dripping wax effects and exposed black wicks, arranged roughly in three staggered rows varying in height from short stubby candles at the front to taller ones toward the back. The frame is entirely whole and not cropped. The structure has a dark brown, weathered wood or bronzed metal appearance with stylized beveled edges, while the candles are ivory/cream. The background is a solid, uniform vivid blue screen with no cast shadows, floor, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4022,
+      "soft": 0.0068,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9918,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4162,
+   "tokens_out": 3406,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-sacred-flame-bowl": {
+   "id": "rite-sacred-flame-bowl",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-sacred-flame-bowl.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a circular bronze brazier filled with unlit charcoal resting atop a carved stone pedestal, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a circular bronze brazier filled with unlit charcoal resting atop a carved stone pedestal, set against a solid bright blue background.",
+       "details": "The image features a single, uncropped object centered in the frame. The upper part consists of a large, shallow golden-bronze or brass basin with a thick rim, decorated around its midsection with a horizontal band studded with smooth, spherical domes and faint greenish verdigris patina in the seams. Inside the open bowl lies a bed of fine grey ash containing several jagged chunks of dark charcoal or coal. The basin sits upon a circular bronze foot, which rests on an architectural stone pedestal. The pedestal is cylindrical, made of light-grey carved stone blocks, and features decorative blind arches encircling the midsection between a stepped stone ring above and a stepped circular base below. There are no doors, lids, handles, or wheels. The background is a flat, uniform, highly saturated royal blue with no shadows, floor plane, text, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4255,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9964,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4145,
+   "tokens_out": 1466,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "brazier-standing--crypt": {
+   "id": "brazier-standing--crypt",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/brazier-standing--crypt.try1.jpg",
+     "semantic": {
+      "what_i_see": "A medieval-style weathered iron brazier or fire basket filled with unlit charcoal chunks, resting on a tripod base against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A medieval-style weathered iron brazier or fire basket filled with unlit charcoal chunks, resting on a tripod base against a solid bright blue background.",
+       "details": "The image features a single standalone object: a medieval or fantasy-style standing brazier (second guess: iron fire basket or coal burner). It consists of a hemispherical metal bowl enclosed in a slatted cage of vertical rectangular iron bars, bound by two horizontal metal bands secured with rounded domed rivets. The top rim is open, showing a dense mound of irregular, unlit black and dusty grey charcoal or coal lumps. The brazier is mounted on three heavy, angled rectangular iron legs with square beveled feet, reinforced by a horizontal circular support ring connecting them at mid-height. There are no wheels, lids, doors, drawers, or handles. The material appears to be heavily weathered, pitted cast iron or bronze with mottled reddish-brown rust, dark metal tones, and faint greenish patina. The object is completely contained within the frame with no cropping. The background is a solid, completely uniform vivid blue screen with no floor surface, shadows, scenery, text, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.332,
+      "soft": 0.0062,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9924,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4167,
+   "tokens_out": 1492,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-sanctuary-lamp": {
+   "id": "rite-sanctuary-lamp",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-sanctuary-lamp.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized hanging brass lantern containing an unlit candle in a ruby-red glass cup, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized hanging brass lantern containing an unlit candle in a ruby-red glass cup, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single centralized object: a hanging lantern or sanctuary lamp (second guess: an ornate votive candle holder). The lantern is suspended from a short golden brass chain consisting of three interlocked oval links beneath a larger circular top ring. The chain connects to a tiered circular brass collar at the top, from which curved metal struts extend downward to enclose a deep red, semi-translucent glass cup. Inside the open-top cup sits cream-colored wax with a short, unlit black wick protruding upward. The lower portion of the metal frame forms a horizontal ring beneath the cup and terminates in a ribbed, conical downward-pointing finial. The materials appear to be painted/rendered antique brass, red glass, and candle wax. The entire object is fully contained within the frame with no cropping, floating centered over a completely uniform, flat bright blue background with no shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.1505,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9892,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "Leftover blue background trapped in the gaps between the upper brass struts and the cup"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 6516,
+   "tokens_out": 1936,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "censer-hanging": {
+   "id": "censer-hanging",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/censer-hanging.try1.jpg",
+     "semantic": {
+      "what_i_see": "A bronze or brass hanging censer or thurible suspended by chains from a top ring, centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A bronze or brass hanging censer or thurible suspended by chains from a top ring, centered against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains a single object: an ornate hanging censer (thurible) or incense burner, with a secondary guess being a hanging oil lamp or pomander. The object consists of a round top suspension ring, three hanging link chains extending downward, a perforated domed lid with a finial and round ventilation holes, two visible side attachment loops/brackets holding the chains, a ribbed or fluted bulbous lower bowl with a hammered texture, and a small flared base ring at the bottom. The lid is fully closed upon the bowl, revealing dark interior space only through the round holes. The material is tarnished brass or bronze with greenish verdigris accents in the grooves and joints. The object is completely intact and uncropped within the frame. The background is a solid, completely uniform chroma-key blue with no ground plane, shadows, text, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1254,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9895,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 257
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4133,
+   "tokens_out": 1633,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "natron-tub": {
+   "id": "natron-tub",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/natron-tub.try1.jpg",
+     "semantic": {
+      "what_i_see": "A low, circular stone well or basin filled to the brim with coarse white crystals and holding a carved wooden scoop, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A low, circular stone well or basin filled to the brim with coarse white crystals and holding a carved wooden scoop, displayed against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single composite object: a round stone basin (or well/tub) filled with coarse salt or sugar crystals, accompanied by a wooden scoop. The basin is built from four tiered rows of smooth, light-grey and beige-toned stone bricks. It is filled to overflowing with chunky, faceted white crystals, some of which dust the top rim of the stone. A single carved, warm-brown wooden scoop rests nestled diagonally inside the salt at the upper right, with its rounded handle pointing upward and to the right. The basin has no lid or cover. The entire structure is depicted in full without cropping, floating centered against a completely flat, uniform bright blue background with no floor, cast shadows, scenery, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4974,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9971,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4125,
+   "tokens_out": 1375,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-canopic-jars-set": {
+   "id": "rite-canopic-jars-set",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-canopic-jars-set.try1.jpg",
+     "semantic": {
+      "what_i_see": "A set of four stylized ancient Egyptian canopic jars with sculpted lids resting inside a low wooden tray against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A set of four stylized ancient Egyptian canopic jars with sculpted lids resting inside a low wooden tray against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene features a single grouped asset consisting of four carved jars inside a rectangular wooden tray or rack. The object is best described as a stylized canopic jar set, and second best as a game prop of Egyptian funerary urns. The wooden tray consists of four interconnected low wooden planks with blocky squared corner posts serving as feet. Inside the tray sit four rounded jars made of a light cream or beige carved stone/wood material, each fitted with its own matching lid. Front-left jar features a falcon-headed lid and a wide horizontal dark red band. Front-right jar features a jackal-headed lid and a wide golden-yellow band. Back-left jar features a baboon-headed lid and an olive green band. Back-right jar features a smooth dome-topped knob lid and a dark teal/blue-green band. All four lids are firmly closed, completely covering the contents with no interior visible. The entire structure is depicted whole and fully contained within the frame from a three-quarters elevated angle. The background is a solid, completely uniform bright blue with no floor, scenery, or shadows cast outside the object.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5029,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9946,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4175,
+   "tokens_out": 2200,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "coin-pile": {
+   "id": "coin-pile",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/coin-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized mound of treasure featuring gold coins, gems, a string of pearls, and a golden goblet isolated on a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized mound of treasure featuring gold coins, gems, a string of pearls, and a golden goblet isolated on a bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single composite mound of treasure consisting of dozens of thick, disc-shaped gold coins piled together. Nestled among the coins are: one tilted golden goblet or chalice near the upper left with an open, visible hollow bowl; one string of six spherical white pearls draped downwards from the goblet; one faceted emerald-green gemstone on the lower left; and two faceted ruby-red gemstones on the upper and middle right. The goblet has an open mouth showing its interior, a short stem, and a round flared base. The objects are rendered in a clean, stylized digital art style with metallic gold, translucent/faceted red and green, and pearlescent white colors. The entire treasure pile is fully contained within the frame, not cropped, and is isolated against a completely flat, uniform bright blue chroma-key background with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4387,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9954,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4117,
+   "tokens_out": 1135,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-grave-goods-pile": {
+   "id": "rite-grave-goods-pile",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-grave-goods-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A collection of stylized 3D rendered ancient or fantasy game props, including two large ceramic jars, a folded green cloth, a sheathed short sword, a small circular bronze shield, and a bowl overflowing with gold coins, all resting together against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A collection of stylized 3D rendered ancient or fantasy game props, including two large ceramic jars, a folded green cloth, a sheathed short sword, a small circular bronze shield, and a bowl overflowing with gold coins, all resting together against a bright blue background.",
+       "details": "The image contains no text, watermarks, or labels. It depicts an ensemble of six main clustered props: 1) A round, wide-mouthed ochre-yellow clay jar or urn on the upper left, open at the top revealing a hollow interior. 2) A rounded reddish-brown ceramic jar on the right with a pale horizontal stripe around its midsection, also open at the rim. 3) A round bronze buckler or small shield with a raised central boss and perimeter studs, propped upright between the jars and the sword. 4) A neatly folded olive-green cloth or tunic resting on the lower left. 5) A sheathed Roman-style short sword (gladius) angled diagonally across the foreground, featuring a hilt with round pommel, crossguard, bronze fittings, and a brown scabbard with a pointed chape. 6) A shallow bronze or wooden bowl positioned on the lower right, filled with thick gold coins stamped with cross-like markings. None of the objects are cropped by the edges of the frame. The background is a flat, bright cobalt blue screen with faint horizontal banding artifacts, and there are no people, floors, or cast shadows on the backdrop."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3193,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4221,
+   "tokens_out": 1643,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "reliquary": {
+   "id": "reliquary",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/reliquary.try1.jpg",
+     "semantic": {
+      "what_i_see": "An ornate, closed golden casket or jewelry box decorated with colorful cabochon gemstones, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An ornate, closed golden casket or jewelry box decorated with colorful cabochon gemstones, set against a solid bright blue background.",
+       "details": "There are no labels, text, or watermarks in the image. The image features a single standalone object: an ornate reliquary or jewelry box (second guess: decorative fantasy treasure chest). It sits on four spherical gold ball feet and features a stepped, hipped lid that is completely closed, showing no view of the interior. The box has four vertical corner pillars, each inset with polished cabochon gems in alternating green and ruby red colors, also with gems topping the corners and the apex of the lid. The front face features a prominent large, rounded cream-white gemstone or pearl in a circular gold bezel flanked by scrolling acanthus leaf carvings over a deep reddish-brown recessed ground. Similar leaf filigree panels decorate the sides and lid slopes. The construction appears to be aged, stylized chiseled gold or brass. The object is shown in three-quarter perspective, fully contained within the frame with no cropping. The background is a completely uniform, solid bright cobalt/chroma blue with no floor, horizon, or cast shadow. There are no people or other scenic elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4467,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9977,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 31
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4169,
+   "tokens_out": 1560,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "coffin-maker-stack": {
+   "id": "coffin-maker-stack",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/coffin-maker-stack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of three wooden coffins stacked vertically against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of three wooden coffins stacked vertically against a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The illustration depicts three stylized wooden coffins (or caskets/chests) arranged in a neat vertical stack. Each coffin features a classic hexagonal tapering form that is wider near the head/shoulders and narrower at the foot, complete with a thick, matching wooden lid. All three lids are completely closed, so the interiors are not visible. The objects have no handles, hinges, legs, wheels, or locks. The coffins are made of warm honey-brown wood with distinct plank seams, beveled edges, visible wood knots, and soft stylized highlights and shadows. The stack is fully contained within the frame with none of its edges cropped. The background is a completely flat, uniform, vibrant blue with no cast shadows or ground surface.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4973,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9947,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4099,
+   "tokens_out": 1289,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "urn-decorative--s2": {
+   "id": "urn-decorative--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/urn-decorative--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized bronze or copper urn with a studded central band and a spherical finial on its lid, centered against a solid vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized bronze or copper urn with a studded central band and a spherical finial on its lid, centered against a solid vivid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single object: an ornate bronze urn, or alternatively a decorative metal jar or vessel. It consists of a stepped circular pedestal base, an ovoid lower and upper body, two thick raised horizontal rims framing a central frieze with five visible round convex studs or rivets, a stepped neck, and a tiered conical lid topped with a round spherical finial. The lid is fully closed, and the interior is completely concealed. The object has a hand-painted or stylized 3D rendered appearance with chiseled facets, rendered in warm antiqued bronze and copper tones with turquoise-green verdigris patina concentrated in the recesses. The entire object is centered and fully contained within the frame with no cropping. The background is a completely uniform, solid bright blue with no shadows, floor surface, people, or scenery.",
+       "reference_differences": [
+        "Isolated on a flat chroma-key blue background without contact shadows or surface.",
+        "Lid is firmly shut, showing no inner contents.",
+        "Surface exhibits painterly stylized texturing with green oxidation rather than photorealistic finish."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2949,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4157,
+   "tokens_out": 1292,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-pillar-candle-tall--s2": {
+   "id": "rite-pillar-candle-tall--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-pillar-candle-tall--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone baluster pedestal holding a thick, dripping wax candle against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone baluster pedestal holding a thick, dripping wax candle against a solid bright blue background.",
+       "details": "There are no text labels, watermarks, or people in the image. The image shows a single composite object: an unlit candle seated atop an architectural stone pedestal. The candle is cylindrical, made of pale cream or yellowish wax with heavy, rounded drips pooling downwards over a shallow circular stone dish. At the top of the candle, a short, dark wick stands upright without a flame. Beneath the candle's dish is a square capital block over a rounded, baluster-style column with faceted bulging contours, carved moldings, subtle cracks, and traces of green moss patina. The base consists of a stepped, square stone plinth, also showing weathered stone cracks and mossy edges. The entire object is fully visible within the frame and depicted in a hand-painted 3D game asset art style. The background is a solid, uniform, vibrant blue screen with no floor plane, cast shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1807,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.991,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4137,
+   "tokens_out": 1331,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "skull-pile--s2": {
+   "id": "skull-pile--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/skull-pile--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset representing an ossuary wall section made of stacked skulls and long bones against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Skulls are arranged in an even rectangular grid (three tiers of four) rather than a stepped stack",
+       "Contains unwanted vertical support posts and framing bones instead of just a stack of skulls"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset representing an ossuary wall section made of stacked skulls and long bones against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos in the image. The object is a single composite structural block or wall segment (best guess: an ossuary wall or skull barricade; second guess: a stylized cemetery fence or building block). It features twelve stylized human skulls arranged neatly in three horizontal tiers of four skulls each, supported and separated by horizontal long bones (femur-like rods) with bulbous ends, connected to vertical stone or bone support posts visible on the left side. No doors, drawers, or lids are present. The material is a stylized, carved ivory or bone/sandstone texture colored in warm beige, tan, and pale yellow with faint surface cracks and deep brown interior shading in the eye sockets and nasal apertures. The entire structure is shown intact and centered, uncropped by the image boundary. The background is a flat, uniform solid vibrant blue with no ground plane, shadows, or environmental scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/skull-pile--s2.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized low-relief wall block constructed from twelve human skulls arranged in three rows of four, separated by horizontal bone beams, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Not stepped; arranged as a uniform 3x4 rectangular grid instead of a stepped stack"
+      ],
+      "blind": {
+       "what_i_see": "A stylized low-relief wall block constructed from twelve human skulls arranged in three rows of four, separated by horizontal bone beams, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image shows a single composite object: primarily an ossuary wall block, or alternatively a stylized game asset / bone relief sculpture. It consists of twelve human skulls stacked in a 3-high by 4-wide grid arrangement, supported and separated horizontally by elongated bone-like crossbeams (femurs or long bones). None of the elements have lids, doors, or drawers. The object appears made of carved bone, plaster, or clay, with a stylized digital sculpting aesthetic. Colors are warm beige, bone-white, and tan, with deep brown shading in the eye sockets, nasal cavities, and interdental recesses. The object is completely intact and not cropped by the frame. The background is a flat, uniform, vibrant electric-blue backdrop with no floor, scenery, or shadows.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 3534,
+   "tokens_out": 3003,
+   "status": "rejected"
+  },
+  "skull-candle": {
+   "id": "skull-candle",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/skull-candle.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital artwork of an aged human cranium repurposed as a candle, with melted wax dripping down its forehead and eye socket against a solid bright blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital artwork of an aged human cranium repurposed as a candle, with melted wax dripping down its forehead and eye socket against a solid bright blue backdrop.",
+       "details": "There is no text, watermarks, or labels present in the image. The image contains one single object: primarily an aged skull candle (second guess: fantasy game prop or decorative ceramic skull). The object consists of a stylized human cranium without a lower jaw, featuring prominent eye sockets, a nasal aperture, cracked parietal/temporal bone, and maxilla tooth sockets along the bottom edge. On top of the cranium sits a thick candle stump made of pale yellow, translucent-looking melted wax with rounded drips cascading down the forehead and over the left eye socket, terminating in a twisted dark brown wick sticking out from the top center depression. The bone has a matte, weathered beige and tan finish with cracks and pitted texturing, while the wax has a smoother, slightly glossy sheen. The entire object is centered and fully visible within the frame with no cropping. The background is completely flat, uniform, solid bright blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3913,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9929,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4155,
+   "tokens_out": 1338,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "candle-drippings-mound": {
+   "id": "candle-drippings-mound",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/candle-drippings-mound.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital 3D model of five partially melted wax candles clustered together in a puddle of melted wax against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital 3D model of five partially melted wax candles clustered together in a puddle of melted wax against a solid blue background.",
+       "details": "There are no text labels, watermarks, or visible inscriptions. The image contains one single composite object: a cluster of five connected, melting wax candles (best guess: a decorative or fantasy candle cluster 3D asset; second guess: a melted beeswax sculpture). The cluster features five vertical cylindrical stumps of varying heights\u2014one tall in the upper left, one medium in the upper right, and three shorter ones in the front and sides. Each candle has a dark brown or black twisted wick sticking out from a concave melted indentation on its top. Extensive drips of wax flow down all sides, merging at the base into a layered, undulating, molten wax puddle. The candles are completely unlit. The material appears to be smooth, glossy, translucent wax with a honey, caramel, or creamy yellow-tan hue. The object is entirely contained within the frame without any cropping. The background is a flat, uniform, bright blue chroma screen with no shadows, floor surface, or additional scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4098,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9934,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4140,
+   "tokens_out": 1246,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-bone-candelabra": {
+   "id": "rite-bone-candelabra",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-bone-candelabra.try1.jpg",
+     "semantic": {
+      "what_i_see": "A three-armed bone-themed candelabra holding three dripping candles and supported by a base of human skulls, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A three-armed bone-themed candelabra holding three dripping candles and supported by a base of human skulls, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image displays a single central object: a gothic bone candelabra (second guess: decorative three-candle candelabrum). The base consists of three visible human skulls arranged circularly facing outward with teeth showing. Rising from the skull base is a sculpted bone column that branches into three arms: a taller central socket and two symmetrical outer sockets. Each socket holds a pale, dripping candle with a short, blackened wick at the top; none of the candles are lit. The entire candelabra has the texture and coloration of aged bone or ivory, featuring cream, beige, and faint brown shading with sculpted cracks and dripping wax details. The object is completely in frame and not cropped. The background is a flat, uniform, vibrant royal blue with no floor, scenery, shadows, or other objects.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.149,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9827,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4116,
+   "tokens_out": 1427,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-offering-candles-tray": {
+   "id": "rite-offering-candles-tray",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-offering-candles-tray.try1.jpg",
+     "semantic": {
+      "what_i_see": "A rectangular golden tray containing fifteen unlit cream-colored pillar candles of varying heights, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A rectangular golden tray containing fifteen unlit cream-colored pillar candles of varying heights, set against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks visible in the image. The scene displays a single composite object: a low rectangular tray or box filled with candles (second guess: an altar offering tray or multi-candle holder). The tray is open-topped with no lid, featuring thick rim edges, reinforced corner brackets, and four short rectangular foot-pads at the bottom corners, rendered in a mottled golden-yellow brass or ochre-painted material. Inside the shallow basin, embedded in a layer of settled wax or granules, are 15 thick, cylindrical pillar candles of varying heights. Each candle is made of pale cream or ivory-colored wax with rounded melted edges and drip marks along the sides, and each has a single dark grey unlit wick protruding from the slightly depressed top. The object is entirely intact and fully enclosed within the frame, showing no cropping. The background is a solid, flat, uniform royal blue with no floor plane, environmental shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.372,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4125,
+   "tokens_out": 1950,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-canopic-jar--s1": {
+   "id": "rite-canopic-jar--s1",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-canopic-jar--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized Egyptian canopic jar carved in pale stone with a jackal-headed lid, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized Egyptian canopic jar carved in pale stone with a jackal-headed lid, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. There is one single object: an Egyptian canopic jar (or stylized painted stone urn/sculpture). It consists of two main sections: an ovoid/tapered jar body with a flat circular base, and a sculpted lid in the form of a jackal's head (representing Duamutef or Anubis) wearing a striped headdress/collar. There are no legs, wheels, doors, drawers, or handles. The lid is fully closed, sitting flush on the rim of the jar, with no interior visible. The object appears to be rendered in a stylized, hand-painted video game asset style, made of pale beige/sandstone material with subtle mottled patches and surface cracks. Decorative details include a wide horizontal painted band around the midsection with red triangular and green leaf-like motifs framed by yellow and red stripes, as well as green, red, and yellow stripes on the headpiece, reddish-pink inner ears, a dark green snout, and green-lined stylized eyes. The entire object is centered and uncropped. The background is a flat, uniform solid bright blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2866,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9949,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4183,
+   "tokens_out": 1228,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-embalming-tools": {
+   "id": "rite-embalming-tools",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-embalming-tools.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized open wooden tray or box containing five bronze tools resting on a cloth lining against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized open wooden tray or box containing five bronze tools resting on a cloth lining against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The primary object is an open rectangular wooden tool tray or instrument kit (second guess: an antique surgical or carving set), containing five individual tools arranged in a row inside. The tools include a curved-back knife, a curved hook/probe, a round spoon or scoop, a small bone saw with jagged teeth, and a tapered spike or awl. Each tool features a turned brass or bronze handle with rounded banding and identical base construction. The wooden tray has four corner joints reinforced with square brass brackets, each secured with two rounded rivets or studs. The interior is lined with a cream or off-white padded cloth pressed into grooves for each tool, framed with a burgundy or maroon border strip edged with thin gold trim. The box has no lid attached, clearly exposing the interior. The palette consists of warm light-brown wood, antique tarnished brass or bronze, off-white cloth, and dark red accents. The entire object is fully visible and not cropped, floating at an oblique angle against a flat, uniform blue background without ground shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4205,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4144,
+   "tokens_out": 1359,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-burial-shroud-folded": {
+   "id": "rite-burial-shroud-folded",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-burial-shroud-folded.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stack of four neatly folded beige fabric sheets or towels tied together with a wide red band against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stack of four neatly folded beige fabric sheets or towels tied together with a wide red band against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains a single composite object: a bundle or stack of four folded pieces of cloth (or folded paper/linens), bound together centrally by a wide, textured red band or strap. Each folded sheet shows rounded, doubled-over edges visible on the left side, stacked in four horizontal tiers. The fabric is light beige/tan with subtle painted shading and crinkled cloth texture. The binding strap is a deep crimson red running vertically over the center of the bundle. The entire object is fully visible within the frame without any cropping. The background is a flat, uniform, vibrant pure blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4341,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9949,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4052,
+   "tokens_out": 931,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "linen-wrappings-basket": {
+   "id": "linen-wrappings-basket",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/linen-wrappings-basket.try1.jpg",
+     "semantic": {
+      "what_i_see": "A woven wicker basket filled with rolls of fabric or bandages against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A woven wicker basket filled with rolls of fabric or bandages against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single primary object: a stylized woven wicker basket filled with approximately nine to ten rolls of cloth or bandages. A secondary guess for the object would be a basket of scrolls or linen rolls. The basket has two curved woven loop handles attached to its sides along the rim, a chunky woven rim, and a rounded woven body. There is no lid; the basket is open and tightly packed with cylindrical rolls showing spiral ends. Some rolls are plain off-white or beige, while others feature muted olive-green or brick-red bands, and one roll at the front right has an end unwound, draping over the basket's outer edge. The basket is rendered in a warm, glossy caramel-brown tone with visible wicker strands, while the cloth rolls have a fibrous, woven canvas texture. The entire subject is uncropped and centered. The background is a solid, uniform, vivid blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5129,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4127,
+   "tokens_out": 1286,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-canopic-jar--s2": {
+   "id": "rite-canopic-jar--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-canopic-jar--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone falcon-headed Egyptian canopic jar against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized carved stone falcon-headed Egyptian canopic jar against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks. There is one separate object: an ancient Egyptian-style falcon-headed canopic jar (second guess: a stylized stone bird-topped urn or gaming prop container). The object consists of a barrel-like stone vessel base encircled by two segmented horizontal rings, topped by a carved falcon head lid; it features 1 lid, 0 handles, 0 legs, 0 wheels, and 0 drawers. The lid is completely closed, leaving no view into the interior. The material appears to be stylized, chiseled stone rendered in dark olive/moss-green, contrasted by pale cream-beige sandstone accents on the beak, brow, headdress stripes, and the two horizontal bands. The object is entirely complete and not cropped by the frame. The background is a flat, uniform, vibrant solid blue with no shadows, floor, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3128,
+      "soft": 0.0024,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9978,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 18
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4114,
+   "tokens_out": 1477,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-death-mask": {
+   "id": "rite-death-mask",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-death-mask.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized golden sculpted face mask with closed eyes and a striped headdress, mounted on an oval wooden plaque against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized golden sculpted face mask with closed eyes and a striped headdress, mounted on an oval wooden plaque against a solid bright blue background.",
+       "details": "No text, labels, or watermarks are present. The image shows a single composite object: an ornamental wall relief or mask plaque (second guess: a decorative Egyptian medallion or shield). It consists of an oval backplate made of vertically aligned, carved dark brown wooden planks with a beveled, notched perimeter, and a central golden face sculpture. The face has closed eyelids, a smooth golden metallic or stone texture, and an Egyptian-inspired nemes-style headpiece featuring alternating red and gold rectangular panels around the brow and hanging down both sides. There are no moving parts, lids, or drawers. The object is completely intact and centered within the frame without cropping. The background is a flat, uniform, vibrant blue field with no cast shadows or ground surface.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.443,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9964,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4108,
+   "tokens_out": 1262,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-memorial-plaque--s1": {
+   "id": "rite-memorial-plaque--s1",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-memorial-plaque--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A carved beige stone rectangular relief plaque featuring a laurel wreath and five small rectangular blocks, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A carved beige stone rectangular relief plaque featuring a laurel wreath and five small rectangular blocks, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one single object: a carved stone relief plaque (best name) or an ancient architectural frieze/game asset tablet (second guess). The object consists of a rectangular stone slab framed by a thick border with square, pyramidal-bossed corner caps; a centrally carved raised laurel wreath made of two crossed branches of leaves; and a horizontal row of five small raised rectangular stone blocks situated directly below the wreath. It has no legs, wheels, doors, drawers, lids, or handles. The material appears to be weathered limestone or sandstone with chiselled facets, fine cracks, and faint olive-green and brownish staining indicative of moss and aging. The entire object is completely visible within the frame and not cropped. The background is a flat, uniform, solid bright blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5807,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9977,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4113,
+   "tokens_out": 1306,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-memorial-plaque--s2": {
+   "id": "rite-memorial-plaque--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-memorial-plaque--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A three-dimensional fantasy-style heraldic shield or emblem featuring a sun design and three horizontal bars, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A three-dimensional fantasy-style heraldic shield or emblem featuring a sun design and three horizontal bars, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains a single object: best described as a fantasy heraldic shield or decorative plaque, with a second guess of a game UI badge or medal. The object has a chunky, gray stone base with chipped, beveled edges forming a traditional heater-shield silhouette. Inset into the stone is a bronze or antique gold shield bordered by a thick, twisted rope trim. Within the recessed face, there is a central raised emblem depicting a domed sun surrounded by eight rays (four straight, four wavy), situated above three stacked horizontal beveled rectangular bars. The metal displays a warm golden-bronze finish with subtle greenish-blue verdigris patina collecting in the crevices. The shield is completely intact, uncropped, and viewed from a slight three-quarter angle. The background is a flat, solid, uniform chroma blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4856,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4133,
+   "tokens_out": 1838,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "reliquary-hand": {
+   "id": "reliquary-hand",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/reliquary-hand.try1.jpg",
+     "semantic": {
+      "what_i_see": "A golden, jewel-encrusted hand reliquary or gauntlet sculpture standing upright against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A golden, jewel-encrusted hand reliquary or gauntlet sculpture standing upright against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos visible in the image. The image contains one single object: a stylized golden forearm and upright hand sculpture, likely an arm reliquary or an ornate fantasy gauntlet. The hand features five fingers held upright with segmented, plate-like sections and a diamond-shaped red jewel flanked by four green circular gems on the back of the hand. The arm section is divided into ornate tiers: a golden rim at the wrist, a red enameled band adorned with green, cream, and gold studs, a middle section styled with green Gothic-style pointed arches enclosing cream-colored quatrefoil emblems, a second red studded band, and a broad, stepped circular base inset with alternating diamond and round gems. The materials appear as polished gold with enamel, colored gemstones, and pearls. The object is depicted in full, without any cropping by the frame. The background is a completely uniform, flat, bright blue field with no floor, shadows, scenery, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2294,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9929,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4158,
+   "tokens_out": 1441,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-relic-bone-fragment": {
+   "id": "rite-relic-bone-fragment",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-relic-bone-fragment.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized illustration of an aged bone fitted with a gold band, resting on a plush red velvet cushion with golden rope trim and corner tassels, set against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "bone has an unwanted gold band/ring fitted around it"
+      ],
+      "blind": {
+       "what_i_see": "A stylized illustration of an aged bone fitted with a gold band, resting on a plush red velvet cushion with golden rope trim and corner tassels, set against a solid bright blue background.",
+       "details": "The image contains no text, watermarks, or labels. It shows a single composite subject centrally placed: an antique-looking bone with a thick gold band encircling its middle, displayed on a square, tufted red cushion. The cushion appears to be made of deep red or crimson velvet, featuring soft indentations and creases. Around the perimeter runs a thick twisted gold cord border, terminating at each of the four corners in an ornate golden tassel featuring a spherical knob and flared fringe. Resting diagonally across the cushion is a pale cream/tan animal bone with textured, weathered surfaces, minor cracks, and a hollow/porous interior visible on its broken right end. Around the bone's midsection sits a wide, textured yellow-gold ring or band. The entire object is fully visible within the frame without cropping, floating in the center against a completely flat, uniform, vibrant cobalt blue background with no shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-relic-bone-fragment.try2.jpg",
+     "semantic": {
+      "what_i_see": "An ancient-looking animal bone rests in the center of an ornate, square red velvet cushion adorned with gold ropes and tassels against a solid bright blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An ancient-looking animal bone rests in the center of an ornate, square red velvet cushion adorned with gold ropes and tassels against a solid bright blue backdrop.",
+       "details": "There is no text, label, or watermark. The image depicts two primary items: a square decorative velvet cushion and a single bone resting horizontally across its tufted indentation. The cushion consists of a deep crimson red tufted velvet surface, an encircling thick twisted golden-yellow cord along the seam, and four large golden tassels hanging from rounded knot caps at each of its four corners. The bone is textured, aged cream-beige in color, with a hollow, broken end revealing porous marrow texture on the left, and a rounded anatomical condyle on the right. Both objects are depicted in a smooth digital illustration style and are fully contained inside the frame without cropping. The background is a flat, uniform, vibrant pure blue with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.1017,
+      "soft": 0.0121,
+      "comps": 2,
+      "border": 0.0,
+      "chroma_iou": 0.3885,
+      "verdict": "fail",
+      "why": [
+       "BiRefNet vs chroma disagree (IoU 0.3885)"
+      ],
+      "chroma_holes_removed_px": 1
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5840,
+   "tokens_out": 3098,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "urn-ashes-small": {
+   "id": "urn-ashes-small",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/urn-ashes-small.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, lidded green mottled stone urn with a carved beige decorative band around its midsection, shown against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, lidded green mottled stone urn with a carved beige decorative band around its midsection, shown against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image shows a single object: an ornamental lidded urn (or funerary urn / decorative jar). It comprises a round tiered pedestal base, an ovoid body, a wide horizontal beige relief band around the waist carved with leafy fronds and central diamond shapes, and a domed lid topped with a spherical finial knob. The lid is entirely closed, so the interior is completely concealed. The surface features a painted, faceted texture mimicking green mottled marble or stone, while the decorative band has a matte, carved ivory or sandstone appearance. The entire object is centered and fully visible without any cropping. The background is a completely flat, uniform bright blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3703,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9968,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4077,
+   "tokens_out": 1294,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "casket-ornate": {
+   "id": "casket-ornate",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/casket-ornate.try1.jpg",
+     "semantic": {
+      "what_i_see": "A closed, stylized red wooden treasure chest featuring gold metal trim, studs, a front ring pull lock plate, and paw-shaped feet against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A closed, stylized red wooden treasure chest featuring gold metal trim, studs, a front ring pull lock plate, and paw-shaped feet against a solid bright blue background.",
+       "details": "There is no text, label, or watermark. The image contains a single isolated object: a treasure chest (or ornate storage trunk/jewelry box). The chest consists of a main rectangular body with an arched, domed lid, which is fully closed so the interior cannot be seen. On the front face, there is a decorative golden lock plate with a vertical keyhole and an attached hanging round ring pull/latch. The chest rests on four legs ending in stylized animal paw/claw feet, of which three are visible (two along the front edge and one at the rear-right corner). There are no wheels, doors, or drawers. Materials appear to be dark reddish-crimson wood planks bordered by thick, polished gold-colored metal banding with rounded rivet/stud details. The chest is fully contained within the frame with no cropping. The background is a solid, uniform, vibrant blue screen with no floor, scenery, shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2987,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9932,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4148,
+   "tokens_out": 1758,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "skull-single": {
+   "id": "skull-single",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/skull-single.try1.jpg",
+     "semantic": {
+      "what_i_see": "A detailed illustration of an aged human skull positioned at a three-quarter angle against a solid, vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A detailed illustration of an aged human skull positioned at a three-quarter angle against a solid, vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one single object: a human skull (second guess: an anatomical replica or bone sculpture). The skull is complete with its cranium and articulated lower jaw (mandible), featuring hollow eye sockets, a nasal cavity, zygomatic arches, a visible cranial fissure/crack along the upper forehead, and a full visible set of upper and lower teeth clamped together. No parts like doors, drawers, or lids are present. The object exhibits a bone or weathered plaster texture rendered in shades of beige, tan, cream, and ochre, with deep brown shadows inside the hollow cavities. The entire skull is floating and fully contained within the frame without being cropped. The background is a flat, uniform, solid royal blue screen with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4618,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9954,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4073,
+   "tokens_out": 2170,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-doorway--crypt-stone": {
+   "id": "wall-doorway--crypt-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/wall-doorway--crypt-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, weathered stone archway rendered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, weathered stone archway rendered against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single freestanding object: a stone archway (second guess: an arched portal or doorway frame). It consists of two vertical stone pillars/jambs connected at the top by a pointed arch formed from wedge-shaped voussoirs and a central keystone, backed by rectangular stone blocks, and topped by a flat three-stone coping ledge. The archway opening is completely open and empty, exposing the background behind it. The stones are rendered with hand-painted textures featuring chipped edges, subtle vertical discoloration streaks, and mixed tones of charcoal grey, earthy tan, and mossy green. The entire structure is shown intact and fully contained within the frame. The background is a solid, flat, vibrant blue with no ground plane, shadows, scenery, or figures.",
+       "reference_differences": [
+        "The candidate features a large pointed arched opening cut through the center, while the reference is a completely solid wall section.",
+        "The candidate includes angled arch voussoir stones and a pointed keystone, which are absent in the reference's purely horizontal brick-style coursing.",
+        "The candidate splits into two separate vertical pier bases at the bottom, whereas the reference forms a single continuous solid column/wall.",
+        "The top coping ledge on the candidate is made of three stone slabs, compared to two stone slabs on the reference.",
+        "The candidate structure is significantly wider overall than the narrower wall segment shown in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3266,
+      "soft": 0.0052,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9922,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5448,
+   "tokens_out": 2298,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-crypt-niches--crypt-stone--s2": {
+   "id": "wall-crypt-niches--crypt-stone--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/wall-crypt-niches--crypt-stone--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A tall, weathered stone wall unit with three recessed shelves, each holding a wrapped linen bundle, viewed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A tall, weathered stone wall unit with three recessed shelves, each holding a wrapped linen bundle, viewed against a solid blue background.",
+       "details": "The image contains no text, labels, or watermarks. It shows a single free-standing architectural structure resembling an ancient stone wall or catacomb niche unit. The structure is constructed from rectangular stone blocks rendered in muted grey, brown, and mossy-green tones with visible mortar lines, aged edges, and vertical green/yellow weathering streaks. It features two capped stones at the top, thick lateral stone pillars, and two horizontal stone dividers creating three open, recessed rectangular compartments. Inside each of the three compartments lies a horizontal, cylindrical bundle wrapped in tan cloth bindings secured with straps. The topmost bundle has an additional dark red rectangular cloth with fringed edges draped across its center. The middle and bottom bundles have only the tan fabric and crisscrossed wraps. The entire object is fully visible within the frame without cropping, set against a flat, solid bright blue background with no shadows or floor.",
+       "reference_differences": [
+        "The candidate image features three open, recessed shelving compartments, while the reference image is a solid, unbroken stone wall.",
+        "The candidate image contains three horizontally laid wrapped bundles (with the top one covered by a red cloth), whereas the reference image contains no items.",
+        "The candidate wall structure has defined left and right pillar sections supporting shelves and back walls, whereas the reference wall consists of continuous running courses of stone blocks throughout."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.377,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9955,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5439,
+   "tokens_out": 1580,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ossuary-wall--crypt-stone": {
+   "id": "ossuary-wall--crypt-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/ossuary-wall--crypt-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D section of a stone wall framing a dense relief of stacked human skulls and bones against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D section of a stone wall framing a dense relief of stacked human skulls and bones against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object: a rectangular ossuary wall section (or dungeon wall segment). The structure features a border frame made of weathered stone blocks, consisting of two capstones on top, two horizontal blocks underneath, side pillar columns of stacked square/rectangular stones (eight on each side), and two large rectangular foundation stones at the base. Inside the frame is a recessed panel tightly packed with sculpted ivory-beige bones and skulls, including approximately fifteen fully visible skulls organized roughly into three horizontal tiers, interwoven with leg bones, arm bones, and ribs. The stones have a textured grey, brown, and moss-green finish with subtle vertical water-stain streaks. The bones have an aged, yellowish-bone coloration with deep brown shading in the gaps. The object is completely contained within the frame with no cropping. The background is a flat, uniform electric blue without floor or shadows. No people or text are present.",
+       "reference_differences": [
+        "The candidate's central field is occupied by a dense relief of stacked bones and skulls, whereas the reference image shows a continuous surface of standard rectangular stone masonry.",
+        "The candidate's stonework forms a hollow perimeter frame around the bones, while the reference wall consists entirely of running-bond masonry blocks throughout the entire front face.",
+        "The candidate contains ivory/tan-colored bone elements, whereas the reference features only greyish-brown stone blocks."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3249,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9955,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5468,
+   "tokens_out": 1985,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--crypt-stone--s2": {
+   "id": "wall-straight--crypt-stone--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/wall-straight--crypt-stone--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical stone wall segment with painted stylized textures, shown from an isometric three-quarters angle against a uniform blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical stone wall segment with painted stylized textures, shown from an isometric three-quarters angle against a uniform blue background.",
+       "details": "There are no text, labels, or watermarks. The image shows a single isolated object: a stone wall segment or miniature ruin barrier (second guess: an architectural pillar or block column). It is constructed from a two-piece stone coping slab on top resting on eight stacked courses of interlocking stone ashlar blocks, varying between squarish and elongated shapes. No moving parts, doors, or drawers are present. The top-left stone block under the coping has a visibly fractured and chipped upper edge. In the fourth stone course beneath the cap, the central block features a carved inset square relief design. The lower courses display vertical white mineral/lime streaks and green moss growth. The materials appear to be weathered cut stone in variegated tones of slate gray, muted brown, and moss green. The object is completely contained within the frame against a flat, solid royal blue background without ground plane, shadows, people, or scenery.",
+       "reference_differences": [
+        "In the candidate image, the middle stone block in the fourth row beneath the capstones features an incised, recessed rectangular frame/carving, whereas in the reference image that block is plain and unadorned.",
+        "The uppermost left block directly below the coping slabs in the candidate image has a chipped, damaged chunk missing from its top-left corner, which is intact and smooth in the reference image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3234,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5417,
+   "tokens_out": 1909,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-crypt-niches--crypt-stone": {
+   "id": "wall-crypt-niches--crypt-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/wall-crypt-niches--crypt-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A tall, rectangular stylized stone shelving unit with three open horizontal compartments, viewed at a three-quarter angle against a plain blue background.",
+      "ok": false,
+      "problems": [
+       "Includes capping stones at the top and a bottom base tier, violating the rule against roofs or base slabs.",
+       "Contains a loose pebble inside the middle recess instead of being completely empty."
+      ],
+      "blind": {
+       "what_i_see": "A tall, rectangular stylized stone shelving unit with three open horizontal compartments, viewed at a three-quarter angle against a plain blue background.",
+       "details": "There are no labels, text, or watermarks. There is one single composite object: primarily a stone shelving unit, or alternatively a recessed stone niche wall. It consists of two flat capping stones at the top, two vertical outer columns made of stacked rectangular blocks, a top lintel beam, two intermediate horizontal shelf slabs, a bottom base tier, and an inner recessed back wall also textured like stone masonry. This creates three open rectangular shelf compartments; all three are completely open, revealing a stone back wall and side interior walls. A small loose gray pebble sits on the middle shelf surface. The object is depicted in a hand-painted game-asset style with weathered gray and brown stone tones, featuring green moss staining and pale vertical drip marks down the front edges. The object is entirely within the frame and not cropped. The background is a flat, uniform solid blue with no shadows or floor.",
+       "reference_differences": [
+        "The candidate features three deep recessed open shelf compartments, whereas the reference is a completely flat, solid stone wall.",
+        "The candidate includes two horizontal stone slab shelves dividing the interior space, which are absent in the reference.",
+        "The candidate has a visible inner recessed back wall, whereas the reference only shows a continuous front stone face.",
+        "The candidate includes a small loose pebble on the middle shelf, which does not exist on the reference.",
+        "The candidate is wider overall to accommodate the recessed shelving cavity within the outer stone columns."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/wall-crypt-niches--crypt-stone.try2.jpg",
+     "semantic": {
+      "what_i_see": "A three-tiered stone shelving unit or recessed wall alcove made of aged grey stone blocks against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A three-tiered stone shelving unit or recessed wall alcove made of aged grey stone blocks against a solid blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image shows a single object, best described as a stone shelving unit, and second guess a recessed masonry niche or alcove. The structure is built from rough-hewn rectangular stone blocks and consists of a rectangular outer frame, a back wall, and two horizontal stone divider slabs that divide the interior into three open rectangular shelf compartments. There are no doors, drawers, or lids; all three shelf spaces are fully open, revealing interior depth, side walls, and rear stonework. The material is painted or rendered aged stone, colored in neutral grey, earthy beige-brown, and mossy olive-green with weathered vertical streak marks. The entire object is centered and fully visible without cropping. The background is an unvarying, solid bright blue with no floor or shadows cast.",
+       "reference_differences": [
+        "The candidate features three deep recessed shelf compartments in the center, whereas the reference is a solid, flat-faced stone wall without any openings or recesses.",
+        "The reference has an overhanging, protruding capstone layer at the top, whereas the candidate has a flush stone block top with no overhang.",
+        "The candidate has vertical frame pillars of blocks flanking the shelves on both sides, while the reference has continuous horizontal masonry courses spanning the full width."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4004,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9948,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8501,
+   "tokens_out": 3349,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "coffin-open--s1": {
+   "id": "coffin-open--s1",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/coffin-open--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden coffin with its lid partially slid open against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden coffin with its lid partially slid open against a solid blue background.",
+       "details": "There is no text, labels, or watermarks. The image features a single stylized three-dimensional object: a wooden coffin or casket (second guess: an irregular wooden chest or storage box). The object consists of a base container and a fitted wooden lid with a raised T-shaped wooden cross/brace and metal rounded rivets/studs along the perimeter. On the visible side of the container, there are two round metal ring handles attached by metal brackets. The lid is partially slid down toward the foot of the coffin, leaving the head end open and exposing the hollow interior, which reveals a dark wooden base and a cream or beige padded/ruffled fabric lining rimming the interior upper edge. The materials are rendered in a hand-painted game art texture style with warm medium-brown wood grain, light beige fabric, and dull grey metal. The object is completely contained within the frame with no cropping. The background is a solid, uniform, vibrant blue screen with no shadow or floor.",
+       "reference_differences": [
+        "In the candidate image, the lid is partially slid open, revealing the inner cavity and cream-colored ruffled fabric lining, whereas in the reference image, the lid is completely closed flush on top of the base.",
+        "Because the lid is shifted downward along the base in the candidate image, its foot end overhangs the bottom edge of the casket box, whereas in the reference image, the lid aligns neatly with the perimeter of the casket box."
+       ]
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.444,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "Holes cut inside the side handle rings revealing magenta instead of the coffin wall"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 7787,
+   "tokens_out": 1793,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "sarcophagus-open--s1": {
+   "id": "sarcophagus-open--s1",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/sarcophagus-open--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A carved stone sarcophagus or treasure chest with its heavy stone lid pushed open, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A carved stone sarcophagus or treasure chest with its heavy stone lid pushed open, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single composite object: an ancient carved stone chest or sarcophagus (second guess: stone reliquary or tomb). It consists of a hollow rectangular base/body and a heavy gabled lid featuring a central sunburst motif. The long visible side has three square recessed panels with circular bosses separated by carved pilasters, and the short visible end has one matching panel. The lid is open and slid backwards/rotated at an angle, exposing the interior cavity of the box which appears empty and made of rough-textured stone. The material resembles weathered beige and tan stone or masonry with green moss or lichen patches growing in crevices. The entire object is centered and fully contained within the frame with no parts cropped. The background is a flat, uniform solid bright blue with no floor plane or drop shadow. There are no people, text, or background scenery.",
+       "reference_differences": [
+        "In the candidate image, the lid is open, slid back, and skewed to reveal the hollow stone interior.",
+        "In the reference image, the lid is completely closed and aligned symmetrically with the base.",
+        "The hollow interior cavity is visible only in the candidate image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.398,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9968,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 15
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5388,
+   "tokens_out": 1562,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sarcophagus--s2": {
+   "id": "sarcophagus--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/sarcophagus--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric rendering of a rectangular carved stone sarcophagus or chest with a closed lid, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric rendering of a rectangular carved stone sarcophagus or chest with a closed lid, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one separate object, best described as a stone sarcophagus or an ornate stone chest/reliquary. The object consists of a single tightly closed lid and a rectangular box resting on a stepped stone plinth. The lid is low and beveled with two transverse stone rib bands and a raised diamond-shaped carving on the top surface. The front side features five arched recessed niches, each framing a raised circular medallion, divided by rectangular pilasters. The left visible side contains a matching single arched niche with a circular medallion. The structure appears entirely carved from weathered, textured stone or masonry, colored in dull olive-gray, brown, and weathered greenish tones with patchy moss buildup in crevices. The object is completely contained within the frame with no cropping. The background is a uniform, flat, solid bright blue with no floor plane or cast shadows, and there are no people, text, or scenery present.",
+       "reference_differences": [
+        "The candidate's lid is low, beveled, and relatively flat with an elongated raised diamond motif in the center, whereas the reference lid is steeply pitched/gabled with a prominent central sunburst medallion featuring radiating triangular rays.",
+        "The front face of the candidate has five arched niche panels separated by six pilasters, whereas the reference has three rectangular/square framed panels separated by four pilasters.",
+        "The stone color in the candidate is a darker, cooler olive-gray with extensive greenish moss texture, whereas the reference is a lighter, warmer sandy beige or tan stone.",
+        "The transverse bands on the candidate lid are straight rectangular strips, whereas on the reference they terminate in cylindrical or rounded roll mouldings along the upper ridge."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4336,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5467,
+   "tokens_out": 1785,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-corpse-on-slab": {
+   "id": "rite-corpse-on-slab",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/rite-corpse-on-slab.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stone mortuary table supported by two arched pillars, bearing a recumbent human figure completely covered by a draped cloth shroud, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stone mortuary table supported by two arched pillars, bearing a recumbent human figure completely covered by a draped cloth shroud, set against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos visible. The assembly consists of one primary composite object: an elongated stone slab table or altar supporting a draped body. A second guess would be a sculpted stone tomb monument or sarcophagus with a draped effigy. The structure rests on two thick rectangular stone pedestal pillars, each decorated with a shallow arched niche on its visible face. The tabletop features a recessed stone basin with raised border slabs, a raised rectangular stone headrest block at the head end, and a protruding rectangular spout at the lower right foot end. Lying atop the table is a recumbent human figure completely enveloped in an off-white or cream-colored sheet or shroud, showing folds defining the head, chest, hips, legs, and elevated feet. A flap of the shroud drapes over the near-side rim. The table is crafted of weathered, pale beige-gray stone with subtle cracks and patches of green moss near the base, while the shroud is a warm cream fabric. The entire object is centered and uncropped. The background is a flat, solid, vivid blue with no shadows, floor, or environment.",
+       "reference_differences": [
+        "The candidate image features a full-length human form completely draped under a cream fabric shroud lying atop the table basin, while the reference image depicts an empty table.",
+        "In the reference image, the interior bed of the table is fully visible and exhibits incised herringbone or chevron drainage grooves leading to the outlet spout, which are completely concealed by the draped figure in the candidate image.",
+        "The cloth in the candidate image hangs down over the front rim and draped towards the foot end, features that do not exist on the bare reference table."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3872,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9969,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 19
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5469,
+   "tokens_out": 1884,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-crypt-niches--crypt-stone--s3": {
+   "id": "wall-crypt-niches--crypt-stone--s3",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/wall-crypt-niches--crypt-stone--s3.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical, weathered stone wall section featuring three stacked rectangular alcoves filled with human skulls and bones against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical, weathered stone wall section featuring three stacked rectangular alcoves filled with human skulls and bones against a solid blue background.",
+       "details": "The image displays a single free-standing stylized stone wall or catacomb niche unit shown from a three-quarters perspective. There is no text, watermark, or label. The structure is composed of grey, aged stone masonry with hints of greenish moss, lichen, and staining. It features a top overhanging coping layer of two stone slabs. Below the top courses, the front face has three evenly spaced, recessed rectangular alcoves or niches: the top niche contains five small beige human-like skulls aligned in a row; the middle niche contains two skulls resting atop a neat, firewood-style stack of rounded long bones; the bottom niche contains a single skull nestled in a loose jumble of long bones. The rest of the wall is built from stacked rectangular ashlar blocks framing the sides and bottom. The entire object is fully visible within the frame, cast in soft lighting with no ground shadow, on a flat, uniform, bright blue background.",
+       "reference_differences": [
+        "The candidate wall features three open rectangular recessed alcoves housing skulls and bone stacks, whereas the reference wall is entirely solid stone masonry from top to bottom.",
+        "The candidate incorporates sculpted human skulls (five on the top shelf, two on the middle shelf, one on the bottom shelf) and limb bones, which are completely absent in the reference.",
+        "The stone layout in the middle tiers of the candidate is modified into vertical jambs and horizontal sills/lintels to frame the niches, while the reference maintains unbroken, staggered brick/block courses throughout its height."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3478,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5456,
+   "tokens_out": 1705,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tomb-door-sealed--crypt-stone": {
+   "id": "tomb-door-sealed--crypt-stone",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/tomb-door-sealed--crypt-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone door with carved ornamentation set into a stone block frame against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone door with carved ornamentation set into a stone block frame against a solid blue background.",
+       "details": "There is one main object shown in an isometric three-quarters view. It appears to be an ancient or fantasy stone door (best name) or an ornate carved wall relief (second guess). The structure consists of an outer frame of stacked rectangular stone blocks with an overhanging capstone/coping on top, and a central closed stone slab door. The door slab features detailed low-relief carvings: an outer braided/interlaced knotwork border, a circular sun emblem with radiating pointed rays in the upper section, and two recessed rectangular panels below. A dark metal or stone horizontal bar spans across the middle of the door, anchored into brackets on either side. The door is fully closed. The materials are weathered grey and brownish stone with mossy greenish undertones and texture. The object is completely within the frame, with no parts cropped. The background is a solid, uniform, bright blue void with no ground plane or cast shadows. No text, watermarks, or people are present.",
+       "reference_differences": [
+        "The candidate contains a central carved door with a sun emblem, decorative knotwork, and a horizontal locking bar, while the reference is an unbroken solid stone wall.",
+        "The candidate's stone wall serves as a doorway frame around the inset slab, whereas the reference consists of continuous horizontal courses of stone masonry from side to side.",
+        "The candidate appears slightly wider to fit the doorway aperture compared to the narrower solid wall section in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3466,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9955,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5435,
+   "tokens_out": 2007,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sarcophagus--s3": {
+   "id": "sarcophagus--s3",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/sarcophagus--s3.try1.jpg",
+     "semantic": {
+      "what_i_see": "A closed, stylized carved stone chest with a barrel-arched lid and cross motifs, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A closed, stylized carved stone chest with a barrel-arched lid and cross motifs, isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single complete, uncropped object: best described as a stone chest, and second best as a stone sarcophagus or reliquary. It consists of a rectangular stone container set on a molded stone plinth base and a single, securely closed barrel-vaulted lid; inside is not visible. Across the curved lid are three raised stone bands or ribs, with a small chip or crack on the front-left edge. The front face features a single long recessed panel containing a central raised equal-armed cross enclosed in a circle (ringed/Celtic cross style), while the visible left side panel features a matching circular cross motif. There are no separate legs, handles, hinges, or latches. The material appears to be weathered buff or tan limestone/sandstone with painted green mossy tinting in the crevices. The background is a flat, uniform, bright blue chroma field with no floor surface or cast shadows.",
+       "reference_differences": [
+        "The candidate's lid is curved and barrel-vaulted with three transverse raised stone bands, whereas the reference has a gabled/pitched lid with a flat-sloped roof and an embossed sun medallion in the center.",
+        "The front face of the candidate features a single large recessed panel bearing a centered ringed cross, whereas the reference front is divided into three separate square panels separated by vertical pillars, each containing a smooth raised circular boss.",
+        "The side panel on the candidate features a ringed cross, while the reference side panel features a circular boss.",
+        "The reference chest has four vertical column pilasters along its front face (two corners and two middle dividers), while the candidate only has pilasters at the corners.",
+        "The candidate has a visible small crack or fissure carved into the front-left corner of the lid, which is not present in that manner on the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4159,
+      "soft": 0.0028,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9981,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 49
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5499,
+   "tokens_out": 1891,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ossuary-wall--crypt-stone--s2": {
+   "id": "ossuary-wall--crypt-stone--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/ossuary-wall--crypt-stone--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical, freestanding stone wall section featuring an ossuary design filled with decorative human skulls and bones, surrounding a central arched alcove containing a stone urn, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical, freestanding stone wall section featuring an ossuary design filled with decorative human skulls and bones, surrounding a central arched alcove containing a stone urn, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single composite architectural object: a catacomb or ossuary wall segment (second guess: a crypt shrine or tomb stele). The structure consists of an outer rectangular border made of weathered grey-brown stone blocks with a projecting top cap and mossy bottom blocks. The interior face is densely packed with bone-colored human skulls and long bones arranged around a central arched niche. At the top beneath the cap sits a horizontal row of six miniature skulls separated by bones. An arch of skulls frames the central recessed niche, which is lined with small grey stone bricks. Sitting inside the niche is a single lidded stone jar or urn with a flattened cylindrical lid (closed, interior not visible). The entire object is fully visible and not cropped by the frame. The background is a flat, uniform, vibrant blue without floor, horizon, or cast shadows. There are no people or natural scenery.",
+       "reference_differences": [
+        "The candidate front surface is sculpted with numerous human skulls, long bones, and a recessed niche, whereas the reference front is entirely flat courses of plain grey stone blocks.",
+        "The candidate features a central arched alcove holding a lidded stone urn, which is completely absent in the reference.",
+        "The candidate's stone blocks form only a surrounding outer border around the bones, while the reference has continuous horizontal brick courses across its entire width.",
+        "The candidate features a distinct horizontal frieze of six skulls beneath the top cornice block."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3405,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.995,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5460,
+   "tokens_out": 1701,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sarcophagus-open--s1--lidoff": {
+   "id": "sarcophagus-open--s1--lidoff",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/sarcophagus-open--s1--lidoff.try1.jpg",
+     "semantic": {
+      "what_i_see": "A carved sandstone chest or sarcophagus with its detached lid resting diagonally against its front base, exposing an empty rectangular interior against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A carved sandstone chest or sarcophagus with its detached lid resting diagonally against its front base, exposing an empty rectangular interior against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single carved stone object: a chest (or sarcophagus/stone casket). It consists of an open rectangular receptacle and a detached gabled lid. The rectangular body has architectural detailing featuring carved pillars dividing square recessed panels with raised circular central bosses, along with a stepped base. The lid has a sculpted central dome medallion with radiating triangular points (sunburst design) flanked by raised rounded bands. The lid is fully open and detached from the top rim, placed leaning against the lower front of the chest so that the hollow, deep interior of the stone box is completely visible. The materials appear to be light tan, beige, and warm gray carved stone with subtle green moss or lichen weathering across the edges and surfaces. The entire object is centered and uncropped. The background is a flat, uniform, bright blue field without shadows or floor plane.",
+       "reference_differences": [
+        "In the candidate image, the lid is completely removed from the top opening and leans against the lower front wall of the chest, leaving the interior hollow and exposed.",
+        "In the reference image, the lid is closed and securely seated on top of the chest, fully concealing the interior.",
+        "Because the lid is leaning in front of the candidate chest, it partially obscures the lower section of the front decorative panels, which are fully visible in the reference image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4238,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5431,
+   "tokens_out": 1429,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "coffin--s2": {
+   "id": "coffin--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/coffin--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden coffin or tapered storage box bound with two thick ropes, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden coffin or tapered storage box bound with two thick ropes, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single object, best described as a wooden coffin or a tapered wooden crate/box. The object consists of a multi-sided body with horizontal planks, a flat planked lid fastened with six visible grey metal studs/bolts, and two thick, twisted hemp-style ropes tied securely around the upper and lower sections with center knots. At the foot end, a vertical crack splits the wooden face. The lid is fully closed, and the interior is not visible. Materials are light yellowish-brown wood, natural tan fiber rope, and dull silver metal studs. The object is floating whole and uncropped in the center against a completely uniform solid blue background with no shadows, floor, people, or scenery.",
+       "reference_differences": [
+        "The candidate's wood is a lighter, warmer yellowish-brown, whereas the reference has darker brown wood.",
+        "The candidate has two thick braided ropes tied around the casket; the reference has no ropes.",
+        "The candidate lacks the raised wooden T-shaped cross/brace found on top of the reference's lid.",
+        "The candidate lacks the metal ring handles mounted on the side of the reference.",
+        "The candidate features a vertical crack splitting the plank at the lower foot face, which is intact in the reference.",
+        "The stud/rivet arrangement along the lid differs between the two images."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3751,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9946,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5368,
+   "tokens_out": 1835,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bench-stone--s2": {
+   "id": "bench-stone--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/bench-stone--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone bench with scroll-shaped armrests and three ornate scroll legs against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized carved stone bench with scroll-shaped armrests and three ornate scroll legs against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object: a stone bench (second guess: an ornamental stone seat). The bench consists of a long horizontal stone slab seat, two raised scroll-ended/curled stone armrests at the far left and right edges, and three carved support legs (one at each end and one in the center), each featuring a scrolled/volute design resting on a stepped rectangular base. The bench is carved from light tan, beige, and grey stone with painted patches of green moss and weathering across the surfaces and crevices. The bench is shown whole and uncropped, centered on a completely uniform solid bright blue background with no floor or shadows cast. No people or scenery are present.",
+       "reference_differences": [
+        "The candidate bench has three support legs, whereas the reference bench has only two support legs.",
+        "The candidate legs feature ornate, curved scroll/volute carvings, whereas the reference legs are rectangular pillars with recessed decorative arches.",
+        "The candidate bench features raised, curled scroll-shaped armrests/finials at both short ends, whereas the reference bench has a flat top surface without raised armrests.",
+        "The candidate bench includes an additional middle leg/support underneath the center of the seat, which the reference bench lacks."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2943,
+      "soft": 0.0054,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9894,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5354,
+   "tokens_out": 1384,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "catacomb-shelf-bones--s2": {
+   "id": "catacomb-shelf-bones--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/catacomb-shelf-bones--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone bookcase-like ossuary unit filled with skulls and bones, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "One shelf was requested to be completely empty, but all shelves contain bones or skulls"
+      ],
+      "blind": {
+       "what_i_see": "A stylized stone bookcase-like ossuary unit filled with skulls and bones, isolated against a solid blue background.",
+       "details": "The image displays a single free-standing stone shelving unit rendered in a hand-painted game-art style. The frame consists of two thick stone-block columns on the left and right, supporting horizontal stone slab shelves and a back wall with a stone parapet along the top. In the top-right corner beneath the top rim, a white cobweb is visible. The unit has three interior shelf tiers: the uppermost shelf contains a single row of five stylized humanoid skulls; the middle shelf holds a neat stack of long bones on the left side, leaving the right half empty; and the bottom shelf is filled across its width with a jumble of long bones. The shelves have no doors, drawers, or glass. The stone is textured in shades of tan, grey, and khaki with chipped, beveled edges, while the bones and skulls are yellowish-ivory. The object is completely contained within the frame against a uniform, bright blue background with no cast shadows or ground plane. No text or watermarks are present.",
+       "reference_differences": [
+        "The candidate has three main shelf compartments, whereas the reference has four shelf compartments.",
+        "The candidate's middle shelf is only half-filled with bones on the left, leaving the right side empty, whereas all shelves in the reference are densely filled.",
+        "The candidate has a spiderweb in the top-right interior corner, which is absent in the reference.",
+        "The candidate features only one row of five skulls across its upper shelf, while the reference features two full tiers containing double-stacked rows of skulls.",
+        "The bottom shelf of the candidate has open space underneath between the pillar feet, whereas the reference has a solid stone bottom sill connecting the base pillars."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/crypt/work/catacomb-shelf-bones--s2.try2.jpg",
+     "semantic": {
+      "what_i_see": "A three-tiered weathered stone shelf unit holding arranged skulls and stacks of bones, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A three-tiered weathered stone shelf unit holding arranged skulls and stacks of bones, isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The primary object is a miniature or stylized stone ossuary shelf unit (first guess: stone shelf/bookcase, second guess: dungeon catacomb niche). It consists of two thick vertical support pillars made of chiseled stone blocks, a back stone wall, and three horizontal stone shelves, plus an open top shelf space. A delicate white cobweb hangs in the upper-right corner of the top section. The first shelf holds a single row of five beige skulls facing forward. The middle shelf contains a pile of long bones stacked on the left side, leaving the right half empty. The bottom shelf is filled edge-to-edge with a stack of bones displaying knobby bone ends. The stone has a pitted, brownish-grey texture with sculpted cracks and beveled edges, while the bones are rendered in warm ivory and tan tones. The entire object is centered and uncropped. The background is a uniform flat royal blue with no visible floor or ground shadows.",
+       "reference_differences": [
+        "The candidate contains three main shelf compartments with an open top recess, whereas the reference has four fully utilized shelf compartments.",
+        "The candidate features a white spiderweb in the top right corner, which is absent in the reference.",
+        "The top shelf of the candidate holds a single row of five skulls, whereas the top shelf of the reference is densely packed with bones.",
+        "The middle shelf in the candidate is only half-filled with bones on the left side and empty on the right, whereas all shelves in the reference are completely filled across their entire width.",
+        "The skulls in the candidate are arranged in a single tier of 5, whereas the skull shelves in the reference contain two stacked rows of skulls (up to 12 skulls per shelf compartment).",
+        "The reference alternates layers consistently (bones, skulls, bones, skulls), while the candidate features skulls on top, half-shelf bones in the middle, and full-shelf bones on the bottom."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.604,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9964,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8591,
+   "tokens_out": 4730,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

@@ -1,0 +1,15 @@
+The supplied image is the first version of this kind of object (marble fireplace). Make a SECOND, clearly different design of the same kind of object that would stand in the same room: the SAME materials, colours, level of ornament, painting style and camera angle, but a different shape as described below.
+
+Create a single asset in the Turnip Works house style (heroic hand-painted): a dark green marble chimneypiece with a carved overmantel panel.
+
+Geometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.
+Finish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.
+Palette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.
+Avoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.
+
+Presentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.
+
+Specific design: The same massing (a chimneypiece below, an overmantel of the same width above, flat-backed, the same height), but: the chimneypiece is deep moss-green marble with cream veins, with plain square jambs and a frieze of three carved rosettes; the overmantel is NOT a mirror but a tall dark oak panel in a thick carved oak frame, holding a carved oval wreath of leaves in relief. The firebox is empty, lined with dark sooty brick. Nothing on the mantel shelf. Real-world size about 72 in wide x 24 in deep x 108 in tall: keep these proportions. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, flowers, china or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.
+
+
+Corrections from a rejected previous attempt (fix these): Materials and colors do not match the reference fireplace (expected pale cream marble and gilded gold instead of green marble and brown wood)

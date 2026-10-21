@@ -1,0 +1,60 @@
+<!doctype html>
+<meta charset="utf-8"><title>Computed roofs (demo)</title>
+<style>html,body{margin:0;height:100%;background:#1d1f1a;color:#eee;font:14px system-ui}#ui{position:fixed;left:12px;top:12px;display:flex;gap:6px;z-index:2}button{font:inherit;padding:6px 10px;border-radius:6px;border:1px solid #555;background:#2a2c26;color:#eee;cursor:pointer}button.on{background:#d9a441;color:#111}canvas{display:block}</style>
+<div id="ui"></div>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<script type="module">
+// Standalone demo of engine/client/roofs.js: a few building shapes with plain box walls. Not the game.
+//   ?style=thatch|tile|slate|shingle|flat   &seed=N   &kind=gable|hip   &view=table|top|low
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { planRoofs, buildRoof, propStandIns, loadRoofTextures, ROOF_STYLES } from '../../engine/client/roofs.js';
+import { cellsOf } from '../../engine/core/footprint.js';
+
+const q = new URLSearchParams(location.search);
+const S = { style: q.get('style') || 'thatch', seed: +(q.get('seed') || 3), kind: q.get('kind') || 'gable', view: q.get('view') || 'table' };
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); renderer.setSize(innerWidth, innerHeight); renderer.setPixelRatio(1); renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color('#aab7c2');
+const camera = new THREE.PerspectiveCamera(38, innerWidth / innerHeight, 1, 2000);
+scene.add(new THREE.HemisphereLight('#fff4e0', '#5a5648', 1.5));
+const sun = new THREE.DirectionalLight('#fff1dc', 2.2); sun.position.set(-70, 140, 90); sun.target.position.set(80, 0, 40); sun.castShadow = true; sun.shadow.mapSize.set(4096, 4096); Object.assign(sun.shadow.camera, { left: -150, right: 150, top: 150, bottom: -150, near: 10, far: 500 }); sun.shadow.bias = -0.0005; scene.add(sun, sun.target);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(800, 800).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: '#66754a', roughness: 1 })); ground.receiveShadow = true; scene.add(ground);
+const controls = new OrbitControls(camera, renderer.domElement);
+
+// the buildings: rooms in 5-ft cells; y = floor height, top = wall top (floor + 9)
+const R = (id, building, x, z, w, d, more = {}) => ({ id, building, x, z, w, d, y: 0, top: 9, ...more });
+const ROOMS = [
+  R('cottage', 'A', 0, 0, 5, 3),                                                      // a plain rectangle
+  R('hall', 'B', 8, -1, 8, 4), R('wing', 'B', 10, 3, 3, 4),                           // a T: the wing dies into the hall
+  R('ell', 'C', 19, 0, 6, 6, { outline: [[0, 0], [6, 0], [6, 3], [3, 3], [3, 6], [0, 6]] }), // one L-shaped room
+  R('inn-ground', 'D', 0, 9, 8, 5), R('inn-upper', 'D', 0, 9, 5, 5, { y: 10, top: 19 }),   // two storeys, a smaller upper floor
+  R('row-1', 'E', 11, 10, 4, 4), R('row-2', 'E', 15, 10, 5, 4),                       // two rooms in a line: one ridge
+  R('tower', 'F', 23, 9, 3, 3, { style: 'flat', top: 19 }), R('lean', 'F', 26, 9, 3, 3), // a flat-topped tower with a low room beside it
+];
+const FIRES = [{ id: 'f1', x: 3, z: 7.5 }, { id: 'f2', x: 62, z: 2 }, { id: 'f3', x: 7, z: 67 }, { id: 'f4', x: 90, z: 58 }];
+const WALL = '#cfc4ad';
+const textures = loadRoofTextures(THREE, (cat) => `../../tools/spawn-tuner/assets/flat/${cat}.webp`, () => { window.texLoaded = (window.texLoaded || 0) + 1; });
+const world = new THREE.Group(); scene.add(world);
+function build() {
+  world.clear();
+  const rooms = ROOMS.map(r => ({ seed: S.seed, kind: S.kind, style: S.style, ...r }));
+  for (const r of rooms) for (const [i, j] of cellsOf(r)) { const y0 = r.y ? r.y - 1 : 0; // box walls: a block per cell from the floor (an upper storey: from its slab) to the wall top
+    const m = new THREE.Mesh(new THREE.BoxGeometry(5, r.top - y0, 5), new THREE.MeshStandardMaterial({ color: WALL, roughness: 0.95 })); m.position.set((r.x + i) * 5 + 2.5, (r.top + y0) / 2, (r.z + j) * 5 + 2.5); m.castShadow = m.receiveShadow = true; world.add(m);
+  }
+  const plan = window.plan = planRoofs(rooms, { fires: FIRES, has: () => false });
+  for (const roof of plan.roofs) { world.add(buildRoof(roof, { THREE, textures, wallColor: WALL })); world.add(propStandIns(roof, { THREE })); }
+  window.stats = { roofs: plan.roofs.length, planes: plan.roofs.reduce((n, r) => n + r.planes.length, 0), props: plan.roofs.flatMap(r => r.props.map(p => p.role)) };
+}
+function ui() {
+  const el = document.getElementById('ui'); el.innerHTML = '';
+  const btn = (label, on, fn) => { const b = document.createElement('button'); b.textContent = label; if (on) b.className = 'on'; b.onclick = () => { fn(); build(); ui(); }; el.appendChild(b); };
+  for (const [k, v] of Object.entries(ROOF_STYLES)) btn(v.label, S.style === k, () => { S.style = k; });
+  btn(S.kind === 'hip' ? 'Hip' : 'Gable', false, () => { S.kind = S.kind === 'hip' ? 'gable' : 'hip'; });
+  btn(`Re-roll trim (seed ${S.seed})`, false, () => { S.seed++; });
+}
+const VIEWS = { table: [[72, 95, 165], [72, 6, 35]], top: [[72, 230, 36], [72, 0, 35]], low: [[-30, 30, 120], [60, 10, 30]] };
+camera.position.set(...VIEWS[S.view][0]); controls.target.set(...VIEWS[S.view][1]); controls.update();
+build(); ui();
+addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); });
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); window.nFrames = (window.nFrames || 0) + 1; });
+</script>

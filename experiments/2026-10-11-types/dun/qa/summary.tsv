@@ -1,0 +1,76 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+adventurer-remains	accept	-	fallen knight remains	0.95	0.0	0	0	2.88x5.83x1.65	34x70x16	1.02	1.23	prop	1	underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)
+adventurer-remains--s2	accept	-	dead adventurer remains	0.85	0.0	0	0	2.48x3.33x2.31	36x40x30	1.21	1.08	prop	1	underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)
+armor-chainmail-heap	accept	-	pile of armor	0.4	0.0	0	0	1.45x2.17x1.06	26x22x9	1.26	1.41	prop	1	
+ball-and-chain	accept	-	ball and chain	0.95	0.0	0	0	1.67x0.56x0.56	20x14x10	2.07	1.48	prop	1	footprint proportion 2.07x off the catalog (1.7 x 0.6 ft) | height proportion 1.48x off the catalog | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: Chain and shackle are laid out straight rather than curved, giving a narrower footprint than catalog proportion
+bed-cell-stone	accept	-	stone cell bed	0.95	0.0	0	0	2.63x6x2.21	30x72x18	1.05	1.48	prop	1	height proportion 1.48x off the catalog | gemini note: slightly taller than catalog proportions
+block-sliding	accept	-	puzzle block	0.95	0.0	0	0	4.5x4.5x4.48	54x54x54	1.0	1.0	prop	1	
+boulder-rolling	accept	-	boulder	0.9	0.0	0	0	4.99x4.99x5	60x60x60	1.0	1.0	prop	1	
+bridge-plank-rickety	accept	-	rickety wooden bridge plank walkway	0.9	0.0	0	0	3.14x14.17x0.99	40x170x14	1.06	1.18	prop	1	
+bridge-stone-slab	accept	-	stone slab footbridge	0.95	0.0	0	0	3.98x14.17x2.57	60x170x30	1.26	1.03	prop	1	
+carcass-ribcage	accept	-	animal carcass	0.95	0.0	0	0	3.89x7.5x2.53	50x90x40	1.07	1.32	prop	1	gemini note: unusual bone structure resembling a skull or pelvis at the opposite end of the spine
+ceiling-slab-fallen	accept	-	fallen stone ceiling slab	0.85	0.0	0	0	5.68x7.5x1.56	70x90x26	1.03	1.39	prop	1	
+chain-pile	accept	-	pile of chain	0.45	0.0	0	0	1.83x1.76x0.75	22x22x9	1.04	1.0	prop	1	gemini note: Chain links are fused into solid tubular segments rather than distinct interlocking rings with open centers
+chair-interrogation	accept	-	electric chair	0.95	0.0	0	0	3.04x2.89x4.67	30x30x56	1.05	1.22	prop	1	gemini note: bolted metal baseplate at base
+chasm-post-pair	accept	-	wooden post with rope	0.85	0.0	0	0	1.82x1.65x3.67	20x20x44	1.1	1.09	prop	1	
+chest-treasure-open	accept	-	open treasure chest overflowing with gold	0.98	0.0	0	0	3.12x2.71x3.33	40x30x40	1.16	1.07	prop	1	
+coin-pile--s2	accept	-	pile of gold coins with money sacks	0.95	0.0	0	0	2.49x2.5x1.19	30x30x12	1.0	1.19	prop	1	
+collapse-rubble	accept	-	collapsed rubble pile	0.85	0.079	0	0	7.95x9.17x7.26	110x70x80	1.36	1.09	prop	1	underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: minor tiny rock fragments near edges appear almost detached
+collapse-rubble--s2	accept	-	rubble pile	0.9	0.0	0	0	5x4.94x3.4	60x60x60	1.01	1.47	prop	1	height proportion 1.47x off the catalog | gemini note: height is slightly squatter than catalog ratio (3.4 ft tall vs 5.0 ft footprint)
+column-drums-fallen	accept	-	fallen column	0.95	0.0	0	0	3.25x8.33x1.85	36x100x34	1.08	1.53	prop	1	height proportion 1.53x off the catalog | gemini note: height slightly squatter than catalog target but reads cleanly as fallen column drums
+crate-floating	accept	override: supervisor: sound mesh, reads as a floating crate and barrel (Gemini 0.95). The 'puddle base' Gemini objects to is the flat green scum patch the design asks for (the piece sits on the water plane, cut flat at the waterline). (was reroll-plate: gemini: Violates must-not: includes a visible water/puddle base around the objects instead of being joined only by scum)	floating wooden crate and barrel	0.95	0.017	0	0	3.33x2.27x1.03	40x36x14	1.32	1.14	prop	1	gemini note: Observer identified an extra puddle-shaped water base with floating leaves
+door-cell-bars--leaf	accept	-	prison cell barred door	0.95	0.0	0	0	4.16x0.74x7	40x5x84	1.42	1.25	prop	1	
+door-face-carved--leaf	accept	-	carved stone door	0.9	0.0	0	0	3.98x1.99x7.5	44x8x90	2.75	1.09	prop	1	footprint proportion 2.75x off the catalog (4.0 x 2.0 ft) | gemini note: slab is thicker than catalog footprint specification but reads cleanly at table distance
+door-rune-sealed--leaf	accept	-	stone door leaf	0.85	0.0	0	0	4.27x1.66x7.5	44x8x90	2.13	1.16	prop	1	footprint proportion 2.13x off the catalog (4.3 x 1.7 ft) | gemini note: slab is slightly thicker than catalog reference but within tabletop tolerances
+dun-treasure-hoard	accept	-	treasure hoard	0.95	0.0	0	0	7.99x8x2.79	96x96x36	1.0	1.07	prop	1	
+eggs-monster	accept	-	alien egg cluster	0.9	0.005	0	0	2.5x2.49x1.25	30x26x18	1.15	1.2	prop	1	
+fountain-skull	accept	-	skull fountain	0.95	0.007	0	0	3.27x1.92x4.17	36x24x50	1.13	1.09	prop	1	gemini note: Greenish slime or residue texture visible dripping from the skull jaw into the basin
+gibbet-cage	accept	-	gibbet cage	0.9	0.0	0	0	3.51x3.51x7	34x34x84	1.0	1.24	prop	1	
+gold-bars	accept	-	stack of gold bars	0.95	0.0	0	0	2.5x2.04x1.38	30x20x14	1.22	1.18	prop	1	
+lever-floor	accept	-	floor lever	0.95	0.0	0	0	1.83x3.33x3.22	16x22x40	1.32	1.88	prop	1	height proportion 1.88x off the catalog | gemini note: Base footprint is slightly elongated compared to catalog proportions, but reads clearly at table distance
+mimic-chest	accept	-	mimic chest	0.95	0.0	0	0	3.17x2.26x2.74	38x26x34	1.04	1.04	prop	1	
+mushroom-cave-giant	accept	-	giant mushroom cluster	0.95	0.0	0	0	4x3.91x3.77	36x36x48	1.02	1.41	prop	1	gemini note: base mound bordered by small stones
+nest-monster	accept	-	monster nest	0.95	0.0	0	0	8.3x8.33x2.69	100x100x30	1.0	1.08	prop	1	
+obelisk-rune	accept	override: supervisor: sound mesh, reads as a runic obelisk at table distance (Gemini 0.95). The runes are PAINTED bright ochre-gold, which Gemini calls glowing; nothing is emissive. Table-scale rule: not a silhouette, parts or garbage failure. No re-plate possible (Codex quota). Integration: do not add a rune light on top, or accept that it looks already lit. (was reroll-plate: gemini: carved runes are glowing orange-gold, violating the must-not requirement)	runic obelisk	0.95	0.0	0	0	3.11x3.1x7.5	28x28x90	1.0	1.33	prop	1	
+offering-bowl	accept	-	offering bowl	0.7	0.0	0	0	1.33x1.33x0.6	16x16x8	1.0	1.1	prop	1	
+orb-socket-pedestal	accept	-	pedestal with orb	0.95	0.0	0	0	1.32x1.32x3.5	20x20x42	1.0	1.27	prop	1	
+pillar-broken	accept	-	broken classical column	0.95	0.0	0	0	2.56x2.56x5	34x34x60	1.0	1.11	prop	1	
+pillar-flooded	accept	-	stone pillar	0.95	0.004	0	0	3.58x3.58x8.33	30x30x100	1.0	1.43	prop	1	
+pressure-plate	accept	-	pressure plate	0.95	0.001	0	0	2.5x2.5x0.47	30x30x4	1.0	1.4	prop	1	
+pressure-plate--s2	accept	-	pressure plate	0.95	0.0	0	0	2.5x2.5x0.47	30x30x4	1.0	1.4	prop	1	
+puzzle-dial-pillar	accept	-	puzzle dial pillar	0.85	0.013	0	0	2.82x2.82x5	24x24x60	1.0	1.41	prop	1	
+rubble-pile	accept	-	rubble pile	0.95	0.0	0	0	4.67x4.35x1.71	56x50x24	1.04	1.17	prop	1	
+rubble-pile--s2	accept	-	rubble pile	0.95	0.0	0	0	3x2.72x1.22	36x30x14	1.09	1.05	prop	1	underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: underside slightly cantilevered or uneven contact with floor
+sewer-debris-clog	accept	-	trash pile	0.8	0.0	0	0	4.67x4.67x1.44	56x50x24	1.12	1.39	prop	1	
+sewer-grate	accept	-	sewer grate	0.88	0.009	0	0	3.67x0.68x3.28	44x10x44	1.23	1.12	prop	1	
+sewer-pipe-mouth	accept	-	sewer pipe segment	0.85	0.023	0	0	4.49x4.06x5	60x30x56	1.81	1.19	prop	1	footprint proportion 1.81x off the catalog (4.5 x 4.1 ft) | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: footprint proportion slightly squarer than catalog specification
+shoring-timber	accept	-	mine shoring timber	0.95	0.0	0	0	7.94x2.41x8.33	60x20x100	1.1	1.59	prop	1	height proportion 1.59x off the catalog | gemini note: slightly squarer aspect ratio than catalog proportion
+shrine-wayside	accept	-	wayside shrine	0.85	0.0	0	0	3.42x1.85x7	44x24x84	1.01	1.07	prop	1	
+silver-plate-pile	accept	-	pile of silver dishes	0.85	0.0	0	0	2.33x2.04x1.46	28x24x16	1.02	1.09	prop	1	1 separate piece(s) standing on the floor (3%) | gemini note: minor mesh intersection between touching tableware items
+skeleton-chained	accept	-	chained skeleton on stone pillar	0.95	0.01	0	0	2.28x2.32x5.5	26x14x66	1.83	1.07	prop	1	footprint proportion 1.83x off the catalog (2.3 x 2.3 ft) | gemini note: Footprint is slightly deeper than catalog estimate due to the stepped seat and forward-projecting feet, but proportions remain tall and readable.
+sluice-wheel	accept	-	sluice gate	0.95	0.0	0	0	4.96x2.01x5	50x20x60	1.01	1.19	prop	1	
+stalagmite	accept	-	stalagmite	0.85	0.0	0	0	4.06x3.85x4.5	34x34x54	1.06	1.43	prop	1	
+stalagmite--s2	accept	-	stalagmite	0.85	0.0	0	0	2.5x1.97x2.41	26x26x30	1.27	1.2	prop	1	
+statue-forgotten-god	accept	-	seated stone statue holding a bowl	0.95	0.0	0	0	4.64x4.57x8	44x44x96	1.02	1.27	prop	1	
+statue-guardian	accept	-	stone knight statue	0.98	0.0	0	0	3.33x3.01x7.5	36x30x90	1.09	1.11	prop	1	
+statue-guardian--s2	accept	-	minotaur statue	0.95	0.0	0	0	3.37x3.09x7.5	36x30x90	1.1	1.12	prop	1	
+statue-rotating	accept	-	hooded wizard statue	0.95	0.0	0	0	3.6x3.63x6.5	32x32x78	1.01	1.36	prop	1	
+statue-rotating--s2	accept	-	knight statue	0.95	0.003	0	0	3.67x3.65x6.5	32x32x78	1.0	1.37	prop	1	
+stepping-pillar	accept	-	rock stepping stone	0.85	0.0	0	0	3.33x3.28x1.41	40x40x24	1.02	1.42	prop	1	
+strongbox-stack	accept	-	stack of strongboxes	0.95	0.0	0	0	3.67x2.25x3.64	40x30x44	1.22	1.11	prop	1	
+table-torture-tools	accept	-	workbench with tools	0.85	0.0	0	0	5x2.82x3.06	60x28x36	1.21	1.02	prop	1	
+trap-bear	accept	-	bear trap	0.95	0.0	0	0	2.5x2.31x0.44	30x30x10	1.08	1.87	prop	1	height proportion 1.87x off the catalog | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)
+trap-blade	accept	-	swinging blade trap	0.95	0.0	0	0	6.63x1.67x8	66x20x96	1.2	1.21	prop	1	
+trap-crossbow	accept	-	mounted crossbow trap	0.95	0.0	0	0	2.72x2.83x1.94	26x34x34	1.26	1.46	prop	1	height proportion 1.46x off the catalog | gemini note: slightly squatter than catalog target height
+trap-dart-wall	accept	-	dart trap wall	0.85	0.0	0	0	5.68x2.07x7	56x10x84	2.04	1.22	prop	1	footprint proportion 2.04x off the catalog (5.7 x 2.1 ft) | gemini note: footprint slightly thicker than catalog ratio but well within tabletop tolerance
+trap-flame-jet	accept	-	dragon head flame trap	0.85	0.005	0	0	2x1.99x1.92	24x24x16	1.01	1.44	prop	1	
+trap-spike-pit	accept	-	spike pit trap	0.95	0.0	0	0	4.83x4.83x1.18	58x58x12	1.0	1.18	prop	1	
+trap-spikes	accept	-	spike trap	0.95	0.0	0	0	4.67x4.67x1.4	56x56x22	1.0	1.31	prop	1	
+vault-shelf-treasure	accept	-	treasure shelf	0.95	0.0	0	0	4.49x2.02x6.5	56x18x78	1.4	1.04	prop	1	
+wall-doorway--cut-rock	accept	-	stone doorway	0.95	0.0	0	0	4.99x1.47x9	60x12x108	1.48	1.0	wall	1	wall door: w:h 0.55, depth:h 0.16, largest opening 60% x 76%, filled 56% | gemini note: Post-and-lintel style facets rather than raw cavern rock face, but reads clearly as an open stone portal at table distance
+wall-straight--cut-rock	accept	-	stone wall segment	0.95	0.0	0	0	4.72x1.88x9	60x12x108	1.99	1.06	wall	1	wall solid: w:h 0.53, depth:h 0.21, largest opening 0% x 0%, filled 100%
+wall-straight--cut-rock--s2	accept	-	stone wall segment	0.95	0.0	0	0	4.81x1.71x9	60x12x108	1.78	1.04	wall	1	wall solid: w:h 0.53, depth:h 0.19, largest opening 0% x 0%, filled 98%
+wall-straight--cut-rock--s3	accept	-	stone wall segment	0.9	0.0	0	0	4.97x1.36x9	60x12x108	1.36	1.01	wall	1	wall solid: w:h 0.55, depth:h 0.15, largest opening 0% x 0%, filled 100% | gemini note: painted soot marks above niche and moss at base
+web-cocoon	accept	-	web-wrapped cocoon figure	0.85	0.0	0	0	3.29x3.29x5.5	26x26x66	1.0	1.52	prop	1	height proportion 1.52x off the catalog | gemini note: base web pooling makes footprint wider than catalog proportion but matches requested clump of web
+web-cocoon--s2	accept	-	wrapped corpse	0.85	0.0	0	0	5x1.71x1.15	60x26x24	1.27	1.74	prop	1	height proportion 1.74x off the catalog | gemini note: height is slightly flatter than catalog target but realistic for a prone wrapped figure
+whipping-post	accept	-	whipping post	0.9	0.0	0	0	1.52x1.57x6.67	16x16x80	1.03	1.18	prop	1	

@@ -1,0 +1,166 @@
+{
+ "file": "town-dwarf-priest.glb",
+ "tris": 47695,
+ "kb": 2861,
+ "native_extent": [
+  0.618,
+  1.001,
+  0.593
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  114,
+  71,
+  50
+ ],
+ "mean_saturation": 0.609,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 4.7,
+  "length_ft": 4.8,
+  "low_end_ft": [
+   -1.0,
+   0.17,
+   -0.24
+  ],
+  "high_end_ft": [
+   -0.96,
+   4.97,
+   -0.24
+  ],
+  "tilt_from_upright_deg": 0.6,
+  "thickness_ft": 0.29,
+  "clear_share": 0.62,
+  "joined_share": 0.38,
+  "broken_share": 0.0,
+  "walk_low_to_high": "---#------------------####--########-----------##########----"
+ },
+ "overall_ft": 5.01,
+ "pieces": {
+  "connected_parts": 22,
+  "main_part_area_share": 0.9999,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.0098,
+ "y0": -2.5096,
+ "stated_ft": {
+  "body": 4.5,
+  "figure_top": 4.95,
+  "overall": 4.95
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3096,
+   -0.5009,
+   -0.2927
+  ],
+  [
+   0.308,
+   0.4998,
+   0.3
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47695,
+   "tex": 2048,
+   "kb": 2861
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1098
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 479
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.55,
+    "z": -0.74,
+    "size_ft": [
+     1.32,
+     1.44
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.62,
+    "sole_p90_ft": 0.271
+   },
+   {
+    "x": 0.89,
+    "z": 0.73,
+    "size_ft": [
+     0.81,
+     1.38
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.082
+   },
+   {
+    "x": -0.32,
+    "z": 0.35,
+    "size_ft": [
+     0.71,
+     0.9
+    ],
+    "off_ground_ft": 0.415,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.447
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.415,
+  "lowest_slab_area_sqft": 1.54,
+  "plan_hull_area_sqft": 5.59,
+  "lowest_slab_share_of_plan": 0.275
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.09,
+   "d": 2.97,
+   "h": 5.01
+  },
+  "centre": [
+   0.108,
+   0.128
+  ],
+  "contacts_radius_ft": 1.55,
+  "reach_radius_ft": 1.77,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.937,
+  "plate_lost_share": 0.01,
+  "added_share": 0.057,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.937,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "town-dwarf-priest",
+ "sha1": "54d0737c1d5241a2f6517f83c7ec68a964e3f2c0",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.41 ft off the ground"
+ ],
+ "qa_seconds": 13.7
+}

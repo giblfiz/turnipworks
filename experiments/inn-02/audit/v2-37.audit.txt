@@ -1,0 +1,6 @@
+#1 semantic=PASS mask=PASS — Matches prompt; clean mask.
+#2 semantic=PASS mask=FAIL — Matches prompt; mask leaves blue between legs.
+#3 semantic=FAIL mask=PASS — Lacks gaps between boards; clean mask.
+#4 semantic=PASS mask=FAIL — Matches prompt; mask leaves blue inside rope handle.
+#5 semantic=PASS mask=FAIL — Matches prompt; mask leaves blue between legs.
+#6 semantic=PASS mask=FAIL — Matches prompt; mask leaves blue between leaves.

@@ -1,0 +1,12 @@
+The image is a contact sheet. Each numbered row shows ONE 3D object (a game prop for a fantasy tavern) rendered from four horizontal directions, tiles A, B, C, D. Going A -> B -> C -> D the camera walks once around the object in 90-degree steps, always at the same slight height above it, looking at it. The brown disc is the floor it stands on.
+
+Describe each row on its own, from what you see. Do not guess from what a tavern usually contains.
+
+For each row report:
+1. "object": what the object is, in a few words.
+2. "pose": how it rests on the floor: "upright" (resting the way it normally would), "on_side" (tipped over / lying on a side that is normally vertical), "upside_down", "fragmented" (broken into floating pieces, holes, melted, or not a coherent object), or "unclear".
+3. "front": which tile looks most directly at the object's FRONT: the side a person faces when they use it, or that would face into the room if it stood against a wall. Examples: doors or drawers; the open side of shelving; the side you sit down from on a chair; the foot end of a bed (opposite its headboard); the decorated or display face of something that hangs on a wall; the spout side is NOT a front. Answer "A", "B", "C" or "D"; if the front is halfway between two tiles answer both, like "A/B"; answer "none" if the object has no distinct front (round, or identical on opposite sides, e.g. a plain bench or plain table).
+4. "why": one short phrase naming the feature that marks the front.
+5. "conf": your confidence in "front" from 0 to 1.
+
+Reply with JSON only: a list of objects with keys row, object, pose, front, why, conf.

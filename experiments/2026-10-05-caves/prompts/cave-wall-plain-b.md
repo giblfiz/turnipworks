@@ -1,0 +1,15 @@
+Create a new single asset in the Turnip Works house style (heroic hand-painted): wide section of natural cave wall, plain bulging face.
+
+The supplied image is ANOTHER PIECE OF THE SAME SET, already made. The new piece must be the SAME rock: the same grey-brown limestone colours, brightness and saturation, the same amount of moss, the same painting style, the same size of bulges and cracks, the same lighting and the same camera angle, so that the two pieces placed side by side look like one continuous rock wall. It is a DIFFERENT shape, described below; do not copy the reference's silhouette.
+
+Geometry: one solid, chunky, fused mass of rock with broad soft shapes: big rounded bulges and blocky facets, a few deep chunky cracks; no gravel, no thin spikes, no fragile parts, nothing hanging in mid-air. Every part thick enough to reconstruct as 3D geometry.
+Material: grey-brown limestone cave rock (warm grey with brown and ochre staining), slightly damp, with a little dull green moss only near the bottom. The same rock all over, no other materials.
+Finish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte.
+Avoid: stalactites or stalagmites as separate spikes, crystals, mushrooms, plants other than a little moss, water, torches, bones, built masonry or bricks, people, animals; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, black outlines, hard cel-shading bands, comic inking, flat vector art, text, logos.
+
+Presentation for image-to-3D: exactly one complete asset, centered, three-quarter view from the front-left and slightly above, so the FRONT face, one SIDE and a little of the TOP are all clearly visible and evenly lit; clear space around every edge; perfectly uniform solid chroma-blue background, no horizon, no sky, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no additional loose objects. The blue background is a removable mask and must not reflect blue light onto the asset.
+
+Specific design: A wall-height mass of natural limestone, WIDER than the reference: about 8 ft wide, 9 ft tall and 4 ft deep. The front face is made of big overlapping rounded rock bulges stacked like risen dough, with horizontal bedding lines running across it and one deep diagonal crack. The top is uneven and roughly level. Both side ends are rounded rock. This is a single freestanding piece of terrain, like a wargaming scenery model of a section of cave wall: its underside is perfectly FLAT and it stands directly on the ground. NO base slab, NO plinth, NO floor, NO ground around it. The BACK is rougher and roughly flat (it will be pushed against solid rock and never seen). Keep the WHOLE object well inside the frame with a generous margin.
+
+
+Corrections from a rejected previous attempt (fix these): Appears as a built wall of 25 to 30 stacked, interlocking stone blocks/boulders rather than a single solid mass of natural cave rock with a bulging, layered front

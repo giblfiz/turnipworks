@@ -1,0 +1,527 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "slope-corner-out": {
+   "id": "slope-corner-out",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-corner-out.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric 3D video game terrain tile depicting a curving grassy slope with a rocky, vertical cliff face on the left, floating against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric 3D video game terrain tile depicting a curving grassy slope with a rocky, vertical cliff face on the left, floating against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one isolated object: an isometric grassy slope terrain tile (second guess: stylized 3D environment asset). The object features a sloping upper surface covered with painted green grass tufts that sweeps downwards from an elevated back-left corner towards a curved lower edge on the bottom-right. The exposed vertical left and rear walls consist of brown earth or clay embedded with roughly eight visible rounded, light brown-gray stones/boulders. The grass edge slightly overhangs the cliff faces with a jagged fringe. The object is completely contained within the frame without cropping. The background is a flat, uniform, saturated blue with no shadows or floor contact. No people or other scenery are present.",
+       "reference_differences": [
+        "The candidate image displays a 3D isometric terrain model with geometry, depth, dirt cliff walls, and embedded stones, whereas the reference image is a flat, 2D seamless grass texture filling the entire frame.",
+        "The candidate image is isolated against a solid blue background, while the reference has no background and consists entirely of grass.",
+        "The grass in the candidate is mapped onto a curving, sloped surface with shading and distinct rim boundaries, whereas the reference grass is evenly lit and uniform across the surface."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4268,
+      "soft": 0.0087,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9889,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5436,
+   "tokens_out": 1791,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-bank-10": {
+   "id": "slope-bank-10",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-bank-10.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric digital illustration of a grassy slope terrain tile on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric digital illustration of a grassy slope terrain tile on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single three-dimensional object: an isometric wedge-shaped terrain block or ramp (second guess: a stylized landscape tile for a video game). It consists of a top flat platform covered in green grass, a long inclined ramp covered in green grass embedded with several grey/tan stones, and vertical cutaway sides showing brown layered soil embedded with rounded rocky chunks. The object is complete, uncropped, and centered. The background is a flat, uniform, bright saturated blue with no shadows or floor contact shown. No people are present.",
+       "reference_differences": [
+        "The candidate image displays a 3D isometric ramp block set against a solid blue background, whereas the reference image is a flat, edge-to-edge 2D grass texture with no background.",
+        "The candidate block includes brown soil cross-section cutaways and embedded grey rocks, which are entirely absent in the pure green grass texture of the reference image.",
+        "The candidate incorporates 3D geometry, perspective, and height elevation, unlike the flat, planar top-down appearance of the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4853,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5387,
+   "tokens_out": 1428,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-bank-5": {
+   "id": "slope-bank-5",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-bank-5.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D isometric grassy ramp tile with an exposed earthy cliff side, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D isometric grassy ramp tile with an exposed earthy cliff side, isolated against a solid blue background.",
+       "details": "There is no text, watermarks, or labels present. The image contains one single object: an isometric grassy terrain wedge or ramp (second guess: a miniature game tile). It features a sloped top surface covered in dense green grass with roughly three to four scattered flat stones, a small level grassy landing at the summit, and a vertical exposed right side composed of brown soil containing about six rounded, greyish-brown embedded rocks of varying sizes. The block is rendered as a clean, complete object fully contained inside the frame without cropping. The background is a completely solid, uniform, vibrant blue screen with no shadows cast onto it and no other scenery or people.",
+       "reference_differences": [
+        "The candidate shows a 3D isometric terrain block isolated on a flat blue backdrop, whereas the reference is a full-frame 2D planar texture.",
+        "The candidate includes an exposed vertical dirt cliff side with embedded stones, which is entirely absent in the reference.",
+        "The candidate contains individual stones and pebbles scattered across the grass, whereas the reference consists solely of uniform grass blades.",
+        "The candidate features an inclined surface with 3D isometric perspective, while the reference is completely flat and overhead."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4265,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5401,
+   "tokens_out": 1533,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-ramp-path": {
+   "id": "slope-ramp-path",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-ramp-path.try1.jpg",
+     "semantic": {
+      "what_i_see": "A sloped, isometric 3D section of grassy terrain featuring a dirt path with embedded stepping stones and rocky cliff edges against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A sloped, isometric 3D section of grassy terrain featuring a dirt path with embedded stepping stones and rocky cliff edges against a solid blue background.",
+       "details": "The image displays a single isolated 3D environmental terrain asset oriented diagonally from the lower left to the upper right. It consists of an inclined grassy ramp with a winding dirt/earth path running down the middle. Several flat, irregularly shaped stepping stones (around four main groups) are embedded into the dirt path. The sides of the path are lined with lush green grass. On the right side and partly on the left, the terrain drops off into vertical, chiseled rock/cliff faces painted in shades of grey and beige with subtle mossy edges. The entire terrain model is fully contained within the frame with no parts cut off. There are no text labels, watermarks, people, or other scenery. The background is a solid, completely uniform royal blue chroma-key color.",
+       "reference_differences": [
+        "The candidate is a fully modeled 3D sloped terrain block with perspective, while the reference is a flat, 2D top-down grass texture.",
+        "The candidate features a winding brown dirt pathway with grey stepping stones down the center, whereas the reference contains only grass.",
+        "The candidate has vertical rock cliff faces along its sides, which are not present in the reference.",
+        "The candidate is isolated against a solid vivid blue background, whereas the reference covers the entire frame from edge to edge."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4142,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9926,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5420,
+   "tokens_out": 3955,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-mound": {
+   "id": "slope-mound",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-mound.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, dome-shaped mound of green grass with three small rocks resting on its upper slope, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, dome-shaped mound of green grass with three small rocks resting on its upper slope, set against a solid blue background.",
+       "details": "There is no text, label, or watermark in the image. The image features a single standalone object: a gently sloping, circular grassy mound or small hillock. Embedded near the upper-right crest of the mound is a cluster of three faceted, brownish-grey rounded rocks (one larger, two smaller). The surface of the mound is covered in hand-painted, stylized green grass featuring varied shades of chartreuse, olive, and bright green, fading into a thin, ragged ring of exposed brown earth along the circular lower rim. The entire mound is visible and not cropped. The background is a completely uniform, flat, saturated solid blue without cast shadows or ground planes.",
+       "reference_differences": [
+        "The candidate depicts a three-dimensional curved mound viewed from an oblique perspective, whereas the reference is a flat, top-down rectangular grass texture.",
+        "The candidate includes three faceted stones resting on the grass, which are absent in the reference.",
+        "The candidate features a ragged outer boundary edged with brown dirt against a blue background, while the reference fills the entire frame with continuous grass.",
+        "The candidate exhibits three-dimensional shading and lighting across its curved surface, whereas the reference is uniformly lit across the pattern."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3061,
+      "soft": 0.0059,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9905,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 48
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5390,
+   "tokens_out": 1511,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-ledges": {
+   "id": "slope-ledges",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-ledges.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric view of a three-tiered, grass-topped cliff or rocky staircase against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric view of a three-tiered, grass-topped cliff or rocky staircase against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single separate object: a stepped terrain block or cliff formation with three distinct levels. It is presented in an isometric video-game art style. Each level consists of a flat top covered in vibrant yellow-green grass with fringed, tufted edges, supported by vertical faces of rounded, irregular rock boulders rendered in shades of beige, tan, and soft greyish-brown with subtle highlights and shadows. The right side of the structure shows earthy brown soil embedded with scattered stones. The object is complete and fully visible within the frame, not cropped. There are no legs, wheels, doors, or openable parts. The background is a flat, uniform solid bright blue with no floor plane or drop shadow.",
+       "reference_differences": [
+        "The candidate image displays a 3D isometric tiered cliff object on a plain blue background, whereas the reference image is a flat, full-frame seamless 2D texture of grass seen from a top-down view.",
+        "The grass on the candidate has a lighter, more yellowish-green and painted soft-gradient style with sculpted fringe borders, while the reference image has a darker, dense, uniform leafy green pattern covering the entire canvas.",
+        "The candidate contains stone, rock faces, and brown dirt sides, which are completely absent in the reference image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5615,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5443,
+   "tokens_out": 1248,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-outcrop": {
+   "id": "slope-outcrop",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-outcrop.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric video game terrain cube with a lush grass top, dirt sublayer, and layered stone block base isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric video game terrain cube with a lush grass top, dirt sublayer, and layered stone block base isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image contains a single floating object: an isometric cubic block of land or terrain tile (second guess: game environment building block). It consists of a square top surface densely covered in stylized vibrant green grass tufts that overhang the sides, resting on an exposed band of brown soil/earth, which is built atop stacked, roughly rectangular beige and tan stone blocks. The object is completely intact, centrally positioned, and not cropped. There are no doors, drawers, lids, or internal compartments. The background is a flat, uniform, vibrant chroma blue with no floor, scenery, or shadows cast.",
+       "reference_differences": [
+        "The candidate image depicts a three-dimensional isometric block featuring stone layers, dirt, and grass against a blue background, whereas the reference image is a flat, continuous 2D top-down texture consisting purely of grass.",
+        "The candidate displays multiple materials (stacked stone blocks, brown earth, and grassy fringe) while the reference displays only green grass across the entire frame.",
+        "The candidate's grass is rendered in perspective with tufts hanging over the block's rim, unlike the uniform orthographic pattern of the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5171,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 33
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5411,
+   "tokens_out": 1365,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-scree": {
+   "id": "slope-scree",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-scree.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isolated isometric game asset depicting a grassy, boulder-strewn rock cliff sloping downward to the right against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Depicts a tall rock cliff and steep vertical wall instead of a low sloping pile of boulders and rubble",
+       "Slopes from left to right rather than being noticeably higher at the back and thinning out toward the front"
+      ],
+      "blind": {
+       "what_i_see": "An isolated isometric game asset depicting a grassy, boulder-strewn rock cliff sloping downward to the right against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one isolated object: an isometric terrain chunk (best guess: game terrain tile/asset, second guess: miniature diorama model). The chunk features a steep vertical rock wall on the left, transitioning into a terraced slope descending to the lower right. It is composed of numerous rounded, faceted grey-brown boulders, patches of brown dirt, and clumps of vibrant green/yellow-green grass scattered across the steps and blanketing the lower plateau. No doors, lids, drawers, or mechanical parts are present. The object is completely contained within the frame with no cropping. The background is a solid, uniform vivid bright blue with no shadows or scenery.",
+       "reference_differences": [
+        "The candidate shows a three-dimensional isometric landmass with steep elevation changes, while the reference is an entirely flat, top-down surface.",
+        "The candidate contains prominent grey and brown rock formations, boulders, cliff faces, and exposed dirt patches, whereas the reference consists purely of green grass across the entire surface.",
+        "The candidate is an isolated terrain asset surrounded by a solid bright blue background, while the reference fills the entire canvas edge-to-edge without background or borders."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-slopes/work/slope-scree.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, sloping chunk of grassy and rocky terrain set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, sloping chunk of grassy and rocky terrain set against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one isolated object: a stylized grassy hill slope or terrain segment (best guess: a video game landscape asset; second guess: a floating island or diorama ground piece). The structure slopes downward from the upper-left to the lower-right, featuring a small sheer cliff-like edge on the upper-left and an uneven oval-like base. It is covered in painted bright green grass, patches of exposed light-brown dirt, and approximately twenty embedded light-tan to grayish-brown faceted boulders of varying sizes. There are no doors, drawers, lids, or moving parts. The object is rendered with hand-painted stylized textures and is completely visible, uncropped by the frame. The background is a flat, uniform, bright saturated blue with no cast shadows or ground surface.",
+       "reference_differences": [
+        "The candidate depicts a 3D sloping mound of terrain with perspective, whereas the reference is a flat, seamless 2D texture.",
+        "The candidate contains numerous tan/gray rocks and patches of exposed dirt, while the reference displays only continuous green grass.",
+        "The candidate is an isolated object framed against a solid bright blue background, whereas the reference completely fills the frame with a repetitive texture pattern."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4178,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9967,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 50
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8438,
+   "tokens_out": 2950,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-corner-in": {
+   "id": "slope-corner-in",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-corner-in.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric 3D game tile depicting a grassy terrain depression with embedded rocks and exposed dirt cross-sections, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "The terrain is shaped as a central depression rather than an inside-corner bank that is high along two adjoining back edges and low at the opposite front corner."
+      ],
+      "blind": {
+       "what_i_see": "An isometric 3D game tile depicting a grassy terrain depression with embedded rocks and exposed dirt cross-sections, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single composite object: an isometric terrain tile or diorama block (second guess: an environment game asset). It is shaped as a square isometric prism with an internal concave slope or valley descending toward the center. The vertical sides display cutaway cross-sections of brown earth, packed dirt, and scattered small brown pebbles. The upper surface is covered in detailed green grass textures with varying yellow-green highlights. Several smooth, angular grey-brown boulders and rocks are embedded into both the left and right sloped banks. There are no moving parts, doors, drawers, or lids. The object is rendered with soft directional lighting and is completely visible, uncropped, floating against an entirely flat, uniform, bright blue background with no cast shadows.",
+       "reference_differences": [
+        "The candidate is a complete 3D isometric terrain block with elevation and cutaway sides, whereas the reference is a flat, borderless 2D grass texture.",
+        "The candidate contains multiple grey and brown stone boulders embedded in the terrain, which are entirely absent in the reference.",
+        "The candidate has vertical cross-sections exposing brown soil and embedded pebbles along its outer edges.",
+        "The candidate shows three-dimensional geometry with slopes, valleys, and lighting variations, while the reference depicts a uniform, flat surface.",
+        "The candidate is set against an empty, solid vibrant blue background, whereas the reference fills the entire frame."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-slopes/work/slope-corner-in.try2.jpg",
+     "semantic": {
+      "what_i_see": "An isometric 3D terrain tile featuring a grassy sloped depression and vertical earthen cutaway edges against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Does not feature two sloping grass faces meeting in a concave crease; instead has an upper grassy tier stepping down via vertical soil walls into a depression."
+      ],
+      "blind": {
+       "what_i_see": "An isometric 3D terrain tile featuring a grassy sloped depression and vertical earthen cutaway edges against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one isolated object: an isometric terrain tile or landscape block (second guess: a video game environment asset or miniature diorama cut). The block features a diamond-shaped footprint with an upper grassy tier stepping down via vertical soil walls into a sloped grassy depression. The top and sloped surfaces are covered in detailed green grass, while the vertical cut faces reveal reddish-brown dirt embedded with smooth, rounded tan stones. The object is whole and uncropped, centered on a completely uniform, saturated blue background with no shadows.",
+       "reference_differences": [
+        "The candidate depicts an isometric 3D terrain block with depth, geometry, and slopes, whereas the reference is a flat, borderless 2D texture map.",
+        "The candidate features exposed earthen cross-sections showing brown dirt and embedded stones, while the reference contains only grass.",
+        "The candidate floats centered against a solid bright blue backdrop, whereas the reference fills the entire frame edge-to-edge.",
+        "The candidate features directional light and shadowing across distinct angled faces, unlike the reference which is uniformly illuminated."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 3,
+     "plate": "experiments/2026-10-05-slopes/work/slope-corner-in.try3.jpg",
+     "semantic": {
+      "what_i_see": "An isometric square terrain block depicting a grassy slope and valley against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric square terrain block depicting a grassy slope and valley against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one primary object: an isometric 3D ground tile or terrain block (best name), alternatively described as a video game environmental asset. The tile features a concave, sloping green grassy surface that forms a funnel-like valley dipping down toward the lower front corner from elevated back edges. The cutaway front-left and front-right vertical faces expose brown dirt cross-sections studded with smooth, rounded grey stones, topped by tufts of hanging grass. The top surface is painted in various shades of vibrant green, lime, and yellow-green to represent grassy turf, with small grey rock outcrops emerging along the slope edges. The entire object is centered and fully visible without cropping, floating in front of a flat, uniform, bright blue background with no shadows or floor.",
+       "reference_differences": [
+        "The candidate is a three-dimensional isometric block featuring topography, depth, and vertical cutaway edges, whereas the reference is a completely flat, two-dimensional top-down texture.",
+        "The candidate contains exposed brown soil, grey rocks, and multiple levels of elevation, while the reference displays only uniform green grass blades with no soil or stones.",
+        "The candidate is isolated against a solid bright blue background, whereas the reference completely covers the entire frame edge-to-edge.",
+        "The candidate has directional lighting, highlights, and deep shadows within its sloping terrain valley, unlike the evenly lit, non-directional surface in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3468,
+      "soft": 0.0023,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9984,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 22
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 3,
+   "tokens_in": 11568,
+   "tokens_out": 6273,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "slope-ledges-2": {
+   "id": "slope-ledges-2",
+   "group": "kit",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-slopes/work/slope-ledges-2.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric two-tiered block of terrain featuring grass-covered top surfaces and stone cliff sides, isolated against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric two-tiered block of terrain featuring grass-covered top surfaces and stone cliff sides, isolated against a solid bright blue background.",
+       "details": "There is no text, watermark, or label present. The image shows a single isolated object: a two-tiered stepped terrain block or cliff ledge, shown from an elevated isometric perspective. It consists of two flat horizontal platforms\u2014an upper tier and a lower tier\u2014both covered in dense, tufted green grass that slightly overhangs the stone edges. The vertical walls beneath the grass are made of large, rounded, brownish-grey stones or boulders set into brown earth. The front-facing walls are mostly covered in stone blocks, while the right side shows stones embedded within exposed brown soil. There are no moving parts, doors, drawers, or lids. The entire object is fully contained within the frame with no cropping. The background is a flat, uniform, solid bright blue with no floor surface or cast shadows.",
+       "reference_differences": [
+        "The candidate depicts a 3D isometric stepped terrain block with stone walls against a blue background, whereas the reference is a flat, 2D texture completely filling the frame.",
+        "The candidate includes large rocky cliff faces, dirt walls, and three-dimensional depth, none of which appear in the reference.",
+        "The candidate has a solid bright blue background surrounding the object, whereas the reference has no background and consists entirely of grass.",
+        "The grass in the candidate forms stylized 3D tufts and overhanging fringes along the edges of the steps, unlike the uniform top-down grass pattern in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.55,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 8
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5516,
+   "tokens_out": 1545,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

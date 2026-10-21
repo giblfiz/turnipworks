@@ -1,0 +1,152 @@
+
+== default 32 frames 283.9 ms/frame
+ -- by_stack_of_files
+     217.82 ms   76.7%  main.js > index.js > lighting.js > postprocessing-6.39.5.js
+      15.22 ms    5.4%  (program)
+       8.90 ms    3.1%  main.js > world.js
+       7.70 ms    2.7%  main.js > world.js > atmos.js
+       5.56 ms    2.0%  main.js > labels.js
+       4.83 ms    1.7%  main.js > cut.js
+       4.14 ms    1.5%  main.js > world.js > fire.js > three.quarks-0.16.0.js
+       3.49 ms    1.2%  main.js > world.js > atmos.js > three.quarks-0.16.0.js
+       3.46 ms    1.2%  main.js > world.js > settle.js
+       3.39 ms    1.2%  main.js > world.js > water.js
+       1.53 ms    0.5%  main.js > world.js > fire.js
+       1.51 ms    0.5%  main.js > world.js > height.js
+       1.43 ms    0.5%  main.js > world.js > lighting.js > index.js
+       1.39 ms    0.5%  main.js > world.js > settle.js > three-mesh-bvh-0.8.3.js
+       1.13 ms    0.4%  main.js
+       0.92 ms    0.3%  main.js > world.js > index.js
+       0.38 ms    0.1%  main.js > world.js > atmos.js > fire.js
+       0.32 ms    0.1%  (garbage collector)
+       0.31 ms    0.1%  
+       0.17 ms    0.1%  main.js > world.js > lighting.js
+       0.09 ms    0.0%  main.js > world.js > fire.js > util.js
+       0.03 ms    0.0%  main.js > views.js
+ -- by_nearest_game_caller
+     119.07 ms   41.9%  render postprocessing-6.39.5.js:6896
+      89.95 ms   31.7%  renderTransparency n8ao-2.0.1.js:1879
+      15.22 ms    5.4%  (program)
+       6.63 ms    2.3%  frame world.js:736
+       3.53 ms    1.2%  (anonymous) n8ao-2.0.1.js:1885
+       3.28 ms    1.2%  gatherLights water.js:884
+       3.20 ms    1.1%  noise4D quarks.core-0.16.0.js:5081
+       3.18 ms    1.1%  moverSplats atmos.js:638
+       2.53 ms    0.9%  (anonymous) labels.js:76
+       2.22 ms    0.8%  app.focusBuilding main.js:735
+       2.20 ms    0.8%  (anonymous) labels.js:83
+       1.80 ms    0.6%  (anonymous) world.js:69
+       1.58 ms    0.6%  (anonymous) n8ao-2.0.1.js:1911
+       1.51 ms    0.5%  floorUnder height.js:55
+       1.43 ms    0.5%  motion index.js:38
+       1.37 ms    0.5%  (anonymous) n8ao-2.0.1.js:1896
+       1.28 ms    0.5%  (anonymous) n8ao-2.0.1.js:1904
+       1.28 ms    0.5%  refreshMovers atmos.js:628
+       1.18 ms    0.4%  app.levelRange main.js:746
+       1.11 ms    0.4%  rooms cut.js:40
+       1.08 ms    0.4%  update three.quarks-0.16.0.js:2150
+       1.01 ms    0.4%  frameInner main.js:802
+ -- by_three_entry
+     119.07 ms   41.9%  WebGLRenderer.render <- render postprocessing-6.39.5.js:6896
+      56.54 ms   19.9%  WebGLRenderer.render <- renderTransparency n8ao-2.0.1.js:1879
+      33.37 ms   11.8%  traverse <- renderTransparency n8ao-2.0.1.js:1879
+      15.22 ms    5.4%  (program)
+       3.53 ms    1.2%  (anonymous) n8ao-2.0.1.js:1885
+       3.32 ms    1.2%  frame world.js:736
+       3.26 ms    1.1%  traverseVisible <- gatherLights water.js:884
+       3.20 ms    1.1%  noise4D quarks.core-0.16.0.js:5081
+       2.53 ms    0.9%  (anonymous) labels.js:76
+       2.30 ms    0.8%  moverSplats atmos.js:638
+       2.26 ms    0.8%  traverse <- frame world.js:736
+       2.22 ms    0.8%  app.focusBuilding main.js:735
+       2.20 ms    0.8%  (anonymous) labels.js:83
+       1.80 ms    0.6%  (anonymous) world.js:69
+       1.58 ms    0.6%  (anonymous) n8ao-2.0.1.js:1911
+       1.51 ms    0.5%  floorUnder height.js:55
+       1.43 ms    0.5%  motion index.js:38
+       1.37 ms    0.5%  (anonymous) n8ao-2.0.1.js:1896
+       1.28 ms    0.5%  (anonymous) n8ao-2.0.1.js:1904
+       1.28 ms    0.5%  refreshMovers atmos.js:628
+       1.18 ms    0.4%  app.levelRange main.js:746
+       1.11 ms    0.4%  rooms cut.js:40
+       1.06 ms    0.4%  set y <- frame world.js:736
+       0.99 ms    0.3%  frameInner main.js:802
+       0.98 ms    0.3%  fogRooms world.js:90
+       0.89 ms    0.3%  collect atmos.js:637
+
+== whole 20 frames 463.5 ms/frame
+ -- by_stack_of_files
+     386.57 ms   83.4%  main.js > index.js > lighting.js > postprocessing-6.39.5.js
+      16.25 ms    3.5%  (program)
+      10.67 ms    2.3%  main.js > world.js
+       9.03 ms    1.9%  main.js > world.js > atmos.js
+       6.48 ms    1.4%  main.js > labels.js
+       6.25 ms    1.3%  main.js > cut.js
+       4.66 ms    1.0%  main.js > world.js > water.js
+       3.97 ms    0.9%  main.js > world.js > fire.js > three.quarks-0.16.0.js
+       3.52 ms    0.8%  main.js > world.js > atmos.js > three.quarks-0.16.0.js
+       3.32 ms    0.7%  main.js > world.js > settle.js
+       2.01 ms    0.4%  (garbage collector)
+       1.86 ms    0.4%  main.js > world.js > settle.js > three-mesh-bvh-0.8.3.js
+       1.69 ms    0.4%  main.js > world.js > fire.js
+       1.62 ms    0.3%  main.js > world.js > lighting.js > index.js
+       1.41 ms    0.3%  main.js > world.js > height.js
+       1.39 ms    0.3%  main.js > world.js > index.js
+       1.39 ms    0.3%  main.js
+       0.58 ms    0.1%  
+       0.31 ms    0.1%  main.js > world.js > atmos.js > fire.js
+       0.17 ms    0.0%  main.js > world.js > lighting.js
+       0.08 ms    0.0%  (idle)
+       0.05 ms    0.0%  n8ao-2.0.1.js
+ -- by_nearest_game_caller
+     234.89 ms   50.7%  render postprocessing-6.39.5.js:6896
+     148.06 ms   31.9%  renderTransparency n8ao-2.0.1.js:1879
+      16.25 ms    3.5%  (program)
+       8.22 ms    1.8%  frame world.js:736
+       4.58 ms    1.0%  gatherLights water.js:884
+       3.64 ms    0.8%  noise4D quarks.core-0.16.0.js:5081
+       3.26 ms    0.7%  (anonymous) labels.js:76
+       3.03 ms    0.7%  moverSplats atmos.js:638
+       2.97 ms    0.6%  app.focusBuilding main.js:735
+       2.05 ms    0.4%  (anonymous) labels.js:83
+       2.04 ms    0.4%  parentOf settle.js:49
+       2.01 ms    0.4%  (garbage collector)
+       1.97 ms    0.4%  refreshMovers atmos.js:628
+       1.76 ms    0.4%  fogRooms world.js:90
+       1.62 ms    0.3%  motion index.js:38
+       1.53 ms    0.3%  app.levelRange main.js:746
+       1.53 ms    0.3%  (anonymous) n8ao-2.0.1.js:1911
+       1.41 ms    0.3%  floorUnder height.js:55
+       1.39 ms    0.3%  rooms cut.js:40
+       1.21 ms    0.3%  (anonymous) n8ao-2.0.1.js:1904
+       1.19 ms    0.3%  frameInner main.js:802
+       1.14 ms    0.2%  measure atmos.js:446
+ -- by_three_entry
+     234.89 ms   50.7%  WebGLRenderer.render <- render postprocessing-6.39.5.js:6896
+     109.50 ms   23.6%  WebGLRenderer.render <- renderTransparency n8ao-2.0.1.js:1879
+      38.56 ms    8.3%  traverse <- renderTransparency n8ao-2.0.1.js:1879
+      16.25 ms    3.5%  (program)
+       4.44 ms    1.0%  traverseVisible <- gatherLights water.js:884
+       3.64 ms    0.8%  frame world.js:736
+       3.64 ms    0.8%  noise4D quarks.core-0.16.0.js:5081
+       3.61 ms    0.8%  traverse <- frame world.js:736
+       3.26 ms    0.7%  (anonymous) labels.js:76
+       2.97 ms    0.6%  app.focusBuilding main.js:735
+       2.05 ms    0.4%  (anonymous) labels.js:83
+       2.04 ms    0.4%  parentOf settle.js:49
+       2.01 ms    0.4%  (garbage collector)
+       1.97 ms    0.4%  refreshMovers atmos.js:628
+       1.83 ms    0.4%  moverSplats atmos.js:638
+       1.76 ms    0.4%  fogRooms world.js:90
+       1.62 ms    0.3%  motion index.js:38
+       1.53 ms    0.3%  app.levelRange main.js:746
+       1.53 ms    0.3%  (anonymous) n8ao-2.0.1.js:1911
+       1.41 ms    0.3%  floorUnder height.js:55
+       1.39 ms    0.3%  rooms cut.js:40
+       1.21 ms    0.3%  (anonymous) n8ao-2.0.1.js:1904
+       1.19 ms    0.3%  frameInner main.js:802
+       1.14 ms    0.2%  measure atmos.js:446
+       1.08 ms    0.2%  collect atmos.js:637
+       0.97 ms    0.2%  set y <- frame world.js:736
+{'frames': 16, 'scene_updateMatrixWorld_per_frame': 3, 'scene_traverse_per_frame': 4.31, 'scene_traverseVisible_per_frame': 0.5} {'MAX_FRAGMENT_UNIFORM_VECTORS': 4096, 'MAX_VERTEX_UNIFORM_VECTORS': 4096, 'MAX_TEXTURE_SIZE': 32768}
+tw_sandbox: live house look and ratings unchanged by this run (sandbox profile2-3489795-6ac57655)

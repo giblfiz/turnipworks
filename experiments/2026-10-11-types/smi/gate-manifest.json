@@ -1,0 +1,1025 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "forge": {
+   "id": "forge",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/forge.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a stone and brick blacksmith forge filled with charcoal, featuring metal tools on its front ledge against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a stone and brick blacksmith forge filled with charcoal, featuring metal tools on its front ledge against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene contains one main structure\u2014a blacksmith forge (or alternatively, a stone hearth or barbecue pit)\u2014with two metal tools resting on its front ledge. The structure consists of a sturdy rectangular base made of chunky, stylized ashlar stone blocks in beige and muted grey tones; a small arched cleanout opening at the bottom front center; an open recessed hearth filled with textured black coals and pale grey ash; and a tapered chimney hood composed of reddish-terracotta bricks topped by a square stone chimney rim. Resting on the flat front stone border are two dark iron tools: a long straight poker or chisel bar on the left side, and a pair of blacksmith tongs on the right side. The hearth and bottom arched vent are both fully open with visible dark interiors. The object is completely intact within the frame and not cropped. The background is a solid, uniform, vibrant cobalt-blue chroma-key background with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4183,
+   "tokens_out": 2543,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bellows-great": {
+   "id": "bellows-great",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/bellows-great.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital model of a wooden blacksmith's bellows mounted on a standing frame, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital model of a wooden blacksmith's bellows mounted on a standing frame, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single composite object: a forge bellows mounted on a wooden stand (first guess: blacksmith bellows; second guess: fantasy air pump or hand-operated siphon). It features four vertical wooden support legs resting on square block feet, interconnected by two muted green wooden crossbeams at the base. The central bellows mechanism has tear-shaped wooden plates sandwiching ribbed, accordion-style maroon-red leather trimmed with rows of circular brass or gold-coloured rivets. A long wooden lever handle extends across the top with a carved hand grip on the left, connected via a pivoting joint to the bellows and linked to a vertical strut near the front nozzle. The front tapers to a dark grey cast-iron or steel nozzle tube held by a riveted square metal collar. Square-headed iron bolts secure the wooden joints. The entire object is whole and uncropped, showing no interior openings. The background is a flat, uniform, vibrant chroma-key blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4170,
+   "tokens_out": 1631,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "coal-bin": {
+   "id": "coal-bin",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/coal-bin.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden coal bin filled with faceted dark coal chunks, with a shovel standing upright in the center, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden coal bin filled with faceted dark coal chunks, with a shovel standing upright in the center, isolated on a solid blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The subject is a single game-asset style composite object: a wooden coal storage bin (or coal bunker/trough) filled with coal and a shovel. The bin is constructed from thick brown wooden planks with pronounced grain, featuring four vertical corner posts capped top and bottom with riveted dark iron or steel brackets. The side panels slope downward from the taller back wall to the shorter front wall. Inside the open-topped bin rests a pile of dark grey to black, multi-faceted coal rocks. An upright shovel with a wooden D-handle, wooden shaft, and square metal scoop is embedded blade-down into the coal. The bin has no lid, drawers, or doors. The entire object is fully visible and not cropped. The background is a flat, uniform, saturated blue chroma key screen with no floor plane or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4139,
+   "tokens_out": 1342,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "anvil": {
+   "id": "anvil",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/anvil.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D render of a dark iron anvil resting on a wooden tree-stump base alongside a small hammer, set against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Extra object: contains an unrequested hammer resting on the stump"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D render of a dark iron anvil resting on a wooden tree-stump base alongside a small hammer, set against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image depicts a single combined prop assembly (a blacksmith workstation), comprised of three distinct elements: an anvil, a hammer, and a wooden stump. The anvil is dark charcoal-grey iron with chiseled edges, featuring a pointed horn on the left, a flat rectangular top face, an elevated block at the rear right, and a flared four-corner base. In front of the anvil rests a small hammer with a blocky rectangular iron head and a short carved wooden handle. Both sit atop a cylindrical wooden block or stump made of carved vertical timber slats bound tightly around the middle with a wide, rough dark iron band. The wood has a warm golden-brown hue with pronounced stylized grain grooves and faceted edges. The entire model is intact and fully contained within the frame with no parts cropped out. The background is a flat, uniform, highly saturated bright blue with no shadows, floor plane, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/smi/work/anvil.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered blacksmith's anvil resting on a wooden log stump bound by an iron hoop, set against a plain bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered blacksmith's anvil resting on a wooden log stump bound by an iron hoop, set against a plain bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image displays a single composite object: a blacksmith anvil (best name) or a stylized game prop (second guess) resting atop a wooden stump. The anvil consists of a dark grey-brown wrought iron body with a tapered conical horn pointing left, a flat top striking surface, a stepped heel to the right with a single square hardy hole, a narrowed waist, and a flared four-cornered base. Beneath it is a cylindrical wooden stump base composed of carved vertical golden-brown planks or log segments, encircled around its midpoint by a single dark hammered metal hoop. There are no doors, lids, or drawers. The object is completely visible without any cropping. The background is a solid, completely uniform bright blue chroma key screen with no floor, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5912,
+   "tokens_out": 3680,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "tool-rack-smith": {
+   "id": "tool-rack-smith",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/tool-rack-smith.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital model of a wall-mounted wooden tool rack holding three hammers and three blacksmith tongs, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital model of a wall-mounted wooden tool rack holding three hammers and three blacksmith tongs, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The primary object is a blacksmith tool rack (or wall-mounted tool hanger/organizer). It consists of a backboard constructed from several vertical dark-brown wooden planks beneath a horizontal reddish-brown wooden crossbeam capped at both ends with riveted dark metal brackets. Mounted in a row on the rack are six distinct tools: on the left side are three identical or near-identical sledgehammers with dark grey, chipped/hammered metal heads and light tan wooden handles; on the right side are three identical or near-identical pairs of dark wrought-iron blacksmith tongs with long handles and curved gripping jaws. None of the tools have moving parts currently deployed; the tongs are in a closed position. The entire asset is rendered in a hand-painted / stylized video game art style. The asset is shown in its entirety without cropping, viewed from a slightly elevated three-quarter perspective. The background is a flat, uniform, saturated blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4176,
+   "tokens_out": 1439,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "smith-breastplate-on-form": {
+   "id": "smith-breastplate-on-form",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/smith-breastplate-on-form.try1.jpg",
+     "semantic": {
+      "what_i_see": "A polished steel plate cuirass with pauldrons displayed on a carved wooden mannequin stand against a solid bright blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A polished steel plate cuirass with pauldrons displayed on a carved wooden mannequin stand against a solid bright blue backdrop.",
+       "details": "There are no texts, labels, or watermarks visible. The image features one primary composite object: a suit of medieval-style plate armor displayed on a wooden mannequin (second guess: a stylized 3D game asset render of torso armor). The armor comprises a central breastplate with a vertical ridge, two rounded shoulder pauldrons, and three overlapping articulated horizontal fauld/skirt plates at the bottom. It is fastened by reddish-brown leather straps with square brass buckles\u2014two on the shoulders and three along each flank. The mannequin consists of a carved wooden torso and neck showing wood grain, supported by a central turned wooden post on a circular, stepped base. There are no doors, drawers, or lids. Materials include polished silver-gray steel, warm honey-toned wood, reddish-brown leather, and golden-brass metal. The entire object is centered and uncropped within the frame. The background is a flat, uniform, solid chroma-key blue with no floor surface, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4169,
+   "tokens_out": 1573,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "metal-stock": {
+   "id": "metal-stock",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/metal-stock.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized two-tier wooden storage rack holding stacks of rusty metal ingots and bars against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized two-tier wooden storage rack holding stacks of rusty metal ingots and bars against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single main composite object: a two-level wooden storage rack (second guess: a video game resource/forge shelf). It features four thick, upright wooden corner posts joined by wooden peg-style braces and horizontal beams supporting two open shelves. There are no wheels, doors, drawers, or lids; both tiers are completely open. The top shelf contains 14 long, square-profile metal bars stacked in two rows of seven, featuring dark charcoal-grey sides and orange-rusted front faces. The lower shelf holds six wider trapezoidal metal ingots stacked in three pairs of two, also showing grey metal surfaces mottled with rust. The wooden frame has a warm honey-brown color with stylized carved edges and wood grain detailing. The entire object is fully contained within the frame without cropping, set against a solid, uniform vivid blue background with no shadows or floor surface.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4137,
+   "tokens_out": 4744,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "counter-shop--smith": {
+   "id": "counter-shop--smith",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/counter-shop--smith.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden shop counter or display table isolated against a solid blue background, holding an assortment of forged iron items including a helmet, stacked cooking pots, horseshoes, axe heads, a coiled chain, and a padlock.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden shop counter or display table isolated against a solid blue background, holding an assortment of forged iron items including a helmet, stacked cooking pots, horseshoes, axe heads, a coiled chain, and a padlock.",
+       "details": "There are no text, labels, or watermarks in the image. The primary object is a heavy wooden workbench or shop counter (second guess: wooden chest or vendor stall). It consists of a thick planked wooden tabletop, thick rectangular corner posts, horizontal framing beams, and three rectangular recessed panels with raised bevels across the front face. Two dark metal angle brackets with rounded rivets secure the upper portions of the front legs. Resting on the left-to-center portions of the tabletop are several distinct items: one medieval-style iron helmet with an eye slit and nasal guard; a stack of three rimmed metal cooking pots with side loop handles; four iron horseshoes clustered together; two unhandled iron axe heads lying flat; a coiled pile of thick metal chain links; and a chunky rectangular padlock with a rounded shackle, iron casing, and a brass keyhole faceplate held by four golden rivets. All wooden components are finished in a warm, medium-brown wood grain with painted edge highlights, while the forged goods are rendered in matte dark-grey iron. The entire assembly is fully visible and not cropped. The background is a completely uniform, solid blue chroma screen with no floor, scenery, or shadows visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4242,
+   "tokens_out": 2162,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "carpenter-bench": {
+   "id": "carpenter-bench",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/carpenter-bench.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a wooden carpenter's workbench equipped with a wood plane, mallet, shavings, and a small chest on the bottom shelf, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a wooden carpenter's workbench equipped with a wood plane, mallet, shavings, and a small chest on the bottom shelf, isolated on a solid blue background.",
+       "details": "There is no text, watermarks, or labels. The image features a single primary assembled fixture: a heavy timber woodworking workbench. The workbench has four thick legs with prominent pegged cross-braces, a lower storage shelf, and a workbench top featuring square bench dog holes and a wooden screw vise mounted on the front-left edge with a turning handle. On the workbench top sits a pale, unfinished wooden board, atop which rests a wooden hand plane with a steel iron and curled shavings. Beside the board lies a turned wooden mallet and a neat pile of bright yellow wood shavings. On the lower shelf sits a small closed rectangular wooden chest/toolbox with a faded red lid, muted green body, and natural wood corner trims and central latch; the chest lid is completely closed. All primary elements are rendered with smooth, stylized wood grain in warm amber and honey tones. The entire assembly is fully within the frame without clipping. The background is a flat, uniform, saturated blue screen with no floor surface or casting shadows.",
+       "reference_differences": [
+        "No reference image was provided for comparison."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4187,
+   "tokens_out": 2722,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-tool-wall-pegboard": {
+   "id": "craft-tool-wall-pegboard",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/craft-tool-wall-pegboard.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden rack mounted with an assortment of carpentry tools set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden rack mounted with an assortment of carpentry tools set against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image displays a single composite object: a wooden rectangular tool board or display plaque holding seven distinct woodworking tools. The wooden board has a thick framing edge along the top, left, right, and bottom borders with a textured, hand-carved wood grain appearance in warm golden-brown tones. Arranged from left to right along the board are: a curved bow/frame saw with a wooden handle and serrated metal blade; a hand saw with a contoured wooden handle attached with two rivets and a serrated blade; a wooden mallet with a cylindrical head and a two-toned handle featuring a reddish base; a wooden try square forming a right-angle shape; a wooden hand plane fitted with an angled metal blade and a round wooden knob; and three chisels lined up vertically, featuring faceted metal blades and painted handles in reddish-brown, green, and natural light wood, respectively. All items appear static and fixed in place with no moving doors, drawers, or lids. The object is depicted whole and uncropped, viewed at a slight three-quarter perspective from the front-right. The background is a flat, uniform, vibrant blue with no scenery, floor, or persons present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4215,
+   "tokens_out": 1436,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "kiln-pottery": {
+   "id": "kiln-pottery",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/kiln-pottery.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered brick kiln or domed furnace with an arched opening and two dark metal bands, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered brick kiln or domed furnace with an arched opening and two dark metal bands, isolated against a solid blue background.",
+       "details": "Text, labels or watermarks: None. Separate objects: One isolated object. Object identity: A domed brick kiln or furnace (second guess: an outdoor brick bread/pizza oven). Parts: A circular foundation ring made of chunky grey stones, a domed main body of reddish-orange bricks partially covered in tan plaster or mortar, two dark grey metallic bands wrapped horizontally around the dome, an arched front opening surrounded by brick voussoirs, and a cylindrical top chimney with a rimmed lip. State of openings: The front arched opening has no door and is fully open, showing an empty interior with a flat brick or flagstone floor; the top chimney has an open circular flue. Materials and colours: Terracotta/red-orange bricks, tan/beige mortar/plaster, dark charcoal-grey iron bands, and medium-grey base stones. Completeness: Fully visible within the frame, not cropped. Background: Solid, uniform bright blue without shadows, floor plane, or scenery. People, text or scenery: None.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4169,
+   "tokens_out": 1505,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "potters-wheel": {
+   "id": "potters-wheel",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/potters-wheel.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a traditional wooden pottery kick-wheel station complete with an unfinished clay vessel, a wooden water bowl, and a clay lump against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a traditional wooden pottery kick-wheel station complete with an unfinished clay vessel, a wooden water bowl, and a clay lump against a solid blue backdrop.",
+       "details": "There are no text, labels, or watermarks visible. The main object is a pottery kick wheel workstation (second guess: an artisan turn-bench or lathe station). The structure consists of four vertical square wooden corner posts acting as legs, joined by green-tinted horizontal wooden beams. It features a raised two-plank bench seat on the upper-left, a side shelf rest on the right, and a central rotating mechanism. The mechanism comprises a central vertical wooden axle, a thick circular carved grey stone flywheel at the bottom, and a smaller circular wooden wheel-head at the working height. Resting on the wheel-head is an open, wide-rimmed, wet grey clay pot with visible throwing rings and an open interior. On the side shelf rests a small turned wooden bowl (empty) and a faceted grey lump of clay. Splashes and drips of light grey wet clay are scattered across the wheel-head, frame rails, shelf, and vertical posts. The materials are warm golden-brown wood, green-washed timber, grey stone, and wet grey clay. The object is entirely contained within the frame with no cropping. The background is a solid, uniform bright blue without shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4233,
+   "tokens_out": 1761,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-display-table-goods--smith": {
+   "id": "craft-display-table-goods--smith",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/craft-display-table-goods--smith.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered wooden table displaying a collection of forged metal items including pots, tools, helmets, and a lantern against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered wooden table displaying a collection of forged metal items including pots, tools, helmets, and a lantern against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene features a central rustic wooden workbench or trestle table supporting numerous metal goods. The table has a thick wooden plank top, four joined vertical support posts arranged in two trestle leg assemblies, a low horizontal stretcher beam, and foot blocks, all colored warm brown with stylized wood grain and chiseled edges. Arrayed across the tabletop from left to right are: two large dark iron cauldrons with side loop handles (both open and empty); one iron skillet with a handle facing forward; two silver-gray axe heads; two rectangular iron hammer heads or metal blocks with central holes; three curved horseshoes; two conical medieval iron helmets with eye slits; three sets of dark metal door hinges laid flat; and one rectangular lantern with a metal-bracketed frame, brass corner reinforcements, and glowing yellow-tinted glass panels. All items are complete and fully contained within the frame with no cropping. The background is a flat, uniform, vibrant chroma-key blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4181,
+   "tokens_out": 2090,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "smith-blade-barrel": {
+   "id": "smith-blade-barrel",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/smith-blade-barrel.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, cartoon-like wooden barrel packed with numerous upright swords and two small axes, set against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, cartoon-like wooden barrel packed with numerous upright swords and two small axes, set against a solid vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks. The image portrays a single primary composite object: a wooden barrel containing weapons (second guess: game weapon stash/prop). The barrel consists of vertical golden-brown wooden staves fastened by three horizontal dark grey metal bands. It has an open top with no lid, revealing no deep interior because it is densely filled with downward-pointing weapons. Visible inside are two small hand axes flanking the sides (one on the far left, one on the far right) and approximately eight to ten swords or daggers protruding upwards. The weapons feature rounded pommels (alternating between polished steel and brass/gold), crossguards (also in steel or gold), segmented grips wrapped in reddish-brown and brown materials, and thick stylized steel blades. The entire object is centered and fully visible within the frame, with no cropping. The background is completely flat, uniform chroma blue without gradients, floor surfaces, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4155,
+   "tokens_out": 3877,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "smith-sign-anvil": {
+   "id": "smith-sign-anvil",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/smith-sign-anvil.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy-style blacksmith shop sign shaped like a wooden shield featuring a 3D anvil and hammer emblem, suspended from a dark wrought-iron wall mount against an even, bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy-style blacksmith shop sign shaped like a wooden shield featuring a 3D anvil and hammer emblem, suspended from a dark wrought-iron wall mount against an even, bright blue background.",
+       "details": "The image contains no text, labels, or watermarks. It depicts a single isolated composite object: a hanging blacksmith sign (first guess) or medieval guild trade sign (second guess). The object consists of a rectangular dark metal wall-mounting plate affixed with four bolts/rivets, extending into a horizontal square-profile metal bar terminating in a faceted square cap on the left, two curved metal brackets with circular rivets clamping around the bar to suspend the sign below, and a pointed shield-shaped wooden sign. The sign features a reddish-brown outer timber border, an off-white/cream-colored inner face made of vertical wooden planks, and raised three-dimensional metal/stone icons of a dark blacksmith's anvil crossed diagonally by a sledgehammer with a wooden handle and dark metal head and end cap. There are no moving lids, doors, or drawers. The materials are stylized hand-painted wood and weathered, chiseled iron/stone with highlights. The entire sign assembly is fully intact and uncropped. The background is a flat, uniform, highly saturated solid blue with no ground plane, shadows, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4213,
+   "tokens_out": 2781,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-boards-planed-stack": {
+   "id": "craft-boards-planed-stack",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/craft-boards-planed-stack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized stack of light-colored wooden lumber planks separated by small spacers, viewed at an isometric angle against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D stylized stack of light-colored wooden lumber planks separated by small spacers, viewed at an isometric angle against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single combined object: a stack of wooden boards or lumber. It consists of 15 long wooden planks arranged in 5 tiers of 3 parallel planks each. Between each tier are small rectangular wooden spacer blocks (stickers) placed crosswise near each end to maintain separation. The entire pile rests on two thick wooden base supports/runners underneath. The wood has a warm, stylized, golden-yellow tone with rendered wood grain textures, rounded edges, and visible concentric growth rings on the cut ends. The stack is fully shown and not cropped. The background is a completely flat, uniform bright blue screen with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4072,
+   "tokens_out": 1700,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-chair-half-built": {
+   "id": "craft-chair-half-built",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/craft-chair-half-built.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized light-wood chair featuring an integrated horizontal wooden screw clamp or vise mechanism across its seat, set against a solid vibrant blue background.",
+      "ok": false,
+      "problems": [
+       "invented horizontal wooden screw clamp mechanism with T-handle integrated into the chair"
+      ],
+      "blind": {
+       "what_i_see": "A stylized light-wood chair featuring an integrated horizontal wooden screw clamp or vise mechanism across its seat, set against a solid vibrant blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single isolated object: a stylized wooden chair merged with a woodworking clamp/vise mechanism (second guess: a miniature fantasy carpentry chair). The chair consists of four chunky square wooden legs connected by horizontal stretchers, a slatted wooden seat, and a simple backrest composed of two vertical uprights and a top crossbar. Mounted across the lower back of the seat area is a functioning wooden screw clamp mechanism featuring two wooden jaws/blocks, a thick threaded wooden screw rod running horizontally, and a cylindrical T-handle protruding on the right side. There are no doors, drawers, or lids. The material appears to be smooth, stylized natural light pine or beech wood with painted wood grain textures and knots. The entire object is centered and fully visible within the frame, with no cropping. The background is a uniform, completely flat, solid blue screen with no floor plane or cast shadows, and there are no people or surrounding scenery."
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/smi/work/craft-chair-half-built.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized light-wood chair featuring an integrated wooden screw-clamp mechanism on its right side, isolated against a solid vivid blue background.",
+      "ok": false,
+      "problems": [
+       "Unwanted wooden screw-clamp mechanism attached to the side of the chair"
+      ],
+      "blind": {
+       "what_i_see": "A stylized light-wood chair featuring an integrated wooden screw-clamp mechanism on its right side, isolated against a solid vivid blue background.",
+       "details": "There are no labels, text, or watermarks in the image. The scene consists of a single stylized object: a wooden chair (first guess) or a toy/novelty woodworking clamp chair (second guess). The chair features four chunky wooden legs, one horizontal stretcher bar bracing the front legs, a slatted seat constructed of thick wooden planks, and an open backrest made from two vertical posts joined by a single top crossbar. Attached to the right side of the seat is a functional-looking wooden clamp consisting of an upright side bracket attached with a circular wooden pin, a cantilevered clamping arm, and a vertical wooden screw with a cylindrical turn knob on top resting on the seat plank. The entire piece appears carved or assembled from light-toned, natural yellow-tan wood with visible stylized grain, chamfered edges, and tiny simulated cracks. The object is completely in frame with no cropping, no cast shadows on any ground plane, and set against an entirely flat, uniform blue background without scenery or people.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 3558,
+   "tokens_out": 2586,
+   "status": "rejected"
+  },
+  "wares-display": {
+   "id": "wares-display",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/wares-display.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a wooden armory rack displaying medieval weapons, armor, and gear against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a wooden armory rack displaying medieval weapons, armor, and gear against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The central subject is a single freestanding wooden weapon and equipment rack (second guess: blacksmith display shelf). The structure consists of two vertical notched wooden pillar supports, a slatted wooden backboard, an upper narrow ledge, and a wider lower shelf. Displayed on the upper ledge are four upright iron horseshoes. Mounted on the upper portion of the back wall are four matching daggers or short swords with faceted brass/gold pommels, red-wrapped hilts, brass crossguards, and double-edged steel blades, followed on the right by a small round shield (buckler) featuring a brass outer rim and central dome boss. Resting on the bottom shelf are two identical stylized closed knight helmets with eye slits and perforated ventilation holes, alongside a round dark iron cauldron with two side handles and an open top. The materials consist of stylized faceted dark brown wood, hammered grey metal, polished brass, and dark cast iron. The entire rack assembly is intact, fully within frame, and uncropped. The background is a flat, uniform chroma-blue screen without shadows or floor details.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "holes cut through the solid wooden backboard inside the horseshoe arches"
+      ]
+     },
+     "chroma_gate": {
+      "ok": false,
+      "problems": [
+       "holes punched through the wooden backboard inside the horseshoes"
+      ]
+     },
+     "verdict": "mask_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/smi/work/wares-display.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy-themed wooden weapon and armor rack loaded with medieval equipment against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy-themed wooden weapon and armor rack loaded with medieval equipment against a solid blue background.",
+       "details": "There are no visible texts, watermarks, or labels. The image features a single complex assemble: a wooden armory display rack (second guess: blacksmith equipment shelf). The rack consists of a vertical wood-planked back panel, two chunky vertical side posts, a narrow top ledge, and a main lower bench/shelf supported by two front legs with angled diagonal wooden brackets. Mounted on the top ledge are four dark metallic horseshoes. Hanging against the backboard are four identical short swords or daggers (two to the left, two to the right) with double-edged steel blades, brass or gold-colored crossguards and pommels, and dark red wrapped grips. In the center of the backboard hangs a round steel shield with a raised brass/gold rim, decorative rivets, and a round central boss. Sitting on the shelf surface below are two stylized steel knight helmets with T-shaped eye/face slits flanking an open-topped dark iron pot or cauldron equipped with two rectangular side handles; the interior of the pot is visible and dark. The entire model is intact and fully within frame without cropping. The background is a flat, uniform bright blue field with no shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 10769,
+   "tokens_out": 11772,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-shavings-pile": {
+   "id": "craft-shavings-pile",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/craft-shavings-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized pile of pale yellow wood shavings, curls, chips, and small rectangular wooden blocks isolated against a solid vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized pile of pale yellow wood shavings, curls, chips, and small rectangular wooden blocks isolated against a solid vivid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image displays a single coherent pile or mound composed of numerous woodworking debris: several large curved or rolled spiral shavings, countless smaller chips, and four cut rectangular blocks of timber embedded throughout the mound. No furniture hardware or moving parts (0 legs, 0 wheels, 0 doors, 0 drawers, 0 lids, 0 handles) are present. The material is rendered in a clean, hand-painted digital style resembling pine or light balsa wood in warm golden-yellow, cream, and amber tones. The pile is completely contained within the frame with no cropping. The background is a flat, uniform, bright chroma-key blue with no cast shadows, floor surface, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4091,
+   "tokens_out": 1926,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "clay-bin": {
+   "id": "clay-bin",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/clay-bin.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a wooden mortar mixing box filled with wet cement, containing a wooden shovel and stacked stone bricks against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Unrequested wooden shovel or paddle included in the trough"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a wooden mortar mixing box filled with wet cement, containing a wooden shovel and stacked stone bricks against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image depicts a single composite object: a rectangular wooden mortar trough or mixing box (best guess) or a construction material crate (second guess). The box is constructed from four thick, vertical corner posts and horizontal timber side planks (approximately three planks per visible wall). The top is open with no lid, revealing the interior filled with thick, textured, wet grey mortar or cement. Protruding upright from the left side of the mortar is a carved wooden paddle or shovel with a thick handle, partially coated in dry grey plaster. On the rear right side sits a neat 2x2 stack of four rectangular, hand-carved stone bricks or masonry blocks. The wood has a warm medium-brown grain with green mossy weathering and numerous splatters of dried off-white/grey mortar. The entire object is fully visible and not cropped by the frame. The background is a flat, uniform, bright saturated blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/smi/work/clay-bin.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon game asset of a wooden mortar mixing box filled with wet cement and topped with four stone bricks on the rim, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon game asset of a wooden mortar mixing box filled with wet cement and topped with four stone bricks on the rim, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single composite object: a wooden mortar mixing trough (second guess: a sandbox or wooden planter). It consists of a rectangular container formed by thick horizontal wooden planks joined by four robust vertical corner posts that serve as feet/legs. Inside, with no lid, it is filled with a thick, textured, wet grey cement or mud mixture. On the rear-right rim sit four rectangular grey stone bricks stacked neatly in two rows of two. The wood is warm caramel-brown with painted mortar splatters and greenish moss patches along the lower edges. No doors, drawers, lids, wheels, or handles are present. The object is completely contained within the frame, with no parts cropped. The background is a flat, uniform, bright blue chroma background with no floor or shadows, and there are no people or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5941,
+   "tokens_out": 2941,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pots-drying-shelf": {
+   "id": "pots-drying-shelf",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/pots-drying-shelf.try1.jpg",
+     "semantic": {
+      "what_i_see": "A four-tier wooden shelf filled with sixteen stylized terracotta and earthenware ceramic vessels set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Shelf unit has a slatted back instead of a solid back"
+      ],
+      "blind": {
+       "what_i_see": "A four-tier wooden shelf filled with sixteen stylized terracotta and earthenware ceramic vessels set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The central subject consists of a wooden display rack holding 16 distinct ceramic pottery vessels (jugs, jars, pots, and bowls). The wooden shelf has four square-profile corner posts terminating in block-like feet, slatted wooden sides and back panels, and four horizontal shelves (top surface plus three enclosed shelves). On the top shelf sit four items: an open terracotta jar with a cream scalloped collar, a beige jug with a single handle, a terracotta pot with a knobbed lid, and an open beige bowl. On the second shelf down: a two-handled grey-beige jar with a knobbed lid, a terracotta jug with a side handle, a terracotta bowl with a wavy cream rim, and an open beige vase-like jar. On the third shelf down: a wide-mouthed terracotta pot, a beige jug with a side handle and scalloped glaze drip, a terracotta lidded pot with a knob, and a beige jug with a side handle. On the bottom shelf: a two-handled grey-beige pot without a lid, a terracotta jug with a side handle, an open beige bowl, and a terracotta jar with a cream drip-glaze pattern. In total, three vessels have fitted lids (all closed), and several have loop handles. Materials include warm golden-brown wood and matte-textured clay/stoneware in warm terracotta-orange and pale grey-beige tones. The entire piece is fully visible and not cropped. The background is a solid, uniform royal blue with no ground plane or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/smi/work/pots-drying-shelf.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden shelving unit holding sixteen ceramic pottery pieces across four shelf levels, isolated against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden shelving unit holding sixteen ceramic pottery pieces across four shelf levels, isolated against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene contains one main wooden shelving unit holding sixteen individual ceramic vessels, totaling seventeen objects. The shelving unit (best name: pottery display rack; second guess: rustic wooden bookcase) consists of thick honey-brown wooden timbers with visible square joinery pegs on the side pillars, four blocky footed legs, a vertical-slat wooden backboard, and three internal horizontal shelves plus the flat top surface. On the top surface rest four items: a terracotta two-handled jar, a two-tone (cream and terracotta) round jar, a gray one-handled jug, and a wide terracotta bowl. On the upper internal shelf sit four items: a round gray jar, a terracotta pot with a knobbed lid, a two-tone (cream and gray) one-handled jug, and an orange-terracotta two-handled amphora-style jar. On the middle internal shelf sit four items: a two-tone (cream and terracotta) jug, a terracotta round wide-neck pot, an open gray bowl, and a gray pot with two loop handles and a knobbed lid. On the lowest shelf sit four items: a terracotta jar with a knobbed lid and handle, a gray two-handled jar, an orange-terracotta round pot, and a two-tone (cream and terracotta) jug. Three jars have closed lids; the bowls and open-mouth pots have hollow interiors visible from above. The whole piece is entirely within the frame without cropping. The background is a flat, uniform, solid electric-blue screen with no shadows, floor surface, people, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6209,
+   "tokens_out": 5458,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "table-work": {
+   "id": "table-work",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/table-work.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D wooden workbench with various workshop items placed on top and on a lower shelf, isolated against a bright blue background.",
+      "ok": false,
+      "problems": [
+       "Contains extraneous objects on top and on the shelf (mallet, apron, lantern, crate, keg) instead of a plain workbench alone"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D wooden workbench with various workshop items placed on top and on a lower shelf, isolated against a bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The central subject is a carpenter's workbench (second guess: craft station/table) featuring four thick square legs, reinforced with dark metal brackets and square bolt heads, a lower storage shelf, and an attached screw-driven woodworking vise on the right front corner. On top of the bench rest three objects: a large wooden mallet with metal bands, a neatly folded reddish-brown leather cloth or apron, and a small square metal lantern with glowing glass panels. On the lower shelf rest two objects: a rectangular olive-green painted wooden crate with metal reinforced corners and edges, and a small horizontal wooden keg or barrel resting on wooden chocks with a tap plug at the front. There are no open doors, drawers, or lids; all containers appear closed. Materials primarily consist of warm brown, weathered wood with stylized nicks and cracks, matte grey iron fittings, green painted planks, and reddish leather. The entire workbench and its contents are fully intact and uncropped within the frame. The background is a flat, uniform solid bright blue with no floor texture, environment, or cast shadows visible beneath the legs.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/smi/work/table-work.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized rustic wooden workbench featuring a lower storage shelf and an attached metal side vise, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized rustic wooden workbench featuring a lower storage shelf and an attached metal side vise, set against a solid bright blue background.",
+       "details": "The image displays a single isolated object: a heavy carpenter's workbench or tool table. It consists of a thick planked wooden tabletop showing aged nicks, gouges, and seams, supported by a wooden frame with four sturdy vertical legs and horizontal stretchers painted in a chipped, weathered green finish revealing natural wood beneath. At the base of each leg are squared block feet or collars. Spanning between the lower stretchers is a solid wood plank shelf. Mounted to the front-right corner is a dark, cast-iron screw vise secured with heavy bolts, featuring a threaded drive screw and an L-shaped turning handle with a rounded end. There are no doors, drawers, or lids. The object is completely contained within the frame with no parts cropped. The background is a flat, uniform, unshaded vibrant blue screen with no shadows, floor surface, people, or text present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5938,
+   "tokens_out": 2947,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pottery-for-sale--glazed": {
+   "id": "pottery-for-sale--glazed",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/pottery-for-sale--glazed.try1.jpg",
+     "semantic": {
+      "what_i_see": "A collection of terracotta and ceramic vessels, including large pots, two pitchers, two lidded jars, and four nested bowls, neatly arranged on a wooden pallet against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A collection of terracotta and ceramic vessels, including large pots, two pitchers, two lidded jars, and four nested bowls, neatly arranged on a wooden pallet against a solid blue backdrop.",
+       "details": "There are no texts, labels, or watermarks. The scene contains one wooden pallet supporting a group of eleven ceramic and earthenware items (thirteen pieces including lids). At the center back sits a large round terracotta urn/pot with a wide rim, flanked by two medium-sized terracotta pots with flared lips. In the front left is a light beige jug with a single curved handle and a pouring lip. In the front right is an olive-green jug with a single curved handle and a spout. Between the jugs sit two beige-and-ochre striped cylindrical storage jars, each covered with a round knobbed lid (both lids fully closed). In front of these containers are two pairs of beige ceramic bowls, each pair stacked one inside the other (four bowls total, all empty and facing upward). The pallet is constructed from light brown wooden planks and support blocks. All objects are fully rendered and not cropped by the frame. The background is a solid, uniform, bright blue color with no scenery, floor plane, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4156,
+   "tokens_out": 1848,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "smith-coal-heap": {
+   "id": "smith-coal-heap",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/smith-coal-heap.try1.jpg",
+     "semantic": {
+      "what_i_see": "A low square wooden storage bin filled with a heap of dark coal or charcoal rocks, presented in an isometric view on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A low square wooden storage bin filled with a heap of dark coal or charcoal rocks, presented in an isometric view on a solid blue background.",
+       "details": "The image features no text, labels, or watermarks. There is one single composite object: a low-walled wooden containment frame or bin holding a mound of dark coal or rough mineral ore. The frame is constructed from weathered brown wooden planks held at the visible corners by vertical wooden posts (three corner posts are clearly visible: left, front center, and right). The top is open and has no lid or doors, exposing a dense pile of dozens of irregular, matte charcoal-gray and black rocks/coal chunks heaped higher in the center. The object is completely intact and not cropped by the frame. The background is a flat, uniform, solid bright blue with no shadows, floor surface, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4077,
+   "tokens_out": 3447,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "smelter": {
+   "id": "smelter",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/smelter.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D render of a tapered clay smelting furnace or bloomery kiln with three dark metal bands resting on a circular stone foundation against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D render of a tapered clay smelting furnace or bloomery kiln with three dark metal bands resting on a circular stone foundation against a solid blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The image displays a single isolated object: a medieval or primitive smelting furnace (best guess: a clay bloomery or furnace; second guess: a kiln or rustic chimney). The structure consists of a base ring of approximately 14 to 16 rough, grey-brown rocks; a conical, terracotta-orange clay shaft; three thick, dark grey weathered iron bands encircling the shaft horizontally; a wide open top aperture lined with soot-blackened edges; and an arched taphole near the base with an integral protruding trough or spout facing forward. Both the top chimney and lower spout are fully open, with dark interiors visible. The clay body features a painterly, textured plaster/stucco look with soot staining around the top rim and above the lower arch. The entire object is fully contained within the frame with no cropping. The background is a flat, uniform, unshaded vibrant blue.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4154,
+   "tokens_out": 1662,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-wood-offcut-bin": {
+   "id": "craft-wood-offcut-bin",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/smi/work/craft-wood-offcut-bin.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized square wooden crate with green-painted corner posts and borders, filled with assorted light-coloured wooden blocks, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized square wooden crate with green-painted corner posts and borders, filled with assorted light-coloured wooden blocks, set against a solid blue background.",
+       "details": "There is no text, labels, or watermarks in the image. The main subject is a single open-topped wooden crate containing approximately 12 visible wooden geometric blocks (including cylinders with tree-ring textures, cubes, triangular prisms, and rectangular blocks). The crate is constructed from light natural-wood horizontal planks (two stacked per side) held together by painted muted green wooden posts at the four corners and matching green upper and lower framing rails. The crate has no lid, handles, or wheels. The wood exhibits a stylized, hand-painted texture with bevelled edges and slight wear. The entire crate is fully contained within the frame with no cropping. The background is a flat, uniform, bright blue field with no shadows, floor, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4110,
+   "tokens_out": 1253,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

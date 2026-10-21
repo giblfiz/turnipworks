@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turnip Works: banks demo</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #1d1f1a; color: #e8e4d8; font: 14px/1.4 system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  #bar { position: fixed; left: 10px; top: 10px; right: 300px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; pointer-events: none; }
+  #bar > * { pointer-events: auto; }
+  #bar a.home { color: #cfc9b4; text-decoration: none; margin-right: 6px; }
+  button, label.chk, select { background: #2b2e26; color: #e8e4d8; border: 1px solid #4a4e40; border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer; }
+  button.on { background: #6b7a3c; border-color: #9db35a; }
+  button.yes { background: #46602c; border-color: #8bb35a; } button.no { background: #6a3a2c; border-color: #b3745a; }
+  label.chk { display: block; margin-top: 5px; } label.chk input { vertical-align: -2px; margin-right: 5px; }
+  .sep { width: 10px; }
+  #panel { position: fixed; right: 10px; top: 10px; width: 270px; max-height: calc(100vh - 20px); overflow: auto; box-sizing: border-box; background: #1d1f1ae6; border: 1px solid #3a3d33; border-radius: 8px; padding: 10px 12px; }
+  #panel h3 { margin: 10px 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #a9ad96; font-weight: 600; } #panel h3:first-child { margin-top: 0; }
+  .row { margin-bottom: 8px; } .row label { display: flex; justify-content: space-between; gap: 8px; } .row label span { color: #d7e2a8; text-align: right; font-size: 12px; }
+  .row input[type=range] { width: 100%; margin: 2px 0 0; accent-color: #9db35a; }
+  select { width: 100%; }
+  #panel .two { display: flex; gap: 6px; margin-top: 8px; } #panel .two button { flex: 1; }
+  textarea { width: 100%; box-sizing: border-box; height: 52px; margin-top: 6px; background: #14150f; color: #e8e4d8; border: 1px solid #4a4e40; border-radius: 6px; font: inherit; padding: 6px; resize: vertical; }
+  #sent { color: #a9ad96; font-size: 12px; margin-top: 4px; min-height: 1em; }
+  #info { position: fixed; left: 10px; bottom: 10px; max-width: min(620px, calc(100vw - 320px)); background: #1d1f1ad9; border: 1px solid #3a3d33; border-radius: 8px; padding: 8px 12px; }
+  #info b { color: #d7e2a8; } #info p { margin: 6px 0 0; color: #c9c5b6; font-size: 13px; } #info p.warn { color: #e8c98a; }
+  #status { position: fixed; right: 290px; bottom: 10px; color: #9a9a8a; font-size: 12px; }
+  #toast { position: fixed; left: 50%; top: 56px; transform: translateX(-50%); background: #46602c; border-radius: 6px; padding: 8px 14px; opacity: 0; transition: opacity .2s; pointer-events: none; } #toast.show { opacity: 1; } #toast.bad { background: #6a3a2c; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "postprocessing": "./lib/vendor/postprocessing-6.39.5.js",
+  "n8ao": "./lib/vendor/n8ao-2.0.1.js",
+  "three-good-godrays": "./lib/vendor/three-good-godrays-0.12.1.js"
+} }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="bar">
+  <a class="home" href="../">← Turnip Works</a>
+  <span id="scenes"></span><span class="sep"></span>
+  <button data-view="table">Table distance</button><button data-view="lean">Leaning in</button><button data-view="low">Low angle</button>
+</div>
+<div id="panel">
+  <h3>The bank</h3>
+  <div id="sliders"></div>
+  <div class="row"><label>Rock faces</label>
+    <select id="cliffs"><option value="scene">where the scene says (C has one)</option><option value="none">none: every edge a grass bank</option><option value="all">every edge a rock face</option></select></div>
+  <div class="two"><button id="copy">Copy settings</button><button id="reset">Defaults</button></div>
+  <h3>Show</h3>
+  <label class="chk"><input type="checkbox" id="grid">5-ft grid</label>
+  <label class="chk"><input type="checkbox" id="pawns">Pawns and the 6-ft figure</label>
+  <label class="chk"><input type="checkbox" id="slopepawn">Pawn base on slopes (two versions, side by side)</label>
+  <div id="pairNote" style="display:none;color:#c9c5b6;font-size:12px;margin:4px 0 2px 4px">On the bank, in yellow: one figure on a level 5-ft disc (the pawn base as it is today), and the same figure with no disc and a ring painted on the slope. A separate idea from the banks; orbit to compare.</div>
+  <label class="chk"><input type="checkbox" id="shadows">Sun shadows</label>
+  <label class="chk"><input type="checkbox" id="highsun">Higher sun (62° up instead of the house 37°)</label>
+  <label class="chk"><input type="checkbox" id="night">Night look</label>
+  <h3>Your verdict on this scene</h3>
+  <div class="two" style="margin-top:0"><button id="good" class="yes">Reads as land</button><button id="bad" class="no">Still looks wrong</button></div>
+  <textarea id="noteBox" placeholder="A note (optional). Sent with the scene and the settings above."></textarea>
+  <div id="sent"></div>
+</div>
+<div id="info">
+  <div id="title"></div>
+  <p>How this works: the ground is flat terraces at 5-ft steps, drawn as rectangles on the grid. Wherever two heights meet, the page works out a sloped bank between them and covers it in the same grass as the lawn; move a terrace and the bank re-forms. Rocks, bushes and trees are generated pieces pushed into the bank. This is not voxels (no blocks) and not sculpted terrain (nobody shapes the surface by hand): the only thing drawn is the flat terraces. Pawns stand on terraces and flat-topped rocks, not on the bank.</p>
+  <p class="warn">A demo only. Nothing here is in the game yet.</p>
+</div>
+<div id="status">loading…</div>
+<div id="toast"></div>
+<script type="module" src="./main.js?v=__V__"></script>
+</body>
+</html>

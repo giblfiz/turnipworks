@@ -1,0 +1,166 @@
+{
+ "file": "town-elf-noble.glb",
+ "tris": 47403,
+ "kb": 2950,
+ "native_extent": [
+  0.384,
+  1.0,
+  0.482
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  99,
+  83,
+  49
+ ],
+ "mean_saturation": 0.528,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 3.7,
+  "length_ft": 3.82,
+  "low_end_ft": [
+   -0.66,
+   0.11,
+   0.68
+  ],
+  "high_end_ft": [
+   -0.59,
+   3.93,
+   0.76
+  ],
+  "tilt_from_upright_deg": 1.6,
+  "thickness_ft": 0.2,
+  "clear_share": 0.63,
+  "joined_share": 0.37,
+  "broken_share": 0.0,
+  "walk_low_to_high": "---------------------#########----######-"
+ },
+ "overall_ft": 5.92,
+ "pieces": {
+  "connected_parts": 117,
+  "main_part_area_share": 0.9776,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.9209,
+ "y0": -2.9661,
+ "stated_ft": {
+  "body": 5.9,
+  "figure_top": 5.9,
+  "overall": 5.9
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.1949,
+   -0.501,
+   -0.2411
+  ],
+  [
+   0.1886,
+   0.4991,
+   0.2413
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47403,
+   "tex": 2048,
+   "kb": 2950
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1173
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 499
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.54,
+    "z": -0.8,
+    "size_ft": [
+     0.59,
+     1.13
+    ],
+    "off_ground_ft": 0.003,
+    "sole_level_share": 0.92,
+    "sole_p90_ft": 0.058
+   },
+   {
+    "x": 0.57,
+    "z": 0.88,
+    "size_ft": [
+     0.59,
+     1.13
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.94,
+    "sole_p90_ft": 0.051
+   },
+   {
+    "x": -0.65,
+    "z": 0.68,
+    "size_ft": [
+     0.2,
+     0.22
+    ],
+    "off_ground_ft": 0.197,
+    "sole_level_share": 0.19,
+    "sole_p90_ft": 0.482
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.197,
+  "lowest_slab_area_sqft": 0.99,
+  "plan_hull_area_sqft": 4.34,
+  "lowest_slab_share_of_plan": 0.228
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.26,
+   "d": 2.85,
+   "h": 5.92
+  },
+  "centre": [
+   -0.144,
+   0.232
+  ],
+  "contacts_radius_ft": 1.44,
+  "reach_radius_ft": 1.68,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.92,
+  "plate_lost_share": 0.036,
+  "added_share": 0.048,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.926,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 8
+ },
+ "id": "town-elf-noble",
+ "sha1": "12fa8c333fd64b08957a8aa51490c9d53c2cddae",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.20 ft off the ground"
+ ],
+ "qa_seconds": 13.8
+}

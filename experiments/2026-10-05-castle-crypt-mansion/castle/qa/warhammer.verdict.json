@@ -1,0 +1,35 @@
+{
+ "sku": "warhammer",
+ "glb_sha1": "3c0890b4111a568b43d11b2b4c4f604053b4faf6",
+ "time": "2026-10-05T22:16:48-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "hammer",
+  "second_guess": "warhammer",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized one-handed hammer or warhammer consisting of a carved wooden handle with a metal reinforcing band and a heavy steel head. The head features a faceted, beveled striking face on one side and a thick curved claw or spike on the opposite side. The model surfaces are solid, smooth, and clean, with hand-painted stylized textures indicating wood grain and metallic edge wear.",
+  "from_above": "A horizontal bar-like shape showing the top edge of the wooden handle on the left leading into the metallic hammer head on the right, casting a clear hammer-shaped shadow northward.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1.5 to 2 feet long overall, reaching around 1 foot high at its tilted angle, roughly a third the height of the figure's base to hip."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "warhammer",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "mesh oriented diagonally in bounding box"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "height proportion 4.29x off the catalog",
+  "underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)",
+  "gemini note: mesh oriented diagonally in bounding box"
+ ],
+ "vision": true
+}

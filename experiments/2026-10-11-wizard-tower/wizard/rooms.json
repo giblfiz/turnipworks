@@ -1,0 +1,299 @@
+{
+ "type": "wizard",
+ "genre": "fantasy",
+ "family": "tower-stone",
+ "label": "Wizard's tower",
+ "shell_recipe": "arc-tower-shell",
+ "wall_kit": [
+  "wall-straight--tower-stone",
+  "wall-straight--tower-stone--s2",
+  "wall-doorway--tower-stone",
+  "wall-window-small--tower-stone",
+  "door-tower--leaf",
+  "wall-shop-window--half-timber"
+ ],
+ "hung_ids": [
+  "alch-sign-apothecary",
+  "map-wall"
+ ],
+ "ceiling_ids": [],
+ "lights": {
+  "brazier": [
+   "elemental-brazier"
+  ],
+  "oven": [
+   "alch-athanor"
+  ]
+ },
+ "rooms": [
+  {
+   "key": "wiz-lab",
+   "label": "Alchemy laboratory",
+   "outdoor": false,
+   "cells": [
+    5,
+    4
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-flagstone-square",
+    "floor-tile-hex",
+    "floor-flagstone-large",
+    "floor-checker-stone"
+   ],
+   "recipes": [
+    "arc-tower-laboratory"
+   ],
+   "reads_as": "an alchemist's laboratory: a brick furnace on the far wall, work benches crowded with coloured flasks and jars along the walls, a copper still, a cauldron of green brew, shelves of bottles",
+   "focal": [
+    "alch-athanor",
+    "alch-bench-dressed",
+    "alch-still-copper-large"
+   ]
+  },
+  {
+   "key": "wiz-study",
+   "label": "Library & study",
+   "outdoor": false,
+   "cells": [
+    4,
+    4
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-planks-dark",
+    "floor-planks-worn",
+    "floor-planks-stained",
+    "floor-flagstone-square"
+   ],
+   "recipes": [
+    "arc-tower-study"
+   ],
+   "reads_as": "a wizard's study or library: walls of untidy bookcases, a writing desk before them, a great open book on a lectern, an armillary sphere, scrolls, books piled on the floor",
+   "focal": [
+    "bookshelf",
+    "desk-writing",
+    "spellbook-lectern"
+   ]
+  },
+  {
+   "key": "wiz-summoning",
+   "label": "Summoning chamber",
+   "outdoor": false,
+   "cells": [
+    4,
+    4
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-flagstone-large",
+    "floor-flagstone-square",
+    "floor-checker-stone"
+   ],
+   "recipes": [
+    "arc-tower-summoning"
+   ],
+   "reads_as": "a summoning or ritual chamber: a large circle drawn in the middle of the floor ringed by tall candles, crystal-topped pylons toward the corners, a book on a lectern between two braziers, no windows",
+   "focal": [
+    "decal-ritual-circle",
+    "arcane-pylon",
+    "elemental-brazier"
+   ]
+  },
+  {
+   "key": "wiz-observatory",
+   "label": "Observatory",
+   "outdoor": false,
+   "cells": [
+    4,
+    4
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-planks-dark",
+    "floor-flagstone-square",
+    "floor-checker-stone",
+    "floor-planks-worn"
+   ],
+   "recipes": [
+    "arc-tower-observatory"
+   ],
+   "reads_as": "an observatory: a great brass telescope in the middle of the floor on an inlaid star chart, an armillary sphere and an orrery, a table of charts",
+   "focal": [
+    "telescope-great",
+    "armillary-great",
+    "orrery"
+   ]
+  },
+  {
+   "key": "wiz-scrying",
+   "label": "Scrying room",
+   "outdoor": false,
+   "cells": [
+    3,
+    3
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-checker-stone",
+    "floor-tile-encaustic",
+    "floor-flagstone-square",
+    "floor-planks-dark"
+   ],
+   "recipes": [
+    "arc-tower-scrying"
+   ],
+   "reads_as": "a scrying or fortune-telling room: a round stone basin in the middle of the floor, a large crystal ball on a pedestal, a standing mirror, cushions and candles, no windows",
+   "focal": [
+    "scrying-pool",
+    "orb-socket-pedestal"
+   ]
+  },
+  {
+   "key": "wiz-store",
+   "label": "Potion store",
+   "outdoor": false,
+   "cells": [
+    3,
+    3
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-flagstone-square",
+    "floor-flagstone-large",
+    "floor-planks-worn"
+   ],
+   "recipes": [
+    "arc-tower-store"
+   ],
+   "reads_as": "a potion or reagent store: shelves packed with coloured bottles and jars on every wall, a cabinet of small drawers, crates and demijohns on the floor",
+   "focal": [
+    "apothecary-drawers",
+    "alch-reagent-shelf-tall"
+   ]
+  },
+  {
+   "key": "wiz-apothecary",
+   "label": "Apothecary shop",
+   "outdoor": false,
+   "cells": [
+    4,
+    3
+   ],
+   "family": "half-timber",
+   "floors": [
+    "floor-planks-worn",
+    "floor-planks-stained",
+    "floor-tile-hex",
+    "floor-flagstone-square"
+   ],
+   "recipes": [
+    "arc-tower-apothecary"
+   ],
+   "reads_as": "an apothecary or potion shop: a long counter with a scale and jars across the room, a wall of small drawers and shelves of bottles behind it, a bench for customers, a shop window",
+   "focal": [
+    "alch-counter-apothecary",
+    "apothecary-drawers"
+   ]
+  },
+  {
+   "key": "wiz-bedchamber",
+   "label": "Wizard's bedchamber",
+   "outdoor": false,
+   "cells": [
+    4,
+    4
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-planks-dark",
+    "floor-planks-worn",
+    "floor-planks-stained",
+    "floor-flagstone-square"
+   ],
+   "recipes": [
+    "arc-tower-bedchamber"
+   ],
+   "reads_as": "a wizard's bedroom: a curtained four-poster bed in purple, a robe and pointed hat on a stand beside it, a trunk, a bookcase, a bird perch",
+   "focal": [
+    "bed-canopy",
+    "hatstand-wizard"
+   ]
+  },
+  {
+   "key": "wiz-menagerie",
+   "label": "Familiars' menagerie",
+   "outdoor": false,
+   "cells": [
+    4,
+    4
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-flagstone-rushes",
+    "floor-planks-rushes",
+    "floor-flagstone-square",
+    "floor-planks-worn"
+   ],
+   "recipes": [
+    "arc-tower-menagerie"
+   ],
+   "reads_as": "a menagerie, aviary or animal room: a bare perch tree in the middle, birdcages, hutches and a planted tank round the walls, a huge egg in a nest, feed sacks, straw on the floor",
+   "focal": [
+    "perch-tree",
+    "birdcage-standing",
+    "animal-hutch",
+    "vivarium"
+   ]
+  },
+  {
+   "key": "wiz-stair",
+   "label": "Tower stair",
+   "outdoor": false,
+   "cells": [
+    3,
+    3
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-flagstone-square",
+    "floor-checker-stone",
+    "floor-flagstone-large",
+    "floor-tile-hex"
+   ],
+   "recipes": [
+    "arc-tower-stair"
+   ],
+   "reads_as": "a stair hall or tower landing: a stone spiral staircase in the corner, torches, a bust or a bench",
+   "focal": [
+    "stair-spiral-wide",
+    "statue-bust"
+   ]
+  },
+  {
+   "key": "wiz-workshop",
+   "label": "Enchanter's workshop",
+   "outdoor": false,
+   "cells": [
+    5,
+    4
+   ],
+   "family": "tower-stone",
+   "floors": [
+    "floor-checker-stone",
+    "floor-flagstone-square",
+    "floor-tile-encaustic",
+    "floor-flagstone-large"
+   ],
+   "recipes": [
+    "arc-tower-workshop"
+   ],
+   "reads_as": "an enchanter's workshop or portal room: a free-standing stone archway on the far wall between two crystal pylons, a heavy table with a crystal before it, crystal clusters, a rack of staves",
+   "focal": [
+    "portal-arch",
+    "enchanting-table",
+    "arcane-pylon"
+   ]
+  }
+ ]
+}

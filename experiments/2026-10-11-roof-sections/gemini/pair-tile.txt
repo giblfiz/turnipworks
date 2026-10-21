@@ -1,0 +1,41 @@
+### Visible Text and Labels
+
+The text is identical in both images:
+*   **Top Left Icons:** Props, Build, Settings
+*   **Top Center Bar:** "Search commands, things to place, people, places... or say / roll"
+*   **Top Center Buttons:** Area 1, Open to players, Hide
+*   **Top Right:** A circular icon containing "Area 1"
+*   **On Buildings:** "Building 1", "Building 2"
+*   **Bottom Left:** "say ... or roll /d20 in the bar"
+*   **Bottom Right:** "live-set1", "1ms", "Area Tiles 0", "60 fps"
+
+---
+
+### Analysis
+
+**1. Description of Roof Surfaces**
+
+*   **A:** The roof surface is made of individual, 3D-modeled tiles. This is evident from the distinct shadows cast by each tile onto the one below it, creating visible horizontal lines of shadow and giving the surface a tangible, bumpy relief. The highlights on the upper edges of the tiles further confirm their physical geometry. It looks like a surface constructed from many small, overlapping objects.
+*   **B:** The roof surface is a flat plane with a 2D image (a texture) applied to it. This is clear because there is no physical relief; the "tiles" are just painted on. There are no self-shadows between individual tiles, only painted-on shading within the texture itself to simulate depth. The lighting is uniform across the flat plane, which makes it look like a picture of a roof rather than a roof itself.
+
+**2. Physical Model vs. Cheaper Look**
+
+*   **A** looks significantly more like a physical model. The three-dimensional, individually rendered tiles give it depth, texture, and realistic shadowing that you would expect from a miniature or a detailed 3D asset.
+*   **B** looks substantially cheaper. The flat, texture-mapped surface is a common performance-saving shortcut that immediately reads as less detailed and less realistic. The lack of physical geometry makes it look like a low-poly or low-budget asset. The difference is immediately obvious at this distance.
+
+**3. Faults and Artifacts**
+
+*   **A:** There are no significant faults. The tiles meet cleanly in the valley of Building 1. The ridge caps are solid. The tiles terminate properly at the eaves and gables. The integration around the chimneys and the small dormer is clean and believable. It is a well-constructed model.
+*   **B:** This roof is critically flawed.
+    *   **Major Fault:** In the valley of Building 1, where the two roof sections meet, there is a large, triangular hole. The texture mapping has failed completely in this complex corner, leaving a gaping void that shows the grey default material underneath. This is a severe visual bug.
+    *   **Minor Faults:** The texture does not wrap cleanly around the base of the chimneys; it looks like the chimney model is simply clipping through the flat roof plane with no attempt at integration.
+
+**4. Stylistic Cohesion**
+
+The walls and other building elements have a chunky, hand-painted, slightly stylized look.
+*   **A:** The chunky, 3D tiles of roof A are a perfect stylistic match. They have the same level of stylized, physical detail as the timber and plaster walls, making the entire building look cohesive, like it was built from the same "kit."
+*   **B:** The flat, texture-based roof of B clashes with the style. Its flatness and, more importantly, its glaring technical flaws (the hole) break the visual integrity of the asset and make it look cheap and unfinished compared to the rest of the building.
+
+**5. Final Verdict**
+
+I would ship A, and I am 100% sure; B is not shippable due to the massive hole in the roof geometry.

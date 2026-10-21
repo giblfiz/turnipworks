@@ -1,0 +1,25 @@
+Yes, the land in this scene looks overwhelmingly computer-generated and artificial. It has several tells that immediately break the illusion of a physical, hand-made tabletop model.
+
+Here are the giveaways, in order of how much they hurt the overall impression:
+
+1.  **Overly Smooth, Uniform Topography.** This is the most damaging flaw. The central hill is a perfect, soft mound with unnaturally smooth and consistent slopes. Real terrain, even simple hills, is shaped by erosion, rock formations, and soil variation, resulting in lumps, bumps, divots, and subtle changes in gradient. This hill looks like it was generated with a single large, soft-edged brush in a terrain editor.
+    *   **Where:** The entire central hill. It's especially obvious in the low view (`temple-low.png`) where the crest of the hill forms a perfect, gentle curve against the background.
+    *   **Views:** Both. It defines the character of the map in the high view and looks like a mathematical curve in the low view.
+
+2.  **The Perfect, Conforming Grid.** While a grid is a staple of tabletop games, its implementation here screams "digital." The grid lines are perfectly uniform in thickness and color, and they conform flawlessly to the smooth curvature of the terrain mesh. This is something that is practically impossible to achieve in a physical model, where a grid would be drawn, projected, or textured on, showing imperfections and distortions. It highlights and reinforces the mathematical smoothness of the underlying land.
+    *   **Where:** The entire ground surface.
+    *   **Views:** Both, but it's most impactful in the high, table-distance view where it dominates the visual information.
+
+3.  **"Floating" Scatter Objects.** The rocks, bushes, and trees appear to be placed *on top* of the grass texture, rather than being integrated *into* the ground. There is no sign of disturbed earth, displaced grass, or soil built up around their bases. They look like separate digital assets dropped onto a surface, not objects that are part of the environment.
+    *   **Where:** Nearly every rock and bush. Look at the cluster of rocks on the right-hand slope in the low view; they sit cleanly on the pristine grass grid.
+    *   **Views:** This is most apparent in the low view, where the relationship between the objects and the ground is clear.
+
+4.  **Smudged Texture Transitions.** The transitions between the grass texture and the brown dirt patches are blurry and indistinct, like they were painted with a digital airbrush. Natural transitions between ground cover are often sharper or more complex, defined by root lines, erosion, or changes in soil composition. This smudging effect is a common artifact of digital texture painting.
+    *   **Where:** All the brown patches scattered on the hill. A good example is to the right of the central tree in the low view.
+    *   **Views:** Both, but the low-quality, blurry nature of the blend is much more obvious in the low view.
+
+### What looks natural and convincing?
+
+Despite the artificiality of the terrain mesh and texturing, the *composition* is effective. The general placement and density of the rocks and foliage feel plausible for a weathered hill. The way the path winds up the slope and is interrupted by obstacles creates a good sense of a journey and a tactical space. The color palette of greens and browns is also natural and well-chosen.
+
+ARTIFICIALITY: 9

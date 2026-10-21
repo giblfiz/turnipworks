@@ -1,0 +1,3 @@
+Edit task. The supplied image shows one object in the Turnip Works hand-painted house style. Show the SAME object: identical materials, colours, carving, fittings, proportions and painting style. Do not redesign it.
+
+Show this same cabinet with its two UPPER glazed doors swung fully OPEN to about 100 degrees, so the three shelves of chunky china plates and jugs are seen directly, and the lower doors still shut. Thick, chunky doors and flaps so the open shape reconstructs cleanly in 3D. Camera: the same three-quarter view from slightly above as in the supplied image. Exactly one object, centred, whole and well inside the frame, on a perfectly uniform solid chroma-blue background: no floor, no shadow, no other objects. The object itself has NO blue anywhere.

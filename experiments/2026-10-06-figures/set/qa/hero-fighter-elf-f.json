@@ -1,0 +1,153 @@
+{
+ "file": "hero-fighter-elf-f.glb",
+ "tris": 49572,
+ "kb": 2921,
+ "native_extent": [
+  0.438,
+  0.999,
+  0.308
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0193,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  93,
+  63,
+  60
+ ],
+ "mean_saturation": 0.516,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 3.64,
+  "length_ft": 3.76,
+  "low_end_ft": [
+   -0.66,
+   2.28,
+   0.18
+  ],
+  "high_end_ft": [
+   -1.0,
+   6.02,
+   0.34
+  ],
+  "tilt_from_upright_deg": 5.8,
+  "thickness_ft": 0.14,
+  "clear_share": 0.65,
+  "joined_share": 0.35,
+  "broken_share": 0.0,
+  "walk_low_to_high": "--#########----###-##-------------------"
+ },
+ "overall_ft": 5.95,
+ "pieces": {
+  "connected_parts": 272,
+  "main_part_area_share": 0.9942,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.9667,
+ "y0": -2.9871,
+ "stated_ft": {
+  "body": 5.7,
+  "figure_top": 5.7,
+  "overall": 5.7
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2192,
+   -0.5007,
+   -0.1491
+  ],
+  [
+   0.2184,
+   0.4979,
+   0.1586
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49572,
+   "tex": 2048,
+   "kb": 2921
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1183
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 501
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.9,
+    "z": -0.42,
+    "size_ft": [
+     0.79,
+     0.92
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.88,
+    "sole_p90_ft": 0.064
+   },
+   {
+    "x": 0.93,
+    "z": 0.1,
+    "size_ft": [
+     0.79,
+     0.94
+    ],
+    "off_ground_ft": 0.049,
+    "sole_level_share": 0.83,
+    "sole_p90_ft": 0.119
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.049,
+  "lowest_slab_area_sqft": 0.84,
+  "plan_hull_area_sqft": 3.58,
+  "lowest_slab_share_of_plan": 0.236
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.61,
+   "d": 1.83,
+   "h": 5.95
+  },
+  "centre": [
+   0.017,
+   0.095
+  ],
+  "contacts_radius_ft": 1.32,
+  "reach_radius_ft": 1.37,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.891,
+  "plate_lost_share": 0.043,
+  "added_share": 0.074,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.843,
+  "view_yaw_deg": 345,
+  "view_elev_deg": 0
+ },
+ "id": "hero-fighter-elf-f",
+ "sha1": "c46470a021f2ad0ecdbfe291085602a9b410a983",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 24.6
+}

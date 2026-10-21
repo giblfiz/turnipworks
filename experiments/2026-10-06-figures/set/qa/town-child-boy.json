@@ -1,0 +1,133 @@
+{
+ "file": "town-child-boy.glb",
+ "tris": 47618,
+ "kb": 2482,
+ "native_extent": [
+  0.548,
+  1.001,
+  0.543
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  128,
+  93,
+  62
+ ],
+ "mean_saturation": 0.551,
+ "sized_by": "its highest point",
+ "overall_ft": 3.9,
+ "pieces": {
+  "connected_parts": 6,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.8956,
+ "y0": -1.9501,
+ "stated_ft": {
+  "body": 3.9,
+  "figure_top": 3.9,
+  "overall": 3.9
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2701,
+   -0.5006,
+   -0.2706
+  ],
+  [
+   0.2774,
+   0.5007,
+   0.272
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47618,
+   "tex": 2048,
+   "kb": 2482
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 991
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 439
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.55,
+    "z": -0.73,
+    "size_ft": [
+     0.7,
+     0.93
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.95,
+    "sole_p90_ft": 0.048
+   },
+   {
+    "x": 0.62,
+    "z": 0.42,
+    "size_ft": [
+     0.6,
+     0.94
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.95,
+    "sole_p90_ft": 0.046
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 0.8,
+  "plan_hull_area_sqft": 3.08,
+  "lowest_slab_share_of_plan": 0.261
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.13,
+   "d": 2.11,
+   "h": 3.9
+  },
+  "centre": [
+   -0.017,
+   -0.017
+  ],
+  "contacts_radius_ft": 1.19,
+  "reach_radius_ft": 1.19,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.916,
+  "plate_lost_share": 0.012,
+  "added_share": 0.079,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.916,
+  "view_yaw_deg": 15,
+  "view_elev_deg": 8
+ },
+ "id": "town-child-boy",
+ "sha1": "b5819d37b12063f4a2f3684c2d6bff6c8c54cebf",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 9.9
+}

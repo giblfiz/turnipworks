@@ -1,0 +1,53 @@
+{
+  "id": "room.reroll",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: Two chunky ivory dice, black broad pips, one slightly above the other. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/parchment--room.reroll.png",
+  "source_sha256": "1ab8b77a999b6ef4a0d2a1fb8b26aa235816145a1e353f9d35a2b4fba15158ec",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/room.reroll.webp",
+    "19": "parchment/sizes/19/room.reroll.webp",
+    "22": "parchment/sizes/22/room.reroll.webp",
+    "26": "parchment/sizes/26/room.reroll.webp",
+    "31": "parchment/sizes/31/room.reroll.webp",
+    "36": "parchment/sizes/36/room.reroll.webp",
+    "38": "parchment/sizes/38/room.reroll.webp",
+    "42": "parchment/sizes/42/room.reroll.webp",
+    "44": "parchment/sizes/44/room.reroll.webp",
+    "50": "parchment/sizes/50/room.reroll.webp",
+    "52": "parchment/sizes/52/room.reroll.webp",
+    "62": "parchment/sizes/62/room.reroll.webp",
+    "84": "parchment/sizes/84/room.reroll.webp",
+    "100": "parchment/sizes/100/room.reroll.webp",
+    "128": "parchment/room.reroll.webp"
+  },
+  "sha256": {
+    "18": "e66966cd15b58dac99ff48094eb79137eab3ce5974b47a95dc0622c7955e0720",
+    "19": "348e207c1568badff5b78ec1527d06b156a87df680ad6179997d8c041a8659c5",
+    "22": "641e0c4b74b3aac0dd3f3daa443d2179b2eac53584155aabee4e16bfc49f7323",
+    "26": "7030719c7db47b508ca6cc3a2e3497d66a1fc35858594d90054f0ab2c39d6d99",
+    "31": "cb18a257a3cd2facb6c768891e3c261d72182a7f801ff13c4c18d42646e4573f",
+    "36": "89003212c67d885a0272db0feed37126fdf4a948dc8e431a04ec5cda99a437a2",
+    "38": "a032a0361cbacc764bf7f1b13488756a097b4db4710da0880088d0b1fdbece65",
+    "42": "e8322eff289a2f309db9582fcb2b09c420424b98d300a3eec7e1dfc39fd345c8",
+    "44": "997512e380e9c191b0bd44674ce31f4abdfbd3fed80987e2667cb35183ee4e77",
+    "50": "ac3d0e2e593dd2eefb3ca04bde2b7e284cf5f9a5e4d16de7dd5aa4ec3bb6d83c",
+    "52": "425732eecf5946552be82faa7d6da795ee815dade47077ee698f432fddaeffd5",
+    "62": "ba69945a46a70467d81bef8a17f1b10f3fd1acf32b03a79021ddb5f1a35afa66",
+    "84": "0cb88ee60a5ba36f52bd8e7909b182acbaec944035fd6e0937ca242d7c09fea0",
+    "100": "35333377f19a54f6db12fac9492b26ff75eb2365f8da8c3f5260522ba7dc343e",
+    "128": "ee1b4bd144bb7c04a04fa902fb22edfe3681f74ef615cab74364b2bf84041117"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "a9226cb537d718a28db6c9435c943146d8491e4a428275b987ea161e4a445fa3"
+}

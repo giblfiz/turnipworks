@@ -1,0 +1,38 @@
+[
+  {
+    "id": "ruler.keepfor.1",
+    "title": "Keep for one round",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "hourglass",
+    "picture": "round-one",
+    "surface": "synthetic-conditional",
+    "note": "Actual strip data-act keepfor:1; distinct sibling of keepfor:n. Proposed asset key, not a registry command."
+  },
+  {
+    "id": "ruler.keepfor.n",
+    "title": "Keep for N rounds",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "hourglass",
+    "picture": "round-many",
+    "surface": "synthetic-conditional",
+    "note": "Actual strip data-act keepfor:n; distinct sibling of keepfor:1. Proposed asset key, not a registry command."
+  },
+  {
+    "id": "ruler.rounds.1",
+    "title": "Lasts one round",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "hourglass",
+    "picture": "round-one",
+    "surface": "synthetic-conditional",
+    "note": "Actual existing-template strip data-act rounds:1; mutually exclusive mode with keepfor:1, may share its painting. Proposed asset key, not a registry command."
+  }
+]

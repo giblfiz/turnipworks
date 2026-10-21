@@ -1,0 +1,176 @@
+{
+ "file": "foe-gnoll-polearm.glb",
+ "tris": 49648,
+ "kb": 3484,
+ "native_extent": [
+  0.524,
+  0.999,
+  0.537
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0114,
+  "seen": 0.0002
+ },
+ "mean_rgb": [
+  89,
+  61,
+  32
+ ],
+ "mean_saturation": 0.694,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 7.71,
+  "length_ft": 8.54,
+  "low_end_ft": [
+   -0.77,
+   0.1,
+   -1.29
+  ],
+  "high_end_ft": [
+   -2.0,
+   8.39,
+   0.31
+  ],
+  "tilt_from_upright_deg": 13.7,
+  "thickness_ft": 0.39,
+  "clear_share": 0.9,
+  "joined_share": 0.1,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-------------------------######----------------------------"
+ },
+ "overall_ft": 8.26,
+ "pieces": {
+  "connected_parts": 815,
+  "main_part_area_share": 0.9382,
+  "floating": [
+   {
+    "area_share": 0.0001,
+    "gap_ft": 0.1,
+    "size_ft": 0.09
+   },
+   {
+    "area_share": 8e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.17
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.12
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.09
+   }
+  ],
+  "floating_count": 4,
+  "floating_area_share": 0.00023,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 8.2874,
+ "y0": -4.14,
+ "stated_ft": {
+  "body": 7.0,
+  "figure_top": 7.0,
+  "overall": 7.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2632,
+   -0.4999,
+   -0.2686
+  ],
+  [
+   0.2607,
+   0.4986,
+   0.2681
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49648,
+   "tex": 2048,
+   "kb": 3484
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1355
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 565
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.12,
+    "z": -1.62,
+    "size_ft": [
+     1.34,
+     1.93
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.29,
+    "sole_p90_ft": 0.197
+   },
+   {
+    "x": 1.59,
+    "z": 0.91,
+    "size_ft": [
+     1.24,
+     1.76
+    ],
+    "off_ground_ft": 0.015,
+    "sole_level_share": 0.42,
+    "sole_p90_ft": 0.19
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.015,
+  "lowest_slab_area_sqft": 2.66,
+  "plan_hull_area_sqft": 12.69,
+  "lowest_slab_share_of_plan": 0.21
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.34,
+   "d": 4.45,
+   "h": 8.26
+  },
+  "centre": [
+   0.513,
+   -0.099
+  ],
+  "contacts_radius_ft": 2.23,
+  "reach_radius_ft": 2.65,
+  "share_outside_2p5ft": 0.01
+ },
+ "silhouette": {
+  "iou": 0.883,
+  "plate_lost_share": 0.051,
+  "added_share": 0.075,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.829,
+  "view_yaw_deg": 35,
+  "view_elev_deg": 0
+ },
+ "id": "foe-gnoll-polearm",
+ "sha1": "b5f1b71950820f6ad2b919064aef9d7bd0ac7350",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.03 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 19.7
+}

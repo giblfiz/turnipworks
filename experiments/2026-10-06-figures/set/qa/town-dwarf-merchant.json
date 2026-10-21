@@ -1,0 +1,133 @@
+{
+ "file": "town-dwarf-merchant.glb",
+ "tris": 49520,
+ "kb": 3130,
+ "native_extent": [
+  0.644,
+  1.001,
+  0.498
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0002,
+  "seen": 0.0002
+ },
+ "mean_rgb": [
+  106,
+  69,
+  48
+ ],
+ "mean_saturation": 0.61,
+ "sized_by": "its highest point",
+ "overall_ft": 4.5,
+ "pieces": {
+  "connected_parts": 72,
+  "main_part_area_share": 0.9942,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 4.4977,
+ "y0": -2.2506,
+ "stated_ft": {
+  "body": 4.5,
+  "figure_top": 4.5,
+  "overall": 4.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.323,
+   -0.5005,
+   -0.2494
+  ],
+  [
+   0.3215,
+   0.5003,
+   0.2489
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49520,
+   "tex": 2048,
+   "kb": 3130
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1199
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 511
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.74,
+    "z": 0.33,
+    "size_ft": [
+     0.77,
+     1.35
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.75,
+    "sole_p90_ft": 0.081
+   },
+   {
+    "x": -0.89,
+    "z": -0.36,
+    "size_ft": [
+     1.11,
+     1.16
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.73,
+    "sole_p90_ft": 0.088
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 1.44,
+  "plan_hull_area_sqft": 5.02,
+  "lowest_slab_share_of_plan": 0.287
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.9,
+   "d": 2.24,
+   "h": 4.5
+  },
+  "centre": [
+   -0.157,
+   0.294
+  ],
+  "contacts_radius_ft": 1.38,
+  "reach_radius_ft": 1.66,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.927,
+  "plate_lost_share": 0.057,
+  "added_share": 0.017,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.915,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 8
+ },
+ "id": "town-dwarf-merchant",
+ "sha1": "1a8def57904c8110c33fdd986e764c552ddca3a1",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 14.6
+}

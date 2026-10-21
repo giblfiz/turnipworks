@@ -1,0 +1,361 @@
+TEM — temple-chapel: 359 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  altar-stone                [floor/1x2] chapel focus; ritual chambers
+! P1  pew                        [floor/1x2] rows facing the altar
+! P1  candlestand-pricket        [floor/sub] flanking a hearth or an altar; dark unlit candles, engine fire FX adds the flames
+! P1  bell-on-frame              [floor/1] bell tower base (the tenor waiting to be hung, or the tolling bell of a small chapel)
+! P1  organ-pipe                 [wall/1x2] cathedral naves; against a wall
+! P1  pulpit                     [floor/1] beside the chancel step; the preacher's place
+! P1  lectern                    [floor/sub] chapels, libraries
+! P1  font-holy                  [floor/sub] chapel entry
+! P1  prayer-candle-rack         [floor/sub] side chapels
+! P1  statue-deity               [floor/1] chapel apse; headless in ruins
+! P1  flavor-altarpiece          [surface/sub] slot 1; one per altar, centred
+! P1  flavor-banner              [wall/1] slot 3; on the long walls and behind the idol
+! P1  flavor-buttress            [wall/1] slot 8 (Harry, 2026-10-11); the same box and place as the vertical kit's `buttress`, so it can stand in for it outside, and stands along the walls INSIDE a large nave or sanctum
+! P1  flavor-censer              [floor/sub] slot 6; in pairs flanking the altar or the idol
+! P1  flavor-idol                [floor/1] slot 2; on the end wall behind the altar, or alone in an inner shrine
+! P1  flavor-relief              [wall/1] slot 4 (a type with windows may fill this slot with a `flavor-window` kit panel instead)
+! P1  flavor-sculpture           [floor/1] slot 7 (Harry, 2026-10-11); at the door end of a nave, in a side aisle, a cloister or an antechamber
+! P1  flavor-sigil               [floor/2x2] slot 5; inside a ritual circle or before the altar
+! P1  scriptorium-desk           [floor/1] monastery scriptoria; rows of them
+! P1  chalice-jeweled            [surface/tiny] holy relic, feast of kings
+! P1  holy-symbol-sun            [surface/tiny] cleric's focus; generic dawn faith
+! P1  chalice-altar              [surface/tiny] on the altar; holy ritual
+! P1  trade-chained-book         [surface/tiny] chained libraries; can't leave the room
+! P1  trade-copy-stand           [surface/tiny] the scribe copies from this
+! P1  trade-manuscript-in-progress [surface/tiny] the scriptorium's working page; readable clue
+! P1  rite-alms-box              [floor/sub] by the door; locked
+! P1  rite-altar-cloth           [surface/1x2] drape over any altar; torn for ruins
+! P1  rite-offering-candles-tray [surface/sub] shrine fronts, side altars
+! P1  rite-prayer-book-small     [surface/tiny] pews, bedside tables
+! P1  rite-sanctuary-lamp        [ceiling/tiny] never goes out; its going out is a plot beat
+! P1  rite-vestments-stand       [floor/sub] vestry; disguise opportunity
+! P2  window-stained-glass       [kit/edge] chapel signature; colored light shafts
+! P2  confessional               [wall/1] along the aisle walls of a large temple
+! P2  rite-prie-dieu             [floor/sub] before shrines, in cells and side chapels
+! P2  tome-holy                  [surface/tiny] altars, lecterns
+! P2  trade-candle-large-church  [floor/sub] altar sides; holy days
+! P2  rite-altar-emblem-stand    [floor/sub] behind the altar; generic emblem swappable
+! P3  reliquary                  [surface/tiny] the MacGuffin case
+  P1  arch-freestanding          [floor/1x2] ruins, garden gates, portals
+  P1  balustrade-stone           [kit/edge] noble terraces
+  P1  dais                       [floor/2x3] under thrones and altars; lifts the focal object
+  P1  door-double-grand          [kit/edge] throne rooms, great halls, chapels
+  P1  floor-checker-bw           [kit/1] kitchens, halls, chapels
+  P1  floor-flagstone-irregular  [kit/1] kitchens, halls, cellars
+  P1  floor-flagstone-square     [kit/1] dressed-stone default
+  P1  floor-flagstone-rushes     [kit/1] great halls and barracks; the stone shows through the rushes
+  P1  wall-alcove                [kit/edge] a statue, an urn or candles stand in it; runs end to end along a processional wall
+  P1  door-double-grand-open     [kit/edge] open state of door-double-grand
+  P1  door-crypt                 [kit/edge] hangs in `wall-doorway--crypt-stone`; a leaf like `door-plank--leaf`, hinged by the engine
+  P1  floor-tomb-slabs           [kit/1] burial vaults and chapels of rest; the ledgers carry carved borders and symbols, never letters
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  bookshelf                  [wall/1] libraries; line walls
+  P1  desk-writing               [floor/1] study anchor
+  P1  scroll-rack                [wall/1] scholars and archives
+  P1  table-trestle              [floor/1x2] pairs with two long benches
+  P1  bench-upholstered          [floor/1] along ballroom and hall walls; at the foot of the state bed
+  P1  coffin                     [floor/1x2] vampire lairs (Noctar), undertakers
+  P1  sarcophagus                [floor/1x2] crypt anchor
+  P1  urn-decorative             [floor/sub] niches, landings
+  P1  brazier-large              [floor/1] courtyards, ritual sites
+  P1  brazier-standing           [floor/sub] throne rooms, torture chambers, shrines
+  P1  candelabra                 [surface/tiny] feasts and chapels
+  P1  candelabra-standing        [floor/sub] flanks altars and thrones
+  P1  candle-cluster             [surface/tiny] altars, ritual spots, spooky shelves
+  P1  glow-orb                   [attach/tiny] wizard's lab lighting
+  P1  sconce-candle-triple       [wall/tiny] fine rooms and chapels; generated unlit (dark wicks), engine fire FX adds the flames
+  P1  torch-bracket-fine         [wall/tiny] halls and front rooms; charred unlit torch head, engine fire FX adds the flame
+  P1  candle-tree                [floor/sub] common-room corners, chapels; dark unlit wicks, engine fire FX adds the flames
+  P1  candlestick-floor          [floor/sub] bedsides in fine rooms; dark unlit wick, engine fire FX adds the flame
+  P1  lamp-oil-brass             [surface/tiny] desks and counters; generated unlit, engine fire FX adds the flame
+  P1  lamp-pole                  [floor/sub] reading corners, fine rooms; generated unlit, engine fire FX adds the flame
+  P1  torch-stand                [floor/sub] doorways, yards, halls; charred unlit torch head, engine fire FX adds the flame
+  P1  goblet                     [surface/tiny] noble place settings; chalices
+  P1  mortar-pestle              [surface/tiny] apothecaries, herb-wives
+  P1  book-open                  [surface/tiny] lecterns, desks
+  P1  book-stack                 [surface/tiny] desks, floors of messy studies
+  P1  scroll-pile                [surface/tiny] desks, scroll racks
+  P1  bench-stone                [floor/1] mourners' seats; antechamber walls and chapel rows
+  P1  coffin-open                [floor/1x2] open state of coffin
+  P1  embalming-table            [floor/1x2] embalming room focus; `rite-corpse-on-slab` is the same table occupied
+  P1  monument-urn-draped        [floor/1] antechamber focus; the figure-free mourning monument
+  P1  reliquary-shrine           [floor/1] relic chamber focus
+  P1  sarcophagus-open           [floor/1x2] open state of sarcophagus; robbed, or something climbed out
+  P1  robe-stand                 [floor/1] robing rooms; the disguise opportunity, seen from above as a row of dark hoods
+  P1  statue-hooded              [floor/1] in pairs down a processional way and either side of a door
+  P1  shrine-wayside             [floor/1] back to a wall; the engine may light the candles
+  P1  curtains-drapes            [wall/1] scene state: drawn/open changes light
+  P1  rug-rush-mat               [floor/1] peasant floors, monk cells
+  P1  statue-toppled             [floor/1x2] lost glories
+  P1  column-drums-fallen        [floor/1x2] beside its stump
+  P1  pillar-broken              [floor/1] collapsed halls; stands where a `pillar-round` did
+  P1  fx-light-shaft             [attach/1] the chapel/ruin money shot
+  P1  fx-magic-glow              [attach/sub] pylons, idols, portals
+  P1  elemental-brazier          [floor/sub] pair with fx-colored-flame
+  P1  floor-mosaic               [floor/2x2] the map is on the floor
+  P1  pedestal-display           [floor/sub] the "don't touch the thing on the pedestal" shot
+  P1  spellbook-lectern          [floor/sub] the wizard's prize; reading it is a choice
+  P1  statue-rotating            [floor/1] point them all at the door
+  P1  statue-guardian            [floor/1] flanks corridors, vault doors and shrines
+  P1  apothecary-drawers         [wall/1] apothecary signature
+  P1  candle-stubs-dish          [surface/tiny] poor households
+  P1  chamber-pot                [floor/tiny] under every bed; mundane completeness
+  P1  sickbed                    [floor/1x2] healers' houses, temple infirmaries
+  P1  gem-large                  [surface/tiny] idol's eye, quest MacGuffin
+  P1  idol-golden                [surface/tiny] swap it with a sandbag
+  P1  mace-flanged               [surface/tiny] cleric's weapon
+  P1  bench-street               [ground/1] squares, parks
+  P1  burial-urn-niche           [wall/sub] columbaria
+  P1  candle-drippings-mound     [floor/sub] centuries of vigils
+  P1  crypt-gate-iron            [kit/edge] graveyard-to-crypt threshold
+  P1  graveyard-fence-iron       [kit/edge] encloses graveyards
+  P1  plaza-tile                 [kit/1] squares and courtyards
+  P1  stair-grand                [kit/2x2] manor foyers, temple approaches
+  P1  statue-weeping-angel       [floor/1] graveyards; the one that moved
+  P1  chalice-of-wine            [surface/tiny] rite in progress
+  P1  chalice-plain              [surface/tiny] village chapel
+  P1  flask-pilgrim              [surface/tiny] roads to shrines
+  P1  goblet-silver              [surface/tiny] feasts, toasts
+  P1  spoon-apostle              [surface/tiny] heirloom; plot object
+  P1  tablecloth-white           [floor/1x2] drapes a table; a scene-state
+  P1  crutch                     [floor/tiny] infirmaries, veterans
+  P1  icon-painted               [wall/tiny] peasant corners, chapels
+  P1  incense-sticks             [surface/tiny] shrines
+  P1  scroll-open                [surface/tiny] reading desks, altars
+  P1  splint-wooden              [surface/tiny] infirmaries
+  P1  triptych-portable          [surface/tiny] traveling priests
+  P1  trade-arm-sling            [surface/tiny] recovering patients
+  P1  trade-candles-hanging      [ceiling/sub] ceiling of a chandlery; instant read
+  P1  trade-cautery-iron         [surface/tiny] battlefield surgery
+  P1  trade-fever-basin          [surface/tiny] sickroom bedside
+  P1  trade-herbal-book-open     [surface/tiny] identify the poison
+  P1  trade-illuminated-page     [surface/tiny] gold and colour; loot or clue
+  P1  trade-jeweled-binding      [surface/tiny] altar gospels; heist target
+  P1  trade-medicine-chest       [surface/sub] travels with the doctor
+  P1  trade-ruling-board         [surface/tiny] laying out lines
+  P1  trade-surgical-kit-roll    [surface/tiny] opened on the bench
+  P1  trade-tincture-rack        [surface/tiny] bench-top pharmacy
+  P1  trade-treatment-bench      [floor/1x2] infirmary anchor; lay the wounded here
+  P1  rite-burial-shroud-folded  [surface/tiny] undertaker shelves
+  P1  rite-icon-panel-large      [wall/1] chapel focal wall
+  P1  rite-pillar-candle-tall    [floor/sub] flanks altars
+  P1  rite-salt-line             [floor/1] broken salt = something got in
+  P2  floor-checker-stone        [kit/1] great halls, chapels
+  P2  floor-tile-harlequin       [kit/1] lobbies, chapels, noble halls
+  P2  floor-tile-hex             [kit/1] kitchens, bathhouses, front desks
+  P2  pillar-round               [floor/sub] colonnades; ruin signature when broken
+  P2  stair-spiral               [kit/1] towers; compact in footprint
+  P2  wall-archway               [kit/edge] room-to-room flow without a door
+  P2  wall-window-large          [kit/edge] great halls and chapels; strong light shaft source
+  P2  corbel-stone               [wall/sub] carries a stone balcony, a wall-walk, a beam end or an oversailing parapet
+  P2  decal-star-floor           [floor/2x2] the middle of an observatory floor; a separate prop, not part of the floor
+  P2  parapet-corner             [kit/edge] stands at the corners and ends of a parapet run
+  P2  parapet-straight           [kit/edge] the ledge round a flat or low roof; half cover in a rooftop chase
+  P2  roofing-slate              [kit/1] mansion, church and castle-turret roofs
+  P2  roofing-tile-clay          [kit/1] town roofs and better inns
+  P2  decal-grave-ledger         [floor/1x2] laid in rows in a vault floor or one before an altar; carved border and emblem, no letters
+  P2  floor-marble-cabochon      [kit/1] entrance halls and ballrooms
+  P2  floor-tile-encaustic       [kit/1] conservatories and garden halls
+  P2  railing-iron               [kit/edge] round the hole a stair cuts in a stone building's floor (2026-10-06); also a gallery or wall-walk edge
+  P2  roof-skylight              [kit/1] lights the room below; a thief's way in
+  P2  stair-spiral-wide          [kit/2x2] towers; one full turn per storey so copies stack and every floor enters on the same side
+  P2  storage-jar                [floor/sub] oil, grain, wine; ruins full of broken ones
+  P2  cresset-wall               [wall/tiny] yards and great halls; cold charred wood, no fire, engine fire FX adds it
+  P2  brazier-tripod             [floor/sub] warmth and ritual; cold charcoal and ash, no fire, engine fire FX adds it
+  P2  herbs-drying               [ceiling/tiny] hang from beams; apothecary mood
+  P2  inkwell-quill              [surface/tiny] every desk
+  P2  armillary-great            [floor/1] observatories and studies
+  P2  effigy-knight              [floor/1x2] noble crypts
+  P2  gravestone                 [ground/sub] graveyards; cluster with lean
+  P2  shrine-roadside            [ground/sub] crossroads, village edges
+  P2  tomb-slab                  [floor/1x2] lift it for a stair down
+  P2  censer-hanging             [ceiling/tiny] over an altar or bier; chain drawn as thick rods; the engine may add smoke
+  P2  statue-forgotten-god       [floor/1] shrine focus
+  P2  bench-garden               [ground/1] facing the fountain
+  P2  decal-glyph-warding        [floor/sub] magical trap marker (GM-hidden)
+  P2  scroll-sealed-glowing      [surface/tiny] loot and quest deliveries
+  P2  scrying-pool               [floor/1] visions; the villain watching the party
+  P2  apothecary-jars            [surface/tiny] shelves and counters
+  P2  candle-dipping-rack        [floor/1] chandler's shop signature
+  P2  scaffolding                [kit/1] half-built towers, repairs
+  P2  healer-kit                 [surface/tiny] field hospitals
+  P2  holy-water-vial            [surface/tiny] anti-undead kit
+  P2  tome-chained               [surface/tiny] forbidden knowledge
+  P2  window-empty-frame         [kit/edge] chapel ruins with sky behind
+  P2  bread-braided              [surface/tiny] festivals, feast tables
+  P2  porridge-bowl              [surface/tiny] breakfast, orphanages, prisons
+  P2  wheat-sheaf                [floor/sub] harvest, altars
+  P2  ink-bottle                 [surface/tiny] spill it for a stain
+  P2  parchment-stack            [surface/tiny] scriptoria
+  P2  plague-mask                [surface/tiny] plague towns; memorable NPCs
+  P2  craft-cloth-bolt-linen     [surface/tiny] shirts and altar cloths
+  P2  craft-figure-half-carved   [surface/tiny] saint or soldier emerging
+  P2  trade-banker-bench         [floor/1] masons' yard anchor
+  P2  trade-candle-moulds        [surface/tiny] chandlery bench
+  P2  trade-capital-half-carved  [floor/sub] yard or ruin: the work that stopped
+  P2  trade-charter-pendant-seals [surface/tiny] land grants, royal warrants
+  P2  trade-deed-box             [surface/tiny] land titles; lawsuits
+  P2  trade-glazier-table        [floor/1x2] stained-glass workshop anchor
+  P2  trade-herb-bed             [ground/1x2] infirmary garden
+  P2  trade-inscription-slab     [floor/1] clue delivery; unfinished name
+  P2  trade-mason-mallet         [surface/tiny] banker tools
+  P2  trade-palimpsest-page      [surface/tiny] hidden writing: a puzzle hook
+  P2  trade-seal-matrix          [surface/tiny] forge a document with it
+  P2  trade-sewing-frame         [surface/sub] bindery bench
+  P2  trade-statue-roughout      [floor/1] sculptor's studio; emerging figure
+  P2  trade-vellum-stretched     [floor/sub] parchmenter's shop
+  P2  trade-wax-tablet           [surface/tiny] notes, lessons, messages
+  P2  trade-window-panel-in-progress [wall/1] workshop wall; chapel commissions
+  P2  rite-aspergillum           [surface/tiny] blessings; splash the undead
+  P2  rite-collection-plate      [surface/tiny] temptation for rogues
+  P2  rite-corpse-shrouded       [floor/1x2] plague streets, temple floors
+  P2  rite-crozier               [wall/sub] leaning by a throne-chair; high priests
+  P2  rite-funeral-bier          [floor/1x2] lying in state
+  P2  rite-holy-symbol-eye       [surface/tiny] faiths of truth and foresight
+  P2  rite-holy-symbol-scales    [surface/tiny] justice faiths; courthouse chapels
+  P2  rite-holy-symbol-skull     [surface/tiny] the neutral god of endings, not evil
+  P2  rite-holy-symbol-star      [surface/tiny] faiths of travel and guidance
+  P2  rite-holy-symbol-wooden    [surface/tiny] the poor priest's symbol
+  P2  rite-mistletoe-sickle      [surface/tiny] druid rites
+  P2  rite-relic-bone-fragment   [surface/tiny] the saint's knuckle; quest object
+  P2  rite-sacred-flame-bowl     [floor/sub] temple centers; keep it lit
+  P2  rite-saint-statuette       [surface/tiny] wall niches, bedside shrines
+  P2  rite-shrine-small-household [wall/sub] every home has one
+  P2  rite-temple-gong           [floor/1] calls to prayer; alarms
+  P3  buttress                   [wall/1] exterior silhouettes
+  P3  gargoyle-spout             [wall/sub] at parapet corners and gutter ends; one every 15 to 20 ft at most
+  P3  roof-finial                [attach/sub] ends a ridge; tops a conical roof
+  P3  weathervane                [attach/sub] one per building at most, on the highest ridge end
+  P3  balustrade-stone-pier      [kit/edge] ends a balustrade run and stands at its corners
+  P3  basin-stone                [wall/sub] kitchens, sculleries
+  P3  bell-hanging               [ceiling/1] bell towers
+  P3  incense-burner             [surface/tiny] pair with fx-smoke
+  P3  offering-bowl              [surface/tiny] shrines
+  P3  linen-wrappings-basket     [floor/sub] embalming room; under a table or on a shelf
+  P3  abacus                     [surface/tiny] merchants and teachers
+  P3  bandage-basket             [surface/tiny] infirmaries, field hospitals
+  P3  book-press                 [surface/sub] bindery
+  P3  candle-bundle              [surface/tiny] shop shelves, temple stores
+  P3  crane-treadwheel           [ground/2x2] cathedral and castle building sites
+  P3  herb-drying-rack           [floor/1] herbalist cottages
+  P3  mason-block-dressed        [floor/1] building sites
+  P3  school-bench-desk          [floor/1] schoolrooms; academy halls
+  P3  slate-board                [floor/sub] lessons; riddles
+  P3  teacher-lectern-rod        [floor/sub] head of the classroom
+  P3  bandages-bloody            [surface/tiny] infirmary aftermath
+  P3  censer-hand                [surface/tiny] processions
+  P3  holy-symbol-moon           [surface/tiny] night and harvest faiths
+  P3  prayer-beads               [surface/tiny] pilgrims, monks
+  P3  regalia-cushion            [surface/tiny] coronation scenes
+  P3  reliquary-hand             [surface/tiny] saintly relics
+  P3  sword-stone                [floor/1] only the worthy
+  P3  trident                    [surface/sub] sea-god shrines, arenas
+  P3  fountain-wall              [wall/sub] street water source
+  P3  scaffold                   [kit/1] construction sites, chase scenes
+  P3  wayshrine-lantern          [ground/sub] temple approaches
+  P3  amphora-small              [surface/tiny] old-world trade goods
+  P3  bowl-alms                  [surface/tiny] temple steps
+  P3  bread-stamp                [surface/tiny] marked loaves
+  P3  cauldron-bronze-ritual     [floor/sub] offerings and oaths
+  P3  mazer                      [surface/tiny] a shared feast bowl
+  P3  honeyloaf-blessed          [surface/tiny] temple blessing bread
+  P3  rice-bowl                  [surface/tiny] foreign quarter, monasteries
+  P3  wafers-stack               [surface/tiny] temple and feast wafers
+  P3  bloodletting-basin         [surface/tiny] barber-surgeons
+  P3  bone-saw                   [surface/tiny] field surgeons; Grimward
+  P3  candle-clock               [surface/tiny] monastery timekeeping
+  P3  candle-snuffer             [surface/tiny] chapels, studies
+  P3  figurine-offering          [surface/tiny] shrine niches
+  P3  handbell                   [surface/tiny] town criers, sacristans
+  P3  holy-symbol-hammer         [surface/tiny] dwarven shrines, smithy altars
+  P3  holy-symbol-wave           [surface/tiny] fishing villages
+  P3  lyre                       [surface/tiny] bards, oracles
+  P3  music-stand                [floor/sub] music rooms
+  P3  pilgrim-badge              [surface/tiny] travelers
+  P3  poultice-jar               [surface/tiny] wise-woman shelves
+  P3  quills-bundle              [surface/tiny] scriptoria
+  P3  salve-tin                  [surface/tiny] healers
+  P3  sandals                    [floor/tiny] monks, pilgrims
+  P3  stretcher                  [floor/1x2] battlefields, infirmaries
+  P3  urn-ashes-small            [surface/tiny] mantelpiece grandparent
+  P3  alch-crystal-white         [surface/tiny] holy-attuned
+  P3  alch-hourglass-sand-colored [surface/tiny] timed rituals
+  P3  alch-potion-white-milky    [surface/tiny] holy water-ish
+  P3  alch-salt-crystals-jar     [surface/tiny] circles and wards
+  P3  smith-bell-fresh           [floor/1] awaiting hanging
+  P3  smith-bell-mould           [floor/1] bell pit set-piece
+  P3  smith-bell-pit             [floor/2x2] the pour is a scene
+  P3  smith-candlestick-casting  [surface/tiny] household orders
+  P3  craft-figure-carved        [surface/tiny] toys, saints, idols
+  P3  craft-panel-carved-relief  [wall/1] noble paneling, chapel screens
+  P3  craft-rush-mat-rolled      [floor/sub] floor covering stock
+  P3  craft-sandals-pair         [floor/tiny] pilgrims, monks
+  P3  trade-bandage-drying-line  [ground/1x2] infirmary yard
+  P3  trade-beeswax-cakes        [surface/tiny] the good candles
+  P3  trade-bone-folder          [surface/tiny] creasing tool
+  P3  trade-book-boards          [surface/tiny] awaiting covers
+  P3  trade-book-cradle          [surface/tiny] holds a precious volume open
+  P3  trade-chisel-claw          [surface/tiny] texture work
+  P3  trade-chisel-point         [surface/tiny] roughing out
+  P3  trade-clasps-tray          [surface/tiny] binding hardware
+  P3  trade-corbel-head          [surface/sub] waiting to be set
+  P3  trade-cover-leathers       [surface/tiny] bindery shelf
+  P3  trade-dipping-vat          [floor/1] chandlery anchor
+  P3  trade-effigy-unfinished    [floor/1x2] the mason knows who's dying
+  P3  trade-eye-salve-pots       [surface/tiny] healer's shelf
+  P3  trade-font-unfinished      [floor/sub] chapel commission
+  P3  trade-gargoyle-unfinished  [floor/sub] chapel works; is it moving?
+  P3  trade-grozing-iron         [surface/tiny] glass nibbling tool
+  P3  trade-herb-drying-screen   [surface/tiny] sunny sill or loft
+  P3  trade-herb-sachets         [surface/tiny] sold at the stall
+  P3  trade-ink-horn             [surface/tiny] slotted into the desk
+  P3  trade-keystone-carved      [surface/sub] heraldic clue
+  P3  trade-lead-came-strips     [surface/tiny] leaded windows
+  P3  trade-lunellum             [surface/tiny] scraping hides
+  P3  trade-mason-mark-chart     [wall/sub] lodge wall; who cut this stone?
+  P3  trade-mason-square-level   [surface/tiny] layout tools
+  P3  trade-medicinal-honey      [surface/tiny] wound dressing
+  P3  trade-patient-slate        [surface/tiny] infirmary bedside
+  P3  trade-penknife-scribe      [surface/tiny] quill trimming
+  P3  trade-pigment-shells       [surface/tiny] illuminator's palette
+  P3  trade-pigment-slab-muller  [surface/tiny] pigment prep
+  P3  trade-pitching-tool        [surface/tiny] splitting faces
+  P3  trade-psalter-small        [surface/tiny] a noble's prayer book
+  P3  trade-pumice-block         [surface/tiny] smoothing vellum
+  P3  trade-sign-quill           [wall/sub] scrivener's shopfront
+  P3  trade-signatures-unbound   [surface/tiny] bindery table
+  P3  trade-smelling-salts       [surface/tiny] for fainting nobles
+  P3  trade-stained-glass-cartoon [surface/tiny] full-size pattern on the table
+  P3  trade-string-line-pins     [surface/tiny] wall-building
+  P3  trade-template-boards      [wall/sub] hung on the lodge wall
+  P3  trade-votive-tray          [surface/tiny] sold at the chapel door
+  P3  trade-voussoir-stack       [floor/sub] arch in progress
+  P3  trade-wax-votive-limbs     [surface/tiny] pilgrims' shrine offerings
+  P3  trade-wick-spool           [surface/tiny] bench clutter
+  P3  bard-psaltery              [surface/tiny] courtly music
+  P3  rite-baptism-ewer          [surface/tiny] font-side
+  P3  rite-bell-rope             [ceiling/sub] the bell tower's base
+  P3  rite-choir-stall           [floor/1x2] cathedral chancels
+  P3  rite-confession-screen     [floor/1] secrets overheard
+  P3  rite-funeral-pall          [floor/1x2] pair with coffin
+  P3  rite-holy-oil-ampulla      [surface/tiny] healing rites
+  P3  rite-holy-symbol-flame     [surface/tiny] hearth and forge faiths
+  P3  rite-hymnal-stack          [surface/tiny] end of a pew row
+  P3  rite-illuminated-pages     [wall/1] scriptorium
+  P3  rite-incense-boat          [surface/tiny] pairs with the censer
+  P3  rite-kneeler-cushion       [floor/tiny] before shrines and pews
+  P3  rite-memorial-plaque       [wall/sub] names of the fallen; clue text
+  P3  rite-memorial-sand-tray    [floor/sub] side chapels
+  P3  rite-mitre                 [surface/tiny] high-church dressing
+  P3  rite-monk-habit-hook       [wall/sub] monastery cells
+  P3  rite-offering-stones       [ground/sub] waysides, sacred springs
+  P3  rite-pilgrim-badges        [surface/tiny] shrine souvenir stalls
+  P3  rite-pilgrim-staff         [wall/sub] pilgrims at the inn
+  P3  rite-prayer-flags          [wall/1x2] mountain shrines
+  P3  rite-relic-cloth           [surface/tiny] relic chapels
+  P3  rite-ribbon-tree-offerings [ground/sub] wishing trees
+  P3  rite-scripture-scroll-case [surface/tiny] holy texts in older faiths
+  P3  rite-stole-folded          [surface/tiny] vestry drawers
+  P3  rite-votive-offerings      [wall/sub] healing shrines; pilgrims' thanks

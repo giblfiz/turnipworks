@@ -1,0 +1,35 @@
+{
+ "sku": "beam-collapsed",
+ "glb_sha1": "16abf7684d5e55e1bd6b94cbf9684d0c8749c842",
+ "time": "2026-10-12T17:26:32-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "collapsed wooden beam debris",
+  "second_guess": "broken timber barricade",
+  "confidence": 0.85,
+  "reads_clearly_at_distance": true,
+  "description": "A pile of collapsed, weathered wooden beams snapped at the center with exposed pale splintered breaks and prominent rusty iron bolts, resting upon a scattered bed of loose dark grey rubble and small stone fragments. The wood surfaces feature dark aged stain with subtle greenish moss patches, and all geometry forms a solid, low-lying ground prop with no floating elements.",
+  "from_above": "Two broken wooden beams intersecting in a rough X-shape with light-toned splintered breaks at their center point, set atop an irregular cluster of dark grey rubble and stones.",
+  "defects": [],
+  "extra_base_or_ground": "bed of rubble and stones",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1 to 1.5 feet tall (roughly one-quarter to one-fifth the height of the figure) and roughly 3.5 to 4 feet wide."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "collapsed wooden beam debris",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "Footprint is squarer than catalog estimate due to the X-crossing angle of the beams"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "footprint 9.2 x 7.6 ft, catalog 9.2 x 3.3 ft: squarer by 2.29x"
+ ],
+ "notes": [
+  "gemini note: Footprint is squarer than catalog estimate due to the X-crossing angle of the beams"
+ ],
+ "vision": true
+}

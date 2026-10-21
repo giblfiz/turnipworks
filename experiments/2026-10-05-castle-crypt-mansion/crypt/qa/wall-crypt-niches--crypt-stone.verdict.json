@@ -1,0 +1,36 @@
+{
+ "sku": "wall-crypt-niches--crypt-stone",
+ "glb_sha1": "92d100a522085d41f5116b50cffb02b874904407",
+ "time": "2026-10-05T17:39:15-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "crypt niche wall",
+  "second_guess": "stone bookshelf",
+  "confidence": 0.9,
+  "reads_clearly_at_distance": true,
+  "description": "A freestanding dungeon or crypt wall section built of green-tinted, weathered stone masonry. The front features three stacked rectangular niches or burial alcoves divided by horizontal stone lintels. The back is a flat stone wall, though a visible unclosed horizontal mesh seam/slit appears on the upper rear face.",
+  "from_above": "A narrow, solid horizontal rectangle of stone blocks with beveled edges.",
+  "defects": [
+   "open horizontal slit/gap through the upper rear masonry wall visible in Tile D"
+  ],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1.3 times the height of the figure (around 7.5 ft tall) and about 3.5 to 4 ft wide."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "crypt niche wall",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "minor mesh seam/slit on upper rear masonry face"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "wall solid: w:h 0.57, depth:h 0.14, largest opening 1% x 1%, filled 98%",
+  "gemini note: minor mesh seam/slit on upper rear masonry face"
+ ],
+ "vision": true
+}

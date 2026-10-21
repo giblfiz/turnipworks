@@ -1,0 +1,4726 @@
+{
+ "settings": {
+  "TAV": "tavern-inn",
+  "DUN": "dungeon-prison",
+  "MIN": "mine",
+  "CAS": "castle-keep",
+  "NOB": "aristocrat-manor",
+  "RUI": "ruins",
+  "HUT": "peasant-hut-farm",
+  "SMI": "blacksmith-workshop",
+  "TEM": "temple-chapel",
+  "CRY": "crypt-tomb",
+  "MKT": "market-village",
+  "ARC": "wizard-alchemist-library",
+  "CMP": "camp-wilderness",
+  "LAI": "monster-lair",
+  "GRV": "grove-fey",
+  "CLT": "cult-sanctum"
+ },
+ "assets": {
+  "acorns-pile": {
+   "domain": "Food",
+   "role": "Herbs, spices & nuts",
+   "themes": [
+    "GRV",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T13:58-07:00"
+  },
+  "andirons": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T13:59-07:00"
+  },
+  "apple-basket": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T13:59-07:00"
+  },
+  "apple-bitten": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:00-07:00"
+  },
+  "apple-core": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:01-07:00"
+  },
+  "apple-crate": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:01-07:00"
+  },
+  "apple-green": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:01-07:00"
+  },
+  "apple": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T13:53-07:00"
+  },
+  "back-bar-shelves": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:01-07:00"
+  },
+  "backpack": {
+   "domain": "Magic, cults, lairs & puzzles",
+   "role": "Lairs",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:02-07:00"
+  },
+  "bacon-slab": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:02-07:00"
+  },
+  "balcony-wood--dressed-stone": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "MKT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:02-07:00"
+  },
+  "balcony-wood--rough-timber": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "MKT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:02-07:00"
+  },
+  "bandage-roll": {
+   "domain": "Small objects",
+   "role": "Healer & medicine",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:03-07:00"
+  },
+  "bar-counter--dressed-stone--common": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:02-07:00"
+  },
+  "bar-counter--rough-timber--common": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:03-07:00"
+  },
+  "bard-citole": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:04-07:00"
+  },
+  "bard-dulcimer": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:04-07:00"
+  },
+  "bard-instrument-stand": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:05-07:00"
+  },
+  "bard-lute-broken": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:04-07:00"
+  },
+  "bard-lute-case": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "CMP",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:06-07:00"
+  },
+  "bard-masks-theatre": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:05-07:00"
+  },
+  "bard-recorder": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:08-07:00"
+  },
+  "bard-songbook": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:05-07:00"
+  },
+  "bard-tip-hat": {
+   "domain": "Temple, ritual, military & performer",
+   "role": "Bard & performer",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:08-07:00"
+  },
+  "barley-sack": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:06-07:00"
+  },
+  "barrel--s1": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:09-07:00"
+  },
+  "barrel--s2": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:07-07:00"
+  },
+  "barrel--s3": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:09-07:00"
+  },
+  "basket-laundry": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:08-07:00"
+  },
+  "bathtub-wood--fine": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:10-07:00"
+  },
+  "beans-bowl": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:08-07:00"
+  },
+  "beans-dried-sack": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:11-07:00"
+  },
+  "bed-canopy": {
+   "domain": "Furniture",
+   "role": "Beds",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:09-07:00"
+  },
+  "bed-double--common": {
+   "domain": "Furniture",
+   "role": "Beds",
+   "themes": [
+    "HUT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:12-07:00"
+  },
+  "bed-single--common--s1": {
+   "domain": "Furniture",
+   "role": "Beds",
+   "themes": [
+    "HUT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:09-07:00"
+  },
+  "bed-single--common--s2": {
+   "domain": "Furniture",
+   "role": "Beds",
+   "themes": [
+    "HUT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:12-07:00"
+  },
+  "bed-single--common--s3": {
+   "domain": "Furniture",
+   "role": "Beds",
+   "themes": [
+    "HUT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:10-07:00"
+  },
+  "bed-straw-pallet": {
+   "domain": "Furniture",
+   "role": "Beds",
+   "themes": [
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:12-07:00"
+  },
+  "bench-long--s1": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "LAI",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:10-07:00"
+  },
+  "bench-long--s2": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "LAI",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:13-07:00"
+  },
+  "bench-long--s3": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "LAI",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:12-07:00"
+  },
+  "bench-street": {
+   "domain": "Environment breadth",
+   "role": "Settlement exteriors",
+   "themes": [
+    "MKT",
+    "NOB",
+    "RUI",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:14-07:00"
+  },
+  "biscuits-hard": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "CAS",
+    "CMP",
+    "DUN",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:12-07:00"
+  },
+  "blackberry-handful": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "CMP",
+    "GRV",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:14-07:00"
+  },
+  "blankets-folded--common": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:14-07:00"
+  },
+  "bone-meaty": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CMP",
+    "LAI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:14-07:00"
+  },
+  "bottle-broken": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "DUN",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:15-07:00"
+  },
+  "bottle-clay": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:15-07:00"
+  },
+  "bottle-squat-spirit": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:15-07:00"
+  },
+  "bottle-wicker": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "CMP",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:16-07:00"
+  },
+  "bottle-wine-green": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:15-07:00"
+  },
+  "bowl--s1": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:16-07:00"
+  },
+  "bowl--s2": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:16-07:00"
+  },
+  "bowl--s3": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:16-07:00"
+  },
+  "bowl-soup-empty": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:16-07:00"
+  },
+  "bowl-wood-small": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:17-07:00"
+  },
+  "bread-bowl-stew": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:17-07:00"
+  },
+  "bread-burnt": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:17-07:00"
+  },
+  "bread-flatbread": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "CMP",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:18-07:00"
+  },
+  "bread-loaf--s1": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:18-07:00"
+  },
+  "bread-loaf--s2": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:18-07:00"
+  },
+  "bread-loaf--s3": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:18-07:00"
+  },
+  "bread-long-loaf-torn": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:18-07:00"
+  },
+  "bread-long-loaf": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "HUT",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:19-07:00"
+  },
+  "bread-oven": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:19-07:00"
+  },
+  "bread-peel": {
+   "domain": "Trades, shops & village",
+   "role": "Baker",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:19-07:00"
+  },
+  "bread-rack": {
+   "domain": "Trades, shops & village",
+   "role": "Baker",
+   "themes": [
+    "CAS",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:20-07:00"
+  },
+  "bread-roll": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:20-07:00"
+  },
+  "bread-round-loaf-cut": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:20-07:00"
+  },
+  "bread-rye-dark": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:20-07:00"
+  },
+  "bread-slice": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:21-07:00"
+  },
+  "bread-stale-moldy": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "DUN",
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:21-07:00"
+  },
+  "brew-copper": {
+   "domain": "Trades, shops & village",
+   "role": "Brewer & brewhouse",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:22-07:00"
+  },
+  "bridle-hanging": {
+   "domain": "Small objects",
+   "role": "Farm & stable smalls",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:21-07:00"
+  },
+  "broom": {
+   "domain": "Trades & work",
+   "role": "Textile & household",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:22-07:00"
+  },
+  "bucket--s1": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:22-07:00"
+  },
+  "bucket--s2": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:23-07:00"
+  },
+  "bucket--s3": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:22-07:00"
+  },
+  "bucket-slop": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:23-07:00"
+  },
+  "bun-sweet": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:23-07:00"
+  },
+  "butter-crock": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:24-07:00"
+  },
+  "butter-pat": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:23-07:00"
+  },
+  "cabbage-cut": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:25-07:00"
+  },
+  "cabbage-single": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:24-07:00"
+  },
+  "candelabra--fine": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:25-07:00"
+  },
+  "candle--s1": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:25-07:00"
+  },
+  "candle--s2": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:26-07:00"
+  },
+  "candle--s3": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:25-07:00"
+  },
+  "candle-stubs-dish": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "HUT",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:26-07:00"
+  },
+  "candlestick--common": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:26-07:00"
+  },
+  "candlestick--fine": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:27-07:00"
+  },
+  "carrot-pile": {
+   "domain": "Food",
+   "role": "Staple piles & bulk",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:26-07:00"
+  },
+  "carrot": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:27-07:00"
+  },
+  "cart-hand": {
+   "domain": "Outdoors & settlement",
+   "role": "Outdoors & settlement",
+   "themes": [
+    "HUT",
+    "MIN",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:27-07:00"
+  },
+  "cart-shed": {
+   "domain": "Environment breadth",
+   "role": "Settlement exteriors",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:28-07:00"
+  },
+  "cask-rack": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:28-07:00"
+  },
+  "cask-small-spigot": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:28-07:00"
+  },
+  "cauldron-small": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "ARC",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:28-07:00"
+  },
+  "cauldron": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ARC",
+    "CAS",
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:29-07:00"
+  },
+  "chair-plain--common--s1": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:28-07:00"
+  },
+  "chair-plain--common--s2": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:29-07:00"
+  },
+  "chair-plain--common--s3": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:29-07:00"
+  },
+  "chair-upholstered": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:30-07:00"
+  },
+  "chamber-pot--common": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "CAS",
+    "HUT",
+    "NOB",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:29-07:00"
+  },
+  "chamber-pot--fine": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "CAS",
+    "HUT",
+    "NOB",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:30-07:00"
+  },
+  "chandelier-ring": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:30-07:00"
+  },
+  "cheese-moldy-blue": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "DUN",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:31-07:00"
+  },
+  "cheese-shelf-aging": {
+   "domain": "Food",
+   "role": "Staple piles & bulk",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:31-07:00"
+  },
+  "cheese-slice": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:31-07:00"
+  },
+  "cheese-small-round": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:31-07:00"
+  },
+  "cheese-wax-sealed": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "CAS",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:32-07:00"
+  },
+  "cheese-wedge": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:32-07:00"
+  },
+  "cheese-wheel--s1": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:32-07:00"
+  },
+  "cheese-wheel--s2": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:32-07:00"
+  },
+  "cheese-wheel--s3": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:33-07:00"
+  },
+  "cheese-wheel-cut": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:33-07:00"
+  },
+  "chest-ironbound": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "CAS",
+    "CLT",
+    "DUN",
+    "MKT",
+    "NOB",
+    "RUI",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:34-07:00"
+  },
+  "chest-plain--s1": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:34-07:00"
+  },
+  "chest-plain--s2": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:34-07:00"
+  },
+  "chest-plain--s3": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:34-07:00"
+  },
+  "chicken-carcass-bones": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "DUN",
+    "LAI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:35-07:00"
+  },
+  "chicken-half-eaten": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CMP",
+    "LAI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:35-07:00"
+  },
+  "chicken-roast-whole": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CAS",
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:35-07:00"
+  },
+  "chocolate-bar": {
+   "domain": "Food",
+   "role": "Sweets",
+   "themes": [
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:36-07:00"
+  },
+  "chopping-block-kitchen": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:36-07:00"
+  },
+  "cleaver": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:36-07:00"
+  },
+  "clothes-chest-open": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:37-07:00"
+  },
+  "clothes-folded--common": {
+   "domain": "Loot, arms & gear",
+   "role": "Clothing & personal effects",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:38-07:00"
+  },
+  "coat-pegs": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:38-07:00"
+  },
+  "coin-stack": {
+   "domain": "Loot, arms & gear",
+   "role": "Treasure & valuables",
+   "themes": [
+    "CAS",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:39-07:00"
+  },
+  "colander": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:38-07:00"
+  },
+  "cook-hearth-spit": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:39-07:00"
+  },
+  "cookies-plate": {
+   "domain": "Food",
+   "role": "Sweets",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:39-07:00"
+  },
+  "cooking-pot": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:40-07:00"
+  },
+  "counter-shop": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "ARC",
+    "MKT",
+    "RUI",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:39-07:00"
+  },
+  "crab": {
+   "domain": "Food",
+   "role": "Fish & seafood",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:40-07:00"
+  },
+  "crate--s1": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:40-07:00"
+  },
+  "crate--s2": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:41-07:00"
+  },
+  "crate--s3": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:40-07:00"
+  },
+  "cream-jug": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:41-07:00"
+  },
+  "crock": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:41-07:00"
+  },
+  "cucumber": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:42-07:00"
+  },
+  "cup-clay": {
+   "domain": "Tableware & kitchen",
+   "role": "Cups, mugs & drinking vessels",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:42-07:00"
+  },
+  "cup-pewter": {
+   "domain": "Tableware & kitchen",
+   "role": "Cups, mugs & drinking vessels",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:42-07:00"
+  },
+  "cupboard--s1": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:42-07:00"
+  },
+  "cupboard--s2": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:43-07:00"
+  },
+  "cupboard--s3": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:43-07:00"
+  },
+  "curds-bowl": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:43-07:00"
+  },
+  "cutlery-roll": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "CMP",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:43-07:00"
+  },
+  "cutting-board": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:44-07:00"
+  },
+  "dagger--common": {
+   "domain": "Loot, arms & gear",
+   "role": "Blades",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:46-07:00"
+  },
+  "desk-writing--fine": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "ARC",
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:44-07:00"
+  },
+  "dice-and-cup": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "CAS",
+    "CMP",
+    "DUN",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:47-07:00"
+  },
+  "dish-rag-hanging": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:45-07:00"
+  },
+  "door-barn-double--dressed-stone": {
+   "domain": "Structure",
+   "role": "Openings (doors, gates, windows)",
+   "themes": [
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:47-07:00"
+  },
+  "door-barn-double--rough-timber": {
+   "domain": "Structure",
+   "role": "Openings (doors, gates, windows)",
+   "themes": [
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:45-07:00"
+  },
+  "door-double-grand--dressed-stone": {
+   "domain": "Structure",
+   "role": "Openings (doors, gates, windows)",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:48-07:00"
+  },
+  "door-double-grand--rough-timber": {
+   "domain": "Structure",
+   "role": "Openings (doors, gates, windows)",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:46-07:00"
+  },
+  "door-plank--dressed-stone--common": {
+   "domain": "Structure",
+   "role": "Openings (doors, gates, windows)",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:48-07:00"
+  },
+  "door-plank--rough-timber--common": {
+   "domain": "Structure",
+   "role": "Openings (doors, gates, windows)",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:46-07:00"
+  },
+  "door-reinforced--dressed-stone": {
+   "domain": "Structure",
+   "role": "Openings (doors, gates, windows)",
+   "themes": [
+    "CAS",
+    "DUN",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:48-07:00"
+  },
+  "door-reinforced--rough-timber": {
+   "domain": "Structure",
+   "role": "Openings (doors, gates, windows)",
+   "themes": [
+    "CAS",
+    "DUN",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:47-07:00"
+  },
+  "dough-bowl": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:49-07:00"
+  },
+  "dough-kneading": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:47-07:00"
+  },
+  "dried-fruit-string": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:49-07:00"
+  },
+  "dried-herbs-jar": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:48-07:00"
+  },
+  "drumstick": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:50-07:00"
+  },
+  "dumplings-bowl": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:49-07:00"
+  },
+  "eel-pie": {
+   "domain": "Food",
+   "role": "Fish & seafood",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:50-07:00"
+  },
+  "egg-boiled-cup": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:49-07:00"
+  },
+  "egg-cracked": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:51-07:00"
+  },
+  "egg-fried-pan": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:49-07:00"
+  },
+  "egg": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:52-07:00"
+  },
+  "eggs-bowl": {
+   "domain": "Food",
+   "role": "Dairy & eggs",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:50-07:00"
+  },
+  "farrier-stand": {
+   "domain": "Trades, shops & village",
+   "role": "Stable & farrier",
+   "themes": [
+    "CAS",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:52-07:00"
+  },
+  "feed-trough": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:51-07:00"
+  },
+  "fiddle": {
+   "domain": "Loot, arms & gear",
+   "role": "Instruments & entertainment",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:53-07:00"
+  },
+  "fireplace-wall--common": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "CAS",
+    "HUT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:51-07:00"
+  },
+  "fireplace-wall--fine": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "CAS",
+    "HUT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:53-07:00"
+  },
+  "fish-bones": {
+   "domain": "Food",
+   "role": "Fish & seafood",
+   "themes": [
+    "DUN",
+    "LAI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:52-07:00"
+  },
+  "fish-cooked-plate": {
+   "domain": "Food",
+   "role": "Fish & seafood",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:54-07:00"
+  },
+  "flagon": {
+   "domain": "Tableware & kitchen",
+   "role": "Cups, mugs & drinking vessels",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:52-07:00"
+  },
+  "floor-hayloft--dressed-stone": {
+   "domain": "Structure",
+   "role": "Floors",
+   "themes": [
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:55-07:00"
+  },
+  "floor-hayloft--rough-timber": {
+   "domain": "Structure",
+   "role": "Floors",
+   "themes": [
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:53-07:00"
+  },
+  "floor-trapdoor--dressed-stone": {
+   "domain": "Structure",
+   "role": "Floors",
+   "themes": [
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:55-07:00"
+  },
+  "floor-trapdoor--rough-timber": {
+   "domain": "Structure",
+   "role": "Floors",
+   "themes": [
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:53-07:00"
+  },
+  "flour-bin": {
+   "domain": "Trades, shops & village",
+   "role": "Baker",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:56-07:00"
+  },
+  "flour-sack-open": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:54-07:00"
+  },
+  "fork-two-tine": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:56-07:00"
+  },
+  "fruit-crate-mixed": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:55-07:00"
+  },
+  "gallery-interior--dressed-stone": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "ARC",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:57-07:00"
+  },
+  "gallery-interior--rough-timber": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "ARC",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:55-07:00"
+  },
+  "garlic-braid": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "CRY",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:57-07:00"
+  },
+  "garlic-bulb": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:56-07:00"
+  },
+  "grain-bin-stable": {
+   "domain": "Trades, shops & village",
+   "role": "Stable & farrier",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:58-07:00"
+  },
+  "grapes-crushed-tub": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:56-07:00"
+  },
+  "griddle-iron": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:58-07:00"
+  },
+  "gruel-bowl": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:57-07:00"
+  },
+  "ham-hanging": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:59-07:00"
+  },
+  "hay-bale--s1": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:57-07:00"
+  },
+  "hay-bale--s2": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:00-07:00"
+  },
+  "hay-bale--s3": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:58-07:00"
+  },
+  "hay-pile": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:00-07:00"
+  },
+  "herb-bundle-fresh": {
+   "domain": "Food",
+   "role": "Herbs, spices & nuts",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:59-07:00"
+  },
+  "herb-pot": {
+   "domain": "Food",
+   "role": "Herbs, spices & nuts",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:01-07:00"
+  },
+  "hitching-post": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:59-07:00"
+  },
+  "honey-cake": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "GRV",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:01-07:00"
+  },
+  "honey-jar-dipper": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "HUT",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:00-07:00"
+  },
+  "hops-bundle": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:02-07:00"
+  },
+  "horse-blanket-rail": {
+   "domain": "Trades, shops & village",
+   "role": "Stable & farrier",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:00-07:00"
+  },
+  "horse-collar": {
+   "domain": "Small objects",
+   "role": "Farm & stable smalls",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:02-07:00"
+  },
+  "horse-trough-stone": {
+   "domain": "Environment breadth",
+   "role": "Settlement exteriors",
+   "themes": [
+    "CAS",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:01-07:00"
+  },
+  "horseshoe-single": {
+   "domain": "Small objects",
+   "role": "Rope, chain & hardware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:02-07:00"
+  },
+  "jam-jar": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "HUT",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:01-07:00"
+  },
+  "jar-oil": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:03-07:00"
+  },
+  "jar-pickles": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:02-07:00"
+  },
+  "jerky-bundle": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CAS",
+    "CMP",
+    "MIN",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:04-07:00"
+  },
+  "journal-leather": {
+   "domain": "Loot, arms & gear",
+   "role": "Books & documents",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:03-07:00"
+  },
+  "jug-clay": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:04-07:00"
+  },
+  "jug-puzzle": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:04-07:00"
+  },
+  "jug-stoneware-large": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:05-07:00"
+  },
+  "kebab-grill": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CMP",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:04-07:00"
+  },
+  "kettle-hanging": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:05-07:00"
+  },
+  "key-hook-board": {
+   "domain": "Loot, arms & gear",
+   "role": "Keys, locks & security",
+   "themes": [
+    "CAS",
+    "DUN",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:05-07:00"
+  },
+  "key-large": {
+   "domain": "Loot, arms & gear",
+   "role": "Keys, locks & security",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "key-ring": {
+   "domain": "Loot, arms & gear",
+   "role": "Keys, locks & security",
+   "themes": [
+    "CAS",
+    "DUN",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:05-07:00"
+  },
+  "key-simple--s1": {
+   "domain": "Small objects",
+   "role": "Rope, chain & hardware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "key-simple--s2": {
+   "domain": "Small objects",
+   "role": "Rope, chain & hardware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "key-simple--s3": {
+   "domain": "Small objects",
+   "role": "Rope, chain & hardware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "knife-carving": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "knife-rack-wall": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:07-07:00"
+  },
+  "knife-table": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "CAS",
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "ladder-wood": {
+   "domain": "Structure",
+   "role": "Vertical circulation",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T15:07-07:00"
+  },
+  "ladle": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:07-07:00"
+  },
+  "lamp-post-wood": {
+   "domain": "Environment breadth",
+   "role": "Settlement exteriors",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:08-07:00"
+  },
+  "lantern-hand": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:07-07:00"
+  },
+  "lantern-hanging--s1": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "CAS",
+    "DUN",
+    "MIN",
+    "MKT",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:08-07:00"
+  },
+  "lantern-hanging--s2": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "CAS",
+    "DUN",
+    "MIN",
+    "MKT",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:08-07:00"
+  },
+  "lantern-hanging--s3": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "CAS",
+    "DUN",
+    "MIN",
+    "MKT",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:09-07:00"
+  },
+  "ledger-accounts": {
+   "domain": "Loot, arms & gear",
+   "role": "Treasure & valuables",
+   "themes": [
+    "CAS",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:08-07:00"
+  },
+  "ledger-counter-bell": {
+   "domain": "Trades, shops & village",
+   "role": "General store & trade goods",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:09-07:00"
+  },
+  "linen-chest": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:09-07:00"
+  },
+  "loot-sack": {
+   "domain": "Loot, arms & gear",
+   "role": "Treasure & valuables",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:10-07:00"
+  },
+  "malt-sacks": {
+   "domain": "Trades, shops & village",
+   "role": "Brewer & brewhouse",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:10-07:00"
+  },
+  "manure-heap": {
+   "domain": "Trades, shops & village",
+   "role": "Stable & farrier",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:11-07:00"
+  },
+  "mash-tun": {
+   "domain": "Trades, shops & village",
+   "role": "Brewer & brewhouse",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:11-07:00"
+  },
+  "meat-roast-joint": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:11-07:00"
+  },
+  "meatballs-bowl": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:11-07:00"
+  },
+  "mirror-standing": {
+   "domain": "Noble d\u00e9cor & leisure",
+   "role": "Noble d\u00e9cor & leisure",
+   "themes": [
+    "LAI",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:11-07:00"
+  },
+  "monster-egg-cooked": {
+   "domain": "Food",
+   "role": "Fantasy foods",
+   "themes": [
+    "CMP",
+    "LAI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:12-07:00"
+  },
+  "monster-head-trophy": {
+   "domain": "Loot, arms & gear",
+   "role": "Monster trophies & parts",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:12-07:00"
+  },
+  "mop": {
+   "domain": "Small objects",
+   "role": "Hand tools, one by one",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:12-07:00"
+  },
+  "mousetrap-cheese": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:12-07:00"
+  },
+  "muffin": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:12-07:00"
+  },
+  "mug-chipped": {
+   "domain": "Tableware & kitchen",
+   "role": "Cups, mugs & drinking vessels",
+   "themes": [
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:13-07:00"
+  },
+  "mug-glazed": {
+   "domain": "Tableware & kitchen",
+   "role": "Cups, mugs & drinking vessels",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:13-07:00"
+  },
+  "mug-of-ale": {
+   "domain": "Tableware & kitchen",
+   "role": "Drinks & dishes in vessels",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:14-07:00"
+  },
+  "mulberries-bowl": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "GRV",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:14-07:00"
+  },
+  "mushroom-cluster-edible": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "CMP",
+    "GRV",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:14-07:00"
+  },
+  "mussels-bucket": {
+   "domain": "Food",
+   "role": "Fish & seafood",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:14-07:00"
+  },
+  "napkin-folded": {
+   "domain": "Tableware & kitchen",
+   "role": "Linens & table dressing",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:15-07:00"
+  },
+  "noodles-bowl": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:15-07:00"
+  },
+  "notice-board": {
+   "domain": "Outdoors & settlement",
+   "role": "Outdoors & settlement",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:15-07:00"
+  },
+  "oats-bowl-dry": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:15-07:00"
+  },
+  "oil-jar": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:16-07:00"
+  },
+  "omelette-pan": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:16-07:00"
+  },
+  "onion-sliced": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:16-07:00"
+  },
+  "onion-string": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:16-07:00"
+  },
+  "onion": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:17-07:00"
+  },
+  "outhouse": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:17-07:00"
+  },
+  "oysters-plate": {
+   "domain": "Food",
+   "role": "Fish & seafood",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:17-07:00"
+  },
+  "pan-frying": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:17-07:00"
+  },
+  "pan-long-handle": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:18-07:00"
+  },
+  "pasty": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "CMP",
+    "HUT",
+    "MIN",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:18-07:00"
+  },
+  "pear-pile": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "HUT",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:18-07:00"
+  },
+  "pear": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:18-07:00"
+  },
+  "pie-cut-missing-slice": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:19-07:00"
+  },
+  "pie-fruit-lattice": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:19-07:00"
+  },
+  "pie-meat": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:19-07:00"
+  },
+  "pie-slice": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:19-07:00"
+  },
+  "pillar-square--s1": {
+   "domain": "Structure",
+   "role": "Supports",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T15:20-07:00"
+  },
+  "pillar-square--s2": {
+   "domain": "Structure",
+   "role": "Supports",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T15:20-07:00"
+  },
+  "pillar-square--s3": {
+   "domain": "Structure",
+   "role": "Supports",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T15:20-07:00"
+  },
+  "pillows-cushions--common": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:20-07:00"
+  },
+  "pillows-cushions--fine": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:21-07:00"
+  },
+  "pitcher--common--s1": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:21-07:00"
+  },
+  "pitcher--common--s2": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:22-07:00"
+  },
+  "pitcher--common--s3": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:22-07:00"
+  },
+  "pitcher-of-ale": {
+   "domain": "Tableware & kitchen",
+   "role": "Drinks & dishes in vessels",
+   "themes": [
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:22-07:00"
+  },
+  "pitcher-pewter": {
+   "domain": "Tableware & kitchen",
+   "role": "Bottles, jugs & storage vessels",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:22-07:00"
+  },
+  "pitchfork": {
+   "domain": "Small objects",
+   "role": "Hand tools, one by one",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:23-07:00"
+  },
+  "plate--common--s1": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:23-07:00"
+  },
+  "plate--common--s2": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:23-07:00"
+  },
+  "plate--common--s3": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:23-07:00"
+  },
+  "plate-cheese-bread": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:24-07:00"
+  },
+  "plate-eggs-bacon": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:23-07:00"
+  },
+  "plate-fish-chips": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:24-07:00"
+  },
+  "plate-pewter": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "CAS",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:24-07:00"
+  },
+  "plate-pie-slice": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:25-07:00"
+  },
+  "plate-roast-veg": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:24-07:00"
+  },
+  "plate-sausage-mash": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:25-07:00"
+  },
+  "plate-scraps": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:25-07:00"
+  },
+  "plate-wood-round": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:26-07:00"
+  },
+  "platter-wood": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:25-07:00"
+  },
+  "porch-covered--dressed-stone": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:26-07:00"
+  },
+  "porch-covered--rough-timber": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:26-07:00"
+  },
+  "post-timber": {
+   "domain": "Structure",
+   "role": "Supports",
+   "themes": [
+    "HUT",
+    "MIN",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:27-07:00"
+  },
+  "pot-copper": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "CAS",
+    "NOB"
+   ],
+   "gen": "2026-09-30T15:26-07:00"
+  },
+  "pot-hook-chain": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:27-07:00"
+  },
+  "pot-iron-large": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "CAS",
+    "CMP",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:27-07:00"
+  },
+  "pot-iron-small": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:28-07:00"
+  },
+  "pot-lidded": {
+   "domain": "Tableware & kitchen",
+   "role": "Pots, pans & cookware",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:27-07:00"
+  },
+  "potato-peeled": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:28-07:00"
+  },
+  "potato-pile": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:28-07:00"
+  },
+  "potato-sack-open": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:29-07:00"
+  },
+  "potato": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:28-07:00"
+  },
+  "preserves-shelf-jars": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:29-07:00"
+  },
+  "pretzel": {
+   "domain": "Food",
+   "role": "Grains & baking",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:29-07:00"
+  },
+  "privy-seat-double": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:30-07:00"
+  },
+  "privy-seat-single--common": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "CAS",
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:29-07:00"
+  },
+  "pumpkin-carved": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "CRY",
+    "GRV",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:30-07:00"
+  },
+  "quilt-rack": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:30-07:00"
+  },
+  "rabbit-roast": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:31-07:00"
+  },
+  "railing-wood--dressed-stone": {
+   "domain": "Structure",
+   "role": "Barriers & railings",
+   "themes": [
+    "HUT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:30-07:00"
+  },
+  "railing-wood--rough-timber": {
+   "domain": "Structure",
+   "role": "Barriers & railings",
+   "themes": [
+    "HUT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:31-07:00"
+  },
+  "refuse-pile": {
+   "domain": "Environment breadth",
+   "role": "Environmental clutter",
+   "themes": [
+    "DUN",
+    "LAI",
+    "MKT"
+   ],
+   "gen": "2026-09-30T15:31-07:00"
+  },
+  "ribs-roasted": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CAS",
+    "CMP",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:30-07:00"
+  },
+  "rice-bowl": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "MKT",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T15:30-07:00"
+  },
+  "rolling-pin": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:29-07:00"
+  },
+  "roof-dormer--dressed-stone": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "MKT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:29-07:00"
+  },
+  "roof-dormer--rough-timber": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "MKT",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:28-07:00"
+  },
+  "roof-shingle-wood--dressed-stone": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:27-07:00"
+  },
+  "roof-shingle-wood--rough-timber": {
+   "domain": "Environment breadth",
+   "role": "Roofs, porches & balconies",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:26-07:00"
+  },
+  "rope-coil": {
+   "domain": "Trades & work",
+   "role": "Carpentry & general work",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:26-07:00"
+  },
+  "rural-curry-comb": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:25-07:00"
+  },
+  "rural-grooming-box": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:25-07:00"
+  },
+  "rural-hoof-pick": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "HUT",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:24-07:00"
+  },
+  "rural-horse-brasses": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:24-07:00"
+  },
+  "rural-lantern-barn": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Farm",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:23-07:00"
+  },
+  "rural-manger-wall": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:23-07:00"
+  },
+  "rural-manure-barrow": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:22-07:00"
+  },
+  "rural-nosebag": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "CMP",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:22-07:00"
+  },
+  "rural-oat-sack": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:21-07:00"
+  },
+  "rural-saddle-riding": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:20-07:00"
+  },
+  "rural-water-bucket-stable": {
+   "domain": "Mine, farm, stable & hunt",
+   "role": "Stable & tack",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:20-07:00"
+  },
+  "sack--s1": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T15:19-07:00"
+  },
+  "sack--s2": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T15:19-07:00"
+  },
+  "sack--s3": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T15:18-07:00"
+  },
+  "saddle-rack": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:18-07:00"
+  },
+  "salad-bowl": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "HUT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:17-07:00"
+  },
+  "salt-box": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:17-07:00"
+  },
+  "salt-sack": {
+   "domain": "Food",
+   "role": "Herbs, spices & nuts",
+   "themes": [
+    "CAS",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:16-07:00"
+  },
+  "salted-fish-stack": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "CAS",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:16-07:00"
+  },
+  "sauerkraut-crock": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:15-07:00"
+  },
+  "sausage-link": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:15-07:00"
+  },
+  "sausages-pan": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "CMP",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:14-07:00"
+  },
+  "scones-plate": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:14-07:00"
+  },
+  "screen-folding": {
+   "domain": "Noble d\u00e9cor & leisure",
+   "role": "Noble d\u00e9cor & leisure",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:13-07:00"
+  },
+  "serving-bowl-large": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:13-07:00"
+  },
+  "settle": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:12-07:00"
+  },
+  "shelf-wall--s1": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:12-07:00"
+  },
+  "shelf-wall--s2": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:11-07:00"
+  },
+  "shelf-wall--s3": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:11-07:00"
+  },
+  "shelving-freestanding": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "DUN",
+    "MKT",
+    "RUI",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:10-07:00"
+  },
+  "shepherds-pie-dish": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:10-07:00"
+  },
+  "shield-display": {
+   "domain": "Military",
+   "role": "Military",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:10-07:00"
+  },
+  "shrimp-bowl": {
+   "domain": "Food",
+   "role": "Fish & seafood",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:09-07:00"
+  },
+  "sickbed": {
+   "domain": "Trades, shops & village",
+   "role": "Apothecary, healer & barber-surgeon",
+   "themes": [
+    "CAS",
+    "MKT",
+    "RUI",
+    "TEM"
+   ],
+   "gen": "2026-09-30T15:09-07:00"
+  },
+  "sieve-hair": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:08-07:00"
+  },
+  "sign-hanging--s1": {
+   "domain": "Outdoors & settlement",
+   "role": "Outdoors & settlement",
+   "themes": [
+    "MKT",
+    "RUI",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:08-07:00"
+  },
+  "sign-hanging--s2": {
+   "domain": "Outdoors & settlement",
+   "role": "Outdoors & settlement",
+   "themes": [
+    "MKT",
+    "RUI",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:07-07:00"
+  },
+  "sign-hanging--s3": {
+   "domain": "Outdoors & settlement",
+   "role": "Outdoors & settlement",
+   "themes": [
+    "MKT",
+    "RUI",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:07-07:00"
+  },
+  "skimmer-iron": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "smith-farrier-box": {
+   "domain": "Smithing & metal",
+   "role": "Farrier",
+   "themes": [
+    "CAS",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "smith-hoof-nippers": {
+   "domain": "Smithing & metal",
+   "role": "Farrier",
+   "themes": [
+    "SMI"
+   ],
+   "gen": "2026-09-30T15:06-07:00"
+  },
+  "smith-hoof-rasp": {
+   "domain": "Smithing & metal",
+   "role": "Farrier",
+   "themes": [
+    "SMI"
+   ],
+   "gen": "2026-09-30T15:05-07:00"
+  },
+  "smith-hoof-stand": {
+   "domain": "Smithing & metal",
+   "role": "Farrier",
+   "themes": [
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:05-07:00"
+  },
+  "smith-horseshoe-rack": {
+   "domain": "Smithing & metal",
+   "role": "Farrier",
+   "themes": [
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:04-07:00"
+  },
+  "smith-shoeing-stocks": {
+   "domain": "Smithing & metal",
+   "role": "Farrier",
+   "themes": [
+    "CAS",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:04-07:00"
+  },
+  "smoked-meat-rack": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:03-07:00"
+  },
+  "soup-bowl": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:03-07:00"
+  },
+  "spoon-pewter": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "CAS",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:02-07:00"
+  },
+  "spoon-stirring-long": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "ARC",
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:02-07:00"
+  },
+  "spoon-wooden": {
+   "domain": "Tableware & kitchen",
+   "role": "Cutlery & eating utensils",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T15:01-07:00"
+  },
+  "stable-stall--dressed-stone": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "CAS",
+    "HUT",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:01-07:00"
+  },
+  "stable-stall--rough-timber": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "CAS",
+    "HUT",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T15:00-07:00"
+  },
+  "stable-stall-door--dressed-stone": {
+   "domain": "Trades, shops & village",
+   "role": "Stable & farrier",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:59-07:00"
+  },
+  "stable-stall-door--rough-timber": {
+   "domain": "Trades, shops & village",
+   "role": "Stable & farrier",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:59-07:00"
+  },
+  "stair-exterior-wood--dressed-stone": {
+   "domain": "Environment breadth",
+   "role": "Stairs, ladders & crossings",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:59-07:00"
+  },
+  "stair-exterior-wood--rough-timber": {
+   "domain": "Environment breadth",
+   "role": "Stairs, ladders & crossings",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:58-07:00"
+  },
+  "stair-landing--dressed-stone": {
+   "domain": "Structure",
+   "role": "Vertical circulation",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:57-07:00"
+  },
+  "stair-landing--rough-timber": {
+   "domain": "Structure",
+   "role": "Vertical circulation",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:57-07:00"
+  },
+  "stair-straight--dressed-stone": {
+   "domain": "Structure",
+   "role": "Vertical circulation",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:56-07:00"
+  },
+  "stair-straight--rough-timber": {
+   "domain": "Structure",
+   "role": "Vertical circulation",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:56-07:00"
+  },
+  "stew-bowl": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:55-07:00"
+  },
+  "stew-pot-full": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:54-07:00"
+  },
+  "stinking-cheese-giant": {
+   "domain": "Food",
+   "role": "Fantasy foods",
+   "themes": [
+    "LAI",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:54-07:00"
+  },
+  "stool-bar": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:53-07:00"
+  },
+  "stool-three-leg--s1": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:53-07:00"
+  },
+  "stool-three-leg--s2": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:52-07:00"
+  },
+  "stool-three-leg--s3": {
+   "domain": "Furniture",
+   "role": "Seating",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:52-07:00"
+  },
+  "strawberries-bowl": {
+   "domain": "Food",
+   "role": "Fruit",
+   "themes": [
+    "HUT",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:51-07:00"
+  },
+  "strongbox": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "CAS",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:51-07:00"
+  },
+  "sword-long--common": {
+   "domain": "Loot, arms & gear",
+   "role": "Blades",
+   "themes": [
+    "CAS",
+    "DUN",
+    "LAI",
+    "MKT",
+    "RUI",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:50-07:00"
+  },
+  "table-kitchen-prep": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:49-07:00"
+  },
+  "table-round-small--common": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:49-07:00"
+  },
+  "table-side--common": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:48-07:00"
+  },
+  "table-side--fine": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:48-07:00"
+  },
+  "table-square--common--s1": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:47-07:00"
+  },
+  "table-square--common--s2": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:46-07:00"
+  },
+  "table-square--common--s3": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:46-07:00"
+  },
+  "table-trestle--s1": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "CAS",
+    "HUT",
+    "LAI",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:45-07:00"
+  },
+  "table-trestle--s2": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "CAS",
+    "HUT",
+    "LAI",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:45-07:00"
+  },
+  "table-trestle--s3": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "CAS",
+    "HUT",
+    "LAI",
+    "NOB",
+    "RUI",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:44-07:00"
+  },
+  "table-vanity": {
+   "domain": "Furniture",
+   "role": "Tables",
+   "themes": [
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:44-07:00"
+  },
+  "tack-wall": {
+   "domain": "Trades, shops & village",
+   "role": "Stable & farrier",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:43-07:00"
+  },
+  "tankard--common--s1": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:43-07:00"
+  },
+  "tankard--common--s2": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:42-07:00"
+  },
+  "tankard--common--s3": {
+   "domain": "Table & kitchenware",
+   "role": "Table & kitchenware",
+   "themes": [
+    "CAS",
+    "DUN",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:42-07:00"
+  },
+  "tankard-dented": {
+   "domain": "Tableware & kitchen",
+   "role": "Cups, mugs & drinking vessels",
+   "themes": [
+    "CAS",
+    "CMP",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:41-07:00"
+  },
+  "tankard-lidded": {
+   "domain": "Tableware & kitchen",
+   "role": "Cups, mugs & drinking vessels",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:40-07:00"
+  },
+  "tankard-of-ale": {
+   "domain": "Tableware & kitchen",
+   "role": "Drinks & dishes in vessels",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:40-07:00"
+  },
+  "tankard-of-stout": {
+   "domain": "Tableware & kitchen",
+   "role": "Drinks & dishes in vessels",
+   "themes": [
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:39-07:00"
+  },
+  "tankard-tipped-spill": {
+   "domain": "Tableware & kitchen",
+   "role": "Drinks & dishes in vessels",
+   "themes": [
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:39-07:00"
+  },
+  "torch-sconce--s1": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "CAS",
+    "CRY",
+    "DUN",
+    "MIN",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:38-07:00"
+  },
+  "torch-sconce--s2": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "CAS",
+    "CRY",
+    "DUN",
+    "MIN",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:38-07:00"
+  },
+  "torch-sconce--s3": {
+   "domain": "Lighting",
+   "role": "Lighting",
+   "themes": [
+    "CAS",
+    "CRY",
+    "DUN",
+    "MIN",
+    "SMI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:37-07:00"
+  },
+  "towel-stack": {
+   "domain": "Trades, shops & village",
+   "role": "Bathhouse",
+   "themes": [
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:37-07:00"
+  },
+  "trade-brewers-paddle": {
+   "domain": "Earth, fire, paper & food trades",
+   "role": "Brewer & vintner",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:36-07:00"
+  },
+  "trade-fever-basin": {
+   "domain": "Earth, fire, paper & food trades",
+   "role": "Healer, herbalist & barber-surgeon",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:36-07:00"
+  },
+  "trade-loaf-tray-rising": {
+   "domain": "Earth, fire, paper & food trades",
+   "role": "Baker & miller",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:35-07:00"
+  },
+  "trade-mash-fork": {
+   "domain": "Earth, fire, paper & food trades",
+   "role": "Brewer & vintner",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:34-07:00"
+  },
+  "trade-oven-rake": {
+   "domain": "Earth, fire, paper & food trades",
+   "role": "Baker & miller",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:34-07:00"
+  },
+  "trade-proofing-basket": {
+   "domain": "Earth, fire, paper & food trades",
+   "role": "Baker & miller",
+   "themes": [
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:32-07:00"
+  },
+  "trade-tincture-rack": {
+   "domain": "Earth, fire, paper & food trades",
+   "role": "Healer, herbalist & barber-surgeon",
+   "themes": [
+    "ARC",
+    "MKT",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:32-07:00"
+  },
+  "tray-long-tavern": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:31-07:00"
+  },
+  "tray-wood-round": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:31-07:00"
+  },
+  "trencher-meal": {
+   "domain": "Food",
+   "role": "Prepared dishes",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:30-07:00"
+  },
+  "trencher-wood": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:30-07:00"
+  },
+  "tripe-bowl": {
+   "domain": "Food",
+   "role": "Meat & fowl",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:29-07:00"
+  },
+  "trophy-head": {
+   "domain": "Noble d\u00e9cor & leisure",
+   "role": "Noble d\u00e9cor & leisure",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:28-07:00"
+  },
+  "trout-smoked": {
+   "domain": "Food",
+   "role": "Fish & seafood",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:28-07:00"
+  },
+  "tun-large": {
+   "domain": "Containers",
+   "role": "Containers",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:27-07:00"
+  },
+  "tureen-pewter": {
+   "domain": "Tableware & kitchen",
+   "role": "Plates, bowls & serving",
+   "themes": [
+    "CAS",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:27-07:00"
+  },
+  "turnip-basket": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:26-07:00"
+  },
+  "turnip-pile": {
+   "domain": "Food & provisions",
+   "role": "Food & provisions",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:26-07:00"
+  },
+  "turnip-sliced": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:25-07:00"
+  },
+  "turnip": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "ANY"
+   ],
+   "gen": "2026-09-30T14:23-07:00"
+  },
+  "utensil-rack-wall": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:23-07:00"
+  },
+  "vase-flowers": {
+   "domain": "Noble d\u00e9cor & leisure",
+   "role": "Noble d\u00e9cor & leisure",
+   "themes": [
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:22-07:00"
+  },
+  "vegetable-basket-mixed": {
+   "domain": "Food",
+   "role": "Vegetables & roots",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:22-07:00"
+  },
+  "vinegar-jug": {
+   "domain": "Food",
+   "role": "Preserved & stored",
+   "themes": [
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:21-07:00"
+  },
+  "wafers-stack": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "NOB",
+    "TAV",
+    "TEM"
+   ],
+   "gen": "2026-09-30T14:21-07:00"
+  },
+  "wagon": {
+   "domain": "Outdoors & settlement",
+   "role": "Outdoors & settlement",
+   "themes": [
+    "CMP",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:20-07:00"
+  },
+  "wall-corner-inner--dressed-stone": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:19-07:00"
+  },
+  "wall-corner-inner--rough-timber": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:19-07:00"
+  },
+  "wall-corner-outer--dressed-stone": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:18-07:00"
+  },
+  "wall-corner-outer--rough-timber": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:18-07:00"
+  },
+  "wall-doorway--dressed-stone": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:17-07:00"
+  },
+  "wall-doorway--rough-timber": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:17-07:00"
+  },
+  "wall-straight--dressed-stone": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:16-07:00"
+  },
+  "wall-straight--rough-timber": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:16-07:00"
+  },
+  "wall-window-small--dressed-stone": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:15-07:00"
+  },
+  "wall-window-small--rough-timber": {
+   "domain": "Structure",
+   "role": "Walls",
+   "themes": [
+    "ANY",
+    "RUI"
+   ],
+   "gen": "2026-09-30T14:15-07:00"
+  },
+  "wardrobe--common--s1": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:15-07:00"
+  },
+  "wardrobe--common--s2": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:14-07:00"
+  },
+  "wardrobe--common--s3": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:14-07:00"
+  },
+  "wardrobe--fine--s1": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:13-07:00"
+  },
+  "wardrobe--fine--s2": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:12-07:00"
+  },
+  "wardrobe--fine--s3": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "CAS",
+    "NOB",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:12-07:00"
+  },
+  "washing-bowl-dishes": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:11-07:00"
+  },
+  "washstand--common": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:11-07:00"
+  },
+  "washstand--fine": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:10-07:00"
+  },
+  "water-jug-basin--common": {
+   "domain": "Trades, shops & village",
+   "role": "Household clutter & linens",
+   "themes": [
+    "HUT",
+    "MKT",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:09-07:00"
+  },
+  "water-trough": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:09-07:00"
+  },
+  "well": {
+   "domain": "Fixtures (room anchors)",
+   "role": "Fixtures (room anchors)",
+   "themes": [
+    "CAS",
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:09-07:00"
+  },
+  "wheel-spare": {
+   "domain": "Trades, shops & village",
+   "role": "Carpenter & wheelwright",
+   "themes": [
+    "HUT",
+    "MKT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:08-07:00"
+  },
+  "wheelbarrow": {
+   "domain": "Trades & work",
+   "role": "Farming & livestock",
+   "themes": [
+    "HUT",
+    "MIN",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:07-07:00"
+  },
+  "whisk-twig": {
+   "domain": "Tableware & kitchen",
+   "role": "Kitchen tools",
+   "themes": [
+    "CAS",
+    "HUT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:07-07:00"
+  },
+  "wine-rack": {
+   "domain": "Furniture",
+   "role": "Storage furniture",
+   "themes": [
+    "CAS",
+    "NOB",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:06-07:00"
+  },
+  "woodshed": {
+   "domain": "Environment breadth",
+   "role": "Settlement exteriors",
+   "themes": [
+    "HUT",
+    "RUI",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:06-07:00"
+  },
+  "yogurt-bowl": {
+   "domain": "Food",
+   "role": "More staples & dishes",
+   "themes": [
+    "HUT",
+    "MKT",
+    "TAV"
+   ],
+   "gen": "2026-09-30T14:04-07:00"
+  }
+ }
+}

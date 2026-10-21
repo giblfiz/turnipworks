@@ -1,0 +1,167 @@
+{
+ "file": "foe-giant-rat.glb",
+ "tris": 48474,
+ "kb": 2808,
+ "native_extent": [
+  0.713,
+  0.646,
+  1.0
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  78,
+  49,
+  36
+ ],
+ "mean_saturation": 0.532,
+ "sized_by": "its highest point",
+ "overall_ft": 1.8,
+ "pieces": {
+  "connected_parts": 28,
+  "main_part_area_share": 0.9922,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 2.7873,
+ "y0": -0.8976,
+ "stated_ft": {
+  "body": 1.8,
+  "figure_top": 1.8,
+  "overall": 1.8,
+  "length": 3.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3689,
+   -0.3221,
+   -0.5
+  ],
+  [
+   0.3444,
+   0.3244,
+   0.5
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48474,
+   "tex": 2048,
+   "kb": 2808
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1078
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 470
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.74,
+    "z": -0.51,
+    "size_ft": [
+     0.68,
+     0.92
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.5,
+    "sole_p90_ft": 0.132
+   },
+   {
+    "x": -0.79,
+    "z": 0.41,
+    "size_ft": [
+     0.45,
+     0.52
+    ],
+    "off_ground_ft": 0.054,
+    "sole_level_share": 0.95,
+    "sole_p90_ft": 0.107
+   },
+   {
+    "x": 0.26,
+    "z": 0.46,
+    "size_ft": [
+     0.46,
+     0.48
+    ],
+    "off_ground_ft": 0.05,
+    "sole_level_share": 0.94,
+    "sole_p90_ft": 0.103
+   },
+   {
+    "x": -0.57,
+    "z": -0.97,
+    "size_ft": [
+     0.41,
+     0.43
+    ],
+    "off_ground_ft": 0.066,
+    "sole_level_share": 0.94,
+    "sole_p90_ft": 0.116
+   },
+   {
+    "x": 0.36,
+    "z": -0.74,
+    "size_ft": [
+     0.41,
+     0.44
+    ],
+    "off_ground_ft": 0.062,
+    "sole_level_share": 0.91,
+    "sole_p90_ft": 0.12
+   }
+  ],
+  "contact_count": 5,
+  "max_off_ground_ft": 0.066,
+  "lowest_slab_area_sqft": 0.07,
+  "plan_hull_area_sqft": 3.83,
+  "lowest_slab_share_of_plan": 0.019
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.99,
+   "d": 2.79,
+   "h": 1.8
+  },
+  "centre": [
+   -0.08,
+   -0.212
+  ],
+  "contacts_radius_ft": 1.18,
+  "reach_radius_ft": 1.56,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.891,
+  "plate_lost_share": 0.034,
+  "added_share": 0.083,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.869,
+  "view_yaw_deg": 315,
+  "view_elev_deg": 8
+ },
+ "id": "foe-giant-rat",
+ "sha1": "c4df4a62a6ea1175cba7bba798f90b9f379dbb2d",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 18.6
+}

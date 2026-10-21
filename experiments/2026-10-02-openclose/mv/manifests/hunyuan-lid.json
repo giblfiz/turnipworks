@@ -1,0 +1,20 @@
+{
+ "job": "hunyuan-lid",
+ "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+ "request_id": "01a0fde1-686a-7401-8824-8220d95d6f45",
+ "started_at": "2026-10-02T18:30:02.584803+00:00",
+ "finished_at": "2026-10-02T18:33:33.693931+00:00",
+ "inputs": {
+  "input_image_url": "lid-front",
+  "top_image_url": "lid-top",
+  "bottom_image_url": "lid-under"
+ },
+ "input_sha256": {
+  "lid-front": "2cb77254d5ab91ab",
+  "lid-top": "aff90e2b851d858f",
+  "lid-under": "66d9eda358f3a990"
+ },
+ "output": "models/hunyuan-lid.glb",
+ "output_bytes": 31266760,
+ "estimated_cost_usd": 0.525
+}

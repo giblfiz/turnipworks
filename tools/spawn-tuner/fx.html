@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spawn Tuner FX harness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "postprocessing": "./js/vendor/postprocessing-6.39.5.js",
+  "n8ao": "./js/vendor/n8ao-2.0.1.js",
+  "three-good-godrays": "./js/vendor/three-good-godrays-0.12.1.js",
+  "three.quarks": "./js/vendor/three.quarks-0.16.0.js",
+  "quarks.core": "./js/vendor/quarks.core-0.16.0.js",
+  "three-fire": "./js/vendor/three-fire-1.4.0.js"
+} }
+</script>
+</head>
+<body>
+<header>
+  <div class="brand"><a href="../">Turnip Works</a> <strong>Spawn Tuner</strong></div>
+  <nav id="palette" aria-label="Room types"></nav>
+</header>
+<main>
+  <aside id="left" class="panel">
+    <details class="major" data-key="spawn"><summary>Spawn animation</summary>
+    <section>
+      <h3>Animation</h3>
+      <div class="tabs" role="tablist">
+        <button data-side="in" class="active" role="tab">In</button>
+        <button data-side="out" role="tab">Out</button>
+      </div>
+      <label class="check" id="mirrorRow"><input type="checkbox" id="mirror"> Out mirrors In (played backwards)</label>
+      <div id="dials"></div>
+    </section>
+    <section>
+      <h3>Playback</h3>
+      <div class="row">
+        <button id="replay" title="Space">Replay ▶</button>
+        <button id="pause" title="P">Pause</button>
+        <button id="replayOut" title="Play the out animation, then back in">Out → In</button>
+      </div>
+      <label class="dial"><span>Speed <output id="speedOut">1×</output></span><input id="speed" type="range" min="0.05" max="2" step="0.05" value="1"></label>
+      <label class="dial"><span>Scrub <output id="scrubOut">–</output></span><input id="scrub" type="range" min="0" max="1000" step="1" value="1000"></label>
+      <div class="row"><button data-speed="0.25">¼×</button><button data-speed="0.5">½×</button><button data-speed="1">1×</button></div>
+    </section>
+    <section>
+      <h3>Presets</h3>
+      <div class="row">
+        <button id="storeA">Store A</button><button id="storeB">Store B</button><button id="toggleAB" title="B">A ⇄ B</button>
+      </div>
+      <div class="row"><input id="presetName" placeholder="preset name" value="harry-v1"></div>
+      <div class="row">
+        <button id="savePreset">Save</button>
+        <select id="loadPreset"><option value="">Load…</option></select>
+        <button id="resetPreset" title="Harry's preset (harry-v1)">Defaults</button>
+      </div>
+      <div class="row"><button id="sendPreset" class="primary">Send preset to Fauna</button></div>
+      <div id="abState" class="muted"></div>
+    </section>
+      </details>
+    <details class="major" data-key="light"><summary>Lighting</summary>
+      <section class="muted small">Coming: shadows from fire sources, bloom, tone mapping, colour grade.</section>
+    </details>
+    <details class="major" data-key="atmos"><summary>Atmosphere: fog &amp; smoke</summary>
+      <section class="muted small">Coming: height fog, dust, light shafts, smoke that swirls when the cursor passes through.</section>
+    </details>
+    <details class="major" data-key="fire"><summary>Fire</summary>
+      <section class="muted small">Coming: hearths, torches, candles, braziers: flame, embers, flicker driving light and shadow.</section>
+    </details>
+    <details class="major" data-key="water"><summary>Water</summary>
+      <section class="muted small">Coming: troughs, wells, basins, puddles.</section>
+    </details>
+  </aside>
+
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="hud">
+      <div id="fps">– fps</div>
+      <canvas id="fpsGraph" width="160" height="36"></canvas>
+      <div id="net" class="net">↓ –</div>
+      <canvas id="netGraph" width="160" height="36" title="download rate; dashed line = best sustained rate seen (link capacity)"></canvas>
+      <div id="loadBound" class="loadBound" hidden>⏳ LOADING-BOUND: spawn waiting on the network</div>
+    </div>
+    <div class="hint" id="hint">Pick a room type, then drag on the grid. Esc = no tool.</div>
+    <div id="tooltip" hidden></div>
+    <div id="toast" hidden></div>
+    <div id="loading" hidden></div>
+  </div>
+
+  <aside id="right" class="panel">
+    <section id="roomPanel">
+      <h2>Room</h2>
+      <div id="noRoom" class="muted">Click a room to select it.</div>
+      <div id="roomInfo" hidden>
+        <div class="roomTitle"><span id="roomSwatch"></span><select id="roomType"></select></div>
+        <div id="roomMeta" class="muted"></div>
+        <label class="dial"><span>Walls</span><select id="roomWalls"><option value="auto">auto</option><option value="rough-timber">rough timber</option><option value="half-timber">half-timber</option><option value="fieldstone">fieldstone</option><option value="dressed-stone">dressed stone</option><option value="noble-interior">panelled plaster</option></select></label>
+        <label class="dial"><span>Floor</span><select id="roomFloor"><option value="auto">auto</option></select></label>
+        <div class="row">
+          <button id="roll" class="primary" title="R">Roll again</button>
+          <button id="replayRoom">Replay</button>
+          <button id="deleteRoom" class="danger" title="Delete">Delete room</button>
+        </div>
+        <div class="muted small">Click an object for its 3-letter tag. Shift-click locks it; locked objects survive a roll. <span id="lockCount"></span></div>
+      </div>
+    </section>
+    <section id="objPanel" hidden>
+      <h2>Object <small class="muted">(click to select · Esc clears)</small></h2>
+      <div class="row"><span id="objTag" class="objTag"></span><button id="copyTag">Copy tag</button>
+        <button id="rotL" title="R: turn the mesh +45° (all of this sku)">↺</button><button id="rotR" title="Shift+R: turn −45°">↻</button></div>
+      <pre id="objInfo" class="summary"></pre>
+      <textarea id="objNote" rows="2" placeholder="Note about this object (e.g. forks go beside the plate) · Ctrl+Enter saves"></textarea>
+      <div class="row"><button id="saveObjNote">Save note</button><span id="objNoteState" class="muted small"></span></div>
+      <div class="row"><span id="objEdit" class="muted small"></span><button id="resetObj" hidden title="put it back where the solver had it">↶ Reset</button></div>
+    </section>
+    <details class="major" data-key="layout"><summary>Layout <small class="muted">(what the solver did)</small></summary><section>
+      <pre id="summary" class="summary">No room yet.</pre>
+      <div class="row">
+        <button id="showJson">JSON</button><button id="copyLayout">Copy</button>
+      </div>
+      <textarea id="layoutNote" rows="3" placeholder="Note for Fauna about the map or this room (what reads wrong?)"></textarea>
+      <div class="row"><button id="sendMap" class="primary">Send whole map + notes</button><button id="sendLayout">Send this room only</button><button id="copyMap">Copy whole map</button></div>
+      <div id="noteList" class="noteList"></div>
+      <pre id="json" class="json" hidden></pre>
+    </section></details>
+    <details class="major" data-key="bench"><summary>Bench</summary><section>
+      <div id="stats" class="stats"></div>
+      <label class="check"><input type="checkbox" id="cubes"> Cube swap (catalog boxes, coloured by placement)</label>
+      <label class="check"><input type="checkbox" id="sizeBoxes"> Catalog size vs mesh bounds</label>
+      <label class="dial"><span>Layout engine</span><select id="engine"><option value="v2">v2: principles (roles, key purpose, paths, zones)</option><option value="v1">v1: classic</option></select></label>
+      <label class="check"><input type="checkbox" id="ovPaths"> Walking paths (yellow)</label>
+      <label class="check"><input type="checkbox" id="ovZones"> Zones</label>
+      <label class="check"><input type="checkbox" id="ovSight"> Command sight lines (door → primary spots)</label>
+      <div class="row"><button id="doorView">Doorway view</button></div>
+      <label class="check"><input type="checkbox" id="occupancy"> Occupancy grid (6 in)</label>
+      <label class="check"><input type="checkbox" id="showTags"> Show all object tags (selected room)</label>
+      <label class="check"><input type="checkbox" id="walls" checked> Walls (off = cut-away)</label>
+      <label class="check"><input type="checkbox" id="shadows"> Shadows</label>
+      <label class="check"><input type="checkbox" id="fxLights"> Fire lights (FX slot: flicker at hearths and candles)</label>
+      <label class="dial"><span>Floor tiling</span><select id="floorMode">
+        <option value="continuous">continuous: no seams, visible 5-ft repeat</option>
+        <option value="shuffle">shuffle: 4 versions + rotate + mirror (breaks repeat, shows seams)</option>
+        <option value="smart">smart: continuous for boards &amp; brick, shuffle for earth &amp; stone</option></select></label>
+      <h3>GPU load: faces &amp; skins</h3>
+      <label class="dial"><span>Faces per object</span><select id="lodFaces">
+        <option value="baked">shipping tier (5k; 3k for small things)</option>
+        <option value="1500">1.5k</option><option value="3000">3k</option><option value="5000">5k</option>
+        <option value="10000" selected>10k (default: GPU headroom, Harry 2026-10-01)</option><option value="20000">20k</option><option value="full">full TRELLIS (~50k)</option></select></label>
+      <label class="dial"><span>Skin (texture) size</span><select id="lodTex">
+        <option value="baked">shipping tier (256; 128 for small things)</option>
+        <option value="64">64 px</option><option value="128">128 px</option><option value="256">256 px</option><option value="512">512 px</option>
+        <option value="1024">1024 px (source)</option><option value="2048">2048 px (upscaled: memory only, no detail)</option></select></label>
+      <label class="dial"><span>Apply to</span><select id="lodScope"><option value="props">furniture &amp; props</option><option value="all" selected>props + walls, doors, posts</option></select></label>
+      <div class="muted small">Every object gets its own texture (no atlases yet), so skin size × object count is the honest texture load.</div>
+      <label class="check"><input type="checkbox" id="hideMasking" checked> Hide masking-flagged meshes</label>
+      <label class="dial"><span>Min model rating <output id="minStarsOut">≥ 3★ (unrated kept)</output></span><input id="minStars" type="range" min="-1" max="5" step="1" value="3"></label>
+      <label class="dial"><span>Scale variety <output id="varietyOut">0.15</output></span><input id="variety" type="range" min="0" max="1" step="0.05" value="0.15"></label>
+      <label class="dial"><span>Prop size rule</span><select id="sizeRule"><option value="auto">auto (largest dimension)</option><option value="height">by height</option><option value="footprint">by footprint</option><option value="volume">by volume</option></select></label>
+      <div class="row"><button id="stress">Stress ×4 selected</button><button id="clearStress">Clear stress</button></div>
+      <div class="legend" id="legend"></div>
+    </section></details>
+    <details class="major" data-key="keys"><summary>Keys</summary><section class="muted small help">
+      1–9, 0, - room tools · Esc no tool · drag = draw (with a tool) or pan (no tool) · middle-drag (or shift-drag) = orbit, any angle above the floor · right-drag = pan · wheel = zoom to cursor · Q/E turn · PageUp/PageDown tilt (keys) · R / Shift+R turn the selected mesh ±45° · T top-down · G table view · H home · Space replay · P pause · B A⇄B · click an object, then drag it / arrows nudge (Shift ×4) / [ ] turn it (Shift 45°) / R fix the mesh's front everywhere
+    </section></details>
+  </aside>
+</main>
+<script>
+// major panel groups start folded; each viewer's open/closed choice is remembered
+for (const d of document.querySelectorAll('details.major')) {
+  try { if (localStorage.getItem('tuner.fold.' + d.dataset.key) === 'open') d.open = true; } catch {}
+  d.addEventListener('toggle', () => { try { localStorage.setItem('tuner.fold.' + d.dataset.key, d.open ? 'open' : 'shut'); } catch {} });
+}
+</script>
+<!-- FX harness: the real tuner (main.js untouched) + LIGHTING/FIRE via js/fx/. ?mode=trivial = one hearth, empty room -->
+<script type="module" src="js/fx/harness.js"></script>
+</body>
+</html>

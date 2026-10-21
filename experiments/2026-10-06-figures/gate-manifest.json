@@ -1,0 +1,293 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "fig-goblin": {
+   "id": "fig-goblin",
+   "group": "pilot",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-figures/work/fig-goblin.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital model of a mischievous green goblin clad in a ragged leather tunic and holding a stone-tipped spear against a uniform solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital model of a mischievous green goblin clad in a ragged leather tunic and holding a stone-tipped spear against a uniform solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single figure: a fantasy goblin (second guess: imp or gremlin). It has exaggerated caricature proportions with a large head, long pointed ears with reddish interiors, a hooked reddish-tipped nose, wide grin, wiry muscular limbs, and large four-toed feet, suggesting a diminutive creature around 3 to 4 feet tall. In its right hand (viewer's left), it holds a single spear consisting of a chiseled grey stone spearhead bound with tan rope to a rough wooden shaft; the spear is complete end to end and visible in full. Its left hand is clenched in a fist at its side. The goblin has two arms, two legs, two pointed ears, and no visible tail. Blue background is clearly visible between both legs, between the left arm and torso, between the right arm and torso, and between the spear shaft and the body. There is nothing at all directly under its feet (no shadow, base, or floor). Every part of the figure and weapon is fully within the frame and uncropped. The character is rendered in full color, primarily featuring olive-green skin, tan/brown leather clothing with rope, and a grey stone spearhead. The background is a flat, uniform, shadowless chroma blue, viewed from a straight-on eye-level angle.",
+       "under_feet": "nothing at all",
+       "held": [
+        "a stone-tipped spear with rope bindings on a wooden shaft in its right hand"
+       ],
+       "cropped": false
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2516,
+      "soft": 0.008,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9857,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4582,
+   "tokens_out": 1943,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fig-fighter": {
+   "id": "fig-fighter",
+   "group": "pilot",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-figures/work/fig-fighter.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered miniature of a medieval soldier clad in steel armor holding a sword and a round shield, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered miniature of a medieval soldier clad in steel armor holding a sword and a round shield, isolated on a solid blue background.",
+       "details": "No text, labels, or watermarks are present. The image contains one main figure, best identified as a fantasy or medieval soldier/knight (or second guess: a town guard/infantryman), presented in stylized, slightly stocky miniature proportions. The figure has two arms and two legs, with ears concealed under a steel helmet, and no tail. In its right hand, it holds a broad steel sword with a crossguard and round pommel, fully visible from tip to hilt. In its left hand, it wields a round shield made of green wood planks with a steel rim and central boss, fully visible end to end. Background is clearly visible between the right arm/sword and the torso, between the left shield/arm and torso, and between the two legs. Directly underneath the boots, there is nothing at all\u2014the figure floats against the backdrop. No part of the figure or its equipment is cut off by the frame. The figure is fully painted in full color: metallic steel grey plate armor, deep red quilted gambeson/tunic, brown leather boots, belt, and gloves, peach skin tone, and green/metal shield. The background is a flat, uniform chroma blue with no floor, horizon, or shadows, viewed from a front three-quarters eye-level angle.",
+       "under_feet": "nothing at all",
+       "held": [
+        "sword in right hand",
+        "round shield in left hand"
+       ],
+       "cropped": false
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1727,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9906,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 90
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4544,
+   "tokens_out": 1487,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fig-wolf": {
+   "id": "fig-wolf",
+   "group": "pilot",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-figures/work/fig-wolf.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized full-color depiction of a brown and tan wolf standing in a three-quarter pose against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized full-color depiction of a brown and tan wolf standing in a three-quarter pose against a solid bright blue background.",
+       "details": "There are no text labels, watermarks, or logos visible in the image. The image contains exactly one figure: a wolf (or alternatively a wild canid/dire wolf). In reality, such a creature would stand around 80 to 90 cm tall at the shoulder, featuring sturdy quadrupedal proportions and a thick ruff of fur around its neck. It is not holding or carrying anything. Anatomically, it has two upright ears, four legs, and a bushy tail hanging downward. The bright blue background is clearly visible between the two front legs, between the front and rear legs, between the two hind legs, and between the tail and the nearest hind leg. Directly underneath its paws there is nothing at all\u2014no shadow, ground, base, or plinth. The entire wolf is fully enclosed within the frame without any cropping. It is rendered in full color, featuring shades of tan, cream, muted brown, and dark slate grey on its fur, with amber-brown eyes and dark claws. The background is a flat, uniform chroma-blue with no floor or horizon, viewed from a slight side/three-quarter eye-level perspective.",
+       "under_feet": "nothing at all",
+       "held": [],
+       "cropped": false
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1733,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 83
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4476,
+   "tokens_out": 1502,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fig-wizard": {
+   "id": "fig-wizard",
+   "group": "pilot",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-figures/work/fig-wizard.try1.jpg",
+     "semantic": {
+      "what_i_see": "A full-body digital illustration of an elderly dwarf or gnome wizard in a red pointed hat and robe, holding a twisted wooden staff against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Staff rests against the robe with no background visible between staff and body"
+      ],
+      "blind": {
+       "what_i_see": "A full-body digital illustration of an elderly dwarf or gnome wizard in a red pointed hat and robe, holding a twisted wooden staff against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one main figure: a short, stout fantasy humanoid wizard (dwarf or gnome), depicted with stocky proportions, an elderly wrinkled face, and a full bushy grey beard and mustache. In his right hand (viewer's left), he holds a tall, carved, twisted wooden staff ending in a spiral finial at the top, which extends completely from the top to ground level. His left hand is raised slightly in a gesturing pose, holding nothing. He has two arms covered by wide bell sleeves, two short legs visible at the boots, and no tail; his ears are largely concealed beneath his hair and hat brim. The staff touches his right hand and rests against the side of his robe, with blue background visible on the outer side of the staff. His long robe hangs down between his two boots, so no background is visible between his legs. Directly under his brown leather boots, there is nothing at all\u2014no cast shadow, ground, or base. The entire figure and staff fit completely within the frame without any cropping. The image is rendered in full, vibrant color, featuring a crimson/burgundy hat and robe with olive-green trim, a cream-colored inner tunic, a rope sash belt, and brown boots and staff. The background is a flat, uniform, bright solid blue with no floor, horizon, or shadows, viewed from a straight-on eye-level angle.",
+       "under_feet": "nothing at all",
+       "held": [
+        "a carved wooden staff with a spiral head in his right hand"
+       ],
+       "cropped": false
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-06-figures/work/fig-wizard.try2.jpg",
+     "semantic": {
+      "what_i_see": "A miniature-style figurine of an elderly, bearded wizard in a red pointed hat and matching trimmed robe, holding a carved wooden staff, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A miniature-style figurine of an elderly, bearded wizard in a red pointed hat and matching trimmed robe, holding a carved wooden staff, isolated on a solid blue background.",
+       "details": "There is no text, label, or watermark. The image contains one single figure: a wizard (best guess) or a dwarf/gnome spellcaster (second guess), possessing stocky, miniature-proportioned anatomy with slightly oversized hands and head, suggesting a fantasy character roughly 4 to 5 feet tall. In his right hand, he holds a vertical carved wooden staff topped with a spiraled head; the staff appears complete from top to bottom. His left hand is empty and gesturing slightly outward. He has two arms and two visible feet wearing rounded brown leather shoes; his legs are hidden beneath his long robe, ears are concealed by his full white beard and hair, and he has no tail. Blue background is visible between his right-held staff and his body, while his left sleeve hangs close to his robe with no background showing through. Directly beneath his shoes, there is nothing at all\u2014no floor, shadow, disc, or plinth. Every part of the figure (hat tip, staff, shoes) is fully inside the frame without cropping. The figure is fully rendered in rich colour: deep crimson red for the pointed wizard hat and robe, olive green and yellow-gold for the robe trims, tan rope with tassels for the belt, light brown wood grain for the staff, brown shoes, and white-grey for the beard and eyebrows. The background is a flat, uniform chroma blue with no shadow or ground, viewed from a straight-on, eye-level angle.",
+       "under_feet": "nothing at all",
+       "held": [
+        "carved wooden staff in right hand"
+       ],
+       "cropped": false
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3276,
+      "soft": 0.0082,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9883,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6780,
+   "tokens_out": 3850,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fig-goblin-b": {
+   "id": "fig-goblin-b",
+   "group": "round2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-figures/work/fig-goblin-b.try1.jpg",
+     "semantic": {
+      "what_i_see": "A full-color 3D digital figure of a smiling green goblin holding a spear upright against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A full-color 3D digital figure of a smiling green goblin holding a spear upright against a solid blue backdrop.",
+       "details": "There are no text labels, watermarks, or logos visible in the image. The image contains one single figure: a stylized goblin (second guess: imp or fantasy creature), with proportions typical of a small humanoid creature roughly 3 to 4 feet tall, featuring an oversized head, large pointed ears, a bulbous reddish-orange nose, and large bare feet. The goblin is holding one item: a tall spear in its right hand (viewer's left), complete end to end from the pointed grey blade bound with red wrapping at the top down to the blunt cut end of the light-wood shaft near its feet. Limbs include two muscular arms, two bent legs, two large pointed bat-like ears, and no visible tail. Blue background is clearly visible through the gaps between both legs, between the left arm and torso, between the right arm and torso, and between the spear shaft and body. Directly under its feet is nothing at all, with no base, shadow, or ground. Every part of the creature and spear is fully inside the frame without being cropped. The figure is fully colored in shades of lime green for the skin, brown for the ragged tunic, tan for the rope belt, and natural wood and stone/metal for the spear. The background is a completely uniform, flat chroma-blue with no floor, horizon, or cast shadows, viewed from a direct eye-level angle.",
+       "under_feet": "nothing at all",
+       "held": [
+        "a spear in its right hand, complete end to end"
+       ],
+       "cropped": false
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1948,
+      "soft": 0.007,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9843,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4588,
+   "tokens_out": 3047,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fig-wolf-b": {
+   "id": "fig-wolf-b",
+   "group": "round2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-figures/work/fig-wolf-b.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized painted 3D model of a standing wolf against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized painted 3D model of a standing wolf against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single figure: a wolf (second guess: coyote or wild dog/canid). In life, it would stand roughly 70 to 85 cm tall at the shoulder, with typical athletic quadrupedal proportions styled with chunky, painterly tufts of fur. It is not holding or carrying anything. Counting its limbs and features, it has four legs, two pointed erect ears, and one thick bushy tail (no arms). The blue background is clearly visible between the two front legs, between the forelimbs and hindlimbs under the belly, between the two hind legs, and between the downward-sloping tail and the rear leg. Directly under its feet, there is nothing at all\u2014no shadow, base, disc, or ground plane. The entire figure is fully inside the frame with no parts cropped. It is painted in full color with painterly textures featuring grey, tan, cream, dark charcoal accents, black nose and claws, and amber-yellow eyes. The background is a flat, uniform, vibrant blue with no floor, horizon, or shadows, viewed from a three-quarter perspective.",
+       "under_feet": "nothing at all",
+       "held": [],
+       "cropped": false
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3437,
+      "soft": 0.0062,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9939,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 54
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4473,
+   "tokens_out": 1560,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

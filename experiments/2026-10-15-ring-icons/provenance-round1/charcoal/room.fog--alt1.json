@@ -1,0 +1,53 @@
+{
+  "id": "room.fog",
+  "set": "charcoal",
+  "alt": 1,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A small grey stone room partly filled by a low pale teal mist layer, an ivory vertical measuring stick beside it. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--room.fog--alt1.png",
+  "source_sha256": "75531344f2686381966cba97b0cec9dea628d354e1d444ea98a3eff746ecaf18",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/room.fog--alt1.webp",
+    "19": "charcoal/sizes/19/room.fog--alt1.webp",
+    "22": "charcoal/sizes/22/room.fog--alt1.webp",
+    "26": "charcoal/sizes/26/room.fog--alt1.webp",
+    "31": "charcoal/sizes/31/room.fog--alt1.webp",
+    "36": "charcoal/sizes/36/room.fog--alt1.webp",
+    "38": "charcoal/sizes/38/room.fog--alt1.webp",
+    "42": "charcoal/sizes/42/room.fog--alt1.webp",
+    "44": "charcoal/sizes/44/room.fog--alt1.webp",
+    "50": "charcoal/sizes/50/room.fog--alt1.webp",
+    "52": "charcoal/sizes/52/room.fog--alt1.webp",
+    "62": "charcoal/sizes/62/room.fog--alt1.webp",
+    "84": "charcoal/sizes/84/room.fog--alt1.webp",
+    "100": "charcoal/sizes/100/room.fog--alt1.webp",
+    "128": "charcoal/room.fog--alt1.webp"
+  },
+  "sha256": {
+    "18": "118aa8a4408092aab6b263ad3f3506f8fa4ce3e384506dc82246d67e1cd71b15",
+    "19": "a1414926fbcacf80cf45ae9c2854e1d122534664b7ec844d919c3fedcd57700b",
+    "22": "564d5fd79de3e9db5614bdea633fb8f0b094e51901c5320c20f402aedbe2e87d",
+    "26": "c91f4e6697059a78d6d922c3faaf9da218cdf53beda9b204b5258dc9f1e1f87a",
+    "31": "6d32198618f9c6e42ab399b79667a0e99594414fd9decf4bc14cb143989e0790",
+    "36": "b77e5d15b73e57f68a25d7d292ca8b74d3349ee35b4474593ac1608d975c9084",
+    "38": "223cc5f17bd3d5f1354b170a01aa7f514c1c8bc37a5642f9c81d2dfd67c9d0a5",
+    "42": "03fdf7a88b10328234f0cea3c4963783c0e5901e7fc22ad8c51a32c2d374ff10",
+    "44": "c345f41b73f73561e72eea4ad00f40dcde98997a27c4f57b66731dc9ec0f60b3",
+    "50": "f3f025d7b6e2a7aeade2048839824af7ebb64fe9345637ab9182c127345a98d0",
+    "52": "32fb446d9fd7e01b1311cf9ab15ddb6470e0eeafc18417487571afec90b66dcc",
+    "62": "ad59888d4f8b078c0dd9e3c39d3e9c957090728ed221cceaa9cfb97aa1c54a33",
+    "84": "1c53db6cb81a7bf2be9abdfa5f75b1eec589591c01fd42cc3d4434864d5c4017",
+    "100": "096166b589c071e6b1bad647804da4ab303d5af4010f9d0f46c31674444787a6",
+    "128": "a14f40756dc5a00bd6fcfacf32a073ee94bd0c9f50142b68a6cdb24708466a1c"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "01d0edf4f4e7afba4a81958e27cd93e2a492f6ab09b8b2cd886f742f6ee9b4c5"
+}

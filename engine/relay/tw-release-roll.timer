@@ -1,0 +1,13 @@
+# Fires at 03:25 Pacific: the roll warns every seat for 5 minutes ("Server updating at 3:30, back in a minute") and
+# swaps at 03:30. To move the roll, move this time (the banner says whatever time the swap will be). After editing:
+#   sudo systemctl daemon-reload && systemctl list-timers tw-release-roll.timer
+[Unit]
+Description=Turnip Works nightly release roll (03:30 America/Los_Angeles)
+
+[Timer]
+OnCalendar=*-*-* 03:25:00 America/Los_Angeles
+Persistent=false
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

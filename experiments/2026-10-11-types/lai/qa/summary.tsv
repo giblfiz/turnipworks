@@ -1,0 +1,17 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+bone-throne	accept	-	tribal bone throne	0.95	0.0	0	0	6.47x6.67x6.45	72x66x80	1.06	1.15	prop	1	
+boulder-pile	accept	-	boulder pile	0.95	0.0	0	0	5x4.68x2.42	60x50x44	1.12	1.51	prop	1	height proportion 1.51x off the catalog | gemini note: height is slightly squatter than catalog proportions (2.4 ft vs 3.7 ft intended)
+bunk-crude	accept	-	crude wooden bunk bed	0.85	0.0	0	0	6.33x4.22x5.35	40x76x66	1.27	1.03	prop	1	
+cave-mouth	accept	override: supervisor: sound mesh, reads as a cave entrance (Gemini 0.95). A deep hump, 10 x 9.5 ft: shipped at its own size (manifest_overrides.json). (was reroll-plate: footprint 10.0 x 9.5 ft, catalog 10.0 x 5.0 ft: squarer by 1.9x)	cave entrance	0.95	0.048	0	0	10x9.51x6.54	120x60x108	1.9	1.38	prop	1	gemini note: Footprint is squarer and slightly lower than catalog target, but reads naturally as a rocky cave mound.
+dragon-eggs	accept	-	dragon eggs in a nest	0.9	0.0	0	0	3.99x4x2.01	48x48x24	1.0	1.0	prop	1	
+dragon-skull	accept	-	dragon skull	0.95	0.0	0	0	8.64x12.5x7.61	110x150x60	1.06	1.52	prop	1	height proportion 1.52x off the catalog | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: height slightly taller than catalog ratio
+egg-sacs-floor	accept	-	alien egg cluster	0.85	0.004	0	0	2.83x2.55x1.72	34x30x26	1.02	1.26	prop	1	gemini note: fleshy webbing on one side has glossy black nodes resembling eyes
+gnawed-carcass	accept	override: supervisor: sound mesh, reads as a bison or buffalo carcass (Gemini 0.95). It lies curled, 5.7 x 5.8 ft: shipped at its own size. (was reroll-plate: footprint 5.8 x 5.7 ft, catalog 5.8 x 3.3 ft: squarer by 1.7x)	bison or buffalo carcass	0.95	0.03	0	0	5.66x5.83x2.21	40x70x24	1.7	1.11	prop	1	gemini note: bounding box is squarish due to diagonal orientation across the xy plane
+hide-drying-rack	accept	-	hide drying rack	0.95	0.0	0	0	5.53x4.18x6	60x24x72	1.89	1.11	prop	1	footprint proportion 1.89x off the catalog (5.5 x 4.2 ft)
+nest-giant	accept	-	giant creature nest	0.85	0.0	0	0	9.17x9.13x2.94	110x110x36	1.0	1.02	prop	1	
+rock-outcrop	accept	-	rock outcrop	0.95	0.001	0	0	9.17x7.99x5.13	110x90x80	1.07	1.3	prop	1	
+totem-skull	accept	-	skull totem	0.95	0.006	0	0	3.31x2.19x7	30x26x84	1.31	1.33	prop	1	
+treasure-hoard-heap	accept	-	treasure hoard bed	0.9	0.0	0	0	11.46x12.5x2.9	150x130x54	1.06	1.55	prop	1	height proportion 1.55x off the catalog | gemini note: height proportion slightly flatter than catalog ratio
+treasure-hoard-heap--s2	accept	-	treasure hoard heap	0.9	0.0	0	0	8x6.23x2.54	96x84x34	1.12	1.11	prop	1	
+tree-burnt	accept	-	burnt tree stump	0.95	0.0	0	0	8.17x7.62x9	60x60x108	1.07	1.63	prop	1	height proportion 1.63x off the catalog | gemini note: Height-to-width proportion is somewhat squatter than requested catalog ratio due to wide splayed root footprint
+web-funnel	accept	-	funnel-web spider nest	0.75	0.0	0	0	9.17x8.71x5.24	110x110x70	1.05	1.11	prop	1	

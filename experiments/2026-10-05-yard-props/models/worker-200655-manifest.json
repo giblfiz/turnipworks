@@ -1,0 +1,51 @@
+{
+  "model": "microsoft/TRELLIS.2-4B",
+  "image_encoder": "/workspace/.cache/huggingface/hub/models--camenduru--dinov3-vitl16-pretrain-lvd1689m/snapshots/3c276edd87d6f6e569ff0c4400e086807d0f3881",
+  "pipeline_type": "512",
+  "faces": 50000,
+  "texture_size": 1024,
+  "resident": false,
+  "assets": [
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/hoe.png",
+      "output": "/workspace/tw-runs/yard-props/models/hoe.glb",
+      "seconds": 46.4,
+      "bytes": 1743172,
+      "seed": 851618519,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-birch--l.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-birch--l.glb",
+      "seconds": 20.08,
+      "bytes": 2361216,
+      "seed": 960563975,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-deciduous--l.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-deciduous--l.glb",
+      "seconds": 24.17,
+      "bytes": 2276432,
+      "seed": 653113696,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-fruit--l.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-fruit--l.glb",
+      "seconds": 22.87,
+      "bytes": 2448456,
+      "seed": 246414017,
+      "status": "complete"
+    },
+    {
+      "input": "/workspace/tw-runs/yard-props/masked/tree-oak-great.png",
+      "output": "/workspace/tw-runs/yard-props/models/tree-oak-great.glb",
+      "seconds": 31.37,
+      "bytes": 3219944,
+      "seed": 395215458,
+      "status": "complete"
+    }
+  ],
+  "total_seconds": 323.07
+}

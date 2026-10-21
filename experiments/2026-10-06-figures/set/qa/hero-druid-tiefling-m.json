@@ -1,0 +1,172 @@
+{
+ "file": "hero-druid-tiefling-m.glb",
+ "tris": 49482,
+ "kb": 2978,
+ "native_extent": [
+  0.543,
+  1.001,
+  0.395
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0009,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  107,
+  67,
+  30
+ ],
+ "mean_saturation": 0.736,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 5.56,
+  "length_ft": 6.08,
+  "low_end_ft": [
+   -0.96,
+   0.17,
+   -0.52
+  ],
+  "high_end_ft": [
+   -1.26,
+   6.17,
+   0.47
+  ],
+  "tilt_from_upright_deg": 9.8,
+  "thickness_ft": 0.35,
+  "clear_share": 0.91,
+  "joined_share": 0.09,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-------------------------------#####-------------------"
+ },
+ "overall_ft": 6.5,
+ "pieces": {
+  "connected_parts": 212,
+  "main_part_area_share": 0.9779,
+  "floating": [
+   {
+    "area_share": 4e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.05
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 4e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.4898,
+ "y0": -3.2505,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.45,
+  "overall": 6.45
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2723,
+   -0.5009,
+   -0.1973
+  ],
+  [
+   0.2706,
+   0.5004,
+   0.1972
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49482,
+   "tex": 2048,
+   "kb": 2978
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1123
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 478
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.66,
+    "z": -0.5,
+    "size_ft": [
+     1.16,
+     1.3
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.79,
+    "sole_p90_ft": 0.092
+   },
+   {
+    "x": 1.23,
+    "z": 0.57,
+    "size_ft": [
+     0.89,
+     1.41
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.79,
+    "sole_p90_ft": 0.091
+   },
+   {
+    "x": 0.57,
+    "z": -0.97,
+    "size_ft": [
+     0.24,
+     0.27
+    ],
+    "off_ground_ft": 0.349,
+    "sole_level_share": 0.21,
+    "sole_p90_ft": 0.552
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.349,
+  "lowest_slab_area_sqft": 1.9,
+  "plan_hull_area_sqft": 6.13,
+  "lowest_slab_share_of_plan": 0.31
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.52,
+   "d": 2.56,
+   "h": 6.5
+  },
+  "centre": [
+   0.247,
+   0.239
+  ],
+  "contacts_radius_ft": 1.62,
+  "reach_radius_ft": 1.94,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.874,
+  "plate_lost_share": 0.07,
+  "added_share": 0.063,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.864,
+  "view_yaw_deg": 10,
+  "view_elev_deg": 0
+ },
+ "id": "hero-druid-tiefling-m",
+ "sha1": "73e0ae4335dccf788d9f7c630c86bd657f8b2849",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.35 ft off the ground"
+ ],
+ "qa_seconds": 19.0
+}

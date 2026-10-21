@@ -1,0 +1,42 @@
+{
+ "about": "Roof sections: one modelled 5 ft x 5 ft patch of roofing per roof style, laid out instanced by engine/client/roofs.js. Built by experiments/2026-10-11-roof-sections/build_sections.py --install; never edit by hand.",
+ "size_ft": 5.0,
+ "sections": {
+  "thatch": {
+   "url": "roof/roof-section--thatch.glb",
+   "rev": "75fd9520",
+   "triangles": 338,
+   "far_triangles": 2,
+   "mean_ft": 0.3174,
+   "max_ft": 0.58,
+   "kb": 228
+  },
+  "tile": {
+   "url": "roof/roof-section--tile.glb",
+   "rev": "c2e6d8b0",
+   "triangles": 360,
+   "far_triangles": 2,
+   "mean_ft": 0.1452,
+   "max_ft": 0.384,
+   "kb": 108
+  },
+  "slate": {
+   "url": "roof/roof-section--slate.glb",
+   "rev": "7f2ee4e8",
+   "triangles": 348,
+   "far_triangles": 2,
+   "mean_ft": 0.1198,
+   "max_ft": 0.356,
+   "kb": 114
+  },
+  "shingle": {
+   "url": "roof/roof-section--shingle.glb",
+   "rev": "fea2c011",
+   "triangles": 540,
+   "far_triangles": 2,
+   "mean_ft": 0.1637,
+   "max_ft": 0.524,
+   "kb": 188
+  }
+ }
+}

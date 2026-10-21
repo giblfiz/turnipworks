@@ -1,0 +1,115 @@
+{
+ "tag": "a",
+ "stats": {
+  "lights": [
+   {
+    "type": "hearth",
+    "y": 2.1,
+    "i": 5.07,
+    "d": 30,
+    "decay": 1.4
+   },
+   {
+    "type": "brazier",
+    "y": 3.2,
+    "i": 12.11,
+    "d": 22,
+    "decay": 1.4
+   },
+   {
+    "type": "torch",
+    "y": 7,
+    "i": 4.9,
+    "d": 18,
+    "decay": 1.4
+   },
+   {
+    "type": "lantern",
+    "y": 5.7,
+    "i": 3.89,
+    "d": 12,
+    "decay": 1.4
+   },
+   {
+    "type": "lantern",
+    "y": 3.2,
+    "i": 3.36,
+    "d": 12,
+    "decay": 1.4
+   },
+   {
+    "type": "lantern",
+    "y": 5.4,
+    "i": 3.33,
+    "d": 12,
+    "decay": 1.4
+   },
+   {
+    "type": "candle",
+    "y": 3.2,
+    "i": 4.61,
+    "d": 11.8,
+    "decay": 2
+   },
+   {
+    "type": "candle",
+    "y": 4.1,
+    "i": 8.01,
+    "d": 12.5,
+    "decay": 2
+   },
+   {
+    "type": "candle",
+    "y": 6.2,
+    "i": 74.98,
+    "d": 29.2,
+    "decay": 2
+   },
+   {
+    "type": "candle",
+    "y": 7.6,
+    "i": 73.26,
+    "d": 31.4,
+    "decay": 2
+   }
+  ],
+  "walls": 44
+ },
+ "diff": {
+  "pool0-floor": {
+   "lit": 0.434,
+   "mean": 73.25,
+   "max": 224,
+   "p95": 187.3,
+   "none_mean": 11.39,
+   "none_max": 115.7,
+   "bias": 77.42,
+   "pool": 0,
+   "mode": "floor",
+   "standins": 0
+  },
+  "pool0-projected": {
+   "lit": 0.434,
+   "mean": 4.01,
+   "max": 95.3,
+   "p95": 12.7,
+   "none_mean": 11.42,
+   "none_max": 137.3,
+   "bias": -1.54,
+   "pool": 0,
+   "mode": "projected",
+   "standins": 10
+  }
+ },
+ "fx": {
+  "farglow_on": false,
+  "farglow_mode": "projected",
+  "farglow_lights": 0,
+  "farglow_pass": false,
+  "farglow_window_ft": 156.3,
+  "farglow_walls": 44,
+  "farglow_rings": 10
+ },
+ "errors": [],
+ "panel": "Difference from real, over the lit region (43% of the picture), 0 to 255:stand-in: mean 4.01, largest 95.3 (95% of it under 12.7; on the whole darker than real by 1.54)no stand-in: mean 11.42, largest 137.3 | View 3: 0 real lights of 10; 10 stand-in lights (one draw into the light map, one full-screen pass)."
+}

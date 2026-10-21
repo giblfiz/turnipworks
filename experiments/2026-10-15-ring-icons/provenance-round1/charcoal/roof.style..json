@@ -1,0 +1,53 @@
+{
+  "id": "roof.style.",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One thick ochre pitched roof with broad teal shingles, no house beneath it. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--roof.style..png",
+  "source_sha256": "a517947ea2f752fd6a8cbaa870a7109bd06da73ffb5b5c53e2c8c07714858f4d",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/roof.style..webp",
+    "19": "charcoal/sizes/19/roof.style..webp",
+    "22": "charcoal/sizes/22/roof.style..webp",
+    "26": "charcoal/sizes/26/roof.style..webp",
+    "31": "charcoal/sizes/31/roof.style..webp",
+    "36": "charcoal/sizes/36/roof.style..webp",
+    "38": "charcoal/sizes/38/roof.style..webp",
+    "42": "charcoal/sizes/42/roof.style..webp",
+    "44": "charcoal/sizes/44/roof.style..webp",
+    "50": "charcoal/sizes/50/roof.style..webp",
+    "52": "charcoal/sizes/52/roof.style..webp",
+    "62": "charcoal/sizes/62/roof.style..webp",
+    "84": "charcoal/sizes/84/roof.style..webp",
+    "100": "charcoal/sizes/100/roof.style..webp",
+    "128": "charcoal/roof.style..webp"
+  },
+  "sha256": {
+    "18": "e6dcec41106cc5c67d9195821cee37ee17583e760449a3f3916864a2223b1082",
+    "19": "1e93fab9c4944f1fb6c4fa77975ef63c9c0eb0c90bab560a5dda23c478388f01",
+    "22": "051051b86a9a5de120e55cadfa712ad8e43cab202212fe5b08433b246e6249d5",
+    "26": "4f513e547f95d675de1acac5ca87cfeaf58aece46c3bb2ef496ab5abe45c664e",
+    "31": "b4b138d0f6645beb78c81e7515b6db4029d5df3fb08b54462db29738e4c1fe7a",
+    "36": "a54006657d1badab66c96ae7b479a673e0d9041bd314f893e08f2e4f73933cb1",
+    "38": "9793413d8f267b203666e0ae4a842b9bf92464d1e17dcd4181422ad518279b9f",
+    "42": "dfd9b72c233e0a1abec024139d4ba6d29503affb590e2ec94313d057ad6fce78",
+    "44": "2c96fe0bfcec7ed0bdbf804e4f3ed9eac27a1889d8b016d61fd6d77cefacfbd7",
+    "50": "7359477df2da7ae8ecef392efc42dd42a29ddad69fc840dd84aa144d728f8403",
+    "52": "9685d028d9c97d402396bbf2047a8a528f8dbd5285e2b95892b791abe134ba1d",
+    "62": "be60b556cc1dcc3e4d3e1a08d92b667996517c6407bf20f6646616b690e92729",
+    "84": "4df40e302ad2fb30dcecd4974672ee29e2824874fb075360f241723f5634f901",
+    "100": "521b6964f51e7889c18abf4f531c65f23cdadabd6e7e49233aae48d0fa6380e5",
+    "128": "1337ffa9eadbcd51f6856b5a7d09ae373a2881ed4f3f629bb85d4b7e042096c1"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "55fb54318e73e2752a1240b3db9c56ac90640de7d19665c68fae8d1445cebb74"
+}

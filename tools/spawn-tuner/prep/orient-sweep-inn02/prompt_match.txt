@@ -1,0 +1,3 @@
+Each line pairs an EXPECTED object (a catalog entry for a fantasy-tavern game prop) with what an observer SAW in a render of the generated 3D model. Judge only whether the observed thing is plausibly the same kind of object (generous about wording and synonyms; e.g. 'wooden box' for a chest is fine, 'catapult' for a lute is not).
+Reply with JSON only: a list of {"sku": ..., "match": "yes"|"partial"|"no", "note": short reason} for EVERY line, in order.
+

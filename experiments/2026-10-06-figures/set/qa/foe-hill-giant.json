@@ -1,0 +1,141 @@
+{
+ "file": "foe-hill-giant.glb",
+ "tris": 47016,
+ "kb": 2670,
+ "native_extent": [
+  0.691,
+  1.0,
+  0.466
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0329,
+  "seen": 0.0002
+ },
+ "mean_rgb": [
+  76,
+  45,
+  25
+ ],
+ "mean_saturation": 0.736,
+ "sized_by": "its highest point",
+ "overall_ft": 15.0,
+ "pieces": {
+  "connected_parts": 35,
+  "main_part_area_share": 0.9996,
+  "floating": [
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.2
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 3e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 15.0083,
+ "y0": -7.5105,
+ "stated_ft": {
+  "body": 15.0,
+  "figure_top": 15.0,
+  "overall": 15.0
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3457,
+   -0.5004,
+   -0.2322
+  ],
+  [
+   0.3454,
+   0.4996,
+   0.2338
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47016,
+   "tex": 2048,
+   "kb": 2670
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1095
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 468
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -2.48,
+    "z": -0.64,
+    "size_ft": [
+     3.25,
+     4.62
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.3,
+    "sole_p90_ft": 0.278
+   },
+   {
+    "x": 3.34,
+    "z": 0.64,
+    "size_ft": [
+     2.94,
+     4.44
+    ],
+    "off_ground_ft": 0.003,
+    "sole_level_share": 0.22,
+    "sole_p90_ft": 0.336
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.003,
+  "lowest_slab_area_sqft": 16.28,
+  "plan_hull_area_sqft": 50.43,
+  "lowest_slab_share_of_plan": 0.323
+ },
+ "plan": {
+  "size_ft": {
+   "w": 10.36,
+   "d": 6.98,
+   "h": 15.0
+  },
+  "centre": [
+   0.406,
+   0.546
+  ],
+  "contacts_radius_ft": 4.55,
+  "reach_radius_ft": 5.38,
+  "share_outside_2p5ft": 0.682
+ },
+ "silhouette": {
+  "iou": 0.935,
+  "plate_lost_share": 0.015,
+  "added_share": 0.054,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.935,
+  "view_yaw_deg": 0,
+  "view_elev_deg": 8
+ },
+ "id": "foe-hill-giant",
+ "sha1": "e255b677fc37e17f1caae87143f228567d0d6cbd",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.04 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 14.8
+}

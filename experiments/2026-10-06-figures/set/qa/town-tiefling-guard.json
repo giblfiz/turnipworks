@@ -1,0 +1,173 @@
+{
+ "file": "town-tiefling-guard.glb",
+ "tris": 48066,
+ "kb": 2813,
+ "native_extent": [
+  0.572,
+  0.999,
+  0.417
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  81,
+  52,
+  38
+ ],
+ "mean_saturation": 0.566,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 6.01,
+  "length_ft": 6.14,
+  "low_end_ft": [
+   -1.55,
+   0.15,
+   0.31
+  ],
+  "high_end_ft": [
+   -1.52,
+   6.28,
+   0.41
+  ],
+  "tilt_from_upright_deg": 1.0,
+  "thickness_ft": 0.21,
+  "clear_share": 0.92,
+  "joined_share": 0.08,
+  "broken_share": 0.0,
+  "walk_low_to_high": "---------------------------------####-#------------------------"
+ },
+ "overall_ft": 6.21,
+ "pieces": {
+  "connected_parts": 33,
+  "main_part_area_share": 0.9948,
+  "floating": [
+   {
+    "area_share": 0.00363,
+    "gap_ft": 0.08,
+    "size_ft": 0.96
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 0.00363,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.2305,
+ "y0": -3.1091,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2884,
+   -0.4992,
+   -0.2126
+  ],
+  [
+   0.284,
+   0.4997,
+   0.204
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48066,
+   "tex": 2048,
+   "kb": 2813
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1133
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 490
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.88,
+    "z": 0.13,
+    "size_ft": [
+     0.78,
+     1.29
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.9,
+    "sole_p90_ft": 0.06
+   },
+   {
+    "x": -0.72,
+    "z": -0.39,
+    "size_ft": [
+     1.06,
+     1.14
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.88,
+    "sole_p90_ft": 0.064
+   },
+   {
+    "x": -1.52,
+    "z": 0.39,
+    "size_ft": [
+     0.31,
+     0.31
+    ],
+    "off_ground_ft": 0.188,
+    "sole_level_share": 0.99,
+    "sole_p90_ft": 0.214
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.188,
+  "lowest_slab_area_sqft": 1.44,
+  "plan_hull_area_sqft": 6.3,
+  "lowest_slab_share_of_plan": 0.228
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.57,
+   "d": 2.59,
+   "h": 6.21
+  },
+  "centre": [
+   -0.193,
+   0.38
+  ],
+  "contacts_radius_ft": 1.46,
+  "reach_radius_ft": 1.96,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.872,
+  "plate_lost_share": 0.05,
+  "added_share": 0.089,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.807,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 0
+ },
+ "id": "town-tiefling-guard",
+ "sha1": "c0d304ef1dbda8ed4cc21a769be66d693801cc2e",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.08 ft of the body (not joined to it)",
+  "one foot is 0.19 ft off the ground"
+ ],
+ "qa_seconds": 16.2
+}

@@ -1,0 +1,37 @@
+{
+  "id": "flavor-idol--scales-coin-fct",
+  "status": "accepted",
+  "time": "2026-10-13T13:26:10.221720+00:00",
+  "generator": "OpenAI built-in imagegen",
+  "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One large freestanding temple idol: balanced scales with broad solid hanging pans and stout short supports, above a stack of three large coins. Mounted on a simple low integrated pedestal. The motif is the main mass, with a bold silhouette still obvious from a high elevated tabletop camera, never hidden by a canopy. Palette: antique gold and deep emerald. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 50 degrees so the top and front are visible. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+  "prompt_sha256": "992b26864430ecee20d73fc061bbe6486c09c0d92129da1c9bb2e8b988cd570d",
+  "plate": "experiments/2026-10-13-factions/inputs/flavor-idol--scales-coin-fct.png",
+  "sha256": "a23596e8963eaeab4df3dcc2091118ea89dbd9b8fbc4ab0f99b3bb4f65effeaf",
+  "refs": [],
+  "blind_110": "**Object and Symbol:**\n* **Object:** A pair of balance scales (balance of justice / weighing scale). It features a decorative central pillar, a horizontal crossbeam, and two suspended weighing pans, rendered in gold metal with dark emerald-green stone or enamel inlays and diamond-shaped gem accents.\n* **Bold Symbol/Motif:** Diamond / lozenge gems and stylized leaf/crown filigree embedded along the central axis and base.\n\n**Names:**\n* **Best name:** Scales of Justice (or Balance Scales)\n* **Alternative name:** Balance Token / Scale Monument\n\n**Readability and Angle:**\n* **Readability:** It is whole, fully intact, and immediately readable at tabletop game scale.\n* **Elevation:** The elevated, three-quarter isometric perspective provides a clear view of the overall structure, including the tops and interiors of the hanging pans, as well as the upper finial.\n",
+  "table_gate": {
+    "ok": false,
+    "problems": [
+      "The requested stack of three large coins beneath the scales is missing or not identifiable in the silhouette."
+    ]
+  },
+  "semantic": {
+    "what_i_see": "A stylized, video-game asset rendering of a balance scale made from burnished gold and polished green jade, isolated against a white background.",
+    "ok": true,
+    "problems": [],
+    "blind": {
+      "what_i_see": "A stylized, video-game asset rendering of a balance scale made from burnished gold and polished green jade, isolated against a white background.",
+      "details": "There are no texts, labels, or watermarks in the image. The image features exactly one primary object: an ornate decorative balance scale (second guess: a fantasy game prop or altar piece). It rests on a multi-tiered base consisting of an octagonal green-stone platform trimmed with gold accents, topped by three stacked cylindrical tiers decorated with golden floral/lotus crests inlaid with green gems. A vertical green-and-gold central pillar rises from this base, crowned with a faceted diamond-shaped finial and a central diamond green gem. A sculpted horizontal golden crossbeam extends across the pillar, tipped at each pivot with rounded green gemstone caps. Suspended from each side of the beam is a bowl-shaped golden pan supported by three rigid diagonal golden struts meeting at a central block. The left pan is tilted slightly lower than the right pan. No doors, lids, or drawers are present. The object is completely uncropped and centered. The background is a solid, uniform white without floor markings or ground shadows, and contains no people, text, or scenery.",
+      "reference_differences": []
+    }
+  },
+  "mask_gate": {
+    "ok": true,
+    "problems": []
+  },
+  "matte": "native-alpha",
+  "table_override": {
+    "verdict": "accept",
+    "reason": "Blind110 names Scales of Justice, Balance Token or Scale Monument and says immediately readable. Direct image inspection shows three gold cylindrical tiers below scales. Their reading as a pedestal instead of coins is a decorative detail; defining faction silhouette is unmistakable. Coin detail limitation retained; no structural issue."
+  }
+}

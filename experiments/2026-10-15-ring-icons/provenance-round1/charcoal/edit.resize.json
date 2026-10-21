@@ -1,0 +1,53 @@
+{
+  "id": "edit.resize",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A small solid ochre crate anchored at the lower left inside a much larger translucent teal ghost crate. Exactly ONE thick ivory diagonal arrow pointing up and right. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--edit.resize.png",
+  "source_sha256": "ad80b7bd12cf0496962d50aa6bbe3736466b847a2d7d81426e3afaef423ad638",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/edit.resize.webp",
+    "19": "charcoal/sizes/19/edit.resize.webp",
+    "22": "charcoal/sizes/22/edit.resize.webp",
+    "26": "charcoal/sizes/26/edit.resize.webp",
+    "31": "charcoal/sizes/31/edit.resize.webp",
+    "36": "charcoal/sizes/36/edit.resize.webp",
+    "38": "charcoal/sizes/38/edit.resize.webp",
+    "42": "charcoal/sizes/42/edit.resize.webp",
+    "44": "charcoal/sizes/44/edit.resize.webp",
+    "50": "charcoal/sizes/50/edit.resize.webp",
+    "52": "charcoal/sizes/52/edit.resize.webp",
+    "62": "charcoal/sizes/62/edit.resize.webp",
+    "84": "charcoal/sizes/84/edit.resize.webp",
+    "100": "charcoal/sizes/100/edit.resize.webp",
+    "128": "charcoal/edit.resize.webp"
+  },
+  "sha256": {
+    "18": "959e23b8ed72937e29522364ecabc1e966026fcdf9680402dda437cb565a30dd",
+    "19": "4d47ea720c3a215dfda2f26656688d90829ebda85f99efc1e4a36cacead78944",
+    "22": "d65dea01c3c4f175ae2dfdf0483a1a2ef39adaca54caa4b1125e0a5ffb393d34",
+    "26": "3a1d51a485420a0e99c44c93d686922773081a3b1dfe7e1877ea998bab71fdb5",
+    "31": "d11148c2378cd456d670219de5275d194ae67d7b7463173d89fc9fd343d9969c",
+    "36": "ff6ea877158f855281c0f2650b5356a7d78b1654ae85d2f0ea0508fda83a6d78",
+    "38": "baf1975a3a7cf79df531903bf33305d128610ae7ef8803c9f589fe963703d773",
+    "42": "2fbce9d5432bc5b6f3fe20aee437847f5eeed9d18ce12b63f8597430bb343d60",
+    "44": "98eb6c9aa104e98f967863d33d825b07620a8d60d825057d48733031b2b8a297",
+    "50": "bb6bf391513675c8c7980875188e9fec8936c3fc64b936791319c51b413e61bd",
+    "52": "93f22504c7fcc8275257d9733b3a4eff9ae39ad4e5e004dd80b21a67b2b23826",
+    "62": "65078929f43feaae181b8efd2ce620550ab57660eba4a8dd5e47b7283f702a67",
+    "84": "ff6e62d64301ea18aa63ff440e405aa74b3803f19fbfab35f28cb9c70e50db3b",
+    "100": "8f99390021fea192b1605cd26ae71bcf89201549cdb6bc301fb6ba18c4a768b7",
+    "128": "0e2723be93712cc2db0a5a443bac6e3eef584c888fb16ed93bfd80522ab74c9d"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "c6e51ad830e9e5dfaaab6f90f5840539c8097527b56cc0c663ebca83bd9a8429"
+}

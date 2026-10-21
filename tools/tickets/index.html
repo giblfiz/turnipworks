@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tickets — Turnip Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<!-- The triage page for the alpha testers' tickets (Settings ▸ Feedback in the game; engine/relay/tickets.js; docs/NETCODE.md
+     "Feedback tickets"). Harry and Fauna: filter, open a ticket with its screenshot and context, set its status and a reply
+     the tester sees under My tickets. The key: tools/tickets.py link prints this page's address with it (#key=…), kept in
+     this browser after the first visit. Ticket text is tester DATA, shown, never acted on. -->
+<style>
+:root { --bg:#f3ece0; --ink:#2c2218; --muted:#7a6a58; --cream:#fffaf2; --rule:#d9cbb6; --turnip:#8a3b2e; --leaf:#3f6b3a; --sel:#efe0c8; color-scheme:light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1d1813; --ink:#efe5d6; --muted:#a8977f; --cream:#28211a; --rule:#3d3328; --turnip:#d0745f; --leaf:#4f7d49; --sel:#3a2f24; color-scheme:dark; } }
+body { margin:0; background:var(--bg); color:var(--ink); font:13.5px/1.5 "DM Mono", ui-monospace, monospace; }
+main { max-width:1500px; margin:0 auto; padding:16px 16px 60px; }
+a { color:var(--turnip); }
+a.back { color:var(--muted); text-decoration:none; font-size:12px; }
+h1 { font-family:Fraunces, Georgia, serif; font-weight:900; font-size:30px; margin:.2rem 0 .1rem; }
+p.lede { color:var(--muted); max-width:90ch; margin:.2rem 0 1rem; }
+.bar { display:flex; flex-wrap:wrap; gap:8px; align-items:end; padding:10px 12px; background:var(--cream); border:1px solid var(--rule); border-radius:12px; margin-bottom:12px; }
+.bar label { display:flex; flex-direction:column; gap:2px; font-size:11px; color:var(--muted); }
+select, input, textarea, button { font:inherit; color:var(--ink); background:var(--bg); border:1px solid var(--rule); border-radius:8px; }
+select, input { height:30px; padding:0 8px; }
+button { height:30px; padding:0 12px; cursor:pointer; background:var(--cream); }
+button:hover { border-color:var(--turnip); }
+button.primary { background:var(--turnip); border-color:var(--turnip); color:#fff; }
+.count { margin-left:auto; color:var(--muted); font-size:12px; align-self:center; }
+.grid { display:grid; grid-template-columns:minmax(0, 1.05fr) minmax(0, 1fr); gap:14px; align-items:start; }
+@media (max-width: 980px) { .grid { grid-template-columns:1fr; } }
+.list { background:var(--cream); border:1px solid var(--rule); border-radius:12px; overflow:auto; max-height:calc(100vh - 210px); }
+table.tk { border-collapse:collapse; width:100%; }
+table.tk th { position:sticky; top:0; background:var(--cream); text-align:left; font-size:11px; color:var(--muted); font-weight:500; padding:7px 8px; border-bottom:1px solid var(--rule); }
+table.tk td { padding:7px 8px; border-bottom:1px solid var(--rule); vertical-align:top; }
+table.tk tr { cursor:pointer; }
+table.tk tr:hover td { background:color-mix(in srgb, var(--sel) 60%, transparent); }
+table.tk tr.sel td { background:var(--sel); }
+td.when { white-space:nowrap; color:var(--muted); font-size:12px; }
+td.txt { max-width:46ch; overflow-wrap:anywhere; }
+.chip { display:inline-block; padding:0 7px; border-radius:9px; font-size:11px; line-height:18px; background:color-mix(in srgb, var(--ink) 9%, transparent); white-space:nowrap; }
+.k-bug { background:#d0745f44; } .k-idea { background:#e5b94f44; } .k-asset { background:#4f7d4944; } .k-question { background:#5b8ad044; } .k-auto { background:#88888844; }
+.s-new { background:var(--turnip); color:#fff; } .s-looking { background:#e5b94f; color:#2c2218; } .s-fixed { background:var(--leaf); color:#fff; }
+.s-wontfix, .s-duplicate { background:color-mix(in srgb, var(--ink) 18%, transparent); }
+.detail { background:var(--cream); border:1px solid var(--rule); border-radius:12px; padding:14px 16px; position:sticky; top:12px; max-height:calc(100vh - 40px); overflow:auto; }
+.detail h2 { font-family:Fraunces, Georgia, serif; font-size:20px; margin:0 0 4px; }
+.detail .meta { color:var(--muted); font-size:12px; margin-bottom:10px; }
+.detail .words { white-space:pre-wrap; overflow-wrap:anywhere; font-size:14px; padding:10px 12px; background:var(--bg); border-radius:8px; border:1px solid var(--rule); }
+.detail h3 { font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin:16px 0 6px; }
+.shot img { max-width:100%; border-radius:8px; border:1px solid var(--rule); display:block; cursor:zoom-in; }
+dl.ctx { display:grid; grid-template-columns:max-content 1fr; gap:3px 14px; margin:0; font-size:12.5px; }
+dl.ctx dt { color:var(--muted); } dl.ctx dd { margin:0; overflow-wrap:anywhere; }
+table.cmds { border-collapse:collapse; width:100%; font-size:12px; }
+table.cmds td { padding:2px 6px; border-bottom:1px solid var(--rule); }
+pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:11.5px; background:var(--bg); padding:8px; border-radius:8px; border:1px solid var(--rule); margin:4px 0; }
+.triage { display:flex; flex-direction:column; gap:8px; padding:12px; border:1px solid var(--rule); border-radius:10px; background:var(--bg); }
+.statuses { display:flex; gap:6px; flex-wrap:wrap; }
+.statuses button.on { background:var(--turnip); border-color:var(--turnip); color:#fff; }
+textarea { width:100%; box-sizing:border-box; min-height:80px; padding:8px; resize:vertical; }
+.msg { font-size:12px; color:var(--muted); } .msg.bad { color:var(--turnip); }
+.keybox { max-width:520px; padding:16px; background:var(--cream); border:1px solid var(--rule); border-radius:12px; }
+.keybox input { width:100%; box-sizing:border-box; margin:8px 0; }
+.empty { color:var(--muted); padding:20px; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← Turnip Works</a>
+  <h1>Tickets</h1>
+  <p class="lede">What the alpha testers sent from Settings ▸ Feedback, and the errors their browsers sent by themselves (kind "auto"). Open one to see its screenshot and context; a status and a reply go back to the tester's My tickets. Nothing here notifies anyone.</p>
+  <div id="app"></div>
+</main>
+<script type="module">
+const qs = new URLSearchParams(location.search);
+// TWO SERVERS (2026-10-19, docs/NETCODE.md "Two servers"): the testers play on PROD (turnipworks.net, relay :8097), so
+// its tickets are the ones that matter; this page's own host (implausible.enterprises) proxies /api/tw-relay to DEV.
+// ?channel=dev shows dev's tickets; ?relay=<base> names any relay (tests). Each relay has its own triage key.
+const CHANNEL = qs.get('relay') ? 'custom' : qs.get('channel') === 'dev' ? 'dev' : 'prod';
+const RELAY = (qs.get('relay') || (CHANNEL === 'dev' ? '/api/tw-relay' : 'https://turnipworks.net/api/tw-relay')).replace(/\/$/, '');
+const KEY_NAME = `tw.triage.key.${CHANNEL}`;
+const KINDS = { bug: 'Bug', idea: 'Idea', asset: 'Asset comment', question: 'Question', other: 'Other', auto: 'Auto (error)' };
+const STATUS = { new: 'new', looking: 'looking', fixed: 'fixed', wontfix: "won't fix", duplicate: 'duplicate' };
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const $ = (s, r = document) => r.querySelector(s);
+const store = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch { } } };
+let key = null;
+const m = location.hash.match(/key=([0-9a-f]{16,128})/i);
+if (m) { key = m[1]; store.set(KEY_NAME, key); history.replaceState(null, '', location.pathname + location.search); }
+key ||= store.get(KEY_NAME);
+const S = { list: null, sel: null, ticket: null, f: JSON.parse(store.get('tw.triage.filters') || '{}'), shotUrl: null, msg: '', bad: false, who: store.get('tw.triage.who') || 'Harry' };
+window.triage = { state: () => S, reload: () => load() }; // (tests)
+
+async function api(path, opts = {}) {
+  const r = await fetch(RELAY + path, { ...opts, headers: { authorization: `Bearer ${key}`, ...(opts.body ? { 'content-type': 'application/json' } : {}), ...(opts.headers || {}) } });
+  if (r.status === 401) { key = null; store.set(KEY_NAME, ''); render(); throw new Error('the key was refused'); }
+  return r;
+}
+const dayMs = (d, end) => { if (!d) return ''; const [y, mo, da] = d.split('-').map(Number); const t = new Date(y, mo - 1, da, end ? 23 : 0, end ? 59 : 0, end ? 59 : 0, end ? 999 : 0); return String(t.getTime()); };
+async function load() {
+  const f = S.f, p = new URLSearchParams();
+  for (const k of ['kind', 'status', 'campaign', 'q']) if (f[k]) p.set(k, f[k]);
+  if (f.since) p.set('since', dayMs(f.since)); if (f.until) p.set('until', dayMs(f.until, true));
+  try { S.list = await (await api('/tickets?' + p)).json(); } catch (e) { S.list = { error: e.message }; }
+  render();
+  if (S.sel) openTicket(S.sel, true);
+}
+async function openTicket(id, keepMsg) {
+  S.sel = id; if (!keepMsg) { S.msg = ''; S.bad = false; }
+  try { S.ticket = (await (await api('/tickets/' + id)).json()).ticket; } catch { S.ticket = null; }
+  if (S.shotUrl) { URL.revokeObjectURL(S.shotUrl); S.shotUrl = null; }
+  if (S.ticket?.shot) { try { const r = await api(`/tickets/${id}/shot`); if (r.ok) S.shotUrl = URL.createObjectURL(await r.blob()); } catch { } }
+  render();
+}
+async function save(status) {
+  const t = S.ticket; if (!t) return;
+  const reply = $('#reply').value;
+  const body = { by: S.who, ...(status && { status }), ...(reply !== (t.reply || '') && { reply }) };
+  if (!body.status && body.reply == null) { S.msg = 'Nothing changed.'; render(); return; }
+  const r = await api(`/tickets/${t.id}/set`, { method: 'POST', body: JSON.stringify(body) });
+  const j = await r.json().catch(() => ({}));
+  S.msg = r.ok ? `Saved ${new Date().toLocaleTimeString()}${body.reply != null ? ': the tester sees the reply under My tickets' : ''}.` : `Not saved: ${j.why || r.status}`; S.bad = !r.ok;
+  await load();
+}
+
+function filters() {
+  const L = S.list || {}, f = S.f, fc = L.facets || { kinds: {}, statuses: {}, campaigns: {} };
+  const opt = (v, label, cur) => `<option value="${esc(v)}"${v === (cur || '') ? ' selected' : ''}>${esc(label)}</option>`;
+  return `<div class="bar">
+    <label>Kind<select data-f="kind">${opt('', 'every kind', f.kind)}${Object.entries(KINDS).map(([k, l]) => opt(k, `${l} (${fc.kinds[k] || 0})`, f.kind)).join('')}</select></label>
+    <label>Status<select data-f="status">${opt('', 'every status', f.status)}${opt('new,looking', 'open (new or looking)', f.status)}${Object.entries(STATUS).map(([k, l]) => opt(k, `${l} (${fc.statuses[k] || 0})`, f.status)).join('')}</select></label>
+    <label>Campaign<select data-f="campaign">${opt('', 'every campaign', f.campaign)}${Object.entries(fc.campaigns).sort((a, b) => b[1].n - a[1].n).map(([id, c]) => opt(id, `${c.name || id} (${c.n})`, f.campaign)).join('')}</select></label>
+    <label>From<input type="date" data-f="since" value="${esc(f.since || '')}"></label>
+    <label>To<input type="date" data-f="until" value="${esc(f.until || '')}"></label>
+    <label>Search<input data-f="q" value="${esc(f.q || '')}" placeholder="words, a name, an id"></label>
+    <button data-act="clear">Clear</button><button data-act="refresh">Refresh</button>
+    <label>Server<select data-act="channel">${[['prod', 'turnipworks.net (prod)'], ['dev', 'dev'], ...(CHANNEL === 'custom' ? [['custom', RELAY]] : [])].map(([k, l]) => `<option value="${k}"${k === CHANNEL ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
+    <span class="count">${L.error ? esc(L.error) : L.tickets ? `${L.matched} of ${L.total}` : 'loading…'}</span></div>`;
+}
+const when = (t) => new Date(t).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+function listHtml() {
+  const L = S.list; if (!L?.tickets) return `<div class="list"><p class="empty">${L?.error ? esc(L.error) : 'Loading…'}</p></div>`;
+  if (!L.tickets.length) return `<div class="list"><p class="empty">${L.total ? 'No ticket matches these filters.' : 'No tickets yet.'}</p></div>`;
+  return `<div class="list"><table class="tk"><thead><tr><th>When</th><th>Kind</th><th>Status</th><th>Campaign · seat</th><th>What they said</th></tr></thead><tbody>${L.tickets.map(t => `<tr data-id="${t.id}" class="${t.id === S.sel ? 'sel' : ''}">
+    <td class="when">${when(t.at)}</td><td><span class="chip k-${esc(t.kind)}">${esc(KINDS[t.kind] || t.kind)}</span>${t.count > 1 ? ` <span class="chip">×${t.count}</span>` : ''}</td>
+    <td><span class="chip s-${esc(t.status)}">${esc(STATUS[t.status] || t.status)}</span>${t.reply ? ' <span class="chip" title="replied">↩</span>' : ''}</td>
+    <td>${esc(t.campaign?.name || '?')}<br><small>${esc(t.seat?.name || '?')} · ${t.seat?.role === 'gm' ? 'GM' : esc(t.seat?.role || '?')}</small></td>
+    <td class="txt">${t.asset ? `<b>${esc(t.asset.name || t.asset.sku || '')}</b>: ` : ''}${esc(t.text)}${t.shot ? ' <span class="chip">screenshot</span>' : ''}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function ctxRows(c) {
+  if (!c) return '';
+  const fmt = (v) => v == null ? '—' : typeof v === 'object' ? esc(JSON.stringify(v)) : esc(v);
+  const rows = [['client', c.client], ['look (tuner)', c.tuner], ['area', c.area && `${c.area.name || ''} (${c.area.id})`], ['camera', c.camera && `focus ${c.camera.focus?.join(', ')} · dist ${c.camera.dist} · yaw ${c.camera.yaw} · pitch ${c.camera.pitch}`], ['PiP', c.pip],
+    ['graphics', c.graphics], ['fog of war', c.fogOfWar], ['browser', c.browser], ['OS', c.os], ['GPU', c.gpu], ['screen', c.screen?.join(' × ')], ['window', c.viewport?.join(' × ')], ['connection', c.net], ['selected', c.selected], ['page', c.page], ['session', c.session && `${c.session} (${c.uptimeS} s in)`]];
+  return `<dl class="ctx">${rows.filter(([, v]) => v !== undefined).map(([k, v]) => `<dt>${k}</dt><dd>${fmt(v)}</dd>`).join('')}</dl>`;
+}
+function detailHtml() {
+  const t = S.ticket;
+  if (!t) return `<div class="detail"><p class="empty">${S.sel ? 'Loading…' : 'Open a ticket from the list.'}</p></div>`;
+  const cmds = t.commands || [], errs = t.errors || [];
+  return `<div class="detail" data-ticket="${t.id}">
+    <h2>${esc(KINDS[t.kind] || t.kind)} <span class="chip s-${esc(t.status)}">${esc(STATUS[t.status] || t.status)}</span>${t.count > 1 ? ` <span class="chip">seen ${t.count} times</span>` : ''}</h2>
+    <div class="meta">${new Date(t.at).toLocaleString()} · ${esc(t.seat?.name || '?')} (${t.seat?.role === 'gm' ? 'GM' : esc(t.seat?.role || '?')}${t.seat?.kind === 'llm' ? ', an AI seat' : ''}) · ${esc(t.campaign?.name || '?')} <small>${esc(t.campaign?.id || '')}</small> · ${esc(t.area?.name || t.area?.id || '')} · <small>${t.id}</small></div>
+    ${t.asset ? `<p><b>Asset:</b> ${esc(t.asset.name || '')} <small>${esc([t.asset.kind, t.asset.lib || t.asset.sku, t.asset.cat, t.asset.fig, t.asset.mesh, t.asset.entity].filter(Boolean).join(' · '))}</small></p>` : ''}
+    <div class="words">${esc(t.text) || '<i>(no words)</i>'}</div>
+    <h3>Triage</h3>
+    <div class="triage"><div class="statuses">${Object.entries(STATUS).map(([k, l]) => `<button data-status="${k}" class="${t.status === k ? 'on' : ''}">${esc(l)}</button>`).join('')}</div>
+      <label class="msg">Reply (the tester sees it under My tickets)<textarea id="reply" maxlength="4000">${esc(t.reply || '')}</textarea></label>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="primary" data-act="save">Save reply</button><label class="msg">as <select id="who">${['Harry', 'Fauna'].map(w => `<option${w === S.who ? ' selected' : ''}>${w}</option>`).join('')}</select></label><span class="msg${S.bad ? ' bad' : ''}" id="msg">${esc(S.msg)}</span></div>
+      ${t.history?.length ? `<small class="msg">${t.history.map(h => `${new Date(h.at).toLocaleString()} ${esc(h.by || '')}: ${h.status ? esc(STATUS[h.status] || h.status) : ''}${h.reply != null ? ' (reply)' : ''}`).join(' · ')}</small>` : ''}</div>
+    <h3>Screenshot</h3>${t.shot ? (S.shotUrl ? `<div class="shot"><a href="${S.shotUrl}" target="_blank" rel="noopener"><img id="shot" src="${S.shotUrl}" alt="What the tester saw"></a><small class="msg">${Math.round((t.shotBytes || 0) / 1024)} KB</small></div>` : '<p class="msg">loading…</p>') : `<p class="msg">${t.wantsShot ? 'asked for, never arrived' : 'none sent'}</p>`}
+    <h3>Context</h3>${ctxRows(t.ctx)}
+    <h3>Recent commands (${cmds.length})</h3>${cmds.length ? `<table class="cmds">${cmds.slice().reverse().map(c => `<tr><td>${c.at ? new Date(c.at).toLocaleTimeString() : ''}</td><td>${esc(c.dir)}</td><td>${esc(c.type)}${c.ops ? ` <small>${esc(c.ops.join(', '))}</small>` : ''}</td><td><small>${esc((c.ids || []).join(' '))}</small></td><td><small>${esc(c.area || '')} ${c.seq != null ? '#' + esc(c.seq) : ''} ${esc(c.by || '')}</small></td></tr>`).join('')}</table>` : '<p class="msg">none</p>'}
+    <h3>Errors (${errs.length})</h3>${errs.length ? errs.map(e => `<pre>${esc(e?.source || '')}${e?.at ? ' · ' + new Date(e.at).toLocaleTimeString() : ''}\n${esc(e?.message || '')}${e?.stack ? '\n' + esc(e.stack) : ''}</pre>`).join('') : '<p class="msg">none</p>'}
+  </div>`;
+}
+function render() {
+  const app = $('#app');
+  if (!key) {
+    app.innerHTML = `<div class="keybox"><b>The triage key</b><p class="msg">${CHANNEL === 'dev' ? 'The DEV relay\'s tickets.' : CHANNEL === 'prod' ? 'The tickets from turnipworks.net (prod).' : esc(RELAY)} On the build box: <code>python3 tools/tickets.py link${CHANNEL === 'dev' ? ' --dev' : ''}</code> prints this page's address with the key in it. Or paste the key:</p><input id="key" placeholder="the key (hex)" autocomplete="off"><button class="primary" data-act="key">Use this key</button></div>`;
+    $('[data-act=key]').onclick = () => { const v = $('#key').value.trim(); if (v) { key = v; store.set(KEY_NAME, v); load(); } };
+    return;
+  }
+  const scroll = $('.list')?.scrollTop;
+  app.innerHTML = filters() + `<div class="grid">${listHtml()}${detailHtml()}</div>`;
+  if (scroll) $('.list').scrollTop = scroll;
+  for (const el of app.querySelectorAll('[data-f]')) el.onchange = () => { S.f[el.dataset.f] = el.value; store.set('tw.triage.filters', JSON.stringify(S.f)); load(); };
+  const clear = $('[data-act=clear]'); if (clear) clear.onclick = () => { S.f = {}; store.set('tw.triage.filters', '{}'); load(); };
+  const rf = $('[data-act=refresh]'); if (rf) rf.onclick = () => load();
+  const ch = $('[data-act=channel]'); if (ch) ch.onchange = () => { if (ch.value !== 'custom') location.href = location.pathname + (ch.value === 'dev' ? '?channel=dev' : ''); };
+  for (const tr of app.querySelectorAll('tr[data-id]')) tr.onclick = () => openTicket(tr.dataset.id);
+  for (const b of app.querySelectorAll('[data-status]')) b.onclick = () => save(b.dataset.status);
+  const sv = $('[data-act=save]'); if (sv) sv.onclick = () => save(null);
+  const who = $('#who'); if (who) who.onchange = () => { S.who = who.value; store.set('tw.triage.who', S.who); };
+}
+render();
+if (key) load();
+</script>
+</body>
+</html>

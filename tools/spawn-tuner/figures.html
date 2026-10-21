@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure scale · Spawn Tuner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
+<style>
+  body { grid-template-rows: auto minmax(0, 1fr); }
+  #fsWrap { display: grid; grid-template-columns: 360px minmax(0, 1fr); min-height: 0; }
+  #fsSide { padding: 12px; overflow: auto; border-right: 1px solid var(--line); background: var(--panel); }
+  #fsSide h3 { font-family: Fraunces, serif; margin: 14px 0 6px; font-size: 15px; }
+  #fsStage { position: relative; min-height: 0; } #fsStage canvas { display: block; width: 100%; height: 100%; }
+  #fsBig { font-family: Fraunces, serif; font-size: 34px; color: var(--turnip); }
+  #fsScale { width: 100%; } .row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+  .row button, #fsSide button { padding: 6px 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--deep); color: var(--ink); font: inherit; cursor: pointer; }
+  #fsSide button.primary { background: #3a4524; border-color: #5d6e33; }
+  table.fs { width: 100%; border-collapse: collapse; } table.fs td, table.fs th { text-align: left; padding: 3px 4px; border-bottom: 1px solid var(--line); font-weight: 400; } table.fs th { color: var(--muted); }
+  .ok { color: #a9c77a; } .warn { color: #e0b04a; } .muted { color: var(--muted); } .small { font-size: 12px; }
+  #fsCopy { width: 100%; background: var(--deep); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px; font: inherit; }
+  #fsToast { position: absolute; left: 12px; bottom: 12px; background: #000a; padding: 6px 10px; border-radius: 6px; display: none; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header><div class="brand"><a href="./">Spawn Tuner</a><strong>Figure scale</strong></div><div class="muted small">One factor on every figure in the game. The base stays one square: it is the pawn's size in the rules.</div></header>
+<div id="fsWrap">
+  <aside id="fsSide">
+    <div><span id="fsBig">0.67</span> <span class="muted">× the size each figure was made at</span></div>
+    <input id="fsScale" type="range" min="0.4" max="1.2" step="0.01" value="0.67">
+    <div class="row"><button data-k="1">1.00 as made</button><button data-k="0.8">0.80 seats match</button><button data-k="0.67">0.67 Harry's chair test</button></div>
+    <div class="row"><button id="fsSeeTable">Table camera</button><button id="fsSeeClose">Close, three-quarter</button><button id="fsSeeDoor">The door</button></div>
+    <h3>What is on screen, in feet</h3>
+    <table class="fs" id="fsFigs"></table>
+    <table class="fs" id="fsFurn" style="margin-top:8px"></table>
+    <div class="muted small" style="margin-top:6px">The bright ring on each figure is where the back of its knee is: a chair fits when the ring is level with the seat. The furniture is drawn at its catalog size, the wall is 9 ft, the squares 5 ft.</div>
+    <h3>Ship it</h3>
+    <div class="row"><button id="fsSend">Send</button><button id="fsHouse">Use in game</button></div>
+    <input id="fsCopy" readonly>
+    <div class="muted small" style="margin-top:6px">Large creatures and beasts keep their sizes relative to a person (the factor multiplies every figure). Rulers, templates and reach measure from the base, so they do not change.</div>
+  </aside>
+  <div id="fsStage"><div id="fsToast"></div></div>
+</div>
+<script type="module">
+  const v = await fetch('version.json?t=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+  const m = await import('./js/figbench.js?v=' + (v?.v || 'dev' + Date.now()));
+  m.start({ v: v?.v || null });
+</script>
+</body>
+</html>

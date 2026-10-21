@@ -1,0 +1,194 @@
+{
+ "file": "hero-fighter-orc-m.glb",
+ "tris": 48244,
+ "kb": 2984,
+ "native_extent": [
+  0.635,
+  0.999,
+  0.411
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0055,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  75,
+  57,
+  43
+ ],
+ "mean_saturation": 0.51,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 3.41,
+  "length_ft": 3.54,
+  "low_end_ft": [
+   -1.14,
+   3.15,
+   0.7
+  ],
+  "high_end_ft": [
+   -1.06,
+   6.69,
+   0.82
+  ],
+  "tilt_from_upright_deg": 2.4,
+  "thickness_ft": 0.26,
+  "clear_share": 0.82,
+  "joined_share": 0.18,
+  "broken_share": 0.0,
+  "walk_low_to_high": "----######------------------------"
+ },
+ "overall_ft": 6.61,
+ "pieces": {
+  "connected_parts": 388,
+  "main_part_area_share": 0.9951,
+  "floating": [
+   {
+    "area_share": 0.00015,
+    "gap_ft": 0.04,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 0.00011,
+    "gap_ft": 0.04,
+    "size_ft": 0.13
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.09
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.05
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.06,
+    "size_ft": 0.05
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.07
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.06,
+    "size_ft": 0.05
+   }
+  ],
+  "floating_count": 68,
+  "floating_area_share": 0.00048,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.6201,
+ "y0": -3.3136,
+ "stated_ft": {
+  "body": 6.5,
+  "figure_top": 6.5,
+  "overall": 6.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3179,
+   -0.5006,
+   -0.2058
+  ],
+  [
+   0.3173,
+   0.4985,
+   0.2054
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48244,
+   "tex": 2048,
+   "kb": 2984
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1173
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 487
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -1.24,
+    "z": -0.59,
+    "size_ft": [
+     1.4,
+     1.46
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.79,
+    "sole_p90_ft": 0.089
+   },
+   {
+    "x": 1.1,
+    "z": 0.41,
+    "size_ft": [
+     1.07,
+     1.65
+    ],
+    "off_ground_ft": 0.003,
+    "sole_level_share": 0.71,
+    "sole_p90_ft": 0.102
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.003,
+  "lowest_slab_area_sqft": 2.3,
+  "plan_hull_area_sqft": 8.49,
+  "lowest_slab_share_of_plan": 0.271
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.2,
+   "d": 2.72,
+   "h": 6.61
+  },
+  "centre": [
+   -0.134,
+   0.208
+  ],
+  "contacts_radius_ft": 1.88,
+  "reach_radius_ft": 2.24,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.916,
+  "plate_lost_share": 0.043,
+  "added_share": 0.045,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.878,
+  "view_yaw_deg": 350,
+  "view_elev_deg": 8
+ },
+ "id": "hero-fighter-orc-m",
+ "sha1": "d96f0805d8a23bcba41152e94e8859216f8cdb21",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 16.9
+}

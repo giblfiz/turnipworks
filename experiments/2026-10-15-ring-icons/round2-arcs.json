@@ -1,0 +1,622 @@
+{
+  "rule": "Co-visible sibling choices must have distinct pictures; runtime pic/preview takes precedence over glyph and static manifest. Parent/child or mutually exclusive modes are not siblings.",
+  "audited_sources": [
+    "engine/client/commands.js",
+    "engine/client/menu.js",
+    "engine/client/surfaces/ring.js",
+    "engine/client/surfaces/rulers.js",
+    "engine/client/surfaces/factions.js",
+    "engine/client/surfaces/areas.js",
+    "engine/client/marks.js",
+    "tools/spawn-tuner/data/library.json",
+    "tools/spawn-tuner/data/factions.json"
+  ],
+  "summary": {
+    "wall_children": 18,
+    "storey_children": 3,
+    "roof_fallback_families": 2,
+    "timing_families": 2,
+    "minimum_new_non_condition_picture_families": 29,
+    "minimum_new_non_condition_paintings_both_sets": 58,
+    "condition_families_parent_owned": 11,
+    "roof_all_six_if_manifest_only_additional_families": 0,
+    "dynamic_travel_gap": true,
+    "roof_material_families": 4,
+    "roof_swatches_exempt": false
+  },
+  "arcs": [
+    {
+      "id": "conditions",
+      "co_visible_ids": [
+        "pawn.cond.blinded",
+        "pawn.cond.charmed",
+        "pawn.cond.frightened",
+        "pawn.cond.grappled",
+        "pawn.cond.invisible",
+        "pawn.cond.poisoned",
+        "pawn.cond.prone",
+        "pawn.cond.restrained",
+        "pawn.cond.stunned",
+        "pawn.cond.unconscious"
+      ],
+      "status": "repaint",
+      "justification": "Ten simultaneously available commands have the same badge glyph and same painted files; no preview/pic. Current pawn.cond.clear lacks menu:true, so is NOT in runtime Conditions panel; parent explicitly adds clear artwork in round2.",
+      "source": "engine/client/commands.js:157",
+      "requested_extra": [
+        "pawn.cond.clear"
+      ],
+      "manifest_base_collisions": [
+        {
+          "set": "charcoal",
+          "file": "charcoal/pawn.cond..webp",
+          "ids": [
+            "pawn.cond.blinded",
+            "pawn.cond.charmed",
+            "pawn.cond.frightened",
+            "pawn.cond.grappled",
+            "pawn.cond.invisible",
+            "pawn.cond.poisoned",
+            "pawn.cond.prone",
+            "pawn.cond.restrained",
+            "pawn.cond.stunned",
+            "pawn.cond.unconscious"
+          ]
+        },
+        {
+          "set": "parchment",
+          "file": "parchment/pawn.cond..webp",
+          "ids": [
+            "pawn.cond.blinded",
+            "pawn.cond.charmed",
+            "pawn.cond.frightened",
+            "pawn.cond.grappled",
+            "pawn.cond.invisible",
+            "pawn.cond.poisoned",
+            "pawn.cond.prone",
+            "pawn.cond.restrained",
+            "pawn.cond.stunned",
+            "pawn.cond.unconscious"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "walls",
+      "co_visible_ids": [
+        "room.walls.auto",
+        "room.walls.rough-timber",
+        "room.walls.log-cabin",
+        "room.walls.half-timber",
+        "room.walls.fieldstone",
+        "room.walls.dressed-stone",
+        "room.walls.noble-interior",
+        "room.walls.crypt-stone",
+        "room.walls.castle-rough",
+        "room.walls.noble-panel",
+        "room.walls.noble-paper",
+        "room.walls.conservatory",
+        "room.walls.temple-stone",
+        "room.walls.cut-rock",
+        "room.walls.tower-stone",
+        "room.walls.mine-timbered",
+        "room.walls.black-stone",
+        "room.walls.wattle-daub"
+      ],
+      "status": "repaint",
+      "justification": "Every child uses brick-wall; no preview or pic. Current wall family omitted, but every pair can coexist when another family is selected. Distinct labels do not exempt sibling pictures.",
+      "source": "engine/client/commands.js:209",
+      "new_picture_families": 18,
+      "manifest_base_collisions": [
+        {
+          "set": "charcoal",
+          "file": "charcoal/room.walls..webp",
+          "ids": [
+            "room.walls.auto",
+            "room.walls.rough-timber",
+            "room.walls.log-cabin",
+            "room.walls.half-timber",
+            "room.walls.fieldstone",
+            "room.walls.dressed-stone",
+            "room.walls.noble-interior",
+            "room.walls.crypt-stone",
+            "room.walls.castle-rough",
+            "room.walls.noble-panel",
+            "room.walls.noble-paper",
+            "room.walls.conservatory",
+            "room.walls.temple-stone",
+            "room.walls.cut-rock",
+            "room.walls.tower-stone",
+            "room.walls.mine-timbered",
+            "room.walls.black-stone",
+            "room.walls.wattle-daub"
+          ]
+        },
+        {
+          "set": "parchment",
+          "file": "parchment/room.walls..webp",
+          "ids": [
+            "room.walls.auto",
+            "room.walls.rough-timber",
+            "room.walls.log-cabin",
+            "room.walls.half-timber",
+            "room.walls.fieldstone",
+            "room.walls.dressed-stone",
+            "room.walls.noble-interior",
+            "room.walls.crypt-stone",
+            "room.walls.castle-rough",
+            "room.walls.noble-panel",
+            "room.walls.noble-paper",
+            "room.walls.conservatory",
+            "room.walls.temple-stone",
+            "room.walls.cut-rock",
+            "room.walls.tower-stone",
+            "room.walls.mine-timbered",
+            "room.walls.black-stone",
+            "room.walls.wattle-daub"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roof.style.",
+      "co_visible_ids": [
+        "roof.style.thatch",
+        "roof.style.tile",
+        "roof.style.slate",
+        "roof.style.shingle",
+        "roof.style.flat",
+        "roof.style.auto"
+      ],
+      "status": "repaint",
+      "justification": "Task I Ring Tuner renders manifest paintings exclusively, ignoring runtime pic swatches. All six sibling roof choices must therefore have distinct painted assets. Actual game uses four distinct swatches, but that is no exemption for this delivered manifest consumer. Flat/auto plus thatch/tile/slate/shingle each get dedicated images; matching material may alias across roof/building menus.",
+      "source": "engine/client/commands.js:229-238; engine/client/surfaces/ring.js:483",
+      "repaint_ids": [
+        "roof.style.thatch",
+        "roof.style.tile",
+        "roof.style.slate",
+        "roof.style.shingle",
+        "roof.style.flat",
+        "roof.style.auto"
+      ],
+      "manifest_base_collisions": [
+        {
+          "set": "charcoal",
+          "file": "charcoal/roof.style..webp",
+          "ids": [
+            "roof.style.thatch",
+            "roof.style.tile",
+            "roof.style.slate",
+            "roof.style.shingle",
+            "roof.style.flat",
+            "roof.style.auto"
+          ]
+        },
+        {
+          "set": "parchment",
+          "file": "parchment/roof.style..webp",
+          "ids": [
+            "roof.style.thatch",
+            "roof.style.tile",
+            "roof.style.slate",
+            "roof.style.shingle",
+            "roof.style.flat",
+            "roof.style.auto"
+          ]
+        }
+      ],
+      "swatch_exemption_applies": false,
+      "historical_game_swatch_paths": {
+        "roof.style.thatch": "tools/spawn-tuner/assets/flat/roofing-thatch.webp",
+        "roof.style.tile": "tools/spawn-tuner/assets/flat/roofing-tile-clay.webp",
+        "roof.style.slate": "tools/spawn-tuner/assets/flat/roofing-slate.webp",
+        "roof.style.shingle": "tools/spawn-tuner/assets/flat/roofing-shingle-wood.webp"
+      }
+    },
+    {
+      "id": "building.roof.",
+      "co_visible_ids": [
+        "building.roof.thatch",
+        "building.roof.tile",
+        "building.roof.slate",
+        "building.roof.shingle",
+        "building.roof.flat",
+        "building.roof.auto"
+      ],
+      "status": "repaint",
+      "justification": "Task I Ring Tuner renders manifest paintings exclusively, ignoring runtime pic swatches. All six sibling roof choices must therefore have distinct painted assets. Actual game uses four distinct swatches, but that is no exemption for this delivered manifest consumer. Flat/auto plus thatch/tile/slate/shingle each get dedicated images; matching material may alias across roof/building menus.",
+      "source": "engine/client/commands.js:229-238; engine/client/surfaces/ring.js:483",
+      "repaint_ids": [
+        "building.roof.thatch",
+        "building.roof.tile",
+        "building.roof.slate",
+        "building.roof.shingle",
+        "building.roof.flat",
+        "building.roof.auto"
+      ],
+      "manifest_base_collisions": [
+        {
+          "set": "charcoal",
+          "file": "charcoal/roof.style..webp",
+          "ids": [
+            "building.roof.thatch",
+            "building.roof.tile",
+            "building.roof.slate",
+            "building.roof.shingle",
+            "building.roof.flat",
+            "building.roof.auto"
+          ]
+        },
+        {
+          "set": "parchment",
+          "file": "parchment/roof.style..webp",
+          "ids": [
+            "building.roof.thatch",
+            "building.roof.tile",
+            "building.roof.slate",
+            "building.roof.shingle",
+            "building.roof.flat",
+            "building.roof.auto"
+          ]
+        }
+      ],
+      "swatch_exemption_applies": false,
+      "historical_game_swatch_paths": {
+        "building.roof.thatch": "tools/spawn-tuner/assets/flat/roofing-thatch.webp",
+        "building.roof.tile": "tools/spawn-tuner/assets/flat/roofing-tile-clay.webp",
+        "building.roof.slate": "tools/spawn-tuner/assets/flat/roofing-slate.webp",
+        "building.roof.shingle": "tools/spawn-tuner/assets/flat/roofing-shingle-wood.webp"
+      }
+    },
+    {
+      "id": "building.storeys.",
+      "co_visible_ids": [
+        "building.storeys.1",
+        "building.storeys.2",
+        "building.storeys.3"
+      ],
+      "status": "repaint",
+      "justification": "Same layers glyph/shared painting, no preview/pic. Current count omitted; other allowed programme counts coexist. Distinct one/two/three floors required.",
+      "source": "engine/client/commands.js:197",
+      "new_picture_families": 3,
+      "manifest_base_collisions": [
+        {
+          "set": "charcoal",
+          "file": "charcoal/building.storeys..webp",
+          "ids": [
+            "building.storeys.1",
+            "building.storeys.2",
+            "building.storeys.3"
+          ]
+        },
+        {
+          "set": "parchment",
+          "file": "parchment/building.storeys..webp",
+          "ids": [
+            "building.storeys.1",
+            "building.storeys.2",
+            "building.storeys.3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "indicators",
+      "co_visible_ids": [
+        "pawn.mark.star",
+        "pawn.mark.circle",
+        "pawn.mark.diamond",
+        "pawn.mark.triangle",
+        "pawn.mark.moon",
+        "pawn.mark.square",
+        "pawn.mark.cross",
+        "pawn.mark.skull",
+        "pawn.mark.none"
+      ],
+      "status": "distinct",
+      "justification": "Eight different colored shapes rendered by pic: markUrl(key), plus Clear X. Painted manifest also has eight distinct shapes plus X. Parent Indicators star is not a sibling of its leaf star; ring collapse X and Clear are different hierarchy levels.",
+      "source": "engine/client/commands.js:159-160; engine/client/marks.js:34",
+      "runtime_pictures": {
+        "pawn.mark.star": "markUrl(star,96) generated data URL",
+        "pawn.mark.circle": "markUrl(circle,96) generated data URL",
+        "pawn.mark.diamond": "markUrl(diamond,96) generated data URL",
+        "pawn.mark.triangle": "markUrl(triangle,96) generated data URL",
+        "pawn.mark.moon": "markUrl(moon,96) generated data URL",
+        "pawn.mark.square": "markUrl(square,96) generated data URL",
+        "pawn.mark.cross": "markUrl(cross,96) generated data URL",
+        "pawn.mark.skull": "markUrl(skull,96) generated data URL"
+      },
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "height",
+      "co_visible_ids": [
+        "room.height.taller",
+        "room.height.shorter"
+      ],
+      "status": "distinct",
+      "justification": "Different up/down silhouettes. Both apply only at intermediate room heights; parent Height is a separate level.",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "faction",
+      "co_visible_ids": [
+        "faction.set(sun)",
+        "faction.set(moon)",
+        "faction.set(devils)",
+        "faction.set(spiders)",
+        "faction.set(dragons)",
+        "faction.set(skulls)",
+        "faction.set(tentacles)",
+        "faction.set(nature)",
+        "faction.set(sword-shield)",
+        "faction.set(death)",
+        "faction.set(scales-coin)",
+        "faction.set(forge-hammer)",
+        "faction.set(sea-storm)",
+        "faction.set(inherit)"
+      ],
+      "status": "distinct-existing",
+      "justification": "These are argument choices, not registry IDs. Each faction renders its own actual emblem img; inherit is deliberately text-only and not shown for buildings.",
+      "source": "engine/client/surfaces/factions.js:12-31",
+      "argument_of": "faction.set",
+      "swatch_paths": {
+        "faction.set(sun)": "tools/spawn-tuner/assets/emblems/sun.webp",
+        "faction.set(moon)": "tools/spawn-tuner/assets/emblems/moon.webp",
+        "faction.set(devils)": "tools/spawn-tuner/assets/emblems/devils.webp",
+        "faction.set(spiders)": "tools/spawn-tuner/assets/emblems/spiders.webp",
+        "faction.set(dragons)": "tools/spawn-tuner/assets/emblems/dragons.webp",
+        "faction.set(skulls)": "tools/spawn-tuner/assets/emblems/skulls.webp",
+        "faction.set(tentacles)": "tools/spawn-tuner/assets/emblems/tentacles.webp",
+        "faction.set(nature)": "tools/spawn-tuner/assets/emblems/nature.webp",
+        "faction.set(sword-shield)": "tools/spawn-tuner/assets/emblems/sword-shield.webp",
+        "faction.set(death)": "tools/spawn-tuner/assets/emblems/death.webp",
+        "faction.set(scales-coin)": "tools/spawn-tuner/assets/emblems/scales-coin.webp",
+        "faction.set(forge-hammer)": "tools/spawn-tuner/assets/emblems/forge-hammer.webp",
+        "faction.set(sea-storm)": "tools/spawn-tuner/assets/emblems/sea-storm.webp"
+      },
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "measure.shape",
+      "co_visible_ids": [
+        "measure.shape.line",
+        "measure.shape.cone",
+        "measure.shape.circle",
+        "measure.shape.sphere",
+        "measure.shape.cube"
+      ],
+      "status": "distinct",
+      "justification": "Distinct shape silhouettes. measure.as.<shape> uses same image but is mutually exclusive when inHand versus !inHand.",
+      "source": "engine/client/surfaces/rulers.js:359-366",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "measure.as",
+      "co_visible_ids": [
+        "measure.as.line",
+        "measure.as.cone",
+        "measure.as.circle",
+        "measure.as.sphere",
+        "measure.as.cube"
+      ],
+      "status": "distinct",
+      "justification": "Ruler mode strip has shape:<shape> controls implementing these choices. Each shape differs.",
+      "source": "engine/client/surfaces/rulers.js:486-488",
+      "runtime_keys": [
+        "shape:line",
+        "shape:cone",
+        "shape:circle",
+        "shape:sphere",
+        "shape:cube"
+      ],
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "ruler-shape-strip",
+      "co_visible_ids": [
+        "measure.keep",
+        "ruler.keepfor.1",
+        "ruler.keepfor.n",
+        "measure.attach"
+      ],
+      "status": "repaint",
+      "justification": "Keep and Attach differ, but simultaneous 1 round / N rounds both use hourglass. Both currently collapse onto measure.keepRounds concept in inventory; need explicit synthetic asset keys for two runtime buttons. No arbitrary extra numbered presets: L.roundsPresets is [1].",
+      "source": "engine/client/surfaces/rulers.js:489",
+      "runtime_keys": [
+        "keep",
+        "keepfor:1",
+        "keepfor:n",
+        "attach"
+      ],
+      "synthetic_new_ids": [
+        "ruler.keepfor.1",
+        "ruler.keepfor.n"
+      ],
+      "new_picture_families": 2,
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "ruler-kept-strip",
+      "co_visible_ids": [
+        "template.remove",
+        "ruler.rounds.1",
+        "ruler.norounds",
+        "ruler.detach",
+        "measure.say"
+      ],
+      "status": "distinct-with-timing-map",
+      "justification": "Remove/bin, rounds/hourglass, no-rounds/pin, detach/link, say/bubble differ. N rounds is a numeric input, not a second icon button here. ruler.rounds.1 can alias ruler.keepfor.1 because the two modes are mutually exclusive. Attach and Detach never coexist; Keep and No rounds never coexist.",
+      "source": "engine/client/surfaces/rulers.js:487,491",
+      "runtime_keys": [
+        "remove",
+        "rounds:1",
+        "norounds",
+        "detach",
+        "say"
+      ],
+      "synthetic_new_ids": [
+        "ruler.rounds.1"
+      ],
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "ruler-expired-strip",
+      "co_visible_ids": [
+        "template.remove",
+        "ruler.norounds"
+      ],
+      "status": "distinct",
+      "justification": "Remove and indefinite Keep differ; no duplicate timer controls.",
+      "source": "engine/client/surfaces/rulers.js:490",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "outer-prop",
+      "co_visible_ids": [
+        "edit.rotate",
+        "edit.resize",
+        "thing.pin",
+        "faction.set",
+        "edit.lift",
+        "thing.upright",
+        "thing.tilt",
+        "stair.flip",
+        "thing.rename",
+        "thing.lock",
+        "thing.hide",
+        "thing.replace",
+        "menu"
+      ],
+      "status": "distinct",
+      "justification": "Conservative union of fixed buttons and expanded top level; no shared base picture among this sibling level. ring.menu switches to ring.close, never coexists as a second option. Some predicate-exclusive options are included to avoid undercounting.",
+      "source": "engine/client/commands.js; engine/client/menu.js; engine/client/surfaces/ring.js:108-134",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "outer-openable-light",
+      "co_visible_ids": [
+        "edit.rotate",
+        "edit.resize",
+        "thing.pin",
+        "thing.open",
+        "thing.light",
+        "faction.set",
+        "edit.lift",
+        "thing.upright",
+        "thing.tilt",
+        "stair.flip",
+        "thing.rename",
+        "thing.lock",
+        "thing.hide",
+        "thing.replace",
+        "menu"
+      ],
+      "status": "distinct",
+      "justification": "Conservative union of fixed buttons and expanded top level; no shared base picture among this sibling level. ring.menu switches to ring.close, never coexists as a second option. Some predicate-exclusive options are included to avoid undercounting.",
+      "source": "engine/client/commands.js; engine/client/menu.js; engine/client/surfaces/ring.js:108-134",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "outer-pawn",
+      "co_visible_ids": [
+        "edit.rotate",
+        "pawn.sheet",
+        "pawn.damage",
+        "pawn.cond.",
+        "pawn.mark.",
+        "edit.lift",
+        "thing.hide",
+        "pawn.travel",
+        "cast.saveGroup",
+        "menu"
+      ],
+      "status": "distinct",
+      "justification": "Conservative union of fixed buttons and expanded top level; no shared base picture among this sibling level. ring.menu switches to ring.close, never coexists as a second option. Some predicate-exclusive options are included to avoid undercounting.",
+      "source": "engine/client/commands.js; engine/client/menu.js; engine/client/surfaces/ring.js:108-134",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "outer-room",
+      "co_visible_ids": [
+        "room.rotate",
+        "room.reroll",
+        "thing.hide",
+        "room.walls.",
+        "room.fog",
+        "thing.lock",
+        "room.height.",
+        "faction.set",
+        "menu"
+      ],
+      "status": "distinct",
+      "justification": "Conservative union of fixed buttons and expanded top level; no shared base picture among this sibling level. ring.menu switches to ring.close, never coexists as a second option. Some predicate-exclusive options are included to avoid undercounting.",
+      "source": "engine/client/commands.js; engine/client/menu.js; engine/client/surfaces/ring.js:108-134",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "outer-building",
+      "co_visible_ids": [
+        "thing.hide",
+        "faction.set",
+        "building.roof.",
+        "building.storeys.",
+        "building.reroll",
+        "thing.rename",
+        "thing.lock",
+        "menu"
+      ],
+      "status": "distinct",
+      "justification": "Conservative union of fixed buttons and expanded top level; no shared base picture among this sibling level. ring.menu switches to ring.close, never coexists as a second option. Some predicate-exclusive options are included to avoid undercounting.",
+      "source": "engine/client/commands.js; engine/client/menu.js; engine/client/surfaces/ring.js:108-134",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "outer-roof",
+      "co_visible_ids": [
+        "roof.reroll",
+        "roof.style.",
+        "roof.hide",
+        "menu"
+      ],
+      "status": "distinct",
+      "justification": "Conservative union of fixed buttons and expanded top level; no shared base picture among this sibling level. ring.menu switches to ring.close, never coexists as a second option. Some predicate-exclusive options are included to avoid undercounting.",
+      "source": "engine/client/commands.js; engine/client/menu.js; engine/client/surfaces/ring.js:108-134",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "replace",
+      "co_visible_ids": [],
+      "status": "distinct-existing-dynamic",
+      "justification": "Each variant renders a live rotating asset preview via app.previewOf({id:cat,sku,place}); no generic replace pictogram is used for child tiles. Dynamic asset keys, not command IDs.",
+      "source": "engine/client/surfaces/ring.js:565",
+      "dynamic_id": "variant.cat + variant.sku",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "travel",
+      "co_visible_ids": [],
+      "status": "runtime-gap",
+      "justification": "Public areas with thumbnail metadata render distinct app.thumbs.url(area.id) screenshots. Hidden destinations all use eye-off; public destinations without thumbnails all use map. These can coexist. Static registry paintings cannot enforce arbitrary campaign-area uniqueness; requires runtime generated destination thumbnails or distinct initial/number badges. Do not claim full sibling rule solved by this finite batch.",
+      "source": "engine/client/surfaces/areas.js:168-178",
+      "dynamic_id": "data-area=<area.id>",
+      "runtime_picture": "app.thumbs.url(area.id) when public and app.thumbs.meta[area.id] exists",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "fog-slider",
+      "co_visible_ids": [],
+      "status": "text-control",
+      "justification": "Slider plus text-only Type default button; no sibling painted icon collision.",
+      "source": "engine/client/surfaces/ring.js:495-509",
+      "manifest_base_collisions": []
+    },
+    {
+      "id": "sheet-card",
+      "co_visible_ids": [],
+      "status": "text-control",
+      "justification": "Name/owner select, sheet link, Change/Save and Notes/GM notes text tabs are not sibling painted pictograms.",
+      "source": "engine/client/surfaces/ring.js:620 onward",
+      "manifest_base_collisions": []
+    }
+  ]
+}

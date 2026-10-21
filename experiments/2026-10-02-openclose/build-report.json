@@ -1,0 +1,245 @@
+{
+ "parts_raw": {
+  "src_faces": [
+   49294,
+   49264
+  ],
+  "faces": 9795,
+  "lid_line_frac": 0.734,
+  "back_wall_above_lid_line_frac": 0.266,
+  "body_verts_above_lid_line_outside_lid": "0/0",
+  "lid_scale": [
+   0.962,
+   0.933,
+   0.77
+  ],
+  "decimate": [
+   [
+    49294,
+    6200
+   ],
+   [
+    49264,
+    3999
+   ]
+  ]
+ },
+ "chest-multi-trellis": {
+  "src_faces": [
+   29316,
+   29920
+  ],
+  "faces": 10198,
+  "rim_frac": 0.992,
+  "body_depth_over_width": 1.011,
+  "body_verts_above_lid_line_outside_lid": "44/68",
+  "lid_scale": [
+   0.966,
+   1.333,
+   0.773
+  ],
+  "decimate": [
+   [
+    29316,
+    6199
+   ],
+   [
+    29920,
+    3999
+   ]
+  ],
+  "body_front_protrusion_+y/-y": [
+   -0.0516,
+   -0.0441
+  ],
+  "lid_front_protrusion_+y/-y": [
+   -0.0273,
+   0.0171
+  ]
+ },
+ "chest-multi-hunyuan": {
+  "src_faces": [
+   499512,
+   489934
+  ],
+  "faces": 10198,
+  "rim_frac": 0.996,
+  "body_depth_over_width": 0.971,
+  "body_verts_above_lid_line_outside_lid": "1/1",
+  "lid_scale": [
+   0.923,
+   0.966,
+   0.739
+  ],
+  "decimate": [
+   [
+    499512,
+    6199
+   ],
+   [
+    489934,
+    3999
+   ]
+  ],
+  "body_front_protrusion_+y/-y": [
+   -0.0324,
+   -0.0034
+  ],
+  "lid_front_protrusion_+y/-y": [
+   0.001,
+   0.0371
+  ]
+ },
+ "parts": {
+  "src_faces": [
+   49294,
+   49264
+  ],
+  "faces": 8805,
+  "body_cut_frac": 0.724,
+  "cut_edges": 305,
+  "cap": {
+   "cut_verts": 392,
+   "hull_pts": 4,
+   "ring_faces": 4,
+   "wall_thickness_xxyy": [
+    0.0816,
+    0.0795,
+    0.0707,
+    0.104
+   ]
+  },
+  "cap_lid": {
+   "cut_verts": 487,
+   "hull_pts": 4,
+   "ring_faces": 4,
+   "junk_faces_removed": 479,
+   "floor_faces": 1,
+   "wall_faces": 4,
+   "inset_frac": 0.075,
+   "audit": {
+    "inside_hits_interior": "32/32",
+    "outside_sees_interior": "0/140"
+   },
+   "trials": [
+    [
+     0.075,
+     "32/32",
+     "0/140"
+    ]
+   ]
+  },
+  "cavity_floor_hit_z_over_rim": 0.659,
+  "lid_scale": [
+   0.971,
+   0.934,
+   0.777
+  ],
+  "decimate": [
+   [
+    49294,
+    6200
+   ],
+   [
+    49264,
+    3999
+   ]
+  ]
+ },
+ "cut": {
+  "src_faces": 49428,
+  "faces": 8375,
+  "cut_frac": 0.6,
+  "cap_body": {
+   "cut_verts": 591,
+   "hull_pts": 4,
+   "ring_faces": 4,
+   "junk_faces_removed": 776,
+   "floor_faces": 1,
+   "wall_faces": 4,
+   "inset_frac": 0.1,
+   "audit": {
+    "inside_hits_interior": "32/32",
+    "outside_sees_interior": "0/140"
+   },
+   "trials": [
+    [
+     0.075,
+     "32/32",
+     "22/140"
+    ],
+    [
+     0.1,
+     "32/32",
+     "0/140"
+    ]
+   ]
+  },
+  "cap_lid": {
+   "cut_verts": 586,
+   "hull_pts": 4,
+   "ring_faces": 4,
+   "junk_faces_removed": 600,
+   "floor_faces": 1,
+   "wall_faces": 4,
+   "inset_frac": 0.12,
+   "audit": {
+    "inside_hits_interior": "32/32",
+    "outside_sees_interior": "0/140"
+   },
+   "trials": [
+    [
+     0.075,
+     "32/32",
+     "9/140"
+    ],
+    [
+     0.1,
+     "31/32",
+     "5/140"
+    ],
+    [
+     0.12,
+     "32/32",
+     "0/140"
+    ]
+   ]
+  },
+  "interior_floor_hit_frac_of_rim": 0.22,
+  "decimate": [
+   [
+    49428,
+    9300
+   ],
+   null
+  ]
+ },
+ "swap": {
+  "closed_faces": [
+   49265,
+   8000
+  ],
+  "footprint_closed_xy": [
+   1.0,
+   0.764
+  ],
+  "footprint_open_xy_after": [
+   1.0,
+   0.744
+  ],
+  "open_scale": 1.001,
+  "open_faces": [
+   49977,
+   8000
+  ]
+ },
+ "door": {
+  "opening_w_frac": 0.227,
+  "opening_h_frac": 0.62,
+  "leaf_scale_xz": [
+   0.35,
+   0.472
+  ],
+  "faces": 10000
+ }
+}

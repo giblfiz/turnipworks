@@ -1,0 +1,596 @@
+{
+ "blind_flash": {
+  "altar-stone": {
+   "row": 1,
+   "object": "stone altar",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.9
+  },
+  "bench-stone--s1": {
+   "row": 2,
+   "object": "stone bench",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.95
+  },
+  "bench-stone--s2": {
+   "row": 3,
+   "object": "stone bench with scroll arms",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.95
+  },
+  "bones-pile": {
+   "row": 4,
+   "object": "pile of debris",
+   "pose": "upright",
+   "front": "none",
+   "why": "irregular pile has no front",
+   "conf": 0.95
+  },
+  "brazier-standing--crypt": {
+   "row": 1,
+   "object": "standing brazier",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric circular brazier",
+   "conf": 0.95
+  },
+  "burial-urn-niche": {
+   "row": 2,
+   "object": "stone niche with urns",
+   "pose": "upright",
+   "front": "A",
+   "why": "open alcove containing urns",
+   "conf": 1.0
+  },
+  "candle-drippings-mound": {
+   "row": 3,
+   "object": "cluster of melted candles",
+   "pose": "upright",
+   "front": "none",
+   "why": "irregular cluster of candles",
+   "conf": 0.9
+  },
+  "casket-ornate": {
+   "row": 4,
+   "object": "treasure chest",
+   "pose": "upright",
+   "front": "A",
+   "why": "latch and keyhole mechanism",
+   "conf": 1.0
+  },
+  "catacomb-shelf-bones--s1": {
+   "row": 1,
+   "object": "double-sided bone rack",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical open shelving on opposite sides",
+   "conf": 0.9
+  },
+  "catacomb-shelf-bones--s2": {
+   "row": 2,
+   "object": "bone shelving unit",
+   "pose": "upright",
+   "front": "A",
+   "why": "open shelf side",
+   "conf": 1.0
+  },
+  "censer-hanging": {
+   "row": 3,
+   "object": "hanging censer",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric",
+   "conf": 1.0
+  },
+  "charnel-trough": {
+   "row": 4,
+   "object": "stone bone trough",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical long sides",
+   "conf": 0.95
+  },
+  "chest-treasure": {
+   "row": 1,
+   "object": "open treasure chest",
+   "pose": "upright",
+   "front": "A",
+   "why": "chest opening and front latch face the viewer",
+   "conf": 1.0
+  },
+  "coffin--s1": {
+   "row": 2,
+   "object": "wooden coffin",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric sides with handles and no dedicated front",
+   "conf": 0.85
+  },
+  "coffin--s2": {
+   "row": 3,
+   "object": "strapped wooden coffin",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric sides with straps and no dedicated front",
+   "conf": 0.85
+  },
+  "coffin-maker-stack": {
+   "row": 4,
+   "object": "stack of coffins",
+   "pose": "upright",
+   "front": "none",
+   "why": "stack of identical coffins has no distinct front",
+   "conf": 0.9
+  },
+  "coffin-open--s1": {
+   "row": 1,
+   "object": "open wooden coffin",
+   "pose": "upright",
+   "front": "A",
+   "why": "foot end of the coffin",
+   "conf": 0.7
+  },
+  "coin-pile": {
+   "row": 2,
+   "object": "pile of gold treasure",
+   "pose": "upright",
+   "front": "none",
+   "why": "round mound with no front side",
+   "conf": 0.95
+  },
+  "crypt-gate-iron": {
+   "row": 3,
+   "object": "iron cell gate",
+   "pose": "upright",
+   "front": "A",
+   "why": "ring pull handle faces forward",
+   "conf": 0.95
+  },
+  "door-crypt--leaf": {
+   "row": 4,
+   "object": "wooden dungeon door",
+   "pose": "upright",
+   "front": "A",
+   "why": "exterior side with ring handle",
+   "conf": 0.95
+  },
+  "effigy-knight": {
+   "row": 1,
+   "object": "stone sarcophagus",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.85
+  },
+  "embalming-table": {
+   "row": 2,
+   "object": "stone embalming table",
+   "pose": "upright",
+   "front": "none",
+   "why": "table with spout which is not a front",
+   "conf": 0.9
+  },
+  "linen-wrappings-basket": {
+   "row": 3,
+   "object": "basket of papers",
+   "pose": "upright",
+   "front": "none",
+   "why": "round basket",
+   "conf": 0.95
+  },
+  "monument-urn-draped": {
+   "row": 4,
+   "object": "draped urn on pedestal",
+   "pose": "upright",
+   "front": "none",
+   "why": "round urn on four-sided identical pedestal",
+   "conf": 0.75
+  },
+  "natron-tub": {
+   "row": 1,
+   "object": "circular stone bin with scoop",
+   "pose": "upright",
+   "front": "none",
+   "why": "cylindrical shape",
+   "conf": 0.9
+  },
+  "ossuary-pillar": {
+   "row": 2,
+   "object": "pillar of skulls",
+   "pose": "upright",
+   "front": "none",
+   "why": "fourfold symmetrical column",
+   "conf": 0.95
+  },
+  "ossuary-shrine": {
+   "row": 3,
+   "object": "bone throne",
+   "pose": "upright",
+   "front": "A",
+   "why": "seat and backrest",
+   "conf": 1.0
+  },
+  "ossuary-wall--crypt-stone": {
+   "row": 4,
+   "object": "skull wall panel",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical wall section decorated on both sides",
+   "conf": 0.85
+  },
+  "ossuary-wall--crypt-stone--s2": {
+   "row": 1,
+   "object": "crypt ossuary wall niche",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.95
+  },
+  "pedestal-display": {
+   "row": 2,
+   "object": "carved stone pedestal",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical on all sides",
+   "conf": 0.98
+  },
+  "reliquary": {
+   "row": 3,
+   "object": "ornate reliquary chest",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.9
+  },
+  "reliquary-hand": {
+   "row": 4,
+   "object": "jeweled gauntlet reliquary",
+   "pose": "upright",
+   "front": "A",
+   "why": "jeweled back of the gauntlet",
+   "conf": 0.8
+  },
+  "reliquary-shrine": {
+   "row": 1,
+   "object": "ornate reliquary chest",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.9
+  },
+  "rite-burial-shroud-folded": {
+   "row": 2,
+   "object": "bundle of parchment tied with a ribbon",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.95
+  },
+  "rite-canopic-jar--s1": {
+   "row": 3,
+   "object": "canopic jar with jackal head",
+   "pose": "upright",
+   "front": "A",
+   "why": "jackal face",
+   "conf": 1.0
+  },
+  "rite-canopic-jar--s2": {
+   "row": 4,
+   "object": "canopic jar with falcon head",
+   "pose": "upright",
+   "front": "A",
+   "why": "falcon face",
+   "conf": 1.0
+  },
+  "rite-canopic-jars-set": {
+   "row": 1,
+   "object": "canopic jars on a wooden tray",
+   "pose": "upright",
+   "front": "D",
+   "why": "faces of the jars point forward",
+   "conf": 0.95
+  },
+  "rite-corpse-on-slab": {
+   "row": 2,
+   "object": "stone funerary bier with shrouded body",
+   "pose": "upright",
+   "front": "D",
+   "why": "foot end of the bed",
+   "conf": 0.9
+  },
+  "rite-death-mask": {
+   "row": 3,
+   "object": "wall plaque with sculpted face",
+   "pose": "upright",
+   "front": "A",
+   "why": "sculpted face",
+   "conf": 1.0
+  },
+  "rite-embalming-tools": {
+   "row": 4,
+   "object": "wooden drawer tray filled with bone fragments",
+   "pose": "upright",
+   "front": "A",
+   "why": "drawer pulls on front panel",
+   "conf": 0.85
+  },
+  "rite-funeral-bier": {
+   "row": 1,
+   "object": "wooden trough or litter",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical wooden structure",
+   "conf": 0.95
+  },
+  "rite-funeral-pall": {
+   "row": 2,
+   "object": "cloth-covered altar table",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.85
+  },
+  "rite-grave-goods-pile": {
+   "row": 3,
+   "object": "cluster of pottery jars and bowls",
+   "pose": "upright",
+   "front": "A",
+   "why": "bowls and rolled cloth arranged in foreground facing front",
+   "conf": 0.85
+  },
+  "rite-memorial-plaque--s1": {
+   "row": 4,
+   "object": "stone wall segment with laurel wreath relief",
+   "pose": "upright",
+   "front": "none",
+   "why": "wall section looks the same from both sides",
+   "conf": 0.95
+  },
+  "rite-memorial-plaque--s2": {
+   "row": 1,
+   "object": "shield crest",
+   "pose": "upright",
+   "front": "A",
+   "why": "carved sun emblem on front face",
+   "conf": 1.0
+  },
+  "rite-memorial-sand-tray": {
+   "row": 2,
+   "object": "wooden candle stand",
+   "pose": "upright",
+   "front": "A",
+   "why": "slanted candle tray faces forward",
+   "conf": 0.95
+  },
+  "rite-mummified-remains": {
+   "row": 3,
+   "object": "wrapped mummy",
+   "pose": "upright",
+   "front": "none",
+   "why": "body lies on its back facing upward",
+   "conf": 0.9
+  },
+  "rite-offering-candles-tray": {
+   "row": 4,
+   "object": "tray of candles",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical rectangular candle box",
+   "conf": 0.95
+  },
+  "rite-pillar-candle-tall--s1": {
+   "row": 1,
+   "object": "standing candle holder",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric candle stand",
+   "conf": 0.95
+  },
+  "rite-pillar-candle-tall--s2": {
+   "row": 2,
+   "object": "stone baluster candle stand",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical architectural candle stand",
+   "conf": 0.95
+  },
+  "rite-relic-bone-fragment": {
+   "row": 3,
+   "object": "relic bone on tasseled cushion",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical presentation cushion",
+   "conf": 0.85
+  },
+  "rite-sacred-flame-bowl": {
+   "row": 4,
+   "object": "stone brazier with coals",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric fire bowl",
+   "conf": 0.95
+  },
+  "rite-sanctuary-lamp": {
+   "row": 1,
+   "object": "hanging lantern",
+   "pose": "upright",
+   "front": "none",
+   "why": "rotationally symmetric",
+   "conf": 1.0
+  },
+  "sarcophagus--s1": {
+   "row": 2,
+   "object": "stone sarcophagus",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.95
+  },
+  "sarcophagus--s2": {
+   "row": 3,
+   "object": "stone sarcophagus",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 1.0
+  },
+  "sarcophagus--s3": {
+   "row": 4,
+   "object": "stone chest sarcophagus",
+   "pose": "upright",
+   "front": "A",
+   "why": "side opposite the lid hinges on C",
+   "conf": 0.8
+  },
+  "sarcophagus-open--s1": {
+   "row": 1,
+   "object": "stone sarcophagus with askew lid",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical stone sarcophagus with no distinct front",
+   "conf": 0.85
+  },
+  "sarcophagus-open--s1--lidoff": {
+   "row": 2,
+   "object": "stone sarcophagus with lid propped against it",
+   "pose": "upright",
+   "front": "C",
+   "why": "carved decorative lid propped facing forward",
+   "conf": 0.85
+  },
+  "skull-candle": {
+   "row": 3,
+   "object": "skull candle",
+   "pose": "upright",
+   "front": "B",
+   "why": "face of the skull",
+   "conf": 1.0
+  },
+  "skull-pile--s1": {
+   "row": 4,
+   "object": "pile of skulls",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical mound of skulls",
+   "conf": 0.95
+  },
+  "skull-single": {
+   "row": 1,
+   "object": "human skull",
+   "pose": "upright",
+   "front": "A",
+   "why": "face and eye sockets",
+   "conf": 1.0
+  },
+  "statue-weeping-angel": {
+   "row": 2,
+   "object": "hooded angel statue",
+   "pose": "upright",
+   "front": "A",
+   "why": "praying hands and front of robes",
+   "conf": 1.0
+  },
+  "stone-coffin-lidless": {
+   "row": 3,
+   "object": "open sarcophagus with mummy",
+   "pose": "upright",
+   "front": "D",
+   "why": "foot end of the coffin",
+   "conf": 0.8
+  },
+  "tomb-door-sealed--crypt-stone": {
+   "row": 4,
+   "object": "stone door wall section",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical carved design on both sides",
+   "conf": 0.9
+  },
+  "urn-ashes-small": {
+   "row": 1,
+   "object": "lidded urn",
+   "pose": "upright",
+   "front": "none",
+   "why": "rotationally symmetric urn",
+   "conf": 0.95
+  },
+  "urn-decorative--s1": {
+   "row": 2,
+   "object": "ornate stone urn with handles",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.85
+  },
+  "urn-decorative--s2": {
+   "row": 3,
+   "object": "studded urn with lid",
+   "pose": "upright",
+   "front": "none",
+   "why": "rotationally symmetric urn",
+   "conf": 0.95
+  },
+  "wall-crypt-niches--crypt-stone": {
+   "row": 4,
+   "object": "stone shelving niche",
+   "pose": "upright",
+   "front": "A",
+   "why": "open shelves",
+   "conf": 1.0
+  },
+  "wall-crypt-niches--crypt-stone--s2": {
+   "row": 1,
+   "object": "stone crypt shelves with bodies",
+   "pose": "upright",
+   "front": "C",
+   "why": "open shelves with wrapped bodies",
+   "conf": 1.0
+  },
+  "wall-crypt-niches--crypt-stone--s3": {
+   "row": 2,
+   "object": "stone ossuary wall niche",
+   "pose": "upright",
+   "front": "A",
+   "why": "open shelves filled with skulls and bones",
+   "conf": 0.95
+  },
+  "wall-doorway--crypt-stone": {
+   "row": 3,
+   "object": "stone archway",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical stone archway passable from both sides",
+   "conf": 0.95
+  },
+  "wall-straight--crypt-stone": {
+   "row": 4,
+   "object": "stone wall segment",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric stone wall segment",
+   "conf": 0.95
+  },
+  "wall-straight--crypt-stone--s2": {
+   "row": 1,
+   "object": "stone wall segment",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric wall section",
+   "conf": 0.9
+  },
+  "rite-bone-candelabra": {
+   "row": 1,
+   "object": "skull candelabra",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.85
+  }
+ }
+}

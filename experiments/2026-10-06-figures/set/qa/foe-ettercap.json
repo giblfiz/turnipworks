@@ -1,0 +1,133 @@
+{
+ "file": "foe-ettercap.glb",
+ "tris": 49005,
+ "kb": 2611,
+ "native_extent": [
+  0.795,
+  1.0,
+  0.571
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0032,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  71,
+  48,
+  44
+ ],
+ "mean_saturation": 0.461,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 28,
+  "main_part_area_share": 0.9999,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.0052,
+ "y0": -3.0011,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3983,
+   -0.5,
+   -0.2857
+  ],
+  [
+   0.3964,
+   0.4996,
+   0.2848
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49005,
+   "tex": 2048,
+   "kb": 2611
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1026
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 452
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -1.39,
+    "z": -0.46,
+    "size_ft": [
+     1.38,
+     2.25
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.21,
+    "sole_p90_ft": 0.204
+   },
+   {
+    "x": 1.44,
+    "z": -0.39,
+    "size_ft": [
+     1.43,
+     2.08
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.24,
+    "sole_p90_ft": 0.194
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.002,
+  "lowest_slab_area_sqft": 2.68,
+  "plan_hull_area_sqft": 12.07,
+  "lowest_slab_share_of_plan": 0.222
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.76,
+   "d": 3.42,
+   "h": 6.0
+  },
+  "centre": [
+   0.048,
+   -0.115
+  ],
+  "contacts_radius_ft": 2.21,
+  "reach_radius_ft": 2.32,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.883,
+  "plate_lost_share": 0.067,
+  "added_share": 0.057,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.855,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 8
+ },
+ "id": "foe-ettercap",
+ "sha1": "25ce91e9471c3811f73cb9582f07be7c990e452f",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 11.8
+}

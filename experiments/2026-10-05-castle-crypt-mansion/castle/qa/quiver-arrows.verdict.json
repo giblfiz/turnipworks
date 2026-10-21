@@ -1,0 +1,37 @@
+{
+ "sku": "quiver-arrows",
+ "glb_sha1": "f1c71d2afeaf8c4d1df73aa0017e1fca12fd2a6d",
+ "time": "2026-10-05T22:14:02-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "quiver with arrows",
+  "second_guess": "dynamite bundle",
+  "confidence": 0.85,
+  "reads_clearly_at_distance": true,
+  "description": "A cylindrical reddish-brown leather quiver lying horizontally on the ground, filled with arrows whose fletchings and shafts protrude from the open top end. The quiver has dark brown leather straps buckled around it and detailed stitching along its seams. The surfaces are solid, continuous, and fully modeled with no floating or broken geometry. It rests directly on the floor without any plinth or display base.",
+  "from_above": "From directly above, it appears as a horizontal reddish-brown cylinder flanked by two darker binding straps, with a cluster of beige arrow fletchings/ends protruding from the right end, casting a shadow towards the top left.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "Lying flat on the ground, it is roughly 0.6 feet tall (diameter of quiver) and approximately 2.5 feet long, reaching only up to the figure's ankle in height."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "quiver with arrows",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "Modeled lying horizontally on the floor rather than standing upright"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "height 1.0 ft at auto scale, catalog 2.7 ft (14.57x off)"
+ ],
+ "notes": [
+  "footprint proportion 2.54x off the catalog (2.7 x 0.9 ft)",
+  "underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)",
+  "gemini note: Modeled lying horizontally on the floor rather than standing upright"
+ ],
+ "vision": true
+}

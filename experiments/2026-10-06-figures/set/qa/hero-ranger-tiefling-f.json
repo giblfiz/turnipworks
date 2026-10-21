@@ -1,0 +1,171 @@
+{
+ "file": "hero-ranger-tiefling-f.glb",
+ "tris": 48558,
+ "kb": 2680,
+ "native_extent": [
+  0.477,
+  1.001,
+  0.326
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  87,
+  67,
+  38
+ ],
+ "mean_saturation": 0.618,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 4.82,
+  "length_ft": 4.93,
+  "low_end_ft": [
+   1.01,
+   0.38,
+   0.09
+  ],
+  "high_end_ft": [
+   0.92,
+   5.31,
+   0.2
+  ],
+  "tilt_from_upright_deg": 1.7,
+  "thickness_ft": 0.23,
+  "clear_share": 0.85,
+  "joined_share": 0.13,
+  "broken_share": 0.02,
+  "walk_low_to_high": "-----------------------------#####----------------# #-"
+ },
+ "overall_ft": 5.81,
+ "pieces": {
+  "connected_parts": 14,
+  "main_part_area_share": 0.9975,
+  "floating": [
+   {
+    "area_share": 0.00232,
+    "gap_ft": 0.21,
+    "size_ft": 0.5
+   },
+   {
+    "area_share": 6e-05,
+    "gap_ft": 0.28,
+    "size_ft": 0.22
+   },
+   {
+    "area_share": 4e-05,
+    "gap_ft": 0.25,
+    "size_ft": 0.14
+   }
+  ],
+  "floating_count": 3,
+  "floating_area_share": 0.00242,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.8071,
+ "y0": -2.9089,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2388,
+   -0.5009,
+   -0.1939
+  ],
+  [
+   0.2381,
+   0.5002,
+   0.1317
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48558,
+   "tex": 2048,
+   "kb": 2680
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1007
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 445
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.7,
+    "z": 0.02,
+    "size_ft": [
+     0.85,
+     1.26
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.84,
+    "sole_p90_ft": 0.068
+   },
+   {
+    "x": -0.87,
+    "z": -0.18,
+    "size_ft": [
+     0.87,
+     1.11
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.91,
+    "sole_p90_ft": 0.056
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 1.3,
+  "plan_hull_area_sqft": 4.21,
+  "lowest_slab_share_of_plan": 0.308
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.77,
+   "d": 1.89,
+   "h": 5.81
+  },
+  "centre": [
+   -0.043,
+   0.051
+  ],
+  "contacts_radius_ft": 1.25,
+  "reach_radius_ft": 1.47,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.884,
+  "plate_lost_share": 0.023,
+  "added_share": 0.104,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.884,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "hero-ranger-tiefling-f",
+ "sha1": "7911f10ca26d8d0970c24b6aaf329734121d95a4",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "LOOSE BITS after two meshes: 1 floating piece(s), the largest 0.5 ft, 0.21 ft clear of the figure (0.2% of the surface)"
+ ],
+ "qa_seconds": 13.0
+}

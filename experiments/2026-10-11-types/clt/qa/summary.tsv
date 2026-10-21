@@ -1,0 +1,44 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+altar-sacrificial--s1	accept	-	sacrificial altar	0.85	0.0	0	0	7x3.37x3.14	40x84x38	1.01	1.01	prop	1	gemini note: Reddish/rust weathered stains on the stone surface; ensure they do not read as fresh blood at closer inspection.
+altar-sacrificial--s2	accept	-	stone altar	0.9	0.0	0	0	7x3.26x3.22	40x84x38	1.02	1.02	prop	1	
+cage-sacrifice	accept	-	wooden cage	0.95	0.0	0	0	4.79x4.9x6	48x48x72	1.02	1.22	prop	1	
+candle-black	accept	-	candle in a holder	0.45	0.011	0	0	0.5x0.5x0.75	4x4x9	1.0	1.5	prop	1	height proportion 1.5x off the catalog | gemini note: Height is somewhat squatter than catalog ratio due to wider saucer base
+candle-cluster	accept	-	cluster of candles	0.45	0.0	0	0	0.67x0.63x0.54	8x8x8	1.06	1.24	prop	1	
+cauldron-bronze-ritual	accept	-	cauldron filled with treasure	0.9	0.0	0	0	2.5x2.5x1.45	30x30x22	1.0	1.26	prop	1	
+chalice-dark	accept	-	chalice	0.4	0.0	0	0	0.41x0.41x0.67	4.5x4.5x8	1.0	1.08	prop	1	
+dagger-ritual	accept	-	dagger	0.95	0.0	0	0	1.23x1.25x1.05	3x1x15	2.96	5.93	prop	1	footprint proportion 2.96x off the catalog (1.2 x 1.2 ft) | height proportion 5.93x off the catalog | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: dagger is propped up diagonally balancing on its tip rather than lying flat
+door-secret-bookcase--leaf	accept	override: supervisor: a solid door LEAF judged by the doorway rule because the spec said opening=door; measured solid, no floating pieces, 4.0 x 1.5 x 7.5 ft, Gemini reads a bookcase (was reroll-plate: doorway not clear from the floor (largest opening 0% x 0%, reaches floor: False))	bookcase	0.95	0.0	0	0	4.02x1.49x7.5	40x16x90	1.08	1.21	wall	1	wall door: w:h 0.54, depth:h 0.20, largest opening 0% x 0%, filled 94%
+door-secret-bookcase-open	reject	override: supervisor: came out as the closed bookcase barely turned (3.1 x 1.1 ft footprint against a 40 x 44 in open box); no different from the leaf, which the engine swings on its hinge (was reroll-plate: doorway not clear from the floor (largest opening 0% x 0%, reaches floor: False))	bookcase	0.95	0.0	0	0	3.07x1.09x7.5	40x44x90	2.56	1.2	wall	1	wall door: w:h 0.41, depth:h 0.14, largest opening 0% x 0%, filled 91%
+elemental-brazier	accept	-	brazier	0.85	0.002	0	0	2.83x3x3	26x26x36	1.06	1.39	prop	1	
+flavor-altarpiece--devils	accept	-	demon head bust	0.9	0.0	0	0	1.77x1.46x2	22x16x24	1.14	1.04	prop	1	
+flavor-altarpiece--spiders	accept	-	spider guarding an egg	0.6	0.021	0	0	1.74x1.83x1.26	22x22x16	1.06	1.06	prop	1	
+flavor-buttress--devils	accept	-	flying buttress	0.9	0.0	0	0	9x2.42x8.38	36x48x108	2.79	2.42	prop	1	footprint proportion 2.79x off the catalog (9.0 x 2.4 ft) | height proportion 2.42x off the catalog
+flavor-buttress--spiders	accept	-	flying buttress	0.85	0.005	0	0	2.55x9x8.27	36x48x108	2.65	2.45	prop	1	footprint proportion 2.65x off the catalog (9.0 x 2.5 ft) | height proportion 2.45x off the catalog | gemini note: Arch span is longer than catalog proportions but reads clearly as a flying buttress
+flavor-censer--devils	accept	-	candelabra	0.95	0.0	0	0	2.66x1.91x5	20x20x60	1.39	1.6	prop	1	height proportion 1.6x off the catalog | gemini note: Footprint is slightly broader than requested catalog ratio but reads cleanly as a floor candelabra
+flavor-censer--spiders	accept	-	candelabra	0.9	0.013	0	0	2.27x2.27x5	20x20x60	1.0	1.36	prop	1	
+flavor-idol--devils	accept	-	devil idol statue	0.95	0.0	0	0	6.31x5.91x9	60x54x108	1.04	1.26	prop	1	
+flavor-idol--spiders	accept	-	spider idol on pillar	0.95	0.016	0	0	4.16x3.44x9	60x54x108	1.09	1.2	prop	1	
+flavor-sculpture--devils	accept	-	brazier pedestal	0.85	0.001	0	0	4.2x4.16x7	36x36x84	1.01	1.4	prop	1	
+flavor-sculpture--spiders	accept	-	spider egg sac pillar	0.85	0.012	0	0	2.6x2.77x7	36x36x84	1.06	1.08	prop	1	
+pillar-square--black	accept	-	square pillar	0.95	0.0	0	0	2.25x2.26x10	20x20x120	1.0	1.35	prop	1	
+portal-arch--black	accept	-	stone archway	0.95	0.003	0	0	8.1x2.56x10	60x24x120	1.27	1.62	prop	1	height proportion 1.62x off the catalog | gemini note: height proportion slightly wider than catalog specification
+rite-blood-bowl	accept	-	bowl of blood	0.45	0.002	0	0	0.75x0.75x0.31	9x9x4	1.0	1.07	prop	1	
+rite-cult-mask-blank	reject	override: supervisor: lying flat it is a white dome; reads as an egg or pebble at table distance (was reroll-plate: gemini: does not read as a mask at table distance (looks like an egg or pebble); proportions and orientation are wrong: lying flat and dome-shaped instead of upright)	egg	0.15	0.0	0	0	0.65x0.75x0.59	7x4x9	1.53	1.65	prop	1	footprint proportion 1.53x off the catalog (0.8 x 0.7 ft) | height proportion 1.65x off the catalog | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: observer identified mask features only on close inspection | gemini note: has side strap tabs
+rite-hooded-robe-folded	accept	-	folded robe	0.6	0.001	0	0	1.17x1.09x0.67	14x10x4	1.31	2.02	prop	1	height proportion 2.02x off the catalog | gemini note: slightly thicker than catalog proportions
+rite-ritual-hand-bell	accept	-	hand bell	0.35	0.0	0	0	0.34x0.34x0.58	4x4x7	1.0	1.03	prop	1	
+rite-sigil-stone--s1	accept	-	stone bollard	0.75	0.0	0	0	0.99x0.99x2.33	14x14x28	1.0	1.18	prop	1	
+rite-sigil-stone--s2	accept	-	stone pillar / sigil stone	0.6	0.0	0	0	1.02x1.02x2.33	14x14x28	1.0	1.14	prop	1	gemini note: top features a cylindrical socket/hole
+rite-tome-stack-forbidden	accept	-	stack of books	0.85	0.0	0	0	1x0.61x0.98	12x9x10	1.24	1.18	prop	1	
+robe-rack--s1	accept	-	wall-mounted robe rack	0.95	0.0	0	0	4x1.66x5	30x10x60	1.25	1.6	prop	1	height proportion 1.6x off the catalog | gemini note: height proportion slightly wider/shorter than catalog baseline, but acceptable at table distance
+robe-rack--s2	accept	-	robe rack	0.8	0.0	0	0	1.69x3.12x5	30x10x60	1.62	1.25	prop	1	footprint proportion 1.62x off the catalog (3.1 x 1.7 ft) | gemini note: avian skull instead of plain mask on shelf | gemini note: designed as wall-mounted piece rendered resting on robe hems
+robe-stand	accept	-	robe stand	0.95	0.0	0	0	5.5x2.36x4.75	60x22x66	1.17	1.27	prop	1	
+spellbook-lectern--chained	accept	-	lectern with book	0.95	0.0	0	0	1.96x2.18x3.83	22x20x46	1.01	1.19	prop	1	
+statue-hooded--s1	accept	-	hooded monk statue holding a bowl	0.95	0.001	0	0	3.18x3.27x7.5	32x30x90	1.04	1.23	prop	1	
+statue-hooded--s2	accept	-	hooded monk statue	0.95	0.006	0	0	3.09x2.82x7.5	32x30x90	1.03	1.16	prop	1	
+tome-chained	accept	-	chained tome	0.95	0.0	0	0	0.68x1x0.38	9x12x3	1.1	1.52	prop	1	height proportion 1.52x off the catalog | gemini note: slightly thicker than catalog proportions
+tome-grimoire	accept	-	tome	0.95	0.14	0	0	1.17x0.87x0.42	10x14x4	1.05	1.25	prop	1	unpainted 14% of the visible surface | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered) | gemini note: 14% unpainted visible surface | gemini note: slight cantilever on underside contact
+wall-alcove--black-stone	accept	-	stone wall segment with arched alcove	0.85	0.0	0	0	1.64x5.17x9	60x18x108	1.06	1.03	wall	1	wall panel: w:h 0.57, depth:h 0.18, largest opening 1% x 1%, filled 100% | gemini note: candle stumps in alcove resemble a cluster of organic wax/coral
+wall-doorway--black-stone	accept	-	stone doorway wall	0.95	0.0	0	0	0.8x4.71x9	60x12x108	1.18	1.06	wall	1	wall door: w:h 0.52, depth:h 0.09, largest opening 62% x 65%, filled 60%
+wall-secret-door--black-stone	accept	override: supervisor: the pivoted slab leaves two narrow floor-to-head gaps (9% x 83%), which is the design; the doorway rule wants one wide opening (was reroll-plate: doorway not clear from the floor (largest opening 9% x 83%, reaches floor: True))	revolving stone secret door	0.9	0.0	0	0	4.52x1.49x9	60x16x108	1.23	1.11	wall	1	wall door: w:h 0.50, depth:h 0.17, largest opening 9% x 83%, filled 89%
+wall-straight--black-stone	accept	-	brick wall section	0.95	0.0	0	0	4.66x0.84x9	60x12x108	1.11	1.07	wall	1	wall solid: w:h 0.52, depth:h 0.09, largest opening 0% x 0%, filled 98% | gemini note: Red horizontal band has some drip-like appearance along mortar lines
+wall-straight--black-stone--s2	accept	-	stone wall segment	0.95	0.0	0	0	0.75x4.63x9	60x12x108	1.23	1.08	wall	1	wall solid: w:h 0.52, depth:h 0.08, largest opening 1% x 1%, filled 100%

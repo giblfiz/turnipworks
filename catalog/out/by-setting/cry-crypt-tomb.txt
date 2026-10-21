@@ -1,0 +1,220 @@
+CRY — crypt-tomb: 218 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  wall-crypt-niches          [kit/edge] catacomb corridors
+! P1  door-crypt                 [kit/edge] hangs in `wall-doorway--crypt-stone`; a leaf like `door-plank--leaf`, hinged by the engine
+! P1  floor-tomb-slabs           [kit/1] burial vaults and chapels of rest; the ledgers carry carved borders and symbols, never letters
+! P1  coffin                     [floor/1x2] vampire lairs (Noctar), undertakers
+! P1  sarcophagus                [floor/1x2] crypt anchor
+! P1  skull-pile                 [floor/sub] ossuaries, cult sites
+! P1  charnel-trough             [floor/1x2] along ossuary walls; the bones are one solid heap
+! P1  embalming-table            [floor/1x2] embalming room focus; `rite-corpse-on-slab` is the same table occupied
+! P1  monument-urn-draped        [floor/1] antechamber focus; the figure-free mourning monument
+! P1  ossuary-pillar             [floor/sub] ossuary supports; stands where a `pillar-square` would
+! P1  ossuary-shrine             [wall/1x2] ossuary focus, centred on the wall facing the door
+! P1  reliquary-shrine           [floor/1] relic chamber focus
+! P1  catacomb-shelf-bones       [wall/1] catacomb walls
+! P1  crypt-gate-iron            [kit/edge] graveyard-to-crypt threshold
+! P1  ossuary-wall               [kit/edge] ossuary chapels
+! P1  statue-weeping-angel       [floor/1] graveyards; the one that moved
+! P1  rite-canopic-jar           [surface/tiny] tomb treasure; keeps organs
+! P1  rite-corpse-on-slab        [floor/1x2] morgue, embalming room, fresh reanimation
+! P1  rite-grave-goods-pile      [floor/sub] barrow and tomb loot
+! P2  effigy-knight              [floor/1x2] noble crypts
+! P2  gravestone                 [ground/sub] graveyards; cluster with lean
+! P2  tomb-slab                  [floor/1x2] lift it for a stair down
+! P2  natron-tub                 [floor/sub] beside the embalming table
+! P2  tomb-door-sealed           [kit/edge] barrow and hillside tomb entrances
+! P3  mausoleum                  [ground/2x2] graveyard landmark; crypt entrance
+  P1  door-reinforced            [kit/edge] vaults, keeps, lockable rooms
+  P1  floor-earth-packed         [ground/1] barns, privies, hovels
+  P1  floor-flagstone-broken     [kit/1] ruins, old cellars, stables
+  P1  floor-flagstone-damp       [kit/1] cellars, dungeons
+  P1  wall-alcove                [kit/edge] a statue, an urn or candles stand in it; runs end to end along a processional wall
+  P1  wall-secret-door           [kit/edge] the hidden way in, found open
+  P1  decal-bones-scatter        [floor/sub] loose bones are flat on purpose (thin meshes break); scattered thinly in ossuaries and catacombs
+  P1  altar-stone                [floor/1x2] chapel focus; ritual chambers
+  P1  pew                        [floor/1x2] rows facing the altar
+  P1  shelving-freestanding      [floor/1] storerooms, cellars
+  P1  table-kitchen-prep         [floor/1x2] center of a kitchen
+  P1  bucket-slop                [floor/tiny] the mundane completeness test, again
+  P1  chest-ironbound            [floor/sub] locked; worth a check
+  P1  chest-treasure             [floor/sub] the reward shot
+  P1  coin-pile                  [floor/sub] hoards; tip of a dragon's pile
+  P1  urn-decorative             [floor/sub] niches, landings
+  P1  chest-treasure-open        [floor/sub] open state of chest-treasure
+  P1  dun-treasure-hoard         [floor/2x2] vault and dragon-lair focus; warm gold
+  P1  brazier-standing           [floor/sub] throne rooms, torture chambers, shrines
+  P1  candelabra                 [surface/tiny] feasts and chapels
+  P1  candelabra-standing        [floor/sub] flanks altars and thrones
+  P1  candle-cluster             [surface/tiny] altars, ritual spots, spooky shelves
+  P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
+  P1  torch-sconce               [wall/tiny] every stone corridor
+  P1  lantern-wall-iron          [wall/tiny] corridors and porches; generated unlit, engine fire FX adds the flame
+  P1  torch-bracket-rough        [wall/tiny] cellars, stables, dungeons; charred unlit torch head, engine fire FX adds the flame
+  P1  candle-tree                [floor/sub] common-room corners, chapels; dark unlit wicks, engine fire FX adds the flames
+  P1  candlestand-pricket        [floor/sub] flanking a hearth or an altar; dark unlit candles, engine fire FX adds the flames
+  P1  candlestick-floor          [floor/sub] bedsides in fine rooms; dark unlit wick, engine fire FX adds the flame
+  P1  torch-stand                [floor/sub] doorways, yards, halls; charred unlit torch head, engine fire FX adds the flame
+  P1  lectern                    [floor/sub] chapels, libraries
+  P1  floor-flagstone-dungeon    [kit/1] cell blocks, guard rooms, corridors
+  P1  pit-open                   [floor/1] the pit trap, sprung
+  P1  bones-pile                 [floor/sub] cell corners, monster lairs
+  P1  pressure-plate             [floor/1] trap trigger (GM-hidden)
+  P1  lever-floor                [floor/sub] opens the portcullis, drains the room, springs the trap
+  P1  trap-spike-pit             [floor/1] trap corridors; reads as a pit although it stands on the floor
+  P1  idol-dark                  [floor/sub] cult chambers
+  P1  statue-deity               [floor/1] chapel apse; headless in ruins
+  P1  bench-stone                [floor/1] mourners' seats; antechamber walls and chapel rows
+  P1  coffin-open                [floor/1x2] open state of coffin
+  P1  sarcophagus-open           [floor/1x2] open state of sarcophagus; robbed, or something climbed out
+  P1  statue-hooded              [floor/1] in pairs down a processional way and either side of a door
+  P1  shrine-wayside             [floor/1] back to a wall; the engine may light the candles
+  P1  vase-flowers               [surface/tiny] side tables, windowsills
+  P1  pillar-broken              [floor/1] collapsed halls; stands where a `pillar-round` did
+  P1  decal-cobweb               [wall/sub] corners of anything abandoned
+  P1  decal-ritual-circle        [floor/2x2] summonings; can glow
+  P1  fx-colored-flame           [attach/sub] evil braziers, necromancer candles
+  P1  fx-fog-volume              [floor/2x2] graveyards, swamps
+  P1  fx-miasma                  [floor/2x2] trap gas, swamp lairs
+  P1  giant-web-floor            [floor/2x2] a spider nest's floor; difficult terrain; laid under cocoons and across doorways
+  P1  adventurer-remains         [floor/1] "the last party" — loot and foreshadowing
+  P1  block-sliding              [floor/1] push puzzles
+  P1  door-rune-sealed           [kit/edge] the puzzle's lock; runes go dark when solved
+  P1  giant-web                  [wall/1x2] difficult terrain; burn it
+  P1  mimic-chest                [floor/sub] closed = looks like chest-plain; open = surprise
+  P1  pedestal-display           [floor/sub] the "don't touch the thing on the pedestal" shot
+  P1  phylactery                 [surface/tiny] destroy it to end the lich
+  P1  rune-tile                  [kit/1] step-in-the-right-order puzzles
+  P1  web-cocoon                 [floor/sub] hang from ceiling or lie in corners
+  P1  statue-guardian            [floor/1] flanks corridors, vault doors and shrines
+  P1  washstand                  [floor/sub] guest rooms
+  P1  amulet-glowing             [surface/tiny] quest item; lit/unlit state
+  P1  casket-ornate              [surface/tiny] the box everyone wants opened
+  P1  chalice-jeweled            [surface/tiny] holy relic, feast of kings
+  P1  coin-stack                 [surface/tiny] counting tables, wagers, pay chests
+  P1  crown                      [surface/tiny] throne rooms, tombs, the lost king
+  P1  dagger-ritual              [surface/tiny] on the sacrificial altar
+  P1  gems-loose                 [surface/tiny] the sparkle in any hoard
+  P1  holy-symbol-sun            [surface/tiny] cleric's focus; generic dawn faith
+  P1  sword-enchanted            [surface/tiny] the magic weapon reward
+  P1  torch-dropped              [floor/tiny] someone was here recently
+  P1  burial-urn-niche           [wall/sub] columbaria
+  P1  candle-drippings-mound     [floor/sub] centuries of vigils
+  P1  dirt-path-tile             [ground/1] roads between places
+  P1  gatepost-stone             [ground/sub] manor drives
+  P1  grave-marker-wood          [ground/tiny] paupers' graves, battlefield burials
+  P1  graveyard-fence-iron       [kit/edge] encloses graveyards
+  P1  hill-mound-terrain         [ground/2x2] breaks flat ground
+  P1  leaf-litter                [ground/1] seasonal dressing; hides pressure plates
+  P1  moss-rock                  [ground/sub] damp woods
+  P1  root-ceiling-hanging       [ceiling/1] barrows, shallow dungeons
+  P1  stone-coffin-lidless       [floor/1x2] already robbed, or not
+  P1  tree-gnarled-ancient       [ground/2x2] haunted woods, hag lairs
+  P1  chalice-plain              [surface/tiny] village chapel
+  P1  femur-bone                 [floor/tiny] scatter; improvised club
+  P1  rural-scythe-snath-leaning [wall/tiny] the grim-reaper silhouette
+  P1  rite-altar-cloth           [surface/1x2] drape over any altar; torn for ruins
+  P1  rite-bone-candelabra       [surface/sub] necromancer dining
+  P1  rite-bone-wand             [surface/tiny] the necromancer's focus
+  P1  rite-burial-shroud-folded  [surface/tiny] undertaker shelves
+  P1  rite-canopic-jars-set      [surface/sub] beside a sarcophagus
+  P1  rite-death-mask            [wall/tiny] on a sarcophagus face or wall
+  P1  rite-embalming-tools       [surface/tiny] morticians and necromancers
+  P1  rite-hooded-robe-folded    [surface/tiny] the disguise on the bench
+  P1  rite-mummified-remains     [floor/1x2] tomb alcoves
+  P1  rite-necro-lantern-green   [ceiling/tiny] the light tells you who's home
+  P1  rite-offering-candles-tray [surface/sub] shrine fronts, side altars
+  P1  rite-pillar-candle-tall    [floor/sub] flanks altars
+  P1  rite-salt-line             [floor/1] broken salt = something got in
+  P1  rite-sanctuary-lamp        [ceiling/tiny] never goes out; its going out is a plot beat
+  P1  rite-soul-jar              [surface/tiny] captured souls; break to free
+  P1  rite-tome-flesh-bound      [surface/tiny] the evil book everyone recognises
+  P2  stair-cut-rock             [kit/1x2] descending into the depths
+  P2  decal-grave-ledger         [floor/1x2] laid in rows in a vault floor or one before an altar; carved border and emblem, no letters
+  P2  railing-iron               [kit/edge] round the hole a stair cuts in a stone building's floor (2026-10-06); also a gallery or wall-walk edge
+  P2  storage-jar                [floor/sub] oil, grain, wine; ruins full of broken ones
+  P2  brazier-tripod             [floor/sub] warmth and ritual; cold charcoal and ash, no fire, engine fire FX adds it
+  P2  skull-candle               [surface/tiny] necromancer shorthand
+  P2  decal-web-floor            [floor/1] difficult terrain; burn it
+  P2  skeleton-chained           [wall/sub] the forgotten prisoner
+  P2  trap-spikes                [floor/1] retracted vs sprung
+  P2  trap-crossbow              [floor/sub] at the end of a corridor, aimed down it
+  P2  trap-flame-jet             [floor/sub] the engine adds the fire; pair with a soot decal
+  P2  censer-hanging             [ceiling/tiny] over an altar or bier; chain drawn as thick rods; the engine may add smoke
+  P2  tree-dead                  [ground/1] spooky exteriors
+  P2  ceiling-slab-fallen        [floor/1x2] collapsed halls
+  P2  pillar-waterline           [floor/1] flooded chambers; stands where a `pillar-square` would
+  P2  decal-blood                [floor/sub] crime scenes, torture rooms
+  P2  decal-moss                 [floor/1] aging layer for ruins
+  P2  decal-glyph-warding        [floor/sub] magical trap marker (GM-hidden)
+  P2  puzzle-dial-pillar         [floor/sub] the combination lock of a puzzle hall
+  P2  armor-plate-pile           [floor/sub] fallen knight, troll's larder
+  P2  helm-great                 [surface/tiny] knights; tombs
+  P2  holy-water-vial            [surface/tiny] anti-undead kit
+  P2  key-ornate                 [surface/tiny] magic doors, quest keys
+  P2  necklace-jeweled           [surface/tiny] jewelry boxes, corpses
+  P2  scepter                    [surface/tiny] regalia sets
+  P2  shield-kite                [surface/sub] older knights, tomb effigies
+  P2  soul-gem                   [surface/tiny] necromancer's prize
+  P2  sword-broken               [surface/tiny] battlefield remains; quest to reforge
+  P2  sword-great                [surface/sub] champion's weapon; lean against walls
+  P2  tiara                      [surface/tiny] noble jewelry
+  P2  tome-holy                  [surface/tiny] altars, lecterns
+  P2  barrow-mound               [ground/3x3] the old kings' graves
+  P2  floor-bone-strewn          [floor/1] lair floor layer
+  P2  floor-cracked-tile         [kit/1] aging floor family
+  P2  ivy-wall-cover             [wall/1] aging layer for any stone wall
+  P2  stepping-pillars           [floor/1] jump puzzles
+  P2  chalice-dark               [surface/tiny] poisoned wine; blood rites
+  P2  cup-of-blood               [surface/tiny] the vampire's nightcap (Noctar)
+  P2  garlic-braid               [wall/tiny] hung on doors against the undead
+  P2  pumpkin-carved             [floor/sub] harvest festival; spooky nights
+  P2  locket                     [surface/tiny] plot keepsake; the ghost's lost love
+  P2  scythe                     [floor/tiny] fields; grim-reaper silhouette
+  P2  tripwire                   [floor/1] GM-hidden trap trigger
+  P2  alch-bone-powder-jar       [surface/tiny] necromantic staple
+  P2  alch-grimoire-locked       [surface/tiny] needs a key
+  P2  alch-mummified-hand        [surface/tiny] hand of glory candle holder
+  P2  alch-soul-lantern          [surface/tiny] spooky light source
+  P2  trade-inscription-slab     [floor/1] clue delivery; unfinished name
+  P2  rite-bone-staff            [wall/sub] lich lieutenants, goblin shamans
+  P2  rite-corpse-shrouded       [floor/1x2] plague streets, temple floors
+  P2  rite-funeral-bier          [floor/1x2] lying in state
+  P2  rite-holy-symbol-skull     [surface/tiny] the neutral god of endings, not evil
+  P2  rite-relic-bone-fragment   [surface/tiny] the saint's knuckle; quest object
+  P2  rite-sacred-flame-bowl     [floor/sub] temple centers; keep it lit
+  P3  basin-stone                [wall/sub] kitchens, sculleries
+  P3  boulder-rolling            [floor/1] you know the scene
+  P3  trap-blade                 [floor/1] corridor gauntlets
+  P3  trap-dart-wall             [wall/1] tomb corridors
+  P3  grave-open                 [ground/1x2] resurrection scenes
+  P3  offering-bowl              [surface/tiny] shrines
+  P3  reliquary                  [surface/tiny] the MacGuffin case
+  P3  linen-wrappings-basket     [floor/sub] embalming room; under a table or on a shelf
+  P3  fountain-wall-skull        [wall/1] the engine adds the water
+  P3  mound-overgrown            [ground/1] barrows, buried rooms
+  P3  pottery-shards             [floor/tiny] floor dressing
+  P3  door-face-carved           [kit/edge] riddle doors
+  P3  coffin-maker-stack         [floor/1x2] the undertaker next door
+  P3  grave-marker-unfinished    [floor/sub] mason's yard beside the graveyard
+  P3  orb-regal                  [surface/tiny] completes the regalia
+  P3  reliquary-hand             [surface/tiny] saintly relics
+  P3  jar-lidded-stoneware       [surface/tiny] preserves
+  P3  chalk-marks                [wall/sub] another party mapped this
+  P3  figurine-offering          [surface/tiny] shrine niches
+  P3  flower-crown               [surface/tiny] festivals, fey gifts
+  P3  flowers-dried              [surface/tiny] graves, windowsills
+  P3  jawbone                    [floor/tiny] scatter
+  P3  ribcage                    [floor/tiny] lair floors
+  P3  urn-ashes-small            [surface/tiny] mantelpiece grandparent
+  P3  alch-finger-bones-dish     [surface/tiny] divination or necromancy
+  P3  craft-coffin-unlidded      [floor/1x2] undertaker-joiners
+  P3  trade-effigy-unfinished    [floor/1x2] the mason knows who's dying
+  P3  rite-coffin-lid-scratched  [floor/1x2] horror beat
+  P3  rite-corpse-cart           [ground/1x2] plague towns; bring out your dead
+  P3  rite-funeral-pall          [floor/1x2] pair with coffin
+  P3  rite-grave-dirt-sack       [floor/tiny] a component the necromancer ordered
+  P3  rite-memorial-plaque       [wall/sub] names of the fallen; clue text
+  P3  rite-memorial-sand-tray    [floor/sub] side chapels
+  P3  rite-ritual-hand-bell      [surface/tiny] rings to raise the dead
+  P3  rite-skull-lantern         [ceiling/tiny] lair lighting

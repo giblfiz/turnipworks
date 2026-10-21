@@ -1,0 +1,667 @@
+CAS — castle-keep: 665 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  dais                       [floor/2x3] under thrones and altars; lifts the focal object
+! P1  floor-flagstone-square     [kit/1] dressed-stone default
+! P1  tower-round-segment        [kit/edge] towers; wizard towers
+! P1  wall-crenellated           [kit/edge] wall-walk edge; gives ¾ cover
+! P1  wall-walk                  [kit/1] patrol routes
+! P1  floor-flagstone-rushes     [kit/1] great halls and barracks; the stone shows through the rushes
+! P1  floor-setts-courtyard      [ground/1] the castle courtyard's default ground
+! P1  throne                     [floor/1] throne room focal point; on a dais
+! P1  bunk-bed                   [floor/1x2] barracks, miners' dormitory
+! P1  table-map                  [floor/2x2] war room; add markers
+! P1  armor-stand                [floor/sub] armories; noble halls
+! P1  shield-display             [wall/1] great halls; old-soldier taverns
+! P1  training-dummy             [floor/sub] courtyards, barracks
+! P1  weapon-rack                [wall/1] armories, guard rooms
+! P1  banner-wall                [wall/1] thrones, halls
+! P1  crown                      [surface/tiny] throne rooms, tombs, the lost king
+! P1  shield-heater              [surface/sub] knights; paint heraldry as decal
+! P1  city-wall                  [kit/edge] town boundary
+! P1  mil-footlocker             [floor/sub] foot of every bunk
+! P1  mil-guard-lantern          [surface/tiny] night watch; shutters make it a cue
+! P1  mil-helmet-peg-rack        [wall/1] barracks and guard rooms
+! P1  mil-shield-stack           [floor/sub] armories, camp corners
+! P1  mil-wasters-rack           [wall/1] training yard
+! P2  floor-checker-stone        [kit/1] great halls, chapels
+! P2  portcullis                 [kit/edge] gatehouses; raised by a winch
+! P2  stair-spiral               [kit/1] towers; compact in footprint
+! P2  wall-arrow-slit            [kit/edge] battlements and tower rooms
+! P2  city-wall-turret           [kit/edge] stands where a city-wall run ends or turns, a little taller than the wall
+! P2  floor-sand-training        [ground/1] training yards and tilt yards; scuffed with footprints
+! P2  wall-crenellated-corner    [kit/edge] stands at the corners of a wall-crenellated run
+! P2  stair-spiral-wide          [kit/2x2] towers; one full turn per storey so copies stack and every floor enters on the same side
+! P2  fireplace-grand            [wall/2x2] great halls; heraldry above
+! P2  cauldron-crane             [floor/1] the middle of a castle kitchen, or the courtyard on a feast day; generated unlit, engine fire FX adds the fire
+! P2  table-feast                [floor/1x3] great hall centerline; high table on a dais
+! P2  pig-on-spit                [floor/1x2] feast prep; bandit camps
+! P2  roast-pig                  [surface/sub] the great-hall feast
+! P2  heraldic-shield            [wall/sub] over fireplaces and gates
+! P2  banner-standard-war        [floor/sub] captured standards, trophies
+! P2  halberd                    [surface/sub] gate guards
+! P2  scepter                    [surface/tiny] regalia sets
+! P2  rural-saddle-war           [floor/sub] knights' stables
+! P3  drawbridge                 [kit/2x3] moats; big scene-state moment
+! P3  garderobe                  [wall/1] castles really had these
+! P3  rural-barding-cloth        [floor/sub] tourney stables
+  P1  balustrade-stone           [kit/edge] noble terraces
+  P1  door-double-grand          [kit/edge] throne rooms, great halls, chapels
+  P1  door-reinforced            [kit/edge] vaults, keeps, lockable rooms
+  P1  door-secret-bookcase       [kit/edge] the classic reveal
+  P1  floor-checker-bw           [kit/1] kitchens, halls, chapels
+  P1  floor-cobble               [kit/1] stables, yards
+  P1  floor-flagstone-irregular  [kit/1] kitchens, halls, cellars
+  P1  floor-flagstone-large      [kit/1] halls, stables, cellars
+  P1  floor-planks-dark          [kit/1] common rooms, halls, front desks
+  P1  floor-planks-rushes        [kit/1] medieval hall floor
+  P1  door-cell-bars-open        [kit/edge] open state of door-cell-bars; the prisoner is gone
+  P1  wall-alcove                [kit/edge] a statue, an urn or candles stand in it; runs end to end along a processional wall
+  P1  wall-secret-door           [kit/edge] the hidden way in, found open
+  P1  door-double-grand-open     [kit/edge] open state of door-double-grand
+  P1  door-reinforced-open       [kit/edge] open state of door-reinforced
+  P1  bread-oven                 [wall/1] kitchens and village bakeries
+  P1  cook-hearth-spit           [wall/1x2] kitchen anchor
+  P1  fireplace-wall             [wall/1x2] anchor for common rooms; seating faces it
+  P1  grindstone                 [floor/sub] sharpening corner; armories
+  P1  privy-seat-double          [wall/1] tavern and barracks privies
+  P1  privy-seat-single          [wall/1] the mundane completeness test
+  P1  well                       [floor/1] village and courtyard centerpiece
+  P1  windlass                   [floor/1] shafts, portcullis rooms, wells
+  P1  bed-canopy                 [floor/2x2] noble bedchamber anchor
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  chair-armed                [floor/sub] head of table; study; by the fire
+  P1  cot                        [floor/1x2] infirmaries, cells
+  P1  desk-writing               [floor/1] study anchor
+  P1  scroll-rack                [wall/1] scholars and archives
+  P1  table-kitchen-prep         [floor/1x2] center of a kitchen
+  P1  table-square               [floor/1] the workhorse table
+  P1  table-trestle              [floor/1x2] pairs with two long benches
+  P1  wardrobe                   [wall/1] bedrooms; hide inside
+  P1  chest-ironbound            [floor/sub] locked; worth a check
+  P1  chest-treasure             [floor/sub] the reward shot
+  P1  coin-pile                  [floor/sub] hoards; tip of a dragon's pile
+  P1  strongbox                  [surface/tiny] under the innkeeper's counter
+  P1  chest-ironbound-open       [floor/sub] open state of chest-ironbound; looted or searched
+  P1  strongbox-open             [surface/tiny] open state of strongbox; robbed
+  P1  wardrobe-open              [wall/1] open state of wardrobe; someone hid here
+  P1  chest-treasure-open        [floor/sub] open state of chest-treasure
+  P1  dun-treasure-hoard         [floor/2x2] vault and dragon-lair focus; warm gold
+  P1  strongbox-stack            [floor/1] vault walls; counting houses
+  P1  brazier-large              [floor/1] courtyards, ritual sites
+  P1  brazier-standing           [floor/sub] throne rooms, torture chambers, shrines
+  P1  candelabra                 [surface/tiny] feasts and chapels
+  P1  chandelier-ring            [ceiling/1] common rooms, halls
+  P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
+  P1  torch-sconce               [wall/tiny] every stone corridor
+  P1  lamp-wall-bracket          [wall/tiny] kitchens and counters; generated unlit, engine fire FX adds the flame
+  P1  lantern-wall-brass         [wall/tiny] the better inn's hallway; generated unlit, engine fire FX adds the flame
+  P1  lantern-wall-iron          [wall/tiny] corridors and porches; generated unlit, engine fire FX adds the flame
+  P1  sconce-candle-double       [wall/tiny] common-room walls; generated unlit (dark wicks), engine fire FX adds the flames
+  P1  sconce-candle-triple       [wall/tiny] fine rooms and chapels; generated unlit (dark wicks), engine fire FX adds the flames
+  P1  torch-bracket-fine         [wall/tiny] halls and front rooms; charred unlit torch head, engine fire FX adds the flame
+  P1  torch-bracket-rough        [wall/tiny] cellars, stables, dungeons; charred unlit torch head, engine fire FX adds the flame
+  P1  candle-tree                [floor/sub] common-room corners, chapels; dark unlit wicks, engine fire FX adds the flames
+  P1  candlestand-pricket        [floor/sub] flanking a hearth or an altar; dark unlit candles, engine fire FX adds the flames
+  P1  torch-stand                [floor/sub] doorways, yards, halls; charred unlit torch head, engine fire FX adds the flame
+  P1  cauldron                   [floor/sub] kitchen, witch's hut, alchemist
+  P1  dice-and-cup               [surface/tiny] gambling tables; guard rooms
+  P1  goblet                     [surface/tiny] noble place settings; chalices
+  P1  tankard                    [surface/tiny] one per drinker; scatter
+  P1  bell-on-frame              [floor/1] bell tower base (the tenor waiting to be hung, or the tolling bell of a small chapel)
+  P1  pulpit                     [floor/1] beside the chancel step; the preacher's place
+  P1  butcher-block              [floor/sub] butcher stall, castle kitchen
+  P1  cheese-wheel               [surface/tiny] larders, market stalls
+  P1  ham-hanging                [ceiling/tiny] kitchens, cellars
+  P1  poultry-plucked-hanging    [ceiling/tiny] kitchens, butcher stalls; the chicken, as a prop
+  P1  map-rolled                 [surface/tiny] war tables, quest-givers
+  P1  powder-keg                 [floor/sub] the fuse everyone watches
+  P1  saddle-rack                [wall/sub] tack rooms
+  P1  scroll-pile                [surface/tiny] desks, scroll racks
+  P1  stable-stall               [kit/edge] stable rows
+  P1  powder-keg-stack           [floor/1] the powder store; the fuse everyone watches
+  P1  arrow-barrel               [floor/sub] wall-walks, armories
+  P1  ballista                   [floor/1] tower tops
+  P1  banner-pole                [floor/sub] heraldry and camps
+  P1  floor-flagstone-dungeon    [kit/1] cell blocks, guard rooms, corridors
+  P1  cage-hanging               [ceiling/sub] over pits, at crossroads
+  P1  lever-wall                 [wall/tiny] opens gates, trips traps; scene-state trigger
+  P1  lever-floor                [floor/sub] opens the portcullis, drains the room, springs the trap
+  P1  chair-interrogation        [floor/sub] interrogation room focus
+  P1  table-torture-tools        [floor/1x2] the tools are fused to the top; beside the rack or the chair
+  P1  bench-stone                [floor/1] mourners' seats; antechamber walls and chapel rows
+  P1  reliquary-shrine           [floor/1] relic chamber focus
+  P1  flavor-buttress            [wall/1] slot 8 (Harry, 2026-10-11); the same box and place as the vertical kit's `buttress`, so it can stand in for it outside, and stands along the walls INSIDE a large nave or sanctum
+  P1  curtains-drapes            [wall/1] scene state: drawn/open changes light
+  P1  rug-runner                 [floor/1x3] hallways and stair landings; tiles end to end
+  P1  tapestry                   [wall/1x2] great halls; hides secret doors
+  P1  rubble-pile                [floor/1] the ruin workhorse; varied sizes
+  P1  bread-rack                 [floor/1] bakery front
+  P1  chamber-pot                [floor/tiny] under every bed; mundane completeness
+  P1  dough-trough               [floor/1x2] bakery work anchor
+  P1  farrier-stand              [floor/sub] farrier corner
+  P1  grain-bin-stable           [floor/sub] feed room
+  P1  horse-blanket-rail         [wall/1] stable aisles
+  P1  manure-heap                [ground/1] honest stable yards
+  P1  map-wall                   [wall/1x2] quest planning, guard posts
+  P1  scriptorium-desk           [floor/1] monastery scriptoria; rows of them
+  P1  sentry-box                 [ground/1] gates, bridges
+  P1  sickbed                    [floor/1x2] healers' houses, temple infirmaries
+  P1  spoon-jar                  [surface/tiny] kitchen counters
+  P1  stable-stall-door          [kit/edge] closes stable-stall rows
+  P1  stable-stall-gate          [kit/edge] closes the 5-ft front of a horse stall
+  P1  stable-stall-partition     [kit/edge] divides 5-ft-wide, 10-ft-deep stalls
+  P1  stocks-arms-rack           [wall/1] guard posts
+  P1  tack-wall                  [wall/1] tack rooms
+  P1  utensil-rack               [wall/1] every working kitchen
+  P1  watch-desk                 [floor/1] guard post anchor
+  P1  watch-lantern-bell         [ground/sub] raise the alarm
+  P1  armor-chainmail-heap       [floor/sub] loot pile staple
+  P1  axe-hand                   [surface/tiny] warriors, raiders
+  P1  bounty-poster              [wall/tiny] quest hooks; the party's face someday
+  P1  bow-short                  [surface/tiny] hunters, scouts
+  P1  casket-ornate              [surface/tiny] the box everyone wants opened
+  P1  chalice-jeweled            [surface/tiny] holy relic, feast of kings
+  P1  coin-stack                 [surface/tiny] counting tables, wagers, pay chests
+  P1  crossbow                   [surface/tiny] guards, assassins
+  P1  gems-loose                 [surface/tiny] the sparkle in any hoard
+  P1  gold-bars                  [floor/sub] vaults, royal treasury
+  P1  helm-open                  [surface/tiny] guards; the everyman helmet
+  P1  key-hook-board             [wall/sub] innkeeper's room keys, jailer's station
+  P1  key-ring                   [surface/tiny] jailer's belt
+  P1  ledger-accounts            [surface/tiny] evidence, embezzlement plots
+  P1  mace-flanged               [surface/tiny] cleric's weapon
+  P1  quiver-arrows              [surface/tiny] pairs with any bow
+  P1  shield-round               [surface/sub] raiders, hall walls
+  P1  spear                      [surface/sub] guards, hunters
+  P1  sword-long                 [surface/tiny] the default loot sword; lay on tables, bodies, pedestals
+  P1  sword-short                [surface/tiny] guards, rogues, starter gear
+  P1  warhammer                  [surface/tiny] dwarves and knights
+  P1  balcony-stone              [kit/1] speeches, serenades, defenestration
+  P1  bollard-stone              [ground/tiny] street edges, gates
+  P1  bridge-stone-arch          [ground/1x3] over rivers and moats
+  P1  gate-tower                 [kit/2x3] the entrance scene; guards
+  P1  horse-trough-stone         [ground/1x2] town squares
+  P1  stair-grand                [kit/2x2] manor foyers, temple approaches
+  P1  street-cobble-tile         [kit/1] town streets
+  P1  watchtower-wood            [ground/1] borders, camps, goblin forts
+  P1  andirons                   [floor/tiny] hold the logs
+  P1  bowl-soup-empty            [surface/tiny] fill it from the food list (soup-bowl, stew-bowl)
+  P1  cauldron-huge              [floor/1] castle kitchen; witch's brew
+  P1  charger-brass              [surface/tiny] under the high-table plate
+  P1  cleaver                    [surface/tiny] stuck in a chopping board
+  P1  cup-pewter                 [surface/tiny] tavern and barracks
+  P1  firkin                     [surface/tiny] delivery size
+  P1  flagon                     [surface/tiny] serves a table from one pour
+  P1  fork-flesh                 [surface/tiny] fishing meat out of the cauldron
+  P1  fork-two-tine              [surface/tiny] carving and serving
+  P1  goblet-of-wine             [surface/tiny] toasts; poison plots
+  P1  goblet-silver              [surface/tiny] feasts, toasts
+  P1  jar-oil                    [surface/tiny] pantries
+  P1  knife-carving              [surface/tiny] beside roasts on the high table
+  P1  knife-rack-wall            [wall/tiny] butcher and kitchen
+  P1  knife-table                [surface/tiny] beside every plate
+  P1  mallet-meat                [surface/tiny] kitchen violence
+  P1  napkin-folded              [surface/tiny] beside noble plates
+  P1  pan-long-handle            [surface/tiny] reaches into the hearth
+  P1  pitcher-pewter             [surface/tiny] serving ale
+  P1  plate-pewter               [surface/tiny] tavern and castle service
+  P1  plate-stack-pewter         [surface/tiny] shelves, dressers
+  P1  platter-pewter-oval        [surface/tiny] roasts to the table
+  P1  platter-silver             [surface/tiny] the feast centerpiece base
+  P1  platter-wood               [surface/tiny] bread and cheese boards
+  P1  pot-copper                 [surface/tiny] castle kitchen shine
+  P1  pot-iron-large             [surface/tiny] feeding a garrison
+  P1  salt-cellar-ship           [surface/tiny] marks the lord's place
+  P1  skimmer-iron               [surface/tiny] castle kitchens
+  P1  spice-grinder-hand         [surface/tiny] spice merchant
+  P1  spoon-pewter               [surface/tiny] tavern and barracks bowls
+  P1  tablecloth-white           [floor/1x2] drapes a table; a scene-state
+  P1  tankard-dented             [surface/tiny] veteran's tankard
+  P1  tankard-lidded             [surface/tiny] thumb-lift lid; the tavern drink
+  P1  tankard-of-ale             [surface/tiny] mid-song
+  P1  trencher-stack             [surface/tiny] servery shelves
+  P1  trencher-wood              [surface/tiny] the common plate
+  P1  tureen-pewter              [surface/tiny] on the table, ladle in
+  P1  utensil-rack-wall          [wall/sub] beside the hearth
+  P1  beans-dried-sack           [floor/sub] larders
+  P1  cheese-wheel-cut           [surface/tiny] tables, larders
+  P1  chicken-roast-whole        [surface/tiny] dinner centrepiece
+  P1  meat-roast-joint           [surface/tiny] carving at the table
+  P1  plate-roast-veg            [surface/tiny] standard served meal
+  P1  potato-pile                [floor/sub] root cellars, sacks spilling
+  P1  salt-sack                  [floor/sub] preserving rooms
+  P1  bridle-hanging             [wall/tiny] stables
+  P1  caltrops-scatter           [floor/1] difficult terrain
+  P1  crutch                     [floor/tiny] infirmaries, veterans
+  P1  manacles-loose             [floor/tiny] the prisoner escaped
+  P1  scroll-open                [surface/tiny] reading desks, altars
+  P1  splint-wooden              [surface/tiny] infirmaries
+  P1  smith-armor-form           [floor/sub] armorer's dummy for fitting
+  P1  smith-armor-stand-fitted   [floor/sub] finished commission waiting for its knight
+  P1  smith-bit-bridle           [surface/tiny] tack room
+  P1  smith-breastplate-on-form  [floor/sub] center of the armory workshop
+  P1  smith-farrier-box          [floor/tiny] beside a horse stall
+  P1  smith-greave-pair          [surface/tiny] armory shelf
+  P1  smith-mail-in-progress     [floor/sub] weeks of work
+  P1  smith-pauldron             [surface/tiny] armory shelf
+  P1  smith-shoeing-stocks       [floor/1x2] big farrier yards
+  P1  smith-spurs-pair           [surface/tiny] knight's kit
+  P1  trade-bread-crate-delivery [floor/sub] back door of a tavern
+  P1  trade-butcher-hooks-rail   [ceiling/1] hang cuts from it; butcher read
+  P1  trade-cautery-iron         [surface/tiny] battlefield surgery
+  P1  trade-copy-stand           [surface/tiny] the scribe copies from this
+  P1  trade-fever-basin          [surface/tiny] sickroom bedside
+  P1  trade-illuminated-page     [surface/tiny] gold and colour; loot or clue
+  P1  trade-jeweled-binding      [surface/tiny] altar gospels; heist target
+  P1  trade-manuscript-in-progress [surface/tiny] the scriptorium's working page; readable clue
+  P1  trade-map-in-progress      [wall/sub] the cartographer's current job; clue
+  P1  trade-meat-saw             [surface/tiny] block-side
+  P1  trade-ruling-board         [surface/tiny] laying out lines
+  P1  trade-salting-trough       [floor/1x2] curing larder
+  P1  trade-sharpening-steel     [surface/tiny] belt or hook
+  P1  trade-treatment-bench      [floor/1x2] infirmary anchor; lay the wounded here
+  P1  rural-grooming-box         [surface/tiny] stall corners
+  P1  rural-manger-wall          [wall/1] every stall
+  P1  rural-saddle-riding        [floor/sub] stables, tack rooms
+  P1  rural-straw-bedding        [floor/1] stall floors; sleep in the stables
+  P1  mil-armor-repair-bench     [floor/1] armory corner
+  P1  mil-arrow-sheaf            [surface/tiny] resupply, wall-walks
+  P1  mil-boiling-oil-pot        [floor/1] over the gate
+  P1  mil-campaign-chest         [floor/sub] officer's tent
+  P1  mil-crossbow-rack          [wall/1] gatehouses
+  P1  mil-duty-roster            [wall/sub] who's on watch tonight — a clue
+  P1  mil-field-desk             [floor/sub] command tent
+  P1  mil-horse-barding-stand    [floor/1] knight's stable
+  P1  mil-map-case               [surface/tiny] officer's kit
+  P1  mil-pavise                 [floor/sub] portable full cover for archers
+  P1  mil-pell                   [ground/sub] sword drill
+  P1  mil-quintain               [ground/1] tourney grounds
+  P1  mil-ration-crate           [floor/sub] supply dumps
+  P1  mil-siege-ladder           [wall/1x2] against the battlements
+  P1  mil-signal-beacon          [ground/sub] light the beacons
+  P1  mil-signal-flag            [floor/sub] wall towers, field camps
+  P1  mil-spear-tripod           [ground/sub] camp weapon stacks
+  P1  mil-weapon-oil-flask       [surface/tiny] barracks tables
+  P2  floor-drain-grate          [kit/1] cells, kitchens, torture rooms
+  P2  floor-parquet-herringbone  [kit/1] noble chambers
+  P2  floor-tile-harlequin       [kit/1] lobbies, chapels, noble halls
+  P2  gate-double-timber         [kit/2x2] courtyard and town gates
+  P2  pillar-round               [floor/sub] colonnades; ruin signature when broken
+  P2  roof-tile-slate            [kit/1] wealthier roofs
+  P2  wall-archway               [kit/edge] room-to-room flow without a door
+  P2  wall-window-large          [kit/edge] great halls and chapels; strong light shaft source
+  P2  window-stained-glass       [kit/edge] chapel signature; colored light shafts
+  P2  portcullis-raised          [kit/edge] open state of portcullis; the passage is clear
+  P2  corbel-stone               [wall/sub] carries a stone balcony, a wall-walk, a beam end or an oversailing parapet
+  P2  door-tower                 [kit/edge] hangs in `wall-doorway--tower-stone`; a leaf like `door-plank--leaf`
+  P2  parapet-corner             [kit/edge] stands at the corners and ends of a parapet run
+  P2  parapet-straight           [kit/edge] the ledge round a flat or low roof; half cover in a rooftop chase
+  P2  roofing-slate              [kit/1] mansion, church and castle-turret roofs
+  P2  railing-iron               [kit/edge] round the hole a stair cuts in a stone building's floor (2026-10-06); also a gallery or wall-walk edge
+  P2  roof-hatch                 [kit/1] the way onto a roof; sits over the head of a ladder
+  P2  roof-hatch-open            [kit/1] open state of roof-hatch
+  P2  firepit-sunken             [floor/2x2] old halls; logs and grey ash, no fire, engine fire FX adds it
+  P2  hearth-central-hood        [floor/2x2] a hall's centrepiece; logs and grey ash, no fire, engine fire FX adds it
+  P2  hearth-raised-square       [floor/2x2] longhouse-style common rooms; logs and grey ash, no fire, engine fire FX adds it
+  P2  privy-stall-door           [kit/edge] closes a privy stall; gap above and below
+  P2  privy-stall-partition      [kit/edge] stands between privy seats in a bank; 4 ft deep, 6 ft tall, open above
+  P2  stable-stall-back          [kit/edge] solid plank wall between two stall rows that share a spine
+  P2  wine-bin-arched            [wall/1] the wine cellar's walls
+  P2  bread-oven-open            [wall/1] open state of bread-oven; unlit, engine fire FX adds coals
+  P2  rural-grooming-box-open    [surface/tiny] open state of rural-grooming-box
+  P2  smith-farrier-box-open     [floor/tiny] open state of smith-farrier-box
+  P2  vault-shelf-treasure       [floor/1] along vault walls, back to the wall
+  P2  cresset-wall               [wall/tiny] yards and great halls; cold charred wood, no fire, engine fire FX adds it
+  P2  brazier-tripod             [floor/sub] warmth and ritual; cold charcoal and ash, no fire, engine fire FX adds it
+  P2  fire-basket-stand          [floor/sub] yards and gatehouses; cold split logs, no fire, engine fire FX adds it
+  P2  cutting-board              [surface/tiny] prep tables
+  P2  platter                    [surface/tiny] takes roasts and bread
+  P2  roast-fowl                 [surface/tiny] feast centerpiece
+  P2  inkwell-quill              [surface/tiny] every desk
+  P2  tent-military              [ground/2x2] war camps; command tent
+  P2  mil-footlocker-open        [floor/sub] open state of mil-footlocker; searched
+  P2  sewer-grate                [wall/1] escape routes
+  P2  stocks                     [ground/1] town squares, dungeon yards
+  P2  cell-bench-plank           [wall/1x2] one in each cell, along the side wall
+  P2  ball-and-chain             [floor/tiny] cell floors
+  P2  gibbet-cage-standing       [floor/sub] the floor-standing gibbet; `cage-hanging` is the one on a chain
+  P2  whipping-post              [floor/sub] interrogation rooms, castle yards
+  P2  effigy-knight              [floor/1x2] noble crypts
+  P2  armor-decorative           [floor/sub] hallways (is it moving?)
+  P2  rug-bearskin               [floor/1x2] lodges, lords' hearths
+  P2  rug-fur                    [floor/1x2] lodges, hearthside
+  P2  rug-grand                  [floor/2x3] throne-room runner, bedchambers
+  P2  rug-round-fine             [floor/2x2] noble chambers, solars
+  P2  trophy-head                [wall/sub] hunting lodges, taverns
+  P2  counting-table             [floor/1x2] moneylenders, tax collectors
+  P2  poker-set                  [floor/tiny] every fireplace
+  P2  safe-iron                  [floor/sub] heist target
+  P2  scaffolding                [kit/1] half-built towers, repairs
+  P2  stone-blocks-stack         [floor/1] quarries, construction
+  P2  strong-room-door           [kit/edge] banks and treasuries
+  P2  armor-breastplate          [surface/sub] smith's workbench, armory
+  P2  armor-plate-pile           [floor/sub] fallen knight, troll's larder
+  P2  arrows-stuck               [floor/sub] aftermath of an ambush
+  P2  axe-great                  [surface/sub] executioners, berserkers
+  P2  bow-long                   [surface/sub] archers on the wall
+  P2  deed-sealed                [surface/tiny] inheritance plots, forged orders
+  P2  grappling-hook             [surface/tiny] heist gear
+  P2  helm-great                 [surface/tiny] knights; tombs
+  P2  maul-great                 [surface/sub] ogre-sized swing
+  P2  monster-head-trophy        [wall/1] the tavern's bragging piece
+  P2  morningstar                [surface/tiny] brutes and guards
+  P2  playing-cards              [surface/tiny] gambling scenes
+  P2  shield-kite                [surface/sub] older knights, tomb effigies
+  P2  shield-tower               [floor/sub] portable cover
+  P2  signet-ring-seal           [surface/tiny] forgery plots
+  P2  silver-plate-pile          [floor/sub] looted manor goods
+  P2  spear-bundle               [floor/sub] armories, war camps
+  P2  sword-great                [surface/sub] champion's weapon; lean against walls
+  P2  sword-in-scabbard          [surface/tiny] hung on chairs, left on beds
+  P2  roof-conical               [kit/1] wizard towers, castle turrets
+  P2  stair-broken               [kit/1x2] climb what's left
+  P2  tower-collapsed            [ground/2x2] landmarks visible from far off
+  P2  window-empty-frame         [kit/edge] chapel ruins with sky behind
+  P2  bowl-pewter                [surface/tiny] tavern stew
+  P2  bowl-stack                 [surface/tiny] shelves
+  P2  bowl-wood-large            [surface/tiny] kitchen prep
+  P2  cask-small-spigot          [surface/tiny] on the bar end
+  P2  chopping-block-kitchen     [floor/sub] cleaver stuck in
+  P2  cup-silver                 [surface/tiny] noble table
+  P2  ewer-and-basin             [surface/sub] washstand
+  P2  flask-hip                  [surface/tiny] the guard's secret
+  P2  goblet-gold                [surface/tiny] royal table; hoards
+  P2  goblet-of-poison           [surface/tiny] the assassination beat
+  P2  horn-drinking-banded       [surface/tiny] toast at a feast
+  P2  knife-bread                [surface/tiny] on the bread board
+  P2  knife-silver               [surface/tiny] noble place settings
+  P2  pitcher-silver             [surface/tiny] hand-washing before feasts
+  P2  plate-silver               [surface/tiny] noble service
+  P2  plate-stack-wood           [surface/tiny] shelves, washing up
+  P2  plate-tin-camp             [surface/tiny] soldiers and miners
+  P2  pot-lidded                 [surface/tiny] simmering
+  P2  rolling-pin                [surface/tiny] pastry table
+  P2  salt-cellar-plain          [surface/tiny] lower tables; "below the salt"
+  P2  serving-bowl-large         [surface/tiny] salads, fruit, porridge
+  P2  spice-box                  [surface/tiny] spices were treasure
+  P2  spoon-silver               [surface/tiny] noble settings; a thief's pocket
+  P2  spoon-stirring-long        [surface/tiny] in cauldrons and pots
+  P2  tankard-wooden             [surface/tiny] bands of iron; common rooms
+  P2  bread-braided              [surface/tiny] festivals, feast tables
+  P2  bread-pile                 [surface/sub] bakery counters, feasts
+  P2  bread-rolls-basket         [surface/sub] table centres
+  P2  cake-round                 [surface/tiny] celebrations
+  P2  cheese-board               [surface/tiny] noble and tavern tables
+  P2  cheese-stack               [floor/sub] cellars, dairies
+  P2  feast-platter-fruit        [surface/tiny] feast tables
+  P2  feast-platter-meats        [surface/tiny] feast tables
+  P2  grain-sack-open            [floor/sub] mills, granaries
+  P2  ham-sliced                 [surface/tiny] mid-feast
+  P2  ham-whole-glazed           [surface/tiny] feasts
+  P2  meat-raw-joint             [surface/tiny] butcher blocks, kitchens
+  P2  pie-meat                   [surface/tiny] tavern fare
+  P2  ribs-roasted               [surface/tiny] feast and tavern fare
+  P2  soup-cauldron-full         [floor/sub] big kitchens, army camps
+  P2  trencher-meal              [surface/tiny] medieval place setting
+  P2  vegetable-crate-mixed      [floor/sub] deliveries, stall stacks
+  P2  venison-haunch             [surface/tiny] hunting feast
+  P2  brooch                     [surface/tiny] loot; clan identification
+  P2  chain-length               [floor/1] across gates, round chests
+  P2  die-single                 [surface/tiny] shapes include a d20, for the table joke
+  P2  drum-war                   [floor/sub] warbands; the drums in the deep
+  P2  scabbard-empty             [surface/tiny] the sword is missing
+  P2  scroll-case                [surface/tiny] couriers, map carriers
+  P2  smith-arrowhead-pile       [surface/tiny] fletchers pick these up
+  P2  smith-chain-coil-heavy     [floor/sub] portcullis and drawbridge stock
+  P2  smith-forge-portable       [floor/1] army camps; travelling tinkers
+  P2  smith-helm-row-shelf       [wall/1] garrison order
+  P2  craft-arrow-shafts-bundle  [surface/tiny] fletcher's stock
+  P2  craft-arrowheads-box       [surface/tiny] broadheads and bodkins
+  P2  craft-beam-squared         [floor/1x3] building sites
+  P2  craft-bow-stave-raw        [surface/tiny] yew staves seasoning
+  P2  craft-crossbow-bolts-crate [floor/sub] armories
+  P2  craft-rope-coil-thick      [floor/sub] heavy rope; mine hoists
+  P2  craft-rope-hanks-hung      [wall/1] ropewalk store, mine store
+  P2  craft-saddle-horse-stand   [floor/sub] tack rooms and saddlers
+  P2  craft-sheaf-arrows-tied    [surface/tiny] 24 to a sheaf
+  P2  trade-banker-bench         [floor/1] masons' yard anchor
+  P2  trade-capital-half-carved  [floor/sub] yard or ruin: the work that stopped
+  P2  trade-charter-pendant-seals [surface/tiny] land grants, royal warrants
+  P2  trade-deed-box             [surface/tiny] land titles; lawsuits
+  P2  trade-hardtack-crate       [floor/sub] adventurer rations
+  P2  trade-mason-mallet         [surface/tiny] banker tools
+  P2  trade-portolan-chart       [surface/tiny] coastal adventures
+  P2  trade-seal-matrix          [surface/tiny] forge a document with it
+  P2  rural-pelt-bear            [floor/1] chief's hall, hunting lodge
+  P2  mil-battering-ram          [floor/1x2] doors are negotiable
+  P2  mil-battlefield-debris     [ground/1] the day after
+  P2  mil-cheval-de-frise        [ground/1x2] road blocks, breach plugs
+  P2  mil-dispatch-sealed        [surface/tiny] intercepted orders
+  P2  mil-mantlet                [ground/1] advance under fire
+  P2  rite-holy-symbol-scales    [surface/tiny] justice faiths; courthouse chapels
+  P2  rite-temple-gong           [floor/1] calls to prayer; alarms
+  P3  buttress                   [wall/1] exterior silhouettes
+  P3  ramp                       [kit/1x2] cart ramps, siege ramps
+  P3  wall-palisade              [kit/edge] frontier forts, bandit camps
+  P3  door-secret-bookcase-open  [kit/edge] open state of door-secret-bookcase
+  P3  gargoyle-spout             [wall/sub] at parapet corners and gutter ends; one every 15 to 20 ft at most
+  P3  roof-finial                [attach/sub] ends a ridge; tops a conical roof
+  P3  roof-ridge                 [kit/edge] laid along the ridge line and sunk into both roof planes; one per roof material
+  P3  floor-cobble-mossy         [ground/1] back yards, wells; generated 2026-10-05
+  P3  balustrade-stone-pier      [kit/edge] ends a balustrade run and stands at its corners
+  P3  basin-stone                [wall/sub] kitchens, sculleries
+  P3  cistern-hatch              [floor/1] underworld access
+  P3  faldstool                  [floor/sub] commanders' tents
+  P3  wine-rack                  [wall/1] cellars
+  P3  board-game                 [surface/tiny] a quiet corner; aristocrats' table
+  P3  drinking-horn              [surface/tiny] feast-hall flavor
+  P3  pan-frying                 [surface/tiny] kitchen walls
+  P3  salt-cellar                [surface/tiny] high-table status object
+  P3  boar-head-platter          [surface/tiny] high-table showpiece
+  P3  carcass-hanging            [ceiling/sub] butcher, castle kitchen
+  P3  sawhorse                   [floor/1] repair scenes
+  P3  archery-target             [ground/sub] practice yards, fairs
+  P3  catapult                   [ground/2x2] siege camps
+  P3  stakes-sharpened           [ground/1] field defenses
+  P3  gallows                    [ground/2x2] town square, grim foreshadowing
+  P3  oubliette-hatch            [floor/1] the forgotten cell
+  P3  block-headsman             [floor/1] the far end of a dungeon, or the courtyard on a bad day
+  P3  bed-cell-stone             [floor/1x2] built into a cell wall
+  P3  bell-hanging               [ceiling/1] bell towers
+  P3  decal-papers               [floor/sub] ransacked studies
+  P3  bandage-basket             [surface/tiny] infirmaries, field hospitals
+  P3  bow-staves-rack            [wall/1] bowyer wall
+  P3  bucket-well-rope           [attach/tiny] hangs from well windlass
+  P3  crane-treadwheel           [ground/2x2] cathedral and castle building sites
+  P3  dish-tub                   [surface/sub] scullery reality
+  P3  fish-barrel-salted         [floor/sub] larders, market
+  P3  fletcher-bench             [floor/1] fletchers
+  P3  grave-marker-unfinished    [floor/sub] mason's yard beside the graveyard
+  P3  map-chest                  [floor/1] cartographers, war rooms
+  P3  mason-block-dressed        [floor/1] building sites
+  P3  surgeon-tools-tray         [surface/tiny] barber-surgeon; grim interrogation
+  P3  tally-sticks-bundle        [surface/tiny] debts on record
+  P3  water-heater-copper        [floor/1] bathhouse back room
+  P3  wax-seal-set               [surface/tiny] letters of authority; forgery plots
+  P3  axe-double                 [surface/sub] warlord trophies
+  P3  bagpipes                   [surface/tiny] war and wedding
+  P3  bandages-bloody            [surface/tiny] infirmary aftermath
+  P3  bolt-case                  [surface/tiny] pairs with crossbows
+  P3  boots-armored              [floor/tiny] barracks floors
+  P3  crossbow-heavy             [surface/sub] siege defenders
+  P3  flail                      [surface/tiny] villain weapon
+  P3  gauntlets                  [surface/tiny] on a table beside a helm
+  P3  glaive                     [surface/sub] palace guard
+  P3  helm-crested               [surface/tiny] officers, parade armor
+  P3  horn-hunting               [wall/tiny] hunting lodges
+  P3  horn-war-magic             [surface/tiny] summoning or alarm
+  P3  javelins                   [surface/sub] skirmishers
+  P3  lance                      [surface/sub] tourney yards
+  P3  orb-regal                  [surface/tiny] completes the regalia
+  P3  pennants-string            [ceiling/1x2] fair days, tourneys
+  P3  pike                       [surface/sub] formations and walls
+  P3  proclamation-scroll        [wall/tiny] town news
+  P3  regalia-cushion            [surface/tiny] coronation scenes
+  P3  spyglass                   [surface/tiny] scouts, captains
+  P3  tabard-heraldic            [wall/sub] disguise as a guard
+  P3  tourney-lists-rail         [ground/1x3] tourney ground
+  P3  chain-pile                 [floor/sub] dungeons, drawbridge rooms
+  P3  climbing-chain             [wall/edge] shafts and pits
+  P3  gate-ruined                [ground/2x2] abandoned fortresses
+  P3  scaffold                   [kit/1] construction sites, chase scenes
+  P3  stair-wall-hugging         [kit/1x2] tower interiors
+  P3  baking-tin                 [surface/tiny] bakery shelves
+  P3  bread-stamp                [surface/tiny] marked loaves
+  P3  bucket-leather             [floor/tiny] fire buckets on hooks
+  P3  canteen-wood               [surface/tiny] soldier's water
+  P3  colander                   [surface/tiny] draining
+  P3  cup-gold                   [surface/tiny] royal table; hoards
+  P3  cup-of-mead                [surface/tiny] druid feasts, halls
+  P3  dish-covered-pewter        [surface/tiny] keeps food warm
+  P3  fish-kettle                [surface/tiny] whole-fish poaching
+  P3  funnel                     [surface/tiny] filling bottles
+  P3  goblet-of-wine-spilled     [surface/tiny] something went wrong
+  P3  grater-iron                [surface/tiny] nutmeg and cheese
+  P3  horn-of-mead               [surface/tiny] feast toast
+  P3  knife-cheese               [surface/tiny] cheese boards
+  P3  knife-paring               [surface/tiny] prep tables
+  P3  mazer                      [surface/tiny] a shared feast bowl
+  P3  meat-hook-single           [ceiling/tiny] beams, butchers, dungeons
+  P3  mess-kit                   [surface/tiny] in a backpack
+  P3  mezzaluna                  [surface/tiny] herb board
+  P3  mortar-large-stone         [floor/sub] grinding for many
+  P3  pastry-cutter              [surface/tiny] pie decoration
+  P3  pie-dish                   [surface/tiny] fill with pie from the food list
+  P3  plate-gold                 [surface/tiny] royal; hoard dressing
+  P3  quaich                     [surface/tiny] welcome cup at a hall door
+  P3  roasting-pan               [surface/tiny] under the spit
+  P3  sauce-boat                 [surface/tiny] gravy at feasts
+  P3  saucepan-copper            [surface/tiny] sauces for the lord
+  P3  scoop-flour                [surface/tiny] in the flour sack
+  P3  scouring-sand-box          [surface/tiny] scrub the pots
+  P3  sieve-hair                 [surface/tiny] flour sifting
+  P3  skewer-iron                [surface/tiny] meat on skewers
+  P3  skewers-bundle             [surface/tiny] in a jar by the hearth
+  P3  spatula-wooden             [surface/tiny] griddle work
+  P3  spit-jack                  [attach/sub] replaces the spit on a hearth
+  P3  spoon-slotted              [surface/tiny] serving beans and peas
+  P3  table-runner-embroidered   [floor/1x2] high table
+  P3  tankard-ornate             [surface/tiny] trophies and toasts
+  P3  tongs-kitchen              [surface/tiny] hearthside
+  P3  trivet                     [surface/tiny] under hot pots
+  P3  wafer-iron                 [surface/tiny] festival wafers
+  P3  washing-bowl-dishes        [surface/tiny] scullery
+  P3  wassail-bowl               [surface/sub] midwinter feasts
+  P3  whisk-twig                 [surface/tiny] egg beating
+  P3  almonds-bowl               [surface/tiny] noble snacks
+  P3  biscuits-hard              [surface/tiny] rations, sieges
+  P3  bread-rye-dark             [surface/tiny] peasant and soldier bread
+  P3  cake-poisoned              [surface/tiny] assassination plot
+  P3  cake-slice                 [surface/tiny] plates
+  P3  cake-tiered                [surface/sub] weddings and coronations
+  P3  cheese-shelf-aging         [wall/1] cheese cellars
+  P3  cheese-wax-sealed          [surface/tiny] trade goods, sieges
+  P3  dough-bowl                 [surface/tiny] bakery and kitchen prep
+  P3  dough-kneading             [surface/tiny] bakers' tables
+  P3  drumstick-pile             [surface/tiny] feasts
+  P3  feast-platter-fish         [surface/tiny] lent feasts
+  P3  goose-roast                [surface/tiny] midwinter feasts
+  P3  grapes-single-bunch-green  [surface/tiny] colour sibling to purple grapes
+  P3  jerky-bundle               [surface/tiny] rations
+  P3  leg-of-mutton              [surface/tiny] stews, roasts
+  P3  lobster                    [surface/tiny] noble feasts
+  P3  marzipan-figures           [surface/tiny] noble dessert showpieces
+  P3  meat-raw-steak             [surface/tiny] butchers
+  P3  meat-ribs-raw              [surface/tiny] butchers
+  P3  melon-sliced               [surface/tiny] feast tables
+  P3  onion-sliced               [surface/tiny] cutting boards
+  P3  oysters-plate              [surface/tiny] coastal taverns
+  P3  pheasant-roast-dressed     [surface/tiny] noble showpiece
+  P3  plate-fruit-cut            [surface/tiny] noble dessert
+  P3  potato-crate               [floor/sub] deliveries
+  P3  potato-peeled              [surface/tiny] prep tables
+  P3  pudding-steamed            [surface/tiny] winter feasts
+  P3  roast-slices-plate         [surface/tiny] feast service
+  P3  salt-block                 [surface/tiny] larders, trade goods
+  P3  salted-fish-stack          [surface/tiny] larders, ships' stores
+  P3  sausage-pile               [surface/sub] feast platters, butcher counters
+  P3  smoked-meat-rack           [wall/1] smokehouses
+  P3  tart-fruit                 [surface/tiny] bakery, dessert course
+  P3  tartlets-tray              [surface/tiny] noble desserts
+  P3  baldric-sword              [surface/tiny] barracks, guest rooms
+  P3  ball-leather               [floor/tiny] courtyards
+  P3  cape-fur                   [surface/tiny] noble chambers
+  P3  coif-mail                  [surface/tiny] armories, smith repairs
+  P3  contract-signed            [surface/tiny] devil deals, merchant intrigue
+  P3  drafting-dividers          [surface/tiny] map tables
+  P3  gambeson-folded            [surface/tiny] barracks chests
+  P3  gorget                     [surface/tiny] armor stands
+  P3  greaves-pair               [floor/tiny] armory floors
+  P3  handbell                   [surface/tiny] town criers, sacristans
+  P3  jester-hat                 [surface/tiny] court fool's corner
+  P3  knucklebones               [surface/tiny] guard rooms
+  P3  mop                        [floor/tiny] with a bucket after the brawl
+  P3  pauldron-single            [floor/tiny] battlefield debris
+  P3  plumb-bob                  [surface/tiny] builders
+  P3  saddle                     [floor/sub] dropped after a long ride
+  P3  shaving-kit                [surface/tiny] guest rooms, barracks
+  P3  shield-broken              [floor/sub] battlefield, lair floors
+  P3  stretcher                  [floor/1x2] battlefields, infirmaries
+  P3  toy-soldiers               [surface/tiny] noble nurseries
+  P3  trowel-mason               [surface/tiny] builders; walled-up victim scenes
+  P3  trumpet-herald             [surface/tiny] royal arrivals
+  P3  vambraces-pair             [surface/tiny] armory tables
+  P3  smith-armor-polishing-barrel [floor/sub] squires roll these
+  P3  smith-bolt-heads-crate     [floor/tiny] armory order
+  P3  smith-coin-blanks          [surface/tiny] mint or forger's den
+  P3  smith-coin-dies            [surface/tiny] the mint; counterfeiters
+  P3  smith-hafting-bench        [floor/1x2] fitting heads to shafts
+  P3  smith-mace-heads           [surface/tiny] unhafted
+  P3  smith-polearm-heads-rack   [wall/1] before hafting
+  P3  smith-portcullis-bars      [floor/1x2] castle contract
+  P3  smith-scrap-armor-pile     [floor/sub] post-battle salvage
+  P3  smith-shield-unfinished    [floor/sub] leaning on the bench
+  P3  craft-bow-unstrung         [surface/tiny] shop stock
+  P3  craft-bowstring-coil       [surface/tiny] spares
+  P3  craft-bucket-leather-fire  [wall/tiny] hung by the door
+  P3  craft-leather-armor-form   [floor/sub] armorer's leather side
+  P3  craft-livery-tabard        [wall/sub] heraldic servants' dress
+  P3  craft-net-cargo-hanging    [wall/1] warehouses; climbable
+  P3  craft-quiver-rack          [wall/1] shop wall
+  P3  craft-tapestry-frame-half  [floor/1x2] noble ladies' chamber; plot clue
+  P3  craft-tunic-folded-stack   [surface/tiny] barracks issue, shop stock
+  P3  trade-bandage-drying-line  [ground/1x2] infirmary yard
+  P3  trade-chisel-claw          [surface/tiny] texture work
+  P3  trade-chisel-point         [surface/tiny] roughing out
+  P3  trade-corbel-head          [surface/sub] waiting to be set
+  P3  trade-gargoyle-unfinished  [floor/sub] chapel works; is it moving?
+  P3  trade-ink-horn             [surface/tiny] slotted into the desk
+  P3  trade-jacob-staff          [surface/tiny] field surveying
+  P3  trade-keystone-carved      [surface/sub] heraldic clue
+  P3  trade-lewis-block-hanging  [ceiling/sub] under the crane
+  P3  trade-map-weights          [surface/tiny] map table dressing
+  P3  trade-mason-mark-chart     [wall/sub] lodge wall; who cut this stone?
+  P3  trade-mason-square-level   [surface/tiny] layout tools
+  P3  trade-mortar-tub-hod       [floor/sub] wall under construction
+  P3  trade-penknife-scribe      [surface/tiny] quill trimming
+  P3  trade-pitching-tool        [surface/tiny] splitting faces
+  P3  trade-plane-table          [floor/sub] field mapping
+  P3  trade-pumice-block         [surface/tiny] smoothing vellum
+  P3  trade-stone-chips-pile     [floor/sub] yard floor
+  P3  trade-string-line-pins     [surface/tiny] wall-building
+  P3  trade-survey-chain         [surface/tiny] land disputes
+  P3  trade-template-boards      [wall/sub] hung on the lodge wall
+  P3  trade-tile-stack-fired     [floor/sub] ready for the roofer
+  P3  trade-voussoir-stack       [floor/sub] arch in progress
+  P3  rural-falconry-perch       [floor/sub] noble mews (no bird)
+  P3  rural-horse-blanket-folded [surface/tiny] stall doors
+  P3  rural-lance-rack           [wall/1] tilt-yard stables
+  P3  rural-mounting-block       [ground/tiny] inn yards
+  P3  rural-tack-trunk           [floor/sub] tack rooms
+  P3  bard-shawm                 [surface/tiny] loud outdoor music
+  P3  mil-armor-empty-sprawled   [floor/1] haunted armories; who wore it?
+  P3  mil-ballista-bolts         [floor/1] tower tops
+  P3  mil-catapult-stones        [ground/sub] beside siege engines
+  P3  mil-ram-covered            [ground/2x3] castle gate assault
+  P3  mil-war-banner-tattered    [ground/sub] old battlefields
+  P3  mil-watch-rattle           [surface/tiny] raise the alarm

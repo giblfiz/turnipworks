@@ -1,0 +1,164 @@
+{
+ "file": "foe-skeleton-greataxe.glb",
+ "tris": 49845,
+ "kb": 3418,
+ "native_extent": [
+  0.402,
+  1.001,
+  0.593
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0076,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  99,
+  71,
+  47
+ ],
+ "mean_saturation": 0.608,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 5.8,
+  "length_ft": 5.92,
+  "low_end_ft": [
+   -0.55,
+   0.02,
+   -0.03
+  ],
+  "high_end_ft": [
+   0.19,
+   5.88,
+   0.36
+  ],
+  "tilt_from_upright_deg": 8.1,
+  "thickness_ft": 0.34,
+  "clear_share": 0.71,
+  "joined_share": 0.29,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-----------------------------##########----------########------"
+ },
+ "overall_ft": 5.93,
+ "pieces": {
+  "connected_parts": 166,
+  "main_part_area_share": 0.9726,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.9266,
+ "y0": -2.9673,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.1999,
+   -0.5008,
+   -0.2967
+  ],
+  [
+   0.202,
+   0.5003,
+   0.2961
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49845,
+   "tex": 2048,
+   "kb": 3418
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1342
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 568
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.53,
+    "z": -1.31,
+    "size_ft": [
+     0.89,
+     1.46
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.43,
+    "sole_p90_ft": 0.146
+   },
+   {
+    "x": 0.68,
+    "z": 0.75,
+    "size_ft": [
+     1.01,
+     1.33
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.44,
+    "sole_p90_ft": 0.139
+   },
+   {
+    "x": -0.51,
+    "z": 0.01,
+    "size_ft": [
+     0.59,
+     0.62
+    ],
+    "off_ground_ft": 0.098,
+    "sole_level_share": 0.05,
+    "sole_p90_ft": 0.378
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.098,
+  "lowest_slab_area_sqft": 1.6,
+  "plan_hull_area_sqft": 5.13,
+  "lowest_slab_share_of_plan": 0.312
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.38,
+   "d": 3.51,
+   "h": 5.93
+  },
+  "centre": [
+   0.032,
+   -0.235
+  ],
+  "contacts_radius_ft": 1.78,
+  "reach_radius_ft": 2.0,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.868,
+  "plate_lost_share": 0.084,
+  "added_share": 0.055,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.841,
+  "view_yaw_deg": 60,
+  "view_elev_deg": 8
+ },
+ "id": "foe-skeleton-greataxe",
+ "sha1": "a380287e075274910868a6965f66b32899f4e54a",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 17.9
+}

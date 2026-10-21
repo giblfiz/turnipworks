@@ -1,0 +1,39 @@
+{
+  "id": "flavor-corbel--spiders-fct",
+  "status": "accepted",
+  "time": "2026-10-13T11:56:41.186042+00:00",
+  "generator": "OpenAI built-in imagegen",
+  "prompt": "Use case: stylized-concept. One original carved architectural CORBEL for a hand-painted tabletop game. A stout wall bracket with a flat vertical back and a thick flat horizontal projecting top slab; below the slab the load-bearing carved support is a crouched SPIDER with a large oval abdomen and eight stout bent legs gripping the bracket. Clearly a bracket to carry a beam, not a freestanding statue. Size proportions 24 inches wide, 24 deep, 30 tall. The large faction carving projects forward and remains visible from above; top slab is shallow enough not to hide it. Deep plum and pale stone. Heroic hand-painted style: stout miniature-safe forms, broad soft bevels, clean part separation, matte painted gradients and restrained texture. Exactly one isolated complete object, three-quarter elevated view at 35 degrees looking down, front and one side visible, generous margin. Transparent background, no floor, no wall, no actual beam, no cast shadow, no lettering, no logo, no extra objects. Text-only original design, no published deity or product.",
+  "plate": "experiments/2026-10-13-factions/inputs/flavor-corbel--spiders-fct.png",
+  "sha256": "272c63132b34e071c3f04ef50799dc7085a18185d03848c7b75ec5e2d7ee3fd0",
+  "refs": [],
+  "blind_110": "* **Object and Motif:** A Gothic-style architectural wall bracket (corbel) featuring a prominent, sculpted purple spider tucked beneath the shelf amongst carved tracery.\n* **Best Name:** Spider corbel\n* **Alternative Name:** Gothic spider wall bracket (or small wall shelf)\n* **Whole and Readable:** Yes, the object is complete, fully rendered, and clearly readable.\n* **Top View:** The viewing angle is sufficiently elevated to see the flat, purple rectangular top surface clearly.\n",
+  "table_gate": {
+    "ok": true,
+    "problems": []
+  },
+  "semantic": {
+    "what_i_see": "A decorative gothic-style stone corbel or wall bracket sculpted with an integrated purple spider figure.",
+    "ok": true,
+    "problems": [],
+    "blind": {
+      "what_i_see": "A decorative gothic-style stone corbel or wall bracket sculpted with an integrated purple spider figure.",
+      "details": "There are no text, labels, or watermarks. The image displays a single standalone object, best described as an architectural corbel or shelf bracket, with a second guess being a fantasy decorative wall sconce base. The structure forms a right-angled support with a flat horizontal upper platform inlaid with a textured violet-purple surface, bordered by carved beige stone with gothic tracery panels. The vertical backplate shares the same pale stone construction with diamond and elongated arch recesses lined in purple. Centered beneath the shelf is a sculpted fantasy spider with a bulbous purple abdomen marked with ribbed bone-like arches, a cephalothorax featuring six round glossy dark purple eyes and sharp curved fangs, and eight segmented, clawed legs gripping the gothic stone tracery. There are no lids, doors, drawers, or handles. The object is rendered entirely whole without cropping and is isolated against a clean, flat white background with no shadows or scenery.",
+      "reference_differences": []
+    }
+  },
+  "matte": "native-alpha",
+  "mask_gate": {
+    "ok": false,
+    "problems": [
+      "bottom terminal of the wall bracket is cut off"
+    ]
+  },
+  "mask_override": {
+    "verdict": "accept",
+    "reason": "Measured alpha>127 bounding box (95,56,1166,1236) inside 1218x1292 image: 56px clear bottom margin. Codex image inspection of magenta composite sees full pointed terminal intact. Original mask gate false crop claim retained.",
+    "evidence": "work/flavor-corbel--spiders-fct.comp.jpg"
+  },
+  "prompt_sha256": "428cd66dc7c2dc5a14238c902947c740d78eab558e82abfbc6d9423e7d87bacb",
+  "provenance_note": "Exact invocation capitalization corrected from generation record; pixels and completed gates unchanged."
+}

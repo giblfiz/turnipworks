@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turnip Works: slopes pilot</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #1d1f1a; color: #e8e4d8; font: 14px/1.35 system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  #bar { position: fixed; left: 10px; top: 10px; right: 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; pointer-events: none; }
+  #bar > * { pointer-events: auto; }
+  #bar a.home { color: #cfc9b4; text-decoration: none; margin-right: 6px; }
+  button, label.chk { background: #2b2e26; color: #e8e4d8; border: 1px solid #4a4e40; border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer; }
+  button.on { background: #6b7a3c; border-color: #9db35a; }
+  label.chk input { vertical-align: -2px; margin-right: 4px; }
+  .sep { width: 10px; }
+  #note { position: fixed; left: 10px; bottom: 10px; max-width: min(640px, 92vw); background: #1d1f1acc; border: 1px solid #3a3d33; border-radius: 8px; padding: 8px 12px; }
+  #note b { color: #d7e2a8; }
+  #status { position: fixed; right: 10px; bottom: 10px; color: #9a9a8a; font-size: 12px; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "postprocessing": "./lib/vendor/postprocessing-6.39.5.js",
+  "n8ao": "./lib/vendor/n8ao-2.0.1.js",
+  "three-good-godrays": "./lib/vendor/three-good-godrays-0.12.1.js"
+} }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="bar">
+  <a class="home" href="../">← Turnip Works</a>
+  <span id="scenes"></span><span class="sep"></span>
+  <button data-view="table">Table view</button><button data-view="low">Low, close</button><button data-view="top">Top down</button><span class="sep"></span>
+  <label class="chk"><input type="checkbox" id="pawns" checked>Pawns</label>
+  <label class="chk"><input type="checkbox" id="zones">Detected flat zones</label>
+  <label class="chk"><input type="checkbox" id="grid" checked>5-ft grid</label>
+  <label class="chk"><input type="checkbox" id="fit" checked>Fit pieces to 5-ft steps</label>
+  <label class="chk"><input type="checkbox" id="match" checked>Match grass colour</label>
+  <label class="chk"><input type="checkbox" id="shadows">Sun shadows</label>
+  <label class="chk"><input type="checkbox" id="night">Night look</label>
+</div>
+<div id="note"></div>
+<div id="status">loading…</div>
+<script type="module" src="./main.js?v=__V__"></script>
+</body>
+</html>

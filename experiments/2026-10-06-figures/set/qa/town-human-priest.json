@@ -1,0 +1,155 @@
+{
+ "file": "town-human-priest.glb",
+ "tris": 49488,
+ "kb": 2704,
+ "native_extent": [
+  0.593,
+  1.001,
+  0.411
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  112,
+  73,
+  43
+ ],
+ "mean_saturation": 0.655,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 6.44,
+  "length_ft": 6.58,
+  "low_end_ft": [
+   -1.27,
+   0.26,
+   0.98
+  ],
+  "high_end_ft": [
+   -1.37,
+   6.84,
+   1.21
+  ],
+  "tilt_from_upright_deg": 2.2,
+  "thickness_ft": 0.25,
+  "clear_share": 0.85,
+  "joined_share": 0.15,
+  "broken_share": 0.0,
+  "walk_low_to_high": "---------------------------------######---------------###-----"
+ },
+ "overall_ft": 6.75,
+ "pieces": {
+  "connected_parts": 3,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.7495,
+ "y0": -3.3807,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.6,
+  "overall": 6.6
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3004,
+   -0.5009,
+   -0.1973
+  ],
+  [
+   0.2929,
+   0.5001,
+   0.2135
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49488,
+   "tex": 2048,
+   "kb": 2704
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1015
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 445
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.4,
+    "z": -0.19,
+    "size_ft": [
+     2.19,
+     2.93
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.55,
+    "sole_p90_ft": 0.524
+   },
+   {
+    "x": -1.27,
+    "z": 0.98,
+    "size_ft": [
+     0.42,
+     0.53
+    ],
+    "off_ground_ft": 0.216,
+    "sole_level_share": 0.16,
+    "sole_p90_ft": 0.405
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.216,
+  "lowest_slab_area_sqft": 1.95,
+  "plan_hull_area_sqft": 8.14,
+  "lowest_slab_share_of_plan": 0.24
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.0,
+   "d": 2.77,
+   "h": 6.75
+  },
+  "centre": [
+   0.186,
+   0.314
+  ],
+  "contacts_radius_ft": 1.81,
+  "reach_radius_ft": 2.18,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.885,
+  "plate_lost_share": 0.051,
+  "added_share": 0.072,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.838,
+  "view_yaw_deg": 15,
+  "view_elev_deg": 0
+ },
+ "id": "town-human-priest",
+ "sha1": "036d5ab9413e3de97577a5fc8d51a29f97b84e15",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.22 ft off the ground"
+ ],
+ "qa_seconds": 14.5
+}

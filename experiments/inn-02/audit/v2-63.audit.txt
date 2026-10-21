@@ -1,0 +1,6 @@
+#1 semantic=PASS mask=PASS — Matches prompt, clean cutout.
+#2 semantic=PASS mask=PASS — Accurate to description, good mask.
+#3 semantic=PASS mask=PASS — Meets criteria, mask is solid.
+#4 semantic=PASS mask=PASS — Correct object, clean extraction.
+#5 semantic=PASS mask=FAIL — Object matches, but mask leaves background inside basin.
+#6 semantic=PASS mask=FAIL — Good concept, but mask misses background in hook loop.

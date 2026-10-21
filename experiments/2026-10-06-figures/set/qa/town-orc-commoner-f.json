@@ -1,0 +1,176 @@
+{
+ "file": "town-orc-commoner-f.glb",
+ "tris": 48111,
+ "kb": 3508,
+ "native_extent": [
+  0.503,
+  0.997,
+  0.618
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0017,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  74,
+  54,
+  30
+ ],
+ "mean_saturation": 0.66,
+ "sized_by": "its highest point",
+ "overall_ft": 6.3,
+ "pieces": {
+  "connected_parts": 942,
+  "main_part_area_share": 0.9397,
+  "floating": [
+   {
+    "area_share": 0.00048,
+    "gap_ft": 0.04,
+    "size_ft": 0.3
+   },
+   {
+    "area_share": 4e-05,
+    "gap_ft": 0.07,
+    "size_ft": 0.11
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.11
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.07,
+    "size_ft": 0.09
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.07,
+    "size_ft": 0.09
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.09
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.06,
+    "size_ft": 0.07
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.06
+   }
+  ],
+  "floating_count": 9,
+  "floating_area_share": 0.0006,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.3189,
+ "y0": -3.1626,
+ "stated_ft": {
+  "body": 6.3,
+  "figure_top": 6.3,
+  "overall": 6.3
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2515,
+   -0.5005,
+   -0.3107
+  ],
+  [
+   0.2515,
+   0.497,
+   0.3076
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48111,
+   "tex": 2048,
+   "kb": 3508
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1378
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 554
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.87,
+    "z": -0.1,
+    "size_ft": [
+     0.81,
+     1.47
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.77,
+    "sole_p90_ft": 0.095
+   },
+   {
+    "x": -0.99,
+    "z": -0.96,
+    "size_ft": [
+     1.16,
+     1.26
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.77,
+    "sole_p90_ft": 0.094
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.84,
+  "plan_hull_area_sqft": 9.32,
+  "lowest_slab_share_of_plan": 0.197
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.17,
+   "d": 3.9,
+   "h": 6.3
+  },
+  "centre": [
+   -0.147,
+   -0.221
+  ],
+  "contacts_radius_ft": 1.54,
+  "reach_radius_ft": 2.09,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.936,
+  "plate_lost_share": 0.024,
+  "added_share": 0.042,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.936,
+  "view_yaw_deg": 35,
+  "view_elev_deg": 8
+ },
+ "id": "town-orc-commoner-f",
+ "sha1": "ce67383f57b0de0585c45075597922294c511c30",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.04 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 10.6
+}

@@ -1,0 +1,16 @@
+{
+ "_": "Collisions the sku guard lets through, each with its reason. `lineage`: batch folders that re-generate one another's skus ON PURPOSE (a later one replaces an earlier one; build_data.py records the old mesh under `was`). `skus`: single names, settled by hand. Everything here is printed by `sku_guard.py --all`.",
+ "lineage": [
+  [
+   "experiments/2026-09-30-inn-canary-fal",
+   "experiments/2026-09-30-inn-01-500",
+   "experiments/2026-09-30-inn-01b",
+   "experiments/2026-09-30-inn-01b-remesh",
+   "run:inn-01b",
+   "experiments/inn-02"
+  ]
+ ],
+ "skus": {
+  "armor-chainmail-heap": "2026-10-12: the castle spec lists it but castle-01 never generated or accepted one (no model, no manifest row); the dungeon's (dun-01) is the only mesh."
+ }
+}

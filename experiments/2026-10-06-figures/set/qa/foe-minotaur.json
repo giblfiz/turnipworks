@@ -1,0 +1,166 @@
+{
+ "file": "foe-minotaur.glb",
+ "tris": 49482,
+ "kb": 2740,
+ "native_extent": [
+  0.645,
+  0.999,
+  0.479
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0081,
+  "seen": 0.0003
+ },
+ "mean_rgb": [
+  67,
+  42,
+  29
+ ],
+ "mean_saturation": 0.686,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 7.37,
+  "length_ft": 7.53,
+  "low_end_ft": [
+   -0.66,
+   0.29,
+   1.61
+  ],
+  "high_end_ft": [
+   -0.92,
+   7.59,
+   -0.21
+  ],
+  "tilt_from_upright_deg": 14.1,
+  "thickness_ft": 0.41,
+  "clear_share": 0.63,
+  "joined_share": 0.37,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-----------------------##############-----------#######--"
+ },
+ "overall_ft": 8.17,
+ "pieces": {
+  "connected_parts": 33,
+  "main_part_area_share": 0.9999,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 8.1734,
+ "y0": -4.0937,
+ "stated_ft": {
+  "body": 8.0,
+  "figure_top": 8.0,
+  "overall": 8.0
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3198,
+   -0.5009,
+   -0.2391
+  ],
+  [
+   0.3254,
+   0.4982,
+   0.2402
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49482,
+   "tex": 2048,
+   "kb": 2740
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1106
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 463
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.97,
+    "z": 0.3,
+    "size_ft": [
+     1.33,
+     1.91
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.81,
+    "sole_p90_ft": 0.301
+   },
+   {
+    "x": -1.08,
+    "z": -1.02,
+    "size_ft": [
+     1.6,
+     1.6
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.85,
+    "sole_p90_ft": 0.304
+   },
+   {
+    "x": -0.67,
+    "z": 1.56,
+    "size_ft": [
+     0.78,
+     0.78
+    ],
+    "off_ground_ft": 0.383,
+    "sole_level_share": 0.19,
+    "sole_p90_ft": 0.668
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.383,
+  "lowest_slab_area_sqft": 3.37,
+  "plan_hull_area_sqft": 14.06,
+  "lowest_slab_share_of_plan": 0.24
+ },
+ "plan": {
+  "size_ft": {
+   "w": 5.27,
+   "d": 3.91,
+   "h": 8.17
+  },
+  "centre": [
+   0.402,
+   -0.162
+  ],
+  "contacts_radius_ft": 2.42,
+  "reach_radius_ft": 2.87,
+  "share_outside_2p5ft": 0.014
+ },
+ "silhouette": {
+  "iou": 0.92,
+  "plate_lost_share": 0.03,
+  "added_share": 0.054,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.92,
+  "view_yaw_deg": 5,
+  "view_elev_deg": 8
+ },
+ "id": "foe-minotaur",
+ "sha1": "e51246a84c28a0fe1eaf883fa0124fa185f5bf1a",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.38 ft off the ground"
+ ],
+ "qa_seconds": 20.4
+}

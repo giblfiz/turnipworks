@@ -1,0 +1,167 @@
+{
+ "file": "foe-hippogriff.glb",
+ "tris": 49873,
+ "kb": 2872,
+ "native_extent": [
+  1.0,
+  0.87,
+  0.561
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  105,
+  82,
+  52
+ ],
+ "mean_saturation": 0.538,
+ "sized_by": "its highest point",
+ "overall_ft": 7.0,
+ "pieces": {
+  "connected_parts": 9,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 8.0618,
+ "y0": -3.4478,
+ "stated_ft": {
+  "body": 7.0,
+  "figure_top": 7.0,
+  "overall": 7.0,
+  "length": 7.5
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4994,
+   -0.4277,
+   -0.2805
+  ],
+  [
+   0.5003,
+   0.4422,
+   0.2808
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49873,
+   "tex": 2048,
+   "kb": 2872
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1137
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 487
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 2.52,
+    "z": 1.26,
+    "size_ft": [
+     1.63,
+     2.04
+    ],
+    "off_ground_ft": 0.012,
+    "sole_level_share": 0.2,
+    "sole_p90_ft": 0.358
+   },
+   {
+    "x": 2.52,
+    "z": -1.29,
+    "size_ft": [
+     1.63,
+     2.04
+    ],
+    "off_ground_ft": 0.013,
+    "sole_level_share": 0.2,
+    "sole_p90_ft": 0.361
+   },
+   {
+    "x": -3.58,
+    "z": -0.01,
+    "size_ft": [
+     1.05,
+     1.9
+    ],
+    "off_ground_ft": 0.05,
+    "sole_level_share": 0.02,
+    "sole_p90_ft": 0.554
+   },
+   {
+    "x": -1.68,
+    "z": 1.14,
+    "size_ft": [
+     0.99,
+     1.2
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.293
+   },
+   {
+    "x": -1.69,
+    "z": -1.17,
+    "size_ft": [
+     0.99,
+     1.17
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.287
+   }
+  ],
+  "contact_count": 5,
+  "max_off_ground_ft": 0.05,
+  "lowest_slab_area_sqft": 3.0,
+  "plan_hull_area_sqft": 26.49,
+  "lowest_slab_share_of_plan": 0.113
+ },
+ "plan": {
+  "size_ft": {
+   "w": 8.05,
+   "d": 4.52,
+   "h": 7.0
+  },
+  "centre": [
+   -0.144,
+   0.001
+  ],
+  "contacts_radius_ft": 3.9,
+  "reach_radius_ft": 3.98,
+  "share_outside_2p5ft": 0.371
+ },
+ "silhouette": {
+  "iou": 0.872,
+  "plate_lost_share": 0.083,
+  "added_share": 0.051,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.831,
+  "view_yaw_deg": 225,
+  "view_elev_deg": 8
+ },
+ "id": "foe-hippogriff",
+ "sha1": "ade44da64ec12d9b56f9ee03586a2f6c00a5e595",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 14.1
+}

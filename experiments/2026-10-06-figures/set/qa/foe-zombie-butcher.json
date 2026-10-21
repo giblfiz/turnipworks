@@ -1,0 +1,176 @@
+{
+ "file": "foe-zombie-butcher.glb",
+ "tris": 48776,
+ "kb": 2876,
+ "native_extent": [
+  0.567,
+  1.001,
+  0.435
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  76,
+  56,
+  32
+ ],
+ "mean_saturation": 0.674,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 816,
+  "main_part_area_share": 0.896,
+  "floating": [
+   {
+    "area_share": 0.00085,
+    "gap_ft": 0.05,
+    "size_ft": 0.41
+   },
+   {
+    "area_share": 0.00045,
+    "gap_ft": 0.04,
+    "size_ft": 0.41
+   },
+   {
+    "area_share": 4e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.1
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.06,
+    "size_ft": 0.13
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.06
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.07,
+    "size_ft": 0.05
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.07,
+    "size_ft": 0.03
+   }
+  ],
+  "floating_count": 24,
+  "floating_area_share": 0.0014,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.9952,
+ "y0": -3.0026,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2832,
+   -0.5008,
+   -0.2167
+  ],
+  [
+   0.2842,
+   0.5002,
+   0.2186
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48776,
+   "tex": 2048,
+   "kb": 2876
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1148
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 486
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.98,
+    "z": -0.68,
+    "size_ft": [
+     1.28,
+     1.3
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.83,
+    "sole_p90_ft": 0.088
+   },
+   {
+    "x": 1.18,
+    "z": 0.52,
+    "size_ft": [
+     0.7,
+     1.55
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.86,
+    "sole_p90_ft": 0.079
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.83,
+  "plan_hull_area_sqft": 6.07,
+  "lowest_slab_share_of_plan": 0.302
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.4,
+   "d": 2.6,
+   "h": 6.0
+  },
+  "centre": [
+   -0.065,
+   0.318
+  ],
+  "contacts_radius_ft": 1.75,
+  "reach_radius_ft": 1.79,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.912,
+  "plate_lost_share": 0.073,
+  "added_share": 0.016,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.901,
+  "view_yaw_deg": 15,
+  "view_elev_deg": 8
+ },
+ "id": "foe-zombie-butcher",
+ "sha1": "7af02b4c2896bf30e34e386d3d773260c3cccae6",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "2 separate part(s) lying within 0.05 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 13.6
+}

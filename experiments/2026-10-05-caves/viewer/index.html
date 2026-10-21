@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turnip Works: caves pilot</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #0b0a09; color: #e8e4d8; font: 14px/1.35 system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  #bar { position: fixed; left: 10px; top: 10px; right: 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; pointer-events: none; }
+  #bar > * { pointer-events: auto; }
+  #bar a.home { color: #cfc9b4; text-decoration: none; margin-right: 6px; }
+  button, label.chk { background: #2b2925; color: #e8e4d8; border: 1px solid #4e4a40; border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer; }
+  button.on { background: #7a5a2c; border-color: #c79a4e; }
+  label.chk input { vertical-align: -2px; margin-right: 4px; }
+  .sep { width: 10px; }
+  #panel { position: fixed; left: 10px; bottom: 10px; width: min(430px, 94vw); max-height: 76vh; overflow: auto; background: #171513e6; border: 1px solid #3d3a33; border-radius: 8px; padding: 10px 12px; }
+  #panel h3 { margin: 0 0 4px; font-size: 15px; color: #f0d9a8; }
+  #panel p { margin: 4px 0 8px; color: #c9c4b4; }
+  .row { display: grid; grid-template-columns: 150px 1fr 74px; gap: 8px; align-items: center; margin: 3px 0; }
+  .row output { text-align: right; font-variant-numeric: tabular-nums; color: #f0d9a8; }
+  input[type=range] { width: 100%; }
+  #read { margin: 8px 0; padding: 6px 8px; background: #0f0e0c; border-radius: 6px; color: #d9d4c4; font-variant-numeric: tabular-nums; }
+  #read b { color: #f0d9a8; } #read .bad { color: #ff9a7a; } #read .good { color: #a9d68a; }
+  textarea { width: 100%; box-sizing: border-box; min-height: 46px; background: #0f0e0c; color: #e8e4d8; border: 1px solid #4e4a40; border-radius: 6px; padding: 6px; font: inherit; }
+  .verdict { display: flex; gap: 6px; margin-top: 6px; } .verdict button { flex: 1; padding: 9px; font-weight: 600; }
+  #good { background: #35502c; border-color: #6f9a5a; } #bad { background: #5a302a; border-color: #a8685c; }
+  #sent { color: #a9d68a; min-height: 1.3em; margin-top: 4px; }
+  #status { position: fixed; right: 10px; bottom: 10px; color: #8d897c; font-size: 12px; }
+  #hide { float: right; padding: 2px 8px; }
+  #panel.min > :not(h3) { display: none; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "postprocessing": "./lib/vendor/postprocessing-6.39.5.js",
+  "n8ao": "./lib/vendor/n8ao-2.0.1.js",
+  "three-good-godrays": "./lib/vendor/three-good-godrays-0.12.1.js"
+} }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="bar">
+  <a class="home" href="../">← Turnip Works</a>
+  <span id="scenes"></span><span class="sep"></span>
+  <button data-view="table">Table distance</button><button data-view="lean">Leaning in</button><button data-view="low">Low angle</button><span class="sep"></span>
+  <label class="chk"><input type="checkbox" id="grid">5-ft grid</label>
+  <label class="chk"><input type="checkbox" id="pawns">Pawns</label>
+  <label class="chk"><input type="checkbox" id="edgepawns">A pawn on every edge square</label>
+  <label class="chk"><input type="checkbox" id="cap">Solid rock above</label>
+  <label class="chk"><input type="checkbox" id="bright">Work light</label>
+</div>
+<div id="panel">
+  <h3><button id="hide" title="Hide or show this panel">–</button><span id="title"></span></h3>
+  <p id="note"></p>
+  <div id="sliders"></div>
+  <div class="row"><span>Seed</span><span><button id="reseed">New arrangement</button></span><output id="r-seed"></output></div>
+  <div id="read"></div>
+  <textarea id="noteBox" placeholder="Optional note: what gives it away, which scene, which setting…"></textarea>
+  <div class="verdict"><button id="good">Reads as a cave</button><button id="bad">Still a box</button></div>
+  <div id="sent"></div>
+</div>
+<div id="status">loading…</div>
+<script type="module" src="./main.js?v=__V__"></script>
+</body>
+</html>

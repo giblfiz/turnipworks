@@ -1,0 +1,241 @@
+{
+  "checks": {
+    "plain_opaque_unseen": true,
+    "plain_explored_translucent": true,
+    "plain_current_clear": true,
+    "post_opaque_unseen": true,
+    "post_explored_translucent": true,
+    "post_current_clear": true,
+    "clear_color_preserved": true,
+    "no_shader_recompile": true,
+    "transition_starts_opaque": true,
+    "transition_clears_gradually": true,
+    "reset_opaque_immediately": true,
+    "explored_decorative_still": true,
+    "level_lower_explored": true,
+    "level_upper_current": true,
+    "tone_color_preserved": true,
+    "aux_outside_unchanged": true,
+    "aux_clear_color_preserved": true,
+    "aux_viewport_preserved": true,
+    "disabled_final_pass_routes_to_screen": true,
+    "enabled_final_pass_masks": true,
+    "disabled_again_restores_picture": true,
+    "far_camera_sea_continuous": true,
+    "flyer_base_vision_overrides_fragment_level": true,
+    "flyer_walls_still_occlude": true,
+    "overlay_readable_in_unseen": true,
+    "transparent_overlay_reveals_no_underlying_shape": true,
+    "overlay_render_state_restored": true,
+    "no_browser_errors": true
+  },
+  "results": {
+    "plain": [
+      [
+        87,
+        91,
+        93,
+        255
+      ],
+      [
+        150,
+        78,
+        80,
+        255
+      ],
+      [
+        240,
+        0,
+        0,
+        255
+      ]
+    ],
+    "post": [
+      [
+        87,
+        91,
+        93,
+        255
+      ],
+      [
+        150,
+        78,
+        80,
+        255
+      ],
+      [
+        240,
+        0,
+        0,
+        255
+      ]
+    ],
+    "baseline": [
+      240,
+      0,
+      0,
+      255
+    ],
+    "programs": [
+      3,
+      3
+    ],
+    "transitionStart": [
+      87,
+      91,
+      93,
+      255
+    ],
+    "transitionZero": [
+      87,
+      91,
+      93,
+      255
+    ],
+    "transitionMid": [
+      63,
+      193,
+      68,
+      255
+    ],
+    "transitionEnd": [
+      0,
+      255,
+      0,
+      255
+    ],
+    "resetImmediate": [
+      87,
+      91,
+      93,
+      255
+    ],
+    "stillA": [
+      148,
+      73,
+      75,
+      255
+    ],
+    "stillB": [
+      148,
+      73,
+      75,
+      255
+    ],
+    "levels": [
+      [
+        150,
+        78,
+        80,
+        255
+      ],
+      [
+        0,
+        0,
+        255,
+        255
+      ]
+    ],
+    "toneBaseline": [
+      242,
+      0,
+      17,
+      255
+    ],
+    "toneMasked": [
+      242,
+      0,
+      17,
+      255
+    ],
+    "auxOutsideBefore": [
+      240,
+      0,
+      0,
+      255
+    ],
+    "auxOutsideAfter": [
+      240,
+      0,
+      0,
+      255
+    ],
+    "auxInside": [
+      240,
+      0,
+      0,
+      255
+    ],
+    "auxViewport": [
+      100,
+      100,
+      300,
+      200
+    ],
+    "auxScissor": true,
+    "disabledFirst": [
+      250,
+      0,
+      0,
+      255
+    ],
+    "enabledAfter": [
+      87,
+      91,
+      93,
+      255
+    ],
+    "disabledAgain": [
+      250,
+      0,
+      0,
+      255
+    ],
+    "seaMaxJump": 1,
+    "flyerUnprotected": [
+      87,
+      91,
+      93,
+      255
+    ],
+    "flyerProtected": [
+      0,
+      255,
+      0,
+      255
+    ],
+    "flyerOccluded": [
+      87,
+      91,
+      93,
+      255
+    ],
+    "packMedian": 1.8000000715255737,
+    "packTimes": [
+      1.7999999523162842,
+      1.7999999523162842,
+      1.8000000715255737,
+      1.8000000715255737,
+      1.8000000715255737,
+      1.899999976158142,
+      1.899999976158142,
+      2.100000023841858
+    ],
+    "overlayLeft": [
+      129,
+      132,
+      134,
+      255
+    ],
+    "overlayRight": [
+      129,
+      132,
+      134,
+      255
+    ],
+    "overlayRestored": true,
+    "gpu_ms": 0.3130982400000002,
+    "gpu_samples": 60
+  },
+  "errors": []
+}

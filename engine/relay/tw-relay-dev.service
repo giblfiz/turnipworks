@@ -1,0 +1,27 @@
+# DEV relay for https://dev.turnipworks.net/ and the implausible.enterprises game entry (2026-10-19; docs/NETCODE.md
+# "Two servers"). Runs the main checkout's relay code against its OWN campaigns (/var/lib/tw-relay-dev/data). Every
+# deploy restarts it (engine/deploy.sh, tools/spawn-tuner/deploy.sh); nobody minds.
+[Unit]
+Description=Turnip Works DEV relay (dev.turnipworks.net; the main checkout)
+After=network.target
+
+[Service]
+Type=simple
+User=fauna
+Group=fauna
+WorkingDirectory=/opt/turnip-works/engine
+Environment=PORT=8098
+Environment=DATA_DIR=/var/lib/tw-relay-dev/data
+# the relay solves rooms with the DEPLOYED dev tuner, the same files the dev game imports
+Environment=TUNER_DIR=/var/www/implausible-landing/projects/turnip-works/tuner/js
+Environment=TUNER_DATA=/var/www/implausible-landing/projects/turnip-works/tuner/data
+Environment=PUBLIC_BASE=https://{host}/api/tw-relay
+Environment=TW_CHANNEL=dev
+ExecStart=/usr/bin/node relay/server.js
+Restart=always
+RestartSec=1
+KillSignal=SIGTERM
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,35 @@
+{
+ "sku": "table-feast",
+ "glb_sha1": "e24ba3b7deb901f4313131b2bcf31f1d0ef33bd4",
+ "time": "2026-10-05T20:47:14-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "wooden bench",
+  "second_guess": "long narrow wooden table",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A long stylized wooden bench featuring a flat top made of twin longitudinal planks with end caps, supported by three sculpted trestle leg assemblies with darker wooden foot blocks, joined underneath by a horizontal wooden stretcher beam.",
+  "from_above": "A long narrow brown rectangle with a lengthwise central seam, end framing, and the tips of six darker feet protruding slightly along the sides underneath.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "Roughly one-third the height of the 5 ft 9 in figure (around 1.8 to 2 ft high), and about twice to 2.5 times as long as the figure is tall (around 12 to 14 ft long)."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "wooden bench / long narrow wooden table",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "Read initially as a bench due to proportions, but functions well as a long trestle table at table distance"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "footprint proportion 1.45x off the catalog (14.0 x 4.3 ft)",
+  "height proportion 1.57x off the catalog",
+  "gemini note: Read initially as a bench due to proportions, but functions well as a long trestle table at table distance"
+ ],
+ "vision": true
+}

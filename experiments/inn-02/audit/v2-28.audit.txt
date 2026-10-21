@@ -1,0 +1,6 @@
+#1 semantic=PASS mask=PASS — matches prompt, clean cutout.
+#2 semantic=PASS mask=PASS — matches prompt, interior correctly retained.
+#3 semantic=PASS mask=FAIL — mask incorrectly removes the interior of the bucket under the lid.
+#4 semantic=PASS mask=PASS — matches prompt, gaps between spindles are correctly masked.
+#5 semantic=PASS mask=PASS — matches prompt, clean cutout.
+#6 semantic=PASS mask=FAIL — mask fails to remove the blue background from inside the ring pull.

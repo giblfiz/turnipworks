@@ -1,0 +1,11 @@
+Edit task. The supplied image shows an iron-bound chest in the Turnip Works hand-painted house style. Keep it the SAME chest: identical wood colour, identical iron bands and their positions, identical corner fittings, identical lock plate, identical proportions (about 36 in wide x 20 in deep x 22 in tall overall when closed), identical painting style. Do not redesign it.
+
+Show ONLY the lower box (the body) of this chest with the lid completely REMOVED and absent from the image. The rim is perfectly LEVEL: all four walls are exactly the same height and the top edge is parallel to the bottom edge; walls about 2 in thick. The box is DEEP and EMPTY: the inside floor sits just above the bottom of the box, so the cavity is about 85% of the body's height deep. The inside walls and floor are planks of darker, shadowed wood. Nothing inside.
+
+Camera: straight DOWN from directly above (top view, 90 degrees). We see the level rectangular rim and look straight into the deep empty cavity to the plank floor. The front wall with the lock plate is at the BOTTOM of the image.
+
+Geometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.
+Finish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.
+Palette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.
+
+Presentation for image-to-3D: exactly one complete asset, centered, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting, no environment, no additional objects. Orthographic-feeling camera, no strong perspective.

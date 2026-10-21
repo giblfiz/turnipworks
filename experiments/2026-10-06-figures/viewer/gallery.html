@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turnip Works: figure set</title>
+<style>
+  :root { --tile: 168px; --bg: #0b0a09; --ink: #e8e4d8; --dim: #a8a393; --gold: #f0d9a8; --line: #3d3a33; --btn: #2b2925; --edge: #4e4a40; }
+  html { background: var(--bg); }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.4 system-ui, sans-serif; }
+  body.open { overflow: hidden; }
+  a { color: #d9c48e; }
+  button, select, input[type=search], label.chk { background: var(--btn); color: var(--ink); border: 1px solid var(--edge); border-radius: 6px; padding: 5px 10px; font: inherit; }
+  button, label.chk, select { cursor: pointer; }
+  button.on { background: #7a5a2c; border-color: #c79a4e; }
+  button:focus-visible, .tile:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid #c79a4e; outline-offset: 1px; }
+  button .n { color: var(--dim); font-variant-numeric: tabular-nums; margin-left: 3px; font-size: 12px; }
+  button.zero { opacity: 0.45; }
+  label.chk input { vertical-align: -2px; margin: 0 5px 0 0; }
+  label.chk.on { background: #7a5a2c; border-color: #c79a4e; }
+
+  /* ---- the top of the page */
+  #top { position: sticky; top: 0; z-index: 5; background: #100f0df2; border-bottom: 1px solid var(--line); padding: 10px 16px 8px; }
+  #head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; margin-bottom: 8px; }
+  #head h1 { margin: 0; font-size: 19px; color: var(--gold); font-weight: 650; }
+  #head .links a { margin-right: 12px; white-space: nowrap; }
+  #head .counts { color: var(--ink); font-variant-numeric: tabular-nums; }
+  #head .counts b { color: var(--gold); }
+  #head .counts span + span::before { content: "·"; margin: 0 8px; color: #6b675c; }
+  .frow { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 5px 0 0; }
+  .frow .lab { color: var(--dim); font-size: 12.5px; margin: 0 2px 0 8px; }
+  .frow .lab:first-child { margin-left: 0; }
+  #q { flex: 1 1 220px; max-width: 360px; min-width: 150px; padding: 6px 10px; cursor: text; }
+  #shown { margin-left: auto; color: var(--dim); font-variant-numeric: tabular-nums; }
+  #arrived { display: none; margin: 8px 0 0; padding: 7px 10px; background: #2c3a22; border: 1px solid #6f9a5a; border-radius: 6px; }
+  #arrived button { margin-left: 8px; }
+
+  /* ---- the grid: plain pictures, never 3D */
+  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--tile), 1fr)); gap: 10px; padding: 14px 16px 60px; }
+  .tile { position: relative; display: flex; flex-direction: column; padding: 0; border: 1px solid #2a2823; border-radius: 8px; background: #151412; overflow: hidden; text-align: left;
+          content-visibility: auto; contain-intrinsic-size: auto var(--tile) auto calc(var(--tile) + 40px); }
+  .tile[hidden] { display: none; }
+  .tile:hover { border-color: #c79a4e; }
+  .tile .pic { display: block; aspect-ratio: 1; background: #0b0a09; position: relative; }
+  .tile img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .tile .pic.none::after { content: "No picture yet"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #6b675c; font-size: 12px;
+          background: radial-gradient(ellipse 34% 14% at 50% 74%, #2a2823 0 98%, transparent 100%), radial-gradient(ellipse 13% 26% at 50% 50%, #24221e 0 98%, transparent 100%); padding-top: 62%; box-sizing: border-box; align-items: flex-start; }
+  .tile .nm { display: block; padding: 5px 8px 6px; height: 2.7em; line-height: 1.3; font-size: 12.5px; color: #d9d4c4; overflow: hidden; }
+  .tile .new { position: absolute; left: 6px; top: 6px; background: #c79a4e; color: #17130a; font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; padding: 1px 5px; border-radius: 4px; }
+  .tile .vd { position: absolute; right: 6px; top: 6px; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 10px; display: none; }
+  .tile.good .vd { display: block; background: #2f5a25; color: #d6f2c4; border: 1px solid #7fb268; }
+  .tile.bad .vd { display: block; background: #6a2a22; color: #ffd9cf; border: 1px solid #c8776a; }
+  .tile.good { border-color: #4f7a40; } .tile.bad { border-color: #8a4a40; }
+  #empty { display: none; padding: 50px 16px; text-align: center; color: var(--dim); font-size: 15px; }
+  #empty.err { color: #ffb39e; }
+  #empty button { margin-top: 12px; }
+
+  /* ---- the inspector: one figure in 3D, one canvas shared by every figure */
+  #insp { position: fixed; inset: 0; z-index: 20; background: var(--bg); display: none; grid-template-columns: minmax(0, 1fr) 410px; }
+  body.open #insp { display: grid; }
+  #stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: #070605; }
+  #c { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  #nav, #viewbar { position: absolute; left: 10px; right: 10px; display: flex; gap: 6px; align-items: center; pointer-events: none; }
+  #nav { top: 10px; } #viewbar { top: 50px; flex-wrap: wrap; }
+  #views { display: flex; gap: 6px; flex-wrap: wrap; } #toggles { display: contents; }
+  #nav > *, #views > *, #toggles > * { pointer-events: auto; flex: none; }
+  #nav button, #viewbar button, #viewbar label.chk { background: #2b2925e8; }
+  #nav button.on, #viewbar button.on, #viewbar label.chk.on { background: #7a5a2c; }
+  #pos { color: var(--ink); background: #171513cc; padding: 4px 9px; border-radius: 6px; font-variant-numeric: tabular-nums; }
+  .gap { width: 8px; flex: none; }
+  #busy { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); max-width: min(520px, 86%); padding: 12px 16px; border-radius: 8px; background: #171513e6; border: 1px solid var(--line); color: var(--ink); font-size: 15px; display: none; text-align: center; }
+  #busy.err { background: #3a1f1a; border-color: #a8685c; color: #f3e6d8; }
+  #fps { position: absolute; right: 10px; bottom: 10px; color: #cfc9b4; font-size: 12px; font-variant-numeric: tabular-nums; background: #171513cc; padding: 2px 7px; border-radius: 5px; }
+  #side { overflow: auto; border-left: 1px solid var(--line); background: #171513; padding: 14px 16px 30px; }
+  #side h2 { margin: 0 0 2px; font-size: 19px; color: var(--gold); font-weight: 650; }
+  #side h3 { margin: 16px 0 6px; font-size: 13px; color: var(--gold); font-weight: 600; border-top: 1px solid var(--line); padding-top: 10px; }
+  #side .what { color: #cfc9b4; }
+  #side .idrow { display: flex; align-items: center; gap: 8px; margin: 6px 0 10px; }
+  #side code { font: 12.5px ui-monospace, Menlo, monospace; color: #cfc9b4; background: #0f0e0c; border: 1px solid var(--line); border-radius: 5px; padding: 3px 7px; overflow-wrap: anywhere; user-select: all; }
+  #side .idrow button { padding: 2px 8px; font-size: 12.5px; }
+  .badge { background: #c79a4e; color: #17130a; font-size: 10.5px; font-weight: 700; padding: 1px 5px; border-radius: 4px; vertical-align: 3px; margin-left: 6px; }
+  #note { width: 100%; box-sizing: border-box; min-height: 52px; background: #0f0e0c; color: var(--ink); border: 1px solid var(--edge); border-radius: 6px; padding: 6px 8px; font: inherit; resize: vertical; }
+  .verdict { display: flex; gap: 8px; margin: 8px 0 4px; }
+  .verdict button { flex: 1; padding: 10px 6px; font-weight: 650; font-size: 15px; }
+  .verdict button kbd { font: 11px ui-monospace, Menlo, monospace; opacity: 0.75; border: 1px solid currentColor; border-radius: 3px; padding: 0 4px; margin-left: 6px; }
+  #v-good { background: #35502c; border-color: #6f9a5a; } #v-bad { background: #5a302a; border-color: #a8685c; }
+  #v-good.on { background: #4f8a3c; border-color: #d6f2c4; box-shadow: 0 0 0 2px #d6f2c455; } #v-bad.on { background: #99453a; border-color: #ffd9cf; box-shadow: 0 0 0 2px #ffd9cf55; }
+  #sent { min-height: 1.3em; font-size: 12.5px; color: #a9d68a; margin: 4px 0 2px; }
+  #sent.err { color: #ff9a7a; }
+  .small { font-size: 12.5px; color: var(--dim); }
+  .opts { display: flex; flex-wrap: wrap; gap: 5px; margin: 4px 0 8px; }
+  .opts button { padding: 5px 9px; }
+  .opts .cap { flex-basis: 100%; color: var(--dim); font-size: 12.5px; margin-top: 2px; }
+  .sw { width: 26px; height: 26px; padding: 0 !important; border-radius: 50%; border: 2px solid var(--edge); }
+  .sw.on { border-color: #fff; }
+  dl.facts { display: grid; grid-template-columns: 118px 1fr; gap: 4px 10px; margin: 0; }
+  dl.facts dt { color: var(--dim); } dl.facts dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .tag { display: inline-block; background: #24221e; border: 1px solid var(--line); border-radius: 10px; padding: 0 7px; margin: 0 4px 4px 0; font-size: 12.5px; }
+  ul.notes { margin: 0; padding-left: 16px; } ul.notes li { margin-bottom: 2px; }
+  .extra2 { display: contents; } #more-btn { display: none; }
+  .warn { color: #ffb39e; }
+
+  /* ---- a phone */
+  @media (max-width: 820px) {
+    #top { position: static; padding: 10px 12px 8px; }
+    #grid { padding: 10px 12px 60px; gap: 8px; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); }
+    .tile { contain-intrinsic-size: auto 150px auto 190px; }
+    #shown { margin-left: 0; flex-basis: 100%; }
+    #more-btn { display: inline-block; } #top:not(.more) .extra, #top:not(.more) .extra2 { display: none; }
+    #top.more .extra2 { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; flex-basis: 100%; }
+    .tile .nm { font-size: 12px; padding: 4px 6px 5px; }
+    #insp { grid-template-columns: minmax(0, 1fr); grid-template-rows: 52vh minmax(0, 1fr); grid-template-rows: 52dvh minmax(0, 1fr); }
+    #side { border-left: 0; border-top: 1px solid var(--line); padding: 12px 12px 30px; }
+    #keys { display: none; }
+    #viewbar { display: contents; } #viewbar .gap { display: none; }
+    #views { position: absolute; top: 54px; left: 10px; right: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    #toggles { position: absolute; left: 10px; right: 10px; bottom: 8px; display: flex; gap: 6px; flex-wrap: wrap; pointer-events: none; }
+    #fps { bottom: 52px; }
+    #nav button, #viewbar button, #viewbar label.chk { padding: 8px 11px; } 
+    #side h2 { font-size: 17px; } dl.facts { grid-template-columns: 92px 1fr; font-size: 13.5px; }
+  }
+  /* ---- the mode thumbs.py photographs: the figure alone, nothing else on the page */
+  body.shot { overflow: hidden; }
+  body.shot #top, body.shot #grid, body.shot #empty, body.shot #side, body.shot #nav, body.shot #viewbar, body.shot #fps { display: none !important; }
+  body.shot #insp { display: block; } body.shot #stage { position: fixed; inset: 0; background: var(--bg); }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "postprocessing": "./lib/vendor/postprocessing-6.39.5.js",
+  "n8ao": "./lib/vendor/n8ao-2.0.1.js",
+  "three-good-godrays": "./lib/vendor/three-good-godrays-0.12.1.js"
+} }
+</script>
+</head>
+<body>
+<div id="top">
+  <div id="head">
+    <h1>Turnip Works: figure set</h1>
+    <span class="links"><a href="../">Back to the four-figure pilot</a><a href="../../">Turnip Works project page</a></span>
+    <span class="counts" id="counts">Loading the list of figures…</span>
+  </div>
+  <div class="frow" id="groups"></div>
+  <div class="frow extra"><span class="lab">People</span><span class="frow" id="races" style="margin:0"></span><span class="lab">Man or woman</span><span class="frow" id="genders" style="margin:0"></span>
+    <span class="lab">Class or role</span><select id="cls" title="Class for heroes, job for townsfolk, kind of creature for foes"></select></div>
+  <div class="frow">
+    <input type="search" id="q" placeholder="Search: bugbear, cult fanatic, dwarf guard…" autocomplete="off" spellcheck="false" title="Looks in names, ids, tags and the rulebook creatures a figure stands in for. Several words: all must match.">
+    <label class="chk" id="l-fresh" title="Only the figures that arrived in the latest batch"><input type="checkbox" id="fresh">New only</label>
+    <label class="chk" id="l-unjudged" title="Only the figures you have not given a verdict on yet (in this browser)"><input type="checkbox" id="unjudged">Not judged yet</label>
+    <button id="more-btn">More filters</button>
+    <span class="extra2"><span class="lab">Order</span><select id="sort"><option value="group">Kind, then name</option><option value="new">Newest first</option></select>
+    <span class="lab">Picture size</span><span id="sizes" class="frow" style="margin:0"></span></span>
+    <button id="clear" style="display:none">Clear filters</button>
+    <span id="shown"></span>
+  </div>
+  <div id="arrived"><span id="arrived-text"></span><button id="arrived-go">Show them</button></div>
+</div>
+<div id="grid"></div>
+<div id="empty"></div>
+
+<div id="insp" aria-hidden="true">
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="nav">
+      <button id="close" title="Back to all the figures (Esc)">Back to the set</button>
+      <button id="prev" title="Previous figure (left arrow)">Previous</button>
+      <button id="next" title="Next figure (right arrow)">Next</button>
+      <span id="pos"></span>
+    </div>
+    <div id="viewbar">
+      <span id="views"></span><span class="gap"></span>
+      <span id="toggles"><label class="chk" id="l-spin"><input type="checkbox" id="spin">Turntable</label>
+      <button id="look-night" title="The game's own lighting when no other look is chosen">Night</button><button id="look-day">Day</button>
+      <label class="chk" id="l-aids" title="The 5-ft grid on the floor and the striped pole (one band per foot)"><input type="checkbox" id="aids">Grid and pole</label></span>
+    </div>
+    <div id="busy"></div>
+    <div id="fps" title="Frames drawn in the last second, and the size the picture is drawn at. The page only draws while something moves."></div>
+  </div>
+  <div id="side">
+    <h2><span id="f-name"></span><span class="badge" id="f-new" style="display:none">NEW</span></h2>
+    <div class="what" id="f-what"></div>
+    <div class="idrow"><code id="f-id"></code><button id="copy" title="Copy the figure's id">Copy id</button></div>
+
+    <textarea id="note" placeholder="Optional note: what is wrong or right with it…"></textarea>
+    <div class="verdict"><button id="v-good">Good miniature<kbd>G</kbd></button><button id="v-bad">Not good enough<kbd>B</kbd></button></div>
+    <div id="sent"></div>
+    <label class="small"><input type="checkbox" id="auto" style="vertical-align:-2px"> After a verdict, go straight to the next figure</label>
+    <div class="small" id="keys" style="margin-top:6px">Keys: G good, B not good enough, left and right arrows for the previous and next figure, Esc to go back. In the picture: drag to turn it, scroll to zoom.</div>
+
+    <h3>How it is shown</h3>
+    <div class="opts" id="tiers"><span class="cap">Detail (which file is drawn)</span></div>
+    <div class="opts" id="bases"><span class="cap">Base (added by the page, not part of the figure)</span></div>
+    <div class="opts" id="colors"><span class="cap">Seat colour</span></div>
+
+    <h3>About this figure</h3>
+    <dl class="facts" id="facts"></dl>
+  </div>
+</div>
+<script type="module" src="./gallery.js?v=__V__"></script>
+</body>
+</html>

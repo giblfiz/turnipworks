@@ -1,0 +1,16 @@
+{"rooms": [
+ {"key": "dun-corridor", "label": "Corridor", "reads_as": "a dungeon corridor / passage / hallway", "focal": []},
+ {"key": "dun-trap-corridor", "label": "Trap corridor", "reads_as": "a trapped corridor / trap gauntlet / hall of traps", "focal": ["pressure-plate", "trap-spikes", "trap-blade"]},
+ {"key": "dun-dead-end", "label": "Dead end", "reads_as": "a dead end / blocked passage / collapsed tunnel / alcove with a statue, sealed door or chest", "focal": ["collapse-rubble", "door-rune-sealed", "statue-guardian", "chest-treasure"]},
+ {"key": "dun-cell-block", "label": "Cell block", "reads_as": "a prison cell block / jail / dungeon cells", "focal": ["cell-bars"]},
+ {"key": "dun-guard-room", "label": "Guard room", "reads_as": "a guard room / guard post / barracks room / jailer's room", "focal": ["table-square"]},
+ {"key": "dun-interrogation", "label": "Interrogation room", "reads_as": "a torture chamber / interrogation room", "focal": ["chair-interrogation", "rack-torture"]},
+ {"key": "dun-vault", "label": "Treasure vault", "reads_as": "a treasure vault / treasury / treasure room / hoard", "focal": ["chest-treasure-open", "dun-treasure-hoard"]},
+ {"key": "dun-sewer", "label": "Sewer", "reads_as": "a sewer / sewer tunnel / canal or aqueduct passage with a water channel", "focal": ["sewer-channel-strip"]},
+ {"key": "dun-puzzle-hall", "label": "Puzzle hall", "reads_as": "a puzzle room / rune chamber / trial room / magical or ritual chamber with a sealed door", "focal": ["door-rune-sealed", "rune-tile", "statue-rotating"]},
+ {"key": "dun-chasm", "label": "Chasm crossing", "reads_as": "a chasm / pit / ravine crossing with a bridge", "focal": ["chasm-strip", "bridge-stone-natural"]},
+ {"key": "dun-den", "label": "Monster den", "reads_as": "a monster lair / den / nest / spider lair", "focal": ["nest-monster"]},
+ {"key": "dun-shrine", "label": "Shrine", "reads_as": "a shrine / small chapel / altar room", "focal": ["shrine-wayside", "statue-forgotten-god"]},
+ {"key": "dun-flooded", "label": "Flooded chamber", "reads_as": "a flooded chamber / cistern / flooded room / pool room", "focal": ["pillar-waterline", "statue-forgotten-god"]},
+ {"key": "dun-collapsed", "label": "Collapsed hall", "reads_as": "a collapsed / ruined / caved-in hall", "focal": ["collapse-rubble"]}
+]}

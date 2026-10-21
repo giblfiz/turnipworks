@@ -1,0 +1,210 @@
+{
+ "file": "foe-lizardfolk-shaman.glb",
+ "tris": 46846,
+ "kb": 3315,
+ "native_extent": [
+  0.757,
+  0.999,
+  0.87
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  87,
+  69,
+  21
+ ],
+ "mean_saturation": 0.822,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 6.13,
+  "length_ft": 6.27,
+  "low_end_ft": [
+   -1.16,
+   0.69,
+   0.64
+  ],
+  "high_end_ft": [
+   -1.95,
+   6.91,
+   0.79
+  ],
+  "tilt_from_upright_deg": 7.4,
+  "thickness_ft": 0.43,
+  "clear_share": 0.59,
+  "joined_share": 0.41,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-###########------------#######-----------------######----"
+ },
+ "overall_ft": 6.83,
+ "pieces": {
+  "connected_parts": 472,
+  "main_part_area_share": 0.9365,
+  "floating": [
+   {
+    "area_share": 0.00012,
+    "gap_ft": 0.03,
+    "size_ft": 0.12
+   },
+   {
+    "area_share": 6e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.11
+   },
+   {
+    "area_share": 4e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.06
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.06
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.17
+   }
+  ],
+  "floating_count": 14,
+  "floating_area_share": 0.00032,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.8356,
+ "y0": -3.4177,
+ "stated_ft": {
+  "body": 6.5,
+  "figure_top": 6.5,
+  "overall": 6.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3803,
+   -0.5001,
+   -0.4349
+  ],
+  [
+   0.3769,
+   0.4993,
+   0.4346
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 46846,
+   "tex": 2048,
+   "kb": 3315
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1346
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 541
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.32,
+    "z": 2.01,
+    "size_ft": [
+     1.22,
+     1.79
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.54,
+    "sole_p90_ft": 0.238
+   },
+   {
+    "x": -1.05,
+    "z": 0.28,
+    "size_ft": [
+     1.48,
+     1.71
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.58,
+    "sole_p90_ft": 0.187
+   },
+   {
+    "x": -0.43,
+    "z": -1.87,
+    "size_ft": [
+     0.43,
+     0.51
+    ],
+    "off_ground_ft": 0.593,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.612
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.593,
+  "lowest_slab_area_sqft": 2.69,
+  "plan_hull_area_sqft": 18.64,
+  "lowest_slab_share_of_plan": 0.144
+ },
+ "plan": {
+  "size_ft": {
+   "w": 5.17,
+   "d": 5.94,
+   "h": 6.83
+  },
+  "centre": [
+   0.591,
+   0.347
+  ],
+  "contacts_radius_ft": 2.68,
+  "reach_radius_ft": 3.85,
+  "share_outside_2p5ft": 0.083
+ },
+ "silhouette": {
+  "iou": 0.854,
+  "plate_lost_share": 0.083,
+  "added_share": 0.074,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.845,
+  "view_yaw_deg": 15,
+  "view_elev_deg": 8
+ },
+ "id": "foe-lizardfolk-shaman",
+ "sha1": "dfe09d0d760b330e3b05a811267e224f752b6786",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.03 ft of the body (not joined to it)",
+  "one foot is 0.59 ft off the ground",
+  "reaches 1.4 ft outside its square",
+  "its feet need a base 5.4 ft across"
+ ],
+ "qa_seconds": 18.5
+}

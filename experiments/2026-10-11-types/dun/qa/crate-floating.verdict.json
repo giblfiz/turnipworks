@@ -1,0 +1,37 @@
+{
+ "sku": "crate-floating",
+ "glb_sha1": "0790fb55db7d704b018c30aed26fccfa8f83e420",
+ "time": "2026-10-11T19:26:50-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "floating wooden crate and barrel",
+  "second_guess": "swamp debris flotsam",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized low-poly model of cargo floating or half-submerged in water. It consists of a square wooden crate with reinforced plank borders and a tilted wooden barrel with dark metal hoops lying partially submerged beside it. Both rest in a small irregular flat pool of murky greenish water detailed with floating green leaves and mossy stains along the lower edges of the wood. The surfaces are solid, smoothly rendered, and painted in a hand-crafted cartoon style.",
+  "from_above": "From directly above, it appears as a rectangular wooden crate lid next to an angled wooden barrel section, resting within an irregular green water puddle trimmed with small oval green leaves.",
+  "defects": [],
+  "extra_base_or_ground": "flat puddle-shaped water base with floating leaves",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1/4 the height of the figure (around 1.3 to 1.5 ft tall) and roughly 2.5 to 3 ft wide overall."
+ },
+ "match": {
+  "ok": false,
+  "reads_as": "floating wooden crate and barrel",
+  "cause": "plate",
+  "problems": [
+   "Violates must-not: includes a visible water/puddle base around the objects instead of being joined only by scum"
+  ],
+  "notes": [
+   "Observer identified an extra puddle-shaped water base with floating leaves"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "gemini: Violates must-not: includes a visible water/puddle base around the objects instead of being joined only by scum"
+ ],
+ "notes": [
+  "gemini note: Observer identified an extra puddle-shaped water base with floating leaves"
+ ],
+ "vision": true
+}

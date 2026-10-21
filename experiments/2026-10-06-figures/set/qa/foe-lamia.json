@@ -1,0 +1,156 @@
+{
+ "file": "foe-lamia.glb",
+ "tris": 48299,
+ "kb": 2570,
+ "native_extent": [
+  0.918,
+  1.001,
+  0.634
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0006,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  137,
+  90,
+  40
+ ],
+ "mean_saturation": 0.689,
+ "sized_by": "its highest point",
+ "overall_ft": 6.5,
+ "pieces": {
+  "connected_parts": 8,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.495,
+ "y0": -3.2528,
+ "stated_ft": {
+  "body": 6.5,
+  "figure_top": 6.5,
+  "overall": 6.5,
+  "length": 6.5
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4586,
+   -0.5008,
+   -0.3178
+  ],
+  [
+   0.459,
+   0.5001,
+   0.3164
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48299,
+   "tex": 2048,
+   "kb": 2570
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1030
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 458
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -1.92,
+    "z": 0.66,
+    "size_ft": [
+     1.11,
+     1.19
+    ],
+    "off_ground_ft": 0.013,
+    "sole_level_share": 0.56,
+    "sole_p90_ft": 0.313
+   },
+   {
+    "x": 0.9,
+    "z": -0.87,
+    "size_ft": [
+     1.08,
+     1.14
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.67,
+    "sole_p90_ft": 0.183
+   },
+   {
+    "x": -1.96,
+    "z": -1.24,
+    "size_ft": [
+     1.0,
+     1.22
+    ],
+    "off_ground_ft": 0.012,
+    "sole_level_share": 0.57,
+    "sole_p90_ft": 0.317
+   },
+   {
+    "x": 1.47,
+    "z": 1.09,
+    "size_ft": [
+     1.03,
+     1.08
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.66,
+    "sole_p90_ft": 0.147
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.013,
+  "lowest_slab_area_sqft": 2.83,
+  "plan_hull_area_sqft": 16.42,
+  "lowest_slab_share_of_plan": 0.173
+ },
+ "plan": {
+  "size_ft": {
+   "w": 5.96,
+   "d": 4.11,
+   "h": 6.5
+  },
+  "centre": [
+   -0.312,
+   -0.09
+  ],
+  "contacts_radius_ft": 2.6,
+  "reach_radius_ft": 3.45,
+  "share_outside_2p5ft": 0.061
+ },
+ "silhouette": {
+  "iou": 0.856,
+  "plate_lost_share": 0.077,
+  "added_share": 0.079,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.77,
+  "view_yaw_deg": 50,
+  "view_elev_deg": 0
+ },
+ "id": "foe-lamia",
+ "sha1": "9d51294b5c9064818cb2c6da60c8c2d7af609ca5",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 15.9
+}

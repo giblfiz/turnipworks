@@ -1,0 +1,31 @@
+# Task G — vision fog integration
+
+The coordinator corrected the original fresh-client assumption: exploration is ordinary campaign state, never delivered history. Current sight stays client-side. See docs/NETCODE.md for persisted format, filtering, throttle and reset epochs; docs/UI.md for behavior. Worktree codex-g was used because codex-e was already occupied. PHOENIX.md is unchanged.
+
+## Verified live — 2026-10-14
+
+Deployed and pushed **81914b5**: client **20261014001649**, tuner **20261014001634**. Public versions and relay health matched. A concurrent wall-fit landing subsequently deployed client **20261014005016** and tuner **20261014005004**; an additional live fog run passed **43/43** on these versions, removed its throwaway, and preserved house data. Full tuner and engine deploys each backed up301 campaigns before restart; live two-tab later backed up302 before its deliberate restart. All live checks ran after releasing the landing lock.
+
+Locked browser gate **890/890**: required regressions819 (UI87, rooms130, pawnring105, pawnsmenu168, two-tab28, cut140, cuts26, followons42, graphics93), fog43, renderer28. **Live862/862** repeats the nine regressions and fog43. Core715, relay200, network5;30 geometry/raster/settings/storage tests plus faction-picker21 assertions (31 TAP wrappers total including the picker file). Source/asset gates green; cached live asset audit47,536 paths per host, zero missing. Every live throwaway was removed; house look/ratings unchanged. `results/verification.json` records exact logs, counts and unsuccessful attempts.
+
+The first locked gate stopped before deployment at pawn-menu167/168: the first tooltip hover sampled coordinates during the tray’s180ms entrance transform. The fixture now awaits that animation and uses Playwright’s stable hover action; all tooltip assertions remain. Failure evidence: `/tmp/tw-fog-landing-attempt1/pawnsmenu.log`. The unchanged retry and corrected locked fixture both passed168/168.
+
+The first two-tab run25/28 failed downstream of a mouse click selecting an overlapping randomized pawn; separating the target fixture preserves the real click and all atomicity/PiP/restart assertions, and passed28/28. The initial fog assertions passed while GM rendering was blank: table-camera review caught the disabled-last-pass routing error. Exact canvas/synthetic checks now cover it. Delayed-worker races, privacy on reconnect, flat fallback, flyers and ruler overlays are tested. Shared full-map thumbnails are omitted for fog viewers to avoid navigation showing an unmasked GM picture.
+
+Deployment initially copied client/tuner files but correctly refused the relay restart because the isolated worktree had no campaign data directory. Recovery reacquired the lock, fetched main, verified an identical gated source tree, set the service’s real `DATA_DIR`, repeated normal deploys, backed up campaigns and restarted successfully. The lock wait was prolonged by another landing’s software-rendered browser gate. A prior local run collided with another worktree’s default pawn-ring port; dedicated `TW_PORTS` resolved it, retaining earlier green results only after exact Git tree equality.
+
+Live retries: pawn-menu navigation timed out before assertions, then unchanged168/168; the runner omitted the two-tab restart command and cut’s relay query URL. Both harness arguments are now explicit (restart first backs up campaigns), and full reruns passed28/28 and140/140. No runtime workaround or weakened assertion shipped.
+
+## Performance and choices
+
+50 rooms: worker visibility+both rasters **1.543ms median /3.911ms p95**, geometry alone **0.529/1.374ms**. Polygon simplification preserves all100 fine-raster benchmark results. Mask preparation on the main thread is separate: **1.8–3.1ms median** for460,800pixels under different machine load. GPU at3840×2160, Medium with native density (normal Medium caps1.5×), including one visible-pawn silhouette: common **0.926ms decorative /0.514flat**, town104/fourlevels **0.928/0.500**. Three120-query rounds, trimmed slowest5%, best round estimates uncontended cost. `RENDER.md` and results JSON retain full methodology.
+
+Memory uses1.25-ft rows of inclusive cell runs: finer than movement squares and much smaller than raw pixels. The50-room own+party JSON is **12,201bytes** (roughly6KB/player/level); four contributions over a simulated10-second walk. Live browser flow: **12 batches /4,452bytes** across two players, minimum intervals3.58/5.32seconds, no idle writes; hard ceiling one contribution per2seconds/client/area, shared duplicates merge idempotently. New campaigns on, existing campaigns off, shared off. These match the requested defaults.
+
+The remembered boundary retains some visible steps; grid resolution and mist density are aesthetic choices Harry may want changed. Still translucent memory uses present geometry and furniture; pawns require exact current base-level sight. Flat fallback preserves the same notation. Eye height, darkvision, lighting limits and roofs/lids are deferred. No paid generation.
+
+## Pictures and blind read
+
+`engine/test/shots/fog/`:00-gm,01-unseen,02-visible,03-explored,04-view-as-player,05-flat-fog-off,06-flat-low,07-ruler-into-fog,08-flyer-base-ground.png. These are table-camera images, not top-down fixtures. `blind/read-final.txt` uses generic prompts without the intended rules; it recognizes clear versus ghosted space and the sentinel disappearing, but misses some small furniture. This is a sanity check, not Harry's aesthetic verdict. The locked gate refreshed images after label-overlay correction: visible labels are complete; unseen labels absent. Fresh `blind/read-landing.txt` recognizes character disappearance and retained furniture, but confuses orange flooring with an overlay and does not reliably distinguish visible/explored density.
+
+Final live stills are the00–08 images above. `blind/read-live.txt` recognizes character disappearance and persistent ghosted rooms, but misreads orange wood flooring and misses models under overlapping labels. Direct inspection confirms full labels and yellow token bases in visible state, absent opponents in explored state. Treat blind text as a sanity check, not a verdict.

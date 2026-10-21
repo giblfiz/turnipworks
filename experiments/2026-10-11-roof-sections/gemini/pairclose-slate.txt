@@ -1,0 +1,48 @@
+Excellent, this is a clear comparison of 3D asset implementation. Here is a detailed analysis.
+
+### Visible Text and Labels
+
+The text and labels are identical in both images:
+*   **Top Left Icons:** Pawns, Build, Settings
+*   **Top Center Search Bar:** "Search commands, things to place, people, places... or say / roll"
+*   **Under Search Bar:** "Area 1", "Open to players", "Hide"
+*   **On the Building:** "Building 1"
+*   **Top Right:** "Area 1"
+*   **Bottom Left:** "... or roll d20 in the bar"
+*   **Bottom Right:** "time (est): 1 ms, Area 1 polys: ?, 60 fps"
+
+---
+
+### 1. Description of Roof Surfaces
+
+*   **Roof A:** This surface is constructed from individual, 3D-modeled tiles. You can tell because each tile has its own geometry, casting small shadows on the tile below it and creating a distinct, bumpy relief. The ridge cap consists of separate, rounded, semi-cylindrical models. The material appears to be dark slate or ceramic tiles with tangible thickness and depth.
+*   **Roof B:** This surface is a flat plane with a repeating 2D texture (a picture) applied to it. This is evident because there is no physical relief; the entire surface is perfectly smooth. The "shadows" and highlights on the tiles are painted into the texture itself and do not correspond to the actual lighting of the scene. The ridge cap is also just part of the flat texture, lacking any 3D shape.
+
+### 2. Physical Model vs. Cheaper Look
+
+*   **Roof A** looks significantly more like a physical model. The three-dimensional nature of the tiles gives it weight, texture, and realism that a flat image cannot replicate. The interplay of light and shadow across the uneven surface is what sells the effect.
+*   **Roof B** looks unequivocally cheaper. The flatness, the lack of real shadows, and the slightly blurry, repetitive nature of the texture are hallmarks of a low-detail, performance-saving approach. It looks like a photograph of a roof stretched over a simple shape.
+
+### 3. Faults and Imperfections
+
+*   **Image A:**
+    *   **Valley:** The intersection where the two roof planes meet is a disaster. The 3D tiles from both sides clip through each other harshly, creating a jagged, unrealistic seam. There is no "valley flashing" or properly cut tiles to resolve the geometry.
+    *   **Chimney:** The tiles clip directly into the base of the chimney on the right-hand roof section. There is no attempt to model flashing or a clean join.
+    *   **Ridge:** The ridge tiles look good and are a strength.
+    *   **Eaves:** The eaves are acceptable.
+
+*   **Image B:**
+    *   **Valley:** The texture is horribly stretched and distorted in the valley. The two patterns meet at a sharp, unnatural line, a clear texture seam.
+    *   **Dormer/Chimney:** The texture is warped and smeared around the base of the dormer window and the chimney. This is a classic sign of poor UV mapping, where the 2D texture is not properly projected onto the 3D model.
+    *   **Repetition:** The texture pattern is visibly repetitive. You can easily spot identical tile clusters across the roof surface.
+    *   **Ridge:** The flat ridge texture does not perfectly align with the rows of tiles below it, creating a slight visual disconnect.
+
+### 4. Stylistic Cohesion
+
+The walls have a chunky, hand-painted, and stylized look.
+*   **Roof A:** The chunky, individual 3D tiles **fit this style perfectly**. Each tile is a simple, solid object, which complements the solid, stylized nature of the walls. It feels like it was made by the same artist.
+*   **Roof B:** The flat, photographic, and slightly blurry texture **does not fit the style**. It clashes with the solid, painted aesthetic of the rest of the building, looking like a cheap, out-of-place asset.
+
+### 5. Final Verdict
+
+I would ship A, as its severe clipping faults are less damaging than B's fundamental cheapness and stylistic clash; 95% sure.

@@ -1,0 +1,28 @@
+{
+ "job": "trellis-body",
+ "endpoint": "fal-ai/trellis/multi",
+ "request_id": "01a0fddc-b2cd-7d80-b57c-a3ba10b4dc5a",
+ "started_at": "2026-10-02T18:24:53.942395+00:00",
+ "finished_at": "2026-10-02T18:26:06.518162+00:00",
+ "inputs": {
+  "image_urls": [
+   "body-front34",
+   "body-top",
+   "body-back",
+   "body-left",
+   "body-front"
+  ],
+  "multiimage_algo": "stochastic",
+  "texture_size": 1024
+ },
+ "input_sha256": {
+  "body-front34": "84527bfc029b9790",
+  "body-top": "c2415a9afc8559b2",
+  "body-back": "80032874342c1199",
+  "body-left": "6999e37b697ec0a0",
+  "body-front": "6d664ea716ab8bd8"
+ },
+ "output": "models/trellis-body.glb",
+ "output_bytes": 1697524,
+ "estimated_cost_usd": 0.02
+}

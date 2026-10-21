@@ -1,0 +1,15 @@
+{
+  "name": "spawn-tuner",
+  "title": "Spawn Tuner",
+  "intent": "Judge whether generated rooms read right and tune how they arrive; send presets, layouts and notes back to Fauna.",
+  "operator": "human",
+  "face": "tune-by-feel ⇄ sim  +  layout notes ⇄ LLM",
+  "status": "New",
+  "tags": [],
+  "launch": "https://implausible.enterprises/projects/turnip-works/tuner/",
+  "source": "tools/spawn-tuner/",
+  "outputs": "reviews/tuner/{preset,layout,note}.jsonl (read with tools/spawn-tuner/read_writeback.py)",
+  "produced": 0,
+  "tests": ["test/solver.test.mjs", "test/anim.test.mjs", "test/accept.py (27 browser checks)"],
+  "created": "2026-09-30"
+}

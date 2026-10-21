@@ -1,0 +1,53 @@
+{
+  "id": "room.fog",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: Three broad pale blue horizontal fog banks with one ivory vertical double-headed arrow at the right. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/parchment--room.fog.png",
+  "source_sha256": "512aba61a79b81abe32b9fb61854422fa1dfb3caa1c22834f41bd5c2e7b3535e",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/room.fog.webp",
+    "19": "parchment/sizes/19/room.fog.webp",
+    "22": "parchment/sizes/22/room.fog.webp",
+    "26": "parchment/sizes/26/room.fog.webp",
+    "31": "parchment/sizes/31/room.fog.webp",
+    "36": "parchment/sizes/36/room.fog.webp",
+    "38": "parchment/sizes/38/room.fog.webp",
+    "42": "parchment/sizes/42/room.fog.webp",
+    "44": "parchment/sizes/44/room.fog.webp",
+    "50": "parchment/sizes/50/room.fog.webp",
+    "52": "parchment/sizes/52/room.fog.webp",
+    "62": "parchment/sizes/62/room.fog.webp",
+    "84": "parchment/sizes/84/room.fog.webp",
+    "100": "parchment/sizes/100/room.fog.webp",
+    "128": "parchment/room.fog.webp"
+  },
+  "sha256": {
+    "18": "ffc1cb34a738896541ceaa93a81cb97961156443c2c32ff4deebcfc52f4396a0",
+    "19": "c861be39f308c03112ce24cda03a741748d7ddc1d72b58f64390e69eeb1791dc",
+    "22": "edd68cec2567d89aca5e9d222a169db3cdcfccec8f1d47262ee4501951452459",
+    "26": "1852375698f682f92f9b6b5b8ed3676530846c13eb9a3dfb9d63d9471120b4d5",
+    "31": "564990749a07d610a9e344c568e05cab5be3a0e1063785c1b6a88abe3a86edbc",
+    "36": "a08b3182698c4a1e1c8d9bb1c31a601a3c8061964d1c9ff417ac5a1343c597d5",
+    "38": "c2664675b56ffbd918baa6f7d21deb70d068c31e0355973a3ee9776473ad042e",
+    "42": "ebc5f8267f6796da6c47d850dad536ebe76aa870538d6203e0780cfbdc7aa7a9",
+    "44": "05d89051485e576db7cb66b40cdde9e029e919a91e24b7895d586aee94f03bfc",
+    "50": "ea0fad2da45aa493e8b875bc4acbfe333347bc9ca0aebbf8046388e78b096d79",
+    "52": "b1faff22be3a474d83a0d76123422017845f78ed92d71dad3752d20fc09c8bbc",
+    "62": "974e58e91a0eff29163014b653efa1d843b89dfc3bb6c7c6b0aa77d78c15dd74",
+    "84": "1a506230d4b6a262c1fd998fc8a42ccdb6b0b8c864f108f7182ebf0eaddd8f45",
+    "100": "b11ac04989b8d0575cd5f72267cc2c5b2ad49115d87001eaf8c62f2dcb2599b5",
+    "128": "6a1fb2bcb43c72edb6a2fa2c4a723b9a99ece17047abfa08d21da1084a325c23"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "56cc950729767d3e30f752437218d1817f39e3a5b70bac9658f682a8a3bbde7f"
+}

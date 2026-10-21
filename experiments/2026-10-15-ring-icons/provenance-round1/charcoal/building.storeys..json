@@ -1,0 +1,53 @@
+{
+  "id": "building.storeys.",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: Three thick stacked stone floor slabs separated by short dark supporting pillars. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--building.storeys..png",
+  "source_sha256": "67d58e0d7009cb485c76620617577d2bf1b0ebd83b44cf5c55f413ea449fed2c",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/building.storeys..webp",
+    "19": "charcoal/sizes/19/building.storeys..webp",
+    "22": "charcoal/sizes/22/building.storeys..webp",
+    "26": "charcoal/sizes/26/building.storeys..webp",
+    "31": "charcoal/sizes/31/building.storeys..webp",
+    "36": "charcoal/sizes/36/building.storeys..webp",
+    "38": "charcoal/sizes/38/building.storeys..webp",
+    "42": "charcoal/sizes/42/building.storeys..webp",
+    "44": "charcoal/sizes/44/building.storeys..webp",
+    "50": "charcoal/sizes/50/building.storeys..webp",
+    "52": "charcoal/sizes/52/building.storeys..webp",
+    "62": "charcoal/sizes/62/building.storeys..webp",
+    "84": "charcoal/sizes/84/building.storeys..webp",
+    "100": "charcoal/sizes/100/building.storeys..webp",
+    "128": "charcoal/building.storeys..webp"
+  },
+  "sha256": {
+    "18": "710daf30740e71996e7889beffc30fae4f7791278ad7ce5a5c54d3297349abb9",
+    "19": "f9236d53f248549bb70e67419002574551a2aab14ae7c641ed9ccf4fae7c5f60",
+    "22": "ed23edf746129b9e6a867460d968a3bdd38e2065a0bf0c1f2bb134d9917bdf19",
+    "26": "9b05d79547f2acab4a18542b34e5b2fb75a6f21f69db934606496ba3e2229197",
+    "31": "3b59e246ca8baa101607256336372c506953cb01f4d6f2aed338a49b8a7ccc9e",
+    "36": "455f03af225767ae43e2a9053e60823097c809ec6417bda0f77194f0c2868b87",
+    "38": "773eef281596cad019bea9a3e4b8293ff4141dc70fe5245dfca79a40bce5f2dd",
+    "42": "193b54a8972c0c251de576bf5ce712e32d9e35ca1801f46b95d3ecdbcead2798",
+    "44": "03ee46eabf105c375ed6da992956069659920f3dbf665040cc9a725b821063ca",
+    "50": "8a45127d39bc5e69f73a5f35824297caec0a34c5e898d2fdcfece15712d16727",
+    "52": "f23609b932bf6ea0c1dd87c0bc52960d347610625627db8c8a87336a21112172",
+    "62": "311ac49b576bc455d13b61ba83651a149251dff281432e21509f6eb6480b556b",
+    "84": "5091a3e0db94926eb244e83b14cb8d3b9f0637e99efeb082d09e38272b43a206",
+    "100": "b5b4853471903335f7e22db80be768ce20d887913c979b5d8ed1e820a3e1acd7",
+    "128": "0fb53974dd5d8962a1d506977c9023cf820eb1f1cfaf3357da60a96e7667cd7b"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "8f65a08a97cd2e8df3da3b63a581ad4fb39af2f95923047bb486601f67054de0"
+}

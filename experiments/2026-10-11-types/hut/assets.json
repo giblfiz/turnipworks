@@ -1,0 +1,880 @@
+{
+ "assets": [
+  {
+   "id": "wall-straight--wattle-daub",
+   "object": "wall-straight",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a straight wattle-and-daub wall section of a peasant cottage",
+   "size": [
+    60.0,
+    12.0,
+    108.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a straight wattle-and-daub wall section of a peasant cottage.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: ONE plain straight wall section, an upright kit panel about 5 ft wide x 9 ft tall x 1 ft thick, almost twice as tall as wide, of WATTLE AND DAUB: a thick coat of lumpy hand-smoothed daub, lime-washed a warm CREAM-OCHRE, cracked in a loose net of fine dark cracks and stained damp grey-brown over the lowest foot; in TWO places (one fist-sized high on the left, one the size of a dinner plate low on the right) the daub has fallen away and shows the WATTLE behind it: a basket-weave of thick brown hazel rods woven over upright stakes. A rough, slightly crooked dark-brown TIMBER SILL BEAM about 8 in tall runs along the very bottom and a matching WALL PLATE beam along the very top. NO other timbers: NO posts, NO studs, NO diagonal braces (it is NOT a half-timbered wall). The top edge is one level line and the bottom edge sits flat; the two side edges are clean vertical cuts through the daub. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab or platform under it, NO roof, NO corner return, NO torch, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass).\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a plain upright wall section of cracked pale daub with a timber beam at the bottom and at the top",
+    "must": [
+     "one single upright wall section, clearly taller than it is wide",
+     "pale cracked plaster or daub as the main surface",
+     "a dark timber beam along the bottom and along the top"
+    ],
+    "must_not": [
+     "a floor, base slab, roof, thatch or corner return",
+     "a torch, shelf, tool or any fitting attached to the wall",
+     "diagonal braces or a grid of exposed timber framing",
+     "stone blocks or bricks",
+     "a window or door"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-cottage",
+    "hut-kitchen"
+   ],
+   "bench": [],
+   "route": "trellis",
+   "generation": "kit",
+   "family": "wattle-daub",
+   "kit": "wall",
+   "opening": "solid"
+  },
+  {
+   "id": "wall-straight--wattle-daub--s2",
+   "object": "wall-straight",
+   "group": "sib1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a second wattle-and-daub wall section",
+   "size": [
+    60.0,
+    12.0,
+    108.0
+   ],
+   "prompt": "The supplied image is the existing plain wall section of this same dungeon: a wall of cracked cream-ochre lime-washed daub between a dark timber sill beam at the bottom and a wall-plate beam at the top, with two small patches where the woven wattle shows. The new piece must look cut from the same wall: the SAME rock, chisel marks, colours, overall size and proportions (an upright kit panel about 5 ft wide x 9 ft tall x 1 ft thick, almost twice as tall as wide), painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a second wattle-and-daub wall section.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: The same plain wall with a DIFFERENT pattern, so that two sections side by side do not read as copies: ONE larger patch of exposed woven wattle (about 1.5 ft across) at mid height on the LEFT, a long crack running from the top beam down to the middle, and a broad paler patch of newer daub on the right where it was mended. Same height, thickness, beams, level top, flat bottom and clean vertical side cuts. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab or platform under it, NO roof, NO corner return, NO torch, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass).\n",
+   "refs": [
+    "experiments/2026-10-11-types/hut/inputs/wall-straight--wattle-daub.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-11-types/hut/inputs/wall-straight--wattle-daub.jpg"
+   ],
+   "gate": {
+    "desc": "a plain upright wall section of cracked pale daub with one patch of exposed woven wattle, a timber beam at the bottom and at the top",
+    "must": [
+     "one single upright wall section, clearly taller than it is wide",
+     "pale cracked plaster or daub as the main surface",
+     "a dark timber beam along the bottom and along the top",
+     "materials, colours and painting match the REFERENCE (a wall of cracked cream-ochre lime-washed daub between a dark timber sill beam at the bottom and a wall-plate beam at the top, with two small patches where the woven wattle shows); the described change is the intended difference"
+    ],
+    "must_not": [
+     "a floor, base slab, roof, thatch or corner return",
+     "a torch, shelf, tool or any fitting attached to the wall",
+     "diagonal braces or a grid of exposed timber framing",
+     "stone blocks or bricks",
+     "a window or door"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-cottage",
+    "hut-kitchen"
+   ],
+   "bench": [],
+   "route": "trellis",
+   "generation": "kit",
+   "family": "wattle-daub",
+   "kit": "wall",
+   "opening": "solid"
+  },
+  {
+   "id": "wall-window-small--wattle-daub",
+   "object": "wall-window-small",
+   "group": "sib1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a wattle-and-daub wall section with a small shuttered window opening",
+   "size": [
+    60.0,
+    12.0,
+    108.0
+   ],
+   "prompt": "The supplied image is the existing plain wall section of this same dungeon: a wall of cracked cream-ochre lime-washed daub between a dark timber sill beam at the bottom and a wall-plate beam at the top, with two small patches where the woven wattle shows. The new piece must look cut from the same wall: the SAME rock, chisel marks, colours, overall size and proportions (an upright kit panel about 5 ft wide x 9 ft tall x 1 ft thick, almost twice as tall as wide), painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a wattle-and-daub wall section with a small shuttered window opening.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: The same wall with ONE small window at head height, centred (its sill about 4 ft above the bottom): a plain rectangular opening about 2 ft wide and 2 ft tall, framed by four rough dark-brown timbers, with THREE stout upright wooden bars in it and NO glass; a plank SHUTTER hangs open flat against the wall on its left side. You can see through the opening between the bars to the blue background. Same height, thickness, beams, level top, flat bottom and clean vertical side cuts. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab or platform under it, NO roof, NO corner return, NO torch, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass).\n",
+   "refs": [
+    "experiments/2026-10-11-types/hut/inputs/wall-straight--wattle-daub.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-11-types/hut/inputs/wall-straight--wattle-daub.jpg"
+   ],
+   "gate": {
+    "desc": "an upright wall section of cracked pale daub with one small square window opening with wooden bars and an open plank shutter",
+    "must": [
+     "one single upright wall section, clearly taller than it is wide",
+     "pale cracked plaster or daub as the main surface",
+     "a dark timber beam along the bottom and along the top",
+     "one small window opening at head height that you can see through",
+     "materials, colours and painting match the REFERENCE (a wall of cracked cream-ochre lime-washed daub between a dark timber sill beam at the bottom and a wall-plate beam at the top, with two small patches where the woven wattle shows); the described change is the intended difference"
+    ],
+    "must_not": [
+     "a floor, base slab, roof, thatch or corner return",
+     "a torch, shelf, tool or any fitting attached to the wall",
+     "diagonal braces or a grid of exposed timber framing",
+     "stone blocks or bricks",
+     "glass panes",
+     "a door"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-cottage",
+    "hut-kitchen"
+   ],
+   "bench": [],
+   "route": "trellis",
+   "generation": "kit",
+   "family": "wattle-daub",
+   "kit": "wall",
+   "opening": "window"
+  },
+  {
+   "id": "wall-doorway--wattle-daub",
+   "object": "wall-doorway",
+   "group": "sib1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a wattle-and-daub wall section with an empty door opening",
+   "size": [
+    60.0,
+    12.0,
+    108.0
+   ],
+   "prompt": "The supplied image is the existing plain wall section of this same dungeon: a wall of cracked cream-ochre lime-washed daub between a dark timber sill beam at the bottom and a wall-plate beam at the top, with two small patches where the woven wattle shows. The new piece must look cut from the same wall: the SAME rock, chisel marks, colours, overall size and proportions (an upright kit panel about 5 ft wide x 9 ft tall x 1 ft thick, almost twice as tall as wide), painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a wattle-and-daub wall section with an empty door opening.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: The same wall with an EMPTY door-sized opening through it, starting at the very bottom: about 3.5 ft wide and 6.5 ft tall, centred, framed by two rough dark-brown timber door posts and a timber lintel (the sill beam is cut away across the opening). NO door leaf, NO hinges, NO step. About 9 in of daub wall remains on each side and a band of daub and the wall-plate beam, 2 ft tall in all, run unbroken above the opening. It is still ONE slab of the same wall with a hole through it, and its outer outline is the same plain rectangle as the plain wall. You can see straight through the opening to the blue background. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab or platform under it, NO roof, NO corner return, NO torch, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass).\n",
+   "refs": [
+    "experiments/2026-10-11-types/hut/inputs/wall-straight--wattle-daub.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-11-types/hut/inputs/wall-straight--wattle-daub.jpg"
+   ],
+   "gate": {
+    "desc": "a wall section of cracked pale daub with one empty timber-framed door opening through it (no door leaf)",
+    "must": [
+     "one upright rectangular slab of wall, clearly taller than it is wide, pierced by a door opening (narrow strips of wall beside the opening and a band above it are expected)",
+     "pale daub with timber beams",
+     "one door-sized opening that reaches the bottom of the wall, with NO door in it (you can see through)",
+     "wall continues above the opening",
+     "materials, colours and painting match the REFERENCE (a wall of cracked cream-ochre lime-washed daub between a dark timber sill beam at the bottom and a wall-plate beam at the top, with two small patches where the woven wattle shows); the described change is the intended difference"
+    ],
+    "must_not": [
+     "a floor, base slab, roof, thatch or corner return",
+     "a torch, shelf, tool or any fitting attached to the wall",
+     "diagonal braces or a grid of exposed timber framing",
+     "stone blocks or bricks",
+     "a door leaf filling the opening",
+     "a window"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-cottage",
+    "hut-kitchen"
+   ],
+   "bench": [],
+   "route": "trellis",
+   "generation": "kit",
+   "family": "wattle-daub",
+   "kit": "wall",
+   "opening": "door"
+  },
+  {
+   "id": "butter-churn",
+   "object": "butter-churn",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "an upright wooden butter churn with its plunger",
+   "size": [
+    16,
+    16,
+    42
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: an upright wooden butter churn with its plunger.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A tall, slightly tapering churn of pale scrubbed wooden staves bound by THREE broad dark iron hoops, wider at the bottom than the top, with a round wooden lid and a THICK plunger pole standing up through the middle of the lid, ending in a plain round knob. A smear of pale cream at the lid. Every pole, rail, leg and handle is deliberately THICK and toy-like (as thick as a wrist), with nothing thin or wiry, so that it reconstructs in 3D. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 16 in wide x 16 in deep x 42 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "an upright stave-built wooden butter churn with a plunger pole standing out of its lid",
+    "must": [
+     "a tall narrow wooden stave vessel with hoops",
+     "one thick pole standing out of the top"
+    ],
+    "must_not": [
+     "a barrel lying on its side",
+     "a crank handle or wheel",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-dairy",
+    "hut-kitchen",
+    "hut-cottage"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "rural-milk-churn-tall",
+   "object": "rural-milk-churn-tall",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a pair of tall wooden milk pails with lids",
+   "size": [
+    26,
+    15,
+    26
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a pair of tall wooden milk pails with lids.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: TWO tall coopered milk pails standing side by side and touching: each of pale scrubbed staves with two broad hoops, narrowing a little to the top, with a thick rope-grip handle stave rising each side; one has its round wooden lid on, the other is OPEN and FULL to the brim with WHITE milk. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 26 in wide x 15 in deep x 26 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "two tall wooden stave pails side by side, one open and full of white milk",
+    "must": [
+     "two tall narrow wooden vessels standing together",
+     "white milk visible in the open one"
+    ],
+    "must_not": [
+     "metal milk cans",
+     "a spilled puddle",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-dairy",
+    "hut-byre",
+    "hut-kitchen"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "cheese-press",
+   "object": "cheese-press",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a wooden screw cheese press with a cheese under it",
+   "size": [
+    34,
+    22,
+    46
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a wooden screw cheese press with a cheese under it.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A heavy farmhouse cheese press: a low thick table-like base on four stout legs, two thick upright posts carrying a heavy cross-beam, and ONE fat wooden screw through the middle of the beam pressing a round wooden follower down on a pale YELLOW drum of cheese wrapped in white cloth, which sits in a shallow wooden tray with a whey spout. A second round yellow cheese sits on the base beside it. Every pole, rail, leg and handle is deliberately THICK and toy-like (as thick as a wrist), with nothing thin or wiry, so that it reconstructs in 3D. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 34 in wide x 22 in deep x 46 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wooden press with two posts, a cross-beam and one big screw pressing down on a round yellow cheese",
+    "must": [
+     "two upright posts and a cross-beam with a central screw",
+     "a round pale-yellow cheese under the press"
+    ],
+    "must_not": [
+     "grapes or apples (it is not a wine press)",
+     "a barrel body",
+     "a metal wheel",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-dairy"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "nest-box-row",
+   "object": "nest-box-row",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a row of three hens' nest boxes with eggs",
+   "size": [
+    54,
+    20,
+    30
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a row of three hens' nest boxes with eggs.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A hen-house nest box unit: ONE long plain plank box on four short stout legs, divided into THREE open-topped, open-fronted compartments side by side by plank partitions, with a low front lip. Each compartment is lined with a round NEST of golden straw, and in each nest lie THREE large pale cream-white EGGS, clearly visible FROM ABOVE. A sloping plank at the back. Paint the straw / hay / thatch as ONE smooth, flat, solid surface with a few broad painted strands and soft clumps: NO loose stalks, NO fuzz, NO wisps sticking out, NO fine fibres. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 54 in wide x 20 in deep x 30 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wooden unit of three nest compartments in a row, each with a straw nest and pale eggs",
+    "must": [
+     "three compartments side by side",
+     "straw nests",
+     "pale eggs clearly visible in the nests"
+    ],
+    "must_not": [
+     "a hen or any bird",
+     "a closed lid hiding the nests",
+     "a cupboard with doors",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-coop"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "chicken-perch-ladder",
+   "object": "chicken-perch-ladder",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a hen-house roost: a sloping frame of thick perches",
+   "size": [
+    50,
+    34,
+    44
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a hen-house roost: a sloping frame of thick perches.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A hen roost: a SLOPING ladder-like frame leaning back, made of two thick side rails standing on stout feet with a prop behind, and FIVE thick round PERCH poles running across it like widely spaced rungs, each as thick as a wrist, worn pale, with white droppings streaked on the lower rails and a board under it speckled white. A few white and brown FEATHERS lie on the perches. Every pole, rail, leg and handle is deliberately THICK and toy-like (as thick as a wrist), with nothing thin or wiry, so that it reconstructs in 3D. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 50 in wide x 34 in deep x 44 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a sloping wooden frame with several thick horizontal perch poles, like a wide leaning ladder",
+    "must": [
+     "two side rails with several thick round crossbars",
+     "it leans / slopes and stands on its own"
+    ],
+    "must_not": [
+     "a hen or any bird",
+     "a thin ladder with thin rungs",
+     "a staircase with flat treads",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-coop"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "egg-basket",
+   "object": "egg-basket",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a shallow basket full of eggs",
+   "size": [
+    16,
+    16,
+    11
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a shallow basket full of eggs.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A wide, shallow, round wicker basket with a thick plaited rim and one stout hoop handle, lined with golden straw and heaped with about TWELVE large pale cream-white and light brown eggs. Paint the straw / hay / thatch as ONE smooth, flat, solid surface with a few broad painted strands and soft clumps: NO loose stalks, NO fuzz, NO wisps sticking out, NO fine fibres. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 16 in wide x 16 in deep x 11 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a round shallow wicker basket full of pale eggs",
+    "must": [
+     "a wicker basket",
+     "many pale eggs heaped in it"
+    ],
+    "must_not": [
+     "a hen",
+     "a cloth covering the eggs",
+     "fruit or bread",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-coop",
+    "hut-kitchen",
+    "hut-cottage"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "pigsty",
+   "object": "pigsty",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a low pigsty shelter with its little walled yard",
+   "size": [
+    110,
+    110,
+    50
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a low pigsty shelter with its little walled yard.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A small farm PIGSTY in one piece, about 9 ft square and low: at the back a squat SHELTER 4 ft tall with thick rough fieldstone walls and a single-pitch roof of heavy weathered planks, with one low square doorway (dark inside) facing the front; in front of it a little YARD enclosed by a rough fieldstone wall only 2.5 ft tall on three sides, with one gap closed by a stout plank hurdle; inside the yard the ground is churned DARK BROWN MUD with a heap of golden straw by the doorway and a short thick wooden feeding TROUGH against the wall, full of pale swill. EMPTY of animals. Paint the straw / hay / thatch as ONE smooth, flat, solid surface with a few broad painted strands and soft clumps: NO loose stalks, NO fuzz, NO wisps sticking out, NO fine fibres. The stone must not be one flat grey mass: rounded field stones, broad chiselled planes, deep readable carving and colour variation (slate grey, warm grey-brown, a little ochre, a touch of moss green), so that every face is fully painted. Real-world size about 110 in wide x 110 in deep x 50 in tall: keep these proportions. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a low stone pigsty: a squat roofed shelter with a low doorway and a small low-walled muddy yard with a trough",
+    "must": [
+     "a small low roofed shelter with a dark doorway",
+     "a low wall enclosing a small muddy yard in front of it",
+     "a feeding trough"
+    ],
+    "must_not": [
+     "a pig or any animal",
+     "a tall house with windows",
+     "a well"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-pigsty",
+    "hut-farmyard"
+   ],
+   "bench": [],
+   "route": "trellis",
+   "note": "the mud yard floor is its own (base=False)"
+  },
+  {
+   "id": "haystack-field",
+   "object": "haystack-field",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a big round farm haystack",
+   "size": [
+    84,
+    84,
+    108
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a big round farm haystack.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A large round HAYSTACK built for the winter: a fat drum of golden hay about 7 ft across with slightly bulging sides, topped by a neat rounded CONE of darker, combed thatch to shed the rain, with a thick straw-rope net of four ropes over the cone weighted by FOUR stones hanging at the eaves, and a short stout pole sticking out of the very top. Paint the straw / hay / thatch as ONE smooth, flat, solid surface with a few broad painted strands and soft clumps: NO loose stalks, NO fuzz, NO wisps sticking out, NO fine fibres. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 84 in wide x 84 in deep x 108 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a large round haystack with a conical thatched top",
+    "must": [
+     "a big round stack of golden hay",
+     "a rounded cone top"
+    ],
+    "must_not": [
+     "a hay bale (rectangular, bound)",
+     "a hut with a door",
+     "a cart",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-field",
+    "hut-farmyard",
+    "hut-barn"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "rural-grain-stook",
+   "object": "rural-grain-stook",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a stook of wheat sheaves stood up to dry",
+   "size": [
+    40,
+    36,
+    52
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a stook of wheat sheaves stood up to dry.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A harvest STOOK: SIX fat sheaves of golden wheat stood on end and leaning together in a tent shape, heads up, each sheaf bound round its waist by a thick twisted straw band; the heavy ears of grain bunch together at the top in a darker gold; the butts splay out at the ground. Paint the straw / hay / thatch as ONE smooth, flat, solid surface with a few broad painted strands and soft clumps: NO loose stalks, NO fuzz, NO wisps sticking out, NO fine fibres. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 40 in wide x 36 in deep x 52 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "several bound sheaves of golden wheat standing on end and leaning together in a tent shape",
+    "must": [
+     "bound sheaves of golden grain standing upright together",
+     "ears of grain at the top"
+    ],
+    "must_not": [
+     "a round haystack",
+     "a rectangular bale",
+     "a scarecrow",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-field",
+    "hut-barn",
+    "hut-granary"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "scarecrow-post",
+   "object": "scarecrow-post",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a farm scarecrow on its post",
+   "size": [
+    52,
+    16,
+    80
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a farm scarecrow on its post.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A field SCARECROW: a thick fence-post upright with a thick cross-pole for arms, wearing a ragged brown sackcloth coat patched in ochre and dull red, stuffed fat with straw that bulges at the cuffs and neck; the head is a pale TURNIP-coloured stuffed sack with a stitched grin and two dark button eyes under a battered wide-brimmed straw hat. Arms straight out. It stands on its ONE thick post, which ends in a short cross-foot of two stout timbers. Paint the straw / hay / thatch as ONE smooth, flat, solid surface with a few broad painted strands and soft clumps: NO loose stalks, NO fuzz, NO wisps sticking out, NO fine fibres. Every pole, rail, leg and handle is deliberately THICK and toy-like (as thick as a wrist), with nothing thin or wiry, so that it reconstructs in 3D. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 52 in wide x 16 in deep x 80 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a scarecrow: a straw-stuffed figure in ragged clothes with arms straight out on a post, with a hat",
+    "must": [
+     "a human-shaped stuffed figure with arms out sideways on a single post",
+     "a hat",
+     "straw showing"
+    ],
+    "must_not": [
+     "a living person",
+     "a crow or bird",
+     "a pumpkin head with a carved glowing face",
+     "blue clothes",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-field",
+    "hut-garden"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "plough",
+   "object": "plough",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a heavy wooden ox plough",
+   "size": [
+    30,
+    100,
+    40
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a heavy wooden ox plough.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A medieval wheeled PLOUGH standing ready: one long, THICK, slightly curved wooden beam; at the front a pair of small solid wooden wheels on a short axle; under the middle a heavy iron coulter knife and a broad iron-shod wooden SHARE with a curved wooden mould-board; at the back TWO thick curved handles rising to waist height. Dark worn oak, iron dull grey with bright worn edges, dried brown earth on the share. Every pole, rail, leg and handle is deliberately THICK and toy-like (as thick as a wrist), with nothing thin or wiry, so that it reconstructs in 3D. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 30 in wide x 100 in deep x 40 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wooden plough with a long beam, two small wheels at the front, an iron blade below and two handles at the back",
+    "must": [
+     "a long beam with two handles at one end",
+     "a ploughshare / blade under it"
+    ],
+    "must_not": [
+     "an animal harnessed to it",
+     "a cart with a load bed",
+     "thin spindly handles",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-field",
+    "hut-barn",
+    "hut-farmyard"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "dovecote",
+   "object": "dovecote",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a small round stone farm dovecote",
+   "size": [
+    60,
+    60,
+    132
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a small round stone farm dovecote.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A freestanding DOVECOTE: a round tower of rough pale fieldstone 5 ft across and 9 ft tall with a conical roof of weathered wooden shingles topped by a small open wooden lantern; THREE rows of small arched pigeon holes with stone landing ledges ring the upper half, streaked white below; one low plank door at the bottom. The stone must not be one flat grey mass: broad chiselled planes, deep readable carving and colour variation (slate grey, warm grey-brown, a little ochre, a touch of moss green), so that every face is fully painted. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 60 in wide x 60 in deep x 132 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a small round stone tower with a conical roof and rows of small pigeon holes",
+    "must": [
+     "a round tower with a conical roof",
+     "rows of small holes with ledges in its upper part"
+    ],
+    "must_not": [
+     "a bird",
+     "windows with glass",
+     "a well with a bucket",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-farmyard",
+    "hut-garden"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "beehive-skep",
+   "object": "beehive-skep",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "two straw beehive skeps on a bench",
+   "size": [
+    40,
+    18,
+    32
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: two straw beehive skeps on a bench.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: TWO domed straw BEE SKEPS standing side by side on one low thick plank bench with four stout legs: each skep is a fat beehive dome of thick coiled golden straw rope (the coils clearly ringed), with one small dark arched entrance hole at the bottom front and a flat stone on top. Paint the straw / hay / thatch as ONE smooth, flat, solid surface with a few broad painted strands and soft clumps: NO loose stalks, NO fuzz, NO wisps sticking out, NO fine fibres. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 40 in wide x 18 in deep x 32 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "two domed coiled-straw beehives side by side on a low wooden bench",
+    "must": [
+     "two dome-shaped coiled straw hives",
+     "a low bench or stand under them"
+    ],
+    "must_not": [
+     "bees",
+     "a wooden box hive with frames",
+     "a basket with a handle",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-garden",
+    "hut-orchard"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "bean-poles-wigwam",
+   "object": "bean-poles-wigwam",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a wigwam of bean poles covered in climbing beans",
+   "size": [
+    40,
+    40,
+    84
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a wigwam of bean poles covered in climbing beans.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A garden BEAN WIGWAM: SIX very thick straight poles set in a ring 3 ft across, leaning in and lashed together at the top with a fat knot of rope, and wound round thickly with climbing bean plants: broad green leaves in solid painted masses covering the lower two thirds, with scarlet flowers and long green pods; the pole tops stand bare above the knot. It grows from a round mound of dark earth. Every pole, rail, leg and handle is deliberately THICK and toy-like (as thick as a wrist), with nothing thin or wiry, so that it reconstructs in 3D. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 40 in wide x 40 in deep x 84 in tall: keep these proportions. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a cone of thick poles tied at the top and covered in green climbing plants with red flowers",
+    "must": [
+     "several thick poles leaning together to a tied point",
+     "green leafy climbing plants on them"
+    ],
+    "must_not": [
+     "a tent with cloth",
+     "a campfire tripod with a pot",
+     "thin sticks"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-garden"
+   ],
+   "bench": [],
+   "route": "trellis",
+   "note": "the earth mound is its own"
+  },
+  {
+   "id": "root-sand-box",
+   "object": "root-sand-box",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a long box of sand with root vegetables bedded in it",
+   "size": [
+    52,
+    24,
+    18
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a long box of sand with root vegetables bedded in it.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A root-cellar keeping box: a long, low, heavy plank box on two thick runners, three-quarters full of pale yellow SAND, with ROWS of root vegetables half-buried in the sand, tops showing: a row of ORANGE carrots, a row of dark RED beetroot, a row of pale cream-and-purple TURNIPS; a short-handled wooden scoop stuck in the sand at one end. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 52 in wide x 24 in deep x 18 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a long low wooden box of pale sand with rows of orange, red and pale root vegetables half-buried in it",
+    "must": [
+     "a long low open wooden box",
+     "sand in it",
+     "rows of root vegetables showing"
+    ],
+    "must_not": [
+     "a planter with green leafy plants growing",
+     "a coffin or chest with a lid on",
+     "fruit",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-cellar"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "rural-grain-heap-threshed",
+   "object": "rural-grain-heap-threshed",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a heap of threshed golden grain with a shovel",
+   "size": [
+    50,
+    46,
+    24
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a heap of threshed golden grain with a shovel.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A big conical HEAP of clean threshed wheat grain, rich GOLDEN yellow, 4 ft across, smooth-sided like a sand pile, painted as one solid mass with a fine speckle; a broad wooden grain SHOVEL with a thick handle is stuck upright in its side and a round wooden bushel measure, full and levelled, stands at its foot. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 50 in wide x 46 in deep x 24 in tall: keep these proportions. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a conical heap of golden grain with a wooden shovel stuck in it and a round wooden measure beside it",
+    "must": [
+     "a smooth cone-shaped heap of golden-yellow grain",
+     "a shovel or a measure with it"
+    ],
+    "must_not": [
+     "a heap of hay or straw (stalks)",
+     "a pile of gold coins",
+     "a sack"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-granary",
+    "hut-barn"
+   ],
+   "bench": [],
+   "route": "trellis",
+   "note": "the heap is its own base"
+  },
+  {
+   "id": "winnowing-basket",
+   "object": "winnowing-basket",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a wide flat winnowing basket of grain",
+   "size": [
+    32,
+    26,
+    8
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a wide flat winnowing basket of grain.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A WINNOWING basket: a very wide, shallow, shovel-shaped tray of thick plaited pale straw-and-withy, with a raised rim round three sides and open at the front lip, two stout grip loops; it is half full of golden grain with a drift of paler chaff at the lip. Paint the straw / hay / thatch as ONE smooth, flat, solid surface with a few broad painted strands and soft clumps: NO loose stalks, NO fuzz, NO wisps sticking out, NO fine fibres. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 32 in wide x 26 in deep x 8 in tall: keep these proportions. It stands on nothing: NO ground disc, NO floor patch, NO rubble, NO base slab or platform under it that the real object would not have. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wide shallow shovel-shaped woven basket tray holding golden grain",
+    "must": [
+     "a wide shallow woven tray, open at one side",
+     "golden grain in it"
+    ],
+    "must_not": [
+     "a deep round basket",
+     "bread or fruit",
+     "a ground disc, floor patch or base slab under the object that the real object would not have"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-granary",
+    "hut-barn"
+   ],
+   "bench": [],
+   "route": "trellis"
+  },
+  {
+   "id": "loft-ladder-head",
+   "object": "loft-ladder-head",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "the top of a ladder coming up through a hatch in a plank floor",
+   "size": [
+    44,
+    44,
+    40
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: the top of a ladder coming up through a hatch in a plank floor.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: The way up into a loft, as ONE piece: a square frame of four thick dark timbers lying flat (a floor hatch 3 ft square) with a plank TRAPDOOR lid hinged open and leaning back on one side, and the top THREE rungs of a very thick ladder (two fat side poles, fat rungs) standing up through the hole, rising 3 ft above the frame. Inside the frame the hole is flat DARK brown-black. Every pole, rail, leg and handle is deliberately THICK and toy-like (as thick as a wrist), with nothing thin or wiry, so that it reconstructs in 3D. Farm mood: warm, worn, home-made; matte surfaces with a strong, simple silhouette that reads from far above. Real-world size about 44 in wide x 44 in deep x 40 in tall: keep these proportions. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a square timber floor hatch with an open trapdoor lid and the top of a thick ladder standing up through it",
+    "must": [
+     "a square frame / hatch lying flat",
+     "the top of a ladder rising out of it",
+     "an open lid"
+    ],
+    "must_not": [
+     "a whole tall ladder leaning on a wall",
+     "a well with water",
+     "a staircase"
+    ]
+   },
+   "prio": 1,
+   "rooms": [
+    "hut-loft"
+   ],
+   "bench": [],
+   "route": "trellis",
+   "note": "the hatch frame is its own base"
+  }
+ ]
+}

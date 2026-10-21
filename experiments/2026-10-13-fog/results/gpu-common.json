@@ -1,0 +1,103 @@
+{
+  "scene": "common",
+  "rooms": 1,
+  "dpr": 2,
+  "preset": "Medium, native density",
+  "visibleFigureMask": true,
+  "load": [
+    8.15,
+    9.01,
+    6.96
+  ],
+  "renderer": {
+    "renderer": "ANGLE (NVIDIA, Vulkan 1.4.325 (NVIDIA NVIDIA GeForce RTX 3060 (0x00002504)), NVIDIA)",
+    "lost": false
+  },
+  "rounds": [
+    {
+      "samples": 120,
+      "gpu_ms": 0.5609633684210525,
+      "p50": 0.502784,
+      "p95": 1.80224,
+      "programs": 54,
+      "buffer": [
+        3840,
+        2160
+      ],
+      "levels": 1,
+      "round": 0,
+      "decorative": false
+    },
+    {
+      "samples": 120,
+      "gpu_ms": 0.954736280701754,
+      "p50": 0.918528,
+      "p95": 2.649088,
+      "programs": 54,
+      "buffer": [
+        3840,
+        2160
+      ],
+      "levels": 1,
+      "round": 0,
+      "decorative": true
+    },
+    {
+      "samples": 120,
+      "gpu_ms": 0.5138773333333331,
+      "p50": 0.50176,
+      "p95": 1.28,
+      "programs": 54,
+      "buffer": [
+        3840,
+        2160
+      ],
+      "levels": 1,
+      "round": 1,
+      "decorative": false
+    },
+    {
+      "samples": 120,
+      "gpu_ms": 0.9267110175438592,
+      "p50": 0.919552,
+      "p95": 2.361344,
+      "programs": 54,
+      "buffer": [
+        3840,
+        2160
+      ],
+      "levels": 1,
+      "round": 1,
+      "decorative": true
+    },
+    {
+      "samples": 120,
+      "gpu_ms": 0.624154947368421,
+      "p50": 0.502784,
+      "p95": 2.804736,
+      "programs": 65,
+      "buffer": [
+        3840,
+        2160
+      ],
+      "levels": 1,
+      "round": 2,
+      "decorative": false
+    },
+    {
+      "samples": 120,
+      "gpu_ms": 0.9264595087719294,
+      "p50": 0.918528,
+      "p95": 2.57024,
+      "programs": 65,
+      "buffer": [
+        3840,
+        2160
+      ],
+      "levels": 1,
+      "round": 2,
+      "decorative": true
+    }
+  ],
+  "errors": []
+}

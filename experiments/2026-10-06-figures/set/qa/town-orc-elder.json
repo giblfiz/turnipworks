@@ -1,0 +1,153 @@
+{
+ "file": "town-orc-elder.glb",
+ "tris": 49335,
+ "kb": 2993,
+ "native_extent": [
+  0.62,
+  1.001,
+  0.373
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  81,
+  61,
+  33
+ ],
+ "mean_saturation": 0.691,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 4.65,
+  "length_ft": 5.25,
+  "low_end_ft": [
+   -1.46,
+   0.04,
+   0.18
+  ],
+  "high_end_ft": [
+   -1.39,
+   5.26,
+   0.7
+  ],
+  "tilt_from_upright_deg": 5.7,
+  "thickness_ft": 0.3,
+  "clear_share": 0.88,
+  "joined_share": 0.12,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-----------------------------------######---------"
+ },
+ "overall_ft": 6.04,
+ "pieces": {
+  "connected_parts": 10,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.0354,
+ "y0": -3.0234,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3089,
+   -0.5009,
+   -0.1874
+  ],
+  [
+   0.3113,
+   0.5001,
+   0.1856
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49335,
+   "tex": 2048,
+   "kb": 2993
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1147
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 494
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.87,
+    "z": -0.23,
+    "size_ft": [
+     1.41,
+     1.41
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.78,
+    "sole_p90_ft": 0.148
+   },
+   {
+    "x": 1.24,
+    "z": 0.07,
+    "size_ft": [
+     1.06,
+     1.43
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.84,
+    "sole_p90_ft": 0.09
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 1.95,
+  "plan_hull_area_sqft": 6.71,
+  "lowest_slab_share_of_plan": 0.291
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.74,
+   "d": 2.25,
+   "h": 6.04
+  },
+  "centre": [
+   0.068,
+   0.315
+  ],
+  "contacts_radius_ft": 1.68,
+  "reach_radius_ft": 1.89,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.912,
+  "plate_lost_share": 0.026,
+  "added_share": 0.069,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.907,
+  "view_yaw_deg": 345,
+  "view_elev_deg": 8
+ },
+ "id": "town-orc-elder",
+ "sha1": "293e170072b06abd9881888add22f00316a1649f",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 15.6
+}

@@ -1,0 +1,53 @@
+{
+  "id": "pawn.mark.moon",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One large pale icy blue crescent moon, broad curved body and clear dark crescent cutout. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red for danger; preserve explicitly specified marker shape colors. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--pawn.mark.moon.png",
+  "source_sha256": "33b4e2b35ce9e0416c8a789999874841f2631eb6b88bd3e1a48b6cf46e617f19",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/pawn.mark.moon.webp",
+    "19": "charcoal/sizes/19/pawn.mark.moon.webp",
+    "22": "charcoal/sizes/22/pawn.mark.moon.webp",
+    "26": "charcoal/sizes/26/pawn.mark.moon.webp",
+    "31": "charcoal/sizes/31/pawn.mark.moon.webp",
+    "36": "charcoal/sizes/36/pawn.mark.moon.webp",
+    "38": "charcoal/sizes/38/pawn.mark.moon.webp",
+    "42": "charcoal/sizes/42/pawn.mark.moon.webp",
+    "44": "charcoal/sizes/44/pawn.mark.moon.webp",
+    "50": "charcoal/sizes/50/pawn.mark.moon.webp",
+    "52": "charcoal/sizes/52/pawn.mark.moon.webp",
+    "62": "charcoal/sizes/62/pawn.mark.moon.webp",
+    "84": "charcoal/sizes/84/pawn.mark.moon.webp",
+    "100": "charcoal/sizes/100/pawn.mark.moon.webp",
+    "128": "charcoal/pawn.mark.moon.webp"
+  },
+  "sha256": {
+    "18": "7b312aea0b16468e994d745acc327a37c581f25c6ccc055c6bfa4e045c2cf136",
+    "19": "c70c072a8085c04b8df5cb171391a34bd61e5909daf9fcc5f25b669b648addc5",
+    "22": "2beac90cdecd0fd87f41b855bb4d19a12f490f97db737e4910efb821343fa02a",
+    "26": "d99bd2b2f662ccd8241366e9973bbe5b9925f1df8942018e2271ede16dbedeb5",
+    "31": "09a006f18ef87aa441c5d1ec62d594bdaec62d26ab917b997aa093245a5960bb",
+    "36": "7a214ab38f49fd0dbac082097dae9a1605e31dda3c23ab52b88cb7c9bca696dd",
+    "38": "1636460b7dd3a31f8ea1ec6e9969d22038b4fd9b048d9d569cad21a4b43b79b6",
+    "42": "2ab13e1d91978314a8e8237b52683bc1208e24177fe52e0d1ce30c5b5735527a",
+    "44": "8a4f3e0498b761ebb9fab3df2892842f5616ac04b019e749a536fd190e3c2b8b",
+    "50": "2e562738ee3f0335d2d0c890954c4f4f52aa8aff191811b3874a1603b9a9d66e",
+    "52": "c273882f39153551e391c49edeed590ca50368a5010cb7e2fe3121fd830b784f",
+    "62": "15db084a0bb34040d1d2207c3cac6fe15229bf90fce5ce5425a7b9a03d466258",
+    "84": "d581b7a4f8a31a316fd779541eb1f0d25130b20fadf7af86d16dcee27e2d8b23",
+    "100": "5d337fd738bff102cf0bec36ee7546cc7983c38ae7570ad48b925aa4d3a0e948",
+    "128": "f028ed58dc184ecd9f6a1424ce0c13228ec8fac47b41b5783c81fcc7b1be081b"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "e61ed5dd64a13b9fb7f48d7a7e438ac12dd3e343279db3b220e013f444befee3"
+}

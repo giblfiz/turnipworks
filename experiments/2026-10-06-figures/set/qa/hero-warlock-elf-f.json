@@ -1,0 +1,133 @@
+{
+ "file": "hero-warlock-elf-f.glb",
+ "tris": 48567,
+ "kb": 3295,
+ "native_extent": [
+  0.515,
+  1.001,
+  0.385
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0065,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  61,
+  46,
+  37
+ ],
+ "mean_saturation": 0.378,
+ "sized_by": "its highest point",
+ "overall_ft": 5.7,
+ "pieces": {
+  "connected_parts": 506,
+  "main_part_area_share": 0.9849,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.699,
+ "y0": -2.8544,
+ "stated_ft": {
+  "body": 5.7,
+  "figure_top": 5.7,
+  "overall": 5.7
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2585,
+   -0.5009,
+   -0.1929
+  ],
+  [
+   0.2569,
+   0.5003,
+   0.1917
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48567,
+   "tex": 2048,
+   "kb": 3295
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1327
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 545
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.06,
+    "z": 0.55,
+    "size_ft": [
+     0.5,
+     1.12
+    ],
+    "off_ground_ft": 0.009,
+    "sole_level_share": 0.84,
+    "sole_p90_ft": 0.1
+   },
+   {
+    "x": -0.31,
+    "z": -0.31,
+    "size_ft": [
+     0.81,
+     0.93
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.86,
+    "sole_p90_ft": 0.076
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.009,
+  "lowest_slab_area_sqft": 0.8,
+  "plan_hull_area_sqft": 4.49,
+  "lowest_slab_share_of_plan": 0.178
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.93,
+   "d": 2.19,
+   "h": 5.7
+  },
+  "centre": [
+   0.288,
+   0.353
+  ],
+  "contacts_radius_ft": 1.15,
+  "reach_radius_ft": 1.65,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.869,
+  "plate_lost_share": 0.059,
+  "added_share": 0.083,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.832,
+  "view_yaw_deg": 10,
+  "view_elev_deg": 0
+ },
+ "id": "hero-warlock-elf-f",
+ "sha1": "219ebb23355fa451f6036188695be3052aa6515f",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 11.9
+}

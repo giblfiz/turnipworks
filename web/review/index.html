@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inn-01 Review — Turnip Works</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="review.css?v=20261002">
+  <script type="importmap">
+  { "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  } }
+  </script>
+</head>
+<body>
+  <header><a href="../">← Turnip Works</a><strong><span>TW</span> <span id="runlabel">Inn-01</span> review</strong> <nav class="runs"><a href="../review/">inn-01</a> · <a href="../review-02/">inn-02</a> · <a href="../review-lib/">library</a> · <a href="../review-figures/">figures</a> · <a href="../queues/">what is waiting</a></nav><span id="queue" class="queue"></span></header>
+  <main>
+    <section class="catalogue">
+      <div class="filters">
+        <input id="f-name" type="search" placeholder="Name… ( / )" autocomplete="off" aria-label="Filter by name">
+        <div class="frow">
+          <label>Status<select id="f-status">
+            <option value="unreviewed">Unreviewed</option><option value="reviewed">Reviewed</option><option value="all">All</option>
+          </select></label>
+          <label>Score<select id="f-score">
+            <option value="">Any</option><option value="0">0</option><option value="1">1</option><option value="2">2</option>
+            <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+            <option value="le2">≤ 2</option><option value="ge3">≥ 3</option><option value="masking">Masking flag</option>
+          </select></label>
+        </div>
+        <label id="f-batch-wrap" hidden>Batch<select id="f-batch"><option value="">Every batch</option></select></label>
+        <label>Role<select id="f-role"><option value="">Any role</option></select></label>
+        <div class="frow">
+          <label>Theme<select id="f-theme"><option value="">Any theme</option></select></label>
+          <label>Generated<select id="f-date"><option value="">Any time</option></select></label>
+        </div>
+        <p class="fcount"><strong id="count">Loading…</strong> <button type="button" id="f-clear">Clear filters</button></p>
+      </div>
+      <nav id="assets" aria-label="Assets"></nav>
+    </section>
+    <section class="stage">
+      <div class="views" id="views">
+        <canvas id="gl"></canvas>
+        <div class="cell view" data-view="0"><span class="vlabel">Front · spins around vertical</span></div>
+        <div class="cell view" data-view="2"><span class="vlabel">Side · rolls</span></div>
+        <div class="cell view" data-view="1"><span class="vlabel">Top · tumbles end over end</span></div>
+        <figure class="cell plate"><img id="plate" alt=""><figcaption>Source plate</figcaption></figure>
+        <div class="loading" id="loading" hidden>Loading model…</div>
+        <div class="done" id="done" hidden><strong>Nothing left for these filters.</strong><span>Change a filter, or press Shift+C to clear them.</span></div>
+      </div>
+      <aside class="details">
+        <p class="eyebrow" id="sku"></p>
+        <h1 id="name">Choose an asset</h1>
+        <p id="role" class="tagline"></p>
+        <p id="meta" class="muted"></p>
+        <p id="hint" class="muted"></p>
+        <div id="ratings" class="ratings"></div>
+        <a id="download" download>Download GLB</a>
+        <div class="legend" id="legend">
+          <p class="legend-title">Keys <small>(? hides)</small></p>
+          <dl>
+            <dt>0–5</dt><dd>score model, save, next</dd>
+            <dt>M</dt><dd>toggle masking flag</dd>
+            <dt>N</dt><dd>write model note (Enter saves, Esc leaves)</dd>
+            <dt>U / Backspace</dt><dd>undo last score, go back</dd>
+            <dt>J / → / Tab</dt><dd>next, no score</dd>
+            <dt>K / ← / Shift+Tab</dt><dd>back</dd>
+            <dt>Space</dt><dd>pause / resume spin</dd>
+            <dt>R</dt><dd>reset views</dd>
+            <dt>/</dt><dd>name filter</dd>
+            <dt>Shift+C</dt><dd>clear filters</dd>
+          </dl>
+          <p class="scale">0 engine break · 1 bad · 2 not quite usable · 3 barely acceptable, go with it · 4–5 good. Drag any view to turn it; double-click resets it. Concept plate: click its score.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script type="module" src="review.js?v=20261002"></script>
+</body>
+</html>

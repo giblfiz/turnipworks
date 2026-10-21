@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alignment Bench</title>
+  <meta name="description" content="Turnip Works: step through every object that needs a fire, water or hinge anchor and confirm or fix it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="align.css?v=dev">
+  <!-- the bench imports the deployed Spawn Tuner's own look, fire and hinge code (../tuner/), like the game does -->
+  <script type="importmap">
+  { "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+    "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+    "three-mesh-bvh": "../tuner/js/vendor/three-mesh-bvh-0.8.3.js",
+    "three.quarks": "../tuner/js/vendor/three.quarks-0.16.0.js",
+    "quarks.core": "../tuner/js/vendor/quarks.core-0.16.0.js",
+    "three-fire": "../tuner/js/vendor/three-fire-1.4.0.js"
+  } }
+  </script>
+</head>
+<body>
+  <header>
+    <a href="../" class="back">← Turnip Works</a>
+    <strong><span>TW</span> Alignment Bench</strong>
+    <nav class="modes" id="modes" aria-label="Mode">
+      <button type="button" data-mode="fire"><kbd>1</kbd> Fire <small id="p-fire"></small></button>
+      <button type="button" data-mode="water"><kbd>2</kbd> Water <small id="p-water"></small></button>
+      <button type="button" data-mode="open"><kbd>3</kbd> Open/Shut <small id="p-open"></small></button>
+    </nav>
+  </header>
+  <main>
+    <section class="queue">
+      <div class="filters">
+        <input id="f-name" type="search" placeholder="Name… ( / )" autocomplete="off" aria-label="Filter by name">
+        <select id="f-status" aria-label="Show">
+          <option value="unaligned">Unaligned</option><option value="aligned">Aligned</option><option value="all">All</option>
+        </select>
+      </div>
+      <p class="fcount" id="count">Loading…</p>
+      <ol id="list" aria-label="Queue"></ol>
+    </section>
+    <section class="stage">
+      <div class="view" id="view">
+        <canvas id="gl"></canvas>
+        <div class="inset-label" id="inset-label">at table distance</div>
+        <div class="busy" id="busy" hidden>Loading model…</div>
+        <div class="done" id="done" hidden><strong>Nothing left in this queue.</strong><span>Switch the filter to All, or pick another mode.</span></div>
+      </div>
+      <aside class="side">
+        <p class="eyebrow" id="sku"></p>
+        <h1 id="name">Loading…</h1>
+        <p class="status" id="status"></p>
+        <div id="panel" class="panel"></div>
+        <div class="row actions">
+          <button type="button" id="b-ok" class="primary">Looks right <kbd>Enter</kbd></button>
+          <button type="button" id="b-auto">Auto <kbd>A</kbd></button>
+        </div>
+        <div class="row actions">
+          <button type="button" id="b-prev">‹ Prev <kbd>K</kbd></button>
+          <button type="button" id="b-next">Next › <kbd>J</kbd></button>
+        </div>
+        <details class="keys" id="keys" open>
+          <summary>Keys</summary>
+          <dl id="keylist"></dl>
+          <p class="muted">Drag empty space to orbit · right-drag pans · wheel zooms · double-click frames the object.</p>
+        </details>
+      </aside>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script type="module" src="js/main.js?v=dev"></script>
+</body>
+</html>

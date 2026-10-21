@@ -1,0 +1,166 @@
+{
+ "file": "hero-barbarian-small-m.glb",
+ "tris": 49660,
+ "kb": 2980,
+ "native_extent": [
+  0.499,
+  1.0,
+  0.429
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  120,
+  75,
+  43
+ ],
+ "mean_saturation": 0.683,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 1.15,
+  "length_ft": 1.23,
+  "low_end_ft": [
+   0.5,
+   2.21,
+   0.59
+  ],
+  "high_end_ft": [
+   0.63,
+   3.38,
+   0.22
+  ],
+  "tilt_from_upright_deg": 18.3,
+  "thickness_ft": 0.17,
+  "clear_share": 0.68,
+  "joined_share": 0.32,
+  "broken_share": 0.0,
+  "walk_low_to_high": "---------#######------"
+ },
+ "overall_ft": 3.33,
+ "pieces": {
+  "connected_parts": 17,
+  "main_part_area_share": 0.9999,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.3369,
+ "y0": -1.6704,
+ "stated_ft": {
+  "body": 3.1,
+  "figure_top": 3.1,
+  "overall": 3.1
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2495,
+   -0.5007,
+   -0.2118
+  ],
+  [
+   0.2496,
+   0.499,
+   0.2173
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49660,
+   "tex": 2048,
+   "kb": 2980
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1122
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 493
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.48,
+    "z": 0.24,
+    "size_ft": [
+     0.53,
+     0.75
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.86,
+    "sole_p90_ft": 0.103
+   },
+   {
+    "x": -0.5,
+    "z": -0.42,
+    "size_ft": [
+     0.49,
+     0.69
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.86,
+    "sole_p90_ft": 0.103
+   },
+   {
+    "x": -0.21,
+    "z": 0.55,
+    "size_ft": [
+     0.32,
+     0.33
+    ],
+    "off_ground_ft": 0.23,
+    "sole_level_share": 0.91,
+    "sole_p90_ft": 0.287
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.23,
+  "lowest_slab_area_sqft": 0.49,
+  "plan_hull_area_sqft": 1.81,
+  "lowest_slab_share_of_plan": 0.273
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.66,
+   "d": 1.43,
+   "h": 3.33
+  },
+  "centre": [
+   -0.045,
+   0.03
+  ],
+  "contacts_radius_ft": 0.9,
+  "reach_radius_ft": 0.99,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.89,
+  "plate_lost_share": 0.067,
+  "added_share": 0.048,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.87,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 0
+ },
+ "id": "hero-barbarian-small-m",
+ "sha1": "8a8f9fa90995ca00a4d260c0ca67605290e0fa41",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.23 ft off the ground"
+ ],
+ "qa_seconds": 19.4
+}

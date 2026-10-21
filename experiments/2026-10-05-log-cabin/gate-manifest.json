@@ -1,0 +1,146 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "wall-window-small--log-cabin": {
+   "id": "wall-window-small--log-cabin",
+   "group": "closed",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-log-cabin/work/wall-window-small--log-cabin.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon log wall section featuring a small window with closed wooden shutters, centered on a uniform blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon log wall section featuring a small window with closed wooden shutters, centered on a uniform blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single isolated object: a vertical segment of a log cabin wall or wooden partition. It consists of ten stacked rounded logs with exposed circular end-grain on the left edge, filled with off-white and pale-green chinking mortar between each layer. In the upper-middle portion of the wall, there is a protruding rectangular timber window frame containing two closed rectangular wooden shutters. Each shutter is secured by two dark grey metal strap hinges (four hinges total). The shutters are fully closed, completely blocking any view of an interior. The object is rendered in a painted 3D/cartoon style using warm honey-orange, golden-brown, muted grey-green, and dark slate grey. The object is completely within frame, isolated against a flat, solid royal-blue background with no floor, shadows, people, or surrounding scenery.",
+       "reference_differences": [
+        "The candidate image includes a framed window with two closed shutters and metal hinges in the upper-middle section, which is completely absent in the reference image.",
+        "The central horizontal logs in the candidate image are interrupted to accommodate the window structure, whereas in the reference image, all ten logs run continuously from side to side.",
+        "The candidate image includes four dark metal strap hinges, whereas the reference has no metal hardware."
+       ]
+      }
+     },
+     "matte": {
+      "method": "chroma",
+      "fg": 0.2985,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.995,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": false,
+      "problems": [
+       "leftover blue background visible in gaps around the window shutters"
+      ]
+     },
+     "chroma_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 7852,
+   "tokens_out": 2318,
+   "status": "accepted",
+   "matte": "chroma"
+  },
+  "wall-doorway--log-cabin": {
+   "id": "wall-doorway--log-cabin",
+   "group": "closed",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-log-cabin/work/wall-doorway--log-cabin.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon-style log wall segment featuring an open rectangular doorway lined with a flat timber frame, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon-style log wall segment featuring an open rectangular doorway lined with a flat timber frame, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains a single isolated object: a log cabin wall section with an integrated doorway opening (second guess: an archway or decorative entryway). The structure consists of rounded, stylized timber logs painted in honey-brown and warm tan tones, stacked horizontally with cream and mossy-green chinking paste between each log. The top portion has three full-length horizontal logs spanning across. Below them, a large rectangular aperture forms an empty doorway framed by smooth rectangular wooden planks (two vertical side posts and a horizontal lintel). The remaining lower sections on both the left and right flank this opening as shorter log segments, with the round cut ends clearly visible on the left edge (totaling 10 stacked circular ends vertically). There is no door leaf installed, leaving the opening completely unobstructed, showing the blue background straight through. The object is completely uncropped and centered. The background is a flat, uniform bright blue without shadows, ground, or environment.",
+       "reference_differences": [
+        "The candidate image features a large rectangular doorway cutout lined with a timber frame, whereas the reference image is a solid, unbroken wall of stacked logs.",
+        "The candidate's lower section is divided into left and right columns of shortened logs to accommodate the entrance, whereas all logs in the reference span continuously from end to end.",
+        "The candidate introduces flat, squared-off wooden boards forming the inner door jambs and lintel, which are not present in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2453,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9918,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5498,
+   "tokens_out": 1659,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-window-small-open--log-cabin": {
+   "id": "wall-window-small-open--log-cabin",
+   "group": "open",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-log-cabin/work/wall-window-small-open--log-cabin.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted wooden log wall segment featuring a square window with two wooden shutters opened outward, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted wooden log wall segment featuring a square window with two wooden shutters opened outward, displayed against a solid blue background.",
+       "details": "No text, labels, or watermarks are present. The image shows a single freestanding object, best described as a stylized log wall section with a window, or an architectural game prop. The wall is composed of a vertical stack of nine horizontal wooden logs with circular cut ends visible on the left edge, sealed with light greyish-green chinking. In the middle section sits a wooden-framed window with two shutter panels, each fitted with two dark iron strap hinges. Both shutters are swung open to the sides, leaving the central window opening entirely clear and see-through to the background. The structure is rendered in warm honey-brown and golden wood tones with dark grey metal hardware. The asset is entirely uncropped, floating against a uniform, bright cobalt blue background with no floor plane or cast shadows. There are no people, text, or scenery.",
+       "reference_differences": [
+        "In the candidate image, the two window shutters are swung open to the sides, revealing a hollow square aperture through the wall, whereas in the reference image the shutters are fully closed.",
+        "In the candidate image, the blue background is visible straight through the open window frame, whereas in the reference image the opening is completely blocked by the closed shutter panels.",
+        "In the candidate image, the opened right shutter extends outward and covers the notched log ends on the right side of the window, which are clearly visible in the reference image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.275,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9923,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5461,
+   "tokens_out": 1872,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

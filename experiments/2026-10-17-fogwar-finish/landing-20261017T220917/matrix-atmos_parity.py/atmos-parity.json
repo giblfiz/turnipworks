@@ -1,0 +1,435 @@
+{
+ "checks": [
+  [
+   "P1 the game runs the house atmosphere the server holds; the tuner takes the same values",
+   true,
+   "game: atmos-harry-v2; server: atmos-harry-v2; outdoor 0.8 ft at density 0.42, wind 1.4 ft/s, sea 0, stir radius 0.7 ft, quality low"
+  ],
+  [
+   "P2 params, lighting, sim window, fx resolution and every volume uniform are equal at the same camera",
+   true,
+   "375 fields compared (71 uniforms); window 128x128@1.22ft / 128x128@1.22ft; fx [378, 314] / [378, 314]; 0 differ"
+  ],
+  [
+   "P3a mist density on open ground and in the room",
+   true,
+   "open 0.492 / 0.548; in the room 0.265 / 0.297; room fog [['common', False, 0.8]] / [['common', False, 0.8]]"
+  ],
+  [
+   "P3b the wind is the same vector",
+   true,
+   "[1.227, -0.625] / [1.227, -0.625] ft/s"
+  ],
+  [
+   "P3c the fog pattern travels at the same speed and heading",
+   true,
+   "tuner {'shader_time': [59.579, 64.144], 'elapsed': 4.136, 'vx': 1.181, 'vz': -0.59, 'speed': 1.32, 'q': 20.3, 'change': 0.1385, 'mean': 0.3825} / game {'shader_time': [58.664, 63.211], 'elapsed': 4.132, 'vx': 1.182, 'vz': -0.591, 'speed': 1.321, 'q': 22.7, 'change': 0.1382, 'mean': 0.3817}; preset wind 1.4 ft/s"
+  ],
+  [
+   "P4 a cursor stroke stirs the same footprint, as hard, and it dies away as fast",
+   true,
+   "width 20.8 / 20.8 ft (206 / 206 px); peak 14.95 / 15.38 ft/s; left after 1, 2, 4 s [2.61, 0.04, 0.01] / [2.57, 0.04, 0.01]"
+  ],
+  [
+   "P7a on screen the ground shows through the fog equally (open ground, three patches, 12 s average)",
+   true,
+   "share of the ground's detail still visible, tuner / game: {'right': [0.71, 0.615], 'left': [0.646, 0.627], 'foreground': [0.725, 0.651]}"
+  ],
+  [
+   "P7b frame rate",
+   true,
+   "60.2 / 60 fps"
+  ],
+  [
+   "P5a the fog sea: same density; its banks stay put, a faint ripple travels below wind speed, equally in both",
+   true,
+   "density 0.265 / 0.272; ripple travel 0.748 / 0.749 ft/s (wind 1.4); field change in 5 s 0.0109 / 0.0109 (the mist alone: about 0.13)"
+  ],
+  [
+   "P5b with world.drift = 1 (off by default) the sea's banks travel with the wind, the same in both",
+   true,
+   "tuner {'shader_time': [251.595, 257.242], 'elapsed': 5.132, 'vx': 1.189, 'vz': -0.714, 'speed': 1.387, 'q': 14.6, 'change': 0.0166, 'mean': 0.2683} / game {'shader_time': [251.67, 257.317], 'elapsed': 5.127, 'vx': 1.19, 'vz': -0.714, 'speed': 1.388, 'q': 14.7, 'change': 0.0166, 'mean': 0.2682}; wind 1.4 ft/s"
+  ],
+  [
+   "P6 flow.radiusPx (off by default): the cursor footprint is a size on screen, the same in both",
+   true,
+   "radius 1.709 / 1.709 ft by default; 3.427 / 3.427 ft at 35 px (= 34 / 34 px on the ground)"
+  ],
+  [
+   "P8 no page errors in either",
+   true,
+   ""
+  ]
+ ],
+ "known": [
+  [
+   "camera.far",
+   2000,
+   3000,
+   "far plane: tuner 2000 ft, game 3000 ft"
+  ],
+  [
+   "composite.uNF",
+   [
+    0.5,
+    2000
+   ],
+   [
+    0.5,
+    3000
+   ],
+   "the same far plane, as the upsample sees it"
+  ],
+  [
+   "debug.flames",
+   26,
+   36,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "debug.litSeen",
+   7,
+   8,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "domain.sig",
+   "w225,150,0wall-straight;w275,150,0wall-window-small;w325,150,0wall-straight;w375,150,0wall-straight;w425,150,0wall-straight;w475,150,0wall-window-small;w525,150,0wall-window-small;w225,400,314wall-straight;w375,400,314wall-straight;w425,400,314wall-straight;w475,400,314wall-straight;w525,400,314wall-straight;w200,175,157wall-straight;w200,225,157wall-window-small;w200,275,157wall-straight;w200,325,157wall-straight;w200,375,157wall-straight;w550,175,-157wall-straight;w550,225,-157wall-window-small;w550,275,-157wall-straight;w550,325,-157wall-straight;w550,375,-157wall-straight;w200,150,0pillar-square;w550,150,0pillar-square;w200,400,0pillar-square;w550,400,0pillar-square;w250,400,0pillar-square;w350,400,0pillar-square;f225,175,0floor-planks-worn;f225,225,0floor-planks-worn;f225,275,0floor-planks-worn;f225,325,0floor-planks-worn;f225,375,0floor-planks-worn;f275,175,0floor-planks-worn;f275,225,0floor-planks-worn;f275,275,0floor-planks-worn;f275,325,0floor-planks-worn;f275,375,0floor-planks-worn;f325,175,0floor-planks-worn;f325,225,0floor-planks-worn;f325,275,0floor-planks-worn;f325,325,0floor-planks-worn;f325,375,0floor-planks-worn;f375,175,0floor-planks-worn;f375,225,0floor-planks-worn;f375,275,0floor-planks-worn;f375,325,0floor-planks-worn;f375,375,0floor-planks-worn;f425,175,0floor-planks-worn;f425,225,0floor-planks-worn;f425,275,0floor-planks-worn;f425,325,0floor-planks-worn;f425,375,0floor-planks-worn;f475,175,0floor-planks-worn;f475,225,0floor-planks-worn;f475,275,0floor-planks-worn;f475,325,0floor-planks-worn;f475,375,0floor-planks-worn;f525,175,0floor-planks-worn;f525,225,0floor-planks-worn;f525,275,0floor-planks-worn;f525,325,0floor-planks-worn;f525,375,0floor-planks-worn;room-room1:0.8020,15,55,15,55,40,20,40;|0.8|0.8|false|",
+   "f225,175,0floor-planks-worn;f225,225,0floor-planks-worn;f225,275,0floor-planks-worn;f225,325,0floor-planks-worn;f225,375,0floor-planks-worn;f275,175,0floor-planks-worn;f275,225,0floor-planks-worn;f275,275,0floor-planks-worn;f275,325,0floor-planks-worn;f275,375,0floor-planks-worn;f325,175,0floor-planks-worn;f325,225,0floor-planks-worn;f325,275,0floor-planks-worn;f325,325,0floor-planks-worn;f325,375,0floor-planks-worn;f375,175,0floor-planks-worn;f375,225,0floor-planks-worn;f375,275,0floor-planks-worn;f375,325,0floor-planks-worn;f375,375,0floor-planks-worn;f425,175,0floor-planks-worn;f425,225,0floor-planks-worn;f425,275,0floor-planks-worn;f425,325,0floor-planks-worn;f425,375,0floor-planks-worn;f475,175,0floor-planks-worn;f475,225,0floor-planks-worn;f475,275,0floor-planks-worn;f475,325,0floor-planks-worn;f475,375,0floor-planks-worn;f525,175,0floor-planks-worn;f525,225,0floor-planks-worn;f525,275,0floor-planks-worn;f525,325,0floor-planks-worn;f525,375,0floor-planks-worn;w225,150,0wall-straight;w275,150,0wall-straight;w325,150,0wall-straight;w375,150,0wall-window-small;w425,150,0wall-straight;w475,150,0wall-straight;w525,150,0wall-straight;w225,400,314wall-window-small;w375,400,314wall-straight;w425,400,314wall-window-small;w475,400,314wall-straight;w525,400,314wall-straight;w200,175,157wall-straight;w200,225,157wall-straight;w200,275,157wall-straight;w200,325,157wall-window-small;w200,375,157wall-straight;w550,175,-157wall-straight;w550,225,-157wall-straight;w550,275,-157wall-straight;w550,325,-157wall-window-small;w550,375,-157wall-straight;w200,150,0post-timber;w550,150,0post-timber;w200,400,0post-timber;w550,400,0post-timber;w250,400,0post-timber;w350,400,0post-timber;room_5ee4oe7x9c:0.8020,15,55,15,55,40,20,40;|0.8|0.8|false|",
+   "room ids / furniture"
+  ],
+  [
+   "rooms.0.id",
+   "room-room1",
+   "room_5ee4oe7x9c",
+   "room ids"
+  ],
+  [
+   "stats.anchored_flames",
+   26,
+   36,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.ao_listed",
+   17,
+   6,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.ao_scan_ms",
+   0.2,
+   0.1,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.ao_scans",
+   50,
+   51,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.ao_see_through",
+   10,
+   3,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.atmos_lights",
+   6,
+   7,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.atmos_wisps",
+   24,
+   33,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.fire_lights",
+   6,
+   7,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.graph_gen",
+   552,
+   794,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.lantern_lights",
+   1,
+   2,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.lights_shining",
+   6,
+   7,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ],
+  [
+   "stats.small_flames",
+   25,
+   35,
+   "the room's furniture and fires (the two room generators furnish differently)"
+  ]
+ ],
+ "numbers": {
+  "default_camera": {
+   "tuner": {
+    "grab": {
+     "focus": [
+      45,
+      0,
+      35
+     ],
+     "yaw": -20,
+     "pitch": 52,
+     "dist": 110
+    },
+    "fov": 42,
+    "px_per_ft": 10.4,
+    "window": "128x128@1.22ft",
+    "fx_res": "378x314"
+   },
+   "game": {
+    "grab": {
+     "focus": [
+      30,
+      0,
+      20
+     ],
+     "yaw": -20,
+     "pitch": 52,
+     "dist": 95
+    },
+    "fov": 45,
+    "px_per_ft": 11.16,
+    "window": "128x128@1.22ft",
+    "fx_res": "378x314"
+   }
+  },
+  "probes": {
+   "mist_open": [
+    0.4923845926920573,
+    0.5482711791992188
+   ],
+   "mist_room": [
+    0.2652353922526042,
+    0.2967936197916667
+   ],
+   "wind": [
+    [
+     1.227,
+     -0.625
+    ],
+    [
+     1.227,
+     -0.625
+    ]
+   ],
+   "travel": [
+    {
+     "shader_time": [
+      59.579,
+      64.144
+     ],
+     "elapsed": 4.136,
+     "vx": 1.181,
+     "vz": -0.59,
+     "speed": 1.32,
+     "q": 20.3,
+     "change": 0.1385,
+     "mean": 0.3825
+    },
+    {
+     "shader_time": [
+      58.664,
+      63.211
+     ],
+     "elapsed": 4.132,
+     "vx": 1.182,
+     "vz": -0.591,
+     "speed": 1.321,
+     "q": 22.7,
+     "change": 0.1382,
+     "mean": 0.3817
+    }
+   ],
+   "rooms": [
+    [
+     [
+      "common",
+      false,
+      0.8
+     ]
+    ],
+    [
+     [
+      "common",
+      false,
+      0.8
+     ]
+    ]
+   ]
+  },
+  "stir": {
+   "tuner": {
+    "peak": 14.95,
+    "cells": 221,
+    "area_ft2": 329.3,
+    "width_ft": 20.8,
+    "width_px": 206,
+    "px_per_ft": 9.95,
+    "decay_1_2_4s": [
+     2.61,
+     0.04,
+     0.01
+    ],
+    "spread": [
+     12.7,
+     17.5,
+     16.5,
+     13.4
+    ],
+    "splat_cells": 1.4,
+    "cell": 1.221
+   },
+   "game": {
+    "peak": 15.38,
+    "cells": 222,
+    "area_ft2": 330.8,
+    "width_ft": 20.8,
+    "width_px": 206,
+    "px_per_ft": 9.95,
+    "decay_1_2_4s": [
+     2.57,
+     0.04,
+     0.01
+    ],
+    "spread": [
+     13.4,
+     16.7,
+     17.6,
+     14.0
+    ],
+    "splat_cells": 1.4,
+    "cell": 1.221
+   }
+  },
+  "screen": {
+   "ground_shows_through": {
+    "right": [
+     0.71,
+     0.615
+    ],
+    "left": [
+     0.646,
+     0.627
+    ],
+    "foreground": [
+     0.725,
+     0.651
+    ]
+   },
+   "fps": [
+    60.2,
+    60
+   ]
+  },
+  "sea_clock_alignment": {
+   "before": [
+    213.6834459999911,
+    218.01130999996394
+   ],
+   "aligned": [
+    219.018335999989,
+    219.01967999996356
+   ],
+   "restored_speeds": [
+    1.1,
+    1.1
+   ]
+  },
+  "sea": {
+   "density": [
+    0.26465098063151044,
+    0.2721354166666667
+   ],
+   "as_shipped": [
+    {
+     "shader_time": [
+      236.838,
+      242.484
+     ],
+     "elapsed": 5.16,
+     "vx": 0.71,
+     "vz": -0.237,
+     "speed": 0.748,
+     "q": 12.8,
+     "change": 0.0109,
+     "mean": 0.2806
+    },
+    {
+     "shader_time": [
+      236.912,
+      242.577
+     ],
+     "elapsed": 5.154,
+     "vx": 0.711,
+     "vz": -0.237,
+     "speed": 0.749,
+     "q": 13.1,
+     "change": 0.0109,
+     "mean": 0.2806
+    }
+   ],
+   "with_drift": [
+    {
+     "shader_time": [
+      251.595,
+      257.242
+     ],
+     "elapsed": 5.132,
+     "vx": 1.189,
+     "vz": -0.714,
+     "speed": 1.387,
+     "q": 14.6,
+     "change": 0.0166,
+     "mean": 0.2683
+    },
+    {
+     "shader_time": [
+      251.67,
+      257.317
+     ],
+     "elapsed": 5.127,
+     "vx": 1.19,
+     "vz": -0.714,
+     "speed": 1.388,
+     "q": 14.7,
+     "change": 0.0166,
+     "mean": 0.2682
+    }
+   ]
+  },
+  "radiusPx": {
+   "feet_default": [
+    1.709,
+    1.709
+   ],
+   "radius_px": 35,
+   "feet_at_test_px": [
+    3.427,
+    3.427
+   ],
+   "px_per_ft": [
+    10.007900042105712,
+    10.007900042105712
+   ]
+  }
+ }
+}

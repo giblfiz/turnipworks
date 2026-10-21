@@ -1,0 +1,332 @@
+{
+ "blind_flash": {
+  "buttress--s1": {
+   "row": 1,
+   "object": "stone chimney",
+   "pose": "upright",
+   "front": "C",
+   "why": "stepped ledges face forward",
+   "conf": 0.85
+  },
+  "buttress--s2": {
+   "row": 2,
+   "object": "stone buttress",
+   "pose": "upright",
+   "front": "D",
+   "why": "sloped face facing away from wall",
+   "conf": 0.8
+  },
+  "chimney-stack--brick": {
+   "row": 3,
+   "object": "brick chimney",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric square chimney",
+   "conf": 0.95
+  },
+  "chimney-stack--cottage": {
+   "row": 4,
+   "object": "stone chimney with cap",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric on all sides",
+   "conf": 0.95
+  },
+  "chimney-stack--mansion": {
+   "row": 1,
+   "object": "brick chimney with triple pots",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical wide sides",
+   "conf": 0.9
+  },
+  "chimney-stack--stone": {
+   "row": 2,
+   "object": "stone chimney with triangular cap",
+   "pose": "upright",
+   "front": "none",
+   "why": "two-fold symmetrical structure",
+   "conf": 0.9
+  },
+  "corbel-stone--s1": {
+   "row": 3,
+   "object": "stone wall corbel bracket",
+   "pose": "upright",
+   "front": "C",
+   "why": "outward-facing stepped side projecting from the wall",
+   "conf": 0.85
+  },
+  "corbel-stone--s2": {
+   "row": 4,
+   "object": "carved stone corbel bracket",
+   "pose": "upright",
+   "front": "A",
+   "why": "ornately carved decorative front face",
+   "conf": 0.95
+  },
+  "gargoyle-spout--plain": {
+   "row": 1,
+   "object": "stone gutter spout",
+   "pose": "upright",
+   "front": "none",
+   "why": "spouts do not have a front",
+   "conf": 0.9
+  },
+  "gargoyle-spout--s1": {
+   "row": 2,
+   "object": "stone gargoyle corbel",
+   "pose": "upright",
+   "front": "A",
+   "why": "carved gargoyle face",
+   "conf": 0.95
+  },
+  "jetty-bracket--s1": {
+   "row": 3,
+   "object": "wooden roof bracket",
+   "pose": "upright",
+   "front": "D",
+   "why": "side facing away from the wall",
+   "conf": 0.85
+  },
+  "jetty-bracket--s2": {
+   "row": 4,
+   "object": "carved wooden corbel",
+   "pose": "upright",
+   "front": "B",
+   "why": "ornamental face facing away from the wall",
+   "conf": 0.95
+  },
+  "ladder-wood--leaning": {
+   "row": 1,
+   "object": "wooden ladder",
+   "pose": "upright",
+   "front": "A",
+   "why": "climbing side facing forward while leaning back",
+   "conf": 0.9
+  },
+  "ladder-wood--upright": {
+   "row": 2,
+   "object": "wooden ladder",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.95
+  },
+  "nest-bird--s1": {
+   "row": 3,
+   "object": "bird nest with eggs",
+   "pose": "upright",
+   "front": "none",
+   "why": "round nest with no distinct front",
+   "conf": 1.0
+  },
+  "parapet-corner--dressed-stone": {
+   "row": 4,
+   "object": "stone pillar",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on all four sides",
+   "conf": 0.95
+  },
+  "parapet-straight--dressed-stone": {
+   "row": 1,
+   "object": "stone railing or wall section",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric stone railing segment with identical front and back",
+   "conf": 0.95
+  },
+  "post-timber--plain": {
+   "row": 2,
+   "object": "wooden post with top joint",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric vertical wooden post",
+   "conf": 0.9
+  },
+  "roof-dormer--shingle": {
+   "row": 3,
+   "object": "wooden wall section with windows and roof",
+   "pose": "upright",
+   "front": "A",
+   "why": "windows with shutters",
+   "conf": 1.0
+  },
+  "roof-dormer--slate": {
+   "row": 4,
+   "object": "stone dormer window",
+   "pose": "upright",
+   "front": "A",
+   "why": "window pane and decorated facade",
+   "conf": 1.0
+  },
+  "roof-dormer--tile": {
+   "row": 1,
+   "object": "dormer window or miniature cottage",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical window facades on opposite sides",
+   "conf": 0.85
+  },
+  "roof-finial--s1": {
+   "row": 2,
+   "object": "stone sphere finial",
+   "pose": "upright",
+   "front": "none",
+   "why": "rotationally symmetric post topper",
+   "conf": 0.95
+  },
+  "roof-finial--s2": {
+   "row": 3,
+   "object": "stone finial pillar top",
+   "pose": "upright",
+   "front": "none",
+   "why": "rotationally symmetric",
+   "conf": 0.95
+  },
+  "roof-hatch--wood": {
+   "row": 4,
+   "object": "wooden chest or crate",
+   "pose": "upright",
+   "front": "A",
+   "why": "latch on the front edge",
+   "conf": 0.98
+  },
+  "roof-hatch-open--wood": {
+   "row": 1,
+   "object": "open wooden trapdoor",
+   "pose": "upright",
+   "front": "A",
+   "why": "open hatchway and lid underside",
+   "conf": 0.9
+  },
+  "roof-ridge--lead": {
+   "row": 2,
+   "object": "roof ridge cap",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric architectural piece",
+   "conf": 0.95
+  },
+  "roof-ridge--thatch": {
+   "row": 3,
+   "object": "tiled roof ridge cap",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric architectural piece",
+   "conf": 0.95
+  },
+  "roof-skylight--lead": {
+   "row": 4,
+   "object": "square roof skylight",
+   "pose": "upright",
+   "front": "none",
+   "why": "fourfold symmetric roof lantern",
+   "conf": 0.95
+  },
+  "stair-grand--noble-interior": {
+   "row": 1,
+   "object": "carpeted wooden staircase",
+   "pose": "upright",
+   "front": "A",
+   "why": "bottom of stairs",
+   "conf": 0.95
+  },
+  "stair-half--dressed-stone": {
+   "row": 2,
+   "object": "stone steps",
+   "pose": "upright",
+   "front": "A",
+   "why": "bottom of the steps",
+   "conf": 0.95
+  },
+  "stair-half--rough-timber": {
+   "row": 3,
+   "object": "wooden staircase",
+   "pose": "upright",
+   "front": "A",
+   "why": "bottom of the steps",
+   "conf": 0.95
+  },
+  "stair-landing--dressed-stone--t10": {
+   "row": 4,
+   "object": "carved stone block",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on all four sides",
+   "conf": 0.9
+  },
+  "stair-landing--rough-timber--t10": {
+   "row": 1,
+   "object": "wooden platform",
+   "pose": "upright",
+   "front": "none",
+   "why": "four-way symmetric platform",
+   "conf": 0.9
+  },
+  "stair-spiral-wide--dressed-stone": {
+   "row": 2,
+   "object": "stone spiral staircase",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular spiral staircase with no single front",
+   "conf": 0.8
+  },
+  "stair-spiral-wide--rough-timber": {
+   "row": 3,
+   "object": "wooden spiral staircase",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular spiral staircase with no single front",
+   "conf": 0.8
+  },
+  "stair-straight--dressed-stone--t10": {
+   "row": 4,
+   "object": "stone stairs",
+   "pose": "upright",
+   "front": "B",
+   "why": "bottom of the steps facing the climber",
+   "conf": 0.95
+  },
+  "stair-straight--rough-timber--t10": {
+   "row": 1,
+   "object": "wooden staircase",
+   "pose": "upright",
+   "front": "A",
+   "why": "bottom of stairs",
+   "conf": 0.95
+  },
+  "stair-wall-hugging--dressed-stone": {
+   "row": 2,
+   "object": "stone staircase",
+   "pose": "upright",
+   "front": "B",
+   "why": "bottom of stairs",
+   "conf": 0.95
+  },
+  "wall-crenellated--dressed-stone": {
+   "row": 3,
+   "object": "stone battlement wall",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric wall section",
+   "conf": 0.9
+  },
+  "wall-crenellated-corner--dressed-stone": {
+   "row": 4,
+   "object": "stone turret pillar",
+   "pose": "upright",
+   "front": "none",
+   "why": "four-fold symmetric pillar with arrow slits",
+   "conf": 0.95
+  },
+  "weathervane--banner": {
+   "row": 1,
+   "object": "weather vane",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric weather vane with identical opposite sides",
+   "conf": 0.85
+  }
+ }
+}

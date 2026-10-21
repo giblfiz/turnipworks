@@ -1,0 +1,157 @@
+{
+ "file": "foe-zombie-woman.glb",
+ "tris": 49355,
+ "kb": 2609,
+ "native_extent": [
+  0.45,
+  1.001,
+  0.385
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0533,
+  "seen": 0.0009
+ },
+ "mean_rgb": [
+  48,
+  44,
+  20
+ ],
+ "mean_saturation": 0.633,
+ "sized_by": "its highest point",
+ "overall_ft": 5.7,
+ "pieces": {
+  "connected_parts": 27,
+  "main_part_area_share": 0.9961,
+  "floating": [
+   {
+    "area_share": 0.00031,
+    "gap_ft": 0.03,
+    "size_ft": 0.11
+   },
+   {
+    "area_share": 0.00018,
+    "gap_ft": 0.04,
+    "size_ft": 0.08
+   }
+  ],
+  "floating_count": 2,
+  "floating_area_share": 0.00049,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.6971,
+ "y0": -2.8514,
+ "stated_ft": {
+  "body": 5.7,
+  "figure_top": 5.7,
+  "overall": 5.7
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2251,
+   -0.5005,
+   -0.194
+  ],
+  [
+   0.2245,
+   0.5001,
+   0.191
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49355,
+   "tex": 2048,
+   "kb": 2609
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1056
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 459
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.76,
+    "z": 0.35,
+    "size_ft": [
+     0.81,
+     1.19
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.88,
+    "sole_p90_ft": 0.069
+   },
+   {
+    "x": -0.74,
+    "z": -0.64,
+    "size_ft": [
+     0.69,
+     1.19
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.89,
+    "sole_p90_ft": 0.065
+   },
+   {
+    "x": 0.06,
+    "z": 0.09,
+    "size_ft": [
+     0.24,
+     0.24
+    ],
+    "off_ground_ft": 0.364,
+    "sole_level_share": 0.58,
+    "sole_p90_ft": 0.48
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.364,
+  "lowest_slab_area_sqft": 1.14,
+  "plan_hull_area_sqft": 4.01,
+  "lowest_slab_share_of_plan": 0.286
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.56,
+   "d": 2.19,
+   "h": 5.7
+  },
+  "centre": [
+   -0.131,
+   -0.022
+  ],
+  "contacts_radius_ft": 1.29,
+  "reach_radius_ft": 1.35,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.929,
+  "plate_lost_share": 0.016,
+  "added_share": 0.06,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.925,
+  "view_yaw_deg": 35,
+  "view_elev_deg": 8
+ },
+ "id": "foe-zombie-woman",
+ "sha1": "92ec5d7c6bc3e8851a6cbf19236592329e0025b5",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.36 ft off the ground"
+ ],
+ "qa_seconds": 16.5
+}

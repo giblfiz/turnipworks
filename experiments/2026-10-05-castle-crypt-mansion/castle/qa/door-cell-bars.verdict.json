@@ -1,0 +1,36 @@
+{
+ "sku": "door-cell-bars",
+ "glb_sha1": "c7e4b766489afcc7b6687b6d9b6a193b7a625528",
+ "time": "2026-10-05T21:13:57-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "jail cell door",
+  "second_guess": "prison bars with gate",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A heavy stylized iron prison cell wall segment featuring an operable-looking barred door set within a wider barred frame. The outer frame consists of thick square metal beams with reinforced corner caps and round rivet studs, surrounding vertical round bars and horizontal brace rails. In the center, a smaller hinged door with heavy cylindrical barrel hinges and a rectangular lock plate with a keyhole contains its own set of vertical bars. Surfaces are solid, clean, and continuous with stylized hand-painted dark brownish-grey metal and subtle blue-grey highlights on the vertical rods.",
+  "from_above": "A straight horizontal bar with squarish caps on either end and subtle slight protrusions along its length corresponding to hinges, brackets, and the lock mechanism.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "Roughly 5 ft 4 in tall (just slightly shorter than the 5 ft 9 in figure) and about 5 ft wide."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "jail cell door",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "wider than catalog target (approx 7.9 ft wide vs 5.0 ft wide), but reads clearly as prison bar wall panel"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "panel width:height 0.88, catalog 0.56"
+ ],
+ "notes": [
+  "wall panel: w:h 0.88, depth:h 0.10, largest opening 5% x 33%, filled 71%",
+  "gemini note: wider than catalog target (approx 7.9 ft wide vs 5.0 ft wide), but reads clearly as prison bar wall panel"
+ ],
+ "vision": true
+}

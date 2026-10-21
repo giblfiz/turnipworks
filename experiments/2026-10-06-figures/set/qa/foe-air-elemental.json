@@ -1,0 +1,135 @@
+{
+ "file": "foe-air-elemental.glb",
+ "tris": 46849,
+ "kb": 2512,
+ "native_extent": [
+  0.948,
+  1.0,
+  0.556
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  164,
+  160,
+  134
+ ],
+ "mean_saturation": 0.188,
+ "sized_by": "its highest point",
+ "overall_ft": 8.0,
+ "pieces": {
+  "connected_parts": 69,
+  "main_part_area_share": 0.9807,
+  "floating": [
+   {
+    "area_share": 0.00028,
+    "gap_ft": 0.03,
+    "size_ft": 0.34
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.03,
+    "size_ft": 0.04
+   }
+  ],
+  "floating_count": 2,
+  "floating_area_share": 0.00028,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 8.0058,
+ "y0": -3.9998,
+ "stated_ft": {
+  "body": 8.0,
+  "figure_top": 8.0,
+  "overall": 8.0
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4754,
+   -0.5004,
+   -0.2777
+  ],
+  [
+   0.4729,
+   0.4998,
+   0.2784
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 46849,
+   "tex": 2048,
+   "kb": 2512
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 962
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 420
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.18,
+    "z": 0.17,
+    "size_ft": [
+     1.2,
+     1.23
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.03,
+    "sole_p90_ft": 0.651
+   }
+  ],
+  "contact_count": 1,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 0.13,
+  "plan_hull_area_sqft": 27.04,
+  "lowest_slab_share_of_plan": 0.005
+ },
+ "plan": {
+  "size_ft": {
+   "w": 7.59,
+   "d": 4.44,
+   "h": 8.0
+  },
+  "centre": [
+   0.149,
+   0.13
+  ],
+  "contacts_radius_ft": 0.67,
+  "reach_radius_ft": 3.95,
+  "share_outside_2p5ft": 0.295
+ },
+ "silhouette": {
+  "iou": 0.943,
+  "plate_lost_share": 0.025,
+  "added_share": 0.034,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.93,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 0
+ },
+ "id": "foe-air-elemental",
+ "sha1": "1a9280f4cde6666b9031665622306dbb2252bfd2",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.03 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 12.6
+}

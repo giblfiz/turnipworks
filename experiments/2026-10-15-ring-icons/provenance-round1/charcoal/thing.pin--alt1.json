@@ -1,0 +1,53 @@
+{
+  "id": "thing.pin",
+  "set": "charcoal",
+  "alt": 1,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One large stout ivory ships anchor with broad hooked flukes and a thick muted teal rope loop through its top. Simple anchoring / pinning metaphor, no crate or chest or container. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--thing.pin--alt1.png",
+  "source_sha256": "6db319d7687b3caeee7feb7c501bded2dbbdd905a91b7925ea7fb04f3d477b38",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/thing.pin--alt1.webp",
+    "19": "charcoal/sizes/19/thing.pin--alt1.webp",
+    "22": "charcoal/sizes/22/thing.pin--alt1.webp",
+    "26": "charcoal/sizes/26/thing.pin--alt1.webp",
+    "31": "charcoal/sizes/31/thing.pin--alt1.webp",
+    "36": "charcoal/sizes/36/thing.pin--alt1.webp",
+    "38": "charcoal/sizes/38/thing.pin--alt1.webp",
+    "42": "charcoal/sizes/42/thing.pin--alt1.webp",
+    "44": "charcoal/sizes/44/thing.pin--alt1.webp",
+    "50": "charcoal/sizes/50/thing.pin--alt1.webp",
+    "52": "charcoal/sizes/52/thing.pin--alt1.webp",
+    "62": "charcoal/sizes/62/thing.pin--alt1.webp",
+    "84": "charcoal/sizes/84/thing.pin--alt1.webp",
+    "100": "charcoal/sizes/100/thing.pin--alt1.webp",
+    "128": "charcoal/thing.pin--alt1.webp"
+  },
+  "sha256": {
+    "18": "795787acbd1030cc9ed20d42331f8ef7ac19810933c5f04d0cc798d244086c0c",
+    "19": "a1714a19eebf80bad4f2c675bc32a83f178389d05a612166cdb1a1bec737f4cf",
+    "22": "bedc3b47b581decc769286f7e0c8c8e0e5404b44bf2dea990eb62eb102774a3a",
+    "26": "23e61e4a07e66d7ad9e1c9ce0d200ec9b028f62da9c1c33e1a57e937f9649e2f",
+    "31": "bcbab0f67cc13e6710e1c3ff4a4255a7a33e4a4a18f9e755623d40cdc9460e4d",
+    "36": "f432ea9aed6f393c8e074915a36648a41b304021039f9bb728abc25d61c55467",
+    "38": "b5fc1b4e7178e827303c19d6db563c07b1e974264aa08bbc9b402fc9ef3953d1",
+    "42": "1f87a845dbd1af5383baebb86795ed6bea4f4c327f382fec1c4ba9212995441d",
+    "44": "d63db078643b81c8b84474c428e34e670eca57060bee1b754c119b871cf62639",
+    "50": "582b52f154db9fc861da35b90c394076e5cd964d1c41a3e6da30d874de324a98",
+    "52": "df6379d122db04aca737de283e486ee130479ad1f4efb4a44a339b70126df406",
+    "62": "e95a54de480cc4a04f3b4eb132ea91e319faa9a05334913e08c14c66dbb38b05",
+    "84": "608443a1697e5f6b01b3fc5fea3de22004e6b9b7604fca2fe5160958823a5106",
+    "100": "f2ac7532414e3aabc5b24b91364a78ba1680efeab5edbfff9f9221332242a9dd",
+    "128": "c98b28038be6345dcedb3564fd3b9b072fb0edf94eb3baf4f227ddbc69321ac9"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "411fe54035402d6a0e856fed8d2ce02f424aabdd676c099a84ded8e06341b86a"
+}

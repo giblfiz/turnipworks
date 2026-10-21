@@ -1,0 +1,144 @@
+{
+ "file": "foe-wererat.glb",
+ "tris": 48755,
+ "kb": 3029,
+ "native_extent": [
+  0.61,
+  1.0,
+  0.882
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  72,
+  43,
+  25
+ ],
+ "mean_saturation": 0.697,
+ "sized_by": "its highest point",
+ "overall_ft": 5.2,
+ "pieces": {
+  "connected_parts": 187,
+  "main_part_area_share": 0.997,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.2088,
+ "y0": -2.5973,
+ "stated_ft": {
+  "body": 5.2,
+  "figure_top": 5.2,
+  "overall": 5.2
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3043,
+   -0.4995,
+   -0.429
+  ],
+  [
+   0.3056,
+   0.5002,
+   0.4528
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48755,
+   "tex": 2048,
+   "kb": 3029
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1178
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 488
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.8,
+    "z": -1.04,
+    "size_ft": [
+     0.91,
+     1.43
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.43,
+    "sole_p90_ft": 0.148
+   },
+   {
+    "x": 0.85,
+    "z": 0.87,
+    "size_ft": [
+     0.91,
+     1.34
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.44,
+    "sole_p90_ft": 0.148
+   },
+   {
+    "x": 0.07,
+    "z": -1.56,
+    "size_ft": [
+     1.76,
+     1.78
+    ],
+    "off_ground_ft": 0.029,
+    "sole_level_share": 0.56,
+    "sole_p90_ft": 0.251
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.029,
+  "lowest_slab_area_sqft": 2.18,
+  "plan_hull_area_sqft": 8.79,
+  "lowest_slab_share_of_plan": 0.248
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.17,
+   "d": 4.59,
+   "h": 5.2
+  },
+  "centre": [
+   0.146,
+   -0.375
+  ],
+  "contacts_radius_ft": 2.1,
+  "reach_radius_ft": 2.45,
+  "share_outside_2p5ft": 0.001
+ },
+ "silhouette": {
+  "iou": 0.888,
+  "plate_lost_share": 0.04,
+  "added_share": 0.08,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.888,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "foe-wererat",
+ "sha1": "425ed903700dffc8a87690f82a4e56e3cf1a63e2",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 17.1
+}

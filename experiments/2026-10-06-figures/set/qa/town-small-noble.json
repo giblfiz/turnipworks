@@ -1,0 +1,170 @@
+{
+ "file": "town-small-noble.glb",
+ "tris": 48793,
+ "kb": 3018,
+ "native_extent": [
+  0.559,
+  1.0,
+  0.442
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0606,
+  "seen": 0.0031
+ },
+ "mean_rgb": [
+  95,
+  69,
+  34
+ ],
+ "mean_saturation": 0.7,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 1.61,
+  "length_ft": 1.69,
+  "low_end_ft": [
+   -0.15,
+   0.02,
+   0.52
+  ],
+  "high_end_ft": [
+   -0.21,
+   1.72,
+   0.56
+  ],
+  "tilt_from_upright_deg": 2.7,
+  "thickness_ft": 0.13,
+  "clear_share": 1.0,
+  "joined_share": 0.0,
+  "broken_share": 0.0,
+  "walk_low_to_high": "----------------------------------"
+ },
+ "overall_ft": 3.12,
+ "pieces": {
+  "connected_parts": 61,
+  "main_part_area_share": 0.9961,
+  "floating": [
+   {
+    "area_share": 0.00012,
+    "gap_ft": 0.03,
+    "size_ft": 0.08
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 0.00012,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.1248,
+ "y0": -1.5621,
+ "stated_ft": {
+  "body": 3.1,
+  "figure_top": 3.1,
+  "overall": 3.1
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2792,
+   -0.4999,
+   -0.2227
+  ],
+  [
+   0.28,
+   0.5001,
+   0.2193
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48793,
+   "tex": 2048,
+   "kb": 3018
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1167
+  },
+  "8k512": {
+   "tris": 7998,
+   "tex": 512,
+   "kb": 503
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.59,
+    "z": 0.04,
+    "size_ft": [
+     0.56,
+     0.82
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.94,
+    "sole_p90_ft": 0.037
+   },
+   {
+    "x": -0.52,
+    "z": -0.4,
+    "size_ft": [
+     0.6,
+     0.76
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.037
+   },
+   {
+    "x": -0.15,
+    "z": 0.52,
+    "size_ft": [
+     0.13,
+     0.26
+    ],
+    "off_ground_ft": 0.02,
+    "sole_level_share": 0.15,
+    "sole_p90_ft": 0.238
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.02,
+  "lowest_slab_area_sqft": 0.57,
+  "plan_hull_area_sqft": 1.7,
+  "lowest_slab_share_of_plan": 0.336
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.75,
+   "d": 1.38,
+   "h": 3.12
+  },
+  "centre": [
+   0.002,
+   -0.049
+  ],
+  "contacts_radius_ft": 0.92,
+  "reach_radius_ft": 0.89,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.932,
+  "plate_lost_share": 0.04,
+  "added_share": 0.029,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.895,
+  "view_yaw_deg": 0,
+  "view_elev_deg": 8
+ },
+ "id": "town-small-noble",
+ "sha1": "5ccf328390aa2d1541dd814e0c97fc5cc84818d0",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 16.0
+}

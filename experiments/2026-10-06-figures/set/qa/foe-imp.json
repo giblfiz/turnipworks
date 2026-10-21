@@ -1,0 +1,133 @@
+{
+ "file": "foe-imp.glb",
+ "tris": 47725,
+ "kb": 2360,
+ "native_extent": [
+  0.778,
+  1.0,
+  0.553
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0002
+ },
+ "mean_rgb": [
+  140,
+  41,
+  21
+ ],
+ "mean_saturation": 0.856,
+ "sized_by": "its highest point",
+ "overall_ft": 2.2,
+ "pieces": {
+  "connected_parts": 28,
+  "main_part_area_share": 0.9981,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 2.1992,
+ "y0": -1.0997,
+ "stated_ft": {
+  "body": 2.2,
+  "figure_top": 2.2,
+  "overall": 2.2
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.389,
+   -0.5001,
+   -0.2745
+  ],
+  [
+   0.3885,
+   0.5003,
+   0.2783
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47725,
+   "tex": 2048,
+   "kb": 2360
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 979
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 425
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.32,
+    "z": 0.13,
+    "size_ft": [
+     0.65,
+     0.66
+    ],
+    "off_ground_ft": 0.006,
+    "sole_level_share": 0.72,
+    "sole_p90_ft": 0.172
+   },
+   {
+    "x": -0.56,
+    "z": -0.06,
+    "size_ft": [
+     0.49,
+     0.54
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.87,
+    "sole_p90_ft": 0.068
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.006,
+  "lowest_slab_area_sqft": 0.28,
+  "plan_hull_area_sqft": 1.38,
+  "lowest_slab_share_of_plan": 0.205
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.71,
+   "d": 1.21,
+   "h": 2.2
+  },
+  "centre": [
+   -0.041,
+   0.068
+  ],
+  "contacts_radius_ft": 0.78,
+  "reach_radius_ft": 0.89,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.89,
+  "plate_lost_share": 0.038,
+  "added_share": 0.081,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.897,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "foe-imp",
+ "sha1": "d53f581b1938a4aab29016f5689b65cd12198714",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 8.5
+}

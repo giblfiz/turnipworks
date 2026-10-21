@@ -1,0 +1,26 @@
+[
+  {
+    "suite": "tools/spawn-tuner/test/atmos_parity.py",
+    "attempt": 1,
+    "status": "PASS",
+    "exit": 0,
+    "child_exit": 0,
+    "passed": 12,
+    "failed": 0,
+    "expected_failures": 0,
+    "seconds": 247.24,
+    "wall_seconds": 247.57,
+    "command": [
+      "python3",
+      "tools/spawn-tuner/test/atmos_parity.py",
+      "http://127.0.0.1:46835/tuner",
+      "http://127.0.0.1:46835/engine/client/",
+      "experiments/2026-10-17-fogwar-finish/landing-20261017T220917/matrix-atmos_parity.py/atmos-parity.json"
+    ],
+    "log": "experiments/2026-10-17-fogwar-finish/landing-20261017T220917/matrix-atmos_parity.py/tools__spawn-tuner__test__atmos_parity.py.1.log",
+    "asserting": true,
+    "expected_assertions": null,
+    "ports": [],
+    "port_wait_seconds": 0.0
+  }
+]

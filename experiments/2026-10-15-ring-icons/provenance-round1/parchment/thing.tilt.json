@@ -1,0 +1,53 @@
+{
+  "id": "thing.tilt",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: An ochre wooden crate visibly tipped forty-five degrees onto its corner, with ONE thick ivory VERTICAL curved arrow arching over its top toward its right side. Exactly one arrowhead. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/parchment--thing.tilt.png",
+  "source_sha256": "9ebff55b612a24dd5557ee969867ef32b59adf12b6e514edc09a5d01a238ca28",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/thing.tilt.webp",
+    "19": "parchment/sizes/19/thing.tilt.webp",
+    "22": "parchment/sizes/22/thing.tilt.webp",
+    "26": "parchment/sizes/26/thing.tilt.webp",
+    "31": "parchment/sizes/31/thing.tilt.webp",
+    "36": "parchment/sizes/36/thing.tilt.webp",
+    "38": "parchment/sizes/38/thing.tilt.webp",
+    "42": "parchment/sizes/42/thing.tilt.webp",
+    "44": "parchment/sizes/44/thing.tilt.webp",
+    "50": "parchment/sizes/50/thing.tilt.webp",
+    "52": "parchment/sizes/52/thing.tilt.webp",
+    "62": "parchment/sizes/62/thing.tilt.webp",
+    "84": "parchment/sizes/84/thing.tilt.webp",
+    "100": "parchment/sizes/100/thing.tilt.webp",
+    "128": "parchment/thing.tilt.webp"
+  },
+  "sha256": {
+    "18": "ac478e49168599a14836de442174c99fd3e7a0f4d85c9bdbbe1de1676d7d1649",
+    "19": "ba53f48dc1560a78cbe457c82f2b7757a33b2a01d00c9320957a0cd038458a1a",
+    "22": "1588d8fcb8698aad228c9f40bce34aeb6c5bca4fc392b40f800c0bd5923ba365",
+    "26": "b0de10eaeb0e73cbfeaab0bb3578f03cf655a5e16c8ead5200f5b2aec4fec855",
+    "31": "a2b1d733f4ea272e58b8b78e6dc03f3e8d22c20932ebc6bb854c4d4af36872c5",
+    "36": "c2845d177060433116f6561aef60d77a963c05c664ca950279c6aae89ccc6e53",
+    "38": "881211fbe7b653b24a19a3a2d1b1fa62dbef50033061091396745bec64e49f1d",
+    "42": "5acd2c4a04a8f50215ae3f4edd690437c3059a7f66135548fae545420959599a",
+    "44": "88c3cddeaca873edcc9bfa1697d4e7d71951dd860f76ccfc091b9bf820947d79",
+    "50": "8dc1d96bbbb4872c54f979b9cfd6e34505f95134f8ab57a8863113ccf1276a9c",
+    "52": "d1e48f9f4a2698d64c50c93efc0a708f07cf110b3404dbff9308147ba16a4324",
+    "62": "bca092d009cf61911c3bf863ed287068598392300a9500e6447e6ca830de5401",
+    "84": "f6105bf08e78528cafe725a4d5d690654a2e52195a00bd19dcafe5da668f9e01",
+    "100": "d1c13d0335ffa3eb5fd350a46a97c624bdf72b3c951bc756b6e1139d163217b8",
+    "128": "9faaa852180571dc30dda1d4abe19d2cd2e317a6c6cff05e8b6ea43be08b3ae2"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "9983a24a6a529dbb352d0f2c5e024ba994dc55ae0c839115bcaad4fc85006ca2"
+}

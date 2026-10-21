@@ -1,0 +1,487 @@
+RUI — ruins: 485 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  arch-freestanding          [floor/1x2] ruins, garden gates, portals
+! P1  floor-flagstone-broken     [kit/1] ruins, old cellars, stables
+! P1  wall-breach                [kit/edge] secret routes, siege damage, ruin reveals
+! P1  vines-hanging              [wall/1] ruin overgrowth's workhorse
+! P1  column-drum-fallen         [floor/1x2] the ruin's signature silhouette
+! P1  column-stump               [floor/sub] colonnade remnants
+! P1  masonry-block-fallen       [floor/sub] scatter around broken walls
+! P1  rubble-pile                [floor/1] the ruin workhorse; varied sizes
+! P1  statue-toppled             [floor/1x2] lost glories
+! P1  column-drums-fallen        [floor/1x2] beside its stump
+! P1  pillar-broken              [floor/1] collapsed halls; stands where a `pillar-round` did
+! P1  obelisk-runed              [ground/1] ley lines, cursed sites
+! P1  arch-half                  [floor/1x2] the ruin silhouette
+! P1  chimney-standing-alone     [ground/1] the saddest silhouette in a raided village
+! P2  floor-broken-hole          [kit/1] reveals the level below
+! P2  sword-broken               [surface/tiny] battlefield remains; quest to reforge
+! P2  floor-cracked-tile         [kit/1] aging floor family
+! P2  ivy-wall-cover             [wall/1] aging layer for any stone wall
+! P2  stair-broken               [kit/1x2] climb what's left
+! P2  tower-collapsed            [ground/2x2] landmarks visible from far off
+! P2  wall-overgrown             [kit/edge] the late stage of ruin
+! P3  sword-stone                [floor/1] only the worthy
+! P3  fountain-dry-cracked       [ground/1] lost courtyards
+  P1  balustrade-stone           [kit/edge] noble terraces
+  P1  dais                       [floor/2x3] under thrones and altars; lifts the focal object
+  P1  door-barn-double           [kit/2x2] barns and stables; open = daylight floods in
+  P1  door-double-grand          [kit/edge] throne rooms, great halls, chapels
+  P1  door-plank                 [kit/edge] the default door; open/closed is a scene state
+  P1  door-reinforced            [kit/edge] vaults, keeps, lockable rooms
+  P1  fence-wattle               [kit/edge] gardens, pens
+  P1  floor-boards-rough         [kit/1] privies, storerooms, hovels
+  P1  floor-hayloft              [kit/1] the upper storey of a barn; hide in the hay
+  P1  floor-tile                 [kit/1] instanced; the cheapest thing in any scene
+  P1  ladder-wood                [wall/edge] lofts, wells, mine shafts
+  P1  mine-timber-set            [kit/edge] repeats every cell or two down a gallery
+  P1  pillar-square              [floor/sub] breaks up big rooms; hard cover
+  P1  post-timber                [floor/sub] timber buildings, taverns, barns
+  P1  stair-straight             [kit/1x2] connects storeys; multi-floor is day-one
+  P1  tower-round-segment        [kit/edge] towers; wizard towers
+  P1  wall-corner-inner          [kit/edge] concave room corners
+  P1  wall-corner-outer          [kit/edge] pairs with straight; solver places automatically
+  P1  wall-crenellated           [kit/edge] wall-walk edge; gives ¾ cover
+  P1  wall-crypt-niches          [kit/edge] catacomb corridors
+  P1  wall-doorway               [kit/edge] takes any door role
+  P1  wall-straight              [kit/edge] the backbone; every family needs one
+  P1  wall-walk                  [kit/1] patrol routes
+  P1  wall-window-small          [kit/edge] lets light and sight through when open
+  P1  decal-bones-scatter        [floor/sub] loose bones are flat on purpose (thin meshes break); scattered thinly in ossuaries and catacombs
+  P1  door-crypt                 [kit/edge] hangs in `wall-doorway--crypt-stone`; a leaf like `door-plank--leaf`, hinged by the engine
+  P1  floor-tomb-slabs           [kit/1] burial vaults and chapels of rest; the ledgers carry carved borders and symbols, never letters
+  P1  altar-stone                [floor/1x2] chapel focus; ritual chambers
+  P1  bar-counter                [kit/1] THE tavern signature; staff side vs customer side
+  P1  bread-oven                 [wall/1] kitchens and village bakeries
+  P1  fireplace-wall             [wall/1x2] anchor for common rooms; seating faces it
+  P1  forge                      [floor/2x2] smithy anchor; the room is built around it
+  P1  fountain-courtyard         [ground/2x2] manor gardens, town squares
+  P1  hearth-central             [floor/1] center of a one-room cottage
+  P1  mine-headframe             [ground/2x2] mine surface landmark
+  P1  outhouse                   [ground/1] the yard behind any building
+  P1  smelter                    [floor/1] mine head or smith's yard
+  P1  throne                     [floor/1] throne room focal point; on a dais
+  P1  well                       [floor/1] village and courtyard centerpiece
+  P1  bed-canopy                 [floor/2x2] noble bedchamber anchor
+  P1  bed-double                 [floor/2x2] the good inn room
+  P1  bed-single                 [floor/1x2] inn rooms
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  bookshelf                  [wall/1] libraries; line walls
+  P1  bunk-bed                   [floor/1x2] barracks, miners' dormitory
+  P1  chair-armed                [floor/sub] head of table; study; by the fire
+  P1  chair-plain                [floor/sub] the default chair
+  P1  chair-upholstered          [floor/sub] parlors; the "comfortable chair" test
+  P1  cot                        [floor/1x2] infirmaries, cells
+  P1  counter-shop               [floor/1x2] shop front; storekeeper behind
+  P1  cupboard                   [wall/1] kitchens, cottages
+  P1  daybed                     [floor/1x2] solar, parlor
+  P1  desk-writing               [floor/1] study anchor
+  P1  pew                        [floor/1x2] rows facing the altar
+  P1  shelving-freestanding      [floor/1] storerooms, cellars
+  P1  stool-bar                  [floor/sub] line them along the bar counter
+  P1  stool-three-leg            [floor/sub] peasant homes, bars, workshops
+  P1  table-experiment           [floor/1x2] mad-science lab (Grimward) or interrogation
+  P1  table-kitchen-prep         [floor/1x2] center of a kitchen
+  P1  table-map                  [floor/2x2] war room; add markers
+  P1  table-round-small          [floor/sub] 2–4 seats; scatter across a common room
+  P1  table-side                 [floor/sub] beside beds and armchairs
+  P1  table-square               [floor/1] the workhorse table
+  P1  table-trestle              [floor/1x2] pairs with two long benches
+  P1  table-vanity               [wall/1] bedchambers
+  P1  table-work                 [floor/1x2] every trade's bench
+  P1  wardrobe                   [wall/1] bedrooms; hide inside
+  P1  harpsichord                [floor/1x2] the ballroom's and music room's focal piece
+  P1  sofa                       [floor/1x2] the drawing room's seat; first piece of the burgundy suite
+  P1  barrel                     [floor/sub] the universal clutter; cluster 2–5
+  P1  chest-ironbound            [floor/sub] locked; worth a check
+  P1  chest-plain                [floor/sub] foot of beds; storerooms
+  P1  coffin                     [floor/1x2] vampire lairs (Noctar), undertakers
+  P1  crate                      [floor/sub] stacks of 2–3; storerooms, docks, mines
+  P1  sack                       [floor/tiny] pile against walls
+  P1  sarcophagus                [floor/1x2] crypt anchor
+  P1  urn-decorative             [floor/sub] niches, landings
+  P1  brazier-large              [floor/1] courtyards, ritual sites
+  P1  campfire                   [ground/1] camps, bandit ruins
+  P1  chandelier-grand           [ceiling/2x2] ballrooms; ruin version on the floor
+  P1  organ-pipe                 [wall/1x2] cathedral naves; against a wall
+  P1  pulpit                     [floor/1] beside the chancel step; the preacher's place
+  P1  arcane-pylon               [floor/sub] activate-four-crystals puzzles (Room 2)
+  P1  collapse-rubble            [floor/1] dead ends; scene-state "cave-in"
+  P1  lectern                    [floor/sub] chapels, libraries
+  P1  mine-cart                  [floor/1] on rails; tipped over in a collapse
+  P1  mine-rail                  [kit/1] the mine's circulatory system
+  P1  mine-shaft-collar          [floor/1] the shaft head: the way down; reads as a hole although it stands on the floor
+  P1  armor-stand                [floor/sub] armories; noble halls
+  P1  ballista                   [floor/1] tower tops
+  P1  banner-pole                [floor/sub] heraldry and camps
+  P1  training-dummy             [floor/sub] courtyards, barracks
+  P1  floor-water-flooded        [kit/1] flooded chambers, cisterns; difficult terrain
+  P1  pit-open                   [floor/1] the pit trap, sprung
+  P1  bones-pile                 [floor/sub] cell corners, monster lairs
+  P1  cage-hanging               [ceiling/sub] over pits, at crossroads
+  P1  cell-bars                  [kit/edge] pairs with door-cell-bars; blocks moves, not sight
+  P1  lever-wall                 [wall/tiny] opens gates, trips traps; scene-state trigger
+  P1  pressure-plate             [floor/1] trap trigger (GM-hidden)
+  P1  rack-torture               [floor/1x2] interrogation room anchor
+  P1  lever-floor                [floor/sub] opens the portcullis, drains the room, springs the trap
+  P1  trap-spike-pit             [floor/1] trap corridors; reads as a pit although it stands on the floor
+  P1  font-holy                  [floor/sub] chapel entry
+  P1  idol-dark                  [floor/sub] cult chambers
+  P1  statue-deity               [floor/1] chapel apse; headless in ruins
+  P1  bench-stone                [floor/1] mourners' seats; antechamber walls and chapel rows
+  P1  monument-urn-draped        [floor/1] antechamber focus; the figure-free mourning monument
+  P1  sarcophagus-open           [floor/1x2] open state of sarcophagus; robbed, or something climbed out
+  P1  statue-hooded              [floor/1] in pairs down a processional way and either side of a door
+  P1  shrine-wayside             [floor/1] back to a wall; the engine may light the candles
+  P1  banner-wall                [wall/1] thrones, halls
+  P1  curtains-drapes            [wall/1] scene state: drawn/open changes light
+  P1  painting-portrait          [wall/sub] ancestors watching; eyes-follow-you variant
+  P1  planter-topiary            [floor/sub] terraces, garden edges
+  P1  statue-heroic              [floor/1] courtyards, town squares; toppled in ruins
+  P1  tapestry                   [wall/1x2] great halls; hides secret doors
+  P1  vase-flowers               [surface/tiny] side tables, windowsills
+  P1  cart-hand                  [ground/1] streets, farms
+  P1  market-stall               [ground/1x2] the unit of a market square
+  P1  sign-hanging               [wall/sub] the tavern's name lives here
+  P1  gazebo                     [ground/3x3] the far end of the formal garden's axis
+  P1  statue-garden              [ground/1] at the ends of garden walks and in hedge niches
+  P1  grass-tall                 [ground/sub] ruin overgrowth, fields
+  P1  mushrooms-giant            [ground/sub] underground gardens; glowing variant
+  P1  rock-outcrop               [ground/2x2] mine entrances, overlooks
+  P1  tree-deciduous             [ground/2x2] exteriors; the ground plane's anchor
+  P1  decal-cobweb               [wall/sub] corners of anything abandoned
+  P1  fx-fog-volume              [floor/2x2] graveyards, swamps
+  P1  fx-light-shaft             [attach/1] the chapel/ruin money shot
+  P1  fx-magic-glow              [attach/sub] pylons, idols, portals
+  P1  fx-portal                  [attach/1x2] fills portal-arch
+  P1  boulder-pile               [floor/1] caves, cave mouths, passages that wind
+  P1  adventurer-remains         [floor/1] "the last party" — loot and foreshadowing
+  P1  altar-sacrificial          [floor/1x2] the cult's climax set-piece
+  P1  block-sliding              [floor/1] push puzzles
+  P1  cult-banner                [wall/1] tells you what they worship
+  P1  door-rune-sealed           [kit/edge] the puzzle's lock; runes go dark when solved
+  P1  dragon-skull               [floor/2x2] lair centerpiece; ancient battlefields
+  P1  floor-mosaic               [floor/2x2] the map is on the floor
+  P1  giant-web                  [wall/1x2] difficult terrain; burn it
+  P1  orb-socket-pedestal        [floor/sub] "four crystals must be activated" rooms
+  P1  pedestal-display           [floor/sub] the "don't touch the thing on the pedestal" shot
+  P1  portal-arch                [floor/1x2] pair with fx-portal; lit = active
+  P1  runestone                  [ground/sub] lore delivery
+  P1  standing-stone             [ground/sub] stone circles, barrow fields
+  P1  statue-rotating            [floor/1] point them all at the door
+  P1  statue-guardian            [floor/1] flanks corridors, vault doors and shrines
+  P1  bench-village              [ground/1x2] squares, tavern fronts
+  P1  pump-trough-village        [ground/1x2] village squares
+  P1  rocking-chair              [floor/sub] grandmother's chair; spooky when it moves
+  P1  scriptorium-desk           [floor/1] monastery scriptoria; rows of them
+  P1  sentry-box                 [ground/1] gates, bridges
+  P1  sickbed                    [floor/1x2] healers' houses, temple infirmaries
+  P1  stage-wooden               [floor/2x2] bards, heralds, public trials
+  P1  watch-desk                 [floor/1] guard post anchor
+  P1  wheel-spare                [floor/sub] wheelwrights, stable yards, anywhere
+  P1  armor-chainmail-heap       [floor/sub] loot pile staple
+  P1  axe-hand                   [surface/tiny] warriors, raiders
+  P1  bow-short                  [surface/tiny] hunters, scouts
+  P1  crossbow                   [surface/tiny] guards, assassins
+  P1  crown                      [surface/tiny] throne rooms, tombs, the lost king
+  P1  dagger                     [surface/tiny] every table, every corpse, every backstab
+  P1  helm-open                  [surface/tiny] guards; the everyman helmet
+  P1  idol-golden                [surface/tiny] swap it with a sandbag
+  P1  mace-flanged               [surface/tiny] cleric's weapon
+  P1  map-treasure               [surface/tiny] the adventure's opening beat
+  P1  shield-heater              [surface/sub] knights; paint heraldry as decal
+  P1  shield-round               [surface/sub] raiders, hall walls
+  P1  spear                      [surface/sub] guards, hunters
+  P1  sword-long                 [surface/tiny] the default loot sword; lay on tables, bodies, pedestals
+  P1  sword-short                [surface/tiny] guards, rogues, starter gear
+  P1  torch-dropped              [floor/tiny] someone was here recently
+  P1  warhammer                  [surface/tiny] dwarves and knights
+  P1  balcony-stone              [kit/1] speeches, serenades, defenestration
+  P1  balcony-wood               [kit/1] upper-storey overlooks, swashbuckling
+  P1  bench-street               [ground/1] squares, parks
+  P1  bramble-thicket            [ground/1] difficult terrain
+  P1  branches-fallen            [ground/sub] forest floor clutter
+  P1  bridge-covered             [ground/1x3] troll-bridge territory
+  P1  bridge-stone-arch          [ground/1x3] over rivers and moats
+  P1  burial-urn-niche           [wall/sub] columbaria
+  P1  cart-shed                  [ground/2x2] inn yards
+  P1  catacomb-shelf-bones       [wall/1] catacomb walls
+  P1  city-wall                  [kit/edge] town boundary
+  P1  cliff-face                 [kit/edge] elevation changes outdoors
+  P1  crypt-gate-iron            [kit/edge] graveyard-to-crypt threshold
+  P1  dovecote                   [ground/1] manor grounds, farmsteads
+  P1  fence-picket               [kit/edge] tidier yards
+  P1  fern-cluster               [ground/sub] forest floor, damp ruins
+  P1  gallery-interior           [kit/1] common-room balconies, library upper levels
+  P1  gate-tower                 [kit/2x3] the entrance scene; guards
+  P1  gatepost-stone             [ground/sub] manor drives
+  P1  goblin-hut                 [ground/2x2] goblin/kobold warrens aboveground
+  P1  grave-marker-wood          [ground/tiny] paupers' graves, battlefield burials
+  P1  graveyard-fence-iron       [kit/edge] encloses graveyards
+  P1  hedge-corner               [kit/edge] hedge mazes
+  P1  horse-trough-stone         [ground/1x2] town squares
+  P1  lamp-post-iron             [ground/sub] richer streets
+  P1  lamp-post-wood             [ground/sub] village lanes
+  P1  leaf-litter                [ground/1] seasonal dressing; hides pressure plates
+  P1  market-cross               [ground/sub] heart of a market town
+  P1  mill-wheel                 [wall/1x2] village mills
+  P1  moss-rock                  [ground/sub] damp woods
+  P1  mushroom-ring-small        [ground/tiny] woodland scatter
+  P1  ossuary-wall               [kit/edge] ossuary chapels
+  P1  pigsty                     [ground/2x2] farmyards (no pigs, per the prop rule)
+  P1  planter-stone              [ground/sub] street dressing
+  P1  plaza-tile                 [kit/1] squares and courtyards
+  P1  porch-covered              [kit/1x2] tavern fronts, farmhouses
+  P1  roof-collapsed             [ceiling/2x2] lets rain and light in
+  P1  roof-dormer                [kit/1] upper-floor rooms show from outside
+  P1  roof-shingle-wood          [kit/1] middle-wealth roofs
+  P1  sewer-channel              [kit/1] pair with fx-water-surface
+  P1  sewer-junction             [kit/2x2] crossroads under the city
+  P1  sewer-walkway              [kit/1] the path that follows the channel
+  P1  spike-palisade-crude       [kit/edge] orc and goblin camps
+  P1  stair-exterior-wood        [kit/1x2] outside stairs to rented rooms
+  P1  stair-grand                [kit/2x2] manor foyers, temple approaches
+  P1  statue-weeping-angel       [floor/1] graveyards; the one that moved
+  P1  stone-coffin-lidless       [floor/1x2] already robbed, or not
+  P1  street-cobble-tile         [kit/1] town streets
+  P1  tree-burnt                 [ground/1] raided villages, dragon country
+  P1  tree-gnarled-ancient       [ground/2x2] haunted woods, hag lairs
+  P1  tree-oak-great             [ground/3x3] village greens, grove edges; hang a swing or a body
+  P1  wagon-wreck                [ground/2x3] ambush aftermath
+  P1  watchtower-wood            [ground/1] borders, camps, goblin forts
+  P1  well-house                 [ground/1] village square centerpiece
+  P1  woodshed                   [ground/1x2] behind cottages
+  P1  boot-single                [floor/tiny] the one boot left behind; swamp edges
+  P1  doll-rag                   [floor/tiny] the haunted doll; the lost child
+  P1  femur-bone                 [floor/tiny] scatter; improvised club
+  P1  icon-painted               [wall/tiny] peasant corners, chapels
+  P1  map-fragment-torn          [surface/tiny] quest hook; collect all pieces
+  P1  wizard-hat                 [surface/tiny] the wizard's hat on the hatstand
+  P1  smith-armor-stand-fitted   [floor/sub] finished commission waiting for its knight
+  P1  smith-sign-anvil           [wall/sub] outside every smithy
+  P1  craft-loom-weights         [surface/tiny] archaeology-true ruin dressing
+  P1  rural-timber-set-cracked   [kit/edge] cave-in foreshadowing
+  P1  mil-pavise                 [floor/sub] portable full cover for archers
+  P1  mil-pell                   [ground/sub] sword drill
+  P1  mil-siege-ladder           [wall/1x2] against the battlements
+  P1  mil-signal-beacon          [ground/sub] light the beacons
+  P1  rite-alms-box              [floor/sub] by the door; locked
+  P1  rite-altar-cloth           [surface/1x2] drape over any altar; torn for ruins
+  P1  rite-grave-goods-pile      [floor/sub] barrow and tomb loot
+  P1  rite-icon-panel-large      [wall/1] chapel focal wall
+  P1  rite-mummified-remains     [floor/1x2] tomb alcoves
+  P1  rite-salt-line             [floor/1] broken salt = something got in
+  P1  rite-sigil-stone           [floor/tiny] place four at the circle's points
+  P2  beam-ceiling               [ceiling/edge] FPV texture; hang lanterns and hams from it
+  P2  fence-post-rail            [kit/edge] paddocks, stable yards
+  P2  floor-pit-edge             [kit/edge] chasms, oubliettes, collapsed floors
+  P2  floor-step                 [kit/edge] sunken rooms, raised platforms
+  P2  gate-double-timber         [kit/2x2] courtyard and town gates
+  P2  pillar-round               [floor/sub] colonnades; ruin signature when broken
+  P2  railing-wood               [kit/edge] galleries over common rooms
+  P2  roof-thatch                [kit/1] exterior; hide with a cut plane when indoors
+  P2  roof-tile-slate            [kit/1] wealthier roofs
+  P2  stair-landing              [kit/1] switchback stairs
+  P2  stair-spiral               [kit/1] towers; compact in footprint
+  P2  wall-archway               [kit/edge] room-to-room flow without a door
+  P2  wall-arrow-slit            [kit/edge] battlements and tower rooms
+  P2  wall-drystone              [kit/edge] countryside boundaries
+  P2  wall-end-cap               [kit/edge] stub walls, ruin edges
+  P2  wall-half                  [kit/edge] cover in combat; stall fronts; ruin remnants
+  P2  wall-window-large          [kit/edge] great halls and chapels; strong light shaft source
+  P2  window-stained-glass       [kit/edge] chapel signature; colored light shafts
+  P2  city-wall-turret           [kit/edge] stands where a city-wall run ends or turns, a little taller than the wall
+  P2  door-tower                 [kit/edge] hangs in `wall-doorway--tower-stone`; a leaf like `door-plank--leaf`
+  P2  wall-shop-window           [kit/edge] the apothecary's street wall; a special panel in the `half-timber` family
+  P2  decal-grave-ledger         [floor/1x2] laid in rows in a vault floor or one before an altar; carved border and emblem, no letters
+  P2  fireplace-grand            [wall/2x2] great halls; heraldry above
+  P2  settle                     [floor/1x2] beside the fire; blocks drafts
+  P2  table-feast                [floor/1x3] great hall centerline; high table on a dais
+  P2  settee                     [floor/1] faces the sofa across the hearth rug
+  P2  storage-jar                [floor/sub] oil, grain, wine; ruins full of broken ones
+  P2  tent-military              [ground/2x2] war camps; command tent
+  P2  decal-rubble-scatter       [floor/sub] round rubble piles and collapses
+  P2  stocks                     [ground/1] town squares, dungeon yards
+  P2  trap-spikes                [floor/1] retracted vs sprung
+  P2  trap-crossbow              [floor/sub] at the end of a corridor, aimed down it
+  P2  trap-flame-jet             [floor/sub] the engine adds the fire; pair with a soot decal
+  P2  effigy-knight              [floor/1x2] noble crypts
+  P2  gravestone                 [ground/sub] graveyards; cluster with lean
+  P2  shrine-roadside            [ground/sub] crossroads, village edges
+  P2  tomb-slab                  [floor/1x2] lift it for a stair down
+  P2  statue-forgotten-god       [floor/1] shrine focus
+  P2  armor-decorative           [floor/sub] hallways (is it moving?)
+  P2  heraldic-shield            [wall/sub] over fireplaces and gates
+  P2  rug-grand                  [floor/2x3] throne-room runner, bedchambers
+  P2  statue-bust                [floor/sub] galleries, libraries
+  P2  awning                     [wall/1x2] shopfronts
+  P2  signpost                   [ground/sub] crossroads, village edges
+  P2  wagon                      [ground/2x3] caravans, stable yards
+  P2  fence-post-corner          [kit/edge] closes fence runs at corners and gates; generated 2026-10-05
+  P2  table-picnic               [ground/1x2] beer gardens and inn yards; generated 2026-10-05
+  P2  wall-drystone-pier         [kit/edge] ends a dry-stone wall run and stands at its corners
+  P2  log-fallen                 [ground/1x2] forest cover
+  P2  tree-dead                  [ground/1] spooky exteriors
+  P2  beam-collapsed             [floor/1x2] burned-out buildings, cave-ins
+  P2  debris-planks              [floor/1] floor dressing
+  P2  furniture-smashed          [floor/1] aftermath of a brawl
+  P2  timbers-burnt              [floor/1] raided villages
+  P2  ceiling-slab-fallen        [floor/1x2] collapsed halls
+  P2  pillar-waterline           [floor/1] flooded chambers; stands where a `pillar-square` would
+  P2  shoring-timber             [floor/1] holds up a doubtful ceiling; a token walks through it
+  P2  decal-blood                [floor/sub] crime scenes, torture rooms
+  P2  decal-cracks               [floor/1] aging layer
+  P2  decal-moss                 [floor/1] aging layer for ruins
+  P2  bone-throne                [floor/1] warlords, necromancers, goblin kings
+  P2  magic-mirror               [wall/1] talking mirrors, trapped souls, a way through
+  P2  nest-giant                 [floor/2x2] roc/griffon/wyvern lairs
+  P2  statue-petrified           [floor/1] stone-gaze lairs; the tell before the monster
+  P2  teleport-circle-dais       [floor/2x2] fast travel, escape hatches, villain exits
+  P2  obelisk-rune               [floor/sub] puzzle halls and shrines; runes are dull, the engine may light them
+  P2  puzzle-dial-pillar         [floor/sub] the combination lock of a puzzle hall
+  P2  bath-pool-tiled            [kit/2x2] bathhouses; ruined baths later
+  P2  display-case-glass         [floor/1] jewelers, curio shops, museums
+  P2  kiln-pottery               [floor/1] potter's yard
+  P2  mill-gears                 [floor/1x2] mill machinery; a fight among moving parts
+  P2  millstones                 [floor/2x2] mill interior anchor
+  P2  rowboat-beached            [ground/1x2] lakes and rivers without a full docks pack
+  P2  scaffolding                [kit/1] half-built towers, repairs
+  P2  waterwheel                 [ground/2x2] mill exterior; stream side
+  P2  armor-breastplate          [surface/sub] smith's workbench, armory
+  P2  armor-leather-folded       [surface/tiny] rogue gear; on beds and chests
+  P2  armor-plate-pile           [floor/sub] fallen knight, troll's larder
+  P2  arrows-stuck               [floor/sub] aftermath of an ambush
+  P2  axe-great                  [surface/sub] executioners, berserkers
+  P2  banner-standard-war        [floor/sub] captured standards, trophies
+  P2  book-pile-floor            [floor/sub] ransacked libraries
+  P2  boots-pair                 [floor/tiny] by the bed, sticking out from under rubble
+  P2  bow-long                   [surface/sub] archers on the wall
+  P2  crystal-shard              [surface/tiny] puzzle pieces; the four crystals
+  P2  halberd                    [surface/sub] gate guards
+  P2  helm-great                 [surface/tiny] knights; tombs
+  P2  helm-horned                [surface/tiny] raiders and warlords
+  P2  maul-great                 [surface/sub] ogre-sized swing
+  P2  morningstar                [surface/tiny] brutes and guards
+  P2  shield-kite                [surface/sub] older knights, tomb effigies
+  P2  shield-tower               [floor/sub] portable cover
+  P2  sword-great                [surface/sub] champion's weapon; lean against walls
+  P2  barrow-mound               [ground/3x3] the old kings' graves
+  P2  boardwalk                  [kit/1] swamp paths, lizardfolk villages
+  P2  bridge-rope                [kit/1x3] chasm crossings; cut the ropes
+  P2  bridge-stone-natural       [kit/1x3] spans chasms and rivers underground
+  P2  creeper-roots-wall         [wall/1] the forest reclaiming masonry
+  P2  hedge-straight             [kit/edge] manor gardens, mazes; overgrown in ruins
+  P2  mine-ladder-shaft          [kit/1] connects mine levels
+  P2  plank-bridge               [kit/1x2] improvised crossings
+  P2  rock-scorched              [ground/1] dragon country
+  P2  rock-slab-flat             [ground/1] stepping stones, natural tables
+  P2  roof-conical               [kit/1] wizard towers, castle turrets
+  P2  roof-gable-end             [kit/edge] closes a pitched roof
+  P2  rubble-small-scatter       [floor/sub] edges of rubble piles
+  P2  stepping-pillars           [floor/1] jump puzzles
+  P2  tomb-door-sealed           [kit/edge] barrow and hillside tomb entrances
+  P2  window-empty-frame         [kit/edge] chapel ruins with sky behind
+  P2  rope-knotted               [wall/edge] hangs down walls and shafts
+  P2  alch-golem-heart-core      [surface/tiny] construct power source
+  P2  smith-forge-dwarven-hearth [floor/2x2] under-mountain halls
+  P2  craft-shopsign-shears      [wall/sub] tailor's sign
+  P2  craft-shopsign-shoe        [wall/sub] cobbler's sign
+  P2  craft-wheel-broken         [floor/1] roadside, wrecks, repair queue
+  P2  trade-capital-half-carved  [floor/sub] yard or ruin: the work that stopped
+  P2  rural-jetty-small          [kit/1x2] pond edges, ferries
+  P2  rural-ore-cart-tipped      [floor/1] after the collapse
+  P2  rural-shaft-cover-planks   [floor/1] step carefully
+  P2  mil-battlefield-debris     [ground/1] the day after
+  P2  mil-cheval-de-frise        [ground/1x2] road blocks, breach plugs
+  P2  mil-mantlet                [ground/1] advance under fire
+  P2  rite-altar-emblem-stand    [floor/sub] behind the altar; generic emblem swappable
+  P2  rite-idol-small            [surface/tiny] shrine shelves; cursed souvenir
+  P2  rite-saint-statuette       [surface/tiny] wall niches, bedside shrines
+  P3  buttress                   [wall/1] exterior silhouettes
+  P3  chimney-stack              [kit/1] pairs with interior fireplaces
+  P3  drawbridge                 [kit/2x3] moats; big scene-state moment
+  P3  wall-palisade              [kit/edge] frontier forts, bandit camps
+  P3  balustrade-stone-pier      [kit/edge] ends a balustrade run and stands at its corners
+  P3  basin-stone                [wall/sub] kitchens, sculleries
+  P3  garderobe                  [wall/1] castles really had these
+  P3  spit-small-campfire        [floor/sub] travellers' supper
+  P3  plough                     [ground/1x2] field edges
+  P3  scarecrow                  [ground/sub] fields; spooky variant
+  P3  catapult                   [ground/2x2] siege camps
+  P3  decal-drag-marks           [floor/sub] beside a sliding block
+  P3  boulder-rolling            [floor/1] you know the scene
+  P3  gallows                    [ground/2x2] town square, grim foreshadowing
+  P3  pillory                    [ground/sub] public punishment
+  P3  trap-dart-wall             [wall/1] tomb corridors
+  P3  mausoleum                  [ground/2x2] graveyard landmark; crypt entrance
+  P3  offering-bowl              [surface/tiny] shrines
+  P3  fountain-wall-skull        [wall/1] the engine adds the water
+  P3  mirror-standing            [floor/sub] bedchambers; vampire tells
+  P3  bridge-small               [ground/1x2] streams
+  P3  milestone                  [ground/tiny] roads
+  P3  wall-drystone-gate         [kit/edge] the gate in a walled yard; generated 2026-10-05
+  P3  flowers-wild               [ground/sub] gardens, graves
+  P3  mound-overgrown            [ground/1] barrows, buried rooms
+  P3  pottery-shards             [floor/tiny] floor dressing
+  P3  decal-scorch               [floor/sub] aftermath of a fireball
+  P3  door-face-carved           [kit/edge] riddle doors
+  P3  golem-parts                [floor/1x2] unfinished construct; lab dressing
+  P3  rocks-floating             [floor/1] wild-magic zones, tower tops
+  P3  crane-treadwheel           [ground/2x2] cathedral and castle building sites
+  P3  school-bench-desk          [floor/1] schoolrooms; academy halls
+  P3  smokehouse                 [ground/1] fish and meat curing
+  P3  windmill-sail              [ground/2x2] the landmark on the hill
+  P3  axe-double                 [surface/sub] warlord trophies
+  P3  glaive                     [surface/sub] palace guard
+  P3  lance                      [surface/sub] tourney yards
+  P3  tourney-lists-rail         [ground/1x3] tourney ground
+  P3  aqueduct-span              [ground/1x3] old-empire landscape (Imperion)
+  P3  bones-animal-skull         [ground/tiny] wasteland markers
+  P3  fountain-wall              [wall/sub] street water source
+  P3  gate-ruined                [ground/2x2] abandoned fortresses
+  P3  ice-floor-tile             [kit/1] ice caves; difficult terrain
+  P3  jetty-overhang             [kit/edge] crowded medieval streets
+  P3  mine-rail-bridge           [kit/1x2] rail over a drop
+  P3  mine-support-braced        [kit/edge] the dangerous section
+  P3  roots-surface              [ground/1] trip hazards
+  P3  scaffold                   [kit/1] construction sites, chase scenes
+  P3  sinkhole                   [ground/1] entrance to what's below
+  P3  stair-wall-hugging         [kit/1x2] tower interiors
+  P3  amphora-small              [surface/tiny] old-world trade goods
+  P3  bottle-broken              [surface/tiny] brawl aftermath; improvised weapon
+  P3  cauldron-overturned        [floor/sub] abandoned camps; lair debris
+  P3  plate-broken               [surface/tiny] after the brawl
+  P3  pot-shattered              [surface/tiny] debris
+  P3  bread-stale-moldy          [surface/tiny] cells, abandoned kitchens
+  P3  book-burned                [surface/tiny] someone destroyed evidence
+  P3  book-waterlogged           [surface/tiny] sewers, flooded libraries
+  P3  doll-porcelain             [surface/tiny] creepy nurseries
+  P3  figurine-offering          [surface/tiny] shrine niches
+  P3  pauldron-single            [floor/tiny] battlefield debris
+  P3  potion-empty-cracked       [floor/tiny] the last party tried
+  P3  shield-broken              [floor/sub] battlefield, lair floors
+  P3  alch-meteorite-chunk       [surface/tiny] sky-iron
+  P3  smith-forge-hood-ruined    [floor/1] abandoned smithies
+  P3  smith-sign-key             [wall/sub] locksmiths
+  P3  smith-sign-ring            [wall/sub] jewelers' row
+  P3  craft-panel-carved-relief  [wall/1] noble paneling, chapel screens
+  P3  craft-shopsign-barrel      [wall/sub] cooper's sign
+  P3  craft-shopsign-bow         [wall/sub] bowyer's sign
+  P3  craft-shopsign-saddle      [wall/sub] saddler's sign
+  P3  craft-shopsign-wheel       [wall/sub] wheelwright's sign
+  P3  trade-cullet-bin           [floor/sub] recycling bin; sharp
+  P3  trade-kiln-bricks-pile     [floor/sub] kiln repair; rubble substitute
+  P3  trade-pot-misfired         [surface/tiny] waster heap; ruin dressing
+  P3  trade-stone-chips-pile     [floor/sub] yard floor
+  P3  trade-waster-heap          [floor/sub] behind every pottery
+  P3  rural-field-boundary-stone [ground/tiny] land disputes
+  P3  rural-pick-broken          [floor/tiny] abandoned-mine clue
+  P3  bard-stage-backdrop        [floor/1x2] players' stage
+  P3  mil-armor-empty-sprawled   [floor/1] haunted armories; who wore it?
+  P3  mil-ram-covered            [ground/2x3] castle gate assault
+  P3  mil-war-banner-tattered    [ground/sub] old battlefields
+  P3  rite-choir-stall           [floor/1x2] cathedral chancels
+  P3  rite-memorial-plaque       [wall/sub] names of the fallen; clue text
+  P3  rite-offering-stones       [ground/sub] waysides, sacred springs
+  P3  rite-prayer-flags          [wall/1x2] mountain shrines
+  P3  rite-wicker-effigy         [ground/1] harvest festival or something darker

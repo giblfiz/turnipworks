@@ -1,0 +1,17 @@
+/* The lab kit's drawer (lab/kit.js): the Ring Lab drawer's look (ringlab/style.css .rl-panel), for any lab. */
+.lk-panel{position:fixed;right:0;top:0;bottom:0;z-index:100;width:min(352px,100vw);background:#202826f5;color:#f0e9db;border-left:1px solid #6a765f;box-shadow:-8px 0 30px #0008;font:13px system-ui,sans-serif}
+.lk-panel.collapsed{width:38px}.lk-head{height:42px;display:flex;align-items:center;justify-content:space-between;padding:5px 7px;border-bottom:1px solid #58675d;color:#e9bf76}
+.lk-panel.collapsed .lk-head b,.lk-panel.collapsed .lk-body{display:none}.lk-body{height:calc(100% - 42px);overflow:auto;padding:8px 10px 24px}
+.lk-panel button,.lk-panel input,.lk-panel select,.lk-panel textarea{background:#303a37;color:#f4eddf;border:1px solid #627469;border-radius:5px;padding:4px 6px;font:inherit}
+.lk-panel button{cursor:pointer}.lk-panel button:hover{background:#4b5b53}
+.lk-save{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:12px;margin-bottom:9px;border-bottom:1px solid #45534c}.lk-save label{display:flex;gap:4px;align-items:center}.lk-save small{width:100%;color:#bfcac0}
+.lk-history{display:flex;flex-wrap:wrap;gap:4px;width:100%}.lk-history button:disabled{opacity:.4;cursor:default}
+.lk-sec{padding:7px 0;border-top:1px solid #45534c}.lk-sec h3{font:600 15px Georgia,serif;color:#e8bf75;margin:0 0 8px}
+.lk-control{display:grid;grid-template-columns:1fr auto 22px;gap:3px;align-items:center;margin:5px 0}.lk-control>span{grid-column:1}.lk-control>output{grid-column:2;text-align:right;color:#e8c887}.lk-control>.lk-reset{grid-column:3}
+.lk-control input[type=range],.lk-control select{grid-column:1/-1;width:100%;padding:0}.lk-control select{padding:4px}.lk-control>.lk-hint{grid-column:1/-1;color:#9fab9f;font-size:11px;margin-top:-2px}
+.lk-reset{padding:0 3px!important;line-height:18px;font-size:13px;background:transparent!important;border-color:#556a5e!important;color:#e8c887!important}.lk-reset.same{opacity:.28}
+.lk-row{display:flex;align-items:center;justify-content:space-between;gap:6px}.lk-check{display:inline-flex;align-items:center;gap:4px;margin:5px}
+.lk-advanced{margin-top:10px;border-top:1px solid #45534c;padding-top:6px}.lk-advanced>summary{cursor:pointer;color:#e8bf75;font:600 14px Georgia,serif;padding:4px 0}
+.lk-json{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.lk-json textarea{width:100%;height:66px}
+.lk-read{display:block;margin:4px 0 8px;padding:5px 6px;border-radius:5px;background:#1b2522;color:#e8c887;font-size:12px;line-height:1.35}
+@media(max-width:700px){.lk-panel{width:min(88vw,352px)}}

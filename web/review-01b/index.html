@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inn-01b Plates — Turnip Works</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="review.css?v=1">
+  <script type="module" src="https://unpkg.com/@google/model-viewer@4.0.0/dist/model-viewer.min.js"></script>
+  <style>#model-fig[hidden] { display:none; } #model-fig { margin-bottom:18px; } .plate-big img { display:block; width:100%; max-height:min(72vh,860px); object-fit:contain; background:#292d28; } .screen-note { color:#e8b460; }</style>
+</head>
+<body>
+  <header><a href="../review/">← Inn-01 meshes</a><strong><span>TW</span> Inn-01b plates</strong></header>
+  <main>
+    <section class="catalogue">
+      <div class="progress"><strong id="count">Loading…</strong><small>Rerolled concept images (handles fix); the 69 with a new 3D mesh are listed first. Keys: 1–5 rate the model (or the plate when there's no model) · Shift+1–5 rate the plate · type to note · Tab saves and moves on.</small></div>
+      <input id="search" type="search" placeholder="Search assets… (try “has:3d”)" autocomplete="off">
+      <nav id="assets" aria-label="Assets"></nav>
+    </section>
+    <section class="stage">
+      <figure class="hero-model" id="model-fig" hidden><figcaption id="model-cap">New fal mesh · drag to rotate</figcaption><model-viewer id="model" camera-controls touch-action="pan-y" environment-image="neutral" shadow-intensity="0.8" exposure="1.0" camera-orbit="-35deg 70deg auto"></model-viewer></figure>
+      <figure class="plate-big"><figcaption>Concept plate · inn-01b</figcaption><img id="plate" alt=""></figure>
+      <div class="details" style="grid-template-columns:1fr">
+        <div><p class="eyebrow" id="sku"></p><h1 id="name">Choose an asset</h1><p id="meta"></p><p id="hint"></p><p id="screen" class="screen-note"></p>
+          <p class="rate-legend">0 what happened, engine break · 1 bad · 2 not quite usable · 3 barely acceptable, go with it · 4–5 good. A bad concept image means a bad 3D model. Ratings save straight to Fauna.</p>
+          <div id="ratings" class="ratings" style="grid-template-columns:minmax(0,520px)"></div></div>
+      </div>
+    </section>
+  </main>
+  <script src="review.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+apothecary-drawers	accept	-	apothecary cabinet	0.95	0.0	0	0	4.38x1.39x6	60x12x72	1.58	1.14	prop	1	footprint proportion 1.58x off the catalog (4.4 x 1.4 ft) | gemini note: labeled drawer plates present
+awning--s1	accept	-	awning	0.9	0.0	0	0	6x3.72x3.64	72x38x28	1.18	1.56	prop	1	height proportion 1.56x off the catalog
+bins-dry-goods	accept	-	dry goods market bins	0.85	0.0	0	0	5x1.93x2.1	60x24x30	1.04	1.19	prop	1	
+bollard-stone	accept	-	stone bollard	0.9	0.0	0	0	1.23x1.23x2.5	14x14x30	1.0	1.05	prop	1	
+cart-merchant-covered	accept	-	covered merchant cart	0.95	0.0	0	0	5.15x9x5.39	60x108x84	1.03	1.3	prop	1	
+cell-holding-wood	accept	-	wooden barred door	0.95	0.0	0	0	1.27x5.45x8	60x8x96	1.75	1.09	wall	1	wall panel: w:h 0.68, depth:h 0.16, largest opening 5% x 40%, filled 80% | gemini note: Observer identified it as a barred door/gate due to the vertical bars and framing, but it lacks door hardware/latches and functions cleanly as a cage wall panel with mounting brackets.
+cell-holding-wood--gate	accept	-	wooden cell gate	0.95	0.001	0	0	5.45x1.42x8	60x8x96	1.95	1.09	wall	1	wall panel: w:h 0.68, depth:h 0.18, largest opening 5% x 80%, filled 84%
+counter-shop--apoth	accept	-	apothecary shop counter	0.95	0.0	0	0	6x2.72x4.29	72x26x52	1.26	1.01	prop	1	
+counter-shop--bakery	accept	-	bakery display counter	0.95	0.0	0	0	6x3.24x4.1	72x26x52	1.5	1.06	prop	1	footprint proportion 1.5x off the catalog (6.0 x 3.2 ft) | gemini note: counter depth is slightly wider than catalog target (3.2 ft vs 2.2 ft), but well within acceptable tabletop proportions
+counter-shop--curio	accept	-	curio shop counter	0.95	0.0	0	0	6x2.63x3.74	72x26x52	1.21	1.16	prop	1	
+counter-shop--general	accept	-	shop counter with goods	0.95	0.0	0	0	2.82x6x3.83	72x26x52	1.3	1.13	prop	1	
+counter-shop--tailor	accept	-	tailor shop counter	0.95	0.0	0	0	6x2.81x3.88	72x26x52	1.3	1.12	prop	1	
+cradle	accept	-	rocking cradle	0.95	0.0	0	0	3x2.42x2.9	36x20x30	1.45	1.16	prop	1	footprint proportion 1.45x off the catalog (3.0 x 2.4 ft) | gemini note: slightly wider footprint than catalog ratio
+craft-display-table-goods--apoth	accept	-	apothecary display table	0.95	0.008	0	0	6x3.41x4.39	72x30x44	1.36	1.2	prop	1	
+craft-display-table-goods--bakery	accept	-	bakery display table	0.95	0.0	0	0	6x3.21x3.91	72x30x44	1.28	1.07	prop	1	
+craft-display-table-goods--curio	accept	-	curio display table	0.95	0.002	0	0	6x3.36x4.46	72x30x44	1.34	1.22	prop	1	
+craft-display-table-goods--general	accept	-	market goods display table	0.95	0.0	0	0	6x2.96x4	72x30x44	1.18	1.09	prop	1	
+craft-display-table-goods--tailor	accept	-	tailor display table	0.95	0.0	0	0	6x3.14x3.65	72x30x44	1.26	1.0	prop	1	
+cutting-table-tailor	accept	-	tailor cutting table	0.95	0.0	0	0	7x4.75x4.02	84x36x34	1.58	1.42	prop	1	footprint proportion 1.58x off the catalog (7.0 x 4.8 ft) | gemini note: footprint slightly wider than requested catalog aspect ratio but clearly reads as workbench
+display-case-glass--curio	accept	-	curio display cabinet	0.9	0.0	0	0	4.33x1.93x3.25	48x24x52	1.13	1.45	prop	1	height proportion 1.45x off the catalog
+dress-form	accept	-	dress form with dress	0.95	0.0	0	0	2.67x2.75x5.33	26x26x64	1.03	1.27	prop	1	1 separate piece(s) standing on the floor (20%)
+fish-barrel-salted	accept	-	barrel of salted fish	0.9	0.0	0	0	2.51x2.51x3	26x26x36	1.0	1.16	prop	1	
+flower-buckets	accept	-	flower display stand	0.95	0.0	0	0	3.67x2.49x3.19	44x30x34	1.01	1.13	prop	1	
+lamp-post-iron--town	accept	override: supervisor: the judge calls the cream-ochre panes 'glowing'; they are the opaque pale panes the spec asked for (no flame, no halo on the plate). Sound mesh at table scale; the fire anchor goes in the lantern (BENCH.md) (was reroll-plate: gemini: Lantern is lit/glowing (warm cream-yellow glowing glass panels), violating the unlit requirement)	street lamp post	0.95	0.0	0	0	1.99x1.71x9	18x18x108	1.16	1.33	prop	1	
+market-cross	accept	-	market cross or wayside shrine	0.85	0.0	0	0	7.14x7.14x12	60x60x144	1.0	1.43	prop	1	
+market-stall--bread	accept	-	market stall	0.95	0.0	0	0	7.6x6.39x8	96x64x96	1.26	1.05	prop	1	
+market-stall--cloth	accept	-	market stall	0.95	0.006	0	0	7.27x8x6.47	96x64x96	1.36	1.24	prop	1	gemini note: Tiny mesh sliver artifact near the ground behind the stall
+market-stall--fish	accept	-	fish market stall	0.95	0.0	0	0	8x5.11x6.72	96x64x96	1.04	1.19	prop	1	
+market-stall--pottery	accept	-	pottery market stall	0.95	0.0	0	0	8x7.64x7.34	96x64x96	1.43	1.09	prop	1	
+market-stall--produce	accept	-	market stall	0.98	0.0	0	0	8x6.89x7.69	96x64x96	1.29	1.04	prop	1	
+market-stall--trinkets	accept	-	market stall	0.98	0.0	0	0	8x5.44x7.03	96x64x96	1.02	1.14	prop	1	
+pottery-for-sale	accept	-	pottery display	0.9	0.0	0	0	3.5x3.35x1.99	42x36x30	1.12	1.26	prop	1	
+pump-trough-village	accept	-	water pump with trough	0.95	0.0	0	0	3.02x6x3.89	72x26x60	1.39	1.28	prop	1	
+rug-merchant-stack	accept	-	stack of folded rugs	0.95	0.0	0	0	2.83x4.33x3.54	52x38x44	1.12	1.03	prop	1	
+scales-balance	accept	-	balance scale	0.95	0.0	0	0	1.33x0.56x0.98	16x8x14	1.18	1.19	prop	1	
+shop-floor-stock--apoth	accept	-	crate of apothecary bottles	0.9	0.0	0	0	2.45x3x2.68	30x30x36	1.23	1.35	prop	1	
+shop-floor-stock--bakery	accept	-	basket of bread	0.95	0.0	0	0	3x2.98x2.55	30x30x36	1.01	1.41	prop	1	
+shop-floor-stock--curio	accept	-	open chest of curiosities	0.95	0.0	0	0	2.57x2.9x3	30x30x36	1.13	1.16	prop	1	
+shop-floor-stock--general	accept	-	tub of goods	0.85	0.0	0	0	3x2.95x2.71	30x30x36	1.02	1.33	prop	1	
+shop-floor-stock--tailor	accept	-	basket of fabric rolls	0.9	0.0	0	0	2.68x2.64x3	30x30x36	1.02	1.07	prop	1	
+shop-shelf-stocked--apoth	accept	-	apothecary shelf	0.95	0.0	0	0	5.37x2.19x6.5	60x18x78	1.36	1.07	prop	1	
+shop-shelf-stocked--apoth--s2	accept	-	apothecary shelf	0.95	0.0	0	0	4.95x1.87x5	60x18x56	1.26	1.08	prop	1	
+shop-shelf-stocked--bakery	accept	-	bakery display shelf	0.95	0.0	0	0	2.04x5.3x6.5	60x18x78	1.28	1.06	prop	1	
+shop-shelf-stocked--bakery--s2	accept	-	bakery display counter	0.95	0.0	0	0	4.89x2.25x5	60x18x56	1.53	1.1	prop	1	footprint proportion 1.53x off the catalog (4.9 x 2.2 ft)
+shop-shelf-stocked--curio	accept	-	stocked curio bookshelf	0.95	0.0	0	0	4.93x2.37x6.5	60x18x78	1.6	1.01	prop	1	footprint proportion 1.6x off the catalog (4.9 x 2.4 ft) | gemini note: depth is slightly deeper than catalog reference but acceptable
+shop-shelf-stocked--curio--s2	accept	-	curio display shelf	0.95	0.0	0	0	4.75x2x5	60x18x56	1.41	1.13	prop	1	
+shop-shelf-stocked--general	accept	-	stocked shop shelf	0.95	0.0	0	0	5.4x1.92x6.5	60x18x78	1.19	1.08	prop	1	gemini note: Cheese wheel on bottom shelf clips slightly through rear wooden backboard
+shop-shelf-stocked--general--s2	accept	-	stocked shop shelf	0.95	0.0	0	0	5x1.92x5	60x18x56	1.28	1.07	prop	1	
+shop-shelf-stocked--tailor	accept	-	fabric display shelf	0.95	0.0	0	0	2.4x5.18x6.5	60x18x78	1.54	1.04	prop	1	footprint proportion 1.54x off the catalog (5.2 x 2.4 ft)
+shop-shelf-stocked--tailor--s2	accept	-	tailor shop shelf	0.95	0.0	0	0	5x2.53x5	60x18x56	1.69	1.07	prop	1	footprint proportion 1.69x off the catalog (5.0 x 2.5 ft) | gemini note: footprint proportion slightly deeper than catalog reference
+shop-sign--apoth	accept	-	hanging shop sign	0.95	0.0	0	0	2.5x0.75x2.49	30x8x30	1.12	1.01	prop	1	
+shop-sign--curio	accept	-	hanging shop sign	0.95	0.0	0	0	2.5x0.61x2.46	30x8x30	1.08	1.02	prop	1	
+shop-sign--general	accept	-	shop sign	0.95	0.0	0	0	2.32x0.74x2.5	30x8x30	1.2	1.08	prop	1	
+shop-sign--tailor	accept	-	tailor shop sign	0.95	0.0	0	0	2.5x0.62x2.5	30x8x30	1.08	1.0	prop	1	
+spice-sacks-open	accept	-	open spice sacks	0.9	0.0	0	0	3.5x3.24x1.78	42x30x24	1.29	1.12	prop	1	
+spinning-wheel	accept	-	spinning wheel	0.95	0.001	0	0	3.67x1.38x3.5	40x20x44	1.33	1.15	prop	1	
+town-crier-platform	accept	-	town crier platform with bell	0.85	0.0	0	0	5.88x4.18x6.33	42x42x76	1.41	1.68	prop	1	height proportion 1.68x off the catalog | gemini note: Height proportion differs somewhat from catalog reference but reads accurately as the requested bell platform
+wall-doorway--half-timber	accept	-	half-timber doorway wall segment	0.95	0.0	0	0	6.19x0.83x9	60x12x108	1.49	1.24	wall	1	wall door: w:h 0.69, depth:h 0.09, largest opening 40% x 71%, filled 72%
+wall-straight--half-timber--s2	accept	-	half-timber wall panel	0.95	0.0	0	0	6.06x0.85x9	60x12x108	1.43	1.21	wall	1	wall solid: w:h 0.67, depth:h 0.09, largest opening 1% x 1%, filled 100%
+wall-window-shop--half-timber	accept	-	half-timber shop window wall section	0.9	0.0	0	0	6.1x1.86x9	60x12x108	1.52	1.22	wall	1	wall window: w:h 0.68, depth:h 0.21, largest opening 0% x 0%, filled 100%
+watch-desk	accept	-	guard desk with equipment	0.95	0.0	0	0	4.33x2.83x4.14	52x30x44	1.13	1.13	prop	1	

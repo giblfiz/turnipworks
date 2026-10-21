@@ -1,0 +1,153 @@
+{
+ "file": "town-small-elder.glb",
+ "tris": 49679,
+ "kb": 2739,
+ "native_extent": [
+  0.508,
+  1.001,
+  0.542
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  102,
+  86,
+  59
+ ],
+ "mean_saturation": 0.552,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 2.58,
+  "length_ft": 2.74,
+  "low_end_ft": [
+   -0.63,
+   -0.0,
+   0.34
+  ],
+  "high_end_ft": [
+   -0.41,
+   2.72,
+   0.53
+  ],
+  "tilt_from_upright_deg": 6.2,
+  "thickness_ft": 0.15,
+  "clear_share": 0.69,
+  "joined_share": 0.31,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-------------------------------######--------##-##########-"
+ },
+ "overall_ft": 2.83,
+ "pieces": {
+  "connected_parts": 10,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 2.8311,
+ "y0": -1.4179,
+ "stated_ft": {
+  "body": 2.8,
+  "figure_top": 2.8,
+  "overall": 2.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2547,
+   -0.5008,
+   -0.2703
+  ],
+  [
+   0.2532,
+   0.5004,
+   0.2718
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49679,
+   "tex": 2048,
+   "kb": 2739
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1060
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 459
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.4,
+    "z": 0.08,
+    "size_ft": [
+     0.57,
+     0.76
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.95,
+    "sole_p90_ft": 0.035
+   },
+   {
+    "x": 0.38,
+    "z": -0.0,
+    "size_ft": [
+     0.41,
+     0.7
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.034
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 0.44,
+  "plan_hull_area_sqft": 1.76,
+  "lowest_slab_share_of_plan": 0.251
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.44,
+   "d": 1.53,
+   "h": 2.83
+  },
+  "centre": [
+   -0.089,
+   0.119
+  ],
+  "contacts_radius_ft": 0.68,
+  "reach_radius_ft": 0.96,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.909,
+  "plate_lost_share": 0.057,
+  "added_share": 0.038,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.883,
+  "view_yaw_deg": 330,
+  "view_elev_deg": 8
+ },
+ "id": "town-small-elder",
+ "sha1": "bdf12045b9c25b9ee01a4bc75dfc0519441f99bd",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 16.1
+}

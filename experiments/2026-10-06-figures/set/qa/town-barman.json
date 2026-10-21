@@ -1,0 +1,152 @@
+{
+ "file": "town-barman.glb",
+ "tris": 47978,
+ "kb": 3143,
+ "native_extent": [
+  0.495,
+  0.999,
+  0.499
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0135,
+  "seen": 0.0064
+ },
+ "mean_rgb": [
+  88,
+  59,
+  34
+ ],
+ "mean_saturation": 0.639,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 183,
+  "main_part_area_share": 0.9936,
+  "floating": [
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.04
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 1e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.0057,
+ "y0": -3.0062,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2484,
+   -0.5006,
+   -0.2487
+  ],
+  [
+   0.2467,
+   0.4986,
+   0.25
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47978,
+   "tex": 2048,
+   "kb": 3143
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1184
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 494
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.84,
+    "z": -0.58,
+    "size_ft": [
+     1.15,
+     1.23
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.79,
+    "sole_p90_ft": 0.079
+   },
+   {
+    "x": 1.03,
+    "z": 0.32,
+    "size_ft": [
+     0.9,
+     1.35
+    ],
+    "off_ground_ft": 0.004,
+    "sole_level_share": 0.78,
+    "sole_p90_ft": 0.086
+   },
+   {
+    "x": 0.22,
+    "z": -1.36,
+    "size_ft": [
+     0.23,
+     0.23
+    ],
+    "off_ground_ft": 0.412,
+    "sole_level_share": 0.45,
+    "sole_p90_ft": 0.531
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.412,
+  "lowest_slab_area_sqft": 1.52,
+  "plan_hull_area_sqft": 6.16,
+  "lowest_slab_share_of_plan": 0.247
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.97,
+   "d": 2.99,
+   "h": 6.0
+  },
+  "centre": [
+   0.059,
+   0.107
+  ],
+  "contacts_radius_ft": 1.57,
+  "reach_radius_ft": 1.61,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.896,
+  "plate_lost_share": 0.067,
+  "added_share": 0.041,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.885,
+  "view_yaw_deg": 5,
+  "view_elev_deg": 8
+ },
+ "id": "town-barman",
+ "sha1": "13285b9e5b6a7c5860abdf147d7f6133f54aa2bc",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.41 ft off the ground"
+ ],
+ "qa_seconds": 9.1
+}

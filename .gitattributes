@@ -1,0 +1,4 @@
+# strip the client IP from rating/write-back records on commit (filter configured locally: git config filter.noip.*)
+reviews/**/*.jsonl filter=noip
+reviews/*.jsonl filter=noip
+reviews/latest.json filter=noip

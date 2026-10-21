@@ -1,0 +1,15 @@
+Edit task. The supplied image shows a closed iron maiden in the Turnip Works hand-painted house style. Show the SAME object: identical materials, colours, fittings, proportions and painting style, from the same three-quarter camera. Do not redesign it. Change ONLY its state:
+
+Create a single asset in the Turnip Works house style (heroic hand-painted): the same iron maiden with its doors open.
+
+Geometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.
+Finish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.
+Palette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.
+Avoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.
+
+Presentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.
+
+Specific design: Both front doors are swung fully OPEN to the sides, about 110 degrees, so the inside is plain to see: a dark, EMPTY, hollow body-shaped cavity, and rows of short, thick, blunt-looking cone spikes on the inner faces of both doors and on the back of the cavity. The head, body shell, hinges and foot plate stay exactly as they are. Nobody inside, no blood. Real-world size about 60 in wide x 34 in deep x 78 in tall: keep these proportions. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue cloth, paint, gems or glass). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.
+
+
+Corrections from a rejected previous attempt (fix these): Does not match reference object: the helmeted head is a single intact piece instead of splitting vertically with the opening doors

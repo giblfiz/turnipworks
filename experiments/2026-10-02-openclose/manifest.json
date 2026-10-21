@@ -1,0 +1,92 @@
+{
+  "experiment": "2026-10-02-openclose",
+  "generated_at": "2026-10-02T17:52:05.731864+00:00",
+  "assets": [
+    {
+      "asset": "chest-ib--body",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0fdba-2ec3-7080-bd63-af5aa02ac1ca",
+      "started_at": "2026-10-02T17:47:12.000953+00:00",
+      "finished_at": "2026-10-02T17:47:48.327719+00:00",
+      "elapsed_seconds": 36.33,
+      "input": "inputs/chest-ib--body.jpg",
+      "input_sha256": "9e051b1f287309a6cf9cb98cc901c561e6842393e20025aef3e4a08cd5316b1f",
+      "output": "models/chest-ib--body.glb",
+      "output_sha256": "447ff84e3015e485f9ce62169a9d944516e626da108f69f6403206676cecabbc",
+      "output_bytes": 2836588,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "chest-ib--closed",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0fdbe-0272-7ff1-90dc-5fbd98950d26",
+      "started_at": "2026-10-02T17:51:22.769085+00:00",
+      "finished_at": "2026-10-02T17:52:05.707601+00:00",
+      "elapsed_seconds": 42.94,
+      "input": "inputs/chest-ib--closed.jpg",
+      "input_sha256": "4107a85a802f635bd2aac552d27ef0500c8fdcc6fb52649cb5edd55b31ce1bfc",
+      "output": "models/chest-ib--closed.glb",
+      "output_sha256": "44d875e82f6b9a0e9c8476a7ad24eff84d286f1dfb6cbf036904dd2d1c08cf7d",
+      "output_bytes": 2638524,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "chest-ib--lid",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0fdba-2ec3-7cb2-a71a-1ae987d30e3c",
+      "started_at": "2026-10-02T17:47:12.001267+00:00",
+      "finished_at": "2026-10-02T17:47:48.478702+00:00",
+      "elapsed_seconds": 36.48,
+      "input": "inputs/chest-ib--lid.jpg",
+      "input_sha256": "9f7e8f641cd41fd362031d84999d43ad1ee017bbcf5d198bf8f3fc07e8c916d7",
+      "output": "models/chest-ib--lid.glb",
+      "output_sha256": "2e7fa6f49db5ab6b8bd91eb78ea1a4e853a13ed7642e3f710d7b01eee66c12f9",
+      "output_bytes": 2859572,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "chest-ib--open",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0fdba-2eea-7053-9005-1d5861188f11",
+      "started_at": "2026-10-02T17:47:12.009058+00:00",
+      "finished_at": "2026-10-02T17:48:04.501606+00:00",
+      "elapsed_seconds": 52.49,
+      "input": "inputs/chest-ib--open.jpg",
+      "input_sha256": "21aa0f4df5b03061d0193b7749d2e70d1a05557d6285cfa69a2aeb02a1a30d76",
+      "output": "models/chest-ib--open.glb",
+      "output_sha256": "12ecb160205c7b18fa6b20fa4d1675f95fe1d243dc9908afee29f9bd002f63f8",
+      "output_bytes": 2634220,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    }
+  ],
+  "estimated_total_cost_usd": 1.2,
+  "failed": []
+}

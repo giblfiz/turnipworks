@@ -1,0 +1,1217 @@
+{
+ "type": "mansion",
+ "genre": "fantasy",
+ "label": "Mansion",
+ "note": "Eight rooms of the mansion's own plus two service rooms (\"service_room\": true) that are the inn's Kitchen and Cellar programs with noble walls and three extra objects: keep or drop those two in the tray as you see fit. Every room is wealth 'fine' (solver.js chooseSku then prefers skus whose tier is 'fine'); 'prefer_skus' lists the mansion's own skus for the room, to pin if tier alone lets an inn sku through.",
+ "wealth": "fine",
+ "wall_kit": {
+  "noble-panel": {
+   "rooms": [
+    "mansion-hall",
+    "mansion-dining",
+    "mansion-library"
+   ],
+   "status": "new",
+   "skus": [
+    "wall-straight--noble-panel",
+    "wall-straight--noble-panel--s2",
+    "wall-window-small--noble-panel",
+    "wall-window-small-open--noble-panel",
+    "wall-doorway--noble-panel"
+   ],
+   "look": "dark oak wainscot to 6 ft in two tiers of panels under a plate rail, cream plaster and cornice above"
+  },
+  "noble-paper": {
+   "rooms": [
+    "mansion-drawing",
+    "mansion-bedroom",
+    "mansion-ballroom"
+   ],
+   "status": "new",
+   "skus": [
+    "wall-straight--noble-paper",
+    "wall-straight--noble-paper--s2",
+    "wall-window-small--noble-paper",
+    "wall-window-small-open--noble-paper",
+    "wall-doorway--noble-paper"
+   ],
+   "look": "sage-green damask wallpaper over a 3-ft cream panelled dado with a chair rail, cream cornice"
+  },
+  "conservatory": {
+   "rooms": [
+    "mansion-conservatory"
+   ],
+   "status": "new",
+   "skus": [
+    "wall-straight--conservatory",
+    "wall-straight--conservatory--s2",
+    "wall-doorway--conservatory"
+   ],
+   "look": "a 2-ft brick plinth carrying cream glazing bars and frosted panes; no window piece (the wall is the window): look.js already falls back to wall-straight when a family has no window"
+  },
+  "noble-interior": {
+   "rooms": [
+    "mansion-kitchen"
+   ],
+   "status": "exists (walls-01: wall-straight, wall-window-small + open twin); this batch adds its missing doorway",
+   "skus": [
+    "wall-doorway--noble-interior"
+   ],
+   "look": "cream plaster over a low honey wainscot with a plain dado rail: suits the service wing, back stairs and corridors, too plain for the state rooms"
+  },
+  "dressed-stone": {
+   "rooms": [
+    "mansion-cellar"
+   ],
+   "status": "exists"
+  },
+  "window_role": "the tall mansion window is a sku of the engine's window role wall-window-small (look.js places that id by family), NOT of wall-window-large",
+  "doors": {
+   "door-panelled": "new role, sku door-panelled--leaf (36x84, leaf only): every single-cell inner door of the mansion",
+   "door-double-grand": "existing role; the existing door-double-grand--leaf is carved oak with iron studs and ring pulls (castle and inn). New sku door-double-grand--fine-leaf (panelled walnut, brass knobs) for the front door and the ballroom",
+   "door-glazed": "new role, sku door-glazed--leaf: conservatory and garden doors",
+   "fallback": "door-plank and door-reinforced never appear in mansion rooms except the cellar (door-reinforced) and the kitchen's yard door (door-plank)"
+  }
+ },
+ "hung_ids": [
+  "bell-board-servants",
+  "mirror-pier-gilt",
+  "sconce-candle-triple--fine"
+ ],
+ "hung_roles": [
+  "bell-board-servants",
+  "mirror-pier-gilt",
+  "sconce-candle-triple"
+ ],
+ "hung_note": "add the hung ROLES to solver.js HUNG_IDS: mirror-pier-gilt is 78 in tall and sconce-candle-triple--fine is 9 in deep, so isHung()'s size test (depth <= 8, height <= 48) misses them; bell-board-servants passes it. Flats that hang (painting-*, tapestry, curtains-drapes) are in flats.json. fireplace-marble, clock-longcase, hall-stand, fountain-wall and all bookcases are wall-PLACED floor pieces, not hung",
+ "ceiling_ids": [
+  "chandelier-grand",
+  "chandelier-grand--s2"
+ ],
+ "lights": {
+  "fireplace-marble": "fireplace",
+  "fireplace-marble--s2": "fireplace",
+  "chandelier-grand": "chandelier",
+  "chandelier-grand--s2": "chandelier",
+  "candelabra-standing--s1": "candle",
+  "candelabra-standing--s2": "candle",
+  "sconce-candle-triple--fine": "candle",
+  "candelabra--fine--s2": "candle",
+  "lamp-post-iron": "lantern"
+ },
+ "lights_note": "all generated UNLIT. fire.js fireType() already classifies every one by id: /^fireplace/ -> hearth, /chandelier/ -> chandelier, /candelabra/ -> candelabra, /candle/ -> candle (sconce-candle-triple), /lamp/ -> lantern (lamp-post-iron). solver2 picks 'chandelier-ring' by name for big-room lights: in mansion rooms it should pick chandelier-grand",
+ "stairs": "not the mansion's: the vertical kit specifies stair-grand--noble-interior (and stair-half / stair-quarter-turn in other families); the hall's recipe names those roles",
+ "rooms": [
+  {
+   "key": "mansion-hall",
+   "label": "Entrance hall",
+   "cells": [
+    5,
+    5
+   ],
+   "family": "noble-panel",
+   "role": "hub",
+   "floors": [
+    {
+     "id": "floor-marble-cabochon",
+     "status": "new"
+    },
+    {
+     "id": "floor-checker-bw",
+     "status": "exists"
+    },
+    {
+     "id": "floor-tile-harlequin",
+     "status": "exists"
+    },
+    {
+     "id": "floor-checker-stone",
+     "status": "exists"
+    },
+    {
+     "id": "floor-planks-polished",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "nob-entrance-hall"
+   ],
+   "focal": [
+    "stair-grand",
+    "table-pedestal-round"
+   ],
+   "reads_as": "the grand stair rising opposite the front door (vertical kit), or, with no stair, the big round pedestal table with a vase dead centre under the chandelier; pale marble floor with dark dots; a console table with a tall gilt mirror on each side wall",
+   "reuse": [
+    "door-double-grand",
+    "vase-flowers",
+    "trunk-travel",
+    "chest-ironbound",
+    "rug-grand",
+    "rug-runner",
+    "rug-round-fine",
+    "painting-landscape",
+    "painting-portrait",
+    "trophy-head",
+    "cloak-hanging",
+    "lantern-wall-brass",
+    "candelabra"
+   ],
+   "from_other_designers": [
+    "stair-grand--noble-interior",
+    "armor-stand--s1",
+    "armor-stand--s2"
+   ],
+   "prefer_skus": [
+    "door-double-grand--fine-leaf",
+    "door-panelled--leaf",
+    "sconce-candle-triple--fine",
+    "urn-decorative--porcelain",
+    "pedestal-display--marble"
+   ],
+   "program": {
+    "closest": "desk",
+    "why": "an axial focal piece opposite the main door with a through-line to it (ROOMS.md principle 8); every other door opens off the sides, so the middle is a hub, not a corridor",
+    "focal_rule": "stair-grand (sku stair-grand--noble-interior, 2x2 cells) centred on the wall facing the front door, rising away from the door; it needs the hall to be at least 4 cells deep. When the hall has no upper floor or is too small, table-pedestal-round stands at the exact centre of the room instead, a vase-flowers on it, rug-round-fine under it",
+    "centre": "with a stair: table-pedestal-round halfway between the door and the stair foot (only when at least 10 ft lie between them), else empty; rug-runner from the door to the stair foot",
+    "walls": "one table-console centred on each side wall with mirror-pier-gilt hung above it and a sconce each side; clock-longcase beside the stair or on the door wall; hall-stand on the door wall beside the front door (1); bench-upholstered (the cream-and-gilt s1) one per 10 ft of leftover side wall; statue-bust or urn-decorative in pairs flanking the stair foot or an inner door; armor-stand (castle batch) 0-2 in the far corners",
+    "corners": "palm-potted or planter-topiary in the two corners of the door wall",
+    "sits_on": "vase-flowers on table-pedestal-round and on each table-console; urn-decorative (porcelain) or statue-bust may stand on pedestal-display--marble",
+    "hung": "mirror-pier-gilt (mount 36 in, above each console); painting-landscape / painting-still-life / painting-portrait at 54 in on the wall between the consoles and the doors (2-6); trophy-head 0-1; sconce-candle-triple either side of each mirror",
+    "doors": "front door = door-double-grand (sku door-double-grand--fine-leaf) in a 2-cell opening; inner doors = door-panelled in wall-doorway--noble-panel",
+    "counts": {
+     "25 cells": "1 stair or 1 centre table, 2 consoles + 2 pier mirrors, 1 clock, 1 hall stand, 2 benches, 2 busts or urns, 2 palms, 1 chandelier, 4 sconces, 3 paintings",
+     "42 cells": "the same plus the centre table AND the stair, 4 benches, 4 busts/urns on pedestals, 2 floor candelabra, 2 chandeliers, 8 sconces, 6 paintings"
+    },
+    "lights": {
+     "chandelier": "chandelier-grand over the middle of the room and over each further zone centre (one per ~350 sq ft, the solver's big-room rule); chandelier-grand--s2 in rooms under 20 cells",
+     "candle": "sconce-candle-triple (the gilt --fine sku) in pairs either side of the focal piece and of each pier mirror, one every 10-12 ft of free wall; candelabra on the dining table, mantel-height tables and the harpsichord; candelabra-standing in pairs at the room's corners or flanking a door"
+    },
+    "density": "sparse and symmetric: about 3 props per 100 sq ft; the floor pattern is part of the read, keep it showing"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "bench-upholstered",
+    "candelabra-standing",
+    "chair-salon-gilt",
+    "chandelier-grand",
+    "clock-longcase",
+    "door-panelled",
+    "hall-stand",
+    "mirror-pier-gilt",
+    "palm-potted",
+    "pedestal-display",
+    "planter-topiary",
+    "statue-bust",
+    "table-console",
+    "table-pedestal-round",
+    "urn-decorative"
+   ]
+  },
+  {
+   "key": "mansion-drawing",
+   "label": "Drawing room",
+   "cells": [
+    5,
+    4
+   ],
+   "family": "noble-paper",
+   "role": "terminal",
+   "floors": [
+    {
+     "id": "floor-parquet-versailles",
+     "status": "new"
+    },
+    {
+     "id": "floor-parquet-herringbone",
+     "status": "exists"
+    },
+    {
+     "id": "floor-planks-polished",
+     "status": "exists"
+    },
+    {
+     "id": "floor-planks-dark",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "nob-drawing-room",
+    "nob-parlor"
+   ],
+   "focal": [
+    "fireplace-marble",
+    "sofa"
+   ],
+   "reads_as": "the white marble fireplace with its tall gilt mirror, and facing it across a big carpet the burgundy suite: sofa, settee, two armchairs round a low table; a card table or billiard table as the second island",
+   "reuse": [
+    "table-side",
+    "screen-folding",
+    "andirons",
+    "fire-irons",
+    "firewood-basket",
+    "vase-flowers",
+    "pillows-cushions",
+    "board-game",
+    "mirror-wall",
+    "painting-landscape",
+    "curtains-drapes",
+    "rug-grand",
+    "rug-round-fine",
+    "rug-hearth-halfmoon",
+    "candelabra",
+    "lamp-oil-brass",
+    "chair-armed",
+    "music-stand",
+    "bard-instrument-stand"
+   ],
+   "prefer_skus": [
+    "chair-upholstered--fine--s1",
+    "chair-upholstered--fine--s2",
+    "footstool--fine",
+    "daybed--fine",
+    "table-round-small--fine",
+    "bench-upholstered--s2",
+    "table-side--fine",
+    "sconce-candle-triple--fine",
+    "chandelier-grand--s2"
+   ],
+   "program": {
+    "closest": "bedroom",
+    "why": "the fine guest room's zone grammar without the bed: a hearth sitting zone first, then reading/writing, games and music zones as the room grows (ROOMS.md, Fine room -> Grows)",
+    "focal_rule": "fireplace-marble centred on the wall facing the main door when that is a short wall or the room is square, else centred on a long wall (the common room's hearth rule); 2 ft working face kept clear",
+    "zones": [
+     "hearth sitting (always): rug-grand in front of the hearth; sofa facing the fire across the rug, 7-9 ft from it; settee or two chair-upholstered at right angles to the sofa on each side, all facing inward; table-round-small in the middle of the group; footstool by one armchair; fire-screen beside the hearth, andirons + fire-irons at it",
+     "games (from 16 cells): table-card with 4 chair-salon-gilt, or table-games with 2, by a window",
+     "writing (from 16 cells): desk-bureau against a wall with one chair-salon-gilt",
+     "music (from 20 cells): harp with a stool-upholstered and a music-stand in a corner; harpsichord only from 30 cells",
+     "billiards (from 30 cells, and only if 5 ft clear all round): table-billiards as a second island, long axis along the room's long axis",
+     "window seat: daybed (the chaise) under or beside a window"
+    ],
+    "walls": "cabinet-china centred on a free wall; table-console + mirror-pier-gilt between two windows; palm-potted or fern-potted in 1-2 corners; screen-folding only as a zone divider",
+    "sits_on": "clock-mantel is NOT placed on the marble mantel (the overmantel mirror stands there): put clock-mantel, tea-service-tray, vase-flowers, candelabra, plant-pot on table-round-small, table-side, table-console and the commode",
+    "hung": "painting-landscape / painting-still-life (3-6), mirror-wall, sconce-candle-triple either side of the fireplace; curtains-drapes at every window",
+    "counts": {
+     "20 cells": "1 fireplace, 1 sofa, 1 settee or 2 armchairs, 1 low table, 1 footstool, 1 rug, 1 bureau + chair, 1 cabinet, 1 chandelier, 2 sconces, 3 paintings, 4 smalls",
+     "36 cells": "the same plus a card table with 4 chairs, the chaise, harp corner, a console + pier mirror, 2 palms, 2 chandeliers, 6 sconces"
+    },
+    "lights": {
+     "chandelier": "chandelier-grand over the middle of the room and over each further zone centre (one per ~350 sq ft, the solver's big-room rule); chandelier-grand--s2 in rooms under 20 cells",
+     "candle": "sconce-candle-triple (the gilt --fine sku) in pairs either side of the focal piece and of each pier mirror, one every 10-12 ft of free wall; candelabra on the dining table, mantel-height tables and the harpsichord; candelabra-standing in pairs at the room's corners or flanking a door",
+     "fireplace": "fireplace-marble is a hearth: the engine's fire FX lights it (fireType matches /^fireplace/)"
+    },
+    "density": "about 5 props per 100 sq ft; seating floats (2.5 ft off the walls) at every size"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "cabinet-china",
+    "candelabra-standing",
+    "chair-salon-gilt",
+    "chandelier-grand",
+    "clock-mantel",
+    "daybed",
+    "desk-bureau",
+    "fern-potted",
+    "fire-screen",
+    "fireplace-marble",
+    "harp",
+    "mirror-pier-gilt",
+    "palm-potted",
+    "settee",
+    "sofa",
+    "statue-bust",
+    "table-billiards",
+    "table-card",
+    "table-console",
+    "table-games",
+    "tea-service-tray",
+    "urn-decorative"
+   ]
+  },
+  {
+   "key": "mansion-dining",
+   "label": "Dining room",
+   "cells": [
+    6,
+    4
+   ],
+   "family": "noble-panel",
+   "role": "terminal",
+   "floors": [
+    {
+     "id": "floor-planks-polished",
+     "status": "exists"
+    },
+    {
+     "id": "floor-parquet-herringbone",
+     "status": "exists"
+    },
+    {
+     "id": "floor-parquet-versailles",
+     "status": "new"
+    },
+    {
+     "id": "floor-checker-stone",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "nob-dining-room",
+    "nob-dining",
+    "nob-silver-service"
+   ],
+   "focal": [
+    "table-feast"
+   ],
+   "reads_as": "one very long polished table down the middle of the room with a chair every 2 ft along both sides and a carver at each end, candelabra and a fruit centrepiece on it; a sideboard loaded with silver on the long wall; dark oak panelling",
+   "reuse": [
+    "chair-armed",
+    "table-side",
+    "dresser-plates",
+    "screen-folding",
+    "candelabra",
+    "napkin-folded",
+    "tureen-ceramic",
+    "wassail-bowl",
+    "feast-platter-meats",
+    "roast-fowl",
+    "ham-whole-glazed",
+    "goose-roast",
+    "pie-fruit-lattice",
+    "cake-round",
+    "cheese-board",
+    "bread-basket-cloth",
+    "bottle-wine-green",
+    "bottle-of-wine-open",
+    "decanter-glass-plain",
+    "carafe-glass",
+    "knife-table",
+    "fork-two-tine",
+    "vase-flowers",
+    "painting-landscape",
+    "curtains-drapes",
+    "rug-grand",
+    "plate-pewter"
+   ],
+   "from_other_designers": [
+    "goblet-silver",
+    "platter-silver"
+   ],
+   "prefer_skus": [
+    "table-feast--fine",
+    "table-feast--fine--s2",
+    "chair-plain--fine--s1",
+    "chair-plain--fine--s2",
+    "chair-plain--fine--s3",
+    "chair-armed--fine--s2",
+    "chair-armed--fine",
+    "candelabra--fine",
+    "candelabra--fine--s2",
+    "fireplace-marble--s2",
+    "sconce-candle-triple--fine"
+   ],
+   "program": {
+    "closest": "common",
+    "why": "the common room's dining island, but ONE island promoted to the centre and extended instead of repeated; the hearth is a pole on a short wall",
+    "focal_rule": "table-feast centred in the room, long axis along the room's long axis, never in a door's blast line across its short side. Use table-feast--fine (12 ft) when the long side is 6 cells or more, table-feast--fine--s2 (8 ft oval) below that; rooms of 9 cells or more on the long side put two 12-ft tables end to end as one",
+    "rows": "chair-plain (the --fine skus, all three shapes mixed at random) along both long sides of the table, one per 2 ft of table, seat tucked 6 in under the edge, facing the table; chair-armed (the carver) at each short end",
+    "walls": "fireplace-marble (prefer --s2, the green one) centred on a short wall; sideboard centred on the long wall away from the main door; cabinet-china on the opposite wall or beside the sideboard; table-side or screen-folding by the service door; 3 ft of clear walking space behind every chair",
+    "sits_on": "on the table, along its centre line: centerpiece-epergne in the middle, a candelabra at one third and two thirds, platters and tureens between; a place setting in front of every chair (plate-silver, cutlery-set-silver, goblet-silver, napkin-folded: the solver's place-setting rule, tav-place-setting, with the silver ids); on the sideboard: tray-silver, pitcher-silver, decanter-crystal, platter-silver-domed, a second candelabra",
+    "hung": "painting-still-life and painting-landscape above the sideboard and between windows (2-5), mirror-pier-gilt opposite the windows, sconce-candle-triple in pairs; curtains-drapes at every window; rug-grand under the table",
+    "counts": {
+     "24 cells": "1 long table, 10-12 side chairs, 2 carvers, 1 fireplace, 1 sideboard, 1 cabinet, 1 chandelier, 4 sconces, 2 candelabra, 12 place settings, 3 paintings",
+     "40 cells": "a double-length table with 20 chairs, 2 sideboards, 2 cabinets, 2 chandeliers, 2 floor candelabra, 8 sconces"
+    },
+    "lights": {
+     "chandelier": "chandelier-grand over each third of the table",
+     "candle": "sconce-candle-triple (the gilt --fine sku) in pairs either side of the focal piece and of each pier mirror, one every 10-12 ft of free wall; candelabra on the dining table, mantel-height tables and the harpsichord; candelabra-standing in pairs at the room's corners or flanking a door",
+     "fireplace": "fireplace-marble is a hearth: the engine's fire FX lights it (fireType matches /^fireplace/)"
+    },
+    "density": "about 7 props per 100 sq ft counting chairs; tableware does not count"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "cabinet-china",
+    "candelabra-standing",
+    "centerpiece-epergne",
+    "chandelier-grand",
+    "cutlery-set-silver",
+    "decanter-crystal",
+    "fireplace-marble",
+    "mirror-pier-gilt",
+    "pitcher-silver",
+    "plate-silver",
+    "platter-silver-domed",
+    "sideboard",
+    "table-feast",
+    "tray-silver"
+   ]
+  },
+  {
+   "key": "mansion-library",
+   "label": "Library",
+   "cells": [
+    4,
+    4
+   ],
+   "family": "noble-panel",
+   "role": "terminal",
+   "floors": [
+    {
+     "id": "floor-planks-dark",
+     "status": "exists"
+    },
+    {
+     "id": "floor-parquet-herringbone",
+     "status": "exists"
+    },
+    {
+     "id": "floor-planks-polished",
+     "status": "exists"
+    },
+    {
+     "id": "floor-parquet-versailles",
+     "status": "new"
+    }
+   ],
+   "recipes": [
+    "nob-library",
+    "nob-study",
+    "nob-study-desk"
+   ],
+   "focal": [
+    "bookcase-ladder",
+    "desk-partners"
+   ],
+   "reads_as": "walls lined with tall bookcases, the widest one with a ladder leaning on it; a big green-topped desk commanding the door; a floor globe and a green leather wing chair by the fire",
+   "reuse": [
+    "desk-writing",
+    "chair-armed",
+    "table-side",
+    "footstool",
+    "chest-ironbound",
+    "strongbox",
+    "candlestick",
+    "lamp-oil-brass",
+    "lamp-pole",
+    "candelabra",
+    "letters-bundle",
+    "ledger-accounts",
+    "journal-leather",
+    "map-rolled",
+    "painting-landscape",
+    "trophy-head",
+    "rug-grand",
+    "rug-round-fine",
+    "curtains-drapes",
+    "andirons",
+    "fire-irons"
+   ],
+   "prefer_skus": [
+    "bookshelf--fine--s1",
+    "bookshelf--fine--s2",
+    "bookshelf--fine--s3",
+    "chair-upholstered--fine--s3",
+    "chair-armed--fine",
+    "desk-writing--fine",
+    "fireplace-marble--s2",
+    "candelabra-standing--s2",
+    "chandelier-grand--s2"
+   ],
+   "program": {
+    "closest": "store",
+    "why": "the storeroom's wall-rack grammar with bookcases as the rack (growth mode: repeat along the walls), plus the front desk's command-position desk",
+    "focal_rule": "bookcase-ladder centred on the wall facing the main door (2 cells wide, 9 ft tall); bookshelf (the three --fine skus mixed; the low s3 only under windows) fills the rest of that wall and then the side walls, butted side by side, leaving doors, windows and the fireplace clear. At least half the free wall length is bookcases",
+    "centre": "desk-partners 5-6 ft in front of the focal bookcase, its long side parallel to it, a chair-armed behind it (back to the books, door in view) and one chair in front; in rooms of 25 cells or more table-library takes the centre instead and the desk moves to a window",
+    "zones": [
+     "reading by the fire (from 16 cells): fireplace-marble--s2 on a side wall, chair-upholstered--fine--s3 (green leather) x2 facing it at an angle, table-side between them, footstool, rug-round-fine",
+     "study table (from 25 cells): table-library in the middle with 4 chair-armed, book-stack and book-open on it",
+     "games (from 25 cells): table-games with 2 chairs by a window; table-billiards only from 36 cells with 5 ft clear all round",
+     "aisles (from 48 cells): free-standing back-to-back rows of bookshelf across the far half of the room with 4 ft aisles (the storeroom's aisle grammar), library-steps at an aisle end"
+    ],
+    "floor_pieces": "trade-globe-terrestrial beside the desk (1); library-steps in front of a bookcase that is not the ladder one (1 per 20 cells); telescope at a window (0-1); book-pile-floor beside a reading chair (0-2); clock-longcase on the door wall; statue-bust--s2 on a pedestal in a corner or between bookcases",
+    "sits_on": "on the desk: inkwell-quill, book-open, letters-bundle, ledger-accounts, a candlestick or lamp-oil-brass (nob-study-desk supplies the rest); on tables and the low bookcase: book-stack, books-row-bookends, clock-mantel, candelabra",
+    "hung": "painting-landscape over the fireplace wall and above the low bookcases (1-3), trophy-head 0-1, sconce-candle-triple where wall shows; curtains-drapes at windows",
+    "counts": {
+     "16 cells": "1 ladder bookcase, 5-6 bookcases, 1 desk + 2 chairs, 1 globe, 1 wing chair + side table, 1 steps, 1 chandelier, 2 lamps, 6 book smalls",
+     "36 cells": "1 ladder bookcase, 12-14 bookcases, desk at a window, library table with 4 chairs, fireplace with 2 wing chairs, games table, telescope, clock, 2 busts, 2 chandeliers"
+    },
+    "lights": {
+     "chandelier": "chandelier-grand--s2 over the desk or the library table",
+     "candle": "lamp-oil-brass or candlestick on the desk and every table; candelabra-standing--s2 beside each reading chair; lamp-pole as an alternative",
+     "fireplace": "fireplace-marble is a hearth: the engine's fire FX lights it (fireType matches /^fireplace/)"
+    },
+    "density": "wall coverage first (50-70% of free wall is bookcases), then about 4 props per 100 sq ft on the floor"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "book-open",
+    "book-pile-floor",
+    "book-stack",
+    "bookcase-ladder",
+    "books-row-bookends",
+    "bookshelf",
+    "candelabra-standing",
+    "clock-longcase",
+    "desk-bureau",
+    "desk-partners",
+    "fire-screen",
+    "fireplace-marble",
+    "inkwell-quill",
+    "library-steps",
+    "statue-bust",
+    "table-billiards",
+    "table-games",
+    "table-library",
+    "telescope",
+    "trade-globe-terrestrial"
+   ]
+  },
+  {
+   "key": "mansion-bedroom",
+   "label": "Master bedroom",
+   "cells": [
+    5,
+    4
+   ],
+   "family": "noble-paper",
+   "role": "terminal",
+   "floors": [
+    {
+     "id": "floor-parquet-herringbone",
+     "status": "exists"
+    },
+    {
+     "id": "floor-planks-polished",
+     "status": "exists"
+    },
+    {
+     "id": "floor-parquet-versailles",
+     "status": "new"
+    },
+    {
+     "id": "floor-planks-dark",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "nob-master-bedroom",
+    "nob-bedchamber",
+    "nob-dressing-room",
+    "nob-dressing-room-2"
+   ],
+   "focal": [
+    "bed-canopy"
+   ],
+   "reads_as": "the state bed with its carved canopy and green curtains centred on the far wall, a bedside cabinet each side and an upholstered bench at its foot; a dressing table with an oval mirror, a tall wardrobe, a painted screen",
+   "reuse": [
+    "wardrobe",
+    "wardrobe-open",
+    "table-side",
+    "linen-chest",
+    "chest-ironbound",
+    "trunk-travel",
+    "quilt-rack",
+    "mirror-wall",
+    "water-jug-basin",
+    "ewer-and-basin",
+    "hand-mirror",
+    "vase-flowers",
+    "pillows-cushions",
+    "chamber-pot",
+    "bathtub-wood",
+    "towel-stack",
+    "candelabra",
+    "candlestick",
+    "lamp-oil-brass",
+    "painting-landscape",
+    "painting-portrait",
+    "curtains-drapes",
+    "rug-grand",
+    "rug-round-fine",
+    "rug-sheepskin",
+    "clothes-folded",
+    "cloak-hanging",
+    "shaving-kit"
+   ],
+   "prefer_skus": [
+    "bed-canopy--state",
+    "table-side--fine--s2",
+    "table-vanity--fine",
+    "bench-upholstered--s2",
+    "daybed--fine",
+    "chair-upholstered--fine--s1",
+    "chair-upholstered--fine--s2",
+    "footstool--fine",
+    "mirror-standing--fine",
+    "washstand--fine",
+    "screen-folding--fine",
+    "wardrobe--fine--s1",
+    "wardrobe--fine--s2",
+    "wardrobe--fine--s3",
+    "fireplace-marble--s2",
+    "chandelier-grand--s2",
+    "sconce-candle-triple--fine"
+   ],
+   "program": {
+    "closest": "bedroom",
+    "why": "this IS the fine room (room wealth 'fine', ROOMS.md Fine room) with the mansion's own skus; no solver change needed beyond the new ids",
+    "focal_rule": "bed-canopy (sku bed-canopy--state, 6 x 7.5 ft, 8 ft tall) centred on the wall facing the door, head to the wall, a table-side each side (prefer table-side--fine--s2), bench-upholstered--s2 across its foot in place of the foot chest; promoted to the room's centre from 30 ft both ways, as the fine room does",
+    "zones": [
+     "hearth sitting: fireplace-marble on a side wall, 2 chair-upholstered and a table-round-small, footstool, fire-screen",
+     "dressing (screened): wardrobe + table-vanity with stool-upholstered + mirror-standing + commode, gown-on-form beside the wardrobe, screen-folding on the zone's open edge",
+     "writing: desk-bureau with a chair by a window",
+     "rest: daybed (the chaise) at a window or the bed's far side",
+     "washing: washstand--fine; bathtub-wood behind the screen in rooms of 25 cells or more"
+    ],
+    "sits_on": "on the vanity: perfume-bottles, jewelry-box, hand-mirror, candlestick; on the commode: clock-mantel, vase-flowers, plant-pot--s2; on bedside cabinets: candlestick, book-stack",
+    "hung": "painting-landscape / painting-portrait (2-4), mirror-wall, sconce-candle-triple either side of the bed; curtains-drapes at every window",
+    "counts": {
+     "20 cells": "1 bed + 2 bedside cabinets + foot bench, 1 wardrobe, 1 vanity + stool, 1 commode, 1 fireplace + 2 chairs, 1 screen, 1 chandelier, 2 sconces",
+     "36 cells": "the same plus the chaise, bureau, cheval mirror, washstand, gown on its form, a second wardrobe, bath behind a second screen"
+    },
+    "lights": {
+     "chandelier": "chandelier-grand--s2 over the foot of the bed",
+     "candle": "sconce-candle-triple (the gilt --fine sku) in pairs either side of the focal piece and of each pier mirror, one every 10-12 ft of free wall; candelabra on the dining table, mantel-height tables and the harpsichord; candelabra-standing in pairs at the room's corners or flanking a door",
+     "fireplace": "fireplace-marble is a hearth: the engine's fire FX lights it (fireType matches /^fireplace/)"
+    },
+    "density": "the fine room's target (6.5 per 100 sq ft)"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "bench-upholstered",
+    "candelabra-standing",
+    "clock-mantel",
+    "commode",
+    "daybed",
+    "desk-bureau",
+    "fire-screen",
+    "fireplace-marble",
+    "gown-on-form",
+    "jewelry-box",
+    "perfume-bottles",
+    "stool-upholstered"
+   ]
+  },
+  {
+   "key": "mansion-ballroom",
+   "label": "Ballroom",
+   "cells": [
+    8,
+    6
+   ],
+   "family": "noble-paper",
+   "role": "hub",
+   "floors": [
+    {
+     "id": "floor-parquet-versailles",
+     "status": "new"
+    },
+    {
+     "id": "floor-marble-cabochon",
+     "status": "new"
+    },
+    {
+     "id": "floor-parquet-herringbone",
+     "status": "exists"
+    },
+    {
+     "id": "floor-tile-harlequin",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "nob-ballroom",
+    "nob-music-room"
+   ],
+   "focal": [
+    "chandelier-grand",
+    "harpsichord"
+   ],
+   "reads_as": "a big EMPTY patterned dance floor under a row of crystal chandeliers; gilt chairs and benches in a single line along the walls; tall gilt mirrors between the windows; the green-and-gold harpsichord with a harp and music stands at one end",
+   "reuse": [
+    "music-stand",
+    "bard-instrument-stand",
+    "lute",
+    "bard-songbook",
+    "bard-sheet-music-scatter",
+    "vase-flowers",
+    "wassail-bowl",
+    "curtains-drapes",
+    "painting-landscape",
+    "candelabra",
+    "door-double-grand",
+    "fiddle",
+    "table-side",
+    "cup-glass-green",
+    "decanter-glass-plain"
+   ],
+   "from_other_designers": [
+    "goblet-silver"
+   ],
+   "prefer_skus": [
+    "door-double-grand--fine-leaf",
+    "bench-upholstered--s1",
+    "chair-salon-gilt--s1",
+    "chair-salon-gilt--s2",
+    "sconce-candle-triple--fine",
+    "candelabra-standing--s1",
+    "candelabra--fine--s2",
+    "urn-decorative--porcelain",
+    "pedestal-display--marble"
+   ],
+   "program": {
+    "closest": "barn",
+    "why": "the barn's key purpose is a clear central floor with everything pushed to the edges; here the open floor is the dance floor and the edges are seating, mirrors and the musicians' end",
+    "focal_rule": "the dance floor: the middle of the room, at least 60% of the floor area, stays EMPTY (no props, no rugs). chandelier-grand hangs on the long centre line, one per 3 cells of length, evenly spaced (the solver's ceiling() at 'at'). The musicians' end is the short wall farthest from the main door",
+    "musicians_end": "harpsichord 3 ft off that short wall, at an angle of 20-30 degrees, keyboard toward the wall side so the wing points into the room, stool-upholstered at the keyboard; harp + stool beside it; 2-4 music-stand each with a chair-salon-gilt in a shallow arc; bard-instrument-stand, lute; candelabra-standing at each end of the group",
+    "walls": "along both long walls, in one line with backs to the wall: chair-salon-gilt in runs of 3-5 (both shapes mixed) alternating with bench-upholstered--s1, a gap at every door and window; table-console with mirror-pier-gilt above it at the middle of each long wall and between pairs of windows; statue-bust or urn-decorative on pedestal-display in the four corners or flanking the main door; palm-potted in corners not taken",
+    "refreshments": "from 40 cells: sideboard or table-console on the door wall with wassail-bowl, tray-silver, goblet-silver, decanter-crystal; a sofa and settee from the burgundy suite in an alcove corner (from 60 cells)",
+    "hung": "mirror-pier-gilt (one per 10-12 ft of long wall, opposite each window where there are windows on one side only), sconce-candle-triple either side of every mirror, tapestry or painting-landscape on the short walls; curtains-drapes at every window",
+    "doors": "main door = door-double-grand (door-double-grand--fine-leaf), 2 cells wide, centred on a short wall; side doors = door-panelled",
+    "counts": {
+     "48 cells": "3 chandeliers, 1 harpsichord + harp + 3 stands, 16-20 chairs, 4 benches, 2 consoles, 4 pier mirrors, 8-10 sconces, 4 floor candelabra, 4 busts or urns",
+     "96 cells": "5-6 chandeliers, 36-40 chairs, 8 benches, 4 consoles, 8 pier mirrors, 16 sconces, a refreshment sideboard, a sofa alcove"
+    },
+    "lights": {
+     "chandelier": "the row of chandelier-grand along the centre line is the room's light and its focal piece",
+     "candle": "sconce-candle-triple (the gilt --fine sku) in pairs either side of the focal piece and of each pier mirror, one every 10-12 ft of free wall; candelabra on the dining table, mantel-height tables and the harpsichord; candelabra-standing in pairs at the room's corners or flanking a door"
+    },
+    "density": "about 2.5 props per 100 sq ft, all of it within 4 ft of a wall except the musicians' group"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "bench-upholstered",
+    "candelabra-standing",
+    "chair-salon-gilt",
+    "chandelier-grand",
+    "decanter-crystal",
+    "harp",
+    "harpsichord",
+    "mirror-pier-gilt",
+    "palm-potted",
+    "pedestal-display",
+    "planter-topiary",
+    "settee",
+    "sideboard",
+    "sofa",
+    "statue-bust",
+    "stool-upholstered",
+    "table-console",
+    "tray-silver",
+    "urn-decorative"
+   ]
+  },
+  {
+   "key": "mansion-conservatory",
+   "label": "Conservatory",
+   "cells": [
+    5,
+    3
+   ],
+   "family": "conservatory",
+   "role": "terminal",
+   "floors": [
+    {
+     "id": "floor-tile-encaustic",
+     "status": "new"
+    },
+    {
+     "id": "floor-terracotta",
+     "status": "exists"
+    },
+    {
+     "id": "floor-tile-hex",
+     "status": "exists"
+    },
+    {
+     "id": "floor-flagstone-square",
+     "status": "exists"
+    },
+    {
+     "id": "floor-brick-herringbone",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "nob-conservatory"
+   ],
+   "focal": [
+    "palm-potted",
+    "fountain-courtyard",
+    "plant-stand-tiered"
+   ],
+   "reads_as": "glass walls on a low brick plinth, patterned tiles, and green everywhere: big potted palms in the corners and the centre, stepped stands of flowerpots against the glass, orange trees in tubs, two wicker chairs and a small table in a clearing",
+   "reuse": [
+    "table-round-small",
+    "watering-can",
+    "garden-tools-leaning",
+    "trowel-garden",
+    "herb-pot",
+    "vase-flowers",
+    "planter-stone",
+    "trellis-vine",
+    "flowerbed",
+    "lantern-wall-brass",
+    "lantern-post-indoor",
+    "lamp-pole",
+    "bush",
+    "planter-barrel"
+   ],
+   "prefer_skus": [
+    "fountain-courtyard--s2",
+    "door-glazed--leaf",
+    "table-round-small--fine",
+    "wall-straight--conservatory",
+    "wall-straight--conservatory--s2",
+    "wall-doorway--conservatory"
+   ],
+   "program": {
+    "closest": "outdoors",
+    "why": "the yard's plants grammar (the 'plants' slot, clumps and a clear path) inside a walled room; the walls are the glass family on the sides that face outdoors or a garden, and the house's own family on the side shared with the house",
+    "walls_note": "family 'conservatory' has no window piece: every wall panel is glass, so the solver must not ask for windows or curtains here. The wall shared with the house keeps the house room's family and gets wall-doorway + door-glazed",
+    "focal_rule": "from 15 cells: fountain-courtyard--s2 (5 ft) at the centre with a ring path round it; under 15 cells: palm-potted--s1 at the centre instead. A 3-ft path runs from the house door to the centre and on to the garden door",
+    "plants": "palm-potted (s1 tall, s2 fan) in every corner and one each side of the garden door; plant-stand-tiered against the glass, one per 10 ft of wall, never in front of a door; citrus-tree-tub in a row or pair along the path (one per 6 ft); fern-potted between them and beside the seats; planter-topiary flanking the house door; plant-pot (both) on the table and on the brick coping line (surface); bush-rose and flowerbed only in conservatories of 30 cells or more, as island beds",
+    "zones": [
+     "sitting clearing: 2 craft-wicker-chair (or chair-salon-gilt) and table-round-small on the sunny side of the centre, tea-service-tray on the table",
+     "working corner (the corner farthest from the house door): bench-potting against the wall, watering-can, garden-tools-leaning, trowel-garden on the bench",
+     "water (from 20 cells): fountain-wall against the house wall, or birdbath among the pots"
+    ],
+    "hung": "trellis-vine on the house wall only; lantern-wall-brass on the house wall",
+    "counts": {
+     "15 cells": "1 centre palm or small fountain, 4 corner palms, 2 plant stands, 3 orange trees, 3 ferns, 2 wicker chairs + table, 1 potting bench, 6 pots",
+     "30 cells": "the fountain, 6 palms, 4 plant stands, 6 orange trees, 6 ferns, 2 topiaries, a stone bench (bench-garden), a wall fountain, 2 island beds"
+    },
+    "lights": {
+     "lantern": "lantern-post-indoor or lamp-pole beside the sitting clearing; lantern-wall-brass on the house wall; daylight room, so few"
+    },
+    "density": "about 8 props per 100 sq ft, three quarters of them plants; the path and the clearing stay bare"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "bench-garden",
+    "bench-potting",
+    "birdbath",
+    "bush-rose",
+    "chair-salon-gilt",
+    "citrus-tree-tub",
+    "craft-wicker-chair",
+    "fern-potted",
+    "fountain-wall",
+    "palm-potted",
+    "plant-pot",
+    "plant-stand-tiered",
+    "planter-topiary",
+    "statue-bust",
+    "tea-service-tray",
+    "urn-garden"
+   ]
+  },
+  {
+   "key": "mansion-garden",
+   "label": "Formal garden",
+   "cells": [
+    7,
+    6
+   ],
+   "family": "noble-panel",
+   "role": "outdoor",
+   "outdoor": true,
+   "floors": [
+    {
+     "id": "floor-lawn-mown",
+     "status": "new"
+    },
+    {
+     "id": "floor-grass",
+     "status": "exists"
+    },
+    {
+     "id": "floor-gravel",
+     "status": "exists"
+    },
+    {
+     "id": "floor-grass-meadow",
+     "status": "exists"
+    },
+    {
+     "id": "floor-cobble",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "nob-formal-garden",
+    "nob-garden",
+    "nob-manor-grounds"
+   ],
+   "focal": [
+    "fountain-courtyard",
+    "gazebo",
+    "lily-pond"
+   ],
+   "reads_as": "a clipped hedge all round, a striped lawn, and strict symmetry: the tiered fountain dead centre where two gravel walks cross, topiary at the four corners of the crossing, statues at the ends of the walks, round flowerbeds in the four quarters, a domed pavilion at the far end",
+   "reuse": [
+    "hedge-straight",
+    "hedge-corner",
+    "hedge-end-block",
+    "hedge-gap-arch",
+    "bench-street",
+    "gatepost-stone",
+    "flowerbed",
+    "planter-stone",
+    "bush",
+    "tree-fruit",
+    "tree-deciduous",
+    "decal-grass-tuft",
+    "decal-path-worn",
+    "lantern-post",
+    "trellis-vine",
+    "flowerbox-window",
+    "garden-tools-leaning",
+    "watering-can",
+    "dog-kennel",
+    "floor-gravel"
+   ],
+   "prefer_skus": [
+    "flowerbed--parterre",
+    "door-glazed--leaf"
+   ],
+   "program": {
+    "closest": "outdoors",
+    "why": "it is a yard (ROOMS.md -> Outdoors: no walls of its own, ground for a floor, an edge kit on the grid line, a gate where the path leaves), but its style is not a roll: the layout is mirror-symmetric about the path axis and the edge is always a hedge or the stone balustrade",
+    "outdoor": "defined exactly like the 'yard' room type in build_data.py: \"outdoor\": True, program 'outdoors', floors are GROUND with the first as default; recipes carry the 'plants' and 'edge' slots the yard grammar reads by name",
+    "edge": "hedge-straight on every open grid edge with hedge-corner / hedge-end-block at corners and ends and hedge-gap-arch as the gate (the yard's hedge kit, already built); on the side that meets the house or a terrace, balustrade-stone with balustrade-stone-pier at its ends, corners and either side of the opening. Never fences or dry-stone walls",
+    "axis": "the main axis runs from the house door (or the gate) straight across the garden; a cross axis at the centre. Both are 5-ft walks of floor-gravel laid as ground strips (or decal-path-worn until gravel strips exist). Everything is placed in mirrored pairs about the main axis",
+    "focal_rule": "fountain-courtyard at the crossing of the two walks (the exact centre). gazebo at the far end of the main axis from the house, only in gardens of 42 cells or more (it is 11 ft across: 3x3 cells). In gardens under 30 cells the centre piece is fountain-courtyard--s2 or sundial, and there is no gazebo. lily-pond centred in one half when the garden is 56 cells or more",
+    "plants": "planter-topiary at the four corners of the crossing (the spiral s1), and in pairs flanking the gate and the house door (s2, s3); flowerbed--parterre centred in each of the four quarters; bush-rose in a ring of 4-6 round each parterre or in rows along the walks (the standard rose s2 alternating with s1); citrus-tree-tub in pairs on the terrace side; tree-fruit or tree-deciduous only in the two far corners, never on the axes; bush as hedge-foot filler",
+    "furnish": "statue-garden at each end of the cross axis, facing the fountain (s1 one end, s2 the other); urn-garden in pairs where a walk meets the edge and on the balustrade side; bench-garden facing the fountain from the middle of each quarter's inner edge (2-4); sundial at the centre of a quarter's lawn if no parterre is there; birdbath in a parterre quarter (0-1)",
+    "counts": {
+     "30 cells": "1 small fountain or sundial, 4 topiaries, 2 parterres, 8 roses, 2 urns, 2 benches, 1 statue, hedge all round, 1 lamp post",
+     "42 cells": "1 tiered fountain, 1 gazebo, 6 topiaries, 4 parterres, 16 roses, 4 urns, 2 statues, 4 benches, 2 orange tubs, 2 corner trees, 2 lamp posts",
+     "72 cells": "the same plus the lily pond in one half balanced by a sundial lawn in the other, 4 statues, 8 urns, 6 benches"
+    },
+    "lights": {
+     "lantern": "lamp-post-iron in pairs at the gate and where the walks meet the edge (new); lantern-post (exists) as the fallback"
+    },
+    "water": "fountain-courtyard, fountain-courtyard--s2, lily-pond, birdbath and fountain-wall are generated DRY; each needs its water surface set on the Alignment Bench",
+    "density": "the yard's thinning rule; edge pieces and ground strips do not count"
+   },
+   "new_roles_in_recipes": [
+    "balustrade-stone",
+    "balustrade-stone-pier",
+    "bench-garden",
+    "birdbath",
+    "bush-rose",
+    "citrus-tree-tub",
+    "fountain-courtyard",
+    "gazebo",
+    "lamp-post-iron",
+    "lily-pond",
+    "planter-topiary",
+    "statue-garden",
+    "sundial",
+    "urn-garden"
+   ]
+  },
+  {
+   "key": "mansion-kitchen",
+   "label": "Servants' kitchen",
+   "cells": [
+    5,
+    4
+   ],
+   "family": "noble-interior",
+   "role": "uses",
+   "service_room": true,
+   "floors": [
+    {
+     "id": "floor-flagstone-square",
+     "status": "exists"
+    },
+    {
+     "id": "floor-checker-red",
+     "status": "exists"
+    },
+    {
+     "id": "floor-tile-kitchen-small",
+     "status": "exists"
+    },
+    {
+     "id": "floor-brick-herringbone",
+     "status": "exists"
+    },
+    {
+     "id": "floor-flagstone-irregular",
+     "status": "exists"
+    },
+    {
+     "id": "floor-terracotta",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "tav-kitchen",
+    "tav-kitchen-tools",
+    "tav-kitchen-larder",
+    "nob-servants-kitchen"
+   ],
+   "focal": [
+    "cook-hearth-spit",
+    "table-kitchen-prep"
+   ],
+   "reads_as": "the inn's kitchen grammar unchanged (cooking line on the wall, prep table in the middle, larder corners) in plain plastered walls, told apart by the row of call bells high on the wall, the copper pans, and silver domes and trays waiting on the pass",
+   "reuse": [
+    "cook-hearth-spit",
+    "bread-oven",
+    "table-kitchen-prep",
+    "dresser-plates",
+    "cupboard",
+    "bench-long",
+    "butcher-block",
+    "shelf-wall",
+    "pot-copper",
+    "kettle-copper",
+    "utensil-rack-wall",
+    "knife-rack-wall",
+    "ham-hanging",
+    "game-brace-hanging",
+    "pastry-tray",
+    "tureen-ceramic",
+    "serving-tray",
+    "jars-preserves",
+    "spice-jars",
+    "towel-hanging",
+    "lantern-hanging",
+    "dish-tub",
+    "flour-bin"
+   ],
+   "prefer_skus": [],
+   "program": {
+    "closest": "kitchen",
+    "why": "it is the Kitchen program as built; the only additions are one wall-hung piece and silver on the serving pass",
+    "focal_rule": "unchanged: cooking lines repeat along the walls, prep island in the middle",
+    "hung": "bell-board-servants: exactly one, mount 72 in, on the wall beside the door that leads to the house, never over a cooking line",
+    "sits_on": "on the serving pass / the table nearest the house door: platter-silver-domed, tray-silver, tureen-ceramic (2-4 pieces)",
+    "counts": {
+     "20 cells": "the kitchen program's counts + 1 bell board + 3 silver pieces"
+    },
+    "lights": {
+     "lantern": "the kitchen program's own (lantern-hanging over the prep table, candles)",
+     "fireplace": "cook-hearth-spit and bread-oven as built"
+    },
+    "density": "the kitchen's (10 per 100 sq ft)"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "bell-board-servants",
+    "platter-silver-domed",
+    "tray-silver"
+   ]
+  },
+  {
+   "key": "mansion-cellar",
+   "label": "Wine cellar",
+   "cells": [
+    4,
+    3
+   ],
+   "family": "dressed-stone",
+   "role": "terminal",
+   "service_room": true,
+   "floors": [
+    {
+     "id": "floor-flagstone-damp",
+     "status": "exists"
+    },
+    {
+     "id": "floor-flagstone-large",
+     "status": "exists"
+    },
+    {
+     "id": "floor-flagstone-square",
+     "status": "exists"
+    },
+    {
+     "id": "floor-brick-herringbone",
+     "status": "exists"
+    },
+    {
+     "id": "floor-cobble",
+     "status": "exists"
+    }
+   ],
+   "recipes": [
+    "tav-cellar",
+    "tav-pantry-cellar",
+    "nob-wine-cellar"
+   ],
+   "focal": [
+    "wine-bin-arched",
+    "tun-large",
+    "cask-rack"
+   ],
+   "reads_as": "the inn's cellar grammar (cask and rack rows with aisles) in dressed stone, with brick-arched wine bins full of bottles along the walls instead of shelving, one great tun, and a tasting table with a decanter and goblets under a lantern",
+   "reuse": [
+    "wine-rack",
+    "cask-rack",
+    "tun-large",
+    "barrel",
+    "keg-small",
+    "cask-small-spigot",
+    "firkin",
+    "demijohn",
+    "bottles-empty-crate",
+    "table-round-small",
+    "stool-three-leg",
+    "lantern-hanging",
+    "lantern-hand",
+    "candle",
+    "bottle-wine-dusty",
+    "bottle-wine-green",
+    "bottle-cluster",
+    "bottle-of-wine-open",
+    "decanter-glass-plain",
+    "cup-glass-green",
+    "ledger-accounts",
+    "key-ring",
+    "trade-barrel-chalked",
+    "decal-cobweb"
+   ],
+   "from_other_designers": [
+    "goblet-silver"
+   ],
+   "prefer_skus": [],
+   "program": {
+    "closest": "store",
+    "why": "it is the Cellar program as built (cask hall, aisle rows, tapping spot); wine-bin-arched joins wine-rack as a wall item",
+    "focal_rule": "unchanged cask hall; wine-bin-arched lines the wall facing the door (butted side by side, 5 ft each) and then the side walls, alternating with wine-rack; tun-large at the far end of the main aisle",
+    "zones": [
+     "tasting spot (the cellar's tapping spot): table-round-small with decanter-glass-plain or decanter-crystal, 2 goblet-silver, bottle-of-wine-open, a candle; ledger-accounts for the cellar book"
+    ],
+    "counts": {
+     "12 cells": "4-6 wine bins, 2 wine racks, 1 cask rack, 1 tun, 1 tasting table, 1 lantern, 6 bottles"
+    },
+    "lights": {
+     "lantern": "lantern-hanging over each aisle (the cellar's own rule), lantern-hand on the tasting table"
+    },
+    "density": "the cellar's floor coverage (about 33%)"
+   },
+   "outdoor": false,
+   "new_roles_in_recipes": [
+    "wine-bin-arched"
+   ]
+  }
+ ],
+ "asset_room_keys": {
+  "entrance-hall": "mansion-hall",
+  "drawing-room": "mansion-drawing",
+  "dining-room": "mansion-dining",
+  "library": "mansion-library",
+  "master-bedroom": "mansion-bedroom",
+  "ballroom": "mansion-ballroom",
+  "conservatory": "mansion-conservatory",
+  "garden": "mansion-garden",
+  "servants-kitchen": "mansion-kitchen",
+  "wine-cellar": "mansion-cellar"
+ },
+ "reuse_count": 136
+}

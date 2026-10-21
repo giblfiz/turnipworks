@@ -1,0 +1,13 @@
+{
+  "name": "tw-asset-prep",
+  "private": true,
+  "description": "Build-time tools for the Turnip Works asset library (prep/meshopt.mjs). Its dependencies are all MIT: see docs/ASSET_DELIVERY.md.",
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/extensions": "4.5.1",
+    "@gltf-transform/functions": "4.5.1",
+    "meshoptimizer": "1.2.0"
+  }
+}

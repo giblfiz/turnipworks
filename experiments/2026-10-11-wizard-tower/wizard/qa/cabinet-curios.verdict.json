@@ -1,0 +1,38 @@
+{
+ "sku": "cabinet-curios",
+ "glb_sha1": "72fe853532cef04f540e1c46537b21e2a2c366a3",
+ "time": "2026-10-11T19:14:07-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "curio cabinet",
+  "second_guess": "display cabinet",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "A traditional wooden curio or specimen cabinet crafted in medium-dark brown stained wood. The lower section consists of a two-door cupboard with small round brass knobs and corner strap hinges, supported by four short block feet. Above the cupboard is a 3-column by 4-row grid of twelve display cubbies containing various curiosities and natural specimens (including an animal skull, a seashell, a purple crystal cluster, a teal jar, a small bird figurine, an egg on a stand, coral, an hourglass, a shark tooth, a geode, and other shells). The rear of the cabinet is glazed, though interior display items appear backface-culled or missing when viewed from behind.",
+  "from_above": "A simple horizontal wooden rectangle representing the top crown molding, slightly wider at the lip with raised decorative side edges.",
+  "defects": [
+   "interior curio specimens are invisible/culled when viewed through the back",
+   "minor mesh denting/creasing along the top right crown edge"
+  ],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "Stands about 4.8 feet tall (roughly chin or shoulder level compared to the 5 ft 9 in figure) and about 2.8 feet wide."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "curio cabinet",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "interior curio specimens are backface-culled or missing when viewed from behind",
+   "minor mesh denting along top right crown edge"
+  ]
+ },
+ "verdict": "accept",
+ "reasons": [],
+ "notes": [
+  "gemini note: interior curio specimens are backface-culled or missing when viewed from behind",
+  "gemini note: minor mesh denting along top right crown edge"
+ ],
+ "vision": true
+}

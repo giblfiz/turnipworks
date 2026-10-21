@@ -1,0 +1,209 @@
+{
+ "file": "foe-giant-crab.glb",
+ "tris": 49567,
+ "kb": 2782,
+ "native_extent": [
+  1.0,
+  0.506,
+  0.999
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  131,
+  55,
+  18
+ ],
+ "mean_saturation": 0.884,
+ "sized_by": "its highest point",
+ "overall_ft": 2.5,
+ "pieces": {
+  "connected_parts": 26,
+  "main_part_area_share": 0.9999,
+  "floating": [
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.06,
+    "size_ft": 0.04
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 0.0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 4.9442,
+ "y0": -1.2459,
+ "stated_ft": {
+  "body": 2.5,
+  "figure_top": 2.5,
+  "overall": 2.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4997,
+   -0.2522,
+   -0.4993
+  ],
+  [
+   0.5001,
+   0.2541,
+   0.5002
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49567,
+   "tex": 2048,
+   "kb": 2782
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1091
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 457
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.46,
+    "z": 0.94,
+    "size_ft": [
+     0.3,
+     0.39
+    ],
+    "off_ground_ft": 0.021,
+    "sole_level_share": 0.32,
+    "sole_p90_ft": 0.204
+   },
+   {
+    "x": 2.25,
+    "z": -1.84,
+    "size_ft": [
+     0.31,
+     0.35
+    ],
+    "off_ground_ft": 0.011,
+    "sole_level_share": 0.31,
+    "sole_p90_ft": 0.203
+   },
+   {
+    "x": -2.29,
+    "z": -1.6,
+    "size_ft": [
+     0.31,
+     0.33
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.34,
+    "sole_p90_ft": 0.204
+   },
+   {
+    "x": -1.92,
+    "z": 0.93,
+    "size_ft": [
+     0.28,
+     0.33
+    ],
+    "off_ground_ft": 0.044,
+    "sole_level_share": 0.36,
+    "sole_p90_ft": 0.206
+   },
+   {
+    "x": 2.35,
+    "z": -0.16,
+    "size_ft": [
+     0.27,
+     0.32
+    ],
+    "off_ground_ft": 0.067,
+    "sole_level_share": 0.43,
+    "sole_p90_ft": 0.208
+   },
+   {
+    "x": -0.98,
+    "z": -1.32,
+    "size_ft": [
+     0.23,
+     0.23
+    ],
+    "off_ground_ft": 0.137,
+    "sole_level_share": 0.77,
+    "sole_p90_ft": 0.214
+   },
+   {
+    "x": 0.78,
+    "z": -1.34,
+    "size_ft": [
+     0.2,
+     0.21
+    ],
+    "off_ground_ft": 0.165,
+    "sole_level_share": 0.99,
+    "sole_p90_ft": 0.214
+   },
+   {
+    "x": -2.36,
+    "z": -0.36,
+    "size_ft": [
+     0.19,
+     0.22
+    ],
+    "off_ground_ft": 0.165,
+    "sole_level_share": 0.99,
+    "sole_p90_ft": 0.216
+   }
+  ],
+  "contact_count": 8,
+  "max_off_ground_ft": 0.165,
+  "lowest_slab_area_sqft": 0.07,
+  "plan_hull_area_sqft": 18.08,
+  "lowest_slab_share_of_plan": 0.004
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.94,
+   "d": 4.93,
+   "h": 2.5
+  },
+  "centre": [
+   0.044,
+   -0.66
+  ],
+  "contacts_radius_ft": 2.66,
+  "reach_radius_ft": 3.12,
+  "share_outside_2p5ft": 0.088
+ },
+ "silhouette": {
+  "iou": 0.855,
+  "plate_lost_share": 0.083,
+  "added_share": 0.072,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.854,
+  "view_yaw_deg": 10,
+  "view_elev_deg": 8
+ },
+ "id": "foe-giant-crab",
+ "sha1": "cfb6879df20498c0702a55fa2bef46e8ba8b3d52",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.17 ft off the ground",
+  "reaches 0.6 ft outside its square",
+  "its feet need a base 5.3 ft across"
+ ],
+ "qa_seconds": 20.3
+}

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open / Shut Pairs — Turnip Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#f3ece0; --ink:#2c2218; --muted:#7a6a58; --card:#fffaf2; --line:#d9cbb6; --accent:#8a3b2e; --accent-ink:#fff; --stage:#e7dccb; color-scheme:light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1d1813; --ink:#efe5d6; --muted:#a8977f; --card:#28211a; --line:#3d3328; --accent:#d0745f; --accent-ink:#1d1813; --stage:#2a231c; color-scheme:dark; } }
+:root[data-theme="dark"] { --bg:#1d1813; --ink:#efe5d6; --muted:#a8977f; --card:#28211a; --line:#3d3328; --accent:#d0745f; --accent-ink:#1d1813; --stage:#2a231c; color-scheme:dark; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 "DM Mono", ui-monospace, monospace; }
+header { padding:14px 16px 6px; }
+header a { color:var(--muted); text-decoration:none; font-size:12px; }
+h1 { font-family:Fraunces, Georgia, serif; font-weight:900; font-size:clamp(20px,3.4vw,30px); margin:2px 0; }
+header p { margin:0; color:var(--muted); max-width:90ch; font-size:12.5px; }
+main { display:grid; grid-template-columns:minmax(200px,280px) minmax(0,1fr); gap:12px; padding:8px 16px 24px; }
+@media (max-width:760px) { main { grid-template-columns:1fr; } #list { max-height:30vh; } }
+#list { overflow:auto; max-height:calc(100vh - 150px); border:1px solid var(--line); border-radius:10px; background:var(--card); }
+#list button { display:block; width:100%; text-align:left; font:inherit; font-size:12.5px; border:0; border-bottom:1px solid var(--line); background:none; color:inherit; padding:6px 10px; cursor:pointer; }
+#list button.on { background:var(--accent); color:var(--accent-ink); }
+#list small { color:var(--muted); display:block; } #list button.on small { color:inherit; }
+#view { width:100%; height:min(62vh,620px); display:block; border-radius:10px; background:var(--stage); border:1px solid var(--line); touch-action:none; }
+.bar { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:10px; }
+.bar button, .bar a { font:inherit; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:999px; padding:6px 12px; cursor:pointer; text-decoration:none; }
+.bar button[aria-pressed="true"] { background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+#info { color:var(--muted); font-size:12.5px; margin:8px 0 0; }
+#err { color:var(--accent); }
+</style>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }
+</script>
+</head>
+<body>
+<header>
+  <a href="../">← Open / Close pilot</a> · <a href="../../queues/">what is waiting</a>
+  <h1>Open / Shut Pairs</h1>
+  <p>Every library object that has a generated open twin, at its catalog size: closed on the left, open on the right, or one swapped for the other in place (what the game does). The list is rebuilt on every deploy. Keys: <b>J / K</b> next / previous · <b>O</b> or Space swap in place · <b>S</b> side by side. To set the swap's offset or a hinge, open the piece in the Alignment Bench.</p>
+</header>
+<main>
+  <nav id="list" aria-label="Pairs"></nav>
+  <section>
+    <canvas id="view"></canvas>
+    <div class="bar">
+      <button id="b-side" aria-pressed="true">Side by side (S)</button>
+      <button id="b-swap" aria-pressed="false">Swap in place (O)</button>
+      <a id="bench" href="../../align/?mode=open">Align it in the bench →</a>
+    </div>
+    <p id="info"></p><p id="err"></p>
+  </section>
+</main>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+const $ = (id) => document.getElementById(id);
+const TUNER = new URL('../../tuner/', location.href).href;
+const ver = await fetch(`${TUNER}version.json?t=${Date.now()}`, { cache: 'no-store' }).then(r => r.json()).then(j => j.v).catch(() => '');
+const data = await fetch(`../../queues/pairs.json?t=${Date.now()}`, { cache: 'no-store' }).then(r => r.json()).catch(() => null);
+const pairs = data?.pairs || [];
+if (!pairs.length) $('err').textContent = 'No pair list (queues/pairs.json): run tools/spawn-tuner/deploy.sh.';
+
+const canvas = $('view');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene();
+scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+const sun = new THREE.DirectionalLight(0xffffff, 1.3); sun.position.set(3, 6, 4); scene.add(sun, new THREE.HemisphereLight(0xfff4e0, 0x30302a, 0.5));
+const grid = new THREE.GridHelper(20, 20, 0x8a7a66, 0xb8a892); grid.material.transparent = true; grid.material.opacity = 0.5; scene.add(grid); // 1 unit = 1 ft; a square = 1 ft
+const cam = new THREE.PerspectiveCamera(35, 1, 0.05, 200);
+const orbit = new OrbitControls(cam, canvas); orbit.enableDamping = true;
+const loader = new GLTFLoader(); const cache = new Map();
+// a shipping mesh, scaled to fit its catalog box (W x D x H inches -> feet) and stood on the floor, centred
+function fitted(rec) {
+  const key = rec.url;
+  if (!cache.has(key)) cache.set(key, loader.loadAsync(`${TUNER}${rec.url}${ver ? `?v=${ver}` : ''}`).then(g => {
+    const root = g.scene; const box = new THREE.Box3().setFromObject(root); const size = box.getSize(new THREE.Vector3()); const c = box.getCenter(new THREE.Vector3());
+    const [w, d, h] = rec.size.map(v => v / 12);
+    const k = Math.min(w / size.x, h / size.y, d / size.z) || 1;
+    const holder = new THREE.Group(); root.position.set(-c.x, -box.min.y, -c.z); holder.add(root); holder.scale.setScalar(k);
+    holder.userData.w = size.x * k; holder.userData.h = size.y * k; holder.userData.d = size.z * k;
+    return holder;
+  }));
+  return cache.get(key);
+}
+let i = 0, mode = 'side', showOpen = false, cur = null, token = 0;
+const stage = new THREE.Group(); scene.add(stage);
+async function show(n, frame = true) {
+  i = (n + pairs.length) % pairs.length; const p = pairs[i]; const t = ++token;
+  for (const b of $('list').children) b.classList.toggle('on', +b.dataset.i === i);
+  $('list').children[i]?.scrollIntoView({ block: 'nearest' });
+  $('bench').href = `../../align/?mode=open&filter=all&sku=${encodeURIComponent(p.sku)}`;
+  $('info').textContent = `${p.sku}  ⇄  ${p.open.sku}   ·   ${p.desc}   ·   closed ${p.size.join(' × ')} in, open ${p.open.size.join(' × ')} in   ·   ${i + 1} / ${pairs.length}`;
+  let a, b;
+  try { [a, b] = await Promise.all([fitted(p), fitted(p.open)]); $('err').textContent = ''; } catch (e) { $('err').textContent = `could not load ${p.sku}: ${e.message || e}`; return; }
+  if (t !== token) return;
+  cur = { a, b }; layout(frame);
+  window.__pairs = { i, sku: p.sku, open: p.open.sku, mode, showOpen, loaded: true, n: pairs.length };
+}
+function layout(frame) {
+  if (!cur) return; const { a, b } = cur; stage.clear();
+  if (mode === 'side') { const gap = 1; a.position.x = -(a.userData.w / 2 + gap / 2); b.position.x = b.userData.w / 2 + gap / 2; a.visible = b.visible = true; stage.add(a, b); }
+  else { a.position.x = b.position.x = 0; a.visible = !showOpen; b.visible = showOpen; stage.add(a, b); }
+  $('b-side').setAttribute('aria-pressed', mode === 'side'); $('b-swap').setAttribute('aria-pressed', mode === 'swap');
+  $('b-swap').textContent = mode === 'swap' ? `Swap in place (O): showing ${showOpen ? 'OPEN' : 'CLOSED'}` : 'Swap in place (O)';
+  if (window.__pairs) Object.assign(window.__pairs, { mode, showOpen });
+  if (!frame) return;
+  const w = mode === 'side' ? a.userData.w + b.userData.w + 1 : Math.max(a.userData.w, b.userData.w), h = Math.max(a.userData.h, b.userData.h), d = Math.max(a.userData.d, b.userData.d);
+  const r = Math.hypot(w, h, d) / 2, dist = r / Math.sin(THREE.MathUtils.degToRad(cam.fov / 2)) * 1.05;
+  orbit.target.set(0, h / 2, 0); cam.position.set(dist * 0.35, h / 2 + dist * 0.45, dist * 0.82); cam.near = dist / 100; cam.far = dist * 20; cam.updateProjectionMatrix();
+}
+$('list').append(...pairs.map((p, n) => { const b = document.createElement('button'); b.type = 'button'; b.dataset.i = n; b.innerHTML = `${p.sku}<small>${p.mesh.split('/')[0]} · ${p.kind}</small>`; b.addEventListener('click', () => show(n)); return b; }));
+const setMode = (m) => { if (m === 'swap' && mode === 'swap') showOpen = !showOpen; else { mode = m; showOpen = m === 'swap'; } layout(true); };
+$('b-side').addEventListener('click', () => setMode('side')); $('b-swap').addEventListener('click', () => setMode('swap'));
+addEventListener('keydown', (e) => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return; const k = e.key.toLowerCase();
+  if (k === 'j' || k === 'arrowright') show(i + 1); else if (k === 'k' || k === 'arrowleft') show(i - 1);
+  else if (k === 'o' || k === ' ') { e.preventDefault(); setMode('swap'); } else if (k === 's') setMode('side');
+});
+function frame() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (canvas.width !== Math.round(w * renderer.getPixelRatio()) || canvas.height !== Math.round(h * renderer.getPixelRatio())) { renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); }
+  orbit.update(); renderer.render(scene, cam); requestAnimationFrame(frame);
+}
+frame();
+const want = new URLSearchParams(location.search).get('sku');
+if (pairs.length) show(Math.max(0, pairs.findIndex(p => p.sku === want)));
+</script>
+</body>
+</html>

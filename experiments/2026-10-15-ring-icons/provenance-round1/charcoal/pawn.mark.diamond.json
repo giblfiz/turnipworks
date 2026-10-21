@@ -1,0 +1,53 @@
+{
+  "id": "pawn.mark.diamond",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One large solid purple diamond with four clear corners. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red for danger; preserve explicitly specified marker shape colors. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/charcoal--pawn.mark.diamond.png",
+  "source_sha256": "673e4c08a883490ea9607b132ce9fd01cfc68abb35728c91572b3bf868c94b75",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/pawn.mark.diamond.webp",
+    "19": "charcoal/sizes/19/pawn.mark.diamond.webp",
+    "22": "charcoal/sizes/22/pawn.mark.diamond.webp",
+    "26": "charcoal/sizes/26/pawn.mark.diamond.webp",
+    "31": "charcoal/sizes/31/pawn.mark.diamond.webp",
+    "36": "charcoal/sizes/36/pawn.mark.diamond.webp",
+    "38": "charcoal/sizes/38/pawn.mark.diamond.webp",
+    "42": "charcoal/sizes/42/pawn.mark.diamond.webp",
+    "44": "charcoal/sizes/44/pawn.mark.diamond.webp",
+    "50": "charcoal/sizes/50/pawn.mark.diamond.webp",
+    "52": "charcoal/sizes/52/pawn.mark.diamond.webp",
+    "62": "charcoal/sizes/62/pawn.mark.diamond.webp",
+    "84": "charcoal/sizes/84/pawn.mark.diamond.webp",
+    "100": "charcoal/sizes/100/pawn.mark.diamond.webp",
+    "128": "charcoal/pawn.mark.diamond.webp"
+  },
+  "sha256": {
+    "18": "9bb30913cd942368717a9dcffcaf6e65f0365b9990801f82870a97e9209f5dae",
+    "19": "68e8d9dc09e9076ebed02079301cf5cf974cb277e8e63683a655a0230b5ccf4c",
+    "22": "d8e0b2854e285a9d7fa79baf5a33937831b89c1db4a308d725a14b601163ae34",
+    "26": "f724e2a9b992e37681c77ff3e10f5a25a40a693885a616f7f8e00baa2faca0a0",
+    "31": "fca1b27de4abae37d2c7a3c2959a2fb8b3b620fbdfdd11b541ef7bb5b37d610d",
+    "36": "319cc160dc3a81e53ee46638982228e64ac8a5b3bc2144ac270843672b0361ee",
+    "38": "876431a2dcc4bb48ab45fce95bdb510644d26d8558beafdda1a0135d9c5d7458",
+    "42": "31bd0d64f1cb5ad0912cff3410a79b0d98ff3cb19ab1030f8501baf0d105848b",
+    "44": "ad2281ea6804697d0ed220080f502b1fc97660557023d7b5426cf6b2da543a7f",
+    "50": "a9fb333d71dcca3fde0ac0519e4575132039e0f7f986ccf2770f1f8acf50ebd4",
+    "52": "286c99e28edd381ac50f0752010d74d7b94b109dbeeedb7fa5a2b2477955cf00",
+    "62": "be98ae7960ca3f4bbd3b3caee5c24c01ce9664af4c0e7af98a48d939465edfbd",
+    "84": "1e248bfde7b3109eb3967e5c49adee63b4d49bb3704f913595aa36cc9b1fa694",
+    "100": "b4e5a62ed1b445de49d62b0bd04723edbbefa6f3d3f3dc7100e63e0d8fb9c37b",
+    "128": "500b74c4d00303193246e7fbc40247b1eb8190c005cabaf541df09cc2a6e8cc6"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "1ca27ccf204a5325c1976a090fb768ec0c1487a80fce75597e7dd2ada81ef89b"
+}

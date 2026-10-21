@@ -1,0 +1,1272 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "altar-stone--marble": {
+   "id": "altar-stone--marble",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/altar-stone--marble.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized classical stone counter or altar made of light beige marble with decorative golden-yellow columns, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized classical stone counter or altar made of light beige marble with decorative golden-yellow columns, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image contains one single object, best described as a stone altar, pedestal desk, or reception counter. It consists of a thick rectangular top slab with beveled edges, a heavy stepped rectangular plinth base, and a paneled midsection. The front facade features four square-profile pilasters or decorative columns rendered in a warmer, darker golden-yellow marble with defined capitals and bases. Between these four columns are three recessed rectangular wall panels with molded borders. A matching recessed panel is visible on the right side face. There are no doors, drawers, lids, handles, or wheels; the structure appears solid and completely closed. The primary material is a polished, stylized veined marble in shades of light cream, beige, and tan, contrasted by the ochre/golden pilasters. The object is entirely contained within the frame with no cropping. The background is a flat, uniform, vibrant blue with no cast shadows, floor plane, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4701,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9956,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4174,
+   "tokens_out": 1347,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pulpit": {
+   "id": "pulpit",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/pulpit.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden pulpit with attached side stairs, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden pulpit with attached side stairs, isolated against a solid blue background.",
+       "details": "There are no visible texts, labels, or watermarks. The image depicts a single composite object: an elevated wooden pulpit or preaching lectern, with a second guess being a medieval or fantasy-style elevated podium with steps. The structure consists of an octagonal enclosure supported by a central turned pedestal with a stepped octagonal base, attached to a right-side wooden staircase with approximately five visible steps, low side railings, and decorative lower wall panels. On the top front ledge rests an angled wooden book rest or reading desk. The front and side panels of both the upper pulpit and the lower staircase/base are inset with muted green and burgundy/red painted rectangles framed by light brown wood trim. The entire model has a stylized, hand-painted textured appearance in warm golden-brown wood tones with visible grain and beveled edges. The object is completely in frame and not cropped. The background is a flat, uniform, bright solid blue with no ground plane, shadows, people, or additional scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4316,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.994,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4159,
+   "tokens_out": 1187,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "organ-pipe": {
+   "id": "organ-pipe",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/organ-pipe.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden pipe organ featuring gold and silver pipes, two keyboard manuals, and a matching bench isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden pipe organ featuring gold and silver pipes, two keyboard manuals, and a matching bench isolated on a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The scene contains one primary musical instrument setup consisting of a large pipe organ and a matching wooden bench in front of the console (second guess: an elaborate ornate digital/reed organ console with a decorative pipe facade). The organ casing is made of medium-brown carved wood with recessed reddish-brown rectangular panel inlays and carved diamond accents. It has three raised architectural towers housing vertical pipes: a tall center tower and two flanking side towers, connected by descending pipe flats. The pipes alternate between polished gold/brass and matte silver/pewter finishes. The central console features two tiers of keyboards (manuals) with cream and dark-coloured keys, framed by scrolled wooden side supports. Below the console sits a rectangular matching wooden bench with panelled sides and a flat top. The entire object is fully contained within the frame with no parts cropped. The background is a flat, uniform, vibrant pure blue with no floor texture, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5898,
+      "soft": 0.0055,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9956,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4182,
+   "tokens_out": 1575,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--temple-stone": {
+   "id": "wall-straight--temple-stone",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/wall-straight--temple-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized rendering of a modular section of a light tan stone wall with a moulded cap and solid base, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Has a base slab/plinth block at the bottom, which is prohibited"
+      ],
+      "blind": {
+       "what_i_see": "A 3D stylized rendering of a modular section of a light tan stone wall with a moulded cap and solid base, isolated against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos visible. The image contains one single object: a freestanding stylized stone wall segment (first guess) or a modular stone barrier/fence column (second guess). The structure is oriented at a three-quarter perspective showing its front facade, narrow right side edge, and top surface. It consists of three primary vertical zones: a bevelled, decorative capstone rail at the top; a central body made of eight courses of rectangular stone ashlar blocks with softly rounded corners and varied widths; and a single thick, continuous stone plinth block at the bottom. There are no doors, lids, handles, legs, or moving parts. The material resembles hand-painted or cell-shaded sandstone or limestone, shaded in soft warm beige, pale cream, and sandy yellow tones with darker tan crevices. The object is completely contained within the frame with no cropping. The background is a flat, uniform, vibrant solid blue with no ground plane, floor shadows, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/wall-straight--temple-stone.try2.jpg",
+     "semantic": {
+      "what_i_see": "A vertical section of a stylized stone brick wall with a decorative rounded top rail, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical section of a stylized stone brick wall with a decorative rounded top rail, set against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos visible. The image shows a single standalone object: a narrow, upright segment of a masonry or stone wall (second guess: a low garden wall or game asset partition). It features ten horizontal courses of rectangular stone blocks arranged in an irregular running bond pattern, topped by a rounded, profiled coping capstone that extends slightly along the top edge. The stones are rendered in soft shades of light beige, yellowish-tan, cream, and faint grayish-buff with subtle marbled textures. The object is completely in frame, viewed from a three-quarters perspective showing its front face and right side edge. There are no opening parts, doors, drawers, or legs. The background is a solid, uniform royal blue with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4831,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9937,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6007,
+   "tokens_out": 3237,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bell-on-frame": {
+   "id": "bell-on-frame",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/bell-on-frame.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized brass bell suspended from a sturdy wooden A-frame support structure reinforced with dark iron brackets, centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized brass bell suspended from a sturdy wooden A-frame support structure reinforced with dark iron brackets, centered against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single integrated assembly: primarily a bell hanging from a timber gallows or trestle frame (second guess: a miniature medieval alarm bell or fantasy game prop). The assembly includes one central bell hanging via top loops, supported by an A-frame timber stand made of four angled upright beams, two bottom base runners, two side cross-struts, one main overhead crossbeam, and one rear lower brace beam. The timber joints are reinforced with ten visible dark grey iron strap brackets fastened with faceted hexagonal bolts. The bell exhibits a hammered, semi-matte golden brass or bronze texture with greenish patina in the recessed groove rings, with just the bottom tip of an internal clapper barely visible beneath the flared skirt. The wood is finished in a warm honey-brown tone with pronounced grain lines and end-grain growth rings visible on beam ends. The structure has no doors, lids, or drawers. The entire object is fully visible and not cropped by the edges of the frame. The background is a completely flat, uniform, vibrant chroma blue with no floor plane, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.457,
+      "soft": 0.0089,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9885,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4199,
+   "tokens_out": 3642,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "scriptorium-desk--s1": {
+   "id": "scriptorium-desk--s1",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/scriptorium-desk--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden scribe's desk with an attached low bench, holding an open manuscript book, an inkpot, and a quill against a flat blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden scribe's desk with an attached low bench, holding an open manuscript book, an inkpot, and a quill against a flat blue backdrop.",
+       "details": "There are no legible text, watermarks, or artist labels, though the open book displays abstract horizontal lines representing writing (one reddish-orange header line followed by seven grey body lines on each page). The scene consists of four items grouped together: an integrated wooden desk-and-bench unit, an open hardcover book, a small olive-green inkpot, and an off-white feather quill. The primary object is a medieval- or fantasy-style scribe's lectern or school desk with a built-in bench. The furniture features a slanted desktop with a bottom retaining ledge, a flat narrow top shelf, an open storage cubby beneath the desk, and a low attached wooden bench supported by carved scrolled legs. It has no doors, drawers, lids, handles, or wheels. The open book sits propped on the slanted rest, revealing its cream-colored parchment pages and reddish cover edges. On the flat upper shelf rests a small rounded olive-green ceramic pot and a single white-to-cream feather quill. The entire structure is made of honey-brown polished wood with stylized beveled edges and grain lines. The object is completely in-frame and not cropped. The background is a solid, seamless, bright cobalt blue with no ground plane, shadows, or scenery, and there are no people depicted.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4179,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4240,
+   "tokens_out": 1726,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-idol--moon": {
+   "id": "flavor-idol--moon",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-idol--moon.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone trophy or monument featuring an upward-facing crescent moon cradling a sphere atop a banded cylindrical column, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone trophy or monument featuring an upward-facing crescent moon cradling a sphere atop a banded cylindrical column, isolated on a solid blue background.",
+       "details": "There are no labels, text, or watermarks visible. The image contains a single standalone object, best described as a stylized fantasy trophy, monument, or large chess-piece-like totem. The top assembly consists of a smooth, pale cream-colored upward-curving crescent moon holding a matching spherical orb in its center, resting on a small flared collar. Beneath this topper is a dark charcoal-grey cylindrical column intersected by three thick horizontal pale cream rings. The column sits on a tiered circular base alternating between dark grey and cream-colored rings. The surface features a subtle painted, hand-sculpted stone or clay texture. The entire object is centered, complete, and uncropped within the frame. The background is an entirely uniform, flat bright blue screen without shadows, reflections, ground plane, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2387,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9913,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4158,
+   "tokens_out": 1440,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-altarpiece--sun": {
+   "id": "flavor-altarpiece--sun",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-altarpiece--sun.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized golden monstrance or sun-shaped tabletop mirror with an ivory-colored center disk resting on an ornate pedestal base against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized golden monstrance or sun-shaped tabletop mirror with an ivory-colored center disk resting on an ornate pedestal base against a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image contains one single freestanding decorative object, most closely resembling a monstrance (ostensorium) or a sun-shaped standing mirror. The object is composed of a circular tiered base adorned with a ring of round orange/amber cabochon gems, a central stem featuring a spherical golden knob, and a large circular head. The head consists of a smooth, slightly convex cream or off-white circular disk enclosed in a golden bezel, fringed by eleven thick, wedge-shaped golden sun rays pointing outwards. The object appears made of painted or stylized golden metal and polished stone/ivory. It has no doors, drawers, lids, or moving parts. The entire object is shown whole and is not cropped by the frame. The background is a solid, uniform, vibrant blue with no scenery, floor, or shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.323,
+      "soft": 0.0065,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9902,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4130,
+   "tokens_out": 1342,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-idol--sun": {
+   "id": "flavor-idol--sun",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-idol--sun.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a tall, tapered marble pedestal topped with a golden sun emblem, centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a tall, tapered marble pedestal topped with a golden sun emblem, centered against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single composite object: a sun monument or decorative pillar (second guess: sun trophy or sundial column). It is constructed in three main vertical sections: a two-stepped square base plinth, a tall four-sided tapering pillar shaft, a stepped capital moulding, and a circular sun emblem mounted at the summit. The sun emblem features a domed central golden sphere, surrounded by concentric cream and deep orange rings, all encircled by an outer golden border with twelve faceted triangular rays radiating outward. The pillar exhibits a smooth, pale cream and beige marble texture with light golden veining, while the sun sculpture has a polished metallic gold and painted finish. The object is completely uncropped and viewed from a slightly elevated three-quarter angle. The background is completely uniform, flat chroma-key blue with no visible floor, ground shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1648,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9863,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4164,
+   "tokens_out": 1452,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-altarpiece--moon": {
+   "id": "flavor-altarpiece--moon",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-altarpiece--moon.try1.jpg",
+     "semantic": {
+      "what_i_see": "A pale metallic sculpture featuring an upward-curving crescent moon cradling a sphere, set on an ornamental pedestal base against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A pale metallic sculpture featuring an upward-curving crescent moon cradling a sphere, set on an ornamental pedestal base against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one single object, best described as a crescent moon trophy or a celestial decorative sculpture (second guess: an altar ornament or tabletop figurine). It consists of an upward-pointing crescent with smooth, tapering horns, nestled inside which sits a smooth spherical pearl or orb; below the crescent is a baluster-style stem with a spherical node, resting upon a circular tiered base banded with a dark charcoal ring. There are 0 legs, 0 wheels, 0 doors, 0 drawers, 0 lids, and 0 handles. The object appears to be made of a smooth, pearlescent or satin-finish pale silver metal with a dark gray/black accent band on the base. The object is completely intact and fully contained within the frame without cropping. The background is a solid, uniform, bright saturated blue field with no floor surface, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2732,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9906,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4152,
+   "tokens_out": 1337,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "window-stained-glass--temple-stone": {
+   "id": "window-stained-glass--temple-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/window-stained-glass--temple-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A light beige stone wall section featuring a Gothic arched stained-glass window set against a plain blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A light beige stone wall section featuring a Gothic arched stained-glass window set against a plain blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single modular wall segment with an integrated Gothic-style arched window. The wall is constructed of smooth, stylized sandstone-colored rectangular blocks with rounded edges and soft marbling textures, capped with a rounded horizontal cornice at the top. Set into the center of the wall is an arched window framed by profiled beige stone moldings and a stone sill. The window is divided by a central vertical mullion into two lancet lights topped by a circular tracery roundel. Within the black leaded framework, the stained glass displays geometric diamond patterns with panes in vivid red, amber yellow, emerald green, and pale cream. The entire object is fully visible within the frame and centered against a flat, solid bright blue background with no cast shadows.",
+       "reference_differences": [
+        "The candidate image features a Gothic arched stained-glass window in the center, whereas the reference image is a solid wall section without any opening or window.",
+        "The stone block layout in the candidate breaks around the stone window frame and sill, whereas the reference features complete horizontal courses of staggered rectangular blocks across its entire width.",
+        "The candidate introduces multiple colorful glass elements (red, amber yellow, green, and cream panes with black lead frames), which are completely absent in the uniform beige stone reference image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4829,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5436,
+   "tokens_out": 1464,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-window-small--temple-stone": {
+   "id": "wall-window-small--temple-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/wall-window-small--temple-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical section of a light beige stone wall featuring a tall, pointed gothic stained-glass window set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical section of a light beige stone wall featuring a tall, pointed gothic stained-glass window set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single three-dimensional object, best described as a stone wall section with a gothic window, or alternatively an architectural game asset/modular church wall piece. The object consists of a rectangular slab of ashlar stonework with a rounded cornice molding along the top. In the upper-central area, there is a pointed arched window framed by a rounded stone border, filled with a black diamond lattice holding yellow and amber stained glass panes. The wall is composed of light tan and warm beige stone blocks with subtle variations in tone and texture. The entire object is shown without cropping, casting soft self-shadows, isolated against a uniform solid blue background. There are no people or surrounding scenery.",
+       "reference_differences": [
+        "The candidate image contains a recessed, pointed gothic window with diamond-paned amber and yellow stained glass, whereas the reference image is a solid wall without any opening.",
+        "The stone block layout in the candidate image is restructured around the window frame, including an arched top block and a wide sill block beneath the window, unlike the continuous horizontal running bond courses in the reference image.",
+        "The candidate's central portion is broken up by the window aperture rather than continuous stone blocks."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4829,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.994,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5422,
+   "tokens_out": 1325,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--temple-stone--s2": {
+   "id": "wall-straight--temple-stone--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/wall-straight--temple-stone--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A rectangular section of a pale yellow stone wall with a rounded top capstone and a smooth vertical central pilaster, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A rectangular section of a pale yellow stone wall with a rounded top capstone and a smooth vertical central pilaster, set against a solid blue background.",
+       "details": "There are no text labels, watermarks, or people visible. The image shows a single isolated object: a low masonry wall section or architectural wall divider prop (second guess: decorative stone pillar or modular wall fence panel). The object consists of a rounded coping capstone along the top edge, a flat vertical stone strip running down the middle from the cap to the base, and stacks of rectangular stone blocks flanking the left and right sides. Each side features ten horizontal tiers of stone blocks of varying widths and subtle color variations, ranging from pale cream-yellow to tan and light grayish-beige. The entire object is fully visible within the frame and is rendered in a soft, clean 3D style. The background is a flat, uniform bright blue with no floor or cast shadows visible.",
+       "reference_differences": [
+        "The candidate image features a smooth, wide vertical stone strip (pilaster) dividing the wall down the center, whereas the reference image has continuous interlocking masonry across the full width without a central divider.",
+        "In the candidate image, the horizontal stone rows are split into two separate left and right columns flanking the center strip, whereas in the reference image, the blocks stagger across the middle in a traditional running bond pattern."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4831,
+      "soft": 0.0049,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9932,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5404,
+   "tokens_out": 2050,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-prie-dieu": {
+   "id": "rite-prie-dieu",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/rite-prie-dieu.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden prie-dieu or church kneeler featuring an angled top desk surface and a red padded kneeling bench, isolated on a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden prie-dieu or church kneeler featuring an angled top desk surface and a red padded kneeling bench, isolated on a bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single separate object: a prie-dieu (prayer desk), with a secondary guess being a church kneeler or miniature lectern with a footrest. The object consists of a low rectangular base supporting a red velvet/fabric padded kneeling cushion, an upright panel section framed with molded wood pilasters, and a slanted upper surface with an edge lip intended for resting books or arms. It has no moving doors, drawers, lids, or wheels. The entire piece is constructed from medium-toned, warm brown wood with a rendered, painted-style wood grain texture, complemented by the deep red cushioned pad. The object is completely in frame and uncropped. The background is a solid, uniform, vibrant chroma blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4262,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4137,
+   "tokens_out": 1175,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-choir-stall": {
+   "id": "rite-choir-stall",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/rite-choir-stall.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted 3D render of a wooden courtroom bench or collegiate choir stall with three red-cushioned seats and an integrated front desk, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted 3D render of a wooden courtroom bench or collegiate choir stall with three red-cushioned seats and an integrated front desk, isolated on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single composite furniture object, best named a courtroom bench with integrated desk, or alternatively a choir stall. It features a tall, elaborately paneled wooden back wall topped with classical dentil-style molding, divided into three framed vertical panels separated by pilaster-like uprights. Below are three individual seats separated by carved wooden armrests, each fitted with a thick square cushion upholstered in deep red velvet or leather. In front of the seats is a built-in wooden bench-front/desk with an angled ledge and three matching rectangular recessed framed panels supported by sturdy block plinths. There are no doors, drawers, lids, handles, or wheels. The wood is finished in a warm, medium-brown painted texture with golden-brown highlights. The entire object is intact and completely uncropped within the frame. The background is a flat, uniform solid bright blue with no visible floor, ground plane, shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5672,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9965,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4185,
+   "tokens_out": 1455,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "confessional": {
+   "id": "confessional",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/confessional.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden confessional booth with red velvet curtains set against a vibrant solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden confessional booth with red velvet curtains set against a vibrant solid blue background.",
+       "details": "There are no text labels, watermarks, or markings visible. The image depicts a single freestanding object, identifiable as a traditional wooden confessional booth, or secondarily as a vintage photo booth or puppet theater wardrobe. The unit consists of three vertical bays defined by four square-profile pilasters with molded capitals and plinth bases, topped by a heavy molded cornice that rises into a rounded arch over the center. The center bay contains a short, closed crimson curtain in its upper half and a closed wooden paneled door in its lower half, mounted with two hinges on the left and a round wooden knob on the right. Both flanking bays are fitted with full-length, vertically folded crimson curtains that are fully closed, obscuring any view inside. The right exterior flank displays recessed rectangular wood paneling. The material is warm brown wood with a hand-painted, stylized finish paired with deep red fabric. The entire object is centered and fully visible within the frame without cropping. The background consists entirely of a flat, uniform chroma-blue field with no floor, shadows, lighting gradients, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.6267,
+      "soft": 0.005,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4168,
+   "tokens_out": 1761,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-alms-box": {
+   "id": "rite-alms-box",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/rite-alms-box.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden collection chest with metal fittings and a padlock, mounted on a wooden pedestal with a cross-shaped base against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden collection chest with metal fittings and a padlock, mounted on a wooden pedestal with a cross-shaped base against a solid blue background.",
+       "details": "There are no visible text, labels, or watermarks. The image features a single standalone object, best described as an offering box or donation chest mounted on a pillar (second guess: a fantasy ballot box or ornate locked mailbox). The object consists of a small rectangular chest with a rounded barrel lid on top, supported by a vertical square post with a tiered wooden collar, which rests on a cross-shaped base with four blocky horizontal wooden legs. The chest has one curved lid which is completely closed; a central metal strap extends over the lid down to a hasp secured by a heart-shaped metal padlock, and a narrow slot is visible at the top center of the middle strap for inserting coins or paper. There are no wheels, drawers, doors, or carrying handles. Materials appear to be light honey-toned carved wood, dark grey or steel metal bands with rivets, dark reddish-maroon inset panels on the chest sides, and an olive-green inset panel on the front face of the central post. The entire object is centered and uncropped. The background is a completely uniform, solid bright blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2364,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9902,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4203,
+   "tokens_out": 2013,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "scroll-rack": {
+   "id": "scroll-rack",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/scroll-rack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden cubby shelving unit packed with rolled paper scrolls, featuring two additional scrolls resting on top, isolated against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden cubby shelving unit packed with rolled paper scrolls, featuring two additional scrolls resting on top, isolated against a solid blue backdrop.",
+       "details": "There are no text, labels, or watermarks present. The main object is a freestanding wooden scroll rack or pigeonhole archive cabinet (second guess: mail sorter cubby unit). It features a grid of 12 open rectangular cubbies arranged in four vertical columns and three horizontal rows. Each compartment is filled with rolled parchment scrolls facing outward; several scroll bundles in the cubbies are tied with burgundy-red ribbon knots. On the top flat surface of the cabinet lie two horizontally oriented parchment scrolls, both rolled up and tied with deep red cloth ribbons. The cabinet has thick wooden planks with stylized painted wood grain, resting on short blocky corner legs with molded square feet. There are no doors, drawers, or lids. The primary materials appear to be light-brown stained wood, off-white/beige aged parchment paper, and dark red fabric ribbons. The entire object is centered and fully visible without any cropping. The background is a flat, uniform, vibrant blue screen with no floor surface or contact shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5534,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9973,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 9
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4159,
+   "tokens_out": 2139,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-vestments-stand--s1": {
+   "id": "rite-vestments-stand--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/rite-vestments-stand--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A full-length ceremonial robe or clerical vestment displayed on a wooden mannequin stand against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A full-length ceremonial robe or clerical vestment displayed on a wooden mannequin stand against a solid blue backdrop.",
+       "details": "There are no texts, labels, or watermarks. The image contains one primary object: a ceremonial vestment displayed on a wooden tailor's mannequin (second guess: an ecclesiastical cape display model). The stand features a round tiered wooden base, a vertical support post, a rounded top finial, and a horizontal shoulder bar with cylindrical ends. Draped over it is a white or cream pleated long robe adorned with thick golden-yellow trim along the hem and running down the central vertical placket. Draped over the shoulders is a short crimson red capelet (mozzetta) also edged with matching golden trim, topped with a high cream collar. The garment is completely closed and shows deep vertical draping folds. The materials look like painted or textured fabric and polished light brown wood. The object is entirely contained within the frame without cropping. The background is a flat, uniform, bright blue screen with no floor plane or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.243,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9892,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4149,
+   "tokens_out": 1494,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "trade-treatment-bench": {
+   "id": "trade-treatment-bench",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/trade-treatment-bench.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden massage bed with a cushioned mattress, an angled headrest, a folded green towel, and a bottom shelf holding an off-white bowl and rolled towel, against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden massage bed with a cushioned mattress, an angled headrest, a folded green towel, and a bottom shelf holding an off-white bowl and rolled towel, against a solid bright blue background.",
+       "details": "There is no text, labels, or watermarks visible. The image features a single main furniture piece\u2014a massage table or treatment bench\u2014stylized in a hand-painted 3D game asset style. The table is made of thick, light-brown wood planks and beams, supported by four chunky, segmented block-style legs joined by horizontal stretchers. It features a flat lower storage shelf resting near the bottom. On this shelf sit two items: a smooth, off-white stone or ceramic shallow bowl and a rolled beige cloth towel. The top of the table supports a padded cream or beige fabric mattress with visible woven texture, fitted with an elevated wedge headrest at the far left end. At the foot of the bed on the right lies a neatly folded olive-green blanket or towel. There are no doors, drawers, or moving parts. The entire object is fully visible and not cropped by the frame. The background is a flat, uniform, vivid royal blue screen with no shadows, floor texture, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3911,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.992,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4187,
+   "tokens_out": 2291,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "apothecary-drawers": {
+   "id": "apothecary-drawers",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/apothecary-drawers.try1.jpg",
+     "semantic": {
+      "what_i_see": "A wooden apothecary cabinet featuring two open upper shelves lined with glazed potion jars and a grid of twenty closed drawers below, presented against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A wooden apothecary cabinet featuring two open upper shelves lined with glazed potion jars and a grid of twenty closed drawers below, presented against a solid blue background.",
+       "details": "There are no legible texts, watermarks, or printed labels; the label holders on each drawer contain blank off-white inserts. The scene consists of a single large piece of wooden furniture (an apothecary cabinet or library card catalog/specimen cabinet) holding fourteen individual lidded jars on its shelves. The cabinet structure has decorative classical molding at the cornice and base, flanked by paneled vertical pilasters. The upper section consists of two open shelves housing 14 glazed ceramic jars with cork stoppers: the top shelf holds 7 jars (alternating between cream, sage green, and amber yellow), and the lower shelf holds another 7 jars in similar muted glazed tones. Below the shelves is a lower bank containing 20 square wooden drawers arranged in a 5-column by 4-row grid. Each of the 20 drawers is completely closed and fitted with an antiqued brass label holder frame above a single round brass knob handle. The wood has a warm, hand-painted golden-brown finish with visible grain and stylized brush strokes. The entire object is centered and fully visible within the frame. The background is a flat, uniform chroma blue with no floor, shadows, or background elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.6662,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.997,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4206,
+   "tokens_out": 1583,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "scriptorium-desk--s2": {
+   "id": "scriptorium-desk--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/scriptorium-desk--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden desk with an attached low bench, holding an open book, an upright closed red book, an inkwell, and a feather quill, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden desk with an attached low bench, holding an open book, an upright closed red book, an inkwell, and a feather quill, set against a solid blue background.",
+       "details": "The image shows a single stylized wooden furniture unit consisting of a sloped lectern-style desk and an attached wooden bench in front. The entire object is fully visible and not cropped. The desk features an angled reading surface supporting an open book with cream pages, horizontal dark and reddish lines suggesting text, and a yellow rectangular illustration on the right page. Behind the angled surface is a raised wooden back section that holds a closed red hardcover book standing upright. To the left of the upright book is a small round olive-green inkpot and a white feather quill lying flat. Beneath the desk surface is an open horizontal shelf. The attached bench in front has a seat constructed from three parallel rounded wooden slats, supported by a wooden base that connects to the main desk with lower horizontal beams. The wood has a warm honey-brown finish with soft beveled edges and visible wood grain texture. The background is a flat, uniform, bright solid blue with no shadows or floor plane visible. There are no people, watermarks, or real text.",
+       "reference_differences": [
+        "The candidate includes a tall raised backboard and shelf holding an upright closed red book, which is completely absent in the reference.",
+        "The bench seat in the candidate consists of three separate wooden slats, whereas the reference bench seat is a single solid wooden plank.",
+        "The candidate's bench is spaced slightly forward from the desk with visible connector beams and open floor space between them, whereas the reference bench is built directly integrated and flush into the front base of the desk.",
+        "The open book in the candidate features a yellow square illustration on the right page, while the reference book contains only lines of text on both pages."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3314,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9907,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5456,
+   "tokens_out": 1873,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rite-vestments-stand--s2": {
+   "id": "rite-vestments-stand--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/rite-vestments-stand--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A wooden clothing display stand holding a green and cream ecclesiastical robe and topped with a matching mitre, centered against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Remove the unrequested mitre (headdress) from the top of the stand"
+      ],
+      "blind": {
+       "what_i_see": "A wooden clothing display stand holding a green and cream ecclesiastical robe and topped with a matching mitre, centered against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one primary composite object: a wooden vestment mannequin stand (best guess: ceremonial robe on a display stand; second guess: liturgical vestment statue). The stand features a tiered circular wooden base, a central vertical post, a horizontal crossbar with rounded scroll ends acting as shoulders, and a short neck peg. Resting atop the neck peg is a pointed off-white mitre with gold trim at the base. Hanging on the stand is a full-length draped vestment consisting of a green high collar, an off-white shoulder cape trimmed with a yellow border, and a long pleated green robe extending downward. Running vertically down the center front is a wide off-white band bordered by bright yellow stripes. The hemline of the green robe is bordered with a wide golden-yellow band. The entire item is made of depicted polished wood and smooth fabric. The object is completely contained within the frame with no cropping. The background is a flat, uniform, bright blue color with no floor, scenery, or shadows visible.",
+       "reference_differences": [
+        "The candidate has a pointed off-white mitre (headdress) on top of the neck post, whereas the reference has a spherical wooden finial/knob.",
+        "The candidate's main pleated robe body is green, whereas in the reference it is off-white.",
+        "The candidate's shoulder cape is off-white, whereas the reference's shoulder cape is red.",
+        "The candidate's high collar is green, whereas in the reference it is off-white.",
+        "The candidate's front vertical panel is off-white with yellow borders, whereas the reference's vertical panel is entirely yellow/gold."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/rite-vestments-stand--s2.try2.jpg",
+     "semantic": {
+      "what_i_see": "A green and cream ceremonial robe with gold trim displayed on a wooden stand against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A green and cream ceremonial robe with gold trim displayed on a wooden stand against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single object: an ornate robe or vestment displayed on a wooden dressmaker's dummy or garment stand. The wooden stand has a tiered circular base, a turned wooden central column, horizontal shoulder pegs, and a spherical finial at the top neck. The garment consists of a high cream-colored collar bordered in gold, a short flared shoulder capelet made of cream-colored fabric with a gold border, and a long, pleated/draped floor-length gown or mantle made of deep green fabric. Running vertically down the front center is a wide cream band edged on both sides with gold strips. The bottom hem of the green gown has a wide, continuous gold band. The entire object is fully visible and not cropped by the frame. The background is a flat, uniform, bright blue color with no floor texture, environment, shadows, or people.",
+       "reference_differences": [
+        "The shoulder capelet is cream-colored in the candidate image, whereas it is red in the reference image.",
+        "The main body of the robe below the capelet is green in the candidate image, while in the reference image it is cream-colored.",
+        "The central vertical front band is cream-colored with thin gold borders in the candidate image, whereas in the reference image the central band is solid gold.",
+        "The front of the high collar is cream-colored in the candidate image, whereas in the reference image it features a continuation of the solid gold vertical strip."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2427,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.989,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8516,
+   "tokens_out": 3606,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-sculpture--sun": {
+   "id": "flavor-sculpture--sun",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-sculpture--sun.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, sun-themed stone obelisk with golden decorative emblems and a golden pyramid cap, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, sun-themed stone obelisk with golden decorative emblems and a golden pyramid cap, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object: a stylized stone obelisk (second guess: decorative game pillar or monument). The structure consists of a stepped, square light-beige stone base featuring smooth golden hemispherical studs on the tier ledges (three are visible). Rising from the base is a tapering four-sided stone shaft with recessed panels on each face. Two faces are visible, each adorned with three vertically stacked golden sun motifs featuring a central round boss surrounded by triangular rays (six golden suns visible in total). The apex consists of an orange-accented banded collar topped with a golden pyramidal capstone (pyramidion). There are no doors, drawers, lids, or moving parts. The materials are textured light-beige sandstone/marble and reflective gold. The object is completely intact and not cropped by the frame. The background is a flat, uniform, solid bright blue with no floor, scenery, or shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2475,
+      "soft": 0.0033,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9933,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4177,
+   "tokens_out": 1667,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-buttress--sun": {
+   "id": "flavor-buttress--sun",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-buttress--sun.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of half of a stone archway featuring a vertical column with a golden sun medallion and a curving arch topped with golden pyramid spikes, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of half of a stone archway featuring a vertical column with a golden sun medallion and a curving arch topped with golden pyramid spikes, isolated against a solid blue background.",
+       "details": "There are no text labels, watermarks, or people in the image. The image shows a single isolated architectural structure: half of a stone archway or portal (second guess: a fantasy game environment wall/gate asset). The structure consists of a vertical rectangular stone column on the left and a curved arch section extending to the upper right. The pillar is built from segmented beige sandstone blocks, starting with a wide rectangular plinth at the bottom, a mid-column tier with layered blocks, a molded band, and an upper shaft featuring a carved circular medallion containing a golden sun with eight pointed rays against an orange background. The top of the pillar is capped by a tiered stone molding supporting a golden pyramidal finial. The curved arch section springs from the side of the column, comprised of large curved voussoir stone blocks, ending flat on the right edge. Running along the top curve of this arch are six golden pyramidal spikes or teeth. The entire object is fully visible within the frame and not cropped. The background is a solid, uniform, vibrant blue screen with no floor plane or drop shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3197,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9904,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4233,
+   "tokens_out": 1664,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-sculpture--moon": {
+   "id": "flavor-sculpture--moon",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-sculpture--moon.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital render of an ornate stone pedestal altar or basin adorned with eight circular moon phase inlays around the rim and a silver crescent moon sculpture centered on a flat white disc, set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "remove the crescent moon sculpture from the center of the basin"
+      ],
+      "blind": {
+       "what_i_see": "A digital render of an ornate stone pedestal altar or basin adorned with eight circular moon phase inlays around the rim and a silver crescent moon sculpture centered on a flat white disc, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one isolated object: primarily an ornate fantasy pedestal altar or ritual basin (second guess: an astrological moon-dial birdbath). The object consists of a multi-tiered circular stepped base, a fluted column stem, a lobed basin underside, an octagonal-segmented thick round stone rim embedded with 8 round circular medallions depicting the lunar phases, a flat circular white inner surface, and a small elevated metallic crescent moon finial in the very center. There are no doors, drawers, or opening lids. Materials appear to be weathered dark grey carved stone, an off-white/milky marble or liquid-filled circular basin insert, and brushed metallic silver or pewter for the crescent moon and phase discs. The object is completely intact and fully contained within the frame without cropping. The background is a solid, completely uniform blue screen with no floor, horizon, or cast shadows. No people or environmental scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-sculpture--moon.try2.jpg",
+     "semantic": {
+      "what_i_see": "A 3D model of a dark grey carved stone pedestal basin or altar with a flat white circular center and eight moon-phase medallions set into its rim, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D model of a dark grey carved stone pedestal basin or altar with a flat white circular center and eight moon-phase medallions set into its rim, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single object, best described as an ornamental stone basin or altar table, with a secondary guess being a sundial or decorative moon pool fountain. The object consists of a tiered circular base, a fluted pedestal stem, a wide flared bowl with sculpted vertical petal-like facets, and an eight-segmented stone top ring. Inset into each of the eight stone segments along the top rim is a silver-toned circular medallion, each illustrating a different phase of the moon from new moon to full moon. Within the rim sits a flat, smooth, off-white circular surface resembling stone or liquid filled level with the inner ledge. There are no doors, drawers, lids, or moving parts. The object is rendered in dark charcoal-grey stone texture with soft painterly shading, accented by metallic silver insets and an opaque white-grey center. The object is completely intact and not cropped by the frame. The background is a solid, uniform, bright blue chroma background with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.473,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9973,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6037,
+   "tokens_out": 3969,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-buttress--moon": {
+   "id": "flavor-buttress--moon",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-buttress--moon.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone arch pillar featuring carved moon phase emblems and topped with a crescent moon finial, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone arch pillar featuring carved moon phase emblems and topped with a crescent moon finial, set against a solid blue background.",
+       "details": "There are no text labels, watermarks, or people in the image. The single object depicted is a fantasy-styled stone half-arch pillar (second guess: decorative monument or portal column). The structure consists of a square stepped base, a vertical stone pillar column, and a curved partial arch spanning outwards to the right. Carved vertically along the front face of the pillar are three round medallions depicting the phases of the moon: a crescent moon at the top, a half/quarter moon in the middle, and a full moon at the bottom. Atop the pillar rests a sculpted, upright crescent moon finial with horns pointing upward. The arch consists of blocky stone voussoirs bordered by a light-colored smooth coping rail along the top curve, ending in a blunt rectangular stone end piece. The materials appear to be weathered dark grey masonry and lighter cream-colored sculpted stone trim. The entire asset is complete and fully visible within the frame, isolated on a uniform, vibrant blue background with no ground plane, environment, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2187,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9901,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 9
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4210,
+   "tokens_out": 1587,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-censer--moon": {
+   "id": "flavor-censer--moon",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-censer--moon.try1.jpg",
+     "semantic": {
+      "what_i_see": "A brushed silver candlestick holder with a crescent moon top holding a cream wax candle, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A brushed silver candlestick holder with a crescent moon top holding a cream wax candle, isolated against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. It depicts a single object: a decorative metal candlestick or candle holder (second guess: fantasy/ritual altar stand). The piece features a round, tiered base with a dark grey inset groove, an elongated turned vertical stem with a rounded knob near the neck, and a prominent upward-facing crescent moon bracket at the top. Situated in the center of the crescent is a single, short cylindrical unlit wax candle in off-white or ivory with a short dark wick. The stand is made of brushed or satin-finished silvery-pewter metal with subtle warm reflections. There are no moving parts, doors, drawers, or lids. The object is completely intact and centered within the frame without cropping. The background is a completely flat, uniform vivid blue with no surface shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1343,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9839,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4146,
+   "tokens_out": 1122,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flavor-censer--sun": {
+   "id": "flavor-censer--sun",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/tem/batch/work/flavor-censer--sun.try1.jpg",
+     "semantic": {
+      "what_i_see": "An ornate stylized golden candlestick holder with orange and white circus-striped accents, holding an unlit ivory pillar candle, centered on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An ornate stylized golden candlestick holder with orange and white circus-striped accents, holding an unlit ivory pillar candle, centered on a solid blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image depicts a single freestanding object: a decorative candlestick or candle holder (second guess: decorative sunburst pedestal/candelabra). It consists of a heavy stepped circular golden base with an angled band displaying alternating orange and cream wedge stripes; a vertical golden stem featuring two pumpkin-ribbed spherical bulbs each painted with vertical orange and cream stripes; and an upper circular drip tray bordered by ten triangular golden sunburst rays inlaid with orange enamel. Resting upright in the central tray is a smooth, cylindrical ivory-colored wax candle with faint melted wax drip texture and a single short, dark wick emerging from the center top. No doors, drawers, or moving lids exist. The entire object is fully visible and not cropped. The background is a completely uniform, flat, saturated royal blue without shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1688,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9883,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4167,
+   "tokens_out": 1318,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

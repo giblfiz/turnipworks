@@ -1,0 +1,2110 @@
+{
+ "fig-fighter": {
+  "file": "fig-fighter.glb",
+  "tris": 49185,
+  "kb": 2924,
+  "native_extent": [
+   0.994,
+   0.983,
+   0.729
+  ],
+  "texture_px": [
+   2048,
+   2048
+  ],
+  "unpainted": {
+   "all_surface": 0.0001,
+   "seen": 0.0
+  },
+  "mean_rgb": [
+   82,
+   50,
+   42
+  ],
+  "mean_saturation": 0.566,
+  "sized_by": "the figure's own top, weapon left out",
+  "shaft": {
+   "thin_run_ft": 4.7,
+   "length_ft": 4.82,
+   "low_end_ft": [
+    0.8,
+    2.0,
+    -1.28
+   ],
+   "high_end_ft": [
+    -3.11,
+    4.69,
+    -2.15
+   ],
+   "tilt_from_upright_deg": 56.1,
+   "thickness_ft": 0.36,
+   "clear_share": 0.61,
+   "joined_share": 0.39,
+   "broken_share": 0.0,
+   "walk_low_to_high": "-###########---##----##---#--------------"
+  },
+  "overall_ft": 6.03,
+  "pieces": {
+   "connected_parts": 90,
+   "main_part_area_share": 0.9998,
+   "floating": [
+    {
+     "area_share": 1e-05,
+     "gap_ft": 0.05,
+     "size_ft": 0.04
+    }
+   ],
+   "floating_count": 1,
+   "floating_area_share": 1e-05,
+   "watertight": false
+  },
+  "yaw_deg": 0,
+  "scale": 6.1313,
+  "y0": -3.0152,
+  "stated_ft": {
+   "body": 6.0,
+   "figure_top": 6.0,
+   "overall": 6.0
+  },
+  "base_ft": 5,
+  "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+  "native_bounds": [
+   [
+    -0.4992,
+    -0.4918,
+    -0.3642
+   ],
+   [
+    0.4951,
+    0.4915,
+    0.365
+   ]
+  ],
+  "tiers": {
+   "full": {
+    "file": "fig-fighter.glb",
+    "tris": 49185,
+    "tex": 2048,
+    "kb": 2924,
+    "normal_map": false,
+    "kb_meshopt": 1582,
+    "kb_draco": 1382
+   },
+   "5k256": {
+    "file": "fig-fighter--5k256.glb",
+    "tris": 5000,
+    "tex": 256,
+    "kb": 282,
+    "normal_map": false,
+    "kb_meshopt": 126,
+    "kb_draco": 109
+   },
+   "5k512": {
+    "file": "fig-fighter--5k512.glb",
+    "tris": 5000,
+    "tex": 512,
+    "kb": 365,
+    "normal_map": false,
+    "kb_meshopt": 209,
+    "kb_draco": 192
+   },
+   "8k512": {
+    "file": "fig-fighter--8k512.glb",
+    "tris": 8000,
+    "tex": 512,
+    "kb": 479,
+    "normal_map": false
+   },
+   "20k1024": {
+    "file": "fig-fighter--20k1024.glb",
+    "tris": 19999,
+    "tex": 1024,
+    "kb": 1119,
+    "normal_map": false,
+    "kb_meshopt": 583,
+    "kb_draco": 519
+   },
+   "20kbake": {
+    "file": "fig-fighter--20kbake.glb",
+    "tris": 19938,
+    "tex": 1024,
+    "kb": 1307,
+    "normal_map": true,
+    "kb_meshopt": 624,
+    "kb_draco": 578
+   }
+  },
+  "ground": {
+   "contacts": [
+    {
+     "x": -0.11,
+     "z": -1.72,
+     "size_ft": [
+      1.0,
+      1.71
+     ],
+     "off_ground_ft": 0.0,
+     "sole_level_share": 0.84,
+     "sole_p90_ft": 0.111
+    },
+    {
+     "x": 1.65,
+     "z": 0.72,
+     "size_ft": [
+      0.9,
+      1.63
+     ],
+     "off_ground_ft": 0.006,
+     "sole_level_share": 0.76,
+     "sole_p90_ft": 0.155
+    }
+   ],
+   "contact_count": 2,
+   "max_off_ground_ft": 0.006,
+   "lowest_slab_area_sqft": 2.25,
+   "plan_hull_area_sqft": 13.97,
+   "lowest_slab_share_of_plan": 0.161
+  },
+  "columns": [
+   {
+    "from_ft": 0.0,
+    "n": 2,
+    "widths_ft": [
+     1.02,
+     0.9
+    ]
+   },
+   {
+    "from_ft": 0.3,
+    "n": 2,
+    "widths_ft": [
+     0.94,
+     0.94
+    ]
+   },
+   {
+    "from_ft": 0.6,
+    "n": 2,
+    "widths_ft": [
+     0.94,
+     0.98
+    ]
+   },
+   {
+    "from_ft": 0.9,
+    "n": 2,
+    "widths_ft": [
+     1.09,
+     1.09
+    ]
+   },
+   {
+    "from_ft": 1.21,
+    "n": 2,
+    "widths_ft": [
+     1.21,
+     1.13
+    ]
+   },
+   {
+    "from_ft": 1.51,
+    "n": 2,
+    "widths_ft": [
+     1.28,
+     1.17
+    ]
+   },
+   {
+    "from_ft": 1.81,
+    "n": 2,
+    "widths_ft": [
+     2.3,
+     0.53
+    ]
+   },
+   {
+    "from_ft": 2.11,
+    "n": 2,
+    "widths_ft": [
+     2.15,
+     0.79
+    ]
+   },
+   {
+    "from_ft": 2.41,
+    "n": 3,
+    "widths_ft": [
+     2.19,
+     0.94,
+     0.41
+    ]
+   },
+   {
+    "from_ft": 2.71,
+    "n": 4,
+    "widths_ft": [
+     2.0,
+     1.06,
+     0.64,
+     0.08
+    ]
+   },
+   {
+    "from_ft": 3.01,
+    "n": 3,
+    "widths_ft": [
+     1.58,
+     1.58,
+     1.02
+    ]
+   },
+   {
+    "from_ft": 3.32,
+    "n": 3,
+    "widths_ft": [
+     1.85,
+     1.58,
+     1.06
+    ]
+   },
+   {
+    "from_ft": 3.62,
+    "n": 2,
+    "widths_ft": [
+     3.84,
+     0.6
+    ]
+   },
+   {
+    "from_ft": 3.92,
+    "n": 3,
+    "widths_ft": [
+     2.45,
+     0.87,
+     0.45
+    ]
+   },
+   {
+    "from_ft": 4.22,
+    "n": 3,
+    "widths_ft": [
+     2.37,
+     0.6,
+     0.45
+    ]
+   },
+   {
+    "from_ft": 4.52,
+    "n": 2,
+    "widths_ft": [
+     2.15,
+     0.34
+    ]
+   },
+   {
+    "from_ft": 4.82,
+    "n": 1,
+    "widths_ft": [
+     1.7
+    ]
+   },
+   {
+    "from_ft": 5.12,
+    "n": 1,
+    "widths_ft": [
+     1.13
+    ]
+   },
+   {
+    "from_ft": 5.43,
+    "n": 1,
+    "widths_ft": [
+     1.13
+    ]
+   },
+   {
+    "from_ft": 5.73,
+    "n": 1,
+    "widths_ft": [
+     0.9
+    ]
+   }
+  ],
+  "plan": {
+   "size_ft": {
+    "w": 6.09,
+    "d": 4.46,
+    "h": 6.03
+   },
+   "centre": [
+    0.564,
+    -0.23
+   ],
+   "contacts_radius_ft": 2.14,
+   "reach_radius_ft": 3.88,
+   "share_outside_2p5ft": 0.083
+  },
+  "silhouette": {
+   "iou": 0.898,
+   "plate_lost_share": 0.02,
+   "added_share": 0.091,
+   "mesh_resized_by": 1.0,
+   "iou_box_fit": 0.898,
+   "view_yaw_deg": 30,
+   "view_elev_deg": 8
+  }
+ },
+ "fig-goblin-b": {
+  "file": "fig-goblin-b.glb",
+  "tris": 48386,
+  "kb": 2490,
+  "native_extent": [
+   0.67,
+   0.999,
+   0.366
+  ],
+  "texture_px": [
+   2048,
+   2048
+  ],
+  "unpainted": {
+   "all_surface": 0.0001,
+   "seen": 0.0
+  },
+  "mean_rgb": [
+   97,
+   83,
+   14
+  ],
+  "mean_saturation": 0.884,
+  "sized_by": "the figure's own top, weapon left out",
+  "shaft": {
+   "thin_run_ft": 4.03,
+   "length_ft": 4.29,
+   "low_end_ft": [
+    -0.82,
+    0.06,
+    0.09
+   ],
+   "high_end_ft": [
+    -1.33,
+    4.3,
+    0.5
+   ],
+   "tilt_from_upright_deg": 8.8,
+   "thickness_ft": 0.2,
+   "clear_share": 0.93,
+   "joined_share": 0.07,
+   "broken_share": 0.0,
+   "walk_low_to_high": "-------------------------####--------------------------------"
+  },
+  "overall_ft": 4.25,
+  "pieces": {
+   "connected_parts": 5,
+   "main_part_area_share": 1.0,
+   "floating": [],
+   "floating_count": 0,
+   "floating_area_share": 0,
+   "watertight": false
+  },
+  "yaw_deg": 0,
+  "scale": 4.2538,
+  "y0": -2.1252,
+  "stated_ft": {
+   "body": 3.5,
+   "figure_top": 3.5,
+   "overall": 5.0
+  },
+  "base_ft": 5,
+  "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+  "native_bounds": [
+   [
+    -0.3426,
+    -0.4996,
+    -0.182
+   ],
+   [
+    0.3279,
+    0.4998,
+    0.1841
+   ]
+  ],
+  "tiers": {
+   "full": {
+    "file": "fig-goblin-b.glb",
+    "tris": 48386,
+    "tex": 2048,
+    "kb": 2490,
+    "normal_map": false,
+    "kb_meshopt": 1214,
+    "kb_draco": 1029
+   },
+   "5k256": {
+    "file": "fig-goblin-b--5k256.glb",
+    "tris": 5000,
+    "tex": 256,
+    "kb": 246,
+    "normal_map": false,
+    "kb_meshopt": 98,
+    "kb_draco": 82
+   },
+   "5k512": {
+    "file": "fig-goblin-b--5k512.glb",
+    "tris": 5000,
+    "tex": 512,
+    "kb": 303,
+    "normal_map": false,
+    "kb_meshopt": 154,
+    "kb_draco": 139
+   },
+   "8k512": {
+    "file": "fig-goblin-b--8k512.glb",
+    "tris": 8000,
+    "tex": 512,
+    "kb": 415,
+    "normal_map": false
+   },
+   "20k1024": {
+    "file": "fig-goblin-b--20k1024.glb",
+    "tris": 20000,
+    "tex": 1024,
+    "kb": 965,
+    "normal_map": false,
+    "kb_meshopt": 454,
+    "kb_draco": 392
+   },
+   "20kbake": {
+    "file": "fig-goblin-b--20kbake.glb",
+    "tris": 19992,
+    "tex": 1024,
+    "kb": 1113,
+    "normal_map": true,
+    "kb_meshopt": 485,
+    "kb_draco": 445
+   }
+  },
+  "ground": {
+   "contacts": [
+    {
+     "x": -0.47,
+     "z": -0.2,
+     "size_ft": [
+      0.87,
+      1.08
+     ],
+     "off_ground_ft": 0.001,
+     "sole_level_share": 0.85,
+     "sole_p90_ft": 0.069
+    },
+    {
+     "x": 0.79,
+     "z": 0.14,
+     "size_ft": [
+      0.64,
+      1.06
+     ],
+     "off_ground_ft": 0.0,
+     "sole_level_share": 0.89,
+     "sole_p90_ft": 0.062
+    }
+   ],
+   "contact_count": 2,
+   "max_off_ground_ft": 0.001,
+   "lowest_slab_area_sqft": 0.96,
+   "plan_hull_area_sqft": 3.06,
+   "lowest_slab_share_of_plan": 0.315
+  },
+  "columns": [
+   {
+    "from_ft": 0.0,
+    "n": 2,
+    "widths_ft": [
+     0.85,
+     0.66
+    ]
+   },
+   {
+    "from_ft": 0.21,
+    "n": 3,
+    "widths_ft": [
+     0.56,
+     0.4,
+     0.21
+    ]
+   },
+   {
+    "from_ft": 0.42,
+    "n": 3,
+    "widths_ft": [
+     0.42,
+     0.4,
+     0.21
+    ]
+   },
+   {
+    "from_ft": 0.64,
+    "n": 5,
+    "widths_ft": [
+     0.48,
+     0.42,
+     0.27,
+     0.21
+    ]
+   },
+   {
+    "from_ft": 0.85,
+    "n": 5,
+    "widths_ft": [
+     0.64,
+     0.58,
+     0.48,
+     0.21
+    ]
+   },
+   {
+    "from_ft": 1.06,
+    "n": 3,
+    "widths_ft": [
+     1.09,
+     0.45,
+     0.21
+    ]
+   },
+   {
+    "from_ft": 1.27,
+    "n": 3,
+    "widths_ft": [
+     1.04,
+     0.4,
+     0.21
+    ]
+   },
+   {
+    "from_ft": 1.49,
+    "n": 4,
+    "widths_ft": [
+     1.04,
+     0.42,
+     0.21,
+     0.19
+    ]
+   },
+   {
+    "from_ft": 1.7,
+    "n": 2,
+    "widths_ft": [
+     0.96,
+     0.85
+    ]
+   },
+   {
+    "from_ft": 1.91,
+    "n": 1,
+    "widths_ft": [
+     1.27
+    ]
+   },
+   {
+    "from_ft": 2.12,
+    "n": 3,
+    "widths_ft": [
+     0.96,
+     0.45,
+     0.05
+    ]
+   },
+   {
+    "from_ft": 2.34,
+    "n": 3,
+    "widths_ft": [
+     1.25,
+     0.32,
+     0.11
+    ]
+   },
+   {
+    "from_ft": 2.55,
+    "n": 2,
+    "widths_ft": [
+     1.19,
+     0.21
+    ]
+   },
+   {
+    "from_ft": 2.76,
+    "n": 2,
+    "widths_ft": [
+     1.25,
+     0.27
+    ]
+   },
+   {
+    "from_ft": 2.97,
+    "n": 2,
+    "widths_ft": [
+     1.19,
+     0.32
+    ]
+   },
+   {
+    "from_ft": 3.19,
+    "n": 3,
+    "widths_ft": [
+     1.04,
+     0.32,
+     0.27
+    ]
+   },
+   {
+    "from_ft": 3.4,
+    "n": 3,
+    "widths_ft": [
+     0.58,
+     0.48,
+     0.16
+    ]
+   },
+   {
+    "from_ft": 3.61,
+    "n": 1,
+    "widths_ft": [
+     0.45
+    ]
+   },
+   {
+    "from_ft": 3.82,
+    "n": 1,
+    "widths_ft": [
+     0.37
+    ]
+   },
+   {
+    "from_ft": 4.04,
+    "n": 1,
+    "widths_ft": [
+     0.21
+    ]
+   }
+  ],
+  "plan": {
+   "size_ft": {
+    "w": 2.85,
+    "d": 1.56,
+    "h": 4.25
+   },
+   "centre": [
+    0.111,
+    0.215
+   ],
+   "contacts_radius_ft": 1.05,
+   "reach_radius_ft": 1.52,
+   "share_outside_2p5ft": 0.0
+  },
+  "silhouette": {
+   "iou": 0.813,
+   "plate_lost_share": 0.116,
+   "added_share": 0.087,
+   "mesh_resized_by": 0.9,
+   "iou_box_fit": 0.677,
+   "view_yaw_deg": 20,
+   "view_elev_deg": 0
+  }
+ },
+ "fig-goblin": {
+  "file": "fig-goblin.glb",
+  "tris": 49885,
+  "kb": 2978,
+  "native_extent": [
+   0.767,
+   0.999,
+   0.465
+  ],
+  "texture_px": [
+   2048,
+   2048
+  ],
+  "unpainted": {
+   "all_surface": 0.0007,
+   "seen": 0.0
+  },
+  "mean_rgb": [
+   71,
+   57,
+   8
+  ],
+  "mean_saturation": 0.897,
+  "sized_by": "the figure's own top, weapon left out",
+  "shaft": {
+   "thin_run_ft": 3.61,
+   "length_ft": 3.69,
+   "low_end_ft": [
+    -0.89,
+    0.33,
+    -0.35
+   ],
+   "high_end_ft": [
+    -1.31,
+    3.88,
+    0.55
+   ],
+   "tilt_from_upright_deg": 15.7,
+   "thickness_ft": 0.21,
+   "clear_share": 0.86,
+   "joined_share": 0.14,
+   "broken_share": 0.0,
+   "walk_low_to_high": "-----------------------########----------------------------"
+  },
+  "overall_ft": 3.84,
+  "pieces": {
+   "connected_parts": 333,
+   "main_part_area_share": 0.9505,
+   "floating": [
+    {
+     "area_share": 3e-05,
+     "gap_ft": 0.03,
+     "size_ft": 0.03
+    }
+   ],
+   "floating_count": 1,
+   "floating_area_share": 3e-05,
+   "watertight": false
+  },
+  "yaw_deg": 0,
+  "scale": 3.8536,
+  "y0": -1.9257,
+  "stated_ft": {
+   "body": 3.5,
+   "figure_top": 3.5,
+   "overall": 4.5
+  },
+  "base_ft": 5,
+  "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+  "native_bounds": [
+   [
+    -0.384,
+    -0.4997,
+    -0.2308
+   ],
+   [
+    0.383,
+    0.499,
+    0.2347
+   ]
+  ],
+  "tiers": {
+   "full": {
+    "file": "fig-goblin.glb",
+    "tris": 49885,
+    "tex": 2048,
+    "kb": 2978,
+    "normal_map": false
+   },
+   "5k256": {
+    "file": "fig-goblin--5k256.glb",
+    "tris": 5000,
+    "tex": 256,
+    "kb": 277,
+    "normal_map": false
+   },
+   "5k512": {
+    "file": "fig-goblin--5k512.glb",
+    "tris": 5000,
+    "tex": 512,
+    "kb": 346,
+    "normal_map": false
+   },
+   "8k512": {
+    "file": "fig-goblin--8k512.glb",
+    "tris": 8000,
+    "tex": 512,
+    "kb": 467,
+    "normal_map": false
+   },
+   "20k1024": {
+    "file": "fig-goblin--20k1024.glb",
+    "tris": 20000,
+    "tex": 1024,
+    "kb": 1106,
+    "normal_map": false
+   },
+   "20kbake": {
+    "file": "fig-goblin--20kbake.glb",
+    "tris": 19832,
+    "tex": 1024,
+    "kb": 1305,
+    "normal_map": true
+   }
+  },
+  "ground": {
+   "contacts": [
+    {
+     "x": 0.9,
+     "z": -0.13,
+     "size_ft": [
+      0.85,
+      1.25
+     ],
+     "off_ground_ft": 0.0,
+     "sole_level_share": 0.83,
+     "sole_p90_ft": 0.076
+    },
+    {
+     "x": -0.65,
+     "z": -0.19,
+     "size_ft": [
+      0.86,
+      1.21
+     ],
+     "off_ground_ft": 0.001,
+     "sole_level_share": 0.79,
+     "sole_p90_ft": 0.084
+    }
+   ],
+   "contact_count": 2,
+   "max_off_ground_ft": 0.001,
+   "lowest_slab_area_sqft": 1.13,
+   "plan_hull_area_sqft": 3.66,
+   "lowest_slab_share_of_plan": 0.31
+  },
+  "columns": [
+   {
+    "from_ft": 0.0,
+    "n": 2,
+    "widths_ft": [
+     0.86,
+     0.86
+    ]
+   },
+   {
+    "from_ft": 0.19,
+    "n": 2,
+    "widths_ft": [
+     0.7,
+     0.72
+    ]
+   },
+   {
+    "from_ft": 0.38,
+    "n": 3,
+    "widths_ft": [
+     0.43,
+     0.43,
+     0.22
+    ]
+   },
+   {
+    "from_ft": 0.58,
+    "n": 5,
+    "widths_ft": [
+     0.58,
+     0.41,
+     0.43,
+     0.22
+    ]
+   },
+   {
+    "from_ft": 0.77,
+    "n": 6,
+    "widths_ft": [
+     0.86,
+     0.48,
+     0.22,
+     0.14
+    ]
+   },
+   {
+    "from_ft": 0.96,
+    "n": 4,
+    "widths_ft": [
+     1.1,
+     0.58,
+     0.22,
+     0.14
+    ]
+   },
+   {
+    "from_ft": 1.15,
+    "n": 3,
+    "widths_ft": [
+     1.08,
+     0.53,
+     0.24
+    ]
+   },
+   {
+    "from_ft": 1.34,
+    "n": 3,
+    "widths_ft": [
+     1.03,
+     0.53,
+     0.24
+    ]
+   },
+   {
+    "from_ft": 1.53,
+    "n": 3,
+    "widths_ft": [
+     0.98,
+     0.7,
+     0.5
+    ]
+   },
+   {
+    "from_ft": 1.73,
+    "n": 2,
+    "widths_ft": [
+     0.98,
+     0.93
+    ]
+   },
+   {
+    "from_ft": 1.92,
+    "n": 1,
+    "widths_ft": [
+     1.44
+    ]
+   },
+   {
+    "from_ft": 2.11,
+    "n": 3,
+    "widths_ft": [
+     1.08,
+     0.48,
+     0.1
+    ]
+   },
+   {
+    "from_ft": 2.3,
+    "n": 3,
+    "widths_ft": [
+     1.34,
+     0.22,
+     0.14
+    ]
+   },
+   {
+    "from_ft": 2.49,
+    "n": 2,
+    "widths_ft": [
+     1.37,
+     0.24
+    ]
+   },
+   {
+    "from_ft": 2.68,
+    "n": 2,
+    "widths_ft": [
+     1.39,
+     0.29
+    ]
+   },
+   {
+    "from_ft": 2.88,
+    "n": 2,
+    "widths_ft": [
+     1.25,
+     0.29
+    ]
+   },
+   {
+    "from_ft": 3.07,
+    "n": 2,
+    "widths_ft": [
+     1.15,
+     0.46
+    ]
+   },
+   {
+    "from_ft": 3.26,
+    "n": 2,
+    "widths_ft": [
+     0.96,
+     0.41
+    ]
+   },
+   {
+    "from_ft": 3.45,
+    "n": 3,
+    "widths_ft": [
+     0.5,
+     0.31,
+     0.14
+    ]
+   },
+   {
+    "from_ft": 3.64,
+    "n": 1,
+    "widths_ft": [
+     0.17
+    ]
+   }
+  ],
+  "plan": {
+   "size_ft": {
+    "w": 2.95,
+    "d": 1.79,
+    "h": 3.84
+   },
+   "centre": [
+    0.148,
+    -0.014
+   ],
+   "contacts_radius_ft": 1.23,
+   "reach_radius_ft": 1.61,
+   "share_outside_2p5ft": 0.0
+  },
+  "silhouette": {
+   "iou": 0.836,
+   "plate_lost_share": 0.073,
+   "added_share": 0.109,
+   "mesh_resized_by": 0.9,
+   "iou_box_fit": 0.576,
+   "view_yaw_deg": 15,
+   "view_elev_deg": 0
+  }
+ },
+ "fig-wizard": {
+  "file": "fig-wizard.glb",
+  "tris": 48600,
+  "kb": 2631,
+  "native_extent": [
+   0.664,
+   1.0,
+   0.414
+  ],
+  "texture_px": [
+   2048,
+   2048
+  ],
+  "unpainted": {
+   "all_surface": 0.0248,
+   "seen": 0.0013
+  },
+  "mean_rgb": [
+   68,
+   35,
+   22
+  ],
+  "mean_saturation": 0.718,
+  "sized_by": "the figure's own top, weapon left out",
+  "shaft": {
+   "thin_run_ft": 6.08,
+   "length_ft": 6.22,
+   "low_end_ft": [
+    -1.82,
+    0.06,
+    0.43
+   ],
+   "high_end_ft": [
+    -1.83,
+    6.26,
+    0.87
+   ],
+   "tilt_from_upright_deg": 4.1,
+   "thickness_ft": 0.4,
+   "clear_share": 0.89,
+   "joined_share": 0.11,
+   "broken_share": 0.0,
+   "walk_low_to_high": "-------------------------------####-##------------------"
+  },
+  "overall_ft": 7.05,
+  "pieces": {
+   "connected_parts": 17,
+   "main_part_area_share": 1.0,
+   "floating": [],
+   "floating_count": 0,
+   "floating_area_share": 0,
+   "watertight": false
+  },
+  "yaw_deg": 0,
+  "scale": 7.0536,
+  "y0": -3.5272,
+  "stated_ft": {
+   "body": 6.0,
+   "figure_top": 7.0,
+   "overall": 7.0
+  },
+  "base_ft": 5,
+  "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+  "native_bounds": [
+   [
+    -0.3347,
+    -0.5001,
+    -0.2057
+   ],
+   [
+    0.3292,
+    0.4998,
+    0.2082
+   ]
+  ],
+  "tiers": {
+   "full": {
+    "file": "fig-wizard.glb",
+    "tris": 48600,
+    "tex": 2048,
+    "kb": 2631,
+    "normal_map": false,
+    "kb_meshopt": 1342,
+    "kb_draco": 1158
+   },
+   "5k256": {
+    "file": "fig-wizard--5k256.glb",
+    "tris": 5000,
+    "tex": 256,
+    "kb": 256,
+    "normal_map": false,
+    "kb_meshopt": 103,
+    "kb_draco": 87
+   },
+   "5k512": {
+    "file": "fig-wizard--5k512.glb",
+    "tris": 5000,
+    "tex": 512,
+    "kb": 309,
+    "normal_map": false,
+    "kb_meshopt": 156,
+    "kb_draco": 140
+   },
+   "8k512": {
+    "file": "fig-wizard--8k512.glb",
+    "tris": 8000,
+    "tex": 512,
+    "kb": 421,
+    "normal_map": false
+   },
+   "20k1024": {
+    "file": "fig-wizard--20k1024.glb",
+    "tris": 20000,
+    "tex": 1024,
+    "kb": 969,
+    "normal_map": false,
+    "kb_meshopt": 452,
+    "kb_draco": 389
+   },
+   "20kbake": {
+    "file": "fig-wizard--20kbake.glb",
+    "tris": 19988,
+    "tex": 1024,
+    "kb": 1189,
+    "normal_map": true,
+    "kb_meshopt": 543,
+    "kb_draco": 500
+   }
+  },
+  "ground": {
+   "contacts": [
+    {
+     "x": 0.15,
+     "z": -0.1,
+     "size_ft": [
+      2.67,
+      3.47
+     ],
+     "off_ground_ft": 0.0,
+     "sole_level_share": 0.32,
+     "sole_p90_ft": 0.615
+    },
+    {
+     "x": -1.8,
+     "z": 0.52,
+     "size_ft": [
+      0.41,
+      0.59
+     ],
+     "off_ground_ft": 0.006,
+     "sole_level_share": 0.44,
+     "sole_p90_ft": 0.513
+    }
+   ],
+   "contact_count": 2,
+   "max_off_ground_ft": 0.006,
+   "lowest_slab_area_sqft": 2.29,
+   "plan_hull_area_sqft": 10.13,
+   "lowest_slab_share_of_plan": 0.226
+  },
+  "columns": [
+   {
+    "from_ft": 0.0,
+    "n": 3,
+    "widths_ft": [
+     1.32,
+     1.06,
+     0.4
+    ]
+   },
+   {
+    "from_ft": 0.35,
+    "n": 2,
+    "widths_ft": [
+     2.69,
+     0.4
+    ]
+   },
+   {
+    "from_ft": 0.71,
+    "n": 2,
+    "widths_ft": [
+     2.69,
+     0.44
+    ]
+   },
+   {
+    "from_ft": 1.06,
+    "n": 2,
+    "widths_ft": [
+     2.51,
+     0.44
+    ]
+   },
+   {
+    "from_ft": 1.41,
+    "n": 2,
+    "widths_ft": [
+     2.29,
+     0.44
+    ]
+   },
+   {
+    "from_ft": 1.76,
+    "n": 2,
+    "widths_ft": [
+     2.47,
+     0.44
+    ]
+   },
+   {
+    "from_ft": 2.12,
+    "n": 4,
+    "widths_ft": [
+     2.34,
+     0.44,
+     0.35,
+     0.18
+    ]
+   },
+   {
+    "from_ft": 2.47,
+    "n": 3,
+    "widths_ft": [
+     2.47,
+     0.75,
+     0.48
+    ]
+   },
+   {
+    "from_ft": 2.82,
+    "n": 2,
+    "widths_ft": [
+     2.42,
+     0.44
+    ]
+   },
+   {
+    "from_ft": 3.17,
+    "n": 1,
+    "widths_ft": [
+     2.03
+    ]
+   },
+   {
+    "from_ft": 3.53,
+    "n": 1,
+    "widths_ft": [
+     1.94
+    ]
+   },
+   {
+    "from_ft": 3.88,
+    "n": 1,
+    "widths_ft": [
+     2.12
+    ]
+   },
+   {
+    "from_ft": 4.23,
+    "n": 2,
+    "widths_ft": [
+     1.85,
+     0.48
+    ]
+   },
+   {
+    "from_ft": 4.58,
+    "n": 2,
+    "widths_ft": [
+     1.76,
+     0.48
+    ]
+   },
+   {
+    "from_ft": 4.94,
+    "n": 2,
+    "widths_ft": [
+     2.16,
+     0.71
+    ]
+   },
+   {
+    "from_ft": 5.29,
+    "n": 2,
+    "widths_ft": [
+     2.34,
+     0.88
+    ]
+   },
+   {
+    "from_ft": 5.64,
+    "n": 2,
+    "widths_ft": [
+     1.85,
+     0.88
+    ]
+   },
+   {
+    "from_ft": 5.99,
+    "n": 2,
+    "widths_ft": [
+     1.15,
+     0.48
+    ]
+   },
+   {
+    "from_ft": 6.35,
+    "n": 1,
+    "widths_ft": [
+     0.97
+    ]
+   },
+   {
+    "from_ft": 6.7,
+    "n": 1,
+    "widths_ft": [
+     0.75
+    ]
+   }
+  ],
+  "plan": {
+   "size_ft": {
+    "w": 4.68,
+    "d": 2.92,
+    "h": 7.05
+   },
+   "centre": [
+    -0.008,
+    0.41
+   ],
+   "contacts_radius_ft": 1.98,
+   "reach_radius_ft": 2.38,
+   "share_outside_2p5ft": 0.0
+  },
+  "silhouette": {
+   "iou": 0.907,
+   "plate_lost_share": 0.018,
+   "added_share": 0.083,
+   "mesh_resized_by": 1.0,
+   "iou_box_fit": 0.907,
+   "view_yaw_deg": 5,
+   "view_elev_deg": 0
+  }
+ },
+ "fig-wolf-b": {
+  "file": "fig-wolf-b.glb",
+  "tris": 49100,
+  "kb": 2562,
+  "native_extent": [
+   0.565,
+   0.802,
+   1.0
+  ],
+  "texture_px": [
+   2048,
+   2048
+  ],
+  "unpainted": {
+   "all_surface": 0.002,
+   "seen": 0.0009
+  },
+  "mean_rgb": [
+   117,
+   98,
+   78
+  ],
+  "mean_saturation": 0.326,
+  "sized_by": "its highest point",
+  "overall_ft": 3.5,
+  "pieces": {
+   "connected_parts": 113,
+   "main_part_area_share": 0.9971,
+   "floating": [],
+   "floating_count": 0,
+   "floating_area_share": 0,
+   "watertight": false
+  },
+  "yaw_deg": 0,
+  "scale": 4.3634,
+  "y0": -1.7522,
+  "stated_ft": {
+   "body": 3.5,
+   "figure_top": 3.5,
+   "overall": 3.5,
+   "length": 5.5
+  },
+  "base_ft": 5,
+  "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+  "native_bounds": [
+   [
+    -0.2844,
+    -0.4016,
+    -0.5003
+   ],
+   [
+    0.2806,
+    0.4008,
+    0.5002
+   ]
+  ],
+  "tiers": {
+   "full": {
+    "file": "fig-wolf-b.glb",
+    "tris": 49100,
+    "tex": 2048,
+    "kb": 2562,
+    "normal_map": false,
+    "kb_meshopt": 1173,
+    "kb_draco": 960
+   },
+   "5k256": {
+    "file": "fig-wolf-b--5k256.glb",
+    "tris": 5000,
+    "tex": 256,
+    "kb": 258,
+    "normal_map": false,
+    "kb_meshopt": 103,
+    "kb_draco": 87
+   },
+   "5k512": {
+    "file": "fig-wolf-b--5k512.glb",
+    "tris": 5000,
+    "tex": 512,
+    "kb": 304,
+    "normal_map": false,
+    "kb_meshopt": 150,
+    "kb_draco": 134
+   },
+   "8k512": {
+    "file": "fig-wolf-b--8k512.glb",
+    "tris": 8000,
+    "tex": 512,
+    "kb": 427,
+    "normal_map": false
+   },
+   "20k1024": {
+    "file": "fig-wolf-b--20k1024.glb",
+    "tris": 19999,
+    "tex": 1024,
+    "kb": 990,
+    "normal_map": false,
+    "kb_meshopt": 420,
+    "kb_draco": 355
+   },
+   "20kbake": {
+    "file": "fig-wolf-b--20kbake.glb",
+    "tris": 19916,
+    "tex": 1024,
+    "kb": 1146,
+    "normal_map": true,
+    "kb_meshopt": 474,
+    "kb_draco": 433
+   }
+  },
+  "ground": {
+   "contacts": [
+    {
+     "x": -0.98,
+     "z": 1.15,
+     "size_ft": [
+      0.53,
+      0.69
+     ],
+     "off_ground_ft": 0.0,
+     "sole_level_share": 0.84,
+     "sole_p90_ft": 0.083
+    },
+    {
+     "x": 0.17,
+     "z": 1.24,
+     "size_ft": [
+      0.54,
+      0.67
+     ],
+     "off_ground_ft": 0.001,
+     "sole_level_share": 0.81,
+     "sole_p90_ft": 0.09
+    },
+    {
+     "x": 0.6,
+     "z": -1.07,
+     "size_ft": [
+      0.51,
+      0.67
+     ],
+     "off_ground_ft": 0.001,
+     "sole_level_share": 0.87,
+     "sole_p90_ft": 0.093
+    },
+    {
+     "x": -0.59,
+     "z": -0.9,
+     "size_ft": [
+      0.54,
+      0.66
+     ],
+     "off_ground_ft": 0.0,
+     "sole_level_share": 0.82,
+     "sole_p90_ft": 0.144
+    }
+   ],
+   "contact_count": 4,
+   "max_off_ground_ft": 0.001,
+   "lowest_slab_area_sqft": 0.88,
+   "plan_hull_area_sqft": 6.37,
+   "lowest_slab_share_of_plan": 0.138
+  },
+  "columns": [
+   {
+    "from_ft": 0.0,
+    "n": 4,
+    "widths_ft": [
+     0.52,
+     0.55,
+     0.52,
+     0.52
+    ]
+   },
+   {
+    "from_ft": 0.17,
+    "n": 4,
+    "widths_ft": [
+     0.5,
+     0.5,
+     0.5,
+     0.46
+    ]
+   },
+   {
+    "from_ft": 0.35,
+    "n": 4,
+    "widths_ft": [
+     0.37,
+     0.35,
+     0.33,
+     0.31
+    ]
+   },
+   {
+    "from_ft": 0.53,
+    "n": 4,
+    "widths_ft": [
+     0.33,
+     0.33,
+     0.33,
+     0.31
+    ]
+   },
+   {
+    "from_ft": 0.7,
+    "n": 4,
+    "widths_ft": [
+     0.35,
+     0.33,
+     0.31,
+     0.31
+    ]
+   },
+   {
+    "from_ft": 0.88,
+    "n": 5,
+    "widths_ft": [
+     0.68,
+     0.31,
+     0.37,
+     0.33
+    ]
+   },
+   {
+    "from_ft": 1.05,
+    "n": 5,
+    "widths_ft": [
+     0.79,
+     0.42,
+     0.46,
+     0.39
+    ]
+   },
+   {
+    "from_ft": 1.23,
+    "n": 4,
+    "widths_ft": [
+     1.36,
+     0.83,
+     0.5,
+     0.59
+    ]
+   },
+   {
+    "from_ft": 1.4,
+    "n": 2,
+    "widths_ft": [
+     1.57,
+     0.81
+    ]
+   },
+   {
+    "from_ft": 1.57,
+    "n": 1,
+    "widths_ft": [
+     1.62
+    ]
+   },
+   {
+    "from_ft": 1.75,
+    "n": 1,
+    "widths_ft": [
+     1.6
+    ]
+   },
+   {
+    "from_ft": 1.93,
+    "n": 1,
+    "widths_ft": [
+     1.57
+    ]
+   },
+   {
+    "from_ft": 2.1,
+    "n": 2,
+    "widths_ft": [
+     1.47,
+     0.24
+    ]
+   },
+   {
+    "from_ft": 2.27,
+    "n": 1,
+    "widths_ft": [
+     1.33
+    ]
+   },
+   {
+    "from_ft": 2.45,
+    "n": 1,
+    "widths_ft": [
+     1.25
+    ]
+   },
+   {
+    "from_ft": 2.62,
+    "n": 1,
+    "widths_ft": [
+     1.16
+    ]
+   },
+   {
+    "from_ft": 2.8,
+    "n": 1,
+    "widths_ft": [
+     1.09
+    ]
+   },
+   {
+    "from_ft": 2.98,
+    "n": 1,
+    "widths_ft": [
+     0.9
+    ]
+   },
+   {
+    "from_ft": 3.15,
+    "n": 1,
+    "widths_ft": [
+     0.7
+    ]
+   },
+   {
+    "from_ft": 3.33,
+    "n": 2,
+    "widths_ft": [
+     0.26,
+     0.22
+    ]
+   }
+  ],
+  "plan": {
+   "size_ft": {
+    "w": 2.46,
+    "d": 4.36,
+    "h": 3.5
+   },
+   "centre": [
+    -0.237,
+    0.044
+   ],
+   "contacts_radius_ft": 1.67,
+   "reach_radius_ft": 2.48,
+   "share_outside_2p5ft": 0.001
+  },
+  "silhouette": {
+   "iou": 0.836,
+   "plate_lost_share": 0.103,
+   "added_share": 0.072,
+   "mesh_resized_by": 0.9,
+   "iou_box_fit": 0.686,
+   "view_yaw_deg": 325,
+   "view_elev_deg": 8
+  }
+ },
+ "fig-wolf": {
+  "file": "fig-wolf.glb",
+  "tris": 49686,
+  "kb": 2373,
+  "native_extent": [
+   0.434,
+   0.811,
+   0.996
+  ],
+  "texture_px": [
+   2048,
+   2048
+  ],
+  "unpainted": {
+   "all_surface": 0.0001,
+   "seen": 0.0
+  },
+  "mean_rgb": [
+   92,
+   74,
+   53
+  ],
+  "mean_saturation": 0.452,
+  "sized_by": "its highest point",
+  "overall_ft": 3.5,
+  "pieces": {
+   "connected_parts": 2,
+   "main_part_area_share": 0.5078,
+   "floating": [],
+   "floating_count": 0,
+   "floating_area_share": 0,
+   "watertight": false
+  },
+  "yaw_deg": 0,
+  "scale": 4.3198,
+  "y0": -1.7517,
+  "stated_ft": {
+   "body": 3.5,
+   "figure_top": 3.5,
+   "overall": 3.5,
+   "length": 5.5
+  },
+  "base_ft": 5,
+  "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+  "native_bounds": [
+   [
+    -0.2164,
+    -0.4063,
+    -0.4962
+   ],
+   [
+    0.2175,
+    0.4051,
+    0.5002
+   ]
+  ],
+  "tiers": {
+   "full": {
+    "file": "fig-wolf.glb",
+    "tris": 49686,
+    "tex": 2048,
+    "kb": 2373,
+    "normal_map": false
+   },
+   "5k256": {
+    "file": "fig-wolf--5k256.glb",
+    "tris": 4999,
+    "tex": 256,
+    "kb": 253,
+    "normal_map": false
+   },
+   "5k512": {
+    "file": "fig-wolf--5k512.glb",
+    "tris": 4999,
+    "tex": 512,
+    "kb": 294,
+    "normal_map": false
+   },
+   "8k512": {
+    "file": "fig-wolf--8k512.glb",
+    "tris": 7999,
+    "tex": 512,
+    "kb": 413,
+    "normal_map": false
+   },
+   "20k1024": {
+    "file": "fig-wolf--20k1024.glb",
+    "tris": 20000,
+    "tex": 1024,
+    "kb": 924,
+    "normal_map": false
+   },
+   "20kbake": {
+    "file": "fig-wolf--20kbake.glb",
+    "tris": 20000,
+    "tex": 1024,
+    "kb": 1026,
+    "normal_map": true
+   }
+  },
+  "ground": {
+   "contacts": [
+    {
+     "x": -0.66,
+     "z": 1.08,
+     "size_ft": [
+      0.55,
+      0.64
+     ],
+     "off_ground_ft": 0.022,
+     "sole_level_share": 0.74,
+     "sole_p90_ft": 0.167
+    },
+    {
+     "x": 0.64,
+     "z": 1.0,
+     "size_ft": [
+      0.57,
+      0.58
+     ],
+     "off_ground_ft": 0.022,
+     "sole_level_share": 0.74,
+     "sole_p90_ft": 0.157
+    },
+    {
+     "x": -0.58,
+     "z": -1.14,
+     "size_ft": [
+      0.54,
+      0.61
+     ],
+     "off_ground_ft": 0.0,
+     "sole_level_share": 0.82,
+     "sole_p90_ft": 0.103
+    },
+    {
+     "x": 0.56,
+     "z": -1.15,
+     "size_ft": [
+      0.54,
+      0.61
+     ],
+     "off_ground_ft": 0.001,
+     "sole_level_share": 0.82,
+     "sole_p90_ft": 0.108
+    }
+   ],
+   "contact_count": 4,
+   "max_off_ground_ft": 0.022,
+   "lowest_slab_area_sqft": 0.71,
+   "plan_hull_area_sqft": 6.26,
+   "lowest_slab_share_of_plan": 0.114
+  },
+  "columns": [
+   {
+    "from_ft": 0.0,
+    "n": 4,
+    "widths_ft": [
+     0.55,
+     0.57,
+     0.52,
+     0.52
+    ]
+   },
+   {
+    "from_ft": 0.17,
+    "n": 4,
+    "widths_ft": [
+     0.55,
+     0.55,
+     0.5,
+     0.5
+    ]
+   },
+   {
+    "from_ft": 0.35,
+    "n": 5,
+    "widths_ft": [
+     0.37,
+     0.37,
+     0.33,
+     0.31
+    ]
+   },
+   {
+    "from_ft": 0.53,
+    "n": 5,
+    "widths_ft": [
+     0.52,
+     0.31,
+     0.31,
+     0.31
+    ]
+   },
+   {
+    "from_ft": 0.7,
+    "n": 4,
+    "widths_ft": [
+     0.83,
+     0.31,
+     0.33,
+     0.35
+    ]
+   },
+   {
+    "from_ft": 0.88,
+    "n": 5,
+    "widths_ft": [
+     0.81,
+     0.46,
+     0.46,
+     0.42
+    ]
+   },
+   {
+    "from_ft": 1.05,
+    "n": 4,
+    "widths_ft": [
+     1.14,
+     0.88,
+     0.52,
+     0.5
+    ]
+   },
+   {
+    "from_ft": 1.23,
+    "n": 3,
+    "widths_ft": [
+     1.44,
+     0.9,
+     0.59
+    ]
+   },
+   {
+    "from_ft": 1.4,
+    "n": 1,
+    "widths_ft": [
+     1.47
+    ]
+   },
+   {
+    "from_ft": 1.57,
+    "n": 1,
+    "widths_ft": [
+     1.49
+    ]
+   },
+   {
+    "from_ft": 1.75,
+    "n": 1,
+    "widths_ft": [
+     1.49
+    ]
+   },
+   {
+    "from_ft": 1.93,
+    "n": 1,
+    "widths_ft": [
+     1.62
+    ]
+   },
+   {
+    "from_ft": 2.1,
+    "n": 1,
+    "widths_ft": [
+     1.55
+    ]
+   },
+   {
+    "from_ft": 2.27,
+    "n": 1,
+    "widths_ft": [
+     1.44
+    ]
+   },
+   {
+    "from_ft": 2.45,
+    "n": 1,
+    "widths_ft": [
+     1.38
+    ]
+   },
+   {
+    "from_ft": 2.62,
+    "n": 1,
+    "widths_ft": [
+     1.33
+    ]
+   },
+   {
+    "from_ft": 2.8,
+    "n": 1,
+    "widths_ft": [
+     1.22
+    ]
+   },
+   {
+    "from_ft": 2.98,
+    "n": 1,
+    "widths_ft": [
+     1.03
+    ]
+   },
+   {
+    "from_ft": 3.15,
+    "n": 1,
+    "widths_ft": [
+     0.81
+    ]
+   },
+   {
+    "from_ft": 3.33,
+    "n": 2,
+    "widths_ft": [
+     0.28,
+     0.31
+    ]
+   }
+  ],
+  "plan": {
+   "size_ft": {
+    "w": 1.87,
+    "d": 4.3,
+    "h": 3.5
+   },
+   "centre": [
+    -0.095,
+    0.004
+   ],
+   "contacts_radius_ft": 1.57,
+   "reach_radius_ft": 2.17,
+   "share_outside_2p5ft": 0.0
+  },
+  "silhouette": {
+   "iou": 0.877,
+   "plate_lost_share": 0.061,
+   "added_share": 0.071,
+   "mesh_resized_by": 0.95,
+   "iou_box_fit": 0.837,
+   "view_yaw_deg": 320,
+   "view_elev_deg": 8
+  }
+ }
+}

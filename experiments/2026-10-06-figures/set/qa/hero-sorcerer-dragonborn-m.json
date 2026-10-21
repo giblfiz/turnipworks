@@ -1,0 +1,147 @@
+{
+ "file": "hero-sorcerer-dragonborn-m.glb",
+ "tris": 49525,
+ "kb": 2893,
+ "native_extent": [
+  0.714,
+  1.001,
+  0.638
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0044,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  103,
+  70,
+  32
+ ],
+ "mean_saturation": 0.714,
+ "sized_by": "its highest point",
+ "overall_ft": 6.5,
+ "pieces": {
+  "connected_parts": 457,
+  "main_part_area_share": 0.9287,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.4914,
+ "y0": -3.2515,
+ "stated_ft": {
+  "body": 6.5,
+  "figure_top": 6.5,
+  "overall": 6.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3571,
+   -0.5009,
+   -0.3174
+  ],
+  [
+   0.3569,
+   0.5005,
+   0.3205
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49525,
+   "tex": 2048,
+   "kb": 2893
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1133
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 490
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 1.42,
+    "z": 0.3,
+    "size_ft": [
+     1.03,
+     1.46
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.8,
+    "sole_p90_ft": 0.119
+   },
+   {
+    "x": -0.9,
+    "z": -0.17,
+    "size_ft": [
+     1.22,
+     1.33
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.8,
+    "sole_p90_ft": 0.131
+   },
+   {
+    "x": 0.44,
+    "z": -1.74,
+    "size_ft": [
+     0.27,
+     0.51
+    ],
+    "off_ground_ft": 0.532,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.577
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.532,
+  "lowest_slab_area_sqft": 1.73,
+  "plan_hull_area_sqft": 11.27,
+  "lowest_slab_share_of_plan": 0.153
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.63,
+   "d": 4.14,
+   "h": 6.5
+  },
+  "centre": [
+   0.335,
+   -0.094
+  ],
+  "contacts_radius_ft": 1.85,
+  "reach_radius_ft": 3.14,
+  "share_outside_2p5ft": 0.043
+ },
+ "silhouette": {
+  "iou": 0.913,
+  "plate_lost_share": 0.03,
+  "added_share": 0.063,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.864,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 0
+ },
+ "id": "hero-sorcerer-dragonborn-m",
+ "sha1": "aaafb9ba8cb97ec46986ee0fcd203a541bc333c0",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.53 ft off the ground",
+  "reaches 0.6 ft outside its square"
+ ],
+ "qa_seconds": 23.2
+}

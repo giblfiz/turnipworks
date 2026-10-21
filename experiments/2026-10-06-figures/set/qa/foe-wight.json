@@ -1,0 +1,157 @@
+{
+ "file": "foe-wight.glb",
+ "tris": 49114,
+ "kb": 3144,
+ "native_extent": [
+  0.877,
+  1.0,
+  0.653
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  70,
+  40,
+  31
+ ],
+ "mean_saturation": 0.653,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 240,
+  "main_part_area_share": 0.9992,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.0221,
+ "y0": -3.0146,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4395,
+   -0.5006,
+   -0.327
+  ],
+  [
+   0.4376,
+   0.4994,
+   0.3265
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49114,
+   "tex": 2048,
+   "kb": 3144
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1198
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 499
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -1.0,
+    "z": -0.74,
+    "size_ft": [
+     1.07,
+     1.4
+    ],
+    "off_ground_ft": 0.004,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.104
+   },
+   {
+    "x": 1.11,
+    "z": 1.12,
+    "size_ft": [
+     0.8,
+     1.4
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.8,
+    "sole_p90_ft": 0.092
+   },
+   {
+    "x": 1.14,
+    "z": -0.96,
+    "size_ft": [
+     0.08,
+     0.08
+    ],
+    "off_ground_ft": 0.473,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.515
+   },
+   {
+    "x": 0.62,
+    "z": -1.3,
+    "size_ft": [
+     0.05,
+     0.08
+    ],
+    "off_ground_ft": 0.504,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.509
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.504,
+  "lowest_slab_area_sqft": 1.7,
+  "plan_hull_area_sqft": 13.16,
+  "lowest_slab_share_of_plan": 0.129
+ },
+ "plan": {
+  "size_ft": {
+   "w": 5.27,
+   "d": 3.93,
+   "h": 6.0
+  },
+  "centre": [
+   -0.104,
+   0.459
+  ],
+  "contacts_radius_ft": 1.9,
+  "reach_radius_ft": 2.57,
+  "share_outside_2p5ft": 0.005
+ },
+ "silhouette": {
+  "iou": 0.848,
+  "plate_lost_share": 0.104,
+  "added_share": 0.057,
+  "mesh_resized_by": 0.9,
+  "iou_box_fit": 0.736,
+  "view_yaw_deg": 10,
+  "view_elev_deg": 8
+ },
+ "id": "foe-wight",
+ "sha1": "17f62331e7ee27824b579f0ed098ac6de6e320e7",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.50 ft off the ground"
+ ],
+ "qa_seconds": 17.6
+}

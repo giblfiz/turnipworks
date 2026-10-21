@@ -1,0 +1,1641 @@
+{
+ "assets": [
+  {
+   "id": "tree-deciduous--s",
+   "object": "tree-deciduous",
+   "group": "test",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a young broadleaf tree about 14 ft tall",
+   "size": [
+    96,
+    96,
+    168
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a young broadleaf tree about 14 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: One stout trunk with a flared root base cut flat at the bottom, dividing into a few thick branches that carry a full, rounded leafy crown. The trunk is clearly visible below the crown (about a third of the height) and is its own shape. Mid-green summer leaves, grey-brown bark. Crown about as wide as it is tall above the trunk. Real-world size about 96 in wide x 96 in deep x 168 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a young broadleaf tree about 14 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-deciduous--s--chunky",
+   "object": "tree-deciduous",
+   "group": "test",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a young broadleaf tree about 14 ft tall",
+   "size": [
+    96,
+    96,
+    168
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a young broadleaf tree about 14 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A STORYBOOK tree, not a botanical one: one thick trunk with a flared root base cut flat at the bottom, and a canopy built from FIVE to SEVEN big, chunky, rounded leaf clumps, like green clouds or scoops packed together, each clump a solid sculpted mass with a few big painted leaf shapes on it. The clumps sit at different heights and stick out sideways unevenly, so from straight above the tree reads as a cluster of clumps, not as one smooth ball or disc. The trunk is clearly visible below the canopy (about a third of the height) and one or two thick branches show between the clumps. Mid-green summer leaves, grey-brown bark. Crown about as wide as it is tall above the trunk. Real-world size about 96 in wide x 96 in deep x 168 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a young broadleaf tree about 14 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-fruit--s",
+   "object": "tree-fruit",
+   "group": "test",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a young apple tree about 10 ft tall",
+   "size": [
+    84,
+    84,
+    120
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a young apple tree about 10 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: One stout trunk with a flared root base cut flat at the bottom, dividing into a few thick branches that carry a full, rounded leafy crown. The trunk is clearly visible below the crown (about a third of the height) and is its own shape. A low, round crown on a short crooked trunk, with a dozen big red apples set INTO the surface of the leaf masses (large, chunky, half-embedded, none hanging on thin stalks). Real-world size about 84 in wide x 84 in deep x 120 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a young apple tree about 10 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-fruit--s--chunky",
+   "object": "tree-fruit",
+   "group": "test",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a young apple tree about 10 ft tall",
+   "size": [
+    84,
+    84,
+    120
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a young apple tree about 10 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A STORYBOOK tree, not a botanical one: one thick trunk with a flared root base cut flat at the bottom, and a canopy built from FIVE to SEVEN big, chunky, rounded leaf clumps, like green clouds or scoops packed together, each clump a solid sculpted mass with a few big painted leaf shapes on it. The clumps sit at different heights and stick out sideways unevenly, so from straight above the tree reads as a cluster of clumps, not as one smooth ball or disc. The trunk is clearly visible below the canopy (about a third of the height) and one or two thick branches show between the clumps. A low, round crown on a short crooked trunk, with a dozen big red apples set INTO the surface of the leaf masses (large, chunky, half-embedded, none hanging on thin stalks). Real-world size about 84 in wide x 84 in deep x 120 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a young apple tree about 10 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-birch--s",
+   "object": "tree-birch",
+   "group": "test",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a slender young birch tree about 18 ft tall",
+   "size": [
+    48,
+    48,
+    216
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a slender young birch tree about 18 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: One stout trunk with a flared root base cut flat at the bottom, dividing into a few thick branches that carry a full, rounded leafy crown. The trunk is clearly visible below the crown (about a third of the height) and is its own shape. A tall, narrow tree: a straight white trunk with black bands and knots, and a narrow upright crown of light yellow-green leaf masses stacked up the upper two thirds. Much taller than wide. Real-world size about 48 in wide x 48 in deep x 216 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a slender young birch tree about 18 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-birch--s--chunky",
+   "object": "tree-birch",
+   "group": "test",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a slender young birch tree about 18 ft tall",
+   "size": [
+    48,
+    48,
+    216
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a slender young birch tree about 18 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A STORYBOOK tree, not a botanical one: one thick trunk with a flared root base cut flat at the bottom, and a canopy built from FIVE to SEVEN big, chunky, rounded leaf clumps, like green clouds or scoops packed together, each clump a solid sculpted mass with a few big painted leaf shapes on it. The clumps sit at different heights and stick out sideways unevenly, so from straight above the tree reads as a cluster of clumps, not as one smooth ball or disc. The trunk is clearly visible below the canopy (about a third of the height) and one or two thick branches show between the clumps. A tall, narrow tree: a straight white trunk with black bands and knots, and a narrow upright crown of light yellow-green leaf masses stacked up the upper two thirds. Much taller than wide. Real-world size about 48 in wide x 48 in deep x 216 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a slender young birch tree about 18 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-deciduous--l",
+   "object": "tree-deciduous",
+   "group": "trees",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a full-grown broadleaf tree about 30 ft tall",
+   "size": [
+    150,
+    150,
+    360
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a full-grown broadleaf tree about 30 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A STORYBOOK tree, not a botanical one: one thick trunk with a flared root base cut flat at the bottom, and a canopy built from FIVE to SEVEN big, chunky, rounded leaf clumps, like green clouds or scoops packed together, each clump a solid sculpted mass with a few big painted leaf shapes on it. The clumps sit at different heights and stick out sideways unevenly, so from straight above the tree reads as a cluster of clumps, not as one smooth ball or disc. The trunk is clearly visible below the canopy (about a third of the height) and one or two thick branches show between the clumps. A big shade tree: thick trunk, a wide heavy crown of deep green leaves, taller than it is wide. Real-world size about 150 in wide x 150 in deep x 360 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a full-grown broadleaf tree about 30 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-fruit--l",
+   "object": "tree-fruit",
+   "group": "trees",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "an old apple tree with a wide spreading crown, about 15 ft tall",
+   "size": [
+    120,
+    120,
+    180
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: an old apple tree with a wide spreading crown, about 15 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A STORYBOOK tree, not a botanical one: one thick trunk with a flared root base cut flat at the bottom, and a canopy built from FIVE to SEVEN big, chunky, rounded leaf clumps, like green clouds or scoops packed together, each clump a solid sculpted mass with a few big painted leaf shapes on it. The clumps sit at different heights and stick out sideways unevenly, so from straight above the tree reads as a cluster of clumps, not as one smooth ball or disc. The trunk is clearly visible below the canopy (about a third of the height) and one or two thick branches show between the clumps. A gnarled, leaning thick trunk and a broad, low, spreading crown wider than the tree is tall above the trunk, with big red apples set INTO the surface of the leaf masses (chunky, half-embedded). Real-world size about 120 in wide x 120 in deep x 180 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "an old apple tree with a wide spreading crown, about 15 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-birch--l",
+   "object": "tree-birch",
+   "group": "trees",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a tall white birch tree about 30 ft tall",
+   "size": [
+    60,
+    60,
+    360
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a tall white birch tree about 30 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A STORYBOOK tree, not a botanical one: one thick trunk with a flared root base cut flat at the bottom, and a canopy built from FIVE to SEVEN big, chunky, rounded leaf clumps, like green clouds or scoops packed together, each clump a solid sculpted mass with a few big painted leaf shapes on it. The clumps sit at different heights and stick out sideways unevenly, so from straight above the tree reads as a cluster of clumps, not as one smooth ball or disc. The trunk is clearly visible below the canopy (about a third of the height) and one or two thick branches show between the clumps. A very tall, narrow tree: a straight white trunk with black bands, bare for the lower third, then a narrow upright crown of light green leaf masses. About six times taller than wide. Real-world size about 60 in wide x 60 in deep x 360 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a tall white birch tree about 30 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "tree-oak-great",
+   "object": "tree-oak-great",
+   "group": "trees",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a great spreading oak tree about 40 ft tall",
+   "size": [
+    240,
+    240,
+    480
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a great spreading oak tree about 40 ft tall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A STORYBOOK tree, not a botanical one: one thick trunk with a flared root base cut flat at the bottom, and a canopy built from FIVE to SEVEN big, chunky, rounded leaf clumps, like green clouds or scoops packed together, each clump a solid sculpted mass with a few big painted leaf shapes on it. The clumps sit at different heights and stick out sideways unevenly, so from straight above the tree reads as a cluster of clumps, not as one smooth ball or disc. The trunk is clearly visible below the canopy (about a third of the height) and one or two thick branches show between the clumps. A massive, short, very thick trunk with big roots flaring at the base, heavy horizontal limbs, and a huge, broad, domed crown of dark green leaves, about as wide as the tree is tall. Real-world size about 240 in wide x 240 in deep x 480 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a great spreading oak tree about 40 ft tall: one tree with a trunk and a leafy crown",
+    "must": [
+     "a single tree with one clearly visible trunk that reaches the bottom of the object",
+     "the foliage is solid masses, not sparse thin twigs"
+    ],
+    "must_not": [
+     "more than one tree",
+     "bare leafless branches",
+     "fruit or flowers that are blue",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "bush--s1",
+   "object": "bush",
+   "group": "test",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a round garden bush",
+   "size": [
+    40.0,
+    40.0,
+    36.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a round garden bush.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A dense, leafy green garden shrub with no visible trunk, its foliage reaching the ground all round. A low rounded dome, a little lopsided. Real-world size about 40 in wide x 40 in deep x 36 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a round leafy garden bush",
+    "must": [
+     "one compact leafy bush, wider than or about as wide as it is tall",
+     "foliage is solid masses"
+    ],
+    "must_not": [
+     "a tree with a tall bare trunk",
+     "a pot or planter",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "bush--s2",
+   "object": "bush",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a round garden bush",
+   "size": [
+    40.0,
+    40.0,
+    36.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a round garden bush.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A dense, leafy green garden shrub with no visible trunk, its foliage reaching the ground all round. Two or three rounded lobes of different heights, like a small cluster. Real-world size about 40 in wide x 40 in deep x 36 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a round leafy garden bush",
+    "must": [
+     "one compact leafy bush, wider than or about as wide as it is tall",
+     "foliage is solid masses"
+    ],
+    "must_not": [
+     "a tree with a tall bare trunk",
+     "a pot or planter",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "bush--s3",
+   "object": "bush",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a round garden bush",
+   "size": [
+    40.0,
+    40.0,
+    36.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a round garden bush.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A dense, leafy green garden shrub with no visible trunk, its foliage reaching the ground all round. A taller, egg-shaped bush with a slightly ragged top and a few small cream flowers set into the surface. Real-world size about 40 in wide x 40 in deep x 36 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a round leafy garden bush",
+    "must": [
+     "one compact leafy bush, wider than or about as wide as it is tall",
+     "foliage is solid masses"
+    ],
+    "must_not": [
+     "a tree with a tall bare trunk",
+     "a pot or planter",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "bush-berry",
+   "object": "bush-berry",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a berry bush",
+   "size": [
+    36.0,
+    36.0,
+    36.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a berry bush.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A dense, rounded leafy green bush, foliage to the ground, dotted with clusters of big RED berries set into the surface of the leaf masses (chunky, half-embedded). Real-world size about 36 in wide x 36 in deep x 36 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a round leafy bush with red berries",
+    "must": [
+     "one compact leafy bush, wider than or about as wide as it is tall",
+     "foliage is solid masses",
+     "red berries visible"
+    ],
+    "must_not": [
+     "a pot or planter",
+     "blue or purple berries",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "planter-barrel--s1",
+   "object": "planter-barrel",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a half barrel planted with flowers",
+   "size": [
+    26.0,
+    26.0,
+    30.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a half barrel planted with flowers.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A wooden half barrel (staves and two iron hoops) standing on its flat bottom, filled with soil and a full mound of flowers in red, yellow and cream with green leaves, the flowers as big chunky blooms in one solid mass. Real-world size about 26 in wide x 26 in deep x 30 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wooden half-barrel planter full of flowers",
+    "must": [
+     "a barrel-shaped wooden tub with hoops",
+     "flowers or plants growing out of the top"
+    ],
+    "must_not": [
+     "blue flowers",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "planter-barrel--s2",
+   "object": "planter-barrel",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a half barrel planted with a small shrub and trailing flowers",
+   "size": [
+    26.0,
+    26.0,
+    30.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a half barrel planted with a small shrub and trailing flowers.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A wooden half barrel (staves and two iron hoops) standing on its flat bottom, planted with a small round green shrub in the middle and a ring of cream and orange flowers spilling a little over the rim, all as chunky solid masses. Real-world size about 26 in wide x 26 in deep x 30 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wooden half-barrel planter with a small shrub and flowers",
+    "must": [
+     "a barrel-shaped wooden tub with hoops",
+     "plants growing out of the top"
+    ],
+    "must_not": [
+     "blue flowers",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "planter-stone",
+   "object": "planter-stone",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a stone planter with a clipped shrub",
+   "size": [
+    24.0,
+    24.0,
+    36.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a stone planter with a clipped shrub.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A square, carved blue-grey stone planter box on a low plinth foot, holding one round clipped green shrub like a ball, taller than the planter is wide. Real-world size about 24 in wide x 24 in deep x 36 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a square stone planter holding a round shrub",
+    "must": [
+     "a stone box or urn planter",
+     "a shrub growing from it"
+    ],
+    "must_not": [
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "flowerbed",
+   "object": "flowerbed",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a cultivated flowerbed",
+   "size": [
+    60.0,
+    60.0,
+    18.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a cultivated flowerbed.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A square raised bed about 5 ft across and a foot and a half high: a low border of rounded field stones holding dark soil, packed full with a dense low carpet of flowers in red, yellow, cream and orange with green leaves, painted as chunky clustered blooms in one solid mass. Low and wide. Real-world size about 60 in wide x 60 in deep x 18 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. The background is flat chroma blue, so the object itself has NO blue anywhere. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a low square flowerbed edged with stones and full of flowers",
+    "must": [
+     "low and wide, clearly much wider than tall",
+     "a border or edging round the flowers"
+    ],
+    "must_not": [
+     "blue flowers",
+     "a tall plant or tree"
+    ]
+   }
+  },
+  {
+   "id": "flowerbox-window",
+   "object": "flowerbox-window",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a window box of flowers on brackets",
+   "size": [
+    42.0,
+    9.0,
+    12.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a window box of flowers on brackets.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A long, narrow wooden trough (a window box) carried on two chunky wooden brackets underneath, filled with a full row of red and cream flowers and green leaves as one solid mass. Seen from the front, three-quarter view. It hangs on a wall, so the back is flat; NO wall, NO window shown. Real-world size about 42 in wide x 9 in deep x 12 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a long narrow wooden window box full of flowers, on two brackets",
+    "must": [
+     "a long narrow box",
+     "flowers along the top"
+    ],
+    "must_not": [
+     "a wall or a window",
+     "blue flowers",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "trellis-vine",
+   "object": "trellis-vine",
+   "group": "plants",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a wall trellis with a climbing plant",
+   "size": [
+    48.0,
+    8.0,
+    84.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a wall trellis with a climbing plant.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A tall wooden wall trellis: a sturdy frame of THICK square laths in a wide diamond grid (only four or five big openings across), almost completely covered by a thick climbing vine with big green leaves and a few red-orange flowers, painted as solid masses, so only a little of the lattice shows at the edges. Flat-backed, seen from the front. NO wall shown. Real-world size about 48 in wide x 8 in deep x 84 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a tall flat wooden trellis covered with a climbing vine",
+    "must": [
+     "taller than wide",
+     "leaves covering most of the lattice"
+    ],
+    "must_not": [
+     "a wall",
+     "blue flowers",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "hedge-straight--low",
+   "object": "hedge-straight",
+   "group": "test",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a section of clipped garden hedge",
+   "size": [
+    60,
+    24,
+    40
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a section of clipped garden hedge.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A clipped box hedge, chest high: a long, dense, solid block of small dark green leaves with a flat top, slightly rounded top edges and near-vertical sides, leaves right down to the ground, with a few woody stems just visible at the very bottom. This is ONE straight 5-ft section of a longer run: both side ends are clean, flat, vertical cuts with nothing sticking out past them, and the top is one level height from end to end, so that copies placed end to end make one continuous run. Seen from its broad side, three-quarter view from slightly above. Real-world size about 60 in wide x 24 in deep x 40 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one straight section of clipped green hedge, a long solid block with a flat top",
+    "must": [
+     "a long box-shaped block of foliage, longer than it is tall",
+     "both ends are flat cut faces"
+    ],
+    "must_not": [
+     "a pot or planter",
+     "an arch or gap",
+     "flowers",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "hedge-corner",
+   "object": "hedge-corner",
+   "group": "sib",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "an L-shaped corner of clipped garden hedge",
+   "size": [
+    60.0,
+    60.0,
+    60.0
+   ],
+   "prompt": "The supplied image is an existing straight section of this same clipped hedge. The new piece must look built from the same clipped hedge: the SAME materials, colours, thicknesses, height, painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): an L-shaped corner of clipped garden hedge.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: The same clipped hedge turning a right-angle corner: an L-shaped block, each arm about 5 ft long, the same height and thickness as the straight section, flat top, both far ends clean flat vertical cuts. Real-world size about 60 in wide x 60 in deep x 60 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "experiments/2026-10-05-yard-props/inputs/hedge-straight--low.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-05-yard-props/inputs/hedge-straight--low.jpg"
+   ],
+   "gate": {
+    "desc": "an L-shaped corner piece of clipped green hedge",
+    "must": [
+     "an L shape seen from above (two arms at a right angle)",
+     "materials, colours and height match the REFERENCE clipped hedge section (the described change is the intended difference)"
+    ],
+    "must_not": [
+     "an arch or gap",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "hedge-end-block",
+   "object": "hedge-end-block",
+   "group": "sib",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a square end block of clipped garden hedge",
+   "size": [
+    30.0,
+    30.0,
+    46.0
+   ],
+   "prompt": "The supplied image is an existing straight section of this same clipped hedge. The new piece must look built from the same clipped hedge: the SAME materials, colours, thicknesses, height, painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a square end block of clipped garden hedge.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: The same clipped hedge as a short square block that ends a hedge run or sits at its corner: a compact cube of foliage about 2.5 ft across and a little TALLER than the straight section, with a softly domed top, leaves down to the ground on all four sides. Real-world size about 30 in wide x 30 in deep x 46 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "experiments/2026-10-05-yard-props/inputs/hedge-straight--low.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-05-yard-props/inputs/hedge-straight--low.jpg"
+   ],
+   "gate": {
+    "desc": "a compact square block of clipped green hedge (flat or softly domed top)",
+    "must": [
+     "roughly as wide as it is deep (a block, not a long section)",
+     "not taller than about twice its width",
+     "materials, colours and height match the REFERENCE clipped hedge section (the described change is the intended difference)"
+    ],
+    "must_not": [
+     "an arch or gap",
+     "a pot or planter",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "hedge-gap-arch",
+   "object": "hedge-gap-arch",
+   "group": "sib",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a hedge section with a walk-through arch",
+   "size": [
+    60.0,
+    30.0,
+    84.0
+   ],
+   "prompt": "The supplied image is an existing straight section of this same clipped hedge. The new piece must look built from the same clipped hedge: the SAME materials, colours, thicknesses, height, painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a hedge section with a walk-through arch.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: The same clipped hedge grown up and over into an arch: a 5-ft section whose two sides rise as thick hedge pillars and join overhead in a thick rounded leafy arch about 7 ft tall, with a clear walk-through opening about 3 ft wide and 6 ft high in the middle, open down to the ground; the blue background shows through the opening. Both side ends are clean flat vertical cuts at the same height and thickness as the straight hedge section. Real-world size about 60 in wide x 30 in deep x 84 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "experiments/2026-10-05-yard-props/inputs/hedge-straight--low.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-05-yard-props/inputs/hedge-straight--low.jpg"
+   ],
+   "gate": {
+    "desc": "a hedge section with a walk-through arched opening",
+    "must": [
+     "one arched opening you can see through, reaching the ground",
+     "foliage continuous over the top of the opening",
+     "materials, colours and height match the REFERENCE clipped hedge section (the described change is the intended difference)"
+    ],
+    "must_not": [
+     "a door or gate leaf in the opening",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "fence-post-rail",
+   "object": "fence-post-rail",
+   "group": "edge",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a section of post-and-rail fence",
+   "size": [
+    60.0,
+    6.0,
+    48.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a section of post-and-rail fence.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A rustic post-and-rail paddock fence: exactly TWO stout square posts, set in from the ends at about one quarter and three quarters of the length, carrying THREE thick horizontal split rails that run the whole length and stick out past both posts to flat-cut ends. Weathered warm honey-grey wood, big iron nail heads. This is ONE straight 5-ft section of a longer run: both side ends are clean, flat, vertical cuts with nothing sticking out past them, and the top is one level height from end to end, so that copies placed end to end make one continuous run. Seen from its broad side, three-quarter view from slightly above. Real-world size about 60 in wide x 6 in deep x 48 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one straight section of wooden post-and-rail fence: two posts and three horizontal rails",
+    "must": [
+     "exactly two upright posts",
+     "horizontal rails that extend past the posts to both ends"
+    ],
+    "must_not": [
+     "pickets or vertical boards filling the fence",
+     "a gate",
+     "a post at the very end of the section",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "fence-post-corner",
+   "object": "fence-post-corner",
+   "group": "sib",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a stout fence corner post",
+   "size": [
+    8.0,
+    8.0,
+    48.0
+   ],
+   "prompt": "The supplied image is an existing straight section of this same wooden fence. The new piece must look built from the same wooden fence: the SAME materials, colours, thicknesses, height, painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a stout fence corner post.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: ONLY a single stout square corner post of the same fence, standing alone with NO rails: a little thicker and a little taller than the fence's own posts, with a simple chamfered pyramid cap and an iron band below the cap. About 8 in square and 4 ft tall. Real-world size about 8 in wide x 8 in deep x 48 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "experiments/2026-10-05-yard-props/inputs/fence-post-rail.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-05-yard-props/inputs/fence-post-rail.jpg"
+   ],
+   "gate": {
+    "desc": "a single stout square wooden fence post with a cap, standing alone",
+    "must": [
+     "exactly one upright post",
+     "no rails attached",
+     "materials, colours and height match the REFERENCE wooden fence section (the described change is the intended difference)"
+    ],
+    "must_not": [
+     "rails or fence sections attached",
+     "a lantern or sign",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "gate-fence",
+   "object": "gate-fence",
+   "group": "sib",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a small wooden field gate",
+   "size": [
+    48.0,
+    4.0,
+    42.0
+   ],
+   "prompt": "The supplied image is an existing straight section of this same wooden fence. The new piece must look built from the same wooden fence: the SAME materials, colours, thicknesses, height, painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a small wooden field gate.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: ONLY the gate leaf of the same fence, with NO posts: a small five-bar field gate about 4 ft wide, the same height as the fence, made of thick horizontal bars in a frame of two uprights with ONE diagonal brace, two chunky iron strap hinges on the left upright and a simple iron latch on the right. Closed, flat, seen from its broad side. Real-world size about 48 in wide x 4 in deep x 42 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "experiments/2026-10-05-yard-props/inputs/fence-post-rail.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-05-yard-props/inputs/fence-post-rail.jpg"
+   ],
+   "gate": {
+    "desc": "a wooden bar gate leaf with a diagonal brace, without posts",
+    "must": [
+     "horizontal bars in a frame",
+     "one diagonal brace",
+     "materials, colours and height match the REFERENCE wooden fence section (the described change is the intended difference)"
+    ],
+    "must_not": [
+     "fence sections or tall gate posts attached at the sides",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "fence-wattle",
+   "object": "fence-wattle",
+   "group": "edge",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a section of woven wattle fence",
+   "size": [
+    60.0,
+    4.0,
+    42.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a section of woven wattle fence.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A rustic wattle garden fence: FIVE thick upright stakes with thick flexible rods woven in and out between them from the ground to the top, like chunky basketwork, the woven rods running the whole length. The end stakes sit a little in from the ends so the woven rods end in flat cuts. Warm brown and honey wood. This is ONE straight 5-ft section of a longer run: both side ends are clean, flat, vertical cuts with nothing sticking out past them, and the top is one level height from end to end, so that copies placed end to end make one continuous run. Seen from its broad side, three-quarter view from slightly above. Real-world size about 60 in wide x 4 in deep x 42 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one straight section of woven wattle fence: upright stakes with rods woven between them",
+    "must": [
+     "basket-like horizontal weaving between upright stakes"
+    ],
+    "must_not": [
+     "a gate",
+     "pickets",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "fence-picket",
+   "object": "fence-picket",
+   "group": "edge",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a section of picket fence",
+   "size": [
+    60.0,
+    3.0,
+    40.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a section of picket fence.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A tidy cottage picket fence: about EIGHT thick flat pickets with pointed tops, evenly spaced with half a gap at each end, nailed to TWO thick horizontal back rails that run the whole length to flat-cut ends. No posts. Pale cream-painted wood, a little worn, showing honey wood at the edges. This is ONE straight 5-ft section of a longer run: both side ends are clean, flat, vertical cuts with nothing sticking out past them, and the top is one level height from end to end, so that copies placed end to end make one continuous run. Seen from its broad side, three-quarter view from slightly above. Real-world size about 60 in wide x 3 in deep x 40 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one straight section of picket fence: pointed upright pickets on two horizontal rails",
+    "must": [
+     "a row of upright pickets with pointed tops",
+     "two horizontal rails"
+    ],
+    "must_not": [
+     "a gate",
+     "tall end posts",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "wall-drystone",
+   "object": "wall-drystone",
+   "group": "edge",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a section of low dry-stone wall",
+   "size": [
+    60.0,
+    24.0,
+    36.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a section of low dry-stone wall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A low dry-stone field wall, waist high and 2 ft thick: big, chunky, rounded blue-grey and warm grey field stones stacked without mortar in about four rough courses, with a top row of upright slab coping stones, a little moss on top. This is ONE straight 5-ft section of a longer run: both side ends are clean, flat, vertical cuts with nothing sticking out past them, and the top is one level height from end to end, so that copies placed end to end make one continuous run. Seen from its broad side, three-quarter view from slightly above. Real-world size about 60 in wide x 24 in deep x 36 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one straight section of low dry-stone wall with coping stones on top",
+    "must": [
+     "stacked field stones without a gap or gate",
+     "longer than it is tall"
+    ],
+    "must_not": [
+     "a gate or gap",
+     "mortar-flat brickwork",
+     "a pillar taller than the wall",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "wall-drystone-gate",
+   "object": "wall-drystone-gate",
+   "group": "sib",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a dry-stone wall section with a gap and stone piers",
+   "size": [
+    60.0,
+    24.0,
+    42.0
+   ],
+   "prompt": "The supplied image is an existing straight section of this same dry-stone wall. The new piece must look built from the same dry-stone wall: the SAME materials, colours, thicknesses, height, painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a dry-stone wall section with a gap and stone piers.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: The same dry-stone wall as a 5-ft GATEWAY section: a clear walk-through gap about 3 ft wide in the middle, open to the ground (the blue background shows through), flanked by two square stone piers built of the same stones, each about 1 ft wide and a little taller than the wall, each with a flat cap stone. Nothing spans the gap and there is NO gate leaf. The two piers stand as one object joined by a thin flat stone threshold slab on the ground. Real-world size about 60 in wide x 24 in deep x 42 in tall: keep these proportions. The background is flat chroma blue, so the object itself has NO blue anywhere. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "experiments/2026-10-05-yard-props/inputs/wall-drystone.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-05-yard-props/inputs/wall-drystone.jpg"
+   ],
+   "gate": {
+    "desc": "two low square stone piers either side of an open gap, joined by a flat threshold stone",
+    "must": [
+     "two piers",
+     "a clear open gap between them",
+     "materials, colours and height match the REFERENCE dry-stone wall section (the described change is the intended difference)"
+    ],
+    "must_not": [
+     "a gate leaf or door in the gap",
+     "an arch over the gap"
+    ]
+   }
+  },
+  {
+   "id": "wall-drystone-pier",
+   "object": "wall-drystone-pier",
+   "group": "sib",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a square dry-stone corner pier",
+   "size": [
+    28.0,
+    28.0,
+    42.0
+   ],
+   "prompt": "The supplied image is an existing straight section of this same dry-stone wall. The new piece must look built from the same dry-stone wall: the SAME materials, colours, thicknesses, height, painting style and camera angle. Change ONLY what is described below.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a square dry-stone corner pier.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: ONLY a single square corner pier of the same wall, standing alone: built of the same stacked stones, about 2.3 ft square and a little taller than the wall, with one big flat cap stone on top. Real-world size about 28 in wide x 28 in deep x 42 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "experiments/2026-10-05-yard-props/inputs/wall-drystone.jpg"
+   ],
+   "gate_refs": [
+    "experiments/2026-10-05-yard-props/inputs/wall-drystone.jpg"
+   ],
+   "gate": {
+    "desc": "a single square pier of stacked field stones with a cap stone, standing alone",
+    "must": [
+     "one compact square pillar of stacked stones",
+     "materials, colours and height match the REFERENCE dry-stone wall section (the described change is the intended difference)"
+    ],
+    "must_not": [
+     "wall sections attached at the sides",
+     "a lantern",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "gatepost-stone",
+   "object": "gatepost-stone",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a stone gatepost with a ball finial",
+   "size": [
+    30.0,
+    30.0,
+    72.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a stone gatepost with a ball finial.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: ONE tall square gate pier of dressed blue-grey stone blocks on a wider plinth, with a moulded cap carrying a carved stone ball finial. About 2.5 ft square and 6 ft tall. Real-world size about 30 in wide x 30 in deep x 72 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one tall square stone gatepost with a ball finial on top",
+    "must": [
+     "exactly one pier",
+     "a ball or carved finial on top"
+    ],
+    "must_not": [
+     "a gate leaf",
+     "two piers",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "table-picnic",
+   "object": "table-picnic",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a plank picnic table with attached benches",
+   "size": [
+    72.0,
+    60.0,
+    30.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a plank picnic table with attached benches.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A heavy outdoor trestle table of thick planks, about 6 ft long, with a bench seat fixed along each long side, carried on the same two A-shaped end frames as the table top (the classic beer-garden picnic table). Bare weathered honey wood. Nothing on it. Real-world size about 72 in wide x 60 in deep x 30 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wooden picnic table with a bench attached along each long side",
+    "must": [
+     "one table top",
+     "two benches joined to the table by shared frames"
+    ],
+    "must_not": [
+     "loose separate benches or chairs",
+     "food, mugs or other objects on it",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "sign-post-inn",
+   "object": "sign-post-inn",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a free-standing inn sign post",
+   "size": [
+    36.0,
+    8.0,
+    108.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a free-standing inn sign post.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A TALL, NARROW object, three times as tall as it is wide: a stout square wooden post about 9 ft tall with a chamfered top, a SHORT thick horizontal arm near the top (the arm only about 2.5 ft long) braced by a curved wooden bracket, and a small thick wooden sign board, about 2 ft across, hanging under the arm from two short chunky iron chains, close beside the post. The board is painted with a simple plump turnip picture (round purple-and-cream root, green leafy top) and NO text. The post ends in a flat cut at the bottom. Real-world size about 36 in wide x 8 in deep x 108 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a tall wooden post with a side arm from which a painted sign board hangs",
+    "must": [
+     "one upright post",
+     "a sign board hanging from an arm",
+     "no text on the sign"
+    ],
+    "must_not": [
+     "a wall or building",
+     "text or letters",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "signpost",
+   "object": "signpost",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a crossroads signpost",
+   "size": [
+    24.0,
+    24.0,
+    84.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a crossroads signpost.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A stout wooden post about 7 ft tall with a pointed cap and THREE thick wooden finger boards near the top pointing in different directions, each a plank with one pointed end, blank with NO text. The post ends in a flat cut at the bottom. Real-world size about 24 in wide x 24 in deep x 84 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wooden signpost with several pointing finger boards",
+    "must": [
+     "one upright post",
+     "two or more pointing boards",
+     "no text"
+    ],
+    "must_not": [
+     "text or letters",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "log-seat",
+   "object": "log-seat",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a log bench",
+   "size": [
+    72.0,
+    16.0,
+    16.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a log bench.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A long seat made from ONE thick tree log split in half lengthwise, flat side up, bark on the underside, resting on two short chunky log rounds. About 6 ft long and low. Nothing on it. Real-world size about 72 in wide x 16 in deep x 16 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a low bench made from a half log on two short log feet",
+    "must": [
+     "long and low",
+     "made of a log"
+    ],
+    "must_not": [
+     "a backrest",
+     "objects on it",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "well-house",
+   "object": "well-house",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a roofed well with a windlass",
+   "size": [
+    60.0,
+    60.0,
+    120.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a roofed well with a windlass.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A round well of big rough stones, waist high, with two stout timber posts carrying a small pitched roof of thick wooden shingles over it, and between the posts a thick wooden windlass roller with a crank handle and a chunky rope wound on it holding a wooden bucket just above the well mouth. The well shaft is dark and empty. Real-world size about 60 in wide x 60 in deep x 120 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a round stone well under a small pitched roof on two posts, with a windlass and bucket",
+    "must": [
+     "a round stone well wall",
+     "a small roof over it",
+     "a winding roller between the posts"
+    ],
+    "must_not": [
+     "water visible to the brim",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "hitching-post--s2",
+   "object": "hitching-post",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a hitching rail for horses",
+   "size": [
+    72.0,
+    6.0,
+    40.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a hitching rail for horses.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A horse hitching rail: TWO short stout round posts with ONE thick round horizontal rail on top running the whole 6-ft length, and two big iron tie rings hanging from the rail. Bare weathered wood. Real-world size about 72 in wide x 6 in deep x 40 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a horse hitching rail: two posts and one horizontal rail",
+    "must": [
+     "two posts",
+     "one horizontal top rail"
+    ],
+    "must_not": [
+     "a horse",
+     "a fence with several rails",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "hitching-post--s3",
+   "object": "hitching-post",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a hitching rail for horses",
+   "size": [
+    72.0,
+    6.0,
+    40.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a hitching rail for horses.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A horse hitching rail: THREE stout square posts with pyramid tops joined by ONE thick squared horizontal beam mortised through them a little below their tops, about 6 ft long, with a short length of thick rope knotted round the beam. Bare weathered wood. Real-world size about 72 in wide x 6 in deep x 40 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a horse hitching rail: three posts and one horizontal beam",
+    "must": [
+     "three posts",
+     "one horizontal beam"
+    ],
+    "must_not": [
+     "a horse",
+     "a fence with several rails",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "sawhorse",
+   "object": "sawhorse",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a sawhorse with a plank",
+   "size": [
+    40.0,
+    24.0,
+    30.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a sawhorse with a plank.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A carpenter's sawhorse: a thick horizontal beam on two pairs of splayed A-shaped legs with cross braces, with one thick plank lying along the top. Bare honey wood. Real-world size about 40 in wide x 24 in deep x 30 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a wooden sawhorse on splayed legs with a plank on top",
+    "must": [
+     "four splayed legs in two A-shaped pairs",
+     "a horizontal beam"
+    ],
+    "must_not": [
+     "a saw or other tools",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "axe-woodcutter",
+   "object": "axe-woodcutter",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a woodcutter's felling axe",
+   "size": [
+    34.0,
+    10.0,
+    2.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a woodcutter's felling axe.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A heavy felling axe lying flat: a thick, slightly curved honey-wood haft about 3 ft long and a big, chunky dark iron head with a bright bevelled edge. Deliberately thick and toy-like so it reconstructs in 3D. Real-world size about 34 in wide x 10 in deep x 2 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a single long-handled wood axe",
+    "must": [
+     "one axe with one head and one handle"
+    ],
+    "must_not": [
+     "a stump or log",
+     "two axes",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "dog-kennel",
+   "object": "dog-kennel",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a small plank dog kennel",
+   "size": [
+    30.0,
+    40.0,
+    30.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a small plank dog kennel.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A small dog kennel of thick planks with a pitched plank roof and one arched doorway in the front gable, dark and empty inside. NO dog, no bowl, no chain. Real-world size about 30 in wide x 40 in deep x 30 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a small wooden dog kennel with a pitched roof and an arched doorway",
+    "must": [
+     "a pitched roof",
+     "one doorway opening"
+    ],
+    "must_not": [
+     "a dog or any animal",
+     "a bowl",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "woodpile--long",
+   "object": "woodpile",
+   "group": "furn",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a long low stack of split firewood",
+   "size": [
+    96,
+    20,
+    40
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a long low stack of split firewood.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A LONG, low firewood stack to run along a wall: split logs neatly stacked crosswise in one row about 8 ft long, 20 in deep and 3 ft high, held between two short upright stakes at each end, the cut log ends facing the viewer. Much longer than tall. Real-world size about 96 in wide x 20 in deep x 40 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a long low stack of split firewood",
+    "must": [
+     "stacked split logs",
+     "clearly much longer than it is tall"
+    ],
+    "must_not": [
+     "an axe or chopping block",
+     "a shed or roof",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "trade-herb-bed",
+   "object": "trade-herb-bed",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a herb garden bed with labels",
+   "size": [
+    36.0,
+    96.0,
+    10.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a herb garden bed with labels.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A long, narrow raised garden bed about 3 ft by 8 ft and under a foot high: a low frame of thick planks holding dark soil, planted with FOUR different low herb clumps in a row (silver-green sage, dark rosemary, bright parsley, purple-pink flowering thyme) as chunky solid mounds, each with a small blank wooden label stake. Real-world size about 36 in wide x 96 in deep x 10 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. The background is flat chroma blue, so the object itself has NO blue anywhere. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a long low plank-edged garden bed with rows of herb clumps",
+    "must": [
+     "low and long",
+     "a plank frame around soil",
+     "several low plants"
+    ],
+    "must_not": [
+     "text on the labels",
+     "tall plants"
+    ]
+   }
+  },
+  {
+   "id": "vegetable-patch",
+   "object": "vegetable-patch",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a vegetable patch of tilled rows",
+   "size": [
+    60.0,
+    110.0,
+    12.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a vegetable patch of tilled rows.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A LONG, NARROW rectangular vegetable patch, almost TWICE as long as it is wide (about 5 ft by 9 ft) and a foot high: bare dark tilled soil with NO wooden frame or box round it, raised in FOUR long rounded ridges that run the LONG way, with furrows between, each ridge carrying a row of chunky leafy crops, two rows of turnips with purple-and-cream shoulders showing above the soil and green tops, one of cabbages, one of leafy greens. The soil slab has a clean, neat rectangular edge. Real-world size about 60 in wide x 110 in deep x 12 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage that you can see the background through, no stray leaves or petals floating free. The background is flat chroma blue, so the object itself has NO blue anywhere. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a rectangular patch of tilled soil in rows with leafy vegetable crops",
+    "must": [
+     "soil in rows or ridges",
+     "low leafy crops in rows"
+    ],
+    "must_not": [
+     "a fence",
+     "tall plants",
+     "tools"
+    ]
+   }
+  },
+  {
+   "id": "garden-tools-leaning",
+   "object": "garden-tools-leaning",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a spade, a rake and a hoe leaning together",
+   "size": [
+    24.0,
+    10.0,
+    60.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a spade, a rake and a hoe leaning together.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: Three long-handled garden tools standing upright and bundled together as ONE chunky object, their thick wooden handles touching and tied with a turn of thick rope, heads on the ground: a spade with an iron blade, a wooden rake, and a hoe. Handles deliberately thick, about 5 ft tall. Leaning very slightly back as if against a wall; NO wall shown. Real-world size about 24 in wide x 10 in deep x 60 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "three long-handled garden tools (spade, rake, hoe) bundled upright together",
+    "must": [
+     "three long handles close together",
+     "tool heads at the bottom"
+    ],
+    "must_not": [
+     "a wall",
+     "tools lying scattered apart",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "compost-heap",
+   "object": "compost-heap",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a slatted compost bin",
+   "size": [
+    48.0,
+    48.0,
+    30.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a slatted compost bin.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A square compost bin about 4 ft across and 2.5 ft high: four stout corner posts with thick horizontal slats on three sides (gaps between the slats), open at the front, heaped full with a rounded mound of brown compost, straw, leaves and vegetable scraps (a cabbage leaf, turnip tops, eggshells). Real-world size about 48 in wide x 48 in deep x 30 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a square slatted wooden compost bin heaped with compost and scraps",
+    "must": [
+     "a slatted wooden bin",
+     "a heap of organic waste inside"
+    ],
+    "must_not": [
+     "a lid",
+     "tools",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "clothesline",
+   "object": "clothesline",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a washing line between two posts, with linen",
+   "size": [
+    120.0,
+    12.0,
+    72.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a washing line between two posts, with linen.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A washing line as ONE solid object: two stout wooden posts about 6 ft tall, each with a short cross arm at the top, 10 ft apart, joined by ONE very thick rope, with a row of washing hanging from it that nearly fills the span and touches edge to edge: a big cream bed sheet, a shirt, a red-brown skirt, two cloths. The cloth hangs as thick, stiff, heavy slabs with a few deep folds, reaching about half-way to the ground. Seen from the broad side. Real-world size about 120 in wide x 12 in deep x 72 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "two posts joined by a line hung with a row of washing",
+    "must": [
+     "two posts",
+     "several pieces of cloth hanging in a row"
+    ],
+    "must_not": [
+     "a basket",
+     "a person",
+     "blue cloth",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "watering-can",
+   "object": "watering-can",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a clay watering pot",
+   "size": [
+    12.0,
+    7.0,
+    10.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a clay watering pot.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A medieval clay watering pot: a rounded terracotta jug about 10 in tall with one thick loop handle on the side and a short thick spout ending in a pierced rose. Chunky and simple. Real-world size about 12 in wide x 7 in deep x 10 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a terracotta watering pot with one handle and a spout",
+    "must": [
+     "one handle",
+     "one spout"
+    ],
+    "must_not": [
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "spade-garden",
+   "object": "spade-garden",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a garden spade",
+   "size": [
+    40.0,
+    7.0,
+    3.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a garden spade.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A garden spade lying flat: a thick honey-wood shaft with a T-shaped grip at the top and a broad, chunky dark iron blade with a bright edge. Deliberately thick and toy-like so it reconstructs in 3D. Real-world size about 40 in wide x 7 in deep x 3 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a single garden spade with a T grip and a flat iron blade",
+    "must": [
+     "one spade"
+    ],
+    "must_not": [
+     "soil",
+     "other tools",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "rake",
+   "object": "rake",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a wooden rake",
+   "size": [
+    60.0,
+    16.0,
+    3.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a wooden rake.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A wooden hay rake lying flat: a thick honey-wood handle about 5 ft long with a thick cross head carrying EIGHT short chunky wooden teeth. Deliberately thick and toy-like so it reconstructs in 3D. Real-world size about 60 in wide x 16 in deep x 3 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a single wooden rake with a cross head of teeth",
+    "must": [
+     "one rake"
+    ],
+    "must_not": [
+     "hay",
+     "other tools",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "hoe",
+   "object": "hoe",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a garden hoe",
+   "size": [
+    56.0,
+    7.0,
+    3.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a garden hoe.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A garden hoe lying flat: a thick honey-wood handle about 4.5 ft long with a chunky dark iron blade set at a right angle at one end. Deliberately thick and toy-like so it reconstructs in 3D. Real-world size about 56 in wide x 7 in deep x 3 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a single garden hoe with a blade at a right angle to the handle",
+    "must": [
+     "one hoe"
+    ],
+    "must_not": [
+     "soil",
+     "other tools",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  },
+  {
+   "id": "trowel-garden",
+   "object": "trowel-garden",
+   "group": "garden",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a garden trowel",
+   "size": [
+    11.0,
+    3.0,
+    2.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a garden trowel.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A garden trowel lying flat: a short fat turned wooden grip and a chunky, scoop-shaped dark iron blade with a bright edge. Hand-sized, thick and simple. Real-world size about 11 in wide x 3 in deep x 2 in tall: keep these proportions. It stands on nothing: NO ground disc, NO grass patch, NO soil mound, NO rocks, NO base slab or platform under it. The background is flat chroma blue, so the object itself has NO blue anywhere (no blue flowers, berries or cloth). Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a single garden hand trowel",
+    "must": [
+     "one trowel with a short handle and a scoop blade"
+    ],
+    "must_not": [
+     "soil",
+     "other tools",
+     "a ground disc, grass patch, soil mound or base slab under the object"
+    ]
+   }
+  }
+ ]
+}

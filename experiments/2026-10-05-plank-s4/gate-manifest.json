@@ -1,0 +1,72 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "wall-straight--rough-timber--s4": {
+   "id": "wall-straight--rough-timber--s4",
+   "group": null,
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-plank-s4/work/wall-straight--rough-timber--s4.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden panel with vertical planks and two horizontal crossbeams, rendered against a plain blue background.",
+      "ok": false,
+      "problems": [
+       "Both side edges must be straight vertical cuts without a slotted post structure on the edge."
+      ],
+      "blind": {
+       "what_i_see": "A stylized wooden panel with vertical planks and two horizontal crossbeams, rendered against a plain blue background.",
+       "details": "There is no text, labels, or watermarks. The image features a single object: a stylized wooden panel, door, or shutter. It consists of five vertical wooden planks backed or framed together, reinforced by two horizontal wooden battens (one near the top and one near the bottom). Each horizontal batten is fastened with two square, bluish-grey metal bolts, totaling four visible bolts. The left edge shows a slotted, double-layered wooden post structure. The object is depicted whole and uncropped, positioned at a three-quarter angle. The material is painted light brown/amber wood with visible grain and knots, and the background is a solid, uniform vivid blue with no floor, scenery, or shadows cast outside the object.",
+       "reference_differences": [
+        "The candidate image lacks the diagonal cross-brace present in the reference image.",
+        "The candidate image has four metal bolts in total (two on each horizontal batten), whereas the reference image has six metal bolts (including two securing the diagonal brace).",
+        "The candidate image features circular wood knots painted on the second plank from the right, whereas the reference image shows primarily straight, linear grain without prominent knots."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-plank-s4/work/wall-straight--rough-timber--s4.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized cartoon-like vertical wooden panel or door made of brown vertical planks and two horizontal crossbeams secured with iron bolts, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized cartoon-like vertical wooden panel or door made of brown vertical planks and two horizontal crossbeams secured with iron bolts, set against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. There is one isolated object: a rectangular wooden panel, barrier, or shutter, possibly a door or crate wall. It consists of five vertical planks aligned side-by-side, reinforced by two horizontal crossbars (one near the top edge and one near the bottom edge). Each horizontal crossbar is fastened with two small square, bluish-grey metal bolts or nails, making a total of four bolts. The panel shows thick edges on the left, revealing a two-layer plank construction. The material is rendered in a clean, hand-painted digital style with warm medium-brown wood tones, visible wood grain streaks, and round knots. The object is completely intact and not cropped. It floats centered against a plain, flat, uniform bright blue background with no floor, scenery, or cast shadows.",
+       "reference_differences": [
+        "The candidate image lacks the diagonal wooden brace that connects the bottom left to the upper right in the reference image.",
+        "The candidate image has only four square bolts (two on the top bar, two on the bottom bar), whereas the reference image has five bolts including those securing the diagonal brace.",
+        "The candidate planks feature distinct round wood knots on the front surface, which are absent in the reference image.",
+        "The left side profile of the candidate shows two solid parallel plank layers, whereas the reference image has a hollow vertical slot/recess carved into the side."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3232,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9964,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8501,
+   "tokens_out": 3537,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

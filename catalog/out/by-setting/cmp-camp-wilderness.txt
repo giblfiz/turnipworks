@@ -1,0 +1,337 @@
+CMP — camp-wilderness: 335 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  bedroll                    [floor/1x2] camps; floor of a cheap room
+! P1  campfire                   [ground/1] camps, bandit ruins
+! P1  cooking-tripod             [floor/sub] over campfires
+! P1  log-seat                   [ground/1x2] around a campfire
+! P1  tent-small                 [ground/1x2] camps
+! P1  rural-bear-trap-open       [floor/tiny] hidden in leaves
+! P1  rural-pelts-hanging-line   [wall/1x2] trapper camps
+! P1  rural-smoke-rack-meat      [ground/1] jerky over coals
+! P1  mil-campaign-chest         [floor/sub] officer's tent
+! P1  mil-spear-tripod           [ground/sub] camp weapon stacks
+! P2  tent-military              [ground/2x2] war camps; command tent
+! P2  rug-wolfskin               [floor/1] hunters' cabins, mercenary rooms
+! P2  hide-stretched             [floor/1] hunters' camps, tanners
+! P3  spit-small-campfire        [floor/sub] travellers' supper
+  P1  floor-earth-bare           [ground/1] barns and stables under hay and mud scatter
+  P1  floor-earth-packed         [ground/1] barns, privies, hovels
+  P1  wall-cave-rough            [kit/edge] mines and caves; hides the grid
+  P1  decal-grass-tuft           [ground/sub] scattered over floor-grass so a lawn is not one flat green; generated 2026-10-05 (4 shapes)
+  P1  decal-grass-worn           [ground/sub] scattered thinly over floor-grass; generated 2026-10-05 (3 shapes)
+  P1  decal-path-worn            [ground/sub] laid along the yard's door-to-gate path; the yard grammar lays it by itself once it exists; generated 2026-10-05
+  P1  floor-grass                [ground/1] the yard's default ground; generated 2026-10-05 (4 variants)
+  P1  hearth-central             [floor/1] center of a one-room cottage
+  P1  torch-stand                [floor/sub] doorways, yards, halls; charred unlit torch head, engine fire FX adds the flame
+  P1  cauldron                   [floor/sub] kitchen, witch's hut, alchemist
+  P1  dice-and-cup               [surface/tiny] gambling tables; guard rooms
+  P1  woodpile                   [floor/1] by the hearth or outside wall
+  P1  banner-pole                [floor/sub] heraldry and camps
+  P1  training-dummy             [floor/sub] courtyards, barracks
+  P1  cage-floor                 [floor/1] menageries, slavers' camps
+  P1  shrine-wayside             [floor/1] back to a wall; the engine may light the candles
+  P1  decal-dirt-patch           [ground/sub] scatter on earth floors; breaks up repetition
+  P1  rug-hay-scatter            [floor/1] stables, barns, byres; breaks up dirt floors
+  P1  rug-sheepskin              [floor/sub] bedside, by the fire
+  P1  grass-tall                 [ground/sub] ruin overgrowth, fields
+  P1  mushrooms-giant            [ground/sub] underground gardens; glowing variant
+  P1  rock-outcrop               [ground/2x2] mine entrances, overlooks
+  P1  tree-conifer               [ground/1] mountain mines, forests
+  P1  tree-deciduous             [ground/2x2] exteriors; the ground plane's anchor
+  P1  fx-fog-volume              [floor/2x2] graveyards, swamps
+  P1  boulder-pile               [floor/1] caves, cave mouths, passages that wind
+  P1  bunk-crude                 [floor/1x2] warrens; the tribe sleeps in heaps
+  P1  cage-sacrifice             [floor/1] the rescue beat
+  P1  gnawed-carcass             [floor/1] something big ate here
+  P1  log-hollow                 [ground/1x2] hiding spots, burrows
+  P1  carcass-ribcage            [floor/1x2] the den's larder; fat ribs
+  P1  cup-wooden                 [surface/tiny] peasant tables, camps
+  P1  axe-hand                   [surface/tiny] warriors, raiders
+  P1  bow-short                  [surface/tiny] hunters, scouts
+  P1  quiver-arrows              [surface/tiny] pairs with any bow
+  P1  shield-round               [surface/sub] raiders, hall walls
+  P1  spear                      [surface/sub] guards, hunters
+  P1  bramble-thicket            [ground/1] difficult terrain
+  P1  branches-fallen            [ground/sub] forest floor clutter
+  P1  bush-berry                 [ground/sub] foraging, druid gardens
+  P1  cave-mouth                 [kit/2x2] the transition from outside to under
+  P1  cliff-face                 [kit/edge] elevation changes outdoors
+  P1  dirt-path-tile             [ground/1] roads between places
+  P1  fern-cluster               [ground/sub] forest floor, damp ruins
+  P1  goblin-hut                 [ground/2x2] goblin/kobold warrens aboveground
+  P1  grave-marker-wood          [ground/tiny] paupers' graves, battlefield burials
+  P1  hide-drying-rack           [ground/1] hunters, goblin camps
+  P1  hill-mound-terrain         [ground/2x2] breaks flat ground
+  P1  leaf-litter                [ground/1] seasonal dressing; hides pressure plates
+  P1  mushroom-ring-small        [ground/tiny] woodland scatter
+  P1  spike-palisade-crude       [kit/edge] orc and goblin camps
+  P1  tree-birch                 [ground/1] light woodland; cluster 3–5
+  P1  tree-burnt                 [ground/1] raided villages, dragon country
+  P1  tree-oak-great             [ground/3x3] village greens, grove edges; hang a swing or a body
+  P1  wagon-wreck                [ground/2x3] ambush aftermath
+  P1  watchtower-wood            [ground/1] borders, camps, goblin forts
+  P1  flask-pilgrim              [surface/tiny] roads to shrines
+  P1  plate-wood-round           [surface/tiny] cottage table
+  P1  pot-iron-large             [surface/tiny] feeding a garrison
+  P1  spoon-horn                 [surface/tiny] herders and travellers
+  P1  tankard-dented             [surface/tiny] veteran's tankard
+  P1  axe-woodcutter             [floor/tiny] woodpiles, stumps
+  P1  bear-trap                  [floor/sub] sprung vs set
+  P1  caltrops-scatter           [floor/1] difficult terrain
+  P1  iron-spikes                [surface/tiny] spike doors shut
+  P1  manacles-loose             [floor/tiny] the prisoner escaped
+  P1  splint-wooden              [surface/tiny] infirmaries
+  P1  triptych-portable          [surface/tiny] traveling priests
+  P1  smith-charcoal-sack        [floor/tiny] against the forge wall
+  P1  craft-hide-drying-hung     [ceiling/1x2] drying lofts
+  P1  craft-hide-raw-folded      [floor/sub] trappers' delivery
+  P1  trade-cautery-iron         [surface/tiny] battlefield surgery
+  P1  rural-antlers-shed         [surface/tiny] forest floor finds
+  P1  rural-bait-pot             [surface/tiny] fisher's kit
+  P1  rural-fish-trap-basket     [floor/tiny] shallows, hut walls
+  P1  rural-fishing-rod-leaning  [wall/tiny] riverbanks, cottage walls
+  P1  rural-game-bag             [surface/tiny] hunters' gear
+  P1  rural-nosebag              [surface/tiny] travellers
+  P1  rural-oars-pair            [floor/tiny] leaning by boats
+  P1  rural-pelt-wolf            [surface/tiny] trappers' cabins, markets
+  P1  rural-skinning-board       [floor/sub] trapper cabin
+  P1  rural-trail-cairn          [ground/tiny] wilderness wayfinding
+  P1  mil-arrow-sheaf            [surface/tiny] resupply, wall-walks
+  P1  mil-field-desk             [floor/sub] command tent
+  P1  mil-footlocker             [floor/sub] foot of every bunk
+  P1  mil-guard-lantern          [surface/tiny] night watch; shutters make it a cue
+  P1  mil-map-case               [surface/tiny] officer's kit
+  P1  mil-pavise                 [floor/sub] portable full cover for archers
+  P1  mil-pell                   [ground/sub] sword drill
+  P1  mil-ration-crate           [floor/sub] supply dumps
+  P1  mil-shield-stack           [floor/sub] armories, camp corners
+  P1  mil-siege-ladder           [wall/1x2] against the battlements
+  P1  mil-signal-beacon          [ground/sub] light the beacons
+  P1  mil-signal-flag            [floor/sub] wall towers, field camps
+  P2  gate-double-timber         [kit/2x2] courtyard and town gates
+  P2  floor-sand-training        [ground/1] training yards and tilt yards; scuffed with footprints
+  P2  roofing-shingle-wood       [kit/1] middle-wealth and woodland roofs
+  P2  floor-grass-worn           [ground/1] busy yards, paddocks; generated 2026-10-05
+  P2  fire-ring-iron             [floor/1] yards and camps; logs and grey ash, no fire, engine fire FX adds it
+  P2  firepit-log-spit           [floor/1x2] yards, camps, feast nights; empty spit, cold logs and ash, engine fire FX adds the fire
+  P2  firepit-stone-round        [floor/1] centre of a hall or yard; logs and grey ash, no fire, engine fire FX adds it
+  P2  cauldron-crane             [floor/1] the middle of a castle kitchen, or the courtyard on a feast day; generated unlit, engine fire FX adds the fire
+  P2  trunk-travel               [floor/sub] guests' luggage
+  P2  brazier-tripod             [floor/sub] warmth and ritual; cold charcoal and ash, no fire, engine fire FX adds it
+  P2  game-brace-hanging         [ceiling/tiny] hunting lodges, cottage doors, poachers
+  P2  pig-on-spit                [floor/1x2] feast prep; bandit camps
+  P2  pot-hook-tripod            [floor/sub] over the cottage's open hearth; legs drawn stout
+  P2  chopping-block             [floor/sub] yards
+  P2  mil-footlocker-open        [floor/sub] open state of mil-footlocker; searched
+  P2  rug-bearskin               [floor/1x2] lodges, lords' hearths
+  P2  signpost                   [ground/sub] crossroads, village edges
+  P2  wagon                      [ground/2x3] caravans, stable yards
+  P2  woodpile-long              [ground/1x2] runs along an outside wall in place of two short stacks side by side
+  P2  log-fallen                 [ground/1x2] forest cover
+  P2  tree-dead                  [ground/1] spooky exteriors
+  P2  totem-skull                [ground/sub] tribal borders, lair warnings
+  P2  bundle-wrapped             [floor/tiny] caravans, smugglers
+  P2  cart-merchant-covered      [ground/1x2] traveling traders; the peddler's wagon
+  P2  hide-stretching-frame      [floor/1] tanners, hunters' camps
+  P2  rowboat-beached            [ground/1x2] lakes and rivers without a full docks pack
+  P2  arrows-stuck               [floor/sub] aftermath of an ambush
+  P2  banner-standard-war        [floor/sub] captured standards, trophies
+  P2  bow-long                   [surface/sub] archers on the wall
+  P2  club-spiked                [surface/tiny] goblin and ogre lairs
+  P2  eggs-monster               [floor/sub] clutch that shouldn't hatch
+  P2  grappling-hook             [surface/tiny] heist gear
+  P2  healer-kit                 [surface/tiny] field hospitals
+  P2  helm-horned                [surface/tiny] raiders and warlords
+  P2  horns-pair                 [surface/tiny] trophies, alchemy stock
+  P2  pack-saddlebags            [floor/tiny] stable yards, camps
+  P2  pelts-stack                [floor/sub] fur traders, trappers
+  P2  playing-cards              [surface/tiny] gambling scenes
+  P2  rations-bundle             [surface/tiny] travellers' food
+  P2  shield-crude               [surface/sub] monster warbands
+  P2  spear-bundle               [floor/sub] armories, war camps
+  P2  sword-curved               [surface/tiny] foreign traders, pirates, desert guests
+  P2  boardwalk                  [kit/1] swamp paths, lizardfolk villages
+  P2  bog-tile                   [ground/1] swamps; difficult terrain
+  P2  bridge-rope                [kit/1x3] chasm crossings; cut the ropes
+  P2  cliff-corner-inner         [kit/edge] canyons, quarries
+  P2  cliff-corner-outer         [kit/edge] pairs with cliff-face
+  P2  mud-patch                  [ground/1] difficult terrain after rain
+  P2  plank-bridge               [kit/1x2] improvised crossings
+  P2  reeds                      [ground/sub] water edges; hide in them
+  P2  rock-slab-flat             [ground/1] stepping stones, natural tables
+  P2  scree-slope                [ground/1x2] difficult terrain
+  P2  stream-bank                [kit/edge] rivers are banks plus fx-water-surface
+  P2  stream-bend                [kit/edge] meanders
+  P2  waterfall-small            [ground/1x2] the cave behind the falls; pair with fx-water-surface
+  P2  bottle-wicker              [surface/tiny] travellers' wine
+  P2  cup-leather                [surface/tiny] tar-lined; soldiers
+  P2  cutlery-roll               [surface/tiny] a traveller's own set
+  P2  dutch-oven                 [surface/tiny] buried in coals
+  P2  flask-hip                  [surface/tiny] the guard's secret
+  P2  griddle-iron               [surface/tiny] flatbreads, oatcakes
+  P2  kettle-hanging             [attach/tiny] over the hearth
+  P2  ladle-wooden               [surface/tiny] peasant pots
+  P2  plate-tin-camp             [surface/tiny] soldiers and miners
+  P2  wineskin-full              [surface/tiny] travellers
+  P2  berries-basket             [surface/tiny] foragers, fey tables
+  P2  bone-meaty                 [surface/tiny] ogre and dog food
+  P2  chicken-half-eaten         [surface/tiny] interrupted meals; ogre tables
+  P2  fish-string                [surface/tiny] anglers
+  P2  meat-skewers               [surface/tiny] street food, camps
+  P2  mushroom-cluster-edible    [surface/tiny] foragers
+  P2  pasty                      [surface/tiny] miners' lunch; rations
+  P2  ribs-roasted               [surface/tiny] feast and tavern fare
+  P2  soup-cauldron-full         [floor/sub] big kitchens, army camps
+  P2  venison-haunch             [surface/tiny] hunting feast
+  P2  die-single                 [surface/tiny] shapes include a d20, for the table joke
+  P2  drum-war                   [floor/sub] warbands; the drums in the deep
+  P2  hat-wide-brim              [surface/tiny] pegs, tables
+  P2  scabbard-empty             [surface/tiny] the sword is missing
+  P2  tripwire                   [floor/1] GM-hidden trap trigger
+  P2  smith-forge-portable       [floor/1] army camps; travelling tinkers
+  P2  smith-tinker-pack          [floor/tiny] wandering tinker NPC's kit
+  P2  craft-fur-pelts-bundle     [floor/sub] trading post goods
+  P2  craft-rope-coil-thin       [surface/tiny] light cord
+  P2  craft-wheel-broken         [floor/1] roadside, wrecks, repair queue
+  P2  trade-hardtack-crate       [floor/sub] adventurer rations
+  P2  rural-antlers-rack         [wall/sub] lodges, taverns
+  P2  rural-hunting-blind        [ground/1] ambush spot
+  P2  rural-pelt-bear            [floor/1] chief's hall, hunting lodge
+  P2  rural-saddle-pack          [floor/sub] caravans, mines
+  P2  rural-tracks-trail-decal   [floor/1] tracking checks
+  P2  rural-trap-deadfall        [ground/sub] ranger ambushes
+  P2  rural-trap-pit-covered     [floor/1] goblin trails
+  P2  mil-battering-ram          [floor/1x2] doors are negotiable
+  P2  mil-battlefield-debris     [ground/1] the day after
+  P2  mil-cheval-de-frise        [ground/1x2] road blocks, breach plugs
+  P2  mil-dispatch-sealed        [surface/tiny] intercepted orders
+  P2  mil-mantlet                [ground/1] advance under fire
+  P3  doorway-curtain            [kit/edge] cheap privacy; blocks sight only
+  P3  ladder-rope                [wall/edge] pits and escapes
+  P3  wall-palisade              [kit/edge] frontier forts, bandit camps
+  P3  floor-grass-meadow         [ground/1] gardens and orchards; generated 2026-10-05
+  P3  faldstool                  [floor/sub] commanders' tents
+  P3  deer-dressed               [ground/1] hunting lodges, woodsman's yard
+  P3  catapult                   [ground/2x2] siege camps
+  P3  stakes-sharpened           [ground/1] field defenses
+  P3  bridge-small               [ground/1x2] streams
+  P3  lean-to                    [ground/1x2] wilderness
+  P3  milestone                  [ground/tiny] roads
+  P3  bridge-post-rope           [floor/sub] stands in pairs at the ends of a chasm crossing
+  P3  basket-lidded              [floor/tiny] picnics, pantries
+  P3  drying-racks-fish          [ground/1x2] fishing villages
+  P3  fishing-rods-rack          [wall/sub] riverside cottages
+  P3  hides-stack                [floor/sub] store rooms
+  P3  smokehouse                 [ground/1] fish and meat curing
+  P3  still-copper               [floor/1] spirits; smugglers' hideouts
+  P3  bandages-bloody            [surface/tiny] infirmary aftermath
+  P3  bedroll-tied               [surface/tiny] strapped to packs
+  P3  climbing-kit               [surface/tiny] cliff and shaft descents
+  P3  compass                    [surface/tiny] navigators, map tables
+  P3  drum-hand                  [surface/sub] bard's corner, tribal camps
+  P3  fang-necklace              [surface/tiny] warlord ornament
+  P3  feathers-giant             [surface/tiny] roc nests, quills of power
+  P3  horn-hunting               [wall/tiny] hunting lodges
+  P3  javelins                   [surface/sub] skirmishers
+  P3  knives-throwing            [surface/tiny] rogue kit
+  P3  sling-and-stones           [surface/tiny] shepherds, halfling kit
+  P3  spyglass                   [surface/tiny] scouts, captains
+  P3  tarot-spread               [surface/tiny] seer's tent
+  P3  tusks                      [floor/sub] great-beast trophies
+  P3  bones-animal-skull         [ground/tiny] wasteland markers
+  P3  cliff-ledge                [kit/1] ambush perches
+  P3  ford-stones                [ground/1x2] road-meets-river
+  P3  ice-floor-tile             [kit/1] ice caves; difficult terrain
+  P3  icicles-hanging            [ceiling/sub] ice caves, frost-giant lairs
+  P3  rock-spire                 [ground/1] badlands, lair approaches
+  P3  roots-surface              [ground/1] trip hazards
+  P3  sinkhole                   [ground/1] entrance to what's below
+  P3  snow-drift                 [ground/1] winter scenes
+  P3  snow-patch                 [ground/1] winter dressing
+  P3  tree-palm                  [ground/1] warm-coast outliers; cheap genre stretch
+  P3  tree-roots-exposed         [ground/2x2] burrow entrances
+  P3  tree-sapling               [ground/sub] clearings, replanted fields
+  P3  tree-snowladen             [ground/1] winter mountains
+  P3  bowl-drinking-wood         [surface/tiny] shared by herders
+  P3  bowl-tin-camp              [surface/tiny] mess kit
+  P3  canteen-wood               [surface/tiny] soldier's water
+  P3  cauldron-overturned        [floor/sub] abandoned camps; lair debris
+  P3  cup-horn                   [surface/tiny] shepherds, soldiers
+  P3  cup-of-mead                [surface/tiny] druid feasts, halls
+  P3  cup-tin-camp               [surface/tiny] miners and campaigners
+  P3  flask-flat-pewter          [surface/tiny] smuggler's pocket
+  P3  flask-of-spirits           [surface/tiny] courage in a bottle
+  P3  gourd-water                [surface/tiny] druids and herders
+  P3  horn-drinking-rough        [surface/tiny] warband drinking
+  P3  knife-bone-handle          [surface/tiny] cottage and camp tables
+  P3  mess-kit                   [surface/tiny] in a backpack
+  P3  pan-skillet-footed         [surface/tiny] sits in coals
+  P3  pot-dented-camp            [surface/tiny] over a campfire
+  P3  skewer-iron                [surface/tiny] meat on skewers
+  P3  spoon-bone                 [surface/tiny] goblin camps, poor homes
+  P3  tankard-horn               [surface/tiny] hunters' lodge
+  P3  beans-bowl                 [surface/tiny] camp fare
+  P3  biscuits-hard              [surface/tiny] rations, sieges
+  P3  blackberry-handful         [surface/tiny] hedgerow forage
+  P3  bread-flatbread            [surface/tiny] campfires, travellers
+  P3  bread-long-loaf-torn       [surface/tiny] mid-meal
+  P3  egg-fried-pan              [surface/tiny] breakfast scenes
+  P3  elven-waybread             [surface/tiny] rations for long roads
+  P3  jerky-bundle               [surface/tiny] rations
+  P3  kebab-grill                [surface/tiny] street vendor
+  P3  monster-egg-cooked         [surface/tiny] exotic tavern special
+  P3  rabbit-roast               [surface/tiny] poachers' supper
+  P3  sausages-pan               [surface/tiny] breakfast
+  P3  alarm-bells-string         [wall/1] camp perimeters
+  P3  baldric-sword              [surface/tiny] barracks, guest rooms
+  P3  bindle                     [floor/tiny] wanderers, runaways
+  P3  bird-trap                  [ground/tiny] fowlers
+  P3  creel-basket               [surface/tiny] riverbanks
+  P3  eyepatch                   [surface/tiny] ruffian dressing
+  P3  fishing-rod                [floor/tiny] riverbanks
+  P3  gambeson-folded            [surface/tiny] barracks chests
+  P3  kindling-bundle            [floor/tiny] hearthside
+  P3  knucklebones               [surface/tiny] guard rooms
+  P3  lodestone                  [surface/tiny] navigation, curiosity cabinets
+  P3  pannier-bag                [floor/tiny] dropped from a horse
+  P3  rabbit-snare               [ground/tiny] poachers
+  P3  runestones-bag             [surface/tiny] seers
+  P3  saddle                     [floor/sub] dropped after a long ride
+  P3  stretcher                  [floor/1x2] battlefields, infirmaries
+  P3  tambourine                 [surface/tiny] performers
+  P3  tether-stake               [ground/tiny] camps, pastures
+  P3  tobacco-pouch              [surface/tiny] beside pipes
+  P3  smith-stake-anvil          [floor/sub] field forges
+  P3  craft-felt-sheet-rolled    [surface/tiny] nomad tents, hats
+  P3  craft-fur-pelt-single      [surface/tiny] wolf, fox, beaver
+  P3  craft-totem-blank-log      [ground/sub] village carver's yard
+  P3  craft-waterskin-new        [surface/tiny] outfitter
+  P3  craft-whittling-stool      [floor/sub] porch loafer
+  P3  trade-plane-table          [floor/sub] field mapping
+  P3  rural-boar-tusk-trophy     [wall/tiny] lodge walls
+  P3  rural-coracle              [ground/1] riverbank fishers
+  P3  rural-creel-full           [surface/tiny] end of the day
+  P3  rural-decoy-duck           [surface/tiny] marsh blinds
+  P3  rural-drag-sledge          [ground/1x2] hauling kills home
+  P3  rural-fishing-spear        [wall/tiny] reed-bed fishers
+  P3  rural-hunting-spear        [wall/tiny] lodge walls
+  P3  rural-net-cast             [surface/tiny] riverbanks
+  P3  rural-pelt-deer            [surface/tiny] tanning stock
+  P3  rural-pelt-fox             [surface/tiny] fur trader stock
+  P3  rural-pelt-rabbit-bundle   [surface/tiny] poachers
+  P3  rural-powder-horn          [surface/tiny] blasting and hunting
+  P3  rural-scent-lure-jar       [surface/tiny] trapper supplies
+  P3  rural-skinning-knife       [surface/tiny] next to pelts
+  P3  rural-snare-wire           [ground/tiny] game trails
+  P3  rural-tackle-box           [surface/tiny] fisher's hut
+  P3  rural-trap-box-rabbit      [ground/tiny] hedgerows
+  P3  rural-tree-snare-bent      [ground/sub] hoist traps
+  P3  bard-lute-case             [floor/sub] smuggling in plain sight
+  P3  bard-players-wagon         [ground/2x3] the troupe arrives
+  P3  mil-catapult-stones        [ground/sub] beside siege engines
+  P3  mil-helmet-stew            [floor/tiny] soldiers' supper
+  P3  mil-prisoner-yoke          [surface/sub] slavers and war camps
+  P3  mil-ram-covered            [ground/2x3] castle gate assault
+  P3  rite-pilgrim-staff         [wall/sub] pilgrims at the inn
+  P3  rite-prayer-flags          [wall/1x2] mountain shrines
+  P3  rite-teeth-string          [wall/tiny] orc camps, cannibal huts

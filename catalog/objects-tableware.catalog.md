@@ -1,0 +1,269 @@
+# Object-level tableware & kitchen — single meshes
+
+Harry 2026-09-30: small things are individual assets. Coarse roles (`bowl`, `plate`, `tankard`, …) in fantasy-core stay as recipe-level picks; these are the concrete meshes.
+
+## V. Tableware & kitchen — object level
+
+### V1. Cutlery & eating utensils
+- **spoon-bone** — small bone spoon · surface · tiny · size:1.2x5x0.8 · organic · set:HUT,CMP,LAI · var:- · aff:carry · thin · P3 · goblin camps, poor homes
+- **knife-cheese** — two-pronged cheese knife · surface · tiny · size:1x9x0.8 · metal · set:TAV,NOB,CAS · var:- · aff:carry · thin · P3 · cheese boards
+- **knife-bread** — long bread knife · surface · tiny · size:1.5x13x1 · metal · set:TAV,HUT,NOB,CAS · var:- · aff:carry · thin · P2 · on the bread board
+- **spoon-slotted** — slotted serving spoon · surface · tiny · size:3x13x1.5 · metal · set:TAV,CAS · var:- · aff:carry · thin · P3 · serving beans and peas
+- **ladle-silver** — silver punch ladle · surface · tiny · size:3.5x14x3 · metal · set:NOB! · var:- · aff:carry · thin · P3 · in the wassail bowl
+- **nutcracker** — iron nutcracker · surface · tiny · size:2x6x1 · metal · set:NOB,TAV,HUT · var:- · aff:carry · thin · P3 · winter tables
+- **sugar-nippers** — sugar nippers · surface · tiny · size:3x7x1 · metal · set:NOB,MKT · var:- · aff:carry · thin · P3 · beside the sugar cone
+- **mezzaluna** — two-handled herb chopper · surface · tiny · size:8x3x4 · metal · set:TAV,CAS,ARC · var:- · aff:carry · thin · P3 · herb board
+- **knife-table** — round-tipped table knife · surface · tiny · size:1x8x0.6 · metal · set:TAV,HUT,CAS,NOB · var:- · aff:carry · thin · P1 · beside every plate
+- **knife-belt** — pointed belt knife in a sheath · surface · tiny · size:1.5x10x1.2 · mixed · set:ANY · var:- · aff:carry · thin · P2 · everyone ate with their own
+- **knife-carving** — long carving knife · surface · tiny · size:1.5x13x1 · metal · set:TAV,CAS,NOB · var:- · aff:carry · thin · P1 · beside roasts on the high table
+- **knife-silver** — silver-handled dining knife · surface · tiny · size:1x9x0.7 · metal · set:NOB!,CAS · var:- · aff:carry · thin · P2 · noble place settings
+- **knife-bone-handle** — bone-handled knife · surface · tiny · size:1x8x0.8 · mixed · set:HUT,TAV,CMP · var:- · aff:carry · thin · P3 · cottage and camp tables
+- **cleaver** — heavy butcher's cleaver · surface · tiny · size:4x11x1 · metal · set:TAV,CAS,MKT,HUT · var:- · aff:carry · thin · P1 · stuck in a chopping board
+- **knife-paring** — small paring knife · surface · tiny · size:0.8x6x0.6 · metal · set:TAV,HUT,CAS · var:- · aff:carry · thin · P3 · prep tables
+- **fork-two-tine** — two-tined iron serving fork · surface · tiny · size:1x9x0.6 · metal · set:TAV,CAS,NOB · var:- · aff:carry · thin · P1 · carving and serving
+- **fork-silver** — small silver dining fork · surface · tiny · size:1x7x0.5 · metal · set:NOB! · var:- · aff:carry · thin · P2 · the aristocrat's affectation
+- **fork-toasting** — long toasting fork · surface · tiny · size:2x24x1 · metal · set:HUT,TAV · var:- · aff:carry · thin · P3 · leans by the hearth
+- **fork-flesh** — iron flesh-hook for the pot · surface · tiny · size:2x20x1 · metal · set:CAS,TAV · var:- · aff:carry · thin · P1 · fishing meat out of the cauldron
+- **spoon-wooden** — carved wooden spoon · surface · tiny · size:2x9x1 · wood · set:ANY · var:- · aff:carry · thin · P1 · every bowl gets one
+- **spoon-horn** — horn spoon · surface · tiny · size:2x7x1.5 · organic · set:HUT,CMP · var:- · aff:carry · thin · P1 · herders and travellers
+- **spoon-pewter** — pewter spoon · surface · tiny · size:1.6x7x0.8 · metal · set:TAV,CAS,MKT · var:- · aff:carry · thin · P1 · tavern and barracks bowls
+- **spoon-silver** — silver spoon with a knop finial · surface · tiny · size:1.6x7x0.8 · metal · set:NOB!,CAS · var:- · aff:carry · thin · P2 · noble settings; a thief's pocket
+- **spoon-apostle** — ornate gilt christening spoon · surface · tiny · size:1.8x7.5x1 · metal · set:NOB,TEM · var:- · aff:carry · thin · P1 · heirloom; plot object
+- **spoon-stirring-long** — long stirring spoon · surface · tiny · size:2.5x18x1.5 · wood · set:TAV,HUT,CAS,ARC · var:- · aff:carry · thin · P2 · in cauldrons and pots
+- **ladle** — iron ladle · surface · tiny · size:4x15x4 · metal · set:ANY · var:- · aff:carry · thin · P1 · hangs over the pot or rests in it
+- **ladle-wooden** — wooden ladle · surface · tiny · size:4x14x3.5 · wood · set:HUT,CMP · var:- · aff:carry · thin · P2 · peasant pots
+- **spatula-wooden** — wooden spatula · surface · tiny · size:3x13x0.8 · wood · set:TAV,HUT,CAS · var:- · aff:carry · thin · P3 · griddle work
+- **skimmer-iron** — pierced skimmer · surface · tiny · size:5x16x1.5 · metal · set:TAV,CAS · var:- · aff:carry · thin · P1 · castle kitchens
+- **tongs-kitchen** — kitchen tongs · surface · tiny · size:2x12x1.5 · metal · set:TAV,HUT,CAS · var:- · aff:carry · thin · P3 · hearthside
+- **skewer-iron** — iron skewer · surface · tiny · size:0.6x14x0.6 · metal · set:TAV,CAS,CMP · var:- · aff:carry · thin · P3 · meat on skewers
+- **skewers-bundle** — bundle of skewers · surface · tiny · size:2x14x2 · metal · set:TAV,CAS · var:- · aff:carry · thin · P3 · in a jar by the hearth
+- **chopsticks-bone** — pair of bone eating sticks · surface · tiny · size:1x9x0.5 · organic · set:MKT,NOB · var:- · aff:carry · thin · P3 · a foreign traveller's kit
+- **cutlery-roll** — cloth roll of knife, spoon and fork · surface · tiny · size:3x10x2 · mixed · set:TAV,NOB,CMP · var:- · aff:carry · mesh · P2 · a traveller's own set
+- **cutlery-set-silver** — boxed silver cutlery set · surface · tiny · size:10x14x3 · mixed · set:NOB! · var:- · aff:carry,loot · mesh · P3 · wedding gift; loot
+
+### V2. Cups, mugs & drinking vessels
+- **cup-glass-green** — green forest-glass beaker with prunts · surface · tiny · size:3x3x4.5 · glass · set:NOB,TAV,MKT · var:- · aff:carry · mesh · P3 · a merchant's pride
+- **tankard-horn** — horn tankard with pewter base · surface · tiny · size:4x5x6 · mixed · set:TAV,CMP · var:- · aff:carry · mesh · P3 · hunters' lodge
+- **bowl-drinking-wood** — shallow wooden drinking bowl · surface · tiny · size:6x6x2.5 · wood · set:HUT,CMP · var:- · aff:carry · mesh · P3 · shared by herders
+- **mug-chipped** — chipped, cracked clay mug · surface · tiny · size:4x5x4.5 · ceramic · set:TAV,HUT,DUN · var:- · aff:carry · mesh · P1 · cheap tavern; prison
+- **tankard-dented** — dented pewter tankard · surface · tiny · size:4.5x6x6 · metal · set:TAV,CAS,CMP · var:- · aff:carry · mesh · P1 · veteran's tankard
+- **stein-stoneware** — lidded stoneware stein · surface · tiny · size:4.5x6x9 · ceramic · set:TAV,MKT · var:- · aff:carry · mesh · P3 · brewhouse souvenir
+- **cup-painted** — painted wooden cup · surface · tiny · size:3.5x3.5x4 · wood · set:HUT,MKT · var:- · aff:carry · mesh · P3 · festival cup
+- **wassail-bowl** — large wassail bowl on a foot · surface · sub · size:14x14x10~0.7-1.5 · wood · set:NOB,CAS,TAV · var:- · aff:carry · mesh · P3 · midwinter feasts
+- **cup-of-blood** — goblet of dark blood · surface · tiny · size:3.5x3.5x6.5 · mixed · set:CLT,CRY,LAI · var:- · aff:carry · mesh · P2 · the vampire's nightcap (Noctar)
+- **cup-clay** — plain clay cup · surface · tiny · size:3.5x3.5x3.5 · ceramic · set:HUT,TAV,MKT,SMI · var:- · aff:carry · mesh · P1 · the peasant's cup
+- **cup-pewter** — pewter cup · surface · tiny · size:3.5x3.5x4 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P1 · tavern and barracks
+- **cup-horn** — horn cup · surface · tiny · size:3x3x4 · organic · set:HUT,CMP,TAV · var:- · aff:carry · mesh · P3 · shepherds, soldiers
+- **cup-silver** — silver cup · surface · tiny · size:3.5x3.5x4.5 · metal · set:NOB!,CAS · var:- · aff:carry · mesh · P2 · noble table
+- **cup-gold** — gold cup · surface · tiny · size:3.5x3.5x4.5 · metal · set:NOB,CAS,LAI · var:- · aff:carry,loot · mesh · P3 · royal table; hoards
+- **cup-glass** — glass cup · surface · tiny · size:3x3x4 · glass · set:NOB,MKT · var:- · aff:carry · mesh · P2 · luxury; shatters in a brawl
+- **cup-leather** — leather drinking jack · surface · tiny · size:5x6x7 · organic · set:TAV,CMP · var:- · aff:carry · mesh · P2 · tar-lined; soldiers
+- **cup-tin-camp** — dented tin camp cup · surface · tiny · size:3.5x4.5x3.5 · metal · set:CMP,MIN · var:- · aff:carry · mesh · P3 · miners and campaigners
+- **cup-coconut** — mounted nut-shell cup · surface · tiny · size:4x4x7 · mixed · set:NOB,ARC,MKT · var:- · aff:carry · mesh · P3 · a curio cabinet exotic
+- **mug-glazed** — glazed stoneware mug · surface · tiny · size:4x5x4.5 · ceramic · set:TAV,HUT,MKT · var:- · aff:carry · mesh · P2 · second-best mug
+- **mug-wooden** — wooden mug with a handle · surface · tiny · size:4x5.5x4.5 · wood · set:TAV,HUT,MIN · var:- · aff:carry · mesh · P2 · stave-built; cheap
+- **mug-large** — oversized mug · surface · tiny · size:5.5x7x6.5 · ceramic · set:TAV,MKT · var:- · aff:carry · mesh · P3 · the regular's mug on its peg
+- **tankard-lidded** — lidded pewter tankard · surface · tiny · size:4.5x6.5x7 · metal · set:TAV!,CAS · var:- · aff:carry · mesh · P1 · thumb-lift lid; the tavern drink
+- **tankard-wooden** — stave-built wooden tankard · surface · tiny · size:5x6.5x7 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P2 · bands of iron; common rooms
+- **tankard-ornate** — engraved silver tankard · surface · tiny · size:4.5x6.5x7.5 · metal · set:NOB,CAS,MKT · var:- · aff:carry · mesh · P3 · trophies and toasts
+- **tankard-glass** — glass-bottomed tankard · surface · tiny · size:4.5x6.5x6.5 · mixed · set:TAV,MKT · var:- · aff:carry · mesh · P3 · see the knife coming
+- **flagon** — tall pewter flagon · surface · tiny · size:6x8x12~0.8-1.3 · metal · set:TAV!,CAS · var:- · aff:carry · mesh · P1 · serves a table from one pour
+- **goblet-silver** — silver goblet · surface · tiny · size:3.5x3.5x7 · metal · set:NOB!,CAS,TEM · var:- · aff:carry · mesh · P1 · feasts, toasts
+- **goblet-gold** — gold goblet with gems · surface · tiny · size:3.5x3.5x7 · metal · set:NOB,CAS,LAI · var:- · aff:carry,loot · mesh · P2 · royal table; hoards
+- **goblet-glass** — stemmed glass goblet · surface · tiny · size:3x3x7 · glass · set:NOB · var:- · aff:carry · mesh · P2 · delicate noble glassware
+- **goblet-wood** — turned wooden goblet · surface · tiny · size:3.5x3.5x6.5 · wood · set:HUT,TAV · var:- · aff:carry · mesh · P3 · peasant wedding cup
+- **goblet-bone** — skull-and-bone goblet · surface · tiny · size:4x4x6.5 · organic · set:CLT!,LAI · var:- · aff:carry · mesh · P2 · the warlord's toast
+- **chalice-altar** — gilt altar chalice · surface · tiny · size:4.5x4.5x8 · metal · set:TEM! · var:- · aff:carry · mesh · P1 · on the altar; holy ritual
+- **chalice-dark** — black iron cult chalice · surface · tiny · size:4.5x4.5x8 · metal · set:CLT!,CRY · var:- · aff:carry · mesh · P2 · poisoned wine; blood rites
+- **chalice-plain** — plain pewter chalice · surface · tiny · size:4x4x7 · metal · set:TEM,CRY · var:- · aff:carry · mesh · P1 · village chapel
+- **mazer** — wide maple drinking bowl with silver rim · surface · tiny · size:7x7x3 · mixed · set:NOB,TEM,CAS · var:- · aff:carry · mesh · P3 · a shared feast bowl
+- **quaich** — two-handled shallow drinking cup · surface · tiny · size:8x5x2.5 · metal · set:CAS,NOB · var:- · aff:carry · mesh · P3 · welcome cup at a hall door
+- **horn-drinking-banded** — silver-banded drinking horn · surface · tiny · size:4x14x5 · mixed · set:CAS,TAV,NOB · var:- · aff:carry · mesh · P2 · toast at a feast
+- **horn-drinking-rough** — rough ox horn cup · surface · tiny · size:4x12x4.5 · organic · set:CMP,LAI · var:- · aff:carry · mesh · P3 · warband drinking
+- **beaker-glass** — glass beaker · surface · tiny · size:3x3x4.5 · glass · set:ARC,MKT · var:- · aff:carry · mesh · P3 · lab or luxury
+
+### V3. Plates, bowls & serving
+- **plate-slate** — slate serving slab · surface · tiny · size:14x9x0.8 · stone · set:TAV,NOB · var:- · aff:carry · mesh · P3 · cheese board, hearthside
+- **bowl-soup-empty** — deep wooden soup bowl, empty · surface · tiny · size:6.5x6.5x3 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P1 · fill it from the food list (soup-bowl, stew-bowl)
+- **platter-board-handled** — handled wooden serving board · surface · tiny · size:9x18x1.2 · wood · set:TAV,HUT · var:- · aff:carry · mesh · P2 · cheese and bread boards
+- **dish-covered-pewter** — covered pewter dish · surface · tiny · size:10x10x5 · metal · set:CAS,NOB,TAV · var:open · aff:carry · mesh · P3 · keeps food warm
+- **trencher-stack** — stack of wooden trenchers · surface · tiny · size:8x8x6~0.6-1.5 · wood · set:TAV,CAS · var:- · aff:carry · mesh · P1 · servery shelves
+- **plate-tin-camp** — tin camp plate · surface · tiny · size:8x8x1 · metal · set:CMP,MIN,CAS · var:- · aff:carry · mesh · P2 · soldiers and miners
+- **bowl-tin-camp** — tin camp bowl · surface · tiny · size:6x6x2.5 · metal · set:CMP,MIN · var:- · aff:carry · mesh · P3 · mess kit
+- **mess-kit** — nested soldier's mess kit · surface · tiny · size:6x6x4 · metal · set:CMP,CAS · var:- · aff:carry · mesh · P3 · in a backpack
+- **bowl-painted** — painted ceramic bowl · surface · tiny · size:7x7x3 · ceramic · set:NOB,MKT · var:- · aff:carry · mesh · P3 · merchant's display
+- **egg-cup** — wooden egg cup · surface · tiny · size:2x2x2.5 · wood · set:HUT,NOB,TAV · var:- · aff:carry · mesh · P3 · breakfast
+- **sauce-boat** — pewter sauce boat · surface · tiny · size:4x8x3.5 · metal · set:NOB,CAS · var:- · aff:carry · mesh · P3 · gravy at feasts
+- **butter-dish** — covered butter dish · surface · tiny · size:6x6x3.5 · ceramic · set:HUT,NOB,TAV · var:open · aff:carry · mesh · P3 · breakfast table
+- **tray-wood-round** — round wooden tray · surface · tiny · size:14x14x1.5 · wood · set:TAV,HUT · var:- · aff:carry · mesh · P1 · the serving girl's tray
+- **tray-silver** — silver serving tray · surface · tiny · size:12x18x1.5 · metal · set:NOB! · var:- · aff:carry · mesh · P2 · servants carry wine on it
+- **tray-long-tavern** — long tray of mugs · surface · tiny · size:8x24x6 · wood · set:TAV · var:- · aff:carry · mesh · P1 · carry a round of six
+- **trencher-wood** — square wooden trencher · surface · tiny · size:8x8x1 · wood · set:TAV!,HUT,CAS · var:- · aff:carry · mesh · P1 · the common plate
+- **plate-wood-round** — round turned wooden plate · surface · tiny · size:9x9x1 · wood · set:HUT,TAV,CMP · var:- · aff:carry · mesh · P1 · cottage table
+- **plate-pewter** — pewter plate · surface · tiny · size:9x9x1 · metal · set:TAV,CAS,MKT · var:- · aff:carry · mesh · P1 · tavern and castle service
+- **plate-ceramic** — glazed earthenware plate · surface · tiny · size:9x9x1 · ceramic · set:TAV,HUT,MKT · var:- · aff:carry · mesh · P2 · merchant homes
+- **plate-silver** — silver plate · surface · tiny · size:10x10x0.8 · metal · set:NOB!,CAS · var:- · aff:carry · mesh · P2 · noble service
+- **plate-gold** — gold plate · surface · tiny · size:10x10x0.8 · metal · set:NOB,CAS,LAI · var:- · aff:carry,loot · mesh · P3 · royal; hoard dressing
+- **plate-painted** — painted display plate · surface · tiny · size:11x11x1 · ceramic · set:NOB,HUT · var:- · aff:carry · mesh · P3 · on the dresser rack
+- **plate-stack-wood** — stack of wooden plates · surface · tiny · size:9x9x6~0.6-1.5 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P2 · shelves, washing up
+- **plate-stack-pewter** — stack of pewter plates · surface · tiny · size:9x9x4~0.6-1.5 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P1 · shelves, dressers
+- **plate-broken** — broken plate pieces · surface · tiny · size:10x9x1 · ceramic · set:TAV,RUI,DUN,CLT · var:- · aff:- · mesh · P3 · after the brawl
+- **saucer-small** — small dish for salt or sauce · surface · tiny · size:4x4x1 · ceramic · set:NOB,TAV · var:- · aff:carry · mesh · P3 · beside the main plate
+- **bowl-wood-small** — small wooden bowl · surface · tiny · size:5x5x2.5 · wood · set:ANY · var:- · aff:carry · mesh · P1 · porridge, pottage
+- **bowl-wood-large** — large wooden mixing bowl · surface · tiny · size:14x14x6~0.8-1.3 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P2 · kitchen prep
+- **bowl-clay** — clay bowl · surface · tiny · size:6x6x3 · ceramic · set:HUT,TAV,MKT,SMI · var:- · aff:carry · mesh · P2 · the cottage bowl
+- **bowl-pewter** — pewter bowl · surface · tiny · size:6.5x6.5x2.5 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P2 · tavern stew
+- **bowl-silver** — silver bowl · surface · tiny · size:6.5x6.5x3 · metal · set:NOB! · var:- · aff:carry · mesh · P3 · noble service
+- **bowl-alms** — beggar's alms bowl · surface · tiny · size:6x6x3 · wood · set:TEM,MKT · var:- · aff:carry · mesh · P3 · temple steps
+- **bowl-stack** — stack of bowls · surface · tiny · size:7x7x6~0.6-1.5 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P2 · shelves
+- **porringer** — small two-eared porringer · surface · tiny · size:7x5x2.5 · metal · set:NOB,HUT · var:- · aff:carry · mesh · P3 · children's bowl
+- **platter-wood** — long wooden serving platter · surface · tiny · size:10x20x1.5 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P1 · bread and cheese boards
+- **platter-pewter-oval** — oval pewter platter · surface · tiny · size:12x18x1.5 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P1 · roasts to the table
+- **platter-silver** — silver serving platter · surface · tiny · size:12x18x1.5 · metal · set:NOB!,CAS · var:- · aff:carry · mesh · P1 · the feast centerpiece base
+- **platter-silver-domed** — silver platter with a dome cover · surface · tiny · size:12x18x9 · metal · set:NOB · var:open · aff:carry · mesh · P3 · the reveal at a banquet
+- **charger-brass** — large brass charger plate · surface · tiny · size:16x16x1.5 · metal · set:NOB,CAS · var:- · aff:carry · mesh · P1 · under the high-table plate
+- **tureen-pewter** — pewter soup tureen with lid · surface · tiny · size:13x10x10 · metal · set:TAV,CAS · var:open · aff:carry · mesh · P1 · on the table, ladle in
+- **tureen-ceramic** — ceramic tureen · surface · tiny · size:13x10x10 · ceramic · set:NOB,TAV · var:open · aff:carry · mesh · P3 · merchant tables
+- **serving-bowl-large** — large serving bowl · surface · tiny · size:12x12x5~0.8-1.3 · ceramic · set:TAV,CAS,NOB · var:- · aff:carry · mesh · P2 · salads, fruit, porridge
+- **bread-basket-cloth** — cloth-lined bread basket, empty · surface · tiny · size:12x9x5 · organic · set:TAV,NOB,HUT · var:- · aff:carry · mesh · P2 · fill from the food list
+- **cake-stand** — footed cake stand · surface · tiny · size:10x10x6 · metal · set:NOB · var:- · aff:carry · mesh · P3 · noble dessert
+- **salt-box** — wooden salt box · wall · tiny · size:6x5x8 · wood · set:HUT,TAV · var:open · aff:carry · mesh · P1 · hangs by the hearth
+- **salt-cellar-plain** — plain pewter salt · surface · tiny · size:3x3x2 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P2 · lower tables; "below the salt"
+- **salt-cellar-ship** — ornate ship-shaped salt (nef) · surface · tiny · size:6x14x12 · metal · set:NOB,CAS · var:- · aff:carry · mesh · P1 · marks the lord's place
+- **spice-box** — lockable spice box · surface · tiny · size:9x7x6 · wood · set:NOB,CAS,MKT · var:- · aff:carry,loot · mesh · P2 · spices were treasure
+- **cruet-set** — oil and vinegar cruets · surface · tiny · size:6x4x7 · glass · set:NOB,TAV · var:- · aff:carry · mesh · P3 · refined tables
+
+### V4. Pots, pans & cookware
+- **pot-dented-camp** — dented camp pot · surface · tiny · size:8x8x7 · metal · set:CMP,MIN · var:- · aff:carry · mesh · P3 · over a campfire
+- **cauldron-bronze-ritual** — bronze ritual cauldron on three feet · floor · sub · size:22x22x20~0.6-2 · metal · set:TEM,CLT,GRV · var:- · aff:use · mesh · P3 · offerings and oaths
+- **fish-kettle** — long fish kettle · surface · tiny · size:7x20x6 · metal · set:CAS,NOB · var:- · aff:carry · mesh · P3 · whole-fish poaching
+- **cauldron-overturned** — overturned rusted cauldron · floor · sub · size:24x24x20~0.6-2 · metal · set:RUI,CMP,LAI · var:- · aff:cover · mesh · P3 · abandoned camps; lair debris
+- **pot-shattered** — shattered clay pot · surface · tiny · size:12x10x5 · ceramic · set:RUI,DUN,TAV,CLT · var:- · aff:- · mesh · P3 · debris
+- **wafer-iron** — long-handled wafer iron · surface · tiny · size:5x30x2 · metal · set:TAV,NOB,MKT,CAS · var:- · aff:carry · thin · P3 · festival wafers
+- **pot-iron-small** — small three-legged iron pot · surface · tiny · size:8x8x8 · metal · set:ANY · var:- · aff:carry · mesh · P1 · in the embers
+- **pot-iron-large** — large iron stewpot · surface · tiny · size:14x14x13~0.8-1.5 · metal · set:TAV,CAS,CMP · var:- · aff:carry · mesh · P1 · feeding a garrison
+- **pot-clay** — clay cooking pot · surface · tiny · size:10x10x9 · ceramic · set:HUT,MKT · var:- · aff:carry · mesh · P2 · peasant cookery
+- **pot-copper** — copper stockpot · surface · tiny · size:12x12x11~0.8-1.5 · metal · set:CAS,NOB · var:- · aff:carry · mesh · P1 · castle kitchen shine
+- **pot-lidded** — iron pot with lid · surface · tiny · size:10x10x10 · metal · set:TAV,HUT,CAS · var:open · aff:carry · mesh · P2 · simmering
+- **cauldron-small** — small hanging cauldron · attach · tiny · size:12x12x11~0.8-1.5 · metal · set:HUT,TAV,ARC · var:- · aff:carry · mesh · P1 · over the fire on a chain
+- **cauldron-huge** — huge cauldron on legs · floor · 1 · size:40x40x36~0.7-1.8 · metal · set:CAS,CLT,ARC · var:- · aff:use,hazard · mesh · P1 · castle kitchen; witch's brew
+- **cauldron-witch** — bubbling witch's cauldron · floor · sub · size:26x26x24~0.7-1.8 · metal · set:ARC!,HUT,CLT · var:lit · aff:use,hazard,lit · mesh · P2 · green glow; pair with fx
+- **kettle-copper** — copper kettle · surface · tiny · size:8x11x9 · metal · set:NOB,TAV · var:- · aff:carry · mesh · P3 · shiny on the hob
+- **kettle-hanging** — kettle on a pot hook · attach · tiny · size:8x11x20 · metal · set:HUT,CMP,TAV · var:- · aff:carry · mesh · P2 · over the hearth
+- **pan-long-handle** — long-handled frying pan · surface · tiny · size:10x22x3 · metal · set:TAV,CAS,HUT · var:- · aff:carry · mesh · P1 · reaches into the hearth
+- **pan-skillet-footed** — footed skillet · surface · tiny · size:9x18x4 · metal · set:HUT,CMP · var:- · aff:carry · mesh · P3 · sits in coals
+- **griddle-iron** — iron griddle with bail handle · surface · tiny · size:13x13x9 · metal · set:HUT,TAV,CMP · var:- · aff:carry · mesh · P2 · flatbreads, oatcakes
+- **roasting-pan** — dripping pan · surface · tiny · size:11x20x3 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P3 · under the spit
+- **pie-dish** — pie dish · surface · tiny · size:10x10x2.5 · ceramic · set:TAV,HUT,NOB,CAS · var:- · aff:carry · mesh · P3 · fill with pie from the food list
+- **baking-tin** — baking tin · surface · tiny · size:8x12x3 · metal · set:TAV,MKT,CAS · var:- · aff:carry · mesh · P3 · bakery shelves
+- **bread-pan-clay** — clay bread pot · surface · tiny · size:9x9x7 · ceramic · set:HUT,MKT · var:- · aff:carry · mesh · P3 · domestic baking
+- **saucepan-copper** — copper saucepan · surface · tiny · size:7x14x5 · metal · set:CAS,NOB · var:- · aff:carry · mesh · P3 · sauces for the lord
+- **dutch-oven** — lidded iron camp oven · surface · tiny · size:12x12x8 · metal · set:CMP,TAV · var:open · aff:carry · mesh · P2 · buried in coals
+- **trivet** — iron trivet stand · surface · tiny · size:8x8x4 · metal · set:HUT,TAV,CAS · var:- · aff:carry · mesh · P3 · under hot pots
+- **pot-hook-chain** — pot crane hook and chain · attach · tiny · size:4x6x30 · metal · set:HUT,TAV · var:- · aff:- · thin · P1 · hangs from the hearth crane
+- **spit-jack** — spit and turning handle · attach · sub · size:20x48x30 · metal · set:TAV,CAS · var:- · aff:use · thin · P3 · replaces the spit on a hearth
+
+### V5. Kitchen tools
+- **sieve-wooden-drum** — wooden drum sieve · surface · tiny · size:12x12x4 · wood · set:TAV,HUT,MIN · var:- · aff:carry · mesh · P3 · sifting grain
+- **bellows-kitchen-small** — small kitchen fire-fan · surface · tiny · size:7x16x2 · organic · set:HUT,TAV · var:- · aff:carry · mesh · P3 · coaxing coals
+- **utensil-rack-wall** — wall rack of ladles, spoons and tongs · wall · sub · size:24x5x18 · metal · set:TAV,HUT,CAS · var:- · aff:- · thin · P1 · beside the hearth
+- **knife-rack-wall** — magnet-free wooden knife rack · wall · tiny · size:12x3x6 · wood · set:TAV,CAS · var:- · aff:- · thin · P1 · butcher and kitchen
+- **meat-hook-single** — single iron meat hook · ceiling · tiny · size:3x0.6x7 · metal · set:TAV,MKT,DUN,CAS · var:- · aff:carry · thin · P3 · beams, butchers, dungeons
+- **pastry-cutter** — pastry crimping wheel · surface · tiny · size:1.5x6x2 · mixed · set:TAV,NOB,CAS · var:- · aff:carry · thin · P3 · pie decoration
+- **bread-stamp** — carved bread stamp · surface · tiny · size:4x4x4 · wood · set:TEM,MKT,TAV,CAS · var:- · aff:carry · mesh · P3 · marked loaves
+- **spice-grinder-hand** — small hand quern for spice · surface · tiny · size:6x6x6 · stone · set:NOB,MKT,CAS · var:- · aff:carry · mesh · P1 · spice merchant
+- **rolling-pin** — wooden rolling pin · surface · tiny · size:3x18x3 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P2 · pastry table
+- **mortar-wood** — wooden mortar and pestle · surface · tiny · size:6x6x7 · wood · set:HUT,TAV · var:- · aff:carry · mesh · P3 · spice grinding
+- **mortar-large-stone** — big stone mortar on the floor · floor · sub · size:20x20x24~0.8-1.3 · stone · set:CAS,TAV,HUT · var:- · aff:use · mesh · P3 · grinding for many
+- **colander** — pierced colander · surface · tiny · size:11x11x5 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P3 · draining
+- **sieve-hair** — horsehair sieve · surface · tiny · size:10x10x3 · mixed · set:HUT,TAV,CAS · var:- · aff:carry · mesh · P3 · flour sifting
+- **grater-iron** — iron grater · surface · tiny · size:5x12x1.5 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P3 · nutmeg and cheese
+- **whisk-twig** — bundle-of-twigs whisk · surface · tiny · size:2.5x12x2.5 · organic · set:TAV,HUT,CAS · var:- · aff:carry · thin · P3 · egg beating
+- **funnel** — tin funnel · surface · tiny · size:5x5x7 · metal · set:TAV,ARC,CAS · var:- · aff:carry · mesh · P3 · filling bottles
+- **scoop-flour** — wooden flour scoop · surface · tiny · size:4x10x3 · wood · set:TAV,HUT,MKT,CAS · var:- · aff:carry · mesh · P3 · in the flour sack
+- **mallet-meat** — meat tenderising mallet · surface · tiny · size:3x11x3 · wood · set:TAV,CAS · var:- · aff:carry · mesh · P1 · kitchen violence
+- **butter-churn-paddle** — churn dasher and lid · surface · tiny · size:6x6x36 · wood · set:HUT · var:- · aff:carry · mesh · P3 · lies beside the churn
+- **butter-mold** — carved butter mould · surface · tiny · size:4x4x4 · wood · set:HUT,NOB · var:- · aff:carry · mesh · P3 · stamped butter pats
+- **cheese-mold** — cheese mould with cloth · surface · tiny · size:7x7x6 · mixed · set:HUT · var:- · aff:carry · mesh · P3 · dripping curds
+- **yoke-pails** — shoulder yoke with two pails · floor · sub · size:48x14x30 · wood · set:HUT,MKT · var:- · aff:carry · mesh · P3 · water carrier
+- **cutting-board-round** — round bread board · surface · tiny · size:12x12x1.2 · wood · set:TAV,HUT,NOB · var:- · aff:carry · mesh · P2 · cut bread at table
+- **chopping-block-kitchen** — end-grain kitchen block · floor · sub · size:20x20x32~0.8-1.2 · wood · set:TAV,CAS · var:- · aff:use · mesh · P2 · cleaver stuck in
+- **fire-irons** — poker, tongs and shovel set · floor · tiny · size:12x8x30 · metal · set:HUT,TAV,NOB,SMI · var:- · aff:- · thin · P2 · by every fireplace
+- **andirons** — pair of andirons · floor · tiny · size:16x14x14 · metal · set:NOB,TAV,CAS · var:- · aff:- · mesh · P1 · hold the logs
+- **washing-bowl-dishes** — washing-up bowl with rag · surface · tiny · size:16x16x7 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P3 · scullery
+- **dish-rag-hanging** — dish rags on a line · wall · tiny · size:18x2x14 · cloth · set:TAV,HUT · var:- · aff:- · thin · P3 · sculleries
+- **scouring-sand-box** — box of scouring sand · surface · tiny · size:8x6x5 · wood · set:TAV,CAS · var:- · aff:carry · mesh · P3 · scrub the pots
+
+### V6. Bottles, jugs & storage vessels
+- **bottle-blue** — cobalt blue glass bottle · surface · tiny · size:3x3x9 · glass · set:ARC,MKT,NOB · var:- · aff:carry · mesh · P3 · apothecary or poison
+- **vial-glass** — small stoppered vial · surface · tiny · size:1x1x3 · glass · set:ARC,MKT · var:- · aff:carry,loot · mesh · P2 · samples; poison
+- **gourd-water** — dried gourd water bottle · surface · tiny · size:5x5x10 · organic · set:CMP,HUT,GRV · var:- · aff:carry · mesh · P3 · druids and herders
+- **demijohn** — big wicker-covered demijohn · floor · sub · size:16x16x22~0.8-1.3 · mixed · set:TAV,MKT,NOB,HUT · var:- · aff:carry · mesh · P3 · cellar floors
+- **flask-flat-pewter** — flat pewter pocket flask · surface · tiny · size:4x1.2x6 · metal · set:TAV,CMP · var:- · aff:carry · mesh · P3 · smuggler's pocket
+- **bottle-wine-green** — green glass wine bottle · surface · tiny · size:3.5x3.5x12 · glass · set:TAV,NOB,MKT · var:- · aff:carry · mesh · P1 · table and bar
+- **bottle-wine-dusty** — dusty vintage bottle · surface · tiny · size:3.5x3.5x12 · glass · set:NOB,TAV · var:- · aff:carry,loot · mesh · P2 · cellars; the good stuff
+- **bottle-squat-spirit** — squat onion-shaped spirit bottle · surface · tiny · size:5x5x8 · glass · set:TAV,MKT · var:- · aff:carry · mesh · P1 · back bar
+- **bottle-clay** — stoneware bottle · surface · tiny · size:4x4x9 · ceramic · set:TAV,HUT,MKT,SMI · var:- · aff:carry · mesh · P2 · cider, beer
+- **bottle-wicker** — wicker-covered bottle · surface · tiny · size:4.5x4.5x11 · mixed · set:TAV,MKT,CMP · var:- · aff:carry · mesh · P2 · travellers' wine
+- **bottle-tall-neck** — tall-necked glass bottle · surface · tiny · size:3x3x13 · glass · set:TAV,ARC,MKT · var:- · aff:carry · mesh · P3 · liqueurs
+- **bottle-square-case** — square case bottle · surface · tiny · size:3x3x10 · glass · set:TAV,MKT · var:- · aff:carry · mesh · P3 · packs in crates
+- **bottle-broken** — broken bottle · surface · tiny · size:4x6x6 · glass · set:TAV,RUI,DUN · var:- · aff:carry · mesh · P3 · brawl aftermath; improvised weapon
+- **bottle-corked-message** — corked bottle with a note · surface · tiny · size:3x3x9 · glass · set:TAV,MKT · var:- · aff:carry,loot · mesh · P3 · plot hook
+- **flask-hip** — metal hip flask · surface · tiny · size:4x1.2x5.5 · metal · set:TAV,CMP,CAS · var:- · aff:carry · mesh · P2 · the guard's secret
+- **flask-pilgrim** — pilgrim flask on a cord · surface · tiny · size:6x3x8 · ceramic · set:TEM,CMP,MKT · var:- · aff:carry · mesh · P1 · roads to shrines
+- **flask-glass-round** — round glass flask · surface · tiny · size:5x5x8 · glass · set:ARC,MKT · var:- · aff:carry · mesh · P3 · lab and apothecary
+- **wineskin-full** — bulging wineskin · surface · tiny · size:8x5x14 · organic · set:CMP,TAV,MKT · var:- · aff:carry · mesh · P2 · travellers
+- **canteen-wood** — wooden canteen barrel · surface · tiny · size:6x4x8 · wood · set:CMP,CAS · var:- · aff:carry · mesh · P3 · soldier's water
+- **decanter-crystal** — crystal decanter with stopper · surface · tiny · size:5x5x11 · glass · set:NOB! · var:- · aff:carry · mesh · P2 · study side table
+- **decanter-glass-plain** — plain glass decanter · surface · tiny · size:5x5x10 · glass · set:NOB,TAV · var:- · aff:carry · mesh · P3 · merchant's parlor
+- **carafe-glass** — glass carafe of water · surface · tiny · size:4.5x4.5x9 · glass · set:NOB,TAV · var:- · aff:carry · mesh · P3 · bedside and table
+- **jug-clay** — round clay jug · surface · tiny · size:7x7x10 · ceramic · set:ANY · var:- · aff:carry · mesh · P1 · milk, water, ale
+- **jug-stoneware-large** — large stoneware jug · surface · tiny · size:9x9x14~0.8-1.3 · ceramic · set:TAV,HUT · var:- · aff:carry · mesh · P2 · cider jug with a thumb loop
+- **jug-puzzle** — puzzle jug with holes · surface · tiny · size:6x6x9 · ceramic · set:TAV · var:- · aff:carry · mesh · P3 · the tavern joke
+- **pitcher-pewter** — pewter pitcher · surface · tiny · size:6x7x10 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P1 · serving ale
+- **pitcher-silver** — silver ewer · surface · tiny · size:6x7x11 · metal · set:NOB!,CAS · var:- · aff:carry · mesh · P2 · hand-washing before feasts
+- **ewer-and-basin** — ewer set in its basin · surface · sub · size:16x16x12 · mixed · set:NOB,TAV,CAS · var:- · aff:carry · mesh · P2 · washstand
+- **pitcher-glazed** — glazed pitcher · surface · tiny · size:6x7x10 · ceramic · set:HUT,TAV,MKT · var:- · aff:carry · mesh · P3 · farmhouse
+- **amphora-small** — small two-handled amphora · surface · tiny · size:8x8x15~0.8-1.3 · ceramic · set:RUI,MKT,TEM · var:- · aff:carry · mesh · P3 · old-world trade goods
+- **jar-oil** — oil jar · surface · tiny · size:8x8x12~0.8-1.5 · ceramic · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P1 · pantries
+- **jar-pickles** — jar of pickles · surface · tiny · size:6x6x9 · glass · set:TAV,HUT,MKT · var:- · aff:carry · mesh · P1 · pantries
+- **jar-honey-glass** — glass jar of honey · surface · tiny · size:4x4x5 · glass · set:HUT,MKT,NOB · var:- · aff:carry · mesh · P3 · pantries
+- **jar-lidded-stoneware** — lidded stoneware crock · surface · tiny · size:7x7x9~0.8-1.3 · ceramic · set:HUT,TAV,CRY,ARC · var:- · aff:carry · mesh · P3 · preserves
+- **pot-ointment** — small lidded pot · surface · tiny · size:2.5x2.5x2 · ceramic · set:ARC,MKT,NOB · var:- · aff:carry · mesh · P3 · salves
+- **cask-small-spigot** — small cask with a spigot · surface · tiny · size:10x15x10~0.8-1.3 · wood · set:TAV,CAS · var:- · aff:carry · mesh · P2 · on the bar end
+- **firkin** — small firkin · surface · tiny · size:12x12x16~0.8-1.3 · wood · set:TAV,MKT,CAS,SMI · var:- · aff:carry · mesh · P1 · delivery size
+- **bucket-leather** — leather water bucket · floor · tiny · size:10x10x12 · organic · set:CAS,TAV · var:- · aff:carry · mesh · P3 · fire buckets on hooks
+
+### V7. Linens & table dressing
+- **napkin-folded** — folded linen napkin · surface · tiny · size:5x5x1 · cloth · set:NOB,TAV,CAS · var:- · aff:- · mesh · P1 · beside noble plates
+- **napkin-crumpled** — used crumpled napkin · surface · tiny · size:6x6x3 · cloth · set:TAV,NOB,ARC · var:- · aff:- · mesh · P3 · after the meal
+- **tablecloth-white** — white linen tablecloth · floor · 1x2 · size:48x96x0.5~0.7-1.3 · cloth · set:NOB,CAS,TEM · var:- · aff:- · flat · P1 · drapes a table; a scene-state
+- **tablecloth-checked** — checked cloth for a tavern table · floor · 1 · size:36x48x0.5~0.7-1.3 · cloth · set:TAV,HUT · var:- · aff:- · flat · P3 · homely tables
+- **table-runner-embroidered** — embroidered table runner · floor · 1x2 · size:16x84x0.3~0.7-1.3 · cloth · set:NOB,CAS · var:- · aff:- · flat · P3 · high table
+- **placemat-rush** — woven rush placemat · surface · tiny · size:12x16x0.3 · organic · set:HUT,TAV · var:- · aff:- · flat · P1 · cottage table
+- **apron-hanging** — apron on a hook · wall · tiny · size:20x3x30 · cloth · set:TAV,HUT,SMI · var:- · aff:- · mesh · P3 · kitchen doors
+- **towel-hanging** — linen towel on a rail · wall · tiny · size:18x3x24 · cloth · set:NOB,TAV,ARC,HUT · var:- · aff:- · mesh · P3 · washstands
+
+### V8. Drinks & dishes in vessels
+- **mug-of-cider** — clay mug of cider · surface · tiny · size:4x5x4.5 · mixed · set:TAV,HUT,ARC · var:- · aff:carry · mesh · P3 · harvest festival
+- **cup-of-mead** — cup of golden mead · surface · tiny · size:3.5x3.5x4 · mixed · set:TAV,CAS,GRV,CMP · var:- · aff:carry · mesh · P3 · druid feasts, halls
+- **goblet-of-poison** — goblet of wine with a tell-tale sheen · surface · tiny · size:3.5x3.5x7 · mixed · set:NOB,CLT,CAS · var:- · aff:carry,loot · mesh · P2 · the assassination beat
+- **flask-of-spirits** — glass flask of amber spirits · surface · tiny · size:5x5x8 · mixed · set:TAV,CMP · var:- · aff:carry · mesh · P3 · courage in a bottle
+- **tankard-of-stout** — tankard of dark stout · surface · tiny · size:4.5x6.5x7 · mixed · set:TAV · var:- · aff:carry · mesh · P3 · the regular's usual
+- **mug-of-hot-cider** — steaming mug of mulled wine · surface · tiny · size:4x5x7 · mixed · set:TAV,NOB,ARC · var:- · aff:carry · mesh · P3 · winter nights
+- **jug-of-water-cell** — clay jug of water in a cell · surface · tiny · size:7x7x10 · mixed · set:DUN! · var:- · aff:carry · mesh · P2 · prison ration
+- **tankard-tipped-spill** — tipped tankard with an ale spill · surface · tiny · size:10x12x4.5 · mixed · set:TAV · var:- · aff:- · mesh · P3 · brawl beat
+- **mug-of-ale** — clay mug of foaming ale · surface · tiny · size:4x5x5.5 · mixed · set:TAV!,HUT · var:- · aff:carry · mesh · P1 · the default drink on a table
+- **tankard-of-ale** — lidded tankard, open, foaming · surface · tiny · size:4.5x6.5x8 · mixed · set:TAV!,CAS · var:- · aff:carry · mesh · P1 · mid-song
+- **cup-of-water** — clay cup of water · surface · tiny · size:3.5x3.5x3.5 · mixed · set:ANY · var:- · aff:carry · mesh · P2 · prison ration, travellers
+- **cup-of-milk** — wooden cup of milk · surface · tiny · size:3.5x3.5x4 · mixed · set:HUT · var:- · aff:carry · mesh · P3 · farm breakfast
+- **goblet-of-wine** — silver goblet of red wine · surface · tiny · size:3.5x3.5x7 · mixed · set:NOB!,CAS · var:- · aff:carry · mesh · P1 · toasts; poison plots
+- **goblet-of-wine-spilled** — tipped goblet with a wine spill · surface · tiny · size:12x10x3.5 · mixed · set:NOB,TAV,CAS,CLT · var:- · aff:- · mesh · P3 · something went wrong
+- **chalice-of-wine** — altar chalice with wine · surface · tiny · size:4.5x4.5x8 · mixed · set:TEM,CLT · var:- · aff:carry · mesh · P1 · rite in progress
+- **horn-of-mead** — drinking horn full of mead · surface · tiny · size:4x14x5 · mixed · set:CAS,TAV · var:- · aff:carry · mesh · P3 · feast toast
+- **pitcher-of-milk** — clay pitcher of milk · surface · tiny · size:6x7x10 · mixed · set:HUT,TAV · var:- · aff:carry · mesh · P2 · breakfast table
+- **pitcher-of-ale** — pewter pitcher of ale · surface · tiny · size:6x7x10 · mixed · set:TAV · var:- · aff:carry · mesh · P2 · refills
+- **jug-of-cider** — stoneware jug of cider · surface · tiny · size:7x7x10 · mixed · set:HUT,TAV,ARC · var:- · aff:carry · mesh · P3 · harvest
+- **bottle-of-wine-open** — open wine bottle half drunk · surface · tiny · size:3.5x3.5x12 · mixed · set:TAV,NOB · var:- · aff:carry · mesh · P2 · with two cups
+- **teacup-herbal** — cup of steaming herbal tisane · surface · tiny · size:3.5x3.5x5 · mixed · set:ARC,NOB,HUT · var:- · aff:carry · mesh · P3 · the hedge-witch's hospitality
+- **potion-in-goblet** — goblet with glowing liquid · surface · tiny · size:3.5x3.5x7 · mixed · set:ARC,CLT · var:- · aff:carry · mesh · P3 · drink me?

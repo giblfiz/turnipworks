@@ -1,0 +1,44 @@
+Excellent, this is a detailed request for a visual critique. Here is the analysis.
+
+### Visible Text and Labels (Identical in Both Images)
+
+*   **Top Left UI:** Icons for "Pawns", "Build", "Settings".
+*   **Top Center UI:** A search bar with placeholder text "Search commands, things to place, people, places... or say / roll" and an info icon. Below it are buttons: "Area 1", "Open to players", and "Hide".
+*   **Top Right UI:** A circular icon labeled "Area 1".
+*   **In-Scene Labels:** "@ Building 1" on the L-shaped building, "@ Building 2" on the smaller rectangular building.
+*   **Bottom Left UI:** A text input box with placeholder text "say ... or roll d20 in the bar".
+*   **Bottom Right UI:** Status text: "live [red dot] 0 ms Area Tiles 8 160 fps".
+
+---
+
+### 1. Description of Roof Surfaces
+
+*   **Image A:** The roof surface is made of individually modeled, three-dimensional tiles. This is evident from the distinct shadows each tile casts on the one below it, creating a textured surface with physical relief. The light catches the top edges of the tiles, and the gaps between them are dark, indicating real depth. The material appears to be weathered clay or slate tiles.
+
+*   **Image B:** The roof surface is a flat texture applied to the simple geometric planes of the roof. It is a 2D picture of tiles, not a 3D model of them. This is clear because there is no self-shadowing between individual tiles; the "shadows" and "highlights" are painted into the texture and do not change with the angle of the surface. The entire roof plane is lit uniformly, lacking the fine-grained light and shadow play seen in A.
+
+### 2. Physical Model vs. Cheaper Appearance
+
+*   **Image A** looks more like a physical model. The three-dimensional relief of the tiles gives it a tangible, miniature-like quality. It has depth and texture that you could imagine feeling with your fingers.
+*   **Image B** looks cheaper. The flat, painted-on texture is a common technique to save on performance and modeling time. It lacks the depth and realism of A, making it look more like a simple video game asset than a high-quality digital miniature. The lack of physical interaction with light makes it appear less convincing.
+
+### 3. Faults and Artifacts
+
+*   **Image A Faults:**
+    *   **Valley:** The valley, where the two sections of the L-shaped roof meet, is a disaster. The 3D tiles from both planes are clipping through each other, creating a jagged, ugly seam of black and misaligned tile fragments. It looks broken and is extremely distracting.
+    *   **Ridge:** The ridge caps are slightly misaligned on the main building, with a visible dark seam between them.
+    *   **Chimneys:** There is minor clipping where the tiles meet the base of the chimneys.
+
+*   **Image B Faults:**
+    *   **None.** The texture work is clean and professional. The seam in the valley is handled perfectly by the texture artist, creating a smooth and believable transition. The texture correctly aligns at the ridge, eaves, and around the chimneys. There are no visible geometric or texture-mapping faults. While a keen eye might spot some texture repetition on the largest roof plane, it is not obvious or distracting.
+
+### 4. Stylistic Consistency
+
+The walls have a "hand-painted, chunky" style, with strong wooden beams and textured plaster. They are stylized, not photorealistic.
+
+*   **Roof A** does not fit the style as well. The high-frequency geometric detail of the individual tiles creates a much "busier" and more realistic look that clashes with the simpler, broader strokes of the walls. It's aiming for a different level of detail.
+*   **Roof B** fits the hand-painted style perfectly. The roof is a painted texture, just like the walls. It maintains the same artistic language—stylized, clean, and cohesive. It feels like it was made by the same artist who made the rest of the building.
+
+### 5. Final Verdict
+
+I would ship **B**, and I am **95%** sure.

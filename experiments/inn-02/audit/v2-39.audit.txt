@@ -1,0 +1,6 @@
+#1 semantic=PASS mask=PASS — Matches pallet description, clean mask.
+#2 semantic=PASS mask=PASS — Matches chest description, clean mask.
+#3 semantic=PASS mask=PASS — Matches canopy bed description, clean mask.
+#4 semantic=PASS mask=PASS — Matches single bed description, clean mask.
+#5 semantic=FAIL mask=PASS — Includes a frame, violating the strict "no bed frame" rule. Mask is clean.
+#6 semantic=PASS mask=PASS — Matches tankard description, clean mask.

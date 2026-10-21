@@ -1,0 +1,464 @@
+[
+ {
+  "sku": "wall-corner-inner--rough-timber",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Outer corner instead of inner; mask clean."
+ },
+ {
+  "sku": "linen-chest-open",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Missing folded sheets; mask clean."
+ },
+ {
+  "sku": "sauerkraut-crock",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "The lid is floating above the rim of the crock, violating the requirement that it must be seated firmly and touching."
+ },
+ {
+  "sku": "sconce-candle-single--iron",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Wood plate instead of iron."
+ },
+ {
+  "sku": "lamp-wall-shelf--clay",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "requested a plain wooden plank shelf, but the generated shelf has a decorative carved backboard and painted leaves; mask is good"
+ },
+ {
+  "sku": "lamp-wall-bracket--iron",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "blue background remains in glass."
+ },
+ {
+  "sku": "rural-lantern-barn--s3",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "blue background remains in glass."
+ },
+ {
+  "sku": "lamp-wall-bracket--brass",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches unlit lamp; mask leaves background visible through glass."
+ },
+ {
+  "sku": "oil-lamp--s1",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches unlit clay lamp; mask leaves background inside the top opening."
+ },
+ {
+  "sku": "brazier-tripod--bronze",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "4 legs instead of 3."
+ },
+ {
+  "sku": "fire-basket-stand--s1",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "the prompt specifies a stand with three feet, but the image shows a base with four feet in a cross shape"
+ },
+ {
+  "sku": "firepit-sunken--s1",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "raised structure, not sunken."
+ },
+ {
+  "sku": "firepit-log-spit--s1",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "reason: the detailed description requests a \"ring of stones\", but the fire pit is ringed by wooden logs"
+ },
+ {
+  "sku": "firewood-basket",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Object matches; mask leaves blue background between sticks."
+ },
+ {
+  "sku": "kindling-bundle",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Object matches; mask leaves blue background between sticks."
+ },
+ {
+  "sku": "privy-stall-partition--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Object matches; mask leaves blue background inside heart cutout."
+ },
+ {
+  "sku": "privy-stall-door--s1",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Object matches; mask leaves blue background inside crescent cutout."
+ },
+ {
+  "sku": "smith-soot-bucket",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "mask incorrectly removes the interior of the bucket under the lid."
+ },
+ {
+  "sku": "privy-stall-door--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "mask fails to remove the blue background from inside the ring pull."
+ },
+ {
+  "sku": "privy-stall-partition--s1",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Proportions are square rather than tall; mask is accurate."
+ },
+ {
+  "sku": "bard-lute-broken",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Valid broken lute; mask leaves blue background between strings."
+ },
+ {
+  "sku": "chair-armed--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Semantic ok. Mask leaves blue in backrest gaps."
+ },
+ {
+  "sku": "utensil-rack-wall--s3",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Semantic ok. Mask eats sieve mesh details."
+ },
+ {
+  "sku": "tankard-wooden",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Semantic ok. Mask removes tankard interior."
+ },
+ {
+  "sku": "knife-rack-wall--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Semantic ok. Mask leaves blue between knives."
+ },
+ {
+  "sku": "bench-long--s5",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Has back rail, failing backless requirement. Mask is clean."
+ },
+ {
+  "sku": "table-square--common--s4",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt; mask leaves blue between legs."
+ },
+ {
+  "sku": "crate--s4",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Lacks gaps between boards; clean mask."
+ },
+ {
+  "sku": "crate--s5",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt; mask leaves blue inside rope handle."
+ },
+ {
+  "sku": "table-round-small--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt; mask leaves blue between legs."
+ },
+ {
+  "sku": "vegetable-basket-mixed--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt; mask leaves blue between leaves."
+ },
+ {
+  "sku": "wine-rack--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Blue background remains inside lattice holes."
+ },
+ {
+  "sku": "shelving-freestanding--s3",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Blue background remains between the shelves."
+ },
+ {
+  "sku": "bed-straw-pallet--s3",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Includes a frame, violating the strict \"no bed frame\" rule. Mask is clean."
+ },
+ {
+  "sku": "chair-plain--common--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Valid chair; mask missed blue between slats."
+ },
+ {
+  "sku": "cup-pewter",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Valid cup; mask missed blue in handle."
+ },
+ {
+  "sku": "key-hook-board--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept aligns, but mask leaves blue in key rings."
+ },
+ {
+  "sku": "shelving-freestanding--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept aligns, but mask leaves blue inside shelf structure."
+ },
+ {
+  "sku": "tankard--common--s4",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept aligns, but mask leaves blue in handle gap."
+ },
+ {
+  "sku": "tankard-of-ale--s3",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept aligns, but mask leaves blue in handle gap."
+ },
+ {
+  "sku": "mug-of-ale--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept aligns, but mask leaves blue in handle gap."
+ },
+ {
+  "sku": "pitcher--common--s4",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept aligns, but mask leaves blue in handle gap."
+ },
+ {
+  "sku": "chest-plain-open--s4",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Chest is open; mask leaves blue background inside."
+ },
+ {
+  "sku": "lantern-post",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Lit candle violates unlit rule."
+ },
+ {
+  "sku": "horseshoes-pile",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Valid pile, but mask leaves blue background in gaps."
+ },
+ {
+  "sku": "cabbage-crate",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Valid cabbage crate; mask leaves blue background between slats."
+ },
+ {
+  "sku": "rural-harness-draft",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Valid harness; mask leaves blue background inside straps."
+ },
+ {
+  "sku": "saddle",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Saddle appears mounted/floating, not on floor; mask clean."
+ },
+ {
+  "sku": "mug-large",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Mug concept met; mask leaves background inside rim."
+ },
+ {
+  "sku": "tankard-horn",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt. Mask removes cup interior."
+ },
+ {
+  "sku": "bottles-empty-crate",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt. Mask leaves blue in gaps."
+ },
+ {
+  "sku": "lute",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt. Mask leaves blue in stand gaps."
+ },
+ {
+  "sku": "dish-tub",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "mask leaves blue background holes between the dishes"
+ },
+ {
+  "sku": "sausage-string",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept matches; blue left in string loops."
+ },
+ {
+  "sku": "lantern-hand--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept matches; blue left in hinge loop."
+ },
+ {
+  "sku": "bridle-hanging--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Concept matches; blue left in buckles."
+ },
+ {
+  "sku": "water-jug-basin--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Object matches, but mask leaves background inside basin."
+ },
+ {
+  "sku": "ham-hanging--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Good concept, but mask misses background in hook loop."
+ },
+ {
+  "sku": "key-ring--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt; mask leaves background in key rings."
+ },
+ {
+  "sku": "rural-saddle-riding--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt; mask leaves background under stand."
+ },
+ {
+  "sku": "onion-string--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches prompt; mask leaves background between onions."
+ },
+ {
+  "sku": "table-kitchen-prep--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches table concept; mask leaves blue background under table."
+ },
+ {
+  "sku": "pitchfork--s2",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Matches pitchfork concept; mask leaves blue background between tines."
+ },
+ {
+  "sku": "back-bar-shelves--s2",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Shelves have bottles but prompt requires empty."
+ },
+ {
+  "sku": "rural-manure-barrow",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "The wheelbarrow matches the prompt, but the mask fails to remove the blue background between the wheel spokes."
+ },
+ {
+  "sku": "rural-manger-wall",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "The manger matches the prompt, but the mask fails to remove the blue background between the wooden slats of the hay rack."
+ },
+ {
+  "sku": "stable-stall--rough-timber",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "The partition matches the prompt, but the mask fails to remove the blue background between the vertical bars."
+ },
+ {
+  "sku": "sausage-coil",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Valid sausage, mask misses inner gaps."
+ },
+ {
+  "sku": "carcass-hanging",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Valid carcass, mask misses chain holes."
+ },
+ {
+  "sku": "pretzel-rack",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Semantic matches. Mask leaves blue background inside pretzel loops."
+ },
+ {
+  "sku": "rural-halter-rope",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Semantic matches. Mask leaves blue background inside rope loops."
+ },
+ {
+  "sku": "music-stand",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Semantic matches. Mask leaves blue background in gaps at the base."
+ },
+ {
+  "sku": "cup-glass-green",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Semantic matches. Mask leaves blue background inside the cup opening."
+ },
+ {
+  "sku": "mortar-wood",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Mortar appears stone, not wood; mask clean."
+ },
+ {
+  "sku": "sieve-wooden-drum",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Object matches; mask missed background inside mesh holes."
+ },
+ {
+  "sku": "wall-corner-inner--dressed-stone",
+  "sem": "FAIL",
+  "mask": "PASS",
+  "why": "Shows outer convex corner, not inner concave."
+ },
+ {
+  "sku": "chest-plain-open--s1",
+  "sem": "PASS",
+  "mask": "FAIL",
+  "why": "Chest matches, but mask deletes interior."
+ }
+]

@@ -1,0 +1,157 @@
+{
+ "file": "hero-paladin-dragonborn-f.glb",
+ "tris": 49173,
+ "kb": 2821,
+ "native_extent": [
+  0.642,
+  1.001,
+  0.507
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0008,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  130,
+  105,
+  82
+ ],
+ "mean_saturation": 0.397,
+ "sized_by": "its highest point",
+ "overall_ft": 6.3,
+ "pieces": {
+  "connected_parts": 64,
+  "main_part_area_share": 0.9951,
+  "floating": [
+   {
+    "area_share": 0.00108,
+    "gap_ft": 0.03,
+    "size_ft": 0.32
+   },
+   {
+    "area_share": 0.00015,
+    "gap_ft": 0.05,
+    "size_ft": 0.28
+   }
+  ],
+  "floating_count": 2,
+  "floating_area_share": 0.00123,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.2939,
+ "y0": -3.1525,
+ "stated_ft": {
+  "body": 6.3,
+  "figure_top": 6.3,
+  "overall": 6.3
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3196,
+   -0.5009,
+   -0.2503
+  ],
+  [
+   0.3221,
+   0.5002,
+   0.2563
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49173,
+   "tex": 2048,
+   "kb": 2821
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1154
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 499
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.87,
+    "z": -0.74,
+    "size_ft": [
+     0.81,
+     1.29
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.88,
+    "sole_p90_ft": 0.064
+   },
+   {
+    "x": 0.52,
+    "z": 0.94,
+    "size_ft": [
+     0.79,
+     1.34
+    ],
+    "off_ground_ft": 0.005,
+    "sole_level_share": 0.85,
+    "sole_p90_ft": 0.074
+   },
+   {
+    "x": 0.76,
+    "z": -0.78,
+    "size_ft": [
+     1.23,
+     1.26
+    ],
+    "off_ground_ft": 0.012,
+    "sole_level_share": 0.17,
+    "sole_p90_ft": 0.486
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.012,
+  "lowest_slab_area_sqft": 1.68,
+  "plan_hull_area_sqft": 9.03,
+  "lowest_slab_share_of_plan": 0.186
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.04,
+   "d": 3.19,
+   "h": 6.3
+  },
+  "centre": [
+   0.205,
+   -0.154
+  ],
+  "contacts_radius_ft": 1.79,
+  "reach_radius_ft": 2.21,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.899,
+  "plate_lost_share": 0.014,
+  "added_share": 0.096,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.864,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 8
+ },
+ "id": "hero-paladin-dragonborn-f",
+ "sha1": "49f839567b8b560accbce2310121b3d7d8133507",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "2 separate part(s) lying within 0.05 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 16.5
+}

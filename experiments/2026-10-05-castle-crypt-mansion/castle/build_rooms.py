@@ -1,0 +1,182 @@
+#!/usr/bin/env python3
+"""rooms.json for the integration agent: the castle type's rooms. `reuse` and `new` are computed, not typed:
+reuse = roles named by the room's recipes that already have a mesh or flat in tools/spawn-tuner/data/library.json;
+new = skus of this batch (assets.json) tagged with the room.   python3 build_rooms.py"""
+import json, sys
+from pathlib import Path
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+sys.path.insert(0, str(ROOT / "src"))
+import catalog_tool as ct
+lib = json.loads((ROOT / "tools/spawn-tuner/data/library.json").read_text())["objects"]
+recipes = {}
+for p in [ROOT / "catalog/room-recipes.md"] + sorted((ROOT / "catalog").glob("rooms-*.md")):
+    recipes.update({r["id"]: r for r in ct.parse_recipes(p)[0]})
+assets = json.loads((HERE / "assets.json").read_text())["assets"]
+EXISTING_FLOORS = {k for k in lib if k.startswith("floor-")}
+def floors(*ids): return [{"id": i, "status": "exists" if i in EXISTING_FLOORS else "new"} for i in ids]
+AXIAL = "axial focal (ROOMS.md Principle 8): centred on the wall facing the main door, flanked symmetrically"
+R = [
+ {"key": "great-hall", "label": "Great hall", "outdoor": False, "cells": [8, 5], "family": "dressed-stone", "color": "#b8893a",
+  "floors": floors("floor-flagstone-rushes", "floor-flagstone-square", "floor-flagstone-large", "floor-checker-stone", "floor-planks-rushes"),
+  "recipes": ["cas-hall-high-table", "cas-great-hall", "cas-high-table-setting", "cas-feast-spread"],
+  "focal": ["fireplace-grand", "table-feast", "dais"],
+  "reads_by": "the huge hooded fireplace on one wall + the long high table on a dais across the top end + two rows of trestle tables with benches down the hall",
+  "doors": {"main": "door-double-grand (leaf exists) in the short wall opposite the dais", "others": "door-reinforced--leaf to kitchen / stairs"},
+  "program": {"closest": "common", "role": "hub",
+   "must": ["fireplace-grand centred on a LONG wall (the hearth pole), 6 ft working face kept clear",
+            "dais against the short wall facing the main door; table-feast ON the dais, parallel to that wall, chair-armed--high-seat centred behind it (back to the wall) with 2-6 chair-armed either side, nobody seated on the hall side"],
+   "rows": "table-trestle end to end in 2 rows (3 from 40 ft wide) running the long axis from the dais toward the door, bench-long both sides, a 6-ft centre aisle; one row only under 25 ft wide",
+   "walls": ["heraldic-shield over or beside the fireplace", "banner-wall / tapestry flats on the long walls, one per 10 ft", "shield-display, trophy-head", "torch-bracket-fine every 10-15 ft"],
+   "centre": ["chandelier-ring--great over the centre aisle, one per 25 ft of hall", "brazier-large in the centre aisle only if there is no fireplace wall free"],
+   "on_things": "high table: cas-high-table-setting + cas-feast-spread smalls (salt-cellar-ship in the middle, goblet-silver, platter-silver, boar-head-platter, candelabra); trestles: common tableware",
+   "counts": "per 100 sq ft target 6; pillar-round in two rows 10 ft in from the long walls from 40 ft wide; banner-pole pair flanking the dais; armor-stand pair by the main door",
+   "hung": ["heraldic-shield", "banner-wall", "tapestry", "shield-display", "trophy-head", "torch-bracket-fine"],
+   "lights": {"fireplace-grand": "fireplace", "chandelier-ring": "chandelier", "brazier-large": "brazier", "torch-bracket-fine": "torch", "candelabra": "candle", "candle-tree": "candle"}}},
+ {"key": "throne-room", "label": "Throne room", "outdoor": False, "cells": [5, 8], "family": "dressed-stone", "color": "#a33a4a",
+  "floors": floors("floor-checker-stone", "floor-tile-encaustic", "floor-flagstone-square", "floor-checker-bw", "floor-tile-harlequin"),
+  "recipes": ["cas-throne-dais", "cas-throne-room"],
+  "focal": ["throne", "dais"],
+  "reads_by": "the throne on its dais at the far end + a red runner straight from the door to it + a symmetric avenue of pillars, braziers and armour stands",
+  "doors": {"main": "door-double-grand in the short wall facing the throne (the one room where the door IS in line with the focal piece)"},
+  "program": {"closest": "desk", "role": "terminal",
+   "must": ["dais " + AXIAL + "; throne ON the dais, centred, facing the door; dais--s2 (one step, 9 ft square) when the wall is under 14 ft"],
+   "centre": ["rug-runner--royal (flat) laid end to end from the door to the dais foot: the processional line, 5 ft wide, kept clear of everything"],
+   "rows": "an avenue either side of the runner, mirrored left/right, repeating every 10 ft from the dais toward the door: pillar-round, then brazier-large or brazier-standing, then armor-stand (facing the runner)",
+   "walls": ["banner-pole one each side of the throne on the dais or at its foot", "banner-wall flats behind the throne and down both long walls", "window-stained-glass--dressed-stone panels in the long walls (wall kit)", "heraldic-shield above the throne"],
+   "extras": "faldstool x2-4 at the dais foot to one side (courtiers); chest-treasure and regalia-cushion on a table-side by the dais in big rooms; crown and scepter are loot smalls on the regalia table",
+   "counts": "per 100 sq ft target 3.5 (formal and open); nothing but the runner on the centre line",
+   "hung": ["heraldic-shield", "banner-wall", "tapestry", "torch-bracket-fine"],
+   "lights": {"brazier-large": "brazier", "brazier-standing": "brazier", "chandelier-ring": "chandelier", "torch-stand": "torch", "torch-bracket-fine": "torch", "candelabra-standing": "candle"}}},
+ {"key": "armoury", "label": "Armoury", "outdoor": False, "cells": [4, 4], "family": "castle-rough", "color": "#7d8794",
+  "floors": floors("floor-flagstone-large", "floor-flagstone-irregular", "floor-flagstone-square", "floor-boards-rough"),
+  "recipes": ["cas-armoury-racks", "cas-armory", "cas-armory-full", "cas-armory-smalls"],
+  "focal": ["weapon-rack", "armor-stand"],
+  "reads_by": "weapon racks shoulder to shoulder along the walls + armour stands in ranks on the floor + the grindstone and repair bench by the door",
+  "doors": {"main": "door-reinforced--leaf (one door: a terminal, lockable)"},
+  "program": {"closest": "store", "role": "terminal",
+   "must": ["weapon-rack (3 shapes) is the wall-rack item: fills every free wall run, one per 5 ft, shapes alternating; the tall polearm rack (s2) on the wall facing the door"],
+   "rows": "armor-stand (3 shapes) is the aisle-row item from 20x20 ft: ranks of stands 4 ft apart, all facing the door, 4-ft aisles; under that, 2-4 stands in the corners",
+   "walls": ["mil-crossbow-rack and smith-helm-row-shelf hung above / between racks", "heraldic-shield--s2 over the door"],
+   "by_door": "grindstone + mil-armor-repair-bench (the tally-desk slot), arrow-barrel pair, mil-shield-stack, chest-ironbound",
+   "on_things": "repair bench and chests carry cas-armory-smalls and loose arms: helm-great, helm-open, armor-breastplate, crossbow, sword-short, axe-hand, mace-flanged, warhammer, quiver-arrows; shields lean at rack ends",
+   "counts": "floor coverage about 25% like the storeroom",
+   "hung": ["mil-crossbow-rack", "smith-helm-row-shelf", "heraldic-shield", "shield-display", "torch-bracket-rough", "lantern-wall-iron"],
+   "lights": {"torch-bracket-rough": "torch", "lantern-wall-iron": "lantern"}}},
+ {"key": "barracks", "label": "Barracks / guard room", "outdoor": False, "cells": [6, 4], "family": "castle-rough", "color": "#8a7a4f",
+  "floors": floors("floor-planks-rushes", "floor-flagstone-rushes", "floor-boards-rough", "floor-flagstone-large", "floor-planks-worn"),
+  "recipes": ["cas-barracks-rows", "cas-barracks", "cas-barracks-kit", "dun-guard-room"],
+  "focal": ["bunk-bed", "mil-footlocker"],
+  "reads_by": "rows of bunk beds each with a footlocker at its foot + a guard table with dice and mugs by the door + helmets and weapons on the wall",
+  "doors": {"main": "door-reinforced--leaf"},
+  "program": {"closest": "bedroom", "role": "terminal",
+   "must": ["the dormitory branch at EVERY size: bunk-bed is the bed (never the axial single bed), head to the wall, one per 5 ft along both long walls; mil-footlocker at each bunk's foot (the foot-chest slot)"],
+   "rows": "middle rows head-to-head from 600 sq ft, as the guest dormitory; cot fills odd gaps",
+   "by_door": "the guard-room zone: table-square + bench-long / stool-three-leg, dice-and-cup, tankard, mil-guard-lantern on the table; weapon-rack--s1 and armor-stand--s2 beside the door; brazier-tripod near the table",
+   "walls": ["mil-helmet-peg-rack between bunks (the coat-pegs slot)", "mil-duty-roster and horn-hunting by the door", "smith-helm-row-shelf"],
+   "counts": "per 100 sq ft target 8 as the dormitory; 12 bunks in the default 30x20",
+   "hung": ["mil-helmet-peg-rack", "mil-duty-roster", "horn-hunting", "smith-helm-row-shelf", "heraldic-shield", "torch-bracket-rough"],
+   "lights": {"mil-guard-lantern": "lantern", "lantern-hanging": "lantern", "torch-bracket-rough": "torch", "brazier-tripod": "brazier"}}},
+ {"key": "castle-kitchen", "label": "Castle kitchen", "outdoor": False, "cells": [6, 5], "family": "castle-rough", "color": "#c9603f",
+  "floors": floors("floor-flagstone-irregular", "floor-flagstone-large", "floor-brick-herringbone", "floor-terracotta", "floor-flagstone-damp"),
+  "recipes": ["cas-castle-kitchen", "cas-great-kitchen", "tav-kitchen", "tav-kitchen-tools", "tav-kitchen-larder"],
+  "focal": ["cook-hearth-spit", "cauldron-crane", "bread-oven"],
+  "reads_by": "the 11-ft great hearth with its spit filling one wall + the cauldron on its crane in the middle + the bread oven and long work tables",
+  "doors": {"main": "door-reinforced--leaf toward the hall", "others": "door-plank to cellar / courtyard"},
+  "program": {"closest": "kitchen", "role": "uses",
+   "must": ["the industrial-kitchen branch from the default size up; the FIRST cooking line is cook-hearth-spit--great (11 ft, centred on a long wall, working face 6 ft), further lines use the existing cook-hearth-spit skus"],
+   "centre": ["cauldron-crane in the open middle in front of the great hearth (one; a second from 1,500 sq ft)", "cauldron-huge and pig-on-spit as row end caps"],
+   "rows": "table-kitchen-prep--great end to end as the work rows (existing prep tables and butcher-block as segments)",
+   "walls": ["bread-oven bake corner as built (peel, bread-rack, flour)", "larder runs as built", "basin-stone scullery"],
+   "overhead": "trade-butcher-hooks-rail hangs over the aisles with ham-hanging, kettle-hanging (ceiling)",
+   "on_things": "saucepan-copper, fish-kettle, pot-copper on tables and the hearth kerb; mortar-large-stone on the floor at a table end",
+   "counts": "per 100 sq ft target 10 as the kitchen",
+   "hung": ["knife-rack-wall", "utensil-rack-wall", "lamp-wall-bracket", "cresset-wall", "lantern-wall-iron"],
+   "ceiling": ["trade-butcher-hooks-rail", "ham-hanging", "kettle-hanging", "carcass-hanging", "poultry-plucked-hanging"],
+   "lights": {"cook-hearth-spit": "fireplace", "cauldron-crane": "fireplace", "pig-on-spit": "fireplace", "lamp-wall-bracket": "lantern", "cresset-wall": "torch", "lantern-wall-iron": "lantern"}}},
+ {"key": "chapel", "label": "Castle chapel", "outdoor": False, "cells": [4, 7], "family": "dressed-stone", "color": "#c9b46a",
+  "floors": floors("floor-checker-stone", "floor-tile-encaustic", "floor-flagstone-square", "floor-tomb-slabs"),
+  "recipes": ["tem-castle-chapel", "tem-chapel", "tem-sanctuary-service", "tem-altar-service"],
+  "focal": ["altar-stone", "pew"],
+  "reads_by": "the altar on a step at the far end + rows of pews facing it either side of a centre aisle + stained-glass windows and tall candle stands",
+  "doors": {"main": "door-double-grand in the short wall facing the altar"},
+  "program": {"closest": "desk", "role": "terminal",
+   "must": ["dais--s2 " + AXIAL + "; altar-stone ON it, long side to the room, 3 ft off the wall; candelabra-standing--iron one each side of the altar"],
+   "rows": "pew (3 shapes) is the aisle-row item: rows across the room all FACING the altar, 3 ft apart front to back, in two blocks either side of a 5-ft centre aisle (one block against a wall under 15 ft wide); the front row 8 ft from the dais; pew--s3 (short) fills narrow blocks",
+   "walls": ["window-stained-glass--dressed-stone panels in the long walls (wall kit), one per 10 ft, never on the door wall", "sconce-candle-triple between windows"],
+   "by_door": "font-holy just inside the door to one side; prayer-candle-rack against the wall on the other",
+   "extras": "lectern at the dais foot, off the centre line, turned to the pews; rite-altar-emblem-stand behind the altar; rite-kneeler-cushion in front of the altar",
+   "on_things": "altar: chalice-altar, tome-holy, reliquary, candlestick pair (tem-altar-service)",
+   "shared_with": "the crypt's chapel of rest uses the same ids: altar-stone, reliquary come from the crypt batch; pew, lectern, font-holy, prayer-candle-rack, candelabra-standing--iron, chalice-altar, tome-holy from this one",
+   "counts": "per 100 sq ft target 5",
+   "hung": ["sconce-candle-triple", "torch-bracket-fine"],
+   "lights": {"candelabra-standing": "candle", "prayer-candle-rack": "candle", "candlestick-floor": "candle", "sconce-candle-triple": "candle", "candle-tree": "candle"}}},
+ {"key": "dungeon", "label": "Dungeon", "outdoor": False, "cells": [6, 5], "family": "castle-rough", "color": "#5d6470",
+  "floors": floors("floor-flagstone-damp", "floor-flagstone-broken", "floor-flagstone-large", "floor-earth-packed"),
+  "recipes": ["dun-castle-dungeon", "dun-cell-block", "dun-interrogation", "dun-jailer-station", "dun-prisoner-ration"],
+  "focal": ["cell-bars", "rack-torture", "iron-maiden"],
+  "reads_by": "a row of barred cells along one wall (bar fronts, a barred door each, a plank bed inside) + the rack in the open floor + the iron maiden and brazier of irons against the far wall",
+  "doors": {"main": "door-reinforced--leaf"},
+  "program": {"closest": "stable", "role": "mixed",
+   "must": ["cells are the stalls: 5 or 10 ft wide x 10 ft deep along ONE long wall; partitions between cells are wall-straight--castle-rough (full height); each cell front is cell-bars panels with exactly one door-cell-bars panel; one cell in five rolls its door open (door-cell-bars-open)"],
+   "in_cell": "cell-bench-plank hung on a side wall (or bed-straw-pallet on the floor), bucket-slop, manacles-wall on the back wall, rug-hay-scatter; one cell in six: bones-pile instead of a bed",
+   "centre": ["the aisle in front of the cells stays clear 5 ft; in the open half: rack-torture (long axis along the room), table-experiment from 600 sq ft"],
+   "walls": ["iron-maiden " + AXIAL + " when there is a free wall facing the door, else in a far corner; one in three open (iron-maiden-open)", "brazier-irons beside the rack", "stocks / pillory / cage-floor / block-headsman along the far wall, one each as the room grows", "lever-wall and key-hook-board by the door (jailer station: table-square, stool, mil-guard-lantern)"],
+   "floor": "oubliette-hatch in a far corner (one, from 500 sq ft); floor-drain-grate and decal-blood flats near the rack",
+   "small": "under 300 sq ft: no cells; rack + iron maiden + brazier-irons only (a torture chamber)",
+   "counts": "per 100 sq ft target 4; dark: 1 light per 250 sq ft",
+   "hung": ["manacles-wall", "cell-bench-plank", "lever-wall", "key-hook-board", "torch-bracket-rough"],
+   "lights": {"brazier-irons": "brazier", "brazier-standing": "brazier", "torch-bracket-rough": "torch", "mil-guard-lantern": "lantern"}}},
+ {"key": "gatehouse", "label": "Gatehouse", "outdoor": False, "cells": [4, 4], "family": "castle-rough", "color": "#6f7f6a",
+  "floors": floors("floor-cobble", "floor-setts-courtyard", "floor-flagstone-large", "floor-flagstone-broken"),
+  "recipes": ["cas-gatehouse", "cas-gate-defense", "dun-guard-room"],
+  "focal": ["portcullis", "windlass"],
+  "reads_by": "the portcullis arch in the outer wall and a clear cart-wide passage straight through + the windlass with its chain beside it + guard kit (spear tripod, crossbow rack, brazier, sentry box)",
+  "doors": {"main": "portcullis--castle-rough: a TWO-cell gate panel on the outside wall (raised twin = open state)", "others": "a second portcullis or door-reinforced--leaf on the opposite wall, toward the courtyard: a passageway on purpose"},
+  "program": {"closest": "hallway", "role": "passageway",
+   "must": ["the through-line gate to gate, 10 ft wide, kept completely clear (carts)", "windlass against the wall beside the outer gate, lever-wall on the wall above/beside it"],
+   "walls": ["wall-window-small--castle-rough (arrow slits) on the OUTSIDE wall either side of the gate", "weapon-rack--s2 (polearms), mil-crossbow-rack, mil-helmet-peg-rack, horn-hunting, mil-duty-roster"],
+   "sides": "in the bands either side of the passage: guard table (table-square, bench-long, dice, mil-guard-lantern), brazier-large or fire-basket-stand, mil-spear-tripod, arrow-barrel, mil-pavise, armor-stand--s2/s3; mil-boiling-oil-pot in a corner by the outer gate from 20x20; oubliette-hatch reads as a murder hole in big ones",
+   "outside": "when a courtyard or yard adjoins: sentry-box, banner-pole--s2 and watch-lantern-bell just outside the gate (placed by the courtyard)",
+   "counts": "per 100 sq ft target 4; nothing in the passage",
+   "hung": ["lever-wall", "mil-crossbow-rack", "mil-helmet-peg-rack", "horn-hunting", "mil-duty-roster", "heraldic-shield", "torch-bracket-rough"],
+   "lights": {"brazier-large": "brazier", "fire-basket-stand": "brazier", "mil-guard-lantern": "lantern", "torch-bracket-rough": "torch", "watch-lantern-bell": "lantern", "mil-boiling-oil-pot": "brazier"}}},
+ {"key": "courtyard", "label": "Courtyard", "outdoor": True, "cells": [8, 7], "family": "castle-rough", "color": "#8f9a78",
+  "floors": floors("floor-setts-courtyard", "floor-cobble", "floor-cobble-mossy", "floor-earth-packed", "floor-sand-training", "floor-gravel", "floor-grass-worn"),
+  "recipes": ["cas-courtyard", "cas-training-yard", "cas-gate-defense"],
+  "focal": ["well", "training-dummy", "archery-target"],
+  "reads_by": "a battlemented curtain wall with corner turrets and a gate round cobbles + the well in the open + a training corner (dummies, archery butts, a rack of practice swords)",
+  "program": {"closest": "outdoors", "role": "outdoor",
+   "same_as_yard": "walls.js outdoor role unchanged: no walls of its own, ground instead of floor, neighbours' doors open onto it, paths door -> gate reserved first, sparse (2 per 100 sq ft)",
+   "edge": "ALWAYS enclosed (no 'none' roll): city-wall--castle-rough on every open grid edge (box 60x30x132, on the grid line, thick like the hedge: the strip it covers is blocked); city-wall-turret--castle-rough where a run ends or turns (not where it meets a building); the gate piece is portcullis--castle-rough (two cells) on the gate's segment, rolled 1 in 3 gate-double-timber leaves between two turrets instead",
+   "focal": "one in the open, clear of the door-to-gate line: the well (existing mesh) 2 in 3; else horse-trough-stone, or cauldron-crane / pig-on-spit (feast day)",
+   "training_corner": "from 900 sq ft, in the corner farthest from the gate, on a patch of floor-sand-training: 2-3 training-dummy (s1/s2) and mil-pell in a line 6 ft apart; archery-target (s1/s2) x2 against the curtain wall with 30 ft of clear range in front; mil-wasters-rack, weapon-rack--s2, arrow-barrel, mil-shield-stack at the wall; tourney-lists-rail sections fencing the patch's open side; mil-quintain from 2,000 sq ft",
+   "by_gate": "sentry-box, watch-lantern-bell, banner-pole, brazier-large or mil-signal-beacon; mil-cheval-de-frise and mil-pavise stacked aside; ballista near the gate from 1,500 sq ft",
+   "by_doors": "kitchen door: woodpile, barrels, crates as the inn yard; stable door: trough, hay, hitching-post as the inn yard; hall door: torch-stand pair, banner-pole pair; chapel door: nothing but a torch",
+   "at_wall": "stone-blocks-stack, mil-catapult-stones, grindstone, sawhorse, stocks (and block-headsman 1 in 8) against the curtain wall; wagon / cart-hand as the inn yard",
+   "no": "no plants slot (bare military court), no fences or hedges, no inn sign, no kennel, no washing line",
+   "hung": ["torch-bracket-rough", "banner-wall"],
+   "lights": {"brazier-large": "brazier", "mil-signal-beacon": "brazier", "torch-stand": "torch", "fire-basket-stand": "brazier", "torch-bracket-rough": "torch", "watch-lantern-bell": "lantern"}}},
+]
+new_roles = {a["object"] for a in assets}
+for r in R:
+    named = []
+    for rid in r["recipes"]:
+        assert rid in recipes, rid
+        for ids in recipes[rid]["slots"].values():
+            named += [i for i in ids if i not in named]
+    r["reuse"] = sorted(i for i in named if i in lib and lib[i]["skus"])
+    r["new"] = sorted(a["id"] for a in assets if r["key"] in a["rooms"])
+    r["from_other_batches"] = sorted(i for i in named if i in {"altar-stone", "reliquary", "bones-pile", "skull-pile", "chest-treasure", "brazier-standing"})
+    assert all(f in named or f in lib for f in r["focal"]), r["key"]
+out = {"type": "castle", "label": "Castle", "genre": "fantasy",
+       "wall_families": {"castle-rough": "NEW: wall-straight (2), wall-window-small = arrow slit, wall-doorway, portcullis (+raised), city-wall (+turret) for the courtyard edge",
+                         "dressed-stone": "EXISTS (wall-straight x2, wall-window-small, wall-doorway, corners, doors): used for great hall, throne room, chapel; NEW window-stained-glass--dressed-stone panel"},
+       "doors": {"door-reinforced--leaf": "NEW leaf-only (rotates): the castle's default door", "door-double-grand--leaf": "EXISTS: hall, throne room, chapel main door",
+                 "door-cell-bars": "NEW cell-front panel with a barred door (+open twin)", "portcullis--castle-rough": "NEW two-cell gate panel (+raised twin)", "gate-double-timber": "NEW leaf pair, courtyard alternative"},
+       "hung_ids_to_add": sorted({a["object"] for a in assets if a.get("hung")}),
+       "light_ids": {a["object"]: a["light"] for a in assets if a.get("light")},
+       "rooms": R}
+(HERE / "rooms.json").write_text(json.dumps(out, indent=1) + "\n")
+allreuse = sorted({i for r in R for i in r["reuse"]})
+print(len(R), "rooms;", len(allreuse), "reused library roles;", {r["key"]: (len(r["reuse"]), len(r["new"])) for r in R})

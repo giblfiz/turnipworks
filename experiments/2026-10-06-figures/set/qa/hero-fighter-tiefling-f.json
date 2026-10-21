@@ -1,0 +1,176 @@
+{
+ "file": "hero-fighter-tiefling-f.glb",
+ "tris": 48027,
+ "kb": 2950,
+ "native_extent": [
+  0.604,
+  0.999,
+  0.511
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  95,
+  67,
+  51
+ ],
+ "mean_saturation": 0.551,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 2.96,
+  "length_ft": 3.08,
+  "low_end_ft": [
+   -1.44,
+   2.92,
+   1.06
+  ],
+  "high_end_ft": [
+   -1.43,
+   6.0,
+   1.16
+  ],
+  "tilt_from_upright_deg": 1.8,
+  "thickness_ft": 0.14,
+  "clear_share": 0.82,
+  "joined_share": 0.18,
+  "broken_share": 0.0,
+  "walk_low_to_high": "---######------------------------"
+ },
+ "overall_ft": 5.92,
+ "pieces": {
+  "connected_parts": 52,
+  "main_part_area_share": 0.8363,
+  "floating": [
+   {
+    "area_share": 0.00334,
+    "gap_ft": 0.04,
+    "size_ft": 0.42
+   },
+   {
+    "area_share": 0.00324,
+    "gap_ft": 0.05,
+    "size_ft": 0.44
+   },
+   {
+    "area_share": 0.00275,
+    "gap_ft": 0.06,
+    "size_ft": 0.39
+   },
+   {
+    "area_share": 0.0027,
+    "gap_ft": 0.06,
+    "size_ft": 0.4
+   }
+  ],
+  "floating_count": 4,
+  "floating_area_share": 0.01203,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.929,
+ "y0": -2.9696,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3064,
+   -0.5009,
+   -0.2566
+  ],
+  [
+   0.2975,
+   0.4986,
+   0.2548
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48027,
+   "tex": 2048,
+   "kb": 2950
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1150
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 494
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.57,
+    "z": 0.44,
+    "size_ft": [
+     0.72,
+     1.28
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.9,
+    "sole_p90_ft": 0.061
+   },
+   {
+    "x": -1.02,
+    "z": 0.16,
+    "size_ft": [
+     0.96,
+     1.11
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.89,
+    "sole_p90_ft": 0.064
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 1.36,
+  "plan_hull_area_sqft": 7.01,
+  "lowest_slab_share_of_plan": 0.193
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.58,
+   "d": 3.03,
+   "h": 5.92
+  },
+  "centre": [
+   -0.258,
+   0.547
+  ],
+  "contacts_radius_ft": 1.22,
+  "reach_radius_ft": 2.07,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.887,
+  "plate_lost_share": 0.026,
+  "added_share": 0.099,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.809,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 0
+ },
+ "id": "hero-fighter-tiefling-f",
+ "sha1": "ffcbc5c545e51b35e8c6fbf5b604c3b5734aa4fd",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "4 separate part(s) lying within 0.06 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 12.8
+}

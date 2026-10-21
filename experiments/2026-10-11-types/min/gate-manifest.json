@@ -1,0 +1,1482 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "ore-pile": {
+   "id": "ore-pile",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/ore-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of a rocky mound embedded with bright yellow-orange ore veins and greenish moss against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of a rocky mound embedded with bright yellow-orange ore veins and greenish moss against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. There is one single object: a stylized rocky mound or mineral ore deposit (second guess: a rocky hill or gold node). It is composed of multiple faceted, angular gray and brown boulders clustered together into a low, conical heap. Bright golden-yellow and amber crystal-like ore veins run through the crevices between the rocks, along with speckled turquoise-green lichen or verdigris patches. The object is solid with no movable parts, doors, drawers, or openings. The entire rock mound is fully visible and not cropped by the frame. The background is a solid, uniform vivid blue screen with no floor plane, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3579,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4104,
+   "tokens_out": 1493,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-tailings-pile": {
+   "id": "rural-tailings-pile",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/rural-tailings-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital rendering of a mound of rocky dirt and rubble with wooden stakes protruding from it, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital rendering of a mound of rocky dirt and rubble with wooden stakes protruding from it, set against a solid blue background.",
+       "details": "There is no text, label, or watermark. The image depicts a single isolated terrain feature: a rocky dirt ramp or rubble mound (second guess: a quarry pile or earth barricade). It consists of compacted light brown/tan soil littered with numerous faceted rocks ranging from large light grey/tan boulders on the left to smaller scattered stones across the slope, along with two sets of weathered rectangular wooden planks or posts jutting out\u2014one taller grouping near the upper crest on the left, and a smaller grouping embedded on the right slope. The mound is fully contained within the frame with no cropping. The background is a flat, uniform solid bright blue with no floor, horizon, or shadows cast beneath the mound.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3952,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9957,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4105,
+   "tokens_out": 1276,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mine-cart": {
+   "id": "mine-cart",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/mine-cart.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a wooden and metal mine cart overflowing with colorful ore, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a wooden and metal mine cart overflowing with colorful ore, isolated on a solid blue background.",
+       "details": "Text, labels, or watermarks: None. Object count: A single distinct object consisting of a loaded mine cart (ore wagon). Structure and parts: The cart has four solid metal flanged wheels with thick circular hubcaps, a rectangular body made from warm amber-brown wooden planks, and dark gray iron reinforcing straps secured with rounded rivets along the rim, middle, and base. At each visible end extending from the base is a thick metallic hitch or coupling hook. The top is fully open and piled high with faceted chunks of raw ore displaying dark gray stone, bright golden nodules, vibrant orange/copper crystalline patches, and spots of turquoise patina. Materials and colors: Wood, weathered gray metal, and colorful mineral rock. Frame composition: The mine cart is completely contained within the frame with no cropping. Background: Flat, completely uniform pure blue with no shadows, floor surface, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4912,
+      "soft": 0.0049,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4187,
+   "tokens_out": 1464,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mine-tool-rack": {
+   "id": "mine-tool-rack",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/mine-tool-rack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden tool rack holding two pickaxes, a shovel, a hammer, three metal ingots, and a coiled rope, presented against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden tool rack holding two pickaxes, a shovel, a hammer, three metal ingots, and a coiled rope, presented against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The central subject is a single freestanding wooden tool rack (or weapon/mining tool stand) rendered in a stylized, hand-painted video game asset style. The rack consists of a vertical slatted wooden back wall framed by two upright posts, resting on two horizontal foot beams, with a low wooden shelf at the bottom reinforced by two metal corner brackets with silver rivets. Hanging from four peg mounts on the upper frame are four tools: on the far left, an iron pickaxe with a curved dual-pointed head and wooden handle; second from left, a small iron shovel with a heart-shaped blade and T-handle; third, an identical iron pickaxe; and on the right, a heavy rectangular-headed iron sledgehammer. Resting horizontally on the bottom shelf from left to right are three wedge-shaped grey/tarnished metal bars or ingots, and a neatly coiled yellow-tan hemp rope on the right. The wood is warm medium-brown with visible carved grain and small patches of green moss or lichen. The metal parts of the tools, brackets, and bars are dark slate grey with rusted and chipped highlights. The object is completely intact and centered within the frame without cropping. The background is a flat, uniform, vibrant chroma-key blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4851,
+      "soft": 0.0048,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.995,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4258,
+   "tokens_out": 3333,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "powder-keg-stack": {
+   "id": "powder-keg-stack",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/powder-keg-stack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized pyramid stack of six wooden barrels with red painted bodies and black flame insignias, secured by two wooden wedges at the base and topped with a coiled dark rope, isolated against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized pyramid stack of six wooden barrels with red painted bodies and black flame insignias, secured by two wooden wedges at the base and topped with a coiled dark rope, isolated against a solid vibrant blue background.",
+       "details": "There are no words, text, or watermarks visible on the image, though each barrel head displays a black stenciled flame symbol. The composition consists of one unified cluster comprised of six wooden barrels stacked in a 3-2-1 pyramid arrangement, two triangular wooden chocks/wedges bracing the bottom outer edges, and one thick, coiled dark brown rope resting horizontally on the apex of the top barrel. Each barrel is fully closed, featuring light tan wooden hoops and rims, a circular wooden face with a black stylized three-pronged flame emblem, and a reddish-painted slatted wooden cylindrical body. The entire assembly is fully visible and not cropped by the frame. The background is an untextured, uniform bright blue field without a floor surface, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3984,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4155,
+   "tokens_out": 2324,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mine-lamp-rack": {
+   "id": "mine-lamp-rack",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/mine-lamp-rack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset depicting a wooden shelf unit stocked with six identical canisters, a wooden crate filled with candles, and a round ceramic jug against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Includes an unwanted ceramic jug/bottle on the bottom shelf",
+       "Shelf holds canisters instead of recognizable squat miners' lanterns"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset depicting a wooden shelf unit stocked with six identical canisters, a wooden crate filled with candles, and a round ceramic jug against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The primary object is a free-standing wooden shelving unit (second guess: potion rack or pantry shelf). The shelving unit consists of three brown horizontal wooden plank shelves supported by wooden brackets and framed by two green-painted vertical wooden posts with square capped tops and wide feet. A vertical plank backboard spans behind the shelves. On the top shelf, there are three identical lidded canisters made of dark grey metal with brass fittings and curved handles. On the middle shelf, there are three identical canisters matching the top row. On the bottom shelf sits a small rectangular wooden crate containing five unlit cream-coloured cylindrical pillar candles with black wicks, and next to it is a spherical reddish-brown clay jug with a single loop handle and a wooden/cork stopper. All canisters are closed and the jug is stoppered. The entire asset is fully contained within the frame with no parts cropped. The background is a flat, uniform solid vibrant blue with no scenery, floor texture, or visible people.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/min/work/mine-lamp-rack.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized three-tiered wooden shelf holding six metal lanterns and a small tray of four candles, isolated against a vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized three-tiered wooden shelf holding six metal lanterns and a small tray of four candles, isolated against a vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The central subject is a freestanding vertical wooden rack or display shelf (second guess: wall-mounted organizer or tool stand). The rack consists of vertical side posts resting on wide block feet, connected by vertical wooden planks at the back and three horizontal shelves supported by small corbel brackets. The rack is made of light-to-medium brown wood with heavily distressed, chipped moss-green paint along the outer posts, shelf fronts, and base feet, detailed with metallic bolt heads. The top two shelves each hold three identical mining-style lanterns (six lanterns in total). Each lantern features a rounded ventilated dark metal dome with a small finial knob, an upper brass/gold-colored ring secured with rivets, vertical metal cage bars surrounding a cylindrical glass chamber, a side loop handle, a lower brass ring, and a faceted dark metal base. On the bottom shelf rests a low, open rectangular wooden crate fastened with corner metal plates and studs, containing four unlit off-white pillar candles with exposed black wicks. The entire piece is fully shown and uncropped. The background is a flat, uniform, bright saturated blue with no floor, shadows, people, or external scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4627,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6044,
+   "tokens_out": 3002,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-pit-props-stack": {
+   "id": "rural-pit-props-stack",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/rural-pit-props-stack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a stack of cut logs secured within a wooden timber frame against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a stack of cut logs secured within a wooden timber frame against a solid blue background.",
+       "details": "The image features a single composite object: a neatly stacked pile of cut wooden logs held inside a rectangular timber rack or cribbing, depicted from an elevated isometric three-quarter perspective. The frame consists of four upright square-profile wooden posts with beveled tops (three fully visible and one partially obscured in the back left) and three horizontal wooden crossbeams resting across the top. Stacked horizontally within the frame are numerous round tree trunks/logs displaying yellowish sapwood, patches of reddish-brown bark, and greenish lichen or moss textures. On the right side, the cut cross-sections of 11 log ends are visible, each showing pale yellow end-grain rings; three log ends are also partially visible protruding from the far left side. The structure is fully contained within the frame with no parts cut off. The background is a solid, untextured vibrant royal blue (#0000FF style) with no ground plane or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4066,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9938,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4123,
+   "tokens_out": 3668,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mine-shaft-collar": {
+   "id": "mine-shaft-collar",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/mine-shaft-collar.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, square wooden well or mine shaft entrance featuring an interior ladder and a hanging rope, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, square wooden well or mine shaft entrance featuring an interior ladder and a hanging rope, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single composite object: primarily a wooden well curb or pit entrance (second guess: mine shaft entrance or open cellar hatch). The structure consists of a square frame built from two tiers of stacked horizontal timber beams secured at the four corners by rusty metal brackets (eight visible metal straps total). The inside of the pit is lined with vertical wooden boards and opens down into pitch blackness. Inside the shaft against the back-left wall is a rustic wooden ladder with two vertical rails and two visible rungs. Looped over the top-right horizontal beam is a light tan twisted rope that dangles into the dark interior. There is no lid or cover; the opening is completely open and reveals deep, dark interior space. Materials are weathered brown wood with patches of green moss/lichen, dark rusted metal, and natural fiber rope. The entire object is centered and fully contained within the frame without cropping. The background is a flat, uniform solid bright blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.38,
+      "soft": 0.0041,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.994,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4191,
+   "tokens_out": 4342,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sorting-table": {
+   "id": "sorting-table",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/sorting-table.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D-rendered wooden mining workbench displaying piles of ores, a circular wooden sieve, a small hammer, and two sorting boxes, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D-rendered wooden mining workbench displaying piles of ores, a circular wooden sieve, a small hammer, and two sorting boxes, set against a solid blue background.",
+       "details": "There is no text, label, or watermark visible in the image. The central item is a stylized wooden workbench or sorting station (secondary guess: mining worktable or artisan crafting table). The table rests on four thick, square wooden legs reinforced by low horizontal stretchers; the legs and lower rails show green mossy or weathered accents. The flat tabletop is bounded by a low raised wooden rim. Arranged on top from left to right are: a loose pile of faceted mineral rocks (in copper, gold, brown, and grey tones); a round wooden sieve or grate with crisscrossed bars; a small stone-headed hammer with a carved wooden handle; and two open rectangular wooden trays, the left containing faceted copper and gold ores and the right containing grey stone ores. There are no doors, drawers, or lids present. The entire model is intact and uncropped within the frame, with no cast shadow underneath. The background is a uniform, solid saturated blue color with no people, text, or scenery present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2888,
+      "soft": 0.0064,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9861,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4202,
+   "tokens_out": 1975,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "smelter--mine": {
+   "id": "smelter--mine",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/smelter--mine.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset representing a stone and clay blast furnace or kiln set on a square block base against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset representing a stone and clay blast furnace or kiln set on a square block base against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The image displays a single isolated object: a fantasy-style blast furnace (second guess: stone kiln or smelter). The main structure is a conical tower composed of tan/yellow clay or mud-brick with embedded polygonal grey stones, encircled by three dark grey metal reinforcing hoops. At the top is an open circular chimney rim showing a dark interior. A thick vertical soot stain extends upward from the front opening toward the rim. At the front base, there is an arched doorway framed with stone voussoirs, opening into a small trough or inclined ramp filled with rounded grey stones or ore. Extending from the right side of the furnace is a protruding cylindrical pipe or tuyere with an open circular end. The entire furnace rests upon a platform made of rectangular carved stone blocks with beveled edges and weathered, mossy textures. The openings (chimney top, side pipe, and arched hearth) are all open and unblocked. The model is fully visible within the frame without cropping. The background is a flat, uniform, bright saturated blue with no floor, scenery, cast shadows, or people."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3419,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9939,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4228,
+   "tokens_out": 1447,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mine-headframe": {
+   "id": "mine-headframe",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/mine-headframe.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a medieval or fantasy wooden hoist tower with an overhead pulley wheel and rope, isolated on a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Missing black square hole or dark opening beneath the tower feet"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a medieval or fantasy wooden hoist tower with an overhead pulley wheel and rope, isolated on a solid blue background.",
+       "details": "The image contains no text, watermarks, or people. There is a single object depicted: a wooden pulley tower or hoist structure (second guess: mine shaft winch framework). The structure consists of four vertical tapered corner posts mounted on light-toned wooden square foot pads, connected by horizontal support beams at the bottom, middle, and top, as well as angled cross braces on the sides. At the summit, two mounting brackets hold a circular wooden pulley wheel featuring four circular weight-reduction holes around a central square axle peg. A thick, twisted hemp-style rope runs over the top groove of the pulley wheel and drops down vertically through the open central square shaft at the base. Numerous dark square-headed pegs or iron bolts fasten the timber joints. The structure is rendered in a hand-painted/stylized art style using weathered dark brown timber with chiseled edges and green mossy stains in crevices, while the rope is light beige. The object is completely contained within the frame without cropping. The background is a solid, uniform, vibrant blue screen with no floor surface or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/min/work/mine-headframe.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden pulley hoist tower or mine shaft headframe centered against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden pulley hoist tower or mine shaft headframe centered against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single standalone object: a wooden mine hoist tower, with an alternate guess being a wooden well winch or derrick. It consists of a square base frame set on four blocky wooden corner feet surrounding a dark vertical pit or shaft opening. Four main vertical/angled wooden timber legs rise from the corners, secured with dark metal corner bands and rivets, joined by diagonal and horizontal cross-braces. At the top apex sits an axle holding a circular wooden pulley wheel with five circular holes, around which a thick braided off-white rope runs, hanging straight down through the center into the pit. The materials are textured warm-brown wood with carved wood grain and slight greenish weathering, accompanied by charcoal-gray metal fittings. The entire structure is complete and fully visible within the frame. The background is a completely solid, uniform chroma blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3944,
+      "soft": 0.0075,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9906,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6014,
+   "tokens_out": 4934,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--mine-timbered": {
+   "id": "wall-straight--mine-timbered",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/wall-straight--mine-timbered.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical stylized stone slab structure framed and reinforced down the center with wooden beams and metal brackets against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical stylized stone slab structure framed and reinforced down the center with wooden beams and metal brackets against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single freestanding object, best described as a reinforced rock wall section or mine tunnel wall barrier. It consists of a tall rectangular block of chipped, faceted brown-gray stone with patch-like green moss covering the base, reinforced by a horizontal timber beam capping the top, a vertical timber post extending down the center, two small diagonal wooden supports tucked beneath the top lintel, and several dark gray metal brackets/fasteners (two securing the top beam, one upper metal strap, and one lower square metal bolt plate on the vertical post). The object is complete and uncropped, centered against a flat, uniform bright blue background with no floor, shadows, people, or scenery.",
+       "reference_differences": [
+        "The candidate includes a wooden lintel beam capping the top surface, which is bare rock in the reference.",
+        "The candidate adds a prominent central vertical timber post running down the front face with two diagonal timber support brackets at the top, none of which exist in the reference.",
+        "The candidate adds four dark metal brackets/plates (two at the top beam and two along the vertical post), which are absent in the reference.",
+        "The central vertical fissure visible in the upper half of the reference stone is covered or replaced by the wooden post in the candidate."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3499,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.996,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 50
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5450,
+   "tokens_out": 1924,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-doorway--mine-timbered": {
+   "id": "wall-doorway--mine-timbered",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/wall-doorway--mine-timbered.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy-style stone archway reinforced with heavy timber beams and iron brackets, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Contains attached metal brackets/clamps, violating the requirement of no fittings attached",
+       "Depicts an isolated stone portal/pillars rather than an upright rock wall section",
+       "Includes an extra upper wooden beam and additional framing instead of a simple frame of two thick posts and a single lintel"
+      ],
+      "blind": {
+       "what_i_see": "A stylized fantasy-style stone archway reinforced with heavy timber beams and iron brackets, isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single composite object: a stone doorframe or portal structure reinforced with timber framing. It consists of two vertical stone pillars and an upper stone block, augmented by a horizontal wood beam along the top edge, a secondary lower horizontal timber lintel, and two vertical wooden inner jambs running down the interior sides. Four dark grey rectangular metal brackets or clamps secure the horizontal wooden beams to the stone and timber posts (two on the uppermost beam, two on the lower lintel beam). The stone is textured with angular, chiseled facets in earthy yellowish-brown and tan tones, with greenish moss patches near the base of both pillars. The wood has visible brown grain, carved facets, and visible tree rings on the right-side cut ends. The doorway opening is empty, showing only the background through it. The object is completely contained within the frame with no parts cropped. The background is a flat, uniform, unshaded bright blue with no cast shadows or floor.",
+       "reference_differences": [
+        "The candidate image includes an upper horizontal wooden beam across the top of the stone lintel with two metal brackets, which is absent in the reference.",
+        "The candidate image features a second horizontal wooden beam below the stone header, secured by two metal brackets, which is absent in the reference.",
+        "The candidate image has two vertical wooden support posts lining the inner edges of the stone pillars, whereas the reference opening consists entirely of exposed stone.",
+        "The interior rectangular opening of the candidate image is narrower and lower due to the added wooden jambs and lintel."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/min/work/wall-doorway--mine-timbered.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone archway or doorway reinforced with an inner wooden frame against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone archway or doorway reinforced with an inner wooden frame against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one primary composite object, best described as a stone portal or doorway frame reinforced with wood, with a second guess of a mine shaft entrance frame. The structure consists of an outer rectangular stone post-and-lintel arch with angular chiseled facets, cracks, and moss growth near the base, within which a secondary frame of rough-hewn timber has been installed. The wooden framing comprises a horizontal timber lintel resting across the opening, two vertical timber jamb posts lining the interior sides, and two small, lighter-colored trapezoidal wooden wedges or pegs driven beneath the horizontal lintel. The doorway is completely open and unobstructed in the center, allowing the blue backdrop to show straight through. Materials appear to be painted/stylized textured brown-grey stone with green moss, dark brown wood grain, and light yellowish-tan wood for the wedges. The entire structure is uncropped and fully visible. The background is a flat, uniform bright blue with no cast shadows, floor, or additional scenery.",
+       "reference_differences": [
+        "The candidate image includes an inner wooden frame composed of a horizontal crossbeam lintel and two vertical jamb posts, whereas the reference image consists entirely of plain stone.",
+        "The candidate image features two small light-colored wooden wedges/pegs securing the timber lintel, which are absent in the reference image.",
+        "The inner opening of the candidate image is narrowed and reshaped by the presence of the timber beams, whereas the reference image has a wider, unobstructed stone opening."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2594,
+      "soft": 0.0048,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9911,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8600,
+   "tokens_out": 4083,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ore-vein": {
+   "id": "ore-vein",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/ore-vein.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized rectangular stone slab featuring a prominent diagonal crack filled with yellow and orange crystals set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Contains blue and greenish-cyan coloration, which is explicitly forbidden."
+      ],
+      "blind": {
+       "what_i_see": "A stylized rectangular stone slab featuring a prominent diagonal crack filled with yellow and orange crystals set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one separate object, best described as a stone wall slab or a rock ore deposit block (second guess: a fantasy game tile or decorative monolith). It is an upright rectangular block with heavily faceted, fractured surfaces on its front and visible right side. It has no legs, wheels, doors, or drawers. The materials resemble chiseled stone painted in earthy tones of gray, tan, and brown, with green mossy tinting at the base. Embedded along a deep Y-shaped fissure traversing diagonally from lower-left to upper-right are faceted, spherical, and crystalline clusters colored in bright gold, yellow, and amber-orange, flanked by greenish-cyan mineral staining along the edges of the rock. The entire object is depicted whole within the frame, surrounded by a uniform, flat blue chroma-key background with no ground plane, shadows, people, or external scenery.",
+       "reference_differences": [
+        "The candidate features a dense trail of faceted golden-yellow and orange crystals or ore embedded within a central branching crack, whereas the reference stone slab has no crystals or ore.",
+        "The candidate contains greenish-cyan mineral staining and discoloration flanking the crystal-filled fissure, which is completely absent in the reference.",
+        "The crack patterns on the stone face differ; the candidate has a prominent diagonal and branching trench, while the reference has finer, empty cracks and a protruding triangular rocky facet on the right side."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/min/work/ore-vein.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized tall rectangular stone block featuring a branching vein filled with golden and amber-colored nuggets or crystals, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized tall rectangular stone block featuring a branching vein filled with golden and amber-colored nuggets or crystals, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single three-dimensional rectangular slab or wall segment with a chiseled, faceted rocky surface. Best guess: a video game environment asset depicting a rock wall with a gold ore vein; second guess: a stylized carved stone pillar. It is an unjointed monolithic block with no legs, wheels, doors, or moving parts. The main surface is rendered in tones of muted brownish-gray and tan stone, with dark green moss/lichen shading near the lower edge. Running diagonally from the lower-left up towards the top-right, with a branch splitting off toward the upper-left to form a 'Y' shape, is an indented fissure densely packed with faceted, rounded nuggets in bright yellow, amber, and orange hues. The object is completely contained within the frame against a uniform, flat blue chroma key background with no shadows, people, or external scenery.",
+       "reference_differences": [
+        "The candidate contains a prominent branching Y-shaped vein filled with bright golden-yellow and orange-amber mineral nuggets/crystals, whereas the reference image shows only plain fractured stone along those fault lines.",
+        "The rocky clefts along the vein path in the candidate are widened and recessed to cradle the ore deposits, while in the reference they appear as narrow, dry rock fractures.",
+        "The stone immediately bordering the vein in the candidate features slight warm/yellowish highlights and matrix dust not present in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3379,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9956,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 22
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8507,
+   "tokens_out": 5517,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--mine-timbered--s2": {
+   "id": "wall-straight--mine-timbered--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/wall-straight--mine-timbered--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical, stylized game-asset stone pillar fitted with a wooden climbing ladder structure on its upper half, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Remove the metal brackets/fasteners attached to the wooden structure."
+      ],
+      "blind": {
+       "what_i_see": "A vertical, stylized game-asset stone pillar fitted with a wooden climbing ladder structure on its upper half, isolated against a solid blue background.",
+       "details": "The image features a single, whole freestanding object consisting of a tall rectangular slab or wall section made of faceted, earthy brown stone with green moss at the base. Attached to the front face is a wooden ladder or scaffold assembly, featuring a vertical central wooden post secured by six small rectangular metal brackets/fasteners (two near the top, two near the center, two near the bottom). Spanning across the upper half are five horizontal rows of carved wooden slats or rungs (a top full-width beam, followed by four tiers of segmented horizontal planks on both sides of the central beam). The stone surface beneath has chiselled, angular rock facets. The object is completely contained within the frame with no parts cropped. The background is a flat, uniform, high-saturation blue with no floor, shadows, people, or text present.",
+       "reference_differences": [
+        "The candidate image features an overlaid wooden ladder structure (a vertical post and five horizontal rungs/beams with metal brackets), which is completely absent on the reference image.",
+        "The reference image has a deep diagonal fissure or crack running from top left to lower right across the stone, which is absent in the candidate image.",
+        "The reference image features a prominent, lighter horizontal band of rock strata across its upper half, which is absent in the candidate image.",
+        "The reference image includes a distinct triangular protruding stone ledge or step on the lower right, whereas the candidate image has flatter, faceted rock in that region without a jutting ledge.",
+        "The candidate image has wooden board cross-sections visible on the top edge and right side, whereas the reference image shows solid stone across all top and side faces."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/min/work/wall-straight--mine-timbered--s2.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized vertical rock slab structure reinforced with a wooden frame and horizontal planks, rendered against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized vertical rock slab structure reinforced with a wooden frame and horizontal planks, rendered against a solid blue backdrop.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The image shows a single isolated object: a stylized game asset representing a vertical stone slab or wall module reinforced with dark brown timber framing (second guess: a climbable rock wall segment). The structure consists of a faceted rock base with green moss around the bottom, a triangular rocky ledge protruding outward on the lower-right side, a thick wooden horizontal beam spanning the top edge, a central vertical timber running from the top beam down past the midpoint, and four horizontal wooden slats on each side flanking the central column. The materials appear to be hand-painted stylized rock (tan, earthy brown, greyish-brown with olive-green moss) and dark carved wood. The object is completely uncropped and floats centered against a uniform, solid chroma-blue background with no visible floor, ground contact, or cast shadows.",
+       "reference_differences": [
+        "The candidate adds a wooden reinforcement framework consisting of a thick top header beam, a central vertical post, and eight horizontal wooden slats (four on each side).",
+        "The reference consists entirely of bare, faceted rock without any wooden additions.",
+        "The reference features a prominent diagonal fracture cutting from the upper-left edge down through a horizontal tan mineral band, which is absent or covered by wood in the candidate.",
+        "The reference shows a distinctive horizontal pale tan sedimentary rock band across the upper third, which is replaced by wooden slats and recessed stone in the candidate."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3422,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8627,
+   "tokens_out": 3982,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ore-vein--s2": {
+   "id": "ore-vein--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/ore-vein--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vertical rectangular stone block featuring a wide diagonal crevice filled with geometric purple, pink, and orange crystals, set against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vertical rectangular stone block featuring a wide diagonal crevice filled with geometric purple, pink, and orange crystals, set against a solid blue backdrop.",
+       "details": "There are no text, labels, or watermarks visible. The image contains a single distinct object, best described as a stylized stone wall tile or geode rock slab (second guess: an isometric mineral terrain block). It is composed of a thick, upright rectangular slab with visible top, front, and right-hand faces. The stone is carved with faceted, chisel-textured planes in shades of sandy tan, ochre, and warm brown. Splitting diagonally across the front face from the mid-left downward toward the center and upward to the right is an exposed cavernous pocket packed with numerous multi-faceted prismatic crystals: predominantly deep violet-purple, ruby/magenta, and warm amber-orange. At the bottom right, the rock forms protruding angular ledge facets. The object is completely solid with no moving parts, doors, drawers, or lids, though the crystal cavity reveals shallow depth within the stone. It is fully visible without cropping against a completely flat, uniform cobalt blue background, devoid of cast shadows, people, or scenery.",
+       "reference_differences": [
+        "The candidate features a broad opening filled with multi-colored (purple, magenta, orange) gemstone crystals, whereas the reference contains no crystals.",
+        "The reference features a prominent horizontal light-tan rock stratum running across its upper third, which is completely absent in the candidate.",
+        "The reference has patches of greenish moss or lichen growth near the bottom, whereas the candidate has clean stone without moss.",
+        "The central diagonal fracture in the reference is a narrow, continuous jagged crack, whereas in the candidate it opens into a wide, recessed crystal-filled geode vein."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3404,
+      "soft": 0.0031,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 38
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5478,
+   "tokens_out": 6397,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "mine-cart--s2": {
+   "id": "mine-cart--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/mine-cart--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "An empty stylized wooden minecart with metal bands and wheels viewed from a high isometric angle against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An empty stylized wooden minecart with metal bands and wheels viewed from a high isometric angle against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single object, best described as a stylized minecart, with a second guess being a wooden freight wagon or trolley. It has an open rectangular wooden box body with four thick corner posts and side planks reinforced by dark gray metal straps secured by round rivets. It rests on a heavy metal undercarriage with four thick metal wheels (three fully visible and one partially visible on the far side). A metal coupling hook extends from both the front-left and rear-right ends. The cart is completely empty, revealing the interior wooden floor planks and inside walls. The wood is a warm orange-brown tone, while the metal fixtures are weathered, dark gray with subtle metallic highlights. The entire object is centered and uncropped. The background is a solid, completely uniform bright blue with no shadows or floor plane.",
+       "reference_differences": [
+        "The candidate cart is completely empty, revealing its interior walls and planked floor.",
+        "The reference cart is filled to overflowing with a large pile of rough rocky ore containing metallic orange, gold, and greenish mineral deposits."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4715,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5336,
+   "tokens_out": 1970,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ore-pile--s2": {
+   "id": "ore-pile--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/ore-pile--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted 3D game asset depicting a mound of rocky ore interspersed with golden-yellow mineral veins, featuring a shovel stuck into the upper right side against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted 3D game asset depicting a mound of rocky ore interspersed with golden-yellow mineral veins, featuring a shovel stuck into the upper right side against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single main composite object: a low-domed mound or pile of rocks/ore deposit with an embedded shovel. The mound consists of dozens of faceted brown, grey, and orange-tinted rocky boulders clustered together, with bright yellow-to-orange crystalline chunks and veins filling the crevices between them, along with speckled green moss or verdigris-like mineral flecks. Thrust into the rocks on the upper right side is a digging shovel, composed of a T-bar wooden grip, a short wooden shaft, a metal sleeve, and a grey metallic blade buried into the stone. No parts are open, hinged, or articulated. The object is depicted whole and uncropped, centered within the frame. The background is a flat, uniform solid bright blue without shadows or floor plane.",
+       "reference_differences": [
+        "The candidate image includes a T-handle shovel stuck into the upper right side of the mound, which is completely absent in the reference image.",
+        "The candidate pile has a flatter, broader, more dome-shaped overall silhouette, whereas the reference pile is taller and tapers into a steeper peak at the top.",
+        "The arrangement of rocks in the candidate is more radially distributed around a central boulder, whereas the reference has large faceted rock faces running diagonally and vertically.",
+        "The candidate has a wider spread of yellow/gold minerals around the perimeter and top crevices compared to the more concentrated, stream-like veins visible in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4072,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9961,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5427,
+   "tokens_out": 1567,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "coal-bin--mine": {
+   "id": "coal-bin--mine",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/coal-bin--mine.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden storage bin painted weathered green and filled with lumps of black coal, featuring a wooden scoop resting inside and several spilled coal chunks on the ground, isolated against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden storage bin painted weathered green and filled with lumps of black coal, featuring a wooden scoop resting inside and several spilled coal chunks on the ground, isolated against a solid blue backdrop.",
+       "details": "The image features no text, labels, or watermarks. The primary object is a wooden coal bin or storage crate (second guess: an ore box or trough). It consists of four thick, vertical corner posts of light brown carved wood, horizontal wooden wall planks painted distressed olive-green with patches of peeling paint and dark stains, and slanted top side rails descending from back to front. The bin is completely open-topped without a lid, filled to the brim with faceted, matte dark-grey to black coal or ore chunks. Stuck into the coal near the rear right is a carved wooden hand scoop or shovel with an upright handle. Around the front-left post, approximately six to seven small loose chunks of coal lie spilled on the ground. The object is depicted whole and completely uncropped. The background is a flat, uniform, solid bright blue with no floor plane or drop shadows visible. There are no people, text, or scenery present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4872,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9939,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4153,
+   "tokens_out": 1540,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "lumber-pile": {
+   "id": "lumber-pile",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/lumber-pile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset depicting a stacked pile of weathered wooden beams or railroad ties set against a solid royal blue background.",
+      "ok": false,
+      "problems": [
+       "The stack is composed entirely of heavy square beams/railroad ties rather than a low stack of sawn planks with beams on top"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset depicting a stacked pile of weathered wooden beams or railroad ties set against a solid royal blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single composite object: a neatly stacked pile of heavy wooden beams (best guess: lumber stack; second guess: pile of railroad ties or timber cribbing). The stack consists of six tiers of two parallel long beams running diagonally from lower left to upper right (totaling 12 long beams), supported and separated by transverse wooden spacer blocks. The front ends of the beams show cut cross-sections with growth rings and cracks in a light tan-gold color, while the long surfaces are weathered medium-to-dark brown with sculpted grain, knots, and subtle green moss patches. On the top surfaces of the two uppermost beams, four square iron bolts or metal caps are affixed near the ends (two on each beam). At the bottom, transverse wooden skids serve as base supports elevating the stack. The entire object is centered and fully visible without any cropping. The background is a uniform, flat royal blue with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/min/work/lumber-pile.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital model of a stacked pile of wooden boards topped with two thick timber beams, set against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Invented metal strap brackets and studs on the timber beams"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D digital model of a stacked pile of wooden boards topped with two thick timber beams, set against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The scene contains one composite object: a neatly stacked pile of lumber (or alternatively, a pallet of wooden building materials / railway ties). The stack consists of six horizontal tiers of long flat wooden planks (arranged four across per layer), separated by small square spacer blocks between layers to allow ventilation. On top of the stack sit two thick, square-profile timber beams, each fitted with square metal studs on the top surface and metal strap brackets on the inner and outer sides. There are no doors, drawers, or lids. The material is stylized, hand-painted wood featuring wood grain, end-grain rings, and subtle green mossy undertones, with dark charcoal-gray metal fittings. The entire stack is completely visible and not cropped by the frame. The background is a flat, solid chroma-key blue with no ground surface, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 3530,
+   "tokens_out": 4042,
+   "status": "rejected"
+  },
+  "rural-ore-bucket": {
+   "id": "rural-ore-bucket",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/rural-ore-bucket.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a wooden bucket with iron bands and an arched overhead handle, filled to the brim with multi-colored ore rocks against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a wooden bucket with iron bands and an arched overhead handle, filled to the brim with multi-colored ore rocks against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image features a single primary object: a wooden bucket or mining pail (second guess: an ore basket). The bucket is constructed from vertical light brown/honey-colored wooden staves reinforced by three dark grey, hammered iron hoops studded with round rivets. An arched, thick iron handle is hinged to the upper sides and features a hoisting ring at the apex. The bucket is open at the top and completely filled with faceted chunks of raw ore/minerals bearing flecks and surfaces of gold, copper-orange, turquoise-green, and dark grey stone. The entire object is fully visible within the frame without cropping. The background is a flat, uniform, solid bright blue with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3764,
+      "soft": 0.0057,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9929,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4146,
+   "tokens_out": 2351,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "beam-collapsed": {
+   "id": "beam-collapsed",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/beam-collapsed.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D model of broken and weathered wooden railway ties embedded in gravel and rocks, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D model of broken and weathered wooden railway ties embedded in gravel and rocks, set against a solid blue background.",
+       "details": "No text, labels, or watermarks are present. The object is a single isolated 3D digital prop representing broken wooden railroad ties or beams, possibly barricade debris or track remnants. It consists of two crossed heavy wooden beams: the top diagonal beam is snapped roughly in half with jagged, splintered lighter-colored wood exposed at the break, and the bottom transverse beam lies underneath. Large square-headed iron bolts or spikes are driven into the top faces of the beams (around four visible). Three smaller broken wood splinters and chunks lie near the central break. The base of the asset is formed by stylized, faceted grey stones and sandy tan gravel. The wood is dark brown, cracked, and weathered with green mossy patches, contrasting with pale tan inner wood where broken. The object is completely in frame without cropping, set against a flat, uniform, bright blue chroma background with no floor shadows or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3689,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 16
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4127,
+   "tokens_out": 1417,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-water-pump-mine": {
+   "id": "rural-water-pump-mine",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/rural-water-pump-mine.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a hand-cranked wooden barrel pump with a curved red hose and a large flywheel, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Image features a vibrant blue background, violating the requirement to have no blue colour."
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a hand-cranked wooden barrel pump with a curved red hose and a large flywheel, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single complex mechanical object: primarily a fantasy-style wooden barrel pump or liquid sprayer, with a secondary guess of a hand-cranked bilge pump or pressure cannon. Its main parts include: a vertical wooden barrel body bound by three bolted metal hoops, exhibiting some green staining near the base; an overhead metal valve and pipe assembly mounted to the top barrel lid; a curved red segmented hose/pipe leading downward to the left, terminating in a flared, open metal nozzle rim showing a shallow hollow interior; a large circular metal flywheel on the right flank equipped with a rotating crank arm and a cylindrical wooden handle; and a rectangular wooden sled-like base made of two wooden skids linked by crossbars and reinforced with four bolted metal corner brackets. The object is rendered completely within the frame with no parts cropped. The background is a uniform, flat, vibrant blue with no ground plane, shadows, people, or external scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/min/work/rural-water-pump-mine.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset representing a hand-cranked wooden barrel pump with a curved red hose, centered on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset representing a hand-cranked wooden barrel pump with a curved red hose, centered on a solid blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image contains one single object: a stylized mechanical barrel pump (second guess: portable wooden water cannon or chemical sprayer). The object consists of a cylindrical wooden barrel body reinforced with three thick grey-brown metal bands with hex bolts; a lower base constructed from four chunky wooden beams fastened by metal bracket clamps; a metal hand-crank mechanism on the left featuring a large flat metal disc, a crank arm, and a cylindrical wooden handle; a top mechanical pump assembly with vertical iron pistons and a bolted cross-brace; and a thick, downward-curving terracotta-red hose clamped with two metal ring fittings ending in an open circular metal nozzle. The barrel has visible green moss or staining across its lower half. The pipe nozzle on the right is open, revealing a hollow circular opening. Materials consist of golden-yellow stained wood, patinated/tarnished cast iron, and reddish-brown hose material. The entire object is fully visible and not cropped. The background is a uniform, flat chroma-key blue with no floor, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.361,
+      "soft": 0.0061,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9908,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6007,
+   "tokens_out": 6670,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "crystal-formation--s3": {
+   "id": "crystal-formation--s3",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/crystal-formation--s3.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a crystal cluster consisting of tall purple crystals and two smaller golden crystals embedded in a dark rocky base against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a crystal cluster consisting of tall purple crystals and two smaller golden crystals embedded in a dark rocky base against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image features a single object: a crystal cluster or mineral node asset. It consists of seven faceted, hexagonal/columnar purple crystals arranged in an upright fan formation, with the tallest in the center and shorter ones flanking both sides, along with two small golden-amber crystals situated at the front. The crystals grow out of an irregular, oval-shaped mound composed of multiple dark brownish-gray faceted rocks. There are no moving parts, lids, doors, or drawers. The textures have a painterly, stylized video-game aesthetic. The cluster is completely visible and centered, not cropped by the frame. The background is an entirely uniform, solid bright blue with no floor, scenery, or shadows cast outside the object.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4326,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9956,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4134,
+   "tokens_out": 1702,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "geode-cluster": {
+   "id": "geode-cluster",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/geode-cluster.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital illustration of a hollow geode cracked open into two halves, exposing purple and golden crystal clusters inside, floating on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital illustration of a hollow geode cracked open into two halves, exposing purple and golden crystal clusters inside, floating on a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The subject consists of two halves of a single cracked-open geode (second guess: a fantasy crystal node or mineral egg). Each half consists of an exterior rough, brown and grey rocky crust, a lighter tan inner rim, and a hollow interior packed with faceted crystals. The crystal lining comprises outer rings of purple, magenta, and lavender amethyst-like points surrounding a central cluster of sharp, amber-gold or citrine crystals. The geode is fully open and displayed facing forward, giving a complete view into the deep crystal-lined cavity of both halves. The artwork has a painted, stylized digital game-asset texture with pronounced polygonal facets. Both halves are fully contained within the frame with no cropping. The background is a flat, uniform, highly saturated royal blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4492,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9969,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 9
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4143,
+   "tokens_out": 1365,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ingot-stack": {
+   "id": "ingot-stack",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/ingot-stack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A neat, criss-crossed stack of twelve metallic ingots, with three copper-colored bars on top and nine rusty iron bars beneath, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A neat, criss-crossed stack of twelve metallic ingots, with three copper-colored bars on top and nine rusty iron bars beneath, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single stack composed of 12 separate metal ingots (or metal bars) arranged in four alternating layers of three bars each in a cribbed / criss-cross pattern. The top layer consists of three reddish-brown, copper or bronze ingots with subtle surface texture. The three layers below (nine ingots total) are made of dark grey weathered iron or steel with prominent patches of brown-orange rust and oxidation. Each ingot features a trapezoidal cross-section with beveled edges and a vertical rectangular notch centered on each end. There are no moving parts, doors, lids, or handles. The entire stack is rendered in an isometric, stylized 3D video-game art style, viewed from an elevated angle, completely uncropped. It floats against a uniform, solid saturated blue background with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5342,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9971,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4156,
+   "tokens_out": 2101,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-sign-danger-mine": {
+   "id": "rural-sign-danger-mine",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/rural-sign-danger-mine.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted wooden warning sign with three horizontal planks bearing a dripping red cross and a white skull graphic against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted wooden warning sign with three horizontal planks bearing a dripping red cross and a white skull graphic against a solid blue background.",
+       "details": "There are no readable texts, labels, or watermarks present. The image contains a single assembled object: a stylized wooden warning sign or placard. It is constructed from three horizontal, thick, chipped wooden planks attached to two vertical wooden support posts behind them. The assembly is secured by four faceted, dark grey metal rivets or bolts (one near each corner of the top and bottom planks). The face of the sign is painted with two designs: a bold red 'X' mark with dripping paint strokes across the top two planks, and a stylized white skull illustration with dripping paint running down the lower two planks. The wood texture is warm honey-brown with exaggerated painterly grain, chips, and edge wear. The sign is shown whole, centered, and uncropped. The background is a solid, uniform, bright blue screen with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5251,
+      "soft": 0.005,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9953,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4127,
+   "tokens_out": 1597,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "sluice-box": {
+   "id": "sluice-box",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/sluice-box.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized wooden mining sluice box or wash flume filled with gravel and gold nuggets, mounted on three pairs of support legs over a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D stylized wooden mining sluice box or wash flume filled with gravel and gold nuggets, mounted on three pairs of support legs over a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single complete object: primarily a mining sluice box (or sluice flume), second guess a stylized wooden ore wash trough or ramp. It features an upper rectangular wooden hopper painted reddish-brown with grey metal corner brackets, completely filled with small stones, gravel, and yellow gold nuggets. Extending downward from the hopper is an inclined wooden chute with weathered green-painted side edges and internal horizontal wooden riffles dividing it into nine tiered compartments, each filled with gravel and gold-colored stones. The structure is supported by three pairs of wooden legs (six legs in total) reinforced with diagonal braces and square block feet, joined with bolted grey metal plates. There are no doors, lids, or drawers; all compartments are open at the top. The materials consist of stylized, hand-painted wood (yellowish-brown, green, and reddish-brown), grey iron/steel fittings, and rocky gravel. The object is entirely contained within the frame with no cropping. The background is a solid, uniform bright blue screen with no floor, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2738,
+      "soft": 0.0048,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9909,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4198,
+   "tokens_out": 2429,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shoring-timber--s2": {
+   "id": "shoring-timber--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/shoring-timber--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, damaged wooden archway structure with a broken top crossbeam, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, damaged wooden archway structure with a broken top crossbeam, displayed against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one primary object: a stylized timber archway or mine support frame (second guess: gallows or gate structure). It consists of two vertical timber posts, two corner diagonal braces, a horizontal crossbeam that is snapped in half at the center, a long diagonal support timber leaning against the right post, and a small rectangular peg projecting inward from near the bottom of the left post. The top crossbeam is broken into two distinct jagged halves with a gap between them. The wood is depicted with thick hand-painted textures in shades of warm brown, golden tan highlights, and patches of olive green moss/discoloration, with visible cracks and splits, particularly a deep vertical split running down the front upper portion of the left post. The entire object is fully visible and not cropped by the frame. The background is a solid, uniform vivid blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": [
+        "The horizontal crossbeam in the candidate is snapped in two at the center with jagged splintered edges, whereas it is completely intact and continuous in the reference.",
+        "The candidate features a prominent, deep vertical split running down the upper face of the left post, which is absent in the reference.",
+        "The candidate includes an additional long diagonal timber brace extending from the top crossbeam down to the base of the right post, which is not present in the reference.",
+        "The candidate has a small wooden peg or block protruding inward near the bottom of the left post, whereas the base of the left post in the reference is plain.",
+        "The two halves of the candidate's crossbeam are slightly misaligned and sagging downward compared to the level horizontal beam in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3636,
+      "soft": 0.0081,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9871,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5477,
+   "tokens_out": 2545,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-ore-cart-tipped": {
+   "id": "rural-ore-cart-tipped",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/rural-ore-cart-tipped.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden mine cart lies overturned on its side, spilling a large pile of colorful raw ore rocks against a vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden mine cart lies overturned on its side, spilling a large pile of colorful raw ore rocks against a vibrant blue background.",
+       "details": "The image features no text, labels, or watermarks. It depicts a single overturned wheeled wooden mining cart and a large mound of spilled mineral ores. The cart is tilted onto its rear/side, exposing its inverted undercarriage. Two thick metal wheels with central hubs are mounted at the top of the overturned frame. Two heavy metal coupling hooks are visible, one resting on the ground to the left and one protruding from the right side. The cart is constructed from warm golden-brown wooden planks reinforced with dark gray iron bands and round rivets; the wooden plank at the lower-right corner is cracked and splintered, and an adjacent metal strap is bent outward. A massive heap of faceted, chunky ore blocks spills out of the cart's opening toward the front, colored in mixtures of dark charcoal gray, vibrant orange, sparkling metallic gold, and oxidized greenish-turquoise. The object is completely contained within the frame with no cropping. The background is a flat, uniform bright blue without shadows or floor details.",
+       "reference_differences": [
+        "The cart in the candidate image is overturned and resting on its side, whereas the cart in the reference image is upright on all four wheels.",
+        "The ore in the candidate is spilled out across the floor in a large heap, whereas in the reference it is piled neatly inside the wagon bed.",
+        "Only two wheels are visible in the candidate (protruding upward from the inverted base), compared to all four wheels being visible supporting the cart in the reference.",
+        "The candidate cart shows structural damage, including a split/splintered wooden corner and a bent, detached metal strap, while the reference cart is structurally intact.",
+        "The visible metal banding arrangement differs, showing the bottom/side mounting plates in the candidate rather than the two tidy horizontal bands seen in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5005,
+      "soft": 0.0057,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5458,
+   "tokens_out": 1802,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-slag-heap": {
+   "id": "rural-slag-heap",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/rural-slag-heap.try1.jpg",
+     "semantic": {
+      "what_i_see": "A textured, mound-like formation composed of rusty angular rock chunks, smooth ropy slag, and porous hollow cavities, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A textured, mound-like formation composed of rusty angular rock chunks, smooth ropy slag, and porous hollow cavities, centered against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The single centered object is a mound of geological or industrial debris, best described as a pile of slag or rusted iron ore, with an alien biomass rock or meteorite cluster as a secondary guess. It consists of multiple interlocked elements: smooth, rounded, glossy dark-brown tubular and bulbous coils resembling cooled pahoehoe lava or solidified metallic slag; angular fractured rocks covered in matte rust-orange and grey patinas; and several recessed clusters of circular, honeycomb-like holes and pits. Small crumbly tan earth and gravel-like textures fill the crevices between the larger masses. The object has no functional mechanical parts such as doors, drawers, lids, wheels, or legs. It is fully visible without being cropped by the edges of the frame. The background is a uniform, flat, chroma-key vibrant blue with no floor, horizon, or cast shadow visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.401,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4132,
+   "tokens_out": 1482,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rural-bellows-ventilation": {
+   "id": "rural-bellows-ventilation",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/min/work/rural-bellows-ventilation.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a large mechanical forge bellows mounted on a green wooden support frame, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a large mechanical forge bellows mounted on a green wooden support frame, isolated on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single composite object, best identified as a blacksmith's forge bellows or blower apparatus (second guess: a medieval fantasy contraption). The structure consists of a four-legged green timber frame reinforced with dark grey iron corner brackets secured by round brass rivets, diagonal bracing beams, and a teardrop-shaped bellows resting inside. The bellows features a light brown polished wood top and bottom plate lined with rounded gold studs, deep red or burgundy pleated leather sides, a cylindrical dark iron air nozzle pointing forward to the lower-left, and a top-mounted wooden lever handle connected via a metal hinge bracket, finished with light tan rope wound around its handle grip. The front nozzle has a hollow circular opening leading into dark interior shadow. The entire object is fully contained within the frame with no parts cropped. The background is a completely uniform, flat vivid blue chroma screen with no floor plane, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4617,
+      "soft": 0.007,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9899,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4157,
+   "tokens_out": 2618,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

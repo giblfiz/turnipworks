@@ -1,0 +1,149 @@
+{
+ "file": "hero-monk-elf-f.glb",
+ "tris": 48762,
+ "kb": 2940,
+ "native_extent": [
+  0.305,
+  1.001,
+  0.399
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  145,
+  80,
+  46
+ ],
+ "mean_saturation": 0.71,
+ "sized_by": "its highest point",
+ "overall_ft": 5.7,
+ "pieces": {
+  "connected_parts": 143,
+  "main_part_area_share": 0.9133,
+  "floating": [
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.05
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.04
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.03,
+    "size_ft": 0.03
+   }
+  ],
+  "floating_count": 3,
+  "floating_area_share": 3e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.6963,
+ "y0": -2.8507,
+ "stated_ft": {
+  "body": 5.7,
+  "figure_top": 5.7,
+  "overall": 5.7
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.1559,
+   -0.5005,
+   -0.1967
+  ],
+  [
+   0.1496,
+   0.5005,
+   0.2025
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48762,
+   "tex": 2048,
+   "kb": 2940
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1075
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 468
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.58,
+    "z": 0.72,
+    "size_ft": [
+     0.62,
+     0.93
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.74,
+    "sole_p90_ft": 0.092
+   },
+   {
+    "x": -0.45,
+    "z": -0.9,
+    "size_ft": [
+     0.57,
+     0.93
+    ],
+    "off_ground_ft": 0.003,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.087
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.003,
+  "lowest_slab_area_sqft": 0.66,
+  "plan_hull_area_sqft": 2.88,
+  "lowest_slab_share_of_plan": 0.229
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.74,
+   "d": 2.27,
+   "h": 5.7
+  },
+  "centre": [
+   -0.042,
+   0.032
+  ],
+  "contacts_radius_ft": 1.27,
+  "reach_radius_ft": 1.21,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.884,
+  "plate_lost_share": 0.024,
+  "added_share": 0.104,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.882,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 16
+ },
+ "id": "hero-monk-elf-f",
+ "sha1": "6219b28ad19db9453c00e4fd74f628a46e90c729",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 15.1
+}

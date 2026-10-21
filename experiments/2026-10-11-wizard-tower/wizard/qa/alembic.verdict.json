@@ -1,0 +1,35 @@
+{
+ "sku": "alembic",
+ "glb_sha1": "51cbe00b807e7f52a188d4485121f7027b24cdf0",
+ "time": "2026-10-11T19:50:05-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "alembic / distillation apparatus",
+  "second_guess": "alchemy still",
+  "confidence": 0.9,
+  "reads_clearly_at_distance": true,
+  "description": "A stylized fantasy or medieval distillation apparatus mounted on a circular wooden plate. A spherical olive-green glass retort rests upon a dark iron tripod stand above a small brass burner. A copper conical cap with a curving swan-neck condenser pipe extends from the top of the flask into a secondary copper receiver flask beside it. All surfaces are solid, smooth, and stylized.",
+  "from_above": "A circular brown disc topped with a large olive-green sphere that has a copper peak at its center, connected via a curved copper tube to a smaller copper spherical vessel.",
+  "defects": [],
+  "extra_base_or_ground": "circular wooden disc plinth",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1/4 the height of the figure (roughly 1.5 feet tall) and about 1.5 feet wide across the base."
+ },
+ "match": {
+  "ok": false,
+  "reads_as": "alembic / distillation apparatus",
+  "cause": "plate",
+  "problems": [
+   "unwanted circular base plinth"
+  ],
+  "notes": []
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "gemini: unwanted circular base plinth"
+ ],
+ "notes": [
+  "footprint proportion 1.49x off the catalog (1.8 x 1.8 ft)"
+ ],
+ "vision": true
+}

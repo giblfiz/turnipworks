@@ -1,0 +1,207 @@
+{
+ "version": 1,
+ "units": "glb-local (runtime tier, width ~1); size_in is the catalog size the tuner scales to",
+ "convention": "glTF Y-up, front +Z, pivot in GLB root space; openAngle in degrees about axis (right-hand rule)",
+ "assets": {
+  "chest-parts-raw": {
+   "glb": "runtime/chest-parts-raw.glb",
+   "mode": "hinge",
+   "parts": {
+    "static": [
+     "body"
+    ],
+    "moving": "lid",
+    "pivotNode": "lid_hinge"
+   },
+   "pivot": [
+    0.0,
+    0.45365,
+    -0.37011
+   ],
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "openAngle": -105,
+   "duration": 0.9,
+   "ease": "inOutCubic",
+   "openEase": "outBack",
+   "title": "Separate parts (raw)",
+   "sku": "chest-ironbound",
+   "size_in": [
+    36,
+    20,
+    22
+   ],
+   "lead": true,
+   "variantOf": "chest-parts",
+   "geometryOps": [
+    "decimate",
+    "planar trim (body, front-rim height)",
+    "lid placement transform"
+   ],
+   "trimmed": true
+  },
+  "chest-multi-trellis": {
+   "glb": "runtime/chest-multi-trellis.glb",
+   "mode": "hinge",
+   "parts": {
+    "static": [
+     "body"
+    ],
+    "moving": "lid",
+    "pivotNode": "lid_hinge"
+   },
+   "pivot": [
+    0.0,
+    0.51616,
+    -0.47298
+   ],
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "openAngle": -105,
+   "duration": 0.9,
+   "ease": "inOutCubic",
+   "openEase": "outBack",
+   "title": "1-multi: trellis",
+   "sku": "chest-ironbound",
+   "size_in": [
+    36,
+    20,
+    22
+   ],
+   "variantOf": "chest-parts",
+   "geometryOps": [
+    "decimate",
+    "orient",
+    "lid placement transform"
+   ],
+   "source": "fal-ai/trellis/multi from Gemini view sets (mv/views)"
+  },
+  "chest-parts": {
+   "glb": "runtime/chest-parts.glb",
+   "mode": "hinge",
+   "parts": {
+    "static": [
+     "body"
+    ],
+    "moving": "lid",
+    "pivotNode": "lid_hinge"
+   },
+   "pivot": [
+    0.0,
+    0.44747,
+    -0.36927
+   ],
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "openAngle": -105,
+   "duration": 0.9,
+   "ease": "inOutCubic",
+   "openEase": "outBack",
+   "title": "Separate parts (patched)",
+   "sku": "chest-ironbound",
+   "size_in": [
+    36,
+    20,
+    22
+   ],
+   "variantOf": "chest-parts",
+   "geometryOps": [
+    "decimate",
+    "planar trim",
+    "rim ring",
+    "lid recess cap"
+   ]
+  },
+  "chest-cut": {
+   "glb": "runtime/chest-cut.glb",
+   "mode": "hinge",
+   "parts": {
+    "static": [
+     "body"
+    ],
+    "moving": "lid",
+    "pivotNode": "lid_hinge"
+   },
+   "pivot": [
+    0.0,
+    0.50787,
+    -0.38316
+   ],
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "openAngle": -105,
+   "duration": 0.9,
+   "ease": "inOutCubic",
+   "openEase": "outBack",
+   "title": "Cut and cap",
+   "sku": "chest-ironbound",
+   "size_in": [
+    36,
+    20,
+    22
+   ]
+  },
+  "chest-swap": {
+   "title": "Two-state swap",
+   "mode": "swap",
+   "sku": "chest-ironbound",
+   "size_in": [
+    36,
+    20,
+    22
+   ],
+   "states": {
+    "closed": "runtime/chest-swap-closed.glb",
+    "open": "runtime/chest-swap-open.glb"
+   },
+   "duration": 0.35,
+   "pop": 0.08,
+   "ease": "inOutCubic"
+  },
+  "door-demo": {
+   "glb": "runtime/door-demo.glb",
+   "mode": "hinge",
+   "parts": {
+    "static": [
+     "frame"
+    ],
+    "moving": "leaf",
+    "pivotNode": "leaf_hinge"
+   },
+   "pivot": [
+    -0.11054,
+    0.0,
+    -0.00541
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "openAngle": -95,
+   "duration": 0.9,
+   "ease": "inOutCubic",
+   "openEase": "outBack",
+   "title": "Door (existing leaf + doorway)",
+   "sku": "wall-doorway--dressed-stone + door-plank--leaf",
+   "size_in": [
+    60,
+    12,
+    108
+   ],
+   "fit": "height"
+  }
+ }
+}

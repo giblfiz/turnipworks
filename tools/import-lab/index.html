@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Import Lab · Turnip Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+  "postprocessing": "../tuner/js/vendor/postprocessing-6.39.5.js",
+  "n8ao": "../tuner/js/vendor/n8ao-2.0.1.js",
+  "three-good-godrays": "../tuner/js/vendor/three-good-godrays-0.12.1.js",
+  "three-mesh-bvh": "./vendor/three-mesh-bvh-0.8.3.js"
+} }
+</script>
+</head>
+<body>
+<header>
+  <div class="brand"><a href="../">Turnip Works</a> <strong>Import Lab</strong></div>
+  <p class="pitch">Bring your own mini or monster. It is shrunk to a game-sized model <em>here in your browser</em>. Nothing is uploaded; the file never leaves this computer.</p>
+</header>
+<main>
+  <aside id="left" class="panel">
+    <section>
+      <h3>1 · The model</h3>
+      <div class="row"><button id="pick" class="primary">Choose a file…</button><span class="muted small">or drop STL, OBJ or GLB anywhere</span></div>
+      <input id="file" type="file" accept=".stl,.obj,.glb" hidden>
+      <div class="row" id="samples"></div>
+      <p id="modelName" class="small muted">no model yet</p>
+    </section>
+    <section>
+      <h3>2 · Size and facing</h3>
+      <label class="line">How tall is this, in feet? <input id="height" type="number" min="0.5" max="200" step="0.5" value="6"></label>
+      <div class="row"><span class="grow">Which way is front?</span><button id="turn" title="Turn the model a quarter turn. Front faces you in the starting view.">Turn ⟳</button></div>
+      <div class="row"><span class="grow">Lying on its side?</span><button id="tip" title="Stand the model up a different way (STL files often have Z as up)">Stand it up ⤴</button></div>
+    </section>
+    <section>
+      <h3>3 · How small</h3>
+      <div class="label">Triangle budget</div>
+      <div class="seg" id="budget"></div>
+      <label class="check"><input type="checkbox" id="bake" checked> Bake the fine detail into a normal map</label>
+      <div class="label">Normal map size</div>
+      <div class="seg" id="tex"></div>
+      <div id="lookRow"><div class="label">Finish (for models with no colour)</div><div class="seg" id="look"></div></div>
+    </section>
+    <section>
+      <h3>4 · Look at it</h3>
+      <div class="label">View distance</div>
+      <div class="seg" id="view"></div>
+      <p class="small muted" id="viewHint"></p>
+      <div class="seg" id="mode"></div>
+      <p class="small muted">Flip: hold <kbd>Space</kbd> to swap original and converted in place. Drag to orbit, wheel to zoom, right-drag to pan.</p>
+      <div class="seg" id="light"></div>
+    </section>
+  </aside>
+  <div id="stage">
+    <div class="pane" id="paneA"><canvas id="ca"></canvas><div class="tag" id="tagA">ORIGINAL</div></div>
+    <div class="pane" id="paneB"><canvas id="cb"></canvas><div class="tag conv" id="tagB">CONVERTED</div></div>
+    <div id="status" hidden></div>
+    <div id="drop" hidden>Drop the model here</div>
+    <div id="hud" class="small"></div>
+  </div>
+  <aside id="right" class="panel">
+    <section>
+      <h3>What it cost</h3>
+      <table id="readout"><thead><tr><th></th><th>Original</th><th>Converted</th></tr></thead><tbody></tbody></table>
+      <p id="detail" class="small muted"></p>
+      <div class="row"><button id="download" disabled>Download the converted GLB</button></div>
+    </section>
+    <section>
+      <h3>Your verdict</h3>
+      <p class="small muted">Judge it at table distance: that is where the game is played. What you see up close is a note, not the verdict.</p>
+      <textarea id="note" rows="4" placeholder="Anything you noticed (optional)"></textarea>
+      <div class="row"><button id="fine" class="primary">This looks fine</button><button id="bad" class="danger">Not good enough</button></div>
+      <p id="sent" class="small muted"></p>
+    </section>
+    <section>
+      <h3>How it is done</h3>
+      <p class="small muted">Weld the vertices, simplify with meshoptimizer, recompute normals, unwrap, then ray-cast from the small model to the original to paint its detail into a normal map (and its colours into a texture, if it has any). The converted side shows the actual GLB file that was written, loaded back in.</p>
+    </section>
+  </aside>
+</main>
+<div id="toast" hidden></div>
+<script type="module" src="js/main.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turnip Works — Buildings bench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+:root { color-scheme: dark; --ink:#f1e8d6; --muted:#a99f8d; --line:#3b382f; --turnip:#b9d45d; --paper:#181915; --panel:#21231e; --deep:#141510; --danger:#d9654f; --loop:#ff9d3c; --plan:#efe6d2; --wall:#2a2620; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 13px/1.4 "DM Mono", ui-monospace, monospace; }
+a { color: var(--turnip); }
+header { position: sticky; top: 0; z-index: 5; background: var(--deep); border-bottom: 1px solid var(--line); padding: 8px 14px 10px; }
+.top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.brand a { text-decoration: none; margin-right: 6px; } .brand strong { font-family: Fraunces, serif; font-size: 19px; }
+.muted { color: var(--muted); } .small { font-size: 11px; }
+#summary { flex: 1; min-width: 260px; }
+#summary b { color: var(--turnip); font-weight: 500; } #summary .bad { color: var(--danger); }
+.controls { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 8px; align-items: flex-end; }
+.group { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.group > label.t, .dial .t { color: var(--turnip); font-size: 11px; text-transform: uppercase; letter-spacing: .07em; margin-right: 4px; }
+button, select, input, textarea { font: inherit; color: var(--ink); }
+button { padding: 4px 9px; border: 1px solid var(--line); border-radius: 5px; background: #2a2d26; cursor: pointer; }
+button:hover { border-color: var(--turnip); } button.primary { background: #3a4524; border-color: #5d6e33; }
+button.on { background: var(--turnip); color: var(--deep); border-color: var(--turnip); }
+textarea, input[type=text] { background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 5px 7px; }
+.dial { width: 230px; }
+.dial .ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+.dial .head { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.dial .head output { color: var(--ink); min-width: 92px; text-align: right; font-size: 11px; }
+.dial input[type=range] { width: 100%; accent-color: var(--turnip); margin: 1px 0 0; }
+.dial.auto input[type=range] { opacity: .35; }
+.dial label.def { font-size: 11px; color: var(--muted); display: flex; gap: 4px; align-items: center; cursor: pointer; }
+.dial label.def input { accent-color: var(--turnip); margin: 0; }
+#globalNote { display: flex; gap: 6px; align-items: center; flex: 1; min-width: 320px; } #globalNote input { flex: 1; }
+main { padding: 10px 14px 80px; }
+h2 { font: 700 17px Fraunces, serif; margin: 22px 0 2px; } h2 small { font: 400 12px "DM Mono", monospace; color: var(--muted); margin-left: 8px; }
+h3 { font: 500 11px "DM Mono"; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 12px 0 6px; }
+.row { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--cardw, 420px), 1fr)); gap: 10px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px 9px; min-width: 0; }
+.card.fail { border-color: #7a3a2f; }
+.card .hd { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.card .hd b { font-weight: 500; } .card .hd .seed { color: var(--muted); font-size: 11px; }
+.levels { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0; align-items: flex-end; }
+.level { min-width: 0; } .level .lv { font-size: 11px; color: var(--muted); margin-bottom: 2px; } .level .lv b { color: var(--ink); font-weight: 500; }
+svg.plan { display: block; background: #2b2d27; border-radius: 4px; max-width: 100%; height: auto; }
+svg.plan text { font-family: "DM Mono", ui-monospace, monospace; pointer-events: none; }
+svg.plan .name { fill: #1c1a15; font-weight: 500; text-anchor: middle; paint-order: stroke; stroke: rgba(255,255,255,.55); stroke-width: 2.2px; }
+svg.plan .dim { fill: #3b3830; text-anchor: middle; font-size: 8px; }
+svg.plan .wall { stroke: var(--wall); stroke-width: 2.6; stroke-linecap: square; fill: none; }
+svg.plan .wall.out { stroke: #6d6a5c; stroke-width: 1.4; stroke-dasharray: 3 2; }
+svg.plan .door { stroke: #6b3f17; stroke-width: 1.2; fill: none; }
+svg.plan .gedge { stroke: #1f5fbf; stroke-width: 1.5; fill: none; opacity: .85; }
+svg.plan .gedge.loop { stroke: var(--loop); stroke-width: 2.4; opacity: 1; }
+svg.plan .gnode { fill: #1f5fbf; stroke: #fff; stroke-width: 1; }
+svg.plan .gnode.ent { fill: #d9302c; }
+svg.plan .depth { fill: #fff; font-size: 7.5px; text-anchor: middle; font-weight: 500; }
+svg.plan .street { fill: #d9302c; font-size: 9px; font-weight: 500; text-anchor: middle; }
+svg.plan .foot { stroke: #c9c4b4; stroke-width: 1; stroke-dasharray: 5 4; fill: none; }
+body.nograph svg.plan .graph { display: none; }
+.checks { font-size: 11px; display: flex; flex-wrap: wrap; gap: 3px 8px; align-items: baseline; }
+.checks .ok { color: var(--turnip); } .checks .bad { color: var(--danger); cursor: help; border-bottom: 1px dotted var(--danger); }
+.notes { font-size: 11px; color: #d8b56a; margin-top: 2px; }
+.acts { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+.acts a, .acts button { font-size: 11px; padding: 3px 7px; border: 1px solid var(--line); border-radius: 5px; background: #2a2d26; text-decoration: none; color: var(--ink); }
+.acts a:hover { border-color: var(--turnip); } .acts a.go { background: #3a4524; border-color: #5d6e33; }
+.acts input { flex: 1; min-width: 120px; font-size: 11px; padding: 3px 6px; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11px; color: var(--muted); margin-top: 6px; }
+.legend i { display: inline-block; width: 18px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 4px; }
+#toast { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); padding: 8px 12px; background: rgba(20,21,16,.95); border: 1px solid var(--turnip); border-radius: 6px; z-index: 9; }
+#toast.err { border-color: var(--danger); }
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <span class="brand"><a href="../../">←</a><strong>Buildings bench</strong></span>
+    <span id="summary" class="small muted">loading…</span>
+    <a class="small" href="../">Spawn Tuner</a>
+  </div>
+  <div class="controls">
+    <div class="group" id="fType"><label class="t">Type</label></div>
+    <div class="group" id="fSize"><label class="t">Footprint</label></div>
+    <div class="group"><label class="t">Seeds</label><button id="fewer">−</button><output id="nSeeds">4</output><button id="more">+</button><button id="reseed" title="A fresh set of seeds">New seeds</button></div>
+    <div class="group" id="fStoreys"><label class="t">Storeys</label></div>
+    <div class="group" id="fFront"><label class="t">Street side</label></div>
+    <div class="group"><button id="tOut" class="on" title="Yards, stables and courts outside the dragged rectangle">Outbuildings</button><button id="tGraph" class="on" title="The circulation graph over each plan">Graph</button></div>
+  </div>
+  <div class="controls">
+    <div class="dial auto" data-dial="loops"><div class="head"><span class="t">Circulation</span><label class="def"><input type="checkbox" checked> type default</label><output></output></div><input type="range" min="0" max="1" step="0.05" value="0.3"><div class="ends"><span>tree</span><span>loops</span></div></div>
+    <div class="dial auto" data-dial="pacing"><div class="head"><span class="t">What touches</span><label class="def"><input type="checkbox" checked> type default</label><output></output></div><input type="range" min="0" max="1" step="0.05" value="0"><div class="ends"><span>function</span><span>pacing</span></div></div>
+    <div class="dial auto" data-dial="carved"><div class="head"><span class="t">Envelope</span><label class="def"><input type="checkbox" checked> type default</label><output></output></div><input type="range" min="0" max="1" step="1" value="0"><div class="ends"><span>packed</span><span>carved</span></div></div>
+    <div id="globalNote"><input type="text" id="note" placeholder="A note about what is on screen (dials and filters go with it)"><button class="primary" id="sendNote">Send note</button></div>
+  </div>
+  <div class="legend">
+    <span><i style="border-color:#1f5fbf"></i>door (graph)</span><span><i style="border-color:var(--loop)"></i>a second way round (loop)</span>
+    <span><i style="border-color:#d9302c"></i>street door</span><span>stair: treads with an arrow up the flight, "up" at its foot · hatched = the same stair's hole on the floor above, "down" where you step off</span><span>quarter-circle = a door</span><span>◦ number = rooms from the street door</span><span>· dotted fill = private room</span><span>dashed box = the footprint that was dragged out (yards and stables stand outside it)</span>
+  </div>
+</header>
+<main id="grid"></main>
+<div id="toast" hidden></div>
+<script type="module">
+  let v = '';
+  try { v = (await fetch('../version.json?t=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : null))?.v || ''; } catch { }
+  const m = await import('./bench.js' + (v ? `?v=${v}` : `?t=${Date.now()}`));
+  m.start(v);
+</script>
+</body>
+</html>

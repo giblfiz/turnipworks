@@ -1,0 +1,37 @@
+{
+ "sku": "wall-doorway--noble-paper",
+ "glb_sha1": "a8104a1eaf6113e083da61f98e821bcd69383889",
+ "time": "2026-10-05T21:05:05-07:00",
+ "model": "gemini-3.8-flash",
+ "blind": {
+  "table_distance_name": "wall segment with doorway",
+  "second_guess": "door frame wall",
+  "confidence": 0.95,
+  "reads_clearly_at_distance": true,
+  "description": "An interior wall section with an open doorway. The lower half features cream-colored paneled wainscoting, while the upper wall is covered in sage green wallpaper with a dark green damask pattern. The doorway is framed with molded beige/cream casing, and the top of the wall is capped with an overhanging matching crown molding cornice.",
+  "from_above": "A thick rectangular beige bar (the top cornice molding) with a slight central protrusion for the doorframe, casting a large doorway-shaped shadow.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "Substantially taller than the 5 ft 9 in figure, standing roughly 7.5 to 8 feet tall, and about 5 feet wide."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "wall segment with doorway",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "slightly wider than catalog target (7.1 ft vs 5.0 ft), but remains taller than wide"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "panel width:height 0.79, catalog 0.56",
+  "doorway not clear from the floor (largest opening 33% x 70%, reaches floor: True)"
+ ],
+ "notes": [
+  "wall door: w:h 0.79, depth:h 0.15, largest opening 33% x 70%, filled 72%",
+  "gemini note: slightly wider than catalog target (7.1 ft vs 5.0 ft), but remains taller than wide"
+ ],
+ "vision": true
+}

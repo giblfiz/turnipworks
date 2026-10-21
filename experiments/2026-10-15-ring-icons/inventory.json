@@ -1,0 +1,1297 @@
+[
+  {
+    "id": "edit.rotate",
+    "title": "Turn",
+    "kinds": [
+      "prop",
+      "openable",
+      "pawn"
+    ],
+    "current_icon": "rotate-cw",
+    "picture": "turn",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "edit.resize",
+    "title": "Resize",
+    "kinds": [
+      "prop",
+      "openable"
+    ],
+    "current_icon": "scaling",
+    "picture": "resize",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "edit.lift",
+    "title": "Raise / lower",
+    "kinds": [
+      "prop",
+      "openable",
+      "pawn"
+    ],
+    "current_icon": "move-vertical",
+    "picture": "lift",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.open",
+    "title": "Open / Close",
+    "kinds": [
+      "openable"
+    ],
+    "current_icon": "door-open / door-closed",
+    "picture": "open",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.pin",
+    "title": "Pin / Unpin",
+    "kinds": [
+      "prop",
+      "openable"
+    ],
+    "current_icon": "pin / pin-off",
+    "picture": "pin",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.light",
+    "title": "Light / Put out",
+    "kinds": [
+      "light",
+      "openable"
+    ],
+    "current_icon": "flame-kindling / flame",
+    "picture": "light",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.hide",
+    "title": "Hide from players / Reveal to players",
+    "kinds": [
+      "prop",
+      "openable",
+      "light",
+      "pawn",
+      "room",
+      "building"
+    ],
+    "current_icon": "eye-off / eye",
+    "picture": "hide",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.lock",
+    "title": "Lock / Unlock",
+    "kinds": [
+      "prop",
+      "openable",
+      "light",
+      "room",
+      "building"
+    ],
+    "current_icon": "lock / lock-open",
+    "picture": "lock",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.replace",
+    "title": "Replace",
+    "kinds": [
+      "prop",
+      "openable",
+      "light"
+    ],
+    "current_icon": "replace",
+    "picture": "replace",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.rename",
+    "title": "Rename / label",
+    "kinds": [
+      "prop",
+      "openable",
+      "light",
+      "building"
+    ],
+    "current_icon": "pencil",
+    "picture": "rename",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.tilt",
+    "title": "Roll",
+    "kinds": [
+      "prop",
+      "openable",
+      "light"
+    ],
+    "current_icon": "rotate-cw-square",
+    "picture": "roll",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "thing.upright",
+    "title": "Stand upright",
+    "kinds": [
+      "prop",
+      "openable",
+      "light"
+    ],
+    "current_icon": "arrow-up",
+    "picture": "upright",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "faction.set",
+    "title": "Faction",
+    "kinds": [
+      "room",
+      "building",
+      "faction-object"
+    ],
+    "current_icon": "sun",
+    "picture": "faction",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "pawn.sheet",
+    "title": "Sheet",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "file-text",
+    "picture": "sheet",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "pawn.damage",
+    "title": "Damage",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "heart-crack",
+    "picture": "damage",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "pawn.travel",
+    "title": "Send to area",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "send",
+    "picture": "travel",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "cast.saveGroup",
+    "title": "Save as group",
+    "kinds": [
+      "pawn-multiple"
+    ],
+    "current_icon": "save",
+    "picture": "save-group",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "room.reroll",
+    "title": "Re-roll",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "dice-5",
+    "picture": "reroll",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "room.rotate",
+    "title": "Turn 90\u00b0",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "rotate-cw",
+    "picture": "turn",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "room.fog",
+    "title": "Fog height",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "cloud-fog",
+    "picture": "fog",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "room.height.taller",
+    "title": "Taller",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "chevrons-up",
+    "picture": "height-up",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "room.height.shorter",
+    "title": "Shorter",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "chevrons-down",
+    "picture": "height-down",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "roof.reroll",
+    "title": "Re-roll",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "dice-5",
+    "picture": "reroll",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "roof.hide",
+    "title": "Hide roof",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "eye-off",
+    "picture": "hide",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "building.reroll",
+    "title": "Re-roll building",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "dice-5",
+    "picture": "reroll",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "stair.flip",
+    "title": "Stairs up / down",
+    "kinds": [
+      "stairs",
+      "ladder",
+      "spiral"
+    ],
+    "current_icon": "arrow-up / arrow-down",
+    "picture": "stairs",
+    "surface": "ring",
+    "note": ""
+  },
+  {
+    "id": "pawn.give",
+    "title": "Give control",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "user-plus",
+    "picture": "give",
+    "surface": "requested-off-ring",
+    "note": "Explicitly requested in Task J; removed from ring on 2026-10-11."
+  },
+  {
+    "id": "pawn.duplicate",
+    "title": "Duplicate",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "copy",
+    "picture": "duplicate",
+    "surface": "requested-off-ring",
+    "note": "Explicitly requested in Task J; removed from ring on 2026-10-11."
+  },
+  {
+    "id": "edit.duplicate",
+    "title": "Duplicate",
+    "kinds": [
+      "prop",
+      "openable",
+      "room",
+      "building"
+    ],
+    "current_icon": "copy",
+    "picture": "duplicate",
+    "surface": "requested-off-ring",
+    "note": "Explicitly requested in Task J; removed from ring on 2026-10-11."
+  },
+  {
+    "id": "menu",
+    "title": "All options",
+    "kinds": [
+      "all"
+    ],
+    "current_icon": "menu",
+    "picture": "menu",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "ring.close",
+    "title": "Close options",
+    "kinds": [
+      "all"
+    ],
+    "current_icon": "x",
+    "picture": "close",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "room.walls.",
+    "title": "Walls",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "walls",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "pawn.cond.",
+    "title": "Conditions",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "conditions",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "pawn.mark.",
+    "title": "Indicators",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star",
+    "picture": "indicators",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "roof.style.",
+    "title": "Style",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "house",
+    "picture": "roof-style",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "building.roof.",
+    "title": "Roof style",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "house",
+    "picture": "roof-style",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "building.storeys.",
+    "title": "Storeys",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "layers",
+    "picture": "storeys",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "room.height.",
+    "title": "Height",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "chevrons-up",
+    "picture": "height-up",
+    "surface": "synthetic-ring-node",
+    "note": "Not a command id. Dot-suffixed ids are actual MENU list prefixes; menu is the Ring Tuner runtime key for its unregistered menu control; ring.close is a delivery-only name for the close control."
+  },
+  {
+    "id": "pawn.cond.blinded",
+    "title": "Blinded",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.blinded",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.charmed",
+    "title": "Charmed",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.charmed",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.frightened",
+    "title": "Frightened",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.frightened",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.grappled",
+    "title": "Grappled",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.grappled",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.invisible",
+    "title": "Invisible",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.invisible",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.poisoned",
+    "title": "Poisoned",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.poisoned",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.prone",
+    "title": "Prone",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.prone",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.restrained",
+    "title": "Restrained",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.restrained",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.stunned",
+    "title": "Stunned",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.stunned",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.cond.unconscious",
+    "title": "Unconscious",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "pawn.cond.unconscious",
+    "surface": "nested-command",
+    "note": "Distinct sibling condition picture; colour and silhouette keyed in round2-pictures.json."
+  },
+  {
+    "id": "pawn.mark.star",
+    "title": "Star",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star + existing markUrl image",
+    "picture": "mark-star",
+    "surface": "nested-command",
+    "note": "Existing specific marker pictogram, preserve shape/color semantics."
+  },
+  {
+    "id": "pawn.mark.circle",
+    "title": "Circle",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star + existing markUrl image",
+    "picture": "mark-circle",
+    "surface": "nested-command",
+    "note": "Existing specific marker pictogram, preserve shape/color semantics."
+  },
+  {
+    "id": "pawn.mark.diamond",
+    "title": "Diamond",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star + existing markUrl image",
+    "picture": "mark-diamond",
+    "surface": "nested-command",
+    "note": "Existing specific marker pictogram, preserve shape/color semantics."
+  },
+  {
+    "id": "pawn.mark.triangle",
+    "title": "Triangle",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star + existing markUrl image",
+    "picture": "mark-triangle",
+    "surface": "nested-command",
+    "note": "Existing specific marker pictogram, preserve shape/color semantics."
+  },
+  {
+    "id": "pawn.mark.moon",
+    "title": "Moon",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star + existing markUrl image",
+    "picture": "mark-moon",
+    "surface": "nested-command",
+    "note": "Existing specific marker pictogram, preserve shape/color semantics."
+  },
+  {
+    "id": "pawn.mark.square",
+    "title": "Square",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star + existing markUrl image",
+    "picture": "mark-square",
+    "surface": "nested-command",
+    "note": "Existing specific marker pictogram, preserve shape/color semantics."
+  },
+  {
+    "id": "pawn.mark.cross",
+    "title": "Cross",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star + existing markUrl image",
+    "picture": "mark-cross",
+    "surface": "nested-command",
+    "note": "Existing specific marker pictogram, preserve shape/color semantics."
+  },
+  {
+    "id": "pawn.mark.skull",
+    "title": "Skull",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "star + existing markUrl image",
+    "picture": "mark-skull",
+    "surface": "nested-command",
+    "note": "Existing specific marker pictogram, preserve shape/color semantics."
+  },
+  {
+    "id": "pawn.mark.none",
+    "title": "Clear indicator",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "x",
+    "picture": "close",
+    "surface": "nested-command",
+    "note": ""
+  },
+  {
+    "id": "room.walls.auto",
+    "title": "Walls: auto",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.auto",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.rough-timber",
+    "title": "Walls: rough timber",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.rough-timber",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.log-cabin",
+    "title": "Walls: log cabin",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.log-cabin",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.half-timber",
+    "title": "Walls: half timber",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.half-timber",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.fieldstone",
+    "title": "Walls: fieldstone",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.fieldstone",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.dressed-stone",
+    "title": "Walls: dressed stone",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.dressed-stone",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.noble-interior",
+    "title": "Walls: noble interior",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.noble-interior",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.crypt-stone",
+    "title": "Walls: crypt stone",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.crypt-stone",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.castle-rough",
+    "title": "Walls: castle rough",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.castle-rough",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.noble-panel",
+    "title": "Walls: noble panel",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.noble-panel",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.noble-paper",
+    "title": "Walls: noble paper",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.noble-paper",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.conservatory",
+    "title": "Walls: conservatory",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.conservatory",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.temple-stone",
+    "title": "Walls: temple stone",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.temple-stone",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.cut-rock",
+    "title": "Walls: cut rock",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.cut-rock",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.tower-stone",
+    "title": "Walls: tower stone",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.tower-stone",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.mine-timbered",
+    "title": "Walls: mine timbered",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.mine-timbered",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.black-stone",
+    "title": "Walls: black stone",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.black-stone",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "room.walls.wattle-daub",
+    "title": "Walls: wattle daub",
+    "kinds": [
+      "room"
+    ],
+    "current_icon": "brick-wall",
+    "picture": "room.walls.wattle-daub",
+    "surface": "nested-command",
+    "note": "Shared wall picture; actual family label remains."
+  },
+  {
+    "id": "roof.style.thatch",
+    "title": "Roof: thatch",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof-material-thatch",
+    "surface": "nested-command",
+    "note": "Round2 distinct material painting; Task I renderer consumes manifest exclusively, so runtime material swatch exemption does not apply."
+  },
+  {
+    "id": "roof.style.tile",
+    "title": "Roof: tile",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof-material-tile",
+    "surface": "nested-command",
+    "note": "Round2 distinct material painting; Task I renderer consumes manifest exclusively, so runtime material swatch exemption does not apply."
+  },
+  {
+    "id": "roof.style.slate",
+    "title": "Roof: slate",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof-material-slate",
+    "surface": "nested-command",
+    "note": "Round2 distinct material painting; Task I renderer consumes manifest exclusively, so runtime material swatch exemption does not apply."
+  },
+  {
+    "id": "roof.style.shingle",
+    "title": "Roof: shingle",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof-material-shingle",
+    "surface": "nested-command",
+    "note": "Round2 distinct material painting; Task I renderer consumes manifest exclusively, so runtime material swatch exemption does not apply."
+  },
+  {
+    "id": "roof.style.flat",
+    "title": "Roof: flat",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof.style.flat",
+    "surface": "nested-command",
+    "note": "Material swatches remain; shared roof-action pictogram."
+  },
+  {
+    "id": "roof.style.auto",
+    "title": "Roof: auto",
+    "kinds": [
+      "roof"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof.style.auto",
+    "surface": "nested-command",
+    "note": "Material swatches remain; shared roof-action pictogram."
+  },
+  {
+    "id": "building.roof.thatch",
+    "title": "Roof: thatch",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof-material-thatch",
+    "surface": "nested-command",
+    "note": "Round2 distinct material painting; Task I renderer consumes manifest exclusively, so runtime material swatch exemption does not apply."
+  },
+  {
+    "id": "building.roof.tile",
+    "title": "Roof: tile",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof-material-tile",
+    "surface": "nested-command",
+    "note": "Round2 distinct material painting; Task I renderer consumes manifest exclusively, so runtime material swatch exemption does not apply."
+  },
+  {
+    "id": "building.roof.slate",
+    "title": "Roof: slate",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof-material-slate",
+    "surface": "nested-command",
+    "note": "Round2 distinct material painting; Task I renderer consumes manifest exclusively, so runtime material swatch exemption does not apply."
+  },
+  {
+    "id": "building.roof.shingle",
+    "title": "Roof: shingle",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof-material-shingle",
+    "surface": "nested-command",
+    "note": "Round2 distinct material painting; Task I renderer consumes manifest exclusively, so runtime material swatch exemption does not apply."
+  },
+  {
+    "id": "building.roof.flat",
+    "title": "Roof: flat",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof.style.flat",
+    "surface": "nested-command",
+    "note": "Material swatches remain; shared roof-action pictogram."
+  },
+  {
+    "id": "building.roof.auto",
+    "title": "Roof: auto",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "house + material swatch (except auto/flat)",
+    "picture": "roof.style.auto",
+    "surface": "nested-command",
+    "note": "Material swatches remain; shared roof-action pictogram."
+  },
+  {
+    "id": "building.storeys.1",
+    "title": "1 storeys",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "layers",
+    "picture": "building.storeys.1",
+    "surface": "nested-command",
+    "note": "Number remains in label."
+  },
+  {
+    "id": "building.storeys.2",
+    "title": "2 storeys",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "layers",
+    "picture": "building.storeys.2",
+    "surface": "nested-command",
+    "note": "Number remains in label."
+  },
+  {
+    "id": "building.storeys.3",
+    "title": "3 storeys",
+    "kinds": [
+      "building"
+    ],
+    "current_icon": "layers",
+    "picture": "building.storeys.3",
+    "surface": "nested-command",
+    "note": "Number remains in label."
+  },
+  {
+    "id": "measure.start",
+    "title": "Measure",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "ruler",
+    "picture": "measure",
+    "surface": "conditional",
+    "note": "Measurement strip / Pawns menu / command bar; not selection ring."
+  },
+  {
+    "id": "measure.keep",
+    "title": "Keep",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "pin",
+    "picture": "keep",
+    "surface": "conditional",
+    "note": "Measurement strip / Pawns menu / command bar; not selection ring."
+  },
+  {
+    "id": "measure.keepRounds",
+    "title": "Keep for rounds",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "hourglass",
+    "picture": "rounds",
+    "surface": "conditional",
+    "note": "Measurement strip / Pawns menu / command bar; not selection ring."
+  },
+  {
+    "id": "measure.attach",
+    "title": "Attach",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "link",
+    "picture": "attach",
+    "surface": "conditional",
+    "note": "Measurement strip / Pawns menu / command bar; not selection ring."
+  },
+  {
+    "id": "measure.say",
+    "title": "Say who is caught",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "message-square",
+    "picture": "say",
+    "surface": "conditional",
+    "note": "Measurement strip / Pawns menu / command bar; not selection ring."
+  },
+  {
+    "id": "template.remove",
+    "title": "Remove template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "trash-2",
+    "picture": "remove",
+    "surface": "conditional",
+    "note": "Measurement strip / Pawns menu / command bar; not selection ring."
+  },
+  {
+    "id": "template.clear",
+    "title": "Clear templates",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "trash-2",
+    "picture": "remove",
+    "surface": "conditional",
+    "note": "Measurement strip / Pawns menu / command bar; not selection ring."
+  },
+  {
+    "id": "measure.as.line",
+    "title": "Line template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "tpl-line",
+    "picture": "shape-line",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.shape.line",
+    "title": "Line template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "tpl-line",
+    "picture": "shape-line",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.as.cone",
+    "title": "Cone template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "tpl-cone",
+    "picture": "shape-cone",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.shape.cone",
+    "title": "Cone template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "tpl-cone",
+    "picture": "shape-cone",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.as.circle",
+    "title": "Circle template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "circle",
+    "picture": "shape-circle",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.shape.circle",
+    "title": "Circle template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "circle",
+    "picture": "shape-circle",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.as.sphere",
+    "title": "Sphere template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "globe",
+    "picture": "shape-sphere",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.shape.sphere",
+    "title": "Sphere template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "globe",
+    "picture": "shape-sphere",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.as.cube",
+    "title": "Cube template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "box",
+    "picture": "shape-cube",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "measure.shape.cube",
+    "title": "Cube template",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "box",
+    "picture": "shape-cube",
+    "surface": "conditional",
+    "note": ""
+  },
+  {
+    "id": "ruler.detach",
+    "title": "Detach",
+    "kinds": [
+      "template"
+    ],
+    "current_icon": "link",
+    "picture": "attach",
+    "surface": "synthetic-conditional",
+    "note": "Delivery-only name for data-act detach; no registry command."
+  },
+  {
+    "id": "ruler.norounds",
+    "title": "No rounds / Keep",
+    "kinds": [
+      "template"
+    ],
+    "current_icon": "pin",
+    "picture": "keep",
+    "surface": "synthetic-conditional",
+    "note": "Delivery-only name for data-act norounds; no registry command."
+  },
+  {
+    "id": "ruler.keepfor.1",
+    "title": "Keep for one round",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "hourglass",
+    "picture": "ruler.keepfor.1",
+    "surface": "synthetic-conditional",
+    "note": "Actual strip data-act keepfor:1; distinct sibling of keepfor:n. Proposed asset key, not a registry command."
+  },
+  {
+    "id": "ruler.keepfor.n",
+    "title": "Keep for N rounds",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "hourglass",
+    "picture": "ruler.keepfor.n",
+    "surface": "synthetic-conditional",
+    "note": "Actual strip data-act keepfor:n; distinct sibling of keepfor:1. Proposed asset key, not a registry command."
+  },
+  {
+    "id": "ruler.rounds.1",
+    "title": "Lasts one round",
+    "kinds": [
+      "measure",
+      "template"
+    ],
+    "current_icon": "hourglass",
+    "picture": "ruler.keepfor.1",
+    "surface": "synthetic-conditional",
+    "note": "Actual existing-template strip data-act rounds:1; mutually exclusive mode with keepfor:1, may share its painting. Proposed asset key, not a registry command."
+  },
+  {
+    "id": "pawn.cond.clear",
+    "title": "Clear all conditions",
+    "kinds": [
+      "pawn"
+    ],
+    "current_icon": "badge-alert",
+    "picture": "condition-clear",
+    "surface": "requested-off-ring",
+    "note": "Registered bar command lacks menu:true in current game; explicitly included as condition Clear artwork in round2."
+  }
+]

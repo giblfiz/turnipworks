@@ -1,0 +1,53 @@
+{
+  "id": "room.height.",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: Two thick horizontal stone slabs, floor and ceiling, with an ivory vertical double-headed arrow between them. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Text-only original design; no third-party references.",
+  "references": [],
+  "source": "experiments/2026-10-15-ring-icons/sources/parchment--room.height..png",
+  "source_sha256": "764a58d2404b1949970f2fb2533e2e7f765700cae5fe90ac140646549d6d600f",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/room.height..webp",
+    "19": "parchment/sizes/19/room.height..webp",
+    "22": "parchment/sizes/22/room.height..webp",
+    "26": "parchment/sizes/26/room.height..webp",
+    "31": "parchment/sizes/31/room.height..webp",
+    "36": "parchment/sizes/36/room.height..webp",
+    "38": "parchment/sizes/38/room.height..webp",
+    "42": "parchment/sizes/42/room.height..webp",
+    "44": "parchment/sizes/44/room.height..webp",
+    "50": "parchment/sizes/50/room.height..webp",
+    "52": "parchment/sizes/52/room.height..webp",
+    "62": "parchment/sizes/62/room.height..webp",
+    "84": "parchment/sizes/84/room.height..webp",
+    "100": "parchment/sizes/100/room.height..webp",
+    "128": "parchment/room.height..webp"
+  },
+  "sha256": {
+    "18": "310f0294adfc6a6c806076e9f02b6895a75f3a731d3278848e8b993fc3f89a7a",
+    "19": "1001f6ea3a85ddc1a599d6996281789b28021292afee65fa62984d746627081f",
+    "22": "3eb8d9fbff0fd1ee8899e8da78f579caccd4017c42ef1fd46c1c281f04f8bacf",
+    "26": "8b4151b4c8083db8f5ed591f4dbf99dd95fd427e047b30924b7624b82bacb720",
+    "31": "6e456aaf1ebc1cac7331c58cc9a523304e95a1e7fc428d132490b8e057cbed7c",
+    "36": "b04dcb25ebd17a2bdf7cbc82870c3a11e59499c796c045d9abfa70fbf3b22ace",
+    "38": "a03d0173d3b3cdd142d37ad46f71da83a8dd4d2af25b085f963db1d6dda0bcaa",
+    "42": "5d2dde1803ebc927f0e2e3120dcecb19198383fe646ccf71808dce24ece01b28",
+    "44": "5944b6372c9f2261f969509705e1405cd97d773c262f1f91290b47700a745124",
+    "50": "70fc0d6ac866f4bfba96dca27ff9dcb983b306125f36ed8750630ef188dbf91a",
+    "52": "3dba2fc9af7c19244317006aa62213897198041d04ba5add449bd314efbc86da",
+    "62": "a5729dcf9201ef39563d1cef8f75b6ee8fcf8b48164aea24c11ab560e12e6080",
+    "84": "b021dbd4e3e9163a2ffd60496a45770f74d0f5ad70866fd412f5abc8b2f53345",
+    "100": "0b50187e769120d7dd6acb8f8f3619c5dc9f50d96e39efcb471aad8771c4f4a7",
+    "128": "0a49d7fe5235e51516803a972372dcb98c2e57ce9e8cdce75d31923878e6449f"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "This is one unlabelled button from a browser 3D virtual tabletop.\nView it at its supplied size. What action does this button do?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "cde8c823e4a42c26a3060257f7db993bb8d401502cf56eb119eac6a5fdd5852a"
+}

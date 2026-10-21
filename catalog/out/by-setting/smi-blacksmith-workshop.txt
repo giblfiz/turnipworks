@@ -1,0 +1,411 @@
+SMI — blacksmith-workshop: 409 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  anvil                      [floor/sub] one step from forge and trough
+! P1  forge                      [floor/2x2] smithy anchor; the room is built around it
+! P1  grindstone                 [floor/sub] sharpening corner; armories
+! P1  quench-trough              [floor/1] forge side; doubles as horse trough
+! P1  table-work                 [floor/1x2] every trade's bench
+! P1  coal-bin                   [floor/1] forge fuel
+! P1  tool-rack-smith            [wall/1] behind the anvil
+! P1  wares-display              [floor/1] the shopfront side of the smithy
+! P1  fx-sparks                  [attach/tiny] anvil strikes
+! P1  smith-armor-form           [floor/sub] armorer's dummy for fitting
+! P1  smith-blade-barrel         [floor/sub] shop floor; bargain bin
+! P1  smith-blank-glowing        [surface/tiny] on the anvil mid-strike
+! P1  smith-farrier-box          [floor/tiny] beside a horse stall
+! P1  smith-flat-tongs           [surface/tiny] the everyday grip; hang by the forge
+! P1  smith-hammer-rack          [wall/sub] over the workbench
+! P1  smith-horseshoe-rack       [wall/1] farrier sign; luck
+! P1  smith-sign-anvil           [wall/sub] outside every smithy
+! P1  smith-slack-tub            [floor/sub] every forge; steam on quench
+! P1  smith-tongs-rack-row       [wall/sub] wall beside the forge; reads 'smithy' instantly
+! P1  craft-tool-wall-pegboard   [wall/1] generic trade tool wall
+! P2  bellows-great              [floor/1] beside the forge
+! P2  metal-stock                [floor/sub] raw material
+! P2  ingot-stack                [floor/sub] the smelter's output; trade cargo
+! P2  hammer-smith               [surface/tiny] on the anvil
+! P2  tongs-smith                [surface/tiny] forge side
+! P2  smith-blade-rack-quench    [wall/1] drip-drying above the tub
+! P2  smith-rod-rack             [wall/1] stock wall
+! P2  smith-rune-anvil           [floor/sub] dwarven or enchanted forge centerpiece
+! P2  smith-swage-block          [floor/sub] heavy, perforated; shaping curves
+! P2  craft-wheel-half-built     [floor/1] wheelwright's signature
+! P3  smith-bell-mould           [floor/1] bell pit set-piece
+  P1  hitching-post              [ground/1] outside taverns and shops
+  P1  smelter                    [floor/1] mine head or smith's yard
+  P1  water-trough               [ground/1x2] stables and yards
+  P1  bed-double                 [floor/2x2] the good inn room
+  P1  bed-single                 [floor/1x2] inn rooms
+  P1  bench-long                 [floor/1x2] pairs with trestle tables
+  P1  counter-shop               [floor/1x2] shop front; storekeeper behind
+  P1  desk-writing               [floor/1] study anchor
+  P1  shelving-freestanding      [floor/1] storerooms, cellars
+  P1  table-square               [floor/1] the workhorse table
+  P1  wardrobe                   [wall/1] bedrooms; hide inside
+  P1  chest-ironbound            [floor/sub] locked; worth a check
+  P1  strongbox                  [surface/tiny] under the innkeeper's counter
+  P1  chest-ironbound-open       [floor/sub] open state of chest-ironbound; looted or searched
+  P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
+  P1  lantern-post               [ground/sub] streets, manor drives
+  P1  torch-sconce               [wall/tiny] every stone corridor
+  P1  lantern-wall-brass         [wall/tiny] the better inn's hallway; generated unlit, engine fire FX adds the flame
+  P1  lantern-wall-iron          [wall/tiny] corridors and porches; generated unlit, engine fire FX adds the flame
+  P1  torch-bracket-rough        [wall/tiny] cellars, stables, dungeons; charred unlit torch head, engine fire FX adds the flame
+  P1  horseshoes-pile            [surface/tiny] farrier corner
+  P1  stable-stall               [kit/edge] stable rows
+  P1  woodpile                   [floor/1] by the hearth or outside wall
+  P1  mine-tool-rack             [wall/1] tool stores, working faces; reads as "picks" from above
+  P1  armor-stand                [floor/sub] armories; noble halls
+  P1  shield-display             [wall/1] great halls; old-soldier taverns
+  P1  weapon-rack                [wall/1] armories, guard rooms
+  P1  rug-striped-woven          [floor/1] common rooms, guest rooms
+  P1  cart-hand                  [ground/1] streets, farms
+  P1  log-seat                   [ground/1x2] around a campfire
+  P1  sign-hanging               [wall/sub] the tavern's name lives here
+  P1  bench-village              [ground/1x2] squares, tavern fronts
+  P1  carpenter-bench            [floor/1x2] joiner's shop
+  P1  farrier-stand              [floor/sub] farrier corner
+  P1  price-board                [wall/sub] shop and tavern walls
+  P1  washstand                  [floor/sub] guest rooms
+  P1  wheel-spare                [floor/sub] wheelwrights, stable yards, anywhere
+  P1  shop-shelf-stocked         [floor/1] the wall of a shop; the stock on it says which shop (one sku tier per trade)
+  P1  armor-chainmail-heap       [floor/sub] loot pile staple
+  P1  axe-hand                   [surface/tiny] warriors, raiders
+  P1  crossbow                   [surface/tiny] guards, assassins
+  P1  helm-open                  [surface/tiny] guards; the everyman helmet
+  P1  key-hook-board             [wall/sub] innkeeper's room keys, jailer's station
+  P1  ledger-accounts            [surface/tiny] evidence, embezzlement plots
+  P1  mace-flanged               [surface/tiny] cleric's weapon
+  P1  shield-heater              [surface/sub] knights; paint heraldry as decal
+  P1  sword-enchanted            [surface/tiny] the magic weapon reward
+  P1  sword-long                 [surface/tiny] the default loot sword; lay on tables, bodies, pedestals
+  P1  sword-short                [surface/tiny] guards, rogues, starter gear
+  P1  warhammer                  [surface/tiny] dwarves and knights
+  P1  horse-trough-stone         [ground/1x2] town squares
+  P1  lamp-post-wood             [ground/sub] village lanes
+  P1  cup-clay                   [surface/tiny] the peasant's cup
+  P1  firkin                     [surface/tiny] delivery size
+  P1  axe-woodcutter             [floor/tiny] woodpiles, stumps
+  P1  pickaxe                    [floor/tiny] the miner's tool, alone
+  P1  smith-anvil-small          [surface/tiny] fine work; tinkers carry these
+  P1  smith-armor-stand-fitted   [floor/sub] finished commission waiting for its knight
+  P1  smith-axe-head             [surface/tiny] bench; stack of three
+  P1  smith-bar-bundle           [floor/sub] deliveries; cart loads
+  P1  smith-bit-bridle           [surface/tiny] tack room
+  P1  smith-breastplate-on-form  [floor/sub] center of the armory workshop
+  P1  smith-charcoal-sack        [floor/tiny] against the forge wall
+  P1  smith-coal-rake            [surface/tiny] lean against the forge
+  P1  smith-forge-poker          [surface/tiny] leans beside the rake
+  P1  smith-greave-pair          [surface/tiny] armory shelf
+  P1  smith-helm-dome-raw        [surface/tiny] on a stake or bench
+  P1  smith-helm-stake           [floor/sub] raising a helm
+  P1  smith-hoof-nippers         [surface/tiny] in the shoeing box
+  P1  smith-hoof-rasp            [surface/tiny] in the shoeing box
+  P1  smith-hoof-stand           [floor/tiny] farrier bay
+  P1  smith-ingot-iron           [surface/tiny] raw goods, trade cargo
+  P1  smith-ingot-silver         [surface/tiny] treasury, jeweler; loot
+  P1  smith-iron-bar             [surface/tiny] scatter; a stack in the corner
+  P1  smith-leather-apron-work   [surface/tiny] the smith just stepped away
+  P1  smith-mail-in-progress     [floor/sub] weeks of work
+  P1  smith-pauldron             [surface/tiny] armory shelf
+  P1  smith-ring-mandrel         [surface/tiny] bench
+  P1  smith-shoeing-stocks       [floor/1x2] big farrier yards
+  P1  smith-spurs-pair           [surface/tiny] knight's kit
+  P1  smith-sword-blank          [surface/tiny] bench and quench corner
+  P1  craft-display-table-goods  [floor/1x2] shop front table
+  P1  craft-leather-roll         [surface/tiny] every leather shop
+  P1  craft-mortise-chisel-rack  [wall/sub] above the joiner's bench
+  P1  craft-saw-pit-frame        [floor/1x3] top man and pit man
+  P1  craft-sawdust-pile         [floor/sub] under the saw pit
+  P1  craft-shavings-pile        [floor/sub] under every bench; kindling
+  P1  craft-stitching-pony       [floor/sub] saddler's seat
+  P1  craft-wood-offcut-bin      [floor/sub] kindling for the whole street
+  P1  craft-work-apron-hung      [wall/sub] every workshop door
+  P1  craft-work-stool-low       [floor/sub] every workshop
+  P1  craft-workshop-lantern-hook [surface/tiny] bench light
+  P1  craft-yoke-ox              [wall/1] barns, workshops
+  P1  rural-coal-lump            [surface/tiny] scatter around coal bins
+  P1  rural-ore-iron-chunk       [surface/tiny] the common ore; carts and piles
+  P1  rural-water-bucket-stable  [floor/tiny] every stall
+  P1  mil-armor-repair-bench     [floor/1] armory corner
+  P1  mil-helmet-peg-rack        [wall/1] barracks and guard rooms
+  P1  mil-shield-stack           [floor/sub] armories, camp corners
+  P1  mil-weapon-oil-flask       [surface/tiny] barracks tables
+  P2  storage-jar                [floor/sub] oil, grain, wine; ruins full of broken ones
+  P2  smith-farrier-box-open     [floor/tiny] open state of smith-farrier-box
+  P2  decal-ore-scatter          [floor/sub] round heaps, carts and sorting tables
+  P2  heraldic-shield            [wall/sub] over fireplaces and gates
+  P2  wagon                      [ground/2x3] caravans, stable yards
+  P2  urn-garden                 [ground/sub] pairs at steps, gates and path crossings
+  P2  firewood-basket            [floor/tiny] hearthsides
+  P2  kiln-pottery               [floor/1] potter's yard
+  P2  leather-workbench          [floor/1x2] saddlers, leatherworkers
+  P2  potters-wheel              [floor/1] potter anchor
+  P2  stone-blocks-stack         [floor/1] quarries, construction
+  P2  shop-floor-stock           [floor/sub] beside the counter, by the door, in the back room (one sku tier per trade)
+  P2  shop-sign                  [wall/sub] beside the shop door, facing the street (one sku per trade; no lettering)
+  P2  armor-breastplate          [surface/sub] smith's workbench, armory
+  P2  armor-dummy-leather        [floor/sub] leatherworker's shop
+  P2  armor-leather-folded       [surface/tiny] rogue gear; on beds and chests
+  P2  axe-great                  [surface/sub] executioners, berserkers
+  P2  helm-great                 [surface/tiny] knights; tombs
+  P2  maul-great                 [surface/sub] ogre-sized swing
+  P2  sword-curved               [surface/tiny] foreign traders, pirates, desert guests
+  P2  sword-great                [surface/sub] champion's weapon; lean against walls
+  P2  sword-rapier               [surface/tiny] duellists, nobles
+  P2  bottle-clay                [surface/tiny] cider, beer
+  P2  bowl-clay                  [surface/tiny] the cottage bowl
+  P2  fire-irons                 [floor/tiny] by every fireplace
+  P2  sledgehammer               [floor/tiny] break walls, mine stores
+  P2  smith-arrowhead-pile       [surface/tiny] fletchers pick these up
+  P2  smith-axe-display          [wall/1] shop wall
+  P2  smith-blade-half-forged    [surface/tiny] on the anvil or bench
+  P2  smith-blade-unhilted       [surface/tiny] hilting bench
+  P2  smith-bloom                [surface/tiny] fresh from the bloomery
+  P2  smith-bolt-tongs           [surface/tiny] round stock; rack beside flat tongs
+  P2  smith-casting-ladle        [surface/tiny] pouring bronze
+  P2  smith-chain-coil-heavy     [floor/sub] portcullis and drawbridge stock
+  P2  smith-coal-heap            [floor/sub] by the bellows side
+  P2  smith-cone-mandrel         [floor/sub] rings, hoops, collars; knee-high cone
+  P2  smith-flat-bar             [surface/tiny] strap stock
+  P2  smith-forge-dwarven-hearth [floor/2x2] under-mountain halls
+  P2  smith-forge-portable       [floor/1] army camps; travelling tinkers
+  P2  smith-furnace-bronze       [floor/1] foundry anchor
+  P2  smith-helm-row-shelf       [wall/1] garrison order
+  P2  smith-ingot-bronze         [surface/tiny] bells, fittings
+  P2  smith-ingot-copper         [surface/tiny] coppersmith and bellfounder
+  P2  smith-ingot-mithral        [surface/tiny] legendary metal; quest reward
+  P2  smith-ingot-mould          [surface/tiny] pour station
+  P2  smith-lock-mechanism       [surface/tiny] locksmith bench; teaching thieves
+  P2  smith-mail-rings-pile      [surface/tiny] armorer's bench
+  P2  smith-melting-crucible     [surface/sub] melting down stolen goods
+  P2  smith-molten-channel       [floor/1x2] dwarven foundry; lava-lit
+  P2  smith-pickup-tongs         [surface/tiny] grabbing hot scraps from the fire
+  P2  smith-rounding-hammer      [surface/tiny] the smith's personal hammer
+  P2  smith-scrap-bin            [floor/sub] broken tools, bent nails
+  P2  smith-spearhead            [surface/tiny] armory orders
+  P2  smith-striker-sledge       [floor/tiny] the apprentice's job
+  P2  smith-tool-display         [wall/1] village smith's real trade
+  P2  smith-vise-post            [floor/sub] bench end; wrenching and twisting
+  P2  craft-arrow-shafts-bundle  [surface/tiny] fletcher's stock
+  P2  craft-arrowheads-box       [surface/tiny] broadheads and bodkins
+  P2  craft-auger-t-handle       [surface/tiny] boring peg holes
+  P2  craft-barrel-raised-open   [floor/sub] half-made barrel
+  P2  craft-beam-squared         [floor/1x3] building sites
+  P2  craft-boards-planed-stack  [floor/1x2] finished stock
+  P2  craft-bow-stave-raw        [surface/tiny] yew staves seasoning
+  P2  craft-bow-tillering-tree   [wall/1] bowyer's signature
+  P2  craft-chair-half-built     [floor/sub] work in progress
+  P2  craft-clamp-screw-wood     [surface/tiny] glue-ups; hang in rows
+  P2  craft-cooper-shaving-horse [floor/1] drawknife seat
+  P2  craft-crossbow-bolts-crate [floor/sub] armories
+  P2  craft-figure-half-carved   [surface/tiny] saint or soldier emerging
+  P2  craft-froe-and-club        [surface/tiny] splitting shakes and staves
+  P2  craft-glue-pot-hide        [surface/tiny] smells awful; stays warm
+  P2  craft-grinding-wheel-hand  [floor/sub] sharpening corner
+  P2  craft-log-debarked         [floor/1x2] ready to hew
+  P2  craft-sheaf-arrows-tied    [surface/tiny] 24 to a sheaf
+  P2  craft-toolbox-carpenter    [floor/sub] the travelling carpenter
+  P2  craft-wheel-broken         [floor/1] roadside, wrecks, repair queue
+  P2  rural-coal-pile-floor      [floor/sub] forge corners, mine sidings
+  P2  rural-ore-copper-chunk     [surface/tiny] variety at the ore face
+  P2  rural-shovel-coal          [floor/tiny] coal bins and forges
+  P3  coat-pegs                  [wall/sub] by the door
+  P3  rain-barrel                [ground/sub] exteriors
+  P3  sawhorse                   [floor/1] repair scenes
+  P3  toolbox                    [surface/tiny] anywhere work happens
+  P3  vise-bench                 [floor/sub] fine work
+  P3  decal-coal-dust            [floor/sub] tunnels, the smelter floor
+  P3  decal-scorch               [floor/sub] aftermath of a fireball
+  P3  arcane-forge               [floor/1x2] magic weapon crafting
+  P3  golem-parts                [floor/1x2] unfinished construct; lab dressing
+  P3  orrery                     [floor/1] astrologer towers
+  P3  bellows-hand               [surface/tiny] hearthside
+  P3  clay-bin                   [floor/sub] potter's workshop
+  P3  crucible-small             [surface/tiny] goldsmiths, alchemists
+  P3  hoops-iron-stack           [floor/sub] cooperage wall
+  P3  pots-drying-shelf          [wall/1] potter's shop
+  P3  pottery-for-sale           [floor/sub] market ground displays
+  P3  axe-double                 [surface/sub] warlord trophies
+  P3  boots-armored              [floor/tiny] barracks floors
+  P3  gauntlets                  [surface/tiny] on a table beside a helm
+  P3  shield-buckler             [surface/tiny] duellists, rogues
+  P3  apron-hanging              [wall/tiny] kitchen doors
+  P3  stonebread-dwarven         [surface/tiny] dwarf rations; could stun a goblin
+  P3  chisel                     [surface/tiny] benches
+  P3  chisel-roll                [surface/tiny] masons, carvers
+  P3  coif-mail                  [surface/tiny] armories, smith repairs
+  P3  file-rasp                  [surface/tiny] smithies; prison-break cake
+  P3  gorget                     [surface/tiny] armor stands
+  P3  grease-pot                 [surface/tiny] wheelwrights
+  P3  greaves-pair               [floor/tiny] armory floors
+  P3  hand-drill                 [surface/tiny] carpenters
+  P3  hinge-pair                 [surface/tiny] smith's output
+  P3  holy-symbol-hammer         [surface/tiny] dwarven shrines, smithy altars
+  P3  hooks-iron                 [surface/tiny] smithies, butchers
+  P3  mallet-wood                [surface/tiny] carpenters, tent pegs
+  P3  measuring-rod              [floor/tiny] tailors, carpenters
+  P3  nails-keg                  [floor/tiny] hardware shops
+  P3  nails-pile                 [surface/tiny] workbenches
+  P3  pauldron-single            [floor/tiny] battlefield debris
+  P3  pliers                     [surface/tiny] tool racks
+  P3  vambraces-pair             [surface/tiny] armory tables
+  P3  alch-calipers              [surface/tiny] precise measurement
+  P3  alch-charcoal-scuttle      [floor/tiny] fuel by the furnace
+  P3  alch-crucible-tongs        [surface/tiny] beside the athanor
+  P3  alch-ingot-strange         [surface/tiny] star-metal; forge quest
+  P3  alch-meteorite-chunk       [surface/tiny] sky-iron
+  P3  smith-anvil-horned-double  [floor/sub] the fancy continental anvil
+  P3  smith-armor-polishing-barrel [floor/sub] squires roll these
+  P3  smith-ball-peen            [surface/tiny] riveting and peening
+  P3  smith-bell-fresh           [floor/1] awaiting hanging
+  P3  smith-bell-pit             [floor/2x2] the pour is a scene
+  P3  smith-bellows-pole         [floor/sub] the handle that works the big bellows
+  P3  smith-bick-iron            [surface/tiny] small curves; jeweler's too
+  P3  smith-billet               [surface/tiny] blade stock
+  P3  smith-bolt-heads-crate     [floor/tiny] armory order
+  P3  smith-candlestick-casting  [surface/tiny] household orders
+  P3  smith-cart-axle-iron       [floor/1] wheelwright job
+  P3  smith-casting-rejects      [floor/sub] the foundry scrap
+  P3  smith-cauldron-mend        [floor/sub] repair queue
+  P3  smith-chain-links-loose    [surface/tiny] chainmaker's bench
+  P3  smith-clinker-pile         [floor/sub] behind the smithy
+  P3  smith-cold-chisel          [surface/tiny] cutting cold iron and rivets
+  P3  smith-copper-sheet         [surface/tiny] coppersmith bench
+  P3  smith-dagger-unfinished    [surface/tiny] bench
+  P3  smith-dishing-stump        [floor/sub] hammering plate into curves
+  P3  smith-door-studs           [surface/tiny] reinforced-door work
+  P3  smith-draw-bench           [floor/1x2] goldsmith's back room
+  P3  smith-drift-set            [surface/tiny] opening eyes in axe heads
+  P3  smith-elemental-bellows    [floor/1] arcane forge dressing
+  P3  smith-enchanting-quench    [floor/sub] blades quenched in moonwater
+  P3  smith-etching-tray         [surface/tiny] runes on steel
+  P3  smith-fire-shovel          [surface/tiny] coal from bin to hearth
+  P3  smith-flatter              [surface/tiny] smoothing faces
+  P3  smith-forge-hood-ruined    [floor/1] abandoned smithies
+  P3  smith-fuller-set           [surface/tiny] grooves in blades
+  P3  smith-gauntlet-parts       [surface/tiny] finger lames in a row
+  P3  smith-gloves-heavy         [surface/tiny] leather, scorched
+  P3  smith-golem-arm-forging    [floor/1x2] construct commission
+  P3  smith-grapnel-unfinished   [surface/tiny] adventurer's order
+  P3  smith-grinding-trough      [floor/1] blade finishing
+  P3  smith-grip-wrapping        [surface/tiny] hilting bench
+  P3  smith-hafting-bench        [floor/1x2] fitting heads to shafts
+  P3  smith-hardy                [surface/tiny] sits in the anvil
+  P3  smith-harness-buckles      [surface/tiny] saddler's order
+  P3  smith-hilt-parts           [surface/tiny] assembly bench
+  P3  smith-hinge-strap          [surface/tiny] doors to order
+  P3  smith-hold-down-hook       [surface/tiny] stuck in the anvil's hardy hole
+  P3  smith-hooks-rack           [wall/sub] meat hooks, grappling blanks
+  P3  smith-hoop-stack           [floor/sub] for the cooper
+  P3  smith-horseshoe-blanks     [wall/tiny] hung on a nail
+  P3  smith-hot-chisel           [surface/tiny] cutting hot stock
+  P3  smith-ingot-meteoric       [surface/tiny] sky-iron quest hook
+  P3  smith-ingot-tin            [surface/tiny] alloying
+  P3  smith-kettle-raising       [surface/tiny] planishing work
+  P3  smith-key-blanks           [surface/tiny] cut-to-order
+  P3  smith-knife-blank          [surface/tiny] cutler's bench
+  P3  smith-lantern-frames       [surface/tiny] tinsmith orders
+  P3  smith-leather-straps       [surface/tiny] strapping bench
+  P3  smith-lock-chest           [surface/tiny] bench stock
+  P3  smith-mace-heads           [surface/tiny] unhafted
+  P3  smith-maker-mark-stamp     [surface/tiny] proof of provenance
+  P3  smith-nail-apron           [wall/tiny] on a peg
+  P3  smith-nail-header          [surface/tiny] nail-making corner
+  P3  smith-nail-keg-open        [floor/tiny] hardware sales
+  P3  smith-nail-rod-bundle      [surface/tiny] raw for nail-making
+  P3  smith-order-ledger         [surface/tiny] who ordered the thirty swords?
+  P3  smith-ore-crusher          [floor/1x2] industrial dwarves
+  P3  smith-pattern-billet       [surface/tiny] master bladesmith flex
+  P3  smith-plowshare            [floor/tiny] village smith's bread and butter
+  P3  smith-polearm-heads-rack   [wall/1] before hafting
+  P3  smith-portcullis-bars      [floor/1x2] castle contract
+  P3  smith-pot-hook             [surface/tiny] household orders
+  P3  smith-pour-channel         [floor/1] furnace to mould
+  P3  smith-price-slate          [wall/tiny] shop counter
+  P3  smith-punch-set            [surface/tiny] hole-making
+  P3  smith-quench-oil-trough    [floor/sub] blade hardening; flares
+  P3  smith-rivets-dish          [surface/tiny] armorer's bench
+  P3  smith-rune-stamps          [surface/tiny] maker's marks; enchanter's order
+  P3  smith-sand-mould-box       [floor/sub] foundry floor
+  P3  smith-scabbard-blanks      [surface/tiny] scabbard maker's corner
+  P3  smith-scrap-armor-pile     [floor/sub] post-battle salvage
+  P3  smith-scrolling-tongs      [surface/tiny] decorative ironwork corner
+  P3  smith-set-hammer           [surface/tiny] paired with a striker
+  P3  smith-shackles-new         [wall/tiny] a grim commission
+  P3  smith-shield-boss          [surface/tiny] shield-maker's order
+  P3  smith-shield-unfinished    [floor/sub] leaning on the bench
+  P3  smith-sickle-blank         [wall/tiny] harvest season
+  P3  smith-soldering-irons      [surface/tiny] tinker repairs
+  P3  smith-soot-bucket          [floor/tiny] ash to the midden
+  P3  smith-sprinkler-can        [surface/tiny] controlling the fire
+  P3  smith-stake-anvil          [floor/sub] field forges
+  P3  smith-straight-peen        [surface/tiny] drawing out stock
+  P3  smith-trip-hammer          [floor/1x2] big forges beside a millrace
+  P3  smith-water-dipper         [surface/tiny] thirsty work
+  P3  smith-wheel-hub-bands      [surface/tiny] wheelwright job
+  P3  smith-wheel-tire           [floor/1] leaning on the wall; wheelwright job
+  P3  smith-wire-coil-iron       [surface/tiny] fencing, mail, repairs
+  P3  smith-wire-drawplate       [surface/tiny] making ring wire
+  P3  smith-wolf-jaw-tongs       [surface/tiny] square and round stock
+  P3  craft-apprentice-cot       [floor/1x2] apprentices slept in the shop
+  P3  craft-axle-cart            [floor/1x2] waiting for a cart
+  P3  craft-barrel-head-disc     [surface/tiny] stacked by the door
+  P3  craft-bench-dogs-holdfast  [surface/tiny] clamp a board to the bench
+  P3  craft-bow-unstrung         [surface/tiny] shop stock
+  P3  craft-bowstring-coil       [surface/tiny] spares
+  P3  craft-brace-and-bit        [surface/tiny] joiner's drill
+  P3  craft-bucket-half-made     [surface/tiny] small cooperage
+  P3  craft-bung-tap-box         [surface/tiny] cellarman's box
+  P3  craft-cart-frame-unfinished [floor/2x2] work in progress
+  P3  craft-cart-shafts          [wall/1x2] leaning on the wall
+  P3  craft-carving-gouges       [surface/tiny] carver's bench
+  P3  craft-carving-knife-set    [surface/tiny] carver's bench
+  P3  craft-chalk-line-reel      [surface/tiny] marking long cuts
+  P3  craft-coffin-unlidded      [floor/1x2] undertaker-joiners
+  P3  craft-cooper-adze-short    [surface/tiny] trimming chimes
+  P3  craft-cooper-cresset-fire  [floor/sub] bending staves with heat
+  P3  craft-cooper-croze         [surface/tiny] cuts the head groove
+  P3  craft-cooper-truss-hoop    [floor/sub] draws staves together
+  P3  craft-door-blank           [wall/1] waiting for hinges
+  P3  craft-figure-carved        [surface/tiny] toys, saints, idols
+  P3  craft-fletching-jig        [surface/tiny] fletcher's bench
+  P3  craft-goose-feathers-bundle [surface/tiny] fletching stock
+  P3  craft-guild-charter-frame  [wall/sub] pride of the master
+  P3  craft-lathe-bowl-blank     [surface/tiny] turner's work
+  P3  craft-lathe-spindle-blank  [surface/tiny] pole-lathe output
+  P3  craft-leather-armor-form   [floor/sub] armorer's leather side
+  P3  craft-marking-gauge        [surface/tiny] bench dressing
+  P3  craft-mask-carved          [wall/sub] festival or ritual
+  P3  craft-masterpiece-display  [floor/sub] the proof of mastery
+  P3  craft-order-slate          [wall/tiny] who owes what
+  P3  craft-panel-carved-relief  [wall/1] noble paneling, chapel screens
+  P3  craft-pegs-jar             [surface/tiny] joinery supplies
+  P3  craft-plane-jack-long      [surface/tiny] truing long boards
+  P3  craft-plane-moulding       [surface/tiny] fine joinery
+  P3  craft-quiver-rack          [wall/1] shop wall
+  P3  craft-rule-folding         [surface/tiny] on the bench
+  P3  craft-saw-two-man          [wall/1] leans on the pit frame
+  P3  craft-scabbard-unfinished  [surface/tiny] sword-shop side work
+  P3  craft-shopsign-barrel      [wall/sub] cooper's sign
+  P3  craft-shopsign-bow         [wall/sub] bowyer's sign
+  P3  craft-shopsign-wheel       [wall/sub] wheelwright's sign
+  P3  craft-sign-blank-carving   [floor/sub] new tavern name
+  P3  craft-spokeshave           [surface/tiny] shaping spokes and chair legs
+  P3  craft-spoon-blank-rough    [surface/tiny] whittler's evening
+  P3  craft-staves-single-curved [surface/tiny] scatter
+  P3  craft-strongbox-workshop   [surface/tiny] under the bench
+  P3  craft-table-half-built     [floor/1] work in progress
+  P3  craft-totem-blank-log      [ground/sub] village carver's yard
+  P3  craft-tub-wash-new         [floor/sub] shop stock
+  P3  craft-wheel-dish-gauge     [surface/tiny] precision dressing
+  P3  craft-wheel-felloe         [surface/tiny] rim segments
+  P3  craft-wheel-spoke-single   [surface/tiny] scatter
+  P3  craft-wheel-tyre-iron      [wall/1] hot-fitted to wheels
+  P3  craft-wheel-tyring-platform [floor/2x2] flooded to shrink the tyre
+  P3  craft-whittling-stool      [floor/sub] porch loafer
+  P3  rural-farrier-apron        [wall/tiny] smithy
+  P3  rural-hoof-pick            [surface/tiny] grooming kit
+  P3  rural-horseshoe-nails-box  [surface/tiny] farrier bench
+  P3  rural-plough-share         [floor/tiny] in for repair at the smith
+  P3  rural-slag-heap            [ground/1] mine surface dressing

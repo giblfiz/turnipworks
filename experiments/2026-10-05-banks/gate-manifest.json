@@ -1,0 +1,145 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "rock-boulder": {
+   "id": "rock-boulder",
+   "group": "rocks",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-banks/work/rock-boulder.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, moss-covered boulder against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, moss-covered boulder against a solid blue background.",
+       "details": "The image contains no text, labels, or watermarks. There is a single isolated object, best described as a stylized stone boulder or digital 3D rock asset. It has no moving parts, legs, wheels, doors, or handles; its surface is faceted and chunky, featuring deep diagonal cracks dividing the form, with patches of green moss growing along the top crest and in the crevices. The rock is rendered in shades of beige, light brown, and warm grey, while the moss is an earthy olive green with painted texture detailing. The object is completely contained within the frame with no cropping. The background is a solid, uniform bright blue chroma key color with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3294,
+      "soft": 0.0027,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4089,
+   "tokens_out": 1514,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rock-cluster": {
+   "id": "rock-cluster",
+   "group": "rocks",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-banks/work/rock-cluster.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted digital 3D model of a cluster of tan boulders with green moss nestled in the crevices, isolated on a uniform solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted digital 3D model of a cluster of tan boulders with green moss nestled in the crevices, isolated on a uniform solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single composite object: a stylized boulder formation or rock cluster (second guess: video game rock prop or stylized stone mound). It consists of three rounded, faceted boulder sections merged horizontally: a taller, dominant central section flanked by smaller rounded boulders on the left and right sides. Crevices and fissure lines divide these sections, filled with patches of mossy, textured green and yellow-green vegetation. The object has no legs, wheels, doors, drawers, or lids. It is rendered in a stylized, hand-painted digital art style with sandy beige, light brown, and tan stone textures accented by warm highlights and darker earthen shadows. The boulder formation is entirely whole and not cropped by the frame. The background is a completely flat, uniform, solid bright blue with no visible floor, ground surface, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2944,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4151,
+   "tokens_out": 1434,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rock-table": {
+   "id": "rock-table",
+   "group": "rocks",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-banks/work/rock-table.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, round stone platform or pedestal composed of two stacked layers of cracked tan rock against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Object resembles a built pedestal or cut masonry of chiseled stone blocks rather than a single natural rock"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, round stone platform or pedestal composed of two stacked layers of cracked tan rock against a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image features a single object: a low, circular stone dais or platform (second guess: a rocky stepping stone or pedestal base). It is constructed from two tiers of segmented, chiseled stone blocks. The upper tier presents a relatively flat top surface divided by cracks, with a prominent fissure containing a tiny touch of green moss on the right side. The lower tier forms a supporting ring of segmented rock blocks protruding slightly beneath the upper tier. There are no legs, wheels, doors, drawers, lids, or handles. The object is rendered in a stylized, hand-painted video game asset aesthetic, composed of beige, tan, and light brown rock textures with lighter edge highlights and darker crevices. The entire object is centered and fully visible within the frame, not cropped. The background is a flat, uniform solid bright blue with no shadows, floor surface, people, or additional scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-banks/work/rock-table.try2.jpg",
+     "semantic": {
+      "what_i_see": "A thick, textured brown rock slab or stone platform floating in the center of a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A thick, textured brown rock slab or stone platform floating in the center of a solid bright blue background.",
+       "details": "There is no text, watermarks, or labels. The image features a single object: a stone slab platform (second guess: a floating rock stepping stone or display pedestal). The platform is roughly rounded-square in shape with layered, craggy rock sides split horizontally around its middle, and a relatively flat top surface interrupted by a diagonal crack containing a greenish-mossy groove towards the upper right. It has no legs, wheels, doors, lids, or drawers. It is composed of a brown, tan, and ochre textured rock material. The object is entirely intact and uncropped, centered on a completely flat, uniform blue background with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1376,
+      "soft": 0.0016,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 13
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5888,
+   "tokens_out": 2846,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

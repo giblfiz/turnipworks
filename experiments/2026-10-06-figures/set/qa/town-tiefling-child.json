@@ -1,0 +1,152 @@
+{
+ "file": "town-tiefling-child.glb",
+ "tris": 47850,
+ "kb": 2938,
+ "native_extent": [
+  0.441,
+  1.001,
+  0.369
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0012,
+  "seen": 0.0002
+ },
+ "mean_rgb": [
+  89,
+  57,
+  45
+ ],
+ "mean_saturation": 0.492,
+ "sized_by": "its highest point",
+ "overall_ft": 3.8,
+ "pieces": {
+  "connected_parts": 91,
+  "main_part_area_share": 0.9983,
+  "floating": [
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.02
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 1e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.7983,
+ "y0": -1.9027,
+ "stated_ft": {
+  "body": 3.8,
+  "figure_top": 3.8,
+  "overall": 3.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2214,
+   -0.5009,
+   -0.1827
+  ],
+  [
+   0.2197,
+   0.4997,
+   0.1868
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47850,
+   "tex": 2048,
+   "kb": 2938
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1179
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 498
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.46,
+    "z": -0.27,
+    "size_ft": [
+     0.74,
+     0.78
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.047
+   },
+   {
+    "x": 0.55,
+    "z": 0.28,
+    "size_ft": [
+     0.54,
+     0.89
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.92,
+    "sole_p90_ft": 0.048
+   },
+   {
+    "x": 0.32,
+    "z": -0.62,
+    "size_ft": [
+     0.14,
+     0.16
+    ],
+    "off_ground_ft": 0.25,
+    "sole_level_share": 0.59,
+    "sole_p90_ft": 0.334
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.25,
+  "lowest_slab_area_sqft": 0.68,
+  "plan_hull_area_sqft": 1.76,
+  "lowest_slab_share_of_plan": 0.384
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.67,
+   "d": 1.4,
+   "h": 3.8
+  },
+  "centre": [
+   0.03,
+   0.14
+  ],
+  "contacts_radius_ft": 0.9,
+  "reach_radius_ft": 0.88,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.907,
+  "plate_lost_share": 0.017,
+  "added_share": 0.084,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.907,
+  "view_yaw_deg": 15,
+  "view_elev_deg": 16
+ },
+ "id": "town-tiefling-child",
+ "sha1": "e50209c1da14537196b4e9a707959f70e8147489",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.25 ft off the ground"
+ ],
+ "qa_seconds": 12.9
+}

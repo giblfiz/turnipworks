@@ -1,0 +1,166 @@
+{
+ "file": "foe-goblin-shaman.glb",
+ "tris": 47911,
+ "kb": 3563,
+ "native_extent": [
+  0.636,
+  1.001,
+  0.772
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0008,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  75,
+  52,
+  18
+ ],
+ "mean_saturation": 0.828,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 2.73,
+  "length_ft": 2.73,
+  "low_end_ft": [
+   -0.54,
+   0.3,
+   -0.69
+  ],
+  "high_end_ft": [
+   -0.87,
+   3.0,
+   -0.44
+  ],
+  "tilt_from_upright_deg": 8.8,
+  "thickness_ft": 0.25,
+  "clear_share": 0.86,
+  "joined_share": 0.14,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-----##----------------#####----------------------"
+ },
+ "overall_ft": 3.53,
+ "pieces": {
+  "connected_parts": 544,
+  "main_part_area_share": 0.9601,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.5269,
+ "y0": -1.7649,
+ "stated_ft": {
+  "body": 3.5,
+  "figure_top": 3.5,
+  "overall": 3.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3176,
+   -0.5007,
+   -0.3856
+  ],
+  [
+   0.318,
+   0.5,
+   0.3861
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47911,
+   "tex": 2048,
+   "kb": 3563
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1392
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 571
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.5,
+    "z": 0.31,
+    "size_ft": [
+     0.6,
+     1.0
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.65,
+    "sole_p90_ft": 0.106
+   },
+   {
+    "x": -0.47,
+    "z": -0.51,
+    "size_ft": [
+     0.79,
+     0.87
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.82,
+    "sole_p90_ft": 0.094
+   },
+   {
+    "x": 0.58,
+    "z": -0.71,
+    "size_ft": [
+     0.04,
+     0.06
+    ],
+    "off_ground_ft": 0.29,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.314
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.29,
+  "lowest_slab_area_sqft": 0.72,
+  "plan_hull_area_sqft": 3.52,
+  "lowest_slab_share_of_plan": 0.205
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.24,
+   "d": 2.72,
+   "h": 3.53
+  },
+  "centre": [
+   -0.014,
+   -0.029
+  ],
+  "contacts_radius_ft": 0.98,
+  "reach_radius_ft": 1.32,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.887,
+  "plate_lost_share": 0.052,
+  "added_share": 0.069,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.887,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "foe-goblin-shaman",
+ "sha1": "4ce7e38802622585fee676d7b690fb9a55419522",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.29 ft off the ground"
+ ],
+ "qa_seconds": 17.6
+}

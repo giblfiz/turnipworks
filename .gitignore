@@ -1,0 +1,40 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Generated binaries stay on the build box + the web server, not in git (2026-10-02).
+# Code, docs, catalog, recipes, prompts, manifests, tests and ratings are tracked.
+*.glb
+*.gltf
+*.bin
+*.fbx
+*.obj
+*.stl
+*.blend
+*.blend1
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.ktx2
+*.exr
+*.hdr
+*.mp4
+*.webm
+*.zip
+*.tar
+*.gz
+*.npz
+*.npy
+*.pt
+*.safetensors
+tools/spawn-tuner/shots/
+node_modules/
+*.bak
+
+# Agent and worker logs stay out of git (2026-10-21, docs/LICENSING_AUDIT.md §6): they quote whatever the worker
+# grepped, wiki lines included. Already-tracked logs stay tracked until the public-export decision.
+*.codex.log
+worker-logs/
+experiments/**/*.log

@@ -1,0 +1,2283 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "counter-shop--general": {
+   "id": "counter-shop--general",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/counter-shop--general.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset depicting a wooden merchant counter topped with various trade goods against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset depicting a wooden merchant counter topped with various trade goods against a solid bright blue background.",
+       "details": "The image features a single main ensemble asset consisting of a large, sturdy wooden table or market counter holding numerous smaller items. The counter is built from warm brown planks with a thick rectangular top and a paneled front featuring three recessed rectangular wood panels flanked by heavy corner and support pillars. Arranged on top of the counter from left to right are: two tied tan burlap or canvas sacks; two orange-terracotta lidded pots (one large in the back, one smaller in the front); a coiled loop of thick rope; a four-sided grey metal and glass lantern; a whole yellow cheese wheel; two nested cylindrical wooden stave buckets; and a stack of two folded red-and-cream striped textiles. All items are intact and closed (both pots have fitted lids on). The style is hand-painted stylized digital 3D. The entire asset is fully visible and uncropped, set against a completely flat, uniform blue background with no floor or shadows. There are no people, visible text, labels, or watermarks.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.46,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9935,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4173,
+   "tokens_out": 2089,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--general": {
+   "id": "shop-shelf-stocked--general",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--general.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D wooden storage shelf containing four levels of goods, including jars, sacks, ropes, cheeses, folded textiles, buckets, and a lantern, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D wooden storage shelf containing four levels of goods, including jars, sacks, ropes, cheeses, folded textiles, buckets, and a lantern, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The main subject is a single wooden shelving unit (second guess: bookcase or display rack) containing sixteen individual items distributed across its top surface and three interior shelves. The rack has thick square upright corner posts with chunkier top and bottom cap blocks, a vertical plank backboard, and three shelf planks plus the top tier. On the top level sits a tied tan sack, a terracotta jar with a fitted lid, a coiled loop of thick rope, and a dark grey metal lantern. On the second level from top rests a stack of three folded cloths (two red-and-white striped, one green), a large flat yellow cheese wheel, an orange clay jar with lid, and a small wooden banded bucket. On the third level is an orange clay jar with lid, an open wooden bucket banded in metal, a tied tan sack, and two folded cloths (one green, one red-and-white striped). On the bottom shelf is a coiled thick rope, a tied tan sack, an orange clay jar with lid, and a yellow cheese wheel resting on its edge. All four clay jars have their lids resting closed in place; the two wooden buckets are open at the top, showing empty wooden interiors. The textures are rendered in a clean, stylized digital art style with soft lighting, using warm browns, terracotta orange, muted tan, olive green, cream, crimson, cheddar yellow, and iron grey. The entire structure is whole, uncropped, and centered against a seamless, solid saturated blue background with no cast shadows or floor plane.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.576,
+      "soft": 0.0055,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.994,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4291,
+   "tokens_out": 3188,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "counter-shop--bakery": {
+   "id": "counter-shop--bakery",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/counter-shop--bakery.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden bakery display counter topped with various freshly baked breads, pastries, and a cake against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden bakery display counter topped with various freshly baked breads, pastries, and a cake against a solid blue background.",
+       "details": "No text, labels, or watermarks are present. The primary object is a heavy wooden shop counter or bakery display table. On top of its wooden plank surface sits an arrangement of bakery goods: a woven wicker basket holding several long baguettes, two round sourdough/artisan loaves dusted with flour, a glossy braided loaf (challah/brioche), a small wooden tray containing three round glazed buns sprinkled with coarse sugar pearls, and a frosted round layer cake adorned with red berries or dollops of red jam/frosting resting on a turned wooden cake stand. The counter itself features thick corner posts/legs, framed side mouldings, and three front recessed rectangular panels with muted green vertical-plank infill, plus a matching green panel visible on the right end; there are no operable drawers, doors, or handles visible. The entire asset is rendered in a hand-painted or 3D digital game art style, fully contained within the frame without cropping. The background is a completely uniform, solid chroma-key blue with no visible floor, ground shadows, or environment.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4766,
+      "soft": 0.0047,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4178,
+   "tokens_out": 1534,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--bakery": {
+   "id": "shop-shelf-stocked--bakery",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--bakery.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a three-tier rustic wooden bakery shelving unit overflowing with various breads, pastries, and cakes against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a three-tier rustic wooden bakery shelving unit overflowing with various breads, pastries, and cakes against a solid blue background.",
+       "details": "There are no text labels, watermarks, or logos visible. The primary object is a wooden bakery display shelf or bread rack (second guess: rustic kitchen bookcase/shelving unit). The unit features four thick corner posts resting on four square blocky wooden feet/legs, a planked vertical wood backboard, three internal shelf levels, and a flat top surface, with no doors, drawers, lids, or handles. Displayed across the four levels are numerous separate baked goods: on top rests a large flour-dusted scored boule, a pile of shiny dinner rolls on a maroon runner, and a white frosted drip cake garnished with red berries and green leaves on a round wooden platter; the upper internal shelf holds a woven basket with three baguettes, two rustic scored round loaves, and a wooden tray with four glazed cinnamon rolls; the middle shelf contains three round scored loaves, two braided golden-brown loaves, and a woven basket with two pointed mini-baguettes; the bottom shelf holds a wooden crate containing six glazed buns, another white drip cake with berries, and a scored round loaf. Materials depicted include warm honey-brown wood with visible grain and notches, golden-brown baked dough with white flour dusting, creamy white frosting, and glossy red berries, set atop green and maroon fabric mats. The entire shelving unit is fully visible and uncropped, presented from a three-quarter perspective. The background is an entirely flat, uniform, bright blue chroma screen with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5275,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9954,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4265,
+   "tokens_out": 1582,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "counter-shop--apoth": {
+   "id": "counter-shop--apoth",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/counter-shop--apoth.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden herbalist or alchemist counter bearing various glass bottles, ceramic jars, dried herbs, and a stone mortar and pestle against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden herbalist or alchemist counter bearing various glass bottles, ceramic jars, dried herbs, and a stone mortar and pestle against a solid blue background.",
+       "details": "The image features a single main wooden counter or apothecary bench viewed from an isometric perspective on a solid blue chroma background. The counter is constructed from honey-brown planks of wood, featuring three recessed rectangular front panels, thick corner posts with carved block joints, and a planked top. Arranged on the left side of the tabletop are several items: a large green glass demijohn encased in woven wicker with a cork stopper; three glazed beige ceramic jars with fitted lids of varying sizes; two green glass bottles with cork stoppers; two amber-brown glass bottles with cork stoppers; a tied bundle of dried green-grey herbs; and a grey stone mortar containing a matching stone pestle. The right side of the counter surface remains clear. The entire object is fully visible without cropping, with soft self-shadowing under the jars and counter base, rendered in a hand-painted game-asset style. There are no people, text, labels, or watermarks present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4555,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9934,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4171,
+   "tokens_out": 1422,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--apoth": {
+   "id": "shop-shelf-stocked--apoth",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--apoth.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized four-tier wooden shelf filled with various apothecary jars, bottles, bundles of herbs, and stone mortars and pestles set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized four-tier wooden shelf filled with various apothecary jars, bottles, bundles of herbs, and stone mortars and pestles set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The primary object is a medium-brown wooden apothecary shelving unit (second guess: an alchemist's bookcase or herb rack) with blocky, carved joinery on its vertical posts and vertical planks forming the backboard. It contains four levels of shelves supporting sixteen total smaller items. From top to bottom: The top tier holds a small ceramic jar with a round knobbed lid, a green glass bottle wrapped in a woven wicker basket with a cork stopper, a large bundle of dried herbs, and an amber glass bottle with a cork stopper. The second tier down holds a plain green glass bottle with a cork, a grey stone mortar containing a matching pestle, another lidded ceramic jar, and a bundle of dried herbs. The third tier contains an amber glass bottle with a cork, a green glass bottle in a wicker basket, a bundle of dried herbs, and a lidded ceramic jar. The bottom tier holds a bundle of dried herbs, a lidded ceramic jar, a plain green glass bottle with a cork, and a grey stone mortar and pestle. All jar lids are closed, and bottles are securely stoppered with corks. The entire wooden unit rests on four block feet and is depicted in full, without being cropped. The background is a flat, uniform, vibrant pure blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5476,
+      "soft": 0.0054,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 8
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4247,
+   "tokens_out": 1808,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "counter-shop--tailor": {
+   "id": "counter-shop--tailor",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/counter-shop--tailor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden tailor's counter displaying various bolts and folded stacks of colorful fabric, spools of thread, and a wide-brimmed hat on a wooden stand, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden tailor's counter displaying various bolts and folded stacks of colorful fabric, spools of thread, and a wide-brimmed hat on a wooden stand, isolated against a solid blue background.",
+       "details": "The image features no text, labels, or watermarks. The central object is a large, sturdy wooden shop counter or crafting table made of warm honey-brown wood with three rectangular recessed panels across its front facade and an additional panel on the visible right side, supported by thick corner posts with block bases. No drawers, doors, handles, or wheels are open or visible. On the left side of the tabletop rests a collection of haberdashery goods: four cylindrical rolled bolts of fabric (olive green, cream, crimson red, and ochre yellow); a neat stack of four folded rectangular fabrics (cream, red, olive green, and purple); two wooden spools wound with red and off-white thread; a small stack of dark purple/plum folded cloth; and a burgundy/reddish-brown wide-brimmed hat with a dark band perched atop an upright wooden hat stand. The entire piece is fully shown and uncropped. The background is a flat, uniform, solid royal blue chroma background with no visible floor surface, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4916,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4206,
+   "tokens_out": 1569,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--tailor": {
+   "id": "shop-shelf-stocked--tailor",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--tailor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden shelving unit filled with neatly arranged rolls and stacks of colorful fabric, spools of ribbon, and a hat resting on top, displayed against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden shelving unit filled with neatly arranged rolls and stacks of colorful fabric, spools of ribbon, and a hat resting on top, displayed against a solid blue background.",
+       "details": "There are no text labels or watermarks visible. The main object is a three-tier (plus top surface) wooden shelving unit or open bookcase, functioning as a fabric display rack; a secondary guess would be a tailor's cabinet or linen cupboard. The unit features 4 blocky square legs, 3 interior shelf tiers (4 horizontal wooden surfaces including the top), vertical plank side walls and backing, and no doors, drawers, lids, or handles. Stored across the shelves are various textile items: on the very top rests a red roll of cloth, a folded stack of cream blankets/fabrics (3 layers), a small green cloth roll, and a wooden hat stand holding a dark magenta/red brimmed hat with a band and bow. On the first inner shelf: a stack of three red folded cloths, a golden-yellow cloth roll, a stack of three green folded cloths, and a deep purple cloth roll. On the second inner shelf: a cream-colored cloth roll, a stack of three purple folded cloths, a red cloth roll, and two wooden spools wound with yellow and red ribbon or fabric. On the bottom shelf: a stack of three green folded cloths, a golden-yellow cloth roll, a stack of three cream folded cloths, and a deep purple cloth roll. The structure is rendered in a warm, painted wooden texture with light brown/honey wood tones. The fabrics feature rich matte colors: red, purple, cream/off-white, forest green, and golden yellow. The entire furniture piece is completely within the frame, whole and not cropped. The background is a solid, completely uniform bright cobalt blue with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4318,
+   "tokens_out": 3363,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "counter-shop--curio": {
+   "id": "counter-shop--curio",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/counter-shop--curio.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy wooden counter or merchant table loaded with magical artifacts on its left side, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy wooden counter or merchant table loaded with magical artifacts on its left side, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The primary object is a long, low wooden counter or display desk (second guess: an altar or wooden cabinet). The furniture is whole and uncropped, viewed from a three-quarters isometric angle, constructed from warm golden-brown wood planks with three recessed panels along the front and two on the right side, framed by thick square corner posts functioning as short block feet (no visible openable drawers, doors, or handles). Resting on a draped purple cloth on the left half of the tabletop are several individual mystical items: a large glowing purple crystal orb resting in a three-pronged golden stand; an animal skull with curled ram horns; a cluster of jagged magenta/pink crystals; a vertical carved wooden tribal face mask; a cluster of green crystals; a golden armillary sphere mechanism; two small rolled scrolls with purple paper and brass caps; and a miniature wooden lockbox bound with steel bands (lid closed). The right half of the wooden tabletop is empty and bare. The background is a completely uniform, flat, intense primary blue screen with no floor plane or drop shadows rendered beneath the desk.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4202,
+   "tokens_out": 2457,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "bins-dry-goods": {
+   "id": "bins-dry-goods",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/bins-dry-goods.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden market display bin with four open compartments filled with various grains and legumes, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden market display bin with four open compartments filled with various grains and legumes, set against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single combined piece of furniture: a market grain bin or spice stall display, with a second guess of a bulk food dispenser/trough. It features four distinct slanted open compartments partitioned by wooden beams. The first compartment on the left holds a heaped mound of off-white grain or flour/salt; the second contains golden-yellow kernels or corn with an upright wooden scoop resting inside; the third contains glossy reddish-brown kidney beans; and the fourth contains greenish-gray lentils or dried peas. The bin is constructed from warm brown, stylized wood with visible grain texture, vertical planks forming the front panel, and square post legs at the corners with blocky feet (four legs visible). There are no lids, doors, or drawers; all compartments are open-topped. The entire wooden unit is shown whole and is not cropped by the frame. The background is an entirely uniform, flat, vivid royal blue without a floor or cast shadows. No people or scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4169,
+   "tokens_out": 2043,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "dress-form": {
+   "id": "dress-form",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/dress-form.try1.jpg",
+     "semantic": {
+      "what_i_see": "A vintage-style dressmaker's mannequin wearing a crimson red corset dress with a yellow side accent piece and a measuring tape draped around the neck, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A vintage-style dressmaker's mannequin wearing a crimson red corset dress with a yellow side accent piece and a measuring tape draped around the neck, isolated against a solid blue background.",
+       "details": "The image displays a single standalone object: a tailor's dress form mannequin dressed in historical or fantasy attire. At the top of the mannequin is a turned wooden finial knob. The neck and upper chest are made of a light beige or cream textured linen/fabric with visible construction seams. A white or cream measuring tape with black measurement tick marks hangs around the neck, with its two ends draping over the chest. The mannequin wears a deep crimson red two-piece or gown: a strapless corset bodice with vertical boning seams and a downward-pointing waistline, and a voluminous, flared A-line bell skirt reaching calf length. Attached to the proper right hip is an ochre-yellow flap or pouch secured with four rounded metallic silver rivets or fasteners. The mannequin stands on a short turned wooden central pole atop a round wooden pedestal base. The entire mannequin is visible within the frame with no parts cropped out. The background is a completely uniform, solid chroma-key blue with no floor texture, cast shadows, or other objects.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4179,
+   "tokens_out": 1722,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "apothecary-drawers": {
+   "id": "apothecary-drawers",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/apothecary-drawers.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized reddish-brown wooden apothecary cabinet featuring thirty small drawers, six small ceramic jars, a green jug, and dried herbs, isolated against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized reddish-brown wooden apothecary cabinet featuring thirty small drawers, six small ceramic jars, a green jug, and dried herbs, isolated against a solid blue backdrop.",
+       "details": "There are no legible text, watermarks, or logos, though each drawer features a small blank cream-colored rectangular label plate. The scene shows one main piece of furniture\u2014an apothecary cabinet or card catalog organizer\u2014holding several accessories. The cabinet is supported by four thick wooden post-style legs/corner uprights. It consists of an open top surface, an open upper shelf, and a lower drawer section containing 30 square drawers arranged in a grid of six columns and five rows. Each drawer has a single spherical off-white knob below a small blank label holder; all 30 drawers are fully closed. On the middle shelf sit six identical cream-and-tan ceramic jars with knobbed lids, all closed. Resting on the very top surface is a bulbous olive-green glazed bottle or vase with a narrow neck, alongside a small bundle of dried olive-green leaves and seed pods. The cabinet is made of polished, warm reddish-brown wood with visible stylized painted grain. The entire object is centered and uncropped. The background is a flat, uniform, bright blue with no cast shadows, floor, or figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4200,
+   "tokens_out": 1689,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--curio": {
+   "id": "shop-shelf-stocked--curio",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--curio.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy wooden bookcase with three interior shelves and a top tier display, densely arranged with magical artifacts including crystal orbs, ram skulls, gem clusters, wooden masks, chests, and armillary spheres, centered against a solid vibrant blue background.",
+      "ok": false,
+      "problems": [
+       "Shelf unit is missing a solid back"
+      ],
+      "blind": {
+       "what_i_see": "A stylized fantasy wooden bookcase with three interior shelves and a top tier display, densely arranged with magical artifacts including crystal orbs, ram skulls, gem clusters, wooden masks, chests, and armillary spheres, centered against a solid vibrant blue background.",
+       "details": "There are no texts, labels, or watermarks. The primary object is a fantasy wooden shelving unit or curio cabinet, containing approximately 15 distinct item groups across four tiers. The bookcase features 4 thick corner posts with carved diamond-pattern vertical trims and four blocky feet/legs; it has no doors or drawers. On the flat top surface, there is a cloudy pink/purple crystal orb on a golden tripod claw stand, a horned ram skull resting on a small purple cloth, and a cluster of pink and green crystalline shards on a rocky base. On the top interior shelf, there is a pair of leaning purple scrolls with ornate gold bands, a golden brass armillary sphere, a carved wooden humanoid mask on a purple cloth, and a small reinforced wooden treasure chest with its lid firmly closed. On the middle shelf, there sits a green crystal cluster, a second closed wooden chest with metal rivets, a pair of upright purple scrolls, and another glowing pink crystal orb on a golden stand atop a purple cloth. On the bottom shelf, there rests another carved wooden mask on a purple cushion, a pink crystal cluster, a second ram skull on a purple cushion, and a second brass armillary sphere. All chests and containers are closed with interior contents hidden. Materials depicted include carved warm-brown wood, polished brass/gold, purple cloth, bone, faceted translucent minerals, and glass. The entire asset is fully visible and not cropped by the frame. The background is a flat, uniform, bright chroma-key blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--curio.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden bookshelf filled with magical and adventurous artifacts, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden bookshelf filled with magical and adventurous artifacts, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The primary object is a fantasy-styled wooden display bookcase (second guess: curio cabinet or trophy shelf) holding multiple smaller items across four surface tiers. The bookcase itself is constructed from warm brown planks with thick carved corner posts adorned with diamond reliefs and horizontal bands, resting on four short block feet. It contains no doors, drawers, or glass panels. Each internal shelf is lined with a flat purple cloth runner. On top of the bookcase sit four items: a cluster of sharp magenta-pink crystals on a rocky base, a horned animal skull, a small closed wooden chest with metal strap reinforcement, and a cluster of green crystals. The upper shelf holds a glowing iridescent crystal ball resting on a golden clawed tripod, two horizontal purple scrolls wrapped with gold bands, and a brass armillary sphere. The middle shelf contains another cluster of green crystals, a carved wooden face mask, two upright purple and gold scroll cases or cylinders, and a small metal-reinforced closed chest. The bottom shelf holds a brass armillary sphere, another horned animal skull, and a cluster of magenta-pink crystals. All materials appear stylized with smooth textures and hand-painted 3D game asset aesthetics. The entire bookshelf and all its contents are fully contained within the frame with no cropping. The background is a solid, completely uniform vivid blue chroma key color with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6176,
+   "tokens_out": 5225,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "display-case-glass--curio": {
+   "id": "display-case-glass--curio",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/display-case-glass--curio.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy-style wooden display cabinet topped with a ram skull, a glowing crystal ball on an ornate stand, and a cluster of purple crystals, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy-style wooden display cabinet topped with a ram skull, a glowing crystal ball on an ornate stand, and a cluster of purple crystals, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks in the image. The composition features a single main piece of furniture\u2014a display case or shop counter\u2014supporting four distinct items on a purple cloth runner: an animal skull with curved horns, a spherical glowing crystal ball or orb supported by a golden-bronze four-legged stand, and a cluster of faceted purple crystals. The wooden counter has four turned wooden legs (each with rounded baluster shapes and square plinths), two front wooden panels with carved moldings, brass or gold-capped corner posts, and an upper showcase area with two large slanted front glass panes and triangular side glass panes framed in gold metal. The glass appears opaque, glowing with a soft, warm yellowish-white interior light, revealing no interior contents. There are no visible handles, wheels, or open doors/drawers. The main materials depicted are dark brown polished wood, golden metal trim, bone, glowing glass, and purple mineral crystal. The object is completely contained within the frame and not cropped. The background is a flat, uniform, vibrant blue without any ground plane, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4203,
+   "tokens_out": 2806,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "market-stall--produce": {
+   "id": "market-stall--produce",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/market-stall--produce.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D wooden market stall featuring a red-and-white striped awning and display crates filled with fruits and vegetables, isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D wooden market stall featuring a red-and-white striped awning and display crates filled with fruits and vegetables, isolated on a solid blue background.",
+       "details": "Text, labels, or watermarks: None. Object count: A single complete market stall structure containing multiple separate produce containers and vegetables/fruits. Identification: Market stall (best name), produce stand or farm vendor booth (second guess). Parts and structure: Four chunky wooden corner pillars/posts capped with squarish joints and rectangular top plates; a slanted fabric canopy awning with alternating red and off-white/cream stripes and a scalloped front fringe; a flat wooden plank counter with vertical slat skirt panelling below; two angled wooden floor display crates resting on the ground in front. On the counter sit four small crates/baskets holding carrots, cabbages, red apples, and yellow pears, alongside a large orange pumpkin and a basket of purple-and-white turnips (with another partially visible basket behind the right pillar). On the ground in front are two angled wooden crates, one containing red apples and the other green cabbages. Doors, drawers, lids: None present. Materials and colours: Warm brown stylized wood with carved grain and notch details, fabric awning in crimson and cream, and vibrant natural produce colours including bright orange, leafy green, red, yellow, and purple. Framing: The entire object is fully visible and not cropped. Background: Flat, completely uniform, vivid solid blue chroma-key background with no ground plane, floor textures, or cast shadows. People, text, or scenery: None present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4257,
+   "tokens_out": 1901,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "market-stall--fish": {
+   "id": "market-stall--fish",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/market-stall--fish.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a wooden fishmonger market stall filled with various seafood, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a wooden fishmonger market stall filled with various seafood, set against a solid blue background.",
+       "details": "The image contains a fully visible wooden market stall with a sloped canopy roof made of fabric with alternating cream and green stripes and a scalloped front edge. The stall has four sturdy wooden posts with blocky joinery. Displayed on the wooden counter surface are several types of seafood: on the left, a rectangular wooden crate holding about six large silver fish; in the center, a pile of cooked reddish-orange crabs; behind the crabs to the right, a small round wooden tub filled with black mussels; and on the right side of the counter, a row of golden-brown smoked or dried fish arranged diagonally. Resting on the ground in front of the stall are two containers: a round wooden bucket with two metal bands containing silver fish on the left, and a woven wicker basket also filled with silver fish next to it. The entire asset is rendered in a warm, clean, hand-painted video game art style. There are no people, text, labels, or watermarks. The background is a solid, flat, vibrant blue chroma key screen.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4175,
+   "tokens_out": 2181,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "market-stall--cloth": {
+   "id": "market-stall--cloth",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/market-stall--cloth.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of a wooden market stall displaying rolls and folds of colorful fabrics under a striped awning against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of a wooden market stall displaying rolls and folds of colorful fabrics under a striped awning against a solid blue background.",
+       "details": "The image features a single main structure: a cartoon/fantasy-styled wooden textile market stall or cloth merchant booth. It has four sturdy square wooden upright posts with chamfered block caps and bases, connected by wooden support rails. A slanted canopy awning overhead is made of fabric with broad alternating stripes of deep burgundy/magenta and warm golden-yellow, terminating in scalloped valence edges along the front. Below, a wooden planked counter serves as the display surface. Displayed on the counter are multiple textile goods: on the left, a stack of two horizontal rolled bolts (cream on the bottom, burgundy on top); a burgundy cloth draped vertically down over the front edge of the counter; in the middle, a stack of flat-folded cloths (yellow on top of olive-green); on the right, another stack of two horizontal folded/rolled cloths (burgundy on bottom, olive-green on top). Attached or resting on the floor in front of the counter on the right side is a small square wooden crate holding three vertically rolled fabric bolts (cream, olive-green, and golden-yellow). There are no moving doors, drawers, or lids. The stall is entirely visible without cropping, rendered in an isometric-leaning three-quarter view. The background is a flat, uniform solid cobalt blue screen with no ground plane or floor shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4236,
+   "tokens_out": 1860,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "market-stall--bread": {
+   "id": "market-stall--bread",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/market-stall--bread.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized wooden bakery market stall filled with assorted breads, pastries, and pies under a yellow-and-cream striped canopy, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D stylized wooden bakery market stall filled with assorted breads, pastries, and pies under a yellow-and-cream striped canopy, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The primary object is a tabletop market stall or merchant booth (second guess: a video game environment prop). The stall consists of a heavy wooden timber frame with four corner posts, a sloped canopy roof covered with a yellow and cream-white striped fabric featuring a scalloped front valance, a flat wooden display counter, and a lower base with muted green vertical wooden siding. Displayed on and around the stand are several bakery items: a woven wicker basket on the ground to the front-left containing five baguettes; three scored round boules of bread on the left side of the counter; a second woven wicker basket holding about eight baguettes in the center; two braided bread rings in the middle foreground; two round lattice-topped pies in shallow metal baking tins towards the back right; and a shallow rectangular wooden tray holding five glossy golden dinner rolls on the right. The structure is fully visible and not cropped. The background is a flat, uniform bright blue chromakey color with no floor, scenery, or shadows cast beneath the stand.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4191,
+   "tokens_out": 4912,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "market-stall--pottery": {
+   "id": "market-stall--pottery",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/market-stall--pottery.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a wooden market stall filled with various clay and ceramic pots, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a wooden market stall filled with various clay and ceramic pots, set against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The primary object is a pottery market stall (second guess: a wooden vendor booth or merchant kiosk). The wooden structure consists of four thick corner posts with squared joints, side and back support beams, an upper display shelf, an enclosed planked lower counter base, and a small gabled roof structure supporting an orange-and-cream striped scalloped fabric awning. Displayed on the upper shelf are six ceramic items: a tall terracotta jug with one loop handle, a stack of three nested beige bowls, a green single-handled pitcher, a cream-colored jar with a closed knobbed lid, a small terracotta pot with a closed knobbed lid, and a terracotta amphora with two side handles and a cream zigzag pattern. In front of the counter on the lower level are four additional ceramic items: a large squat terracotta pot, a small terracotta jug with one handle, a two-handled cream urn, and a squat olive-green pot. All lids are completely closed, obscuring any internal view. The stall is constructed of smooth, stylized golden-brown wood, and the pottery is rendered in smooth terracotta, beige, and olive-green clay finishes. The entire stall and its contents are fully contained within the frame without cropping. The background is a flat, uniform, vibrant cobalt-blue void with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4249,
+   "tokens_out": 2051,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "market-cross": {
+   "id": "market-cross",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/market-cross.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted stone lantern or pillar monument with a round finial and a tiered octagonal base, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted stone lantern or pillar monument with a round finial and a tiered octagonal base, centered against a solid blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The single isolated object is a fantasy game-style stone monument or pillar lantern. It consists of multiple vertically stacked sections: a spherical stone orb at the very top sitting on a small neck; a pyramidal four-sided stone cap; an upper rectangular lantern chamber featuring arched niches or openings on each visible face supported by blocky corner pillars; an octagonal or faceted stone column shaft split horizontally into two sections by a protruding central belt; and a base made of three tiered, stepped polygonal (roughly octagonal) platforms. The material resembles warm-toned, weathered tan or sandstone, showing subtle cracks, bevelled edges, and scattered splotches of yellowish-orange moss or lichen. The object is completely intact and uncropped within the frame. The background is a solid, completely uniform bright blue screen with no ground plane, environment, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4141,
+   "tokens_out": 1565,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "market-stall--trinkets": {
+   "id": "market-stall--trinkets",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/market-stall--trinkets.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D wooden vendor stall with a red and green striped awning, displaying lanterns, hats, carved figurines, and a crate of patterned geometric objects against a bright solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D wooden vendor stall with a red and green striped awning, displaying lanterns, hats, carved figurines, and a crate of patterned geometric objects against a bright solid blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The main subject is a single assembled wooden market stall (or vendor booth/display cart) accompanied by an open wooden crate placed at its base. The stall structure consists of four thick vertical corner posts with squared footing blocks, horizontal wooden beams, and a pitched roof frame supporting a striped red and olive-green fabric awning with scalloped valance edges. A dark plum or maroon cloth runner covers the display tabletop. On the counter from left to right sits: two brass lanterns with warm yellow translucent panes; a stack of three brimmed hats (brown, green, and red); three clusters of beads or polished spheres (cream, green, and red); carved wooden figurines representing a horse, an owl, and a rabbit; a propped rectangular wooden frame; and three cream-colored pillar candles. At the front base rests an open wooden chest/crate; its hinged lid is tilted open, fully exposing its interior filled with various carved geometric polyhedra, scale-patterned spheres, and faceted objects in brown, red, and green tones. The entire object is depicted whole without frame cropping. The background is completely flat, uniform chroma blue with no floor line, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4228,
+   "tokens_out": 2673,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "watch-desk": {
+   "id": "watch-desk",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/watch-desk.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy wooden desk or chest adorned with iron fittings and an emblem shield, topped with an open book, a metal helmet, keys, a lantern, and a wooden baton against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy wooden desk or chest adorned with iron fittings and an emblem shield, topped with an open book, a metal helmet, keys, a lantern, and a wooden baton against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene features a central piece of furniture (a wooden desk, chest, or workstation) holding five separate tabletop items. The desk has a thick wooden top with dark iron corner brackets held by rivets, four thick square vertical legs/posts also bound with iron brackets at the top and base, two closed drawers beneath the tabletop (each fitted with a dark iron drop handle), and a front vertical plank facade bearing an attached heater shield colored split-red on the left and yellow on the right with an iron riveted rim. Resting on the desk surface are: a rounded medieval iron helmet with a brow band and cheek guards on the left; an open blank parchment book with a reddish-brown cover in the center; a circular iron key ring holding three old-fashioned skeleton keys; a small turned wooden club or baton on the right; and a four-sided iron lantern with a top loop handle and pale frosted panes situated near the back right corner. All objects are illustrated in a stylized, hand-painted video game asset style. The entire composition is complete and uncropped, set against a flat, uniform bright blue background with no cast shadows or ground plane.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4213,
+   "tokens_out": 2310,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cell-holding-wood": {
+   "id": "cell-holding-wood",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/cell-holding-wood.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden barred gate or prison window section rendered in a hand-painted video game art style against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden barred gate or prison window section rendered in a hand-painted video game art style against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks visible in the image. The scene contains one primary object: a wooden barred gate or portcullis (second guess: a barred wooden window frame). The structure consists of an outer rectangular frame made of two vertical side posts and top/bottom horizontal rails, a horizontal center crossbar reinforced on both ends with dark gray iron brackets containing two round rivets each, and six vertical square wooden bars spanning between the top and bottom rails. The spaces between the bars are completely open to the blue background. The entire gate is rendered in weathered, golden-brown wood with visible grain, knots, and stylized bevels. The object is completely contained within the frame without cropping. The background is a solid, uniform, bright chroma blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4134,
+   "tokens_out": 2708,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cell-holding-wood--gate": {
+   "id": "cell-holding-wood--gate",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/cell-holding-wood--gate.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden barred cell door or window grate equipped with iron hinges and a padlock, set against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden barred cell door or window grate equipped with iron hinges and a padlock, set against a solid vibrant blue background.",
+       "details": "The image contains no text, watermarks, or labels. There is one single composite object: a stylized wooden barred gate or hatch (second guess: prison window grate). It consists of an outer rectangular wooden frame with two tall vertical posts and top and bottom crossbeams. Inside the frame is a hinged inner wooden barred door structure featuring three central vertical slats flanked by two additional vertical slats within the frame, a central horizontal crossbar, two large dark-grey metal strap hinges on the left (each secured with round rivets), and a metal hasp and lock plate on the right securing a dark-grey metal padlock with a visible keyhole. The door is in a fully closed and locked position. The wood has a painted, semi-stylized medium-brown woodgrain texture with subtle nicks and highlights, while the metal hardware has a matte dark-slate/iron appearance. The object is completely depicted within the frame without cropping. The background is a solid, uniform, bright chroma-key blue with no visible floor, scenery, cast shadows, or people.",
+       "reference_differences": [
+        "The candidate image features an inner opening door with two large strap hinges on the left, whereas the reference image has fixed vertical bars with no hinges.",
+        "The candidate image has a locking mechanism with a hanging padlock on the right side of the crossbar, which is completely absent in the reference image.",
+        "The reference image has a single continuous horizontal wooden crossbar extending across the entire inner width, secured at both ends by identical metal brackets with rivets; the candidate image has an inner segmented crossbar on the door section instead.",
+        "The inner vertical wooden bars in the reference image are evenly spaced across the entire interior, whereas the candidate image has vertical bars organized into an inner hinged door frame alongside outer fixed bars.",
+        "The candidate has a top and bottom inner sub-frame enclosing the inner swinging door section, which does not exist in the reference image."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5505,
+   "tokens_out": 2356,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-doorway--half-timber": {
+   "id": "wall-doorway--half-timber",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/wall-doorway--half-timber.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden doorframe or entryway structure with off-white panel inserts, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden doorframe or entryway structure with off-white panel inserts, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object, best described as a stylized timber doorframe or archway (second guess: an architectural medieval wall segment). The structure consists of two outer vertical wooden posts, two inner vertical wooden posts flanking a central rectangular opening, an upper horizontal beam, and a middle horizontal beam. Above the central opening is a wide rectangular cream/off-white stucco or plaster panel framed by the beams. Two narrow vertical cream panels run down the sides between the outer and inner vertical posts. The central lower section is completely open and empty, revealing the blue background behind it. The materials appear as hand-painted or cell-shaded dark brown wood with painted grains and smooth off-white/beige plaster. The entire object is fully visible within the frame without cropping. The background is a uniform, flat blue with no floor, scenery, people, or cast shadows.",
+       "reference_differences": [
+        "The candidate has an open doorway passage in the lower center, whereas the reference is a completely solid wall panel.",
+        "The reference features diagonal timber bracing across its main upper panel, which is absent in the candidate.",
+        "The candidate features a horizontal rectangular panel at the top, whereas the reference has a large tall rectangular panel section.",
+        "The reference has a bottom base beam spanning the full width, while the candidate has an open base at the central passage.",
+        "The candidate includes inner vertical framing posts outlining the doorway opening, whereas the reference has a single short vertical post dividing the bottom panel in half."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5418,
+   "tokens_out": 1837,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-straight--half-timber--s2": {
+   "id": "wall-straight--half-timber--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/wall-straight--half-timber--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized rectangular timber-framed wall segment with an arched upper wooden beam against a plain blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized rectangular timber-framed wall segment with an arched upper wooden beam against a plain blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single object, best described as a stylized medieval timber-framed wall panel or architectural asset (second guess: a decorative wooden panel or shutter). The object consists of a rectangular outer wooden frame, a horizontal mid-rail, a central vertical post dividing the bottom section into two rectangular cream-colored plaster panels, and an arched timber brace in the upper section forming a rounded crest over a larger plaster panel with curved wooden spandrels in the top corners. The panels are completely solid and opaque. The primary materials are textured brown wood with visible grain lines and off-white/beige plaster. The entire object is centered and uncropped. The background is a solid, uniform, bright blue color with no floor, scenery, or cast shadows.",
+       "reference_differences": [
+        "In the candidate image, the upper section features an arched wooden beam creating a rounded plaster area with curved corner braces, whereas the reference image features diagonal timber braces (one prominent diagonal beam running across and a smaller diagonal brace in the upper left corner).",
+        "The shape of the upper plaster infill is an arched vault/tombstone shape in the candidate, compared to triangular and trapezoidal sections created by diagonal bracing in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5362,
+   "tokens_out": 1498,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-window-shop--half-timber": {
+   "id": "wall-window-shop--half-timber",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/wall-window-shop--half-timber.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a half-timbered wall module with an upper multi-pane window and a lower stucco section against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a half-timbered wall module with an upper multi-pane window and a lower stucco section against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single isolated object: a stylized medieval-style wall section or building facade segment (second guess: architectural modular prop). The structure consists of an upright rectangular wooden frame composed of thick vertical side beams, a top beam, and a bottom base beam. The upper section contains a multi-pane window featuring 12 square panes arranged in a 3-row by 4-column wooden lattice, situated beneath a narrow horizontal white plaster strip. Just below the window, a prominent wooden shelf or sill extends outward, supported underneath by two curved wooden brackets (corbels). The lower section beneath the sill is divided into two cream-colored plaster panels by a vertical wooden strut. The materials are rendered in a hand-painted, stylized texture with warm brown wood grain, amber/yellowish translucent or glowing window panes, and off-white/cream plaster. The entire object is fully visible and not cropped. The background is a flat, uniform blue with no shadows, floor, or visible surroundings.",
+       "reference_differences": [
+        "The candidate features a 12-pane wooden lattice window (4 columns by 3 rows) in the upper half, whereas the reference has a solid plaster wall with a thick diagonal wooden crossbeam and an upper-left corner brace.",
+        "The candidate includes a projecting horizontal window ledge/sill supported by two curved wooden brackets (corbels), while the reference only has a flush horizontal crossbeam with no protruding shelf or corbels.",
+        "The candidate has a narrow horizontal plaster strip enclosed below the top frame beam above the window, which is absent in the reference.",
+        "The upper structure in the candidate has an additional inner wooden framing around the window grid, whereas the reference framing directly surrounds the single large diagonal-braced plaster field."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5496,
+   "tokens_out": 1735,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--general--s2": {
+   "id": "shop-shelf-stocked--general--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--general--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A cartoon 3D-rendered wooden storage unit with two open shelves and a two-door cupboard at the base, filled with various rustic provisions against a pure blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A cartoon 3D-rendered wooden storage unit with two open shelves and a two-door cupboard at the base, filled with various rustic provisions against a pure blue background.",
+       "details": "There are no text labels, watermarks, or people in the image. The central object is a stylized wooden cupboard/shelving unit constructed from thick timber planks with chunky corner posts and square joint caps. The unit contains two closed doors at the bottom, each fitted with a round wooden knob and two exterior dark grey metal hinges, completely concealing any interior contents. Above the cupboard section are two open shelf spaces, plus the flat top surface. The top surface holds, from left to right: a tied yellow-brown cloth sack, a terracotta-colored lidded jar, another tied yellow-brown cloth sack, and a dark grey lantern with a peaked top. The upper open shelf holds: a coil of thick rope, a small wooden bucket bound with two metal bands, and a stack of three folded blankets (two red-and-beige striped over one olive green). The lower open shelf holds: a flat circular yellow cheese wheel, another terracotta lidded jar, and a stack of two folded blankets (olive green over red-and-beige striped). The entire piece is rendered in a warm amber-brown wood tone with stylized wood grain. The entire object is centered and uncropped, set against a solid, flat chroma blue background with no floor or shadows.",
+       "reference_differences": [
+        "The candidate features a closed two-door cabinet at the base, whereas the reference has completely open shelves across all levels without any cabinet doors or knobs.",
+        "The candidate has two open interior shelves plus the cabinet, making it stockier, while the reference is taller with three open interior shelves and a top shelf (four tiers total).",
+        "On the top shelf, the candidate has a second tied cloth sack in place of the coiled rope seen on the reference's top shelf.",
+        "The distribution of items across shelves differs: the candidate groups the rope coil, bucket, and blankets together on the upper shelf, while the reference places the cheese wheel and a pot between blankets and bucket.",
+        "The candidate displays fewer total loose items due to the bottom shelf being replaced by closed cupboard doors."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5544,
+   "tokens_out": 2166,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--bakery--s2": {
+   "id": "shop-shelf-stocked--bakery--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--bakery--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden bakery display stand with shelves and a bottom cabinet loaded with an assortment of breads, pastries, and a frosted berry cake, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden bakery display stand with shelves and a bottom cabinet loaded with an assortment of breads, pastries, and a frosted berry cake, set against a solid blue background.",
+       "details": "The image features a single main wooden furniture piece\u2014a bakery shelf unit or cupboard\u2014isolated against an entirely uniform bright blue background with no shadows or floor. There are no texts, labels, or watermarks. The unit consists of a thick, block-jointed timber frame resting on four sturdy block-style legs. The top surface holds four golden-brown round scored bread loaves, a smaller bun, and a frosted cake topped and bordered with red cranberries and green leaves, placed on a round wooden cake stand over a maroon cloth runner with gold trim. Below the top surface are two open shelves: the upper shelf holds a woven wicker basket filled with four small baguettes, a large braided loaf, and a wooden tray containing four shiny sesame-topped buns; the lower shelf holds a wooden rectangular tray with four iced cinnamon rolls, three round scored bread loaves, and another wicker basket containing three small baguettes on a maroon runner. The bottom section of the furniture features a double-door wooden cabinet with vertical paneling and two round wooden knobs, which are completely closed. The style is rendered in a warm, polished, semi-realistic 3D game asset aesthetic.",
+       "reference_differences": [
+        "The candidate image has a closed two-door cabinet at the bottom, whereas the reference image has an open bottom shelf.",
+        "The reference image has three open tiers below the top counter, while the candidate image has two open tiers above the bottom cabinet.",
+        "The reference image contains two cakes (one on top, one on the bottom shelf), while the candidate image contains only one cake on the top surface.",
+        "The placement of baked goods differs across shelves: for example, the cinnamon rolls are on the middle shelf in the reference but moved to the lower open shelf in the candidate.",
+        "The candidate image features four round scored loaves on the top surface instead of one large loaf and small rolls as seen in the reference.",
+        "The overall proportions of the candidate shelf appear slightly wider and squatter compared to the taller, narrower structure in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5532,
+   "tokens_out": 1684,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--tailor--s2": {
+   "id": "shop-shelf-stocked--tailor--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--tailor--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden storage cabinet filled with rolled and folded textiles and a hat stand, shown against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden storage cabinet filled with rolled and folded textiles and a hat stand, shown against a solid blue background.",
+       "details": "The image contains a single wooden shelving unit or display cabinet, depicted in an illustrative, slightly cartoonish 3D game-asset style. The unit has four thick square-based feet, two open interior shelves, a flat top surface, and a bottom closed compartment with two vertically paneled cupboard doors, each having a small round wooden knob handle. Both doors are closed. Resting on the top shelf is a large roll of crimson fabric, a stack of three cream folded textiles, a roll of olive-green fabric, and a turned wooden millinery stand holding a burgundy wide-brimmed hat with a band. The first open shelf contains a roll of mustard-yellow fabric, a stack of three folded red cloths, a roll of dark plum-purple fabric, and two wooden spools wrapped with yellow and red ribbon. The lower open shelf holds a stack of three olive-green folded cloths, a roll of cream-colored fabric, a stack of three folded purple cloths, and a roll of red fabric. The entire piece is fully visible and uncropped. The background is a flat, uniform, bright solid blue with no cast shadows, floor, people, or text.",
+       "reference_differences": [
+        "The candidate cabinet features a bottom enclosed section with two wooden panel doors and round knobs, whereas the reference cabinet has three entirely open shelves and no doors.",
+        "The overall proportions of the candidate unit are wider and squatter compared to the taller, more vertical frame of the reference unit.",
+        "The arrangement of fabrics on the middle shelves differs: the ribbon spools are on the top open shelf in the candidate, but on the middle shelf in the reference.",
+        "The bottom open shelf in the candidate contains folded green cloth, rolled cream fabric, folded purple cloth, and rolled red fabric, whereas the reference has rolled cream fabric, folded purple cloth, rolled red fabric, and ribbon spools on its middle shelf, and a completely different set of four items on its open bottom shelf."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5520,
+   "tokens_out": 5646,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--curio--s2": {
+   "id": "shop-shelf-stocked--curio--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--curio--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden fantasy storage cabinet with open shelves holding magical curios and two closed doors at the bottom, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden fantasy storage cabinet with open shelves holding magical curios and two closed doors at the bottom, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The central object is a stylized wooden curio cabinet or credenza resting on four square feet. The cabinet features two open upper shelves lined with purple cloth, and a lower cabinet compartment enclosed by two vertical-plank wooden doors, each fitted with a round wooden pull knob; both doors are completely closed. Displayed on top of the cabinet are three items: an opalescent crystal ball resting in a golden claw stand on the left, a horned animal skull in the center, and a cluster of faceted magenta crystals on a rocky base on the right. The upper open shelf holds three items: a cluster of emerald-green crystals on small rocks on the left, a carved wooden face mask in the center, and a brass armillary sphere on a pedestal on the right. The lower open shelf contains two stacked purple scrolls with gold caps on the left and a small iron-banded wooden treasure chest on the right. The entire piece is rendered in a hand-painted 3D game asset style using warm brown wood tones, purple, gold, green, magenta, and bone white. The object is completely contained within the frame with no cropping. The background is a flat, uniform, bright blue void with no floor or cast shadows.",
+       "reference_differences": [
+        "The candidate cabinet has two closed doors at the bottom, whereas the reference cabinet consists entirely of open shelving with no cabinet doors.",
+        "The candidate has two open shelves plus the top surface, while the reference has three open shelves plus the top surface.",
+        "The candidate is proportionately wider and shorter than the taller, narrower reference bookcase.",
+        "On the top surface, the candidate displays a crystal ball, a skull, and magenta crystals, whereas the reference top displays magenta crystals, a skull, a small chest, and green crystals.",
+        "On the candidate's first shelf are green crystals, a mask, and an armillary sphere, whereas the reference's first shelf holds a crystal ball, scrolls, and an armillary sphere.",
+        "The candidate's lower shelf contains purple scrolls and a chest, whereas the reference's middle shelf contains green crystals, a mask, two upright purple scroll canisters, and a chest, and its lowest shelf holds an armillary sphere, a skull, and magenta crystals."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5589,
+   "tokens_out": 3782,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-shelf-stocked--apoth--s2": {
+   "id": "shop-shelf-stocked--apoth--s2",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--apoth--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D wooden apothecary cupboard with shelves holding various potion bottles, ceramic jars, herb bundles, and a stone mortar and pestle against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Shelf unit is missing a solid back panel"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D wooden apothecary cupboard with shelves holding various potion bottles, ceramic jars, herb bundles, and a stone mortar and pestle against a solid blue background.",
+       "details": "The image features a single freestanding stylized wooden cabinet unit. It has four blocky corner posts serving as legs, two open shelves in the middle, an open top surface, and a two-door enclosed cabinet at the bottom. The two cabinet doors are made of vertical wooden planks, each fitted with a small round wooden knob handle and two exterior dark metal hinges (four hinges total); both doors are fully closed. Resting on the surfaces are several items: on the top shelf, an amber glass bottle with a cork stopper, a green bottle nestled in a woven wicker basket with a cork stopper, a cream-and-tan banded ceramic jar with a round knobbed lid, and a bushy bundle of dried sage-green herbs; on the upper interior shelf, a ceramic jar with lid, a speckled dark grey stone mortar with pestle, a bundle of green herbs, a smooth green glass bottle with cork stopper, and an amber bottle with cork stopper; on the shelf directly above the cabinet doors, a tied bundle of dried stems/herbs, a green corked bottle, a ceramic jar with lid, and an amber corked bottle. All jar lids and bottle stoppers are closed and in place. The entire piece is fully rendered without cropping against a uniform, flat bright blue background with no shadows or floor.",
+       "reference_differences": [
+        "The candidate has an enclosed bottom cupboard with two hinged wooden doors and knob handles, whereas the reference has an open bottom shelf with no doors.",
+        "The candidate is broader and more horizontally proportioned, while the reference is taller and more vertically oriented.",
+        "The reference features four open tiers of display space (top surface plus three shelves), whereas the candidate features three open tiers above a closed cabinet base.",
+        "The candidate contains only one stone mortar and pestle (on the second shelf from the top), whereas the reference has two mortars and pestles (one on the second shelf, one on the bottom shelf).",
+        "The candidate contains only one wicker-basket wrapped bottle (on the top shelf), whereas the reference has two wicker-basket wrapped bottles (top shelf and third shelf).",
+        "Item placements across all shelves are rearranged between the two versions."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-shelf-stocked--apoth--s2.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden storage cabinet filled with various potion bottles, herb bundles, stone mortar, and ceramic jars against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden storage cabinet filled with various potion bottles, herb bundles, stone mortar, and ceramic jars against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The main object is a wooden shelving unit or apothecary cabinet with two open shelves, a top display surface, and a bottom closed cabinet compartment with two panelled doors, each fitted with a round wooden knob. The doors are fully closed. Stocked across the surfaces are 12 items: three ceramic jars with lids (beige/cream with ochre-yellow horizontal bands), three smooth green glass bottles with cork stoppers, one green bottle encased in a woven wicker basket with cork, two round amber-brown glass bottles with cork stoppers, three bundles of dried leafy herbs, and one speckled gray stone mortar with a pestle sitting inside. The cabinet is carved from warm medium-brown wood with distinct plank grooves and blocky corner posts forming short feet. The entire object is fully visible and not cropped. The background is a solid, uniform vivid blue screen with no floor or cast shadows.",
+       "reference_differences": [
+        "The candidate features a closed two-door wooden cabinet at the bottom, whereas the reference has an open fourth shelf displaying items.",
+        "The reference contains four open shelf tiers, while the candidate contains two open shelf tiers, a top surface, and a bottom closed cupboard.",
+        "The candidate contains only one mortar and pestle (on the middle shelf), whereas the reference has two mortars and pestles (one on the second shelf down and one on the bottom shelf).",
+        "On the candidate's lower open shelf, there is a brown glass bottle, a green bottle, an herb bundle, and a ceramic jar; in the reference, that corresponding shelf holds a brown bottle, a wicker-wrapped green bottle, an herb bundle, and a ceramic jar.",
+        "The overall proportions of the candidate are slightly wider and shorter compared to the reference unit."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8678,
+   "tokens_out": 5894,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-display-table-goods--general": {
+   "id": "craft-display-table-goods--general",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/craft-display-table-goods--general.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a sturdy wooden market table draped in a green cloth and loaded with trade goods, isolated against a solid vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a sturdy wooden market table draped in a green cloth and loaded with trade goods, isolated against a solid vivid blue background.",
+       "details": "There are no texts, labels, or watermarks. The central subject is a single composite display: a rustic wooden trestle table loaded with assorted merchant goods. The table features two heavy sculpted wooden trestle legs resting on wide footed bases, joined near the bottom by a long horizontal wooden stretcher beam secured with pegged joints; it is draped with a muted olive-green cloth that hangs down on all sides with stylized folds. Arranged on top of the table are several distinct items: two tied tan/khaki burlap sacks (one larger in the back, one rounder in front), a neatly coiled light brown rope, two earthenware terracotta jars with domed lids seated on top (both closed), a small square slate-gray lantern with frosted glowing panes and a peaked cap, a small open wooden staved bucket bound by dark bands, a folded red-and-cream striped blanket or rug, and a solid round golden-yellow cheese wheel. The bucket is open and empty, while the two clay pots are closed with their matching lids. The entire assembly is fully visible and not cropped by the frame. The background is a completely uniform, flat chroma-blue with no ground plane, shadows, people, or environmental scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4197,
+   "tokens_out": 3483,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-display-table-goods--apoth": {
+   "id": "craft-display-table-goods--apoth",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/craft-display-table-goods--apoth.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a rustic wooden table covered in a red tablecloth, holding various apothecary or alchemy containers including glass bottles, ceramic jars, bundles of herbs, and a stone mortar and pestle, isolated against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a rustic wooden table covered in a red tablecloth, holding various apothecary or alchemy containers including glass bottles, ceramic jars, bundles of herbs, and a stone mortar and pestle, isolated against a solid bright blue background.",
+       "details": "There are no labels, watermarks, or text visible. The image depicts a single combined display piece (an alchemy workstation or apothecary table). The table is a sturdy rustic wooden trestle table with two blocky tiered legs connected by a horizontal wooden crossbeam. Over the tabletop lies a folded, draping red/maroon tablecloth with straight creases. On top of the cloth sit nine distinct containers and botanical items: one large green demijohn bottle enclosed in a woven brown wicker basket, one large amber glass bottle, one squat dark green bottle, one small amber bottle, one tall olive green bottle (all five glass bottles are sealed with cork stoppers), two off-white ceramic jars banded with ochre-yellow stripes and topped with domed, knobbed lids (both fully closed), one rough-hewn grey stone mortar containing a tilted stone pestle, and two bundles of pale green leaves/herbs resting flat on the edges. The entire asset is fully contained within the frame with no cropping. The background is a uniform, solid chroma-key blue with no ground plane, floor textures, or cast shadows. No people or scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4204,
+   "tokens_out": 2016,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-display-table-goods--tailor": {
+   "id": "craft-display-table-goods--tailor",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/craft-display-table-goods--tailor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden tailor or merchant table draped in a light tablecloth, displaying colorful rolls and folded stacks of fabric, two wooden thread spools, and an olive-green hat on a wooden stand against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden tailor or merchant table draped in a light tablecloth, displaying colorful rolls and folded stacks of fabric, two wooden thread spools, and an olive-green hat on a wooden stand against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The main assembly consists of a sturdy, rustic wooden trestle table draped with an off-white fabric runner or tablecloth, upon which several tailoring items rest. In the back row lie five large rolled bolts of fabric in red, ochre yellow, olive green, cream, and deep purple. Directly in front of these are five matching stacks of folded fabric squares in the same corresponding colors (red, yellow, green, cream, purple). To the right on the tabletop are two thick wooden spools wound with burgundy and golden-yellow thread, followed by a cylindrical wooden hat stand holding a round olive-green brimmed hat with a maroon band. The table structure consists of two heavy wooden trestle-style leg assemblies with block feet and carved wooden joints, linked by a single horizontal wooden beam stretcher. No doors, drawers, or lids are present. The entire subject is rendered in a stylized, hand-painted digital 3D game asset aesthetic, is completely uncropped within the frame, and is set against a completely flat, uniform, vivid blue background with no shadows cast on a floor.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4203,
+   "tokens_out": 1662,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-display-table-goods--bakery": {
+   "id": "craft-display-table-goods--bakery",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/craft-display-table-goods--bakery.try1.jpg",
+     "semantic": {
+      "what_i_see": "A wooden table covered with a dark red tablecloth is laden with a variety of freshly baked artisan breads, baskets of baguettes, dinner rolls, and a frosted pastry, set against an isolated solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A wooden table covered with a dark red tablecloth is laden with a variety of freshly baked artisan breads, baskets of baguettes, dinner rolls, and a frosted pastry, set against an isolated solid blue background.",
+       "details": "The image features no text, labels, or watermarks. The central subject is an arrangement of baked bread displayed on a rustic trestle table. The table consists of light-brown natural wood with two wide vertical legs resting on thick cross-feet and connected by a horizontal lower stretcher beam (2 legs/supports total, 0 wheels, 0 drawers). A draped dark burgundy-red tablecloth covers the tabletop, hanging down in folds around the front and sides. Resting on top of the cloth are several distinct bakery items: on the left, three large round loaves of golden-brown crusty bread with decorative scoring lines (two in front and one slightly behind); in the center foreground, a long braided loaf (challah or brioche); behind it, two woven wicker baskets filled with upright oblong baguettes/loaves (approximately 4\u20135 visible in each basket); to the right foreground, a shallow round wooden tray holding about six rounded golden dinner rolls dusted with white flour; and on the far right, a tall cylindrical cake or bread (resembling a panettone or kulich) topped with dripping off-white glaze or icing. The entire object cluster is completely within the frame, showing no cropping. The background is a uniform, flat, saturated cobalt blue with no shadows, floor surface, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4225,
+   "tokens_out": 2289,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "craft-display-table-goods--curio": {
+   "id": "craft-display-table-goods--curio",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/craft-display-table-goods--curio.try1.jpg",
+     "semantic": {
+      "what_i_see": "A sturdy wooden trestle table covered with a purple cloth holds a collection of magical and mystical artifacts against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A sturdy wooden trestle table covered with a purple cloth holds a collection of magical and mystical artifacts against a solid vibrant blue background.",
+       "details": "There are no texts, watermarks, or labels present. The primary subject is a wooden trestle table draped in a deep purple velvet tablecloth with a thin yellow-gold border. Resting on the tabletop are several distinct artifacts: on the far left, a glowing translucent pale-yellow crystal ball mounted on a three-toed golden claw stand; behind it to the right, a weathered animal skull with large curved brown horns; behind the center, a cluster of sharp magenta crystals and an adjacent cluster of faceted olive-green crystals; in front of the crystals, two reddish-brown rolled scrolls capped with ornate golden ends; to the right of the scrolls, a tilted carved wooden mask with textured facial markings; behind the mask, a brass or gold armillary sphere on a pedestal; and at the far right, a small closed wooden coffer reinforced with riveted iron bands and a metal latch. The coffer's lid is completely closed. The table is made of thick honey-brown wood with two heavy trestle-style legs connected by a horizontal stretcher beam secured with visible peg joints. The entire ensemble is fully visible without any edge cropping. The background is a flat, uniform, high-saturation blue with no cast shadows, floor surface, scenery, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4208,
+   "tokens_out": 2756,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cutting-table-tailor": {
+   "id": "cutting-table-tailor",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/cutting-table-tailor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden tailor's workbench loaded with fabric rolls, a cutting pattern, shears, and a pincushion, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden tailor's workbench loaded with fabric rolls, a cutting pattern, shears, and a pincushion, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The primary object is a tailor's cutting table (second guess: craft workbench or sewing table). It consists of a sturdy rectangular wooden structure with four thick blocky legs, a planked tabletop, and a slatted lower shelf. Resting on the upper surface is an unrolled bolt of deep purple-red/maroon fabric, an off-white curved paper pattern piece, a pair of dark iron scissors/shears, and a small round tufted pincushion. Stored horizontally on the lower shelf are three neatly rolled bolts of fabric in deep red, yellow-ochre, and olive green. The table has no drawers, doors, wheels, or lids. The construction appears to be stylized, hand-painted wooden planks in warm honey-brown tones with visible grain and nicked edges. The entire set of items is fully visible within the frame with no parts cropped. The background is a flat, uniform, bright chroma-key blue with no visible floor surface, cast shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4179,
+   "tokens_out": 2194,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pump-trough-village": {
+   "id": "pump-trough-village",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/pump-trough-village.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized game asset depicting an old stone water trough fitted with a wooden manual water pump against a solid vivid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized game asset depicting an old stone water trough fitted with a wooden manual water pump against a solid vivid blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene contains one composite object: a water pump with an attached trough (or second guess: a rustic animal feeding/watering basin). The structure consists of an elongated rectangular trough made from weathered, moss-stained stone blocks with an open, empty inner basin; a square vertical wooden post mounted on one end; a four-sided pyramidal stone or dull metal cap on top of the post; a curved grey cast-iron spout extending over the trough; and an iron pump handle or crank mounted on the outer side of the post. The basin is completely open and dry inside, showing a stone block bottom. Materials include pale tan/yellowish stone with green moss stains, warm brown vertical wood planks with stylized chisel marks, and matte dark grey iron for the spout, handle, and top cap. The entire object is centered and fully visible without any cropping. The background is a flat, uniform, bright blue screen with no floor surface or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4160,
+   "tokens_out": 1405,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "town-crier-platform": {
+   "id": "town-crier-platform",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/town-crier-platform.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D wooden platform with two steps leading up to it and a tall wooden post holding a hanging brass bell, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D wooden platform with two steps leading up to it and a tall wooden post holding a hanging brass bell, isolated against a solid blue background.",
+       "details": "There are no text labels or watermarks present. The image contains a single composite game-asset style object: a wooden bell-ringing platform or podium (second guess: miniature gallows or watch station platform). The base consists of a raised rectangular wooden deck composed of horizontal wood planks framed by squared posts at the corners, featuring recessed muted-red panels along the visible sides. In front, two wooden steps lead up to the platform level. Rising from the rear-left corner is a tall, vertical wooden beam supporting a horizontal arm with a small grey metal bracket, from which a smooth, golden-brass bell hangs downwards with its clapper visible. The wood has a warm medium-brown finish with distinct painted woodgrain textures. The entire object is fully visible within the frame with no parts cropped. The background is a flat, uniform, bright chroma-key blue with no visible floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4140,
+   "tokens_out": 1471,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "pottery-for-sale": {
+   "id": "pottery-for-sale",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/pottery-for-sale.try1.jpg",
+     "semantic": {
+      "what_i_see": "A collection of stylized earthenware and glazed ceramic vessels, including jars, bowls, a pitcher, and small cups, neatly arranged on a woven square mat against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A collection of stylized earthenware and glazed ceramic vessels, including jars, bowls, a pitcher, and small cups, neatly arranged on a woven square mat against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The scene contains approximately 18 distinct ceramic items set upon a single square woven wicker/bamboo mat placed diagonally. In the background layer: a large wide-rimmed ochre-orange pot on the left, a tall two-handled reddish-terracotta amphora in the center, and another wide-rimmed ochre pot on the right. In the middle layer: a rounded maroon lidded jar, an ochre-brown lidded jar, a green lidded jar (each with a single knob handle on its lid, all closed), a green pitcher with a single curved handle and pouring spout on the right, and two separate stacks of round cream/beige shallow bowls (3 bowls per stack, totaling 6 bowls, all open and empty). In the foreground: a row of five small handleless cylindrical cups in alternating colors (ochre, beige, maroon, green, and ochre). Materials appear as glazed or smooth-painted clay/terracotta. All items are completely within the frame with no cropping. The background is a flat, uniform, vibrant royal blue with soft rendered contact shadows beneath the woven mat.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4187,
+   "tokens_out": 2063,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "spice-sacks-open": {
+   "id": "spice-sacks-open",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/spice-sacks-open.try1.jpg",
+     "semantic": {
+      "what_i_see": "Five small burlap sacks filled with brightly colored powdered spices and dried herbs, including a wooden scoop, arranged against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "Five small burlap sacks filled with brightly colored powdered spices and dried herbs, including a wooden scoop, arranged against a solid blue background.",
+       "details": "The image features five stylized burlap or canvas sacks arranged in two tiers: two in front and three behind. The front-left sack contains a mound of textured bright yellow spice with a small light-wood scoop embedded in it. The front-right sack contains a mound of deep red spice. In the back row, from left to right, the sacks contain dark reddish-brown spice, bright orange-yellow spice, and textured green dried herbs. Each sack has a rolled or folded rim showing its tan, textured fabric with visible vertical wrinkles and seams. The objects appear fully contained within the frame with no cropping. The background is a flat, uniform, bright saturated blue with no cast shadows or floor plane visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4089,
+   "tokens_out": 2078,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cart-merchant-covered": {
+   "id": "cart-merchant-covered",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/cart-merchant-covered.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendering of a covered merchant wagon packed with goods, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendering of a covered merchant wagon packed with goods, isolated against a solid blue background.",
+       "details": "The image features a single main object: a two-wheeled covered wooden wagon or merchant cart shown from a rear three-quarter perspective. The wagon body is built with natural light-brown timber frames and red-painted wooden plank side panels. It is covered by a rounded arch canopy made of canvas with alternating cream and golden-yellow stripes, which is open at the back to reveal cargo inside. Inside the wagon bed are multiple bundled green parcels wrapped with brown cords, two tied off-white sacks, and a small wooden barrel banded with metal. Mounted on a small side shelf along the right side of the wagon are a green ceramic jug with a handle and a lit iron lantern with glowing glass panels. The wagon has two large wooden wheels with red wooden solid disc centers and central axle hubs, as well as two forward-pointing towing shafts and two vertical support legs capped with metal brackets. The entire cart is intact and fully framed with no cropping. The background is a flat, uniform, bright saturated blue with no cast shadows or ground surface.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4166,
+   "tokens_out": 1674,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "flower-buckets": {
+   "id": "flower-buckets",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/flower-buckets.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a two-tier wooden plant stand displaying five potted floral arrangements against a plain blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a two-tier wooden plant stand displaying five potted floral arrangements against a plain blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The composition consists of a single display unit comprised of a two-step wooden plant stand holding five individual potted flower arrangements. The wooden stand has two tiers constructed from thick, light brown wooden planks with visible grain and chunky wooden support legs. On the higher tier, there are three pots: on the left, a cluster of deep red roses in a round, slatted wooden tub; in the middle, bright yellow sunflowers with brown centers in a grey galvanized metal bucket; and on the right, white daisies with yellow centers in another slatted wooden tub. On the lower tier, there are two pots: on the left, pink peony-like blooms in a grey metal bucket; and on the right, vivid orange ruffled marigolds in a slatted wooden tub. All plants have lush green leaves filling out the base of the blooms. No lids, doors, or drawers exist. The entire structure is completely contained within the frame with no cropping. The background is a solid, uniform royal blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4176,
+   "tokens_out": 3064,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "awning--s1": {
+   "id": "awning--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/awning--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized red and cream striped wooden-framed awning isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized red and cream striped wooden-framed awning isolated against a solid blue background.",
+       "details": "The image displays a single isolated object: a stylized shop awning or canopy (second guess: wall-mounted sunshade). There are no text, labels, or watermarks. The structure consists of a light golden-brown wooden support frame including two vertical mounting posts, horizontal top and bottom stretchers, and angled side support arms with visible diagonal bracing on the left side. Mounted over the frame is a taut fabric canopy featuring alternating vertical stripes of muted red and warm off-white/cream, terminating along the front edge in scalloped, rounded flaps corresponding to each stripe (four red, four cream). The object is shown from an angled, slightly low front-left perspective, completely contained within the frame without cropping. The background is a solid, uniform, vivid royal blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4118,
+   "tokens_out": 4524,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cradle": {
+   "id": "cradle",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/cradle.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden rocking cradle with a pillow and checkered blanket, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden rocking cradle with a pillow and checkered blanket, isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains a single object: a wooden baby cradle (or rocking crib) shown from an isometric three-quarters perspective. The cradle is constructed from honey-brown wood with soft, beveled edges and stylized wood grain lines. It features an arched hood at the head end with an inner backboard containing a cut-out heart, two thick side panels made of plank-like blocks, four vertical post legs, and a rounded footboard that also has a cut-out heart. At the bottom, two curved wooden rockers support the structure. Inside the cradle sits a pale cream-colored pillow and a puffy quilt patterned with alternating maroon-red and golden-yellow square patches. The object is completely whole and not cropped. The background is a flat, uniform solid royal blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4114,
+   "tokens_out": 1962,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "lamp-post-iron--town": {
+   "id": "lamp-post-iron--town",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/lamp-post-iron--town.try1.jpg",
+     "semantic": {
+      "what_i_see": "A single stylized vintage lamppost with a glowing warm-tinted lantern head stands centered against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Lantern must not be glowing"
+      ],
+      "blind": {
+       "what_i_see": "A single stylized vintage lamppost with a glowing warm-tinted lantern head stands centered against a solid bright blue background.",
+       "details": "There is no text, label, or watermark visible. The image contains one separate object, which is a vintage street lamp (or gas lantern post). The structure consists of a top spherical finial, a multi-sided pitched lantern roof, translucent glowing yellowish-amber glass panes framed in metal, a collar with a horizontal two-sided crossbar (ladder rest) terminating in squared end caps, a tall cylindrical main pole, and a flared multi-tiered pedestal base with decorative recessed vertical rectangular paneling resting on a round bottom plinth. The metalwork features a weathered, patinated dark green and bronze color scheme with hand-painted stylized highlights and edge wear. The glass panels display a soft, warm interior glow. The entire object is completely visible and not cropped. The background is a solid, uniform bright blue with no shadows, floor plane, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/mkt/work/lamp-post-iron--town.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized vintage metal street lamppost with a hexagonal lantern top, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized vintage metal street lamppost with a hexagonal lantern top, centered against a solid blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The image displays a single standalone object: a stylized vintage lamppost (second guess: garden lantern post). The structure consists of a spherical finial at the top, a faceted pitched roof, a hexagonal lantern head enclosing textured off-white/yellowish translucent glass panels, a collar with two protruding horizontal cylindrical pegs (ladder rest arms) below the lantern, a tall tapered vertical pole with molded ring accents, and a flared faceted base resting on a polygonal plinth. There are no open doors, drawers, or moving parts. The main material appears to be weathered dark green, patinated metal or painted iron with painted edge highlights, while the lantern panes have a textured parchment or frosted glass appearance. The object is completely intact and uncropped within the frame. The background is a flat, uniform, bright blue chroma-key screen with no shadows, floor, or reflections.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5890,
+   "tokens_out": 2610,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "spinning-wheel": {
+   "id": "spinning-wheel",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/spinning-wheel.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden spinning wheel with a thick red-rimmed wheel and a spool of cream yarn, presented against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden spinning wheel with a thick red-rimmed wheel and a spool of cream yarn, presented against a solid blue background.",
+       "details": "There is no text, label, or watermark visible in the image. The scene contains a single standalone object, best identified as a stylized wooden spinning wheel, with a second guess of a toy or game-prop yarn winder. The object consists of a thick horizontal wooden bench, three visible splayed wooden legs with green-painted block feet, a low green-tinted foot treadle connected beneath the bench, an upright post with a green base supporting a large red-rimmed wooden wheel with four chunky spokes, and a separate vertical spindle on the left side holding a wound, off-white egg-shaped ball of spun wool or yarn. There are no doors, drawers, lids, or handles. The object is rendered in a hand-painted 3D game-art style, made primarily of warm honey-brown wood with distressed edges, complemented by muted olive-green joints/accents, dark red wheel rim paint, and cream yarn. The entire object is centered and uncropped. The background is a completely uniform, flat, bright blue screen with no shadows, floor surface, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4198,
+   "tokens_out": 2573,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-floor-stock--general": {
+   "id": "shop-floor-stock--general",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-floor-stock--general.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a wooden barrel filled with various packed goods including tied sacks, two brushes, a lantern, and a coil of rope, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a wooden barrel filled with various packed goods including tied sacks, two brushes, a lantern, and a coil of rope, isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The main object is a wide wooden barrel (or tub) packed with various utility items. The barrel consists of vertical light brown wooden staves bound by two grey iron bands fastened with round rivets. Inside and overflowing from the barrel are several distinct items: two handheld wooden brushes or brooms with light-brown bristles pointing upward, three tied cloth sacks (one mustard-yellow on the left, one orange in the center foreground, and one red-and-cream striped on the right, all bound around the neck with rope), a coil of thick tan rope draped over the front-left edge, and a small grey metal lantern with a rounded top and opaque panes sitting in the right foreground. There are no doors, drawers, or wheels; the barrel itself has no lid, revealing the packed contents. The materials depicted are carved wood, iron, woven rope, and coarse fabric. The entire composite object is centrally placed and fully visible without any cropping. The background is a completely uniform, solid chroma-key blue with no floor, scenery, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4179,
+   "tokens_out": 1612,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-floor-stock--bakery": {
+   "id": "shop-floor-stock--bakery",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-floor-stock--bakery.try1.jpg",
+     "semantic": {
+      "what_i_see": "A round woven basket filled with seven crusty golden-brown loaves of bread and draped with an off-white cloth against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A round woven basket filled with seven crusty golden-brown loaves of bread and draped with an off-white cloth against a solid blue backdrop.",
+       "details": "There are no texts, labels, or watermarks. The scene contains one main composed asset consisting of a round wicker basket, a draped folded cloth, and seven loaves of bread (four elongated oval loaves standing upright in the rear and three round scored boules resting in the front row). The basket has a thick braided rim and a woven body made of light honey-brown wicker or wood, with no handles, legs, or lid. Draped over the front-left rim is a plain folded off-white linen cloth. The bread loaves have a baked golden-brown crust dusted with white flour and light-yellow scoring cuts on top. The entire item is fully visible and not cropped by the frame. The background is a solid, uniform, bright blue screen with no floor, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4105,
+   "tokens_out": 1764,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-floor-stock--curio": {
+   "id": "shop-floor-stock--curio",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-floor-stock--curio.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized fantasy wooden treasure chest with its lid propped open, filled with magical and tribal artifacts against a solid vibrant blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized fantasy wooden treasure chest with its lid propped open, filled with magical and tribal artifacts against a solid vibrant blue background.",
+       "details": "Text, labels, or watermarks: None. Object count: One primary open chest containing multiple smaller items (two scrolls/tubes, one carved wooden mask, one horned animal skull, a cluster of purple crystals, and a cluster of green crystals). Best name: Stylized treasure chest; second guess: Loot box or prop crate. Parts: One rectangular box base and one hinged lid, with no visible legs, wheels, or handles. State of lid: Fully open, tilted back at roughly a 90-degree angle, completely exposing the deep purple fabric-lined interior and its contents. Materials and colours: The chest is constructed of warm honey-brown wood planks bound by dark bronze/iron straps and reinforced corner brackets, fastened with spherical brass rivets. Inside, the lining is dark magenta/purple velvet; contents include two deep red scrolls with gold end-caps and diamond emblems, an elongated carved brown wooden mask with gold tribal patterns, an off-white horned mammal skull with brown ridged horns, faceted magenta/pink quartz crystals, and faceted olive-green crystals. Framing: The object is completely centered and uncropped by the frame. Background: Flat, uniform bright solid blue with no ground plane, floor textures, or cast shadows. People, text, or scenery: None.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4207,
+   "tokens_out": 1684,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-floor-stock--tailor": {
+   "id": "shop-floor-stock--tailor",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-floor-stock--tailor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized square woven wicker basket packed tightly with colorful rolled towels or fabric rolls, set against a flat blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized square woven wicker basket packed tightly with colorful rolled towels or fabric rolls, set against a flat blue background.",
+       "details": "There are no visible texts, watermarks, or labels. The scene contains one composite object: a woven wicker storage basket filled with vertically oriented rolled cloths (secondary guess: a square laundry hamper or craft bin filled with rolled blankets). The basket has a cubic, woven structure made of thick golden-brown reeds with a rounded braided rim and corner detailing, lacking handles, lids, legs, or wheels. Packed neatly inside are approximately 10 visible rolled fabric cylinders displaying top spiral cross-sections, colored in red, golden yellow, cream-white, olive green, and plum purple. The container is completely open-topped with no lid. The object is rendered in a stylized, hand-painted 3D video game asset style, fully contained within the frame without cropping. The background is a completely uniform, solid vibrant royal blue chroma key with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4125,
+   "tokens_out": 1432,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-floor-stock--apoth": {
+   "id": "shop-floor-stock--apoth",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-floor-stock--apoth.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden crate filled with a wicker-covered green glass bottle, two lidded ceramic jars, and a tied bundle of dried herbs against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden crate filled with a wicker-covered green glass bottle, two lidded ceramic jars, and a tied bundle of dried herbs against a solid blue background.",
+       "details": "The image features no text, labels, or watermarks. The central subject is a single organized assembly consisting of a shallow rectangular wooden crate containing four items: a large round green glass bottle partially encased in a woven golden-brown wicker basket and sealed with a cork stopper; two identical round cream-and-ochre ceramic jars with closed tiered lids featuring round knobs; and a bundle of elongated sage-green leaves tied tightly in the center with light-colored rope. The crate is constructed from light brown wooden planks with four sturdy corner posts. All containers appear fully closed, with no interior contents visible. The materials depicted are wood, woven wicker, cork, glass, glazed ceramic, dried foliage, and rope. The entire object cluster is fully visible and not cropped by the frame. The background is a solid, completely uniform bright blue with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4130,
+   "tokens_out": 1598,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-sign--general": {
+   "id": "shop-sign--general",
+   "group": "p3",
+   "status": "accepted",
+   "error": "FileNotFoundError(2, 'No such file or directory')",
+   "time": "2026-10-11T18:52:25-07:00",
+   "note": "restored from masked/"
+  },
+  "shop-sign--apoth": {
+   "id": "shop-sign--apoth",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-sign--apoth.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game asset of a wooden apothecary hanging sign featuring a carved potion bottle and leaves, suspended from a wall-mounted wooden beam against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game asset of a wooden apothecary hanging sign featuring a carved potion bottle and leaves, suspended from a wall-mounted wooden beam against a bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image depicts a single composite object: a fantasy-style wooden hanging shop sign (apothecary or herbalist sign; second guess: tavern sign). It consists of a horizontal square wooden support beam affixed to a rectangular iron mounting bracket with four hexagonal bolts on the right wall mount, and two iron hanging straps/brackets with hexagonal bolts securing the sign board underneath. The sign board itself is shield-shaped, made of carved wood with a warm brown outer frame, a red painted inner bevel, and a cream-colored planked center. Carved in raised relief on the face of the board are a round amber/yellow potion bottle sealed with a brown cork stopper and a leafy branch with three green leaves. The entire object is fully visible and not cropped. The background is a solid, uniform, bright blue chroma key without shadows, floor, or scenery. No people are present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4153,
+   "tokens_out": 2096,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-sign--tailor": {
+   "id": "shop-sign--tailor",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-sign--tailor.try1.jpg",
+     "semantic": {
+      "what_i_see": "A fantasy-style wooden tailor shop sign featuring a green thread spool and golden scissors on a shield, suspended from a wooden wall beam against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A fantasy-style wooden tailor shop sign featuring a green thread spool and golden scissors on a shield, suspended from a wooden wall beam against a solid blue background.",
+       "details": "The image displays a single composite hanging trade sign. At the top left is a dark metal square wall-mount plate secured with four corner rivets, holding a horizontal square-cut wooden beam with an end cap. Two dark iron straps with round rivets wrap around the beam to suspend a shield-shaped sign below. The shield features a thick carved wooden border with an outer rim painted weathered crimson-red, encasing a cream or off-white painted recessed center. Mounted in raised relief on the face is a wooden spool wrapped in textured green thread, crossed in front by an open pair of carved golden-yellow scissors fastened at a central pivot rivet. The entire object is rendered in a stylized, hand-painted 3D game asset aesthetic. The sign is complete and fully visible within the frame with no parts cropped out. The background is a flat, uniform chroma blue with no shadows, ground plane, text, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4152,
+   "tokens_out": 2770,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "shop-sign--curio": {
+   "id": "shop-sign--curio",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/shop-sign--curio.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, painted 3D model of a fantasy wooden shop sign shaped like a shield with a star and eye emblem hanging from a wooden beam on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, painted 3D model of a fantasy wooden shop sign shaped like a shield with a star and eye emblem hanging from a wooden beam on a solid blue background.",
+       "details": "There is no text, labels, or watermarks. The image shows a single composite object: a wall-mounted wooden tavern or shop sign (second guess: decorative fantasy hanging plaque). The assembly consists of a dark metal rectangular wall-mounting bracket secured with four square bolts, a horizontal rectangular wooden timber beam extending outward to the right, two dark hammered metal hanging straps with square rivets holding the sign below the beam, and a thick wooden shield-shaped signboard. The shield features a chunky reddish-brown painted wooden frame, an off-white or cream vertically-planked wooden inner face, and a raised golden-yellow five-pointed star in relief at the center containing an open stylized green eye with a dark green border, a green iris, and a white reflection highlight. There are no moving lids, doors, or drawers. Materials appear to be hand-painted stylized wood and worn iron metal. The entire object is fully visible and not cropped. The background is a solid, uniform, bright blue void with no ground plane, shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4185,
+   "tokens_out": 4353,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "rug-merchant-stack": {
+   "id": "rug-merchant-stack",
+   "group": "p3",
+   "status": "accepted",
+   "error": "AttributeError(\"'NoneType' object has no attribute 'shape'\")",
+   "time": "2026-10-11T18:54:22-07:00",
+   "note": "restored from masked/"
+  },
+  "bollard-stone": {
+   "id": "bollard-stone",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/bollard-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a weathered stone bollard or rounded pillar, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a weathered stone bollard or rounded pillar, set against a solid blue background.",
+       "details": "There is no text, watermarks, or labels in the image. The image features a single separate object: primarily a stone bollard, boundary post, or small stone pillar (second guess: decorative turret cap or game asset post). The object consists of three main contiguous sections: a domed top piece with chiseled stone facets, a thick protruding collar or ring beneath the dome, and a gently tapering cylindrical base column that slightly widens at the ground. It has zero legs, wheels, doors, drawers, lids, or handles. The material appears to be painted/stylized beige and warm gray stone, displaying subtle cracks, chiseled bevels, and patches of yellow-orange moss or lichen on the lower-left section. The entire object is fully visible and not cropped by the frame. The background is a flat, uniform chroma blue with no floor, scenery, cast shadows, or people present.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4111,
+   "tokens_out": 1431,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "scales-balance": {
+   "id": "scales-balance",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/scales-balance.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital illustration of a golden-brass balance scale with a mound of grain in the left pan and three cylindrical weights in the right pan, mounted on a square wooden base against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "The scale pans contain extraneous items (grain in the left pan, weights in the right pan) instead of being empty"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D digital illustration of a golden-brass balance scale with a mound of grain in the left pan and three cylindrical weights in the right pan, mounted on a square wooden base against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. It shows a single main object: a two-pan balance scale (or counterweight scale). The scale rests on a square wooden base featuring reddish-brown wood side insets and four brass-trimmed corner brackets secured with dome-headed rivets. On top of the base is a smaller square wooden tier supporting the rounded brass foot of a sturdy central vertical column. The column is capped with a decorative rounded joint and finial, through which an arched horizontal crossbeam pivots. Hanging from hooks on either end of the beam are two semicircular brass pans, each suspended by a double-arched handle. The crossbeam tilts slightly downward to the right. The left pan is filled with a piled mound of golden-brown cereal grains or seeds. The right pan contains three cylindrical brass weights (two sitting side-by-side on the bottom and one stacked on top). The object is rendered in a warm golden-brass and rich wood palette with painted highlight/shadow textures. The entire scale is fully visible and not cropped by the frame. The background is a completely flat, uniform, vibrant cobalt-blue void with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-11-types/mkt/work/scales-balance.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a brass balance scale standing on a stepped wooden plinth against a flat blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a brass balance scale standing on a stepped wooden plinth against a flat blue background.",
+       "details": "No text, labels, or watermarks are present. The image shows a single main object: a balance scale (or scales of justice; second guess: a tabletop balance toy). The scale features a central vertical brass pillar topped with a finial cap, a horizontal crossbeam, two hanging arched brackets, and two hemispherical weighing pans. The right pan is positioned slightly lower than the left pan; both pans are open, empty, and clearly visible from an angled perspective. The metalwork is painted in warm golden-brass tones with painted highlights and shadows, while the base consists of a two-tiered block made of warm brown and reddish-brown wood. The entire object is centered and complete within the frame without cropping. The background is a completely uniform, solid royal blue with no surface, cast shadows, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5945,
+   "tokens_out": 4699,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "fish-barrel-salted": {
+   "id": "fish-barrel-salted",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/fish-barrel-salted.try1.jpg",
+     "semantic": {
+      "what_i_see": "A wooden barrel filled to the brim with salted fish, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A wooden barrel filled to the brim with salted fish, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one primary composite object: a barrel of preserved fish (second guess: a wooden cask or tub of salted herring). The barrel is constructed from vertical wooden staves secured by four dark metal hoops, showing aged, weathered brown wood and rough grey iron. The barrel has no lid, revealing the interior top layer filled with coarse white salt granules and approximately 10 to 11 whole silvery fish arranged radially with their heads toward the rim and tails meeting near the center. The fish have iridescent silver-grey backs, light bellies, defined scales, and dark fins. The object is entirely intact and not cropped by the frame. The background is a solid, uniform, bright blue with no floor, scenery, shadows, or people visible."
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "verdict": "ok",
+      "matte_first": "chroma"
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4084,
+   "tokens_out": 1568,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "awning--s2": {
+   "id": "awning--s2",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-11-types/mkt/work/awning--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A cartoon-style wooden awning with green and yellow striped fabric, shown from a three-quarters perspective against a bright blue background.",
+      "ok": false,
+      "problems": [
+       "The front edge of the canopy is straight instead of having the rounded scalloped flaps of the reference awning."
+      ],
+      "blind": {
+       "what_i_see": "A cartoon-style wooden awning with green and yellow striped fabric, shown from a three-quarters perspective against a bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one separate object: a wall-mounted awning or canopy (second guess: a storefront window roof shelter). It consists of a light brown wooden support frame with two wall mounts, diagonal bracing struts, top and side support beams, and a stretched fabric cover. The fabric terminates at the front in a straight, slightly rolled edge or hem without scallops. The object is rendered in a stylized, hand-painted digital art style. The canopy alternates in bold green and golden-yellow diagonal stripes. The entire object is centered and fully visible, not cropped by the frame. The background is a flat, uniform, solid blue screen with no ground plane or cast shadows, and there are no people or other scenery.",
+       "reference_differences": [
+        "The canopy fabric stripes in the candidate image are green and bright yellow, whereas the reference image has dark red and off-white/cream stripes.",
+        "The front lower edge of the fabric in the candidate image is straight with a subtle rolled hem, whereas the reference image features individual rounded scalloped flaps."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 2943,
+   "tokens_out": 1772,
+   "status": "rejected"
+  }
+ }
+}

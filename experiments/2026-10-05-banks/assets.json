@@ -1,0 +1,94 @@
+{
+ "assets": [
+  {
+   "id": "rock-boulder",
+   "object": "rock-boulder",
+   "group": "rocks",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a big weathered field boulder",
+   "size": [
+    60.0,
+    48.0,
+    42.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a big weathered field boulder.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: One big, rounded, weathered natural boulder of warm-grey stone, like a glacial erratic lying in a field: about 5 ft wide x 4 ft deep x 3.5 ft tall, wider than it is tall, lumpy and asymmetric with two or three broad facets, a few chunky cracks, and soft moss-green patches of moss on its top and one shoulder. Solid rock all the way round: every side is painted stone, there is no cut face and no hollow. It stands on nothing: NO ground disc, NO grass patch, NO soil, NO base slab or platform under it, and its underside is flat. The background is flat chroma blue, so the object itself has NO blue anywhere: the stone is a WARM grey. Show exactly this one object and nothing else, whole and well inside the frame, filling only about half the frame width, with a wide margin all round.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a single large rounded natural boulder of grey stone with some moss",
+    "must": [
+     "one natural boulder, wider than tall",
+     "grey stone with a little green moss"
+    ],
+    "must_not": [
+     "a ground disc, grass patch, soil mound or base slab under the object",
+     "a built wall, bricks or cut masonry",
+     "a grass-covered top"
+    ]
+   }
+  },
+  {
+   "id": "rock-cluster",
+   "object": "rock-cluster",
+   "group": "rocks",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a low cluster of three boulders",
+   "size": [
+    96.0,
+    60.0,
+    36.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a low cluster of three boulders.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A low cluster of THREE natural warm-grey boulders of different sizes fused together into one solid group, the biggest in the middle and two smaller ones leaning against it, about 8 ft wide x 5 ft deep x 3 ft tall overall, much wider than tall. Rounded, lumpy, weathered stone with a few cracks and soft moss-green moss in the joints between the boulders. Solid rock all the way round: every side is painted stone, there is no cut face and no hollow. It stands on nothing: NO ground disc, NO grass patch, NO soil, NO base slab or platform under it, and its underside is flat. The background is flat chroma blue, so the object itself has NO blue anywhere: the stone is a WARM grey. Show exactly this one object and nothing else, whole and well inside the frame, filling only about half the frame width, with a wide margin all round.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a low group of a few natural grey boulders touching each other, with some moss",
+    "must": [
+     "two to four natural boulders fused into one low group",
+     "clearly wider than tall"
+    ],
+    "must_not": [
+     "a ground disc, grass patch, soil mound or base slab under the object",
+     "a built wall, bricks or cut masonry",
+     "a grass-covered top"
+    ]
+   }
+  },
+  {
+   "id": "rock-table",
+   "object": "rock-table",
+   "group": "rocks",
+   "source": "generate",
+   "lane": "3d",
+   "subject": "a flat-topped table rock",
+   "size": [
+    96.0,
+    84.0,
+    48.0
+   ],
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a flat-topped table rock.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded. The blue background is a removable mask and must not reflect blue light onto the asset.\n\nSpecific design: A flat-topped natural table rock: a broad slab-like outcrop of layered warm-grey stone about 8 ft wide x 7 ft deep x 4 ft tall, with a clearly FLAT, level, bare stone top big enough for a person to stand on (the top is stone, with only a thin line of moss in one crack), and short, steep, chunky sides showing two or three horizontal layers and a few cracks. Roughly oval in plan, rounded corners. Solid rock all the way round: every side is painted stone, there is no cut face and no hollow. It stands on nothing: NO ground disc, NO grass patch, NO soil, NO base slab or platform under it, and its underside is flat. The background is flat chroma blue, so the object itself has NO blue anywhere: the stone is a WARM grey. Show exactly this one object and nothing else, whole and well inside the frame, filling only about half the frame width, with a wide margin all round.\n",
+   "refs": [
+    "style-references/heroic-handpainted-tavern-v1.png"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "a broad natural rock with a flat level bare-stone top and short steep sides",
+    "must": [
+     "a flat, level top surface of bare stone",
+     "natural layered rock, wider than tall"
+    ],
+    "must_not": [
+     "a ground disc, grass patch, soil mound or base slab under the object",
+     "a built wall, bricks or cut masonry",
+     "a grass-covered top"
+    ]
+   }
+  }
+ ]
+}

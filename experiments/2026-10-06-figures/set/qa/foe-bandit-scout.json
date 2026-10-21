@@ -1,0 +1,153 @@
+{
+ "file": "foe-bandit-scout.glb",
+ "tris": 49712,
+ "kb": 3020,
+ "native_extent": [
+  0.604,
+  1.001,
+  0.529
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  80,
+  67,
+  32
+ ],
+ "mean_saturation": 0.667,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 4.72,
+  "length_ft": 5.94,
+  "low_end_ft": [
+   1.31,
+   0.28,
+   -0.1
+  ],
+  "high_end_ft": [
+   1.32,
+   6.2,
+   -0.62
+  ],
+  "tilt_from_upright_deg": 5.1,
+  "thickness_ft": 0.39,
+  "clear_share": 0.82,
+  "joined_share": 0.18,
+  "broken_share": 0.0,
+  "walk_low_to_high": "----------------------------#########-------------"
+ },
+ "overall_ft": 6.14,
+ "pieces": {
+  "connected_parts": 437,
+  "main_part_area_share": 0.934,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.1311,
+ "y0": -3.071,
+ "stated_ft": {
+  "body": 5.9,
+  "figure_top": 5.9,
+  "overall": 5.9
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2995,
+   -0.5009,
+   -0.262
+  ],
+  [
+   0.3046,
+   0.5002,
+   0.2669
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49712,
+   "tex": 2048,
+   "kb": 3020
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1147
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 486
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.79,
+    "z": -0.34,
+    "size_ft": [
+     1.02,
+     1.48
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.72,
+    "sole_p90_ft": 0.282
+   },
+   {
+    "x": -1.05,
+    "z": 0.96,
+    "size_ft": [
+     0.69,
+     1.38
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.76,
+    "sole_p90_ft": 0.121
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 1.53,
+  "plan_hull_area_sqft": 7.4,
+  "lowest_slab_share_of_plan": 0.207
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.7,
+   "d": 3.24,
+   "h": 6.14
+  },
+  "centre": [
+   0.119,
+   0.635
+  ],
+  "contacts_radius_ft": 1.62,
+  "reach_radius_ft": 2.18,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.904,
+  "plate_lost_share": 0.016,
+  "added_share": 0.089,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.904,
+  "view_yaw_deg": 330,
+  "view_elev_deg": 8
+ },
+ "id": "foe-bandit-scout",
+ "sha1": "64ae49993c74b532aab04f1356262c9f58f86402",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 16.9
+}

@@ -1,0 +1,196 @@
+{
+ "file": "foe-goblin-bow.glb",
+ "tris": 49762,
+ "kb": 3188,
+ "native_extent": [
+  0.559,
+  1.0,
+  0.515
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  68,
+  57,
+  22
+ ],
+ "mean_saturation": 0.784,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 2.84,
+  "length_ft": 3.56,
+  "low_end_ft": [
+   0.84,
+   0.42,
+   0.13
+  ],
+  "high_end_ft": [
+   0.75,
+   3.92,
+   0.74
+  ],
+  "tilt_from_upright_deg": 10.0,
+  "thickness_ft": 0.23,
+  "clear_share": 0.87,
+  "joined_share": 0.13,
+  "broken_share": 0.0,
+  "walk_low_to_high": "------------------######-----------------------"
+ },
+ "overall_ft": 3.89,
+ "pieces": {
+  "connected_parts": 623,
+  "main_part_area_share": 0.9506,
+  "floating": [
+   {
+    "area_share": 0.00941,
+    "gap_ft": 0.06,
+    "size_ft": 1.07
+   },
+   {
+    "area_share": 0.00141,
+    "gap_ft": 0.25,
+    "size_ft": 0.32
+   },
+   {
+    "area_share": 0.00086,
+    "gap_ft": 0.29,
+    "size_ft": 0.26
+   },
+   {
+    "area_share": 0.0007,
+    "gap_ft": 0.31,
+    "size_ft": 0.24
+   },
+   {
+    "area_share": 0.00044,
+    "gap_ft": 0.13,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 0.00044,
+    "gap_ft": 0.33,
+    "size_ft": 0.15
+   },
+   {
+    "area_share": 0.00041,
+    "gap_ft": 0.32,
+    "size_ft": 0.14
+   },
+   {
+    "area_share": 0.00018,
+    "gap_ft": 0.2,
+    "size_ft": 0.09
+   }
+  ],
+  "floating_count": 366,
+  "floating_area_share": 0.01537,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.8886,
+ "y0": -1.9459,
+ "stated_ft": {
+  "body": 3.5,
+  "figure_top": 3.5,
+  "overall": 3.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2822,
+   -0.5006,
+   -0.2571
+  ],
+  [
+   0.2764,
+   0.4998,
+   0.2579
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49762,
+   "tex": 2048,
+   "kb": 3188
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1213
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 517
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.67,
+    "z": 0.04,
+    "size_ft": [
+     0.75,
+     1.07
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.83,
+    "sole_p90_ft": 0.074
+   },
+   {
+    "x": -0.7,
+    "z": -0.16,
+    "size_ft": [
+     0.81,
+     0.92
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.83,
+    "sole_p90_ft": 0.081
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 0.85,
+  "plan_hull_area_sqft": 3.11,
+  "lowest_slab_share_of_plan": 0.273
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.17,
+   "d": 2.0,
+   "h": 3.89
+  },
+  "centre": [
+   -0.009,
+   -0.034
+  ],
+  "contacts_radius_ft": 1.09,
+  "reach_radius_ft": 1.33,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.87,
+  "plate_lost_share": 0.078,
+  "added_share": 0.06,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.844,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 0
+ },
+ "id": "foe-goblin-bow",
+ "sha1": "b625d46126458611a752dcdec222defa518d4959",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.06 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 24.6
+}

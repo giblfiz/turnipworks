@@ -1,0 +1,956 @@
+{
+ "blind_flash": {
+  "balustrade-stone": {
+   "row": 1,
+   "object": "stone balustrade section",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on both sides",
+   "conf": 0.95
+  },
+  "balustrade-stone-pier": {
+   "row": 2,
+   "object": "stone balustrade post with finial",
+   "pose": "upright",
+   "front": "none",
+   "why": "fourfold symmetric post",
+   "conf": 1.0
+  },
+  "bed-canopy--state": {
+   "row": 3,
+   "object": "canopy bed",
+   "pose": "upright",
+   "front": "A",
+   "why": "foot end of the bed facing pillows",
+   "conf": 0.98
+  },
+  "bell-board-servants": {
+   "row": 4,
+   "object": "wooden bell rack panel",
+   "pose": "upright",
+   "front": "A",
+   "why": "bells display face",
+   "conf": 0.98
+  },
+  "bench-garden": {
+   "row": 1,
+   "object": "stone bench",
+   "pose": "upright",
+   "front": "A",
+   "why": "seat and front of backrest",
+   "conf": 1.0
+  },
+  "bench-potting": {
+   "row": 2,
+   "object": "potting workbench with plants",
+   "pose": "upright",
+   "front": "A",
+   "why": "working surface and open shelves",
+   "conf": 1.0
+  },
+  "bench-upholstered--s1": {
+   "row": 3,
+   "object": "upholstered bench",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical backless bench",
+   "conf": 0.95
+  },
+  "bench-upholstered--s2": {
+   "row": 4,
+   "object": "ornate cushioned bench",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical backless bench",
+   "conf": 0.95
+  },
+  "birdbath": {
+   "row": 1,
+   "object": "stone birdbath",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetrical basin",
+   "conf": 0.95
+  },
+  "book-open": {
+   "row": 2,
+   "object": "open book",
+   "pose": "upright",
+   "front": "A",
+   "why": "reader's view facing bottom edge with hanging bookmark",
+   "conf": 0.85
+  },
+  "book-pile-floor": {
+   "row": 3,
+   "object": "pile of books",
+   "pose": "upright",
+   "front": "none",
+   "why": "irregular pile of books has no distinct front",
+   "conf": 0.9
+  },
+  "book-stack": {
+   "row": 4,
+   "object": "stack of books",
+   "pose": "upright",
+   "front": "none",
+   "why": "simple stack of books has no front",
+   "conf": 0.85
+  },
+  "bookcase-ladder": {
+   "row": 1,
+   "object": "bookcase with ladder",
+   "pose": "upright",
+   "front": "B",
+   "why": "open shelves with books and ladder",
+   "conf": 1.0
+  },
+  "books-row-bookends": {
+   "row": 2,
+   "object": "books with bookends",
+   "pose": "upright",
+   "front": "A",
+   "why": "book spines facing front",
+   "conf": 0.9
+  },
+  "bookshelf--fine--s1": {
+   "row": 3,
+   "object": "tall bookcase with lower cabinet",
+   "pose": "upright",
+   "front": "B",
+   "why": "open shelves and cabinet doors",
+   "conf": 1.0
+  },
+  "bookshelf--fine--s2": {
+   "row": 4,
+   "object": "bookcase with bottom drawer",
+   "pose": "upright",
+   "front": "A",
+   "why": "open shelves with books and drawer",
+   "conf": 1.0
+  },
+  "bookshelf--fine--s3": {
+   "row": 1,
+   "object": "wooden low bookcase",
+   "pose": "upright",
+   "front": "A",
+   "why": "open shelves with books",
+   "conf": 1.0
+  },
+  "bush-rose--s1": {
+   "row": 2,
+   "object": "rose bush",
+   "pose": "upright",
+   "front": "none",
+   "why": "round bush",
+   "conf": 1.0
+  },
+  "bush-rose--s2": {
+   "row": 3,
+   "object": "rose topiary tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "round topiary tree",
+   "conf": 1.0
+  },
+  "cabinet-china": {
+   "row": 4,
+   "object": "display cabinet",
+   "pose": "upright",
+   "front": "A",
+   "why": "glass cabinet doors",
+   "conf": 1.0
+  },
+  "cabinet-china-open": {
+   "row": 1,
+   "object": "china cabinet",
+   "pose": "upright",
+   "front": "A",
+   "why": "open glass doors and display shelves",
+   "conf": 1.0
+  },
+  "candelabra--fine--s2": {
+   "row": 2,
+   "object": "candelabra",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric candleholder with no distinct front",
+   "conf": 0.95
+  },
+  "candelabra-standing--s1": {
+   "row": 3,
+   "object": "tall candelabra",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric candle stand",
+   "conf": 0.95
+  },
+  "candelabra-standing--s2": {
+   "row": 4,
+   "object": "tall candelabra",
+   "pose": "upright",
+   "front": "none",
+   "why": "bilaterally symmetric candle stand with identical sides",
+   "conf": 0.95
+  },
+  "centerpiece-epergne": {
+   "row": 1,
+   "object": "tiered fruit centerpiece",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular centerpiece with bowls on all sides",
+   "conf": 0.95
+  },
+  "chair-armed--fine--s2": {
+   "row": 2,
+   "object": "wooden armchair with upholstered seat",
+   "pose": "upright",
+   "front": "A",
+   "why": "front of the seat and armrests",
+   "conf": 1.0
+  },
+  "chair-plain--fine--s1": {
+   "row": 3,
+   "object": "wooden chair with upholstered seat",
+   "pose": "upright",
+   "front": "A",
+   "why": "front of the seat",
+   "conf": 1.0
+  },
+  "chair-plain--fine--s2": {
+   "row": 4,
+   "object": "wooden slatted-back chair with upholstered seat",
+   "pose": "upright",
+   "front": "A",
+   "why": "front of the seat",
+   "conf": 1.0
+  },
+  "chair-plain--fine--s3": {
+   "row": 1,
+   "object": "ornate chair",
+   "pose": "upright",
+   "front": "A",
+   "why": "chair seat and backrest",
+   "conf": 1.0
+  },
+  "chair-salon-gilt--s1": {
+   "row": 2,
+   "object": "ornate oval-back chair",
+   "pose": "upright",
+   "front": "A",
+   "why": "chair seat and backrest",
+   "conf": 1.0
+  },
+  "chair-salon-gilt--s2": {
+   "row": 3,
+   "object": "ornate square-back chair",
+   "pose": "upright",
+   "front": "A",
+   "why": "chair seat and backrest",
+   "conf": 1.0
+  },
+  "chair-upholstered--fine--s1": {
+   "row": 4,
+   "object": "ornate armchair",
+   "pose": "upright",
+   "front": "A",
+   "why": "chair seat and armrests",
+   "conf": 1.0
+  },
+  "chair-upholstered--fine--s2": {
+   "row": 1,
+   "object": "red wingback armchair",
+   "pose": "upright",
+   "front": "A",
+   "why": "seat and backrest face forward",
+   "conf": 1.0
+  },
+  "chair-upholstered--fine--s3": {
+   "row": 2,
+   "object": "dark green armchair",
+   "pose": "upright",
+   "front": "A",
+   "why": "seat and backrest face forward",
+   "conf": 1.0
+  },
+  "chandelier-grand": {
+   "row": 3,
+   "object": "stone and wood chandelier",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric fixture",
+   "conf": 0.95
+  },
+  "chandelier-grand--s2": {
+   "row": 4,
+   "object": "candle chandelier",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric fixture",
+   "conf": 0.95
+  },
+  "citrus-tree-tub": {
+   "row": 1,
+   "object": "potted fruit tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical square planter with round bush",
+   "conf": 0.95
+  },
+  "clock-longcase": {
+   "row": 2,
+   "object": "grandfather clock",
+   "pose": "upright",
+   "front": "A",
+   "why": "clock face and front door",
+   "conf": 1.0
+  },
+  "clock-mantel": {
+   "row": 3,
+   "object": "mantel clock",
+   "pose": "upright",
+   "front": "A",
+   "why": "clock face",
+   "conf": 1.0
+  },
+  "commode": {
+   "row": 4,
+   "object": "chest of drawers",
+   "pose": "upright",
+   "front": "A",
+   "why": "drawer pulls and drawers",
+   "conf": 1.0
+  },
+  "craft-wicker-chair": {
+   "row": 1,
+   "object": "wicker armchair",
+   "pose": "upright",
+   "front": "A",
+   "why": "seat cushion and chair opening",
+   "conf": 1.0
+  },
+  "desk-bureau": {
+   "row": 2,
+   "object": "secretary desk with closed slant top",
+   "pose": "upright",
+   "front": "A",
+   "why": "drawers and slanted lid",
+   "conf": 1.0
+  },
+  "desk-bureau-open": {
+   "row": 3,
+   "object": "secretary desk with open drop front",
+   "pose": "upright",
+   "front": "A",
+   "why": "open writing surface and drawers",
+   "conf": 1.0
+  },
+  "desk-partners": {
+   "row": 4,
+   "object": "pedestal desk",
+   "pose": "upright",
+   "front": "A",
+   "why": "drawers and kneehole",
+   "conf": 1.0
+  },
+  "door-double-grand--fine-leaf": {
+   "row": 1,
+   "object": "double wooden door",
+   "pose": "upright",
+   "front": "A",
+   "why": "doorknobs on this side",
+   "conf": 0.95
+  },
+  "door-glazed--leaf": {
+   "row": 2,
+   "object": "glazed wooden door",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.85
+  },
+  "door-panelled--leaf": {
+   "row": 3,
+   "object": "paneled wooden door",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical on opposite sides",
+   "conf": 0.85
+  },
+  "fern-potted": {
+   "row": 4,
+   "object": "potted fern on stand",
+   "pose": "upright",
+   "front": "none",
+   "why": "round planter",
+   "conf": 0.98
+  },
+  "fire-screen": {
+   "row": 1,
+   "object": "fireplace screen",
+   "pose": "upright",
+   "front": "A",
+   "why": "embroidered picture display face",
+   "conf": 1.0
+  },
+  "fireplace-marble": {
+   "row": 2,
+   "object": "fireplace with mirror",
+   "pose": "upright",
+   "front": "A",
+   "why": "fireplace opening and mirror front",
+   "conf": 1.0
+  },
+  "flowerbed--parterre": {
+   "row": 3,
+   "object": "circular flower bed",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular radially symmetric design",
+   "conf": 1.0
+  },
+  "footstool--fine": {
+   "row": 4,
+   "object": "upholstered footstool",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical seating surface with identical opposite sides",
+   "conf": 0.95
+  },
+  "fountain-courtyard": {
+   "row": 1,
+   "object": "tiered stone fountain",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric fountain",
+   "conf": 0.95
+  },
+  "fountain-courtyard--s2": {
+   "row": 2,
+   "object": "stone fountain with basin",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric fountain",
+   "conf": 0.95
+  },
+  "fountain-wall": {
+   "row": 3,
+   "object": "wall fountain",
+   "pose": "upright",
+   "front": "A",
+   "why": "basin and carved front face away from flat back",
+   "conf": 1.0
+  },
+  "gazebo": {
+   "row": 4,
+   "object": "rotunda / garden gazebo",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric circular colonnade",
+   "conf": 0.9
+  },
+  "gown-on-form": {
+   "row": 1,
+   "object": "victorian dress on mannequin",
+   "pose": "upright",
+   "front": "A",
+   "why": "front of dress and neckline",
+   "conf": 1.0
+  },
+  "hall-stand": {
+   "row": 2,
+   "object": "hall tree with bench and coat rack",
+   "pose": "upright",
+   "front": "A",
+   "why": "mirror and bench seat",
+   "conf": 1.0
+  },
+  "harp": {
+   "row": 3,
+   "object": "harp",
+   "pose": "upright",
+   "front": "C",
+   "why": "ornamented forepillar",
+   "conf": 0.8
+  },
+  "harpsichord": {
+   "row": 4,
+   "object": "harpsichord",
+   "pose": "upright",
+   "front": "A",
+   "why": "keyboard",
+   "conf": 1.0
+  },
+  "inkwell-quill": {
+   "row": 1,
+   "object": "inkstand or tray with pots",
+   "pose": "upright",
+   "front": "A",
+   "why": "tray layout with utensil in front of jars",
+   "conf": 0.85
+  },
+  "jewelry-box": {
+   "row": 2,
+   "object": "wooden chest",
+   "pose": "upright",
+   "front": "A",
+   "why": "lock clasp",
+   "conf": 0.95
+  },
+  "library-steps": {
+   "row": 3,
+   "object": "wooden bed steps",
+   "pose": "upright",
+   "front": "A",
+   "why": "steps face forward",
+   "conf": 0.95
+  },
+  "lily-pond": {
+   "row": 4,
+   "object": "circular stone well rim",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular structure with radial symmetry",
+   "conf": 0.95
+  },
+  "mirror-pier-gilt": {
+   "row": 1,
+   "object": "standing full-length mirror",
+   "pose": "upright",
+   "front": "A",
+   "why": "mirror face",
+   "conf": 0.85
+  },
+  "mirror-standing--fine": {
+   "row": 2,
+   "object": "standing cheval mirror",
+   "pose": "upright",
+   "front": "A",
+   "why": "mirror face",
+   "conf": 1.0
+  },
+  "palm-potted--s1": {
+   "row": 3,
+   "object": "potted palm tree",
+   "pose": "upright",
+   "front": "none",
+   "why": "round potted plant",
+   "conf": 0.95
+  },
+  "palm-potted--s2": {
+   "row": 4,
+   "object": "potted broadleaf plant",
+   "pose": "upright",
+   "front": "none",
+   "why": "round potted plant",
+   "conf": 0.95
+  },
+  "pedestal-display--marble": {
+   "row": 1,
+   "object": "classical stone pedestal",
+   "pose": "upright",
+   "front": "none",
+   "why": "four-fold symmetric column and base",
+   "conf": 0.95
+  },
+  "perfume-bottles": {
+   "row": 2,
+   "object": "tray with bottles and flasks",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular tray with randomly arranged bottles",
+   "conf": 0.85
+  },
+  "plant-pot--s1": {
+   "row": 3,
+   "object": "potted flowering plant",
+   "pose": "upright",
+   "front": "none",
+   "why": "round pot and omnidirectional foliage",
+   "conf": 0.95
+  },
+  "plant-pot--s2": {
+   "row": 4,
+   "object": "potted orchid",
+   "pose": "upright",
+   "front": "A",
+   "why": "orchid blossoms face forward",
+   "conf": 0.9
+  },
+  "plant-stand-tiered": {
+   "row": 1,
+   "object": "tiered plant stand with flowers",
+   "pose": "upright",
+   "front": "A",
+   "why": "stepped display shelves facing front",
+   "conf": 1.0
+  },
+  "planter-topiary--s1": {
+   "row": 2,
+   "object": "spiral topiary in square planter",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical ornamental plant",
+   "conf": 0.95
+  },
+  "planter-topiary--s2": {
+   "row": 3,
+   "object": "round topiary tree in pot",
+   "pose": "upright",
+   "front": "none",
+   "why": "spherical tree in round pot",
+   "conf": 1.0
+  },
+  "planter-topiary--s3": {
+   "row": 4,
+   "object": "tiered topiary in square planter",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical topiary in square pot",
+   "conf": 0.95
+  },
+  "plate-silver": {
+   "row": 1,
+   "object": "circular platter or tray",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular object",
+   "conf": 0.95
+  },
+  "sconce-candle-triple--fine": {
+   "row": 2,
+   "object": "mirror with candle sconce",
+   "pose": "upright",
+   "front": "A",
+   "why": "mirror face and candles",
+   "conf": 1.0
+  },
+  "screen-folding--fine": {
+   "row": 3,
+   "object": "folding room divider screen",
+   "pose": "upright",
+   "front": "A",
+   "why": "concave decorated side",
+   "conf": 0.85
+  },
+  "settee": {
+   "row": 4,
+   "object": "armchair or loveseat",
+   "pose": "upright",
+   "front": "A",
+   "why": "seat cushions",
+   "conf": 1.0
+  },
+  "sideboard": {
+   "row": 1,
+   "object": "wooden desk credenza",
+   "pose": "upright",
+   "front": "A",
+   "why": "drawers and cabinet doors",
+   "conf": 0.95
+  },
+  "sideboard-open": {
+   "row": 2,
+   "object": "wooden desk credenza with open doors",
+   "pose": "upright",
+   "front": "A",
+   "why": "open cabinet doors and shelves",
+   "conf": 1.0
+  },
+  "sofa": {
+   "row": 3,
+   "object": "ornate sofa",
+   "pose": "upright",
+   "front": "A",
+   "why": "seat and cushions",
+   "conf": 1.0
+  },
+  "statue-bust--s1": {
+   "row": 4,
+   "object": "classical bust on pedestal",
+   "pose": "upright",
+   "front": "A",
+   "why": "face of the bust",
+   "conf": 1.0
+  },
+  "statue-garden--s1": {
+   "row": 1,
+   "object": "classical statue of a woman on a pedestal",
+   "pose": "upright",
+   "front": "A",
+   "why": "face and front of the figure",
+   "conf": 1.0
+  },
+  "statue-garden--s2": {
+   "row": 2,
+   "object": "classical statue of a woman holding a jar",
+   "pose": "upright",
+   "front": "A",
+   "why": "face and front of the figure",
+   "conf": 1.0
+  },
+  "stool-upholstered": {
+   "row": 3,
+   "object": "upholstered footstool",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical bench without backrest",
+   "conf": 0.9
+  },
+  "sundial": {
+   "row": 4,
+   "object": "stone pedestal sundial",
+   "pose": "upright",
+   "front": "none",
+   "why": "round pedestal sundial",
+   "conf": 0.85
+  },
+  "table-billiards": {
+   "row": 1,
+   "object": "billiard table",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetric sides with no designated front",
+   "conf": 0.95
+  },
+  "table-card": {
+   "row": 2,
+   "object": "small gaming table with drawers",
+   "pose": "upright",
+   "front": "none",
+   "why": "identical drawers on opposing sides",
+   "conf": 0.85
+  },
+  "table-console": {
+   "row": 3,
+   "object": "demilune console table",
+   "pose": "upright",
+   "front": "A",
+   "why": "ornately carved front side opposite flat wall back",
+   "conf": 1.0
+  },
+  "table-feast--fine": {
+   "row": 4,
+   "object": "long pedestal dining table",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical long table",
+   "conf": 0.95
+  },
+  "table-feast--fine--s2": {
+   "row": 1,
+   "object": "oval wooden table",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical long sides",
+   "conf": 0.9
+  },
+  "table-games": {
+   "row": 2,
+   "object": "chess table with pieces",
+   "pose": "upright",
+   "front": "none",
+   "why": "two-player table without a single front",
+   "conf": 0.85
+  },
+  "table-library": {
+   "row": 3,
+   "object": "writing desk",
+   "pose": "upright",
+   "front": "A",
+   "why": "drawers with handles",
+   "conf": 1.0
+  },
+  "table-pedestal-round": {
+   "row": 4,
+   "object": "round pedestal table",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular top and symmetrical pedestal",
+   "conf": 1.0
+  },
+  "table-round-small--fine": {
+   "row": 1,
+   "object": "round pedestal side table",
+   "pose": "upright",
+   "front": "none",
+   "why": "circular tabletop and radially symmetric pedestal",
+   "conf": 0.95
+  },
+  "table-side--fine--s2": {
+   "row": 2,
+   "object": "ornate wooden nightstand",
+   "pose": "upright",
+   "front": "A",
+   "why": "cabinet door and decorative pediment",
+   "conf": 0.95
+  },
+  "table-vanity--fine": {
+   "row": 3,
+   "object": "vanity table with mirror",
+   "pose": "upright",
+   "front": "A",
+   "why": "mirror face and seating side",
+   "conf": 1.0
+  },
+  "tea-service-tray": {
+   "row": 4,
+   "object": "tea set on tray",
+   "pose": "upright",
+   "front": "none",
+   "why": "portable tray with tea service arranged around it",
+   "conf": 0.8
+  },
+  "telescope": {
+   "row": 1,
+   "object": "telescope on tripod",
+   "pose": "upright",
+   "front": "C",
+   "why": "eyepiece where user looks in",
+   "conf": 0.85
+  },
+  "trade-globe-terrestrial": {
+   "row": 2,
+   "object": "globe on wooden stand",
+   "pose": "upright",
+   "front": "none",
+   "why": "spherical globe readable from any direction",
+   "conf": 0.85
+  },
+  "urn-decorative--floor-vase": {
+   "row": 3,
+   "object": "vase with dried foliage",
+   "pose": "upright",
+   "front": "none",
+   "why": "round vase with foliage facing all sides",
+   "conf": 0.95
+  },
+  "urn-decorative--porcelain": {
+   "row": 4,
+   "object": "two-handled decorative urn with lid",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical on opposite sides",
+   "conf": 0.9
+  },
+  "urn-garden--s1": {
+   "row": 1,
+   "object": "stone planter with flowers",
+   "pose": "upright",
+   "front": "none",
+   "why": "symmetrical garden planter",
+   "conf": 0.95
+  },
+  "urn-garden--s2": {
+   "row": 2,
+   "object": "stone urn finial on pillar",
+   "pose": "upright",
+   "front": "none",
+   "why": "radially symmetric decorative urn",
+   "conf": 0.95
+  },
+  "wall-doorway--conservatory": {
+   "row": 3,
+   "object": "door frame with windows",
+   "pose": "upright",
+   "front": "none",
+   "why": "two-way architectural doorway",
+   "conf": 0.9
+  },
+  "wall-doorway--noble-interior": {
+   "row": 4,
+   "object": "doorway trim frame",
+   "pose": "upright",
+   "front": "none",
+   "why": "two-way architectural door frame",
+   "conf": 0.9
+  },
+  "wall-doorway--noble-panel": {
+   "row": 1,
+   "object": "doorway wall section",
+   "pose": "upright",
+   "front": "A",
+   "why": "decorative wooden doorframe",
+   "conf": 0.95
+  },
+  "wall-straight--conservatory": {
+   "row": 2,
+   "object": "window wall section",
+   "pose": "upright",
+   "front": "A",
+   "why": "moulding and trim face forward",
+   "conf": 0.85
+  },
+  "wall-straight--noble-panel": {
+   "row": 3,
+   "object": "wood-panelled wall section",
+   "pose": "upright",
+   "front": "A",
+   "why": "wood wainscot paneling",
+   "conf": 1.0
+  },
+  "wall-straight--noble-panel--s2": {
+   "row": 4,
+   "object": "wood-panelled wall section with rear niche",
+   "pose": "upright",
+   "front": "A",
+   "why": "wood wainscot paneling",
+   "conf": 0.95
+  },
+  "wall-straight--noble-paper": {
+   "row": 1,
+   "object": "interior wall panel",
+   "pose": "upright",
+   "front": "A",
+   "why": "molded wainscoting and cornice relief",
+   "conf": 0.85
+  },
+  "wall-straight--noble-paper--s2": {
+   "row": 2,
+   "object": "secret door wall panel",
+   "pose": "upright",
+   "front": "A",
+   "why": "handles",
+   "conf": 0.95
+  },
+  "wall-window-small--noble-panel": {
+   "row": 3,
+   "object": "window wall section",
+   "pose": "upright",
+   "front": "A",
+   "why": "interior paneled face with window frame",
+   "conf": 0.95
+  },
+  "wall-window-small--noble-paper": {
+   "row": 4,
+   "object": "window wall section",
+   "pose": "upright",
+   "front": "A",
+   "why": "window and decorative frame",
+   "conf": 0.95
+  },
+  "wall-window-small-open--noble-panel": {
+   "row": 1,
+   "object": "window with interior shutters",
+   "pose": "upright",
+   "front": "A",
+   "why": "interior side with open shutters",
+   "conf": 0.9
+  },
+  "wall-window-small-open--noble-paper": {
+   "row": 2,
+   "object": "window with interior shutters",
+   "pose": "upright",
+   "front": "C",
+   "why": "interior side with open shutters",
+   "conf": 0.9
+  },
+  "washstand--state": {
+   "row": 3,
+   "object": "washstand with basin and pitcher",
+   "pose": "upright",
+   "front": "A",
+   "why": "drawer and cabinet door",
+   "conf": 1.0
+  }
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "file": "foe-bandit-captain.glb",
+ "tris": 49822,
+ "kb": 2685,
+ "native_extent": [
+  0.56,
+  1.001,
+  0.619
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  81,
+  49,
+  20
+ ],
+ "mean_saturation": 0.806,
+ "sized_by": "its highest point",
+ "overall_ft": 5.9,
+ "pieces": {
+  "connected_parts": 16,
+  "main_part_area_share": 0.9999,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.8942,
+ "y0": -2.9524,
+ "stated_ft": {
+  "body": 5.9,
+  "figure_top": 5.9,
+  "overall": 5.9
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2798,
+   -0.5009,
+   -0.3084
+  ],
+  [
+   0.2799,
+   0.5003,
+   0.311
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49822,
+   "tex": 2048,
+   "kb": 2685
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1094
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 474
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.7,
+    "z": 0.89,
+    "size_ft": [
+     0.71,
+     1.55
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.77,
+    "sole_p90_ft": 0.078
+   },
+   {
+    "x": -0.93,
+    "z": -0.83,
+    "size_ft": [
+     0.93,
+     1.45
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.78,
+    "sole_p90_ft": 0.076
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.76,
+  "plan_hull_area_sqft": 8.06,
+  "lowest_slab_share_of_plan": 0.219
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.3,
+   "d": 3.65,
+   "h": 5.9
+  },
+  "centre": [
+   -0.295,
+   0.333
+  ],
+  "contacts_radius_ft": 1.7,
+  "reach_radius_ft": 2.15,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.916,
+  "plate_lost_share": 0.026,
+  "added_share": 0.064,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.916,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 8
+ },
+ "id": "foe-bandit-captain",
+ "sha1": "65a366004f678d955f80af4a0d28a9eac235532a",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 14.7
+}

@@ -1,0 +1,2029 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "stair-straight--dressed-stone--t10": {
+   "id": "stair-straight--dressed-stone--t10",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-straight--dressed-stone--t10.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized isometric stone staircase structure featuring an arched recessed niche in its side, presented against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized isometric stone staircase structure featuring an arched recessed niche in its side, presented against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one separate object, which is a freestanding isometric stone staircase (second guess: medieval stone masonry steps with a recessed alcove). The structure consists of eight stepped tiers ascending from bottom-left to top-right, built from rough-hewn rectangular stone blocks. The exposed side wall contains tightly fitted masonry blocks and features a single round-arched niche framed by curved stone voussoirs; the niche is recessed and walled up with flat masonry rather than being an open passageway. There are no legs, wheels, handles, drawers, or opening doors. The material is weathered stone with a hand-painted digital style, colored in tones of grey, tan, beige, and earthy ochre, with thin traces of green moss nestled between some block seams. The entire object is centered and fully visible without cropping. The background is completely solid, flat bright royal blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4461,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9965,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4195,
+   "tokens_out": 1724,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-straight--rough-timber--t10": {
+   "id": "stair-straight--rough-timber--t10",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-straight--rough-timber--t10.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered set of wooden stairs with enclosed planked side walls, isolated on a uniform blue background.",
+      "ok": false,
+      "problems": [
+       "Includes a top landing, which was not requested."
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered set of wooden stairs with enclosed planked side walls, isolated on a uniform blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image contains a single isolated object: a wooden staircase (second guess: a miniature architectural game asset or wooden toy steps). The structure consists of eight stair treads/steps leading up to a small top landing, flanked on both sides by thick, smooth, angled wooden side stringers/railings. The visible left flank is fully walled with vertical wooden planks secured with seven rounded wooden pegs or bolt heads along the descending angle and vertical rear corner. The stair risers underneath each step tread appear constructed from horizontally aligned wooden segments with painted grain. The material is stylized wood rendered in warm amber, honey, and golden-brown tones, showing wood grain, knots, and slight wear along the edges. The staircase is entirely visible and uncropped. The background is a completely solid, uniform bright blue without shadows, ground plane, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-straight--rough-timber--t10.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a wooden staircase viewed from an isometric angle against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a wooden staircase viewed from an isometric angle against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single isolated object: a wooden staircase (second guess: wooden steps/indoor ramp feature). It includes approximately ten horizontal stair treads with matching risers, flanked by angled wooden side stringers/railings detailed with round decorative wooden pegs. The base features two carved newel posts with rounded dome tops and block bases. The exposed right side of the structure is enclosed with vertical wooden wall planks. The structure is rendered in a stylized, hand-painted video game asset art style using warm brown, caramel, and honey-toned wood textures. The object is completely contained within the frame with no cropping. The background is a solid, flat, uniform vivid blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.431,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5976,
+   "tokens_out": 3329,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-spiral-wide--dressed-stone": {
+   "id": "stair-spiral-wide--dressed-stone",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-spiral-wide--dressed-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D render of a weathered stone spiral staircase winding around a central pillar against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D render of a weathered stone spiral staircase winding around a central pillar against a solid blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image features a single object: a stone spiral staircase (or medieval tower stair section). It consists of a vertical central cylindrical pillar made of cut stone blocks, wrapped by roughly ten to twelve visible stone steps that curve downward from top left to bottom right. The underside of the stairs forms a smooth, segmented stone spiral vault. The stones display varied earthen hues, including grey, beige, pale olive-green, and muted yellow-brown, with subtle patches of green moss in the joints and edges. The entire structure is complete and fully contained within the frame without cropping. The background is a completely uniform, solid chroma-key blue with no floor, shadows, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2852,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.3167,
+      "verdict": "fail",
+      "why": [
+       "BiRefNet vs chroma disagree (IoU 0.3167)"
+      ],
+      "chroma_holes_removed_px": 0
+     },
+     "chroma_gate": {
+      "ok": false,
+      "problems": [
+       "background not keyed to magenta"
+      ]
+     },
+     "verdict": "mask_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-spiral-wide--dressed-stone.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized stone spiral staircase winding around a central stone pillar, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized stone spiral staircase winding around a central stone pillar, isolated against a solid blue background.",
+       "details": "There are no visible texts, labels, or watermarks. The image contains one single composite object: a spiral stone staircase (second guess: a castle tower stair section). The structure consists of a central cylindrical column built from stacked rectangular and curved stone blocks, flanked by cantilevered stone steps that twist upwards in a helix pattern. There are approximately 10 to 12 visible step levels radiating from the pillar. The steps and column are constructed of weathered, chiseled masonry blocks in shades of grey, beige, and warm tan, with subtle moss-like greenish discoloration in some crevices. There are no doors, drawers, lids, handles, or wheels. The object is completely intact and floating centrally, uncropped by the edges of the frame. The background is a flat, uniform bright blue without any ground plane, floor shadow, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2162,
+      "soft": 0.003,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 13
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8272,
+   "tokens_out": 2173,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-spiral-wide--rough-timber": {
+   "id": "stair-spiral-wide--rough-timber",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-spiral-wide--rough-timber.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, rendered wooden spiral staircase with a central pole and curved outer railing support, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, rendered wooden spiral staircase with a central pole and curved outer railing support, set against a solid blue background.",
+       "details": "The image features a single, centered object resembling a freestanding section of a spiral staircase, rendered in a warm, stylized digital 3D art style. There are no texts, labels, or watermarks. The structure consists of a thick vertical central column topped with a spherical finial and divided vertically by ring collars fastened with large round wooden pegs. Originating from this central pole are approximately 11 to 12 wedge-shaped wooden steps (treads) with vertical planked risers underneath. A thick, curved outer wooden stringer board wraps around the outer edge of the steps, secured with round wooden pegs or bolt heads. The entire structure is made of golden-brown polished wood with visible grain texture, subtle weathering, and darker wooden corner caps on the outer edges of each step. The staircase is entirely visible and not cropped. The background is a completely flat, uniform vivid blue screen with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3521,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9942,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4169,
+   "tokens_out": 1323,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-dormer--tile": {
+   "id": "roof-dormer--tile",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-dormer--tile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a small wooden cottage or dormer window structure with an orange terracotta tiled roof, presented on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a small wooden cottage or dormer window structure with an orange terracotta tiled roof, presented on a solid blue background.",
+       "details": "There are no texts, labels, or watermarks present. The image shows a single standalone object, primarily identifiable as a stylized architectural dormer window or miniature cottage, with a secondary guess being a video game building asset. It features a pitched roof covered in ridged terracotta-orange tiles with a rounded ridge cap, a decorative scalloped wooden gable trim, and a half-timbered upper facade with off-white plaster infill. The front contains a two-panel closed casement window with light cream-colored wooden frames; each sash is divided into two rectangular panes filled with opaque dark greenish-grey glass, preventing any view inside. Four dark grey metal strap hinges (two on the left, two on the right) mount the sashes to the surrounding heavy timber frame. The walls and base consist of stylized brown wood planks and blocks. The entire object is completely contained within the frame, floating without any cast shadows against a uniform, flat royal blue background. There are no people or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5336,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4190,
+   "tokens_out": 1361,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ladder-wood--leaning": {
+   "id": "ladder-wood--leaning",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/ladder-wood--leaning.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden ladder with eight rungs angled against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden ladder with eight rungs angled against a solid bright blue background.",
+       "details": "There are no labels, text, or watermarks present. The image contains a single object: a stylized wooden ladder (second guess: a miniature rustic fence or trellis section). It consists of two long side rails connected by eight cylindrical horizontal rungs, with circular wooden pegs protruding from the outer faces where the rungs join the rails. The wood has a cartoon or 3D game asset aesthetic, rendered in warm honey-brown and caramel tones with soft grain lines, beveled ends, and lighter, worn patches centered on each rung. The entire ladder is fully visible within the frame and is not cropped. The background is a flat, uniform, vibrant chroma-key blue with no floor, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1586,
+      "soft": 0.0071,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9799,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4124,
+   "tokens_out": 1528,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chimney-stack--stone": {
+   "id": "chimney-stack--stone",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/chimney-stack--stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D game-art stone chimney with a small pitched slate rain cap, isolated on a uniform blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D game-art stone chimney with a small pitched slate rain cap, isolated on a uniform blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single isolated object: primarily a stone chimney stack (second guess: a decorative stone pillar or watchtower model). The structure is vertically oriented and composed of roughly ten courses of rounded, blocky cobblestones set in thick pale-tan mortar. The stones alternate between warm ochre/sandstone-tan and cool bluish-grey. Near the top, there is a protruding stone ledge or cornice, above which sits a short stone rim surrounding an open flue, stained with dark soot and grime. Resting over this opening is an A-frame peaked cap made of two thick, chipped slate-grey stone slabs open at both ends, allowing smoke to vent. The entire asset is rendered in a hand-painted/stylized 3D art style, fully contained within the frame without cropping. The background is a flat, solid chroma-blue with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2878,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4162,
+   "tokens_out": 1645,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-crenellated--dressed-stone": {
+   "id": "wall-crenellated--dressed-stone",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/wall-crenellated--dressed-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted 3D render of a stone fortress wall segment with a central raised arrow-slit turret against a uniform blue background.",
+      "ok": false,
+      "problems": [
+       "Contains raised merlons at the left and right ends instead of lower gaps",
+       "Central section is a turret tower with a pyramidal roof and arrow slit instead of a simple single raised square merlon"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted 3D render of a stone fortress wall segment with a central raised arrow-slit turret against a uniform blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single freestanding object: a defensive stone wall segment or battlement (second guess: castle ruins prop). The wall is built of large, roughly rectangular chiseled stone blocks arranged in four horizontal tiers, with elevated battlement sections on top. The left and right ends feature raised flat-topped merlons, while the center features a taller rectangular turret structure topped with a four-sided pyramidal stone cap. The central section contains a narrow vertical arrow slit (embrasure) penetrating into a dark interior recess. Patches of greenish-yellow moss or lichen grow in the mortar joints and crevices between the blocks. The material appears to be weathered limestone or sandstone with stylized chipped edges, colored in light tan, beige, and warm grey tones with subtle directional lighting. The entire structure is whole, completely contained within the frame, and floating with no visible floor or cast shadows against a solid, completely uniform bright blue background. There are no people or other scenery elements.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 1833,
+   "tokens_out": 1273,
+   "status": "accepted",
+   "redo_rejected": {
+    "attempts": [
+     {
+      "try": 1,
+      "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/wall-crenellated--dressed-stone.try1.jpg",
+      "semantic": {
+       "what_i_see": "A stylized, hand-painted 3D render of a stone fortress wall segment with a central raised arrow-slit turret against a uniform blue background.",
+       "ok": false,
+       "problems": [
+        "Contains raised merlons at the left and right ends instead of lower gaps",
+        "Central section is a turret tower with a pyramidal roof and arrow slit instead of a simple single raised square merlon"
+       ],
+       "blind": {
+        "what_i_see": "A stylized, hand-painted 3D render of a stone fortress wall segment with a central raised arrow-slit turret against a uniform blue background.",
+        "details": "There are no text, labels, or watermarks present. The image shows a single freestanding object: a defensive stone wall segment or battlement (second guess: castle ruins prop). The wall is built of large, roughly rectangular chiseled stone blocks arranged in four horizontal tiers, with elevated battlement sections on top. The left and right ends feature raised flat-topped merlons, while the center features a taller rectangular turret structure topped with a four-sided pyramidal stone cap. The central section contains a narrow vertical arrow slit (embrasure) penetrating into a dark interior recess. Patches of greenish-yellow moss or lichen grow in the mortar joints and crevices between the blocks. The material appears to be weathered limestone or sandstone with stylized chipped edges, colored in light tan, beige, and warm grey tones with subtle directional lighting. The entire structure is whole, completely contained within the frame, and floating with no visible floor or cast shadows against a solid, completely uniform bright blue background. There are no people or other scenery elements.",
+        "reference_differences": []
+       }
+      },
+      "verdict": "semantic_reject"
+     }
+    ]
+   },
+   "note": "mesh agent 2026-10-05 22:05: a re-roll plate (--redo) was refused by the gate; masked/ and inputs still hold the ORIGINAL plate accepted at 19:17, which is the one meshed. Status restored by hand."
+  },
+  "chimney-stack--brick": {
+   "id": "chimney-stack--brick",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/chimney-stack--brick.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, freestanding brick chimney stack topped with an open terracotta chimney pot, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, freestanding brick chimney stack topped with an open terracotta chimney pot, isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single object: a stylized brick chimney stack (second guess: decorative brick pillar or column). It consists of a tall rectangular vertical column built from reddish-orange, brown, and tan bricks separated by light grey mortar, an ornamental corbelled/stepped overhang near the top, and a cylindrical terracotta chimney pot with a flared lip seated on top. The chimney pot is open, showing a dark, hollow interior. The entire structure has a smooth, hand-painted video game asset aesthetic with rounded bevels on the individual bricks. The chimney is completely visible within the frame and not cropped. The background is a flat, uniform, bright blue screen with no floor, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2648,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9941,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4126,
+   "tokens_out": 1273,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-hatch--wood": {
+   "id": "roof-hatch--wood",
+   "group": "p1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-hatch--wood.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized isometric wooden trapdoor or low wooden crate with heavy iron hinges and a pull ring, centered on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized isometric wooden trapdoor or low wooden crate with heavy iron hinges and a pull ring, centered on a solid blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image contains a single isolated object, best described as a wooden trapdoor or hatch, with a flat wooden storage box or crate as a second guess. The object consists of a low rectangular wooden base topped with a closed wooden plank lid. The lid has multiple adjacent vertical planks reinforced by two horizontal wooden battens bolted across the top. On the rear batten, two heavy dark iron strap hinges are mounted. On the front batten, a single dark iron pull ring handle rests flat. The lower corners of the wooden base are reinforced with dark iron angle brackets held by rivets. The lid is fully closed, and the interior is not visible. The materials appear as stylized warm medium-brown wood with distinct grain lines and dark, weathered wrought iron fittings. The object is completely contained within the frame with no cropping. The background is a flat, uniform, bright blue color without any floor, cast shadows, scenery, or figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2998,
+      "soft": 0.0026,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.997,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 17
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4172,
+   "tokens_out": 1527,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "wall-crenellated-corner--dressed-stone": {
+   "id": "wall-crenellated-corner--dressed-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/wall-crenellated-corner--dressed-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, freestanding stone masonry pillar or crenel corner topped with a low pyramidal cap and featuring arrow slits on its sides, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, freestanding stone masonry pillar or crenel corner topped with a low pyramidal cap and featuring arrow slits on its sides, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one isolated object: a vertical, stylized stone pillar or battlement post (second guess: an isometric stone wall corner piece). It consists of five courses of chunky, beveled masonry blocks beneath a four-piece beveled pyramidal capstone. Each of the two visible sides features a recessed, vertical narrow arrow slit (embrasure) penetrating into the wall. Patches of green moss grow in the horizontal crevices between block layers. The stone has a warm tan and grayish-beige hue with painted edge highlights and subtle cracks. The object is depicted whole without clipping against a flat, solid, shadowless blue background.",
+       "reference_differences": [
+        "Overall structure: The candidate is an isolated, tall vertical pillar/column, whereas the reference is a wide, continuous section of fortified stone wall with two lower outer tiers and one central raised crenel.",
+        "Arrow slits: The candidate features vertical slits on both visible perpendicular faces, while the reference only features one slit on the central raised section.",
+        "Proportions: The candidate is vertically elongated with a square footprint (five block courses plus cap), while the reference is wide, low, and horizontally extended.",
+        "Wall extensions: The candidate lacks any flanking wall segments or lateral coping stones found on the left and right sides of the reference structure."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3739,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9954,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5370,
+   "tokens_out": 1456,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-landing--dressed-stone--t10": {
+   "id": "stair-landing--dressed-stone--t10",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-landing--dressed-stone--t10.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized isometric stone cube with recessed stone-filled arched niches on its visible sides, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized isometric stone cube with recessed stone-filled arched niches on its visible sides, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single object: a stylized stone cube or architectural masonry block. The top surface consists of four large square stone slabs forming a flat 2x2 grid. The two visible vertical side faces are built of rectangular and square masonry blocks, each featuring an identical recessed blind arched niche framed by curved stone voussoirs and stone jambs, filled with stone blocks inside. Mortar grooves between blocks contain slight green moss accents. Materials depicted are weathered stone in shades of beige, tan-yellow, and cool grey. The object is completely intact, centered, and uncropped. The background is a solid, uniform, flat blue chroma screen with no floor plane or drop shadow. There are no people or scenery.",
+       "reference_differences": [
+        "The candidate is a solid, uniform cubic block with a flat top, whereas the reference is a diagonal ascending staircase structure with eight distinct steps.",
+        "The candidate has arched niches on both visible vertical facades, whereas the reference has only one arched niche located on the right vertical flank under the highest section of the stairs.",
+        "The candidate's top surface consists of a 2x2 arrangement of flat pavers, whereas the reference features stepped horizontal surfaces ascending at regular vertical intervals."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.48,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9959,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5375,
+   "tokens_out": 1554,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-half--dressed-stone": {
+   "id": "stair-half--dressed-stone",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-half--dressed-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isolated, isometric illustration of a short flight of weathered stone stairs set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isolated, isometric illustration of a short flight of weathered stone stairs set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one separate object, which appears to be a stylized stone staircase or a modular masonry block asset. It consists of six stepped levels, each composed of three rectangular stone blocks side-by-side. The right-hand vertical flank is built from tightly fitted, chiseled rectangular stone blocks with faint green moss in the mortar seams. There are no doors, handles, drawers, or openings. The materials look like hand-painted or 3D-rendered beige and grey sandstone or limestone blocks with rounded, chipped edges and subtle mottled stone texturing. The object is completely intact and centered, uncropped by the frame. The background is a flat, uniform solid bright blue without shadows, ground planes, or surrounding scenery.",
+       "reference_differences": [
+        "The candidate has only six steps, whereas the reference has nine steps and is noticeably taller and longer.",
+        "The right flank of the candidate consists entirely of flat stone masonry, completely lacking the arched recessed niche/doorway feature found on the side of the reference.",
+        "The candidate has a squatter, more compact overall proportion compared to the steeper, taller profile of the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4986,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9956,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5374,
+   "tokens_out": 1562,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-hatch-open--wood": {
+   "id": "roof-hatch-open--wood",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-hatch-open--wood.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized square wooden trapdoor or hatch with its lid propped open, revealing an opening with ladder rungs against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized square wooden trapdoor or hatch with its lid propped open, revealing an opening with ladder rungs against a solid blue background.",
+       "details": "There is no text, labels, or watermarks. The image features a single object: primarily an open wooden trapdoor/cellar hatch, or secondarily an open wooden storage box/crate. The object consists of a low rectangular wooden base frame with metal corner brackets, an open lid propped almost vertically at roughly an 80-degree angle, an iron support strut/arm on the right side, two iron hinges along the back edge, an iron pull-ring handle mounted near the top inner edge of the lid, and two wooden ladder posts with a cross rung descending into a black empty void inside the hatch opening. The lid is open, allowing full view of the dark interior and the ladder. The materials are brown textured wood with grain and bevels, and dark oxidized iron with metal rivets/studs. The entire object is fully visible and not cropped. The background is a flat, uniform solid bright blue without shadows, ground, scenery, or people.",
+       "reference_differences": [
+        "The lid in the candidate image is wide open and supported by a diagonal metal prop bar, whereas the lid in the reference image is completely closed.",
+        "The interior of the box with ladder rungs leading into a dark pit is visible in the candidate, but completely hidden in the reference.",
+        "The candidate reveals the underside of the lid with two horizontal reinforcement planks and an iron ring fixture at the upper edge, while the reference shows the top exterior of the lid with strap hinges and a ring handle mounted to the front cross-batten.",
+        "The hinges in the candidate are compact inner hinges along the interior joint, whereas the reference features elongated surface strap hinges extending across the top planks.",
+        "The candidate includes a diagonal metal lid-stay or prop arm on the right interior side that is not visible in the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4244,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9945,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5470,
+   "tokens_out": 1975,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "post-timber--plain": {
+   "id": "post-timber--plain",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/post-timber--plain.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted wooden post or pillar set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted wooden post or pillar set against a solid blue background.",
+       "details": "There are no text labels or watermarks visible. The image contains one separate object, which is best identified as a stylized wooden post or pillar (second guess: a wooden structural beam or fence post). It features a tall vertical shaft with chamfered vertical edges and painted wood grain, topped by a blocky wooden cap or bracket with square wooden pegs protruding from each visible face and tree rings painted on the top surface. There are no moving parts, doors, drawers, or lids. The object is rendered in a warm light brown and honey-toned wood palette with darker brown lines defining the grain, knots, and crevices. The entire object is depicted without being cropped. The background is a completely flat, uniform bright blue chroma screen with no shadows, floor, or other scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1586,
+      "soft": 0.0034,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9881,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4095,
+   "tokens_out": 1467,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "jetty-bracket--s1": {
+   "id": "jetty-bracket--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/jetty-bracket--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized digital illustration of a heavy wooden wall bracket or cantilevered post arm against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized digital illustration of a heavy wooden wall bracket or cantilevered post arm against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single constructed object: a wooden bracket or sign hanger (best guess: a wooden corbel/gallows bracket; second guess: a wooden wall mount for a hanging lantern or shop sign). The object consists of three primary joined wooden timbers: one vertical post, one horizontal cantilevered beam extending to the right from the top, and one curved diagonal brace supporting the horizontal beam from below. Two round wooden dowels or bolt heads are visible along the front face of the vertical post securing the joints. There are no doors, drawers, lids, handles, or wheels. The material is stylized, hand-painted textured wood in warm honey-brown and amber tones, featuring visible wood grain, knots, chiseled bevelled edges, and cross-section grain rings on the cut ends. The object is completely intact and fully contained within the frame without cropping. The background is a flat, uniform solid vibrant blue with no floor, scenery, shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3198,
+      "soft": 0.0046,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9927,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4165,
+   "tokens_out": 2540,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-grand--noble-interior": {
+   "id": "stair-grand--noble-interior",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-grand--noble-interior.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rendered grand wooden staircase with marble steps and a gold-trimmed red carpet runner, isolated on a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rendered grand wooden staircase with marble steps and a gold-trimmed red carpet runner, isolated on a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The single primary object is a flight of grand stairs (or staircase prop/miniature). It consists of approximately 13 to 14 tiers of steps made of light cream-colored marble or polished stone with rounded edges; the bottom two steps curve outward at the base. Running down the center of the stairs is a plush, deep-red carpet runner lined on both sides with a golden-yellow border. Flanking the steps on both sides are polished brown wooden railings supported by turned balusters and substantial rectangular newel posts. The two lower newel posts are topped with spherical wooden ball finials, while the two upper posts terminate in faceted, multi-sided caps. The outer flank visible on the right features wooden wainscoting-style paneling. The entire staircase is fully visible and not cropped. The background is a flat, uniform, bright blue field with no shadows, floor plane, people, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5331,
+      "soft": 0.0051,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.995,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4218,
+   "tokens_out": 2344,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "buttress--s1": {
+   "id": "buttress--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/buttress--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, stepped stone pillar or architectural buttress viewed from an isometric angle against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, stepped stone pillar or architectural buttress viewed from an isometric angle against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single object: a stylized medieval-fantasy stone masonry buttress or chimney pillar (second guess: a stepped stone corner pillar or decorative tower segment). It consists of three stepped tiers tapering upwards: a broad square lower base sitting atop a low-profile foundation trim, capped by a sloped stone roof/cornice on the left and front; a narrower middle section of stone blocks topped with a smaller sloped stone cap; and a tall, slender top section capped with a small pitched, gabled roof ridge. The structure is built from roughly rectangular and square dressed ashlar blocks in varying tones of grey, ochre, sandy tan, and olive green, with patches of green moss clustered in crevices and crevices between stones. There are no doors, drawers, lids, or open cavities. The object is completely intact and fully enclosed within the frame, casting no ground shadow. The background is a flat, uniform, vibrant cobalt-blue chroma background with no scenery or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2332,
+      "soft": 0.0032,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9936,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 7
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4182,
+   "tokens_out": 1501,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-dormer--slate": {
+   "id": "roof-dormer--slate",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-dormer--slate.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of an ornate classical stone dormer window with an arched pane and a gabled slate roof set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of an ornate classical stone dormer window with an arched pane and a gabled slate roof set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains a single standalone object, best described as an architectural dormer window module or a decorative stone facade element (second guess: a miniature shrine or crypt facade). The structure features a classical facade made of beige/sandstone material, comprising two side pilasters with stepped bases and capitals, a protruding bottom sill, an arched stone frame, and a triangular pediment decorated with a carved central fleur-de-lis relief. Inside the arch is a dark green-tinted six-pane window divided by wooden or stone mullions (two columns, three rows with arched upper sections). The window is closed, showing semi-reflective opaque glass. The roof is pitched with dark grey-and-greenish stone/slate overlapping tiles and a cylindrical ridge cap with end-caps. The visible right side of the structure is clad in tall, dark grey vertical stone or lead panels with a lower rim. The entire object is fully visible and not cropped. The background is a flat, uniform bright blue screen with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5097,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9965,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4221,
+   "tokens_out": 1467,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "corbel-stone--s1": {
+   "id": "corbel-stone--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/corbel-stone--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, weathered stone architectural corbel or wall bracket set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, weathered stone architectural corbel or wall bracket set against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object: a stepped stone corbel (best name) or an architectural wall bracket / console (second guess). It consists of three tiers of projecting stone blocks extending from a vertical backing column of three blocks. The top horizontal block extends the farthest with a curved underside profile, the middle tier extends to an intermediate length, and the bottom tier is the shortest with an upward-curved terminus. There are no legs, wheels, doors, drawers, or moving parts. The object is rendered with a chiseled, slightly chipped, and cracked sandstone or limestone material in shades of beige, warm tan, and muted grey. The object is completely visible and not cropped by the frame. The background is a solid, completely uniform vivid blue screen with no shadows cast onto it, no ground plane, and no scenery or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3984,
+      "soft": 0.0035,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9964,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4138,
+   "tokens_out": 1805,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chimney-stack--mansion": {
+   "id": "chimney-stack--mansion",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/chimney-stack--mansion.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized tall red brick chimney stack with light stone quoins, a decorative stone cornice, and three terracotta chimney pots on top, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized tall red brick chimney stack with light stone quoins, a decorative stone cornice, and three terracotta chimney pots on top, isolated against a solid blue background.",
+       "details": "No text, labels, or watermarks are present. The image contains one isolated object: a chimney stack (best name) or an architectural column/pillar (second guess). The structure features a tall rectangular shaft faced with reddish-orange bricks and bordered by pale cream/beige stone quoins running down the corners. Below the top sits a projecting stone cornice supported by corbel blocks. Resting on the upper ledge are three terracotta chimney pots of differing shapes: the left pot is circular/cylindrical, the center pot is square, and the right pot is octagonal. All three pots have open apertures at their tops revealing shallow, dark soot-stained interiors. The piece is rendered in a stylized, hand-painted 3D video game aesthetic with warm orange-red, tan, and dark grey tones. The object is completely intact within the frame with no parts cropped. The background is a flat, uniform chroma-blue with no ground plane, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2598,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9928,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4187,
+   "tokens_out": 1528,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "chimney-stack--cottage": {
+   "id": "chimney-stack--cottage",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/chimney-stack--cottage.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted stone chimney with a flat stone cap supported by corner blocks, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted stone chimney with a flat stone cap supported by corner blocks, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single freestanding object: a stylized 3D model of a stone chimney or furnace vent (second guess: an ornamental stone pillar or kiln). The structure consists of a square flat stone top cap, four corner stone supports creating rectangular vent gaps, and a main body built of stacked irregular rectangular stone blocks with visible mortar joints, tapering outwards slightly towards the base. Through the openings below the cap, a dark, hollow interior is partially visible with dark soot staining covering the stone ceiling and upper outer edges. A small patch of green moss or ivy clings to the right side seam of the stones. Colors range from pale beige, sand, and light gray for the stone faces, darker tan/brown for mortar lines, black/charcoal for soot marks, and vivid green for the moss. The entire object is fully visible and not cropped, centered on a uniform, flat blue chroma-key background without shadows or floor.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4526,
+      "soft": 0.0043,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9952,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4174,
+   "tokens_out": 1635,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-dormer--thatch": {
+   "id": "roof-dormer--thatch",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-dormer--thatch.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, cubic miniature medieval cottage or thatched-roof house asset against a solid bright blue background.",
+      "ok": false,
+      "problems": [
+       "Shows an entire miniature house/cottage instead of an isolated dormer window"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, cubic miniature medieval cottage or thatched-roof house asset against a solid bright blue background.",
+       "details": "There is no text, label, or watermark. The image contains one isolated object, best described as a stylized cottage house block or miniature building game asset, with a secondary guess of a medieval architectural cube. The structure consists of a thick, rounded golden-yellow thatched straw roof covering the top, tan-colored textured plaster or stucco walls, and heavy dark brown wooden framing beams, braces, and posts. The front-facing side features a central two-casement window with a light beige frame and four dark greenish-gray glass panes; the window is closed and opaque, preventing any view inside. The right visible side has exposed plaster with a diagonal wooden crossbeam and vertical corner posts. The entire structure is shown intact and fully within the frame without cropping. The background is a flat, uniform, vibrant royal blue with no floor surface, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-dormer--thatch.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, digital 3D-style medieval cottage with a thick thatched roof and timber framing isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Depicts an entire cottage building instead of an isolated dormer window structure"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, digital 3D-style medieval cottage with a thick thatched roof and timber framing isolated against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image depicts a single separate object: a small stylized cottage (or medieval building game asset). The building features a thick, sculpted golden-yellow thatched roof with layered fringe, heavy brown timber beams forming the frame and base, cream-colored plaster/stucco walls, and a timber-framed double window centered on the front facade. The window has light-toned wooden framing divided into four small glass panes (two per side) which are closed, showing opaque dark greenish-gray glass with no interior visible. The right side features visible half-timbering with a diagonal brace. The object is completely contained within the frame with no cropping. The background is a solid, uniform vivid royal blue with no floor, horizon, or cast shadows. No people or scenery are present.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 3586,
+   "tokens_out": 2174,
+   "status": "rejected"
+  },
+  "parapet-straight--dressed-stone": {
+   "id": "parapet-straight--dressed-stone",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/parapet-straight--dressed-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, weathered low stone wall segment isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, weathered low stone wall segment isolated against a solid blue background.",
+       "details": "The image contains no text, watermarks, or labels. There is one single object: a low stone wall (best name) or parapet/balustrade (second guess). The structure consists of a top rounded coping composed of four segments, flanking square-profile corner pillars made of stacked stone blocks, a central recessed panel with a decorative molded border enclosing rectangular stone tiles, and a molded base plinth divided into four segments. There are no doors, lids, drawers, legs, or wheels. The wall is textured in a hand-painted/stylized aesthetic with pale beige, warm gray, and tan stone, accented by splotches of olive-green lichen and moss. The object is completely within the frame and not cropped. The background is a completely uniform, solid chroma-key blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.377,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9949,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4144,
+   "tokens_out": 1513,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-ridge--thatch": {
+   "id": "roof-ridge--thatch",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-ridge--thatch.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital 3D/stylized game asset depicting a segment of a thatched roof ridge or eave with crisscrossed wooden bracing against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital 3D/stylized game asset depicting a segment of a thatched roof ridge or eave with crisscrossed wooden bracing against a solid blue background.",
+       "details": "There are no text labels, watermarks, or people in the image. The image features a single object: a stylized section of a thatched straw roof ridge (or roof eaves/awning segment). It has a triangular/sloped profile with a vertical side face on the left, a rounded ridge cap running along the top, a sloped front face, and a scalloped lower trim made of overlapping rounded thatch bundles (around 8\u20139 scallops along the bottom edge). Fastened along the sloped thatch face is a series of overlapping brown wooden cross-battens forming approximately seven 'X' shapes. The materials consist of textured golden-yellow/straw thatch with painted stroke details and medium-brown wood. The object is completely intact and fully contained within the frame without cropping. The background is a solid, uniform vivid royal blue with no floor, scenery, or cast shadow.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2559,
+      "soft": 0.0026,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 10
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4149,
+   "tokens_out": 1606,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-skylight--lead": {
+   "id": "roof-skylight--lead",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-skylight--lead.try1.jpg",
+     "semantic": {
+      "what_i_see": "A digital isometric illustration of a square wooden architectural structure topped with a pyramidal metal-and-glass skylight, centered against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital isometric illustration of a square wooden architectural structure topped with a pyramidal metal-and-glass skylight, centered against a solid blue background.",
+       "details": "There are no text, labels, or watermarks visible. The image contains one isolated object, best described as a roof lantern or skylight, with a second guess being a cold frame garden lid or a display case top. The structure consists of a square-shaped base constructed from warm brown wood planks with reinforced corner posts, capped by a pyramidal hip roof made of weathered dark grey/bronze metal framing. The metal frame features four corner hips and intermediate dividing struts holding multiple dark greenish-grey glass panes. At the top apex sits a small square pedestal supporting a round metal spherical finial. The unit is completely closed, and the interior is not clearly visible through the dark, tinted glass. The entire object is fully contained within the frame with no cropping. The background is a uniform, flat, bright blue screen with no floor surface, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.263,
+      "soft": 0.0022,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9976,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 24
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4153,
+   "tokens_out": 1562,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-ridge--tile": {
+   "id": "roof-ridge--tile",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-ridge--tile.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of an elongated terracotta roof ridge cap or half-cylindrical pipeline segment shown floating diagonally against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Object includes a stone base ledge or platform underneath"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D model of an elongated terracotta roof ridge cap or half-cylindrical pipeline segment shown floating diagonally against a solid blue background.",
+       "details": "The image features a single stylized game asset depicting a half-cylinder structure, resembling a roof ridge tile, pipe, or low wall cap. It consists of five rounded terracotta/orange-brown cylindrical segments divided and bordered by six raised arched bands or ribs. The entire structure rests on a thin, straight, light beige or pale cream stone base ledge. The terracotta surface exhibits painted weathered textures with chips, surface variations, and patches of green moss along the seams and bottom edges. The front left end is closed with a flat semicircular face. The object is completely intact and uncropped. There are no people, text, markings, or cast shadows, and the background is a uniform solid bright blue.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-ridge--tile.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, elongated semi-cylindrical roof section or pipe divided into four segments by arched ribs, isolated against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Tiles do not overlap; the object is divided by thick structural ribs instead of overlapping ridge tiles end-to-end",
+       "Contains flat closed end faces and a stone-like base strip rather than hollow, open-bottom clay ridge tiles"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, elongated semi-cylindrical roof section or pipe divided into four segments by arched ribs, isolated against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains a single continuous object, best described as a barrel-vaulted roof section, tunnel cover, or segmented pipe (second guess: a low garden wall top or modular culvert piece). The object is half-cylindrical with flat end faces and a flat base, featuring four curved body segments separated and bordered by five thick arched structural ribs or bands. A thin, light-beige stone-like horizontal strip runs along the visible bottom edge above the base. There are no doors, lids, handles, or moving parts; the structure is completely solid and closed. The materials have a stylized, hand-painted video game appearance, featuring terracotta or rusted orange-brown surfaces mottled with dark grime and greenish moss or patina. The entire object is fully contained within the frame without cropping. The background is a solid, uniform royal blue with no visible floor, scenery, people, or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 3510,
+   "tokens_out": 3173,
+   "status": "rejected"
+  },
+  "gargoyle-spout--s1": {
+   "id": "gargoyle-spout--s1",
+   "group": "p2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/gargoyle-spout--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone gargoyle waterspout projecting forward from a rectangular architectural block against a bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized carved stone gargoyle waterspout projecting forward from a rectangular architectural block against a bright blue background.",
+       "details": "There are no texts, labels, or watermarks visible in the image. The image features a single object: a carved stone gargoyle waterspout (second guess: an ornamental stone corbel or drainage spout). The sculpture depicts a crouching demonic or dragon-like creature merged into a rectangular stone beam with an end bracket. Its features include a gaping open mouth serving as the spout hole revealing a dark hollow interior, sharp facial features with furrowed brows and pointed ears/horns, a clawed front paw gripping the bottom ledge, and folded bat-like wings resting along the sides of the block. The object is composed of weathered, light grey and beige stone blocks with cracked textures, accented by patches of green moss and water stains, particularly around the lower jaw and seams. The object is entirely contained within the frame without cropping. The background consists of a solid blue canvas with slightly darker horizontal blue bands at the very top and bottom, with no ground plane, surface, cast shadows, scenery, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2739,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.4109,
+      "verdict": "fail",
+      "why": [
+       "BiRefNet vs chroma disagree (IoU 0.4109)"
+      ],
+      "chroma_holes_removed_px": 0
+     },
+     "chroma_gate": {
+      "ok": false,
+      "problems": [
+       "large blue background area not removed around the object"
+      ]
+     },
+     "verdict": "mask_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/gargoyle-spout--s1.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone gargoyle waterspout or architectural corbel depicted against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized carved stone gargoyle waterspout or architectural corbel depicted against a solid blue background.",
+       "details": "There are no text labels, watermarks, or inscriptions visible on the image. The scene contains a single isolated object: a carved stone gargoyle waterspout or decorative corbel, rendered in a stylized video game asset aesthetic. The object consists of a rectangular mounting block at the back, connected to a beast figure emerging forward. The creature has a feline or draconic head with furrowed brows, pointed ears, flared nostrils, and a gaping open mouth lined with sharp teeth and fangs, revealing a hollow square channel interior intended for water drainage. Along the visible side is a carved folded wing and a front paw with four prominent claws resting on a stone base ledge. The material is weathered pale grey-brown carved stone or sandstone, adorned with patches of green moss and lichen in the crevices and top flat surface. The entire object is fully contained within the frame with no parts cropped. The background is a solid, uniform, vibrant blue screen with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4733,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8335,
+   "tokens_out": 3081,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "ladder-wood--upright": {
+   "id": "ladder-wood--upright",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/ladder-wood--upright.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden ladder standing vertically against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized wooden ladder standing vertically against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image depicts a single isolated object: a cartoon or game-asset style wooden ladder (secondary guess: a wooden climbing trellis). It consists of two tall vertical side rails with beveled, faceted top and bottom ends, connected by eight cylindrical horizontal rungs. The rungs have a light blonde wood band highlighted across their centers. Cylindrical peg/dowel ends protrude through the outer sides of the rails only at the first (top) rung and the seventh rung. No other rungs show protruding pegs on the sides. The material is painted light brown/amber wood with visible grain texture and stylized chiseled edge beveling. The object is completely contained within the frame with no parts cropped. The background is a solid, uniform, saturated blue screen with no ground plane or shadows cast.",
+       "reference_differences": [
+        "In the candidate image, the ladder is standing straight and vertically upright, whereas in the reference image, it is tilted diagonally backwards at an angle.",
+        "In the candidate image, protruding peg ends only extend through the side rails at the top rung and the second-to-bottom rung, whereas in the reference image, protruding wooden dowel ends appear along the outer rails at every single rung.",
+        "The camera angle in the candidate is nearly eye-level and frontal/orthographic-style, while the reference image is viewed from a lower 3/4 perspective looking up the tilt of the ladder."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1519,
+      "soft": 0.0077,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9729,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5418,
+   "tokens_out": 1713,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-wall-hugging--dressed-stone": {
+   "id": "stair-wall-hugging--dressed-stone",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-wall-hugging--dressed-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized isometric stone staircase featuring an arched alcove built into its side, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized isometric stone staircase featuring an arched alcove built into its side, set against a solid bright blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery. The image depicts a single freestanding object: a masonry stone staircase (second guess: a fantasy game architectural prop). The structure consists of seven ascending stone steps leading from the lower left to the top right, supported by a thick ashlar stone wall. The right side of the wall features a recessed blind arched niche framed by voussoir-like curved stones. The materials appear to be weathered, chiseled limestone or sandstone blocks colored in shades of brownish-gray, tan, and buff, with touches of green moss growing in the mortar joints between blocks. The recessed arch is solid and fully blocked by interior masonry, revealing no open passage. The object is completely intact and uncropped, floating without contact shadows over a flat, uniform, bright blue background.",
+       "reference_differences": [
+        "In the candidate image, the side wall block below and slightly left of the arch is muted greyish-brown, whereas in the reference image, that same stone block is distinctly ochre-yellow.",
+        "In the candidate image, the top landing's rightmost stone block is weathered brownish-grey, whereas in the reference image, it has a more prominent warm yellow-tan highlight.",
+        "The fine surface fractures, moss distribution, and subtle weathering texture details on individual stone blocks vary slightly throughout the masonry between the two versions."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4486,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5415,
+   "tokens_out": 1845,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-quarter-turn--dressed-stone": {
+   "id": "stair-quarter-turn--dressed-stone",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-quarter-turn--dressed-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "An isometric video game asset showing an L-shaped stone staircase with a central landing, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "An isometric video game asset showing an L-shaped stone staircase with a central landing, set against a solid blue background.",
+       "details": "There is a single contiguous structure consisting of a stone staircase that turns at a rectangular intermediate landing. The lower flight has five steps ascending towards the landing, and from the landing, a second flight of five steps turns ninety degrees to ascend further to a higher platform. The entire structure is composed of hand-painted, slightly rounded stone blocks or bricks in shades of earthy tan, beige, and warm grey, with sparse green moss or lichen visible in the recessed crevices. The object has no doors, drawers, handles, or wheels. The structure is entirely contained within the frame, with no cropping. The background is a solid, completely uniform blue screen with no floor plane or drop shadows visible.",
+       "reference_differences": [
+        "The candidate structure is an L-shaped staircase with two flights connected by a square landing, whereas the reference is a single straight staircase.",
+        "The reference image features a recessed arched doorway or niche on its right side wall, which is absent in the candidate image.",
+        "The reference has a single continuous diagonal stepped profile along one axis, while the candidate branches across two perpendicular directions.",
+        "The candidate has a total of ten steps plus a central landing, whereas the reference has eight continuous steps."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4389,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5374,
+   "tokens_out": 2329,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "parapet-corner--dressed-stone": {
+   "id": "parapet-corner--dressed-stone",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/parapet-corner--dressed-stone.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, weathered stone pillar or wall post with a pyramidal cap set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, weathered stone pillar or wall post with a pyramidal cap set against a solid blue background.",
+       "details": "Text, labels or watermarks: None. Number of objects: One single object. Best name: Stone pillar or wall post; second guess: pedestal or stone marker. Parts: A four-sided low pyramidal pointed stone cap, an overhanging rounded upper cornice, a central shaft with vertical recessed panels framed by stone borders and corner blocks, and a flared, rounded base. There are no doors, lids, handles, or movable components. Materials and colours: Carved tan, beige, and light grey stone with mottled surface textures and patches of green moss or lichen. Completeness: The object is completely intact and centered within the frame without cropping. Background: Uniform, solid vibrant blue background with no floor, contact shadows, people, or scenery.",
+       "reference_differences": [
+        "Overall form: The candidate is a tall, vertically oriented square pillar, whereas the reference is a long, low horizontal wall segment.",
+        "Top cap: The candidate is capped with a low four-sided pyramid, while the reference has a flat, rounded horizontal coping across its entire length.",
+        "Panel arrangement: The candidate contains narrow, vertical recessed panels on its faces, whereas the reference has an elongated horizontal recessed panel containing multiple rectangular blocks.",
+        "Dimensions and proportions: The candidate is taller than it is wide with a square footprint, while the reference is considerably wider than it is tall with a thin, elongated footprint."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3587,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9948,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5369,
+   "tokens_out": 1721,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-landing--rough-timber--t10": {
+   "id": "stair-landing--rough-timber--t10",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-landing--rough-timber--t10.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized four-legged wooden square platform or low table set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized four-legged wooden square platform or low table set against a solid bright blue background.",
+       "details": "There is no text, label, or watermark visible. The image contains one separate object, best described as a wooden platform or table, with a secondary guess of a wooden pier or scaffolding segment. The object consists of a square top composed of six wooden planks framed by outer beams, supported by four thick vertical square posts (legs). Each post is capped at the top with a rounded square finial/dome and has a thickened square collar at the base with round peg accents. Curved wooden brackets reinforce the connections between the posts and horizontal apron beams beneath the top surface. The construction is entirely rendered in warm, medium-brown wood tones with highlighted stylized wood grain. The object is completely contained within the frame with no cropping. The background is a flat, solid, uniform saturated blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": [
+        "The candidate is a flat, horizontal square platform supported by four legs, whereas the reference is an inclined flight of stairs.",
+        "The candidate's top consists of flat horizontal floorboards, while the reference features eight ascending steps with treads and risers.",
+        "The candidate has open space between four distinct posts with curved corner brackets, whereas the reference has solid, vertical wooden planks enclosing the entire side wall beneath the steps.",
+        "The candidate has matching domed post caps on all four top corners, whereas the reference only has domed caps on the lower two post tops, ending flush/beveled at the upper railing ends."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3914,
+      "soft": 0.0055,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9935,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5412,
+   "tokens_out": 1713,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-half--rough-timber": {
+   "id": "stair-half--rough-timber",
+   "group": "sib1",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-half--rough-timber.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, digital 3D-rendered wooden short staircase with five steps against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, digital 3D-rendered wooden short staircase with five steps against a solid bright blue background.",
+       "details": "There are no texts, labels, or watermarks. The image contains one single object: a wooden staircase (or set of wooden steps). The staircase features 5 horizontal wooden steps/treads with vertical risers, two diagonal side stringers/railings with rounded wooden pegs or bolt heads, a vertical-slat panel enclosing the right side, and a vertical backboard made of upright wooden planks behind the topmost step. There are no doors, drawers, or lids. The material is stylized warm amber/brown wood with painted highlights and wood grain texture. The entire object is fully visible within the frame, uncropped, cast without ground shadows against a uniform bright blue background. There are no people or other scenery.",
+       "reference_differences": [
+        "Height and step count: The candidate has only 5 steps and is relatively short and squat, whereas the reference image has 10 steps and is significantly taller and steeper.",
+        "Bottom posts: The reference features two decorative square newel posts with rounded dome tops at the bottom corners of the stairs; the candidate lacks these posts entirely, terminating in simple beam ends.",
+        "Top termination: The candidate has a vertical wall of wooden slats forming a backboard behind the top step; the reference terminates in a top flat landing step framed by the side rails.",
+        "Peg count along the side beam: The candidate features 3 pegs along the slanted outer beam (plus corner fasteners), while the reference features 5 pegs spaced along its longer diagonal beam."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4392,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9956,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5436,
+   "tokens_out": 1717,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "stair-quarter-turn--rough-timber": {
+   "id": "stair-quarter-turn--rough-timber",
+   "group": "sib2",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-quarter-turn--rough-timber.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden staircase structure featuring two flights of steps connected by a central horizontal platform, set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "The staircase is straight rather than L-shaped with an upper flight at a right angle to the lower flight."
+      ],
+      "blind": {
+       "what_i_see": "A stylized wooden staircase structure featuring two flights of steps connected by a central horizontal platform, set against a solid blue background.",
+       "details": "There are no text labels, watermarks, people, or scenery in the image. The image displays a single game-asset-style object: a modular wooden staircase structure with a lower flight of five steps leading up to a flat rectangular plank landing, which in turn leads to an upper flight of five steps. The entire piece is constructed from golden-brown stylized timber planks and beams with visible wood grain and painted highlights. It features six vertical square newel posts topped with dome-like caps and detailed with round wooden pegs or bolts: two at the base of the lower flight, two flanking the landing, and two at the top landing edge. The lower sides are skirted with vertical wooden boards enclosing the space underneath the platform and upper stairs. The object is complete, uncropped, and floating centered on a flat, uniform, vibrant blue background with no shadows or ground plane.",
+       "reference_differences": [
+        "The candidate includes a central flat landing platform separating two shorter stair flights, whereas the reference is a single continuous straight flight of stairs.",
+        "The candidate features six prominent newel posts with rounded finial caps (two at the bottom, two at the central landing, and two at the top), whereas the reference only has two capped posts at the very bottom and flat-topped posts at the top.",
+        "The candidate structure is longer and stepped with a two-tiered side wall, whereas the reference structure forms a single triangular wedge-shaped profile.",
+        "The reference has 8-9 steps in a single continuous climb, while the candidate splits the elevation into two 5-step runs with a flat landing in between."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/stair-quarter-turn--rough-timber.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized wooden staircase structure featuring a lower flight of steps, a flat intermediate landing, and an upper flight of steps against a flat blue backdrop.",
+      "ok": false,
+      "problems": [
+       "Staircase is not L-shaped; upper flight does not turn at a right angle to the lower flight"
+      ],
+      "blind": {
+       "what_i_see": "A stylized wooden staircase structure featuring a lower flight of steps, a flat intermediate landing, and an upper flight of steps against a flat blue backdrop.",
+       "details": "There are no labels, text, or watermarks. The image contains one single composite object: a set of wooden stairs with an intermediate platform (or modular architectural stairway). The lower section consists of five steps flanked by inclined wooden side beams and vertical plank skirting. Two wooden newel posts with rounded top caps and square base collars flank the bottom of the lower stairs. At the top of the lower flight is an elevated horizontal landing platform floored with horizontal wooden planks, bordered by two additional newel posts. Rising from the rear of this platform is a second, upper flight of stairs with five visible steps, enclosed by inclined stringers and vertical plank paneling forming a taller supporting block. A total of five distinct newel posts with domed caps and circular peg accents are visible. The material is warm golden-brown wood rendered in a stylized, hand-painted digital art style with soft specular highlights. The structure is completely visible and not cropped. The background is a solid, uniform vivid blue with no shadows, ground plane, scenery, or figures.",
+       "reference_differences": [
+        "The candidate structure contains two flights of stairs connected by a flat central landing platform, whereas the reference is a single continuous straight staircase with no landing.",
+        "The candidate has five newel posts with domed caps distributed at the bottom steps, landing edges, and upper stair base, while the reference only has two newel posts located at the bottom entrance.",
+        "The candidate extends horizontally much further and has a more complex stepped silhouette compared to the simple triangular wedge profile of the reference.",
+        "The candidate features a horizontal planked platform surface in the middle that does not exist in the reference."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 6177,
+   "tokens_out": 3982,
+   "status": "rejected"
+  },
+  "jetty-bracket--s2": {
+   "id": "jetty-bracket--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/jetty-bracket--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, carved wooden architectural bracket or corbel decorated with acanthus leaf motifs, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, carved wooden architectural bracket or corbel decorated with acanthus leaf motifs, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single object: primarily an architectural corbel (first guess) or a decorative wall bracket / shelf support (second guess). It consists of a flat vertical wall mount on the left secured with two protruding round wooden pegs or bolts, a thick horizontal shelf or beam on top, and an S-curved central body ending in a spiral volute at the lower front. The sides of the curved section feature recessed reddish-brown panels containing carved relief acanthus leaves tinted in pale olive green and gold. The object has zero legs, wheels, doors, drawers, or lids; it is entirely static and rigid. The material appears to be stylized, hand-painted textured wood with prominent grain lines, painted carved details, and slightly worn, beveled edges. The object is depicted completely in full view without being cropped by the edges of the frame. The background is a flat, uniform, bright blue color with no floor, scenery, cast shadows, or other objects.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3518,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9951,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4164,
+   "tokens_out": 1545,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "buttress--s2": {
+   "id": "buttress--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/buttress--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a sloping stone wall segment or buttress against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a sloping stone wall segment or buttress against a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks in the image. The image displays a single isolated object, best described as a stone wall segment or buttress, and secondarily as a decorative stone pillar or rampart. The structure has an angled, sloping front face and a vertical rear, built from approximately nine courses of chiseled, beveled rectangular blocks topped by an angled stone cap. Small patches of green moss grow between several stone crevices. The stones are rendered in varied natural tones including light grey, brownish-tan, and dark charcoal grey. The object is completely intact and fully contained within the frame, centered against a solid, uniform bright blue background with no shadows or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3127,
+      "soft": 0.0036,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9948,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4090,
+   "tokens_out": 1347,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "corbel-stone--s2": {
+   "id": "corbel-stone--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/corbel-stone--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized classical carved stone corbel with acanthus leaf motifs, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized classical carved stone corbel with acanthus leaf motifs, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one separate object, which is an architectural corbel or console bracket (second guess: decorative wall sconce shelf or pilaster capital). The object consists of a flat rectangular top cap with slightly beveled, chipped stone edges, an S-curved scroll body with large volutes at the upper and lower fronts, a recessed vertical back support, and an ornate relief carving of acanthus leaves fanning across the curved front face. It has zero legs, wheels, doors, or drawers. It appears to be made of light beige, cream, or sandstone-colored carved stone with subtle hand-painted style mottling and edge weathering. The entire object is fully visible within the frame and is not cropped. The background is a solid, uniform, vibrant blue without any visible floor, horizon, or shadows. There are no people, animals, or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4105,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9955,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4142,
+   "tokens_out": 1220,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-dormer--shingle": {
+   "id": "roof-dormer--shingle",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-dormer--shingle.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D digital model of a small wooden building facade or shed with a sloped wooden shingle roof and two four-pane windows with open wooden shutters, isolated on a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D digital model of a small wooden building facade or shed with a sloped wooden shingle roof and two four-pane windows with open wooden shutters, isolated on a solid bright blue background.",
+       "details": "There are no text labels, watermarks, or people visible. The image contains one isolated object: primarily a miniature wooden building facade or cabin wall (second guess: a stylized game asset/modular shed). The structure features a single-slope lean-to roof covered in thick, layered wooden shingles with weathered gray and slight greenish mossy tints. Beneath the roof eaves are two adjacent square windows set within heavy timber framing. Each window consists of a lighter tan inner frame with a four-pane (2x2) crossbar design and opaque, frosted gray-green glass through which the interior cannot be seen. Each window is flanked by a pair of vertical-plank wooden shutters mounted with dark iron hinges; all four shutter panels are swung open outward. The right side of the structure shows vertical wood planking framed by angled corner posts. The construction is entirely rendered in warm golden-brown stylized wood with visible grain and notches. The object is completely uncropped and floats centered against a uniform, flat royal blue background with no visible floor or cast shadows.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5717,
+      "soft": 0.0037,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9965,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 0
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4217,
+   "tokens_out": 1954,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-finial--s1": {
+   "id": "roof-finial--s1",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-finial--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A weathered stone finial composed of a faceted sphere atop an ornate pedestal with a square base, isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A weathered stone finial composed of a faceted sphere atop an ornate pedestal with a square base, isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image shows a single isolated object: a decorative stone finial or garden sphere monument. It consists of three vertical sections: a large spherical stone orb with chiseled facets and hairline cracks at the top, a molded baluster-style cylindrical waist with beveled rims in the center, and a thick square plinth at the bottom with chamfered edges. The material resembles beige or light tan weathered limestone or sandstone, marked with green/olive moss or lichen splotches and fine cracks. The entire object is centered and fully visible within the frame. The background is a solid, uniform blue chroma key with no floor or shadows, and there are no people or surrounding scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2344,
+      "soft": 0.003,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9944,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4095,
+   "tokens_out": 1134,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "weathervane--banner": {
+   "id": "weathervane--banner",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/weathervane--banner.try1.jpg",
+     "semantic": {
+      "what_i_see": "A 3D stylized game asset depicting a metal weather vane or directional arrow finial against a uniform bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A 3D stylized game asset depicting a metal weather vane or directional arrow finial against a uniform bright blue background.",
+       "details": "There are no texts, labels, or watermarks visible. The image contains one single object, best described as a stylized weather vane (second guess: directional arrow signpost or architectural finial). The object consists of a central vertical rod or spindle with a decorative spherical finial at the top, a spherical node in the middle, and a four-way cross-brace near the bottom ending in four small spherical knobs. At the top section, a horizontal pointer rotates or points across the spindle: to the right is a multi-faceted pointed arrowhead trimmed with gold, and to the left is a swallowtail banner/pennant featuring a diamond-shaped cutout and matching gold trim. The material resembles dark, slightly hammered or painterly charcoal-gray iron highlighted with burnished brass or gold along all edges, rings, and knobs. The object is shown in full and is not cropped. The background is a solid, completely uniform bright blue with no shadows, floor, or other elements.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1981,
+      "soft": 0.006,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9885,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4175,
+   "tokens_out": 1558,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-finial--s2": {
+   "id": "roof-finial--s2",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-finial--s2.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted gray stone chess piece or decorative architectural finial centered on a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted gray stone chess piece or decorative architectural finial centered on a solid bright blue background.",
+       "details": "There are no text, labels, or watermarks present. The image contains one single object, best described as a stylized chess piece or a decorative stone finial/pedestal ornament. The object has a circular fluted pedestal base, three dark bronze or weathered iron faceted collar rings, a central spherical bulge, an upper neck, and is topped with a faceted, spear-like fleur-de-lis finial with a pointed peak. It has zero legs, wheels, doors, or drawers. The material appears to be textured gray carved stone or chiseled matte metal with metallic bronze accents on the three dividing rings. The entire object is fully visible within the frame, with no parts cropped. The background is a flat, uniform solid blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1851,
+      "soft": 0.0026,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 41
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4133,
+   "tokens_out": 1440,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "roof-ridge--lead": {
+   "id": "roof-ridge--lead",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-ridge--lead.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized low barrier or half-pipe conduit segment with a mottled stone or metal texture and a wooden end cap, set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Features an unwanted wooden plank end cap instead of being a uniform metal ridge bar"
+      ],
+      "blind": {
+       "what_i_see": "A stylized low barrier or half-pipe conduit segment with a mottled stone or metal texture and a wooden end cap, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks present. The image shows a single object, best described as a stylized modular wall barrier, with a second guess being an industrial or fantasy half-pipe conduit. It features an arched main body with a flared base, segmented into four distinct portions separated by three raised structural ribs or bands. The left end is capped by tightly fitted horizontal brown wooden planks trimmed within the curved stone-like frame, completely closed. The exterior has a stylized, hand-painted texture in mottled brownish-grey tones, resembling hammered metal or polished stone. The object is completely intact and not cropped by the frame. The background is a solid, uniform, vibrant blue field with no shadows, floor, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/roof-ridge--lead.try2.jpg",
+     "semantic": {
+      "what_i_see": "A four-section modular barrier or curb made of weathered grey metal or stone, set against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A four-section modular barrier or curb made of weathered grey metal or stone, set against a solid bright blue background.",
+       "details": "There is no text, label, or watermark visible in the image. The image features a single object: an elongated, modular low barrier or curb (second guess: an industrial pipe cover or architectural wall base molding). The structure consists of four contiguous curved segments linked together by three raised, rounded double-ribbed joints or bands. Each section has a rounded upper lip, a convex middle curve, and a sloping flared bottom flange. The visible left end shows a flat vertical cross-section. The surface appears to be weathered brushed metal or polished mottled concrete in shades of grey, with soft surface indentations and greenish-tan discoloration or patina. The object is completely inside the frame without cropping. The background is a flat, uniform bright blue field with no shadows, ground plane, text, or human figures.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2369,
+      "soft": 0.0024,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9973,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 54
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 5861,
+   "tokens_out": 3089,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "gargoyle-spout--plain": {
+   "id": "gargoyle-spout--plain",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/gargoyle-spout--plain.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized carved stone water spout or channel projecting outwards against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized carved stone water spout or channel projecting outwards against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks present. The image contains one single composite object: an architectural stone water spout (gutter chute), with a second guess of a stone fountain trough. Its structure consists of a rectangular wall-mounting stone block on the upper right, an elongated horizontal open trough with a semicircular groove divided into segments, a small rounded corbel support underneath near the base, and an ornate carved stone leaf covering the curved underside of the spout's terminus on the lower left. The trough is open on top, revealing a shallow carved channel. The material appears to be weathered limestone or sandstone with chiselled stylized edges, beige-grey in color, with olive-green moss and algae stains lining the interior groove and crevices. The entire object is fully visible and not cropped by the frame. The background is a solid, uniform saturated blue with no floor, scenery, cast shadows, or people.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.1982,
+      "soft": 0.0026,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9958,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 28
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4134,
+   "tokens_out": 1460,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "nest-bird--s1": {
+   "id": "nest-bird--s1",
+   "group": "p3",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-castle-crypt-mansion/vertical/work/nest-bird--s1.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, digital illustration of a bird's nest constructed from wooden sticks, lined with green moss, and containing three speckled eggs and two feathers against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, digital illustration of a bird's nest constructed from wooden sticks, lined with green moss, and containing three speckled eggs and two feathers against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks present. The image shows a single centered object: a stylized bird's nest (second guess: video game prop icon). The nest is woven from numerous thick, chunky brown wooden twigs and logs with detailed wood grain. Inside the hollow of the nest, there is a soft lining of vibrant green moss and golden straw. Resting in the moss are three oval, cream-colored eggs covered in brown speckles and spots. Tucked along the inner rim of the nest are two pale cream-to-tan feathers, one on the upper-left and one on the right. The nest has no moving parts, doors, or lids. The object is completely contained within the frame with no parts cut off. The background is a flat, solid, vivid blue with no floor, shadows, people, or scenery.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.3107,
+      "soft": 0.0026,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9974,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 22
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4125,
+   "tokens_out": 1512,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

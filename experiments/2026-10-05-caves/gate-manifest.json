@@ -1,0 +1,409 @@
+{
+ "gate_model": "gemini-3.8-flash",
+ "assets": {
+  "cave-wall-plain-a": {
+   "id": "cave-wall-plain-a",
+   "group": "first",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-caves/work/cave-wall-plain-a.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a vertical rock cliff or stone formation isolated against a solid bright blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a vertical rock cliff or stone formation isolated against a solid bright blue background.",
+       "details": "There are no labels, text, or watermarks. The image contains one single composite object: a tall, modular rock formation (or stylized cliff/boulder asset) composed of multiple faceted, angular blocks stacked tightly together into a vertical wall. It has no legs, wheels, doors, or moving parts. The material resembles stylized/hand-painted stone with geometric chisel-like facets, colored in shades of warm beige, tan, ochre-brown, and light grey, with greenish-olive moss or algae texturing concentrated along the lower base. The bottom is cut flat, indicating it is designed to sit on a surface or ground plane. The object is completely within the frame without being cropped, set against a completely uniform, solid chroma-key blue background with no floor, scenery, cast shadows, or people visible.",
+       "reference_differences": []
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.6205,
+      "soft": 0.004,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9974,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 5
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 4157,
+   "tokens_out": 1691,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cave-wall-ledge": {
+   "id": "cave-wall-ledge",
+   "group": "rest",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-caves/work/cave-wall-ledge.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, faceted rock formation sculpted into the shape of a throne or armchair with a horizontal seat ledge, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, faceted rock formation sculpted into the shape of a throne or armchair with a horizontal seat ledge, set against a solid blue background.",
+       "details": "There is no text, watermark, or label present. The scene contains a single main object: a stylized rock throne (best guess) or a segmented rocky cliff formation with a ledge (second guess). The object consists of multiple conjoined rock boulders forming a tall backrest, raised rock clusters on the left and right acting like armrests, a prominent flat horizontal rock slab serving as a seating ledge, and a solid rock base beneath. There are no doors, drawers, lids, wheels, or legs. The object is composed of stylized, faceted stone with tan, beige, and warm ochre-brown tones, accented by olive-green moss in the crevices, base, and across the top surface of the horizontal ledge. The object is completely contained within the frame without cropping. The background is a solid, completely uniform chroma blue with no floor, horizon, or cast shadows. There are no people or other scenery elements.",
+       "reference_differences": [
+        "The candidate features a prominent protruding horizontal rock slab forming a seat or bench, whereas the reference is a tall, continuous vertical rock wall without a protruding seat.",
+        "The candidate is arranged with the profile of an armchair or throne (recessed middle with raised back and sides), while the reference presents three vertical column-like rock groupings of relatively uniform depth.",
+        "The candidate has significant moss growth across the flat horizontal seating surface, whereas moss in the reference is primarily restricted to the bottom base and vertical crevices.",
+        "The candidate is viewed from a slight three-quarter high angle displaying the top face of the horizontal ledge, whereas the reference is viewed front-on."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5804,
+      "soft": 0.0044,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9961,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5489,
+   "tokens_out": 2250,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cave-wall-crack": {
+   "id": "cave-wall-crack",
+   "group": "rest",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-caves/work/cave-wall-crack.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, multi-faceted rock formation featuring a central arched cave opening against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Structure forms a two-peaked arched cave opening rather than a tall chunk of rock wall with a deep vertical crack"
+      ],
+      "blind": {
+       "what_i_see": "A stylized, multi-faceted rock formation featuring a central arched cave opening against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image features a single object: a stylized rock formation or cave entrance (second guess: rocky archway prop). It consists of numerous angular, chiseled rock blocks and boulders assembled into a high, two-peaked structure with a central recessed cave opening. The cave opening is completely open, revealing a shallow interior cavity with a rocky back wall and stepped rocky ground inside. The materials appear to be digital stylized stone rendered in warm ochre, sandy brown, and tan hues, with patchy green moss or lichen settling in the crevices along the base. The object is completely uncropped and centered. The background is a uniform, flat blue with no visible floor, ground surface, or shadows. There are no people or other scenery elements.",
+       "reference_differences": [
+        "The candidate features a deep, hollow cave opening/tunnel entrance in the center, whereas the reference image depicts a solid, continuous rock wall without an opening.",
+        "The top of the candidate structure divides into two distinct rocky peaks flanking the central arch, while the reference has a more continuous, three-columned cliff silhouette.",
+        "The candidate structure forms an archway/portal silhouette, whereas the reference is relatively flat and blocky across its front face."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-caves/work/cave-wall-crack.try2.jpg",
+     "semantic": {
+      "what_i_see": "A stylized, hand-painted 3D model of a rocky cliff formation containing a hollowed-out central alcove or niche, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized, hand-painted 3D model of a rocky cliff formation containing a hollowed-out central alcove or niche, set against a solid blue background.",
+       "details": "There are no texts, labels, or watermarks. The image shows a single rock formation (or stylized cliff alcove / cave recess). It consists of angular, faceted boulders stacked vertically to form a left rock pillar and a right rock pillar that frame a deep, vertical central opening or niche. Inside the base of the opening, there is a small flat stone platform or step. There are no doors, lids, or moving parts; the central cavity is open and visible into its interior depth. The material appears to be painted stone with warm tan, beige, and light brown surfaces, shadowed crevices, and greenish-yellow moss or lichen staining along the bottom edge. The object is completely contained within the frame without cropping. The background is a flat, uniform, unshaded vibrant blue with no ground plane or shadows cast beneath the rock.",
+       "reference_differences": [
+        "The candidate has a deep, hollow central alcove or niche opening with a flat stepped floor, whereas the reference has a completely solid rock face with protruding boulders in the center.",
+        "The candidate forms a split, U-like arch/alcove silhouette flanked by left and right rocky columns, whereas the reference is a continuous, wide wall of stacked rocks.",
+        "The overall silhouette of the candidate is slightly narrower and taller in proportion compared to the broader, blocky structure of the reference.",
+        "The interior facets of the candidate create shadowed depth inside the recess, which does not exist on the reference."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5153,
+      "soft": 0.0039,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9966,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8538,
+   "tokens_out": 3429,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cave-wall-overhang": {
+   "id": "cave-wall-overhang",
+   "group": "rest",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-caves/work/cave-wall-overhang.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model rendering of a tan, faceted rock cliff formation with an overhanging upper ledge, set against a solid blue backdrop.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model rendering of a tan, faceted rock cliff formation with an overhanging upper ledge, set against a solid blue backdrop.",
+       "details": "The image contains no text, watermarks, or labels. There is one single object depicted: a stylized rock formation or boulder cliff (second guess: game environment rock asset). It is composed of numerous chunky, chiseled, multi-faceted rock segments fitted together, with a prominent cantilevered overhang projecting out on the upper right side. It has no moving parts, doors, lids, or drawers. The material appears to be digitally painted stylized stone with warm tan, ochre, and pale buff planar faces, accented by olive-green moss or lichen staining along the base cracks and crevices. The formation is fully visible within the frame and rests on a flat bottom plane. The background is a uniform, flat blue color with no visible floor surface, shadows, or other scenery.",
+       "reference_differences": [
+        "The candidate formation features a large, prominent rock overhang/canopy projecting forward and to the right near the top, whereas the reference formation has an upright, relatively flat vertical cliff face.",
+        "The reference image consists of tall, vertical segmented columns or pillars running down the rock face, while the candidate is made of more blocky, rounded-topped boulders piled with horizontal shelves.",
+        "The candidate rock's overall silhouette is asymmetrical and top-heavy on the right, compared to the reference which has a more uniform, rectangular, vertically stepped silhouette.",
+        "The candidate has slightly warmer, more golden-brown stone coloring across the surface, whereas the reference features cooler grey-tan tones in the central vertical sections."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.629,
+      "soft": 0.0042,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9972,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 4
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5471,
+   "tokens_out": 1729,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cave-corner-column": {
+   "id": "cave-corner-column",
+   "group": "rest",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-caves/work/cave-corner-column.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a tall, vertical rock pillar with a flat top, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a tall, vertical rock pillar with a flat top, set against a solid blue background.",
+       "details": "There is no text, watermarks, or labels. The image features a single object: a freestanding rock pillar or stone column. The object is composed of multiple chiseled, blocky rock facets stacked tightly into a roughly cylindrical tower that terminates in a flattened top surface. There are no doors, drawers, lids, or wheels. The materials appear to be stylized painted stone, primarily light tan, ochre, and warm brownish-gray, with olive-green moss or algae visible along the cracks and base perimeter. The object is fully contained within the frame with no parts cropped. The background is a solid, uniform, bright chroma blue with no floor surface, shadows, people, or scenery.",
+       "reference_differences": [
+        "The candidate forms a narrower, freestanding cylindrical rock pillar, whereas the reference is a much wider, flatter rock wall or cliff segment.",
+        "The candidate features a distinct, relatively flat platform-like top surface, whereas the reference ends in uneven, jagged vertical peaks at the top.",
+        "The overall aspect ratio of the candidate is more columnar and compact, while the reference is broader and rectangular in silhouette."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4335,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9962,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 2
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5388,
+   "tokens_out": 1521,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cave-rubble-low": {
+   "id": "cave-rubble-low",
+   "group": "rest",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-caves/work/cave-rubble-low.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D rock mound composed of faceted boulders with mossy bases, set against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D rock mound composed of faceted boulders with mossy bases, set against a solid blue background.",
+       "details": "There are no text, labels, or watermarks. The image contains one single composite object: a stylized rock cluster or mound (second guess: boulder outcrop). It consists of several interlocking, angular stone blocks arranged into a low, sloping hill with a central peak, lower left boulder formation, and a flat-topped tiered cluster on the right. There are no legs, wheels, doors, or drawers. The material appears to be painted/sculpted stone with hand-painted or faceted game-asset textures in warm tan, sandy beige, ochre, and soft brown, with patches of green-yellow moss or lichen coating the lower edges. The entire object is visible and not cropped. The background is a flat, uniform solid vibrant blue with no ground plane, drop shadow, people, or scenery.",
+       "reference_differences": [
+        "The candidate formation is broad, low, and rounded in silhouette (wider than it is tall), whereas the reference is tall, vertical, and cliff-like (significantly taller than it is wide).",
+        "The candidate forms a mound tapering down at both sides from a central peak, while the reference has steep, sheer vertical columnar rock faces reaching almost uniformly to the top.",
+        "The candidate rock exhibits a warmer, more uniform golden-tan and ochre coloration, whereas the reference shows cooler grayish-stone facets with localized streaks of orange-brown weathering."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.4114,
+      "soft": 0.0038,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9956,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 3
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5412,
+   "tokens_out": 3651,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cave-wall-plain-b": {
+   "id": "cave-wall-plain-b",
+   "group": "rest",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-caves/work/cave-wall-plain-b.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a rectangular rock wall section composed of faceted, stacked tan boulders with moss along the bottom edge, set against a solid blue background.",
+      "ok": false,
+      "problems": [
+       "Appears as a built wall of 25 to 30 stacked, interlocking stone blocks/boulders rather than a single solid mass of natural cave rock with a bulging, layered front"
+      ],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a rectangular rock wall section composed of faceted, stacked tan boulders with moss along the bottom edge, set against a solid blue background.",
+       "details": "There are no labels, text, or watermarks. There is one single composite object: a rock wall or stone cliff formation (second guess: a stylized stone barrier or terrain asset). It consists of roughly 25 to 30 visible faceted, interlocking rock blocks stacked together to form a roughly rectangular wall with a stepped top, tallest on the left and middle-left. There are no doors, drawers, lids, wheels, or handles. The object is intact, completely visible, and not cropped by the frame, sitting on a flat bottom edge. The material appears to be painted/stylized stone with faceted polygonal surfaces, colored in shades of warm tan, light ochre, and beige with dark fissures, accented by olive green mossy patches near the base. The background is a flat, uniform, bright blue screen with no cast shadows or floor plane visible.",
+       "reference_differences": [
+        "The candidate rock structure is wider and more rectangular/wall-shaped, whereas the reference is narrower and taller like a vertical cliff spire.",
+        "The candidate features predominantly horizontal, block-like rock stacking across the center, while the reference features tall, vertical rock slabs and columnar fissures.",
+        "The surface texture of the candidate has denser, smaller faceted geometric planes, whereas the reference features larger, smoother rock faces.",
+        "The top profile of the candidate is broader and more plateaued across the right-center, whereas the reference peaks higher in the center and slopes sharply on the sides."
+       ]
+      }
+     },
+     "verdict": "semantic_reject"
+    },
+    {
+     "try": 2,
+     "plate": "experiments/2026-10-05-caves/work/cave-wall-plain-b.try2.jpg",
+     "semantic": {
+      "what_i_see": "A digital render of a rounded, diagonally grooved golden-brown rock formation isolated against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A digital render of a rounded, diagonally grooved golden-brown rock formation isolated against a solid blue background.",
+       "details": "There are no labels, text, or watermarks in the image. The image contains one single object, best described as a stylized rock formation or sandstone cliff section (second guess: an organic boulder or clay mound). It consists of rounded, undulating diagonal ridges that run from the upper left toward the lower right, with no legs, drawers, doors, lids, or moving parts. The material appears to be tan and ochre rock covered in a fine, pebbled or faceted bump texture, with slight greenish discoloration along the base rim. The object is completely captured inside the frame with no parts cropped out. The background is a solid, flat primary blue with no ground plane, shadows, text, or scenery present.",
+       "reference_differences": [
+        "Geometry: The candidate has smooth, bulbous, diagonal folds and rounded contours, whereas the reference is composed of sharp, vertically oriented geometric blocks and angular rock slabs.",
+        "Cracks and fissures: The reference features deep, sharp vertical fissures dividing the rock into distinct columnar segments, while the candidate has softer diagonal gullies.",
+        "Surface detail: The candidate exhibits an overall fine stippled or faceted cellular relief across curved surfaces, whereas the reference displays flat, chiseled planar facets with painted shading.",
+        "Coloration: The candidate is uniformly golden-ochre to warm tan with subtle greenish shading at the bottom, while the reference has a cooler gray-tan rock palette with prominent rust-brown vertical streaks and well-defined patches of green moss in the lower third.",
+        "Silhouette: The candidate's silhouette is rounded and soft at the peaks and edges, while the reference has a jagged, stepped, blocky top and sides."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.7082,
+      "soft": 0.0045,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.997,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 1
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 2,
+   "tokens_in": 8544,
+   "tokens_out": 4672,
+   "status": "accepted",
+   "matte": "birefnet"
+  },
+  "cave-wall-arch": {
+   "id": "cave-wall-arch",
+   "group": "rest",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-05-caves/work/cave-wall-arch.try1.jpg",
+     "semantic": {
+      "what_i_see": "A stylized 3D model of a natural rock arch formation isolated on a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A stylized 3D model of a natural rock arch formation isolated on a solid blue background.",
+       "details": "There are no labels, text, or watermarks. The image features a single object: a stylized rock archway or stone portal (second guess: rocky cave entrance). The structure consists of two vertical pillar-like legs made of stacked, faceted boulders that curve inward and connect at the top to form a rounded arch opening. Through the archway, the blue background is fully visible. The surface is textured with warm tan, beige, ochre, and gray stone facets, with patches of green moss concentrated around the base of both pillars. The object is completely in frame and rests on an unseen horizontal plane. The background is a uniform, flat blue chroma screen without cast shadows, scenery, or people.",
+       "reference_differences": [
+        "The candidate forms a hollow, curved archway with an open passageway through the center, whereas the reference is a solid, continuous vertical rock wall/pillar with no opening.",
+        "The candidate has two separate ground contact bases forming pillars, while the reference has a single broad, solid ground footprint.",
+        "The top of the candidate curves into an inverted U-shape arch, whereas the top of the reference consists of uneven, stepped vertical rock spires."
+       ]
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.5809,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9963,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 6
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 5437,
+   "tokens_out": 2020,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

@@ -1,0 +1,14 @@
+Create a new single asset in the Turnip Works house style (heroic hand-painted): scree and boulder apron.
+
+The supplied image is the game's flat grass ground seen from straight above. This terrain piece will sit ON that ground, so every grassy surface of the piece must be the SAME grass: the same green hue, brightness and saturation, the same calm short-lawn texture and the same painting style, so that the piece blends into the ground with no visible colour change. Exposed rock is a neutral warm grey; exposed earth is a mid brown.
+
+Geometry: one solid, chunky landform with broad soft shapes; rocks are big rounded blocks, not gravel; no thin or fragile parts; no overhangs. Every part thick enough to reconstruct as 3D geometry.
+Finish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. The grass is a short, calm, even lawn painted as a soft surface (no individual tall blades sticking up).
+Avoid: trees, bushes, flowers, mushrooms, fences, signs, buildings, people, animals; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, black outlines, hard cel-shading bands, comic inking, flat vector art, text, logos.
+
+Presentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no sky, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no additional loose objects. The blue background is a removable mask and must not reflect blue light onto the asset.
+
+Specific design: A scree apron for the foot of a cliff: a low sloping pile of fallen warm-grey boulders and broken rock mixed with earth and tufts of short grass. Footprint 10 ft wide x 6 ft deep, 4 ft high at the back, sloping down at about 35 degrees to a feather edge at the front where a few last stones sit in the grass. The back is a flat vertical cut (it leans against a cliff). Boulders are big and chunky (1 to 3 ft across), fused into one solid pile, not loose pebbles. This is a single freestanding terrain piece, like a wargaming terrain model: its underside is perfectly FLAT and it sits directly on the ground. NO base slab, NO plinth, NO platform, NO board and NO rim under or around it: where the slope meets the ground it simply thins out to nothing (a feather edge). NO trees, NO bushes, NO sky, NO water. Keep the WHOLE object well inside the frame with a generous margin.
+
+
+Corrections from a rejected previous attempt (fix these): Depicts a tall rock cliff and steep vertical wall instead of a low sloping pile of boulders and rubble; Slopes from left to right rather than being noticeably higher at the back and thinning out toward the front

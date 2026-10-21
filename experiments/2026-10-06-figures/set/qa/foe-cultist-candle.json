@@ -1,0 +1,157 @@
+{
+ "file": "foe-cultist-candle.glb",
+ "tris": 48694,
+ "kb": 2763,
+ "native_extent": [
+  0.455,
+  1.001,
+  0.513
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  89,
+  38,
+  15
+ ],
+ "mean_saturation": 0.873,
+ "sized_by": "its highest point",
+ "overall_ft": 5.8,
+ "pieces": {
+  "connected_parts": 371,
+  "main_part_area_share": 0.7811,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.7978,
+ "y0": -2.9045,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.228,
+   -0.501,
+   -0.2561
+  ],
+  [
+   0.2272,
+   0.4998,
+   0.2566
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48694,
+   "tex": 2048,
+   "kb": 2763
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1111
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 468
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.85,
+    "z": 0.86,
+    "size_ft": [
+     0.77,
+     1.3
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.97,
+    "sole_p90_ft": 0.014
+   },
+   {
+    "x": -0.71,
+    "z": -0.87,
+    "size_ft": [
+     0.87,
+     1.26
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.015
+   },
+   {
+    "x": 0.59,
+    "z": -0.49,
+    "size_ft": [
+     1.18,
+     1.47
+    ],
+    "off_ground_ft": 0.357,
+    "sole_level_share": 0.58,
+    "sole_p90_ft": 0.491
+   },
+   {
+    "x": -0.41,
+    "z": 0.44,
+    "size_ft": [
+     1.04,
+     1.33
+    ],
+    "off_ground_ft": 0.4,
+    "sole_level_share": 0.48,
+    "sole_p90_ft": 0.512
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.4,
+  "lowest_slab_area_sqft": 1.44,
+  "plan_hull_area_sqft": 5.21,
+  "lowest_slab_share_of_plan": 0.276
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.64,
+   "d": 2.97,
+   "h": 5.8
+  },
+  "centre": [
+   -0.07,
+   0.208
+  ],
+  "contacts_radius_ft": 1.64,
+  "reach_radius_ft": 1.69,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.929,
+  "plate_lost_share": 0.011,
+  "added_share": 0.065,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.929,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "foe-cultist-candle",
+ "sha1": "78d8dd3ba5cb36214023ab598d73214c6ae37ac9",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.40 ft off the ground"
+ ],
+ "qa_seconds": 13.8
+}

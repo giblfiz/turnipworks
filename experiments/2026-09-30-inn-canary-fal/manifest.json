@@ -1,0 +1,91 @@
+{
+  "experiment": "2026-09-30-inn-canary-fal",
+  "generated_at": "2026-09-30T20:12:18.316565+00:00",
+  "assets": [
+    {
+      "asset": "barrel",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0f3f0-b05f-7042-a6d4-f9206d40df0a",
+      "started_at": "2026-09-30T20:10:31.969221+00:00",
+      "finished_at": "2026-09-30T20:12:02.315104+00:00",
+      "elapsed_seconds": 90.35,
+      "input": "inputs/barrel.jpg",
+      "input_sha256": "00f69a919260c4f35b71c5c23ff75d4f998f1e84aad246c48f0c9a19dddbb0a4",
+      "output": "models/barrel.glb",
+      "output_sha256": "6985ed094f4d573f5e6cdf80a89df2fe409a3f0ffbd9935446e10639839b3a79",
+      "output_bytes": 2772880,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "chair-plain",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0f3f0-b061-7d82-a5fb-77e2cddb5ffe",
+      "started_at": "2026-09-30T20:10:31.969510+00:00",
+      "finished_at": "2026-09-30T20:11:11.547922+00:00",
+      "elapsed_seconds": 39.58,
+      "input": "inputs/chair-plain.jpg",
+      "input_sha256": "02be534d62f87aa6cbed4dc41f283ab621cea62c7138eeef41454865b9969222",
+      "output": "models/chair-plain.glb",
+      "output_sha256": "07532f6fc459345e9da9a45d5fb9035dd708921d4862222c99afcd752f3a82f5",
+      "output_bytes": 2612940,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "tankard",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0f3f0-b064-71c1-9e87-a0b80bc92481",
+      "started_at": "2026-09-30T20:10:31.969735+00:00",
+      "finished_at": "2026-09-30T20:11:56.228951+00:00",
+      "elapsed_seconds": 84.26,
+      "input": "inputs/tankard.jpg",
+      "input_sha256": "6dbdb3a6393740863efc67449da3acf6b622751c814d331403173e0753c4e1da",
+      "output": "models/tankard.glb",
+      "output_sha256": "6af8e2f41668334fb286467c8b7241f9f79427338b4cb855fed6294eb4d93d83",
+      "output_bytes": 2809424,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "turnip-pile",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a0f3f0-b069-73b2-a548-8b31ba4253ef",
+      "started_at": "2026-09-30T20:10:31.973627+00:00",
+      "finished_at": "2026-09-30T20:12:18.304833+00:00",
+      "elapsed_seconds": 106.33,
+      "input": "inputs/turnip-pile.jpg",
+      "input_sha256": "cd226f0c5b6ddd2f43ce0292f75f9d5d4bdfde2687fb9bc3780de5d53e56e427",
+      "output": "models/turnip-pile.glb",
+      "output_sha256": "e11b890af2697e5ede90f048dfdf687c6d9dbcf4f825deaa79fa329ffac6099b",
+      "output_bytes": 2333672,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    }
+  ],
+  "estimated_total_cost_usd": 1.2
+}
