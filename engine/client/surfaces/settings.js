@@ -1,17 +1,23 @@
 import { openGames } from '../games.js';
 // Settings (Harry 2026-10-04; docs/UI.md "Settings"): the one exception to the tray pattern, an industry-standard
 // MODAL window with a category list on the left. The Settings launcher (a painted gear, the last of Pawns, Build, Settings) opens it.
+// The order (Harry 2026-11-01): the GM's work on the whole campaign first, then each person's own, Feedback last. A player
+// gets the five marked everyone, in this order: World navigation, Me, Graphics, Controls, Feedback.
 //   1 World navigation   everyone: the areas you can reach (open here / in the PiP); the GM creates, renames, deletes.
 //                        The section Settings always opens on (S or the launcher). Never shown by itself on arrival.
-//   2 Me                 everyone: name and seat colour, controls, graphics, UI size, announcements, cursors, motion,
-//                        sound (music: client/music.js; effects stored, inert), my agents, my requests (players), reset to defaults
-//   3 Area               GM, the area in the main view: open to players or hidden, play settings (each "using default"
+//   2 Invites and exports  GM (Campaign admin until Harry 2026-11-01): invites and seats and player requests first, then
+//                        snapshots, export / import, shared builds, Universal VTT, agent seats
+//   3 Vision, distance & rules  GM (Campaign rules until Harry 2026-11-01): name, vision, travel, distance, units, genre,
+//                        rolls (2026-10-24: Global defaults split in three)
+//   4 Area defaults      GM: the same play settings for every area (areas override them)
+//   5 Area settings      GM, the area in the main view: open to players or hidden, play settings (each "using default"
 //                        or "overridden here", with a reset)
-//   4 Campaign rules     GM: name, vision, travel, distance, units, genre, rolls (2026-10-24: Global defaults split in three)
-//   4b Area defaults     GM: the same play settings for every area (areas override them)
-//   4c House look        GM: spawn animation, house lighting, selection style, below the ground: hills and ground see-through
-//   5 Campaign admin     GM: snapshots, export / import, invites and seats, agent keys, player requests
-//   6 Feedback           everyone: a ticket (bug, idea, asset comment, question, other) with its context, and My tickets.
+//   6 House look         GM: spawn animation, house lighting, selection style, below the ground: hills and ground see-through
+//   7 Me                 everyone: name and seat colour, my pawns, my agents, my requests (players)
+//   8 Graphics           everyone: the picture and what it costs this machine
+//   9 Controls           everyone: mouse and keys, UI size, announcements, cursors, motion, sound (music: client/music.js;
+//                        effects stored, inert), reset to defaults
+//  10 Feedback           everyone: a ticket (bug, idea, asset comment, question, other) with its context, and My tickets.
 //                        The form is surfaces/feedback.js, loaded the first time the section opens (Harry 2026-10-19)
 // Everything that has a system behind it goes through the real commands (core/commands.js: seat.set, area.create /
 // area.set / area.delete / area.visibility, campaign.set, seat.create / seat.revoke, request.create / .resolve,
@@ -65,7 +71,7 @@ const RULES = [ // [key, label, kind, options, note]
   ['grid', 'Grid', 'toggle'],
   ['freeMoves', 'Players move their own pawns', 'toggle'],
   ['touch', 'Players may touch', 'select', [['open', 'Doors, chests and lights'], ['none', 'Nothing']]],
-  ['fogOfWar', 'Fog of war', 'toggle', null, 'players see through their pawns here; explored memory is kept while it is off. Campaign rules ▸ Vision sets the campaign default'],
+  ['fogOfWar', 'Fog of war', 'toggle', null, 'players see through their pawns here; explored memory is kept while it is off. Vision, distance &amp; rules ▸ Vision sets the campaign default'],
   ['darkness', 'Darkness', 'toggle', null, 'with fog of war on: players see only within their pawns\' darkvision (Me ▸ My pawns, 30 ft unless set) and where lit lights shine; the last few feet of each are remembered, not seen'],
   ['music', 'Music', 'music', null, 'what every seat hears here (each person sets their own volume in Settings ▸ Controls ▸ Sound). A playlist plays every track, shuffled; one track loops'],
 ];
@@ -88,23 +94,27 @@ export function settingsSurface(R, app) {
   let pawnEdit = null, picker = null, scrollTo = null; // Me ▸ My pawns: the pawn being defined or edited, and its figure picker
   const C = () => app.sync.campaign;
   const SECTIONS = [
-    // S opens Settings (always on World navigation); then a letter picks a section (S then N, M, K, G, A, R, D, H, C, F). The letters
-    // only act while the window is open and nothing in it is being typed into, so they never meet the game's own keys.
-    // Me was split in three (Harry 2026-10-24: "overwhelming, and a little confusing"): Me is who you are and what is
-    // yours; Controls (K, for keys: C is Campaign admin) is how the game answers your hands, eyes and ears; Graphics (G, freed
-    // when Global defaults split) is the picture and what it costs this machine.
+    // S opens Settings (always on World navigation); then a letter picks a section (S then N, I, V, D, A, H, M, G, K, F, the
+    // list's own order). The letters only act while the window is open and nothing in it is being typed into, so they never
+    // meet the game's own keys; onKey below keeps every other letter from them too (V is first person out there, R turns).
+    // The order, players getting the `all` ones, is Harry's (2026-11-01). So are the names Invites and exports (was Campaign
+    // admin, C) and Vision, distance & rules (was Campaign rules, R), and their letters I and V; the ids stay, and the bar
+    // still finds the old names (client/commands.js). Labels go through esc() on their way into the window: this one has an &.
     { id: 'nav', label: 'World navigation', icon: 'map', all: true, key: 'N' },
-    { id: 'me', label: 'Me', icon: 'user', all: true, key: 'M' },
-    { id: 'controls', label: 'Controls', icon: 'mouse-pointer-2', all: true, key: 'K' },
-    { id: 'graphics', label: 'Graphics', icon: 'monitor', all: true, key: 'G' },
-    { id: 'area', label: 'Area settings', icon: 'layers', key: 'A' },
+    { id: 'admin', label: 'Invites and exports', icon: 'shield', key: 'I' },
     // Global defaults was split in three (Harry 2026-10-24: "a little bit overweight"; three sections, his pick):
-    // Campaign rules (R) is what holds for the whole campaign; Area defaults (D) is what every area inherits unless it
-    // overrides it (the id stays 'defaults'); House look (H) is the spawn, lighting and selection look, set rarely.
-    { id: 'campaign', label: 'Campaign rules', icon: 'dices', key: 'R' },
+    // Vision, distance & rules (V) is what holds for the whole campaign; Area defaults (D) is what every area inherits unless
+    // it overrides it (the id stays 'defaults'); House look (H) is the spawn, lighting and selection look, set rarely.
+    { id: 'campaign', label: 'Vision, distance & rules', icon: 'dices', key: 'V' },
     { id: 'defaults', label: 'Area defaults', icon: 'layout-template', key: 'D' },
+    { id: 'area', label: 'Area settings', icon: 'layers', key: 'A' },
     { id: 'house', label: 'House look', icon: 'sparkles', key: 'H' },
-    { id: 'admin', label: 'Campaign admin', icon: 'shield', key: 'C' },
+    // Me was split in three (Harry 2026-10-24: "overwhelming, and a little confusing"): Me is who you are and what is
+    // yours; Graphics (G, freed when Global defaults split) is the picture and what it costs this machine; Controls (K, for
+    // keys) is how the game answers your hands, eyes and ears.
+    { id: 'me', label: 'Me', icon: 'user', all: true, key: 'M' },
+    { id: 'graphics', label: 'Graphics', icon: 'monitor', all: true, key: 'G' },
+    { id: 'controls', label: 'Controls', icon: 'mouse-pointer-2', all: true, key: 'K' },
     { id: 'feedback', label: 'Feedback', icon: 'message-square', all: true, key: 'F' },
   ];
   // FEEDBACK (Harry 2026-10-19): the form loads on first use; app.feedback.open({ kind }) is the command bar's door
@@ -162,6 +172,10 @@ export function settingsSurface(R, app) {
     const k = ev.key.length === 1 ? ev.key.toUpperCase() : '';
     const hit = sectionsFor().find(x => x.key === k);
     if (hit) { ev.preventDefault(); ev.stopPropagation(); section = hit.id; confirmDel = null; render(); return; }
+    // any other letter stops here too: this window's letters never reach the game (docs/UI.md "The hotkey rule"). Without
+    // this R, a section's letter until 2026-11-01, would turn the selection behind the window. (The launchers' B, P and S
+    // listen on the window itself, before this can stop them: surfaces/tray.js.)
+    if (/^[A-Z]$/.test(k)) ev.stopPropagation();
     // (S itself, to close: surfaces/tray.js, which also knows a held S from a tapped one)
   };
   modal.addEventListener('keydown', onKey, true);
@@ -182,14 +196,18 @@ export function settingsSurface(R, app) {
     const sec = cur(), secs = sectionsFor();
     const body = { nav: navBody, me: meBody, controls: controlsBody, graphics: graphicsBody, area: areaBody, campaign: campaignBody, defaults: defaultsBody, house: houseBody, admin: adminBody, feedback: () => '<div class="fbroot"><p class="snote">Loading…</p></div>' }[sec]();
     const html = `<div class="smodal" role="dialog" aria-modal="true" aria-label="Settings">
-      <nav class="scats"><div class="stitle">Settings</div>${secs.map((s, i) => `<button class="scat${s.id === sec ? ' sel' : ''}" data-sec="${s.id}">${icon(s.icon, 18)}<span>${s.label}</span><kbd>${s.key}</kbd>${s.id === 'admin' && pendingCount() ? `<i class="badge">${pendingCount()}</i>` : ''}</button>`).join('')}<button class="scat other-games" type="button">Other games / New game</button>${metaLinks()}</nav>
-      <section class="spane" data-sec="${sec}"><header class="sph"><h2>${secs.find(s => s.id === sec).label}</h2><span class="sphb">${app.tray.pinButton('settings')}<button class="sx" title="Close (${app.tray.pinned('settings') ? 'S' : 'Esc'})" aria-label="Close">${icon('x', 18)}</button></span></header><div class="spb">${body}</div></section></div>`;
+      <nav class="scats"><div class="stitle">Settings</div>${secs.map((s, i) => `<button class="scat${s.id === sec ? ' sel' : ''}" data-sec="${s.id}">${icon(s.icon, 18)}<span>${esc(s.label)}</span><kbd>${s.key}</kbd>${s.id === 'admin' && pendingCount() ? `<i class="badge">${pendingCount()}</i>` : ''}</button>`).join('')}<button class="scat other-games" type="button">Other games / New game</button>${metaLinks()}</nav>
+      <section class="spane" data-sec="${sec}"><header class="sph"><h2>${esc(secs.find(s => s.id === sec).label)}</h2><span class="sphb">${app.tray.pinButton('settings')}<button class="sx" title="Close (${app.tray.pinned('settings') ? 'S' : 'Esc'})" aria-label="Close">${icon('x', 18)}</button></span></header><div class="spb">${body}</div></section></div>`;
     modal.dataset.cseq = C()?.cseq ?? '';
     modal.dataset.b20 = String(!!app.b20?.connected);
     modal.classList.toggle('pinned', app.tray.pinned('settings'));
     if (html === lastHtml && !modal.hidden) return;
     const pane0 = modal.querySelector('.spane'), keep = pane0?.dataset.sec === sec ? modal.querySelector('.spb')?.scrollTop : 0;
+    // the agent seat's ticks are the GM's until the window closes: a redraw (someone came online) must not tick again what
+    // they unticked, now that every box starts ticked (Harry 2026-11-01)
+    const unticked = $$('[data-cls]').filter(x => !x.checked).map(x => x.dataset.cls);
     lastHtml = html; modal.innerHTML = html;
+    for (const x of $$('[data-cls]')) if (unticked.includes(x.dataset.cls)) x.checked = false;
     modal.hidden = false;
     if (keep) modal.querySelector('.spb').scrollTop = keep;
     if (scrollTo) { modal.querySelector(scrollTo)?.scrollIntoView({ block: 'start' }); scrollTo = null; }
@@ -221,7 +239,7 @@ export function settingsSurface(R, app) {
   };
   // D&D BEYOND (Harry 2026-10-29; docs/BEYOND20.md): the help page "Connect D&D Beyond" (docs/site/connect-dnd-beyond.md),
   // in a new tab, and whether Beyond20 has reported in this visit (surfaces/beyond20.js app.b20.connected). In Me for
-  // everyone (it is this browser's), and in Campaign rules for the GM.
+  // everyone (it is this browser's), and in Vision, distance & rules for the GM.
   const ddbGroup = () => {
     const on = !!app.b20?.connected;
     return group('D&D Beyond', row('Character sheets', `<a class="sbtn sddb-help" href="${sitePage('connect-dnd-beyond')}" target="_blank" rel="noopener">${icon('external-link', 14)} Connect D&amp;D Beyond</a>`,
@@ -232,7 +250,7 @@ export function settingsSurface(R, app) {
   const select = (attr, opts, v) => `<select ${attr}>${opts.map(([k, l]) => `<option value="${esc(k)}"${k === v ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
   const range = (attr, v, min, max, step) => `<input type="range" ${attr} min="${min}" max="${max}" step="${step}" value="${v}"><output>${(+v).toFixed(step < 1 ? 2 : 0)}</output>`;
 
-  // ---------- 1. World navigation ----------
+  // ---------- World navigation ----------
   function navBody() {
     const c = C(); if (!c) return '<p class="snote">Connecting…</p>';
     const gm = app.gm(), main = app.area(), pip = app.pip && !app.pip.area.startsWith('lib:') ? app.pip.area : null;
@@ -249,7 +267,7 @@ export function settingsSurface(R, app) {
       ${gm ? `<div class="snew"><input class="newname" placeholder="New area name" maxlength="60"><button class="sbtn primary" data-act="create">${icon('plus', 15)} Create area</button><small class="snote">A new area starts hidden from players, until you open it.</small></div>` : ''}`;
   }
 
-  // ---------- 2. Me ----------
+  // ---------- Me ----------
   // Me ▸ Graphics (graphics.js): one preset control, then every switch it sets, then the ones no preset touches
   function graphicsGroup(g) {
     const p = prefs, gi = app.gfx?.info?.(), cur = p.gfx || 'auto', told = gi?.auto?.told, on = (k) => p[k] !== false;
@@ -372,7 +390,7 @@ export function settingsSurface(R, app) {
     S.lastPawnSaved = id; pawnEdit = null; picker = null; render();
   }
 
-  // ---------- 3. Area settings (the area in the main view) and 4. Global defaults ----------
+  // ---------- Area settings (the area in the main view), Area defaults, Vision, distance & rules, House look ----------
   const areaOf = (id = app.area()) => C()?.areas.find(a => a.id === id);
   const defaults = () => C()?.defaults || {};
   function ruleCtl(k, kind, opts, v, scope) {
@@ -412,7 +430,7 @@ export function settingsSurface(R, app) {
     return `<p class="snote">Every area inherits these unless it overrides them in Area settings. Graphics are per person: <a href="#" class="gomegfx">Settings ▸ Graphics</a>.</p>`
       + group('Play (every area)', rules);
   }
-  // Campaign rules (S then R): what holds for the whole campaign
+  // Vision, distance & rules (S then V): what holds for the whole campaign
   function campaignBody() {
     const d = defaults(), c = C();
     const genres = (app.taxonomy?.genres || []).map(id => app.taxonomy.get(id)).filter(Boolean);
@@ -456,7 +474,7 @@ export function settingsSurface(R, app) {
         <div class="sab"><button class="sbtn primary" data-act="uvtt"${X.busy ? ' disabled' : ''}>${icon('map', 15)} Download as Universal VTT (.dd2vtt)</button></div>${X.lastError ? `<p class="snote bad">Could not export: ${esc(X.lastError)}</p>` : ''}${done}`,
       `This area's <b>${esc(lv)}</b> (the level you are on) as a 2D battlemap: the picture seen from straight above, its walls, doors, windows and lights. For Foundry (the Universal Battlemap Importer module), Roll20, Owlbear Rodeo, Fantasy Grounds and MapTool. One square is 5 ft.`);
   }
-  // ---------- 5. Campaign admin ----------
+  // ---------- Invites and exports ----------
   function adminBody() {
     const c = C(); if (!c) return '';
     const humans = c.seats.filter(s => s.kind === 'human' && s.id !== app.me());
@@ -465,16 +483,16 @@ export function settingsSurface(R, app) {
     const pending = (c.requests || []).filter(r => r.status === 'pending'), done = (c.requests || []).filter(r => r.status !== 'pending').slice(-6);
     const nameOf = (id) => c.seats.find(s => s.id === id)?.name || 'someone';
     const cls = Object.keys(CLASS_LABELS);
-    return group('Requests', pending.length ? `<ul class="slist">${pending.map(r => `<li data-req="${r.id}"><b>${esc(nameOf(r.by))}</b> asks to <b>${r.kind}</b>${r.note ? ` <small>“${esc(r.note)}”</small>` : ''}${r.kind === 'import' && r.payload ? ` <small>${(r.payload.areas || []).length} area(s)</small>` : ''}<button class="sbtn primary" data-act="approve">Approve</button><button class="sbtn" data-act="deny">Deny</button></li>`).join('')}</ul>` : '<p class="snote">No pending requests.</p>'
+    return group('Invites and seats', `${humans.length ? `<ul class="slist">${humans.map(s => `<li data-seat="${s.id}"><b>${esc(s.name)}</b><small>${s.role}${s.online ? ' · online' : ''}</small><button class="sbtn" data-act="invite">Copy invite</button><button class="sbtn danger" data-act="revoke">Revoke</button></li>`).join('')}</ul>` : '<p class="snote">No other seats yet.</p>'}
+        <div class="snew"><input class="seatname" placeholder="Player name" maxlength="40"><button class="sbtn primary" data-act="newseat">${icon('user-plus', 15)} Invite a player</button></div>${lastKey ? `<p class="skey">${esc(lastKey.label)}: <code>${esc(lastKey.url)}</code></p>` : ''}`)
+      + group('Requests', pending.length ? `<ul class="slist">${pending.map(r => `<li data-req="${r.id}"><b>${esc(nameOf(r.by))}</b> asks to <b>${r.kind}</b>${r.note ? ` <small>“${esc(r.note)}”</small>` : ''}${r.kind === 'import' && r.payload ? ` <small>${(r.payload.areas || []).length} area(s)</small>` : ''}<button class="sbtn primary" data-act="approve">Approve</button><button class="sbtn" data-act="deny">Deny</button></li>`).join('')}</ul>` : '<p class="snote">No pending requests.</p>'
         + (done.length ? `<ul class="slist dim">${done.map(r => `<li>${esc(nameOf(r.by))} · ${r.kind} · <small class="st-${r.status}">${r.status}</small></li>`).join('')}</ul>` : ''))
       + group('Snapshots', `<div class="snew"><input class="snapname" placeholder="Snapshot name" maxlength="60"><button class="sbtn primary" data-act="snap">${icon('copy', 15)} Save this area</button></div>${snaps.length ? `<ul class="slist">${snaps.map((s, i) => `<li data-snap="${i}"><b>${esc(s.name)}</b><small>${esc(s.areaName)} · ${new Date(s.at).toLocaleString()} · ${s.n ?? Object.keys(s.entities || {}).length} things</small><button class="sbtn" data-act="restore">Restore</button><button class="sbtn danger" data-act="unsnap">${icon('trash-2', 15)}</button></li>`).join('')}</ul>` : ''}`, 'Kept on the server for this campaign (any of your devices). Restoring replaces what is in that area now (undo brings it back).')
       + group('Export and import', `<div class="sab"><button class="sbtn primary" data-act="export">${icon('package', 15)} Export campaign JSON</button><label class="sbtn">Import JSON…<input type="file" accept=".json,application/json" class="impfile" hidden></label><button class="sbtn" disabled title="Later">glTF</button><button class="sbtn" disabled title="Later">TaleSpire</button><button class="sbtn" disabled title="Later">STL</button></div>`, 'An import adds its areas as new areas.')
       + (app.share ? group('Shared builds', `<div class="shadmin">${app.share.adminGroupHtml()}</div>`, 'A room, a building, things or a whole area someone shared (a .turnip.json, or "import &lt;link&gt;" in the command bar; you can also drop a file on the window). A room, a building or things follow the pointer until you click; a whole area comes in as a new area.') : '')
       + uvttGroup()
-      + group('Invites and seats', `${humans.length ? `<ul class="slist">${humans.map(s => `<li data-seat="${s.id}"><b>${esc(s.name)}</b><small>${s.role}${s.online ? ' · online' : ''}</small><button class="sbtn" data-act="invite">Copy invite</button><button class="sbtn danger" data-act="revoke">Revoke</button></li>`).join('')}</ul>` : '<p class="snote">No other seats yet.</p>'}
-        <div class="snew"><input class="seatname" placeholder="Player name" maxlength="40"><button class="sbtn primary" data-act="newseat">${icon('user-plus', 15)} Invite a player</button></div>${lastKey ? `<p class="skey">${esc(lastKey.label)}: <code>${esc(lastKey.url)}</code></p>` : ''}`)
       + group('Agent seats', `${agents.length ? `<ul class="slist">${agents.map(s => `<li data-seat="${s.id}"><b>${esc(s.name)}</b><small>${s.online ? 'online' : 'offline'}</small><button class="sbtn" data-act="key">Copy key</button><button class="sbtn danger" data-act="revoke">Revoke</button></li>`).join('')}</ul>` : ''}
-        <div class="scls">${cls.map(k => `<label class="schk"><input type="checkbox" data-cls="${k}"${['token.move', 'token.edit', 'object', 'open', 'chat', 'pawn'].includes(k) ? ' checked' : ''}> ${CLASS_LABELS[k]}</label>`).join('')}</div>
+        <div class="scls">${cls.map(k => `<label class="schk"><input type="checkbox" data-cls="${k}" checked> ${CLASS_LABELS[k]}</label>`).join('')}</div>
         <div class="snew"><input class="gmagent" placeholder="Agent name" maxlength="40"><button class="sbtn primary" data-act="gmagent">${icon('bot', 15)} Create agent seat</button></div>${newAgent ? `<p class="skey">Key for ${esc(newAgent.name)}: <code>${esc(newAgent.url)}</code></p>` : ''}`, 'LLM seats with exactly the permissions ticked (never more than yours).');
   }
 
@@ -763,7 +781,7 @@ export function settingsSurface(R, app) {
     for (const r of C()?.requests || []) {
       if (r.status !== 'pending' || seenReq.has(r.id)) continue;
       seenReq.add(r.id);
-      if (reqPrimed) app.toast(`${C().seats.find(s => s.id === r.by)?.name || 'A player'} asks to ${r.kind}: Settings ▸ Campaign admin`);
+      if (reqPrimed) app.toast(`${C().seats.find(s => s.id === r.by)?.name || 'A player'} asks to ${r.kind}: Settings ▸ Invites and exports`);
     }
     if (C()) reqPrimed = true;
   }

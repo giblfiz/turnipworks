@@ -25,6 +25,16 @@
 #           cut from, and the branch `live` is moved to that commit; both are pushed to origin. `git log live` is what
 #           players have; `git checkout live-<id>` is any earlier one; promote-now <id> brings a kept one back.
 #   tools/release.sh rollback [--warn S]   back to the release before the current one (banner 30 s), checked the same way
+#   THE PUBLIC MIRROR FOLLOWS LIVE (Harry, 2026-11-01): after every promote-now or rollback that passes its checks, the
+#           released commit is exported to the public repo (github.com/giblfiz/turnipworks) through
+#           tools/public-export/export.py: excludes, scrub, every gate, tests, push. It runs in the background; the command
+#           waits for it up to TW_PUBLISH_WAIT seconds (180) so a failed gate shows in its output, and the result always
+#           lands in rolls.log. A publish failure NEVER fails or rolls back a release: it logs a WARNING, the mirror stays as
+#           it was, and `status` keeps saying so until a publish succeeds.
+#   tools/release.sh publish-public [ID]   that same publish, by hand, of the live release (ID must be it: a candidate is
+#                                          never published). Repeat it after fixing what a failed publish reported.
+#           Test without touching anything real: TW_PUBLIC_REMOTE=<bare repo> instead of the mirror; TW_PUBLISH_FAIL_GATE=1
+#           plants a file that trips the real privacy gate (a planted run can never publish).
 #   tools/release.sh verify                prod's checks now; changes nothing
 #   tools/release.sh status | list
 #
@@ -37,12 +47,16 @@ REPO="$(dirname "$TOOLS")"
 STATE="${TW_RELEASES:-/var/lib/tw-releases}"
 MAIN="${TW_MAIN:-$TW_REPO}"
 DEV_WEB="${TW_DEV_WEB:-/var/www/implausible-landing/projects/turnip-works}"
-PROD_PORT=8097 PROD_UNIT=tw-relay PROD_HOST=turnipworks.net DEV_PORT=8098
+PROD_PORT="${TW_PROD_PORT:-8097}" PROD_UNIT="${TW_PROD_UNIT:-tw-relay}" PROD_HOST=turnipworks.net DEV_PORT=8098
 PROD_DATA="${TW_PROD_DATA:-$MAIN/engine/data}"
 KEEP="${TW_RELEASE_KEEP:-5}"   # promoted releases kept for rollback (plus current, previous, candidate)
-VERIFY="$REPO/engine/tools/release_verify.mjs"
+VERIFY="${TW_RELEASE_VERIFY:-$REPO/engine/tools/release_verify.mjs}"
+ROLL_LOCK="${TW_RELEASE_LOCK:-/tmp/tw-release-roll.lock}"
+PUBLIC_REMOTE="${TW_PUBLIC_REMOTE:-https://github.com/giblfiz/turnipworks.git}"
+PUBLISH_WAIT="${TW_PUBLISH_WAIT:-180}"   # seconds a promote or rollback waits for the mirror before leaving it in the background
+EXPORT="$MAIN/tools/public-export/export.py"
 mkdir -p "$STATE/releases" "$STATE/logs"
-touch "$STATE/rolls.log" "$STATE/candidates.log" "$STATE/promoted.list" "$STATE/rejected"
+touch "$STATE/rolls.log" "$STATE/candidates.log" "$STATE/promoted.list" "$STATE/rejected" "$STATE/public-mirror.log"
 
 now() { date -Iseconds; }
 roll_log() { printf '%s\t%s\n' "$(now)" "$*" >> "$STATE/rolls.log"; echo "$*"; }
@@ -66,6 +80,74 @@ mark_live() {
   else
     roll_log "marked locally: tag live-$id + branch live -> ${sha:0:8}; PUSH FAILED (push them by hand)"
   fi
+}
+
+# ---------- the public mirror ----------
+# publish_public <release id> <why>: export the release's commit to the public repo. Exit 0 = the mirror is on it (or it
+# stood down because live moved on); anything else = the mirror is untouched and a WARNING is in rolls.log. Every gate runs
+# on every publish, and there is no way to skip one from here.
+mirror_record() { printf '%s\t%s\t%s\t%s\t%s\n' "$(now)" "$1" "${2:0:8}" "$3" "$4" >> "$STATE/public-mirror.log"; }
+mirror_fail() { # <id> <sha> <reason> <log>
+  mirror_record "$1" "$2" FAILED "$3"
+  roll_log "WARNING: PUBLIC MIRROR NOT UPDATED for $1 (git ${2:0:8}): $3. The mirror is untouched and the release stands. Fix it, then tools/release.sh publish-public (log $(basename "$4"))"
+}
+publish_failure() { # <export out dir>: why it failed, counts only (the hits themselves are private and stay in the log)
+  python3 - "$1" <<'PY'
+import json, sys
+try: rep = json.load(open(sys.argv[1] + '/export-report.json'))
+except Exception: print('the export stopped before its gates'); sys.exit()
+g, t = rep['gates'], rep.get('tests') or {}
+bad = [k for k, v in t.items() if v['rc'] and v.get('baseline_rc', 0) == 0]
+if not g['ok']: print(f"PRIVACY GATE FAILED: structure {g['structure']}, deny {g['deny']}, gitleaks {g['gitleaks']}, trufflehog {g['trufflehog']}")
+elif bad: print(f"tests failed on the export: {', '.join(bad)[:200]}")
+else: print('the gates passed but the commit or push failed')
+PY
+}
+publish_public() {
+  local id=$1 why=$2 sha out log res commit
+  sha=$(jget "$STATE/releases/$id/release.json" git 2>/dev/null || true)
+  log="$STATE/logs/$(date +%Y%m%d-%H%M%S)-publish-public.log"
+  [[ -n "$sha" ]] || { mirror_fail "$id" "" "its release.json has no git commit" "$log"; return 1; }
+  exec 8>"$STATE/.publish.lock"; flock 8
+  # queued behind another publish while live moved again: the release now live has its own publish, and it must land last
+  if [[ "$id" != "$(link_id current)" ]]; then roll_log "public mirror: $id is no longer live; left to the publish of $(link_id current)"; return 0; fi
+  out=$(mktemp -d /tmp/tw-public-export.XXXXXX)
+  if ! python3 "$EXPORT" publish --ref "$sha" --remote "$PUBLIC_REMOTE" --out "$out" --test --push -m "Live release $id ($why)." > "$log" 2>&1 || [[ ! -s "$out/publish-result.json" ]]; then
+    res=$(publish_failure "$out"); cp "$out/export-report.json" "${log%.log}.report.json" 2>/dev/null || true
+    rm -rf "$out"; mirror_fail "$id" "$sha" "$res" "$log"; return 1
+  fi
+  cp "$out/export-report.json" "${log%.log}.report.json" 2>/dev/null || true
+  res=$(python3 -c 'import json,sys; r=json.load(open(sys.argv[1])); print(r["public_commit"][:10], "unchanged" if r["unchanged"] else "pushed", r["files"])' "$out/publish-result.json")
+  rm -rf "$out"
+  read -r commit res why <<< "$res"
+  mirror_record "$id" "$sha" "$res" "$commit"
+  roll_log "public mirror OK: $id (git ${sha:0:8}) -> $commit ($res, $why files; log $(basename "$log"))"
+}
+# publish_public_bg <release id> <what>: after a swap has passed. Detached from this command and from the roll lock, so a
+# slow publish holds up neither the terminal for long nor the next rollback. Always returns 0.
+publish_public_bg() {
+  local id=$1 what=$2 pid i
+  exec 7>&-
+  roll_log "public mirror: publishing $id in the background (gates and tests first; waiting up to ${PUBLISH_WAIT} s, the result lands in rolls.log either way)"
+  setsid nohup "$TOOLS/release.sh" publish-public "$id" "$what" </dev/null >>"$STATE/logs/publish-public-bg.log" 2>&1 &
+  pid=$!
+  for (( i = 0; i < PUBLISH_WAIT; i++ )); do kill -0 "$pid" 2>/dev/null || break; sleep 1; done
+  if kill -0 "$pid" 2>/dev/null; then echo "public mirror: still publishing in the background; tools/release.sh status tells"; return 0; fi
+  wait "$pid" 2>/dev/null || true
+  tail -n 1 "$STATE/rolls.log" | cut -f2- || true
+}
+mirror_status() {
+  local last good
+  last=$(tail -n 1 "$STATE/public-mirror.log"); good=$(awk -F'\t' '$4 != "FAILED" { g = $2 } END { print g }' "$STATE/public-mirror.log")
+  echo "public mirror: ${last:-never published by this script} (fields: time, release, git, result, public commit or reason)"
+  flock -n "$STATE/.publish.lock" true 2>/dev/null || echo "public mirror: a publish is running now"
+  [[ "$good" == "$(link_id current)" ]] || echo "WARNING: the public mirror is not on the live release $(link_id current) (last published: ${good:-none}); tools/release.sh publish-public"
+}
+cmd_publish_public() {
+  local id=${1:-$(link_id current)} why=${2:-by hand}
+  [[ -n "$id" && -d "$STATE/releases/$id" ]] || { echo "no such release: '$id' (tools/release.sh list)"; exit 1; }
+  [[ "$id" == "$(link_id current)" ]] || { echo "REFUSED: the mirror follows live, and $id is not live ($(link_id current) is)"; exit 1; }
+  publish_public "$id" "$why"
 }
 
 prune() {
@@ -196,6 +278,7 @@ swap_to() {
   esac
   prune >/dev/null || true
   tail -n 4 "$log"
+  [[ $rc -ne 0 ]] || publish_public_bg "$target" "$what" || true   # after the swap, the checks and the mark; never its verdict
   return $rc
 }
 
@@ -205,7 +288,7 @@ cmd_roll() {
   return 0
 }
 cmd_promote_now() {
-  exec 7>/tmp/tw-release-roll.lock; flock -n 7 || { echo "a roll is running"; exit 1; }
+  exec 7>"$ROLL_LOCK"; flock -n 7 || { echo "a roll is running"; exit 1; }
   local warn=60 target="" harry=""
   while [[ $# -gt 0 ]]; do case "$1" in --warn) warn=$2; shift 2;; --harry) harry=1; shift;; *) target=$1; shift;; esac; done
   if [[ -z "$harry" ]]; then
@@ -218,7 +301,7 @@ cmd_promote_now() {
   swap_to "$target" "$warn" promote-now updating
 }
 cmd_rollback() {
-  exec 7>/tmp/tw-release-roll.lock; flock -n 7 || { echo "a roll is running"; exit 1; }
+  exec 7>"$ROLL_LOCK"; flock -n 7 || { echo "a roll is running"; exit 1; }
   local warn=30; [[ "${1:-}" == --warn ]] && warn=$2
   local prev; prev=$(link_id previous)
   [[ -n "$prev" && -d "$STATE/releases/$prev" ]] || { echo "no previous release to roll back to"; exit 1; }
@@ -235,6 +318,7 @@ cmd_status() {
   echo "dev relay  :$DEV_PORT $(health "$DEV_PORT")"
   echo "dev serves client $(grep -oE "TW_V = '[0-9]+'" "$DEV_WEB/engine/client/index.turnipworks.html" | grep -oE '[0-9]+'), tuner $(jget "$DEV_WEB/tuner/version.json" v)"
   echo "live moves only on Harry's word: tools/release.sh promote-now --harry (branch live = $(git -C "$MAIN" rev-parse --short live 2>/dev/null || echo none))"
+  mirror_status
   echo "last rolls ($STATE/rolls.log):"; tail -n 5 "$STATE/rolls.log" | sed 's/^/  /'
   [[ -s "$STATE/rejected" ]] && { echo "rejected candidates:"; tail -n 3 "$STATE/rejected" | sed 's/^/  /'; }
   return 0
@@ -250,5 +334,6 @@ case "${1:-}" in
   status) cmd_status ;;
   list) cmd_list ;;
   mark) shift; mark_live "${1:-$(link_id current)}" ;;
-  *) sed -n '2,36p' "$0"; exit 2 ;;
+  publish-public) shift; cmd_publish_public "$@" ;;
+  *) sed -n '2,43p' "$0"; exit 2 ;;
 esac

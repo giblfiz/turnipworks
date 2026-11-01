@@ -1185,7 +1185,7 @@ def('music.set', {
     return { ...top, areas: { ...top.areas, [a.area]: T } };
   },
 });
-// Players ask the GM to import or export; the GM approves or denies (Settings ▸ Campaign admin). An import carries
+// Players ask the GM to import or export; the GM approves or denies (Settings ▸ Invites and exports). An import carries
 // its campaign JSON; the GM's client applies it on approval, then the payload is dropped.
 def('request.create', {
   level: 'campaign', cls: 'request', args: { id: 'id', kind: 'enum:import|export', note: 'str?', payload: 'obj?' },

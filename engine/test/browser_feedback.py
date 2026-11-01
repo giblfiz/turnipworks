@@ -147,7 +147,7 @@ async def main():
         after = [u for u in requests['pl'] if 'surfaces/feedback.js' in u]
         check(ok and not before and hook and not loaded0 and after and await pl.evaluate('tw.feedback.loaded()'), 'F0 at boot only the error hook loads (feedback-hook.js); surfaces/feedback.js is fetched when Settings ▸ Feedback first opens', {'before': before, 'hook': len(hook), 'after': after})
         st = await pl.evaluate("tw.settings.state()")
-        check(st['sections'] == ['nav', 'me', 'controls', 'graphics', 'feedback'] and st['section'] == 'feedback', 'F0 Feedback is a major section of the player\'s Settings', st)
+        check(st['sections'] == ['nav', 'me', 'graphics', 'controls', 'feedback'] and st['section'] == 'feedback', 'F0 Feedback is a major section of the player\'s Settings', st)
 
         print('F1 a player files each kind')
         await pl.evaluate(f"(() => {{ tw.sel = new Set(['{BA}']); tw.emit('selection'); tw.refresh(); }})()")

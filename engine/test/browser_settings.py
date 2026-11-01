@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
-"""Settings (Harry 2026-10-04; docs/UI.md "Settings"): the modal window and its five sections, through the real
-commands and permissions. GM tab + player tab (+ an arriving tab), real clicks where it matters.
-  1 World navigation   list, open here / in PiP, create / rename / delete (GM); arriving never opens it
-  2 Me                 name + colour (relay), zoom / rotate speed + invert (camera), graphics (faces at reload),
+"""Settings (Harry 2026-10-04; docs/UI.md "Settings"): the modal window and its sections, through the real
+commands and permissions. GM tab + player tab (+ an arriving tab), real clicks where it matters. The list's order is Harry's
+(2026-11-01): World navigation, Invites and exports, Vision, distance & rules, Area defaults, Area settings, House look, Me,
+Graphics, Controls, Feedback; a player gets World navigation, Me, Graphics, Controls, Feedback.
+  World navigation     list, open here / in PiP, create / rename / delete (GM); arriving never opens it
+  Me, Graphics, Controls  name + colour (relay), zoom / rotate speed + invert (camera), graphics (faces at reload),
                        ring + text size, announce off, cursors, reduced motion, sound stored, my agents, reset
-  3 Area               lighting profile, grid, free moves (enforced), visibility + grants, inherit / override / reset
-  4 Global defaults    inherited by areas; campaign-wide items stored
-  5 Campaign admin     snapshots, export / import, invites + revoke, agent seats with ticked permissions, requests
+  Area settings        lighting profile, grid, free moves (enforced), visibility + grants, inherit / override / reset
+  Area defaults etc.   inherited by areas; campaign-wide items stored
+  Invites and exports  invites + revoke, requests first, then snapshots, export / import, agent seats: every box starts
+                       ticked, an agent gets exactly what is ticked
+  KEYS                 V and I are the renamed sections' letters; V and R stay out of the game while the window is open
 
   local:  python3 engine/test/browser_settings.py --local
   live:   ... browser_settings.py --page https://turnipworks.net/
 """
-import argparse, asyncio, json, os, subprocess, sys, tempfile, time, urllib.parse, urllib.request
+import argparse, asyncio, json, os, re, subprocess, sys, tempfile, time, urllib.parse, urllib.request
 from playwright.async_api import async_playwright
 import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'tests')); import tw_sandbox  # test writes go to a sandbox, never the live game
 tw_sandbox.remove_campaigns()  # the campaigns this suite makes are throwaways: deleted from the relay when it exits
@@ -102,7 +106,7 @@ async def main():
         await pl.bring_to_front()
         await tap(pl, '.launcher[data-l=settings]')
         pst = await pl.evaluate("({ ...tw.settings.state(), create: !!document.querySelector('#settingsModal .newname'), del: !!document.querySelector('#settingsModal [data-act=del]'), names: !!document.querySelector('#settingsModal .aname') })")
-        check(pst['sections'] == ['nav', 'me', 'controls', 'graphics', 'feedback'] and not pst['create'] and not pst['del'] and not pst['names'], 'a player gets World navigation, Me and Feedback only (2026-10-19), with no create / rename / delete', pst)
+        check(pst['sections'] == ['nav', 'me', 'graphics', 'controls', 'feedback'] and not pst['create'] and not pst['del'] and not pst['names'], 'a player gets World navigation, Me and Feedback only (2026-10-19), with no create / rename / delete', pst)
         # arriving as a person would (no webdriver flag, a fresh browser): straight into the game, in the seat's area
         tok2 = await gm.evaluate("tw.createSeat({ kind: 'human', role: 'player', name: 'Arrive', color: '#c36f9f' })")
         frag2 = (await gm.evaluate(f"tw.inviteLink('{tok2}')")).split('#', 1)[1]
@@ -122,18 +126,50 @@ async def main():
         await gm.bring_to_front(); await gm.evaluate("tw.settings.close()"); await gm.mouse.move(640, 420)
         await gm.keyboard.press('s')
         st = await gm.evaluate("({ ...tw.settings.state(), keys: [...document.querySelectorAll('#settingsModal .scat kbd')].map(k => k.textContent), labels: [...document.querySelectorAll('#settingsModal .scat span')].map(k => k.textContent) })")
-        check(st['open'] and st['section'] == 'nav' and st['keys'] == ['N', 'M', 'K', 'G', 'A', 'R', 'D', 'H', 'C', 'F'] and not any(l[:1].isdigit() for l in st['labels']), 'S opens Settings on World navigation; each section shows its letter (N M K G A R D H C F: Feedback since 2026-10-19; Controls K, Graphics G, Campaign rules R, Area defaults D, House look H since 2026-10-24), no numbers', st)
+        check(st['open'] and st['section'] == 'nav' and st['keys'] == ['N', 'I', 'V', 'D', 'A', 'H', 'M', 'G', 'K', 'F'] and not any(l[:1].isdigit() for l in st['labels']), 'S opens Settings on World navigation; each section shows its letter (N I V D A H M G K F: Invites and exports I, Vision, distance & rules V since 2026-11-01), no numbers', st)
+        check(st['labels'] == ['World navigation', 'Invites and exports', 'Vision, distance & rules', 'Area defaults', 'Area settings', 'House look', 'Me', 'Graphics', 'Controls', 'Feedback'], "the list is in Harry's order, 2026-11-01, as read off the page", st['labels'])
         seen = []
-        for k in ('m', 'a', 'r', 'd', 'h', 'c', 'f', 'n'):
+        for k in ('m', 'a', 'v', 'd', 'h', 'i', 'f', 'n'):
             await gm.keyboard.press(k); seen.append(await gm.evaluate('tw.settings.state().section'))
-        check(seen == ['me', 'area', 'campaign', 'defaults', 'house', 'admin', 'feedback', 'nav'], 'then M, A, R, D, H, C, F, N switch sections', seen)
+        check(seen == ['me', 'area', 'campaign', 'defaults', 'house', 'admin', 'feedback', 'nav'], 'then M, A, V, D, H, I, F, N switch sections', seen)
         await gm.keyboard.press('m'); await gm.keyboard.press('s')
         closed = not await gm.evaluate('tw.settings.state().open')
         await gm.keyboard.press('s')
         check(closed and await gm.evaluate("tw.settings.state().open && tw.settings.state().section === 'nav'"), 'S again closes it, and it always reopens on World navigation')
-        await gm.keyboard.press('c'); await gm.keyboard.press('Escape'); await tap(gm, '.launcher[data-l=settings]')
-        check(await gm.evaluate("tw.settings.state().open && tw.settings.state().section === 'nav'"), 'the Settings button too: last on Campaign admin, closed with Esc, it reopens on World navigation')
+        await gm.keyboard.press('i'); await gm.keyboard.press('Escape'); await tap(gm, '.launcher[data-l=settings]')
+        check(await gm.evaluate("tw.settings.state().open && tw.settings.state().section === 'nav'"), 'the Settings button too: last on Invites and exports, closed with Esc, it reopens on World navigation')
         await gm.evaluate("tw.settings.close()")
+
+        print('KEYS: V and R belong to the window while it is open, and to the game once it is closed')
+        KT = 'tok_keysbait1'
+        await gm.evaluate(f"tw.dispatch('token.create', {{ id: '{KT}', name: 'Keys', x: 20, z: 20, rot: 0 }})"); await wait(gm, f"!!tw.entities()['{KT}']", 6000, 'keys pawn')
+        await gm.evaluate(f"tw.select('{KT}')"); await gm.wait_for_timeout(300); await gm.mouse.move(640, 420)
+        rot = lambda: gm.evaluate(f"tw.entities()['{KT}'].rot || 0")
+        fpv = lambda: gm.evaluate("!!tw.fpv.active()")
+        hold = await gm.evaluate('tw.tray.holdMs'); await gm.evaluate("tw.tray.holdMs = 3600000")  # (a loaded box can stretch this tap past a hold, which closes the window on release; the hold has its own tests)
+        await gm.keyboard.press('s')
+        check(await wait(gm, 'tw.settings.state().open', 4000, 'S opens'), 'with a pawn selected, S still opens Settings', await gm.evaluate('tw.tray.last'))
+        await gm.keyboard.press('v'); await gm.wait_for_timeout(500)
+        head = await gm.evaluate("({ h2: document.querySelector('#settingsModal .spane h2').textContent, side: document.querySelector('#settingsModal .scat[data-sec=campaign] span').textContent, html: document.querySelector('#settingsModal .scat[data-sec=campaign] span').innerHTML })")
+        check(await gm.evaluate('tw.settings.state().section') == 'campaign' and not await fpv(), 'S then V opens Vision, distance & rules and does not start first person', await fpv())
+        check(head['h2'] == head['side'] == 'Vision, distance & rules' and '&amp;' in head['html'], 'its & is escaped: the window reads "Vision, distance & rules"', head)
+        await gm.keyboard.press('r'); await gm.wait_for_timeout(400)
+        check(await gm.evaluate('tw.settings.state().section') == 'campaign' and await rot() == 0, 'R does nothing in Settings: same section, and the selected pawn behind the window does not turn', await rot())
+        await gm.keyboard.press('c'); await gm.wait_for_timeout(100)
+        check(await gm.evaluate('tw.settings.state().section') == 'campaign', 'C does nothing in Settings any more')
+        await gm.keyboard.press('i'); await gm.wait_for_timeout(100)
+        check(await gm.evaluate('tw.settings.state().section') == 'admin', 'S then I opens Invites and exports')
+        await gm.keyboard.press('Escape'); await gm.wait_for_timeout(200); await gm.mouse.move(640, 420)
+        await gm.evaluate(f'tw.tray.holdMs = {hold}')
+        check(not await gm.evaluate('tw.settings.state().open'), 'Esc closes it')
+        await gm.keyboard.press('r'); await gm.wait_for_timeout(600)
+        check(await rot() != 0, 'with the window closed, R turns the selected pawn as before', await rot())
+        await gm.keyboard.press('v')
+        check(await wait(gm, '!!tw.fpv.active()', 6000, 'first person on'), 'with the window closed, V starts first person as before')
+        await gm.keyboard.press('v')
+        check(await wait(gm, '!tw.fpv.active()', 6000, 'first person off'), 'and V leaves it')
+        await gm.evaluate(f"tw.dispatch('token.delete', {{ id: '{KT}' }})"); await gm.wait_for_timeout(300)
+
 
         print('PICTURES: a 3/4 thumbnail per area, framed on its structures, hidden things left out')
         rid = await gm.evaluate("tw.spawnRoom('common', 2, 2, 6, 4, 4242)")
@@ -324,7 +360,7 @@ async def main():
         await gm.evaluate(f"tw.sync.submit('area.set', {{ area: '{A1}', settings: {{ grid: true }} }})")
         check(await wait(gm, f"tw.worldOf('{A1}').grid.visible", 8000, 'override'), 'an area override wins over the default')
         await gm.evaluate(f"tw.sync.submit('area.set', {{ area: '{A1}', settings: {{ grid: null }} }})")
-        await gm.evaluate("tw.settings.show('campaign')")  # Global defaults split in three (2026-10-24): campaign-wide items are Campaign rules, the spawn look is House look
+        await gm.evaluate("tw.settings.show('campaign')")  # Global defaults split in three (2026-10-24): campaign-wide items are Vision, distance & rules, the spawn look is House look
         await pick(gm, '#settingsModal [data-camp=units]', 'm'); await pick(gm, '#settingsModal [data-camp=rolls]', 'hidden')
         await gm.evaluate("tw.settings.show('house')"); await pick(gm, '#settingsModal [data-camp=houseAnim]', 'harry-v1')
         await gm.evaluate("tw.settings.show('campaign')")
@@ -370,12 +406,31 @@ async def main():
         mira = await gm.evaluate(f"{C}.seats.find(s => s.name === 'Mira').id")
         await tap(gm, f'#settingsModal li[data-seat="{mira}"] [data-act=revoke]')
         check(await wait(gm, f"!{C}.seats.some(s => s.id === '{mira}')", 8000, 'revoke'), 'revoke removes the seat')
+        groups = await gm.evaluate("[...document.querySelectorAll('#settingsModal .spane .sgrp h3')].map(h => h.textContent)")
+        check(groups[:3] == ['Invites and seats', 'Requests', 'Snapshots'] and groups[-1] == 'Agent seats' and [g for g in groups if g in ('Export and import', 'Shared builds') or g.startswith('Universal VTT')][:1] == ['Export and import'], 'the section starts Invites and seats, Requests, then the rest in their old order (Harry 2026-11-01)', groups)
+        CARD = "[...document.querySelectorAll('#settingsModal .skey code')].map(c => c.textContent).find(t => t.includes('/card?seat=')) || ''"
+        async def card_of(name):
+            await fill(gm, '#settingsModal .gmagent', name); await tap(gm, '#settingsModal [data-act=gmagent]')
+            made = await wait(gm, f"{C}.seats.some(s => s.kind === 'llm' && s.name === {json.dumps(name)}) && document.querySelector('#settingsModal .skey code')?.closest('.sgrp') && [...document.querySelectorAll('#settingsModal .skey')].some(k => k.textContent.startsWith('Key for ' + {json.dumps(name)}))", 8000, f'agent {name}')
+            url = await gm.evaluate(CARD)  # the card's commands page says what the seat holds, class by class (the card itself lists only some commands)
+            body = await gm.evaluate(f"fetch({json.dumps(url.replace('/card?', '/help/commands?'))}).then(r => r.text()).catch(e => String(e))") if '/card?seat=' in url else ''
+            line = next((l for l in body.splitlines() if l.startswith('YOUR PERMISSIONS: ')), '')
+            return made, url, set(re.findall(r'(?:: |; )([a-z.]+) \(', line))
+        BOXES = "[...document.querySelectorAll('#settingsModal [data-cls]')].map(x => [x.dataset.cls, x.checked])"
+        boxes = dict(await gm.evaluate(BOXES))
+        check(len(boxes) >= 12 and all(boxes.values()) and not (set(boxes) & {'seat.agent', 'seat.admin', 'seat.locate', 'seat.self', 'request'}), 'every class in the list starts ticked (Harry 2026-11-01); what agents may never hold is not in the list', boxes)
+        ok, card, held = await card_of('Everyhand')
+        check(ok and held == set(boxes), 'left as it opens, an agent seat holds every class in the list', sorted(held ^ set(boxes)))
+        await tap(gm, '#settingsModal [data-cls="room"]'); await tap(gm, '#settingsModal [data-cls="object"]')
+        await fill(gm, '#settingsModal .seatname', 'Redraw'); await tap(gm, '#settingsModal [data-act=newseat]')
+        await wait(gm, f"{C}.seats.some(s => s.name === 'Redraw') && !!document.querySelector('#settingsModal li[data-seat] b') && [...document.querySelectorAll('#settingsModal li[data-seat] b')].some(b => b.textContent === 'Redraw')", 8000, 'the redraw')
+        boxes = dict(await gm.evaluate(BOXES))
+        check(not boxes.get('room') and not boxes.get('object') and sum(boxes.values()) == len(boxes) - 2, 'an untick survives a redraw of the window (a new seat in the list)', boxes)
+        ok, card, held = await card_of('Unroofed')
+        check(ok and held == set(boxes) - {'room', 'object'}, 'an unticked class is absent: unticking Rooms and Objects holds everything else, and neither of them', sorted(held))
         await gm.evaluate("for (const x of document.querySelectorAll('#settingsModal [data-cls]')) x.checked = ['chat', 'token.move'].includes(x.dataset.cls)")
-        await fill(gm, '#settingsModal .gmagent', 'Narrator'); await tap(gm, '#settingsModal [data-act=gmagent]')
-        ok = await wait(gm, f"{C}.seats.some(s => s.kind === 'llm' && s.name === 'Narrator')", 8000, 'gm agent')
-        card = await gm.evaluate("[...document.querySelectorAll('#settingsModal .skey code')].map(c => c.textContent).find(t => t.includes('/card?seat=')) || ''")
-        body = await gm.evaluate(f"fetch({json.dumps(card)}).then(r => r.text()).catch(e => String(e))") if '/card?seat=' in card else ''
-        check(ok and 'chat.say' in body and 'token.move' in body and 'room.spawn' not in body and 'object.place' not in body, "a GM agent seat gets exactly the ticked permissions (its rules card lists only those commands)", card[:60])
+        ok, card, held = await card_of('Narrator')
+        check(ok and held == {'chat', 'token.move'}, 'a GM agent seat gets exactly the ticked permissions', sorted(held))
         real = [e for e in errors if not any(s in e for s in ('WebSocket', 'ERR_CONNECTION', '502', 'Refused:', 'status of 403')) and not (A.local and 'Failed to load resource' in e)]
         check(not real, 'no page errors', '; '.join(real[:4]))
         await browser.close()

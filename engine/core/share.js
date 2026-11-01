@@ -277,7 +277,7 @@ export function thumbProblem(s) {
 export function validateShare(obj) {
   try {
     if (!isObj(obj)) no('not a Turnip Works build');
-    if (obj.format !== SHARE_FORMAT) no(obj.kind === 'turnip-works-campaign' ? 'that is a whole-campaign file: import it from Settings ▸ Campaign admin' : 'not a Turnip Works build');
+    if (obj.format !== SHARE_FORMAT) no(obj.kind === 'turnip-works-campaign' ? 'that is a whole-campaign file: import it from Settings ▸ Invites and exports' : 'not a Turnip Works build');
     for (const k of Object.keys(obj)) if (!TOP.includes(k)) no(`unknown field ${String(k).slice(0, 40)}`);
     if (!Number.isInteger(obj.v) || obj.v < 1) no('no version');
     if (obj.v > SHARE_V) no(`made by a newer Turnip Works (version ${obj.v}; this one reads up to ${SHARE_V}): reload the page`);
@@ -508,7 +508,7 @@ export function chunkOps(ops, { maxOps = 1500, maxBytes = 700000 } = {}) {
   return out;
 }
 
-// A WHOLE-CAMPAIGN FILE (Settings ▸ Campaign admin's export, `turnip-works-campaign`) read through the same door: each area
+// A WHOLE-CAMPAIGN FILE (the export in Settings ▸ Invites and exports, `turnip-works-campaign`) read through the same door: each area
 // becomes a share document of kind 'area', built field by field from the file's entities (which are untrusted too), then
 // validated. The old import wrote the file's entities straight in (entities.set); this never does.
 export function campaignAreas(file) {

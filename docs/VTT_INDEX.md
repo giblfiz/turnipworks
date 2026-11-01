@@ -26,7 +26,7 @@ makers are invited to "claim yours / correct me". Posting it anywhere is Harry's
   Beyond20: rolls, hit points and conditions land on pawns" --src https://github.com/giblfiz/turnipworks/blob/main/docs/BEYOND20.md`
   (Beyond20 is a third-party bridge, so partial for everyone). The rule for our row is the rule for every row: the value
   is what people can use on the live site; built but only on dev goes in the note as "dev (not yet live)" and does not
-  count; not built = no. (Beyond20, phones, hills and caves went live 2026-10-30 in release 20261029-153128-f0228c68; music is dev only.) Change the upsides/downsides by hand in the JSON if they stop being true.
+  count; not built = no. (Beyond20, phones, hills and caves went live 2026-10-30 in release 20261029-153128-f0228c68; music, aura and Exalted dice on 2026-11-01 in release 20261030-165116-9cc49bdc.) Change the upsides/downsides by hand in the JSON if they stop being true.
 - **Re-check whether sites are up.** `python3 tools/vtt-index/vtt_index.py alive` (indie rows; `--group all` for every
   row, `--id a,b` for some). One request at a time, robots.txt honoured, >= 2.5 s apart; about 4 minutes for 95 rows.
 - **Add a product.** `python3 tools/vtt-index/vtt_index.py add new-vtt "New VTT" --group indie --url https://...`, then

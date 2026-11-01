@@ -5,7 +5,7 @@
   python3 engine/test/browser_uvtt.py --local [--shots] [--out DIR]
   (run it from a checkout that has the ignored models: the main checkout, or a worktree with them linked)
 
-  FILE     Settings > Campaign admin > Universal VTT: the button downloads <campaign>-<area>-<level>.dd2vtt; every field
+  FILE     Settings > Invites and exports > Universal VTT: the button downloads <campaign>-<area>-<level>.dd2vtt; every field
            of the format; format 0.3, origin 0, map_size = the rooms' box + 1 square; the PNG is map_size x ppg
   WALLS    line_of_sight is the world's walls of that level, exactly: total wall length + door and window widths =
            the level's edges (no gaps, no doubles); every door is a closed portal on its edge, every window an open one,
@@ -126,12 +126,12 @@ async def main():
         await gm.evaluate("tw.goLevel(0, 'test')"); await gm.wait_for_timeout(600); await settle(gm)
 
         # ---------------- FILE: the Settings button ----------------
-        print('FILE: Settings > Campaign admin > Universal VTT')
+        print('FILE: Settings > Invites and exports > Universal VTT')
         await gm.evaluate(f"tw.uvtt.savePrefs({{ ppg: {A.ppg}, hidden: false, grid: false, pawns: false }})")
         await gm.evaluate("tw.settings.show('admin')"); await gm.wait_for_timeout(500)
         btn = await gm.query_selector('[data-act="uvtt"]')
         txt = await btn.inner_text() if btn else ''
-        check(btn and 'Download as Universal VTT (.dd2vtt)' in txt, 'Campaign admin has "Download as Universal VTT (.dd2vtt)"', txt)
+        check(btn and 'Download as Universal VTT (.dd2vtt)' in txt, 'Invites and exports has "Download as Universal VTT (.dd2vtt)"', txt)
         grp = await gm.evaluate("[...document.querySelectorAll('.sgrp')].map(g => g.textContent).find(t => t.includes('Universal VTT')) || ''")
         check((await gm.evaluate("tw.uvtt.levelLabel(0)")) in grp and 'Foundry' in grp and all(str(n) in grp for n in (70, 100, 140, 200)), 'it names the level (the ground storey), the VTTs, and offers 70 / 100 / 140 / 200 px', grp[:160])
         keep = await gm.evaluate("(() => { const w = tw.worldOf(tw.area()); return { cut: w.cut ?? null, grid: w.grid.visible, pose: tw.main.pose(), roofs: !!w.roofsOn, deco: w.layers.deco.visible, appCut: tw.cut.y }; })()")

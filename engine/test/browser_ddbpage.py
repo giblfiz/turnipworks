@@ -18,7 +18,7 @@
          opens the page in a new tab (the table stays); after Beyond20 says Loaded (simulated here with its DOM event:
          this is a test of OUR listener, not a demo) the open window says "D&D Beyond: connected via Beyond20" and the
          note "Beyond20 connected" shows (it waits for the loading screen to go); the GM
-         also finds it in Campaign rules; a player has no Campaign rules
+         also finds it in Vision, distance & rules; a player has no Vision, distance & rules
   ROUTE  (--page) /connect-dnd-beyond answers 200 HTML; /connect-dnd-beyond/ and .html 301 to it; the film answers
          byte ranges (206), so a browser can seek; sitemap.xml and llms.txt list the page
 --local serves the repo (the page at /engine/client/site/connect-dnd-beyond.html) with a throwaway relay. Writes nothing
@@ -176,10 +176,10 @@ async def main():
         note = await wait(pl, "!!tw.b20.told && document.querySelector('#toast')?.textContent.startsWith('Beyond20 connected')", 6000, 'the note')
         check(note and await pl.evaluate("document.getElementById('twl')?.hidden !== false"), 'and the "Beyond20 connected" note shows once the loading screen has gone (never under it)', await pl.evaluate("[tw.b20.told, document.querySelector('#toast')?.textContent]"))
         secs = await pl.evaluate("tw.settings.state().sections")
-        check('campaign' not in secs, 'a player has no Campaign rules section', secs)
+        check('campaign' not in secs, 'a player has no Vision, distance & rules section', secs)
         await gm.evaluate("tw.settings.show('campaign')"); await wait(gm, "!!document.querySelector('#settingsModal .sddb')", 8000, 'GM row')
         r = await gm.evaluate(ROW)
-        check(r and r['link'] and r['link'][1] == want_href and r['status'] == 'D&D Beyond: not connected in this tab', 'GM: Campaign rules carries the same entry (this GM tab has no Beyond20)', r)
+        check(r and r['link'] and r['link'][1] == want_href and r['status'] == 'D&D Beyond: not connected in this tab', 'GM: Vision, distance & rules carries the same entry (this GM tab has no Beyond20)', r)
         await gm.evaluate("tw.settings.show('me')"); await wait(gm, "!!document.querySelector('#settingsModal .sddb')", 8000, 'GM me row')
         check(await gm.evaluate(ROW), 'GM: and Settings ▸ Me too')
         await gm.evaluate("tw.settings.close()"); await pl.evaluate("tw.settings.close()")

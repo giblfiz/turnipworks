@@ -1,6 +1,6 @@
 # Turnip Works VTT comparison index
 
-Last updated 2026-10-30. Web page: https://turnipworks.net/vtt-index · JSON: https://turnipworks.net/vtt-index.json · Schema: https://turnipworks.net/vtt-index.schema.json
+Last updated 2026-11-01. Web page: https://turnipworks.net/vtt-index · JSON: https://turnipworks.net/vtt-index.json · Schema: https://turnipworks.net/vtt-index.schema.json
 
 **Disclosure.** We make Turnip Works, one of the products in this table. The table is our own development checklist, so expect our row to fill up over time. Our row is scored by the same rules as every other row, and every row is checked on the same schedule; a feature of ours that is built but only on our development server is mentioned in the note and does not count until it is live.
 
@@ -4524,19 +4524,19 @@ A free 3D tabletop in a browser tab where buildings furnish themselves; players 
 
 - Group: Ours; kind: vtt; maker: Fauna and giblfiz (Implausible Enterprises LLC)
 - Website: https://turnipworks.net/; licence: AGPL-3.0 (code), CC BY 4.0 (assets)
-- Site check: alive (our own site, 2026-10-29); features last checked 2026-10-30
+- Site check: alive (our own site, 2026-10-29); features last checked 2026-11-01
 
 - 2D / 3D: **3D**: a 3D table you turn and tilt; a top-down view, and a first-person view through a pawn's eyes [source](https://turnipworks.net/about)
 - Runs on: **web browser**: desktop or laptop browser with WebGL 3D graphics, tested most in Chrome; phone browsers work by touch (see Phone) [source](https://turnipworks.net/llms.txt)
 - Price: **free**: no paid tier; players free [source](https://turnipworks.net/about)
 - Accounts: **none**: the GM starts a table and sends links; whoever opens a link takes that seat [source](https://turnipworks.net/llms.txt)
 - Fog of war: **yes**: per player: each sees what their pawn's light and line of sight reach; the GM sees all [source](https://turnipworks.net/llms.txt)
-- Dynamic lighting: **yes**: lamps and fires light the rooms; walls, darkvision and lamps decide each player's sight [source](https://turnipworks.net/about)
+- Dynamic lighting: **yes**: lamps and fires light the rooms; walls, darkvision and lamps decide each player's sight; a pawn can carry an aura in five levels and six colours [source](https://turnipworks.net/about)
 - Map building: **yes**: drop a building (tavern, crypt, tower...) and its rooms furnish themselves; rooms drawn by hand, floors painted; hills to build on and into, and caves; a build can be shared as a link or a file [source](https://turnipworks.net/llms.txt)
 - Levels / height: **yes**: buildings with several floors and stairs, hills, and cellars and caves below the ground; a cut-height view to see inside [source](https://github.com/giblfiz/turnipworks/blob/main/docs/VERTICAL.md)
 - Sheets & rules: **no**: no character sheets or rules engine; pawns track damage, conditions (shown on the pawn) and notes, with a link to your own sheet; saved attacks roll at a target, but no armour class is compared; initiative and turn order [source](https://github.com/giblfiz/turnipworks/blob/main/docs/PAWNS.md)
 - D&D Beyond / Beyond20: **partial**: through Beyond20 (a free third-party browser extension): D&D Beyond rolls land as our 3D dice, attacks at the pawn's target, initiative into the turn order, hit points and conditions onto the pawn; a step-by-step setup page [source](https://turnipworks.net/connect-dnd-beyond)
-- Dice: **3D**: 3D physics dice rolled on the table, seen by everyone; game dice too (Vampire's Hunger, Daggerheart's Hope and Fear, Fate, L5R, Call of Cthulhu, Shadowrun) with their tallies, for AI seats as well [source](https://turnipworks.net/about)
+- Dice: **3D**: 3D physics dice rolled on the table, seen by everyone; game dice too (Vampire's Hunger, Daggerheart's Hope and Fear, Fate, L5R, Call of Cthulhu, Shadowrun, Exalted) with their tallies, for AI seats as well [source](https://turnipworks.net/about)
 - Phones: **partial**: a phone goes straight into the game: tap to select and place, one finger pans, two fingers turn and tilt; made for computers first, and some screens (Settings) are still desktop-sized [source](https://github.com/giblfiz/turnipworks/blob/main/docs/UI.md)
 - Offline / self-host: **no**: no offline mode or self-hosting guide; the code is public, so running your own is possible in principle [source](https://turnipworks.net/llms.txt)
 - Open source: **yes**: engine AGPL-3.0, every 3D asset CC BY 4.0 [source](https://github.com/giblfiz/turnipworks)
@@ -4553,7 +4553,7 @@ Upsides:
 Downsides:
 - Open beta: new, changes weekly, and things can break
 - Needs working 3D graphics; made for computers first, and on phones some screens are still desktop-sized
-- No character sheets, rules engine, music or sound yet
+- No character sheets or rules engine yet; music by area, but no sound effects or ambience
 - Hosted only: no offline mode or self-hosting guide yet
 
 Sources: [About page](https://turnipworks.net/about) · [Plain summary (llms.txt): basics and limits](https://turnipworks.net/llms.txt) · [Source code](https://github.com/giblfiz/turnipworks)

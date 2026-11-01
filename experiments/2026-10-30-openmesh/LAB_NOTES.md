@@ -60,3 +60,10 @@
 - Look changes beyond the openables: generated rooms' fieldstone, rough-timber, noble-panel and castle-rough windows now
   show their shutters (or the slit's planks) CLOSED (rooms place the wall-window-small sku: client look.js kitSpec); lit
   bread ovens show no flames until opened.
+- 16:51 LANDED on dev: main 9cc49bdc, candidate 20261030-165116-9cc49bdc (prod stays 20261029-153128-f0228c68; never
+  promoted). land.sh copied 179 new + 196 replaced binaries into main (14 replaced skus x glb/.owner/6 LOD/6 tex), the
+  tuner deployed (tw-relay-dev restarted onto it), then the client. land.sh's permission gate wanted 755 exactly and the
+  tree's directories are 2755 (setgid): fixed afterwards; the client deploy, candidate and push ran by hand under the lock.
+  Suites before landing (worktree, after the last rebase): npm test green; browser_openables 15/15 (FIT new),
+  browser_pdoors 23/23, browser_bars 68/68, browser_build 98/99 (F2 rename: fails on origin/main too, checked in a clean
+  baseline worktree).

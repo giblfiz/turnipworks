@@ -15,7 +15,7 @@
 
 Without Beyond20 nothing here shows and nothing changes.
 
-**For players: the help page "Connect D&D Beyond"** (2026-10-29), `/connect-dnd-beyond` (docs/site/connect-dnd-beyond.md; its film and pictures are a real recording of this setup: experiments/2026-10-29-ddbpage/). In the game, **Settings ▸ Me ▸ D&D Beyond** (and Settings ▸ Campaign rules for the GM) opens it in a new tab and says "D&D Beyond: connected via Beyond20" once Beyond20 has reported in this visit, else "D&D Beyond: not connected in this tab". Test: engine/test/browser_ddbpage.py.
+**For players: the help page "Connect D&D Beyond"** (2026-10-29), `/connect-dnd-beyond` (docs/site/connect-dnd-beyond.md; its film and pictures are a real recording of this setup: experiments/2026-10-29-ddbpage/). In the game, **Settings ▸ Me ▸ D&D Beyond** (and Settings ▸ Vision, distance & rules for the GM) opens it in a new tab and says "D&D Beyond: connected via Beyond20" once Beyond20 has reported in this visit, else "D&D Beyond: not connected in this tab". Test: engine/test/browser_ddbpage.py.
 
 ## What it does
 - **A roll lands on the table.** TW throws its own 3D dice from the character's pawn. They **land on Beyond20's numbers**: Beyond20's results are authoritative, and every seat turns each die's numbering so the top face reads them. This is the ordinary synced roll (`dice.roll` with the per-die `rolls` and the recorded throw: docs/NETCODE.md "Determinism where it pays"), so every player sees the same throw and the same numbers. The line in the log is Beyond20's total: "Thorin · Athletics: d20+5 adv = 22 [17, 4]".

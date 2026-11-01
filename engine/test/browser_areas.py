@@ -15,7 +15,7 @@ A GM tab and a player tab against a throwaway local relay.
             the area is hidden again, the player is put out of it
   TRAVEL    a player sends her own pawn to an open area and her view goes with it; the GM gets "Bring … back", which
             goes down into the chat as "… went to … · [Bring back]"; pressing it brings the pawn back
-  LOCK      Settings ▸ Campaign rules ▸ Players travel between areas: off, and the player's travel list says so
+  LOCK      Settings ▸ Vision, distance & rules ▸ Players travel between areas: off, and the player's travel list says so
   NONE      the only open area is hidden: the player is told, and comes back when it is opened
 """
 import argparse, asyncio, json, os, random, shutil, subprocess, sys, tempfile, time, urllib.parse, urllib.request
@@ -254,8 +254,8 @@ async def main():
 
         # ---------------- LOCK ----------------
         print('LOCK')
-        await gm.keyboard.press('s'); await gm.wait_for_timeout(400); await gm.keyboard.press('r'); await gm.wait_for_timeout(400)
-        check(await gm.evaluate("(() => { const t = document.querySelector('#settingsModal [data-travel]'); return !!t && t.classList.contains('on') && /Players travel between areas/.test(t.closest('.srow').textContent); })()"), 'Settings ▸ Global defaults has "Players travel between areas", on')
+        await gm.keyboard.press('s'); await gm.wait_for_timeout(400); await gm.keyboard.press('v'); await gm.wait_for_timeout(400)
+        check(await gm.evaluate("(() => { const t = document.querySelector('#settingsModal [data-travel]'); return !!t && t.classList.contains('on') && /Players travel between areas/.test(t.closest('.srow').textContent); })()"), 'Settings ▸ Vision, distance & rules has "Players travel between areas", on')
         await gm.click('#settingsModal [data-travel]'); await wait(pl, "tw.travelLocked()", 6000, 'locked'); await gm.wait_for_timeout(300)
         check(await gm.evaluate("(() => { const t = document.querySelector('#settingsModal [data-travel]'); return !t.classList.contains('on') && /Locked/.test(t.closest('.srow').textContent); })()"), 'switched off, it says Locked')
         await gm.keyboard.press('Escape')

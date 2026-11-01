@@ -2,13 +2,13 @@
 //   Export         THE WHOLE AREA only: Settings ▸ Area settings ("Export this area…") and the bar ("export", "export
 //                  area", "share link"): a small window with the 3/4 picture the game renders, what is in it,
 //                  "Strip secrets", and two ways out: Download (.turnip.json) and Copy share link (an unlisted copy on the
-//                  relay, relay/shares.js; its delete is in the same window and in Settings ▸ Campaign admin).
+//                  relay, relay/shares.js; its delete is in the same window and in Settings ▸ Invites and exports).
 //                  A SELECTION (a room, a building, things) is not exported, on purpose (Harry 2026-10-29: "drop export
 //                  of selections — that can be a thing once we have the whole 'object tuner for players' thing"). It is
 //                  PARKED until the player object tuner / prop assembler exists; the format (core/share.js) still has
 //                  every kind, so the starter builds and old files of every kind still import. Sh.build takes any kind
 //                  (the tests make their room, building and prop-group files with it); no button reaches the others.
-//   Import         open a file (Settings ▸ Campaign admin ▸ Shared builds, or "import" in the bar), drop one on the window,
+//   Import         open a file (Settings ▸ Invites and exports ▸ Shared builds, or "import" in the bar), drop one on the window,
 //                  or "import <link>" in the bar; a share page's "Use in my campaign" opens the game with ?share=<id>.
 //                  A room, a building or things ride the pointer as a GHOST (their footprint in my colour, red where it
 //                  would overlap; a building lands on the ground, on a hilltop it stands wholly on; things land on the floor
@@ -276,7 +276,7 @@ export function createShare(app, { thumbs }) {
     return Sh.importText(await r.text(), { from: 'starter' });
   };
 
-  // ---------------------------------------------------------------- Settings ▸ Campaign admin ▸ Shared builds
+  // ---------------------------------------------------------------- Settings ▸ Invites and exports ▸ Shared builds
   Sh.adminGroupHtml = () => {
     const links = Sh.myLinks || [], st = Sh._starters || [];
     return `<div class="sab"><button class="sbtn primary" data-shact="pick">${icon('package', 15)} Import a shared build (.turnip.json)…</button></div>

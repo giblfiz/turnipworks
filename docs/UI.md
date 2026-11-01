@@ -466,8 +466,8 @@ An audit of the bar against everything the game can do today. 254 commands were 
 | **Rooms** | build each of the 38 room types, re-roll, turn, room type ▸, walls ▸, floor ▸, fog height, taller / shorter, add stair, replay spawn, show roof, rename, delete | **Build a whole building** (6 types: the Build tray's Type level) | water (rivers, ponds): there is no draw tool yet |
 | **Roofs** | style (5), the building's style, re-roll, hide | | |
 | **Areas** | new area, visibility (3), send selection to an area, go to an area, picture-in-picture of an area | **Lighting here** (house look, day, night, deep night, flat daylight), **grid on / off**, **players' moves locked / free**, **players may touch / nothing**, **Rename this area…** | delete an area: Settings asks twice before deleting, the bar would not |
-| **People** | invite a player, create an AI seat, undo someone's last action, go to a person | | revoke a seat, copy an invite link again: in Settings ▸ Campaign admin (they need the seat list) |
-| **Settings** | "Settings…" | **Settings: World navigation / Me / Controls / Graphics / Area settings / Campaign rules / Area defaults / House look / Campaign admin**; **Reduce motion**, **Levels fly away**, **other people's cursors**, **announcements** (each on / off); **Scroll wheel** auto / zoom / pan; **Graphics quality** low / medium / high; **Reset my settings** | the sliders (zoom and rotate speed, ring size, text size, volumes) and name and colour: open Settings ▸ Me; snapshots, export, import: "snapshots" or "export" finds Settings ▸ Campaign admin |
+| **People** | invite a player, create an AI seat, undo someone's last action, go to a person | | revoke a seat, copy an invite link again: in Settings ▸ Invites and exports (they need the seat list) |
+| **Settings** | "Settings…" | **Settings: World navigation / Invites and exports / Vision, distance & rules / Area defaults / Area settings / House look / Me / Graphics / Controls**; **Reduce motion**, **Levels fly away**, **other people's cursors**, **announcements** (each on / off); **Scroll wheel** auto / zoom / pan; **Graphics quality** low / medium / high; **Reset my settings** | the sliders (zoom and rotate speed, ring size, text size, volumes) and name and colour: open Settings ▸ Me; snapshots, export, import: "snapshots" or "export" finds Settings ▸ Invites and exports |
 | **Talk** | say, roll, newest offer in the chat | | |
 | **Help** | replay intro | | |
 
@@ -1371,44 +1371,44 @@ A third of a second after the hand stops, everything is back; contact shadows fa
 The current icons are good enough for now ("what you have is great"). At some point we hold a proper icon-building pass: one consistent, painted, quiet-modern set covering every command, toggle state (pin/unpin, hide/unhide…), cursor, launcher and menu node. Generate it through the free Codex image route with one prompt template and style reference, and check it at every size it's used.
 
 ## Settings (Harry 2026-10-04): an industry-standard window, the one exception to the tray pattern
-A modal window with a category list on the left. Sections in order:
+A modal window with a category list on the left. Sections in order (**Harry 2026-11-01:** the GM's work on the whole campaign first, then each person's own, Feedback last; a player sees World navigation, Me, Graphics, Controls, Feedback). Settings still always opens on World navigation.
 1. **World navigation.** Everyone, filtered by visibility.
    - Every area you can reach, opened here or in the PiP. The GM also creates, renames and deletes areas.
    - **This is also what you land on when you join a campaign.**
-2. **Me.** Everyone; lives with the player and follows them across devices.
-   - Identity: name, seat colour, avatar.
-   - **My pawns (built 2026-10-06):** the pawns I keep in this campaign: a figure picked from our set (a Build-style picker: the Pawns menu's own tree), a name, a sheet link, notes, whose pet it is, my main pawn. Kept with the campaign, no limit, no approval. docs/PAWNS.md "Mine, the bench, and Settings ▸ Me ▸ My pawns".
-   - My agents: LLM seats this player created.
-   - (A player's Import and export requests.)
-   - **Me was split in three (Harry 2026-10-24: "the Me tab is overwhelming, and a little confusing").** Me is who you are and what is yours; how the game answers you and how it draws moved to their own sections:
-2b. **Controls (K, for keys).** Everyone; this browser's own.
-   - Controls: mouse/trackpad mapping, zoom and rotate speed, invert, scroll wheel, pawn snapping, and the keyboard shortcut list.
-   - Interface: UI size, announce box and its speed, others' cursors, reduced motion, labels, light reach, the library's even sizing.
-   - Sound: **separate on/off and volume for Music and for Sound effects.** Music works (2026-10-30, "Music" at the end of this file); sound effects are still stored only.
-   - **Reset my controls and graphics to defaults.**
-2c. **Graphics (G).** Everyone; this browser's own: quality preset, every switch it sets, resolution, frame caps, geometry detail. The same reset button.
-3. **Area settings.** GM; this area only.
+2. **Invites and exports (I).** GM. Campaign admin until Harry 2026-11-01; the id is still `admin`, and "campaign admin" in the bar still finds it. Its groups in order: Invites and seats, Requests (those two first, Harry 2026-11-01), Snapshots, Export and import, Shared builds, Universal VTT, Agent seats.
+   - Invites, seats and roles, revoking access.
+   - **Players may also import and export, subject to GM approval.** A request appears for the GM, who approves or denies it.
+   - Save: snapshots and restore.
+   - Export and import.
+   - Session keys and permissions for GM-created LLM seats.
+3. **Vision, distance & rules (V).** GM. Campaign rules until Harry 2026-11-01; the id is still `campaign`, and "campaign rules" in the bar still finds it. The campaign's name; Vision (fog of war default, shared party vision, reset / reveal fog); Travel; distance, units, genre default, public vs hidden rolls.
+4. **Area defaults (D).** GM. Area settings' knobs for every area (areas inherit and can override), each with built-in / set here / Reset. Graphics are not here: they are each person's own. The first line says so and links to Settings ▸ Graphics (Harry looked for them here, 2026-10-12).
+5. **Area settings (A).** GM; this area only.
    - Day/night and time, weather, music (2026-10-30: Off, Playlist or one track; "Music" at the end of this file).
    - Fog of war.
    - Open to players, or hidden (2026-10-06: "Areas: open or hidden", at the end of this file).
    - Grid.
    - Play rules: free moves, what players may touch.
    - Every field shows "using default" or "overridden here", with a one-click reset.
-4. **Global defaults, split in three (Harry 2026-10-24: "a little bit overweight"; three sections was his pick).** GM.
-   - **Campaign rules (R):** the campaign's name; Vision (fog of war default, shared party vision, reset / reveal fog); Travel; distance, units, genre default, public vs hidden rolls.
-   - **Area defaults (D):** Section 3's knobs for every area (areas inherit and can override), each with built-in / set here / Reset. Graphics are not here: they are each person's own. The first line says so and links to Settings ▸ Graphics (Harry looked for them here, 2026-10-12).
-   - **House look (H):** spawn animation, house lighting, selection style, below the ground: hills and ground see-through (2026-10-27, "Hills").
-5. **Campaign admin.** GM.
-   - Save: snapshots and restore.
-   - Export and import.
-   - Invites, seats and roles, revoking access.
-   - Session keys and permissions for GM-created LLM seats.
-   - **Players may also import and export, subject to GM approval.** A request appears for the GM, who approves or denies it.
-6. **Feedback (2026-10-19).** Everyone: a ticket of any kind and My tickets. "Feedback" at the end of this file.
-- **D&D Beyond (2026-10-29).** Me (everyone) and Campaign rules (GM) carry a "D&D Beyond" group: whether Beyond20 has reported in this tab ("D&D Beyond: connected via Beyond20" / "not connected in this tab") and a **Connect D&D Beyond** button that opens the help page `/connect-dnd-beyond` in a new tab. docs/BEYOND20.md.
+6. **House look (H).** GM. spawn animation, house lighting, selection style, below the ground: hills and ground see-through (2026-10-27, "Hills").
+   - Sections 3, 4 and 6 are Global defaults split in three (Harry 2026-10-24: "a little bit overweight"; three sections was his pick).
+7. **Me (M).** Everyone; lives with the player and follows them across devices.
+   - Identity: name, seat colour, avatar.
+   - **My pawns (built 2026-10-06):** the pawns I keep in this campaign: a figure picked from our set (a Build-style picker: the Pawns menu's own tree), a name, a sheet link, notes, whose pet it is, my main pawn. Kept with the campaign, no limit, no approval. docs/PAWNS.md "Mine, the bench, and Settings ▸ Me ▸ My pawns".
+   - My agents: LLM seats this player created.
+   - (A player's Import and export requests.)
+   - **Me was split in three (Harry 2026-10-24: "the Me tab is overwhelming, and a little confusing").** Me is who you are and what is yours; how the game answers you and how it draws moved to their own sections:
+8. **Graphics (G).** Everyone; this browser's own: quality preset, every switch it sets, resolution, frame caps, geometry detail. The same reset button.
+9. **Controls (K, for keys).** Everyone; this browser's own.
+   - Controls: mouse/trackpad mapping, zoom and rotate speed, invert, scroll wheel, pawn snapping, and the keyboard shortcut list.
+   - Interface: UI size, announce box and its speed, others' cursors, reduced motion, labels, light reach, the library's even sizing.
+   - Sound: **separate on/off and volume for Music and for Sound effects.** Music works (2026-10-30, "Music" at the end of this file); sound effects are still stored only.
+   - **Reset my controls and graphics to defaults.**
+10. **Feedback (F, 2026-10-19).** Everyone: a ticket of any kind and My tickets. "Feedback" at the end of this file.
+- **D&D Beyond (2026-10-29).** Me (everyone) and Vision, distance & rules (GM) carry a "D&D Beyond" group: whether Beyond20 has reported in this tab ("D&D Beyond: connected via Beyond20" / "not connected in this tab") and a **Connect D&D Beyond** button that opens the help page `/connect-dnd-beyond` in a new tab. docs/BEYOND20.md.
 
 ### Keys and pictures (Harry 2026-10-04)
-- **S opens Settings, always on World navigation.** Then a letter picks a section: **N** World navigation, **M** Me, **K** Controls, **G** Graphics, **A** Area settings, **R** Campaign rules, **D** Area defaults, **H** House look (all 2026-10-24; C stays Campaign admin), **C** Campaign admin, **F** Feedback (2026-10-19); each entry shows its letter (the 1–5 numbers are gone). S again (or Esc) closes it.
+- **S opens Settings, always on World navigation.** Then a letter picks a section, in the list's order: **N** World navigation, **I** Invites and exports, **V** Vision, distance & rules, **D** Area defaults, **A** Area settings, **H** House look, **M** Me, **G** Graphics, **K** Controls, **F** Feedback (the letters of those two renamed sections, I and V, Harry 2026-11-01: "shortcut letters should match the new names"; they were C and R, which now do nothing here); each entry shows its letter (the 1–5 numbers are gone). S again (or Esc) closes it. V is also first person, and R also turns a thing: with the window open neither reaches the game.
 - **The hotkey rule:** a single letter is a game-wide tool only when free (now: B Build, P Pawns, S Settings, R turn (a thing 45°, a selected room 90°), O open / close or light / put out (2026-10-20), L room and building labels on / off (2026-10-20; L was light), F frame, Q/E rotate the view, N next turn (Shift+N previous) while there is a turn order, X the GM's pawn X-ray). Letters inside an open tray or window (the Build tray, Settings) belong to it and never reach the game, and are ignored while a text field has focus. So chord letters may reuse game letters safely (S then A doesn't touch anything bound to A).
 - **World navigation shows a 3/4 picture of each area** with its name and "updated …":
   - Opening navigation refreshes picture metadata, so another seat’s newly uploaded picture appears even when this list was opened recently.
@@ -1418,7 +1418,7 @@ A modal window with a category list on the left. Sections in order:
 
 ### As built (2026-10-04, `engine/client/surfaces/settings.js`)
 - **The window:** a modal over everything, with the categories on the left, numbered 1 to 5. Esc, the × or a click on the backdrop closes it.
-  - Players see only World navigation and Me; their request buttons are in Me.
+  - Players see only World navigation, Me, Graphics, Controls and Feedback; their request buttons are in Me.
   - Typing in a field never reaches the game's hotkeys.
 - **No landing screen (Harry 2026-10-05).** Opening the game (turnipworks.net, a campaign link, a reload) goes straight into the game: the area the seat was last in, or the campaign's default area. A visitor with no campaign link resumes this browser’s most recent remembered seat; a browser without one gets the short "new campaign" form, then the game. Settings is never opened for you.
   - "Always open on World navigation" is about the Settings window: S or its button opens it on World navigation every time, whichever section was open last.
@@ -1458,14 +1458,14 @@ A modal window with a category list on the left. Sections in order:
   - Sound: the Music switch and volume work (2026-10-30, "Music"); Sound effects are stored but do nothing yet.
   - My agents: create, copy key (the rules card URL), revoke.
   - Reset to defaults.
-- **Campaign admin:**
+- **Invites and exports:**
+  - Invites (copy link) and revoke.
+  - Player requests: an approved import applies the player's file; an approved export gives the player "Export now".
   - Snapshots are kept on the relay, per campaign, GM only (`/c/<id>/snapshots`, files under the campaign's data dir, at most 50), so they follow the GM between devices; any an older build kept in the browser move up on first load. Restoring one runs `entities.set`, so undo brings back what it replaced.
   - Export is a JSON file of every area the seat can see; import adds those areas as new ones. Since 2026-10-29 the import reads each area as a shared build and lays it in with ordinary commands ("Sharing builds" below), never an `entities.set` of the file's contents. glTF, TaleSpire and STL buttons are placeholders.
   - **Shared builds** (2026-10-29): import a `.turnip.json`, the starter builds, your share links. "Sharing builds" below.
   - **Universal VTT (.dd2vtt)** (2026-10-24): the level you are on as a 2D battlemap for another VTT. "Universal VTT export" at the end of this file.
-  - Invites (copy link) and revoke.
-  - GM agent seats get exactly the permissions ticked.
-  - Player requests: an approved import applies the player's file; an approved export gives the player "Export now".
+  - GM agent seats get exactly the permissions ticked. Every box starts ticked (Harry 2026-11-01; before, six of them); what you untick stays unticked until the window closes. What agents may never hold (`AGENTS_NEVER`, core/perms.js) is not in the list, and never more than yours holds as before.
 - **Tests:** `engine/test/browser_settings.py`, one block per section.
 
 ## Areas: open or hidden, and travel (Harry 2026-10-06, as built)
@@ -1490,7 +1490,7 @@ The rules and Harry's words are in docs/PAWNS.md, "Areas: travel, and keeping su
 - **Settings ▸ World navigation** (GM): each row says "Open to players" or "Hidden from players" and has an Open / Hide
   button; the new-area form has no visibility choice and says "A new area starts hidden from players, until you open
   it." **Settings ▸ Area** has one switch, "Open to players" (the three-way rule and "Also granted to" are gone).
-  **Settings ▸ Campaign rules ▸ Travel** has "Players travel between areas".
+  **Settings ▸ Vision, distance & rules ▸ Travel** has "Players travel between areas".
 - **A pawn's ☰ has "Send to area ▸"** (Space Z), last before Delete: a sub-menu at its button, one tile per area the
   pawn can go to (a picture of the area when there is one). A hidden area's tile is dashed violet with the eye-off mark
   and "hidden from players"; its tooltip says whether sending this pawn opens the area. A player whose travel is locked
@@ -1747,7 +1747,7 @@ Design, Harry's words, the exact tests and the choices made without him: **docs/
 - **M measures** (hold, or tap, like P, B and S). Hold M with a pawn selected: a ruler from that pawn to the pointer,
   at once. Otherwise drag from A to B. An end on a pawn sticks to it, measures base edge to base edge, and follows.
   Both ends drag again. A click elsewhere or Esc lets it go; a press on a pawn does not. Never stored.
-- **True distance** is the rule; Settings ▸ Campaign rules ▸ Distance offers the two square-counting rules.
+- **True distance** is the rule; Settings ▸ Vision, distance & rules ▸ Distance offers the two square-counting rules.
 - **Shapes by contextual buttons**: after a measurement, Line · Cone · Circle · Sphere · Cube (keys 1 to 5, only while
   a measurement is in the hand; `cone 15` and the rest in the bar). Then one persistent bar: Keep (K) · 1 round · N rounds [number] · Attach to pawn (when the origin is on a pawn). Duration and attachment combine, further toggles update the same template, and the whole keep session has one undo. Esc, click-away or 8 seconds idle dismiss it.
   This row is the conditional-button pattern with several buttons: it exists only while its measurement does, sits
@@ -1879,7 +1879,7 @@ Tests: `engine/test/browser_continuity.py`, `games.test.mjs`, `campaign-names.te
 
 ## Vision fog of war (Task G, 2026-10-13)
 
-Settings ▸ Campaign rules has **Fog of war** (on in new campaigns, off in pre-existing campaigns) and **Shared party vision** (off). The command bar has `fog of war on/off`, `shared party vision on/off`, `reset fog`, and `reveal explored here`. Reset forgets explored memory across every area for everyone and is undoable. Reveal marks selected rooms explored; with no selected room it marks the area's floor-plan bounds, including loose outdoor scenery. It never reveals pawns without current sight.
+Settings ▸ Vision, distance & rules has **Fog of war** (on in new campaigns, off in pre-existing campaigns) and **Shared party vision** (off). The command bar has `fog of war on/off`, `shared party vision on/off`, `reset fog`, and `reveal explored here`. Reset forgets explored memory across every area for everyone and is undoable. Reveal marks selected rooms explored; with no selected room it marks the area's floor-plan bounds, including loose outdoor scenery. It never reveals pawns without current sight.
 
 A player sees through the pawns whose **Moved by** names them, including familiars. Shared vision uses all player-controlled pawns. The GM normally sees everything; `view as <player name>`, `view as party`, and `view as GM` switch their local preview. A visible badge names the preview and returns to GM when clicked. Shared full-map area thumbnails are omitted while viewing through fog. Deliberately hidden rooms and things remain withheld in player previews.
 
@@ -1955,7 +1955,7 @@ At the front door a phone (the `tw-hand` test above) also gets `window.TW_PHONE`
 
 ## Universal VTT export (Harry 2026-10-24: "Universal VTT export"; client/uvtt.js, core/uvtt.js)
 A GM builds in 3D here and takes the map to a 2D VTT: one `.dd2vtt` file per storey, the format Dungeondraft and Dungeon Alchemist write and Foundry (the Universal Battlemap Importer module), Roll20 (its UniversalVTTImporter script), Owlbear Rodeo extensions, Fantasy Grounds (uvtt2fgu) and MapTool read. Import of the format is not built.
-- **The way in (GM only):** Settings ▸ Campaign admin ▸ **Universal VTT (.dd2vtt)**: pixels a square (70 / 100 / 140 / 200; 100 by default), Include hidden, Grid lines, Pawns, and **Download as Universal VTT (.dd2vtt)**. The note names the level it will export; after a download the group says what went in (squares, walls, doors, windows, lights, MB). The command bar: "export uvtt", "dd2vtt", "export to foundry / roll20 / owlbear", "battlemap" (words in `barwords.js`), with the panel's last choices; "export uvtt 140" picks the pixels. Players have neither (and `tw.uvtt.build` refuses them).
+- **The way in (GM only):** Settings ▸ Invites and exports ▸ **Universal VTT (.dd2vtt)**: pixels a square (70 / 100 / 140 / 200; 100 by default), Include hidden, Grid lines, Pawns, and **Download as Universal VTT (.dd2vtt)**. The note names the level it will export; after a download the group says what went in (squares, walls, doors, windows, lights, MB). The command bar: "export uvtt", "dd2vtt", "export to foundry / roll20 / owlbear", "battlemap" (words in `barwords.js`), with the panel's last choices; "export uvtt 140" picks the pixels. Players have neither (and `tw.uvtt.build` refuses them).
 - **What is exported:** the area in view, the level you are on (`app.level`; the ground when nothing was chosen), whatever the view's cut happens to be. The file is named `<campaign>-<area>-<level>.dd2vtt`. The map is the box of every room in the area (all levels, so each storey's file has the same size and lines up with the others) plus one square round it; 1 square = 5 ft = one grid.
 - **The picture:** the game's own look (the main view's lighting stack: exposure, tone, bloom, contact shadows), straight down, north up, a PNG of map_size × pixels a square. Left out: storeys above (and below) the level, roofs, selection and cursors, labels, the grid (unless ticked), pawns (unless ticked), anything hidden from players (unless "Include hidden", which draws them solid, not in the GM's see-through look), the vignette, a GM "view as" fog. Drawn in window-sized tiles with a 48-px margin each that is cut off, so the screen-space passes leave no seams. A file over 20 MB is still downloaded, with a red toast and a red note (some VTTs refuse big files; fewer pixels a square fixes it); a picture past the browser's canvas limit (16384 px a side, 150 Mpx) is refused with that reason.
 - **The geometry** (`core/uvtt.js`, from the world's own edge map, the one the walls are drawn from): `line_of_sight` = that level's walls as merged straight runs, with a gap at every door and window; a tall room's carried-up walls count at the levels they stand on; a wall someone turned into a thing counts where it now stands. `portals` = each door (closed: true, its whole span) and window (closed: false: Foundry makes it a wall that sight and light pass at close range) on its own edge, rotation 0 along x and π/2 along y, freestanding false. `lights` = the level's lit lamps, by the same reach table as the darkness rule (range in squares, colour by kind as AARRGGBB, intensity 1, shadows on). `environment` = baked lighting, white ambient. `format` 0.3, `map_origin` (0, 0); `objects_line_of_sight` is empty.
@@ -1969,19 +1969,19 @@ Step 1 of docs/PRODUCT_DIRECTIONS.md "Sharing builds": a room, a building, a set
 **In short, for a GM:**
 - **Share an area you built.** Settings ▸ Area settings ▸ **Export this area…**, or type **export** (or **share link**) in the command bar. A window shows the game's own 3/4 picture of the area and what is in it. **Download .turnip.json** saves a file; **Copy share link** puts an unlisted link on your clipboard (only people who have it can find it). A single room, building or set of things is not exported for now (below).
 - **Secrets travel unless you say otherwise.** Hidden rooms and things, creatures, traps and GM notes go along, because the person who imports it is a GM too. Tick **Strip secrets** to leave them out; the window says exactly what that takes out. Your players' pawns never go along, nor seats, chat or fog.
-- **Use something someone shared.** Type **import** and paste the link in the command bar, drop a `.turnip.json` file on the game window, open one from Settings ▸ Campaign admin ▸ **Shared builds**, or press **Use in my campaign** on the link's page. A room, a building or things then follow your pointer as a ghost: the footprint is lit in your colour, red where it would land on a room that is already there. Click to put it down (Shift keeps the ghost for another copy; Esc cancels). It is one step: one undo takes it all away. A whole area comes in as a new area, hidden from players until you open it.
+- **Use something someone shared.** Type **import** and paste the link in the command bar, drop a `.turnip.json` file on the game window, open one from Settings ▸ Invites and exports ▸ **Shared builds**, or press **Use in my campaign** on the link's page. A room, a building or things then follow your pointer as a ghost: the footprint is lit in your colour, red where it would land on a room that is already there. Click to put it down (Shift keeps the ghost for another copy; Esc cancels). It is one step: one undo takes it all away. A whole area comes in as a new area, hidden from players until you open it.
 - **Pieces your library lacks** come in as plain boxes ("stand-ins") of the right size, and the toast says how many; a room type it lacks comes in as a common room.
-- **Your links** are listed in Settings ▸ Campaign admin ▸ Shared builds, each with Copy link and Delete. Starter builds that ship with the game are listed there too.
+- **Your links** are listed in Settings ▸ Invites and exports ▸ Shared builds, each with Copy link and Delete. Starter builds that ship with the game are listed there too.
 
 **As built:**
 - **The way out: the whole area only.** Settings ▸ Area settings ▸ **Export this area…** (file and share link, one window); command bar: "export", "export area", "share this" (`share.area`, the window) and "share link" (`share.areaLink`, the window and a link at once). GM side only (class `room`); a player has none of them.
 - **Selection export is PARKED** (2026-10-29). It landed that morning as Export… / Share link… in every selection's ☰ (Space 8 / 9); Harry: "I'm seeing an export button on all the orbital menus now", then "drop export of selections — that can be a thing once we have the whole 'object tuner for players' thing". So `share.export` and `share.link` are gone from the client (ring, ☰, chords, bar) and the GET API's `/share` is area-only. It comes back once the player object tuner / prop assembler exists. **Import is unchanged and still takes every kind** (area, building, room, group: the starter "Test cottage" is a building, and old files and links of any kind still import); the format (core/share.js) still exports every kind, which the tests use (`tw.share.build({ kind, ids })`).
 - **The window** (`#shareModal`, client/share.js, "Share this area"): the picture (rendered on open: client/thumbs.js `render(area)`, framed from the home angle, nothing hidden from players), a Name field (empty = the area's name), what is in it and its size in KB, **Strip secrets** (disabled when nothing in it is hidden; its note lists the hidden rooms, hidden things, creatures, traps and GM notes it takes out: `secretsIn`), how many player pawns are left out, then Download and Copy share link. After a link: the link, Copy, **Delete link**. The picture travels in the file (a WebP data URL, under 300 KB) and is the link page's picture.
-- **The way in:** "import <link>" in the bar (`share.import`; only the link's 22-character id is used, fetched from this game's own relay: `/s/<id>/json`); "import" alone opens a file picker; a `.json` dropped anywhere on the window; Settings ▸ Campaign admin ▸ Shared builds ▸ Import a shared build (and the old Import JSON… button takes a `.turnip.json` too); `?share=<id>` on the game's address (the link page's "Use in my campaign": once the game is up, it starts the ghost and takes the parameter off the address, so a reload does not import twice). GM side only.
+- **The way in:** "import <link>" in the bar (`share.import`; only the link's 22-character id is used, fetched from this game's own relay: `/s/<id>/json`); "import" alone opens a file picker; a `.json` dropped anywhere on the window; Settings ▸ Invites and exports ▸ Shared builds ▸ Import a shared build (and the old Import JSON… button takes a `.turnip.json` too); `?share=<id>` on the game's address (the link page's "Use in my campaign": once the game is up, it starts the ghost and takes the parameter off the address, so a reload does not import twice). GM side only.
 - **The ghost** (`app.shareTool`, a sub-tool of the place mode like the multi-pick): the build's things as fading boxes, their meshes as they load (the first 160), its creatures as fading figures, moving with the pointer; each level's footprint lit on the ground (`world.showCells('share-ghost:<y>')`); the label by the pointer says its name, "overlaps <room>" in red, or how far it is lifted. Rooms move on the 5-ft grid; loose things freely. **Where it lands** (`core/share.js placeFor`): a building's ground storey meets the ground where it lands, on top of a hill when it lies WHOLLY on the hilltop (part on, part off: dug into the hill at the ground, as a room drawn there would be); an upper room alone lands on the level in view; things land on the floor under the pointer. A click runs `planImport` (below) and sends ONE batch; a refusal (it overlaps a room, an upper storey with nothing under it) is a red toast and the ghost stays.
 - **Afterwards:** the toast "Imported “<name>”" plus "N pieces your library lacks: shown as stand-ins", "N swapped for a close match", "N room types it lacks: built as common rooms", "N figures it lacks: plain pawns"; what landed is selected (its building, loose things, creatures).
 - **A whole area** (`importArea`): `area.create` (it starts hidden), its rules (`area.set`), its ground (`area.ground`), then its commands in batches that fit one message each.
-- **Settings ▸ Campaign admin ▸ Shared builds:** Import a shared build (.turnip.json)…, the **starter builds** (engine/client/starter/index.json lists the files in that folder; today one test fixture, "Test cottage"), and "Your share links" (the seat's own: Copy link, Delete). **The campaign-file import goes through the same door now** (`core/share.js campaignAreas`): each area of a whole-campaign JSON is read as a shared build and comes in by ordinary commands, never an `entities.set` of the file's contents.
+- **Settings ▸ Invites and exports ▸ Shared builds:** Import a shared build (.turnip.json)…, the **starter builds** (engine/client/starter/index.json lists the files in that folder; today one test fixture, "Test cottage"), and "Your share links" (the seat's own: Copy link, Delete). **The campaign-file import goes through the same door now** (`core/share.js campaignAreas`): each area of a whole-campaign JSON is read as a shared build and comes in by ordinary commands, never an `entities.set` of the file's contents.
 - **Tests:** engine/test/share.test.mjs (node: the format, export, strip, import on a real relay at another spot, on a hill, on an upper floor, stand-ins, a whole area, the hostile files, the share-link routes, the GET API: area-only, `ids=` ignored); engine/test/browser_share.py (no selection export on any ring ☰, chord or bar entry, "export" / "share link" in the bar meaning the area, Area settings' button, the area export from the window, the ghost and its footprint, a refused drop, one step and undo, the hill, stand-ins, the link round trip and its delete, a whole area, drop, `?share=`, a name that is markup, the starter list, a player).
 
 ## Attack and Target on the pawn ring (2026-10-29, as built; docs/BEYOND20.md)

@@ -58,7 +58,7 @@ git diff --quiet -- tools/spawn-tuner/ring/line-icons.js || { echo "line-icons.j
 D=/var/www/implausible-landing/projects/turnip-works/tuner
 for s in floor-trapdoor-open--dressed-stone wall-window-small-open--temple-stone chest-treasure; do test -f "$D/assets/m/$s.glb" || { echo "the dev tuner lacks $s"; exit 8; }; done
 grep -q '"floor-trapdoor-open"' "$D/data/library.json" || { echo "the dev tuner's library lacks the new twins"; exit 8; }
-bad=$(find "$D" \( -type f ! -perm 644 \) -o \( -type d ! -perm 755 \) | head -3); [[ -z $bad ]] || { echo "dev tuner permissions: $bad"; exit 9; }
+bad=$(find "$D" \( -type f ! -perm 644 \) -o \( -type d ! -perm 755 ! -perm 2755 \) | head -3); [[ -z $bad ]] || { echo "dev tuner permissions: $bad"; exit 9; }
 TW_LOCK_HELD=1 engine/deploy.sh
 TW_LOCK_HELD=1 tools/release.sh candidate
 GH_CONFIG_DIR=$HOME/.config/gh git push origin main

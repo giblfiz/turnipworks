@@ -20,7 +20,7 @@ the import checks need are made with tw.share.build (the format still has every 
   AREA     a whole area comes in as a new area, hidden from players
   DROP     a .turnip.json dropped on the window starts the ghost; ?share=<id> on the page address does too
   XSS      a build named <img onerror=…> is shown as text, never as markup
-  STARTER  the starter builds are listed in Campaign admin and one imports
+  STARTER  the starter builds are listed in Invites and exports and one imports
 """
 import argparse, asyncio, base64, json, os, subprocess, sys, tempfile, time, urllib.parse, urllib.request
 from playwright.async_api import async_playwright
@@ -258,7 +258,7 @@ async def main():
         check(await wait(g2, f"tw.sync.campaign.areas.length === {na0 + 1} && tw.share.lastImport?.area && tw.share.lastImport?.name === {json.dumps(adoc['name'])}", 30000), '"import <link>" in the command bar fetches it (from our relay): the area comes in as a new area')
         await gm.bring_to_front()
         listed = await gm.evaluate("tw.share.refreshLinks().then(L => L.map(l => l.id))")
-        check(lid in listed, "the GM's links are listed (Settings ▸ Campaign admin ▸ Shared builds)", listed)
+        check(lid in listed, "the GM's links are listed (Settings ▸ Invites and exports ▸ Shared builds)", listed)
         await gm.evaluate(f"tw.share.deleteLink('{lid}')"); await gm.wait_for_timeout(500)
         check(get(link)[0] == 404 and get(f"{RELAY}/s/{lid}/json")[0] == 404, 'Delete link: the page and the build are gone')
 
@@ -300,7 +300,7 @@ async def main():
         print('STARTER')
         await g2.evaluate("tw.settings.show('admin')"); await g2.wait_for_timeout(1500)
         btn = await g2.query_selector('#settingsModal [data-starter]')
-        check(btn is not None and 'Test cottage' in (await btn.inner_text()), 'Campaign admin ▸ Shared builds lists the starter builds')
+        check(btn is not None and 'Test cottage' in (await btn.inner_text()), 'Invites and exports ▸ Shared builds lists the starter builds')
         if btn:
             await btn.click()
             check(await wait(g2, "tw.mode?.share?.doc?.name === 'Test cottage'", 10000), 'a starter build imports like any other (the ghost)')

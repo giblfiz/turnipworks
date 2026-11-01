@@ -10,7 +10,7 @@
 //              link still works and they can rejoin; relay/server.js kick), and the way to Settings to revoke the link.
 // Only seats with a connection are shown (and always me): the row is "who is here", so a seat nobody is using, or a
 // connection the relay reaped as a ghost (docs/NETCODE.md "Ghost connections"), leaves it. Every seat, here or not,
-// stays in Pawns ▸ Party and Settings ▸ Campaign admin ▸ Invites and seats.
+// stays in Pawns ▸ Party and Settings ▸ Invites and exports ▸ Invites and seats.
 import { icon } from '../icons.js';
 import * as HT from '../../core/height.js';
 
@@ -61,7 +61,7 @@ export function rosterSurface(R, app) {
     items.push(t.go ? { act: 'go', label: t.rec ? `Go to ${t.rec.name}` : t.kind === 'area' ? `Go to ${app.areaName(s.location)}` : `Go to ${s.name}'s cursor`, ic: 'crosshair', run: () => goToSeat(s) } : { act: 'go', label: t.why, ic: 'crosshair', off: true });
     if (kickable(s)) {
       items.push({ act: 'kick', label: `Disconnect ${s.name}`, sub: 'Closes their connection now. Not a ban: their link still works and they can rejoin.', ic: 'log-out', run: () => app.sync.kick(s.id) });
-      items.push({ act: 'revoke', label: 'Revoke their link…', sub: 'Settings ▸ Campaign admin ▸ Invites and seats', ic: 'shield', run: () => app.settings?.show('admin') });
+      items.push({ act: 'revoke', label: 'Revoke their link…', sub: 'Settings ▸ Invites and exports ▸ Invites and seats', ic: 'shield', run: () => app.settings?.show('admin') });
     }
     pop = document.createElement('div'); pop.className = 'ppop rosterpop'; pop.dataset.seat = s.id;
     pop.innerHTML = `<header><b>${esc(s.name)}</b></header>${items.map((it, i) => `<button class="ppi${it.off ? ' off' : ''}" data-i="${i}" data-act="${it.act}"${it.off ? ' disabled' : ''}>${icon(it.ic, 15)}<span><b>${esc(it.label)}</b>${it.sub ? `<small>${esc(it.sub)}</small>` : ''}</span></button>`).join('')}`;

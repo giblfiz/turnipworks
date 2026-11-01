@@ -31,7 +31,7 @@ Your browser remembers your links in its local storage. If you clear your browse
 
 ## 5. Tables can be lost
 
-We keep backups, but Turnip Works is a free service and we don't promise to keep your tables. A table, or part of one, can be lost to a bug, a server failure, a change to the service, or a mistake on our end. If a table matters to you, export it (the GM can, under Settings ▸ Campaign admin) and keep the file.
+We keep backups, but Turnip Works is a free service and we don't promise to keep your tables. A table, or part of one, can be lost to a bug, a server failure, a change to the service, or a mistake on our end. If a table matters to you, export it (the GM can, under Settings ▸ Invites and exports) and keep the file.
 
 We may delete tables that haven't been used for a long time. We don't do this yet. If we start, we'll try to give notice before deleting, for example in the game or on this page, where we reasonably can. We may also delete a table that breaks section 7.
 

@@ -263,7 +263,7 @@ export async function startRelay({
         }
         return send(405, { ok: false, why: 'GET or POST' });
       }
-      // snapshots (Settings ▸ Campaign admin): kept on the relay per campaign, GM only, so they follow the GM between devices
+      // snapshots (Settings ▸ Invites and exports): kept on the relay per campaign, GM only, so they follow the GM between devices
       //   GET  /c/<id>/snapshots            the list (no contents)      GET /c/<id>/snapshots/<sid>   one, whole
       //   POST /c/<id>/snapshots            save {name, area, areaName, entities}      POST /c/<id>/snapshots/<sid>/delete
       if (parts[0] === 'c' && parts[1] && parts[2] === 'snapshots') {

@@ -223,7 +223,7 @@ ok(bad(d => { d.objects = []; d.pawns = []; }).error?.includes('nothing'), 'an e
 ok(bad(d => { d.edges = [{ key: 'h:1:1; DROP' }]; }).error, 'a malformed wall key: refused');
 { const d = JSON.parse(JSON.stringify(R1)); d.rooms[0].w = 99; const p = S.planImport(S.parseShare(JSON.stringify(d)).doc, target(Bc, { at: [300, 300] })); ok(!p.ok && /cells/.test(p.why), 'a room too big for the game: refused by the reducer\'s own check', p.why); }
 { const d = JSON.parse(JSON.stringify(R1)); d.rooms[0].type = 'no-such-type'; const p = S.planImport(S.parseShare(JSON.stringify(d)).doc, target(Bc, { at: [300, 300], fallbackType: null })); ok(!p.ok && /unknown room type/.test(p.why), 'an unknown room type with no stand-in type: refused by the reducer', p.why); }
-ok(S.parseShare(JSON.stringify({ v: 1, kind: 'turnip-works-campaign', areas: [] })).error?.includes('Campaign admin'), 'a whole-campaign file through the build door: refused with where it goes');
+ok(S.parseShare(JSON.stringify({ v: 1, kind: 'turnip-works-campaign', areas: [] })).error?.includes('Invites and exports'), 'a whole-campaign file through the build door: refused with where it goes');
 { const camp = { v: 1, kind: 'turnip-works-campaign', name: 'x', areas: [{ name: 'Inn', settings: { light: 'night' }, entities: { ...Object.fromEntries(Object.entries(E).filter(([, e]) => e.kind !== 'token' || !e.owner)), __proto__x: { kind: 'room' } } }] };
   const CA = S.campaignAreas(JSON.parse(JSON.stringify(camp)));
   ok(!CA.error && CA.docs.length === 1 && CA.docs[0].rooms.length === 6 && CA.docs[0].area.settings.light === 'night', 'a whole-campaign file reads through the same door: each area a validated build', CA.error);

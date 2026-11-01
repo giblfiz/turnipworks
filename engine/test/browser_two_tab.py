@@ -386,7 +386,7 @@ async def main():
         # the GM positions it (where Bobby should start)
         await gm.evaluate(f"tw.dispatch('token.move', {{ id: '{ph['id']}', x: {P['x'] + 10}, z: {P['z']} }})")
         await wait(gm, f"tw.entities()['{ph['id']}'].x === {P['x'] + 10} && tw.sync.pendingCount() === 0", 6000, 'GM moves it')
-        # re-copying the invite (Settings ▸ Campaign admin ▸ Invites and seats) makes no second pawn
+        # re-copying the invite (Settings ▸ Invites and exports ▸ Invites and seats) makes no second pawn
         await gm.evaluate("tw.settings.show('admin')"); await gm.wait_for_timeout(600)
         await gm.click(f'#settingsModal li[data-seat="{B}"] [data-act=invite]'); await gm.wait_for_timeout(1500)
         again = await gm.evaluate(f"[Object.values(tw.entities()).filter(e => e.kind === 'token' && e.owner === '{B}').length, tw.sync.campaign.pawns.filter(d => d.owner === '{B}').length, Object.values(tw.entities()).filter(e => e.kind === 'token').length]")

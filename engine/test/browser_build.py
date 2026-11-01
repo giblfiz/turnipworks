@@ -576,7 +576,7 @@ async def main():
         check(st['p'] and 'PAWNS' in st['t'].upper() and 'PARTY' in st['t'].upper() and not st['b'], 'Pawns opens its tray (the Pawns menu: docs/PAWNS.md, engine/test/browser_pawnsmenu.py), and the open Build tray closes', st['t'].replace('\n', ' ')[:80])
         await tap(gm, ".launcher[data-l=settings]"); await gm.wait_for_timeout(300)
         st = await gm.evaluate("({ ...tw.settings.state(), pawns: !document.getElementById('pawnsTray').hidden, shown: !document.getElementById('settingsModal').hidden, cats: [...document.querySelectorAll('#settingsModal .scat')].map(c => c.textContent.trim()) })")
-        check(st['open'] and st['shown'] and not st['pawns'] and st['sections'] == ['nav', 'me', 'controls', 'graphics', 'area', 'campaign', 'defaults', 'house', 'admin', 'feedback'] and st['section'] == 'nav', 'Settings opens a modal window with its six categories on the left (World navigation first; Feedback since 2026-10-19); Pawns closes', st['cats'])
+        check(st['open'] and st['shown'] and not st['pawns'] and st['sections'] == ['nav', 'admin', 'campaign', 'defaults', 'area', 'house', 'me', 'graphics', 'controls', 'feedback'] and st['section'] == 'nav', 'Settings opens a modal window with its ten categories on the left in Harry\'s order (2026-11-01: World navigation first, Feedback last); Pawns closes', st['cats'])
         await tap(gm, '#settingsModal .scat[data-sec=me]'); await gm.wait_for_timeout(200)
         check(await gm.evaluate("tw.settings.state().section === 'me' && !!document.querySelector('#settingsModal .myname')"), 'a category on the left switches the pane (Me: name, colour, controls…)')
         await gm.keyboard.press('Escape'); await gm.wait_for_timeout(150)
@@ -589,7 +589,7 @@ async def main():
         await pl.bring_to_front()
         await tap(pl, ".launcher[data-l=settings]"); await pl.wait_for_timeout(300)
         ps = await pl.evaluate("({ ...tw.settings.state(), vis: [...document.querySelectorAll('#launchers .launcher')].filter(b => !b.hidden).map(b => b.dataset.l) })")
-        check(ps['open'] and ps['sections'] == ['nav', 'me', 'controls', 'graphics', 'feedback'] and ps['vis'] == ['pawns', 'settings'], 'a player sees Pawns and Settings (no Build); their Settings has only World navigation, Me and Feedback', ps)
+        check(ps['open'] and ps['sections'] == ['nav', 'me', 'graphics', 'controls', 'feedback'] and ps['vis'] == ['pawns', 'settings'], 'a player sees Pawns and Settings (no Build); their Settings has only World navigation, Me, Graphics, Controls and Feedback (Harry\'s order, 2026-11-01)', ps)
         await pl.keyboard.press('Escape')
         await gm.bring_to_front()
 

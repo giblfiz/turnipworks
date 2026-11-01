@@ -1182,7 +1182,7 @@ async function boot(token) {
   // things are transferred where they stand; PAWNS TRAVEL (surfaces/areas.js app.travel: the relay picks the arrival, and a player's pawn sent into a hidden area opens it)
   app.transfer = (things, to) => { const from = app.area(), pawns = things.filter(e => e.kind === 'token'); for (const e of things) if (e.kind === 'object') sync.submit('transfer', { id: e.id, from, to, x: e.x, z: e.z }); if (pawns.length && app.travel) app.travel(pawns, to, from, { follow: false }); else app.clearSelection(); };
   // A NEW PLAYER'S SEAT COMES WITH A PLACEHOLDER PAWN (Harry 2026-10-22: "if I'm inviting Bobby, it drops a blank pawn so I
-  // can position Bobby when he arrives"). Every invite goes through here (the bar's "invite …", Settings ▸ Campaign admin ▸
+  // can position Bobby when he arrives"). Every invite goes through here (the bar's "invite …", Settings ▸ Invites and exports ▸
   // Invites and seats), so the two cannot drift; re-copying an existing seat's link (a reissue) does not come here and makes
   // no second pawn. app.placeholderFor (client/pawns.js) chooses the area and the square; the seat starts in that area.
   // `placeholder: false` asks for the bare seat.
@@ -1374,7 +1374,7 @@ async function boot(token) {
   // surfaces: every front end reads the same registry (a second menu/hotkey system plugs in the same way)
   app.library = createLibrary(app, { taxonomy, renderer });
   app.thumbs = createThumbs(app, { renderer });
-  app.uvtt = createUvtt(app, { renderer }); // Universal VTT (.dd2vtt) export of the storey in view (uvtt.js; Settings ▸ Campaign admin)
+  app.uvtt = createUvtt(app, { renderer }); // Universal VTT (.dd2vtt) export of the storey in view (uvtt.js; Settings ▸ Invites and exports)
   app.share = createShare(app, { thumbs: app.thumbs }); // shared builds: export, share links, import with a ghost (share.js, core/share.js)
   app.intro = createIntro(app);
   for (const s of [fpvSurface /* first: its keys, while looking, come before every other surface's (the launchers' letters too) */, traySurface, buildSurface, pawnsSurface, settingsSurface, turnsSurface, targetSurface, attacksSurface, beyond20Surface, xraySurface, lightReachSurface, rulersSurface /* all before the keys surface, which reads the key map once */, keysSurface, barSurface, ringSurface, rosterSurface, diceSurface, announceSurface, chatSurface, crumbsSurface, cursorSurface, labelsSurface, undoChipsSurface, floorDropSurface, fallsSurface, cutSurface, fpsSurface, areasSurface]) app.registry.use(s);

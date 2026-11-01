@@ -757,7 +757,7 @@ async def main():
                 rows = await bar(gm, q); top = next((r for r in rows if 'title' in r), {})
                 check(top.get('chips', [None])[0] == want, f'typed "{q}" is claimed as chips: {want} ▸ …', str(top.get('chips'))[:100])
             await gm.keyboard.press('Escape')
-            for q, want in (('lighting night', 'Lighting here: night'), ('grid', 'the grid'), ('scroll wheel', 'Scroll wheel:'), ('graphics', 'Graphics quality:'), ('reduce motion', 'Reduce motion'), ('settings me', 'Settings: Me'), ('snapshots', 'Settings: Campaign admin'), ('rotate view', 'Turn the view'), ('pip', 'picture-in-picture'), ('whole building', 'Build a whole'), ('lock moves', "players' moves"), ('free moves', "players' moves"), ('fps', 'FPS meter'), ('roofs', 'Roofs o'), ('levels', 'evel'), ('ping', 'Ping here')):
+            for q, want in (('lighting night', 'Lighting here: night'), ('grid', 'the grid'), ('scroll wheel', 'Scroll wheel:'), ('graphics', 'Graphics quality:'), ('reduce motion', 'Reduce motion'), ('settings me', 'Settings: Me'), ('snapshots', 'Settings: Invites and exports'), ('campaign admin', 'Settings: Invites and exports'), ('campaign rules', 'Settings: Vision, distance & rules'), ('rotate view', 'Turn the view'), ('pip', 'picture-in-picture'), ('whole building', 'Build a whole'), ('lock moves', "players' moves"), ('free moves', "players' moves"), ('fps', 'FPS meter'), ('roofs', 'Roofs o'), ('levels', 'evel'), ('ping', 'Ping here')):
                 await gm.evaluate("tw.clearSelection()"); rows = await bar(gm, q); t = [r.get('title', '') for r in rows]
                 check(any(want in x for x in t), f'"{q}" finds "{want}…"', str(t[:3]))
             await gm.keyboard.press('Escape')

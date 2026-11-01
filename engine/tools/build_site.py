@@ -10,7 +10,7 @@ CSS, the game's Inter and light-theme colours, a phone layout). nginx serves the
 Front matter: title, nav (the short name in the link row), updated (YYYY-MM-DD, shown as "Last updated"), description
 (the search snippet and the link preview's text).
 HELP PAGES (2026-10-29): HELP below, the same look, nav and footer, not in the nav row. The first is "Connect D&D Beyond"
-(/connect-dnd-beyond; docs/BEYOND20.md), opened from Settings ▸ Me and Campaign rules. Its film and pictures are
+(/connect-dnd-beyond; docs/BEYOND20.md), opened from Settings ▸ Me and Vision, distance & rules. Its film and pictures are
 git-ignored binaries in engine/client/site/ddb/, put there by engine/tools/build_ddb_media.sh (engine/deploy.sh runs it)
 from the masters on the USB disk.
 
