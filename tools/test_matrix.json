@@ -41,6 +41,19 @@
       ]
     },
     {
+      "suite": "engine/test/browser_bands.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_bands.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": []
+    },
+    {
       "suite": "engine/test/browser_bar_picks.py",
       "env": {
         "TW_GPU": "1"
@@ -196,6 +209,38 @@
       "ports": [
         18091,
         18716
+      ]
+    },
+    {
+      "suite": "engine/test/browser_falls.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_falls.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": [
+        18197,
+        18822
+      ]
+    },
+    {
+      "suite": "engine/test/browser_uvtt.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_uvtt.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": [
+        18241,
+        18842
       ]
     },
     {
@@ -492,6 +537,23 @@
       ]
     },
     {
+      "suite": "engine/test/browser_music.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_music.py",
+        "--local"
+      ],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [
+        18421,
+        18422
+      ]
+    },
+    {
       "suite": "engine/test/browser_settings.py",
       "env": {
         "TW_GPU": "1"
@@ -574,6 +636,19 @@
         18091,
         18716
       ]
+    },
+    {
+      "suite": "engine/test/browser_storeydrop.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_storeydrop.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": []
     },
     {
       "suite": "engine/test/browser_storeys.py",
@@ -753,6 +828,22 @@
       "asserting": true
     },
     {
+      "suite": "engine/test/holes.test.mjs",
+      "command": [
+        "node",
+        "engine/test/holes.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/uvtt.test.mjs",
+      "command": [
+        "node",
+        "engine/test/uvtt.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
       "suite": "engine/test/grandstair.test.mjs",
       "command": [
         "node",
@@ -886,6 +977,34 @@
         "engine/test/stairs.test.mjs"
       ],
       "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_linkmail.py",
+      "command": ["{python}", "engine/test/browser_linkmail.py", "--local", "--no-shots"],
+      "asserting": true,
+      "env": { "TW_GPU": "1" },
+      "port_env": "TW_PORTS",
+      "ports": [18293, 18946],
+      "timeout": 1200
+    },
+    {
+      "suite": "engine/test/browser_handheld.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": ["{python}", "engine/test/browser_handheld.py", "--local"],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [18323, 18953],
+      "timeout": 900
+    },
+    {
+      "suite": "engine/test/browser_phone.py",
+      "command": ["{python}", "engine/test/browser_phone.py", "--local", "--no-shots"],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [18294, 18947],
+      "timeout": 900
     },
     {
       "suite": "engine/test/tickets.test.mjs",
@@ -1956,6 +2075,33 @@
       "timeout": 900
     },
     {
+      "suite": "engine/test/browser_sitepages.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_sitepages.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        18351,
+        18951
+      ],
+      "timeout": 600
+    },
+    {
+      "suite": "engine/test/seo_check.py",
+      "command": [
+        "{python}",
+        "engine/test/seo_check.py",
+        "--source"
+      ],
+      "asserting": true
+    },
+    {
       "suite": "engine/test/browser_barcat.py",
       "command": [
         "{python}",
@@ -2093,6 +2239,58 @@
       "env": { "TW_GPU": "1" },
       "port_env": "TW_PORTS",
       "ports": [18990, 18991]
+    },
+    {
+      "suite": "engine/test/groundcover.test.mjs",
+      "command": ["node", "engine/test/groundcover.test.mjs"],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_groundcover.py",
+      "command": ["{python}", "engine/test/browser_groundcover.py", "--local"],
+      "asserting": true,
+      "env": { "TW_GPU": "1" },
+      "port_env": "TW_PORTS",
+      "ports": [18413, 18743]
+    },
+    {
+      "suite": "engine/test/terrain.test.mjs",
+      "command": ["node", "engine/test/terrain.test.mjs"],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_hills.py",
+      "command": ["{python}", "engine/test/browser_hills.py", "--local"],
+      "asserting": true,
+      "env": { "TW_GPU": "1" },
+      "port_env": "TW_PORTS",
+      "ports": [18517, 18847]
+    },
+    {
+      "suite": "engine/test/hillbuild.test.mjs",
+      "command": ["node", "engine/test/hillbuild.test.mjs"],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_hillbuild.py",
+      "command": ["{python}", "engine/test/browser_hillbuild.py", "--local"],
+      "asserting": true,
+      "env": { "TW_GPU": "1" },
+      "port_env": "TW_PORTS",
+      "ports": [18527, 18857]
+    },
+    {
+      "suite": "engine/test/caves.test.mjs",
+      "command": ["node", "engine/test/caves.test.mjs"],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_caves.py",
+      "command": ["{python}", "engine/test/browser_caves.py", "--local"],
+      "asserting": true,
+      "env": { "TW_GPU": "1" },
+      "port_env": "TW_PORTS",
+      "ports": [18501, 18801]
     }
   ],
   "excluded": {

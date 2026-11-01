@@ -218,7 +218,7 @@ async def main():
         await gm.wait_for_timeout(300)
         await gm.evaluate("document.querySelector('[data-reset=fogOfWar][data-scope=area]').click()")
         check(await wait(gm, f"!('fogOfWar' in tw.sync.campaign.areas.find(a => a.id === '{AREA}').settings)"), 'its Reset puts the area back to the campaign default')
-        await gm.evaluate("tw.settings.show('defaults')"); await gm.wait_for_timeout(300)
+        await gm.evaluate("tw.settings.show('campaign')"); await gm.wait_for_timeout(300)
         check(await gm.evaluate("!!document.querySelector('[data-vision=fogOfWar]') && !document.querySelector('[data-rule=fogOfWar][data-scope=defaults]')"), 'Global defaults keeps its one Fog of war switch (the campaign default)')
         await gm.keyboard.press('Escape'); await gm.evaluate("tw.settings.hide?.()")
         await wait(mi, 'tw.fog.active()', 8000)

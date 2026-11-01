@@ -1,0 +1,1158 @@
+{
+ "_about": {
+  "made": "2026-10-25T15:47:48.032Z",
+  "script": "prep_chunks.mjs",
+  "frame": "feet; origin = ground, middle of back plane; front +Z; width X; y up; gain not applied",
+  "tolerance": "3% of the piece size per axis",
+  "kit": ".claude/worktrees/agent-a19592b24579594f4/experiments/2026-10-05-caves/kit.json"
+ },
+ "cave-wall-plain-a": {
+  "ok": true,
+  "flags": [],
+  "tris": 5999,
+  "verts": 6120,
+  "bytes": 122648,
+  "kb": 119.8,
+  "texture": [
+   {
+    "mime": "image/webp",
+    "size": [
+     512,
+     512
+    ]
+   }
+  ],
+  "unpainted_share": 0,
+  "kit_unpainted_share": 0,
+  "silhouette_vs_full_res": {
+   "front": {
+    "lost_pct": 0.52,
+    "gained_pct": 0.03
+   },
+   "top": {
+    "lost_pct": 0.77,
+    "gained_pct": 0.1
+   },
+   "side": {
+    "lost_pct": 0.74,
+    "gained_pct": 0.11
+   }
+  },
+  "material": {
+   "roughness": 0.95,
+   "metalness": 0,
+   "baseColorTexture": true,
+   "mrTexture": false,
+   "doubleSided": true
+  },
+  "extensions": [
+   "EXT_meshopt_compression",
+   "EXT_texture_webp",
+   "KHR_mesh_quantization"
+  ],
+  "root_identity": true,
+  "box_ft": {
+   "min": [
+    -4.953,
+    0,
+    -0.24
+   ],
+   "max": [
+    4.978,
+    9.988,
+    4.073
+   ],
+   "size": [
+    9.931,
+    9.988,
+    4.313
+   ],
+   "x_centre": 0.012
+  },
+  "surface_percentiles_ft": {
+   "z_p99_5": 3.91,
+   "z_p0_5": -0.14,
+   "absx_p99": 4.88
+  },
+  "kit": {
+   "w": 9.98,
+   "h": 10,
+   "d": 4.33,
+   "y_min": 0,
+   "y_max": 10,
+   "front_reach_p99_5": 3.92,
+   "behind_back_p0_5": -0.15,
+   "half_width_p99": 4.9
+  },
+  "measured": {
+   "w": 9.931,
+   "h": 9.988,
+   "d": 4.313,
+   "y_min": 0,
+   "y_max": 9.988,
+   "front_reach_p99_5": 3.91,
+   "behind_back_p0_5": -0.14,
+   "half_width_p99": 4.88
+  },
+  "off_pct_of_size": {
+   "w": -0.49,
+   "h": -0.12,
+   "d": -0.39,
+   "y_min": 0,
+   "y_max": -0.12,
+   "front_reach_p99_5": -0.23,
+   "behind_back_p0_5": 0.23,
+   "half_width_p99": -0.2
+  },
+  "method": "meshopt-simplify LockBorder",
+  "source_tris": 47740,
+  "baked_full_res_box_ft": {
+   "min": [
+    -4.99,
+    0,
+    -0.253
+   ],
+   "max": [
+    4.991,
+    10.001,
+    4.081
+   ],
+   "size": [
+    9.981,
+    10.001,
+    4.334
+   ]
+  },
+  "simplify_tries": [
+   {
+    "ratio": 0.1257,
+    "tris": 5999
+   },
+   {
+    "meshopt_silhouette_lost_max_pct": 0.77
+   }
+  ],
+  "meshopt": {
+   "reduced_bytes": 280884,
+   "err": {
+    "box": 0.00286,
+    "uv": 0.000065
+   }
+  },
+  "outputs": [
+   "engine/client/data/caves/cave-wall-plain-a.glb",
+   ".claude/worktrees/agent-a19592b24579594f4/engine/client/data/caves/cave-wall-plain-a.glb"
+  ]
+ },
+ "cave-corner-column": {
+  "ok": true,
+  "flags": [],
+  "tris": 6000,
+  "verts": 6500,
+  "bytes": 128984,
+  "kb": 126,
+  "texture": [
+   {
+    "mime": "image/webp",
+    "size": [
+     512,
+     512
+    ]
+   }
+  ],
+  "unpainted_share": 0,
+  "kit_unpainted_share": 0,
+  "silhouette_vs_full_res": {
+   "front": {
+    "lost_pct": 0.44,
+    "gained_pct": 0.08
+   },
+   "top": {
+    "lost_pct": 0.93,
+    "gained_pct": 0.16
+   },
+   "side": {
+    "lost_pct": 0.38,
+    "gained_pct": 0.09
+   }
+  },
+  "material": {
+   "roughness": 0.95,
+   "metalness": 0,
+   "baseColorTexture": true,
+   "mrTexture": false,
+   "doubleSided": true
+  },
+  "extensions": [
+   "EXT_meshopt_compression",
+   "EXT_texture_webp",
+   "KHR_mesh_quantization"
+  ],
+  "root_identity": true,
+  "box_ft": {
+   "min": [
+    -2.278,
+    0,
+    -0.211
+   ],
+   "max": [
+    2.27,
+    9.982,
+    4.567
+   ],
+   "size": [
+    4.548,
+    9.982,
+    4.778
+   ],
+   "x_centre": -0.004
+  },
+  "surface_percentiles_ft": {
+   "z_p99_5": 4.43,
+   "z_p0_5": -0.12,
+   "absx_p99": 2.17
+  },
+  "kit": {
+   "w": 4.55,
+   "h": 10,
+   "d": 4.78,
+   "y_min": 0,
+   "y_max": 10,
+   "front_reach_p99_5": 4.46,
+   "behind_back_p0_5": -0.14,
+   "half_width_p99": 2.17
+  },
+  "measured": {
+   "w": 4.548,
+   "h": 9.982,
+   "d": 4.778,
+   "y_min": 0,
+   "y_max": 9.982,
+   "front_reach_p99_5": 4.43,
+   "behind_back_p0_5": -0.12,
+   "half_width_p99": 2.17
+  },
+  "off_pct_of_size": {
+   "w": -0.04,
+   "h": -0.18,
+   "d": -0.04,
+   "y_min": 0,
+   "y_max": -0.18,
+   "front_reach_p99_5": -0.63,
+   "behind_back_p0_5": 0.42,
+   "half_width_p99": 0
+  },
+  "method": "meshopt-simplify LockBorder",
+  "source_tris": 49033,
+  "baked_full_res_box_ft": {
+   "min": [
+    -2.278,
+    0,
+    -0.213
+   ],
+   "max": [
+    2.274,
+    10.001,
+    4.571
+   ],
+   "size": [
+    4.552,
+    10.002,
+    4.784
+   ]
+  },
+  "simplify_tries": [
+   {
+    "ratio": 0.1224,
+    "tris": 6000
+   },
+   {
+    "meshopt_silhouette_lost_max_pct": 0.93
+   }
+  ],
+  "meshopt": {
+   "reduced_bytes": 297676,
+   "err": {
+    "box": 0.00106,
+    "uv": 0.000067
+   }
+  },
+  "outputs": [
+   "engine/client/data/caves/cave-corner-column.glb",
+   ".claude/worktrees/agent-a19592b24579594f4/engine/client/data/caves/cave-corner-column.glb"
+  ]
+ },
+ "cave-rubble-low": {
+  "ok": true,
+  "flags": [],
+  "tris": 6000,
+  "verts": 6408,
+  "bytes": 136364,
+  "kb": 133.2,
+  "texture": [
+   {
+    "mime": "image/webp",
+    "size": [
+     512,
+     512
+    ]
+   }
+  ],
+  "unpainted_share": 0,
+  "kit_unpainted_share": 0,
+  "silhouette_vs_full_res": {
+   "front": {
+    "lost_pct": 0.31,
+    "gained_pct": 0.12
+   },
+   "top": {
+    "lost_pct": 0.44,
+    "gained_pct": 0.07
+   },
+   "side": {
+    "lost_pct": 0.32,
+    "gained_pct": 0.04
+   }
+  },
+  "material": {
+   "roughness": 0.95,
+   "metalness": 0,
+   "baseColorTexture": true,
+   "mrTexture": false,
+   "doubleSided": true
+  },
+  "extensions": [
+   "EXT_meshopt_compression",
+   "EXT_texture_webp",
+   "KHR_mesh_quantization"
+  ],
+  "root_identity": true,
+  "box_ft": {
+   "min": [
+    -3.216,
+    -0.001,
+    -0.155
+   ],
+   "max": [
+    3.214,
+    4.001,
+    6.178
+   ],
+   "size": [
+    6.43,
+    4.002,
+    6.333
+   ],
+   "x_centre": -0.001
+  },
+  "surface_percentiles_ft": {
+   "z_p99_5": 6.1,
+   "z_p0_5": -0.11,
+   "absx_p99": 3.12
+  },
+  "kit": {
+   "w": 6.43,
+   "h": 4,
+   "d": 6.34,
+   "y_min": 0,
+   "y_max": 4,
+   "front_reach_p99_5": 6.1,
+   "behind_back_p0_5": -0.11,
+   "half_width_p99": 3.13
+  },
+  "measured": {
+   "w": 6.43,
+   "h": 4.002,
+   "d": 6.333,
+   "y_min": -0.001,
+   "y_max": 4.001,
+   "front_reach_p99_5": 6.1,
+   "behind_back_p0_5": -0.11,
+   "half_width_p99": 3.12
+  },
+  "off_pct_of_size": {
+   "w": 0,
+   "h": 0.05,
+   "d": -0.11,
+   "y_min": -0.03,
+   "y_max": 0.03,
+   "front_reach_p99_5": 0,
+   "behind_back_p0_5": 0,
+   "half_width_p99": -0.16
+  },
+  "method": "meshopt-simplify LockBorder",
+  "source_tris": 48625,
+  "baked_full_res_box_ft": {
+   "min": [
+    -3.216,
+    -0.001,
+    -0.163
+   ],
+   "max": [
+    3.216,
+    4.001,
+    6.178
+   ],
+   "size": [
+    6.432,
+    4.003,
+    6.34
+   ]
+  },
+  "simplify_tries": [
+   {
+    "ratio": 0.1234,
+    "tris": 6000
+   },
+   {
+    "meshopt_silhouette_lost_max_pct": 0.44
+   }
+  ],
+  "meshopt": {
+   "reduced_bytes": 300956,
+   "err": {
+    "box": 0.00255,
+    "uv": 0.000055
+   }
+  },
+  "outputs": [
+   "engine/client/data/caves/cave-rubble-low.glb",
+   ".claude/worktrees/agent-a19592b24579594f4/engine/client/data/caves/cave-rubble-low.glb"
+  ]
+ },
+ "cave-wall-arch": {
+  "ok": true,
+  "flags": [],
+  "tris": 5997,
+  "verts": 8529,
+  "bytes": 173752,
+  "kb": 169.7,
+  "texture": [
+   {
+    "mime": "image/webp",
+    "size": [
+     512,
+     512
+    ]
+   }
+  ],
+  "unpainted_share": 0.0508,
+  "kit_unpainted_share": 0.068,
+  "silhouette_vs_full_res": {
+   "front": {
+    "lost_pct": 0.1,
+    "gained_pct": 1.74
+   },
+   "top": {
+    "lost_pct": 0.06,
+    "gained_pct": 2.02
+   },
+   "side": {
+    "lost_pct": 0.09,
+    "gained_pct": 1.89
+   }
+  },
+  "material": {
+   "roughness": 0.95,
+   "metalness": 0,
+   "baseColorTexture": true,
+   "mrTexture": false,
+   "doubleSided": true
+  },
+  "extensions": [
+   "EXT_meshopt_compression",
+   "EXT_texture_webp",
+   "KHR_mesh_quantization"
+  ],
+  "root_identity": true,
+  "box_ft": {
+   "min": [
+    -5.746,
+    -0.028,
+    -0.569
+   ],
+   "max": [
+    5.743,
+    10.038,
+    5.254
+   ],
+   "size": [
+    11.489,
+    10.065,
+    5.824
+   ],
+   "x_centre": -0.002
+  },
+  "surface_percentiles_ft": {
+   "z_p99_5": 5.04,
+   "z_p0_5": -0.36,
+   "absx_p99": 5.61
+  },
+  "kit": {
+   "w": 11.44,
+   "h": 10,
+   "d": 5.78,
+   "y_min": 0,
+   "y_max": 10,
+   "front_reach_p99_5": 5.04,
+   "behind_back_p0_5": -0.35,
+   "half_width_p99": 5.61
+  },
+  "measured": {
+   "w": 11.489,
+   "h": 10.065,
+   "d": 5.824,
+   "y_min": -0.028,
+   "y_max": 10.038,
+   "front_reach_p99_5": 5.04,
+   "behind_back_p0_5": -0.36,
+   "half_width_p99": 5.61
+  },
+  "off_pct_of_size": {
+   "w": 0.43,
+   "h": 0.65,
+   "d": 0.76,
+   "y_min": -0.28,
+   "y_max": 0.38,
+   "front_reach_p99_5": 0,
+   "behind_back_p0_5": -0.17,
+   "half_width_p99": 0
+  },
+  "method": "blender solidify+voxel remesh, meshopt simplify, colour baked in blender",
+  "source_tris": 49791,
+  "baked_full_res_box_ft": {
+   "min": [
+    -5.723,
+    -0.008,
+    -0.56
+   ],
+   "max": [
+    5.722,
+    10.001,
+    5.221
+   ],
+   "size": [
+    11.445,
+    10.009,
+    5.781
+   ]
+  },
+  "simplify_tries": [
+   {
+    "ratio": 0.1205,
+    "tris": 6981
+   },
+   {
+    "ratio": 0.1036,
+    "tris": 6983
+   },
+   {
+    "meshopt_silhouette_lost_max_pct": 3.58
+   },
+   {
+    "remesh": {
+     "voxel": 0.003,
+     "thick": 0.008,
+     "bakePx": 1024,
+     "reach": 0.02
+    },
+    "voxel_tris": 1626744,
+    "tris": 5997,
+    "silhouette_lost_max_pct": 0.1
+   }
+  ],
+  "meshopt": {
+   "reduced_bytes": 382204,
+   "err": {
+    "box": 0.00268,
+    "uv": 0.000097
+   }
+  },
+  "outputs": [
+   "engine/client/data/caves/cave-wall-arch.glb",
+   ".claude/worktrees/agent-a19592b24579594f4/engine/client/data/caves/cave-wall-arch.glb"
+  ]
+ },
+ "cave-wall-crack": {
+  "ok": true,
+  "flags": [],
+  "tris": 6000,
+  "verts": 6196,
+  "bytes": 128812,
+  "kb": 125.8,
+  "texture": [
+   {
+    "mime": "image/webp",
+    "size": [
+     512,
+     512
+    ]
+   }
+  ],
+  "unpainted_share": 0,
+  "kit_unpainted_share": 0,
+  "silhouette_vs_full_res": {
+   "front": {
+    "lost_pct": 0.39,
+    "gained_pct": 0.17
+   },
+   "top": {
+    "lost_pct": 0.73,
+    "gained_pct": 0.18
+   },
+   "side": {
+    "lost_pct": 0.72,
+    "gained_pct": 0.16
+   }
+  },
+  "material": {
+   "roughness": 0.95,
+   "metalness": 0,
+   "baseColorTexture": true,
+   "mrTexture": false,
+   "doubleSided": true
+  },
+  "extensions": [
+   "EXT_meshopt_compression",
+   "EXT_texture_webp",
+   "KHR_mesh_quantization"
+  ],
+  "root_identity": true,
+  "box_ft": {
+   "min": [
+    -4.172,
+    0,
+    -0.22
+   ],
+   "max": [
+    4.161,
+    9.987,
+    5.372
+   ],
+   "size": [
+    8.333,
+    9.987,
+    5.592
+   ],
+   "x_centre": -0.006
+  },
+  "surface_percentiles_ft": {
+   "z_p99_5": 5.13,
+   "z_p0_5": -0.12,
+   "absx_p99": 3.98
+  },
+  "kit": {
+   "w": 8.34,
+   "h": 10,
+   "d": 5.63,
+   "y_min": 0,
+   "y_max": 10,
+   "front_reach_p99_5": 5.14,
+   "behind_back_p0_5": -0.13,
+   "half_width_p99": 4
+  },
+  "measured": {
+   "w": 8.333,
+   "h": 9.987,
+   "d": 5.592,
+   "y_min": 0,
+   "y_max": 9.987,
+   "front_reach_p99_5": 5.13,
+   "behind_back_p0_5": -0.12,
+   "half_width_p99": 3.98
+  },
+  "off_pct_of_size": {
+   "w": -0.08,
+   "h": -0.13,
+   "d": -0.67,
+   "y_min": 0,
+   "y_max": -0.13,
+   "front_reach_p99_5": -0.18,
+   "behind_back_p0_5": 0.18,
+   "half_width_p99": -0.24
+  },
+  "method": "meshopt-simplify LockBorder",
+  "source_tris": 48433,
+  "baked_full_res_box_ft": {
+   "min": [
+    -4.172,
+    0,
+    -0.259
+   ],
+   "max": [
+    4.17,
+    10.002,
+    5.379
+   ],
+   "size": [
+    8.343,
+    10.002,
+    5.638
+   ]
+  },
+  "simplify_tries": [
+   {
+    "ratio": 0.1239,
+    "tris": 6000
+   },
+   {
+    "meshopt_silhouette_lost_max_pct": 0.73
+   }
+  ],
+  "meshopt": {
+   "reduced_bytes": 288644,
+   "err": {
+    "box": 0.00178,
+    "uv": 0.000059
+   }
+  },
+  "outputs": [
+   "engine/client/data/caves/cave-wall-crack.glb",
+   ".claude/worktrees/agent-a19592b24579594f4/engine/client/data/caves/cave-wall-crack.glb"
+  ]
+ },
+ "cave-wall-ledge": {
+  "ok": true,
+  "flags": [],
+  "tris": 5886,
+  "verts": 9009,
+  "bytes": 184000,
+  "kb": 179.7,
+  "texture": [
+   {
+    "mime": "image/webp",
+    "size": [
+     512,
+     512
+    ]
+   }
+  ],
+  "unpainted_share": 0.001,
+  "kit_unpainted_share": 0.007,
+  "silhouette_vs_full_res": {
+   "front": {
+    "lost_pct": 0.02,
+    "gained_pct": 1.21
+   },
+   "top": {
+    "lost_pct": 0.15,
+    "gained_pct": 0.89
+   },
+   "side": {
+    "lost_pct": 0.11,
+    "gained_pct": 1.93
+   }
+  },
+  "material": {
+   "roughness": 0.95,
+   "metalness": 0,
+   "baseColorTexture": true,
+   "mrTexture": false,
+   "doubleSided": true
+  },
+  "extensions": [
+   "EXT_meshopt_compression",
+   "EXT_texture_webp",
+   "KHR_mesh_quantization"
+  ],
+  "root_identity": true,
+  "box_ft": {
+   "min": [
+    -5.034,
+    -0.03,
+    -0.266
+   ],
+   "max": [
+    5.023,
+    10.038,
+    6.138
+   ],
+   "size": [
+    10.057,
+    10.068,
+    6.404
+   ],
+   "x_centre": -0.006
+  },
+  "surface_percentiles_ft": {
+   "z_p99_5": 5.96,
+   "z_p0_5": -0.15,
+   "absx_p99": 4.8
+  },
+  "kit": {
+   "w": 10.01,
+   "h": 10,
+   "d": 6.36,
+   "y_min": 0,
+   "y_max": 10,
+   "front_reach_p99_5": 5.96,
+   "behind_back_p0_5": -0.16,
+   "half_width_p99": 4.8
+  },
+  "measured": {
+   "w": 10.057,
+   "h": 10.068,
+   "d": 6.404,
+   "y_min": -0.03,
+   "y_max": 10.038,
+   "front_reach_p99_5": 5.96,
+   "behind_back_p0_5": -0.15,
+   "half_width_p99": 4.8
+  },
+  "off_pct_of_size": {
+   "w": 0.47,
+   "h": 0.68,
+   "d": 0.69,
+   "y_min": -0.3,
+   "y_max": 0.38,
+   "front_reach_p99_5": 0,
+   "behind_back_p0_5": 0.16,
+   "half_width_p99": 0
+  },
+  "method": "blender solidify+voxel remesh, meshopt simplify, colour baked in blender",
+  "source_tris": 50046,
+  "baked_full_res_box_ft": {
+   "min": [
+    -5.004,
+    0,
+    -0.257
+   ],
+   "max": [
+    5.005,
+    10.002,
+    6.114
+   ],
+   "size": [
+    10.009,
+    10.003,
+    6.371
+   ]
+  },
+  "simplify_tries": [
+   {
+    "ratio": 0.1199,
+    "tris": 33212
+   },
+   {
+    "ratio": 0.0217,
+    "tris": 33212
+   },
+   {
+    "meshopt_silhouette_lost_max_pct": 1.54
+   },
+   {
+    "remesh": {
+     "voxel": 0.003,
+     "thick": 0.008,
+     "bakePx": 1024,
+     "reach": 0.02
+    },
+    "voxel_tris": 2316788,
+    "tris": 5886,
+    "silhouette_lost_max_pct": 0.15
+   }
+  ],
+  "meshopt": {
+   "reduced_bytes": 401624,
+   "err": {
+    "box": 0.00275,
+    "uv": 0.000115
+   }
+  },
+  "outputs": [
+   "engine/client/data/caves/cave-wall-ledge.glb",
+   ".claude/worktrees/agent-a19592b24579594f4/engine/client/data/caves/cave-wall-ledge.glb"
+  ]
+ },
+ "cave-wall-overhang": {
+  "ok": true,
+  "flags": [],
+  "tris": 5476,
+  "verts": 10610,
+  "bytes": 200604,
+  "kb": 195.9,
+  "texture": [
+   {
+    "mime": "image/webp",
+    "size": [
+     512,
+     512
+    ]
+   }
+  ],
+  "unpainted_share": 0.0077,
+  "kit_unpainted_share": 0.023,
+  "silhouette_vs_full_res": {
+   "front": {
+    "lost_pct": 0.94,
+    "gained_pct": 0.76
+   },
+   "top": {
+    "lost_pct": 1.11,
+    "gained_pct": 1.29
+   },
+   "side": {
+    "lost_pct": 0.98,
+    "gained_pct": 0.77
+   }
+  },
+  "material": {
+   "roughness": 0.95,
+   "metalness": 0,
+   "baseColorTexture": true,
+   "mrTexture": false,
+   "doubleSided": true
+  },
+  "extensions": [
+   "EXT_meshopt_compression",
+   "EXT_texture_webp",
+   "KHR_mesh_quantization"
+  ],
+  "root_identity": true,
+  "box_ft": {
+   "min": [
+    -4.406,
+    0.007,
+    -0.619
+   ],
+   "max": [
+    4.397,
+    9.915,
+    9.455
+   ],
+   "size": [
+    8.804,
+    9.908,
+    10.074
+   ],
+   "x_centre": -0.004
+  },
+  "surface_percentiles_ft": {
+   "z_p99_5": 9.04,
+   "z_p0_5": -0.22,
+   "absx_p99": 4.09
+  },
+  "kit": {
+   "w": 8.77,
+   "h": 10,
+   "d": 10.05,
+   "y_min": 0,
+   "y_max": 10,
+   "front_reach_p99_5": 9.12,
+   "behind_back_p0_5": -0.25,
+   "half_width_p99": 4.13
+  },
+  "measured": {
+   "w": 8.804,
+   "h": 9.908,
+   "d": 10.074,
+   "y_min": 0.007,
+   "y_max": 9.915,
+   "front_reach_p99_5": 9.04,
+   "behind_back_p0_5": -0.22,
+   "half_width_p99": 4.09
+  },
+  "off_pct_of_size": {
+   "w": 0.39,
+   "h": -0.92,
+   "d": 0.24,
+   "y_min": 0.07,
+   "y_max": -0.85,
+   "front_reach_p99_5": -0.8,
+   "behind_back_p0_5": 0.3,
+   "half_width_p99": -0.46
+  },
+  "method": "blender solidify+voxel remesh, meshopt simplify, colour baked in blender",
+  "source_tris": 45684,
+  "baked_full_res_box_ft": {
+   "min": [
+    -4.388,
+    -0.013,
+    -0.628
+   ],
+   "max": [
+    4.386,
+    10.008,
+    9.435
+   ],
+   "size": [
+    8.774,
+    10.02,
+    10.063
+   ]
+  },
+  "simplify_tries": [
+   {
+    "ratio": 0.1313,
+    "tris": 17438
+   },
+   {
+    "ratio": 0.0452,
+    "tris": 17438
+   },
+   {
+    "meshopt_silhouette_lost_max_pct": 1.64
+   },
+   {
+    "remesh": {
+     "voxel": 0.003,
+     "thick": 0.008,
+     "bakePx": 1024,
+     "reach": 0.02
+    },
+    "voxel_tris": 4804884,
+    "tris": 5476,
+    "silhouette_lost_max_pct": 1.11
+   }
+  ],
+  "meshopt": {
+   "reduced_bytes": 446532,
+   "err": {
+    "box": 0.00184,
+    "uv": 0.000068
+   }
+  },
+  "outputs": [
+   "engine/client/data/caves/cave-wall-overhang.glb",
+   ".claude/worktrees/agent-a19592b24579594f4/engine/client/data/caves/cave-wall-overhang.glb"
+  ]
+ },
+ "cave-wall-plain-b": {
+  "ok": true,
+  "flags": [],
+  "tris": 5999,
+  "verts": 5263,
+  "bytes": 107684,
+  "kb": 105.2,
+  "texture": [
+   {
+    "mime": "image/webp",
+    "size": [
+     512,
+     512
+    ]
+   }
+  ],
+  "unpainted_share": 0,
+  "kit_unpainted_share": 0,
+  "silhouette_vs_full_res": {
+   "front": {
+    "lost_pct": 0.23,
+    "gained_pct": 0.06
+   },
+   "top": {
+    "lost_pct": 0.43,
+    "gained_pct": 0.08
+   },
+   "side": {
+    "lost_pct": 0.41,
+    "gained_pct": 0.03
+   }
+  },
+  "material": {
+   "roughness": 0.95,
+   "metalness": 0,
+   "baseColorTexture": true,
+   "mrTexture": false,
+   "doubleSided": true
+  },
+  "extensions": [
+   "EXT_meshopt_compression",
+   "EXT_texture_webp",
+   "KHR_mesh_quantization"
+  ],
+  "root_identity": true,
+  "box_ft": {
+   "min": [
+    -5.885,
+    -0.001,
+    -0.223
+   ],
+   "max": [
+    5.872,
+    9.988,
+    7.012
+   ],
+   "size": [
+    11.757,
+    9.989,
+    7.234
+   ],
+   "x_centre": -0.006
+  },
+  "surface_percentiles_ft": {
+   "z_p99_5": 6.93,
+   "z_p0_5": -0.08,
+   "absx_p99": 5.75
+  },
+  "kit": {
+   "w": 11.76,
+   "h": 10,
+   "d": 7.24,
+   "y_min": 0,
+   "y_max": 10,
+   "front_reach_p99_5": 6.94,
+   "behind_back_p0_5": -0.08,
+   "half_width_p99": 5.76
+  },
+  "measured": {
+   "w": 11.757,
+   "h": 9.989,
+   "d": 7.234,
+   "y_min": -0.001,
+   "y_max": 9.988,
+   "front_reach_p99_5": 6.93,
+   "behind_back_p0_5": -0.08,
+   "half_width_p99": 5.75
+  },
+  "off_pct_of_size": {
+   "w": -0.03,
+   "h": -0.11,
+   "d": -0.08,
+   "y_min": -0.01,
+   "y_max": -0.12,
+   "front_reach_p99_5": -0.14,
+   "behind_back_p0_5": 0,
+   "half_width_p99": -0.09
+  },
+  "method": "meshopt-simplify LockBorder",
+  "source_tris": 49343,
+  "baked_full_res_box_ft": {
+   "min": [
+    -5.885,
+    -0.001,
+    -0.227
+   ],
+   "max": [
+    5.882,
+    10,
+    7.016
+   ],
+   "size": [
+    11.767,
+    10.001,
+    7.243
+   ]
+  },
+  "simplify_tries": [
+   {
+    "ratio": 0.1216,
+    "tris": 5999
+   },
+   {
+    "meshopt_silhouette_lost_max_pct": 0.43
+   }
+  ],
+  "meshopt": {
+   "reduced_bytes": 248096,
+   "err": {
+    "box": 0.00315,
+    "uv": 0.000086
+   }
+  },
+  "outputs": [
+   "engine/client/data/caves/cave-wall-plain-b.glb",
+   ".claude/worktrees/agent-a19592b24579594f4/engine/client/data/caves/cave-wall-plain-b.glb"
+  ]
+ }
+}

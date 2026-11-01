@@ -1,0 +1,95 @@
+[
+ {
+  "case": "player gh->cathedral",
+  "seat": "player",
+  "view": "all",
+  "start_y": 0,
+  "end_y": 10,
+  "end_base": 10,
+  "end_room": "cathedral",
+  "on": "floor",
+  "level": 10,
+  "hidden": false,
+  "hop": false,
+  "fall_offer": false,
+  "drag_dys": [
+   0,
+   10
+  ],
+  "moved": [
+   -9.9,
+   -79.4
+  ]
+ },
+ {
+  "case": "player cathedral->cathedral",
+  "seat": "player",
+  "view": 0,
+  "start_y": 10,
+  "end_y": 10,
+  "end_base": 10,
+  "end_room": "cathedral",
+  "on": "floor",
+  "level": 10,
+  "hidden": false,
+  "hop": false,
+  "fall_offer": false,
+  "drag_dys": [
+   0
+  ],
+  "moved": [
+   25.0,
+   20.1
+  ]
+ },
+ {
+  "case": "player stair foot->middle",
+  "seat": "player",
+  "view": "all",
+  "start_y": 0,
+  "end_y": 5,
+  "end_base": 5,
+  "end_room": "mansion-hall",
+  "on": "stair",
+  "level": 5,
+  "hidden": false,
+  "hop": false,
+  "fall_offer": false,
+  "drag_dys": [
+   0,
+   0.39,
+   0.98,
+   1.67,
+   2.71,
+   3.28,
+   3.85,
+   4.27,
+   5
+  ],
+  "moved": [
+   0.0,
+   -15.0
+  ]
+ },
+ {
+  "case": "player across the cathedral hole",
+  "seat": "player",
+  "view": "all",
+  "start_y": 10,
+  "end_y": 10,
+  "end_base": 10,
+  "end_room": "cathedral",
+  "on": "floor",
+  "level": 10,
+  "hidden": false,
+  "hop": false,
+  "fall_offer": false,
+  "drag_dys": [
+   0
+  ],
+  "moved": [
+   45.0,
+   0.1
+  ]
+ }
+]

@@ -28,7 +28,7 @@ def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)
 
 procs = []
-RP, SP = 18112, 18739
+RP, SP = (int(v) for v in os.environ.get('TW_PORTS', '18112,18739').split(','))  # TW_PORTS=a,b: free ports when another run holds these
 def start_local():
     for port in (RP, SP):
         try: urllib.request.urlopen(f'http://127.0.0.1:{port}/', timeout=0.5); sys.exit(f'port {port} is busy (a stale test server?)')
@@ -43,6 +43,7 @@ def start_local():
         time.sleep(0.1)
         try: urllib.request.urlopen(f'http://127.0.0.1:{RP}/health', timeout=1); urllib.request.urlopen(f'http://127.0.0.1:{SP}/engine/client/index.html', timeout=1); break
         except Exception: pass
+    import served; served.check(SP, ENGINE)  # (the page is this checkout's, not a stale server's: test/served.py)
     return f'http://127.0.0.1:{SP}/engine/client/index.html?relay=' + urllib.parse.quote(f'http://127.0.0.1:{RP}') + '&api=&nopost&faces=1500&nointro', f'http://127.0.0.1:{RP}'
 
 async def wait(pg, js, timeout=12000, what=''):
@@ -63,10 +64,11 @@ SPAWN = """(a) => { const v = tw.sync.view(tw.area()), id = a.id, H = a.y || 0;
 DRAWN = """(rid) => { const w = tw.worldOf(tw.area()), out = { floor: [], walls: [], slab: 0, things: [], keys: [] };
   for (const s of w.shell.values()) { if (s.roomId !== rid) continue; const y = +s.group.position.y.toFixed(2);
     if (s.spec.slab) { out.slab++; out.slabY = y; continue; }
+    if (s.spec.band) { out.band = (out.band || 0) + 1; out.bandY = y; continue; } // the band between storeys (client/bands.js): the foot under the walls, counted apart
     (s.spec.layer === 'floor' ? out.floor : out.walls).push(y); if (s.group.userData.edgeKey) out.keys.push(s.group.userData.edgeKey); }
   for (const r of w.recs.values()) if (r.entity.kind === 'object' && r.entity.room === rid) out.things.push(+r.group.position.y.toFixed(2));
   const mm = (a) => a.length ? [Math.min(...a), Math.max(...a)] : null;
-  return { floor: mm(out.floor), walls: mm(out.walls), nWalls: out.walls.length, slab: out.slab, slabY: out.slabY, things: mm(out.things), nThings: out.things.length, keys: out.keys }; }"""
+  return { floor: mm(out.floor), walls: mm(out.walls), nWalls: out.walls.length, slab: out.slab, slabY: out.slabY, band: out.band || 0, bandY: out.bandY, things: mm(out.things), nThings: out.things.length, keys: out.keys }; }"""
 
 async def mdrag(pg, a, b, steps=12, peek=None):
     await pg.mouse.move(a['x'], a['y']); await pg.mouse.down()
@@ -133,19 +135,23 @@ async def stage_b(gm, pl):
     await gm.screenshot(path=os.path.join(SHOTS, 'storeys-b-jetty.png'))
     au = await gm.evaluate(AUDIT)
     check(au['tested'] > 100 and au['nbad'] == 0, 'touchable audit with an upper storey, brackets and posts (each as itself)', f"{au['tested']} points, {au['nbad']} untouchable or not selectable as themselves {json.dumps(au['bad'][:4]) if au['nbad'] else ''}")
-    # a thing and a pawn dragged from the ground onto the upper floor take its height (and the thing its room)
+    # a THING dragged from the ground onto the upper floor takes its height and its room. A PAWN keeps its level (2026-10-26,
+    # universal levels; Harry: "pawns popping up and down by full level increments"): dragged from the yard to where the
+    # upper floor shows, it lands on the ground floor's floor under it, at 0, never popped up onto the floor it was shown
     await gm.evaluate(f"(() => {{ const sz = tw.roomgen.sizeOf('crate'); tw.dispatch('object.place', {{ id: 'obj_tstcrate01', x: {X0 * 5 + 15}, z: 32, cat: 'crate', ...sz }}); tw.dispatch('token.create', {{ id: 'tok_tstup0001', name: 'Mira', x: {X0 * 5 + 25}, z: 32 }}); }})()")
     await wait(gm, "tw.entities().obj_tstcrate01 && tw.entities().tok_tstup0001 && tw.sync.pendingCount() === 0", 8000, 'crate and pawn'); await gm.wait_for_timeout(1500)
     for id, tx, what in (('obj_tstcrate01', X0 * 5 + 12, 'a thing'), ('tok_tstup0001', X0 * 5 + 20, 'a pawn')):
-        e = await gm.evaluate(f"tw.entities()['{id}']")
+        e = await gm.evaluate(f"tw.entities()['{id}']"); pawn = id.startswith('tok')
+        await gm.evaluate("tw.lastDrop = null")
         await mdrag(gm, await scr(gm, e['x'], e['z'], 1.0), await scr(gm, tx, 16, 10))
-        await wait(gm, f"(tw.entities()['{id}'].y || 0) === 10 && tw.sync.pendingCount() === 0", 6000, f'{what} upstairs')
-        n = await gm.evaluate(f"(() => {{ const e = tw.entities()['{id}']; return {{ y: e.y || 0, room: e.room || null, x: e.x, z: e.z, drawn: tw.worldOf(tw.area()).recs.get('{id}').group.position.y, drop: tw.lastDrop }}; }})()")
-        check(n['y'] == 10 and abs(n['x'] - tx) <= 2.5 and abs(n['z'] - 16) <= 2.5 and (n['room'] == U['id'] if not id.startswith('tok') else (n['x'] % 5 == 2.5 and n['z'] % 5 == 2.5)), f'{what} dragged from the ground onto the upper floor lands there at 10 ft' + ('' if id.startswith('tok') else ', and is that room\'s'), str(n))
-    await wait(pl, "(tw.entities().tok_tstup0001?.y || 0) === 10", 6000)
-    check(await pl.evaluate("tw.worldOf(tw.area()).recs.get('tok_tstup0001').group.position.y") == 10, 'the player tab sees the pawn upstairs')
-    await gm.keyboard.press('Control+z'); await wait(gm, "(tw.entities().tok_tstup0001.y || 0) === 0", 6000, 'undo')
-    check(await gm.evaluate("tw.entities().tok_tstup0001.y || 0") == 0, 'undo brings the pawn back down')
+        await wait(gm, f"tw.lastDrop && (tw.entities()['{id}'].y || 0) === {0 if pawn else 10} && tw.sync.pendingCount() === 0", 6000, f'{what} dropped')
+        n = await gm.evaluate(f"(() => {{ const e = tw.entities()['{id}']; return {{ y: e.y || 0, room: e.room || null, x: e.x, z: e.z, drawn: tw.worldOf(tw.area()).recs.get('{id}').group.position.y, drop: tw.lastDrop, under: tw.HT.floorUnder(tw.entities(), e.x, e.z, e.y || 0)?.room || null }}; }})()")
+        if pawn: check(n['y'] == 0 and n['under'] == G and n['x'] % 5 == 2.5 and n['z'] % 5 == 2.5 and n['z'] < 20, 'a pawn dragged from the yard to where the upper floor shows keeps its level: on the ground floor under it, at 0 (never popped up)', str(n))
+        else: check(n['y'] == 10 and abs(n['x'] - tx) <= 2.5 and abs(n['z'] - 16) <= 2.5 and n['room'] == U['id'], 'a thing dragged from the ground onto the upper floor lands there at 10 ft, and is that room\'s', str(n))
+    await wait(pl, "tw.entities().tok_tstup0001 && tw.entities().tok_tstup0001.z < 20", 6000)
+    check(await pl.evaluate("tw.worldOf(tw.area()).recs.get('tok_tstup0001').group.position.y") == 0, 'the player tab sees the pawn on the ground floor')
+    await gm.keyboard.press('Control+z'); await wait(gm, "tw.entities().tok_tstup0001.z === 32", 6000, 'undo')
+    check(await gm.evaluate("tw.entities().tok_tstup0001.z") == 32, 'undo brings the pawn back where it was')
     # a raised thing upstairs lands on the upper floor, not at height 0
     await gm.evaluate("tw.liftTo(tw.entities().obj_tstcrate01, 14)"); await wait(gm, "tw.entities().obj_tstcrate01.y === 14", 5000)
     await gm.evaluate("tw.liftTo(tw.entities().obj_tstcrate01, 10.02)"); await wait(gm, "Math.abs(tw.entities().obj_tstcrate01.y - 10) < 0.1", 5000)  # (10 ft, or a rug's thickness above it when the room's seed put a rug there)
@@ -263,6 +269,20 @@ async def main():
             au = await gm.evaluate(AUDIT)
             check(au['tested'] > 100 and au['nbad'] == 0, f'touchable audit ({name})', f"{au['tested']} points, {au['nbad']} untouchable {json.dumps(au['bad'][:4]) if au['nbad'] else ''}")
         if not A.only or A.only == 'b': await stage_b(gm, pl)
+        print('THE CUT ON OPEN GROUND (2026-10-26): generated buildings are hidden exactly as before the covering rule')
+        n0 = await gm.evaluate("Object.values(tw.entities()).filter(e => e.kind === 'room').length")
+        for (code, x, st, seed) in (('TAV', 60, 3, 11), ('TAV', 90, 2, 12), ('TEM', 120, 1, 13), ('CLT', 150, 2, 14)):
+            await gm.evaluate(f"tw.makeBuilding({{ code: '{code}', x: {x}, z: 40, w: 14, d: 12, seed: {seed}, storeys: {st} }})")
+            await wait(gm, 'tw.sync.pendingCount() === 0', 30000, f'{code} built')
+        await settle(gm)
+        same = await gm.evaluate("""(async () => { const H = await import(new URL('../core/height.js', document.baseURI).href); const w = tw.worldOf(tw.area()), E = tw.entities(), rooms = Object.values(E).filter(e => e.kind === 'room'), out = { cuts: [], bad: [] };
+          for (const c of [-21, -11, -1, 9, 19, 29, 39, null]) { tw.setCut(c, { by: 'test' }); w.cutSets();
+            const old = new Set(rooms.filter(r => !H.isTerrain(r.recipe) && !H.visibleAt(H.levelY(E, r), c)).map(r => r.id)); // (the rule as it was: levelY is the floor height on open ground)
+            const now = new Set(w.cutHidden), pawns = Object.values(E).filter(t => t.kind === 'token'), pOld = pawns.filter(t => c != null && !H.visibleAt(w.pawnLevel(t), c)).map(t => t.id).sort().join(), pNow = pawns.filter(t => w.cutHides(t)).map(t => t.id).sort().join();
+            out.cuts.push([c, now.size, rooms.length]); if (old.size !== now.size || [...old].some(id => !now.has(id)) || pOld !== pNow || w.cutClear?.size) out.bad.push([c, [...old].filter(id => !now.has(id)).slice(0, 3), [...now].filter(id => !old.has(id)).slice(0, 3), pOld, pNow]); }
+          tw.cutOff('test'); return out; })()""")
+        nb = await gm.evaluate("Object.values(tw.entities()).filter(e => e.kind === 'room').length")
+        check(nb - n0 >= 12 and not same['bad'], f'{nb - n0} generated rooms (four buildings, 1 to 3 storeys and cellars): at eight cuts the hidden rooms and pawns are the old rule\'s exactly, nothing stands clear', same)
         check(not errors, 'no page errors', '; '.join(errors[:4]))
         await browser.close()
 

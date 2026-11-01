@@ -894,5 +894,325 @@
   "parchment/roof.style.shingle": {
     "status": "accepted",
     "note": "Repaint replaces straw-like fibres with four broad wooden boards and round knots. Blind read now identifies Wood Shingles (95%), distinct from sibling thatch."
+  },
+  "charcoal/pawn.attack": {
+    "status": "accepted",
+    "note": "Round 3 version (style references). Blind: \"Attack / Initiate Combat\", high. Ring: FITS. Preferred over the round-2 version (checks/compare-at-charcoal.txt)."
+  },
+  "parchment/pawn.attack": {
+    "status": "accepted",
+    "note": "Round 3 version. Blind: \"Attack / Initiate Combat Action\", medium. Preferred over round 2 (checks/compare-at-parchment.txt)."
+  },
+  "charcoal/pawn.target": {
+    "status": "accepted",
+    "note": "Round 3 version. Blind: \"Target piece / Mark as target\", medium; alternative \"Center/focus camera\". Ring: FITS. Preferred over round 2 (checks/compare-at-charcoal.txt)."
+  },
+  "parchment/pawn.target": {
+    "status": "learned",
+    "note": "Blind: \"Focus / center camera on piece\", medium; alternative \"Target / ping piece\". Learned from the label. In the ring (2026-10-29): FITS, reads as mark this pawn as the target."
+  },
+  "charcoal/pawn.eyes": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"View from the pawn's perspective / line of sight (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.eyes": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"View from the pawn's perspective / show line of sight (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.choose": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Confirm / mark pawn as ready or done (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.choose": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Confirm / mark pawn as ready or done (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/hand.move": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Move / reposition the thing (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/hand.move": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Move / reposition the thing (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.cond.paralyzed": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Paralyzed (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.cond.paralyzed": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Paralyzed (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.cond.incapacitated": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Incapacitated (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.cond.incapacitated": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Incapacitated (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.cond.dead": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Dead (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.cond.dead": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Dead (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.cond.concentrating": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Concentration (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.cond.concentrating": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Concentrating (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.cond.exhaustion.up": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Add exhaustion level (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.cond.exhaustion.up": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Add exhaustion level (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.cond.exhaustion.down": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Remove exhaustion level (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.cond.exhaustion.down": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Remove exhaustion level (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.cond.other.": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Custom condition (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/pawn.cond.other.": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Custom condition (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/pawn.cond.other": {
+    "status": "accepted",
+    "note": "v2 (quill writing on a slip, plus): blind \"Add custom condition\" (high); set match YES; on the real Conditions arc \"FITS\". v1 (a tag with a plus) was \"nearly identical\" to the custom-condition tag."
+  },
+  "parchment/pawn.cond.other": {
+    "status": "accepted",
+    "note": "v2 (quill writing on a slip, plus): blind \"Add custom condition\" (high); set match YES; on the real Conditions arc \"FITS\". v1 (a tag with a plus) was \"nearly identical\" to the custom-condition tag."
+  },
+  "charcoal/hole.wider": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Widen / expand the hole (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/hole.wider": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Widen / enlarge the hole (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/hole.narrower": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Shrink / narrow the hole (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/hole.narrower": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Shrink / narrow the hole (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/room.hill.height.": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Adjust the height of the hill (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/room.hill.height.": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Adjust hill height / elevation (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/room.hill.height.raise": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Raise / increase the height of the hill (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/room.hill.height.raise": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Raise / increase the height of the hill (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/room.hill.height.lower": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Snap or drop piece to ground (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/room.hill.height.lower": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Lower or flatten terrain / depress hill into ground (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/room.hill.height.10": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Set hill profile to flat plateau block (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/room.hill.height.10": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Shape hill into a flat-topped plateau / single block (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/room.hill.height.20": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Set hill profile to stepped terraces (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/room.hill.height.20": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Shape hill into stepped terraces / multi-tier elevation (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/room.hill.cliff": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Set hill profile to sloped/cliff terrain (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/room.hill.cliff": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Shape hill into a slope/ramp (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.style.marble": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Gable roof shape / light stone tile roof material (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/roof.style.marble": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Gable / pitched roof shape (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.style.deck": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Roof material — wooden planks / timber boards (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.style.deck": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Wood plank roof material (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.style.flagstone": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Roof material — cobblestone / irregular flagstone (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.style.flagstone": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Stone / flagstone roof material (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.style.lead": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Roof material — standing-seam / corrugated metal (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.style.lead": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Standing-seam / corrugated metal roof material (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.style.turf": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Roof material — grass / sod / turf green roof (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.style.turf": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Grass / sod roof material (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.style.plaster": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Roof material — flat concrete / plaster roof with parapet rim (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/roof.style.plaster": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Flat roof shape with parapet (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.edge.": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Wooden trim / curb fascia roof edge (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.edge.": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Wooden curb / timber trim roof edge (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.edge.battlements": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Crenellated / battlement parapet roof edge (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.edge.battlements": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Battlement / crenellated roof edge (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.edge.parapet": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Low parapet / coping roof edge (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.edge.parapet": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Low stone parapet roof edge (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.edge.railing": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Wooden railing / balustrade roof edge (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.edge.railing": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Wooden railing roof edge (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.edge.none": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Plain / no roof edge or flat roof shape (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.edge.none": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"No roof edge / plain flat roof (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.edge.auto": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Configure / customize roof piece settings action (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/roof.edge.auto": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Roof edge settings / customize roof edge (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.turrets": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Conical spire / turret roof — roof shape (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.turrets": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Roof shape — turret / conical spire roof with parapet (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.shape.": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Flat roof / pitched-to-flat roof option — roof shape (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/roof.shape.": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Action on a roof piece / roof shape — switch between pitched and flat roof (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.shape.gable": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Gable roof — roof shape (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.shape.gable": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Roof shape — gable / pitched roof (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/roof.shape.hip": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Hip roof — roof shape (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/roof.shape.hip": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Roof shape — hip / pyramidal roof (high)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "charcoal/trim.reset": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Add/place chimney — action on a roof piece (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/trim.reset": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Action on a roof piece — add or toggle chimney (medium)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/share.export": {
+    "status": "accepted",
+    "note": "Blind (batched 31 px sheet): \"Export piece or unpack from container (medium)\". Names the intended action. Set match (contact sheet): YES."
+  },
+  "parchment/share.export": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Unpack / remove piece from a container or group (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "charcoal/share.link": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Link character sheet or document to piece (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
+  },
+  "parchment/share.link": {
+    "status": "learned",
+    "note": "Blind (batched 31 px sheet): \"Link document, note, or external URL/sheet to the piece (high)\". The exact option comes from its name in the menu. Set match (contact sheet): YES."
   }
 }

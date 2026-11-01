@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+# A copy of fauna-tools/agy-run with its post-exit pty drain bounded to 5 s (2026-10-29: wrappers sat for 20+ min
+# after agy had exited, the child gone). Used by blind3.py / compare_at.py only.
+"""agy-run - run one non-interactive Antigravity (agy) task inside a pty.
+
+Usage: agy-run [-m MODEL] [-C DIR] [-o OUTFILE] [-t SECONDS] [--no-yolo] [PROMPT...] < prompt.md
+
+Prompt comes from stdin (if not a tty) and/or trailing args. Works around
+google-antigravity/antigravity-cli#318 (`agy -p` hangs without a real terminal)
+by running agy under a pseudo-terminal. Output: ANSI-stripped text to OUTFILE
+(or stdout). Exit: agy's exit code; 124 on timeout; 2 on usage error.
+Log: ~/fauna-logs/agy-run.log
+"""
+import argparse, os, pty, re, select, signal, sys, time, shutil, struct, fcntl, termios
+
+LOG = os.path.expanduser("~/fauna-logs/agy-run.log")
+AGY = shutil.which("agy") or os.path.expanduser("~/.local/bin/agy")
+DEFAULT_MODEL = os.environ.get("FAUNA_AGY_MODEL", "gemini-3.8-flash-high")
+ANSI = re.compile(rb"\x1b\[[0-?]*[ -/]*[@-~]|\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)|\x1b[()][A-Za-z0-9]|\x1b[=>78cM]")
+
+def log(msg):
+    try:
+        os.makedirs(os.path.dirname(LOG), exist_ok=True)
+        with open(LOG, "a") as f:
+            f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} [{os.getpid()}] {msg}\n")
+    except OSError:
+        pass
+
+def clean(b: bytes) -> str:
+    b = ANSI.sub(b"", b).replace(b"\r\n", b"\n").replace(b"\r", b"")
+    return b.decode("utf-8", "replace").strip() + "\n"
+
+def run_pty(argv, cwd, timeout):
+    pid, fd = pty.fork()
+    if pid == 0:
+        if cwd:
+            os.chdir(cwd)
+        os.environ["TERM"] = "xterm-256color"
+        os.environ.pop("GEMINI_API_KEY", None)  # keep billed key away; use subscription login
+        os.execv(argv[0], argv)
+    fcntl.ioctl(fd, termios.TIOCSWINSZ, struct.pack("HHHH", 50, 200, 0, 0))
+    buf, deadline, timed_out = b"", time.time() + timeout, False
+    status = None
+    while True:
+        # agy may leave helper processes holding the pty open, so EOF may never come: watch the child itself.
+        done, st = os.waitpid(pid, os.WNOHANG)
+        if done:
+            status = st
+            drain_end = time.time() + 5   # (bounded: a helper still writing to the pty must not keep us here forever)
+            while time.time() < drain_end and select.select([fd], [], [], 0.3)[0]:   # drain what is left
+                try: d = os.read(fd, 65536)
+                except OSError: break
+                if not d: break
+                buf += d
+            break
+        left = deadline - time.time()
+        if left <= 0:
+            timed_out = True
+            os.kill(pid, signal.SIGTERM)
+            time.sleep(2)
+            try: os.kill(pid, signal.SIGKILL)
+            except ProcessLookupError: pass
+            break
+        r, _, _ = select.select([fd], [], [], min(left, 1.0))
+        if r:
+            try:
+                d = os.read(fd, 65536)
+            except OSError:
+                break
+            if not d:
+                break
+            buf += d
+    if status is None:
+        _, status = os.waitpid(pid, 0)
+    code = 124 if timed_out else (os.waitstatus_to_exitcode(status))
+    return code, buf
+
+def main():
+    ap = argparse.ArgumentParser(description="Run one agy task headlessly (pty workaround).")
+    ap.add_argument("-m", "--model", default=DEFAULT_MODEL)
+    ap.add_argument("-C", "--cwd", default=None)
+    ap.add_argument("-o", "--out", default=None)
+    ap.add_argument("-t", "--timeout", type=int, default=600)
+    ap.add_argument("--no-yolo", action="store_true", help="do not pass --dangerously-skip-permissions")
+    ap.add_argument("--dry-run", action="store_true", help="print the agy argv and exit")
+    ap.add_argument("--conversation", help="resume this agy conversation id (see ~/.gemini/antigravity-cli/conversations/)")
+    ap.add_argument("--agy-arg", action="append", default=[], help="extra raw arg for agy (repeatable); e.g. --agy-arg=--version for pty tests")
+    ap.add_argument("prompt", nargs="*")
+    a = ap.parse_args()
+
+    parts = []
+    if not sys.stdin.isatty():
+        parts.append(sys.stdin.read())
+    if a.prompt:
+        parts.append(" ".join(a.prompt))
+    prompt = "\n\n".join(p for p in parts if p.strip()).strip()
+    if a.cwd and not os.path.isdir(a.cwd):
+        print(f"agy-run: no such directory: {a.cwd}", file=sys.stderr); return 2
+
+    if a.agy_arg:                       # raw passthrough mode (testing the pty mechanics)
+        argv = [AGY] + a.agy_arg
+    else:
+        if not prompt:
+            print("agy-run: empty prompt (give stdin or args)", file=sys.stderr); return 2
+        argv = [AGY, "--model", a.model, "--print-timeout", f"{a.timeout}s"]
+        if a.conversation:              # resume an earlier conversation (keeps its context)
+            argv += ["--conversation", a.conversation]
+        if not a.no_yolo:
+            argv.append("--dangerously-skip-permissions")
+        argv += ["-p", prompt]
+    if a.dry_run:
+        print(argv[:-1] + ([f"<prompt {len(prompt)} chars>"] if not a.agy_arg else [])); return 0
+
+    log(f"start model={a.model} cwd={a.cwd} timeout={a.timeout} out={a.out} promptlen={len(prompt)}")
+    code, raw = run_pty(argv, a.cwd, a.timeout + 15)
+    text = clean(raw)
+    log(f"exit={code} bytes={len(raw)}")
+    if code != 0:
+        log("tail: " + text[-400:].replace("\n", " | "))
+        print(f"agy-run: agy exited {code}" + (" (timeout)" if code == 124 else ""), file=sys.stderr)
+    if re.search(r"authentication required|not logged in|please sign in", text, re.I):
+        print("agy-run: not signed in - run `fauna -g` once and log in", file=sys.stderr)
+        code = code or 3
+    if a.out:
+        with open(a.out, "w") as f:
+            f.write(text)
+    else:
+        sys.stdout.write(text)
+    return code
+
+if __name__ == "__main__":
+    sys.exit(main())

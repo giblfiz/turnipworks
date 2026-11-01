@@ -1,0 +1,76 @@
+{
+  "id": "pawn.cond.paralyzed",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works tabletop condition pictogram for paralyzed: A close-up cartoon human head and shoulders in steel blue, stiff and frozen with wide fixed staring eyes, wrapped by TWO broad bright electric-blue lightning zigzags. Bold dark outlines, saturated colour, floating alone, no ground. Dominant subject colour key: electric blue on steel grey; keep this colour strongly visible, not just a tiny accent. Heroic hand-painted style D, chunky matte painted forms, broad soft bevels, restrained brushwork. Center on a pale warm parchment circular ground with a quiet thin antique brass rim; use dark outlines for strong contrast. Upper-left light. Straight-on circular badge; outer circle fills 94 percent of square canvas, pictogram fills 80 percent of disc. Readable at31px and smaller: bold silhouette, thick features, generous negative space, absolutely no tiny detail. Native transparent alpha outside the circle. No text, lettering, numbers, watermark, decorative flourishes or extra scene. Our own design, no trademarked game iconography. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.stunned.webp",
+      "sha256": "b26b503140fe80eb18babe2b89fbb54c52aafb77cc9c848f04444e88ce13ab42",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.unconscious.webp",
+      "sha256": "d380df54bc91805ba37efc3a52f33f2fc664013633d911ac174ee48043aac119",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.poisoned.webp",
+      "sha256": "ddfb1a18e71ef9298b7583611420c1dad4ac96f0fc2983ff3c9c4119b9897de8",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--pawn.cond.paralyzed.png",
+      "sha256": "7e7d6ae980b18b89ff96bc419376b3f25bdbca14828d61b3a2d5fa74a26dc760",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--pawn.cond.paralyzed.png",
+  "source_sha256": "d730d0cdd56a6d48b0d097363a27a13b11e54e83ec441575749993d65f201243",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/pawn.cond.paralyzed.webp",
+    "19": "parchment/sizes/19/pawn.cond.paralyzed.webp",
+    "22": "parchment/sizes/22/pawn.cond.paralyzed.webp",
+    "26": "parchment/sizes/26/pawn.cond.paralyzed.webp",
+    "31": "parchment/sizes/31/pawn.cond.paralyzed.webp",
+    "36": "parchment/sizes/36/pawn.cond.paralyzed.webp",
+    "38": "parchment/sizes/38/pawn.cond.paralyzed.webp",
+    "42": "parchment/sizes/42/pawn.cond.paralyzed.webp",
+    "44": "parchment/sizes/44/pawn.cond.paralyzed.webp",
+    "50": "parchment/sizes/50/pawn.cond.paralyzed.webp",
+    "52": "parchment/sizes/52/pawn.cond.paralyzed.webp",
+    "62": "parchment/sizes/62/pawn.cond.paralyzed.webp",
+    "84": "parchment/sizes/84/pawn.cond.paralyzed.webp",
+    "100": "parchment/sizes/100/pawn.cond.paralyzed.webp",
+    "128": "parchment/pawn.cond.paralyzed.webp"
+  },
+  "sha256": {
+    "18": "95f6042540be174cb13240c0c61fd1613e36ec32bccbf8d4fafff40798df854a",
+    "19": "18f596db7a57efd9cb839e2d45e5fcdb817c5c7d358de8809ff5f4c07da1c5b3",
+    "22": "ccb54587ecf01bc8b742e6ce55dad4823d1aa6e2ee75c2cccab15e86392eb2e2",
+    "26": "0b92c9961b8bf2276b5938d6cc73d2151d5ab431760bf7aa139f5f88a388d88b",
+    "31": "889c97a19150afc6db799e1e032c135d409cfe75501da96452d921999cabad01",
+    "36": "055975fddcea62fe72c5f2c47239d8bbb29417139f38cf6aaec9fff3068b92a7",
+    "38": "7a88d41bed11b3569fa8e5da5154d46252fa846ccb5eff33d85fb4582c0dcd37",
+    "42": "fd1fdd991144ce1fcdf35a722f8ba024ac3fa665fd4bc10996682919c38f1fc0",
+    "44": "7b0104042236795db2b9484dc53f385ef3b31ca36aecca42ad035369d93b55fd",
+    "50": "5b2e17971a06b2f877412ca748dc30bbf72b2907d070a93d691f0bccf14d9891",
+    "52": "fc921ac478d9c56ff55c04763346188cb64c1b4fe3cda543c6b4aa22d15fea56",
+    "62": "94a3200d01dd55f67bd4c08272ba3c73987e56d5730fc396abc8a1fd6d6ef3a9",
+    "84": "9f59f7583203640abc4d56668c86e0397a495e3e15b795bcbce6d35aeaeb626b",
+    "100": "6cb0e572996ad193a08230296ad3522baf72a11ad7ec31702ec33b3116e51448",
+    "128": "ee6301a6e4e3aecd3c71065e20e85b64e7bc0fc62b252bf91c517201c9413296"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small status icons for a tabletop pawn, in the ring menu around a selected pawn of a browser 3D tabletop game. For each lettered icon: which D&D condition, or condition control (adding / removing a level, a custom condition), does it show? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "64d5094c31a51197238c8440e3d5d5da2c50c863f43a197a0725adf73e2df037",
+  "blind_prompt_sha256": "62edd389ee8b5901b8936581b390a494654b0cf03cf774d31c0d21b720bbde4b",
+  "read_directory": "reads/parchment/pawn.cond.paralyzed/d730d0cdd56a6d48-62edd389ee"
+}

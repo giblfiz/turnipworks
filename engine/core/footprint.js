@@ -150,7 +150,7 @@ const sameOutline = (a, b) => a.length === b.length && a.every((p, k) => p[0] ==
 export function outlineProblem(rc) {
   const o = rc.outline;
   if (o == null) return null;
-  if (!Array.isArray(o) || o.length < 4 || o.length > 64) return 'outline: 4 to 64 [x, z] grid points';
+  if (!Array.isArray(o) || o.length < 4 || o.length > 200) return 'outline: 4 to 200 [x, z] grid points'; // (200 since 2026-10-25: a cave's jagged outline, core/caves.js)
   if (!o.every(p => Array.isArray(p) && p.length === 2 && Number.isInteger(p[0]) && Number.isInteger(p[1]) && p[0] >= 0 && p[1] >= 0 && p[0] <= rc.w && p[1] <= rc.d)) return 'outline: whole-cell points inside the room\'s rectangle';
   for (let k = 0; k < o.length; k++) { const a = o[k], b = o[(k + 1) % o.length]; if ((a[0] !== b[0]) === (a[1] !== b[1])) return 'outline: every edge runs along the grid, east-west or north-south'; }
   const cells = []; for (let j = 0; j < rc.d; j++) for (let i = 0; i < rc.w; i++) if (inside(o, i + 0.5, j + 0.5)) cells.push([i, j]);

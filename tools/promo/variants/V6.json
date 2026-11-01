@@ -1,0 +1,165 @@
+{
+ "name": "V6",
+ "desc": "armoury (two storeys), as V2",
+ "capture": "armoury-land",
+ "speed": 0.9270833333333334,
+ "fit": {
+  "fit": "upper_land",
+  "event_ms_1x": 4450.0,
+  "lands_at_s": 4.8,
+  "from": "armoury"
+ },
+ "fps": 60,
+ "frames": 360,
+ "segments": [
+  {
+   "out": [
+    0,
+    52
+   ],
+   "footage": 0,
+   "out_s": [
+    0.0,
+    0.8667
+   ],
+   "footage_s": 0.0
+  },
+  {
+   "out": [
+    52,
+    72
+   ],
+   "card": 1,
+   "out_s": [
+    0.8667,
+    1.2
+   ]
+  },
+  {
+   "out": [
+    72,
+    132
+   ],
+   "footage": 72,
+   "out_s": [
+    1.2,
+    2.2
+   ],
+   "footage_s": 1.2
+  },
+  {
+   "out": [
+    132,
+    152
+   ],
+   "card": 2,
+   "out_s": [
+    2.2,
+    2.5333
+   ]
+  },
+  {
+   "out": [
+    152,
+    214
+   ],
+   "footage": 152,
+   "out_s": [
+    2.5333,
+    3.5667
+   ],
+   "footage_s": 2.5333
+  },
+  {
+   "out": [
+    214,
+    234
+   ],
+   "card": 3,
+   "out_s": [
+    3.5667,
+    3.9
+   ]
+  },
+  {
+   "out": [
+    234,
+    288
+   ],
+   "footage": 234,
+   "out_s": [
+    3.9,
+    4.8
+   ],
+   "footage_s": 3.9
+  },
+  {
+   "out": [
+    288,
+    360
+   ],
+   "card": 4,
+   "out_s": [
+    4.8,
+    6.0
+   ]
+  }
+ ],
+ "cuts": [
+  {
+   "card": 1,
+   "baseline_s": 0.9,
+   "at_s": 0.8667,
+   "back_s": 1.2,
+   "footage_before_s": 0.85,
+   "footage_after_s": 1.2,
+   "in_flight_before": 48,
+   "in_flight_after": 52
+  },
+  {
+   "card": 2,
+   "baseline_s": 2.2,
+   "at_s": 2.2,
+   "back_s": 2.5333,
+   "footage_before_s": 2.1833,
+   "footage_after_s": 2.5333,
+   "in_flight_before": 16,
+   "in_flight_after": 13
+  },
+  {
+   "card": 3,
+   "baseline_s": 3.5,
+   "at_s": 3.5667,
+   "back_s": 3.9,
+   "footage_before_s": 3.55,
+   "footage_after_s": 3.9,
+   "in_flight_before": 27,
+   "in_flight_after": 25
+  },
+  {
+   "card": 4,
+   "at_s": 4.8,
+   "in_flight_before": 3
+  }
+ ],
+ "capture_events_out_s": {
+  "ground_land": 4.433,
+  "upper_start": 0.017,
+  "last_land": 4.8,
+  "upper_land": 4.8,
+  "step_start": 5.133,
+  "step_land": 5.533,
+  "tour_end": "ground",
+  "upper_pieces": 73
+ },
+ "spawn_ms_1x": {
+  "ground_land": 4110.069,
+  "upper_start": 15.451,
+  "last_land": 4450.0,
+  "upper_land": 4450.0,
+  "step_start": 4759.028,
+  "step_land": 5129.861,
+  "tour_end": "ground",
+  "upper_pieces": 73
+ }
+}

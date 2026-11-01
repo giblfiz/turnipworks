@@ -44,7 +44,7 @@ export const RULER_LOOK = {
   labelPx: 13, labelRemotePx: 12, handlePx: 16, chipPx: 22,
   snapFt: 1.5,               // an end let go this close to a pawn's base attaches to it
   levelFt: 4,                // ... when the pawn stands within this height of the point
-  sizeStep: 1, shiftStep: 5, // a template's size while dragging: whole feet; Shift: 5-ft steps
+  sizeStep: 1, shiftStep: 5, // a template's size while dragging: whole feet, clicking onto 5s (core/measure.js detent); Shift: 5-ft steps
   roundsPresets: [1],
 };
 export const KEEP_BAR_IDLE_MS = 8000;
@@ -114,9 +114,9 @@ export function rulersSurface(R, app) {
   }
   // put a model's far end at a point. A ruler takes the point (and its pawn). A template takes its direction and its
   // size, in whole feet (Shift: 5-ft steps); one whose size was typed keeps that size and only turns.
-  function setB(m, p, ev) {
+  function setB(m, p, ev, { click = true } = {}) {
     if (!p) return;
-    if (m.k === 'rule') { m.b = { ...p }; return; }
+    if (m.k === 'rule') { m.b = p.pawn ? { ...p } : ruleDetent(m.a, p); return; }
     const round = !!m.fixed || m.k !== 'rule';
     if (m.fixed && m.stage === 'aim' && (m.k === 'circle' || m.k === 'sphere')) { // a typed circle or sphere: its CENTRE goes to the pointer (the caster stays where she is)
       m.a = { x: p.x, y: p.y || 0, z: p.z }; m.b = { x: p.x + m.fixed, y: p.y || 0, z: p.z }; return; // (never attached while it is aimed: dropped on a pawn it catches that pawn)
@@ -124,13 +124,25 @@ export function rulersSurface(R, app) {
     const A = endPos(m.a), dx = p.x - A.x, dz = p.z - A.z, flat = Math.hypot(dx, dz);
     if (flat < 1e-6) return;
     const step = ev?.shiftKey ? L.shiftStep : L.sizeStep;
-    const size = m.fixed || (round ? Math.max(step, Math.round((flat - A.r) / step) * step) : flat - A.r);
+    const size = m.fixed || (round ? Math.max(step, Math.round((click ? MS.detent(flat - A.r) : flat - A.r) / step) * step) : flat - A.r); // (whole feet, clicking onto 5, 10, 15 … under the pointer)
     m.dir = Math.atan2(dz, dx); m.b = { x: A.x + dx / flat * (size + A.r), y: A.y, z: A.z + dz / flat * (size + A.r) };
+  }
+  // the end of a ruler being put down, pulled onto the nearest whole number of squares (MS.detent) when it is close to
+  // one: along the line from the OTHER end, so the direction is the pointer's and only the length clicks. Measured as it
+  // is read out (from the other end's base edge, the height included). The square-counting rules already read in squares.
+  function ruleDetent(other, p) {
+    if (rule() === 'five' || rule() === 'alt') return { ...p };
+    const A = endPos(other), dx = p.x - A.x, dz = p.z - A.z, dy = (p.y || 0) - A.y, flat = Math.hypot(dx, dz);
+    if (flat <= A.r + 1e-6) return { ...p };
+    const ft = Math.hypot(flat - A.r, dy), to = MS.detent(ft);
+    if (to === ft || to < Math.abs(dy)) return { ...p };
+    const k = (Math.sqrt(to * to - dy * dy) + A.r) / flat;
+    return { ...p, x: A.x + dx * k, z: A.z + dz * k };
   }
   function setA(m, p) {
     if (!p) return;
     const A0 = endPos(m.a), dx = p.x - A0.x, dz = p.z - A0.z, dy = (p.y || 0) - A0.y;
-    if (m.k === 'rule') { m.a = { ...p }; return; }
+    if (m.k === 'rule') { m.a = p.pawn ? { ...p } : ruleDetent(m.b, p); return; }
     // a template moves whole: its origin goes to the point (onto a pawn: it starts at that pawn's edge), its end comes along
     const tpl = tplOf(m); m.a = { ...p }; const A = endPos(m.a);
     m.b = { x: A.x + Math.cos(tpl.dir) * (tpl.size + A.r), y: A.y, z: A.z + Math.sin(tpl.dir) * (tpl.size + A.r) };
@@ -139,7 +151,7 @@ export function rulersSurface(R, app) {
   function setShape(m, k) {
     if (m.k === k) return;
     const was = m.k; m.k = k; if (k !== 'rule') touchKeep();
-    if (was === 'rule') { const B = endPos(m.b); m.b = { x: B.x, y: B.y, z: B.z }; setB(m, { ...m.b }); } // (its end lets go of a pawn: a template has a size, not a second pawn)
+    if (was === 'rule') { const B = endPos(m.b); m.b = { x: B.x, y: B.y, z: B.z }; setB(m, { ...m.b }, null, { click: false }); } // (its end lets go of a pawn: a template has a size, not a second pawn. The ruler's own length is kept: it had its click already)
     if (k === 'rule') delete m.fixed;
   }
 

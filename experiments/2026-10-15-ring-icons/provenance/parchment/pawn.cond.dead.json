@@ -1,0 +1,76 @@
+{
+  "id": "pawn.cond.dead",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works tabletop condition pictogram for dead: ONE chunky rounded-top tombstone of pale blue-grey stone with ONE broad deep-black cross carved on its face, floating alone with no ground, no dirt and no grass. Bold dark outlines, simple cartoon shape. Dominant subject colour key: cold stone grey and black; keep this colour strongly visible, not just a tiny accent. Heroic hand-painted style D, chunky matte painted forms, broad soft bevels, restrained brushwork. Center on a pale warm parchment circular ground with a quiet thin antique brass rim; use dark outlines for strong contrast. Upper-left light. Straight-on circular badge; outer circle fills 94 percent of square canvas, pictogram fills 80 percent of disc. Readable at31px and smaller: bold silhouette, thick features, generous negative space, absolutely no tiny detail. Native transparent alpha outside the circle. No text, lettering, numbers, watermark, decorative flourishes or extra scene. Our own design, no trademarked game iconography. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.stunned.webp",
+      "sha256": "b26b503140fe80eb18babe2b89fbb54c52aafb77cc9c848f04444e88ce13ab42",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.unconscious.webp",
+      "sha256": "d380df54bc91805ba37efc3a52f33f2fc664013633d911ac174ee48043aac119",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.poisoned.webp",
+      "sha256": "ddfb1a18e71ef9298b7583611420c1dad4ac96f0fc2983ff3c9c4119b9897de8",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--pawn.cond.dead.png",
+      "sha256": "f88cb7693294e71d584b669b0b23e7d1322e4d336751ee4e459cffdb08c56edb",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--pawn.cond.dead.png",
+  "source_sha256": "55b6780762fb7ae990b776daef48de91b4fd4d0a4fbefbfc6b6a67c853847b65",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/pawn.cond.dead.webp",
+    "19": "parchment/sizes/19/pawn.cond.dead.webp",
+    "22": "parchment/sizes/22/pawn.cond.dead.webp",
+    "26": "parchment/sizes/26/pawn.cond.dead.webp",
+    "31": "parchment/sizes/31/pawn.cond.dead.webp",
+    "36": "parchment/sizes/36/pawn.cond.dead.webp",
+    "38": "parchment/sizes/38/pawn.cond.dead.webp",
+    "42": "parchment/sizes/42/pawn.cond.dead.webp",
+    "44": "parchment/sizes/44/pawn.cond.dead.webp",
+    "50": "parchment/sizes/50/pawn.cond.dead.webp",
+    "52": "parchment/sizes/52/pawn.cond.dead.webp",
+    "62": "parchment/sizes/62/pawn.cond.dead.webp",
+    "84": "parchment/sizes/84/pawn.cond.dead.webp",
+    "100": "parchment/sizes/100/pawn.cond.dead.webp",
+    "128": "parchment/pawn.cond.dead.webp"
+  },
+  "sha256": {
+    "18": "be25417a5645fcd3c591ebca7ff491b6e5c57fe3cb01399a946075b00bae4a25",
+    "19": "c3c1b0a57ff70fbc965deb7ea3664f7aa53c19acd89bc07e2d34c0c59c991d86",
+    "22": "43cdbbcb72246aa085f8bfb63f7988a409562bfd1c8bea15349be6f205a6bc65",
+    "26": "6a9c7abe4ef3850d95decdc4ba5c59b4c7fbf9a15b1a124a139aa7fee21542fb",
+    "31": "0755d25d3e656ca2439a59eeca205e08995e0ea4cac691f79663f75c751544df",
+    "36": "a3a7bc6bb182fdd80f76063ed650cdc7dd375a6991e9b5912f9b4e9a99f6f417",
+    "38": "a9b30e1ce94aa85077781c0844228fd606049f1a7228e21f926331d1a1064f14",
+    "42": "be99c220e028d88c3150ae3934a268c92300fd7e3f03731faa7d47d099391d6e",
+    "44": "01adef4260b6ab77d0e25e5de991cd4589f789a8c4557cd33e99bec898d0227d",
+    "50": "0fab25f928b046daff12a124c39c75433c43655ee8fcf477a642ca05a32a7caa",
+    "52": "7fc2b8684d27cc1a69675ce84652d41b4bf39a13ffe541a8c75427789fba4afd",
+    "62": "06b7b26313ce2a94db4228877a3a1bbd3f580533b3f7c3d575256bf1c6d7a57d",
+    "84": "8b04e972412c02fd9a343908f791f00940702edb038a67ba73bb07ae1fc9b744",
+    "100": "8179933848b79c8ba5cdd98a15274df0cf0171c4198f1e6020649ab5843dc65b",
+    "128": "fb10c4c8a8d9c6288d47af145531c0b3374a95af0851a1a10884efd7183a5fea"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small status icons for a tabletop pawn, in the ring menu around a selected pawn of a browser 3D tabletop game. For each lettered icon: which D&D condition, or condition control (adding / removing a level, a custom condition), does it show? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "42ea2963e110755f09a18f43bcd3a64af5abc998a788844f338fe9693ddfad68",
+  "blind_prompt_sha256": "62edd389ee8b5901b8936581b390a494654b0cf03cf774d31c0d21b720bbde4b",
+  "read_directory": "reads/parchment/pawn.cond.dead/55b6780762fb7ae9-62edd389ee"
+}

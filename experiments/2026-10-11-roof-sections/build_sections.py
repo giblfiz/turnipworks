@@ -36,6 +36,9 @@ STYLES = {
     'tile':    dict(plate='tile-clay',    smooth=4,  ragged=False, joints=(70, 0.05),  T=0.27, var=0.18, roll=0.08, lift=0.05, rough=0.80),
     'slate':   dict(plate='slate',        smooth=4,  ragged=False, joints=(90, 0.04),  T=0.22, var=0.20, roll=0.09, lift=0.06, rough=0.80),
     'shingle': dict(plate='shingle-wood', smooth=5,  ragged=True,  joints=(48, 0.06),  T=0.30, var=0.24, roll=0.12, lift=0.07, rough=0.95),
+    # the temple roof (2026-10-27, experiments/2026-10-27-roofs-temple): big marble pan tiles under rounded cover tiles, four courses
+    'marble':  dict(plate='marble',       smooth=4,  ragged=False, joints=(40, 0.035), T=0.24, var=0.10, roll=0.04, lift=0.03, rough=0.72,
+                    path=os.path.join(ROOT, 'experiments/2026-10-27-roofs-temple/plates/roofing-marble.png')),
 }
 MARGIN = 8  # px: how far a wedge runs on under the butt above it
 
@@ -93,7 +96,7 @@ def wedges(st, S, a):
     return tris, lines, n_pieces
 
 def build(st):
-    S = STYLES[st]; a0 = D.load(PLATES % S['plate'], N)
+    S = STYLES[st]; a0 = D.load(S.get('path') or PLATES % S['plate'], N)
     # roll the plate so the section's lower edge (the eave) lies just under a butt line: a roof starts with a whole course
     lum = a0.mean(axis=2); lines0, _ = D.lip_lines(lum, D.COURSES[st], S['smooth'], S['ragged'])
     shift = N - int(np.ceil(lines0[-1].max() + 4 + (8 if S['joints'] is None else 0))); a = np.roll(a0, shift, axis=0)
@@ -169,7 +172,7 @@ def build(st):
     # the tiling check, measured: every vertex on an edge has its twin on the opposite edge (same height, same place along the edge)
     def edge(axis, at): m = np.abs(P[:, axis] - at) < 1e-4; o = 2 - axis; return sorted({(round(float(p[o]), 3), round(float(p[1]), 3)) for p in P[m]})
     tile_x = edge(0, 0) == edge(0, FT); tile_z = edge(2, 0) == edge(2, FT)
-    rep = dict(style=st, plate=os.path.relpath(PLATES % S['plate'], '<repo>'), pieces=n_pieces, triangles=int(len(I) // 3), vertices=int(len(P)), far_triangles=2,
+    rep = dict(style=st, plate=os.path.relpath(S.get('path') or PLATES % S['plate'], ROOT if S.get('path') else '<repo>'), pieces=n_pieces, triangles=int(len(I) // 3), vertices=int(len(P)), far_triangles=2,
                butt_ft=S['T'], max_ft=round(float(P[:, 1].max()), 3), mean_ft=round(mean_h, 4), uncovered=round(holes, 4), rolled_px=int(shift),
                edge_vertices=[len(edge(0, 0)), len(edge(2, 0))], tiles_along_eave=bool(tile_x), tiles_up_slope=bool(tile_z), kb=round(glb / 1024), sha=hashlib.sha1(open(f'{HERE}/out/roof-section--{st}.glb', 'rb').read()).hexdigest()[:8])
     print(json.dumps(rep)); return rep
@@ -208,10 +211,11 @@ def write_glb(path, meshes, colour, normal, rough):
 if __name__ == '__main__':
     args = [x for x in sys.argv[1:] if not x.startswith('--')]; which = args[0].split(',') if args else list(STYLES)
     reps = [build(st) for st in which]
-    json.dump(reps, open(f'{HERE}/out/report.json', 'w'), indent=1)
+    old = json.load(open(f'{HERE}/out/report.json')) if os.path.exists(f'{HERE}/out/report.json') else []  # (a build of some styles keeps the others' rows)
+    json.dump([r for r in old if r['style'] not in which] + reps, open(f'{HERE}/out/report.json', 'w'), indent=1)
     if '--install' in sys.argv:
         dst = f'{ROOT}/engine/client/data/roof'; os.makedirs(dst, exist_ok=True)
         for r in reps: shutil.copy(f"{HERE}/out/roof-section--{r['style']}.glb", dst)
         man = {'about': 'Roof sections: one modelled 5 ft x 5 ft patch of roofing per roof style, laid out instanced by engine/client/roofs.js. Built by experiments/2026-10-11-roof-sections/build_sections.py --install; never edit by hand.',
-               'size_ft': FT, 'sections': {r['style']: {'url': f"roof/roof-section--{r['style']}.glb", 'rev': r['sha'], 'triangles': r['triangles'], 'far_triangles': 2, 'mean_ft': r['mean_ft'], 'max_ft': r['max_ft'], 'kb': r['kb']} for r in reps}}
+               'size_ft': FT, 'sections': {**(json.load(open(f'{ROOT}/engine/client/data/roofsections.json')).get('sections', {}) if os.path.exists(f'{ROOT}/engine/client/data/roofsections.json') else {}), **{r['style']: {'url': f"roof/roof-section--{r['style']}.glb", 'rev': r['sha'], 'triangles': r['triangles'], 'far_triangles': 2, 'mean_ft': r['mean_ft'], 'max_ft': r['max_ft'], 'kb': r['kb']} for r in reps}}}  # (a build of some styles keeps the others' entries)
         json.dump(man, open(f'{ROOT}/engine/client/data/roofsections.json', 'w'), indent=1); print('installed', dst)

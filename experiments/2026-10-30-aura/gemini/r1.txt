@@ -1,0 +1,115 @@
+These are screenshots of a browser 3D virtual tabletop (painted miniature figures on round grey bases, in a tavern room),
+seen from the players' usual table distance: table-day.png, high-day.png, low-day.png by day, table-night.png and
+high-night.png by night.
+
+STEP 1, before interpreting anything: list every explicit label, name tag and text you can read in each image, and where.
+
+STEP 2: The back row (named L0, L1, L2, L3, L4, L5 from left to right) wears a light effect, an "aura", at increasing
+intensity; the front row wears the same middle intensity in six colours. For EACH pawn of the back row, describe only what
+you see of the light round it (shape, height, brightness, colour, motion cues such as sparks), without assuming the intent.
+
+STEP 3: The intent, level by level: 0 nothing; 1 a faint shimmer at the base; 2 a soft coloured light round the figure;
+3 flame-like light rising to about head height; 4 a tall column of light well above the figure, readable across the table;
+5 the same column with a large faint emblem picture hanging in it.
+a) Do the six back-row pawns read as CLEARLY increasing, step by step, in both day and night? Which neighbouring pair is
+   hardest to tell apart?
+b) Can you see the emblem in level 5? Describe it.
+c) Do the six front-row colours read as six different colours (name each as you see it)?
+d) Does any of it look broken (hard seams, banding, a visible tube edge, a flat card, clipping through walls, z-fighting,
+   hiding the figure's face)?
+e) Honest verdict: does it look like a CHEAP GAME EFFECT or like a PAINTED-MINIATURE-WORLD effect (light that belongs to a
+   world of painted miniatures, like object-source lighting painted on a mini)? What exactly makes it cheap, and the three
+   most important changes to move it toward the painted-miniature look?
+Be concrete and concise.
+The images are in /tmp/aura-gem-GSwx: v1-high-day.png v1-high-night.png v1-low-day.png v1-table-day.png v1-table-night.png 
+Do NOT create, crop or write any files. Do not read any other files or folders.
+
+===== (gemini-4-argon-high)
+### STEP 1: Explicit Labels, Name Tags, and Text in Each Image
+
+#### Common UI Text (identical across all 5 images)
+* **Top-left buttons**: `Pawns` (`P`), `Build` (`B`), `Settings` (`S`), and below them `Other games / New game`
+* **Left-edge vertical bar**: `1` (small white square halfway down)
+* **Top-center search bar & pills**: `Search commands, things to place, people, places... or say / roll` (`/`), with three pills below: `Area 1`, `Open to players`, `Hide`
+* **Top-right corner**: `H` (yellow circle) with `Area 1` underneath
+* **Bottom-left chat input**: `say ... or roll d20 in the bar`
+
+#### Scene Labels, Pawn Base Tags, and Bottom-Right Status by Image
+1. **`v1-table-day.png`**
+   * **Floating room tags (center)**: `Building 1` (above back row between pawns 3 and 4), `Common room` (center, overlapping front of back-row pawns 3–5)
+   * **Back-row bases (left to right)**: `0` (on pawn 1's front-left rim; `L` is hidden by the bar counter); pawns 2–6 have no readable text (occluded by stools/`Common room` tag or washed out by yellow glow, though white pointer triangles show on pawns 2, 5, 6)
+   * **Front-row bases (left to right)**: `gold` (`old` clear on pawn 1, `g` clipped by table), `blue` (pawn 3), `green` (pawn 4). Pawns 2, 5, 6 are occluded by a barrel, table/chandelier, and wheel
+   * **Bottom-right**: `live (ws) · 21 ms · Area 1 seq 2 · 58 fps`
+
+2. **`v1-high-day.png`**
+   * **Floating room tags**: `Building 1` (between back-row pawns 3 and 4), `Common room` (center of room)
+   * **Back-row bases (left to right)**: `L0` (pawn 1), `L2` (pawn 3), `L3` (pawn 4), `L5` (pawn 6, faint in yellow glow). Pawn 2's text is blocked by a stool (triangle visible); pawn 5's base is blocked by a chair
+   * **Front-row bases (left to right)**: `gold` (pawn 1), `blue` (pawn 3), `green` (pawn 4), `et` (end of `violet` on pawn 6, rest blocked by chair). Pawns 2 and 5 are blocked by barrel/furniture
+   * **Bottom-right**: `live (ws) · 15 ms · Area 1 seq 2 · 54 fps`
+
+3. **`v1-low-day.png`**
+   * **Floating room tags**: `Building 1` (mostly clipped behind the top edge of the search bar; only bottom fragments of letters show), `Common room` (upper-center, in front of the tall yellow beams)
+   * **Back-row bases**: `L2` (faintly readable flat on pawn 3's base rim); white triangle on pawn 2; all other base labels occluded by walls/furniture or washed out
+   * **Front-row bases**: None readable (all occluded by the foreground wall and furniture)
+   * **Bottom-right**: `live (ws) · 2 ms · Area 1 seq 2 · 53 fps`
+
+4. **`v1-table-night.png`**
+   * **Floating room tags**: `Building 1`, `Common room` (same positions as `v1-table-day.png`)
+   * **Back-row bases**: `0` (pawn 1); white triangles on pawns 2, 5, 6; other text occluded/washed out
+   * **Front-row bases**: `gold` (`old` clear on pawn 1), `blue` (pawn 3), `green` (pawn 4)
+   * **Bottom-right**: `live (ws) · 1 ms · Area 1 seq 2 · 51 fps`
+
+5. **`v1-high-night.png`**
+   * **Floating room tags**: `Building 1`, `Common room` (same positions as `v1-high-day.png`)
+   * **Back-row bases**: `L0` (pawn 1), `L2` (pawn 3), `L3` (pawn 4), `L5` (pawn 6, faint)
+   * **Front-row bases**: `gold` (pawn 1), `blue` (pawn 3), `green` (pawn 4), `et` (pawn 6)
+   * **Bottom-right**: `live (ws) · 25 ms · Area 1 seq 2 · 51 fps`
+
+---
+
+### STEP 2: Back-Row Visual Description (L0 to L5, Without Assuming Intent)
+
+* **L0 (1st from left)**: No light effect. A plain dark-grey circular base with a light-grey rim and an unlit miniature.
+* **L1 (2nd from left)**: A flat, warm golden-yellow halo ring on the wooden floor hugging the base rim, with a very low, faint warm haze around the ankles/shins. No vertical streaks or sparks.
+* **L2 (3rd from left)**: A thin warm-yellow highlight along the base edge and a very faint warm smudge on the floor in front of the base—**visually dimmer and smaller on the floor than L1's halo**. Around the figure itself, there is almost nothing visible (just a few tiny, barely perceptible yellow specks near the legs/waist in close view).
+* **L3 (4th from left)**: A moderate golden-yellow glow on the base/floor accompanied by a sparse, patchy cluster of vertical golden streaks and small bright specks/sparks rising to roughly chest/head height (clearest in `low-day`; partially hidden behind the `Common room` / `Building 1` tags in `table` and `high` views).
+* **L4 (5th from left)**: A tall column (~2.5–3× the figure's height, reaching the top of the back wall) of fibrous, curtain-like vertical yellow-gold streaks and dense rising bright specks/sparks. Bright yellow-white at the base, fraying into softer vertical rays at the top; it washes the figure inside in a pale yellow haze.
+* **L5 (6th from left)**: A wider, much more opaque cylindrical column of intense yellow-white light (~3× the figure's height) with straight vertical side edges, rising sparks/streaks, and a blazing yellow-white floor disc that completely silhouettes/bleaches the miniature inside. Floating in the upper third of the column is a large, semi-transparent golden sun-face image with pointed triangular rays.
+
+---
+
+### STEP 3: Evaluation Against Intent
+
+#### a) Clear step-by-step progression (day & night)? Hardest neighbouring pair?
+* **No.** Instead of six even steps, it reads as **two tiers**: a very quiet bottom half (L0–L3) where the progression stalls/reverses, followed by an abrupt visual cliff jumping into massive pillars at **L4–L5**. (Note also that the `day` and `night` screenshots have identical scene lighting, so night mode currently adds no contrast difference.)
+* **Hardest neighbouring pair to tell apart: L1 and L2** (and **L1 actually reads brighter than L2** because L1's floor ring is wider and brighter than L2's). **L2 and L3** are the second hardest pair from `table` and `high` angles because L3's vertical streaks foreshorten and hide behind the floating room labels.
+
+#### b) Emblem in Level 5
+* **Yes, clearly visible.** In the upper half of L5's column is a large, semi-transparent golden **sun face emblem**: a classic sculpted-relief human face inside a round disc (eyes, nose, brow, lips) framed by alternating large and small triangular sun rays.
+
+#### c) Six front-row colours (left to right)
+1. **Warm gold / yellow** (`gold`)
+2. **White / pale silver** (reads as bright white with warm wood bleed)
+3. **Sky blue** (`blue`)
+4. **Bright mint / neon green** (`green`)
+5. **Amber / orange-gold** (behind the table/candelabra)
+6. **Purple / violet** (`[viol]et`)
+* **Do they read as six distinct colours?** **5 of 6 do; #1 (Gold) and #5 (Amber/Orange-gold) are too close**, especially because #5 is heavily occluded by furniture, sits on orange-lit floorboards, and catches yellow spill from L4 behind it. #2 (White) and #3 (Blue) also share very bright white-ish inner floor cores, though #3's blue outer halo separates them.
+
+#### d) What looks broken?
+* **Hiding the miniature**: **L5** (and mostly **L4**) washes the miniature inside into a flat, unreadable pale-yellow ghost—face and paint details are obliterated by additive fog passing *in front of* the model.
+* **Visible tube edges & flat card look**: **L5** has hard, straight vertical cylinder edges on its left and right sides (`table` and `low` views). In `high` views, you look down the hollow vertical sheets of L4/L5, and L5's sun face reads as a flat 2D decal card intersecting the top of the wooden back wall.
+* **Clipping / prop & UI collisions**: L4's column slices through the adjacent table and chandelier; L5's sun rays clip the back wall; and the `Common room` / `Building 1` UI tags sit directly over L2–L4 in `table` and `high` views.
+* **Label washout**: Bright floor glow washes out white base text (`L5`, `L3`, and front pawn #2).
+* **Day/Night parity**: `v1-table-day` vs `v1-table-night` and `v1-high-day` vs `v1-high-night` have identical room lighting.
+
+#### e) Honest Verdict: Cheap Game Effect vs. Painted-Miniature-World Effect
+* **Verdict**: It currently reads as a **cheap MMO / video-game particle buff**, not a painted-miniature-world (OSL) effect.
+* **What makes it look cheap**:
+  1. **Additive fog in front of the figure lowers contrast**: Painted OSL works by *adding directional light and shadow contrast onto the miniature's sculpted surfaces*. Here, L4/L5 drop a milky yellow curtain *between* the camera and the miniature, flattening the mini into a washed-out silhouette.
+  2. **Overblown radial floor splats**: The base rings bleach the floorboards to pure white/neon around the base instead of casting saturated colored bounce light onto the grey base rim and the figure's boots/cloak.
+  3. **Scale-breaking laser tubes and a 2D bitmap stamp**: Straight-sided 15-foot vertical cylinders and a flat alpha-blended sun texture violate the physical scale and materiality of tabletop miniatures.
+* **Three most important changes to achieve a painted-miniature look**:
+  1. **Light the miniature's surfaces (true OSL / rim + upward point light) and stencil out front-facing fog**: Drive levels 2–5 primarily by illuminating the miniature's own normals (colored upward/rim lighting catching edges while leaving recesses dark) and depth-masking/carving out the aura in front of the torso and face so the painted figure is always the sharpest, highest-contrast element inside the glow.
+  2. **Replace straight vertical billboard tubes (L3–L5) with compact, silhouette-hugging forms**: Shape rising energy like physical miniature effects (translucent sculpted resin flames or rising wisp geometry that hugs the base and arcs *behind* the shoulders/head, tapering off just above the figure rather than shooting to the ceiling as a cylinder).
+  3. **Make the L5 emblem and base rings feel like physical tabletop materials**: Replace the flat 2D sun bitmap with a small, crisp, 3D relief-like halo/crest floating just behind/above the pawn's head (like a painted wargame icon or metallic/glowing crest), and confine the base glow to saturated pigment-style lighting on the grey base bevel and immediate floor without blowing out to white.

@@ -13,14 +13,12 @@ import { newId } from '../core/ids.js';
 export const TILE = 5;
 export const TILE_DIMS = [TILE, 0.05, TILE];
 export const isTile = (e) => e?.kind === 'object' && e.place === 'tile';
-export const isFloorCat = (id) => typeof id === 'string' && id.startsWith('floor-');
+import { isFloorCat, floorCats } from './library-index.js'; // (one rule for the library, the bar and the floors: library-index.js)
+export { isFloorCat, floorCats };
 export const cellOf = (x, z) => [Math.floor(x / TILE), Math.floor(z / TILE)];
 export const centre = (g) => g * TILE + TILE / 2;
 export const cellKey = (x, z) => cellOf(x, z).join(':');
 export const tileName = (id) => id.replace(/^floor-/, '').replace(/-/g, ' ') + ' floor';
-
-// every flat floor material in the library (the list the tuner's room floors draw from)
-export const floorCats = (lib) => Object.keys(lib.objects).filter(k => isFloorCat(k) && lib.objects[k].skus.some(s => s.kind === 'flat')).sort();
 
 // a tile's catalog sizing (what roomgen.sizeOf returns for a thing): one 5-ft cell, flat
 export function tileSize(lib, cat, skuName = null) {
@@ -86,7 +84,7 @@ export function paintOps(app, cat, cells, { size = null, y = 0 } = {}) { // y: t
     if (there.length === 1 && there[0].cat === cat) continue;
     for (const t of there) ops.push({ type: 'object.delete', args: { id: t.id } });
     const x = centre(gx), z = centre(gz);
-    ops.push({ type: 'object.place', args: { id: newId('obj'), name: tileName(cat), cat, sku: sz.sku, url: sz.url, flat: true, place: 'tile', layer: 'floor', x, y, z, rot: 0, yaw: 0, dims: [...TILE_DIMS], room: app.roomAt(x, z, y)?.id || undefined } });
+    ops.push({ type: 'object.place', args: { id: newId('obj'), name: cat === 'hole' ? 'hole' : tileName(cat), cat, sku: sz.sku || undefined, url: sz.url || undefined, flat: true, place: 'tile', layer: 'floor', x, y, z, rot: 0, yaw: 0, dims: [...TILE_DIMS], room: app.roomAt(x, z, y)?.id || undefined } });
   }
   return ops;
 }

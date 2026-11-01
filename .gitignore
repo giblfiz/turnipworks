@@ -38,3 +38,13 @@ node_modules/
 *.codex.log
 worker-logs/
 experiments/**/*.log
+
+# the link preview picture (og:image, 2026-10-23; engine/tools/og_card.py) ships with the client
+!engine/client/site/og-*.jpg
+
+# the banks' generated pictures and rock (2026-10-24, engine/client/terrain.js): binaries on the build box, like every mesh
+engine/client/data/terrain
+# the caves' rock chunks (2026-10-25, engine/client/caves.js; experiments/2026-10-25-caves-game/prep_chunks.mjs)
+engine/client/data/caves
+# the table music (2026-10-30, client/music.js; engine/tools/build_music.sh makes it from the masters on the USB disk)
+engine/client/data/music

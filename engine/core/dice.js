@@ -2,9 +2,14 @@
 // client/dice.js) and the relay (an AI seat's dice.roll over GET: the relay rolls, relay/llm.js). parse() is pure;
 // roll() draws from crypto. Whoever rolls sends the result: every client animates that result, nobody re-rolls
 // (docs/NETCODE.md "Dice"). Moved here from client/dice.js on 2026-10-20 so the relay rolls with the same parser.
+import { parseGame, tallyGame, gameTitle, faceList } from './gamedice.js';
+export { parseGame, tallyGame, gameTitle, faceTag, SKINS } from './gamedice.js';
 const TERM = /^([+-]?)(?:(\d*)d(\d+)(?:(kh|kl)(\d+))?|(\d+))$/i;
 
+// (2026-10-29) a game's own dice first: core/gamedice.js ("coc 65 bonus 1", "v5 7 hunger 2", "sr 12", "duality+2",
+// "4dF+1", "l5r 3 ring 2 skill", "ex 8 double 9"); their parse carries `game` and rollDice's total is the game's tally
 export function parseDice(text) {
+  const g = parseGame(text); if (g) return g;
   let s = String(text || '').trim().toLowerCase().replace(/^roll\s*/, '');
   let mode = null;
   const m = s.match(/\s+(adv|advantage|dis|disadvantage)$/);
@@ -40,6 +45,14 @@ export function rollDice(parsed, rand = cryptoRand) {
     if (t.keep) kept = [...r].sort((a, b) => t.keep.hi ? b - a : a - b).slice(0, t.keep.k);
     total += t.sign * kept.reduce((a, b) => a + b, 0);
   }
+  if (parsed.game) { const t = tallyGame(parsed.game, rolls); return { rolls, total: t.total, tally: t }; }
   return { rolls, total };
+}
+// what a committed roll says, from its line alone (expr + rolls): { title, text, total, ... } for a game's dice, else null.
+// The log, the announce and the GET API read this; an old line (plain dice) answers null and shows as it always has.
+export function tallyOf(expr, rolls) {
+  const p = parseGame(expr); if (!p || !Array.isArray(rolls)) return null;
+  const n = p.terms.reduce((a, t) => a + (t.flat != null ? 0 : t.n), 0); if (rolls.length !== n) return null;
+  return { title: gameTitle(p.game), kind: p.game.kind, faces: faceList(p, rolls), ...tallyGame(p.game, rolls) };
 }
 function cryptoRand() { const a = new Uint32Array(1); globalThis.crypto.getRandomValues(a); return a[0] / 4294967296; }

@@ -16,15 +16,19 @@ import { arrivalPoint } from './travel.js';
 import { pawnDarkProblem, withDarkFields, feetProblem, LIGHT_RADIUS_MAX } from './darkness.js';
 import { newArea, areaRules, settingsProblem, mergeSettings, RULE_KEYS, CAMPAIGN_KEYS } from './state.js';
 import { overlap as roomsOverlap, outlineProblem, storedOutline, turnOutline, perimeterKeys as footprintKeys, keyBase, keyLevel, levelSuffix, hasCell } from './footprint.js';
-import { roofProblem, mergeRoof, heightProblem, spanOfArgs, roomClash, supportProblem, storeyHeightOf, roomY, roomTop, baseOf, STEP, MAX_Y } from './height.js';
+import { roofProblem, roofShapeProblem, mergeRoof, heightProblem, spanOfArgs, roomClash, supportProblem, STOREY, roomY, roomTop, STEP, MAX_Y, isTerrain } from './height.js';
 import { isStair, isConnector, isPlacedStair, stairRole, stairsTouching, stairLinks, stairTop, stairBase, stairRise, stairRoomAt } from './stairs.js';
-import { MARK_KEYS, sheetProblem, cleanSheet, DAMAGE_LIMIT } from './pawn.js';
+import { isCave } from './caves.js';
+import { MARK_KEYS, sheetProblem, cleanSheet, DAMAGE_LIMIT, attacksProblem } from './pawn.js';
+import { infoProblem } from './beyond20.js';
+import { conditionsProblem } from './conditions.js';
+import { auraProblem, storedAura } from './aura.js';
 import { PARTY_NOTES_MAX, DEFS_PER_SEAT, CAST_MAX, GROUP_MAX } from './party.js';
 import * as TU from './turns.js';
 import * as MS from './measure.js';
-import { floorUnder, tokenFloor } from './height.js';
+import { floorUnder, tokenFloor, levelY } from './height.js';
 
-import { emptyFog, levelsProblem, exploreFog, unionLevels, mergeFog } from './fog.js';
+import { emptyFog, levelsProblem, exploreFog, unionLevels, mergeFog, exploredFor, hasFogCell } from './fog.js';
 
 export const REGISTRY = {};
 const def = (type, spec) => { REGISTRY[type] = { type, stale: 'reject', touches: () => [], ...spec }; };
@@ -76,7 +80,7 @@ def('fog.view',{level:'area',cls:'campaign.admin',args:{fog:'obj'},internal:true
 // Chat and rolls live in area.chat (last CHAT_KEEP lines).
 const CHAT_KEEP = 100;
 const ownsOrGm = (state, by, e) => { const who = principalOf(state, by); return who.role === 'gm' || e.owner === who.id; };
-const OBJ_ARGS = { flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', rise: 'int?', stair: 'str?', down: 'bool?', fromEdge: 'str?', rule: 'str?', orient: 'str?', lit: 'bool?', name: 'str?', cat: 'str?', sku: 'str?', url: 'url?', flat: 'bool?', place: 'str?', layer: 'str?', y: 'num?', rot: 'num?', yaw: 'num?', tiltZ: 'num?', quat: 'quat?', s: 'vec3?', dims: 'vec3?', room: 'id?', parent: 'id?', color: 'color?', hidden: 'bool?', pinned: 'bool?' };
+const OBJ_ARGS = { fromCave: 'bool?', flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', rise: 'int?', stair: 'str?', down: 'bool?', fromEdge: 'str?', rule: 'str?', orient: 'str?', lit: 'bool?', name: 'str?', cat: 'str?', sku: 'str?', url: 'url?', flat: 'bool?', place: 'str?', layer: 'str?', y: 'num?', rot: 'num?', yaw: 'num?', tiltZ: 'num?', quat: 'quat?', s: 'vec3?', dims: 'vec3?', room: 'id?', parent: 'id?', color: 'color?', hidden: 'bool?', pinned: 'bool?' };
 // A THING TIPPED OVER: `quat`, a unit quaternion [x, y, z, w] = its orientation under its Turn (core/orient.js: what is
 // drawn is Ry(rot) · Q(quat)). Absent = upright, so every campaign from before loads unchanged. Named for what it is,
 // never for the button's label ("Roll"); nothing to do with `yaw` (a mesh's alignment correction). It replaced `tiltZ`
@@ -93,8 +97,12 @@ const objectFrom = (a, extra = {}) => ({
   s: a.s || null, dims: a.dims || [2, 2, 2], room: a.room || null, parent: a.parent || null, color: a.color || null,
   ...(a.flavor && a.flavor !== 'inherit' && { flavor: a.flavor }), ...(a.factionMissing && { factionMissing: true, factionWasHidden: !!a.factionWasHidden }), hidden: !!a.hidden, locked: false, pinned: !!a.pinned, open: false, rule: a.rule || null, orient: a.orient || null, lit: a.lit ?? true, ...(quatArg(a) && canTilt(a) && { quat: quatArg(a) }), ...(a.fromEdge && { fromEdge: a.fromEdge }), ...(a.place === 'stair' && { rise: a.rise || 10, ...(a.stair && { stair: a.stair }) }),
   // a stair of the catalog (core/stairs.js STAIR_ROLES): `down` = it was put in for the level at its TOP; `rise` only when it is not the piece's own
-  ...(a.place !== 'stair' && a.down && { down: true }), ...(a.place !== 'stair' && a.rise && a.rise !== 10 && { rise: a.rise }), ...extra,
+  ...(a.place !== 'stair' && a.down && { down: true }), ...(a.place !== 'stair' && a.rise && a.rise !== 10 && { rise: a.rise }),
+  ...(a.fromCave && { fromCave: true }), // a cave's own stalagmite, where its rule put it (core/caves.js STALAG_CAT); gone once the GM moves it
+  ...extra,
 });
+// the GM has moved, turned or resized it: it is no longer where the cave's rule put it, so a re-roll keeps it
+const notCaves = (e) => { if (!e?.fromCave) return e; const { fromCave, ...rest } = e; return rest; };
 const buildingRooms = (t, id) => t ? Object.values(t.entities).filter(e => e.kind === 'room' && e.building === id) : [];
 const roomObjects = (t, id) => t ? Object.values(t.entities).filter(e => e.kind === 'object' && e.room === id) : [];
 const layoutObjectsOk = (t, L) => {
@@ -148,17 +156,29 @@ export const pawnIntoRoom = (t, e, a) => {
 };
 const movedPawn = (t, a) => pawnIntoRoom(t, { ...t.entities[a.id], x: a.x, z: a.z, ...(a.rot != null && { rot: a.rot }), ...(a.y != null && { y: a.y }) }, a);
 const pawnMoveTargets = (t, a) => [a.id, ...(t && !t.entities[a.id]?.hidden && movedPawn(t, a).hidden ? Object.values(t.entities).filter(e => e.kind === 'template' && e.attach === a.id && !e.hidden).map(e => e.id) : [])];
+// A PLACEHOLDER PAWN (Harry 2026-10-22): the stand-in a GM's invite puts on the table for the new player, "so I can
+// position Bobby when he arrives". `placeholder: true` on the pawn (and on its definition, core/party.js) until a figure is
+// chosen for it, by the player or the GM, whoever is first. ANY figure change clears it (a figure, or 'none': the plain
+// stand-in, chosen); `placeholder` given explicitly wins (the editor keeps it when it saves a name and no figure). Absent =
+// an ordinary pawn: campaigns from before carry no flag and nothing changes for them.
+export const withPlaceholder = (e, a) => {
+  const n = { ...e }, on = a.placeholder !== undefined ? !!a.placeholder : a.fig !== undefined ? false : !!e.placeholder;
+  if (on) n.placeholder = true; else delete n.placeholder;
+  return n;
+};
 const mainsOf = (t, owner, except) => Object.values(t.entities).filter(o => o.kind === 'token' && o.main && o.owner === owner && o.id !== except);
 def('token.create', {
   level: 'area', cls: 'token.edit',
-  args: { id: 'id', name: 'str', x: 'num', z: 'num', y: 'num?', rot: 'num?', color: 'color?', owner: 'id?', damage: 'int?', hp: 'int?', hpMax: 'int?', hidden: 'bool?', conditions: 'list?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', mark: 'str?', fig: 'str?', size: 'int?', main: 'bool?', def: 'id?', initBonus: 'int?', visionRadius: 'numOrNone?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?' }, // def: the cast entry (or a player's definition) it was placed from
-  check: ({ state, area, by }, a) => area.entities[a.id] ? `id ${a.id} already exists` : a.owner && !state?.seats[a.owner] ? `unknown owner ${a.owner}` : a.hp !== undefined || a.hpMax !== undefined ? LEGACY_HP : damageProblem(a.damage) || (a.visionRadius != null && a.visionRadius < 0 ? 'vision radius must be nonnegative or null (unlimited)' : null) || pawnDarkProblem(a) || pawnExtrasProblem(state, by, a) || figProblem(a),
-  apply: (t, a) => put(t, pawnIntoRoom(t, withExtras({ id: a.id, kind: 'token', name: a.name, x: a.x, z: a.z, ...(a.y && { y: a.y }), rot: a.rot || 0, color: a.color || '#d9a441', owner: a.owner || null, ...(a.damage > 0 && { damage: a.damage }), ...((a.hp !== undefined || a.hpMax !== undefined) && { hp: a.hp ?? null, hpMax: a.hpMax ?? a.hp ?? null }), conditions: a.conditions || [], hidden: !!a.hidden, locked: false, ...(a.fig && a.fig !== 'none' && { fig: a.fig }), ...(a.size > 1 && { size: a.size }), ...(a.main && { main: true }), ...(Number.isInteger(a.initBonus) && Math.abs(a.initBonus) <= TU.BONUS_MAX && { initBonus: a.initBonus }), ...(a.def && { def: a.def }), ...(a.visionRadius != null && {visionRadius:a.visionRadius}), ...(a.darkvision != null && { darkvision: a.darkvision }), ...(a.lightCarried != null && { lightCarried: a.lightCarried }) }, a), a)),
+  args: { id: 'id', name: 'str', x: 'num', z: 'num', y: 'num?', rot: 'num?', color: 'color?', owner: 'id?', damage: 'int?', hp: 'int?', hpMax: 'int?', hidden: 'bool?', conditions: 'list?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', mark: 'str?', fig: 'str?', size: 'int?', main: 'bool?', def: 'id?', initBonus: 'int?', visionRadius: 'numOrNone?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?', aura: 'obj?' }, // def: the cast entry (or a player's definition) it was placed from
+  check: ({ state, area, by }, a) => area.entities[a.id] ? `id ${a.id} already exists` : a.owner && !state?.seats[a.owner] ? `unknown owner ${a.owner}` : a.hp !== undefined || a.hpMax !== undefined ? LEGACY_HP : damageProblem(a.damage) || (a.conditions ? conditionsProblem(a.conditions) : null) || (a.aura !== undefined ? auraProblem(a.aura) : null) || (a.visionRadius != null && a.visionRadius < 0 ? 'vision radius must be nonnegative or null (unlimited)' : null) || pawnDarkProblem(a) || pawnExtrasProblem(state, by, a) || figProblem(a),
+  apply: (t, a) => put(t, pawnIntoRoom(t, withExtras({ id: a.id, kind: 'token', name: a.name, x: a.x, z: a.z, ...(a.y && { y: a.y }), rot: a.rot || 0, color: a.color || '#d9a441', owner: a.owner || null, ...(a.damage > 0 && { damage: a.damage }), ...((a.hp !== undefined || a.hpMax !== undefined) && { hp: a.hp ?? null, hpMax: a.hpMax ?? a.hp ?? null }), conditions: a.conditions || [], hidden: !!a.hidden, locked: false, ...(a.fig && a.fig !== 'none' && { fig: a.fig }), ...(a.size > 1 && { size: a.size }), ...(a.main && { main: true }), ...(a.placeholder && { placeholder: true }), ...(Number.isInteger(a.initBonus) && Math.abs(a.initBonus) <= TU.BONUS_MAX && { initBonus: a.initBonus }), ...(a.def && { def: a.def }), ...(a.visionRadius != null && {visionRadius:a.visionRadius}), ...(a.darkvision != null && { darkvision: a.darkvision }), ...(a.lightCarried != null && { lightCarried: a.lightCarried }), ...(storedAura(a.aura) && { aura: storedAura(a.aura) }) }, a), a)),
   touches: (a) => [a.id],
 });
 def('token.move', {
   level: 'area', cls: 'token.move',
-  args: { id: 'id', x: 'num', z: 'num', rot: 'num?', y: 'num?' },
+  // walk (2026-10-30): a first-person walk's id (client/surfaces/fpv.js). The moves of one walk, key down to key up, are
+  // ONE undo step (relay/campaign.js joinsWalk); the state never keeps it. Old journals have none and replay unchanged.
+  args: { id: 'id', x: 'num', z: 'num', rot: 'num?', y: 'num?', walk: 'str?' },
   check: ({ state, area, by }, a) => {
     const e = ent(area, a.id, 'token');
     if (!e) return `no token ${a.id} in this area`;
@@ -182,20 +202,32 @@ def('token.set', {
   // main: this is its player's MAIN pawn (it wears the full-detail figure). One per seat: marking a pawn unmarks the
   // seat's other pawns in the area, in the same command (so one undo puts both back). Nobody's pawn can be marked too.
   // initBonus: the pawn's initiative bonus, the one piece of system data held (core/turns.js); null takes it away
-  args: { id: 'id', name: 'str?', hp: 'int?', hpMax: 'int?', conditions: 'list?', rot: 'num?', color: 'color?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', fig: 'str?', size: 'int?', main: 'bool?', initBonus: 'intOrNone?', visionRadius: 'numOrNone?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?' }, // darkvision / lightCarried: ft in a dark area (core/darkness.js); null = the default
+  // target (2026-10-29, Harry: "designating who is attacked"): another pawn's id, the one this pawn is aiming at (its
+  // owner's or the GM's choice; everyone sees it). '' clears. Never itself; a pawn hidden from players only by a hidden pawn.
+  // No range, AC or line of sight: TW knows no rules. Old journals have no target and replay unchanged.
+  // aura (2026-10-30): { level 0-5, color, emblem? } (core/aura.js; checked strictly); absent on every pawn before.
+  // attacks (2026-10-29): its saved attacks, [{ name, hit, dmg }] (core/pawn.js attacksProblem: 8 at most, names and
+  // formulas only); [] clears. Absent on every pawn before: old journals replay unchanged.
+  args: { id: 'id', name: 'str?', hp: 'int?', hpMax: 'int?', conditions: 'list?', rot: 'num?', color: 'color?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', fig: 'str?', size: 'int?', main: 'bool?', initBonus: 'intOrNone?', visionRadius: 'numOrNone?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?', target: 'idOrNone?', attacks: 'obj?', aura: 'obj?' }, // darkvision / lightCarried: ft in a dark area (core/darkness.js); null = the default
   check: ({ state, area, by }, a) => {
     const e = ent(area, a.id, 'token');
     if (!e) return `no token ${a.id} in this area`;
     if (!ownsOrGm(state, by, e)) return `${e.name} belongs to someone else`;
-    if (a.conditions && !a.conditions.every(c => typeof c === 'string' && c.length <= 24)) return 'conditions are short words';
+    if (a.conditions) { const p = conditionsProblem(a.conditions); if (p) return p; } // (2026-10-29) the SHAPE only: any short word is kept (core/conditions.js)
     if (a.name !== undefined && !a.name.trim()) return 'a pawn needs a name';
     if (a.hp !== undefined || a.hpMax !== undefined) return LEGACY_HP;
     if (a.initBonus != null && Math.abs(a.initBonus) > TU.BONUS_MAX) return `an initiative bonus is -${TU.BONUS_MAX} to ${TU.BONUS_MAX}`;
     if (a.visionRadius != null && a.visionRadius < 0) return 'vision radius must be nonnegative or null (unlimited)';
+    if (a.attacks !== undefined) { const why = attacksProblem(a.attacks); if (why) return why; }
+    if (a.aura !== undefined) { const why = auraProblem(a.aura); if (why) return why; } // (2026-10-30) { level 0-5, color from the palette } (core/aura.js)
+    if (a.target) { const t = ent(area, a.target, 'token'); if (!t || (t.hidden && !isGmSide(state, by))) return `no pawn ${a.target} in this area`; if (t.id === e.id) return 'a pawn cannot target itself'; if (t.hidden && !e.hidden) return `${t.name} is hidden from the players: only a pawn hidden too may target it`; }
     return pawnDarkProblem(a) || pawnExtrasProblem(state, by, a) || figProblem(a);
   },
   apply: (t, a) => {
-    const { id, sheet, notes, gmNotes, fig, size, main, initBonus, visionRadius, darkvision, lightCarried, ...rest } = a; let e = { ...t.entities[id], ...rest };
+    const { id, sheet, notes, gmNotes, fig, size, main, initBonus, visionRadius, darkvision, lightCarried, placeholder, target, attacks, aura, ...rest } = a; let e = { ...t.entities[id], ...rest };
+    if (aura !== undefined) { const A = storedAura(aura); if (A) e.aura = A; else delete e.aura; } // (2026-10-30) its aura (core/aura.js): level 0 in gold is none
+    if (target !== undefined) { if (target) e.target = target; else delete e.target; } // (2026-10-29) who this pawn is aiming at: '' clears
+    if (attacks !== undefined) { if (attacks.length) e.attacks = attacks.map(x => ({ ...x })); else delete e.attacks; } // (2026-10-29) its saved attacks: [] clears
     e = withDarkFields(e, a);
     if (visionRadius !== undefined) { if (visionRadius === null) delete e.visionRadius; else e.visionRadius = visionRadius; }
     if (initBonus !== undefined) { if (initBonus === null) delete e.initBonus; else e.initBonus = initBonus; }
@@ -203,6 +235,7 @@ def('token.set', {
     if (main && e.owner) for (const o of mainsOf(t, e.owner, id)) { const { main: _m, ...x } = o; t = put(t, x); }
     if (fig != null) { if (fig !== 'none') e.fig = fig; else delete e.fig; }
     if (size != null) { if (size > 1) e.size = size; else delete e.size; }
+    e = withPlaceholder(e, a);
     return put(t, withExtras(e, a));
   },
   touches: (a, area) => a.main && area?.entities[a.id]?.owner ? [a.id, ...mainsOf(area, area.entities[a.id].owner, a.id).map(o => o.id)] : [a.id],
@@ -405,7 +438,7 @@ def('object.move', {
   level: 'area', cls: 'object', args: { id: 'id', x: 'num', z: 'num', y: 'num?', rot: 'num?', parent: 'idOrNone?', room: 'idOrNone?' },
   check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : null; },
   apply: (t, a) => {
-    const e = t.entities[a.id];
+    const e0 = t.entities[a.id], e = e0.x !== a.x || e0.z !== a.z || (a.y ?? e0.y) !== e0.y || (a.rot ?? e0.rot) !== e0.rot ? notCaves(e0) : e0;
     return put(t, { ...e, x: a.x, z: a.z, y: a.y ?? e.y, rot: a.rot ?? e.rot, ...(a.parent !== undefined && { parent: a.parent || null }), ...(a.room !== undefined && { room: a.room || null }) });
   },
   touches: (a) => [a.id],
@@ -414,7 +447,7 @@ def('object.set', {
   level: 'area', cls: 'object', args: { id: 'id', name: 'str?', s: 'vec3?', dims: 'vec3?', tiltZ: 'num?', quat: 'quat?', lightRadius: 'numOrNone?' }, // lightRadius: the GM's own reach for a light in a dark area (core/darkness.js); null = its kind's
   check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : feetProblem(a.lightRadius, LIGHT_RADIUS_MAX, 'a light radius') || (a.quat !== undefined || a.tiltZ !== undefined) && quatArg(a) && !canTilt(e) ? 'a stair, a ladder, a floor tile or a wall piece cannot be tilted' : null; },
   apply: (t, a) => { // quat: its whole orientation under the Turn; [0, 0, 0, 1] = upright again (the field is removed). tiltZ: the old way to say it
-    const { id, tiltZ, quat, lightRadius, ...rest } = a, e = withDarkFields({ ...t.entities[id], ...rest }, a, ['lightRadius']);
+    const { id, tiltZ, quat, lightRadius, ...rest } = a, e = withDarkFields({ ...(a.s || a.dims || quat !== undefined || tiltZ !== undefined ? notCaves(t.entities[id]) : t.entities[id]), ...rest }, a, ['lightRadius']);
     if (quat !== undefined || tiltZ !== undefined) { const q = quatArg(a); delete e.tiltZ; if (q) e.quat = q; else delete e.quat; }
     return put(t, e);
   },
@@ -425,6 +458,41 @@ def('object.open', {
   check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : null; },
   apply: (t, a) => put(t, { ...t.entities[a.id], open: a.open }),
   touches: (a) => [a.id],
+});
+// OPEN OR SHUT A GENERATED DOOR (2026-10-29): a door the rooms imply is no entity yet, and opening it used to mean
+// materialising it first (edge.set + object.place: the GM's classes), so a player could not open one anywhere. This is
+// the materialise step done FOR the seat, under the area's touch rule (class 'open'): the edge is taken over ('open') and
+// the door becomes a thing of its own (fromEdge = key) in its place, opened or shut. The seat names only the key and
+// open; the RELAY works the door out from its own wall engine (relay/campaign.js, core/roomgen.js doorPiece) and writes
+// it into `piece` before the line is journaled: a seat cannot choose a piece, a place or an id that is taken. (A client
+// sends its own piece too, for its optimistic view; the relay's replaces it.) Once it is a thing, object.open opens and
+// shuts it. Players cannot open a door they cannot see: one only hidden rooms own (`veiled`), behind a GM's wall edit,
+// or, with fog of war, one with nothing explored round it ("no door at KEY", the same answer as a wall).
+const DOOR_FOG_PROBE = [-2.5, -1.25, 0, 1.25, 2.5]; // feet round the door's middle (both faces of the wall, along it)
+export function doorFogged(state, by, areaId, area, P) {
+  if (!areaRules(state, areaId).fogOfWar) return false;
+  const levels = exploredFor(area.fog, principalOf(state, by)?.id, !!state.defaults?.sharedPartyVision);
+  const level = levelY(area.entities, area.entities[P.room]);
+  for (const dx of DOOR_FOG_PROBE) for (const dz of DOOR_FOG_PROBE) if (hasFogCell(levels, P.x + dx, P.z + dz, level)) return false;
+  return true;
+}
+def('door.open', {
+  level: 'area', cls: 'open', args: { key: 'str', open: 'bool', id: 'id?', piece: 'obj?' },
+  check: ({ state, by, area }, a) => {
+    if (!EDGE_KEY_RE.test(a.key)) return `not a wall segment: ${a.key}`;
+    const P = a.piece, none = `no door at ${a.key}`;
+    if (!P || !a.id || P.fromEdge !== a.key || !Number.isFinite(P.x) || !Number.isFinite(P.z) || area.entities[edgeId(a.key)]?.as) return none;
+    if (area.entities[a.id]) return `${a.id} is taken`;
+    if (!isGmSide(state, by) && (P.veiled || doorFogged(state, by, area.id, area, P))) return none;
+    return null;
+  },
+  apply: (t, a) => {
+    if (!a.piece) return t; // (a client that could not work the door out: the relay's answer brings it)
+    const eid = edgeId(a.key), { veiled, ...P } = a.piece, room = P.room && t.entities[P.room];
+    const out = put(t, { ...(t.entities[eid] || { id: eid, kind: 'edge', key: a.key, ...(hiddenWall(t, a.key) && { hidden: true }) }), as: 'open' });
+    return put(out, { ...objectFrom({ ...P, id: a.id, fromEdge: a.key }, room?.hidden || veiled ? { hidden: true } : {}), open: a.open });
+  },
+  touches: (a) => [edgeId(a.key), ...(a.id ? [a.id] : [])],
 });
 // light or put out a fireplace, candle, lantern… (the fire FX follows `lit` in every tab). Players may (class 'open').
 def('object.light', {
@@ -437,7 +505,7 @@ def('object.light', {
 def('object.replace', {
   level: 'area', cls: 'object', args: { id: 'id', cat: 'str', sku: 'str?', url: 'url?', flat: 'bool?', s: 'vec3?', dims: 'vec3?', yaw: 'num?', name: 'str?' },
   check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : null; },
-  apply: (t, a) => { const { id, ...rest } = a, e = t.entities[id]; if (e.place === 'stair') { delete rest.s; delete rest.dims; delete rest.yaw; } return put(t, { ...e, ...rest }); }, // (a stair keeps its own box: its rise and run)
+  apply: (t, a) => { const { id, ...rest } = a, e = notCaves(t.entities[id]); if (e.place === 'stair') { delete rest.s; delete rest.dims; delete rest.yaw; } return put(t, { ...e, ...rest }); }, // (a stair keeps its own box: its rise and run)
   touches: (a) => [a.id],
 });
 // STAIRS UP / STAIRS DOWN (core/stairs.js "UP OR DOWN"): the same piece, in the same place in plan, moved one flight so
@@ -555,7 +623,7 @@ def('water.remove', {
 // Rooms. The recipe (type, rect in 5-ft cells, seed) plus the creator's solved layout: {hash, summary, objects}. The
 // furniture become object entities of the room in the same command (one undo step). The relay solves when the layout is
 // absent (LLM seats); clients re-solve to check the hash but always use the layout they were sent.
-const ROOM_ARGS = { flavor: 'str?', building: 'id?', buildingName: 'str?', name: 'str?', type: 'str', x: 'int', z: 'int', w: 'int', d: 'int', y: 'int?', tall: 'int?', seed: 'int', wallSeed: 'int?', engine: 'str?', engineVersion: 'str?', wallFamily: 'str?', floor: 'str?', turn: 'int?', outline: 'obj?', layout: 'obj?', plan: 'obj?' }; // plan: a generated building's doors for this room (core/roomgen.js roomsOf)
+const ROOM_ARGS = { flavor: 'str?', building: 'id?', buildingName: 'str?', name: 'str?', type: 'str', x: 'int', z: 'int', w: 'int', d: 'int', y: 'int?', tall: 'int?', seed: 'int', wallSeed: 'int?', engine: 'str?', engineVersion: 'str?', wallFamily: 'str?', floor: 'str?', turn: 'int?', outline: 'obj?', layout: 'obj?', plan: 'obj?', stalagObjects: 'bool?' }; // stalagObjects: a cave whose stalagmites are things in its layout (2026-10-27, core/caves.js STALAG_CAT) // plan: a generated building's doors for this room (core/roomgen.js roomsOf)
 def('room.spawn', {
   level: 'area', cls: 'room',
   args: { id: 'id', ...ROOM_ARGS },
@@ -568,24 +636,25 @@ def('room.spawn', {
     const tall = heightProblem(a); if (tall) return tall; // y, tall: feet and storeys (core/height.js)
     if (a.plan != null && (typeof a.plan !== 'object' || Array.isArray(a.plan) || JSON.stringify(a.plan).length > 4000)) return 'plan: a small object';
     const hit = roomClash(area.entities, a, spanOfArgs(area.entities, a)); if (hit) return `overlaps room ${hit.id}`; // footprints AND heights
-    if ((a.y || 0) > 0 && (a.y || 0) > baseOf(area.entities[a.building])) { const why = supportProblem(area.entities, a, a.y); if (why) return why; } // an upper room stands on something
+    if (isTerrain(a)) { if (!((a.y || 0) > 0)) return 'a hill is raised ground: its top (y) is 5 ft or more'; if (a.tall > 1) return 'a hill is one terrace, not storeys'; } // (2026-10-24: ground, not a storey: it needs nothing under it)
+    else if ((a.y || 0) > 0) { const why = supportProblem(area.entities, a, a.y); if (why) return why; } // an upper room stands on something
     return a.layout ? layoutObjectsOk(area, a.layout) : null;
   },
   apply: (t, a) => {
-    const order = t.order + 1;
-    const recipe = { ...(a.flavor && a.flavor !== 'inherit' && { flavor: a.flavor }), type: a.type, x: a.x, z: a.z, w: a.w, d: a.d, seed: a.seed, wallSeed: a.wallSeed ?? a.seed * 7 + 1, engine: a.engine || 'v2', engineVersion: a.engineVersion || '', wallFamily: a.wallFamily || 'auto', floor: a.floor || 'auto', ...(a.y && { y: a.y }), ...(a.tall > 1 && { tall: a.tall }), ...(a.turn && { turn: ((a.turn % 4) + 4) % 4 }), ...(storedOutline(a) && { outline: storedOutline(a) }), ...(a.plan && { plan: a.plan }) };
-    let out = { ...put(t, { id: a.id, kind: 'room', recipe, order, ...(a.name?.trim() && { name: a.name.trim().slice(0, 60) }), building: a.building || null, layout: { hash: a.layout?.hash || '', summary: a.layout?.summary || '' }, hidden: false, locked: false }), order };
-    if (a.building && !out.entities[a.building]) out = put(out, { id: a.building, kind: 'building', name: a.buildingName || 'Building', hidden: false, locked: false });
+    const order = t.order + 1; // (a hill's floor is grass unless told otherwise: Harry "maybe by default with grass on it")
+    const recipe = { ...(a.flavor && a.flavor !== 'inherit' && { flavor: a.flavor }), type: a.type, x: a.x, z: a.z, w: a.w, d: a.d, seed: a.seed, wallSeed: a.wallSeed ?? a.seed * 7 + 1, engine: a.engine || 'v2', engineVersion: a.engineVersion || '', wallFamily: a.wallFamily || 'auto', floor: a.floor || (isTerrain(a) ? 'floor-grass' : 'auto'), ...(a.y && { y: a.y }), ...(a.tall > 1 && { tall: a.tall }), ...(a.turn && { turn: ((a.turn % 4) + 4) % 4 }), ...(storedOutline(a) && { outline: storedOutline(a) }), ...(a.plan && { plan: a.plan }), ...(a.stalagObjects && isCave(a) && { stalagObjects: true }) };
+    let out = { ...put(t, { id: a.id, kind: 'room', recipe, order, ...(a.name?.trim() && { name: a.name.trim().slice(0, 60) }), building: (!isTerrain(a) && a.building) || null, layout: { hash: a.layout?.hash || '', summary: a.layout?.summary || '' }, hidden: false, locked: false }), order };
+    if (a.building && !isTerrain(a) && !out.entities[a.building]) out = put(out, { id: a.building, kind: 'building', name: a.buildingName || 'Building', hidden: false, locked: false }); // (a hill belongs to no building)
     for (const o of a.layout?.objects || []) out = put(out, objectFrom({ ...o, room: a.id }));
     return out;
   },
-  touches: (a, t) => [a.id, ...(a.layout?.objects || []).map(o => o.id), ...(a.building && !t?.entities[a.building] ? [a.building] : [])],
+  touches: (a, t) => [a.id, ...(a.layout?.objects || []).map(o => o.id), ...(a.building && !isTerrain(a) && !t?.entities[a.building] ? [a.building] : [])],
 });
 // Re-roll (new seed, same rectangle) or retype a room. Pinned furniture stays; the rest is replaced by the new layout
 // (solved with the pinned pieces as fixed obstacles).
 def('room.reroll', {
   level: 'area', cls: 'room',
-  args: { id: 'id', seed: 'int', type: 'str?', engineVersion: 'str?', layout: 'obj' },
+  args: { id: 'id', seed: 'int', type: 'str?', engineVersion: 'str?', layout: 'obj', stalagObjects: 'bool?' },
   check: ({ area, roomTypes }, a) => {
     const r = ent(area, a.id, 'room');
     if (!r) return `no room ${a.id}`;
@@ -596,13 +665,22 @@ def('room.reroll', {
   apply: (t, a) => {
     const r = t.entities[a.id];
     let out = t;
-    for (const o of roomObjects(t, a.id)) if (!o.pinned && !o.fromEdge && o.place !== 'tile' && !isPlacedStair(o)) out = drop(out, o.id); // pinned props, edited walls, painted floor tiles and stairs stay
-    out = put(out, { ...r, recipe: { ...r.recipe, seed: a.seed, ...(a.type && { type: a.type }), ...(a.engineVersion && { engineVersion: a.engineVersion }) }, layout: { hash: a.layout.hash, summary: a.layout.summary || '' } });
+    for (const o of rerolledOut(t, a)) out = drop(out, o.id); // pinned props, edited walls, painted floor tiles and stairs stay
+    const { stalagObjects: _, ...rc } = r.recipe, type = a.type || r.recipe.type;
+    out = put(out, { ...r, recipe: { ...rc, seed: a.seed, ...(a.type && { type: a.type }), ...(a.engineVersion && { engineVersion: a.engineVersion }), ...((a.stalagObjects ? isCave({ ...rc, type }) : r.recipe.stalagObjects && type === r.recipe.type) && { stalagObjects: true }) }, layout: { hash: a.layout.hash, summary: a.layout.summary || '' } });
     for (const o of a.layout.objects) out = put(out, objectFrom({ ...o, room: a.id }, r.hidden ? { hidden: true } : {}));
     return out;
   },
-  touches: (a, t) => [a.id, ...roomObjects(t, a.id).filter(o => !o.pinned && o.place !== 'tile' && !isPlacedStair(o)).map(o => o.id), ...(a.layout?.objects || []).map(o => o.id)],
+  touches: (a, t) => [a.id, ...rerolledOut(t, a).map(o => o.id), ...(a.layout?.objects || []).map(o => o.id)],
 });
+// what a re-roll takes out of the room: every thing that is not pinned, an edited wall, a painted floor tile or a stair.
+// A CAVE re-rolled by a client that makes its stalagmites things (`stalagObjects`, 2026-10-27) takes out only the cave's
+// own stalagmites (`fromCave`, not pinned): what the GM moved or put there himself stays. (A command without the flag, as
+// every one journaled before then, replays exactly as it did.)
+const rerolledOut = (t, a) => {
+  const r = t?.entities[a.id], own = !!(a.stalagObjects && r && isCave(r.recipe) && (!a.type || a.type === r.recipe.type));
+  return roomObjects(t, a.id).filter(o => !o.pinned && !o.fromEdge && o.place !== 'tile' && !isPlacedStair(o) && (!own || o.fromCave));
+};
 // A TALL ROOM (docs/VERTICAL.md: a great hall, a temple nave): ONE room that spans several storeys. `tall` = how many
 // (1 = an ordinary room: the field is removed). Refused when the taller room would run into a room above it.
 def('room.tall', {
@@ -621,7 +699,7 @@ def('room.set', {
   // name: the room's label ('' = its type's)
   // fog: this room's own FOG HEIGHT in feet (Harry 2026-10-05: the tuner's Fog height slider, on the room's menu).
   //      0 = no fog, up to FOG_MAX; any negative number = back to the room type's default (the field is removed)
-  level: 'area', cls: 'room', args: { id: 'id', wallFamily: 'str?', floor: 'str?', name: 'str?', fog: 'num?', roof: 'obj?' }, // roof: { style?, seed?, off? } (core/height.js ROOFS)
+  level: 'area', cls: 'room', args: { id: 'id', wallFamily: 'str?', floor: 'str?', name: 'str?', fog: 'num?', roof: 'obj?', cliff: 'bool?' }, // roof: { style?, seed?, off?, shape?, axis? } (core/height.js ROOFS); cliff: a HILL's banks are rock faces (2026-10-24, core/terrain.js)
   check: ({ area }, a) => { const r = ent(area, a.id, 'room'); return !r ? `no room ${a.id}` : r.locked ? 'that room is locked' : a.name && a.name.length > 60 ? 'names are at most 60 characters' : a.fog > FOG_MAX ? `fog height is 0 to ${FOG_MAX} ft (0 = none; -1 = the room type's default)` : a.roof !== undefined ? roofProblem(a.roof) : null; },
   apply: (t, a) => {
     const r = t.entities[a.id];
@@ -629,6 +707,7 @@ def('room.set', {
     if (a.name !== undefined) { if (a.name.trim()) n = { ...n, name: a.name.trim() }; else { const { name, ...rest } = n; n = rest; } }
     if (a.fog !== undefined) { if (a.fog >= 0) n = { ...n, fog: Math.round(a.fog * 100) / 100 }; else { const { fog, ...rest } = n; n = rest; } }
     if (a.roof !== undefined) { const { roof: was, ...rest } = n, roof = mergeRoof(was, a.roof); n = roof ? { ...rest, roof } : rest; }
+    if (a.cliff !== undefined) { const { cliff, ...rest } = n; n = a.cliff ? { ...rest, cliff: true } : rest; }
     return put(t, n);
   },
   touches: (a) => [a.id],
@@ -651,11 +730,11 @@ const genOwns = (rc, key) => {
 };
 const tallKeys = (t, r, level = null) => {
   const rc = r.recipe, out = []; if (!((rc.tall || 1) > 1)) return out;
-  const y = roomY(rc), H = storeyHeightOf(t.entities[r.building]);
+  const y = roomY(rc), H = STOREY;
   for (let k = 1; k < rc.tall; k++) if (level == null || level === y + k * H) out.push(...perimeterKeys({ ...rc, y: y + k * H }));
   return out;
 };
-const ownsKey = (t, r, key) => perimeterKeys(r.recipe).includes(key) || genOwns(r.recipe, key) || tallKeys(t, r, keyLevel(key)).includes(key);
+export const ownsKey = (t, r, key) => perimeterKeys(r.recipe).includes(key) || genOwns(r.recipe, key) || tallKeys(t, r, keyLevel(key)).includes(key);
 const lonelyEdges = (t, id) => {
   const r = t.entities[id]; if (!r) return [];
   const rooms = Object.values(t.entities).filter(e => e.kind === 'room' && e.id !== id);
@@ -699,6 +778,7 @@ def('room.move', {
     const moved = movedRecipe(r.recipe, a);
     if (Math.abs(moved.x) > 400 || Math.abs(moved.z) > 400) return 'room is off the map';
     if (a.dy && (a.dy % STEP !== 0 || Math.abs(moved.y || 0) > MAX_Y)) return `dy: feet, a multiple of ${STEP}; a room's floor stays within ±${MAX_Y} ft`;
+    if (isTerrain(r.recipe) && !((moved.y || 0) > 0)) return `a hill's top stays 5 ft or more above the ground (it is ${roomY(r.recipe)} ft)`;
     const hit = roomOverlap(area, a.id, moved);
     return hit ? `would overlap room ${hit.id}` : null;
   },
@@ -766,7 +846,9 @@ def('room.rotate', {
   },
   apply: (t, a) => {
     const r = t.entities[a.id], q = turnPlan(r.recipe, turnsOf(a));
-    let out = put(t, { ...r, recipe: q.rc });
+    let roof = r.roof?.axis && turnsOf(a) % 2 ? { ...r.roof, axis: r.roof.axis === 'x' ? 'z' : 'x' } : r.roof; // a turned roof's ridge turns with its room
+    if (roof?.trim) { const { trim, ...rest } = roof; roof = Object.keys(rest).length ? rest : undefined; } // (its trim is placed by rule again: moved pieces' places were the old footprint's)
+    let out = put(t, (() => { const { roof: _r, ...base } = r; return { ...base, recipe: q.rc, ...(roof && { roof }) }; })());
     for (const o of roomObjects(t, a.id)) { const [x, z] = q.point(o.x, o.z); out = put(out, { ...o, x, z, rot: q.rot(o.rot), ...(o.fromEdge && { fromEdge: q.key(o.fromEdge) }) }); }
     return carryEdges(t, out, a.id, q.key);
   },
@@ -811,17 +893,17 @@ def('edge.reset', {
   apply: (t, a) => drop(t, edgeId(a.key)),
   touches: (a) => [edgeId(a.key)],
 });
-// A building: its label, and its heights (docs/VERTICAL.md): base = where it meets the ground (feet, a multiple of 5),
-// storey = floor to floor (feet; 10 unless set: a 9-ft wall and a 1-ft slab). Storeys are counted from the base, per
-// building, never map-wide. Changing them does not move the rooms: it changes which storey each height counts as.
+// A building: its label, its roof style and the recipe it was generated from. (Its heights, `base` and `storey`, were
+// settable from 2026-10-05; since 2026-10-26 a storey is 10 ft everywhere and levels are the map's, core/height.js: a
+// command that sets either is refused, and a building that carries one from before keeps it on disk, unread.)
 def('building.set', {
-  level: 'area', cls: 'room', args: { id: 'id', name: 'str?', base: 'int?', storey: 'int?', roof: 'str?', gen: 'obj?' }, // gen: the recipe a generated building was made from (docs/BUILDINGS.md): type, footprint, seed, storeys, dials, flavor // roof: the building's roof style, or 'auto' (by wall family)
-  check: ({ area }, a) => !ent(area, a.id, 'building') ? `no building ${a.id}` : a.name === undefined && a.base === undefined && a.storey === undefined && a.roof === undefined && a.gen === undefined ? 'nothing to set'
+  level: 'area', cls: 'room', args: { id: 'id', name: 'str?', base: 'int?', storey: 'int?', roof: 'str?', roofShape: 'str?', gen: 'obj?' }, // gen: the recipe a generated building was made from (docs/BUILDINGS.md): type, footprint, seed, storeys, dials, flavor // roof: the building's roof style, or 'auto' (by wall family) // roofShape (2026-10-27): the shape of every roof of it whose room has none of its own: gable, hip, flat, or 'auto'
+  check: ({ area }, a) => !ent(area, a.id, 'building') ? `no building ${a.id}` : a.base !== undefined || a.storey !== undefined ? 'base and storey are retired: every storey is 10 ft and the levels are the map\'s (lv 1 at 0 ft, lv 2 at 10 ft, ...)'
+    : a.name === undefined && a.roof === undefined && a.roofShape === undefined && a.gen === undefined ? 'nothing to set'
     : a.gen !== undefined && (typeof a.gen !== 'object' || Array.isArray(a.gen) || JSON.stringify(a.gen).length > 2000) ? 'gen: a small object'
     : a.roof !== undefined && roofProblem(a.roof, true) ? roofProblem(a.roof, true)
-    : a.base !== undefined && (a.base % STEP !== 0 || Math.abs(a.base) > MAX_Y) ? `base: feet, a multiple of ${STEP}, within ±${MAX_Y}`
-    : a.storey !== undefined && (a.storey % STEP !== 0 || a.storey < 5 || a.storey > 40) ? 'storey: feet floor to floor, a multiple of 5 from 5 to 40' : null,
-  apply: (t, a) => { const { base: b0, storey: s0, roof: r0, ...b } = t.entities[a.id], base = a.base ?? b0, storey = a.storey ?? s0, roof = a.roof ?? r0; return put(t, { ...b, ...(a.gen !== undefined && { gen: a.gen }), ...(a.name !== undefined && { name: a.name }), ...(base && { base }), ...(storey && storey !== 10 && { storey }), ...(roof && roof !== 'auto' && { roof }) }); },
+    : a.roofShape !== undefined ? roofShapeProblem(a.roofShape) : null,
+  apply: (t, a) => { const { roof: r0, roofShape: s0, ...b } = t.entities[a.id], roof = a.roof ?? r0, roofShape = a.roofShape ?? s0; return put(t, { ...b, ...(a.gen !== undefined && { gen: a.gen }), ...(a.name !== undefined && { name: a.name }), ...(roof && roof !== 'auto' && { roof }), ...(roofShape && roofShape !== 'auto' && { roofShape }) }); }, // (an old journal's base / storey replay as nothing: they are read nowhere)
   touches: (a) => [a.id],
 });
 
@@ -871,7 +953,17 @@ def('batch', {
   args: { ops: 'ops' },
   apply: (t, a, meta) => a.ops.reduce((tt, op) => REGISTRY[op.type].apply(tt, op.args, meta), t),
   touches: (a, t) => { const out = new Set(); let tt = t; for (const op of a.ops) { for (const id of REGISTRY[op.type].touches(op.args, tt)) out.add(id); if (tt) tt = REGISTRY[op.type].apply(tt, op.args); } return [...out]; },
+  // UNDO OF A BATCH: the entities it touched set back (entities.set, as for any command without an inverse of its own)
+  // and, when it said something, its chat lines taken away again (2026-10-22: a pawn's fall is its move AND "Brakka falls
+  // 20 ft", one step: surfaces/falls.js). A batch with no chat line inverts exactly as it always did.
+  inverse: (t, a) => {
+    const set = {}; for (const id of REGISTRY.batch.touches(a, t)) set[id] = t.entities[id] ?? null;
+    const chat = a.ops.filter(op => CHAT_OPS.has(op.type));
+    if (!chat.length) return { type: 'entities.set', args: { set } };
+    return { type: 'batch', args: { ops: [{ type: 'entities.set', args: { set } }, ...chat.reverse().map(op => REGISTRY[op.type].inverse(t, op.args)).filter(Boolean)] } };
+  },
 });
+const CHAT_OPS = new Set(['chat.say', 'dice.roll', 'chat.unsay', 'chat.restore']);
 
 // Chat and dice ("say …" in the bar). Undo of a line removes it; a roll is one step.
 const chatLine = (t, line) => ({ ...t, chat: [...(t.chat || []), line].slice(-CHAT_KEEP) });
@@ -890,12 +982,18 @@ const throwProblem = (t) => {
   if (t.t != null && (typeof t.t !== 'string' || t.t.length > 20000 || !/^[A-Za-z0-9+/]*=*$/.test(t.t))) return 'throw: bad keyframe times';
   if (!Array.isArray(t.d) || !t.d.length || t.d.length > 40 || !t.d.every(x => /^d(4|6|8|10t?|12|20)$/.test(x))) return 'throw: dice must be d4 d6 d8 d10 d10t d12 d20 (40 at most)';
   if (![t.hz, t.s, t.f].every(n => Number.isFinite(n) && n > 0 && n < 1e5) || !Array.isArray(t.o) || t.o.length !== 3 || !t.o.every(Number.isFinite)) return 'throw: bad header';
+  // (2026-10-29: a big pool thrown in quick handfuls says when each die leaves the hand, s)
+  if (t.r != null && (!Array.isArray(t.r) || t.r.length !== t.d.length || !t.r.every(x => Number.isFinite(x) && x >= 0 && x <= 30))) return 'throw: bad release times (one a die, 0 to 30 s)';
   return null;
 };
+// `info` (2026-10-29, Beyond20 intake: docs/BEYOND20.md): what a roll WAS, in short names and flags only: the character,
+// the roll's name ("Longsword"), its type, to hit / damage, advantage, crit, the attack's target. Kept in the chat line
+// (`roll.info`). Its keys are a closed list (core/beyond20.js INFO): anything else is refused, so a description, spell
+// or feature text can never be stored through it. Absent on every roll before it: old journals replay unchanged.
 def('dice.roll', {
-  level: 'area', cls: 'chat', args: { id: 'id', expr: 'str', rolls: 'list', total: 'int', why: 'str?', throw: 'obj?' },
-  check: ({ area }, a) => (area.chat || []).some(c => c.id === a.id) ? 'duplicate roll id' : a.rolls.length > 100 ? 'too many dice' : throwProblem(a.throw),
-  apply: (t, a, meta) => chatLine(t, { id: a.id, by: meta?.by || null, roll: { expr: a.expr, rolls: a.rolls, total: a.total }, text: a.why || '' }),
+  level: 'area', cls: 'chat', args: { id: 'id', expr: 'str', rolls: 'list', total: 'int', why: 'str?', throw: 'obj?', info: 'obj?' },
+  check: ({ area }, a) => (area.chat || []).some(c => c.id === a.id) ? 'duplicate roll id' : a.rolls.length > 100 ? 'too many dice' : throwProblem(a.throw) || infoProblem(a.info),
+  apply: (t, a, meta) => chatLine(t, { id: a.id, by: meta?.by || null, roll: { expr: a.expr, rolls: a.rolls, total: a.total, ...(a.info && Object.keys(a.info).length && { info: a.info }) }, text: a.why || '' }),
   inverse: (t, a) => ({ type: 'chat.unsay', args: { id: a.id } }),
 });
 def('chat.unsay', {
@@ -926,6 +1024,19 @@ def('redo', { level: 'area', cls: 'undo', args: { who: 'id?' }, special: true, a
 // The two halves of a cross-area transfer. Never sent by clients; the relay emits them from `transfer`.
 def('transfer.out', { level: 'area', cls: 'transfer', args: { id: 'id', to: 'id' }, internal: true, apply: (t, a) => drop(t, a.id), touches: (a) => [a.id] });
 def('transfer.in', { level: 'area', cls: 'transfer', args: { entity: 'obj', from: 'id' }, internal: true, apply: (t, a) => put(t, unlockPawn(a.entity)), touches: (a) => [a.entity.id] });
+// THE AREA'S GROUND (Harry 2026-10-22: "Can we allow simple tiling for the whole outdoor world? Like if I just want to
+// drag grass onto everything?"): one floor material drawn over ALL the open ground of the area, under the rooms (their
+// floors and painted tiles still win where they are). `cat` = a floor material id ('floor-grass'); none = the bare dark
+// ground, as before. Stored on the area itself (area.ground), not as a setting, so it is an ordinary area step: in the
+// log, sent to every seat that sees the area, and undone like any other (client/groundcover.js draws it).
+export const groundProblem = (cat) => cat == null ? null : /^floor-[a-z0-9-]{1,60}$/.test(cat) ? null : 'cat: a floor material id like floor-grass';
+def('area.ground', {
+  level: 'area', cls: 'area.admin', args: { cat: 'str?' },
+  check: (_, a) => groundProblem(a.cat),
+  apply: (t, a) => { const { ground, ...rest } = t; return a.cat ? { ...rest, ground: a.cat } : rest; },
+  inverse: (t) => ({ type: 'area.ground', args: t.ground ? { cat: t.ground } : {} }),
+  touches: () => [],
+});
 
 // ---------------- campaign commands ----------------
 // AN AREA IS OPEN OR HIDDEN (Harry 2026-10-06). THE FIRST AREA OF A CAMPAIGN IS OPEN; EVERY AREA CREATED AFTER IT STARTS
@@ -1016,7 +1127,7 @@ def('area.set', {
     if (a.grants && !a.grants.every(id => typeof id === 'string' && state.seats[id])) return 'grants must be seat ids';
     return settingsProblem(a.settings, RULE_KEYS);
   },
-  apply: (s, a) => { const T = s.areas[a.area]; return { ...s, areas: { ...s.areas, [a.area]: { ...T, ...(a.name && { name: a.name.trim() }), ...(a.settings && { settings: mergeSettings(T.settings, a.settings) }), ...(a.grants && { grants: [...new Set(a.grants)] }) } } }; },
+  apply: (s, a, meta) => { const T = s.areas[a.area]; return { ...s, areas: { ...s.areas, [a.area]: { ...T, ...(a.name && { name: a.name.trim() }), ...(a.settings && { settings: mergeSettings(T.settings, a.settings) }), ...(a.settings && 'music' in a.settings && { musicClock: musicClock(meta) }), ...(a.grants && { grants: [...new Set(a.grants)] }) } } }; },
 });
 def('area.delete', {
   level: 'campaign', cls: 'area.admin', args: { area: 'id' },
@@ -1033,7 +1144,46 @@ def('area.delete', {
 def('campaign.set', {
   level: 'campaign', cls: 'campaign.admin', args: { name: 'str?', defaults: 'obj?' },
   check: (_, a) => a.name !== undefined && (!a.name.trim() || a.name.length > 80) ? 'campaign names are 1 to 80 characters' : settingsProblem(a.defaults, { ...RULE_KEYS, ...CAMPAIGN_KEYS }),
-  apply: (s, a) => ({ ...s, ...(a.name && { name: a.name.trim() }), ...(a.defaults && { defaults: mergeSettings(s.defaults, a.defaults) }) }),
+  apply: (s, a, meta) => ({ ...s, ...(a.name && { name: a.name.trim() }), ...(a.defaults && { defaults: mergeSettings(s.defaults, a.defaults) }), ...(a.defaults && 'music' in a.defaults && { musicClock: musicClock(meta) }) }),
+});
+// THE TABLE'S MUSIC (Harry 2026-10-30: "tie that audio in as game options"; client/music.js, docs/UI.md "Music"). What
+// plays is the area play setting `music` (core/state.js RULE_KEYS): '' off, 'playlist' (every track, shuffled), or one
+// track (its id or its name; the client matches either, so an AI seat may write "The Black Mass"). An area inherits the
+// campaign default (Settings ▸ Area defaults). Beside the setting sits a CLOCK, so every seat hears the same moment:
+// { at, seed, first? }: `at` is the relay's time (ms) when it began, taken from the journal record (rec.at), so a replay
+// gives the same bytes; `seed` orders the playlist's shuffle; `first` is the track a "next track" jumped to. Any change
+// of the music setting (here, area.set, campaign.set) starts a fresh clock. The music itself never touches the relay.
+//   music.set { area, music }            this area plays `music` ('default': back to the campaign's)
+//   music.set { default: true, music }   the campaign default (what every area without its own plays)
+//   music.set { area, next: TRACK_ID }   jump to that track, keeping the playlist's order (the client picks the next one)
+// Older journals have no music.set and no clocks: an area without a clock starts its music at the top (client/music.js).
+const musicClock = (meta, seed) => ({ at: meta?.at || 0, seed: seed ?? (meta?.at || 0) });
+def('music.set', {
+  level: 'campaign', cls: (state, by, a) => a.default ? 'campaign.admin' : 'area.admin',
+  args: { area: 'id?', music: 'str?', next: 'str?', default: 'bool?' },
+  check: ({ state }, a) => {
+    if (!a.default && !state.areas[a.area]) return a.area ? `no area ${a.area}` : 'music.set needs an area (or default=true)';
+    if (a.music === undefined && a.next === undefined) return 'say music= (off, playlist or a track) or next= (a track)';
+    if (a.music !== undefined && a.music.length > 80) return 'music: at most 80 characters';
+    if (a.next !== undefined && (!a.next.trim() || a.next.length > 80)) return 'next: a track id';
+    if (a.default && a.music === 'default') return 'the campaign default has no default of its own: music= off, playlist or a track';
+    return null;
+  },
+  apply: (s, a, meta) => {
+    const val = a.music === undefined ? undefined : a.music.trim().toLowerCase() === 'off' ? '' : a.music.trim();
+    if (a.default) {
+      const own = val !== undefined ? { defaults: mergeSettings(s.defaults, { music: val }), musicClock: musicClock(meta) } : {};
+      const clock = own.musicClock || s.musicClock || musicClock(meta);
+      return { ...s, ...own, ...(a.next !== undefined && { musicClock: { ...clock, at: meta?.at || 0, first: a.next.trim() } }) };
+    }
+    let T = s.areas[a.area], top = s;
+    if (val !== undefined) T = { ...T, settings: mergeSettings(T.settings, { music: val === 'default' ? null : val }), musicClock: musicClock(meta) };
+    if (a.next !== undefined) { // the clock that is playing here: the area's own, or the campaign's when it inherits
+      const own = T.settings && 'music' in T.settings, clock = (own ? T.musicClock : s.musicClock) || musicClock(meta), next = { ...clock, at: meta?.at || 0, first: a.next.trim() };
+      if (own) T = { ...T, musicClock: next }; else top = { ...s, musicClock: next };
+    }
+    return { ...top, areas: { ...top.areas, [a.area]: T } };
+  },
 });
 // Players ask the GM to import or export; the GM approves or denies (Settings ▸ Campaign admin). An import carries
 // its campaign JSON; the GM's client applies it on approval, then the payload is dropped.
@@ -1127,10 +1277,10 @@ def('token.lend', {
 // nobody approves it. The relay writes the pawn from the definition (`fill`), so what stands on the table is what was
 // defined, whatever the sender's browser says. One pawn per definition, campaign-wide.
 const benchDef = (state, by, id) => { const d = state?.pawns?.[id]; return d && (isGmSide(state, by) || d.owner === principalOf(state, by)?.id) ? d : null; };
-const fromDef = (d, a, color) => ({ id: a.id, def: d.id, x: a.x, z: a.z, ...(a.y != null && { y: a.y }), ...(a.rot != null && { rot: a.rot }), name: d.name, owner: d.owner, color: color || a.color || '#d9a441', ...(d.fig && { fig: d.fig }), ...(d.size > 1 && { size: d.size }), ...(d.sheet && { sheet: d.sheet }), ...(d.notes && { notes: d.notes }), ...(d.main && { main: true }), ...(d.darkvision != null && { darkvision: d.darkvision }), ...(d.lightCarried != null && { lightCarried: d.lightCarried }) });
+const fromDef = (d, a, color) => ({ id: a.id, def: d.id, x: a.x, z: a.z, ...(a.y != null && { y: a.y }), ...(a.rot != null && { rot: a.rot }), name: d.name, owner: d.owner, color: color || a.color || '#d9a441', ...(d.fig && { fig: d.fig }), ...(d.size > 1 && { size: d.size }), ...(d.sheet && { sheet: d.sheet }), ...(d.notes && { notes: d.notes }), ...(d.main && { main: true }), ...(d.placeholder && { placeholder: true }), ...(d.darkvision != null && { darkvision: d.darkvision }), ...(d.lightCarried != null && { lightCarried: d.lightCarried }) });
 def('pawn.bring', {
   level: 'area', cls: 'pawn',
-  args: { id: 'id', def: 'id', x: 'num', z: 'num', y: 'num?', rot: 'num?', name: 'str?', owner: 'id?', color: 'color?', fig: 'str?', size: 'int?', sheet: 'text?', notes: 'long?', main: 'bool?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?' },
+  args: { id: 'id', def: 'id', x: 'num', z: 'num', y: 'num?', rot: 'num?', name: 'str?', owner: 'id?', color: 'color?', fig: 'str?', size: 'int?', sheet: 'text?', notes: 'long?', main: 'bool?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?' },
   fill: (state, a) => { const d = state.pawns?.[a.def]; return d ? fromDef(d, a, state.seats[d.owner]?.color) : a; },
   check: ({ state, area, by }, a) => {
     if (area.entities[a.id]) return `id ${a.id} already exists`;
@@ -1143,7 +1293,7 @@ def('pawn.bring', {
     let out = t;
     if (a.main && a.owner) for (const o of mainsOf(t, a.owner, a.id)) { const { main: _m, ...x } = o; out = put(out, x); }
     return put(out, pawnIntoRoom(out, { id: a.id, kind: 'token', name: a.name || 'Pawn', x: a.x, z: a.z, ...(a.y && { y: a.y }), rot: a.rot || 0, color: a.color || '#d9a441', owner: a.owner || null, conditions: [], hidden: false, locked: false, def: a.def,
-      ...(a.fig && { fig: a.fig }), ...(a.size > 1 && { size: a.size }), ...(a.sheet && { sheet: a.sheet }), ...(a.notes && { notes: a.notes }), ...(a.main && { main: true }), ...(a.darkvision != null && { darkvision: a.darkvision }), ...(a.lightCarried != null && { lightCarried: a.lightCarried }) }, a));
+      ...(a.fig && { fig: a.fig }), ...(a.size > 1 && { size: a.size }), ...(a.sheet && { sheet: a.sheet }), ...(a.notes && { notes: a.notes }), ...(a.main && { main: true }), ...(a.placeholder && { placeholder: true }), ...(a.darkvision != null && { darkvision: a.darkvision }), ...(a.lightCarried != null && { lightCarried: a.lightCarried }) }, a));
   },
   touches: (a, t) => a.main && a.owner && t ? [a.id, ...mainsOf(t, a.owner, a.id).map(o => o.id)] : [a.id],
 });
@@ -1164,7 +1314,7 @@ def('pawn.bench', {
 // '' clears sheet, notes, fig ('none') and petOf.
 def('pawn.define', {
   level: 'campaign', cls: 'pawn',
-  args: { id: 'id', name: 'str?', fig: 'str?', size: 'int?', sheet: 'text?', notes: 'long?', petOf: 'idOrNone?', main: 'bool?', owner: 'id?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?' },
+  args: { id: 'id', name: 'str?', fig: 'str?', size: 'int?', sheet: 'text?', notes: 'long?', petOf: 'idOrNone?', main: 'bool?', owner: 'id?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?' },
   fill: (state, a, by) => { const old = state.pawns?.[a.id], who = principalOf(state, by); return { ...a, owner: old ? old.owner : (who?.role === 'gm' && a.owner) || who?.id, ...(a.sheet && { sheet: cleanSheet(a.sheet) }) }; },
   check: ({ state, by }, a) => {
     const old = state.pawns?.[a.id], who = principalOf(state, by), gm = who?.role === 'gm';
@@ -1178,7 +1328,7 @@ def('pawn.define', {
     return (a.sheet ? sheetProblem(cleanSheet(a.sheet)) : null) || pawnDarkProblem(a) || figProblem(a);
   },
   apply: (s, a) => {
-    const old = s.pawns?.[a.id] || { id: a.id, owner: a.owner }, d = withDarkFields(old, a);
+    const old = s.pawns?.[a.id] || { id: a.id, owner: a.owner }, d = withPlaceholder(withDarkFields(old, a), a);
     if (a.name !== undefined) d.name = a.name.trim();
     if (a.fig !== undefined) { if (a.fig && a.fig !== 'none') d.fig = a.fig; else delete d.fig; }
     if (a.size !== undefined) { if (a.size > 1) d.size = a.size; else delete d.size; }

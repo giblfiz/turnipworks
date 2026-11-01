@@ -19,7 +19,8 @@ export function newCampaign(id, name) {
 }
 
 // Area play settings (Settings ▸ Area, ▸ Global defaults; Harry 2026-10-04). An area's own value overrides the
-// campaign default, which overrides the built-in. null / missing = inherit. fog and music are stored placeholders.
+// campaign default, which overrides the built-in. null / missing = inherit. fog is a stored placeholder. music (2026-10-30):
+// '' off, 'playlist' or a track (client/music.js); its clock is the area's (or the campaign's) musicClock (core/commands.js music.set).
 export const RULE_DEFAULTS = { light: 'house', grid: true, freeMoves: true, touch: 'open', fog: false, fogOfWar: false, darkness: false, music: '' };
 // fogOfWar: vision fog (client/fog.js). Per-area override of the campaign default (Harry 2026-10-15); an area's explored memory
 // is kept while it is off, so turning it back on restores it. `fog` below is the old placeholder, unused.
@@ -29,7 +30,10 @@ export const RULE_KEYS = { light: ['house', 'day', 'night', 'deep-night', 'dayli
 // distance: how a distance is counted (core/measure.js RULES): 'true' straight line (the default) | 'five' squares, every
 // diagonal 5 ft | 'alt' squares, diagonals alternating 5 / 10. units: what a readout is written in.
 // sharedPartyVision stays campaign-wide (one party union per area; per-area would add nothing a player could use).
-export const CAMPAIGN_KEYS = { sharedPartyVision: 'bool', travelLocked: 'bool', distance: ['true', 'five', 'alt'], units: ['ft', 'm'], genre: 'str', rolls: ['public', 'hidden'], houseAnim: 'str', houseLight: 'str', houseSelection: 'str' };
+export const CAMPAIGN_KEYS = { sharedPartyVision: 'bool', travelLocked: 'bool', distance: ['true', 'five', 'alt'], units: ['ft', 'm'], genre: 'str', rolls: ['public', 'hidden'], houseAnim: 'str', houseLight: 'str', houseSelection: 'str', hillSee: 'unit', groundSee: 'unit' };
+// hillSee (2026-10-27): how see-through the hills are at a view below the ground, 0 (not drawn) to 1 (solid); unset = the
+// game's default (client/world.js HILL_SEE). groundSee: the same for the ground plane (GROUND_SEE). House look ▸ Below
+// the ground: see-through.
 const defined = (o) => Object.fromEntries(Object.entries(o || {}).filter(([, v]) => v !== null && v !== undefined));
 export function areaRules(state, areaId) {
   return { ...RULE_DEFAULTS, ...defined(pick(state.defaults, RULE_KEYS)), ...defined(state.areas[areaId]?.settings) };
@@ -41,7 +45,7 @@ export function settingsProblem(patch, keys) {
     const t = keys[k];
     if (!t) return `unknown setting ${k}`;
     if (v === null) continue;
-    if (t === 'bool' ? typeof v !== 'boolean' : t === 'str' ? typeof v !== 'string' || v.length > 80 : !t.includes(v)) return `bad value for ${k}`;
+    if (t === 'bool' ? typeof v !== 'boolean' : t === 'str' ? typeof v !== 'string' || v.length > 80 : t === 'unit' ? typeof v !== 'number' || !(v >= 0 && v <= 1) : !t.includes(v)) return `bad value for ${k}`; // (unit: a number from 0 to 1)
   }
   return null;
 }
@@ -74,14 +78,14 @@ export function projectCampaign(state, viewerId, online = new Set()) {
   }
   const areas = state.areaOrder.filter(t => canSee(state, viewerId, t)).map(t => {
     const T = state.areas[t];
-    return { id: T.id, name: T.name, visibility: visibilityOf(T), seq: T.seq, settings: T.settings || {} };
+    return { id: T.id, name: T.name, visibility: visibilityOf(T), seq: T.seq, settings: T.settings || {}, ...(T.musicClock && { musicClock: T.musicClock }) };
   });
   // requests: the GM sees every one (with an import's payload, to apply on approval); a player only their own
   const requests = Object.values(state.requests || {}).filter(r => viewerIsGm || r.by === viewerId).map(r => viewerIsGm ? r : { ...r, payload: undefined });
   return {
     id: state.id, name: state.name, cseq: state.cseq, me: viewerId,
     my: { kind: me.kind, role: principalOf(state, viewerId).role, name: me.name, color: me.color, classes: effectiveClasses(state, viewerId, null), location: me.location && canSee(state, viewerId, me.location) ? me.location : null },
-    seats, areas, defaults: state.defaults || {}, requests,
+    seats, areas, defaults: state.defaults || {}, requests, ...(state.musicClock && { musicClock: state.musicClock }),
     // the party rows, this seat's defined pawns (the GM side: everyone's) and, for the GM side ONLY, the cast (core/party.js)
     party: partyFor(state, viewerId), pawns: defsFor(state, viewerId), ...(viewerIsGm && { cast: castFor(state, viewerId) }),
   };
@@ -98,7 +102,7 @@ export function areaForClient(area, gmSide = true, viewer = null, shared = false
   }
   // the turn order (core/turns.js): whole for the GM side; for players, without the entries of hidden pawns
   const turns = gmSide ? area.turns : turnsForPlayers(area);
-  return { id: area.id, name: area.name, seq: area.seq, order: area.order, entities, ...(area.fog && {fog:fogFor(area.fog,viewer,shared,gmSide)}), chat: area.chat || [], ...(turns && { turns }) };
+  return { id: area.id, name: area.name, seq: area.seq, order: area.order, entities, ...(area.fog && {fog:fogFor(area.fog,viewer,shared,gmSide)}), chat: area.chat || [], ...(turns && { turns }), ...(area.ground && { ground: area.ground }) }; // (ground: the area's ground material, core/commands.js area.ground)
 }
 
 // Plain centroid of the things in an area (feet), used for "glide to what I read".

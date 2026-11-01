@@ -3,10 +3,13 @@
 // Harry tunes is what the table plays. Knobs: DICE_DEFAULTS; the house look's `dice` field ("Use in game").
 //
 //   const dice = createDice({ scene, params, rapierUrl, onSettle(id, values) })
-//   await dice.simulate({ dice: ['d6', …], from, to, world, visible, seed })   THE ROLLER ONLY: the throw, once
-//        -> { rec, tries, reasons, fallback, ms }
+//   await dice.simulate({ dice: ['d6', …], from, to, world, visible, seed, until })   THE ROLLER ONLY: the throw, once
+//        -> { rec, tries, reasons, fallback, ms, hands, setDown }   (until: performance.now() ms the caller stops waiting:
+//        no try is started that would end past it, what is left is set down flat; dicephys.js BIG POOLS)
 //   dice.play({ id, rec, values: [n per die], color, at: performance.now() })  EVERY SEAT: plays a recording
 //        (values are the committed roll's numbers; the numbering is turned to them here, never the die)
+//        skins: [face set id | null per die] (diceskins.js: a game's dice), tags: [text per die] for the tag over each
+//        (given: one tag per die, no d100 pairing; else the numbers as before) (2026-10-29)
 //   dice.frame(now) -> true while anything is in the air or fading;  dice.active();  dice.stirrers() (fog)
 //   dice.lying() -> the dice still lying on the table (type, body pose): obstacles for the next throw
 // Cost: nothing at all with no dice out (no objects in the scene, frame() returns at once).
@@ -16,8 +19,10 @@ import { loadRapier, throwDiceAsync, decode } from './dicephys.js';
 import { DICE_DEFAULTS, normDice, physOf } from './diceparams.js';
 export { DICE_DEFAULTS, DICE_SCHEMA, DICE_BUILTINS, normDice, physOf } from './diceparams.js';
 import { dieMesh } from './dicelook.js';
+import { skinLook } from './diceskins.js';
+export { DICE_SKINS, skinOf } from './diceskins.js';
 import { timeline } from './dicetime.js';
-export { diceOfRoll } from './dicephys.js';
+export { diceOfRoll, BIG_POOL } from './dicephys.js';
 
 export function createDice({ scene, params = null, rapierUrl, onSettle = () => {}, reduced = () => false, simple = () => false, colorOf = () => null }) {
   let P = normDice(params);
@@ -33,16 +38,16 @@ export function createDice({ scene, params = null, rapierUrl, onSettle = () => {
     root,
     async ready() { R = R || await loadRapier(rapierUrl); return R; },
     // THE ROLLER: throw once (Rapier), with the dice already lying out as obstacles
-    async simulate({ dice, from, to, world = {}, visible = null, rest = null, seed = (Math.random() * 2 ** 32) >>> 0, by = null }) {
+    async simulate({ dice, from, to, world = {}, visible = null, rest = null, seed = (Math.random() * 2 ** 32) >>> 0, by = null, until = null }) {
       await self.ready();
       if (by) for (const T of throws.values()) if (T.by === by && T.settled) self.fadeNow(T.id); // my next roll clears my last (it has been read); others' dice stay, as obstacles
       const t = performance.now();
-      const r = await throwDiceAsync(R, { dice, P: physOf(P), from, to, world: { ...world, dice: [...(world.dice || []), ...self.lying()] }, visible, rest, seed });
-      r.ms = +(performance.now() - t).toFixed(1); st.simulated++; st.lastSim = { tries: r.tries, reasons: r.reasons, fallback: r.fallback, ms: r.ms, settleAt: +r.settleAt.toFixed(2), bytes: r.rec.b.length, keys: r.rec.f, touched: r.touched || [], gentled: r.gentled || null };
+      const r = await throwDiceAsync(R, { dice, P: physOf(P), from, to, world: { ...world, dice: [...(world.dice || []), ...self.lying()] }, visible, rest, seed, until });
+      r.ms = +(performance.now() - t).toFixed(1); st.simulated++; st.lastSim = { tries: r.tries, reasons: r.reasons, fallback: r.fallback, ms: r.ms, settleAt: +r.settleAt.toFixed(2), bytes: r.rec.b.length, keys: r.rec.f, touched: r.touched || [], gentled: r.gentled || null, hands: r.hands, setDown: r.setDown };
       return r;
     },
     // EVERY SEAT: play a recording; `values` are the committed numbers, in the recording's die order
-    play({ id, rec, values, color = null, at = performance.now(), tagFor = null, hold = false, by = null }) {
+    play({ id, rec, values, color = null, at = performance.now(), tagFor = null, hold = false, by = null, skins = null, tags = null }) {
       if (throws.has(id)) return throws.get(id).promise;
       const D = decode(rec);
       const look = { ...P.look, color: P.look.colorMode === 'seat' && color ? color : P.look.color, size: D.size || P.look.size };
@@ -50,13 +55,13 @@ export function createDice({ scene, params = null, rapierUrl, onSettle = () => {
       const dice = D.dice.map((type, i) => {
         const g = dieGeo(type), fin = D.final[i];
         const { g: sym } = remap(g, fin.q, values[i]); // the numbering turned so the top reads values[i]
-        const group = dieMesh(type, look); root.add(group);
+        const skin = skins?.[i] || null, group = dieMesh(type, skinLook(look, skin), skin); root.add(group);
         group.userData.dieId = `${id}:${i}`;
         return { type, g, group, sym, value: values[i], tag: null };
       });
       let resolve; const promise = new Promise(r => { resolve = r; });
       const tl = timeline(D.duration, P.throw);
-      const T = { id, D, dice, t0: at, tl, dur: tl.dur, settled: false, resolve, promise, values, fadeFrom: null, tagFor, hold, by };
+      const T = { id, D, dice, t0: at, tl, dur: tl.dur, settled: false, resolve, promise, values, fadeFrom: null, tagFor, hold, by, tags: Array.isArray(tags) && tags.length === dice.length ? tags : null };
       if (reduced()) T.t0 = at - T.dur * 1000; // reduced motion: they are simply there, at rest
       throws.set(id, T); st.played++;
       place(T, performance.now());
@@ -77,8 +82,8 @@ export function createDice({ scene, params = null, rapierUrl, onSettle = () => {
     settled: (id) => throws.get(id)?.settled ?? null,
     // what is on screen: per throw, the dice with the number on their top (for tests: read off the visual mesh)
     info: () => [...throws.values()].map(T => ({ id: T.id, settled: T.settled, values: T.values, dice: T.dice.map(d => { const q = d.group.quaternion; const vq = [q.x, q.y, q.z, q.w]; const top = topIndex(d.g, vq);
-      return { type: d.type, p: d.group.position.toArray().map(v => +v.toFixed(4)), q: vq.map(v => +v.toFixed(5)), reads: valueOfLabel(d.g, d.g.labels[top]), label: labelOf(d.g, top), opacity: d.group.userData.opacity ?? 1 }; }) })),
-    stirrers: () => [...throws.values()].filter(T => !T.settled).flatMap(T => T.dice.map(d => d.group)),
+      return { type: d.type, p: d.group.position.toArray().map(v => +v.toFixed(4)), q: vq.map(v => +v.toFixed(5)), reads: valueOfLabel(d.g, d.g.labels[top]), label: labelOf(d.g, top), opacity: d.group.userData.opacity ?? 1, ...(d.group.userData.skin && { skin: d.group.userData.skin }), ...(d.tag && { tag: d.tag.children[0]?.userData.diceTag }) }; }) })),
+    stirrers: () => [...throws.values()].filter(T => !T.settled).flatMap(T => T.dice.map(d => d.group).filter(g => !g.userData.waiting)),
     // the dice lying on the table (their BODY pose: the symmetry turn is only the paint) for the next throw to hit
     lying: () => [...throws.values()].filter(T => T.settled && T.fadeFrom == null).flatMap(T => T.dice.map((d, i) => ({ type: d.type, p: T.D.final[i].p, q: T.D.final[i].q, size: T.D.size }))),
     clear() { for (const T of throws.values()) remove(T); throws.clear(); },
@@ -93,6 +98,7 @@ export function createDice({ scene, params = null, rapierUrl, onSettle = () => {
     const t = Math.max(0, (now - T.t0) / 1000), u = Math.min(T.D.duration, T.tl.u(t));
     T.dice.forEach((d, i) => {
       const ps = T.D.pose(u, i);
+      d.group.visible = !(d.group.userData.waiting = T.D.waiting(u, i)); // (a big pool's later handful: not drawn in the hand before it is thrown)
       d.group.position.set(ps.p[0], ps.p[1], ps.p[2]);
       _q.set(ps.q[0], ps.q[1], ps.q[2], ps.q[3]); _s.set(d.sym[0], d.sym[1], d.sym[2], d.sym[3]);
       d.group.quaternion.copy(_q).multiply(_s); // visual = body * symmetry: same shape, numbers turned
@@ -127,7 +133,7 @@ export function createDice({ scene, params = null, rapierUrl, onSettle = () => {
   function addTags(T) {
     if (P.tag.style === 'off') return;
     // a d100 is one tag over its pair (tens + units)
-    const groups = []; for (let i = 0; i < T.dice.length; i++) { const d = T.dice[i]; if (d.type === 'd10t' && T.dice[i + 1]?.type === 'd10') { const v = (d.value + T.dice[i + 1].value % 10) || 100; groups.push([d, String(v), T.dice[i + 1]]); i++; } else groups.push([d, String(d.value)]); }
+    const groups = []; if (T.tags) T.dice.forEach((d, i) => groups.push([d, String(T.tags[i])])); else for (let i = 0; i < T.dice.length; i++) { const d = T.dice[i]; if (d.type === 'd10t' && T.dice[i + 1]?.type === 'd10') { const v = (d.value + T.dice[i + 1].value % 10) || 100; groups.push([d, String(v), T.dice[i + 1]]); i++; } else groups.push([d, String(d.value)]); }
     for (const [d, text, other] of groups) {
       const s = d.group.scale.x, sp = tagSprite(text, P.tag.style, T.tagFor?.color || null); sp.scale.multiplyScalar(P.tag.size / s); // (a screen-sized sprite inside the die's scaled group)
       sp.position.set(0, d.g.radius + 0.55, 0);

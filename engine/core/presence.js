@@ -22,7 +22,9 @@ export class PresenceSender {
     const cy = data.cursor ? +(data.cursor[2] ?? data.cursor.y ?? 0) || 0 : 0;
     // a ruler being drawn (docs/RULERS.md; setRuler below): it rides along with whatever else is sent, until taken away
     const ruler = this.rulerOf?.area === area ? this.rulerOf.ruler : null;
-    const next = { area, cursor: data.cursor ? [data.cursor[0], data.cursor[1], ...(cy ? [Math.round(cy * 100) / 100] : [])] : null, drag: drag && drag.length ? drag : null, ...(sel?.length && { sel }), ...(ruler && { ruler }) };
+    // FIRST PERSON (client/surfaces/fpv.js): the pawn this seat is looking through, while it is; rides along like the ruler
+    const eyes = this.eyesOf?.area === area ? this.eyesOf.id : null;
+    const next = { area, cursor: data.cursor ? [data.cursor[0], data.cursor[1], ...(cy ? [Math.round(cy * 100) / 100] : [])] : null, drag: drag && drag.length ? drag : null, ...(sel?.length && { sel }), ...(ruler && { ruler }), ...(eyes && { eyes }) };
     const same = this.cur && this.cur.area === area && JSON.stringify(this.cur) === JSON.stringify(next);
     this.cur = next;
     if (!same) { this.dirty = true; this.lastChange = this.now(); }
@@ -33,6 +35,13 @@ export class PresenceSender {
   setRuler(area, ruler) {
     const was = this.rulerOf; this.rulerOf = ruler ? { area, ruler } : null;
     if (!was && !ruler) return;
+    const cur = this.cur?.area === area ? this.cur : null;
+    this.set(area, { cursor: cur?.cursor || null, drag: cur?.drag || null });
+  }
+  // the pawn this seat looks through in first person (or null): sent with the cursor, the drag and the selection
+  setEyes(area, id) {
+    const was = this.eyesOf; this.eyesOf = id ? { area, id } : null;
+    if (!was && !id) return;
     const cur = this.cur?.area === area ? this.cur : null;
     this.set(area, { cursor: cur?.cursor || null, drag: cur?.drag || null });
   }
@@ -55,10 +64,10 @@ export class PresenceView {
   }
   ingest(m) {
     const k = `${m.area}|${m.seat}`;
-    if (m.gone || (!m.cursor && !m.drag && !m.sel?.length && !m.ruler)) { this.seats.delete(k); return; }
+    if (m.gone || (!m.cursor && !m.drag && !m.sel?.length && !m.ruler && !m.eyes)) { this.seats.delete(k); return; }
     let s = this.seats.get(k);
     if (!s) { s = { pos: m.cursor ? [...m.cursor] : null, drags: new Map() }; this.seats.set(k, s); }
-    Object.assign(s, { area: m.area, seat: m.seat, name: m.name, color: m.color, label: m.label || null, ghost: !!m.ghost, thinking: !!m.thinking, target: m.cursor || s.target, at: this.now(), sel: m.sel || [], away: !m.cursor, ruler: m.ruler || null });
+    Object.assign(s, { area: m.area, seat: m.seat, name: m.name, color: m.color, label: m.label || null, ghost: !!m.ghost, thinking: !!m.thinking, target: m.cursor || s.target, at: this.now(), sel: m.sel || [], away: !m.cursor, ruler: m.ruler || null, eyes: typeof m.eyes === 'string' ? m.eyes : null });
     if (!s.pos && m.cursor) s.pos = [...m.cursor];
     if (s.pos && m.cursor) s.pos[2] = m.cursor[2] || 0; // its height: the floor it points at (0 from a client that sends none)
     // drags in progress (one thing or a whole selection): each glides toward its latest sample

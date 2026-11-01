@@ -4,11 +4,18 @@ import { resolveFaction } from '../core/faction-catalog.js';
 import { factionTarget } from './surfaces/factions.js';
 import { parseDice } from './dice.js';
 import { T } from './tuner.js';
-import { MARKS, parseDamage } from '../core/pawn.js';
+import { MARKS, parseDamage, CONDITIONS } from '../core/pawn.js';
+import * as CO from '../core/conditions.js';
+import * as AU from '../core/aura.js';
+const OTHER_SLOTS = 6; // a pawn's own words (text labels) shown in its Conditions arc, each a press to take it off
 import { markUrl } from './marks.js';
 import * as DK from '../core/darkness.js';
 import { canTilt } from '../core/commands.js';
+import { fallWhen } from './surfaces/falls.js';
+import * as HO from '../core/holes.js';
 import { quatOfEntity } from '../core/orient.js';
+import * as HT from '../core/height.js';
+import * as RF from './roofs.js';
 
 // ROLL: TIPPING A THING OVER, about the VIEW's axis (Harry 2026-10-11 and 10-12), in an object's ☰ menu.
 // THE WORD ON THE BUTTON is written in this ONE place (Harry settled "Roll" on 2026-10-11). Nothing stored is named
@@ -31,7 +38,6 @@ export const parseTilt = (text) => {
 // docs/STATUS.md, 2026-10-06. Harry accepted - and = ("hmm, ok"), lukewarm, so this is the ONE place to change them.)
 export const PAWN_DAMAGE_KEYS = { add: '=', remove: '-' };
 
-const CONDITIONS = ['blinded', 'charmed', 'frightened', 'grappled', 'invisible', 'poisoned', 'prone', 'restrained', 'stunned', 'unconscious'];
 const STUB = () => false; // shown, greyed: on the roadmap
 const is = (...kinds) => (ctx) => ctx.sel.length > 0 && ctx.sel.every(e => kinds.includes(kindOfCtx(ctx, e)));
 const kindOfCtx = (ctx, e) => e.kind === 'object' ? (ctx.app.assets.openable(e.cat) ? 'openable' : 'prop') : e.kind === 'token' ? 'pawn' : e.kind;
@@ -59,6 +65,15 @@ export const rollWords = (text) => {
   return p ? { expr, label: p.label, terms: p.terms, why } : null;
 };
 
+// A GAME'S DICE in the bar (2026-10-29, core/gamedice.js): "roll coc 65 bonus 1", "roll v5 7 hunger 2 diff 3", "roll sr 12",
+// "roll duality +2", "roll 4df+1", "roll l5r 3 ring 2 skill", "roll ex 8 d9" ("roll" first, except NdF which reads like any dice);
+// "… for stealth" names it
+export const gameRoll = (text) => {
+  const m = String(text ?? '').trim().match(/^(?:roll\s+|\/r\s+)(.+?)(?:\s+for\s+([a-z][a-z' ]{1,40}))?$/i) || String(text ?? '').trim().match(/^(\d*df\b.*?)(?:\s+for\s+([a-z][a-z' ]{1,40}))?$/i);
+  const p = m && parseDice(m[1]);
+  return p?.game ? { expr: p.label, label: p.label, terms: p.terms, game: p.game.kind, ...(m[2] && { why: m[2].trim().toLowerCase() }) } : null;
+};
+
 export function defineCommands(R, app) {
   const add = (c) => R.add(c);
   add({ id: 'faction.set', title: 'Faction', short: 'Faction', icon: 'sun', menu: true, group: 'Build', cls: 'room',
@@ -81,7 +96,18 @@ export function defineCommands(R, app) {
   add({ id: 'edit.copy', title: 'Copy', icon: 'copy', keys: ['Mod+C'], group: 'Edit', menu: true, when: (ctx) => things(ctx).length > 0, run: () => { const t = app.copy(); navigator.clipboard?.writeText(t).catch(() => {}); app.toast('Copied'); }, native: 'copy' });
   add({ id: 'edit.paste', title: 'Paste at cursor', icon: 'clipboard-paste', keys: ['Mod+V'], group: 'Edit', cls: (ctx) => ctx.gm ? true : null, when: () => !!app.clip, run: () => app.pasteData(app.clip), native: 'paste' });
   add({ id: 'edit.duplicate', title: 'Duplicate', synonyms: ['clone', 'copy here'], icon: 'copy', keys: ['Mod+D'], group: 'Edit', menu: true, cls: (ctx) => ctx.gm ? true : null, when: (ctx) => things(ctx).length > 0, run: () => app.duplicate() });
-  add({ id: 'edit.delete', title: 'Delete', synonyms: ['remove', 'erase'], icon: 'trash-2', keys: ['Delete', 'Backspace'], group: 'Edit', menu: true, danger: true, cls: (ctx) => ctx.gm ? true : null, when: (ctx) => things(ctx).length > 0, run: () => app.deleteSelection() });
+  // (a selected ROOF: Delete takes it off, its room open to the sky: main.js deleteSelection, 2026-10-27)
+  const roofsIn = (ctx) => ctx.sel.filter(e => (e.kind === 'roof' || e.kind === 'trim') && !e.locked); // (and a roof's trim: a chimney, a dormer, a finial: removed)
+  add({ id: 'edit.delete', title: 'Delete', synonyms: ['remove', 'erase'], icon: 'trash-2', keys: ['Delete', 'Backspace'], group: 'Edit', menu: true, danger: true, cls: (ctx) => ctx.gm ? true : null, when: (ctx) => things(ctx).length > 0 || roofsIn(ctx).length > 0, run: () => app.deleteSelection() });
+  // ON A PHONE ONLY (Harry 2026-10-24; docs/UI.md "On a phone"): a phone has no Delete key and one finger pans, so the
+  // ring's main row carries Delete and Move there (`ring.hand`: surfaces/ring.js leaves them off every computer's ring;
+  // `ringOnly`: the bar has Delete already). Delete is the Delete key's own (one undo), offered only for what this seat
+  // may delete (a player: nothing, the relay's token.edit / object classes). Move is a drag handle like Turn: press it and
+  // drag, and the thing follows on the floor with a finger drag's own snapping (input.js app.handMove); let go puts it down.
+  const handDeletable = (e) => e.kind === 'token' ? app.can('token.edit') && (app.gm() || app.canTouch(e)) : e.kind === 'object' ? app.can('object') && !e.locked : (e.kind === 'room' || e.kind === 'building' || e.kind === 'roof' || e.kind === 'trim') ? app.gm() && !e.locked : false;
+  add({ id: 'hand.delete', title: 'Delete', icon: 'trash-2', group: 'Edit', hidden: true, ringOnly: true, danger: true, ring: { kinds: ['prop', 'openable', 'pawn', 'room', 'building', 'roof', 'trim'], slot: 13, hand: true }, when: (ctx) => ctx.sel.length > 0 && ctx.sel.every(handDeletable), run: () => app.deleteSelection() });
+  const handMovable = (e) => (e.kind === 'token' && app.canTouch(e)) || (e.kind === 'object' && app.canTouch(e) && !e.locked && e.place !== 'tile');
+  add({ id: 'hand.move', title: 'Move (drag)', short: 'Move', icon: 'move', group: 'Arrange', hidden: true, ringOnly: true, ring: { kinds: ['prop', 'openable', 'pawn'], slot: 9, drag: 'move', hand: true }, when: (ctx) => ctx.sel.length > 0 && ctx.sel.every(handMovable), run: () => app.toast('Press Move and drag: it follows your finger') });
   add({ id: 'edit.selectAll', title: 'Select all (this room)', icon: 'square-dashed', keys: ['Mod+A'], group: 'Select', run: () => app.selectAll() });
   add({ id: 'edit.deselect', title: 'Clear selection / cancel', icon: 'x', keys: ['Escape'], group: 'Select', hidden: true, run: () => { if (app.mode) app.modes.cancel(); else app.clearSelection(); } });
   add({ id: 'sel.parent', title: 'Select parent', icon: 'layers', keys: ['Shift+Enter'], group: 'Select', when: (ctx) => !!ctx.one && !!app.parentOf(ctx.one), run: (ctx) => app.select(app.parentOf(ctx.one).id) });
@@ -95,6 +121,20 @@ export function defineCommands(R, app) {
   add({ id: 'edit.rotate', title: 'Turn (drag; click = 45°)', icon: 'rotate-cw', keys: ['R'], group: 'Arrange', ring: { kinds: ['prop', 'openable', 'pawn'], slot: 10, drag: 'rotate' }, when: (ctx) => touchable(ctx) && ctx.sel.every(e => (e.kind === 'object' || e.kind === 'token') && !frozen(e)), run: () => app.rotateSelection(45) });
   // raise / lower ("pick it up off the floor"): drag up or down; Shift snaps to 6 in; lifted things may hang or fly
   add({ id: 'edit.lift', title: 'Raise / lower (drag)', short: 'Raise / lower', synonyms: ['lift', 'elevation', 'height', 'fly', 'hang', 'raise', 'lower'], icon: 'move-vertical', group: 'Arrange', menu: true, ring: { drag: 'lift' }, when: (ctx) => !!ctx.one && (ctx.one.kind === 'object' || ctx.one.kind === 'token') && app.canTouch(ctx.one) && !frozen(ctx.one), run: (ctx) => app.toast(ctx.one?.kind === 'token' ? 'Drag the raise / lower button up or down: a pawn under 5 ft settles to the ground (Shift: 5 ft steps)' : 'Drag the raise / lower button up or down (Shift snaps to 6 in)') });
+  // FALL (2026-10-22; surfaces/falls.js): a pawn that is up (left over open air, or raised: a flyer knocked out of the sky)
+  // drops onto what is under it, and the chat says so. Distinct from raise / lower (Harry: "This is distinct from height adjusting").
+  add({ id: 'pawn.fall', title: (ctx) => { const d = ctx.sel.length ? Math.max(...ctx.sel.filter(e => e.kind === 'token').map(e => app.pawnDropAt(e, e.x, e.y || 0, e.z).drop)) : 0; const pit = d < 0.5 && ctx.one && app.pitAt?.(ctx.one); return d > 0 ? `Fall ${Math.round(d)} ft (to the floor below)` : pit ? `Fall into ${pit.name}` : 'Fall to the floor below'; }, short: 'Fall', synonyms: ['fall', 'plummet', 'jump down', 'leap down', 'fall down', 'drop down', 'land'], icon: 'arrow-down', group: 'Pawn', cls: 'pawn', when: (ctx) => fallWhen(app, ctx.sel), run: (ctx) => app.fall(ctx.sel.map(e => e.id)) });
+  // HOLES (2026-10-22; client/holes.js, core/holes.js): a round hole selected is made wider or narrower by 5 ft (5 to 20),
+  // or set by its size in the bar ("hole 15 ft"); with nothing selected the same words put a round hole of that size in the hand
+  const roundHole = (ctx) => ctx.one?.kind === 'object' && ctx.one.cat === 'hole-round' && app.canTouch(ctx.one) ? ctx.one : null;
+  const holeTo = (e, d) => { const [x, z] = HO.roundCentre(e.x, e.z, d); return app.batch([{ type: 'object.set', args: { id: e.id, dims: [d, 0.05, d], name: `round hole ${d} ft` } }, { type: 'object.move', args: { id: e.id, x, z } }]); };
+  const holeD = (e) => HO.holeSize(e);
+  add({ id: 'hole.wider', title: (ctx) => `Wider (${Math.min(20, (roundHole(ctx) ? holeD(roundHole(ctx)) : 10) + 5)} ft across)`, short: 'Wider', synonyms: ['bigger hole', 'wider hole', 'larger pit', 'widen', 'enlarge'], icon: 'chevrons-up', group: 'Hole', menu: true, cls: 'object', when: (ctx) => !!roundHole(ctx) && holeD(roundHole(ctx)) < 20, run: (ctx) => holeTo(roundHole(ctx), holeD(roundHole(ctx)) + 5) });
+  add({ id: 'hole.narrower', title: (ctx) => `Narrower (${Math.max(5, (roundHole(ctx) ? holeD(roundHole(ctx)) : 10) - 5)} ft across)`, short: 'Narrower', synonyms: ['smaller hole', 'narrower hole', 'smaller pit', 'shrink'], icon: 'chevrons-down', group: 'Hole', menu: true, cls: 'object', when: (ctx) => !!roundHole(ctx) && holeD(roundHole(ctx)) > 5, run: (ctx) => holeTo(roundHole(ctx), holeD(roundHole(ctx)) - 5) });
+  add({ id: 'hole.size', title: 'Round hole: its size (hole 15 ft)', short: 'Hole size', synonyms: ['hole size', 'pit size', 'round hole', 'round pit'], icon: 'circle', group: 'Hole', cls: 'object',
+    parse: (text) => { const m = String(text).trim().match(/^(?:a\s+)?(?:(\d{1,2})\s*(?:ft|feet|foot|')?\s+)?(?:round\s+|circular\s+)?(?:hole|pit|opening|chasm|shaft)(?:\s+(\d{1,2})\s*(?:ft|feet|foot|')?(?:\s+(?:across|wide|diameter))?)?$/i); const d = m && +(m[1] || m[2]); return d && HO.HOLE_SIZES.includes(d) ? { d } : null; },
+    chips: (a) => ['hole', `${a.d} ft`],
+    run: (ctx, a) => { if (!a?.d) return app.emit('bar.open', 'hole 10 ft'); const e = roundHole(ctx); if (e) return holeTo(e, a.d); const cat = app.assets.catById.get(`hole-round-${a.d}`); if (cat) app.modes.place(cat); } });
   // tip it over: a drag button in the ☰ circle, the turn's gesture about another axis (free, 45° notches, Shift = 15° steps).
   // A click on the button does nothing (it stole short drags); the chord and the bar's plain "Roll" lay it over / stand it up.
   const tiltable = (ctx) => ctx.sel.length > 0 && ctx.sel.every(e => e.kind === 'object' && canTilt(e) && !e.locked && app.canTouch(e));
@@ -138,8 +178,8 @@ export function defineCommands(R, app) {
   add({ id: 'view.selHalo', title: 'Selection: corner brackets (the house look)', synonyms: ['selection style', 'brackets', 'house look'], icon: 'sun', group: 'View', when: () => app.selStyle !== 'halo', run: () => app.setSelStyle('halo') });
   add({ id: 'view.selFoot', title: 'Selection: footprint on the ground', synonyms: ['selection style', 'footprint', 'outline'], icon: 'square-dashed', group: 'View', when: () => app.selStyle !== 'footprint', run: () => app.setSelStyle('footprint') });
   add({ id: 'view.theme', title: 'Toggle light / dark', synonyms: ['theme', 'light mode', 'dark mode'], icon: 'sun', group: 'View', run: () => app.toggleTheme() });
-  add({ id: 'view.pipClose', title: 'Close picture-in-picture', icon: 'picture-in-picture-2', group: 'View', when: () => !!app.pip, run: () => app.closePip() });
-  add({ id: 'view.pipSwap', title: 'Swap picture-in-picture with main view', icon: 'picture-in-picture-2', group: 'View', when: () => !!app.pip, run: () => app.swapPip() });
+  add({ id: 'view.pipClose', title: 'Close picture-in-picture', icon: 'picture-in-picture-2', group: 'View', when: () => !!app.pip && app.pipAllowed?.() !== false, run: () => app.closePip() });
+  add({ id: 'view.pipSwap', title: 'Swap picture-in-picture with main view', icon: 'picture-in-picture-2', group: 'View', when: () => !!app.pip && app.pipAllowed?.() !== false, run: () => app.swapPip() });
   add({ id: 'view.ping', title: 'Ping here', synonyms: ['point', 'look here'], icon: 'crosshair', group: 'View', hint: 'or Alt+click', run: () => app.cursor && app.ping(app.cursor[0], app.cursor[1], app.cursor.y || app.cursor[2] || 0) });
 
   // ---------------- the selection ring's buttons (fixed clock positions) and the ☰ tree ----------------
@@ -172,6 +212,12 @@ export function defineCommands(R, app) {
   const pawns = is('pawn');
   // SHEET: one click opens a small card: the character-sheet link (a new tab), and Notes / GM notes (surfaces/ring.js)
   add({ id: 'pawn.sheet', title: 'Character sheet and notes', short: 'Sheet', synonyms: ['sheet', 'character sheet', 'notes', 'gm notes', 'link', 'dnd beyond'], icon: 'file-text', group: 'Pawn', menu: true, ring: { kinds: ['pawn'], slot: 11.34, opens: 'sheet' }, when: (ctx) => ctx.one?.kind === 'token', run: (ctx) => app.emit('ring.sheet', ctx.one) });
+  // A PLACEHOLDER PAWN'S ONE PROMPT (Harry 2026-10-22): an invite puts the new player's stand-in on the table
+  // (client/pawns.js app.placeholderFor). While it is one, its ring leads with "Set your pawn" (its player) or "Choose
+  // Bobby's pawn" (the GM side): Settings ▸ Me ▸ My pawns, the editor open on it. Offered, never forced: it is there only
+  // when the pawn is clicked, and goes for everyone the moment either side chooses a figure.
+  const placeholderOf = (ctx) => ctx.one?.kind === 'token' && !!ctx.one.placeholder && (ctx.gm || ctx.one.owner === app.me() || ctx.one.owner === app.sync.campaign?.seats.find(s => s.id === app.me())?.creator);
+  add({ id: 'pawn.choose', title: (ctx) => { const o = ctx?.one?.owner; return o && o !== app.me() && ctx.gm ? `Choose ${app.sync.campaign?.seats.find(s => s.id === o)?.name || ctx.one.name}'s pawn` : o ? 'Set your pawn' : 'Choose this pawn'; }, synonyms: ['set your pawn', 'choose pawn', 'choose figure', 'who am i', 'my character', 'placeholder'], icon: 'user', group: 'Pawn', menu: true, cls: 'pawn', ring: { kinds: ['pawn'], slot: 9.5, prompt: true }, when: placeholderOf, run: (ctx) => app.choosePawn(ctx.one) });
   // DAMAGE (Harry 2026-10-06: "instead it's 'damage'. That means 0 is always healthy"): a drag handle with a track (a
   // fixed number of pixels per point); a plain click opens a field: 7 takes 7, -5 heals 5, =12 sets it.
   // Everyone can change everyone's damage (core token.damage), and every change leaves an undo (surfaces/undochips.js).
@@ -179,6 +225,42 @@ export function defineCommands(R, app) {
   add({ id: 'pawn.damageUp', title: 'Damage +1', icon: 'plus', keys: [PAWN_DAMAGE_KEYS.add], group: 'Pawn', hidden: true, cls: 'pawn', when: pawns, run: (ctx) => app.damageDelta(ctx.sel, 1) });
   add({ id: 'pawn.damageDown', title: 'Damage -1 (heal one)', icon: 'minus', keys: [PAWN_DAMAGE_KEYS.remove], group: 'Pawn', hidden: true, cls: 'pawn', when: pawns, run: (ctx) => app.damageDelta(ctx.sel, -1) });
   for (const c of CONDITIONS) add({ id: `pawn.cond.${c}`, title: (ctx) => `${ctx.sel.every(p => (p.conditions || []).includes(c)) ? '✓ ' : ''}${c}`, synonyms: [`condition ${c}`], icon: 'badge-alert', group: 'Pawn ▸ Conditions', menu: true, cls: 'pawn', when: (ctx) => is('pawn')(ctx) && touchable(ctx), run: (ctx) => app.toggleCondition(ctx.sel, c) });
+  // EXHAUSTION (2026-10-29, Harry's design of 2026-10-15): one level, 1 to 6, stored as "exhaustion N"; the base rim drains.
+  // Two entries in the Conditions arc (+1, and -1 while there is any); typed: "exhaustion 3", "exhaustion 0".
+  const exhOf = (p) => (p.conditions || []).reduce((n, w) => Math.max(n, CO.exhaustionLevel(w)), 0);
+  add({ id: 'pawn.cond.exhaustion.up', title: (ctx) => { const n = Math.max(0, ...ctx.sel.map(exhOf)); return n >= CO.EXHAUSTION_MAX ? `exhaustion ${n} (most)` : `exhaustion ${n + 1}${n ? ` (now ${n})` : ''}`; }, short: 'exhaustion +1', synonyms: ['exhaustion', 'exhausted', 'more exhausted', 'tired', 'fatigue'], icon: 'activity', group: 'Pawn ▸ Conditions', menu: true, cls: 'pawn', when: (ctx) => is('pawn')(ctx) && touchable(ctx), run: (ctx) => app.setExhaustion(ctx.sel, (p) => exhOf(p) + 1) });
+  add({ id: 'pawn.cond.exhaustion.down', title: (ctx) => { const n = Math.max(0, ...ctx.sel.map(exhOf)); return n > 1 ? `exhaustion ${n - 1} (now ${n})` : 'no exhaustion (now 1)'; }, short: 'exhaustion −1', synonyms: ['less exhausted', 'rest', 'long rest'], icon: 'activity', group: 'Pawn ▸ Conditions', menu: true, cls: 'pawn', when: (ctx) => is('pawn')(ctx) && touchable(ctx) && ctx.sel.some(p => exhOf(p) > 0), run: (ctx) => app.setExhaustion(ctx.sel, (p) => exhOf(p) - 1) });
+  add({ id: 'pawn.exhaustion', title: 'Exhaustion level…', synonyms: ['exhaustion level'], icon: 'activity', group: 'Pawns', cls: 'pawn', args: [{ name: 'level' }],
+    parse: (text, ctx) => { const m = String(text).trim().match(/^(?:exhaustion|exhausted)(?:\s+(?:level\s+)?|\s*=\s*)(\d)$/i); return m && +m[1] <= CO.EXHAUSTION_MAX && ctx.sel.length && ctx.sel.every(e => e.kind === 'token') ? { n: +m[1] } : null; },
+    chips: (a) => ['exhaustion', a.n ? String(a.n) : 'none'], when: (ctx) => is('pawn')(ctx) && touchable(ctx), run: (ctx, a) => a ? app.setExhaustion(ctx.sel, () => a.n) : app.emit('bar.open', 'exhaustion ') });
+  // A CONDITION TW HAS NO WORD FOR (Harry 2026-10-29: "missing status effects that come over can just be a text label"):
+  // typed in the bar, "condition hexed" (or "status blessed", "+ hasted"? no: only the words), stored as typed (cleaned,
+  // 24 characters at most: core/conditions.js) and drawn as a small text label on the orbit ring. The Conditions arc's
+  // last entry, "Other…", fills the bar with "condition " and puts the cursor there. Each one already on the selection is
+  // an entry of its own ("✓ Hexed") whose press takes it off, so the ring clears them as it clears TW's words.
+  add({ id: 'pawn.cond.add', title: 'Add a condition…', synonyms: ['condition', 'status', 'status effect', 'add condition', 'custom condition'], icon: 'plus', group: 'Pawns', cls: 'pawn', args: [{ name: 'condition' }],
+    parse: (text, ctx) => { const m = String(text).match(/^\s*(?:add\s+)?(?:condition|status(?:\s+effect)?)\s+(.+)$/i); const w = m && CO.normCondition(m[1]); return w && ctx.sel.length && ctx.sel.every(e => e.kind === 'token') ? { word: w } : null; },
+    chips: (a) => ['condition', a.word], when: (ctx) => is('pawn')(ctx) && touchable(ctx), run: (ctx, a) => a?.word ? app.setCondition(ctx.sel, a.word, true) : app.emit('bar.open', 'condition ') });
+  add({ id: 'pawn.cond.remove', title: 'Remove a condition…', synonyms: ['remove condition', 'end condition'], icon: 'minus', group: 'Pawns', cls: 'pawn', args: [{ name: 'condition' }],
+    parse: (text, ctx) => { const m = String(text).match(/^\s*(?:remove|end|take off|drop)\s+(?:the\s+)?(?:condition|status)\s+(.+)$/i); const w = m && CO.normCondition(m[1]); return w && ctx.sel.some(e => (e.conditions || []).some(c => CO.condKey(c) === CO.condKey(w))) ? { word: w } : null; },
+    chips: (a) => ['remove condition', a.word], when: (ctx) => myPawns(ctx) && figPawns(ctx).some(p => (p.conditions || []).length), run: (ctx, a) => a?.word ? app.setCondition(ctx.sel, a.word, false) : app.emit('bar.open', 'remove condition ') });
+  // AN AURA (2026-10-30; core/aura.js, client/aurafx.js): ☰ ▸ Aura holds Aura up, Aura down, Aura off (while lit) and the
+  // six colours (a colour picked with no aura lights it, glowing). Typed: "aura 3", "aura up", "aura down", "aura off",
+  // "aura blue", "aura 4 red", "aura burning", "aura emblem dragons". Its owner and the GM, as conditions.
+  const auraLv = (ctx) => Math.max(0, ...ctx.sel.map(p => AU.auraLevelOf(p))), lvName = (n) => `${n}: ${AU.AURA_LEVELS[n]}`;
+  const auraWhen = (ctx) => is('pawn')(ctx) && touchable(ctx);
+  add({ id: 'pawn.aura.up', title: (ctx) => { const n = auraLv(ctx); return n >= AU.AURA_MAX ? `Aura ${lvName(n)} (most)` : `Aura up: ${lvName(n + 1)}${n ? ` (now ${n})` : ''}`; }, short: 'Aura up', synonyms: ['aura up', 'brighter aura', 'more aura', 'anima', 'anima banner', 'glow'], icon: 'chevrons-up', group: 'Pawn ▸ Aura', menu: true, cls: 'pawn', when: auraWhen, run: (ctx) => app.setAura(ctx.sel, { delta: 1 }) });
+  add({ id: 'pawn.aura.down', title: (ctx) => { const n = auraLv(ctx); return n > 1 ? `Aura down: ${lvName(n - 1)} (now ${n})` : 'Aura down: none (now 1)'; }, short: 'Aura down', synonyms: ['aura down', 'dimmer aura', 'less aura'], icon: 'chevrons-down', group: 'Pawn ▸ Aura', menu: true, cls: 'pawn', when: (ctx) => auraWhen(ctx) && auraLv(ctx) > 0, run: (ctx) => app.setAura(ctx.sel, { delta: -1 }) });
+  add({ id: 'pawn.aura.off', title: 'Aura off', short: 'Aura off', synonyms: ['aura off', 'no aura', 'put out aura'], icon: 'minus', group: 'Pawn ▸ Aura', menu: true, cls: 'pawn', when: (ctx) => auraWhen(ctx) && auraLv(ctx) > 0, run: (ctx) => app.setAura(ctx.sel, { level: 0 }) });
+  for (const k of AU.AURA_COLOR_IDS) { const nm = AU.AURA_COLORS[k].name, Nm = nm[0].toUpperCase() + nm.slice(1);
+    add({ id: `pawn.aura.color.${k}`, title: (ctx) => `${ctx.sel.every(p => AU.auraLevelOf(p) > 0 && AU.auraColor(p) === k) ? '✓ ' : ''}${Nm} aura`, synonyms: [`aura ${nm}`, `${nm} aura`], icon: 'droplet', group: 'Pawn ▸ Aura', menu: true, cls: 'pawn', when: auraWhen, run: (ctx) => app.setAura(ctx.sel, { color: k }) }); }
+  add({ id: 'pawn.aura', title: 'Aura…', synonyms: ['aura', 'anima', 'anima banner', 'glow', 'radiance'], icon: 'sparkles', group: 'Pawns', cls: 'pawn', args: [{ name: 'aura' }],
+    parse: (text, ctx) => { const a = AU.parseAura(text); return a && ctx.sel.length && ctx.sel.every(e => e.kind === 'token') ? { change: a } : null; },
+    chips: (a) => ['aura', a.change.level != null ? lvName(a.change.level) : a.change.delta > 0 ? 'up' : a.change.delta < 0 ? 'down' : '', a.change.color ? AU.AURA_COLORS[a.change.color].name : '', a.change.emblem != null ? `emblem ${a.change.emblem || 'none'}` : ''].filter(Boolean),
+    when: auraWhen, run: (ctx, a) => a?.change ? app.setAura(ctx.sel, a.change) : app.emit('bar.open', 'aura ') });
+  const otherWords = (ctx) => { const seen = new Map(); for (const p of ctx.sel) for (const w of p.conditions || []) { if (CONDITIONS.includes(w) || CO.exhaustionLevel(w)) continue; const k = CO.condKey(w); if (!seen.has(k)) seen.set(k, w); } return [...seen.values()]; };
+  for (let i = 0; i < OTHER_SLOTS; i++) add({ id: `pawn.cond.other.${i}`, title: (ctx) => { const w = otherWords(ctx)[i]; return w ? `✓ ${w}` : ''; }, short: undefined, synonyms: [], icon: 'tag', group: 'Pawn ▸ Conditions', menu: true, cls: 'pawn', hidden: true, when: (ctx) => is('pawn')(ctx) && touchable(ctx) && otherWords(ctx).length > i, run: (ctx) => { const w = otherWords(ctx)[i]; if (w) app.setCondition(ctx.sel, w, false); } });
+  add({ id: 'pawn.cond.other', title: 'Other… (type a condition)', short: 'other…', synonyms: ['other condition', 'type a condition'], icon: 'pencil', group: 'Pawn ▸ Conditions', menu: true, cls: 'pawn', when: (ctx) => is('pawn')(ctx) && touchable(ctx), run: () => app.emit('bar.open', 'condition ') });
   // INDICATORS: eight persistent markers over a pawn, WoW's raid markers; one per pawn, seen by every seat, cleared here
   for (const [key, label] of MARKS) add({ id: `pawn.mark.${key}`, title: (ctx) => `${ctx.sel.every(p => p.mark === key) ? '✓ ' : ''}${label}`, short: label, synonyms: [`indicator ${label}`, `mark ${label}`, 'marker', 'raid marker'], icon: 'star', pic: () => markUrl(key), group: 'Pawn ▸ Indicators', menu: true, cls: 'pawn', when: pawns, run: (ctx) => app.setMark(ctx.sel, ctx.sel.every(p => p.mark === key) ? '' : key) });
   add({ id: 'pawn.mark.none', title: 'Clear the indicator', short: 'Clear', synonyms: ['clear indicator', 'clear mark', 'unmark', 'no marker'], icon: 'x', group: 'Pawn ▸ Indicators', menu: true, cls: 'pawn', when: (ctx) => pawns(ctx) && ctx.sel.some(p => p.mark), run: (ctx) => app.setMark(ctx.sel, '') });
@@ -216,8 +298,8 @@ export function defineCommands(R, app) {
   add({ id: 'chat.say', title: 'Say…', synonyms: ['chat', 'talk', 'tell'], icon: 'message-square', group: 'Talk', cls: 'chat',
     parse: (text) => { const m = text.match(/^say\s+(.+)/i); return m ? { text: m[1] } : null; }, chips: (a) => ['say', a.text], run: (ctx, a) => a?.text && app.say(a.text) });
   add({ id: 'chat.roll', title: 'Roll dice…', synonyms: ['roll', 'dice', 'd20'], icon: 'dices', group: 'Talk', cls: 'chat',
-    parse: (text) => { const m = text.match(/^(?:roll\s+|\/r\s+)?(\d*d\d+.*)$/i); const p = m && parseDice(m[1]); return p ? { expr: m[1], label: p.label, terms: p.terms } : rollWords(text); },
-    chips: (a) => ['roll', ...a.label.split(/(?=[+-])/).map(s => s.trim()), ...(a.why ? [a.why] : [])], run: (ctx, a) => a?.expr && app.roll(a.expr, a.why) });
+    parse: (text) => { const m = text.match(/^(?:roll\s+|\/r\s+)?(\d*d\d+.*)$/i); const p = m && parseDice(m[1]); return p ? { expr: m[1], label: p.label, terms: p.terms } : gameRoll(text) || rollWords(text); },
+    chips: (a) => ['roll', ...(a.game ? [a.label] : a.label.split(/(?=[+-])/).map(s => s.trim())), ...(a.why ? [a.why] : [])], run: (ctx, a) => a?.expr && app.roll(a.expr, a.why) });
   // WHISPER: a private line to one person at the table ("whisper Mira meet me outside"). Not a command to the relay's
   // log: surfaces/chat.js app.whisper. The Pawns menu's party rows open the bar on "whisper <name> ".
   const whisperTo = (text) => {
@@ -245,6 +327,13 @@ export function defineCommands(R, app) {
     parse: (text) => { const m = text.match(/^build\s+(?:an?\s+)?([a-z' &]+?)\s+(\d{1,2})\s*[x×]\s*(\d{1,2})(?:\s+seed\s+(\d+))?(?:\s+(\d)\s*(?:storeys?|stories|floors?|levels?))?\s*$/i); const node = m && app.buildingNode(m[1]); return node ? { node, w: +m[2], d: +m[3], seed: m[4] ? +m[4] : undefined, storeys: m[5] ? +m[5] : undefined } : null; },
     chips: (a) => ['build', a.node.label, `${a.w * 5} × ${a.d * 5} ft`, ...(a.seed ? [`seed ${a.seed}`] : []), ...(a.storeys ? [`${a.storeys} storeys`] : [])],
     run: (ctx, a) => a?.node ? app.buildAt(a.node, a.w, a.d, { seed: a.seed, storeys: a.storeys }) : app.emit('bar.open', 'build inn 12x8') });
+  // A HILL OF A HEIGHT (2026-10-24): "hill 20 ft", "mound 10 ft": the hill tool, drawing hills that high over the ground
+  // they go on (the Build tray's Hill draws them one storey up: 10 ft). Whole storeys only since 2026-10-26 (Harry: "5-foot
+  // hills can be done as objects, sort of like tables": a low rise is a thing to stand on, not a terrace)
+  add({ id: 'build.hill.step', title: 'Draw a hill of a height: hill 20 ft', short: 'Hill of a height', synonyms: ['low hill', 'high hill', 'hill of a height', 'small hill'], icon: 'chevrons-up', img: 'room-hill', group: 'Build', cls: 'room', hint: 'hill 20 ft',
+    parse: (text, ctx) => { if (hill(ctx)) return null; /* (a hill selected: "hill 20 ft" is ITS height, room.hill.height.20) */ const m = String(text).trim().match(/^(?:a\s+)?(?:hill|mound|terrace|rise|knoll|plateau|hillock|raised? ground|raise the ground)\s+(\d{1,2})\s*(?:ft|feet|foot|')?(?:\s+(?:high|up|tall))?$/i); const ft = m && +m[1]; return ft && ft % HT.STOREY === 0 && ft >= HT.STOREY && ft <= 60 ? { ft } : null; },
+    chips: (a) => ['hill', `${a.ft} ft up`],
+    run: (ctx, a) => a?.ft ? app.modes.roomTool('hill', { step: a.ft }) : app.emit('bar.open', 'hill 20 ft') });
   add({ id: 'room.reroll', title: 'Re-roll room (keeps pinned)', short: 'Re-roll', synonyms: ['reroll', 'regenerate', 'new seed', 'roll again', 'dice'], icon: 'dice-5', group: 'Room', menu: true, cls: 'room', ring: { kinds: ['room'], slot: 12 }, when: (ctx) => !!room(ctx) && !room(ctx).locked, run: (ctx) => app.rerollRoom(room(ctx)) });
   // turn a room a quarter turn about its centre, its contents with it (Harry 2026-10-05); the ring's turn button, where a thing's is
   add({ id: 'room.rotate', title: 'Turn room 90°', short: 'Turn 90°', synonyms: ['rotate room', 'turn room', 'spin room', 'quarter turn'], icon: 'rotate-cw', keys: ['R'], group: 'Room', menu: true, cls: 'room', ring: { kinds: ['room'], slot: 10 }, when: (ctx) => !!room(ctx) && !room(ctx).locked, run: (ctx) => app.rotateRoom(room(ctx), 1) });
@@ -257,36 +346,99 @@ export function defineCommands(R, app) {
   add({ id: 'room.fog', title: 'Fog height…', short: 'Fog height', synonyms: ['fog', 'mist', 'no fog', 'fog height', 'haze'], icon: 'cloud-fog', group: 'Room', menu: true, cls: 'room', when: (ctx) => !!room(ctx) && !room(ctx).locked, run: (ctx) => app.emit('ring.fog', room(ctx)) });
   // a tall room (a great hall, a nave): ONE room spanning several storeys (core room.tall); refused, with the reason, when a room above is in the way
   const setTall = (r, d) => { const n = (r.recipe.tall || 1) + d; if (n < 1) return app.toast('It is one storey tall already', true); if (n > 6) return app.toast('Six storeys is as tall as a room goes', true); return app.dispatch('room.tall', { id: r.id, tall: n }); };
-  add({ id: 'room.height.taller', title: 'Taller (one more storey of height)', short: 'Taller', synonyms: ['tall room', 'great hall', 'high ceiling', 'raise ceiling', 'nave'], icon: 'chevrons-up', group: 'Room', menu: true, cls: 'room', when: (ctx) => !!room(ctx) && !room(ctx).locked && (room(ctx).recipe.tall || 1) < 6, run: (ctx) => setTall(room(ctx), 1) });
-  add({ id: 'room.height.shorter', title: 'Shorter (one storey less)', short: 'Shorter', synonyms: ['lower ceiling', 'less tall'], icon: 'chevrons-down', group: 'Room', menu: true, cls: 'room', when: (ctx) => !!room(ctx) && !room(ctx).locked && (room(ctx).recipe.tall || 1) > 1, run: (ctx) => setTall(room(ctx), -1) });
+  add({ id: 'room.height.taller', title: 'Taller (one more storey of height)', short: 'Taller', synonyms: ['tall room', 'great hall', 'high ceiling', 'raise ceiling', 'nave'], icon: 'chevrons-up', group: 'Room', menu: true, cls: 'room', when: (ctx) => !!room(ctx) && !room(ctx).locked && !hill(ctx) && (room(ctx).recipe.tall || 1) < 6, run: (ctx) => setTall(room(ctx), 1) });
+  add({ id: 'room.height.shorter', title: 'Shorter (one storey less)', short: 'Shorter', synonyms: ['lower ceiling', 'less tall'], icon: 'chevrons-down', group: 'Room', menu: true, cls: 'room', when: (ctx) => !!room(ctx) && !room(ctx).locked && !hill(ctx) && (room(ctx).recipe.tall || 1) > 1, run: (ctx) => setTall(room(ctx), -1) });
+  // A HILL (2026-10-24, docs/VERTICAL.md "Terrain"): its height in whole storeys (10 ft = one storey up, the default; 5-ft
+  // steps until 2026-10-26: a 5 or 15-ft hill from before goes to the next whole storey up or down), its
+  // banks grass or rock. Each is one command (the pawns on it ride along: main.js setHillHeight); the bar finds them too.
+  const hill = (ctx) => { const r = room(ctx); return r && HT.isTerrain(r.recipe) ? r : null; };
+  const hillY = (ctx) => HT.roomY(hill(ctx)?.recipe);
+  add({ id: 'room.hill.height.raise', title: 'Raise the hill 10 ft', short: 'Raise 10 ft', synonyms: ['raise hill', 'higher', 'raise ground', 'taller hill', 'hill up', 'raise'], icon: 'chevrons-up', group: 'Hill ▸ Height', menu: true, cls: 'room', when: (ctx) => !!hill(ctx) && !hill(ctx).locked && hillY(ctx) < 60, run: (ctx) => app.raiseHill(hill(ctx), 1) });
+  add({ id: 'room.hill.height.lower', title: 'Lower the hill 10 ft', short: 'Lower 10 ft', synonyms: ['lower hill', 'lower', 'lower ground', 'smaller hill', 'hill down', 'flatten'], icon: 'chevrons-down', group: 'Hill ▸ Height', menu: true, cls: 'room', when: (ctx) => !!hill(ctx) && !hill(ctx).locked && hillY(ctx) > HT.STOREY, run: (ctx) => app.raiseHill(hill(ctx), -1) });
+  for (const ft of HT.HILL_STEPS) add({ id: `room.hill.height.${ft}`, title: `Hill ${ft} ft high${ft === 10 ? ' (one storey up)' : ft === 20 ? ' (two storeys up)' : ''}`, short: `${ft} ft`, synonyms: [`hill ${ft} ft`, `${ft} ft hill`, `${ft} feet`, `hill height ${ft}`], icon: ft > hillY({}) ? 'chevrons-up' : 'chevrons-down', group: 'Hill ▸ Height', menu: true, cls: 'room',
+    when: (ctx) => !!hill(ctx) && !hill(ctx).locked && hillY(ctx) !== ft, run: (ctx) => app.setHillHeight(hill(ctx), ft) });
+  add({ id: 'room.hill.cliff', toggle: { of: (ctx) => hill(ctx) ? [hill(ctx)] : [], is: (e) => !!e.cliff, on: ['Grass banks (its sides slope, grassed)', 'layers'], off: ['Rock sides (its banks are steep rock faces)', 'brick-wall'], mix: 'Rock sides / grass banks' }, short: 'Rock sides', synonyms: ['rock face', 'rock faces', 'cliff', 'cliffs', 'crag', 'rocky', 'stone sides', 'grass banks', 'grassy', 'slopes', 'banks'], icon: 'brick-wall', group: 'Hill', menu: true, cls: 'room',
+    when: (ctx) => !!hill(ctx) && !hill(ctx).locked, run: (ctx) => app.setHillCliff(hill(ctx), !hill(ctx).cliff) });
   // a stair joining the room to the storey below it (a cellar: to the storey above): planned like the automatic one
   // STAIRS UP / STAIRS DOWN (Harry 2026-10-11): a stair, spiral or ladder leads up from the level it was put on; this
   // switches it to lead down from that level instead (same place in plan, one flight lower), and back. The button names
   // what you would GET. Counted from the level you are on (core/stairs.js stairSide).
   add({ id: 'stair.flip', toggle: { of: (ctx) => ctx.sel.filter(app.ST.isConnector), is: (e) => app.stairSide(e) === 'down', on: ['Stairs up (it leads up from this level)', 'arrow-up'], off: ['Stairs down (it leads down from this level)', 'arrow-down'], mix: 'Switch stairs up / down' }, short: 'Stairs up / down', synonyms: ['stairs down', 'stairs up', 'flip stair', 'go down', 'go up', 'downstairs', 'upstairs', 'ladder down', 'switch direction'], group: 'Arrange', menu: true, cls: 'object', when: (ctx) => ctx.sel.length > 0 && ctx.sel.every(app.ST.isConnector), run: (ctx) => app.flipStairs(ctx.sel.filter(app.ST.isConnector)) });
-  add({ id: 'room.stair', title: 'Add stair (joins this room to the storey below; a cellar: above)', short: 'Add stair', synonyms: ['stairs', 'staircase', 'ladder', 'steps', 'way up', 'way down', 'connect floors'], icon: 'move-vertical', group: 'Room', menu: true, cls: 'object', when: (ctx) => !!room(ctx) && ctx.gm && (room(ctx).recipe.y || 0) !== (app.entities()[room(ctx).building]?.base || 0), run: (ctx) => app.addStair(room(ctx)) });
+  add({ id: 'room.stair', title: 'Add stair (joins this room to the storey below; a cellar: above)', short: 'Add stair', synonyms: ['stairs', 'staircase', 'ladder', 'steps', 'way up', 'way down', 'connect floors'], icon: 'move-vertical', group: 'Room', menu: true, cls: 'object', when: (ctx) => !!room(ctx) && ctx.gm && !HT.isTerrain(room(ctx).recipe) && !HT.meetsGround(app.entities(), room(ctx)), run: (ctx) => app.addStair(room(ctx)) }); // (a room that meets the ground needs none: on a hill too, 2026-10-24; per room since 2026-10-26)
   add({ id: 'room.replay', title: 'Replay spawn animation', short: 'Replay spawn', synonyms: ['animate', 'spawn in'], icon: 'play', group: 'Room', menu: true, when: (ctx) => !!room(ctx), run: (ctx) => app.replaySpawn(room(ctx)) });
   // ---------------- roofs (storeys, Stage F): a roof is selectable and editable like a room ----------------
   // The selection is 'roof:<room id>' (main.js roofItem); every command writes the room's roof choices (room.set roof)
   // or the building's style (building.set roof), so undo, the relay, other seats and AI seats all get it.
   const roof = (ctx) => ctx.one?.kind === 'roof' ? ctx.one : null;
-  const ROOFS = [['thatch', 'Thatch', 'roofing-thatch'], ['tile', 'Clay tile', 'roofing-tile-clay'], ['slate', 'Slate shingle', 'roofing-slate'], ['shingle', 'Wood shingle', 'roofing-shingle-wood'], ['flat', 'Flat', null]];
-  const swatch = (cat) => { const k = cat && app.lib.objects[cat]?.skus.find(x => x.kind === 'flat' && x.url); return k ? `${T.base}${T.look.deliver?.(k.url) ?? k.url}` : null; };
-  for (const [key, label, cat] of ROOFS) {
-    add({ id: `roof.style.${key}`, short: label, title: `Roof: ${label.toLowerCase()}`, synonyms: ['roof', 'roofing', key, label], icon: 'house', pic: () => swatch(cat), group: 'Roof ▸ Style', menu: true, cls: 'room',
+  // the pitched styles (marble: the temple roof), then the five FLAT SURFACES (2026-10-27: a flat style makes the roof flat; core/height.js
+  // FLAT_STYLES). 'flat', the one stand-in deck before, is a word for the plank deck: it has no command of its own.
+  const ROOFS = [['thatch', 'Thatch', 'roofing-thatch'], ['tile', 'Clay tile', 'roofing-tile-clay'], ['slate', 'Slate shingle', 'roofing-slate'], ['shingle', 'Wood shingle', 'roofing-shingle-wood'], ['marble', 'Marble', 'roofing-marble', 'roof/roofing-marble.webp'],
+    ...HT.FLAT_STYLES.map(k => [k, `Flat: ${RF.ROOF_STYLES[k].label.toLowerCase()}`, null, RF.ROOF_STYLES[k].tex])];
+  // (a style's picture is the library's flat; marble's and the flat surfaces' live beside the roof sections, data/roof)
+  const swatch = (cat, file) => { const k = cat && app.lib.objects[cat]?.skus.find(x => x.kind === 'flat' && x.url); return k ? `${T.base}${T.look.deliver?.(k.url) ?? k.url}` : file ? RF.roofDataUrl(file) : null; };
+  for (const [key, label, cat, tex] of ROOFS) {
+    add({ id: `roof.style.${key}`, short: label, title: `Roof: ${label.toLowerCase()}`, synonyms: ['roof', 'roofing', key, label, ...(HT.isFlatStyle(key) ? ['flat', 'flat roof'] : [])], icon: 'house', pic: () => swatch(cat, tex), group: 'Roof ▸ Style', menu: true, cls: 'room',
       when: (ctx) => !!roof(ctx) && !roof(ctx).locked && roof(ctx).style !== key, run: (ctx) => app.dispatch('room.set', { id: roof(ctx).room, roof: { style: key } }) });
-    add({ id: `building.roof.${key}`, short: label, title: `Building's roofs: ${label.toLowerCase()}`, synonyms: ['roof', 'roofing', key, label], icon: 'house', pic: () => swatch(cat), group: 'Building ▸ Roof style', menu: true, cls: 'room',
-      when: (ctx) => ctx.one?.kind === 'building' && ctx.one.roof !== key, run: (ctx) => app.dispatch('building.set', { id: ctx.one.id, roof: key }) });
+    add({ id: `building.roof.${key}`, short: label, title: `Building's roofs: ${label.toLowerCase()}`, synonyms: ['roof', 'roofing', key, label, ...(HT.isFlatStyle(key) ? ['flat', 'flat roof', 'flat roofs'] : [])], icon: 'house', pic: () => swatch(cat, tex), group: 'Building ▸ Roof style', menu: true, cls: 'room',
+      when: (ctx) => ctx.one?.kind === 'building' && HT.roofStyleKey(ctx.one.roof) !== key, run: (ctx) => app.dispatch('building.set', { id: ctx.one.id, roof: key }) });
   }
+  // THE EDGE OF A FLAT ROOF (2026-10-27, Harry: "castles want like edges with crenellations (basically as railings) and
+  // like little turret type things"): battlements, a stone parapet, a timber railing or nothing round the open edges of
+  // the roof's flat part; corner turrets (bartizans) on its outer corners. Per roof (room.roof.edge / .turrets); with a
+  // building selected, every roof of the building. Like railings they stop dice, never sight (docs/VERTICAL.md).
+  const edgeRoofs = (ctx) => roof(ctx) ? [roof(ctx)] : ctx.one?.kind === 'building' ? app.roofItemsOf?.(ctx.one.id) || [] : [];
+  const flatRoofs = (ctx) => edgeRoofs(ctx).filter(r => r.flat && !r.locked);
+  const setEdge = (ctx, v) => app.batch(flatRoofs(ctx).map(r => ({ type: 'room.set', args: { id: r.room, roof: v } })));
+  for (const [key, label, icon, words] of [['battlements', 'Battlements', 'castle', ['crenellations', 'merlons', 'crenels']], ['parapet', 'Stone parapet', 'brick-wall', ['ledge', 'low wall']], ['railing', 'Timber railing', 'fence', ['rail', 'handrail']], ['none', 'No edge', 'square', ['open edge', 'bare edge']]])
+    add({ id: `roof.edge.${key}`, short: label, title: `Roof edge: ${label.toLowerCase()}`, synonyms: ['roof edge', 'edge', key, ...words], icon, group: 'Roof ▸ Edge', menu: true, cls: 'room',
+      when: (ctx) => flatRoofs(ctx).length > 0 && flatRoofs(ctx).some(r => r.edge !== key), run: (ctx) => setEdge(ctx, { edge: key }) });
+  add({ id: 'roof.edge.auto', short: 'By the building', title: 'Roof edge: by the building (a castle\'s battlements; a deck\'s railing)', synonyms: ['roof edge', 'auto', 'default edge'], icon: 'house', group: 'Roof ▸ Edge', menu: true, cls: 'room',
+    when: (ctx) => flatRoofs(ctx).some(r => r.ownEdge), run: (ctx) => setEdge(ctx, { edge: 'auto' }) });
+  // the toggle for the ring and the bar ("battlements on" / "battlements off"): off, the edge the roof would have were it
+  // not a castle's (a flagstone roof's parapet)
+  add({ id: 'roof.battlements', toggle: { of: flatRoofs, is: (r) => r.edge === 'battlements', on: ['Battlements off', 'square'], off: ['Battlements on', 'castle'], mix: 'Battlements on all' }, short: 'Battlements', synonyms: ['battlements', 'crenellations', 'crenellated', 'castle edge', 'merlons', 'battlements on', 'battlements off'], group: 'Roof', menu: true, cls: 'room',
+    when: (ctx) => flatRoofs(ctx).length > 0, run: (ctx) => { const on = !flatRoofs(ctx).every(r => r.edge === 'battlements'); app.batch(flatRoofs(ctx).map(r => ({ type: 'room.set', args: { id: r.room, roof: { edge: on ? 'battlements' : r.plainEdge } } }))); } });
+  add({ id: 'roof.turrets', toggle: { of: flatRoofs, is: (r) => !!r.turrets, on: ['Corner turrets off', 'square'], off: ['Corner turrets on', 'castle'], mix: 'Corner turrets on all' }, short: 'Turrets', synonyms: ['turrets', 'turret', 'bartizans', 'bartizan', 'corner turrets', 'corner towers', 'turrets on', 'turrets off'], group: 'Roof', menu: true, cls: 'room',
+    when: (ctx) => flatRoofs(ctx).length > 0, run: (ctx) => { const on = !flatRoofs(ctx).every(r => r.turrets); app.batch(flatRoofs(ctx).map(r => ({ type: 'room.set', args: { id: r.room, roof: { turrets: on } } }))); } });
   add({ id: 'roof.style.auto', short: "The building's", title: "Roof: the building's style", synonyms: ['roof', 'auto', 'default'], icon: 'house', group: 'Roof ▸ Style', menu: true, cls: 'room', when: (ctx) => !!roof(ctx) && !roof(ctx).locked && !!roof(ctx).own, run: (ctx) => app.dispatch('room.set', { id: roof(ctx).room, roof: { style: 'auto' } }) });
   add({ id: 'building.roof.auto', short: 'By its walls', title: "Building's roofs: by its walls", synonyms: ['roof', 'auto', 'default'], icon: 'house', group: 'Building ▸ Roof style', menu: true, cls: 'room', when: (ctx) => ctx.one?.kind === 'building' && !!ctx.one.roof, run: (ctx) => app.dispatch('building.set', { id: ctx.one.id, roof: 'auto' }) });
   // a die, as on a room: new dormers and finial (the chimneys stay over their fireplaces)
   add({ id: 'roof.reroll', title: 'Re-roll the roof (new dormers and finial)', short: 'Re-roll', synonyms: ['reroll roof', 'dormer', 'dormers', 'finial', 'roof dice'], icon: 'dice-5', group: 'Roof', menu: true, cls: 'room', ring: { kinds: ['roof'], slot: 12 },
     when: (ctx) => !!roof(ctx) && !roof(ctx).locked, run: (ctx) => app.dispatch('room.set', { id: roof(ctx).room, roof: { seed: 1 + Math.floor(Math.random() * 1e6) } }) });
-  add({ id: 'roof.hide', title: 'Hide roof (this room goes without one)', short: 'Hide roof', synonyms: ['remove roof', 'no roof', 'roof off', 'open top'], icon: 'eye-off', group: 'Roof', menu: true, cls: 'room',
-    when: (ctx) => !!roof(ctx) && !roof(ctx).locked, run: (ctx) => { const r = roof(ctx); app.select([]); app.dispatch('room.set', { id: r.room, roof: { off: true } }); app.toast('Roof hidden. The command bar has "Show roof" (undo also brings it back)'); } });
-  add({ id: 'room.roofShow', title: 'Show roof (this room has none)', short: 'Show roof', synonyms: ['roof', 'add roof', 'roof back', 'restore roof'], icon: 'house', group: 'Room', menu: true, cls: 'room',
+  // REMOVE THE ROOF: the room is OPEN TO THE SKY (Harry 2026-10-27: "deletable so rooms can be open to the sky"). The same
+  // as the Delete key on a selected roof (room.roof.off; one undo puts it back). It was "Hide roof", which read as a
+  // view switch; it never was one: the room has no roof, for everyone. (The id stays roof.hide: chords, ring tables.)
+  add({ id: 'roof.hide', title: 'Remove roof (the room is open to the sky)', short: 'Remove roof', synonyms: ['delete roof', 'remove roof', 'no roof', 'roof off', 'take off roof', 'take the roof off', 'open to the sky', 'open to sky', 'open sky', 'open top', 'open roof', 'roofless', 'courtyard', 'hide roof'], icon: 'trash-2', group: 'Roof', menu: true, cls: 'room',
+    when: (ctx) => !!roof(ctx) && !roof(ctx).locked, run: () => app.deleteSelection() });
+  add({ id: 'room.roofShow', title: 'Put the roof back (this room is open to the sky)', short: 'Roof back', synonyms: ['roof', 'add roof', 'roof back', 'restore roof', 'show roof', 'put roof back', 'close roof', 'cover room', 'not open to the sky'], icon: 'house', group: 'Room', menu: true, cls: 'room',
     when: (ctx) => !!room(ctx) && !!room(ctx).roof?.off, run: (ctx) => app.dispatch('room.set', { id: room(ctx).id, roof: { off: false } }) });
+  // TURN A ROOF 90 DEGREES (Harry 2026-10-27: "rotate able on the 90 degree, so profiles can work"): the ridge runs the
+  // other way and the gable ends face the other pair of walls (room.roof.axis; main.js app.turnRoof). R, the ring's
+  // turn handle (a click: a quarter turn; a drag: snaps to quarter turns), the bar. A flat roof has no ridge to turn.
+  add({ id: 'roof.turn', title: 'Turn roof 90° (the ridge runs the other way)', short: 'Turn roof', synonyms: ['turn roof', 'rotate roof', 'spin roof', 'roof 90', 'turn the roof', 'rotate the roof', 'ridge', 'turn ridge', 'gable end', 'gable ends', 'profile', 'quarter turn'], icon: 'rotate-cw', keys: ['R'], group: 'Roof', menu: true, cls: 'room', ring: { kinds: ['roof'], slot: 10, drag: 'roofturn' },
+    when: (ctx) => !!roof(ctx) && !roof(ctx).locked && !!roof(ctx).axis, run: (ctx) => app.turnRoof(roof(ctx), 1) });
+  // A ROOF'S TRIM (Harry 2026-10-27: "those chimneys and windows and stuff that stick out of roofs should be selectable &
+  // moveable objects as well"): a chimney, a dormer or a finial is selected by a click ('trim:<room>|<key>', main.js
+  // trimItem), dragged along the roof (input.js: a chimney stays upright on the roof, a dormer on its own slope), removed
+  // by Delete or its ☰'s Remove, and put back where the roof puts it. Each is one room.set (room.roof.trim): one undo.
+  const trim = (ctx) => ctx.one?.kind === 'trim' ? ctx.one : null;
+  add({ id: 'trim.remove', title: (ctx) => `Remove ${(trim(ctx)?.name || 'this piece').toLowerCase()} (undo brings it back)`, short: 'Remove', synonyms: ['remove chimney', 'delete chimney', 'remove dormer', 'delete dormer', 'remove window', 'remove finial', 'no chimney'], icon: 'trash-2', group: 'Roof', menu: true, cls: 'room',
+    when: (ctx) => !!trim(ctx) && !trim(ctx).locked, run: () => app.deleteSelection() });
+  add({ id: 'trim.reset', title: 'Put it back where the roof puts it', short: 'Put back', synonyms: ['reset chimney', 'reset dormer', 'move back', 'put back', 'where it was'], icon: 'undo-2', group: 'Roof', menu: true, cls: 'room', ring: { kinds: ['trim'], slot: 12 },
+    when: (ctx) => !!trim(ctx) && !trim(ctx).locked && trim(ctx).moved, run: (ctx) => app.dispatch('room.set', { id: trim(ctx).room, roof: { trim: { [trim(ctx).key]: null } } }) });
+  // A ROOF'S SHAPE (2026-10-27): gable, hip or flat, or the automatic choice (room.roof.shape). Separate from its STYLE (what
+  // it is covered with): a flat-shaped roof wears the flat surface whatever its style; the style 'flat' is flat whatever
+  // the shape. A building's: every roof of it whose room has no shape of its own (building.set roofShape).
+  const SHAPES = [['gable', 'Gable', 'Gable roof (two slopes, a triangle at each end)', ['gable', 'gabled', 'gable roof', 'pitched', 'pitched roof', 'a-frame', 'peaked']], ['hip', 'Hip', 'Hip roof (slopes on all four sides)', ['hip', 'hipped', 'hip roof', 'hipped roof', 'four sided']], ['flat', 'Flat', 'Flat roof (a deck to stand on)', ['flat', 'flat roof', 'flat top', 'deck', 'roof deck']]];
+  const roofOwnShape = (ctx) => roof(ctx)?.ownShape || null;
+  for (const [key, label, title, syn] of SHAPES) {
+    add({ id: `roof.shape.${key}`, short: label, title: `Shape: ${title.toLowerCase()}`, synonyms: ['roof shape', 'shape', ...syn], icon: key === 'flat' ? 'square-dashed' : 'house', group: 'Roof ▸ Shape', menu: true, cls: 'room',
+      when: (ctx) => !!roof(ctx) && !roof(ctx).locked && (roofOwnShape(ctx) ? roofOwnShape(ctx) !== key : roof(ctx).shape !== key), run: (ctx) => app.dispatch('room.set', { id: roof(ctx).room, roof: { shape: key } }) });
+    add({ id: `building.roofShape.${key}`, short: label, title: `Building's roofs: ${label.toLowerCase()}`, synonyms: ['roof shape', 'roofs', ...syn], icon: key === 'flat' ? 'square-dashed' : 'house', group: 'Building ▸ Roof shape', menu: true, cls: 'room',
+      when: (ctx) => ctx.one?.kind === 'building' && ctx.one.roofShape !== key, run: (ctx) => app.dispatch('building.set', { id: ctx.one.id, roofShape: key }) });
+  }
+  add({ id: 'roof.shape.auto', short: 'Automatic', title: 'Shape: automatic (as the building decides)', synonyms: ['roof shape', 'shape auto', 'automatic shape', 'default shape'], icon: 'house', group: 'Roof ▸ Shape', menu: true, cls: 'room', when: (ctx) => !!roof(ctx) && !roof(ctx).locked && !!roofOwnShape(ctx), run: (ctx) => app.dispatch('room.set', { id: roof(ctx).room, roof: { shape: 'auto' } }) });
+  add({ id: 'building.roofShape.auto', short: 'Automatic', title: "Building's roofs: automatic shape", synonyms: ['roof shape', 'automatic shape', 'default shape'], icon: 'house', group: 'Building ▸ Roof shape', menu: true, cls: 'room', when: (ctx) => ctx.one?.kind === 'building' && !!ctx.one.roofShape, run: (ctx) => app.dispatch('building.set', { id: ctx.one.id, roofShape: 'auto' }) });
   add({ id: 'room.delete', title: 'Delete room', icon: 'trash-2', group: 'Room', danger: true, cls: 'room', when: (ctx) => ctx.sel.length > 0 && ctx.sel.every(e => e.kind === 'room' || e.kind === 'building'), run: () => app.deleteSelection() });
 
   // ---------------- build (the Build launcher and menu: surfaces/build.js) ----------------
@@ -306,7 +458,7 @@ export function defineCommands(R, app) {
   // (an area is open or hidden: "Open this area to players" / "Hide this area from players", travel and its lock are in surfaces/areas.js)
   add({ id: 'area.transfer', title: 'Send selection to another area…', synonyms: ['move to area', 'transfer'], icon: 'send', group: 'Areas', cls: 'transfer', when: (ctx) => ctx.sel.some(e => e.kind === 'token' || e.kind === 'object'), run: () => app.emit('bar.open', 'send to ') });
   add({ id: 'people.invite', title: 'Invite a player…', synonyms: ['add player', 'invite'], icon: 'user-plus', group: 'People', cls: 'seat.admin', parse: (text) => { const m = text.match(/^invite\s+(.+)/i); return m ? { name: m[1] } : null; }, chips: (a) => ['invite', a.name],
-    run: async (ctx, a) => { const t = await app.createSeat({ kind: 'human', role: 'player', name: a?.name || 'Player', color: nextColor(app) }); if (t) app.emit('output', { title: `Invite link for ${a?.name || 'Player'}`, text: app.inviteLink(t) }); } });
+    run: async (ctx, a) => { const t = await app.createSeat({ kind: 'human', role: 'player', name: a?.name || 'Player', color: nextColor(app) }); if (t) app.emit('output', { title: `Invite link for ${a?.name || 'Player'}${app.lastPlaceholder?.ok ? ` · ${a?.name || 'Player'}'s pawn is waiting on the table` : ''}`, text: app.inviteLink(t) }); } });
   add({ id: 'people.agent', title: (ctx) => ctx.gm ? 'Create a GM assistant (LLM seat)…' : 'Create my advisor (LLM seat)…', synonyms: ['agent', 'assistant', 'llm', 'advisor', 'ai'], icon: 'bot', group: 'People', cls: 'seat.agent',
     run: async (ctx) => { const t = await app.createSeat({ kind: 'llm', name: ctx.gm ? 'Assistant' : 'Advisor', color: ctx.gm ? '#b48cff' : '#5ad0c0', scope: { areas: '*', classes: ctx.gm ? ['token.move', 'object', 'room', 'chat'] : ['token.move', 'chat'] } }); if (t) app.emit('output', { title: 'Paste this URL into any chat LLM', text: app.cardUrl(t) }); } });
   add({ id: 'people.undoOther', title: 'Undo their last action…', synonyms: ['undo player', 'undo agent'], icon: 'undo-2', group: 'Edit', cls: 'undo', when: (ctx) => ctx.gm, run: () => app.emit('bar.open', 'undo ') });
@@ -339,10 +491,10 @@ export function defineCommands(R, app) {
   // typed: "level 2", "lv -1", "go to level 3": onto that level of the building in focus (the meter's notches)
   add({ id: 'level.goto', title: 'Go to level… (type: level 2)', short: 'Go to level', synonyms: ['go to level', 'floor', 'storey', 'lv', 'level'], icon: 'layers', group: 'View',
     parse: (text) => { const m = text.trim().match(/^(?:go\s*to\s+)?(?:level|lv|floor|storey)\s*(-?\d{1,2})$/i); return m && +m[1] !== 0 ? { n: +m[1] } : null; },
-    chips: (a) => ['go to', `lv ${a.n}`], run: (ctx, a) => { if (!a) return app.emit('bar.open', 'level '); const I = app.levelInfo(), R = app.levelRange(); app.goLevel((R.base || 0) + (a.n > 0 ? a.n - 1 : a.n) * I.step, 'bar'); } });
+    chips: (a) => ['go to', `lv ${a.n}`], run: (ctx, a) => { if (!a) return app.emit('bar.open', 'level '); const I = app.levelInfo(); app.goLevel((a.n > 0 ? a.n - 1 : a.n) * I.step, 'bar'); } });
   add({ id: 'view.turnLeft', title: 'Turn the view left (45°)', synonyms: ['rotate view', 'rotate camera', 'orbit left', 'spin view'], icon: 'rotate-ccw', group: 'View', hint: 'or hold Q', run: () => app.rotateView(null, -45, 0) });
   add({ id: 'view.turnRight', title: 'Turn the view right (45°)', synonyms: ['rotate view', 'rotate camera', 'orbit right', 'spin view'], icon: 'rotate-cw', group: 'View', hint: 'or hold E', run: () => app.rotateView(null, 45, 0) });
-  add({ id: 'view.pipOpen', title: 'Open picture-in-picture (this area)', synonyms: ['pip', 'second view', 'picture in picture', 'mini view', 'inset'], icon: 'picture-in-picture-2', group: 'View', when: () => !app.pip, run: () => app.openPip(app.area()) });
+  add({ id: 'view.pipOpen', title: 'Open picture-in-picture (this area)', synonyms: ['pip', 'second view', 'picture in picture', 'mini view', 'inset'], icon: 'picture-in-picture-2', group: 'View', when: () => !app.pip && app.pipAllowed?.() !== false, run: () => app.openPip(app.area()) }); // (a phone: no PiP, main.js)
 
   // ---------------- whole buildings (the Build tray's Type level: the building tool) ----------------
   for (const n of app.taxonomy?.nodes?.values?.() || []) if (n.level === 'type' && !n.disabled) add({ id: `build.type.${n.id}`, title: `Build a whole ${n.label.toLowerCase()} (drag a rectangle: it is packed with rooms)`, short: n.label, synonyms: [n.label, `${n.label} building`, 'building', 'whole building', 'build'], icon: 'house', group: 'Build', cls: 'room', hint: 'drag a rectangle', run: () => app.modes.buildingTool(n) });
@@ -355,7 +507,7 @@ export function defineCommands(R, app) {
   add({ id: 'area.grid', toggle: { of: () => [1], is: () => rule('grid') !== false, on: ['Hide the grid (this area)', 'layout-grid'], off: ['Show the grid (this area)', 'layout-grid'] }, synonyms: ['grid', 'squares', 'grid lines'], group: 'Area', cls: 'area.admin', run: () => setRule('grid', rule('grid') === false) });
   add({ id: 'area.freeMoves', toggle: { of: () => [1], is: () => rule('freeMoves') !== false, on: ['Lock players\' moves (this area)', 'lock'], off: ['Let players move their pawns (this area)', 'lock-open'] }, synonyms: ['free moves', 'lock moves', 'freeze players', 'players move'], group: 'Area', cls: 'area.admin', run: () => setRule('freeMoves', rule('freeMoves') === false) });
   add({ id: 'area.touch', toggle: { of: () => [1], is: () => rule('touch') !== 'none', on: ['Players may touch nothing (doors, chests, lights)', 'lock'], off: ['Players may open doors, chests and lights', 'lock-open'] }, synonyms: ['players touch', 'lock doors', 'players open'], group: 'Area', cls: 'area.admin', run: () => setRule('touch', rule('touch') === 'none' ? 'open' : 'none') });
-  // Fog of war here (Harry 2026-10-15): this area's own On / Off, or the campaign default (Settings ▸ Global defaults ▸ Vision)
+  // Fog of war here (Harry 2026-10-15): this area's own On / Off, or the campaign default (Settings ▸ Campaign rules ▸ Vision)
   const ownFog = () => app.sync.campaign?.areas.find(x => x.id === app.area())?.settings?.fogOfWar;
   for (const [id, v, title, syn] of [['on', true, 'Fog of war on here', ['fog', 'fog on', 'vision on', 'turn on fog here']], ['off', false, 'Fog of war off here', ['fog', 'fog off', 'vision off', 'no fog here', 'turn off fog here']], ['default', null, 'Fog of war: campaign default here', ['fog', 'fog default', 'vision', 'inherit fog', 'default here']]])
     add({ id: `area.fogOfWar.${id}`, title, synonyms: ['fog of war', 'vision fog', ...syn], icon: 'eye', group: 'Area', cls: 'area.admin', when: () => v === null ? typeof ownFog() === 'boolean' : ownFog() !== v, run: () => setRule('fogOfWar', v) });
@@ -363,12 +515,49 @@ export function defineCommands(R, app) {
   const ownDark = () => app.sync.campaign?.areas.find(x => x.id === app.area())?.settings?.darkness;
   for (const [id, v, title, syn] of [['on', true, 'Darkness on here (players see by darkvision and lights)', ['darkness on', 'dark', 'darkvision', 'turn on darkness', 'lights out']], ['off', false, 'Darkness off here', ['darkness off', 'no darkness', 'lit area', 'turn off darkness']], ['default', null, 'Darkness: campaign default here', ['darkness default', 'inherit darkness']]])
     add({ id: `area.darkness.${id}`, title, synonyms: ['darkness', 'dark', ...syn], icon: 'moon', group: 'Area', cls: 'area.admin', when: () => v === null ? typeof ownDark() === 'boolean' : ownDark() !== v, run: () => setRule('darkness', v) });
+  // THE AREA'S GROUND (Harry 2026-10-22: "drag grass onto everything"; core area.ground, client/groundcover.js): one floor
+  // material over all the open ground of this area, under the rooms. "ground grass", "cover ground with cobble", "bare ground"
+  const groundNow = () => app.sync.view?.(app.area())?.ground || null;
+  const matName = (f) => f.replace(/^floor-/, '').replace(/-/g, ' ');
+  app.setGround = (cat) => app.dispatch('area.ground', cat ? { cat } : {});
+  for (const f of app.roomgen.floors) add({ id: `area.ground.${f}`, short: matName(f), title: `Cover all open ground with ${matName(f)}`, preview: () => app.previewOf({ id: f, place: 'tile' }), synonyms: ['ground', 'cover ground', 'open ground', f, matName(f)], icon: 'layout-grid', group: 'Area ▸ Ground', cls: 'area.admin', when: () => groundNow() !== f, run: () => app.setGround(f) });
+  add({ id: 'area.ground.none', title: 'Bare open ground (take the ground material away)', short: 'Bare ground', synonyms: ['ground', 'bare ground', 'no ground', 'clear ground', 'uncover ground', 'ground off', 'plain ground', 'dark ground'], icon: 'layout-grid', group: 'Area ▸ Ground', cls: 'area.admin', when: () => !!groundNow(), run: () => app.setGround(null) });
+  // THE TABLE'S MUSIC (Harry 2026-10-30; client/music.js, docs/UI.md "Music"). The GM picks what plays here, for everyone
+  // ("music", "playlist", "music off", "next track", and one entry per track, added by music.js once tracks.json is in:
+  // "music the black mass"); anyone mutes their own ears ("mute music"). Settings ▸ Area settings ▸ Music is the same.
+  const mus = () => app.music, mval = () => mus()?.value?.() ?? '', hasTracks = () => (mus()?.tracks.length || 0) > 0;
+  const ownMusic = () => { const A = app.sync.campaign?.areas.find(x => x.id === app.area()); return !!A?.settings && 'music' in A.settings; };
+  add({ id: 'music.playlist', title: 'Music here: playlist (every track, shuffled)', short: 'Playlist', synonyms: ['music', 'playlist', 'shuffle', 'music on', 'play music', 'all tracks', 'music playlist'], icon: 'music', group: 'Area ▸ Music', cls: 'area.admin', when: () => hasTracks() && mval() !== 'playlist', run: () => mus().set('playlist') });
+  add({ id: 'music.off', title: 'Music off here', short: 'Music off', synonyms: ['music off', 'stop music', 'no music', 'silence', 'music', 'stop the music'], icon: 'volume-x', group: 'Area ▸ Music', cls: 'area.admin', when: () => !!mus()?.want?.(), run: () => mus().set('') });
+  add({ id: 'music.default', title: 'Music: the campaign default here', short: 'Default music', synonyms: ['music', 'music default', 'default music', 'inherit music'], icon: 'music', group: 'Area ▸ Music', cls: 'area.admin', when: () => ownMusic(), run: () => mus().set('default') });
+  add({ id: 'music.next', title: 'Next track (for everyone)', short: 'Next track', synonyms: ['next track', 'skip', 'skip track', 'next song', 'another song', 'music next', 'next'], icon: 'skip-forward', group: 'Area ▸ Music', cls: 'area.admin', when: () => hasTracks() && !!mus()?.want?.(), run: () => mus().next() });
+  add({ id: 'music.mute', toggle: { of: () => [1], is: () => !!mus()?.muted?.(), on: ['Unmute music (just me)', 'volume-2'], off: ['Mute music (just me)', 'volume-x'] }, synonyms: ['mute music', 'unmute music', 'mute', 'unmute', 'quiet', 'music', 'sound off', 'sound on'], group: 'View', run: () => mus()?.setMuted(!mus().muted()) });
+  add({ id: 'music.volume', title: 'Music volume… (Settings ▸ Controls ▸ Sound)', short: 'Music volume', synonyms: ['music volume', 'volume', 'sound', 'louder', 'softer', 'music'], icon: 'volume-2', group: 'View', run: () => app.settings?.show('controls') });
   add({ id: 'area.rename', title: 'Rename this area… (type: rename area Cellar)', short: 'Rename area', synonyms: ['rename area', 'area name', 'rename map'], icon: 'pencil', group: 'Areas', cls: 'area.admin',
     parse: (text) => { const m = text.match(/^rename area\s+(?:to\s+)?(.+)/i); return m ? { name: m[1].trim().slice(0, 60) } : null; }, chips: (a) => ['rename area', a.name], run: (ctx, a) => a?.name ? app.sync.submit('area.set', { area: app.area(), name: a.name }) : app.emit('bar.open', 'rename area ') });
 
   // ---------------- Settings: its sections, and the switches in Me (this browser) ----------------
-  for (const [sec, label, syn, gm] of [['nav', 'World navigation', ['areas', 'maps', 'world'], false], ['me', 'Me', ['my settings', 'preferences', 'controls', 'graphics', 'name', 'colour', 'color'], false], ['area', 'Area settings', ['area', 'play rules', 'lighting'], true], ['defaults', 'Global defaults', ['campaign defaults', 'house rules'], true], ['admin', 'Campaign admin', ['snapshots', 'save', 'export', 'import', 'invites', 'seats', 'backup'], true]])
+  for (const [sec, label, syn, gm] of [['nav', 'World navigation', ['areas', 'maps', 'world'], false], ['me', 'Me', ['my settings', 'my name', 'name', 'colour', 'color', 'my pawns', 'my agents'], false], ['controls', 'Controls', ['controls', 'preferences', 'zoom speed', 'rotate speed', 'invert', 'scroll wheel', 'keyboard shortcuts', 'shortcuts', 'hotkeys', 'keys', 'text size', 'ring size', 'sound', 'interface'], false], ['graphics', 'Graphics', ['graphics', 'graphics settings', 'quality', 'performance', 'video', 'display', 'frame rate', 'fps'], false], ['area', 'Area settings', ['area', 'play rules', 'lighting'], true], ['campaign', 'Campaign rules', ['campaign rules', 'campaign settings', 'house rules', 'distance', 'units', 'rolls', 'fog of war default', 'shared vision', 'travel'], true], ['defaults', 'Area defaults', ['area defaults', 'campaign defaults', 'global defaults', 'defaults'], true], ['house', 'House look', ['house look', 'spawn animation', 'selection style', 'house lighting'], true], ['admin', 'Campaign admin', ['snapshots', 'save', 'export', 'import', 'invites', 'seats', 'backup'], true]])
     add({ id: `settings.${sec}`, title: `Settings: ${label}`, synonyms: ['settings', label, ...syn], icon: 'layout-grid', group: 'Settings', cls: gm ? (ctx) => ctx.gm ? true : null : null, run: () => app.settings.show(sec) });
+  // SHARED BUILDS (2026-10-29; client/share.js, core/share.js): the WHOLE AREA out as a .turnip.json or an unlisted
+  // share link (Settings ▸ Area settings ▸ Export this area…, and the bar: "export", "export area", "share link");
+  // in again from a file, a drop, a link ("import <link>") or a starter build. The GM side (build permission).
+  // A selection (a room, a building, things) is NOT exported (Harry 2026-10-29: "drop export of selections — that can be
+  // a thing once we have the whole 'object tuner for players' thing"): parked until the player object tuner / prop
+  // assembler exists. Its two commands (share.export, share.link) are gone from the bar, the ring and the chords.
+  const shareCls = (ctx) => ctx.gm && app.can('room') ? true : null;
+  add({ id: 'share.area', title: 'Export this area… (a .turnip.json file or a share link)', short: 'Export this area…', synonyms: ['export', 'export area', 'share area', 'export map', 'share map', 'export this area', 'share this area', 'share', 'share this', 'save build', 'turnip json'], icon: 'package', group: 'Areas', cls: shareCls, run: () => app.share.open() });
+  add({ id: 'share.areaLink', title: 'Share link to this area… (an unlisted copy anyone can import)', short: 'Share link…', synonyms: ['share link', 'copy share link', 'link to this area', 'share area link', 'publish area'], icon: 'link', group: 'Areas', cls: shareCls, run: async () => { if (await app.share.open()) app.share.makeLink(); } });
+  add({ id: 'share.import', title: 'Import a shared build… (or: import <link>)', short: 'Import a build…', synonyms: ['import', 'import build', 'shared build', 'import link', 'open build', 'load build', 'turnip json'], icon: 'package', group: 'Share', cls: shareCls,
+    parse: (text) => { const m = String(text).trim().match(/^(?:import|use)\s+(?:build\s+|link\s+)?(\S+)$/i); return m && /\/s\/|^[A-Za-z0-9_-]{22}$/.test(m[1]) ? { link: m[1] } : null; },
+    chips: (a) => ['import', a.link.replace(/^https?:\/\//, '').slice(0, 40)], run: (ctx, a) => a?.link ? app.share.importLink(a.link) : app.share.pickFile() });
+  add({ id: 'share.starters', title: 'Starter builds… (ready-made shared builds)', short: 'Starter builds…', synonyms: ['starter', 'starter builds', 'demo build', 'demo tower', 'demo dungeon', 'starter kit'], icon: 'boxes', group: 'Share', cls: shareCls, run: () => app.settings?.show('admin') });
+
+  // UNIVERSAL VTT (2026-10-24; client/uvtt.js): the level you are on as a .dd2vtt battlemap, with this browser's last
+  // choices (Settings ▸ Campaign admin ▸ Universal VTT); "export uvtt 140" picks the pixels a square
+  add({ id: 'export.uvtt', title: 'Download this level as Universal VTT (.dd2vtt)', short: 'Export Universal VTT', synonyms: ['export uvtt', 'uvtt', 'dd2vtt', 'universal vtt', 'export map'], icon: 'map', group: 'Settings', cls: (ctx) => ctx.gm ? true : null,
+    parse: (text) => { const m = String(text).trim().match(/^(?:export\s+(?:to\s+)?)?(?:uvtt|dd2vtt|universal vtt|foundry|roll20|owlbear)\b.*?\b(70|100|140|200)\s*(?:px|pixels?)?(?:\s+a\s+square)?$/i); if (!m) return null; const n = +m[1], best = [70, 100, 140, 200].reduce((a, b) => Math.abs(b - n) < Math.abs(a - n) ? b : a); return { ppg: best }; },
+    chips: (a) => ['export uvtt', `${a.ppg} px a square`], run: (ctx, a) => app.uvtt?.download(a?.ppg ? { ppg: a.ppg } : {}) });
   // FEEDBACK (Harry 2026-10-19): Settings ▸ Feedback, opened pre-set; "comment on this asset" for the selected thing or pawn
   add({ id: 'settings.feedback', title: 'Feedback…', short: 'Feedback', synonyms: ['feedback', 'settings', 'ticket', 'tickets', 'my tickets', 'send feedback', 'report', 'comment', 'suggestion'], icon: 'message-square', group: 'Settings', run: () => app.feedback?.open({}) });
   add({ id: 'feedback.bug', title: 'Report a bug…', short: 'Report a bug', synonyms: ['bug', 'report a bug', 'bug report', 'broken', 'problem', 'glitch', 'crash', 'error'], icon: 'bug', group: 'Settings', run: () => app.feedback?.open({ kind: 'bug' }) });

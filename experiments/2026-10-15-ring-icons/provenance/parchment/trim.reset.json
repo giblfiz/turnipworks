@@ -1,0 +1,76 @@
+{
+  "id": "trim.reset",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One small red-brick chimney on a short teal roof slope, with ONE broad ivory U-turn arrow curving back down onto it: put it back where it was. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.thatch.webp",
+      "sha256": "95b8c204e4f6e7cdb1c4323f57762311ec9815f960a79ba65d04300382ba53ce",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.flat.webp",
+      "sha256": "32eaee73c0657074dd46cb45328438f98b5a93544b355e3988d7c6d6a8794f0c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.slate.webp",
+      "sha256": "975224290396c2463b48957ce1a60b28592adfc50addf45076f9d6241a642154",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--trim.reset.png",
+      "sha256": "cbce869c8eff16ced166c9c9ba6914d5eab69cfac6b2ad3df501653a69a4d8c8",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--trim.reset.png",
+  "source_sha256": "ce8439b337555755f6ef526ef4ddf0e581750971f6e52e0ea430241d90a8957c",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/trim.reset.webp",
+    "19": "parchment/sizes/19/trim.reset.webp",
+    "22": "parchment/sizes/22/trim.reset.webp",
+    "26": "parchment/sizes/26/trim.reset.webp",
+    "31": "parchment/sizes/31/trim.reset.webp",
+    "36": "parchment/sizes/36/trim.reset.webp",
+    "38": "parchment/sizes/38/trim.reset.webp",
+    "42": "parchment/sizes/42/trim.reset.webp",
+    "44": "parchment/sizes/44/trim.reset.webp",
+    "50": "parchment/sizes/50/trim.reset.webp",
+    "52": "parchment/sizes/52/trim.reset.webp",
+    "62": "parchment/sizes/62/trim.reset.webp",
+    "84": "parchment/sizes/84/trim.reset.webp",
+    "100": "parchment/sizes/100/trim.reset.webp",
+    "128": "parchment/trim.reset.webp"
+  },
+  "sha256": {
+    "18": "b178ab07ba0d238f8e688002c8faaa8ef6c3d6db9f744e5c378fd06f52af67f0",
+    "19": "3ba4e1bcb10816776fc98cf6d3b17e77fa6e6ed9c13080f4bb264a2359e699bc",
+    "22": "d3e1f9a49a9c4bf1dd2119321283b58afd424f0e7eca42472a02c67665fed309",
+    "26": "dc6fa5b475f3887498515a166d8c9c9e56da907155a486cab2010ccb61501df8",
+    "31": "c81e0426e85f945a36d665b033e998006d42a0c002dbfa7885ddf4665ca5c375",
+    "36": "3610dc7a578ed95c52acd008a6c1df775961d5ace0296e4c67a41cadc21021e3",
+    "38": "cb66ff192fd183a09856e3797283e9d7aee7ecf22b3b9881451b7e2a1d143ea4",
+    "42": "06c3a28c33033b29ce1abe9ee45a34479105d8ec7d77fe652e131637c44ce93c",
+    "44": "8e2fc8bd85e6933befc1f9c063d67a8d353c46ea17a064774a668e1f21fe9e80",
+    "50": "e7b9c80cc038b3064c44d7548bca7836220e75c3cf3d68070b68e08a109c1b1b",
+    "52": "cedc099b82ebff2bc05b6cf2089dd589fe17d1080d43722a1d35d7f87868d3ac",
+    "62": "0de0a7d767be045f6a47375b371a0ca80be33906e4225c2df2cb04c43ebf0fa5",
+    "84": "3c1b330a706a4260c03bb8c6b0f3a5b7a1c06a6df42b5931a80e007c79a887fc",
+    "100": "87764dda6dd80d6dc1a7396d7da2ada0ad7d503a827e51bc59c29c3b3b602ba7",
+    "128": "efd2edfd6173d1909ecf28c14c7120a1f6e42e8d578a2416751c9a8f83aa8c51"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "067a6ba71f554cd6bccdf53cdb37d11e7050255d0fb280dfc57432d2adc0d01f",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/parchment/trim.reset/ce8439b337555755-2ddccf6ab7"
+}

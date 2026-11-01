@@ -185,7 +185,8 @@ ok(/missing id/.test(parseArgs('token.move', { x: 1, z: 1 }).error), 'missing ar
       ok(L.objects.length >= 8 && Math.min(...ys) >= y - 1e-6 && Math.max(...ys) < y + 10, `${type} at y = ${y}: ${L.objects.length} things, all between its floor and its ceiling`, JSON.stringify([Math.min(...ys), Math.max(...ys)]));
     }
     const HR = await import('../core/height.js');
-    ok(['castle-rough', 'crypt-stone', 'noble-panel', 'noble-paper', 'conservatory'].every(f => HR.ROOF_BY_FAMILY[f] === 'slate'), 'castle, crypt and mansion walls take a slate roof');
+    ok(['crypt-stone', 'noble-panel', 'noble-paper', 'conservatory'].every(f => HR.ROOF_BY_FAMILY[f] === 'slate'), 'crypt and mansion walls take a slate roof');
+    ok(HR.ROOF_BY_FAMILY['castle-rough'] === 'flagstone' && HR.CASTLE_TYPES.every(t => HR.ROOF_BY_TYPE[t] === 'flagstone'), 'a castle is flat: castle walls and every castle room type take a flagstone roof (2026-10-27)');
   }
   { // temple & chapel (2026-10-11): ten rooms, temple-stone walls, the flavor slots
     const TK = ['temple-nave', 'cathedral', 'cathedral-dark', 'temple-shrine', 'temple-vestry', 'temple-cloister', 'temple-scriptorium', 'temple-infirmary', 'temple-cell', 'temple-belltower'];
@@ -199,7 +200,7 @@ ok(/missing id/.test(parseArgs('token.move', { x: 1, z: 1 }).error), 'missing ar
     const dk = { id: 'room_rg0tdark', type: 'cathedral-dark', x: 300, z: 0, w: 8, d: 14, seed: 29 }, LK = rg.solve({}, dk, 1);
     ok(LK.family === 'crypt-stone' && cats(LK).includes('altar-stone') && !LK.objects.some(o => ['sun', 'moon'].includes(factionOf(o))), 'the dark cathedral is the same nave in crypt-stone, and never wears a good flavor');
     const HT = await import('../core/height.js');
-    ok(HT.ROOF_BY_FAMILY['temple-stone'] === 'slate', 'temple walls take a slate roof');
+    ok(HT.ROOF_BY_FAMILY['temple-stone'] === 'marble' && HT.ROOF_BY_TYPE.cathedral === 'slate', 'temple walls take a marble roof (2026-10-27; it was slate), a cathedral keeps slate');
   }
   { // >>> types:clt  cult sanctum (2026-10-11): nine room types, black-stone walls, no windows, and the flavor slots
     for (const k of ['cult-entry', 'cult-passage', 'cult-sanctum', 'cult-summoning', 'cult-cells', 'cult-vestry', 'cult-library', 'cult-quarters', 'cult-vault']) ok(rg.types.has(k), `the room engine knows ${k}`);
@@ -550,6 +551,8 @@ ok(/missing id/.test(parseArgs('token.move', { x: 1, z: 1 }).error), 'missing ar
   ok(!run(P3, 'object.open', 'tbl_ui000001', { id: 'obj_crate001', open: true }), 'players may open things');
   ok(!run(P3, 'chat.say', 'tbl_ui000001', { id: 'msg_aaaa0001', text: 'hello' }), 'player says hello');
   ok(!run(P3, 'dice.roll', 'tbl_ui000001', { id: 'msg_aaaa0002', expr: 'd20+5', rolls: [14], total: 19 }), 'player rolls');
+  { const thr = { v: 2, hz: 240, s: 3, d: ['d6', 'd6'], o: [0, 0, 0], f: 1, b: 'AAAA', t: 'AAAA' }; // (a big pool's release times, 2026-10-29)
+    for (const r of [[0], [0, 'x'], [0, -1], [0, 99], 'soon']) eq(run(P3, 'dice.roll', 'tbl_ui000001', { id: 'msg_aaaa0009', expr: '2d6', rolls: [1, 2], total: 3, throw: { ...thr, r } })?.code, 'invalid', `a throw's release times are one number a die, 0-30 s (${JSON.stringify(r)})`); }
   const tb = tbl('tbl_ui000001');
   ok(tb.chat.length === 2 && tb.chat[0].text === 'hello' && tb.chat[1].roll.total === 19, 'chat lines in the area');
   const inv = inverseOf(tb, 'dice.roll', { id: 'msg_aaaa0002' });
@@ -629,7 +632,7 @@ ok(/missing id/.test(parseArgs('token.move', { x: 1, z: 1 }).error), 'missing ar
   ok(!spawn('room_st_d0001', { building: B, type: 'cellar', x: 0, z: 0, w: 4, d: 4, y: -10, seed: 8 }), 'a cellar below (y = -10): below ground anything goes');
   ok(!spawn('room_st_d0002', { type: 'cellar', x: 40, z: 40, w: 3, d: 3, y: -20, seed: 9 }), 'a dungeon room under open ground, with no building');
   const E = () => tbl(AID).entities, r = (id) => E()[id];
-  eq([H.storeyOf(E(), g), H.storeyOf(E(), r('room_st_u0001')), H.storeyOf(E(), r('room_st_d0001')), H.storeyOf(E(), r('room_st_d0002'))], [0, 1, -1, -2], 'storeys are derived from height');
+  eq([H.levelOf(E(), g), H.levelOf(E(), r('room_st_u0001')), H.levelOf(E(), r('room_st_d0001')), H.levelOf(E(), r('room_st_d0002'))], [0, 1, -1, -2], 'levels are derived from height, the map\'s own (10 ft each, 2026-10-26)');
   eq([H.fogDefault(E(), g), H.fogDefault(E(), r('room_st_u0001')), H.fogDefault(E(), r('room_st_d0001'))], [null, 0, null], 'no fog by default on the second storey or higher; the ground and below follow their room type (Harry 2026-10-06)');
   eq([0, 1, -1, -2].map(H.levelLabel), ['lv 1', 'lv 2', 'lv -1', 'lv -2'], 'level labels (no lv 0)');
   eq([H.roomTop(E(), g), H.ceilingOf(E(), g), H.ceilingOf(E(), r('room_st_u0001'))], [10, 9, 19], 'a room\'s top and its ceiling (the cut height)');
@@ -675,9 +678,10 @@ ok(/missing id/.test(parseArgs('token.move', { x: 1, z: 1 }).error), 'missing ar
   ok(!pv.entities[U] && !pv.entities[edgeId(k0)] && !pv.entities[edgeId('v:0:2@10')] && !Object.values(pv.entities).some(o => o.room === U) && pv.entities.room_st_g0001 && pv.entities.room_st_u0002, 'the player side receives nothing of the hidden upper room; the rest of the storey stays');
   ok(!run(GMs, 'room.delete', AID, { id: U }) && !E()[edgeId(k0)] && !E()[edgeId('v:0:2@10')] && E()[edgeId('v:0:1')], 'deleting the upper room takes its wall edits; the ground floor\'s stay');
   // buildings: base and storey height
-  ok(!run(GMs, 'building.set', AID, { id: B, storey: 15 }) && tbl(AID).entities[B].storey === 15 && tbl(AID).entities[B].name === 'Inn', 'a building\'s storey height is settable; its name is untouched');
-  eq([H.roomHeight(E(), g), H.storeyOf(E(), r('room_st_u0002'))], [15, 0], 'storey height and storeys follow the building (rooms do not move)');
-  ok(/multiple of 5/.test(run(GMs, 'building.set', AID, { id: B, storey: 12 })?.why || '') && /nothing to set/.test(run(GMs, 'building.set', AID, { id: B })?.why || '') && !run(GMs, 'building.set', AID, { id: B, storey: 10, base: 0 }) && !('storey' in E()[B]) && !('base' in E()[B]), 'bad values refused; the defaults are stored as nothing');
+  // (2026-10-26, universal levels) a building's base and storey height are retired: refused, and read nowhere if stored
+  ok(/retired/.test(run(GMs, 'building.set', AID, { id: B, storey: 15 })?.why || '') && /retired/.test(run(GMs, 'building.set', AID, { id: B, base: 10 })?.why || '') && !('storey' in E()[B]) && E()[B].name === 'Inn', 'a building\'s storey height and base are no longer settable (every storey is 10 ft, the levels are the map\'s)');
+  { const old = { ...E(), [B]: { ...E()[B], storey: 15, base: 5 } }; eq([H.roomHeight(old, g), H.levelOf(old, r('room_st_u0002')), H.meetsGround(old, g)], [10, 1, true], 'one stored from before is read nowhere: a storey is 10 ft, the levels are the map\'s'); }
+  ok(/nothing to set/.test(run(GMs, 'building.set', AID, { id: B })?.why || '') && !run(GMs, 'building.set', AID, { id: B, roof: 'slate' }) && E()[B].roof === 'slate' && !run(GMs, 'building.set', AID, { id: B, roof: 'auto' }) && !('roof' in E()[B]), 'its roof is still set (and auto stored as nothing)');
   eq(H.buildingAt(E(), { x: 3, z: 0, w: 2, d: 2 }, [20, 30]), B, 'a new room stacked on the upper floor joins the building below it');
   eq(H.buildingAt(E(), { x: 100, z: 100, w: 2, d: 2 }, [0, 10]), null, 'a room touching nothing joins none');
   ok(H.levelsOf(E(), B).map(l => l.level).join() === 'lv -1,lv 1,lv 2', 'a building\'s levels');
@@ -696,7 +700,15 @@ ok(/missing id/.test(parseArgs('token.move', { x: 1, z: 1 }).error), 'missing ar
     eq(stripEntry({ type: 'building.set', args: { id: B, name: 'Secret keep', roof: 'tile' } }, tbl(AID)).args, { id: B, roof: 'tile' }, 'building.set to a label-blind seat: the roof style travels, the name does not');
     ok(!run(GMs, 'building.set', AID, { id: B, roof: 'auto' }) && !('roof' in E()[B]), 'roof=auto on a building goes back to its walls\' style (the field is removed)');
     const inv = inverseOf(tbl(AID), 'room.set', { id: G, roof: { style: 'slate' } }); run(GMs, 'room.set', AID, { id: G, roof: { style: 'slate' } });
-    ok(r(G).roof?.style === 'slate' && inv.type === 'entities.set' && inv.args.set[G] && !('roof' in inv.args.set[G]) && !('roof' in applyArea(tbl(AID), inv.type, inv.args).entities[G]), 'undo of a roof change puts the room back exactly'); }
+    ok(r(G).roof?.style === 'slate' && inv.type === 'entities.set' && inv.args.set[G] && !('roof' in inv.args.set[G]) && !('roof' in applyArea(tbl(AID), inv.type, inv.args).entities[G]), 'undo of a roof change puts the room back exactly');
+    // CONTROLS (2026-10-27): a roof's shape and the way its ridge runs; a building's roof shape; a turned room turns its ridge
+    ok(!run(GMs, 'room.set', AID, { id: G, roof: { shape: 'hip', axis: 'z' } }) && r(G).roof.shape === 'hip' && r(G).roof.axis === 'z' && r(G).roof.style === 'slate' && H.roofShapeOf(E(), r(G)) === 'hip', 'room.set roof shape and axis are merged in');
+    ok(/roof.shape/.test(run(GMs, 'room.set', AID, { id: G, roof: { shape: 'dome' } })?.why || '') && /roof.axis/.test(run(GMs, 'room.set', AID, { id: G, roof: { axis: 'y' } })?.why || ''), 'a bad shape or axis is refused');
+    ok(!run(GMs, 'room.rotate', AID, { id: G, turns: 1 }) && r(G).roof.axis === 'x' && !run(GMs, 'room.rotate', AID, { id: G, turns: 2 }) && r(G).roof.axis === 'x' && !run(GMs, 'room.rotate', AID, { id: G, turns: -1 }) && r(G).roof.axis === 'z', 'turning a room a quarter turn turns its ridge with it (a half turn leaves it)');
+    ok(!run(GMs, 'room.set', AID, { id: G, roof: { trim: { 'chimney:obj_x': { at: [3, 4] } } } }) && r(G).roof.trim['chimney:obj_x'].at[0] === 3 && !run(GMs, 'room.rotate', AID, { id: G, turns: 2 }) && !r(G).roof.trim && r(G).roof.axis === 'z', 'a moved chimney is stored on the roof; turning the room puts its trim back by rule');
+    ok(!run(GMs, 'room.set', AID, { id: G, roof: { shape: 'auto', axis: 'auto', style: 'auto' } }) && !('roof' in r(G)), 'shape and axis auto: stored as nothing');
+    ok(!run(GMs, 'building.set', AID, { id: B, roofShape: 'flat' }) && E()[B].roofShape === 'flat' && H.roofShapeOf(E(), r(G)) === 'flat' && /roofShape/.test(run(GMs, 'building.set', AID, { id: B, roofShape: 'dome' })?.why || '') && !run(GMs, 'building.set', AID, { id: B, roofShape: 'auto' }) && !('roofShape' in E()[B]), 'building.set roofShape: every roof of it, auto removes it, a bad one is refused');
+    eq(stripEntry({ type: 'building.set', args: { id: B, name: 'Secret keep', roofShape: 'hip' } }, tbl(AID)).args, { id: B, roofShape: 'hip' }, 'building.set to a label-blind seat: the roof shape travels'); }
 }
 
 // ---- stairs (2026-10-05, docs/VERTICAL.md "Getting up and down"): vertical connectors, core/stairs.js ----
@@ -746,9 +758,12 @@ ok(/missing id/.test(parseArgs('token.move', { x: 1, z: 1 }).error), 'missing ar
     ok(back.entities[UP] && back.entities[st.id] && S.holesAt(back.entities, 10).size === cells.length, 'one undo brings back the room and its stair');
     const pinned = applyArea(A, 'entity.flag', { ids: [st.id], pinned: true }); ok(applyArea(pinned, 'room.delete', { id: UP }).entities[st.id], 'a pinned stair stays'); }
   // a pawn crosses
-  eq(S.stairHop(A.entities, s1.x, s1.z, 0), { ...ends.top, stair: st.id }, 'a pawn dropped on the stair from below goes to the top landing, at the upper floor\'s height');
-  eq(S.stairHop(A.entities, s1.x, s1.z, 10), { ...ends.foot, stair: st.id }, 'dropped on the hole from above, to the foot');
-  eq(S.stairHop(A.entities, ends.foot.x, ends.foot.z, 0), null, 'a landing is just floor');
+  // (2026-10-26: a stair is a place to stand, core/height.js pawnStepTo: never hopped from end to end)
+  { const mid = H.pawnStepTo(A.entities, s1.x, s1.z, 0), down = H.pawnStepTo(A.entities, s1.x, s1.z, 10);
+    ok(S.stairHop(A.entities, s1.x, s1.z, 0) === null && mid.on === 'stair' && mid.y > 0 && mid.y < 10 && down.on === 'stair' && down.y === mid.y, 'a pawn let go on the stair, from below or from the hole above, stands on its treads there', JSON.stringify([mid, down]));
+    let y = 0, fb = H.baseUnder(A.entities, ends.foot.x, ends.foot.z, 0); for (let i = 1; i <= 40; i++) { const t = H.pawnStepTo(A.entities, ends.foot.x + (ends.top.x - ends.foot.x) * i / 40, ends.foot.z + (ends.top.z - ends.foot.z) * i / 40, y, null, fb); if (!t.below) { y = t.y; fb = t; } }
+    ok(y === 10, 'walked from the foot landing to the top landing it arrives at the upper floor\'s height', y); }
+  eq(H.pawnStepTo(A.entities, ends.foot.x, ends.foot.z, 0).y, 0, 'a landing is just floor');
   { const t = { x: ends.top.x, z: ends.top.z, y: ends.top.y }; eq([H.tokenFloor(A.entities, t).room, H.tokenFloor(A.entities, t).level], [UP, 'lv 2'], 'and upstairs the pawn\'s floor is DERIVED: the upper room, lv 2'); }
   // re-roll either room: the stair stays, furniture keeps off it
   for (const [rid, cs, what] of [[LOW, [...cells, ends.footCell], 'lower'], [UP, [...cells, ends.topCell], 'upper']]) {
@@ -1077,6 +1092,39 @@ ok(/missing id/.test(parseArgs('token.move', { x: 1, z: 1 }).error), 'missing ar
   a = applyArea(a, 'pawn.bring', prep('pawn.bring', { id: 'tok_cascbench', def: 'pawn_casc001', name: 'Bench', owner: 'gm', x: 5, z: 5 }));
   ok(a.entities.tok_cascbench.hidden, 'bench bring into hidden room follows same rule');
   ok(!('_roomPlayerOwners' in parseArgs('entity.flag', { ids: [R], hidden: true, _roomPlayerOwners: ['gm'] }).args), 'sender cannot forge room ownership exclusions');
+}
+
+// --- A PLACEHOLDER PAWN (2026-10-22): the invite's stand-in for a new player; a figure chosen by either side ends it ---
+{
+  ok(!run(GM, 'seat.create', null, { id: 'seat_bobby001', kind: 'human', role: 'player', name: 'Bobby', location: 'tbl_main0001' }), 'placeholder: GM invites Bobby');
+  const B = 'seat_bobby001', D = 'def_bobbyph01', T = 'tok_bobbyph01';
+  ok(!run(GM, 'pawn.define', null, { id: D, owner: B, name: 'Bobby', main: true, placeholder: true }), 'placeholder: the GM defines Bobby\'s pawn');
+  ok(S.pawns[D].owner === B && S.pawns[D].placeholder === true && S.pawns[D].main === true, 'placeholder: the definition is Bobby\'s main pawn, flagged');
+  const bring = REGISTRY['pawn.bring'].fill(S, { id: T, def: D, x: 12.5, z: 12.5 });
+  eq([bring.placeholder, bring.main, bring.owner], [true, true, B], 'placeholder: bring fills the flag from the definition (the relay writes the pawn)');
+  ok(!run(GM, 'pawn.bring', 'tbl_main0001', bring), 'placeholder: the GM brings it onto the table');
+  const t0 = tbl('tbl_main0001');
+  eq([t0.entities[T].placeholder, t0.entities[T].main, t0.entities[T].owner, t0.entities[T].fig], [true, true, B, undefined], 'placeholder: on the table, Bobby\'s main pawn, no figure');
+  // other edits keep it a placeholder; a figure ends it; undo (the generic inverse) brings it back
+  ok(!run(GM, 'token.move', 'tbl_main0001', { id: T, x: 22.5, z: 12.5 }) && tbl('tbl_main0001').entities[T].placeholder, 'placeholder: moving it keeps it');
+  ok(!run(B, 'token.set', 'tbl_main0001', { id: T, name: 'Bobby the Bold' }) && tbl('tbl_main0001').entities[T].placeholder, 'placeholder: renaming it keeps it');
+  ok(!run(B, 'token.set', 'tbl_main0001', { id: T, main: true }) && tbl('tbl_main0001').entities[T].placeholder, 'placeholder: a main toggle keeps it');
+  const before = tbl('tbl_main0001'), inv = inverseOf(before, 'token.set', { id: T, fig: 'hero-fighter-human-m' });
+  ok(!run(B, 'token.set', 'tbl_main0001', { id: T, fig: 'hero-fighter-human-m' }), 'placeholder: Bobby picks a figure');
+  ok(!tbl('tbl_main0001').entities[T].placeholder && tbl('tbl_main0001').entities[T].fig === 'hero-fighter-human-m', 'placeholder: a figure ends it');
+  const undone = applyArea(tbl('tbl_main0001'), inv.type, inv.args);
+  ok(undone.entities[T].placeholder === true && !undone.entities[T].fig, 'placeholder: undo of the figure restores the placeholder');
+  ok(!applyArea(before, 'token.set', { id: T, fig: 'none' }).entities[T].placeholder, 'placeholder: the plain stand-in, chosen, ends it too');
+  ok(applyArea(before, 'token.set', { id: T, fig: 'none', placeholder: true }).entities[T].placeholder, 'placeholder: an explicit flag wins (the editor saving a name and no figure)');
+  ok(run(P1, 'token.set', 'tbl_main0001', { id: T, fig: 'hero-wizard-human-f' }), 'placeholder: another player cannot choose Bobby\'s figure');
+  // the definition: the GM or Bobby; a figure clears it; another player may not
+  ok(run(P1, 'pawn.define', null, { id: D, fig: 'hero-wizard-human-f' }), 'placeholder: another player cannot define Bobby\'s pawn');
+  ok(!run(B, 'pawn.define', null, { id: D, name: 'Bobby' }) && S.pawns[D].placeholder, 'placeholder: a definition saved without a figure keeps it');
+  ok(!run(GM, 'pawn.define', null, { id: D, fig: 'hero-fighter-human-m', size: 1 }) && !S.pawns[D].placeholder && S.pawns[D].owner === B, 'placeholder: the GM choosing a figure for it clears it, owner kept');
+  // old campaigns: no flag anywhere, nothing changes
+  const plain = applyArea(tbl('tbl_main0001'), 'token.create', { id: 'tok_oldpawn01', name: 'Old', x: 2.5, z: 2.5, owner: P1, main: true });
+  ok(!('placeholder' in plain.entities.tok_oldpawn01) && !('placeholder' in applyArea(plain, 'token.set', { id: 'tok_oldpawn01', fig: 'none' }).entities.tok_oldpawn01), 'placeholder: absent on ordinary pawns, and stays absent');
+  ok(!!parseArgs('token.set', { id: T, placeholder: 'yes' }).error, 'placeholder: a bool, nothing else');
 }
 
 console.log(`core: ${checks - fails}/${checks} passed`);

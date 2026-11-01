@@ -7,6 +7,7 @@
 //      ?transport=ws|sse   ?lag=50-400&loss=0.2 (simulated network)   ?theme=light|dark   ?boxes (no meshes: light tests)
 //      ?nointro (no first-visit pantomime)
 import { installFeedbackHook } from './feedback-hook.js'; // first: its error listeners are up before anything else runs (Settings ▸ Feedback)
+import { landing } from './landing.js'; // notes where this visitor came from and cleans the address bar before main.js reads location.search (client/landing.js)
 import * as THREE from 'three';
 import { campaignName } from '../core/campaign-names.js';
 import { rememberedGames, rememberGame, dropGame, forgetGames, renderGames, gamesAddress, openGames } from './games.js';
@@ -21,13 +22,21 @@ import { ROLL_AXIS } from './commands.js';
 import { newArea } from '../core/state.js';
 import { newId } from '../core/ids.js';
 import { damageAfter, damageOf } from '../core/pawn.js';
+import * as CO from '../core/conditions.js';
+import * as AU from '../core/aura.js';
 import * as FP from '../core/footprint.js';
 import * as HT from '../core/height.js';
+import { terrainOf } from '../core/terrain.js';
+import * as CV from '../core/caves.js';
+import * as HO from '../core/holes.js';
 import * as TILES from './tiles.js';
 import { createThumbs } from './thumbs.js';
+import { createUvtt } from './uvtt.js';
+import { createShare } from './share.js';
 const { isFloorCat, tileSize, tilesAt, TILE } = TILES;
 import { T, loadTuner } from './tuner.js';
 import { AreaWorld, PAWN_BEAM } from './world.js';
+import { bandKeyAt } from './bands.js';
 import { createInteraction } from './interact.js';
 import { View, swapPoses } from './views.js';
 import { createAssets } from './assets.js';
@@ -35,6 +44,7 @@ import { createPreviews } from './previews.js';
 import { createRegistry } from './registry.js';
 import { defineCommands } from './commands.js';
 import { installInput } from './input.js';
+import { installHandheld } from './handheld.js';
 import { installEdgePan } from './edgepan.js';
 import { createModes } from './modes.js';
 import { copyText, parseClip, clipFrom } from './clipboard.js';
@@ -55,19 +65,26 @@ import { traySurface } from './surfaces/tray.js';
 import { createFigures, loadFigureList } from './figures.js';
 import { teachBar, teachFigures } from './barwords.js';
 import { installPawns } from './pawns.js';
-import { settingsSurface, prefFaces } from './surfaces/settings.js';
+import { installArrival } from './arrival.js';
+import { installLinkMail } from './surfaces/linkmail.js';
+import { settingsSurface, prefFaces, loadPrefs } from './surfaces/settings.js';
 import { cursorSurface } from './surfaces/cursor.js';
 import { labelsSurface } from './surfaces/labels.js';
 import { undoChipsSurface } from './surfaces/undochips.js';
 import { floorDropSurface } from './surfaces/floordrop.js';
+import { fallsSurface } from './surfaces/falls.js';
 import { cutSurface } from './surfaces/cut.js';
 import { fpsSurface } from './surfaces/fps.js';
 import { createGraphics } from './graphics.js';
 import { areasSurface } from './surfaces/areas.js';
 import { turnsSurface } from './surfaces/turns.js';
+import { beyond20Surface } from './surfaces/beyond20.js';
+import { targetSurface } from './surfaces/target.js';
+import { attacksSurface } from './surfaces/attacks.js';
 import { xraySurface } from './surfaces/xray.js';
 import { lightReachSurface } from './surfaces/lightreach.js';
 import { rulersSurface } from './surfaces/rulers.js';
+import { fpvSurface } from './surfaces/fpv.js';
 import { installStairs } from './stairs.js';
 import * as ST from '../core/stairs.js';
 import { buildTaxonomy } from './taxonomy.js';
@@ -78,7 +95,9 @@ import { planFactionChange } from '../core/factions.js';
 import { setupFactionUI } from './surfaces/factions.js';
 import { createIntro } from './intro.js';
 import { installFog } from './fog.js';
+import { installMusic } from './music.js';
 import { showNotice, noticeLive, currentNotice } from './notice.js';
+import { showKicked, hideKicked, kickedShown } from './kicked.js';
 
 const qs = new URLSearchParams(location.search);
 const ringLab = qs.get('ringlab') === '1';
@@ -100,7 +119,10 @@ document.documentElement.dataset.theme = theme;
 // tells it what has happened. A page without it (an embed, an old cached page) gets a stand-in that does nothing.
 const LOAD = window.twLoad || new Proxy({}, { get: () => () => {} });
 LOAD.at('code');
-const start = (token) => boot(token).catch((err) => { console.error('boot', err); LOAD.fail(err?.twKind || 'code', String(err?.message || err)); });
+// the detail carries the error's first stack frames (file:line), shortened, so a failure on a device we cannot reproduce
+// (Harry's iPhone, 2026-10-26: "did not finish downloading" was a start-up error) says where it broke
+const bootDetail = (err) => [String(err?.message || err), ...String(err?.stack || '').split('\n').map(l => l.trim().replace(/https?:\/\/[^/]+\/(engine\/client\/|look\/)?/g, '').replace(/\?v=[0-9a-z]+/g, '')).filter(Boolean).slice(0, 4)].join(' ← ');
+const start = (token) => boot(token).catch((err) => { console.error('boot', err); LOAD.fail(err?.twKind || 'code', bootDetail(err)); });
 // Fragment-only navigation must open a fresh client, not keep the previous seat's world and connection.
 addEventListener('hashchange', () => location.reload());
 const hash = new URLSearchParams(location.hash.slice(1));
@@ -148,7 +170,7 @@ if (ringLab && !token) {
     submit.disabled = true;
     const f = new FormData(form);
     let r = null;
-    try { r = await fetch(relayBase + '/campaigns', { method: 'POST', body: JSON.stringify({ name: f.get('name').trim() || campaignName(), gm: f.get('gm') }) }).then(r => r.json()); } catch { }
+    try { r = await fetch(relayBase + '/campaigns', { method: 'POST', body: JSON.stringify({ name: f.get('name').trim() || campaignName(), gm: f.get('gm'), landing: landing() }) }).then(r => r.json()); } catch { }
     submit.disabled = false;
     if (!r?.ok) { $('#gameNotice').textContent = 'The table could not be reached. Try again in a moment.'; return; }
     // Full address: a bare #s resolves against <base>, which broke invite links at the site's root.
@@ -161,7 +183,7 @@ if (ringLab && !token) {
 async function boot(token) {
   let wasRemembered = rememberedGames().some(g => g.token === token);
   $('#app').hidden = false;
-  const [, typesData] = await Promise.all([loadTuner(tunerBase, ratingsApi), fetch(`data/types.json?v=${V}`).then(r => r.json()).catch(() => ({ genres: [{ key: 'fantasy', label: 'Fantasy' }], types: [] }))]);
+  const [, typesData, spawnsData] = await Promise.all([loadTuner(tunerBase, ratingsApi), fetch(`data/types.json?v=${V}`).then(r => r.json()).catch(() => ({ genres: [{ key: 'fantasy', label: 'Fantasy' }], types: [] })), fetch(`data/library-spawns.json?v=${V}`).then(r => r.json()).catch(() => null)]); // (what each room type's rules put down: its library's shelves; engine/tools/library_spawns.mjs)
   const { lib } = T;
   LOAD.at('look'); // the look (the tuner's code and lists) is here; next the table itself
   const roomgen = makeRoomGen({ solver: T.solver, solver2: T.solver2, walls: T.walls, lib, types: T.types, orient: T.orient, version: T.version, newId });
@@ -184,14 +206,15 @@ async function boot(token) {
   const lag = qs.get('lag');
   if (lag) { const [a, b] = lag.split('-').map(Number); transport = withNetSim(transport, { minMs: a, maxMs: b ?? a, loss: +(qs.get('loss') || 0) }); }
 
-  const taxonomy = buildTaxonomy({ lib, roomTypes: T.types, data: typesData, usable: (k) => T.solver.skuUsable(k, SOLVER_OPTS) });
+  const taxonomy = buildTaxonomy({ lib, roomTypes: T.types, data: typesData, spawns: spawnsData, usable: (k) => T.solver.skuUsable(k, SOLVER_OPTS) });
   const app = window.tw = {
     notice: () => currentNotice(), // the operator's banner showing now, or null (notice.js)
     assets, roomgen, previews, lib, taxonomy, worlds: new Map(), views: [], main: null, pip: null,
     sel: new Set(), hover: null, mode: null, cursor: null, localDrags: new Map(), clip: null,
     pv: new PresenceView(), beforeViews: [], applied: [], waiting: new Map(), listeners: new Set(), chatSeen: new Map(), theme,
-    relayBase, transport: () => baseTransport.kind, stats: { frames: 0 }, fps: 0, footprint: FP, facesUsed: facesWanted || T.look.LOOK_DIALS.faces,
+    relayBase, transport: () => baseTransport.kind, stats: { frames: 0 }, fps: 0, footprint: FP, HT, // (HT: the height rules, core/height.js, for tests and the console) facesUsed: facesWanted || T.look.LOOK_DIALS.faces,
   };
+  app.bandKeyAt = bandKeyAt; // (tests: the wall or post a hit on the band between storeys belongs to; client/bands.js)
   app.tunerBase = tunerBase; // (the ring's painted icons: assets/ui-icons/manifest.json)
   if (ringLab) { app.ringLabTunerBase = tunerBase; app.ringLabRatingsApi = ratingsApi; }
   // FRAME-TIME SWITCHES (2026-10-06): each fix of the big-map work can be switched off to measure against it or to get
@@ -205,20 +228,22 @@ async function boot(token) {
   const sync = app.sync = new ClientSync({
     token, transport,
     onChange: (area, v) => onAreaChange(area, v),
-    onEntry: (e) => { app.emit('entry', e); app.applied.push([e.area, e.seq, e.cid, e.type]); if (app.applied.length > 5000) app.applied.splice(0, 1000); if (e.type === 'token.move' || e.type === 'object.move' || e.type === 'batch' || e.type === 'room.move' || e.type === 'room.rotate') for (const d of [...app.pv.seats.values()]) if (d.seat === e.by) app.pv.endDrag(e.area, e.by); },
+    onEntry: (e) => { app.emit('entry', e); app.applied.push([e.area, e.seq, e.cid, e.type]); if (app.applied.length > 5000) app.applied.splice(0, 1000); if ((e.type === 'token.move' && !e.args?.walk) || e.type === 'object.move' || e.type === 'batch' || e.type === 'room.move' || e.type === 'room.rotate') for (const d of [...app.pv.seats.values()]) if (d.seat === e.by) app.pv.endDrag(e.area, e.by); },
     onPresence: (m) => { app.gfx?.wake('net'); if (m.ping && m.cursor) app.showPing(m); else app.pv.ingest(m); }, // (another seat's cursor is moving: not idle, graphics.js)
     onCampaign: (c) => onCampaign(c),
     onNack: (m) => { app.toast(`Refused: ${m.why}`, true); app.waiting.get(m.cid)?.(null); },
     onAck: (m) => app.waiting.get(m.cid)?.(m),
     onWhisper: (m) => app.emit('whisper', m), // a private line for this seat (surfaces/chat.js)
     onNotice: (m) => showNotice(m), // the operator's banner before a release roll (notice.js)
+    onKick: (m) => { app.lastKick = m; app.toast(m.ok ? `Disconnected ${m.name}${m.n ? '' : ' (they had no open connection)'}. Not a ban: their link still works and they can rejoin` : `Could not disconnect: ${m.why}`, !m.ok); }, // (surfaces/roster.js)
     onStatus: (s) => { netStatus(s); if (s === 'live') noticeLive(); app.refresh(); },
   });
   // THE CONNECTION, for the loading screen: a first connection that does not come says so (and keeps trying); a
   // connection lost later (the relay restarts on every deploy) is a small "reconnecting" pill, gone when it is back
   let everLive = false; const bootAt = performance.now(); let relayTimer = null, loadUp = true; // loadUp: the loading screen is waiting for the main area's first real frame (the first load, then each travel)
   function netStatus(s) {
-    if (s === 'live') { rememberGame(token, sync.campaign, true); wasRemembered ||= rememberedGames().some(g => g.token === token); clearTimeout(relayTimer); relayTimer = null; if (!everLive) { everLive = true; LOAD.at('welcome', loadKey); } else LOAD.clear('net'); return; }
+    if (s === 'kicked') { clearTimeout(relayTimer); LOAD.clear('net'); showKicked(sync.kickedBy, () => sync.rejoin()); return; } // the GM's disconnect (kicked.js): no reconnecting pill
+    if (s === 'live') { hideKicked(); rememberGame(token, sync.campaign, true); wasRemembered ||= rememberedGames().some(g => g.token === token); clearTimeout(relayTimer); relayTimer = null; if (!everLive) { everLive = true; LOAD.at('welcome', loadKey); } else LOAD.clear('net'); return; }
     if (s === 'denied' || s === 'closed') { clearTimeout(relayTimer); LOAD.clear('net'); if (s === 'denied') {
       if (ringLab && localStorage.getItem('tw.ringlab.token') === token) {
         localStorage.removeItem('tw.ringlab.token'); dropGame(token);
@@ -239,8 +264,9 @@ async function boot(token) {
     area: () => app.main?.area,
     view: (t = app.main?.area) => sync.view(t),
     entities: (t = app.main?.area) => sync.view(t)?.entities || {},
-    ent: (id, t) => id?.startsWith?.('wall:') ? app.wallItem(id) : id?.startsWith?.('roof:') ? app.roofItem(id) : app.entities(t)[id],
+    ent: (id, t) => id?.startsWith?.('wall:') ? app.wallItem(id) : id?.startsWith?.('roof:') ? app.roofItem(id) : id?.startsWith?.('trim:') ? app.trimItem(id) : app.entities(t)[id],
     me: () => sync.me,
+    kickedShown: () => kickedShown(), // (tests) the "The GM disconnected you" card is up (kicked.js)
     gm: () => sync.campaign?.my.role === 'gm',
     // what this seat may do (the relay decides; this only hides what would be refused)
     can: (cls) => !!sync.campaign?.my.classes.includes(cls),
@@ -276,12 +302,40 @@ async function boot(token) {
     if (!app.worlds.has(area)) {
       const w = new AreaWorld(area, { roomgen, assets, renderer, camera: app.main.camera, focus: () => app.main?.grab.focus, fx: !qs.has('nofx') });
       w.setPerf(app.perf.get()); w.busy = () => !!app.interact?.busy();
+      // conditions on the table (client/statusfx.js): whose invisible pawn this seat sees as glass; when the orbiters park
+      w.statusViewer = () => app.me(); w.statusStill = statusStill;
+      // and where the open ring covers the main view (nothing of a condition is drawn under a ring button; not the PiP's)
+      w.statusMask = (cam) => cam === app.main?.camera && w.areaId === app.area() ? (() => { const m = app.ringMask?.(); return m && { ...m, rect: canvas.getBoundingClientRect() }; })() : null;
       if (w.fx) { w.fx.setSize(canvas.clientWidth, canvas.clientHeight); if (qs.has('nopost')) { w.fx.lighting.params.on = false; w.fx.lighting.apply(); } }
       app.worlds.set(area, w);
     }
     return app.worlds.get(area);
   }
   app.worldOf = worldOf;
+  // THE ORBITERS PARK (Harry's design of 2026-10-15): "reduce motion" (the system's or Settings ▸ Me) and the Low graphics preset
+  function statusStill() { const p = app.prefs || {}; return matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('reduce-motion') || p.gfx === 'low' || (p.gfx === 'auto' && p.gfxAuto === 'low'); }
+  // HOVER NAMES: the pointer over a SELECTED pawn's conditions names them (the orbiter under it, else the whole list)
+  { const tip = document.createElement('div'); tip.id = 'statustip'; tip.hidden = true; tip.setAttribute('role', 'tooltip'); document.body.append(tip);
+    let last = '';
+    canvas.addEventListener('pointermove', (ev) => {
+      const sel = app.sel; let hit = null;
+      if (sel?.size && !app.mode && app.main) { const w = app.worlds.get(app.main.area); hit = w?.statusFx?.at(ev.clientX, ev.clientY, app.main.camera, canvas.getBoundingClientRect(), sel) || null; }
+      if (!hit && app.hover && sel?.has(app.hover)) { const e = app.entities()[app.hover]; if (e?.kind === 'token' && e.conditions?.length) hit = { id: e.id, name: null, all: e.conditions }; } // (over the selected pawn itself: the whole list)
+      const text = hit ? (hit.name ? hit.name : hit.all.join(' · ')) : '';
+      if (text !== last) { last = text; tip.textContent = text; tip.hidden = !text; tip.classList.toggle('one', !!hit?.name); }
+      if (text) { tip.style.left = `${ev.clientX + 14}px`; tip.style.top = `${ev.clientY + 16}px`; }
+    }, { passive: true });
+    canvas.addEventListener('pointerleave', () => { last = ''; tip.hidden = true; });
+    app.statusTip = () => tip.hidden ? null : tip.textContent; // (tests)
+    app.statusInfo = (id) => rawWorldOf(app.area()).statusFx?.info(id) || null; // (tests) what a pawn's conditions look like here
+    app.statusBoxes = () => rawWorldOf(app.area()).statusFx?.boxes() || null; // (tests) every condition picture's screen box under an open ring
+    app.statusCounts = () => rawWorldOf(app.area()).statusFx?.counts() || null;    // (tests) instances and draw calls
+    app.auraInfo = (id) => rawWorldOf(app.area()).auraFx?.info(id) || null;        // (tests) a pawn's aura as drawn here
+    app.auraCounts = () => rawWorldOf(app.area()).auraFx?.counts() || null;        // (tests) instances, draw calls, the ring's mask
+    app.auraHold = (on, parts) => { for (const w of app.worlds.values()) w.auraFx?.hold(on, parts); }; // (tests) draw no aura while on (parts: only those)
+    app.auraScreen = (id) => rawWorldOf(app.area()).auraFx?.screenOf(id, app.main.camera, canvas.getBoundingClientRect()) || null; // (tests) its column's box on screen
+    app.statusScreen = (id) => rawWorldOf(app.area()).statusFx?.screenOf(id, app.main.camera, canvas.getBoundingClientRect()) || null; // (tests)
+  }
   // Settings ▸ Me ▸ Graphics: a new geometry tier applies at once, every world's visuals swapped in place (no reload)
   app.setFaces = (faces) => { faces = String(faces); if (!faces || faces === String(app.facesUsed)) return false; assets.setFaces(faces); app.facesUsed = faces; for (const w of app.worlds.values()) w.refreshVisuals?.(); app.refresh(); return true; };
   app.THREE = THREE; // (tests)
@@ -305,13 +359,57 @@ async function boot(token) {
     app.fog?.update(area, w, v);
     // a room that just arrived plays the tuner's spawn-in (floor, walls, furniture; camera-side walls last); a re-rolled
     // room brings its new furniture in. Purely local: only the room command synced.
-    if (v) for (const rid of [...fresh.rooms, ...fresh.rerolled]) {
-      const ids = fresh.objects.filter(id => v.entities[id]?.room === rid);
-      w.animateRoom(rid, ids, app.main?.camera, { shell: fresh.rooms.includes(rid) });
+    // Rooms that arrive together on two or more storeys above the ground (a building dropped whole, or made again) start
+    // their spin-in together, on one frame (world.js animateStoreys); the seat that made it watches from the top storey
+    // and is then walked down to the ground storey (the storey tour, below; Harry 2026-10-22).
+    if (v) {
+      const idsOf = (rid) => fresh.objects.filter(id => v.entities[id]?.room === rid), byY = new Map();
+      for (const rid of fresh.rooms) { const y = HT.roomY(v.entities[rid]?.recipe); if (!byY.has(y)) byY.set(y, []); byY.get(y).push({ roomId: rid, ids: idsOf(rid), shell: true }); }
+      const ys = [...byY.keys()], multi = ys.filter(y => y >= 0).length > 1;
+      if (multi) { const T = startTour(area, fresh.rooms, ys); w.animateStoreys([...byY].map(([y, rooms]) => ({ y, rooms })), app.main?.camera, { onDone: T ? () => { T.spunAt = performance.now(); } : null }); }
+      for (const rid of [...(multi ? [] : fresh.rooms), ...fresh.rerolled]) w.animateRoom(rid, idsOf(rid), app.main?.camera, { shell: fresh.rooms.includes(rid) });
     }
     for (const id of [...app.sel]) if (!app.ent(id, area) && area === app.area()) app.sel.delete(id);
     app.emit('change', area);
     app.refresh();
+  }
+  // THE STOREY TOUR (Harry 2026-10-22: "we build one floor with our full spin-in animations that they get to watch ...
+  // and then we show the multi-story by using the *fast* animation of adding/removing a level ... We also want to leave
+  // them off on floor 1 of the building, where they are probably intending to start play"). Only the seat that made the
+  // building: its view is cut at the TOP storey while every storey spins in; once all of it has played and settled, the
+  // view steps down one storey at a time (app.goLevel, the ordinary level change and its fly), resting STOREY_HOLD_MS on
+  // each after the fly lands, and stops on the ground storey (never into a cellar). Every write is `by: 'build'`. The
+  // tour stops for good the moment the seat takes the wheel: another level or cut, another area, a tool, the hand on the
+  // map (a button down on it, the wheel), or the view panned away (its focus 3 ft or more). Other seats are never moved. app.storeyTour (tests).
+  const STOREY_HOLD_MS = 300;
+  function startTour(area, rooms, ys) {
+    const ents = app.entities(), b = app.madeBuilding, bid = rooms.map(id => ents[id]?.building).find(Boolean);
+    if (area !== app.area() || !b || b.id !== bid || performance.now() - b.at > 60000 || !app.goLevel) return null;
+    if (app.storeyTour && !app.storeyTour.end) app.storeyTour.end = 'replaced';
+    const f = () => app.main?.grab.focus; let f0 = null; // (where the view is once the build has put it there: buildAt moves it to the building, a glide may be under way)
+    const T = app.storeyTour = { area, building: bid, levels: ys.filter(y => y >= 0).sort((p, q) => q - p), at: 0, t0: performance.now(), log: [], mode: app.mode, spunAt: null, end: null };
+    const ms = () => Math.round(performance.now() - T.t0);
+    const go = (y) => { app.goLevel(y, 'build'); T.expect = [app.level, app.cut?.y]; T.log.push({ y, at: ms() }); T.landed = null; };
+    const w = () => app.worlds.get(area);
+    if (!startTour.hands) { startTour.hands = true; const hand = (e) => { const t = app.storeyTour; if (t && !t.end) t.hand = e.type === 'wheel' ? 'wheel' : 'hand'; }; canvas.addEventListener('pointerdown', hand, true); canvas.addEventListener('wheel', hand, { capture: true, passive: true }); } // (the hand on the map: a click, a drag, the wheel)
+    go(T.levels[0]);
+    const tick = () => {
+      if (app.storeyTour !== T || T.end) return;
+      const fx = f(); if (fx && (!f0 || app.main?.glide)) f0 = { x: fx.x, z: fx.z };
+      const moved = f0 && fx && Math.hypot(fx.x - f0.x, fx.z - f0.z) > 3;
+      const why = T.hand || (app.area() !== area ? 'area' : app.level !== T.expect[0] || app.cut?.y !== T.expect[1] ? 'level' : app.mode && app.mode !== T.mode ? 'tool' : moved ? 'panned' : null);
+      if (why) { T.end = why; T.endAt = ms(); return; }
+      requestAnimationFrame(tick);
+      if (T.spunAt == null) return; // the spin-in is still playing (or loading)
+      if (T.spin == null) T.spin = Math.round(T.spunAt - T.t0);
+      if (w()?.cutFly?.busy()) return; // the last step's fly is still in the air
+      if (T.landed == null) { T.landed = performance.now(); T.log[T.log.length - 1].landed = ms(); }
+      if (T.at >= T.levels.length - 1) { T.end = 'ground'; T.endAt = ms(); return; }
+      if (performance.now() - T.landed < STOREY_HOLD_MS) return;
+      go(T.levels[++T.at]);
+    };
+    requestAnimationFrame(tick);
+    return T;
   }
   const rectOf = (r) => ({ x0: r.recipe.x * CELL, z0: r.recipe.z * CELL, x1: (r.recipe.x + r.recipe.w) * CELL, z1: (r.recipe.z + r.recipe.d) * CELL });
   app.rectOf = rectOf;
@@ -338,7 +436,15 @@ async function boot(token) {
     }
     app.refresh();
   };
+  // NO PICTURE-IN-PICTURE ON A PHONE (Harry 2026-10-24: "we can't really afford the real estate for picture in picture.
+  // Let's just turn it off"; docs/UI.md "On a phone"): openPip and openLocalPip open nothing there, whoever asks (the
+  // callers fall back to the main view: pawns.js follow, roster.js); one already open is closed (at boot and on a turn
+  // of the phone). A computer's PiP is untouched.
+  const noPip = () => !!window.TW_HAND || document.documentElement.classList.contains('tw-hand');
+  app.pipAllowed = () => !noPip();
+  addEventListener('resize', () => { if (app.pip && noPip()) app.closePip(); });
   app.openPip = (area, follow = null) => {
+    if (noPip()) { if (app.pip) app.closePip(); return false; }
     if (!app.pip) { app.pip = newPip({ area, rule: 'follow', rect: app.pipRect(), follow }); app.views.push(app.pip); }
     if (app.pip.area !== area && app.pip.area !== app.main?.area && !app.pip.area.startsWith('lib:')) sync.unsubscribe(app.pip.area);
     Object.assign(app.pip, { area, follow, rule: 'follow' });
@@ -350,6 +456,7 @@ async function boot(token) {
   const newPip = (opts) => { const v = new View({ ...opts, dom: canvas }); v.grab.dom = pipDom; return v; };
   // a PiP of a LOCAL area (the Build menu's library shelves): nothing to subscribe to, its camera is flown by library.js
   app.openLocalPip = (area) => {
+    if (noPip()) { if (app.pip) app.closePip(); return false; }
     if (app.pip && app.pip.area !== area && !app.pip.area.startsWith('lib:') && app.pip.area !== app.main?.area) sync.unsubscribe(app.pip.area);
     if (!app.pip) { app.pip = newPip({ area, rule: 'library', rect: app.pipRect() }); app.views.push(app.pip); }
     Object.assign(app.pip, { area, follow: null, rule: 'library' });
@@ -450,8 +557,37 @@ async function boot(token) {
     const rid = id.slice(5), room = app.entities()[rid], w = app.worldOf(app.area()), rec = w?.roofRecs?.get(rid);
     if (!room || !rec || !app.roofs || !w.roofShown(rec)) return undefined;
     const b = rec.box;
-    return { id, kind: 'roof', room: rid, building: room.building || null, name: `${app.nameOf(room)} roof`, style: rec.roof.style, own: room.roof?.style || null, seed: room.roof?.seed ?? room.recipe.seed, locked: !!room.locked, hidden: !!room.hidden, x: (b.min.x + b.max.x) / 2, z: (b.min.z + b.max.z) / 2, y: rec.roof.top };
+    // shape: as planned ('gable' | 'hip' | 'flat' | 'mixed'); ownShape: the room's own choice (room.roof.shape) or null;
+    // axis: the way its ridge runs as planned ('x' | 'z'; none on a flat roof), autoAxis: the way it would without a turn
+    // (2026-10-27) its flat part's edge and corner turrets: flat = it has a flat part (a flat style, a flat shape, or a lower
+    // storey's open deck); plainEdge = the edge it would have were it not a castle's ("Battlements off")
+    const flat = rec.roof.planes.some(p => p.flat), fs = rec.roof.flatStyle || 'deck';
+    return { id, kind: 'roof', room: rid, building: room.building || null, name: `${app.nameOf(room)} roof`, style: rec.roof.style, own: room.roof?.style || null, shape: rec.roof.kind, ownShape: room.roof?.shape || null, axis: rec.roof.axis || null, autoAxis: rec.roof.autoAxis || null, turned: !!room.roof?.axis, seed: room.roof?.seed ?? room.recipe.seed, locked: !!room.locked, hidden: !!room.hidden, x: (b.min.x + b.max.x) / 2, z: (b.min.z + b.max.z) / 2, y: rec.roof.top,
+      flat, flatStyle: fs, edge: rec.roof.edge || 'parapet', ownEdge: room.roof?.edge || null, turrets: !!rec.roof.turrets, plainEdge: room.roof?.edge && room.roof.edge !== 'battlements' ? room.roof.edge : (HT.EDGE_BY_SURFACE[fs] || 'parapet') };
   };
+  // every roof of a building that is drawn (a building's roof commands: its edge, its turrets)
+  app.roofItemsOf = (bid) => { const w = app.worldOf(app.area()); return [...(w?.roofRecs?.keys() || [])].filter(rid => app.entities()[rid]?.building === bid).map(rid => app.roofItem('roof:' + rid)).filter(Boolean); };
+  // TURN A ROOF 90 DEGREES (Harry 2026-10-27: "rotate able on the 90 degree, so profiles can work"): its ridge runs the
+  // other way, so its gable ends face the other pair of walls. One room.set { roof: { axis } }; a turn back to the way
+  // the automatic choice runs stores nothing (so two turns put the room back exactly as it was). quarters: how many
+  // quarter turns (the ring's drag handle snaps to them); an even number changes nothing.
+  app.turnRoof = (it, quarters = 1) => {
+    if (!it || it.kind !== 'roof' || !it.axis || !(Math.abs(quarters) % 2)) return null;
+    const to = it.axis === 'x' ? 'z' : 'x';
+    return app.dispatch('room.set', { id: it.room, roof: { axis: to === it.autoAxis ? 'auto' : to } });
+  };
+  // A PIECE OF A ROOF'S TRIM (Harry 2026-10-27: "those chimneys and windows and stuff that stick out of roofs should be
+  // selectable & moveable objects as well"): 'trim:<room id>|<key>' (client/roofs.js "THE TRIM IS TOUCHABLE"). Derived
+  // like the roof it is on; what is DATA is the room's override for it (room.roof.trim[key]): moved or removed.
+  const TRIM_NAMES = { chimney: 'Chimney', dormer: 'Dormer window', finial: 'Finial', parapet: 'Parapet', corner: 'Parapet pier', battlement: 'Battlement', merlon: 'Battlement corner', turret: 'Corner turret', railing: 'Railing' };
+  app.trimItem = (id) => {
+    const [rid, key] = id.slice(5).split('|'), room = app.entities()[rid], w = app.worldOf(app.area()), t = w?.trimPiece?.(rid, key);
+    if (!room || !t || !app.roofs || !w.roofShown(t.rec)) return undefined;
+    const p = t.prop, own = room.roof?.trim?.[key];
+    return { id, kind: 'trim', room: rid, key, role: p.role, name: TRIM_NAMES[p.role] || p.role, x: p.x, y: p.y, z: p.z, dims: p.dims, movable: !!p.slide, moved: !!own?.at, locked: !!room.locked, hidden: !!room.hidden };
+  };
+  // move a piece of trim to (x, z) (world feet; it slides on its slope or the roof: client/roofs.js slideProp); one room.set
+  app.moveTrim = (it, x, z) => { const r = app.entities()[it?.room]; if (!r?.recipe) return null; return app.dispatch('room.set', { id: r.id, roof: { trim: { [it.key]: { at: [r2(x - r.recipe.x * CELL), r2(z - r.recipe.z * CELL)] } } } }); };
   app.wallItem = (id) => {
     const key = id.slice(5), w = app.worldOf(app.area()), e = w.edgeAt?.(key);
     // a piece storeys generate (2026-10-06): a bracket or post under an overhang, a railing section round a stair's hole.
@@ -548,6 +684,7 @@ async function boot(token) {
   app.selectionFor = (hit) => {
     if (!hit) return null;
     if (hit.wall) return app.overview() ? null : 'wall:' + hit.wall;
+    if (hit.trim && hit.roof && !app.overview()) return `trim:${hit.roof}|${hit.trim}`; // a chimney, a dormer, a finial: itself
     if (hit.roof) { const r = app.entities()[hit.roof]; return app.overview() ? (app.entities()[r?.building] || r)?.id || null : 'roof:' + hit.roof; } // at the map detent a roof is its building
     const e = hit.entity; if (!e) return null;
     if (hit.floor) return null; // labels select rooms and buildings now; the floor selects nothing (Harry 2026-10-03)
@@ -562,9 +699,12 @@ async function boot(token) {
   app.redo = () => sync.submitRaw({ type: 'redo', area: app.area(), args: {} });
   app.undoFor = (who) => sync.submitRaw({ type: 'undo', area: app.area(), args: { who } });
   app.deleteSelection = () => {
-    const sel = app.selected().filter(e => e.kind !== 'wall' && e.kind !== 'roof');
+    const all = app.selected(), sel = all.filter(e => e.kind !== 'wall' && e.kind !== 'roof');
     const ops = [];
     const gone = new Set();
+    // A ROOF: Delete takes it off, so its room is OPEN TO THE SKY (Harry 2026-10-27: "deletable so rooms can be open to the
+    // sky"); room.roof.off, in the same batch as anything else selected (one undo brings it all back)
+    const roofs = all.filter(e => e.kind === 'roof' && !e.locked);
     for (const e of sel) {
       if (e.kind === 'building') { for (const r of app.childrenOf(e)) { ops.push({ type: 'room.delete', args: { id: r.id } }); gone.add(r.id); } continue; }
       if (e.kind === 'room' && !gone.has(e.id)) { ops.push({ type: 'room.delete', args: { id: e.id } }); gone.add(e.id); }
@@ -573,7 +713,13 @@ async function boot(token) {
       if (e.kind === 'object' && !gone.has(e.room)) ops.push({ type: 'object.delete', args: { id: e.id } });
       if (e.kind === 'token') ops.push({ type: 'token.delete', args: { id: e.id } });
     }
+    const opened = roofs.filter(e => !gone.has(e.room));
+    for (const e of opened) ops.push({ type: 'room.set', args: { id: e.room, roof: { off: true } } });
+    // A PIECE OF TRIM: removed (room.roof.trim[key] = { gone }), one room.set per room
+    const trims = new Map(); for (const e of all) if (e.kind === 'trim' && !e.locked && !gone.has(e.room) && !opened.some(o => o.room === e.room)) { if (!trims.has(e.room)) trims.set(e.room, {}); trims.get(e.room)[e.key] = { gone: true }; }
+    for (const [room, trim] of trims) ops.push({ type: 'room.set', args: { id: room, roof: { trim } } });
     if (ops.length) { app.batch(ops); app.clearSelection(); }
+    if (opened.length && opened.length === ops.length) app.toast(opened.length > 1 ? `${opened.length} roofs removed: open to the sky (undo puts them back)` : 'Roof removed: open to the sky. Undo, or "roof back" in the command bar, puts it back');
   };
   app.selectAll = () => {
     const r = app.selected()[0]?.kind === 'room' ? app.selected()[0] : (app.cursor && roomAt(app.cursor[0], app.cursor[1]));
@@ -585,13 +731,29 @@ async function boot(token) {
   const roomsIn = (things) => { const out = new Map(); for (const e of things) { if (e.kind === 'building') for (const r of app.childrenOf(e)) out.set(r.id, r); if (e.kind === 'room') out.set(e.id, e); } return [...out.values()]; };
   app.roomsIn = roomsIn;
   // would these rooms, each at its new rectangle (rectOf(room) in cells), overlap a room that is staying put? → that room
+  const openOf = () => { const w = worldOf(app.area()); return w ? (w.openRoom ||= (rm) => w.isOpenRoom(rm)) : null; }; // (a yard: no top to stand on, world.js isOpenRoom)
   app.roomClash = (rooms, rectFor) => {
     const moving = new Set(rooms.map(r => r.id)), others = Object.values(app.entities()).filter(e => e.kind === 'room' && !moving.has(e.id));
     const ents = app.entities(); // (rooms on different storeys never clash: footprints AND heights must overlap)
     for (const r of rooms) { const n = rectFor(r), y = HT.roomY(n), top = y + HT.roomHeight(ents, r), hit = others.find(o => overlapCells(o.recipe, n) && HT.spansOverlap(y, top, HT.roomY(o.recipe), HT.roomTop(ents, o))); if (hit) return { room: r, hit }; }
     return null;
   };
-  app.moveBy = (things, dx, dz, { rot = null, dy = 0 } = {}) => { // dy: onto a floor at another height (things and pawns; rooms keep theirs)
+  // where a STANDING pawn walks to on its level (core/height.js pawnStepTo): the height of its figure at (nx, nz)
+  const standY = (E, e, nx, nz) => { const fig = e.y || 0, op = openOf(), fb = HT.baseUnder(E, e.x, e.z, fig, op), st = HT.pawnStepTo(E, nx, nz, fb.y, op, fb); return !st.below || st.walk ? st.y + Math.max(0, fig - fb.y) : fig; };
+  // ONE STRETCH OF A WALK (first person, client/surfaces/fpv.js): pawn e (where the walker is: its x, z, y) going on to
+  // (nx, nz) by moveBy's own rule, below. -> { y, over, pit }: the figure's height there; over = it stood and is now out
+  // over open air (moveBy offers the fall); pit = it is now on a pit it was not on (the fall into it is offered)
+  app.walkStep = (e, nx, nz) => {
+    const stands = app.pawnStands(e), ny = stands ? standY(app.entities(), e, nx, nz) : e.y || 0, ly = app.pawnLandY(e, nx, ny, nz);
+    const over = stands && !app.pawnStands(e, nx, ly, nz), pit = !over && stands ? app.pitAt(e, nx, ly, nz) : null;
+    return { y: ly, over, pit: !!pit && app.pitAt(e)?.pit !== pit.pit };
+  };
+  // dy: things onto a floor at another height (rooms keep theirs). ys: Map(pawn id -> its height), where a drag walked each
+  // pawn (input.js startWalk). A STANDING PAWN given neither (the arrow keys, the bar) WALKS ON ITS LEVEL too
+  // (core/height.js pawnStepTo, 2026-10-26: universal levels): up and down a stair's treads, onto a hill from its foot,
+  // off its edge onto the ground below; where its level has no floor it stays at its height and is offered the fall.
+  // (walk: a first-person walk's id, client/surfaces/fpv.js: its moves join one undo step on the relay, relay/campaign.js)
+  app.moveBy = (things, dx, dz, { rot = null, dy = 0, ys = null, walk = null } = {}) => {
     const ops = [], seen = new Set();
     const cdx = Math.round(dx / CELL), cdz = Math.round(dz / CELL);
     const rooms = roomsIn(things);
@@ -602,24 +764,36 @@ async function boot(token) {
       for (const r of [...rooms].sort((a, b) => ((b.recipe.x + b.recipe.w / 2) * cdx + (b.recipe.z + b.recipe.d / 2) * cdz) - ((a.recipe.x + a.recipe.w / 2) * cdx + (a.recipe.z + a.recipe.d / 2) * cdz))) ops.push({ type: 'room.move', args: { id: r.id, dx: cdx, dz: cdz } });
     }
     for (const r of rooms) seen.add(r.id);
-    const moving = [];
+    const moving = [], over = []; // over: pawns that stood where they were and are now over open air (the fall offer)
     for (const e of things) if ((e.kind === 'object' || e.kind === 'token') && !seen.has(e.room)) { moving.push(e); for (const d of app.descendants(e)) moving.push(d); }
     for (const e of new Set(moving)) {
       if (seen.has(e.id)) continue; seen.add(e.id);
       if (e.kind === 'token') {
-        // A PAWN THAT LANDS ON A STAIR GOES TO ITS OTHER END (core/stairs.js): dropped on the stair from the floor it stands
-        // on, it arrives on the landing upstairs; dropped on the hole from above, at the stair's foot. One move.
-        const nx = e.x + dx, nz = e.z + dz, ny = (e.y || 0) + dy, fl = HT.floorUnder(app.entities(), nx, nz, ny)?.y ?? Math.min(0, ny);
+        const nx = e.x + dx, nz = e.z + dz, E = app.entities();
+        let ny = (e.y || 0) + dy;
+        if (ys?.has(e.id)) ny = ys.get(e.id);
+        else if (!dy && !rooms.length && app.pawnStands(e)) ny = standY(E, e, nx, nz);
+        // A PAWN THAT LANDS ON A LADDER OR A SPIRAL GOES TO ITS OTHER END (core/stairs.js stairHop: dropped on it from the floor
+        // it stands on, it arrives on the landing upstairs; dropped on the hole from above, at its foot). A flight is walked.
+        const fl = HT.floorUnder(E, nx, nz, ny)?.y ?? Math.min(0, ny);
         const hop = things.length === 1 && Math.abs(ny - fl) < 1 ? app.stairHop(nx, nz, fl) : null;
-        if (hop) { ops.push({ type: 'token.move', args: { id: e.id, x: r2(hop.x), z: r2(hop.z), y: r2(hop.y), ...(rot != null && { rot }) } }); app.lastHop = { token: e.id, ...hop }; continue; }
+        if (hop) { ops.push({ type: 'token.move', args: { id: e.id, x: r2(hop.x), z: r2(hop.z), y: r2(hop.y), ...(rot != null && { rot }), ...(walk && { walk }) } }); app.lastHop = { token: e.id, ...hop }; continue; }
         const ly = app.pawnLandY(e, nx, ny, nz); // (a pawn under 5 ft up where it arrives settles there: a float left by an old lowering too)
-        ops.push({ type: 'token.move', args: { id: e.id, x: r2(nx), z: r2(nz), ...((dy || ly !== (e.y || 0)) && { y: r2(ly) }), ...(rot != null && { rot }) } });
+        ops.push({ type: 'token.move', args: { id: e.id, x: r2(nx), z: r2(nz), ...((dy || r2(ly) !== r2(e.y || 0)) && { y: r2(ly) }), ...(rot != null && { rot }), ...(walk && { walk }) } });
+        // OUT OVER OPEN AIR (2026-10-22): it stood where it was and stands on nothing now: it stays at its height, hovering
+        // like a raised pawn, and is offered the fall (surfaces/falls.js). A pawn that was already up (flying) is not; one left
+        // hanging there a moment ago (its offer still up) and moved on over the air is offered again.
+        if ((app.pawnStands(e) || app.falls?.hanging(e.id)) && !app.pawnStands(e, r2(nx), r2(ly), r2(nz))) over.push({ id: e.id, x: r2(nx), y: r2(ly), z: r2(nz) });
+        // ... and ONTO A PIT (core/holes.js PIT_CATS: the stair behaviour of a pit): offered the fall into it, unless it was in it already
+        else { const pit = app.pitAt(e, r2(nx), r2(ly), r2(nz)); if (pit && app.pitAt(e)?.pit !== pit.pit) over.push({ id: e.id, x: r2(nx), y: r2(ly), z: r2(nz), pit: pit.pit }); }
         continue;
       }
       // a thing belongs to the room it stands in (so it turns, moves and hides with that room): keep that current
       { const now = roomAt(e.x + dx, e.z + dz, (e.y || 0) + dy)?.id || ''; ops.push({ type: 'object.move', args: { id: e.id, x: r2(e.x + dx), z: r2(e.z + dz), ...(dy && { y: r2((e.y || 0) + dy) }), ...(now !== (e.room || '') && { room: now }) } }); }
     }
-    return app.batch(ops);
+    const cid = app.batch(ops);
+    if (cid && over.length) app.falls?.offer(over);
+    return cid;
   };
   // turn a room by quarter turns (clockwise; -1 = anticlockwise) about its centre, its contents with it (core room.rotate).
   // A turn that would overlap another room is refused HERE, visibly: a toast and the would-be footprint in red.
@@ -669,13 +843,32 @@ async function boot(token) {
       app.toast(`${players.length} player pawn${players.length === 1 ? ' is' : 's are'} in ${place}`);
     }
   };
-  app.toggleOpen = (e) => app.dispatch('object.open', { id: e.id, open: !e.open });
+  // a GENERATED door (app.wallItem: no entity yet) opens through door.open, for the GM and players alike (2026-10-29: a
+  // player could not open one, the materialise step was the GM's). The relay works the door out itself; the piece sent
+  // here is for this tab's optimistic view only. The new thing takes the selection's place, as a materialise does.
+  app.toggleOpen = (e) => {
+    if (!(e?.generated && e.edgeKind === 'door' && e.id?.startsWith?.('wall:'))) return app.dispatch('object.open', { id: e.id, open: !e.open });
+    const id = newId('obj'), piece = { name: e.name, cat: e.cat, sku: e.sku, url: e.url, s: e.s, dims: e.dims, place: e.place || 'kit', layer: e.layer, x: r2(e.x), y: r2(e.y), z: r2(e.z), rot: e.rot, yaw: 0, room: e.room, fromEdge: e.key };
+    if (!app.gm()) app.fog?.sendNow?.(); // (what I have just seen goes first: the relay checks the door against it)
+    const cid = sync.submit('door.open', { key: e.key, open: true, id, piece }, app.area());
+    if (app.sel.has(e.id)) { app.sel = new Set([...app.sel].map(x => x === e.id ? id : x)); queueMicrotask(() => { app.emit('selection'); app.refresh(); }); }
+    return cid;
+  };
   // DAMAGE goes through token.damage (anyone's pawn; each change leaves an undo: surfaces/undochips.js)
   app.damageDelta = (pawns, n) => app.batch(pawns.filter(p => damageAfter(p.damage, n) !== damageOf(p)).map(p => ({ type: 'token.damage', args: { id: p.id, damage: damageAfter(p.damage, n) } })));
   app.damageSet = (pawns, damage) => app.batch(pawns.filter(p => damageOf(p) !== damage).map(p => ({ type: 'token.damage', args: { id: p.id, damage } })));
   app.setMark = (pawns, mark) => app.batch(pawns.filter(p => (p.mark || '') !== mark).map(p => ({ type: 'token.mark', args: { id: p.id, mark } })));
   app.giveTo = (pawn, seat) => app.dispatch('token.owner', { id: pawn.id, owner: seat || '' });
-  app.toggleCondition = (pawns, c) => { const on = !pawns.every(p => (p.conditions || []).includes(c)); app.batch(pawns.map(p => ({ type: 'token.set', args: { id: p.id, conditions: on ? [...new Set([...(p.conditions || []), c])] : (p.conditions || []).filter(x => x !== c) } }))); };
+  // CONDITIONS (core/conditions.js): every way in sends a CLEANED list (TW's words, text labels, one exhaustion level);
+  // a pawn whose list would not change sends nothing. Toggle: on for all unless all have it already.
+  const hasCond = (p, w) => (p.conditions || []).some(c => CO.condKey(c) === CO.condKey(w));
+  const setConds = (pawns, f) => app.batch(pawns.map(p => { const now = p.conditions || [], next = CO.cleanConditions(f(CO.cleanConditions(now), p)); return JSON.stringify(next) === JSON.stringify(now) ? null : { type: 'token.set', args: { id: p.id, conditions: next } }; }).filter(Boolean));
+  app.setCondition = (pawns, word, on) => { const w = CO.normCondition(word); if (!w) return; return setConds(pawns, (L) => on ? [...L.filter(c => CO.condKey(c) !== CO.condKey(w)), w] : L.filter(c => CO.condKey(c) !== CO.condKey(w))); };
+  app.toggleCondition = (pawns, c) => app.setCondition(pawns, c, !pawns.every(p => hasCond(p, c)));
+  app.setExhaustion = (pawns, levelOf) => setConds(pawns, (L, p) => { const n = Math.max(0, Math.min(CO.EXHAUSTION_MAX, levelOf(p))), rest = L.filter(c => CO.condKey(c) !== 'exhaustion'); return n ? [...rest, CO.exhaustionWord(n)] : rest; });
+  // AN AURA (core/aura.js, client/aurafx.js): one change for every selected pawn (a level, up / down, a colour, an
+  // emblem), each pawn's own aura after it; a pawn whose aura would not change sends nothing
+  app.setAura = (pawns, change) => app.batch(pawns.filter(p => p.kind === 'token').map(p => { const next = AU.applyChange(p.aura, change); return AU.auraSame(next, p.aura) ? null : { type: 'token.set', args: { id: p.id, aura: next } }; }).filter(Boolean));
   app.rename = (e, name) => e.kind === 'token' ? app.dispatch('token.set', { id: e.id, name }) : e.kind === 'building' ? app.dispatch('building.set', { id: e.id, name }) : e.kind === 'room' ? app.dispatch('room.set', { id: e.id, name }) : app.dispatch('object.set', { id: e.id, name });
   app.replaceWith = (e, v) => {
     const sz = roomgen.sizeOf(v.cat, v.sku); if (!sz) return;
@@ -708,9 +901,9 @@ async function boot(token) {
         const sx = (dx - rc.x) * CELL, sz = (dz - rc.z) * CELL;
         const objects = (it.objects || []).map(o => ({ ...o, id: newId('obj'), x: r2(o.x + sx), z: r2(o.z + sz) }));
         const om = new Map((it.objects || []).map((o, i) => [o.id, objects[i].id])); for (const o of objects) if (o.parent) o.parent = om.get(o.parent) || undefined;
-        ops.push({ type: 'room.spawn', args: { id, ...app.buildingFor(dx, dz, rc.w, rc.d), type: rc.type, ...(rc.flavor && { flavor: rc.flavor }), x: dx, z: dz, w: rc.w, d: rc.d, seed: rc.seed, wallFamily: rc.wallFamily, floor: rc.floor, ...(rc.turn && { turn: rc.turn }), ...(rc.outline && { outline: rc.outline }), engine: 'v2', engineVersion: roomgen.version, layout: { hash: 'copy', summary: 'pasted', objects: objects.map(stripObj) } } });
+        ops.push({ type: 'room.spawn', args: { id, ...app.buildingFor(dx, dz, rc.w, rc.d), type: rc.type, ...(rc.flavor && { flavor: rc.flavor }), x: dx, z: dz, w: rc.w, d: rc.d, seed: rc.seed, wallFamily: rc.wallFamily, floor: rc.floor, ...(rc.turn && { turn: rc.turn }), ...(rc.outline && { outline: rc.outline }), engine: 'v2', engineVersion: roomgen.version, layout: { hash: 'copy', summary: 'pasted', objects: objects.map(o => ({ ...stripObj(o), ...(o.fromCave && { fromCave: true }) })) }, ...(rc.stalagObjects && { stalagObjects: true }) } }); // (a cave copied with its stalagmites as things: they come with it, not drawn again)
       } else if (it.kind === 'token') {
-        ops.push({ type: 'token.create', args: { id, name: it.e.name, x: r2(x + it.dx), z: r2(z + it.dz), rot: it.e.rot || 0, color: it.e.color, owner: E[it.e.id]?.owner && it.e.owner ? it.e.owner : undefined, ...(it.e.damage > 0 && { damage: it.e.damage }), ...(it.e.conditions?.length && { conditions: it.e.conditions }), ...(it.e.sheet && { sheet: it.e.sheet }), ...(it.e.notes && { notes: it.e.notes }), ...(it.e.gmNotes && app.gm() && { gmNotes: it.e.gmNotes }), ...(it.e.mark && { mark: it.e.mark }), fig: it.e.fig || undefined, size: it.e.size > 1 ? it.e.size : undefined } });
+        ops.push({ type: 'token.create', args: { id, name: it.e.name, x: r2(x + it.dx), z: r2(z + it.dz), rot: it.e.rot || 0, color: it.e.color, owner: E[it.e.id]?.owner && it.e.owner ? it.e.owner : undefined, ...(it.e.damage > 0 && { damage: it.e.damage }), ...(it.e.conditions?.length && { conditions: CO.cleanConditions(it.e.conditions) }), ...(it.e.sheet && { sheet: it.e.sheet }), ...(it.e.notes && { notes: it.e.notes }), ...(it.e.gmNotes && app.gm() && { gmNotes: it.e.gmNotes }), ...(it.e.mark && { mark: it.e.mark }), ...(it.e.aura && { aura: it.e.aura }), fig: it.e.fig || undefined, size: it.e.size > 1 ? it.e.size : undefined } });
       } else {
         const parent = it.e.parent && idMap.get(it.e.parent);
         const nx = r2(x + it.dx), nz = r2(z + it.dz);
@@ -742,15 +935,24 @@ async function boot(token) {
   app.spawnRoom = (type, x, z, w, d, seed = Math.floor(Math.random() * 1e6), outline = undefined, y = 0) => {
     const area = app.area(), v = sync.view(area);
     const id = newId('room');
-    const b = app.buildingFor(x, z, w, d, y);
+    const terrain = HT.isTerrain(type); // a HILL (2026-10-24): ground, not a storey: no building, no stair offer, no faction
+    // A CAVE (2026-10-25, core/caves.js caveShape): its sides step in and out by whole squares, worked out ONCE, here, and
+    // stored as its outline (a later rule change never reshapes a saved cave); its rock is derived from that and its seed
+    let caveJag = null;
+    if (CV.isCave({ type })) {
+      const E0 = v.entities, taken = (gx, gz) => Object.values(E0).some(r => r.kind === 'room' && r.recipe && HT.roomY(r.recipe) === y && app.footprint.hasCell(r.recipe, gx, gz));
+      caveJag = CV.caveShape({ x, z, w, d, ...(outline && { outline }) }, seed, taken);
+      ({ x, z, w, d, seed } = caveJag); outline = caveJag.outline;
+    }
+    const b = terrain ? {} : app.buildingFor(x, z, w, d, y);
     // NO STAIR IS PLACED FOR A ROOM DRAWN BY HAND (Harry 2026-10-11: "let's not default to dropping stairs everywhere …
     // let players place their own stairs unless it looks like we can line one up from a plausible target to a plausible
     // target below"). Stairs are in the library. Only when a flight lines up with a hallway or common room is one
     // OFFERED, by a conditional button beside the room (core/stairs.js stairOffer; client/stairs.js takeStairOffer).
     const L = roomgen.solve(v.entities, { id, type, x, z, w, d, seed, outline, ...(y && { y }), building: b.building }, v.order + 1);
-    const cid = app.batch([{ type: 'room.spawn', args: { id, ...b, type, x, z, w, d, ...(y && { y }), seed, ...(outline && { outline }), engine: 'v2', engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects } } }]);
+    const cid = app.batch([{ type: 'room.spawn', args: { id, ...b, type, x, z, w, d, ...(y && { y }), seed, ...(caveJag && { floor: 'floor-cave-rock' }), ...(outline && { outline }), engine: 'v2', engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects }, ...(L.stalagObjects && { stalagObjects: true }) } }]); // (a cave: its stalagmites are things of its layout, core/caves.js STALAG_CAT: one undo takes the cave and them)
     app.lastStair = null; app.lastStairOffer = null; // (tests)
-    if (cid && y) {
+    if (cid && y && !terrain) {
       const room = app.entities()[id], P = room && app.stairOffer(room);
       if (P) {
         app.lastStairOffer = { room: id, label: P.label, from: P.from, to: P.to };
@@ -759,14 +961,49 @@ async function boot(token) {
           line: { kind: 'stair-offer', text: `${app.nameOf(room)} has no stairs`, button: P.label, data: { room: id, area } } });
       }
     }
-    app.lastBuilding = b.building;
-    if (cid) queueMicrotask(() => app.offerFaction?.(id));
+    if (!terrain) app.lastBuilding = b.building;
+    if (cid && !terrain) queueMicrotask(() => app.offerFaction?.(id));
+    if (cid && terrain) setTimeout(() => app.warnBuried(), 60);
+    if (cid && caveJag) { app.lastCave = { id, jagged: caveJag.jagged, cells: app.footprint.cellsOf(app.entities()[id]?.recipe || {}).length }; } // (tests)
     return id;
   };
+  // A HILL'S HEIGHT (2026-10-24, docs/VERTICAL.md "Terrain"): its top moves by whole 5-ft steps (core room.move dy; its
+  // own things ride with it, as a room's always do), and the pawns standing on it are carried up or down with it, all
+  // in ONE command (one undo). Never to the ground or below (a hill is raised ground: core refuses it, said here first).
+  app.setHillHeight = (r, y) => {
+    if (!r || !HT.isTerrain(r.recipe)) return null;
+    const y0 = HT.roomY(r.recipe), dy = y - y0; if (!dy) return null;
+    if (y < HT.STEP) { app.toast('A hill is at least 5 ft high', true); return null; }
+    if (y > 60) { app.toast('60 ft is as high as a hill goes', true); return null; }
+    const E = app.entities(), open = (rm) => !!rm.roof?.off || roomgen.isOutdoor(rm.recipe?.type);
+    // (2026-10-24) and what stands ON it rides along too: a room at the hill's top over the hill, and every room stacked on
+    // such a room (their things and the pawns in them). A room dug into the hill stays where it is. (By the rooms that
+    // stand on it since 2026-10-26, not by building: a building with rooms on the plain too leaves those where they are.)
+    const FPm = app.footprint, rooms = Object.values(E).filter(rm => rm.kind === 'room' && rm.recipe && !HT.isTerrain(rm.recipe));
+    const on = new Set(rooms.filter(rm => HT.roomY(rm.recipe) === y0 && FPm.overlap(rm.recipe, r.recipe)).map(rm => rm.id));
+    for (let grew = true; grew;) { grew = false; for (const rm of rooms) if (!on.has(rm.id) && rooms.some(c => on.has(c.id) && HT.roomTop(E, c) === HT.roomY(rm.recipe) && FPm.overlap(c.recipe, rm.recipe))) { on.add(rm.id); grew = true; } }
+    const carried = rooms.filter(rm => on.has(rm.id)).sort((a, b) => (HT.roomY(a.recipe) - HT.roomY(b.recipe)) * Math.sign(dy) * -1 || 0);
+    const inCarried = (t) => { const b = HT.baseUnder(E, t.x, t.z, t.y || 0, open); return b.room && carried.some(rm => rm.id === b.room); };
+    const riders = Object.values(E).filter(e => e.kind === 'token' && (HT.baseUnder(E, e.x, e.z, e.y || 0, open).room === r.id || inCarried(e)));
+    const cid = app.batch([{ type: 'room.move', args: { id: r.id, dx: 0, dz: 0, dy } }, ...carried.map(rm => ({ type: 'room.move', args: { id: rm.id, dx: 0, dz: 0, dy } })), ...riders.map(t => ({ type: 'token.move', args: { id: t.id, x: t.x, z: t.z, y: (t.y || 0) + dy } }))]);
+    if (cid && dy > 0) setTimeout(() => app.warnBuried(), 60);
+    return cid;
+  };
+  // one storey up (+1) or down (-1), to a whole storey (a 5 or 15-ft hill from before 2026-10-26: to the next one)
+  app.raiseHill = (r, dir) => { if (!r) return null; const y = HT.roomY(r.recipe), S = HT.STOREY; return app.setHillHeight(r, dir > 0 ? (Math.floor(y / S + 1e-9) + 1) * S : Math.max(S, (Math.ceil(y / S - 1e-9) - 1) * S)); };
+  // A BANK LIES ON THE LOWER GROUND (docs/VERTICAL.md "Terrain"), so a new or raised hill can lay its bank over a pawn
+  // standing beside it. Nothing moves the pawn (standing on a bank is not built); the GM is told, by name.
+  app.buriedPawns = () => {
+    const E = app.entities(), T = terrainOf(E), open = (rm) => !!rm.roof?.off || roomgen.isOutdoor(rm.recipe?.type);
+    return Object.values(E).filter(e => e.kind === 'token' && !e.hidden && T.heightAt(e.x, e.z) > HT.baseUnder(E, e.x, e.z, e.y || 0, open).y + 0.75);
+  };
+  app.warnBuried = () => { const P = app.buriedPawns(); app.lastBuried = P.map(p => p.id); if (P.length) app.toast(`${P.length === 1 ? P[0].name || 'A pawn' : `${P.length} pawns`} ${P.length === 1 ? 'stands' : 'stand'} where the hill's bank now is: drag ${P.length === 1 ? 'it' : 'them'} up onto the hill or away from it`); };
+  app.setHillCliff = (r, on) => r && HT.isTerrain(r.recipe) ? app.dispatch('room.set', { id: r.id, cliff: !!on }) : null;
+  app.terrainInfo = () => app.worldOf(app.area())?.terrain?.info() || null; // (tests)
   app.rerollRoom = (r, type = null) => {
     const v = app.view(), seed = Math.floor(Math.random() * 1e6);
     const L = roomgen.solve(v.entities, { id: r.id, type: type || r.recipe.type, seed }, r.order, roomgen.pinnedOf(v.entities, r.id));
-    app.dispatch('room.reroll', { id: r.id, seed, ...(type && { type }), engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects } });
+    return app.dispatch('room.reroll', { id: r.id, seed, ...(type && { type }), engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects }, ...(L.stalagObjects && { stalagObjects: true }) }); // (a cave: only its own stalagmites follow the re-roll; the ones the GM moved or put there stay)
   };
   app.setRoom = (r, k, v) => app.dispatch('room.set', { id: r.id, [k]: v });
   app.setFaction = (id, flavor) => {
@@ -777,7 +1014,7 @@ async function boot(token) {
   };
   // the building tool: a rectangle becomes the type's rooms (client/pack.js), each solved against the ones before it,
   // all in ONE command (one step to undo), in one new building named for the type
-  const roomsOfType = (node) => node.children.map(id => taxonomy.get(id)).filter(n => n.level === 'room').map(n => ({ key: n.roomKey, cells: n.cells || [3, 3] }));
+  const roomsOfType = (node) => node.children.map(id => taxonomy.get(id)).filter(n => n.level === 'room' && !HT.isTerrain(n.roomKey) && !CV.isCave({ type: n.roomKey })).map(n => ({ key: n.roomKey, cells: n.cells || [3, 3] })); // (a hill is listed with a type's rooms in the tray, never packed into its buildings)
   // WHOLE BUILDINGS (docs/BUILDINGS.md, Harry 2026-10-11): on the ground a dragged footprint becomes a PLAN (the tuner's
   // js/buildings.js: rooms, doors, the stair core, storeys) and the plan becomes one batch (core/buildplan.js).
   const typesOfNode = (node) => roomsOfType(node).map(r => ({ ...r, outdoor: roomgen.isOutdoor(r.key) }));
@@ -801,7 +1038,7 @@ async function boot(token) {
   app.buildableRect = (rect, level = app.level || 0) => {
     if (!level) return rect;
     const ents = app.entities(), top = level + app.levelInfo(level).step;
-    const taken = Object.values(ents).filter(r => r.kind === 'room' && HT.spansOverlap(level, top, HT.roomY(r.recipe), HT.roomTop(ents, r))).map(r => r.recipe);
+    const taken = Object.values(ents).filter(r => r.kind === 'room' && !HT.isTerrain(r.recipe) && HT.spansOverlap(level, top, HT.roomY(r.recipe), HT.roomTop(ents, r))).map(r => r.recipe); // (a hill is never in a building's way: 2026-10-24)
     const valid = level > 0 ? new Set(app.modes.validCells(level).map(([gx, gz]) => `${gx}:${gz}`)) : null;
     const ok = (gx, gz) => (valid ? valid.has(`${gx}:${gz}`) : true) && !taken.some(rc => FP.hasCell(rc, gx, gz));
     let best = null; const h = new Array(rect.w).fill(0); // the largest rectangle of buildable squares inside the drag (row by row histogram)
@@ -818,6 +1055,7 @@ async function boot(token) {
     const out = planOps(plan, { roomgen, entities: v.entities, order: v.order, building, name: old?.name || name || plan.label, newId, replace: replace ? roomsOfBuilding(v.entities, replace) : [], gen: genOf(plan, gen), flavor: gen.flavor });
     if (out.blocked || !out.ops.length) { app.toast('A building needs clear ground: its rooms cannot overlap others', true); return null; }
     if (old?.roof) out.ops.push({ type: 'building.set', args: { id: building, roof: old.roof } });
+    app.madeBuilding = { id: building, at: performance.now() }; app.lastBuilding = building; // (its storeys coming in give this seat the storey tour: startTour; the level steps are that building's)
     app.batch(out.ops);
     const P = app.buildingProgramme(plan.code), word = P?.down ? 'level' : 'storey', n = plan.levels.filter(L => P?.down ? L <= 0 : L >= 0).length;
     app.toast(`${old?.name || name || plan.label}: ${out.rooms.length} rooms, ${n} ${word}${n === 1 ? '' : 's'}${out.left.length ? ` (left out: ${out.left.join('; ')})` : ''}`);
@@ -858,7 +1096,7 @@ async function boot(token) {
     for (let ring = 0; ring < 60; ring++) for (let dx = -ring; dx <= ring; dx++) for (let dz = -ring; dz <= ring; dz++) if (Math.max(Math.abs(dx), Math.abs(dz)) === ring && free(cx + dx * 2, cz + dz * 2)) return { x: cx + dx * 2, z: cz + dz * 2, w, d };
     return null;
   };
-  app.buildAt = (node, w, d, opts = {}) => { const rect = app.freeGroundFor(clampN(w, 4, 24), clampN(d, 4, 24)); if (!rect) { app.toast('No free ground near here', true); return null; } const lv = app.level; app.level = 0; let id; try { id = app.spawnBuilding(node, rect, opts); } finally { app.level = lv; }
+  app.buildAt = (node, w, d, opts = {}) => { const rect = app.freeGroundFor(clampN(w, 4, 24), clampN(d, 4, 24)); if (!rect) { app.toast('No free ground near here', true); return null; } const lv = app.level, tour = app.storeyTour; app.level = 0; let id; try { id = app.spawnBuilding(node, rect, opts); } finally { if (app.storeyTour === tour) app.level = lv; } // (unless the building's storey tour has just put this seat on its top storey)
     if (id && app.main?.grab) { const g = app.main.grab; g.focus.set((rect.x + rect.w / 2) * 5, g.focus.y, (rect.z + rect.d / 2) * 5); g.update?.(); } // asked for by words, it may be off screen: the view goes to it (heading, pitch and zoom kept)
     return id; };
   const clampN = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(+v) || lo));
@@ -896,12 +1134,17 @@ async function boot(token) {
   // ---------- chat & dice ----------
   app.say = (text) => app.dispatch('chat.say', { id: newId('msg'), text: text.slice(0, 500) });
   // a roll: the numbers here (crypto), then the dice's tumble (surfaces/dice.js: thrown once, by this client, played by
-  // every seat; never waited on longer than THROW_WAIT_MS), then one dice.roll command carrying both
-  app.roll = async (expr, why = '') => {
-    const p = parseDice(expr); if (!p) { app.toast(`Not a roll: ${expr}`, true); return null; }
-    const r = rollDice(p); let thr = null;
-    try { if (app.dice) thr = await Promise.race([app.dice.throwFor(p.terms, r.rolls), new Promise(res => setTimeout(() => res(null), app.dice.THROW_WAIT_MS))]); } catch (err) { console.warn('dice throw', err); }
-    const args = { id: newId('msg'), expr: p.label, rolls: r.rolls, total: r.total, why: why || undefined, ...(thr && { throw: thr }) };
+  // every seat; never waited on longer than app.dice.waitFor(dice): 2.5 s, a little more for a big pool), then one dice.roll command carrying both
+  // opts (2026-10-29, Beyond20 intake: surfaces/beyond20.js):
+  //   given  { rolls, total }: the numbers are someone else's (Beyond20's): nothing is rolled here, the dice are thrown
+  //          and LAND on these (every seat turns each die's numbering to them, as for any roll)
+  //   pawn   the pawn the dice are thrown from (else: my selected pawn, else my nearest)
+  //   info   what the roll was (dice.roll `info`: core/beyond20.js INFO)     id   the roll's id
+  app.roll = async (expr, why = '', opts = {}) => {
+    const p = parseDice(expr); if (!p && !opts.given) { app.toast(`Not a roll: ${expr}`, true); return null; }
+    const r = opts.given ? { rolls: opts.given.rolls, total: opts.given.total } : rollDice(p); let thr = null;
+    try { if (app.dice && p) thr = await Promise.race([app.dice.throwFor(p.terms, r.rolls, { pawn: opts.pawn }), new Promise(res => setTimeout(() => res(null), app.dice.waitFor?.(r.rolls.length) ?? app.dice.THROW_WAIT_MS))]); } catch (err) { console.warn('dice throw', err); }
+    const args = { id: opts.id || newId('msg'), expr: p ? p.label : String(expr).slice(0, 80), rolls: r.rolls, total: r.total, why: why || undefined, ...(thr && { throw: thr }), ...(opts.info && Object.keys(opts.info).length && { info: opts.info }) };
     // my own dice start now, as the roll goes out: the chat line and the announce are held from the first frame (before,
     // they waited for the relay's echo, and over the public route the line showed for that half second: Harry 2026-10-20,
     // "results are going to chat instantly rather than after settling")
@@ -938,7 +1181,18 @@ async function boot(token) {
   app.setVisibility = (visibility, area = app.area()) => sync.submit('area.visibility', { area, visibility });
   // things are transferred where they stand; PAWNS TRAVEL (surfaces/areas.js app.travel: the relay picks the arrival, and a player's pawn sent into a hidden area opens it)
   app.transfer = (things, to) => { const from = app.area(), pawns = things.filter(e => e.kind === 'token'); for (const e of things) if (e.kind === 'object') sync.submit('transfer', { id: e.id, from, to, x: e.x, z: e.z }); if (pawns.length && app.travel) app.travel(pawns, to, from, { follow: false }); else app.clearSelection(); };
-  app.createSeat = async (args) => { const m = await app.await(sync.submit('seat.create', { id: newId('seat'), ...args })); return m?.token || null; };
+  // A NEW PLAYER'S SEAT COMES WITH A PLACEHOLDER PAWN (Harry 2026-10-22: "if I'm inviting Bobby, it drops a blank pawn so I
+  // can position Bobby when he arrives"). Every invite goes through here (the bar's "invite …", Settings ▸ Campaign admin ▸
+  // Invites and seats), so the two cannot drift; re-copying an existing seat's link (a reissue) does not come here and makes
+  // no second pawn. app.placeholderFor (client/pawns.js) chooses the area and the square; the seat starts in that area.
+  // `placeholder: false` asks for the bare seat.
+  app.createSeat = async ({ placeholder = true, ...args }) => {
+    const id = newId('seat'), human = args.kind === 'human' && args.role === 'player' && placeholder && app.gm() && loadPrefs().invitePawn !== false;
+    const plan = human ? await app.placeholderPlan?.() : null;
+    const m = await app.await(sync.submit('seat.create', { id, ...args, ...(plan?.area && !args.location && { location: plan.area }) }));
+    if (m?.token && plan) await app.placeholderFor({ id, name: args.name, color: args.color }, plan);
+    return m?.token || null;
+  };
   app.inviteLink = (t) => `${location.origin}${location.pathname}${location.search}#s=${t}`; // (this page's own address: every address the page is served at must open a link, engine/test/browser_join.py)
   app.cardUrl = (t) => `${relayBase}/c/${sync.campaign.id}/card?seat=${t}`;
   app.revokeSeat = (who) => sync.submit('seat.revoke', { who });
@@ -983,7 +1237,7 @@ async function boot(token) {
   // finishes the contact with gravity); lifted above everything it stays put (hanging and flying are legitimate).
   // "The floor" is the floor of the storey the thing is over (core/height.js), not height 0: lowered to within an inch
   // of it, it stands on it; raised through a ceiling into the room above, it becomes that room's.
-  app.floorYOf = (e) => { const ents = app.entities(); return e.room && ents[e.room] ? HT.roomY(ents[e.room].recipe) : HT.floorUnder(ents, e.x, e.z, e.y || 0)?.y ?? Math.min(0, e.y || 0); };
+  app.floorYOf = (e) => { const ents = app.entities(); if (e.kind === 'token') { const b = HT.baseUnder(ents, e.x, e.z, e.y || 0); if (b.on === 'stair') return b.y; } /* (a pawn on a stair: its treads, 2026-10-26) */ return e.room && ents[e.room] ? HT.roomY(ents[e.room].recipe) : HT.floorUnder(ents, e.x, e.z, e.y || 0)?.y ?? Math.min(0, e.y || 0); };
   // DOES A DRAGGED PAWN SNAP TO THE SQUARES NOW? One answer for the pawn drag (input.js) and the placing ghost of a figure
   // dragged out of a list (pawns.js). Settings ▸ Me ▸ "Pawns snap to squares": 'shift' (the default since 2026-10-11:
   // free, Shift snaps: "Shift should be 'snap to steps' across the board") or 'always' (snaps, Shift frees).
@@ -1031,6 +1285,20 @@ async function boot(token) {
     return y - by > 0 && y - by < PAWN_BEAM.land ? by : y;
   };
   app.pawnLiftStep = PAWN_BEAM.land;
+  // FALLING (Harry 2026-10-22: "If you drag a pawn out over open air, it should give you a contextual option to 'fall xx
+  // feet?' and then place them down several levels. This is distinct from height adjusting."). How far a pawn whose
+  // figure is at (x, y, z) is above what it would land on: its base there (a floor, a room's top, a thing's top; a hole
+  // or a pit's opening is no floor: core/holes.js), never below the lowest floor. -> { base, drop } (feet)
+  app.pawnDropAt = (e, x, y, z) => { y = y || 0; const by = Math.max(HT.lowestFloorAt(app.entities(), x, z), pawnBase(e, x, y, z)); return { base: by, drop: Math.max(0, y - by) }; };
+  // is a pawn standing (on its base, as a pawn always did), not raised / flying? (under PAWN_BEAM.land: D&D's 5 ft)
+  app.pawnStands = (e, x = e.x, y = e.y || 0, z = e.z) => app.pawnDropAt(e, x, y, z).drop < PAWN_BEAM.land;
+  // THE PIT A STANDING PAWN AT (x, y, z) IS ON (core/holes.js pitAt: a spike pit, a painted pit or chasm, a through pit with
+  // nothing under it): { pit, name, x, z, y } where falling into it puts the pawn (its middle, its bottom), or null
+  app.pitAt = (e, x = e.x, y = e.y || 0, z = e.z) => {
+    const { drop } = app.pawnDropAt(e, x, y, z); if (drop >= PAWN_BEAM.land) return null;
+    const fl = HT.baseUnder(app.entities(), x, z, y).y, p = HO.pitAt(app.entities(), x, z, fl), P = p && HO.pitOf(p); if (!P) return null; // (the floor it is on, not the top of the pit's own kerb or spikes it may be standing on)
+    return { pit: p.id, name: P.name, x: p.x, z: p.z, y: r2(HO.holeFloor(p) + (P.bottom || 0)) };
+  };
   // A pawn LOWERED THROUGH a floor (below the base it stood on or hung over) lands on the floor below it, never in the
   // ground under the lowest one.
   app.pawnLowerY = (e, y) => {
@@ -1064,21 +1332,23 @@ async function boot(token) {
     for (const r of app.roomList(ents)) if (r.building) { const [x, z] = app.labelPointOf(r.recipe), d = f ? Math.hypot(x - f.x, z - f.z) : 0; if (d < bd) { bd = d; best = r.building; } }
     return best;
   };
-  // the levels the meter offers: 5 storeys above the ground storey and 6 below it (Harry), more when the area has
-  // rooms beyond that (always one spare above the highest room and one below the lowest, to build on)
+  // the levels the meter offers: 5 storeys above the ground and 6 below it (Harry), more when the area has rooms beyond
+  // that (always one spare above the highest room and one below the lowest, to build on). ONE NUMBERING FOR THE MAP
+  // (2026-10-26, core/height.js levelAt): every level counts from the ground at 0, whichever building is in focus (a
+  // shrine on a 10-ft hill is lv 2); every storey is 10 ft (2026-10-26, universal levels).
   const UP = 5, DOWN = 6;
   app.levelRange = () => {
-    const ents = app.entities(), bid = app.focusBuilding(), b = bid ? ents[bid] : null, step = HT.storeyHeightOf(b), base = HT.baseOf(b);
-    const [yLo, yHi] = app.derived('roomYs', (E) => { let a = Infinity, z = -Infinity; for (const r of app.roomList(E)) { const y = HT.roomY(r.recipe); if (y < a) a = y; if (y > z) z = y; } return [a, z]; }, ents); // (the storey number rises with the height, so the lowest and highest rooms are enough)
-    const ss = Number.isFinite(yLo) ? [HT.storeyAt(b, yLo), HT.storeyAt(b, yHi)] : [];
+    const ents = app.entities(), bid = app.focusBuilding(), step = HT.STOREY;
+    const [yLo, yHi] = app.derived('roomYs', (E) => { let a = Infinity, z = -Infinity; for (const r of app.roomList(E)) { const y = HT.roomY(r.recipe); if (y < a) a = y; if (y > z) z = y; } return [a, z]; }, ents); // (the level rises with the height, so the lowest and highest rooms are enough)
+    const ss = Number.isFinite(yLo) ? [HT.levelAt(yLo), HT.levelAt(yHi)] : [];
     const cap = Math.floor(HT.MAX_Y / step);
     const lo = Math.max(-cap, Math.min(-DOWN, ...ss.map(v => v - 1))), hi = Math.min(cap, Math.max(UP, ...ss.map(v => v + 1)));
-    return { building: bid, step, base, lo, hi, loY: base + lo * step, hiY: base + hi * step };
+    return { building: bid, step, lo, hi, loY: lo * step, hiY: hi * step };
   };
   app.levelInfo = (y = app.level) => {
-    const ents = app.entities(), R = app.levelRange(), b = R.building ? ents[R.building] : null;
+    const ents = app.entities(), R = app.levelRange();
     const exists = Object.values(ents).some(r => r.kind === 'room' && HT.roomY(r.recipe) === y);
-    return { y, label: HT.levelLabel(HT.storeyAt(b, y)), building: R.building, step: R.step, exists, isNew: !exists && y !== 0, lo: R.loY, hi: R.hiY, tool: buildTool() };
+    return { y, label: HT.levelLabel(HT.levelAt(y)), building: R.building, step: R.step, exists, isNew: !exists && y !== 0, lo: R.loY, hi: R.hiY, tool: buildTool() };
   };
   const applyLevel = () => { const w = app.area() && app.worlds.get(app.area()); if (!w) return; w.setGroundOpen(app.level < 0); w.showLevelGrid(buildTool() && app.level !== 0 ? app.level : null); app.modes?.levelChanged?.(); };
   app.setLevel = (y, { quiet = true } = {}) => {
@@ -1100,16 +1370,22 @@ async function boot(token) {
   app.modes = createModes(app);
   app.registry = createRegistry(app);
   defineCommands(app.registry, app);
+  installMusic(app); // the table's music (client/music.js): the GM picks it per area, each person their own volume
   // surfaces: every front end reads the same registry (a second menu/hotkey system plugs in the same way)
   app.library = createLibrary(app, { taxonomy, renderer });
   app.thumbs = createThumbs(app, { renderer });
+  app.uvtt = createUvtt(app, { renderer }); // Universal VTT (.dd2vtt) export of the storey in view (uvtt.js; Settings ▸ Campaign admin)
+  app.share = createShare(app, { thumbs: app.thumbs }); // shared builds: export, share links, import with a ghost (share.js, core/share.js)
   app.intro = createIntro(app);
-  for (const s of [traySurface, buildSurface, pawnsSurface, settingsSurface, turnsSurface, xraySurface, lightReachSurface, rulersSurface /* all before the keys surface, which reads the key map once */, keysSurface, barSurface, ringSurface, rosterSurface, diceSurface, announceSurface, chatSurface, crumbsSurface, cursorSurface, labelsSurface, undoChipsSurface, floorDropSurface, cutSurface, fpsSurface, areasSurface]) app.registry.use(s);
+  for (const s of [fpvSurface /* first: its keys, while looking, come before every other surface's (the launchers' letters too) */, traySurface, buildSurface, pawnsSurface, settingsSurface, turnsSurface, targetSurface, attacksSurface, beyond20Surface, xraySurface, lightReachSurface, rulersSurface /* all before the keys surface, which reads the key map once */, keysSurface, barSurface, ringSurface, rosterSurface, diceSurface, announceSurface, chatSurface, crumbsSurface, cursorSurface, labelsSurface, undoChipsSurface, floorDropSurface, fallsSurface, cutSurface, fpsSurface, areasSurface]) app.registry.use(s);
+  installLinkMail(app, { lab: ringLab || labelLab }); // "email yourself your link": the card, its chat line, the bar's "email my link" (surfaces/linkmail.js)
+  installArrival(app); // a player's first arrival: the camera on their own pawn, and one offer if it is a placeholder (client/arrival.js)
   if (ringLab) { app.registry.use(ringLabSurface); installRingLabTable(app, token); }
   if (labelLab) app.registry.use(labelLabSurface);
   teachBar(app.registry, assets); // the bar's vocabulary (barwords.js), once every surface has added its commands
   setupFactionUI(app);
   installInput(app, canvas);
+  installHandheld(app); // on a phone: the live tool's chip and Cancel, trays out of the way (client/handheld.js)
   // links and cards the GM/players need to hand on (invite links, agent rules cards)
   app.on((what, d) => {
     if (what !== 'output') return;
@@ -1240,7 +1516,7 @@ async function boot(token) {
     if (hold.quiet < 2 && !capped) return true;
     if (hold.warm) { const seen = new Set(); hold.warm.world.scene.traverse(o => { for (const m of [].concat(o.material || [])) for (const k of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap', 'alphaMap']) { const t = m[k]; if (t?.image && !seen.has(t)) { seen.add(t); try { renderer.initTexture(t); } catch { } } } }); }
     hold.po?.disconnect();
-    app.loadHold = { ms: Math.round(now - hold.at), pieces: hold.total, left, capped, files: hold.files, got: hold.got, warm: hold.warm ? { hash: hold.warm.hash, things: hold.warm.things } : null }; // (tests, and a slow machine's report)
+    app.loadHold = { ms: Math.round(now - hold.at), end: Math.round(now), pieces: hold.total, left, capped, files: hold.files, got: hold.got, warm: hold.warm ? { hash: hold.warm.hash, things: hold.warm.things } : null }; // (tests, and a slow machine's report)
     hold.warm = null;
     return false;
   }
@@ -1257,6 +1533,7 @@ async function boot(token) {
   }
   function hud() {
     const t = app.area(), v = t && sync.view(t);
+    $('#hud').classList.toggle('ok', sync.status === 'live' && !sync.pendingCount()); // (a phone shows the line only when something is wrong: style.css "ON A PHONE")
     $('#hud').textContent = `${sync.status} (${baseTransport.kind})${sync.rtt != null ? ` · ${sync.rtt} ms` : ''} · ${app.areaName(t)} seq ${v?.seq ?? '–'}${sync.pendingCount() ? ` · ${sync.pendingCount()} unconfirmed` : ''} · ${app.fps} fps`;
   }
   setInterval(() => sync.ping(), 2000);
@@ -1264,6 +1541,7 @@ async function boot(token) {
   // ---------- test hooks ----------
   Object.assign(app, {
     ready: () => sync.status === 'live' && !!app.main && !!sync.view(app.main.area),
+    loaded: () => !firstLoad, // the first loading screen has gone (client/arrival.js waits for it)
     seq: (t = app.area()) => sync.view(t)?.seq ?? null,
     cursors: (t = app.area()) => app.pv.on(t).map(s => ({ seat: s.seat, name: s.name, ghost: s.ghost, thinking: s.thinking, label: s.label, pos: s.pos && [+s.pos[0].toFixed(2), +s.pos[1].toFixed(2)] })),
     drawn: (id, t = app.area()) => app.worlds.get(t)?.recs.get(id)?.drawn || null,

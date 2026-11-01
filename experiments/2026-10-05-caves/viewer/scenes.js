@@ -4,6 +4,7 @@
 export const POOL = {
   walls: ['cave-wall-plain-a', 'cave-wall-plain-b', 'cave-wall-ledge', 'cave-wall-crack', 'cave-wall-overhang'],
   column: 'cave-corner-column', rubble: 'cave-rubble-low', arch: 'cave-wall-arch',
+  stalagmites: ['stalagmite.glb', 'stalagmite--s2.glb'],   // the library's own (tools/spawn-tuner/assets/m), copied in by deploy.sh
 };
 const RECT = { rects: [[0, 0, 6, 4], [6, 1, 2, 1]], open: ['7,1,E'], arches: [{ x: 30, z: 7.5, face: 'W' }] };
 export const SCENES = {

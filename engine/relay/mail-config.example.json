@@ -1,0 +1,11 @@
+{
+  "_": "Copy to <DATA_DIR>/mail-config.json (relay/mailer.js). No secrets here: the Gmail credentials live in credentialsFile (mode 600), the SMTP password in passwordFile or TW_SMTP_PASSWORD. Until the credentials exist the relay uses the outbox.",
+  "transport": "gmail-api",
+  "fromName": "Turnip Works",
+  "from": "hello@turnipworks.net",
+  "replyTo": "hello@turnipworks.net",
+  "credentialsFile": "/etc/turnipworks/gmail-oauth.json",
+  "gmailUser": "me",
+  "allow": ["<email>"],
+  "_smtp_alternative": { "transport": "smtp", "host": "smtp-relay.gmail.com", "port": 587, "user": null, "helo": "turnipworks.net", "passwordFile": "/etc/turnipworks/smtp-password" }
+}

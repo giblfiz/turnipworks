@@ -1,0 +1,410 @@
+{
+ "salt-box-open": {
+  "blind": {
+   "see": "wooden container with side door swung open",
+   "state": "OPEN",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "TURNED",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "smith-farrier-box": {
+  "blind": {
+   "see": "green chest with cylinder handle, closed lid",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--castle-rough": {
+  "blind": {
+   "see": "Stone wall section with an iron-barred window backed by closed wooden shutters",
+   "state": "SHUT",
+   "conf": 90,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "No visible labels or text. Left features a narrow cruciform arrow slit, whereas Right features a large rectangular recessed window opening with stone framing, a wooden board shutter, and an iron crossbar, along with different stone masonry layout and wall proportions.",
+   "facing": "TURNED",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": false
+  },
+  "pass": false
+ },
+ "cage-sacrifice-open": {
+  "blind": {
+   "see": "Wooden cage with metal fittings, padlock, and front barred door swung open",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text. None; the wood planks, vertical bars, dark metal bands with round rivets, hinges, and padlock are identical in design and materials.",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--fieldstone": {
+  "blind": {
+   "see": "stone wall section with closed wooden window shutter",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--noble-panel": {
+  "blind": {
+   "see": "wood-paneled wall with closed multi-pane window",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "Wood color (dark brown on right vs light honey wood on left) and window glass color",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": false
+  },
+  "pass": false
+ },
+ "wall-window-small-open--tower-stone": {
+  "blind": {
+   "see": "brick wall with arched window and shutters swung open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "Stone coloration (orange with red accent bricks on right) and window shutter grille design (curved loop tracery vs diamond lattice)",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": false
+  },
+  "pass": false
+ },
+ "trunk-travel-open--s1": {
+  "blind": {
+   "see": "wooden chest with green straps and raised open lid",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "rural-tack-trunk-open": {
+  "blind": {
+   "see": "wooden trunk with hinged lid open",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "casket-ornate-open": {
+  "blind": {
+   "see": "red and gold treasure chest with lid open",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--rough-timber--s2": {
+  "blind": {
+   "see": "wooden wall with closed wooden shutter",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "oubliette-hatch-open": {
+  "blind": {
+   "see": "stone floor opening with metal grate hatch open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "floor-trapdoor-open--rough-timber": {
+  "blind": {
+   "see": "wooden floor hatch open with ladder visible",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "door-reinforced-open--rough-timber": {
+  "blind": {
+   "see": "green wooden door swung open in frame",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "bread-oven": {
+  "blind": {
+   "see": "Stone oven or forge with a chimney, golden bird emblem, and closed arched door",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "No visible labels or text. The wheat sheaf emblem above the arch is painted gold on the right instead of unpainted blue stone, the waist band features ornamental red and gold patterns instead of plain green, and the oven door has a brass-riveted frame instead of plain iron.",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": false
+  },
+  "pass": false
+ },
+ "door-plank-open--dressed-stone--common": {
+  "blind": {
+   "see": "wooden door swung open in stone frame",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "TURNED",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "chest-treasure": {
+  "blind": {
+   "see": "brown wooden chest with gold bands closed shut",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "floor-trapdoor-open--dressed-stone": {
+  "blind": {
+   "see": "stone floor hatch with painted wooden lid open and ladder inside",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small-open--temple-stone": {
+  "blind": {
+   "see": "sandstone wall with arched window opening and open shutters",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "iron-maiden": {
+  "blind": {
+   "see": "metal iron maiden closed shut",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "rural-grooming-box": {
+  "blind": {
+   "see": "Wooden toolbox or chest with handle and corner metal brackets, closed lid",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text. None; the materials, wood tones, stylized reed/flower carvings, handle design, and green metal corner brackets and hardware are identical.",
+   "facing": "TURNED",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "sideboard-open": {
+  "blind": {
+   "see": "wooden sideboard with both cupboard doors swung open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "trunk-travel-open--s2": {
+  "blind": {
+   "see": "green treasure chest with lid raised open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--rough-timber": {
+  "blind": {
+   "see": "timber wall with closed wooden window shutter",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "TURNED",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ }
+}

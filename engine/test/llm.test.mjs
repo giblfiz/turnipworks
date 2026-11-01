@@ -3,6 +3,7 @@
 // checks on every one of them: an AI seat never does more than its creator, and a player's AI never sees what the
 // player may not (hidden rooms and what is in them, room labels, GM notes, the GM side's ghost in a hidden room).
 //   node engine/test/llm.test.mjs
+import { parseGame as parseDiceGame } from '../core/gamedice.js';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -49,7 +50,8 @@ ok(mine.ok, 'the player\'s pawn');
 {
   const card = (await get(`${cp}/card?seat=${G}`)).body, pcard = (await get(`${cp}/card?seat=${P}`)).body, ncard = (await get(`${cp}/card?seat=${N}`)).body;
   const words = (s) => s.split(/\s+/).length;
-  ok(card.length < 10500 && words(card) < 1000, `the GM assistant's card is small (${card.length} chars, ${words(card)} words; it was 22.5k / 2985 before 2026-10-20)`);
+  // (2026-10-29: +30 words for the one shared-builds line Harry's "share a selection" asked for; main stood at 998)
+  ok(card.length < 10800 && words(card) < 1030, `the GM assistant's card is small (${card.length} chars, ${words(card)} words; it was 22.5k / 2985 before 2026-10-20)`);
   for (const k of ['/scene?', '/room/ROOM_ID?', 'cmd=dice.roll&expr=d20&bonus=0&why=REASON', 'cmd=token.create&fig=FIGURE_ID&room=ROOM_ID', 'cmd=object.light&id=THING_ID&lit=true', 'cmd=entity.flag&ids=ID&hidden=true', 'cmd=room.set&id=ROOM_ID&name=NAME', 'ROOM LABELS', 'WORKED EXAMPLE', 'ETIQUETTE FOR AI SEATS', '/help/TOPIC?'])
     ok(card.includes(k), `the GM card has: ${k}`);
   ok(!/HIDDEN from players/.test(pcard) && !pcard.includes(V) && !pcard.includes('Secret vault'), 'the advisor\'s card names nothing hidden');
@@ -114,6 +116,41 @@ ok(mine.ok, 'the player\'s pawn');
   ok(inRange && seen.size === 20, `300 relay rolls of a d20: every face 1..20 came up (${seen.size} distinct)`);
   await human();
   ok((await act(P, 'dice.roll', { expr: 'd8', why: 'my axe' })).ok && !(await act(P, 'dice.roll', { expr: 'd8' }, 'area_nosuch0001')).ok, 'the advisor rolls where it may see, nowhere else');
+}
+
+// ---- 3b. game dice over GET (2026-10-29, core/gamedice.js): the same words, the relay rolls, the answer and the line carry "tally" ----
+{
+  await human();
+  const G3 = (await seat(C.token, { kind: 'llm', name: 'Game dice', scope: { areas: '*', classes: ['chat'] } })).token;
+  const v = await act(G3, 'dice.roll', { expr: 'v5 7 hunger 2 diff 3', why: 'Blood surge' });
+  ok(v.ok && v.expr === 'v5 7 hunger 2 diff 3' && v.rolls.length === 7 && v.rolls.every(x => x >= 1 && x <= 10) && /^Vampire pool 7 \(2 hunger\) vs 3: \d+ success/.test(v.tally || ''), 'v5 over GET: 7 d10s rolled by the relay, the tally says the successes', v);
+  const sp = await get(`${cp}/a/${A}/do?cmd=dice.roll&expr=duality+2&nonce=dual1&seat=${G3}`); // ("+" is a space in a URL)
+  ok(sp.body.ok && sp.body.expr === 'duality+2' && sp.body.rolls.length === 2 && sp.body.total === sp.body.rolls[0] + sp.body.rolls[1] + 2 && /with (Hope|Fear)|critical/.test(sp.body.tally), '"duality 2" reads as duality+2', sp.body);
+  const again = await get(`${cp}/a/${A}/do?cmd=dice.roll&expr=duality+2&nonce=dual1&seat=${G3}`);
+  ok(again.body.duplicate && again.body.tally === sp.body.tally, 'a retry answers the same tally');
+  await human();
+  const l = await act(G3, 'dice.roll', { expr: 'l5r 3 ring 2 skill' });
+  ok(l.ok && l.rolls.length === 5 && /^Rings 3 ring \+ 2 skill: ring \[/.test(l.tally) && /keep up to 3 dice/.test(l.tally), 'l5r over GET: every face listed', l);
+  const G4 = (await seat(C.token, { kind: 'llm', name: 'Game dice 2', scope: { areas: '*', classes: ['chat'] } })).token; // (3 rolls a minute per AI seat)
+  const f = await act(G4, 'dice.roll', { expr: '4df', bonus: 2 });
+  ok(f.ok && f.expr === '4dF+2' && f.rolls.length === 4, 'bonus= is the Fudge modifier', f);
+  await human();
+  const cb = await act(G4, 'dice.roll', { expr: 'coc 65', bonus: 1 });
+  ok(!cb.ok && /bonus 1/.test(cb.why), 'bonus= on a CoC roll is refused with how to write a bonus die', cb);
+  const c = await act(C.token, 'dice.roll', { expr: 'coc 65 bonus 1' });
+  ok(c.ok && c.rolls.length === 3 && c.total >= 1 && c.total <= 100 && /^Percentile vs 65 \(1 bonus die\): \d+/.test(c.tally), 'coc over GET', c);
+  const s = await act(C.token, 'dice.roll', { expr: 'sr 12 threshold 2' });
+  ok(s.ok && s.rolls.length === 12 && s.total === s.rolls.filter(x => x >= 5).length, 'sr over GET: total = hits', s);
+  const ex = await act(C.token, 'dice.roll', { expr: 'exalted 15 d9' }); // (2026-10-30)
+  ok(ex.ok && ex.expr === 'ex 15 double 9' && ex.rolls.length === 15 && ex.total === ex.rolls.reduce((n, x) => n + (x >= 9 ? 2 : x >= 7 ? 1 : 0), 0) && /^Exalted pool 15 \(double 9s\): \d+ success/.test(ex.tally), 'ex over GET: 15 d10s, 7+ one success, 9-10 two', ex);
+  const tbl = await act(C.token, 'dice.roll', { expr: 'sr 4', rolls: [1, 1, 1, 2], total: 0 });
+  ok(tbl.ok && RT.state.areas[A].chat.find(x => x.id === tbl.id).roll.expr === 'sr 4', 'a person may send a table roll of game dice');
+  const sc = (await read(G, 'scene')).body;
+  const tl = sc.chat.find(x => x.roll?.expr === 'sr 4');
+  ok(tl?.roll.tally === 'Shadowrun pool 4: 0 hits, CRITICAL GLITCH', 'the scene\'s chat lines carry the tally', tl);
+  ok(sc.chat.filter(x => x.roll && !parseDiceGame(x.roll.expr)).every(x => !x.roll.tally), 'plain rolls carry no tally');
+  const help = (await get(`${cp}/help/dice?seat=${G}`)).body;
+  ok(['coc [SKILL]', 'v5 POOL', 'sr POOL', 'duality [MOD]', '4df [MOD]', 'l5r R ring S skill', 'ex POOL', 'BOTCH', 'messy critical', 'CRITICAL GLITCH', 'with Hope'].every(k => help.includes(k)), 'help/dice explains each game');
 }
 
 // ---- 4. pawns: into a room, conditions, darkvision; the advisor only its own ----

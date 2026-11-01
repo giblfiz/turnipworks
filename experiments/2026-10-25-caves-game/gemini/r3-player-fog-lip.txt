@@ -1,0 +1,34 @@
+### Visible Text
+
+**`player-desk.png`:**
+* **Top left UI:** "P", "Pawns", "S", "Settings", "Other games / New game"
+* **Search bar:** "Search commands, things to place, people, places... or say / roll", "/"
+* **Top right avatars:** "H", "Area 1", "P", "Area 1"
+* **Elevation slider:** "-1"
+* **Game scene nameplates:** "Bram", "Ann"
+* **Chat bar:** "say ... or roll d20 in the bar"
+* **Bottom-right debug overlay:** "live (ws) · 1ms · Area 1 seq 3 · 60 fps"
+
+**`player-phone.png`:**
+* **Search bar:** "Search, place, say or roll", "P"
+* **Top UI icons:** "Pawns", "Settings"
+* **Elevation slider:** "-1"
+* **Chat bar:** "say ... or roll d20 in the bar"
+
+---
+
+### `player-desk.png`
+
+(1) The cave floor is visible directly around Bram, but the walls do not stand on visible floor up to their faces; the floor terminates in angular sightlines, leaving rock pieces floating on the fog pattern with fog showing between, under, and in front of them (and mapped onto the rocks).  
+(2) No, the cave walls are not continuous with the fog behind them; unlike the dungeon room's solid walls where fog starts cleanly on the exterior, the cave rock walls are fragmented clusters with fog intruding into and around them.  
+(3) Broken: floating rock pieces/spires hovering over the fog, missing floor cutting off before reaching the perimeter rocks, and rock assets rendering with checkerboard fog textures (no solid black holes).  
+**VERDICT:** Broken
+
+---
+
+### `player-phone.png`
+
+(1) Bram is scrolled off-screen to the left, but across the visible cave area the floor is only partially visible along angular FOV wedges, with rock pieces and spires floating directly on the fog pattern with fog between and in front of them.  
+(2) No, the rock formations are discontinuous and fragmented, with the fog pattern penetrating around and between rock pieces rather than beginning cleanly behind a continuous boundary like the dungeon room.  
+(3) Broken: floating rock spires on fog, missing floor cut off by FOV ray lines, rock assets ghosted with checkerboard fog pattern, and the active pawn (Bram) framed off-screen (no solid black holes).  
+**VERDICT:** Broken

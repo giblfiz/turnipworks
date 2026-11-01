@@ -1,0 +1,1 @@
+salt-box-open | tries: 3 | pass: one whole object with visible margin, transparent RGBA corners, matching design, open lid and bright salt, no text/floor/shadow/people; fail: 1254×1254 instead of 1024×1024, faint nonzero-alpha stray pixels reach left edge. The wooden salt box has its lid raised behind a white mound of salt, with the decorated front and side scoop retained.

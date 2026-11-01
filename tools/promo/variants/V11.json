@@ -1,0 +1,157 @@
+{
+ "name": "V11",
+ "desc": "one common room, sped/slowed uniformly so its last piece lands at 4.8 s, build continues under the cards",
+ "capture": "common-land",
+ "speed": 0.9930556250000001,
+ "fit": {
+  "fit": "last_land",
+  "event_ms_1x": 4766.667,
+  "lands_at_s": 4.8,
+  "from": "common"
+ },
+ "fps": 60,
+ "frames": 360,
+ "segments": [
+  {
+   "out": [
+    0,
+    52
+   ],
+   "footage": 0,
+   "out_s": [
+    0.0,
+    0.8667
+   ],
+   "footage_s": 0.0
+  },
+  {
+   "out": [
+    52,
+    72
+   ],
+   "card": 1,
+   "out_s": [
+    0.8667,
+    1.2
+   ]
+  },
+  {
+   "out": [
+    72,
+    134
+   ],
+   "footage": 72,
+   "out_s": [
+    1.2,
+    2.2333
+   ],
+   "footage_s": 1.2
+  },
+  {
+   "out": [
+    134,
+    154
+   ],
+   "card": 2,
+   "out_s": [
+    2.2333,
+    2.5667
+   ]
+  },
+  {
+   "out": [
+    154,
+    218
+   ],
+   "footage": 154,
+   "out_s": [
+    2.5667,
+    3.6333
+   ],
+   "footage_s": 2.5667
+  },
+  {
+   "out": [
+    218,
+    238
+   ],
+   "card": 3,
+   "out_s": [
+    3.6333,
+    3.9667
+   ]
+  },
+  {
+   "out": [
+    238,
+    288
+   ],
+   "footage": 238,
+   "out_s": [
+    3.9667,
+    4.8
+   ],
+   "footage_s": 3.9667
+  },
+  {
+   "out": [
+    288,
+    360
+   ],
+   "card": 4,
+   "out_s": [
+    4.8,
+    6.0
+   ]
+  }
+ ],
+ "cuts": [
+  {
+   "card": 1,
+   "baseline_s": 0.9,
+   "at_s": 0.8667,
+   "back_s": 1.2,
+   "footage_before_s": 0.85,
+   "footage_after_s": 1.2,
+   "in_flight_before": 29,
+   "in_flight_after": 30
+  },
+  {
+   "card": 2,
+   "baseline_s": 2.2,
+   "at_s": 2.2333,
+   "back_s": 2.5667,
+   "footage_before_s": 2.2167,
+   "footage_after_s": 2.5667,
+   "in_flight_before": 34,
+   "in_flight_after": 43
+  },
+  {
+   "card": 3,
+   "baseline_s": 3.5,
+   "at_s": 3.6333,
+   "back_s": 3.9667,
+   "footage_before_s": 3.6167,
+   "footage_after_s": 3.9667,
+   "in_flight_before": 15,
+   "in_flight_after": 14
+  },
+  {
+   "card": 4,
+   "at_s": 4.8,
+   "in_flight_before": 1
+  }
+ ],
+ "capture_events_out_s": {
+  "ground_land": 4.8,
+  "upper_start": null,
+  "last_land": 4.8,
+  "upper_pieces": 0
+ },
+ "spawn_ms_1x": {
+  "ground_land": 4766.667,
+  "upper_start": null,
+  "last_land": 4766.667,
+  "upper_pieces": 0
+ }
+}

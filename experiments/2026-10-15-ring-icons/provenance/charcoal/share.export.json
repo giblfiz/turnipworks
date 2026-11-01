@@ -1,0 +1,71 @@
+{
+  "id": "share.export",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One small ochre wooden crate with its lid off and ONE large thick ivory arrow rising up out of it toward the upper right: export it. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/edit.rotate.webp",
+      "sha256": "853c980504b107864e69754cf0b4ee173184a0b7bf149d3566f78b1bb0bffaf4",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/thing.replace.webp",
+      "sha256": "26ffc217b485a201538bf26627fc791fa32890aee44bd3834f311335c8162815",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/edit.lift.webp",
+      "sha256": "4841cfbf07bde1f208509fe1e83275280c4b6b6c3847c586868f1128395bd5fb",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/charcoal--share.export.png",
+  "source_sha256": "490bfd42571d770e01a006146b267eb5b2d33ac5909090dd75aaa58796f4d74e",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/share.export.webp",
+    "19": "charcoal/sizes/19/share.export.webp",
+    "22": "charcoal/sizes/22/share.export.webp",
+    "26": "charcoal/sizes/26/share.export.webp",
+    "31": "charcoal/sizes/31/share.export.webp",
+    "36": "charcoal/sizes/36/share.export.webp",
+    "38": "charcoal/sizes/38/share.export.webp",
+    "42": "charcoal/sizes/42/share.export.webp",
+    "44": "charcoal/sizes/44/share.export.webp",
+    "50": "charcoal/sizes/50/share.export.webp",
+    "52": "charcoal/sizes/52/share.export.webp",
+    "62": "charcoal/sizes/62/share.export.webp",
+    "84": "charcoal/sizes/84/share.export.webp",
+    "100": "charcoal/sizes/100/share.export.webp",
+    "128": "charcoal/share.export.webp"
+  },
+  "sha256": {
+    "18": "26a0ebacd9efa025872f1c41b205c79dac6f519e29358833387e1ec62b889f03",
+    "19": "cb981fd8c7185035a53fd20216d1901e7ce081e3c735047c0abafc69097d4e71",
+    "22": "75abe7ed50f7babe87c8097eaee4b3957c0ce7043a0b2874468fda389c482414",
+    "26": "fd6b67fe59526bafb97b341846b7a9d6ea4b9b95bc7681a75d90088b3a03f5a0",
+    "31": "754e757b73dd9ae30cfc0aed6c44d7da0e4a6214625b9f13e76f62880de8d1b7",
+    "36": "6b6c8b9766fabeeed2fdbcaaacf2b12ea2347af1391c97aa8242a82c5ba56c1b",
+    "38": "64ed004a90a711c78fcc6856d7086871c87da6514c03801dd1d493eead710d17",
+    "42": "e025d68d3e3de7ca1eb5e7cca9daf54852a097b0e47247f90ad7d3eacc2ff01b",
+    "44": "8133f70fb17251944b68e6a4092f99076044da136b754a66af0261ca49588f4f",
+    "50": "cd9155d7f414e4a201ad50544aa07806b0bb575a72cdad140f95967f2590f21e",
+    "52": "688095b24d08b14a6771ae8a6177907da2aec24e5e747ddfd439d9efc3aefb20",
+    "62": "7950b81eaed42f9c261889a713143c78a8536c0ec0ecd726098e44cb631f1f2d",
+    "84": "8c7e60b3d60bf2876e133deb0d4ae36aaac54a8c727099e54ec895af2b5645bd",
+    "100": "5029b57a3fef664ab55f721a3864a849db034cc0dad320829b774a6986562ad0",
+    "128": "2638992949dcd8e83600f8d724d1d49b8dc4e172c57c28f30d06c8d3951d772f"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "833668cdd0b9d9989f82f1da7efc90d985b9aee86a66308ae8a762c8053dff6e",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/charcoal/share.export/490bfd42571d770e-2ed1ac590f"
+}

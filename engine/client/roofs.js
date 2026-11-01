@@ -21,6 +21,7 @@
 // A pitched roof's eaves are at `top`; a flat roof is the 1-ft slab from top to top + 1, so its walking surface is at
 // top + 1, level with the floor of the storey beside it.
 import { rectsOf, cellsOf } from '../core/footprint.js';
+import { roofStyleKey } from '../core/height.js';
 
 export const ROOF_DEFAULTS = {
   cell: 5,
@@ -35,14 +36,49 @@ export const ROOF_STYLES = {
   tile: { cat: 'roofing-tile-clay', color: '#a4573a', label: 'Clay tile' },
   slate: { cat: 'roofing-slate', color: '#5b6068', label: 'Slate shingle' },
   shingle: { cat: 'roofing-shingle-wood', color: '#7a5a3c', label: 'Wood shingle' },
-  flat: { cat: null, standIn: ['floor-boards-rough', 'floor-flagstone-square'], color: '#6f6a5f', label: 'Flat' }, // STAND-IN: an existing floor texture (rough boards: a deck), else a plain colour; no flat-roof texture is generated yet
+  // THE TEMPLE ROOF (Harry 2026-10-27: "we probably need a marble roof to look like a temple"): big marble pan tiles under
+  // rounded cover tiles, at a classical temple's LOW pitch (a style may carry its own pitch: the planner uses it for every
+  // rectangle of a room in that style). Its painted picture is not in the library: `file` is beside the roof sections
+  // (data/roof/, built by experiments/2026-10-27-roofs-temple). No dormers on a temple.
+  marble: { cat: 'roofing-marble', file: 'roof/roofing-marble.webp', color: '#e6dccb', label: 'Marble', pitch: 22, dormers: false },
+  // FLAT SURFACES (2026-10-27; core/height.js FLAT_STYLES): a generated seamless 5-ft texture each, a client data file
+  // (`tex`, under engine/client/data/: experiments/2026-10-27-roofs-flat/textures), an existing floor texture as the
+  // stand-in until it loads, else the plain colour. `skirt`: the colour of the slab's sides. `ft`: how many feet one picture
+  // covers (5 unless said: at 5 ft a 30-ft roof shows 36 copies and any landmark in an organic picture marches as a grid,
+  // Gemini 2026-10-27; lead at 10 ft has its rolls 5 ft apart, as real lead rolls are). ('flat', the one stand-in deck
+  // before, is a word for 'deck': core/height.js ROOF_ALIAS.)
+  deck: { flat: true, tex: 'roof/roof-flat--deck.webp', standIn: ['floor-boards-rough', 'floor-planks-dark'], color: '#7a6a55', skirt: '#5e5040', label: 'Plank deck' },
+  flagstone: { flat: true, tex: 'roof/roof-flat--flagstone.webp', standIn: ['floor-flagstone-large', 'floor-flagstone-square'], color: '#7c7a74', skirt: '#68665f', label: 'Flagstone' },
+  lead: { flat: true, ft: 10, tex: 'roof/roof-flat--lead.webp', standIn: ['floor-flagstone-square'], color: '#6b7178', skirt: '#5a5f66', label: 'Lead sheet' },
+  turf: { flat: true, ft: 15, tex: 'roof/roof-flat--turf.webp', standIn: [], color: '#5f7040', skirt: '#5c4a35', label: 'Turf' },
+  plaster: { flat: true, ft: 15, tex: 'roof/roof-flat--plaster.webp', standIn: [], color: '#d9cfbb', skirt: '#c9bba1', label: 'Whitewash' },
 };
+// the surface the FLAT part of a roof wears (a lower storey's open deck, a flat-shaped roof): a flat style is its own; a
+// pitched style has its usual flat: lead with slate (the mansion's leads), stone with marble, a plank deck with the rest
+export const FLAT_FOR = { slate: 'lead', marble: 'flagstone' };
+export const flatSurfaceOf = (style) => { const s = roofStyleKey(style); return ROOF_STYLES[s]?.flat ? s : FLAT_FOR[s] || 'deck'; };
+// what runs round a flat roof's open edges (core/height.js ROOF_EDGES; roofEdgeOf picks the default): the trim role laid
+// along each 5-ft edge, the role at each outer corner, and their stand-in boxes (ft: height, thickness; corner side, height,
+// how far in from the corner its middle stands)
+export const EDGE_KIT = {
+  parapet: { run: 'parapet', corner: 'corner', h: 3, t: 1, cw: 1.4, ch: 3.6, ci: 0.5 },
+  battlements: { run: 'battlement', corner: 'merlon', h: 5, t: 1.33, cw: 2.33, ch: 5.5, ci: 1.17 },
+  railing: { run: 'railing', corner: null, h: 3, t: 0.4 },
+  none: null,
+};
+// a client data file (a flat surface's own texture), cache-stamped like the roof sections (world.js roofSections)
+export const roofDataUrl = (path) => new URL(`./data/${path}?v=${globalThis.TW_V || 'dev'}`, import.meta.url).href;
+export const TURRET = { w: 4.5, h: 11, inset: 1, min: 10 }; // ft: a corner turret's box, how far in from the corner its middle stands, the smallest roof side that gets them
 // the trim: each role is the first of these catalog ids the library has; anything after the first is a stand-in
 export const ROOF_KIT = {
   chimney: ['chimney-stack', 'pillar-square', 'post-timber'],
   dormer: ['roof-dormer'],
   parapet: ['parapet-straight', 'wall-crenellated'],
   corner: ['parapet-corner', 'pillar-square'],
+  battlement: ['wall-crenellated', 'parapet-straight'],   // (2026-10-27) a castle's edge: merlons and crenels
+  merlon: ['wall-crenellated-corner', 'parapet-corner'],   //   its corner block
+  turret: ['roof-bartizan', 'wall-crenellated-corner'],    //   a corner turret (generated 2026-10-27)
+  railing: ['railing-wood'],                               //   a deck's timber railing
   ridge: ['roof-ridge'],
   finial: ['roof-finial', 'weathervane'],
 };
@@ -87,11 +123,22 @@ const strSeed = (s) => { let h = 2166136261; for (const ch of String(s)) { h ^= 
 // ---------------- the planner ----------------
 // rooms: [{ id, building, x, z, w, d, outline? (5-ft cells, as a room recipe; or rect: [x, z, w, d]; or cells: [[gx, gz]...]),
 //           top (ft: the top of its walls), y? (ft: its floor; lets the planner see which rooms stand on which),
-//           style ('thatch' | 'tile' | 'slate' | 'shingle' | 'flat'), kind? ('gable' | 'hip'), seed, covered?: [[gx, gz]...], props?: false }]
+//           style (ROOF_STYLES: a pitched or a flat surface; 'flat' = 'deck'), kind? ('gable' | 'hip' | 'flat': its SHAPE, room.roof.shape;
+//           absent = gable), axis? ('x' | 'z': the way its ridge runs, room.roof.axis; absent = automatic), seed,
+//           covered?: [[gx, gz]...], props?: false, none?: true (no roof: open to the sky), trim?: room.roof.trim (below),
+//           edge? (EDGE_KIT: round the open edges of its flat part; default 'parapet'), turrets? (bartizans on its flat part's outer corners) }]
+// SHAPE AND STYLE ARE SEPARATE (2026-10-27): kind 'flat' makes a flat roof whatever the style (it is drawn with the flat
+// surface); a FLAT STYLE (deck, flagstone, lead, turf, plaster; 'flat' = deck) makes a flat roof whatever the kind, as 'flat' always did.
+// A FORCED AXIS (a roof turned 90 degrees, Harry 2026-10-27: "rotate able on the 90 degree, so profiles can work") wins for
+// every rectangle of that room: its ridge runs that way and its gable ends face the other pair of walls, even where the
+// automatic choice would have pointed a wing at its neighbour. Joined rooms still run into each other by the one rule
+// (the highest field wins), so a turned wing meets its neighbour in valleys or as a cross gable as the axes fall out.
+// Each roof reports `axis` (as planned) and `autoAxis` (what it would have been without the force).
 // opts:  { fires: [{ id, x, z }] (ft: fireplaces and hearths; each gets a chimney straight above it),
 //          has: (catalogId) => bool, pitch, maxRise, overhang, dormers: bool, finials: bool }
 export function planRoofs(rooms, opts = {}) {
-  const O = { ...ROOF_DEFAULTS, ...opts }, C = O.cell, kit = resolveKit(O.has), TAN = Math.tan(O.pitch * Math.PI / 180);
+  const O = { ...ROOF_DEFAULTS, ...opts }, C = O.cell, kit = resolveKit(O.has);
+  const tanOf = (r) => Math.tan((r.pitch ?? ROOF_STYLES[r.style]?.pitch ?? O.pitch) * Math.PI / 180); // a room's own pitch, else its style's (marble: 22), else the default
   const R = rooms.map((r, order) => normalRoom(r, C, order));
   // covered cells: under a room that stands higher (its floor at or above this room's wall top), or stated outright
   for (const r of R) {
@@ -101,9 +148,11 @@ export function planRoofs(rooms, opts = {}) {
   }
   // parts: the rectangles that get a little roof each
   const parts = [];
+  // a room with NO ROOF (none: true; room.roof.off, open to the sky) still covers the rooms under it (above), but gets no
+  // roof and shapes no neighbour's: a roof that meets it ends there in a closed gable, as at the end of the house
   for (const r of R) {
-    if (!r.open.length) continue;
-    const flat = r.style === 'flat' || r.coveredSet.size > 0; // a storey with something built on part of it: the rest is a flat place to stand
+    if (!r.open.length || r.none) continue;
+    const flat = !!ROOF_STYLES[r.style]?.flat || r.kind === 'flat' || r.coveredSet.size > 0; // a storey with something built on part of it: the rest is a flat place to stand
     const rects = flat ? runsOf(r.open) : pitchedRects(r);
     for (const q of rects) {
       const p = { room: r, x0: q.gx * C, z0: q.gz * C, x1: (q.gx + q.w) * C, z1: (q.gz + q.d) * C, top: r.top, group: `${r.building ?? r.id}@${r.top}` };
@@ -112,7 +161,7 @@ export function planRoofs(rooms, opts = {}) {
       // a rectangle the solver left as scraps (a one-cell stub of a staircase shape) is roofed flat rather than as a tiny gable
       p.kind = flat || q.scrap ? 'flat' : r.kind === 'hip' ? 'hip' : 'gable';
       p.axis = lx >= lz ? 'x' : 'z'; // the ridge runs along the long side
-      p.half = Math.min(lx, lz) / 2; p.tan = Math.min(TAN, O.maxRise / p.half); p.rise = p.tan * p.half;
+      p.half = Math.min(lx, lz) / 2; p.tan = Math.min(tanOf(r), O.maxRise / p.half); p.rise = p.tan * p.half;
       p.ridgeY = p.kind === 'flat' ? p.top + 1 : p.top + p.rise;
       p.i = parts.length; parts.push(p);
     }
@@ -127,8 +176,11 @@ export function planRoofs(rooms, opts = {}) {
     const nb = parts.filter(b => sameGroup(p, b) && b.kind !== 'flat');
     const onX = nb.some(b => (Math.abs(b.x1 - p.x0) < 1e-6 || Math.abs(b.x0 - p.x1) < 1e-6) && touch(p, b, 'z0', 'z1')), onZ = nb.some(b => (Math.abs(b.z1 - p.z0) < 1e-6 || Math.abs(b.z0 - p.z1) < 1e-6) && touch(p, b, 'x0', 'x1'));
     if (onX === onZ) continue;
-    p.axis = onX ? 'x' : 'z'; p.half = (onX ? lz : lx) / 2; p.tan = Math.min(TAN, O.maxRise / p.half); p.rise = p.tan * p.half; p.ridgeY = p.top + p.rise;
+    p.axis = onX ? 'x' : 'z'; p.half = (onX ? lz : lx) / 2; p.tan = Math.min(tanOf(p.room), O.maxRise / p.half); p.rise = p.tan * p.half; p.ridgeY = p.top + p.rise;
   }
+  // a roof turned 90 degrees: its own axis, whatever the automatic choice was
+  const setAxis = (p, ax) => { const lx = p.x1 - p.x0, lz = p.z1 - p.z0; p.axis = ax; p.half = (ax === 'x' ? lz : lx) / 2; p.tan = Math.min(tanOf(p.room), O.maxRise / p.half); p.rise = p.tan * p.half; p.ridgeY = p.top + p.rise; };
+  for (const p of parts) { p.autoAxis = p.axis; if (p.kind !== 'flat' && (p.room.axis === 'x' || p.room.axis === 'z') && p.room.axis !== p.axis) setAxis(p, p.room.axis); }
   for (const p of parts) {
     const oh = O.overhang, t = p.tan, T = p.top;
     if (p.kind === 'flat') { p.planes = [{ a: 0, b: 0, c: T + 1, face: 'flat' }]; p.dom = [{ x0: p.x0, z0: p.z0, x1: p.x1, z1: p.z1 }]; p.ends = []; continue; }
@@ -181,15 +233,16 @@ export function planRoofs(rooms, opts = {}) {
 
   // one roof per room
   const roofs = [], byRoom = new Map();
-  for (const r of R) { if (!r.open.length) continue; const roof = { room: r.id, building: r.building ?? null, style: r.style, kind: null, top: r.top, ridgeY: r.top, seed: r.seed, planes: [], gables: [], skirts: [], ridges: [], standable: [], props: [] }; roofs.push(roof); byRoom.set(r.id, roof); }
+  for (const r of R) { if (!r.open.length || r.none) continue; const roof = { room: r.id, building: r.building ?? null, style: r.style, flatStyle: flatSurfaceOf(r.style), edge: r.edge, turrets: r.turrets, family: r.family ?? null, kind: null, ...((r.axis === 'x' || r.axis === 'z') && { forced: r.axis }), top: r.top, ridgeY: r.top, seed: r.seed, planes: [], gables: [], gableEnds: [], verges: [], skirts: [], ridges: [], standable: [], props: [] }; roofs.push(roof); byRoom.set(r.id, roof); }
   const anyTaller = (p, x, z) => taller(p).some(b => inRect(b, x, z, -1e-6));
   for (const p of parts) {
     const roof = byRoom.get(p.room.id), sec = Math.sqrt(1 + p.tan * p.tan);
-    roof.kind = roof.kind && roof.kind !== p.kind ? 'mixed' : p.kind; roof.ridgeY = Math.max(roof.ridgeY, p.ridgeY); roof.axis ||= p.kind === 'flat' ? undefined : p.axis;
+    roof.kind = roof.kind && roof.kind !== p.kind ? 'mixed' : p.kind; roof.ridgeY = Math.max(roof.ridgeY, p.ridgeY); roof.axis ||= p.kind === 'flat' ? undefined : p.axis; roof.autoAxis ||= p.kind === 'flat' ? undefined : p.autoAxis;
     for (const { plane: pl, poly } of p.pieces) {
       const flat = pl.face === 'flat', pts = poly.map(([x, z]) => [x, hOf(pl, x, z), z]);
       // courses run along the eave (u), eaves at the bottom of the picture (v = 0), one picture per 5 ft along the slope
-      const uv = poly.map(([x, z]) => flat ? [x / C, -z / C] : [(x * pl.u[0] + z * pl.u[1]) / C, ((pl.across === 'z' ? z : x) - pl.eave) * pl.sign * sec / C]);
+      const FT = ROOF_STYLES[roof.flatStyle]?.ft || C; // (a flat surface's picture may cover more than 5 ft: `ft`)
+      const uv = poly.map(([x, z]) => flat ? [x / FT, -z / FT] : [(x * pl.u[0] + z * pl.u[1]) / C, ((pl.across === 'z' ? z : x) - pl.eave) * pl.sign * sec / C]);
       // lay: how roof sections are laid on this plane (sectionLayout): feet along the eave (world-aligned, so the courses of joined
       // rooms line up) and feet up the slope from the eave's EDGE (the overhang), so every slope starts with a whole course
       const lay = flat ? null : { u: pl.u, across: pl.across, sign: pl.sign, edge: pl.eave - pl.sign * O.overhang, tan: p.tan, a: pl.a, b: pl.b, c: pl.c };
@@ -208,7 +261,13 @@ export function planRoofs(rooms, opts = {}) {
       const out = E.end.endsWith('0') ? -1 : 1, at = E.to, probe = at + out * 0.05;
       const [px, pz] = X ? [probe, mid] : [mid, probe];
       E.free = !E.joined; E.shown = othersAt(p, px, pz) < p.ridgeY - 0.05 && !anyTaller(p, px, pz);
-      if (E.shown) roof.gables.push([P3(at, p.top, p[X ? 'z0' : 'x0']), P3(at, p.top, p[X ? 'z1' : 'x1']), P3(at, p.ridgeY, mid)]);
+      if (!E.shown) continue;
+      const lo = p[X ? 'z0' : 'x0'], hi = p[X ? 'z1' : 'x1'], tri = [P3(at, p.top, lo), P3(at, p.top, hi), P3(at, p.ridgeY, mid)];
+      roof.gables.push(tri);
+      // what the gable END is made of (gableEnd below): the triangle, which way it faces, and (a free end, with a verge
+      // overhang) the two sloped edges of the roof above it, where its trim goes
+      const G = gableEnd(p, E, tri, { X, out, at, lo, hi, mid, oh: E.free ? O.overhang : 0 }); E.g = G; roof.gableEnds.push(G);
+      if (E.free) roof.verges.push(...G.verges);
     }
     // the ridge, where it is the top of the roof: capped, and a place to stand
     const a0 = p.kind === 'hip' ? (X ? p.x0 : p.z0) + p.half : Math.min(...p.dom.map(r => X ? r.x0 : r.z0)), a1 = p.kind === 'hip' ? (X ? p.x1 : p.z1) - p.half : Math.max(...p.dom.map(r => X ? r.x1 : r.z1));
@@ -230,24 +289,31 @@ export function planRoofs(rooms, opts = {}) {
   const stacks = [];
   for (const f of O.fires || []) {
     const p = partOver(f.x, f.z); if (!p || p.room.props === false) continue;
-    const roof = byRoom.get(p.room.id), at = heightAt(f.x, f.z), topY = Math.max(p.ridgeY + 2.5, at + 3.5), y = at - 1.5; // sunk into the roof (the kit's rule: nothing is cut to the pitch)
-    place(roof, 'chimney', { x: f.x, y, z: f.z, dims: [2.5, +(topY - y).toFixed(3), 2.5], fire: f.id ?? null, axis: p.axis || 'x' }); stacks.push([f.x, f.z]);
+    const roof = byRoom.get(p.room.id), at = heightAt(f.x, f.z), topY = Math.max(p.ridgeY + 2.5, at + (p.kind === 'flat' ? 6 : 3.5)), y = at - 1.5; // sunk into the roof (the kit's rule: nothing is cut to the pitch). Over a flat roof a man-high stack (2026-10-27: a 3.5-ft stub read as a birdhouse on a castle's deck)
+    place(roof, 'chimney', { x: f.x, y, z: f.z, dims: [2.5, +(topY - y).toFixed(3), 2.5], fire: f.id ?? null, axis: p.axis || 'x', key: `chimney:${f.id ?? `${f.x}:${f.z}`}`, slide: { on: 'roof', sink: 1.5, above: 2.5 } }); stacks.push([f.x, f.z]);
   }
   for (const p of parts) {
     const r = p.room, roof = byRoom.get(r.id); if (r.props === false) continue;
     const rnd = rng(strSeed(`${r.seed}|${r.id}|${p.x0}:${p.z0}`)), X = p.axis === 'x';
     if (p.kind === 'flat') {
-      // a ledge round a flat roof: a parapet on every open edge, a pier at every corner of the run
+      // round a flat roof (2026-10-27: by its edge, EDGE_KIT): a section on every open 5-ft edge, a pier at every outer corner
+      // of the run, or a corner turret there (r.turrets, on a roof at least TURRET.min ft both ways)
+      const K = EDGE_KIT[r.edge] === undefined ? EDGE_KIT.parapet : EDGE_KIT[r.edge], turrets = !!r.turrets && Math.min(p.x1 - p.x0, p.z1 - p.z0) >= TURRET.min - 1e-6;
       const corners = new Map(), mark = (x, z, d) => { const k = `${x}:${z}`; corners.set(k, { x, z, dirs: (corners.get(k)?.dirs || new Set()).add(d) }); };
-      const edge = (x0, z0, x1, z1, nx, nz) => { const ox = (x0 + x1) / 2 + nx * 0.01, oz = (z0 + z1) / 2 + nz * 0.01; if (!edgeOfFlat(p, ox, oz) || parts.some(q => q !== p && q.top >= p.top - 1e-6 && inRect(q, ox, oz, -1e-6))) return; /* open air (or a lower roof) beyond it: not against a roof at its own height */ place(roof, 'parapet', { x: (x0 + x1) / 2 - nx * 0.5, y: p.top + 1, z: (z0 + z1) / 2 - nz * 0.5, rot: nx ? Math.PI / 2 : 0, dims: [5, 3, 1], out: [nx, nz] }); mark(x0, z0, nx ? 'z' : 'x'); mark(x1, z1, nx ? 'z' : 'x'); };
+      const edge = (x0, z0, x1, z1, nx, nz) => { const ox = (x0 + x1) / 2 + nx * 0.01, oz = (z0 + z1) / 2 + nz * 0.01; if (!edgeOfFlat(p, ox, oz) || parts.some(q => q !== p && q.top >= p.top - 1e-6 && inRect(q, ox, oz, -1e-6))) return; /* open air (or a lower roof) beyond it: not against a roof at its own height */ if (K) place(roof, K.run, { x: (x0 + x1) / 2 - nx * K.t / 2, y: p.top + 1, z: (z0 + z1) / 2 - nz * K.t / 2, rot: nx ? Math.PI / 2 : 0, dims: [5, K.h, K.t], out: [nx, nz] }); mark(x0, z0, nx ? 'z' : 'x'); mark(x1, z1, nx ? 'z' : 'x'); };
       for (let x = p.x0; x < p.x1 - 1e-6; x += C) { edge(x, p.z0, x + C, p.z0, 0, -1); edge(x, p.z1, x + C, p.z1, 0, 1); }
       for (let z = p.z0; z < p.z1 - 1e-6; z += C) { edge(p.x0, z, p.x0, z + C, -1, 0); edge(p.x1, z, p.x1, z + C, 1, 0); }
-      for (const c of corners.values()) if (c.dirs.size === 2) place(roof, 'corner', { x: c.x + (c.x > p.cx ? -0.5 : 0.5), y: p.top + 1, z: c.z + (c.z > p.cz ? -0.5 : 0.5), dims: [1.4, 3.6, 1.4] });
+      for (const c of corners.values()) {
+        if (c.dirs.size !== 2) continue;
+        const sx = c.x > p.cx ? -1 : 1, sz = c.z > p.cz ? -1 : 1;
+        if (turrets) place(roof, 'turret', { x: c.x + sx * TURRET.inset, y: p.top + 1, z: c.z + sz * TURRET.inset, rot: Math.atan2(-sx, -sz), dims: [TURRET.w, TURRET.h, TURRET.w], out: [-sx, -sz], key: `turret:${rel(r, c.x, c.z)}`, slide: { on: 'roof', sink: 0 } }); // (a turret is touchable: selected, slid along the roof, removed)
+        else if (K?.corner) place(roof, K.corner, { x: c.x + sx * K.ci, y: p.top + 1, z: c.z + sz * K.ci, dims: [K.cw, K.ch, K.cw] });
+      }
       continue;
     }
     // dormers: only on big slopes, at most one per ~20 ft of eave, and then only sometimes
     const L = X ? p.x1 - p.x0 : p.z1 - p.z0;
-    if (O.dormers !== false && p.kind === 'gable' && L >= O.dormerEvery && p.half >= 7.5) for (const pl of p.planes) {
+    if (O.dormers !== false && ROOF_STYLES[r.style]?.dormers !== false && p.kind === 'gable' && L >= O.dormerEvery && p.half >= 7.5) for (const pl of p.planes) {
       const n = Math.floor(L / O.dormerEvery);
       for (let k = 0; k < n; k++) {
         const roll = rnd(), jit = rnd(); if (roll >= O.dormerChance) continue;
@@ -255,13 +321,112 @@ export function planRoofs(rooms, opts = {}) {
         const [x, z] = X ? [along, across] : [across, along], y = hOf(pl, x, z);
         if (Math.abs((heightAt(x, z) ?? -1e9) - y) > 0.01 || stacks.some(([sx, sz]) => Math.hypot(sx - x, sz - z) < 5)) continue; // only where this slope is the roof, clear of chimneys
         const out = pl.across === 'z' ? [0, -pl.sign] : [-pl.sign, 0];
-        place(roof, 'dormer', { x, y: y - 0.6, z, rot: Math.atan2(out[0], out[1]), out, dims: [4, 4.5, 4.5], face: pl.face });
+        place(roof, 'dormer', { x, y: y - 0.6, z, rot: Math.atan2(out[0], out[1]), out, dims: [4, 4.5, 4.5], face: pl.face, key: `dormer:${rel(r, p.x0, p.z0)}:${pl.face}:${k}`,
+          slide: { on: 'plane', plane: [pl.a, pl.b, pl.c], sink: 0.6, box: X ? [p.x0 + 2.5, Math.min(pl.eave, pl.eave + pl.sign * p.half) + 1.5, p.x1 - 2.5, Math.max(pl.eave, pl.eave + pl.sign * p.half) - 1.5] : [Math.min(pl.eave, pl.eave + pl.sign * p.half) + 1.5, p.z0 + 2.5, Math.max(pl.eave, pl.eave + pl.sign * p.half) - 1.5, p.z1 - 2.5] } });
       }
     }
     // a finial on a free gable peak, rarely
-    if (O.finials !== false && p.kind === 'gable') for (const E of p.ends) { const roll = rnd(); if (E.free && E.shown && roll < O.finialChance) { const [x, z] = X ? [E.at, p.cz] : [p.cx, E.at]; place(roof, 'finial', { x, y: p.ridgeY, z, dims: [0.8, 2.2, 0.8] }); } }
+    if (O.finials !== false && p.kind === 'gable') for (const E of p.ends) { const roll = rnd(); if (E.free && E.shown && roll < O.finialChance) { const [x, z] = X ? [E.at, p.cz] : [p.cx, E.at]; place(roof, 'finial', { x, y: p.ridgeY, z, dims: [0.8, 2.2, 0.8], key: `finial:${rel(r, p.x0, p.z0)}:${E.end}`, slide: { on: 'roof', sink: 0 } }); } }
+    // what is in a free gable: a window, a louvred vent, a round oculus (by the wall family), the carved tympanum of a temple's
+    // pediment; only where the triangle has room for it. Its own generator, so the dormers' and finial's rolls are as they were.
+    // Trim like the rest (keyed by its room's part, its end and its kind; a window / vent / oculus slides along its gable)
+    if (O.gableOpenings !== false && p.kind === 'gable') { const grnd = rng(strSeed(`${r.seed}|${r.id}|${p.x0}:${p.z0}|gable`)), roll = [grnd(), grnd()];
+      for (const E of p.ends) { if (!E.g || !E.free) continue; const o = gableOpening(E.g, roll); E.g.opening = o; if (o) roof.props.push({ ...o, room: r.id, key: `gable:${rel(r, p.x0, p.z0)}:${E.end}:${o.kind}` }); } } // (one roll for both ends: a house's two gables match)
+  }
+  // ---------------- THE TRIM IS TOUCHABLE (Harry 2026-10-27: "those chimneys and windows and stuff that stick out of roofs
+  // should be selectable & moveable objects as well") ----------------
+  // Every piece of trim has a stable KEY (its role and where the rule put it, in feet from its room's corner, so a room
+  // that is moved keeps its choices); a room's own choices are OVERRIDES on room.roof.trim, by key:
+  //   { at: [x, z] }   moved there (feet from the room's corner); it slides on what it stands on (prop.slide):
+  //                     'roof'   the roof under it, upright (a chimney: sunk `sink` into it, its top `above` over the ridge)
+  //                     'plane'  its own slope (a dormer: it never leaves its plane, kept inside `box`, facing down it)
+  //   { gone: true }   removed
+  // Everything else is still worked out by rule, so a re-roll, a new shape or a turn regenerates the rest; an override whose
+  // key no longer comes up is simply not used. A piece with no slide can be removed but not moved. A rule that places a
+  // piece of its own (a gable window, a turret) gets this for nothing: give it a key (else it gets `role:x:z`) and a slide.
+  for (const roof of roofs) {
+    const r = R.find(q => q.id === roof.room), T = r.trim || {};
+    for (const pr of roof.props) pr.key ||= `${pr.role}:${rel(r, pr.x, pr.z)}`;
+    roof.props = roof.props.filter(pr => !T[pr.key]?.gone);
+    for (const pr of roof.props) {
+      const at = T[pr.key]?.at; if (!at || !pr.slide) continue;
+      const to = slideProp({ heightAt, roofs }, pr, r.rc.x * C + at[0], r.rc.z * C + at[1]);
+      if (to) Object.assign(pr, to, { moved: true });
+    }
   }
   return { roofs, heightAt, kit };
+}
+// where a piece of trim goes when it is moved to (x, z): { x, y, z, dims? }, or null where it cannot stand (off its slope,
+// off the roof). plan: { heightAt, roofs } (planRoofs' result). The pointer's drag and the planner both ask this.
+export function slideProp(plan, pr, x, z) {
+  const S = pr.slide; if (!S) return null;
+  const r3 = (v) => Math.round(v * 1000) / 1000;
+  if (S.on === 'plane') {
+    const [a, b, c] = S.plane, [x0, z0, x1, z1] = S.box; if (x0 > x1 || z0 > z1) return null;
+    x = Math.max(x0, Math.min(x1, x)); z = Math.max(z0, Math.min(z1, z));
+    const y = a * x + b * z + c, h = plan.heightAt(x, z); if (h == null || Math.abs(h - y) > 0.05) return null; // where its slope is not the roof (a valley, another roof over it)
+    return { x: r3(x), y: r3(y - (S.sink || 0)), z: r3(z) };
+  }
+  if (S.on === 'gable') { // a gable's window / vent: along the gable's face, at its own height, inside the triangle
+    const across = Math.max(S.range[0], Math.min(S.range[1], S.axis === 'x' ? z : x));
+    return S.axis === 'x' ? { x: r3(S.d), y: pr.y, z: r3(across) } : { x: r3(across), y: pr.y, z: r3(S.d) };
+  }
+  const h = plan.heightAt(x, z); if (h == null) return null;
+  if (pr.role === 'chimney') { const roof = plan.roofs.find(q => q.room === pr.room), topY = Math.max((roof?.ridgeY ?? h) + (S.above ?? 2.5), h + 3.5), y = h - (S.sink ?? 1.5); return { x: r3(x), y: r3(y), z: r3(z), dims: [pr.dims[0], +(topY - y).toFixed(3), pr.dims[2]] }; }
+  return { x: r3(x), y: r3(h - (S.sink || 0)), z: r3(z) };
+}
+const rel = (r, x, z) => `${+(x - r.rc.x * 5).toFixed(2)}:${+(z - r.rc.z * 5).toFixed(2)}`;
+
+// ---------------- GABLE ENDS (Harry 2026-10-27: "those triangle wedges that fill out the wall below the slope of the roof
+// kind of need something to blend them into the style of the building. Right now they are too flat, and windowless") ----
+// A gable end is the room's own wall carried up into the triangle: it wears the wall FAMILY's look (buildRoof: the
+// family's generated wall, baked flat, data/gables.json), stands flush with the wall's outer face, is trimmed along its
+// two sloped edges (a bargeboard on a timber house, a stone coping on a stone one, the raking cornice of a pediment on a
+// marble temple, which also gets the level cornice along its foot), and has an opening in it where there is room.
+//   G = { tri, at, out: [nx, nz] (the way it faces), axis, lo, hi, mid, base, apex, span, rise, tan, free, oh, face (ft
+//         out from the wall line), trim: 'board' | 'coping' | 'cornice', verges: [{ a, b, out }], opening? }
+export const GABLE = { face: 0.5, minRise: 2.5 }; // ft: the wall's outer face off its grid line (a wall is 12 in); no opening in a gable lower than this
+// the trim, by wall family: stone families get a stone coping, the rest a timber bargeboard; a marble roof is a pediment
+const STONE_FAMILIES = new Set(['dressed-stone', 'fieldstone', 'castle-rough', 'tower-stone', 'temple-stone', 'crypt-stone', 'black-stone', 'cut-rock', 'noble-interior', 'conservatory']);
+export const gableTrim = (family, style) => style === 'marble' ? 'cornice' : STONE_FAMILIES.has(family) ? 'coping' : 'board';
+// what may go in a gable, by wall family (first = the likelier); sizes in ft [w, h] (the plates: data/gables.json)
+export const GABLE_OPENINGS = { window: [2.5, 2.7], vent: [2.17, 2.67], oculus: [2.5, 2.5] };
+const OPENINGS_BY = { stone: ['oculus', 'vent'], timber: ['window', 'vent'], rough: ['vent', 'window'] };
+const ROUGH_FAMILIES = new Set(['rough-timber', 'log-cabin', 'mine-timbered']);
+export const gableOpeningsFor = (family) => STONE_FAMILIES.has(family) ? OPENINGS_BY.stone : ROUGH_FAMILIES.has(family) ? OPENINGS_BY.rough : OPENINGS_BY.timber;
+function gableEnd(p, E, tri, { X, out, at, lo, hi, mid, oh }) {
+  const r = p.room, o = X ? [out, 0] : [0, out], trim = gableTrim(r.family, r.style), face = E.free ? GABLE.face : 0;
+  const P3 = (along, y, across) => X ? [along, y, across] : [across, y, along], v = at + out * oh; // the verge line: where the roof's end stands
+  const eave = (side) => { const e = side < 0 ? lo - oh : hi + oh; return P3(v, p.top - p.tan * oh, e); };
+  const verges = E.free ? [{ a: eave(-1), b: P3(v, p.ridgeY, mid), out: o, trim }, { a: eave(1), b: P3(v, p.ridgeY, mid), out: o, trim }] : [];
+  return { tri, at, out: o, axis: p.axis, lo, hi, mid, base: p.top, apex: p.ridgeY, span: hi - lo, rise: p.ridgeY - p.top, tan: p.tan, free: !!E.free, oh, face, trim, family: r.family ?? null, style: r.style, verges, opening: null };
+}
+// the opening of one gable end, seeded (re-roll changes it), as a piece of the roof's TRIM (roof.props, beside the dormers
+// and the finial; `key` names it stably: room, which end, what it is): { role: 'gable-window' | 'gable-vent' | 'gable-oculus' |
+// 'pediment', kind, x, y, z (its centre on the gable's face), dims [w, h, d], rot, out, tri? (the pediment: its triangle) } or null.
+// The game draws it from the gable kit (data/gables.json: a generated plate, keyed), a plain dark stand-in without it.
+function gableOpening(G, [kindRoll, hRoll]) {
+  if (G.rise < GABLE.minRise) return null;
+  const d = G.at + (G.out[0] || G.out[1]) * G.face, at = (y) => G.axis === 'x' ? [d, y, G.mid] : [G.mid, y, d], rot = Math.atan2(G.out[0], G.out[1]);
+  if (G.style === 'marble') { // the carved relief fills the pediment inside its cornices; a small one stays plain
+    if (G.span < 12) return null;
+    const [x, y, z] = at(G.base);
+    return { role: 'pediment', kind: 'tympanum', family: G.family, standIn: true, cat: null, x, y, z, rot, out: G.out, dims: [+G.span.toFixed(3), +G.rise.toFixed(3), 0.05], tri: G.tri.map(q => q.slice()) };
+  }
+  const width = (y) => G.span * (1 - (y - G.base) / G.rise); // the triangle's width at a height
+  const kinds = gableOpeningsFor(G.family), first = kindRoll < 0.75 ? 0 : 1, order = [kinds[first], ...kinds.filter((_, i) => i !== first)];
+  for (const kind of order) {
+    const [w, h] = GABLE_OPENINGS[kind], margin = 0.6;
+    // its foot a little above the wall's head; higher, by the roll, when the triangle has height to spare
+    const lowest = G.base + 0.9, highest = G.base + G.rise * (1 - (w + 2 * margin) / G.span) - h; if (highest < lowest) continue;
+    const yb = lowest + Math.min(highest - lowest, G.rise * 0.18) * hRoll, yc = yb + h / 2;
+    if (width(yb + h) < w + 2 * margin) continue;
+    const [x, , z] = at(yc);
+    // it slides ALONG its gable at its own height, never out of the triangle (slideProp 'gable')
+    const room = Math.max(0, G.span * (1 - (yb + h - G.base) / G.rise) / 2 - margin - w / 2);
+    return { role: 'gable-' + kind, kind, standIn: true, cat: null, x, y: +yc.toFixed(3), z, rot, out: G.out, dims: [w, h, 0.05], slide: { on: 'gable', axis: G.axis, d, range: [+(G.mid - room).toFixed(3), +(G.mid + room).toFixed(3)] } };
+  }
+  return null;
 }
 
 function normalRoom(r, C, order) {
@@ -270,7 +435,8 @@ function normalRoom(r, C, order) {
   else if (r.cells && r.x == null) { const xs = r.cells.map(c => c[0]), zs = r.cells.map(c => c[1]); rc = { x: Math.min(...xs), z: Math.min(...zs), w: Math.max(...xs) - Math.min(...xs) + 1, d: Math.max(...zs) - Math.min(...zs) + 1 }; }
   else rc = { x: r.x, z: r.z, w: r.w, d: r.d, ...(r.outline && { outline: r.outline }) };
   const cells = r.cells && r.x == null && !r.rect ? r.cells.map(([a, b]) => [a, b]) : cellsOf(rc).map(([i, j]) => [rc.x + i, rc.z + j]);
-  return { ...r, rc, cells, cellSet: new Set(cells.map(([a, b]) => `${a}:${b}`)), style: ROOF_STYLES[r.style] ? r.style : 'thatch', seed: r.seed ?? 1, order, fromCells: !!(r.cells && r.x == null && !r.rect) };
+  const style = roofStyleKey(r.style);
+  return { ...r, rc, cells, cellSet: new Set(cells.map(([a, b]) => `${a}:${b}`)), style: ROOF_STYLES[style] ? style : 'thatch', seed: r.seed ?? 1, order, fromCells: !!(r.cells && r.x == null && !r.rect) };
 }
 // a room's rectangles for a pitched roof: the layout solver's own (largest first); cells it leaves over become scraps
 function pitchedRects(r) {
@@ -438,11 +604,13 @@ export function setRoofTier(group, near) { const T = group.userData.roofTiers; i
 // Pickable meshes carry userData.roofOf = the room's id. The trim (roof.props) is NOT drawn here: the game draws those
 // placements with its normal object visuals; propStandIns() below draws plain boxes for a demo or a missing mesh.
 const mats = new WeakMap();
-export function buildRoof(roof, { THREE, textures = {}, sections = null, wallColor = '#b9ad98', ridgeColor = null } = {}) {
+// gables: the gable kit (loadGableKit) or absent: with it a gable end wears its wall family's look and its trim the kit's
+// wood / stone / marble cornice; without it (or before a picture has arrived) plain colours, as before.
+export function buildRoof(roof, { THREE, textures = {}, sections = null, gables = null, wallColor = '#b9ad98', ridgeColor = null } = {}) {
   const g = new THREE.Group(); g.name = `roof:${roof.room}`; g.userData.roofOf = roof.room;
   const cache = mats.get(textures) || (mats.set(textures, new Map()), mats.get(textures));
   const mat = (key, make) => { if (!cache.has(key)) cache.set(key, make()); return cache.get(key); };
-  const surface = (style) => mat('s:' + style, () => { const S = ROOF_STYLES[style] || ROOF_STYLES.thatch, map = textures[style] || null; return new THREE.MeshStandardMaterial({ color: map ? '#ffffff' : S.color, map, roughness: style === 'slate' || style === 'tile' ? 0.8 : 0.97, metalness: 0, side: THREE.DoubleSide }); });
+  const surface = (style) => mat('s:' + style, () => { const S = ROOF_STYLES[style] || ROOF_STYLES.thatch, map = textures[style] || null; return new THREE.MeshStandardMaterial({ color: map ? '#ffffff' : S.color, map, roughness: style === 'slate' || style === 'tile' ? 0.8 : style === 'lead' ? 0.7 : 0.97, metalness: 0, side: THREE.DoubleSide }); });
   const plain = (color) => mat('c:' + color, () => new THREE.MeshStandardMaterial({ color, roughness: 0.95, side: THREE.DoubleSide }));
   const mesh = (tris, uvs, material, name) => {
     if (!tris.length) return;
@@ -457,14 +625,15 @@ export function buildRoof(roof, { THREE, textures = {}, sections = null, wallCol
   };
   const st = [], su = [], ft = [], fu = [];
   for (const pl of roof.planes) fan(pl.poly, pl.uv, pl.flat ? ft : st, pl.flat ? fu : su, true);
-  const style = roof.style === 'flat' ? 'thatch' : roof.style, kit = sections?.[style] || null, sec = kit && st.length ? sectionMeshes(THREE, roof, kit) : null;
+  const flatStyle = roof.flatStyle || flatSurfaceOf(roof.style), style = ROOF_STYLES[roof.style]?.flat ? 'thatch' : roof.style, kit = sections?.[style] || null, sec = kit && st.length ? sectionMeshes(THREE, roof, kit) : null;
   mesh(st, su, sec ? mat('unseen', () => new THREE.MeshBasicMaterial({ visible: false, side: THREE.DoubleSide })) : surface(style), 'surface');
   if (sec) { const s = g.children[g.children.length - 1]; s.castShadow = false; s.userData.noCast = true; g.add(sec.near, sec.far); g.userData.roofTiers = { near: sec.near, far: sec.far, isNear: true, count: sec.lay.count, whole: sec.lay.whole, split: sec.lay.split, tris: kit.tris }; }
-  mesh(ft, fu, surface('flat'), 'flat');
-  const wt = []; for (const t of roof.gables) fan(t, null, wt, null, false);
-  mesh(wt, null, plain(wallColor), 'gable');
+  mesh(ft, fu, surface(flatStyle), 'flat');
+  // THE GABLE ENDS: the triangle at the wall's outer face (and its inner face), in the wall family's look, world-aligned so
+  // its 5-ft panels stand over the wall's; the trim along the verges; a pediment's level cornice (gableMeshes below)
+  for (const part of gableMeshes(roof, gables, wallColor)) { const n = g.children.length; mesh(part.tris, part.uvs, part.material(THREE, plain, mat), part.name); if (g.children.length > n) g.children[n].userData.pic = part.key; } // (pic: which picture it wears, or plain:<colour>)
   const kt = []; for (const q of roof.skirts) fan(q, null, kt, null, false);
-  mesh(kt, null, plain(ROOF_STYLES.flat.color), 'skirt');
+  mesh(kt, null, plain(ROOF_STYLES[flatStyle]?.skirt || '#6f6a5f'), 'skirt');
   // the ridge cap: a low dark strip sunk over the ridge line, so the two slopes never meet in a bare knife edge
   const rt = [], w = 0.45, hgt = 0.28, drop = 0.3;
   for (const { a, b } of roof.ridges) {
@@ -475,20 +644,112 @@ export function buildRoof(roof, { THREE, textures = {}, sections = null, wallCol
   mesh(rt, null, plain(ridgeColor || shade(ROOF_STYLES[roof.style]?.color || '#666', 0.62)), 'ridge');
   return g;
 }
+// ---------------- the gable kit (2026-10-27): what the gable ends and their trim wear ----------------
+// data/gables.json (experiments/2026-10-27-roofs-temple/install.py) names the pictures: per wall family the family's own
+// generated wall baked flat (5 ft wide, `ft[1]` tall: the band between plinth and cap, so it can repeat up a gable), the
+// openings' keyed plates, the cornice strip, the wall kit's wood and stone. Pictures load on first ask; onLoad(name) says
+// one has arrived (the game rebuilds its roofs: until then a gable is drawn in the plain stand-in colours).
+export const TRIM = { // ft: how a verge trim stands about the verge line (in: back towards the wall, out: past it) and about the roof plane
+  board: { in: 0.17, out: 0.03, below: 0.85, above: 0.42, color: '#5a4632' },
+  coping: { in: 0.55, out: 0.12, below: 0.55, above: 0.55, color: '#8c877b' },
+  cornice: { in: 0.5, out: 0.18, below: 0.9, above: 0.35, color: '#e9e2d3' },
+};
+export function loadGableKit(THREE, man, urlOf, onLoad = () => {}, loadTexture = null) {
+  const loader = loadTexture ? null : new THREE.TextureLoader(), got = new Map(), ready = new Set();
+  const tex = (url, srgb) => {
+    if (got.has(url)) return ready.has(url) ? got.get(url) : null;
+    let t; const done = () => { ready.add(url); onLoad(url); };
+    if (loadTexture) { t = new THREE.Texture(); loadTexture(urlOf(url)).then(g => { t.image = g.image; t.flipY = g.flipY; t.needsUpdate = true; done(); }, () => { }); }
+    else t = loader.load(urlOf(url), done, undefined, () => { });
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; if (srgb) t.colorSpace = THREE.SRGBColorSpace;
+    got.set(url, t); return null;
+  };
+  const pair = (e) => { if (!e) return null; const map = tex(e.url, true), normal = e.normal ? tex(e.normal, false) : null; return map && (!e.normal || normal) ? { map, normal, ft: e.ft, key: e.url } : null; };
+  return { man, wall: (fam) => pair(man?.walls?.[fam]), trim: (t) => pair(man?.trim?.[t]), cornice: () => pair(man?.cornice), opening: (kind) => pair(man?.openings?.[kind]), loaded: () => ready.size };
+}
+// the gable ends' meshes of one roof: [{ name, tris, uvs, material(THREE, plain, cache) }]
+function gableMeshes(roof, kit, wallColor) {
+  const out = [], groups = new Map();
+  const add = (name, mkey, make, tris, uvs) => { const k = name + '|' + mkey; if (!groups.has(k)) { const g = { name, key: mkey, tris: [], uvs: [], material: (THREE, plain, cache) => cache('g:' + mkey, () => make(THREE, plain)) }; groups.set(k, g); out.push(g); } const g = groups.get(k); g.tris.push(...tris); g.uvs.push(...uvs); };
+  const std = (pic, color, rough = 0.95) => (THREE, plain) => pic ? new THREE.MeshStandardMaterial({ map: pic.map, normalMap: pic.normal || null, roughness: rough, metalness: 0, side: THREE.DoubleSide }) : plain(color);
+  for (const G of roof.gableEnds || roof.gables.map(tri => ({ tri, face: 0, out: [0, 0], verges: [] }))) {
+    const [ox, oz] = G.out, right = [oz, -ox]; // the way an onlooker outside reads left to right
+    const wallPic = kit?.wall(G.family) || null, ft = wallPic?.ft || [5, 7.6];
+    const uvOf = (q) => [(q[0] * right[0] + q[2] * right[1]) / ft[0], (q[1] - (G.base ?? q[1])) / ft[1]];
+    const faces = G.face ? [G.face, -G.face] : [0];
+    for (const f of faces) {
+      const t = G.tri.map(q => [q[0] + ox * f, q[1], q[2] + oz * f]);
+      add('gable', wallPic ? wallPic.key : 'plain:' + wallColor, std(wallPic, wallColor), t, t.map(uvOf));
+    }
+    // the trim along each verge: a beam with a vertical cross-section, its top a little above the roof plane
+    const T = TRIM[G.trim]; if (!T) continue;
+    const pic = G.trim === 'board' ? kit?.trim('wood') : G.trim === 'coping' ? kit?.trim('stone') : null, front = G.trim === 'cornice' ? kit?.cornice() : null;
+    const body = G.trim === 'cornice' ? 'plain:' + T.color : pic ? pic.key : 'plain:' + T.color, bodyMat = G.trim === 'cornice' ? std(null, T.color) : std(pic, T.color, 0.9);
+    const frontKey = front ? front.key : body, frontMat = front ? std(front, T.color, 0.85) : bodyMat, tft = pic?.ft || 6;
+    const beam = (A, B, offs, low, high) => { // A -> B along the verge; offs [in, out] across it (signed by `out`); low/high below/above the line A-B
+      const P = (q, o, dy) => [q[0] + ox * o, q[1] + dy, q[2] + oz * o], L = Math.hypot(B[0] - A[0], B[1] - A[1], B[2] - A[2]);
+      const [oi, oo] = offs, c = P;
+      const quad = (a, b, cc, d) => [a, b, cc, a, cc, d];
+      const fu = (u0, u1, v0, v1) => [[u0, v0], [u1, v0], [u1, v1], [u0, v0], [u1, v1], [u0, v1]];
+      // front (outermost): the cornice strip runs along it; v up its height
+      add('verge', frontKey, frontMat, quad(c(A, oo, -low), c(B, oo, -low), c(B, oo, high), c(A, oo, high)), fu(0, L / (front ? front.ft * (low + high) : tft), 0, front ? 1 : (low + high) / tft));
+      const sides = [[c(A, oi, -low), c(B, oi, -low), c(B, oi, high), c(A, oi, high)], [c(A, oi, high), c(B, oi, high), c(B, oo, high), c(A, oo, high)], [c(A, oi, -low), c(B, oi, -low), c(B, oo, -low), c(A, oo, -low)], [c(A, oi, -low), c(A, oo, -low), c(A, oo, high), c(A, oi, high)]];
+      for (const q of sides) add('verge', body, bodyMat, quad(...q), fu(0, L / tft, 0, (low + high) / tft));
+    };
+    for (const v of G.verges || []) beam(v.a, v.b, [-T.in, T.out], T.below, T.above);
+    // a pediment's level cornice along its foot, eave edge to eave edge, its top level with the raking cornice's at the corners
+    if (G.trim === 'cornice' && G.verges?.length === 2) {
+      const [a, b] = [G.verges[0].a, G.verges[1].a], drop = G.base - a[1];
+      const A = [a[0], G.base, a[2]], B = [b[0], G.base, b[2]];
+      beam(A, B, [-T.in, T.out], drop + T.below, T.above - drop); // (its top may lie below the gable's foot: the line A-B is at the foot)
+    }
+  }
+  return out;
+}
+// ONE GABLE PIECE (a window, a vent, an oculus, a pediment's tympanum: roof.props roles 'gable-*' and 'pediment'), drawn
+// in the piece's own frame (the game's holder stands at p.x, p.y, p.z turned by p.rot, so local +z faces out of the gable):
+// the kit's keyed plate on a card a hair proud of the face, or a plain dark stand-in. Returns { mesh, standIn }.
+export const isGablePiece = (p) => p.role === 'pediment' || String(p.role).startsWith('gable-');
+export function gablePiece(THREE, p, kit) {
+  const pic = kit?.opening(p.kind) || null, [w, h] = p.dims;
+  let geo;
+  if (p.role === 'pediment') { // the triangle, inset a little inside its cornices; the plate's triangle fills its own box
+    const s = 0.94, hw = (w / 2) * s, top = h * s;
+    geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute([-hw, 0.02, 0, hw, 0.02, 0, 0, top, 0], 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute([0, 0, 1, 0, 0.5, 1], 2)); geo.computeVertexNormals();
+  } else geo = new THREE.PlaneGeometry(w, h);
+  geo.translate(0, 0, 0.04);
+  const material = pic ? new THREE.MeshStandardMaterial({ map: pic.map, alphaTest: 0.5, roughness: 0.9, metalness: 0, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 })
+    : new THREE.MeshStandardMaterial({ color: p.role === 'pediment' ? '#d8cfbd' : '#2b2622', roughness: 0.95, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+  if (pic && p.role === 'pediment') {
+    material.alphaTest = 0.02;
+    // the relief is carved in the temple's own stone: its plate (cream marble) is graded to the wall
+    // family's colour (Gemini 2026-10-27: a cream panel on golden walls read as "a flat pasted-on pediment board")
+    const wm = kit.man?.walls?.[p.family]?.mean, pm = kit.man?.openings?.tympanum?.mean;
+    if (wm && pm) material.color.setRGB(...wm.map((v, i) => Math.min(1.25, Math.max(0.4, v / Math.max(0.05, pm[i]))))).convertSRGBToLinear?.();
+  }
+  const m = new THREE.Mesh(geo, material); m.receiveShadow = true; m.castShadow = false; m.name = p.role;
+  return { mesh: m, standIn: !pic };
+}
 const shade = (hex, k) => '#' + [1, 3, 5].map(i => Math.round(parseInt(hex.slice(i, i + 2), 16) * k).toString(16).padStart(2, '0')).join('');
 
-// the four roofing textures, set up to tile (one picture = 5 ft; the planner's UVs are in pictures)
+// the roofing textures, set up to tile (one picture = 5 ft; the planner's UVs are in pictures)
 // loadTexture (the tuner's js/tex.js, 2026-10-11): the picture is decoded off the main thread; without it, THREE.TextureLoader
-export function loadRoofTextures(THREE, urlOf, onLoad = () => {}, loadTexture = null) {
+// dataUrl(path) -> the URL of a client data file (a flat surface's own `tex`, the marble's `file`); without it they wear their stand-in
+export function loadRoofTextures(THREE, urlOf, onLoad = () => {}, loadTexture = null, dataUrl = null) {
   const out = {}, loader = loadTexture ? null : new THREE.TextureLoader();
   for (const [style, S] of Object.entries(ROOF_STYLES)) {
-    const url = (S.cat && urlOf(S.cat)) || (S.standIn || []).map(urlOf).find(Boolean); if (!url) continue;
-    let t;
-    if (loadTexture) { // the texture exists at once (the roof's material holds it); its picture arrives when decoded
-      t = new THREE.Texture();
-      loadTexture(url).then(got => { t.image = got.image; t.flipY = got.flipY; t.needsUpdate = true; onLoad(style); }, () => { delete out[style]; });
-    } else t = loader.load(url, () => onLoad(style), undefined, () => { delete out[style]; });
+    // the urls to try in order: the catalog's texture, the style's own data file, its stand-ins (a file that fails: the next)
+    const urls = [(S.cat && urlOf(S.cat)) || null, ((S.tex || S.file) && dataUrl && dataUrl(S.tex || S.file)) || null, ...(S.standIn || []).map(urlOf)].filter(Boolean); if (!urls.length) continue;
+    const t = new THREE.Texture(); // (it exists at once: the roof's material holds it; its picture arrives when decoded)
     t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; out[style] = t;
+    const next = (i) => {
+      if (i >= urls.length) { delete out[style]; return; }
+      t.userData.url = urls[i];
+      if (loadTexture) loadTexture(urls[i]).then(got => { t.image = got.image; t.flipY = got.flipY; t.needsUpdate = true; onLoad(style); }, () => next(i + 1));
+      else loader.load(urls[i], (got) => { t.image = got.image; t.needsUpdate = true; onLoad(style); }, undefined, () => next(i + 1));
+    };
+    next(0);
   }
   return out;
 }
@@ -496,7 +757,7 @@ export function loadRoofTextures(THREE, urlOf, onLoad = () => {}, loadTexture = 
 // plain boxes for a roof's trim (a demo, or a role whose mesh has not landed): chimney, dormer, parapet, pier, finial
 export function propStandIns(roof, { THREE, colors = {} } = {}) {
   const g = new THREE.Group(); g.name = `roof-props:${roof.room}`;
-  const C = { chimney: '#7d6a5c', dormer: '#b9ad98', parapet: '#8c877b', corner: '#8c877b', finial: '#3b3a36', ...colors };
+  const C = { chimney: '#7d6a5c', dormer: '#b9ad98', parapet: '#8c877b', corner: '#8c877b', battlement: '#8c877b', merlon: '#8c877b', turret: '#8c877b', railing: '#6b5440', finial: '#3b3a36', ...colors };
   for (const p of roof.props) {
     const [w, h, d] = p.dims, m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshStandardMaterial({ color: C[p.role] || '#888', roughness: 0.95 }));
     m.position.set(p.x, p.y + h / 2, p.z); m.rotation.y = p.rot || 0; m.castShadow = true; m.userData.roofProp = p.role; m.userData.roofOf = roof.room; g.add(m);

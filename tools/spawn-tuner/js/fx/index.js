@@ -29,7 +29,7 @@ import { createAnchorEditor } from './anchoredit.js';
 import { houseLink } from './houselink.js';
 import { createDice, DICE_DEFAULTS, DICE_SCHEMA, DICE_BUILTINS, normDice } from './dice.js';
 import { mountDiceTools } from './dicepanel.js';
-export { createDice, DICE_DEFAULTS, DICE_SCHEMA, DICE_BUILTINS, normDice, diceOfRoll } from './dice.js';
+export { createDice, DICE_DEFAULTS, DICE_SCHEMA, DICE_BUILTINS, normDice, diceOfRoll, BIG_POOL } from './dice.js';
 // DICE (dice.js, 2026-10-19): real 3D dice on the table. Panel data-key "dice" (tuner only: the game makes its own
 // runtime, engine/client/surfaces/dice.js), presets data.fx "dice", "Use in game" -> house `dice`.
 export const RAPIER_URL = new URL('../vendor/rapier3d-compat-0.20.0.js', import.meta.url).href;

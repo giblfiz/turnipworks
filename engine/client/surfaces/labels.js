@@ -109,7 +109,8 @@ export function labelsSurface(R, app) {
     const byB = app.roomsByBuilding(E), base = app.derived('labelled', (X) => Object.values(X).filter(e => e.kind === 'room' || (e.kind === 'building' && byB.has(e.id))), E);
     // (a room under its own roof: Roofs on hides its label, unless the look says otherwise)
     const roofOnly = (e) => { const w0 = app.main && app.worldOf?.(app.area()), rec = w0?.roofRecs?.get(e.id); return !!(rec && w0.roofShown(rec)); }; // (asked only when a look keeps labels under roofs)
-    const want = allowed() ? base.filter(e => !app.fog?.hidden(e) && !app.cutHides?.(e) && !(e.kind === 'room' && app.roomCovered?.(e) && !(S && !S.when.underRoof && roofOnly(e)))) : [];
+    const w1 = app.main && app.worldOf?.(app.area()), hillGone = !!w1 && w1.hillSeeNow?.() <= 0; // (2026-10-27: below the ground with Hills at 0 a hill is not drawn, nor its label)
+    const want = allowed() ? base.filter(e => !app.fog?.hidden(e) && !app.cutHides?.(e) && !(hillGone && e.kind === 'room' && e.recipe?.type === 'hill') && !(e.kind === 'room' && app.roomCovered?.(e) && !(S && !S.when.underRoof && roofOnly(e)))) : [];
     const ids = new Set(want.map(e => e.id));
     for (const [id, el] of els) if (!ids.has(id)) { el.remove(); els.delete(id); }
     if (!want.length) return;

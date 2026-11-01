@@ -1,0 +1,38 @@
+{
+ "sku": "cell-bars-post",
+ "glb_sha1": "c59549f029a1c995f91de0ac7db2476a66cd28d6",
+ "time": "2026-10-27T04:21:29-07:00",
+ "model": "agy-run (Gemini subscription)",
+ "blind": {
+  "table_distance_name": "metal post",
+  "second_guess": "fence post",
+  "confidence": 0.9,
+  "reads_clearly_at_distance": true,
+  "description": "A tall, slender square post or pillar featuring structural metalwork details. It consists of a vertical square shaft, a flared square base plate with rivet or bolt heads, two intermediate horizontal riveted collar bands wrapping around the shaft, and a matching square cap collar at the top. The surfaces are solid, continuous, and cleanly modeled, with no shards, spikes, blobs, holes, or floating disconnected geometry. The model stands directly on its own integral square base plate, which sits flat against the ground. The material appears to be dark weathered bronze or aged iron with subtle edge wear and surface mottling. There are no unpainted or plain black areas, and no flame or glow.",
+  "from_above": "From straight above, it appears as a small dark square corresponding to the flat top face of the post cap, with the slightly wider square collar bands and base plate visible directly beneath it, casting a long diagonal shadow across the floor.",
+  "defects": [],
+  "extra_base_or_ground": "none",
+  "black_or_unpainted_areas": "none",
+  "height_vs_figure": "About 1.4 to 1.5 times as tall as the 5 ft 9 in figure (approximately 8 to 8.5 feet tall), and significantly narrower, roughly one-third to one-half the figure's width."
+ },
+ "match": {
+  "ok": true,
+  "reads_as": "metal post",
+  "cause": "none",
+  "problems": [],
+  "notes": [
+   "Base plate detected as suspect base slab by automated rule, but foot plate was explicitly requested",
+   "Height proportion is slightly stouter than catalog (8.4:1 vs 13.5:1) but remains tall and slender"
+  ]
+ },
+ "verdict": "reroll-plate",
+ "reasons": [
+  "base slab: the bottom 3% spans the whole footprint under a much narrower body"
+ ],
+ "notes": [
+  "height proportion 1.61x off the catalog",
+  "gemini note: Base plate detected as suspect base slab by automated rule, but foot plate was explicitly requested",
+  "gemini note: Height proportion is slightly stouter than catalog (8.4:1 vs 13.5:1) but remains tall and slender"
+ ],
+ "vision": true
+}

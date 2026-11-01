@@ -24,6 +24,10 @@ export const COMMAND_WORDS = {
   'build.type.t:MIN': ['mine', 'mines', 'mineshaft', 'mine shaft', 'quarry', 'dwarven mine'],
   'build.type.t:LAI': ['lair', 'monster lair', 'cave', 'caves', 'cavern', 'den'],
   'build.whole': ['build a building', 'new building', 'generate a building'],
+  // a HILL (2026-10-24, Harry: "a way to raise some earth ... get things one story up"): raised ground, drawn like a room
+  'build.hill': ['hill', 'mound', 'raise ground', 'raised ground', 'raise the ground', 'terrace', 'rise', 'knoll', 'plateau', 'hillock', 'high ground', 'bluff', 'ridge', 'earth bank', 'bank', 'slope', 'motte', 'one story up', 'one storey up', 'up a level'],
+  // a CAVE (2026-10-25, Harry: "let's push it into the game"): a room below the ground walled with natural rock (core/caves.js)
+  'build.cave': ['cave', 'caves', 'cavern', 'caverns', 'natural cave', 'grotto', 'underground cave', 'cave room', 'rock cave', 'underground', 'below ground', 'stalagmites', 'stalactites'],
   'build.menu': ['build a room', 'new room', 'room tool', 'draw a room', 'make a room', 'add a room', 'construct'],
   'build.common': ['tavern', 'pub', 'inn', 'bar room', 'taproom'],
   'build.guest': ['bedroom', 'bed chamber'], 'build.mansion-bedroom': ['bedroom'], 'build.mkt-bedroom': ['bedroom'], 'build.hut-bedroom': ['bedroom'],
@@ -55,6 +59,15 @@ export const COMMAND_WORDS = {
   'view.labelLab': ['label lab', 'label size', 'label look', 'tune labels'],
   'view.ringLab': ['ring lab', 'ring look', 'tune the ring', 'menu look'],
   'view.roofsOff': ['hide roofs', 'roofs off', 'no roofs', 'remove roofs'], 'view.roofsOn': ['show roofs', 'roofs on', 'put roofs on'],
+  // ---- a roof, selected (2026-10-27): the flat surfaces, its edge, its corner turrets ----
+  'roof.style.deck': ['wooden deck', 'deck roof', 'plank roof', 'boards', 'planks', 'timber deck', 'flat wood'], 'building.roof.deck': ['wooden deck', 'deck roof', 'plank roof', 'planks'],
+  'roof.style.flagstone': ['stone roof', 'flat stone', 'stone slabs', 'slabs', 'flags', 'castle roof', 'keep roof', 'wall walk'], 'building.roof.flagstone': ['stone roof', 'flat stone', 'stone slabs', 'castle roof', 'keep roof'],
+  'roof.style.lead': ['lead roof', 'metal roof', 'copper roof', 'copper', 'sheet metal', 'leads', 'tin roof'], 'building.roof.lead': ['lead roof', 'metal roof', 'copper roof', 'copper'],
+  'roof.style.turf': ['sod', 'sod roof', 'grass roof', 'earth roof', 'green roof', 'turf roof', 'living roof', 'hobbit roof'], 'building.roof.turf': ['sod', 'sod roof', 'grass roof', 'earth roof', 'green roof'],
+  'roof.style.plaster': ['whitewash', 'adobe', 'desert roof', 'mud roof', 'white roof', 'stucco', 'plaster roof', 'clay roof'], 'building.roof.plaster': ['whitewash', 'adobe', 'desert roof', 'mud roof', 'white roof', 'stucco'],
+  'roof.battlements': ['castle walls', 'crenels', 'castellated', 'battlement', 'add battlements', 'remove battlements', 'no battlements', 'crenelations'],
+  'roof.edge.none': ['no parapet', 'no railing', 'no edge', 'remove parapet', 'remove railing', 'plain edge'], 'roof.edge.parapet': ['parapet', 'parapets', 'stone ledge', 'roof wall'], 'roof.edge.railing': ['railing', 'roof railing', 'deck railing', 'wooden railing', 'fence'],
+  'roof.turrets': ['add turrets', 'remove turrets', 'no turrets', 'corner tower', 'watch turrets', 'tourelles'],
   'view.xray': ['where are the pawns', 'find my pawn', 'lost', 'where is everyone'],
   'view.reset': ['reset camera', 'centre camera', 'center camera', 'home view', 'recenter', 'default view'],
   'view.sheet': ['keyboard shortcuts', 'controls'],
@@ -64,6 +77,8 @@ export const COMMAND_WORDS = {
   'area.light.night': ['nighttime', 'night time', 'sunset', 'twilight', 'moonlight', 'moonlit', 'make it night'],
   'area.light.deep-night': ['pitch black', 'moonless', 'dead of night'],
   'area.light.day': ['noon', 'midday', 'sunny', 'sunlight', 'make it day', 'dawn', 'sunrise'],
+  // the area's ground (Harry 2026-10-22: "simple tiling for the whole outdoor world ... drag grass onto everything")
+  'area.ground.*': ['ground', 'cover ground', 'cover all ground', 'cover the ground', 'ground cover', 'outdoor ground', 'outdoors', 'open ground', 'terrain', 'tile the world', 'tile everything', 'whole map', 'everywhere', 'fill ground', 'world floor'],
   'thing.light': ['turn off', 'turn on', 'blow out', 'light it', 'ignite', 'douse', 'lamp on', 'lamp off'],
   'thing.lightRadius': ['how bright', 'light range', 'bright light', 'dim light', 'radius'],
   'pawn.carryLight': ['give him a torch', 'give her a torch', 'give them a torch', 'torch bearer', 'carrying a lantern', 'holds a lantern', 'light source'],
@@ -82,6 +97,7 @@ export const COMMAND_WORDS = {
   'people.invite': ['new player', 'invite link', 'add a player', 'join link', 'player link'],
   'area.new': ['new scene', 'add area', 'new location'],
   'settings.admin': ['save campaign', 'save game', 'restore', 'download'],
+  'export.uvtt': ['export to foundry', 'foundry', 'foundry vtt', 'export to roll20', 'roll20', 'export to owlbear', 'owlbear', 'owlbear rodeo', 'fantasy grounds', 'maptool', 'battlemap', 'battle map', 'export battlemap', 'dungeondraft', 'dungeon alchemist', 'universal battlemap', '2d map', 'export 2d'],
   'pawns.notes': ['party journal', 'quest log'],
   // ---- a pawn, selected ----
   'pawn.cond.prone': ['knocked prone', 'knocked down', 'fallen', 'lying down'], 'pawn.cond.unconscious': ['knocked out', 'ko', 'passed out', 'asleep', 'sleeping', 'dying'],
@@ -101,11 +117,22 @@ export const COMMAND_WORDS = {
   'feedback.asset': ['looks wrong', 'broken model', 'ugly model'],
 };
 export const CATALOG_WORDS = [
+  // roof objects (2026-10-27, docs/VERTICAL.md "Roof objects")
+  [/^roof-bartizan$/, ['turret', 'turrets', 'bartizan', 'corner turret', 'tower', 'small tower', 'watch turret', 'roof turret', 'pepperpot']], [/^roof-cistern$/, ['water tank', 'tank', 'cistern', 'water tower', 'rain tank', 'water butt', 'roof tank']],
+  [/^roof-flagpole$/, ['flag', 'flagpole', 'flag pole', 'flagstaff', 'pennant', 'banner', 'standard', 'flag on the roof']], [/^roof-hatch$/, ['hatch', 'roof hatch', 'trapdoor', 'trap door', 'way onto the roof', 'roof door']],
+  [/^chimney-stack$/, ['chimney', 'chimney pot', 'chimneys', 'chimney stack', 'flue', 'smokestack']], [/^roof-skylight$/, ['skylight', 'roof window', 'roof lantern', 'glass roof']],
+  [/^hole$/, ['hole', 'holes', 'pit', 'opening', 'drop', 'chasm', 'gap', 'shaft', 'hole in the floor', 'square hole', 'trapdoor hole']], [/^hole-round-/, ['hole', 'pit', 'opening', 'drop', 'chasm', 'round hole', 'round pit', 'circular hole', 'sinkhole', 'well shaft']],
   [/^torch-/, ['torch', 'torches']], [/^(firepit-|fire-ring)/, ['campfire', 'camp fire', 'bonfire', 'fire pit']], [/^(mug|tankard|pitcher)-of-/, ['ale', 'beer', 'drink']],
   [/^table-(square|trestle|round-small|kitchen-prep)$/, ['table']], [/^chair-(plain|armed)$/, ['chair']], [/^bed-(single|double)$/, ['bed']], [/^rug-(small|oval|round|grand|runner)$/, ['rug', 'carpet']],
+  [/^(railing-(wood|iron)|balustrade-stone)$/, ['railing', 'railings', 'handrail', 'banister', 'bannister', 'balustrade', 'balcony railing', 'stair railing']], [/^balustrade-stone-pier$/, ['newel', 'newel post', 'baluster post', 'balustrade pier']], [/^fence-post-(rail|corner)$/, ['fence', 'fencing', 'rail fence', 'post and rail']], [/^fence-picket$/, ['fence', 'picket fence', 'picket', 'white fence']], [/^fence-wattle$/, ['fence', 'wattle', 'wattle fence', 'woven fence', 'hurdle']],
+  [/^gate-fence$/, ['gate', 'field gate', 'fence gate', 'farm gate', 'garden gate']], [/^hedge-(straight|end-block)$/, ['hedge', 'hedges', 'hedgerow', 'bush wall', 'clipped hedge', 'box hedge']], [/^hedge-gap-arch$/, ['hedge', 'hedge arch', 'hedge gate', 'garden arch', 'gate']],
+  [/^wall-drystone(-pier)?$/, ['stone wall', 'dry stone wall', 'drystone wall', 'dry-stone wall', 'low wall', 'field wall', 'garden wall']], [/^wall-drystone-gate$/, ['stone wall', 'gate', 'wall gate', 'gap in the wall', 'stone gateway']],
+  [/^cell-bars$/, ['bars', 'iron bars', 'cell bars', 'jail bars', 'prison bars', 'cage bars', 'grate', 'grating', 'grille', 'grill', 'cell front', 'cell wall', 'bar wall']], [/^cell-bars-post$/, ['bars post', 'bar post', 'iron post', 'corner post', 'end post', 'cell bars post', 'stanchion']], [/^door-cell-bars$/, ['cage door', 'cell door', 'jail door', 'prison door', 'barred door', 'bars door', 'iron door', 'grate']], [/^portcullis$/, ['portcullis', 'gate grille', 'iron gate', 'castle gate', 'grate', 'grating', 'bars']],
   [/^door-(plank|reinforced)$/, ['door']], [/^wall-window-small$/, ['window']], [/^wall-doorway$/, ['doorway', 'door frame', 'archway']], [/^wall-straight$/, ['wall']],
   [/^stair-(straight|grand|spiral-wide|half)$/, ['stairs', 'staircase', 'steps', 'stairway']], [/^stair-spiral/, ['spiral staircase', 'spiral stairs']], [/^(ladder-wood|loft-ladder)/, ['ladder']],
   [/^candle(-cluster)?$/, ['candle', 'candles']], [/^lantern-/, ['lantern']], [/^chandelier-/, ['chandelier']], [/^sword-/, ['sword', 'weapon']], [/^tree-(oak-great|deciduous|birch|fruit)$/, ['tree', 'trees']],
+  // a faction's pillar and pier (2026-10-24): plural forms only, so a bare "pillar" / "column" still puts the plain pillars first (the faction word ranks these)
+  [/^flavor-pillar$/, ['pillars', 'columns']], [/^flavor-buttress$/, ['buttresses', 'flying buttress']],
   [/^pew$/, ['pews', 'church bench']], [/^font-holy$/, ['holy water', 'font', 'baptism']], [/^decal-ritual-circle$/, ['pentagram', 'summoning circle', 'ritual circle', 'magic circle']], [/^decal-star-floor$/, ['pentagram']],
   [/^(feast-platter-meats|plate-roast-veg|bread-loaf)$/, ['food', 'meal']], [/^(gibbet-cage-standing|block-headsman)$/, ['gallows', 'execution']], [/^mine-cart$/, ['minecart']], [/^mine-rail/, ['rails', 'track', 'mine track']],
   [/^(counter-shop|back-bar-shelves)$/, ['bar counter', 'bar']], [/^chest-treasure$/, ['treasure chest', 'loot']], [/^(treasure-hoard-heap|dun-treasure-hoard|coin-pile)$/, ['treasure', 'loot', 'gold']], [/^potion-bottles$/, ['potion', 'potions']],
@@ -119,6 +146,8 @@ export const MATERIAL_WORDS = [
 export const FIGURE_WORDS = [
   [/innkeeper/, 'barkeep bartender barman barmaid tavern keeper publican'], [/merchant/, 'shopkeeper trader vendor shop keeper'], [/commoner/, 'villager peasant farmer townsperson'],
   [/child/, 'kid kids'], [/^hero-rogue-/, 'thief burglar'], [/noble/, 'lord lady'],
+  // players type the publisher's name for it; the figure itself is our own eye tyrant and its tags never say it (2026-10-24)
+  [/^foe-eye-tyrant$/, 'beholder'],
 ];
 
 // apply the vocabulary: commands (after every surface has added its own), the catalog, and figures (before their index)
@@ -128,7 +157,7 @@ export function teachBar(R, assets) {
     for (const c of cs) c.synonyms = [...new Set([...c.synonyms, ...words])];
   }
   const material = (id) => MATERIAL_WORDS.filter(([re]) => re.test(id)).flatMap(([, w]) => w).filter(w => /walls/.test(id) ? !/floor/.test(w) : !/walls/.test(w)); // a floor's words for floors, a wall's for walls
-  for (const c of R.all()) if (/^room\.(floor|walls)\./.test(c.id)) { const w = material(c.id); if (w.length) c.synonyms = [...new Set([...c.synonyms, ...w])]; }
+  for (const c of R.all()) if (/^(room\.(floor|walls)|area\.ground)\./.test(c.id)) { const w = material(c.id); if (w.length) c.synonyms = [...new Set([...c.synonyms, ...w])]; }
   for (const cat of assets?.catalog || []) { const t = CATALOG_WORDS.filter(([re]) => re.test(cat.id)).flatMap(([, w]) => w); const m = cat.tile ? material(cat.id) : []; if (t.length || m.length) cat.terms = [...t, ...m]; }
 }
 export function teachFigures(list) {

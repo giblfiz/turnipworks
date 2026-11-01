@@ -6,7 +6,11 @@
 // away from the camera; with no pawn (the GM) the dice fly from the bottom of the screen toward its middle. Rapier
 // (lazy-loaded on the first roll) simulates against diceworld.js's colliders, rejecting throws that end cocked, stacked,
 // out of reach or where the roller cannot see (fog, or off the screen). The recording rides on the dice.roll command.
-// If the physics is not there in 2.5 s the roll goes out without dice: the chat line never waits on them.
+// If the physics is not there in 2.5 s the roll goes out without dice: the chat line never waits on them. A BIG POOL
+// (2026-10-29: an AI seat's "sr 12" over GET took 2.4 s and showed none) waits a little longer (waitFor: 70 ms a die
+// past BIG_POOL.over, at most 4.5 s), and the throw is given that deadline (`until`): the search stops in time and sets
+// what it could not land down flat, so the dice always come (dicephys.js BIG POOLS: kept die by die, a few quick
+// handfuls). Up to 40 dice (the command's limit) are thrown.
 //
 // EVERY SEAT plays the recording when the entry arrives (camera, zoom and world copy do not matter), turning each die's
 // numbering to the committed number. The chat line and the big announce wait for the dice to settle (the house look's
@@ -14,12 +18,14 @@
 // never sees the GM's dice land in the dark). The dice in the air stir the fog (fx addStirrers). Settings ▸ Me ▸ 3D dice
 // off: nothing is drawn (the line still comes).
 import { T } from '../tuner.js';
-import { parseDice } from '../dice.js';
+import { parseDice, faceTag } from '../dice.js';
 import { diceWorld } from '../diceworld.js';
 import { baseUnder } from '../../core/height.js';
 import * as THREE from 'three';
 
-const THROW_WAIT_MS = 2500, MAX_DICE = 24;
+const THROW_WAIT_MS = 2500, MAX_DICE = 40;
+// how long the line waits for a throw of n dice (ms); the throw's deadline is this less a margin (the recording, the send)
+const waitFor = (n) => Math.min(4500, THROW_WAIT_MS + 70 * Math.max(0, n - (T.fx?.BIG_POOL?.over ?? 8))), MARGIN_MS = 300;
 // does the segment a -> b pass through box b (centre, half extents, turned yaw about y)? (the slab test, in its frame)
 function segHitsBox(ax, ay, az, bx, by, bz, B) {
   const c = Math.cos(B.yaw || 0), s = Math.sin(B.yaw || 0), loc = (x, z) => { const dx = x - B.x, dz = z - B.z; return [dx * c - dz * s, dx * s + dz * c]; };
@@ -56,14 +62,18 @@ export function diceSurface(R, app) {
     const p = new THREE.Vector3(); return r.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), -y), p) ? p : null;
   }
   // THE ROLLER: where from, where to, what is in the way; then the throw
-  async function throwFor(terms, rolls, { fromView = false } = {}) {
-    const list = T.fx.diceOfRoll(terms, rolls);
+  async function throwFor(terms, rolls, { fromView = false, pawn = null } = {}) {
+    const t0 = performance.now(), list = T.fx.diceOfRoll(terms, rolls);
     if (!list.length || list.length > MAX_DICE) return null;
     const area = app.area(), w = app.worldOf(area), v = app.view(area), cam = app.main?.camera;
     if (!w || !v || !cam) return null;
     const E = v.entities, me = app.me(), focus = app.main.grab.focus;
     const mine = fromView ? [] : Object.values(E).filter(e => e.kind === 'token' && e.owner === me && !e.hidden);
-    const pick = mine.find(e => app.sel?.has(e.id)) || mine.filter(e => app.canSeePawn?.(e, area) !== false).sort((a, b) => Math.hypot(a.x - focus.x, a.z - focus.z) - Math.hypot(b.x - focus.x, b.z - focus.z))[0];
+    // pawn: the one the roll is for (a Beyond20 roll mapped to its pawn), never a hidden one (its dice would show where it is)
+    // (in first person, surfaces/fpv.js: from the pawn whose eyes these are, thrown ahead of it, where the view looks)
+    const fpv = app.fpv?.pawnId?.(), seen = pawn || (fpv && E[fpv]?.kind === 'token' && !E[fpv].hidden ? fpv : null);
+    const asked = seen && E[seen]?.kind === 'token' && !E[seen].hidden ? E[seen] : null;
+    const pick = asked || mine.find(e => app.sel?.has(e.id)) || mine.filter(e => app.canSeePawn?.(e, area) !== false).sort((a, b) => Math.hypot(a.x - focus.x, a.z - focus.z) - Math.hypot(b.x - focus.x, b.z - focus.z))[0];
     const dir = facing(cam);
     let from, to, level;
     if (pick && Math.hypot(pick.x - focus.x, pick.z - focus.z) < 60) {
@@ -81,7 +91,7 @@ export function diceSurface(R, app) {
       const room = Object.values(E).find(r => r.kind === 'room' && r.recipe && !r.hidden && Math.abs((r.recipe.y || 0) - level) < 0.5 && to.x >= r.recipe.x * 5 && to.x <= (r.recipe.x + r.recipe.w) * 5 && to.z >= r.recipe.z * 5 && to.z <= (r.recipe.z + r.recipe.d) * 5);
       if (room) { const R = room.recipe, m = Math.min(4, R.w * 2.5 - 0.5, R.d * 2.5 - 0.5), c = (v, a, b) => Math.max(a + m, Math.min(b - m, v)); from.x = c(from.x, R.x * 5, (R.x + R.w) * 5); from.z = c(from.z, R.z * 5, (R.z + R.d) * 5); }
     }
-    const world = diceWorld({ entities: E, edges: w.edges, from, level, reach: Math.max(20, (runtime(w).params.reject.reach || 12) + 6), isOpen: open }); // (out past the reach: a die that gets there still meets the walls)
+    const world = diceWorld({ entities: E, edges: w.edges, from, level, reach: Math.max(20, (runtime(w).params.reject.reach || 12) + 6), isOpen: open, roofTrim: level > 0.5 ? w.roofTrimFor?.() || [] : [] }); // (out past the reach: a die that gets there still meets the walls)
     const ndc = new THREE.Vector3();
     const onScreen = (x, z) => { ndc.set(x, level, z).project(cam); return ndc.z < 1 && Math.abs(ndc.x) < 0.94 && Math.abs(ndc.y) < 0.92; };
     // and the dice stay in the room they were thrown into (when the target is in one): never through, into or behind a wall
@@ -91,8 +101,8 @@ export function diceSurface(R, app) {
     const eye = cam.position, walls = world.boxes.filter(b => b.wall);
     const behindWall = (x, z) => walls.some(b => segHitsBox(eye.x, eye.y, eye.z, x, level + 0.8, z, b));
     const visible = (x, z) => inRoom(x, z) && app.fog.visible(x, z, level, area) && onScreen(x, z), rest = (x, z) => !behindWall(x, z);
-    const r = await runtime(w).simulate({ dice: list.map(d => d.type), from, to, world, visible, rest, by: me });
-    app.dice.last = { from, to, level, world: { surfaces: world.surfaces.length, boxes: world.boxes.length, cylinders: world.cylinders.map(c => c.id), things: world.boxes.filter(b => b.id).map(b => b.id), walls: world.boxes.filter(b => b.wall).length, left: world.left }, tries: r.tries, reasons: r.reasons, fallback: r.fallback, gentled: r.gentled || null, ms: r.ms, bytes: r.rec.b.length };
+    const r = await runtime(w).simulate({ dice: list.map(d => d.type), from, to, world, visible, rest, by: me, until: t0 + waitFor(list.length) - MARGIN_MS });
+    app.dice.last = { from, to, level, world: { surfaces: world.surfaces.length, boxes: world.boxes.length, cylinders: world.cylinders.map(c => c.id), things: world.boxes.filter(b => b.id).map(b => b.id), walls: world.boxes.filter(b => b.wall).length, left: world.left }, tries: r.tries, reasons: r.reasons, fallback: r.fallback, gentled: r.gentled || null, ms: r.ms, bytes: r.rec.b.length, n: list.length, hands: r.hands, setDown: r.setDown, wall: Math.round(performance.now() - t0) };
     return r.rec;
   }
   // EVERY SEAT: a committed roll with a throw
@@ -108,22 +118,26 @@ export function diceSurface(R, app) {
       const color = app.seatColor(e.by);
       const D = runtime(w);
       playing.set(e.args.id, { world: w, settled: false, area: e.area });
-      D.play({ id: e.args.id, rec: e.args.throw, values: list.map(d => d.value), color, by: e.by, tagFor: { color } }).then(() => { const q = playing.get(e.args.id); if (q) q.settled = true; app.emit('dice', e.args.id); });
+      // a game's dice (core/gamedice.js, 2026-10-29): each die wears its skin (Hunger red, Hope gold, symbol faces) and its
+      // tag says its face ("+", "S+T", "00"); plain dice as before
+      const game = !!p.game, skins = game ? list.map(d => d.skin || null) : null, tags = game ? list.map(d => faceTag(d.skin, d.value, d.type === 'd10t')) : null;
+      D.play({ id: e.args.id, rec: e.args.throw, values: list.map(d => d.value), color, by: e.by, tagFor: { color }, ...(game && { skins, tags }) }).then(() => { const q = playing.get(e.args.id); if (q) q.settled = true; app.emit('dice', e.args.id); });
       app.gfx?.wake('dice');
     } catch (err) { console.warn('dice', err); playing.delete(e.args.id); }
   }
   // A ROLL WITH NO THROW BY AN AI SEAT (2026-10-20): it rolled over GET, where the relay picks the numbers and nothing
   // simulates (relay/llm.js diceArgs). Every browser looking at that area throws those dice ITSELF, from the bottom of
   // its own view toward the middle (no pawn of its own), and lands them on the committed numbers: one result for
-  // everyone, each seat its own tumble. The line is held while the throw is worked out (THROW_WAIT_MS at most; then it
+  // everyone, each seat its own tumble. The line is held while the throw is worked out (waitFor at most; then it
   // simply shows). A person's roll that went out without dice (no physics in time) stays a plain line, as before.
   const local = new Map(); // roll id -> ms the line is held until
   function throwHere(e) {
     if (e?.type !== 'dice.roll' || e.args?.throw || !on() || started.has(e.args?.id) || local.has(e.args?.id) || e.area !== app.area() || e.by === app.me()) return;
     if (app.sync?.campaign?.seats?.find(s => s.id === e.by)?.kind !== 'llm') return;
     const p = parseDice(e.args.expr); if (!p) return;
-    local.set(e.args.id, Date.now() + THROW_WAIT_MS);
-    Promise.race([throwFor(p.terms, e.args.rolls, { fromView: true }), new Promise(res => setTimeout(() => res(null), THROW_WAIT_MS))])
+    const wait = waitFor(T.fx.diceOfRoll(p.terms, e.args.rolls).length);
+    local.set(e.args.id, Date.now() + wait);
+    Promise.race([throwFor(p.terms, e.args.rolls, { fromView: true }), new Promise(res => setTimeout(() => res(null), wait))])
       .then(rec => { if (rec && e.area === app.area()) start({ ...e, args: { ...e.args, throw: rec } }); }, err => console.warn('dice (AI roll)', err))
       .finally(() => { local.delete(e.args.id); app.emit('dice', e.args.id); });
   }
@@ -136,6 +150,7 @@ export function diceSurface(R, app) {
       any = w.dice.frame(now) || any;
       const area = w.areaId, fogOn = app.fog?.active?.(area);
       for (const d of w.dice.root.children) {
+        if (d.userData.waiting) { d.visible = false; continue; } // (a big pool's later handful, still in the hand: fx/dice.js)
         if (!fogOn) { d.visible = true; continue; }
         const k = d.userData.dieId; let lv = levels.get(k);
         if (lv == null) { lv = baseUnder(w.view?.entities, d.position.x, d.position.z, d.position.y, open).y; levels.set(k, lv); }
@@ -168,7 +183,7 @@ export function diceSurface(R, app) {
       return { px: n, dice: w.dice.root.children.length, drawn: w.dice.root.children.filter(g => g.visible).length };
     },
     last: null,
-    THROW_WAIT_MS,
+    THROW_WAIT_MS, waitFor,
   };
   return { name: 'dice' };
 }

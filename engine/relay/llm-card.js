@@ -8,15 +8,15 @@
 import { REGISTRY } from '../core/commands.js';
 import { CLASSES, can, canSee, effectiveClasses, isGmSide, visibilityOf } from '../core/perms.js';
 import { RULE_KEYS } from '../core/state.js';
-import { MARK_KEYS } from '../core/pawn.js';
+import { MARK_KEYS, CONDITIONS } from '../core/pawn.js';
 import { LIGHT_RADII, DARKVISION_DEFAULT } from '../core/darkness.js';
 import { CHAT_RATE, LOOP_MAX, LOOP_HOLD } from './campaign.js';
 import { FIGURES } from './figures.js';
 import { MINT } from './llm.js';
 
-export const CONDITIONS = ['blinded', 'charmed', 'frightened', 'grappled', 'invisible', 'poisoned', 'prone', 'restrained', 'stunned', 'unconscious']; // (client/commands.js: the ring's list; any short word is allowed)
+export { CONDITIONS } from '../core/pawn.js'; // the ring's list, each with its own look on the table (core/conditions.js); any other short word shows as a text label
 // arguments the card never offers: legacy (hp), the browser's own (solved layouts, recordings, asset paths), bookkeeping
-const NOT_FOR_AI = new Set(['hp', 'hpMax', 'layout', 'plan', 'engine', 'engineVersion', 'throw', 'factionMissing', 'factionWasHidden', 'keepSession', 'fromEdge', 'rule', 'orient', 'url', 'sku', 'flat', 'layer', 'yaw', 's', 'swaps', 'gen', 'wallSeed', 'def', 'src', 'tiltZ', 'rolls', 'total', 'grants']);
+const NOT_FOR_AI = new Set(['hp', 'hpMax', 'layout', 'plan', 'engine', 'engineVersion', 'throw', 'factionMissing', 'factionWasHidden', 'keepSession', 'walk', 'fromEdge', 'rule', 'orient', 'url', 'sku', 'flat', 'layer', 'yaw', 's', 'swaps', 'gen', 'wallSeed', 'def', 'src', 'tiltZ', 'rolls', 'total', 'grants']);
 
 function kit(rt, seat, base, token) {
   const s = rt.state.seats[seat], creator = s.kind === 'llm' ? rt.state.seats[s.creator] : null;
@@ -56,20 +56,24 @@ export function ruleCard(rt, seat, base, token) {
   if (allowed('dice.roll')) {
     L.push(`   ROLL DICE (the relay rolls fairly and answers with the numbers; everyone sees the dice tumble): ${doA('dice.roll', 'expr=d20&bonus=0&why=REASON')}`);
     L.push('     expr: d20, 2d6, 3d8, 4d6kh3 (keep highest 3), d20adv, d20dis. bonus: a number added to the total (bonus=-1 subtracts). why: what the roll is for.');
+    L.push('     Other games\' dice (the answer\'s "tally" counts them): expr=coc 65 bonus 1, v5 7 hunger 2 diff 3, sr 12, duality 2, 4df 1, l5r 3 ring 2 skill, ex 8. help/dice explains each.');
   }
   if (allowed('chat.say')) L.push(`   SAY SOMETHING: ${doA('chat.say', 'text=TEXT')}`);
   if (allowed('token.create')) L.push(`   ADD A CREATURE TO A ROOM: find a figure: ${camp('figures', 'q=WORDS')} (q=goblin, q=owlbear, q=elf+wizard), then ${doA('token.create', 'fig=FIGURE_ID&room=ROOM_ID')}  (it stands on a free square of that room; or give x=FEET&z=FEET; name=NAME is optional; hidden=true keeps it from the players)`);
   if (allowed('token.move')) L.push(`   MOVE A PAWN: ${doA('token.move', 'id=PAWN_ID&x=FEET&z=FEET')}  (or room=ROOM_ID: a free square there)${s.kind === 'llm' && !gm ? '. Only your own pawns ("yours": true).' : ''}`);
   if (allowed('object.light')) L.push(`   LIGHT OR PUT OUT a candle, lamp, torch or fire ("lights" in the scene): ${doA('object.light', 'id=THING_ID&lit=true')}  (lit=false puts it out)`);
-  if (allowed('object.open')) L.push(`   OPEN OR CLOSE a door, chest or shutter ("doors" in the scene): ${doA('object.open', 'id=THING_ID&open=true')}  (open=false closes it)`);
+  if (allowed('object.open')) L.push(`   OPEN OR CLOSE a door, chest or shutter ("doors" in the scene): ${doA('object.open', 'id=THING_ID&open=true')}  (open=false closes it); one with a "key", no id: ${doA('door.open', 'key=KEY&open=true')}`);
   if (allowed('token.damage')) L.push(`   DAMAGE: ${doA('token.damage', 'id=PAWN_ID&damage=NEW_TOTAL')}  (damage counts UP from 0 = unhurt; a pawn at 12 hit for 7: damage=19)`);
-  if (allowed('token.set')) L.push(`   CONDITIONS: ${doA('token.set', 'id=PAWN_ID&conditions=prone,poisoned')}  (conditions= with nothing clears them; ${CONDITIONS.join(', ')})`);
+  L.push('   TARGET: a pawn\'s "target" (in state and the scene, with "targetName") is the pawn its player is aiming at: when a player says "attack" (or "hit it"), they mean their pawn\'s target.' + (allowed('token.set') ? ` Set it: ${doA('token.set', 'id=PAWN_ID&target=TARGET_ID')} (target= with nothing clears).` : ''));
+  if (allowed('token.set')) L.push(`   SAVED ATTACKS (a pawn's "attacks", names and dice only, 8 at most, the last used first): ${doA('token.set', 'id=PAWN_ID&attacks=[{"name":"Longsword","hit":"+5","dmg":"1d8+3"}]')}  (attacks=[] clears; the whole list each time)`);
+  if (allowed('token.set')) L.push(`   CONDITIONS: ${doA('token.set', 'id=PAWN_ID&conditions=prone,poisoned')}  (the whole list; conditions= clears. Any short text works; ${camp('conditions')} lists those drawn as pictures)`);
   if (allowed('entity.flag')) L.push(`   HIDE FROM PLAYERS / REVEAL: ${doA('entity.flag', 'ids=ID&hidden=true')}  (hidden=false reveals; a room id hides the whole room and everything in it)`);
   if (allowed('room.set')) {
     L.push(`   RENAME A ROOM (its label): ${doA('room.set', 'id=ROOM_ID&name=NAME')}  (name= with nothing goes back to its type's name)`);
     L.push('   ROOM LABELS (a room\'s name) are ALREADY hidden from the players: only the GM side ever receives them. So "hide a room\'s label from the players" needs NO command: say that it already is. Do NOT use entity.flag for it: that hides the WHOLE room (walls, floor, everything in it). Each person shows or hides labels on their own screen ("Hide room labels" in the command bar); no command here does that.');
   }
   if (allowed('room.spawn')) L.push(`   BUILD A ROOM: ${doA('room.spawn', 'type=TYPE&x=FEET&z=FEET&w=FEET&d=FEET')}  (x, z, w, d in FEET, multiples of 5, 5..80 a side; types like common, kitchen, temple-nave, cult-sanctum, mkt-square, min-tunnel: ${help('rooms')})`);
+  if (allowed('room.spawn')) L.push(`   IMPORT A SHARED BUILD: ${doA('import', 'link=LINK')} (${help('sharing')})`);
   if (allowed('turn.roll')) L.push(`   THE TURN ORDER is "turns" in the scene. ROLL INITIATIVE for a pawn: ${doA('turn.roll', 'id=PAWN_ID')}${gm ? '' : '  (your own pawns)'}`);
   if (allowed('undo')) L.push(`   UNDO your last action: ${doA('undo')}`);
   if (may('travel')) L.push(`   SEND A PAWN TO ANOTHER AREA: ${K.doC('travel', `id=PAWN_ID&from=${K.A}&to=AREA_ID`)}`);
@@ -105,6 +109,7 @@ const TOPICS = [
   ['turns', 'THE TURN ORDER: initiative, whose turn, next turn', (m) => m('turn')],
   ['height', 'HEIGHT AND STOREYS: upstairs, cellars, stairs and ladders', (m) => true],
   ['areas', 'AREAS: open or hidden areas, travel, sending things between areas, area rules', (m) => true],
+  ['sharing', 'SHARED BUILDS: import one, or export the area', (m) => m('room')],
   ['commands', 'EVERY COMMAND you may send, with its arguments', (m) => true],
 ];
 export const helpTopics = (rt, seat) => { const m = kit(rt, seat, '', '').may; return TOPICS.filter(([, , f]) => f(m)).map(([id, title]) => ({ id, title })); };
@@ -130,7 +135,7 @@ export function helpPage(rt, seat, base, token, topic) {
       L.push(`CHANGE A ROOM: ${doA('room.set', 'id=ROOM_ID&name=NAME')}`);
       L.push('  name: its LABEL (name= with nothing = its type\'s name). Labels are the GM side\'s only: a player or a player\'s agent never receives them, so a label never needs hiding from the players (hiding the room, entity.flag, hides the whole room). Each viewer shows or hides labels on their own screen ("Hide room labels" in the command bar); no command here does that.');
       L.push('  fog=FEET: that room\'s own fog height (0 = no fog, up to 8; -1 = back to its type\'s default: cellars and crypts fog, an inn\'s rooms don\'t). A room shows "fog" only when it has its own.');
-      L.push('  roof={"style":"tile"} (thatch, tile, slate, shingle, flat), roof={"seed":7} re-rolls its dormers, roof={"off":true} removes it. A whole building: ' + doA('building.set', 'id=BUILDING_ID&roof=slate') + ' (roof=auto = by its walls; name=NAME renames the building). People see roofs only with "Roofs on".');
+      L.push('  roof={"style":"tile"} (thatch, tile, slate, shingle, marble; flat ones: deck, flagstone, lead, turf, plaster), roof={"edge":"battlements"} (battlements, parapet, railing, none, auto: round a flat roof), roof={"turrets":true} (corner turrets on a flat roof), roof={"seed":7} re-rolls its dormers, roof={"off":true} removes it (the room is open to the sky), roof={"shape":"hip"} (gable, hip, flat, auto) its shape, roof={"axis":"z"} turns it so its ridge runs along z (x or z; auto = along the long side), roof={"trim":{"chimney:FIRE_ID":{"at":[10,5]}}} moves a piece of its trim (feet from the room\'s corner; {"gone":true} removes it, null puts it back). A whole building: ' + doA('building.set', 'id=BUILDING_ID&roof=slate') + ' (roof=auto = by its walls; roofShape=flat gives every roof of it that shape; name=NAME renames the building). People see roofs only with "Roofs on".');
       L.push('  wallFamily=FAMILY and floor=FLOOR change its walls and floor.');
       L.push(`RE-ROLL OR CHANGE ITS TYPE: ${doA('room.reroll', 'id=ROOM_ID&type=TYPE')}  (type optional; pinned things stay; seed=NUMBER for a particular arrangement)`);
       L.push(`MOVE: ${doA('room.move', 'id=ROOM_ID&dx=FEET&dz=FEET')} (multiples of 5; dy=FEET to another height). TURN: ${doA('room.rotate', 'id=ROOM_ID&turns=1')} (quarter turns clockwise; -1 anticlockwise; everything in it turns with it). TALLER: ${doA('room.tall', 'id=ROOM_ID&tall=2')}. DELETE: ${doA('room.delete', 'id=ROOM_ID')}.`);
@@ -150,7 +155,7 @@ export function helpPage(rt, seat, base, token, topic) {
       L.push(`LOCK (nobody moves it by accident) / PIN (a re-roll keeps it): ${doA('entity.flag', 'ids=ID&locked=true')}  (pinned=true; false undoes)`);
       L.push(`DELETE: ${doA('object.delete', 'id=THING_ID')}`);
     }
-    if (may('open')) L.push(`OPEN / CLOSE: ${doA('object.open', 'id=THING_ID&open=true')}. LIGHT / PUT OUT: ${doA('object.light', 'id=THING_ID&lit=true')}. A locked thing refuses both.`);
+    if (may('open')) L.push(`OPEN / CLOSE: ${doA('object.open', 'id=THING_ID&open=true')}; a room's own doorway (a "doors" entry with a "key", no id yet): ${doA('door.open', 'key=KEY&open=true')} (it becomes a thing: the answer gives its id). LIGHT / PUT OUT: ${doA('object.light', 'id=THING_ID&lit=true')}. A locked thing refuses both.`);
     L.push(`WHAT IS IN A ROOM, with ids: ${at('room/ROOM_ID')}. Each thing says light, lit, radius (a light), open (a door, chest, shutter), locked, pinned, tilted, faction when they apply.`);
   }
   if (topic === 'pawns') {
@@ -162,11 +167,12 @@ export function helpPage(rt, seat, base, token, topic) {
     if (may('token.move')) L.push(`MOVE: ${doA('token.move', 'id=PAWN_ID&x=FEET&z=FEET')} (room=ROOM_ID: a free square in that room; y=FEET for its height, e.g. 10 upstairs; stair=STAIR_ID crosses a stair, see help/height).${gm ? '' : ' Only your own pawns ("yours": true).'}`);
     if (may('pawn')) {
       L.push(`DAMAGE: ${doA('token.damage', 'id=PAWN_ID&damage=NEW_TOTAL')} Damage counts UP from 0 (0 = unhurt; there are no hit points and no maximum). Send the new total: a pawn at 12 that takes 7 is damage=19. Any pawn you can see, not only yours.`);
-      L.push(`CONDITIONS: ${doA('token.set', 'id=PAWN_ID&conditions=prone,poisoned')} (the whole list each time; conditions= with nothing clears them). The usual: ${CONDITIONS.join(', ')}; any short word works.`);
+      L.push(`CONDITIONS: ${doA('token.set', 'id=PAWN_ID&conditions=prone,poisoned')} (the whole list each time; conditions= with nothing clears them). These have their own look on the table: ${CONDITIONS.join(', ')}, and "exhaustion 1" to "exhaustion 6". Any other short text is allowed too (Hexed, Blessed, deafened: up to 12 words of 24 characters) and shows as a small text label over the pawn.`);
+      L.push(`AURA, a light round a pawn everyone sees (a raging barbarian, a divine glow, an anima banner): ${doA('token.set', 'id=PAWN_ID&aura=3,blue')} (level 0-5: 0 none, 1 dim, 2 glowing, 3 burning, 4 bonfire, 5 iconic with its emblem; aura=up, aura=down, aura=off, or a colour alone: gold, silver, blue, green, red, violet; aura=5,gold,dragons hangs a faction's emblem in it).`);
       L.push(`INDICATOR over a pawn, for everyone: ${doA('token.mark', 'id=PAWN_ID&mark=skull')} (${MARK_KEYS.join(', ')}; mark= with nothing clears).`);
       L.push(`RENAME, NOTES: token.set&id=PAWN_ID&name=NAME (notes=TEXT${gm ? ', gmNotes=TEXT the players never see' : ''}; initBonus=3 its initiative bonus; darkvision=FEET and lightCarried=FEET, see help/light).${gm ? '' : ' Your own pawns only.'}`);
     }
-    L.push(`Each pawn in the scene: id, name, x, z, y, room, owner, yours, damage, conditions, mark, figure, squares, main${gm ? ', hidden' : ''}.`);
+    L.push(`Each pawn in the scene: id, name, x, z, y, room, owner, yours, damage, conditions, mark, figure, squares, main, target and targetName (the pawn it is aiming at: a player's "attack" means that one), attacks (its saved attacks: name, hit, dmg), aura (level, color)${gm ? ', hidden' : ''}.`);
   }
   if (topic === 'light') {
     L.push('LIGHTS: candles, lamps, lanterns, torches, hearths, braziers, chandeliers, glowing things. The scene lists them under "lights": id, name, room, lit, kind, radius (feet a player can see by in the dark).');
@@ -180,6 +186,14 @@ export function helpPage(rt, seat, base, token, topic) {
   if (topic === 'dice') {
     L.push(`ROLL: ${doA('dice.roll', 'expr=d20&bonus=0&why=REASON')}`);
     L.push('  The relay rolls (fairly, never you) and answers {"ok":true,"expr":"d20+3","rolls":[14],"total":17}. Everyone sees the roll in chat, with dice tumbling on their table. expr: d20, 2d6, 3d8+2, 4d6kh3 (keep the highest 3), 2d20kl1, d20adv, d20dis, 1d8+1d6. Write a "+" inside expr as %2B, or use bonus=NUMBER. why: what it is for.');
+    L.push('GAME DICE: the same command; the answer (and the roll in chat, state and changes) adds "tally", the dice counted by that game\'s rules. Judgement (what a messy critical costs, which dice to keep) is yours or the GM\'s. Spaces are fine in expr (a + can be a space).');
+    L.push('  expr=coc [SKILL] [bonus N | penalty N]  Call of Cthulhu d100: N extra tens dice (max 2), best kept for bonus, worst for penalty. With a skill: critical (01), extreme (<= 1/5), hard (<= 1/2), regular, failure, fumble (100, or 96+ when the skill is under 50).');
+    L.push('  expr=v5 POOL [hunger H] [diff D]  Vampire 5e: POOL d10s, H of them Hunger dice. 6+ is a success; each pair of 10s counts 4 (critical). "messy critical": a critical with a Hunger 10. A Hunger 1 means a bestial failure if the roll fails. diff gives the margin.');
+    L.push('  expr=sr POOL [threshold T]  Shadowrun: POOL d6s, 5-6 are hits. "glitch": more than half the dice show 1; "CRITICAL GLITCH": that with no hits. threshold gives net hits.');
+    L.push('  expr=duality [MOD] [diff D]  Daggerheart: a Hope d12 and a Fear d12 plus MOD; "with Hope" or "with Fear" by the higher die (that matters for your Hope / the GM\'s Fear); doubles are a critical success.');
+    L.push('  expr=4df [MOD] [diff D]  Fate/Fudge: four dice of + / blank / -, total = sum + MOD, with its ladder word (+2 Fair); diff gives shifts.');
+    L.push('  expr=l5r R ring S skill [tn N]  Legend of the Five Rings 5e: R ring d6s, S skill d12s with symbol faces (success, opportunity, strife, explosive = a success that may roll one more die). The tally lists every face and the totals if all were kept; the player keeps up to R dice (they or the GM choose).');
+    L.push('  expr=ex POOL [tn T] [double D | nodouble] [diff N]  Exalted: POOL d10s; 7+ is a success, each 10 counts 2. "BOTCH": no successes and at least one 1. tn lowers or raises the target number, double 9 (or d9) doubles 9s too, nodouble for rolls that never double (damage); diff gives threshold successes. Charms change these: write them in.');
     L.push(`SAY: ${doA('chat.say', 'text=TEXT')}`);
     L.push(`WAIT FOR TALK (says and rolls in every area you can see; waits up to 25 s; pass back the "cursor"): ${camp('changes', 'kinds=chat,roll&after=CURSOR&wait=25')}  (one area: ${at('changes', 'after=SEQ&kinds=chat,roll&wait=25')}). Each event: "by" (who), "byKind" (human or ai), "you": true for your own, the area, and the "text" or "roll".`);
     L.push(`FOLLOW EVERYTHING in one area (moves, builds...; waits up to 25 s): ${at('changes', 'after=SEQ&wait=25')}`);
@@ -191,8 +205,8 @@ export function helpPage(rt, seat, base, token, topic) {
     L.push(`END THE TURN: ${doA('turn.next')}${gm ? ` (turn.prev goes back). START A FIGHT: ${doA('turn.start')} (order=tok_a,kind:goblin is optional); turn.end ends it; turn.order&order=KEY,KEY sets the order; turn.at&key=KEY moves the marker; turn.init&key=KEY&n=NUMBER sets any entry's number.` : ' (only while "current" is your pawn). You may roll only for your own pawns.'}`);
   }
   if (topic === 'height') {
-    L.push('Heights are feet, as "y", on everything: rooms (their floor), objects and pawns. 0 is the ground, negative is below ground. A storey is 10 ft unless its building says otherwise ("buildings" in state: base, storeyHeight).');
-    L.push('Which floor: worked out from the height, never stored. Each room and pawn has "storey" (0 = its building\'s ground floor, 1 = the floor above, -1 = the first below) and "level" ("lv 1" is storey 0, "lv 2" storey 1, "lv -1" the first below; there is no lv 0). A pawn also has "room": the room it stands in.');
+    L.push('Heights are feet, as "y", on everything: rooms (their floor), objects and pawns. 0 is the ground, negative is below ground. A storey is 10 ft everywhere.');
+    L.push('Which floor: worked out from the height, never stored. The levels are the map\'s, the same everywhere: "level" "lv 1" is 0 to 9 ft, "lv 2" 10 to 19 ft, "lv -1" -10 to -1 ft (there is no lv 0); "storey" is the same as a number (0 = lv 1, 1 = lv 2, -1 = lv -1). A room on a hill is on the level of its floor (a shrine on a 10-ft hill is lv 2) and has "ground": true when its floor is the ground it stands on. A pawn also has "room": the room it stands in; a pawn on a stair stands on its treads, and is on the lower level until its feet reach the top.');
     L.push(`See one storey only: ${at('look', 'x=FEET&z=FEET&r=15&y=FEET')}`);
     if (may('room')) L.push('BUILD UPSTAIRS OR DOWN: room.spawn with y=10 (or -10). An upper room must stand on rooms below it (it may overhang them by at most 10 ft); below ground anything goes. Rooms at different heights may share x and z. A room off the ground floor gets a stair by itself (the answer has "stair"; stair=0 for none) and no outside door.');
     L.push(`STAIRS AND LADDERS ("stairs" in the scene and state: id, from and to rooms, bottom and top points [x, z, y], "works" or a "problem"). TAKE A PAWN ACROSS: ${doA('token.move', 'id=PAWN_ID&stair=STAIR_ID')} (to=top or to=bottom picks the end).`);
@@ -210,6 +224,17 @@ export function helpPage(rt, seat, base, token, topic) {
     if (may('area.admin')) {
       L.push(`OPEN OR HIDE AN AREA: ${doC('area.visibility', 'area=AREA_ID&visibility=open')} (or hidden). The first area of a campaign is open; every area made after it starts hidden. NEW AREA: ${doC('area.create', 'name=NAME')}. RENAME: ${doC('area.set', 'area=AREA_ID&name=NAME')}.`);
       L.push(`AREA RULES: ${doC('area.set', 'area=AREA_ID&darkness=true')} — ${Object.entries(RULE_KEYS).map(([k, v]) => `${k}=${Array.isArray(v) ? v.join('|') : v === 'bool' ? 'true|false' : 'TEXT'}`).join(', ')}; =default goes back to the campaign's. The scene's "rules" shows them.`);
+      L.push(`MUSIC (every seat hears it; each person sets their own volume): ${doC('music.set', 'area=AREA_ID&music=playlist')} — music=off, playlist (every track, shuffled) or a track by name: The Wizard's Roots, Buried in the Earth, Hymn of the Radiant Path, The Turnip Castle, The Black Mass, In the Dark Soil, The Tasty Turnip; music=default goes back to the campaign's. default=true&music=… sets the campaign default (built-in: off). next=TRACK skips to that track.`);
+    }
+  }
+  if (topic === 'sharing') {
+    if (!may('room')) no('import or export builds');
+    else {
+      L.push('A SHARED BUILD is a room, a building, a set of things or a whole area as a small file (.turnip.json): recipes and library pieces, never meshes. People share one as a link, https://turnipworks.net/s/ID (22 letters and digits).');
+      L.push(`IMPORT ONE from its link (or just its ID): ${doA('import', 'link=LINK&x=FEET&z=FEET')}`);
+      L.push('  x, z: the middle of where it lands (left out: just east of everything already here); y=FEET puts a single upper room or a set of things on that level. A building lands on the ground, on top of a hill if it lands on one. It is ONE step: undo takes it all away. Refused, with why, if it would overlap a room that is already there. The answer has the new ids ("ids"), and "standIns" when this library lacks some pieces (they show as plain boxes).');
+      L.push(`EXPORT THE AREA as a file: ${at('share', 'strip=1')} (the whole area; a room, a building or some things alone cannot be exported for now). strip=1 leaves out what is hidden from players, the creatures, traps and GM notes; without it they travel. The answer IS the file. A player's pawn is never in it, nor seats, chat or fog.`);
+      L.push('Making a share LINK is done by a person in the game (Settings ▸ Area settings ▸ "Export this area…", then "Copy share link").');
     }
   }
   if (topic === 'commands') {

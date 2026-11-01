@@ -6,12 +6,16 @@
 //   a pawn       token.fig = a figure id (plain pawn data through the relay, so every seat sees the same figure);
 //                token.size = squares a side (absent = 1; a large creature 2). No fig = the old stand-in pawn.
 //   THE BASE     built here, never in the mesh (Harry: "No bases; let's add the bases ourselves afterwards in engine by
-//                default" and, 2026-10-06, "disk with the colored rim"): a low dark disc, 90% of its square(s) across
-//                (4.5 ft in a 5-ft square), with a rim in the owner seat's colour. The figure's lowest point is put
-//                exactly on the disc's top, measured from the mesh that was actually loaded.
-//   FACING       the pilot's small arrow was "barely" visible at table distance in every blind read. Here the mark is one
-//                bold arrowhead in a contrasting tone, from under the figure's feet out through the rim to a point
-//                beyond the disc: seen from above, the pawn's base is a pointer.
+//                default" and, 2026-10-06, "disk with the colored rim"): a low medium-grey disc, 80% of its square(s)
+//                across (4 ft in a 5-ft square), with a rim in the owner seat's colour. (It was 4.5 ft and near-black
+//                until 2026-10-29, Harry: "let's change bases from 5ft black to like 4ft medium grey. I noticed they
+//                feel a little big and show up dark.") The figure's lowest point is put exactly on the disc's top,
+//                measured from the mesh that was actually loaded.
+//   FACING       one small arrowhead in a contrasting tone on the front of the disc, its point out past the rim (Harry
+//                2026-10-29: "Facing arrow can be much smaller and facing gap can go away"; it had been one bold wedge
+//                from under the figure's feet, and the rim was open at the back). It is also the TURN HANDLE (Harry, the
+//                same day: "Let's make the facing arrow a grab handle for rotation, I noticed I frequently want to do
+//                that"): client/turnhandle.js. An invisible pad a little bigger than the arrow takes the pointer.
 import * as THREE from 'three';
 import { near } from './barwords.js';
 
@@ -27,9 +31,14 @@ export const DISC_H = 0.3;            // feet: the disc's thickness
 export const FIGURE_SCALE = 0.67;
 export const FIGURE_SCALE_RANGE = [0.4, 1.2];
 export const figureScaleOf = (v) => { const k = +(v && typeof v === 'object' ? v.scale : v); return Number.isFinite(k) && k > 0 ? Math.min(FIGURE_SCALE_RANGE[1], Math.max(FIGURE_SCALE_RANGE[0], k)) : FIGURE_SCALE; };
-export const BASE_SHARE = 0.9;        // the disc's width as a share of its square(s)
-const BACK_GAP = THREE.MathUtils.degToRad(64); // how much of the rim is left open at the back
-const DARK = '#1d1b19', PALE = '#f6f0df', INK = '#17140f';
+export const BASE_SHARE = 0.8;        // the disc's width as a share of its square(s): 4 ft in a 5-ft square (0.9, 4.5 ft, until 2026-10-29)
+export const BASE_COLOR = '#757e88';  // the disc: a medium grey (near-black #1d1b19 until 2026-10-29: "show up dark")
+const PALE = '#f6f0df', INK = '#17140f';
+// THE FACING ARROW, in feet for a one-square base (a large base scales it by its size): `from` its wide end, out from the
+// base's middle; `out` how far its point reaches past the disc's edge; `half` half its width at the wide end.
+// Chosen by Gemini at table distance (experiments/2026-10-29-grey-bases/). figures.setArrow({ ... }) redraws every base.
+export const ARROW_DEFAULT = { from: 1.25, out: 0.5, half: 0.42 };
+let ARROW = { ...ARROW_DEFAULT };
 const GROUP_WORDS = { hero: 'hero heroes pc player character adventurer', townsfolk: 'townsfolk npc villager commoner town folk people', foe: 'foe monster enemy creature horde', beast: 'beast animal creature', large: 'large big huge giant boss monster foe' };
 const GENDER_WORDS = { f: 'woman female she lady', m: 'man male he' };
 const GROUP_LABEL = { hero: 'hero', townsfolk: 'townsfolk', foe: 'foe', beast: 'beast', large: 'large' };
@@ -38,6 +47,8 @@ const GROUP_LABEL = { hero: 'hero', townsfolk: 'townsfolk', foe: 'foe', beast: '
 // outside edge. far from sure but we can explore as we go"; he expects to "end up tweaking it pretty hard").
 // EVERY choice is a parameter HERE, so a tuner panel can be put on it without a rewrite. Change one with
 // figures.setName({ ... }) (every pawn on the table is relettered at once); figures.name() reads them.
+// the figure a PLACEHOLDER pawn wears, and its unpainted colour (`blank` below). Chosen by stills, 2026-10-22
+export const PLACEHOLDER_FIG = 'town-human-commoner-m', PLACEHOLDER_LOOK = { primer: '#bcb9b2', glow: 0.06 }; // the body's one colour: grey primer, whatever the seat
 export const NAME_ON_BASE = {
   on: true,            // false: figure pawns keep the old floating label
   where: 'top',        // 'top': lying on the disc, just inside the rim · 'side': standing on the rim's outer face
@@ -103,6 +114,22 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
   const sizeOf = (e) => Math.max(1, Math.min(4, Math.round(e?.size || (e?.fig && byId.get(e.fig)?.size) || 1)));
   const radiusOf = (size) => size * 5 * BASE_SHARE / 2;
   const geo = new Map();
+  // THE FACING MARK: one small arrowhead in a contrasting tone, lying on the front of the disc, cutting through the rim
+  // and coming to a point beyond it. Wide end inward, point outward, so it cannot be read backwards. Measured from the
+  // disc's EDGE (ARROW.out), so it reaches past the rim whatever the disc's share of its square. (Until 2026-10-29 it was a
+  // wedge half the disc wide from under the figure's feet, and the rim was open at the back as a second cue for a figure
+  // facing away: Harry, that day, "Facing arrow can be much smaller and facing gap can go away".)
+  // The PAD is the arrow's grab area for the turn handle (client/turnhandle.js): the same shape a little bigger all round
+  // and a little taller, never drawn (the pointer finds it; three.js raycasts meshes that are not visible).
+  function arrowGeo(size, r) {
+    const k = size, from = Math.min(ARROW.from * k, r * 0.85), tip = r + ARROW.out * k, hw = ARROW.half * k, H = DISC_H, m = 0.35 * k;
+    const tri = (z0, z1, w) => { const s = new THREE.Shape(); s.moveTo(-w, -z0); s.lineTo(w, -z0); s.lineTo(0, -z1); s.closePath(); return s; }; // drawn in XY; laid flat below
+    return {
+      arrow: new THREE.ExtrudeGeometry(tri(from, tip, hw), { depth: H + 0.025, bevelEnabled: false }).rotateX(-Math.PI / 2), // (x, y, z) -> (x, z, -y): from the floor to just over the disc top, pointing +Z
+      pad: new THREE.ExtrudeGeometry(tri(from - m, tip + m, hw + m), { depth: H + 0.12, bevelEnabled: false }).rotateX(-Math.PI / 2),
+      tip,
+    };
+  }
   function baseGeo(size) {
     if (geo.has(size)) return geo.get(size);
     const r = radiusOf(size), ri = r * 0.9, H = DISC_H;
@@ -110,32 +137,37 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
     const g = {
       r,
       disc: new THREE.CylinderGeometry(ri, ri, H, 48).translate(0, H / 2, 0),
-      rim: new THREE.LatheGeometry(profile(r, H), 64, Math.PI + BACK_GAP / 2, Math.PI * 2 - BACK_GAP), // lathe angle 0 is +Z (the front); the rim is open at the BACK
+      rim: new THREE.LatheGeometry(profile(r, H), 64), // ONE WHOLE RING in the seat's colour (lathe angle 0 is +Z, the front): the status effects sit on it
+      ...arrowGeo(size, r),
     };
-    // THE FACING MARK: one bold arrowhead in a contrasting tone, lying on the front of the disc, cutting through the rim
-    // and coming to a point beyond it (it reaches a little into the next square: that is the cue). From above the base
-    // is a pointer. Wide end toward the figure's feet, point outward, so it cannot be read backwards.
-    // A figure that faces AWAY from the camera hides its own arrowhead behind its body (measured: a 6-ft figure at the
-    // table camera covers 3 ft of floor behind it). So the BACK is marked too: the rim is open there, a dark gap. From
-    // any side the near half of the base shows one of the two: the pale point (it faces you) or the gap (it faces away).
-    const zb = r * 0.42, hw = r * 0.52, tip = r + 0.22 + 0.3 * size;
-    const s = new THREE.Shape(); s.moveTo(-hw, -zb); s.lineTo(hw, -zb); s.lineTo(0, -tip); s.closePath();              // drawn in XY; laid flat below
-    g.arrow = new THREE.ExtrudeGeometry(s, { depth: H + 0.025, bevelEnabled: false }).rotateX(-Math.PI / 2);            // (x, y, z) -> (x, z, -y): from the floor to just over the disc top, pointing +Z
-    g.tip = tip;
     geo.set(size, g); return g;
   }
-  const darkMat = new THREE.MeshStandardMaterial({ color: DARK, roughness: 0.7 });
+  const discMat = new THREE.MeshStandardMaterial({ color: BASE_COLOR, roughness: 0.7 });
+  const padMat = new THREE.MeshBasicMaterial({ visible: false });
   const lum = (c) => { const k = new THREE.Color(c); return 0.2126 * k.r + 0.7152 * k.g + 0.0722 * k.b; };
   const contrast = (rim) => lum(rim) > 0.55 ? INK : PALE; // the wedge is pale, unless the seat's own colour is pale: then it is ink
+  const bases = new Set(); // WeakRefs of the bases built, so setArrow reaches the ones on the table
   function makeBase(size, color, { ghost = false } = {}) {
     const g = new THREE.Group(), G = baseGeo(size), mats = [];
     const rimMat = new THREE.MeshStandardMaterial({ color, roughness: 0.55, emissive: color, emissiveIntensity: 0.3, side: THREE.DoubleSide });
     const wc = contrast(color), wedgeMat = new THREE.MeshStandardMaterial({ color: wc, roughness: 0.5, emissive: wc, emissiveIntensity: wc === PALE ? 0.55 : 0, side: THREE.DoubleSide });
-    const disc = new THREE.Mesh(G.disc, ghost ? darkMat.clone() : darkMat), rim = new THREE.Mesh(G.rim, rimMat), arrow = new THREE.Mesh(G.arrow, wedgeMat);
+    const disc = new THREE.Mesh(G.disc, ghost ? discMat.clone() : discMat), rim = new THREE.Mesh(G.rim, rimMat), arrow = new THREE.Mesh(G.arrow, wedgeMat), pad = new THREE.Mesh(G.pad, ghost ? padMat.clone() : padMat);
     for (const m of [disc, rim, arrow]) { m.receiveShadow = shadows(); m.castShadow = false; m.userData.pawnBase = true; g.add(m); mats.push(m.material); }
+    arrow.userData.pawnHandle = true; pad.userData.pawnBase = true; pad.userData.pawnHandle = true; pad.userData.pickPad = true; pad.castShadow = pad.receiveShadow = false; g.add(pad); if (ghost) mats.push(pad.material); // (pickPad: not in any bounds)
     if (ghost) for (const m of new Set(mats)) { m.transparent = true; m.opacity = 0.42; m.depthWrite = false; }
-    g.userData = { top: DISC_H, radius: G.r, tip: G.tip, rim, wedge: arrow, disc, setColor: (c) => { rimMat.color.set(c); rimMat.emissive.set(c); const k = contrast(c); wedgeMat.color.set(k); wedgeMat.emissive.set(k); wedgeMat.emissiveIntensity = k === PALE ? 0.55 : 0; g.userData.color = c; }, color };
+    // HOT: the turn handle under the pointer, or being turned (client/turnhandle.js): the arrow glows and grows a little
+    let hot = false; const glow = () => { const k = contrast(g.userData.color); wedgeMat.emissive.set(hot && k === INK ? g.userData.color : k); wedgeMat.emissiveIntensity = hot ? 1 : k === PALE ? 0.55 : 0; arrow.scale.setScalar(hot ? 1.15 : 1); };
+    g.userData = { top: DISC_H, radius: G.r, tip: G.tip, size, rim, wedge: arrow, pad, disc, setColor: (c) => { rimMat.color.set(c); rimMat.emissive.set(c); wedgeMat.color.set(contrast(c)); g.userData.color = c; glow(); }, color,
+      setHot: (on) => { if (hot === !!on) return; hot = !!on; glow(); }, hot: () => hot };
+    bases.add(new WeakRef(g));
     return g;
+  }
+  // change the arrow (a tuner panel, the stills probe): every base on the table is redrawn with it
+  function setArrow(p) {
+    ARROW = { ...ARROW, ...p };
+    for (const [size, G] of geo) { G.arrow.dispose(); G.pad.dispose(); Object.assign(G, arrowGeo(size, G.r)); }
+    for (const w of bases) { const b = w.deref(); if (!b) { bases.delete(w); continue; } const G = geo.get(b.userData.size); b.userData.wedge.geometry = G.arrow; b.userData.pad.geometry = G.pad; b.userData.tip = G.tip; }
+    return { ...ARROW };
   }
 
   // ---------- the name, lettered round the base ----------
@@ -209,6 +241,13 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
     }
     return loading.get(f.url);
   }
+  // A PLACEHOLDER PAWN'S LOOK (Harry 2026-10-22: "VERY, VERY CLEARLY a placeholder"; core/commands.js withPlaceholder):
+  // an ordinary figure (PLACEHOLDER_FIG) with its paint taken off: an UNPAINTED MINIATURE, grey primer, matte, solid;
+  // whose it is shows on the base ring (the seat's colour) and the tag. Chosen by blind Gemini reads of stills
+  // (2026-10-22): every translucent variant read as "a ghost, a spirit, or a stealthed enemy" (and the GM's look for a
+  // hidden pawn is see-through already); a body tinted in the seat's colour read as PAINT (an orange rogue, a green
+  // goblin) or, lavender, as a ghost; neutral primer read as "unpainted, an unchosen slot" in every seat colour.
+  const blank = (v) => { const c = new THREE.Color(PLACEHOLDER_LOOK.primer); v.traverse(o => { if (!o.isMesh || o.userData.pawnBase) return; o.material = new THREE.MeshStandardMaterial({ color: c, roughness: 0.95, metalness: 0, emissive: c.clone().multiplyScalar(PLACEHOLDER_LOOK.glow) }); o.userData.placeholderLook = true; }); };
   const ghostify = (v) => v.traverse(o => { if (!o.isMesh || o.userData.pawnBase) return; o.material = o.material.clone(); o.material.transparent = true; o.material.opacity = 0.42; o.material.depthWrite = false; });
   // a pawn's whole visual: base now, a faint stand-in the figure's height at once, the figure when its file arrives.
   //   e: { fig, size? }   color: the rim   ghost: the GM's see-through look for a hidden pawn (or a placement ghost)
@@ -217,12 +256,13 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
   // have"): the game tier shows first; then the ORIGINAL mesh (about 50k triangles, 2048 px) is fetched and swapped in,
   // stood on the disc by its own measured lowest point, so nothing moves at the swap.
   function pawnVisual(e, { color = '#d9a441', ghost = false, onReady = null } = {}) {
+    if (e.placeholder && !e.fig) e = { ...e, fig: PLACEHOLDER_FIG, main: false }; // (a placeholder wears the plain figure, blanked; never the full-detail swap)
     const f = byId.get(e.fig); if (!f) return null;
     const size = sizeOf(e), g = new THREE.Group(), baseG = makeBase(size, color, { ghost }), foot = new THREE.Group(); foot.add(baseG); g.add(foot); // foot: what stays on the ground under a raised pawn (the disc, the rim, the arrow, the name): world.js PAWN BASE
     const holder = new THREE.Group(); holder.position.y = DISC_H; g.add(holder);
     const stand = new THREE.Mesh(new THREE.CapsuleGeometry(Math.min(0.9, f.h * 0.16) * size, Math.max(0.2, f.h - 2 * Math.min(0.9, f.h * 0.16) * size), 4, 12), new THREE.MeshStandardMaterial({ color: '#8b8378', roughness: 0.8, transparent: true, opacity: 0.35, depthWrite: false }));
     stand.position.y = f.h / 2; stand.userData.figureStandIn = true; holder.add(stand);
-    const U = g.userData = { fig: f.id, figure: f, size, base: baseG, foot, top: DISC_H, labelY: DISC_H + f.oh + 0.95, loaded: false, failed: false, holder, ghost, setColor: baseG.userData.setColor };
+    const U = g.userData = { fig: f.id, figure: f, size, base: baseG, foot, top: DISC_H, labelY: DISC_H + f.oh + 0.95, loaded: false, failed: false, holder, ghost, placeholder: !!e.placeholder, setColor: baseG.userData.setColor };
     fitScale(U); live.add(new WeakRef(g)); // the figure scale: the holder stands on the disc top, so the feet stay on it
     U.ready = template(f).then(t => {
       const m = measured.get(f.url), inst = t.clone(true), turn = new THREE.Group();
@@ -230,7 +270,7 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
       turn.position.set(-(f.c?.[0] || 0), -m.minY * f.k, -(f.c?.[1] || 0)); // its ground centre over the disc's centre, its lowest point ON the disc top
       turn.add(inst); inst.traverse(o => { if (o.isMesh) { o.castShadow = shadows(); o.receiveShadow = shadows(); o.userData.figureMesh = true; } });
       holder.remove(stand); stand.geometry.dispose(); holder.add(turn);
-      if (ghost) ghostify(turn);
+      if (U.placeholder) blank(turn); else if (ghost) ghostify(turn);
       U.loaded = true; U.body = turn; U.rawHeight = (m.maxY - m.minY) * f.k; fitScale(U); U.detail = f.tier;
       onReady?.(g);
       if (e.main && f.full) U.full = template({ id: f.id + '#full', url: f.full }).then(t2 => {
@@ -258,10 +298,10 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
       mid: n ? [+(cx / n).toFixed(3), +(cz / n).toFixed(3)] : null, name: U.nameG ? { text: U.nameText, shown: U.nameG.userData.shown, arc_deg: +U.nameG.userData.arcDeg.toFixed(1), at_deg: +THREE.MathUtils.radToDeg(U.nameG.rotation.y).toFixed(1), ends: U.nameG.userData.ends.map(([x, z]) => { const q = new THREE.Vector3(x, DISC_H, z).applyMatrix4(U.nameG.matrixWorld); return [+q.x.toFixed(3), +q.y.toFixed(3), +q.z.toFixed(3)]; }) } : null,
       feet_above_disc_ft: U.body ? +(lo - (baseY + DISC_H)).toFixed(4) : null, height_ft: U.body ? +(hi - lo).toFixed(3) : null, stated_ft: U.figure.h, overall_ft: U.figure.oh, scale: U.scale, // drawn = stated x scale (the figure-scale dial)
      
-      disc_top_ft: +(baseY + DISC_H).toFixed(3), base_width_ft: +(U.base.userData.radius * 2).toFixed(3), rim: '#' + U.base.userData.rim.material.color.getHexString(), wedge: '#' + U.base.userData.wedge.material.color.getHexString(),
+      disc_top_ft: +(baseY + DISC_H).toFixed(3), base_width_ft: +(U.base.userData.radius * 2).toFixed(3), rim: '#' + U.base.userData.rim.material.color.getHexString(), wedge: '#' + U.base.userData.wedge.material.color.getHexString(), disc: '#' + U.base.userData.disc.material.color.getHexString(), rim_arc_deg: +THREE.MathUtils.radToDeg(U.base.userData.rim.geometry.parameters.phiLength).toFixed(1), arrow_ft: +(U.base.userData.tip - ARROW.from * U.size).toFixed(3),
       facing_deg: +(((Math.atan2(front.x, front.z) * 180 / Math.PI) % 360 + 360) % 360).toFixed(1), point: [+(tip.x - c.x).toFixed(3), +(tip.z - c.z).toFixed(3)] };
   }
-  return { list, byId, get: (id) => byId.get(id) || null, search, describe, thumbUrl, sizeOf, radiusOf, makeBase, pawnVisual, measure, stats, count: list.length, DISC_H, scale: () => K, setScale, drawnFt: (f) => f.h * K,
+  return { list, byId, get: (id) => byId.get(id) || null, search, describe, thumbUrl, sizeOf, radiusOf, makeBase, pawnVisual, measure, setArrow, arrow: () => ({ ...ARROW }), arrowDefaults: ARROW_DEFAULT, stats, count: list.length, DISC_H, scale: () => K, setScale, drawnFt: (f) => f.h * K,
     setNameOn, faceNames, name: () => ({ ...NAME }), setName, onName: (f) => nameListeners.add(f), nameDefaults: NAME_ON_BASE, texBytes: (url) => look.texBytes.get(url) || 0 };
 }
 const fmtFt = (h) => `${Math.round(h * 10) / 10} ft`;

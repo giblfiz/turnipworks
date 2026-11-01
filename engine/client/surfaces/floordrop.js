@@ -57,9 +57,47 @@ export function floorDropSurface(R, app) {
     },
     justTile,
     offer: () => app.condButtons.get(KEY)?.spec.data || null, // (tests)
+    groundOffer, coverAll, groundOfferData: () => app.condButtons.get(GKEY)?.spec.data || null, // (tests)
   };
   app.actionLines?.kind(KEY, { restorable: false, valid, run: (d) => justTile(d) });
+
+  // A FLOOR DROPPED ON OPEN GROUND (Harry 2026-10-22: "Can we allow simple tiling for the whole outdoor world? Like if I
+  // just want to drag grass onto everything?"). The drop lays its one tile, as ever; for a seat that may change the area
+  // (the GM side), a conditional button beside it offers "Cover all open ground with <material>" (core area.ground,
+  // client/groundcover.js). Pressing it takes the tile back BY ITS NUMBER (as "Only this tile" takes the whole floor
+  // back) and sets the area's ground: ONE step to undo, and Ctrl/⌘+Z then leaves the ground as it was before the drag.
+  // No offer on a room, upstairs or in a cellar, or when the ground is that material already.
+  const GKEY = 'ground-cover', gpending = new Map();
+  const groundOf = (area) => app.sync.view?.(area)?.ground || null;
+  const gvalid = (d) => d.area !== app.area() ? 'in another area' : !app.can('area.admin') ? 'not yours to change' : groundOf(d.area) === d.cat ? 'the ground is that already' : null;
+  function groundOffer(cid, cat, p, ids = []) {
+    if (!cat?.id || p?.room || Math.abs(p?.y || 0) > 0.5 || !app.can('area.admin') || groundOf(app.area()) === cat.id) return false;
+    const d = { area: app.area(), by: app.me(), cat: cat.id, x: p.x, z: p.z, y: p.y || 0, ids, type: 'object.place', thing: 'tile' };
+    if (cid) gpending.set(cid, d); else showGround(d);
+    return true;
+  }
+  async function coverAll(d) {
+    const why = gvalid(d); if (why) return why;
+    if (d.seq != null && !app.undoState(d)) { // the one tile goes first (by its number), so the ground is the whole change
+      const m = await app.await(app.sync.submitRaw({ type: 'undo', area: d.area, args: { seq: d.seq } }));
+      if (m) await until(() => app.undoState(d) === 'already undone', 10000);
+    }
+    const cid = app.dispatch('area.ground', { cat: d.cat }, d.area);
+    FD.last = { how: 'ground', cid, cat: d.cat };
+    return cid ? null : 'could not be changed';
+  }
+  function showGround(d) {
+    const name = tileName(d.cat).replace(/ floor$/, '');
+    app.condButtons.show(GKEY, {
+      cls: 'uchip floorchip', icon: 'layout-grid', text: `Cover all open ground with ${name}`, anchor: [d.x, d.z, d.y + 1], area: d.area, life: FLOOR_OFFER_MS, doneText: 'Ground covered', data: d,
+      when: () => !gvalid(d), // (kept while it holds: the ground is not that already, this seat may change it, in this area)
+      line: { kind: GKEY, text: `One ${name} tile on open ground`, button: `Cover all open ground with ${name}`, data: d },
+      run: () => { const go = coverAll(d); d.used = true; go.then(why => { if (why) app.toast(`Cover the ground: ${why}`, true); }); },
+    });
+  }
+  app.actionLines?.kind(GKEY, { restorable: false, valid: gvalid, run: (d) => coverAll(d) });
   app.on((what, e) => {
+    if (what === 'entry' && e?.cid && gpending.has(e.cid)) { const d = { ...gpending.get(e.cid), seq: e.seq }; gpending.delete(e.cid); showGround(d); return; }
     if (what !== 'entry' || !e?.cid || !pending.has(e.cid)) return;
     const d = { ...pending.get(e.cid), seq: e.seq }; pending.delete(e.cid);
     if (FD.last?.cid === e.cid) FD.last.seq = e.seq;

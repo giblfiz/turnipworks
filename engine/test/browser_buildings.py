@@ -83,7 +83,7 @@ async def main():
         up = await gm.evaluate("(() => { const E = tw.entities(), st = Object.values(E).find(e => tw.ST.isConnector(e) && tw.ST.stairBase(e) === 0), L = tw.ST.stairLinks(E, st); return [E[L.from]?.recipe.type, E[L.to]?.recipe.type]; })()")
         check(up == ['common', 'hallway'], 'the stair climbs from the common room and arrives in the upstairs hallway', up)
         b = await gm.evaluate("tw.condButtons.list().filter(x => x.key.startsWith('bld-'))")
-        check({x['key'] for x in b} == {'bld-cut', 'bld-st-1', 'bld-st-3', 'bld-reroll'} and all(x['visible'] for x in b), 'beside the new inn: "Cut to lv 1", "1 storey", "3 storeys" and "Re-roll" (conditional buttons, not a dialog)', [(x['key'], x['text'], x['visible']) for x in b])
+        check({x['key'] for x in b} == {'bld-st-1', 'bld-st-3', 'bld-reroll'} and all(x['visible'] for x in b), 'beside the new inn: "1 storey", "3 storeys" and "Re-roll" (conditional buttons, not a dialog; no "Cut to lv 1": the storey tour takes the view to lv 1 itself, browser_storeydrop.py)', [(x['key'], x['text'], x['visible']) for x in b])
         focus = await gm.evaluate("document.activeElement === document.body || document.activeElement.tagName")
 
         print('STOREYS: an offer makes the building again, as one step')

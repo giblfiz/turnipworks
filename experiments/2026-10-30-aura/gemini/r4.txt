@@ -1,0 +1,143 @@
+These are screenshots of a browser 3D virtual tabletop (painted miniature figures on round grey bases, in a tavern room),
+seen from the players' usual table distance: v4-table-day.png, v4-high-day.png, v4-low-day.png by day; v4-table-night.png and
+v4-high-night.png by night, from a player's seat in a dark room (she sees by her pawns' darkvision; the back row is hers).
+before-table-day.png is the FIRST version (two rounds ago) of the same effect, for comparison only.
+
+STEP 1, before interpreting anything: list every explicit label, name tag and text you can read in each image, and where.
+
+STEP 2: The back row (named L0, L1, L2, L3, L4, L5 from left to right; the furniture has been cleared away) wears a light effect, an "aura", at increasing
+intensity; the front row wears the same middle intensity in six colours. For EACH pawn of the back row, describe only what
+you see of the light round it (shape, height, brightness, colour, motion cues such as sparks), without assuming the intent.
+
+STEP 3: The intent, level by level: 0 nothing; 1 a faint shimmer at the base; 2 a soft coloured light round the figure;
+3 flame-like light rising to about head height; 4 a tall column of light well above the figure, readable across the table;
+5 the same column with a large faint emblem picture hanging in it.
+a) Do the six back-row pawns read as CLEARLY increasing, step by step, in both day and night? Which neighbouring pair is
+   hardest to tell apart?
+b) Can you see the emblem in level 5? Describe it.
+c) Do the six front-row colours read as six different colours (name each as you see it)?
+d) Does any of it look broken (hard seams, banding, a visible tube edge, a flat card, clipping through walls, z-fighting,
+   hiding the figure's face)?
+e) Honest verdict: does it look like a CHEAP GAME EFFECT or like a PAINTED-MINIATURE-WORLD effect (light that belongs to a
+   world of painted miniatures, like object-source lighting painted on a mini)? What exactly makes it cheap, and the three
+   most important changes to move it toward the painted-miniature look?
+f) Compared with prev-table-day.png: better, worse, or the same, and why?
+Be concrete and concise.
+The images are in /tmp/aura-gem-DZsr: prev-table-day.png v4-high-day.png v4-high-night.png v4-low-day.png v4-table-day.png v4-table-night.png 
+Do NOT create, crop or write any files. Do not read any other files or folders.
+
+===== (gemini-4-argon-high)
+### STEP 1 — Explicit Labels, Name Tags, and Text in Each Image
+
+#### Common UI Chrome (present across all 6 images unless noted)
+* **Top-left controls**:
+  * **Day images** ([v4-table-day.png](file:///tmp/aura-gem-DZsr/v4-table-day.png), [v4-high-day.png](file:///tmp/aura-gem-DZsr/v4-high-day.png), [v4-low-day.png](file:///tmp/aura-gem-DZsr/v4-low-day.png), [prev-table-day.png](file:///tmp/aura-gem-DZsr/prev-table-day.png)): `Pawns` (`P`), `Build` (`B`), `Settings` (`S`), and `Other games / New game` below.
+  * **Night images** ([v4-table-night.png](file:///tmp/aura-gem-DZsr/v4-table-night.png), [v4-high-night.png](file:///tmp/aura-gem-DZsr/v4-high-night.png)): `Pawns` (`P`), `Settings` (`S`), and `Other games / New game` below (`Build` is absent).
+* **Left-edge ruler bar**: `1` (middle left).
+* **Top-center search bar**: `Search commands, things to place, people, places... or say / roll` and shortcut badge `/`.
+  * **Day images only** (pills directly below search bar): `Area 1`, `Open to players`, `Hide`.
+* **Top-right avatar badges**:
+  * **Day images**: `H` (in yellow circle) with `Area 1` below.
+  * **Night images**: `H` with `Area 1` below, and `M` (in blue circle) with `Area 1` below.
+* **Bottom-left chat bar**: `say ... or roll d20 in the bar`
+
+#### Per-Image Scene Labels, Base Name Tags, and Bottom-Right Telemetry
+
+1. **[v4-table-day.png](file:///tmp/aura-gem-DZsr/v4-table-day.png)**
+   * **Room pills (center/upper-center)**: `Building 1` (above L3), `Common room` (center, covering the bases of L2–L4).
+   * **Back-row base tags (left to right, front rim)**: `L0`, `L1`, *(L2–L4 hidden under `Common room`)*, `L5` (partially washed out by yellow glow).
+   * **Front-row base tags (left to right, front rim)**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right**: `live (ws) · 7 ms · Area 1 seq 3 · 60 fps`
+
+2. **[v4-high-day.png](file:///tmp/aura-gem-DZsr/v4-high-day.png)**
+   * **Room pills**: `Building 1` (between L2 and L3), `Common room` (center of floor between rows).
+   * **Back-row base tags (left to right)**: `L0`, `L1`, `L2`, `L3`, `L4`, `L5`.
+   * **Front-row base tags (left to right)**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right**: `live (ws) · 8 ms · Area 1 seq 3 · 60 fps`
+
+3. **[v4-low-day.png](file:///tmp/aura-gem-DZsr/v4-low-day.png)**
+   * **Room pills**: `Building 1` (clipped at top center above the search bar), `Common room` (upper-center, over the back wall between L3 and L4).
+   * **Back-row base tags (left to right)**: *(L0 occluded by front-left pawn)*, `L1`, `L2`, `L3`, `L4` (faint/washed out), `L5`.
+   * **Front-row base tags**: Occluded by the front wooden wall except `si` (from `silver`) visible through the gap between the first two wall sections.
+   * **Bottom-right**: `live (ws) · 10 ms · Area 1 seq 3 · 60 fps`
+
+4. **[v4-table-night.png](file:///tmp/aura-gem-DZsr/v4-table-night.png)**
+   * **Room pills**: None.
+   * **Back-row base tags (left to right)**: `L0`, `L1`, `L2`, `L3`, `L4`, `L5`.
+   * **Front-row base tags (left to right)**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right**: `live (ws) · 0 ms · Area 1 seq 6 · 60 fps`
+
+5. **[v4-high-night.png](file:///tmp/aura-gem-DZsr/v4-high-night.png)**
+   * **Room pills**: None.
+   * **Back-row base tags (left to right)**: `L0`, `L1`, `L2`, `L3`, `L4`, `L5`.
+   * **Front-row base tags (left to right)**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right**: `live (ws) · 1 ms · Area 1 seq 6 · 60 fps`
+
+6. **[prev-table-day.png](file:///tmp/aura-gem-DZsr/prev-table-day.png)**
+   * **Room pills**: `Building 1` (above L3), `Common room` (center, covering the bases of L2–L4).
+   * **Back-row base tags (left to right)**: `L0`, `L1`, *(L2–L4 hidden under `Common room`)*, `L5` (washed out by glow).
+   * **Front-row base tags (left to right)**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right**: `live (ws) · 1 ms · Area 1 seq 3 · 60 fps`
+
+---
+
+### STEP 2 — Visual Description of Back-Row Auras (`v4` Images)
+
+* **L0**:
+  * **Day**: A thin, crisp amber-yellow ring tight to the outer rim of the grey base. No floor spill, no vertical glow, no sparks, and no light on the dark miniature.
+  * **Night**: A flat sky-blue ring on the base rim; no yellow/gold light anywhere.
+* **L1**:
+  * **Day**: A slightly thicker, softly blurred golden-yellow ring around the base edge that bleeds slightly onto the surrounding floorboards. Flat to the floor—no vertical rise, no sparks, figure remains dark.
+  * **Night**: A soft golden-amber halo on the floor encircling the inner sky-blue base ring. Still completely flat to the base/floor.
+* **L2**:
+  * **Day & Night**: A brighter golden base ring with a soft warm floor pool and a faint, translucent golden haze rising roughly to waist/chest height around the lower half of the figure. Smooth and wispy with no distinct sparks.
+* **L3**:
+  * **Day & Night**: A bright yellow-white base ring and warm floor glow, with a dome-like golden-orange aura rising to just above head height. Shows soft, licking flame-like wisps around the silhouette and tints the miniature in warm yellow-gold.
+* **L4**:
+  * **Day & Night**: An intense white-cored yellow base ring and wider floor pool, with a tall, tapered column of bright golden-yellow light rising ~2–2.5× the miniature's height. The lower half is dense and bright (washing the miniature in yellow-white glare); the upper half breaks into vertical streaks and detached, dark-edged golden flecks/sparks.
+* **L5**:
+  * **Day & Night**: The widest, brightest white-gold base ring and floor pool, supporting a thick, dense column of yellow-white light rising ~2.5–3× the figure's height. Floating inside the upper half of the beam is a large golden sun-with-a-face graphic, surrounded by rising streaks and golden flecks.
+
+---
+
+### STEP 3 — Evaluation Against Intent
+
+#### a) Step-by-step progression & hardest pair to tell apart
+* **Night**: Yes, **L0 → L5** reads clearly step by step because `L0` has a blue base ring, making `L1`'s golden floor shimmer immediately distinct.
+* **Day**: **L2 → L5** steps up clearly, but the low end (`L0`–`L2`) is muddy.
+* **Hardest neighbouring pair to tell apart**: **L0 and L1 in daytime** (followed closely by **L1 and L2**). In the day views, `L0` ("nothing") already wears a yellow base ring of the exact same hue as the gold aura, so `L1` ("faint shimmer at the base") looks almost identical—just a slightly softer/wider yellow rim. Between `L1` and `L2`, `L2`'s faint waist-high golden haze blends into the warm orange-brown floorboards at table distance.
+
+#### b) Level 5 emblem
+* **Visible?** Yes, unmistakably clear in every view (more bold than "faint").
+* **Description**: A round **heraldic sun with a human face** (eyes, brows, nose, and mouth drawn in dark-gold relief) surrounded by **8 triangular pointed rays** (alternating cardinal and diagonal points).
+
+#### c) Front-row colours
+* **Do they read as six different colours?** Yes, cleanly distinct at a glance:
+  1. `gold`: Warm amber-gold / yellow
+  2. `silver`: Cool white / silver
+  3. `blue`: Periwinkle / cornflower blue
+  4. `green`: Bright emerald / lime green
+  5. `red`: Scarlet / coral red-orange
+  6. `violet`: Electric violet / magenta-purple
+
+#### d) What looks broken
+1. **Camera-aligned billboard tilt in high views**: In [v4-high-day.png](file:///tmp/aura-gem-DZsr/v4-high-day.png) and [v4-high-night.png](file:///tmp/aura-gem-DZsr/v4-high-night.png), the `L4` and `L5` columns and the `L5` sun emblem tilt backward toward the upper-right to face the camera plane like flat 2D cards attached to a 3D circular base, rather than standing vertically in the room.
+2. **Sooty/dark alpha fringes**: At the top of `L4` (where the sparks break up) and around the tips of `L5`'s sun rays, the semi-transparent pixels darken to a muddy brown/grey against the wooden wall (a classic dark-RGB / premultiplied-alpha blending artifact).
+3. **Hard cone/tube side edges**: `L4` and `L5` have straight, geometric left/right outer edges (especially obvious in [v4-low-day.png](file:///tmp/aura-gem-DZsr/v4-low-day.png)).
+4. **Blown-out figure & label washout**: The opaque white-yellow core of `L4` and `L5` obscures the miniature's face/chest details at table distance and washes out the white `L4`/`L5` base labels (and `gold`/`silver` in the front row).
+5. **Depth-sorting / overlap with labels in low view**: In [v4-low-day.png](file:///tmp/aura-gem-DZsr/v4-low-day.png), the aura wisps of the front-row pawns (`silver`, `blue`) render directly across the `L1`–`L3` base text labels behind them.
+
+#### e) Honest verdict: Cheap game effect vs. Painted-miniature-world effect
+* **Verdict**: **CHEAP GAME EFFECT.** It reads as a classic MMO/RTS billboard particle + neon unit-ring overlay pasted on top of 3D miniatures.
+* **What makes it look cheap**:
+  1. **Glowing smoke in empty air**: In a physical miniature world, air is invisible; floating alpha-blended clouds, particle flecks, and a 2D sprite hanging in mid-air cannot exist on a painted mini without physical sculpt.
+  2. **Additive white-core neon rings**: The base rings saturate to pure `#FFFFFF` neon tubes, looking like RTS selection circles rather than painted bases or tabletop lighting.
+  3. **Flat tinting instead of directional OSL**: Instead of catching the miniature's raised edges/folds while leaving crevices in shadow, the effect puts a flat translucent wash over the figure and a uniform blur over the floor that ignores the wood-plank crevices.
+* **Three most important changes to move toward a painted-miniature-world (OSL) look**:
+  1. **Move light from "mid-air billboards" onto 3D surfaces (true OSL)**: Cut the opacity of the floating air haze by 70%+ and drive the intensity through actual directional/point lighting on the miniature's geometry (bright coloured rim/zenithal highlights on raised edges, preserved dark shadows in recesses) and normal-mapped light spill on the floorboards and back wall.
+  2. **Treat the base like a painted rim or sculpted translucent resin**: Replace the blown-out additive floor ring with a crisp, satin-painted colour band on the bevel of the grey base (plus a soft, non-white diffuse bounce on the wood), and shape `L3`/`L4` like translucent sculpted flame curling off the base rather than foggy sprites.
+  3. **Fix billboard orientation and alpha blending on `L4`/`L5`**: Lock the `L4`/`L5` columns to the vertical Z-axis (cylindrical/axis-aligned billboards so they don't lean backward in high-angle views), fix the dark/sooty alpha fringes so particles fade purely additively, and render the `L5` emblem as a faint single-colour luminous silhouette rather than a shaded dark-lined illustration.
+
+#### f) Comparison with [prev-table-day.png](file:///tmp/aura-gem-DZsr/prev-table-day.png)
+* **Verdict**: **Better.**
+* **Why**: [prev-table-day.png](file:///tmp/aura-gem-DZsr/prev-table-day.png) had severe vertical striping/fluting across `L4` and `L5` (making them look like rigid corrugated plastic tubes) and spiky, geometric vertical ribs on `L3` and the front row. [v4-table-day.png](file:///tmp/aura-gem-DZsr/v4-table-day.png) eliminates that corrugated banding, softens the flame silhouettes on `L3` and the front row, and makes `L5`'s sun emblem much cleaner and more legible (no longer sliced by vertical stripes). The only minor regression in `v4` is the dark, sooty fringe on the detached flecks at the top of `L4`.

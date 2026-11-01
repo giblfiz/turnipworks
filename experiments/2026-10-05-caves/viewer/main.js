@@ -2,7 +2,7 @@
 // (lib/lighting.js is a copy of tools/spawn-tuner/js/fx/lighting.js made by deploy.sh) set dark, warm point lights
 // inside, a cave floor, and the wall worked out by cave.js from the room's outline on the 5-ft grid.
 // URL: ?scene=rect|ell|two|field|kit &view=table|lean|low &overlap=0.3 &push=0.3 &turn=10 &seed=1 &grid=1 &pawns=0
-//      &wander=2.5 &edgepawns=1 &cap=0 &bright=1 &ui=0 &nofx=1 &yaw= &pitch= &dist=   (kit scene: &only=ID &spin=DEG)
+//      &wander=2.5 &jag=0.7 &edgepawns=1 &cap=0 &bright=1 &ui=0 &nofx=1 &yaw= &pitch= &dist=   (kit scene: &only=ID &spin=DEG)
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -16,8 +16,8 @@ const $ = (s) => document.querySelector(s);
 const flag = (k, d) => qs.has(k) ? qs.get(k) !== '0' : d;
 const num = (k, d) => qs.has(k) && isFinite(+qs.get(k)) ? +qs.get(k) : d;
 const API = qs.get('api') || '/api/tw-ratings';
-const DEFAULTS = { overlap: 0.3, push: 0.3, turn: 20, wander: 6, seed: 1 };
-const P = { overlap: num('overlap', DEFAULTS.overlap), push: num('push', DEFAULTS.push), turn: num('turn', DEFAULTS.turn), wander: num('wander', DEFAULTS.wander), seed: num('seed', DEFAULTS.seed), rubble: num('rubble', 0.55) };
+const DEFAULTS = { overlap: 0.3, push: 0.3, turn: 20, wander: 6, jag: 0.7, pillars: 1, stalag: 1, seed: 1 };
+const P = { overlap: num('overlap', DEFAULTS.overlap), push: num('push', DEFAULTS.push), turn: num('turn', DEFAULTS.turn), wander: num('wander', DEFAULTS.wander), jag: num('jag', DEFAULTS.jag), pillars: num('pillars', DEFAULTS.pillars), stalag: num('stalag', DEFAULTS.stalag), seed: num('seed', DEFAULTS.seed), rubble: num('rubble', 0.55) };
 const state = { scene: SCENES[qs.get('scene')] ? qs.get('scene') : 'rect', view: qs.get('view') || 'table', grid: flag('grid', false), pawns: flag('pawns', true),
   edgepawns: flag('edgepawns', false), cap: flag('cap', true), bright: flag('bright', false) };
 // the flat rock top is a little LOWER than the chunks' tops, so the chunks stand up out of it as a lumpy rim all round
@@ -88,6 +88,13 @@ const loader = new GLTFLoader();
 const glbs = new Map();
 const loadGLB = (file) => { if (!glbs.has(file)) glbs.set(file, loader.loadAsync(`./models/${file}?v=${V}`).then(g => g.scene)); return glbs.get(file); };
 // canonical piece (the frame measure.py reports in): origin on the ground at the middle of the back plane, front +Z
+// a library prop (no kit.json entry): base on the ground, middle of its footprint on the origin, scaled to height h ft
+async function makeDecor(file, h) {
+  const src = (await loadGLB(file)).clone(true);
+  src.traverse(o => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; } });
+  const box = new THREE.Box3().setFromObject(src), size = box.getSize(new THREE.Vector3()), mid = box.getCenter(new THREE.Vector3()), s = h / size.y;
+  src.position.set(-mid.x, -box.min.y, -mid.z); const g = new THREE.Group(); g.add(src); g.scale.setScalar(s); const piece = new THREE.Group(); piece.add(g); return piece;
+}
 async function makePiece(id) {
   const k = kit[id]; if (!k) throw new Error(`no piece ${id}`);
   const src = (await loadGLB(k.file)).clone(true);
@@ -151,7 +158,7 @@ function clearance(result, objs, arches = false) {
   for (const key of cells) { const [i, j] = key.split(',').map(Number); const sides = [[-1, 0], [1, 0], [0, -1], [0, 1]].filter(([a, b]) => !cells.has(`${i + a},${j + b}`)); if (sides.length) edge.set(key, { i, j, sides, deep: 0, base: false }); }
   let maxIn = 0, tested = 0;
   for (const { p, obj } of objs) {
-    if ((p.role === 'arch') !== arches) continue;
+    if ((p.role === 'arch') !== arches || p.role === 'stalagmite') continue;   // stalagmites are dressing ON a floor square
     let mine = 0;
     obj.updateMatrixWorld(true);
     obj.traverse(o => {
@@ -225,7 +232,7 @@ async function build() {
       counts = { 'straight wall pieces': n, 'corner posts': result.corners.length };
     } else {
       const made = await Promise.all(result.placements.map(async (p) => {
-        const piece = await makePiece(p.id), wrap = new THREE.Group(); wrap.add(piece);
+        const piece = p.role === 'stalagmite' ? await makeDecor(p.file, p.h) : await makePiece(p.id), wrap = new THREE.Group(); wrap.add(piece);
         wrap.position.set(p.x, p.y || 0, p.z); wrap.rotation.y = p.rot; wrap.scale.set(p.scale[0], p.scale[1], p.scale[2]);
         return { p, obj: wrap };
       }));
@@ -244,7 +251,7 @@ async function build() {
     grids.add(cellGrid(result.cells));
     if (!def.kitWalls) caps.add(capMeshes(rockEdge(result.loops, P, CAP_BACK, CAP_RAGGED)));
     (def.lights || []).forEach(([x, y, z], i) => { const l = lamp(x, y, z, 3 - i * 0.1); root.add(l); lamps.push(l); });
-    (def.pawns || []).forEach(([x, z], i) => { const pw = pawn(pawnColors[i % 6]); pw.position.set(x, 0, z); pawns.add(pw); });
+    (def.pawns || []).filter(([x, z]) => result.cells.has(`${Math.floor(x / CELL)},${Math.floor(z / CELL)}`)).forEach(([x, z], i) => { const pw = pawn(pawnColors[i % 6]); pw.position.set(x, 0, z); pawns.add(pw); });
     let q = 0;
     for (const key of result.cells) {
       const [i, j] = key.split(',').map(Number);
@@ -302,9 +309,15 @@ const SLIDERS = [
   ['push', 'Pushed out', -1.5, 3, 0.05, v => `${(+v).toFixed(2)} ft`],
   ['turn', 'Random turn', 0, 30, 1, v => `± ${Math.round(v)}°`],
   ['wander', 'Wall line wanders', 0, 8, 0.1, v => `0 to ${(+v).toFixed(1)} ft`],
+  ['jag', 'Walls in and out', 0, 1, 0.05, v => `${Math.round(v * 100)}% of stretches`],
+  ['pillars', 'Pillars', 0, 2, 0.1, v => `${(+v).toFixed(1)} per 10 squares`],
+  ['stalag', 'Stalagmites', 0, 2, 0.1, v => `${(+v).toFixed(1)} x`],
 ];
 const HELP = { overlap: 'How much of its width each chunk shares with the next one.', push: 'How far outside the grid line the nearest rock stands. Below zero the rock comes into the room.',
-  turn: 'Each chunk is turned by a random angle up to this, either way.', wander: 'The line the chunks stand on swings outward and back by up to this much, in bays about 12 ft across. Outward only.' };
+  turn: 'Each chunk is turned by a random angle up to this, either way.', wander: 'The line the chunks stand on swings outward and back by up to this much, in bays about 12 ft across. Outward only.',
+  jag: 'Each side of the room is cut into stretches of 2 to 4 squares; this share of them moves a whole square out (now and then two) or in. 0 is the plain rectangle. Reseed for another shape.',
+  pillars: 'Rock pillars, each taking a whole square (it blocks). Only where all eight squares round it are floor, 3 squares apart, never by a tunnel mouth. Fewer than asked where there is no room.',
+  stalag: 'Stalagmites stood against the wall and at the foot of pillars, on floor squares (dressing; they leave the middle of the square free).' };
 let timer = null;
 for (const [key, label, min, max, step, read] of SLIDERS) {
   const row = document.createElement('div'); row.className = 'row';

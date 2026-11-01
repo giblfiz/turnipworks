@@ -495,6 +495,13 @@ try:
         check(sl['slid'] and sl['last'] == 'menu' and not sl['menuOut'] and '3–6' not in ' '.join(sl['warn']) and 'slid to' in sl['read'] and '→' in sl['read'],
               "SLIDE: rev 5, a pawn opened: no 3–6 warning, ☰ the row's last button in line, and Ring lab's Where says where the row slid", sl)
         game.evaluate("() => ringLab.panel.selectState('closed')"); game.wait_for_timeout(700)
+        # GROW (Harry 2026-10-21): rev 5's door row is too long for its oval: the oval grows, nothing steps out, ☰ last
+        frame('Ring lab door'); game.evaluate("() => ringLab.panel.selectState('expanded')"); game.wait_for_timeout(1200)
+        gr = game.evaluate("""() => { const ns = tw.ringNodes(), main = ns.filter(n => n.curve && !n.spilled).sort((a, b) => a.curve.s - b.curve.s);
+            return { slid: tw.ringSlid(), read: document.querySelector('#ringlab-panel [data-role=slidRead]')?.textContent || '', last: main.at(-1)?.id, stepped: ns.filter(n => n.spilled).map(n => n.id), warn: tw.ringWarnings() }; }""")
+        check(gr['slid'] and (gr['slid'].get('grown') or 0) > 1 and not gr['stepped'] and gr['last'] == 'menu' and not [w for w in gr['warn'] if w != 'off screen'] and 'oval grown ×' in gr['read'],
+              "GROW: rev 5, a door opened: its row is too long for the oval, so the oval grows (Ring lab says by how much); nothing steps out, ☰ last", gr)
+        game.evaluate("() => ringLab.panel.selectState('closed')"); game.wait_for_timeout(700)
 
         # ---- EFFECT (Harry 2026-10-20: changed the Conditions ring's controls in Advanced and "nothing moved"): every
         #      control still shown with One curve + world size, nudged, changes the layout, the style or the motion.

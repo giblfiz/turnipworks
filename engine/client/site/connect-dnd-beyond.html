@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect D&amp;D Beyond · Turnip Works</title>
+<meta name="description" content="Roll from your D&amp;D Beyond character sheet onto your Turnip Works table with Beyond20, a free browser extension. Every click, with a picture.">
+<link rel="canonical" href="https://turnipworks.net/connect-dnd-beyond">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Turnip Works">
+<meta property="og:title" content="Connect D&amp;D Beyond">
+<meta property="og:description" content="Roll from your D&amp;D Beyond character sheet onto your Turnip Works table with Beyond20, a free browser extension. Every click, with a picture.">
+<meta property="og:url" content="https://turnipworks.net/connect-dnd-beyond">
+<meta property="og:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Connect D&amp;D Beyond">
+<meta name="twitter:description" content="Roll from your D&amp;D Beyond character sheet onto your Turnip Works table with Beyond20, a free browser extension. Every click, with a picture.">
+<meta name="twitter:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta name="twitter:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<link rel="icon" href="/engine/client/mark.svg" type="image/svg+xml">
+<style>@font-face { font-family: Inter; src: url('/engine/client/vendor/inter/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+:root { --bg: #e9e6df; --paper: #fcfbf8; --raised: #f0ede6; --line: rgba(20,20,20,.14); --ink: #1a1917; --ink-2: #3d3b36; --mute: #5f5c55; --accent: #a8770f; color-scheme: light; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { color: var(--ink); }
+.top { max-width: 46rem; margin: 0 auto; padding: 18px 20px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 650; font-size: 17px; letter-spacing: -.01em; }
+.brand img { width: 36px; height: 36px; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-left: auto; font-size: 14px; }
+.links a { color: var(--ink-2); text-decoration: none; }
+.links a:hover, .links a[aria-current] { color: var(--ink); text-decoration: underline; }
+.links a[aria-current] { font-weight: 650; }
+main { max-width: 46rem; margin: 16px auto 0; padding: 28px 20px 32px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+@media (min-width: 760px) { main { padding: 40px 48px 44px; } }
+h1 { margin: 0 0 4px; font-size: 30px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
+.updated { margin: 0 0 24px; color: var(--mute); font-size: 14px; }
+h2 { margin: 34px 0 8px; font-size: 20px; line-height: 1.3; font-weight: 680; letter-spacing: -.01em; }
+h3 { margin: 24px 0 6px; font-size: 17px; font-weight: 650; }
+p, ul { margin: 0 0 14px; } ul { padding-left: 22px; } li { margin: 0 0 6px; }
+strong { font-weight: 650; }
+.play { display: inline-block; margin-top: 18px; padding: 10px 16px; border-radius: 9px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; }
+.play:hover { color: var(--paper); background: var(--ink-2); }
+@media (max-width: 520px) { .top .links { margin-left: 0; width: 100%; } }
+footer { max-width: 46rem; margin: 0 auto; padding: 18px 20px 40px; color: var(--mute); font-size: 13px; }
+ol { margin: 0 0 14px; padding-left: 24px; } ol li { margin: 0 0 8px; padding-left: 2px; }
+code { font: 14px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; background: var(--raised); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+pre { margin: 0 0 14px; padding: 10px 14px; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; }
+pre code { background: none; border: 0; padding: 0; }
+kbd { font: 600 13px/1 Inter, system-ui, sans-serif; padding: 2px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--paper); }
+figure { margin: 18px 0 22px; }
+figure video, figure img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #1a1917; }
+figcaption { margin-top: 6px; color: var(--mute); font-size: 14px; }
+.note { padding: 12px 16px; margin: 0 0 16px; border-radius: 10px; background: var(--raised); border: 1px solid var(--line); }
+.note p:last-child { margin-bottom: 0; }
+ol.steps { padding-left: 26px; } ol.steps > li { margin: 0 0 26px; } ol.steps > li > p { margin: 0 0 8px; } ol.steps > li::marker { font-weight: 700; }
+ol.steps img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #1a1917; }
+footer .links { margin: 0 0 6px; }</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><img src="/engine/client/mark.svg" alt="" width="36" height="36">Turnip Works</a>
+  <nav class="links" aria-label="Turnip Works pages"><a href="/about">About</a><a href="/vtt-index">Compare VTTs</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://github.com/giblfiz/turnipworks">Source</a></nav>
+</header>
+<main>
+<h1>Connect D&amp;D Beyond</h1>
+<p class="updated">Last updated 29 October 2026</p>
+<p>Roll on your D&amp;D Beyond character sheet and the dice land on your Turnip Works table. Attacks name your target, initiative goes into the turn order, and damage on your sheet shows on your pawn. It works through <strong>Beyond20</strong>, a free browser extension.</p>
+<p>Below is every click, in order, each with a picture of what you'll see (click a picture for the whole screen). It was walked from scratch in Google Chrome, with Beyond20 2.21.0 from the Chrome Web Store. It takes about five minutes, and you do most of it only once.</p>
+<h2>What you need</h2>
+<ul>
+<li><strong>Google Chrome</strong> on a computer. (Edge and Brave install Chrome Web Store extensions too, and should look much the same. Firefox: see below.)</li>
+<li>Your character on <strong>D&amp;D Beyond</strong>. A free account is enough.</li>
+<li>Your <strong>Turnip Works</strong> table, open in a tab of the same Chrome window.</li>
+</ul>
+<h2>A. Install Beyond20 (once)</h2>
+<ol class="steps" start="1">
+<li><p>Open <a href="https://chromewebstore.google.com/detail/beyond-20/gnblbpbepfbfmoobegdogkglpbhcjofh">Beyond 20 on the Chrome Web Store</a> and click <strong>Add to Chrome</strong>.</p>
+<a href="/engine/client/site/ddb/step-01-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-01-20261029e.jpg" alt="Step 1: The Chrome Web Store page for Beyond 20, with the Add to Chrome button marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Chrome asks "Add Beyond 20?". Click <strong>Add extension</strong>. (Careful: the filled blue button is Cancel.)</p>
+<a href="/engine/client/site/ddb/step-02-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-02-20261029e.jpg" alt="Step 2: Chrome's Add Beyond 20 dialog, with the Add extension button marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Soon after, Beyond20 opens two tabs of its own and puts them in front: its "just been installed or updated" page and an advert for The Forge. You don't need either. Close them, and go back to your own tabs.</p>
+<a href="/engine/client/site/ddb/step-03-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-03-20261029e.jpg" alt="Step 3: Chrome with the two tabs Beyond20 opens after installing" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Click the <strong>Extensions</strong> button (the puzzle piece) at the right of the toolbar.</p>
+<a href="/engine/client/site/ddb/step-04-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-04-20261029e.jpg" alt="Step 4: Chrome's toolbar with the puzzle-piece Extensions button marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Click the <strong>pin</strong> next to Beyond 20. Its red d20 icon now stays in the toolbar.</p>
+<a href="/engine/client/site/ddb/step-05-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-05-20261029e.jpg" alt="Step 5: Chrome's Extensions menu with the pin next to Beyond 20 marked" width="1000" height="562" loading="lazy"></a></li>
+</ol>
+
+<h2>B. Connect your character to Beyond20 (once per character)</h2>
+<ol class="steps" start="6">
+<li><p>Go to D&amp;D Beyond and open <strong>My Characters</strong> (sign in if it asks). Click <strong>VIEW</strong> on your character.</p>
+<a href="/engine/client/site/ddb/step-06-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-06-20261029e.jpg" alt="Step 6: D&amp;D Beyond's My Characters page with the VIEW button on Lola Jani's card marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Beyond20 says it needs to read this character. Click <strong>OK</strong>.</p>
+<a href="/engine/client/site/ddb/step-07-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-07-20261029e.jpg" alt="Step 7: Beyond20's message on the character sheet, with OK marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Click the sheet's <strong>FEATURES &amp; TRAITS</strong> tab once. That is Beyond20 reading your character. Your sheet now has a <strong>BEYOND 20</strong> button at the top.</p>
+<a href="/engine/client/site/ddb/step-08-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-08-20261029e.jpg" alt="Step 8: The character sheet with the FEATURES &amp; TRAITS tab marked" width="1000" height="562" loading="lazy"></a></li>
+</ol>
+
+<h2>C. Let Beyond20 into Turnip Works (once per browser)</h2>
+<ol class="steps" start="9">
+<li><p>Go to your Turnip Works table, in a tab of the same window. Click the red <strong>Beyond20</strong> icon in the toolbar.</p>
+<a href="/engine/client/site/ddb/step-09-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-09-20261029e.jpg" alt="Step 9: The Turnip Works table with the red Beyond20 toolbar icon marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>The little window says "Not a D&amp;D Beyond or VTT page". That is expected: Turnip Works isn't set up yet. Click <strong>Beyond20 Options</strong>. (Don't follow its advice to open your character sheet: there, the icon shows your character's settings instead, and its "Advanced Options" is a different one.)</p>
+<a href="/engine/client/site/ddb/step-10-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-10-20261029e.jpg" alt="Step 10: Beyond20's small window on the table tab, with the Beyond20 Options link marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>A Beyond20 Options window opens. Scroll <strong>all the way down</strong> inside it and click <strong>Advanced Options</strong>.</p>
+<a href="/engine/client/site/ddb/step-11-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-11-20261029e.jpg" alt="Step 11: The Beyond20 Options window scrolled to the bottom, with the Advanced Options button marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Now scroll <strong>all the way back up</strong>. The very first setting is <strong>List of custom domains to load Beyond20</strong>. Click in its box.</p>
+<a href="/engine/client/site/ddb/step-12-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-12-20261029e.jpg" alt="Step 12: The top of the advanced options: the List of custom domains to load Beyond20 box marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Type <code>https://turnipworks.net/*</code> (exactly that, with the <code>/*</code> at the end). Testing on dev.turnipworks.net? Add <code>https://dev.turnipworks.net/*</code> as a second line; the picture has it, you don't need it.</p>
+<a href="/engine/client/site/ddb/step-13-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-13-20261029e.jpg" alt="Step 13: The custom domains box with the turnipworks.net addresses typed in" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Click <strong>Apply</strong>, next to the box.</p>
+<a href="/engine/client/site/ddb/step-14-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-14-20261029e.jpg" alt="Step 14: The Apply button next to the custom domains box, marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Chrome asks whether Beyond 20 may "read and change your data" on turnipworks.net. Click <strong>Allow</strong>. (The filled blue button is Deny.) If it asks again, allow again.</p>
+<a href="/engine/client/site/ddb/step-15-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-15-20261029e.jpg" alt="Step 15: Chrome's permission question, with the Allow button marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Close the Beyond20 Options window with its <strong>✕</strong>.</p>
+<a href="/engine/client/site/ddb/step-16-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-16-20261029e.jpg" alt="Step 16: The Beyond20 Options window, with its close button marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Click your <strong>Turnip Works</strong> tab.</p>
+<a href="/engine/client/site/ddb/step-17-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-17-20261029e.jpg" alt="Step 17: Chrome's tab strip with the Turnip Works tab marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Click <strong>Reload</strong> (or press F5). Beyond20 only starts listening to a tab after it reloads.</p>
+<a href="/engine/client/site/ddb/step-18-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-18-20261029e.jpg" alt="Step 18: The table tab with Chrome's reload button marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>When the table has loaded, a note at the bottom says <strong>Beyond20 connected: rolls from D&amp;D Beyond come to this table</strong>.</p>
+<a href="/engine/client/site/ddb/step-19-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-19-20261029e.jpg" alt="Step 19: The table after the reload, with the note Beyond20 connected at the bottom" width="1000" height="562" loading="lazy"></a></li>
+</ol>
+
+<h2>D. Link your sheet to your pawn (once)</h2>
+<ol class="steps" start="20">
+<li><p>Click your <strong>D&amp;D Beyond</strong> tab.</p>
+<a href="/engine/client/site/ddb/step-20-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-20-20261029e.jpg" alt="Step 20: Chrome's tab strip with the D&amp;D Beyond tab marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Roll anything. <strong>INITIATIVE</strong> is a good first roll.</p>
+<a href="/engine/client/site/ddb/step-21-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-21-20261029e.jpg" alt="Step 21: The character sheet with the INITIATIVE box marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Click your <strong>Turnip Works</strong> tab. Your roll is on the table.</p>
+<a href="/engine/client/site/ddb/step-22-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-22-20261029e.jpg" alt="Step 22: Chrome's tab strip with the Turnip Works tab marked" width="1000" height="562" loading="lazy"></a></li>
+<li><p>Click <strong>Link</strong> on the offer that came with the roll: "Link Lola Jani's sheet to Lola Jani", with your character's and your pawn's names. (It also waits in the chat.) Now that pawn is your character.</p>
+<a href="/engine/client/site/ddb/step-23-full-20261029e.jpg"><img src="/engine/client/site/ddb/step-23-20261029e.jpg" alt="Step 23: The Link offer on the table, marked" width="1000" height="562" loading="lazy"></a></li>
+</ol>
+
+<p>That's it. Every roll you make on that sheet now lands on that pawn.</p>
+<h2>What you'll see</h2>
+<figure>
+<video controls muted playsinline preload="metadata" width="1280" height="720" poster="/engine/client/site/ddb/connect-dnd-beyond-20261029d-poster.jpg" aria-label="Screen recording: setting up Beyond20 for Turnip Works, then rolling from a D&amp;D Beyond sheet onto the table">
+<source src="/engine/client/site/ddb/connect-dnd-beyond-20261029d.webm" type="video/webm">
+<source src="/engine/client/site/ddb/connect-dnd-beyond-20261029d.mp4" type="video/mp4">
+</video>
+<figcaption>A real recording of a first fight, with the options set up the way the steps above do (in a browser where Beyond20 was already installed). No sound; captions say what happens.</figcaption>
+</figure>
+
+<ul>
+<li><strong>Your roll lands on the table.</strong> Turnip Works throws its own 3D dice from your pawn, and they land on Beyond20's numbers, so everyone at the table sees the same throw and the same total. The chat says what it was: "Lola Jani attacks Goblin 1: d20+5 = 12".</li>
+<li><strong>Initiative</strong> goes into the turn order when your GM has started a fight. The Pawns menu (<strong>P</strong>) shows it. With no fight running, a note says so and nothing changes.</li>
+<li><strong>Hit points.</strong> Take damage or heal on your sheet, and your pawn's damage follows.</li>
+<li><strong>Conditions</strong> follow your sheet, every one of them. The ones with a picture show on your pawn: prone lies it down, poisoned is a green skull, and so on. Any other, such as deafened or petrified, shows as a small text label. Exhaustion comes with its level.</li>
+<li><strong>Whispered rolls</strong> (Beyond20's whisper setting) go to the GM only, never onto the table.</li>
+</ul>
+<p>You can check from inside the game, too: <strong>Settings ▸ Me ▸ D&amp;D Beyond</strong> says <strong>D&amp;D Beyond: connected via Beyond20</strong> once Beyond20 has spoken to that tab.</p>
+<h2>Targets and the Attack button</h2>
+<p><strong>Pick a target.</strong> Point at a pawn and press <strong>T</strong>, or press the crosshair <strong>Target</strong> button on that pawn's ring. A target reticle in your seat's colour appears around its base, and everyone sees it. Press <strong>T</strong> over empty ground, or <strong>Esc</strong>, to clear it. Attacks from your sheet then name the target: "Lola Jani attacks Goblin 1".</p>
+<p><strong>The Attack button.</strong> Every pawn you act for has an <strong>Attack</strong> button (crossed swords) on its ring, with or without Beyond20. It lists the attacks saved on that pawn, such as "Greataxe +5": up to eight, the last one used first, and they stay with the pawn. An attack you roll on your linked D&amp;D Beyond sheet is saved there by name; <strong>+ Add attack</strong> and <strong>Edit attacks</strong> let you type one in by hand. Pick one and Turnip Works rolls it with its own dice: to hit at your target, then the damage. No target yet? Click a pawn, and that pawn becomes your target.</p>
+<p>Turnip Works doesn't check armour class or rules. Your GM still says whether it hits.</p>
+<figure>
+<img src="/engine/client/site/ddb/ddb-attack-20261029d.jpg" alt="Lola Jani's dice on the table, and the goblin she targeted with a reticle around its base" width="1280" height="720" loading="lazy">
+<figcaption>An attack from the sheet: Lola's dice land on Beyond20's numbers, and the chat says "Lola Jani attacks Goblin 1".</figcaption>
+</figure>
+
+<figure>
+<img src="/engine/client/site/ddb/ddb-damage-20261029d.jpg" alt="Lola Jani's pawn selected, with its ring of buttons: one shows 5 damage, another is the Attack button" width="960" height="540" loading="lazy">
+<figcaption>Damage taken on the sheet shows on the pawn. The ring's Attack button is beside it.</figcaption>
+</figure>
+
+<h2>Troubleshooting</h2>
+<h3>I can't find "List of custom domains to load Beyond20"</h3>
+<ul>
+<li>It is on Beyond20's <strong>Options</strong> window (steps 9 to 12), not in the small window the icon opens on your character sheet. On the sheet, that small window shows your character's settings, and its "Advanced Options" is a different one.</li>
+<li>In the Options window it only appears after <strong>Advanced Options</strong> (at the very bottom), and then it is the <strong>first</strong> setting, back at the very top.</li>
+<li>Another way in: Chrome's menu ▸ <strong>Extensions</strong> ▸ <strong>Manage Extensions</strong> ▸ Beyond 20 ▸ <strong>Details</strong> ▸ <strong>Extension options</strong>.</li>
+</ul>
+<h3>No "Beyond20 connected" note</h3>
+<ul>
+<li><strong>Check the line for typos.</strong> It must be <code>https://turnipworks.net/*</code>, with the <code>/*</code> at the end.</li>
+<li><strong>Press Apply.</strong> Typing the line isn't enough: Apply is what asks Chrome for permission.</li>
+<li><strong>Clicked Deny by mistake?</strong> Press Apply again and choose Allow.</li>
+<li><strong>Reload the table.</strong> A tab that was already open doesn't hear Beyond20 until you reload it.</li>
+<li><strong>Same browser, ordinary window.</strong> Your sheet and your table must be in the same browser, and extensions don't run in incognito windows unless you've allowed Beyond20 there (Manage Extensions ▸ Beyond 20 ▸ Details ▸ Allow in Incognito).</li>
+</ul>
+<h3>Rolls go to the wrong pawn, or don't show</h3>
+<ul>
+<li><strong>Link the sheet to your pawn</strong> (step 23), or paste your D&amp;D Beyond sheet's address into your pawn's Sheet card. A linked pawn always gets that character's rolls.</li>
+<li>Without a link, a roll goes to your pawn with the character's name (or just its first name), or else to your main pawn. If that's the wrong one, link the right pawn: a linked pawn always wins.</li>
+</ul>
+<h3>The chat shows the roll, but no dice</h3>
+<p>A die is drawn only where your pawn can see, as with everything else on the table. In the dark or behind fog of war, the dice land unseen and the chat line still comes.</p>
+<h3>Rolls also show up in Roll20 or Foundry</h3>
+<p>Beyond20 sends each roll to every tabletop tab it knows about. Close the other tab, or choose your Turnip Works tab in Beyond20's option <strong>Select the VTT tab or Game to send rolls to</strong>.</p>
+<h3>Hit points don't move</h3>
+<p>Keep Beyond20's option <strong>Update VTT Token HP</strong> switched on (it is unless you've changed it), and link the sheet to your pawn.</p>
+<h3>An attack rolls to hit but no damage</h3>
+<p>Beyond20's option <strong>Auto roll Damage and Crit</strong> rolls the damage along with each attack. It's on unless you've switched it off.</p>
+<h2>Firefox</h2>
+<p>Beyond20 is on <a href="https://addons.mozilla.org/en-US/firefox/addon/beyond-20/">Firefox Add-ons</a> too, the same version (2.21.0). These steps were walked in Chrome, not Firefox; the setting and its name are the same. The differences:</p>
+<ul>
+<li><strong>Install:</strong> click <strong>Add to Firefox</strong>, then <strong>Add</strong>.</li>
+<li><strong>The options:</strong> menu ▸ <strong>Add-ons and themes</strong> ▸ Beyond20 ▸ <strong>Options</strong> (or its toolbar icon on your table tab ▸ <strong>Beyond20 Options</strong>). Then steps 11 to 15 as above: Advanced Options at the bottom, the box at the top, Apply, Allow.</li>
+<li><strong>The permission question</strong> is a panel under the address bar; choose <strong>Allow</strong>. Said no? The Beyond20 page in Add-ons and themes has a <strong>Permissions</strong> tab where you can switch turnipworks.net back on.</li>
+<li><strong>Private windows:</strong> Firefox runs Beyond20 there only if you turn on <strong>Run in Private Windows</strong> for it.</li>
+</ul>
+<h2>What we store, and what we don't</h2>
+<p>Turnip Works only listens to what Beyond20 sends to your table's tab. We keep the roll's name ("Greataxe", "Stealth") and its numbers: every die, the total, to hit and damage, and the damage type. We also keep your hit points (as damage on your pawn) and condition words. If you click Link, your pawn keeps your sheet's address.</p>
+<p>We never store spell text, feature or item descriptions, or anything else written on your sheet, even though Beyond20 passes some of it along. We never log into D&amp;D Beyond, and we never see your D&amp;D Beyond account or password.</p>
+<h2>Credit</h2>
+<p>Beyond20 is a free, open-source browser extension made by <strong>Kakaroto</strong>: <a href="https://beyond20.here-for-more.info/">its website</a>, <a href="https://github.com/kakaroto/Beyond20">its source code</a>, <a href="https://chromewebstore.google.com/detail/beyond-20/gnblbpbepfbfmoobegdogkglpbhcjofh">Chrome Web Store</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/beyond-20/">Firefox Add-ons</a>. It works with many tabletops, not just ours. If it makes your games better, its website has ways to support its author.</p>
+<p>Turnip Works is not affiliated with Wizards of the Coast or D&amp;D Beyond, and not affiliated with Beyond20 either. D&amp;D Beyond is a trademark of Wizards of the Coast. We use the name only to say what this page connects.</p>
+<a class="play" href="/">Open Turnip Works</a>
+</main>
+<footer>
+  <nav class="links" aria-label="Turnip Works pages"><a href="/about">About</a><a href="/vtt-index">Compare VTTs</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://github.com/giblfiz/turnipworks">Source</a></nav>
+  <div>© 2026 Implausible Enterprises LLC · Engine AGPL-3.0 · Assets CC BY 4.0</div>
+</footer>
+</body>
+</html>

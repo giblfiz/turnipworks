@@ -69,6 +69,23 @@ const m = { scale: { x: 1, y: 1, z: 1, set(a, b, c) { this.x = a; this.y = b; th
 applyFit(m, { s: [2, 3, 4], yaw: 0.5, pos: [0, 0, 0] }, null); ok(m.scale.x === 2 && m.scale.y === 3 && m.scale.z === 4 && m.rotation.y === 0.5 && m.position.y === 0, 'no fit: exactly the base');
 applyFit(m, { s: [2, 3, 4], yaw: 0.5, pos: [0, 0, 0] }, { s: [1.5, 1, 1], o: [0, 0.1, 0], yaw: 90 }); ok(m.scale.x === 3 && near(m.rotation.y, 0.5 + Math.PI / 2) && near(m.position.y, 0.1), 'fit applied');
 ok(fitIsIdentity(FIT_NONE) && fitIsIdentity(undefined) && !fitIsIdentity({ yaw: 3 }), 'wallfit.js identity');
+// the stained-glass panels (2026-10-24, Harry: "the 'window stained glass' never got their sizes fixed"): both meshes are whole
+// 60 x 12 x 108 in wall sections (the castle-01 and tem-01 runs made them so), but the catalog line said a 36 x 4 x 72 in
+// insert, so the wall drew each one 3 ft wide and 6 ft tall in a 5 x 9 ft slot: a 12-in gap each side, 36 in short of the wall
+// top, 8 in set back from the outer face. The catalog line is now the wall section's box; the panel fills its slot like the
+// family's wall-straight, at the family's own grain.
+for (const fam of ['dressed-stone', 'temple-stone']) {
+  const ps = W.piecesOfFamily(lib, orient, fam), sg = ps.find(p => p.id === 'window-stained-glass'), strs = ps.filter(p => p.role === 'straight');
+  ok(sg && strs.length, `${fam}: a stained-glass panel and wall-straights`); if (!sg) continue;
+  const ref = strs[0].size, [L, D, H] = sg.size;
+  ok(W.judge(L - ref[0], W.TOL.seam) === 'ok' && W.judge(H - ref[2], W.TOL.height) === 'ok', `${sg.sku}: fills the 5 x 9 ft slot (${L} x ${H} in vs ${ref[0]} x ${ref[2]})`);
+  ok(W.judge(D - ref[1], W.TOL.thick) === 'ok', `${sg.sku}: as thick as the wall (${D} in vs ${ref[1]})`);
+  const out = (D / 12 - 1) / 2 * 12; // look.js edgeSpecs: a panel's extra depth goes outward, its room face flush
+  ok(W.judge(out, W.TOL.step) === 'ok', `${sg.sku}: outer face flush with the wall's (pushed ${out} in)`);
+  ok(sg.aniso <= W.TOL.stretchWarn, `${sg.sku}: face not pulled out of shape (${sg.aniso.toFixed(2)})`);
+  const u = W.median(strs.map(p => p.u)); ok(Math.abs(sg.u / u - 1) <= W.TOL.scale, `${sg.sku}: even scale ${sg.u.toFixed(2)} near the family's ${u.toFixed(2)}`);
+  const fl = W.stretchFlags(ps).find(x => x.piece.sku === sg.sku).flags; ok(!fl.length, `${sg.sku}: no data flags (${fl.map(f => f.text).join('; ')})`);
+}
 // the floor slab's plan (engine/core/height.js slabRects): runs 6 in past the grid line on a room's outer edge, stays on the line at an inside side
 import { slabRects, SLAB_RIM } from '../../../engine/core/height.js';
 { const one = slabRects(3, 2, null, null, 5); ok(one.length === 1 && near(one[0][0], -SLAB_RIM) && near(one[0][2], 15 + SLAB_RIM) && near(one[0][3], 10 + SLAB_RIM) && SLAB_RIM === 0.5, 'slab: a plain rectangle runs 6 in past all four edges');

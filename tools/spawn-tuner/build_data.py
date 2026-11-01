@@ -219,6 +219,17 @@ ROOM_TYPES = [
     {'key': 'lair-trophy', 'label': 'Trophy cave', 'program': 'generic', 'family': 'cut-rock', 'cells': [7, 3], 'floors': ['floor-earth-packed', 'floor-flagstone-broken', 'floor-bone-strewn'], 'recipes': ['lai-trophy-cave', 'lai-stone-gaze-gallery'], 'color': '#9c8fb8', 'group': 'Lair', 'tiers': ['lai', 'dun', 'ccm']},
     {'key': 'lair-dragon', 'label': "Dragon's hoard", 'program': 'generic', 'family': 'cut-rock', 'cells': [8, 7], 'floors': ['floor-flagstone-broken', 'floor-earth-packed', 'floor-earth-bare'], 'recipes': ['lai-dragon-lair', 'lai-dragon-hoard'], 'color': '#d0a534', 'group': 'Lair', 'tiers': ['lai', 'dun', 'ccm']},
     # <<< type:lai
+    # Terrain (2026-10-24, docs/VERTICAL.md "Hills"): a HILL is a flat terrace of raised ground drawn like a room (outdoor:
+    # no walls; its floors are its GROUND, grass first). Its top is at a 5-ft step (10 ft by default); the engine lays the bank
+    # down to the lower ground (engine/core/terrain.js). Last, so it is last in every type it is listed under. Its slots only stock its library: its program places nothing (solver2.js KEY.hill).
+    {"key": "hill", "floors": ["floor-grass", "floor-grass-meadow", "floor-grass-worn", "floor-earth-packed", "floor-earth-bare", "floor-gravel"], "label": "Hill", "program": "outdoors", "family": "rough-timber", "cells": [6, 6],
+     "recipes": ["tav-hill", "hut-hill", "cas-hill", "lai-hill"], "color": "#7fa35a", "outdoor": True, "terrain": True},
+    # Caves (2026-10-25, docs/VERTICAL.md "Caves"): a CAVE is a room below the ground (lv -1 by default) whose walls are
+    # natural rock: the engine stands the caves pilot's overlapping generated rock chunks, pillars and stalagmites along
+    # and in it (engine/core/caves.js), never a wall kit. `family` is what a wall it SHARES with another room is built of
+    # (hewn rock: a doorway into a dungeon room). No slots: its program places nothing (solver2.js KEY.cave).
+    {"key": "cave", "floors": ["floor-cave-rock", "floor-cut-rock", "floor-earth-packed", "floor-earth-bare"], "label": "Cave", "program": "generic", "family": "cut-rock", "cells": [7, 5],
+     "recipes": ["lai-cave", "dun-cave", "min-cave"], "color": "#6e6252", "byHand": True},
 ]
 SHELL = "any-shell"
 
@@ -228,11 +239,39 @@ SHELL = "any-shell"
 # data/orient.json is keyed by that id. `was` lists the meshes a sku showed before (newest first) with the time the
 # newer one went live, so the tuner can file Harry's old sku-keyed server records (no data.mesh) under the mesh he was
 # looking at when he made them. inn-02 meshes were generated 11:41-14:09 PDT; SRC_LIVE is the tuner deploy that first showed them.
-SRC_LIVE = {"inn-02": "2026-10-02T15:59:27-0700"}
+SRC_LIVE = {"inn-02": "2026-10-02T15:59:27-0700", "openmesh-01": "2026-10-30T18:00:00-0700"}
 
 
 def mesh_id(src, sku, glb):
     return f"{src}/{sku}@{hashlib.sha1(pathlib.Path(glb).read_bytes()).hexdigest()[:8]}"
+
+
+def add_openmesh(skus):
+    """openmesh-01 (RunPod, 2026-10-30; experiments/2026-10-30-openmesh, after the openables census): every openable shows
+    its state. New "-open" SKUs for kinds that had none (the variant's family and tier carried over, so the swap finds
+    the twin of the same stone), and NEW MESHES UNDER THE SAME SKU for shut models that read open and open twins that
+    read shut: placed things keep their SKU and simply look right (`was` keeps the old mesh's orientation records
+    filed; `rev` busts the 4-h cache). Only accepted meshes are in models/."""
+    E = ROOT / "experiments/2026-10-30-openmesh"
+    tp = E / "targets.json"
+    if not tp.exists():
+        return
+    for t in json.loads(tp.read_text()):
+        glb = E / "models" / f"{t['id']}.glb"
+        if not glb.exists():
+            continue
+        old = skus.get(t["id"])
+        if t.get("replaces"):
+            assert old and "glb" in old, f"openmesh-01: {t['id']} replaces a sku the library does not have"
+            was = [{"mesh": mesh_id(old["src"], t["id"], old["glb"]), "until": SRC_LIVE["openmesh-01"]}] + old.get("was", [])
+            skus[t["id"]] = {**old, "src": "openmesh-01", "glb": glb, "was": was, "rev": True}
+        else:
+            assert old is None, f"openmesh-01: {t['id']} is already a sku"
+            p = skus[t["partner"]]
+            parts = t["id"].split("--")
+            skus[t["id"]] = {"sku": t["id"], "object": t["object"], "lane": "3d", "gen": p.get("gen", "mesh"), "family": p.get("family", ""),
+                             "tier": p.get("tier", ""), "shape": parts[-1] if len(parts) > 1 and parts[-1] != p.get("family") else "",
+                             "place": p.get("place", ""), "fp": p.get("fp", ""), "src": "openmesh-01", "glb": glb, "piece": ""}
 
 
 def load_manifest(path):
@@ -360,6 +399,17 @@ def main() -> None:
         obj, _, var = glb.stem.partition("--")
         skus[glb.stem] = {"sku": glb.stem, "object": obj, "lane": "3d", "gen": "kit", "family": "", "tier": "", "shape": var,
                           "place": "kit", "fp": "edge", "src": "railings-01", "glb": glb, "piece": ""}
+    # bars (fal, 2026-10-27): the iron corner / end post of a run of cell bars; experiments/2026-10-27-bars
+    for glb in sorted((ROOT / "experiments/2026-10-27-bars/models").glob("*.glb")):
+        obj, _, var = glb.stem.partition("--")
+        skus[glb.stem] = {"sku": glb.stem, "object": obj, "lane": "3d", "gen": "kit", "family": "", "tier": "", "shape": var,
+                          "place": "kit", "fp": "edge", "src": "bars-01", "glb": glb, "piece": ""}
+    # roof objects (fal, 2026-10-27): a bartizan, a cistern and a flagpole that stand on a flat roof; ordinary floor things
+    # (catalog/objects-roof.catalog.md); experiments/2026-10-27-roofs-flat/props
+    for glb in sorted((ROOT / "experiments/2026-10-27-roofs-flat/props/models").glob("*.glb")):
+        obj, _, var = glb.stem.partition("--")
+        skus[glb.stem] = {"sku": glb.stem, "object": obj, "lane": "3d", "gen": "mesh", "family": "", "tier": "", "shape": var,
+                          "place": "floor", "fp": "1", "src": "roof-props-01", "glb": glb, "piece": ""}
     # cat tree (fal, 2026-10-06): one prop a playtester asked for at the table; experiments/2026-10-06-cat-tree
     for glb in sorted((ROOT / "experiments/2026-10-06-cat-tree/models").glob("*.glb")):
         obj, _, var = glb.stem.partition("--")
@@ -473,6 +523,12 @@ def main() -> None:
             obj, _, var = path.stem.partition("--")
             skus[path.stem] = {"sku": path.stem, "object": obj, "lane": "2d", "family": "", "tier": "" if opaque and (obj, "") not in dun_had else "dun",
                                "shape": var or ("v1" if opaque else ""), "src": "dun-flats-01", "plate": path, "piece": "", **({"opaque": True} if opaque else {})}
+    # Caves (2026-10-25, docs/VERTICAL.md "Caves"): the caves pilot's seamless natural-rock floor (free Codex route,
+    # experiments/2026-10-05-caves/floor.py). A sku name that exists is never replaced.
+    for path in sorted((ROOT / "experiments/2026-10-05-caves/floor").glob("floor-cave-rock.png")):
+        if path.stem not in skus:
+            skus[path.stem] = {"sku": path.stem, "object": path.stem, "lane": "2d", "family": "", "tier": "", "shape": "v1",
+                               "src": "caves-01", "plate": path, "piece": "", "opaque": True}
     dun_manifest = ROOT / "catalog/runs/dun-01/manifest.tsv"
     dun_skipped = []
     for row in (load_manifest(dun_manifest) if dun_manifest.exists() else []):
@@ -692,6 +748,7 @@ def main() -> None:
                                 **({"own_size": [float(v) for v in row["size"].split("x")]} if row.get("size") else {})}
         if smi_skipped:
             print(f"smithy: {len(smi_skipped)} sku names already in the library, NOT replaced: {', '.join(smi_skipped[:8])}")
+    add_openmesh(skus)
     add_faction_assets(skus, ROOT, mesh_id)
     # a remeshed piece set supersedes the whole-object SKU it was split from (bar-counter pieces)
     pieced = {(r["object"], r["family"], r["tier"]) for r in skus.values() if r.get("piece")}
@@ -736,6 +793,8 @@ def main() -> None:
                 rec["rev"] = rec["mesh"].rsplit("@", 1)[1]
             if sku in runtime:
                 rec.update(bounds=runtime[sku]["bounds"], faces=runtime[sku]["faces"], kb=round(runtime[sku]["bytes"] / 1024))
+                if "sink" in runtime[sku]:  # a hatch twin's tile top, as a share of its height (experiments/2026-10-30-openmesh/tools/sink.py)
+                    rec["sink"] = runtime[sku]["sink"]
             jobs.append({"sku": sku, "src": str(r["glb"]), "out": str(TOOL / "assets/m" / f"{sku}.glb"),
                          "faces": faces, "tex": tex, "kitfix": role["place"] == "kit" and role["fp"] == "edge"})
         else:

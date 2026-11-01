@@ -194,6 +194,7 @@ Notes from making the two that exist. A grass texture tiles cleanly with itself,
 | `cook-hearth-spit--great` | "a forge" in half the reads of both kitchens; wanted: a visible spit with a joint on it and pots at the kerb |
 | `bread-oven` (inn mesh) | "a large blue bellows", "a kiln": dropped from the castle and mansion kitchens |
 | `dais` | at 16 in it is not seen from above, and the mesh is 32 in at its own proportions (flattened 2x by the box); a dais with a carpet or a contrasting top would read |
+| ~~an iron corner / end post for `cell-bars`~~ | **shipped 2026-10-27** as `cell-bars-post` (8x8x108, `experiments/2026-10-27-bars`, $0.90 fal); still wanted with bars: a free-standing cage piece, a floor grate that reads from above, a low iron railing round a pit, a portcullis that slides rather than swaps |
 | arrow-slit wall and `cell-bars` re-plates | both squeezed a quarter in width at the box (inside the kit rule; invisible at table distance) |
 | `skeleton-chained`, `spear-bundle`, `armory-rack-filled`, `weapon-rack-enchanted`, `mil-arrow-sheaf`, `mil-ballista-bolts`, `mil-siege-ladder`, `mil-watch-rattle`, `mil-horse-barding-stand`, `cage-hanging`, `flail`, `morningstar` and the feast smalls | named by the recipes, in no batch |
 | grammar, not assets | a sand patch, tourney rails and the quintain in the courtyard's training corner (pieces exist, not laid); a per-room-type `tall` default (the great hall is one storey when made) |
@@ -228,7 +229,7 @@ Notes from making the two that exist. A grass texture tiles cleanly with itself,
 
 | what | why |
 |---|---|
-| wall kit `cave-rock` (3 panels + doorway) and `floor-cave-natural` | the lair stands in the dungeon's hewn `cut-rock`: the passage reads as "a dungeon corridor" two times in three. A lair wants water-worn natural rock |
+| wall kit `cave-rock` (3 panels + doorway) and `floor-cave-natural` (2026-10-25: natural rock is now the **Cave** room type, walled with the caves pilot's generated chunks by the engine, floor `floor-cave-rock`: docs/VERTICAL.md "Caves"; the lair's own rooms still stand in cut rock) | the lair stands in the dungeon's hewn `cut-rock`: the passage reads as "a dungeon corridor" two times in three. A lair wants water-worn natural rock |
 | `cave-opening--leaf` (an opening with no door) | every doorway hangs a leaf, so a beast's den has an iron-bound oak door |
 | a web that stands up: `web-curtain` card, `web-cocoon-hanging` | the spider nest's webs are flat on the floor and small on the walls; only the funnel stands |
 | `scales-pile`, `treasure-hoard-spill` | the dragon's hollow is marked by soot alone |

@@ -10,7 +10,7 @@ const here = fileURLToPath(new URL('.', import.meta.url));
 const types = JSON.parse(readFileSync(here + '../data/rooms.json', 'utf8'));
 const walls = await import('../js/walls.js');
 const PREFIX = { TAV: 'tav-', NOB: 'nob-', CAS: 'cas-', CRY: 'cry-' };
-export const roomsOf = (code) => types.filter(t => (t.recipes || []).some(r => r.startsWith(PREFIX[code] || code.toLowerCase() + '-'))).map(t => ({ key: t.key, cells: t.cells, outdoor: !!t.outdoor }));
+export const roomsOf = (code) => types.filter(t => !t.byHand && (t.recipes || []).some(r => r.startsWith(PREFIX[code] || code.toLowerCase() + '-'))).map(t => ({ key: t.key, cells: t.cells, outdoor: !!t.outdoor }));
 export const SIZES = [[6, 5], [8, 6], [10, 8], [12, 8], [8, 12], [14, 10], [16, 12], [20, 14], [24, 16], [24, 24], [5, 5], [7, 16]];
 const arg = (k, d) => { const a = process.argv.find(x => x.startsWith(`--${k}=`)); return a ? a.split('=')[1] : d; };
 const N = +(process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[2] : 40), only = arg('code', null), json = process.argv.includes('--json');

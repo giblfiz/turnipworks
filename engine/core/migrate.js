@@ -198,3 +198,63 @@ export function migrateTilts(rt) {
   for (const [a, list] of rt.tails || []) { let changed = false; const next = list.map(e => { const m = st(e); if (m !== e) changed = true; return m; }); if (changed) { rt.tails.set(a, next); stored++; } }
   return { things, stored };
 }
+
+// ---------------- a cave's stalagmites -> things of the room (2026-10-27) ----------------
+// Until 2026-10-27 a cave's stalagmites were rock DRAWN from its squares and seed (client/caves.js), so the GM could not
+// select, move or delete one (Harry: "are you not letting me select the stalagmites in caves?"). Now they are ordinary
+// things of the cave (core/caves.js STALAG_CAT), made with it. An old cave is CONVERTED, once, where the other
+// conversions run (relay/campaign.js load: the journal replays as written, then what is in memory is converted and a
+// fresh snapshot written): each spot the rule draws today (the same rule, squares, seed and neighbours, so the same
+// spots, sizes and turns) becomes a thing of the room, `fromCave`, with a FIXED id (obj_<room's id>s<n>: a second pass,
+// or a second relay, makes the very same things), and the room is marked `stalagObjects`. Until then (a relay without
+// its room engine, an undo that puts an old cave back) the cave still DRAWS its stalagmites, so none is ever lost.
+// A stored undo or redo step that touches the cave is amended: one that puts the same cave back (same squares and seed:
+// a rename, its floor, its walls) puts it back marked, keeping the things; any other (undoing its drawing, a re-roll
+// from before) also takes away the things made here, so the cave is gone with them or back drawing its own.
+// Idempotent: a marked cave is never converted again.
+//   make(entities, room, idOf) -> { objects } (the relay: roomgen.caveStalagObjects)
+// Returns { caves: how many were converted, things: how many stalagmites they got, stored: undo / redo steps amended }.
+import { isCaveRoom } from './caves.js';
+import { applyArea } from './commands.js';
+const sameRock = (a, b) => ['x', 'z', 'w', 'd', 'y', 'seed', 'turn'].every(k => (a[k] || 0) === (b[k] || 0)) && JSON.stringify(a.outline || null) === JSON.stringify(b.outline || null);
+export const caveStalagId = (roomId, n) => `obj_${String(roomId).split('_').pop().slice(0, 16)}s${n}`;
+export function migrateCaves(rt, make) {
+  let caves = 0, things = 0, stored = 0;
+  if (typeof make !== 'function') return { caves, things, stored };
+  const made = new Map(); // room id -> the ids of the things made for it
+  const areas = mapSame(rt.state?.areas, (A) => {
+    let T = A;
+    for (const room of Object.values(A.entities || {})) {
+      if (!isCaveRoom(room) || room.recipe.stalagObjects) continue;
+      let objs = [];
+      try { objs = make(T.entities, room, (n) => caveStalagId(room.id, n))?.objects || []; } catch { continue; } // (a cave the room engine cannot work out stays as it was: it still draws)
+      if (objs.some(o => T.entities[o.id])) continue;
+      for (const o of objs) T = applyArea(T, 'object.place', { ...o, room: room.id }); // (a thing put into a hidden room is hidden with it)
+      T = { ...T, entities: { ...T.entities, [room.id]: { ...room, recipe: { ...room.recipe, stalagObjects: true } } } };
+      made.set(room.id, { ids: objs.map(o => o.id), room }); caves++; things += objs.length;
+    }
+    return T;
+  });
+  if (rt.state && areas !== rt.state.areas) rt.state = { ...rt.state, areas };
+  if (!made.size) return { caves, things, stored };
+  const amend = (x) => {
+    if (!x || typeof x !== 'object') return x;
+    if (x.type === 'entities.set' && x.args?.set) {
+      const add = {};
+      for (const [rid, { ids, room }] of made) {
+        if (!(rid in x.args.set)) continue;
+        const was = x.args.set[rid];
+        // the same cave put back as it is now (a rename, a floor, its walls undone): it keeps the things, marked
+        if (was?.kind === 'room' && isCaveRoom(was) && !was.recipe.stalagObjects && sameRock(was.recipe, room.recipe)) { add[rid] = { ...was, recipe: { ...was.recipe, stalagObjects: true } }; continue; }
+        for (const id of ids) if (!(id in x.args.set)) add[id] = null; // (taken away, or put back as another cave: drawn again)
+      }
+      return Object.keys(add).length ? { ...x, args: { ...x.args, set: { ...x.args.set, ...add } } } : x;
+    }
+    if (x.type === 'batch' && Array.isArray(x.args?.ops)) { let changed = false; const ops = x.args.ops.map(op => { const m = amend(op); if (m !== op) changed = true; return m; }); return changed ? { ...x, args: { ...x.args, ops } } : x; }
+    return x;
+  };
+  const inv = (it) => { const m = amend(it.inv); if (m !== it.inv) { it.inv = m; stored++; } };
+  for (const list of rt.undo?.values() || []) for (const it of list) inv(it);
+  for (const list of rt.redo?.values() || []) for (const it of list) inv(it);
+  return { caves, things, stored };
+}

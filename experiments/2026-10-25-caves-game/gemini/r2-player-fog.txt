@@ -1,0 +1,29 @@
+### Visible Text
+
+**`player-desk.png`:**
+- **UI Top Bar & Controls:** "Pawns", "P", "Settings", "S", "Other games / New game", "Search commands, things to place, people, places... or say / roll", "/", "H", "P", "Area 1" (under both H and P)
+- **UI Elevation & Chat:** "-1", "say ... or roll d20 in the bar"
+- **Canvas Pawn Labels:** "Bram", "Ann"
+- **Telemetry (bottom-right corner):** "Live (ws) · 11ms · Area 1 seq 3 · 60 fps"
+
+**`player-phone.png`:**
+- **UI:** "Search, place, say or roll", "P", "Pawns", "Settings", "-1", "say ... or roll d20 in the bar"
+- **Canvas Pawn Labels:** None visible
+
+---
+
+### `player-desk.png`
+**(1)** Visible clearly (the textured cave floor, grid lines, and Bram are clear and uncovered by fog/mist).  
+**(2)** Visible clearly (the dungeon interior, furniture, torches, stone walls, and Ann are fully visible and illuminated).  
+**(3)** Differently (the cave uses dynamic line-of-sight raycasting that casts jagged shadow cuts across the floor and leaves translucent wall outlines in the fog, whereas the dungeon room is rendered as a fully enclosed, self-contained rectangular box).  
+**(4)** Yes: rock wall segments around the cave appear as disjointed floating pieces with the checkerboard background showing through, and the cave floor has harsh geometric cutoffs/missing floor wedges.  
+**VERDICT:** BROKEN
+
+---
+
+### `player-phone.png`
+**(1)** The cave floor is visible clearly (uncovered by fog/mist), but Bram is completely missing.  
+**(2)** Not visible (it is completely off-screen / outside the viewport).  
+**(3)** Differently / Non-comparable in frame (the dungeon room is entirely cut off by the viewport, while the visible cave area shows raycast floor clipping and floating wall fragments).  
+**(4)** Yes: Bram is completely missing/vanished, disjointed rock wall segments float in the checkerboard void, and the cave floor has harsh clipped cutoffs.  
+**VERDICT:** BROKEN

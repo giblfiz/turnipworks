@@ -1,0 +1,79 @@
+### Die-by-Die Readout (Tag Pill & Top Face)
+
+#### [still-l5r.png](file://experiments/2026-10-29-gamedice/vision/r4/still-l5r.png)
+- **Ivory Skill d12 (top-left)**: Tag pill `E` | Top face shows **Spearhead in starburst** (Explosive success; dark silhouette on ivory).
+- **Ivory Skill d12 (top-center)**: Tag pill `S+O` | Top face shows **Spearhead + five-petal blossom** (Success + Opportunity; dark silhouettes on ivory).
+- **Ivory Skill d12 (top-right)**: Tag pill `O` | Top face shows **Five-petal blossom** (Opportunity; dark silhouette on ivory).
+- **Dark Ring d6 (bottom-left)**: Tag pill `E+T` | Top face shows **Spearhead in starburst + forked crack** (Explosive + Strife; cream symbols on dark charcoal/violet).
+- **Dark Ring d6 (bottom-center)**: Tag pill `O+T` | Top face shows **Five-petal blossom + forked crack** (Opportunity + Strife; cream symbols on dark charcoal/violet).
+- **Dark Ring d6 (bottom-right)**: Tag pill `S+T` | Top face shows **Spearhead + forked crack** (Success + Strife; cream symbols on dark charcoal/violet).
+
+---
+
+#### [still-l5r-b.png](file://experiments/2026-10-29-gamedice/vision/r4/still-l5r-b.png)
+- **Ivory Skill d12 (top-center / north)**: Tag pill `S` (*mostly clipped/hidden behind the top toolbar’s `Area 1` button; only the yellow underline and base edge are visible*) | Top face shows **Spearhead** (Success; dark silhouette on ivory).
+- **Ivory Skill d12 (middle)**: Tag pill `S+T` | Top face shows **Spearhead + forked crack** (Success + Strife; dark silhouettes on ivory).
+- **Ivory Skill d12 (top-right)**: Tag pill `E+T` | Top face shows **Spearhead in starburst + forked crack** (Explosive + Strife; dark silhouettes on ivory).
+- **Dark Ring d6 (bottom-left)**: Tag pill `S` | Top face shows **Spearhead** (Success; cream symbol on dark charcoal/violet).
+- **Dark Ring d6 (bottom-center)**: Tag pill `O` | Top face shows **Five-petal blossom** (Opportunity; cream symbol on dark charcoal/violet).
+- **Dark Ring d6 (bottom-right)**: Tag pill `-` | Top face is **Blank** (no symbol face).
+
+---
+
+#### [still-v5.png](file://experiments/2026-10-29-gamedice/vision/r4/still-v5.png)
+- **Crimson Hunger d10 (top-center)**: Tag pill `1` | Top face shows **Three claw slashes** (Bestial failure / 1; white on crimson).
+- **Crimson Hunger d10 (center)**: Tag pill `10` | Top face shows **Fangs with a blood drop** (Messy critical / 10; white on crimson).
+- **Regular Amber d10 (top-left)**: Tag pill `6` | Top face shows **`6`** (black on amber).
+- **Regular Amber d10 (mid-left)**: Tag pill `10` | Top face shows **`0`** (representing 10; black on amber).
+- **Regular Amber d10 (bottom-center)**: Tag pill `7` | Top face shows **`7`** (black on amber).
+- **Regular Amber d10 (bottom-right)**: Tag pill `1` | Top face shows **`1`** (black on amber).
+
+---
+
+#### [still-duality.png](file://experiments/2026-10-29-gamedice/vision/r4/still-duality.png)
+- **Gold Hope d12 (left)**: Tag pill `11` | Top face shows **`11`** (bold black on warm gold).
+- **Dark Violet Fear d12 (right)**: Tag pill `4` | Top face shows **`4`** (bold white on dark violet).
+
+---
+
+### Per-Image QA Analysis
+
+#### 1. [still-l5r.png](file://experiments/2026-10-29-gamedice/vision/r4/still-l5r.png)
+1. **Top face readability**: Yes, all 6 top faces are immediately legible at table distance.
+2. **Ivory vs Ring symbol legibility**: Yes. Printing the ivory skill symbols as solid dark silhouettes gives them high edge definition and contrast against the ivory grain, matching the readability of the cream-on-dark ring dice despite the d12's smaller pentagonal face area.
+3. **Set distinctions**: N/A.
+4. **Anything broken**: Nothing broken. Pills and dice are cleanly positioned and unobstructed.
+- **Verdict**: **PASS**
+
+---
+
+#### 2. [still-l5r-b.png](file://experiments/2026-10-29-gamedice/vision/r4/still-l5r-b.png)
+1. **Top face readability**: Yes, all faces (including blank d6) are readable.
+2. **Ivory vs Ring symbol legibility**: Yes, the dark silhouettes on ivory remain crisp even on dense multi-symbol faces (`S+T`, `E+T`).
+3. **Set distinctions**: N/A.
+4. **Anything broken**: **Tag pill UI occlusion**. The top ivory skill die rolled far enough north that its floating 3D billboard tag (`S`) is clipped behind the top HTML navbar (`Area 1` button), leaving only the yellow underline visible.
+- **Verdict**: **FIX**
+  - **Concrete fix**: Clamp 3D tag billboard screen projections below the DOM header clearance boundary (e.g. `screenY = Math.max(headerHeight + padding, projectedY)`), or inset the dice tray physics bounds so dice cannot settle where their billboard anchors fall under top UI overlays.
+
+---
+
+#### 3. [still-v5.png](file://experiments/2026-10-29-gamedice/vision/r4/still-v5.png)
+1. **Top face readability**: Yes, all standard digits (0, 1, 6, 7) and vampire icons (fangs, claw slashes) are sharp and legible.
+2. **Ivory vs Ring symbol legibility**: N/A.
+3. **Hunger vs Regular distinction**: Yes, unmistakably distinct. Saturated crimson bodies with bright white bespoke iconography contrast sharply against golden-amber bodies with black standard Arabic numerals.
+4. **Anything broken**: Nothing broken. (The tag pill `10` on the center Hunger die sits close to the bottom vertex of the top Hunger die due to resting cluster tightness, but both pills and faces remain legible).
+- **Verdict**: **PASS**
+
+---
+
+#### 4. [still-duality.png](file://experiments/2026-10-29-gamedice/vision/r4/still-duality.png)
+1. **Top face readability**: Yes, outstanding table-distance clarity; large, high-contrast typography centered on wide d12 pentagons.
+2. **Ivory vs Ring symbol legibility**: N/A.
+3. **Hope vs Fear distinction**: Yes, completely distinct. Bright warm gold with black numerals vs deep royal purple/violet with crisp white numerals.
+4. **Anything broken**: Nothing broken.
+- **Verdict**: **PASS**
+
+---
+
+### Overall Summary
+The dark silhouette print on the ivory skill dice, numeral readability, and thematic dice pair distinctions (Hunger/Regular, Hope/Fear) are completely verified at table distance; the only issue is tag pill occlusion behind the top navigation bar when dice rest near the top boundary in [still-l5r-b.png](file://experiments/2026-10-29-gamedice/vision/r4/still-l5r-b.png).

@@ -1,0 +1,199 @@
+## Atlas (3D browser VTT) (https://atlas-vtt.vercel.app)
+- dims: 3D — 3D scenes in stacked levels, played in a 2.5D top-down view
+- platform: browser — WebGL2; Chromium tested, Firefox smoke-tested, Safari untested
+- price: free (unverified) — no paid tier mentioned
+- accounts: none — everyone signs in as an anonymous guest; Discord account optional
+- fog: yes — three-state fog of war; shared party vision toggle
+- lighting: yes — real-time shadows; per-token 3D line of sight; darkvision, blindsight
+- mapbuild: yes — floors, walls, doors, stairs, terrain brush, primitive props; battlemap import
+- levels: yes — multi-level scenes with stairs, ramps, ladders and automatic cutaway
+- sheets: partial — HP, conditions, initiative, spell templates that deal damage; no character sheets
+- ddb: no (unverified) — no system integration listed in the docs' gaps (older note)
+- dice: roller — text and quick-die roller, rolled by the GM's tab
+- phone: ? (unverified) — no mobile or touch support mentioned
+- offline: yes — can be deployed on your own Supabase project; local mode is dev-only (you can run it on your own Supabase server)
+- opensource: no — source is public on GitHub but no licence is published
+- ai: yes — token maker removes backgrounds with an image model
+- modding: no (unverified) — no plugin or scripting API (older note)
+- stage: ? (unverified) — no stage stated
+- community: note — single-developer repo
+
+## Dungeon Alchemist (https://www.dungeonalchemist.com/)
+- dims: 3D — 3D scenes with orthographic, perspective and 3D views; exports 2D maps
+- platform: windows, mac, linux — Windows, macOS, SteamOS + Linux
+- price: one-time — US$44.99 on Steam; free demo
+- accounts: gm (unverified) — a Steam account to buy it; no players involved
+- fog: n/a (unverified) — a map maker; fog is handled by the VTT you export to
+- lighting: partial — places lights automatically and exports them to VTTs
+- mapbuild: yes — procedural room furnishing plus a full editor
+- levels: yes (unverified) — multi-level maps with stairs between floors (patch notes; not re-read)
+- sheets: n/a (unverified) — a map maker, no rules layer
+- ddb: n/a (unverified) — a map maker, no rules layer
+- dice: n/a (unverified) — a map maker, no dice
+- phone: no — desktop only
+- offline: yes — single-user desktop app
+- opensource: no (unverified) — commercial closed-source software
+- ai: no — Steam page: 'does not use any generative AI/LLM's'; in-house procedural algorithms
+- modding: partial — Steam Workshop for sharing; level editor
+- stage: early access — Early Access since 2022-03-31; plans to leave it in late 2026
+- community: note — Steam: Very Positive, 93% of 1,937 English reviews
+
+## D&D Beyond Maps (https://www.dndbeyond.com/games)
+- dims: 2D (unverified) — Flat maps
+- platform: browser (unverified) — Runs on dndbeyond.com
+- price: free tier — Free for all registered users since 2025-09-16; Master Tier adds map uploads and storage
+- accounts: everyone — Anyone with a D&D Beyond account can use it
+- fog: partial — Fog of war, polygonal fog added in 2025 (drawn by the DM; automatic reveal not documented)
+- lighting: no (unverified) — Users ask for dynamic lighting, walls and token vision in roadmap comments
+- mapbuild: partial — Stickers and drawing on official or uploaded maps; no builder
+- levels: ? (unverified) — Not mentioned
+- sheets: yes (unverified) — Uses D&D Beyond character sheets and rules content
+- ddb: yes — It is D&D Beyond's own tool
+- dice: 3D (unverified) — D&D Beyond 3D dice
+- phone: ? (unverified) — Not mentioned
+- offline: ? (unverified) — Hosted service; no self-host option found
+- opensource: no (unverified) — Closed source
+- ai: ? (unverified) — No built-in AI feature found
+- modding: ? (unverified) — No API found
+- stage: beta — Labelled beta in site navigation
+- community: note — 2026 roadmap comments mostly request dynamic lighting, token vision and walls
+
+## Quest Portal (https://www.questportal.com/)
+- dims: 2D (unverified) — Flat maps
+- platform: browser, ios, android — Web plus iOS and Android apps
+- price: free tier — Free forever; Pro $9.99/mo or $89.99/yr with AI credits; players' cost not stated
+- accounts: everyone (unverified) — Players join by invite link or username
+- fog: yes — Fog of war on the free tier
+- lighting: yes — Dynamic lighting on the free tier
+- mapbuild: yes — AI map and scene generation (Pro); manual drawing not confirmed
+- levels: ? (unverified) — Not mentioned
+- sheets: partial — Call of Cthulhu and universal sheets; automation not described
+- ddb: ? (unverified) — Not mentioned
+- dice: roller (unverified) — Rolls from sheets and a dice roller; 3D not confirmed (whether the dice are 3D is not stated)
+- phone: yes — iOS and Android apps
+- offline: ? (unverified) — Not mentioned
+- opensource: no (unverified) — Closed source
+- ai: yes — GM assistant, adventure, map, token and note generation (Pro)
+- modding: partial — Developer API and MCP server; no mod system found
+- stage: released (unverified) — Live product
+- community: note (unverified) — No community size figure checked this session
+
+## Tabula Sono (https://tabulasono.com/)
+- dims: 3D — 3D minis on a grid; 2D map images can be imported
+- platform: browser — 'Just a modern browser'; runs on low-end computers
+- price: free tier — free-to-play; Patreon subscription and marketplace for premium minis
+- accounts: ? (unverified) — players join by a link; account rules not stated
+- fog: partial — GM hides or reveals objects, NPCs, walls and map sections by hand
+- lighting: partial — preset or custom world lighting; per-token vision not mentioned
+- mapbuild: yes — draw and raise walls; 1,000+ free 3D models; STL, FBX, OBJ, glTF import
+- levels: ? (unverified) — not mentioned
+- sheets: no — deliberately light on rules: no 'restrictive rules' or 'excessive codexes'
+- ddb: ? (unverified) — not mentioned
+- dice: ? (unverified) — not described
+- phone: ? (unverified) — only computers mentioned
+- offline: ? (unverified) — not mentioned
+- opensource: no (unverified) — commercial closed-source software
+- ai: ? (unverified) — not mentioned
+- modding: ? (unverified) — not mentioned
+- stage: released (unverified) — publicly launched 2022 (older note); Steam page 'coming soon'
+- community: note — Kickstarter-funded; Discord, YouTube and Twitch linked; no counts checked
+
+## Shard Tabletop (https://www.shardtabletop.com/)
+- dims: 2D (unverified) — Flat maps
+- platform: browser — No install; 'works on any device'
+- price: free tier (unverified) — Free SRD play for GMs and players; reported tiers $2.99, $5.99, $9.99/mo
+- accounts: everyone (unverified) — Players build characters in their own account
+- fog: partial — Rectangle, polygon and brush fog tools; preset fog regions on some maps
+- lighting: yes — Line of sight from walls, lighting and darkvision on configured maps
+- mapbuild: ? (unverified) — No map builder mentioned
+- levels: ? (unverified) — Not mentioned
+- sheets: yes — 5e character builder and play automation
+- ddb: no — D&D Beyond import disabled after it broke
+- dice: roller (unverified) — Animated dice mentioned; type not confirmed (whether the dice are 3D is not stated)
+- phone: yes — Site says it works on any device
+- offline: ? (unverified) — Not mentioned
+- opensource: no (unverified) — Closed source
+- ai: ? (unverified) — No built-in AI feature found
+- modding: partial — Content extensions for other settings, no programming; no API found
+- stage: released (unverified) — Live product
+- community: note (unverified) — No community size figure checked this session
+
+## Alchemy RPG (https://alchemyrpg.com/)
+- dims: 2D (unverified) — Animated scene art plus a tactical map layer with grids
+- platform: browser, windows, mac, linux — Web plus Windows, Mac and Linux downloads
+- price: free tier — Free Unlimited $0; Alchemist supporter tier $8/mo adds perks, not features
+- accounts: everyone (unverified) — Sign-up to play
+- fog: partial (unverified) — GM brushes fog on and off by hand
+- lighting: ? (unverified) — Not mentioned
+- mapbuild: ? (unverified) — Not mentioned; maps are uploaded
+- levels: ? (unverified) — Not mentioned
+- sheets: yes — Access to every game system plus a homebrew system builder
+- ddb: ? (unverified) — Not mentioned
+- dice: 3D (unverified) — Dice on screen
+- phone: ? (unverified) — Devices FAQ answer not readable
+- offline: ? (unverified) — Not mentioned
+- opensource: no (unverified) — Closed source
+- ai: ? (unverified) — Site has a 'stance on generative AI' FAQ; answer not readable
+- modding: partial — Homebrew System Builder; no API found
+- stage: released (unverified) — Publicly available
+- community: note — Homepage carries testimonials from Avantris and Rowdy Crypt; active Discord
+
+## Adunata (https://store.steampowered.com/app/4613510/Adunata/)
+- dims: 2D+3D — 2D map with 3D minis and terrain ('2.5D')
+- platform: windows, mac — iOS, tablet and mobile versions planned
+- price: one-time — US$11.99 in Early Access, price rises at full release; players: see Accounts
+- accounts: everyone (unverified) — Steam, and each player owns a copy (maker's Reddit replies; not re-checked)
+- fog: partial — painted on the 2D map; hides 3D pieces under it
+- lighting: no (unverified) — maker said there are no walls and darkvision is not designed yet (not re-checked)
+- mapbuild: partial — import a 2D map, draw on it, place and elevate 3D terrain
+- levels: yes — elevated terrain and overhangs (2026-10-20 update); no separate floors stated (elevated terrain and overhangs count as height)
+- sheets: no (unverified) — no character sheets per maker (not re-checked); condition VFX and measuring
+- ddb: no (unverified) — no D&D Beyond integration per maker (not re-checked)
+- dice: roller (unverified) — a Smart Dice roller; whether the dice are 3D isn't stated
+- phone: no — announced: iOS, tablet and mobile versions planned (not available yet)
+- offline: yes — LAN co-op and single-player listed
+- opensource: no (unverified) — commercial closed-source software
+- ai: ? (unverified) — assets were sketched with generative AI then hand-finished (Steam disclosure); no in-app AI listed
+- modding: ? (unverified) — not mentioned
+- stage: early access — Early Access since 2026-10-09, about 6-12 months planned
+- community: note — Steam: 4 reviews so far; warm r/VTT launch thread, 28 points (older note)
+
+## MapTool (https://www.rptools.net/toolbox/maptool/)
+- dims: 2D (unverified) — top-down maps
+- platform: windows, mac, linux — installed Java app; Intel and Apple Silicon Macs
+- price: free — 'will always be free'
+- accounts: none (unverified) — players connect to the GM's server; no accounts
+- fog: yes — fog of war revealed as tokens explore
+- lighting: yes — dynamic lighting and per-token vision; walls, pits and hills block sight
+- mapbuild: partial — drawing tools for building detailed maps (drawing and placing images)
+- levels: ? (unverified) — not mentioned
+- sheets: partial — system-agnostic; rules come from optional community frameworks
+- ddb: ? (unverified) — not mentioned
+- dice: roller (unverified) — text dice rolls and macros
+- phone: ? (unverified) — no phone client mentioned
+- offline: yes — integrated server; you host the game yourself
+- opensource: yes — AGPL-3.0
+- ai: ? (unverified) — not mentioned
+- modding: yes — macro scripting language; embedded HTML
+- stage: released — v1.18.7 (2026-10-09); 1.19 in alpha
+- community: note — long-running volunteer project; 931 GitHub stars
+
+## Demiplane (https://www.demiplane.com/)
+- dims: ? (unverified) — No map table of its own; tabletop play happens on Roll20
+- platform: browser — Web app
+- price: ? (unverified) — Free sign-up; rulebooks and content sold per game
+- accounts: everyone (unverified) — Sign-up to save characters and join campaigns
+- fog: n/a (unverified) — not applicable: Demiplane has no map table of its own (play happens on another VTT)
+- lighting: n/a (unverified) — not applicable: Demiplane has no map table of its own (play happens on another VTT)
+- mapbuild: n/a (unverified) — not applicable: Demiplane has no map table of its own (play happens on another VTT)
+- levels: n/a (unverified) — not applicable: Demiplane has no map table of its own (play happens on another VTT)
+- sheets: yes — Official character builders and sheets per system (Nexus pages)
+- ddb: ? (unverified) — Not applicable; covers other systems
+- dice: roller (unverified) — Rolls from sheets
+- phone: ? (unverified) — Not checked
+- offline: ? (unverified) — Not checked
+- opensource: no (unverified) — Closed source
+- ai: ? (unverified) — No built-in AI feature found
+- modding: ? (unverified) — Homebrew (beta) in the app menu; no API found
+- stage: released (unverified) — Live product
+- community: note (unverified) — Its sheets are being brought into Roll20 (public beta reported)

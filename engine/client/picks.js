@@ -126,7 +126,7 @@ export function installPicks(app) {
           const tileOps = paintOps(app,m.cat.id,[p.cell],{size:m.size,y:p.y}); ops.push(...tileOps); ids.push(...tileOps.filter(o => o.type === 'object.place').map(o => o.args.id));
         } else {
           const id = newId('obj'), s = m.size; ids.push(id);
-          ops.push(app.modes.edgeTaken(p.edge),{type:'object.place',args:{id,name:m.cat.name,...(m.cat.id.startsWith('flavor-') && {flavor:app.lib.objects[m.cat.id]?.skus.find(k => k.sku === s.sku)?.shape}),cat:m.cat.id,sku:s.sku,url:s.url,flat:s.flat || undefined,place:m.cat.place,layer:m.cat.place === 'kit' && !ST.STAIR_ROLES[m.cat.id] ? (/^door-/.test(m.cat.id) ? 'openings' : 'walls') : 'furnish',x:p.x,y:p.y,z:p.z,rot:p.rot,yaw:s.yaw,s:s.s || undefined,dims:s.dims,parent:p.parent || undefined,room:p.room || undefined}});
+          ops.push(app.modes.edgeTaken(p.edge),app.modes.edgeTaken(p.edge2),{type:'object.place',args:{id,name:m.cat.name,...(m.cat.id.startsWith('flavor-') && {flavor:app.lib.objects[m.cat.id]?.skus.find(k => k.sku === s.sku)?.shape}),cat:m.cat.id,sku:s.sku,url:s.url,flat:s.flat || undefined,place:m.cat.place,layer:m.cat.place === 'kit' && !ST.STAIR_ROLES[m.cat.id] ? (/^door-/.test(m.cat.id) ? 'openings' : 'walls') : 'furnish',x:p.x,y:p.y,z:p.z,rot:p.rot,yaw:s.yaw,s:s.s || undefined,dims:s.dims,parent:p.parent || undefined,room:p.room || undefined}});
         }
       }
       app.batch(ops); app.select(ids); app.lastPick = {ids,count:plan.length};

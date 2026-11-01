@@ -27,7 +27,7 @@ function stripOp(type, args, area) {
     case 'building.set': { // a rename the seat may not see: a no-op that keeps the seq; its heights (base, storey) are not a label and do travel
       if (!('name' in args)) return null;
       const { name, ...a } = args;
-      return a.base !== undefined || a.storey !== undefined || a.roof !== undefined ? { type, args: a } : { type: 'entities.set', args: { set: {} } };
+      return a.base !== undefined || a.storey !== undefined || a.roof !== undefined || a.roofShape !== undefined ? { type, args: a } : { type: 'entities.set', args: { set: {} } };
     }
     case 'entities.set': {
       const set = {}; let changed = false;

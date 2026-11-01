@@ -1,0 +1,64 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Turnip Works caption</title>
+<!-- A BEAT CAPTION (tools/promo, 2026-10-22; v3 LARGE): the benefit line laid over a beat of the 30/60 s cuts (Polymancer's
+     structure: one feature per beat, a caption that states the benefit). Transparent page, rendered to a PNG and overlaid
+     by cut.py with a fade. Typography only: Inter (the site's face, engine/client/vendor/inter), cream with the card's gold
+     rule. v3 (Harry 2026-10-22: "if you're going to put words on the screen, you might as well go pretty large"): about
+     2.7x v2's size (12.4vh, was 4.6vh), one sentence a line (every caption is two short sentences), lifted clear of the
+     bottom edge (a review player's controls covered v2's), on a soft dark band with a strong shadow so it reads over pale
+     fog too (Gemini: v2 was low-contrast there). The band is a full-width soft wash, not a panel: never shaped like game
+     UI. ?t=the text ("Headline|plain line"; else the first sentence is the headline)  ?sq=1 the 1080 x 1080 frame
+     ?shape=4x5 the 1080 x 1350 frame (v4)  ?above=Y the words end at y = Y px (v4: a stacked split beat, over the GM's window) -->
+<style>
+@font-face { font-family: Inter; src: url('inter.woff2') format('woff2'); font-weight: 100 900; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; }
+body { font-family: Inter, system-ui, sans-serif; color: #f6ead2; }
+.cap { position: absolute; left: 6.4vh; right: 6.4vh; bottom: 12.5vh; display: flex; flex-direction: column; align-items: flex-start; gap: 2.2vh; }
+/* the band: as tall as the words plus a soft edge, the whole frame wide; darkest behind the type's left, fading right */
+.band { position: absolute; left: 0; right: 0; bottom: 6.5vh; background:
+  linear-gradient(to right, rgba(16, 12, 9, .66) 0%, rgba(16, 12, 9, .56) 55%, rgba(16, 12, 9, .22) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%); }
+.rule { width: 11vh; height: .9vh; background: #e0b04a; border-radius: .45vh; box-shadow: 0 .2vh .8vh rgba(0, 0, 0, .5); }
+.t { font-weight: 720; font-size: 12.4vh; line-height: 1.04; letter-spacing: -.018em; max-width: 100%; text-wrap: balance;
+  text-shadow: 0 .35vh 2.2vh rgba(0, 0, 0, .75), 0 .15vh .35vh rgba(0, 0, 0, .7), 0 0 .1vh rgba(0, 0, 0, .9); }
+.t span { display: block; }
+/* two-level (Harry 2026-10-22: "name the mechanic, then say what it does in plain words"): the headline biggest; the plain
+   line under it smaller but still large (6.4vh, 1.4x v2's whole caption); a long line wraps, balanced */
+.t .s { font-size: 6.4vh; font-weight: 600; line-height: 1.16; letter-spacing: -.004em; margin-top: 1.6vh; max-width: 26ch; opacity: .96; }
+/* the square (?sq=1) and v4's 4:5 (?shape=4x5): sized on the frame's WIDTH (vw; in the square vw = vh, so the square is as
+   it was), the frame being as wide as it is tall or narrower; the 4:5 sits a little higher off the bottom */
+body.sq .t .s { font-size: 5.2vw; max-width: 24ch; }
+body.sq .cap { left: 5.2vw; right: 5.2vw; bottom: 11vw; gap: 1.8vw; }
+body.sq .t { font-size: 8.6vw; }
+body.sq .rule { width: 9vw; height: .8vw; }
+body.sq.tall .cap { bottom: 15vw; }
+</style></head>
+<body>
+<div class="band" id="band"></div>
+<div class="cap" id="cap"><div class="rule"></div><div class="t" id="t"></div></div>
+<script>
+const q = new URLSearchParams(location.search);
+if (q.get('sq') === '1') document.body.classList.add('sq');
+if (q.get('shape') === '4x5') document.body.classList.add('sq', 'tall');
+const t = document.getElementById('t'), raw = q.get('t') || '';
+// "Headline|plain line", or the first sentence is the headline and the rest the line
+const lines = raw.includes('|') ? raw.split('|') : (() => { const i = raw.search(/(?<=\.)\s+(?=\S)/); return i < 0 ? [raw] : [raw.slice(0, i), raw.slice(i)]; })();
+lines.forEach((l, k) => { const s = document.createElement('span'); s.className = k ? 's' : 'h'; s.textContent = l.trim(); t.appendChild(s); });
+// the band sits behind the words: its mask fades the outer 22% top and bottom, so it reaches 45% of the words' height past them
+// a long headline steps down (to no less than 9vh, square 7vh) until it sits on one line; past that it wraps, balanced
+const fit1 = () => { const h = t.querySelector('.h'); if (!h) return; const floor = document.body.classList.contains('sq') ? innerWidth * 0.07 : innerHeight * 0.09;
+  h.style.fontSize = ''; let f = parseFloat(getComputedStyle(h).fontSize);
+  while (h.getBoundingClientRect().height > f * 1.04 * 1.5 && f > floor) { f -= innerHeight * 0.002; h.style.fontSize = f + 'px'; } };
+// ?above=Y (v4: a split beat in a stacked frame): the words' last line ends at y = Y px (just above the band between the
+// two windows), so the caption lies over the GM's window and the player's window below stays clear, as the 16:9 split's
+// caption lay over the GM's (left) window only
+const above = q.get('above') ? +q.get('above') : null;
+const lay = () => { fit1(); const c = document.getElementById('cap');
+  if (above !== null) c.style.bottom = Math.max(0, innerHeight - above) + 'px';
+  const r = c.getBoundingClientRect(), b = document.getElementById('band'), pad = r.height * 0.45;
+  b.style.bottom = Math.max(0, innerHeight - r.bottom - pad) + 'px'; b.style.height = (r.height + 2 * pad) + 'px';
+  // how many lines the words took (a sentence too long for the width wraps in two)
+  document.body.dataset.rows = String([...t.children].reduce((n, s) => n + Math.round(s.getBoundingClientRect().height / (parseFloat(getComputedStyle(t).fontSize) * 1.04)), 0)); };
+lay(); document.fonts.ready.then(lay);
+</script>
+</body></html>

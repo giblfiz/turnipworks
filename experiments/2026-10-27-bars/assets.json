@@ -1,0 +1,43 @@
+{
+ "assets": [
+  {
+   "id": "cell-bars-post",
+   "object": "cell-bars-post",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    8,
+    8,
+    108
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing square wrought-iron POST (the corner or end stanchion of a run of prison-cell iron bars), standing alone with nothing attached to it: one thick plain straight square iron shaft that is the same width almost all the way up, a low square iron foot plate at the bottom and a squat square iron cap with a flat top; two flat iron bands, only slightly raised, wrap the shaft at one third and two thirds of its height, and a few round rivet heads sit on the bands, the foot plate and the cap. Proportions 8 inches square and 108 inches tall: a very tall slender post about thirteen times as tall as it is wide. The foot plate and the cap stick out only a thin one-inch lip beyond the shaft on every side, no flare, no stepped or spreading base: the outline of the whole post is a straight-sided tall narrow box with just a small lip at the bottom and at the top, like the bands. Dark charcoal-grey forged iron with a little rust-brown patina and softly worn lighter edges, the same iron as a prison cell's bars; dark grey, not black. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, clear transparent space above the cap and below the foot plate, no scene or additional objects, no bars, panels, gates or chains attached, no text, no logos, no recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the cap and the whole shaft down to the foot plate are visible; the whole post fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, finials, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one tall slender free-standing square iron post (stanchion) with a foot plate and a cap, dark rusty iron, the corner post of a run of prison-cell bars",
+    "must": [
+     "a single tall slender upright iron post or stanchion",
+     "a foot plate at the bottom and a cap at the top",
+     "dark iron colour"
+    ],
+    "must_not": [
+     "a statue, lamp post with a lamp, or column of carved stone",
+     "bars, panels or gates attached",
+     "several objects",
+     "thin spikes or chains"
+    ]
+   },
+   "prompt_history": [
+    {
+     "v": 1,
+     "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing square wrought-iron POST (the corner or end stanchion of a run of prison-cell iron bars), standing alone with nothing attached to it: one plain straight square iron shaft, a heavier square iron foot plate at the bottom, and a squat square iron cap with a flat top; two raised flat iron bands wrap the shaft at one third and two thirds of its height, and a few large round rivet heads sit on the bands, the foot plate and the cap. Proportions 8 inches square and 108 inches tall: a very tall slender post about thirteen times as tall as it is wide. The foot plate and the cap are only a little wider than the shaft (about 10 inches square) and only a few inches tall. Dark charcoal-grey forged iron with a little rust-brown patina and softly worn lighter edges, the same iron as a prison cell's bars; dark grey, not black. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, clear transparent space above the cap and below the foot plate, no scene or additional objects, no bars, panels, gates or chains attached, no text, no logos, no recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the cap and the whole shaft down to the foot plate are visible; the whole post fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, finials, thin spikes or isolated floating components.",
+     "result": "mesh v1: foot plate 12.8 in wide, shaft ~6 in: bbox 1:8.4, base-slab rule"
+    },
+    {
+     "v": 2,
+     "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing square wrought-iron POST (the corner or end stanchion of a run of prison-cell iron bars), standing alone with nothing attached to it: one thick plain straight square iron shaft that is the same width almost all the way up, a low square iron foot plate at the bottom and a squat square iron cap with a flat top; two flat iron bands, only slightly raised, wrap the shaft at one third and two thirds of its height, and a few round rivet heads sit on the bands, the foot plate and the cap. Proportions 8 inches square and 108 inches tall: a very tall slender post about thirteen times as tall as it is wide. The foot plate and the cap are barely wider than the shaft (9 inches square against the shaft's 8) and only a few inches tall: the outline of the whole post is almost a straight-sided tall box. Dark charcoal-grey forged iron with a little rust-brown patina and softly worn lighter edges, the same iron as a prison cell's bars; dark grey, not black. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, clear transparent space above the cap and below the foot plate, no scene or additional objects, no bars, panels, gates or chains attached, no text, no logos, no recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the cap and the whole shaft down to the foot plate are visible; the whole post fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, finials, thin spikes or isolated floating components.",
+     "result": "mesh v2: bbox 11.2 in square, 1:9.7; shaft ~6.8 in; foot 1.64x shaft (base-slab rule)"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,4 @@
+orb-blinded-eye | tries: 1 | PASS: whole single subject and clear visual margins; RGBA corners alpha 0; subject/colour; no text; 1024x1024 | A white cartoon eye with a dark pupil is crossed out by a thick black diagonal slash.
+orb-blinded-cloud | tries: 1 | PASS: whole single cloud motif and clear margins; RGBA corners alpha 0; subject/colour; no text; 1024x1024 | A charcoal-black puffy cloud has two dark raindrops beneath it.
+orb-grappled | tries: 1 | PASS: whole single subject and clear margins; RGBA corners alpha 0; subject/colour; no text; 1024x1024 | One orange-tan cartoon hand curls its chunky fingers into a grabbing pose in an oblique side view.
+orb-restrained | tries: 1 | PASS: whole single padlock-and-chain motif and clear margins; RGBA corners alpha 0; subject/colour; no text; 1024x1024 | A large brass-gold padlock holds a short dark iron chain through its shackle.

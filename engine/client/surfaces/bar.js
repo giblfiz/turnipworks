@@ -70,12 +70,18 @@ export function barSurface(R, app) {
     app.emit('bar.close');
   }
   app.on((what, data) => { if (what === 'bar.open') show(typeof data === 'string' ? data : null); if (what === 'selection' || what === 'refresh') placeholder(); if (open && what === 'refresh') { const oldHi = hi, scroll = list.scrollTop; update(activeQuery); setHi(oldHi); list.scrollTop = scroll; } });
-  function placeholder() { const n = app.sel.size; input.placeholder = n ? `${n} selected · type a command, or say / roll …` : 'Search commands, things to place, people, places… or say / roll'; }
+  function placeholder() { const n = app.sel.size, hand = document.documentElement.classList.contains('tw-hand'); /* (a phone: words that fit, docs/UI.md "On a phone") */ input.placeholder = n ? (hand ? `${n} selected · a command…` : `${n} selected · type a command, or say / roll …`) : hand ? 'Search, place, say or roll' : 'Search commands, things to place, people, places… or say / roll'; }
   // The shared drag gesture captures Escape before the input sees it. Let it cancel the ghost,
   // and clear the bar pick as well, just as Escape does before a drag starts.
   addEventListener('keydown', ev => { if (open && ev.key === 'Escape' && app.draggingOut?.()) clearPick(); }, true);
   input.addEventListener('focus', () => { if (!open) show(); });
-  input.addEventListener('input', () => { histAt = -1; recalled = false; update(); });
+  input.addEventListener('input', () => {
+    // a leading "/" is the open-the-bar key typed again (Harry 2026-10-29: "if I start a quick bar command with / it
+    // should ignore it"): drop it, keeping the caret where it was. No command starts with "/".
+    const v = input.value, m = v.match(/^\s*\/+\s*/);
+    if (m) { const at = Math.max(0, (input.selectionStart ?? v.length) - m[0].length); input.value = v.slice(m[0].length); input.setSelectionRange(at, at); }
+    histAt = -1; recalled = false; update();
+  });
   input.addEventListener('keydown', (ev) => {
     if (ev.key === 'Escape') { ev.preventDefault(); ev.stopPropagation(); escape(); return; }
     if (ev.key === 'ArrowDown') { ev.preventDefault(); setHi(Math.min(rows.length - 1, hi + 1)); return; }
@@ -133,6 +139,11 @@ export function barSurface(R, app) {
       out.push({ sec: 'intent', s: 1000, ref: `cmd:${c.id}`, title: chips.join(' '), chips, icon: R.iconOf(c, ctx), keys: c.keys, run: () => R.run(c, a, ctx), sub: 'Enter to do it' });
       intentChips = intentChips || chips;
     }
+    // A PHONE'S EMPTY BAR (Harry 2026-10-24, "the default user for this mode is 'player on the road'"): the two things a
+    // player does most, without the phone's keyboard: a d20 at once, and the field set to "say ". Typed rolls as ever.
+    if (!q && window.TW_HAND && (app.gm() || app.can('chat'))) out.push(
+      { sec: 'intent', s: 1001, ref: 'hand:roll', title: 'Roll d20', chips: ['roll', 'd20'], icon: 'dices', sub: 'or type: roll 2d6+3', run: () => app.roll('d20') },
+      { sec: 'intent', s: 1000, ref: 'hand:say', title: 'Say…', icon: 'message-square', sub: 'then type it', run: () => setTimeout(() => app.emit('bar.open', 'say '), 0) });
     // send selection to an area: "send to cellar"
     const send = q.match(/^send (?:to\s+)?(.*)$/i) || (app.sel.size ? q.match(/^(?:move|travel|teleport)\s+(?:(?:it|him|her|them|selection)\s+)?to\s+(.+)$/i) : null);
     if (send && app.can('transfer')) for (const t of app.sync.campaign.areas) if (t.id !== app.area() && score(send[1], t.name)) out.push({ sec: 'intent', s: 900, ref: `send:${t.id}`, title: `Send selection to ${t.name}`, chips: ['send', `${app.sel.size} thing${app.sel.size === 1 ? '' : 's'}`, '→', t.name], icon: 'send', run: () => app.transfer(app.selected(), t.id) });
@@ -168,7 +179,7 @@ export function barSurface(R, app) {
 
     // commands
     for (const c of R.available(ctx)) {
-      if (c.hidden && (q.length < 3 || c.stub)) continue; // stubs reached by typing (natural language) are offered by the fallback row
+      if (c.ringOnly || (c.hidden && (q.length < 3 || c.stub)) || (window.TW_HAND && c.id === 'view.sheet')) continue; // (a phone: no keys, so no key sheet) // stubs reached by typing (natural language) are offered by the fallback row
       const title = typeof c.title === 'function' ? c.title(ctx) : c.title;
       let s = score(q, title, ...c.synonyms, c.group);
       if (!s) continue;
@@ -199,12 +210,12 @@ export function barSurface(R, app) {
       }
     }
     // places: areas, buildings and rooms
-    for (const t of app.sync.campaign?.areas || []) { const s = score(q, t.name, 'area', 'go to'); if (s) out.push({ sec: 'places', s: s + (q ? 0 : -5), ref: `area:${t.id}`, title: t.name, sub: `area · ${t.visibility}${t.id === app.area() ? ' · you are here' : ''}`, icon: 'map', run: () => app.setMain(t.id), alt: { icon: 'picture-in-picture-2', label: 'PiP', run: () => app.openPip(t.id) } }); }
+    for (const t of app.sync.campaign?.areas || []) { const s = score(q, t.name, 'area', 'go to'); if (s) out.push({ sec: 'places', s: s + (q ? 0 : -5), ref: `area:${t.id}`, title: t.name, sub: `area · ${t.visibility}${t.id === app.area() ? ' · you are here' : ''}`, icon: 'map', run: () => app.setMain(t.id), alt: app.pipAllowed?.() !== false && { icon: 'picture-in-picture-2', label: 'PiP', run: () => app.openPip(t.id) } }); }
     if (q) for (const e of Object.values(app.entities())) if ((e.kind === 'room' || e.kind === 'building') && !app.fog?.hidden(e)) { const s = score(q, app.nameOf(e), e.kind); if (s) out.push({ sec: 'places', s: s - 2, ref: `ent:${e.id}`, title: app.nameOf(e), sub: e.kind === 'room' ? `room · ${e.recipe.w * 5}×${e.recipe.d * 5} ft` : 'building', icon: e.kind === 'room' ? 'square-dashed' : 'house', entity: e, run: () => { app.select(e.id); app.frameSelection(); } }); }
     // people
     for (const s0 of app.sync.campaign?.seats || []) {
       const s = score(q, s0.name, s0.label, s0.role, 'person');
-      if (s && q) out.push({ sec: 'people', s, ref: `seat:${s0.id}`, title: s0.name, sub: `${s0.label || s0.role}${s0.location ? ' · at ' + app.areaName(s0.location) : s0.elsewhere ? ' · elsewhere' : ''}`, person: s0, color: s0.color, run: () => s0.location && app.setMain(s0.location), alt: s0.location && { icon: 'picture-in-picture-2', label: 'PiP', run: () => app.openPip(s0.location) } });
+      if (s && q) out.push({ sec: 'people', s, ref: `seat:${s0.id}`, title: s0.name, sub: `${s0.label || s0.role}${s0.location ? ' · at ' + app.areaName(s0.location) : s0.elsewhere ? ' · elsewhere' : ''}`, person: s0, color: s0.color, run: () => s0.location && app.setMain(s0.location), alt: s0.location && app.pipAllowed?.() !== false && { icon: 'picture-in-picture-2', label: 'PiP', run: () => app.openPip(s0.location) } }); // (a phone: no PiP)
     }
     // cues: lighting is real now (the "Lighting here: …" commands set this area's lighting profile); weather is still to come
     if (q) for (const [name, ic] of [['Rain', 'droplet']]) { const s = score(q, name, 'cue weather'); if (s) out.push({ sec: 'cues', s: s - 20, title: `${name} (later)`, sub: 'cue', icon: ic, disabled: true, run: () => {} }); }
@@ -282,8 +293,11 @@ export function barSurface(R, app) {
       close();
       return;
     }
-    if (!d.out && Math.hypot(ev.clientX - d.x, ev.clientY - d.y) < 6) activate(d.r, ev);
+    if (!d.out && Math.hypot(ev.clientX - d.x, ev.clientY - d.y) < 6) { activate(d.r, ev); if (ev.pointerType === 'touch') swallowClick(); }
   });
+  // (a finger: the list is gone by the time the browser sends this tap's click, which then lands on whatever was under the
+  // row: on a phone the Settings launcher. 2026-10-24) That one click is dropped.
+  function swallowClick() { const f = (e) => { e.preventDefault(); e.stopImmediatePropagation(); }; addEventListener('click', f, { capture: true, once: true }); setTimeout(() => removeEventListener('click', f, true), 500); }
 
   function remember() { const q = activeQuery; if (q) { hist = [...hist.filter(h => h !== q), q].slice(-50); try { localStorage.setItem('tw.barHistory', JSON.stringify(hist)); } catch { } } }
   function activate(r, ev) {

@@ -68,6 +68,12 @@ try:
           out[f] = { door, post, over: S.slabOver }; } return out; })()''')
         worst = {k: max(abs(v[k]) for v in vals.values()) for k in ('door', 'post', 'over')}
         check('W7d every family: door head gap, slab overhang and corner post height are each within 1 in', len(vals) == len(fams) and all(w <= 1.0 for w in worst.values()), f'worst door {worst["door"]:.1f} in, slab {worst["over"]:.1f} in, post {worst["post"]:.1f} in')
+        # ---- W7e the stained-glass panels (2026-10-24): built and measured, each sits in its wall like the family's straights
+        sg = pg.evaluate('''(async () => { const out = {}; for (const f of ['dressed-stone', 'temple-stone']) { const S = await __wallbench.build(f, { light: true }); __wallbench.measure(S);
+          const its = S.items.filter(i => /window-stained-glass/.test(i.sku || '') && i.frame);
+          out[f] = { n: its.length, frames: its.map(i => [i.frame.a1 - i.frame.a0, i.frame.y1 - i.frame.y0, i.frame.c0, i.frame.c1].map(v => +v.toFixed(1))),
+            bad: S.findings.filter(x => x.sev !== 'ok' && x.kind !== 'structure' && (/stained/.test(x.sku || '') || /stained/.test(x.sku2 || ''))).map(x => x.text) }; S.group.parent.remove(S.group); } return out; })()''')
+        check('W7e the stained-glass panels (dressed-stone, temple-stone) fill their slots flush: no seam, height or face finding against their neighbours', all(v['n'] >= 2 and not v['bad'] for v in sg.values()), json.dumps(sg)[:400])
         # ---- W3 the mis-scaled fixture
         pg.evaluate("__wallbench.load('rough-timber')"); pg.wait_for_function("__wallbench.family() === 'rough-timber' && __wallbench.specimen() && __wallbench.specimen().findings", timeout=60000)
         sku = 'wall-straight--rough-timber--s4'

@@ -1,0 +1,71 @@
+{
+  "id": "pawn.attack",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: TWO broad straight swords CROSSED in one bold X, points up to the upper left and upper right: thick ivory-steel blades with a soft bevel down each blade, chunky slate crossguards, warm ochre wooden grips and round pommels at the bottom. Both swords equally large, identical and clearly separate where they cross. Plain blades, no engraving, no shield, no crest, no blood. Reads instantly as attack / fight. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.damage.webp",
+      "sha256": "65d74ce7637546404e5f3540055d2ea6fbce0700ff986a5cdc05d2c77abf8e01",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.give.webp",
+      "sha256": "fa7d5d5ea7fa300d5d1f63d5e27c33bc778767372c3e0d6c67f22f69552ba8b9",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.sheet.webp",
+      "sha256": "4a3cf8dea549f938400b6d67bc869ae96c41c9f7c5d3cf153b2b54df7f9835c8",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/charcoal--pawn.attack.png",
+  "source_sha256": "4ffa61abad8d05d31f38c35d80274cf3a3b7b2785f4240f2bb7d5fc6c1a88b96",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/pawn.attack.webp",
+    "19": "charcoal/sizes/19/pawn.attack.webp",
+    "22": "charcoal/sizes/22/pawn.attack.webp",
+    "26": "charcoal/sizes/26/pawn.attack.webp",
+    "31": "charcoal/sizes/31/pawn.attack.webp",
+    "36": "charcoal/sizes/36/pawn.attack.webp",
+    "38": "charcoal/sizes/38/pawn.attack.webp",
+    "42": "charcoal/sizes/42/pawn.attack.webp",
+    "44": "charcoal/sizes/44/pawn.attack.webp",
+    "50": "charcoal/sizes/50/pawn.attack.webp",
+    "52": "charcoal/sizes/52/pawn.attack.webp",
+    "62": "charcoal/sizes/62/pawn.attack.webp",
+    "84": "charcoal/sizes/84/pawn.attack.webp",
+    "100": "charcoal/sizes/100/pawn.attack.webp",
+    "128": "charcoal/pawn.attack.webp"
+  },
+  "sha256": {
+    "18": "5e1332966b21c6bf9fcc253e43c6216f7f0a893bb37f77c81f50c9e531c46c2f",
+    "19": "e4fe813b701b4151cdc32c8eea827ec3b31b988aa0169772439100cf6a7b761b",
+    "22": "51824e8852e2ac5dbf778b83120dddff76214013838aa4b00c64f3a66bcaeb6c",
+    "26": "e11fed41edf4ab6ea98e74cdb9ea3c3f60692178649e51f46903d3c23cde9dfc",
+    "31": "d4ecbcc4a034228b0c0f6f8e24ed1b62c5849f5ecb82463175f802ce56c93a14",
+    "36": "97808bb776462340bada7baf44cc88828a7f2b8683490ef0d208253e0fea9829",
+    "38": "580c524355ce24d2de6d018e1fc9b6c2ffdd202735d4e5c2b66c240d00434974",
+    "42": "16e7f186658aeb06246312ea8f89fda1342f521cce995c1e73001b133ba06071",
+    "44": "8f1d4f9fc03618e8063c70516535c0f58db570f788831b2244be64bb0ce2c7d4",
+    "50": "9e858edcaac6ba0a3c5df72bd6219d5cd70c8ee596e22f943583e32175682f03",
+    "52": "4dd35e53495c7a80e26673df9542da6bc426d5b72c8535c84524ddf42ec930bc",
+    "62": "ef8c5e79ec969330aa3cba611541a70956ab13c2bee9638b46c582a485b86a43",
+    "84": "f2be2de355f886a8733915821c7592b0a8d7694c45b0d2f63aa4085c3f98ee5e",
+    "100": "e28286eb29abf622c12a2529269801cd952b5f8529f8a665f7c5c5d006439566",
+    "128": "dc1a8469a369980b8a3ea32ae161802fbe8c1db147bf5bb4bbc4a73fab2479db"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "This is one unlabelled button in the contextual menu around a selected piece\nin a browser 3D virtual tabletop. View it at its supplied size.\nWhat action does this button perform on the selected piece?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "685fe25f6c087e7a2679ca8edd56e58304eb5064fefee0b38c7304af30886f41",
+  "blind_prompt_sha256": "5c3061251ea3e03761074ead4edbb50de3627538ce1e8adb8d0c6c8952c4c7f1",
+  "read_directory": "reads/charcoal/pawn.attack/4ffa61abad8d05d3-5c3061251e"
+}

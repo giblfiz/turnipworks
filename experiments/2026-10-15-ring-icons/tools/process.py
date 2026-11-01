@@ -24,6 +24,9 @@ BATCH = Path(__file__).resolve().parents[1]
 REPO = BATCH.parents[1]
 ASSETS = REPO / 'tools/spawn-tuner/assets/ui-icons'
 MODEL = 'gemini-3.1-pro-preview'
+# Since 2026-10-20 the paid call (VISION below) is blocked; later reads go through agy-run, the Gemini subscription
+# (experiments/2026-10-29-ring-attack-target/blind_read.py), and name the model they actually used.
+BLIND_MODELS = (MODEL, 'gemini-4-argon-high via agy-run (subscription)', 'gemini-3.8-flash-high via agy-run (subscription)')
 PYTHON = 'python3'
 VISION = '~/fauna-tools/gemini-vision.py'
 BLIND_PROMPT = '''This is one unlabelled button in the contextual menu around a selected piece

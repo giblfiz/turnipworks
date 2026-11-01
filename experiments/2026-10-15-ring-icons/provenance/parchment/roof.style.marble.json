@@ -1,0 +1,76 @@
+{
+  "id": "roof.style.marble",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof material option pictogram: One pitched roof wedge clad in a few very LARGE smooth polished BRIGHT WHITE MARBLE panels with bold wavy grey veins running across them; flat gleaming panels with fine straight joints, NOT overlapping shingles or slates, NOT grey or blue. Dominant colour: white marble. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a warm pale parchment circular ground with quiet thin antique brass rim; dark outlines for strong contrast. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.thatch.webp",
+      "sha256": "95b8c204e4f6e7cdb1c4323f57762311ec9815f960a79ba65d04300382ba53ce",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.flat.webp",
+      "sha256": "32eaee73c0657074dd46cb45328438f98b5a93544b355e3988d7c6d6a8794f0c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.slate.webp",
+      "sha256": "975224290396c2463b48957ce1a60b28592adfc50addf45076f9d6241a642154",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.style.marble.png",
+      "sha256": "46409a7eb7cddaeacf9604b35c5bf1f580d4c386b55baa1bf6649e6e3b1d49b1",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--roof.style.marble.png",
+  "source_sha256": "2b52b0a915b2da93aa30391963004b1f3a9790f4d9a881fa2c7a2d9af547aabd",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/roof.style.marble.webp",
+    "19": "parchment/sizes/19/roof.style.marble.webp",
+    "22": "parchment/sizes/22/roof.style.marble.webp",
+    "26": "parchment/sizes/26/roof.style.marble.webp",
+    "31": "parchment/sizes/31/roof.style.marble.webp",
+    "36": "parchment/sizes/36/roof.style.marble.webp",
+    "38": "parchment/sizes/38/roof.style.marble.webp",
+    "42": "parchment/sizes/42/roof.style.marble.webp",
+    "44": "parchment/sizes/44/roof.style.marble.webp",
+    "50": "parchment/sizes/50/roof.style.marble.webp",
+    "52": "parchment/sizes/52/roof.style.marble.webp",
+    "62": "parchment/sizes/62/roof.style.marble.webp",
+    "84": "parchment/sizes/84/roof.style.marble.webp",
+    "100": "parchment/sizes/100/roof.style.marble.webp",
+    "128": "parchment/roof.style.marble.webp"
+  },
+  "sha256": {
+    "18": "1f868b31d68f159ba001f133cb6b5089077fce999b7850193b5f6499bc60c9e6",
+    "19": "268d264851dd3feb380ef1567e0d346c245cc6375d026db24418d61983770590",
+    "22": "50d71df4ec8c7bd470cf97c193edcb6bd10144c7420704df0a0ff97725edff2e",
+    "26": "29b11f77efd17b4954bca5d3571785c0f4e8bcf56c1300cf09ec0972d87f4041",
+    "31": "1219950a3e17a448d1288f8848a8506b6f9e8fba3fb473a05f1b4c5d6cc9998f",
+    "36": "10214f720bc5a4dcb79a64c652586b16e8e43aa38826fb630460739768a648cc",
+    "38": "2d8a130e112015347c94df1865b7d4422384fac95c90b64d7a01e79ec0643559",
+    "42": "e6f9c5f07412d3d759bf044df530c2bb54936222a4c97125fd8ac55b3ced6b2e",
+    "44": "04506da591fce8fe6e0a9ff29ec578ecf05d0f205ef046ba337a12988937d519",
+    "50": "b02f76b678797c79fb93cf0b1313794d55db8ebd67234c97e6e10d02aa601b9a",
+    "52": "205a400c59ac2c139fafae9abc2acfeff627b1d9db6e7ed3cacbd6d76d4cee3f",
+    "62": "9688e9bdabc8f9a537498357670f2b33980967d48822013a160a06066e90bd72",
+    "84": "82065830122d33384de9e3d1861ce217ae0f5a2dc515f48ae468109e9a1ef1e8",
+    "100": "6ed9443efa4dbac9d2dc6fa315425443c8da9dc929b1c2da2c9287c66a85a476",
+    "128": "103a737153fa1944c4a05669b2a78cd15fd3ef57ecc7db5a92cdf7acb514b1a3"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "c1ec60db06c52bc95919aeff6a1dbe6c70c6e4326b66ae75ec53b46f68d73f3a",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/parchment/roof.style.marble/2b52b0a915b2da93-2ddccf6ab7"
+}

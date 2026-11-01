@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Turnip Works caption rug</title>
+<!-- A CAPTION RUG's face (tools/promo, 2026-10-22): the 30B cut's beat captions printed IN the world, on a long rug the rig
+     lays on the ground (or a floor) of the scene: the welcome mat's set (mat.html) with the beat's words instead of the
+     four phrases. Inter (the site's face), cream on the loading screen's brown, the gold border rules, the existing mark
+     at the left. The viewport IS the rug: everything sized in vh. ?t=the words ("Headline|line", or the first sentence is the headline)
+     v3 (Harry 2026-10-22, "go pretty large"): one sentence a line (two lines), the type 31vh a line (v2: one line at
+     30vh), thinner margins, so for the same rug the words are about twice as tall on the ground; the rig sizes the rug
+     to the frame (shots/scripts.py RUG_AUTO). -->
+<style>
+@font-face { font-family: Inter; src: url('inter.woff2') format('woff2'); font-weight: 100 900; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+body { background: #3a3229; color: #f6ead2; font-family: Inter, system-ui, sans-serif; display: grid; }
+.rug { margin: 3.2vh; background: #4a4136; display: grid; box-shadow: inset 0 0 0 1.8vh #4a4136, inset 0 0 0 3.2vh #e0b04a; }
+.in { margin: 6vh; border: .8vh solid rgba(246, 234, 210, .55); display: flex; align-items: center; justify-content: center; gap: 5vh; padding: 0 5vh; }
+.mark { height: 58vh; width: 58vh; flex: none; }
+.t { font-weight: 800; font-size: 31vh; line-height: .98; letter-spacing: -.012em; white-space: nowrap; display: flex; flex-direction: column; }
+/* two-level (Harry 2026-10-22: name the mechanic, then say what it does): the headline biggest, the plain line under it smaller */
+.t.two .h { font-size: 34vh; } .t.two .s { font-size: 19vh; font-weight: 650; letter-spacing: -.005em; margin-top: 3vh; opacity: .92; }
+</style></head>
+<body>
+<div class="rug"><div class="in"><img class="mark" src="mark.svg" alt=""><div class="t" id="t"></div></div></div>
+<script>
+const raw = new URLSearchParams(location.search).get('t') || '', t = document.getElementById('t');
+// "Headline|plain line" (or "First sentence. The rest."): the headline big, the rest one smaller line under it
+const m = raw.includes('|') ? raw.split('|') : (() => { const i = raw.search(/(?<=\.)\s+(?=\S)/); return i < 0 ? [raw] : [raw.slice(0, i), raw.slice(i)]; })();
+m.forEach((l, k) => { const s = document.createElement('span'); s.className = k ? 's' : 'h'; s.textContent = l.trim(); t.appendChild(s); });
+if (m.length > 1) t.classList.add('two');
+</script>
+</body></html>

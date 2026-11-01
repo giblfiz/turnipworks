@@ -1,0 +1,18 @@
+You are a fairness reviewer for a public comparison table of virtual tabletops (VTTs). The people who publish it make one of the products (Turnip Works, row id "turnip-works", group "ours"). They have promised: the table is their own development checklist, their own row is scored by exactly the same rules as everyone else's, and makers of every other product will be invited to correct their rows. Your job is to red-team it BEFORE it goes out. Be blunt; agreement is not the goal.
+
+Read these files in the current directory (read-only; do not modify anything):
+- docs/site/vtt-index.json  (the data: criteria with glosses, then every product with features {v, note, src, verified}, upsides, downsides, sources)
+- docs/site/vtt-index.md   (the page's words: intro, disclosure, how to read it)
+- engine/client/site/vtt-index-md.txt  (the whole table rendered as plain text, for convenience)
+
+Look for, in this order of importance:
+1. BIAS TOWARD TURNIP WORKS: is our row scored more generously than the same facts would be scored for another product? (e.g. "yes" where another row with the same facts got "partial"; dev-only features counted; upsides that are puffery; downsides softened; criteria or column choices that happen to favour a browser 3D VTT; the default ordering, labels, or the intro wording.)
+2. UNFAIR DOWNSIDES or notes on other products: anything snide, out of date, not supported by the cited source, comparisons, or downsides that are really just "not like us".
+3. MISSING UPSIDES: products whose real strengths (the reason people pick them) are missing, especially the big established ones (Roll20, Foundry, Fantasy Grounds, Owlbear Rodeo, TaleSpire, Tabletop Simulator, D&D Beyond Maps, Alchemy) and the 3D competitors (Polymancer, Atlas 3D, Adunata, The RPG Engine, TerrainTale, Multiverse Designer...).
+4. WRONG CLAIMS: values you believe are factually wrong as of late 2026 for well-known products (say what you think is right and how sure you are, as a percentage). Also inconsistent scoring between rows for the same kind of fact.
+5. Anything else that would embarrass the publisher in front of r/VTT makers.
+
+Output format (plain text, no preamble):
+VERDICT: one paragraph, starting with one of FAIR / MOSTLY FAIR / BIASED / UNFAIR.
+FINDINGS: a numbered list, each line: [severity high|medium|low] [category bias|downside|upside|wrong|consistency|framing] <row id>.<field or "row"> : the problem — the fix you propose (confidence %).
+Keep it under about 60 findings; most important first.

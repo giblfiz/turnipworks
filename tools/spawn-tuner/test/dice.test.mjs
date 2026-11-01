@@ -8,9 +8,13 @@
 //       throw settled within the limit (or the flat drop); over D3's throws
 //   D5  the recording: decode(encode) is within quantisation of the simulated poses; a d100 is a tens and a units d10
 //   D6  the flat drop (no throw allowed) lands every die flat on open, seen floor, clear of every prop and pawn
+//   D10 BIG POOLS (2026-10-29: more than BIG_POOL.over dice, kept die by die, later handfuls a beat later): 10 to 30 dice
+//       at the defaults and at the lively house look, on the tavern floor: every die reads its number, none cocked,
+//       stacked, inside another, unseen or out of reach; most of the pool thrown (not set down); each die waits unseen
+//       until its handful leaves; a deadline (`until`) brings the throw back in time, dice and all
 // Usage: node tools/spawn-tuner/test/dice.test.mjs [THROWS=1200]
 import { DIE_TYPES, dieGeo, remap, qMul, topIndex, valueOfLabel, flatness, readTop } from '../js/fx/dicegeo.js';
-import { loadRapier, throwDice, decode, diceOfRoll, PHYS_DEFAULTS } from '../js/fx/dicephys.js';
+import { loadRapier, throwDice, decode, diceOfRoll, PHYS_DEFAULTS, BIG_POOL } from '../js/fx/dicephys.js';
 import { DICE_DEFAULTS, DICE_SCHEMA, normDice, physOf } from '../js/fx/diceparams.js';
 import { fileURLToPath } from 'node:url';
 
@@ -143,6 +147,40 @@ check(stats.quant < 0.004, 'D5 the recording decodes within quantisation of the 
   }
   check(steps > 0 && pathErr <= KEY_POS + 0.006 && rotErr <= 2.3, `D9 the played path stays on the 240 Hz truth (${keys} keyframes for ${steps} steps)`, `worst ${pathErr.toFixed(4)} ft, ${rotErr.toFixed(2)} deg`);
   check(steps > 0 && pen <= 0.03, 'D9 no played pose sinks a die into the wall or the floor by more than 0.03 ft', `worst ${pen.toFixed(4)} ft (the physics itself: ${penRaw.toFixed(4)} ft)`);
+}
+// D10 big pools
+{
+  const LIVELY = { ...P, size: 3, round: 0.3, height: 14.2, angle: 10, strength: 10.7, spin: 26, realMM: 53, bounce: 0.85, tableBounce: 0.85, damping: 0.5, angDamping: 1.5, calm: 4, tries: 15, reach: 30, settle: 4.4 }; // (the house look, 2026-10-29)
+  const big = { dice: 0, bad: 0, thrown: 0, ms: [], why: {}, waitOk: 0, waits: 0 };
+  for (const [name, PP, sets] of [['defaults', P, [10, 12, 20]], ['house', LIVELY, [12, 20, 30]]]) for (const n of sets) for (let k = 0; k < 4; k++) {
+    const types = Array.from({ length: n }, (_, i) => i % 5 === 4 ? 'd10' : 'd6'), vals = types.map(t => { const v = valuesOf(t); return v[Math.floor(rnd() * v.length)]; });
+    const from = { x: (rnd() - 0.5) * 4, y: 3, z: 0, r: 0.9, floor: 0 }, to = { x: from.x + (rnd() - 0.5) * 4, y: 0, z: 9 };
+    const vis = name === 'house' ? (x, z) => x > -19 && x < 19 && z > -5 && z < 25 : seen;
+    const t0 = performance.now(), r = throwDice(R, { dice: types, P: PP, from, to, world, visible: vis, seed: 500 + n * 10 + k }); big.ms.push(performance.now() - t0);
+    const D = decode(JSON.parse(JSON.stringify(r.rec))), s = PP.size;
+    big.thrown += n - r.setDown;
+    D.final.forEach((f, i) => {
+      const g = dieGeo(types[i]), { g: sym } = remap(g, f.q, vals[i]); big.dice++;
+      const no = (w) => { big.bad++; big.why[w] = (big.why[w] || 0) + 1; };
+      if (valueOfLabel(g, g.labels[topIndex(g, qMul(f.q, sym))]) !== vals[i]) no('reads');
+      if (Math.acos(Math.min(1, flatness(g, f.q))) * 180 / Math.PI > PP.cocked) no('cocked');
+      if (Math.hypot(f.p[0] - from.x, f.p[2] - from.z) > PP.reach + 0.01) no('reach');
+      if (!vis(f.p[0], f.p[2])) no('unseen');
+      for (let j = 0; j < D.final.length; j++) if (j !== i) { const o = D.final[j], h = Math.hypot(f.p[0] - o.p[0], f.p[2] - o.p[2]);
+        if (f.p[1] - o.p[1] > 0.35 * s && h < (g.radius + dieGeo(types[j]).radius) * s) no('stacked');
+        if (j > i && Math.hypot(h, f.p[1] - o.p[1]) < (g.inR + dieGeo(types[j]).inR) * s * 0.95) no('inside'); }
+      if (D.release) { big.waits++; if ((D.release[i] > 0 ? D.waiting(D.release[i] - 0.01, i) : true) && !D.waiting(D.release[i] + 0.01, i)) big.waitOk++; }
+    });
+  }
+  big.ms.sort((a, b) => a - b);
+  check(big.bad === 0, `D10 big pools (${BIG_POOL.over + 1}+ dice): every die reads its number, none cocked, stacked, inside another, unseen or beyond reach`, `${big.dice - big.bad}/${big.dice} ${JSON.stringify(big.why)}`);
+  check(big.thrown >= big.dice * 0.8, 'D10 big pools: most of each pool is thrown, not set down', `${big.thrown}/${big.dice} thrown; ${big.ms.length} throws, median ${big.ms[big.ms.length >> 1].toFixed(0)} ms, slowest ${big.ms.at(-1).toFixed(0)} ms`);
+  check(big.waits > 0 && big.waitOk === big.waits, 'D10 big pools: a later handful waits unseen until it leaves the hand (the recording says when)', `${big.waitOk}/${big.waits}`);
+  // the deadline: a 30-dice pool given 400 ms comes back in about that (one try over at most), every die on the table
+  const t0 = performance.now(), types = Array(30).fill('d6');
+  const r = throwDice(R, { dice: types, P: LIVELY, from: { x: 0, y: 3, z: 0, r: 0.9, floor: 0 }, to: { x: 0, y: 0, z: 9 }, world, visible: seen, seed: 77, until: performance.now() + 400 }), ms = performance.now() - t0;
+  const fin = decode(r.rec).final, flatOk = fin.every((f, i) => Math.acos(Math.min(1, flatness(dieGeo(types[i]), f.q))) * 180 / Math.PI <= LIVELY.cocked);
+  check(ms < 1500 && fin.length === 30 && flatOk, 'D10 a deadline brings a big throw back in time, every die lying flat', `${ms.toFixed(0)} ms (deadline 400), ${r.tries} tries, ${r.setDown} set down`);
 }
 console.log(`\n${passes} passed, ${fails} failed`);
 process.exit(fails ? 1 : 0);

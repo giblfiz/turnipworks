@@ -1,0 +1,139 @@
+These are screenshots of a browser 3D virtual tabletop (painted miniature figures on round grey bases, in a tavern room),
+seen from the players' usual table distance: v2-table-day.png, v2-high-day.png, v2-low-day.png by day; v2-table-night.png and
+v2-high-night.png by night, from a player's seat in a dark room (she sees by her pawns' darkvision; the back row is hers).
+before-table-day.png is the previous version of the same effect, for comparison only.
+
+STEP 1, before interpreting anything: list every explicit label, name tag and text you can read in each image, and where.
+
+STEP 2: The back row (named L0, L1, L2, L3, L4, L5 from left to right) wears a light effect, an "aura", at increasing
+intensity; the front row wears the same middle intensity in six colours. For EACH pawn of the back row, describe only what
+you see of the light round it (shape, height, brightness, colour, motion cues such as sparks), without assuming the intent.
+
+STEP 3: The intent, level by level: 0 nothing; 1 a faint shimmer at the base; 2 a soft coloured light round the figure;
+3 flame-like light rising to about head height; 4 a tall column of light well above the figure, readable across the table;
+5 the same column with a large faint emblem picture hanging in it.
+a) Do the six back-row pawns read as CLEARLY increasing, step by step, in both day and night? Which neighbouring pair is
+   hardest to tell apart?
+b) Can you see the emblem in level 5? Describe it.
+c) Do the six front-row colours read as six different colours (name each as you see it)?
+d) Does any of it look broken (hard seams, banding, a visible tube edge, a flat card, clipping through walls, z-fighting,
+   hiding the figure's face)?
+e) Honest verdict: does it look like a CHEAP GAME EFFECT or like a PAINTED-MINIATURE-WORLD effect (light that belongs to a
+   world of painted miniatures, like object-source lighting painted on a mini)? What exactly makes it cheap, and the three
+   most important changes to move it toward the painted-miniature look?
+f) Compared with before-table-day.png: better, worse, or the same, and why?
+Be concrete and concise.
+The images are in /tmp/aura-gem-Te9F: before-table-day.png v2-high-day.png v2-high-night.png v2-low-day.png v2-table-day.png v2-table-night.png 
+Do NOT create, crop or write any files. Do not read any other files or folders.
+
+===== (gemini-4-argon-high)
+### STEP 1: Explicit Labels, Name Tags, and Text in Each Image
+
+#### 1. `v2-table-day.png`
+* **Top-left UI**: `P` / `Pawns`, `B` / `Build`, `S` / `Settings`; below: `Other games / New game`
+* **Left edge slider/ruler**: `1`
+* **Top-center UI**: `Search commands, things to place, people, places... or say / roll` and `/`; below: `Area 1`, `Open to players`, `Hide`
+* **Top-right UI**: `H` (in yellow circle), `Area 1`
+* **In-scene floating labels**: `Building 1` (above back row), `Common room` (center of room, overlapping the middle of the back row)
+* **Pawn base rims**:
+  * **Back row (L→R)**: `...0` (1st pawn, partially clipped by bar counter); white pointer triangle on 2nd pawn (`L1` washed out/occluded); 3rd–5th occluded by `Common room` and table; `L5` (6th pawn, partially washed out in yellow glow with pointer triangle).
+  * **Front row (L→R)**: `...old` (`gold`, 1st pawn, clipped on left by table); 2nd occluded by barrel; `blue` (3rd pawn); `green` (4th pawn); 5th & 6th occluded by table and wheel chandelier.
+* **Bottom-left UI**: `say ... or roll d20 in the bar`
+* **Bottom-right UI**: `live (ws) · 1 ms · Area 1 seq 2 · 60 fps`
+
+#### 2. `v2-high-day.png`
+* **Top-left / Left / Top-center / Top-right / Bottom-left / Bottom-right UI**: Identical to `v2-table-day.png` (`live (ws) · 1 ms · Area 1 seq 2 · 60 fps` at bottom-right).
+* **In-scene floating labels**: `Building 1` (over back row between L2 and L3), `Common room` (center).
+* **Pawn base rims**:
+  * **Back row (L→R)**: `L0` (1st), `L1` (2nd, partially behind orange stool leg), `L2` (3rd), `L3` (4th), 5th occluded by table, `L5` (6th).
+  * **Front row (L→R)**: `gold` (1st), 2nd occluded by barrel, `blue` (3rd), `green` (4th), 5th occluded by furniture, `...et` (`violet`, 6th, left half occluded by chair).
+
+#### 3. `v2-low-day.png`
+* **Top-left / Left / Top-right / Bottom-left UI**: Identical to `v2-table-day.png`.
+* **Top-center UI**: Same search bar and `Area 1` / `Open to players` / `Hide` pills, plus the bottom edge of `Building 1` peeking out from behind the top of the search bar.
+* **In-scene floating labels**: `Common room` (upper-center, over L3/L4).
+* **Pawn base rims**:
+  * **Back row (L→R)**: `L...` / pointer triangle barely visible on 2nd pawn; `L2` (3rd pawn); faint sliver of `L5` at base of 6th pawn; others occluded by furniture.
+  * **Front row (L→R)**: `si...` (`silver`, 2nd pawn, visible through the gap in the front wall); all others occluded by foreground walls.
+* **Bottom-right UI**: `live (ws) · 12 ms · Area 1 seq 2 · 60 fps`
+
+#### 4. `v2-table-night.png`
+* **Top-left UI**: `P` / `Pawns`, `S` / `Settings` (no `Build` button), `Other games / New game`
+* **Left edge**: `1`
+* **Top-center UI**: `Search commands, things to place, people, places... or say / roll`, `/` (no `Area 1` / `Open to players` / `Hide` pills)
+* **Top-right UI**: `H` (`Area 1` below) and `M` (`Area 1` below)
+* **In-scene floating labels**: None.
+* **Pawn base rims**:
+  * **Back row (L→R)**: `...0` (`L0`, 1st), `L1` (2nd, behind stool leg), `L2` (3rd), `L3` (4th), 5th occluded by table, `L5` (6th).
+  * **Front row (L→R)**: `...old` (`gold`, 1st), 2nd occluded by barrel, `blue` (3rd), `green` (4th), 5th & 6th occluded by furniture.
+* **Bottom-left UI**: `say ... or roll d20 in the bar`
+* **Bottom-right UI**: `live (ws) · 17 ms · Area 1 seq 5 · 55 fps`
+
+#### 5. `v2-high-night.png`
+* **Top-left / Left / Top-center / Top-right / Bottom-left UI**: Identical to `v2-table-night.png`.
+* **In-scene floating labels**: None.
+* **Pawn base rims**:
+  * **Back row (L→R)**: `L0` (1st), `L1` (2nd, partially behind stool leg), `L2` (3rd), `L3` (4th), 5th occluded by table, `L5` (6th).
+  * **Front row (L→R)**: `gold` (1st), 2nd occluded by barrel, `blue` (3rd), `green` (4th), 5th occluded, `...et` (`violet`, 6th).
+* **Bottom-right UI**: `live (ws) · 10 ms · Area 1 seq 5 · 60 fps`
+
+#### 6. `before-table-day.png`
+* **UI & floating labels**: Identical to `v2-table-day.png`, except bottom-right status reads `live (ws) · 21 ms · Area 1 seq 2 · 58 fps`.
+* **Pawn base rims**:
+  * **Back row (L→R)**: `...0` (1st), pointer triangle on 2nd, 3rd–5th occluded by `Common room` / table, `L5` (6th, nearly washed out).
+  * **Front row (L→R)**: `...old` (`gold`, 1st), `blue` (3rd), `green` (4th); others occluded.
+
+---
+
+### STEP 2: Visual Description of Back-Row Pawns (L0–L5)
+
+* **L0 (1st from left)**: No light effect at all. A matte dark-grey round base with a thin pale-grey perimeter ring; the miniature stands unlit in ambient shadow.
+* **L1 (2nd from left)**: A flat, bright golden-yellow halo/ring hugging the circular base on the floor, with a very faint warm haze around the ankles. The figure itself remains dark. No visible sparks or vertical beams.
+* **L2 (3rd from left)**: A much fainter floor ring than L1 (in night views the base actually looks pale grey-blue/white rather than bright yellow), paired with a soft, diffuse warm-amber mist rising to about waist/chest height and a subtle warm golden tint on the miniature's surfaces. A few sparse, tiny golden specks float near the torso.
+* **L3 (4th from left)**: A bright golden-yellow floor ring around the base (similar to L1's base brightness) plus a soft, rounded plume of golden-amber light rising to roughly head height. The miniature's surfaces are noticeably lit in warm gold, and small vertical golden spark dashes appear around the torso and shoulders.
+* **L4 (5th from left)**: A tall, broad vertical cylinder of bright golden-yellow light rising well above the figure (past the top of the back wall in table/low views), made of vertical streaky ribbons/curtains and scattered bright vertical spark dashes. The miniature and adjacent table are heavily washed in bright yellow light.
+* **L5 (6th from left)**: A tall, wide golden-yellow vertical cylinder of similar height and width to L4, anchored by an intensely bright yellow-white glowing floor ring. The miniature is completely coated in bright yellow-gold light, dense vertical spark streaks rise through the shaft, and a large golden circular sun-face relief floats in the upper half of the column above the pawn's head.
+
+---
+
+### STEP 3: Evaluation Against Intent
+
+#### a) Clear step-by-step progression & hardest pair to tell apart
+* **No, they do not read as clearly increasing step-by-step in either day or night.**
+* **Hardest pair to tell apart: L1 and L2** (in fact, the progression *reverses* visually at the base). L1 has a strong, saturated yellow floor ring, whereas L2's floor ring drops in brightness/saturation (especially in `v2-table-night` and `v2-high-night`, where L2's base looks pale grey-white while L1 glows yellow), making L2 look dimmer than or equal to L1 from table distance.
+* Secondarily, **L4 and L5** have nearly identical column height, width, and brightness; only the sun emblem distinguishes L5 from L4.
+
+#### b) Emblem in Level 5
+* **Yes, it is clearly visible** in all views (sharpest in `v2-low-day` and `v2-table-day`, slightly softer in `v2-high-day`/`night`).
+* **Description**: A large monochrome golden-yellow embossed sun medallion floating upright in the top half of the light column—a round central face (heavy-lidded/closed eyes, straight nose, calm mouth, full cheeks) ringed by alternating pointed triangular sun rays.
+
+#### c) Six front-row colours
+* **Yes, all six colours are distinct** (left to right):
+  1. **Gold / Warm Yellow** (`gold`)
+  2. **Silver / Cool White** (`silver`)
+  3. **Blue** (`blue`, medium sky/cobalt blue)
+  4. **Green** (`green`, bright emerald green)
+  5. **Red / Fiery Orange-Red** (5th pawn)
+  6. **Violet / Purple** (`violet`)
+* *Note*: The 5th pawn (**Red/Orange-Red**) is heavily blocked by a chair, table, and candle wheel in almost every camera angle, and its warm hue blends into the orange tavern wood and candlelight, making it much less legible at a glance than the other five.
+
+#### d) Broken visuals / artifacts
+* **Visible tube edges and vertical striping**: L4 and L5 show hard vertical side boundaries and distinct vertical curtain/rib bands (`v2-low-day`, `v2-table-day`).
+* **Flat card / decal projection in high views**: In `v2-high-day` and `v2-high-night`, the L5 sun emblem and upper column flatten like a 2D billboard pasted across the top edge of the back wooden wall.
+* **Washing out the miniature's face and sculpt**: In L4, L5, and the front row (`gold`, `blue`, `green`), the emissive tint and additive haze turn the miniatures into flat monochromatic silhouettes, hiding painted faces and armor contrast.
+* **Prop bleeding**: L4's cylinder clips through and washes out the adjacent wooden table and chandelier.
+
+#### e) Honest verdict: Cheap Game Effect vs. Painted-Miniature-World Effect
+* **Verdict**: **Cheap game effect** (looks like an MMO buff pillar + neon selection ring).
+* **What makes it look cheap**:
+  1. **Glowing empty air**: Tall additive light tubes (L4/L5) and neon floor rings glow in mid-air rather than interacting with physical surfaces.
+  2. **Flat emissive wash on the mini**: Tinting the whole miniature uniformly flattens its shading, whereas real miniature Object Source Lighting (OSL) relies on high contrast between lit edges and deep shadows.
+  3. **Blown-out neon base halos**: The floor rings saturate to pure white/neon against the wood grain.
+* **Three most important changes toward a painted-miniature (OSL) look**:
+  1. **Replace air glow with directional surface OSL**: Cut the additive air haze back drastically; put the colour into directional rim/up-lighting on the miniature's raised surfaces (preserving dark recesses/shadows so the face and sculpt stay crisp) and soft bounce light on nearby props/floorboards.
+  2. **Ground the base ring into the physical base**: Instead of a wide neon halo bleeding onto the tavern floor, paint/illuminate the beveled rim and textured top of the grey base itself, with only a tight, low-intensity contact glow on the floor.
+  3. **Give L4/L5 a tactile miniature form**: If L4/L5 must rise high above the pawn for tabletop readability, style the column and L5 emblem like translucent/painted resin spell effects or a sculpted back-banner/halo behind the figure (with its own shading and highlights) rather than an unshaded additive particle cylinder wrapping over the front of the mini.
+
+#### f) Comparison with `before-table-day.png`
+* **Slightly better, but fundamentally the same look.**
+* **Why**: `v2` is **better** because the miniatures inside the auras (`gold`, `silver`, `blue`, `green`, and `L5`) now receive colored surface lighting on the 3D models themselves (in `before-table-day.png`, the front-row figures stood almost completely dark inside bright floor rings, and L5 was a washed-out pale ghost), and the L4/L5 columns in `v2` have a richer golden tone and cleaner sun emblem scaling than `before`'s chalky, noisy particle cloud. However, it still relies on the same neon floor discs and tall additive cylinders, and still suffers from the L1→L2 brightness drop.

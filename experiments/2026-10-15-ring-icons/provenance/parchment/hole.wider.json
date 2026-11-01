@@ -1,0 +1,76 @@
+{
+  "id": "hole.wider",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A round dark pit hole in grey stone ground seen from slightly above, with TWO thick ivory arrows on its left and right rims pointing OUTWARD, away from the hole: make it wider. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/room.height.taller.webp",
+      "sha256": "60332bd86bc7241ad5b2c1da48bd53918693aa3f2ea66f80c3d83cd92c0bbdbd",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/edit.lift.webp",
+      "sha256": "6f66e11ce2c276ce6c207763374890b7d481d718c0d118cc51515cef946ea0d7",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/room.walls.fieldstone.webp",
+      "sha256": "64c81423b2669fec1a8b32c42e8a1b2e29ab450828fba55216c942181ebfd6b4",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--hole.wider.png",
+      "sha256": "297fa346a75e9943b4b2416cd65ca400e7ee1a25cb01b327fe37a0143be41ea4",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--hole.wider.png",
+  "source_sha256": "8ff75f0e1345a8fd6144eb8a67f85d6f1bb2e9e4b22eb8b412178a9a5b6005b4",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/hole.wider.webp",
+    "19": "parchment/sizes/19/hole.wider.webp",
+    "22": "parchment/sizes/22/hole.wider.webp",
+    "26": "parchment/sizes/26/hole.wider.webp",
+    "31": "parchment/sizes/31/hole.wider.webp",
+    "36": "parchment/sizes/36/hole.wider.webp",
+    "38": "parchment/sizes/38/hole.wider.webp",
+    "42": "parchment/sizes/42/hole.wider.webp",
+    "44": "parchment/sizes/44/hole.wider.webp",
+    "50": "parchment/sizes/50/hole.wider.webp",
+    "52": "parchment/sizes/52/hole.wider.webp",
+    "62": "parchment/sizes/62/hole.wider.webp",
+    "84": "parchment/sizes/84/hole.wider.webp",
+    "100": "parchment/sizes/100/hole.wider.webp",
+    "128": "parchment/hole.wider.webp"
+  },
+  "sha256": {
+    "18": "dd466ab7583c10562180a1510167a7e3f35040f98d9da3a305c332baf6cb5531",
+    "19": "09a56c71cd2744c099256beda2adaebbd42441e47b361cf09f02593e6e2ca1f5",
+    "22": "44e0d3ac9da8615781c4479f937d5e2902fb4b3bf0777f04ff57aa0826509789",
+    "26": "e5e289d0b63e6488170f870b5f94fd9ccc6c5fa08b0e9f6f00edc237182b34bd",
+    "31": "454a4330026aacb60b76a673752b06cf2e09ef38dbb9603e18673ca48f3d942f",
+    "36": "cfa11b06e4bc9a8340129583127ebf1280a68a2184afe95f4cf90fc2e7cf321d",
+    "38": "590a50faa86cc5b927461067cfcd33613a36768ac2132955cb46ae3540407f9a",
+    "42": "416cb81d8a9569b220b42c985a237f0600ac657a18a0d74ca4b6804dd451d070",
+    "44": "b09d74ad84a944252caa7485fb83dbe41537c8b3c454c25fc982dda37eab5a50",
+    "50": "5137d34a2ace278a6f0fac8a510f3205aabfd635b14695ca8bcc7c0580f828ce",
+    "52": "4260495a405e203eb38006424e05cb23d50aaae033d8cf730c72f05776015266",
+    "62": "84dcb4eec2f3135bf46331a649ae479249e19512851f2a1d0127508dc8608559",
+    "84": "755b64fb7481c48fcafd958b277f04cf48a86070f0289eaf8462c390e160a193",
+    "100": "6971f4609e26a964113badb100ed58c842373f888c1d8e8b6e84a072cb907301",
+    "128": "a1611bf2e3cc9365d508049411d6426fe27583633f5cf3414f46ec59b99e3461"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "32e111e20981d0da809f1f9f9323154c280ef22a5e804e8ba10db6c61c0c87a5",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/parchment/hole.wider/8ff75f0e1345a8fd-2ed1ac590f"
+}

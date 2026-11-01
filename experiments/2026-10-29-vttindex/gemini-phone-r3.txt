@@ -1,0 +1,33 @@
+**VERDICT: FIX**
+
+### 1. Labels
+
+* **Headings:**
+  * `Claim yours / correct me.` (page section)
+  * `Turnip Works` (detail modal header)
+  * `Other good reasons to pick a VTT, such as` (background section header behind modal)
+* **Filter labels:**
+  * `Show only`, `3D`, `Free to start`, `Runs in a browser`, `Open source`, `Site is up`
+  * `Group`, `Kind`, `Search`, `Showing all 118`
+  * Legend items: `yes`, `partial`, `no`, `? unknown`, `n/a, or a plain value`, `(?) not confirmed from a source`, `• hover a cell for its note`
+* **Column headers:**
+  * `Product↑`, `2D / 3D`, `Runs on`
+* **Product names readable:**
+  * Only 3 appear in the table screenshot: `16-VTT`, `20Realms`, `AboveVTT` (partially visible at bottom edge).
+  * A 4th product, `Turnip Works`, is shown in the detail panel screenshot. (No 5th product name is visible).
+
+---
+
+### 2. Layout & Usability Analysis
+
+* **Filter controls:** **Yes**, all checkboxes, dropdowns, and search controls fit properly within the 400 CSS px width.
+* **Table horizontal continuation:** **No**, it is not apparent. The `Runs on` column header and cell contents end flush with the right border. There is no column peeking, shadow fade, or visible scrollbar to signal horizontal scrollability.
+* **Clipped / overlapping text:** **Yes**, multiple issues exist.
+
+---
+
+### Problems (Most Important First)
+
+1. **Detail panel notes column is severely cramped and clipped:** In [phone-detail.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-detail.png), the 3-column property layout squeezes the note column down to 1–2 words per line. It forces awkward word breaks (e.g., `deskto` / `p or`) and clips the bottom content (`WebGL`) at the dialog boundary.
+2. **Missing horizontal scroll affordance:** In [phone-table.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-table.png), the table looks complete as-is rather than horizontally scrollable because the third column fits neatly against the right border.
+3. **Table header text truncated:** The instruction banner directly above the table cuts off abruptly at the right edge: `...by name. Hover a c` (cuts off `ell for its note`).

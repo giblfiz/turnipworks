@@ -1,0 +1,76 @@
+{
+  "id": "roof.style.lead",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof material option pictogram: One FLAT level roof surface seen from slightly above, covered in dull dark blue-grey LEAD SHEETS with three thick raised rolled seams running front to back. Dominant colour: dull blue-grey lead. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a warm pale parchment circular ground with quiet thin antique brass rim; dark outlines for strong contrast. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.thatch.webp",
+      "sha256": "95b8c204e4f6e7cdb1c4323f57762311ec9815f960a79ba65d04300382ba53ce",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.flat.webp",
+      "sha256": "32eaee73c0657074dd46cb45328438f98b5a93544b355e3988d7c6d6a8794f0c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.slate.webp",
+      "sha256": "975224290396c2463b48957ce1a60b28592adfc50addf45076f9d6241a642154",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.style.lead.png",
+      "sha256": "64b47701f2edd6d641b89065759b2968ac70c71e4ba707fceb0c303046ac55d3",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--roof.style.lead.png",
+  "source_sha256": "f113bf1ccb81517b0e9c1bf9bbceda494cdf44c18a926cd6982ca632afc5f66a",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/roof.style.lead.webp",
+    "19": "parchment/sizes/19/roof.style.lead.webp",
+    "22": "parchment/sizes/22/roof.style.lead.webp",
+    "26": "parchment/sizes/26/roof.style.lead.webp",
+    "31": "parchment/sizes/31/roof.style.lead.webp",
+    "36": "parchment/sizes/36/roof.style.lead.webp",
+    "38": "parchment/sizes/38/roof.style.lead.webp",
+    "42": "parchment/sizes/42/roof.style.lead.webp",
+    "44": "parchment/sizes/44/roof.style.lead.webp",
+    "50": "parchment/sizes/50/roof.style.lead.webp",
+    "52": "parchment/sizes/52/roof.style.lead.webp",
+    "62": "parchment/sizes/62/roof.style.lead.webp",
+    "84": "parchment/sizes/84/roof.style.lead.webp",
+    "100": "parchment/sizes/100/roof.style.lead.webp",
+    "128": "parchment/roof.style.lead.webp"
+  },
+  "sha256": {
+    "18": "04c8bad0742b90ecd2da4081c92f6feeb9b4e237d47584a96da9fc9d2b7cd0d9",
+    "19": "490ba362a31fb6424e8214cb49775a644a3eedec7057e01ddd9cfd60b5c5b5d6",
+    "22": "e503af2ca028479196d217ca5c5ad6d924020d782f28bf262a3010bb07c4e155",
+    "26": "3524555531fe3df1988f8bba17725b2d82792b0c2c9ad6744e22c42a02c65123",
+    "31": "85acc8c05505f94989edb944d03dff93d5607091b758929dbefca2c19f44e63d",
+    "36": "b8d040eab57d977874352850a7f21f8fa1f583d25a2705752c46dea3f6192ad3",
+    "38": "ee9a2064b02aeef1f4e043c3dad4bd3a75ff27747d1a2b6a1acbd34d85f93b91",
+    "42": "35159d81d524ea65f961705801afe310be81ba24df2282062645c049e59c2ccf",
+    "44": "27eb4c029223e1cccf262473c7ce3bf3ef476fbd8a2931aa33be0320301eacd8",
+    "50": "84cff3eee856f1897a2fabe02917083fb31b3324fdc8947bbe46b8443b604beb",
+    "52": "c21bc889031605aa9530818eebf9369af4b994d4587e0b577ef28401c005cd1d",
+    "62": "1912749ded1d458917fe70f8f3956c7111bfe3c42eed76e830a6336f74a570f6",
+    "84": "9cc6e86a835a198d6b492f1fff7a0e08f01cfc3ea65504f4acd4046df1177c6c",
+    "100": "26230cb29996afbc2b770742c05c21323e411f59ff1c6ab8c3b1cc9935e8a667",
+    "128": "a880bd193633d027bcf8ace9c1ea78300c2d7228a2908389d31c51eb9473b546"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "05549bf9abc7aec12245fe85ca44001cef30c42b5d962b3b6c7199a50ae65f99",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/parchment/roof.style.lead/f113bf1ccb81517b-2ddccf6ab7"
+}

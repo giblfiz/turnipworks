@@ -7,7 +7,28 @@
 <!-- which server this page is (2026-10-19; docs/NETCODE.md "Two servers"): engine/deploy.sh stamps "dev", a release
      (tools/release.sh) stamps "prod", the source says "source" (local test sites). Only "dev" shows the DEV ribbon. -->
 <meta name="tw-channel" content="source">
-<title>Turnip Works</title>
+<title>Turnip Works · free 3D virtual tabletop</title>
+<!-- SEARCH AND LINK PREVIEWS (2026-10-23; engine/tools/build_site.py has the same set for /about, /terms, /privacy, and
+     OG_IMAGE there names the same picture: change both together). Absolute addresses on turnipworks.net, so an invite
+     link (turnipworks.net/#s=…) pasted into Discord, X or a text message shows the card; dev and the alternate entry point
+     their canonical at prod. engine/test/seo_check.py checks them. -->
+<meta name="description" content="A free 3D virtual tabletop in a browser tab. Start a table, send your players a link, and they're in: no account, no install. Open source.">
+<link rel="canonical" href="https://turnipworks.net/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Turnip Works">
+<meta property="og:title" content="Turnip Works: a free 3D virtual tabletop in your browser">
+<meta property="og:description" content="Start a table, send your players a link, and they're in. No account, no install. Open source.">
+<meta property="og:url" content="https://turnipworks.net/">
+<meta property="og:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Turnip Works: a free 3D virtual tabletop in your browser">
+<meta name="twitter:description" content="Start a table, send your players a link, and they're in. No account, no install. Open source.">
+<meta name="twitter:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta name="twitter:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
 <link rel="icon" type="image/svg+xml" href="mark.svg?v=dev">
 <!-- THE LOADING SCREEN (2026-10-07; docs/UI.md "The loading screen"). Its styles, markup and code are in this page so it
      paints before any other request has answered. Only transform and opacity ever move (those keep moving while the
@@ -28,6 +49,7 @@ html { background: #2c2823; }
 .twl-words > span.on { opacity: 1; }
 .twl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .twl-fail { display: none; gap: 14px; justify-items: center; text-wrap: balance; }
+.twl-detail { max-width: min(36em, 92vw); font-size: 11px; opacity: 0.6; overflow-wrap: anywhere; user-select: text; -webkit-user-select: text; }
 .twl-fail button { font: inherit; font-weight: 600; color: #2c2823; background: #f6ead2; border: 0; border-radius: 8px; padding: 10px 16px; min-height: 44px; cursor: pointer; }
 #twl.failed { pointer-events: auto; } #twl.failed .twl-fail { display: grid; } #twl.failed .twl-bar, #twl.failed .twl-words { display: none; } #twl.failed .twl-mark { animation: none; }
 /* the small version (the table is reconnecting): a pill low in the middle, clear of the bar, the area's buttons and the chat; never in the way */
@@ -44,6 +66,35 @@ html { background: #2c2823; }
 #tw-dev[hidden] { display: none; }
 </style>
 <script>window.TW_V = 'dev';</script>
+<!-- BEYOND20 (2026-10-29; docs/BEYOND20.md): the browser extension, when a player has added this site to its custom
+     domains, talks to the page in DOM events, and may say "Loaded" before the game's modules have run. This listens from
+     the start and keeps what came until surfaces/beyond20.js takes over (window.__tw_b20h). Without Beyond20: nothing. -->
+<script>(function () { var q = window.__tw_b20 = []; ['Loaded', 'NewSettings', 'RenderedRoll', 'UpdateHP', 'UpdateConditions', 'UpdateCombat'].forEach(function (n) { document.addEventListener('Beyond20_' + n, function (e) { if (window.__tw_b20h) window.__tw_b20h(n, e.detail); else if (q.length < 100) q.push([n, e.detail]); }); }); })();</script>
+<!-- A PHONE (2026-10-24; docs/UI.md "On a phone", "The phone banner"). A phone is a small screen (the short side at most
+     540 px) with a touch pointer only. It goes STRAIGHT INTO THE GAME, laid out for a phone: html.tw-hand (style.css
+     "on a phone"; client/handheld.js), and ?hand=1 / ?hand=0 force that (tests, a look on a computer). At the front door
+     it also gets a small banner that offers to email the link to a bigger screen (client/phone.js: the handoff and its
+     funnel lines, once per visit): not for a seat link (#s=…: someone's table), not after "Continue on this phone
+     anyway" on the old phone page (kept 30 days in this browser), and ?phone=1 / ?phone=0 force it. Until 2026-10-24
+     a phone got a separate page here instead of the table ("Built for your computer"). -->
+<script>
+(function () {
+  var q = new URLSearchParams(location.search), h = location.hash || '', hand = false;
+  try { hand = matchMedia('(pointer: coarse)').matches && !matchMedia('(any-pointer: fine)').matches && Math.min(screen.width, screen.height) <= 540; } catch (e) { }
+  if (q.get('hand') === '1') hand = true; else if (q.get('hand') === '0') hand = false;
+  window.TW_HAND = hand;
+  window.TW_PHONE = (function () {
+    try {
+      if (q.get('phone') === '1') return true;
+      if (q.get('phone') === '0' || /(^#|&)s=/.test(h)) return false;
+      if (h === '#tw-phone-ok') { history.replaceState(history.state, '', location.pathname + location.search); return false; }
+      try { var ok = Number(localStorage.getItem('tw.phone.ok')); if (ok && Date.now() - ok < 30 * 86400e3) return false; } catch (e) { }
+      return hand;
+    } catch (e) { return false; }
+  })();
+  if (hand) document.documentElement.classList.add('tw-hand');
+})();
+</script>
 <!-- the tuner's FX and settle code import these by bare name; they live in the deployed tuner (../../tuner/) -->
 <script type="importmap">
 { "imports": {
@@ -59,6 +110,10 @@ html { background: #2c2823; }
   "three-fire": "../../tuner/js/vendor/three-fire-1.4.0.js"
 } }
 </script>
+<!-- main.js is fetched at once, as the static tag was. AFTER the import map: Firefox refuses an import map once a module
+     load or preload has started ("Import maps are not allowed after a module load or preload has started"), and then
+     every bare 'three' import fails (2026-10-24, dev broken in Firefox by the phone gate's preload in the head). -->
+<link rel="modulepreload" href="main.js?v=dev">
 </head>
 <body>
 <div id="tw-dev" hidden aria-hidden="true">DEV</div>
@@ -75,7 +130,7 @@ html { background: #2c2823; }
     <div class="twl-name">Turnip Works</div>
     <div class="twl-bar"><div class="twl-fill"></div></div>
     <div class="twl-words" aria-hidden="true"></div>
-    <div class="twl-fail"><div class="twl-why"></div><button type="button"></button></div>
+    <div class="twl-fail"><div class="twl-why"></div><button type="button"></button><div class="twl-detail"></div></div>
     <div class="twl-sr" role="status" aria-live="polite"></div>
   </div>
 </div>
@@ -193,6 +248,10 @@ html { background: #2c2823; }
     if (gone && kind !== 'denied') return; const f = FAILS[kind] || FAILS.code; L.failed = kind; clearTimeout(slow);
     if (gone) { gone = false; L.mode = 'load'; root.hidden = false; try { L.fade?.cancel(); } catch { } }
     root.className = 'failed'; root.querySelector('.twl-why').textContent = f[0]; const b = root.querySelector('.twl-fail button'); b.textContent = f[1]; b.onclick = f[2]; tell(f[0]);
+    // a start-up error shows its detail small under the button (to read out or screenshot) and is reported once to the
+    // server's access log as a plain GET (no campaign, no seat: only the kind, the detail and the browser)
+    const dt = root.querySelector('.twl-detail'); if (dt) dt.textContent = kind === 'code' && detail ? String(detail).slice(0, 400) : '';
+    if (detail && kind === 'code' && !L.reported) { L.reported = true; try { new Image().src = '/engine/client/__boot-error?k=' + kind + '&m=' + encodeURIComponent(String(detail).slice(0, 600)); } catch { } }
     if (detail) console.warn('tw load:', kind, detail);
   }
   L.fail = fail;
@@ -208,7 +267,9 @@ html { background: #2c2823; }
   L.clear = (mode) => { if (L.pending !== mode) return; L.pending = null; clearTimeout(L.timer); if (gone || L.mode !== mode) return; if (mode === 'net') { gone = true; root.hidden = true; root.className = ''; tell(''); } else L.done(); };
   L.shown = () => !root.hidden && !gone;
   L.again = (text) => { gone = false; L.mode = 'load'; delete T.welcome; delete T.state; delete T.frame; delete T.first; delete T.pieces; pcs = null; try { L.fade?.cancel(); } catch { } root.className = ''; root.hidden = false; reset(); const ms = clamp(mem.toCreated || 600, 200, 60000); run(rest(ms)); say([[text, 0], ['Setting out the room', ms]]); tell(text); watchdog(); L.created = Math.round(now()); }; // (the start form was submitted: the code is here already)
-  addEventListener('error', (ev) => { const t = ev.target; if (t && t.tagName === 'SCRIPT' && !gone) fail('code', t.src); }, true); // a script of the page did not arrive
+  // a script of the page did not arrive. Only OUR scripts: a third party's (Cloudflare's analytics beacon, which the edge
+  // adds to the page and Safari's tracker blocking or a content blocker refuses) is not the game (Harry's iPhone, 2026-10-26)
+  addEventListener('error', (ev) => { const t = ev.target; if (t && t.tagName === 'SCRIPT' && !gone && t.src && new URL(t.src, location.href).origin === location.origin) fail('code', t.src); }, true);
 })();
 </script>
 <link rel="stylesheet" href="style.css?v=dev">
@@ -216,7 +277,7 @@ html { background: #2c2823; }
   <div class="card">
     <img class="mark" src="mark.svg?v=dev" alt="" width="72" height="72">
     <h1>Turnip Works</h1>
-    <p>A shared world. Everyone's cursors, pawns and rooms, in the same order everywhere.</p>
+    <p>A free 3D virtual tabletop in your browser. Start a table, send your players a link: no account, no install.</p>
     <p id="gameNotice" role="status"></p>
     <section aria-label="Games remembered in this browser">
       <h2 class="games-title">Your games</h2>
@@ -228,8 +289,10 @@ html { background: #2c2823; }
       <label for="campaignName">Campaign</label><div class="campaign-name"><input id="campaignName" name="name" maxlength="80"><input id="rerollCampaign" type="button" value="⚄" title="Re-roll campaign name" aria-label="Re-roll campaign name"></div>
       <label>Your name <input name="gm" value="GM" maxlength="40"></label>
       <button type="submit" class="primary">Start a campaign (you are the GM)</button>
+      <p class="hint accept">Starting a campaign means you accept the <a href="site/terms.html" target="_blank" rel="noopener">Terms</a> and the <a href="site/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
     </form>
     <p class="hint">Joining someone's game? Open the invite link they sent you.</p>
+    <nav class="metalinks" aria-label="About Turnip Works"><a href="site/about.html" target="_blank" rel="noopener">About</a><a href="site/terms.html" target="_blank" rel="noopener">Terms</a><a href="site/privacy.html" target="_blank" rel="noopener">Privacy</a><a href="https://github.com/giblfiz/turnipworks" target="_blank" rel="noopener">Source</a></nav>
   </div>
 </div>
 <div id="app" hidden>
@@ -250,7 +313,7 @@ html { background: #2c2823; }
     <span class="hint"></span>
   </div>
   <div id="results" class="clip" hidden role="listbox"></div>
-  <nav id="crumbs" hidden aria-label="Selection path"></nav>
+  <div id="underBar"><nav id="crumbs" hidden aria-label="Selection path"></nav></div><!-- the area pills (areas.js) go first, then the crumbs: one column, style.css "UNDER THE COMMAND BAR" -->
   <div id="roster" aria-label="Who is where"></div>
   <div id="pipFrame" hidden><div class="bar" title="Drag to move · double-click for a bigger window"><span id="pipTitle"></span><button id="pipSwap" title="Swap with the main view">swap</button><button id="pipClose" title="Close">×</button></div><i class="rz" data-d="n"></i><i class="rz" data-d="s"></i><i class="rz" data-d="e"></i><i class="rz" data-d="w"></i><i class="rz" data-d="ne"></i><i class="rz" data-d="nw"></i><i class="rz" data-d="se"></i><i class="rz" data-d="sw"></i></div>
   <div id="chat" title="Click to expand"></div>
@@ -264,6 +327,6 @@ html { background: #2c2823; }
   <div id="toast" role="status"></div>
   <canvas id="pv"></canvas>
 </div>
-<script type="module" src="main.js?v=dev"></script>
+<script>(function () { for (const f of window.TW_PHONE ? ['main.js?v=dev', 'phone.js?v=dev'] : ['main.js?v=dev']) { var s = document.createElement('script'); s.type = 'module'; s.src = f; document.body.append(s); } })();</script>
 </body>
 </html>

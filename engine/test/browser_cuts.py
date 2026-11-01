@@ -193,7 +193,7 @@ async def main():
         await pl.evaluate(f"(() => {{ const e = {E(PW)}, g = tw.main.grab; g.focus.set(e.x, 0, e.z); g.yaw = 0; g.pitch = 55; g.dist = 60; g.update(); tw.main.rule = 'free'; tw.select('{PW}'); }})()"); await pl.wait_for_timeout(600)
         await pl.click('#ring .rbtn[data-menu]'); await pl.wait_for_timeout(350)
         ptop = await pl.evaluate("tw.ringMenu().map(n => n.cmd || '▸' + n.group)")
-        check(ptop[:3] == ['▸pawn.cond.', '▸pawn.mark.', 'edit.lift'] and set(ptop) <= {'▸pawn.cond.', '▸pawn.mark.', 'edit.lift', 'pawn.travel'}, "a player's own pawn: Conditions ▸, Indicators ▸, Raise / lower (and Send to area where there is one): no Hide, Lock, Duplicate, Give control or Delete", ptop)
+        check(ptop[:4] == ['▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'edit.lift'] and set(ptop) <= {'▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'edit.lift', 'pawn.travel'}, "a player's own pawn: Conditions ▸, Indicators ▸, Aura ▸ (2026-10-30), Raise / lower (and Send to area where there is one): no Hide, Lock, Duplicate, Give control or Delete", ptop)
         await pl.keyboard.press('Escape'); await pl.keyboard.press('Escape')
         door = await pl.evaluate("Object.values(tw.entities()).find(o => o.kind === 'object' && tw.assets.openable(o.cat) && !tw.assets.lightable(o.cat))?.id || null")
         if door:

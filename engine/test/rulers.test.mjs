@@ -32,6 +32,7 @@ const near = (a, b, e = 1e-6) => Math.abs(a - b) < e;
   d = MS.distance(P(0, 0), P(20, 15, 15));
   ok(near(d.across, 25) && d.up === 15 && near(d.ft, Math.hypot(25, 15)), 'a vertical part: 25 across and 15 up is the true 3D distance (29.15)', d);
   ok(MS.format(d) === '29 ft · 6 sq (25 across, 15 up)', 'written with its parts', MS.format(d));
+  ok([4, 5.9, 29.2, 30.8].map(v => MS.detent(v)).join() === '5,5,30,30' && [3.8, 6.2, 27.5, 0.6, 12.3].map(v => MS.detent(v)).join() === '3.8,6.2,27.5,0.6,12.3', 'the 5-ft detent: within 1 ft of a whole number of squares it clicks onto it, otherwise it is left alone (and never onto 0)');
   ok(MS.format(MS.distance(P(0, 0, 10), P(0, 30, 0))) === '32 ft · 6 sq (30 across, 10 down)', 'going down says "down"', MS.format(MS.distance(P(0, 0, 10), P(0, 30, 0))));
   ok(MS.format(MS.distance(P(0, 0), P(0, 0.2))) === '0 ft · 0 sq' && MS.format(MS.distance(P(0, 0), P(3, 4, 0.3))) === '5 ft · 1 sq', 'a height difference under half a foot is not spelled out');
   // the two square-counting rules
@@ -225,6 +226,30 @@ await doAs(miraTok, 'undo', {}); await settle();
 ok(state().entities[barId]?.rounds === 7, 'a reused Keep session after undo/redo cannot absorb unrelated later edits');
 await doAs(miraTok, 'template.delete', { id: barId });
 await doGm('turn.end', {});
+
+// A FIRST-PERSON WALK (client/surfaces/fpv.js, 2026-10-30): its moves, key down to key up, are ONE undo step
+{
+  const B = () => state().entities.tok_brakka01, at0 = { x: B().x, z: B().z };
+  for (const x of [at0.x + 1.2, at0.x + 2.9]) await doAs(miraTok, 'token.move', { id: 'tok_brakka01', x, z: at0.z, walk: 'walk_test01' });
+  await doGm('token.move', { id: 'tok_gob00001', x: 27.5, z: 2.5 }); // another seat's move of ANOTHER pawn does not split it
+  await doAs(miraTok, 'token.move', { id: 'tok_brakka01', x: at0.x + 4.4, z: at0.z + 0.6, walk: 'walk_test01' }); await settle();
+  ok(near(B().x, at0.x + 4.4) && !('walk' in B()), 'a walk moves the pawn as it goes; the state keeps no walk', B());
+  r = await doAs(miraTok, 'undo', {}); await settle();
+  ok(r.ok && near(B().x, at0.x) && near(B().z, at0.z) && near(T(kit, 'tok_brakka01').x, at0.x), 'ONE undo puts the pawn back where the walk began', B());
+  r = await doAs(miraTok, 'redo', {}); await settle();
+  ok(r.ok && near(B().x, at0.x + 4.4) && near(B().z, at0.z + 0.6), 'redo: where the walk ended', B());
+  await doAs(miraTok, 'token.move', { id: 'tok_brakka01', x: at0.x, z: at0.z }); // (back, a plain move)
+  await doAs(miraTok, 'token.move', { id: 'tok_brakka01', x: at0.x + 1, z: at0.z, walk: 'walk_test02' });
+  await doGm('token.move', { id: 'tok_brakka01', x: at0.x + 1, z: at0.z + 5 }); // the GM moves THIS pawn mid-walk
+  await doAs(miraTok, 'token.move', { id: 'tok_brakka01', x: at0.x + 2, z: at0.z + 5, walk: 'walk_test02' }); await settle();
+  await doAs(miraTok, 'undo', {}); await settle();
+  ok(near(B().x, at0.x + 1) && near(B().z, at0.z + 5), "another seat's change to the pawn mid-walk closes the step: undo goes back to the GM's place, not past it", B());
+  await doAs(miraTok, 'token.move', { id: 'tok_brakka01', x: at0.x + 3, z: at0.z, walk: 'walk_test03' });
+  await doAs(miraTok, 'token.move', { id: 'tok_brakka01', x: at0.x + 6, z: at0.z }); await settle(); // a plain move never joins a walk
+  await doAs(miraTok, 'undo', {}); await settle();
+  ok(near(B().x, at0.x + 3), 'a move with no walk is its own undo step', B());
+  await doAs(miraTok, 'token.move', { id: 'tok_brakka01', x: at0.x, z: at0.z }); await settle();
+}
 
 // A different seat editing the SAME template must keep its work outside this gesture.
 await doAs(miraTok, 'template.place', { id: barId, shape: 'circle', x: 5, z: 5, size: 8, keepSession: 'keep_conflict' });

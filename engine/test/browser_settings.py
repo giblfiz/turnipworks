@@ -102,7 +102,7 @@ async def main():
         await pl.bring_to_front()
         await tap(pl, '.launcher[data-l=settings]')
         pst = await pl.evaluate("({ ...tw.settings.state(), create: !!document.querySelector('#settingsModal .newname'), del: !!document.querySelector('#settingsModal [data-act=del]'), names: !!document.querySelector('#settingsModal .aname') })")
-        check(pst['sections'] == ['nav', 'me', 'feedback'] and not pst['create'] and not pst['del'] and not pst['names'], 'a player gets World navigation, Me and Feedback only (2026-10-19), with no create / rename / delete', pst)
+        check(pst['sections'] == ['nav', 'me', 'controls', 'graphics', 'feedback'] and not pst['create'] and not pst['del'] and not pst['names'], 'a player gets World navigation, Me and Feedback only (2026-10-19), with no create / rename / delete', pst)
         # arriving as a person would (no webdriver flag, a fresh browser): straight into the game, in the seat's area
         tok2 = await gm.evaluate("tw.createSeat({ kind: 'human', role: 'player', name: 'Arrive', color: '#c36f9f' })")
         frag2 = (await gm.evaluate(f"tw.inviteLink('{tok2}')")).split('#', 1)[1]
@@ -122,11 +122,11 @@ async def main():
         await gm.bring_to_front(); await gm.evaluate("tw.settings.close()"); await gm.mouse.move(640, 420)
         await gm.keyboard.press('s')
         st = await gm.evaluate("({ ...tw.settings.state(), keys: [...document.querySelectorAll('#settingsModal .scat kbd')].map(k => k.textContent), labels: [...document.querySelectorAll('#settingsModal .scat span')].map(k => k.textContent) })")
-        check(st['open'] and st['section'] == 'nav' and st['keys'] == ['N', 'M', 'A', 'G', 'C', 'F'] and not any(l[:1].isdigit() for l in st['labels']), 'S opens Settings on World navigation; each section shows its letter (N M A G C F: Feedback since 2026-10-19), no numbers', st)
+        check(st['open'] and st['section'] == 'nav' and st['keys'] == ['N', 'M', 'K', 'G', 'A', 'R', 'D', 'H', 'C', 'F'] and not any(l[:1].isdigit() for l in st['labels']), 'S opens Settings on World navigation; each section shows its letter (N M K G A R D H C F: Feedback since 2026-10-19; Controls K, Graphics G, Campaign rules R, Area defaults D, House look H since 2026-10-24), no numbers', st)
         seen = []
-        for k in ('m', 'a', 'g', 'c', 'f', 'n'):
+        for k in ('m', 'a', 'r', 'd', 'h', 'c', 'f', 'n'):
             await gm.keyboard.press(k); seen.append(await gm.evaluate('tw.settings.state().section'))
-        check(seen == ['me', 'area', 'defaults', 'admin', 'feedback', 'nav'], 'then M, A, G, C, F, N switch sections', seen)
+        check(seen == ['me', 'area', 'campaign', 'defaults', 'house', 'admin', 'feedback', 'nav'], 'then M, A, R, D, H, C, F, N switch sections', seen)
         await gm.keyboard.press('m'); await gm.keyboard.press('s')
         closed = not await gm.evaluate('tw.settings.state().open')
         await gm.keyboard.press('s')
@@ -226,6 +226,7 @@ async def main():
         check(abs(z[0] - 0.81) < 0.01 and z[1] > 1.2, 'zoom speed doubles a notch (0.9 → 0.81) and invert zoom reverses it', [round(v, 3) for v in z])
         r = await pl.evaluate("""(() => { const G = tw.main.grab, y0 = G.yaw; tw.settings.setPref('rotateSpeed', 2); G.beginGrab(640, 400, 'orbit'); G.dragTo(690, 400); G.endGrab(); const d2 = ((G.yaw - y0 + 540) % 360) - 180; tw.settings.setPref('invertRotate', true); const y1 = G.yaw; G.beginGrab(640, 400, 'orbit'); G.dragTo(690, 400); G.endGrab(); const d3 = ((G.yaw - y1 + 540) % 360) - 180; tw.settings.setPref('rotateSpeed', 1); tw.settings.setPref('invertRotate', false); return [d2, d3]; })()""")
         check(abs(r[0] + 40) < 0.5 and abs(r[1] - 40) < 0.5, 'rotate speed doubles an orbit drag (−20° → −40°) and invert rotate reverses it', r)
+        await section(pl, 'graphics')  # Geometry detail moved with the rest of Graphics (Harry 2026-10-24: Me split in three)
         await pick(pl, '#settingsModal [data-pref=graphics]', 'low')
         check(await pl.evaluate("tw.settings.prefs().graphics === 'low' && tw.settings.prefs().post === true"), 'Geometry detail Low (its own row since 2026-10-11: the Graphics presets are browser_graphics.py)', await pl.evaluate('tw.settings.prefs()'))
         check(await pl.evaluate("!!document.querySelector('#settingsModal .reload') || tw.facesUsed === '1500'"), 'the geometry tier applies (this URL pins ?faces=, so it says reload; otherwise it swaps live)')
@@ -247,10 +248,12 @@ async def main():
         check(ok and '/card?seat=' in key, 'My agents: a player creates an LLM seat and gets its key (the rules card URL)', key[:60])
         await tap(pl, '#settingsModal li[data-seat] [data-act=revoke]')
         check(await wait(pl, f"!{C}.seats.some(s => s.kind === 'llm' && s.name === 'Brakka bot')", 8000, 'revoke agent'), 'and can revoke it')
+        await section(pl, 'controls')  # the reset button lives with the settings it resets (Controls and Graphics, 2026-10-24)
         await tap(pl, '#settingsModal [data-act=reset]')
         check(await pl.evaluate("(() => { const p = tw.settings.prefs(); return p.zoomSpeed === 1 && p.graphics === 'high' && p.post === true && p.gfx === 'auto' && p.idleFps === 20 && p.fogFx === true && p.lights === 'all' && p.maxFps === 60 && p.density === 'native' && p.cursors === true && p.reducedMotion === false && p.ringScale === 1 && p.textScale === 1 && p.sfxVol === 0.8 && p.music === true; })()") and await pl.evaluate("tw.worldOf(tw.area()).layers.cursors.visible"), 'Reset to defaults restores every personal setting')
 
         print('REQUESTS: players ask, the GM approves or denies')
+        await section(pl, 'me')  # Import and export stays in Me
         await tap(pl, '#settingsModal [data-act=req-export]')
         await gm.bring_to_front()
         ok = await wait(gm, f"{C}.requests.some(r => r.by === '{PL}' && r.kind === 'export' && r.status === 'pending')", 8000, 'req')
@@ -270,10 +273,12 @@ async def main():
         await gm.bring_to_front()
         await wait(gm, f"{C}.requests.some(r => r.kind === 'import' && r.status === 'pending') && !!document.querySelector('#settingsModal li[data-req]')", 8000, 'import req')
         await tap(gm, '#settingsModal li[data-req] [data-act=approve]')
-        ok = await wait(gm, f"{C}.areas.some(a => a.name === \"Brakka's camp\")", 10000, 'import area')
+        ok = await wait(gm, f"{C}.areas.some(a => a.name === \"Brakka's camp\")", 25000, 'import area')
         if not ok: print('    DBG import', await gm.evaluate(f"JSON.stringify({{ reqs: {C}.requests.map(r => [r.kind, r.status]), areas: {C}.areas.map(a => a.name), btn: !!document.querySelector('#settingsModal li[data-req] [data-act=approve]'), sec: tw.settings.state().section, pending: tw.sync.pendingCount?.() }})"))
         AC = await gm.evaluate(f"{C}.areas.find(a => a.name === \"Brakka's camp\")?.id")
-        ok2 = AC and await wait(gm, f"!!tw.sync.view('{AC}')?.entities.tok_camp00001", 8000, 'import ents')
+        # (since 2026-10-29 a file's things come in by ordinary commands with NEW ids: core/share.js campaignAreas, never its own ids)
+        if AC: await gm.evaluate(f"tw.sync.subscribe('{AC}')")
+        ok2 = AC and await wait(gm, f"Object.values(tw.sync.view('{AC}')?.entities || {{}}).some(e => e.kind === 'token' && e.name === 'Campfire' && e.id !== 'tok_camp00001')", 20000, 'import ents')
         check(ok and ok2 and await gm.evaluate(f"{C}.areas.find(a => a.id === '{AC}').settings.grid === false"), "approving an import applies the player's file as a new area (things and settings)")
         await tap(gm, '.launcher[data-l=settings]') if not await gm.evaluate('tw.settings.state().open') else None
         await gm.evaluate("tw.settings.show('admin')")
@@ -319,12 +324,15 @@ async def main():
         await gm.evaluate(f"tw.sync.submit('area.set', {{ area: '{A1}', settings: {{ grid: true }} }})")
         check(await wait(gm, f"tw.worldOf('{A1}').grid.visible", 8000, 'override'), 'an area override wins over the default')
         await gm.evaluate(f"tw.sync.submit('area.set', {{ area: '{A1}', settings: {{ grid: null }} }})")
-        await pick(gm, '#settingsModal [data-camp=units]', 'm'); await pick(gm, '#settingsModal [data-camp=rolls]', 'hidden'); await pick(gm, '#settingsModal [data-camp=houseAnim]', 'harry-v1')
+        await gm.evaluate("tw.settings.show('campaign')")  # Global defaults split in three (2026-10-24): campaign-wide items are Campaign rules, the spawn look is House look
+        await pick(gm, '#settingsModal [data-camp=units]', 'm'); await pick(gm, '#settingsModal [data-camp=rolls]', 'hidden')
+        await gm.evaluate("tw.settings.show('house')"); await pick(gm, '#settingsModal [data-camp=houseAnim]', 'harry-v1')
+        await gm.evaluate("tw.settings.show('campaign')")
         ok = await wait(gm, f"{C}.defaults.units === 'm' && {C}.defaults.rolls === 'hidden' && {C}.defaults.houseAnim === 'harry-v1'", 8000, 'camp')
         check(ok and await wait(gm, "tw.settings.applied().anim === 'harry-v1'", 4000, 'anim'), 'campaign-wide items are stored (units, rolls); the house spawn animation switches')
         await fill(gm, '#settingsModal .campname', 'The Otter Inn')
         check(await wait(pl, f"{C}.name === 'The Otter Inn'", 8000, 'campname'), 'renaming the campaign reaches everyone')
-        await tap(gm, '#settingsModal [data-reset=grid][data-scope=defaults]')
+        await gm.evaluate("tw.settings.show('defaults')"); await tap(gm, '#settingsModal [data-reset=grid][data-scope=defaults]')
 
         print('Me, live: graphics detail and rotate settings')
         f0 = await gm.evaluate("tw.facesUsed")

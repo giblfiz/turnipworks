@@ -1,0 +1,76 @@
+{
+  "id": "hole.narrower",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A round dark pit hole in grey stone ground seen from slightly above, with TWO thick ivory arrows on its left and right pointing INWARD toward the hole: make it narrower. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/room.height.taller.webp",
+      "sha256": "60332bd86bc7241ad5b2c1da48bd53918693aa3f2ea66f80c3d83cd92c0bbdbd",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/edit.lift.webp",
+      "sha256": "6f66e11ce2c276ce6c207763374890b7d481d718c0d118cc51515cef946ea0d7",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/room.walls.fieldstone.webp",
+      "sha256": "64c81423b2669fec1a8b32c42e8a1b2e29ab450828fba55216c942181ebfd6b4",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--hole.narrower.png",
+      "sha256": "3cc1ef6d948cbac852e2aad51ca5c698564d6fe44da2d89e6b6556d1429ffe9e",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--hole.narrower.png",
+  "source_sha256": "a36b3d1b7c1be167b1172bf98213597eb6637eb9d41486c5d2da3592082f577c",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/hole.narrower.webp",
+    "19": "parchment/sizes/19/hole.narrower.webp",
+    "22": "parchment/sizes/22/hole.narrower.webp",
+    "26": "parchment/sizes/26/hole.narrower.webp",
+    "31": "parchment/sizes/31/hole.narrower.webp",
+    "36": "parchment/sizes/36/hole.narrower.webp",
+    "38": "parchment/sizes/38/hole.narrower.webp",
+    "42": "parchment/sizes/42/hole.narrower.webp",
+    "44": "parchment/sizes/44/hole.narrower.webp",
+    "50": "parchment/sizes/50/hole.narrower.webp",
+    "52": "parchment/sizes/52/hole.narrower.webp",
+    "62": "parchment/sizes/62/hole.narrower.webp",
+    "84": "parchment/sizes/84/hole.narrower.webp",
+    "100": "parchment/sizes/100/hole.narrower.webp",
+    "128": "parchment/hole.narrower.webp"
+  },
+  "sha256": {
+    "18": "961a816e046a252a64d217899e2c33e0f0422cf686f5093c1d3f46ffad90deb9",
+    "19": "f4ea374ee47f6089104f66514bc13ede965f11982fec254b33bf67f7746bdbea",
+    "22": "498ba7b98e3505f7ec5a75092d20094575f7302f01441d4655af0790c05f1809",
+    "26": "f6a30df53c78a59fd6036e7adb91473a7c40484505056251b33a46cfee77d9de",
+    "31": "f2f48ad464960563d68a980b6f58f5183178b61a40f53e1fec5d82b5423048eb",
+    "36": "81969fe3c9b2fb58fa504402dbbe1ccfc188a69131874964e6962fe0985f7187",
+    "38": "328ac923c44e3e7b57adf44133c8d2f89ec218233458e348cda85f4e4abb9be8",
+    "42": "219669c19c13137b68fd75de7c817fd626f00b8ddda137fce6f3f850dcb00044",
+    "44": "ffe1eda1c4d1ebc20d0db11e653ff2adcd6a34c2c9714639068d3e60acdfb382",
+    "50": "069ca50367af7a4ddb4687af92b4f337ef1bce8a35d61f9fec5c08548bcaf572",
+    "52": "4dfe1c8ec7ec93eb01ef641aa4c83b141f518cc4e928b0e1efe27627ddcfb4c4",
+    "62": "35c012cf1d20efd9cc9cd2886feec1d9a331e512dcc21efc84977a035ab9bad6",
+    "84": "b810f5a893871fa8c0f0eac12cedfdd2721a4b9fd6b0503c04a5716fef85c625",
+    "100": "22186538de3f03e639b5bb7a927c4276732cb982d88447565eb36906f9169c9d",
+    "128": "0931e66e449ec947635d6a803bc91464cc703aeb6b4572531663578d6078dfb1"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "9065c8eb06c458e7f77a604e378d387c9a58db935013f809bba3eee9801ed86c",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/parchment/hole.narrower/a36b3d1b7c1be167-2ed1ac590f"
+}

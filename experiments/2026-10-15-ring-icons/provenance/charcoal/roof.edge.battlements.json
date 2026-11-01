@@ -1,0 +1,71 @@
+{
+  "id": "roof.edge.battlements",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof edge option pictogram: One flat stone roof edge crowned by THREE broad square stone CRENELLATIONS with clear square gaps between them: battlements. Dominant colour: pale grey stone. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a dark charcoal circular ground with quiet thin slate rim. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/roof.style.thatch.webp",
+      "sha256": "7352d4ef4924dbda8030bf90de9067b64654d9c9398f873bad791c0a30b20ab2",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/roof.style.flat.webp",
+      "sha256": "b07aa90ac8611f6c599ace71d93f7ac3f7125567c1fd7f85e7c2e587990f7070",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/roof.style.slate.webp",
+      "sha256": "89c9cc0a1807d800d6b6b0779fb26e737adfd156918b41e26c033726c2001d70",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.edge.battlements.png",
+  "source_sha256": "f0ca9d98591e464eb00d33c4ec037abb86371b8430670211769e5f58ec40a3e4",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/roof.edge.battlements.webp",
+    "19": "charcoal/sizes/19/roof.edge.battlements.webp",
+    "22": "charcoal/sizes/22/roof.edge.battlements.webp",
+    "26": "charcoal/sizes/26/roof.edge.battlements.webp",
+    "31": "charcoal/sizes/31/roof.edge.battlements.webp",
+    "36": "charcoal/sizes/36/roof.edge.battlements.webp",
+    "38": "charcoal/sizes/38/roof.edge.battlements.webp",
+    "42": "charcoal/sizes/42/roof.edge.battlements.webp",
+    "44": "charcoal/sizes/44/roof.edge.battlements.webp",
+    "50": "charcoal/sizes/50/roof.edge.battlements.webp",
+    "52": "charcoal/sizes/52/roof.edge.battlements.webp",
+    "62": "charcoal/sizes/62/roof.edge.battlements.webp",
+    "84": "charcoal/sizes/84/roof.edge.battlements.webp",
+    "100": "charcoal/sizes/100/roof.edge.battlements.webp",
+    "128": "charcoal/roof.edge.battlements.webp"
+  },
+  "sha256": {
+    "18": "4644e844843c594bce0feecce46b821933bea1d0dd54562a7bc4685ddc5048e6",
+    "19": "cb81343a9a0b15b83205d2cb0229c110f981e4dd3dcd0d482307f97b8b5928f4",
+    "22": "d204a610e88b2ef2943801aa95e1309593414b6d3f85f867b8f795c0dc3e2b47",
+    "26": "8ac0dfc4f88dec44f25c76975cfd3041af34da767c67d0bf210a0657e872c6b9",
+    "31": "9f0a9c3977917521b80af1fd01f4cd7465f8ae99af97f25af2cee5f426a9523f",
+    "36": "c4adbfd550eaf7afa229ef6a3e9e6cab265fa517517e3a6639d64dd25a3673f7",
+    "38": "be6b9366714f6ab99c52381ea2da1294068eab9dd06672600e58849ba94f9b3d",
+    "42": "6a79487ad7d525e4e6213e53f530769a5e2325c6a498868f76864b519c7a7925",
+    "44": "a6a40e6963abe9c251180243b580d2190d8b97d15a4cdd0af2cd0a687c00f373",
+    "50": "992fecaf126ffe26607e7a7a83daa91d1e528bb5cfe915d49b45f41166643801",
+    "52": "3237b72e4e963c75e5fb52730510b073dd4b9338e444cd4d250cc86d55e1ba69",
+    "62": "616b716a9e65b116956ff7eb8f3ca26c733911881608aa085e08a53a74513fc1",
+    "84": "757334211b0bf15620090b2c5219d486b91a5f11fb09f13719a4261597f15620",
+    "100": "fa3615814853dd944235005e8dd1ea61ed28f3ed73abc5b8fff12dea84abd9ea",
+    "128": "0a0769b5d681404956676378eadfabea1c0e416bb1a3aeee0fa3131b91cf32ca"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "3ed5c1ba2a6a36d4fe2e0a1f9b968d9b6e41ce437d5a57cba6001c601776efd6",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/charcoal/roof.edge.battlements/f0ca9d98591e464e-2ddccf6ab7"
+}

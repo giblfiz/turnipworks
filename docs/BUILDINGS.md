@@ -135,6 +135,19 @@ every size from 1 x 1 to 6 x 6): kitchens 15 x 15 ft, a barracks 15 x 20, a fron
   "3 storeys"; for a crypt "2 levels", "3 levels") and "Re-roll". Pressing one makes the building again as one
   undoable step. A storey offer that times out goes down into the chat as a line with its button. The same are
   commands on a selected building (the bar; its ☰: Storeys, Re-roll building).
+- **All storeys spin in at once; then the view walks down to floor 1** (Harry 2026-10-22, second take, replacing the
+  storey-by-storey version of the same day: "we build one floor with our full spin-in animations that they get to watch
+  ... and then we show the multi-story by using the *fast* animation of adding/removing a level ... leave them off on
+  floor 1 of the building, where they are probably intending to start play"). When the rooms that arrive together stand
+  on two or more storeys above the ground, every room waits for the meshes of all of them and every storey starts its
+  spin-in on the same frame (client/world.js `animateStoreys`). The seat that made the building has its view cut at the
+  TOP storey before the spin-in starts, so the top floor's spin-in is what it watches. When everything has played and
+  settled, its view steps down one storey at a time with the ordinary level change (`app.goLevel`, its fly), resting
+  `STOREY_HOLD_MS` (0.3 s, client/main.js) on each floor after the fly lands, and stops on the ground storey, never in
+  a cellar. Every write is `by: 'build'`. The tour stops for good when the seat takes the wheel: another level or cut,
+  another area, picking a tool, a button down or the wheel on the map, or the view panned 3 ft or more. Other seats
+  are never moved; they see all storeys arrive together. A one-storey building (with a cellar or not), a drawn room and
+  a re-roll play as before. Test: `engine/test/browser_storeydrop.py`.
 - **From words**: `build inn 12x8`, `build crypt 20x14 seed 8`, `build castle 16x12 3 storeys` in the command bar builds
   on free ground near the middle of the view.
 - **From the gallery**: "Open in 3D" is a link (`?build=TAV&w=12&d=8&seed=7&storeys=2&loops=0.3`) that builds that

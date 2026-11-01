@@ -1,0 +1,76 @@
+{
+  "id": "room.hill.cliff",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One green hill whose LEFT side drops as a steep grey rock cliff face and whose RIGHT side is a soft rounded grass slope: rock sides or grass banks. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/room.height.taller.webp",
+      "sha256": "60332bd86bc7241ad5b2c1da48bd53918693aa3f2ea66f80c3d83cd92c0bbdbd",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/edit.lift.webp",
+      "sha256": "6f66e11ce2c276ce6c207763374890b7d481d718c0d118cc51515cef946ea0d7",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/room.walls.fieldstone.webp",
+      "sha256": "64c81423b2669fec1a8b32c42e8a1b2e29ab450828fba55216c942181ebfd6b4",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--room.hill.cliff.png",
+      "sha256": "d95a8ee3e7317045177ed34709ec0176f182b901f732de950e8fd467e88026ca",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--room.hill.cliff.png",
+  "source_sha256": "d01ca849b3e3e96115f5150f2fabc37cc3f8cd3c011f5fe39161cb930dfc2266",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/room.hill.cliff.webp",
+    "19": "parchment/sizes/19/room.hill.cliff.webp",
+    "22": "parchment/sizes/22/room.hill.cliff.webp",
+    "26": "parchment/sizes/26/room.hill.cliff.webp",
+    "31": "parchment/sizes/31/room.hill.cliff.webp",
+    "36": "parchment/sizes/36/room.hill.cliff.webp",
+    "38": "parchment/sizes/38/room.hill.cliff.webp",
+    "42": "parchment/sizes/42/room.hill.cliff.webp",
+    "44": "parchment/sizes/44/room.hill.cliff.webp",
+    "50": "parchment/sizes/50/room.hill.cliff.webp",
+    "52": "parchment/sizes/52/room.hill.cliff.webp",
+    "62": "parchment/sizes/62/room.hill.cliff.webp",
+    "84": "parchment/sizes/84/room.hill.cliff.webp",
+    "100": "parchment/sizes/100/room.hill.cliff.webp",
+    "128": "parchment/room.hill.cliff.webp"
+  },
+  "sha256": {
+    "18": "35d8cd6253ce4854ca786344ade3b56eba9e7ad9132d852d2c654f40305b42ee",
+    "19": "0bfd6b415528c170c566455d01fe887e0738d7581c0b8e0955be8c0ad9096efd",
+    "22": "00c8608ef3a6895e5c1987249bc79e9a703dd33ddd6d4a7a9ae50572f5f09d2e",
+    "26": "8e2220d21157232ba5bdb53259616daa8409a4fd8d7d4acc2044d011155b7804",
+    "31": "e72ac9e4edcc41e5fbba16ca146ce898f2558e5d5cdcb332e5ea9351ae802a54",
+    "36": "caec39e26a598bbc73d86de65866dd1db87f331291e1250c213fe3d4c1452b91",
+    "38": "8f1d936caa64c8aee429430bb386077c5c48ea2d9cc5d028b5701282a7bcf513",
+    "42": "eec477fad02e93b3f10885366e981cdca418f8b560ac1d4b0d5490eaad3680be",
+    "44": "7dba2401efb855805c0e0ce7432e58022c694da4ab865f64f19245b43990d31d",
+    "50": "d04ffc2a80b30656138cc50d7a4ca2f38e93aaf32074b20445e32a0ad17c6676",
+    "52": "db34ed3476fe3c00466510385045f8c4bd900618d68583b49e6c1250b89e76e7",
+    "62": "074a19c95fff2745ea9637878e9fd24a1d636098a155ec63fe8fdbd61cad786b",
+    "84": "5dfb566e90e9eacdda0dbae15023632593c9ad7daee8c7bb52ae853bb9658fdf",
+    "100": "9f3beb501f288823366b0f8316ebdc425fa4b09301c2f2ee88c5f6e4a4198888",
+    "128": "ac3c7cb95eb56db40d689e3ee2231c1287924c2bd28a97e99d6ddf62a9d12e9e"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "6d147616922208bf311087239b4899b6a397507f48085f8487b2716261115f0a",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/parchment/room.hill.cliff/d01ca849b3e3e961-2ed1ac590f"
+}

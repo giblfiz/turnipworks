@@ -85,6 +85,13 @@ ok(pl.ev.pres.some(p => p.seat === gm.me && p.cursor?.[0] === 12.5 && p.name ===
 pl.presence(T1, { cursor: [3, 3], drag: { id: 'tok_brakka001', x: 3, z: 3 } });
 await waitFor(() => gm.ev.pres.some(p => p.drag?.some?.(d => d.id === 'tok_brakka001')), 2000, 'drag');
 ok(gm.ev.pres.some(p => p.seat === pl.me && p.drag?.[0]?.x === 3), 'drag in progress travels as presence');
+// FIRST PERSON (client/surfaces/fpv.js): the pawn a seat looks through rides along as `eyes`, for a pawn it may move only
+pl.presence(T1, { cursor: [4, 4], drag: null, eyes: 'tok_brakka001' });
+await waitFor(() => gm.ev.pres.some(p => p.seat === pl.me && p.eyes === 'tok_brakka001'), 2000, 'eyes');
+ok(gm.ev.pres.some(p => p.seat === pl.me && p.eyes === 'tok_brakka001'), 'first person: a player looking through her own pawn is told to the others (presence eyes)');
+{ const n0 = gm.ev.pres.length; pl.presence(T1, { cursor: [5, 5], drag: null, eyes: 'tok_keeper001' }); await waitFor(() => gm.ev.pres.length > n0 && gm.ev.pres.at(-1).cursor?.[0] === 5, 2000, 'eyes on the NPC');
+  ok(gm.ev.pres.at(-1)?.seat === pl.me && !gm.ev.pres.at(-1).eyes, "...and not a pawn that is not hers (the relay drops it)"); }
+pl.presence(T1, { cursor: [3, 3], drag: null });
 
 // ---- rooms: GM spawns by seed; the creator sends the solved layout + hash ----
 const rg = relay.roomgen;
@@ -164,6 +171,11 @@ const docs = async (tok) => { const card = (await get(`${cp}/card?seat=${tok}`))
   await waitFor(() => pl2.ev.pres.some(p => p.seat === gm.me && p.sel), 2000, 'sel');
   const ps1 = pl2.ev.pres.filter(p => p.seat === gm.me && p.sel).at(-1);
   ok(ps1 && ps1.sel.length === 1 && ps1.sel[0] === 'tok_keeper001', `a seat's selection travels in presence, minus anything hidden for a player (${JSON.stringify(ps1?.sel)})`);
+  // first person through a HIDDEN pawn (the GM in a monster nobody may see): a player is not told which pawn it is
+  gm.submit('token.create', { id: 'tok_lurker001', name: 'Lurker', x: 6, z: 6, hidden: true }, T1);
+  await waitFor(() => relay.campaigns.get(C.campaign).state.areas[T1].entities.tok_lurker001, 2000, 'lurker');
+  { const mine = () => pl2.ev.pres.filter(p => p.seat === gm.me && p.cursor?.[0] === 12.75); await sleep(250); gm.presence(T1, { cursor: [12.75, 7.25], drag: null, eyes: 'tok_lurker001' }); await waitFor(() => mine().length, 3000, 'gm eyes');
+    ok(mine().length && !mine().some(p => p.eyes), "first person through a hidden pawn: a player is not told which (presence eyes withheld)", JSON.stringify(mine().at(-1))); }
   // presence for AI seats: who is pointing at what
   gm.presence(T1, { cursor: [20, 10], drag: null, sel: ['tok_keeper001', 'obj_secret001'] });
   await sleep(300);
@@ -553,7 +565,7 @@ await waitFor(() => gm.view('tbl_cellar01'));
   const st = (await get(`${cp}/a/${T1}/state?seat=${asTok}`)).body, rm = (id) => st.rooms.find(r => r.id === id);
   ok(rm(G).y === 0 && rm(G).storey === 0 && rm(G).level === 'lv 1' && rm(U).y === 10 && rm(U).storey === 1 && rm(U).level === 'lv 2' && rm(U).height === 10 && rm(D).y === -10 && rm(D).storey === -1 && rm(D).level === 'lv -1', 'state reports each room\'s height in feet, its derived storey and its level label', JSON.stringify([rm(G), rm(U), rm(D)].map(r => [r.y, r.storey, r.level])));
   const b = st.buildings.find(x => x.id === rm(G).building);
-  ok(rm(G).building && rm(U).building === rm(G).building && rm(D).building === rm(G).building && b && b.base === 0 && b.storeyHeight === 10 && b.levels.map(l => l.level).join() === 'lv -1,lv 1,lv 2', 'the stacked rooms join the building below them; the building lists its base, storey height and levels', JSON.stringify(b));
+  ok(rm(G).building && rm(U).building === rm(G).building && rm(D).building === rm(G).building && b && !('base' in b) && b.storeyHeight === 10 && b.levels.map(l => l.level).join() === 'lv -1,lv 1,lv 2', 'the stacked rooms join the building below them; the building lists its storey height (10 everywhere) and levels', JSON.stringify(b));
   await waitFor(() => gm.view(T1).entities[U] && gm.view(T1).entities[D] && pl2.view(T1).entities[U] && pl2.view(T1).entities[D], 3000, 'storeys arrive');
   const E = gm.view(T1).entities, objsOf = (c, id) => Object.values(c.view(T1).entities).filter(e => e.kind === 'object' && e.room === id);
   // STAIRS (core/stairs.js): a room made off the ground floor over GET gets its stair, as its own command
@@ -903,6 +915,79 @@ await relay.close();
   ok(E().tok_hidepre01.hidden && E().tok_hideborn1.hidden && !E().tok_hidepl001.hidden, 'prehidden and moved-out pawns stay hidden; player pawn remains public');
   doCmd('undo', {});
   ok(E()[R].hidden && E().tok_hidecas01.hidden && E().tok_hidecas01.hiddenByRoom === R, 'undo reveal restores hidden flags and provenance together');
+  await r.close();
+}
+
+// ---- GENERATED DOORS (2026-10-29): a player opens a door the rooms imply (door.open), the relay works the door out ----
+{
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'tw-pdoors-')); madeDirs.push(dir);
+  let r = await startRelay({ port: 0, dataDir: dir, log: quiet });
+  const K = await fetch(`http://127.0.0.1:${r.port}/campaigns`, { method: 'POST', body: JSON.stringify({ name: 'TEST generated doors (throwaway)', gm: 'GM' }) }).then(x => x.json());
+  const A = K.area; let rt = r.campaigns.get(K.campaign);
+  const G = Object.values(rt.state.seats).find(s => s.role === 'gm').id, P = 'seat_doorpl001';
+  const run = (type, args, by = G, area = A) => rt.dispatch(by, { type, area, args });
+  const doCmd = (type, args, by = G, area = A) => { const out = run(type, args, by, area); if (!out.ok) throw new Error(`${type}: ${out.why}`); return out; };
+  doCmd('seat.create', { id: P, kind: 'human', role: 'player', name: 'Pip', location: A });
+  doCmd('area.set', { area: A, settings: { fogOfWar: false } });
+  const E = () => rt.state.areas[A].entities, empty = { hash: '', summary: '', objects: [] };
+  doCmd('room.spawn', { id: 'room_doora001', building: 'bld_doors001', type: 'common', x: 0, z: 0, w: 4, d: 4, seed: 1, layout: empty });
+  doCmd('room.spawn', { id: 'room_doorb001', building: 'bld_doors001', type: 'kitchen', x: 4, z: 0, w: 4, d: 4, seed: 2, layout: empty });
+  // a second building, off to the side, the GM will hide: its inner door belongs to hidden rooms only
+  doCmd('room.spawn', { id: 'room_doorc001', building: 'bld_doors002', type: 'common', x: 0, z: 12, w: 4, d: 4, seed: 3, layout: empty });
+  doCmd('room.spawn', { id: 'room_doord001', building: 'bld_doors002', type: 'kitchen', x: 4, z: 12, w: 4, d: 4, seed: 4, layout: empty });
+  const doors = rt.roomgen.doorPieces(E()), inner = [...doors.keys()].find(k => k.startsWith('v:4:') && doors.get(k).z < 20), hidKey = [...doors.keys()].find(k => k.startsWith('v:4:') && doors.get(k).z > 60);
+  ok(inner && hidKey, `the rooms imply doors, one between each pair (${[...doors.keys()].join(' ')})`);
+  const want = doors.get(inner);
+  // the player opens it: only the key and open; whatever piece she sends is replaced by the relay's
+  const o1 = run('door.open', { key: inner, open: true, id: 'obj_doorpl001', piece: { cat: 'throne', url: 'https://evil.example/x.glb', x: 99, z: 99, fromEdge: inner } }, P);
+  const D = E().obj_doorpl001;
+  ok(o1.ok && D?.open === true && D.fromEdge === inner && D.cat === want.cat && D.sku === want.sku && D.url === want.url && D.x === want.x && D.z === want.z && D.rot === want.rot && E()[edgeId(inner)]?.as === 'open', 'a PLAYER opens a generated door: it becomes the door the shell drew, in its place, open (her piece is ignored)', o1.why || JSON.stringify(D));
+  ok(!rt.roomgen.doorPieces(E()).has(inner), '...and it is no longer a generated door');
+  const again = run('door.open', { key: inner, open: false }, P);
+  ok(!again.ok && /object\.open id=obj_doorpl001/.test(again.why), '...door.open on it now names the thing to use object.open on', again.why);
+  ok(run('object.open', { id: 'obj_doorpl001', open: false }, P).ok && E().obj_doorpl001.open === false, '...and object.open shuts it (the player)');
+  // a player still may not place, move or take over walls herself
+  ok(run('edge.set', { key: hidKey, as: 'open' }, P).code === 'forbidden' && run('object.place', { id: 'obj_doorpl002', cat: 'door-plank', x: 1, z: 1 }, P).code === 'forbidden' && run('object.move', { id: 'obj_doorpl001', x: 3, z: 3 }, P).code === 'forbidden', 'players still cannot edge.set, object.place or object.move');
+  ok(run('door.open', { key: 'h:40:40', open: true }, P).why === 'no door at h:40:40' && run('door.open', { key: 'v:0:1', open: true }, P).why === 'no door at v:0:1', 'no door at an empty key or a plain wall');
+  // undo: back to a generated door; redo: open again
+  doCmd('undo', {}, P); doCmd('undo', {}, P);
+  ok(!E().obj_doorpl001 && !E()[edgeId(inner)] && rt.roomgen.doorPieces(E()).has(inner), "the player's undo puts the generated door back");
+  // touch none: refused, nothing changes
+  doCmd('area.set', { area: A, settings: { touch: 'none' } });
+  const tn = run('door.open', { key: inner, open: true }, P);
+  ok(tn.code === 'forbidden' && /locked doors/.test(tn.why) && !E()[edgeId(inner)], 'touch none: a player cannot open a generated door', tn.why);
+  ok(run('door.open', { key: inner, open: true, id: 'obj_doorgm001' }).ok && E().obj_doorgm001.open, '...the GM still can');
+  doCmd('undo', {});
+  doCmd('area.set', { area: A, settings: { touch: null } });
+  // a door only hidden rooms own is not there for a player; the GM opens it (hidden, never sent to players)
+  doCmd('entity.flag', { ids: ['bld_doors002'], hidden: true });
+  ok(!rt.roomgen.doorPieces(E(), { gmSide: false }).has(hidKey) && rt.roomgen.doorPieces(E(), { gmSide: true }).get(hidKey)?.veiled, 'a hidden building\'s inner door: GM side only');
+  const hv = run('door.open', { key: hidKey, open: true, id: 'obj_doorhid01' }, P);
+  ok(!hv.ok && hv.why === `no door at ${hidKey}` && !E().obj_doorhid01, 'a player cannot open a door of hidden rooms (the same answer as a wall)', hv.why);
+  ok(run('door.open', { key: hidKey, open: true, id: 'obj_doorhid02' }).ok && E().obj_doorhid02.hidden && E()[edgeId(hidKey)].hidden, '...the GM can: the door is hidden with its rooms (and the wall edit too)');
+  // fog of war: a door with nothing explored round it is not there for a player; once she has seen round it, it is
+  doCmd('area.set', { area: A, settings: { fogOfWar: true } });
+  const fg = run('door.open', { key: inner, open: true, id: 'obj_doorfog01' }, P);
+  ok(!fg.ok && fg.why === `no door at ${inner}`, 'fog of war: a player cannot open a door she has never seen', fg.why);
+  const C = 1.25, gx = Math.floor((want.x - 2) / C), gz = Math.floor(want.z / C);
+  doCmd('fog.explore', { epoch: rt.state.areas[A].fog?.epoch || 0, levels: { 0: { [gz]: [[gx, gx]] } } }, P);
+  ok(run('door.open', { key: inner, open: true, id: 'obj_doorfog02' }, P).ok && E().obj_doorfog02.open, '...and can once she has explored next to it');
+  // the AI seats' scene lists generated doors (a key, no id) only where the seat could open them, and GET door.open works
+  const ag = doCmd('seat.create', { id: 'seat_dooragt1', kind: 'llm', name: 'Pip agent', scope: { areas: '*', classes: ['open', 'token.move'] } }, P);
+  const agTok = ag.token, base2 = `http://127.0.0.1:${r.port}/c/${K.campaign}`, scene = () => fetch(`${base2}/a/${A}/scene?seat=${agTok}`).then(x => x.json());
+  const outerKey = [...doors.keys()].find(k => k !== inner && k !== hidKey && doors.get(k).z < 40), OP = doors.get(outerKey);
+  const s1 = await scene(), gen1 = (s1.doors || []).filter(d => d.generated);
+  ok(outerKey && !gen1.some(d => d.key === outerKey) && !gen1.some(d => d.key === hidKey) && !gen1.some(d => d.key === inner), "the agent's scene (fog on) lists no generated door its player has not seen, none of hidden rooms, not the one already a thing", JSON.stringify(s1.doors));
+  doCmd('fog.explore', { epoch: rt.state.areas[A].fog?.epoch || 0, levels: { 0: { [Math.floor((OP.z - 2) / C)]: [[Math.floor(OP.x / C), Math.floor(OP.x / C)]] } } }, P);
+  const gen2 = ((await scene()).doors || []).filter(d => d.generated), g = gen2.find(d => d.key === outerKey);
+  ok(g && !g.id && g.open === false && g.name === OP.name, '...once seen round, it is listed: a key, no id', JSON.stringify(gen2));
+  const viaGet = await fetch(`${base2}/a/${A}/do?cmd=door.open&key=${encodeURIComponent(outerKey)}&open=true&nonce=agentdoor1&seat=${agTok}`).then(x => x.json());
+  ok(viaGet.ok && /^obj_/.test(viaGet.id || '') && E()[viaGet.id]?.open && E()[viaGet.id].fromEdge === outerKey && E()[viaGet.id].sku === OP.sku, 'an AI player seat opens a generated door over GET (door.open&key=…); the answer gives the new id', JSON.stringify(viaGet));
+  // the journal replays: a restart reads back exactly this state
+  const before = stableStringify(rt.state);
+  await r.close();
+  r = await startRelay({ port: 0, dataDir: dir, log: quiet }); rt = r.campaigns.get(K.campaign);
+  ok(stableStringify(rt.state) === before, 'door.open lines replay: the reloaded state is the same');
   await r.close();
 }
 

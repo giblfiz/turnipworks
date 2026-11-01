@@ -8,7 +8,9 @@
 import { effectiveFaction, planFactionChange } from './factions.js';
 import { factionPieceName } from './faction-catalog.js';
 import { layoutHash, fnv1a, hex8 } from './hash.js';
-import { cellsOf, rectsOf, hasCell, isShaped, levelSuffix } from './footprint.js';
+import { cellsOf, rectsOf, hasCell, isShaped, levelSuffix, overlap } from './footprint.js';
+import { isTerrain, hillUnder } from './height.js';
+import { isCave, caveStalagmites, STALAG_CAT } from './caves.js';
 import { stairBlocks, planStair, stairOffer as offerStair, stairCore as coreStairs, stairPieceArgs, STAIR_KINDS, STAIR_ROLES } from './stairs.js';
 
 // Fixed solver options for the engine (the tuner's defaults). Part of the engine version.
@@ -61,7 +63,11 @@ export function makeRoomGen({ solver, solver2, walls, lib, types, orient, versio
       const y = rc.y || 0;
       if (y) r.y = y;
       if (rc.tall > 1) r.tall = rc.tall; // a tall room (a great hall): ONE room spanning several storeys, on the ground too
-      if (y !== (entities[rc.building]?.base || 0) || y < 0) r.sealed = true;
+      // GROUND CONTACT (2026-10-24; per room since 2026-10-26, core/height.js meetsGround): a room whose floor is the ground
+      // it stands on (the open ground, a hill's top, dug into a hill) has its door out; any other is sealed (you arrive by a
+      // stair). A shrine on a hill has its door out onto the hilltop whatever else its building has.
+      const base = rc.type && isTerrain(rc.type) ? y : y < 0 ? 0 : hillUnder(entities, rc);
+      if (y !== base || y < 0) r.sealed = true;
       r.family = walls.familyFor(r, T[r.type]?.family);
       rooms.push(r);
       // A PLANNED ROOM (a generated building, tuner js/buildings.js): its doors are the plan's. recipe.plan holds them
@@ -81,8 +87,11 @@ export function makeRoomGen({ solver, solver2, walls, lib, types, orient, versio
   }
   // the wall map of the rooms at ONE height (keys without the level suffix, exactly as the tuner's wall engine makes them)
   const levelRooms = (rooms, y) => rooms.some(r => r.y) ? rooms.filter(r => (r.y || 0) === y) : rooms;
+  // (2026-10-24) a HILL has no walls, and where a room stands on it the room's walls are its own: a hill under a room at
+  // its own height is left out of that height's wall map (its top is still drawn, round the room: world.js)
   function levelEdges(rooms, y) {
-    const here = levelRooms(rooms, y), sealed = here.filter(r => r.sealed);
+    const here0 = levelRooms(rooms, y), solid = here0.filter(r => !isTerrain(r.type));
+    const here = here0.filter(r => !isTerrain(r.type) || !solid.some(o => overlap(o, r))), sealed = here.filter(r => r.sealed);
     return walls.computeEdges(here, { engine: 'v2', ...(sealed.length && { sealed: new Set(sealed.map(r => r.id)) }), ...(y < 0 && { noWindows: true }) });
   }
 
@@ -131,9 +140,37 @@ export function makeRoomGen({ solver, solver2, walls, lib, types, orient, versio
         x: p.x, y: Y ? (p.y || 0) + Y : p.y, z: p.z, rot: p.rot, yaw: p.yaw || 0, s: p.s || undefined, dims: p.dims, parent: p.parent ? (idOf.get(p.parent) || p.parent) : undefined, rule: p.rule || undefined, orient: p.orient || undefined,
       });
     });
+    // A CAVE'S STALAGMITES (2026-10-27, core/caves.js STALAG_CAT): the rule's spots, as things of the room, made with it
+    let stalagObjects = false;
+    if (isCave(recipe)) {
+      const stub = { ...old, id: a.id, kind: 'room', recipe: { ...old?.recipe, ...recipe }, order };
+      const keep = Object.values(entities).filter(e => e.kind === 'object' && e.room === a.id && (!e.fromCave || e.pinned)); // (what stays through a re-roll keeps its spot)
+      const S = caveStalagObjects({ ...entities, [a.id]: stub }, stub, { obstacles: [...pinned, ...keep] });
+      for (const o of S.objects) objects.push(o);
+      for (const p of S.placements) placements.push(p);
+      stalagObjects = true;
+    }
     if (parts.length > 1) first = { ...first, openings: first.openings.filter(o => o.why !== 'open to the rest of the room') }; // a join is not a door: keep it out of the summary's door list
     const summary = solver2.summarize2(first, id => T[rooms.find(x => x.id === id)?.type]?.label || id).split('\n').slice(0, 3).join(' ') + (parts.length > 1 ? ` Shaped room: furnished as ${parts.length} rectangles (the largest is the room; the rest has no second ${first.checks?.purpose?.what && first.checks.purpose.what !== '—' ? first.checks.purpose.what : 'key piece'}).` : '');
-    return { hash: layoutHash(placements), summary, objects, family: r.family, parts: parts.length, fail: first?.purposeFail || null };
+    return { hash: layoutHash(placements), summary, objects, family: r.family, parts: parts.length, fail: first?.purposeFail || null, ...(stalagObjects && { stalagObjects: true }) };
+  }
+  // THE CAVE'S STALAGMITES AS THINGS (core/caves.js caveStalagmites: the rule's spots, sizes and turns, unchanged): the
+  // library's own `stalagmite` sku the rule names, scaled so it is as tall as the rule asked (exactly what was drawn as
+  // rock before 2026-10-27). A spot on something that stays (a pinned thing, a stair's ground, the GM's own things in a
+  // re-rolled cave) is left out. `idOf(n)`: the n-th thing's id (core/migrate.js gives fixed ones). -> { objects, placements }
+  function caveStalagObjects(entities, room, { obstacles = [], idOf = () => newId('obj') } = {}) {
+    const Y = room.recipe.y || 0, objects = [], placements = [];
+    const blocked = (x, z) => obstacles.some(o => { if (!o?.dims) return false; const c = Math.cos(o.rot || 0), sn = Math.sin(o.rot || 0), dx = x - o.x, dz = z - o.z, lx = dx * c - dz * sn, lz = dx * sn + dz * c; return Math.abs(lx) < o.dims[0] / 2 + 0.6 && Math.abs(lz) < o.dims[2] / 2 + 0.6; });
+    let n = 0;
+    for (const p of caveStalagmites(entities, room)) {
+      const sku = p.file.replace(/\.glb$/, ''), Z = sizeOf(STALAG_CAT, sku);
+      if (!Z?.url || blocked(p.x, p.z)) continue;
+      const k = p.h / (Z.dims[1] || p.h), r3 = (v) => +v.toFixed(4);
+      const o = { id: idOf(n++), name: STALAG_CAT, cat: STALAG_CAT, sku: Z.sku, url: Z.url, flat: false, place: 'floor', layer: 'furnish', x: p.x, y: Y + (p.y || 0), z: p.z, rot: p.rot, yaw: Z.yaw || 0,
+        s: Z.s.map(v => r3(v * k)), dims: Z.dims.map(v => r3(v * k)), fromCave: true };
+      objects.push(o); placements.push({ id: STALAG_CAT, sku: o.sku, x: o.x, y: o.y, z: o.z, rot: o.rot, dims: o.dims });
+    }
+    return { objects, placements };
   }
   // is the whole of a placement's footprint on the room's floor? (walls are a foot thick, centred on the grid line: half a
   // foot of slack; a thin thing is judged along its middle)
@@ -247,7 +284,52 @@ export function makeRoomGen({ solver, solver2, walls, lib, types, orient, versio
   }
   const floors = Object.keys(lib.objects).filter(k => k.startsWith('floor-') && lib.objects[k].skus.some(s => s.kind === 'flat'));
 
-  return { factionChange: (entities, id, flavor) => planFactionChange(entities, id, flavor, lib, types), isOutdoor: (type) => !!walls.isOutdoor?.(type), types: typeKeys, typeList: types.map(t => ({ key: t.key, label: t.label, cells: t.cells, family: t.family, ...(t.group && { group: t.group }) })), factionOf: (entities, e) => effectiveFaction(entities, e, lib, types), skuUsable: (k) => solver.skuUsable(k, SOLVER_OPTS), version, solve, pinnedOf, edges, roomsOf, stairFor, stairOffer, stairCore, stairPieceOf, sizeOf, floorFor, floors, families: walls.WALL_FAMILIES, skuRec, lib, orient };
+  // GENERATED DOORS (2026-10-29): the doors the rooms imply, as the game draws them (client/world.js shell): worked out
+  // from the rooms a player can see (a door into a hidden room is not there for them), and, for the GM side, the doors
+  // only hidden rooms own (`veiled`). The GM's wall edits apply: 'wall' takes a door away; 'open' means it is gone or is
+  // already a thing of its own (materialised: then it opens as an object, object.open); doorType swaps the door.
+  // key -> the wall engine's edge.
+  function generatedDoors(entities, { gmSide = true } = {}) {
+    const hidden = new Set(Object.values(entities).filter(e => e.kind === 'room' && e.hidden).map(e => e.id));
+    const vis = hidden.size ? Object.fromEntries(Object.entries(entities).filter(([, e]) => !(e.kind === 'room' && e.hidden))) : entities;
+    const out = new Map(), take = (e, veiled) => { if (e.kind === 'door' && !out.has(e.key)) out.set(e.key, veiled ? { ...e, veiled: true } : e); };
+    for (const e of edges(vis).edges.values()) take(e, false);
+    if (gmSide && hidden.size) for (const e of edges(entities).edges.values()) if (e.sides.every(s => hidden.has(s.room))) take(e, true);
+    for (const o of Object.values(entities)) {
+      if (o.kind !== 'edge' || !out.has(o.key)) continue;
+      if (o.as === 'wall' || o.as === 'open') out.delete(o.key);
+      else if (o.doorType) out.set(o.key, { ...out.get(o.key), doorType: o.doorType });
+    }
+    return out;
+  }
+  // The door a generated doorway hangs, as the object it becomes when it is materialised: the same piece the shell draws
+  // (the tuner's look.edgeSpecs door, tools/spawn-tuner/js/look.js, which the relay cannot import: it draws with three.js),
+  // at the same place. object.place args (no id), or null when there is no generated door at `key`.
+  // KEEP IN STEP with look.edgeSpecs / kitSpec and client/main.js wallItem (browser_pdoors.py PARITY compares them).
+  const WALL_IN = 108; // (look.js WALL_IN: a door's opening, 9 ft)
+  const usable = (k) => solver.skuUsable(k, SOLVER_OPTS);
+  function kitSku(o, family, pick = 0) {
+    const ok = o.skus.filter(s => s.bounds && usable(s));
+    let fam = ok.filter(s => s.family === family);
+    if (!fam.length && walls.FAMILY_FALLBACK?.[family]) fam = ok.filter(s => s.family === walls.FAMILY_FALLBACK[family]);
+    return (fam.length ? fam[pick % fam.length] : null) || ok[0] || o.skus.find(s => s.family === family && s.bounds) || o.skus.find(s => s.bounds) || null;
+  }
+  const doorPiece = (entities, key, opts = {}) => pieceOfDoor(generatedDoors(entities, opts).get(key));
+  const doorPieces = (entities, opts = {}) => new Map([...generatedDoors(entities, opts)].map(([k, e]) => [k, pieceOfDoor(e)]).filter(([, P]) => P));
+  function pieceOfDoor(e) {
+    if (!e) return null;
+    const key = e.key, cat = lib.objects[e.doorType] ? e.doorType : 'door-plank', o = lib.objects[cat];
+    if (!o) return null;
+    const span = e.span || 1, inches = [span * walls.CELL * 12 - (span === 1 ? 8 : 16), Math.max(o.size[1], 4), WALL_IN], [w, d, h] = inches.map(v => v / 12);
+    const leaves = o.skus.filter(k => k.piece === 'leaf' && k.bounds && usable(k));
+    const leaf = leaves.find(k => k.shape === (e.doorLeaf || 'leaf')) || leaves.find(k => k.shape === 'leaf') || (e.doorLeaf ? leaves[0] : null);
+    const sku = leaf || kitSku(o, e.family);
+    const t = walls.edgeTransform(e), r2 = (v) => Math.round(v * 100) / 100;
+    return { name: cat[0].toUpperCase() + cat.slice(1).replace(/-/g, ' '), cat, sku: sku?.sku, url: sku?.url, s: sku ? solver.kitScale(w, d, h, sku.bounds, orient[sku.mesh]) : [1, 1, 1], dims: [w, h, d],
+      place: 'kit', layer: 'openings', x: r2(t.x), y: r2(e.y || 0), z: r2(t.z), rot: t.rot || 0, yaw: 0, room: e.owner.room, fromEdge: key, ...(e.veiled && { veiled: true }) };
+  }
+
+  return { generatedDoors, doorPiece, doorPieces, factionChange: (entities, id, flavor) => planFactionChange(entities, id, flavor, lib, types), isOutdoor: (type) => !!walls.isOutdoor?.(type), types: typeKeys, typeList: types.map(t => ({ key: t.key, label: t.label, cells: t.cells, family: t.family, ...(t.group && { group: t.group }) })), factionOf: (entities, e) => effectiveFaction(entities, e, lib, types), skuUsable: (k) => solver.skuUsable(k, SOLVER_OPTS), version, solve, caveStalagObjects, pinnedOf, edges, roomsOf, stairFor, stairOffer, stairCore, stairPieceOf, sizeOf, floorFor, floors, families: walls.WALL_FAMILIES, skuRec, lib, orient };
 }
 let _n = 0;
 function defaultId(p) { return `${p}_${Date.now().toString(36)}${(++_n).toString(36)}${Math.random().toString(36).slice(2, 6)}`.slice(0, p.length + 1 + 20); }

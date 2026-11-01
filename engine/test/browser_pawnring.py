@@ -18,6 +18,8 @@
           send to area: FIVE since the cuts of 2026-10-11. Off the ring: Delete (its key, and the "?" sheet says so),
           Duplicate (Ctrl/⌘+D). On the SHEET CARD: the pawn's name and who moves it (the GM picks). DROPPED: the pawn lock
   KEYS    = and - change a selected pawn's damage; [ and ] only step levels
+  ICONS   a cold session with the painted set: the idle preload (after the load screen) has the main buttons' pictures,
+          so the FIRST ring opened wears them complete on its first frame; ☰ likewise; nothing is fetched at the open
 """
 import argparse, asyncio, json, os, shutil, subprocess, sys, tempfile, time, urllib.parse, urllib.request
 from playwright.async_api import async_playwright
@@ -116,11 +118,51 @@ async def main():
             await sel(pg, id); b = await at(pg, HPB); await pg.mouse.click(b['x'], b['y']); await wait(pg, '!!tw.ringDamageEdit()', 3000, 'damage field')
             await pg.keyboard.type(text, delay=15); st = await pg.evaluate('tw.ringDamageEdit()'); await pg.keyboard.press(key); await pg.wait_for_timeout(250); return st
 
+        # ================= ICONS =================
+        # (2026-10-22, Harry: the first ring of a session showed its buttons bare for half a second.) A fresh context (a
+        # cold cache) on the GM's link, with the house ring's painted set (the live house look's ring, read-only; the
+        # charcoal set forced), waits for the load screen to lift and the idle preload, then opens its FIRST ring.
+        print('ICONS: the first ring of a session draws its painted pictures at once (the preload)')
+        hring = None
+        try:
+            for line in open(os.path.join(tw_sandbox.REVIEWS, 'tuner', 'house.jsonl')):
+                try: d = json.loads(line)
+                except Exception: continue
+                if (d.get('data') or {}).get('ring'): hring = d['data']['ring']
+        except OSError: pass
+        hring = json.loads(json.dumps(hring)) if hring and hring.get('settings') else {'settings': {}}
+        hring['settings'].update({'iconSet': 'charcoal', 'iconAlternates': {}})
+        ictx = await browser.new_context(viewport={'width': 1400, 'height': 900}, reduced_motion='reduce')
+        # (the house record is answered inside the page, by fetch: a Playwright route would turn the browser's caches off,
+        # and the cache is what this section is about)
+        await ictx.add_init_script("(() => { const H = %s, F = window.fetch; window.fetch = (u, ...r) => { const s = String(u?.url || u); if (!/\\/tw-icon-api\\/|\\/tw-ratings\\/tuner\\/house/.test(s)) return F(u, ...r); return Promise.resolve(/\\/tuner\\/house(\\?|$)/.test(s) ? new Response(JSON.stringify(H), { status: 200, headers: { 'content-type': 'application/json' } }) : new Response('', { status: 404 })); }; })()" % json.dumps({'ring': hring}))
+        ipg = await ictx.new_page(); ipg.on('pageerror', lambda e: errors.append(f'pageerror: {e}'))
+        await ipg.goto(gm.url.replace('api=&', 'api=/tw-icon-api&'))
+        await wait(ipg, 'window.tw && tw.ready && tw.ready() && tw.loadHold && tw.ringSettings().iconSet === "charcoal"', 60000, 'icon tab')
+        warmed = await wait(ipg, '(() => { const w = tw.ringIconWarm(); return w.urls.length > 0 && w.done === w.urls.length; })()', 20000, 'the preload')
+        wst = await ipg.evaluate("(() => { const w = tw.ringIconWarm(), rs = performance.getEntriesByType('resource').filter(e => /ui-icons\\/(charcoal|parchment)\\//.test(e.name)); return { ...w, first: rs.length ? Math.min(...rs.map(e => e.startTime)) : null, end: tw.loadHold.end, n: rs.length }; })()")
+        check(warmed and wst['first'] is not None and wst['first'] >= wst['end'], 'the preload fetches and decodes the main buttons\' pictures, and only after the load screen lifted', {k: wst[k] for k in ('done', 'first', 'end', 'n')} | {'urls': len(wst['urls'])})
+        await ipg.evaluate(f"(() => {{ const e = {E(BR)}, g = tw.main.grab; g.focus.set(e.x, 0, e.z); g.yaw = 0; g.pitch = 52; g.dist = 95; g.update(); tw.main.rule = 'free'; }})()"); await ipg.wait_for_timeout(300)
+        FIRST = r"""async (id) => { const r = document.querySelector('#ring'), t0 = performance.now(), seen = [];
+          new PerformanceObserver(l => { for (const e of l.getEntries()) if (/ui-icons/.test(e.name)) seen.push(e.name.split('/').pop()); }).observe({ type: 'resource' });
+          if (id) tw.select(id); else tw.ringOpen('expanded');
+          const sel = id ? '#ring > .rbtn:not(.ex)' : '#ring > .rbtn.ex';
+          return await new Promise(res => { let n = 0; const f = () => { const bs = [...r.querySelectorAll(sel)], imgs = bs.map(b => b.querySelector('img.paint')).filter(Boolean);
+            if (!r.hidden && bs.length) res({ frame: n, ms: Math.round(performance.now() - t0), buttons: bs.length, imgs: imgs.length, complete: imgs.filter(i => i.complete && i.naturalWidth > 0).length, fetched: seen, notWarm: imgs.filter(i => !tw.ringIconWarm().urls.includes(i.src)).map(i => i.src.split('/ui-icons/')[1]) });
+            else if (++n > 120) res(null); else requestAnimationFrame(f); }; requestAnimationFrame(f); }); }"""
+        fo = await ipg.evaluate(FIRST, BR)
+        check(fo and fo['buttons'] == 5 and fo['imgs'] >= 4 and fo['complete'] == fo['imgs'] and not fo['fetched'],  # (5: turn, sheet, damage, Attack, ☰ since 2026-10-29; Attack's painted picture comes with the ringicons work: until then it wears its line icon)
+              'the first ring opened (a pawn): on its first frame every main button wears its painted picture, complete, none fetched at the open', fo)
+        await ipg.wait_for_timeout(500)  # (the first open warmed this selection's ☰ list: the hand's way to ☰)
+        fe = await ipg.evaluate(FIRST, None)
+        check(fe and fe['imgs'] >= 1 and fe['complete'] == fe['imgs'] and not fe['fetched'], 'and ☰ opened: on its first frame every painted picture of the open circle is complete, none fetched at the open', fe)
+        await ictx.close()
+
         # ================= RING =================
         print('RING: the closed ring, and names')
         await sel(gm, BR)
         ring = await gm.evaluate(CLOSED)
-        check(ring == ['edit.rotate', 'pawn.sheet', 'pawn.damage', 'menu'], 'GM, a pawn: the closed ring is exactly turn · sheet · damage · menu, in that order', ring)
+        check(ring == ['edit.rotate', 'pawn.sheet', 'pawn.damage', 'pawn.attack', 'menu'], 'GM, a pawn: the closed ring is exactly turn · sheet · damage · attack · menu, in that order (Attack: always there since 2026-10-29, docs/BEYOND20.md)', ring)
         tips = {}
         for cmd in ('edit.rotate', 'pawn.sheet', 'pawn.damage'):
             b = await at(gm, f'#ring .rbtn[data-cmd=\\"{cmd}\\"]'); await gm.mouse.move(b['x'], b['y']); await gm.wait_for_timeout(120)
@@ -139,13 +181,13 @@ async def main():
         await sel(kit, BR); ring = await kit.evaluate(CLOSED)
         check(ring == ['pawn.sheet', 'pawn.damage', 'menu'], 'a player on someone else\'s pawn: sheet · damage · menu (no turn: not theirs to move)', ring)
         await sel(mi, BR); ring = await mi.evaluate(CLOSED)
-        check(ring == ['edit.rotate', 'pawn.sheet', 'pawn.damage', 'menu'], 'the pawn\'s owner gets all four', ring)
+        check(ring == ['edit.rotate', 'pawn.sheet', 'pawn.damage', 'pawn.attack', 'pawn.eyes', 'menu'], 'the pawn\'s owner gets all five (Attack included), and Eyes (first person, 2026-10-29: on a player\'s own pawn)', ring)
         await sel(gm, BR); await gm.click('#ring .rbtn[data-menu]'); await gm.wait_for_timeout(350)
         menu = await gm.evaluate("tw.ringMenu().map(n => n.cmd || '▸' + n.group)")
-        check(menu == ['▸pawn.cond.', '▸pawn.mark.', 'edit.lift', 'thing.hide', 'pawn.travel'], 'open, exactly (the cuts of 2026-10-11): Conditions ▸, Indicators ▸, raise / lower, hide, send to area', menu)
+        check(menu == ['pawn.eyes', '▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'edit.lift', 'thing.hide', 'pawn.travel'], 'open, exactly (the cuts of 2026-10-11, First person since 2026-10-29, Aura since 2026-10-30): First person, Conditions ▸, Indicators ▸, Aura ▸, raise / lower, hide, send to area', menu)
         # (2026-10-20: the names are drawn in the ring's label style from each button's data-tip, not in a .cap inside it)
         caps = await gm.evaluate("[...document.querySelectorAll('#ring .rbtn.ex')].map(b => [b.dataset.tip || '', b.title || ''])")
-        check(len(caps) == 5 and all(c[0] for c in caps) and [c[0] for c in caps] == ['Conditions', 'Indicators', 'Raise / lower', 'Hide from players', 'Send to area'], 'the open circle shows names, not only icons', [c[0] for c in caps])
+        check(len(caps) == 7 and all(c[0] for c in caps) and [c[0] for c in caps] == ['First person', 'Conditions', 'Indicators', 'Aura', 'Raise / lower', 'Hide from players', 'Send to area'], 'the open circle shows names, not only icons', [c[0] for c in caps])
         check(not any('HP' in c[0] or 'Damage' in c[0] or 'Delete' in c[0] or 'Lock' in c[0] or 'Duplicate' in c[0] for c in caps) and await gm.evaluate("!tw.registry.get('pawn.hp-5') && !tw.registry.get('pawn.hp+1') && !tw.registry.get('pawn.hp')"), 'no Delete, Lock or Duplicate on the ring; the four HP buttons are gone', caps)
         # Delete left the ring: its key must still be findable. The "?" sheet lists it, with the pawn selected.
         await gm.keyboard.press('Escape'); await gm.evaluate("tw.emit('sheet.toggle')"); await gm.wait_for_timeout(250)
@@ -346,7 +388,7 @@ async def main():
             await pg.click(f'#ring .rbtn.ex[data-cmd="{what}"], #ring .rbtn.ex[data-group="{what}"]'); await pg.wait_for_timeout(350)
         await open_menu(gm, BR); await press(gm, 'pawn.cond.')
         f = await gm.evaluate(FLY)
-        check(f and f['group'] == 'pawn.cond.' and f.get('nest') and f['anchorIs'] == 'pawn.cond.' and 'pawn.cond.prone' in f['tiles'] and len(f['tiles']) == 10 and await gm.evaluate("tw.ringState() === 'nested' && document.querySelectorAll('#ring .rbtn[data-nest][data-group=\"pawn.cond.\"]').length === 10"), 'Conditions ▸ opens the list of conditions as the grown ring, from its button', f and f['tiles'])
+        check(f and f['group'] == 'pawn.cond.' and f.get('nest') and f['anchorIs'] == 'pawn.cond.' and 'pawn.cond.prone' in f['tiles'] and len(f['tiles']) == 16 and 'pawn.cond.other' in f['tiles'] and 'pawn.cond.exhaustion.up' in f['tiles'] and await gm.evaluate("tw.ringState() === 'nested' && document.querySelectorAll('#ring .rbtn[data-nest][data-group=\"pawn.cond.\"]').length === 16"), 'Conditions ▸ opens the list of conditions as the grown ring, from its button (2026-10-29: 14 words, exhaustion +1, Other…)', f and f['tiles'])
         await gm.click(NEST % 'pawn.cond.prone'); ok = await wait(kit, f"({E(BR)}.conditions || []).includes('prone')", 5000)
         check(ok, 'choosing one sets it, for every seat')
         await open_menu(gm, BR); await press(gm, 'pawn.mark.')
@@ -425,7 +467,7 @@ async def main():
         check(await gm.evaluate("!!tw.ringFlyout()?.sheet && document.activeElement?.classList.contains('sh-owner')"), '"give control" in the command bar opens the card on that list')
         await gm.keyboard.press('Escape')
         await sel(he, dup['id']); ring = await he.evaluate(CLOSED)
-        check(ok and ring == ['edit.rotate', 'pawn.sheet', 'pawn.damage', 'menu'], 'given to Tobias, it is his: his ring on it has all four', ring)
+        check(ok and ring == ['edit.rotate', 'pawn.sheet', 'pawn.damage', 'pawn.attack', 'pawn.eyes', 'menu'], 'given to Tobias, it is his: his ring on it has all five, and Eyes', ring)
         await sel(gm, dup['id']); await gm.keyboard.press('/'); await gm.keyboard.type('delete', delay=8); await gm.wait_for_timeout(300); await gm.keyboard.press('Enter'); ok = await wait(kit, f"!{E(dup['id'])}", 5000)
         await gm.keyboard.press('Control+z'); oku = await wait(kit, f"!!{E(dup['id'])}", 5000); await wait(gm, f"!!{E(dup['id'])}", 5000, 'back on the GM tab'); await sel(gm, dup['id']); await gm.keyboard.press('Delete'); ok2 = await wait(kit, f"!{E(dup['id'])}", 5000)
         check(ok and oku and ok2, 'Delete from the command bar removes it; undo brings it back; the Delete key removes it again')

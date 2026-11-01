@@ -1,0 +1,49 @@
+[
+{
+  "id": "turnip-works",
+  "name": "Turnip Works",
+  "maker": "Fauna and giblfiz (Implausible Enterprises LLC)",
+  "group": "ours",
+  "kind": "vtt",
+  "url": "https://turnipworks.net/",
+  "summary": "A free 3D tabletop in a browser tab where buildings furnish themselves; players join from a link. We make it, so read this row with that in mind.",
+  "alive": {"state": "alive", "checked": "2026-10-29", "how": "our own site"},
+  "last_checked": "2026-10-29",
+  "licence": "AGPL-3.0 (code), CC BY 4.0 (assets)",
+  "features": {
+    "dims": {"v": "3D", "note": "a 3D table you turn and tilt; a top-down view too", "src": "https://turnipworks.net/about", "verified": true},
+    "platform": {"v": ["browser"], "note": "desktop or laptop browser with WebGL 3D graphics, tested most in Chrome", "src": "https://turnipworks.net/llms.txt", "verified": true},
+    "price": {"v": "free", "note": "no paid tier; players free", "src": "https://turnipworks.net/about", "verified": true},
+    "accounts": {"v": "none", "note": "the GM starts a table and sends links; whoever opens a link takes that seat", "src": "https://turnipworks.net/llms.txt", "verified": true},
+    "fog": {"v": "yes", "note": "per player: each sees what their pawn's light and line of sight reach; the GM sees all", "src": "https://turnipworks.net/llms.txt", "verified": true},
+    "lighting": {"v": "yes", "note": "lamps and fires light the rooms; walls, darkvision and lamps decide each player's sight", "src": "https://turnipworks.net/about", "verified": true},
+    "mapbuild": {"v": "yes", "note": "drop a building (tavern, crypt, tower...) and its rooms furnish themselves; rooms drawn by hand; hills and caves are on dev (not yet live)", "src": "https://turnipworks.net/llms.txt", "verified": true},
+    "levels": {"v": "yes", "note": "buildings with several floors and stairs, a cut-height view to see inside; hills and rooms below ground on dev (not yet live)", "src": "https://github.com/giblfiz/turnipworks/blob/main/docs/VERTICAL.md", "verified": true},
+    "sheets": {"v": "partial", "note": "no character sheets or rules engine; pawns keep a damage count, conditions, notes and a link to your own sheet; initiative and turn order", "src": "https://github.com/giblfiz/turnipworks/blob/main/docs/PAWNS.md", "verified": true},
+    "ddb": {"v": "partial", "note": "Beyond20 rolls, hit points and conditions land on pawns: built, on dev (not yet live)", "src": null, "verified": true},
+    "dice": {"v": "3D", "note": "3D physics dice rolled on the table, seen by everyone", "src": "https://turnipworks.net/about", "verified": true},
+    "phone": {"v": "partial", "note": "live: may open, not built for touch or small screens; a phone pass (tap to place, two fingers to turn) is on dev (not yet live)", "src": "https://turnipworks.net/llms.txt", "verified": true},
+    "offline": {"v": "no", "note": "no offline mode or self-hosting guide; the code is public, so running your own is possible in principle", "src": "https://turnipworks.net/llms.txt", "verified": true},
+    "opensource": {"v": "yes", "note": "engine AGPL-3.0, every 3D asset CC BY 4.0", "src": "https://github.com/giblfiz/turnipworks", "verified": true},
+    "ai": {"v": "yes", "note": "an outside AI chat assistant can sit at the table as the GM's helper through a web API; the 3D art was generated with AI, then picked and fixed by hand; most code is written by AI coding agents", "src": "https://turnipworks.net/about", "verified": true},
+    "modding": {"v": "partial", "note": "a plain web API (made for AI helpers) can read the table and send commands; no add-on or module system", "src": "https://turnipworks.net/llms.txt", "verified": true},
+    "stage": {"v": "alpha", "note": "new (public since October 2026) and changing every week; things can break", "src": "https://turnipworks.net/llms.txt", "verified": true},
+    "community": {"v": "note", "note": "brand new: a handful of alpha tables, no public reviews yet", "src": null, "verified": true}
+  },
+  "upsides": [
+    "Drop a building on the table and it furnishes itself in seconds",
+    "Free, no account, no install: players join from a link",
+    "Open source (AGPL-3.0), and every 3D asset is CC BY 4.0"
+  ],
+  "downsides": [
+    "Alpha: new, changes weekly, and things can break",
+    "Needs a desktop browser with working 3D graphics; weak on phones (live)",
+    "No character sheets, rules engine, music or sound yet"
+  ],
+  "sources": [
+    {"url": "https://turnipworks.net/about", "label": "About page"},
+    {"url": "https://turnipworks.net/llms.txt", "label": "Plain summary (llms.txt): basics and limits"},
+    {"url": "https://github.com/giblfiz/turnipworks", "label": "Source code"}
+  ]
+}
+]

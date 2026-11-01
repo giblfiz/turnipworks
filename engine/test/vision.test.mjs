@@ -104,3 +104,13 @@ test('collinear simplification preserves corners, narrow sight rays and visible 
  for(const z of [2.499,2.49999,2.5,2.50001,2.501])assert.equal(pointInPolygon(15,z,simple),pointInPolygon(15,z,raw));
  assert.ok(pointInPolygon(15,2.5,simple));assert.ok(!pointInPolygon(15,2.501,simple));
 });
+test('iron bars, a barred cage door and a portcullis are seen through, shut or open; a wall section and a plank door are not (2026-10-27)',()=>{
+ const obj=(id,cat,x,z,extra={})=>({id,kind:'object',cat,x,z,y:0,rot:0,dims:[5,9,0.4],layer:cat.startsWith('door-')?'openings':'walls',...extra});
+ assert.equal(blockingSegments([],{a:obj('a','cell-bars',2.5,10),b:obj('b','door-cell-bars',7.5,10),c:obj('c','portcullis',15,10,{dims:[10,9,1.5]})}).length,0);
+ assert.equal(blockingSegments([],{a:obj('a','wall-straight',2.5,10)}).length,1);
+ assert.equal(blockingSegments([],{a:obj('a','door-plank',2.5,10)}).length,1);
+ // a generated door swapped (edge.set doorType) for the barred leaf: seen through too
+ const e={key:'v:2:0',dir:'v',gx:2,gz:0,kind:'door'};
+ assert.equal(blockingSegments(new Map([[e.key,e]]),{ov:{kind:'edge',key:e.key,doorType:'door-cell-bars'}}).length,0);
+ assert.equal(blockingSegments(new Map([[e.key,e]]),{ov:{kind:'edge',key:e.key,doorType:'door-reinforced'}}).length,1);
+});

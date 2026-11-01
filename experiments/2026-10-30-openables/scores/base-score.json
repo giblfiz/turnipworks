@@ -1,0 +1,1149 @@
+{
+ "summary": {
+  "images": 170,
+  "right": 127,
+  "accuracy": 0.747,
+  "skus": 85,
+  "skus_showing_state": 43,
+  "cats": 47,
+  "cats_showing_state": 20,
+  "cats_none": [
+   "bread-oven",
+   "cage-sacrifice",
+   "casket-ornate",
+   "chest-treasure",
+   "crypt-gate-iron",
+   "door-crypt",
+   "door-double-grand",
+   "door-face-carved",
+   "door-panelled",
+   "door-plank",
+   "door-rune-sealed",
+   "door-secret-bookcase",
+   "door-tower",
+   "floor-trapdoor",
+   "gate-double-timber",
+   "gate-fence",
+   "oubliette-hatch",
+   "privy-stall-door",
+   "rural-grooming-box",
+   "rural-tack-trunk",
+   "sideboard",
+   "smith-farrier-box",
+   "stable-stall-door",
+   "stable-stall-gate",
+   "tomb-door-sealed",
+   "trunk-travel"
+  ],
+  "cats_some": [
+   "wall-window-small"
+  ]
+ },
+ "per_sku": {
+  "bread-oven": {
+   "cat": "bread-oven",
+   "shut": {
+    "ok": false,
+    "see": "furnace with glowing fire through open hatch, no visible text",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "stone oven or forge with open burning fire chamber and smoke",
+    "conf": 88
+   }
+  },
+  "cabinet-china": {
+   "cat": "cabinet-china",
+   "shut": {
+    "ok": true,
+    "see": "wooden display cabinet with closed glass doors",
+    "conf": 92
+   },
+   "open": {
+    "ok": true,
+    "see": "display cabinet with glass doors swung open",
+    "conf": 98
+   }
+  },
+  "cage-sacrifice": {
+   "cat": "cage-sacrifice",
+   "shut": {
+    "ok": true,
+    "see": "wooden slatted crate with lid fitted on top, shut",
+    "conf": 90
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden crate with flat lid",
+    "conf": 95
+   }
+  },
+  "casket-ornate": {
+   "cat": "casket-ornate",
+   "shut": {
+    "ok": true,
+    "see": "small ornate chest or jewelry box",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "small chest with red top, lid closed",
+    "conf": 90
+   }
+  },
+  "chest-ironbound": {
+   "cat": "chest-ironbound",
+   "shut": {
+    "ok": true,
+    "see": "small wooden chest with metal corner brackets and closed lid",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden chest with open lid",
+    "conf": 98
+   }
+  },
+  "chest-plain--s1": {
+   "cat": "chest-plain",
+   "shut": {
+    "ok": true,
+    "see": "wooden chest with metal trim and lock, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden chest with lid swung open revealing empty interior",
+    "conf": 99
+   }
+  },
+  "chest-plain--s2": {
+   "cat": "chest-plain",
+   "shut": {
+    "ok": true,
+    "see": "wooden chest with curved lid closed and metal banding, no visible text",
+    "conf": 98
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden chest with lid open",
+    "conf": 95
+   }
+  },
+  "chest-plain--s3": {
+   "cat": "chest-plain",
+   "shut": {
+    "ok": true,
+    "see": "wooden chest with arched closed lid, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden chest with lid swung open",
+    "conf": 95
+   }
+  },
+  "chest-plain--s4": {
+   "cat": "chest-plain",
+   "shut": {
+    "ok": true,
+    "see": "small wooden chest with lid closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden chest with lid lifted open, no visible text",
+    "conf": 100
+   }
+  },
+  "chest-treasure": {
+   "cat": "chest-treasure",
+   "shut": {
+    "ok": false,
+    "see": "treasure chest open and filled with gold",
+    "conf": 98
+   },
+   "open": {
+    "ok": true,
+    "see": "treasure chest with lid open, full of gold coins",
+    "conf": 95
+   }
+  },
+  "coffin--s1": {
+   "cat": "coffin",
+   "shut": {
+    "ok": true,
+    "see": "wooden coffin with lid on, shut",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden coffin with lid slid open",
+    "conf": 98
+   }
+  },
+  "coffin--s2": {
+   "cat": "coffin",
+   "shut": {
+    "ok": true,
+    "see": "wooden coffin with closed lid",
+    "conf": 98
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden coffin with lid slid open",
+    "conf": 98
+   }
+  },
+  "crypt-gate-iron": {
+   "cat": "crypt-gate-iron",
+   "shut": {
+    "ok": true,
+    "see": "peaked double wooden gate closed in frame, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden barred gate with gabled top",
+    "conf": 90
+   }
+  },
+  "cupboard--s1": {
+   "cat": "cupboard",
+   "shut": {
+    "ok": true,
+    "see": "small wooden nightstand cabinet with two closed doors",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden cupboard with doors swung open",
+    "conf": 98
+   }
+  },
+  "cupboard--s2": {
+   "cat": "cupboard",
+   "shut": {
+    "ok": true,
+    "see": "wooden sideboard cabinet with closed front doors",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden cabinet with two front doors swung open",
+    "conf": 95
+   }
+  },
+  "cupboard--s3": {
+   "cat": "cupboard",
+   "shut": {
+    "ok": true,
+    "see": "wooden cupboard with closed double doors",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden cupboard with doors swung open",
+    "conf": 98
+   }
+  },
+  "desk-bureau": {
+   "cat": "desk-bureau",
+   "shut": {
+    "ok": true,
+    "see": "rolltop desk with closed slanted lid and drawers, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "chest with lid swung open",
+    "conf": 98
+   }
+  },
+  "door-barn-double--dressed-stone": {
+   "cat": "door-barn-double",
+   "shut": {
+    "ok": true,
+    "see": "double doors with red markings, closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "double wooden doors swung open in a dark frame",
+    "conf": 98
+   }
+  },
+  "door-barn-double--rough-timber": {
+   "cat": "door-barn-double",
+   "shut": {
+    "ok": true,
+    "see": "wooden double gate with diagonal braces, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "double wooden arched doors swung wide open in frame, no visible text",
+    "conf": 98
+   }
+  },
+  "door-cell-bars--leaf": {
+   "cat": "door-cell-bars",
+   "shut": {
+    "ok": true,
+    "see": "wooden window or hatch with vertical slats",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "doorway with open door swung back",
+    "conf": 90
+   }
+  },
+  "door-crypt--leaf": {
+   "cat": "door-crypt",
+   "shut": {
+    "ok": true,
+    "see": "arched wooden door panel with iron hinges",
+    "conf": 92
+   },
+   "open": {
+    "ok": false,
+    "see": "closed arched wooden door",
+    "conf": 92
+   }
+  },
+  "door-double-grand--dressed-stone": {
+   "cat": "door-double-grand",
+   "shut": {
+    "ok": true,
+    "see": "double wooden doors barred shut",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "double doors barred shut with a horizontal locking beam",
+    "conf": 99
+   }
+  },
+  "door-double-grand--fine-leaf": {
+   "cat": "door-double-grand",
+   "shut": {
+    "ok": true,
+    "see": "wooden panel door closed with latch, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden panel door closed with latch, no visible text",
+    "conf": 95
+   }
+  },
+  "door-double-grand--leaf": {
+   "cat": "door-double-grand",
+   "shut": {
+    "ok": true,
+    "see": "ornate carved wooden double doors closed together",
+    "conf": 98
+   },
+   "open": {
+    "ok": false,
+    "see": "ornate double wooden doors",
+    "conf": 95
+   }
+  },
+  "door-double-grand--rough-timber": {
+   "cat": "door-double-grand",
+   "shut": {
+    "ok": true,
+    "see": "double wooden doors with metal fittings and central latch, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "double wooden doors with metal fittings and central latch, no visible text",
+    "conf": 95
+   }
+  },
+  "door-face-carved--leaf": {
+   "cat": "door-face-carved",
+   "shut": {
+    "ok": true,
+    "see": "carved stone face door slab with gaping mouth",
+    "conf": 45
+   },
+   "open": {
+    "ok": false,
+    "see": "carved stone face door slab with gaping mouth",
+    "conf": 45
+   }
+  },
+  "door-glazed--leaf": {
+   "cat": "door-glazed",
+   "shut": {
+    "ok": true,
+    "see": "wooden door with six window panes and doorknob, closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden door with glass panes swung out of frame, no visible text",
+    "conf": 80
+   }
+  },
+  "door-panelled--leaf": {
+   "cat": "door-panelled",
+   "shut": {
+    "ok": true,
+    "see": "six-panel wooden door standing closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "panelled wooden door, shut",
+    "conf": 95
+   }
+  },
+  "door-plank--dressed-stone--common": {
+   "cat": "door-plank",
+   "shut": {
+    "ok": true,
+    "see": "wooden door with iron bar in stone frame",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden door in frame with latch, no visible text",
+    "conf": 90
+   }
+  },
+  "door-plank--leaf": {
+   "cat": "door-plank",
+   "shut": {
+    "ok": true,
+    "see": "wooden door panel with iron strap",
+    "conf": 92
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden door closed in frame with metal fittings, no visible text",
+    "conf": 95
+   }
+  },
+  "door-plank--rough-timber--common": {
+   "cat": "door-plank",
+   "shut": {
+    "ok": true,
+    "see": "wooden door with cross brace in frame",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden door closed in its frame, no visible text",
+    "conf": 95
+   }
+  },
+  "door-reinforced--dressed-stone": {
+   "cat": "door-reinforced",
+   "shut": {
+    "ok": true,
+    "see": "wooden door with metal latch in stone frame",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden door in frame swung open, no visible text",
+    "conf": 95
+   }
+  },
+  "door-reinforced--leaf": {
+   "cat": "door-reinforced",
+   "shut": {
+    "ok": true,
+    "see": "arched wooden door with iron hinges",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "doorway with wooden door swung open",
+    "conf": 96
+   }
+  },
+  "door-reinforced--rough-timber": {
+   "cat": "door-reinforced",
+   "shut": {
+    "ok": true,
+    "see": "metal door with ring handle and latch mechanism, no visible text",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "doorway frame with door swung open",
+    "conf": 95
+   }
+  },
+  "door-rune-sealed--leaf": {
+   "cat": "door-rune-sealed",
+   "shut": {
+    "ok": true,
+    "see": "metal door with ring handle and latch mechanism, no visible text",
+    "conf": 90
+   },
+   "open": {
+    "ok": false,
+    "see": "wall frame with closed metal gate, no visible text",
+    "conf": 85
+   }
+  },
+  "door-secret-bookcase--leaf": {
+   "cat": "door-secret-bookcase",
+   "shut": {
+    "ok": true,
+    "see": "tall wooden bookcase filled with books",
+    "conf": 55
+   },
+   "open": {
+    "ok": false,
+    "see": "tall wooden bookshelf with books, no visible text",
+    "conf": 60
+   }
+  },
+  "door-tower--leaf": {
+   "cat": "door-tower",
+   "shut": {
+    "ok": true,
+    "see": "arched wooden door with iron hinges, closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "closed arched door with iron bands",
+    "conf": 95
+   }
+  },
+  "floor-trapdoor--dressed-stone": {
+   "cat": "floor-trapdoor",
+   "shut": {
+    "ok": true,
+    "see": "square floor trapdoor with wooden panel, hinges, and pull ring closed flush",
+    "conf": 90
+   },
+   "open": {
+    "ok": false,
+    "see": "floor trapdoor hatch closed in stone frame with pull ring, no visible text",
+    "conf": 95
+   }
+  },
+  "floor-trapdoor--rough-timber": {
+   "cat": "floor-trapdoor",
+   "shut": {
+    "ok": true,
+    "see": "wooden floor trapdoor with hinges and pull ring set flush in floorboards",
+    "conf": 98
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden floor hatch with metal strap hinges",
+    "conf": 95
+   }
+  },
+  "gate-double-timber": {
+   "cat": "gate-double-timber",
+   "shut": {
+    "ok": true,
+    "see": "tall wooden stockade gate, no visible text",
+    "conf": 90
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden double gate with crossbar beam, closed",
+    "conf": 95
+   }
+  },
+  "gate-fence": {
+   "cat": "gate-fence",
+   "shut": {
+    "ok": true,
+    "see": "closed wooden fence gate",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "closed wooden fence gate",
+    "conf": 95
+   }
+  },
+  "iron-maiden": {
+   "cat": "iron-maiden",
+   "shut": {
+    "ok": true,
+    "see": "urn container with lid seated on pedestal, no visible text",
+    "conf": 80
+   },
+   "open": {
+    "ok": true,
+    "see": "ruined stone archway with open opening",
+    "conf": 75
+   }
+  },
+  "linen-chest": {
+   "cat": "linen-chest",
+   "shut": {
+    "ok": true,
+    "see": "wooden desk or low chest with slanted top",
+    "conf": 80
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden chest with corner brackets, lid open",
+    "conf": 95
+   }
+  },
+  "mil-footlocker": {
+   "cat": "mil-footlocker",
+   "shut": {
+    "ok": true,
+    "see": "small wooden strongbox chest with flat lid closed, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "open wooden chest with lid lifted",
+    "conf": 98
+   }
+  },
+  "oubliette-hatch": {
+   "cat": "oubliette-hatch",
+   "shut": {
+    "ok": true,
+    "see": "metal grate floor hatch with closed bars set in stone surround",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "metal grate floor hatch with closed bars in stone frame",
+    "conf": 95
+   }
+  },
+  "portcullis--castle-rough": {
+   "cat": "portcullis",
+   "shut": {
+    "ok": true,
+    "see": "stone wall with lowered iron portcullis gate, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "stone wall with open archway",
+    "conf": 90
+   }
+  },
+  "privy-stall-door--s1": {
+   "cat": "privy-stall-door",
+   "shut": {
+    "ok": true,
+    "see": "wooden door with circular peephole and diagonal brace",
+    "conf": 90
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden door with small peephole, no visible text",
+    "conf": 90
+   }
+  },
+  "privy-stall-door--s2": {
+   "cat": "privy-stall-door",
+   "shut": {
+    "ok": true,
+    "see": "wooden door panel with iron band and latch",
+    "conf": 92
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden door with horizontal locking bar",
+    "conf": 95
+   }
+  },
+  "roof-hatch--wood": {
+   "cat": "roof-hatch",
+   "shut": {
+    "ok": true,
+    "see": "closed wooden trapdoor with iron hinges",
+    "conf": 96
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden trapdoor hatch swung open",
+    "conf": 98
+   }
+  },
+  "rural-grooming-box": {
+   "cat": "rural-grooming-box",
+   "shut": {
+    "ok": false,
+    "see": "open treasure chest filled with loot, no visible text",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "small wooden chest with lid flipped open",
+    "conf": 99
+   }
+  },
+  "rural-tack-trunk": {
+   "cat": "rural-tack-trunk",
+   "shut": {
+    "ok": true,
+    "see": "wooden chest with reddish inlaid lid, closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "closed wooden chest with flat lid",
+    "conf": 98
+   }
+  },
+  "salt-box": {
+   "cat": "salt-box",
+   "shut": {
+    "ok": true,
+    "see": "small wooden chest with closed lid",
+    "conf": 92
+   },
+   "open": {
+    "ok": true,
+    "see": "small wooden chest with lid propped open",
+    "conf": 85
+   }
+  },
+  "sarcophagus--s1": {
+   "cat": "sarcophagus",
+   "shut": {
+    "ok": true,
+    "see": "stone sarcophagus with carved lid resting closed on top",
+    "conf": 98
+   },
+   "open": {
+    "ok": true,
+    "see": "stone sarcophagus with lid slid open",
+    "conf": 96
+   }
+  },
+  "sarcophagus--s2": {
+   "cat": "sarcophagus",
+   "shut": {
+    "ok": true,
+    "see": "stone sarcophagus with diamond carving on closed lid, no visible text",
+    "conf": 98
+   },
+   "open": {
+    "ok": true,
+    "see": "stone sarcophagus with lid slid open, no visible text",
+    "conf": 100
+   }
+  },
+  "sarcophagus--s3": {
+   "cat": "sarcophagus",
+   "shut": {
+    "ok": true,
+    "see": "closed domed wooden treasure chest",
+    "conf": 98
+   },
+   "open": {
+    "ok": true,
+    "see": "stone sarcophagus with lid slid open",
+    "conf": 98
+   }
+  },
+  "sideboard": {
+   "cat": "sideboard",
+   "shut": {
+    "ok": true,
+    "see": "wooden executive desk with closed side drawers and cabinet doors",
+    "conf": 92
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden desk with closed drawers",
+    "conf": 88
+   }
+  },
+  "smith-farrier-box": {
+   "cat": "smith-farrier-box",
+   "shut": {
+    "ok": false,
+    "see": "small chest open with loot inside",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "small wooden chest with lid lifted open",
+    "conf": 90
+   }
+  },
+  "stable-stall-door--dressed-stone": {
+   "cat": "stable-stall-door",
+   "shut": {
+    "ok": true,
+    "see": "closed barrier gate with horizontal latch bar",
+    "conf": 92
+   },
+   "open": {
+    "ok": false,
+    "see": "red wooden barrier or hatch panel with crossbar shut, no visible text",
+    "conf": 90
+   }
+  },
+  "stable-stall-door--rough-timber": {
+   "cat": "stable-stall-door",
+   "shut": {
+    "ok": true,
+    "see": "wooden counter or low gate barricade",
+    "conf": 70
+   },
+   "open": {
+    "ok": false,
+    "see": "low wooden fence gate or barrier, no visible text",
+    "conf": 80
+   }
+  },
+  "stable-stall-gate": {
+   "cat": "stable-stall-gate",
+   "shut": {
+    "ok": true,
+    "see": "vertical wooden plank gate with strap hinges and latch bar closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "closed wooden gate with sliding bolt latch",
+    "conf": 95
+   }
+  },
+  "stable-stall-gate--s2": {
+   "cat": "stable-stall-gate",
+   "shut": {
+    "ok": true,
+    "see": "wooden door with metal hinges and latch, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden door panel with strap hinges and closed latch",
+    "conf": 92
+   }
+  },
+  "stable-stall-gate--s3": {
+   "cat": "stable-stall-gate",
+   "shut": {
+    "ok": true,
+    "see": "wooden gate with diagonal brace and latch, closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "wooden fence gate with crossbar",
+    "conf": 95
+   }
+  },
+  "strongbox": {
+   "cat": "strongbox",
+   "shut": {
+    "ok": true,
+    "see": "closed cube crate container",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "small wooden chest with lid flipped open, no visible text",
+    "conf": 95
+   }
+  },
+  "tomb-door-sealed--crypt-stone": {
+   "cat": "tomb-door-sealed",
+   "shut": {
+    "ok": true,
+    "see": "tall wooden cabinet with closed paneled doors",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "closed wooden door with barred beam",
+    "conf": 95
+   }
+  },
+  "trunk-travel--s1": {
+   "cat": "trunk-travel",
+   "shut": {
+    "ok": true,
+    "see": "red chest with green straps and closed rounded lid",
+    "conf": 96
+   },
+   "open": {
+    "ok": false,
+    "see": "red chest with green straps and gold trim",
+    "conf": 95
+   }
+  },
+  "trunk-travel--s2": {
+   "cat": "trunk-travel",
+   "shut": {
+    "ok": true,
+    "see": "green and gold treasure chest",
+    "conf": 95
+   },
+   "open": {
+    "ok": false,
+    "see": "green chest with closed lid and gold trim, no visible text",
+    "conf": 95
+   }
+  },
+  "wall-secret-door--black-stone": {
+   "cat": "wall-secret-door",
+   "shut": {
+    "ok": true,
+    "see": "stone doorway frame with closed horizontal plank wooden door",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "stone doorway with wooden door swung open",
+    "conf": 90
+   }
+  },
+  "wall-window-small--castle-rough": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": false,
+    "see": "stone wall segment with open window aperture",
+    "conf": 75
+   },
+   "open": {
+    "ok": true,
+    "see": "stone arch doorway with open passage, no visible text",
+    "conf": 85
+   }
+  },
+  "wall-window-small--dressed-stone": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": true,
+    "see": "wooden door with barred windows in stone arch, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "stone portal frame with door leaf swung open, no visible text",
+    "conf": 90
+   }
+  },
+  "wall-window-small--fieldstone": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": false,
+    "see": "stone wall with open triangular shutter, no visible text",
+    "conf": 85
+   },
+   "open": {
+    "ok": true,
+    "see": "stone window or doorway frame with open aperture",
+    "conf": 95
+   }
+  },
+  "wall-window-small--half-timber": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": false,
+    "see": "half-timber wall section with window shutter open, no visible text",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "stone portal frame with door leaf swung open, no visible text",
+    "conf": 90
+   }
+  },
+  "wall-window-small--log-cabin": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": true,
+    "see": "log wall segment with closed window shutters",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "stone arch doorway with open passage, no visible text",
+    "conf": 85
+   }
+  },
+  "wall-window-small--noble-interior": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": true,
+    "see": "wall section with closed blue glass pane window",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "portal frame with clear open doorway",
+    "conf": 95
+   }
+  },
+  "wall-window-small--noble-panel": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": false,
+    "see": "window with open casement pane",
+    "conf": 92
+   },
+   "open": {
+    "ok": false,
+    "see": "stone portal frame with closed door panel",
+    "conf": 95
+   }
+  },
+  "wall-window-small--noble-paper": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": true,
+    "see": "wall section with closed mullioned window and side curtains",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "stone doorway portal frame with open passageway",
+    "conf": 96
+   }
+  },
+  "wall-window-small--rough-timber": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": true,
+    "see": "wooden double doors or wardrobe panels",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "stone wall with open triangular shutter, no visible text",
+    "conf": 85
+   }
+  },
+  "wall-window-small--rough-timber--s2": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": false,
+    "see": "wooden wall with a window and shutters open, no visible text",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "stone portal frame with door leaf swung open, no visible text",
+    "conf": 90
+   }
+  },
+  "wall-window-small--temple-stone": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": true,
+    "see": "stone wall with intact arched stained-glass window",
+    "conf": 90
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden door swung open in stone frame",
+    "conf": 95
+   }
+  },
+  "wall-window-small--tower-stone": {
+   "cat": "wall-window-small",
+   "shut": {
+    "ok": true,
+    "see": "stone wall segment with leaded glass window, shut",
+    "conf": 85
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden door swung open in stone frame",
+    "conf": 95
+   }
+  },
+  "wardrobe--common--s1": {
+   "cat": "wardrobe",
+   "shut": {
+    "ok": true,
+    "see": "tall wooden cupboard with doors closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden cupboard with interior shelves and doors swung open, no visible text",
+    "conf": 99
+   }
+  },
+  "wardrobe--common--s2": {
+   "cat": "wardrobe",
+   "shut": {
+    "ok": true,
+    "see": "wooden cabinet with two closed doors",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden cupboard with both doors swung open showing shelves, no visible text",
+    "conf": 100
+   }
+  },
+  "wardrobe--common--s3": {
+   "cat": "wardrobe",
+   "shut": {
+    "ok": true,
+    "see": "wooden cupboard cabinet with two front doors closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden cupboard with both doors open",
+    "conf": 98
+   }
+  },
+  "wardrobe--fine--s1": {
+   "cat": "wardrobe",
+   "shut": {
+    "ok": true,
+    "see": "wooden cupboard with two closed doors, no visible text",
+    "conf": 99
+   },
+   "open": {
+    "ok": true,
+    "see": "tall wooden cupboard with doors wide open",
+    "conf": 99
+   }
+  },
+  "wardrobe--fine--s2": {
+   "cat": "wardrobe",
+   "shut": {
+    "ok": true,
+    "see": "wooden cabinet with doors closed",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden cabinet with doors swung open",
+    "conf": 98
+   }
+  },
+  "wardrobe--fine--s3": {
+   "cat": "wardrobe",
+   "shut": {
+    "ok": true,
+    "see": "wooden cabinet or sideboard with closed doors",
+    "conf": 95
+   },
+   "open": {
+    "ok": true,
+    "see": "wooden cupboard with both doors swung open and exposed shelves, no visible text",
+    "conf": 99
+   }
+  }
+ }
+}

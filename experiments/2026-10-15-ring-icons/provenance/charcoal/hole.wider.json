@@ -1,0 +1,71 @@
+{
+  "id": "hole.wider",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: A round dark pit hole in grey stone ground seen from slightly above, with TWO thick ivory arrows on its left and right rims pointing OUTWARD, away from the hole: make it wider. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/room.height.taller.webp",
+      "sha256": "4003863699fcaaedff3e02c4f680c40c872c09f129c38888c94c4f939e2d2a8c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/edit.lift.webp",
+      "sha256": "4841cfbf07bde1f208509fe1e83275280c4b6b6c3847c586868f1128395bd5fb",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/room.walls.fieldstone.webp",
+      "sha256": "eda226ee808e614d3b49f9c47368551d19e89aeba9391e3ed169baf8129f6229",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/charcoal--hole.wider.png",
+  "source_sha256": "297fa346a75e9943b4b2416cd65ca400e7ee1a25cb01b327fe37a0143be41ea4",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/hole.wider.webp",
+    "19": "charcoal/sizes/19/hole.wider.webp",
+    "22": "charcoal/sizes/22/hole.wider.webp",
+    "26": "charcoal/sizes/26/hole.wider.webp",
+    "31": "charcoal/sizes/31/hole.wider.webp",
+    "36": "charcoal/sizes/36/hole.wider.webp",
+    "38": "charcoal/sizes/38/hole.wider.webp",
+    "42": "charcoal/sizes/42/hole.wider.webp",
+    "44": "charcoal/sizes/44/hole.wider.webp",
+    "50": "charcoal/sizes/50/hole.wider.webp",
+    "52": "charcoal/sizes/52/hole.wider.webp",
+    "62": "charcoal/sizes/62/hole.wider.webp",
+    "84": "charcoal/sizes/84/hole.wider.webp",
+    "100": "charcoal/sizes/100/hole.wider.webp",
+    "128": "charcoal/hole.wider.webp"
+  },
+  "sha256": {
+    "18": "f507d80d5de2741e6a2d096c750c62ad2f0f82827a784f51398c991a3b12035e",
+    "19": "8db51e4f0bdc0f880b5fb17f6024e17d6a4581b7473f7c4f6d7fc940af934e84",
+    "22": "470541dcfcee0586c06513104e87aa4f1319f519630ad526ab4b491c2dfb1399",
+    "26": "c006ce66ae89fcca9797afe80993ec91b23c370ea826f1f4d1bd8c19148aae30",
+    "31": "abd1ed2a2ffb0a69feb92d9c237b6de578d1ca5878a7a66de85b5b0b81285593",
+    "36": "767c5cd38cacdda784d8e690d6d3a0f79bb2a2613c606ed5e9591f7619ec966c",
+    "38": "c81dded8095b3c98a9766d40d4fe4dbd90d3e216f71e49f0a1db92cc1ed78ec0",
+    "42": "9fd14bd5acb96057d0ced8f11776716082abf0575feb9a4e4fad798bd3cb3336",
+    "44": "109b791b2657160b1ec5fe44ce0ccaaf1d42947886fd1b6455b9514d6bcc9f51",
+    "50": "46f476a31de4aa4dba551a201872658cc60a14ca42bacac66b2bd4a4a1b20eef",
+    "52": "2c987a637d1fc1f660ec5fa0a8cb2c6b2e2f5c8ee9b7042274608b37bf872c19",
+    "62": "d987ea80c51684e5716f3e6dfdbe466034d6c6c8357a487a4437fa248fe8d742",
+    "84": "d7530d9579aaf905848588129691d2f7e5c68730bd24d24465cf1e25f3854867",
+    "100": "c0d6728b7ec19f899948877040e066c44dc9846e47b9793c8a751cf3f81ff408",
+    "128": "8edf3476b762b5420e477eeae76955f183503fc44e2b5f91a5f13886c3634c52"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "4b5c29717f2f391e6d972f926a80a154f4594c885dd923194b99afa1c36a3a87",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/charcoal/hole.wider/297fa346a75e9943-2ed1ac590f"
+}

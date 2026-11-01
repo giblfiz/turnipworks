@@ -1,0 +1,78 @@
+These are screenshots of a browser 3D tabletop game with a ring menu open round a selected pawn (a figure on a round
+base, wearing a blue light effect). menu-charcoal.png and menu-parchment.png show its open menu; ring-charcoal.png and
+ring-parchment.png show one sub-menu opened from it (the "Aura" entry), in two painted icon sets.
+FIRST transcribe every readable label and caption in each image. Then, for each ring-*.png: list each sub-menu button
+(position and what its painting shows), and say per button FITS or DOES NOT FIT the rest of that ring's painted icon
+family (same ground, rim, brushwork, palette). Are any two buttons in the sub-menu too alike to tell apart? Is any button
+clipped, overlapped, unpainted, or showing two pictures? Is the blue light effect drawn on top of or under any ring
+button (it should not be)? Be concise; end with one line per set: `<set>: ALL FIT` or `<set>: <the ones that do not>`.
+The images are in /tmp/aura-gem-UGKy: menu-charcoal.png menu-parchment.png ring-charcoal.png ring-parchment.png 
+Do NOT create, crop or write any files. Do not read any other files or folders.
+
+===== (gemini-4-argon-high)
+### 1. Transcribed Labels and Captions
+
+**Common to all four images (`menu-charcoal.png`, `menu-parchment.png`, `ring-charcoal.png`, `ring-parchment.png`):**
+* **Top-left toolbar:**
+  * `P` / `Pawns`
+  * `B` / `Build`
+  * `S` / `Settings`
+  * `Other games / New game`
+* **Left edge scale:** `1`
+* **Top-center command bar & pills:**
+  * `1 selected · type a command, or say / roll ...` | `/`
+  * `Area 1` | `Open to players` | `Hide`
+  * `Building 1 ▸ Common room ▸ Brakka`
+* **In-scene labels:**
+  * `Common room` (floating room label)
+  * `Bra` (white text on the selected pawn's base rim, partially occluded)
+* **Top-right HUD:**
+  * `H`
+  * `Area 1`
+* **Bottom-left chat bar:**
+  * `say ... or roll d20 in the bar`
+* **Ring / sub-menu buttons:** *(no text labels)*
+
+**Per-image bottom-right status line:**
+* `menu-charcoal.png`: `live (ws) · 1 ms · Area 1 seq 2 · 46 fps`
+* `menu-parchment.png`: `live (ws) · 29 ms · Area 1 seq 2 · 23 fps`
+* `ring-charcoal.png`: `live (ws) · 3 ms · Area 1 seq 2 · 46 fps`
+* `ring-parchment.png`: `live (ws) · 27 ms · Area 1 seq 2 · 44 fps`
+
+---
+
+### 2. Aura Sub-Menu Buttons (Outer Left Arc)
+
+#### `ring-charcoal.png`
+1. **~11:00 (top-left edge, right of `Settings`):** Bottom sliver of a dark charcoal disc showing a small green dot/light at the bottom (rest is clipped off-screen) — **FITS**
+2. **~10:00 (behind `Settings` button):** Glowing blue flame/aura on dark charcoal ground (mostly covered by `Settings`) — **FITS**
+3. **~9:30 (upper-left):** Glowing white / pale ice-blue flame on dark charcoal ground — **FITS**
+4. **~8:30 (mid-left):** Glowing yellow-orange flame on dark charcoal ground — **FITS**
+5. **~7:45 (lower-mid-left):** Teal pawn with a thin grey smoke wisp rising on the right (extinguished/clear aura) — **FITS**
+6. **~7:00 (lower-left):** Teal pawn with a cream downward arrow on the right — **FITS**
+7. **~6:30 (bottom-left):** Teal pawn wreathed in yellow flames with a cream upward arrow on the right — **FITS**
+
+#### `ring-parchment.png`
+1. **~11:00 (top-left edge, right of `Settings`):** Bottom sliver of a warm parchment disc showing a small green dot at the bottom (rest is clipped off-screen) — **FITS**
+2. **~10:00 (behind `Settings` button):** Outlined blue flame/aura on warm parchment ground (mostly covered by `Settings`) — **FITS**
+3. **~9:30 (upper-left):** Outlined white / pale ice-blue flame on warm parchment ground — **FITS**
+4. **~8:30 (mid-left):** Outlined yellow-orange flame on warm parchment ground — **FITS**
+5. **~7:45 (lower-mid-left):** Teal pawn with a thin grey smoke wisp rising on the right — **FITS**
+6. **~7:00 (lower-left):** Teal pawn with a dark slate downward arrow on the right — **FITS**
+7. **~6:30 (bottom-left):** Teal pawn wreathed in yellow flames with a dark slate upward arrow on the right — **FITS**
+
+---
+
+### 3. Visual QA Checks
+
+* **Too alike to tell apart?** No among the fully visible buttons. The ~10:00 (blue flame) and ~9:30 (white/ice-blue flame) buttons are both cool-toned flames, and because ~10:00 is mostly hidden behind `Settings`, it is hard to distinguish at a glance.
+* **Clipped, overlapped, unpainted, or showing two pictures?**
+  * **Clipped:** The ~11:00 sub-menu button is heavily clipped by the top viewport edge (only its bottom rim and a tiny green dot are visible). On the inner main ring, the three top buttons (~11:30, ~12:30, ~1:30) are also clipped by the top viewport edge.
+  * **Overlapped:** The ~10:00 sub-menu button (blue flame) is overlapped by the top-left `Settings` (`S`) button. On the inner main ring, the ~11:30 and ~1:30 buttons are overlapped by the top command bar.
+  * **Unpainted / Two pictures:** None are unpainted (though ~11:00 has most of its subject clipped off-screen), and none mistakenly show two separate pictures.
+* **Blue light effect on top of or under any ring button?**
+  * It is **not** drawn on top of any button.
+  * On the inner main ring, the ~6:30 crate/rotate button slightly overlaps (**is drawn on top of**) the bottom-left outer edge of the pawn's blue aura glow and yellow selection box (`Bra...`). No outer sub-menu button touches the blue light effect.
+
+charcoal: ALL FIT
+parchment: ALL FIT

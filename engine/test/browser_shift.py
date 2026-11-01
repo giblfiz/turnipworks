@@ -87,11 +87,15 @@ async def main():
         DATA = f"[({E(T)}.rot || 0) * 180 / Math.PI, ({E(T)}.quat ? 2 * Math.acos(Math.min(1, {E(T)}.quat[3])) : 0) * 180 / Math.PI]"  # (the roll: the angle of its stored orientation)
         STATE = "(() => { const d = tw.ringDrag(); return d && { delta: d.delta * 180 / Math.PI, notch: d.notch, ticks: d.ticks, readout: document.querySelector('#ring .readout')?.innerText || '', marks: [...document.querySelectorAll('#ring .rtrack text')].map(t => t.textContent).filter(Boolean), rail: !!document.querySelector('#ring .rtrack') }; })()"
         seq = "tw.sync.view(tw.area()).seq"
+        # where a hand would press a button: its centre, or (the ring is world-sized and drawn UNDER the HUD since 2026-10-20,
+        # d41ed7b3 / aa2bcc15, so the open ring's Roll can sit half under the area pill at this zoom) the nearest point of it
+        # that is not covered
+        PRESSABLE = "(sel) => { const b = document.querySelector(sel), r = b.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2; let best = null; for (let i = 0; i <= 8; i++) for (let j = 0; j <= 8; j++) { const x = r.left + r.width * (0.1 + 0.1 * i), y = r.top + r.height * (0.1 + 0.1 * j), d = Math.hypot(x - cx, y - cy); if ((!best || d < best.d) && b.contains(document.elementFromPoint(x, y))) best = { x, y, d }; } return best ? { x: best.x, y: best.y } : { x: cx, y: cy }; }"
         async def press(cmd):
             await gm.keyboard.press('Escape'); await gm.keyboard.press('Escape')
             await gm.evaluate(f"(() => {{ const g = tw.main.grab; g.focus.set(44.3, 0, 12.4); g.yaw = 0; g.pitch = 55; g.dist = 34; g.update(); tw.main.rule = 'free'; tw.select('{T}'); }})()"); await gm.wait_for_timeout(700)
             if not await gm.evaluate(f"!!document.querySelector('#ring [data-cmd=\"{cmd}\"]')"): await gm.click('#ring [data-menu]'); await gm.wait_for_timeout(350)
-            b = await gm.evaluate(f"(() => {{ const r = document.querySelector('#ring [data-cmd=\"{cmd}\"]').getBoundingClientRect(); return {{ x: r.left + r.width / 2, y: r.top + r.height / 2 }}; }})()")
+            b = await gm.evaluate(f"({PRESSABLE})('#ring [data-cmd=\"{cmd}\"]')")
             await gm.mouse.move(b['x'], b['y']); await gm.mouse.down(); await gm.wait_for_timeout(100)
             c = (await gm.evaluate("tw.ringDrag()"))['centre']
             return b, c, math.hypot(b['x'] - c[0], b['y'] - c[1]), math.atan2(b['x'] - c[0], -(b['y'] - c[1]))
@@ -190,7 +194,7 @@ async def main():
         check(await gm.evaluate("tw.prefs.pawnSnap") == 'always' and await gm.evaluate("JSON.parse(localStorage.getItem('tw.prefs')).pawnSnap") == 'always', 'the command bar\'s "Pawns snap to squares: always" sets the switch, and it is kept in this browser')
         s2 = await drag_pawn(57.1, 23.9, False); f2 = await drag_pawn(51.2, 28.8, True)
         check(centred(s2) and not centred(f2), 'switched to "always": a dragged pawn snaps, and Shift frees it (the rule before 2026-10-11)', f'{s2} {f2}')
-        await gm.evaluate("tw.settings.open && tw.settings.open('me')"); await gm.wait_for_timeout(600)
+        await gm.evaluate("tw.settings.open && tw.settings.open('controls')"); await gm.wait_for_timeout(600)
         row = await gm.evaluate("(() => { const el = document.querySelector('[data-pref=\"pawnSnap\"]'); return el && { value: el.value, options: [...el.options].map(o => o.textContent), label: el.closest('.srow, tr, div')?.innerText.split('\\n')[0] || '' }; })()")
         check(row and row['value'] == 'always' and len(row['options']) == 2, 'Settings ▸ Me has the switch "Pawns snap to squares" with its two choices', str(row))
         if row: await gm.select_option('[data-pref="pawnSnap"]', 'shift'); await gm.wait_for_timeout(300)

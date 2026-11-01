@@ -75,7 +75,10 @@ for (const [kind, content] of Object.entries(reg)) for (const A of [{ x: 720, y:
     okc('sector', !w.length && !fit.nodes.some(n => inSector(n, A)), `${kind} ${state} ${nested?.id || ''} @${A.x}: ${w.join(', ') || 'clear'}`);
     if (state === 'nested' && nested.children.length) {
       const kids = nodes.filter(n => n.ring);
-      okc('nested', kids.length === nested.children.length && kids.every(n => n.curve.rx === C.rx + n.ring * C.nestOffset && n.curve.ry === C.ry + n.ring * C.nestOffset && n.curve.cx === A.x + C.x && n.curve.cy === A.y + C.y), `${kind} ${nested.id}: grown by ${C.nestOffset} on both semi-axes, never scaled`);
+      // (grown by nestOffset on both semi-axes; since 2026-10-21 a first ring too short for its list may also be scaled up
+      // as a whole, by nodes.slid.grown: "make the oval get bigger", the same factor on both semi-axes)
+      const kg = nodes.slid?.row === 'nested' && nodes.slid.grown || 1, onRing = n => { const k = n.ring === 1 ? kg : 1; return Math.abs(n.curve.rx - (C.rx + n.ring * C.nestOffset) * k) < 1e-9 && Math.abs(n.curve.ry - (C.ry + n.ring * C.nestOffset) * k) < 1e-9; };
+      okc('nested', kids.length === nested.children.length && kids.every(n => onRing(n) && n.curve.cx === A.x + C.x && n.curve.cy === A.y + C.y), `${kind} ${nested.id}: grown by ${C.nestOffset} on both semi-axes (x${kg} when too long)`);
       for (const ring of new Set(kids.map(n => n.ring))) { const r = kids.filter(n => n.ring === ring); r.slice(1).forEach((p, i) => okc('pitch', Math.abs(arcLen(p.curve, r[i], p) - pitch) <= 1, `${kind} ${nested.id} ring ${ring} pitch`)); }
     }
   }
@@ -181,7 +184,7 @@ okc('preset', normalize(BUILTINS['Ellipse · one curve']).world.on === true && [
     }
     okc('slide', !inSec.length, `${nm}: no button or name in 3–6 over ${n0} rings: ${inSec.slice(0, 3).join(' / ')}`);
     okc('slide', !menuOff.length, `${nm}: ☰ always the last button of the row, on the curve: ${menuOff.slice(0, 3).join(' / ')}`);
-    if (nm === 'built-in') okc('slide', !stepped.length, 'built-in: nothing steps out');
+    okc('slide', !stepped.length, `${nm}: nothing steps out a ring (a row too long for the oval grows it instead): ${stepped.slice(0, 3).join(' / ')}`);
   }
   // a slid row is the same shape at any size (the ring is world-sized: the screen edge changes its scale, not its shape)
   for (const [nm, v] of Object.entries(harry)) { const S = normalize(v); let worst = 0;
@@ -194,6 +197,17 @@ okc('preset', normalize(BUILTINS['Ellipse · one curve']).world.on === true && [
     for (const [kind, c] of Object.entries(reg)) for (const st of c.secondary.filter(x => x.children?.length).map(x => x.id)) for (let sc = 0.3; sc < 2.01; sc += 0.05) {
       const nest = c.secondary.find(x => x.id === st), A = { x: 700, y: 450 }; if (M.warnings(buildArcItems(S, c, 'nested', nest, sc, A), [], 1e5, 1e5, A, [], -1e5).includes('button overlap')) hit.push(`${kind} ${st} x${sc.toFixed(2)}`); }
     okc('slide', !hit.length, `${nm}: no sub-menu button overlaps another, x0.3 … x2: ${hit.slice(0, 3).join(' / ')}`); }
+  // GROW (Harry 2026-10-21: "make the oval get bigger ... to keep it from looking totally janked up"): rev 5's object, door
+  // and light rows used to step 1–2 buttons out; now the oval grows the least that fits (≤ x1.5), the row whole and inline
+  { const S5 = normalize(harry['rev 5']), A = { x: 720, y: 450 };
+    for (const k of ['prop:gm', 'openable:gm', 'light:gm']) { const c = reg[k], sh = buildArcItems(S5, c, 'closed', null, 1, A), ex = buildArcItems(S5, c, 'expanded', null, 1, A);
+      const main = ex.filter(n => !n.ring).sort((a, b) => a.curve.s - b.curve.s), g = ex.slid?.grown;
+      okc('grow', g > 1 && g <= M.GROW_MAX && sh.slid?.grown === g && !ex.some(n => n.spilled) && main.length === c.primary.length + c.secondary.length + 1 && main.at(-1).item.id === 'menu'
+        && !M.warnings(ex, [], 1e5, 1e5, A, [], -1e5).filter(x => x !== 'off screen').length && Math.abs(ex[0].curve.rx / ex[0].curve.ry - S5.curve.rx / S5.curve.ry) < 1e-9 && sh[0].curve.rx === ex[0].curve.rx,
+        `rev 5 ${k}: the oval grown x${g} (shut and open alike, its shape kept), every button inline, ☰ last, no overlap, nothing in 3–6`);
+      const less = structuredClone(S5); less.curve.rx *= (g - 0.01) / 1; less.curve.ry *= (g - 0.01) / 1;  // (the factor is the least that fits)
+      okc('grow', buildArcItems(less, c, 'expanded', null, 1, A).slid?.grown > 1, `rev 5 ${k}: x${(g - 0.01).toFixed(2)} would not have been enough`); }
+    okc('grow', !buildArcItems(normalize(BUILTINS['Ellipse · one curve']), reg['openable:gm'], 'expanded', null, 1, A).slid?.grown, 'the built-in needs no growing'); }
   const r5 = normalize(harry['rev 5']), pawn = buildArcItems(r5, reg['pawn:gm'], 'expanded', null, 1, { x: 720, y: 450 });
   okc('slide', pawn.slid?.row === 'expanded' && pawn.slid.to > pawn.slid.from, `rev 5, a pawn opened: the row slid forward off 6:00 (its first name reached past it) and says so: ${JSON.stringify(pawn.slid)}`);
   okc('slide', JSON.stringify(normalize(harry['rev 5']).curve) === JSON.stringify(r5.curve) && harry['rev 5'].data.settings.curve.primaryFloor === -160, 'his numbers are untouched: a layout rule, not a settings edit');

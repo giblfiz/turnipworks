@@ -14,6 +14,16 @@ export function crumbsSurface(R, app) {
     el.hidden = false;
     for (const b of el.querySelectorAll('[data-id]')) b.onclick = () => app.select(b.dataset.id);
   }
+  // the column under the bar (index.html #underBar: the area pills, then these crumbs) ends at --under-bar, where a
+  // conditional button docked at the top sits (style.css .cbtn.dock-top), so it never lands on either of them
+  const col = document.getElementById('underBar'), bar = document.getElementById('bar'), appEl = document.getElementById('app');
+  // Measured at once (a microtask) whenever anything in the column changes: a crumb shown or re-written, a pill row
+  // re-drawn. The ResizeObserver alone only reported at the next frame, and a heavy frame (a big map, a slow GPU) can
+  // be seconds, so a button docked meanwhile sat at the old slot, on the crumbs (browser_selbar.py, 1440x900). The
+  // observer stays for what is not a DOM change: the window, the text size, a font arriving.
+  let last = '';
+  const slot = () => { let b = bar.getBoundingClientRect().bottom; for (const k of col.children) { const r = k.getBoundingClientRect(); if (r.height) b = Math.max(b, r.bottom); } const v = `${Math.round(b)}px`; if (v !== last) { last = v; appEl.style.setProperty('--under-bar', v); } };
+  if (col && bar && appEl && typeof ResizeObserver === 'function') { const ro = new ResizeObserver(slot); ro.observe(bar); ro.observe(col); new MutationObserver(() => { for (const k of col.children) ro.observe(k); slot(); }).observe(col, { childList: true, subtree: true, attributes: true, characterData: true }); for (const k of col.children) ro.observe(k); addEventListener('resize', slot); slot(); }
   return { name: 'crumbs' };
 }
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);

@@ -13,7 +13,7 @@
 // does (its key: level, place, radius). Only lights whose reach meets a viewer's line-of-sight bounds are considered.
 import { visibilityPolygon, blockingSegments, viewingPawns } from './vision.js';
 import { FOG_CELL } from '../core/fog.js';
-import { baseUnder } from '../core/height.js';
+import { baseUnder, sightLevel } from '../core/height.js';
 import { darkvisionOf, carriedLightOf } from '../core/darkness.js';
 
 // Scanline raster of polygons into rows of inclusive 1.25-ft (or `cell`) runs, the same cells and rounding as
@@ -114,7 +114,7 @@ export function darkSight({ entities, edges, lights = [], hint = 0, bounds, cach
   const all = [...lights];
   for (const e of Object.values(entities)) {
     if (e.kind !== 'token' || e.hidden) continue;
-    const r = carriedLightOf(e); if (r > 0) all.push({ x: e.x, z: e.z, level: baseUnder(entities, e.x, e.z, e.y || 0, options.isOpen).y, radius: r });
+    const r = carriedLightOf(e); if (r > 0) all.push({ x: e.x, z: e.z, level: sightLevel(entities, e.x, e.z, e.y || 0, options.isOpen), radius: r }); // (a light carried on a hill lights the ground's level)
   }
   for (const [l, L] of out) {
     if (!L.los.length) continue;

@@ -1,4 +1,4 @@
-# Conditions on the table — design agreed 2026-10-15 (NOT built; do it with the orbital/ring rebuild)
+# Conditions on the table — design agreed 2026-10-15 (BUILT 2026-10-29: docs/PAWNS.md "Conditions on the table" is now the record; this file is kept as it was agreed)
 
 Harry: don't mark conditions with icons on the table — "let's look at more fun ways". The icons are for the ring's
 Conditions arc only. Overall direction: **loud — "big cartoony, easy to follow."** No "who is doing it to you" tethers:

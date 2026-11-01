@@ -15,6 +15,9 @@
 # (data/tickets/shots/, files that never change once written) are mirrored instead, added to <dir>/ticket-shots/ and never
 # deleted there, so 72 hourly copies do not each carry every picture. Not copied: tickets/triage.key (like the secret)
 # and tickets/test-sandbox/ (test writes).
+# Link mail (2026-10-23, relay/linkmail.js): linkmail/addresses.json and suppress.json are in every copy (an address deleted
+# by its owner stays in older copies until they are replaced: docs/site/privacy.md says so); not copied: linkmail/outbox/
+# (the mails, which carry seat links) and linkmail/test-sandbox/. The funnel (funnel/events.jsonl) is in every copy.
 # Restore one campaign:  tar --zstd -xf <copy> -C /some/dir data/cmp_XXXX   then stop the relay, put the folder back, start it.
 set -euo pipefail
 ENGINE="$(cd "$(dirname "$0")/.." && pwd)"
@@ -32,7 +35,7 @@ OUT="$DIR/data-$(date +%Y%m%d-%H%M%S)$LABEL.tar.zst"
 # (the relay is still running: a journal may grow while it is read, which tar reports with exit 1; a snapshot is
 # replaced by rename, so it is always whole)
 B="$(basename "$DATA")"
-set +e; tar -C "$(dirname "$DATA")" --exclude="$B/secret" --exclude="$B/admin-key" --exclude="$B/tickets/shots" --exclude="$B/tickets/test-sandbox" --exclude="$B/tickets/triage.key" --warning=no-file-changed -cf - "$B" | zstd -q -3 -T0 -o "$OUT.part"; RC=("${PIPESTATUS[@]}"); set -e
+set +e; tar -C "$(dirname "$DATA")" --exclude="$B/secret" --exclude="$B/admin-key" --exclude="$B/tickets/shots" --exclude="$B/tickets/test-sandbox" --exclude="$B/tickets/triage.key" --exclude="$B/linkmail/outbox" --exclude="$B/linkmail/test-sandbox" --warning=no-file-changed -cf - "$B" | zstd -q -3 -T0 -o "$OUT.part"; RC=("${PIPESTATUS[@]}"); set -e
 [[ ${RC[0]} -le 1 && ${RC[1]} -eq 0 ]] || { rm -f "$OUT.part"; echo "backup: FAILED (tar ${RC[0]}, zstd ${RC[1]})" >&2; exit 1; }
 GOT=$(tar --zstd -tf "$OUT.part" | grep -c '/cmp_[^/]*/journal\.jsonl$' || true)
 SIZE=$(stat -c %s "$OUT.part")

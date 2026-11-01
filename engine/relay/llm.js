@@ -3,7 +3,7 @@
 // plain URLs, and gets small semantic JSON back. Writes are GETs carrying the seat token, a nonce (idempotency)
 // and based_on (the seq it read), so a retry never double-applies and a stale plan is caught.
 import { quatOfEntity } from '../core/orient.js';
-import { REGISTRY } from '../core/commands.js';
+import { REGISTRY, doorFogged } from '../core/commands.js';
 import { can, canSee, entityVisible, visibilityOf } from '../core/perms.js';
 import { entityPoint, areaCentroid, projectCampaign } from '../core/state.js';
 import { seesLabels, stripEntity } from '../core/labels.js';
@@ -15,19 +15,33 @@ import { forPlayers as turnsForPlayers, turnRows, keyOfPawn, keyPawns, bonusOf, 
 import { pawnKindLabel } from '../core/pawn.js';
 import { isGmSide } from '../core/perms.js';
 import { areaRules, RULE_KEYS } from '../core/state.js';
-import { parseDice, rollDice } from '../core/dice.js';
+import { parseDice, rollDice, tallyOf } from '../core/dice.js';
+// a roll as an AI seat reads it: a game's dice (core/gamedice.js) carry `tally`, the mechanical reading in words
+// ("Vampire pool 7 (2 hunger): 3 successes, messy critical"), worked out from expr + rolls (2026-10-29)
+const tallyText = (expr, rolls) => { const t = tallyOf(expr, typeof rolls === 'string' ? (() => { try { return JSON.parse(rolls); } catch { return null; } })() : rolls); return t ? `${t.title}: ${t.text}` : null; };
+const withTally = (roll) => { const t = roll && tallyText(roll.expr, roll.rolls); return t ? { ...roll, tally: t } : roll; };
 import { factionCatalog, resolveFaction } from '../core/faction-catalog.js';
 import { thingFor, lightOf, opens, findThings, placeArgs, similarArgs, freeSpot } from './things.js';
 import { ruleCard, helpPage, CONDITIONS } from './llm-card.js';
+import { cleanConditions } from '../core/conditions.js';
+import { getAura, applyChange as auraChange } from '../core/aura.js';
 export { ruleCard } from './llm-card.js';
 
 const NONCE_RE = /^[\w.:-]{1,64}$/;
 import { isId } from '../core/ids.js';
 import crypto from 'node:crypto';
+import { exportShare, planImport, parseShare, chunkOps } from '../core/share.js';
+import { newId as mintNewId } from '../core/ids.js';
+
+// SHARED BUILDS over GET (2026-10-29; core/share.js, relay/shares.js): /a/<area>/share reads the whole area as a
+// .turnip.json; do?cmd=import&link=LINK puts a shared build into the area. Both need build permission (class room).
+let SHARES = null;
+export const useShares = (s) => { SHARES = s; };
+export const SHARE_LINK_RE = /(?:^|\/s\/)([A-Za-z0-9_-]{22})(?=$|[/?#\s])/;
 
 // Commands that CREATE something: the id may be left out and the relay mints one (returned as "id"); with a nonce the
 // minted id is derived from it, so a retry gets the same id (Dawnhaven session, 2026-10-04: id="c123" was refused)
-export const MINT = { 'token.create': 'tok', 'object.place': 'obj', 'room.spawn': 'room', 'chat.say': 'msg', 'dice.roll': 'msg', 'area.create': 'area', 'seat.create': 'seat', 'request.create': 'req' };
+export const MINT = { 'token.create': 'tok', 'object.place': 'obj', 'door.open': 'obj', 'room.spawn': 'room', 'chat.say': 'msg', 'dice.roll': 'msg', 'area.create': 'area', 'seat.create': 'seat', 'request.create': 'req' };
 const mintId = (prefix, seat, nonce) => `${prefix}_${(nonce ? crypto.createHash('sha256').update(`${seat}|${nonce}`).digest('hex') : crypto.randomBytes(16).toString('hex')).replace(/[^0-9a-z]/g, '').slice(0, 12)}`;
 // Units (2026-10-04): the GET API speaks FEET everywhere, reading and writing. Rooms sit on the 5-ft grid, so room.spawn's
 // x, z, w, d (and room.move's dx, dz) are feet in multiples of 5; cells only by name: cx, cz, cw, cd (cdx, cdz).
@@ -82,7 +96,7 @@ export function areaForLlm(rt, seat, area) {
   // ROOFS (Stage F): the style each room's roof wears (its own, its building's, or by wall family), worked out as the client does
   let fam = new Map(); try { fam = new Map((rt.roomgen?.roomsOf(seen) || []).map(r => [r.id, r.family])); } catch { }
   const outdoor = (e) => !!rt.roomgen?.isOutdoor?.(e.recipe.type);
-  const roofOf = (e) => H.roomY(e.recipe) < 0 || outdoor(e) ? null : { style: H.roofStyleOf(seen, e, (r) => fam.get(r.id)), ...(e.roof?.style && { own: true }), ...(e.roof?.off && { off: true }) };
+  const roofOf = (e) => H.roomY(e.recipe) < 0 || outdoor(e) ? null : { style: H.roofStyleOf(seen, e, (r) => fam.get(r.id)), ...(e.roof?.style && { own: true }), ...(e.roof?.off && { off: true }), ...(H.roofShapeOf(seen, e) && { shape: H.roofShapeOf(seen, e) }), ...(e.roof?.axis && { axis: e.roof.axis }) };
   return {
     area: { id: T.id, name: T.name, visibility: visibilityOf(T), seq: T.seq },
     units: 'feet; x grows east, z grows south, y is height (0 = the ground, negative = below it); rooms are drawn on a 5-ft grid; a storey is 10 ft unless its building says otherwise',
@@ -91,10 +105,10 @@ export function areaForLlm(rt, seat, area) {
     // the area's play rules (2026-10-20): fogOfWar, darkness (in the dark a player sees by darkvision and lights), light
     // (time of day), fog (atmosphere), freeMoves, touch (may players open and light things), grid
     rules: rulesOf(rt, area),
-    tokens: es.filter(e => e.kind === 'token').map(e => pawnFor(rt, e, seats, actAs, where)),
-    buildings: es.filter(e => e.kind === 'building').map(e => ({ id: e.id, name: e.name, base: H.baseOf(e), storeyHeight: H.storeyHeightOf(e), levels: H.levelsOf(seen, e.id), roof: e.roof || 'auto' })),
+    tokens: es.filter(e => e.kind === 'token').map(e => pawnFor(rt, e, seats, actAs, where, seen)),
+    buildings: es.filter(e => e.kind === 'building').map(e => ({ id: e.id, name: e.name, storeyHeight: H.STOREY, levels: H.levelsOf(seen, e.id), roof: e.roof || 'auto', ...(e.roofShape && { roofShape: e.roofShape }) })),
     rooms: es.filter(e => e.kind === 'room').map(e => ({
-      id: e.id, type: e.recipe.type, ...(e.name && { name: e.name }), ...(e.building && { building: e.building }), x: e.recipe.x * 5, z: e.recipe.z * 5, w: e.recipe.w * 5, d: e.recipe.d * 5, y: H.roomY(e.recipe), height: H.roomHeight(seen, e), storey: H.storeyOf(seen, e), level: H.levelLabel(H.storeyOf(seen, e)), ...(e.recipe.tall > 1 && { tall: e.recipe.tall }), seed: e.recipe.seed, ...(e.recipe.turn && { turn: e.recipe.turn }), ...(e.hidden && { hidden: true }), ...(e.fog != null && { fog: e.fog }),
+      id: e.id, type: e.recipe.type, ...(e.name && { name: e.name }), ...(e.building && { building: e.building }), x: e.recipe.x * 5, z: e.recipe.z * 5, w: e.recipe.w * 5, d: e.recipe.d * 5, y: H.roomY(e.recipe), height: H.roomHeight(seen, e), storey: H.levelOf(seen, e), ground: H.meetsGround(seen, e), level: H.levelLabel(H.levelOf(seen, e)), ...(e.recipe.tall > 1 && { tall: e.recipe.tall }), seed: e.recipe.seed, ...(e.recipe.turn && { turn: e.recipe.turn }), ...(e.hidden && { hidden: true }), ...(e.fog != null && { fog: e.fog }),
       ...(e.recipe.outline && { outline: polyFeet(e.recipe), shape: 'not a rectangle: x, z, w, d are its bounding box; outline is its true shape (feet)' }),
       ...(roofOf(e) && { roof: roofOf(e) }), ...factionField(rt, seen, e),
       objects: e.layout?.placements?.length || 0, summary: e.layout?.summary || null,
@@ -112,13 +126,13 @@ export function areaForLlm(rt, seat, area) {
     // ("Goblin ×3"); `current` marks whose turn it is; `initiative` is the number rolled or typed (null = not yet).
     // A seat on the player side is given the order without the entries it cannot see.
     ...turnsForLlm(rt, seat, T, seen, actAs),
-    chat: (T.chat || []).slice(-10).map(c => ({ by: rt.state.seats[c.by]?.name || c.by, text: c.text, ...(c.roll && { roll: c.roll }) })),
+    chat: (T.chat || []).slice(-10).map(c => ({ by: rt.state.seats[c.by]?.name || c.by, text: c.text, ...(c.roll && { roll: withTally(c.roll) }) })),
   };
 }
 const round = (v) => Math.round(v * 100) / 100;
 const rulesOf = (rt, area) => { const r = areaRules(rt.state, area); return Object.fromEntries(Object.keys(RULE_KEYS).filter(k => r[k] !== undefined && k !== 'music').map(k => [k, r[k]])); };
 // a pawn as an AI seat reads it; darkvision, lightCarried and visionRadius only when the pawn has its own
-const pawnFor = (rt, e, seats, actAs, where) => ({ id: e.id, name: e.name, x: round(e.x), z: round(e.z), ...where(e), owner: e.owner ? seats[e.owner]?.name || e.owner : null, yours: e.owner === actAs, damage: e.damage || 0, ...(e.conditions?.length && { conditions: e.conditions }), ...(e.mark && { mark: e.mark }), ...(e.fig && { figure: e.fig }), ...(e.size > 1 && { squares: e.size }), ...(e.main && { main: true }), ...(e.darkvision != null && { darkvision: e.darkvision }), ...(e.lightCarried != null && { lightCarried: e.lightCarried }), ...(e.visionRadius != null && { visionRadius: e.visionRadius }), ...(e.hidden && { hidden: true }) });
+const pawnFor = (rt, e, seats, actAs, where, seen = null) => ({ id: e.id, name: e.name, x: round(e.x), z: round(e.z), ...where(e), owner: e.owner ? seats[e.owner]?.name || e.owner : null, yours: e.owner === actAs, damage: e.damage || 0, ...(e.conditions?.length && { conditions: e.conditions }), ...(e.mark && { mark: e.mark }), ...(e.fig && { figure: e.fig }), ...(e.size > 1 && { squares: e.size }), ...(e.main && { main: true }), ...(e.darkvision != null && { darkvision: e.darkvision }), ...(e.lightCarried != null && { lightCarried: e.lightCarried }), ...(e.visionRadius != null && { visionRadius: e.visionRadius }), ...(e.hidden && { hidden: true }), ...(e.target && seen?.[e.target] && { target: e.target, targetName: seen[e.target].name }), ...(e.attacks?.length && { attacks: e.attacks }), ...(e.aura?.level > 0 && { aura: e.aura }) }); // target (2026-10-29): who it is aiming at
 const templateFor = (rt, e) => ({ id: e.id, shape: e.shape, x: round(e.x), z: round(e.z), ...(e.y && { y: e.y }), dir: e.dir || 0, size: e.size, ...(e.width && { width: e.width }), ...(e.rounds && { rounds: e.rounds, left: e.left ?? e.rounds }), ...(e.attach && { attach: e.attach }), ...(e.name && { name: e.name }), owner: rt.state.seats[e.owner]?.name || null, ...(e.hidden && { hidden: true }) });
 // a room's faction: its own, its building's, or its type's default (core/factions.js effectiveFaction); own: true when set on it
 function factionField(rt, seen, e) { let f = null; try { f = rt.roomgen?.factionOf?.(seen, e) || null; } catch { } return f ? { faction: f, ...(e.recipe?.flavor && { factionOwn: true }) } : {}; }
@@ -130,8 +144,23 @@ function seenOf(rt, seat, area) {
   return { T, es, seen: Object.fromEntries(es.map(e => [e.id, e])), actAs: rt.state.seats[seat].kind === 'llm' ? rt.state.seats[seat].creator : seat };
 }
 const whereOf = (seen) => (e) => { const f = H.tokenFloor(seen, e); return { y: round(e.y || 0), storey: f.storey, level: f.level, ...(f.room && { room: f.room }) }; };
-const roomBrief = (rt, seen, e, things) => ({ id: e.id, type: e.recipe.type, label: e.name || typeLabel(rt, e.recipe.type), ...(e.name && { name: e.name }), ...(e.building && { building: e.building }), x: e.recipe.x * 5, z: e.recipe.z * 5, w: e.recipe.w * 5, d: e.recipe.d * 5, y: H.roomY(e.recipe), level: H.levelLabel(H.storeyOf(seen, e)), ...(e.hidden && { hidden: true }), ...(e.locked && { locked: true }), ...factionField(rt, seen, e), things: things.filter(o => o.room === e.id).length });
+const roomBrief = (rt, seen, e, things) => ({ id: e.id, type: e.recipe.type, label: e.name || typeLabel(rt, e.recipe.type), ...(e.name && { name: e.name }), ...(e.building && { building: e.building }), x: e.recipe.x * 5, z: e.recipe.z * 5, w: e.recipe.w * 5, d: e.recipe.d * 5, y: H.roomY(e.recipe), level: H.levelLabel(H.levelOf(seen, e)), ...(e.hidden && { hidden: true }), ...(e.locked && { locked: true }), ...factionField(rt, seen, e), things: things.filter(o => o.room === e.id).length });
 
+// THE DOORS THE ROOMS IMPLY (2026-10-29), not things yet: a key and no id. door.open&key=KEY&open=true opens one (the relay
+// makes it a thing of its own then: the answer gives its id, for object.open after). Only the doors this seat could open:
+// for a player, none a hidden room alone owns, and with fog of war none with nothing explored round it (core/commands.js
+// doorFogged, the check door.open runs).
+function generatedDoorsFor(rt, seat, area) {
+  const T = rt.state.areas[area], gmSide = isGmSide(rt.state, seat);
+  if (!rt.roomgen?.doorPiece) return [];
+  let ds; try { ds = rt.roomgen.doorPieces(T.entities, { gmSide }); } catch { return []; }
+  const out = [];
+  for (const [key, P] of ds) {
+    if (!gmSide && doorFogged(rt.state, seat, area, T, P)) continue;
+    out.push({ key, name: P.name, room: P.room, open: false, generated: true, x: round(P.x), z: round(P.z), ...(P.y && { y: round(P.y) }), ...(P.veiled && { hidden: true }) });
+  }
+  return out;
+}
 // THE SCENE (2026-10-20): the first read for a weak model. Everything it needs to act on, small: the rooms (with their
 // label for the GM side only), the pawns, the lights and the doors (things it can light and open) with ids, the stairs,
 // the turn order and the last few lines of chat. The furniture itself is in /room/<ROOM_ID>; everything in /state.
@@ -143,13 +172,13 @@ export function sceneForLlm(rt, seat, area) {
     area: { id: T.id, name: T.name, visibility: visibilityOf(T), seq: T.seq },
     rules: rulesOf(rt, area),
     rooms: es.filter(e => e.kind === 'room').map(e => roomBrief(rt, seen, e, things)),
-    pawns: es.filter(e => e.kind === 'token').map(e => pawnFor(rt, e, seats, actAs, whereOf(seen))),
+    pawns: es.filter(e => e.kind === 'token').map(e => pawnFor(rt, e, seats, actAs, whereOf(seen), seen)),
     lights: things.map(o => [o, lightOf(rt, o)]).filter(([, L]) => L).map(([o, L]) => ({ ...named(o), lit: L.lit, kind: L.kind, radius: L.radius, ...(o.locked && { locked: true }), ...(o.hidden && { hidden: true }) })),
-    doors: things.filter(o => opens(rt, o)).map(o => ({ ...named(o), open: !!o.open, ...(o.locked && { locked: true }), ...(o.hidden && { hidden: true }) })),
+    doors: [...things.filter(o => opens(rt, o)).map(o => ({ ...named(o), open: !!o.open, ...(o.locked && { locked: true }), ...(o.hidden && { hidden: true }) })), ...generatedDoorsFor(rt, seat, area)],
     stairs: stairsOf(seen).map(s => { const i = stairInfo(seen, s); return { id: i.id, kind: i.kind, from: i.from, to: i.to, works: i.works }; }),
     ...(es.some(e => e.kind === 'template') && { templates: es.filter(e => e.kind === 'template').map(e => templateFor(rt, e)) }),
     ...turnsForLlm(rt, seat, T, seen, actAs),
-    chat: (T.chat || []).slice(-5).map(c => ({ by: seats[c.by]?.name || c.by, text: c.text, ...(c.roll && { roll: c.roll }) })),
+    chat: (T.chat || []).slice(-5).map(c => ({ by: seats[c.by]?.name || c.by, text: c.text, ...(c.roll && { roll: withTally(c.roll) }) })),
     more: 'room/ROOM_ID lists everything in one room; state has it all',
   };
 }
@@ -162,9 +191,9 @@ export function roomForLlm(rt, seat, area, id) {
   const inRoom = (p) => H.tokenFloor(seen, p).room === id;
   return {
     area: { id: T.id, name: T.name, seq: T.seq },
-    room: { ...roomBrief(rt, seen, r, things), storey: H.storeyOf(seen, r), height: H.roomHeight(seen, r), seed: r.recipe.seed, ...(r.recipe.tall > 1 && { tall: r.recipe.tall }), ...(r.fog != null && { fog: r.fog }), ...(r.recipe.outline && { outline: polyFeet(r.recipe) }), summary: r.layout?.summary || null },
+    room: { ...roomBrief(rt, seen, r, things), storey: H.levelOf(seen, r), ground: H.meetsGround(seen, r), height: H.roomHeight(seen, r), seed: r.recipe.seed, ...(r.recipe.tall > 1 && { tall: r.recipe.tall }), ...(r.fog != null && { fog: r.fog }), ...(r.recipe.outline && { outline: polyFeet(r.recipe) }), summary: r.layout?.summary || null },
     things: things.filter(o => o.room === id).map(o => ({ id: o.id, name: o.name, x: round(o.x), z: round(o.z), y: round(o.y || 0), ...(o.rot && { rot: round(o.rot) }), ...(isConnector(o) && { stair: true }), ...(o.hidden && { hidden: true }), ...thingFor(rt, o) })),
-    pawns: es.filter(e => e.kind === 'token' && inRoom(e)).map(e => pawnFor(rt, e, rt.state.seats, actAs, whereOf(seen))),
+    pawns: es.filter(e => e.kind === 'token' && inRoom(e)).map(e => pawnFor(rt, e, rt.state.seats, actAs, whereOf(seen), seen)),
     stairs: stairsOf(seen).map(s => stairInfo(seen, s)).filter(s => s.from === id || s.to === id),
   };
 }
@@ -214,7 +243,7 @@ function talkEvents(rt, seat, area, entries, kinds) {
   return entries.filter(e => kinds.has(KIND_OF[e.type])).map(e => {
     const who = rt.state.seats[e.by];
     return { seq: e.seq, area, areaName: T?.name, kind: KIND_OF[e.type], by: who?.name || e.by, byId: e.by, byKind: who?.kind === 'llm' ? 'ai' : 'human', you: e.by === seat,
-      ...(e.type === 'chat.say' ? { text: e.args.text } : { roll: { expr: e.args.expr, rolls: e.args.rolls, total: e.args.total, ...(e.args.why && { why: e.args.why }) } }) };
+      ...(e.type === 'chat.say' ? { text: e.args.text } : { roll: withTally({ expr: e.args.expr, rolls: e.args.rolls, total: e.args.total, ...(e.args.why && { why: e.args.why }) }) }) };
   });
 }
 // who is where, pointing at what (Harry 2026-10-04: "Fauna, what do you think of this chair?"): every other seat in an
@@ -270,7 +299,7 @@ export async function handleGet(rt, seat, token, rest, q, base) {
   if (rest[0] === 'things') { const qq = q.get('q') || ''; return [200, { ok: true, ...(qq ? { q: qq, things: findThings(rt, qq, Math.min(40, Number(q.get('limit')) || 12)) } : { how: 'add q=WORDS (q=candle, q=chest, q=barrel); put one down with object.place&cat=ID&x=FEET&z=FEET' }) }]; }
   if (rest[0] === 'rooms') { const groups = {}; for (const t of rt.roomgen?.typeList || []) (groups[t.group || 'Inn & home'] ||= []).push({ type: t.key, name: t.label, ...(t.cells && { size_ft: t.cells.map(n => n * 5) }) }); return [200, { ok: true, how: 'room.spawn&type=TYPE&x=FEET&z=FEET&w=FEET&d=FEET', groups }]; }
   if (rest[0] === 'factions') { const lib = rt.roomgen?.lib; return [200, { ok: true, how: 'faction.set&id=ROOM_OR_BUILDING_ID&flavor=FACTION (flavor=inherit goes back)', factions: lib ? factionCatalog(lib).factions.map(f => ({ id: f.id, name: f.label, group: f.group })) : [] }]; }
-  if (rest[0] === 'conditions') return [200, { ok: true, how: 'token.set&id=PAWN_ID&conditions=prone,poisoned (the whole list; conditions= clears); any short word works', conditions: CONDITIONS }];
+  if (rest[0] === 'conditions') return [200, { ok: true, how: 'token.set&id=PAWN_ID&conditions=prone,poisoned (the whole list each time; conditions= clears). Any short text is allowed (up to 12 words of 24 characters): these have their own look on the table; any other word shows as a small text label over the pawn', conditions: CONDITIONS, exhaustion: 'exhaustion 1 .. exhaustion 6 (one level; the base rim drains)', other: 'any short word, e.g. Hexed, Blessed, deafened, petrified: a text label' }];
   if (rest[0] === 'state') return [200, { you: rt.describeSeat(seat), campaign: projectCampaign(rt.state, seat, rt.online()) }];
   // THE FIGURE LIST, searched: /c/<campaign>/figures?q=owlbear (name, id, group, class, race, tags, SRD monster names)
   if (rest[0] === 'figures') { const qq = q.get('q') || ''; return [200, { ok: true, total: FIGURES.list.length, ...(qq ? { q: qq, figures: findFigures(qq, Math.min(40, Number(q.get('limit')) || 12)) } : { groups: Object.fromEntries([...new Set(FIGURES.list.map(f => f.group))].map(g => [g, FIGURES.list.filter(f => f.group === g).length])), examples: FIGURES.list.filter((f, i) => i % Math.max(1, Math.floor(FIGURES.list.length / 12)) === 0).slice(0, 12).map(figBrief), how: 'add q=WORDS to search (q=owlbear, q=elf+wizard, q=townsfolk)' }) }]; }
@@ -336,9 +365,10 @@ export async function handleGet(rt, seat, token, rest, q, base) {
       const yq = q.has('y') && q.get('y') !== '' ? +q.get('y') : null;
       if (yq !== null && !Number.isFinite(yq)) return [400, { ok: false, why: 'y (feet) must be a number' }];
       const hOf = (e) => e.kind === 'room' ? H.roomY(e.recipe) : e.y || 0;
-      const sOf = (e) => e.kind === 'room' ? H.storeyOf(seen, e) : H.tokenFloor(seen, e).storey;
+      const sOf = (e) => e.kind === 'room' ? H.levelOf(seen, e) : H.tokenFloor(seen, e).storey;
       const near = vis.map(e => seesLabels(rt.state, seat, area) ? e : stripEntity(e)).map(e => ({ e, p: entityPoint(e) })).filter(({ e, p }) => p && Math.hypot(p[0] - x, p[1] - z) <= r && (yq === null || (hOf(e) >= yq - 0.5 && hOf(e) < yq + H.STOREY - 0.5)))
-        .map(({ e, p }) => ({ id: e.id, kind: e.kind, name: e.name || e.recipe?.type, x: round(p[0]), z: round(p[1]), y: round(hOf(e)), storey: sOf(e), level: H.levelLabel(sOf(e)), dist: round(Math.hypot(p[0] - x, p[1] - z)) })).sort((a, b) => a.dist - b.dist);
+        .map(({ e, p }) => ({ id: e.id, kind: e.kind, name: e.name || e.recipe?.type, x: round(p[0]), z: round(p[1]), y: round(hOf(e)), storey: sOf(e), level: e.kind === 'room' ? H.levelLabel(H.levelOf(seen, e)) : H.tokenFloor(seen, e).level, // (storey: the level's index, the map's; level: its label, 2026-10-26)
+ dist: round(Math.hypot(p[0] - x, p[1] - z)) })).sort((a, b) => a.dist - b.dist);
       return [200, { seq: T.seq, at: [x, z], ...(yq !== null && { y: yq }), r, near }];
     }
     if (op === 'changes' && parseKinds(q)) { // only says and rolls wake you (kinds=chat,roll)
@@ -372,6 +402,7 @@ export async function handleGet(rt, seat, token, rest, q, base) {
         const timer = setTimeout(finish, wait * 1000);
       });
     }
+    if (op === 'share') return shareRead(rt, seat, area, q);
     if (op === 'do') return [200, act(rt, seat, { type: q.get('cmd'), area, args: Object.fromEntries(q) }, q)];
   }
   return [404, { ok: false, why: 'unknown path; fetch the rules card: /c/<campaign>/card?seat=<token>' }];
@@ -395,6 +426,17 @@ function friendly(rt, seat, cmd, q) {
     if (spec === 'bool') { const b = { true: 'true', '1': 'true', yes: 'true', on: 'true', false: 'false', '0': 'false', no: 'false', off: 'false' }[v.trim().toLowerCase()]; if (!b) return { error: `${k}: true or false (not "${v.slice(0, 20)}")` }; a[k] = b; }
   }
   if (cmd.type === 'entity.flag' && !a.ids && a.id) a.ids = a.id;
+  // CONDITIONS (2026-10-29, core/conditions.js): any short words; each is cleaned (markup and control characters out, TW's
+  // own words and their spellings to TW's word, "exhaustion 2", cut to 24 characters), repeats dropped, 12 at most. The
+  // relay's check then holds the shape. So "Hexed by the hag" is kept as a text label and "Paralysed" is paralyzed.
+  if ((cmd.type === 'token.set' || cmd.type === 'token.create') && typeof a.conditions === 'string') { try { const L = JSON.parse(a.conditions); if (Array.isArray(L)) a.conditions = JSON.stringify(cleanConditions(L)); } catch { } }
+  // AURA (2026-10-30, core/aura.js): aura=3, aura=3,blue, aura=blue, aura=up / down / off, aura=5,gold,dragons (an emblem),
+  // or JSON { level, color }; words become the pawn's whole aura after the change (the relay's check is then strict)
+  if ((cmd.type === 'token.set' || cmd.type === 'token.create') && typeof a.aura === 'string') {
+    const g = getAura(a.aura); if (g.error) return { error: g.error };
+    const cur = cmd.type === 'token.set' ? rt.state.areas[cmd.area]?.entities?.[a.id]?.aura : null;
+    a.aura = JSON.stringify(g.set || auraChange(cur, g.change));
+  }
   if (cmd.type === 'area.set') {
     const set = {}; let n = 0;
     for (const k of Object.keys(RULE_KEYS)) if (a[k] != null) { const v = String(a[k]); n++; set[k] = v === 'default' ? null : RULE_KEYS[k] === 'bool' ? ['true', '1', 'yes', 'on'].includes(v.toLowerCase()) : v; delete a[k]; }
@@ -409,6 +451,20 @@ function friendly(rt, seat, cmd, q) {
 // and total (dice rolled at the table), as before. There is no `throw` (no physics here): every browser that has the
 // area open throws the dice itself and lands them on these numbers (client/surfaces/dice.js "A ROLL WITH NO THROW").
 function diceArgs(rt, seat, a) {
+  // a game's own dice (2026-10-29, core/gamedice.js): "coc 65 bonus 1", "v5 7 hunger 2 diff 3", "sr 12", "duality 2" (a
+  // URL's "+" arrives as a space: the parser reads a bare number there as the modifier), "4df 1", "l5r 3 ring 2 skill", "ex 8 tn 6 double 9".
+  // bonus=N adds to duality and Fudge rolls; for the others it means nothing (CoC's bonus DICE go in expr: "coc 65 bonus 1")
+  const game = parseDice(String(a.expr || ''));
+  if (game?.game) {
+    const bonus = a.bonus != null && a.bonus !== '' ? Number(a.bonus) : 0;
+    if (!Number.isInteger(bonus) || Math.abs(bonus) > 99) return { error: 'bonus: a whole number (bonus=-1 subtracts)' };
+    let p = game;
+    if (bonus) { if (!['duality', 'fate'].includes(game.game.kind)) return { error: `bonus: only duality and Fudge rolls take a modifier; write it in expr (e.g. expr=${game.game.kind === 'coc' ? 'coc 65 bonus 1 for a bonus die' : game.label})` }; p = parseDice(game.label.replace(/^(duality|\d+dF)([+-]\d+)?/i, (m0, k, m) => `${k}${(+(m || 0) + bonus) >= 0 ? '+' : ''}${+(m || 0) + bonus}`)); if (!p) return { error: 'bonus: too large' }; }
+    const own = rt.state.seats[seat].kind !== 'llm' && a.rolls != null && a.total != null;
+    if (own) return { args: { ...a, expr: p.label } };
+    const r = rollDice(p), { bonus: _, ...rest } = a;
+    return { args: { ...rest, expr: p.label, rolls: JSON.stringify(r.rolls), total: String(r.total) }, rolled: r, ...(a.rolls != null && { note: 'the relay rolls for AI seats: the rolls and total you sent were not used' }) };
+  }
   const m = String(a.expr || '').trim().match(/^(.*?)\s*(adv|advantage|dis|disadvantage)?$/i); // (d20adv and "d20 adv" alike)
   let expr = m[1].replace(/\s+(?=\d|d\d)/gi, '+'); // (a "+" in a URL is a space: "d20 5" meant d20+5)
   const bonus = a.bonus != null && a.bonus !== '' ? Number(a.bonus) : 0;
@@ -416,7 +472,7 @@ function diceArgs(rt, seat, a) {
   if (bonus) expr = `${expr}${bonus < 0 ? '-' : '+'}${Math.abs(bonus)}`;
   if (m[2]) expr += ` ${m[2]}`;
   const p = parseDice(expr);
-  if (!p) return { error: `expr: not a roll ("${String(a.expr || '').slice(0, 30)}"); try expr=d20, expr=2d6, expr=4d6kh3, expr=d20adv, with bonus=NUMBER` };
+  if (!p) return { error: `expr: not a roll ("${String(a.expr || '').slice(0, 30)}"); try expr=d20, expr=2d6, expr=4d6kh3, expr=d20adv, with bonus=NUMBER; game dice: see help/dice` };
   const own = rt.state.seats[seat].kind !== 'llm' && a.rolls != null && a.total != null;
   if (own) return { args: a };
   const r = rollDice(p), { bonus: _, ...rest } = a;
@@ -426,6 +482,7 @@ function diceArgs(rt, seat, a) {
 function act(rt, seat, cmd0, q) {
   const nonce = q.get('nonce');
   if (nonce != null && !NONCE_RE.test(nonce)) return { ok: false, code: 'invalid', why: 'nonce: letters, digits, _ . : - (max 64)' };
+  if (cmd0.type === 'import') return shareImport(rt, seat, cmd0.area, q, nonce);
   if (cmd0.type === 'turn.roll') return turnRoll(rt, seat, cmd0, q, nonce);
   const fr = friendly(rt, seat, cmd0, q);
   if (fr.error) return { ok: false, code: 'invalid', why: fr.error };
@@ -434,12 +491,12 @@ function act(rt, seat, cmd0, q) {
   // made, and a roll's numbers read back from its chat line)
   if (nonce && rt.nonces.has(`${seat}|${nonce}`)) {
     const id = MINT[cmd.type] && (cmd.args.id || mintId(MINT[cmd.type], seat, nonce)), line = cmd.type === 'dice.roll' && (rt.state.areas[cmd.area]?.chat || []).find(c => c.id === id);
-    return { ...rt.nonces.get(`${seat}|${nonce}`), duplicate: true, ...(id && { id }), ...(line?.roll && { expr: line.roll.expr, rolls: line.roll.rolls, total: line.roll.total }) };
+    return { ...rt.nonces.get(`${seat}|${nonce}`), duplicate: true, ...(id && { id }), ...(line?.roll && { expr: line.roll.expr, rolls: line.roll.rolls, total: line.roll.total, ...(tallyText(line.roll.expr, line.roll.rolls) && { tally: tallyText(line.roll.expr, line.roll.rolls) }) }) };
   }
   const E = rt.state.areas[cmd.area]?.entities || {}, sees = (id) => !!E[id] && entityVisible(rt.state, seat, E[id]);
   if (cmd.type === 'dice.roll') {
     const r = diceArgs(rt, seat, cmd.args); if (r.error) return { ok: false, code: 'invalid', why: r.error };
-    cmd = { ...cmd, args: r.args }; if (r.rolled) extra = { expr: r.args.expr, rolls: r.rolled.rolls, total: r.rolled.total }; if (r.note) extra.note = r.note;
+    cmd = { ...cmd, args: r.args }; if (r.rolled) extra = { expr: r.args.expr, rolls: r.rolled.rolls, total: r.rolled.total, ...(tallyText(r.args.expr, r.rolled.rolls) && { tally: tallyText(r.args.expr, r.rolled.rolls) }) }; if (r.note) extra.note = r.note;
   }
   // A PIECE OF THE LIBRARY BY ITS ID: object.place&cat=candlestick (the mesh and its size from the library), in the room
   // it stands in (so it moves, turns and hides with that room)
@@ -460,7 +517,7 @@ function act(rt, seat, cmd0, q) {
     const r = E[cmd.args.id], seed = cmd.args.seed != null && cmd.args.seed !== '' ? Number(cmd.args.seed) : crypto.randomInt(1, 1e6), type = cmd.args.type || null;
     if (type && !rt.roomgen.types.has(type)) return { ok: false, code: 'invalid', why: `unknown room type ${type} (the list: /rooms)` };
     let L; try { L = rt.roomgen.solve(E, { id: r.id, type: type || r.recipe.type, seed }, r.order, rt.roomgen.pinnedOf(E, r.id)); } catch (err) { return { ok: false, code: 'invalid', why: `could not re-roll: ${err.message}` }; }
-    cmd = { ...cmd, args: { ...cmd.args, seed: String(seed), engineVersion: rt.roomgen.version, layout: JSON.stringify({ hash: L.hash, summary: L.summary, objects: L.objects }) } };
+    cmd = { ...cmd, args: { ...cmd.args, seed: String(seed), engineVersion: rt.roomgen.version, layout: JSON.stringify({ hash: L.hash, summary: L.summary, objects: L.objects }), ...(L.stalagObjects && { stalagObjects: 'true' }) } }; // (a cave: its own stalagmites follow, the rest stays)
   }
 
   const prefix = MINT[cmd.type];
@@ -513,4 +570,46 @@ function act(rt, seat, cmd0, q) {
   if (res.ok && !res.duplicate) rt.llmSeen.set(seat, Date.now());
   const placed = res.ok && (cmd.type === 'token.create' || (cmd.type === 'token.move' && cmd.args.room) || cmd.type === 'object.place') ? { at: { x: Number(cmd.args.x), z: Number(cmd.args.z), ...(cmd.args.y != null && { y: Number(cmd.args.y) }) } } : {};
   return { ...res, ...(prefix && res.ok && { id: cmd.args.id }), ...(res.ok && extra), ...placed, ...(cmd.type === 'object.replace' && res.ok && { now: cmd.args.cat }), ...((conv.note || (!res.ok && extra.note)) && { note: [conv.note, extra.note].filter(Boolean).join(' ') }) };
+}
+
+// EXPORT THE AREA as a .turnip.json: /a/<area>/share[?strip=1]. The whole area only: a selection (ids=, kind=) is not
+// exported, on purpose (Harry 2026-10-29: "drop export of selections"; parked until the player object tuner / prop
+// assembler exists), and ids= / kind= are ignored. Only what this seat may see, and only for a seat that may build.
+function shareRead(rt, seat, area, q) {
+  if (!can(rt.state, seat, 'room', area).ok) return [403, { ok: false, code: 'forbidden', why: 'exporting a build needs build permission' }];
+  const T = rt.state.areas[area];
+  const strip = /^(1|true|yes|on)$/i.test(q.get('strip') || '') || !isGmSide(rt.state, seat);
+  const { doc } = exportShare(T.entities, { kind: 'area', ids: [], strip, area: T, engineVersion: rt.roomgen?.version || '' });
+  return [200, doc]; // (exactly a .turnip.json: save it as one, or import it; a player's pawn is never in it)
+}
+// IMPORT A SHARED BUILD: do?cmd=import&link=LINK (or the 22-character id)[&x=FEET&z=FEET] (the middle of where it lands;
+// left out: just east of everything in the area). One step: undo takes it all away again.
+function shareImport(rt, seat, area, q, nonce) {
+  if (!area) return { ok: false, code: 'invalid', why: 'import goes into an area: …/a/AREA_ID/do?cmd=import&link=LINK' };
+  if (!can(rt.state, seat, 'room', area).ok) return { ok: false, code: 'forbidden', why: 'importing a build needs build permission' };
+  if (nonce && rt.nonces.has(`${seat}|${nonce}`)) return { ...rt.nonces.get(`${seat}|${nonce}`), duplicate: true };
+  const m = String(q.get('link') || q.get('id') || '').trim().match(SHARE_LINK_RE);
+  if (!m) return { ok: false, code: 'invalid', why: 'link: a Turnip Works share link (https://…/s/ID) or its 22-character ID' };
+  const text = SHARES?.read(m[1]);
+  if (!text) return { ok: false, code: 'invalid', why: 'no such shared build on this server (deleted, or the link is not complete)' };
+  const { doc, error } = parseShare(text);
+  if (error) return { ok: false, code: 'invalid', why: error };
+  const T = rt.state.areas[area], E = T.entities;
+  let x = q.has('x') && q.get('x') !== '' ? Number(q.get('x')) : null, z = q.has('z') && q.get('z') !== '' ? Number(q.get('z')) : null;
+  if ((x != null && !Number.isFinite(x)) || (z != null && !Number.isFinite(z))) return { ok: false, code: 'invalid', why: 'x and z: feet' };
+  if (x == null || z == null) { // just east of everything already here
+    const rooms = Object.values(E).filter(e => e.kind === 'room'), w = doc.rooms.length ? (Math.max(...doc.rooms.map(r => r.x + r.w)) - Math.min(...doc.rooms.map(r => r.x))) * 5 : 20;
+    x ??= rooms.length ? Math.max(...rooms.map(r => (r.recipe.x + r.recipe.w) * 5)) + 10 + w / 2 : 0;
+    z ??= rooms.length ? Math.min(...rooms.map(r => r.recipe.z * 5)) + (doc.rooms.length ? (Math.max(...doc.rooms.map(r => r.z + r.d)) - Math.min(...doc.rooms.map(r => r.z))) * 2.5 : 10) : 0;
+  }
+  const rg = rt.roomgen;
+  const plan = planImport(doc, { area: T, at: [x, z], level: Number(q.get('y')) || 0, resolve: rg ? (c, s) => rg.sizeOf(c, s) : null, roomTypes: rg?.types || null, fallbackType: rg?.types?.has?.('common') ? 'common' : null, gm: isGmSide(rt.state, seat), engineVersion: rg?.version || '', newId: mintNewId });
+  if (!plan.ok) return { ok: false, code: 'invalid', why: plan.why };
+  const parts = chunkOps(plan.ops); let last = null;
+  for (const [i, ops] of parts.entries()) {
+    last = rt.dispatch(seat, { type: 'batch', area, args: { ops } }, { cid: nonce ? `${nonce}${i ? ':' + i : ''}` : null });
+    if (!last.ok) return { ok: false, code: last.code || 'invalid', why: last.why };
+  }
+  const R = plan.report;
+  return { ok: true, name: doc.name, kind: doc.kind, ids: plan.top, at: [x, z], seq: last?.seqs?.[0] ?? T.seq, steps: parts.length, ...(R.standIns.length && { standIns: R.standIns.length, note: `${R.standIns.length} piece${R.standIns.length === 1 ? '' : 's'} this library lacks: shown as stand-ins` }), ...(R.roomTypes.length && { roomTypes: R.roomTypes }) };
 }

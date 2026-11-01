@@ -1,0 +1,7 @@
+You reviewed this VTT comparison table an hour ago (your findings: experiments/2026-10-29-vttindex/codex-fairness-r1.codex.log, the part after the last "VERDICT:"). The publishers make Turnip Works (row "turnip-works"). They changed the rubric and data in response; the list of changes is experiments/2026-10-29-vttindex/fairness_r1-changes.txt and the script that made them is experiments/2026-10-29-vttindex/fairness_r1.py. Do not print whole files (the JSON is 400 KB and floods your context): query it with python3 or jq, field by field. Do not read any wiki. Re-read docs/site/vtt-index.json, docs/site/vtt-index.md and engine/client/site/vtt-index-md.txt (read-only; modify nothing).
+
+Answer, plain text, no preamble:
+VERDICT: one paragraph starting with FAIR / MOSTLY FAIR / BIASED / UNFAIR, about the table as it is NOW.
+REMAINING: a numbered list of the problems that still stand (from your earlier list or new), each: [severity] [category] <row>.<field> : problem — fix (confidence %). Most important first; at most 25. Say explicitly whether the Turnip Works row is now scored by the same rules as the others.
+
+You MUST finish with the VERDICT and REMAINING sections even if you could not check everything.

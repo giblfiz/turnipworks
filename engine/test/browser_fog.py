@@ -205,7 +205,7 @@ async def main():
         check(await wait(mi, 'tw.worldOf(tw.area()).fx.fogwar.stats().fogwar_overlays > 0'), 'measurement remains in the fog overlay draw list')
         await shot(mi, '07-ruler-into-fog')
         await mi.evaluate('tw.rulers.cancel?.()')
-        await gm.evaluate("tw.settings.show('defaults')")
+        await gm.evaluate("tw.settings.show('campaign')")
         check(await gm.locator('[data-vision="fogOfWar"]').count() == 1 and await gm.locator('[data-vision="sharedPartyVision"]').count() == 1 and await gm.locator('[data-act="fog-reset"]').count() == 1, 'Global defaults contains both switches and reset')
         await gm.evaluate("tw.settings.close?.()")
         # A delayed result from the old epoch must not restore forgotten ground

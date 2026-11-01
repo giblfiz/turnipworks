@@ -1,0 +1,4 @@
+These are 37 renders of 3D game props (furniture, containers, doors, windows in wall sections, floor hatches) on a transparent background, each seen from an elevated three-quarter view. File names are the prop ids.
+Do NOT create, crop or write any files. Do not run commands or open any other files. Only look at the images.
+For EACH image, first report any visible labels or text, then: (a) what the object is, in a few words; (b) its main materials and colours; (c) whether this view shows its FRONT (the side with the door, lid opening, face, or window glazing a user would look at), its BACK, or a SIDE; (d) whether it looks OPEN or SHUT; (e) one short phrase on its proportions (e.g. "twice as wide as tall").
+Answer with ONLY a JSON array: [{"file": "<name>.png", "labels": "...", "what": "...", "materials": "...", "view": "FRONT|BACK|SIDE", "state": "OPEN|SHUT", "proportions": "..."}, ...]

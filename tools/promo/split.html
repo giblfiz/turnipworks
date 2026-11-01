@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>split backdrop</title>
+<!-- THE SPLIT-SCREEN BACKDROP (tools/promo, 2026-10-22): two browser windows side by side on a plain dark desk, each
+     named above its pane in small type (Inter, the site's face). No window chrome is drawn: no title bar, no address
+     bar, nothing shaped like a browser's or an OS's UI. ?a=&b= the two names; ?top= band height; ?gap= margins; ?stack=1 one window above the other (v4). -->
+<style>
+@font-face { font-family: Inter; src: url('inter.woff2') format('woff2'); font-weight: 100 900; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #221d17; font-family: Inter, system-ui, sans-serif; color: #f6ead2; }
+.lab { position: absolute; font-weight: 650; font-size: 22px; letter-spacing: .14em; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #e0b04a; }
+.pane { position: absolute; background: #000; box-shadow: 0 0 0 1px rgba(246, 234, 210, .14); }
+</style></head>
+<body>
+<script>
+const q = new URLSearchParams(location.search), top = +(q.get('top') || 56), gap = +(q.get('gap') || 16), W = innerWidth, H = innerHeight;
+// ?stack=1 (v4, the square and 4:5 frames): the two windows one above the other, each under its own name band
+const stack = q.get('stack') === '1';
+const pw = stack ? W - 2 * gap : (W - 3 * gap) / 2, ph = stack ? Math.floor((H - 2 * top - gap) / 2) : H - top - gap;
+[q.get('a') || 'GM', q.get('b') || 'Player'].forEach((t, k) => {
+  const x = stack ? gap : gap + k * (pw + gap), y = stack ? top + k * (ph + top) : top;
+  const l = document.createElement('div'); l.className = 'lab'; l.innerHTML = '<span class="dot"></span>' + t; l.style.left = (x + 4) + 'px'; l.style.top = (y - top / 2 - 14) + 'px'; document.body.appendChild(l);
+  const p = document.createElement('div'); p.className = 'pane'; Object.assign(p.style, { left: x + 'px', top: y + 'px', width: pw + 'px', height: ph + 'px' }); document.body.appendChild(p);
+});
+</script>
+</body></html>

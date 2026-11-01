@@ -1,0 +1,223 @@
+[
+ {
+  "id": "dims",
+  "label": "2D / 3D",
+  "group": "Basics",
+  "gloss": "Whether the table is a flat map seen from above (2D), a 3D scene you can turn and tilt (3D), or a flat map with 3D figures or terrain on it, or a switch between both (2D+3D). 3D dice alone don't count here: they have their own column.",
+  "values": [
+   "2D",
+   "3D",
+   "2D+3D",
+   "?"
+  ]
+ },
+ {
+  "id": "platform",
+  "label": "Runs on",
+  "group": "Basics",
+  "multi": true,
+  "gloss": "Where it runs: in a web browser tab, as an installed desktop app (Windows, Mac, Linux), on phones or tablets (iOS, Android), or in a VR headset.",
+  "values": [
+   "browser",
+   "windows",
+   "mac",
+   "linux",
+   "ios",
+   "android",
+   "vr",
+   "?"
+  ]
+ },
+ {
+  "id": "price",
+  "label": "Price",
+  "group": "Basics",
+  "gloss": "What the game master (GM, who runs the game) pays. free: no paid tier at all. free tier: usable free, with paid upgrades. one-time: a purchase. subscription: a monthly or yearly fee. The note says what players pay.",
+  "values": [
+   "free",
+   "free tier",
+   "one-time",
+   "subscription",
+   "?"
+  ]
+ },
+ {
+  "id": "accounts",
+  "label": "Accounts",
+  "group": "Basics",
+  "gloss": "Who must sign up before playing. none: nobody (a link is enough). gm: only the game master. everyone: players too.",
+  "values": [
+   "none",
+   "gm",
+   "everyone",
+   "?"
+  ]
+ },
+ {
+  "id": "fog",
+  "label": "Fog of war",
+  "group": "The map",
+  "gloss": "Hiding the parts of the map the players have not discovered. yes: built in. partial: manual masks only, or through an add-on.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "lighting",
+  "label": "Dynamic lighting",
+  "group": "The map",
+  "gloss": "Light sources and walls that decide what each player's character can see, worked out by the software as tokens move.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "mapbuild",
+  "label": "Map building",
+  "group": "The map",
+  "gloss": "Making maps inside the product (drawing, tiles, a builder or generator), rather than only importing a picture made elsewhere.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "levels",
+  "label": "Levels / height",
+  "group": "The map",
+  "gloss": "Verticality: several floors of a building, stairs, flying or elevation, seen as such rather than as separate flat maps.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "sheets",
+  "label": "Sheets & rules",
+  "group": "Rules",
+  "gloss": "Character sheets and rules automation: the software knows the game's rules (attacks, damage, conditions) instead of only showing tokens.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "ddb",
+  "label": "D&D Beyond / Beyond20",
+  "group": "Rules",
+  "gloss": "Rolling from D&D Beyond character sheets into the table, usually through Beyond20 (a free browser extension that sends D&D Beyond rolls to a VTT) or a direct import.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "dice",
+  "label": "Dice",
+  "group": "Rules",
+  "gloss": "3D: physical 3D dice that tumble on screen. roller: a dice roller (text or 2D). no: bring your own.",
+  "values": [
+   "3D",
+   "roller",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "phone",
+  "label": "Phones",
+  "group": "Access",
+  "gloss": "Whether a player can take part from a phone. partial: it opens, but some parts do not work or are hard to use.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "offline",
+  "label": "Offline / self-host",
+  "group": "Access",
+  "gloss": "Playing without the maker's servers: offline, on a local network, or on a server you run yourself.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "opensource",
+  "label": "Open source",
+  "group": "Access",
+  "gloss": "Whether the source code is published under an open licence (the licence is named in the detail view). partial: some parts only.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "ai",
+  "label": "AI features",
+  "group": "Extras",
+  "gloss": "Built-in AI features (generating maps, art or text, an AI assistant at the table). This says only that they exist, not whether that is good.",
+  "values": [
+   "yes",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "modding",
+  "label": "Mods / API",
+  "group": "Extras",
+  "gloss": "Add-ons, modules, scripting or a programming interface (API) for extending it.",
+  "values": [
+   "yes",
+   "partial",
+   "no",
+   "?"
+  ]
+ },
+ {
+  "id": "stage",
+  "label": "Stage",
+  "group": "Extras",
+  "gloss": "How finished the maker says it is.",
+  "values": [
+   "released",
+   "early access",
+   "beta",
+   "alpha",
+   "pre-launch",
+   "abandoned",
+   "?"
+  ]
+ },
+ {
+  "id": "community",
+  "label": "Community signal",
+  "group": "Extras",
+  "gloss": "What users visibly say or how big the visible community is, in one line. Not a score.",
+  "values": [
+   "note"
+  ]
+ }
+]

@@ -2,8 +2,8 @@
 
 Status: **the Pawns menu is BUILT and live (2026-10-06, late evening): see "The Pawns menu, as built" below.** The
 sections before it are the design as Harry and Fauna talked it through, kept as the record; where the two differ, "as
-built" says so and why. Still design only: conditions shown with style, linked exits, and the turn order's data
-(branch `turns`: the menu already draws it). Source: the conversation of 2026-10-06
+built" says so and why. **Conditions on the table are built (2026-10-29): "Conditions on the table", below.** Still design
+only: linked exits. Source: the conversation of 2026-10-06
 (`~/fauna/transcripts/turnip-works/2026-10-06.md` on the build box; `fauna-search search "pawns menu"`).
 The pawn's own ring (turn · sheet · damage · menu) is a separate piece: docs/UI.md, "Pawn ring".
 
@@ -470,6 +470,8 @@ neither the command nor the key. Cost and Gemini's blind reads: docs/UI.md, "Paw
 ## How big a figure is drawn (2026-10-12)
 A pawn has two sizes and they are independent. **Its size in the rules** is its base: one square (2.5 ft radius per square of `size`), which rulers, templates and reach use. **Its drawn size** is the figure's made height times the house **figure scale** (0.67 built in; the tuner's Figure scale bench sets it, "Use in game"). The base, the name on it and the facing mark do not scale. docs/UI.md "Figures as pawns" has the measurements and the reasons.
 
+**The base, 2026-10-29.** Harry: "let's change bases from 5ft black to like 4ft medium grey. I noticed they feel a little big and show up dark." Then: "Facing arrow can be much smaller and facing gap can go away", and "Let's make the facing arrow a grab handle for rotation, I noticed I frequently want to do that." The disc is medium grey (`#757e88`) and 4 ft across in its 5-ft square (it was near-black and 4.5 ft); the rim is one whole ring in the seat's colour; the facing mark is a small arrowhead whose point is 0.5 ft past the rim; dragging that arrow turns the pawn (45° steps, Shift free, one undo; yours, or any for the GM). The rules still use the square, never the disc. docs/UI.md "Turning a pawn by its arrow".
+
 ## The name on the pawn (Harry, 2026-10-06)
 
 "Lets start by putting it at their feet, on the base, curling around the outside edge. Far from sure but we can
@@ -478,7 +480,6 @@ Being built with the figure base (branch `figs`).
 
 ## Open
 
-- Conditions over a pawn, and conditions shown with style (a tuner lab, once figures are in the game).
 - Travel's place in the Pawns menu (built: the pawn's ☰ and the command bar; the menu itself is not built).
 - The placing tree's exact families and roles: Harry, "wing it for the tree of minis, we will probably have to revisit
   it some day."
@@ -517,3 +518,161 @@ Harry: "raise & lower a pawn should leave its base on the ground and show an ind
 - Test: `engine/test/browser_pawnbase.py` (44 checks, including Harry's dragon and its reverse).
 
 - **Arrow keys (2026-10-15).** A selected pawn moves one grid square with an arrow (screen directions snapped to the grid axes, so a turned camera still moves it toward the screen's up) and 1 ft with Shift+arrow, as one undo step; vision and fog update as for a drag. Fog of war is now per area (docs/UI.md "Fog tweaks"): in an area with fog off every pawn is drawn.
+
+## A new player's placeholder pawn (Harry, 2026-10-22)
+Harry: "When a GM creates a new player and sends the invite link, the player arrives in the world with no pawn, no idea where to create one, nothing prompting them to, and when they do create one it lands somewhere arbitrary." And: "if I'm inviting Bobby, it drops a blank pawn so I can position Bobby when he arrives." Offered, never forced: "if people keep using the placeholder, it should never become a nag."
+- **The invite places it.** Every invite goes through `app.createSeat` (main.js): the bar's "invite …" and Settings ▸ Campaign admin ▸ Invites and seats. After the seat is made it defines the seat's MAIN pawn flagged `placeholder` (`pawn.define`, the GM may define anyone's) and brings it onto the table from that definition (`pawn.bring`): two commands through the one door, so undo and every seat get them. Re-copying an existing seat's link is a reissue, never `createSeat`: no second pawn. Existing seats with no pawn are left alone (no retroactive placeholders).
+- **Where** (`app.placeholderSpot`, client/pawns.js): the GM's arrival mark if the area has one, else beside the party (the square a travelling pawn gets, core/travel.js), else the middle of the GM's view, else open ground beside what is built. Always a free 5-ft square (no pawn, no furniture), never in a room hidden from players. **Which area:** the GM's own when it is open to players, else the first open one; the seat starts there (`seat.create location`). The GM moves it like any pawn.
+- **The flag** (`placeholder: true` on the pawn and its definition; core/commands.js `withPlaceholder`): ANY figure change clears it (a figure, or "no figure", the plain stand-in, chosen); `placeholder` given explicitly wins (the editor saving a name with no figure keeps it). Undo of the change restores it (the generic inverse). Old campaigns carry no flag and nothing changes. A pawn changed through the bar's "change figure" tells its definition too, so it does not come back from the bench as a placeholder. (The definition's own change is campaign data and is not undone with the pawn: the pawn on the table is what undo restores.)
+- **Its prompt** (`pawn.choose`, client/commands.js): while it is a placeholder its ring LEADS with "Set your pawn" (its player) or "Choose Bobby's pawn" (the GM side), in the person's colour with a slow glow and its name always shown under it (`ring.prompt`, surfaces/ring.js). It opens Settings ▸ Me ▸ My pawns with the editor on this pawn's definition; for the GM, in its own group "Bobby's pawn" above the GM's own. Other players are never offered it. Whoever chooses first makes it an ordinary pawn and the prompt goes for everyone.
+- **Its look** (client/figures.js `PLACEHOLDER_FIG`, `PLACEHOLDER_LOOK`): the plain Human commoner figure, UNPAINTED: grey primer, matte, solid, whatever the seat; whose it is is on its base rim (the seat's colour), and one tag "Bobby · not chosen yet" (no name on the base). Chosen by blind Gemini reads of stills: every see-through variant read as "a ghost, spirit or stealthed enemy" (and the GM's hidden-pawn look is see-through already); the solid pale one as "unpainted grey plastic, a blank slate"; a body tinted in the seat colour read as paint (orange, green) or as a ghost (lavender), so the colour stays on the base. Its portrait is the seat's initial (no figure to bake) until it is chosen.
+- **The player's first arrival** (client/arrival.js): the first time a seat opens the campaign in a browser, the camera goes to its own main pawn (at most 60 ft out). If that pawn is still a placeholder, ONE conditional button beside it: "This is you, Bobby. Click to choose who you are."; after 9 s it goes down into the chat as "Your pawn is a stand-in until you choose who you are · [Choose]". Remembered per campaign, seat and browser (`tw.arrived.<campaign>.<seat>`); it never moves the camera later in a visit. The GM side never gets it.
+- **Tests:** `engine/test/core.test.mjs` (the flag's rules, 20 checks), `browser_two_tab.py` M7 (17: GM invite, beside the party, the GM's and Bobby's prompts, another player not offered it, reissue, Bobby's arrival centred with its offer, choosing in the editor, both tabs, portrait, undo, the GM choosing, the second visit), `browser_ui.py` PLACEHOLDER (7: the Settings invite, its hidden-room rule, the initial portrait, the GM's editor, undo, a bare seat with the switch off). The older suites invite with no pawn placed and no arrival centring: `tests/tw_sandbox.py placeholder_pawns(True)` turns both on for a suite (prefs `invitePawn`, `arrivalCentre`, on in every real browser, not shown in Settings).
+
+## Beyond20, and a pawn's target (Harry 2026-10-29, as built)
+D&D Beyond rolls, hit points and conditions come to the table through the Beyond20 extension, and a pawn can aim at another (its `target`). Player setup, what crosses and what is never stored: **[docs/BEYOND20.md](BEYOND20.md)**. In short: link the pawn to the D&D Beyond sheet once (one click on the first roll's offer). Rolls then land TW's 3D dice on Beyond20's numbers. HP becomes damage (max − current). Initiative goes into the running turn order. Every pawn you act for has an **Attack** button. Its list is the pawn's saved attacks (`attacks: [{ name, hit, dmg }]`, 8 at most, names and dice only), filled from Beyond20, from "+ Add attack", or over GET. Pawns get a **Target** button and the **T** key.
+
+
+## Conditions on the table (Harry's design of 2026-10-15; built 2026-10-29)
+Harry, 2026-10-15: don't mark conditions with icons on the table, "let's look at more fun ways". The ring's painted
+condition pictures stay in the ring's Conditions arc. The direction is loud: **"big cartoony, easy to follow."** No "who is
+doing it to you" tethers ("players can keep track"). Harry, 2026-10-29: "we never did visual status effects", and
+"missing status effects that come over can just be a text label". (The design was docs/design/conditions-2026-10-15.md,
+now this section. Lab notes: experiments/2026-10-29-statusfx/LAB_NOTES.md.)
+
+| Condition | On the table |
+|---|---|
+| Prone | the figure laid on its side on its disc |
+| Unconscious | on its back, big Z's drifting up from the head |
+| Dead (added; not a 5e condition) | toppled face down, greyed, no Z's |
+| Charmed | orbiter: a pink cartoon heart |
+| Stunned | orbiter: a fat yellow cartoon star |
+| Frightened | orbiter: a little purple ghost (picked over a red "!!" from stills: Gemini 92%) |
+| Blinded | orbiter: a crossed-out eye (picked over a black storm cloud: 98%) |
+| Grappled | orbiter: an orange-tan grabbing hand |
+| Restrained | orbiter: a brass padlock on a short iron chain |
+| Poisoned | orbiter: a green skull and crossbones (picked over green bubbles: 75%, with the warning that it can be confused with exhaustion 6's white skull; `STATUS.picks` in client/statusfx.js swaps it) |
+| Paralyzed (added) | orbiter: a blue lightning spark |
+| Invisible | its owner and the GM: the figure as rippling glass (cool, see-through, bands moving up; unlike the GM-hidden ghost, which is plain see-through grey). Everyone else: a faint shimmer at the figure's edges and no figure. "Gone" is the existing Hide. |
+| Incapacitated (added) | the base's coloured rim goes dim grey (its seat colour mixed 82% toward a grey darker than the disc) |
+| Concentrating (added; not a condition) | a gold rune circle on the floor round the base, slowly turning |
+| Exhaustion 1–6 (added) | a 6-segment drain ring on the floor round the base, just outside its rim: that many segments lit, yellow at 1 through orange to red at 5, the rest faint; at 6 the whole ring black and a bone-white skull on the head ring (on the floor it hid behind furniture: Gemini) |
+| Any other word (deafened, petrified, "Hexed", an AI seat's text) | a small text label on a generated wooden plate, on the same orbit ring |
+
+- **The ring over the head.** Orbiters and text labels share ONE ring, evenly spaced, going round (0.9 rad/s), each a
+  little smaller (6%) as more join; the far half of the ring a little smaller and dimmer. One entry is drawn three times,
+  two twice each (the stars round a dazed head). **Past four: the first three and "+N"** (text labels counted). Each
+  orbiter has its own shape AND colour. **The stack over the head** (2026-10-29, after Harry: the indicators "probably
+  shouldn't be quite so high"): the ring's point is the crown raised 3% of the figure's height, its nearest pictures
+  coming down a hair (1% of the view) over the crown; the floating name / damage label stands just over the ring's top and
+  the indicator just over that (a pawn with no ring: the indicator just over its head, or on its label). Gemini picked it
+  from three at table distance (99%): lower put the pictures over the faces, higher lost them from the figure.
+- **Nothing under the ring** (2026-10-29, Harry: "why are you drawing the indicators under the indicator buttons on the
+  orbital menu? ... very bad look"): with a pawn's ring open, any orbiter, plate, Z or indicator on the table that would sit
+  under a ring button (or its open panel) fades out over the last 10 px and back as it comes out (the buttons are in the
+  page over the canvas; a painted button's clear corners showed them). And a ring button that carries its own picture (an
+  Indicator's shape, a thumbnail) keeps it unpainted: the painted set's picture had been drawn over it, pushing the
+  indicator's own out under the button. The orbit itself is unchanged (Harry: not circling the head "is ok").
+- **Poses:** unconscious and dead beat prone; dead beats unconscious. A posed figure lies ON its disc, centred.
+- **Visible to every seat that is sent the pawn** (conditions are not secrets), except Invisible as above. A pawn the GM
+  hides from players is never sent to them, so neither is its look.
+- **Parked:** the Low graphics preset and "reduce motion" stop the orbiters (evenly round the ring) and the runes.
+- **Names on hover:** with a pawn selected, the pointer over it names all its conditions ("prone · Hexed · exhaustion 2");
+  over one orbiter, that one ("+N": the rest by name).
+- **Pictures:** Codex image_gen, one house-style line and a subject each (experiments/2026-10-29-statusfx/BRIEF-*.md),
+  packed into engine/client/data/icons/status/ (git-ignored like every picture; `pack_atlas.py`). Never hand-drawn. Without
+  them an orbiter is drawn as its word on the text ring.
+- **Cost:** three instanced draws per world for the whole table (orbiters from one atlas; text labels from one canvas
+  atlas of words; floor rings from one picture), whatever the number of pawns; poses and body looks change the pawn's own
+  visual once. Measured: lab notes, "Frame time".
+
+### The words, and what the relay checks
+- Stored as before, `conditions: [word, ...]` on the pawn. TW's words are lower case (core/pawn.js `CONDITIONS`, 14:
+  blinded, charmed, frightened, grappled, invisible, poisoned, prone, restrained, stunned, unconscious, paralyzed,
+  incapacitated, dead, concentrating). Exhaustion is ONE entry, "exhaustion 1" to "exhaustion 6". Any other word is kept as
+  typed ("Hexed").
+- **Every way in cleans a word** (core/conditions.js `normCondition`): control and markup characters go, spaces collapse,
+  TW's words and a few spellings (Paralysed, Concentration) become TW's word, "Exhaustion level 3" becomes "exhaustion
+  3", anything else is cut to 24 characters; repeats go (case-insensitive), 12 words at most.
+- **The relay checks the SHAPE, never the vocabulary** (`conditionsProblem`, on token.set and token.create): a list of at
+  most 12 words, each 1 to 24 characters with no space at either end, letters (any script), digits, spaces and a little
+  punctuation, no word twice, one exhaustion level. **Old journals replay unchanged** (apply never looks at the words;
+  the frozen corpus: 276 pawns, 26 with conditions, none the new check refuses).
+
+### Setting and clearing
+- **The ring:** ☰ ▸ Conditions ▸ the 14 words (✓ = on), **exhaustion N** (+1) and, while exhausted, **exhaustion −1**,
+  one tile per text label on the selection (**"✓ Hexed"**: a press takes it off), and **Other…**, which fills the command
+  bar with "condition " and puts the cursor there.
+- **The command bar**, with pawns selected: **"condition Hexed"** (or "status blessed") adds one; **"remove condition
+  Hexed"** takes one off; **"exhaustion 3"** sets the level ("exhaustion 0" clears it); **"clear all conditions"**; and
+  each of TW's words by name ("prone", "paralyzed") toggles it.
+- **Space C** (the chord tree) opens the same list.
+- **Beyond20** (docs/BEYOND20.md): D&D Beyond is the truth for its own words; deafened, petrified and any word TW does not
+  know arrive as text labels; exhaustion arrives with its level ("exhaustion 2"); TW-only words (dead, concentrating,
+  typed ones) are left alone.
+- **An AI seat over GET:** `token.set&id=PAWN_ID&conditions=prone,Hexed` (the whole list; `conditions=` clears; a JSON
+  list may hold a comma). Cleaned the same way before the check. The rules card and `/c/<campaign>/conditions` say any
+  short text is allowed and which words have a look.
+
+### Open (for Harry)
+- In darkness the orbiters and plates stay at full brightness, like the name labels (readable, not lit): Gemini, "wrongly
+  bright". Dim them in the dark, or keep them loud?
+- The drain ring's lit segments are hard to count from table distance (Gemini, round 3). A number on it, or the level
+  on the head ring?
+- Poisoned's green skull can be confused with exhaustion 6's white skull (Gemini). Bubbles is one line away.
+
+### Code and tests
+`engine/core/conditions.js` (words, shape, looks), `engine/client/statusfx.js` (drawing), `engine/client/world.js`
+(wiring; the label no longer carries the words), `engine/client/commands.js` (ring and bar), `engine/client/main.js`
+(setters, hover names), `engine/core/beyond20.js` `conditionsAfter`, `engine/relay/llm.js` / `llm-card.js` (GET).
+Tests: `engine/test/conditions.test.mjs` (in npm test), `engine/test/browser_statusfx.py` (two seats: ring, orbiters,
+poses, text labels, +N, exhaustion, dim rim, runes, invisible and hidden rules, Beyond20, GET, hover names, clear all).
+
+## Aura (2026-10-30, as built)
+A light round a pawn, inspired by Exalted's anima banner and meant for anything like it: a raging barbarian, spirit
+guardians, a divine glow, a Vampire's Discipline. Five intensity levels in the pawn's own colour. Code: `engine/core/aura.js`
+(the words, the strict check, the change), `engine/client/aurafx.js` (drawing). Lab notes: experiments/2026-10-30-aura/LAB_NOTES.md.
+
+| Level | On the table |
+|---|---|
+| 0 none | nothing |
+| 1 dim | a faint shimmer at the base: a soft rippling glow on the floor at the base's edge; the base's bevel and the figure's feet catch the colour |
+| 2 glowing | a soft light rising behind the figure to its crown, its legs and lower body lit, a pool of light on the floor |
+| 3 burning | tongues of flame-like light (crisp, painted-resin style: a deep shade of the colour at the edge, a pale core) rising behind and beside it to just over the head; the whole figure rim-lit; a few sparks |
+| 4 bonfire | a tall flame column well above the figure (2.7 figure heights, 13 ft at least), sparks, a wide pool: readable across the table |
+| 5 iconic | the bonfire a little taller, with a large faint emblem hanging in the column over the head: the pawn's faction emblem (`aura.emblem`), else the sun. The emblems are the factions' own (tools/spawn-tuner/assets/emblems), drawn as light in the aura's colour |
+
+- **The look** (after six Gemini rounds, experiments/2026-10-30-aura/LAB_NOTES.md): light ON the figure and its base, the way a
+  painted miniature's object-source lighting is (the figure's own materials worn as lit clones: a rim and an underlight in
+  the colour, climbing the figure with the level); the column's near side is never drawn in front of the figure, so the
+  painted figure stands in relief against its light; nothing ever bleached white.
+- **Colour:** gold (the default), silver-white, blue, green, red, violet.
+- **Stored** on the pawn as an optional `aura: { level, color }` (and `emblem`, a faction id, for level 5). Level 0 keeps its
+  colour (an aura put out and lit again comes back in it); level 0 in gold is no field at all. Old journals have none and
+  replay unchanged. **The relay checks it strictly** (`auraProblem`, on token.set and token.create): level a whole number
+  0 to 5, colour one of the six, an emblem a short faction id, no other field.
+- **Setting it:** ☰ ▸ **Aura**: Aura up, Aura down, Aura off (while lit), and the six colours (a colour picked with no aura
+  lights it at glowing; ✓ on the one it has). **The bar**, with pawns selected: "aura 3", "aura up", "aura down", "aura off",
+  "aura blue", "aura 4 red", "aura burning", "aura emblem dragons". **An AI seat over GET:** `token.set&id=PAWN_ID&aura=3,blue`
+  (aura=up / down / off, a colour alone, `aura=5,gold,dragons` for an emblem, or JSON `{"level":3,"color":"blue"}`); the
+  scene lists each pawn's aura. Who: the pawn's owner and the GM, as conditions.
+- **Who sees it:** everyone (it is not a condition with hidden visibility), by the conditions' rules: a pawn the GM hides is
+  never sent to the players; a pawn out of a player's sight in the fog draws no aura for her; an **invisible** pawn's aura is
+  drawn only for those who see it as glass (its owner, the GM side). In first person the pawn you look through draws none for
+  you (its figure is not drawn either).
+- **Nothing under the ring:** with a ring open, no pixel of an aura is drawn under a ring button or an open panel (the
+  conditions' mask, app.ringMask, applied per pixel: it fades out over the last 10 px).
+- **Low graphics and reduce motion** draw the static version: the light stands still, no sparks.
+- **Cost:** three instanced draws per world for every aura on the table (the light columns, the floor, the sparks and
+  emblems). All of it is computed light (noise on an open tube, a floor pool, sparks); the only pictures are the emblems.
+- **Ring icons:** painted, charcoal and parchment, by Codex image generation with our own icons as style references
+  (experiments/2026-10-30-aura/icons).
+- Tests: `engine/test/aura.test.mjs` (in npm test), `engine/test/browser_aura.py` (two seats: ring, colours, bar, the strict
+  relay, GET, levels, hidden / fog / invisible, replay, the ring's mask by pixels, Low graphics, draw calls, first person).
+
+## First person: look through a pawn's eyes (Harry 2026-10-29, as built)
+Harry: "let's also do first person (should probably be a button in the pawns menu for that pawn owner or gm rather than scroll in. Maybe something in the players orbital too)".
+- **Who:** the pawn's owner and the GM (`app.canTouch`). A player's own pawn has **Eyes** on its closed ring; the GM (and every ☰) has **First person**; **V** with the pawn selected, or (a player) with nothing selected for their main pawn.
+- **What the pawn does:** it walks square by square through the ordinary move (`token.move`, one undo step a square), facing where you look; walls, shut doors and windows stop it. Its figure is not drawn for the seat looking through it; every other seat sees an "in first person" tag over it.
+- The whole design, the keys and what is cut from the screen: docs/UI.md "First person". Height: docs/VERTICAL.md "First person".
+

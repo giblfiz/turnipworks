@@ -1,0 +1,76 @@
+{
+  "id": "pawn.cond.exhaustion.down",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works tabletop condition pictogram for exhaustion (one level less): A tired sagging dusty-ochre human head with heavy half-shut eyelids and one large sweat drop, beside ONE bold thick mint-green MINUS sign at its right: less exhausted, rested. Dominant subject colour key: dusty ochre with a mint green minus; keep this colour strongly visible, not just a tiny accent. Heroic hand-painted style D, chunky matte painted forms, broad soft bevels, restrained brushwork. Center on a pale warm parchment circular ground with a quiet thin antique brass rim; use dark outlines for strong contrast. Upper-left light. Straight-on circular badge; outer circle fills 94 percent of square canvas, pictogram fills 80 percent of disc. Readable at31px and smaller: bold silhouette, thick features, generous negative space, absolutely no tiny detail. Native transparent alpha outside the circle. No text, lettering, numbers, watermark, decorative flourishes or extra scene. Our own design, no trademarked game iconography. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.stunned.webp",
+      "sha256": "b26b503140fe80eb18babe2b89fbb54c52aafb77cc9c848f04444e88ce13ab42",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.unconscious.webp",
+      "sha256": "d380df54bc91805ba37efc3a52f33f2fc664013633d911ac174ee48043aac119",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.poisoned.webp",
+      "sha256": "ddfb1a18e71ef9298b7583611420c1dad4ac96f0fc2983ff3c9c4119b9897de8",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--pawn.cond.exhaustion.down.png",
+      "sha256": "358ca3a50a664552cbbfab4d324b1024ecd216d053b6bb0cbfadb155ad913bac",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--pawn.cond.exhaustion.down.png",
+  "source_sha256": "403f7f5c983bdf903ed154f4c9023ea146eee82c02554714984584214e0ef361",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/pawn.cond.exhaustion.down.webp",
+    "19": "parchment/sizes/19/pawn.cond.exhaustion.down.webp",
+    "22": "parchment/sizes/22/pawn.cond.exhaustion.down.webp",
+    "26": "parchment/sizes/26/pawn.cond.exhaustion.down.webp",
+    "31": "parchment/sizes/31/pawn.cond.exhaustion.down.webp",
+    "36": "parchment/sizes/36/pawn.cond.exhaustion.down.webp",
+    "38": "parchment/sizes/38/pawn.cond.exhaustion.down.webp",
+    "42": "parchment/sizes/42/pawn.cond.exhaustion.down.webp",
+    "44": "parchment/sizes/44/pawn.cond.exhaustion.down.webp",
+    "50": "parchment/sizes/50/pawn.cond.exhaustion.down.webp",
+    "52": "parchment/sizes/52/pawn.cond.exhaustion.down.webp",
+    "62": "parchment/sizes/62/pawn.cond.exhaustion.down.webp",
+    "84": "parchment/sizes/84/pawn.cond.exhaustion.down.webp",
+    "100": "parchment/sizes/100/pawn.cond.exhaustion.down.webp",
+    "128": "parchment/pawn.cond.exhaustion.down.webp"
+  },
+  "sha256": {
+    "18": "b251079d8b619e8957896121abd93578507f90836ded4d59b5d6be3eb382cc90",
+    "19": "ca9ca27e01e9c05f3a1c5eb47a9c6da6c5afd47485237b50696c005c5eb036d4",
+    "22": "1c94285d6f8e43816f707779f17b7267d568b4e949501122eaea5f2cf36bff2e",
+    "26": "8e1c05f744ede809092dc2191e2b9f6d1654f1772d2f8a375029699b46babcdd",
+    "31": "f557eefb7ab2816bbc7ec5cb2887cd9837f4383a98c88307f6992c53e4d57e7c",
+    "36": "a191882b7c88591def8462191bbb1b7eb895cbcd53415c98c7e9164971608538",
+    "38": "c60d97dda1ae7f6c54da33e20a97bdbd3a827ed8a67cb0abbb3ff98a47b34e9b",
+    "42": "4ee9f8e9e9b5b8ccc5dc3450b0a5299a6c1ffccbccaa100b5f9c3e602b17a382",
+    "44": "7a09184956e67b49fa5a972d2314e49093bc62f3f78632bb88e80b0735c22417",
+    "50": "f051cfbf987d326639343b4684dcfc5b83f1cc87c9453748f17193a4bd0e823d",
+    "52": "23ae07f01014ac80bc14280f07b7ea155d1396de04b6a4f4ef38c6846302b352",
+    "62": "d1f4a088626c895cc63f627b8ba0b65b0cf72b8cdaa82acac90ffedbde96a877",
+    "84": "74fa67320deec243e5239c2abafc4e7c61ce8c7d027adfe2d0ef954594ae6142",
+    "100": "e897c154687972b6dd143a229b6c23d0563b7cf6e18ad26d93d369b725d3d586",
+    "128": "f88525db365803a0812b2746bb626ddbff7d43033c0e6d76264395cce4fff4db"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small status icons for a tabletop pawn, in the ring menu around a selected pawn of a browser 3D tabletop game. For each lettered icon: which D&D condition, or condition control (adding / removing a level, a custom condition), does it show? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "caac9ec59d39205af6a46b4f7354002cdf96e4766fab025cec803fa3db85066b",
+  "blind_prompt_sha256": "62edd389ee8b5901b8936581b390a494654b0cf03cf774d31c0d21b720bbde4b",
+  "read_directory": "reads/parchment/pawn.cond.exhaustion.down/403f7f5c983bdf90-62edd389ee"
+}

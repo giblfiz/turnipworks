@@ -1,0 +1,41 @@
+### Text Labels in [ring-parchment.png](file://experiments/2026-10-29-ring-attack-target/shots/ring-parchment.png)
+
+* **Left screenshot:**
+  * **Arc button labels (left to right):** `Turn`, `Sheet`, `Damage`, `Attack`, `All options`
+  * **Pawn nameplate:** `Thorin`
+* **Right screenshot:**
+  * **Arc button labels (left to right):** `Sheet`, `Damage`, `Target`, `All options`
+  * **Pawn nameplate:** `Goblin 1`
+
+---
+
+### Buttons: Icon Depiction & Action
+
+#### Left Screenshot (`Thorin` — player's pawn)
+1. **`Turn`:** Depicts a 3D wooden crate encircled at the base by a curved dark-slate rotation arrow. **Action:** Rotates the pawn to change its facing direction.
+2. **`Sheet`:** Depicts a teal pawn silhouette beside two dark horizontal lines on a dog-eared rectangular parchment page. **Action:** Opens `Thorin`'s character/stat sheet.
+3. **`Damage`:** Depicts a cracked crimson heart on the left and a dark horizontal minus bar (`-`) on the right. **Action:** Applies damage (subtracts HP) to `Thorin`.
+4. **`Attack`:** Depicts two crossed steel broadswords with brown grips and gold pommels, blades pointing up. **Action:** Initiates an attack with `Thorin`.
+5. **`All options`:** Depicts three stacked dark horizontal bars (hamburger menu). **Action:** Opens the overflow menu with all remaining actions for `Thorin`.
+
+#### Right Screenshot (`Goblin 1` — another pawn)
+1. **`Sheet`:** Depicts a teal pawn silhouette beside two horizontal lines on a dog-eared page. **Action:** Opens `Goblin 1`'s stat sheet.
+2. **`Damage`:** Depicts a cracked crimson heart next to a dark minus bar (`-`). **Action:** Applies damage (subtracts HP) to `Goblin 1`.
+3. **`Target`:** Depicts a teal pawn centered inside a crimson circular reticle with four inward-pointing crosshair triangles. **Action:** Marks `Goblin 1` as the active target being aimed at.
+4. **`All options`:** Depicts three stacked dark horizontal bars (hamburger menu). **Action:** Opens the overflow menu with all remaining actions for `Goblin 1`.
+
+---
+
+### Evaluation
+
+**(1) Icon family cohesion:**
+**Yes, overall they read as one painted icon family** — they share the same circular medallion size, warm cream/parchment ground, beveled brass rim with inner shading, drop shadows, and shared palette (teal pawn, crimson red, dark slate, warm wood/brass). Two minor discrepancies stand out on close inspection:
+* **Resolution/sharpness mismatch:** `Attack` and `Target` look noticeably crisper/higher-resolution than the four existing icons (`Turn`, `Sheet`, `Damage`, `All options`), which appear slightly softer/blurrier.
+* **`Sheet` ground framing:** `Sheet` draws a square dog-eared parchment page *on top of* the round parchment medallion, whereas every other button places its symbol directly on the circular ground.
+
+**(2) Legibility at this size:**
+**Yes.** Every button is clearly legible at gameplay size, with bold silhouettes and strong contrast against the light parchment ground.
+
+**(3) New buttons (`Attack` and `Target`):**
+* **`Attack` (crossed swords): FITS.** It matches the parchment ground, brass rim, drop shadow, and warm painted shading of the set, and reads immediately as "Attack." *(Minor optional polish: match the mip/filtering softness of the older icons—or upsample the older four—so the sharpness is uniform.)*
+* **`Target` (red reticle around a pawn): FITS.** It directly reuses the teal pawn from `Sheet` and the crimson red from `Damage` on the matching medallion ground, and clearly reads as "mark this pawn as the target" at this size.

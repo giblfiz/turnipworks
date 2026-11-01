@@ -1,0 +1,71 @@
+{
+  "id": "roof.shape.hip",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof shape option pictogram: One teal tiled HIP roof seen from the front-left: FOUR sloping sides, a short ridge on top, the ends slope down too, no triangular gable wall. Dominant colour: teal tile. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a dark charcoal circular ground with quiet thin slate rim. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/roof.style.thatch.webp",
+      "sha256": "7352d4ef4924dbda8030bf90de9067b64654d9c9398f873bad791c0a30b20ab2",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/roof.style.flat.webp",
+      "sha256": "b07aa90ac8611f6c599ace71d93f7ac3f7125567c1fd7f85e7c2e587990f7070",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/roof.style.slate.webp",
+      "sha256": "89c9cc0a1807d800d6b6b0779fb26e737adfd156918b41e26c033726c2001d70",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.shape.hip.png",
+  "source_sha256": "9f7eefeec6dc17f734dede052f684a01334032ebc83441e5e4e5b408b10d92da",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/roof.shape.hip.webp",
+    "19": "charcoal/sizes/19/roof.shape.hip.webp",
+    "22": "charcoal/sizes/22/roof.shape.hip.webp",
+    "26": "charcoal/sizes/26/roof.shape.hip.webp",
+    "31": "charcoal/sizes/31/roof.shape.hip.webp",
+    "36": "charcoal/sizes/36/roof.shape.hip.webp",
+    "38": "charcoal/sizes/38/roof.shape.hip.webp",
+    "42": "charcoal/sizes/42/roof.shape.hip.webp",
+    "44": "charcoal/sizes/44/roof.shape.hip.webp",
+    "50": "charcoal/sizes/50/roof.shape.hip.webp",
+    "52": "charcoal/sizes/52/roof.shape.hip.webp",
+    "62": "charcoal/sizes/62/roof.shape.hip.webp",
+    "84": "charcoal/sizes/84/roof.shape.hip.webp",
+    "100": "charcoal/sizes/100/roof.shape.hip.webp",
+    "128": "charcoal/roof.shape.hip.webp"
+  },
+  "sha256": {
+    "18": "2f052980fac47267e5ffbfdbbba31f1f07e0e913789cc5bf9aa8eb5df4ff5d8e",
+    "19": "bd360ddb48bb9b1e03b76c863d5370f1fcec6fbe4fb4220f8b7c2653da6d98bb",
+    "22": "39761d9af1b6ce338080dfdb0d776a9d65d63155bb1c1c9d57d83a0d157478aa",
+    "26": "fcf870ce13558b079b79d0cbf376a8c8b7e0078da45ec7e2b8e1bece9248be3a",
+    "31": "9933396a40d203fe647ab8c4243cc1020f557b2e6ccd118a12de403bc17f89c0",
+    "36": "d52b97badb697d71b6d1c3f151935bf55b19c526a255245d18363277bd09517e",
+    "38": "95366bd42a78b309a7c5229c36fb58eb19c9f7b1692057ed462e94966f515a75",
+    "42": "5287387a55a9c12c77a441d230933d080cd75f085fcf50267a4b99db8d6b4f43",
+    "44": "15016d8bce19d2aef85e6194c91773fef01d771716600ac1e99eb3099f09a714",
+    "50": "f4f8f5fd080d8ccce4139d7472bc458aaee221376addb5d75064b36260ce54ed",
+    "52": "f73d3166371142a68e75b17d81368f1cfece16c19967ef400713875e33072657",
+    "62": "a2618d3f57327b3f283501f0ee8a70e642ac80a13e4c7fc2cda529d1bb6e4e76",
+    "84": "2e2737584a6a235139993a5c8ee661edd54127d22ceb16273519f24325f8c86c",
+    "100": "7729e6c43d69b0d75500374837a7258e980c948bf022a92f5a98c21ae40dd4a2",
+    "128": "3bc3abc047a622519841e227b580955b9ec459c2ebe1fee7eabbe3deb306599a"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "22f34335e0e53db208df6ddc199501c275aef1767894e5e11d56cd973ce893e0",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/charcoal/roof.shape.hip/9f7eefeec6dc17f7-2ddccf6ab7"
+}

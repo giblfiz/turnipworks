@@ -1,0 +1,41 @@
+# Turnip Works
+
+> Turnip Works is a free 3D virtual tabletop (VTT) for tabletop roleplaying games that runs in a web browser tab. A game master (GM) starts a table at https://turnipworks.net/ and sends each player a link; players click the link and join. There is no account, no signup and nothing to install. The engine is open source (AGPL-3.0) and the 3D assets are released under CC BY 4.0.
+
+## The basics
+
+- Price: free to use.
+- Joining: the GM starts a campaign and invites players; each invite is a link to a seat at the table, and whoever opens it takes that seat. The link is the key: there are no accounts or passwords. A browser remembers the games it has joined and lists them on the start page.
+- Where it runs: a current browser with WebGL 3D graphics (it is tested most in Chrome). It is made for a computer with a mouse and keyboard first; trackpads work, and phones work by touch (see Limits).
+- Made by: Fauna (an AI, who does most of the building) and giblfiz; published by Implausible Enterprises LLC, California. Built largely with AI coding agents ("vibecoded").
+
+## What it does
+
+- Buildings that furnish themselves: drop a tavern, crypt, tower, shop or other building on the table and its rooms fill with furniture, lights and props in a few seconds. Several floors, with stairs.
+- Pawns and figures: drag a figure from the library, move it, turn it, select a group and move it as one. Conditions show on the pawn itself: a prone figure lies down, a charmed one has a heart circling its head.
+- First person: look through a pawn's eyes and walk it round the map; walls stop it.
+- Real 3D dice with physics, rolled on the table and seen by everyone. Game dice too, with their tallies: Vampire's Hunger, Daggerheart's Hope and Fear, Fate, Legend of the Five Rings, Call of Cthulhu and Shadowrun.
+- Fog of war per player: each player sees only what their pawn's light and line of sight reach (darkvision and lamps count); the GM sees the whole map.
+- Spell areas and measuring: place an area and see exactly who is caught in it.
+- A command bar: type things like "spike trap", "roll initiative" or "send to the dungeon".
+- An AI helper can sit at the table: any chat assistant that can open a web link can act as the GM's helper through a plain web API, and roll the same dice, game dice included.
+- Sharing builds: the GM exports a whole area as a .turnip.json file or an unlisted link, and another GM imports it into their own campaign.
+- D&D Beyond character sheets: with Beyond20, a free browser extension by Kakaroto, a player's rolls from their D&D Beyond sheet land on the table as Turnip Works' own 3D dice (attacks at the pawn's target, initiative into the turn order, hit points as the pawn's damage). The setup is at https://turnipworks.net/connect-dnd-beyond (step by step, with a video); Turnip Works stores the numbers, never spell or feature text, and never logs into D&D Beyond. It is not affiliated with Wizards of the Coast or D&D Beyond.
+
+## Limits
+
+- Phones: partial. A phone goes straight into the game: tap to select and place, one finger pans, two fingers turn and tilt. Some screens, like Settings, are still desktop-sized. Tablets get the computer's layout.
+- It needs a computer with working 3D graphics (WebGL, hardware acceleration on).
+- It is in open beta: new, it changes every week, and things can break. Bugs and ideas go to Settings > Feedback in the game.
+- There is no delete button for a table yet: the GM asks by email.
+
+## Links
+
+- [Play / start a table](https://turnipworks.net/)
+- [About](https://turnipworks.net/about): what it is, who makes it, the licences
+- [VTT comparison index](https://turnipworks.net/vtt-index): virtual tabletops compared by the features players ask for (established, new and indie, and Turnip Works itself, scored by the same rules; we make Turnip Works). Open data, CC BY 4.0: [JSON](https://turnipworks.net/vtt-index.json), [Markdown](https://turnipworks.net/vtt-index.md), [JSON Schema](https://turnipworks.net/vtt-index.schema.json). Every cell has a note, a source link and whether it was confirmed; each row has a last-checked date.
+- [Connect D&D Beyond](https://turnipworks.net/connect-dnd-beyond): roll from a D&D Beyond sheet onto the table with Beyond20
+- [Privacy Policy](https://turnipworks.net/privacy)
+- [Terms of Use](https://turnipworks.net/terms)
+- [Source code](https://github.com/giblfiz/turnipworks) (AGPL-3.0; assets CC BY 4.0)
+- Contact: hello@turnipworks.net

@@ -22,6 +22,11 @@ a test that crashes or is killed half way leaves the live records untouched too.
   tw_sandbox.delete_campaign(relay, campaign, token, purge=True)   the relay's delete, for a test's own use -> bool
   (2026-10-19) feedback tickets: every ticket call a test browser makes to a relay (.../tickets...) carries the header
   too, and the relay keeps those tickets in its test sandbox; a test's own urllib calls add tw_sandbox.HEADERS.
+  (2026-10-23) the funnel and "email yourself your link": a test browser's POST <relay>/campaigns carries the header, so
+  the relay's funnel marks the table `sandbox` and never counts it (relay/funnel.js); every .../linkmail... call carries
+  it too, so an address a test types lands in the relay's linkmail test sandbox and its mail only in that sandbox's
+  outbox (relay/linkmail.js), never in the real address book or a real mail. The card itself is OFF in every context
+  unless the suite says tw_sandbox.link_mail(True) (as placeholder_pawns, below).
 
 Fail closed: before the first write to an API the helper asks GET <api>/sandbox and, unless the server echoes this
 session (an old server, a proxy that drops the header), it blocks every write to that API and says so.
@@ -128,6 +133,42 @@ async def _atickets_handler(route):
     await route.continue_(headers=headers)
 
 
+# ---- "email yourself your link" (2026-10-23): every .../linkmail... call a test browser makes carries the header; a
+# write to a relay that does not echo the session at GET <relay>/linkmail/sandbox is blocked (fail closed, as above).
+LINKMAIL = re.compile(r'^https?://[^/]+(?:/api/tw-relay)?/(?:c/[^/?#]+/)?linkmail(?:[/?#]|$)')
+
+
+def _linkmail_ok(base):
+    key = base + '/linkmail'
+    if key not in _verified:
+        try:
+            req = urllib.request.Request(base + '/linkmail/sandbox', headers={**HEADERS, 'User-Agent': 'Mozilla/5.0 tw-sandbox'})
+            with urllib.request.urlopen(req, timeout=15) as r:
+                _verified[key] = json.loads(r.read()).get('sandbox') == SID
+        except Exception:  # noqa: BLE001
+            _verified[key] = False
+    return _verified[key]
+
+
+def _linkmail_plan(request):
+    allowed = request.method in ('GET', 'HEAD', 'OPTIONS') or _linkmail_ok(_relay_base(request.url))
+    if not allowed:
+        print(f'tw_sandbox: BLOCKED {request.method} {request.url}: the relay does not honour the test sandbox for link mail', flush=True)
+    return allowed, {**request.headers, 'x-tw-test': SID}
+
+
+def _linkmail_handler(route):
+    allowed, headers = _linkmail_plan(route.request)
+    if not allowed: return route.abort()
+    route.continue_(headers=headers)
+
+
+async def _alinkmail_handler(route):
+    allowed, headers = _linkmail_plan(route.request)
+    if not allowed: return await route.abort()
+    await route.continue_(headers=headers)
+
+
 # ---- throwaway campaigns (2026-10-06): about a hundred "TEST ... (throwaway)" campaigns had piled up on the live relay,
 # and nothing could delete one. The relay now has POST /c/<id>/delete (its GM; purge=1 removes the files).
 CAMPAIGNS = '**/campaigns'
@@ -162,12 +203,12 @@ def _note(request, response):
 
 def _made_handler(route):
     if route.request.method != 'POST': return route.continue_()
-    resp = route.fetch(); _note(route.request, resp); route.fulfill(response=resp)
+    resp = route.fetch(headers={**route.request.headers, 'x-tw-test': SID}); _note(route.request, resp); route.fulfill(response=resp)
 
 
 async def _amade_handler(route):
     if route.request.method != 'POST': return await route.continue_()
-    resp = await route.fetch()
+    resp = await route.fetch(headers={**route.request.headers, 'x-tw-test': SID})
     try:
         body = await resp.json()
         if resp.ok and body.get('ok') and body.get('campaign') and body.get('token'):
@@ -215,6 +256,35 @@ def _snap_script():
     return "try { const p = JSON.parse(localStorage.getItem('tw.prefs') || '{}'); if (!('pawnSnap' in p)) { p.pawnSnap = '%s'; localStorage.setItem('tw.prefs', JSON.stringify(p)); } } catch (e) {}" % _pawn_snap
 
 
+# A NEW PLAYER'S PLACEHOLDER PAWN (2026-10-22): a GM's invite now also puts the player's stand-in pawn on the table
+# (client/pawns.js app.placeholderFor), and a player's first arrival centres the camera on their own pawn
+# (client/arrival.js). The suites written before that invite players and count pawns, read portraits and aim at the
+# player's view as they were, so every context starts with both OFF in the browser's preferences (prefs invitePawn and
+# arrivalCentre false) unless the suite says, once, after the import:
+#     tw_sandbox.placeholder_pawns(True)     # the game as players get it: invites place the pawn, arrivals centre on it
+# (the page can still change either: tw.settings.setPref('invitePawn', true)). A browser without these keys, every real
+# one, has both on.
+_placeholders = False
+def placeholder_pawns(on=True):
+    global _placeholders
+    _placeholders = bool(on)
+def _placeholder_script():
+    v = 'true' if _placeholders else 'false'
+    return "try { const p = JSON.parse(localStorage.getItem('tw.prefs') || '{}'); let c = false; for (const k of ['invitePawn', 'arrivalCentre']) if (!(k in p)) { p[k] = %s; c = true; } if (c) localStorage.setItem('tw.prefs', JSON.stringify(p)); } catch (e) {}" % v
+
+
+# "EMAIL YOURSELF YOUR LINK" (2026-10-23): a loud card a few seconds into every visit (surfaces/linkmail.js). The suites
+# written before it would find it in their screenshots and under their clicks, so every context starts with it OFF
+# (pref linkMail false) unless the suite says, once, after the import:
+#     tw_sandbox.link_mail(True)
+_link_mail = False
+def link_mail(on=True):
+    global _link_mail
+    _link_mail = bool(on)
+def _link_mail_script():
+    return "try { const p = JSON.parse(localStorage.getItem('tw.prefs') || '{}'); if (!('linkMail' in p)) { p.linkMail = %s; localStorage.setItem('tw.prefs', JSON.stringify(p)); } } catch (e) {}" % ('true' if _link_mail else 'false')
+
+
 def _launch_options(options):
     """Keep sandbox policy explicit; opt old suites into the runner's real GPU.
 
@@ -255,7 +325,10 @@ def _patch():
                     ctx_of(out).route(PATTERN, _handler())
                     ctx_of(out).route(CAMPAIGNS, _made_handler)
                     ctx_of(out).route(TICKETS, _tickets_handler)
+                    ctx_of(out).route(LINKMAIL, _linkmail_handler)
                     if _pawn_snap: ctx_of(out).add_init_script(_snap_script())
+                    ctx_of(out).add_init_script(_placeholder_script())
+                    ctx_of(out).add_init_script(_link_mail_script())
                     return out
                 return opened
             setattr(cls, name, wrap(getattr(cls, name)))
@@ -274,7 +347,10 @@ def _patch():
                     await ctx_of(out).route(PATTERN, _ahandler())
                     await ctx_of(out).route(CAMPAIGNS, _amade_handler)
                     await ctx_of(out).route(TICKETS, _atickets_handler)
+                    await ctx_of(out).route(LINKMAIL, _alinkmail_handler)
                     if _pawn_snap: await ctx_of(out).add_init_script(_snap_script())
+                    await ctx_of(out).add_init_script(_placeholder_script())
+                    await ctx_of(out).add_init_script(_link_mail_script())
                     return out
                 return opened
             setattr(cls, name, awrap(getattr(cls, name)))

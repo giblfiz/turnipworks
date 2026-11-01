@@ -210,11 +210,12 @@ async def main():
             M = await gm.evaluate(FIG(g['id']))
             check(M and M.get('feet_above_disc_ft') is not None and abs(M['feet_above_disc_ft']) <= 0.002, 'its lowest point is on the top of its disc', f"{M and M['feet_above_disc_ft']} ft (disc top at {M and M['disc_top_ft']} ft)")
             check(M and abs(M['height_ft'] - M['overall_ft'] * M['scale']) <= 0.06 * M['overall_ft'] * M['scale'] and M['overall_ft'] >= M['stated_ft'], 'it is as tall as the set says', f"{M and M['height_ft']} ft measured; stated {M and M['stated_ft']} ft body, {M and M['overall_ft']} ft to its spear tip")
-            check(M and abs(M['base_width_ft'] - 4.5) < 0.01, 'its base is 4.5 ft across in its 5-ft square', str(M and M['base_width_ft']))
+            check(M and abs(M['base_width_ft'] - 4) < 0.01, 'its base is 4 ft across in its 5-ft square (Harry 2026-10-29: "like 4ft medium grey")', str(M and M['base_width_ft']))
+            check(M and M['disc'] == '#757e88' and abs(M['rim_arc_deg'] - 360) < 0.1, 'the disc is medium grey; the rim is one whole ring (no gap at the back since 2026-10-29)', str(M and [M['disc'], M['rim_arc_deg']]))
             check(M and abs(M['facing_deg'] - 45) < 0.5 and abs(g['rot'] - 0.79) < 0.01, 'R turned the ghost 45 degrees and the pawn faces that way', f"{M and M['facing_deg']} deg")
             check(M and M['point'][0] > 1.5 and M['point'][1] > 1.5, "the base's point is on the side it faces", str(M and M['point']))
             await gm.evaluate(f"tw.dispatch('token.move', {{ id: '{g['id']}', x: 12.5, z: 12.5, rot: {3.14159265 * 1.5} }})"); await gm.wait_for_timeout(300)
-            M2 = await gm.evaluate(FIG(g['id'])); check(abs(M2['facing_deg'] - 270) < 0.5 and M2['point'][0] < -2.4 and abs(M2['point'][1]) < 0.1, 'turned to face -X, the figure and the point both face -X', f"{M2['facing_deg']} deg, point {M2['point']}")
+            M2 = await gm.evaluate(FIG(g['id'])); check(abs(M2['facing_deg'] - 270) < 0.5 and M2['point'][0] < -2.4 and abs(M2['point'][1]) < 0.1, 'turned to face -X, the figure and the point both face -X (the point past its 4-ft disc, at its square\'s edge)', f"{M2['facing_deg']} deg, point {M2['point']}")
             # Shift keeps placing; Esc puts the tool away
             await bar(gm, 'grey wolf', enter=True); a = await scr(gm, 22.5, 7.5); b = await scr(gm, 27.5, 7.5)
             await gm.keyboard.down('Shift'); await gm.mouse.click(a['x'], a['y']); await gm.wait_for_timeout(250); await gm.mouse.click(b['x'], b['y']); await gm.wait_for_timeout(250); await gm.keyboard.up('Shift')
@@ -257,7 +258,7 @@ async def main():
             o = [t for t in await gm.evaluate(TOKENS) if t.get('fig') == 'foe-owlbear'][-1]; ids['owlbear'] = o['id']
             check(cells == 4 and o.get('size') == 2 and o['x'] == 30 and o['z'] == 20, 'a large creature lights and takes 2 x 2 squares, standing where the four meet', f"{cells} squares lit; at ({o['x']}, {o['z']}), size {o.get('size')}")
             await wait(gm, f"{FIG(o['id'])}?.loaded", 20000, 'owlbear mesh'); M = await gm.evaluate(FIG(o['id']))
-            check(abs(M['base_width_ft'] - 9) < 0.01 and abs(M['feet_above_disc_ft']) <= 0.002 and abs(M['height_ft'] - 8 * M['scale']) < 0.5 * M['scale'], 'its base is 9 ft across, it stands on it, and it is 8 ft tall times the figure scale', f"{M['base_width_ft']} ft base, {M['height_ft']} ft tall, feet {M['feet_above_disc_ft']}")
+            check(abs(M['base_width_ft'] - 8) < 0.01 and abs(M['feet_above_disc_ft']) <= 0.002 and abs(M['height_ft'] - 8 * M['scale']) < 0.5 * M['scale'], 'its base is 8 ft across, it stands on it, and it is 8 ft tall times the figure scale', f"{M['base_width_ft']} ft base, {M['height_ft']} ft tall, feet {M['feet_above_disc_ft']}")
             check(fetched['glb'][-1].startswith('foe-owlbear--20k1024-') and 15000 <= M['tris'] <= 21000, 'a large creature loads at the hero tier (about 20k triangles)', f"{M['tris']} triangles")
             await gm.evaluate("tw.clearSelection()"); await gm.wait_for_timeout(150)
             a = await scr(gm, 30, 20, 3); b = await scr(gm, 23.6, 13.4); await drag(gm, a, b)  # (grabbed 3 ft up its body: the ground under that point is 1.6 ft behind it); await gm.wait_for_timeout(500)
@@ -592,7 +593,7 @@ async def main():
             check(st == 200 and r.get('ok') and r.get('id'), 'GET do?cmd=token.create&fig=foe-owlbear places one', str(r)[:160])
             aid = r.get('id'); await wait(gm, f"!!tw.entities()['{aid}']", 8000); e = await gm.evaluate(ENT(aid)) if aid else None
             check(e and e['fig'] == 'foe-owlbear' and e.get('size') == 2 and e['name'] == 'Owlbear', 'it arrives as a pawn wearing the owlbear, its size and name filled in from the list', str(e and {k: e.get(k) for k in ('name', 'fig', 'size', 'x', 'z')}))
-            await wait(gm, f"{FIG(aid)}?.loaded", 20000); M = await gm.evaluate(FIG(aid)); check(M and M.get('feet_above_disc_ft') is not None and abs(M['feet_above_disc_ft']) <= 0.002 and M['size'] == 2, 'and is drawn on its 9-ft base in the browser', str(M and M['base_width_ft']))
+            await wait(gm, f"{FIG(aid)}?.loaded", 20000); M = await gm.evaluate(FIG(aid)); check(M and M.get('feet_above_disc_ft') is not None and abs(M['feet_above_disc_ft']) <= 0.002 and M['size'] == 2, 'and is drawn on its 8-ft base in the browser', str(M and M['base_width_ft']))
             st, r2 = get(f'{c}/a/{AREA}/do?cmd=token.create&fig=foe-owlbear&x=10&z=25&nonce=ai-fig-1&seat={tokn}')
             check(r2.get('id') == aid and len([t for t in await gm.evaluate(TOKENS) if t['id'] == aid]) == 1, 'the same nonce again does not place a second one', str(r2)[:120])
             st, r = get(f'{c}/a/{AREA}/do?cmd=token.create&fig=owl-bear&x=10&z=25&nonce=ai-fig-2&seat={tokn}')
@@ -694,6 +695,7 @@ async def main():
                        ('building.roof.auto', fx['building'], f"await tw.dispatch('building.set', {{ id: '{fx['building']}', roof: 'slate' }})"), ('pawn.cond.clear', fx['pawn'], f"await tw.dispatch('token.set', {{ id: '{fx['pawn']}', conditions: ['prone'] }})"),
                        ('stair.flip', 'obj_auditstair1', "await tw.dispatch('object.place', { id: 'obj_auditstair1', name: 'stair', cat: 'stair-straight', layer: 'furnish', ...tw.roomgen.sizeOf('stair-straight'), x: 12.5, y: 0, z: 10, rot: 0 })"),  # Stairs down / Stairs up: only with a stair selected
                        ('pawns.unfollow', None, f"tw.pawns.follow('{fx['pawn']}')"),
+                       ('pawn.choose', fx['pawn'], f"await tw.dispatch('token.set', {{ id: '{fx['pawn']}', placeholder: true }})"),  # a placeholder pawn's prompt (2026-10-22: client/pawns.js app.choosePawn)
                        ('cast.saveGroup', [fx['pawn'], 'tok_audit00002'], f"await tw.dispatch('token.create', {{ id: 'tok_audit00002', name: 'Audit 2', x: {{...tw.entities()['{fx['pawn']}']}}.x + 5, z: tw.entities()['{fx['pawn']}'].z }})")]  # (the Pawns menu's follow: only while the view is locked to a pawn)
             # A generated roof may already use any catalog style. Reach each
             # registry command from a DIFFERENT style so a valid no-op filter

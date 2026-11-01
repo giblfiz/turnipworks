@@ -111,6 +111,11 @@ export const ROLES = {
   barn: { role: 'mixed', who: 'wagons: passage; hands: terminal' },
   //   outdoor   a room with NO walls (Harry 2026-10-05): its own ground, open edges, neighbours' doors open onto it
   yard: { role: 'outdoor', who: 'everyone: guests, staff, horses' },
+  // a HILL (2026-10-24): raised ground drawn like a room, outdoor (no walls); the engine lays its banks (engine/core/terrain.js)
+  hill: { role: 'outdoor', who: 'everyone', terrain: true },
+  // a CAVE (2026-10-25): natural rock walls the engine stands (engine/core/caves.js); walked through, so it opens into
+  // the rooms it touches (a doorway of its family, cut rock, in the wall it shares)
+  cave: { role: 'passage', who: 'whoever comes down here' },
 };
 export const roleOf = (type) => (ROLES[type] || { role: 'terminal' }).role;
 export const isOutdoor = (type) => roleOf(type) === 'outdoor';

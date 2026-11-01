@@ -1,0 +1,32 @@
+### [desktop-detail.png](file://experiments/2026-10-29-vttindex/gemini-final/desktop-detail.png)
+
+1. **Labels**:
+   - **Headings**: `Roll20`, `How to read it`; table headers: `Product↑`, `2D / 3D`, `Runs on`, `ts & rules`, `D&D Beyond`, `Dice`; detail field headers: `2D / 3D`, `Runs on`, `Price`, `Accounts`, `Fog of war`, `Dynamic lighting`, `Map building`, `Levels / height`, `Sheets & rules`, `D&D Beyond / Beyond20`, `Dice`, `Phones`.
+   - **Button texts**: `×` (close button), `Correct this row`, `Link to this row`; key/dropdown buttons: `yes`, `partial`, `no`, `? unknown`, `All`, `Every kind` (indicator: `scroll for more ↓`).
+
+2. **VERDICT**: **OK**
+   - **Problems**: None significant. Text inside the panel terminates with clean padding above the footer bar. Background table cutoff on the right is expected and guided by scroll text. Secondary gray metadata and indicator text (`scroll for more ↓`) are somewhat soft, but readable.
+
+---
+
+### [phone-detail.png](file://experiments/2026-10-29-vttindex/gemini-final/phone-detail.png)
+
+1. **Labels**:
+   - **Headings**: `Turnip Works`; detail field headers: `2D / 3D`, `Runs on`, `Price`, `Accounts`.
+   - **Button texts**: `×` (close button), `Correct this row`, `Link to this row` (indicator: `scroll for more ↓`).
+
+2. **VERDICT**: **FIX**
+   - **Problems**:
+     1. **Text clipped by footer bar (Critical)**: Under `Accounts`, the second line of text (`opens a link takes that seat [source]`) is bisected horizontally by the top border of the sticky footer bar due to missing bottom scroll padding.
+     2. **Low contrast**: `Link to this row` (tan/gold) and `scroll for more ↓` (light gray) are low-contrast against the off-white footer background.
+
+---
+
+### [phone-table.png](file://experiments/2026-10-29-vttindex/gemini-final/phone-table.png)
+
+1. **Labels**:
+   - **Headings**: `▼ Filters`; table headers: `Product↑`, `2D / 3D`, `Runs on`.
+   - **Button texts**: `▼ Filters` (accordion toggle); key pill buttons: `yes`, `partial`, `no`, `? unknown`, `n/a, or a plain value`; filter options: `3D`, `Free to start`, `Runs in a browser`, `Open source`, `Site is up`, `All`, `Every kind`; product links: `16-VTT`, `20Realms`, `AboveVTT`, `Adunata`, `Aethera VTT`, `Alchemy RPG`, `ApertumVTT`, `Aporion VTT`.
+
+2. **VERDICT**: **OK**
+   - **Problems**: None. Right-edge truncation (`Linu` in row `Alchemy RPG`) is expected and explicitly accompanied by scroll cues (the directive text `more columns to the right: scroll or swipe the table sideways →` and a right-edge gradient shadow). Note text (`(?) not confirmed from a source`) is small but legible.

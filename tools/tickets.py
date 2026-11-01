@@ -73,7 +73,8 @@ def cmd_show(a):
     else:
         c = t.get('ctx') or {}
         print(f"{t['id']}  {t['kind']}  {t['status']}  {time.strftime('%Y-%m-%d %H:%M', time.localtime(t['at'] / 1000))}" + (f"  seen {t['count']} times" if t.get('count', 1) > 1 else ''))
-        print(f"from    {t['seat'].get('name')} ({t['seat'].get('role')}) in {t['campaign'].get('name')} [{t['campaign'].get('id')}], area {(t.get('area') or {}).get('name') or (t.get('area') or {}).get('id')}")
+        print(f"from    {(t['seat'] or {}).get('name')} ({(t['seat'] or {}).get('role')}) in {(t['campaign'] or {}).get('name')} [{(t['campaign'] or {}).get('id')}], area {(t.get('area') or {}).get('name') or (t.get('area') or {}).get('id')}")
+        if t.get('site'): print(f"site    {t['site'].get('page')} · product {t['site'].get('product')} · field {t['site'].get('field')} · contact {t['site'].get('contact') or 'none given'}" + (' · says they make it' if t['site'].get('maker') else ''))
         if t.get('asset'): print(f"asset   {t['asset'].get('name')}  {' · '.join(str(v) for k, v in t['asset'].items() if k != 'name' and v)}")
         print(f"words   {t['text']}")
         if t.get('reply'): print(f"reply   {t['reply']}")

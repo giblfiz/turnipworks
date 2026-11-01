@@ -112,7 +112,7 @@ export function installStairs(app, { roomgen, toast }) {
     if (!P) { if (!any) toast('No stair lines up there any more: place one from the library', true); return null; }
     const withStair = { ...E, [P.args.id]: { kind: 'object', ...P.args } };
     const L = roomgen.solve(withStair, { id: room.id, type: room.recipe.type, seed: room.recipe.seed }, room.order, roomgen.pinnedOf(E, room.id));
-    const cid = app.batch([{ type: 'object.place', args: P.args }, { type: 'room.reroll', args: { id: room.id, seed: room.recipe.seed, engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects } } }]);
+    const cid = app.batch([{ type: 'object.place', args: P.args }, { type: 'room.reroll', args: { id: room.id, seed: room.recipe.seed, engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects }, ...(L.stalagObjects && { stalagObjects: true }) } }]);
     app.lastStair = cid ? P.args.id : null;
     return cid ? P.args.id : null;
   };
@@ -125,7 +125,8 @@ export function installStairs(app, { roomgen, toast }) {
     return { ops, ids, keep: C.keep };
   };
   app.placeStairCore = (spec) => { const C = app.stairCoreOps(spec); return app.batch(C.ops) ? C.ids : null; };
-  // where a pawn dropped at (x, z) standing on the floor at height y ends up: the other end of the stair there, or null
+  // where a pawn dropped at (x, z) standing on the floor at height y ends up: the other end of the ladder or spiral there, or
+  // null (a flight is walked, never hopped: core/height.js pawnStepTo, 2026-10-26)
   app.stairHop = (x, z, y) => ST.stairHop(ents(), x, z, y);
   app.stairs = () => ST.stairsOf(ents()).map(s => ({ ...ST.stairInfo(ents(), s), home: ST.stairHome(s), side: app.stairSide(s) })); // (tests, the "?" sheet)
   app.ST = ST;

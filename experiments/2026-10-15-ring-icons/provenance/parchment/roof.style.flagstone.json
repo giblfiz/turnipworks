@@ -1,0 +1,76 @@
+{
+  "id": "roof.style.flagstone",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof material option pictogram: One FLAT level roof surface seen from slightly above, paved with five large IRREGULAR grey-beige flagstones separated by thick dark joints. Dominant colour: grey-beige flagstone. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a warm pale parchment circular ground with quiet thin antique brass rim; dark outlines for strong contrast. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.thatch.webp",
+      "sha256": "95b8c204e4f6e7cdb1c4323f57762311ec9815f960a79ba65d04300382ba53ce",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.flat.webp",
+      "sha256": "32eaee73c0657074dd46cb45328438f98b5a93544b355e3988d7c6d6a8794f0c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.slate.webp",
+      "sha256": "975224290396c2463b48957ce1a60b28592adfc50addf45076f9d6241a642154",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.style.flagstone.png",
+      "sha256": "457fa0ea8013f838eeaa3de01a1b33bb5d89e2fbf1846d6387069243c6dfa58a",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--roof.style.flagstone.png",
+  "source_sha256": "96bcd534525396b3c20c2be7804380ded7d5b548a5db73573301e7b34bbde897",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/roof.style.flagstone.webp",
+    "19": "parchment/sizes/19/roof.style.flagstone.webp",
+    "22": "parchment/sizes/22/roof.style.flagstone.webp",
+    "26": "parchment/sizes/26/roof.style.flagstone.webp",
+    "31": "parchment/sizes/31/roof.style.flagstone.webp",
+    "36": "parchment/sizes/36/roof.style.flagstone.webp",
+    "38": "parchment/sizes/38/roof.style.flagstone.webp",
+    "42": "parchment/sizes/42/roof.style.flagstone.webp",
+    "44": "parchment/sizes/44/roof.style.flagstone.webp",
+    "50": "parchment/sizes/50/roof.style.flagstone.webp",
+    "52": "parchment/sizes/52/roof.style.flagstone.webp",
+    "62": "parchment/sizes/62/roof.style.flagstone.webp",
+    "84": "parchment/sizes/84/roof.style.flagstone.webp",
+    "100": "parchment/sizes/100/roof.style.flagstone.webp",
+    "128": "parchment/roof.style.flagstone.webp"
+  },
+  "sha256": {
+    "18": "7a07d098f5b3c28fbc365068ccdb4e5ff6340104ce4428e1929b11f1e8803804",
+    "19": "b37a474c2b8e0d89f10f4cc560ffb35d435b13588a9371b55aab593b742d8307",
+    "22": "94cee8f044d500e7254d6f4f3a13e8264957118f5f1cc32c65d163d44e60cf29",
+    "26": "d0800c999a815d715cf7d72881cddcfe5ed12bcb615c7244b9b7caf8b7a55376",
+    "31": "f2c17def2f1cbb6b3fe7d14fbd8736fd76fd95a0794821054d5cb15567da0a28",
+    "36": "907da44e1898b0c0137e008b78b5900ea31a995a02e7f01880296a4d99e42d7d",
+    "38": "bd923195c76ebb7bbe2ece129478af89f084697f71abfb9ceefa0bc02741aa28",
+    "42": "c43dba3084e3bfdcb272a6db51e898fc872305131855c42f57921cbf283f9a39",
+    "44": "377bb38e9f2f1bda3ad19e48967826482fc2af4a1567a7f3b435af393fbef6e9",
+    "50": "7d0665eb70b5a32d98b5f2828150a045467248db40f988a6896d5605ed53bade",
+    "52": "fc3a2df2c9e3dad5bec0b08cbbf6a972afd20a7768ff26acc6d65ffbe3c9a01c",
+    "62": "c80c907327b1f2315311a95617ce8a60f9a10bc44a7a780f4709962e101b5fdd",
+    "84": "1e07bf2c5d5e9ab5cb187efd6b9ebf260ee6743244081a8bad80e2cf873bdafa",
+    "100": "57afeb60253fb605ab3f2c7d91540afe26e32ae876dd9de526224078c1a0eb05",
+    "128": "f2f44b9e1be4cd4339365dca5d8202d936d4571b3bd9b176db7abc9fe26c7307"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "4dbb81c64a8d8c219253aab58fcd00e64e56ab2e4a5afe8ce9d59ed6fc4ddfea",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/parchment/roof.style.flagstone/96bcd534525396b3-2ddccf6ab7"
+}

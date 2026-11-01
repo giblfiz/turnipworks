@@ -1,6 +1,6 @@
 """Faction picker contract; availability is derived from accepted library assets."""
 SLOTS = ['flavor-altarpiece', 'flavor-idol', 'flavor-banner', 'flavor-relief', 'flavor-sigil',
-         'flavor-censer', 'flavor-sculpture', 'flavor-buttress', 'flavor-corbel']
+         'flavor-censer', 'flavor-sculpture', 'flavor-buttress', 'flavor-corbel', 'flavor-pillar']
 FACTIONS = [('sun', 'Sun', 'good'), ('moon', 'Moon', 'good'),
             ('devils', 'Devils', 'sinister'), ('spiders', 'Spiders', 'sinister'),
             ('dragons', 'Dragon', 'sinister'), ('skulls', 'Skulls & skeletons', 'sinister'),
@@ -30,18 +30,22 @@ def add_faction_assets(skus, root, mesh_id):
     import csv
     import json
     batch = root / 'experiments/2026-10-13-factions'
-    manifest = root / 'catalog/runs/factions-01/manifest.tsv'
     replacements_file = batch / 'integration/replacements.json'
     replacements = json.loads(replacements_file.read_text()) if replacements_file.exists() else {}
-    if manifest.exists():
+    # factions-01: idols, corbels, altar pieces (2026-10-13); faction-pillars-01: the free-standing pillar of every faction
+    # and the nine missing piers (2026-10-24, experiments/2026-10-24-faction-pillars). Same ingest rules for both.
+    for src, folder in (('factions-01', batch), ('faction-pillars-01', root / 'experiments/2026-10-24-faction-pillars')):
+        manifest = root / f'catalog/runs/{src}/manifest.tsv'
+        if not manifest.exists():
+            continue
         for row in csv.DictReader(manifest.open(), delimiter='\t'):
-            glb = batch / 'models' / f"{row.get('source') or row['sku']}.glb"
+            glb = folder / 'models' / f"{row.get('source') or row['sku']}.glb"
             if not glb.exists():
                 continue
             sku = row['sku']
             if sku in skus:
                 raise ValueError(f'Faction SKU already owned: {sku}')
-            rec = dict(row, src='factions-01', glb=glb, piece='')
+            rec = dict(row, src=src, glb=glb, piece='')
             if row.get('size'):
                 rec['own_size'] = [float(v) for v in row['size'].split('x')]
             if sku in replacements:

@@ -53,25 +53,29 @@ export function cutSurface(R, app) {
     app.cut = { y: Number.isFinite(c?.y) ? c.y : null, pinned: false };
     // the level you are on: as it was left; a cut saved before 2026-10-06 has none, so it is the level that cut shows
     app.setLevel(Number.isFinite(c?.level) ? c.level : app.cut.y != null ? app.cut.y + HT.SLAB - HT.STOREY : 0);
+    // a cut saved BELOW the level it was saved with is one counted from a hilltop building's own ground (before
+    // 2026-10-26, when the cut became the map's): the same level, with the cut at its ceiling now
+    if (app.cut.y != null && app.cut.y < app.level) app.cut = { y: levelCut(app.level), pinned: false };
     apply(); app.emit('cut', app.cut);
   }
 
   // ---------- the rule, for everything outside world.js ----------
-  // is this thing hidden by the cut? (rooms by their floor height; a room's things with their room; loose things and
-  // pawns by their own height; a building when none of its rooms show)
+  // is this thing hidden by the cut? THE CUT HIDES WHAT COVERS THE LEVEL YOU ARE ON (2026-10-26, core/height.js cutRooms):
+  // a room above the cut is hidden unless its building stands clear on a hill; a room's things go with their room; a
+  // hill and what stands on it show while the view is at or above the ground; pawns and loose things go by their BASE
+  // (cutHidesBase); a building when none of its rooms show. world.js asks the same functions.
   // the level a pawn's base is on (world.js pawnLevel: the highest ground under its figure)
   const pawnLevel = (t) => world()?.pawnLevel?.(t) ?? HT.baseUnder(ents(), t.x, t.z, t.y || 0).y;
   app.pawnLevel = pawnLevel;
   app.cutHides = (e) => {
     const cut = app.cut.y; if (cut == null || !e) return false;
-    const E = ents();
-    if (e.kind === 'room') return !HT.visibleAt(HT.roomY(e.recipe), cut);
-    if (e.kind === 'building') { const rs = rooms().filter(r => r.building === e.id); return rs.length > 0 && rs.every(r => !HT.visibleAt(HT.roomY(r.recipe), cut)); }
-    if (e.kind === 'object' && e.room && E[e.room]) return !HT.visibleAt(HT.roomY(E[e.room].recipe), cut);
-    if (e.kind === 'token') return !HT.visibleAt(pawnLevel(e), cut); // by its BASE, not by how high its figure is (docs/PAWNS.md "A raised pawn")
-    if (e.kind === 'object') return !HT.visibleAt(e.y || 0, cut);
-    if (e.kind === 'roof') return !app.roofs || !E[e.room] || !HT.visibleAt(HT.roomTop(E, E[e.room]), cut);
-    if (e.kind === 'wall') return !HT.visibleAt(app.footprint.keyLevel?.(e.key) || 0, cut);
+    const E = ents(), C = HT.cutRooms(E, cut), w = world();
+    if (e.kind === 'room') return C.hidden.has(e.id); // (a hill is never hidden: it is the earth)
+    if (e.kind === 'building') { const rs = rooms().filter(r => r.building === e.id); return rs.length > 0 && rs.every(r => C.hidden.has(r.id)); }
+    if (e.kind === 'object' && e.room && E[e.room]) return HT.isTerrain(E[e.room].recipe) ? HT.cutHidesBase(E, { y: HT.roomY(E[e.room].recipe), room: e.room }, cut) : C.hidden.has(e.room);
+    if (e.kind === 'token' || e.kind === 'object') { if (w?.cut === cut && w.cutHides) return w.cutHides(e); const b = HT.baseUnder(E, e.x, e.z, e.y || 0); return HT.cutHidesBase(E, b, cut, e.kind === 'object' ? e.y || 0 : b.y); } // by its BASE, not by how high its figure is (docs/PAWNS.md "A raised pawn")
+    if (e.kind === 'roof') return !app.roofs || !E[e.room] || !(HT.visibleAt(HT.roomTop(E, E[e.room]), cut) || C.clear.has(e.room));
+    if (e.kind === 'wall') { const rid = w?.shell?.get(e.key)?.roomId; return rid && E[rid] ? C.hidden.has(rid) : !HT.visibleAt(app.footprint.keyLevel?.(e.key) || 0, cut); }
     return false;
   };
   // nothing the cut hides can be selected, by any route (a click cannot reach it; this covers select-all, "children",
@@ -101,7 +105,9 @@ export function cutSurface(R, app) {
     app.emit('cut', app.cut); app.refresh();
     return true;
   };
-  // the ceiling a level is cut at: the underside of the slab above it, by the storey height of the building in focus
+  // the ceiling a level is cut at: the underside of the slab above it, by the storey height of the building in focus.
+  // The map's own height (2026-10-26: one numbering for the map, core/height.js levelAt): lv 2 is cut at 19 ft wherever
+  // you look, on the open ground or on a hill.
   const levelCut = (y = app.level) => y + app.levelRange().step - HT.SLAB;
   // ALL LEVELS: the level you are on does not change (you still build there)
   app.cutOff = (by = 'api') => app.setCut(null, { by });
@@ -141,25 +147,25 @@ export function cutSurface(R, app) {
   // first: [{ y: floor height, cut: ceiling height, label }]. Worked out from what THIS seat has been sent, so a
   // storey a player cannot see is not in the list.
   app.cutLevels = () => {
-    const E = ents(), bid = app.focusBuilding(), b = bid ? E[bid] : null, out = new Map();
-    for (const r of rooms()) { if (bid && r.building !== bid) continue; const y = HT.roomY(r.recipe); if (!out.has(y)) out.set(y, { y, cut: y + HT.storeyHeightOf(b) - HT.SLAB, label: HT.levelLabel(HT.storeyAt(b, y)) }); }
+    const bid = app.focusBuilding(), out = new Map();
+    for (const r of rooms()) { if (bid && r.building !== bid) continue; const y = HT.roomY(r.recipe); if (!out.has(y)) out.set(y, { y, cut: y + HT.STOREY - HT.SLAB, label: HT.levelLabel(HT.levelAt(y)) }); }
     return [...out.values()].sort((a, c) => a.y - c.y);
   };
   // what the meter says
   app.cutInfo = () => {
-    const E = ents(), cut = app.cut.y, bid = app.focusBuilding(), b = bid ? E[bid] : null, lv = HT.levelLabel(HT.storeyAt(b, app.level));
+    const E = ents(), cut = app.cut.y, bid = app.focusBuilding(), b = bid ? E[bid] : null, lv = HT.levelLabel(HT.levelAt(app.level));
     if (cut == null) return { on: false, text: 'All levels', label: null, building: null, pinned: false, y: null, roofs: app.roofs, level: app.level, levelLabel: lv };
-    const hidden = rooms().filter(r => !HT.visibleAt(HT.roomY(r.recipe), cut)).length;
+    const hidden = HT.cutRooms(E, cut).hidden.size, label = HT.levelLabel(HT.levelAt(cut));
     const pawnsAbove = Object.values(E).filter(t => t.kind === 'token' && app.cutHides(t)).length; // a pawn above the cut is not drawn: say so here
-    return { on: true, y: cut, label: HT.levelLabel(HT.storeyAt(b, cut)), building: b?.name || null, pinned: false, hidden, pawnsAbove, text: `${HT.levelLabel(HT.storeyAt(b, cut))}${b?.name ? ` · ${b.name}` : ''}`, roofs: app.roofs, level: app.level, levelLabel: lv };
+    return { on: true, y: cut, label, building: b?.name || null, pinned: false, hidden, pawnsAbove, text: `${label}${b?.name ? ` · ${b.name}` : ''}`, roofs: app.roofs, level: app.level, levelLabel: lv };
   };
   // the meter's notches, highest first: every storey in range of the building in focus (5 up and 6 down by default,
   // more where the area has more), which of them have rooms, which is the level you are on, which are showing
   app.meter = () => {
-    const E = ents(), R = app.levelRange(), b = R.building ? E[R.building] : null, cut = app.cut.y, counts = new Map();
-    for (const r of rooms()) { const s = HT.storeyAt(b, HT.roomY(r.recipe)); counts.set(s, (counts.get(s) || 0) + 1); }
-    const cur = HT.storeyAt(b, app.level), levels = [];
-    for (let s = R.hi; s >= R.lo; s--) { const y = R.base + s * R.step; levels.push({ y, storey: s, label: HT.levelLabel(s), rooms: counts.get(s) || 0, ground: s === 0, current: s === cur, shown: HT.visibleAt(y, cut) }); }
+    const R = app.levelRange(), cut = app.cut.y, counts = new Map();
+    for (const r of rooms()) { if (HT.isTerrain(r.recipe)) continue; const s = HT.levelAt(HT.roomY(r.recipe)); counts.set(s, (counts.get(s) || 0) + 1); }
+    const cur = HT.levelAt(app.level), levels = [];
+    for (let s = R.hi; s >= R.lo; s--) { const y = s * R.step; levels.push({ y, storey: s, label: HT.levelLabel(s), rooms: counts.get(s) || 0, ground: s === 0, current: s === cur, shown: HT.visibleAt(y, cut) }); }
     return { all: cut == null, level: app.level, label: HT.levelLabel(cur), levels };
   };
   // LEVEL UP / LEVEL DOWN: one storey of the building in focus, onto a level whether or not anything is built there
@@ -201,8 +207,8 @@ export function cutSurface(R, app) {
   // notch, pulsing for a moment. The view does not move; the mark says where to look.
   app.meterPings = []; // (tests)
   app.meterPing = (y, color, name) => {
-    const b = app.levelRange().building, B = b ? ents()[b] : null, s = HT.storeyAt(B, y), R = app.levelRange();
-    const yy = Math.max(R.loY, Math.min(R.hiY, R.base + s * R.step)), n = [...rail.children].find(c => +c.dataset.y === yy); if (!n) return false;
+    const R = app.levelRange(), s = HT.levelAt(y, R.step);
+    const yy = Math.max(R.loY, Math.min(R.hiY, s * R.step)), n = [...rail.children].find(c => +c.dataset.y === yy); if (!n) return false;
     const q = n.getBoundingClientRect(), m = el.getBoundingClientRect(), d = document.createElement('i');
     d.className = 'lm-ping'; d.style.top = `${(q.top + q.bottom) / 2 - m.top}px`; d.style.background = color || 'var(--accent)'; d.title = `${name || 'Someone'} pinged ${HT.levelLabel(s)}`;
     el.append(d); setTimeout(() => d.remove(), 2400);
@@ -216,6 +222,7 @@ export function cutSurface(R, app) {
     const M = app.meter(), I = app.cutInfo(), k = JSON.stringify([M, I]);
     if (k === shownKey) return; shownKey = k;
     el.classList.toggle('on', I.on); el.classList.toggle('all', !I.on);
+    el.classList.toggle('flat', !I.on && !I.roofs && M.levels.filter(l => l.rooms).length <= 1 && !!M.levels.find(l => l.current)?.ground); // (one storey, all showing: a phone hides the meter, style.css "ON A PHONE")
     const status = I.on ? `Showing ${I.text}${I.hidden ? ` · ${I.hidden} room${I.hidden === 1 ? '' : 's'} above hidden` : ''}${I.pawnsAbove ? ` · ${I.pawnsAbove} pawn${I.pawnsAbove === 1 ? '' : 's'} above` : ''}` : (I.roofs ? `All levels · roofs on · on ${I.levelLabel}` : `All levels · on ${I.levelLabel}`);
     el.dataset.status = status; el.setAttribute('aria-label', `Levels. ${status}`);
     capEl.classList.toggle('on', !I.on);
@@ -230,7 +237,10 @@ export function cutSurface(R, app) {
   const cb = () => app.condButtons;
   // a pawn's floor, as a height: the floor of the room it is in, else the level its BASE is on (the ground under a
   // flyer outdoors, the roof it is over: raising a pawn into the open air changes no floor and offers nothing)
-  const floorKey = (t) => { const f = HT.tokenFloor(ents(), t); return f.floorY ?? Math.floor(pawnLevel(t) / HT.STOREY + 1e-9) * HT.STOREY; };
+  // (2026-10-24) up on a hill is still the ground, and so is a building's ground storey on a hill (it meets the ground
+  // there: core/height.js meetsGround, per room since 2026-10-26): no floor changed, nothing offered. Its storeys above
+  // are the map's own heights. Halfway up a stair it is still on the floor it climbed from (the room it is in).
+  const floorKey = (t) => { const E = ents(), f = HT.tokenFloor(E, t); if (f.room && HT.isTerrain(E[f.room]?.recipe)) return 0; if (f.floorY != null) return HT.meetsGround(E, E[f.room]) ? 0 : f.floorY; return HT.levelFloor(pawnLevel(t)); };
   const floors = new Map(); // token id -> floor height (as last seen in this area)
   let floorsArea = null, lastMine = { id: null, at: 0 }, pending = new Map(); // GM: a floor change waiting to know who moved it
   // The offer's CHAT LINE (Harry 2026-10-06; condbutton.js rule 6, chat.js "action lines"): unpressed, the offer goes
@@ -239,9 +249,10 @@ export function cutSurface(R, app) {
   const cutLineRun = (d) => { const r = d.room && ents()[d.room]; if (r) app.cutToRoom(r, 'chat'); else { app.setLevel(d.cut + HT.SLAB - HT.STOREY); app.setCut(d.cut, { by: 'chat' }); } };
   app.actionLines?.kind('cut', { restorable: true, valid: (d) => d.area && d.area !== app.area() ? 'in another area' : null, run: cutLineRun });
   function offer(t) {
+    if (app.fpv?.active?.()) return; // (in first person the cut is off and the eyes are on the pawn: nothing to offer, surfaces/fpv.js)
     const E = ents(), f = HT.tokenFloor(E, t), room = f.room && E[f.room];
     const target = room ? HT.ceilingOf(E, room) : floorKey(t) + HT.STOREY - HT.SLAB;
-    const label = room ? f.level : HT.levelLabel(HT.storeyAt(null, floorKey(t)));
+    const label = room ? f.level : HT.levelLabel(HT.levelAt(floorKey(t)));
     if (target === app.cut.y) { cb()?.hide('cut-offer'); return; } // already looking at that level
     cb()?.show('cut-offer', { cls: 'cutoffer', icon: 'layers', text: `Cut to ${label}`, dock: 'bottom', life: OFFER_MS, area: app.area(), doneText: `Showing ${label}`, data: { token: t.id, cut: target, label },
       line: { kind: 'cut', text: `${t.name || 'A pawn'} went to ${label}`, many: (n) => `${n} pawns went to ${label}`, button: `Cut to ${label}`, group: `cut|${target}`, data: { area: app.area(), room: room?.id || null, cut: target, label } },

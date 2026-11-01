@@ -22,3 +22,14 @@ Each line is the OPEN state of an existing closed object (`open_of:`), generated
 - **door-barn-double-open** — wide double barn doors swung open · kit · 2x2 · open_of:door-barn-double · size:110x56x120 · wood · set:TAV,HUT · var:- · aff:pass,open · kit · P1 · open state of door-barn-double; daylight floods in
 - **door-double-grand-open** — tall double doors swung open · kit · edge · open_of:door-double-grand · size:72x36x120 · wood · set:CAS,NOB,TEM,TAV · var:- · aff:pass,open · kit · P1 · open state of door-double-grand
 - **wall-window-small-open** — wall with its window shutters open · kit · edge · open_of:wall-window-small · size:60x24x108 · mixed · set:ANY · var:- · aff:block · kit · P1 · open state of wall-window-small; light and sight pass
+
+## D3. Open states the openables census found missing (2026-10-30, experiments/2026-10-30-openmesh)
+
+Each is an edit of its closed partner's own look (the partner model's renders and, where it survives, its source plate), meshed on the RunPod TRELLIS.2 worker. The same batch also re-made shut models that read open (the treasure chest, the iron maiden, the bread oven, the farrier's and grooming boxes, four small windows) and four open twins that read shut (the salt box, the sideboard and two framed doors): those keep their SKU names (build_data.py, the openmesh-01 block).
+
+- **cage-sacrifice-open** — wooden cage with its door swung open, empty · floor · 1 · open_of:cage-sacrifice · size:48x60x72~0.8-1.3 · wood · set:CLT,LAI,CMP · var:- · aff:open · mesh · P1 · open state of cage-sacrifice; the captive got away
+- **casket-ornate-open** — small ornate casket with its lid open, velvet-lined, empty · surface · tiny · open_of:casket-ornate · size:10x9x13 · mixed · set:NOB,CRY,DUN,CAS · var:- · aff:carry,loot,open · mesh · P1 · open state of casket-ornate
+- **rural-tack-trunk-open** — tack trunk with its lid open, empty · floor · sub · open_of:rural-tack-trunk · size:36x26x44 · wood · set:TAV,CAS · var:- · aff:loot,open · mesh · P3 · open state of rural-tack-trunk
+- **trunk-travel-open** — domed travel trunk with its lid open, empty · floor · sub · open_of:trunk-travel · size:34x26x44~0.8-1.2 · mixed · set:TAV,NOB,CMP,ARC · var:- · aff:loot,open · mesh · P2 · open state of trunk-travel
+- **floor-trapdoor-open** — floor tile with its hatch raised over a dark hole and a ladder · kit · 1 · open_of:floor-trapdoor · size:60x60x40 · wood · set:TAV,HUT,DUN,CLT · var:- · aff:pass,hide · kit · P1 · open state of floor-trapdoor; the way down
+- **oubliette-hatch-open** — grate raised over a dark pit · floor · 1 · open_of:oubliette-hatch · size:36x36x36 · metal · set:DUN!,CAS,LAI · var:- · aff:pass,hazard · mesh · P3 · open state of oubliette-hatch

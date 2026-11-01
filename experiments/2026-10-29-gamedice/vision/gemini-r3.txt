@@ -1,0 +1,143 @@
+### Part 1: Die-by-Die Visual Readout (Tag vs. Top Face)
+
+#### 1. `still-v5.png`
+* **Die 1 (Regular d10, top-left):** Tag `6` | Top face: `6` (with underline)
+* **Die 2 (Regular d10, bottom-left):** Tag `10` | Top face: `0` (standard d10 representation for 10)
+* **Die 3 (Regular d10, bottom-center):** Tag `7` | Top face: `7`
+* **Die 4 (Regular d10, bottom-right):** Tag `1` | Top face: `1`
+* **Die 5 (Hunger d10, crimson, center):** Tag `10` (drifted up near top UI) | Top face: `fangs-with-drop` symbol (critical success)
+* **Die 6 (Hunger d10, crimson, top-right):** Tag: *Missing / off-screen* | Top face: *Clipped off-screen* (only the bottom facet showing side face `5` is visible at the top canvas edge; top face showing `1` / claw slashes is off-camera)
+
+---
+
+#### 2. `still-l5r.png`
+* **Die 1 (Ring d6, slate, bottom-left):** Tag `E+T` | Top face: `spearhead in starburst + forked crack` (explosive + strife); partially obscured by the GM link dialog
+* **Die 2 (Ring d6, slate, bottom-center):** Tag `O+T` | Top face: `five-petal blossom + forked crack` (opportunity + strife)
+* **Die 3 (Ring d6, slate, bottom-right):** Tag `S+T` | Top face: `spearhead + forked crack` (success + strife)
+* **Die 4 (Skill d12, ivory, top-left):** Tag: *Missing* (occluded by top-left toolbar or unrendered) | Top face: `spearhead in starburst` (explosive)
+* **Die 5 (Skill d12, ivory, top-center):** Tag: *Missing* (occluded by search bar) | Top face: `spearhead + five-petal blossom` (success + opportunity); die top is clipped beneath search bar
+* **Die 6 (Skill d12, ivory, top-right):** Tag `O` | Top face: `five-petal blossom` (opportunity)
+
+---
+
+#### 3. `still-l5r-b.png`
+* **Die 1 (Skill d12, ivory, mid-left):** Tag `S` | Top face: `spearhead` (success)
+* **Die 2 (Skill d12, ivory, top-center):** Tag `S+T` | Top face: `spearhead + forked crack` (success + strife)
+* **Die 3 (Skill d12, ivory, top-right):** Tag `E+T` | Top face: `spearhead in starburst + forked crack` (explosive + strife)
+* **Die 4 (Ring d6, slate, bottom-left):** Tag `S` | Top face: `spearhead` (success)
+* **Die 5 (Ring d6, slate, bottom-center):** Tag `O` | Top face: `five-petal blossom` (opportunity)
+* **Die 6 (Ring d6, slate, bottom-right):** Tag `-` | Top face: `blank` (smooth textured face, no symbol)
+
+---
+
+#### 4. `still-fate.png`
+* **Die 1 (Fate d6, mid-left):** Tag `+` | Top face: `+`
+* **Die 2 (Fate d6, upper-center-left):** Tag `+` | Top face: `+` (interpenetrating Die 1)
+* **Die 3 (Fate d6, bottom-center):** Tag `-` | Top face: `-`
+* **Die 4 (Fate d6, right):** Tag `0` | Top face: `blank` (smooth face with no symbol)
+
+---
+
+#### 5. `still-duality.png`
+* **Die 1 (Hope d12, gold, top-left):** Tag: *Missing / off-screen* | Top face: `11` (top facet and numeral clipped by screen top border)
+* **Die 2 (Fear d12, dark violet, bottom-right):** Tag `4` | Top face: `4`
+
+---
+
+#### 6. `still-coc.png`
+* **Die 1 (Percentile Tens d10, bottom-left):** Tag `30` | Top face: `30`
+* **Die 2 (Percentile Tens d10, bottom-center):** Tag `00` | Top face: `00`
+* **Die 3 (Percentile Units d10, top-right):** Tag `7` | Top face: `7`
+
+---
+
+#### 7. `still-sr.png`
+* **Die 1 (Top row 1):** Tag `6` | Top face: `6`
+* **Die 2 (Top row 2):** Tag `6` | Top face: `6`
+* **Die 3 (Top row 3):** Tag `3` | Top face: `3`
+* **Die 4 (Top row 4):** Tag `2` | Top face: `2`
+* **Die 5 (Mid row 1):** Tag `4` | Top face: `4`
+* **Die 6 (Mid row 2):** Tag `2` | Top face: `2`
+* **Die 7 (Mid row 3):** Tag `1` | Top face: `1`
+* **Die 8 (Mid row 4):** Tag `5` | Top face: `5`
+* **Die 9 (Mid row 5):** Tag `5` | Top face: `5`
+* **Die 10 (Bottom row 1):** Tag `1` | Top face: `1`
+* **Die 11 (Bottom row 2):** Tag `4` | Top face: `4`
+* **Die 12 (Bottom row 3):** Tag `3` | Top face: `3`
+
+---
+
+### Part 2: Judgments & Verdicts
+
+#### `still-v5.png`
+1. **Legibility at distance:** Visible faces (6, 0/10, 7, 1, fangs) are legible; second Hunger die is off-screen.
+2. **Hunger distinction:** Yes, deep crimson material and distinct custom icons differentiate them cleanly from the yellow regular dice.
+3. **Hope vs Fear:** N/A.
+4. **L5R symbols:** N/A.
+5. **Broken elements:** The 2nd Hunger die rolled off the top-right screen boundary, clipping out its top face and losing its tag; the 1st Hunger die's tag `10` detached and drifted far north to the header bar.
+* **Verdict:** **FIX** — Constrain roll physics boundaries / camera framing to keep all dice within view, and correct the tag anchor offset so the Hunger tag hovers immediately over the die.
+
+---
+
+#### `still-l5r.png`
+1. **Legibility at distance:** Slate ring dice are high-contrast and easy to read. Ivory skill dice have lower contrast (tan-on-ivory) but distinct silhouettes. Top-middle die is partially occluded.
+2. **Hunger distinction:** N/A.
+3. **Hope vs Fear:** N/A.
+4. **L5R symbols:** Yes, spearhead, blossom, crack, and starburst are distinguishable by silhouette; both symbols are present on two-symbol faces.
+5. **Broken elements:** Tags are missing entirely for the top-left and top-middle skill dice; the top-middle die is clipped by the top search bar; the bottom-left ring die and tag `E+T` are partially occluded by the unpinned GM link modal.
+* **Verdict:** **FIX** — Constrain roll landing area below top UI bars, fix tag rendering/z-index for the top skill dice, and dismiss/dock the GM link modal so it does not occlude the play area.
+
+---
+
+#### `still-l5r-b.png`
+1. **Legibility at distance:** Yes, all 6 top faces are legible at table distance.
+2. **Hunger distinction:** N/A.
+3. **Hope vs Fear:** N/A.
+4. **L5R symbols:** Yes, clear silhouettes for all four symbols; two-symbol faces (`S+T` and `E+T`) clearly display both symbols side-by-side.
+5. **Broken elements:** None. No interpenetration, all tags aligned and visible, no dice occluded.
+* **Verdict:** **PASS**
+
+---
+
+#### `still-fate.png`
+1. **Legibility at distance:** Yes, `+`, `-`, and blank top faces are clearly readable.
+2. **Hunger distinction:** N/A.
+3. **Hope vs Fear:** N/A.
+4. **L5R symbols:** N/A.
+5. **Broken elements:** Dice 1 and 2 are interpenetrating (rigid body colliders failed to prevent 3D mesh overlap); the blank die tag displays `0` instead of a blank or empty indicator matching the face.
+* **Verdict:** **FIX** — Enable proper collision resolution/spacing to prevent dice interpenetration; update blank face tag from `0` to blank/empty or `-`.
+
+---
+
+#### `still-duality.png`
+1. **Legibility at distance:** Fear `4` is clear; Hope `11` is legible but clipped.
+2. **Hunger distinction:** N/A.
+3. **Hope vs Fear distinct:** Yes, textured bright gold vs dark matte violet is immediately distinct.
+4. **L5R symbols:** N/A.
+5. **Broken elements:** The gold Hope die is clipped by the top screen boundary, and its floating tag is missing/off-screen.
+* **Verdict:** **FIX** — Add table throw bounds or auto-fit camera framing so the Hope die remains within view with its tag visible.
+
+---
+
+#### `still-coc.png`
+1. **Legibility at distance:** Yes, `30`, `00`, and `7` are bold, high-contrast, and easily readable.
+2. **Hunger distinction:** N/A.
+3. **Hope vs Fear:** N/A.
+4. **L5R symbols:** N/A.
+5. **Broken elements:** None. All tags are accurately placed, dice are unclipped, and no meshes collide.
+* **Verdict:** **PASS**
+
+---
+
+#### `still-sr.png`
+1. **Legibility at distance:** Yes, all twelve d6 faces are sharp and immediately readable.
+2. **Hunger distinction:** N/A.
+3. **Hope vs Fear:** N/A.
+4. **L5R symbols:** N/A.
+5. **Broken elements:** None. Perfect tag-to-die alignment, clean spacing, no collisions, accurate 1–6 distribution twice.
+* **Verdict:** **PASS**
+
+---
+
+### Overall Verdict
+**3 PASS, 4 FIX** — Material aesthetics, symbol fidelity, and tag clarity are solid, but table boundary constraints (stopping dice rolling off-screen/under UI), tag anchor z-index/tracking, and collider collision hulls require fixes.

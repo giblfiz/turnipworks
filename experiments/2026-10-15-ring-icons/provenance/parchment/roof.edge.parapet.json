@@ -1,0 +1,76 @@
+{
+  "id": "roof.edge.parapet",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof edge option pictogram: One flat roof edge with ONE low SOLID plain stone parapet wall along it, a continuous straight top with no gaps. Dominant colour: warm sandstone. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a warm pale parchment circular ground with quiet thin antique brass rim; dark outlines for strong contrast. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.thatch.webp",
+      "sha256": "95b8c204e4f6e7cdb1c4323f57762311ec9815f960a79ba65d04300382ba53ce",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.flat.webp",
+      "sha256": "32eaee73c0657074dd46cb45328438f98b5a93544b355e3988d7c6d6a8794f0c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.slate.webp",
+      "sha256": "975224290396c2463b48957ce1a60b28592adfc50addf45076f9d6241a642154",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.edge.parapet.png",
+      "sha256": "b6d92980ed890d8dcda58d7c4007728a08beba25f2edda4b74dc25c25c319134",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--roof.edge.parapet.png",
+  "source_sha256": "26ab1bc26d25b6b7c65c0c5fd0cce4b68c00564f471571fc156feb2ddcb27180",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/roof.edge.parapet.webp",
+    "19": "parchment/sizes/19/roof.edge.parapet.webp",
+    "22": "parchment/sizes/22/roof.edge.parapet.webp",
+    "26": "parchment/sizes/26/roof.edge.parapet.webp",
+    "31": "parchment/sizes/31/roof.edge.parapet.webp",
+    "36": "parchment/sizes/36/roof.edge.parapet.webp",
+    "38": "parchment/sizes/38/roof.edge.parapet.webp",
+    "42": "parchment/sizes/42/roof.edge.parapet.webp",
+    "44": "parchment/sizes/44/roof.edge.parapet.webp",
+    "50": "parchment/sizes/50/roof.edge.parapet.webp",
+    "52": "parchment/sizes/52/roof.edge.parapet.webp",
+    "62": "parchment/sizes/62/roof.edge.parapet.webp",
+    "84": "parchment/sizes/84/roof.edge.parapet.webp",
+    "100": "parchment/sizes/100/roof.edge.parapet.webp",
+    "128": "parchment/roof.edge.parapet.webp"
+  },
+  "sha256": {
+    "18": "aa44470c28ea4fd8089050901ec7e9746c420769c08ac4b9fce4717ced0eeed5",
+    "19": "77c8978fa4b284882b0f369c408ac6ff0dd8bcdbc5f8cde3e871a3202025bc39",
+    "22": "771f2a44a8a7d0fa4a170e57f7cf5c3f89fa977b8a5f3867cc8acabffa6bb641",
+    "26": "3376896baed77e9ba12474c6c0e7d139acc4be36c1475f5385231e86bb6a27be",
+    "31": "7d3b7895323221018e558620853e83a7acc5245d21ab3b629bb07dc6a91cddcd",
+    "36": "610f072ea9f4f9a6b55508a79c248f98a53c0fd738c3986685a1c9f0bf669ff7",
+    "38": "9f9b03635d5e2b384894ea051d2650564656b781c551cb66e131da9b7bcdf74d",
+    "42": "7afe302b85e1d265cedd427b2c9d4efa15dadc931d0b19275bb8b7fa3102663c",
+    "44": "9866a0dccc7746f79353e9316bc13257232daf3efa7edcf2a133bfe891ffafc2",
+    "50": "b9393163d441ed8d84c288d150fe08350599eb858165845c00b7822efde08ccb",
+    "52": "7ce4072161fbc7b658b7cda3cce302927215f3d90fb3c15784d95367bb8a73aa",
+    "62": "54ab6583a393ce0a84d85649c70a2b700b5c83d902913e85610b4c6a7e45a615",
+    "84": "471f53a1f2f8c5cbd7b096593dcd54739f6880c9cbccc3eb4c61646044eb1728",
+    "100": "f8f4e0745f86d3deedb55e69491c7c6c52a12cfb4f2c67609cff09e320dbc2bc",
+    "128": "ba3f44b40af9e1972adcbb92714001d5abb242e7bd5ec356b6aa32d6392a5121"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "00a3e936ba6212ed5173b992611ae9d51aa28e1d5fb14ffde1f2fc253871c08e",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/parchment/roof.edge.parapet/26ab1bc26d25b6b7-2ddccf6ab7"
+}

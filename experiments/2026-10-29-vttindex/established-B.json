@@ -1,0 +1,1656 @@
+[
+ {
+  "id": "abovevtt",
+  "name": "AboveVTT",
+  "maker": "Daniele Martini (cyruzzo) and contributors",
+  "group": "established",
+  "kind": "vtt add-on",
+  "url": "https://github.com/cyruzzo/AboveVTT",
+  "summary": "A free browser extension that turns a D&D Beyond campaign page into a VTT; suits groups already on D&D Beyond.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "GitHub repo and Firefox add-on page answered; add-on v1.60 updated 2026-10-05"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "AGPL-3.0",
+  "features": {
+   "dims": {
+    "v": "2D",
+    "note": "top-down maps and tokens",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   },
+   "platform": {
+    "v": [
+     "browser"
+    ],
+    "note": "Chrome and Firefox extension; runs on dndbeyond.com",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   },
+   "price": {
+    "v": "free",
+    "note": "'No sign up, no fees'; optional Patreon support. Players free",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   },
+   "accounts": {
+    "v": "everyone",
+    "note": "a free D&D Beyond account; players join through the DDB campaign (implied)",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": false
+   },
+   "fog": {
+    "v": "yes",
+    "note": "fog of war built in",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   },
+   "lighting": {
+    "v": "yes",
+    "note": "dynamic light and vision using walls, windows and doors",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   },
+   "mapbuild": {
+    "v": "partial",
+    "note": "drawing and text tools; maps are images (official DDB or your own)",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   },
+   "levels": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": false
+   },
+   "sheets": {
+    "v": "yes",
+    "note": "uses D&D Beyond's own character sheets and monster stat blocks",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": false
+   },
+   "ddb": {
+    "v": "yes",
+    "note": "built on D&D Beyond itself; rolls from DDB sheets",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   },
+   "dice": {
+    "v": "3D",
+    "note": "rolls with D&D Beyond's dice or standard notation; DDB dice are 3D",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": false
+   },
+   "phone": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": false
+   },
+   "offline": {
+    "v": "no",
+    "note": "runs inside the D&D Beyond website",
+    "src": "https://github.com/cyruzzo/AboveVTT",
+    "verified": false
+   },
+   "opensource": {
+    "v": "yes",
+    "note": "AGPL-3.0 per GitHub; the Firefox listing says GPL-3.0-only",
+    "src": "https://github.com/cyruzzo/AboveVTT",
+    "verified": true
+   },
+   "ai": {
+    "v": "?",
+    "note": "none mentioned",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": false
+   },
+   "modding": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://github.com/cyruzzo/AboveVTT",
+    "verified": false
+   },
+   "stage": {
+    "v": "released",
+    "note": "v1.60 on Firefox Add-ons, updated 2026-10-05",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "Firefox: 4.6/5 from 26 reviews, 5,731 users; GitHub 174 stars",
+    "src": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Free, and nothing new to sign up for if your group already uses D&D Beyond",
+   "Fog of war plus dynamic light and vision with walls and doors",
+   "Open source, with built-in sound player and Jitsi video chat"
+  ],
+  "downsides": [
+   "Tied to D&D Beyond: players need DDB accounts and the extension",
+   "Desktop browser extension; phone use not documented",
+   "A hobby project; features depend on D&D Beyond's site not changing"
+  ],
+  "sources": [
+   {
+    "url": "https://github.com/cyruzzo/AboveVTT",
+    "label": "GitHub repo"
+   },
+   {
+    "url": "https://addons.mozilla.org/firefox/addon/abovevtt/",
+    "label": "Firefox add-on listing"
+   }
+  ]
+ },
+ {
+  "id": "arkenforge",
+  "name": "Arkenforge",
+  "maker": "Arkenforge",
+  "group": "established",
+  "kind": "in-person display",
+  "url": "https://arkenforge.com/",
+  "summary": "A desktop map-making and display toolkit for in-person games on a TV, projector or touch table.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "official site answered 200; news page lists Toolkit v0.5.1 public update"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "proprietary",
+  "features": {
+   "dims": {
+    "v": "2D",
+    "note": "animated top-down maps; hex and isometric grids",
+    "src": "https://arkenforge.com/",
+    "verified": false
+   },
+   "platform": {
+    "v": [
+     "windows",
+     "mac"
+    ],
+    "note": "Windows and Apple shown; Linux not mentioned",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "price": {
+    "v": "one-time",
+    "note": "Standalone Toolkit US$35; bundles $49 to $250; no subscription; 30-day free trial",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "accounts": {
+    "v": "gm",
+    "note": "internet needed for first login and content authentication; players see a shared screen",
+    "src": "https://arkenforge.com/",
+    "verified": false
+   },
+   "fog": {
+    "v": "yes",
+    "note": "player screen shows only what the DM reveals",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "lighting": {
+    "v": "yes",
+    "note": "dynamic lighting and line of sight with walls (older community posts; not re-checked)",
+    "src": "https://arkenforge.com/",
+    "verified": false
+   },
+   "mapbuild": {
+    "v": "yes",
+    "note": "map builder with animated assets; imports Dungeondraft asset packs",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "levels": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://arkenforge.com/",
+    "verified": false
+   },
+   "sheets": {
+    "v": "no",
+    "note": "'not a tool for online play or system rules and automation'",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "ddb": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://arkenforge.com/",
+    "verified": false
+   },
+   "dice": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://arkenforge.com/",
+    "verified": false
+   },
+   "phone": {
+    "v": "no",
+    "note": "in-person tool; no online player client",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "offline": {
+    "v": "yes",
+    "note": "'No internet required!' after first login",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "opensource": {
+    "v": "no",
+    "note": "commercial closed-source software",
+    "src": "https://arkenforge.com/",
+    "verified": false
+   },
+   "ai": {
+    "v": "no",
+    "note": "maker states it does not use generative AI",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "modding": {
+    "v": "no",
+    "note": "'Arkenforge does not support mods'",
+    "src": "https://arkenforge.com/",
+    "verified": true
+   },
+   "stage": {
+    "v": "released",
+    "note": "Toolkit v0.5.x on the public update stream",
+    "src": "https://arkenforge.com/news-2/",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "Kickstarter-funded content packs; no review counts checked",
+    "src": "https://arkenforge.com/news-2/",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Built for in-person tables: player screen on a TV, projector or touch table",
+   "One-time purchase, no subscription, works offline",
+   "Animated maps and a large paid content library; states no generative AI"
+  ],
+  "downsides": [
+   "Not for online play",
+   "No rules automation and no mod support",
+   "Windows and Mac only"
+  ],
+  "sources": [
+   {
+    "url": "https://arkenforge.com/",
+    "label": "Official site and FAQ"
+   },
+   {
+    "url": "https://arkenforge.com/news-2/",
+    "label": "News"
+   }
+  ]
+ },
+ {
+  "id": "dungeon-alchemist",
+  "name": "Dungeon Alchemist",
+  "maker": "Briganti",
+  "group": "established",
+  "kind": "map maker",
+  "url": "https://www.dungeonalchemist.com/",
+  "summary": "A desktop 3D map maker that furnishes rooms automatically and exports maps, walls and lights to VTTs.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "official site answered 200; Steam announcements as recent as 2026-10-26"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "proprietary",
+  "features": {
+   "dims": {
+    "v": "3D",
+    "note": "3D scenes with orthographic, perspective and 3D views; exports 2D maps",
+    "src": "https://www.dungeonalchemist.com/",
+    "verified": true
+   },
+   "platform": {
+    "v": [
+     "windows",
+     "mac",
+     "linux"
+    ],
+    "note": "Windows, macOS, SteamOS + Linux",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   },
+   "price": {
+    "v": "one-time",
+    "note": "US$44.99 on Steam; free demo",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   },
+   "accounts": {
+    "v": "gm",
+    "note": "a Steam account to buy it; no players involved",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": false
+   },
+   "fog": {
+    "v": "no",
+    "note": "a map maker; fog is handled by the VTT you export to",
+    "src": "https://www.dungeonalchemist.com/",
+    "verified": false
+   },
+   "lighting": {
+    "v": "partial",
+    "note": "places lights automatically and exports them to VTTs",
+    "src": "https://www.dungeonalchemist.com/",
+    "verified": true
+   },
+   "mapbuild": {
+    "v": "yes",
+    "note": "procedural room furnishing plus a full editor",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   },
+   "levels": {
+    "v": "yes",
+    "note": "multi-level maps with stairs between floors (patch notes; not re-read)",
+    "src": "https://steamdb.info/patchnotes/19177793",
+    "verified": false
+   },
+   "sheets": {
+    "v": "no",
+    "note": "a map maker, no rules layer",
+    "src": "https://www.dungeonalchemist.com/",
+    "verified": false
+   },
+   "ddb": {
+    "v": "no",
+    "note": "a map maker, no rules layer",
+    "src": "https://www.dungeonalchemist.com/",
+    "verified": false
+   },
+   "dice": {
+    "v": "no",
+    "note": "a map maker, no dice",
+    "src": "https://www.dungeonalchemist.com/",
+    "verified": false
+   },
+   "phone": {
+    "v": "no",
+    "note": "desktop only",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   },
+   "offline": {
+    "v": "yes",
+    "note": "single-user desktop app",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   },
+   "opensource": {
+    "v": "no",
+    "note": "commercial closed-source software",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": false
+   },
+   "ai": {
+    "v": "no",
+    "note": "Steam page: 'does not use any generative AI/LLM's'; in-house procedural algorithms",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   },
+   "modding": {
+    "v": "partial",
+    "note": "Steam Workshop for sharing; level editor",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   },
+   "stage": {
+    "v": "early access",
+    "note": "Early Access since 2022-03-31; plans to leave it in late 2026",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "Steam: Very Positive, 93% of 1,937 English reviews",
+    "src": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Fast, good-looking maps from rough room outlines",
+   "Exports walls, doors and lights to your VTT; also prints",
+   "One-time price, works offline, Steam Workshop sharing"
+  ],
+  "downsides": [
+   "Not a VTT: you still need one to play",
+   "Still in Early Access after four-plus years",
+   "Desktop only"
+  ],
+  "sources": [
+   {
+    "url": "https://store.steampowered.com/app/1588530/Dungeon_Alchemist/",
+    "label": "Steam store page"
+   },
+   {
+    "url": "https://www.dungeonalchemist.com/",
+    "label": "Official site"
+   }
+  ]
+ },
+ {
+  "id": "polymancer",
+  "name": "Polymancer",
+  "maker": null,
+  "group": "established",
+  "kind": "vtt",
+  "url": "https://polymancer.app/",
+  "summary": "A browser 3D VTT where the editor is the table, with generated taverns and dungeons; not yet open to the public.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "official site answered 200; waitlist, closed alpha not yet started"
+  },
+  "last_checked": "2026-10-29",
+  "licence": null,
+  "features": {
+   "dims": {
+    "v": "3D",
+    "note": "3D scenes with a first-person hero's-eye view",
+    "src": "https://polymancer.app/",
+    "verified": true
+   },
+   "platform": {
+    "v": [
+     "browser"
+    ],
+    "note": "nothing to install",
+    "src": "https://polymancer.app/",
+    "verified": true
+   },
+   "price": {
+    "v": "free tier",
+    "note": "preliminary: GM free (1 table, 3 scenes, 50 MB); Pro about €4.99/mo; players always free",
+    "src": "https://polymancer.app/",
+    "verified": true
+   },
+   "accounts": {
+    "v": "gm",
+    "note": "players need no account; GM sign-up assumed",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "fog": {
+    "v": "yes",
+    "note": "in the GM plan; computed on the server",
+    "src": "https://polymancer.app/",
+    "verified": true
+   },
+   "lighting": {
+    "v": "yes",
+    "note": "lights and time of day changeable mid-session; dynamic vision not confirmed",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "mapbuild": {
+    "v": "yes",
+    "note": "generates crypts, taverns, mazes; edit walls, floors, roofs in the same window",
+    "src": "https://polymancer.app/",
+    "verified": true
+   },
+   "levels": {
+    "v": "yes",
+    "note": "storeys and a cellar shown in the launch video (not re-checked)",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "sheets": {
+    "v": "partial",
+    "note": "initiative and character sheets listed; SRD 5.2.1 rules per earlier notes",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "ddb": {
+    "v": "yes",
+    "note": "accepts Beyond20 rolls per the maker's earlier post (not re-checked)",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "dice": {
+    "v": "3D",
+    "note": "3D physics dice in the launch video (not re-checked)",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "phone": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "offline": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "opensource": {
+    "v": "?",
+    "note": "no licence or repo mentioned",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "ai": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "modding": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://polymancer.app/",
+    "verified": false
+   },
+   "stage": {
+    "v": "pre-launch",
+    "note": "waitlist; closed alpha to start with Discord groups; no date",
+    "src": "https://polymancer.app/",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "Discord-led; r/VTT announcement drew little visible discussion (older note)",
+    "src": "https://polymancer.app/",
+    "verified": false
+   }
+  },
+  "upsides": [
+   "Generators for taverns, crypts and mazes, editable by hand",
+   "Players join in a browser with no account",
+   "Interactive scenes: doors, lights and furniture players can use"
+  ],
+  "downsides": [
+   "Not yet playable: waitlist and closed alpha only",
+   "Pricing is marked preliminary",
+   "Free GM tier is small (1 table, 3 scenes)"
+  ],
+  "sources": [
+   {
+    "url": "https://polymancer.app/",
+    "label": "Official site"
+   }
+  ]
+ },
+ {
+  "id": "atlas-obsidian",
+  "name": "Atlas VTT (Obsidian plugin)",
+  "maker": "Fabian Urbanek",
+  "group": "established",
+  "kind": "vtt",
+  "url": "https://github.com/atlas-vtt/atlas-vtt",
+  "summary": "A free, open-source 2D battle-map VTT inside Obsidian; suits GMs who prep in Obsidian and play at a table or online.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "GitHub repo answered; v0.10.2 released 2026-10-28"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "AGPL-3.0-only (releases up to 0.1.6 PolyForm Noncommercial)",
+  "features": {
+   "dims": {
+    "v": "2D",
+    "note": "square and hex grids with auto-detection",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "platform": {
+    "v": [
+     "windows",
+     "mac",
+     "linux",
+     "browser"
+    ],
+    "note": "Obsidian desktop only; online players join in a browser",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "price": {
+    "v": "free",
+    "note": "no paid tier mentioned",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "accounts": {
+    "v": "none",
+    "note": "local use needs no account; hosting the online beta needs an Atlas account, players none",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "fog": {
+    "v": "yes",
+    "note": "fog of war revealed as players explore",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "lighting": {
+    "v": "yes",
+    "note": "dynamic lighting, darkness and sight (release notes)",
+    "src": "https://github.com/atlas-vtt/atlas-vtt/releases",
+    "verified": true
+   },
+   "mapbuild": {
+    "v": "partial",
+    "note": "release notes mention generated dungeons; scope not checked",
+    "src": "https://github.com/atlas-vtt/atlas-vtt/releases",
+    "verified": false
+   },
+   "levels": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": false
+   },
+   "sheets": {
+    "v": "partial",
+    "note": "stat block templates (5E, Cairn, Draw Steel, Fate), initiative, HP resources",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "ddb": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": false
+   },
+   "dice": {
+    "v": "roller",
+    "note": "roll log and clickable rolls; 3D dice via a third-party plugin (older note)",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "phone": {
+    "v": "?",
+    "note": "GM side is desktop only; player browser view on phones not stated",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": false
+   },
+   "offline": {
+    "v": "yes",
+    "note": "works offline with files in your vault; player view for a second screen",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "opensource": {
+    "v": "yes",
+    "note": "AGPL-3.0-only",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   },
+   "ai": {
+    "v": "?",
+    "note": "none described",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": false
+   },
+   "modding": {
+    "v": "yes",
+    "note": "extension API with third-party plugins (older note, not re-checked)",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": false
+   },
+   "stage": {
+    "v": "released",
+    "note": "v0.10.2 in the Obsidian directory; online play is a closed beta",
+    "src": "https://github.com/atlas-vtt/atlas-vtt/releases",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "GitHub: 641 stars, 85 forks, 194 open issues within ~6 weeks",
+    "src": "https://github.com/atlas-vtt/atlas-vtt",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Free and open source; maps stay as local files in your vault",
+   "Notes and battle map in one place for Obsidian users",
+   "Fast-moving: frequent releases, in-app bug reporting"
+  ],
+  "downsides": [
+   "Needs Obsidian on desktop; no Obsidian mobile support",
+   "Online play is still a closed beta",
+   "Very young project (first release September 2026)"
+  ],
+  "sources": [
+   {
+    "url": "https://github.com/atlas-vtt/atlas-vtt",
+    "label": "GitHub repo and README"
+   },
+   {
+    "url": "https://github.com/atlas-vtt/atlas-vtt/releases",
+    "label": "Releases"
+   }
+  ]
+ },
+ {
+  "id": "atlas-3d",
+  "name": "Atlas (3D browser VTT)",
+  "maker": "Kevin Sherman",
+  "group": "established",
+  "kind": "vtt",
+  "url": "https://atlas-vtt.vercel.app",
+  "summary": "A browser VTT where the GM builds multi-storey 3D scenes and each player sees only what their token can see.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "live site answered 200; last commit 2026-09-26"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "none published",
+  "features": {
+   "dims": {
+    "v": "3D",
+    "note": "3D scenes in stacked levels, played in a 2.5D top-down view",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "platform": {
+    "v": [
+     "browser"
+    ],
+    "note": "WebGL2; Chromium tested, Firefox smoke-tested, Safari untested",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "price": {
+    "v": "free",
+    "note": "no paid tier mentioned",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": false
+   },
+   "accounts": {
+    "v": "none",
+    "note": "everyone signs in as an anonymous guest; Discord account optional",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "fog": {
+    "v": "yes",
+    "note": "three-state fog of war; shared party vision toggle",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "lighting": {
+    "v": "yes",
+    "note": "real-time shadows; per-token 3D line of sight; darkvision, blindsight",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "mapbuild": {
+    "v": "yes",
+    "note": "floors, walls, doors, stairs, terrain brush, primitive props; battlemap import",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "levels": {
+    "v": "yes",
+    "note": "multi-level scenes with stairs, ramps, ladders and automatic cutaway",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "sheets": {
+    "v": "partial",
+    "note": "HP, conditions, initiative, spell templates that deal damage; no character sheets",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "ddb": {
+    "v": "no",
+    "note": "no system integration listed in the docs' gaps (older note)",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": false
+   },
+   "dice": {
+    "v": "roller",
+    "note": "text and quick-die roller, rolled by the GM's tab",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "phone": {
+    "v": "?",
+    "note": "no mobile or touch support mentioned",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": false
+   },
+   "offline": {
+    "v": "partial",
+    "note": "can be deployed on your own Supabase project; local mode is dev-only",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "opensource": {
+    "v": "no",
+    "note": "source is public on GitHub but no licence is published",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "ai": {
+    "v": "yes",
+    "note": "token maker removes backgrounds with an image model",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   },
+   "modding": {
+    "v": "no",
+    "note": "no plugin or scripting API (older note)",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": false
+   },
+   "stage": {
+    "v": "?",
+    "note": "no stage stated",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": false
+   },
+   "community": {
+    "v": "note",
+    "note": "single-developer repo; 0 GitHub stars",
+    "src": "https://github.com/kgsherman/atlas-vtt",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "True 3D line of sight from eye height, across floors and balconies",
+   "Players only receive what their tokens can perceive",
+   "No accounts needed; spell areas are blocked by walls and floors"
+  ],
+  "downsides": [
+   "Primitive props only; no character sheets or rules beyond HP and conditions",
+   "No published licence, so the public code is not open source",
+   "Square grid only; tested mainly in Chromium browsers"
+  ],
+  "sources": [
+   {
+    "url": "https://atlas-vtt.vercel.app",
+    "label": "Live app"
+   },
+   {
+    "url": "https://github.com/kgsherman/atlas-vtt",
+    "label": "GitHub repo and README"
+   }
+  ]
+ },
+ {
+  "id": "adunata",
+  "name": "Adunata",
+  "maker": "Maurizio Nitti",
+  "group": "established",
+  "kind": "vtt",
+  "url": "https://store.steampowered.com/app/4613510/Adunata/",
+  "summary": "A desktop VTT that puts 3D minis and terrain on an imported 2D map; suits groups who want quick setup with 3D pieces.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "Steam page answered; update posted 2026-10-20"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "proprietary",
+  "features": {
+   "dims": {
+    "v": "2D+3D",
+    "note": "2D map with 3D minis and terrain ('2.5D')",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": true
+   },
+   "platform": {
+    "v": [
+     "windows",
+     "mac"
+    ],
+    "note": "iOS, tablet and mobile versions planned",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": true
+   },
+   "price": {
+    "v": "one-time",
+    "note": "US$11.99 in Early Access, price rises at full release; players: see Accounts",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": true
+   },
+   "accounts": {
+    "v": "everyone",
+    "note": "Steam, and each player owns a copy (maker's Reddit replies; not re-checked)",
+    "src": "https://www.reddit.com/r/VTT/comments/1xb3uk2/commercial_well_my_turn_to_post_a_vtt_i_wanted/",
+    "verified": false
+   },
+   "fog": {
+    "v": "yes",
+    "note": "painted on the 2D map; hides 3D pieces under it",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": true
+   },
+   "lighting": {
+    "v": "no",
+    "note": "maker said there are no walls and darkvision is not designed yet (not re-checked)",
+    "src": "https://www.reddit.com/r/VTT/comments/1xb3uk2/commercial_well_my_turn_to_post_a_vtt_i_wanted/",
+    "verified": false
+   },
+   "mapbuild": {
+    "v": "partial",
+    "note": "import a 2D map, draw on it, place and elevate 3D terrain",
+    "src": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1846651706695925",
+    "verified": true
+   },
+   "levels": {
+    "v": "partial",
+    "note": "elevated terrain and overhangs (2026-10-20 update); no separate floors stated",
+    "src": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1846651706695925",
+    "verified": true
+   },
+   "sheets": {
+    "v": "no",
+    "note": "no character sheets per maker (not re-checked); condition VFX and measuring",
+    "src": "https://www.reddit.com/r/VTT/comments/1xb3uk2/commercial_well_my_turn_to_post_a_vtt_i_wanted/",
+    "verified": false
+   },
+   "ddb": {
+    "v": "no",
+    "note": "no D&D Beyond integration per maker (not re-checked)",
+    "src": "https://www.reddit.com/r/VTT/comments/1xb3uk2/commercial_well_my_turn_to_post_a_vtt_i_wanted/",
+    "verified": false
+   },
+   "dice": {
+    "v": "?",
+    "note": "'Smart Dice' presets for any system; whether dice are 3D not stated",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": false
+   },
+   "phone": {
+    "v": "partial",
+    "note": "announced: iOS, tablet and mobile versions planned",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": true
+   },
+   "offline": {
+    "v": "yes",
+    "note": "LAN co-op and single-player listed",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": true
+   },
+   "opensource": {
+    "v": "no",
+    "note": "commercial closed-source software",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": false
+   },
+   "ai": {
+    "v": "?",
+    "note": "assets were sketched with generative AI then hand-finished (Steam disclosure); no in-app AI listed",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": false
+   },
+   "modding": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": false
+   },
+   "stage": {
+    "v": "early access",
+    "note": "Early Access since 2026-10-09, about 6-12 months planned",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "Steam: 4 reviews so far; warm r/VTT launch thread, 28 points (older note)",
+    "src": "https://store.steampowered.com/app/4613510/Adunata/",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Quick setup: import a 2D map, then add 3D minis and terrain",
+   "Low one-time price; LAN and cross-platform play",
+   "Solo developer answers users directly and updates often"
+  ],
+  "downsides": [
+   "Every player needs their own copy",
+   "No walls or vision-based lighting yet",
+   "Early Access; no character sheets"
+  ],
+  "sources": [
+   {
+    "url": "https://store.steampowered.com/app/4613510/Adunata/",
+    "label": "Steam store page"
+   },
+   {
+    "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1846651706695925",
+    "label": "Steam update 2026-10-20"
+   },
+   {
+    "url": "https://www.reddit.com/r/VTT/comments/1xb3uk2/commercial_well_my_turn_to_post_a_vtt_i_wanted/",
+    "label": "r/VTT launch post"
+   }
+  ]
+ },
+ {
+  "id": "maptool",
+  "name": "MapTool",
+  "maker": "RPTools (volunteer team)",
+  "group": "established",
+  "kind": "vtt",
+  "url": "https://www.rptools.net/toolbox/maptool/",
+  "summary": "A free, open-source desktop VTT with its own server, vision and macro language; suits GMs who like to script.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "official site answered 200; release 1.18.7 on 2026-10-09, nightly builds daily"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "AGPL-3.0",
+  "features": {
+   "dims": {
+    "v": "2D",
+    "note": "top-down maps",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": false
+   },
+   "platform": {
+    "v": [
+     "windows",
+     "mac",
+     "linux"
+    ],
+    "note": "installed Java app; Intel and Apple Silicon Macs",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": true
+   },
+   "price": {
+    "v": "free",
+    "note": "'will always be free'",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": true
+   },
+   "accounts": {
+    "v": "none",
+    "note": "players connect to the GM's server; no accounts",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": false
+   },
+   "fog": {
+    "v": "yes",
+    "note": "fog of war revealed as tokens explore",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": true
+   },
+   "lighting": {
+    "v": "yes",
+    "note": "dynamic lighting and per-token vision; walls, pits and hills block sight",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": true
+   },
+   "mapbuild": {
+    "v": "yes",
+    "note": "drawing tools for building detailed maps",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": true
+   },
+   "levels": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": false
+   },
+   "sheets": {
+    "v": "partial",
+    "note": "system-agnostic; rules come from optional community frameworks",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": true
+   },
+   "ddb": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": false
+   },
+   "dice": {
+    "v": "roller",
+    "note": "text dice rolls and macros",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": false
+   },
+   "phone": {
+    "v": "?",
+    "note": "no phone client mentioned",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": false
+   },
+   "offline": {
+    "v": "yes",
+    "note": "integrated server; you host the game yourself",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": true
+   },
+   "opensource": {
+    "v": "yes",
+    "note": "AGPL-3.0",
+    "src": "https://github.com/RPTools/maptool",
+    "verified": true
+   },
+   "ai": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": false
+   },
+   "modding": {
+    "v": "yes",
+    "note": "macro scripting language; embedded HTML",
+    "src": "https://www.rptools.net/toolbox/maptool/",
+    "verified": true
+   },
+   "stage": {
+    "v": "released",
+    "note": "v1.18.7 (2026-10-09); 1.19 in alpha",
+    "src": "https://github.com/RPTools/maptool/releases",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "long-running volunteer project; 931 GitHub stars",
+    "src": "https://github.com/RPTools/maptool",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Free forever and open source; you run your own server",
+   "Fog of war, dynamic lighting and per-token vision built in",
+   "Powerful macro language for automating any system"
+  ],
+  "downsides": [
+   "Desktop install with Java; no browser or phone client",
+   "Older-style interface with a learning curve",
+   "Rules automation depends on community frameworks"
+  ],
+  "sources": [
+   {
+    "url": "https://www.rptools.net/toolbox/maptool/",
+    "label": "RPTools MapTool page"
+   },
+   {
+    "url": "https://github.com/RPTools/maptool",
+    "label": "GitHub repo"
+   },
+   {
+    "url": "https://github.com/RPTools/maptool/releases",
+    "label": "Releases"
+   }
+  ]
+ },
+ {
+  "id": "the-rpg-engine",
+  "name": "The RPG Engine",
+  "maker": "PolyDemons",
+  "group": "established",
+  "kind": "vtt",
+  "url": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+  "summary": "A desktop 3D VTT on Steam with voxel terrain sculpting and kitbashed characters; suits GMs who want to build whole worlds.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "official site answered 200; last Steam announcement 2025-04-01"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "proprietary",
+  "features": {
+   "dims": {
+    "v": "3D",
+    "note": "3D voxel terrain, props and characters",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "platform": {
+    "v": [
+     "windows",
+     "mac"
+    ],
+    "note": "Steam; Tilt Five AR glasses supported (2025 update)",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "price": {
+    "v": "free tier",
+    "note": "base free; Builders Edition $19.99; GameMasters Edition $39.99 for unlimited free players",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "accounts": {
+    "v": "everyone",
+    "note": "a Steam account for everyone",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": false
+   },
+   "fog": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": false
+   },
+   "lighting": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": false
+   },
+   "mapbuild": {
+    "v": "yes",
+    "note": "terrain sculpting and painting, props, level editor",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "levels": {
+    "v": "yes",
+    "note": "3D terrain with overhangs and caves",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "sheets": {
+    "v": "partial",
+    "note": "custom character creation and equipment; a rules mode exists, depth not checked",
+    "src": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1795283637984091",
+    "verified": false
+   },
+   "ddb": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": false
+   },
+   "dice": {
+    "v": "3D",
+    "note": "players grab dice in the AR update notes; 3D dice not confirmed elsewhere",
+    "src": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1795283637984091",
+    "verified": false
+   },
+   "phone": {
+    "v": "no",
+    "note": "Windows and macOS only",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "offline": {
+    "v": "partial",
+    "note": "custom servers for Builders or GameMasters DLC owners",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "opensource": {
+    "v": "no",
+    "note": "commercial closed-source software",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": false
+   },
+   "ai": {
+    "v": "?",
+    "note": "no AI disclosure on the Steam page",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": false
+   },
+   "modding": {
+    "v": "partial",
+    "note": "Steam Workshop sharing (Builders Edition)",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "stage": {
+    "v": "released",
+    "note": "full release 2023-09-08 after Early Access from 2022",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "Steam: Very Positive, 84% of 303 reviews; quiet since April 2025",
+    "src": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Free to try, with full 3D terrain sculpting including caves",
+   "Kitbash characters and gear; import images as maps or standees",
+   "Players join free when the GM owns the GameMasters Edition"
+  ],
+  "downsides": [
+   "Hosting a full table costs $59.98 in DLC",
+   "Desktop only, with fairly high hardware needs",
+   "No announcements on Steam since April 2025"
+  ],
+  "sources": [
+   {
+    "url": "https://store.steampowered.com/app/1818180/The_RPG_Engine/",
+    "label": "Steam store page"
+   },
+   {
+    "url": "https://therpgengine.com/",
+    "label": "PolyDemons site"
+   },
+   {
+    "url": "https://steamstore-a.akamaihd.net/news/externalpost/steam_community_announcements/1795283637984091",
+    "label": "Steam update 2025-04-01"
+   }
+  ]
+ },
+ {
+  "id": "tabula-sono",
+  "name": "Tabula Sono",
+  "maker": "Tabula Gaming, LLC (Icosa Studios)",
+  "group": "established",
+  "kind": "vtt",
+  "url": "https://tabulasono.com/",
+  "summary": "A free browser 3D VTT: a whiteboard for 3D minis on an imported map; suits grid games that want few rules.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "official site and play.tabulasono.com answered 200"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "proprietary",
+  "features": {
+   "dims": {
+    "v": "3D",
+    "note": "3D minis on a grid; 2D map images can be imported",
+    "src": "https://tabulasono.com/",
+    "verified": true
+   },
+   "platform": {
+    "v": [
+     "browser"
+    ],
+    "note": "'Just a modern browser'; runs on low-end computers",
+    "src": "https://tabulasono.com/faqs/",
+    "verified": true
+   },
+   "price": {
+    "v": "free tier",
+    "note": "free-to-play; Patreon subscription and marketplace for premium minis",
+    "src": "https://tabulasono.com/faqs/",
+    "verified": true
+   },
+   "accounts": {
+    "v": "?",
+    "note": "players join by a link; account rules not stated",
+    "src": "https://tabulasono.com/faqs/",
+    "verified": false
+   },
+   "fog": {
+    "v": "partial",
+    "note": "GM hides or reveals objects, NPCs, walls and map sections by hand",
+    "src": "https://tabulasono.com/",
+    "verified": true
+   },
+   "lighting": {
+    "v": "partial",
+    "note": "preset or custom world lighting; per-token vision not mentioned",
+    "src": "https://tabulasono.com/",
+    "verified": true
+   },
+   "mapbuild": {
+    "v": "yes",
+    "note": "draw and raise walls; 1,000+ free 3D models; STL, FBX, OBJ, glTF import",
+    "src": "https://tabulasono.com/",
+    "verified": true
+   },
+   "levels": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://tabulasono.com/",
+    "verified": false
+   },
+   "sheets": {
+    "v": "no",
+    "note": "deliberately light on rules: no 'restrictive rules' or 'excessive codexes'",
+    "src": "https://tabulasono.com/",
+    "verified": true
+   },
+   "ddb": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://tabulasono.com/",
+    "verified": false
+   },
+   "dice": {
+    "v": "?",
+    "note": "not described",
+    "src": "https://tabulasono.com/",
+    "verified": false
+   },
+   "phone": {
+    "v": "?",
+    "note": "only computers mentioned",
+    "src": "https://tabulasono.com/faqs/",
+    "verified": false
+   },
+   "offline": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://tabulasono.com/",
+    "verified": false
+   },
+   "opensource": {
+    "v": "no",
+    "note": "commercial closed-source software",
+    "src": "https://tabulasono.com/",
+    "verified": false
+   },
+   "ai": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://tabulasono.com/",
+    "verified": false
+   },
+   "modding": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://tabulasono.com/",
+    "verified": false
+   },
+   "stage": {
+    "v": "released",
+    "note": "publicly launched 2022 (older note); Steam page 'coming soon'",
+    "src": "https://tabulasono.com/",
+    "verified": false
+   },
+   "community": {
+    "v": "note",
+    "note": "Kickstarter-funded; Discord, YouTube and Twitch linked; no counts checked",
+    "src": "https://tabulasono.com/",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Free, in the browser, players join from one link",
+   "1,000+ free 3D minis plus import of your own STL or HeroForge prints",
+   "System-neutral: works for any grid game"
+  ],
+  "downsides": [
+   "Little rules support by design",
+   "Fog is manual hide-and-reveal",
+   "Recent development activity is hard to see from the site"
+  ],
+  "sources": [
+   {
+    "url": "https://tabulasono.com/",
+    "label": "Official site"
+   },
+   {
+    "url": "https://tabulasono.com/faqs/",
+    "label": "FAQ"
+   }
+  ]
+ },
+ {
+  "id": "mythic-table",
+  "name": "Mythic Table",
+  "maker": "Mythic Table (volunteer team)",
+  "group": "established",
+  "kind": "vtt",
+  "url": "https://www.mythictable.com/",
+  "summary": "A free, open-source, volunteer-run browser VTT you can also host yourself; suits groups who value openness.",
+  "alive": {
+   "state": "alive",
+   "checked": "2026-10-29",
+   "how": "official site and play.mythictable.com answered 200; GitLab commits 2026-10-17 (v1.2.0-rc.1)"
+  },
+  "last_checked": "2026-10-29",
+  "licence": "Apache-2.0",
+  "features": {
+   "dims": {
+    "v": "2D",
+    "note": "top-down maps",
+    "src": "https://www.mythictable.com/features/",
+    "verified": false
+   },
+   "platform": {
+    "v": [
+     "browser"
+    ],
+    "note": "web app; hosted at play.mythictable.com",
+    "src": "https://www.mythictable.com/",
+    "verified": false
+   },
+   "price": {
+    "v": "free",
+    "note": "'stays free for users', funded by Patreon (2024 post)",
+    "src": "https://www.mythictable.com/blog/announcement-2024",
+    "verified": true
+   },
+   "accounts": {
+    "v": "everyone",
+    "note": "sign-in through Keycloak (README); who must sign up not stated",
+    "src": "https://gitlab.com/mythicteam/mythictable",
+    "verified": false
+   },
+   "fog": {
+    "v": "?",
+    "note": "not listed",
+    "src": "https://www.mythictable.com/features/",
+    "verified": false
+   },
+   "lighting": {
+    "v": "?",
+    "note": "dynamic lighting listed as planned on a 2020 features page",
+    "src": "https://www.mythictable.com/features/",
+    "verified": false
+   },
+   "mapbuild": {
+    "v": "?",
+    "note": "not listed",
+    "src": "https://www.mythictable.com/features/",
+    "verified": false
+   },
+   "levels": {
+    "v": "?",
+    "note": "multi-level maps listed as planned (2020)",
+    "src": "https://www.mythictable.com/features/",
+    "verified": false
+   },
+   "sheets": {
+    "v": "?",
+    "note": "character sheets listed as planned (2020); site shows actions and modifiers",
+    "src": "https://www.mythictable.com/",
+    "verified": false
+   },
+   "ddb": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://www.mythictable.com/",
+    "verified": false
+   },
+   "dice": {
+    "v": "?",
+    "note": "dice rolling listed as planned (2020)",
+    "src": "https://www.mythictable.com/features/",
+    "verified": false
+   },
+   "phone": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://www.mythictable.com/",
+    "verified": false
+   },
+   "offline": {
+    "v": "yes",
+    "note": "self-host with Docker, documented in the README",
+    "src": "https://gitlab.com/mythicteam/mythictable",
+    "verified": true
+   },
+   "opensource": {
+    "v": "yes",
+    "note": "Apache-2.0",
+    "src": "https://gitlab.com/mythicteam/mythictable",
+    "verified": true
+   },
+   "ai": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://www.mythictable.com/",
+    "verified": false
+   },
+   "modding": {
+    "v": "?",
+    "note": "not mentioned",
+    "src": "https://www.mythictable.com/",
+    "verified": false
+   },
+   "stage": {
+    "v": "?",
+    "note": "no stage stated; v1.2.0 release candidate in the repo (Oct 2026)",
+    "src": "https://gitlab.com/mythicteam/mythictable",
+    "verified": true
+   },
+   "community": {
+    "v": "note",
+    "note": "Kickstarter-funded, volunteer-run; 192 GitLab stars; back from a quiet period (2024)",
+    "src": "https://www.mythictable.com/blog/announcement-2024",
+    "verified": true
+   }
+  },
+  "upsides": [
+   "Free and open source (Apache-2.0), with self-hosting documented",
+   "Still maintained: active commits in October 2026",
+   "Community-funded with no paid tiers"
+  ],
+  "downsides": [
+   "Current feature set is poorly documented on the site",
+   "Had a long quiet period before 2024; small volunteer team",
+   "Self-hosting needs .NET, Node and Keycloak"
+  ],
+  "sources": [
+   {
+    "url": "https://www.mythictable.com/",
+    "label": "Official site"
+   },
+   {
+    "url": "https://gitlab.com/mythicteam/mythictable",
+    "label": "GitLab repo"
+   },
+   {
+    "url": "https://www.mythictable.com/blog/announcement-2024",
+    "label": "2024 announcement"
+   },
+   {
+    "url": "https://www.mythictable.com/features/",
+    "label": "Features page (2020)"
+   }
+  ]
+ }
+]

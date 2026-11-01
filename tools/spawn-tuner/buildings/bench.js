@@ -15,7 +15,7 @@ export async function start(v) {
   const q = v ? `?v=${v}` : `?t=${Date.now()}`;
   const [B, W, types, buildingTypes] = await Promise.all([import(`../js/buildings.js${q}`), import(`../js/walls.js${q}`), fetch(`../data/rooms.json${q}`).then(r => r.json()), fetch(`../data/types.json${q}`).then(r => r.json())]);
   const T = Object.fromEntries(types.map(t => [t.key, t]));
-  const roomsOf = (code) => types.filter(t => (t.recipes || []).some(r => r.startsWith(code.toLowerCase() + '-'))).map(t => ({ key: t.key, cells: t.cells, outdoor: !!t.outdoor }));
+  const roomsOf = (code) => types.filter(t => !t.byHand && (t.recipes || []).some(r => r.startsWith(code.toLowerCase() + '-'))).map(t => ({ key: t.key, cells: t.cells, outdoor: !!t.outdoor }));
   // a type is shown when it has rooms of its OWN (first recipe): the castle's dungeon also lists a 'dun-' recipe, which does not make a Dungeon type
   const own = (code) => types.filter(t => (t.recipes || [])[0]?.startsWith(code.toLowerCase() + '-')).length;
   const codes = buildingTypes.map(t => t.code).filter(c => B.BUILDING_TYPES[c] && own(c) >= 3);

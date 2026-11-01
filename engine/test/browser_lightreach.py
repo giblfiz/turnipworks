@@ -100,14 +100,14 @@ async def main():
         # R4: GM-only
         has = {n: await pg.evaluate("tw.registry.available().some(c => c.id === 'view.lightReach')") for n, pg in (('gm', gm), ('player', pl))}
         async def settings_row(pg):
-            await pg.evaluate("tw.settings.open('me')"); await pg.wait_for_timeout(500)
+            await pg.evaluate("tw.settings.open('controls')"); await pg.wait_for_timeout(500)
             n = await pg.locator('[data-lightreach]').count(); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300); return n
         rows = {'gm': await settings_row(gm), 'player': await settings_row(pl)}
         forced = await pl.evaluate("[tw.lightReach(), tw.setLightReach(true, { quiet: true }), tw.lightReach(), tw.lightReachInfo().lights.length]")
         check(has == {'gm': True, 'player': False} and rows == {'gm': 1, 'player': 0} and forced == [False, False, False, 0],
               'R4 "Show light reach" is GM-only: in the GM\'s bar and Settings ▸ Me; not in the player\'s, and her page cannot switch it on', dict(bar=has, settings=rows, player_forced=forced))
         # R5: the GM's view of it (through the Settings switch), the disc follows the table, survives a reload, off = nothing
-        await gm.evaluate("tw.settings.open('me')"); await gm.wait_for_timeout(500); await gm.click('[data-lightreach]'); await gm.wait_for_timeout(300); await gm.keyboard.press('Escape')
+        await gm.evaluate("tw.settings.open('controls')"); await gm.wait_for_timeout(500); await gm.click('[data-lightreach]'); await gm.wait_for_timeout(300); await gm.keyboard.press('Escape')
         await wait(gm, "tw.lightReachInfo().drawn", 10000, 'reach drawn')
         await gm.evaluate("(() => { const g = tw.main.grab; g.focus.set(30, 0, 20); g.yaw = 0; g.pitch = 70; g.dist = 85; g.update(); tw.main.rule = 'free'; })()"); await gm.wait_for_timeout(1200)
         if A.shots: await gm.screenshot(path=os.path.join(A.shots, 'reach-1-gm-lamp.png'))

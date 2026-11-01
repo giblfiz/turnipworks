@@ -8,6 +8,7 @@
 // the current one to the log early. prefers-reduced-motion: a fade instead of the flight.
 // Visibility is the chat line's own: a line reaches only the clients that receive the area's chat, and only lines
 // that arrive while this client watches the area are announced (joining never replays history).
+import { tallyOf } from '../../core/dice.js';
 const MAX_DWELL = 8, FLY_MS = 650, FADE_MS = 320;
 
 export function announceSurface(R, app) {
@@ -28,7 +29,8 @@ export function announceSurface(R, app) {
     const base = Math.min(MAX_DWELL, 1 + w / 4);
     return (backlog ? Math.max(0.8, base / (1 + 0.6 * backlog)) : base) / (app.prefs?.announceSpeed || 1); // Settings ▸ Me ▸ Announcement speed
   };
-  const nat = (c) => { const r = c.roll; if (!r || !/^d20(\s|[+-]|$)/i.test(r.expr) || r.rolls.length !== 1) return null; return r.rolls[0] === 20 ? 'nat20' : r.rolls[0] === 1 ? 'nat1' : null; };
+  const nat = (c) => { const r = c.roll; if (r?.info?.part && r.info.part !== 'damage' && r.info.part !== 'healing' && (r.info.crit || r.info.fumble)) return r.info.crit ? 'nat20' : 'nat1'; // (a Beyond20 roll says so itself: advantage is two d20s)
+    if (!r || !/^d20(\s|[+-]|$)/i.test(r.expr) || r.rolls.length !== 1) return null; return r.rolls[0] === 20 ? 'nat20' : r.rolls[0] === 1 ? 'nat1' : null; };
 
   app.on((what, data) => {
     if (what === 'change' && data === app.area()) ingest();
@@ -66,7 +68,11 @@ export function announceSurface(R, app) {
     el.className = `ann${c.roll ? ' roll' : ''}${n ? ' ' + n : ''}`;
     el.style.setProperty('--c', col);
     // the content is laid out like a log line (name, then the words), only bigger: the flight is then a pure scale
-    el.innerHTML = c.roll
+    const g = c.roll && tallyOf(c.roll.expr, c.roll.rolls); // a game's dice: its name, what they say, each die's face (2026-10-29)
+    el.innerHTML = g
+      ? `<div class="aline"><span class="who">${esc(name(c.by))}</span> <span class="sep">·</span> <span class="expr">${esc(g.title)}</span> <span class="arrow">→</span> <b class="total">${esc(g.short)}</b></div>`
+        + `<div class="dice">${g.faces.split(' | ').map(grp => grp.split(' ').filter(Boolean).map(v => /^[A-Za-z]{3,}$/.test(v) ? `<span class="why">${esc(v)}</span>` : `<span class="die">${esc(v)}</span>`).join('')).join('')}${c.text ? `<span class="why">${esc(c.text)}</span>` : ''}</div>`
+      : c.roll
       ? `<div class="aline"><span class="who">${esc(name(c.by))}</span> <span class="sep">·</span> <span class="expr">${esc(c.roll.expr)}</span> <span class="arrow">→</span> <b class="total">${c.roll.total}</b></div>`
         + `<div class="dice">${c.roll.rolls.map(v => `<span class="die">${v}</span>`).join('')}${c.text ? `<span class="why">${esc(c.text)}</span>` : ''}</div>`
       : `<div class="aline"><span class="who">${esc(name(c.by))}</span> <span class="said">${esc(c.text)}</span></div>`;

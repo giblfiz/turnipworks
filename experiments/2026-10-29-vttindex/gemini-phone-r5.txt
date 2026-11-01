@@ -1,0 +1,47 @@
+### 1. Labels
+
+**Headings:**
+* `▼ Filters` *(table view)*
+* `Turnip Works` *(detail view)*
+* Detail section headings: `2D / 3D`, `Runs on`, `Price`, `Accounts`
+
+**Filter labels:**
+* `Show only`
+* `3D`
+* `Free to start`
+* `Runs in a browser`
+* `Open source`
+* `Site is up`
+* `Group`
+* `Kind`
+* `Search`
+*(Input placeholder: `a name or a word`; status line: `Showing all 118`)*
+
+**Column headers:**
+* `Product ↑`
+* `2D / 3D`
+* `Runs on`
+
+**First five product names (table view):**
+1. `16-VTT`
+2. `20Realms`
+3. `AboveVTT`
+4. `Adunata`
+5. `Aethera VTT`
+*(In the detail view: `Turnip Works`)*
+
+---
+
+### 2. Analysis & Verdict
+
+**VERDICT: FIX**
+
+**Problems (most important first):**
+1. **Detail modal text overlap/clipping**: In `phone-detail.png`, the sticky bottom action bar (`Correct this row` / `Link to this row`) overlays the scroll container. The divider line cuts directly through the line `opens a link takes that seat [source]` under Accounts, obscuring the bottom half of the text. It needs proper bottom padding / scroll margin.
+2. **Table cell mid-word cutoff**: In `phone-table.png`, text in the third column cuts off mid-word at the right container edge (e.g., `Linux` clipped to `Linu` in the `Alchemy RPG` row).
+
+**Checks passed:**
+* **Screen edge cutoff**: None. Both the filter box and the table container stay within the 400 CSS px viewport with balanced margins.
+* **Legibility**: All text sizes are readable; nothing is too small.
+* **Continuity cues**: It is clear the table continues to the right via the explicit helper banner (`more columns to the right: scroll or swipe the table sideways →`) and the right-edge gradient fade.
+* **Filter controls fit**: All checkboxes (2-column layout), dropdown selects (`Group`, `Kind`), and the search box fit cleanly without wrapping or overflow.

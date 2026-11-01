@@ -398,3 +398,4 @@ page); `build_review.py` -> the shared review data contract; `review_check.py` c
 sandboxed score. Pods: `tools/pod_up.sh`, `pod_timer.sh`, `pod_deadman.sh`, `pod_down.sh`, `launch_wave.sh`, `harvest.sh`; one
 folder per extra pod under `pods/` with its own `pod-<id>.json`, timer log and spend lines.
 Originals are on the USB disk (`/mnt/usb/turnip-works/figures-set/`); tiers and thumbnails in `set/` (git-ignored).
+Added one at a time after the set: `foe-eye-tyrant` (2026-10-24), experiments/2026-10-24-eye-tyrant/ (the same route for one figure, with agy-run as the gate's eye).

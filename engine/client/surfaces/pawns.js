@@ -91,6 +91,10 @@ export function pawnsSurface(R, app) {
     };
     if (rec.area && rec.area !== app.area()) { app.setMain(rec.area); whenLoaded(rec.area, rec.id, land); } else land();
   }
+  // (surfaces/roster.js: a click on someone's avatar) their main pawn as their party row has it (the relay already left
+  // out what this seat may not see: a pawn hidden from players, an area hidden from them), and the same go-to
+  P.mainOf = (seat) => rows().find(r => r.seat.id === seat)?.main || null;
+  P.goTo = (rec) => goTo(rec);
   // FOLLOW: lock my view to that pawn (it stays in the middle; zoom and heading are still mine), or, for a pawn in
   // another area (or with Shift), open it in the picture-in-picture, which follows that person's pawns
   const pill = document.createElement('div'); pill.id = 'followPill'; pill.hidden = true; document.getElementById('app').append(pill);
@@ -100,6 +104,9 @@ export function pawnsSurface(R, app) {
   function stopFollow() { if (!follow) return false; follow = null; pill.hidden = true; if (P.isOpen) render(); app.refresh(); }
   function startFollow(rec, { pip = false } = {}) {
     if (!rec) return;
+    // (a phone has no PiP: a pawn in another area is followed by going there, in the main view)
+    if (app.pipAllowed?.() === false && rec.area !== app.area()) { app.setMain(rec.area); pip = false; }
+    if (pip && app.pipAllowed?.() === false) pip = false;
     if (pip || rec.area !== app.area()) { app.openPip(rec.area, { owner: rec.owner }); P.lastFollow = { how: 'pip', id: rec.id, area: rec.area }; return; }
     if (follow?.id === rec.id) return stopFollow();
     follow = { id: rec.id, area: rec.area, name: rec.name };
@@ -119,6 +126,7 @@ export function pawnsSurface(R, app) {
   });
   P.following = () => follow && { ...follow };
   P.follow = (id) => { const e = app.entities()[id]; if (e) startFollow({ ...e, area: app.area() }); };
+  P.followRow = (rec, opts) => startFollow(rec, opts); // (tests: a Party row's Follow, its pawn in any area)
   // the GM's chores on a row
   const tok = (rec) => ({ id: rec.id, kind: 'token', name: rec.name });
   function bringHere(row) {
@@ -206,7 +214,7 @@ export function pawnsSurface(R, app) {
     const { seat: s, main, pets } = row, gm = app.gm(), here = main && main.area === app.area();
     const acts = [];
     if (main && (main.sheet || (here && (gm || main.owner === app.me())))) acts.push(act('sheet', 'file-text', main.sheet ? `Sheet: open ${main.name}'s character sheet (a new tab)` : `Sheet: add ${main.name}'s character sheet`));
-    if (main) acts.push(act('follow', 'eye', follow?.id === main.id ? `Stop following ${main.name}` : here ? `Follow: keep my view on ${main.name} (Shift: in a small window)` : `Follow: watch ${main.name} in a small window`, follow?.id === main.id));
+    if (main) acts.push(act('follow', 'eye', follow?.id === main.id ? `Stop following ${main.name}` : here ? `Follow: keep my view on ${main.name}${app.pipAllowed?.() === false ? '' : ' (Shift: in a small window)'}` : app.pipAllowed?.() === false ? `Follow: go to ${main.name} and keep my view on them` : `Follow: watch ${main.name} in a small window`, follow?.id === main.id));
     if (!row.me) acts.push(act('whisper', 'message-square-lock', `Whisper: a private line to ${s.name}`));
     if (gm && s.role !== 'gm') {
       if (main) acts.push(`<i class="psep"></i>`, act('here', 'magnet', main.area !== app.area() ? `Bring here: ${s.name}'s pawns come to this area` : `Bring here: ${main.name} comes to the middle of my view`));

@@ -1,5 +1,6 @@
 // Floor-plan sight. Pure client data: no DOM, three.js or relay filtering.
-import { baseUnder, roomTop } from '../core/height.js';
+import { baseUnder, sightLevel, roomTop, sightGround } from '../core/height.js';
+import { caveBlockers, isCaveRockEdge } from '../core/caves.js';
 
 export const visionRadius = pawn => Number.isFinite(pawn.visionRadius) ? Math.max(0, pawn.visionRadius) : Infinity;
 export function viewingPawns(entities, { viewer, seats = [], shared = false, party = false, isOpen = null } = {}) {
@@ -9,7 +10,7 @@ export function viewingPawns(entities, { viewer, seats = [], shared = false, par
   const who = principal(viewer);
   return Object.values(entities).filter(e => e.kind === 'token' && !e.hidden && e.owner &&
     ((shared || party) ? players.has(principal(e.owner)) : principal(e.owner) === who))
-    .map(pawn => ({ pawn, level: baseUnder(entities, pawn.x, pawn.z, pawn.y || 0, isOpen).y, radius: visionRadius(pawn) }));
+    .map(pawn => ({ pawn, level: sightLevel(entities, pawn.x, pawn.z, pawn.y || 0, isOpen), radius: visionRadius(pawn) })); // (a pawn on a hill sees from the ground's level: core/height.js sightLevel)
 }
 
 // Segment = [x0,z0,x1,z1]. Merge contiguous grid walls before casting: a 100-ft
@@ -32,33 +33,45 @@ export function mergeSegments(segments) {
   return other;
 }
 
+// BARS (Harry 2026-10-27: "bars / grates as a kind of 'wall' ... and like cage doors"): iron bars, a barred cage door and
+// a portcullis are seen through, shut or open, so they never stop sight, light or fog of war here. They stop a thrown die
+// (client/diceworld.js: a shut barred door is a box there). A pawn's own move is not blocked by anything in the engine.
+export const SEE_THROUGH = /^(cell-bars|door-cell-bars|portcullis)(-|$)/;
+export const seeThrough = (cat) => SEE_THROUGH.test(cat || '');
 export function blockingSegments(edges, entities = {}, level = 0) {
   const values = edges instanceof Map ? [...edges.values()] : Array.isArray(edges) ? edges : Object.values(edges || {});
   const byKey = new Map(values.map(e => [e.key,e])), overrides = new Map(Object.values(entities).filter(e => e.kind === 'edge').map(e => [e.key,e]));
   const out = [];
+  // (2026-10-24) `level` is a sight level (core/height.js levelY): the walls of a room that meets the ground (on the open
+  // ground, on a hill) stand at level 0, the outdoor surface, and block a pawn on the hilltop; an upper room's at its height
+  const gOf = new Map(), ground = (rid) => { if (!gOf.has(rid)) { const r = rid && entities[rid]; gOf.set(rid, r?.kind === 'room' ? sightGround(entities, r) : 0); } return gOf.get(rid); };
   for (const e of values) {
-    const stacked = (e.y || 0) !== level;
-    if (stacked && !(e.sides || []).some(s => { const r = entities[s.room]; return r?.kind === 'room' && (r.recipe.y || 0) < level && roomTop(entities,r) > level; })) continue;
-    const key = stacked ? e.key.replace(/@-?\d+$/, '') + (level ? `@${level}` : '') : e.key;
+    if (isCaveRockEdge(entities, e) && !overrides.has(e.key)) continue; // (a cave's outside wall: its lip blocks instead, below)
+    const Y = level + ground(e.owner?.room ?? e.sides?.[0]?.room), stacked = (e.y || 0) !== Y;
+    if (stacked && !(e.sides || []).some(s => { const r = entities[s.room]; return r?.kind === 'room' && (r.recipe.y || 0) < Y && roomTop(entities,r) > Y; })) continue;
+    const key = stacked ? e.key.replace(/@-?\d+$/, '') + (Y ? `@${Y}` : '') : e.key;
     if (stacked && byKey.has(key)) continue; // the real upper room owns this shared wall
     const parent = !stacked && e.spanOf && byKey.get(e.spanOf), o = overrides.get(parent?.key || key), local = overrides.get(key);
     const kind = stacked || local?.as === 'wall' || o?.as === 'wall' ? 'wall' : parent?.kind || e.kind;
     if (local?.as === 'open' || o?.as === 'open' || (!stacked && (e.open || parent?.open)) || ['window','open','gap'].includes(kind)) continue;
     if (!['wall','door','door-span'].includes(kind)) continue;
+    if (kind !== 'wall' && seeThrough(local?.doorType || o?.doorType || parent?.doorType || e.doorType)) continue; // a generated door swapped for the barred one
     const x = e.gx * 5, z = e.gz * 5;
     out.push(e.dir === 'h' ? [x,z,x+5,z] : [x,z,x,z+5]);
   }
   // Materialised walls and doors are ordinary objects. Their replacement edge is
   // open; block at their current position, with the same rotation as the mesh.
   for (const e of Object.values(entities)) {
-    if (e.kind !== 'object' || e.hidden || (e.y || 0) !== level || e.open) continue;
+    if (e.kind !== 'object' || e.hidden || (e.y || 0) - ground(e.room) !== level || e.open) continue;
     const cat = e.cat || '';
     const door = /(^door-|(^|-)gate(-|$)|portcullis)/.test(cat);
     const wall = /^wall-straight/.test(cat) || (e.fromEdge && e.layer === 'walls' && !/window|doorway/.test(cat));
-    if ((!door && !wall) || /-open$/.test(cat)) continue;
+    if ((!door && !wall) || /-open$/.test(cat) || seeThrough(cat)) continue; // (bars: seen through, above)
     const half = (e.dims?.[0] || 5)/2, a = e.rot || 0, dx = Math.cos(a)*half, dz = -Math.sin(a)*half;
     out.push([e.x-dx,e.z-dz,e.x+dx,e.z+dz]);
   }
+  // a CAVE (2026-10-25, core/caves.js): its lip (the rock band's outer edge) and its PILLARS, derived from its squares and seed
+  for (const s of caveBlockers(entities, level)) out.push(s);
   return mergeSegments(out);
 }
 

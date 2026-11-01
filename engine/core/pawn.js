@@ -1,3 +1,4 @@
+import { parseDice } from './dice.js';
 // Pawns: the small shared rules behind the pawn's ring (Harry 2026-10-06; docs/UI.md "Pawn ring"). Pure functions,
 // used by the relay (enforcement) and the client (what to offer), so the two cannot drift apart.
 
@@ -8,6 +9,13 @@ export const MARKS = [
   ['moon', 'Moon', '#cfe0f2'], ['square', 'Square', '#3f9be8'], ['cross', 'Cross', '#e5484d'], ['skull', 'Skull', '#f4f1e8'],
 ];
 export const MARK_KEYS = MARKS.map(m => m[0]);
+
+// THE CONDITIONS A PAWN'S ☰ OFFERS (moved here from client/commands.js on 2026-10-29 so Beyond20's conditions map onto the
+// same list: core/beyond20.js conditionsAfter). Stored as these lower-case words in `conditions`. Each has a look on the
+// table (core/conditions.js statusOf). 2026-10-29 (Harry's design of 2026-10-15): paralyzed, incapacitated, dead and
+// concentrating joined; exhaustion is "exhaustion 1".."exhaustion 6" (its own ring entries). Any other short word is a
+// text label (core/conditions.js).
+export const CONDITIONS = ['blinded', 'charmed', 'frightened', 'grappled', 'invisible', 'poisoned', 'prone', 'restrained', 'stunned', 'unconscious', 'paralyzed', 'incapacitated', 'dead', 'concentrating'];
 
 // WHO GETS THE UNDO FOR A DAMAGE CHANGE (and may press it): the seat that made the change, the pawn's owner, and the
 // GM side (Harry 2026-10-06: "great choice. agreed."). To change the audience, change this one function. The relay
@@ -72,3 +80,39 @@ export function damageLine(what, d, to, who) {
 // Pawns menu groups by it and a turn order's `kind:<k>` keys are made of it.
 export const pawnKind = (e) => String(e?.name || '').toLowerCase().replace(/\s+#?\d+$/, '').replace(/\s+/g, ' ').trim() || 'pawn';
 export const pawnKindLabel = (e) => String(e?.name || 'Pawn').replace(/\s+#?\d+$/, '').trim() || 'Pawn';
+
+// A PAWN'S SAVED ATTACKS (Harry 2026-10-29: "Attack is always there and always useful"): `attacks: [{ name, hit, dmg }]`,
+// newest-used first, e.g. { name: 'Longsword', hit: '+5', dmg: '1d8+3' }. Names and formulas ONLY: never a description
+// (Wizards' text is never stored: docs/BEYOND20.md). Filled from Beyond20's attack rolls, the Attack menu's "+ Add attack",
+// or token.set over GET. Absent when empty. The relay refuses anything else (attacksProblem).
+export const ATTACKS_MAX = 8, ATTACK_NAME_MAX = 40;
+const ATTACK_KEYS = ['name', 'hit', 'dmg'];
+export const cleanHit = (h) => { const m = String(h ?? '').replace(/\s+/g, '').match(/^([+-]?)(\d{1,2})$/); return m ? `${m[1] === '-' ? '-' : '+'}${+m[2]}` : null; };
+export const cleanDmg = (d) => { const e = String(d ?? '').replace(/\s+/g, '').toLowerCase(); return e && e.length <= 40 && /^[\dd+\-khl]+$/.test(e) && parseDice(e) ? e : null; };
+export function attacksProblem(list) {
+  if (!Array.isArray(list)) return 'attacks: a list of { name, hit, dmg }';
+  if (list.length > ATTACKS_MAX) return `attacks: at most ${ATTACKS_MAX}`;
+  const names = new Set();
+  for (const a of list) {
+    if (!a || typeof a !== 'object' || Array.isArray(a)) return 'attacks: each one is { name, hit, dmg }';
+    for (const k of Object.keys(a)) if (!ATTACK_KEYS.includes(k)) return `attacks: no field "${k}" (only name, hit and dmg: descriptions are never stored)`;
+    if (typeof a.name !== 'string' || !a.name.trim() || a.name.length > ATTACK_NAME_MAX || /[\u0000-\u001f\u007f<>]/.test(a.name)) return `attacks: a name is a short word or two (${ATTACK_NAME_MAX} characters at most)`;
+    if (a.hit != null && cleanHit(a.hit) !== a.hit) return `attacks: hit is a bonus like +5 or -1 (${a.name})`;
+    if (a.dmg != null && cleanDmg(a.dmg) !== a.dmg) return `attacks: dmg is dice like 1d8+3 (${a.name})`;
+    if (a.hit == null && a.dmg == null) return `attacks: ${a.name} needs a to-hit bonus or damage dice`;
+    const k = a.name.trim().toLowerCase(); if (names.has(k)) return `attacks: ${a.name} is listed twice`; names.add(k);
+  }
+  return null;
+}
+// one attack as it is stored, or null (the client builds every attack through this)
+export function cleanAttack(a) {
+  const name = String(a?.name ?? '').replace(/[\u0000-\u001f\u007f<>]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, ATTACK_NAME_MAX).trim();
+  const hit = cleanHit(a?.hit), dmg = cleanDmg(a?.dmg);
+  return name && (hit || dmg) ? { name, ...(hit && { hit }), ...(dmg && { dmg }) } : null;
+}
+// put `a` first (by name), keep the rest in their order, at most ATTACKS_MAX
+export function upsertAttack(list, a) {
+  const c = cleanAttack(a); if (!c) return Array.isArray(list) ? list : [];
+  return [c, ...(Array.isArray(list) ? list : []).filter(x => x.name.toLowerCase() !== c.name.toLowerCase())].slice(0, ATTACKS_MAX);
+}
+

@@ -38,6 +38,8 @@ The pipeline code (`src/`, `tools/spawn-tuner/prep/`, the generation scripts und
 
 **Not covered by CC BY** (not ours):
 
+- **The table music** (`engine/client/data/music/` on the web server, made from masters on the build machine; not in git): seven tracks Harry handed over on 2026-10-30. Their source and licence are **not yet confirmed**, so they are not offered under CC BY or AGPL, and the public export leaves them out (`tools/public-export/exclude.tsv`) until he confirms.
+
 - `import-lab/samples/garden-gnome.glb` on the web server: Poly Haven's Garden Gnome (CC0, by Bhargav Kubal), a test input for the import lab, not a Turnip Works asset.
 
 **Not distributed** (removed 2026-10-21, so nothing here grants rights in them):

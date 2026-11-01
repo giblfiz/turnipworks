@@ -1,0 +1,41 @@
+### Labels & Depictions
+
+**Top row (existing family):**
+- **`R1`**: A teal game pawn on a parchment sheet with two lines of text (character/piece sheet).
+- **`R2`**: A cracked red heart split down the center (damage/health/wound).
+- **`R3`**: Two hands passing a small teal pawn from left to right under a curved gold arrow (give/transfer control).
+- **`R4`**: A dark iron padlock with a brass keyhole plate (lock/pin piece).
+
+**Bottom row (`Target` candidates):**
+- **`A`**: A collared teal pawn centered in a red targeting reticle (ring, four inward triangles, four corner L-brackets).
+- **`B`**: A tall, smooth teal pawn in the same style of red ring-and-bracket targeting reticle, with a brighter top-left rim highlight.
+- **`C`**: A smaller teal pawn inside a thicker, tighter red ring-and-bracket reticle on a slightly smaller disc.
+- **`D`**: A smooth teal pawn cleanly framed inside a red ring-and-bracket reticle with even rim lighting.
+
+---
+
+### 1. Fit with `R1`–`R4` (Ground, Rim, Style, Palette, Disc Size)
+
+Across all four candidates, the dark charcoal ground and teal pawn material match `R1`/`R3`, but the **reticle design and red palette drift slightly from the set**: the bright vermilion/orange-red is more saturated and flat than `R2`’s deep painterly crimson, and the combination of ring + 4 triangles + 4 corner L-brackets feels more like a modern tactical HUD than the physical fantasy objects in `R1`–`R4`.
+
+- **`A`**: **Good match.** Disc size, charcoal ground, and rim match `R1`–`R4`. The pawn has the closest dark-teal value to `R1`, though the bottom red triangle overlaps the front of the pawn’s base.
+- **`B`**: **Fair match.** Disc size and ground match, but the upper-left outer rim has a noticeably harsher white highlight than `R1`–`R4`, and the pawn leans slightly brighter cyan.
+- **`C`**: **Weakest match.** The disc diameter is noticeably smaller than `R1`–`R4` (at both 62 px and 31 px), and the heavier red strokes crowd the interior.
+- **`D`**: **Best technical match.** Disc size, charcoal ground, and even slate rim match `R1`–`R4` cleanly, and the pawn sits inside the ring without awkward overlaps.
+
+---
+
+### 2. Readability at 31 px
+
+- **All four (`A`–`D`)** read immediately as *"target this pawn"* at 31 px—the high contrast between the red reticle, dark ground, and central teal pawn carries the action clearly.
+- **`D`** and **`A`** read cleanest because they preserve a dark gap around the pawn silhouette.
+- **`B`** gets slightly pinched where the top triangle meets the pawn’s head, and **`C`** feels cramped due to the smaller disc and thicker reticle lines.
+
+---
+
+### 3. Single Best Candidate & Regeneration Verdict
+
+- **Best pick: `D`** (with **`A`** a close second). `D` has the most consistent disc size and rim lighting alongside `R1`–`R4`, and the cleanest separation between the pawn silhouette and the reticle triangles at both 62 px and 31 px.
+- **Does it need regeneration?** `D` is usable now, but if you want a strict style match with `R1`–`R4`, **regenerate** with two fixes:
+  1. **Drop the four outer corner L-brackets** (keep a simpler crosshair/ring so it reads less like a modern HUD and has more breathing room near the rim at 31 px).
+  2. **Shift the red toward `R2`’s deeper, more painterly crimson** rather than bright scarlet.

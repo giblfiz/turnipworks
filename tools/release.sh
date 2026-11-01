@@ -12,22 +12,25 @@
 #                                          script runs it after its suites pass and its dev deploy, inside the landing
 #                                          lock (TW_LOCK_HELD=1; without it the script takes /tmp/tw-main.lock itself).
 #                                          It refuses when the dev relay is down or the snapshot's own relay cannot start.
-#   tools/release.sh roll                  THE NIGHTLY ROLL (tw-release-roll.timer: fires 03:25, swaps at 03:30
-#                                          America/Los_Angeles). Candidate = current, or a rejected one: nothing.
-#                                          Otherwise: a 5-minute banner on every seat ("Server updating at 3:30, back in
-#                                          a minute"; no seat connected: no wait), a copy of the campaigns, the swap, a
-#                                          prod relay restart, the checks (engine/tools/release_verify.mjs verify). A
-#                                          failed check rolls back to the release before by itself and marks the
-#                                          candidate rejected (it is never tried again; the next candidate is).
-#   tools/release.sh promote-now [--warn S] [ID]   the same now, for a hotfix: banner 60 s (S), the candidate or ID,
-#                                          even a rejected one.
+#   LIVE MOVES ONLY WHEN HARRY SAYS SO (Harry, 2026-10-22): "going from dev to live needs to be an action that I
+#                                          initiate … anything that goes live should be a marked branch so we can easily
+#                                          roll back to it." No agent promotes on its own judgement, not at 0 connections,
+#                                          not for a "hotfix"; the nightly roll is retired (its timer is disabled and
+#                                          `roll` refuses). An agent says "on dev, candidate <id>, awaiting Harry's go".
+#   tools/release.sh promote-now --harry [--warn S] [ID]   put the candidate (or ID) live: banner 60 s (S) when seats are
+#                                          connected, a copy of the campaigns, the swap, the checks, automatic rollback on
+#                                          a failed check. --harry is required: run it only on Harry's word, in the turn
+#                                          he gave it.
+#   MARKED: every release that goes live (promote-now or rollback) gets git tag live-<release id> on the commit it was
+#           cut from, and the branch `live` is moved to that commit; both are pushed to origin. `git log live` is what
+#           players have; `git checkout live-<id>` is any earlier one; promote-now <id> brings a kept one back.
 #   tools/release.sh rollback [--warn S]   back to the release before the current one (banner 30 s), checked the same way
 #   tools/release.sh verify                prod's checks now; changes nothing
 #   tools/release.sh status | list
 #
 # Every roll / promote / rollback is one line in $STATE/rolls.log, candidates one line in $STATE/candidates.log,
 # details in $STATE/logs/. No mail, no page: silence is the default (read the log).
-# The roll time: /etc/systemd/system/tw-release-roll.timer (OnCalendar; the banner text follows the clock).
+# tw-release-roll.timer (the old nightly roll) is disabled since 2026-10-22; do not re-enable it.
 set -euo pipefail
 TOOLS="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(dirname "$TOOLS")"
@@ -50,6 +53,20 @@ conns() { health "$PROD_PORT" | python3 -c 'import sys,json
 try: print(json.load(sys.stdin).get("conns", 0))
 except Exception: print(0)'; }
 jget() { python3 -c 'import sys,json; print(json.load(open(sys.argv[1])).get(sys.argv[2], ""))' "$1" "$2"; }
+# mark_live <release id>: tag live-<id> on the release's commit, move branch `live` there, push both (Harry, 2026-10-22).
+# Never fails the swap: a marking problem is logged and said, and prod stays as the swap left it.
+mark_live() {
+  local id=$1 sha; sha=$(jget "$STATE/releases/$id/release.json" git)
+  [[ -n "$sha" ]] || { roll_log "mark: $id has no git commit in release.json; not marked"; return 0; }
+  local G=(git -C "$MAIN") P=(env GH_CONFIG_DIR=$HOME/.config/gh git -C "$MAIN")
+  "${G[@]}" rev-parse -q --verify "refs/tags/live-$id" >/dev/null || "${G[@]}" tag -a "live-$id" "$sha" -m "live on turnipworks.net from $(now) (release $id)" || true
+  "${G[@]}" update-ref refs/heads/live "$sha" || true
+  if "${P[@]}" push -q origin "refs/tags/live-$id" "+refs/heads/live:refs/heads/live" 2>&1; then
+    roll_log "marked: tag live-$id + branch live -> ${sha:0:8} (pushed)"
+  else
+    roll_log "marked locally: tag live-$id + branch live -> ${sha:0:8}; PUSH FAILED (push them by hand)"
+  fi
+}
 
 prune() {
   local keep=" $(link_id current) $(link_id previous) $(link_id candidate) $(cat "$STATE/rolling" 2>/dev/null || true) "
@@ -105,7 +122,7 @@ PY
   set_link candidate "$ID"
   printf '%s\tcandidate %s (git %s, client %s, tuner %s)\n' "$(now)" "$ID" "$SHORT" "$V" "$TV" >> "$STATE/candidates.log"
   echo "release candidate $ID (git $SHORT, client $V, tuner $TV; own relay: $sp)"
-  echo "prod is $(link_id current); the nightly roll promotes the candidate (tools/release.sh status)"
+  echo "prod is $(link_id current); the candidate goes live only on Harry's word (tools/release.sh promote-now --harry)"
   prune
 }
 
@@ -170,7 +187,8 @@ swap_to() {
   rm -f "$STATE/rolling"
   local why; why=$(grep -m1 'VERIFY FAILED' "$log" | sed -E 's/.*"failed":\[([^]]*)\].*/\1/' | cut -c1-300 || true)
   case $rc in
-    0) roll_log "$what OK: $cur -> $target ($(grep -m1 'connections:' "$log" | sed -E 's/^[^ ]+ //' | cut -c1-80); log $(basename "$log"))" ;;
+    0) mark_live "$target"
+       roll_log "$what OK: $cur -> $target ($(grep -m1 'connections:' "$log" | sed -E 's/^[^ ]+ //' | cut -c1-80); log $(basename "$log"))" ;;
     1) roll_log "$what FAILED VERIFY, ROLLED BACK: $cur -> $target -> $cur (why: $why; log $(basename "$log"))"
        [[ "$what" == rollback ]] || printf '%s\t%s\t%s\n' "$target" "$(now)" "$why" >> "$STATE/rejected" ;;
     3) roll_log "$what ABORTED before the swap: the copy of the campaigns failed (log $(basename "$log"))" ;;
@@ -182,17 +200,18 @@ swap_to() {
 }
 
 cmd_roll() {
-  exec 7>/tmp/tw-release-roll.lock; flock -n 7 || { echo "another roll is running"; exit 0; }
-  local cand cur; cand=$(link_id candidate); cur=$(link_id current)
-  if [[ -z "$cand" ]]; then roll_log "roll: no candidate"; return 0; fi
-  if [[ "$cand" == "$cur" ]]; then roll_log "roll: nothing to do (prod is $cur, the candidate)"; return 0; fi
-  if cut -f1 "$STATE/rejected" | grep -qx "$cand"; then roll_log "roll: candidate $cand was rejected ($(grep -m1 "^$cand" "$STATE/rejected" | cut -f2-)); prod stays $cur"; return 0; fi
-  swap_to "$cand" "${TW_ROLL_WARN:-300}" roll updating
+  # retired 2026-10-22: live moves only on Harry's word (promote-now --harry). Kept so a stray timer firing is harmless.
+  roll_log "roll: refused (the nightly roll is retired; live moves only by promote-now --harry). candidate $(link_id candidate), prod $(link_id current)"
+  return 0
 }
 cmd_promote_now() {
   exec 7>/tmp/tw-release-roll.lock; flock -n 7 || { echo "a roll is running"; exit 1; }
-  local warn=60 target=""
-  while [[ $# -gt 0 ]]; do case "$1" in --warn) warn=$2; shift 2;; *) target=$1; shift;; esac; done
+  local warn=60 target="" harry=""
+  while [[ $# -gt 0 ]]; do case "$1" in --warn) warn=$2; shift 2;; --harry) harry=1; shift;; *) target=$1; shift;; esac; done
+  if [[ -z "$harry" ]]; then
+    echo "REFUSED: live moves only when Harry initiates it (2026-10-22). On his word: tools/release.sh promote-now --harry [ID]"
+    echo "candidate $(link_id candidate), prod $(link_id current)"; exit 1
+  fi
   target=${target:-$(link_id candidate)}
   [[ -n "$target" && -d "$STATE/releases/$target" ]] || { echo "no such release: '$target' (tools/release.sh list)"; exit 1; }
   [[ "$target" != "$(link_id current)" ]] || { echo "$target is already prod"; exit 0; }
@@ -215,7 +234,7 @@ cmd_status() {
   echo "prod relay :$PROD_PORT $(health "$PROD_PORT")"
   echo "dev relay  :$DEV_PORT $(health "$DEV_PORT")"
   echo "dev serves client $(grep -oE "TW_V = '[0-9]+'" "$DEV_WEB/engine/client/index.turnipworks.html" | grep -oE '[0-9]+'), tuner $(jget "$DEV_WEB/tuner/version.json" v)"
-  systemctl list-timers tw-release-roll.timer --no-pager 2>/dev/null | sed -n 2p | sed 's/^/next roll: /' || true
+  echo "live moves only on Harry's word: tools/release.sh promote-now --harry (branch live = $(git -C "$MAIN" rev-parse --short live 2>/dev/null || echo none))"
   echo "last rolls ($STATE/rolls.log):"; tail -n 5 "$STATE/rolls.log" | sed 's/^/  /'
   [[ -s "$STATE/rejected" ]] && { echo "rejected candidates:"; tail -n 3 "$STATE/rejected" | sed 's/^/  /'; }
   return 0
@@ -230,5 +249,6 @@ case "${1:-}" in
   verify) id=$(link_id current); res=$(run_verify "$id") && { echo "prod $id verified: $res"; } || { echo "prod $id NOT verified: $res"; exit 1; } ;;
   status) cmd_status ;;
   list) cmd_list ;;
-  *) sed -n '2,30p' "$0"; exit 2 ;;
+  mark) shift; mark_live "${1:-$(link_id current)}" ;;
+  *) sed -n '2,36p' "$0"; exit 2 ;;
 esac

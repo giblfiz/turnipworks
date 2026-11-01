@@ -1,0 +1,4 @@
+orb-charmed | tries: 1 | PASS: one whole subject, clear margins, RGBA corners alpha 0, pink heart, no text; FAIL: none | A tilted hot-pink painted heart with a thick brown outline.
+orb-stunned | tries: 1 | PASS: one whole subject, clear visual margins, RGBA corners alpha 0, yellow five-point star, no text; FAIL: none | A plump golden-yellow star with rounded points and a thick brown outline.
+orb-frightened-ghost | tries: 1 | PASS: one whole subject, clear visual margins, RGBA corners alpha 0, purple ghost, no text; FAIL: none | A lavender sheet ghost with wide frightened eyes, an open mouth, and a wavy hem.
+orb-frightened-bang | tries: 1 | PASS: one whole paired-mark subject, clear visual margins, RGBA corners alpha 0, red marks, only allowed !! glyphs; FAIL: none | Two chunky red exclamation marks stand side by side with dark brown outlines.

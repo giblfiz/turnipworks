@@ -1,0 +1,278 @@
+{
+ "sideboard-open": {
+  "blind": {
+   "see": "wooden sideboard cabinet with open side doors showing dishes and bottles inside",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  }
+ },
+ "wall-window-small-open--temple-stone": {
+  "blind": {
+   "see": "stone wall section with arched window and open shutters",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text. None (same cream sandstone wall, masonry layout, cornice molding, gothic arch, and amber diamond leaded glass; only the open/shut state differs).",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  }
+ },
+ "floor-trapdoor-open--dressed-stone": {
+  "blind": {
+   "see": "stone floor hatch with raised wooden trapdoor lid and ladder",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text; none besides open/shut state",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  }
+ },
+ "casket-ornate-open": {
+  "blind": {
+   "see": "red and gold chest with raised open lid",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text; none besides open/shut state",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  }
+ },
+ "wall-window-small--fieldstone": {
+  "blind": {
+   "see": "stone wall section with closed wooden window shutters",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "No visible labels or text. Differs in overall proportions (Left is wide/squarish; Right is a tall, narrow rectangle), stone scale and coursing (8 courses of large smooth greenish stones vs. 12 courses of smaller stones with yellow-green moss mortar), wood color (dull pale tan vs. bright golden-orange), shutter construction (single-plank with ring handles vs. double-plank with central drop handles and rivets), and lintel dimensions.",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": false
+  }
+ },
+ "bread-oven": {
+  "blind": {
+   "see": "stone dome oven with wheat carving and closed metal door",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  }
+ },
+ "trunk-travel-open--s1": {
+  "blind": {
+   "see": "wooden chest with green straps and raised open lid",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text; none besides open/shut state",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  }
+ },
+ "smith-farrier-box": {
+  "blind": {
+   "see": "green wooden tool chest with anvil markings, closed lid, and open side drawer with clover emblem",
+   "state": "OPEN",
+   "conf": 60,
+   "ok": false
+  }
+ },
+ "rural-tack-trunk-open": {
+  "blind": {
+   "see": "wooden chest with red interior lining and raised open lid",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "No visible labels or text; hardware material and color differ (bright gold/brass on right vs. dark grey/iron on left), latch design/ornament differs, and wood coloration/grain texture differs (bright yellow-orange with visible painted grain lines on right vs. muted tan on left)",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": false
+  }
+ },
+ "wall-window-small-open--castle-rough": {
+  "blind": {
+   "see": "stone wall section with open wooden window shutters",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "No visible labels or text. Entirely different design: Left is a smooth greenish-grey stone wall with an arrow slit and no wooden shutters or hinges; Right is a dark brown/grey beveled stone wall with thick yellowish mortar, a deep window embrasure, and wooden board shutters with heavy iron hinges.",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": false
+  }
+ },
+ "wall-window-small-open--tower-stone": {
+  "blind": {
+   "see": "yellow stone wall section with arched window and open shutters",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "No visible labels or text. Differs in stone surface finish (smooth/flat-shaded vs. heavily chiseled rock-face texture), color palette (muted uniform tan vs. saturated golden-yellow with reddish/brown accent blocks), block layout and coursing, and the addition of external hinged metal casements and articulated arch voussoirs on the right.",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": false
+  }
+ },
+ "door-plank-open--dressed-stone--common": {
+  "blind": {
+   "see": "stone doorway frame with open wooden plank door",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  }
+ },
+ "salt-box-open": {
+  "blind": {
+   "see": "wooden flour bin with scoop, lid raised open, filled with white grains",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  }
+ },
+ "chest-treasure": {
+  "blind": {
+   "see": "wooden treasure chest with gold fittings, closed lid",
+   "state": "SHUT",
+   "conf": 99,
+   "ok": true
+  }
+ },
+ "wall-window-small--rough-timber--s2": {
+  "blind": {
+   "see": "wooden wall panel with closed reddish window shutters",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  }
+ },
+ "floor-trapdoor-open--rough-timber": {
+  "blind": {
+   "see": "wooden floor hatch with open trapdoor and ladder down",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text. None (same design, materials, colours, and hardware; only the open/shut state differs, revealing the interior shaft and ladder).",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  }
+ },
+ "cage-sacrifice-open": {
+  "blind": {
+   "see": "wooden barred cage with open gate door and padlock",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text; none besides open/shut state",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  }
+ },
+ "wall-window-small--rough-timber": {
+  "blind": {
+   "see": "wooden wall section with closed wooden window shutters",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  }
+ },
+ "wall-window-small--noble-panel": {
+  "blind": {
+   "see": "wainscot wall segment with closed multi-pane casement window",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  }
+ },
+ "iron-maiden": {
+  "blind": {
+   "see": "metal iron maiden torture sarcophagus, closed shut",
+   "state": "SHUT",
+   "conf": 99,
+   "ok": true
+  }
+ },
+ "rural-grooming-box": {
+  "blind": {
+   "see": "wooden storage box with handle, closed lid and clasp",
+   "state": "SHUT",
+   "conf": 99,
+   "ok": true
+  }
+ },
+ "door-reinforced-open--rough-timber": {
+  "blind": {
+   "see": "wooden door swung open in its frame",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  }
+ },
+ "oubliette-hatch-open": {
+  "blind": {
+   "see": "stone pit hatch with lifted open metal grate",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text. None (same stone rim, iron grate bars, hinges, ring handle, and padlock; only the open/shut state differs, revealing the interior stone-lined pit).",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  }
+ },
+ "trunk-travel-open--s2": {
+  "blind": {
+   "see": "green chest with gold trim, lid raised wide open",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "No visible labels or text; none besides open/shut state",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  }
+ }
+}

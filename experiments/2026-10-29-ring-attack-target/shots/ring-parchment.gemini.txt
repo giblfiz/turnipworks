@@ -1,0 +1,42 @@
+### Visible Text Labels
+* **Left screenshot:** `Turn`, `Sheet`, `Damage`, `Attack`, `All options` (along the top arc); `Thorin` (nameplate below).
+* **Right screenshot:** `Sheet`, `Damage`, `Target`, `All options` (along the top arc); `Goblin 1` (nameplate below).
+
+---
+
+### Buttons: Depiction & Action
+
+**Left Screenshot (`Thorin` — player's pawn)**
+1. **`Turn`:** An isometric wooden crate with a curved grey two-way arrow wrapping around its base. **Action:** Rotate / change the facing orientation of the selected pawn or token.
+2. **`Sheet`:** A square parchment page with a folded top-right corner, a teal pawn silhouette on the left, and two horizontal dark bars on the right. **Action:** Open the character sheet / stats for this pawn.
+3. **`Damage`:** A cracked red heart on the left and a dark grey horizontal minus (`-`) bar on the right. **Action:** Apply damage / subtract HP from this pawn.
+4. **`Attack`:** Two crossed steel broadswords with brown/gold hilts pointing upward. **Action:** Initiate an attack with this pawn.
+5. **`All options`:** Three stacked horizontal dark grey bars (hamburger menu). **Action:** Open the overflow menu showing all other available actions.
+
+**Right Screenshot (`Goblin 1` — another pawn)**
+1. **`Sheet`:** Same folded parchment page with teal pawn silhouette and two horizontal bars. **Action:** Open/inspect this pawn's stat sheet.
+2. **`Damage`:** Same cracked red heart with a dark grey minus (`-`) bar. **Action:** Apply damage / subtract HP from this pawn.
+3. **`Target`:** A small teal pawn silhouette in the center surrounded by a red circular reticle with four inward-pointing triangle ticks and four outer red L-shaped corner brackets. **Action:** Mark/designate this pawn as the current target being aimed at.
+4. **`All options`:** Same three stacked horizontal dark grey bars. **Action:** Open the overflow menu for all other actions on this pawn.
+
+---
+
+### Evaluation
+
+**(1) Icon family cohesion**
+* **Overall:** Yes, they read as one painted icon family—they share the same circular medallion size, warm beveled gold/tan rim, parchment ground, soft 3D painted shading with contact shadows, and a consistent palette (crimson red, slate grey, muted teal, warm wood/metal).
+* **Outliers / tension points:**
+  * **`Target`** feels slightly more crowded and graphic/HUD-like than the rest because it stacks two targeting conventions at once (a circular crosshair with triangular wedges *plus* four square outer corner brackets) made of smaller, sharper shapes than the chunky forms in `Damage` or `All options`.
+  * **`Turn`** uses a literal 3D wooden prop (a crate) rather than a symbolic UI glyph or pawn silhouette, and its inner ground reads slightly brighter around the crate.
+  * **`Sheet`** places a square parchment sheet on top of the circular parchment ground, though the rendering style matches.
+
+**(2) Legibility at this size**
+* **Yes, every button is legible at this size**, with two minor caveats:
+  * In **`Turn`**, the wooden crate reads first as "move/rotate prop" rather than "rotate character," and the thin grey rotation arrow is somewhat low-contrast against the crate and rim.
+  * In **`Target`**, the action is clear, but the extra corner brackets make the silhouette dense at gameplay scale.
+
+**(3) New buttons (`Attack` and `Target`)**
+* **`Attack` (crossed swords): FITS.** It matches the medallion ground, rim, lighting, drop shadows, warm metallic palette, and bold, chunky silhouette weight of the existing set, and reads immediately as Attack at this size.
+* **`Target` (red reticle around a pawn): FITS** in palette, lighting, and painted rendering style (matching the red of `Damage` and the teal pawn of `Sheet`), **or DOES NOT FIT** strictly on shape simplicity/silhouette weight compared to the rest of the family.
+  * **Reason:** Stacking the four outer L-shaped corner brackets around the circular reticle makes it look slightly like a modern/sci-fi lock-on HUD and crowds the inner rim, whereas the rest of the set uses bold, simple shapes with more breathing room.
+  * **What to change:** Remove the four outer L-shaped corner brackets, keep only the red ring with the four inward ticks (or simple crosshair bars), and scale the central teal pawn up slightly so its weight matches the pawn in `Sheet`.

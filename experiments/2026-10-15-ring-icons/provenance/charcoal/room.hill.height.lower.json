@@ -1,0 +1,71 @@
+{
+  "id": "room.hill.height.lower",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One low flattened green grassy hill mound with ONE large thick ivory DOWNWARD arrow pressing straight down on its top: lower the hill. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/room.height.taller.webp",
+      "sha256": "4003863699fcaaedff3e02c4f680c40c872c09f129c38888c94c4f939e2d2a8c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/edit.lift.webp",
+      "sha256": "4841cfbf07bde1f208509fe1e83275280c4b6b6c3847c586868f1128395bd5fb",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/room.walls.fieldstone.webp",
+      "sha256": "eda226ee808e614d3b49f9c47368551d19e89aeba9391e3ed169baf8129f6229",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/charcoal--room.hill.height.lower.png",
+  "source_sha256": "b6e7a20e29a43dc8704c651bf5315bda9f7c4254dbb50d65fe4fe10a8d9809d3",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/room.hill.height.lower.webp",
+    "19": "charcoal/sizes/19/room.hill.height.lower.webp",
+    "22": "charcoal/sizes/22/room.hill.height.lower.webp",
+    "26": "charcoal/sizes/26/room.hill.height.lower.webp",
+    "31": "charcoal/sizes/31/room.hill.height.lower.webp",
+    "36": "charcoal/sizes/36/room.hill.height.lower.webp",
+    "38": "charcoal/sizes/38/room.hill.height.lower.webp",
+    "42": "charcoal/sizes/42/room.hill.height.lower.webp",
+    "44": "charcoal/sizes/44/room.hill.height.lower.webp",
+    "50": "charcoal/sizes/50/room.hill.height.lower.webp",
+    "52": "charcoal/sizes/52/room.hill.height.lower.webp",
+    "62": "charcoal/sizes/62/room.hill.height.lower.webp",
+    "84": "charcoal/sizes/84/room.hill.height.lower.webp",
+    "100": "charcoal/sizes/100/room.hill.height.lower.webp",
+    "128": "charcoal/room.hill.height.lower.webp"
+  },
+  "sha256": {
+    "18": "2b9948644ccf3df06cb5435d07eec423ddb39ebb222db02f2dc3429500f9f2b1",
+    "19": "6a05bbc114ad6eb2a65e8684a4b8218678e367d04d7607f3faf5fdeeff3f974b",
+    "22": "f8e4ffdbe69ca35cb75b0aa5f42ab96a142c8f2ede253f3978d036276838f953",
+    "26": "f0cc030ba57d74b581a2bc807675df79a524fc65d4a4ce55170d73bcebdebb7a",
+    "31": "82e186180442b4e3a3bbb788a9c784ff6a783bf22aec8518b5847c82f93c8915",
+    "36": "743f2a9d9bc40c62031c3527cccad2138ba2e81675693c920e6256f69c9a521b",
+    "38": "c7713b356e0761f4339cd46a7d3819c7bf1209fe97e275a2471d2ba89f81c6db",
+    "42": "ff1f3a725981694e9f262f22dcf31537165429ff4c3828e510e4388fb3d4ab1c",
+    "44": "def0bf5a2f4928be3cbb87caa1d99ae4ec03ea037fa4a730e1f24610a57246b8",
+    "50": "425e00d3ddcbe6668adb42dafd842f9a5b470fb5ba5be1998c83e6f1eda6b4cf",
+    "52": "d514af576c0d1e6fd3c77485158c1a2ce322e496c0eed8ddd57215f67332dde4",
+    "62": "1e18e38461be0113647f56cfe2f7511d4441a2feffa471b6e6befc457fddfd57",
+    "84": "79a196d33adbe39da77a0ec64ac504980ce68d051ab3cf65803396fed2254fd1",
+    "100": "0609e6ee1fe127d05602537cc06f6be4fcb0cc2bbb1919f20b79a943ff4a29d5",
+    "128": "bd83dd4b1a905d5b9706a5048d23a3ada9f0c3b80735f71f53f95fe4311c48c6"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "bd447c3e2f57dbb7f6ee629c9197ec0e9484585d101b621786b60a858890fccf",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/charcoal/room.hill.height.lower/b6e7a20e29a43dc8-2ed1ac590f"
+}

@@ -1,0 +1,42 @@
+### Visible Text Labels in [ring-charcoal.png](file://experiments/2026-10-29-ring-attack-target/shots/ring-charcoal.png)
+
+* **Left screenshot:**
+  * Arc labels (left to right): `Turn`, `Sheet`, `Damage`, `Attack`, `All options`
+  * Pawn nameplate: `Thorin`
+* **Right screenshot:**
+  * Arc labels (left to right): `Sheet`, `Damage`, `Target`, `All options`
+  * Pawn nameplate: `Goblin 1`
+
+---
+
+### Buttons: Icon Depiction & Action
+
+**Left Screenshot (`Thorin` — player's pawn):**
+1. **`Turn`:** A wooden crate encircled at the base by a curved cream arrow pointing right. **Action:** Rotate/change the pawn's facing direction.
+2. **`Sheet`:** A curled parchment page showing a teal pawn silhouette above two horizontal lines. **Action:** Open the pawn's character/stat sheet.
+3. **`Damage`:** A glossy red heart split down the center by a jagged crack. **Action:** Apply damage or modify HP.
+4. **`Attack`:** Two crossed silver broadswords with dark crossguards and warm tan/gold grips. **Action:** Make an attack with this pawn.
+5. **`All options`:** Three thick horizontal cream bars (hamburger menu). **Action:** Open the full overflow menu of actions.
+
+**Right Screenshot (`Goblin 1` — other pawn):**
+1. **`Sheet`:** Parchment page with a teal pawn silhouette and two lines of text. **Action:** View this pawn's stat sheet.
+2. **`Damage`:** Cracked red heart split down the middle. **Action:** Apply damage or modify this pawn's HP.
+3. **`Target`:** A teal 3D pawn surrounded by a red circular reticle with four corner brackets and four inward-pointing arrowheads. **Action:** Mark/designate this pawn as the target being aimed at.
+4. **`All options`:** Three thick horizontal cream bars. **Action:** Open the full overflow menu of actions for this pawn.
+
+---
+
+### Evaluation
+
+**(1) Do all the buttons look like one painted icon family?**
+* **Yes.** All buttons share the same circular size, dark charcoal ground, beveled slate rim, soft directional lighting, and chunky hand-painted rendering style.
+* **Minor outliers:**
+  * **`Target`** is slightly more geometrically complex and crowded near the rim (combining a ring, four arrowheads, and four corner brackets) in a brighter red than `Damage`, whereas the rest of the family uses simpler, chunkier silhouettes with more negative space.
+  * **`Turn`** uses a detailed 3D wooden crate rather than a bold graphic symbol, though its palette and brushwork still blend into the set.
+
+**(2) Is each button legible at this size?**
+* **Yes.** Every button reads clearly at gameplay scale. `Sheet`, `Damage`, `Attack`, and `All options` read at a glance; `Turn` reads clearly via the curved arrow; `Target` reads clearly as aiming at a pawn despite the denser reticle detail.
+
+**(3) New Buttons (`Attack` and `Target`):**
+* **Attack (crossed swords): FITS.** It matches the charcoal ground, rim, chunky proportions, lighting, and warm metal/cream palette of the existing icons, and reads immediately as "Attack."
+* **Target (red reticle around a pawn): FITS.** It shares the exact ground, rim, and painted style, reuses the teal pawn motif from `Sheet` for visual continuity, and clearly communicates targeting a pawn. *(Optional refinement: if you ever simplify it, dropping the four outer corner brackets and keeping just the red ring + inward arrowheads would give it the same chunky breathing room as `Attack` and `Damage`.)*

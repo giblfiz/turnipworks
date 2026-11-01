@@ -1,0 +1,50 @@
+{
+  "experiment": "fal",
+  "generated_at": "2026-10-24T12:21:20.481661+00:00",
+  "assets": [
+    {
+      "asset": "flavor-buttress--dragons-fct",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a16ddb-6345-75f0-865c-b0d456c53d8d",
+      "started_at": "2026-10-24T12:20:56.195969+00:00",
+      "finished_at": "2026-10-24T12:21:20.460343+00:00",
+      "elapsed_seconds": 24.26,
+      "input": "inputs/flavor-buttress--dragons-fct.png",
+      "input_sha256": "02090bbd38c8fe5693339c9f91fdc2d0bb53a99ea192690f857eba4ea95e6e32",
+      "output": "models/flavor-buttress--dragons-fct.glb",
+      "output_sha256": "4bc49823c561d0a20216c70f4f8586f709e8ee417ec264666e113b86d3118bce",
+      "output_bytes": 3296752,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    },
+    {
+      "asset": "flavor-pillar--dragons-fct",
+      "provider": "fal.ai",
+      "model": "fal-ai/trellis-2",
+      "request_id": "01a16dd8-c139-7a00-8b0e-d8918f9d3069",
+      "started_at": "2026-10-24T12:18:03.725609+00:00",
+      "finished_at": "2026-10-24T12:19:59.925542+00:00",
+      "elapsed_seconds": 116.2,
+      "input": "inputs/flavor-pillar--dragons-fct.png",
+      "input_sha256": "26bd69e77cdb51217d7bb2e930c82343de05fc7d45a868020a3230522980d802",
+      "output": "models/flavor-pillar--dragons-fct.glb",
+      "output_sha256": "57eb245ddf6e196011b3a5cf8effd90aee045a9c06c0363d29f38ce3caff745b",
+      "output_bytes": 3297244,
+      "settings": {
+        "resolution": "1024",
+        "decimation_target": 50000,
+        "texture_size": "2048",
+        "remesh": true
+      },
+      "estimated_cost_usd": 0.3
+    }
+  ],
+  "estimated_total_cost_usd": 0.6,
+  "failed": []
+}

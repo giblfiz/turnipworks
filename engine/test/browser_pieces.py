@@ -280,8 +280,8 @@ async def main():
         await gm.evaluate(f"tw.dispatch('entity.flag', {{ ids: ['{U}'], hidden: true }})"); await wait(pl, f"!tw.entities()['{U}']", 8000); await pl.wait_for_timeout(500)
         check(await pl.evaluate(f"{W}.rails().filter(r => r.y === 10 && r.x < 60).length") == 0, 'hide the upper room: the player has no railing there (and no stair, no hole)')
         await gm.evaluate(f"tw.dispatch('entity.flag', {{ ids: ['{U}'], hidden: false }})"); await wait(pl, f"tw.entities()['{U}']", 8000)
-        # a pawn is not kept off the landing: dropped on the stair's foot square it arrives upstairs beyond the top
-        hop = await gm.evaluate(f"tw.ST.stairHop(tw.entities(), {st['x']}, {st['z']}, 0)")
+        # a pawn is not kept off the landing: walked up the stair (2026-10-26: a stair is walked, never hopped) it steps off its top onto the landing beyond it
+        hop = await gm.evaluate(f"(() => {{ const E = tw.entities(), s = E['{SID}']; return s && tw.ST.stairEnds(s, E).top; }})()")
         check(hop and abs(hop['y'] - 10) < 0.1 and not any(abs(r['x'] - hop['x']) < 2.4 and abs(r['z'] - hop['z']) < 2.4 for r in mine), 'the top landing a pawn arrives on has no railing on it', json.dumps(hop))
 
         # ================= TALL =================

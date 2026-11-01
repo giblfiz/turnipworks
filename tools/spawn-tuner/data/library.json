@@ -8625,25 +8625,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "inn-01",
-     "model": {
-      "stars": 3,
-      "note": "",
-      "masking": false
-     },
+     "src": "openmesh-01",
+     "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/bread-oven.glb",
      "lod": "default",
      "tex": 256,
-     "mesh": "inn-01/bread-oven@9c452a55",
+     "mesh": "openmesh-01/bread-oven@8affe1f6",
+     "was": [
+      {
+       "mesh": "inn-01/bread-oven@9c452a55",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "8affe1f6",
      "bounds": [
-      0.91408,
-      1.02231,
-      1.0042
+      0.89754,
+      1.0224,
+      1.0111
      ],
      "faces": 5000,
-     "kb": 275
+     "kb": 272
     }
    ]
   },
@@ -10886,6 +10889,57 @@
     "cult"
    ]
   },
+  "cage-sacrifice-open": {
+   "id": "cage-sacrifice-open",
+   "desc": "wooden cage with its door swung open, empty",
+   "place": "floor",
+   "fp": "1",
+   "size": [
+    48.0,
+    60.0,
+    72.0
+   ],
+   "scale": [
+    0.8,
+    1.3
+   ],
+   "mat": "wood",
+   "aff": [
+    "open"
+   ],
+   "gen": "mesh",
+   "pri": "P1",
+   "hint": "open state of cage-sacrifice; the captive got away",
+   "var": [],
+   "skus": [
+    {
+     "sku": "cage-sacrifice-open",
+     "family": "",
+     "tier": "cult",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/cage-sacrifice-open.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "openmesh-01/cage-sacrifice-open@71ec0500",
+     "bounds": [
+      0.78323,
+      0.87149,
+      0.9964
+     ],
+     "faces": 5000,
+     "kb": 272
+    }
+   ],
+   "open_of": "cage-sacrifice",
+   "only": [
+    "cult"
+   ]
+  },
   "cake-round": {
    "id": "cake-round",
    "desc": "round frosted cake",
@@ -12642,6 +12696,56 @@
     }
    ]
   },
+  "casket-ornate-open": {
+   "id": "casket-ornate-open",
+   "desc": "small ornate casket with its lid open, velvet-lined, empty",
+   "place": "surface",
+   "fp": "tiny",
+   "size": [
+    10.0,
+    9.0,
+    13.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "mixed",
+   "aff": [
+    "carry",
+    "loot",
+    "open"
+   ],
+   "gen": "mesh",
+   "pri": "P1",
+   "hint": "open state of casket-ornate",
+   "var": [],
+   "skus": [
+    {
+     "sku": "casket-ornate-open",
+     "family": "",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/casket-ornate-open.glb",
+     "lod": "small",
+     "tex": 128,
+     "mesh": "openmesh-01/casket-ornate-open@ea96eb4f",
+     "bounds": [
+      1.0051,
+      1.03351,
+      0.90437
+     ],
+     "faces": 3000,
+     "kb": 181
+    }
+   ],
+   "open_of": "casket-ornate"
+  },
   "cat-bed-basket": {
    "id": "cat-bed-basket",
    "desc": "empty cat basket with blanket",
@@ -13247,6 +13351,53 @@
      ],
      "faces": 5000,
      "kb": 218
+    }
+   ]
+  },
+  "cell-bars-post": {
+   "id": "cell-bars-post",
+   "desc": "iron corner and end post for a run of cell bars",
+   "place": "kit",
+   "fp": "edge",
+   "size": [
+    8.0,
+    8.0,
+    108.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "metal",
+   "aff": [
+    "block"
+   ],
+   "gen": "kit",
+   "pri": "P1",
+   "hint": "stands where two bar sections meet at a corner and at a run's free end; snaps like a post; seen through like the bars (generated 2026-10-27)",
+   "var": [],
+   "skus": [
+    {
+     "sku": "cell-bars-post",
+     "family": "",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "bars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/cell-bars-post.glb",
+     "lod": "kit",
+     "tex": 256,
+     "mesh": "bars-01/cell-bars-post@efb3f95c",
+     "bounds": [
+      0.10336,
+      1.00253,
+      0.10347
+     ],
+     "faces": 5000,
+     "kb": 185
     }
    ]
   },
@@ -15762,21 +15913,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "crypt-01",
+     "src": "openmesh-01",
      "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/chest-treasure.glb",
      "lod": "default",
      "tex": 256,
-     "mesh": "crypt-01/chest-treasure@2bef3056",
-     "bounds": [
-      1.06026,
-      1.01598,
-      0.82091
+     "mesh": "openmesh-01/chest-treasure@e43cbcb9",
+     "was": [
+      {
+       "mesh": "crypt-01/chest-treasure@2bef3056",
+       "until": "2026-10-30T18:00:00-0700"
+      }
      ],
-     "faces": 5000,
-     "kb": 314
+     "rev": "e43cbcb9",
+     "bounds": [
+      1.00855,
+      0.83972,
+      0.73818
+     ],
+     "faces": 4999,
+     "kb": 278
     }
    ]
   },
@@ -23202,21 +23360,28 @@
      "tier": "",
      "shape": "dressed-stone--common",
      "piece": "",
-     "src": "inn-02",
+     "src": "openmesh-01",
      "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/door-plank-open--dressed-stone--common.glb",
      "lod": "kit",
      "tex": 256,
-     "mesh": "inn-02/door-plank-open--dressed-stone--common@a34d5295",
+     "mesh": "openmesh-01/door-plank-open--dressed-stone--common@c21e6dca",
+     "was": [
+      {
+       "mesh": "inn-02/door-plank-open--dressed-stone--common@a34d5295",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "c21e6dca",
      "bounds": [
-      0.68914,
-      1.01716,
-      0.32917
+      0.797,
+      1.00947,
+      0.76608
      ],
      "faces": 5000,
-     "kb": 244
+     "kb": 253
     },
     {
      "sku": "door-plank-open--rough-timber--common",
@@ -23410,21 +23575,28 @@
      "tier": "",
      "shape": "rough-timber",
      "piece": "",
-     "src": "inn-02",
+     "src": "openmesh-01",
      "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/door-reinforced-open--rough-timber.glb",
      "lod": "kit",
      "tex": 256,
-     "mesh": "inn-02/door-reinforced-open--rough-timber@ca6060a5",
+     "mesh": "openmesh-01/door-reinforced-open--rough-timber@87104b9a",
+     "was": [
+      {
+       "mesh": "inn-02/door-reinforced-open--rough-timber@ca6060a5",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "87104b9a",
      "bounds": [
-      0.78895,
-      1.00941,
-      0.48689
+      0.81266,
+      1.00696,
+      0.58687
      ],
      "faces": 5000,
-     "kb": 236
+     "kb": 239
     }
    ],
    "open_of": "door-reinforced"
@@ -27515,6 +27687,33 @@
    ],
    "skus": [
     {
+     "sku": "flavor-buttress--death-fct",
+     "family": "",
+     "tier": "",
+     "shape": "death",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--death-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--death-fct@e55aab84",
+     "size": [
+      56.0,
+      108.0,
+      108.0
+     ],
+     "bounds": [
+      1.00011,
+      1.00213,
+      0.52336
+     ],
+     "faces": 4999,
+     "kb": 274
+    },
+    {
      "sku": "flavor-buttress--devils",
      "family": "",
      "tier": "",
@@ -27542,6 +27741,60 @@
      "kb": 246
     },
     {
+     "sku": "flavor-buttress--dragons-fct",
+     "family": "",
+     "tier": "",
+     "shape": "dragons",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--dragons-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--dragons-fct@2aa561db",
+     "size": [
+      47.0,
+      108.0,
+      84.0
+     ],
+     "bounds": [
+      0.43213,
+      0.78628,
+      1.00103
+     ],
+     "faces": 5000,
+     "kb": 277
+    },
+    {
+     "sku": "flavor-buttress--forge-hammer-fct",
+     "family": "",
+     "tier": "",
+     "shape": "forge-hammer",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--forge-hammer-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--forge-hammer-fct@c53f3174",
+     "size": [
+      27.0,
+      108.0,
+      84.0
+     ],
+     "bounds": [
+      0.99517,
+      0.77287,
+      0.24993
+     ],
+     "faces": 5000,
+     "kb": 246
+    },
+    {
      "sku": "flavor-buttress--moon",
      "family": "",
      "tier": "",
@@ -27562,6 +27815,114 @@
      ],
      "faces": 5000,
      "kb": 247
+    },
+    {
+     "sku": "flavor-buttress--nature-fct",
+     "family": "",
+     "tier": "",
+     "shape": "nature",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--nature-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--nature-fct@bb113238",
+     "size": [
+      50.0,
+      108.0,
+      96.0
+     ],
+     "bounds": [
+      0.46557,
+      0.90797,
+      1.00232
+     ],
+     "faces": 5000,
+     "kb": 282
+    },
+    {
+     "sku": "flavor-buttress--scales-coin-fct",
+     "family": "",
+     "tier": "",
+     "shape": "scales-coin",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--scales-coin-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--scales-coin-fct@da867127",
+     "size": [
+      30.0,
+      108.0,
+      98.0
+     ],
+     "bounds": [
+      0.28086,
+      0.91243,
+      0.99788
+     ],
+     "faces": 5000,
+     "kb": 281
+    },
+    {
+     "sku": "flavor-buttress--sea-storm-fct",
+     "family": "",
+     "tier": "",
+     "shape": "sea-storm",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--sea-storm-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--sea-storm-fct@8eea79d4",
+     "size": [
+      21.0,
+      108.0,
+      92.0
+     ],
+     "bounds": [
+      1.00773,
+      0.85864,
+      0.21103
+     ],
+     "faces": 5000,
+     "kb": 299
+    },
+    {
+     "sku": "flavor-buttress--skulls-fct",
+     "family": "",
+     "tier": "",
+     "shape": "skulls",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--skulls-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--skulls-fct@817dbf41",
+     "size": [
+      23.0,
+      108.0,
+      93.0
+     ],
+     "bounds": [
+      1.00206,
+      0.85995,
+      0.21368
+     ],
+     "faces": 4999,
+     "kb": 263
     },
     {
      "sku": "flavor-buttress--spiders",
@@ -27611,6 +27972,60 @@
      ],
      "faces": 5000,
      "kb": 238
+    },
+    {
+     "sku": "flavor-buttress--sword-shield-fct",
+     "family": "",
+     "tier": "",
+     "shape": "sword-shield",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--sword-shield-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--sword-shield-fct@9df4a86f",
+     "size": [
+      30.0,
+      108.0,
+      98.0
+     ],
+     "bounds": [
+      0.9995,
+      0.91621,
+      0.28079
+     ],
+     "faces": 5000,
+     "kb": 279
+    },
+    {
+     "sku": "flavor-buttress--tentacles-fct",
+     "family": "",
+     "tier": "",
+     "shape": "tentacles",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-buttress--tentacles-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-buttress--tentacles-fct@7d4a76cb",
+     "size": [
+      28.0,
+      108.0,
+      89.0
+     ],
+     "bounds": [
+      1.03219,
+      0.84351,
+      0.28058
+     ],
+     "faces": 5000,
+     "kb": 281
     }
    ]
   },
@@ -28430,6 +28845,321 @@
      ],
      "faces": 5000,
      "kb": 273
+    }
+   ]
+  },
+  "flavor-pillar": {
+   "id": "flavor-pillar",
+   "desc": "free-standing column carved in the faction's motif, flat-topped capital to carry a ceiling",
+   "place": "floor",
+   "fp": "sub",
+   "size": [
+    30.0,
+    30.0,
+    120.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "stone",
+   "aff": [
+    "block",
+    "los",
+    "cover"
+   ],
+   "gen": "mesh",
+   "pri": "P1",
+   "hint": "slot 10 (Harry, 2026-10-24: pillars for each faction); placed by hand, snaps like a post (a grid cross or an edge midpoint); one storey tall; no room recipe rolls it",
+   "var": [
+    "shape"
+   ],
+   "skus": [
+    {
+     "sku": "flavor-pillar--death-fct",
+     "family": "",
+     "tier": "",
+     "shape": "death",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--death-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--death-fct@4e050285",
+     "bounds": [
+      0.33032,
+      1.00873,
+      0.33595
+     ],
+     "faces": 5000,
+     "kb": 276
+    },
+    {
+     "sku": "flavor-pillar--devils-fct",
+     "family": "",
+     "tier": "",
+     "shape": "devils",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--devils-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--devils-fct@d8612d2c",
+     "bounds": [
+      0.31097,
+      1.00988,
+      0.31123
+     ],
+     "faces": 4999,
+     "kb": 247
+    },
+    {
+     "sku": "flavor-pillar--dragons-fct",
+     "family": "",
+     "tier": "",
+     "shape": "dragons",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--dragons-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--dragons-fct@42af7f42",
+     "bounds": [
+      0.29455,
+      1.00257,
+      0.37117
+     ],
+     "faces": 5000,
+     "kb": 278
+    },
+    {
+     "sku": "flavor-pillar--forge-hammer-fct",
+     "family": "",
+     "tier": "",
+     "shape": "forge-hammer",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--forge-hammer-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--forge-hammer-fct@266e4c62",
+     "bounds": [
+      0.34893,
+      1.00975,
+      0.34906
+     ],
+     "faces": 5000,
+     "kb": 268
+    },
+    {
+     "sku": "flavor-pillar--moon-fct",
+     "family": "",
+     "tier": "",
+     "shape": "moon",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--moon-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--moon-fct@01237a17",
+     "bounds": [
+      0.29354,
+      1.00788,
+      0.29787
+     ],
+     "faces": 5000,
+     "kb": 237
+    },
+    {
+     "sku": "flavor-pillar--nature-fct",
+     "family": "",
+     "tier": "",
+     "shape": "nature",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--nature-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--nature-fct@5ab77b41",
+     "bounds": [
+      0.35097,
+      1.03322,
+      0.34672
+     ],
+     "faces": 5000,
+     "kb": 260
+    },
+    {
+     "sku": "flavor-pillar--scales-coin-fct",
+     "family": "",
+     "tier": "",
+     "shape": "scales-coin",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--scales-coin-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--scales-coin-fct@219b0059",
+     "bounds": [
+      0.36141,
+      1.00591,
+      0.28247
+     ],
+     "faces": 5000,
+     "kb": 244
+    },
+    {
+     "sku": "flavor-pillar--sea-storm-fct",
+     "family": "",
+     "tier": "",
+     "shape": "sea-storm",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--sea-storm-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--sea-storm-fct@af3c74e0",
+     "bounds": [
+      0.34313,
+      1.00672,
+      0.30666
+     ],
+     "faces": 5000,
+     "kb": 245
+    },
+    {
+     "sku": "flavor-pillar--skulls-fct",
+     "family": "",
+     "tier": "",
+     "shape": "skulls",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--skulls-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--skulls-fct@9cc06ff7",
+     "bounds": [
+      0.35862,
+      1.01096,
+      0.36329
+     ],
+     "faces": 5000,
+     "kb": 276
+    },
+    {
+     "sku": "flavor-pillar--spiders-fct",
+     "family": "",
+     "tier": "",
+     "shape": "spiders",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--spiders-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--spiders-fct@cb5bda00",
+     "bounds": [
+      0.31725,
+      1.02031,
+      0.31439
+     ],
+     "faces": 5000,
+     "kb": 262
+    },
+    {
+     "sku": "flavor-pillar--sun-fct",
+     "family": "",
+     "tier": "",
+     "shape": "sun",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--sun-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--sun-fct@756a0fdb",
+     "bounds": [
+      0.32058,
+      1.0061,
+      0.32161
+     ],
+     "faces": 5000,
+     "kb": 242
+    },
+    {
+     "sku": "flavor-pillar--sword-shield-fct",
+     "family": "",
+     "tier": "",
+     "shape": "sword-shield",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--sword-shield-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--sword-shield-fct@36c244f7",
+     "bounds": [
+      0.37335,
+      1.01303,
+      0.36991
+     ],
+     "faces": 5000,
+     "kb": 280
+    },
+    {
+     "sku": "flavor-pillar--tentacles-fct",
+     "family": "",
+     "tier": "",
+     "shape": "tentacles",
+     "piece": "",
+     "src": "faction-pillars-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/flavor-pillar--tentacles-fct.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "faction-pillars-01/flavor-pillar--tentacles-fct@572d73bb",
+     "bounds": [
+      0.31377,
+      1.00042,
+      0.31852
+     ],
+     "faces": 5000,
+     "kb": 263
     }
    ]
   },
@@ -29689,6 +30419,44 @@
      "model": null,
      "kind": "flat",
      "url": "assets/flat/floor-brick-herringbone-bw--g33.webp",
+     "px": [
+      512,
+      512
+     ]
+    }
+   ]
+  },
+  "floor-cave-rock": {
+   "id": "floor-cave-rock",
+   "desc": "natural cave floor: uneven water-worn rock, dark seams and grit, no joints",
+   "place": "kit",
+   "fp": "1",
+   "size": [
+    60.0,
+    60.0,
+    1.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "stone",
+   "aff": [],
+   "gen": "flat",
+   "pri": "P1",
+   "hint": "natural caves, caverns, dens",
+   "var": [],
+   "skus": [
+    {
+     "sku": "floor-cave-rock",
+     "family": "",
+     "tier": "",
+     "shape": "v1",
+     "piece": "",
+     "src": "caves-01",
+     "model": null,
+     "kind": "flat",
+     "url": "assets/flat/floor-cave-rock.webp",
      "px": [
       512,
       512
@@ -34414,6 +35182,79 @@
     }
    ]
   },
+  "floor-trapdoor-open": {
+   "id": "floor-trapdoor-open",
+   "desc": "floor tile with its hatch raised over a dark hole and a ladder",
+   "place": "kit",
+   "fp": "1",
+   "size": [
+    60.0,
+    60.0,
+    40.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "wood",
+   "aff": [
+    "pass",
+    "hide"
+   ],
+   "gen": "kit",
+   "pri": "P1",
+   "hint": "open state of floor-trapdoor; the way down",
+   "var": [],
+   "skus": [
+    {
+     "sku": "floor-trapdoor-open--dressed-stone",
+     "family": "dressed-stone",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/floor-trapdoor-open--dressed-stone.glb",
+     "lod": "kit",
+     "tex": 256,
+     "mesh": "openmesh-01/floor-trapdoor-open--dressed-stone@70dbf595",
+     "bounds": [
+      0.99378,
+      1.0121,
+      0.989
+     ],
+     "faces": 5000,
+     "kb": 226,
+     "sink": 0.36
+    },
+    {
+     "sku": "floor-trapdoor-open--rough-timber",
+     "family": "rough-timber",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/floor-trapdoor-open--rough-timber.glb",
+     "lod": "kit",
+     "tex": 256,
+     "mesh": "openmesh-01/floor-trapdoor-open--rough-timber@490a1a3c",
+     "bounds": [
+      0.93431,
+      1.00808,
+      0.93798
+     ],
+     "faces": 5000,
+     "kb": 263,
+     "sink": 0.44
+    }
+   ],
+   "open_of": "floor-trapdoor"
+  },
   "floor-water-flooded": {
    "id": "floor-water-flooded",
    "desc": "a flooded stone floor: dark still water with flagstones dim beneath",
@@ -38811,25 +39652,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "castle-01",
-     "model": {
-      "stars": 3,
-      "note": "",
-      "masking": false
-     },
+     "src": "openmesh-01",
+     "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/iron-maiden.glb",
      "lod": "default",
      "tex": 256,
-     "mesh": "castle-01/iron-maiden@e4428238",
+     "mesh": "openmesh-01/iron-maiden@3c0594e6",
+     "was": [
+      {
+       "mesh": "castle-01/iron-maiden@e4428238",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "3c0594e6",
      "bounds": [
-      0.38545,
-      1.00993,
-      0.39951
+      0.4512,
+      1.01235,
+      0.35456
      ],
      "faces": 5000,
-     "kb": 263
+     "kb": 273
     }
    ]
   },
@@ -47485,6 +48329,56 @@
      "kb": 260
     }
    ]
+  },
+  "oubliette-hatch-open": {
+   "id": "oubliette-hatch-open",
+   "desc": "grate raised over a dark pit",
+   "place": "floor",
+   "fp": "1",
+   "size": [
+    36.0,
+    36.0,
+    36.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "metal",
+   "aff": [
+    "pass",
+    "hazard"
+   ],
+   "gen": "mesh",
+   "pri": "P3",
+   "hint": "open state of oubliette-hatch",
+   "var": [],
+   "skus": [
+    {
+     "sku": "oubliette-hatch-open",
+     "family": "",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/oubliette-hatch-open.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "openmesh-01/oubliette-hatch-open@628c38ca",
+     "bounds": [
+      0.9102,
+      1.0081,
+      0.83783
+     ],
+     "faces": 5000,
+     "kb": 264,
+     "sink": 0.54
+    }
+   ],
+   "open_of": "oubliette-hatch"
   },
   "outhouse": {
    "id": "outhouse",
@@ -56465,6 +57359,100 @@
     }
    ]
   },
+  "roof-bartizan": {
+   "id": "roof-bartizan",
+   "desc": "small round stone corner turret: a dressed-stone drum with an arrow slit on a stepped corbelled foot, a conical slate cap with a knob finial",
+   "place": "floor",
+   "fp": "1",
+   "size": [
+    54.0,
+    54.0,
+    132.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "stone",
+   "aff": [
+    "cover"
+   ],
+   "gen": "mesh",
+   "pri": "P2",
+   "hint": "a roof object: stands on a flat roof, at a corner of the parapet; a lookout's cover (generated 2026-10-27)",
+   "var": [],
+   "skus": [
+    {
+     "sku": "roof-bartizan",
+     "family": "",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "roof-props-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/roof-bartizan.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "roof-props-01/roof-bartizan@ec0cd71a",
+     "bounds": [
+      0.42348,
+      1.00275,
+      0.42544
+     ],
+     "faces": 5000,
+     "kb": 248
+    }
+   ]
+  },
+  "roof-cistern": {
+   "id": "roof-cistern",
+   "desc": "rooftop water cistern: a round banded wooden tank of staves with iron hoops and a plank lid, on a low timber stand",
+   "place": "floor",
+   "fp": "1",
+   "size": [
+    48.0,
+    48.0,
+    60.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "wood",
+   "aff": [
+    "cover"
+   ],
+   "gen": "mesh",
+   "pri": "P2",
+   "hint": "a roof object: stands on a flat roof; rain water for the house below, something to crouch behind (generated 2026-10-27)",
+   "var": [],
+   "skus": [
+    {
+     "sku": "roof-cistern",
+     "family": "",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "roof-props-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/roof-cistern.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "roof-props-01/roof-cistern@fc3f75d0",
+     "bounds": [
+      0.89024,
+      1.00511,
+      0.88992
+     ],
+     "faces": 5000,
+     "kb": 249
+    }
+   ]
+  },
   "roof-dormer": {
    "id": "roof-dormer",
    "desc": "dormer window piece",
@@ -56699,6 +57687,51 @@
      ],
      "faces": 5000,
      "kb": 216
+    }
+   ]
+  },
+  "roof-flagpole": {
+   "id": "roof-flagpole",
+   "desc": "keep-roof flagpole: a stout timber pole in an iron-banded stone foot block, a short crossbar and a plain hanging dyed banner",
+   "place": "floor",
+   "fp": "1",
+   "size": [
+    30.0,
+    30.0,
+    180.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "mixed",
+   "aff": [],
+   "gen": "mesh",
+   "pri": "P2",
+   "hint": "a roof object: stands on a flat roof, the highest one of a keep; plain cloth, no emblem (generated 2026-10-27)",
+   "var": [],
+   "skus": [
+    {
+     "sku": "roof-flagpole",
+     "family": "",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "roof-props-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/roof-flagpole.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "roof-props-01/roof-flagpole@948c66ee",
+     "bounds": [
+      0.36714,
+      1.00716,
+      0.1894
+     ],
+     "faces": 5000,
+     "kb": 245
     }
    ]
   },
@@ -58507,25 +59540,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "inn-01",
-     "model": {
-      "stars": 3,
-      "note": "",
-      "masking": false
-     },
+     "src": "openmesh-01",
+     "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/rural-grooming-box.glb",
      "lod": "default",
      "tex": 256,
-     "mesh": "inn-01/rural-grooming-box@cf9b43e2",
+     "mesh": "openmesh-01/rural-grooming-box@5e188f30",
+     "was": [
+      {
+       "mesh": "inn-01/rural-grooming-box@cf9b43e2",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "5e188f30",
      "bounds": [
-      1.00557,
-      0.7752,
-      1.00774
+      0.76579,
+      0.7898,
+      1.01018
      ],
      "faces": 5000,
-     "kb": 276
+     "kb": 255
     }
    ]
   },
@@ -59879,6 +60915,55 @@
     }
    ]
   },
+  "rural-tack-trunk-open": {
+   "id": "rural-tack-trunk-open",
+   "desc": "tack trunk with its lid open, empty",
+   "place": "floor",
+   "fp": "sub",
+   "size": [
+    36.0,
+    26.0,
+    44.0
+   ],
+   "scale": [
+    0.9,
+    1.1
+   ],
+   "mat": "wood",
+   "aff": [
+    "loot",
+    "open"
+   ],
+   "gen": "mesh",
+   "pri": "P3",
+   "hint": "open state of rural-tack-trunk",
+   "var": [],
+   "skus": [
+    {
+     "sku": "rural-tack-trunk-open",
+     "family": "",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/rural-tack-trunk-open.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "openmesh-01/rural-tack-trunk-open@47c15be7",
+     "bounds": [
+      0.86216,
+      1.00556,
+      0.73543
+     ],
+     "faces": 5000,
+     "kb": 275
+    }
+   ],
+   "open_of": "rural-tack-trunk"
+  },
   "rural-tailings-pile": {
    "id": "rural-tailings-pile",
    "desc": "spoil heap of crushed rock",
@@ -60651,21 +61736,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "inn-02",
+     "src": "openmesh-01",
      "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/salt-box-open.glb",
      "lod": "small",
      "tex": 128,
-     "mesh": "inn-02/salt-box-open@ec3b7bf4",
+     "mesh": "openmesh-01/salt-box-open@54432cbe",
+     "was": [
+      {
+       "mesh": "inn-02/salt-box-open@ec3b7bf4",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "54432cbe",
      "bounds": [
-      0.99872,
-      0.97262,
-      0.62881
+      0.99488,
+      1.00292,
+      0.60877
      ],
      "faces": 3000,
-     "kb": 140
+     "kb": 181
     }
    ],
    "open_of": "salt-box"
@@ -64338,21 +65430,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "mansion-01",
+     "src": "openmesh-01",
      "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/sideboard-open.glb",
      "lod": "default",
      "tex": 256,
-     "mesh": "mansion-01/sideboard-open@edabd10e",
+     "mesh": "openmesh-01/sideboard-open@09546400",
+     "was": [
+      {
+       "mesh": "mansion-01/sideboard-open@edabd10e",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "09546400",
      "bounds": [
-      1.01777,
-      0.47122,
-      0.39201
+      1.00476,
+      0.4872,
+      0.44023
      ],
      "faces": 5000,
-     "kb": 274
+     "kb": 276
     }
    ],
    "open_of": "sideboard"
@@ -65246,25 +66345,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "inn-01",
-     "model": {
-      "stars": 3,
-      "note": "",
-      "masking": false
-     },
+     "src": "openmesh-01",
+     "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/smith-farrier-box.glb",
      "lod": "default",
      "tex": 256,
-     "mesh": "inn-01/smith-farrier-box@b438917d",
+     "mesh": "openmesh-01/smith-farrier-box@a2a62b8c",
+     "was": [
+      {
+       "mesh": "inn-01/smith-farrier-box@b438917d",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "a2a62b8c",
      "bounds": [
-      1.00812,
-      0.643,
-      0.87199
+      1.00582,
+      0.58738,
+      0.65066
      ],
      "faces": 5000,
-     "kb": 283
+     "kb": 270
     }
    ]
   },
@@ -75109,6 +76211,77 @@
     }
    ]
   },
+  "trunk-travel-open": {
+   "id": "trunk-travel-open",
+   "desc": "domed travel trunk with its lid open, empty",
+   "place": "floor",
+   "fp": "sub",
+   "size": [
+    34.0,
+    26.0,
+    44.0
+   ],
+   "scale": [
+    0.8,
+    1.2
+   ],
+   "mat": "mixed",
+   "aff": [
+    "loot",
+    "open"
+   ],
+   "gen": "mesh",
+   "pri": "P2",
+   "hint": "open state of trunk-travel",
+   "var": [],
+   "skus": [
+    {
+     "sku": "trunk-travel-open--s1",
+     "family": "",
+     "tier": "",
+     "shape": "s1",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/trunk-travel-open--s1.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "openmesh-01/trunk-travel-open--s1@10a52b95",
+     "bounds": [
+      1.01271,
+      0.93732,
+      0.83056
+     ],
+     "faces": 5000,
+     "kb": 265
+    },
+    {
+     "sku": "trunk-travel-open--s2",
+     "family": "",
+     "tier": "",
+     "shape": "s2",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/trunk-travel-open--s2.glb",
+     "lod": "default",
+     "tex": 256,
+     "mesh": "openmesh-01/trunk-travel-open--s2@0677da15",
+     "bounds": [
+      0.88135,
+      1.00695,
+      0.78644
+     ],
+     "faces": 5000,
+     "kb": 284
+    }
+   ],
+   "open_of": "trunk-travel"
+  },
   "tun-large": {
    "id": "tun-large",
    "desc": "huge fermenting tun",
@@ -78279,25 +79452,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "castle-01",
-     "model": {
-      "stars": 3,
-      "note": "",
-      "masking": false
-     },
+     "src": "openmesh-01",
+     "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/wall-window-small--castle-rough.glb",
      "lod": "kit",
      "tex": 256,
-     "mesh": "castle-01/wall-window-small--castle-rough@6f0625dd",
+     "mesh": "openmesh-01/wall-window-small--castle-rough@bce3101d",
+     "was": [
+      {
+       "mesh": "castle-01/wall-window-small--castle-rough@6f0625dd",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "bce3101d",
      "bounds": [
-      0.69974,
-      1.01116,
-      0.1244
+      0.70413,
+      1.00874,
+      0.12186
      ],
      "faces": 5000,
-     "kb": 246
+     "kb": 236
     },
     {
      "sku": "wall-window-small--dressed-stone",
@@ -78331,14 +79507,21 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "walls-01",
+     "src": "openmesh-01",
      "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/wall-window-small--fieldstone.glb",
      "lod": "kit",
      "tex": 256,
-     "mesh": "walls-01/wall-window-small--fieldstone@8c8d8676",
+     "mesh": "openmesh-01/wall-window-small--fieldstone@242639e4",
+     "was": [
+      {
+       "mesh": "walls-01/wall-window-small--fieldstone@8c8d8676",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "242639e4",
      "bounds": [
       0.92384,
       1.0109,
@@ -78419,21 +79602,28 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "mansion-01",
+     "src": "openmesh-01",
      "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/wall-window-small--noble-panel.glb",
      "lod": "kit",
      "tex": 256,
-     "mesh": "mansion-01/wall-window-small--noble-panel@e35b35b6",
+     "mesh": "openmesh-01/wall-window-small--noble-panel@612618c5",
+     "was": [
+      {
+       "mesh": "mansion-01/wall-window-small--noble-panel@e35b35b6",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "612618c5",
      "bounds": [
-      0.6168,
-      1.01098,
-      0.14035
+      0.63685,
+      1.00414,
+      0.18454
      ],
      "faces": 5000,
-     "kb": 263
+     "kb": 261
     },
     {
      "sku": "wall-window-small--noble-paper",
@@ -78463,31 +79653,32 @@
      "tier": "",
      "shape": "",
      "piece": "",
-     "src": "inn-02",
-     "model": {
-      "stars": null,
-      "note": "[fauna orient sweep 2026-10-02, not Harry's rating] kit wall piece whose window opening is filled with melted geometry (flash read a four-way cross partition). Hidden from the solver via the masking flag; mesh inn-02/wall-window-small--rough-timber@abb1fd2f.",
-      "masking": true
-     },
+     "src": "openmesh-01",
+     "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/wall-window-small--rough-timber.glb",
      "lod": "kit",
      "tex": 256,
-     "mesh": "inn-02/wall-window-small--rough-timber@abb1fd2f",
+     "mesh": "openmesh-01/wall-window-small--rough-timber@dca797e7",
      "was": [
+      {
+       "mesh": "inn-02/wall-window-small--rough-timber@abb1fd2f",
+       "until": "2026-10-30T18:00:00-0700"
+      },
       {
        "mesh": "inn-01/wall-window-small--rough-timber@86fa4ad5",
        "until": "2026-10-02T15:59:27-0700"
       }
      ],
+     "rev": "dca797e7",
      "bounds": [
-      0.86859,
-      0.6364,
-      0.27114
+      1.00314,
+      0.94826,
+      0.22474
      ],
-     "faces": 4803,
-     "kb": 243
+     "faces": 5000,
+     "kb": 248
     },
     {
      "sku": "wall-window-small--rough-timber--s2",
@@ -78495,14 +79686,21 @@
      "tier": "",
      "shape": "s2",
      "piece": "",
-     "src": "walls-01",
+     "src": "openmesh-01",
      "model": null,
      "plate": null,
      "kind": "mesh",
      "url": "assets/m/wall-window-small--rough-timber--s2.glb",
      "lod": "kit",
      "tex": 256,
-     "mesh": "walls-01/wall-window-small--rough-timber--s2@7e4bdb9a",
+     "mesh": "openmesh-01/wall-window-small--rough-timber--s2@16cab3aa",
+     "was": [
+      {
+       "mesh": "walls-01/wall-window-small--rough-timber--s2@7e4bdb9a",
+       "until": "2026-10-30T18:00:00-0700"
+      }
+     ],
+     "rev": "16cab3aa",
      "bounds": [
       0.7784,
       1.00435,
@@ -78580,6 +79778,28 @@
    "hint": "open state of wall-window-small; light and sight pass",
    "var": [],
    "skus": [
+    {
+     "sku": "wall-window-small-open--castle-rough",
+     "family": "castle-rough",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/wall-window-small-open--castle-rough.glb",
+     "lod": "kit",
+     "tex": 256,
+     "mesh": "openmesh-01/wall-window-small-open--castle-rough@6f0625dd",
+     "bounds": [
+      0.69974,
+      1.01116,
+      0.1244
+     ],
+     "faces": 5000,
+     "kb": 246
+    },
     {
      "sku": "wall-window-small-open--dressed-stone",
      "family": "",
@@ -78777,6 +79997,50 @@
      ],
      "faces": 5000,
      "kb": 247
+    },
+    {
+     "sku": "wall-window-small-open--temple-stone",
+     "family": "temple-stone",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/wall-window-small-open--temple-stone.glb",
+     "lod": "kit",
+     "tex": 256,
+     "mesh": "openmesh-01/wall-window-small-open--temple-stone@030d9103",
+     "bounds": [
+      0.65888,
+      1.00359,
+      0.13199
+     ],
+     "faces": 5000,
+     "kb": 262
+    },
+    {
+     "sku": "wall-window-small-open--tower-stone",
+     "family": "tower-stone",
+     "tier": "",
+     "shape": "",
+     "piece": "",
+     "src": "openmesh-01",
+     "model": null,
+     "plate": null,
+     "kind": "mesh",
+     "url": "assets/m/wall-window-small-open--tower-stone.glb",
+     "lod": "kit",
+     "tex": 256,
+     "mesh": "openmesh-01/wall-window-small-open--tower-stone@7f6fdfa6",
+     "bounds": [
+      0.52649,
+      1.00239,
+      0.13803
+     ],
+     "faces": 5000,
+     "kb": 256
     }
    ],
    "open_of": "wall-window-small"
@@ -80524,9 +81788,9 @@
    "place": "kit",
    "fp": "edge",
    "size": [
-    36.0,
-    4.0,
-    72.0
+    60.0,
+    12.0,
+    108.0
    ],
    "scale": [
     0.9,
@@ -81398,6 +82662,9 @@
     ],
     "flavor-corbel": [
      "flavor-corbel--sun-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--sun-fct"
     ]
    },
    "emptySlots": [],
@@ -81440,6 +82707,9 @@
     ],
     "flavor-corbel": [
      "flavor-corbel--moon-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--moon-fct"
     ]
    },
    "emptySlots": [],
@@ -81484,6 +82754,9 @@
     ],
     "flavor-corbel": [
      "flavor-corbel--devils-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--devils-fct"
     ]
    },
    "emptySlots": [],
@@ -81527,6 +82800,9 @@
     ],
     "flavor-corbel": [
      "flavor-corbel--spiders-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--spiders-fct"
     ]
    },
    "emptySlots": [],
@@ -81558,15 +82834,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--dragons-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--dragons-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--dragons-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81601,15 +82881,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--skulls-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--skulls-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--skulls-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81644,15 +82928,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--tentacles-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--tentacles-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--tentacles-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81687,15 +82975,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--nature-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--nature-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--nature-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81730,15 +83022,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--sword-shield-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--sword-shield-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--sword-shield-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81773,15 +83069,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--death-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--death-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--death-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81816,15 +83116,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--scales-coin-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--scales-coin-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--scales-coin-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81859,15 +83163,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--forge-hammer-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--forge-hammer-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--forge-hammer-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81902,15 +83210,19 @@
     ],
     "flavor-censer": [],
     "flavor-sculpture": [],
-    "flavor-buttress": [],
+    "flavor-buttress": [
+     "flavor-buttress--sea-storm-fct"
+    ],
     "flavor-corbel": [
      "flavor-corbel--sea-storm-fct"
+    ],
+    "flavor-pillar": [
+     "flavor-pillar--sea-storm-fct"
     ]
    },
    "emptySlots": [
     "flavor-censer",
-    "flavor-sculpture",
-    "flavor-buttress"
+    "flavor-sculpture"
    ],
    "fallbacks": {
     "flavor-censer": {
@@ -81929,6 +83241,7 @@
   "flavor-censer",
   "flavor-sculpture",
   "flavor-buttress",
-  "flavor-corbel"
+  "flavor-corbel",
+  "flavor-pillar"
  ]
 }

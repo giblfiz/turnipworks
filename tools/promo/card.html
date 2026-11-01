@@ -1,0 +1,39 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Turnip Works card</title>
+<!-- THE CARD (tools/promo, 2026-10-22). The house colour is the loading screen's brown (engine/client/index.html #twl:
+     #4a4136, its middle stop, which is also the reconnect pill's fill), its cream text #f6ead2, its gold #e0b04a; the
+     name and the phrases in Inter, the one face turnipworks.net ships (engine/client/vendor/inter, the site's brand and the
+     game UI; Georgia, the loading screen's name, is not on this box and fell back to Noto Serif: 2026-10-22); the mark is
+     engine/client/mark.svg itself. ?n=1..4 shows
+     that many phrases; the ones not yet shown keep their place (nothing moves between cuts). ?square=1: 1080 x 1080. -->
+<style>
+@font-face { font-family: Inter; src: url('inter.woff2') format('woff2'); font-weight: 100 900; }
+html, body { margin: 0; width: 100%; height: 100%; background: #4a4136; overflow: hidden; }
+body { display: grid; place-items: center; color: #f6ead2; font-family: Inter, system-ui, sans-serif; }
+.in { display: grid; justify-items: center; gap: 0; transform: translateY(-3%); }
+.mark { width: 230px; height: 230px; filter: drop-shadow(0 10px 16px rgba(0, 0, 0, .35)); margin-bottom: 22px; }
+.name { font: 700 132px/1.05 Inter, system-ui, sans-serif; letter-spacing: -.015em; text-shadow: 0 4px 0 rgba(0, 0, 0, .35); margin-bottom: 54px; }
+.phrases { display: flex; align-items: baseline; justify-content: center; font-weight: 800; font-size: 46px; letter-spacing: .14em; white-space: nowrap; }
+.phrases .p { opacity: 0; } .phrases .p.on { opacity: 1; }
+.phrases .dot { color: #e0b04a; padding: 0 .55em; opacity: 0; } .phrases .dot.on { opacity: 1; }
+.url { position: fixed; left: 0; right: 0; bottom: 52px; text-align: center; font-size: 30px; letter-spacing: .06em; opacity: .78; }
+body.sq .mark { width: 210px; height: 210px; }
+body.sq .name { font-size: 112px; margin-bottom: 46px; }
+body.sq .phrases { flex-direction: column; align-items: center; gap: 18px; font-size: 50px; }
+body.sq .phrases .dot { display: none; }
+body.sq .url { bottom: 46px; }
+</style></head>
+<body>
+<div class="in">
+  <img class="mark" src="MARK" alt="">
+  <div class="name">Turnip Works</div>
+  <div class="phrases"><span class="p">FREE</span><span class="dot">·</span><span class="p">NO DOWNLOAD</span><span class="dot">·</span><span class="p">NO ACCOUNT</span><span class="dot">·</span><span class="p">OPEN SOURCE</span></div>
+</div>
+<div class="url">turnipworks.net</div>
+<script>
+const q = new URLSearchParams(location.search), n = +q.get('n') || 0;
+if (q.get('square') === '1') document.body.classList.add('sq');
+document.querySelectorAll('.p').forEach((e, i) => e.classList.toggle('on', i < n));
+document.querySelectorAll('.dot').forEach((e, i) => e.classList.toggle('on', i + 1 < n)); // the dot before a phrase comes with it
+</script>
+</body></html>

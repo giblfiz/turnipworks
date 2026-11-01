@@ -1,0 +1,48 @@
+{
+ "gate_model": "gemini via agy-run (subscription)",
+ "assets": {
+  "foe-eye-tyrant": {
+   "id": "foe-eye-tyrant",
+   "group": "large",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-24-eye-tyrant/work/foe-eye-tyrant.try1.jpg",
+     "semantic": {
+      "what_i_see": "A brightly colored, stylized one-eyed beholder monster with six eyestalks and a gaping fanged mouth, floating on a swirling column of pale smoke against a solid blue background.",
+      "ok": true,
+      "problems": [],
+      "blind": {
+       "what_i_see": "A brightly colored, stylized one-eyed beholder monster with six eyestalks and a gaping fanged mouth, floating on a swirling column of pale smoke against a solid blue background.",
+       "details": "Text/labels/watermarks: None present. Figures/objects: There is exactly one central figure/object in the image. Creature identity, height, and proportions: The figure is best named a Beholder (or Eye Tyrant; second guess: Cacodemon or floating eye aberration). In fantasy scale, such a creature would stand roughly 5 to 7 feet tall (around 1.5 to 2.1 meters) including its smoke plume, with the spherical orb body itself measuring approximately 4 to 5 feet across; its body proportions are completely spherical and bulbous, dominated by a massive central eye and a wide, grimacing maw with pointed teeth, crowned by six curving tentacle-like eyestalks, with no humanoid torso. Held objects: It is holding or carrying nothing; it has no hands, arms, or weapons (count: 0 held items). Limbs and neighbouring parts: Limb counts are 0 arms, 0 legs, 0 ears, and 0 tail. It possesses 6 eyestalks extending from the top and sides of its head/body; between each pair of neighbouring stalks, solid blue background is clearly visible (none of the stalks touch or merge with each other, attaching only to the main head dome). Under its feet: The creature has no feet; directly under its spherical body is an attached swirling column of pale smoke, and directly under the bottom curl of that smoke is nothing at all (it floats in mid-air over empty blue background, with no shadow, dark blob, disc, base, plinth, rock, or ground). Framing/cropping: Every part of the creature (all 6 eyestalk tips, the teeth, the body perimeter, and the bottom swirl of the smoke plume) is fully inside the frame with clear blue margins on all sides; nothing is cut off by the image edges. Colouration: It is rendered in full vibrant colour (not unpainted stone or metal); main colours are reddish-brown/crimson wrinkled flesh on the upper skull and stalks, yellowish-green warty bumps along the brow and stalk bases, pale tan/cream on the lower jaw and underbelly, brilliant golden-amber irises with black horizontal slit pupils, off-white/ivory teeth, and a pale greyish-white smoke plume. Background and viewing angle: The background is a solid, completely uniform flat royal blue (chroma-key style) with no floor, no horizon line, and no cast shadows; the viewing angle is direct, eye-level, and frontal.",
+       "under_feet": "nothing at all (the creature has no feet and floats on a swirling smoke plume with empty blue background beneath it)",
+       "held": [],
+       "cropped": false
+      }
+     },
+     "matte": {
+      "method": "birefnet",
+      "fg": 0.2389,
+      "soft": 0.0053,
+      "comps": 1,
+      "border": 0.0,
+      "chroma_iou": 0.9899,
+      "verdict": "pass",
+      "why": [],
+      "chroma_holes_removed_px": 11
+     },
+     "mask_gate": {
+      "ok": true,
+      "problems": []
+     },
+     "verdict": "accepted"
+    }
+   ],
+   "images": 1,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "status": "accepted",
+   "matte": "birefnet"
+  }
+ }
+}

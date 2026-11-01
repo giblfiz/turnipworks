@@ -80,7 +80,7 @@ Grammar and legend: see `README.md`. One role per line. Style families and varia
 - **gate-double-timber** — heavy exterior gate leaves · kit · 2x2 · size:110x8x120 · wood · set:CAS,MKT,CMP · var:open,ruin · aff:pass,los,open · kit · P2 · courtyard and town gates
 - **gate-fence** — small field gate · kit · edge · size:48x4x42 · wood · set:HUT,MKT,TAV · var:open · aff:pass,open · kit · P2 · pens and yards
 - **shutters-pair** — exterior window shutters · wall · edge · size:40x2x48 · wood · set:HUT,TAV,MKT · var:open · aff:los · mesh · P3 · lets a window become a scene cue
-- **window-stained-glass** — stained-glass window panel · kit · edge · size:36x4x72 · glass · set:TEM!,NOB,CAS · var:ruin · aff:- · kit · P2 · chapel signature; colored light shafts
+- **window-stained-glass** — stained-glass window panel · kit · edge · size:60x12x108 · glass · set:TEM!,NOB,CAS · var:ruin · aff:- · kit · P2 · chapel signature; colored light shafts
 - **door-barn-double** — wide double barn doors · kit · 2x2 · size:110x4x120 · wood · set:TAV,HUT! · var:open,ruin · aff:pass,los,open · kit · P1 · barns and stables; open = daylight floods in
 - **drawbridge** — timber drawbridge with chains · kit · 2x3 · size:110x170x12 · wood · set:CAS! · var:open,ruin · aff:pass · thin · P3 · moats; big scene-state moment
 
@@ -371,6 +371,7 @@ Grammar and legend: see `README.md`. One role per line. Style families and varia
 
 ## J. Dungeon, prison & traps
 - **cell-bars** — iron cell bar wall · kit · edge · size:60x4x108 · metal · set:DUN!,CLT · var:ruin · aff:block · kit · P1 · pairs with door-cell-bars; blocks moves, not sight
+- **cell-bars-post** — iron corner and end post for a run of cell bars · kit · edge · size:8x8x108 · metal · set:DUN,CLT · var:- · aff:block · kit · P1 · stands where two bar sections meet at a corner and at a run's free end; snaps like a post; seen through like the bars (generated 2026-10-27)
 - **manacles-wall** — wall chains with manacles · wall · sub · size:24x6x30 · metal · set:DUN!,CLT,LAI · var:- · aff:use · thin · P1 · cells, torture rooms
 - **skeleton-chained** — skeleton in wall manacles · wall · sub · mount:0 · size:26x14x66 · organic · set:DUN!,CRY · var:- · aff:- · thin · P2 · the forgotten prisoner
 - **stocks** — wooden stocks · ground · 1 · size:60x20x36 · wood · set:DUN,MKT!,CAS · var:ruin · aff:use · mesh · P2 · town squares, dungeon yards

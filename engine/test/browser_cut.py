@@ -54,6 +54,7 @@ def start_local(full=False):
         time.sleep(0.1)
         try: urllib.request.urlopen(f'http://127.0.0.1:{RP}/health', timeout=1); urllib.request.urlopen(f'http://127.0.0.1:{SP}/engine/client/index.html', timeout=1); break
         except Exception: pass
+    import served; served.check(SP, ENGINE)  # (the page is this checkout's, not a stale server's: test/served.py)
     return f'http://127.0.0.1:{SP}/engine/client/index.html?relay=' + urllib.parse.quote(f'http://127.0.0.1:{RP}') + '&api=&nointro' + ('' if full else '&faces=1500')
 
 async def wait(pg, js, timeout=12000, what=''):
@@ -94,7 +95,7 @@ AT = """((x, y) => { const w = tw.worldOf(tw.area()), hits = w.pickAll(tw.rayAt(
 # across the screen: does any pick lie BEHIND the first floor (or the ground) drawn along its ray?
 THROUGH = """(() => { const w = tw.worldOf(tw.area()), c = document.getElementById('c').getBoundingClientRect(), bad = []; let n = 0, hit = 0, stopped = 0;
   const vis = (o) => { for (; o; o = o.parent) if (!o.visible) return false; return true; };
-  const floors = [...w.shell.values()].filter(s => s.spec.layer === 'floor').map(s => s.group).concat([w.ground]);
+  const floors = [...w.shell.values()].filter(s => s.spec.layer === 'floor' && !(s.hill && w.hillSeeNow() < 1)).map(s => s.group).concat(w.groundSeeNow() >= 1 ? [w.ground] : []); // (2026-10-27: below the ground a see-through ground or hill stops no pick)
   for (let i = 0; i < 64; i++) for (let j = 0; j < 40; j++) { const x = c.left + (i + 0.5) * c.width / 64, y = c.top + (j + 0.5) * c.height / 40, ray = tw.rayAt(x, y); n++;
     const f = ray.intersectObjects(floors, true).find(h => h.object.isMesh && vis(h.object)); if (!f) continue; stopped++;
     for (const h of w.pickAll(ray)) { if (h.floor || h.roof || !h.point) continue; hit++; const d = h.point.distanceTo(ray.ray.origin); if (d > f.distance + 0.3) bad.push([Math.round(x), Math.round(y), h.entity?.id || h.wall, Math.round(d - f.distance)]); } }
@@ -218,7 +219,10 @@ async def floors(gm, R):
     await lv(-10); await view(gm, 80, 20, 70, 72); await gm.wait_for_timeout(500)
     s4 = await scr(gm, 82.5, 22.5, -7.5); await gm.evaluate("tw.select([])"); await gm.mouse.move(s4['x'], s4['y']); await gm.mouse.click(s4['x'], s4['y']); await gm.wait_for_timeout(350)
     check(await gm.evaluate(sel) == ['tok_deep000001'], 'on lv -1 the ground is open over the cellar and its pawn is selected', str(await gm.evaluate(sel)))
-    th = await gm.evaluate(THROUGH); check(th['nbad'] == 0, 'lv -1: no pick behind a drawn floor or the ground', str(th))
+    th = await gm.evaluate(THROUGH); check(th['nbad'] == 0, 'lv -1: no pick behind a drawn floor (the ground is see-through there, 2026-10-27: a click on it goes through)', str(th))
+    await gm.evaluate("tw.worldOf(tw.area()).setGroundSee(1)"); await gm.wait_for_timeout(300)
+    th = await gm.evaluate(THROUGH); check(th['nbad'] == 0 and th['stopped'] > th['n'] // 2, 'lv -1, the ground set solid (1): no pick behind a drawn floor or the ground, as before', str(th))
+    await gm.evaluate("tw.worldOf(tw.area()).setGroundSee(0.25)"); await gm.wait_for_timeout(300)
     await gm.evaluate("tw.select([])")
     await gm.evaluate(f"tw.batch([{{ type: 'token.delete', args: {{ id: 'tok_deep000001' }} }}, {{ type: 'room.delete', args: {{ id: '{cid}' }} }}])"); await gm.wait_for_timeout(500)
     # roofs on: a roof stops the pointer (it did for clicks already), and the box as well
@@ -669,6 +673,12 @@ async def main():
         check(st['writes'] == 0, 'and that was remembered, not re-decided (no write since the reload)')
         await gm.evaluate("tw.setCut(null, { by: 'test' })"); await gm.reload(); await wait(gm, 'window.tw && tw.ready && tw.ready() && tw.cutBar', 45000); await gm.wait_for_timeout(1500)
         check((await gm.evaluate(STATE))['cut'] is None and not (await gm.evaluate("tw.cutBar()"))['on'], 'left at all levels, it reloads at all levels')
+        # (2026-10-26) a view saved before the cut became the map's, on a hilltop building's ground storey: level 10 ft, cut 9 (counted from the hilltop)
+        await gm.evaluate("(() => { const k = `tw.cut.${tw.sync.campaign.id}.${tw.me()}`, s = JSON.parse(localStorage.getItem(k) || '{}'); s.areas = { ...(s.areas || {}), [tw.area()]: { y: 9, level: 10 } }; localStorage.setItem(k, JSON.stringify(s)); })()")
+        await gm.reload(); await wait(gm, 'window.tw && tw.ready && tw.ready() && tw.cutBar', 45000); await gm.wait_for_timeout(1500)
+        st = await gm.evaluate(STATE); b = await gm.evaluate("tw.cutBar()")
+        check(st['level'] == 10 and st['cut'] == 19 and b['marker'] and b['marker']['text'] == '2' and 'lv 2' in b['textShown'], 'a view saved with a cut below its level (a hill building\'s own count, before 2026-10-26) comes back on that level, cut to it (lv 2, 19 ft)', f"{st} | {b['textShown']}")
+        await gm.evaluate("tw.goLevel(0, 'test'); tw.cutOff('test')")
         real = [e for e in errors if 'WebSocket' not in e and 'ERR_CONNECTION' not in e]
         check(not real, 'no page errors', '; '.join(real[:4]))
         await browser.close()

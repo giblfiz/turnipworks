@@ -1,6 +1,8 @@
 // Shared discovery for commands, picker and shelves. Metadata decorates available assets; it never gates discovery.
-const ORDER = ['altarpiece', 'idol', 'censer', 'sculpture', 'buttress', 'banner', 'relief', 'sigil', 'corbel'];
+const ORDER = ['altarpiece', 'idol', 'censer', 'sculpture', 'pillar', 'buttress', 'banner', 'relief', 'sigil', 'corbel']; // pillar: the free-standing column (2026-10-24)
 const LABELS = { altarpiece: 'altar piece', buttress: 'pier', sigil: 'floor sigil' };
+// words a slot's pieces answer to beyond their name (the bar also gets CATALOG_WORDS terms, client/barwords.js)
+const SLOT_HINTS = { 'flavor-banner': 'wall hanging flag', 'flavor-pillar': 'pillar column support post', 'flavor-buttress': 'buttress flying buttress pier' };
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' ');
 export const factionMetadata = (lib, id) => Array.isArray(lib?.factions) ? lib.factions.find(f => f.id === id) : lib?.factions?.[id];
 const singular = id => id.endsWith('s') && !id.endsWith('ss') ? id.slice(0, -1) : id;
@@ -41,6 +43,6 @@ export function factionSearchItems(lib) {
   return factions.flatMap(f => slots.flatMap(cat => {
     const k = f.slots[cat], o = lib.objects[cat]; if (!k) return [];
     const aliases = [f.id, f.label, f.pieceLabel, ...f.aliases].join(' ');
-    return [{ id: cat, name: factionPieceName(lib, cat, k), desc: o.desc || '', hint: `${aliases} faction flavor religion cult temple heraldry emblem ${cat === 'flavor-banner' ? 'wall hanging flag' : ''}`, place: o.place, sku: k.sku, url: k.url, flat: k.kind === 'flat', aff: o.aff || [], faction: f.id }];
+    return [{ id: cat, name: factionPieceName(lib, cat, k), desc: o.desc || '', hint: `${aliases} faction flavor religion cult temple heraldry emblem ${SLOT_HINTS[cat] || ''}`, place: o.place, sku: k.sku, url: k.url, flat: k.kind === 'flat', aff: o.aff || [], faction: f.id }];
   }));
 }

@@ -9,7 +9,8 @@ through to the higher floor"). core/stairs.js STAIR_ROLES; docs/VERTICAL.md "Sta
   HALL     the mansion's entrance hall with a storey over it: no second stair is added; the floor and slab above are
            cut on the grand stair's squares; a railing stands round the hole, open on both hands at the top
   POINTER  through the hole the pointer reaches the stair; beside the hole the floor stops it
-  PAWNS    a pawn dragged onto the stair arrives upstairs beside its top; dragged onto the hole, at its foot
+  PAWNS    (2026-10-26: a stair is a place to stand) a pawn dragged onto the stair stands on its treads; dragged on up
+           and off its top on either hand it is on the floor above; from above onto the hole: the treads; on down: the foot
   KIT      EVERY stair piece of the library (each sku of each stair role), put down by hand under a floor: it lands on
            whole squares, the floor above opens on exactly those, it is railed, and its mesh climbs the way the game says
   HAND     the real tool: pick the grand stair in the library, click: the same; R turns it by quarter turns
@@ -31,7 +32,7 @@ results = []; procs = []
 def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)
 
-RP, SP = 18177, 18807
+RP, SP = (int(v) for v in os.environ.get('TW_PORTS', '18177,18807').split(','))  # TW_PORTS=a,b: free ports when another run holds these
 def start_local(full=False):
     for port in (RP, SP):
         try: urllib.request.urlopen(f'http://127.0.0.1:{port}/', timeout=0.5); sys.exit(f'port {port} is busy (a stale test server?)')
@@ -47,6 +48,7 @@ def start_local(full=False):
         time.sleep(0.1)
         try: urllib.request.urlopen(f'http://127.0.0.1:{RP}/health', timeout=1); urllib.request.urlopen(f'http://127.0.0.1:{SP}/engine/client/index.html', timeout=1); break
         except Exception: pass
+    import served; served.check(SP, ENGINE)  # (the page is this checkout's, not a stale server's: test/served.py)
     return f'http://127.0.0.1:{SP}/engine/client/index.html?relay=' + urllib.parse.quote(f'http://127.0.0.1:{RP}') + '&api=&nointro' + ('' if full else '&faces=1500')
 
 async def wait(pg, js, timeout=12000, what=''):
@@ -65,6 +67,9 @@ async def drag(pg, a, b, steps=12):
     await pg.mouse.up(); await pg.wait_for_timeout(500)
 
 W = "tw.worldOf(tw.area())"
+# a walk along a line by the game's own rule (core/height.js pawnStepTo), as a drag carries a pawn: the heights on the way
+WALK = "((x0, z0, y0, x1, z1, n = 60) => { const H = tw.HT, E = tw.entities(); let y = y0, fb = H.baseUnder(E, x0, z0, y0); const out = []; for (let i = 1; i <= n; i++) { const t = H.pawnStepTo(E, x0 + (x1 - x0) * i / n, z0 + (z1 - z0) * i / n, y, null, fb); if (!t.below || t.walk) { y = t.y; fb = t; } out.push(y); } return out; })"
+MIRA = "(() => { const e = tw.entities()['tok_mira00001'], b = tw.worldOf(tw.area()).pawnBaseInfo('tok_mira00001'); return { x: e.x, y: e.y || 0, z: e.z, on: b && b.on }; })()"
 # what is drawn of a room's floor: the floor tiles and the slab boxes standing on given squares
 FLOOR_ON = """((rid, cells) => { const w = tw.worldOf(tw.area()); let tiles = 0, slab = 0; const inCell = (x, z) => cells.some(([gx, gz]) => x > gx * 5 && x < gx * 5 + 5 && z > gz * 5 && z < gz * 5 + 5);
   for (const s of w.shell.values()) { if (s.roomId !== rid || s.spec.layer !== 'floor') continue;
@@ -169,18 +174,30 @@ async def main():
         await wait(gm, "tw.entities()['tok_mira00001'] && tw.sync.pendingCount() === 0", 8000); await settle(gm, 60000)
         await gm.evaluate("tw.setCut(9, { pinned: true, by: 'test' })"); await view(gm, st['x'], st['z'] + 6, 48, 64, 0.0); await gm.wait_for_timeout(600)
         for (hand, dx, want) in (('left', -3, [2.5, 2.5]), ('right', 3, [22.5, 2.5])):
-            a = await scr(gm, foot['x'], foot['z'], 1.2); b = await scr(gm, st['x'] + dx, st['z'] + 2, 0)
-            await drag(gm, a, b); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) === 10 && tw.sync.pendingCount() === 0", 6000, 'pawn upstairs')
-            t = await gm.evaluate("tw.entities()['tok_mira00001']")
-            check(t.get('y') == 10 and [t['x'], t['z']] == want, f'a pawn dragged onto the {hand} of the stair arrives on the upper floor beside its top, on that hand', f"({t['x']}, {t['z']}, y {t.get('y')}) want {want}")
+            a = await scr(gm, foot['x'], foot['z'], 1.2); b = await scr(gm, st['x'] + dx, st['z'], 5)
+            await drag(gm, a, b); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) > 0.5 && tw.sync.pendingCount() === 0", 6000, 'pawn on the stair')
+            t = await gm.evaluate(MIRA)
+            check(0.5 < t['y'] < 9.5 and t['on'] == 'stair', f'a pawn dragged onto the {hand} half of the stair stands on its treads, part way up', t)
+            for (x, z, y) in ((st['x'] + dx, 4, 9), (want[0], want[1], 10)): # on up to its top row, then off it on that hand
+                await view(gm, (t['x'] + x) / 2, (t['z'] + z) / 2 + 4, 48, 64, 0.0); await gm.wait_for_timeout(300) # (the far wall is under the top bar otherwise)
+                a = await scr(gm, t['x'], t['z'], t['y'] + 1.2); b = await scr(gm, x, z, y)
+                await drag(gm, a, b, 16); await gm.wait_for_timeout(300); await wait(gm, 'tw.sync.pendingCount() === 0', 6000); t = await gm.evaluate(MIRA)
+                if os.environ.get('LV_DEBUG'): print('   leg', (x, z, y), t, await gm.evaluate("({ sel: tw.selected().map(e => e.id), drop: tw.lastDrop, hit: tw.worldOf(tw.area()).pick(tw.rayAt(%f, %f))?.entity?.id, el: (document.elementFromPoint(%f, %f)?.id || '') + '.' + (document.elementFromPoint(%f, %f)?.className || '') })" % (a['x'], a['y'], a['x'], a['y'], a['x'], a['y'])))
+            check(t['y'] == 10 and [t['x'], t['z']] == want, f'walked on up it and off its top on the {hand}, it is on the upper floor beside its top, on that hand', t)
             await gm.evaluate(f"tw.dispatch('token.move', {{ id: 'tok_mira00001', x: {foot['x']}, z: {foot['z']}, y: 0 }})"); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) === 0 && tw.sync.pendingCount() === 0", 6000); await gm.wait_for_timeout(300)
-        # from above
+        # from above: onto the hole, the treads under it; on down, the foot
         await gm.evaluate("tw.dispatch('token.move', { id: 'tok_mira00001', x: 2.5, z: 2.5, y: 10 })"); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) === 10 && tw.sync.pendingCount() === 0", 6000)
         await gm.evaluate("tw.setCut(19, { pinned: true, by: 'test' })"); await gm.wait_for_timeout(700)
-        a = await scr(gm, 2.5, 2.5, 11.2); b = await scr(gm, st['x'], st['z'] + 2, 10)
-        await drag(gm, a, b); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) === 0 && tw.sync.pendingCount() === 0", 6000, 'pawn downstairs')
-        t = await gm.evaluate("tw.entities()['tok_mira00001']")
-        check((t.get('y') or 0) == 0 and abs(t['x'] - foot['x']) < 0.01 and abs(t['z'] - foot['z']) < 0.01, 'dragged onto the hole from above, it goes down to the stair\'s foot', f"({t['x']}, {t['z']}, y {t.get('y')}) want ({foot['x']}, {foot['z']})")
+        await view(gm, 6, 6, 48, 64, 0.0); await gm.wait_for_timeout(300)
+        a = await scr(gm, 2.5, 2.5, 11.2); b = await scr(gm, st['x'] - 3, 4, 9)
+        await drag(gm, a, b); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) < 9.99 && tw.sync.pendingCount() === 0", 6000, 'pawn on the stair')
+        t = await gm.evaluate(MIRA)
+        check(0.5 < t['y'] < 10 and t['on'] == 'stair', 'dragged from the floor above onto the top of the hole, it stands on the treads there (no hop to the foot)', t)
+        await view(gm, (t['x'] + foot['x']) / 2, (t['z'] + foot['z']) / 2, 60, 64, 0.0); await gm.wait_for_timeout(300)
+        a = await scr(gm, t['x'], t['z'], t['y'] + 1.2); b = await scr(gm, foot['x'], foot['z'], 0)
+        await drag(gm, a, b, 20); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) === 0 && tw.sync.pendingCount() === 0", 6000, 'pawn downstairs')
+        t = await gm.evaluate(MIRA)
+        check(t['y'] == 0 and abs(t['x'] - foot['x']) < 2.6 and abs(t['z'] - foot['z']) < 2.6, 'and walked on down it, at its foot on the hall floor', t)
         # delete the stair: the floor closes; undo: it opens again
         await gm.evaluate(f"tw.select(['{SID}']); tw.deleteSelection()"); await wait(gm, f"!tw.entities()['{SID}'] && tw.sync.pendingCount() === 0", 8000); await gm.wait_for_timeout(600)
         fo2 = await gm.evaluate(FLOOR_ON + f"('{U}', {json.dumps(cells)})")
@@ -223,7 +240,7 @@ async def main():
                 cells = e['cells']; hk = sorted(map(tuple, e['holes'])); ck = sorted(map(tuple, cells))
                 rot_q = round(e['rot'] / 1.5707963) % 4; wx, wz = (e['dims'][2], e['dims'][0]) if rot_q % 2 else (e['dims'][0], e['dims'][2])
                 if rise == 5:  # a half flight under no floor: it would open one 5 ft up, it has no railing, and a pawn dropped on it stays put
-                    hop = await gm.evaluate(f"tw.stairHop({e['x']}, {e['z']}, 0)")
+                    hop = await gm.evaluate(f"tw.stairHop({e['x']}, {e['z']}, 0)") or (await gm.evaluate(f"tw.HT.pawnStepTo(tw.entities(), {e['x']}, {e['z']}, 0)"))['on'] == 'stair' # (under no floor it is furniture: walked on by nobody)
                     if e['room'] != L5 or e['top'] != 5 or len(cells) != 1 or e['rails'] or hop or m['max'][1] < 3.7 or e['links']['to'] is not None: why.append(f"half flight: top {e['top']}, {len(cells)} squares, rails {e['rails']}, pawn {hop}, mesh top {m['max'][1]}")
                     along = m['cx'] * e['dir'][0] + m['cz'] * e['dir'][1]
                     if along < 0.2: why.append(f"mesh climbs x {m['cx']} z {m['cz']}, the game says {e['dir']}")
@@ -245,14 +262,18 @@ async def main():
                 if not r['turn'] and sku not in SIDEWAYS:
                     along = m['cx'] * e['dir'][0] + m['cz'] * e['dir'][1]; other = m['cx'] * e['dir'][1] + m['cz'] * e['dir'][0]
                     if along < 0.2 or abs(other) > abs(along): why.append(f"mesh climbs x {m['cx']} z {m['cz']}, the game says {e['dir']}")
-                hop = await gm.evaluate(f"tw.stairHop({e['x']}, {e['z']}, 0)")
-                if not hop or hop['y'] != rise or [int(hop['x'] // 5), int(hop['z'] // 5)] in cells: why.append(f'pawn up: {hop}')
+                if r['turn']: # a spiral or a ladder: climbed in one move
+                    hop = await gm.evaluate(f"tw.stairHop({e['x']}, {e['z']}, 0)")
+                    if not hop or hop['y'] != rise or [int(hop['x'] // 5), int(hop['z'] // 5)] in cells: why.append(f'pawn up: {hop}')
+                else: # a flight: walked from its foot to its way out (2026-10-26)
+                    tc = e['ends']['topCell']; w = await gm.evaluate(WALK + f"({e['ends']['foot']['x']}, {e['ends']['foot']['z']}, 0, {(tc[0] + 0.5) * 5}, {(tc[1] + 0.5) * 5})")
+                    if w[-1] != rise or not any(0.5 < y < rise - 0.5 for y in w) or any(abs(w[k] - w[k - 1]) > 1.5 for k in range(1, len(w))): why.append(f'pawn walk up: {w[::6]}')
                 if sku in SIDEWAYS and not (abs(m['cx'] * e['dir'][1] + m['cz'] * e['dir'][0]) > 0.2 > abs(m['cx'] * e['dir'][0] + m['cz'] * e['dir'][1])): why.append('it is no longer drawn sideways: take it out of SIDEWAYS')
                 if why: bad.append(f"{sku} (turned {q * 90}): " + '; '.join(why))
                 print(f"    {'ok  ' if not why else 'BAD '} {sku:38s} turned {q * 90:3d}: {len(cells)} squares open at {rise} ft, {len(e['rails'])} railing sections, mesh climbs x {m['cx']:+.2f} z {m['cz']:+.2f}", flush=True)
                 await gm.evaluate(f"tw.dispatch('object.delete', {{ id: '{pid}' }})"); await wait(gm, f"!tw.entities()['{pid}'] && tw.sync.pendingCount() === 0", 8000)
                 if await gm.evaluate(f"tw.ST.holesAt(tw.entities(), {rise}).size") != (9 if rise == 10 else 0): bad.append(f'{sku}: the floor did not close when it was deleted')
-        check(n == sum(len(r['skus']) for r in roles) and n >= 15 and not bad, f'every stair piece of the library ({n}) opens the floor it reaches on its own squares, is railed, climbs the way the game says, and carries a pawn up', ' | '.join(bad))
+        check(n == sum(len(r['skus']) for r in roles) and n >= 15 and not bad, f'every stair piece of the library ({n}) opens the floor it reaches on its own squares, is railed, climbs the way the game says, and carries a pawn up (a flight walked, a ladder or spiral in one move)', ' | '.join(bad))
 
         # ================= HAND =================
         print('HAND: the library tool')

@@ -13,7 +13,12 @@
 //   GET  /c/:cid/token?seat=…&for=SEAT    → re-issue a seat's token (GM or its creator)
 //   POST /c/:cid/delete?seat=TOKEN[&purge=1] → delete the campaign (its GM, a person); files moved to data/removed-<date>/
 //   /c/:cid/tickets…, /tickets…           feedback tickets (relay/tickets.js: the testers' tickets and the triage)
+//   /c/:cid/linkmail, /linkmail/optout    "email yourself your link" (relay/linkmail.js; the mail: relay/mailer.js)
+//   /linkmail/handoff[/shown|/opened]     the phone page's "email yourself the link" (relay/linkmail.js, client/phone.js)
+//   GET  /admin/funnel?days=&tests=1      the funnel's daily counts (relay/funnel.js), box-only like /admin/notice
+//   GET  /admin/linkmail                  the address book's counts (no addresses), box-only
 //   GET  /c/:cid/a/:area/state|look|changes|do …   (see relay/llm.js; /t/ is the pre-rename alias)
+//   /c/:cid/shares…, /s/:id…, /admin/shares/:id/takedown   share links (relay/shares.js): unlisted shared builds
 //   POST /admin/notice {text, at, until}  → a banner on every connected seat (the release roll; docs/NETCODE.md
 //                                          "Two servers"). Box-only: header x-tw-admin = DATA_DIR/admin-key, and
 //                                          nginx answers 404 for /api/tw-relay/admin/ from outside.
@@ -38,6 +43,11 @@ import { makeRoomGen, engineVersionOf, TUNER_FILES, TUNER_DATA, applyRatings, ra
 import { stableStringify } from '../core/hash.js';
 import { campaignName } from '../core/campaign-names.js';
 import { makeTickets } from './tickets.js';
+import { makeShares } from './shares.js';
+import { useShares } from './llm.js';
+import { makeFunnel } from './funnel.js';
+import { makeLinkMail } from './linkmail.js';
+import { makeMailer } from './mailer.js';
 import { fireTypeOf } from './things.js';
 import { lightTable } from '../core/darkness.js';
 
@@ -77,6 +87,11 @@ export async function startRelay({
   publicBase = process.env.PUBLIC_BASE || null,
   log = (m) => console.log(new Date().toISOString(), m),
   maxCampaigns = 500,
+  funnelOpts = {},   // (tests) { engagedMs, sweepMs }: relay/funnel.js
+  // GHOSTS (2026-10-28, docs/NETCODE.md "Ghost connections"): a connection that has said nothing for this long (no
+  // message, no websocket pong) is closed and its seat goes offline. Browsers ping every 2 s and answer pings by
+  // themselves; a background tab's timers can slow to once a minute, hence 90 s.
+  reapMs = Number(process.env.TW_REAP_MS) || 90000,
 } = {}) {
   fs.mkdirSync(dataDir, { recursive: true });
   const secretFile = path.join(dataDir, 'secret');
@@ -84,6 +99,10 @@ export async function startRelay({
   const tokens = makeTokens(fs.readFileSync(secretFile, 'utf8').trim());
   // feedback tickets (Harry 2026-10-19): <dataDir>/tickets/, beside the campaigns and backed up with them (relay/tickets.js)
   const tickets = makeTickets({ dataDir, secret: fs.readFileSync(secretFile, 'utf8').trim(), log });
+  // the funnel: "a table that played" (Harry 2026-10-23, rule zero), <dataDir>/funnel/ (relay/funnel.js)
+  // share links (2026-10-29): <dataDir>/shares/, unlisted builds anyone with the link can import (relay/shares.js)
+  const shares = makeShares({ dataDir, log }); useShares(shares);
+  const funnel = makeFunnel({ dataDir, secret: fs.readFileSync(secretFile, 'utf8').trim(), log, ...funnelOpts });
   // THE RELEASE (2026-10-19, docs/NETCODE.md "Two servers"): a prod relay runs from a release folder whose
   // release.json names it; a dev relay runs from the checkout and has none. /health says which.
   let release = null;
@@ -93,6 +112,8 @@ export async function startRelay({
   const adminFile = path.join(dataDir, 'admin-key');
   if (!fs.existsSync(adminFile)) fs.writeFileSync(adminFile, crypto.randomBytes(24).toString('hex'), { mode: 0o600 });
   const adminKey = fs.readFileSync(adminFile, 'utf8').trim();
+  const linkmail = makeLinkMail({ dataDir, secret: fs.readFileSync(secretFile, 'utf8').trim(), tokens, channel, log, funnel, mailer: makeMailer({ dataDir, log }) });
+  log(`link mail: ${JSON.stringify(linkmail.summary().transport)}`);
   let notice = null; // { id, text, at, until }: the banner every seat is shown until `until` (also to a seat that joins meanwhile)
 
   let roomgen = null;
@@ -101,12 +122,14 @@ export async function startRelay({
   const figs = loadFigures(tunerData); log(`figure list: ${figs.list.length} figures${figs.file ? '' : ' (no figures.json in ' + tunerData + ')'}`);
 
   const campaigns = new Map();
+  const hooksFor = (rt) => ({ camp: (camp, by) => { if (camp.type === 'seat.create') funnel.seatMade(rt, camp.args, by); }, commit: (rec, by) => funnel.committed(rt, rec, by) });
   try { migrateDataDir(dataDir, log); } catch (e) { log(`area migration failed (old files still load): ${e.stack}`); }
   for (const d of fs.readdirSync(dataDir)) {
     if (!d.startsWith('cmp_')) continue;
     try {
       const rt = new CampaignRuntime({ id: d, dir: path.join(dataDir, d), tokens, roomgen, log });
       const info = rt.load();
+      rt.hooks = hooksFor(rt);
       campaigns.set(d, rt);
       log(`loaded ${d}: r=${rt.r}, ${info.fromSnapshot ? 'snapshot + ' : ''}${info.replayed} replayed`);
     } catch (e) { log(`FAILED to load ${d}: ${e.stack}`); }
@@ -165,9 +188,18 @@ export async function startRelay({
       const parts = p.split('/').filter(Boolean);
       if (req.method === 'OPTIONS') { res.writeHead(204, { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'GET, POST, OPTIONS', 'access-control-allow-headers': 'content-type, authorization, x-tw-test, x-tw-key', 'access-control-max-age': '600' }); return res.end(); }
       if (p === '/health' || p === '/') return send(200, { ok: true, campaigns: campaigns.size, engine: roomgen?.version || null, conns: [...campaigns.values()].reduce((n, rt) => n + rt.conns.size, 0), channel, release: release?.id || null });
+      const isAdmin = () => { const key = Buffer.from(String(req.headers['x-tw-admin'] || '')), want = Buffer.from(adminKey); return key.length === want.length && crypto.timingSafeEqual(key, want); };
+      if (p === '/admin/funnel' && req.method === 'GET') {
+        if (!isAdmin()) return send(403, { ok: false, why: 'not from the box' });
+        const q = url.searchParams;
+        return send(200, { ok: true, channel, ...funnel.report({ days: Math.min(400, Number(q.get('days')) || 30), tz: q.get('tz') || 'America/Los_Angeles', tests: q.get('tests') === '1' }) });
+      }
+      if (p === '/admin/linkmail' && req.method === 'GET') {
+        if (!isAdmin()) return send(403, { ok: false, why: 'not from the box' });
+        return send(200, { ok: true, channel, ...linkmail.summary() });
+      }
       if (p === '/admin/notice' && req.method === 'POST') {
-        const key = Buffer.from(String(req.headers['x-tw-admin'] || '')), want = Buffer.from(adminKey);
-        if (key.length !== want.length || !crypto.timingSafeEqual(key, want)) return send(403, { ok: false, why: 'not from the box' });
+        if (!isAdmin()) return send(403, { ok: false, why: 'not from the box' });
         const b = await readJson(req);
         const now = Date.now(), at = Number(b.at) || now, until = Number(b.until) || at + 60e3;
         notice = b.clear ? null : { id: newId('ntc', 10), text: String(b.text || 'Server updating soon').slice(0, 200), at, until };
@@ -189,7 +221,9 @@ export async function startRelay({
         const id = newId('cmp');
         const name = (String(body.name || '').trim() || campaignName()).slice(0, 80), gm = String(body.gm || 'GM').slice(0, 40);
         const { rt, gmSeat, token } = CampaignRuntime.create({ id, dir: path.join(dataDir, id), name, gmName: gm, tokens, roomgen, log });
+        rt.hooks = hooksFor(rt);
         campaigns.set(id, rt);
+        try { funnel.created(rt, { req, name, gmSeat, landing: body.landing }); } catch (e) { log(`funnel: ${e.message}`); }
         log(`created ${id} "${name}"`);
         return send(200, { ok: true, campaign: id, seat: gmSeat, token, area: rt.state.areaOrder[0] });
       }
@@ -270,7 +304,9 @@ export async function startRelay({
         if (s?.kind !== 'human' || s.role !== 'gm') return send(403, { ok: false, code: 'denied', why: 'only the GM (a person) can delete a campaign' });
         return send(200, deleteCampaign(a.rt.id, { purge: url.searchParams.get('purge') === '1', by: a.seat }));
       }
+      if (await shares.handle(req, res, { url, parts, send, auth, readBody, isAdmin, ipOf })) return;
       if (await tickets.handle(req, res, { url, parts, send, auth, readBody, canSee })) return;
+      if (await linkmail.handle(req, res, { url, parts, send, auth, readBody })) return;
       if (parts[0] === 'c' && parts[1] && req.method === 'GET') {
         const a = auth(req, url.searchParams, parts[1], { short: true });
         if (a.err) return send(...a.err);
@@ -285,14 +321,51 @@ export async function startRelay({
   });
 
   // ---------------- connections: one message handler, two transports ----------------
-  // A conn is { seat, rt, subs, send, sendLossy, close }. WebSocket where the path allows it; SSE down + ordered
-  // POST up where it doesn't (our Cloudflare zone answers a websocket upgrade with a plain GET). Same protocol.
+  // A conn is { seat, rt, subs, send, sendLossy, close, kill, beat? }. WebSocket where the path allows it; SSE down +
+  // ordered POST up where it doesn't (our Cloudflare zone answers a websocket upgrade with a plain GET). Same protocol.
+  //   seen   the last time the other end said anything (a message, an SSE POST, a websocket pong)
+  //   kill   drop it now, no goodbye (a ghost cannot answer one)       beat   (ws) send a protocol ping
+  const conns = new Set();
   function newConn(impl) {
-    const conn = { seat: null, rt: null, subs: new Set(), presBudget: { t: Date.now(), n: 0 }, ...impl };
+    const conn = { seat: null, rt: null, subs: new Set(), presBudget: { t: Date.now(), n: 0 }, seen: Date.now(), ...impl };
     conn.helloTimer = setTimeout(() => { if (!conn.seat) conn.close(); }, 10000);
+    conns.add(conn);
     return conn;
   }
+  // THE REAPER: a connection silent for reapMs is a ghost (a phone asleep, a lid shut, wifi gone: the socket never
+  // closed, so nothing told us). Without this its seat stayed "online" for as long as the dead TCP path lingered
+  // behind Cloudflare and nginx, which can be hours (2026-10-28, Harry: "a collection of dead connections").
+  const reapEvery = Math.max(100, Math.min(15000, Math.round(reapMs / 3)));
+  const reaper = setInterval(() => {
+    const now = Date.now();
+    for (const c of conns) {
+      if (now - c.seen > reapMs) { log(`${c.rt?.id || '-'}: reaped a silent ${c.kind} connection (${c.seat || 'no seat yet'}, ${Math.round((now - c.seen) / 1000)} s)`); onConnClose(c); try { c.kill(); } catch { } }
+      else c.beat?.();
+    }
+  }, reapEvery);
+  // DISCONNECT (2026-10-28, Harry: "some way to kind of kick people out for at least the GM"). Not a command (never
+  // journaled, no undo) and not a ban: the seat and its link are untouched, and the person can rejoin at once.
+  // Only a human GM may; never a GM's seat, never your own; an AI seat has no connection to close (it comes back on
+  // its next request: revoking its key is what stops it).
+  function kick(conn, m) {
+    const st = conn.rt.state, me = st.seats[conn.seat], to = typeof m.seat === 'string' ? st.seats[m.seat] : null;
+    const no = (why) => conn.send({ t: 'kickdone', ok: false, seat: m.seat ?? null, why });
+    if (!me || me.kind !== 'human' || me.role !== 'gm') return no('only the GM can disconnect someone');
+    if (!to || !liveSeat(st, to.id)) return no('there is no such seat');
+    if (to.id === me.id) return no('that is your own seat');
+    if (to.kind === 'llm') return no(`${to.name} is an AI seat: it comes back on its next request. Revoke its key to stop it`);
+    if (to.role === 'gm') return no('a GM cannot be disconnected');
+    const theirs = [...conn.rt.conns].filter(c => c.seat === to.id);
+    for (const c of theirs) drop(c, { t: 'kicked', by: me.name });
+    log(`${conn.rt.id}: ${me.id} disconnected ${to.id} (${theirs.length} connection${theirs.length === 1 ? '' : 's'})`);
+    conn.send({ t: 'kickdone', ok: true, seat: to.id, name: to.name, n: theirs.length });
+  }
+  // close with a last word: off the table at once (the roster updates now), the socket closed politely, and cut a
+  // moment later if the other end never answers the close
+  function drop(c, last) { c.send(last); onConnClose(c); try { c.close(); } catch { } setTimeout(() => { try { c.kill(); } catch { } }, 2000).unref?.(); }
   function onConnMessage(conn, m0) {
+    if (conn.gone) return; // (reaped or disconnected: what it still says is not heard)
+    conn.seen = Date.now();
     const m = migrateMessage(m0); // an old client's `table` reads as `area`
     if (!m || typeof m !== 'object') return;
     if (!conn.seat) {
@@ -304,6 +377,7 @@ export async function startRelay({
       clearTimeout(conn.helloTimer);
       conn.seat = claims.s; conn.rt = rt;
       rt.attach(conn);
+      try { funnel.attached(rt, conn.seat, conn.req); } catch (e) { log(`funnel: ${e.message}`); }
       conn.send({ t: 'welcome', seat: conn.seat, campaign: projectCampaign(rt.state, conn.seat, rt.online()), engine: roomgen?.version || null, transport: conn.kind });
       if (notice && Date.now() < notice.until) conn.send({ t: 'notice', ...notice });
       return;
@@ -325,10 +399,16 @@ export async function startRelay({
         break;
       }
       case 'whisper': rt.whisper(conn, m); break;
-      case 'ping': conn.send({ t: 'pong', ts: m.ts }); break;
+      case 'ping': conn.send({ t: 'pong', ts: m.ts, now: Date.now() }); break; // (now: the relay's clock, so the music plays the same moment at every seat: client/music.js)
+      case 'kick': kick(conn, m); break;
     }
   }
-  function onConnClose(conn) { clearTimeout(conn.helloTimer); conn.rt?.detach(conn); }
+  function onConnClose(conn) {
+    if (conn.gone) return; // (once: a reaped or kicked connection's own close event comes later)
+    conn.gone = true; conns.delete(conn);
+    clearTimeout(conn.helloTimer); conn.rt?.detach(conn);
+    if (conn.rt && conn.seat) { try { funnel.detached(conn.rt, conn.seat); } catch (e) { log(`funnel: ${e.message}`); } } // (the GM's time on the table: "engaged")
+  }
 
   const wss = new WebSocketServer({ noServer: true, maxPayload: 1024 * 1024 });
   server.on('upgrade', (req, sock, head) => {
@@ -336,13 +416,16 @@ export async function startRelay({
     if (p !== '/ws') { sock.destroy(); return; }
     wss.handleUpgrade(req, sock, head, (ws) => wss.emit('connection', ws, req));
   });
-  wss.on('connection', (ws) => {
+  wss.on('connection', (ws, req) => {
     const conn = newConn({
-      kind: 'ws',
+      kind: 'ws', req: { headers: { 'x-real-ip': ipOf(req) } }, // (the funnel's sameNet: never stored)
       send: (m) => { if (ws.readyState === 1) ws.send(JSON.stringify(m)); },
       sendLossy: (m) => { if (ws.readyState === 1 && ws.bufferedAmount < 128 * 1024) ws.send(JSON.stringify(m)); },
       close: () => { try { ws.close(); } catch {} },
+      kill: () => ws.terminate(),
+      beat: () => { if (ws.readyState === 1) ws.ping(); }, // (the browser answers by itself, even in a throttled background tab)
     });
+    ws.on('pong', () => { conn.seen = Date.now(); });
     ws.on('message', (raw) => { let m; try { m = JSON.parse(raw); } catch { return; } onConnMessage(conn, m); });
     ws.on('close', () => onConnClose(conn));
     ws.on('error', () => {});
@@ -359,20 +442,23 @@ export async function startRelay({
     res.write(': open\n\n');
     const write = (m) => res.write(`data: ${JSON.stringify(m)}\n\n`);
     const conn = newConn({
-      kind: 'sse',
+      kind: 'sse', req: { headers: { 'x-real-ip': ipOf(req) } },
       send: (m) => { if (!res.writableEnded) write(m); },
       sendLossy: (m) => { if (!res.writableEnded && res.writableLength < 128 * 1024) write(m); },
-      close: () => { if (!res.writableEnded) res.end(); },
+      close: () => { if (!res.writableEnded) res.end(); end(); },
+      kill: () => { res.destroy(); end(); },
     });
     const s = { conn, res, lastN: 0 };
     sse.set(sid, s);
     const ping = setInterval(() => res.write(': ping\n\n'), 15000); // Cloudflare drops streams idle for 100 s
-    req.on('close', () => { clearInterval(ping); sse.delete(sid); onConnClose(conn); });
+    function end() { clearInterval(ping); if (sse.get(sid) === s) sse.delete(sid); onConnClose(conn); } // (its POSTs answer 410 from now on: the client reconnects)
+    req.on('close', end); res.on('close', end);
   }
   async function ssePost(sid, req, res) {
     const s = sse.get(sid);
     const body = await readJson(req, 1024 * 1024).catch(() => null);
     if (!s) { res.writeHead(410, { 'access-control-allow-origin': '*' }).end(); return; }
+    s.conn.seen = Date.now(); // (any POST from the session is a sign of life, a retried one too)
     if (body && Number.isInteger(body.n) && body.n > s.lastN && Array.isArray(body.msgs)) {
       s.lastN = body.n;
       for (const m of body.msgs.slice(0, 500)) onConnMessage(s.conn, m);
@@ -389,7 +475,7 @@ export async function startRelay({
   log(`relay listening on ${host}:${actualPort}, data ${dataDir}, ${campaigns.size} campaigns`);
 
   async function close() {
-    clearInterval(ghostTimer);
+    clearInterval(ghostTimer); clearInterval(reaper); funnel.close();
     for (const c of wss.clients) c.terminate();
     for (const s of sse.values()) s.res.end();
     // one campaign that cannot be saved (its directory was deleted under the relay, a full disk) must not cost the
@@ -399,7 +485,7 @@ export async function startRelay({
     if (failed) log(`shutdown: ${failed} of ${campaigns.size} campaigns could not be saved`);
     await new Promise(r => server.close(r));
   }
-  return { port: actualPort, campaigns, close, roomgen, tokens, deleteCampaign, adminKey, tickets };
+  return { port: actualPort, campaigns, close, roomgen, tokens, deleteCampaign, adminKey, tickets, funnel, linkmail, shares };
 }
 
 function readBody(req, max) {

@@ -15,6 +15,7 @@
 //   app.actionLines.kind(name, { valid(data, line) -> null | reason, run(data, line) -> void | reason | Promise, restorable })
 //   app.actionLines.add({ kind, text, button, group, data, many(n), area }) -> line
 import { icon } from '../icons.js';
+import { tallyOf } from '../../core/dice.js';
 
 export function chatSurface(R, app) {
   const box = document.getElementById('chat'), bubbles = document.getElementById('bubbles');
@@ -78,6 +79,8 @@ export function chatSurface(R, app) {
       return true;
     },
     clear: () => { acts = []; save(); render(); },
+    drop: (pred) => { load(); const n = acts.length; acts = acts.filter(l => !pred(l)); if (acts.length !== n) { save(); render(); } }, // (surfaces/linkmail.js: one email-your-link line at a time)
+    render: () => render(),
   };
   // ---------- whispers (docs/PAWNS.md: the party row's whisper) ----------
   // A private line to ONE seat. It is not a command and is in no log: the relay hands it to that seat and to my own
@@ -119,7 +122,18 @@ export function chatSurface(R, app) {
   }
   function name(seat) { return app.sync.campaign?.seats.find(s => s.id === seat)?.name || 'someone'; }
   function color(seat) { return app.seatColor(seat); }
-  function line(c) { return c.roll ? `${icon('dices', 13)} <b>${esc(c.roll.expr)}</b> = <b class="total">${c.roll.total}</b> <span class="mute">[${c.roll.rolls.join(', ')}]</span>${c.text ? ' ' + esc(c.text) : ''}` : esc(c.text); }
+  // a roll that says what it was (`roll.info`: a Beyond20 roll, an Attack; core/beyond20.js) reads "Brakka attacks Goblin 2:
+  // d20+5 = 17 [12]", its flags after it (crit, fumble, the damage types); every other roll reads as before
+  const tags = (i, text = '') => [i.name && i.target && !text.includes(i.name) && i.name, i.crit && (i.part === 'damage' ? 'critical' : 'crit!'), i.fumble && 'fumble', i.alt, ...(i.types || []).map(t => t.toLowerCase())].filter(Boolean);
+  function line(c) {
+    if (!c.roll) return esc(c.text);
+    // a game's dice (core/gamedice.js, 2026-10-29): "Vampire pool 7 (2 hunger): 3 successes, messy critical [6 10 3 | hunger 10 1]"
+    const g = tallyOf(c.roll.expr, c.roll.rolls);
+    if (g) return `${icon('dices', 13)} <b>${esc(g.title)}</b>: <b class="total">${esc(g.text)}</b> <span class="mute">[${esc(g.faces)}]</span>${c.text ? ' ' + esc(c.text) : ''}`;
+    const i = c.roll.info, dice = `<b>${esc(c.roll.expr)}</b> = <b class="total">${c.roll.total}</b> <span class="mute">[${c.roll.rolls.join(', ')}]</span>`;
+    if (i) { const t = tags(i, c.text || ''); return `${icon('dices', 13)} ${c.text ? `${esc(c.text)}: ` : ''}${dice}${t.length ? ` <span class="mute">${esc(t.join(' · '))}</span>` : ''}`; }
+    return `${icon('dices', 13)} ${dice}${c.text ? ' ' + esc(c.text) : ''}`;
+  }
   function render() {
     const chat = app.view()?.chat || [];
     load(); lastArea = app.area();
@@ -140,7 +154,8 @@ export function chatSurface(R, app) {
       if (app.announce) continue; // the centred announce shows it (the bubble near the speaker was the old way)
       const el = document.createElement('div');
       el.className = `bubble${c.roll ? ' roll' : ''}`; el.style.setProperty('--c', color(c.by));
-      el.innerHTML = c.roll ? `${icon('dices', 14)} <b>${c.roll.total}</b> <span class="mute">${esc(c.roll.expr)}</span>` : esc(c.text);
+      const g = c.roll && tallyOf(c.roll.expr, c.roll.rolls);
+      el.innerHTML = c.roll ? (g ? `${icon('dices', 14)} <b>${esc(g.short)}</b> <span class="mute">${esc(g.title)}</span>` : `${icon('dices', 14)} <b>${c.roll.total}</b> <span class="mute">${esc(c.roll.expr)}</span>`) : esc(c.text);
       bubbles.append(el);
       live.push({ el, seat: c.by, until: performance.now() + 6000 });
     }

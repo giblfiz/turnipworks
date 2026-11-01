@@ -1,0 +1,71 @@
+{
+  "id": "pawn.eyes",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One big muted-teal pawn silhouette whose round head holds ONE large open ivory eye with a dark teal iris, looking straight out at the viewer: see through this pawn's eyes. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a dark charcoal circular ground, quiet thin slate rim. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.sheet.webp",
+      "sha256": "4a3cf8dea549f938400b6d67bc869ae96c41c9f7c5d3cf153b2b54df7f9835c8",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.give.webp",
+      "sha256": "fa7d5d5ea7fa300d5d1f63d5e27c33bc778767372c3e0d6c67f22f69552ba8b9",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.travel.webp",
+      "sha256": "61e3b1c18103aca7de07c232c642179d3587700baa317328de85ce5f755cb3c9",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/charcoal--pawn.eyes.png",
+  "source_sha256": "cc2b6fe673575c30e509e8256d95dd7902a6f86d8db17115d11086fb29042d23",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/pawn.eyes.webp",
+    "19": "charcoal/sizes/19/pawn.eyes.webp",
+    "22": "charcoal/sizes/22/pawn.eyes.webp",
+    "26": "charcoal/sizes/26/pawn.eyes.webp",
+    "31": "charcoal/sizes/31/pawn.eyes.webp",
+    "36": "charcoal/sizes/36/pawn.eyes.webp",
+    "38": "charcoal/sizes/38/pawn.eyes.webp",
+    "42": "charcoal/sizes/42/pawn.eyes.webp",
+    "44": "charcoal/sizes/44/pawn.eyes.webp",
+    "50": "charcoal/sizes/50/pawn.eyes.webp",
+    "52": "charcoal/sizes/52/pawn.eyes.webp",
+    "62": "charcoal/sizes/62/pawn.eyes.webp",
+    "84": "charcoal/sizes/84/pawn.eyes.webp",
+    "100": "charcoal/sizes/100/pawn.eyes.webp",
+    "128": "charcoal/pawn.eyes.webp"
+  },
+  "sha256": {
+    "18": "4f6d747617f736b187c48431aed326c0e801478f4e41b3362e781078eb3c66b3",
+    "19": "b1c40df3a063dd34e679f72577df28e94a316ce32a620a9f741614b8bce12e24",
+    "22": "cc22dcd3be3a1a00adc4274a8338fb2bef844bb2bc99e7807c0c1d9d029e08bf",
+    "26": "5cb4e283b7576bbcd5c9be1b3f113666115ab8591260a2788aa167b909b9dbbf",
+    "31": "bde3641a76fdeaff99ca4fbda233d00a1a8f8224c4f31f91d2d29d3d90000174",
+    "36": "9a0edf1825bbef1852ffc4a5a1f47dc5cf899d8ce3e9271c912f29f959ebe116",
+    "38": "3a4066ca7ec89ba32295c0b3694d38e896d4d639c81928d964ac00e7ca9512a7",
+    "42": "53b2bdc122b25d387bd73099c0628de015e1129e26c79b3d4bb34ef9d1cffac0",
+    "44": "8cd9b6b87724b684a26622ea08bb5a7b63e3ba622370fce3433b490d47071c26",
+    "50": "26e7b5b86fcf429f7438398a6d1cb0bb662f8260a3983630799eff21a2f79b36",
+    "52": "9fa58c4b0ebfb92eaceb6fc15734641a22f5f9c6945a9dba7de1abf0e4c3ac0d",
+    "62": "5c1bc4b8c379be0dfd982da5b520f5b07954a5bde242fb10962a519d675e6675",
+    "84": "ff27f307e748c1644cb8749befbc5cbc1ccc8e8444cf973a52d99b4003906464",
+    "100": "93b15d81fe9370b36dd424cb3bc3787c687d833169c64376b9c3cb4b214ef220",
+    "128": "4093a46c860a0f9afdf6955f944d81a2529507876e669eafcad08f987670cd73"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "7664769d1f43a20b3cb3eac93f83e1d6572886eb6807dce049d7a5d1f6a68d44",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/charcoal/pawn.eyes/cc2b6fe673575c30-2ed1ac590f"
+}

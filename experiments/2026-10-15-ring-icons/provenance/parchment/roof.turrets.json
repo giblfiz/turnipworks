@@ -1,0 +1,76 @@
+{
+  "id": "roof.turrets",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof edge option pictogram: One flat roof corner with ONE small round stone corner TURRET rising from it, capped by a pointed teal conical roof. Dominant colour: grey stone and teal. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a warm pale parchment circular ground with quiet thin antique brass rim; dark outlines for strong contrast. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.thatch.webp",
+      "sha256": "95b8c204e4f6e7cdb1c4323f57762311ec9815f960a79ba65d04300382ba53ce",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.flat.webp",
+      "sha256": "32eaee73c0657074dd46cb45328438f98b5a93544b355e3988d7c6d6a8794f0c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.slate.webp",
+      "sha256": "975224290396c2463b48957ce1a60b28592adfc50addf45076f9d6241a642154",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.turrets.png",
+      "sha256": "195bbb8136dc1a02a940ad004e41d6744b94e1061ad8daf9a476a3f366b9c6a2",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--roof.turrets.png",
+  "source_sha256": "23de2e600ee5645f56a9daae8676aa7e0a4ffa3b7ce6233715f996a0fab278c7",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/roof.turrets.webp",
+    "19": "parchment/sizes/19/roof.turrets.webp",
+    "22": "parchment/sizes/22/roof.turrets.webp",
+    "26": "parchment/sizes/26/roof.turrets.webp",
+    "31": "parchment/sizes/31/roof.turrets.webp",
+    "36": "parchment/sizes/36/roof.turrets.webp",
+    "38": "parchment/sizes/38/roof.turrets.webp",
+    "42": "parchment/sizes/42/roof.turrets.webp",
+    "44": "parchment/sizes/44/roof.turrets.webp",
+    "50": "parchment/sizes/50/roof.turrets.webp",
+    "52": "parchment/sizes/52/roof.turrets.webp",
+    "62": "parchment/sizes/62/roof.turrets.webp",
+    "84": "parchment/sizes/84/roof.turrets.webp",
+    "100": "parchment/sizes/100/roof.turrets.webp",
+    "128": "parchment/roof.turrets.webp"
+  },
+  "sha256": {
+    "18": "ca90bd46ecf6c42e39ebb020f903e87f7df1a1c00d4138f7dac6ec16116112d8",
+    "19": "2f6a0ec194e0d37c088e5b035e79258104e5c34cd97886e1ea07e427b1246988",
+    "22": "7330968a1e5454701fb1e4804b303560d9473437bd2da3d3a7dcbee359057e3d",
+    "26": "e2bef59bd8568a0f46616d37640256b49f7468c29448a30f05723766af4f8275",
+    "31": "cf85c42a4073e67789572c11fbd96a930a0d0cbc226cba741049f06d5b6e34ad",
+    "36": "3ec1b1c99a511fd8b948559cf76f2787ac7b1e37cc0928343169c0de1ea71fb6",
+    "38": "d78649fd871563df4be5d57d739166ce133b6dcd7099d2802c20ba047ddd9e54",
+    "42": "df67e2210de619ac2fd86f5b7f89e9f65830cc43bf7e1f513c8705841c157db4",
+    "44": "c0ac04282a072367149d9dfafaad30f10a3f8c0fb83c1bed5d46b1522287dc59",
+    "50": "059180c233c434a1df73a92589441c02b22c2f7587d95addc361ccfe0034292f",
+    "52": "7ecfe8f0bda0de13e1bc0facb50092424b116f0e011b35fa36656ea728fea9a0",
+    "62": "d20570c503a60bf38f9e53d18bc240259481da5e8ee193d1abe00b68569230ac",
+    "84": "18ba8da591106a604c1d08d9f7911c8404c9f1278f96e226eadb68e21d7a65e9",
+    "100": "8484fab6ad3ef36b5e87c9e4736d8abce5523116b9ff760b602bf614ba5524a9",
+    "128": "0f1b0abcafcd4d6ba11f9776ebe7bc78424f16203933560d73f262bb7bcf5cae"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "df742f78c9ce3c402c9bb0c22ea08561b6b141fcf4b87d4a92d04327f36a9e12",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/parchment/roof.turrets/23de2e600ee5645f-2ddccf6ab7"
+}

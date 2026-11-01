@@ -1,0 +1,76 @@
+{
+  "id": "roof.edge.battlements",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof edge option pictogram: One flat stone roof edge crowned by THREE broad square stone CRENELLATIONS with clear square gaps between them: battlements. Dominant colour: pale grey stone. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a warm pale parchment circular ground with quiet thin antique brass rim; dark outlines for strong contrast. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.thatch.webp",
+      "sha256": "95b8c204e4f6e7cdb1c4323f57762311ec9815f960a79ba65d04300382ba53ce",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.flat.webp",
+      "sha256": "32eaee73c0657074dd46cb45328438f98b5a93544b355e3988d7c6d6a8794f0c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.slate.webp",
+      "sha256": "975224290396c2463b48957ce1a60b28592adfc50addf45076f9d6241a642154",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.edge.battlements.png",
+      "sha256": "f0ca9d98591e464eb00d33c4ec037abb86371b8430670211769e5f58ec40a3e4",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--roof.edge.battlements.png",
+  "source_sha256": "502dc00f7985b373c2434936b14afd4c09ef856b1317e53d91cccb27c1663fa6",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/roof.edge.battlements.webp",
+    "19": "parchment/sizes/19/roof.edge.battlements.webp",
+    "22": "parchment/sizes/22/roof.edge.battlements.webp",
+    "26": "parchment/sizes/26/roof.edge.battlements.webp",
+    "31": "parchment/sizes/31/roof.edge.battlements.webp",
+    "36": "parchment/sizes/36/roof.edge.battlements.webp",
+    "38": "parchment/sizes/38/roof.edge.battlements.webp",
+    "42": "parchment/sizes/42/roof.edge.battlements.webp",
+    "44": "parchment/sizes/44/roof.edge.battlements.webp",
+    "50": "parchment/sizes/50/roof.edge.battlements.webp",
+    "52": "parchment/sizes/52/roof.edge.battlements.webp",
+    "62": "parchment/sizes/62/roof.edge.battlements.webp",
+    "84": "parchment/sizes/84/roof.edge.battlements.webp",
+    "100": "parchment/sizes/100/roof.edge.battlements.webp",
+    "128": "parchment/roof.edge.battlements.webp"
+  },
+  "sha256": {
+    "18": "cb8d26bcc68c3655e98fed4e2dbacbe037b9ad28d29c44c9791e13b5b35e836c",
+    "19": "b7d83670072293534c0b25a8baeefc600666c6ab998a71568a4c3ec053141ee6",
+    "22": "ecb783622195551f614ae0c4bb19b323cf642cd2258c8c76092a4e3f1baed803",
+    "26": "97ddd89c7b6fe095c00a71815cecb1566013f53bb26c81ee076737ef8a4174df",
+    "31": "47eaabfeb074e267f48e1a269f69f4f91ed591574d72efb32060aaced48066b7",
+    "36": "40b60abfba1ef917703b83373bd1613ee7187de8fa6024930732aa4217d6a6d2",
+    "38": "2777573c372a11b583d2fb9acb467af3bbeac159a3aa24c25e6a9fd12d4b60dc",
+    "42": "b333bade46dc60a171a3d4b11a8c28a5949d37b5106b5c5e57ec045ebfceed16",
+    "44": "38d7f53f6003744fc45333d3383e04e6acada69b160f7a6b22c08143709a482a",
+    "50": "04ae44085f4b2caec0ba6657c9e23a568a795231b3f8677b956680d5359526f1",
+    "52": "2b9db24d3be5f450dc08c83eaa0d96729b7855425bfb1e1f6961300054140576",
+    "62": "ca28d061e537c132b762a2a5caaaca6592d8af8c28da4d99401b1b895cde6329",
+    "84": "82092fae98134b42cb4044270f5dd0140d10ab6eeee7237d02ede635f8270b92",
+    "100": "472e9aeb4b0d874e9f764b403518ea516d6ae710c2cea4dd387e50731c084966",
+    "128": "2d15cb9c3f1a9358893648cbf244576005c4c1c5967a062e9b358c9f55e605bf"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "c978004bf41dea77a3463ac9ab51cdb90f94af92a361205a335da8245f3b55ad",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/parchment/roof.edge.battlements/502dc00f7985b373-2ddccf6ab7"
+}

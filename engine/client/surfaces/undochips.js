@@ -16,13 +16,13 @@ export const DAMAGE_LIFE_MS = 6000, DAMAGE_MERGE_MS = 2500;
 
 const LIFE_MS = 9000, CELL = 5;
 const NOUN = { 'room.spawn': 'room', 'room.reroll': 're-roll', 'room.delete': 'deletion', 'room.move': 'move', 'room.rotate': 'turn', 'room.set': 'room change', 'building.set': 'rename',
-  'object.place': 'placement', 'object.move': 'move', 'object.delete': 'deletion', 'object.set': 'change', 'object.replace': 'swap', 'object.open': 'door', 'object.light': 'light',
+  'object.place': 'placement', 'object.move': 'move', 'object.delete': 'deletion', 'object.set': 'change', 'object.replace': 'swap', 'object.open': 'door', 'door.open': 'door', 'object.light': 'light',
   'edge.set': 'wall change', 'edge.reset': 'wall change',
   'token.create': 'new pawn', 'token.move': 'move', 'token.set': 'change', 'token.delete': 'deletion', 'entity.flag': 'change', batch: 'changes', 'transfer.in': 'arrival', 'transfer.out': 'send-off' };
 
 // what the chat line says: "<who> <did> <thing>"
 const DID = { 'room.spawn': 'built', 'room.reroll': 're-rolled', 'room.delete': 'deleted', 'room.move': 'moved', 'room.rotate': 'turned', 'room.set': 'changed', 'building.set': 'renamed',
-  'object.place': 'placed', 'object.move': 'moved', 'object.delete': 'deleted', 'object.set': 'changed', 'object.replace': 'swapped', 'object.open': 'opened or shut', 'object.light': 'lit or put out',
+  'object.place': 'placed', 'object.move': 'moved', 'object.delete': 'deleted', 'object.set': 'changed', 'object.replace': 'swapped', 'object.open': 'opened or shut', 'door.open': 'opened or shut', 'object.light': 'lit or put out',
   'edge.set': 'changed a wall', 'edge.reset': 'changed a wall', 'token.create': 'added', 'token.move': 'moved', 'token.set': 'changed', 'token.delete': 'deleted', 'entity.flag': 'changed', batch: 'changed several things', 'transfer.in': 'brought in', 'transfer.out': 'sent off' };
 const DELETES = new Set(['room.delete', 'object.delete', 'token.delete', 'transfer.out']);
 // the entity ids an entry changed (as far as its arguments say)

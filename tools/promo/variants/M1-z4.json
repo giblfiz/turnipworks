@@ -1,0 +1,68 @@
+{
+ "name": "M1-z4",
+ "desc": "armoury (one storey) at 1x, high 3/4 orbit corner -> front (yaw -45 -> 0, pitch 48), settles and squares together, full card 5.0-6.0 | z4: spilling (scene 120% of the frame width: nothing but the scene in frame)",
+ "capture": "m-arm-z4",
+ "square_capture": "m-arm-z4-sq",
+ "speed": 1.0,
+ "fit": null,
+ "fps": 60,
+ "frames": 360,
+ "segments": [
+  {
+   "out": [
+    0,
+    300
+   ],
+   "footage": 0,
+   "out_s": [
+    0.0,
+    5.0
+   ],
+   "footage_s": 0.0
+  },
+  {
+   "out": [
+    300,
+    360
+   ],
+   "card": 4,
+   "out_s": [
+    5.0,
+    6.0
+   ]
+  }
+ ],
+ "cuts": [
+  {
+   "card": 4,
+   "at_s": 5.0,
+   "in_flight_before": 0
+  }
+ ],
+ "capture_events_out_s": {
+  "ground_land": 4.15,
+  "upper_start": null,
+  "last_land": 4.15,
+  "upper_land": null,
+  "step_start": null,
+  "step_land": null,
+  "tour_end": null,
+  "upper_pieces": 0,
+  "mat_square_out_s": 3.9,
+  "text_cut_frames": 0,
+  "text_in_from_out_s": 0.0
+ },
+ "spawn_ms_1x": {
+  "ground_land": 4150.0,
+  "upper_start": null,
+  "last_land": 4150.0,
+  "upper_land": null,
+  "step_start": null,
+  "step_land": null,
+  "tour_end": null,
+  "upper_pieces": 0,
+  "mat_square_out_s": 3.9,
+  "text_cut_frames": 0,
+  "text_in_from_out_s": 0.0
+ }
+}

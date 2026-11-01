@@ -1,0 +1,111 @@
+## Image 1: `desktop-top.png`
+
+### STEP 1: Labels, Headings & Text
+
+* **Top navigation bar:**
+  * Brand: `Turnip Works` (accompanied by turnip wrench logo)
+  * Links: `About`, `Compare VTTs` (active/underlined), `Terms`, `Privacy`, `Source`
+* **Main Heading (H1):** `VTT comparison index`
+* **Metadata label:** `Last updated 29 October 2026`
+* **Inline section headings (bold lead-ins):**
+  * `Who made this table.`
+  * `How to read it.`
+  * `Claim yours / correct me.`
+* **Body links:**
+  * `tell us` (under "Claim yours / correct me.")
+* **Buttons, Column Headers, Legends & Table Rows:**
+  * **None visible.** The viewport at 1366×900 cuts off before the filter controls, legend, column headers, or comparison table appear.
+
+---
+
+### STEP 2: Evaluation & Judgment
+
+**VERDICT: FIX**
+
+**Specific Problems (most important first):**
+
+1. **Table and all tools are completely below the fold (Center/Bottom of viewport):**
+   * On a standard 1366×900 desktop screen, a visitor arriving at the "VTT comparison index" sees 100% explanatory text and 0% table. Neither the table headers, rows, filter checkboxes, nor search bar are visible without scrolling.
+2. **Extreme asymmetrical layout & wasted space (Right half of the page):**
+   * The text column occupies only the left ~55% of the white container, leaving the entire right ~45% (~600px wide) completely empty. Formatting the introductory notes into a two-column layout or a collapsible banner would bring the actual comparison table above the fold.
+3. **Awkward bottom fold cutoff (Bottom edge):**
+   * The final sentence (`"rather fix a row than defend it."`) sits right on the 900px bottom boundary, clipping close to the edge with no visual cue (like a table peek or scroll indicator) indicating substantial interactive content below.
+
+---
+
+## Image 2: `desktop-detail.png`
+
+### STEP 1: Labels, Headings & Text
+
+#### Foreground: Detail Panel (Modal)
+* **Close button:** `✕` (top right)
+* **Title (H2):** `Roll20`
+* **Subtitle / metadata:** `Established · vtt · Roll20, LLC`
+* **Summary text:** `A long-running browser VTT with sheets for a very wide range of systems; suits groups who want to play online with nothing to install.`
+* **Metadata list:**
+  * `Website: https://roll20.net/`
+  * `Licence: proprietary`
+  * `Site check: up (answered 200, 2026-10-29) · features last checked 2026-10-29`
+* **Feature breakdown rows (Label | Value | Detail & Source link):**
+  1. `2D / 3D` | `2D (?)` | `Flat maps; 3D dice are optional` `source`
+  2. `Runs on` | `web browser` | `Runs in a web browser` `source`
+  3. `Price` | `free tier (?)` | `Plus about $5.99/mo, Pro about $10.99/mo, Elite (Oct 2025) $12.50-14.99/mo; sources disagree. Players free` `source`
+  4. `Accounts` | `everyone (?)` | `Players join with a free Roll20 account` `source`
+  5. `Fog of war` | `yes (?)` | `Fog of war and Explorer mode` `source`
+  6. `Dynamic lighting` | `yes` | `Dynamic Lighting built in; listed as a Plus/Pro (GM) feature` `source`
+  7. `Map building` | `partial` | `Drawing tools; Roll20 also owns Dungeon Scrawl, a separate map maker (Pro on Elite)` `source`
+  8. `Levels / height` | `?` | `No multi-floor feature confirmed` `source`
+  9. `Sheets & rules` | `yes (?)` | `Character sheets for many systems, compendium, Demiplane sheet integration` `source`
+  10. `D&D Beyond / Beyond20` | `partial` | `Beyond20 supports Roll20 directly` `source`
+  11. `Dice` | `3D (?)` | `3D dice, off by default, turned on in settings` `source`
+  12. `Phones` | `partial (?)` | `Mobile app delisted Feb 2026; mobile browser for character sheets` `source`
+  13. `Offline / self-host` | `?` | `Hosted service; no self-host option found` `source`
+  14. `Open source` | `no (?)` | `Core closed; community character sheet code is public on` (cut off at bottom)
+
+#### Background: Page Behind Modal Backdrop
+* **Filter bar labels:**
+  * `Show only`
+  * `3D` (checkbox)
+  * `Free to st...` (checkbox, partially occluded by modal)
+  * `Search` (input label, partially occluded as `arch`)
+  * `name or a word` (input placeholder)
+  * `Showing all 118` (result count)
+* **Table column headers visible:**
+  * `Product ↑`
+  * `2D / 3D`
+  * `Runs o...` (partially occluded by modal)
+  * `ts & rules` (partially occluded by modal, likely "Sheets & rules")
+  * `D&D Beyond`
+  * `Dice`
+  * `F...` (partially clipped by right table border)
+* **Table first-column rows (all 7 visible rows):**
+  1. `Quest Portal` (`Established`)
+  2. `RealmKeeper` (`New & indie · companion tool`)
+  3. `RealmRiders` (`New & indie`)
+  4. `RealmWeaver` (`New & indie`)
+  5. `Reverie` (`New & indie`)
+  6. `Role` (`New & indie`)
+  7. `Roll20` (`Established`)
+
+---
+
+### STEP 2: Evaluation & Judgment
+
+**VERDICT: FIX**
+
+**Specific Problems (most important first):**
+
+1. **Detail modal truncated at bottom / content cut off (Bottom of modal):**
+   * The final visible row (`Open source`) ends mid-sentence: `"Core closed; community character sheet code is public on"`. The target platform/repository is cut off.
+   * The text in this row is pressed directly against the bottom rounded corner border with zero bottom padding.
+   * There is no scrollbar or indicator showing that additional content or rows exist below. The modal lacks an internal scrolling wrapper (`max-height` with `overflow-y: auto`).
+2. **Awkward inline "source" link attachment (Right column of detail table):**
+   * In every row of the detail panel, the word `source` is appended directly to the end of the sentence without brackets, parentheses, or preceding punctuation (e.g., `"Flat maps; 3D dice are optional source"`, `"Runs in a web browser source"`, `"No multi-floor feature confirmed source"`). It reads like grammatical errors rather than reference citations.
+3. **Aggressive text truncation in background table cells (Second column):**
+   * In the main table's "Runs on" column, standard platforms are truncated with ellipses (`"Brows..."` instead of "Browser", `"Androi..."` instead of "Android"). The column width is set too narrow.
+4. **Rightmost column header clipped (Far right edge of table):**
+   * The table header at the right edge is clipped to `"F..."` (likely "Fog of war" or "Free"), indicating table width overflow without adequate horizontal padding.
+5. **No visible color legend for table cells:**
+   * The background table uses distinct cell fill colors (green, light reddish/pink, tan, gray), but there is no legend explaining the color mapping. The intro text only defines text values (`yes`, `partial`, `no`, `n/a`, `?`), leaving the visual color scheme unexplained.
+6. **Modal vertical dimensions tight against viewport:**
+   * At 900px height, the modal stretches almost from the top to the very bottom edge with negligible margins, exacerbating the cut-off issue.

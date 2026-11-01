@@ -286,7 +286,7 @@ def validate():
                     f'{key}: blind prompt missing or changed')
         prompt_hash = hashlib.sha256(pipeline.blind_prompt(pic).encode()).hexdigest()
         audit.check(prov.get('blind_prompt_sha256') == prompt_hash and variant['blindRead'].get('promptSha256') == prompt_hash, f'{key}: blind prompt hash mismatch')
-        audit.check(prov['blind_prompt'] == pipeline.blind_prompt(pic) and prov['blind_model'] == pipeline.MODEL,
+        audit.check(prov['blind_prompt'] == pipeline.blind_prompt(pic) and prov['blind_model'] in pipeline.BLIND_MODELS,
                     f'{key}: blind provenance prompt/model mismatch')
         if not result_path.exists():
             audit.wait(f'{key}: blind read pending')
@@ -297,7 +297,7 @@ def validate():
         raw = folder / 'raw.txt'
         audit.check(raw.exists() and raw.read_text() == result['read'] + '\n' + result.get('error', ''), f'{key}: raw read transcript missing/mismatched')
         audit.counts['pictures_read'] += 1
-        audit.check(result['model'] == pipeline.MODEL, f'{key}: wrong blind model')
+        audit.check(result['model'] in pipeline.BLIND_MODELS and result['model'] == prov['blind_model'], f'{key}: wrong blind model')
         blind = variant['blindRead']
         if blind['status'] == 'not-read' and not blind['read']:
             audit.wait(f'{key}: completed raw read not yet published in manifest')

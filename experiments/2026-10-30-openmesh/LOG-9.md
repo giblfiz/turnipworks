@@ -1,0 +1,1 @@
+wall-window-small--castle-rough | tries: 3 | pass: one whole object, transparent RGBA with zero-alpha corners, matching design, shut slit, no text/floor/shadow/people; fail: generous margin (10 px minimum), requested 1024x1024 size (output 1254x1254). A rough stone wall has its recessed cross-shaped arrow slit filled with dark iron-studded wood.

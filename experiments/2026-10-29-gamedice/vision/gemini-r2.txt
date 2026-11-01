@@ -1,0 +1,204 @@
+### Visual QA: 3D Browser Tabletop Dice (Table Distance)
+
+---
+
+### 1. `gamedice-v5-forced.png`
+
+#### Explicit Labels, Tag Pills, and Die-by-Die Readout
+* **Global / UI Labels**:
+  * Top navigation bar: `Pawns [P]`, `Build [B]`, `Settings [S]`, `Other games / New game`, search prompt `Search commands, things to place, people, places... or say / roll`, zone pills `Area 1`, `Open to players`, `Hide`, user avatars `H` (`Area 1`), `M` (`Area 1`).
+  * Left sidebar: level indicator `1`.
+  * Table tokens: Yellow cylinder pawn labeled `Mira`.
+  * Bottom-right status: `Dice 1 • Harry's GM assistant`.
+  * Chat log (bottom left): `Mira: Vampire pool 6 (2 hunger): 6 successes, messy critical, bestial failure if it fails [10 7 1 6 | hunger 10 1]` (with clipped prior roll residue above).
+* **Tag Pills & Visible Top Faces (6 dice total: 4 blue regular, 2 crimson Hunger)**:
+  * **Die 1 (Top-left regular blue d10)**:
+    * Tag pill: `[ 6 ]` (black pill, cyan bottom border).
+    * Top face: Numeral `9` with an underline along the bottom edge of the glyph (reads as 9, inverted relative to tag `6`). Visible side faces: `0`, `4`, `8`, `2`.
+  * **Die 2 (Bottom-left regular blue d10)**:
+    * Tag pill: `[ 10 ]` (black pill, cyan bottom border).
+    * Top face: Numeral `0` with an underline (standard d10 notation representing 10). Visible side faces: `6`, `7`.
+  * **Die 3 (Bottom-center regular blue d10)**:
+    * Tag pill: `[ 7 ]` (black pill, cyan bottom border).
+    * Top face: Numeral `7` with an underline. Visible side faces: `5`, `0`.
+  * **Die 4 (Center-right regular blue d10)**:
+    * Tag pill: `[ 1 ]` (black pill, cyan bottom border, tucked tightly near the top vertex).
+    * Top face: Numeral `1`. Visible side faces: `3`, `7`.
+  * **Die 5 (Center crimson Hunger d10)**:
+    * Tag pill: `[ 10 ]` (black pill, cyan bottom border).
+    * Top face: Stylized white fangs enclosing a crimson blood drop (Hunger 10 / Messy Critical icon). Visible side faces: `6`, `7`.
+  * **Die 6 (Top-right crimson Hunger d10)**:
+    * Tag pill: `[ 1 ]` (black pill, cyan bottom border).
+    * Top face: Three horizontal white claw slashes (Hunger 1 / Bestial Failure icon). Visible side faces: `1`, `3`, `9`, `5`.
+
+#### Judgment
+1. **Can each top face be read at this distance?**: Yes for glyph clarity and stroke weight, but semantically flawed: Die 1 reads as a `9` rather than `6` due to inverted orientation, and Die 2 displays `0` rather than `10`.
+2. **Do Hunger dice read as different from regular ones?**: **Yes**. Crimson body material with specialized white iconography immediately distinguishes them from roller-blue numbered dice.
+3. **Hope vs Fear distinct?**: N/A.
+4. **Can a player tell success, opportunity, strife, explosive apart?**: N/A.
+5. **Anything broken?**:
+   * Die 1 face texture/orientation displays `9` for a committed `6`.
+   * Die 2 shows `0` instead of `10` (problematic in V5 where 10 triggers criticals).
+   * Tag pill `[ 1 ]` on the right regular die is crowded against the base of the top-right crimson die.
+
+* **Verdict**: **FIX**
+  * *Concrete Fix*: Orient/map the regular d10 face so `6` is upright from camera normal; render the face as `10` instead of `0` on the d10 texture; increase minimum screen-space tag pill repulsion so tag `1` does not collide with neighboring dice.
+
+---
+
+### 2. `gamedice-l5r-forced.png`
+
+#### Explicit Labels, Tag Pills, and Die-by-Die Readout
+* **Global / UI Labels**:
+  * Top navigation bar: `Pawns [P]`, `Build [B]`, `Settings [S]`, `Other games / New game`, search prompt `Search commands, things to place, people, places... or say / roll`, `Area 1`, `Open to players`, `Hide`, avatars `H` (`Area 1`), `M` (`Area 1`).
+  * Left sidebar: `1`.
+  * Table tokens: Yellow cylinder pawn labeled `Mira`.
+  * Bottom-right status: `Dice 1 • Harry's GM assistant`.
+  * Chat log (bottom left): `Mira: Rings 3 ring + 3 skill: ring [explosive+strife, opportunity+strife, success+strife] skill [explosive, success+opportunity, opportunity]: if all kept: 4 successes (2 explosive), 3 opportunities, 3 strife; each explosive kept rolls one more die of its kind; keep up to 3 dice [ring E+T O+T S+T | skill E S+O O]`.
+* **Tag Pills & Visible Top Faces (Expected: 6 dice: 3 dark ring d6, 3 ivory skill d12)**:
+  * **Visible Die 1 (Center ivory 12-sided skill die)**:
+    * Tag pill: `[ S+O ]` directly above it; a second tag pill is partially visible occluded directly underneath the `S+O` pill.
+    * Top face: Five-petal blossom (Opportunity). The spearhead (Success) symbol is completely absent from this face. Visible side faces: five-petal blossom (opportunity), spearhead (success), cracked line (strife).
+  * **Die 2 to Die 6**: **Completely invisible**. 3 dark ring dice and 2 ivory skill dice are missing from the table surface.
+  * **Orphan Tag Pill**: Tag pill `[ O+T ]` is floating alone far to the upper right near the chandelier/barrel with no die underneath it.
+
+#### Judgment
+1. **Can each top face be read at this distance?**: **No**. Only 1 of 6 dice is visible.
+2. **Do Hunger dice read as different from regular ones?**: N/A.
+3. **Hope vs Fear distinct?**: N/A.
+4. **Can a player tell success, opportunity, strife, explosive apart?**: On the single visible die, the petal and spearhead symbols are clear shapes, but the face showing under `S+O` lacks the success spearhead entirely (blank where a symbol should be).
+5. **Anything broken?**: **Catastrophic spawn / physics failure**. 5 dice are missing or clipped into one another at origin; tag pill `[ S+O ]` overlaps an underlying pill; tag pill `[ O+T ]` is orphaned in empty space; the visible die face lacks the combined `S+O` compound symbol.
+
+* **Verdict**: **FIX**
+  * *Concrete Fix*: Fix physics spawner to spread all 6 dice across the tray without co-locating at (0,0); correct the 12-sided texture map so the `S+O` face renders both the spearhead and five-petal blossom; tie tag pill anchor coordinates strictly to each die's rendered mesh center.
+
+---
+
+### 3. `gamedice-fate-forced.png`
+
+#### Explicit Labels, Tag Pills, and Die-by-Die Readout
+* **Global / UI Labels**:
+  * Top navigation bar: `Pawns [P]`, `Build [B]`, `Settings [S]`, `Other games / New game`, search prompt `Search commands, things to place, people, places... or say / roll`, `Area 1`, `Open to players`, `Hide`, avatars `H` (`Area 1`), `M` (`Area 1`).
+  * Left sidebar: `1`.
+  * Table tokens: Yellow cylinder pawn labeled `Mira`.
+  * Bottom-right status: `Dice 1 • Harry's GM assistant`.
+  * Chat log (bottom left): `Mira: 4dF +1: +2 Fair (+ - 0 +, +1) [+ - 0 +]`.
+* **Tag Pills & Visible Top Faces (4 six-sided Fate dice)**:
+  * **Die 1 (Top-left blue d6)**:
+    * Tag pill: `[ + ]`.
+    * Top face: White plus sign `+` with black outline. Visible side face: `+`.
+  * **Die 2 (Bottom-left blue d6)**:
+    * Tag pill: `[ + ]`.
+    * Top face: White plus sign `+` with black outline. Visible side face: `-`.
+  * **Die 3 (Bottom-right blue d6)**:
+    * Tag pill: `[ - ]`.
+    * Top face: White minus bar `-` with black outline. Visible side face: `+`.
+  * **Die 4 (Top-right blue d6)**:
+    * Tag pill: `[ 0 ]`.
+    * Top face: Blank smooth teal face. Visible side faces: Blank.
+
+#### Judgment
+1. **Can each top face be read at this distance?**: **Yes**. Plus, minus, and blank faces are immediately legible with clean high-contrast iconography.
+2. **Do Hunger dice read as different from regular ones?**: N/A.
+3. **Hope vs Fear distinct?**: N/A.
+4. **Can a player tell success, opportunity, strife, explosive apart?**: N/A.
+5. **Anything broken?**: None. Die 3 and Die 4 sit close to each other, and tag `0` sits slightly high toward the top-right corner, but no mesh clipping, no missing faces, and all tags accurately mirror the dice.
+
+* **Verdict**: **PASS**
+
+---
+
+### 4. `gamedice-duality-forced.png`
+
+#### Explicit Labels, Tag Pills, and Die-by-Die Readout
+* **Global / UI Labels**:
+  * Top navigation bar: `Pawns [P]`, `Build [B]`, `Settings [S]`, `Other games / New game`, search prompt `Search commands, things to place, people, places... or say / roll`, `Area 1`, `Open to players`, `Hide`, avatars `H` (`Area 1`), `M` (`Area 1`).
+  * Left sidebar: `1`.
+  * Table tokens: Yellow cylinder pawn labeled `Mira`.
+  * Bottom-right status: `Dice 1 • Harry's GM assistant`.
+  * Chat log (bottom left): `Mira: Duality +1: 16 with Hope (Hope 11, Fear 4, +1) [Hope 11 | Fear 4]`.
+* **Tag Pills & Visible Top Faces (2 twelve-sided dice)**:
+  * **Die 1 (Left Hope d12 - Gold / Ochre)**:
+    * Tag pill: `[ 11 ]`.
+    * Top face: Bold black numeral `11`. Visible side faces: `12`, `10`, `7`.
+  * **Die 2 (Right Fear d12 - Dark Violet / Purple)**:
+    * Tag pill: `[ 4 ]`.
+    * Top face: Bold white numeral `4`. Visible side faces: `2`, `8`, `10`.
+
+#### Judgment
+1. **Can each top face be read at this distance?**: **Yes**. Both numerals are bold, centered, high-contrast, and instantly readable.
+2. **Do Hunger dice read as different from regular ones?**: N/A.
+3. **Hope vs Fear distinct?**: **Yes, exceptionally so**. Saturated gold with black numbering versus deep violet with white numbering leaves zero ambiguity.
+4. **Can a player tell success, opportunity, strife, explosive apart?**: N/A.
+5. **Anything broken?**: None. Clean spacing, stable physics, accurate tag pill positions, and crisp textures.
+
+* **Verdict**: **PASS**
+
+---
+
+### 5. `gamedice-bar-sr.png`
+
+#### Explicit Labels, Tag Pills, and Die-by-Die Readout
+* **Global / UI Labels**:
+  * Top navigation bar: `Pawns [P]`, `Build [B]`, `Settings [S]`, `Other games / New game`, search prompt `Search commands, things to place, people, places... or say / roll`, `Area 1`, `Open to players`, `Hide`, avatars `H` (`Area 1`), `M` (`Area 1`).
+  * Left sidebar: `1`.
+  * Table tokens: Yellow cylinder pawn labeled `Mira`.
+  * Chat log (bottom left): `Mira: Shadowrun pool 12: 6 hits [5 5 5 4 5 5 6 3 2 3 2 4]`.
+* **Tag Pills & Visible Top Faces (Expected: 12 plain six-sided dice)**:
+  * **Center Stack**:
+    * Tag pill: `[ 6 ]`.
+    * Visible top face: A glitched, overlapping texture showing a distorted numeral `4` clipping through other faces.
+    * Mesh structure: Multiple d6 dice are interpenetrating at identical X/Y coordinates, creating a single accordion/fluted blue column.
+  * **Far Right (Near chandelier)**:
+    * Tag pill: `[ 5 ]`.
+    * Visible die: A blue die clipped into or occluded behind the table and chandelier props.
+  * **Remaining 10 dice & 10 tag pills**: Completely missing, occluded, or buried inside the center mesh stack.
+
+#### Judgment
+1. **Can each top face be read at this distance?**: **No**. The center face is a texture collision of 4 over other faces, and the other 11 dice cannot be read.
+2. **Do Hunger dice read as different from regular ones?**: N/A.
+3. **Hope vs Fear distinct?**: N/A.
+4. **Can a player tell success, opportunity, strife, explosive apart?**: N/A.
+5. **Anything broken?**: **Catastrophic physics/spawn collapse**. 12 dice spawned coincidentally into a vertical interpenetration column; numeral textures z-fight and overlap; tag pill `[ 6 ]` mismatches the visible `4`; tag pill `[ 5 ]` is thrown across the room into furniture; 10 tag pills and dice are missing.
+
+* **Verdict**: **FIX**
+  * *Concrete Fix*: Add radial/grid spawn jitter for large dice pools (Shadowrun pools) so dice never spawn at identical coordinates; enable collision volume resolution so dice push outward across the table surface.
+
+---
+
+### 6. `gamedice-bar-coc.png`
+
+#### Explicit Labels, Tag Pills, and Die-by-Die Readout
+* **Global / UI Labels**:
+  * Top navigation bar: `Pawns [P]`, `Build [B]`, `Settings [S]`, `Other games / New game`, search prompt `Search commands, things to place, people, places... or say / roll`, `Area 1`, `Open to players`, `Hide`, avatars `H` (`Area 1`), `M` (`Area 1`).
+  * Left sidebar: `1`.
+  * Table tokens: Yellow cylinder pawn labeled `Mira`.
+  * Bottom-right status: `live (ws) • 1 ms • Area 1...`.
+  * Chat log (bottom left): `Mira: Percentile vs 65 (1 bonus die): 24, hard success (tens 20 40, best kept) [tens 20 40 | units 4]`.
+* **Tag Pills & Visible Top Faces (3 ten-sided dice: two tens, one units)**:
+  * **Die 1 (Left tens d10)**:
+    * Tag pill: `[ 20 ]` (floating slightly offset toward the top right).
+    * Top face: Numeral `20` (white with black border). Visible side faces: `40`, `30`, `80`, `90`.
+  * **Die 2 (Middle tens d10)**:
+    * Tag pill: `[ 40 ]`.
+    * Top face: Numeral `40` (white with black border). Visible side faces: `20`, `30`.
+  * **Die 3 (Right units d10)**:
+    * Tag pill: `[ 4 ]`.
+    * Top face: Numeral `4` (white with black border). Visible side faces: `2`, `3`.
+
+#### Judgment
+1. **Can each top face be read at this distance?**: **Yes**. Numerals `20`, `40`, and `4` are large, well-contrasted, and readable.
+2. **Do Hunger dice read as different from regular ones?**: N/A.
+3. **Hope vs Fear distinct?**: N/A.
+4. **Can a player tell success, opportunity, strife, explosive apart?**: N/A.
+5. **Anything broken?**:
+   * **Wrong colours / visual ambiguity**: All three dice share the identical light blue body material. In Call of Cthulhu bonus/penalty rolls, the bonus/penalty tens die must be visually distinguished from the primary tens die by color (e.g., green for bonus tens, red for penalty tens, or distinct colorway). At table distance, a player cannot visually tell which tens die was the base die and which was the bonus die.
+   * Tag pill `[ 20 ]` is slightly drifted toward the right apex rather than centered over Die 1's top face.
+
+* **Verdict**: **FIX**
+  * *Concrete Fix*: Apply a distinct material/color shader to bonus and penalty tens dice in CoC percentile rolls (e.g., emerald green for bonus, dark charcoal/red for penalty) so they do not clone the roller's base blue die.
+
+---
+
+### Overall Summary
+**Overall line:** Duality and Fate pass cleanly with excellent legibility and material contrast, but multi-dice physics spawning (Shadowrun column stack, L5R missing dice), V5 6/9 orientation and 0-vs-10 labeling, and CoC bonus-die color differentiation require immediate fixes.

@@ -218,7 +218,7 @@ async def main():
         for i in range(1, 13):
             await gm.mouse.move(la['x'] + (bpt['x'] - a['x']) * i / 12, la['y'] + (bpt['y'] - a['y']) * i / 12); await gm.wait_for_timeout(45)
         await gm.wait_for_timeout(700)
-        mid = await gm.evaluate(f"(() => {{ const w = tw.worldOf(tw.area()), d = tw.roomDrag, pl = [...(w.dragPlates || new Map()).values()][0], e = {E(probe)}, dr = tw.drawn('{probe}'); return {{ d, sel: tw.sel.has('{RC}'), plates: w.dragPlates?.size || 0, plate: pl && [pl.position.x, pl.position.z, pl.scale.x, pl.scale.z, '#' + pl.material.color.getHexString()], rides: dr && [+(dr[0] - e.x).toFixed(2), +(dr[1] - e.z).toFixed(2)], shell: [...w.shell.values()].filter(s => s.roomId === '{RC}' && s.shifted).length, label: document.querySelector('#modeLabel').hidden ? null : document.querySelector('#modeLabel').textContent, my: tw.myColor() }}; }})()")
+        mid = await gm.evaluate(f"(() => {{ const w = tw.worldOf(tw.area()), d = tw.roomDrag, pl = [...(w.dragPlates || new Map()).values()][0], e = {E(probe)}, dr = tw.drawn('{probe}'); return {{ d, sel: tw.sel.has('{RC}'), plates: w.dragPlates?.size || 0, plate: pl && (() => {{ pl.geometry.computeBoundingBox(); const b = pl.geometry.boundingBox; return [pl.position.x, pl.position.z, +(b.max.x - b.min.x).toFixed(3), +(b.max.z - b.min.z).toFixed(3), '#' + pl.material.color.getHexString()]; }})(), rides: dr && [+(dr[0] - e.x).toFixed(2), +(dr[1] - e.z).toFixed(2)], shell: [...w.shell.values()].filter(s => s.roomId === '{RC}' && s.shifted).length, label: document.querySelector('#modeLabel').hidden ? null : document.querySelector('#modeLabel').textContent, my: tw.myColor() }}; }})()")
         check(mid['sel'] and mid['d'] and mid['d']['ok'] and mid['d']['dx'] % 5 == 0 and mid['d']['dz'] % 5 == 0 and (mid['d']['dx'], mid['d']['dz']) != (0, 0), 'pressing a room\'s label and dragging selects the room and drags it, snapped to the 5-ft grid', mid['d'])
         check(mid['plates'] == 1 and mid['plate'] and abs(mid['plate'][0] - (cxz[0] + mid['d']['dx'])) < 0.01 and abs(mid['plate'][2] - r0[2] * 5) < 0.01 and mid['plate'][4].lower() == mid['my'].lower() and mid['label'] and 'ft' in mid['label'], 'while dragging, the room\'s footprint shows where it would land, in my colour (the drop is valid), with a readout', f"{mid['plate']} · “{mid['label']}”")
         check(mid['rides'] == [mid['d']['dx'], mid['d']['dz']] and mid['shell'] > 10, 'the room\'s things and its floor and walls ride along during the drag', f"thing offset {mid['rides']}, {mid['shell']} shell pieces")
@@ -611,8 +611,8 @@ async def main():
         exact = {
             'building': (['thing.hide', 'menu'], ['faction.set', '▸building.roof.', 'thing.rename', 'thing.lock']),
             'prop': (['edit.rotate', 'edit.resize', 'thing.pin', 'menu'], ['thing.replace', 'edit.lift', 'thing.tilt', 'thing.rename', 'thing.lock', 'thing.hide']),
-            'pawn': (['edit.rotate', 'pawn.sheet', 'pawn.damage', 'menu'], ['▸pawn.cond.', '▸pawn.mark.', 'edit.lift', 'thing.hide', 'pawn.travel']),
-            'pawns': (['edit.rotate', 'pawn.damage', 'menu'], ['▸pawn.cond.', '▸pawn.mark.', 'thing.hide', 'cast.saveGroup', 'pawn.travel']),
+            'pawn': (['edit.rotate', 'pawn.sheet', 'pawn.damage', 'menu'], ['▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'edit.lift', 'thing.hide', 'pawn.travel']),
+            'pawns': (['edit.rotate', 'pawn.damage', 'menu'], ['▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'thing.hide', 'cast.saveGroup', 'pawn.travel']),
             'pawn+prop': (['edit.rotate', 'menu'], ['thing.hide']),
             'rooms': (['thing.hide', 'menu'], ['thing.lock']),
             'many': (['edit.rotate', 'thing.pin', 'menu'], ['thing.tilt', 'thing.lock', 'thing.hide']),

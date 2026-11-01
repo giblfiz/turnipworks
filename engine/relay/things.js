@@ -10,6 +10,7 @@ import path from 'node:path';
 import { lightKind, lightRadiusOf, LIGHT_RADII } from '../core/darkness.js';
 import { roomY } from '../core/height.js';
 import { hasCell } from '../core/footprint.js';
+import { opensIn } from '../core/openables.js';
 
 // The tuner's fireType() (tools/spawn-tuner/js/fx/fire.js) decides which things burn in the game. That module imports
 // three.js, so it cannot load in Node: its one pure function is read from the source the game runs (no copy to drift).
@@ -26,7 +27,7 @@ export function lightOf(rt, e) {
   const kind = lightKind(e.cat, rt.roomgen.fireType?.(e.cat) || null, lib.objects[e.cat]?.aff || []);
   return kind ? { kind, radius: lightRadiusOf(e, kind, rt.roomgen.lightTable || LIGHT_RADII), lit: e.lit !== false } : null;
 }
-export const opens = (rt, e) => !!libOf(rt)?.objects[e?.cat]?.aff?.includes('open');
+export const opens = (rt, e) => opensIn(libOf(rt), e?.cat); // (core/openables.js: the catalog's 'open', or an open state of its own)
 
 // a thing as an AI seat reads it: its catalog piece, and only the flags that say something
 export function thingFor(rt, e) {
@@ -50,7 +51,7 @@ export function findThings(rt, q, limit = 12) {
 }
 export function thingBrief(rt, id) {
   const o = libOf(rt).objects[id], L = lightKind(id, rt.roomgen.fireType?.(id) || null, o.aff || []);
-  return { id, name: id.replace(/-/g, ' '), place: o.place, ...(o.desc && { desc: o.desc.slice(0, 80) }), ...(L && { light: L }), ...(o.aff?.includes('open') && { opens: true }) };
+  return { id, name: id.replace(/-/g, ' '), place: o.place, ...(o.desc && { desc: o.desc.slice(0, 80) }), ...(L && { light: L }), ...(opensIn(libOf(rt), id) && { opens: true }) };
 }
 // object.place&cat=ID: the piece's mesh and size from the library, as the browser's Library does (core/roomgen.js
 // sizeOf: the solver's own sizing); a wall piece hangs at 7 ft. Refused with the nearest ids for an unknown cat.

@@ -10,14 +10,13 @@
 // progressively: an item gets its mesh url only once the PiP camera comes near it; until then it is a quiet box.
 import * as THREE from 'three';
 import { createFactionShelf } from './faction-shelf.js';
-import { factionPieceName, isFactionSlot } from '../core/faction-catalog.js';
+import { factionPieceName } from '../core/faction-catalog.js';
 import { AreaWorld } from './world.js';
 import { T } from './tuner.js';
-import { KIT_PIECES } from './taxonomy.js';
-import { floorCats, tileSize } from './tiles.js';
+import { libraryContents, handPlaceable, poseOf } from './library-index.js';
+import { tileSize } from './tiles.js';
 import { SOLVER_OPTS } from '../core/roomgen.js';
 
-const SECTIONS = [['anchor', 'Centrepieces'], ['furnish', 'Furniture'], ['store', 'Storage'], ['light', 'Lights'], ['dress', 'Dressing'], ['plants', 'Plants'], ['*', 'Table and tools']]; // plants: the yard's slot, empty until plant meshes exist
 const gapOf = (size) => Math.max(0.7, Math.min(2.4, size * 0.35)); // evenly spaced BY SIZE: small things sit close
 const PLANE = '#b5b1a7', BG = '#2a2b27';
 // A TRIAL (Harry 2026-10-11: "In the object libraries, let's try making all objects the same size instead of having the
@@ -27,9 +26,21 @@ const PLANE = '#b5b1a7', BG = '#2a2b27';
 // THE SWITCH: Settings > Me > Interface > "Library: everything the same size" (pref libEven; off = true relative sizes,
 // as before). LIB_EVEN is what a browser that never chose gets.
 export const LIB_EVEN = true, EVEN_FT = 3;
+// the opening view keeps a label at least this tall on screen (a 3-ft thing's label is LABEL_FT tall: cellOf below)
+const LABEL_PX = 11, LABEL_FT = 0.6;
+const UP_H = 1.15;
+// THE LIBRARY'S LENS (2026-10-29): a narrow one, nearly a plan view, so a thing standing up does not lean over its
+// neighbours in the PiP's perspective. With the game's 45-degree lens, from 25 ft up, a stool or a pillar 10 ft off the
+// middle showed its whole side and read as "tipped onto its side" (Gemini), though it stood. Distances scale with the
+// lens (DK): the same framing, from further away.
+export const LIB_FOV = 15;
+const DK = Math.tan(THREE.MathUtils.degToRad(22.5)) / Math.tan(THREE.MathUtils.degToRad(LIB_FOV / 2));
+
 
 export function createLibrary(app, { taxonomy, renderer }) {
   const L = { worlds: new Map(), cur: null, target: null, sel: null, prevPip: null };
+  // the PiP's lens: the library's (LIB_FOV) while it shows a library, else the game's 45 degrees
+  const lens = (on) => { const v = app.pip; if (!v) return; const f = on ? LIB_FOV : 45; if (v.camera.fov !== f) { v.camera.fov = f; v.camera.updateProjectionMatrix(); } v.grab.maxDist = on ? 600 * DK : 600; };
   const factions = createFactionShelf(app);
   L.showFactions = () => { L.hide(); factions.show(); };
   L.hideFactions = factions.close;
@@ -38,69 +49,58 @@ export function createLibrary(app, { taxonomy, renderer }) {
 
   // ---------- layout: sections of tidy rows; each thing lies the way it reads from above ----------
   function layoutFor(roomNode) {
+    // WHAT it lists (library-index.js, shared with the node test), then each thing's catalog size (a thing with none is
+    // left out: the node test fails on one)
     const recipe = T.types.find(t => t.key === roomNode.roomKey) || { slots: {} };
-    const slotOf = (id) => { for (const [k, ids] of Object.entries(recipe.slots || {})) if (k !== 'sets' && ids.includes(id)) return SECTIONS.some(([s]) => s === k) ? k : '*'; return '*'; };
-    const items = [...(roomNode.furniture || []).filter(n => !n.kit).map(n => ({ cat: n.cat, label: n.label, place: n.place })), ...(roomNode.objects || []).map(id => ({ cat: id, label: cap(id), place: 'surface' }))].flatMap(it => isFactionSlot(it.cat) ? (app.lib.objects[it.cat]?.skus || []).filter(k => T.solver.skuUsable(k, SOLVER_OPTS)).map(k => ({ ...it, sku: k.sku, label: factionPieceName(app.lib, it.cat, k) })) : [it]);
-    const bySec = new Map(SECTIONS.map(([k]) => [k, []]));
-    for (const it of items) { const size = app.roomgen.sizeOf(it.cat, it.sku); if (size) bySec.get(slotOf(it.cat)).push({ ...it, size }); }
-    // walls, doors and windows: a section per wall family (the room's own first)
-    const kitSecs = [];
-    const usable = (k) => k.bounds && T.solver.skuUsable(k, SOLVER_OPTS);
-    const fams = [...new Set((app.lib.objects['wall-straight']?.skus || []).filter(usable).map(k => k.family).filter(Boolean))].sort((a, b) => (b === recipe.family) - (a === recipe.family));
-    for (const fam of fams) {
-      const list = [];
-      for (const id of KIT_PIECES) {
-        const k = app.lib.objects[id]?.skus.find(x => x.family === fam && usable(x)) || (fam === fams[0] ? app.lib.objects[id]?.skus.find(usable) : null); if (!k) continue; // the room's own family section shows every piece
-        const size = app.roomgen.sizeOf(id, k.sku); if (size) list.push({ cat: id, sku: k.sku, label: (roomNode.furniture || []).find(f => f.cat === id)?.label || cap(id), place: 'kit', size });
-      }
-      if (list.length) kitSecs.push([`kit:${fam}`, `Walls, doors and windows · ${fam.replace(/-/g, ' ')}`, list]);
-    }
-    // floors: every floor material as a 5-ft tile, the room type's own floors first (Harry 2026-10-04)
-    const own = (recipe.floors || []).filter(f => app.lib.objects[f]), all = floorCats(app.lib);
-    const tileItem = (id) => { const size = tileSize(app.lib, id); return size && { cat: id, sku: size.sku, label: cap(id.replace(/^floor-/, '')), place: 'tile', size }; };
-    const ownList = own.filter(f => all.includes(f)).map(tileItem).filter(Boolean), moreList = all.filter(f => !own.includes(f)).map(tileItem).filter(Boolean);
-    if (ownList.length) kitSecs.unshift(['floors', 'Floors', ownList]);
-    if (moreList.length) kitSecs.push(['floors-more', ownList.length ? 'More floors' : 'Floors', moreList]);
+    const sections = libraryContents(roomNode, { lib: app.lib, recipe, usable: (k) => T.solver.skuUsable(k, SOLVER_OPTS), factionName: (cat, k) => factionPieceName(app.lib, cat, k) })
+      .map(([k, title, list, opts]) => [k, title, list.map(it => { const size = it.place === 'tile' ? tileSize(app.lib, it.cat) : app.roomgen.sizeOf(it.cat, it.sku); return size && { ...it, sku: it.sku || size.sku, size }; }).filter(Boolean), opts]);
     const entities = {}, slots = new Map(), labels = [], evenNow = even();
     // 1. each thing's CELL: its top-down footprint and, below it, its label, at the label's real world size (two lines
     //    when a name is long), so no label can ever reach into a neighbour's cell (Harry 2026-10-04)
     const cellOf = (it) => {
       const [w0, h0, d0] = it.size.dims;
-      // the orientation whose silhouette from above is biggest: upright (w×d), on its side (h×d: a chair's profile,
-      // a lantern) or on its back (w×h: a wall's face, a door); flat things stay as they are
-      const tall = h0 > 0.6 && !it.size.flat;
-      const how = !tall ? 'up' : [['up', w0 * d0], ['side', h0 * d0 * 1.02], ['back', w0 * h0]].sort((a, b) => b[1] - a[1])[0][0];
-      // the same size for all (the trial above): k brings the longer side of that footprint to EVEN_FT; 1 = true size
-      const k = evenNow ? EVEN_FT / Math.max(how === 'side' ? h0 : w0, how === 'back' ? h0 : d0, 0.02) : 1, w = w0 * k, h = h0 * k, d = d0 * k;
+      // HOW IT LIES: as it is placed (library-index.js poseOf, 2026-10-29): standing as in a room, or on its back, face up,
+      // as it hangs on a wall. (It lay whichever way showed the biggest silhouette from above: chairs and stairs on their
+      // sides. And since 2026-10-25 a small tall thing, an apple core 3 ft across, would stand 5 ft and lean over its
+      // neighbours in the PiP's perspective: so a thing standing is drawn no taller than UP_H x EVEN_FT, its footprint
+      // that much smaller.) The same size for all (the trial above): k brings the longer side of the footprint (or the
+      // height over UP_H) to EVEN_FT; 1 = true size
+      const how = poseOf({ ...it, flat: it.size.flat }, it.size.dims);
+      const k = evenNow ? EVEN_FT / Math.max(how === 'side' ? h0 : w0, how === 'back' ? h0 : d0, how === 'up' && !it.size.flat ? h0 / UP_H : 0, 0.02) : 1, w = w0 * k, h = h0 * k, d = d0 * k;
       const fw = how === 'side' ? h : w, fd = how === 'back' ? h : d;
-      const lh = Math.min(0.7, Math.max(0.36, 0.22 + Math.max(fw, fd) * 0.06));
+      // (labels 2026-10-29: big enough to read in the PiP at its opening view, LABEL_PX below; 0.4 ft under a 3-ft thing
+      //  was 4 px at the old whole-layout overview of a 128 x 108 ft library)
+      const lh = Math.min(0.85, Math.max(0.5, 0.3 + Math.max(fw, fd) * 0.1));
       const lines = wrapLabel(it.label, lh, Math.max(fw, 3.2)), lw = Math.max(...lines.map(t => textWidth(t, lh)));
       const gut = gapOf(Math.max(fw, fd));
       return { it, how, k, fw, fd, w, h, d, lh, lines, cw: Math.max(fw, lw) + gut, cd: fd + 0.3 + lines.length * lh * 1.1 + gut };
     };
     // 2. each category: its cells shelf-packed into a near-square block, biggest first, title above
     const groups = [];
-    for (const [k, title, kitList] of [...SECTIONS.map(([k, t]) => [k, t, null]), ...kitSecs]) {
-      const list = kitList || bySec.get(k); if (!list.length) continue;
-      const cells = list.map(cellOf).sort((a, b) => b.cd - a.cd || b.cw - a.cw || (a.it.cat < b.it.cat ? -1 : 1));
-      const area = cells.reduce((s, c) => s + c.cw * c.cd, 0), titleW = textWidth(title.toUpperCase(), 0.9, true) + 1;
+    for (const [, title, list, opts] of sections) {
+      if (!list.length) continue;
+      // (the kit keeps its own order, by wall family: library-index.js kitSections)
+      const cells = opts?.ordered ? list.map(cellOf) : list.map(cellOf).sort((a, b) => b.cd - a.cd || b.cw - a.cw || (a.it.cat < b.it.cat ? -1 : 1));
+      const area = cells.reduce((s, c) => s + c.cw * c.cd, 0), titleW = textWidth(title.toUpperCase(), 1.1, true) + 1;
       const target = Math.max(Math.sqrt(area) * 1.1, ...cells.map(c => c.cw), titleW);
       let x = 0, z = 0, rowD = 0, gw = 0;
       for (const c of cells) { if (x > 0 && x + c.cw > target) { x = 0; z += rowD; rowD = 0; } c.gx = x; c.gz = z; x += c.cw; gw = Math.max(gw, x); rowD = Math.max(rowD, c.cd); }
-      groups.push({ title, cells, w: Math.max(gw, titleW), d: z + rowD + 2.2 }); // + the title band
+      groups.push({ title, cells, w: Math.max(gw, titleW), d: z + rowD + 2.4 }); // + the title band
     }
-    // 3. the groups themselves, packed into one rectangle shaped like the PiP window (shelves, tallest group first)
+    // 3. the groups themselves, packed into one rectangle shaped like the PiP window, IN THEIR ORDER (2026-10-29: the
+    //    room's things first, its factions, then floors and the kit; packed tallest first, the 90-piece walls section
+    //    came first, top left, where the library opens)
     const GG = 3, total = groups.reduce((s, g) => s + (g.w + GG) * (g.d + GG), 0), aspect = 1.45;
     const outerW = Math.max(Math.sqrt(total * aspect), ...groups.map(g => g.w + GG));
     let ox = 0, oz = 0, shelfD = 0, maxX = 0;
-    for (const g of [...groups].sort((a, b) => b.d - a.d || b.w - a.w)) {
+    for (const g of groups) {
       if (ox > 0 && ox + g.w > outerW) { ox = 0; oz += shelfD + GG; shelfD = 0; }
       g.x = ox; g.z = oz; ox += g.w + GG; maxX = Math.max(maxX, ox - GG); shelfD = Math.max(shelfD, g.d);
     }
     for (const g of groups) {
-      labels.push({ text: g.title.toUpperCase(), x: g.x, z: g.z + 0.7, h: 0.9, left: true, head: true });
+      labels.push({ text: g.title.toUpperCase(), x: g.x, z: g.z + 0.8, h: 1.1, left: true, head: true });
       for (const c of g.cells) {
-        const x0 = g.x + c.gx, z0 = g.z + 2.2 + c.gz, cx = x0 + c.fw / 2 + (c.cw - c.fw - gapOf(Math.max(c.fw, c.fd))) / 2, cz = z0 + c.fd / 2;
+        const x0 = g.x + c.gx, z0 = g.z + 2.4 + c.gz, cx = x0 + c.fw / 2 + (c.cw - c.fw - gapOf(Math.max(c.fw, c.fd))) / 2, cz = z0 + c.fd / 2;
         put(c.it, cx, cz, c.how, c.w, c.h, c.d, c.k);
         c.lines.forEach((t, i) => labels.push({ text: t, x: cx, z: z0 + c.fd + 0.3 + c.lh * (0.55 + i * 1.1), h: c.lh }));
       }
@@ -147,6 +147,7 @@ export function createLibrary(app, { taxonomy, renderer }) {
       for (const e of Object.values(lay.entities)) if (had.has(`${e.cat}|${e.sku}`)) e.url = e.urlLater;
       w.ground.position.set(lay.size[0] / 2, -0.01, lay.size[1] / 2);
       for (const l of lay.labels) w.layers.deco.add(textPlane(l));
+      w.labelsShown = undefined;
       w.libView = { entities: lay.entities, seq: (w.libView.seq || 0) + 1, order: 0, chat: [] };
       w.sync(w.libView);
       if (L.cur === w.areaId) { const s = L.sel && (lay.slots.get(`${L.sel.id}|${L.sel.sku}`) || lay.slots.get(L.sel.id)); if (L.sel) L.sel = s ? { ...L.sel, entity: lay.entities[s.id] } : null; L.hov = null; L.target = L.overview(w); L.flown = false; }
@@ -155,16 +156,18 @@ export function createLibrary(app, { taxonomy, renderer }) {
   };
   // ---------- the PiP: show, fly, load as the camera looks ----------
   L.show = (roomNode, cat = null, sku = null, { keep = false } = {}) => {
+    if (app.pipAllowed && !app.pipAllowed()) return; // (a phone: no picture-in-picture, so no shelves in one; main.js)
     factions.close();
     const w = worldFor(roomNode);
     if (!L.cur && app.pip && !app.pip.area.startsWith('lib:')) L.prevPip = { area: app.pip.area, follow: app.pip.follow };
     if (L.cur !== w.areaId || !app.pip || app.pip.area !== w.areaId) app.openLocalPip(w.areaId);
+    lens(true);
     const same = keep && L.cur === w.areaId && !cat; // back from a drag-out: the camera stays where the person left it
     L.cur = w.areaId;
     if (same) { app.refresh(); return; }
     const slot = cat && (w.lay.slots.get(`${cat}|${sku}`) || w.lay.slots.get(cat));
     // a top-down camera, framing the item with a little of its neighbours (or the whole layout)
-    if (slot) L.target = { x: slot.x, y: 0, z: slot.z + 0.3, dist: THREE.MathUtils.clamp(slot.size * 2.8 + 6, 8, 34), pitch: 88 };
+    if (slot) L.target = { x: slot.x, y: 0, z: slot.z + 0.3, dist: THREE.MathUtils.clamp(slot.size * 2.8 + 6, 8, 34) * DK, pitch: 88 };
     else L.target = L.overview(w); // opens framing ALL of it (Harry 2026-10-04); the meshes still arrive a few at a time
     L.flown = false;
     app.refresh();
@@ -172,13 +175,16 @@ export function createLibrary(app, { taxonomy, renderer }) {
   L.hide = () => {
     if (!L.cur) return;
     L.cur = null; L.sel = null;
-    if (L.prevPip) { app.openPip(L.prevPip.area, L.prevPip.follow); L.prevPip = null; } else app.closePip();
+    lens(false); // (the PiP goes back to another area: the game's lens)
+    if (L.prevPip && app.pipAllowed?.() !== false) { app.openPip(L.prevPip.area, L.prevPip.follow); L.prevPip = null; } else { L.prevPip = null; app.closePip(); } // (a phone: nothing to restore)
   };
   L.shown = () => !!(L.cur && app.pip?.area === L.cur);
   L.frame = (dt) => {
     if (!L.shown()) return;
+    lens(true);
     const g = app.pip.grab, t = L.target;
     loadNear(app.worlds.get(L.cur), g);
+    labelsFor(app.worlds.get(L.cur), g);
     if (!t) return; // the person is steering the PiP camera
     const now = performance.now(), real = Math.min(1, (now - (L.lastT || now)) / 1000); L.lastT = now; // real time: a slow frame rate flies as fast
     const k = 1 - Math.exp(-Math.max(dt, real) * 4);
@@ -187,10 +193,18 @@ export function createLibrary(app, { taxonomy, renderer }) {
     L.flown = Math.hypot(t.x - g.focus.x, t.z - g.focus.z) < 0.3 && Math.abs(t.dist - g.dist) < 0.5;
     if (L.flown) L.target = { ...t, done: true };
   };
+  // a thing's label too small to read (zoomed far out: under 3.5 px) is not drawn; the section heads always are. (A full
+  // library framed whole is ~550 label planes, one draw call each: 2026-10-29, the cave's 414 things at 30 fps)
+  function labelsFor(w, g) {
+    if (!w) return;
+    const cam = app.pip.camera, hPx = app.pip.rect[3] * (renderer.domElement.clientHeight || 900), px = LABEL_FT * hPx / (g.dist * 2 * Math.tan(THREE.MathUtils.degToRad((cam.fov || 45) / 2)));
+    const show = px >= 3.5; if (w.labelsShown === show) return; w.labelsShown = show;
+    for (const m of w.layers.deco.children) if (m.userData.label && !m.userData.label.head) m.visible = show;
+  }
   // progressive meshes: give the url to things the camera is close to (a few per frame), nearest first
   function loadNear(w, g) {
     if (!w) return;
-    const r = g.dist * 0.9 + 6, f = g.focus;
+    const r = g.dist * 0.9 / DK + 6, f = g.focus; // (what the lens shows, and a little more)
     const near = Object.values(w.libView.entities).filter(e => e.urlLater && !e.url && Math.hypot(e.x - f.x, e.z - f.z) < r).sort((a, b) => Math.hypot(a.x - f.x, a.z - f.z) - Math.hypot(b.x - f.x, b.z - f.z)).slice(0, 4);
     if (!near.length) return;
     const entities = { ...w.libView.entities };
@@ -224,15 +238,25 @@ export function createLibrary(app, { taxonomy, renderer }) {
   };
   L.selection = () => L.shown() ? L.sel : null;
   // the whole knolled layout, fitted to the PiP's shape (top-down: x across, z up the screen)
-  L.overview = (w) => {
-    const [sx, sz] = w.lay.size, cam = app.pip?.camera, aspect = cam ? cam.aspect || 1.2 : 1.2, k = 1 / (2 * Math.tan(THREE.MathUtils.degToRad((cam?.fov || 45) / 2)));
-    return { x: sx / 2, y: 0, z: sz / 2, dist: Math.max(sz, sx / aspect) * k * 1.12 + 4, pitch: 88 };
+  // (2026-10-29, the open item "the overview is too far out to read labels": a 128 x 108-ft library was framed from
+  //  177 ft, its labels 4 px tall. The opening view is now as far out as keeps a thing's label LABEL_PX tall in the PiP
+  //  window: the whole layout when it fits, else its top left corner, where the room's own things are; the wheel, a
+  //  pinch or the Build menu go further)
+  L.overview = (w, { whole = false } = {}) => {
+    const [sx, sz] = w.lay.size, cam = app.pip?.camera, aspect = cam ? cam.aspect || 1.2 : 1.2, t2 = 2 * Math.tan(THREE.MathUtils.degToRad((cam?.fov || 45) / 2)), k = 1 / t2;
+    const all = Math.max(sz, sx / aspect) * k * 1.12 + 4, hPx = app.pip ? app.pip.rect[3] * (renderer.domElement.clientHeight || 900) : 380;
+    const near = (LABEL_FT * hPx / LABEL_PX) / t2; // the distance at which a label LABEL_FT tall is LABEL_PX on screen
+    if (all <= near || whole) return { x: sx / 2, y: 0, z: sz / 2, dist: all, pitch: 88 };
+    const vh = near * t2, vw = vh * aspect; // what that distance shows, in feet
+    return { x: Math.min(sx, vw) / 2, y: 0, z: Math.min(sz, vh) / 2 - 0.5, dist: near, pitch: 88, part: true };
   };
+  // (tests, and a later "show all") fly out to frame the whole layout
+  L.frameAll = () => { const w = app.worlds.get(L.cur); if (!w) return false; L.target = L.overview(w, { whole: true }); L.flown = false; app.refresh(); return true; };
   // the person took the PiP's camera (drag, wheel, pinch): stop flying it
   L.touched = () => { L.target = null; };
   L.hov = null;
   L.hoverAt = (x, y) => { const c = x == null || !L.shown() ? null : L.pick(x, y); const id = c?.entity.id || null; if (id !== L.hov) { L.hov = id; app.refresh(); } };
-  L.focus = (cat, sku = null) => { const w = app.worlds.get(L.cur), slot = w && (w.lay.slots.get(`${cat}|${sku}`) || w.lay.slots.get(cat)); if (!slot) return false; L.target = { x: slot.x, y: 0, z: slot.z + 0.3, dist: THREE.MathUtils.clamp(slot.size * 2.8 + 6, 8, 34), pitch: 88 }; L.flown = false; return true; };
+  L.focus = (cat, sku = null) => { const w = app.worlds.get(L.cur), slot = w && (w.lay.slots.get(`${cat}|${sku}`) || w.lay.slots.get(cat)); if (!slot) return false; L.target = { x: slot.x, y: 0, z: slot.z + 0.3, dist: THREE.MathUtils.clamp(slot.size * 2.8 + 6, 8, 34) * DK, pitch: 88 }; L.flown = false; return true; };
   L.deco = () => ({ selected: new Set(L.sel ? [L.sel.entity.id] : []), hover: L.hov && L.hov !== L.sel?.entity.id ? L.hov : null, color: app.myColor(), style: 'halo', pending: new Set() });
   L.clip = () => { const e = L.sel?.entity; return e ? { v: 1, items: [{ kind: 'object', e: { ...e, url: e.urlLater, urlLater: undefined, y: 0, tiltZ: undefined, tiltX: undefined, libK: undefined, id: 'obj_libclip01' }, dx: 0, dz: 0 }] } : null; };
   // after a drag out of the shelves, the Build menu's own tool comes back
@@ -240,11 +264,17 @@ export function createLibrary(app, { taxonomy, renderer }) {
   L.slotOf = (cat) => app.worlds.get(L.cur)?.lay.slots.get(cat) || null;
   // (tests) where a shelf item is on screen inside the PiP, and what the PiP is doing
   L.screenOf = (cat) => { const s = L.slotOf(cat); if (!s || !app.pip) return null; return app.screenOf(s.x, s.z, app.pip, s.y + Math.min(1.2, s.size / 3)); };
+  // (tests, and "is it on a shelf?") every room's library laid out (no meshes, no worlds), against what the command bar
+  // can place with the live ratings: what is in no library area (library-index.js; should be nothing)
+  L.coverage = () => {
+    const use = (k) => T.solver.skuUsable(k, SOLVER_OPTS), rooms = [...taxonomy.nodes.values()].filter(n => n.level === 'room'), cats = new Set(), skus = new Set();
+    for (const n of rooms) for (const e of Object.values(layoutFor(n).entities)) { cats.add(e.cat); skus.add(`${e.cat}|${e.sku}`); }
+    const all = handPlaceable(app.lib, use), missing = all.filter(p => p.kind === 'faction' ? !skus.has(`${p.id}|${p.sku}`) : !cats.has(p.id));
+    return { rooms: rooms.length, keys: new Set(rooms.map(n => n.roomKey)).size, placeable: all.length, missing: missing.map(p => `${p.kind}:${p.id}${p.sku ? '/' + p.sku : ''}`) };
+  };
   L.info = () => ({ even: even(), area: L.cur, shown: L.shown(), target: L.target, flown: !!L.flown, sel: L.sel?.id || null, focus: app.pip ? [+app.pip.grab.focus.x.toFixed(2), +app.pip.grab.focus.z.toFixed(2)] : null });
   return L;
 }
-
-const cap = (s) => s ? s[0].toUpperCase() + s.slice(1).replace(/-/g, ' ') : s;
 
 // a label's width on the plane at world height h (the same font and padding as textPlane draws)
 const meas = typeof document !== 'undefined' ? document.createElement('canvas').getContext('2d') : null;
@@ -265,6 +295,6 @@ function textPlane({ text, x, z, h = 0.45, left = false, head = false }) {
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
   const pw = h * w / c.height, m = new THREE.Mesh(new THREE.PlaneGeometry(pw, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false }));
   m.rotation.x = -Math.PI / 2; m.position.set(left ? x + pw / 2 : x, 0.02, z);
-  m.userData.noPick = true; m.userData.label = { w: pw, h, text }; m.renderOrder = 2;
+  m.userData.noPick = true; m.userData.label = { w: pw, h, text, ...(head && { head: true }) }; m.renderOrder = 2;
   return m;
 }

@@ -102,10 +102,17 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 .mini { border: 1px solid var(--line); background: var(--surface-solid); border-radius: 6px; padding: 2px 6px; font-size: 11px; display: inline-flex; gap: 4px; align-items: center; color: var(--ink-2); }
 #results .empty { padding: 14px; color: var(--mute); text-align: center; }
 
-/* breadcrumb (under the bar, only with a selection) */
-#crumbs { position: absolute; z-index: var(--z-crumbs); top: 58px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 2px; max-width: calc(100% - 24px); padding: 3px 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; box-shadow: var(--shadow); white-space: nowrap; overflow-x: auto; }
-#bar.open ~ #crumbs { display: none; }
-.crumb { border: 0; background: transparent; color: var(--ink-2); padding: 2px 6px; border-radius: 6px; display: inline-flex; gap: 4px; align-items: center; }
+/* UNDER THE COMMAND BAR, ONE COLUMN (Harry 2026-10-27: "The textbox that describes whats selected covers/is covered by
+   the 'area name, open to players, hide' buttons"): the GM's area pills (#areaState, surfaces/areas.js) first, then the
+   selection's crumbs. One flow, so neither can land on the other, and picking a thing never moves the pills. The column
+   keeps clear of the launchers as the closed bar does (240 px a side, less on a narrow window, never under 540 px wide); a long chain of crumbs wraps onto a second row.
+   A conditional button docked at the top sits under the column (--under-bar, surfaces/crumbs.js). The column itself
+   makes no stacking context (no z-index, no transform): each pill keeps its own layer in the :root table. */
+#underBar { position: absolute; left: clamp(8px, (100% - 540px) / 2, 240px * var(--ts, 1)); right: clamp(8px, (100% - 540px) / 2, 240px * var(--ts, 1)); top: calc(58px * var(--ts, 1)); display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
+/* breadcrumb (under the bar and the area pills, only with a selection) */
+#crumbs { position: relative; z-index: var(--z-crumbs); pointer-events: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 2px; max-width: calc(100% - 14px); padding: 3px 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; box-shadow: var(--shadow); white-space: nowrap; overflow-x: auto; }
+#bar.open ~ #underBar #crumbs { display: none; }
+.crumb { white-space: nowrap; border: 0; background: transparent; color: var(--ink-2); padding: 2px 6px; border-radius: 6px; display: inline-flex; gap: 4px; align-items: center; }
 .crumb:hover { background: var(--raised); color: var(--ink); }
 .crumb.cur { color: var(--ink); font-weight: 600; }
 .crumb .hid { color: var(--hidden); }
@@ -129,6 +136,13 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 /* THE RING (2026-10-20, the Ring Lab shape): each button sized by the layout (world size), names in the ring's label style */
 #ring > .rl-label-svg { inset: 0; overflow: visible; pointer-events: none; z-index: 1; } #ring > .rl-label-svg path { fill: none; } #ring > .rl-label-svg text { paint-order: stroke fill; stroke: #15201c; }
 #ring > .rl-tip { transform: translateX(-50%); white-space: nowrap; padding: 2px 5px; border-radius: 4px; background: #1a2220d9; pointer-events: none; }
+/* A PROMPT on the ring (a placeholder pawn's "Set your pawn" / "Choose Bobby's pawn", client/commands.js pawn.choose): in the
+   seat's colour, a slow glow, its name always shown under it. Offered, not forced: it is drawn only on that pawn's ring. */
+#ring .rbtn.prompt { background: var(--seat); color: #10140f; border-color: #fff8; animation: ringPrompt 2.2s ease-in-out infinite; }
+#ring > .rl-tip.prompt-cap { color: #fff; background: #1a2220ee; border: 1px solid var(--seat); padding: 3px 8px; border-radius: 6px; z-index: 3; }
+@keyframes ringPrompt { 0%, 100% { box-shadow: var(--shadow), 0 0 0 0 color-mix(in srgb, var(--seat) 70%, transparent); } 50% { box-shadow: var(--shadow), 0 0 0 8px color-mix(in srgb, var(--seat) 0%, transparent); } }
+.reduce-motion #ring .rbtn.prompt { animation: none; }
+@media (prefers-reduced-motion: reduce) { #ring .rbtn.prompt { animation: none; } }
 #ring .rbtn:hover { transform: translate(-50%, -50%) scale(var(--rl-hover, 1.1)); z-index: 2; } #ring .rbtn:active { transform: translate(-50%, -50%) scale(var(--rl-press, .94)); }
 #ring .rbtn.painted { background: transparent; border: 0; box-shadow: none; } #ring .rbtn img.paint, #ring .rbtn img.pic { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; pointer-events: none; }
 #ring .rbtn .ini { font: 700 1em/1 system-ui, sans-serif; letter-spacing: .02em; } #ring .rbtn .pvw { width: 82%; height: 82%; border-radius: 50%; overflow: hidden; display: grid; place-items: center; }
@@ -227,7 +241,8 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 @media (max-width: 640px) {
   #bar { top: 8px; width: calc(100% - 120px); left: 8px; transform: none; }
   #bar.open { width: calc(100% - 16px); }
-  #results, #crumbs { left: 8px; transform: none; width: calc(100% - 16px); }
+  #results { left: 8px; transform: none; width: calc(100% - 16px); }
+  #underBar { left: 8px; right: 8px; align-items: flex-start; } #crumbs { align-self: stretch; } #areaState { max-width: 100%; }
   #roster { top: 8px; right: 8px; max-width: 104px; }
   .av .where { display: none; }
 }
@@ -331,7 +346,7 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 .cbtn:hover { border-color: var(--accent); }
 .cbtn.fade { opacity: 0; pointer-events: none; }
 .cbtn.done { color: var(--ok); }
-.cbtn.docked { left: 50%; transform: translateX(-50%); } .cbtn.dock-top { top: 62px; } .cbtn.dock-bottom { top: auto; bottom: 96px; } .cbtn.dock-bottom2 { top: auto; bottom: 136px; }
+.cbtn.docked { left: 50%; transform: translateX(-50%); } .cbtn.dock-top { top: calc(var(--under-bar, 52px) + 10px); } .cbtn.dock-bottom { top: auto; bottom: 96px; } .cbtn.dock-bottom2 { top: auto; bottom: 136px; }
 @keyframes uchip-in { from { opacity: 0; } to { opacity: 1; } }
 /* big chunky icons everywhere (Harry 2026-10-03): bar results carry 46-px tiles; rooms show their painted icon */
 .res .ico.img { background: transparent; }
@@ -399,6 +414,8 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 .tpin:not(.on) svg { opacity: .7; transform: rotate(45deg); }
 .tpin.on { color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--raised)); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
 #traytip { position: fixed; z-index: var(--z-ghost); pointer-events: none; max-width: 260px; padding: 4px 8px; border-radius: 7px; background: #0e1013; color: #f1efe9; font: 600 11.5px/1.3 Inter, system-ui, sans-serif; box-shadow: 0 4px 14px rgba(0, 0, 0, .45); border: 1px solid rgba(255, 255, 255, .14); }
+#statustip { position: fixed; z-index: var(--z-ghost); pointer-events: none; max-width: 300px; padding: 4px 9px; border-radius: 7px; background: #0e1013; color: #f1efe9; font: 600 12px/1.3 Inter, system-ui, sans-serif; box-shadow: 0 4px 14px rgba(0, 0, 0, .45); border: 1px solid rgba(255, 255, 255, .14); text-transform: none; }
+#statustip.one { font-size: 13px; }
 .sphb { display: flex; align-items: center; gap: 4px; }
 /* Settings pinned: the window stays, the backdrop goes, the map behind it takes the pointer */
 #settingsModal.pinned { background: none; backdrop-filter: none; pointer-events: none; place-items: center end; padding-right: 16px; }
@@ -576,6 +593,10 @@ html.reduce-motion .stog, html.reduce-motion .stog i { transition: none; }
 .sbtn { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font-size: 12.5px; font-weight: 600; cursor: pointer; white-space: nowrap; }
 .sbtn:hover:not([disabled]) { border-color: var(--accent); }
 .sbtn[disabled] { opacity: .45; cursor: default; }
+/* Settings ▸ Me / Campaign rules ▸ D&D Beyond (2026-10-29): Beyond20's state in this tab, and the help page in a new tab */
+.sddb { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--mute); } .sddb::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+.sddb.on { color: var(--ink); } .sddb.on::before { background: var(--ok); }
+a.sbtn.sddb-help { text-decoration: none; }
 .sbtn.primary { background: var(--accent); border-color: var(--accent); color: #151515; }
 .sbtn.danger { color: var(--danger, #e5484d); }
 .sbtn.danger.armed { background: var(--danger, #e5484d); color: #fff; }
@@ -653,7 +674,7 @@ body.drag-in-hand #levelMeter { pointer-events: none; } /* something is in the h
 /* the meter owns the left edge: the launchers (and the Build tray under them) and the chat log sit beside it */
 #launchers { left: calc(30px / var(--ts, 1)); }
 #chat { left: calc(30px / var(--ts, 1)); width: min(340px, calc(100% - 42px)); }
-@media (max-width: 640px) { #bar { left: 28px; width: calc(100% - 140px); } #bar.open { width: calc(100% - 36px); } #results, #crumbs { left: 28px; width: calc(100% - 36px); } }
+@media (max-width: 640px) { #bar { left: 28px; width: calc(100% - 140px); } #bar.open { width: calc(100% - 36px); } #results { left: 28px; width: calc(100% - 36px); } #underBar { left: 28px; } }
 .launcher .dot { right: auto; left: -5px; } /* the key cap has the right corner */
 
 /* the FPS meter (surfaces/fps.js; Harry 2026-10-06): off until asked for in the command bar; lower right, above the status line */
@@ -718,6 +739,13 @@ body.drag-in-hand #levelMeter { pointer-events: none; } /* something is in the h
 .flyout.sheet .sheetlink { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 12px; border-radius: 10px; background: var(--seat, var(--accent)); color: #14161a; font: 700 16px/1.2 Inter, system-ui, sans-serif; text-decoration: none; }
 .flyout.sheet .sheetlink:hover { filter: brightness(1.08); }
 .flyout.sheet .sh-change, .flyout.sheet .sh-save { padding: 6px 9px; border-radius: 8px; border: 1px solid var(--line-strong); background: transparent; color: var(--ink-2); font-size: 12px; cursor: pointer; }
+/* the Attack menu's card (surfaces/attacks.js): the saved attacks, then name / to hit / damage */
+.flyout.sheet.atk .atk-list { display: grid; gap: 4px; margin-top: 8px; }
+.flyout.sheet.atk .atk-row { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 6px; padding: 5px 7px; border-radius: 8px; background: var(--bg); font-size: 12px; color: var(--mute); }
+.flyout.sheet.atk .atk-row b { color: var(--ink); font-size: 13px; }
+.flyout.sheet.atk .atk-row.on { outline: 1px solid var(--seat, var(--accent)); }
+.flyout.sheet.atk .atk-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+.flyout.sheet.atk .atk-err:empty { display: none; }
 .flyout.sheet .sh-url { flex: 1; min-width: 0; padding: 9px 10px; border-radius: 9px; border: 1px solid var(--line-strong); background: var(--bg); color: var(--ink); font-size: 13px; outline: 0; user-select: text; -webkit-user-select: text; }
 .flyout.sheet .sh-url:focus, .flyout.sheet .sh-notes:focus { border-color: var(--seat, var(--accent)); }
 .flyout.sheet .sh-none { flex: 1; padding: 9px 0; font-size: 13px; color: var(--mute); }
@@ -735,9 +763,10 @@ body.drag-in-hand #levelMeter { pointer-events: none; } /* something is in the h
 /* ---------- AREAS: open or hidden (Harry 2026-10-06; surfaces/areas.js, docs/UI.md "Areas: open or hidden") ----------
    The hidden look is the one a hidden thing has: the hidden violet (--hidden), a dashed edge, the eye-off mark. */
 .ahid { display: inline-flex; vertical-align: -2px; color: var(--hidden); }
-#areaState { position: absolute; z-index: var(--z-launchers); left: 50%; top: 62px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; pointer-events: none; white-space: nowrap; max-width: calc(100% - 320px); }
+#areaState { position: relative; z-index: var(--z-launchers); display: inline-flex; align-items: center; gap: 8px; pointer-events: none; white-space: nowrap; max-width: 100%; } /* (the first row of #underBar) */
 #areaState[hidden] { display: none; }
-#areaState > * { pointer-events: auto; }
+#areaState > * { pointer-events: auto; flex-shrink: 0; }
+#areaState .aname { flex-shrink: 1; min-width: 48px; } #areaState .aname b { overflow: hidden; text-overflow: ellipsis; } /* (a long name shortens first, so the pills stay on screen) */
 #areaState .aname { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 10px; font-size: 12.5px; background: color-mix(in srgb, var(--surface-solid) 82%, transparent); border: 1px solid var(--line); color: var(--ink-2); max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
 #areaState .astate { font-size: 11.5px; color: var(--mute); padding: 4px 8px; border-radius: 8px; background: color-mix(in srgb, var(--surface-solid) 70%, transparent); }
 #areaState button { display: inline-flex; align-items: center; gap: 7px; font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--line); background: color-mix(in srgb, var(--surface-solid) 82%, transparent); color: var(--ink-2); padding: 4px 9px; font-size: 11.5px; }
@@ -822,7 +851,7 @@ body.dragging-out #labels .rlabel, body.dragging-out #ring > * { pointer-events:
 .faction-choice:disabled { opacity: .3; cursor: default; }
 .faction-inherit { align-self: flex-start; padding: 5px 9px; border: 1px dashed var(--line-strong); border-radius: 7px; background: var(--surface-solid); color: var(--ink); cursor: pointer; }
 .faction-inherit[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
-.cbtn.faction-offer { top: 100px; padding: 7px; cursor: default; max-width: calc(100vw - 32px); }
+.cbtn.faction-offer { top: calc(var(--under-bar, 52px) + 48px); padding: 7px; cursor: default; max-width: calc(100vw - 32px); }
 
 /* Faction shelves use the same theme tokens as the rest of the library. */
 #factionShelf button { background: var(--raised); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 8px; }
@@ -848,7 +877,172 @@ body.dragging-out #labels .rlabel, body.dragging-out #ring > * { pointer-events:
 #start #rerollCampaign { font-size: 24px; line-height: 1; width: 38px; padding: 4px; cursor: pointer; }
 #otherGames { position: absolute; z-index: var(--z-launchers); left: 30px; top: calc(12px + 70px * var(--ts, 1)); background: var(--surface); border: 1px solid var(--line); border-radius: 7px; padding: 5px 8px; font-size: 11px; color: var(--ink-2); }
 .scats .other-games { margin-top: auto; font-size: 12px; }
+/* About · Terms · Privacy · Source (2026-10-21): under Other games in Settings, and on the start card */
+.smeta { display: flex; flex-wrap: wrap; gap: 2px 12px; padding: 8px 10px 0; font-size: 11.5px; }
+.smeta a, #start .metalinks a { color: var(--mute); text-decoration: none; } .smeta a:hover, #start .metalinks a:hover { color: var(--ink); text-decoration: underline; }
+#start .accept { margin: 0; font-size: 12px; color: var(--mute); } #start .accept a { color: var(--ink-2); }
+#start .metalinks { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12.5px; }
+@media (max-width: 640px) { .smeta { flex-wrap: nowrap; align-items: center; padding: 0 6px; white-space: nowrap; } }
 
 /* A GM preview is always explicit, with a direct way back. */
 #visionBadge { position:fixed; top:62px; left:50%; transform:translateX(-50%); z-index: var(--z-badge); padding:8px 16px; border:1px solid #e0b04a; border-radius:18px; background:#30281b; color:#ffe1a0; font:600 14px system-ui; cursor:pointer; }
 #visionBadge[hidden] { display:none; }
+
+/* "Email yourself your link" (surfaces/linkmail.js; docs/UI.md "Email yourself your link"). LOUD: a card above the chat,
+   the corner it settles into; it never covers the middle of the table and takes nothing by itself. */
+.lmcard { position: fixed; z-index: var(--z-chips); left: 12px; bottom: 180px; width: min(400px, calc(100vw - 24px)); box-sizing: border-box; padding: 14px 16px 12px; border-radius: 14px; background: var(--surface-solid); color: var(--ink); border: 1px solid var(--line-strong); box-shadow: var(--shadow); font-size: 13px; zoom: var(--ts, 1); }
+.lmcard.loud { border: 2px solid var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent), var(--shadow); animation: lm-in .45s cubic-bezier(.2,.9,.25,1.15); }
+@keyframes lm-in { from { transform: translateY(18px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
+.lmcard .lm-x { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 26px; height: 26px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--mute); cursor: pointer; }
+.lmcard .lm-x:hover { background: var(--raised); color: var(--ink); }
+.lmcard .lm-h { display: flex; align-items: center; gap: 8px; margin: 0 30px 4px 0; font-size: 16.5px; font-weight: 700; letter-spacing: -.01em; }
+.lmcard .lm-h svg { color: var(--accent); flex: none; } .lmcard .lm-h.ok svg { color: var(--ok); }
+.lmcard .lm-sub { color: var(--ink-2); line-height: 1.45; margin: 0 0 10px; }
+.lmcard .lm-row { display: flex; gap: 8px; margin: 0; }
+.lmcard .lm-email { flex: 1; min-width: 0; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font: 14px Inter, system-ui, sans-serif; }
+.lmcard .lm-email:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+.lmcard .lm-send { flex: none; padding: 8px 12px; border-radius: 9px; border: 0; background: var(--accent); color: #17140c; font: 700 13.5px Inter, system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
+.lmcard .lm-send:hover { filter: brightness(1.08); } .lmcard .lm-send:disabled { opacity: .6; cursor: default; }
+.lmcard .lm-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; margin-top: 9px; font-size: 12px; color: var(--ink-2); }
+.lmcard .lm-news { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; } .lmcard .lm-news input { margin: 0; accent-color: var(--accent); }
+.lmcard .lm-privacy { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; } .lmcard .lm-privacy:hover { color: var(--accent); }
+.lmcard .lm-msg { margin-top: 6px; min-height: 0; font-size: 12px; color: var(--mute); } .lmcard .lm-msg:empty { display: none; } .lmcard .lm-msg.bad { color: var(--danger); }
+.lmcard.done .lm-sub { margin: 0; }
+@media (prefers-reduced-motion: reduce) { .lmcard.loud { animation: none; } }
+
+/* ---------- ON A PHONE (2026-10-24; docs/UI.md "On a phone"): html.tw-hand, set by index.html for a small screen with
+   a touch pointer only (?hand=1 / ?hand=0 force it). Only where things sit and how big a finger's target is: the house
+   look (colours, type, the ring's shape) is untouched, and a computer never gets any of this. Portrait stacks the top:
+   the command bar across, the launchers under it; landscape moves the chat to the right so the trays have the left. */
+.tw-hand kbd, .tw-hand #bar .hint { display: none !important; }    /* (no keyboard: the key caps are noise) */
+html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that starts on the HUD never zooms the page itself; lists still scroll) */
+.tw-hand .rlabel { touch-action: none; }  /* (a finger on a room label is a finger on the map: input.js labelPress) */
+.tw-hand #bar { height: 44px; }
+.tw-hand #bar input, .tw-hand .lmcard .lm-email { font-size: 16px; } /* (16 px: iOS does not zoom into a field) */
+.tw-hand #otherGames { min-height: 40px; padding: 0 12px; font-size: 12px; }
+.tw-hand #areaState button { min-height: 40px; padding: 0 12px; }
+.tw-hand .tpin { width: 40px; height: 40px; }
+.tw-hand .lmcard .lm-x { width: 40px; height: 40px; top: 4px; right: 4px; }
+.tw-hand .lmcard .lm-email, .tw-hand .lmcard .lm-send { min-height: 44px; }
+.tw-hand .lmcard .lm-news { min-height: 36px; }
+.tw-hand .lmcard .lm-privacy { display: inline-flex; align-items: center; min-height: 36px; }
+.tw-hand #pawnsTray { width: min(348px, calc(100vw - 40px)); }
+.tw-hand #pawnsTray .bgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .tw-hand #pawnsTray .bgrid .btile { width: auto; }
+.tw-hand #chat .abtn { min-height: 32px; }
+.tw-hand #buildMenu footer, .tw-hand #pawnsTray footer { display: none; } /* (key hints and mouse words) */
+.tw-hand .smodal .sx { width: 40px; height: 40px; } .tw-hand .scat { min-height: 40px; } .tw-hand .smodal .sbtn { min-height: 36px; }
+.tw-hand #handTool .ht-what { white-space: normal; line-height: 1.3; }
+.tw-hand #levelMeter:not(:hover):not(.scrub) { width: 26px; } .tw-hand #levelMeter .lm-roof, .tw-hand #levelMeter .lm-all { height: 30px; padding-left: 6px; } /* (a wider strip for a thumb; it still opens out to 104 px) */
+.tw-hand #pipFrame .bar button { min-width: 36px; min-height: 32px; }
+.tw-hand #crumbs .crumb { min-height: 36px; }
+.tw-hand #bar input { align-self: stretch; }
+/* "WE ARE PAYING BLOOD PRICE FOR EVERYTHING ON THE SCREEN" (Harry 2026-10-24; docs/UI.md "On a phone"): what stays up all
+   the time on a computer is tucked away on a phone; each is still reachable (named here) */
+.tw-hand #otherGames { display: none; }                 /* Settings ▸ Other games / New game */
+.tw-hand #underBar { display: contents; } .tw-hand #areaState, .tw-hand #crumbs { position: absolute; } /* (a phone places them itself, below, when they show) */
+.tw-hand #areaState { display: none !important; }       /* the area's name and Hide / Open to players: Settings ▸ Area, the bar */
+.tw-hand #crumbs { display: none !important; }          /* the popup naming the selection (Harry's item 5); the bar's Select parent */
+.tw-hand .rlabel .hid { display: none !important; }     /* a hidden room's eye-off mark (its label keeps the hidden colour) */
+.tw-hand .av .where { display: none; }                  /* the avatars' area tags: the avatar's own tip, Pawns ▸ Party */
+.tw-hand #hud.ok { display: none; }                     /* the connection line: only when something is wrong (not live, unconfirmed) */
+.tw-hand #levelMeter.flat { display: none; }            /* one storey, all showing: no levels to pick (it comes back with a second storey) */
+@media (orientation: portrait) {
+  .tw-hand #bar, .tw-hand #bar.open { top: 8px; left: 30px; right: 54px; width: auto; transform: none; }
+  .tw-hand #roster { top: 12px; right: 8px; }
+  .tw-hand #launchers { top: 60px; }
+  .tw-hand #otherGames { top: 132px; }
+  .tw-hand #areaState { left: auto; right: 8px; top: 72px; transform: none; max-width: calc(100% - 240px); }
+  .tw-hand #areaState .astate { display: none; }
+  .tw-hand #areaState .aname { max-width: 96px; }
+  .tw-hand #results { top: 58px; left: 30px; width: calc(100% - 38px); transform: none; }
+  .tw-hand #crumbs { top: auto; bottom: 120px; left: 30px; transform: none; max-width: calc(100% - 38px); }
+  .tw-hand #buildMenu, .tw-hand #pawnsTray { max-height: 62vh !important; }   /* (the map stays below an open tray) */
+  .tw-hand #handTool { left: 50%; bottom: 84px; transform: translateX(-50%); }
+}
+@media (orientation: landscape) {
+  .tw-hand #chat { left: auto; right: 12px; bottom: 26px; width: min(300px, 36vw); }
+  .tw-hand .lmcard { left: auto; right: 12px; bottom: 64px; width: min(380px, 48vw); }
+  .tw-hand #handTool { left: 30px; bottom: 14px; }
+  .tw-hand #areaState { left: auto; right: 58px; top: 14px; transform: none; max-width: none; } .tw-hand #areaState .astate { display: none; } /* (between the bar and the avatars: off the middle, where a ring opens) */
+  .tw-hand #areaState .aname { max-width: 96px; }
+  .tw-hand .smodal { grid-template-columns: 1fr; grid-template-rows: auto 1fr; } .tw-hand .scats { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); } .tw-hand .scats .stitle { display: none; }
+}
+/* the live tool, and its way out (client/handheld.js): a phone has no Escape and no hover */
+#handTool { position: absolute; z-index: var(--z-follow); display: flex; align-items: center; gap: 8px; max-width: calc(100% - 40px); padding: 4px 4px 4px 12px; border-radius: 12px; background: var(--surface-solid); border: 1px solid var(--accent); box-shadow: var(--shadow); color: var(--ink); font-size: 13px; }
+#handTool[hidden] { display: none; }
+#handTool .ht-what { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#handTool button { flex: none; min-height: 40px; padding: 0 14px; border-radius: 9px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font: 650 13px Inter, system-ui, sans-serif; display: inline-flex; align-items: center; gap: 6px; }
+
+/* ---------- the phone banner (2026-10-24; client/phone.js, docs/UI.md "The phone banner"): the front door on a phone,
+   once per visit, over the bottom of the screen; open, it is the "email yourself your link" card's own form ---------- */
+#phoneBanner { position: fixed; z-index: var(--z-modal); left: 50%; bottom: max(12px, env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(420px, calc(100% - 24px)); transition: opacity .35s, transform .35s; font-size: 14px; }
+#phoneBanner.away { opacity: 0; transform: translate(-50%, 16px); pointer-events: none; }
+#phoneBanner .pb-shut { display: flex; align-items: center; gap: 4px; padding: 2px; border-radius: 12px; background: var(--surface-solid); border: 1px solid var(--line-strong); box-shadow: var(--shadow); }
+#phoneBanner .pb-shut[hidden] { display: none; }
+#phoneBanner .pb-open { flex: 1; min-width: 0; min-height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 10px; border: 0; background: none; color: var(--ink-2); font: inherit; text-align: left; cursor: pointer; }
+#phoneBanner .pb-open svg { flex: none; color: var(--accent); }
+#phoneBanner .pb-open b { color: var(--ink); font-weight: 650; }
+#phoneBanner .pb-x { flex: none; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 10px; background: none; color: var(--mute); cursor: pointer; }
+#phoneBanner .lmcard.pb-card { position: static; width: 100%; zoom: 1; border: 2px solid var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent), var(--shadow); }
+#phoneBanner .lmcard[hidden] { display: none; }
+#phoneBanner .lmcard .lm-email { font-size: 16px; min-height: 44px; }
+#phoneBanner .lmcard .lm-email::placeholder { color: var(--mute); opacity: 1; } /* (the browser's grey was 3.9:1 on the light field; --mute is 5.8:1) */
+#phoneBanner .lmcard .lm-send { min-height: 44px; font-size: 14.5px; }
+#phoneBanner .lmcard .lm-news { min-height: 32px; }
+#phoneBanner .lmcard .lm-x { width: 40px; height: 40px; top: 4px; right: 4px; }
+
+/* SHARE A BUILD (2026-10-29; client/share.js): the Export / Share link window, in the Settings window's own parts */
+#shareModal { position: fixed; inset: 0; z-index: var(--z-modal); display: grid; place-items: center; background: rgba(8, 9, 7, .55); backdrop-filter: blur(2px); }
+#shareModal[hidden] { display: none; }
+.shmodal { width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow), 0 24px 60px rgba(0,0,0,.45); zoom: var(--ts, 1); }
+.shhead { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 15px; }
+.shhead .sx { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--line); background: var(--raised); color: var(--ink); font-size: 18px; cursor: pointer; }
+.shbody { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px; padding: 18px; }
+.shpic { aspect-ratio: 1.6; border-radius: 10px; border: 1px solid var(--line); background: var(--raised); display: grid; place-items: center; overflow: hidden; color: var(--mute); font-size: 13px; }
+.shpic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shside { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.shlab { display: grid; gap: 4px; font-size: 12px; color: var(--ink-2); font-weight: 600; }
+.shlab input { height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font: inherit; font-size: 14px; font-weight: 500; }
+.shwhat { margin: 2px 0 0; font-size: 13px; color: var(--ink); } .shwhat small { color: var(--mute); }
+.shstrip.dim { opacity: .55; }
+.shlink { display: flex; gap: 6px; align-items: center; } .shlink code { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: 12px; padding: 6px 8px; border-radius: 6px; background: var(--raised); border: 1px solid var(--line); user-select: all; }
+#shareModal .snote { margin: 0; }
+@media (max-width: 640px) { .shbody { grid-template-columns: 1fr; } }
+
+/* ---------- FIRST PERSON (2026-10-29; surfaces/fpv.js, docs/UI.md "First person"). html.tw-fpv while a seat looks through a
+   pawn's eyes: the HUD is cut to what you use there (the Exit, the command bar for rolls and words, the chat and roll log,
+   the toasts, the turn order); the map's own overlays (labels, the ring, the level meter, the crumbs, the launchers, the
+   area pills) go until you leave. */
+html.tw-fpv #labels, html.tw-fpv #ring, html.tw-fpv #levelMeter, html.tw-fpv #launchers, html.tw-fpv #crumbs, html.tw-fpv #undoChips,
+html.tw-fpv #introHint, html.tw-fpv #modeLabel, html.tw-fpv #areaState, html.tw-fpv #pipHid, html.tw-fpv #buildMenu, html.tw-fpv #pawnsTray,
+html.tw-fpv #rulers, html.tw-fpv #toolCursor, html.tw-fpv #marquee, html.tw-fpv #fpvTags .fpv-tag[data-mine] { display: none !important; }
+html.tw-fpv #c { cursor: grab; } html.tw-fpv #c:active { cursor: grabbing; }
+#fpvHud { position: absolute; inset: 0; pointer-events: none; z-index: var(--z-launchers); font: 13px Inter, system-ui, sans-serif; }
+#fpvHud .fpv-top { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; pointer-events: auto; }
+#fpvHud .fpv-top button { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--surface-solid); color: var(--ink); font: 600 13px Inter, system-ui, sans-serif; box-shadow: var(--shadow); cursor: pointer; }
+#fpvHud .fpv-top button:hover { border-color: var(--accent); }
+#fpvHud .fpv-exit kbd { margin-left: 2px; }
+#fpvHud .fpv-who { padding: 6px 10px; border-radius: 9px; background: color-mix(in srgb, var(--surface-solid) 82%, transparent); color: var(--ink); font-weight: 600; box-shadow: var(--shadow); }
+#fpvHud .fpv-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); padding: 5px 12px; border-radius: 9px; background: color-mix(in srgb, var(--surface-solid) 75%, transparent); color: var(--mute); white-space: nowrap; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; }
+#fpvHud .fpv-dot { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 -2px; border-radius: 50%; background: rgba(255,255,255,.75); box-shadow: 0 0 0 1px rgba(0,0,0,.45); }
+#fpvHud .fpv-pad { display: none; position: absolute; right: 16px; bottom: 112px; width: 150px; height: 150px; pointer-events: auto; } /* (clear of the chat bar: Gemini r4, the down arrow "almost touches the bottom chat bar") */
+#fpvHud .fpv-hint-hand { display: none; position: absolute; left: 50%; top: 104px; transform: translateX(-50%); padding: 4px 10px; border-radius: 9px; background: color-mix(in srgb, var(--surface-solid) 75%, transparent); color: var(--mute); font-size: 12px; white-space: nowrap; }
+.tw-hand #fpvHud .fpv-hint-hand { display: block; }
+#fpvHud .fpv-pad button { position: absolute; width: 50px; height: 50px; border-radius: 12px; border: 1px solid var(--line-strong); background: color-mix(in srgb, var(--surface-solid) 85%, transparent); color: var(--ink); display: grid; place-items: center; touch-action: manipulation; }
+#fpvHud .fpv-pad [data-m=w] { left: 50px; top: 0; } #fpvHud .fpv-pad [data-m=s] { left: 50px; top: 100px; }
+#fpvHud .fpv-pad [data-m=a] { left: 0; top: 50px; } #fpvHud .fpv-pad [data-m=d] { left: 100px; top: 50px; }
+.tw-hand #fpvHud .fpv-pad { display: block; }
+.tw-hand #fpvHud .fpv-hint, .tw-hand #fpvHud .fpv-lock { display: none; }
+.tw-hand #fpvHud .fpv-top { top: 64px; }
+.tw-hand.tw-fpv #roster { display: none; } /* (on a phone the avatars sat under the command bar in first person: Gemini r7) */
+/* the tag other seats see over a pawn someone is looking through: small, in that person's colour, under the HUD */
+#fpvTags { position: absolute; inset: 0; pointer-events: none; z-index: var(--z-labels); }
+#fpvTags .fpv-tag { position: absolute; left: 0; top: 0; display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px 2px 5px; border-radius: 999px; font: 600 11px Inter, system-ui, sans-serif; color: #fff; background: color-mix(in srgb, var(--seat, #e0b04a) 78%, #000); border: 1px solid color-mix(in srgb, var(--seat, #e0b04a) 60%, #fff); box-shadow: 0 1px 4px rgba(0,0,0,.35); white-space: nowrap; opacity: .92; }
+
+/* THE NOW-PLAYING NOTE (2026-10-30, client/music.js): bottom right, above the frame counter; it fades by itself; ♪ mutes */
+#musicNote { position: absolute; z-index: var(--z-hud); right: 12px; bottom: 26px; display: flex; align-items: center; gap: 6px; padding: 3px 10px 3px 4px; border-radius: 14px; background: color-mix(in srgb, var(--surface-solid) 78%, transparent); border: 1px solid var(--line); color: var(--ink-2); font: 600 12px/1.2 Inter, system-ui, sans-serif; opacity: 0; transition: opacity .5s; pointer-events: none; zoom: var(--ts, 1); max-width: min(60vw, 320px); }
+#musicNote.show { opacity: .92; pointer-events: auto; }
+#musicNote .mn-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-style: italic; }
+#musicNote .mn-mute { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface-solid); color: var(--accent); font-size: 13px; line-height: 1; cursor: pointer; padding: 0; }
+#musicNote .mn-mute:hover { border-color: var(--accent); }
+html.reduce-motion #musicNote { transition: none; }

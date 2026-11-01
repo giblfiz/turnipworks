@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Turnip Works welcome mat</title>
+<!-- THE WELCOME MAT's face (tools/promo, 2026-10-22): the texture of the rug the M-series lays in front of the building.
+     The card's set (card.html): the mark (engine/client/mark.svg itself), the name in Inter 700, the four phrases in Inter
+     800 with gold dots, cream on the loading screen's brown; no shadows (it is printed, not lit from inside); a woven
+     border is two rules. The viewport IS the mat: ?w=&h= are only for the caller; everything is sized in vh so any
+     aspect lays out the same. ?lines=2 (default) sets the phrases on two lines (bigger on the ground), 1 on one. -->
+<style>
+@font-face { font-family: Inter; src: url('inter.woff2') format('woff2'); font-weight: 100 900; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+body { background: #3a3229; color: #f6ead2; font-family: Inter, system-ui, sans-serif; display: grid; }
+.rug { margin: 2.6vh; background: #4a4136; display: grid; box-shadow: inset 0 0 0 1.1vh #4a4136, inset 0 0 0 1.9vh #e0b04a; }
+.in { margin: 4.6vh; border: .5vh solid rgba(246, 234, 210, .55); display: grid; place-items: center; align-content: center; gap: 4.5vh; }
+.top { display: flex; align-items: center; gap: 4vh; }
+.mark { height: 30vh; width: 30vh; }
+.name { font: 700 21vh/1 Inter, system-ui, sans-serif; letter-spacing: -.015em; white-space: nowrap; }
+.phrases { display: grid; justify-items: center; gap: 2.4vh; font-weight: 800; font-size: 9.6vh; line-height: 1; letter-spacing: .1em; white-space: nowrap; }
+.phrases .dot { color: #e0b04a; padding: 0 .45em; }
+</style></head>
+<body>
+<div class="rug"><div class="in">
+  <div class="top"><img class="mark" src="mark.svg" alt=""><div class="name">Turnip Works</div></div>
+  <div class="phrases" id="ph"></div>
+</div></div>
+<script>
+const q = new URLSearchParams(location.search), lines = +(q.get('lines') || 2);
+const P = ['FREE', 'NO DOWNLOAD', 'NO ACCOUNT', 'OPEN SOURCE'], dot = '<span class="dot">·</span>';
+const rows = lines === 1 ? [P] : [P.slice(0, 2), P.slice(2)];
+document.getElementById('ph').innerHTML = rows.map(r => `<div>${r.join(dot)}</div>`).join('');
+</script>
+</body></html>

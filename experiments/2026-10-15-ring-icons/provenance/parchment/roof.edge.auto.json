@@ -1,0 +1,76 @@
+{
+  "id": "roof.edge.auto",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop roof edge option pictogram: One flat grey roof slab edge with ONE large ivory five-tooth cog centered on it: the edge the building chooses. Dominant colour: grey with ivory cog. Roof only, no whole house, no walls, no decorative architecture. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients and restrained brushwork. Centered on a warm pale parchment circular ground with quiet thin antique brass rim; dark outlines for strong contrast. Upper-left light. Straight-on circular badge; subject fills80percent of disc; outer disc fills94percent of square canvas. Must read at31px: thick forms, simple countable rows, broad negative space. Distinguish this option from sibling options by shape and structure, not only colour. Native transparent alpha outside circle. No text, lettering, numbers, watermark, extra symbols, tiny detailing or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.thatch.webp",
+      "sha256": "95b8c204e4f6e7cdb1c4323f57762311ec9815f960a79ba65d04300382ba53ce",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.flat.webp",
+      "sha256": "32eaee73c0657074dd46cb45328438f98b5a93544b355e3988d7c6d6a8794f0c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/roof.style.slate.webp",
+      "sha256": "975224290396c2463b48957ce1a60b28592adfc50addf45076f9d6241a642154",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--roof.edge.auto.png",
+      "sha256": "2a5c4495b992dcc5e6bf161ec48dbeb071636f8828a5d97e36d65e11591b8312",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--roof.edge.auto.png",
+  "source_sha256": "7c0c54ec99c2c3ce056430e38a482d6a9e75530e58a1d9eebdc8e3fb8b6f31e3",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/roof.edge.auto.webp",
+    "19": "parchment/sizes/19/roof.edge.auto.webp",
+    "22": "parchment/sizes/22/roof.edge.auto.webp",
+    "26": "parchment/sizes/26/roof.edge.auto.webp",
+    "31": "parchment/sizes/31/roof.edge.auto.webp",
+    "36": "parchment/sizes/36/roof.edge.auto.webp",
+    "38": "parchment/sizes/38/roof.edge.auto.webp",
+    "42": "parchment/sizes/42/roof.edge.auto.webp",
+    "44": "parchment/sizes/44/roof.edge.auto.webp",
+    "50": "parchment/sizes/50/roof.edge.auto.webp",
+    "52": "parchment/sizes/52/roof.edge.auto.webp",
+    "62": "parchment/sizes/62/roof.edge.auto.webp",
+    "84": "parchment/sizes/84/roof.edge.auto.webp",
+    "100": "parchment/sizes/100/roof.edge.auto.webp",
+    "128": "parchment/roof.edge.auto.webp"
+  },
+  "sha256": {
+    "18": "2891d86a1604a799ab3e7ec7a2bfd1de19d896ee55c82edeaf1e4074ff2a11fa",
+    "19": "33faaf4ada545aee79f231fddda6a45f8911b9aa9eb4d42b9128054bb7e9273b",
+    "22": "4ea62b254c321549c48e4540b8e11462fef465ff8d9b1ddde9ec5cfdf2b0b9d1",
+    "26": "8ed2b55e474630de35866cb18839182f4d7373553b77b58b6da373bd5c680997",
+    "31": "27e5dfe770ee43d5ad6d31483d00a21b08522d380c8b4bc05521ebee247f61a8",
+    "36": "fd58269480ab53cd3490a7bd3b149f7b707b8a8b59eb3af9d58353b15f0e0dc4",
+    "38": "b458e7d6b1c02f8555f1fb30d5260d8c88dfdb3ee22fbe981c526886ebe1ba80",
+    "42": "a974d4ad26e64db91eef5e267f3df25a7d49a59a9e221d55728580acfa05cd00",
+    "44": "f7c768abb2da1c074ef2f256a29bdc5809b676539366ea219b11dc0beb4d9aca",
+    "50": "495814b1f143db76e7e46d19529e5588c7c71effde445dde11844e015c73e8e9",
+    "52": "9d0ab08bc351a5df76ae8bae395c94e36acab412cd2e977ce567bca71e1af02b",
+    "62": "81e53de7fe5106abd08be10761011f991559eaeac889149e8423af2f7d4936ef",
+    "84": "89c64b9090ce99ce4c1a179cead8d143efe0d4884b20dbda5128b92eb70ad8ea",
+    "100": "fdc543acdfdbb27ce98983f95fc5d794e9f5dcbd04fecf8c735ad78b42fa198a",
+    "128": "63eec76fc6cc61d5540a0137b025930d786b3865aae40dc9b9c411a9d7c02a77"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small unlabelled options in the contextual ring menu of a selected roof or building in a browser 3D tabletop game. For each lettered icon: which roof option does it offer (a roof material, a roof edge, a roof shape, or an action on a roof piece)? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "07f66038fec2f2a2d18455570dd66b8bb91204f984cb94c3b2108f5730462924",
+  "blind_prompt_sha256": "2ddccf6ab7ea4984721dd5c4b3a2fb771bc2ed3cc9c38370c10ceee48aa5844f",
+  "read_directory": "reads/parchment/roof.edge.auto/7c0c54ec99c2c3ce-2ddccf6ab7"
+}

@@ -1,0 +1,56 @@
+charcoal pawn.attack needs-review 
+ **Visible Objects and Marks:**
+In [candidate.png](file:///tmp/blind-vilt6zk4/candidate.png), there is a dark circular button with a thin gray border containing two crossed broadswords arranged in an "X" shape. The silver blades point upward (top-left and top-right), and the brown hilts with gray crossguards and pommels sit at the bottom (bottom-left and bottom-right).
+
+**Best Action Interpretation:**
+* **Action:** **Attack** (trigger an attack action or attack animation with the selected piece).
+* **Confidence:** **High**
+
+**Ambiguity & Alternative:**
+* **Why ambiguous:** Crossed swords are a universal RPG/tabletop symbol for combat in general, so without text it can represent either an immediate offensive action by the piece or combat-tracker management.
+* **Plausible alternative:** **Add to / toggle Combat (Initiative) Tracker** (or enter combat mode for the piece). 
+
+parchment pawn.attack needs-review 
+ **Visible objects and marks:**
+In [candidate.png](file:///tmp/blind-7eyd13vb/candidate.png), there is a circular golden-tan badge centered on a dark charcoal background. Inside the badge are two crossed swords pointing diagonally upward, with silver-grey blades, dark grey crossguards, brown hilts, and round pommels.
+
+**Best action interpretation:**
+* **Action:** **Attack / Initiate Combat** (select a target to attack or perform an attack action with the selected piece).
+* **Confidence:** **High** (for a combat/attack-related action; **Medium** on exact mechanical behavior in a generic VTT).
+
+**Ambiguity and alternative:**
+* **Why it is ambiguous:** Without knowing whether the 3D virtual tabletop enforces game rules or acts as a physics/sandbox tabletop, crossed swords could represent either an active targeted command or a token state/marker.
+* **Plausible alternative:** **Toggle "In Combat" / "Attacking" status marker** (or **Roll Attack / Combat die**) on the selected piece. 
+
+charcoal pawn.target needs-review 
+ ### Visible Objects and Marks
+In [candidate.png](file:///tmp/blind-twueg97x/candidate.png):
+- **Button frame:** A dark circular button bordered by a thin gray ring against a dark background.
+- **Center object:** A small teal/cyan 3D pawn piece (spherical top, conical body, round base).
+- **Overlay marks:** Surrounding the pawn is a bright red reticle composed of:
+  1. A circular ring with four inward-pointing triangular crosshair ticks at the cardinal points (top, bottom, left, right).
+  2. Four red L-shaped corner brackets framing the circle at the outer corners, resembling a camera viewfinder or lock-on box.
+
+### Best Action Interpretation
+- **Action:** **Focus / Center camera on piece** (pan/zoom the 3D viewport to frame the selected piece).
+- **Confidence:** **Medium**
+
+### Ambiguity & Plausible Alternative
+- **Why it is ambiguous:** The icon combines camera viewfinder corner brackets (typically used for *focus/frame view*) with a bright red crosshair reticle (typically used for *targeting/combat lock-on* or *pinging*).
+- **Plausible alternative:** **Target / Mark piece** (designate the selected piece as a target or ping/highlight it for other players on the tabletop). 
+
+parchment pawn.target needs-review 
+ **Visible Objects and Marks:**
+In [candidate.png](file:///tmp/blind-lw0rbvc6/candidate.png), a circular parchment-colored button with a gold rim contains:
+- A small teal game pawn/piece in the center.
+- A red circular ring surrounding the pawn with four inward-pointing red triangular arrowheads at the top, bottom, left, and right.
+- Four red L-shaped framing brackets at the outer corners, resembling a camera viewfinder.
+
+**Best Action Interpretation:**
+- **Focus / Center camera on piece** (frame or zoom the 3D viewport onto the selected piece).
+- **Confidence:** High.
+
+**Ambiguity & Alternative:**
+- **Why ambiguous:** While the outer L-brackets suggest a camera viewfinder frame, the bright red ring and inward-pointing triangles strongly resemble a combat crosshair or bullseye reticle.
+- **Plausible alternative:** **Target piece** (mark the piece as a combat target) or **Ping / Highlight piece** to draw other players' attention to its location. 
+

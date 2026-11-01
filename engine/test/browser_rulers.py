@@ -167,6 +167,16 @@ async def main():
             check(st['live'] and st['live']['stage'] == 'set' and st['armed'] is None and st['items'][0]['text'] == '30 ft · 6 sq' and await mi.evaluate("tw.sel.size === 0"), 'drag from A to B: 30 ft · 6 sq; it stays; the tool is off again; nothing was selected', st['items'])
             check(await mi.evaluate("document.querySelectorAll('#rulers .rhandle:not([hidden])').length === 2"), 'both ends have a handle')
             await shot(mi, 'ruler-floor')
+            # THE 5-FT DETENT: near a whole number of squares the end clicks onto it; elsewhere it stays where it is put
+            async def drag_b(x, z):
+                hx, hy = await mi.evaluate("(() => { const r = document.querySelector('#rulers .rhandle.b').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; })()")
+                tx, ty = await at(mi, x, z); await mi.mouse.move(hx, hy); await mi.mouse.down(); await mi.mouse.move(tx, ty, steps=5); await mi.mouse.up(); await mi.wait_for_timeout(200)
+                return await mi.evaluate('tw.rulers.state()')
+            st = await drag_b(39.2, 50)
+            check(abs(st['live']['b']['x'] - 40) < 0.02 and st['items'][0]['text'] == '30 ft · 6 sq', 'the far end let go 29.2 ft out clicks onto 30 ft', [st['live']['b'], st['items'][0]['text']])
+            st = await drag_b(37.5, 50)
+            check(abs(st['live']['b']['x'] - 37.5) < 0.4 and st['items'][0]['text'].split(' · ')[0] in ('27 ft', '28 ft'), '... and 27.5 ft out (halfway between) it stays where it was put', [st['live']['b'], st['items'][0]['text']])
+            await drag_b(40, 50)
             # an end dragged onto a pawn sticks to it and measures from its edge
             gx, gy = await at(mi, 42.5, 42.5)
             await mi.mouse.move(bx, by); await mi.mouse.down(); await mi.mouse.move(gx + 3, gy + 2, steps=5); await mi.mouse.up(); await mi.wait_for_timeout(250)
@@ -186,6 +196,16 @@ async def main():
             check(live_t == '15 ft · 3 sq', 'she drags her own pawn two squares nearer: the ruler is still there and follows the pawn in her hand (15 ft)', live_t)
             await shot(mi, 'ruler-follow')
             await mi.mouse.move(bx2, by2, steps=4); await mi.mouse.up(); await mi.keyboard.up('Shift'); await mi.wait_for_timeout(300)
+            # a pawn dragged FREELY: the distance travelled clicks onto 5-ft steps when it is near one
+            async def free_drag(x0, z0, x1, z1):
+                p0 = await at(mi, x0, z0); p1 = await at(mi, x1, z1)
+                await mi.mouse.move(*p0); await mi.mouse.down(); await mi.mouse.move(*p1, steps=6); await mi.wait_for_timeout(200); await mi.mouse.up(); await mi.wait_for_timeout(300)
+                return await mi.evaluate('tw.lastDrop')
+            ld = await free_drag(12.5, 12.5, 21.6, 12.5)
+            check(ld and abs(ld['dx'] - 10) < 0.02 and abs(ld['dz']) < 0.3, 'her pawn dragged freely about 9 ft east lands exactly 10 ft away', ld)
+            ld = await free_drag(22.5, 12.5, 15.0, 12.5)
+            check(ld and abs(ld['dx'] + 7.5) < 0.4, '... and dragged 7.5 ft (halfway between steps) it lands where it was let go', ld)
+            await mi.evaluate(f"tw.dispatch('token.move', {{ id: '{BR}', x: 12.5, z: 12.5 }})"); await mi.wait_for_timeout(300)
             # a click elsewhere lets it go
             ex, ey = await at(mi, 25, 56); await mi.mouse.click(ex, ey); await mi.wait_for_timeout(250)
             check(await mi.evaluate("!tw.rulers.live() && !document.querySelector('#rulers .rlab:not([hidden])')") and await wait(kit, f"!{ITEM('seat:' + seats['Mira'])}", 6000), 'a click elsewhere: gone, for her and for the other seat')

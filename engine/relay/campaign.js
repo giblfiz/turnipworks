@@ -15,7 +15,7 @@ import { seesDamageUndo } from '../core/pawn.js';
 import { forPlayers as turnsForPlayers } from '../core/turns.js';
 import { cleanRuler } from '../core/measure.js';
 import { partySignature } from '../core/party.js';
-import { DATA_FORMAT, migrateSnapshot, migrateRecord, migrateCommand, migratePawns, migrateStairs, migrateTilts } from '../core/migrate.js';
+import { DATA_FORMAT, migrateSnapshot, migrateRecord, migrateCommand, migratePawns, migrateStairs, migrateTilts, migrateCaves } from '../core/migrate.js';
 import { migrateStair } from '../core/stairs.js';
 
 const TAIL = 2000;        // log entries kept per area for reconnect catch-up
@@ -49,7 +49,7 @@ export class CampaignRuntime {
   }
 
   // ---------------- lifecycle ----------------
-  load({ stairs = true } = {}) { // (stairs: false leaves old stairs as they were stored; the migration's own test compares the two)
+  load({ stairs = true, caves = true } = {}) { // (stairs: false leaves old stairs as they were stored; the migration's own test compares the two)
     const { snap: snap0, records: recs0 } = this.journal.load();
     const snap = migrateSnapshot(snap0), records = recs0.map(migrateRecord); // old "table" files read as areas
     if (snap) {
@@ -70,7 +70,11 @@ export class CampaignRuntime {
     // a thing's tilt (tiltZ, 2026-10-11) -> its orientation (quat, 2026-10-12, core/orient.js): the same way
     const tl = migrateTilts(this);
     if (tl.things || tl.stored) { this.snapshot(); this.log(`${this.id}: ${tl.things} tilted thing(s) now carry an orientation (${tl.stored} more in undo history)`); }
-    return { replayed: records.length, fromSnapshot: !!snap, pawns, stairs: st.stairs, tilts: tl.things };
+    // a cave's stalagmites -> things of the room (2026-10-27, core/migrate.js migrateCaves): the same way (needs the room
+    // engine, for the library's stalagmite; without it an old cave stays as it was and still draws its own)
+    const cv = caves && this.roomgen?.caveStalagObjects ? migrateCaves(this, (E, room, idOf) => this.roomgen.caveStalagObjects(E, room, { idOf })) : { caves: 0, things: 0, stored: 0 };
+    if (cv.caves) { this.snapshot(); this.log(`${this.id}: ${cv.caves} cave(s) now have their ${cv.things} stalagmites as things (${cv.stored} undo / redo steps amended)`); }
+    return { replayed: records.length, fromSnapshot: !!snap, pawns, stairs: st.stairs, tilts: tl.things, caves: cv.caves };
   }
 
   // A new campaign: genesis, the GM's seat and a first area, all journaled like everything else.
@@ -107,7 +111,7 @@ export class CampaignRuntime {
       // Historical genesis records omit defaults: existing campaigns keep fog off.
       if (rec.genesis.defaults) this.state.defaults = { ...rec.genesis.defaults }; }
     if (rec.camp && REGISTRY[rec.camp.type].apply) {
-      this.state = REGISTRY[rec.camp.type].apply(this.state, rec.camp.args, { by: rec.by });
+      this.state = REGISTRY[rec.camp.type].apply(this.state, rec.camp.args, { by: rec.by, at: rec.at }); // (at: the record's own time, for the music clock: core/commands.js music.set)
     }
     if (rec.camp || rec.genesis) this.state = { ...this.state, cseq: this.state.cseq + 1 };
     const actor = rec.as || rec.by; // whose action this is (a GM undoing Brakka's move acts AS Brakka for redo)
@@ -137,9 +141,20 @@ export class CampaignRuntime {
           && last.keep.session === session && tail[0].seq <= last.keep.seq + 1
           && !tail.some(e => e.seq > last.keep.seq && e.seq < fx.seq && e.ids.includes(fx.args.id) && !['turn.next', 'turn.prev'].includes(e.type))
           && rec.at >= last.keep.at && rec.at - last.keep.at <= 10000;
+        // A FIRST-PERSON WALK (client/surfaces/fpv.js, 2026-10-30) sends its pawn's place as it goes; key down to key up is
+        // ONE undo step: the first move's inverse (where the walk began) stands for all of them. Same rules as the Keep
+        // bar's: the same seat, pawn and walk at that seat's undo head, nobody else's change to the pawn in between, and
+        // no gap of more than 10 s. A move with no walk (every other move, old journals) never joins.
+        const wk = fx.type === 'token.move' && typeof fx.args.walk === 'string' ? fx.args.walk : null;
+        const joinsWalk = !joinsKeep && wk && last?.walk && !last.undone && last.walk.id === fx.args.id && last.walk.session === wk
+          && tail[0].seq <= last.walk.seq + 1 && ids.length === 1
+          && !tail.some(e => e.seq > last.walk.seq && e.seq < fx.seq && e.ids.includes(fx.args.id))
+          && rec.at >= last.walk.at && rec.at - last.walk.at <= 10000;
         if (joinsKeep) { last.keep.at = rec.at; last.keep.seq = fx.seq; }
+        else if (joinsWalk) { last.walk.at = rec.at; last.walk.seq = fx.seq; }
         else u.push({ seq: fx.seq, inv: fx.inv, xid: fx.xid || null, by: actor, undone: false,
           ...(fx.type === 'template.place' && session && { keep: { id: fx.args.id, session, at: rec.at, seq: fx.seq } }),
+          ...(wk && ids.length === 1 && { walk: { id: fx.args.id, session: wk, at: rec.at, seq: fx.seq } }),
           ...(damageIds(fx) && { dmg: damageIds(fx) }) });
         if (u.length > UNDO_DEPTH) u.splice(0, u.length - UNDO_DEPTH);
         if (!rec.undo && !rec.redo) this.redo.delete(`${fx.area}|${actor}`); // a fresh action clears your redo
@@ -191,6 +206,24 @@ export class CampaignRuntime {
         else c.args = normalize(c).args;
       } catch (error) { return { ok: false, code: 'invalid', why: error.message }; }
     }
+    // A GENERATED DOOR (core/commands.js door.open): the relay works the door out from its own wall engine and writes it
+    // into the command (a seat names only the key and open; whatever piece it sent is replaced). With no door there
+    // (a wall, a door only hidden rooms own for a player, a door already materialised) the piece is left out and the check
+    // answers "no door at KEY"; a door that is already a thing of its own names its id, for object.open.
+    if ((c.type === 'door.open' || (c.type === 'batch' && c.args.ops.some(op => op.type === 'door.open'))) && this.state.areas[c.area] && canSee(this.state, by, c.area)) {
+      if (!this.roomgen?.doorPiece) return { ok: false, code: 'invalid', why: 'the wall engine is unavailable on the relay' };
+      const gmSide = isGmSide(this.state, by);
+      let area = this.state.areas[c.area];
+      const fill = (args) => {
+        const piece = this.roomgen.doorPiece(area.entities, args.key, { gmSide }), { piece: _, ...rest } = args;
+        if (!piece) { const o = Object.values(area.entities).find(e => e.kind === 'object' && e.fromEdge === args.key && (gmSide || !e.hidden)); if (o) throw new Error(`the door at ${args.key} is already a thing of its own: object.open id=${o.id}`); }
+        return { ...rest, id: args.id || newId('obj'), ...(piece && { piece }) };
+      };
+      try {
+        if (c.type === 'batch') c.args = { ops: c.args.ops.map(op => { const next = op.type === 'door.open' ? { ...op, args: fill(op.args) } : op; try { area = REGISTRY[next.type].apply(area, next.args, { by }); } catch { /* the check refuses it */ } return next; }) };
+        else c.args = fill(c.args);
+      } catch (error) { return { ok: false, code: 'invalid', why: error.message }; }
+    }
     const err = checkCommand({ state: this.state, by, roomTypes: this.roomgen?.types }, c);
     if (err) return { ok: false, ...err };
     if (CHAT_CMDS.has(c.type)) { const g = this.chatGuard(by, c.area); if (g) return g; }
@@ -233,7 +266,7 @@ export class CampaignRuntime {
         if (P) { stair = { id: newId('obj'), ...P.args }; ents = { ...T.entities, [stair.id]: { kind: 'object', ...stair } }; } else stairWhy = this.roomgen.stairFor.why || '';
       }
       const L = this.roomgen.solve(ents, c.args, T.order + 1);
-      c.args = { ...c.args, layout: { hash: L.hash, summary: L.summary, objects: L.objects }, engine: 'v2', engineVersion: this.roomgen.version };
+      c.args = { ...c.args, layout: { hash: L.hash, summary: L.summary, objects: L.objects }, engine: 'v2', engineVersion: this.roomgen.version, ...(L.stalagObjects && { stalagObjects: true }) }; // (a cave: its stalagmites are things of its layout)
     }
 
     let rec;
@@ -438,8 +471,10 @@ export class CampaignRuntime {
     // from what they were last sent. (GM-side seats hold the real order and work the rest out from the pawns.)
     for (const fx of rec.fx) this.sendPlayerTurns(fx.area);
     for (const fx of rec.fx) this.wake(fx.area);
+    if (this.hooks?.commit) { try { this.hooks.commit(rec, by); } catch (e) { this.log(`${this.id}: hook: ${e.message}`); } } // (relay/funnel.js: the GM's first real action, "engaged")
     if (rec.camp) {
       this.campaignChanged();
+      if (this.hooks?.camp) { try { this.hooks.camp(rec.camp, by); } catch (e) { this.log(`${this.id}: hook: ${e.message}`); } } // (relay/funnel.js: invites)
       if(rec.camp.type==='campaign.set' && Object.hasOwn(rec.camp.args.defaults||{},'sharedPartyVision')) {
         for(const conn of this.conns) for(const id of conn.subs) this.subscribe(conn,id);
       }
@@ -569,7 +604,11 @@ export class CampaignRuntime {
     // stored. One that touches a hidden pawn, or has an end in a hidden room, reaches the GM side only (below).
     const ruler = cleanRuler(m.ruler);
     this.lastPres.set(conn.seat, { area: m.area, cursor, sel: sel || [], at: Date.now(), ...(cursor && isGmSide(this.state, conn.seat) && this.cursorInHidden(m.area, cursor) && { secret: true }) }); // for the AI seats' presence read
-    this.broadcastPresence(conn, { area: m.area, cursor, drag: drag?.length ? drag : null, ...(sel?.length && { sel }), ...(ruler && { ruler }) });
+    // FIRST PERSON (client/surfaces/fpv.js): the pawn this seat is looking through. Only a pawn of this area that the seat
+    // may move; one hidden from players reaches the GM side only (broadcastPresence: like a hidden selection)
+    const ep = typeof m.eyes === 'string' && /^[\w:.-]{1,48}$/.test(m.eyes) ? this.state.areas[m.area]?.entities[m.eyes] : null;
+    const eyes = ep?.kind === 'token' && (isGmSide(this.state, conn.seat) || principalOf(this.state, ep.owner)?.id === principalOf(this.state, conn.seat)?.id) ? ep.id : null;
+    this.broadcastPresence(conn, { area: m.area, cursor, drag: drag?.length ? drag : null, ...(sel?.length && { sel }), ...(ruler && { ruler }), ...(eyes && { eyes }) });
   }
   cursorInHidden(area, pt) { const T = this.state.areas[area], f = T && floorUnder(T.entities, pt[0], pt[1], pt[2] || 0); return !!(f?.room && T.entities[f.room]?.hidden); }
   broadcastPresence(from, p, gmOnly = false) {
@@ -578,7 +617,7 @@ export class CampaignRuntime {
     const msg = { t: 'pres', seat: s.id, name: s.name, color: s.color, ...p };
     const T = this.state.areas[p.area];
     const secretDrag = (d) => { const e = T?.entities[d.id]; const f = T && floorUnder(T.entities, d.x, d.z, d.y ?? e?.y ?? 0); return !!e?.hidden || !!(f?.room && T.entities[f.room]?.hidden && (e?.kind !== 'token' || HIDE_ROOM_HIDES_PLAYER_PAWNS || principalOf(this.state, e.owner)?.role !== 'player')); };
-    const hiddenDrag = p.drag?.some(secretDrag), hiddenSel = p.sel?.some(id => T?.entities[id]?.hidden);
+    const hiddenDrag = p.drag?.some(secretDrag), hiddenSel = p.sel?.some(id => T?.entities[id]?.hidden), hiddenEyes = !!p.eyes && !!T?.entities[p.eyes]?.hidden;
     // players never see hidden things being dragged, nor that someone has a hidden thing selected
     const inHidden = (pt) => { const f = T && floorUnder(T.entities, pt[0], pt[1], pt[2] || 0); return !!(f?.room && T.entities[f.room]?.hidden); };
     const hiddenRuler = !!p.ruler && !!T && (!!T.entities[p.ruler.ap]?.hidden || !!T.entities[p.ruler.bp]?.hidden || inHidden(p.ruler.a) || inHidden(p.ruler.b));
@@ -593,8 +632,8 @@ export class CampaignRuntime {
         return;
       }
     } else if (p.gone) from.cursorHidden = false;
-    const cut = hiddenDrag || hiddenSel || hiddenRuler;
-    const pub = cut ? { ...msg, ...(hiddenDrag && { drag: p.drag.filter(d => !secretDrag(d)) }), ...(hiddenSel && { sel: p.sel.filter(id => !T.entities[id]?.hidden) }), ...(hiddenRuler && { ruler: undefined }) } : msg;
+    const cut = hiddenDrag || hiddenSel || hiddenRuler || hiddenEyes;
+    const pub = cut ? { ...msg, ...(hiddenDrag && { drag: p.drag.filter(d => !secretDrag(d)) }), ...(hiddenSel && { sel: p.sel.filter(id => !T.entities[id]?.hidden) }), ...(hiddenRuler && { ruler: undefined }), ...(hiddenEyes && { eyes: undefined }) } : msg;
     for (const c of this.conns) if (c !== from && c.subs.has(p.area) && canSee(this.state, c.seat, p.area) && (!gmOnly || isGmSide(this.state, c.seat))) c.sendLossy(cut && !isGmSide(this.state, c.seat) ? pub : msg);
   }
 

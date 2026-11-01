@@ -1,0 +1,51 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Turnip Works end card C5</title>
+<!-- END CARD C5, "the checklist", original dark colours (Harry's pick, 2026-10-22; designed in the card-variants round,
+     scratchpad cards_template.html .c5). A dark brand panel on the left (the existing mark, "Turnip / Works",
+     turnipworks.net in gold); on the right four gold ticks, a bold line each with a small gloss under it. Colours are the
+     loading screen's brown (#4a4136), its dark (#2c2823), cream (#f6ead2) and gold (#e0b04a); type is Inter, the site's
+     face. 1 --u = 1 px of a 1920 x 1080 card. ?square=1: 1080 x 1080, the brand panel stacked on top as a band (the mark
+     beside the name and the address), the checklist below, everything kept large. The old card (card.html) stays
+     selectable: cut.py --card / a cut's end.card. -->
+<style>
+@font-face { font-family: Inter; src: url('inter.woff2') format('woff2'); font-weight: 100 900; }
+:root { --brown: #4a4136; --brown-lo: #2c2823; --cream: #f6ead2; --gold: #e0b04a; --u: calc(100vw / 1920); }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+body { background: var(--brown); color: var(--cream); font-family: Inter, system-ui, sans-serif; }
+.c5 { display: grid; grid-template-columns: calc(640 * var(--u)) 1fr; width: 100%; height: 100%; }
+.l { background: var(--brown-lo); display: grid; place-content: center; justify-items: center; gap: calc(28 * var(--u)); }
+.mark { width: calc(260 * var(--u)); height: calc(260 * var(--u)); display: block; filter: drop-shadow(0 calc(10 * var(--u)) calc(16 * var(--u)) rgba(0, 0, 0, .35)); }
+.nm { font: 800 calc(80 * var(--u))/1.05 Inter, system-ui, sans-serif; text-align: center; }
+.url { font: 500 calc(40 * var(--u)) Inter, system-ui, sans-serif; color: var(--gold); }
+ul { list-style: none; margin: 0; padding: 0 calc(120 * var(--u)); display: grid; align-content: center; gap: calc(44 * var(--u)); }
+li { display: grid; grid-template-columns: calc(90 * var(--u)) 1fr; align-items: baseline; }
+li i { font: 900 calc(78 * var(--u)) Inter, system-ui, sans-serif; color: var(--gold); font-style: normal; }
+li b { font: 800 calc(78 * var(--u))/1.05 Inter, system-ui, sans-serif; letter-spacing: -.01em; }
+li small { grid-column: 2; font: 500 calc(38 * var(--u)) Inter, system-ui, sans-serif; opacity: .72; margin-top: calc(6 * var(--u)); }
+/* the square: --u is 1 px of a 1080 card; the brand a band across the top, the list under it */
+body.sq { --u: calc(100vw / 1080); }
+body.sq .c5 { grid-template-columns: 1fr; grid-template-rows: calc(300 * var(--u)) 1fr; }
+body.sq .l { grid-auto-flow: column; grid-template-rows: auto auto; grid-template-columns: auto auto; column-gap: calc(40 * var(--u)); row-gap: calc(10 * var(--u)); align-content: center; justify-content: center; justify-items: start; }
+body.sq .mark { grid-row: 1 / span 2; width: calc(200 * var(--u)); height: calc(200 * var(--u)); align-self: center; }
+body.sq .nm { font-size: calc(76 * var(--u)); text-align: left; align-self: end; }
+body.sq .nm br { display: none; }
+body.sq .url { font-size: calc(42 * var(--u)); align-self: start; }
+body.sq ul { padding: 0 calc(90 * var(--u)); gap: calc(34 * var(--u)); }
+body.sq li { grid-template-columns: calc(80 * var(--u)) 1fr; }
+body.sq li i, body.sq li b { font-size: calc(70 * var(--u)); }
+body.sq li small { font-size: calc(38 * var(--u)); }
+/* v4 the 4:5 (?shape=4x5, 1080 x 1350): the square's layout with the extra height given to it: a taller band, the mark and
+   the type larger, the list spaced out */
+body.sq.tall .c5 { grid-template-rows: calc(420 * var(--u)) 1fr; }
+body.sq.tall .mark { width: calc(250 * var(--u)); height: calc(250 * var(--u)); }
+body.sq.tall .nm { font-size: calc(88 * var(--u)); }
+body.sq.tall .url { font-size: calc(46 * var(--u)); }
+body.sq.tall ul { gap: calc(56 * var(--u)); }
+body.sq.tall li i, body.sq.tall li b { font-size: calc(76 * var(--u)); }
+body.sq.tall li small { font-size: calc(42 * var(--u)); }
+</style></head>
+<body>
+<div class="c5"><div class="l"><img class="mark" src="mark.svg" alt=""><div class="nm">Turnip<br> Works</div><div class="url">turnipworks.net</div></div>
+<ul><li><i>✓</i><b>Free</b><small>no paid tier</small></li><li><i>✓</i><b>In your browser</b><small>nothing to install</small></li><li><i>✓</i><b>No account</b><small>players join from a link</small></li><li><i>✓</i><b>Open source</b><small>yours to keep</small></li></ul></div>
+<script>const q = new URLSearchParams(location.search); if (q.get('square') === '1') document.body.classList.add('sq'); if (q.get('shape') === '4x5') document.body.classList.add('sq', 'tall');</script>
+</body></html>

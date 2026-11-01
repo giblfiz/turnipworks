@@ -9,6 +9,10 @@
            not sent to them, so it is no more visible with the switch off.
   SHARP    "The 'poor focus' on lower levels is not really working out. I think we should drop it.": nothing is blurred
            or dimmed below the level in view; the post stack is the same at every level.
+  (2026-10-25, "They also might need to be re indexed, we have added some stuff.") every room type's library is laid
+           out and everything the command bar can place is in one of them (tw.library.coverage); the new shelves
+           (More, stairs, railings) are drawn the same size; a stair dragged out of the library is a stair. The data-side
+           half (no browser) is test/library-index.test.mjs.
 
   local:  TW_GPU=1 python3 engine/test/browser_smalls.py --local [--shots]
   live:   ... browser_smalls.py --page https://turnipworks.net/
@@ -27,7 +31,7 @@ A = ap.parse_args()
 results = []; procs = []; tmpdirs = []
 def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)
-RP, SP = 18163, 18793
+RP, SP = (int(v) for v in os.environ.get('TW_PORTS', '18163,18793').split(','))  # TW_PORTS=relay,site when another worktree runs this suite
 def start_local():
     for port in (RP, SP):
         try: urllib.request.urlopen(f'http://127.0.0.1:{port}/', timeout=0.5); sys.exit(f'port {port} is busy (a stale test server?)')
@@ -75,7 +79,10 @@ LIBSIZES = """(() => { const w = tw.worlds.get(tw.library.info().area); const ou
   for (const r of w.recs.values()) { const e = r.entity; if (e.kind !== 'object') continue; let x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9, n = 0;
     r.group.traverse(o => { if (!o.isMesh || o.userData?.halo || !o.geometry) return; o.geometry.computeBoundingBox(); const b = o.geometry.boundingBox; if (!b || !isFinite(b.min.x)) return;
       for (const x of [b.min.x, b.max.x]) for (const y of [b.min.y, b.max.y]) for (const z of [b.min.z, b.max.z]) { const p = o.localToWorld(new o.position.constructor(x, y, z)); x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); z0 = Math.min(z0, p.z); z1 = Math.max(z1, p.z); n++; } });
-    if (n) out.push({ cat: e.cat, k: e.libK || 1, scale: +r.group.scale.x.toFixed(3), side: +Math.max(x1 - x0, z1 - z0).toFixed(2), true: Math.max(...e.dims) });
+    // side: the drawn size (library.js): the longer side of its footprint, or, for a thing standing up, its height over 1.15 (UP_H)
+    let y0 = 1e9, y1 = -1e9; r.group.traverse(o => { if (!o.isMesh || o.userData?.halo || !o.geometry) return; const b = o.geometry.boundingBox; if (!b || !isFinite(b.min.y)) return; for (const x of [b.min.x, b.max.x]) for (const y of [b.min.y, b.max.y]) for (const z of [b.min.z, b.max.z]) { const p = o.localToWorld(new o.position.constructor(x, y, z)); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } });
+    const up = !e.tiltX && !e.tiltZ && !e.flat;
+    if (n) out.push({ cat: e.cat, k: e.libK || 1, scale: +r.group.scale.x.toFixed(3), side: +Math.max(x1 - x0, z1 - z0, up && e.libK ? (y1 - y0) / 1.15 : 0).toFixed(2), true: Math.max(...e.dims) });
   } return out; })()"""
 
 TOTAL = "Object.keys(tw.worlds.get(tw.library.info().area).libView.entities).length"  # every thing the library holds, loaded or not
@@ -187,7 +194,7 @@ async def main():
         await pl.reload(); await wait(pl, 'window.tw && tw.ready && tw.ready()', 45000); await settle(pl); await pl.wait_for_timeout(1500)
         r = await pl.evaluate(ATMOS)
         check(r['pref'] is False and r['off'] is True and r['volume'] is False, 'after a reload the fog is still off for that seat', r)
-        await pl.evaluate("tw.settings.show('me')"); await pl.wait_for_timeout(400)
+        await pl.evaluate("tw.settings.show('graphics')"); await pl.wait_for_timeout(400)
         row = await pl.evaluate("(() => { const el = document.querySelector('#settingsModal [data-pref=\"fogFx\"]'); if (!el) return null; const r = el.closest('.srow') || el.parentElement.parentElement; return { text: r.textContent.trim().slice(0, 160), on: el.checked ?? el.getAttribute('aria-checked') ?? el.classList.contains('on') }; })()")
         check(row and 'Fog and mist' in row['text'] and row['on'] in (False, 'false'), 'Settings > Me has "Fog and mist", showing off', row)
         await pl.click('#settingsModal [data-pref="fogFx"]'); await pl.wait_for_timeout(300); await pl.evaluate("tw.settings.close()"); await pl.wait_for_timeout(2500)
@@ -204,15 +211,41 @@ async def main():
         info = await gm.evaluate('tw.library.info()')
         check(info['shown'] and info['even'] is True, 'the Build library opens with "everything the same size" on (the trial\'s default)', info)
         await wait(gm, 'tw.library.info().flown', 20000, 'overview'); await gm.wait_for_timeout(2500)
+        # (2026-10-29) THE OPENING VIEW is close enough to read: every thing's label in the window is at least 9 px tall
+        # (it was 4 px: a 128 x 108-ft library framed whole from 177 ft); meshes still load as the camera comes near
+        op = await gm.evaluate("""(() => { const w = tw.worlds.get(tw.library.info().area), f = document.getElementById('pipFrame').getBoundingClientRect(), px = [];
+          for (const m of w.layers.deco.children) { const l = m.userData.label; if (!l || /^[A-Z ,·&']+$/.test(l.text)) continue; const a = tw.screenOf(m.position.x, m.position.z - l.h / 2, tw.pip, 0.02), b = tw.screenOf(m.position.x, m.position.z + l.h / 2, tw.pip, 0.02);
+            if (!a || !b || a.x < f.left || a.x > f.right || a.y < f.top + 24 || b.y > f.bottom) continue; px.push(Math.abs(b.y - a.y)); }
+          px.sort((x, y) => x - y); const l = tw.library.loaded(); return { n: px.length, min: +(px[0] || 0).toFixed(1), median: +(px[px.length >> 1] || 0).toFixed(1), dist: +tw.pip.grab.dist.toFixed(1), loaded: l.withUrl, total: l.total, size: w.lay.size.map(v => Math.round(v)) }; })()""")
+        check(op['n'] >= 12 and op['min'] >= 9, 'the library opens close enough to read its labels: every label in the window is at least 9 px tall', op)
+        check(op['loaded'] < op['total'], 'meshes still load progressively: at the opening view only the things near the camera have theirs', op)
+        await gm.evaluate('tw.library.frameAll()'); await wait(gm, 'tw.library.info().flown', 20000, 'the whole layout'); await gm.wait_for_timeout(1500)
         ev = await gm.evaluate(LIBSIZES); sides = sorted(x['side'] for x in ev); trues = sorted(x['true'] for x in ev)
         total_even = await gm.evaluate(TOTAL)
         await wait(gm, "(() => { const l = tw.library.loaded(); return l && l.drawn >= l.total * 0.97; })()", 90000, 'library meshes'); await gm.wait_for_timeout(800)
+        ev = await gm.evaluate(LIBSIZES); sides = sorted(x['side'] for x in ev)
         pk_even = await gm.evaluate(PICKS); print('    (picks, same size)', pk_even)
         check(len(ev) > 40 and spread(sides) < 1.25 and sides[-1] / sides[0] < 2.5 and abs(sides[len(sides) // 2] - 3) < 0.3, 'every thing in the library is drawn the same size: the longer side of each footprint is about 3 ft (all but the odd 2% within a quarter of each other; a mesh that spills over its listed size stays under 2.5; true sizes differ 40-fold)', f"{len(ev)} things, sides {sides[0]}..{sides[-1]} ft (their true longest sides run {trues[0]}..{trues[-1]} ft)")
         if A.shots: await lib_shot(gm, 'lib-even'); await gm.evaluate('tw.library.show(tw.worlds.get(tw.library.info().area).roomNode)')
-        lab = await gm.evaluate("""(() => { const w = tw.worlds.get(tw.library.info().area), rs = w.layers.deco.children.filter(m => m.userData.label && !m.userData.label.text.match(/^[A-Z ,·]+$/)).map(m => [m.position.x - m.userData.label.w / 2, m.position.z - m.userData.label.h / 2, m.position.x + m.userData.label.w / 2, m.position.z + m.userData.label.h / 2]);
+        lab = await gm.evaluate("""(() => { const w = tw.worlds.get(tw.library.info().area), rs = w.layers.deco.children.filter(m => m.userData.label && !m.userData.label.text.match(/^[A-Z ,·&']+$/)).map(m => [m.position.x - m.userData.label.w / 2, m.position.z - m.userData.label.h / 2, m.position.x + m.userData.label.w / 2, m.position.z + m.userData.label.h / 2]);
           let hit = 0; for (let i = 0; i < rs.length; i++) for (let j = i + 1; j < rs.length; j++) if (rs[i][0] < rs[j][2] - 0.02 && rs[j][0] < rs[i][2] - 0.02 && rs[i][1] < rs[j][3] - 0.02 && rs[j][1] < rs[i][3] - 0.02) hit++; return { labels: rs.length, overlapping: hit }; })()""")
         check(lab['labels'] > 40 and lab['overlapping'] == 0, 'no two labels overlap in the same-size layout', lab)
+        # (2026-10-25, Gemini on the re-indexed shelves: "a giant green pepper ... clips the neighbouring plate") no thing's
+        # drawn mesh reaches over another thing or over a label: world boxes from the meshes, on the plane (x, z)
+        hits = await gm.evaluate("""(() => { const w = tw.worlds.get(tw.library.info().area), B = []; w.layers.things.updateMatrixWorld(true);
+          for (const r of w.recs.values()) { const e = r.entity; if (e.kind !== 'object' || e.flat || r.visual?.userData?.placeholder) continue; let x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9, y1 = -1e9;
+            r.group.traverse(o => { if (!o.isMesh || o.userData?.halo || !o.geometry) return; o.geometry.computeBoundingBox(); const b = o.geometry.boundingBox; if (!b || !isFinite(b.min.x)) return;
+              for (const x of [b.min.x, b.max.x]) for (const y of [b.min.y, b.max.y]) for (const z of [b.min.z, b.max.z]) { const p = o.localToWorld(new o.position.constructor(x, y, z)); x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); z0 = Math.min(z0, p.z); z1 = Math.max(z1, p.z); y1 = Math.max(y1, p.y); } });
+            if (x1 > x0) B.push({ cat: e.cat, sku: e.sku, b: [x0, z0, x1, z1], top: +y1.toFixed(2) }); }
+          const L = w.layers.deco.children.filter(m => m.userData.label).map(m => ({ text: m.userData.label.text, b: [m.position.x - m.userData.label.w / 2, m.position.z - m.userData.label.h / 2, m.position.x + m.userData.label.w / 2, m.position.z + m.userData.label.h / 2] }));
+          const ov = (a, b) => Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0])) * Math.max(0, Math.min(a[3], b[3]) - Math.max(a[1], b[1])), ar = (a) => (a[2] - a[0]) * (a[3] - a[1]);
+          const things = [], labels = [];
+          for (let i = 0; i < B.length; i++) for (let j = i + 1; j < B.length; j++) { const o = ov(B[i].b, B[j].b); if (o > 0.08 * Math.min(ar(B[i].b), ar(B[j].b))) things.push([B[i].sku, B[j].sku, +o.toFixed(2)]); }
+          for (const t of B) for (const l of L) { const o = ov(t.b, l.b); if (o > 0.25 * ar(l.b)) labels.push([t.sku, l.text, +o.toFixed(2)]); }
+          const tall = B.filter(t => t.top > 3.6).sort((a, b) => b.top - a.top).map(t => [t.sku, t.top]);
+          return { things: B.length, over: things.slice(0, 10), nOver: things.length, onLabels: labels.slice(0, 10), nOnLabels: labels.length, tallest: Math.max(...B.map(t => t.top)), tall: tall.slice(0, 10) }; })()""")
+        check(hits['things'] > 40 and hits['nOver'] == 0 and hits['nOnLabels'] == 0, 'no thing\'s drawn mesh reaches over another thing or over a label (a mesh that spills well past its listed size would)', {k: v for k, v in hits.items() if k not in ('tall', 'tallest')})
+        check(hits['things'] > 40 and not hits['tall'], 'nothing stands much taller than its place (3 ft across, at most 3.6 ft high: a small tall thing lies down, or the PiP\'s perspective leans it over its neighbours)', f"tallest {hits['tallest']} ft; over 3.6 ft: {hits['tall']}")
         # drag a small thing out: it lands at its true size
         small = min((x for x in ev if x['k'] > 2), key=lambda x: x['true'], default=None)
         cat = small and small['cat']
@@ -234,9 +267,34 @@ async def main():
         # copy from the library: the clipboard item carries no drawing scale
         clip = await gm.evaluate(f"(() => {{ const w = tw.worlds.get(tw.library.info().area), s = w.lay.slots.get('{cat}'); tw.library.select({{ id: '{cat}', sku: w.lay.entities[s.id].sku, name: '{cat}', place: w.lay.entities[s.id].place, entity: w.lay.entities[s.id] }}); const c = tw.library.clip(); tw.library.select(null); return {{ k: w.lay.entities[s.id].libK, clipK: c.items[0].e.libK ?? null }}; }})()")
         check(clip['k'] > 2 and clip['clipK'] is None, 'a thing copied in the library goes to the clipboard without its drawing scale', clip)
+        # RE-INDEXED (Harry 2026-10-25: "They also might need to be re indexed, we have added some stuff."): every room
+        # type's library opens, and everything the command bar can place (with the live ratings) is in some library area
+        cov = await gm.evaluate("tw.library.coverage()")
+        check(cov['keys'] >= 140 and cov['placeable'] > 1000 and not cov['missing'], 'every placeable thing, kit piece, stair, floor and faction piece is in some library area (all room types laid out)', f"{cov['rooms']} room nodes / {cov['keys']} room types, {cov['placeable']} placeable, in none: {cov['missing'][:12]}")
+        secs = await gm.evaluate("""(() => { const w = tw.worlds.get(tw.library.info().area), heads = w.layers.deco.children.filter(m => m.userData.label && /^[A-Z ,·&']+$/.test(m.userData.label.text)).map(m => m.userData.label.text);
+          const es = Object.values(w.libView.entities); return { heads, stairs: es.filter(e => /^stair-/.test(e.cat)).map(e => e.cat), more: heads.filter(h => h.startsWith('MORE ·')), railings: es.filter(e => /^(railing|balustrade|fence-post)/.test(e.cat)).length }; })()""")
+        check(secs['more'] and len(secs['stairs']) >= 5 and secs['railings'] >= 3, 'the common room\'s library has a "More" shelf (things no room lists) and its stairs, railings and fences', secs)
+        mk = [x for x in ev if x['cat'] in ('stair-straight', 'stair-spiral-wide', 'railing-wood', 'trade-mash-fork', 'brew-copper')]
+        # (ev was measured before these checks; the same library: the new shelves are in the same-size measure above)
+        check(len(mk) >= 3 and all(abs(x['side'] - 3) < 0.3 for x in mk), 'the new shelves (stairs, railings, More) are drawn the same size too', mk)
+        # a stair dragged out of the library is a stair in the world: in the common room, under the room upstairs
+        await gm.evaluate("tw.library.focus('stair-straight')"); await wait(gm, 'tw.library.info().flown', 20000, 'the stair in view'); await gm.wait_for_timeout(1200)
+        s0 = await gm.evaluate("Object.values(tw.entities()).filter(e => e.cat === 'stair-straight').length")
+        await view(gm, 22, 10, 80, 58); await gm.wait_for_timeout(600)
+        dst = await gm.evaluate("(() => { const p = tw.screenOf(12, 10, tw.main, 0); return { x: p.x, y: p.y }; })()")
+        src = await gm.evaluate("tw.library.screenOf('stair-straight')")
+        await gm.mouse.move(src['x'], src['y']); await gm.mouse.down()
+        for i in range(1, 13): await gm.mouse.move(src['x'] + (dst['x'] - src['x']) * i / 12, src['y'] + (dst['y'] - src['y']) * i / 12); await gm.wait_for_timeout(40)
+        await gm.mouse.up()
+        ok = await wait(gm, f"Object.values(tw.entities()).filter(e => e.cat === 'stair-straight').length > {s0} && tw.sync.pendingCount() === 0", 10000, 'stair dragged out'); await gm.wait_for_timeout(1000)
+        st = await gm.evaluate("(() => { const e = Object.values(tw.entities()).filter(e => e.cat === 'stair-straight').pop(); return e && { place: e.place, layer: e.layer, libK: e.libK ?? null, tilt: e.tiltX || e.tiltZ || 0, room: e.room || null, sku: e.sku }; })()")
+        if not ok: print('    (stair drag diag)', src, dst, await gm.evaluate("document.querySelector('#toast')?.textContent"))
+        check(ok and st and st['place'] == 'kit' and st['libK'] is None and not st['tilt'], 'a stair dragged out of the library is placed as a stair (upright, true size, a kit piece)', st)
+        await gm.keyboard.press('Escape')
         # the switch: true relative sizes
         await open_lib(gm); top = await bar(gm, 'Library: show true relative sizes'); print('    (bar)', top); await gm.wait_for_timeout(600); await open_lib(gm)
         await wait(gm, 'tw.library.info().flown', 20000, 'overview'); await gm.wait_for_timeout(2000)
+        await gm.evaluate('tw.library.frameAll()'); await wait(gm, 'tw.library.info().flown', 20000, 'the whole layout'); await wait(gm, "(() => { const l = tw.library.loaded(); return l && l.drawn >= l.total * 0.97; })()", 90000, 'library meshes'); await gm.wait_for_timeout(1500)
         info = await gm.evaluate('tw.library.info()'); tr = await gm.evaluate(LIBSIZES); ts = sorted(x['side'] for x in tr)
         total_off = await gm.evaluate(TOTAL)
         pk_true = await gm.evaluate(PICKS); print('    (picks, true sizes)', pk_true)
@@ -244,14 +302,81 @@ async def main():
         check(info['even'] is False and await gm.evaluate("tw.settings.prefs().libEven") is False, 'the command bar\'s "Library: show true relative sizes" turns the trial off', info['even'])
         check(len(tr) > 40 and total_off == total_even and all(x['k'] == 1 and x['scale'] == 1 for x in tr) and ts[-1] / ts[0] > 6, 'off: things are drawn at their true relative sizes again, as before the trial', f"sides {ts[0]}..{ts[-1]} ft")
         if A.shots: await lib_shot(gm, 'lib-true')
-        await gm.evaluate("tw.settings.show('me')"); await gm.wait_for_timeout(400)
+        await gm.evaluate("tw.settings.show('controls')"); await gm.wait_for_timeout(400)
         row = await gm.evaluate("(() => { const el = document.querySelector('#settingsModal [data-pref=\"libEven\"]'); return el ? (el.closest('.srow') || el.parentElement.parentElement).textContent.trim().slice(0, 120) : null; })()")
         check(row and 'Library: everything the same size' in row, 'Settings > Me has the switch', row)
         await gm.click('#settingsModal [data-pref="libEven"]'); await gm.wait_for_timeout(500); await gm.evaluate("tw.settings.close()"); await gm.wait_for_timeout(600); shown_after = await gm.evaluate('tw.library.shown()'); await open_lib(gm); await gm.wait_for_timeout(4000)
+        await gm.evaluate('tw.library.frameAll()'); await wait(gm, 'tw.library.info().flown', 20000, 'the whole layout'); await wait(gm, "(() => { const l = tw.library.loaded(); return l && l.drawn >= l.total * 0.97; })()", 90000, 'library meshes'); await gm.wait_for_timeout(1000)
         ev2 = await gm.evaluate(LIBSIZES); s2 = sorted(x['side'] for x in ev2)
         odd = [x for x in ev2 if abs(x['side'] - 3) > 0.3]
         if odd: print('    (not 3 ft)', odd[:6])
         check(await gm.evaluate('tw.library.info().even') is True and len(ev2) > 40 and await gm.evaluate(TOTAL) == total_even and spread(s2) < 1.25 and s2[-1] / s2[0] < 2.5, 'switched on again in Settings, the open library is laid out again at one size, at once', f"sides {s2[0]}..{s2[-1]} ft")
+        # ================= PIPLIB (2026-10-29) =================
+        print('PIPLIB: fuller shelves, factions where they come up, one walls section, things lying as they are placed')
+        async def show_room(key):
+            await gm.keyboard.press('Escape'); await gm.keyboard.press('Escape')
+            await gm.evaluate("""(key) => { const X = tw.taxonomy; for (const gid of X.genres) for (const tid of X.get(gid).children) for (const rid of X.get(tid).children) if (X.get(rid).roomKey === key && !X.get(tid).disabled) { tw.build.restore([gid, tid, rid]); return true; } return false; }""", key)
+            await gm.evaluate('tw.build.open()'); await wait(gm, f"tw.library.shown() && tw.library.info().area === 'lib:{key}'", 20000, key); await gm.evaluate('tw.build.close()'); await gm.wait_for_timeout(600)
+            await wait(gm, 'tw.library.info().flown', 20000, 'opening view')
+        LAY = """(() => { const w = tw.worlds.get(tw.library.info().area), es = Object.values(w.libView.entities), heads = w.layers.deco.children.filter(m => m.userData.label && /^[A-Z ,·&'0-9]+$/.test(m.userData.label.text)).map(m => m.userData.label.text);
+          const how = (e) => e.tiltZ ? 'side' : e.tiltX ? 'back' : 'up';
+          return { total: es.length, heads, side: es.filter(e => e.tiltZ).map(e => e.cat), wallUp: es.filter(e => e.place === 'wall' && !e.flat && !/(^|-)lantern(-|$)/.test(e.cat) && how(e) !== 'back').map(e => e.cat), stairsDown: es.filter(e => /^stair-/.test(e.cat) && how(e) !== 'up').map(e => e.cat),
+            kitUp: es.filter(e => e.place === 'kit' && !/^stair-/.test(e.cat) && how(e) !== 'back').map(e => e.cat), floorLying: es.filter(e => (e.place === 'floor' || e.place === 'surface') && how(e) === 'back' && !(e.dims[2] <= 0.45 * Math.min(e.dims[0], e.dims[1])) && !(e.dims[1] > 6 * Math.max(e.dims[0], e.dims[2]))).map(e => e.cat),
+            cats: [...new Set(es.map(e => e.cat))], banners: es.filter(e => e.cat === 'flavor-banner').length }; })()"""
+        await show_room('common'); c = await gm.evaluate(LAY)
+        # (2026-10-29: with the game's 45-degree lens a stool or a pillar standing 10 ft off the middle showed its whole side
+        #  and read as tipped over: the library's lens is narrow, so a standing thing's top is over its foot on screen)
+        lean = await gm.evaluate("""(() => { const w = tw.worlds.get(tw.library.info().area), f = document.getElementById('pipFrame').getBoundingClientRect(), out = [];
+          for (const e of Object.values(w.libView.entities)) { if (e.tiltX || e.flat || !e.libK) continue; const h = e.dims[1] * e.libK; if (h < 2.5) continue; const a = tw.screenOf(e.x, e.z, tw.pip, 0), b = tw.screenOf(e.x, e.z, tw.pip, h), c = tw.screenOf(e.x + 3, e.z, tw.pip, 0);
+            if (!a || a.x < f.left || a.x > f.right || a.y < f.top + 24 || a.y > f.bottom) continue; out.push(+(Math.hypot(b.x - a.x, b.y - a.y) / Math.hypot(c.x - a.x, c.y - a.y)).toFixed(2)); }
+          out.sort((x, y) => x - y); return { n: out.length, worst: out[out.length - 1] || 0, fov: tw.pip.camera.fov }; })()""")
+        check(lean['n'] >= 3 and lean['worst'] < 0.4, 'a tall thing standing in the library does not lean over its neighbours: its top is drawn less than 0.4 of a 3-ft cell from its foot', lean)
+        check(not c['side'] and not c['wallUp'] and not c['stairsDown'] and not c['kitUp'], 'in the library things lie as they are placed: nothing on its side; what hangs on a wall, and the walls and doors, face up; stairs stand', {k: c[k][:8] for k in ('side', 'wallUp', 'stairsDown', 'kitUp')})
+        check(not c['floorLying'], '... and what stands on a floor or a table stands (only a panel, a board or a screen, and a pole lie on their backs, face up)', c['floorLying'])
+        kh = [h for h in c['heads'] if h.startswith('WALLS') or h.startswith('DOORS') or h.startswith('STAIRS')]
+        check(kh == ['WALLS', 'DOORS & WINDOWS', 'STAIRS'], 'the walls, doors and windows are three sections (walls; doors and windows; stairs), not one per wall family', c['heads'])
+        check(c['heads'][0] == 'CENTREPIECES' and c['total'] >= 360, 'the room\'s own things come first, top left, where the library opens; the common room\'s shelves are fuller (340 things before)', {'first': c['heads'][:3], 'total': c['total']})
+        check('bar-counter' in c['cats'] and 'coat-pegs' in c['cats'], 'the common room\'s shelves have its bar counter (a kit piece its recipe names, filtered out before) and the coat pegs its rules put down (no recipe slot names them)', [x for x in ('bar-counter', 'coat-pegs', 'rug-braided-round') if x in c['cats']])
+        await show_room('great-hall'); h = await gm.evaluate(LAY)
+        check(h['banners'] >= 10 and 'FACTION PIECES' in h['heads'] and 'window-stained-glass' in h['cats'], 'the great hall (its rules hang banners: a faction mark) shows every faction\'s banner, and its stained-glass window', {'banners': h['banners'], 'heads': [x for x in h['heads'] if 'FACTION' in x]})
+        await show_room('temple-nave'); t = await gm.evaluate(LAY)
+        fh = [x for x in t['heads'] if x.startswith('FACTION ·')]
+        check(len(fh) >= 10, 'the temple nave shows each faction\'s pieces under that faction', fh[:6])
+        await show_room('crypt-vault'); v = await gm.evaluate(LAY)
+        check('wall-crypt-niches' in v['cats'] and 'wall-crypt-niches' not in c['cats'], 'the crypt vault has its burial-niche wall (a kit piece on no shelf before), the common room does not', 'wall-crypt-niches' in v['cats'])
+        # frame time with the fullest library open, the PiP flying and its meshes coming in, against the PiP closed
+        FT = "new Promise(res => { const t = []; let last = performance.now(), n = 0; const step = (now) => { t.push(now - last); last = now; if (++n < 150) requestAnimationFrame(step); else { t.sort((a, b) => a - b); res({ median: +t[75].toFixed(1), p95: +t[142].toFixed(1) }); } }; requestAnimationFrame(step); })"
+        await show_room('cave'); await gm.evaluate('tw.library.frameAll()'); ft_lib = await gm.evaluate(FT)  # (the fullest: 469 things)
+        await wait(gm, "(() => { const l = tw.library.loaded(); return l && l.drawn >= l.total * 0.97; })()", 90000, 'library meshes'); ft_all = await gm.evaluate(FT)
+        n_lib = await gm.evaluate(TOTAL)
+        await gm.keyboard.press('Escape'); await gm.keyboard.press('Escape'); await gm.evaluate('tw.library.hide()'); await gm.wait_for_timeout(800); ft_none = await gm.evaluate(FT)
+        lensback = await gm.evaluate("tw.pip ? tw.pip.camera.fov : 45")
+        check(lensback == 45, 'with the library closed, the PiP (another area again, or none) has the game\'s 45-degree lens back', lensback)
+        print('    (frame ms)', {'loading': ft_lib, 'all loaded': ft_all, 'no library': ft_none, 'things': n_lib})
+        check(ft_all['median'] <= max(40, ft_none['median'] * 2.2), 'with the fullest library open and all its meshes in, the frame time stays playable (median at most 40 ms, or about twice the PiP closed)', {'loading': ft_lib, 'all loaded': ft_all, 'no library': ft_none, 'things': n_lib})
+        # a kit piece that no shelf or bar offered before (a glazed door): the bar places it, on a grid edge, as a door
+        await view(gm, 22, 10, 80, 58); top = await bar(gm, 'door glazed'); print('    (bar)', top); await gm.wait_for_timeout(500)
+        d0 = await gm.evaluate("Object.values(tw.entities()).filter(e => e.cat === 'door-glazed').length")
+        pt = await gm.evaluate("(() => { const p = tw.screenOf(30.4, 0.3, tw.main, 0); return { x: p.x, y: p.y }; })()")
+        await gm.mouse.move(pt['x'], pt['y']); await gm.wait_for_timeout(300); await gm.mouse.click(pt['x'], pt['y'])
+        okd = await wait(gm, f"Object.values(tw.entities()).filter(e => e.cat === 'door-glazed').length > {d0} && tw.sync.pendingCount() === 0", 10000, 'glazed door placed')
+        gd = await gm.evaluate("(() => { const e = Object.values(tw.entities()).filter(e => e.cat === 'door-glazed').pop(); return e && { place: e.place, layer: e.layer, x: e.x, z: e.z, rot: +(e.rot || 0).toFixed(2), w: +e.dims[0].toFixed(2) }; })()")
+        check(okd and gd and gd['place'] == 'kit' and gd['layer'] == 'openings' and abs(gd['z'] % 5) < 0.01 and abs(gd['x'] % 5 - 2.5) < 0.01, 'a glazed door (a kit piece no shelf or bar offered before) is placed from the bar onto a grid edge, as a door fitted to it', gd)
+        await gm.keyboard.press('Escape')
+        # and a kit piece that is placed as a thing (the bar counter's segment), and a corner block that snaps like a post
+        async def bar_place(text, cat, x, z):
+            await gm.keyboard.press('Escape'); top = await bar(gm, text); await gm.wait_for_timeout(400)
+            n0 = await gm.evaluate(f"Object.values(tw.entities()).filter(e => e.cat === '{cat}').length")
+            p_ = await gm.evaluate(f"(() => {{ const p = tw.screenOf({x}, {z}, tw.main, 0); return {{ x: p.x, y: p.y }}; }})()")
+            await gm.mouse.move(p_['x'], p_['y']); await gm.wait_for_timeout(300); await gm.mouse.click(p_['x'], p_['y'])
+            okp = await wait(gm, f"Object.values(tw.entities()).filter(e => e.cat === '{cat}').length > {n0} && tw.sync.pendingCount() === 0", 10000, cat)
+            e = await gm.evaluate(f"(() => {{ const e = Object.values(tw.entities()).filter(e => e.cat === '{cat}').pop(); return e && {{ place: e.place, layer: e.layer, x: e.x, z: e.z }}; }})()")
+            await gm.keyboard.press('Escape'); return okp and e, top
+        bc, top1 = await bar_place('bar counter', 'bar-counter', 12.3, 8.1)
+        check(bc and bc['place'] == 'floor', 'the bar counter (a kit piece no shelf or bar offered before) is placed from the bar as a thing', [bc, top1[:1]])
+        pc, top2 = await bar_place('parapet corner', 'parapet-corner', 9.6, 10.4)
+        check(pc and pc['place'] == 'kit' and abs(pc['x'] % 2.5) < 0.01 and abs(pc['z'] % 2.5) < 0.01, 'a parapet corner block is placed like a post: on a grid cross or an edge midpoint', [pc, top2[:1]])
+
         real = [e for e in errors if 'WebSocket' not in e and 'ERR_CONNECTION' not in e]
         check(not real, 'no page errors', real[:3])
         await browser.close()

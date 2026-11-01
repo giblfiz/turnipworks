@@ -33,6 +33,7 @@ import { quatOfEntity, rollStops, Q_ID } from '../../core/orient.js';
 import { icon } from '../icons.js';
 import { fogDefault } from '../../core/height.js';
 import { keyLabel, kindOf } from '../registry.js';
+import { isEdgePiece } from '../library-index.js';
 import { menuFor, menuOrphans, chordOf, titleOf as nodeTitle, iconOf as nodeIcon } from '../menu.js';
 import { parseDamage, damageReadout, damageAfter, damageOf, DAMAGE_LIMIT, cleanSheet, sheetProblem, sheetHost } from '../../core/pawn.js';
 import { T } from '../tuner.js';
@@ -53,6 +54,9 @@ export const RING_SCALE = 1.2;
 let S_ = RING_SCALE, BIG = Math.round(56 * S_), ICON = Math.round(26 * S_);
 // Settings ▸ Me ▸ Ring size: a personal multiplier on the one token (redrawn at the next rebuild)
 export function setRingScale(k = 1) { S_ = RING_SCALE * Math.max(0.5, Math.min(2, +k || 1)); BIG = Math.round(56 * S_); ICON = Math.round(26 * S_); }
+// `ring.only(ctx)`: a main button for SOME selections only (first person's Eyes: on a player's own pawn; the GM finds it
+// in ☰). Where it says no, the command is an ordinary ☰ entry (client/menu.js), as any command that is not on the ring.
+const ringOnly = (c, ctx) => { try { return !c.ring.only || !!c.ring.only(ctx); } catch { return false; } };
 const slotOf = (c, kind) => c.ring?.slot == null ? null : typeof c.ring.slot === 'object' ? c.ring.slot[kind] ?? null : c.ring.slot;
 export function ringSurface(R, app) {
   const layer = document.getElementById('ring');
@@ -85,11 +89,36 @@ export function ringSurface(R, app) {
   let state = null, expanded = null, nest = null, flyout = null, editing = null, dmgEdit = null, drag = null, sig = '';
   // THE SHAPE: the drawer's settings in ?ringlab=1, else the house ring, else the built-in (normalised once each)
   let houseS = undefined, builtinS = null;
-  const settings = () => app.ringSettingsOverride?.() || (houseS === undefined ? (houseS = T.house?.ring?.settings ? normalize(T.house.ring) : null) : houseS) || (builtinS ||= normalize(BUILTINS['Ellipse · one curve']));
+  const shape = () => app.ringSettingsOverride?.() || (houseS === undefined ? (houseS = T.house?.ring?.settings ? normalize(T.house.ring) : null) : houseS) || (builtinS ||= normalize(BUILTINS['Ellipse · one curve']));
+  // ON A PHONE (Harry 2026-10-24: "on a phone, the ring may use the full clock face"; docs/UI.md "On a phone"): the same
+  // shape with `fullClock`, so the rows fill on round past 3–6 instead of sliding back or growing the oval
+  // (client/ringlab/model.js sectorTest); a computer's ring is the shape itself, untouched.
+  const HAND = () => document.documentElement.classList.contains('tw-hand');
+  const handS = new WeakMap();
+  const settings = () => { const S = shape(); if (!HAND()) return S; let h = handS.get(S); if (!h) handS.set(S, h = { ...S, fullClock: true }); return h; };
   app.ringSettings = settings;
   let manifest = { sets: [] };
   const iconBase = () => new URL('assets/ui-icons/manifest.json', app.tunerBase || new URL('/look/', location.href));
   loadManifest(app.tunerBase || new URL('/look/', location.href)).then(m => { manifest = m || { sets: [] }; sig = ''; rebuild(); });
+  // THE PICTURES ARE READY BEFORE THE FIRST OPEN (2026-10-22, Harry: the first ring of a session showed its buttons bare
+  // for half a second, "probably worth putting into the preload"). Once the load screen has lifted and the page is idle,
+  // the active set's pictures of every MAIN button (any kind) are fetched and decoded and kept (an <img> asking for the
+  // same address then draws at once, from the page's own image cache); the first ring that opens fetches its ☰ list's
+  // too, before anyone can reach ☰. A different set or alternate (Ring Lab, the house look) warms again. Never during
+  // the load: it waits for app.loadHold (main.js, the load screen's end) and an idle moment.
+  const warm = new Map(); // address → its <img> (held: the decoded picture stays)
+  let warmKey = null, warmArmed = false;
+  const pathFor = (S, id) => { const p = manifestPaths(manifest, iconBase(), S.iconSet, id); return p.length ? p[(S.iconAlternates?.[id] || 0) % p.length] : null; };
+  const warmUrls = (urls) => { for (const u of urls) if (u && !warm.has(u)) { const im = new Image(); im.decoding = 'async'; try { im.fetchPriority = 'low'; } catch { } im.src = u; warm.set(u, im); im.decode().catch(() => { }); } };
+  const mainIds = () => ['menu', ...R.all().filter(c => c.ring?.slot != null).map(c => c.id)]; // (☰ itself wears one too)
+  function warmMain() {
+    const S = settings(); if (!manifest.actions || !S.iconSet || S.iconSet === 'line (current)') return;
+    const k = `${S.iconSet}|${JSON.stringify(S.iconAlternates || {})}`; if (k === warmKey) return; warmKey = k;
+    warmUrls(mainIds().map(id => pathFor(S, id)));
+  }
+  const idle = (f) => (window.requestIdleCallback ? requestIdleCallback(f, { timeout: 2000 }) : setTimeout(f, 300));
+  (function arm() { if (app.loadHold && manifest.actions) { warmArmed = true; idle(warmMain); } else setTimeout(arm, 400); })();
+  app.ringIconWarm = () => ({ armed: warmArmed, key: warmKey, urls: [...warm.keys()], done: [...warm.values()].filter(im => im.complete && im.naturalWidth > 0).length, mainIds: mainIds() }); // (tests)
 
   function geometry(sel) {
     const w = app.worldOf(app.area());
@@ -133,6 +162,12 @@ export function ringSurface(R, app) {
     if (e.kind === 'room' && e.recipe) { const r = e.recipe; x = (r.x + r.w / 2) * 5; z = (r.z + r.d / 2) * 5; y = r.y || 0; base = Math.max(r.w, r.d) * 5; }
     else if (e.kind === 'token') base = (app.assets?.figures?.sizeOf?.(e) || e.size || 1) * 5;
     else { const b = rec ? w.boundsOf(rec) : e.kind === 'roof' ? w.roofBounds?.(e.room) : null; if (b) { x = (b.min.x + b.max.x) / 2; z = (b.min.z + b.max.z) / 2; y = b.min.y; base = Math.max(b.max.x - b.min.x, b.max.z - b.min.z) || 5; } else if (e.dims) base = Math.max(e.dims[0] || 0, e.dims[2] || 0) || 5; }
+    // A DOOR'S RING IS A DOOR'S SIZE (2026-10-29: a selected double door's lone Open sat ~350 px over it, under the
+    // command bar): a piece set in a wall line (a generated wall, door or window `wall:<key>`, the thing a door became,
+    // a gate, portcullis, bars, a fence) is long along its edge and inches across, so its width is not a footprint to
+    // grow the ring for (an 8.7-ft double door grew it ×1.73, to the largest button); it is sized as one 5-ft edge,
+    // like a wall section or a pawn (the house oval is ~±9 ft across at any unclamped size: it still clears a 10-ft one)
+    if (sel.length === 1 && e.kind === 'object' && (e.id?.startsWith?.('wall:') || e.fromEdge || isEdgePiece(e.cat))) base = Math.min(base, 5);
     if (sel.length > 1) { const c = app.centroid?.(sel); if (c) { x = c[0]; z = c[1]; } }
     if (!Number.isFinite(x) || !Number.isFinite(z)) return null;
     cam.updateMatrixWorld?.(); const m = cam.matrixWorld.elements, L = Math.hypot(m[0], m[1], m[2]) || 1;
@@ -142,12 +177,22 @@ export function ringSurface(R, app) {
   let world = null, anchor = null, lastNodes = [], lastWarn = [], lastSlid = null;
   app.ringWorld = () => world; app.ringAnchor = () => anchor; app.ringWarnings = () => lastWarn; app.ringSlid = () => lastSlid; // (Ring lab, tests: a row that slid back out of 3–6)
   app.ringState = () => !state ? null : nest ? 'nested' : expanded ? 'expanded' : 'closed';
+  // WHERE THE OPEN RING COVERS THE TABLE (client px): its buttons as circles (a hovered one grows by --rl-hover), its open
+  // panel (a slider, the damage box) as boxes. Conditions on the table (client/statusfx.js) draw nothing there: an
+  // orbiter passing behind a painted button showed through its clear corners (2026-10-29).
+  app.ringMask = () => {
+    if (!state || layer.hidden || drag || !lastNodes.length || document.documentElement.classList.contains('tw-fpv')) return null; // (looking: the ring is not drawn)
+    const hv = settings().hover || 1.1, circles = [];
+    for (const n of lastNodes) if (n.el?.isConnected) circles.push([n.x, n.y, n.size / 2 * hv]);
+    const rects = []; for (const el of layer.querySelectorAll(':scope > .flyout, :scope > .dmg-edit')) { const r = el.getBoundingClientRect(); if (r.width) rects.push([r.left, r.top, r.right, r.bottom]); }
+    return { circles, rects };
+  };
   app.ringNodes = () => lastNodes.map(n => ({ id: n.item.id, key: n.key, x: n.x, y: n.y, size: n.size, angle: n.angle, curve: n.curve || null, spilled: !!n.spilled }));
 
   function rebuild() {
     if (drag) return; // the gesture's frame is frozen until release (rebuilt then)
     const ctx = R.ctx(), sel = ctx.sel, S = settings();
-    const s = `${[...app.sel].join()}|${sel.map(e => `${e.name}|${e.pinned}|${e.open}|${e.lit}|${e.locked}|${e.hidden}|${e.damage}|${e.mark}|${e.owner}|${(e.conditions || []).join()}`).join()}|${!!app.mode}|${app.gm()}|${!!expanded}|${nest?.key || ''}|${nest?.v || 0}|${S === lastS ? 1 : JSON.stringify(S)}|${manifest.sets?.length || 0}`;
+    const s = `${[...app.sel].join()}|${sel.map(e => `${e.name}|${e.pinned}|${e.open}|${e.lit}|${e.locked}|${e.hidden}|${e.damage}|${e.mark}|${e.owner}|${e.placeholder ? 'ph' : ''}|${e.fig || ''}|${(e.conditions || []).join()}|${e.aura ? `${e.aura.level}${e.aura.color}` : ''}|${e.moved ? 'mv' : ''}${e.kind === 'roof' ? `${e.shape}${e.axis}${e.ownShape}` : ''}`).join()}|${!!app.mode}|${app.gm()}|${!!expanded}|${nest?.key || ''}|${nest?.v || 0}|${S === lastS ? 1 : JSON.stringify(S)}|${manifest.sets?.length || 0}`;
     lastS = S;
     if (s === sig) return;
     sig = s;
@@ -167,7 +212,8 @@ export function ringSurface(R, app) {
     const avail = R.available(ctx);
     layer.style.setProperty('--rs', S_ / RING_SCALE);
     // THE MAIN BUTTONS, in the order of their old clock slots (10 turn, 11 …, 2), left to right along the oval
-    const onRing = avail.filter(c => slotOf(c, kind) != null && (c.ring.kinds?.includes(kind) || kind === 'mixed') && R.isEnabled(c, ctx)).sort((a, b) => slotOf(a, kind) - slotOf(b, kind));
+    // (a phone also gets Move and Delete here, `ring.hand` in client/commands.js: a computer has the Delete key and the mouse)
+    const onRing = avail.filter(c => slotOf(c, kind) != null && (!c.ring.hand || HAND()) && (c.ring.kinds?.includes(kind) || kind === 'mixed') && ringOnly(c, ctx) && R.isEnabled(c, ctx)).sort((a, b) => slotOf(a, kind) - slotOf(b, kind));
     for (const c of onRing) { const b = button(c, ctx, { label: c.ring.label, opens: c.ring.opens || null }); state.els.primary.push(b); layer.append(b); }
     // the rest: the menu's top level for this selection (client/menu.js), in its one fixed order; what can't be done here
     // is not shown at all; what is already a main button is not repeated
@@ -175,6 +221,8 @@ export function ringSurface(R, app) {
     // NO EMPTY ☰ (2026-10-11): a selection with nothing behind ☰ gets no ☰ at all
     if (!nodes.length) { expanded = null; nest = null; }
     state.menu = nodes.length;
+    // (the preload above: this selection's ☰ pictures, while the hand is still on its way to ☰; a set changed since: again)
+    if (warmArmed) { warmUrls(nodes.map(n => pathFor(S, n.cmd ? n.cmd.id : n.group))); if (warmKey !== `${S.iconSet}|${JSON.stringify(S.iconAlternates || {})}`) idle(warmMain); }
     const m = document.createElement('button');
     m.className = `rbtn big menu${expanded ? ' open' : ''}`; m.dataset.menu = '1'; m.dataset.id = 'menu'; m.title = expanded ? 'Fewer options' : 'All options'; m.setAttribute('aria-label', m.title); m.dataset.tip = m.title;
     m.setAttribute('aria-expanded', String(!!expanded));
@@ -182,7 +230,7 @@ export function ringSurface(R, app) {
     m.onclick = (ev) => { ev.stopPropagation(); if (pickIcons(m)) return; expanded ? collapse() : expand(); };
     if (nodes.length) layer.append(m);
     if (expanded) {
-      nodes.forEach((n, i) => { const b = n.cmd ? button(n.cmd, ctx, { expanded: true, i, n: nodes.length, enabled: true, opens: n.opens, cap: n.title }) : groupButton(n, ctx, i, nodes.length); state.els.secondary.push(b); layer.append(b); });
+      nodes.forEach((n, i) => { const b = n.cmd ? button(n.cmd, ctx, { expanded: true, i, n: nodes.length, enabled: true, opens: n.opens, cap: n.cap || n.title }) : groupButton(n, ctx, i, nodes.length); state.els.secondary.push(b); layer.append(b); });
       expanded.n = nodes.length; expanded.nodes = nodes;
     }
     if (expanded && nest) for (const [i, t] of nest.children.entries()) { const b = nestButton(t, i, nest.children); state.els.nest.push(b); layer.append(b); }
@@ -193,13 +241,25 @@ export function ringSurface(R, app) {
   }
   let lastS = null, laid = '';
   // PICTURES: the painted set chosen in Ring Lab (iconSet, its alternates), else the line icons
+  // (the phone's Delete wears the set's waste bin, painted for "Remove template"; Move has no painting: its line icon)
+  // A button that carries its own picture (img.pic: an Indicator's shape, a thumbnail, an emblem) keeps it and is not
+  // painted: painting it put the set's picture on top and pushed the item's own out under the button (2026-10-29,
+  // Harry: "why are you drawing the indicators under the indicator buttons").
+  const PAINT_AS = { 'hand.delete': 'template.remove' };
   function paint(S) {
     for (const b of layer.querySelectorAll('.rbtn[data-id]')) {
-      if (b.classList.contains('pill') || b.querySelector('.ini, .pvw')) continue;
-      const paths = manifestPaths(manifest, iconBase(), S.iconSet, b.dataset.cmd || b.dataset.id);
+      if (b.classList.contains('pill') || b.querySelector('.ini, .pvw, img.pic')) continue;
+      const pid = PAINT_AS[b.dataset.cmd || b.dataset.id] || b.dataset.cmd || b.dataset.id;
+      const paths = manifestPaths(manifest, iconBase(), S.iconSet, pid);
       if (!paths.length) continue;
       b.querySelector('svg')?.remove(); b.querySelector('img.paint')?.remove();
-      const img = document.createElement('img'); img.className = 'paint'; img.alt = ''; img.draggable = false; img.src = paths[(S.iconAlternates?.[b.dataset.cmd || b.dataset.id] || 0) % paths.length]; b.prepend(img); b.classList.add('painted');
+      // (the preloaded <img> itself when it is in and free: a NEW element for a cached address still completes a frame
+      // later, so the first frame would show the button bare; any other picture is kept for the next ring the same way)
+      const u = paths[(S.iconAlternates?.[pid] || 0) % paths.length], held = warm.get(u);
+      const img = held && !held.isConnected && held.complete && held.naturalWidth > 0 ? held : document.createElement('img');
+      if (img !== held) { img.src = u; if (!held?.isConnected) warm.set(u, img); }
+      if (img === held) img.decoding = 'sync'; // (decoded already: never drawn a frame late)
+      img.className = 'paint'; img.alt = ''; img.draggable = false; b.prepend(img); b.classList.add('painted');
       if (b.dataset.state === 'on') b.insertAdjacentHTML('beforeend', `<span class="state" aria-hidden="true">${icon(b.dataset.icon, Math.round(ICON * 0.6))}</span>`);
     }
   }
@@ -210,9 +270,10 @@ export function ringSurface(R, app) {
   function button(c, ctx, { label = false, expanded: ex = false, i = 0, n = 1, enabled = true, opens = null, cap = null }) {
     const title = R.titleOf(c, ctx), ic = R.iconOf(c, ctx);
     const b = document.createElement('button');
-    b.className = `rbtn big${label ? ' pill' : ''}${ex ? ' ex' : ''}${enabled ? '' : ' disabled'}${c.danger ? ' danger' : ''}${opens ? ' grp' : ''}`;
+    b.className = `rbtn big${label ? ' pill' : ''}${ex ? ' ex' : ''}${enabled ? '' : ' disabled'}${c.danger ? ' danger' : ''}${opens ? ' grp' : ''}${c.ring?.prompt && !ex ? ' prompt' : ''}`;
     if (opens) { b.dataset.group = opens; b.setAttribute('aria-haspopup', 'menu'); }
     if (ex) { b.dataset.i = i; b.dataset.n = n; }
+    if (c.ring?.prompt && !ex && ctx.one?.owner) b.style.setProperty('--seat', app.seatColor(ctx.one.owner)); // (the pawn's own person's colour)
     b.dataset.cmd = c.id; b.dataset.id = c.id;
     // a toggle that is ON (pinned → Unpin): a painted picture shows the plain action, so it also wears the state's own icon
     if (c.toggle && ic === c.toggle.on?.[1]) { b.dataset.state = 'on'; b.dataset.icon = ic; }
@@ -246,9 +307,14 @@ export function ringSurface(R, app) {
     b.dataset.id = t.id || `${nest.key}:${i}`; if (t.cmd) b.dataset.cmd = t.cmd; b.dataset.group = nest.key; b.dataset.nest = '1'; if (t.area) b.dataset.area = t.area; if (t.faction) b.dataset.faction = t.faction;
     b.title = t.title || t.label; b.setAttribute('aria-label', t.title || t.label); b.dataset.tip = t.label;
     if (t.pressed != null) b.setAttribute('aria-pressed', String(!!t.pressed));
-    const shared = !t.pic && !t.img && !t.preview && all.some((o, j) => j !== i && !o.pic && !o.img && !o.preview && (o.icon || 'box') === (t.icon || 'box'));
+    // (2026-10-29) a tile the painted set has a picture for wears it (paint() puts it in); only the rest share a line icon,
+    // and only those fall back to initials. Before, the 14 conditions (all 'badge-alert') and the roof styles (all 'house')
+    // showed initials even with the charcoal set chosen: paint() skips a tile with initials.
+    const S = settings(), painted = (o) => !!o.cmd && manifestPaths(manifest, iconBase(), S.iconSet, PAINT_AS[o.cmd] || o.cmd).length > 0;
+    const plain = (o) => !o.pic && !o.img && !o.preview && !painted(o);
+    const shared = plain(t) && all.some((o, j) => j !== i && plain(o) && (o.icon || 'box') === (t.icon || 'box'));
     b.innerHTML = t.preview ? `<span class="pvw" data-pv></span>` : t.pic ? `<img class="pic" src="${t.pic}" alt="" draggable="false">` : t.img ? `<img class="pic" src="data/icons/${t.img}.png?v=${window.TW_V || 'dev'}" alt="" draggable="false">`
-      : shared ? `<span class="ini">${esc(initialsAmong(all.filter(o => !o.pic && !o.img && !o.preview && (o.icon || 'box') === (t.icon || 'box')).map(o => o.label), t.label))}</span>` : icon(t.icon || 'box', ICON);
+      : shared ? `<span class="ini">${esc(initialsAmong(all.filter(o => plain(o) && (o.icon || 'box') === (t.icon || 'box')).map(o => o.label), t.label))}</span>` : icon(t.icon || 'box', ICON);
     if (t.preview) app.previews.attach(b.querySelector('[data-pv]'), t.preview);
     if (t.hiddenArea) { b.title += ' (hidden from players)'; b.dataset.tip = `${t.label} · hidden`; }
     b.onclick = (ev) => { ev.stopPropagation(); if (pickIcons(b)) return; if (t.disabled) { app.toast(t.why || `${t.label}: not here`, true); return; } t.run(); };
@@ -293,8 +359,20 @@ export function ringSurface(R, app) {
     const content = { primary: state.els.primary.map(item), secondary: expanded ? state.els.secondary.map(item) : Array.from({ length: state.menu || 0 }, (_, i) => ({ id: `_x${i}` })) };
     const view = nest && expanded ? 'nested' : expanded ? 'expanded' : 'closed';
     const nestedArg = view === 'nested' ? { id: nest.key, children: state.els.nest.map(item) } : null;
-    const layout = (v) => { const raw = buildArcItems(S, content, v, v === 'nested' ? nestedArg : null, scale, anchor); return Object.assign(S.world?.on ? { nodes: raw, shift: [0, 0] } : fitToScreen(raw, W, H, S.edgeRule, 54), { slid: raw.slid || null }); };
-    const fit = layout(view), nodes = fit.nodes;
+    // (a phone: the ring is kept whole on screen BELOW the top chrome, world-sized or not: the bar, the launchers and the
+    // avatars would otherwise sit over its top buttons and take their taps; a computer's world ring is never pushed)
+    const top = HAND() ? handTop() : 54, foot = HAND() ? handFoot : H; // (a phone: above the chat line too, when it runs across the bottom)
+    const layout = (v) => { const raw = buildArcItems(S, content, v, v === 'nested' ? nestedArg : null, scale, anchor); return Object.assign(S.world?.on && !HAND() ? { nodes: raw, shift: [0, 0] } : fitToScreen(raw, W, foot, HAND() ? 'slide' : S.edgeRule, top), { slid: raw.slid || null }); };
+    let fit = layout(view);
+    // A PHONE'S RING FITS THE PHONE (2026-10-24): world-sized, a pawn seen close is a ring wider than a portrait screen
+    // (its ☰ off the edge, found walking the player's flow); it is drawn smaller just enough to fit the open map below the
+    // top chrome, never with buttons under 44 px (a finger's). A computer's ring keeps its world size.
+    if (HAND() && fit.nodes.length) {
+      const N = fit.nodes, bw = Math.max(...N.map(n => n.x + n.size / 2)) - Math.min(...N.map(n => n.x - n.size / 2)), bh = Math.max(...N.map(n => n.y + n.size / 2)) - Math.min(...N.map(n => n.y - n.size / 2));
+      const k = Math.max(Math.min(1, (W - 16) / bw, (foot - top - 8) / bh), Math.min(1, 44 / Math.max(1, Math.min(...N.map(n => n.size)))));
+      if (k < 0.995) { scale *= k; if (world) world = { ...world, scale, fitted: +k.toFixed(3) }; fit = layout(view); }
+    }
+    const nodes = fit.nodes;
     state.center = [anchor.x, anchor.y];
     const menuEl = layer.querySelector('.rbtn[data-menu]');
     const key = JSON.stringify([view, scale.toFixed(4), Math.round(anchor.x * 4), Math.round(anchor.y * 4), W, H, nodes.length, S === lastS]);
@@ -310,7 +388,7 @@ export function ringSurface(R, app) {
       const ini = el.querySelector('.ini'); if (ini) ini.style.fontSize = `${Math.round(n.size * 0.3)}px`;
     }
     const lab = labels(S, nodes, world ? scale : 1, W, H);
-    lastWarn = ringWarnings(nodes, [], W, H, anchor, lab, 54).filter(x => !(S.world?.on && x === 'off screen'));
+    lastWarn = ringWarnings(nodes, [], W, H, anchor, lab, top).filter(x => !(S.world?.on && !HAND() && x === 'off screen') && !(S.fullClock && x === '3–6 sector'));
     layer._curve = nodes.find(n => n.curve && !['conditions', 'faction', 'nested'].includes(n.key))?.curve ? (() => { const c = nodes.find(n => n.curve && !['conditions', 'faction', 'nested'].includes(n.key)).curve; return { ...c, cx: c.cx + fit.shift[0], cy: c.cy + fit.shift[1], shift: fit.shift }; })() : null;
     animate(S, nodes, fit, layout);
     const count = layer.querySelector('.count'); if (count) { const c = layer._curve; count.style.left = `${anchor.x - (c ? c.rx * 0.55 : 60)}px`; count.style.top = `${anchor.y + (c ? c.ry * 0.35 : 30)}px`; }
@@ -318,6 +396,16 @@ export function ringSurface(R, app) {
     if (editing) { const top = Math.min(...nodes.map(n => n.y - n.size / 2)); editing.style.left = `${anchor.x}px`; editing.style.top = `${top - 22}px`; }
     lastSlid = fit.slid;
     app.ringOnLayout?.({ warnings: lastWarn, world, anchor, view, slid: fit.slid });
+  }
+  // the top of the phone's open map: under the command bar, the launchers and the avatars (whichever reach lowest)
+  // and its foot: above the chat line where it runs across the bottom (portrait), else the screen's edge
+  let topAt = 0, topV = 60, handFoot = innerHeight;
+  function handTop() {
+    const now = performance.now(); if (now - topAt < 500) return topV; topAt = now;
+    let b = 0; for (const id of ['bar', 'launchers', 'roster']) { const el = document.getElementById(id); if (!el || el.hidden) continue; const r = el.getBoundingClientRect(); if (r.height && r.top < innerHeight / 3) b = Math.max(b, r.bottom); }
+    const c = document.getElementById('chat')?.getBoundingClientRect();
+    handFoot = c && c.height && c.width > innerWidth * 0.6 && c.top > innerHeight / 2 ? Math.round(c.top - 6) : innerHeight;
+    return (topV = Math.round(b + 6));
   }
   // THE SLIDE (Harry 2026-10-19: "the slide needs to be actual animated visual movement"): on opening the main buttons
   // travel along the oval to 7–9 and the extra buttons come out of ☰; shutting plays it back. A redraw during it (the
@@ -358,6 +446,9 @@ export function ringSurface(R, app) {
     const boxes = [], mode = S.labelMode || 'hover';
     for (const n of nodes) {
       const el = n.el; if (!el) continue; const text = el.dataset.tip || el.getAttribute('aria-label') || '';
+      // A PROMPT (a placeholder pawn's "Set your pawn", client/commands.js pawn.choose) says its name always, under the
+      // button, whatever the label mode: it is the one thing on that ring the person most likely came for
+      if (el.classList.contains('prompt') && !(mode === 'below' && S.labelWhen === 'always')) { const t = document.createElement('span'); t.className = 'rl-tip prompt-cap'; t.textContent = text; t.style.cssText = `left:${n.x}px;top:${n.y + n.size / 2 + 6}px;font-size:${Math.max(13, S.fontSize * k)}px;font-weight:700`; layer.append(t); boxes.push({ x: n.x - 60 * k, y: n.y + n.size / 2 + 6, w: 120 * k, h: (S.fontSize + 9) * k }); el.classList.remove('tips'); continue; }
       el.classList.toggle('tips', mode === 'hover' || (mode === 'below' && S.labelWhen === 'hovered'));
       // (a name shown on hover wears the label style too: Ring Lab's name size, weight, colour and outline, style.css)
       for (const [v, x] of [['--rl-tip-size', `${S.fontSize * k}px`], ['--rl-tip-weight', S.fontWeight], ['--rl-tip-color', S.labelColor], ['--rl-tip-halo', `${S.labelHalo}px`]]) el.style.setProperty(v, x);
@@ -413,6 +504,8 @@ export function ringSurface(R, app) {
   // the distance along the resize ray (in units of the grab distance) at which the size is k: softK turned round
   const softKInv = (k) => { let lo = 0, hi = 12; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (softK(m) < k) lo = m; else hi = m; } return (lo + hi) / 2; };
   function startDrag(ev, kind, c) {
+    if (kind === 'move') return startMoveDrag(ev);
+    if (kind === 'roofturn') return startRoofTurn(ev, c);
     ev.preventDefault(); ev.stopPropagation();
     app.materializeSelection(); // a generated wall/door/window becomes an object first, so the drag previews it
     const sel = app.selected().filter(e => kind === 'tilt' ? e.kind === 'object' && canTilt(e) : kind === 'fog' ? e.kind === 'room' : e.kind === 'object' || e.kind === 'token');
@@ -618,6 +711,93 @@ export function ringSurface(R, app) {
     }
     listen(true); app.escapeStack.push(onEsc);
   }
+  // MOVE, a phone's drag handle (Harry 2026-10-24: "a Move button at the top level of the ring that works as a drag handle,
+  // the way Turn does"): press it and drag; the thing follows on the floor by the finger's travel, with a finger drag's own
+  // snapping (input.js app.handMove runs the ordinary move gesture: a pawn's 5-ft detent or squares, Shift's steps,
+  // onto a table top or a wall, another floor); the other buttons step aside and the handle rides under the finger; let
+  // go puts it down (one undo). A press with no drag says how. The ring is frozen for the gesture, as for every handle.
+  function startMoveDrag(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    const handle = ev.currentTarget, pid = ev.pointerId, x0 = ev.clientX, y0 = ev.clientY;
+    if (!state?.g || !app.handMove?.begin(ev)) return;
+    const hr = handle.getBoundingClientRect(), ox = hr.left + hr.width / 2 - x0, oy = hr.top + hr.height / 2 - y0;
+    const me = drag = { kind: 'move', moved: false, handle };
+    try { handle.setPointerCapture(pid); } catch { }
+    handle.ondragstart = (e) => e.preventDefault();
+    layer.classList.add('dragging'); handle.classList.add('active');
+    const mine = (e) => e.pointerId == null || e.pointerId === pid;
+    const onMove = (e) => { if (drag !== me || !mine(e)) return; if (!me.moved && Math.hypot(e.clientX - x0, e.clientY - y0) < 4) return; me.moved = true; handle.style.left = `${e.clientX + ox}px`; handle.style.top = `${e.clientY + oy}px`; app.handMove.to(e); };
+    const finish = (e, how) => {
+      if (drag !== me || (e && !mine(e))) return;
+      listen(false); try { handle.releasePointerCapture(pid); } catch { }
+      drag = null; layer.classList.remove('dragging'); handle.classList.remove('active');
+      let err = null; try { app.handMove.end(e, how === 'up' && me.moved); } catch (x) { err = x; console.error('ring: the move could not be sent', x); app.toast(`That move could not be sent: ${x?.message || x}`, true); }
+      app.ringDragLast = { kind: 'move', how, moved: me.moved, committed: me.moved && how === 'up' && !err };
+      if (!me.moved && how === 'up') app.toast('Press Move and drag: it follows your finger');
+      state && (state.shift = null); sig = ''; laid = ''; rebuild();
+    };
+    const onUp = (e) => finish(e, 'up'), onCancel = (e) => finish(e, 'up'), onLost = (e) => { if (mine(e)) setTimeout(() => finish(e, 'up'), 0); }; // (a cancelled touch still puts it down where it was shown: no silent snap-back)
+    const listen = (on) => { const f = on ? addEventListener : removeEventListener; f('pointermove', onMove, true); f('pointerup', onUp, true); f('pointercancel', onCancel, true); handle[on ? 'addEventListener' : 'removeEventListener']('lostpointercapture', onLost); };
+    listen(true);
+  }
+  // A ROOF'S TURN HANDLE (2026-10-27): the turn's gesture, but a roof turns only in QUARTER TURNS (its ridge one way or the
+  // other: room.roof.axis), so it snaps to 90° steps, always. While it is held the roof is re-planned in THIS tab with the
+  // ridge the way the handle says (world.roofTurnPreview); letting go on an odd number of quarter turns sends ONE
+  // room.set (app.turnRoof: one undo), on an even number nothing. A click is a quarter turn (R does the same).
+  function startRoofTurn(ev, c) {
+    ev.preventDefault(); ev.stopPropagation();
+    const it = app.selected().find(e => e.kind === 'roof'); if (!it || !it.axis || !state?.g) return;
+    const handle = ev.currentTarget, pid = ev.pointerId, x0 = ev.clientX, y0 = ev.clientY, w = app.worldOf(app.area());
+    const [cx, cy] = state.center || [state.g.cx, state.g.cy];
+    const hr = handle.getBoundingClientRect(), hx = hr.left + hr.width / 2, hy = hr.top + hr.height / 2, rr = Math.hypot(hx - cx, hy - cy) || 40;
+    const a0 = Math.atan2(x0 - cx, -(y0 - cy)), DEG = 180 / Math.PI, other = it.axis === 'x' ? 'z' : 'x';
+    const me = drag = { kind: 'roofturn', sel: [it], quarters: 0, delta: 0, moved: false, c: [cx, cy], handle };
+    try { handle.setPointerCapture(pid); } catch { }
+    handle.ondragstart = (e) => e.preventDefault();
+    layer.classList.add('dragging'); handle.classList.add('active');
+    const guide = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); guide.classList.add('guide');
+    guide.innerHTML = `<line class="gl" x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}"/><g class="cross"><line x1="${cx - 9}" y1="${cy}" x2="${cx + 9}" y2="${cy}"/><line x1="${cx}" y1="${cy - 9}" x2="${cx}" y2="${cy + 9}"/><circle cx="${cx}" cy="${cy}" r="3.5"/></g>`;
+    layer.append(guide);
+    const track = makeTrack(guide, { min: -180, max: 180, value: 0, layer, direction: { centre: [cx, cy], radius: rr, zero: a0, per: 1 / DEG },
+      ticks: [-180, -90, 0, 90, 180].map((v, k) => ({ v, k, major: true })), marks: [{ v: 0, label: '', cls: 'start' }],
+      format: () => me.quarters % 2 ? 'ridge turned 90°' : 'ridge as it was' });
+    me.track = track;
+    const preview = (q) => { const ax = q % 2 ? other : null; if ((w.roofTurnPreview?.axis || null) === ax) return; w.roofTurnPreview = ax ? { room: it.room, axis: ax } : null; w.roofKey = null; w.syncRoofs(); };
+    const onMove = (e) => {
+      if (drag !== me || (e.pointerId != null && e.pointerId !== pid)) return;
+      if (e.pointerType === 'mouse' && e.buttons === 0 && me.moved) return finish('no-button');
+      if (!me.moved && Math.hypot(e.clientX - x0, e.clientY - y0) < 4) return;
+      me.moved = true;
+      const a1 = Math.atan2(e.clientX - cx, -(e.clientY - cy)); let d = a1 - a0; d = Math.atan2(Math.sin(d), Math.cos(d));
+      const q = Math.round(d / (Math.PI / 2)); me.quarters = q; me.delta = q * Math.PI / 2;
+      for (const tk of guide.querySelectorAll('.tick')) tk.classList.toggle('on', +tk.dataset.k === q + 2);
+      preview(q);
+      const as = a0 + me.delta; handle.style.left = `${cx + rr * Math.sin(as)}px`; handle.style.top = `${cy - rr * Math.cos(as)}px`;
+      const gl = guide.querySelector('.gl'); gl.setAttribute('x2', cx + rr * Math.sin(as)); gl.setAttribute('y2', cy - rr * Math.cos(as)); track.set(q * 90, [cx + rr * Math.sin(as), cy - rr * Math.cos(as)]);
+    };
+    const onUp = (e) => { if (e.pointerId == null || e.pointerId === pid) finish('up'); };
+    const onCancel = (e) => { if (e.pointerId == null || e.pointerId === pid) finish('cancel'); };
+    const onBlur = () => finish('blur');
+    const onEsc = () => { if (drag !== me) return false; finish('escape'); };
+    const listen = (on) => { const f = on ? addEventListener : removeEventListener; f('pointermove', onMove, true); f('pointerup', onUp, true); f('pointercancel', onCancel, true); f('blur', onBlur); };
+    function finish(how) {
+      if (drag !== me) return;
+      listen(false); { const i = app.escapeStack.indexOf(onEsc); if (i >= 0) app.escapeStack.splice(i, 1); }
+      try { handle.releasePointerCapture(pid); } catch { }
+      drag = null;
+      if (me.moved && how !== 'escape') track.release(); else track.remove();
+      guide.remove(); layer.classList.remove('dragging'); handle.classList.remove('active');
+      const log = app.ringDragLast = { kind: 'roofturn', how, moved: me.moved, committed: false, value: me.quarters };
+      if (w.roofTurnPreview) { w.roofTurnPreview = null; w.roofKey = null; }
+      try {
+        if (how === 'escape') { if (me.moved) app.toast('Cancelled: nothing was changed'); }
+        else if (!me.moved) { if (how === 'up') R.run(c.id); }
+        else if (me.quarters % 2) { app.turnRoof(it, me.quarters); log.committed = true; }
+      } catch (err) { log.error = String(err?.message || err); console.error('ring: the roof turn could not be sent', err); app.toast(`That roof turn could not be sent: ${log.error}`, true); }
+      w.syncRoofs(); state && (state.shift = null); sig = ''; rebuild();
+    }
+    listen(true); app.escapeStack.push(onEsc);
+  }
   const rotAbout = (x, c, a, group) => { if (!group) return { x: x.x, z: x.z }; const dx = x.x - c[0], dz = x.z - c[1], cs = Math.cos(a), sn = Math.sin(a); return { x: c[0] + dx * cs + dz * sn, z: c[1] - dx * sn + dz * cs }; };
 
   // ---------- sub-menus: one component, opened AT the button that asked for it ----------
@@ -679,6 +859,11 @@ export function ringSurface(R, app) {
     if (what === 'ring.damage') openDamageEdit();
     if (what === 'ring.give' && e) showSheet(e, 'owner'); // give control is on the sheet card (2026-10-11): "give control" in the bar opens the card there
     if (what === 'ring.travel' && e) openNest({ key: 'travel', title: 'Send to area', children: app.travelTiles(app.selected().length ? app.selected() : e, () => { closeNest(); collapse(); }).map((t, i) => ({ ...t, id: t.area ? `travel:${t.area}` : `travel:${i}` })) }); // a pawn's "Send to area" (surfaces/areas.js)
+    // any surface's own list on the grown ring (2026-10-29, the pawn's Attack: surfaces/beyond20.js): { key, title,
+    // tiles(done) -> [{ id, label, icon, title, run }] }; `key` is the `opens` of the button it stands on
+    if (what === 'ring.nest' && e?.key) openNest({ key: e.key, title: e.title || '', children: e.tiles(done) });
+    // ... and its own small card at the button (the Attack menu's form): { group (that button's `opens`), title, cls, fill(el) }
+    if (what === 'ring.panel' && e?.fill) showPanel({ group: e.group || null, title: e.title || '', cls: `slider sheet ${e.cls || ''}`, keep: true, fill: e.fill });
     if (what === 'ring.rename' && e) { if (e.kind === 'token') showSheet(e, 'name'); else startEdit(e); } // a pawn's name is on its sheet card (2026-10-11); F2 opens the card on it
   });
   // the button a sub-menu stands on: the one that opened it, or ☰ when that one is not on screen

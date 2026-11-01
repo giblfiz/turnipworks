@@ -88,17 +88,17 @@
  "bread-oven": {
   "type": "oven",
   "src": "auto",
-  "method": "cavity",
-  "mouth": 1.0,
-  "width": 0.571,
+  "method": "enclosed",
+  "width": 0.2,
   "anchors": [
    [
-    0.6143,
-    0.3091,
-    0.8
+    0.5,
+    0.25,
+    0.5
    ]
   ],
-  "mesh": "inn-01/bread-oven@9c452a55"
+  "mesh": "openmesh-01/bread-oven@8affe1f6",
+  "note": "2026-10-30 openmesh: the shut oven (door closed) has no mouth; its fire burns INSIDE the dome (enclosed on every side), so a lit shut oven glows but shows no flames; open, the twin shows them at its mouth"
  },
  "bread-oven-open": {
   "type": "oven",

@@ -35,19 +35,20 @@ def port_free(port):
         try: so.bind(('127.0.0.1', port)); return True
         except OSError: return False
 
+RP, SP = (int(v) for v in os.environ.get('TW_PORTS', '18096,18725').split(','))  # TW_PORTS=relay,site when another worktree runs this suite
 def start_local():
-    for port in (18096, 18725):
+    for port in (RP, SP):
         if not port_free(port): sys.exit(f'port {port} is in use (a stale test server?): stop it first')
     data = tempfile.mkdtemp(prefix='tw-build-'); site = tempfile.mkdtemp(prefix='tw-site-')
     os.symlink(ENGINE, os.path.join(site, 'engine')); os.symlink(os.path.join(REPO, 'tools', 'spawn-tuner'), os.path.join(site, 'tuner'))
     log = open(os.path.join(data, 'relay.log'), 'a')
-    procs.append(subprocess.Popen(['node', os.path.join(ENGINE, 'relay/server.js')], env={**os.environ, 'PORT': '18096', 'DATA_DIR': data, 'ORIENT_API': ''}, stdout=log, stderr=subprocess.STDOUT))
-    procs.append(subprocess.Popen([sys.executable, '-m', 'http.server', '18725', '--bind', '127.0.0.1'], cwd=site, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
+    procs.append(subprocess.Popen(['node', os.path.join(ENGINE, 'relay/server.js')], env={**os.environ, 'PORT': str(RP), 'DATA_DIR': data, 'ORIENT_API': ''}, stdout=log, stderr=subprocess.STDOUT))
+    procs.append(subprocess.Popen([sys.executable, '-m', 'http.server', str(SP), '--bind', '127.0.0.1'], cwd=site, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
     for _ in range(100):
         time.sleep(0.1)
-        try: urllib.request.urlopen('http://127.0.0.1:18096/health', timeout=1); urllib.request.urlopen('http://127.0.0.1:18725/engine/client/index.html', timeout=1); break
+        try: urllib.request.urlopen(f'http://127.0.0.1:{RP}/health', timeout=1); urllib.request.urlopen(f'http://127.0.0.1:{SP}/engine/client/index.html', timeout=1); break
         except Exception: pass
-    return 'http://127.0.0.1:18725/engine/client/index.html?relay=' + urllib.parse.quote('http://127.0.0.1:18096') + '&api=&nopost&faces=1500'
+    return f'http://127.0.0.1:{SP}/engine/client/index.html?relay=' + urllib.parse.quote(f'http://127.0.0.1:{RP}') + '&api=&nopost&faces=1500'
 
 async def wait(pg, js, timeout=12000, what=''):
     try: await pg.wait_for_function(js, timeout=timeout, polling=60); return True
@@ -344,9 +345,17 @@ async def main():
         info = await gm.evaluate('tw.library.info()')
         check(info['shown'] and info['area'] == 'lib:common' and await gm.evaluate("tw.pip?.area") == 'lib:common', "with Common room picked, the PiP shows the common room's library area", info['area'])
         await wait(gm, 'tw.library.info().flown', 15000, 'overview')
-        fr = await gm.evaluate("""(() => { const w = tw.worlds.get('lib:common'), f = document.getElementById('pipFrame').getBoundingClientRect(); let out = 0, n = 0;
-          for (const e of Object.values(w.libView.entities)) { n++; const p = tw.screenOf(e.x, e.z, tw.pip, 0); if (p.x < f.left || p.x > f.right || p.y < f.top || p.y > f.bottom) out++; } return { n, out }; })()""")
-        check(fr['n'] > 50 and fr['out'] == 0, 'the library opens zoomed out to frame ALL its things', fr)
+        FR = """(() => { const w = tw.worlds.get('lib:common'), f = document.getElementById('pipFrame').getBoundingClientRect(); let out = 0, n = 0;
+          for (const e of Object.values(w.libView.entities)) { n++; const p = tw.screenOf(e.x, e.z, tw.pip, 0); if (p.x < f.left || p.x > f.right || p.y < f.top || p.y > f.bottom) out++; }
+          const head = w.layers.deco.children.find(m => m.userData.label?.text === 'CENTREPIECES'), hp = head && tw.screenOf(head.position.x, head.position.z, tw.pip, 0.02);
+          return { n, out, dist: +(tw.pip.grab.dist * Math.tan(tw.pip.camera.fov * Math.PI / 360) / Math.tan(Math.PI / 8)).toFixed(1), fov: tw.pip.camera.fov, firstHead: !!hp && hp.x > f.left && hp.x < f.right && hp.y > f.top && hp.y < f.bottom }; })()"""
+        fr = await gm.evaluate(FR)
+        # (2026-10-29, the open item "the overview is too far out to read labels": it opened framing all 340 things from
+        #  177 ft. It opens close enough to read, on the room's own things, top left; the whole layout is one fly away)
+        check(fr['n'] > 50 and fr['firstHead'] and fr['dist'] < 40 and 0 < fr['out'] < fr['n'] and fr['fov'] < 20, 'the library opens close enough to read, on the room\'s own things (its first section in view), through its narrow lens (nearly a plan view)', fr)
+        await gm.evaluate('tw.library.frameAll()'); await wait(gm, 'tw.library.info().flown', 15000, 'whole layout'); fa = await gm.evaluate(FR)
+        check(fa['out'] == 0, '... and flies out to frame ALL its things when asked (tw.library.frameAll)', fa)
+        await gm.evaluate('tw.library.show(tw.worlds.get(\'lib:common\').roomNode)'); await wait(gm, 'tw.library.info().flown', 15000, 'opening view again')
         lb = await gm.evaluate("""(() => { const w = tw.worlds.get('lib:common'), rs = [];
           for (const m of w.layers.deco.children) { const L = m.userData.label; if (!L) continue; const p = m.position;
             const a = tw.screenOf(p.x - L.w / 2, p.z - L.h / 2, tw.pip, 0.02), b = tw.screenOf(p.x + L.w / 2, p.z + L.h / 2, tw.pip, 0.02);
@@ -365,18 +374,24 @@ async def main():
         await wait(gm, 'tw.library.info().flown', 45000, 'flown 1')
         f1 = await gm.evaluate('tw.library.info()')
         slot = await gm.evaluate(f"tw.library.slotOf('{visible[0]}')") if visible else None
-        check(i1 and i1['sel'] == visible[0] and slot and abs(f1['focus'][0] - slot['x']) < 0.6 and f1['target']['dist'] < 40, "a click in the library picks a thing; F over the PiP flies its camera to it", [visible[:3], f1['target'], f1['focus']])
-        kn = await gm.evaluate("""(() => { const w = tw.worlds.get('lib:common'), es = Object.values(w.libView.entities);
-          const tall = es.filter(e => e.dims[1] > 0.8 * Math.max(e.dims[0], e.dims[2]) && e.dims[1] > 0.6 && !e.flat);
-          return { n: es.length, square: es.every(e => !e.rot), tall: tall.length, lying: tall.filter(e => { const [w, h, d] = e.dims, best = Math.max(h * d, w * h); return Math.abs(e.tiltZ || 0) > 1 || Math.abs(e.tiltX || 0) > 1 || w * d >= best; }).length, kit: es.filter(e => e.place === 'kit').length,
-                   pitch: tw.pip.grab.pitch, heads: w.layers.deco.children.length, sample: tall.slice(0, 3).map(e => e.cat) }; })()""")
-        check(kn['n'] > 50 and kn['square'] and kn['tall'] > 0 and kn['lying'] == kn['tall'] and kn['pitch'] > 80 and kn['kit'] > 0, 'knolling: a top-down camera over a tidy 90° grid; tall things lie down (chairs on their side, walls and doors on their back); walls, doors and windows have their own sections', kn)
+        lk = await gm.evaluate("Math.tan(tw.pip.camera.fov * Math.PI / 360) / Math.tan(Math.PI / 8)")  # (the library's narrow lens, 2026-10-29: distances in 45-degree terms)
+        check(i1 and i1['sel'] == visible[0] and slot and abs(f1['focus'][0] - slot['x']) < 0.6 and f1['target']['dist'] * lk < 40, "a click in the library picks a thing; F over the PiP flies its camera to it", [visible[:3], f1['target'], f1['focus']])
+        # (2026-10-29, Harry: "Some of the objects are not rotated in sensable ways": things lie as they are PLACED,
+        #  library-index.js poseOf; they used to lie whichever way showed most from above: chairs and stairs on their sides)
+        kn = await gm.evaluate("""(() => { const w = tw.worlds.get('lib:common'), es = Object.values(w.libView.entities), heads = w.layers.deco.children.filter(m => m.userData.label?.h >= 1).map(m => m.userData.label.text);
+          const back = (e) => Math.abs(e.tiltX || 0) > 1;
+          return { n: es.length, square: es.every(e => !e.rot), side: es.filter(e => e.tiltZ).length, chairsUp: es.filter(e => /^(chair|stool|bench)/.test(e.cat)).every(e => !back(e)), wallBack: es.filter(e => e.place === 'wall' && !e.flat && !/(^|-)lantern(-|$)/.test(e.cat)).every(back), kitBack: es.filter(e => e.place === 'kit' && !/^stair-/.test(e.cat)).every(back),
+                   stairsUp: es.filter(e => /^stair-/.test(e.cat)).every(e => !back(e)), kit: es.filter(e => e.place === 'kit').length, pitch: tw.pip.grab.pitch, kitHeads: heads.filter(h => /^(WALLS|DOORS|STAIRS)/.test(h)) }; })()""")
+        check(kn['n'] > 50 and kn['square'] and kn['side'] == 0 and kn['chairsUp'] and kn['wallBack'] and kn['kitBack'] and kn['stairsUp'] and kn['pitch'] > 80 and kn['kit'] > 0 and kn['kitHeads'] == ['WALLS', 'DOORS & WINDOWS', 'STAIRS'], 'knolling: a top-down camera over a tidy 90° grid; things lie as they are placed (chairs and stairs stand; what hangs on a wall, walls and doors on their backs, face up; nothing on its side); walls, doors and windows in three sections', kn)
         # a room type whose library was never opened: its meshes arrive a few at a time, not all at once
         await gm.keyboard.press('b'); await gm.keyboard.press('Shift+R'); await gm.wait_for_timeout(200)
         hot_g = next((t.split(':')[0] for t in (await state(gm))['list'] if t.endswith(':Guest room')), None)
         await gm.keyboard.press(hot_g); await gm.wait_for_timeout(250)
-        ld0 = await gm.evaluate('tw.library.loaded()'); await gm.wait_for_timeout(2500); ld1 = await gm.evaluate('tw.library.loaded()')
-        check(ld0 and ld0['withUrl'] < ld0['total'] and ld1['withUrl'] > ld0['withUrl'], 'meshes load progressively: a few at a time as the PiP camera looks', [ld0, ld1])
+        ld0 = await gm.evaluate('tw.library.loaded()'); await gm.wait_for_timeout(2500); ldA = await gm.evaluate('tw.library.loaded()')
+        # (2026-10-29: the library opens close up, so what is near the opening view arrives and the rest waits for the camera)
+        await gm.evaluate("(() => { tw.library.touched(); const w = tw.worlds.get(tw.library.info().area), g = tw.pip.grab; g.focus.set(w.lay.size[0] * 0.6, 0, w.lay.size[1] * 0.6); g.update(); })()"); await gm.wait_for_timeout(2500)
+        ld1 = await gm.evaluate('tw.library.loaded()')
+        check(ld0 and ldA['withUrl'] < ldA['total'] and ld1['withUrl'] > ldA['withUrl'], 'meshes load progressively: a few at a time as the PiP camera looks (the opening view\'s, then more where the camera goes)', [ld0, ldA, ld1])
         await gm.keyboard.press('Shift+R'); hot_c2 = next((t.split(':')[0] for t in (await state(gm))['list'] if t.endswith(':Common room')), None)
         await gm.keyboard.press(hot_c2); await gm.keyboard.press('Escape'); await gm.wait_for_timeout(300)
         cat_id = (await gm.evaluate('tw.library.info()'))['sel']; cat = cat_id
@@ -561,7 +576,7 @@ async def main():
         check(st['p'] and 'PAWNS' in st['t'].upper() and 'PARTY' in st['t'].upper() and not st['b'], 'Pawns opens its tray (the Pawns menu: docs/PAWNS.md, engine/test/browser_pawnsmenu.py), and the open Build tray closes', st['t'].replace('\n', ' ')[:80])
         await tap(gm, ".launcher[data-l=settings]"); await gm.wait_for_timeout(300)
         st = await gm.evaluate("({ ...tw.settings.state(), pawns: !document.getElementById('pawnsTray').hidden, shown: !document.getElementById('settingsModal').hidden, cats: [...document.querySelectorAll('#settingsModal .scat')].map(c => c.textContent.trim()) })")
-        check(st['open'] and st['shown'] and not st['pawns'] and st['sections'] == ['nav', 'me', 'area', 'defaults', 'admin', 'feedback'] and st['section'] == 'nav', 'Settings opens a modal window with its six categories on the left (World navigation first; Feedback since 2026-10-19); Pawns closes', st['cats'])
+        check(st['open'] and st['shown'] and not st['pawns'] and st['sections'] == ['nav', 'me', 'controls', 'graphics', 'area', 'campaign', 'defaults', 'house', 'admin', 'feedback'] and st['section'] == 'nav', 'Settings opens a modal window with its six categories on the left (World navigation first; Feedback since 2026-10-19); Pawns closes', st['cats'])
         await tap(gm, '#settingsModal .scat[data-sec=me]'); await gm.wait_for_timeout(200)
         check(await gm.evaluate("tw.settings.state().section === 'me' && !!document.querySelector('#settingsModal .myname')"), 'a category on the left switches the pane (Me: name, colour, controls…)')
         await gm.keyboard.press('Escape'); await gm.wait_for_timeout(150)
@@ -574,7 +589,7 @@ async def main():
         await pl.bring_to_front()
         await tap(pl, ".launcher[data-l=settings]"); await pl.wait_for_timeout(300)
         ps = await pl.evaluate("({ ...tw.settings.state(), vis: [...document.querySelectorAll('#launchers .launcher')].filter(b => !b.hidden).map(b => b.dataset.l) })")
-        check(ps['open'] and ps['sections'] == ['nav', 'me', 'feedback'] and ps['vis'] == ['pawns', 'settings'], 'a player sees Pawns and Settings (no Build); their Settings has only World navigation, Me and Feedback', ps)
+        check(ps['open'] and ps['sections'] == ['nav', 'me', 'controls', 'graphics', 'feedback'] and ps['vis'] == ['pawns', 'settings'], 'a player sees Pawns and Settings (no Build); their Settings has only World navigation, Me and Feedback', ps)
         await pl.keyboard.press('Escape')
         await gm.bring_to_front()
 

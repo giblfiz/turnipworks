@@ -12,6 +12,8 @@
 import * as THREE from 'three';
 import { installPicks } from './picks.js';
 import { newId } from '../core/ids.js';
+import { arrivalPoint, freeSquare } from '../core/travel.js';
+import { floorUnder } from '../core/height.js';
 
 const CELL = 5, MAX_GROUP = 30;
 const r2 = (v) => Math.round(v * 100) / 100;
@@ -110,10 +112,68 @@ export function installPawns(app) {
   };
   app.setFigure = (pawns, fig) => {
     const f = typeof fig === 'string' ? F.get(fig) : fig;
+    // a PLACEHOLDER pawn given a figure (the bar's "change figure", a figure dropped on it) is chosen: its definition is
+    // told too, so the pawn does not come back from the bench as a placeholder (the pawn's own flag goes with the figure)
+    for (const p of pawns) if (p.placeholder && p.def && app.sync.campaign?.pawns?.some(d => d.id === p.def)) app.dispatch('pawn.define', { id: p.def, fig: f ? f.id : 'none', size: f?.size || 1 });
     return app.batch(pawns.map(p => {
       const size = f?.size || 1, moved = size !== sizeOf(p); // a pawn that changes size goes onto the squares its new base covers
       return [{ type: 'token.set', args: { id: p.id, fig: f ? f.id : 'none', size } }, ...(moved ? [{ type: 'token.move', args: { id: p.id, x: pawnPoint(p.x, size), z: pawnPoint(p.z, size) } }] : [])];
     }).flat());
+  };
+
+  // ---------------- THE PLACEHOLDER PAWN (Harry 2026-10-22; docs/PAWNS.md "A new player's placeholder") ----------------
+  // "When a GM creates a new player and sends the invite link, the player arrives with no pawn, no idea where to create
+  // one ... and when they do it lands somewhere arbitrary." So every invite (app.createSeat, main.js) also defines the
+  // new player's MAIN pawn, flagged `placeholder`, and brings it onto the table, where the GM can move it before the
+  // player arrives. Its ring offers "Set your pawn" (the player) / "Choose Bobby's pawn" (the GM) while it is a
+  // placeholder (client/commands.js pawn.choose); whoever chooses a figure first makes it an ordinary pawn.
+  //   WHERE IT STANDS (app.placeholderSpot): the GM's arrival mark if there is one, else beside the party (the square a
+  //   travelling pawn would get: core/travel.js), else the middle of the GM's view, else out on open ground beside what
+  //   is built. Always a free square (no pawn, no furniture), never in a room hidden from players.
+  //   WHICH AREA (app.placeholderPlan): the GM's own area when it is open to players, else the first open area (a pawn
+  //   in a hidden area could not be seen by its player). The seat starts in that area.
+  const seatMap = () => Object.fromEntries((app.sync.campaign?.seats || []).map(s => [s.id, s]));
+  const hiddenAt = (E, p) => { const f = floorUnder(E, p.x, p.z, p.y || 0); return !!(f && E[f.room]?.hidden); };
+  app.placeholderSpot = (E, { view = true } = {}) => {
+    const list = Object.values(E), ok = (p) => !!p && Number.isFinite(p.x) && Number.isFinite(p.z) && !hiddenAt(E, p);
+    const a = arrivalPoint(E, seatMap());
+    if (a.by !== 'side' && ok(a)) return a; // the mark, or beside the party
+    if (view && app.main) { const f = app.main.grab.focus, p = freeSquare(list, E, f.x, f.z, 0, true); if (ok(p)) return { ...p, by: 'view' }; }
+    if (a.by === 'side') return a;
+    const bare = Object.fromEntries(Object.entries(E).filter(([, e]) => e.kind !== 'token' && !(e.kind === 'object' && e.place === 'arrival')));
+    const b = arrivalPoint(bare, {}); return { ...freeSquare(list, E, b.x, b.z, 0, true), by: 'side' };
+  };
+  app.placeholderPlan = async () => {
+    const c = app.sync.campaign; if (!c) return null;
+    const open = (id) => !!id && c.areas.some(a => a.id === id && a.visibility !== 'hidden');
+    const here = app.area(), area = open(here) ? here : c.areas.find(a => a.visibility !== 'hidden')?.id || here;
+    if (!area) return null;
+    let E = app.sync.view(area)?.entities, temp = false;
+    if (!E) { temp = true; app.sync.subscribe(area); const t0 = performance.now(); while (!(E = app.sync.view(area)?.entities) && performance.now() - t0 < 4000) await new Promise(r => setTimeout(r, 80)); }
+    if (!E) { app.sync.unsubscribe(area); return null; }
+    return { area, temp, ...app.placeholderSpot(E, { view: area === here }) };
+  };
+  // the definition, then the pawn brought on from it: two commands (a definition is campaign data, the pawn is the area's)
+  app.placeholderFor = async (seat, plan) => {
+    const def = newId('def'), id = newId('tok'), name = seat.name || 'Player';
+    const done = (m) => { if (plan.temp) app.sync.unsubscribe(plan.area); app.lastPlaceholder = { seat: seat.id, def, id, area: plan.area, x: plan.x, z: plan.z, by: plan.by, ok: !!m }; return m ? id : null; }; // (tests)
+    const d = await app.await(app.dispatch('pawn.define', { id: def, owner: seat.id, name, main: true, placeholder: true }));
+    if (!d) return done(null);
+    return done(await app.await(app.dispatch('pawn.bring', { id, def, x: r2(plan.x), z: r2(plan.z), ...(plan.y && { y: r2(plan.y) }), rot: 0, name, owner: seat.id, color: seat.color || app.seatColor(seat.id), main: true, placeholder: true }, plan.area)));
+  };
+  // WHILE ITS RING IS UP the placeholder's floating tag "Bobby · not chosen yet" goes (the ring's prompt "Set your pawn"
+  // says the same, and the tag sat under the ring's buttons: a blind Gemini read of the dev pilot, 2026-10-22)
+  const quiet = (id) => app.sel.size === 1 && app.sel.has(id);
+  const quietTags = () => { for (const w of app.worlds.values()) { w.quietTag = quiet; for (const r of w.pawns || []) if (r.entity.placeholder && r.label) r.label.visible = !quiet(r.entity.id); } };
+  app.on((what) => { if (what === 'selection') quietTags(); });
+  queueMicrotask(quietTags);
+  // "Set your pawn" / "Choose Bobby's pawn": Settings ▸ Me ▸ My pawns, its editor open on THIS pawn's definition (the GM
+  // edits another seat's there too: pawn.define lets the GM side define anyone's). A placeholder with no definition
+  // (made some other way) gets the bar's "change figure" instead.
+  app.choosePawn = (t) => {
+    if (!t || t.kind !== 'token' || !t.placeholder) return false;
+    if (t.def && app.sync.campaign?.pawns?.some(d => d.id === t.def) && app.settings?.editPawn) { app.select([t.id]); app.settings.editPawn(t.def); return true; }
+    app.select([t.id]); app.emit('bar.open', 'change figure '); return true;
   };
 
   // ---------------- the pawn tool (a 'place' mode: input.js already sends it hover, click, R and Esc) ----------------

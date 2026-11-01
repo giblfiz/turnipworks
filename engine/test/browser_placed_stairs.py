@@ -23,8 +23,9 @@
   UNDO     the first undo removes the stair, the second the room; redo brings both back
   EDIT     moving it moves the hole; R turns it a quarter turn; a drag keeps it on whole squares
   TOUCH    everything on screen is touchable at each cut
-  PAWNS    a pawn dragged onto the stair from below arrives on the landing upstairs (y = 10); its owner is offered
-           "Cut to lv 2" and the view does not move; dragged onto the hole from above, it goes down
+  PAWNS    (2026-10-26: a stair is a place to stand) a pawn dragged from the floor onto a stairs-down's hole stands on
+           its treads; dragged on down, it is in the cellar at the stair's foot (y = -10) and its owner is offered the cut
+           to lv -1, the view does not move; walked back up, it is on the floor again
   REROLL   re-rolling either room keeps the stair and keeps furniture off it
   SECRETS  a hidden cellar's stair is not sent to the player: no stair, no hole in the ground
 """
@@ -45,7 +46,7 @@ results = []; procs = []
 def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)
 
-RP, SP = 18097, 18722
+RP, SP = (int(v) for v in os.environ.get('TW_PORTS', '18097,18722').split(','))  # TW_PORTS=a,b: free ports when another run holds these
 def start_local(full=False):
     for port in (RP, SP):
         try: urllib.request.urlopen(f'http://127.0.0.1:{port}/', timeout=0.5); sys.exit(f'port {port} is busy (a stale test server?)')
@@ -60,6 +61,7 @@ def start_local(full=False):
         time.sleep(0.1)
         try: urllib.request.urlopen(f'http://127.0.0.1:{RP}/health', timeout=1); urllib.request.urlopen(f'http://127.0.0.1:{SP}/engine/client/index.html', timeout=1); break
         except Exception: pass
+    import served; served.check(SP, ENGINE)  # (the page is this checkout's, not a stale server's: test/served.py)
     return f'http://127.0.0.1:{SP}/engine/client/index.html?relay=' + urllib.parse.quote(f'http://127.0.0.1:{RP}') + '&api=&nointro' + ('' if full else '&faces=1500')
 
 async def wait(pg, js, timeout=12000, what=''):
@@ -242,15 +244,25 @@ async def main():
         await gm.evaluate(f"tw.dispatch('token.create', {{ id: 'tok_mira00001', name: 'Mira', x: {ends['top'][0]}, z: {ends['top'][1]}, owner: '{PL}' }})")
         await wait(pl, "tw.entities()['tok_mira00001']", 8000); await settle(pl, 60000)
         await pl.evaluate("(tw.setLevel(0), tw.setCut(9, { pinned: true, by: 'test' }))"); await view(pl, 85, 12.5, 45, 64); await pl.wait_for_timeout(600)
-        a = await scr(pl, ends['top'][0], ends['top'][1], 1.2); b = await scr(pl, st['x'], st['z'], 0)
-        await drag(pl, a, b); await wait(pl, "(tw.entities()['tok_mira00001'].y || 0) === -10 && tw.sync.pendingCount() === 0", 8000, 'pawn down')
-        t = await pl.evaluate("tw.entities()['tok_mira00001']")
-        check(t.get('y') == -10 and abs(t['x'] - ends['bottom'][0]) < 0.01 and abs(t['z'] - ends['bottom'][1]) < 0.01, 'the player\'s pawn dragged onto the hole goes down to the stair\'s foot in the cellar', f"({t['x']}, {t['z']}, y {t.get('y')}) want {ends['bottom']}")
+        MIRA = "(() => { const e = tw.entities()['tok_mira00001'], b = tw.worldOf(tw.area()).pawnBaseInfo('tok_mira00001'); return { x: e.x, y: e.y || 0, z: e.z, on: b && b.on }; })()"
+        a = await scr(pl, ends['top'][0], ends['top'][1], 1.2); b = await scr(pl, st['x'], st['z'], -5)
+        await drag(pl, a, b); await wait(pl, "(tw.entities()['tok_mira00001'].y || 0) < -0.5 && tw.sync.pendingCount() === 0", 8000, 'pawn on the stair')
+        t = await pl.evaluate(MIRA)
+        check(-9.5 < t['y'] < -0.5 and t['on'] == 'stair', 'the player\'s pawn dragged onto the hole stands on the treads under it, part way down (no hop to the foot)', t)
+        # its feet are below the ground now: it is on lv -1 (a level is the 10-ft band its base is in), so its owner is offered
+        # the cut to lv -1 at once, and the view does not move by itself; taking the offer, the player drags it on down
         await wait(pl, "tw.condButtons.has('cut-offer')", 6000, 'the cut offer')
-        check(await pl.evaluate("tw.condButtons.list().some(b => b.key === 'cut-offer' && /lv -1/.test(b.text))"), 'and its owner is offered the cut to lv -1 (the view does not move by itself)')
+        cut0 = await pl.evaluate("tw.cut.y")
+        check(await pl.evaluate("tw.condButtons.list().some(b => b.key === 'cut-offer' && /lv -1/.test(b.text))") and cut0 == 9, 'part way down it is on lv -1: its owner is offered the cut to lv -1 (the view does not move by itself)', cut0)
+        await pl.evaluate("tw.condButtons.list().find(b => b.key === 'cut-offer') && document.querySelector('.cutoffer')?.click()"); await pl.wait_for_timeout(600)
+        if await pl.evaluate("tw.cut.y") != -1: await pl.evaluate("(tw.setLevel(-10), tw.setCut(-1, { pinned: true, by: 'test' }))"); await pl.wait_for_timeout(500)
+        a = await scr(pl, t['x'], t['z'], t['y'] + 1.2); b = await scr(pl, ends['bottom'][0], ends['bottom'][1], -10)
+        await drag(pl, a, b, 16); await wait(pl, "(tw.entities()['tok_mira00001'].y || 0) === -10 && tw.sync.pendingCount() === 0", 8000, 'pawn down')
+        t = await pl.evaluate(MIRA)
+        check(t['y'] == -10 and abs(t['x'] - ends['bottom'][0]) < 2.6 and abs(t['z'] - ends['bottom'][1]) < 2.6, 'dragged on down, it is in the cellar at the stair\'s foot', f"{t} want {ends['bottom']}")
         check(await gm.evaluate("(tw.entities()['tok_mira00001'].y || 0) === -10"), 'the GM sees it in the cellar')
-        hop = await pl.evaluate(f"tw.stairHop({st['x']}, {st['z']}, -10)")
-        check(hop and hop['y'] == 0, 'from the cellar the same stair takes it up again', str(hop))
+        w = await pl.evaluate(f"((x0, z0, y0, x1, z1, n = 60) => {{ const H = tw.HT, E = tw.entities(); let y = y0, fb = H.baseUnder(E, x0, z0, y0); const out = []; for (let i = 1; i <= n; i++) {{ const t = H.pawnStepTo(E, x0 + (x1 - x0) * i / n, z0 + (z1 - z0) * i / n, y, null, fb); if (!t.below || t.walk) {{ y = t.y; fb = t; }} out.push(y); }} return out; }})({ends['bottom'][0]}, {ends['bottom'][1]}, -10, {ends['top'][0]}, {ends['top'][1]})")
+        check(w[-1] == 0 and all(abs(w[k] - w[k - 1]) < 1.5 for k in range(1, len(w))), 'from the cellar the same stair is walked up again, smoothly, onto the floor', w[::6])
 
         # ================= FOLLOW =================
         print('FOLLOW: move, turn, duplicate, delete')

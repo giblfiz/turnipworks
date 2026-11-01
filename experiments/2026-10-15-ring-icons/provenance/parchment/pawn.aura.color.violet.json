@@ -1,0 +1,76 @@
+{
+  "id": "pawn.aura.color.violet",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works tabletop UI pictogram: ONE big soft teardrop-shaped wisp of glowing violet purple magical flame-light rising upward, a bright pale core, two tiny sparks of the same colour beside it, floating alone: an aura of this colour. Dominant subject colour key: glowing violet purple; the whole wisp is this colour, strongly visible, not just an accent. Heroic hand-painted style D, chunky matte painted forms, broad soft bevels, restrained brushwork. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Upper-left light. Straight-on circular badge; outer circle fills 94 percent of square canvas, pictogram fills 80 percent of disc. Readable at 31px and smaller: bold silhouette, thick features, generous negative space, absolutely no tiny detail. Native transparent alpha outside the circle. No text, lettering, numbers, watermark, decorative flourishes or extra scene. Our own design, no trademarked game iconography. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.concentrating.webp",
+      "sha256": "0584208ac8f85d06bee91bf78d40653b819690eae117743785de63320e98337a",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/thing.light.webp",
+      "sha256": "4d10725b109d57214cd16cc009dda261fd0e23e5afe1c56ed65f9f69c6a3e31c",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.stunned.webp",
+      "sha256": "b26b503140fe80eb18babe2b89fbb54c52aafb77cc9c848f04444e88ce13ab42",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-30-aura/icons/sources/charcoal--pawn.aura.color.violet.png",
+      "sha256": "ed819d7d9cbc74a5b979d433c877da33923b5f8ac130310c057f3bc759fc6e0f",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-30-aura/icons/sources/parchment--pawn.aura.color.violet.png",
+  "source_sha256": "b7b2b285ce215d146fa1a503bf5aa2ea8b851fab2f34cd1aca4ee35b43a95b65",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/pawn.aura.color.violet.webp",
+    "19": "parchment/sizes/19/pawn.aura.color.violet.webp",
+    "22": "parchment/sizes/22/pawn.aura.color.violet.webp",
+    "26": "parchment/sizes/26/pawn.aura.color.violet.webp",
+    "31": "parchment/sizes/31/pawn.aura.color.violet.webp",
+    "36": "parchment/sizes/36/pawn.aura.color.violet.webp",
+    "38": "parchment/sizes/38/pawn.aura.color.violet.webp",
+    "42": "parchment/sizes/42/pawn.aura.color.violet.webp",
+    "44": "parchment/sizes/44/pawn.aura.color.violet.webp",
+    "50": "parchment/sizes/50/pawn.aura.color.violet.webp",
+    "52": "parchment/sizes/52/pawn.aura.color.violet.webp",
+    "62": "parchment/sizes/62/pawn.aura.color.violet.webp",
+    "84": "parchment/sizes/84/pawn.aura.color.violet.webp",
+    "100": "parchment/sizes/100/pawn.aura.color.violet.webp",
+    "128": "parchment/pawn.aura.color.violet.webp"
+  },
+  "sha256": {
+    "18": "f84c19eb48e5b8043dafb8908f0aa98f3811edfe1eb0d2e2f2469eaa464e20fd",
+    "19": "c28ea9bc73d34cd21845d0db36f349a4b7ebef0be52527e1c684f220ca49344e",
+    "22": "8489f310b57d7407265aa2910e2beb36f5a0add7d321333a1a14c9290e724b82",
+    "26": "2b9d126a322a6066cd64bcb3f3b36653717b4aa5d98fbedc1f417331dfa477ff",
+    "31": "74e6c20ef447b18cd57ac1e0ef30b3cb9781eb46e226ea23e6630331e0319644",
+    "36": "1bfc4ed202353db9a01166162f26b82b4da20a9160bde37c6c92fab9a3bb864f",
+    "38": "8ab324d68ce57ada0da2016bce584d9988110e08a192fedf4cda63f8fe6ec212",
+    "42": "d52802e75a7fb87aceddbd93a4f2c5ba1ab3136450dd74bb46447d7d3f236a9a",
+    "44": "637b9ae1c6cc62344a6ae439ffda65cb70320a0f2af1cfa1d770c0b0491c0bd8",
+    "50": "ccf68a7e2a5f7488c6949a77704129fc73dec771d9da4805e5403454b1d8f1aa",
+    "52": "b778b735c5b015f2f1a07cf23e4b175d9a80a9de179e2943e8e9f74819c89f7d",
+    "62": "3691ec30ca546f051fb48d0045dca251a2a8fbc4cb95ee69a16fa0547be31d8f",
+    "84": "967341279b73d94c4a6acbba622770e52a84e88ac282a983b9a3da5391585413",
+    "100": "26bdde1e33b8a8d359f0d53347241121535adb22fe7614f0bfd23bad6475ffa8",
+    "128": "0841a1a839df806ad7f2f5cbc0674e29f9d0774f3fdc596cddbe043016893192"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected pawn in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected pawn? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24).",
+  "candidate_sha256": "e18bf32b25bff886e7b2f42a6ce63522950b4af157a96eeab0ed32b765089362",
+  "blind_prompt_sha256": "713947b26647be5f25320a9ae766e87375941d49328da6892caf3acea27dfc95",
+  "read_directory": "reads/parchment/pawn.aura.color.violet/b7b2b285ce215d14-713947b266"
+}

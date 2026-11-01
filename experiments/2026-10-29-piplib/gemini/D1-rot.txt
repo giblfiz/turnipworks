@@ -1,0 +1,524 @@
+### Step 1: Labels and Orientations (Image by Image)
+
+For every image, each visible label is listed below alongside a description of the prop above it and its orientation classification, using exactly one of the required categories:
+* `UPRIGHT (standing as it would in a room; we see its top)`
+* `ON ITS SIDE (tipped over 90 degrees; we see its side profile)`
+* `ON ITS BACK, FRONT UP (its front or face looks up at the camera)`
+* `FACE DOWN (its back, rear or underside is toward the camera)`
+* `UPSIDE DOWN`
+* `UNCLEAR`
+
+---
+
+#### `view-1.png` (Small window view: Tavern / Inn props)
+
+* **`Fireplace wall · common`**
+  * *Object*: Stone fireplace with wooden mantel shelf and open hearth containing logs and ash.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Fireplace wall · fine`**
+  * *Object*: Ornate tall stone fireplace with blue-gray hood/chimney and lit hearth.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Bard instrument stand`**
+  * *Object*: Wooden tiered stand displaying a lute, horn, and other instruments.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Back bar shelves`**
+  * *Object*: Multi-shelf tavern back-bar unit stocked with flagons, steins, and bottles.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Table square`**
+  * *Object*: Square wooden dining table with metal corner reinforcement plates.
+  * *Orientation*: `UPRIGHT`
+* **`Fireplace wall`**
+  * *Object*: Plain stone fireplace with timber mantel and arched hearth opening.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Cask rack`**
+  * *Object*: Two-tier timber rack holding wine/ale barrels.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Bar counter · straight common`**
+  * *Object*: Straight section of a wooden bar counter.
+  * *Orientation*: `UPRIGHT`
+* **`Bar counter · corner common`**
+  * *Object*: L-shaped corner bar counter section showing the top surface and bartender shelves behind it.
+  * *Orientation*: `UPRIGHT`
+* **`Bar counter · end common`**
+  * *Object*: Terminal end section of a wooden bar counter.
+  * *Orientation*: `UPRIGHT`
+* **`Bar counter · flap common`**
+  * *Object*: Bar counter section with a hinged lifting pass-through flap.
+  * *Orientation*: `UPRIGHT`
+* **`Table trestle`**
+  * *Object*: Long wooden trestle dining table.
+  * *Orientation*: `UPRIGHT`
+* **`Notice board`**
+  * *Object*: Wooden frame notice/bounty board on posts with pinned parchment notes.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Table round small · common`** *(partially visible on right margin)*
+  * *Object*: Small round wooden pub table.
+  * *Orientation*: `UPRIGHT`
+* **`Stool bar`** *(partially visible on right margin)*
+  * *Object*: Tall wooden bar stool with circular red upholstered seat; its legs lie horizontally across the plane to the left.
+  * *Orientation*: `ON ITS SIDE`
+* **`Chair plain · fine`** *(partially visible in bottom-right corner)*
+  * *Object*: Wooden chair with green seat cushion and slatted backrest.
+  * *Orientation*: `UPRIGHT`
+
+---
+
+#### `view-2.png` (Large view: Tavern / Inn Centrepieces & Furniture)
+
+**CENTREPIECES:**
+* **`Fireplace wall · common`**
+  * *Object*: Stone fireplace with timber mantel and hearth opening.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Fireplace wall · fine`**
+  * *Object*: Ornate stone fireplace with blue-gray chimney hood and glowing firebox.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Bard instrument stand`**
+  * *Object*: Wooden stand with displayed musical instruments.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Back bar shelves`**
+  * *Object*: Shelving unit stocked with glassware, bottles, and jugs.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Table square`**
+  * *Object*: Square wooden table with corner metal brackets.
+  * *Orientation*: `UPRIGHT`
+* **`Fireplace wall`**
+  * *Object*: Stone fireplace with arched hearth opening.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Cask rack`**
+  * *Object*: Two-tier wooden rack holding stacked ale casks.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Bar counter · straight common`**
+  * *Object*: Straight wooden bar counter.
+  * *Orientation*: `UPRIGHT`
+* **`Bar counter · corner common`**
+  * *Object*: Corner section of wooden bar counter with inner service recess.
+  * *Orientation*: `UPRIGHT`
+* **`Bar counter · end common`**
+  * *Object*: End terminal section of wooden bar counter.
+  * *Orientation*: `UPRIGHT`
+* **`Bar counter · flap common`** *(bottom row, label partially cut)*
+  * *Object*: Bar counter section with liftable flap.
+  * *Orientation*: `UPRIGHT`
+* **`Table trestle`** *(bottom row)*
+  * *Object*: Wooden trestle table.
+  * *Orientation*: `UPRIGHT`
+* **`Notice board`** *(bottom row)*
+  * *Object*: Notice board on posts with pinned parchment sheets.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+
+**FURNITURE:**
+* **`Table round small · common`**
+  * *Object*: Round wooden pub table seen from above with legs underneath.
+  * *Orientation*: `UPRIGHT`
+* **`Table round small`**
+  * *Object*: Round wooden table with four splayed legs.
+  * *Orientation*: `UPRIGHT`
+* **`Table round small · fine`** *(partially visible on right edge)*
+  * *Object*: Round polished wooden table.
+  * *Orientation*: `UPRIGHT`
+* **`Stool bar`**
+  * *Object*: Tall wooden bar stool with red cushion tipped over 90°; legs extend horizontally to the left.
+  * *Orientation*: `ON ITS SIDE`
+* **`Chair plain · common`**
+  * *Object*: Wooden chair with green seat cushion and slatted backrest facing west.
+  * *Orientation*: `UPRIGHT`
+* **`Settle`**
+  * *Object*: High-backed wooden tavern bench with side armrests.
+  * *Orientation*: `UPRIGHT`
+* **`Chair plain · fine`**
+  * *Object*: Wooden chair with green seat cushion and slatted backrest facing north.
+  * *Orientation*: `UPRIGHT`
+* **`Bench long`**
+  * *Object*: Long wooden bench with turquoise/green upholstered cushion.
+  * *Orientation*: `UPRIGHT`
+
+---
+
+#### `view-3.png` (Large view: Tavern Furniture, Storage & Lights)
+
+**FURNITURE:**
+* **`Table round small · common`** *(label partially visible on left edge: `e round · common`)*
+  * *Object*: Small round wooden table.
+  * *Orientation*: `UPRIGHT`
+* **`Table round small`**
+  * *Object*: Small round wooden table with four splayed legs.
+  * *Orientation*: `UPRIGHT`
+* **`Table round small · fine`**
+  * *Object*: Round polished wooden table.
+  * *Orientation*: `UPRIGHT`
+* **`Stool bar`** *(label partially visible on left edge: `bar`)*
+  * *Object*: Bar stool tipped over 90 degrees with legs pointing left.
+  * *Orientation*: `ON ITS SIDE`
+* **`Chair plain · common`**
+  * *Object*: Wooden chair with green seat cushion.
+  * *Orientation*: `UPRIGHT`
+* **`Settle`**
+  * *Object*: Wooden high-backed settle bench.
+  * *Orientation*: `UPRIGHT`
+* **`Chair plain · fine`** *(label partially visible on left edge: `in · fine`)*
+  * *Object*: Wooden chair with green cushion.
+  * *Orientation*: `UPRIGHT`
+* **`Bench long`**
+  * *Object*: Long wooden bench with green cushion.
+  * *Orientation*: `UPRIGHT`
+
+**STORAGE:**
+* **`Loot sack`**
+  * *Object*: Tied burlap sack bulging with loot.
+  * *Orientation*: `UPRIGHT`
+* **`Crate`**
+  * *Object*: Square wooden packing crate.
+  * *Orientation*: `UPRIGHT`
+* **`Backpack`**
+  * *Object*: Leather backpack with front flap, straps, pouches, and bedroll facing directly up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Barrel`**
+  * *Object*: Wooden storage barrel standing on end; circular head and hoops seen.
+  * *Orientation*: `UPRIGHT`
+* **`Shelf wall`**
+  * *Object*: Wooden wall shelf with support brackets and two mugs sitting on it, front facing up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+
+**LIGHTS:**
+* **`Sconce reflector · brass`**
+  * *Object*: Wall sconce with circular brass reflector dish and candle facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Lantern pierced tin · cone`**
+  * *Object*: Punched tin lantern with conical top tipped over 90°; side profile seen horizontally.
+  * *Orientation*: `ON ITS SIDE`
+* **`Lantern wall iron · common`**
+  * *Object*: Iron wall lantern with glass panes and mounting arm tipped sideways.
+  * *Orientation*: `ON ITS SIDE`
+* **`Sconce reflector · tin`**
+  * *Object*: Tin wall sconce with reflector hood and candle tipped sideways.
+  * *Orientation*: `ON ITS SIDE`
+* **`Chandelier ring · gold`** *(label cut off on right edge: `Chand... ring · g...`)*
+  * *Object*: Circular wagon-wheel chandelier with candles.
+  * *Orientation*: `UPRIGHT`
+* **`Candlestick · common`**
+  * *Object*: Chamber candlestick with circular drip pan, handle, and candle standing upright.
+  * *Orientation*: `UPRIGHT`
+* **`Sconce candle double · iron`**
+  * *Object*: Two-candle wrought iron wall sconce with curved arms and candles facing up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Chandelier...`** *(label cut off on right edge: `Chand...`)*
+  * *Object*: Circular wagon-wheel chandelier with spokes.
+  * *Orientation*: `UPRIGHT`
+
+---
+
+#### `view-4.png` (Small window view: Cathedral / Temple props)
+
+**CENTREPIECES:**
+* **`Altar stone · marble`**
+  * *Object*: Carved marble altar block; flat top rectangular surface seen from above.
+  * *Orientation*: `UPRIGHT`
+* **`Dais`**
+  * *Object*: Stepped floor platform/dais.
+  * *Orientation*: `UPRIGHT`
+* **`Altar stone`**
+  * *Object*: Plain rectangular stone altar block.
+  * *Orientation*: `UPRIGHT`
+
+**FURNITURE:**
+* **`Confessional`**
+  * *Object*: Carved wooden confessional booth with curtains and center door facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Pulpit`**
+  * *Object*: Polygonal wooden elevated preaching pulpit; looking down into the enclosure.
+  * *Orientation*: `UPRIGHT`
+* **`Organ pipe`**
+  * *Object*: Pipe organ console and vertical gilded pipe array facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Prayer candle rack`**
+  * *Object*: Tiered rack holding rows of votive candles facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Font holy`**
+  * *Object*: Octagonal stone holy water baptismal font; basin viewed from above.
+  * *Orientation*: `UPRIGHT`
+* **`Rite choir stall`**
+  * *Object*: Carved dark wood choir stall seating facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Rite alms box`**
+  * *Object*: Wood and iron-banded donation box with front hasp/lock facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Lectern`**
+  * *Object*: Slanted wooden scripture reading desk/stand facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Bench stone`**
+  * *Object*: Carved rectangular stone bench standing on legs.
+  * *Orientation*: `UPRIGHT`
+* **`Pew`**
+  * *Object*: Long wooden church bench/pew.
+  * *Orientation*: `UPRIGHT`
+* **`Pillar round`** *(label partly cut off: `Pillar ro...`)*
+  * *Object*: Round stone classical column with square capital lying flat along the floor.
+  * *Orientation*: `ON ITS SIDE`
+
+---
+
+#### `view-5.png` (Large view: Cathedral / Temple Centrepieces, Furniture & Lights)
+
+**CENTREPIECES:**
+* **`Altar stone · marble`**: Carved marble altar block. -> `UPRIGHT`
+* **`Dais`**: Stepped stone/wooden platform. -> `UPRIGHT`
+* **`Altar stone`**: Plain stone altar block. -> `UPRIGHT`
+
+**FURNITURE:**
+* **`Confessional`**: Wooden confessional booth with front drapery and door facing up. -> `ON ITS BACK, FRONT UP`
+* **`Pulpit`**: Polygonal wooden pulpit standing on floor. -> `UPRIGHT`
+* **`Organ pipe`**: Church pipe organ console and pipes facing up. -> `ON ITS BACK, FRONT UP`
+* **`Prayer candle rack`**: Multi-tier votive candle stand facing up. -> `ON ITS BACK, FRONT UP`
+* **`Font holy`**: Stone baptismal water font standing on pedestal. -> `UPRIGHT`
+* **`Rite choir stall`**: Carved wooden choir stall seating facing up. -> `ON ITS BACK, FRONT UP`
+* **`Rite alms box`**: Metal-banded wooden alms box facing up. -> `ON ITS BACK, FRONT UP`
+* **`Lectern`**: Wooden scripture reading lectern facing up. -> `ON ITS BACK, FRONT UP`
+* **`Bench stone`**: Carved stone bench standing on legs. -> `UPRIGHT`
+* **`Pew`**: Long wooden church pew standing on floor. -> `UPRIGHT`
+* **`Pillar round`** *(label partly behind capital)*: Round stone column lying flat on the floor. -> `ON ITS SIDE`
+
+**LIGHTS:**
+* **`Sconce candle single · brass`**
+  * *Object*: Single-candle brass wall sconce with round wall plate flat on floor; candle arm points up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Sconce candle triple · iron`**
+  * *Object*: Three-candle wrought iron wall sconce; mounting plate flat, arms face up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Sconce candle triple · brass`**
+  * *Object*: Ornate three-candle brass wall sconce; mounting plate flat, arms face up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+
+---
+
+#### `view-6.png` (Large view: Great Hall / Feast Centrepieces, Furniture & Storage)
+
+**CENTREPIECES:**
+* **`Fireplace wall · common`**: Stone fireplace with timber mantel. -> `ON ITS BACK, FRONT UP`
+* **`Fireplace wall · fine`**: Stone fireplace with blue-gray chimney hood. -> `ON ITS BACK, FRONT UP`
+* **`Fireplace grand`**
+  * *Object*: Monumental dark stone/iron hall fireplace facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Fireplace wall`**: Plain stone fireplace. -> `ON ITS BACK, FRONT UP`
+* **`Dais`**: Low rectangular platform. -> `UPRIGHT`
+* **`Table feast · fine`**
+  * *Object*: Long feasting table covered with a crimson banquet cloth.
+  * *Orientation*: `UPRIGHT`
+* **`Table trestle`**: Wooden trestle dining table. -> `UPRIGHT`
+* **`Throne`**
+  * *Object*: High-backed royal throne with red cushion, armrests, and backrest seen from above.
+  * *Orientation*: `UPRIGHT`
+* **`Table feast`**: Long wooden plank feasting table. -> `UPRIGHT`
+
+**FURNITURE:**
+* **`Chair armed · fine`**
+  * *Object*: Carved wooden armchair with plush red seat cushion and arms seen from above.
+  * *Orientation*: `UPRIGHT`
+* **`Chair armed`**
+  * *Object*: Heavy timber armchair with red seat cushion.
+  * *Orientation*: `UPRIGHT`
+* **`Faldstool`**
+  * *Object*: X-frame folding curule chair with red seat.
+  * *Orientation*: `UPRIGHT`
+* **`Chair armed · common`**
+  * *Object*: Wooden armchair with upholstered seat and armrests.
+  * *Orientation*: `UPRIGHT`
+* **`Chair armed · high seat`**
+  * *Object*: Tall wooden armchair tipped over 90 degrees; side profile of legs, seat, and back seen.
+  * *Orientation*: `ON ITS SIDE`
+* **`Bench long`**: Long wooden bench with turquoise cushion. -> `UPRIGHT`
+* **`Armor stand`**
+  * *Object*: Wooden stand mounted with a full suit of plate armor facing straight up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Pillar round`**: Round stone column lying horizontally across the floor. -> `ON ITS SIDE`
+
+**STORAGE:**
+* **`Cheese wheel cut`** *(label partially cut: `Chee... whee...`)*
+  * *Object*: Large round red-rind cheese wheel with a wedge sliced out, resting on its flat base.
+  * *Orientation*: `UPRIGHT`
+
+---
+
+#### `view-7.png` (Large view: Great Hall Storage & Lights)
+
+*Left margin shows partial cut-offs from previous section (`Chair armed · high seat` [ON ITS SIDE], `Bench long` [UPRIGHT], `Armor stand` [ON ITS BACK, FRONT UP], `Pillar round` [ON ITS SIDE]).*
+
+**STORAGE:**
+* **`Cheese wheel cut`**
+  * *Object*: Large round red-wax cheese wheel with wedge cut out; top circular surface seen.
+  * *Orientation*: `UPRIGHT`
+
+**LIGHTS:**
+* **`Torch bracket fine · brass`**
+  * *Object*: Wall-mounted brass torch bracket holding an unlit torch; wall plate flat, torch faces up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Torch bracket fine · iron`**
+  * *Object*: Wall-mounted iron torch bracket with torch; wall plate flat, torch faces up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Candelabra · fine`**
+  * *Object*: Branched brass candelabra knocked over 90°; stem lies horizontally along the ground.
+  * *Orientation*: `ON ITS SIDE`
+* **`Chandelier ring · great`**
+  * *Object*: Massive circular iron wagon-wheel chandelier seen from above.
+  * *Orientation*: `UPRIGHT`
+* **`Candlestick · common`**
+  * *Object*: Chamber candlestick standing upright on its circular drip pan.
+  * *Orientation*: `UPRIGHT`
+* **`Chandelier ring`**
+  * *Object*: Medium circular wagon-wheel chandelier.
+  * *Orientation*: `UPRIGHT`
+* **`Torch sconce`**
+  * *Object*: Wall sconce holding a burning torch; wall plate flat, torch and flame face up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Brazier large`**
+  * *Object*: Large metal fire brazier basin standing on legs; interior coals seen from above.
+  * *Orientation*: `UPRIGHT`
+* **`Candle tree · brass`**
+  * *Object*: Multi-tiered brass floor candle stand; arms radiate symmetrically from central vertical axis.
+  * *Orientation*: `UPRIGHT`
+* **`Candle tree · wood`**
+  * *Object*: Timber cross-arm candle stand; central vertical pole lies flat along the floor plane.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Candelabra · common`**
+  * *Object*: Small three-candle candelabra knocked over 90°; circular base on left, stem horizontal.
+  * *Orientation*: `ON ITS SIDE`
+* **`Brazier standing`**
+  * *Object*: Tall standing iron brazier knocked over 90°; tripod legs lie sprawling along the floor.
+  * *Orientation*: `ON ITS SIDE`
+
+---
+
+#### `view-8.png` (Small window view: Crypt / Tomb props)
+
+**CENTREPIECES:**
+* **`Stone coffin lidless`**
+  * *Object*: Open stone coffin resting flat on floor; looking straight down into hollow interior with skeleton.
+  * *Orientation*: `UPRIGHT`
+* **`Sarcophagus`**
+  * *Object*: Stone sarcophagus resting flat on floor; sculpted funerary lid seen from above.
+  * *Orientation*: `UPRIGHT`
+* **`Effigy knight`**
+  * *Object*: Stone tomb monument resting flat on floor; carved knight effigy lies facing up atop the tomb.
+  * *Orientation*: `UPRIGHT`
+* **`Coffin`**
+  * *Object*: Hexagonal wooden coffin resting flat on floor; top lid seen from above.
+  * *Orientation*: `UPRIGHT`
+
+**FURNITURE:**
+* **`Rite mummified remains`**
+  * *Object*: Shrouded human corpse wrapped in burial linen lying flat on back with face pointing up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Pillar square · black`**
+  * *Object*: Tall square black stone pillar tipped over 90°; entire shaft lies horizontally along the ground.
+  * *Orientation*: `ON ITS SIDE`
+* **`Monument urn draped`**
+  * *Object*: Square stone funerary pedestal monument; square flat top seen from above.
+  * *Orientation*: `UPRIGHT`
+* **`Bench stone`**
+  * *Object*: Rectangular stone bench standing on legs.
+  * *Orientation*: `UPRIGHT`
+* **`Pillar square`**
+  * *Object*: Square stone pillar standing upright; square top moulding seen from above.
+  * *Orientation*: `UPRIGHT`
+
+---
+
+#### `view-9.png` (Large view: Crypt / Tomb Centrepieces, Furniture & Lights)
+
+**CENTREPIECES:**
+* **`Stone coffin lidless`**: Open stone coffin showing interior. -> `UPRIGHT`
+* **`Sarcophagus`**: Stone sarcophagus with carved lid. -> `UPRIGHT`
+* **`Effigy knight`**: Stone tomb with knight effigy. -> `UPRIGHT`
+* **`Coffin`**: Wooden hexagonal coffin with lid. -> `UPRIGHT`
+
+**FURNITURE:**
+* **`Rite mummified remains`**: Shrouded mummy lying flat on its back. -> `ON ITS BACK, FRONT UP`
+* **`Pillar square · black`**: Tall square black pillar lying flat on its side. -> `ON ITS SIDE`
+* **`Monument urn draped`**: Square funerary pedestal monument. -> `UPRIGHT`
+* **`Bench stone`**: Rectangular stone bench standing on legs. -> `UPRIGHT`
+* **`Pillar square`**: Square stone pillar standing upright. -> `UPRIGHT`
+
+**LIGHTS:**
+* **`Torch bracket rough`**
+  * *Object*: Rustic timber and iron wall torch bracket; wall plate flat, torch faces up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Torch sconce`**
+  * *Object*: Wall sconce holding a burning torch; wall mount flat, flame faces up.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Candle tree · wood`**
+  * *Object*: Timber cross-arm candle stand lying flat along the ground.
+  * *Orientation*: `ON ITS BACK, FRONT UP`
+* **`Candlestand pricket · brass`**
+  * *Object*: Brass pricket candelstand tipped over 90°; lying horizontal across the floor.
+  * *Orientation*: `ON ITS SIDE`
+* **`Candle tree · iron`**
+  * *Object*: Multi-tiered iron wheel candle tree standing on its vertical axis; circular tiers radiate outward.
+  * *Orientation*: `UPRIGHT`
+* **`Candlestick floor · iron`**
+  * *Object*: Tall iron floor candlestick tipped over 90°; tripod base on left, long stem horizontal.
+  * *Orientation*: `ON ITS SIDE`
+
+---
+
+### Step 2: Catalog Usability Evaluation
+
+#### 1. Objects that are NOT laid out sensibly for a catalog:
+
+* **Seating tipped onto its side:**
+  * **`Stool bar`** (`view-1`, `view-2`, `view-3`): Tipped 90° onto its side with its tall legs sprawling horizontally across the floor plane. A bar stool should be **`UPRIGHT`**, showing its circular cushion from above just like the small round tables and armchairs.
+  * **`Chair armed · high seat`** (`view-6`, `view-7`): Lying on its side showing an elevation profile, while every other armchair in the row stands upright showing its cushion. It should be **`UPRIGHT`**.
+
+* **Pillars and columns knocked over:**
+  * **`Pillar round`** (`view-4`, `view-5`, `view-6`, `view-7`) & **`Pillar square · black`** (`view-8`, `view-9`): Both are tipped 90° onto their side, lying flat across the plane like fallen debris. They represent standing architectural elements and should be placed **`UPRIGHT`** (or displayed in an angled 3D catalog preview tile so their height can be seen without sprawling across neighboring grid slots).
+  * *Special failure case —* **`Pillar square`** (`view-8`, `view-9`): Although technically `UPRIGHT`, viewed from straight down it appears as a featureless, flat gray square block. A user cannot tell if it is an 8-foot pillar or a floor stepping tile. It should either be tilted slightly in a preview portrait or lie on its back/side with a consistent catalog convention.
+
+* **Floor / Tabletop lights knocked onto their sides:**
+  * **`Candelabra · fine`** (`view-7`), **`Candelabra · common`** (`view-7`), **`Candlestand pricket · brass`** (`view-9`), **`Candlestick floor · iron`** (`view-9`), and **`Brazier standing`** (`view-7`): All of these are freestanding props tipped 90° over onto their side/tripod bases. They look knocked down or discarded. They should be standing **`UPRIGHT`** on their bases.
+  * **`Candle tree · wood`** (`view-7`, `view-9`): The entire vertical support pole is laid flat along the ground plane. It should stand **`UPRIGHT`** on its base.
+
+* **Wall lanterns and sconces shown in awkward side elevation:**
+  * **`Lantern wall iron · common`** (`view-3`), **`Lantern pierced tin · cone`** (`view-3`), and **`Sconce reflector · tin`** (`view-3`): These are shown tipped sideways in profile, making them hard to recognize and inconsistent with the other wall sconces. They should be **`ON ITS BACK, FRONT UP`** (with their mounting plate flat on the ground plane so the face of the lantern/sconce looks directly up at the camera).
+
+#### 2. Objects that look CLEARLY RIGHT:
+
+* **Standard upright room furniture:**
+  * All dining, feasting, and pub tables (`Table square`, `Table trestle`, `Table round small · common`, `Table round small`, `Table round small · fine`, `Table feast · fine`, `Table feast`): Their top surfaces are clean, recognizable, and immediately tell the user the table's size, shape, and finish.
+  * All upright seating and benches (`Bench long`, `Bench stone`, `Pew`, `Settle`, `Throne`, `Faldstool`, `Chair plain · common`, `Chair plain · fine`, `Chair armed · fine`, `Chair armed`, `Chair armed · common`): Their seats and arms read clearly from above, matching how they will look when placed in a scene.
+  * Bar counters (`Bar counter · straight common`, `Bar counter · corner common`, `Bar counter · end common`, `Bar counter · flap common`): Their top surfaces and bartender recesses are completely intuitive.
+  * Freestanding floor props (`Dais`, `Crate`, `Barrel`, `Loot sack`, `Pulpit`, `Font holy`, `Altar stone · marble`, `Altar stone`, `Brazier large`, `Cheese wheel cut`, `Candlestick · common`): All sit upright on their bases and read unambiguously from above.
+* **Tombs and crypt effigies:**
+  * `Stone coffin lidless`, `Sarcophagus`, `Effigy knight`, `Coffin`, and `Monument urn draped`: Because coffins, sarcophagi, and knight effigies naturally rest horizontally on crypt floors, looking straight down at their sculpted lids, open skeletons, or carved armor is 100% natural and instantly identifiable.
+* **Wall-hung props and tall facades intentionally laid `ON ITS BACK, FRONT UP`:**
+  * `Fireplace wall · common`, `Fireplace wall · fine`, `Fireplace wall`, `Fireplace grand`: Showing the front hearth, mantel, and embers facing up allows users to distinguish between the styles; if they stood upright, the camera would only see an uninformative chimney mantel ledge.
+  * `Notice board`, `Back bar shelves`, `Cask rack`, `Confessional`, `Organ pipe`, `Prayer candle rack`, `Shelf wall`, `Bard instrument stand`, and `Backpack`: Laying them flat face-up displays all their contents (notices, mugs, bottles, organ pipes, votive candles, straps).
+  * Wall sconces and torches placed flat face-up (`Sconce reflector · brass`, `Sconce candle single · brass`, `Sconce candle double · iron`, `Sconce candle triple · iron`, `Sconce candle triple · brass`, `Torch bracket fine · brass`, `Torch bracket fine · iron`, `Torch bracket rough`, `Torch sconce`): Their decorative arms and candles point directly up at the viewer, making them immediately recognizable.
+  * Circular chandeliers (`Chandelier ring · great`, `Chandelier ring`, `Chandelier ring · gold`, `Candle tree · iron`): Viewed from above, their radial spoke wheels are clear, aesthetic, and functional.
+
+---
+
+### Step 3: Legibility at Default Window Size (~480 x 350 px)
+
+The three small images represent the default opening window size: `view-1.png`, `view-4.png`, and `view-8.png`.
+
+#### 1. `view-1.png` (Tavern / Inn)
+* **Label Legibility**: **Legible**. The dark sans-serif text against the tan ground remains readable despite slight compression.
+* **Three exact labels read from this image**:
+  1. `Fireplace wall · common`
+  2. `Bard instrument stand`
+  3. `Bar counter · corner common`
+* **Object Recognizability**: Most props are recognizable: the fireplaces clearly show their fireboxes and mantels; `Table square` is unmistakable; `Cask rack` clearly shows the barrels in two tiers; the bar counters clearly show their corner joints and bartender recesses. However, fine details suffer: the small mugs/bottles on `Back bar shelves` and the individual instruments on `Bard instrument stand` become a muddy cluster, and the tipped `Stool bar` on the right margin looks like an awkward smear.
+
+#### 2. `view-4.png` (Cathedral / Temple)
+* **Label Legibility**: **Legible**. The primary titles are easily read; secondary subtitles (such as `· marble`) have lower contrast but remain readable.
+* **Three exact labels read from this image**:
+  1. `Altar stone · marble`
+  2. `Confessional`
+  3. `Organ pipe`
+* **Object Recognizability**: Larger architectural pieces are immediately identifiable: `Organ pipe` clearly shows its vertical gold pipes; `Confessional` shows its dark frame and red curtain panels; `Font holy` shows its circular basin; `Pew` and `Bench stone` show clean bench profiles. In contrast, smaller items are poorly recognizable: `Rite alms box` looks like an indistinct brown lump; `Lectern` is blurry; and `Pillar round` lying on its side looks like an ambiguous gray bar.
+
+#### 3. `view-8.png` (Crypt / Tomb)
+* **Label Legibility**: **Legible**. The labels are sharp and easy to read.
+* **Three exact labels read from this image**:
+  1. `Stone coffin lidless`
+  2. `Sarcophagus`
+  3. `Effigy knight`
+* **Object Recognizability**: The funerary centrepieces are highly recognizable: `Stone coffin lidless` clearly shows the skeleton lying inside the hollow basin; `Sarcophagus` shows the sculpted stone lid; `Coffin` has an unmistakable hexagonal casket silhouette; `Effigy knight` clearly displays the knight in armor; `Rite mummified remains` clearly displays the wrapped mummy. However, the pillars fail on recognizability: `Pillar square · black` is an unrecognizable black strip lying on its side, while `Pillar square` is just a blank gray square that cannot be distinguished from a flat floor paving stone.

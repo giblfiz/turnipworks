@@ -10,16 +10,18 @@
 //
 // Wire protocol (JSON over one socket):
 //  client → relay  hello{token} | sub{area,since?} | unsub{area} | cmd{cid,type,area?,args} | pres{area,cursor,drag} | ping{ts}
+//                  kick{seat} (a human GM: close that seat's connections now; not a ban)
 //  relay → client  welcome{seat,campaign} | denied{why} | snap{area,state} | log{entries} | ack{cid,...} | nack{cid,code,why}
 //                  camp{view} | pres{area,seat,...} | hidden{area} | pong{ts} | turns{area,turns}
+//                  kicked{by} (the GM disconnected this connection: no reconnecting until rejoin()) | kickdone{ok,seat,n?,why?}
 //  whispers        client → relay  whisper{id,to,text}      relay → the two seats only  whisper{id,from,to,text,at}
 //                  relay → sender  whispered{id,ok,delivered,why?}
 import { REGISTRY, applyArea, parseArgs } from './commands.js';
 import { newId } from './ids.js';
 
 export class ClientSync {
-  constructor({ token, transport, onEntry = () => {}, onChange = () => {}, onPresence = () => {}, onCampaign = () => {}, onNack = () => {}, onStatus = () => {}, onAck = () => {}, onWhisper = () => {}, onNotice = () => {}, log = () => {} }) {
-    Object.assign(this, { token, transport, onEntry, onChange, onPresence, onCampaign, onNack, onStatus, onAck, onWhisper, onNotice, log });
+  constructor({ token, transport, onEntry = () => {}, onChange = () => {}, onPresence = () => {}, onCampaign = () => {}, onNack = () => {}, onStatus = () => {}, onAck = () => {}, onWhisper = () => {}, onNotice = () => {}, onKick = () => {}, log = () => {}, staleMs = 8000 }) {
+    Object.assign(this, { token, transport, onEntry, onChange, onPresence, onCampaign, onNack, onStatus, onAck, onWhisper, onNotice, onKick, log, staleMs });
     this.areas = new Map();   // id -> { confirmed, pending, view, want }
     this.campaignPending = []; // campaign commands awaiting ack (no optimism: roster changes are rare)
     this.campaign = null; this.me = null;
@@ -31,13 +33,19 @@ export class ClientSync {
   connect() {
     this.closed = false;
     this.setStatus('connecting');
+    const gen = this.gen = (this.gen || 0) + 1; // (a connection given up on as dead is ignored if it speaks or closes later)
+    this.pingAt = this.pongAt = 0;
     this.conn = this.transport.connect({
-      open: () => this.send({ t: 'hello', token: this.token, v: 1 }),
-      message: (m) => this.onMessage(m),
-      close: () => this.onClose(),
+      open: () => { if (gen === this.gen) this.send({ t: 'hello', token: this.token, v: 1 }); },
+      message: (m) => { if (gen === this.gen) this.onMessage(m); },
+      close: () => { if (gen === this.gen) this.onClose(); },
     });
   }
   close() { this.closed = true; this.conn?.close(); this.setStatus('closed'); }
+  // after the GM's disconnect: the same link, a fresh connection (resubscribes and catches up like any reconnect)
+  rejoin() { if (this.status !== 'kicked') return false; this.kickedBy = null; this.backoff = 250; this.connect(); return true; }
+  // (a human GM) close that seat's connections now; the answer comes back as onKick({ ok, seat, n | why })
+  kick(seat) { return this.send({ t: 'kick', seat }); }
   send(m) { if (this.conn?.isOpen()) { this.conn.send(m); this.stats.sent++; return true; } return false; }
   setStatus(s) { this.status = s; this.onStatus(s); }
   onClose() {
@@ -133,6 +141,8 @@ export class ClientSync {
         for (const c of this.campaignPending) this.send({ t: 'cmd', ...c });
         break;
       }
+      case 'kicked': this.closed = true; this.kickedBy = m.by || null; this.setStatus('kicked'); this.log('disconnected by ' + (m.by || 'the GM')); this.conn?.close(); break;
+      case 'kickdone': this.onKick(m); break;
       case 'denied': this.closed = true; this.setStatus('denied'); this.log('denied: ' + m.why); this.onNack({ cid: null, code: 'denied', why: m.why }); this.conn?.close(); break;
       case 'snap': {
         const T = this.areas.get(m.area);
@@ -176,7 +186,10 @@ export class ClientSync {
       case 'hidden': { const T = this.areas.get(m.area); if (T) { T.confirmed = null; T.view = null; T.want = false; this.onChange(m.area, null); } break; }
       case 'pres': this.onPresence(m); break;
       case 'whisper': case 'whispered': this.onWhisper(m); break;
-      case 'pong': this.rtt = Date.now() - m.ts; break;
+      case 'pong': this.rtt = Date.now() - m.ts; this.pongAt = Date.now();
+        // the relay's clock (2026-10-30, for the music: client/music.js): its time minus ours, from the quickest answer seen
+        if (Number.isFinite(m.now) && !(this.skewRtt <= this.rtt)) { this.skew = m.now - (m.ts + this.rtt / 2); this.skewRtt = this.rtt; }
+        break;
       // a banner from the relay's operator (the nightly release roll: "Server updating at 3:30"); docs/NETCODE.md "Two servers"
       case 'notice': this.onNotice(m); break;
     }
@@ -209,5 +222,17 @@ export class ClientSync {
     for (const [id, T] of this.areas) if (!T.want && !T.pending.length) this.areas.delete(id);
   }
 
-  ping() { this.send({ t: 'ping', ts: Date.now() }); }
+  // the 2 s ping (client/main.js), and the watchdog on it: a ping unanswered for 8 s means the connection is dead though
+  // it still says open (a phone or laptop waking after the relay or Cloudflare closed it; a network gone): give it up
+  // and reconnect now, instead of sitting "live" until the browser notices (seen 2026-10-28 on dev: ~30 s over SSE).
+  // A background tab pings less often, never less answered, so it is not dropped for being slow.
+  ping() {
+    const now = Date.now();
+    if (this.status === 'live' && this.pingAt > this.pongAt && now - this.pingAt > this.staleMs) {
+      this.stats.stale = (this.stats.stale || 0) + 1; this.log(`no pong for ${Math.round((now - this.pingAt) / 1000)} s: reconnecting`);
+      const dead = this.conn; this.gen++; this.onClose(); try { dead?.close(); } catch { }
+      return;
+    }
+    if (this.send({ t: 'ping', ts: now }) && !(this.pingAt > this.pongAt)) this.pingAt = now; // (the oldest unanswered one counts)
+  }
 }

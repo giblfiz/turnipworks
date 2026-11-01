@@ -1,0 +1,52 @@
+### Visible Text
+
+* **Top Left:**
+  * `P` (badge on Pawns button)
+  * `Pawns`
+  * `S` (badge on Settings button)
+  * `Settings`
+  * `Other games / New game`
+* **Left Toolbar:**
+  * `-1` (orange level indicator badge)
+* **Top Center Search/Command Bar:**
+  * `Search commands, things to place, people, places... or say / roll`
+  * `/` (shortcut badge)
+* **Top Right:**
+  * `H`
+  * `Area 1`
+  * `P`
+  * `Area 1`
+* **Map Token Nameplates:**
+  * `Bram`
+  * `Fen`
+  * `Eli`
+  * `Dov`
+  * `Cora`
+  * `Ann`
+* **Bottom Left Chat Input:**
+  * `say ... or roll d20 in the bar`
+* **Bottom Right Telemetry:**
+  * `live (ws) · 0 ms · Area 1 seq 3 · 60 fps`
+
+---
+
+### Questions
+
+**(1) Describe what you see in two sentences:**  
+The screenshot shows a virtual tabletop interface displaying two revealed areas surrounded by a grey checkerboard fog of war: a large, organic cavern on the left containing five player pawns (Bram, Dov, Fen, Eli, Cora), and a smaller furnished rectangular room on the right containing the pawn Ann. Both areas are viewed from an angled perspective with an overlay grid, featuring 3D environmental props such as rock clusters, pillars, and dungeon furniture.
+
+**(2) Is there a natural cave, and does it look like one?**  
+Yes, there is an irregularly shaped cavern on the left, and it clearly looks like a natural cave due to its uneven dirt/sand floor, organic perimeter, jagged rock outcroppings, and interior stalagmites/rubble piles (contrasting sharply with the man-made rectangular room beside it).
+
+**(3) Do the rock PILLARS standing inside the cave show their rock texture, or a checkerboard/fog pattern?**  
+They show a **checkerboard/fog pattern**. While their bases retain a small amount of brown rock texture, the vertical shafts and tops of the freestanding interior pillars are rendered with the grey checkerboard fog pattern.
+
+**(4) Anything that looks broken or wrong, with where:**  
+* **Freestanding Rock Pillars (Cavern interior):** The pillars standing inside the cave (south of Bram, between Fen and Eli, south of Fen, and near Cora) are mistakenly mapped or masked with the grey checkerboard fog pattern on their vertical bodies instead of their stone material.
+* **Cave Perimeter Fog Artifacts (Cavern edges):** Along the northern wall behind Fen/Eli, the western wall, and the southern edge between Dov and Cora, there is messy grey checkerboard noise and jagged translucent fringing bleeding across the rock boundaries.
+* **Eli's Token (Upper-right cavern):** The pawn avatar graphic for Eli is largely obscured or clipped directly behind the black "Eli" name banner.
+
+---
+
+**VERDICT: BROKEN**  
+**Main reason:** The interior rock pillars inside the cave fail to render their rock texture, instead displaying the grey checkerboard fog-of-war pattern across their shafts and tops.

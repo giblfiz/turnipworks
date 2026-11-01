@@ -1,0 +1,410 @@
+{
+ "salt-box-open": {
+  "blind": {
+   "see": "wooden container with side door swung open",
+   "state": "OPEN",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "TURNED",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "smith-farrier-box": {
+  "blind": {
+   "see": "green chest with cylinder handle, closed lid",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--castle-rough": {
+  "blind": {
+   "see": "stone wall with closed wooden window shutter",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "Window design (stone cross arrow slit vs large rectangular window with wood plank shutter)",
+   "facing": "TURNED",
+   "left": "SHUT",
+   "right": "SHUT",
+   "ok": false
+  },
+  "pass": false
+ },
+ "cage-sacrifice-open": {
+  "blind": {
+   "see": "wooden cage crate with door swung open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "Wood color and texture, 2 door bars instead of 3, 4 top planks instead of 7, hinge and padlock shape",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": false
+  },
+  "pass": false
+ },
+ "wall-window-small--fieldstone": {
+  "blind": {
+   "see": "stone wall section with closed wooden window shutter",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--noble-panel": {
+  "blind": {
+   "see": "wood-paneled wall with closed multi-pane window",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "Wood color (dark brown on right vs light honey wood on left) and window glass color",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": false
+  },
+  "pass": false
+ },
+ "wall-window-small-open--tower-stone": {
+  "blind": {
+   "see": "brick wall with arched window and shutters swung open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "Stone coloration (orange with red accent bricks on right) and window shutter grille design (curved loop tracery vs diamond lattice)",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": false
+  },
+  "pass": false
+ },
+ "trunk-travel-open--s1": {
+  "blind": {
+   "see": "wooden chest with green straps and raised open lid",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "rural-tack-trunk-open": {
+  "blind": {
+   "see": "wooden trunk with hinged lid open",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "casket-ornate-open": {
+  "blind": {
+   "see": "red and gold treasure chest with lid open",
+   "state": "OPEN",
+   "conf": 99,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--rough-timber--s2": {
+  "blind": {
+   "see": "wooden wall with closed wooden shutter",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "oubliette-hatch-open": {
+  "blind": {
+   "see": "stone floor opening with metal grate hatch open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "floor-trapdoor-open--rough-timber": {
+  "blind": {
+   "see": "wooden floor hatch open with ladder visible",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "door-reinforced-open--rough-timber": {
+  "blind": {
+   "see": "green wooden door swung open in frame",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "bread-oven": {
+  "blind": {
+   "see": "blue stone oven with closed metal hatch door",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "Stone color (violet-blue vs slate-blue), wheat emblem (painted gold on right vs unpainted carved stone on left), tile trim (red/orange floral pattern on right vs green on left), and gold door rim",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": false
+  },
+  "pass": false
+ },
+ "door-plank-open--dressed-stone--common": {
+  "blind": {
+   "see": "wooden door swung open in stone frame",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "TURNED",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "chest-treasure": {
+  "blind": {
+   "see": "brown wooden chest with gold bands closed shut",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "floor-trapdoor-open--dressed-stone": {
+  "blind": {
+   "see": "stone floor hatch with painted wooden lid open and ladder inside",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small-open--temple-stone": {
+  "blind": {
+   "see": "sandstone wall with arched window opening and open shutters",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "iron-maiden": {
+  "blind": {
+   "see": "metal iron maiden closed shut",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ },
+ "rural-grooming-box": {
+  "blind": {
+   "see": "yellow wooden box with handle closed shut",
+   "state": "SHUT",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "DIFFERENT",
+   "differs": "Wood color (bright yellow vs natural brown), bracket color (bright teal vs dark slate grey), and relief carving placement",
+   "facing": "SAME",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": false
+  },
+  "pass": false
+ },
+ "sideboard-open": {
+  "blind": {
+   "see": "wooden sideboard with both cupboard doors swung open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "trunk-travel-open--s2": {
+  "blind": {
+   "see": "green treasure chest with lid raised open",
+   "state": "OPEN",
+   "conf": 98,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "SAME",
+   "left": "SHUT",
+   "right": "OPEN",
+   "ok": true
+  },
+  "pass": true
+ },
+ "wall-window-small--rough-timber": {
+  "blind": {
+   "see": "timber wall with closed wooden window shutter",
+   "state": "SHUT",
+   "conf": 95,
+   "ok": true
+  },
+  "match": {
+   "same": "SAME",
+   "differs": "none",
+   "facing": "TURNED",
+   "left": "OPEN",
+   "right": "SHUT",
+   "ok": true
+  },
+  "pass": true
+ }
+}

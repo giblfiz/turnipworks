@@ -1,0 +1,29 @@
+<!doctype html><meta charset="utf-8"><title>gable wall bake</title>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<canvas id="c"></canvas>
+<script type="module">
+// Front elevation of one generated wall mesh, its EXTERIOR face (-Z: the mesh's +Z faces the room, tuner js/walls.js),
+// orthographic, framed to the mesh's own box: the colour as painted (unlit) and the view-space normals (a normal map).
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+const R = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true, preserveDrawingBuffer: true });
+R.outputColorSpace = THREE.SRGBColorSpace;
+window.bake = async (url, pxPerUnit) => {
+  const g = await new GLTFLoader().loadAsync(url), scene = new THREE.Scene(), root = g.scene; scene.add(root);
+  const box = new THREE.Box3().setFromObject(root), w = box.max.x - box.min.x, h = box.max.y - box.min.y;
+  const W = Math.round(w * pxPerUnit), H = Math.round(h * pxPerUnit); R.setSize(W, H, false); R.setPixelRatio(1);
+  // looking from -Z towards +Z: +X is on the LEFT of the picture, so flip x to keep the picture as an outsider sees it read left to right
+  const cam = new THREE.OrthographicCamera(box.max.x, box.min.x, box.max.y, box.min.y, 0.01, 100);
+  cam.position.set(0, 0, box.min.z - 5); cam.up.set(0, 1, 0); cam.lookAt(0, 0, box.min.z + 1);
+  cam.left = -box.max.x; cam.right = -box.min.x; cam.updateProjectionMatrix();
+  const out = {}, mats = [];
+  root.traverse(o => { if (o.isMesh) mats.push([o, o.material]); });
+  for (const [o, m] of mats) o.material = new THREE.MeshBasicMaterial({ map: m.map || null, color: m.color || 0xffffff, side: THREE.FrontSide });
+  scene.background = new THREE.Color(0, 0, 0); R.render(scene, cam); out.colour = R.domElement.toDataURL('image/png');
+  for (const [o] of mats) o.material = new THREE.MeshNormalMaterial({ side: THREE.FrontSide });
+  scene.background = new THREE.Color(0.5, 0.5, 1.0); R.render(scene, cam); out.normal = R.domElement.toDataURL('image/png');
+  out.box = [box.min.toArray(), box.max.toArray()]; out.size = [W, H];
+  return out;
+};
+window.ready = true;
+</script>

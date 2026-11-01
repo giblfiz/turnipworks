@@ -1,0 +1,152 @@
+{
+ "name": "V10",
+ "desc": "one common room (no storeys) at 1x, build continues under the cards, baseline timing",
+ "capture": "common",
+ "speed": 1.0,
+ "fit": null,
+ "fps": 60,
+ "frames": 360,
+ "segments": [
+  {
+   "out": [
+    0,
+    54
+   ],
+   "footage": 0,
+   "out_s": [
+    0.0,
+    0.9
+   ],
+   "footage_s": 0.0
+  },
+  {
+   "out": [
+    54,
+    74
+   ],
+   "card": 1,
+   "out_s": [
+    0.9,
+    1.2333
+   ]
+  },
+  {
+   "out": [
+    74,
+    133
+   ],
+   "footage": 74,
+   "out_s": [
+    1.2333,
+    2.2167
+   ],
+   "footage_s": 1.2333
+  },
+  {
+   "out": [
+    133,
+    153
+   ],
+   "card": 2,
+   "out_s": [
+    2.2167,
+    2.55
+   ]
+  },
+  {
+   "out": [
+    153,
+    217
+   ],
+   "footage": 153,
+   "out_s": [
+    2.55,
+    3.6167
+   ],
+   "footage_s": 2.55
+  },
+  {
+   "out": [
+    217,
+    237
+   ],
+   "card": 3,
+   "out_s": [
+    3.6167,
+    3.95
+   ]
+  },
+  {
+   "out": [
+    237,
+    288
+   ],
+   "footage": 237,
+   "out_s": [
+    3.95,
+    4.8
+   ],
+   "footage_s": 3.95
+  },
+  {
+   "out": [
+    288,
+    360
+   ],
+   "card": 4,
+   "out_s": [
+    4.8,
+    6.0
+   ]
+  }
+ ],
+ "cuts": [
+  {
+   "card": 1,
+   "baseline_s": 0.9,
+   "at_s": 0.9,
+   "back_s": 1.2333,
+   "footage_before_s": 0.8833,
+   "footage_after_s": 1.2333,
+   "in_flight_before": 28,
+   "in_flight_after": 28
+  },
+  {
+   "card": 2,
+   "baseline_s": 2.2,
+   "at_s": 2.2167,
+   "back_s": 2.55,
+   "footage_before_s": 2.2,
+   "footage_after_s": 2.55,
+   "in_flight_before": 34,
+   "in_flight_after": 43
+  },
+  {
+   "card": 3,
+   "baseline_s": 3.5,
+   "at_s": 3.6167,
+   "back_s": 3.95,
+   "footage_before_s": 3.6,
+   "footage_after_s": 3.95,
+   "in_flight_before": 15,
+   "in_flight_after": 14
+  },
+  {
+   "card": 4,
+   "at_s": 4.8,
+   "in_flight_before": 0
+  }
+ ],
+ "capture_events_out_s": {
+  "ground_land": 4.767,
+  "upper_start": null,
+  "last_land": 4.767,
+  "upper_pieces": 0
+ },
+ "spawn_ms_1x": {
+  "ground_land": 4766.667,
+  "upper_start": null,
+  "last_land": 4766.667,
+  "upper_pieces": 0
+ }
+}

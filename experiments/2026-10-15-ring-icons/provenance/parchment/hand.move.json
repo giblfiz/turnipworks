@@ -1,0 +1,76 @@
+{
+  "id": "hand.move",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One upright ochre wooden crate at the center with FOUR thick short ivory arrows pointing outward from it, up, down, left and right: move it anywhere. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/edit.rotate.webp",
+      "sha256": "f128feb20b9fb50845784f10c914337214b2b2b5cfcde1cf018e7f03262b1c50",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/thing.replace.webp",
+      "sha256": "77a8af9a25c9efd8597806a46b7dcbcfd926b40eaaa5cfa65bcb3cb720595455",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/edit.lift.webp",
+      "sha256": "6f66e11ce2c276ce6c207763374890b7d481d718c0d118cc51515cef946ea0d7",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--hand.move.png",
+      "sha256": "bdc43acc27baf7c7f1956287c2e98acad700f4ea4a5c8ba6c2383a5f6014b8a8",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--hand.move.png",
+  "source_sha256": "3b506a7d09bc2124fa57f140cc79084c30bcc11b7da4f14e3e8445c1ead9dfe4",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/hand.move.webp",
+    "19": "parchment/sizes/19/hand.move.webp",
+    "22": "parchment/sizes/22/hand.move.webp",
+    "26": "parchment/sizes/26/hand.move.webp",
+    "31": "parchment/sizes/31/hand.move.webp",
+    "36": "parchment/sizes/36/hand.move.webp",
+    "38": "parchment/sizes/38/hand.move.webp",
+    "42": "parchment/sizes/42/hand.move.webp",
+    "44": "parchment/sizes/44/hand.move.webp",
+    "50": "parchment/sizes/50/hand.move.webp",
+    "52": "parchment/sizes/52/hand.move.webp",
+    "62": "parchment/sizes/62/hand.move.webp",
+    "84": "parchment/sizes/84/hand.move.webp",
+    "100": "parchment/sizes/100/hand.move.webp",
+    "128": "parchment/hand.move.webp"
+  },
+  "sha256": {
+    "18": "344eb1501e4b23a48baa421fa3eb6f616690c49b41550895d5eeb29ec3887bf7",
+    "19": "8535f9458c0c07754983d98618db7c9d0565411a5bbf057f28c4520946fef747",
+    "22": "47d1bb6bddcfbcd81395c88693d83ff5afd75ae99ce6d3f2eb0016e38c8dd697",
+    "26": "b70c259083c616bc2de655dae7415d76e628da2341e6e58f83f80ee09528a62b",
+    "31": "7b1ea82b2ba5a2de88dd76dd7fa22a18ff800fe50eaf4d949869bd05b5548d90",
+    "36": "68dad7e053b1ed700eb8c974d15368de88d0224f0bae92149b23190dd486ef68",
+    "38": "823d67679de27bdee07ba68905cf8a390392fd11beb5de0459809cbbb188f196",
+    "42": "b5abd666c0f4987da5282e5a70b8a584e62b3c4f78b57f616fa37e98b4b95f75",
+    "44": "cbea9a9aac902f9ef714b980fd68a4f2db1e1482bc048b61e82411b3070d0d83",
+    "50": "9c5b6c3f7b74d245f82e47d5f6bf868faf0559e7beee98bacf40cd9ef08953ef",
+    "52": "bd252e6a99c90e07903cb87510a741bd2951aa47a445f8e17d09858c75799fe1",
+    "62": "16f5a2a03949dc645f085499aad4f7fe6cf1bfb6ba90a272ce21db0d0e4fd402",
+    "84": "7c5aa52f739a4d7900ad8738099c919c381bbd03e3073a97f438354c17aa7875",
+    "100": "4b4d8abcf41c4c3b3d3ba1e05d94cafad2793799572f3de0ef8ac162de6e5e3e",
+    "128": "dcb24b2883dc0df19900e1af3f729267928171c61957c3a29724c0d53e6f619f"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "7d2ff69bb312b6048c3d6c128ea2e8709b84e8a626f7c1006350693d8613c47f",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/parchment/hand.move/3b506a7d09bc2124-2ed1ac590f"
+}

@@ -1,0 +1,38 @@
+charcoal match pawn.cond.paralyzed -> NO - Same disc/rim/ground frame, but uses a full-body figure with airbrushed neon lightning glow instead of R1-R4's close-up, chunky hand-painted brushwork, dark outlines, and top-left lighting.
+charcoal match pawn.cond.incapacitated -> NO - Same disc/rim/ground frame, but uses a smooth 3D clay-rendered full-body figure and desaturated monochrome grey palette instead of R1-R4's vibrant palette, bold scale, and painterly brushwork.
+charcoal match pawn.cond.dead -> NO - Same disc/rim size, but fills the lower ground with textured dirt and uses muted, dark semi-realistic stone/soil rendering instead of R1-R4's floating motif, saturated colors, and chunky painted style.
+charcoal match pawn.cond.concentrating -> NO - Same disc/rim/ground frame, but rendered as a smooth, symmetrical airbrushed 3D head with a neck base and thin glowing rings instead of R1's cartoon linework, visible brushwork, and chunky solid shapes.
+charcoal match pawn.cond.exhaustion.up -> YES - Matches disc, rim, ground, top-left lighting, vibrant palette, and visible brushwork, with the exact same hand-painted face construction as R1 plus a chunky beveled red plus sign.
+charcoal match pawn.cond.exhaustion.down -> YES - Matches disc, rim, ground, top-left lighting, vibrant palette, and visible brushwork, using the same R1-style hand-painted yellow face paired with a chunky beveled green minus bar.
+charcoal match pawn.cond.other. -> YES - Matches disc, rim, ground, top-left lighting, dark outlines, and chunky painterly brushwork, with a warm cream tag matching R2's moon palette and a bold beveled teal checkmark.
+charcoal match pawn.cond.other -> YES - Matches disc, rim, ground, top-left lighting, dark outlines, and chunky painterly brushwork, combining G's warm cream tag with E's beveled plus shape in vibrant teal.
+charcoal match roof.style.marble -> YES - Same disc size, dark ground, steel-blue rim, trapezoidal roof-swatch perspective, upper-left lighting, and chunky painterly stone brushwork as R3; legible at 31 px.
+charcoal match roof.style.deck -> YES - Matches the set's disc, dark ground, rim, foreshortened swatch angle, warm painted wood grain, bevelled seams, and lighting; legible at 31 px.
+charcoal match roof.style.flagstone -> YES - Consistent disc, dark ground, rim, chunky bevelled stone brushwork, deep mortar shadows, and muted stone palette; legible at 31 px.
+charcoal match roof.style.lead -> YES - Matches the disc, dark ground, rim, cool slate-blue palette, painterly metallic sheen, and crisp upper-left rib highlights of R2/R3; legible at 31 px.
+charcoal match roof.style.turf -> YES - Same disc, dark ground, rim, trapezoidal block perspective, and stylized painterly turf/soil texture with grounded saturation matching R1/R4; legible at 31 px.
+charcoal match roof.style.plaster -> YES - Shares R2's three-sided parapet tray geometry, disc size, dark ground, rim, soft interior shadow, and painted pale stone bevels; legible at 31 px.
+charcoal match roof.edge. -> YES - Same disc, dark ground, rim, and R2 tray geometry, combining R1/B's warm painted timber brushwork with R2's dark slate deck; legible at 31 px.
+charcoal match roof.edge.battlements -> YES - Matches the disc, dark ground, rim, cool grey stone palette, chipped bevel highlights, and deep crevice shadows of R3; legible at 31 px.
+charcoal match roof.edge.parapet -> YES - Shares R2's three-sided parapet tray form, disc, dark ground, and rim, rendered in warm sandstone with matching block seams and lighting; legible at 31 px.
+charcoal match roof.edge.railing -> YES - Matches R2's stone parapet geometry and brushwork with a warm wooden railing in the same lighting, palette, dark ground, rim, and disc size.
+charcoal match roof.edge.none -> YES - Uses the same cool grey stone palette, mottled brushwork, beveled edges, lighting, ground, rim, and disc size as R2.
+charcoal match roof.edge.auto -> YES - Pairs R2's stone parapet base with a 3D painted gear sharing the same lighting, beveled brushwork, palette, ground, rim, and disc size.
+charcoal match roof.turrets -> YES - Matches the set's painterly stone and shingle brushwork, top-left lighting, muted teal-and-grey palette, dark ground, rim, and disc size.
+charcoal match roof.shape. -> YES - Depicts side-by-side pitched and flat roofs using the exact same brushwork, palette, lighting, dark ground, rim, and disc size as R1-R4.
+charcoal match roof.shape.gable -> YES - Shares the set's chunky painted tile brushwork, beveled highlights, top-left lighting, dark ground, thin rim, and disc size.
+charcoal match roof.shape.hip -> YES - Consistent with the set's painterly shingle texture, teal palette, directional lighting, ground shadow, rim, and disc size.
+charcoal match trim.reset -> YES - Combines brick, teal shingles, and a 3D arrow in the same painterly brushwork, warm/cool palette, lighting, ground, rim, and disc size.
+charcoal match pawn.eyes -> YES - Matches disc size, slate-blue rim, dark ground, top-left lighting, and R1's painted teal pawn style and palette, and is legible at 31 px.
+charcoal match pawn.choose -> YES - Matches disc size, rim, dark ground, top-left lighting, R1's teal pawn, and R3/R4's beveled cream accent style, and is legible at 31 px.
+charcoal match hand.move -> YES - Matches disc size, rim, dark ground, top-left lighting, and R3's painted wooden crate and beveled cream arrows, and is legible at 31 px.
+charcoal match hole.wider -> YES - Matches disc size, rim, dark ground, top-left lighting, R4's chiseled grey stone style, and R3/R4's cream arrows, and is legible at 31 px.
+charcoal match hole.narrower -> YES - Matches disc size, rim, dark ground, top-left lighting, R4's chiseled grey stone style, and R3/R4's cream arrows, and is legible at 31 px.
+charcoal match room.hill.height. -> YES - Matches disc size, rim, dark ground, top-left lighting, painterly brushwork, and R3's vertical double-headed cream arrow, and is legible at 31 px.
+charcoal match room.hill.height.raise -> YES - Matches disc size, rim, dark ground, top-left lighting, painterly hill brushwork, and R4's upward cream arrow, and is legible at 31 px.
+charcoal match room.hill.height.lower -> YES - Same disc size, bevelled slate-grey rim, dark slate-blue ground, upper-left lighting, and chunky painted style with a cream arrow matching R3/R4; clearly legible at 31 px.
+charcoal match room.hill.height.10 -> YES - Same disc size, slate-grey rim, dark slate-blue ground, top-left lighting, and faceted hand-painted brushwork in warm brown and moss green; legible at 31 px.
+charcoal match room.hill.height.20 -> YES - Same disc size, slate-grey rim, dark slate-blue ground, top-left lighting, and chunky painted earth-and-grass brushwork consistent with the set; legible at 31 px.
+charcoal match room.hill.cliff -> YES - Same disc size, slate-grey rim, dark slate-blue ground, top-left lighting, and chiselled grey stone brushwork matching R4 paired with painted green grass; legible at 31 px.
+charcoal match share.export -> YES - Same disc size, slate-grey rim, dark slate-blue ground, and identical painted wooden crate and cream arrow style/palette as R3 and R4; clearly legible at 31 px.
+charcoal match share.link -> YES - Same disc size, slate-grey rim, dark slate-blue ground, and matching notched cream parchment and teal metallic palette/brushwork as R1; legible at 31 px.

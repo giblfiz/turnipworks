@@ -24854,6 +24854,22 @@
    "tokens_out": 1654,
    "status": "accepted",
    "matte": "birefnet"
+  },
+  "foe-eye-tyrant": {
+   "id": "foe-eye-tyrant",
+   "group": "large",
+   "images": 1,
+   "status": "accepted",
+   "matte": "birefnet",
+   "gate_model": "gemini via agy-run (subscription)",
+   "full_record": "experiments/2026-10-24-eye-tyrant/gate-manifest.json (its own run; earlier designs in that folder's README)",
+   "attempts": [
+    {
+     "try": 1,
+     "plate": "experiments/2026-10-06-figures/set/inputs/foe-eye-tyrant.jpg",
+     "verdict": "accepted"
+    }
+   ]
   }
  }
 }

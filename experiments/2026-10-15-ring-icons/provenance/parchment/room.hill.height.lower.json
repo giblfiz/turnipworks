@@ -1,0 +1,76 @@
+{
+  "id": "room.hill.height.lower",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: One low flattened green grassy hill mound with ONE large thick ivory DOWNWARD arrow pressing straight down on its top: lower the hill. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/room.height.taller.webp",
+      "sha256": "60332bd86bc7241ad5b2c1da48bd53918693aa3f2ea66f80c3d83cd92c0bbdbd",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/edit.lift.webp",
+      "sha256": "6f66e11ce2c276ce6c207763374890b7d481d718c0d118cc51515cef946ea0d7",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/room.walls.fieldstone.webp",
+      "sha256": "64c81423b2669fec1a8b32c42e8a1b2e29ab450828fba55216c942181ebfd6b4",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--room.hill.height.lower.png",
+      "sha256": "b6e7a20e29a43dc8704c651bf5315bda9f7c4254dbb50d65fe4fe10a8d9809d3",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--room.hill.height.lower.png",
+  "source_sha256": "c6ab4f6958ffdbcde2a2da7d72f997401b7f3a57ece4b35ea676ee07855014da",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/room.hill.height.lower.webp",
+    "19": "parchment/sizes/19/room.hill.height.lower.webp",
+    "22": "parchment/sizes/22/room.hill.height.lower.webp",
+    "26": "parchment/sizes/26/room.hill.height.lower.webp",
+    "31": "parchment/sizes/31/room.hill.height.lower.webp",
+    "36": "parchment/sizes/36/room.hill.height.lower.webp",
+    "38": "parchment/sizes/38/room.hill.height.lower.webp",
+    "42": "parchment/sizes/42/room.hill.height.lower.webp",
+    "44": "parchment/sizes/44/room.hill.height.lower.webp",
+    "50": "parchment/sizes/50/room.hill.height.lower.webp",
+    "52": "parchment/sizes/52/room.hill.height.lower.webp",
+    "62": "parchment/sizes/62/room.hill.height.lower.webp",
+    "84": "parchment/sizes/84/room.hill.height.lower.webp",
+    "100": "parchment/sizes/100/room.hill.height.lower.webp",
+    "128": "parchment/room.hill.height.lower.webp"
+  },
+  "sha256": {
+    "18": "ea3a033c4a4c860780af0faff5de2885ef282197b9de430f77befbd0b1ff9019",
+    "19": "b4fcd2df67390e6d78ce2e84ee090f8dd332958d1263a0bd92a6bad360dada99",
+    "22": "3b76a34c06293a885727b9eba924d339bf54feeab325419635008007a2a53fb4",
+    "26": "a620f0ece52032cf3f52fd2056b11f851469ea7e3fc8204f004f74d581a4d42a",
+    "31": "9e3c51a16103160db501d130f7f802575c9caa310ee46b7beb804186987c0fa6",
+    "36": "96eed154bda40feb01c84fb0bd2ca499c605ecc9400ec68384b637818cdd58ba",
+    "38": "e209938ad4e3020f2bd84af515d8aa89aa0f80b98f7d236864d617b01f4ab78d",
+    "42": "0a6f05f1567e445d7c6f20715871ee26c57556b3f6e796baceb9a225fa9a2eb4",
+    "44": "009698953cc7c7237f776adb2cb9ea6e3af288f9cf0abccc0fef021a9aa4d89f",
+    "50": "140449370091ff123f1f9638c6622f0e1ba34cbb3d6133aa8c5583a574836c34",
+    "52": "b7278869e7826ae8b94484cbf14dcc2d8a9d9a797a9d4fefd9bc14776cc21976",
+    "62": "41cabfc7f882f49d4cbb19da61a59b8d5f1748dddef1cc6c46dd19442f10398f",
+    "84": "cbced2f4853ffc1bc565643a833378e0a28b3c38cd7e8115a4305e2cac409ead",
+    "100": "f656d68f49f2b0886e58d0314ff3b3ae800aaa78a404c7783f9ed52172353242",
+    "128": "99f683796c6850318b005023de34be66c6edea83c98622e9fda328db7e602d3d"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected piece (a pawn, a thing, a hill or a hole in the ground) in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected piece? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "5c1e3edf43c5f3f24d00dba815a4b88129f0e9ec84800c33ac68f511823e0c5a",
+  "blind_prompt_sha256": "2ed1ac590f0de2eac58648bc7c8416bd17a317f0b7fb28dc75052c3994254b0b",
+  "read_directory": "reads/parchment/room.hill.height.lower/c6ab4f6958ffdbcd-2ed1ac590f"
+}

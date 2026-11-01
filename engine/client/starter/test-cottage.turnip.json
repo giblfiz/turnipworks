@@ -1,0 +1,771 @@
+{
+ "format": "turnip-works-share",
+ "v": 1,
+ "kind": "building",
+ "name": "Test cottage",
+ "createdAt": "2026-10-29T12:00:00.000Z",
+ "engine": "v2-61938711",
+ "secrets": true,
+ "base": 0,
+ "buildings": [
+  {
+   "ref": "b1",
+   "name": "Building 1"
+  }
+ ],
+ "rooms": [
+  {
+   "ref": "r2",
+   "building": "b1",
+   "name": "Test cottage",
+   "type": "hut-cottage",
+   "x": 0,
+   "z": 0,
+   "w": 4,
+   "d": 4,
+   "seed": 2029,
+   "wallSeed": 14204
+  }
+ ],
+ "objects": [
+  {
+   "ref": "o3",
+   "room": "r2",
+   "name": "hearth central",
+   "cat": "hearth-central",
+   "sku": "hearth-central--s1",
+   "place": "floor",
+   "layer": "anchor",
+   "x": 10,
+   "z": 7.5,
+   "rot": 0,
+   "yaw": 0,
+   "s": [
+    3.9378,
+    3.9378,
+    3.9378
+   ],
+   "dims": [
+    3.99,
+    1.24,
+    3.95
+   ],
+   "rule": "key-hearth"
+  },
+  {
+   "ref": "o4",
+   "room": "r2",
+   "parent": "o3",
+   "name": "pot iron large",
+   "cat": "pot-iron-large",
+   "sku": "pot-iron-large",
+   "place": "surface",
+   "layer": "dress",
+   "x": 10,
+   "y": 1.24,
+   "z": 7.5,
+   "rot": 0,
+   "yaw": 0,
+   "s": [
+    1.1796,
+    1.1796,
+    1.1796
+   ],
+   "dims": [
+    1.18,
+    0.98,
+    0.96
+   ],
+   "rule": "on-surface"
+  },
+  {
+   "ref": "o5",
+   "room": "r2",
+   "name": "bed straw pallet",
+   "cat": "bed-straw-pallet",
+   "sku": "bed-straw-pallet",
+   "place": "floor",
+   "layer": "anchor",
+   "x": 17.5,
+   "z": 3.57,
+   "rot": 0,
+   "yaw": 1.5707963267948966,
+   "s": [
+    5.9585,
+    5.9585,
+    5.9585
+   ],
+   "dims": [
+    4,
+    2.35,
+    5.99
+   ],
+   "rule": "key-bed"
+  },
+  {
+   "ref": "o6",
+   "room": "r2",
+   "name": "chest plain",
+   "cat": "chest-plain",
+   "sku": "chest-plain--s2",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 17.5,
+   "z": 8.46,
+   "rot": 0,
+   "yaw": 0,
+   "s": [
+    2.9161,
+    2.9161,
+    2.9161
+   ],
+   "dims": [
+    2.94,
+    2.42,
+    2.27
+   ],
+   "rule": "near"
+  },
+  {
+   "ref": "o7",
+   "room": "r2",
+   "name": "table square",
+   "cat": "table-square",
+   "sku": "table-square--common--s4",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 2.63,
+   "z": 13.8,
+   "rot": 0,
+   "yaw": 0,
+   "s": [
+    2.9932,
+    2.9932,
+    2.9932
+   ],
+   "dims": [
+    3.02,
+    2.36,
+    2.99
+   ],
+   "rule": "key-table"
+  },
+  {
+   "ref": "o8",
+   "room": "r2",
+   "name": "stool three leg",
+   "cat": "stool-three-leg",
+   "sku": "stool-three-leg--s1",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 5.32,
+   "z": 13.99,
+   "rot": -1.6413,
+   "yaw": 0,
+   "s": [
+    1.4729,
+    1.4729,
+    1.4729
+   ],
+   "dims": [
+    1.28,
+    1.49,
+    1.27
+   ],
+   "rule": "seat"
+  },
+  {
+   "ref": "o9",
+   "room": "r2",
+   "name": "stool three leg",
+   "cat": "stool-three-leg",
+   "sku": "stool-three-leg--s1",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 2.82,
+   "z": 16.49,
+   "rot": -3.0711,
+   "yaw": 0,
+   "s": [
+    1.4889,
+    1.4889,
+    1.4889
+   ],
+   "dims": [
+    1.3,
+    1.5,
+    1.29
+   ],
+   "rule": "seat"
+  },
+  {
+   "ref": "o10",
+   "room": "r2",
+   "parent": "o7",
+   "name": "cheese wedge",
+   "cat": "cheese-wedge",
+   "sku": "cheese-wedge",
+   "place": "surface",
+   "layer": "dress",
+   "x": 3.31,
+   "y": 2.36,
+   "z": 13.89,
+   "rot": 3.8314,
+   "yaw": 0,
+   "s": [
+    0.4075,
+    0.4075,
+    0.4075
+   ],
+   "dims": [
+    0.37,
+    0.25,
+    0.41
+   ],
+   "rule": "on-surface"
+  },
+  {
+   "ref": "o11",
+   "room": "r2",
+   "parent": "o7",
+   "name": "bread loaf",
+   "cat": "bread-loaf",
+   "sku": "bread-loaf--s3",
+   "place": "surface",
+   "layer": "dress",
+   "x": 1.94,
+   "y": 2.36,
+   "z": 13.32,
+   "rot": 0.0385,
+   "yaw": 0,
+   "s": [
+    0.6478,
+    0.6478,
+    0.6478
+   ],
+   "dims": [
+    0.65,
+    0.34,
+    0.65
+   ],
+   "rule": "on-surface"
+  },
+  {
+   "ref": "o12",
+   "room": "r2",
+   "parent": "o7",
+   "name": "jug clay",
+   "cat": "jug-clay",
+   "sku": "jug-clay",
+   "place": "surface",
+   "layer": "dress",
+   "x": 2.11,
+   "y": 2.36,
+   "z": 14.34,
+   "rot": 4.3615,
+   "yaw": 0,
+   "s": [
+    0.828,
+    0.828,
+    0.828
+   ],
+   "dims": [
+    0.67,
+    0.76,
+    0.84
+   ],
+   "rule": "on-surface"
+  },
+  {
+   "ref": "o13",
+   "room": "r2",
+   "parent": "o7",
+   "name": "candle",
+   "cat": "candle",
+   "sku": "candle--s3",
+   "place": "surface",
+   "layer": "light",
+   "x": 2.58,
+   "y": 2.36,
+   "z": 13.21,
+   "rot": 0.0862,
+   "yaw": 0,
+   "s": [
+    0.5259,
+    0.5259,
+    0.5259
+   ],
+   "dims": [
+    0.48,
+    0.43,
+    0.53
+   ],
+   "rule": "on-surface"
+  },
+  {
+   "ref": "o14",
+   "room": "r2",
+   "name": "stool three leg",
+   "cat": "stool-three-leg",
+   "sku": "stool-three-leg--s3",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 11.3,
+   "z": 4.3,
+   "rot": -0.3878,
+   "yaw": 0,
+   "s": [
+    1.4866,
+    1.4866,
+    1.4866
+   ],
+   "dims": [
+    1.46,
+    1.49,
+    1.46
+   ],
+   "rule": "inward-seat"
+  },
+  {
+   "ref": "o15",
+   "room": "r2",
+   "name": "stool three leg",
+   "cat": "stool-three-leg",
+   "sku": "stool-three-leg--s3",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 13.3,
+   "z": 8.8,
+   "rot": -1.9469,
+   "yaw": 0,
+   "s": [
+    1.5027,
+    1.5027,
+    1.5027
+   ],
+   "dims": [
+    1.48,
+    1.51,
+    1.48
+   ],
+   "rule": "inward-seat"
+  },
+  {
+   "ref": "o16",
+   "room": "r2",
+   "name": "stool three leg",
+   "cat": "stool-three-leg",
+   "sku": "stool-three-leg--s3",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 6.8,
+   "z": 5.8,
+   "rot": 1.083,
+   "yaw": 0,
+   "s": [
+    1.4841,
+    1.4841,
+    1.4841
+   ],
+   "dims": [
+    1.46,
+    1.49,
+    1.46
+   ],
+   "rule": "inward-seat"
+  },
+  {
+   "ref": "o17",
+   "room": "r2",
+   "name": "barrel",
+   "cat": "barrel",
+   "sku": "barrel--s1",
+   "place": "floor",
+   "layer": "store",
+   "x": 2.28,
+   "z": 2.08,
+   "rot": 0.1808,
+   "yaw": 0,
+   "s": [
+    3.1672,
+    3.1672,
+    3.1672
+   ],
+   "dims": [
+    3.15,
+    3.18,
+    2.54
+   ],
+   "rule": "corner-pile"
+  },
+  {
+   "ref": "o18",
+   "room": "r2",
+   "name": "sack",
+   "cat": "sack",
+   "sku": "sack--s4",
+   "place": "floor",
+   "layer": "store",
+   "x": 1.26,
+   "z": 4.93,
+   "rot": 1.5876,
+   "yaw": 0,
+   "s": [
+    2.0265,
+    2.0265,
+    2.0265
+   ],
+   "dims": [
+    1.83,
+    2.04,
+    1.38
+   ],
+   "rule": "corner-pile"
+  },
+  {
+   "ref": "o19",
+   "room": "r2",
+   "name": "crate",
+   "cat": "crate",
+   "sku": "crate--s2",
+   "place": "floor",
+   "layer": "store",
+   "x": 5.6,
+   "z": 1.65,
+   "rot": 0.1914,
+   "yaw": 0,
+   "s": [
+    1.8772,
+    1.8772,
+    1.8772
+   ],
+   "dims": [
+    1.88,
+    1.76,
+    1.88
+   ],
+   "rule": "corner-pile"
+  },
+  {
+   "ref": "o20",
+   "room": "r2",
+   "name": "sack",
+   "cat": "sack",
+   "sku": "sack--s4",
+   "place": "floor",
+   "layer": "store",
+   "x": 1.42,
+   "z": 7.05,
+   "rot": 1.3644,
+   "yaw": 0,
+   "s": [
+    2.0504,
+    2.0504,
+    2.0504
+   ],
+   "dims": [
+    1.85,
+    2.06,
+    1.4
+   ],
+   "rule": "corner-pile"
+  },
+  {
+   "ref": "o21",
+   "room": "r2",
+   "name": "onion pile",
+   "cat": "onion-pile",
+   "sku": "onion-pile",
+   "place": "floor",
+   "layer": "dress",
+   "x": 3.28,
+   "z": 5.08,
+   "rot": -2.8198,
+   "yaw": 0,
+   "s": [
+    1.0903,
+    1.0903,
+    1.0903
+   ],
+   "dims": [
+    1.08,
+    0.82,
+    1.09
+   ],
+   "rule": "near"
+  },
+  {
+   "ref": "o22",
+   "room": "r2",
+   "name": "shelf wall",
+   "cat": "shelf-wall",
+   "sku": "shelf-wall--s3",
+   "place": "wall",
+   "layer": "dress",
+   "x": 6.64,
+   "y": 2.96,
+   "z": 1.45,
+   "rot": 0,
+   "yaw": 0,
+   "s": [
+    3.9464,
+    3.9464,
+    3.9464
+   ],
+   "dims": [
+    3.96,
+    2.88,
+    1.86
+   ],
+   "rule": "wall-mount"
+  },
+  {
+   "ref": "o23",
+   "room": "r2",
+   "name": "shelf wall",
+   "cat": "shelf-wall",
+   "sku": "shelf-wall--s2",
+   "place": "wall",
+   "layer": "dress",
+   "x": 18.46,
+   "y": 3.22,
+   "z": 11.02,
+   "rot": -1.5708,
+   "yaw": 0,
+   "s": [
+    4.0297,
+    4.0297,
+    4.0297
+   ],
+   "dims": [
+    4,
+    2.36,
+    2.03
+   ],
+   "rule": "wall-mount"
+  },
+  {
+   "ref": "o24",
+   "room": "r2",
+   "name": "coat pegs",
+   "cat": "coat-pegs",
+   "sku": "coat-pegs",
+   "place": "wall",
+   "layer": "dress",
+   "x": 17.13,
+   "y": 3.58,
+   "z": 19.15,
+   "rot": 3.1416,
+   "yaw": 0,
+   "s": [
+    2.9966,
+    2.9966,
+    2.9966
+   ],
+   "dims": [
+    3.02,
+    2.84,
+    0.66
+   ],
+   "rule": "wall-mount"
+  },
+  {
+   "ref": "o25",
+   "room": "r2",
+   "name": "broom",
+   "cat": "broom",
+   "sku": "broom--s2",
+   "place": "floor",
+   "layer": "dress",
+   "x": 2.6,
+   "z": 18.59,
+   "rot": 3.1416,
+   "yaw": 0,
+   "s": [
+    4.1955,
+    4.1955,
+    4.1955
+   ],
+   "dims": [
+    3.2,
+    4.18,
+    1.66
+   ],
+   "rule": "floor-clutter"
+  },
+  {
+   "ref": "o26",
+   "room": "r2",
+   "name": "bucket",
+   "cat": "bucket",
+   "sku": "bucket--s1",
+   "place": "floor",
+   "layer": "dress",
+   "x": 10.89,
+   "z": 19.02,
+   "rot": 3.1416,
+   "yaw": 0,
+   "s": [
+    0.9871,
+    0.9871,
+    0.9871
+   ],
+   "dims": [
+    0.79,
+    0.99,
+    0.79
+   ],
+   "rule": "floor-clutter"
+  },
+  {
+   "ref": "o27",
+   "room": "r2",
+   "name": "garlic braid",
+   "cat": "garlic-braid",
+   "sku": "garlic-braid",
+   "place": "wall",
+   "layer": "dress",
+   "x": 17.35,
+   "y": 5.16,
+   "z": 0.93,
+   "rot": 0,
+   "yaw": 0,
+   "s": [
+    1.4282,
+    1.4282,
+    1.4282
+   ],
+   "dims": [
+    1.43,
+    0.28,
+    0.82
+   ],
+   "rule": "wall-mount"
+  },
+  {
+   "ref": "o28",
+   "room": "r2",
+   "name": "herb bundle fresh",
+   "cat": "herb-bundle-fresh",
+   "sku": "herb-bundle-fresh",
+   "place": "surface",
+   "layer": "dress",
+   "x": 19.17,
+   "y": 4.98,
+   "z": 16.34,
+   "rot": -1.5708,
+   "yaw": 0,
+   "s": [
+    0.8743,
+    0.8743,
+    0.8743
+   ],
+   "dims": [
+    0.88,
+    0.63,
+    0.61
+   ],
+   "rule": "wall-mount"
+  },
+  {
+   "ref": "o29",
+   "room": "r2",
+   "name": "utensil rack wall",
+   "cat": "utensil-rack-wall",
+   "sku": "utensil-rack-wall--s2",
+   "place": "wall",
+   "layer": "dress",
+   "x": 0.79,
+   "y": 4.62,
+   "z": 9.57,
+   "rot": 1.5708,
+   "yaw": 0,
+   "s": [
+    1.9696,
+    1.9696,
+    1.9696
+   ],
+   "dims": [
+    1.98,
+    1.37,
+    0.54
+   ],
+   "rule": "wall-mount"
+  },
+  {
+   "ref": "o30",
+   "room": "r2",
+   "name": "butter churn",
+   "cat": "butter-churn",
+   "sku": "butter-churn",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 18.71,
+   "z": 13.71,
+   "rot": -1.5708,
+   "yaw": 0,
+   "s": [
+    3.4511,
+    3.4511,
+    3.4511
+   ],
+   "dims": [
+    1.43,
+    3.46,
+    1.42
+   ],
+   "rule": "against-wall"
+  },
+  {
+   "ref": "o31",
+   "room": "r2",
+   "name": "barrel",
+   "cat": "barrel",
+   "sku": "barrel--s4",
+   "place": "floor",
+   "layer": "furnish",
+   "x": 2.16,
+   "z": 10.7,
+   "rot": 1.5708,
+   "yaw": 0,
+   "s": [
+    3.1467,
+    3.1467,
+    3.1467
+   ],
+   "dims": [
+    2.4,
+    2.75,
+    3.17
+   ],
+   "rule": "against-wall"
+  },
+  {
+   "ref": "o32",
+   "room": "r2",
+   "name": "rushlight holder",
+   "cat": "rushlight-holder",
+   "sku": "rushlight-holder--s2",
+   "place": "floor",
+   "layer": "light",
+   "x": 17.5,
+   "z": 11.56,
+   "rot": 0,
+   "yaw": 0,
+   "s": [
+    3.306,
+    3.306,
+    3.306
+   ],
+   "dims": [
+    2.54,
+    3.32,
+    2.4
+   ],
+   "rule": "near"
+  }
+ ],
+ "edges": [],
+ "pawns": [],
+ "water": []
+}

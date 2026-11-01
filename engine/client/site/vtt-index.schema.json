@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://turnipworks.net/vtt-index.schema.json",
+  "title": "Turnip Works VTT comparison index",
+  "description": "A comparison of virtual tabletops (VTTs): established products, new and indie ones posted to r/VTT, and Turnip Works itself (we make it, and its row is scored by the same rules). Every feature cell carries a value, a short note, a source URL where one was found, and whether the claim was verified against that source.",
+  "type": "object",
+  "required": ["name", "version", "updated", "url", "license", "disclosure", "criteria", "products"],
+  "additionalProperties": false,
+  "properties": {
+    "name": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "updated": { "$ref": "#/$defs/date" },
+    "url": { "type": "string", "format": "uri" },
+    "json_url": { "type": "string", "format": "uri" },
+    "markdown_url": { "type": "string", "format": "uri" },
+    "schema_url": { "type": "string", "format": "uri" },
+    "license": { "type": "string" },
+    "maintainer": { "type": "string" },
+    "disclosure": { "type": "string" },
+    "corrections": { "type": "string" },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "group", "gloss", "values"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z_]+$" },
+          "label": { "type": "string" },
+          "group": { "type": "string" },
+          "gloss": { "type": "string" },
+          "values": { "type": "array", "items": { "type": "string" } },
+          "multi": { "type": "boolean" }
+        }
+      }
+    },
+    "products": { "type": "array", "items": { "$ref": "#/$defs/product" } }
+  },
+  "$defs": {
+    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "tri": { "enum": ["yes", "partial", "no", "?"] },
+    "cell": {
+      "type": "object",
+      "required": ["v"],
+      "additionalProperties": false,
+      "properties": {
+        "v": { "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }] },
+        "note": { "type": "string" },
+        "src": { "type": ["string", "null"] },
+        "verified": { "type": "boolean" }
+      }
+    },
+    "product": {
+      "type": "object",
+      "required": ["id", "name", "group", "kind", "url", "summary", "alive", "last_checked", "features", "upsides", "downsides", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "name": { "type": "string" },
+        "maker": { "type": ["string", "null"] },
+        "group": { "enum": ["ours", "established", "indie"] },
+        "kind": { "enum": ["vtt", "vtt add-on", "map maker", "in-person display", "companion tool", "other"] },
+        "url": { "type": ["string", "null"] },
+        "summary": { "type": "string" },
+        "alive": {
+          "type": "object",
+          "required": ["state", "checked"],
+          "additionalProperties": false,
+          "properties": {
+            "state": { "enum": ["alive", "dead", "unknown"] },
+            "checked": { "$ref": "#/$defs/date" },
+            "how": { "type": "string" }
+          }
+        },
+        "last_checked": { "$ref": "#/$defs/date" },
+        "licence": { "type": ["string", "null"] },
+        "features": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "dims": { "$ref": "#/$defs/cell" },
+            "platform": { "$ref": "#/$defs/cell" },
+            "price": { "$ref": "#/$defs/cell" },
+            "accounts": { "$ref": "#/$defs/cell" },
+            "fog": { "$ref": "#/$defs/cell" },
+            "lighting": { "$ref": "#/$defs/cell" },
+            "mapbuild": { "$ref": "#/$defs/cell" },
+            "levels": { "$ref": "#/$defs/cell" },
+            "sheets": { "$ref": "#/$defs/cell" },
+            "ddb": { "$ref": "#/$defs/cell" },
+            "dice": { "$ref": "#/$defs/cell" },
+            "phone": { "$ref": "#/$defs/cell" },
+            "offline": { "$ref": "#/$defs/cell" },
+            "opensource": { "$ref": "#/$defs/cell" },
+            "ai": { "$ref": "#/$defs/cell" },
+            "modding": { "$ref": "#/$defs/cell" },
+            "stage": { "$ref": "#/$defs/cell" },
+            "community": { "$ref": "#/$defs/cell" }
+          }
+        },
+        "upsides": { "type": "array", "items": { "type": "string" }, "maxItems": 4 },
+        "downsides": { "type": "array", "items": { "type": "string" }, "maxItems": 4 },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["url"],
+            "additionalProperties": false,
+            "properties": { "url": { "type": "string" }, "label": { "type": "string" } }
+          }
+        },
+        "reddit": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "maker": { "type": ["string", "null"] },
+            "post": { "type": ["string", "null"] },
+            "date": { "type": ["string", "null"] },
+            "more": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+These are screenshots of a browser 3D virtual tabletop (painted miniature figures on round grey bases, in a tavern room),
+seen from the players' usual table distance: v5-table-day.png, v5-high-day.png, v5-low-day.png by day; v5-table-night.png and
+v5-high-night.png by night, from a player's seat in a dark room (she sees by her pawns' darkvision; the back row is hers).
+before-table-day.png is the FIRST version (two rounds ago) of the same effect, for comparison only.
+
+STEP 1, before interpreting anything: list every explicit label, name tag and text you can read in each image, and where.
+
+STEP 2: The back row (named L0, L1, L2, L3, L4, L5 from left to right; the furniture has been cleared away) wears a light effect, an "aura", at increasing
+intensity; the front row wears the same middle intensity in six colours. For EACH pawn of the back row, describe only what
+you see of the light round it (shape, height, brightness, colour, motion cues such as sparks), without assuming the intent.
+
+STEP 3: The intent, level by level: 0 nothing; 1 a faint shimmer at the base; 2 a soft coloured light round the figure;
+3 flame-like light rising to about head height; 4 a tall column of light well above the figure, readable across the table;
+5 the same column with a large faint emblem picture hanging in it.
+a) Do the six back-row pawns read as CLEARLY increasing, step by step, in both day and night? Which neighbouring pair is
+   hardest to tell apart?
+b) Can you see the emblem in level 5? Describe it.
+c) Do the six front-row colours read as six different colours (name each as you see it)?
+d) Does any of it look broken (hard seams, banding, a visible tube edge, a flat card, clipping through walls, z-fighting,
+   hiding the figure's face)?
+e) Honest verdict: does it look like a CHEAP GAME EFFECT or like a PAINTED-MINIATURE-WORLD effect (light that belongs to a
+   world of painted miniatures, like object-source lighting painted on a mini)? What exactly makes it cheap, and the three
+   most important changes to move it toward the painted-miniature look?
+f) Compared with prev-table-day.png: better, worse, or the same, and why?
+Be concrete and concise.
+The images are in /tmp/aura-gem-mTxQ: prev-table-day.png v5-high-day.png v5-high-night.png v5-low-day.png v5-table-day.png v5-table-night.png 
+Do NOT create, crop or write any files. Do not read any other files or folders.
+
+===== (gemini-4-argon-high)
+### STEP 1 — Explicit Labels, Name Tags, and Text
+
+#### Common UI (All 6 Images)
+* **Top-left buttons**: `Pawns` (badge `P`), `Settings` (badge `S`), and below them `Other games / New game`.
+  * *Day views only* ([v5-table-day.png](file:///tmp/aura-gem-mTxQ/v5-table-day.png), [v5-high-day.png](file:///tmp/aura-gem-mTxQ/v5-high-day.png), [v5-low-day.png](file:///tmp/aura-gem-mTxQ/v5-low-day.png), [prev-table-day.png](file:///tmp/aura-gem-mTxQ/prev-table-day.png)): also includes `Build` (badge `B`) between `Pawns` and `Settings`.
+* **Left-edge vertical bar**: `1` (mid-height badge).
+* **Top-center search bar**: `Search commands, things to place, people, places... or say / roll` and shortcut badge `/`.
+  * *Day views only*: three pill buttons directly under the search bar: `Area 1`, `Open to players`, `Hide`.
+* **Top-right avatar badges**:
+  * *Day views*: `H` (yellow circle) with `Area 1` below it.
+  * *Night views* ([v5-table-night.png](file:///tmp/aura-gem-mTxQ/v5-table-night.png), [v5-high-night.png](file:///tmp/aura-gem-mTxQ/v5-high-night.png)): `H` (`Area 1` below) and `M` (blue circle, `Area 1` below).
+* **Bottom-left chat input**: `say ... or roll d20 in the bar`.
+
+#### Per-Image Labels, Pawn Tags, and Telemetry
+1. **[v5-table-day.png](file:///tmp/aura-gem-mTxQ/v5-table-day.png)**:
+   * **Room/building tags**: `Building 1` (floating above the gap between L3 and L4); `Common room` (floating in the center of the room over the bases of L2–L4).
+   * **Back-row pawn bases (left to right)**: `L0`, `L1`, (`L2` and `L3` occluded by `Common room`, `L4` partially occluded), `L5`.
+   * **Front-row pawn bases (left to right)**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry**: `live (ws) · 14 ms · Area 1 seq 3 · 53 fps`.
+2. **[v5-high-day.png](file:///tmp/aura-gem-mTxQ/v5-high-day.png)**:
+   * **Room/building tags**: `Building 1` (over L3's torso); `Common room` (on the floor between the two rows, below L2/L3).
+   * **Back-row pawn bases**: `L0`, `L1`, `L2`, `L3`, `L4`, `L5`.
+   * **Front-row pawn bases**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry**: `live (ws) · 20 ms · Area 1 seq 3 · 50 fps`.
+3. **[v5-low-day.png](file:///tmp/aura-gem-mTxQ/v5-low-day.png)**:
+   * **Room/building tags**: `Building 1` (partially clipped at the very top edge behind the search bar); `Common room` (near the top of the back wall above L3/L4).
+   * **Back-row pawn bases**: `L0` occluded by the `gold` pawn; `L1`, `L2`, `L3` visible on their base rims; `L4` occluded by the `green` pawn; `L5` partially visible (`L5` top edge above the `red` pawn).
+   * **Front-row pawn bases**: mostly hidden behind the foreground wooden wall; only `si...` (from `silver`) is visible through the front wall opening.
+   * **Bottom-right telemetry**: `live (ws) · 22 ms · Area 1 seq 3 · 49 fps`.
+4. **[v5-table-night.png](file:///tmp/aura-gem-mTxQ/v5-table-night.png)**:
+   * **Room/building tags**: None.
+   * **Back-row pawn bases**: `L0`, `L1`, `L2`, `L3`, `L4`, `L5`.
+   * **Front-row pawn bases**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry**: `live (ws) · 7 ms · Area 1 seq 5 · 20 fps`.
+5. **[v5-high-night.png](file:///tmp/aura-gem-mTxQ/v5-high-night.png)**:
+   * **Room/building tags**: None.
+   * **Back-row pawn bases**: `L0`, `L1`, `L2`, `L3`, `L4`, `L5`.
+   * **Front-row pawn bases**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry**: `live (ws) · 1 ms · Area 1 seq 5 · 31 fps`.
+6. **[prev-table-day.png](file:///tmp/aura-gem-mTxQ/prev-table-day.png)**:
+   * **Room/building tags**: `Building 1` (above L3/L4); `Common room` (covering bases of L2–L4).
+   * **Back-row pawn bases**: `L0`, `L1`, (`L2`–`L4` covered by `Common room`), `L5`.
+   * **Front-row pawn bases**: `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry**: `live (ws) · 7 ms · Area 1 seq 3 · 60 fps`.
+
+---
+
+### STEP 2 — Back-Row Visual Description (L0–L5 in `v5-*`)
+
+* **L0**: No golden light or aura. Only the flat cyan/blue ring around the grey base rim; the miniature itself is dark and unlit.
+* **L1**: A thin, low golden-yellow ring tightly hugging the outer edge of the circular base on the floor. Virtually zero vertical rise; the miniature remains dark. No sparks or vertical wisps.
+* **L2**: A brighter yellow-gold ring around the base plus a faint, translucent amber haze rising to roughly waist/mid-torso height, with a small pool of warm light on the adjacent floorboards. Soft vertical streaks in the haze, no distinct sparks.
+* **L3**: A dome/cone of warm gold light enveloping the figure up to roughly head height, with a bright yellow base ring and warm golden highlights lighting the miniature's armor and shield. Soft flame-like vertical tongues around the body and a few tiny bright yellow spark specks near the shoulders/head (most visible in [v5-low-day.png](file:///tmp/aura-gem-mTxQ/v5-low-day.png)).
+* **L4**: A tall, cylindrical/slightly tapered pillar of light rising roughly 2–2.5× the figure's height. The lower half is a dense, milky yellow-white glow that partially washes out the miniature's body; the upper shaft is translucent gold with vertical flame wisps and scattered bright yellow pinprick sparks.
+* **L5**: A wide, tall golden pillar slightly broader and taller than L4 (reaching the top of the back wall), with an intense white-gold base ring, dense creamy gold around the figure, rising flame streaks, scattered sparks, and a large translucent golden sun-face relief floating in the upper half of the column above the figure's head.
+
+---
+
+### STEP 3 — Evaluation Against Intent
+
+#### a) Clear step-by-step progression & hardest pair to tell apart
+* **Day & Low views ([v5-table-day.png](file:///tmp/aura-gem-mTxQ/v5-table-day.png), [v5-low-day.png](file:///tmp/aura-gem-mTxQ/v5-low-day.png))**: Yes, L0 → L5 reads as a clear step-by-step increase.
+* **High & Night views ([v5-high-day.png](file:///tmp/aura-gem-mTxQ/v5-high-day.png), [v5-high-night.png](file:///tmp/aura-gem-mTxQ/v5-high-night.png), [v5-table-night.png](file:///tmp/aura-gem-mTxQ/v5-table-night.png))**: Progression is weaker at two points:
+  * **Hardest pair overall: L1 vs. L2** (especially in [v5-high-day.png](file:///tmp/aura-gem-mTxQ/v5-high-day.png) and [v5-high-night.png](file:///tmp/aura-gem-mTxQ/v5-high-night.png)). Looking down from a high angle foreshortens L2's low body mist, reducing both L1 and L2 to a yellow ring around the base with only a slight brightness difference.
+  * **Secondary hard pair in night view: L4 vs. L5** in [v5-table-night.png](file:///tmp/aura-gem-mTxQ/v5-table-night.png), because the darkvision fog boundary darkens the upper back wall and dims the top of the columns where L5's emblem lives.
+
+#### b) Level 5 emblem visibility and description
+* **Visible**: Yes. It is a circular **sun-face emblem** (a stylized human face in relief with eyes, nose, and mouth at the center, surrounded by a ring of pointed triangular sun rays).
+* **Readability**: Crisp and bright against the wall in [v5-low-day.png](file:///tmp/aura-gem-mTxQ/v5-low-day.png); moderately readable in [v5-table-day.png](file:///tmp/aura-gem-mTxQ/v5-table-day.png) and [v5-high-day.png](file:///tmp/aura-gem-mTxQ/v5-high-day.png) (though the dark gap between wooden wall panels shows right through the middle of the face in table-day); dim and partially swallowed by the darkvision fog in [v5-table-night.png](file:///tmp/aura-gem-mTxQ/v5-table-night.png) and [v5-high-night.png](file:///tmp/aura-gem-mTxQ/v5-high-night.png).
+
+#### c) Six front-row colours
+* **Yes**, all six read clearly as distinct colours:
+  1. `gold`: Warm golden-yellow / amber
+  2. `silver`: Cool white / silver
+  3. `blue`: Periwinkle / cornflower blue
+  4. `green`: Bright emerald / lime green
+  5. `red`: Crimson / warm scarlet red
+  6. `violet`: Bright magenta-purple / violet
+
+#### d) What looks broken
+1. **Visible tube/card silhouette at high angles**: In [v5-high-day.png](file:///tmp/aura-gem-mTxQ/v5-high-day.png) and [v5-high-night.png](file:///tmp/aura-gem-mTxQ/v5-high-night.png), L4 and L5 read as tilted cylindrical tubes/billboards with obvious left/right edges and a rounded top cap.
+2. **Obscuring/washing out the miniature**: The front layer of the aura passes between the camera and the pawn, creating a milky veil over the figure. On L4, the slender figure's face and body details are nearly washed out by the opaque creamy-yellow core; on the front row (`silver`, `green`), the haze dulls the painted contrast of the minis.
+3. **Wall-seam bleed-through & clipping**: In [v5-table-day.png](file:///tmp/aura-gem-mTxQ/v5-table-day.png), the dark vertical gap in the wooden wall behind L5 cuts sharply through the translucent sun face, and the top of L5's column extends above the top edge of the wall.
+4. **Darkvision fog clipping at night**: In [v5-table-night.png](file:///tmp/aura-gem-mTxQ/v5-table-night.png), the blue-white darkvision fog-of-war attenuates the upper half of L4 and L5, muting a light source that should be self-luminous.
+
+#### e) Honest verdict: Cheap Game Effect vs. Painted-Miniature-World Effect
+* **Verdict**: **Cheap game effect** (looks like standard MMO/VTT additive billboard/cylinder VFX dropped onto 3D models).
+* **What makes it look cheap**:
+  1. **Glowing fog in front of the figure**: Real or painted miniatures never have milky translucent haze floating in empty air in front of their faces, which flattens the miniature's painted shading.
+  2. **Neon UI-style base rings**: The uniform, over-bright ring hugging the base perimeter looks like an RTS selection circle rather than physical light hitting a painted base and tabletop.
+  3. **Floating billboard columns and ghosted decal**: The tall cylindrical shafts on L4/L5 and the semi-transparent 2D sun graphic hanging in mid-air break tabletop scale and materiality.
+* **Three most important changes toward a painted-miniature (OSL) look**:
+  1. **Clear the front of the miniature and push the effect into surface lighting (true OSL)**: Remove or strongly stencil out the aura haze in front of the pawn so the miniature's face and paint job remain crisp; instead, drive intensity via strong directional rim/under-lighting on the miniature's mesh normals and radial light spill across the grey base and wooden floor planks.
+  2. **Put vertical aura geometry strictly *behind* the figure (or sculpt it like painted translucent resin/flame)**: Render the rising glow behind the pawn's silhouette so the miniature stands in high-contrast relief against a warm backdrop rather than inside a milky tube.
+  3. **Replace the neon base ring and ghostly sun texture with physical/heraldic equivalents**: Soften the base ring into grazed light across the bevel of the grey base + floor wood grain, and render the L5 emblem as a crisp, high-contrast heraldic crest/halo behind the figure's head (unaffected by background wall seams or darkvision fog).
+
+#### f) Comparison with [prev-table-day.png](file:///tmp/aura-gem-mTxQ/prev-table-day.png)
+* **Overall**: **Slightly better on progression (L0–L2), worse on L5 emblem clarity, and the same on core style.**
+  * **Better**: In [prev-table-day.png](file:///tmp/aura-gem-mTxQ/prev-table-day.png), L0 erroneously had a bright yellow base ring nearly identical to L1. In [v5-table-day.png](file:///tmp/aura-gem-mTxQ/v5-table-day.png), L0 has no yellow aura and L1 is subtler, making L0 → L1 → L2 actually work. The tops of L4 and L5 also taper into softer flame wisps rather than a hard-edged dome.
+  * **Worse**: In [prev-table-day.png](file:///tmp/aura-gem-mTxQ/prev-table-day.png), L5's sun emblem was denser and immediately legible from table distance; in [v5-table-day.png](file:///tmp/aura-gem-mTxQ/v5-table-day.png), it is more transparent and gets visually split by the dark vertical wall seam behind it.
+  * **The same**: The front row and L3–L5 still rely on the same milky additive shell and neon base ring.

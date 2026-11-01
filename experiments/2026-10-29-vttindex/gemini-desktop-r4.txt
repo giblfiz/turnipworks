@@ -1,0 +1,64 @@
+### `desktop-top.png`
+
+#### 1. Labels
+* **Headings:**
+  * Site header: `Turnip Works` (nav: `About`, `Compare VTTs`, `Terms`, `Privacy`, `Source`)
+  * Page title: `VTT comparison index`
+  * Inline section heading: `Who made this table.`
+* **Filter labels:**
+  * `Show only`
+  * Checkboxes: `3D`, `Free to start`, `Runs in a browser`, `Open source`, `Site is up`
+  * Dropdowns / search: `Group` (value: `All`), `Kind` (value: `Every kind`), `Search` (placeholder: `a name or a word`)
+  * Result count: `Showing all 118`
+* **Legend:**
+  * `Key`, `yes`, `partial`, `no`, `? unknown`, `n/a, or a plain value`, `(?) not confirmed from a source`
+  * Hint: `more columns to the right: scroll or swipe the table sideways → · hover a cell for its note`
+* **Column headers:**
+  * `Product↑`, `2D / 3D`, `Runs on`, `Price`, `Accounts`, `Fog`, `Lighting`, `Map building`, `Levels`, `Sheets & rules`, `D&D Beyond`, `Dice` (plus clipped `F` on the right edge)
+* **First five product names:**
+  1. `16-VTT`
+  2. `20Realms`
+  3. `AboveVTT`
+  4. `Adunata`
+  5. `Aethera VTT`
+
+#### 2. Review
+* **VERDICT:** OK
+* **Table visibility:** Yes, table headers and the first 4 full rows (plus row 5 partially) are visible without scrolling.
+* **Colour legend:** Understandable; follows standard green/amber/red/grey semantic conventions with clear definitions.
+* **Problems:**
+  1. **Subtext wrap:** Subtitle under `AboveVTT` wraps awkwardly across lines as `Established · vtt add-` / `on`.
+  2. **Low-contrast text:** `(?) not confirmed from a source` and inline `(?)` cell markers use a muted grey that may be low-contrast on dimmer displays.
+  3. **Edge clipping:** Row 5 (`Aethera VTT`) is cut off by the bottom viewport fold, and the 13th column header (`F`) is cut off at the right margin (though expected given table scroll mechanics).
+
+---
+
+### `desktop-detail.png`
+
+#### 1. Labels
+* **Headings:**
+  * Modal title: `Roll20` (subhead: `Established · vtt · Roll20, LLC`)
+  * Background page: `How to read it`
+* **Filter labels:**
+  * `Showing all 118` (all filter toggles/inputs are scrolled out of view)
+* **Legend:**
+  * `Key`, `yes`, `partial`, `no`, `? unknown` (remainder covered by modal)
+* **Column headers:**
+  * Left of panel: `Product↑`, `2D / 3D`, `Runs c` (clipped `Runs on`)
+  * Right of panel: `ts & rules` (clipped), `D&D Beyond`, `Dice`
+* **First five product names (visible in table):**
+  1. `Quest Portal`
+  2. `RealmKeeper`
+  3. `RealmRiders`
+  4. `RealmWeaver`
+  5. `Reverie`
+  *(Note: Product in open panel is `Roll20`)*
+
+#### 2. Review
+* **VERDICT:** FIX
+* **Detail panel continuation:** Yes, clearly indicated both by the `scroll for more ↓` hint in the footer and by content visually cut off above the footer bar.
+* **`[source]` links:** Legible and underlined, but styled in low-contrast grey rather than link color.
+* **Problems (most important first):**
+  1. **Text clipped / overlapped by sticky footer:** The bottom-most visible row (`Phones`) has its text (`Mobile app delisted Feb 2026; mobile browser for character`) sliced in half horizontally by the fixed footer action bar due to missing bottom scroll padding.
+  2. **Orphan wrap on `[source]`:** In the `Dynamic lighting` row, the `[source]` link wraps onto its own line alone.
+  3. **Weak link affordance:** `[source]` links use muted body grey instead of the amber accent color used by `https://roll20.net/` and `Link to this row`.

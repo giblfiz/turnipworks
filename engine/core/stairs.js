@@ -11,7 +11,8 @@
 //
 // Pure data: the relay and the browser run the same code. `entities` is an area's entity map.
 import { hasCell, cellsOf } from './footprint.js';
-import { roomY, roomTop, roomHeight, buildingOf, baseOf, floorUnder, STEP, isStoneFamily } from './height.js';
+import { roomY, roomTop, roomHeight, floorUnder, meetsGround, STEP, isStoneFamily } from './height.js';
+import { holeCellsAt } from './holes.js';
 
 const CELL = 5;
 // the kinds of stair the generator places, each with the catalog ids that can draw it (first one in the library wins;
@@ -125,9 +126,21 @@ export function stairsOf(entities) {
   return served.size ? all.filter(s => !s.rule || !(!STAIR_ROLES[s.cat]?.focal && served.has(s.room))) : all;
 }
 // the cells of the floor at height y that stairs come up through: Set of 'gx:gz'
+// (2026-10-22) and the squares a hole or a pit opens in that floor (core/holes.js): drawn, stopped and lit by the same cut
+// (2026-10-29) KEPT PER STATE, as stairWalk is: it is asked once per stair by stairStatus and stairEnds, so every change
+// on a town with many stairs walked every thing (stairs x things) several times over (a profile of first person walking:
+// half the frame). The state is never changed in place, so a new one is a new key. Read-only: callers never add to it.
+const HOLES = new WeakMap();
 export function holesAt(entities, y) {
+  let M = entities && typeof entities === 'object' ? HOLES.get(entities) : null;
+  if (entities && typeof entities === 'object' && !M) HOLES.set(entities, M = new Map());
+  const k = y || 0, hit = M?.get(k); if (hit) return hit;
+  const out = holesAtNow(entities, y); M?.set(k, out); return out;
+}
+function holesAtNow(entities, y) {
   const out = new Set();
   for (const s of stairsOf(entities)) if (stairTop(s) === y) for (const [gx, gz] of stairCells(s)) out.add(key(gx, gz));
+  for (const k of holeCellsAt(entities, y)) out.add(k);
   return out;
 }
 // the two rooms a stair joins: { from, to } (room ids; to = null: it comes up onto open ground or a deck)
@@ -245,18 +258,20 @@ export function stairPiece(lib, kind = 'straight', family = '') {
 export function planStair(entities, room, { doors = [], family = '', kinds = ['straight', 'ladder'], pairOk = null, loose = [], strict = false } = {}) {
   planStair.why = '';
   if (!room?.recipe) return null;
-  const b = buildingOf(entities, room), base = baseOf(b), y = roomY(room.recipe), rooms = Object.values(entities).filter(e => e.kind === 'room' && e.id !== room.id);
+  // (2026-10-26) a room that meets the ground (core/height.js meetsGround: on the open ground, on or dug into a hill) needs
+  // no stair; one above the ground goes up from the room under it; one below the ground up into the room or ground above
+  const ground = meetsGround(entities, room), y = roomY(room.recipe), rooms = Object.values(entities).filter(e => e.kind === 'room' && e.id !== room.id);
   const shares = (o) => cellsOf(o.recipe).some(([i, j]) => hasCell(room.recipe, o.recipe.x + i, o.recipe.z + j));
   let pairs; // [{ lower, upper (null = open ground), rise }]
-  if (y > base) {
+  if (!ground && y > 0) {
     if (hasStair(entities, room, 'upper')) return null;
     pairs = rooms.filter(o => roomTop(entities, o) === y && shares(o)).sort((p, q) => p.order - q.order).map(o => ({ lower: o, upper: room, rise: roomHeight(entities, o) }));
     if (!pairs.length) { planStair.why = 'no room directly below to come up from'; return null; }
-  } else if (y < base) {
+  } else if (y < 0) {
     if (hasStair(entities, room, 'lower')) return null;
     const top = roomTop(entities, room), rise = roomHeight(entities, room), ups = rooms.filter(o => roomY(o.recipe) === top && shares(o)).sort((p, q) => p.order - q.order);
     pairs = ups.map(o => ({ lower: room, upper: o, rise }));
-    if (top === base) pairs.push({ lower: room, upper: null, rise }); // or straight up onto the ground beside the building
+    if (top === 0) pairs.push({ lower: room, upper: null, rise }); // or straight up onto the ground beside the building
     if (!pairs.length) { planStair.why = 'nothing above to come out into'; return null; }
   } else return null;
   if (pairOk) { pairs = pairs.filter(pairOk); if (!pairs.length) { planStair.why = 'no hallway or common room to line it up with'; return null; } }
@@ -303,7 +318,7 @@ export function planStair(entities, room, { doors = [], family = '', kinds = ['s
   const K = STAIR_KINDS[best.kind], n = K.cells[1], [c0, c1] = [best.cells[0], best.cells[n - 1]], [dx, dz] = DIRS[best.q], lean = best.kind === 'ladder' ? 1.9 : 0; // a ladder stands at the far side of its square
   // `down`: it was put in for the room ABOVE (an upper room's way down), so it goes when that room is deleted; a cellar's
   // stair up belongs to the cellar
-  const down = roomY(room.recipe) > base;
+  const down = best.lower.id !== room.id; // (the room it was planned for is the upper one)
   return { kind: best.kind, from: best.lower.id, to: best.upper?.id || null, cells: best.cells,
     args: { name: K.name, layer: 'furnish', ...(best.rise !== 10 && { rise: best.rise }), ...(down && { down: true }), x: (c0[0] + c1[0] + 1) * CELL / 2 + dx * lean, y: roomY(best.lower.recipe), z: (c0[1] + c1[1] + 1) * CELL / 2 + dz * lean,
       rot: ((best.q + 2) % 4) * Math.PI / 2, room: best.lower.id, ...(best.lower.hidden || best.upper?.hidden ? { hidden: true } : {}) } };
@@ -417,12 +432,58 @@ export function migrateStair(e, pieceOf = null) {
     ...(rise !== (STAIR_ROLES[P.cat]?.rise || 10) && { rise }), ...((e.y || 0) >= 0 && { down: true }) };
 }
 
-// A PAWN DROPPED ON A STAIR GOES TO ITS OTHER END: from the lower floor (anywhere on the stair's cells or its foot
-// landing... no: its cells) to the top landing; from the upper floor (dropped on the hole) to the foot landing.
+// A STAIR IS A PLACE TO STAND (Harry 2026-10-26: "Mid-stairs need to not snap landing. A stair is not a teleporter. A
+// stair is a place that people can stand ... people stand on stairs. It's an extremely common move with pawns."). A
+// FLIGHT (every stair but a ladder and a spiral) is ground along its run: on its box, at the point (x, z), its treads are
+// at base + rise * (how far along the run the point is), from its foot to its top, so a pawn dragged along it rises and
+// falls with it and one let go on it stands there. Its hole (the squares of the floor at its top) is no ground: over it a
+// pawn stands on the treads. Worked out from where the stair stands, never stored; a stair that leads nowhere (DEAD:
+// nothing built over it or under it, no way off at its top) is just furniture to the pawns, as before.
+// A LADDER AND A SPIRAL are not walked (the treads of a spiral wind round, a ladder is upright): a pawn let go on one
+// still goes to its other end in one move (stairHop, below).
+//   stairWalks(s)            is this stair walked?
+//   stairWalk(entities)      -> { list, holes: Map(y -> Set 'gx:gz'), at(x, z) -> [{ id, y, base, top, room }] } (cached
+//                            per state). `room`: the room it stands in, or, at its very top, the room it comes up into.
+export const stairWalks = (s) => stairKind(s) !== 'ladder' && !stairRole(s)?.turn;
+// the treads are stepped, the run is measured as a slope: a base on it is set on the tread under its UPHILL edge (this far
+// up the run from its middle, about a base's radius), as a miniature rests on the higher step with its front over the
+// lower one; on the slope's own line the higher steps came up through the back of the base (Gemini, 2026-10-26: "sunk
+// into the staircase, with the higher rising steps clipping directly through the back of the base")
+export const WALK_LIFT = 1.2;
+const WALK = new WeakMap(), NO_WALK = { list: [], holes: new Map(), at: () => [] };
+export function stairWalk(entities) {
+  if (!entities || typeof entities !== 'object') return NO_WALK;
+  let W = WALK.get(entities); if (W) return W;
+  const list = [];
+  for (const s of Object.values(entities).some(isConnector) ? stairsOf(entities) : []) {
+    if (!stairWalks(s) || DEAD.has(stairStatus(entities, s).code)) continue;
+    const [dx, dz] = stairDir(s), base = baseOf_(s), top = stairTop(s), L = stairLinks(entities, s);
+    const run = s.dims?.[2] || CELL, wide = s.dims?.[0] || CELL; // (a piece's box: [across, height, along its run])
+    list.push({ id: s.id, s, base, top, dx, dz, run, wide, lower: L.from, upper: L.to, cells: stairCells(s) });
+  }
+  const holes = new Map();
+  for (const t of list) { const m = holes.get(t.top) || holes.set(t.top, new Set()).get(t.top); for (const [gx, gz] of t.cells) m.add(key(gx, gz)); }
+  const at = (x, z) => {
+    if (!list.length) return [];
+    const out = [];
+    for (const t of list) {
+      const ux = x - t.s.x, uz = z - t.s.z, a = ux * t.dx + uz * t.dz, b = Math.abs(ux * t.dz - uz * t.dx); // a: along the climb from its middle, b: across
+      if (Math.abs(a) > t.run / 2 + 0.25 || b > t.wide / 2 + 0.25) continue;
+      const k = Math.min(1, Math.max(0, (a + WALK_LIFT + t.run / 2) / t.run)), y = Math.round((t.base + (t.top - t.base) * k) * 100) / 100;
+      out.push({ id: t.id, y, base: t.base, top: t.top, room: y >= t.top - 0.5 ? (t.upper || t.lower) : t.lower });
+    }
+    return out;
+  };
+  W = { list, holes, at }; WALK.set(entities, W); return W;
+}
+
+// A PAWN DROPPED ON A LADDER OR A SPIRAL GOES TO ITS OTHER END: from the lower floor (dropped on the piece) to the top
+// landing; from the upper floor (dropped on the hole) to the foot landing. A flight is walked instead (stairWalk, above).
 // (x, z): where it was dropped; y: the height of the floor it was dropped on. -> { x, z, y, stair } or null
 export function stairHop(entities, x, z, y = 0) {
   const gx = Math.floor(x / CELL + 1e-6), gz = Math.floor(z / CELL + 1e-6), near = { x, z };
   for (const s of stairsOf(entities)) {
+    if (stairWalks(s)) continue;
     if (!stairCells(s).some(c => c[0] === gx && c[1] === gz)) continue;
     if (DEAD.has(stairStatus(entities, s).code)) continue; // no floor at one of its ends: it leads nowhere yet, the pawn just stands there
     if (Math.abs(baseOf_(s) - y) < 0.5 && onPiece(s, x, z)) {

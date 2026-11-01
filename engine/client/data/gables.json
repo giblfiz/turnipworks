@@ -1,0 +1,394 @@
+{
+ "about": "The gable kit and the marble roof's painted picture (engine/client/roofs.js GABLE, buildRoof; world.js). Built by experiments/2026-10-27-roofs-temple/install.py; never edit by hand.",
+ "roofing": {
+  "marble": {
+   "url": "roof/roofing-marble.webp",
+   "rev": "949318aa",
+   "px": [
+    512,
+    512
+   ],
+   "kb": 29
+  }
+ },
+ "walls": {
+  "black-stone": {
+   "mean": [
+    0.2144,
+    0.1622,
+    0.1503
+   ],
+   "url": "roof/gable-wall--black-stone.webp",
+   "normal": "roof/gable-wall--black-stone.normal.webp",
+   "rev": "a0d48428",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--black-stone"
+  },
+  "castle-rough": {
+   "mean": [
+    0.4035,
+    0.356,
+    0.3081
+   ],
+   "url": "roof/gable-wall--castle-rough.webp",
+   "normal": "roof/gable-wall--castle-rough.normal.webp",
+   "rev": "e8ce1d5b",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--castle-rough"
+  },
+  "conservatory": {
+   "mean": [
+    0.7557,
+    0.6444,
+    0.5189
+   ],
+   "url": "roof/gable-wall--conservatory.webp",
+   "normal": "roof/gable-wall--conservatory.normal.webp",
+   "rev": "1a788bf6",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--conservatory"
+  },
+  "crypt-stone": {
+   "mean": [
+    0.2576,
+    0.2619,
+    0.2195
+   ],
+   "url": "roof/gable-wall--crypt-stone.webp",
+   "normal": "roof/gable-wall--crypt-stone.normal.webp",
+   "rev": "269c7db0",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--crypt-stone"
+  },
+  "cut-rock": {
+   "mean": [
+    0.2104,
+    0.1991,
+    0.1849
+   ],
+   "url": "roof/gable-wall--cut-rock.webp",
+   "normal": "roof/gable-wall--cut-rock.normal.webp",
+   "rev": "08dec813",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--cut-rock"
+  },
+  "dressed-stone": {
+   "mean": [
+    0.3676,
+    0.3863,
+    0.3806
+   ],
+   "url": "roof/gable-wall--dressed-stone.webp",
+   "normal": "roof/gable-wall--dressed-stone.normal.webp",
+   "rev": "a0fcd080",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--dressed-stone"
+  },
+  "fieldstone": {
+   "mean": [
+    0.3189,
+    0.323,
+    0.2683
+   ],
+   "url": "roof/gable-wall--fieldstone.webp",
+   "normal": "roof/gable-wall--fieldstone.normal.webp",
+   "rev": "4fd4270f",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--fieldstone"
+  },
+  "half-timber": {
+   "mean": [
+    0.5036,
+    0.4199,
+    0.309
+   ],
+   "url": "roof/gable-wall--half-timber.webp",
+   "normal": "roof/gable-wall--half-timber.normal.webp",
+   "rev": "3bad2e0b",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--half-timber"
+  },
+  "log-cabin": {
+   "mean": [
+    0.4432,
+    0.3093,
+    0.193
+   ],
+   "url": "roof/gable-wall--log-cabin.webp",
+   "normal": "roof/gable-wall--log-cabin.normal.webp",
+   "rev": "98be20c8",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--rough-timber--s3"
+  },
+  "mine-timbered": {
+   "mean": [
+    0.2653,
+    0.2428,
+    0.1771
+   ],
+   "url": "roof/gable-wall--mine-timbered.webp",
+   "normal": "roof/gable-wall--mine-timbered.normal.webp",
+   "rev": "b9658ef5",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--mine-timbered"
+  },
+  "noble-interior": {
+   "mean": [
+    0.6841,
+    0.533,
+    0.3983
+   ],
+   "url": "roof/gable-wall--noble-interior.webp",
+   "normal": "roof/gable-wall--noble-interior.normal.webp",
+   "rev": "0732de20",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--noble-interior"
+  },
+  "noble-panel": {
+   "mean": [
+    0.7893,
+    0.6448,
+    0.5198
+   ],
+   "url": "roof/gable-wall--noble-panel.webp",
+   "normal": "roof/gable-wall--noble-panel.normal.webp",
+   "rev": "18bae9a6",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--noble-panel"
+  },
+  "noble-paper": {
+   "mean": [
+    0.3702,
+    0.417,
+    0.3142
+   ],
+   "url": "roof/gable-wall--noble-paper.webp",
+   "normal": "roof/gable-wall--noble-paper.normal.webp",
+   "rev": "6b4ab2de",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--noble-paper"
+  },
+  "rough-timber": {
+   "mean": [
+    0.5084,
+    0.3003,
+    0.1701
+   ],
+   "url": "roof/gable-wall--rough-timber.webp",
+   "normal": "roof/gable-wall--rough-timber.normal.webp",
+   "rev": "2a880890",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--rough-timber--s2"
+  },
+  "temple-stone": {
+   "mean": [
+    0.7632,
+    0.6489,
+    0.4643
+   ],
+   "url": "roof/gable-wall--temple-stone.webp",
+   "normal": "roof/gable-wall--temple-stone.normal.webp",
+   "rev": "f0f78a62",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--temple-stone"
+  },
+  "tower-stone": {
+   "mean": [
+    0.5081,
+    0.3748,
+    0.2425
+   ],
+   "url": "roof/gable-wall--tower-stone.webp",
+   "normal": "roof/gable-wall--tower-stone.normal.webp",
+   "rev": "f58a21c6",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--tower-stone"
+  },
+  "wattle-daub": {
+   "mean": [
+    0.7099,
+    0.6103,
+    0.4327
+   ],
+   "url": "roof/gable-wall--wattle-daub.webp",
+   "normal": "roof/gable-wall--wattle-daub.normal.webp",
+   "rev": "46b0b969",
+   "ft": [
+    5.0,
+    7.6
+   ],
+   "from": "wall-straight--wattle-daub"
+  }
+ },
+ "openings": {
+  "window": {
+   "url": "roof/gable-window.webp",
+   "rev": "b7c5bb9d",
+   "px": [
+    237,
+    256
+   ],
+   "kb": 13,
+   "crop": [
+    227,
+    204,
+    797,
+    819
+   ],
+   "opaque": 0.3019,
+   "mean": [
+    0.2764,
+    0.2391,
+    0.1573
+   ],
+   "plate": "experiments/2026-10-27-roofs-temple/raw/gable-window.png"
+  },
+  "vent": {
+   "url": "roof/gable-vent.webp",
+   "rev": "f1d3613b",
+   "px": [
+    208,
+    256
+   ],
+   "kb": 13,
+   "crop": [
+    263,
+    207,
+    760,
+    818
+   ],
+   "opaque": 0.2413,
+   "mean": [
+    0.3913,
+    0.3227,
+    0.2299
+   ],
+   "plate": "experiments/2026-10-27-roofs-temple/raw/gable-vent.png"
+  },
+  "oculus": {
+   "url": "roof/gable-oculus.webp",
+   "rev": "c416a167",
+   "px": [
+    256,
+    256
+   ],
+   "kb": 18,
+   "crop": [
+    195,
+    189,
+    828,
+    821
+   ],
+   "opaque": 0.2975,
+   "mean": [
+    0.5435,
+    0.4656,
+    0.3492
+   ],
+   "plate": "experiments/2026-10-27-roofs-temple/raw/gable-oculus.png"
+  },
+  "tympanum": {
+   "url": "roof/pediment-tympanum.webp",
+   "rev": "020907c7",
+   "px": [
+    1024,
+    211
+   ],
+   "kb": 38,
+   "crop": [
+    25,
+    348,
+    1512,
+    654
+   ],
+   "opaque": 0.1465,
+   "mean": [
+    0.8617,
+    0.777,
+    0.6223
+   ],
+   "plate": "experiments/2026-10-27-roofs-temple/raw/pediment-tympanum.png"
+  }
+ },
+ "cornice": {
+  "url": "roof/cornice-marble.webp",
+  "rev": "015eddc1",
+  "px": [
+   1024,
+   191
+  ],
+  "kb": 33,
+  "crop": [
+   0,
+   361,
+   1536,
+   648
+  ],
+  "opaque": 0.2803,
+  "ft": 5.361
+ },
+ "trim": {
+  "wood": {
+   "url": "roof/trim-wood.webp",
+   "normal": "roof/trim-wood.normal.webp",
+   "rev": "0cade8a5",
+   "ft": 6,
+   "from": "tools/spawn-tuner/assets/wallkit/wood.0cade8a5.webp"
+  },
+  "stone": {
+   "url": "roof/trim-stone.webp",
+   "normal": "roof/trim-stone.normal.webp",
+   "rev": "a09bad29",
+   "ft": 6,
+   "from": "tools/spawn-tuner/assets/wallkit/stone.a09bad29.webp"
+  }
+ }
+}

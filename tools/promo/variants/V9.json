@@ -1,0 +1,114 @@
+{
+ "name": "V9",
+ "desc": "control: no cuts; the inn builds uncut 0-4.4, then the final card reveals the four phrases one by one over 4.4-6.0",
+ "capture": "inn-fit",
+ "speed": 1.53,
+ "fit": {
+  "fit": "step_land",
+  "event_ms_1x": 7250.0,
+  "lands_at_s": 4.75,
+  "from": "inn"
+ },
+ "fps": 60,
+ "frames": 360,
+ "segments": [
+  {
+   "out": [
+    0,
+    264
+   ],
+   "footage": 0,
+   "out_s": [
+    0.0,
+    4.4
+   ],
+   "footage_s": 0.0
+  },
+  {
+   "out": [
+    264,
+    288
+   ],
+   "card": 1,
+   "out_s": [
+    4.4,
+    4.8
+   ]
+  },
+  {
+   "out": [
+    288,
+    312
+   ],
+   "card": 2,
+   "out_s": [
+    4.8,
+    5.2
+   ]
+  },
+  {
+   "out": [
+    312,
+    336
+   ],
+   "card": 3,
+   "out_s": [
+    5.2,
+    5.6
+   ]
+  },
+  {
+   "out": [
+    336,
+    360
+   ],
+   "card": 4,
+   "out_s": [
+    5.6,
+    6.0
+   ]
+  }
+ ],
+ "cuts": [
+  {
+   "card": 1,
+   "at_s": 4.4,
+   "in_flight_before": 0
+  },
+  {
+   "card": 2,
+   "at_s": 4.8,
+   "in_flight_before": null
+  },
+  {
+   "card": 3,
+   "at_s": 5.2,
+   "in_flight_before": null
+  },
+  {
+   "card": 4,
+   "at_s": 5.6,
+   "in_flight_before": null
+  }
+ ],
+ "capture_events_out_s": {
+  "ground_land": 4.083,
+  "upper_start": 0.0,
+  "last_land": 4.317,
+  "upper_land": 4.317,
+  "step_start": 4.517,
+  "step_land": 4.767,
+  "tour_end": "ground",
+  "upper_pieces": 364
+ },
+ "spawn_ms_1x": {
+  "ground_land": 6247.5,
+  "upper_start": 0.0,
+  "last_land": 6604.5,
+  "upper_land": 6604.5,
+  "step_start": 6910.5,
+  "step_land": 7293.0,
+  "tour_end": "ground",
+  "upper_pieces": 364
+ }
+}

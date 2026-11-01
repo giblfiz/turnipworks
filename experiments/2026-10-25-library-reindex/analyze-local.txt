@@ -1,0 +1,39 @@
+page local (this checkout) 2026-10-25 23:42:34 | libEven pref at load True
+
+SAME SIZE ON : 28037 things in 156 libraries, drawn longer side 3..3 ft, median 3
+  not 3 ft: 0 Counter() []
+SAME SIZE OFF: drawn longer side 0.12..26 ft, all k == 1: True
+  on, by place: {'floor': (3, 3, 3521), 'wall': (3, 3, 1906), 'ground': (3, 3, 322), 'ceiling': (3, 3, 90), 'surface': (3, 3, 2106), 'attach': (3, 3, 142), 'tile': (3, 3, 7644), 'kit': (3, 3, 12306)}
+
+MEASURED (mesh boxes, the stills):
+  common         even: 321 meshes (+0 boxes), side 2.99..5.12 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 5.12)]
+  common         true: 321 meshes (+0 boxes), side 0.15..15 ft, median 2.50, 2-98% 0.29..10
+  cave           even: 139 meshes (+0 boxes), side 3..4.24 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 4.24)]
+  cave           true: 139 meshes (+0 boxes), side 1.5..15 ft, median 6.67, 2-98% 2.83..12.5
+  temple-nave    even: 266 meshes (+0 boxes), side 3..3.93 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 3.93)]
+  temple-nave    true: 266 meshes (+0 boxes), side 1.17..15 ft, median 5.00, 2-98% 2..10
+  cult-sanctum   even: 270 meshes (+0 boxes), side 3..3.99 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 3.99)]
+  cult-sanctum   true: 270 meshes (+0 boxes), side 0.67..15 ft, median 5.00, 2-98% 1.17..10
+  mkt-square     even: 224 meshes (+0 boxes), side 3..4.06 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 4.06)]
+  mkt-square     true: 224 meshes (+0 boxes), side 0.22..15 ft, median 5.00, 2-98% 0.5..10
+  min-tunnel     even: 157 meshes (+0 boxes), side 3..4.06 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 4.06)]
+  min-tunnel     true: 157 meshes (+0 boxes), side 1..15 ft, median 5.00, 2-98% 1.67..10
+  hill           even: 189 meshes (+0 boxes), side 3..5.24 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 5.24)]
+  hill           true: 189 meshes (+0 boxes), side 0.31..26 ft, median 5.00, 2-98% 0.48..15
+  common even: smallest-true thing ('apple', 3.01, 'k', 13.03), door-plank 3
+  common true: smallest-true thing None, door-plank 6.67
+
+COVERAGE: usable categories 1260; shown in some library 1158; not shown 102
+  kit piece the library does not list (KIT_PIECES is six pieces): 68
+    ['balcony-wood', 'bar-counter', 'bridge-stone-natural', 'cave-mouth', 'cell-bars', 'cell-holding-wood', 'chimney-stack', 'city-wall', 'city-wall-turret', 'crypt-gate-iron', 'door-cell-bars', 'door-crypt', 'door-face-carved', 'door-glazed', 'door-panelled', 'door-rune-sealed', 'door-secret-bookcase', 'door-tower', 'fence-picket', 'fence-wattle', 'floor-hayloft', 'floor-trapdoor', 'gallery-interior', 'gate-double-timber', 'gate-fence', 'hedge-corner', 'hedge-end-block', 'hedge-gap-arch', 'hedge-straight', 'ossuary-wall', 'parapet-corner', 'parapet-straight', 'plank-bridge', 'porch-covered', 'portcullis', 'portcullis-raised', 'privy-stall-door', 'privy-stall-partition', 'roof-dormer', 'roof-hatch', 'roof-ridge', 'roof-shingle-wood', 'roof-skylight', 'roofing-shingle-wood', 'roofing-slate', 'roofing-thatch', 'roofing-tile-clay', 'rune-tile', 'sewer-outflow', 'stable-stall', 'stable-stall-back', 'stable-stall-door', 'stable-stall-gate', 'stable-stall-partition', 'tomb-door-sealed', 'wall-alcove', 'wall-corner-inner', 'wall-corner-outer', 'wall-crenellated', 'wall-crenellated-corner', 'wall-crypt-niches', 'wall-drystone', 'wall-drystone-gate', 'wall-drystone-pier', 'wall-secret-door', 'wall-shop-window', 'wall-window-shop', 'window-stained-glass']
+  open state (-open): placed by opening the closed one: 34
+    ['book-open', 'bottle-of-wine-open', 'bread-oven-open', 'cabinet-china-open', 'chest-ironbound-open', 'chest-plain-open', 'chest-treasure-open', 'clothes-chest-open', 'coffin-open', 'cupboard-open', 'desk-bureau-open', 'door-barn-double-open', 'door-plank-open', 'door-reinforced-open', 'flour-sack-open', 'grain-sack-open', 'helm-open', 'iron-maiden-open', 'linen-chest-open', 'mil-footlocker-open', 'pit-open', 'potato-sack-open', 'roof-hatch-open', 'rural-feed-sack-open', 'rural-grooming-box-open', 'salt-box-open', 'sarcophagus-open', 'sideboard-open', 'smith-farrier-box-open', 'spice-sacks-open', 'strongbox-open', 'trade-hop-sack-open', 'wall-window-small-open', 'wardrobe-open']
+
+menu opens 147 / 147 | page errors []

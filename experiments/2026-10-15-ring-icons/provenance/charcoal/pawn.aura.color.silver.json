@@ -1,0 +1,71 @@
+{
+  "id": "pawn.aura.color.silver",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works tabletop UI pictogram: ONE big soft teardrop-shaped wisp of cool glowing silver-white magical flame-light rising upward, a bright pale core, two tiny sparks of the same colour beside it, floating alone: an aura of this colour. Dominant subject colour key: cool glowing silver-white; the whole wisp is this colour, strongly visible, not just an accent. Heroic hand-painted style D, chunky matte painted forms, broad soft bevels, restrained brushwork. Centered on a dark charcoal circular ground, quiet thin slate rim. Upper-left light. Straight-on circular badge; outer circle fills 94 percent of square canvas, pictogram fills 80 percent of disc. Readable at 31px and smaller: bold silhouette, thick features, generous negative space, absolutely no tiny detail. Native transparent alpha outside the circle. No text, lettering, numbers, watermark, decorative flourishes or extra scene. Our own design, no trademarked game iconography. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.cond.concentrating.webp",
+      "sha256": "37b76a3ad34aa6260cbb0b54bd23d156ab0b45c776219dcfe9b20c20208ff181",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/thing.light.webp",
+      "sha256": "0e3c0293b4a5995b85dba6bf9555484e19ed1d5f8738aaf300799cd5d5095b1a",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.cond.stunned.webp",
+      "sha256": "126e703fe443ffbf16e3d92889a4dfcbd56c590092bb130c881d1e0af8757cec",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-30-aura/icons/sources/charcoal--pawn.aura.color.silver.png",
+  "source_sha256": "c60d24c7b9446aa124b3238bfcf740280cdf2026e929e1c176a324ec4cc10791",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/pawn.aura.color.silver.webp",
+    "19": "charcoal/sizes/19/pawn.aura.color.silver.webp",
+    "22": "charcoal/sizes/22/pawn.aura.color.silver.webp",
+    "26": "charcoal/sizes/26/pawn.aura.color.silver.webp",
+    "31": "charcoal/sizes/31/pawn.aura.color.silver.webp",
+    "36": "charcoal/sizes/36/pawn.aura.color.silver.webp",
+    "38": "charcoal/sizes/38/pawn.aura.color.silver.webp",
+    "42": "charcoal/sizes/42/pawn.aura.color.silver.webp",
+    "44": "charcoal/sizes/44/pawn.aura.color.silver.webp",
+    "50": "charcoal/sizes/50/pawn.aura.color.silver.webp",
+    "52": "charcoal/sizes/52/pawn.aura.color.silver.webp",
+    "62": "charcoal/sizes/62/pawn.aura.color.silver.webp",
+    "84": "charcoal/sizes/84/pawn.aura.color.silver.webp",
+    "100": "charcoal/sizes/100/pawn.aura.color.silver.webp",
+    "128": "charcoal/pawn.aura.color.silver.webp"
+  },
+  "sha256": {
+    "18": "d48d9058d8f4f7f921f4dc5f2a9d3207fbd8848dc4dcbd540600f488ae50a2a1",
+    "19": "f8b8496d8f65d111fa31f9a70590fa7778382ee96a2d1365efd5896b5d65dedf",
+    "22": "065e546a3ea334155225ead4bddd40f1e7e45fc940bff7c2c844fdd5e0bb8577",
+    "26": "bd5dc5e216c3dacae116d6999a5e4849f9e0be9bf855f35374670b6be7bbacf0",
+    "31": "5b0cf2ecb496f7e16405c0c1526d0b0e3faa5435bcfeefec43ba6095364cd0c4",
+    "36": "8ea34a2d030cc21cea9dcf95a09755550619f9242a50b896914fe34ae8230037",
+    "38": "77a9c56bd7ac6e07bbf6011f53df446344adb2cbc5b432c51555733b92a4c693",
+    "42": "db7d1b49c09e2f8757745be8cbbbee2c2a699eedb54112c519905f7a11695993",
+    "44": "d8caad0eb4d15459ebb009a6b915220880e3ab8f6bfc5f0da6ad3e135f6a28f3",
+    "50": "6ae6e1874b1e9cf2c19540766d6c7822d3322b353ccc692fb4ecf6ac21e20632",
+    "52": "7083ce22c2d2b99849a13db29122cded25fb49d083702f909ce22554b66d368e",
+    "62": "aa6a7b7fdc31429a14ac5f81f6de229d0051ec743429f2b1b3ac4968abcfe33c",
+    "84": "7acc8c800a4aaec6c9a04b927f67b526208c2a54aab7bc288b61a15a3b31e651",
+    "100": "95eb2332a143be1e8938da560b212086094cf427b43807ce0ba793973cc11b75",
+    "128": "45ea0829400dd9aeee972f8d0a5a76aa7c21ded95a086c70371d30f7f60ad9ac"
+  },
+  "blind_model": "gemini-3.1-pro-preview",
+  "blind_prompt": "These are unlabelled buttons in the contextual ring menu around a selected pawn in a browser 3D virtual tabletop. For each lettered icon: what action does it perform on the selected pawn? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24).",
+  "candidate_sha256": "685b683b6ebc7a77901a8166e88606328fff8ce06174c7dcdaa9af9265cc6118",
+  "blind_prompt_sha256": "713947b26647be5f25320a9ae766e87375941d49328da6892caf3acea27dfc95",
+  "read_directory": "reads/charcoal/pawn.aura.color.silver/c60d24c7b9446aa1-713947b266"
+}

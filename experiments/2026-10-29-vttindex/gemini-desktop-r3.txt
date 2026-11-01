@@ -1,0 +1,68 @@
+### 1. Labels per image
+
+#### `desktop-top.png`
+* **Headings**: 
+  * `Turnip Works` (site nav / brand)
+  * `VTT comparison index` (main H1)
+  * Lead-in bold headings: `Who made this table.`, `Claim yours / correct me.`
+* **Filter labels**: 
+  * `Show only`
+  * Checkboxes: `3D`, `Free to start`, `Runs in a browser`, `Open source`, `Site is up`
+  * Dropdown/input labels: `Group` (value: `All`), `Kind` (value: `Every kind`), `Search` (placeholder: `a name or a word`)
+  * Result counter: `Showing all 118`
+* **Legend**: 
+  * Chips: `yes`, `partial`, `no`, `? unknown`, `n/a, or a plain value`, `(?) not confirmed from a source`
+  * Hint: `· hover a cell for its note`
+* **Column headers**: 
+  * `Product↑`, `2D / 3D`, `Runs on`, `Price`, `Accounts`, `Fog`, `Lighting`, `Map building`, `Levels`, `Sheets & rules`, `D&D Beyond`, `Dice`, `P` (clipped at right edge)
+* **First five product names read**: 
+  * Only two rows are visible before the bottom edge cut-off:
+    1. `16-VTT`
+    2. `20Realms`
+    *(Rows 3–5 are off-screen / cut off below the viewport).*
+
+---
+
+#### `desktop-detail.png`
+* **Headings**: 
+  * `Turnip Works` (top background)
+  * `Roll20` (detail modal title)
+  * `How to read it` (page heading visible behind/below the panel)
+* **Filter labels**: 
+  * Only `Showing all 118` is visible (all others are scrolled out of view).
+* **Legend**: 
+  * `yes`, `partial`, `no`, `? unknown`, `n/a...` (partially covered), `(?) not confirmed from a source`, `· hover a cell for its note`
+* **Column headers**: 
+  * Background table: `Product↑`, `2D / 3D`, `Runs o` (clipped by panel), `ts & rules` (clipped by panel), `D&D Beyond`, `Dice`, `P` (clipped at right edge).
+  * Panel row headers: `2D / 3D`, `Runs on`, `Price`, `Accounts`, `Fog of war`, `Dynamic lighting`, `Map building`, `Levels / height`, `Sheets & rules`, `D&D Beyond / Beyond20`, `Dice`, `Phones`, `Offline / self-host`.
+* **First five product names read**: 
+  1. `Quest Portal`
+  2. `RealmKeeper`
+  3. `RealmRiders`
+  4. `RealmWeaver`
+  5. `Reverie`
+  *(Inside panel title: `Roll20`)*
+
+---
+
+### 2. Review & Verdict
+
+#### `desktop-top.png`
+**VERDICT: FIX**
+
+**Problems:**
+1. **Table is barely visible without scrolling:** The large header, 3 long paragraphs of intro copy, and filter panel push the table below the fold—only the header and 1.5 rows appear on a 1366×900 display.
+2. **Horizontal clipping:** The rightmost column (`P...`) is cut off at the right viewport edge without an explicit horizontal scrollbar or indicator.
+3. **Stray visual artifact:** Stray tick marks (`^^` / quotes) float immediately above the `Product↑` header.
+4. **Legend clarity:** The chips are understandable in meaning (green/yellow/red/gray), but lack a clear section label or container, floating loosely between filters and the table.
+
+---
+
+#### `desktop-detail.png`
+**VERDICT: FIX**
+
+**Problems:**
+1. **Not clear the panel continues below:** There is no visible scrollbar, fade mask, or overflow hint. The panel has a rounded bottom border cleanly enclosing `Offline / self-host`, falsely signaling that the content ends there.
+2. **`[source]` links have poor legibility:** The light mustard/bronze color on white fails standard contrast expectations and lacks underlines, making them look like inert low-contrast annotations rather than clickable links.
+3. **Insufficient backdrop dimming:** The overlay behind the modal is very faint, leaving background text (`How to read it`, table headers) visually competing with the modal content.
+4. **Table horizontal clipping persists:** The background table's right edge (`P`) remains clipped off-screen.

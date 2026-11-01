@@ -1,0 +1,71 @@
+{
+  "id": "pawn.cond.exhaustion.down",
+  "set": "charcoal",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works tabletop condition pictogram for exhaustion (one level less): A tired sagging dusty-ochre human head with heavy half-shut eyelids and one large sweat drop, beside ONE bold thick mint-green MINUS sign at its right: less exhausted, rested. Dominant subject colour key: dusty ochre with a mint green minus; keep this colour strongly visible, not just a tiny accent. Heroic hand-painted style D, chunky matte painted forms, broad soft bevels, restrained brushwork. Center on a dark charcoal circular ground with a quiet thin slate rim. Upper-left light. Straight-on circular badge; outer circle fills 94 percent of square canvas, pictogram fills 80 percent of disc. Readable at31px and smaller: bold silhouette, thick features, generous negative space, absolutely no tiny detail. Native transparent alpha outside the circle. No text, lettering, numbers, watermark, decorative flourishes or extra scene. Our own design, no trademarked game iconography. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.cond.stunned.webp",
+      "sha256": "126e703fe443ffbf16e3d92889a4dfcbd56c590092bb130c881d1e0af8757cec",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.cond.unconscious.webp",
+      "sha256": "c476b4b9aca1a6294a2eca96e34c7c9793f49adb5716f802a4080c49f34d0a0f",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/charcoal/pawn.cond.poisoned.webp",
+      "sha256": "b2b05adb622a276c4c20cc233888ae768dc6ea815fd93e5d35f9005f8ae34882",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/charcoal--pawn.cond.exhaustion.down.png",
+  "source_sha256": "358ca3a50a664552cbbfab4d324b1024ecd216d053b6bb0cbfadb155ad913bac",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "charcoal/sizes/18/pawn.cond.exhaustion.down.webp",
+    "19": "charcoal/sizes/19/pawn.cond.exhaustion.down.webp",
+    "22": "charcoal/sizes/22/pawn.cond.exhaustion.down.webp",
+    "26": "charcoal/sizes/26/pawn.cond.exhaustion.down.webp",
+    "31": "charcoal/sizes/31/pawn.cond.exhaustion.down.webp",
+    "36": "charcoal/sizes/36/pawn.cond.exhaustion.down.webp",
+    "38": "charcoal/sizes/38/pawn.cond.exhaustion.down.webp",
+    "42": "charcoal/sizes/42/pawn.cond.exhaustion.down.webp",
+    "44": "charcoal/sizes/44/pawn.cond.exhaustion.down.webp",
+    "50": "charcoal/sizes/50/pawn.cond.exhaustion.down.webp",
+    "52": "charcoal/sizes/52/pawn.cond.exhaustion.down.webp",
+    "62": "charcoal/sizes/62/pawn.cond.exhaustion.down.webp",
+    "84": "charcoal/sizes/84/pawn.cond.exhaustion.down.webp",
+    "100": "charcoal/sizes/100/pawn.cond.exhaustion.down.webp",
+    "128": "charcoal/pawn.cond.exhaustion.down.webp"
+  },
+  "sha256": {
+    "18": "6e5f4412e30766c53d3e42b70989b23b83505219714c433657e6e4b9ab175bab",
+    "19": "dba268ae640a2f138e8d64fb9a66520792d96265d55490b1889b5c42bf2379be",
+    "22": "2960b2e3549825ca299c929414b59e882bca9c27f09d0aac9b15dd6ab1bd3e11",
+    "26": "8863d1bd957b24e08277be43196d456100dfe8ef782539f9668a6632a1bd491a",
+    "31": "512b59a8bd7cfc4c89eb8f77eccbcd13b0b55698c8cc8dedae930fe68c39b6e1",
+    "36": "fefa7a5f31e505446697a8d6137fc2311e41832f058259cd5d10e6ae01c3d3f9",
+    "38": "9c56eed44e4ff11741721623c898207e5ba23486f872e264f36d351d9dd4a312",
+    "42": "c48d9564a6b334f155c34d1c466492f519360927128583030a79e2d3e5f74800",
+    "44": "cc16023420a8741146a01516ad301f197f9a6ef2dc552538cae5dc10ff0e8656",
+    "50": "be0c10472f73ca62c6f635dc304e0024ea598bbc155f31701df272a006311c84",
+    "52": "4ef0a67d74e2adc5a7e1e43caf6982ae139fa0238510779eeffed370424c0411",
+    "62": "66147ca8333bf5fafb6a712f269a4596710165fade895ab55217b3a7dd3f837a",
+    "84": "5d2f88c20fdede349f8210c321f7fd8ba38a49d663a08cc3fd40b7a2c1ffde82",
+    "100": "b43ed4dd4e434258874a8363a76c642aadf149085dd4723b7c320c1e955e81e1",
+    "128": "df10e50bc7a4223a8a0b1284521ff847dc2f230d0d8f84acb2a3de3c71d40187"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small status icons for a tabletop pawn, in the ring menu around a selected pawn of a browser 3D tabletop game. For each lettered icon: which D&D condition, or condition control (adding / removing a level, a custom condition), does it show? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "ff221586a2431803217021069da215b6cd3dcf5b2884afec7e8d619b6b6385eb",
+  "blind_prompt_sha256": "62edd389ee8b5901b8936581b390a494654b0cf03cf774d31c0d21b720bbde4b",
+  "read_directory": "reads/charcoal/pawn.cond.exhaustion.down/358ca3a50a664552-62edd389ee"
+}

@@ -135,6 +135,25 @@ const after = await req(`/tickets/${ids.bug.id}`, { headers: K });
 ok(after.body.ticket?.status === 'looking' && after.body.ticket.reply.startsWith('Seen it') && after.body.ticket.history.length === 1 && (await req('/tickets', { headers: K })).body.total === 6 + 2 + TICKET_LIMITS.perSeatHour, 'after a restart: every ticket, its status, reply and history', after.body.ticket?.status);
 const cors = await fetch(base + `/c/${cid}/tickets`, { method: 'OPTIONS' });
 ok(/authorization/.test(cors.headers.get('access-control-allow-headers')) && /x-tw-test/.test(cors.headers.get('access-control-allow-headers')), 'a preflight allows the key and sandbox headers');
+
+// 10. corrections from a site page (the VTT comparison index, 2026-10-29): no campaign, no seat, limited by address
+const IP = { 'x-real-ip': '2001:db8::7' };
+const c1 = await req('/tickets/site', { method: 'POST', headers: IP, body: { page: 'vtt-index', product: 'roll20', field: 'price', text: 'Pro is $10.99 now', contact: 'u/someone', maker: true } });
+ok(c1.status === 200 && /^tkt_/.test(c1.body.id) && !c1.body.receipt, 'a site correction is filed without a seat or campaign', c1.body);
+const c1t = (await req(`/tickets/${c1.body.id}`, { headers: K })).body.ticket;
+ok(c1t?.kind === 'correction' && c1t.site?.page === 'vtt-index' && c1t.site.product === 'roll20' && c1t.site.field === 'price' && c1t.site.maker === true && c1t.seat.name === 'u/someone' && c1t.seat.role === 'site', 'it is a "correction" naming the page, product, field and the contact typed', c1t);
+ok(!JSON.stringify(c1t).includes('2001:db8::7'), 'the sender\'s address is not stored');
+ok((await req('/tickets?kind=correction', { headers: K })).body.tickets.some(t => t.id === c1.body.id && t.site?.product === 'roll20'), 'the triage list shows it (kind filter, with its product)');
+ok((await req('/tickets/site', { method: 'POST', headers: IP, body: { page: 'vtt-index', text: '  ' } })).status === 400, 'a correction with no words is refused');
+ok((await req('/tickets/site', { method: 'POST', headers: IP, body: { page: 'elsewhere', text: 'x' } })).status === 400, 'only listed pages may send corrections');
+ok((await req('/tickets/site', { headers: IP })).status === 405, 'a GET is not a correction');
+ok((await req('/tickets/site', { method: 'POST', headers: IP, body: { page: 'vtt-index', text: 'x'.repeat(TICKET_LIMITS.siteBody + 10) } })).status === 413, 'a correction over the size cap is refused (413)');
+let s200 = 1, s429 = 0;
+for (let i = 0; i < TICKET_LIMITS.sitePerIpHour + 2; i++) { const r = await req('/tickets/site', { method: 'POST', headers: IP, body: { page: 'vtt-index', text: `c ${i}` } }); r.status === 429 ? s429++ : r.status === 200 ? s200++ : 0; }
+ok(s200 === TICKET_LIMITS.sitePerIpHour && s429 === 3, `one address sends at most ${TICKET_LIMITS.sitePerIpHour} corrections an hour, then 429`, { s200, s429 });
+ok((await req('/tickets/site', { method: 'POST', headers: { 'x-real-ip': '2001:db8::9' }, body: { page: 'vtt-index', text: 'another address' } })).status === 200, 'another address is not held back by the first');
+const sbc = await req('/tickets/site', { method: 'POST', headers: { ...SB, 'x-real-ip': '2001:db8::1' }, body: { page: 'vtt-index', product: 'owlbear-rodeo', text: 'sandboxed correction' } });
+ok(sbc.status === 200 && !(await req('/tickets', { headers: K })).body.tickets.some(t => t.id === sbc.body.id), 'a sandboxed correction never reaches the live list');
 await relay.close();
 console.log(`tickets: ${checks - fails}/${checks} passed`);
 process.exit(fails ? 1 : 0);

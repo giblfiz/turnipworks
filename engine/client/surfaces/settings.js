@@ -4,10 +4,12 @@ import { openGames } from '../games.js';
 //   1 World navigation   everyone: the areas you can reach (open here / in the PiP); the GM creates, renames, deletes.
 //                        The section Settings always opens on (S or the launcher). Never shown by itself on arrival.
 //   2 Me                 everyone: name and seat colour, controls, graphics, UI size, announcements, cursors, motion,
-//                        sound (stored, inert), my agents, my requests (players), reset to defaults
+//                        sound (music: client/music.js; effects stored, inert), my agents, my requests (players), reset to defaults
 //   3 Area               GM, the area in the main view: open to players or hidden, play settings (each "using default"
 //                        or "overridden here", with a reset)
-//   4 Global defaults    GM: the same play settings for every area, plus units, genre, house look, rolls
+//   4 Campaign rules     GM: name, vision, travel, distance, units, genre, rolls (2026-10-24: Global defaults split in three)
+//   4b Area defaults     GM: the same play settings for every area (areas override them)
+//   4c House look        GM: spawn animation, house lighting, selection style, below the ground: hills and ground see-through
 //   5 Campaign admin     GM: snapshots, export / import, invites and seats, agent keys, player requests
 //   6 Feedback           everyone: a ticket (bug, idea, asset comment, question, other) with its context, and My tickets.
 //                        The form is surfaces/feedback.js, loaded the first time the section opens (Harry 2026-10-19)
@@ -16,6 +18,7 @@ import { openGames } from '../games.js';
 // entities.set) and permissions (core/perms.js); what has no system yet is stored and says "coming".
 // Personal preferences live in this browser (localStorage 'tw.prefs'); the seat's name and colour live on the relay.
 import { icon } from '../icons.js';
+import * as SH from '../../core/share.js';
 import { T } from '../tuner.js';
 import { newId } from '../../core/ids.js';
 import { DARKVISION_DEFAULT, DARKVISION_MAX, CARRIED_LIGHT_MAX } from '../../core/darkness.js';
@@ -23,7 +26,8 @@ import { setRingScale } from './ring.js';
 import { figTree } from './figtree.js';
 import { pawnLabel } from '../pawns.js';
 import { LIB_EVEN } from '../library.js';
-import { noGlow } from '../world.js';
+import { noGlow, HILL_SEE, GROUND_SEE } from '../world.js';
+import { PPG_CHOICES } from '../../core/uvtt.js';
 import { GFX_DEFAULTS, GFX_PRESETS, GFX_KEYS, GFX_LABEL, GFX_ORDER, presetOf, IDLE_AFTER_MS } from '../graphics.js';
 
 const PREFS_KEY = 'tw.prefs';
@@ -37,6 +41,13 @@ export const PREF_DEFAULTS = {
   cursors: true, reducedMotion: false, cutFly: true, lightMoves: true,
   libEven: LIB_EVEN, // the Build library draws every thing the same size (a trial, Harry 2026-10-11; off = true relative sizes)
   music: true, musicVol: 0.7, sfx: true, sfxVol: 0.8,
+  // (2026-10-22) an invite places the new player's placeholder pawn (client/pawns.js); a player's first arrival centres on
+  // their own pawn (client/arrival.js). Not in the window: both are the game's behaviour. They are switches only so the
+  // suites written before them can say so (tests/tw_sandbox.py placeholder_pawns).
+  invitePawn: true, arrivalCentre: true,
+  // (2026-10-23) the "email yourself your link" card (surfaces/linkmail.js). Not in the window either: off only for the
+  // suites written before it (tests/tw_sandbox.py link_mail).
+  linkMail: true,
 };
 const GRAPHICS = { low: { faces: '1500', label: 'Low (1,500 faces)' }, medium: { faces: '5000', label: 'Medium (5,000)' }, high: { faces: '10000', label: 'High (10,000)' } }; // geometry detail (its own row: not part of a Graphics preset, a change re-fetches every mesh)
 export function loadPrefs() {
@@ -54,9 +65,9 @@ const RULES = [ // [key, label, kind, options, note]
   ['grid', 'Grid', 'toggle'],
   ['freeMoves', 'Players move their own pawns', 'toggle'],
   ['touch', 'Players may touch', 'select', [['open', 'Doors, chests and lights'], ['none', 'Nothing']]],
-  ['fogOfWar', 'Fog of war', 'toggle', null, 'players see through their pawns here; explored memory is kept while it is off. Global defaults ▸ Vision sets the campaign default'],
+  ['fogOfWar', 'Fog of war', 'toggle', null, 'players see through their pawns here; explored memory is kept while it is off. Campaign rules ▸ Vision sets the campaign default'],
   ['darkness', 'Darkness', 'toggle', null, 'with fog of war on: players see only within their pawns\' darkvision (Me ▸ My pawns, 30 ft unless set) and where lit lights shine; the last few feet of each are remembered, not seen'],
-  ['music', 'Music track', 'text', null, 'stored; music arrives later'],
+  ['music', 'Music', 'music', null, 'what every seat hears here (each person sets their own volume in Settings ▸ Controls ▸ Sound). A playlist plays every track, shuffled; one track loops'],
 ];
 const BUILTIN_RULES = { light: 'house', grid: true, freeMoves: true, touch: 'open', fog: false, fogOfWar: false, darkness: false, music: '' };
 const CLASS_LABELS = { 'token.move': 'Move pawns', 'token.edit': 'Create and edit pawns', room: 'Rooms', object: 'Objects', undo: 'Undo', pawn: 'Edit own pawns', open: 'Open and light things', reveal: 'Hide and reveal', chat: 'Talk and roll', 'area.admin': 'Areas', transfer: 'Move between areas', 'campaign.admin': 'Campaign settings' };
@@ -77,12 +88,22 @@ export function settingsSurface(R, app) {
   let pawnEdit = null, picker = null, scrollTo = null; // Me ▸ My pawns: the pawn being defined or edited, and its figure picker
   const C = () => app.sync.campaign;
   const SECTIONS = [
-    // S opens Settings (always on World navigation); then a letter picks a section (S then N, M, A, G, C). The letters
+    // S opens Settings (always on World navigation); then a letter picks a section (S then N, M, K, G, A, R, D, H, C, F). The letters
     // only act while the window is open and nothing in it is being typed into, so they never meet the game's own keys.
+    // Me was split in three (Harry 2026-10-24: "overwhelming, and a little confusing"): Me is who you are and what is
+    // yours; Controls (K, for keys: C is Campaign admin) is how the game answers your hands, eyes and ears; Graphics (G, freed
+    // when Global defaults split) is the picture and what it costs this machine.
     { id: 'nav', label: 'World navigation', icon: 'map', all: true, key: 'N' },
     { id: 'me', label: 'Me', icon: 'user', all: true, key: 'M' },
+    { id: 'controls', label: 'Controls', icon: 'mouse-pointer-2', all: true, key: 'K' },
+    { id: 'graphics', label: 'Graphics', icon: 'monitor', all: true, key: 'G' },
     { id: 'area', label: 'Area settings', icon: 'layers', key: 'A' },
-    { id: 'defaults', label: 'Global defaults', icon: 'layout-template', key: 'G' },
+    // Global defaults was split in three (Harry 2026-10-24: "a little bit overweight"; three sections, his pick):
+    // Campaign rules (R) is what holds for the whole campaign; Area defaults (D) is what every area inherits unless it
+    // overrides it (the id stays 'defaults'); House look (H) is the spawn, lighting and selection look, set rarely.
+    { id: 'campaign', label: 'Campaign rules', icon: 'dices', key: 'R' },
+    { id: 'defaults', label: 'Area defaults', icon: 'layout-template', key: 'D' },
+    { id: 'house', label: 'House look', icon: 'sparkles', key: 'H' },
     { id: 'admin', label: 'Campaign admin', icon: 'shield', key: 'C' },
     { id: 'feedback', label: 'Feedback', icon: 'message-square', all: true, key: 'F' },
   ];
@@ -159,11 +180,12 @@ export function settingsSurface(R, app) {
   function render() {
     if (pressed && S.isOpen && !modal.hidden) { deferred = true; return; }
     const sec = cur(), secs = sectionsFor();
-    const body = { nav: navBody, me: meBody, area: areaBody, defaults: defaultsBody, admin: adminBody, feedback: () => '<div class="fbroot"><p class="snote">Loading…</p></div>' }[sec]();
+    const body = { nav: navBody, me: meBody, controls: controlsBody, graphics: graphicsBody, area: areaBody, campaign: campaignBody, defaults: defaultsBody, house: houseBody, admin: adminBody, feedback: () => '<div class="fbroot"><p class="snote">Loading…</p></div>' }[sec]();
     const html = `<div class="smodal" role="dialog" aria-modal="true" aria-label="Settings">
-      <nav class="scats"><div class="stitle">Settings</div>${secs.map((s, i) => `<button class="scat${s.id === sec ? ' sel' : ''}" data-sec="${s.id}">${icon(s.icon, 18)}<span>${s.label}</span><kbd>${s.key}</kbd>${s.id === 'admin' && pendingCount() ? `<i class="badge">${pendingCount()}</i>` : ''}</button>`).join('')}<button class="scat other-games" type="button">Other games / New game</button></nav>
+      <nav class="scats"><div class="stitle">Settings</div>${secs.map((s, i) => `<button class="scat${s.id === sec ? ' sel' : ''}" data-sec="${s.id}">${icon(s.icon, 18)}<span>${s.label}</span><kbd>${s.key}</kbd>${s.id === 'admin' && pendingCount() ? `<i class="badge">${pendingCount()}</i>` : ''}</button>`).join('')}<button class="scat other-games" type="button">Other games / New game</button>${metaLinks()}</nav>
       <section class="spane" data-sec="${sec}"><header class="sph"><h2>${secs.find(s => s.id === sec).label}</h2><span class="sphb">${app.tray.pinButton('settings')}<button class="sx" title="Close (${app.tray.pinned('settings') ? 'S' : 'Esc'})" aria-label="Close">${icon('x', 18)}</button></span></header><div class="spb">${body}</div></section></div>`;
     modal.dataset.cseq = C()?.cseq ?? '';
+    modal.dataset.b20 = String(!!app.b20?.connected);
     modal.classList.toggle('pinned', app.tray.pinned('settings'));
     if (html === lastHtml && !modal.hidden) return;
     const pane0 = modal.querySelector('.spane'), keep = pane0?.dataset.sec === sec ? modal.querySelector('.spb')?.scrollTop : 0;
@@ -182,13 +204,29 @@ export function settingsSurface(R, app) {
     if (what !== 'refresh') return;
     badge();
     const c = C(); if (!S.isOpen || !c) return;
-    if (String(c.cseq) === modal.dataset.cseq && cur() === modal.querySelector('.spane')?.dataset.sec) return;
+    if (String(c.cseq) === modal.dataset.cseq && cur() === modal.querySelector('.spane')?.dataset.sec && String(!!app.b20?.connected) === modal.dataset.b20) return;
     if (modal.contains(document.activeElement) && document.activeElement.matches('input[type=text], input:not([type]), textarea')) return;
     render();
   });
 
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const row = (label, ctl, note = '') => `<div class="srow"><label>${label}</label><div class="sctl">${ctl}</div>${note ? `<small class="snote">${note}</small>` : ''}</div>`;
+  // ABOUT · TERMS · PRIVACY · SOURCE (2026-10-21): the site pages (docs/site/*.md, engine/tools/build_site.py). On
+  // turnipworks.net and dev (the page carries <base href="/engine/client/">) they live at /about, /terms, /privacy; on the
+  // alternate entry (implausible.enterprises) at the client folder's site/<name>.html. A new tab: the table stays open.
+  const sitePage = (p) => document.querySelector('base')?.getAttribute('href') === '/engine/client/' ? '/' + p : `site/${p}.html`;
+  const metaLinks = () => {
+    const a = (href, label) => `<a href="${href}" target="_blank" rel="noopener">${label}</a>`;
+    return `<div class="smeta">${['about', 'terms', 'privacy'].map(p => a(sitePage(p), p[0].toUpperCase() + p.slice(1))).join('')}${a('https://github.com/giblfiz/turnipworks', 'Source')}</div>`;
+  };
+  // D&D BEYOND (Harry 2026-10-29; docs/BEYOND20.md): the help page "Connect D&D Beyond" (docs/site/connect-dnd-beyond.md),
+  // in a new tab, and whether Beyond20 has reported in this visit (surfaces/beyond20.js app.b20.connected). In Me for
+  // everyone (it is this browser's), and in Campaign rules for the GM.
+  const ddbGroup = () => {
+    const on = !!app.b20?.connected;
+    return group('D&D Beyond', row('Character sheets', `<a class="sbtn sddb-help" href="${sitePage('connect-dnd-beyond')}" target="_blank" rel="noopener">${icon('external-link', 14)} Connect D&amp;D Beyond</a>`,
+      `<span class="sddb${on ? ' on' : ''}">${on ? 'D&amp;D Beyond: connected via Beyond20' : 'D&amp;D Beyond: not connected in this tab'}</span><br>` + (on ? 'Rolls from your D&amp;D Beyond sheet land on this table. The page shows the Attack button and targets.' : 'Roll from your D&amp;D Beyond character sheet onto this table, with the free Beyond20 browser extension. A few minutes, once per browser.')));
+  };
   const group = (title, inner, note = '') => `<div class="sgrp"><h3>${title}</h3>${note ? `<p class="snote">${note}</p>` : ''}${inner}</div>`;
   const toggle = (attr, on, dis = false) => `<button class="stog${on ? ' on' : ''}" ${attr} role="switch" aria-checked="${!!on}"${dis ? ' disabled' : ''}><i></i></button>`;
   const select = (attr, opts, v) => `<select ${attr}>${opts.map(([k, l]) => `<option value="${esc(k)}"${k === v ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
@@ -240,24 +278,33 @@ export function settingsSurface(R, app) {
   const GFX_LabelSafe = (k) => esc(GFX_LABEL[k] || k);
   function meBody() {
     const c = C(), me = c?.seats.find(s => s.id === app.me()) || {};
-    const keys = R.all().filter(x => x.keys?.length && R.permitted?.(x, R.ctx()) !== false).map(x => `<tr><td>${esc(typeof x.title === 'function' ? x.title(R.ctx()) : x.title)}</td><td>${x.keys.map(k => `<kbd>${esc(k.replace('Mod', navigator.platform?.includes('Mac') ? '⌘' : 'Ctrl'))}</kbd>`).join(' ')}</td></tr>`).join('');
     const mine = (c?.seats || []).filter(s => s.kind === 'llm' && s.creator === app.me());
-    const g = GRAPHICS[prefs.graphics] || GRAPHICS.high;
     const reqs = (c?.requests || []).filter(r => r.by === app.me());
     const exportOk = reqs.some(r => r.kind === 'export' && r.status === 'approved');
     return [
       group('Identity', row('Name', `<input class="myname" value="${esc(me.name || '')}" maxlength="40">`) + row('Seat colour', `<input type="color" class="mycolor" value="${esc(me.color || '#e0b04a')}">`)),
       myPawnsGroup(),
-      group('Controls', row('Zoom speed', range('data-pref="zoomSpeed"', prefs.zoomSpeed, 0.25, 2, 0.05)) + row('Rotate speed', range('data-pref="rotateSpeed"', prefs.rotateSpeed, 0.25, 2, 0.05)) + row('Invert zoom', toggle('data-pref="invertZoom"', prefs.invertZoom)) + row('Invert rotate', toggle('data-pref="invertRotate"', prefs.invertRotate)) + row('Scroll wheel', select('data-pref="wheel"', [['auto', 'Auto (a wheel zooms, a trackpad pans)'], ['zoom', 'Always zoom'], ['pan', 'Always pan']], prefs.wheel || 'auto'), 'if a smooth-scrolling mouse pans, or a trackpad zooms') + row('Pawns snap to squares', select('data-pref="pawnSnap"', [['shift', 'Only with Shift'], ['always', 'Always (Shift = free)']], prefs.pawnSnap || 'shift'), 'dragging a pawn, or a figure out of a list')
-        + `<details class="skeys"><summary>Keyboard shortcuts</summary><table>${keys}</table></details>`),
-      graphicsGroup(g),
-      group('Interface', row('Ring size', range('data-pref="ringScale"', prefs.ringScale, 0.7, 1.6, 0.05)) + row('Text size', range('data-pref="textScale"', prefs.textScale, 0.8, 1.5, 0.05)) + row('Announce says and rolls', toggle('data-pref="announce"', prefs.announce)) + row('3D dice', toggle('data-pref="dice3d"', prefs.dice3d !== false), 'rolls tumble onto the table; off: the chat line only') + row('Announcement speed', range('data-pref="announceSpeed"', prefs.announceSpeed, 0.5, 2, 0.1)) + row("Others' cursors", toggle('data-pref="cursors"', prefs.cursors)) + (app.can('room') ? row('Room and building labels', toggle('data-labels', app.labelsOn?.() !== false), 'L, or "labels" in the command bar. This browser only; pawn names stay') : '') + (app.gm() && app.setLightReach ? row('Show light reach', toggle('data-lightreach', !!app.lightReach?.()), 'each lit light\'s reach on its floor, coloured by kind ("light reach" in the command bar). This browser only; players never see it') : '') + row('Levels fly away', toggle('data-pref="cutFly"', prefs.cutFly), 'hidden levels lift off instead of vanishing') + row('Library: everything the same size', toggle('data-pref="libEven"', prefs.libEven !== false), 'in the Build library every thing fills its place the same; off shows true relative sizes. What you place is always its true size') + row('Reduce motion', toggle('data-pref="reducedMotion"', prefs.reducedMotion))),
-      group('Sound', row('Music', toggle('data-pref="music"', prefs.music) + range('data-pref="musicVol"', prefs.musicVol, 0, 1, 0.05)) + row('Sound effects', toggle('data-pref="sfx"', prefs.sfx) + range('data-pref="sfxVol"', prefs.sfxVol, 0, 1, 0.05)), 'Stored for you; music and sound are coming.'),
+      ddbGroup(),
       group('My agents', `${mine.length ? `<ul class="slist">${mine.map(s => `<li data-seat="${s.id}"><b>${esc(s.name)}</b><small>${s.online ? 'online' : 'offline'}</small><button class="sbtn" data-act="key">Copy key</button><button class="sbtn danger" data-act="revoke">Revoke</button></li>`).join('')}</ul>` : '<p class="snote">None yet.</p>'}
         <div class="snew"><input class="agentname" placeholder="Agent name" maxlength="40"><button class="sbtn primary" data-act="agent">${icon('bot', 15)} Create agent</button></div>${newAgent ? `<p class="skey">Key for ${esc(newAgent.name)}: <code>${esc(newAgent.url)}</code></p>` : ''}`, 'LLM seats that act for you, with at most your permissions.'),
       app.gm() ? '' : group('Import and export', `<div class="sab"><button class="sbtn" data-act="req-export">Ask to export</button><label class="sbtn">Ask to import…<input type="file" accept=".json,application/json" class="reqfile" hidden></label>${exportOk ? `<button class="sbtn primary" data-act="export">${icon('package', 15)} Export now</button>` : ''}</div>${reqs.length ? `<ul class="slist">${reqs.map(r => `<li><b>${r.kind === 'import' ? 'Import' : 'Export'}</b><small class="st-${r.status}">${r.status}</small></li>`).join('')}</ul>` : ''}`, 'The GM approves or denies each request.'),
-      `<div class="sfoot"><button class="sbtn" data-act="reset">Reset to defaults</button></div>`,
     ].join('');
+  }
+  // Controls (S then K): how the game answers your hands, eyes and ears. All of it is this browser's own (prefs).
+  function controlsBody() {
+    const keys = R.all().filter(x => x.keys?.length && R.permitted?.(x, R.ctx()) !== false).map(x => `<tr><td>${esc(typeof x.title === 'function' ? x.title(R.ctx()) : x.title)}</td><td>${x.keys.map(k => `<kbd>${esc(k.replace('Mod', navigator.platform?.includes('Mac') ? '⌘' : 'Ctrl'))}</kbd>`).join(' ')}</td></tr>`).join('');
+    return [
+      group('Controls', row('Zoom speed', range('data-pref="zoomSpeed"', prefs.zoomSpeed, 0.25, 2, 0.05)) + row('Rotate speed', range('data-pref="rotateSpeed"', prefs.rotateSpeed, 0.25, 2, 0.05)) + row('Invert zoom', toggle('data-pref="invertZoom"', prefs.invertZoom)) + row('Invert rotate', toggle('data-pref="invertRotate"', prefs.invertRotate)) + row('Scroll wheel', select('data-pref="wheel"', [['auto', 'Auto (a wheel zooms, a trackpad pans)'], ['zoom', 'Always zoom'], ['pan', 'Always pan']], prefs.wheel || 'auto'), 'if a smooth-scrolling mouse pans, or a trackpad zooms') + row('Pawns snap to squares', select('data-pref="pawnSnap"', [['shift', 'Only with Shift'], ['always', 'Always (Shift = free)']], prefs.pawnSnap || 'shift'), 'dragging a pawn, or a figure out of a list')
+        + `<details class="skeys"><summary>Keyboard shortcuts</summary><table>${keys}</table></details>`),
+      group('Interface', row('Ring size', range('data-pref="ringScale"', prefs.ringScale, 0.7, 1.6, 0.05)) + row('Text size', range('data-pref="textScale"', prefs.textScale, 0.8, 1.5, 0.05)) + row('Announce says and rolls', toggle('data-pref="announce"', prefs.announce)) + row('3D dice', toggle('data-pref="dice3d"', prefs.dice3d !== false), 'rolls tumble onto the table; off: the chat line only') + row('Announcement speed', range('data-pref="announceSpeed"', prefs.announceSpeed, 0.5, 2, 0.1)) + row("Others' cursors", toggle('data-pref="cursors"', prefs.cursors)) + (app.can('room') ? row('Room and building labels', toggle('data-labels', app.labelsOn?.() !== false), 'L, or "labels" in the command bar. This browser only; pawn names stay') : '') + (app.gm() && app.setLightReach ? row('Show light reach', toggle('data-lightreach', !!app.lightReach?.()), 'each lit light\'s reach on its floor, coloured by kind ("light reach" in the command bar). This browser only; players never see it') : '') + row('Levels fly away', toggle('data-pref="cutFly"', prefs.cutFly), 'hidden levels lift off instead of vanishing') + row('Library: everything the same size', toggle('data-pref="libEven"', prefs.libEven !== false), 'in the Build library every thing fills its place the same; off shows true relative sizes. What you place is always its true size') + row('Reduce motion', toggle('data-pref="reducedMotion"', prefs.reducedMotion))),
+      group('Sound', row('Music', toggle('data-pref="music"', prefs.music) + range('data-pref="musicVol"', prefs.musicVol, 0, 1, 0.05)) + row('Sound effects', toggle('data-pref="sfx"', prefs.sfx) + range('data-pref="sfxVol"', prefs.sfxVol, 0, 1, 0.05)), 'Your ears only, this browser (the GM picks what plays: Settings ▸ Area settings ▸ Music). Off means nothing is even downloaded. Sound effects are coming.'),
+      `<div class="sfoot"><button class="sbtn" data-act="reset">Reset my controls and graphics to defaults</button></div>`,
+    ].join('');
+  }
+  // Graphics (S then G): the picture and what it costs this machine (graphics.js; prefs, this browser only)
+  function graphicsBody() {
+    const g = GRAPHICS[prefs.graphics] || GRAPHICS.high;
+    return graphicsGroup(g) + `<div class="sfoot"><button class="sbtn" data-act="reset">Reset my controls and graphics to defaults</button></div>`;
   }
 
   // ---------- Me ▸ My pawns (Harry 2026-10-06; docs/PAWNS.md "A player's pawns") ----------
@@ -269,11 +316,16 @@ export function settingsSurface(R, app) {
   const myId = () => { const me = C()?.seats.find(s => s.id === app.me()); return me?.kind === 'llm' ? me.creator : app.me(); };
   const myDefs = () => (C()?.pawns || []).filter(d => d.owner === myId());
   const figPic = (fig, size) => { const f = fig && F.get(fig), u = f && F.thumbUrl(f); return u ? `<img class="mpimg" src="${esc(u)}" alt="" width="${size}" height="${size}">` : `<span class="mpimg none" style="width:${size}px;height:${size}px">${icon('user', Math.round(size * 0.5))}</span>`; };
+  // the definitions this seat may open in the editor: its own, and for the GM side anyone's (pawn.define lets the GM define
+  // a player's pawn: the GM's "Choose Bobby's pawn" on a placeholder, client/pawns.js app.choosePawn). A player is only
+  // ever sent her own (core/party.js defsFor), so nothing of anyone else's can reach a player's editor.
+  const defsOf = (owner) => (C()?.pawns || []).filter(d => d.owner === owner);
+  const seatName = (id) => C()?.seats.find(s => s.id === id)?.name || 'Player';
   function startPawnEdit(id) {
-    const d = id && id !== 'new' ? myDefs().find(x => x.id === id) : null;
+    const d = id && id !== 'new' ? (C()?.pawns || []).find(x => x.id === id && (x.owner === myId() || app.gm())) : null;
     const ft = (v) => Number.isFinite(v) ? String(v) : ''; // '' = the default (darkvision 30 ft, no carried light)
-    pawnEdit = d ? { id: d.id, isNew: false, name: d.name, fig: d.fig || '', sheet: d.sheet || '', notes: d.notes || '', petOf: d.petOf || '', main: !!d.main, named: true, darkvision: ft(d.darkvision), lightCarried: ft(d.lightCarried) }
-      : { id: null, isNew: true, name: '', fig: '', sheet: '', notes: '', petOf: '', main: !myDefs().length, named: false, darkvision: '', lightCarried: '' };
+    pawnEdit = d ? { id: d.id, isNew: false, owner: d.owner, placeholder: !!d.placeholder, name: d.name, fig: d.fig || '', sheet: d.sheet || '', notes: d.notes || '', petOf: d.petOf || '', main: !!d.main, named: true, darkvision: ft(d.darkvision), lightCarried: ft(d.lightCarried) }
+      : { id: null, isNew: true, owner: myId(), name: '', fig: '', sheet: '', notes: '', petOf: '', main: !myDefs().length, named: false, darkvision: '', lightCarried: '' };
     picker = figTree(app, {
       selected: () => pawnEdit?.fig || null,
       onChange: () => { if (S.isOpen) render(); },
@@ -287,18 +339,22 @@ export function settingsSurface(R, app) {
     const defs = myDefs(), nameOf = (id) => defs.find(d => d.id === id)?.name;
     const status = (d) => [d.main ? '★ main' : '', d.petOf && nameOf(d.petOf) ? `${nameOf(d.petOf)}'s` : '', d.at ? `on the table: ${app.areaName(d.at)}` : d.away ? 'on a table' : 'on the bench'].filter(Boolean).join(' · ');
     const cards = defs.map(d => `<li class="mpcard${pawnEdit?.id === d.id ? ' sel' : ''}" data-def="${d.id}">${figPic(d.fig, 56)}<div class="mpn"><b>${esc(d.name)}</b><small>${esc(status(d))}</small></div><button class="sbtn" data-act="pawn-edit">Edit</button><button class="sbtn danger" data-act="pawn-forget" title="Forget this pawn">${icon('trash-2', 15)}</button></li>`).join('');
-    const e = pawnEdit, f = e?.fig && F.get(e.fig);
-    const editor = !e ? '' : `<div class="mped" data-edit="${e.isNew ? 'new' : e.id}"><h4>${e.isNew ? 'New pawn' : `Edit ${esc(myDefs().find(d => d.id === e.id)?.name || 'pawn')}`}</h4>
+    const e = pawnEdit, f = e?.fig && F.get(e.fig), foreign = !!e && e.owner !== myId(), odefs = e ? defsOf(e.owner) : defs;
+    const head = !e ? '' : e.isNew ? 'New pawn' : foreign && e.placeholder ? `Choose ${esc(seatName(e.owner))}'s pawn` : e.placeholder ? 'Set your pawn' : `Edit ${esc(odefs.find(d => d.id === e.id)?.name || 'pawn')}`;
+    const phNote = e?.placeholder ? `<p class="snote mpph">${foreign ? `${esc(seatName(e.owner))}'s pawn is a stand-in until a figure is picked for it. ${esc(seatName(e.owner))} can pick one too; whoever picks first decides.` : 'Your pawn is a stand-in until you pick a figure. Pick one from the pictures, and give it a name.'}</p>` : '';
+    const editor = !e ? '' : `<div class="mped${e.placeholder ? ' placeholder' : ''}" data-edit="${e.isNew ? 'new' : e.id}"${foreign ? ` data-owner="${esc(e.owner)}"` : ''}><h4>${head}</h4>${phNote}
       <div class="mpfig"><div class="mpprev">${figPic(e.fig, 112)}<b>${f ? esc(f.name) : 'No figure yet'}</b><small>${f ? esc(F.describe(f)) : 'pick one from the pictures'}</small>${f ? `<button class="sbtn tiny" data-act="pawn-nofig">No figure</button>` : ''}</div><div class="mptree clip">${picker.html()}</div></div>
       ${row('Name', `<input class="mpname" value="${esc(e.name)}" maxlength="80" placeholder="What it is called on the table">`)}
       ${row('Sheet link', `<input class="mpsheet" value="${esc(e.sheet)}" maxlength="500" placeholder="https://… (its character sheet; optional)">`)}
       ${row('Notes', `<textarea class="mpnotes" maxlength="4000" rows="3" placeholder="Everyone at the table can read these (optional)">${esc(e.notes)}</textarea>`)}
-      ${row('Pet or familiar of', select('class="mppet"', [['', 'Nobody: it is its own pawn'], ...defs.filter(d => d.id !== e.id).map(d => [d.id, d.name])], e.petOf))}
-      ${row('My main pawn', toggle('data-mpmain', e.main), 'your main pawn wears the full-detail figure')}
+      ${row('Pet or familiar of', select('class="mppet"', [['', 'Nobody: it is its own pawn'], ...odefs.filter(d => d.id !== e.id).map(d => [d.id, d.name])], e.petOf))}
+      ${row(foreign ? `${esc(seatName(e.owner))}'s main pawn` : 'My main pawn', toggle('data-mpmain', e.main), 'a main pawn wears the full-detail figure')}
       ${row('Sees in the dark (ft)', `<input class="mpdark" type="number" min="0" max="${DARKVISION_MAX}" step="5" value="${esc(e.darkvision)}" placeholder="${DARKVISION_DEFAULT}" aria-label="Sees in the dark, in feet">`, `its darkvision where an area is dark (blank: ${DARKVISION_DEFAULT} ft; 0: none)`)}
       ${row('Carries a light (ft)', `<input class="mplight" type="number" min="0" max="${CARRIED_LIGHT_MAX}" step="5" value="${esc(e.lightCarried)}" placeholder="0" aria-label="Carries a light, in feet">`, 'a torch is 40, a lantern 60; it lights the dark for everyone')}
       <div class="sab"><button class="sbtn primary" data-act="pawn-save">${icon('check', 15)} ${e.isNew ? 'Add to my pawns' : 'Save'}</button><button class="sbtn" data-act="pawn-cancel">Cancel</button></div></div>`;
-    return group('My pawns', `${defs.length ? `<ul class="slist mpl">${cards}</ul>` : '<p class="snote">None yet.</p>'}${e ? '' : `<div class="snew"><button class="sbtn primary" data-act="pawn-new">${icon('plus', 15)} New pawn</button></div>`}${editor}`, 'The pawns you keep in this campaign. Bring them onto the table, and send them back to your bench, from the Pawns menu (P).');
+    const mine = group('My pawns', `${defs.length ? `<ul class="slist mpl">${cards}</ul>` : '<p class="snote">None yet.</p>'}${e ? '' : `<div class="snew"><button class="sbtn primary" data-act="pawn-new">${icon('plus', 15)} New pawn</button></div>`}${foreign ? '' : editor}`, 'The pawns you keep in this campaign. Bring them onto the table, and send them back to your bench, from the Pawns menu (P).');
+    // the GM choosing a player's pawn: its own group, first (it is what the GM came for), the GM's own pawns after it
+    return foreign ? group(`${esc(seatName(e.owner))}'s pawn`, editor, `Kept with ${esc(seatName(e.owner))}'s pawns; ${esc(seatName(e.owner))} sees the change at once.`) + mine : mine;
   }
   function savePawn() {
     const e = pawnEdit; if (!e) return;
@@ -307,10 +363,12 @@ export function settingsSurface(R, app) {
     // darkvision / carried light: a number of feet (clamped, to the nearest foot), or blank = the default
     const feet = (v, max) => { const t = String(v ?? '').trim(); if (!t) return null; const n = Math.round(Number(t)); return Number.isFinite(n) ? Math.max(0, Math.min(max, n)) : null; };
     const dark = { darkvision: feet(e.darkvision, DARKVISION_MAX), lightCarried: feet(e.lightCarried, CARRIED_LIGHT_MAX) };
-    dispatchC('pawn.define', { id, name, fig: f ? f.id : 'none', size, sheet: e.sheet.trim(), notes: e.notes, petOf: e.petOf || '', main: !!e.main, ...dark });
+    // a PLACEHOLDER saved with no figure picked stays a placeholder (a figure, chosen, ends it: core/commands.js withPlaceholder)
+    const ph = e.placeholder && !f ? { placeholder: true } : {};
+    dispatchC('pawn.define', { id, name, fig: f ? f.id : 'none', size, sheet: e.sheet.trim(), notes: e.notes, petOf: e.petOf || '', main: !!e.main, ...dark, ...ph });
     // its pawn, when it stands on the table I am at, changes with it (elsewhere: the next time it is brought on)
     const t = Object.values(app.entities()).find(x => x.kind === 'token' && x.def === id);
-    if (t) app.batch([{ type: 'token.set', args: { id: t.id, name, fig: f ? f.id : 'none', size, sheet: e.sheet.trim(), notes: e.notes, main: !!e.main, ...dark } }]);
+    if (t) app.batch([{ type: 'token.set', args: { id: t.id, name, fig: f ? f.id : 'none', size, sheet: e.sheet.trim(), notes: e.notes, main: !!e.main, ...dark, ...ph } }]);
     S.lastPawnSaved = id; pawnEdit = null; picker = null; render();
   }
 
@@ -319,6 +377,11 @@ export function settingsSurface(R, app) {
   const defaults = () => C()?.defaults || {};
   function ruleCtl(k, kind, opts, v, scope) {
     const attr = `data-rule="${k}" data-scope="${scope}"`;
+    if (kind === 'music') { // (client/music.js) Off, Playlist, each track; a value no track has (an old campaign's text) shows as itself and plays nothing
+      const T = app.music?.tracks || [], m = T.find(t => t.id === v) || T.find(t => t.name.toLowerCase() === String(v || '').toLowerCase()), cur = !v ? '' : v === 'playlist' ? 'playlist' : m ? m.id : v;
+      const opts = [['', 'Off'], ['playlist', 'Playlist (every track, shuffled)'], ...T.map(t => [t.id, t.name]), ...(cur && cur !== 'playlist' && !m ? [[cur, `“${cur}” (no such track: silent)`]] : [])];
+      return select(attr, opts, cur);
+    }
     return kind === 'toggle' ? toggle(attr, v) : kind === 'select' ? select(attr, opts, v) : `<input ${attr} value="${esc(v)}" maxlength="80">`;
   }
   function areaBody() {
@@ -330,18 +393,31 @@ export function settingsSurface(R, app) {
     }).join('');
     return `<p class="snote">For <b>${esc(a.name)}</b>, the area in your main view.</p>`
       + group('Players', row('Open to players', toggle('data-areaopen', a.visibility !== 'hidden') + `<span class="avis${a.visibility === 'hidden' ? ' is-hidden' : ''}">${a.visibility === 'hidden' ? `${app.areaMark(a.id)} Hidden from players` : 'Open to players'}</span>`, a.visibility === 'hidden' ? 'Hidden everywhere: players cannot see it, list it, view it or travel to it, and nothing in it reaches them.' : 'Everyone in the campaign can see it and travel to it.'))
-      + group('Play', rules);
+      + group('Play', rules)
+      + group('Ground', groundRow()) // the area's ground material (Harry 2026-10-22; core area.ground)
+      + (app.gm() && app.share ? group('Share', `<div class="sab"><button class="sbtn" data-act="share-area">${icon('package', 15)} Export this area…</button></div>`, 'The whole area as a .turnip.json file or a share link: it imports as a new area.') : ''); // (client/share.js)
   }
+  // THE AREA'S GROUND: one floor material over all the open ground here, under the rooms (client/groundcover.js). Also by
+  // dragging a floor onto open ground (its offer, surfaces/floordrop.js) and the bar ("ground grass", "bare ground").
+  function groundRow() {
+    const cur = app.sync.view?.(app.area())?.ground || '';
+    const opts = [['', 'Bare (the plain dark ground)'], ...(app.roomgen?.floors || []).map(f => [f, f.replace(/^floor-/, '').replace(/-/g, ' ')])];
+    return row('Open ground', select('data-ground', opts, cur) + `<span class="sinh ${cur ? 'over' : ''}">${cur ? 'covered here' : 'bare'}</span>`, 'everything outside the rooms, in one material (room floors and painted tiles still show where they are)');
+  }
+  // Area defaults (S then D): the play knobs every area inherits unless it overrides them (Area settings)
   function defaultsBody() {
-    const d = defaults(), c = C();
+    const d = defaults();
     const rules = RULES.filter(r => r[0] !== 'fogOfWar').map(([k, label, kind, opts, note]) => { const over = k in d, v = over ? d[k] : BUILTIN_RULES[k]; return row(label, ruleCtl(k, kind, opts, v, 'defaults') + `<span class="sinh ${over ? 'over' : ''}">${over ? 'set here' : 'built-in'}</span>${over ? `<button class="sbtn tiny" data-reset="${k}" data-scope="defaults">Reset</button>` : ''}`, note || ''); }).join('');
-    const anim = Object.keys(T.anim?.BUILTIN_PRESETS || { 'harry-v2': 1 }), light = ['night', 'day', 'deep-night', 'daylight'], selStyles = Object.keys(selectionStyles());
+    // (Harry 2026-10-12 looked for the graphics switches here: they are each person's own, Settings ▸ Graphics)
+    return `<p class="snote">Every area inherits these unless it overrides them in Area settings. Graphics are per person: <a href="#" class="gomegfx">Settings ▸ Graphics</a>.</p>`
+      + group('Play (every area)', rules);
+  }
+  // Campaign rules (S then R): what holds for the whole campaign
+  function campaignBody() {
+    const d = defaults(), c = C();
     const genres = (app.taxonomy?.genres || []).map(id => app.taxonomy.get(id)).filter(Boolean);
     const camp = (k, opts, fallback) => select(`data-camp="${k}"`, opts, d[k] ?? fallback);
-    // (Harry 2026-10-12 looked for the graphics switches here: they are each person's own, under Me)
-    return `<p class="snote">Every area inherits these unless it overrides them. Graphics are per person: <a href="#" class="gomegfx">Me ▸ Graphics</a>.</p>`
-      + group('Campaign', row('Campaign name', `<input class="campname" value="${esc(c?.name || '')}" maxlength="80">`))
-      + group('Play (every area)', rules)
+    return group('Campaign', row('Campaign name', `<input class="campname" value="${esc(c?.name || '')}" maxlength="80">`))
       + group('Vision', row('Fog of war', toggle('data-vision="fogOfWar"', d.fogOfWar === true), 'Players see through their pawns; explored rooms stay in mist. Independent of Graphics and Fog and mist.')
         + row('Shared party vision', toggle('data-vision="sharedPartyVision"', d.sharedPartyVision === true), 'Share sight from all player-owned pawns. Off: only your own pawns and those you control.')
         + `<div class="sab"><button class="sbtn" data-act="fog-reset">Reset fog</button><button class="sbtn" data-act="fog-reveal">Reveal explored here</button></div><p class="snote">Reset forgets exploration for everyone (undoable). Reveal marks the selected room, or this area, explored.</p>`)
@@ -350,10 +426,36 @@ export function settingsSurface(R, app) {
         + row('Units', camp('units', [['ft', 'Feet'], ['m', 'Metres']], 'ft'), 'rulers and templates read in these (1.5 m a square); other readouts are in feet for now')
         + row('Genre default', camp('genre', [['', 'First in the list'], ...genres.map(g => [g.key, g.label])], ''), 'where Build opens for a new seat')
         + row('Rolls', camp('rolls', [['public', 'Public'], ['hidden', 'Hidden (GM sees)']], 'public'), 'stored; hidden rolls are coming'))
-      + group('House look', row('Spawn animation', camp('houseAnim', anim.map(k => [k, k]), anim[0])) + row('House lighting', camp('houseLight', [['', 'As tuned'], ...light.map(k => [k, k])], '')) + row('Selection style', camp('houseSelection', [['', 'As tuned'], ...selStyles.map(k => [k, k])], '')));
+      + ddbGroup();
   }
+  // House look (S then H): the campaign's spawn animation, lighting and selection style (the tuner's looks), set rarely
+  function houseBody() {
+    const d = defaults();
+    const anim = Object.keys(T.anim?.BUILTIN_PRESETS || { 'harry-v2': 1 }), light = ['night', 'day', 'deep-night', 'daylight'], selStyles = Object.keys(selectionStyles());
+    const camp = (k, opts, fallback) => select(`data-camp="${k}"`, opts, d[k] ?? fallback);
+    // (2026-10-27) HILLS BELOW GROUND: SEE-THROUGH (Harry: "maybe what we really need is something more like
+    // transparent/translucent hills"). A slider, live: the view follows it as it moves (hillPreview, every world), and the
+    // campaign keeps it when let go (campaign.set defaults.hillSee, so every seat draws the same); Copy gives the value.
+    // (later the same day, Harry: "Honestly, I think that should probably also apply to the ground itself") a second
+    // slider beside it for the ground plane (groundSee)
+    const hs = hillSeeOf(d), gs = groundSeeOf(d), set = (d.hillSee != null && d.hillSee !== HILL_SEE) || (d.groundSee != null && d.groundSee !== GROUND_SEE);
+    return group('House look', row('Spawn animation', camp('houseAnim', anim.map(k => [k, k]), anim[0])) + row('House lighting', camp('houseLight', [['', 'As tuned'], ...light.map(k => [k, k])], '')) + row('Selection style', camp('houseSelection', [['', 'As tuned'], ...selStyles.map(k => [k, k])], ''))
+      + row('Below the ground: see-through', `<label class="schk">Hills ${range('data-hillsee', hs, 0, 1, 0.05)}</label><label class="schk">Ground ${range('data-groundsee', gs, 0, 1, 0.05)}</label>` + `<button class="sbtn" data-act="hillsee-copy" title="Copy the values">${icon('copy', 15)} Copy</button>` + (set ? `<button class="sbtn" data-act="hillsee-reset" title="Back to the game's defaults (${HILL_SEE}, ${GROUND_SEE})">Reset</button>` : ''), `at lv -1 and below, how much is drawn over the cellars and caves: Hills (their tops, banks, rocks and bushes) and Ground (the open ground). 0 = gone, 1 = solid. Game defaults ${HILL_SEE} and ${GROUND_SEE}`));
+  }
+  const hillSeeOf = (d) => Number.isFinite(d?.hillSee) ? d.hillSee : HILL_SEE, groundSeeOf = (d) => Number.isFinite(d?.groundSee) ? d.groundSee : GROUND_SEE;
+  let groundPreview = null, hillPreview = null; // (the slider while it is being dragged: the view follows it before the campaign has it)
   const selectionStyles = () => { try { return T.selection?.STYLE_DEFAULTS || {}; } catch { return {}; } };
 
+  // UNIVERSAL VTT (2026-10-24; client/uvtt.js): this area, the level you are on, as a 2D battlemap for another VTT
+  function uvttGroup() {
+    const X = app.uvtt; if (!X) return '';
+    const p = X.prefs(), L = X.last, lv = X.levelLabel();
+    const chk = (k, label) => `<label class="schk"><input type="checkbox" data-uvtt="${k}"${p[k] ? ' checked' : ''}> ${label}</label>`;
+    const done = L && L.area === app.area() ? `<p class="snote uvtt-last${L.big ? ' bad' : ''}">Last: ${esc(L.name)} · ${L.box.w} × ${L.box.d} squares at ${L.ppg} px · ${L.counts.wall + L.counts.stack + L.counts.moved} walls, ${L.counts.door} doors, ${L.counts.window} windows, ${L.lights} lights · ${(L.bytes / 1048576).toFixed(1)} MB${L.big ? ' — large: some VTTs refuse files over 20 MB; try fewer pixels a square' : ''}</p>` : '';
+    return group('Universal VTT (.dd2vtt)', `<div class="sab uvtt"><label class="schk">Pixels a square ${select('data-uvtt="ppg"', PPG_CHOICES.map(n => [String(n), String(n)]), String(p.ppg))}</label>${chk('hidden', 'Include hidden')}${chk('grid', 'Grid lines')}${chk('pawns', 'Pawns')}</div>
+        <div class="sab"><button class="sbtn primary" data-act="uvtt"${X.busy ? ' disabled' : ''}>${icon('map', 15)} Download as Universal VTT (.dd2vtt)</button></div>${X.lastError ? `<p class="snote bad">Could not export: ${esc(X.lastError)}</p>` : ''}${done}`,
+      `This area's <b>${esc(lv)}</b> (the level you are on) as a 2D battlemap: the picture seen from straight above, its walls, doors, windows and lights. For Foundry (the Universal Battlemap Importer module), Roll20, Owlbear Rodeo, Fantasy Grounds and MapTool. One square is 5 ft.`);
+  }
   // ---------- 5. Campaign admin ----------
   function adminBody() {
     const c = C(); if (!c) return '';
@@ -367,6 +469,8 @@ export function settingsSurface(R, app) {
         + (done.length ? `<ul class="slist dim">${done.map(r => `<li>${esc(nameOf(r.by))} · ${r.kind} · <small class="st-${r.status}">${r.status}</small></li>`).join('')}</ul>` : ''))
       + group('Snapshots', `<div class="snew"><input class="snapname" placeholder="Snapshot name" maxlength="60"><button class="sbtn primary" data-act="snap">${icon('copy', 15)} Save this area</button></div>${snaps.length ? `<ul class="slist">${snaps.map((s, i) => `<li data-snap="${i}"><b>${esc(s.name)}</b><small>${esc(s.areaName)} · ${new Date(s.at).toLocaleString()} · ${s.n ?? Object.keys(s.entities || {}).length} things</small><button class="sbtn" data-act="restore">Restore</button><button class="sbtn danger" data-act="unsnap">${icon('trash-2', 15)}</button></li>`).join('')}</ul>` : ''}`, 'Kept on the server for this campaign (any of your devices). Restoring replaces what is in that area now (undo brings it back).')
       + group('Export and import', `<div class="sab"><button class="sbtn primary" data-act="export">${icon('package', 15)} Export campaign JSON</button><label class="sbtn">Import JSON…<input type="file" accept=".json,application/json" class="impfile" hidden></label><button class="sbtn" disabled title="Later">glTF</button><button class="sbtn" disabled title="Later">TaleSpire</button><button class="sbtn" disabled title="Later">STL</button></div>`, 'An import adds its areas as new areas.')
+      + (app.share ? group('Shared builds', `<div class="shadmin">${app.share.adminGroupHtml()}</div>`, 'A room, a building, things or a whole area someone shared (a .turnip.json, or "import &lt;link&gt;" in the command bar; you can also drop a file on the window). A room, a building or things follow the pointer until you click; a whole area comes in as a new area.') : '')
+      + uvttGroup()
       + group('Invites and seats', `${humans.length ? `<ul class="slist">${humans.map(s => `<li data-seat="${s.id}"><b>${esc(s.name)}</b><small>${s.role}${s.online ? ' · online' : ''}</small><button class="sbtn" data-act="invite">Copy invite</button><button class="sbtn danger" data-act="revoke">Revoke</button></li>`).join('')}</ul>` : '<p class="snote">No other seats yet.</p>'}
         <div class="snew"><input class="seatname" placeholder="Player name" maxlength="40"><button class="sbtn primary" data-act="newseat">${icon('user-plus', 15)} Invite a player</button></div>${lastKey ? `<p class="skey">${esc(lastKey.label)}: <code>${esc(lastKey.url)}</code></p>` : ''}`)
       + group('Agent seats', `${agents.length ? `<ul class="slist">${agents.map(s => `<li data-seat="${s.id}"><b>${esc(s.name)}</b><small>${s.online ? 'online' : 'offline'}</small><button class="sbtn" data-act="key">Copy key</button><button class="sbtn danger" data-act="revoke">Revoke</button></li>`).join('')}</ul>` : ''}
@@ -395,12 +499,25 @@ export function settingsSurface(R, app) {
     // rules (Area / Defaults)
     for (const el of $$('[data-rule]')) {
       const k = el.dataset.rule, scope = el.dataset.scope;
-      const send = (v) => scope === 'area' ? dispatchC('area.set', { area: app.area(), settings: { [k]: v } }) : dispatchC('campaign.set', { defaults: { [k]: v } });
+      const send = (v) => k === 'music' ? dispatchC('music.set', scope === 'area' ? { area: app.area(), music: v || 'off' } : { default: true, music: v || 'off' }) // (music.set: the music starts at its top for everyone)
+        : scope === 'area' ? dispatchC('area.set', { area: app.area(), settings: { [k]: v } }) : dispatchC('campaign.set', { defaults: { [k]: v } });
       if (el.classList.contains('stog')) el.onclick = () => { send(!el.classList.contains('on')); };
       else el.onchange = () => send(el.value);
     }
     for (const el of $$('[data-reset]')) el.onclick = () => el.dataset.scope === 'area' ? dispatchC('area.set', { area: app.area(), settings: { [el.dataset.reset]: null } }) : dispatchC('campaign.set', { defaults: { [el.dataset.reset]: null } });
     for (const el of $$('[data-camp]')) el.onchange = () => dispatchC('campaign.set', { defaults: { [el.dataset.camp]: el.value === '' ? null : el.value } });
+    const hs = modal.querySelector('[data-hillsee]'), gs = modal.querySelector('[data-groundsee]');
+    if (hs) {
+      hs.oninput = () => { hillPreview = +hs.value; hs.nextElementSibling.textContent = hillPreview.toFixed(2); applyWorlds(); };
+      hs.onchange = () => { const v = +(+hs.value).toFixed(2); hillPreview = v; applyWorlds(); dispatchC('campaign.set', { defaults: { hillSee: v } }); };
+    }
+    if (gs) {
+      gs.oninput = () => { groundPreview = +gs.value; gs.nextElementSibling.textContent = groundPreview.toFixed(2); applyWorlds(); };
+      gs.onchange = () => { const v = +(+gs.value).toFixed(2); groundPreview = v; applyWorlds(); dispatchC('campaign.set', { defaults: { groundSee: v } }); };
+    }
+    act('hillsee-copy', () => { const d = C()?.defaults, h = hs ? +hs.value : hillSeeOf(d), g = gs ? +gs.value : groundSeeOf(d); copy(`hillSee ${h.toFixed(2)} groundSee ${g.toFixed(2)}`, `Copied: below the ground, hills ${h.toFixed(2)}, ground ${g.toFixed(2)}`); });
+    act('hillsee-reset', () => { hillPreview = groundPreview = null; dispatchC('campaign.set', { defaults: { hillSee: null, groundSee: null } }); });
+    const gsel = modal.querySelector('[data-ground]'); if (gsel) gsel.onchange = () => app.setGround?.(gsel.value || null);
     const ao = modal.querySelector('[data-areaopen]'); if (ao) ao.onclick = () => dispatchC('area.visibility', { area: app.area(), visibility: ao.classList.contains('on') ? 'hidden' : 'open' });
     for (const el of $$('[data-vision]')) el.onclick = () => dispatchC('campaign.set', { defaults: { [el.dataset.vision]: !el.classList.contains('on') } });
     const lb = modal.querySelector('[data-labels]'); if (lb) lb.onclick = () => { app.setLabels(!app.labelsOn()); render(); };
@@ -416,7 +533,8 @@ export function settingsSurface(R, app) {
       li.querySelector('[data-act=here]').onclick = here;
       const th = li.querySelector('.sthumb'); if (th) { th.style.cursor = 'pointer'; th.title = 'Open here'; th.onclick = here; }
       const vb = li.querySelector('[data-act=vis]'); if (vb) vb.onclick = () => dispatchC('area.visibility', { area: id, visibility: li.dataset.vis === 'hidden' ? 'open' : 'hidden' });
-      li.querySelector('[data-act=pip]').onclick = () => { app.openPip(id); if (app.thumbs) { app.pip.rule = 'pinned'; app.thumbs.enter(app.pip, id); } render(); };
+      const pb = li.querySelector('[data-act=pip]'); if (pb && app.pipAllowed?.() === false) pb.hidden = true; // (a phone: no PiP)
+      if (pb) pb.onclick = () => { if (app.openPip(id) === false || !app.pip) return; if (app.thumbs) { app.pip.rule = 'pinned'; app.thumbs.enter(app.pip, id); } render(); };
       const del = li.querySelector('[data-act=del]'); if (del) del.onclick = () => { if (confirmDel === id) { confirmDel = null; dispatchC('area.delete', { area: id }); } else confirmDel = id; render(); };
       const nm = li.querySelector('.aname'); if (nm) nm.onchange = () => nm.value.trim() && dispatchC('area.set', { area: id, name: nm.value.trim() });
     }
@@ -444,7 +562,7 @@ export function settingsSurface(R, app) {
     const myname = modal.querySelector('.myname'); if (myname) myname.onchange = () => myname.value.trim() && dispatchC('seat.set', { who: app.me(), name: myname.value.trim() });
     const mycolor = modal.querySelector('.mycolor'); if (mycolor) mycolor.onchange = () => dispatchC('seat.set', { who: app.me(), color: mycolor.value });
     const rl = modal.querySelector('.reload'); if (rl) rl.onclick = (ev) => { ev.preventDefault(); location.reload(); };
-    const gg = modal.querySelector('.gomegfx'); if (gg) gg.onclick = (ev) => { ev.preventDefault(); section = 'me'; scrollTo = '.gfxtop'; render(); };
+    const gg = modal.querySelector('.gomegfx'); if (gg) gg.onclick = (ev) => { ev.preventDefault(); section = 'graphics'; scrollTo = '.gfxtop'; render(); };
     const gu = modal.querySelector('.gfxuse'); if (gu) gu.onclick = (ev) => { ev.preventDefault(); setGfx(gu.dataset.gfx); };
     act('reset', () => S.resetPrefs());
     act('agent', async () => { const name = modal.querySelector('.agentname').value.trim() || `${C()?.my.name}'s agent`; const classes = (C()?.my.classes || []).filter(k => !AGENTS_NEVER.has(k)); await makeAgent(name, classes); });
@@ -455,7 +573,7 @@ export function settingsSurface(R, app) {
       li.querySelector('[data-act=key]')?.addEventListener('click', async () => { const t = await reissue(id); if (t) copy(app.cardUrl(t), 'Agent key copied'); });
       li.querySelector('[data-act=invite]')?.addEventListener('click', async () => { const t = await reissue(id); if (t) copy(app.inviteLink(t), 'Invite link copied'); });
     }
-    act('newseat', async () => { const name = modal.querySelector('.seatname').value.trim() || 'Player'; const t = await app.createSeat({ kind: 'human', role: 'player', name, color: randomColor() }); if (t) { lastKey = { label: `Invite for ${name}`, url: app.inviteLink(t) }; copy(lastKey.url, 'Invite link copied'); render(); } });
+    act('newseat', async () => { const name = modal.querySelector('.seatname').value.trim() || 'Player'; const t = await app.createSeat({ kind: 'human', role: 'player', name, color: randomColor() }); if (t) { lastKey = { label: `Invite for ${name}`, url: app.inviteLink(t) }; copy(lastKey.url, app.lastPlaceholder?.ok && app.lastPlaceholder.seat ? `Invite link copied · ${name}'s pawn is waiting on the table` : 'Invite link copied'); render(); } });
     // requests (player side) and approvals (GM)
     act('req-export', () => dispatchC('request.create', { id: newId('req'), kind: 'export' }));
     const rf = modal.querySelector('.reqfile'); if (rf) rf.onchange = async () => { const data = await readJsonFile(rf.files[0]); if (data) dispatchC('request.create', { id: newId('req'), kind: 'import', note: rf.files[0].name.slice(0, 60), payload: data }); };
@@ -472,10 +590,14 @@ export function settingsSurface(R, app) {
       li.querySelector('[data-act=unsnap]').onclick = async () => { await snapReq(`/${s0.id}/delete`, { method: 'POST' }); refreshSnaps(); };
     }
     act('export', () => exportJson());
-    const imp = modal.querySelector('.impfile'); if (imp) imp.onchange = async () => { const data = await readJsonFile(imp.files[0]); if (data) await importData(data); };
+    act('share-area', () => { close(); app.share?.open({ area: true }); });
+    const sha = modal.querySelector('.shadmin'); if (sha) app.share?.wireAdmin(sha, () => { if (S.isOpen && section === 'admin') render(); });
+    for (const el of $$('[data-uvtt]')) el.onchange = () => app.uvtt?.savePrefs({ [el.dataset.uvtt]: el.dataset.uvtt === 'ppg' ? +el.value : el.checked });
+    act('uvtt', async () => { const b = modal.querySelector('[data-act="uvtt"]'); if (b) b.disabled = true; await app.uvtt?.download(); if (S.isOpen) render(); });
+    const imp = modal.querySelector('.impfile'); if (imp) imp.onchange = async () => { const f = imp.files[0]; if (f && /"format"\s*:\s*"turnip-works-share"/.test((await f.slice(0, 400).text()))) { close(); return app.share?.importFile(f); } const data = await readJsonFile(f); if (data) await importData(data); }; // (a shared build picked here: the build's own import)
   }
   const act = (name, fn) => { for (const el of $$(`[data-act="${name}"]`)) if (!el.closest('li[data-seat], li[data-req], li[data-snap], li.sarea, li[data-def]')) el.onclick = fn; };
-  const copy = (text, msg) => { try { navigator.clipboard.writeText(text); } catch { } app.toast(msg); S.lastCopied = text; };
+  const copy = (text, msg) => { try { navigator.clipboard.writeText(text)?.catch?.(() => { }); } catch { } app.toast(msg); S.lastCopied = text; }; // (a browser that refuses the clipboard: the link is still on the page, and no error)
   const randomColor = () => ['#6fc36f', '#6fa8dc', '#e06c75', '#c58be0', '#e5c07b', '#56b6c2'][Math.floor(Math.random() * 6)];
   async function makeAgent(name, classes) {
     const t = await app.createSeat({ kind: 'llm', name, scope: { classes, areas: '*' } });
@@ -536,15 +658,19 @@ export function settingsSurface(R, app) {
     app.toast('Exported');
   }
   async function readJsonFile(f) { if (!f) return null; try { const d = JSON.parse(await f.text()); if (!Array.isArray(d?.areas)) throw 0; return d; } catch { app.toast('That is not a Turnip Works campaign file', true); return null; } }
+  // A CAMPAIGN FILE IS UNTRUSTED INPUT (2026-10-29): each of its areas is read as a shared build (core/share.js
+  // campaignAreas: field by field, validated) and comes in through ordinary commands (client/share.js importArea), never
+  // an entities.set of the file's entities. Seats, owners, fog and chat never come in; a player's pawn neither.
   async function importData(d) {
-    for (const a of d.areas || []) {
-      const id = newId('area');
-      await app.await(app.sync.submit('area.create', { id, name: String(a.name || 'Imported').slice(0, 60) })); // (an imported area arrives hidden, like any new one)
-      if (a.settings && Object.keys(a.settings).length) app.sync.submit('area.set', { area: id, settings: a.settings });
-      const ents = a.entities || {};
-      if (Object.keys(ents).length) { app.sync.subscribe(id); for (const part of chunks(ents)) await app.await(app.sync.submit('entities.set', { set: part }, id)); }
+    const { docs, error } = SH.campaignAreas(d);
+    if (error) { app.toast(`Not imported: ${error}`, true); return 0; }
+    let n = 0;
+    for (const doc of docs) {
+      if (doc.empty) { const id = newId('area'); if (await app.await(app.sync.submit('area.create', { id, name: String(doc.name || 'Imported').slice(0, 60) }))) { if (doc.area?.settings) app.sync.submit('area.set', { area: id, settings: doc.area.settings }); n++; } continue; } // (an area with nothing in it yet)
+      if (await app.share?.importArea(doc)) n++;
     }
-    app.toast(`Imported ${(d.areas || []).length} area(s)`);
+    app.toast(`Imported ${n} area(s)`);
+    return n;
   }
   S.importData = importData; S.exportJson = exportJson; // (tests)
 
@@ -606,6 +732,10 @@ export function settingsSurface(R, app) {
     for (const [id, w] of app.worlds) {
       if (id.startsWith('lib:')) continue;
       if (w.layers?.cursors) w.layers.cursors.visible = !!prefs.cursors;
+      if (hillPreview != null && d.hillSee === hillPreview) hillPreview = null; // (the campaign has it now)
+      w.setHillSee?.(hillPreview ?? hillSeeOf(d));
+      if (groundPreview != null && d.groundSee === groundPreview) groundPreview = null;
+      w.setGroundSee?.(groundPreview ?? groundSeeOf(d)); // House look ▸ Below the ground: Ground (world.js groundSeePass) // House look ▸ Hills below ground: see-through (world.js hillSeePass)
       app.gfx?.applyWorld?.(w); // Me ▸ Graphics: this seat's own switches, Fog and mist among them (graphics.js; fx/atmos.js setOff: nothing drawn, nothing simulated)
       if (T.house.anim && w.preset !== T.house.anim) w.preset = T.house.anim;
       if (w.selFx && T.house.selection && w.selSet !== applied.selection) { w.selSet = applied.selection; try { w.selFx.set(noGlow(T.house.selection)); } catch { } }

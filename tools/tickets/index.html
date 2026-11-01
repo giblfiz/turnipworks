@@ -41,7 +41,7 @@ table.tk tr.sel td { background:var(--sel); }
 td.when { white-space:nowrap; color:var(--muted); font-size:12px; }
 td.txt { max-width:46ch; overflow-wrap:anywhere; }
 .chip { display:inline-block; padding:0 7px; border-radius:9px; font-size:11px; line-height:18px; background:color-mix(in srgb, var(--ink) 9%, transparent); white-space:nowrap; }
-.k-bug { background:#d0745f44; } .k-idea { background:#e5b94f44; } .k-asset { background:#4f7d4944; } .k-question { background:#5b8ad044; } .k-auto { background:#88888844; }
+.k-bug { background:#d0745f44; } .k-idea { background:#e5b94f44; } .k-asset { background:#4f7d4944; } .k-question { background:#5b8ad044; } .k-auto { background:#88888844; } .k-correction { background:#9a6fc344; }
 .s-new { background:var(--turnip); color:#fff; } .s-looking { background:#e5b94f; color:#2c2218; } .s-fixed { background:var(--leaf); color:#fff; }
 .s-wontfix, .s-duplicate { background:color-mix(in srgb, var(--ink) 18%, transparent); }
 .detail { background:var(--cream); border:1px solid var(--rule); border-radius:12px; padding:14px 16px; position:sticky; top:12px; max-height:calc(100vh - 40px); overflow:auto; }
@@ -80,7 +80,7 @@ const qs = new URLSearchParams(location.search);
 const CHANNEL = qs.get('relay') ? 'custom' : qs.get('channel') === 'dev' ? 'dev' : 'prod';
 const RELAY = (qs.get('relay') || (CHANNEL === 'dev' ? '/api/tw-relay' : 'https://turnipworks.net/api/tw-relay')).replace(/\/$/, '');
 const KEY_NAME = `tw.triage.key.${CHANNEL}`;
-const KINDS = { bug: 'Bug', idea: 'Idea', asset: 'Asset comment', question: 'Question', other: 'Other', auto: 'Auto (error)' };
+const KINDS = { bug: 'Bug', idea: 'Idea', asset: 'Asset comment', question: 'Question', other: 'Other', auto: 'Auto (error)', correction: 'Correction (site)' };
 const STATUS = { new: 'new', looking: 'looking', fixed: 'fixed', wontfix: "won't fix", duplicate: 'duplicate' };
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const $ = (s, r = document) => r.querySelector(s);
@@ -146,7 +146,7 @@ function listHtml() {
     <td class="when">${when(t.at)}</td><td><span class="chip k-${esc(t.kind)}">${esc(KINDS[t.kind] || t.kind)}</span>${t.count > 1 ? ` <span class="chip">×${t.count}</span>` : ''}</td>
     <td><span class="chip s-${esc(t.status)}">${esc(STATUS[t.status] || t.status)}</span>${t.reply ? ' <span class="chip" title="replied">↩</span>' : ''}</td>
     <td>${esc(t.campaign?.name || '?')}<br><small>${esc(t.seat?.name || '?')} · ${t.seat?.role === 'gm' ? 'GM' : esc(t.seat?.role || '?')}</small></td>
-    <td class="txt">${t.asset ? `<b>${esc(t.asset.name || t.asset.sku || '')}</b>: ` : ''}${esc(t.text)}${t.shot ? ' <span class="chip">screenshot</span>' : ''}</td></tr>`).join('')}</tbody></table></div>`;
+    <td class="txt">${t.asset ? `<b>${esc(t.asset.name || t.asset.sku || '')}</b>: ` : ''}${t.site ? `<b>${esc(t.site.product || t.site.page)}${t.site.field ? ' · ' + esc(t.site.field) : ''}</b>: ` : ''}${esc(t.text)}${t.shot ? ' <span class="chip">screenshot</span>' : ''}</td></tr>`).join('')}</tbody></table></div>`;
 }
 function ctxRows(c) {
   if (!c) return '';
@@ -163,6 +163,7 @@ function detailHtml() {
     <h2>${esc(KINDS[t.kind] || t.kind)} <span class="chip s-${esc(t.status)}">${esc(STATUS[t.status] || t.status)}</span>${t.count > 1 ? ` <span class="chip">seen ${t.count} times</span>` : ''}</h2>
     <div class="meta">${new Date(t.at).toLocaleString()} · ${esc(t.seat?.name || '?')} (${t.seat?.role === 'gm' ? 'GM' : esc(t.seat?.role || '?')}${t.seat?.kind === 'llm' ? ', an AI seat' : ''}) · ${esc(t.campaign?.name || '?')} <small>${esc(t.campaign?.id || '')}</small> · ${esc(t.area?.name || t.area?.id || '')} · <small>${t.id}</small></div>
     ${t.asset ? `<p><b>Asset:</b> ${esc(t.asset.name || '')} <small>${esc([t.asset.kind, t.asset.lib || t.asset.sku, t.asset.cat, t.asset.fig, t.asset.mesh, t.asset.entity].filter(Boolean).join(' · '))}</small></p>` : ''}
+    ${t.site ? `<p><b>From the site:</b> ${esc(t.site.page)} · product ${esc(t.site.product || '?')}${t.site.field ? ' · field ' + esc(t.site.field) : ''} · contact ${esc(t.site.contact || 'none given')}${t.site.maker ? ' · <b>says they make it</b>' : ''} <small>(a correction to the public comparison table: no reply reaches the sender here; answer through the contact, by hand)</small></p>` : ''}
     <div class="words">${esc(t.text) || '<i>(no words)</i>'}</div>
     <h3>Triage</h3>
     <div class="triage"><div class="statuses">${Object.entries(STATUS).map(([k, l]) => `<button data-status="${k}" class="${t.status === k ? 'on' : ''}">${esc(l)}</button>`).join('')}</div>

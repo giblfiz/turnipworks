@@ -71,6 +71,69 @@ export function runsOf(loop) {
   return { runs, corners };
 }
 
+// The room's outline made JAGGED (2026-10-25, Harry and Tobias: caves should not default to being so square). Before
+// the rule walks the outline, each side of each room is cut into stretches of 2 to 4 squares, and each stretch is
+// pushed OUT a square (now and then two), pulled IN a square, or left. Still whole 5-ft squares, so the grid, the pawns
+// and the clearance stay exact, and the rock follows the new outline. Tunnels (rects under 3 squares across), the
+// squares round them and round a tunnel mouth never move. `jag` 0..1 is how many stretches move; 0 is the plain rects.
+// Its own random stream ('jag'), so the shape changes with the seed and with nothing else.
+export function jagCells(scene, P, attempt = 0) {
+  const base = cellsOf(scene.rects), jag = P.jag ?? 0;
+  if (!(jag > 0)) return base;
+  const rng = mulberry32(hash(P.seed, 'jag', attempt)), key = (i, j) => `${i},${j}`, at = (k) => k.split(',').map(Number);
+  // squares that are never taken away (next to a tunnel), and squares never added (within 2 of a tunnel: the rock
+  // between a tunnel's wall and a room's must stay thick enough for both rows of chunks)
+  const keep = new Set(), noAdd = new Set();
+  for (const k of cellsOf(scene.rects.filter(([, , w, d]) => Math.min(w, d) < 3))) { const [i, j] = at(k);
+    for (let a = -2; a <= 2; a++) for (let b = -2; b <= 2; b++) { noAdd.add(key(i + a, j + b)); if (Math.abs(a) <= 1 && Math.abs(b) <= 1) keep.add(key(i + a, j + b)); } }
+  for (const a of scene.arches || []) for (let i = Math.floor(a.x / CELL) - 2; i <= Math.floor(a.x / CELL) + 2; i++) for (let j = Math.floor(a.z / CELL) - 2; j <= Math.floor(a.z / CELL) + 2; j++)
+    if (Math.hypot((i + 0.5) * CELL - a.x, (j + 0.5) * CELL - a.z) <= 8) { keep.add(key(i, j)); noAdd.add(key(i, j)); }
+  const cells = new Set(base);
+  for (const [i0, j0, w, d] of scene.rects) {
+    if (Math.min(w, d) < 3) continue;
+    const notched = new Set();   // lines across the room already pulled in from one side: never from both
+    for (const side of ['N', 'E', 'S', 'W']) {
+      const across = side === 'N' || side === 'S', len = across ? w : d, thick = across ? d : w;
+      for (let s = 0; s < len;) {
+        let run = Math.min(len - s, 2 + Math.floor(rng() * 3)); if (len - s - run === 1) run++;   // never leave a 1-square stretch at the end
+        const r = rng();
+        const move = r < jag * 0.5 ? 'out' : r < jag * 0.85 ? 'in' : 'flat', depth = move === 'out' && thick >= 4 && rng() < 0.3 ? 2 : 1;
+        for (let t = s; t < s + run && move !== 'flat'; t++) {
+          const [ei, ej, oi, oj] = side === 'N' ? [i0 + t, j0, 0, -1] : side === 'S' ? [i0 + t, j0 + d - 1, 0, 1] : side === 'W' ? [i0, j0 + t, -1, 0] : [i0 + w - 1, j0 + t, 1, 0];
+          if (base.has(key(ei + oi, ej + oj)) || !cells.has(key(ei, ej))) continue;   // joins another rect here, or the corner square another side pulled in
+          if (move === 'out') { for (let q = 1; q <= depth && !noAdd.has(key(ei + oi * q, ej + oj * q)); q++) cells.add(key(ei + oi * q, ej + oj * q)); }
+          else if (thick >= 4 && !keep.has(key(ei, ej)) && !notched.has(`${across}${t}`)) { cells.delete(key(ei, ej)); notched.add(`${across}${t}`); }
+        }
+        s += run;
+      }
+    }
+  }
+  // tidy: two squares touching only at a corner get the square between them filled (the outline walk needs every
+  // corner point to start one edge); a slot of rock one or two squares across between two parts of the room is
+  // filled (too thin for a row of chunks on each side); any enclosed hole is filled
+  for (let pass = 0; pass < 30; pass++) {
+    let changed = false;
+    for (const k of [...cells]) { const [i, j] = at(k);
+      for (const [a, b] of [[1, 0], [0, 1]]) for (const gap of [1, 2]) {
+        const slot = Array.from({ length: gap }, (_, q) => key(i + a * (q + 1), j + b * (q + 1)));
+        if (cells.has(key(i + a * (gap + 1), j + b * (gap + 1))) && slot.every(sk => !cells.has(sk) && !noAdd.has(sk))) { slot.forEach(sk => cells.add(sk)); changed = true; } } }
+    for (const k of [...cells]) { const [i, j] = at(k);
+      for (const [a, b] of [[1, 1], [1, -1]]) if (cells.has(key(i + a, j + b)) && !cells.has(key(i + a, j)) && !cells.has(key(i, j + b))) {
+        cells.add(keep.has(key(i + a, j)) ? key(i, j + b) : key(i + a, j)); changed = true; } }
+    if (!changed) break;
+  }
+  const xs = [...cells].map(k => at(k)[0]), zs = [...cells].map(k => at(k)[1]), lo = [Math.min(...xs) - 1, Math.min(...zs) - 1], hi = [Math.max(...xs) + 1, Math.max(...zs) + 1];
+  const outside = new Set([key(...lo)]), todo = [lo];
+  while (todo.length) { const [i, j] = todo.pop(); for (const [a, b] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const ni = i + a, nj = j + b, nk = key(ni, nj);
+    if (ni < lo[0] || nj < lo[1] || ni > hi[0] || nj > hi[1] || cells.has(nk) || outside.has(nk)) continue; outside.add(nk); todo.push([ni, nj]); } }
+  for (let i = lo[0]; i <= hi[0]; i++) for (let j = lo[1]; j <= hi[1]; j++) if (!cells.has(key(i, j)) && !outside.has(key(i, j))) cells.add(key(i, j));
+  // a shape that lost a kept square or came apart is not used: the plain rects are
+  const seen = new Set([cells.values().next().value]), stack = [...seen];
+  while (stack.length) { const [i, j] = at(stack.pop()); for (const [a, b] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const nk = key(i + a, j + b); if (cells.has(nk) && !seen.has(nk)) { seen.add(nk); stack.push(nk); } } }
+  if (seen.size !== cells.size || [...base].some(k => keep.has(k) && !cells.has(k))) return base;
+  return cells;
+}
+
 // how far in front of its back plane a piece reaches below head height, at scale u
 const reach = (k, u, sz = 1) => Math.max(k.front_reach_ft.foot_max, k.front_reach_ft.mid_max) * u * sz;
 const DEG = Math.PI / 180;
@@ -88,12 +151,21 @@ function makeWander(len, amp, rng) {
 /**
  * @param scene  { rects, open, arches:[{x,z,face:'N'|'E'|'S'|'W'}] }
  * @param kit    measurements per piece (kit.json)
- * @param P      { overlap 0..0.6, push ft, turn deg, wander ft, seed, rubble 0..1, topH ft (wall-top height) }
- * @param pool   { walls:[ids], column:id, rubble:id, arch:id }
+ * @param P      { overlap 0..0.6, push ft, turn deg, wander ft, jag 0..1, pillars 0..2, stalag 0..2, seed, rubble 0..1, topH ft (wall-top height) }
+ * @param pool   { walls:[ids], column:id, rubble:id, arch:id, stalagmites:[library glb files] }
  * Separate random streams for the pick of pieces, the turn and the wander, so moving one slider changes one thing.
  */
-export function placeCave(scene, kit, P, pool) {
-  const cells = cellsOf(scene.rects), loops = outline(cells, scene.open || []);
+export function placeCave(scene, kit, P, pool, given) {
+  // a jagged shape whose rock would stand inside the room (a chunk's back plane over a room square: a one-square stub
+  // or slot the tidy-up missed) is thrown away and the seed's next shape tried; after eight, the plain rects
+  if (!given && P.jag > 0) {
+    for (let attempt = 0; attempt < 8; attempt++) {
+      const r = placeCave(scene, kit, P, pool, jagCells(scene, P, attempt));
+      if (!r.placements.some(p => (p.role === 'wall' || p.role === 'rubble') && r.cells.has(`${Math.floor(p.x / CELL)},${Math.floor(p.z / CELL)}`))) return { ...r, jagAttempt: attempt };
+    }
+    given = cellsOf(scene.rects);
+  }
+  const cells = given || cellsOf(scene.rects), loops = outline(cells, scene.open || []);
   const out = [], runsAll = [], cornersAll = [];
   const walls = pool.walls.filter(id => kit[id]), topH = P.topH ?? 9.5, wanderAmp = P.wander ?? 0;
   let runNo = 0;
@@ -103,7 +175,9 @@ export function placeCave(scene, kit, P, pool) {
     for (const run of runs) {
       const id0 = runNo++, pick = mulberry32(hash(P.seed, 'pick', id0)), turnR = mulberry32(hash(P.seed, 'turn', id0)), misc = mulberry32(hash(P.seed, 'misc', id0));
       const rnd = (r, a, b) => a + r() * (b - a);
-      run.w = makeWander(run.len, wanderAmp, mulberry32(hash(P.seed, 'wander', id0)));
+      // a short stretch wanders less: on a jagged outline the squares make the big in-and-out, and a 5-ft stretch
+      // wandering the full amount would push its rock across the corner into the room behind it
+      run.w = makeWander(run.len, wanderAmp * Math.min(1, run.len / 20), mulberry32(hash(P.seed, 'wander', id0)));
       // the stretch to cover, measured along the run from its start corner
       const ext = (t) => t === 'in' ? 2.0 : t === 'out' ? -0.25 : 0.5;
       const s0 = -ext(run.startType), s1 = run.len + ext(run.endType), span = s1 - s0;
@@ -190,7 +264,46 @@ export function placeCave(scene, kit, P, pool) {
     out.push({ role: 'arch', id: pool.arch, x: a.x - right[0] * oc - face[0] * depth, z: a.z - right[1] * oc - face[1] * depth, rot, scale: [sx, sy, sz], y: 0,
       opening_ft: [+(k.opening.width_ft * sx).toFixed(2), +(k.opening.clear_height_ft * sy).toFixed(2)], stretch: +sx.toFixed(2) });
   }
-  return { placements: out, cells, loops, runs: runsAll, corners: cornersAll };
+  // 7. pillars and stalagmites (2026-10-25, Harry: "add a few pillars, stalagmites and such"). A PILLAR takes a whole
+  //    square out of the room (it blocks, like the wall's rock): only a square whose eight neighbours are all floor, at
+  //    least 3 squares from another pillar and 2 from a tunnel mouth, so a pillar can never close a way through. One
+  //    for about every 10 squares, times `pillars`. STALAGMITES are dressing on a floor square: most stand against the
+  //    wall (pushed toward the rock, so the middle of the square stays usable), some at a pillar's foot; never on a
+  //    square the scene stands a pawn on. Their own random streams ('pillar', 'stalag').
+  const key = (i, j) => `${i},${j}`, at = (k) => k.split(',').map(Number);
+  const nearMouth = (i, j, r) => (scene.arches || []).some(a => Math.hypot((i + 0.5) * CELL - a.x, (j + 0.5) * CELL - a.z) <= r);
+  const pr = mulberry32(hash(P.seed, 'pillar')), pillarCells = [], pawnSq = new Set((scene.pawns || []).map(([x, z]) => key(Math.floor(x / CELL), Math.floor(z / CELL))));
+  const want = Math.round(cells.size / 10 * (P.pillars ?? 1));
+  const cand = [...cells].filter(k => { const [i, j] = at(k); for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) if (!cells.has(key(i + a, j + b))) return false; return !nearMouth(i, j, 12) && !pawnSq.has(k); });
+  for (let q = cand.length - 1; q > 0; q--) { const r = Math.floor(pr() * (q + 1)); [cand[q], cand[r]] = [cand[r], cand[q]]; }
+  for (const k of cand) {
+    if (pillarCells.length >= want) break;
+    const [i, j] = at(k); if (pillarCells.some(([pi, pj]) => Math.max(Math.abs(pi - i), Math.abs(pj - j)) < 3)) continue;
+    pillarCells.push([i, j]);
+    if (kit[pool.column]) { const ck = kit[pool.column], u = 0.9 + pr() * 0.1, rot = pr() * Math.PI * 2, cz = (ck.front_reach_ft.foot_max + ck.front_reach_ft.behind_back_plane) / 2 * u;
+      out.push({ role: 'pillar', id: pool.column, x: (i + 0.5) * CELL - cz * Math.sin(rot), z: (j + 0.5) * CELL - cz * Math.cos(rot), rot, scale: [u, (topH + 0.8 + pr() * 0.8) / ck.size_ft.h, u], y: -0.1, round: true, cell: [i, j] }); }
+  }
+  for (const [i, j] of pillarCells) cells.delete(key(i, j));
+  const sr = mulberry32(hash(P.seed, 'stalag')), stal = pool.stalagmites || [];
+  if (stal.length) {
+    const used = new Set(), put = (i, j, dx, dz, hMin, hMax) => {
+      out.push({ role: 'stalagmite', file: stal[Math.floor(sr() * stal.length)], x: (i + 0.5) * CELL + dx, z: (j + 0.5) * CELL + dz, rot: sr() * Math.PI * 2, h: hMin + sr() * (hMax - hMin), foot: 1.6, y: 0, scale: [1, 1, 1] });
+      used.add(key(i, j)); };
+    const free = (i, j) => cells.has(key(i, j)) && !used.has(key(i, j)) && !pawnSq.has(key(i, j)) && !nearMouth(i, j, 8);
+    // against the wall: squares with rock on one side, pushed 1.4-1.9 ft toward it
+    const edge = [...cells].map(at).filter(([i, j]) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => !cells.has(key(i + a, j + b)) && !pillarCells.some(([pi, pj]) => pi === i + a && pj === j + b)));
+    for (let q = edge.length - 1; q > 0; q--) { const r = Math.floor(sr() * (q + 1)); [edge[q], edge[r]] = [edge[r], edge[q]]; }
+    const wallN = Math.round(edge.length / 4 * (P.stalag ?? 1));
+    for (const [i, j] of edge.slice(0, wallN)) {
+      if (!free(i, j)) continue;
+      const sides = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([a, b]) => !cells.has(key(i + a, j + b))), [a, b] = sides[Math.floor(sr() * sides.length)], d = 1.4 + sr() * 0.5, side = (sr() - 0.5) * 2.4;
+      put(i, j, a * d + b * side, b * d + a * side, 2.2, 4.6);
+      if (sr() < 0.4) put(i, j, a * (d - 0.4) - b * side * 0.6, b * (d - 0.4) - a * side * 0.6, 1.0, 2.0);   // a small one beside it
+    }
+    // at a pillar's foot: one or two short ones on the neighbouring squares, tucked against the pillar
+    for (const [pi, pj] of pillarCells) for (const [a, b] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (sr() < 0.35 * (P.stalag ?? 1) && free(pi + a, pj + b)) put(pi + a, pj + b, -a * 1.5 + b * (sr() - 0.5) * 2, -b * 1.5 + a * (sr() - 0.5) * 2, 1.2, 2.8);
+  }
+  return { placements: out, cells, loops, runs: runsAll, corners: cornersAll, pillarCells };
 }
 
 // The edge of the solid rock: the outline pushed outward to `back` feet behind the wandering line the chunks stand

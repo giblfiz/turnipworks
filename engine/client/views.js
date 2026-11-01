@@ -50,6 +50,10 @@ export class View {
     g.tick(this.rule === 'free' ? dt : 0);
     g.update();
     if (this.glide) this.glide.seen = [g.focus.x, g.focus.z, g.yaw, g.pitch, g.dist];
+    // FIRST PERSON (surfaces/fpv.js): the camera is put at a pawn's eyes after the grab camera has posed it. The grab
+    // camera keeps its own pose underneath (its focus is held on the pawn, so far rooms still sleep by it), and gets it
+    // back exactly when the eyes are left.
+    if (this.eyes) this.eyes(this.camera, dt);
   }
 
   // A GLIDE (Harry 2026-10-06: a double-click also centres): the focus eases to a point over a short time; heading,

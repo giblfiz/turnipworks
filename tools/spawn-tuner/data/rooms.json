@@ -10979,5 +10979,75 @@
    "torch-dropped",
    "treasure-hoard"
   ]
+ },
+ {
+  "key": "hill",
+  "floors": [
+   "floor-grass",
+   "floor-grass-meadow",
+   "floor-grass-worn",
+   "floor-earth-packed",
+   "floor-earth-bare",
+   "floor-gravel"
+  ],
+  "label": "Hill",
+  "program": "outdoors",
+  "family": "rough-timber",
+  "cells": [
+   6,
+   6
+  ],
+  "recipes": [
+   "tav-hill",
+   "hut-hill",
+   "cas-hill",
+   "lai-hill"
+  ],
+  "color": "#7fa35a",
+  "outdoor": true,
+  "terrain": true,
+  "slots": {
+   "plants": [
+    "bush",
+    "bush-berry",
+    "bush-rose",
+    "tree-deciduous",
+    "tree-birch",
+    "tree-fruit",
+    "tree-oak-great",
+    "flowerbed"
+   ],
+   "furnish": [
+    "log-seat",
+    "bench-stone",
+    "firepit-stone-round"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cave",
+  "floors": [
+   "floor-cave-rock",
+   "floor-cut-rock",
+   "floor-earth-packed",
+   "floor-earth-bare"
+  ],
+  "label": "Cave",
+  "program": "generic",
+  "family": "cut-rock",
+  "cells": [
+   7,
+   5
+  ],
+  "recipes": [
+   "lai-cave",
+   "dun-cave",
+   "min-cave"
+  ],
+  "color": "#6e6252",
+  "byHand": true,
+  "slots": {},
+  "missing": []
  }
 ]

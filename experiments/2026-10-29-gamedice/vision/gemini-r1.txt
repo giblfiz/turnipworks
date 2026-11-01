@@ -1,0 +1,180 @@
+### Visual QA Review: 3D Tabletop Game Dice (Table Distance)
+
+---
+
+### 1. Image-by-Image Explicit Readout
+
+#### `gamedice-symbols-sheet.png`
+* **Labels / Numbers / Tag Pills:** None (clean 2D asset reference sheet on dark maroon ground).
+* **Visible Symbols (left to right, 6 face glyphs):**
+  1. **Symbol 1 (`hunger-one`):** Three parallel diagonal torn claw slashes slashing down and left (cream fill, dark outline).
+  2. **Symbol 2 (`hunger-ten`):** Two downward-curving fangs with a single detached droplet below the left fang (cream fill, dark outline).
+  3. **Symbol 3 (`sym-explosive`):** Leaf spearhead pointing upward encircled by eight radiating triangular rays (cream fill, dark outline).
+  4. **Symbol 4 (`sym-opportunity`):** Five-petal rounded blossom with a central circular core (cream fill, dark outline).
+  5. **Symbol 5 (`sym-strife`):** Thick, angular, forked diagonal crack/lightning strike descending from top-right to bottom-left with a short branch fork (cream fill, dark outline).
+  6. **Symbol 6 (`sym-success`):** Single upward leaf spearhead blade with a short rectangular socket base (cream fill, dark outline).
+
+---
+
+#### `gamedice-v5-forced.png`
+* **Labels / Text / Numbers / Tag Pills:**
+  * Top chrome: `Pawns` (P), `Build` (B), `Settings` (S), `Other games / New game`, search bar `Search commands, things to place, people, places... or say / roll` (`/`), pills `Area 1`, `Open to players`, `Hide`, user badges `H`, `M`.
+  * Central Announce Card: `Mira · Vampire pool 6 (2 hunger) → 6 successes, messy critical, bestial failure if it fails`
+  * Announce Card Pills: `[ 10 ]` `[ 7 ]` `[ 1 ]` `[ 6 ]` `hunger` `[ 10 ]` `[ 1 ]`
+  * 3D Scene Tag Pills: Black rectangle `[ 6 ]` above upper-center die; black rectangle `[ 1 ]` above upper-right die.
+  * Pawn / Table Labels: `Mira` on yellow cylinder pawn; `Dice 1 · Harry's GM assistant` on right table chair.
+  * Log Overlay (bottom-left): Faint previous L5R roll record.
+* **Visible Dice & Top Faces (Die by Die):**
+  * **Die 1 (Player blue d10, bottom center):** Top face reads number `7`. Side facet shows `5`. Tag pill is missing/tucked under the card.
+  * **Die 2 (Player blue d10, upper center behind announce card):** Top apex visible under tag pill `[ 6 ]`; face number `6` occluded by the card.
+  * **Die 3 (Crimson Hunger d10, upper right behind announce card):** Top apex visible under tag pill `[ 1 ]`; claw symbol (`hunger-one`) occluded by the card.
+  * **Die 4 (Player blue d10, left of announce card):** Outer facet shows `9` (or rotated `6`); top face obscured by the card.
+  * **Die 5 (Crimson Hunger d10, committed 10 / fangs):** Completely occluded behind the dark announce card.
+  * **Die 6 (Player blue d10, committed 10):** Completely occluded behind the dark announce card.
+
+---
+
+#### `gamedice-l5r-forced.png`
+* **Labels / Text / Numbers / Tag Pills:**
+  * Top chrome: Identical headers (`Pawns`, `Build`, `Settings`, Search, `Area 1`, `Open to players`, `Hide`, `H`, `M`).
+  * Central Announce Card: `Mira · Rings 3 ring + 3 skill → 4 successes, 3 opp, 3 strife`
+  * Announce Card Pills: `ring` `[ E+T ]` `[ O+T ]` `[ S+T ]` `skill` `[ E ]` `[ S+O ]` `[ O ]`
+  * 3D Scene Tag Pills: `[ O+T ]` floating far right over the chandelier.
+  * Pawn / Table Labels: `Mira` on yellow pawn; `Dice 1 · Harry's GM assistant`.
+* **Visible Dice & Top Faces (Die by Die):**
+  * **Die 1 (Ivory skill d12, bottom center peeking below card):** Lower facet visible with a tiny partial spearhead symbol (from `S+O` or `S`).
+  * **Die 2 (Dark ring d6, bottom center peeking below card):** Tiny dark edge peeking out; face symbols occluded.
+  * **Die 3 (Die under `[ O+T ]` tag, upper right chandelier):** Die body not clearly visible or clipped under the chandelier mesh.
+  * **Dice 4, 5, 6 (Dark ring d6 and Ivory skill d12s):** Completely hidden directly behind the opaque/dark announce card.
+
+---
+
+#### `gamedice-fate-forced.png`
+* **Labels / Text / Numbers / Tag Pills:**
+  * Top chrome: Standard top bar and header pills.
+  * Central Announce Card: `Mira · 4dF +1 → +2 Fair`
+  * Announce Card Pills: `[ + ]` `[ − ]` `[ 0 ]` `[ + ]`
+  * 3D Scene Tag Pills: `[ + ]` over top die; `[ 0 ]` over right die; `[ + ]` over bottom-left die.
+  * Pawn / Table Labels: `Mira`; `Dice 1 · Harry's GM assistant`.
+  * Log Overlay (bottom-left): L5R chat record.
+* **Visible Dice & Top Faces (Die by Die):**
+  * **Die 1 (Blue d6, top):** Top face clearly shows a cream `+` with dark outline. Tag pill: `[ + ]`.
+  * **Die 2 (Blue d6, right):** Top face is completely **BLANK** (blue paint, no markings). Tag pill: `[ 0 ]`.
+  * **Die 3 (Blue d6, bottom left):** Top face clearly shows a cream `+` with dark outline. Tag pill: `[ + ]`.
+  * **Die 4 (Blue d6, center bottom, partly tucked under announce card):** Top face clearly shows a horizontal cream bar `−` (minus sign). Tag pill occluded by the card.
+
+---
+
+#### `gamedice-duality-forced.png`
+* **Labels / Text / Numbers / Tag Pills:**
+  * Top chrome: Standard headers.
+  * Central Announce Card: `Mira · Duality +1 → 16 with Hope`
+  * Announce Card Pills: `Hope` `[ 11 ]` `Fear` `[ 4 ]`
+  * 3D Scene Tag Pills: `[ 4 ]` floating above the center/barrel.
+  * Pawn / Table Labels: `Mira`; `Dice 1 · Harry's GM assistant`.
+  * Log Overlay (bottom-left): Chat log showing previous L5R and 4dF+1 rolls.
+* **Visible Dice & Top Faces (Die by Die):**
+  * **Die 1 (Hope d12, gold, bottom-left of center):** Top face visible poking out from under card; shows black serif numerals `11` with an underline. Tag pill occluded by card.
+  * **Die 2 (Fear d12, dark violet, center):** Trapped almost entirely behind the dark announce card. A faint dark silhouette with a pale numeral `4` is dimly visible through the tinted card background under tag pill `[ 4 ]`.
+
+---
+
+#### `gamedice-bar-sr.png`
+* **Labels / Text / Numbers / Tag Pills:**
+  * Top chrome: Standard headers. Announce card is absent (settled).
+  * 3D Scene Tag Pills: Black rectangle `[ 3 ]` directly over the central stack; black rectangle `[ 6 ]` on the far right under the chandelier.
+  * Pawn / Table Labels: `Mira`.
+  * Log Overlay (bottom-left):
+    * `Mira: Percentile vs 65 (1 bonus die): 54, regular success (tens 60 50, best kept) [tens 60 50 | units 4]`
+    * `Mira: Vampire pool 7 (2 hunger) vs 3: 3 successes, win by 0 [10 8 2 4 7 | hunger 3 5]`
+    * `Mira: Shadowrun pool 12: 4 hits [3 6 4 4 1 1 3 6 1 5 5 3]`
+* **Visible Dice & Top Faces (Die by Die):**
+  * **Die 1 (Blue d6, far right):** Top face shows `6` under tag pill `[ 6 ]`.
+  * **Dice 2–12 (Eleven Blue d6s, center):** Interpenetrated into a single fused, fluted cylinder/accordion column. Top face is a jumble of overlapping z-fighting numerals (`3`, `4`, `1`, `6`) directly under a single tag pill `[ 3 ]`. Individual faces are completely broken/unreadable.
+
+---
+
+#### `gamedice-bar-coc.png`
+* **Labels / Text / Numbers / Tag Pills:**
+  * Top chrome: Standard headers. Announce card is absent (settled).
+  * 3D Scene Tag Pills: `[ 50 ]` (upper-left die), `[ 60 ]` (bottom die), `[ 4 ]` (upper-right die).
+  * Pawn Label: `Mira`.
+  * Log Overlay (bottom-left): Percentile vs 65 record.
+* **Visible Dice & Top Faces (Die by Die):**
+  * **Die 1 (Blue d10t tens die, upper left):** Top face shows `50`, but **inverted 180°** relative to camera view (reads as `05` / `0S`). Tag pill: `[ 50 ]`. Side facets: `90`, `30`, `10`, `70`.
+  * **Die 2 (Blue d10t tens die, bottom):** Top face shows `60`, but **inverted 180°** relative to camera view (reads as `09` with underline). Tag pill: `[ 60 ]`. Side facets: `00`, `40`, `20`, `80`.
+  * **Die 3 (Blue d10 units die, upper right):** Top face shows `4`, but **rotated ~90° sideways** relative to camera view. Tag pill: `[ 4 ]`. Side facets: `2`, `8`, `6`, `0`.
+
+---
+
+### 2. Evaluative Judgments
+
+#### (1) Can the top face be read on each die at this distance?
+* **Fate (`gamedice-fate-forced.png`):** **Yes.** The cream glyphs (`+`, `−`, blank) are bold, high-contrast, and instantly identifiable at table distance.
+* **CoC (`gamedice-bar-coc.png`):** **Partially.** Numbers are crisp and aided by tag pills, but reading them is impeded because the tens digits are oriented upside-down (`50` looks like `05`, `60` looks like `09`) and the units die is sideways.
+* **Duality (`gamedice-duality-forced.png`):** **No.** While the gold Hope die's `11` is clear, the Fear die is caught under the dark announce banner and its pale lilac numerals on dark purple have poor legibility through the card.
+* **V5 (`gamedice-v5-forced.png`):** **No.** Only the blue `7` is visible; the remaining 5 dice (including both hunger dice) are blocked by the central announce card.
+* **L5R (`gamedice-l5r-forced.png`):** **No.** The entire dice cluster is hidden behind the announce card; top faces cannot be read at all.
+* **Shadowrun (`gamedice-bar-sr.png`):** **No.** 11 dice are compressed into an intersecting geometric mass where the faces collide into an illegible scribble.
+
+#### (2) Do the Hunger dice read as clearly different from regular dice?
+* **Color:** **Yes.** The deep crimson body color (`#a3161a`) sharply contrasts with the player's soft blue (`#67aadd`).
+* **Faces:** **No in current shots.** Because the hunger dice are occluded behind the announce card in `gamedice-v5-forced.png`, the custom claw (`1`) and fang (`10`) symbols cannot be seen on the 3D dice at table distance.
+
+#### (3) Do Hope and Fear dice read as clearly different from each other?
+* **Yes.** The materials and colors are distinctly opposed: Hope is warm, lustrous gold (`#d8a62c`) with dark serif ink; Fear is deep shadowy violet (`#3b2357`) with pale lilac ink (`#ead9ff`). They are immediately distinguishable at a glance.
+
+#### (4) Are the symbols distinct from each other at small size (Success, Opportunity, Strife, Explosive)?
+* **Sheet Level:** **Yes.** The silhouettes are distinct: spearhead vs. rounded flower vs. jagged crack vs. rayed spearhead.
+* **Table Distance on Dice:** **Questionable for Explosive vs. Success & Pairs.** At table distance on a d12 facet (especially on compound faces like `E+T` or `S+O` where each symbol is reduced to 50% cell size), the eight thin radiating triangular rays of `sym-explosive` become tiny single-pixel spikes that blur into the spearhead contour. The floating tag pills (`[ O+T ]`, `[ S+T ]`, etc.) are doing nearly all the heavy lifting for legibility on compound faces.
+
+#### (5) Any face that looks broken, blank when it should not be, clipped, or wrongly coloured?
+* **Broken / Geometry Collapse:** In `gamedice-bar-sr.png`, 11 of 12 d6s share identical spawn coordinates, clipping into a single fluted column with z-fighting top faces.
+* **Clipped / Occluded by UI:** In all four `*-forced.png` images, the `#announce .ann` card sits at `left: 50%; top: 42%`, directly in front of the camera focus point (`close_shot`), blocking the roll.
+* **Wrongly Oriented:** In `gamedice-bar-coc.png`, both d10t tens faces are oriented upside-down (180° rotated relative to camera) and the d10 units face is rotated 90°.
+* **Blank Faces:** Fate's blank faces and L5R's blank faces are correct according to game rules.
+
+#### (6) Do any symbols resemble a published game's official dice glyphs?
+* **No (Pass).** The symbols are distinct, original vector designs:
+  * V5 avoids White Wolf's proprietary ankh and skull marks, using three claw slashes and two fangs with a drop.
+  * L5R avoids FFG's proprietary mon/kamon emblems (spiral strife mon, double-ring opportunity mon), substituting a Western spearhead, a five-petal cherry blossom, and a jagged crack.
+  * Fate uses standard mathematical `+` and `−`.
+  * Daggerheart uses standard Arabic numerals on gold/violet dice.
+
+---
+
+### 3. Verdict per Image
+
+1. **`gamedice-symbols-sheet.png`**
+   * **Verdict:** **PASS**
+   * **Note:** Clean, original, distinct iconography with strong silhouettes and clear semantic distinction.
+
+2. **`gamedice-v5-forced.png`**
+   * **Verdict:** **FIX**
+   * **Concrete Fix:** Dismiss or hide the `#announce .ann` popup before taking the camera shot in `browser_gamedice.py` (or wait for announce to settle) so the card does not occlude the dice pool; add initial spawn scatter jitter so the 6 d10s don't cluster tightly under the UI center.
+
+3. **`gamedice-l5r-forced.png`**
+   * **Verdict:** **FIX**
+   * **Concrete Fix:** Hide `#announce` before `close_shot`; fix the tag pill positioning bug that caused `[ O+T ]` to float away over the chandelier.
+
+4. **`gamedice-fate-forced.png`**
+   * **Verdict:** **FIX**
+   * **Concrete Fix:** Dismiss `#announce` before screenshot capture so the center `−` die and its tag pill are not occluded by the banner card.
+
+5. **`gamedice-duality-forced.png`**
+   * **Verdict:** **FIX**
+   * **Concrete Fix:** Dismiss `#announce` prior to capture; increase the brightness/contrast of the lilac ink on `duality-d12-fear` (e.g. lighten from `#ead9ff` to near-white `#f5eeff`) to ensure legibility on the dark violet body at table distance.
+
+6. **`gamedice-bar-sr.png`**
+   * **Verdict:** **FIX**
+   * **Concrete Fix:** In `tools/spawn-tuner/js/fx/dicephys.js` / `tw.roll`, add randomized lateral spawn offsets (`dx`, `dz`) and initial separation velocity when throwing pools > 6 dice to prevent physics co-location and interpenetration collapse.
+
+7. **`gamedice-bar-coc.png`**
+   * **Verdict:** **FIX**
+   * **Concrete Fix:** In `tools/spawn-tuner/js/fx/dicegeo.js` (`remap`), correct the face `up` orientation vector for `d10` and `d10t` so top face decals face upright toward the player camera (-z) rather than inverted 180° or rotated 90°.
+
+---
+
+### Overall Verdict
+
+**FIX — The original symbol art, skin palettes, and mechanical tallies are well-crafted, but table-distance verification fails due to announce card camera occlusion, inverted d10 face decals, and large-pool physics interpenetration.**

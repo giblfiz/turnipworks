@@ -2,7 +2,7 @@
 
 How a player brings their own 3D model to the table: a HeroForge character, a purchased dragon STL, a big set piece.
 
-- Written 2026-10-05. Sections: **Decided**, **Tested: the Import Lab**, **What others do**, **Open questions for Harry**.
+- Written 2026-10-05. Sections: **Decided**, **Feature note: 2D imports**, **Tested: the Import Lab**, **What others do**, **Open questions for Harry**.
 - "What others do" is web research only; nothing in that section was tested hands-on. Each finding carries a confidence figure (how sure we are the claim is true) and a source.
 - Updated later on 2026-10-05: the conversion was then built and tested (see **Tested: the Import Lab**), and Harry decided the copyright approach. Where the research's guesses and the test disagree, the test wins; those places are marked.
 - Several vendor sites blocked automated reading, so some findings rest on search-result snippets. Those are marked "snippet".
@@ -33,6 +33,16 @@ Decisions made 2026-10-05 by Harry and Fauna.
 - Deferred: formats beyond GLB and STL, quotas as a paid tier, link-your-own-host for power users.
 
 - **Delivery (2026-10-12, docs/ASSET_DELIVERY.md).** The library's own meshes are now delivered meshopt-compressed under names that change with their bytes, and every loader decodes meshopt (`tools/spawn-tuner/js/gltf.js`; the Import Lab's loader already did). Imports are not on that pipeline yet because nothing stores them yet. When they are stored: the converted copy is already to be named by its hash (above), so it can be served `immutable` the same way, and the browser-side conversion should write the same recipe (quantized + meshopt, `prep/meshopt.mjs` shows the settings) so a 20,000-triangle import is about a third of its raw size on the wire. The library's tiers are unchanged: props 10,000 faces with a 128 or 256 px colour map, figures 8k/512 and 20k/1024, a main pawn's original about 50k.
+
+## Feature note: 2D imports stood up as flat minis (Harry, 2026-10-22)
+
+Not started; a note for when the importer is built. Harry: "when we set up our 'import your models' option… we can allow 2D imports and then for people to cut them out and stand them up as 2D minis." In other words, paper standees (flat cut-out figures on a base, like cardboard pawns).
+
+- **Input:** a picture (PNG, JPG or WebP), for example a character portrait, a token image, or a page of art.
+- **Cut-out:** the importer cuts the figure out of its background in the browser, the same rule as the 3D path (the original never reaches us). The importer can trace or correct the outline by hand.
+- **Standing it up:** the cut-out stands upright on a round or square base sized to the pawn (5 ft per square, as now). It gets a back face (mirrored, darkened or a plain card back: to decide), and it may turn to face the camera.
+- **Why it's cheap:** one textured quad plus an alpha mask is a tiny asset, far under the 20k-triangle 3D budget, and it fits every rule in **Decided** above (hashed name, campaign-scoped, separate serving domain, size budget, safe harbour).
+- **Why it matters:** most players own art for their character, not a 3D model. Standees are also how many groups already play on a physical table.
 
 ## Tested: the Import Lab
 

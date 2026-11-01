@@ -9,7 +9,9 @@
 #     walls, the brackets and posts under an overhang, the railing round a stair's hole) must be offered AS ITSELF
 #     ('wall:<its key>') among what the pick resolves, not only as its room;
 #   - a point whose first drawn thing is a roof or its trim (chimney, dormer, parapet, ridge, finial) must resolve to
-#     that roof ('roof:<room>'): trim is part of its roof by decision (re-roll moves it; docs/UI.md "Roofs").
+#     that roof ('roof:<room>'); since 2026-10-27 (Harry: "those chimneys and windows and stuff that stick out of roofs
+#     should be selectable & moveable objects as well") a piece of trim with a key (chimney, dormer, finial, parapet)
+#     resolves to ITSELF ('trim:<room>|<key>'); the ridge cap is still the roof's.
 # The floor slab under an upper room counts as floor (deliberate: it is the room's floor seen from the side).
 #
 # 2026-10-06 (later), THE GROUND IS IN THE WAY TOO. The audit took "the first thing the ray meets" from the shell and the
@@ -18,6 +20,9 @@
 # two I can still select things on floor one directly thru the actual floor." The ground mesh is one of the layers now:
 # a point whose first drawn thing is the ground asks nothing, like a floor. Its partner is browser_cut.py FLOORS, which
 # checks the other direction (no pick lies behind a floor or the ground that is drawn).
+#
+# 2026-10-24, THE BAND BETWEEN STOREYS (client/bands.js) is one merged mesh per room and height, cut from the walls and
+# posts above it: a point on it must resolve to the piece its triangles were cut from (tw.bandKeyAt).
 AUDIT = """(() => { const w = tw.worldOf(tw.area()), c = document.getElementById('c').getBoundingClientRect(), bad = [], notOwn = [];
   const vis = (o) => { for (; o; o = o.parent) if (!o.visible) return false; return true; };
   let tested = 0, pieces = 0, roofs = 0; const layers = [w.layers.shell, w.layers.things, w.ground]; if (w.roofLayer && w.roofsOn) layers.push(w.roofLayer);
@@ -33,8 +38,8 @@ AUDIT = """(() => { const w = tw.worldOf(tw.area()), c = document.getElementById
     const what = o?.userData.shellKey || o?.userData.entityId || (o?.userData.roofOf && 'roof:' + o.userData.roofOf) || h.object.name || 'unknown';
     if (!sel.length) { bad.push({ x: Math.round(x), y: Math.round(y), what }); continue; }
     if (tw.overview()) continue; // at the map detent a click takes the building, by design
-    if (o?.userData.shellKey && !o.userData.entityId) { pieces++; const k = o.userData.edgeKey; if (!k || !sel.includes('wall:' + k)) notOwn.push({ x: Math.round(x), y: Math.round(y), what, got: sel[0] }); }
-    else if (o?.userData.roofOf && !o.userData.entityId) { roofs++; if (!sel.includes('roof:' + o.userData.roofOf)) notOwn.push({ x: Math.round(x), y: Math.round(y), what, got: sel[0] }); }
+    if (o?.userData.shellKey && !o.userData.entityId) { pieces++; const k = o.userData.edgeKey || (h.object.userData.bandKeys && tw.bandKeyAt(h.object, h.faceIndex)); if (!k || !sel.includes('wall:' + k)) notOwn.push({ x: Math.round(x), y: Math.round(y), what, got: sel[0] }); }
+    else if (o?.userData.roofOf && !o.userData.entityId) { roofs++; let q = h.object; while (q && q.userData.trimKey === undefined) q = q.parent; const own = q?.userData.trimKey ? `trim:${o.userData.roofOf}|${q.userData.trimKey}` : 'roof:' + o.userData.roofOf; if (!sel.includes(own)) notOwn.push({ x: Math.round(x), y: Math.round(y), what: q?.userData.trimKey ? own : what, got: sel[0] }); }
   }
   const all = [...bad, ...notOwn];
   return { tested, pieces, roofs, bad: all.slice(0, 6), nbad: all.length, untouchable: bad.length, notOwn: notOwn.length, kinds: [...new Set(all.map(b => String(b.what).replace(/[0-9-]+/g, '#')))] };

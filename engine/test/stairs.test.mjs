@@ -20,6 +20,7 @@ import { migrateStairs } from '../core/migrate.js';
 import { corpusDir } from './corpus.mjs';
 import * as S from '../core/stairs.js';
 import * as FP from '../core/footprint.js';
+import * as HT from '../core/height.js';
 
 let checks = 0, fails = 0;
 const ok = (c, m, d = '') => { checks++; if (!c) { fails++; console.log('FAIL', m, d); } else if (process.env.V) console.log('ok', m); };
@@ -34,6 +35,11 @@ const holes = (A, y) => [...S.holesAt(A.entities, y)].sort();
 const cellKeys = (s) => S.stairCells(s).map(c => c.join(':')).sort();
 const rails = (A) => S.railsOf(A.entities).map(r => r.key).sort();
 const code = (A, id) => S.stairStatus(A.entities, A.entities[id]).code;
+// A STAIR IS A PLACE TO STAND (2026-10-26): where a standing pawn whose base is at `from` goes at (x, z) (core/height.js
+// pawnStepTo), and a walk along a line, the base carried point to point as a drag carries it -> the heights on the way
+const step = (A, x, z, from) => HT.pawnStepTo(A.entities, x, z, from).y;
+const walkLine = (A, [x0, z0], y0, [x1, z1], n = 40) => { let y = y0, fb = null; const out = []; for (let i = 1; i <= n; i++) { const t = HT.pawnStepTo(A.entities, x0 + (x1 - x0) * i / n, z0 + (z1 - z0) * i / n, y, null, fb); if (!t.below || t.walk) { y = t.y; fb = t; } out.push(y); } return out; };
+const rising = (ys) => ys.every((y, i) => !i || y >= ys[i - 1] - 1e-9) && ys.some((y, i) => i && y > ys[i - 1] && y - ys[i - 1] < 1.5) && Math.max(...ys.map((y, i) => i ? y - ys[i - 1] : 0)) < 1.5; // smooth: never a jump of a storey
 const LOW = 'room_stlow0001', UP = 'room_stup00001', CEL = 'room_stcel0001', TOP = 'room_sttop0001';
 
 // ---- 1. from the library, on the ground floor of a two-storey house ----
@@ -50,7 +56,10 @@ const LOW = 'room_stlow0001', UP = 'room_stup00001', CEL = 'room_stcel0001', TOP
   ok(rails(A).length >= 4 && rails(A).every(k => /@10$/.test(k)), 'the hole is railed, on the floor above', rails(A).join(' '));
   eq(code(A, st.id), null, 'and it works');
   const E = S.stairEnds(s, A.entities);
-  eq([S.stairHop(A.entities, 15, 12.5, 0)?.y, S.stairHop(A.entities, 15, 12.5, 10)?.y, E.foot.x, E.top.x], [10, 0, 7.5, 22.5], 'a pawn dropped on it goes up; dropped on the hole it comes down; foot and top are the squares before and beyond it');
+  eq([step(A, 15, 12.5, 0), step(A, 15, 12.5, 10), S.stairHop(A.entities, 15, 12.5, 0), E.foot.x, E.top.x], [5 + S.WALK_LIFT, 5 + S.WALK_LIFT, null, 7.5, 22.5], 'a pawn let go halfway along it stands on its treads, about 5 ft up (on the step under its base\'s uphill edge), from below or from the hole above (never hopped to an end); foot and top are the squares before and beyond it');
+  { const up = walkLine(A, [E.foot.x, 12.5], 0, [E.top.x, 12.5]), down = walkLine(A, [E.top.x, 12.5], 10, [E.foot.x, 12.5]);
+    ok(rising(up) && up[0] === 0 && up.at(-1) === 10 && rising([...down].reverse()) && down.at(-1) === 0, 'dragged along it from its foot a pawn rises smoothly to the floor above, and back down again', JSON.stringify([up, down]));
+    eq([step(A, E.top.x, 12.5, 0), step(A, E.foot.x, 12.5, 10), step(A, 15, 2.5, 0), step(A, 15, 2.5, 10)], [0, 10, 0, 10], 'off the stair a pawn keeps its level: the floor above stays above, the floor below below'); }
   // move, turn, delete, undo: the hole and the railing are worked out, so they follow
   const M = applyArea(A, 'object.move', { id: st.id, x: 20, z: 7.5 });
   eq([holes(M, 10), rails(M).every(k => /@10$/.test(k)), rails(M).join() !== rails(A).join()], [['3:1', '4:1'], true, true], 'moved: the hole and its railing are where the stair is now, and nowhere else');
@@ -74,10 +83,10 @@ const LOW = 'room_stlow0001', UP = 'room_stup00001', CEL = 'room_stcel0001', TOP
   eq([d.x, d.z, d.rot, d.y, d.down, cellKeys(d)], [s.x, s.z, s.rot, -10, true, cellKeys(s)], 'it keeps its place in plan and its turn; its body stands one storey lower');
   eq([holes(Dn, 0), holes(Dn, 10), rails(Dn).every(k => !/@/.test(k)), rails(Dn).length > 0], [['2:2', '3:2'], [], true, true], 'the hole is now in THIS floor, railed here; the floor above is whole');
   eq([S.stairHome(d), S.stairSide(d), S.stairSide(d, 0), S.stairSide(d, -10)], [0, 'down', 'down', 'up'], 'its home is still the level it was put on');
-  eq([code(Dn, st.id), d.room, S.stairHop(Dn.entities, 15, 12.5, 0)], ['nothing-below', null, null], 'with nothing built below it says so (it leads down into the earth), belongs to no room, and a pawn does not fall through');
+  eq([code(Dn, st.id), d.room, step(Dn, 15, 12.5, 0)], ['nothing-below', null, 0], 'with nothing built below it says so (it leads down into the earth), belongs to no room, and a pawn does not fall through');
   // build the cellar under it: it works, with nothing done to the stair
   let C = room(Dn, CEL, 0, 0, 6, 4, -10, 'cellar');
-  eq([code(C, st.id), S.stairHop(C.entities, 15, 12.5, 0)?.y, S.stairHop(C.entities, 15, 12.5, -10)?.y, S.stairLinks(C.entities, C.entities[st.id])], [null, -10, 0, { from: CEL, to: LOW }], 'a cellar built under it: it works, both ways, joining the cellar to this room');
+  eq([code(C, st.id), step(C, 15, 12.5, 0), step(C, 15, 12.5, -10), walkLine(C, [22.5, 12.5], 0, [7.5, 12.5]).at(-1), walkLine(C, [7.5, 12.5], -10, [22.5, 12.5]).at(-1), S.stairLinks(C.entities, C.entities[st.id])], [null, -5 + S.WALK_LIFT, -5 + S.WALK_LIFT, -10, 0, { from: CEL, to: LOW }], 'a cellar built under it: it works, both ways (halfway down it stands about 5 ft down; walked down it from its top into the cellar, and back up), joining the cellar to this room');
   { const i3 = inverseOf(A, 'stair.flip', { id: st.id, ...F }), u = applyArea(Dn, i3.type, i3.args); eq([u.entities[st.id], holes(u, 10), holes(u, 0)], [s, ['2:2', '3:2'], []], 'undo puts it back exactly: stairs up, the hole above'); }
   const F2 = S.stairFlip(d, 0), Up2 = applyArea(Dn, 'stair.flip', { id: st.id, ...F2 });
   eq([F2, Up2.entities[st.id].y, 'down' in Up2.entities[st.id], Up2.entities[st.id].room, holes(Up2, 10), holes(Up2, 0)], [{ y: 0, down: false }, 0, false, LOW, ['2:2', '3:2'], []], 'switched back to stairs up it is what it was');
@@ -85,9 +94,9 @@ const LOW = 'room_stlow0001', UP = 'room_stup00001', CEL = 'room_stcel0001', TOP
   eq(S.stairFlip(s, 10), { y: 10, down: false }, 'from the floor above, "stairs up" lifts it one flight: it now leads up from THAT floor');
   // ---- no level above ----
   const Hi = applyArea(A, 'stair.flip', { id: st.id, ...S.stairFlip(s, 10) });
-  eq([code(Hi, st.id), holes(Hi, 20), rails(Hi), S.stairHop(Hi.entities, 15, 12.5, 10), Hi.entities[st.id].room], ['open', ['2:2', '3:2'], [], null, UP], 'on the top floor with nothing over it: it stands there, cuts nothing that exists, and a pawn stays put');
+  eq([code(Hi, st.id), holes(Hi, 20), rails(Hi), step(Hi, 15, 12.5, 10), Hi.entities[st.id].room], ['open', ['2:2', '3:2'], [], 10, UP], 'on the top floor with nothing over it: it stands there, cuts nothing that exists, and a pawn stays on its floor');
   const Hi2 = room(Hi, TOP, 0, 0, 6, 4, 20, 'guest');
-  eq([code(Hi2, st.id), rails(Hi2).length > 0, S.stairHop(Hi2.entities, 15, 12.5, 10)?.y], [null, true, 20], 'build a floor over it and it opens that floor, railed, and works');
+  eq([code(Hi2, st.id), rails(Hi2).length > 0, step(Hi2, 15, 12.5, 10), walkLine(Hi2, [7.5, 12.5], 10, [22.5, 12.5]).at(-1)], [null, true, 15 + S.WALK_LIFT, 20], 'build a floor over it and it opens that floor, railed, and works');
   // a duplicate of a stairs-down keeps its direction
   ok(applyArea(C, 'object.place', { ...C.entities[st.id], id: 'obj_st00000003', z: 2.5 }).entities.obj_st00000003.down === true, 'a stairs-down keeps its direction when it is put down again (a duplicate, a paste)');
 
@@ -188,8 +197,13 @@ const LOW = 'room_stlow0001', UP = 'room_stup00001', CEL = 'room_stcel0001', TOP
     const st = S.stairsOf(A.entities), stand = (y) => st.filter(s => S.stairBase(s) === y).flatMap(cellKeys);
     ok(st.length === 2 && st.every(s => S.stairStatus(A.entities, s).code === null && s.pinned && !s.down), `a ${kind} core through three storeys: one ${kind} per storey, every one works`, JSON.stringify(st.map(s => S.stairStatus(A.entities, s))));
     ok(holes(A, 10).length && holes(A, 20).length && !holes(A, 10).some(k => stand(10).includes(k)), `${kind} core: the upper flight never stands on the lower one's hole`, `${holes(A, 10)} / ${stand(10)}`);
-    const h1 = S.stairHop(A.entities, st[0].x, st[0].z, 0), h2 = h1 && S.stairHop(A.entities, st[1].x, st[1].z, 10);
-    ok(h1?.y === 10 && h2?.y === 20 && Math.hypot(h1.x - S.stairEnds(st[1], A.entities).foot.x, h1.z - S.stairEnds(st[1], A.entities).foot.z) <= 7.1, `${kind} core: a pawn goes up both, and the top of one is beside the foot of the next`, JSON.stringify([h1, h2, S.stairEnds(st[1], A.entities).foot]));
+    if (kind === 'ladder') { // a ladder is climbed in one move (core/stairs.js stairHop)
+      const h1 = S.stairHop(A.entities, st[0].x, st[0].z, 0), h2 = h1 && S.stairHop(A.entities, st[1].x, st[1].z, 10);
+      ok(h1?.y === 10 && h2?.y === 20 && Math.hypot(h1.x - S.stairEnds(st[1], A.entities).foot.x, h1.z - S.stairEnds(st[1], A.entities).foot.z) <= 7.1, `${kind} core: a pawn goes up both, and the top of one is beside the foot of the next`, JSON.stringify([h1, h2, S.stairEnds(st[1], A.entities).foot]));
+    } else { // a flight is walked: foot to top of the first, then on to the foot of the next and up it
+      const e0 = S.stairEnds(st[0], A.entities), e1 = S.stairEnds(st[1], A.entities), w1 = walkLine(A, [e0.foot.x, e0.foot.z], 0, [e0.top.x, e0.top.z]), w2 = walkLine(A, [e1.foot.x, e1.foot.z], w1.at(-1), [e1.top.x, e1.top.z]);
+      ok(w1.at(-1) === 10 && w2.at(-1) === 20 && rising(w1) && rising(w2) && Math.hypot(e0.top.x - e1.foot.x, e0.top.z - e1.foot.z) <= 7.1, `${kind} core: a pawn walks up both, and the top of one is beside the foot of the next`, JSON.stringify([w1, w2]));
+    }
     ok(C.keep.length === 3 && C.keep.every(k => k.cells.length >= 2), `${kind} core: it says which squares of each floor to keep clear`);
   }
 }

@@ -9,6 +9,12 @@ import { newArea, areaForClient } from '../core/state.js';
 import { loadRoomgen } from '../relay/server.js';
 import * as S from '../core/stairs.js';
 import * as FP from '../core/footprint.js';
+import * as HT from '../core/height.js';
+// A STAIR IS A PLACE TO STAND (2026-10-26): a standing pawn at (x, z) whose base is at `from` (core/height.js pawnStepTo),
+// and a walk along a line, its base carried point to point as a drag carries it -> every height on the way
+const step = (A, x, z, from) => HT.pawnStepTo(A.entities, x, z, from);
+const walkLine = (A, [x0, z0], y0, [x1, z1], n = 60) => { let y = y0, fb = null; const out = []; for (let i = 1; i <= n; i++) { const t = HT.pawnStepTo(A.entities, x0 + (x1 - x0) * i / n, z0 + (z1 - z0) * i / n, y, null, fb); if (!t.below || t.walk) { y = t.y; fb = t; } out.push(y); } return out; };
+const smooth = (ys) => ys.every((y, i) => !i || Math.abs(y - ys[i - 1]) < 1.5); // never a jump of a storey
 
 let checks = 0, fails = 0;
 const ok = (c, m, d = '') => { checks++; if (!c) { fails++; console.log('FAIL', m, d); } };
@@ -45,13 +51,18 @@ for (const w of [5, 6]) for (const seed of [1, 2, 3]) {
   for (const [gx, gz] of want) for (const [ex, ez] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (!holes.has(`${gx + ex}:${gz + ez}`) && FP.hasCell(upA, gx + ex, gz + ez)) open++;
   ok(rails.length === open - 2 && rails.length >= 5 && rails.every(r => r.y === 10 && r.room === UP && r.stair === st.id) && new Set(rails.map(r => r.key)).size === rails.length, `${tag}: a railing section on every open side of the hole but the two ways out (${rails.length} of ${open})`, rails.map(r => r.key).join(' '));
   ok(S.railsOf(A.entities).length === rails.length, `${tag}: and they are the area's railings`);
-  // pawns: dropped on the stair from the hall, up; dropped on the hole from above, down; the floor beside the stair is floor
-  const upL = S.stairHop(A.entities, st.x - 3, st.z, 0), upR = S.stairHop(A.entities, st.x + 3, st.z, 0), down = S.stairHop(A.entities, st.x, st.z, 10);
-  const onFloor = (p) => p && p.y === 10 && FP.hasCell(upA, Math.floor(p.x / 5), Math.floor(p.z / 5)) && !holes.has(`${Math.floor(p.x / 5)}:${Math.floor(p.z / 5)}`);
-  ok(onFloor(upL) && onFloor(upR) && upL.x < st.x && upR.x > st.x && upL.stair === st.id, `${tag}: a pawn dropped on the stair arrives on the floor above, on the hand it was dropped at`, JSON.stringify([upL, upR]));
-  ok(down && down.y === 0 && down.x === E.foot.x && down.z === E.foot.z, `${tag}: dropped on the hole from above, it goes to the foot`, JSON.stringify(down));
-  ok(S.stairHop(A.entities, E.foot.x, E.foot.z, 0) === null && S.stairHop(A.entities, E.top.x, E.top.z, 10) === null, `${tag}: the landings are just floor`);
-  if (w % 2) ok(S.stairHop(A.entities, st.x - hw - 1.5, st.z, 0) === null && S.stairHop(A.entities, st.x - hw - 1.5, st.z, 10) !== null, `${tag}: the strip of hall floor beside the stair is floor; the same spot upstairs is the hole`);
+  // pawns (2026-10-26: a stair is a place to stand): let go on its middle from the hall or from the hole above, it stands
+  // on the treads halfway up; walked from the foot up its middle to the top and out on either hand, it rises smoothly and
+  // arrives on the floor above; the landings are just floor; the floor beside the stair is floor, upstairs it is the hole
+  const [cx, cz] = S.stairDir(st), run = st.dims[2], mid = step(A, st.x, st.z, 0), midDown = step(A, st.x, st.z, 10);
+  ok(mid.on === 'stair' && mid.y > 5 && mid.y < 7 && midDown.on === 'stair' && Math.abs(midDown.y - mid.y) < 1e-9, `${tag}: let go halfway along the stair, from below or from the hole above, a pawn stands on its treads, halfway up`, JSON.stringify([mid, midDown]));
+  const topT = [st.x + cx * (run / 2 - 0.3), st.z + cz * (run / 2 - 0.3)], upW = walkLine(A, [E.foot.x, E.foot.z], 0, topT);
+  const outs = E.exits.map(c => walkLine(A, topT, upW.at(-1), [(c[0] + 0.5) * 5, (c[1] + 0.5) * 5], 20));
+  ok(smooth(upW) && upW.at(-1) > 9.5 && outs.length === 2 && outs.every(o => o.at(-1) === 10), `${tag}: walked up its middle it rises smoothly to the top and steps out onto the floor above, on either hand`, JSON.stringify([upW.filter((_, i) => i % 6 === 0), outs.map(o => o.at(-1))]));
+  const downW = walkLine(A, topT, 10, [E.foot.x, E.foot.z]);
+  ok(smooth(downW) && downW.at(-1) === 0, `${tag}: and walked back down to its foot, smoothly, onto the hall floor`, JSON.stringify(downW.filter((_, i) => i % 6 === 0)));
+  ok(step(A, E.foot.x, E.foot.z, 0).y === 0 && step(A, E.foot.x, E.foot.z, 10).y === 10 && step(A, (E.exits[0][0] + 0.5) * 5, (E.exits[0][1] + 0.5) * 5, 10).y === 10, `${tag}: the landings are just floor, each of its own level`);
+  if (w % 2) { const b0 = step(A, st.x - hw - 1.5, st.z, 0), b1 = step(A, st.x - hw - 1.5, st.z, 10); ok(b0.y === 0 && !b0.below && b1.below && b1.y === 0, `${tag}: the strip of hall floor beside the stair is floor; the same spot upstairs is the hole (a pawn there hangs over the drop)`, JSON.stringify([b0, b1])); }
   // what a seat is told; what joins what
   const info = S.stairInfo(A.entities, st), L = S.stairLinks(A.entities, st);
   ok(L.from === HALL && L.to === UP && info.piece === 'stair-grand' && info.rise === 10 && info.top[2] === 10 && info.bottom[2] === 0 && info.railing.length === rails.length && S.hasStair(A.entities, A.entities[UP], 'upper') && S.hasStair(A.entities, A.entities[HALL], 'lower'), `${tag}: it joins the hall to the room above (seats are told so)`, JSON.stringify(info));
@@ -96,8 +107,13 @@ for (const w of [5, 6]) for (const seed of [1, 2, 3]) {
     const rails = S.stairRails(A.entities, e); let open = 0;
     for (const [gx, gz] of cells) for (const [ex, ez] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (!holes.has(`${gx + ex}:${gz + ez}`)) open++;
     ok(rails.length === open - E.exits.length && rails.length >= 3, `${tag}: railed on every side but the way out (${rails.length})`);
-    const hopUp = S.stairHop(A.entities, e.x, e.z, 0), hopDown = S.stairHop(A.entities, (cells[0][0] + 0.5) * 5, (cells[0][1] + 0.5) * 5, R.rise);
-    ok(hopUp && hopUp.y === R.rise && !holes.has(`${Math.floor(hopUp.x / 5)}:${Math.floor(hopUp.z / 5)}`) && hopDown && hopDown.y === 0, `${tag}: a pawn goes up it and comes down it`, JSON.stringify([hopUp, hopDown]));
+    if (R.turn) { // a spiral and a ladder are climbed in one move (core/stairs.js stairHop)
+      const hopUp = S.stairHop(A.entities, e.x, e.z, 0), hopDown = S.stairHop(A.entities, (cells[0][0] + 0.5) * 5, (cells[0][1] + 0.5) * 5, R.rise);
+      ok(hopUp && hopUp.y === R.rise && !holes.has(`${Math.floor(hopUp.x / 5)}:${Math.floor(hopUp.z / 5)}`) && hopDown && hopDown.y === 0, `${tag}: a pawn goes up it and comes down it, in one move`, JSON.stringify([hopUp, hopDown]));
+    } else { // a flight is walked: from its foot to the way out at its top, and back
+      const top = [(E.topCell[0] + 0.5) * 5, (E.topCell[1] + 0.5) * 5], u = walkLine(A, [E.foot.x, E.foot.z], 0, top), d = walkLine(A, top, R.rise, [E.foot.x, E.foot.z]);
+      ok(u.at(-1) === R.rise && u.some(y => y > 0.5 && y < R.rise - 0.5) && (R.rise < 10 || (smooth(u) && smooth(d) && d.at(-1) === 0)), /* (a half flight's floor 5 ft up is laid over the whole room here, its foot included: only its treads are asked of it) */ `${tag}: a pawn walks up it and down it, smoothly, standing on its treads on the way`, JSON.stringify([u.filter((_, i) => i % 6 === 0), d.filter((_, i) => i % 6 === 0)]));
+    }
   }
   const expected = roles.reduce((sum, id) => sum + lib.objects[id].skus.filter(k => k.bounds && k.url).length * 4, 0);
   ok(roles.every(id => lib.objects[id].skus.some(k => k.bounds && k.url)) && n > 0 && n === expected, `every stair piece in the library was tried, each turned four ways (${n}/${expected})`);
@@ -133,7 +149,7 @@ for (const w of [5, 6]) for (const seed of [1, 2, 3]) {
   let A = newArea('area_grand005', 'one'); const hallA = { id: HALL, type: 'mansion-hall', x: 0, z: 0, w: 6, d: 6, seed: 1, building: B };
   A = applyArea(A, 'room.spawn', { ...hallA, layout: rg.solve(A.entities, hallA, 1) });
   const st = Object.values(A.entities).find(o => o.cat === 'stair-grand');
-  ok(st && S.stairHop(A.entities, st.x, st.z, 0) === null && S.railsOf(A.entities).length === 0 && S.stairLinks(A.entities, st).to === null, 'a grand stair with no storey over it: a pawn dropped on it stays put, and there is no railing');
+  ok(st && S.stairHop(A.entities, st.x, st.z, 0) === null && step(A, st.x, st.z, 0).y === 0 && S.railsOf(A.entities).length === 0 && S.stairLinks(A.entities, st).to === null, 'a grand stair with no storey over it: a pawn dropped on it stays put, and there is no railing');
 }
 
 // ---- 3. nothing stair-like is left unsorted ----

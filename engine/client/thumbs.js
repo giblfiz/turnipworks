@@ -10,6 +10,7 @@
 import * as THREE from 'three';
 import { structureBox, fitDistance } from '../core/framing.js';
 import { fitPose } from './views.js';
+import * as HT from '../core/height.js';
 
 const CELL = 5, TW = 480, TH = 300, DEBOUNCE = 15000, HOME = { yaw: -20, pitch: 52 };
 
@@ -27,15 +28,19 @@ export function createThumbs(app, { renderer }) {
   };
 
   // the box this area's picture frames (feet), from what a player could see of it
-  Th.frameFor = (area) => {
-    const ents = Object.values(app.entities(area) || {});
+  // only (a Set of entity ids): frame and draw just those (a selection's own picture; unused since selection export was parked 2026-10-29, client/share.js); rooms: its rooms
+  Th.frameFor = (area, { only = null } = {}) => {
+    const ents = Object.values(app.entities(area) || {}).filter(e => !only || only.has(e.id));
     const rects = ents.filter(e => e.kind === 'room' && !e.hidden).map(e => ({ x0: e.recipe.x * CELL, z0: e.recipe.z * CELL, x1: (e.recipe.x + e.recipe.w) * CELL, z1: (e.recipe.z + e.recipe.d) * CELL }));
     let box = structureBox(rects);
     if (!box) { // no rooms: the visible things, or a patch of ground
       const pts = ents.filter(e => (e.kind === 'token' || e.kind === 'object') && !e.hidden && e.x != null).map(e => [e.x, e.z]);
       box = pts.length ? { x0: Math.min(...pts.map(p => p[0])) - 5, z0: Math.min(...pts.map(p => p[1])) - 5, x1: Math.max(...pts.map(p => p[0])) + 5, z1: Math.max(...pts.map(p => p[1])) + 5 } : { x0: -20, z0: -20, x1: 20, z1: 20 };
     }
-    return { box, ...fitDistance(box, { ...HOME, fovDeg: 45, aspect: TW / TH, h: 10, margin: 0.06 }) };
+    // (a shared build's own picture: as tall as its tallest room, so an upper storey is never cut off; Gemini 2026-10-29
+    // read the corner of a two-storey inn clipped at the frame's edge when every build was framed 10 ft tall)
+    const E = app.entities(area) || {}, h = only ? Math.max(10, ...ents.filter(e => e.kind === 'room' && e.recipe).map(e => HT.roomTop(E, e))) : 10;
+    return { box, ...fitDistance(box, { ...HOME, fovDeg: 45, aspect: TW / TH, h, margin: only ? 0.1 : 0.06 }) };
   };
 
   // draw the area into the bottom-left corner of the drawing buffer and read it straight back (same task, before the
@@ -43,10 +48,10 @@ export function createThumbs(app, { renderer }) {
   // a room still arriving (meshes loading, the spawn choreography) is not a picture yet: wait for it (at most 40 s)
   // (an area picture is never taken while the hand is moving the view or dragging: it waits, at most 40 s like the rest)
   const settled = async (w) => { const t0 = Date.now(); while ((w.anims.size || w.cutFly?.busy() || app.interact?.active || [...w.recs.values()].some(r => r.visual?.userData?.placeholder && r.entity.url)) && Date.now() - t0 < 40000) await new Promise(r => setTimeout(r, 250)); };
-  Th.render = async (area) => {
+  Th.render = async (area, { only = null, rooms = null } = {}) => {
     const w = app.worlds.get(area); if (!w?.loaded) return null;
     await settled(w);
-    const f = Th.frameFor(area);
+    const f = Th.frameFor(area, { only });
     const cam = new THREE.PerspectiveCamera(45, TW / TH, 0.5, 3000);
     const Y = THREE.MathUtils.degToRad(f.yaw), P = THREE.MathUtils.degToRad(f.pitch);
     cam.position.set(f.focus[0] + Math.sin(Y) * Math.cos(P) * f.dist, Math.sin(P) * f.dist, f.focus[2] + Math.cos(Y) * Math.cos(P) * f.dist);
@@ -68,8 +73,9 @@ export function createThumbs(app, { renderer }) {
       try {
         w.liftCut(); // (a cut set while it is lifted is the one put back: world.liftCut)
         hide(w.layers.deco); hide(w.layers.cursors);
-        for (const [id, r] of w.recs) if (r.entity.hidden || hiddenRooms.has(r.entity.room)) { hide(r.group); excluded.push(id); }
-        for (const s of w.shell.values()) if (hiddenRooms.has(s.roomId)) hide(s.group);
+        for (const [id, r] of w.recs) if (r.entity.hidden || hiddenRooms.has(r.entity.room) || (only && !only.has(id))) { hide(r.group); excluded.push(id); }
+        for (const s of w.shell.values()) if (hiddenRooms.has(s.roomId) || (only && !rooms?.has(s.roomId))) hide(s.group);
+        if (only) for (const [id, r] of w.roofRecs || []) if (!rooms?.has(id)) hide(r.group);
         renderer.setRenderTarget(null); renderer.setScissorTest(true); renderer.setScissor(0, 0, vw, vh); renderer.setViewport(0, 0, vw, vh);
         Th.lastShot = { cut: w.cut ?? null, cutWas, shellShown: [...w.shell.values()].filter(x => x.group.visible).length, shell: w.shell.size, roofs: [...(w.roofRecs?.values() || [])].filter(r => r.group.visible).length }; // (tests)
         w.beforeRender?.(cam); // the picture shows the whole area: every sleeping building it frames is woken first (world.js SLEEP)
@@ -82,7 +88,7 @@ export function createThumbs(app, { renderer }) {
     for (let y = 0; y < TH; y++) img.data.set(px.subarray((TH - 1 - y) * TW * 4, (TH - y) * TW * 4), y * TW * 4); // GL rows are bottom-up
     g.putImageData(img, 0, 0);
     const blob = await new Promise(res => cv.toBlob(res, 'image/webp', 0.82));
-    Th.lastRender = { area, at: Date.now(), excluded, frame: f, bytes: blob?.size || 0, blank: px.every((v, i) => i % 4 === 3 || v === 0) };
+    Th.lastRender = { area, at: Date.now(), excluded, frame: f, bytes: blob?.size || 0, blank: px.every((v, i) => i % 4 === 3 || v === 0), only: !!only };
     return blob;
   };
   Th.upload = async (area, blob) => {

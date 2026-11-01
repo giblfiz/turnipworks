@@ -12,7 +12,7 @@ faces x skins dials can ask for (assets/lod/f<N>/<sku>.glb for each N in assets/
 N in assets/tex); every wall family in walls.js WALL_FAMILIES has a usable wall-straight piece with its file.
 From data/figures.json (the figure library, pawns): every figure's mesh (assets/figures/*.glb) and thumbnail.
 From the engine: room-<key>.png for every room type in data/rooms.json, type-<CODE>.png and genre icons named by
-engine/client/data/types.json, and every roof section named by engine/client/data/roofsections.json. Exit code 1 if anything is missing. deploy.sh runs this and stops on a miss.
+engine/client/data/types.json, every roof section named by engine/client/data/roofsections.json and every gable-kit picture named by engine/client/data/gables.json. Exit code 1 if anything is missing. deploy.sh runs this and stops on a miss.
 DELIVERED COPIES (2026-10-11, prep/delivery.py, docs/ASSET_DELIVERY.md): every listed file that exists must have its
 delivered copy (assets/d/…<token>…, named by assets/delivery.json), and a delivered mesh must be compressed. A tree with
 no assets/delivery.json at all is not checked for them (a sandbox; deploy.sh always builds it first); --live checks
@@ -52,6 +52,13 @@ icons = [f"data/icons/room-{r['key']}.png" for r in rooms] + [f"data/icons/type-
 # the roof sections (2026-10-11): every file engine/client/data/roofsections.json names (checked with the icons: same folder, same hosts)
 rs = ENG / 'data/roofsections.json'
 if rs.exists(): icons += [f"data/{v['url']}" for v in json.loads(rs.read_text()).get('sections', {}).values()]
+# the gable kit and the marble roof's picture (2026-10-27): every file engine/client/data/gables.json names
+gk = ENG / 'data/gables.json'
+if gk.exists():
+    for grp in json.loads(gk.read_text()).values():
+        if not isinstance(grp, dict): continue
+        for v in (grp.values() if 'url' not in grp else [grp]):
+            if isinstance(v, dict): icons += [f"data/{v[k]}" for k in ('url', 'normal') if v.get(k)]
 
 def report(name, total, miss):
     print(f"{name}: {total} checked, {len(miss)} missing")

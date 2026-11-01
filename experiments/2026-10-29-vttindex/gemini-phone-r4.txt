@@ -1,0 +1,36 @@
+**VERDICT: FIX**
+
+### 1. Labels
+
+* **Headings:**
+  * `VTT Comparison Index` (page title; top is clipped at screen edge)
+  * `Turnip Works` (detail modal header)
+  * Inline paragraph headings: `Who made this table.`, `Claim yours / correct me:`
+* **Filter labels:**
+  * `Show only`
+  * Checkboxes: `3D`, `Free to start`, `Runs in a browser`, `Open source`, `Site is up`
+  * Select labels: `Group`, `Kind` (options shown: `All`, `Every kind`)
+  * Search label & placeholder: `Search`, `a name or a word`
+  * Count: `Showing all 118`
+  * Legend pills (visible behind modal in [phone-detail.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-detail.png)): `n/a, or a plain value`, `(?) not confirmed from a source`
+* **Column headers:**
+  * **None visible.** The table is entirely below the fold in [phone-table.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-table.png), and obscured by the modal backdrop in [phone-detail.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-detail.png). (Detail modal field labels are `2D / 3D`, `Runs on`, `Price`, `Accounts`).
+* **First five product names:**
+  * Only **1** product name is readable across both images: `Turnip Works` (detail modal title in [phone-detail.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-detail.png)). Zero product names appear in [phone-table.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-table.png).
+
+---
+
+### 2. Layout & Questions
+
+* **Filter controls fit:** **Yes.** Checkboxes, dropdowns, and search fit cleanly within 400 CSS px.
+* **Apparent table continues to the right:** **No / Cannot tell.** The table is completely off-screen below the 800 CSS px fold.
+* **Text sizing:** All rendered text is legible.
+* **Clipped / overlapping text:** **Yes** (page title and detail modal footer).
+
+---
+
+### Problems (Most Important First)
+
+1. **Table entirely below the fold on mobile:** In [phone-table.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-table.png), the intro paragraphs and filter card consume the full screen height; zero rows, columns, or table borders are visible without scrolling down.
+2. **Detail panel footer overlaps text:** In [phone-detail.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-detail.png), the sticky bottom action bar (`Correct this row` / `scroll for more ↓`) overlaps and clips the text beneath `Accounts` (`the GM starts a table and sends links; whoever...`).
+3. **Page title clipped at top edge:** In [phone-table.png](file://experiments/2026-10-29-vttindex/gemini-phone/phone-table.png), the tops of the capital letters in `VTT Comparison Index` are sliced off by the top screen boundary.

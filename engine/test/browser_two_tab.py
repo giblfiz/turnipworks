@@ -36,7 +36,7 @@ A = ap.parse_args()
 results = []
 def check(ok, name, detail=''):
     results.append((bool(ok), name, detail))
-    print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + detail if detail else ''}", flush=True)
+    print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)
 
 UA = {'User-Agent': 'TurnipWorks-acceptance/1.0'}  # Cloudflare bans the default Python-urllib signature (error 1010)
 def get(url):
@@ -358,6 +358,92 @@ async def main():
         await wait(gm, f"Math.abs(tw.entities()['{brakka['id']}'].x - {cur['x'] + 5}) < 1.5", 6000, 'post-restart drag')
         check(abs(await gm.evaluate(f"tw.entities()['{brakka['id']}'].x") - (cur['x'] + 5)) < 1.5, 'play continues after the restart (player drag lands on the GM tab)')
         await gm.screenshot(path=os.path.join(SHOTS, 'gm-final.png')); await pl.screenshot(path=os.path.join(SHOTS, 'player-final.png'))
+
+        # ---------- M7: a new player's placeholder pawn (Harry 2026-10-22; client/pawns.js, client/arrival.js) ----------
+        # (the rest of this suite runs with invites placing no pawn: tests/tw_sandbox.py placeholder_pawns; here it is on,
+        # as every real browser has it)
+        print('M7 the invite places a placeholder pawn; either side chooses it; the player arrives on it')
+        await gm.evaluate(f"tw.setMain('{T1}'); tw.select([]); tw.settings.setPref('invitePawn', true)"); await gm.wait_for_timeout(500)
+        n_tok = await gm.evaluate("Object.values(tw.entities()).filter(e => e.kind === 'token').length")
+        await bar(gm, 'invite Bobby')
+        bob_link = await output(gm, '#s=')
+        ph = await gm.evaluate('tw.lastPlaceholder')
+        await wait(gm, f"tw.entities()['{ph['id']}'] && tw.sync.pendingCount() === 0", 8000, 'placeholder on the table')
+        B = ph['seat']; P = await gm.evaluate(f"tw.entities()['{ph['id']}']")
+        defs = await gm.evaluate(f"tw.sync.campaign.pawns.filter(d => d.owner === '{B}')")
+        brak = await gm.evaluate(f"tw.entities()['{brakka['id']}']")
+        check(ph['ok'] and P['placeholder'] and P['main'] and P['owner'] == B and not P.get('fig') and P['def'] == ph['def'] and len(defs) == 1 and defs[0].get('placeholder') and defs[0].get('main'),
+              "GM invite: a placeholder pawn is on the table, the new seat's MAIN pawn (its definition too)", f"{P['name']} at ({P['x']}, {P['z']}) by {ph['by']}; defs {len(defs)}")
+        spot_free = await gm.evaluate(f"Object.values(tw.entities()).filter(e => e.kind === 'token' && e.id !== '{ph['id']}').every(e => Math.hypot(e.x - {P['x']}, e.z - {P['z']}) >= 4.9)")
+        check(ph['by'] == 'party' and abs(P['x'] - brak['x']) <= 15 and abs(P['z'] - brak['z']) <= 15 and spot_free and (P['x'] % 5) == 2.5 and (P['z'] % 5) == 2.5,
+              'it stands on a free square beside the party (the player pawn already there)', f"Brakka ({brak['x']}, {brak['z']}) · Bobby ({P['x']}, {P['z']})")
+        check(await gm.evaluate(f"tw.sync.campaign.seats.find(s => s.id === '{B}').location === '{T1}'"), "the seat starts in the placeholder's area")
+        await gm.evaluate(f"tw.select('{ph['id']}')"); await gm.wait_for_timeout(700)
+        gring = await gm.evaluate("[...document.querySelectorAll('#ring .rbtn')].map(b => [b.dataset.id, b.dataset.tip, b.classList.contains('prompt')])")
+        check(gring and gring[0][0] == 'pawn.choose' and gring[0][1] == "Choose Bobby's pawn" and gring[0][2], "GM: its ring leads with \"Choose Bobby's pawn\" (a prompt)", gring[:2])
+        ok_look = await gm.evaluate(f"(() => {{ const r = tw.worldOf(tw.area()).recs.get('{ph['id']}'), v = r?.visual; let blank = 0; v?.traverse(o => {{ if (o.userData.placeholderLook) blank++; }}); return {{ blank, label: r?.label?.userData?.text ?? null, fig: v?.userData.fig, ph: v?.userData.placeholder }}; }})()")
+        check(ok_look['ph'] and ok_look['fig'] and ok_look['blank'] > 0, 'it is drawn as a placeholder: the plain figure, unpainted', ok_look)
+        # the GM positions it (where Bobby should start)
+        await gm.evaluate(f"tw.dispatch('token.move', {{ id: '{ph['id']}', x: {P['x'] + 10}, z: {P['z']} }})")
+        await wait(gm, f"tw.entities()['{ph['id']}'].x === {P['x'] + 10} && tw.sync.pendingCount() === 0", 6000, 'GM moves it')
+        # re-copying the invite (Settings ▸ Campaign admin ▸ Invites and seats) makes no second pawn
+        await gm.evaluate("tw.settings.show('admin')"); await gm.wait_for_timeout(600)
+        await gm.click(f'#settingsModal li[data-seat="{B}"] [data-act=invite]'); await gm.wait_for_timeout(1500)
+        again = await gm.evaluate(f"[Object.values(tw.entities()).filter(e => e.kind === 'token' && e.owner === '{B}').length, tw.sync.campaign.pawns.filter(d => d.owner === '{B}').length, Object.values(tw.entities()).filter(e => e.kind === 'token').length]")
+        await gm.evaluate('tw.settings.close()')
+        check(again[0] == 1 and again[1] == 1 and again[2] == n_tok + 1, 'reissuing the invite link makes no duplicate pawn', f'{again[0]} pawn, {again[1]} definition for Bobby; {again[2]} pawns in all')
+        # Brakka (another player) is never offered it
+        await pl.evaluate(f"tw.select('{ph['id']}')"); await pl.wait_for_timeout(500)
+        check(not await pl.evaluate("!!document.querySelector('#ring [data-id=\"pawn.choose\"]')") and not await pl.evaluate("tw.registry.available().some(c => c.id === 'pawn.choose')"), "another player is not offered to choose Bobby's pawn")
+        await pl.evaluate('tw.select([])')
+        # Bobby arrives (a browser as real players have it: arrivals centre on their pawn)
+        bctx = await browser.new_context(viewport={'width': 1200, 'height': 760})
+        await bctx.add_init_script("try { const p = JSON.parse(localStorage.getItem('tw.prefs') || '{}'); p.arrivalCentre = true; localStorage.setItem('tw.prefs', JSON.stringify(p)); } catch (e) {}")
+        bob = await bctx.new_page(); bob.on('pageerror', lambda e: errors.append(f'pageerror: {e}')); bob.on('console', lambda m: errors.append(f'console: {m.text}') if m.type == 'error' else None)
+        await bob.goto(bob_link)
+        await wait(bob, 'window.tw && tw.ready && tw.ready() && tw.loaded && tw.loaded()', 30000, 'Bobby ready')
+        await wait(bob, 'tw.arrival.centred', 8000, 'arrival')
+        arr = await bob.evaluate(f"(() => {{ const e = tw.entities()['{ph['id']}'], s = tw.screenOf(e.x, e.z), c = document.getElementById('c').getBoundingClientRect(); return {{ centred: tw.arrival.centred, off: Math.hypot(s.x - (c.left + c.width / 2), s.y - (c.top + c.height / 2)), hint: tw.condButtons.list().find(b => b.key === 'placeholder-hint') || null }}; }})()")
+        check(arr['centred'] and arr['centred']['id'] == ph['id'] and arr['off'] < 80, "Bobby's first arrival: the camera is on his own (placeholder) pawn", f"{arr['off']:.0f} px from the middle")
+        check(arr['hint'] and arr['hint']['visible'] and 'This is you, Bobby' in arr['hint']['text'], 'and one gentle offer beside it', arr['hint'])
+        await bob.screenshot(path=os.path.join(SHOTS, 'placeholder-arrival.png'))
+        await bob.evaluate(f"tw.select('{ph['id']}')"); await bob.wait_for_timeout(700)
+        bring_ = await bob.evaluate("[...document.querySelectorAll('#ring .rbtn')].map(b => [b.dataset.id, b.dataset.tip])")
+        check(bring_ and bring_[0] == ['pawn.choose', 'Set your pawn'], 'Bobby: his ring leads with "Set your pawn"', bring_[:2])
+        await bob.click('#ring .rbtn.prompt'); await bob.wait_for_timeout(800)
+        ed = await bob.evaluate('tw.settings.pawnEdit()')
+        check(ed and ed['id'] == ph['def'] and ed['placeholder'] and await bob.evaluate("document.querySelector('#settingsModal .mped h4')?.innerText") == 'Set your pawn', "it opens Me ▸ My pawns, the editor on this pawn", ed and {k: ed[k] for k in ('id', 'name', 'placeholder')})
+        # he picks a figure in the editor's picture tree and saves
+        for _ in range(5):
+            if await bob.evaluate("!!document.querySelector('#settingsModal .mptree [data-fig]')"): break
+            await bob.click('#settingsModal .mptree [data-node]'); await bob.wait_for_timeout(300)
+        fig = await bob.evaluate("document.querySelector('#settingsModal .mptree [data-fig]')?.dataset.fig")
+        await bob.click('#settingsModal .mptree [data-fig]'); await bob.wait_for_timeout(200)
+        await bob.click('#settingsModal [data-act=pawn-save]')
+        chosen = f"(() => {{ const e = tw.entities()['{ph['id']}']; return !!e && !e.placeholder && e.fig === '{fig}'; }})()"
+        ok_b = await wait(bob, chosen, 8000, 'chosen (Bobby)'); ok_g = await wait(gm, chosen, 8000, 'chosen (GM)')
+        dd = await gm.evaluate(f"tw.sync.campaign.pawns.find(d => d.id === '{ph['def']}')")
+        check(ok_b and ok_g and fig and not dd.get('placeholder') and dd.get('fig') == fig and await gm.evaluate(f"tw.entities()['{ph['id']}'].name") == 'Bobby', 'choosing a figure makes it an ordinary pawn, in both tabs (its definition too; the name kept)', fig)
+        await gm.evaluate(f"tw.select([]); tw.select('{ph['id']}')"); await gm.wait_for_timeout(600)
+        check(not await gm.evaluate("!!document.querySelector('#ring [data-id=\"pawn.choose\"]')") and await wait(bob, "!tw.condButtons.list().some(b => b.key === 'placeholder-hint')", 3000, 'hint gone'), 'and the prompt is gone for both sides (the offer too)')
+        pic = await gm.evaluate(f"import('./portraits.js').then(m => m.playerPortrait(tw, tw.sync.campaign.seats.find(s => s.id === '{B}')).includes('pictured'))")
+        check(pic, "Bobby's portrait is now his chosen figure (it was his initial while a placeholder)")
+        # undo (Bobby's own) puts the placeholder back, for everyone
+        await bob.keyboard.press('Escape'); await bob.wait_for_timeout(200)
+        await bob.evaluate("tw.undo()")
+        back = f"(() => {{ const e = tw.entities()['{ph['id']}']; return !!e && e.placeholder === true && !e.fig; }})()"
+        ok_u = await wait(gm, back, 8000, 'undo (GM)') and await wait(bob, back, 8000, 'undo (Bobby)')
+        await gm.evaluate(f"tw.select([]); tw.select('{ph['id']}')"); await gm.wait_for_timeout(600)
+        check(ok_u and await gm.evaluate("!!document.querySelector('#ring [data-id=\"pawn.choose\"]')"), 'undo restores the placeholder, and its prompt comes back', await gm.evaluate(f"tw.entities()['{ph['id']}']"))
+        # now the GM chooses it (the bar's "change figure" on the selected pawn): whoever is first
+        await gm.evaluate(f"tw.setFigure([tw.entities()['{ph['id']}']], 'hero-rogue-human-m')")
+        ok_g2 = await wait(bob, f"(() => {{ const e = tw.entities()['{ph['id']}']; return !e.placeholder && e.fig === 'hero-rogue-human-m'; }})()", 8000, 'GM chooses')
+        await bob.evaluate(f"tw.select([]); tw.select('{ph['id']}')"); await bob.wait_for_timeout(600)
+        check(ok_g2 and not await bob.evaluate("!!document.querySelector('#ring [data-id=\"pawn.choose\"]')"), "the GM choosing a figure for it ends it too; Bobby's prompt is gone", await gm.evaluate(f"tw.sync.campaign.pawns.find(d => d.id === '{ph['def']}')"))
+        # a second visit from the same browser: no camera move, no offer (once per seat per device)
+        await bob.reload(); await wait(bob, 'window.tw && tw.ready && tw.ready() && tw.loaded && tw.loaded()', 30000, 'Bobby again'); await bob.wait_for_timeout(1500)
+        check(await bob.evaluate("!tw.arrival.centred && !tw.condButtons.list().some(b => b.key === 'placeholder-hint')"), 'a second visit: no camera move and no offer (once per seat, per browser)')
+        await bctx.close()
         real_errors = [e for e in errors if 'WebSocket' not in e and 'ERR_CONNECTION_REFUSED' not in e and '502' not in e and not (A.local and 'Failed to load resource' in e)]
         check(not real_errors, 'no page errors', '; '.join(real_errors[:5]))
         await browser.close()

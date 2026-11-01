@@ -1,0 +1,134 @@
+### 1. Exact Text Labels in the Image
+
+#### Outer Arc — Conditions Ring Menu (18 buttons, clockwise from bottom-left)
+1. `blinded`
+2. `charmed`
+3. `frightened`
+4. `grappled`
+5. `invisible`
+6. `poisoned`
+7. `✓ prone`
+8. `restrained`
+9. `stunned`
+10. `unconscious`
+11. `paralyzed`
+12. `incapacitated`
+13. `dead`
+14. `concentrating`
+15. `exhaustion +1`
+16. `exhaustion -1`
+17. `✓ hexed`
+18. `other...`
+
+#### Inner Ring — Pawn Main Menu (10 buttons, clockwise from bottom)
+1. `Turn`
+2. `Sheet`
+3. `Damage`
+4. `Attack`
+5. `Eyes`
+6. `Conditions` (curved button label partially covered by a rectangular tooltip also reading `Conditions`)
+7. `Indicators`
+8. `Raise / lower`
+9. `Send to area`
+10. `Fewer options`
+
+#### Other UI & Scene Text
+- Center pawn nameplate: `Brakka` (partially clipped at the top by the `Indicators` button)
+- Active condition badge on the pawn: `hexed`
+- Bottom-left prompt box: `> Your pawn is a stand-in until you choose who you are` and `Choose` `O`
+- Bottom-right debug/status text: `11us (4%) · 131ms · Area · Bed 4 ·`
+
+---
+
+### 2. Button-by-Button Picture Description & Label Fit
+
+#### Outer Arc (Conditions List)
+1. **`blinded`**: Depicts a dark gray head silhouette wearing a white cloth blindfold tied across the eyes. **Fits** the D&D *Blinded* condition.
+2. **`charmed`**: Depicts a glossy pink heart with a lighter pink hypnotic swirl inside and two tiny floating hearts at the upper right. **Fits** the D&D *Charmed* condition.
+3. **`frightened`**: Depicts a purple face with wide glowing white eyes and an open screaming mouth, hands pressed to both cheeks in a *Scream*-style terror pose. **Fits** the D&D *Frightened* condition.
+4. **`grappled`**: Depicts a pale/grayish hand tightly gripping a tan forearm/wrist. **Fits** the D&D *Grappled* condition.
+5. **`invisible`**: Depicts a glowing cyan human silhouette whose right side dissolves intowisps of mist/smoke. **Fits** the D&D *Invisible* condition.
+6. **`poisoned`**: Depicts a round green potion flask with a cork stopper, a black skull-and-crossbones symbol on the front, and a small green bubble above it. **Fits** the D&D *Poisoned* condition.
+7. **`✓ prone`**: Depicts a brown wooden-mannequin-like figure lying flat horizontally on a ground line. **Fits** the D&D *Prone* condition (checked as active).
+8. **`restrained`**: Depicts a muscular red torso bound tightly around the chest and arms with white ropes. **Fits** the D&D *Restrained* condition.
+9. **`stunned`**: Depicts a dazed yellow face with uneven eyes and three yellow four-pointed stars orbiting its head. **Fits** the D&D *Stunned* condition.
+10. **`unconscious`**: Depicts a blue sleeping face with closed eyes resting beside a white crescent moon. **Fits** the D&D *Unconscious* condition.
+11. **`paralyzed`**: Depicts a blue head and shoulders with wide white eyes and a clenched grimace, flanked by jagged cyan lightning bolts. **Fits** the D&D *Paralyzed* condition.
+12. **`incapacitated`**: Depicts two pale upturned hands side-by-side over a dark red `X`. **Fits** the D&D *Incapacitated* condition (unable to take actions/reactions).
+13. **`dead`**: Depicts a gray stone headstone engraved with a dark cross. **Fits** the *Dead* condition.
+14. **`concentrating`**: Depicts two pale hands cupped around a glowing blue/cyan orb of magical energy with sparkles. **Fits** D&D spell *Concentration*.
+15. **`exhaustion +1`**: Depicts a weary, sweating yellow face with drooping eyes and a bold red plus sign (`+`) on the right. **Fits** increasing exhaustion by one level.
+16. **`exhaustion -1`**: Depicts the same weary, sweating yellow face with drooping eyes and a green minus bar (`-`) on the right. **Fits** decreasing exhaustion by one level.
+17. **`✓ hexed`**: Depicts a white price/luggage-style label tag with a teal checkmark (`✓`) on it. **Fits** as a generic active **custom condition** badge (representing a user-created tag applied via `other...`), though it is a generic tag icon rather than a literal depiction of a curse/hex.
+18. **`other...`**: Depicts a gold feather quill writing on a white sheet of paper next to a teal plus sign (`+`). **Fits** adding/writing a custom condition (`Other...`).
+
+#### Inner Ring (Pawn Actions)
+19. **`Turn`**: Depicts a brown wooden crate with a curved white rotation arrow around its base. **Fits** rotating/turning the pawn.
+20. **`Sheet`**: Depicts a cream parchment page with text lines and a green pawn silhouette. **Fits** opening a character sheet.
+21. **`Damage`**: Depicts a red heart split down the middle by a jagged crack. **Fits** applying/tracking damage.
+22. **`Attack`**: Depicts two crossed silver broadswords. **Fits** making an attack.
+23. **`Eyes`**: Depicts a teal pawn whose head is a large eyeball. **Fits** vision/line-of-sight controls.
+24. **`Conditions`**: Depicts a white pawn surrounded by a gold star, a red blood drop, and a teal swirl. **Fits** opening the status conditions submenu.
+25. **`Indicators`**: Depicts a large faceted gold five-pointed star. **Fits** pawn indicator/marker badges.
+26. **`Raise / lower`**: Depicts a brown wooden crate beside a vertical white double-headed arrow. **Fits** raising or lowering pawn elevation.
+27. **`Send to area`**: Depicts a white pawn with a gold arrow pointing through an open teal doorway. **Fits** sending the pawn to another area/map.
+28. **`Fewer options`**: Depicts three stacked horizontal white/cream bars (a hamburger menu icon). **Fits** toggling the menu options, though a generic three-bar menu icon does not specifically indicate "fewer" vs. "more."
+
+---
+
+### 3. Visual QA Questions
+
+#### (1) Do ALL the buttons look like one painted icon family (ground, rim, size, brushwork, palette, lighting)? Name any that look like a different set, and why.
+- **Overall**: Yes, all 28 buttons share the **same circular frame family** (identical diameter, dark slate-blue radial-gradient ground, and beveled dark gunmetal rim) and the same general **soft digital-painted volumetric rendering** with top-left lighting and dark drop shadows.
+- **Minor stylistic outliers within the family**:
+  - **`stunned`, `exhaustion +1`, and `exhaustion -1`**: Use bright yellow cartoon/emoji-style heads with dark comic linework for facial features, contrasting with the more painterly fantasy heads in `unconscious`, `paralyzed`, and `frightened` and the featureless mannequin head in `blinded`.
+  - **`✓ prone`**: Drawn at a much smaller scale with flat, dark brown tones that leave most of the circular ground empty, unlike the bold, circle-filling, saturated subjects of the other icons.
+  - **`invisible`**: Uses a flatter 2D glowing cyan stencil/cutout silhouette rather than 3D volumetric shading (appropriate to the subject, but visually flatter than the rest).
+  - **`Indicators` (inner ring)**: The gold star fills almost the entire circle edge-to-edge with hard geometric bevels rather than the softer organic brushwork used on the other icons.
+
+#### (2) Is each legible at this size?
+- **Mostly yes, with a few weak spots**:
+  - **`✓ prone`** has the poorest icon legibility at this size: the horizontal brown mannequin is very small, thin, and low-contrast against the dark slate ground, looking like a thin brown bar until inspected closely.
+  - **`incapacitated`**: The pale hands read well, but the dark maroon `X` behind them has low contrast against the dark background.
+  - **`exhaustion -1`**: The green `-` bar is relatively small compared to the face, requiring a closer look than the larger red `+` on `exhaustion +1`.
+  - **Label occlusion on `Conditions` (inner ring)**: The floating `Conditions` tooltip covers the middle of the curved `Conditions` text label, and the `Indicators` button rim slightly clips the top of the `Brakka` nameplate.
+
+#### (3) Could any two be confused with each other?
+- **`exhaustion +1` and `exhaustion -1`** *(High risk)*: Both use the exact same yellow sweating face artwork; only the small red `+` vs. green `-` on the right differentiates them.
+- **`stunned` vs. `exhaustion +1` / `exhaustion -1`** *(Moderate risk)*: All three feature a round yellow cartoon head at a similar scale; at a fast peripheral glance they look very similar until you spot the orbiting stars vs. `+`/`-`.
+- **`Turn` and `Raise / lower` (inner ring)** *(Moderate risk)*: Both use the exact same brown wooden crate accompanied by a white arrow (curved horizontal arrow vs. vertical double-headed arrow).
+- **`paralyzed`, `unconscious`, and `frightened`** *(Low-to-moderate risk)*: All three are blue/purple humanoid heads filling the circle, though their secondary cues (lightning bolts, white crescent moon, screaming hands-on-cheeks pose) separate them once focused.
+- **`concentrating` and `incapacitated`** *(Low risk)*: Both feature a pair of pale hands in the lower half of the circle, though the bright glowing blue orb in `concentrating` sets them apart clearly.
+
+---
+
+### Summary Lines
+
+blinded: FITS - head wearing a white blindfold over the eyes clearly depicts the Blinded condition.
+charmed: FITS - pink heart with a hypnotic swirl and floating mini-hearts clearly depicts the Charmed condition.
+frightened: FITS - purple screaming face with hands on cheeks clearly depicts the Frightened condition.
+grappled: FITS - pale hand gripping a forearm/wrist directly depicts the Grappled condition.
+invisible: FITS - glowing cyan human outline dissolving into mist clearly depicts the Invisible condition.
+poisoned: FITS - green potion flask labeled with a skull and crossbones clearly depicts the Poisoned condition.
+✓ prone: FITS - mannequin figure lying flat horizontally depicts the Prone condition (though small and low-contrast).
+restrained: FITS - red torso bound tightly in white ropes clearly depicts the Restrained condition.
+stunned: FITS - dazed yellow face with stars orbiting its head clearly depicts the Stunned condition.
+unconscious: FITS - sleeping blue face resting against a crescent moon clearly depicts the Unconscious condition.
+paralyzed: FITS - rigid blue head and shoulders jolted by lightning bolts depicts the Paralyzed condition.
+incapacitated: FITS - two open hands overlaid with a red X depicts inability to take actions (Incapacitated).
+dead: FITS - gray stone gravestone with a cross clearly depicts the Dead condition.
+concentrating: FITS - two hands sustaining a glowing magical orb clearly depicts spell Concentration.
+exhaustion +1: FITS - weary sweating yellow face with a red plus sign clearly depicts gaining one level of Exhaustion.
+exhaustion -1: FITS - weary sweating yellow face with a green minus sign clearly depicts removing one level of Exhaustion.
+✓ hexed: FITS - white label tag with a teal checkmark fits an active user-defined custom condition tag (generic tag icon rather than hex-specific art).
+other...: FITS - feather quill writing on paper with a plus sign clearly depicts adding a custom condition.
+Turn: FITS - wooden crate with a curved rotation arrow clearly depicts rotating/turning the pawn.
+Sheet: FITS - parchment page with a pawn silhouette and text lines clearly depicts a character sheet.
+Damage: FITS - cracked red heart clearly depicts taking or managing damage.
+Attack: FITS - crossed silver swords clearly depict making an attack.
+Eyes: FITS - pawn topped with an eyeball clearly depicts pawn vision/line-of-sight.
+Conditions: FITS - pawn surrounded by a star, blood drop, and swirl clearly depicts status conditions.
+Indicators: FITS - large gold star clearly depicts a pawn indicator/marker.
+Raise / lower: FITS - wooden crate with a vertical up/down arrow clearly depicts raising or lowering elevation.
+Send to area: FITS - pawn moving with an arrow through an open doorway clearly depicts sending the pawn to another area.
+Fewer options: FITS - three-bar menu icon fits toggling the menu options (though generic rather than specifically indicating "fewer").

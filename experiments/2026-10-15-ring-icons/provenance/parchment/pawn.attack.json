@@ -1,0 +1,76 @@
+{
+  "id": "pawn.attack",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works fantasy tabletop UI pictogram: TWO broad straight swords CROSSED in one bold X, points up to the upper left and upper right: thick ivory-steel blades with a soft bevel down each blade, chunky slate crossguards, warm ochre wooden grips and round pommels at the bottom. Both swords equally large, identical and clearly separate where they cross. Plain blades, no engraving, no shield, no crest, no blood. Reads instantly as attack / fight. Heroic hand-painted style D: chunky miniature-safe forms, broad soft bevels, matte painted gradients, restrained brushwork, no glossy plastic. Centered on a warm pale parchment circular ground, quiet thin antique brass rim; ivory shapes instead dark slate for strong contrast. Straight-on circular badge, subject fills 80 percent of the disc, outer disc fills 94 percent of square canvas. Light from upper left. Palette: warm ochre wood, muted teal, ivory, slate, red only for danger or pin. Must read at 31 pixels: extremely simple silhouette, thick features, generous negative space, no tiny detail. Transparent outside the circle, preserve actual alpha. No text, lettering, numbers, watermark, decorative flourishes, extra symbols, or scene. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.damage.webp",
+      "sha256": "9740aafb97f9c90e31dbf9a3440db190ef8c72abb452b0153f8edba8ea0156b3",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.give.webp",
+      "sha256": "3810fef893fc94b07264ddbe7736804eeae72e25ba269da0999609b95e43f808",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.sheet.webp",
+      "sha256": "2d8fc6792aa9b5d6cf96b91fc0f868e2ae2aeb7261431b7e25745c7fa11bbcc8",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--pawn.attack.png",
+      "sha256": "4ffa61abad8d05d31f38c35d80274cf3a3b7b2785f4240f2bb7d5fc6c1a88b96",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--pawn.attack.png",
+  "source_sha256": "9e65df5e99cbfe618c60d43a4fb896bc7a3fc04b8a454c3ad8a77160b01a26c4",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/pawn.attack.webp",
+    "19": "parchment/sizes/19/pawn.attack.webp",
+    "22": "parchment/sizes/22/pawn.attack.webp",
+    "26": "parchment/sizes/26/pawn.attack.webp",
+    "31": "parchment/sizes/31/pawn.attack.webp",
+    "36": "parchment/sizes/36/pawn.attack.webp",
+    "38": "parchment/sizes/38/pawn.attack.webp",
+    "42": "parchment/sizes/42/pawn.attack.webp",
+    "44": "parchment/sizes/44/pawn.attack.webp",
+    "50": "parchment/sizes/50/pawn.attack.webp",
+    "52": "parchment/sizes/52/pawn.attack.webp",
+    "62": "parchment/sizes/62/pawn.attack.webp",
+    "84": "parchment/sizes/84/pawn.attack.webp",
+    "100": "parchment/sizes/100/pawn.attack.webp",
+    "128": "parchment/pawn.attack.webp"
+  },
+  "sha256": {
+    "18": "034ab88878af63eebc1e71dcbff0dfd8a1251af9c7c20a8f3eeb7edd8fb85d50",
+    "19": "17e4dddf9bdee85d4002a6a1c6a3e4bd9e1d2446a79089d0ff563d7b48ce8607",
+    "22": "492c716524b38c29e420f3ff130ef93d9459b602d44a66eedccb5427d1127d47",
+    "26": "e90e532c8d8f911c678fd5db6284b78922969590ededae9b668bdb0b19b81815",
+    "31": "3d67e682d9f3b7af63295cc6a2595d48b1a38da9e667c22e270342e19f22d9cc",
+    "36": "c20a9df1775f0730d7acfb99773adf437e273a70847d39c62f12b2aab6ed76eb",
+    "38": "9d8d109b9dc574c80d437bca3ce87637e3b57c50a63555e4d5548451d1024d60",
+    "42": "44fba1042fbef0bf42bba65b1d1197d6ba59a844157e22755f1c911997412c65",
+    "44": "f45a7021ee840cfffb86a6f85577071f38d4a0a21cb59c307c90922fd72a403e",
+    "50": "fb7d91a0f2963ef7f18a8a78085ef672c1f044b196ba4e1c5a9dc95e93efdfd9",
+    "52": "a7747590da656de8c5bf7bf04e95b97a8f4cdfaee80db348eb134c6650bc0175",
+    "62": "8f4a09a5f8c5919daacec138aa998fb99c6c5290cb1b6274b674d2780c5e7258",
+    "84": "8799e62bc9372fd77c4bec0a02d57b9b4c414f7c0de80cebc2c6a34d3d43f713",
+    "100": "8d272afe6a632492b83af164e21692742e5f5b1735dde5d213290b533bdb021f",
+    "128": "ba112e7032d75235d53991c25d9b28e08dfaffb22d849c3fd6107871e28f83ba"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "This is one unlabelled button in the contextual menu around a selected piece\nin a browser 3D virtual tabletop. View it at its supplied size.\nWhat action does this button perform on the selected piece?\nFirst describe the visible objects and marks, then give your single best action\ninterpretation and confidence (low/medium/high). If ambiguous, state why and one\nplausible alternative. Do not assume any action from the filename. Be concise.",
+  "candidate_sha256": "8606377e1fc9cf5f7fda12181d43eb28b485f68deb2e7cd7f55be7e8a5d9a1e1",
+  "blind_prompt_sha256": "5c3061251ea3e03761074ead4edbb50de3627538ce1e8adb8d0c6c8952c4c7f1",
+  "read_directory": "reads/parchment/pawn.attack/9e65df5e99cbfe61-5c3061251e"
+}

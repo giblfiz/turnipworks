@@ -171,7 +171,7 @@ async def main():
         # ================= SWITCH =================
         print('SWITCH: Settings > Me > Lighter picture while moving')
         await gm.keyboard.press('s'); await gm.wait_for_timeout(400)
-        await gm.evaluate("tw.settings.show('me')"); await gm.wait_for_timeout(300)
+        await gm.evaluate("tw.settings.show('graphics')"); await gm.wait_for_timeout(300)
         tog = await gm.query_selector('[data-pref="lightMoves"]')
         check(tog is not None and await gm.evaluate("tw.settings.prefs().lightMoves === true"), 'the switch is in Settings > Me, on by default')
         if tog: await tog.click(); await gm.wait_for_timeout(200)

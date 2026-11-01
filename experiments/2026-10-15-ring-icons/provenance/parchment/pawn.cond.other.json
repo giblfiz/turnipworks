@@ -1,0 +1,76 @@
+{
+  "id": "pawn.cond.other",
+  "set": "parchment",
+  "alt": 0,
+  "provider": "OpenAI built-in image_gen",
+  "model": "built-in image generation (tool-managed)",
+  "prompt": "Use case: stylized-concept. Paint exactly ONE original Turnip Works tabletop condition pictogram for other (type a new condition): ONE stout ochre feather quill pen writing one broad ivory stroke on a small blank parchment slip, with ONE small bold teal PLUS sign at upper right: write in a new condition. No tag, no string. Dominant subject colour key: ochre quill and teal; keep this colour strongly visible, not just a tiny accent. Heroic hand-painted style D, chunky matte painted forms, broad soft bevels, restrained brushwork. Center on a pale warm parchment circular ground with a quiet thin antique brass rim; use dark outlines for strong contrast. Upper-left light. Straight-on circular badge; outer circle fills 94 percent of square canvas, pictogram fills 80 percent of disc. Readable at31px and smaller: bold silhouette, thick features, generous negative space, absolutely no tiny detail. Native transparent alpha outside the circle. No text, lettering, numbers, watermark, decorative flourishes or extra scene. Our own design, no trademarked game iconography. Style reference: the attached images are our own earlier Turnip Works ring icons from this same set; match their circular ground, rim, painted brushwork, bevels, lighting and palette exactly, as if painted by the same artist in the same sitting. Do not copy their subjects. No third-party references.",
+  "references": [
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.stunned.webp",
+      "sha256": "b26b503140fe80eb18babe2b89fbb54c52aafb77cc9c848f04444e88ce13ab42",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.unconscious.webp",
+      "sha256": "d380df54bc91805ba37efc3a52f33f2fc664013633d911ac174ee48043aac119",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "tools/spawn-tuner/assets/ui-icons/parchment/pawn.cond.poisoned.webp",
+      "sha256": "ddfb1a18e71ef9298b7583611420c1dad4ac96f0fc2983ff3c9c4119b9897de8",
+      "role": "Style reference: our own earlier TW icon of this set (built-in image_gen input image)."
+    },
+    {
+      "path": "experiments/2026-10-29-ring-attack-target/sources/charcoal--pawn.cond.other.png",
+      "sha256": "05ff1e4ffac7e400365dbd8ffb5558853d86934b1010cc8538f15ea2a5badb91",
+      "role": "Edit source: our own accepted charcoal painting of this picture, turned into the parchment treatment."
+    }
+  ],
+  "source": "experiments/2026-10-29-ring-attack-target/sources/parchment--pawn.cond.other.png",
+  "source_sha256": "0a89dbc2afb0894cadaf6743047b9a2d854b2c958ff5eab7040a7c7ee9ff3f74",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "processing": "Native alpha preserved; transparent square padding when needed; Lanczos resize; lossless WebP.",
+  "files": {
+    "18": "parchment/sizes/18/pawn.cond.other.webp",
+    "19": "parchment/sizes/19/pawn.cond.other.webp",
+    "22": "parchment/sizes/22/pawn.cond.other.webp",
+    "26": "parchment/sizes/26/pawn.cond.other.webp",
+    "31": "parchment/sizes/31/pawn.cond.other.webp",
+    "36": "parchment/sizes/36/pawn.cond.other.webp",
+    "38": "parchment/sizes/38/pawn.cond.other.webp",
+    "42": "parchment/sizes/42/pawn.cond.other.webp",
+    "44": "parchment/sizes/44/pawn.cond.other.webp",
+    "50": "parchment/sizes/50/pawn.cond.other.webp",
+    "52": "parchment/sizes/52/pawn.cond.other.webp",
+    "62": "parchment/sizes/62/pawn.cond.other.webp",
+    "84": "parchment/sizes/84/pawn.cond.other.webp",
+    "100": "parchment/sizes/100/pawn.cond.other.webp",
+    "128": "parchment/pawn.cond.other.webp"
+  },
+  "sha256": {
+    "18": "2a727605770c9299fc593a5bd3077e0e6a5268fa8fb550589c304104dc46f610",
+    "19": "4e37e73fe28bf5b39f94ce044f1e919636ae2d9d04eb8cab2333f0770bfc1667",
+    "22": "c6725210368ecb670e42eb6c2d26a382fb730119363bb828d5ddbb15c6f1c666",
+    "26": "3600bfc2cdef6fbcb546fa93af0b27bd699efbf50a4411408e69a3986c9bde7f",
+    "31": "71e62a243a830802ddec81083ef8910fdd2dcc4c841b80ea24644ffeac705590",
+    "36": "c6a020d59f77b2e062acfdf33efee6615d5aa9ad42d6d38b3143d4937ff7a0f5",
+    "38": "224fe517d18eed8a6572bd25ade9eef68bcb84bbebcd35519f118fec25e67be7",
+    "42": "6768fd739e0f3d89f8888c88454921c87eb1cede8b8a7e5070fde967d8d80f63",
+    "44": "cf415bf75be7b0da513ab75238cf0abc63af52f9d05adc789dbd17b04c27df86",
+    "50": "c3b18ee297917b92921bb79656390ee7feee7083b982b730fed2d1b0a9628b81",
+    "52": "ba42dc0d3aed9c92f5d165586e9ee2780513e507ead8ae91bfd689c31d72ef99",
+    "62": "deb8d7362d003432b7948d7b7b111e2bcb21ed5d55545e060fce7e7ac8539b1d",
+    "84": "f8b664a0478635254fd0260d219e88ada9f99560945b66286d190c70c10a9b0f",
+    "100": "73ba6cf6d8ff0c7de5685e207bcc27787a1f3bc8cdba8e6be32b666d97b11417",
+    "128": "7d19a9870b583488526155e9b98009431ca017708e8c4bf7f3234f90701d6902"
+  },
+  "blind_model": "gemini-4-argon-high via agy-run (subscription)",
+  "blind_prompt": "These are small status icons for a tabletop pawn, in the ring menu around a selected pawn of a browser 3D tabletop game. For each lettered icon: which D&D condition, or condition control (adding / removing a level, a custom condition), does it show? Each icon is shown at its real 31-pixel size on the menu's dark ground (#1c1f24); view it at that size. First read the letters under the icons. Then for each letter: describe the visible objects and marks, give your single best interpretation and confidence (low/medium/high), and one plausible alternative if ambiguous. Do not assume anything from file names. Be concise. End with one line per letter exactly in the form `X: <best interpretation> (<confidence>)`. (Batched blind sheet: up to eight icons of this kind side by side, shuffled, each the 67 px candidate.png.)",
+  "candidate_sha256": "e813b84735403d8687bcfefdc965d06df602f31f98d05c44989b44d40d8f1fcd",
+  "blind_prompt_sha256": "62edd389ee8b5901b8936581b390a494654b0cf03cf774d31c0d21b720bbde4b",
+  "read_directory": "reads/parchment/pawn.cond.other/0a89dbc2afb0894c-62edd389ee"
+}

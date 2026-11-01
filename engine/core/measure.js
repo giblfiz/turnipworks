@@ -51,6 +51,16 @@ export function distance(a, b, rule = 'true', { ra = 0, rb = 0 } = {}) {
   return { ft: sq * CELL, across: flat * CELL, up: Math.sign(dy) * ny * CELL, squares: sq, rule };
 }
 
+// THE 5-FT DETENT (Harry 2026-10-21: "they should sort of click into 5-foot increments… we're not forcing the 5-foot
+// increments, we're just making it so that if that's what you're going for, it's pretty easy to do"). A length within
+// DETENT_FT of a whole number of squares becomes exactly that; anything else is left as it is. Rulers, templates and a
+// pawn dragged freely all use it, each on the length it reads out.
+export const DETENT_FT = 1;
+export function detent(len, { step = CELL, pull = DETENT_FT } = {}) {
+  const n = Math.round(len / step) * step;
+  return n > 0 && Math.abs(len - n) <= pull ? n : len;
+}
+
 // How a distance is written. Feet and 5-ft squares are the campaign's units; a campaign set to metres reads 1.5 m a
 // square (5 ft = 1.5 m, the usual conversion at the table), and the squares stay squares.
 const UNIT = { ft: { k: 1, label: 'ft', dp: 0 }, m: { k: 0.3, label: 'm', dp: 1 } };

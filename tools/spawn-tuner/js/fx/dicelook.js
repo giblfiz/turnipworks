@@ -14,9 +14,12 @@
 //
 //   dieMesh(type, look) -> THREE.Group { body, decals }   (cached geometry; materials shared by colour)
 //   look: { size, round, segments, color '#rrggbb', numberColor, edgeWear 0..1, paint 'heroic' | 'flat' | 'gilded' }
+//   dieMesh(type, look, skin) (2026-10-29): a game's face set (diceskins.js): its symbols or marks in the atlas instead of
+//   the numbers (the colours come in `look`: diceskins skinLook). The symbols are generated art in assets/dice/.
 import * as THREE from 'three';
 import { ConvexHull } from 'three/addons/math/ConvexHull.js';
-import { dieGeo, labelOf } from './dicegeo.js';
+import { dieGeo, labelOf, valueOfLabel } from './dicegeo.js';
+import { skinOf } from './diceskins.js';
 
 const geoCache = new Map(), matCache = new Map(), atlasCache = new Map();
 const V = (a) => new THREE.Vector3(a[0], a[1], a[2]);
@@ -127,12 +130,31 @@ function brush() {
   return brushTex;
 }
 
+// THE SYMBOLS (2026-10-29): generated face art, loaded once; an atlas that wants one before it has loaded is drawn
+// without it and redrawn when it arrives
+const imgs = new Map(), waiting = new Set();
+function symbol(name) {
+  if (imgs.has(name)) return imgs.get(name);
+  const im = new Image(), rec = { im, ok: false }; imgs.set(name, rec);
+  im.onload = () => { rec.ok = true; for (const a of [...waiting]) if (a.wants.has(name)) { a.draw(); a.tex.needsUpdate = true; if ([...a.wants].every(n => imgs.get(n)?.ok)) waiting.delete(a); } };
+  im.onerror = () => console.warn('dice symbol missing', name);
+  im.src = new URL(`../../assets/dice/${name}.png`, import.meta.url).href;
+  return rec;
+}
+// a symbol as a solid silhouette in one colour (its own alpha): for a light die, where the cream art would not stand out
+const tintCache = new Map();
+function tinted(im, color) {
+  const k = `${im.src}|${color}`; if (tintCache.has(k)) return tintCache.get(k);
+  const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; const t = c.getContext('2d');
+  t.drawImage(im, 0, 0); t.globalCompositeOperation = 'source-in'; t.fillStyle = color; t.fillRect(0, 0, c.width, c.height);
+  tintCache.set(k, c); return c;
+}
 // THE NUMBERS: an atlas per die type + number colour: one cell per face
 const CELL = 128;
-function atlas(type, look) {
-  const key = `${type}|${look.numberColor}|${look.paint}`;
+function atlas(type, look, skin = null) {
+  const key = `${type}|${look.numberColor}|${look.paint}|${skin || ''}`;
   if (atlasCache.has(key)) return atlasCache.get(key);
-  const g = dieGeo(type), n = g.faces.length, cols = Math.ceil(Math.sqrt(n)), rows = Math.ceil(n / cols);
+  const g = dieGeo(type), n = g.faces.length, cols = Math.ceil(Math.sqrt(n)), rows = Math.ceil(n / cols), S = skinOf(skin);
   const cv = document.createElement('canvas'); cv.width = cols * CELL; cv.height = rows * CELL; const x = cv.getContext('2d');
   const ink = look.numberColor, dark = 'rgba(20,14,8,0.92)';
   const glyph = (text, cx, cy, size, rot = 0, mark = false) => {
@@ -145,10 +167,20 @@ function atlas(type, look) {
     if (mark) { x.lineWidth = size * 0.08; x.strokeStyle = dark; x.beginPath(); x.moveTo(-size * 0.22, size * 0.5); x.lineTo(size * 0.22, size * 0.5); x.stroke(); x.lineWidth = size * 0.045; x.strokeStyle = ink; x.stroke(); }
     x.restore();
   };
-  const cells = [];
+  const cells = [], wants = new Set();
+  // a symbol face: one image, or two side by side (an L5R-style pair: success + strife), centred in the cell
+  const pics = (names, cx, cy) => {
+    const one = names.length === 1, sz = CELL * (one ? 0.8 : 0.5) * (g.faces.length >= 12 ? 0.92 : 1);
+    names.forEach((nm, k) => { wants.add(nm); const r = symbol(nm); if (!r.ok) return;
+      const ox = one ? 0 : (k ? 1 : -1) * sz * 0.5, oy = one ? 0 : (k ? 1 : -1) * sz * 0.12;
+      x.drawImage(S?.tint ? tinted(r.im, S.tint) : r.im, cx + ox - sz / 2, cy + oy - sz / 2, sz, sz); });
+  };
+  const draw = () => { x.clearRect(0, 0, cv.width, cv.height); cells.length = 0;
   g.faces.forEach((f, i) => {
     const cx = (i % cols) * CELL + CELL / 2, cy = Math.floor(i / cols) * CELL + CELL / 2;
     cells.push([(i % cols) / cols, 1 - (Math.floor(i / cols) + 1) / rows, 1 / cols, 1 / rows]);
+    const sf = S && g.reads === 'face' ? S.face(valueOfLabel(g, g.labels[i])) : null;
+    if (sf) { if (sf.img) pics(sf.img, cx, cy); else if (sf.text) glyph(sf.text, cx, cy, CELL * 0.86); return; } // (blank: nothing)
     if (g.reads === 'vertex') { // a d4 face: the number of each corner, near it, pointing at it
       const c = V(f.c), up = V(f.up), right = new THREE.Vector3().crossVectors(up, V(f.n));
       for (const vi of f.v) { const d = V(g.verts[vi]).sub(c), u = d.dot(up), r = d.dot(right), l = Math.hypot(u, r);
@@ -158,18 +190,20 @@ function atlas(type, look) {
     const t = labelOf(g, i), long = t.length > 1;
     const size = CELL * (type === 'd10t' ? 0.42 : long ? 0.5 : 0.62) * (g.faces.length >= 12 ? 0.92 : 1);
     glyph(t, cx, cy, size, 0, (t === '6' || t === '9') && g.sides > 8);
-  });
+  }); };
+  draw();
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
-  const out = { tex, cells };
+  const out = { tex, cells, wants, draw };
+  if ([...wants].some(nm => !imgs.get(nm)?.ok)) waiting.add(out);
   atlasCache.set(key, out);
   return out;
 }
 
 // the decal quads: one per face, on the flat part of it, its "up" the label's up (dicegeo face.up)
-function decalGeometry(type, look) {
-  const key = `${type}|decal|${look.round.toFixed(3)}|${look.numberColor}|${look.paint}`;
+function decalGeometry(type, look, skin = null) {
+  const key = `${type}|decal|${look.round.toFixed(3)}|${look.numberColor}|${look.paint}|${skin || ''}`;
   if (geoCache.has(key)) return geoCache.get(key);
-  const g = dieGeo(type), { cells } = atlas(type, look), r = look.round * g.inR, k = (g.inR - r) / g.inR;
+  const g = dieGeo(type), { cells } = atlas(type, look, skin), r = look.round * g.inR, k = (g.inR - r) / g.inR;
   const pos = [], uv = [], nor = [];
   g.faces.forEach((f, i) => {
     const n = V(f.n), up = V(f.up), right = new THREE.Vector3().crossVectors(up, n);
@@ -189,7 +223,7 @@ function decalGeometry(type, look) {
   return G;
 }
 
-export function dieMesh(type, look) {
+export function dieMesh(type, look, skin = null) {
   const G = buildGeometry(type, look.round, look.segments);
   const colors = paintColors(G, type, look);
   const bkey = `${type}|${look.round}|${look.segments}|${look.color}|${look.paint}|${look.edgeWear}`;
@@ -199,15 +233,15 @@ export function dieMesh(type, look) {
     const mat = new THREE.MeshStandardMaterial({ vertexColors: true, map: look.paint === 'flat' ? null : brush(), roughness: look.paint === 'gilded' ? 0.55 : 0.78, metalness: 0.0 });
     body = { geo, mat }; matCache.set(bkey, body);
   }
-  const A = atlas(type, look);
-  const dkey = `decal|${type}|${look.numberColor}|${look.paint}`;
+  const A = atlas(type, look, skin);
+  const dkey = `decal|${type}|${look.numberColor}|${look.paint}|${skin || ''}`;
   let dmat = matCache.get(dkey);
   if (!dmat) { dmat = new THREE.MeshStandardMaterial({ map: A.tex, transparent: true, alphaTest: 0.08, roughness: look.paint === 'gilded' ? 0.4 : 0.7, metalness: look.paint === 'gilded' ? 0.35 : 0, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2, depthWrite: false }); matCache.set(dkey, dmat); }
   const group = new THREE.Group(); group.name = `die-${type}`;
-  const bm = new THREE.Mesh(body.geo, body.mat), dm = new THREE.Mesh(decalGeometry(type, look), dmat);
+  const bm = new THREE.Mesh(body.geo, body.mat), dm = new THREE.Mesh(decalGeometry(type, look, skin), dmat);
   bm.castShadow = true; dm.renderOrder = 1;
   group.add(bm, dm); group.scale.setScalar(look.size);
-  group.userData = { type, body: bm, decals: dm, tris: G.userData.tris + dieGeo(type).faces.length * 2 };
+  group.userData = { type, skin, body: bm, decals: dm, tris: G.userData.tris + dieGeo(type).faces.length * 2 };
   return group;
 }
 export const dieTriangles = (type, round, segments) => buildGeometry(type, round, segments).userData.tris;

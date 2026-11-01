@@ -1,0 +1,132 @@
+These are screenshots of a browser 3D virtual tabletop (painted miniature figures on round grey bases, in a tavern room),
+seen from the players' usual table distance: v8-table-day.png, v8-high-day.png, v8-low-day.png by day; v8-table-night.png and
+v8-high-night.png by night, from a player's seat in a dark room (she sees by her pawns' darkvision; the back row is hers).
+before-table-day.png is the FIRST version (two rounds ago) of the same effect, for comparison only.
+
+STEP 1, before interpreting anything: list every explicit label, name tag and text you can read in each image, and where.
+
+STEP 2: The back row (named L0, L1, L2, L3, L4, L5 from left to right; the furniture has been cleared away) wears a light effect, an "aura", at increasing
+intensity; the front row wears the same middle intensity in six colours. For EACH pawn of the back row, describe only what
+you see of the light round it (shape, height, brightness, colour, motion cues such as sparks), without assuming the intent.
+
+STEP 3: The intent, level by level: 0 nothing; 1 a faint shimmer at the base; 2 a soft coloured light round the figure;
+3 flame-like light rising to about head height; 4 a tall column of light well above the figure, readable across the table;
+5 the same column with a large faint emblem picture hanging in it.
+a) Do the six back-row pawns read as CLEARLY increasing, step by step, in both day and night? Which neighbouring pair is
+   hardest to tell apart?
+b) Can you see the emblem in level 5? Describe it.
+c) Do the six front-row colours read as six different colours (name each as you see it)?
+d) Does any of it look broken (hard seams, banding, a visible tube edge, a flat card, clipping through walls, z-fighting,
+   hiding the figure's face)?
+e) Honest verdict: does it look like a CHEAP GAME EFFECT or like a PAINTED-MINIATURE-WORLD effect (light that belongs to a
+   world of painted miniatures, like object-source lighting painted on a mini)? What exactly makes it cheap, and the three
+   most important changes to move it toward the painted-miniature look?
+f) Compared with prev-table-day.png: better, worse, or the same, and why?
+Be concrete and concise.
+The images are in /tmp/aura-gem-dzZy: prev-table-day.png v8-high-day.png v8-high-night.png v8-low-day.png v8-table-day.png v8-table-night.png 
+Do NOT create, crop or write any files. Do not read any other files or folders.
+
+===== (gemini-4-argon-high)
+### STEP 1: Explicit Labels, Name Tags, and Text in Each Image
+
+#### Common UI Text Across Images
+* **Top-left buttons:**
+  * **Day images (`v8-table-day.png`, `v8-high-day.png`, `v8-low-day.png`, `prev-table-day.png`):** `Pawns` (with `P` badge), `Build` (with `B` badge), `Settings` (with `S` badge); below them, `Other games / New game`.
+  * **Night images (`v8-table-night.png`, `v8-high-night.png`):** `Pawns` (`P`), `Settings` (`S`), and `Other games / New game` below (`Build` is absent).
+* **Top-center search bar (all 6 images):** `Search commands, things to place, people, places... or say / roll` with a `/` shortcut icon on the right.
+  * **Sub-bar pills (Day images only):** `Area 1`, `Open to players`, `Hide`.
+* **Top-right avatars:**
+  * **Day images:** Yellow circle `H` with `Area 1` below it.
+  * **Night images:** Yellow circle `H` (`Area 1` below) and blue circle `M` (`Area 1` below).
+* **Left-edge vertical bar (all 6 images):** `1` inside a small square badge midway down.
+* **Bottom-left chat bar (all 6 images):** `say ... or roll d20 in the bar`.
+
+#### Image-Specific Labels, Pawn Name Tags, and Telemetry
+1. **`v8-table-day.png`**
+   * **Floating room labels:** `Building 1` (center-back wall, above `L3`/`L4`); `Common room` (center of room, overlapping the bases of `L2`, `L3`, `L4`).
+   * **Back-row pawn bases (left to right):** `L0`, `L1`, *(L2 and L3 hidden behind `Common room`)*, `L4` (partially clipped on the left by `Common room`), `L5`.
+   * **Front-row pawn bases (left to right):** `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry:** `live (ws) · 0 ms · Area 1 seq 3 · 60 fps`.
+
+2. **`prev-table-day.png`**
+   * **Floating room labels & pawn bases:** Identical to `v8-table-day.png` (`Building 1`, `Common room`; back row `L0`, `L1`, `L4`, `L5` visible; front row `gold`, `silver`, `blue`, `green`, `red`, `violet`).
+   * **Bottom-right telemetry:** `live (ws) · 1 ms · Area 1 seq 3 · 60 fps`.
+
+3. **`v8-high-day.png`**
+   * **Floating room labels:** `Building 1` (overlapping the upper bodies of `L2`/`L3`); `Common room` (center floor between rows).
+   * **Back-row pawn bases (left to right):** `L0`, `L1`, `L2`, `L3`, `L4`, `L5` (all six clearly readable).
+   * **Front-row pawn bases (left to right):** `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry:** `live (ws) · 0 ms · Area 1 seq 3 · 60 fps`.
+
+4. **`v8-low-day.png`**
+   * **Floating room labels:** `Building 1` (clipped at the very top-center edge above the search bar); `Common room` (upper-center, across the top of `L3`/`L4`'s light columns).
+   * **Back-row pawn bases (left to right):** *(1st occluded by `gold` pawn)*, `L1`, `L2`, `L3`, *(5th occluded by `green` pawn)*, `L5`.
+   * **Front-row pawn bases:** Mostly hidden behind the front wall; only `si` (start of `silver`) is visible through the gap between the front-left wall panels.
+   * **Bottom-right telemetry:** `live (ws) · 0 ms · Area 1 seq 3 · 60 fps`.
+
+5. **`v8-table-night.png`**
+   * **Floating room labels:** None.
+   * **Back-row pawn bases (left to right):** `L0`, `L1`, `L2`, `L3`, `L4`, `L5`.
+   * **Front-row pawn bases (left to right):** `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry:** `live (ws) · 1 ms · Area 1 seq 5 · 60 fps`.
+
+6. **`v8-high-night.png`**
+   * **Floating room labels:** None.
+   * **Back-row pawn bases (left to right):** `L0`, `L1`, `L2`, `L3`, `L4`, `L5`.
+   * **Front-row pawn bases (left to right):** `gold`, `silver`, `blue`, `green`, `red`, `violet`.
+   * **Bottom-right telemetry:** `live (ws) · 1 ms · Area 1 seq 5 · 60 fps`.
+
+---
+
+### STEP 2: Visual Description of Back-Row Pawn Light (`L0`–`L5`)
+
+* **`L0`:** No light or aura effect. Only the solid light-blue circular ring around the outer edge of the grey base and the unlit dark figure.
+* **`L1`:** A flat, soft warm-orange/amber halo on the floor immediately surrounding the blue base rim, with a slight warm brightening on the grey base top. Height is flat (floor level only), brightness is low, colour is warm amber-orange, and there are no vertical wisps or sparks.
+* **`L2`:** The same warm orange floor ring around the base, plus a faint, low golden-yellow translucent haze rising to roughly knee-to-waist height around the lower legs. Low brightness, soft yellow-gold colour, subtle wavy upper edge, no visible sparks.
+* **`L3`:** A brighter golden-orange floor halo and an ovoid/dome-shaped shell of curved, flame-like golden-yellow wisps rising to just above head height. The aura has sharp, overlapping petal/tongue-like side edges, warms/brightens the figure inside, and shows a few tiny bright yellow-white pinpoint specks near the upper edges.
+* **`L4`:** A tall, narrow, slightly tapering vertical cylinder/cone of bright golden-yellow light rising to about 2–2.5× the figure's height (reaching the upper window level of the back wall), topped with jagged flame peaks. The miniature inside is heavily washed out into bright yellow-white light, and several small bright spark dots float in and around the column.
+* **`L5`:** A tall, bright golden-yellow vertical column of the same height (~2.5× figure height), brightness, floor glow, and floating spark dots as `L4` (though the figure's body is slightly less blown-out than `L4`), with a large golden sun-face emblem suspended in the upper half of the column above the figure's head.
+
+---
+
+### STEP 3: Evaluation Against Intent
+
+#### a) Clear step-by-step progression (day & night) and hardest pair to tell apart
+* **Do they read as clearly increasing?** From `L0` to `L4` the progression is generally readable, **except at the top (`L4` vs `L5`) and bottom (`L1` vs `L2`)**.
+* **Hardest neighbouring pair to tell apart:**
+  1. **`L4` and `L5` (hardest overall, especially in `v8-table-night.png` and `v8-high-night.png`):** Their column height, width, and brightness are essentially identical, and `L4`'s body is actually *brighter/more blown-out* than `L5`'s, which makes `L4` look slightly more intense at a glance. In `v8-table-night.png`, the sun emblem in `L5` is so faint that `L4` and `L5` look nearly indistinguishable.
+  2. **`L1` and `L2` (runner-up in `v8-high-day.png`, `v8-high-night.png`, and `v8-table-day.png`):** The warm orange wooden floorboards swallow both low warm glows, and in `v8-table-day.png` the `Common room` label sits directly over `L2`.
+
+#### b) Emblem in Level 5
+* **Visibility:** Clearly visible in `v8-low-day.png`, `v8-table-day.png`, and `v8-high-day.png`; very faint in `v8-high-night.png` and barely legible in `v8-table-night.png`.
+* **Description:** A stylized golden **sun with a calm human face** inside a circular disc (sculpted brows, closed/heavy-lidded eyes, nose, and lips), surrounded by **eight sharp triangular rays** (with smaller secondary points between them), floating above the figure's head in the upper half of the column.
+
+#### c) Six Front-Row Colours
+* Left to right as seen:
+  1. **`gold`:** Warm golden-amber.
+  2. **`silver`:** White at the base and legs, **but the upper half of the flames turns warm peach/orange-gold**, making the top look very similar to `gold`.
+  3. **`blue`:** Soft cornflower / periwinkle blue.
+  4. **`green`:** Bright emerald / lime green.
+  5. **`red`:** Warm coral / orange-red.
+  6. **`violet`:** Bright magenta / purple.
+* **Verdict:** Five read as distinct hues, **but `silver` fails to read as pure silver/white** because its upper wisps take on a warm orange tint (blending with the orange floorboards or a warm shader tint) that mimics `gold`.
+
+#### d) Broken Visual Artifacts
+* **Visible flat card seams / intersecting planes:** Strongly visible on the front-row pawns (`silver`, `blue`, `green`, `red`, `violet`) and `L3`. On `silver` (especially in `v8-low-day.png` and `v8-high-day.png`) and `blue`/`red`, intersecting translucent cards create harsh geometric creases and bright overlapping wedges.
+* **Visible tube edges:** In `v8-low-day.png`, `L4` and `L5` show stiff, straight cone/cylinder side edges against the dark wall.
+* **Hiding/washing out the figure's face and sculpt:** `L4`'s inner glow completely blows out the miniature's face and torso into a flat, overexposed yellow-white silhouette in `v8-table-day.png`, `v8-table-night.png`, and `v8-high-day.png`. In `v8-low-day.png`, `silver`'s overlapping cards create an opaque white blob over the pawn's lower body.
+* **Flat card / wall clipping on the `L5` emblem:** In `v8-high-day.png` and `v8-high-night.png`, the sun emblem reads as a flat 2D card whose top rays clip into / press against the back wall.
+
+#### e) Honest Verdict: Cheap Game Effect vs. Painted-Miniature-World Effect
+* **Verdict:** **CHEAP GAME EFFECT.**
+* **What makes it look cheap:**
+  1. **Translucent additive shells drawn *in front of* the mini instead of lighting its surfaces:** Painted OSL (Object Source Lighting) works by accentuating the 3D sculpt's raised edges while leaving crevices dark. Here, semi-transparent glowing cards sit between the camera and the miniature, flattening contrast, blowing out `L4`, and showing crossed-billboard seams.
+  2. **Tall mid-air laser columns (`L4`, `L5`), floating spark dots, and a floating 2D decal:** Vertical columns of fire hanging in empty air and floating 2D sun stickers are classic MMO spell billboards, incompatible with physical tabletop miniatures.
+  3. **Additive blending over a bright orange floor:** The warm floorboards contaminate the additive shaders (`silver` turning orange, `L1`/`L2` disappearing into the wood).
+* **Three most important changes to move toward a painted-miniature look:**
+  1. **Shift from volumetric air shells to surface-normal OSL on the miniature and base:** Apply directional rim/point lighting directly to the miniature's mesh normals and base texture (bright highlights on raised armor/folds, deep shadows in recesses) and clamp any foreground haze so the miniature's face and paint job remain crisp (`L4`).
+  2. **Eliminate crossed billboard cards and tall empty-air tubes:** Remove the intersecting planar cards causing seams on `silver`/`blue`/`red`. Keep any physical flame/magic geometry sculpted and behind/around the base rim (like translucent resin tabletop effects), and express high levels (`L4`–`L5`) via wider, richer light cast onto the surrounding floorboards/walls rather than tall vertical sky-tubes.
+  3. **Ground the `L5` emblem and fix `silver`'s colour blending:** Render the `L5` emblem either as a crisp light projection on the floor/base around the pawn or as a distinct sculpted halo/banner crest behind the mini's head, and switch `silver` to alpha/premultiplied blending (or cool silver-blue shadows with crisp white highlights) so it never turns orange over the wood floor.
+
+#### f) Comparison with `prev-table-day.png`
+* **The same.** Visually, `v8-table-day.png` and `prev-table-day.png` are indistinguishable — the aura heights, shapes, billboard seams, `silver`'s warm orange upper tint, `L4`'s overexposed torso, `L5`'s sun emblem, and even the individual spark positions are identical (only the bottom-right telemetry changes from `1 ms` to `0 ms`).

@@ -178,12 +178,23 @@ export function buildArcItems(settings, content, state = 'closed', nested = null
 // The slide's stagger runs along each row: ☰ is the row's last button (shut: after the main buttons; open: after the extra
 // ones), not a group of its own that set off at once.
 export const rowOf = (n, view) => n.key === 'menu' ? (view === 'closed' ? 'closed' : 'secondary') : n.key;
-export function curveOf(settings, scale = 1, anchor = { x: 0, y: 0 }, grow = 0) {
+// k: the oval grown for one selection whose open row is too long for it (curveSlots); 1 = as set
+export function curveOf(settings, scale = 1, anchor = { x: 0, y: 0 }, grow = 0, k = 1) {
   const C = settings.curve, g = grow * C.nestOffset * scale;
-  return { cx: anchor.x + C.x * scale, cy: anchor.y + C.y * scale, rx: C.rx * scale + g, ry: C.ry * scale + g };
+  return { cx: anchor.x + C.x * scale, cy: anchor.y + C.y * scale, rx: C.rx * scale * k + g, ry: C.ry * scale * k + g };
 }
+// TOO LONG FOR THE OVAL (Harry 2026-10-21: "whenever it gets like super big, you can just make the oval get bigger or let
+// it go farther around or anything to keep it from looking totally janked up"): an open row that fits nowhere on its oval,
+// even slid, gets the oval grown (rx and ry together) by the smallest factor that fits, up to GROW_MAX, for that selection,
+// shut and open alike (one oval, so the slide stays on it). Only past that do extra buttons step out a ring.
+export const GROW_MAX = 1.5, GROW_STEP = 0.01;
 export function curveSlots(settings, counts, scale = 1, anchor = { x: 0, y: 0 }) {
-  const C = settings.curve, c = curveOf(settings, scale, anchor), lut = ellipseLut(c.rx, c.ry);
+  let r = curveSlotsAt(settings, counts, scale, anchor, 1);
+  for (let k = 1 + GROW_STEP; r.spill && k <= GROW_MAX + 1e-9; k += GROW_STEP) { const t = curveSlotsAt(settings, counts, scale, anchor, +k.toFixed(2), true); if (t) { r = t; break; } }
+  return r;
+}
+function curveSlotsAt(settings, counts, scale, anchor, gk, mustFit = false) {
+  const C = settings.curve, c = curveOf(settings, scale, anchor, 0, gk), lut = ellipseLut(c.rx, c.ry);
   const pitch = (C.size + C.gap) * scale, np = counts.primary, nm = counts.menu ? 1 : 0, ns = counts.secondary;
   const row = Array.from({ length: np + nm }, (_, i) => i * pitch);
   const inSector = sectorTest(settings, scale, anchor), bad = s => inSector(curvePoint(c, s));
@@ -194,6 +205,8 @@ export function curveSlots(settings, counts, scale = 1, anchor = { x: 0, y: 0 })
   // name is clear (back, anticlockwise, first; forward when it is the FIRST button's name that reaches 6:00). Only a row
   // that fits nowhere on the curve steps its end buttons one ring out. No setting changes: `slid` says how far it went.
   const settle = (lay, s0) => {
+    // (the full clock, a phone's: no sector to keep clear, but a row may not run on round onto its own first button)
+    if (settings.fullClock) { const v = all(lay(s0)); return v.length < 2 || Math.max(...v) - Math.min(...v) <= lut.L - pitch + 1e-6 ? s0 : null; }
     const ok = s => !all(lay(s)).some(bad);
     if (ok(s0)) return s0;
     for (let d = 2 * scale; d <= lut.L / 2; d += 2 * scale) { if (ok(s0 - d)) return s0 - d; if (ok(s0 + d)) return s0 + d; }
@@ -211,13 +224,14 @@ export function curveSlots(settings, counts, scale = 1, anchor = { x: 0, y: 0 })
   // A row that fits nowhere on the curve: the fewest LAST EXTRA buttons step one ring out, so ☰ still closes the row
   // in line (buildCurveItems puts them out there, above where the row ends)
   let spill = 0, s1 = settle(lay, s10);
+  if (s1 == null && mustFit) return null;
   const layK = k => s1 => { const L = lay(s1); return { ...L, secondary: L.secondary.slice(0, ns - k), menu: nm ? [s1 + (ns - k) * pitch] : [] }; };
   for (let k = 1; s1 == null && k <= ns; k++) { const t = settle(layK(k), s10); if (t != null) { s1 = t; spill = k; } }
   if (s1 == null) s1 = s10;
   const ex = spill ? layK(spill)(s1) : lay(s1);
   const at = s => atS(lut, s).angle;
   return {
-    curve: c, pitch, junction: at(s1), spill,
+    curve: c, pitch, junction: at(s1), spill, grown: gk, buttons: np + ns + nm,
     closed: { primary: row.slice(0, np).map(v => first + v), menu: nm ? [first + row.at(-1)] : [] },
     expanded: ex,
     // (Ring lab's readout: where the setting puts the row, and where it went)
@@ -228,6 +242,7 @@ export function curveSlots(settings, counts, scale = 1, anchor = { x: 0, y: 0 })
 // IN THE 3–6 SECTOR: a button at point p, OR ITS NAME (the rule says "including captions"): curved names above / below
 // a button reach 1.2 × its half-width sideways (renderer and surfaces/ring.js draw them so), names under it go below it
 export function sectorTest(settings, scale = 1, anchor = { x: 0, y: 0 }) {
+  if (settings.fullClock) return () => false; // A PHONE'S RING (surfaces/ring.js, Harry 2026-10-24): the full clock face, 3–6 included
   const C = settings.curve, half = C.size * scale / 2, mode = settings.labelMode || 'hover', k = settings.world?.on ? scale : 1;
   const rr = Math.max(6, half + (+settings.labelOffset || 0) * k) * (mode === 'under' ? 0.85 : 1.2);
   return (p) => (p.x + half > anchor.x && p.y + half > anchor.y)
@@ -237,37 +252,43 @@ export function sectorTest(settings, scale = 1, anchor = { x: 0, y: 0 }) {
 }
 // THE 3–6 SECTOR IS NEVER ENTERED (the design rule, 2026-10-11): a sub-menu ring stops where its next button's box would
 // reach right of AND below the piece, whatever "ends by" says (Harry's Revised 4 ends at 3:46), and carries on one ring out.
-export function nestedSlots(settings, count, scale = 1, anchor = { x: 0, y: 0 }, first = 1, info = null, avoid = []) {
+export function nestedSlots(settings, count, scale = 1, anchor = { x: 0, y: 0 }, first = 1, info = null, avoid = [], gk = 1) {
   // Each ring takes a run of pitch-spaced buttons from nestStart clockwise, never past nestEnd or into 3–6. A run that
   // would not fit SLIDES BACK (anticlockwise) as a whole, as far as the main row's floor (primaryFloor) on that ring,
   // before anything steps one ring out (Harry 2026-10-21), but never onto a button of the open row under it (`avoid`: the
-  // grown oval runs closer to the main one round the sides); what still does not fit carries on one ring further out.
+  // grown oval runs closer to the main one round the sides). Still too long, on the first ring: that ring is GROWN (the
+  // smallest factor up to GROW_MAX that holds them all), then it may RUN PAST "ends by" and the floor (3–6 still never);
+  // only then does the rest carry on one ring further out.
   const C = settings.curve, pitch = (C.size + C.gap) * scale, inSector = sectorTest(settings, scale, anchor), out = [];
-  for (let ring = first; out.length < count && ring < 12 + first; ring++) {
-    const c = curveOf(settings, scale, anchor, ring), lut = ellipseLut(c.rx, c.ry);
-    const a = sAt(lut, C.nestStart), b = sAt(lut, C.nestEnd + (C.nestEnd < C.nestStart ? 360 : 0)), lo = Math.min(a, sAt(lut, C.primaryFloor));
+  const place = (c, want, wide) => {
+    const lut = ellipseLut(c.rx, c.ry), a = sAt(lut, C.nestStart);
+    const b = wide ? a + lut.L : sAt(lut, C.nestEnd + (C.nestEnd < C.nestStart ? 360 : 0)), lo = wide ? a - lut.L : Math.min(a, sAt(lut, C.primaryFloor));
     const hits = (s) => { const p = curvePoint(c, s), r = C.size * scale / 2; return avoid.some(q => Math.hypot(q.x - p.x, q.y - p.y) < r + q.size / 2 - 0.2 * scale); }; // (scaled: the same shape at any size; under the 0.5 px warnings() allows up to x2.5)
-    const fits = (s0, strict) => { let n = 0; for (let s = s0; s <= b + 1e-6 && n < count - out.length; s += pitch) { if (inSector(curvePoint(c, s)) || (strict && hits(s))) break; n++; } return n; };
-    const want = count - out.length;
-    let start = a, n = fits(a, true);
-    if (n < want) { // the nearest start (back first, then forward up to half a pitch) where the rest fits clear of 3–6 and of
-      // the open row; else the one that holds the most, nearest first
-      let best = { s: a, n, d: 0 };
-      for (let d = 2 * scale; d <= (a - lo) + 1e-6 || d <= pitch / 2; d += 2 * scale) {
-        for (const s0 of [a - d, a + d]) {
-          if ((s0 < a && s0 < lo - 1e-6) || (s0 > a && d > pitch / 2) || inSector(curvePoint(c, s0)) || hits(s0)) continue;
-          const k = fits(s0, true); if (k > best.n) best = { s: s0, n: k, d };
-        }
-        if (best.n >= want) break;
+    const fits = (s0) => { let n = 0; for (let s = s0; s <= b + 1e-6 && n < want; s += pitch) { if (inSector(curvePoint(c, s)) || hits(s)) break; n++; } return n; };
+    let best = { s: a, n: fits(a) };
+    for (let d = 2 * scale; best.n < want && (d <= (a - lo) + 1e-6 || d <= pitch / 2); d += 2 * scale) // (back first, then forward up to half a pitch)
+      for (const s0 of [a - d, a + d]) {
+        if ((s0 < a && s0 < lo - 1e-6) || (s0 > a && d > pitch / 2) || inSector(curvePoint(c, s0)) || hits(s0)) continue;
+        const k = fits(s0); if (k > best.n) best = { s: s0, n: k };
       }
-      start = best.s; n = best.n;
+    return { c, lut, a, start: best.s, n: best.n };
+  };
+  for (let ring = first; out.length < count && ring < 12 + first; ring++) {
+    const want = count - out.length, c0 = curveOf(settings, scale, anchor, ring, gk);
+    let P = place(c0, want, !!settings.fullClock), how = null; // (the full clock: a sub-menu runs on round its ring before it grows or steps out)
+    if (P.n < want && ring === first) {
+      const grow = (wide) => { for (let k = 1 + GROW_STEP; k <= GROW_MAX + 1e-9; k += GROW_STEP) { const kk = +k.toFixed(2), Q = place({ ...c0, rx: c0.rx * kk, ry: c0.ry * kk }, want, wide); if (Q.n >= want) return { Q, kk }; } return null; };
+      let g = grow(false);
+      if (g) { P = g.Q; how = { grown: g.kk }; }
+      else { const W = place(c0, want, true); if (W.n >= want) { P = W; how = { wide: true }; } else if ((g = grow(true))) { P = g.Q; how = { grown: g.kk, wide: true }; } }
     }
-    if (info && ring === first && start !== a) info.nested = { from: C.nestStart, to: atS(lut, start).angle };
-    for (let i = 0; i < n; i++) out.push({ curve: c, s: start + i * pitch, ring });
-    if (!n && ring > first + 2) break;
+    if (info && ring === first && (P.start !== P.a || how)) info.nested = { from: C.nestStart, to: atS(P.lut, P.start).angle, ...(how || {}), buttons: count };
+    for (let i = 0; i < P.n; i++) out.push({ curve: P.c, s: P.start + i * pitch, ring });
+    if (!P.n && ring > first + 2) break;
   }
   return out;
 }
+const grownInfo = (slots, slid, row) => slots.grown > 1 ? { row, ...(slid || {}), grown: slots.grown, buttons: slots.buttons } : slid || null;
 export function buildCurveItems(settings, content, state = 'closed', nested = null, scale = 1, anchor = { x: 0, y: 0 }) {
   const C = settings.curve, primary = content.primary || [], secondary = content.secondary || [];
   const menu = secondary.length ? [{ id: 'menu', label: 'All options', icon: 'menu' }] : [];
@@ -276,7 +297,7 @@ export function buildCurveItems(settings, content, state = 'closed', nested = nu
   if (state === 'closed') return Object.assign([
     ...primary.map((it, i) => onCurve(it, 'closed', c, slots.closed.primary[i], size, motion)),
     ...menu.map(it => onCurve(it, 'menu', c, slots.closed.menu[0], size, motion)),
-  ], { slid: slots.slid.closed && { row: 'closed', ...slots.slid.closed } });
+  ], { slid: grownInfo(slots, slots.slid.closed && { row: 'closed', ...slots.slid.closed }, 'closed') });
   const keep = secondary.length - slots.spill;
   const out = [
     ...primary.map((it, i) => onCurve(it, 'primary', c, slots.expanded.primary[i], size, motion)),
@@ -285,7 +306,7 @@ export function buildCurveItems(settings, content, state = 'closed', nested = nu
   ];
   if (slots.spill) { // (a row too long for this oval anywhere: its last EXTRA buttons step out to the next ring, above the
     // end of the row, the last as far round as the 3–6 sector allows; ☰ stays in line at the row's end)
-    const g = curveOf(settings, scale, anchor, 1), lut = ellipseLut(g.rx, g.ry), inSector = sectorTest(settings, scale, anchor);
+    const g = curveOf(settings, scale, anchor, 1, slots.grown), lut = ellipseLut(g.rx, g.ry), inSector = sectorTest(settings, scale, anchor);
     const bad = s => inSector(curvePoint(g, s));
     let end = sAt(lut, out[out.length - 1].angle);
     while (bad(end)) end -= 2 * scale;
@@ -295,10 +316,11 @@ export function buildCurveItems(settings, content, state = 'closed', nested = nu
     const kids = nested?.children || [], key = nestedKey(nested?.id);
     // (the separate rings' settings play no part here: Harry 2026-10-20 changed the Conditions ring and nothing moved)
     // (a row that stepped buttons out onto ring 1 keeps it: the sub-menu starts one ring further out)
-    const info = {}; nestedSlots(settings, kids.length, scale, anchor, slots.spill ? 2 : 1, info, out).forEach((p, i) => out.push({ ...onCurve(kids[i], key, p.curve, p.s, size, motion), ring: p.ring }));
+    const info = {}; nestedSlots(settings, kids.length, scale, anchor, slots.spill ? 2 : 1, info, out, slots.grown).forEach((p, i) => out.push({ ...onCurve(kids[i], key, p.curve, p.s, size, motion), ring: p.ring }));
     if (info.nested) out.slid = { row: 'nested', ...info.nested };
   }
   if (!out.slid && slots.slid.expanded) out.slid = { row: 'expanded', ...slots.slid.expanded };
+  out.slid = out.slid?.row === 'nested' ? out.slid : grownInfo(slots, out.slid, 'expanded');
   return out;
 }
 

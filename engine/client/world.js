@@ -19,13 +19,22 @@ import { T } from './tuner.js';
 import { isTile, cellKey } from './tiles.js';
 import * as FP from '../core/footprint.js';
 import * as ST from '../core/stairs.js';
+import * as HO from '../core/holes.js';
 import { stairVisual } from './stairs.js';
+import { holeVisual, clipCircles, clipPit, roundRim } from './holes.js';
+import { bandVisual, bandKeyAt, SLAB_RIM_UNDER_BAND } from './bands.js';
 import * as HT from '../core/height.js';
 import { quatOfEntity, qMul, qAxis } from '../core/orient.js';
 import * as RF from './roofs.js';
 import * as KF from './kitfit.js';
 import { gameFly } from './cutfly.js';
+import { createGroundCover } from './groundcover.js';
+import { createTerrain, seeThrough, seeMesh } from './terrain.js';
+import { caveShellSpecs } from './caves.js';
+import * as CV from '../core/caves.js';
 import { markCanvas } from './marks.js';
+import { createStatusFx } from './statusfx.js';
+import { createAuraFx } from './aurafx.js';
 import { GM_CURSOR_THROUGH_FOG } from '../core/fog.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
@@ -33,13 +42,21 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 export const WAKE_MARGIN = 40;   // a building is in the scene whenever any part of it is within this of what a camera sees
 export const SLEEP_MARGIN = 50;  // and leaves it only once it is farther than this from every camera's view ...
 export const SLEEP_DWELL = 1500; // ... and has been for this long
+const DROP_SETTLE_MAX = 1500; // ms a building of several storeys, played in, waits at most for the settler to seat its things (animateStoreys)
 const SLEEP_PER_FRAME = 12, UNIT_PAD = 6, UNIT_ROOF = 20; // rooms put to sleep in one frame; a room's box grows by these (eaves, a tree's crown; its roof and chimneys)
 const _fr = new THREE.Frustum(), _pm = new THREE.Matrix4(), _ball = new THREE.Sphere(), _bc = new THREE.Vector3();
 const UNSEEN_KEEP = 7.5; // ft round a stair's hole within which a covered room's things are still drawn (they show through it)
 const _sv = new THREE.Vector3();
 const CELL = 5, WALL_H = 9, OUTSET = 0.6; // ft: wall height; a room's volume reaches the walls' outer faces
+const OPEN_MS = 650, POP_MS = 300, POP = 0.08; // an openable's swing / slide, and the open twin's little pop (openTo; the 2026-10-02 pilot's swap: 0.35 s, 8%)
 export const NO_DROP = '#e5484d'; // a drop that would be refused (the one destructive red)
 export const HIDDEN_COLOR = '#a78bfa';
+// (2026-10-27) how see-through the hills are at a view below the ground: 0 = not drawn, 1 = solid (House look ▸ Hills
+// below ground: see-through, the campaign's `hillSee`; world.js hillSeePass)
+export const HILL_SEE = 0.25;
+// (2026-10-27, Harry: "Honestly, I think that should probably also apply to the ground itself. I sort of am imagining that
+// if I have a 3/4 view") the same for the ground plane at a view below the ground (the campaign's `groundSee`)
+export const GROUND_SEE = 0.25;
 // the "remote selected" look (another seat's selection, Harry 2026-10-04): the shared selection module's brackets, quiet.
 // (Kept here, as a preset passed to the module, so the game needn't wait on a tuner deploy; it can become a fifth state
 // of tools/spawn-tuner/js/fx/selection.js later.)
@@ -62,8 +79,8 @@ const FIRE_RE = /^(fireplace|hearth|cook-hearth)/; // what gets a chimney above 
 const ROOF_WALL = '#b9ad98';                        // a gable end's plaster
 const _down = new THREE.Raycaster(), DOWN = new THREE.Vector3(0, -1, 0);
 let _roofTex = null;
-function roofTextures(lib) { // the four generated roofing textures, through the library (never a path the library does not list)
-  return _roofTex ||= RF.loadRoofTextures(THREE, (cat) => { const k = lib.objects[cat]?.skus.find(x => x.kind === 'flat' && x.url); return k ? `${T.base}${T.look.deliver?.(k.url) ?? k.url}` : null; }, undefined, T.look.loadTexture || null);
+function roofTextures(lib) { // the generated roofing textures, through the library (never a path the library does not list); marble's and the flat surfaces' are client data files beside the roof sections (data/roof)
+  return _roofTex ||= RF.loadRoofTextures(THREE, (cat) => { const k = lib.objects[cat]?.skus.find(x => x.kind === 'flat' && x.url); return k ? `${T.base}${T.look.deliver?.(k.url) ?? k.url}` : null; }, undefined, T.look.loadTexture || null, RF.roofDataUrl);
 }
 // THE ROOF SECTIONS (2026-10-11): one modelled patch of roofing per style (data/roofsections.json names the files, built
 // by experiments/2026-10-11-roof-sections). Loaded once, the first time roofs are drawn; until a style's file is in
@@ -74,6 +91,19 @@ function roofSections(onReady) {
     new Promise(res => new GLTFLoader().load(new URL(`./data/${info.url}?v=${info.rev || ''}`, import.meta.url).href, g => { const kit = RF.roofSectionKit(THREE, g.scene, info); if (kit) _roofKits[style] = kit; res(); }, undefined, () => res()))))).catch(() => { });
   _roofKitsAsked.then(onReady);
   return _roofKits;
+}
+// THE GABLE KIT (2026-10-27, roofs.js loadGableKit): what gable ends and their trim wear, and the marble roof's painted
+// picture (data/gables.json, built by experiments/2026-10-27-roofs-temple). One for every area; each picture loads the
+// first time a roof asks for it, and every world that drew roofs before it came rebuilds them (roofSurfaceKey).
+let _gableKit = null, _gableAsked = null; const _gableWorlds = new Set();
+function gableKit(world) {
+  _gableWorlds.add(world);
+  _gableAsked ||= fetch(new URL(`./data/gables.json?v=${globalThis.TW_V || 'dev'}`, import.meta.url)).then(r => r.json()).then(man => {
+    let timer = null; const revOf = (u) => Object.values(man).flatMap(v => typeof v === 'object' ? Object.values(v) : []).find(e => e && (e.url === u || e.normal === u))?.rev || '';
+    _gableKit = RF.loadGableKit(THREE, man, (u) => new URL(`./data/${u}?v=${revOf(u)}`, import.meta.url).href, () => { clearTimeout(timer); timer = setTimeout(() => { for (const w of _gableWorlds) w.gablePicturesIn?.(); }, 120); }, T.look.loadTexture || null);
+    for (const w of _gableWorlds) w.gablePicturesIn?.();
+  }).catch(() => { });
+  return _gableKit;
 }
 const _rc = new THREE.Vector3();
 const RAY_CAMERA = new THREE.PerspectiveCamera(); // for raycasts that are not from the eye (surfaceBelow): see there
@@ -115,6 +145,10 @@ export class AreaWorld {
     const W = 800;
     this.ground = new THREE.Mesh(new THREE.PlaneGeometry(W, W), new THREE.MeshStandardMaterial({ color: '#2b2e25', roughness: 1 }));
     this.ground.rotation.x = -Math.PI / 2; this.ground.position.y = GROUND_Y; this.ground.receiveShadow = true; this.ground.userData.ground = true; this.scene.add(this.ground);
+    this.groundCover = createGroundCover(this); // the area's ground material over all open ground (client/groundcover.js; core area.ground)
+    this.groundSee = GROUND_SEE; // (2026-10-27) and the ground plane's (groundSeePass)
+    this.hillSee = HILL_SEE; // (2026-10-27) how see-through the hills are below the ground (hillSeePass; House look sets it)
+    this.terrain = createTerrain(this); // hills and the banks the engine lays between them (client/terrain.js, core/terrain.js; 2026-10-24)
     this.grid = new THREE.GridHelper(W, W / CELL, '#4a4e40', '#3a3d33'); this.scene.add(this.grid);
     this.layers = { shell: new THREE.Group(), things: new THREE.Group(), deco: new THREE.Group(), cursors: new THREE.Group() };
     for (const g of Object.values(this.layers)) this.scene.add(g);
@@ -283,7 +317,7 @@ export class AreaWorld {
     if (!this.units) return;
     const hurry = !!this.busy?.(); // the hand is moving (interact.js): rooms are woken as ever, none is put to sleep
     if (!this.perf?.sleep || this.local) { if (this.sleeping) { this.wakeAll(); this.sleeping = 0; } return; }
-    const force = new Set(), unitOfId = (id) => { if (!id) return; if (id.startsWith?.('wall:')) { const rid = this.roomOfWall(id.slice(5)); if (rid) force.add(this.roomUnit.get(rid)); return; } if (id.startsWith?.('roof:')) { force.add(this.roomUnit.get(id.slice(5))); return; } const r = this.recs.get(id); if (!r) return; const e = r.entity; if (e.kind === 'room') force.add(e.id); else if (e.kind === 'building') { for (const u of this.units.values()) if (u.building === e.id) force.add(u.id); } else if (r.unit) force.add(r.unit); };
+    const force = new Set(), unitOfId = (id) => { if (!id) return; if (id.startsWith?.('wall:')) { const rid = this.roomOfWall(id.slice(5)); if (rid) force.add(this.roomUnit.get(rid)); return; } if (id.startsWith?.('roof:')) { force.add(this.roomUnit.get(id.slice(5))); return; } if (id.startsWith?.('trim:')) { force.add(this.roomUnit.get(id.slice(5).split('|')[0])); return; } const r = this.recs.get(id); if (!r) return; const e = r.entity; if (e.kind === 'room') force.add(e.id); else if (e.kind === 'building') { for (const u of this.units.values()) if (u.building === e.id) force.add(u.id); } else if (r.unit) force.add(r.unit); };
     for (const id of deco?.selected || []) unitOfId(id); unitOfId(deco?.hover);
     for (const id of localDrags?.keys() || []) unitOfId(id);
     for (const id of this.roomShifts?.keys() || []) unitOfId(id);
@@ -341,14 +375,15 @@ export class AreaWorld {
   // neither get ground fog nor block it). Cut on an upper storey or below ground: that level's rooms' own fog at that
   // floor's height, and no outdoor fog or sea there (fx/atmos.js setLevel).
   fogLevel() {
+    if (this.eyeLevel != null) return this.eyeLevel; // (first person: the level the eyes are on, surfaces/fpv.js)
     const cut = this.cut ?? null; if (cut == null) return 0;
     this.cutSets(); let top = -Infinity;
     if (this.fogLevelGen === this.cutGen && this.fogLevelCut === cut) return this.fogLevelKept; // (the same until the cut or the rooms change)
-    for (const e of this.roomsNow()) if (e.recipe && !this.cutHidden.has(e.id)) top = Math.max(top, HT.roomY(e.recipe));
+    { const E = this.view?.entities; for (const e of this.roomsNow()) if (e.recipe && HT.roomY(e.recipe) <= cut && !this.cutHidden.has(e.id) && !HT.isTerrain(e.recipe)) top = Math.max(top, HT.levelY(E, e)); } // (a hill is ground: the fog stays the ground's; so is a building's ground storey on a hill, levelY. A building standing clear above the cut, 2026-10-26, is not the level in view)
     this.fogLevelGen = this.cutGen; this.fogLevelCut = cut; return this.fogLevelKept = !Number.isFinite(top) ? 0 : cut >= 0 ? Math.max(0, top) : top;
   }
-  fogStructure() { const L = this.fogLevel(), E = this.view?.entities || {}, out = []; for (const s of this.shell.values()) { if (s.spec.slab || s.spec.support || s.spec.stack || s.spec.rail) continue; const rm = E[s.roomId]; if (rm?.recipe ? HT.roomY(rm.recipe) === L : L === 0) out.push(s); } return out; }
-  fogRooms() { const out = [], L = this.fogLevel(); for (const e of Object.values(this.view?.entities || {})) if (e.kind === 'room' && e.recipe && HT.roomY(e.recipe) === L) { const r = e.recipe; out.push({ id: e.id, ...(r.outline ? { poly: FP.polyFeet(r) } : { rect: [r.x * CELL, r.z * CELL, (r.x + r.w) * CELL, (r.z + r.d) * CELL] }), type: r.type, outdoor: !!T.walls?.isOutdoor?.(r.type), height: this.fogPreview?.has(e.id) ? this.fogPreview.get(e.id) : e.fog ?? HT.fogDefault(this.view.entities, e) }); } return out; } // (an upper storey has no fog unless the room was given its own: core fogDefault)
+  fogStructure() { const L = this.fogLevel(), E = this.view?.entities || {}, out = []; for (const s of this.shell.values()) { if (s.spec.slab || s.spec.support || s.spec.stack || s.spec.rail || s.spec.band) continue; const rm = E[s.roomId]; if (rm?.recipe ? HT.levelY(E, rm) === L : L === 0) out.push(s); } return out; }
+  fogRooms() { const out = [], L = this.fogLevel(); for (const e of Object.values(this.view?.entities || {})) if (e.kind === 'room' && e.recipe && HT.levelY(this.view.entities, e) === L) { const r = e.recipe; out.push({ id: e.id, ...(r.outline ? { poly: FP.polyFeet(r) } : { rect: [r.x * CELL, r.z * CELL, (r.x + r.w) * CELL, (r.z + r.d) * CELL] }), type: r.type, outdoor: !!T.walls?.isOutdoor?.(r.type), height: this.fogPreview?.has(e.id) ? this.fogPreview.get(e.id) : e.fog ?? HT.fogDefault(this.view.entities, e) }); } return out; } // (an upper storey has no fog unless the room was given its own: core fogDefault)
   // things the fire system sees: object items that are visible and lit (an extinguished candle has no flame)
   // LAMPS BELONG TO THEIR ROOM (docs/VERTICAL.md): a lamp in a room that is not visible is switched off: above the cut
   // (its group is hidden: cutPass), or wholly under a visible floor (roomCovered: nothing of it can be seen from above).
@@ -368,6 +403,7 @@ export class AreaWorld {
     if (y === this.cut) return;
     this.cut = y; this.floorMax = y ?? Infinity; this.roofPass?.();
     this.groundOpen = y != null && y < 0; this.rebuildGround(); // the ground opens over the below-ground rooms being shown
+    this.syncTerrain(); // (2026-10-26) a room the cut hides gives a hill's earth back (the field is built again only if that changed)
   }
   // ---------------- ROOFS (storeys, Stage F; Harry 2026-10-05: "A roof is basically a kind of room") ----------------
   // DERIVED, never entities: client/roofs.js works the shapes out from the rooms (one roof per room with nothing of its
@@ -385,11 +421,22 @@ export class AreaWorld {
     const famOf = (r) => fam.get(r.id);
     for (const e of Object.values(E)) {
       if (e.kind !== 'room' || !e.recipe || HT.roomY(e.recipe) < 0 || T.walls?.isOutdoor?.(e.recipe.type)) continue; // no roof below ground or over a yard
-      const c = e.recipe, none = !!e.roof?.off || !!e.hidden;
-      rooms.push({ id: e.id, building: e.building || e.id, x: c.x, z: c.z, w: c.w, d: c.d, ...(c.outline && { outline: c.outline }), y: HT.roomY(c), top: HT.ceilingOf(E, e), style: HT.roofStyleOf(E, e, famOf), seed: e.roof?.seed ?? c.seed ?? 1, ...(none && { props: false, none: true }) });
+      const c = e.recipe, none = !!e.roof?.off || !!e.hidden, kind = HT.roofShapeOf(E, e), axis = this.roofTurnPreview?.room === e.id ? this.roofTurnPreview.axis : e.roof?.axis; // (roofTurnPreview: the ring's turn handle mid-drag, this tab only)
+      const style = HT.roofStyleOf(E, e, famOf), edge = HT.roofEdgeOf(E, e, RF.flatSurfaceOf(style), famOf), turrets = HT.roofTurretsOf(E, e, edge, famOf);
+      rooms.push({ id: e.id, building: e.building || e.id, x: c.x, z: c.z, w: c.w, d: c.d, ...(c.outline && { outline: c.outline }), y: HT.roomY(c), top: HT.ceilingOf(E, e), style, edge, ...(turrets && { turrets }), family: famOf(e) ?? null, seed: e.roof?.seed ?? c.seed ?? 1, ...(kind && { kind }), ...(axis && { axis }), ...(e.roof?.trim && { trim: e.roof.trim }), ...(none && { props: false, none: true }) });
     }
     const fires = Object.values(E).filter(e => e.kind === 'object' && FIRE_RE.test(e.cat || '') && (e.y || 0) >= 0 && !(e.hidden)).map(e => ({ id: e.id, x: e.x, z: e.z }));
     return { rooms, fires };
+  }
+  // (2026-10-27) the edge pieces of every roof (battlements, parapets, railings, corner turrets) for the dice
+  // (diceworld.js roofTrim): from the roofs drawn, or, with my roofs off, planned from the rooms (the same rule: a roof's
+  // edge is there whether or not I look at it). Never a hidden room's (the planner gives it no trim).
+  roofTrimFor(ents = this.view?.entities || {}) {
+    if (this.roofsOn && this.roofPlan) return this.roofPlan.roofs.flatMap(r => r.props);
+    if (this._trimOf?.E === ents) return this._trimOf.props;
+    let props = [];
+    try { const { rooms } = this.roofInputs(ents), lib = this.assets.lib, has = (id) => !!lib.objects[id] && !!this.roomgen?.sizeOf(id); props = RF.planRoofs(rooms, { has }).roofs.flatMap(r => r.props); } catch { }
+    this._trimOf = { E: ents, props }; return props;
   }
   syncRoofs(ents = this.view?.entities || {}) {
     this.roofRecs ||= new Map();
@@ -404,12 +451,12 @@ export class AreaWorld {
     const tex = roofTextures(lib);
     // the surface: modelled sections (the default), or the painted flat surface (`painted`: the look before 2026-10-11, kept for comparing)
     const painted = AreaWorld.ROOF_SURFACE === 'painted', kits = painted ? null : roofSections(() => { if (this.roofsOn && this.roofSurfaceBuilt !== this.roofSurfaceKey()) { this.cutFly?.flush(); this.roofKey = null; this.syncRoofs(); } }); // (the files came after the roofs were drawn: a slow line. Roofs in flight land first, then every roof is rebuilt in sections)
-    const surfaceKey = this.roofSurfaceBuilt = this.roofSurfaceKey();
+    const gk = gableKit(this), surfaceKey = this.roofSurfaceBuilt = this.roofSurfaceKey();
     const want = new Map(plan.roofs.filter(r => !none.has(r.room)).map(r => [r.room, r]));
     for (const id of [...this.roofRecs.keys()]) if (!want.has(id) || this.roofRecs.get(id).sig !== JSON.stringify(want.get(id)) || this.roofRecs.get(id).surface !== surfaceKey) this.dropRoof(id);
     for (const [id, roof] of want) {
       if (this.roofRecs.has(id)) continue;
-      const group = RF.buildRoof(roof, { THREE, textures: tex, sections: kits, wallColor: ROOF_WALL });
+      const group = RF.buildRoof(roof, { THREE, textures: tex, sections: kits, gables: gk, wallColor: ROOF_WALL });
       group.userData.roofOf = id;
       const b = new THREE.Box3().setFromObject(group);
       const rec = { id, roof, group, sig: JSON.stringify(roof), surface: surfaceKey, base: roof.top + 1, box: b, props: [] };
@@ -422,7 +469,9 @@ export class AreaWorld {
     this.roofsLanding = false; this.roofTierAt = 0;
     this.roofPass();
   }
-  roofSurfaceKey() { return AreaWorld.ROOF_SURFACE === 'painted' ? 'painted' : 'sections:' + Object.keys(_roofKits).sort().join(); }
+  roofSurfaceKey() { return (AreaWorld.ROOF_SURFACE === 'painted' ? 'painted' : 'sections:' + Object.keys(_roofKits).sort().join()) + '|gables:' + (_gableKit ? _gableKit.loaded() : '-'); }
+  // a gable picture has arrived: the roofs drawn without it are drawn again (as when the roof sections arrive)
+  gablePicturesIn() { if (this.roofsOn && this.roofSurfaceBuilt !== this.roofSurfaceKey()) { this.cutFly?.flush(); this.roofKey = null; this.syncRoofs(); } }
   // ONE SWITCH between the modelled roof sections and the painted flat surface they replaced (tw.roofSurface('painted'),
   // ?roofsurface=painted, the command bar): every roof is rebuilt in the other surface, nothing else changes
   setRoofSurface(mode) { AreaWorld.ROOF_SURFACE = mode === 'painted' ? 'painted' : 'sections'; if (this.roofsOn) { this.roofKey = null; this.syncRoofs(); } return AreaWorld.ROOF_SURFACE; }
@@ -441,16 +490,22 @@ export class AreaWorld {
   }
   // (tests, measurements) what the roof sections cost: copies, triangles drawn at each tier, how many roofs wear which
   roofSectionReport() { const out = { surface: AreaWorld.ROOF_SURFACE, roofs: 0, near: 0, far: 0, copies: 0, whole: 0, split: 0, tris: 0, kits: Object.keys(_roofKits) }; for (const rec of this.roofRecs?.values() || []) { const T = rec.group.userData.roofTiers; if (!T) continue; out.roofs++; out.copies += T.count; out.whole += T.whole; out.split += T.split; if (T.isNear) { out.near++; out.tris += T.count * T.tris; } else { out.far++; out.tris += T.count * 2; } } return out; }
-  dropRoof(id) { const rec = this.roofRecs.get(id); if (!rec) return; rec.group.parent?.remove(rec.group); rec.group.traverse(o => { if (o.isMesh) o.geometry?.dispose?.(); }); this.roofRecs.delete(id); this.dropHalos('roof:' + id); }
+  dropRoof(id) { const rec = this.roofRecs.get(id); if (!rec) return; rec.group.parent?.remove(rec.group); rec.group.traverse(o => { if (o.isMesh) o.geometry?.dispose?.(); }); this.roofRecs.delete(id); this.dropHalos('roof:' + id); for (const [k, h] of this.halos) if (String(h.id).startsWith(`trim:${id}|`)) { h.obj.parent?.remove(h.obj); this.halos.delete(k); } }
   // ONE PIECE OF TRIM. The vertical kit's own piece where the library has it (roofPiece below: which sku for this roof's
   // material, its stated box, how it is turned and seated), fitted BY MEASURING THE MESH (kitfit.js); a plain stand-in box
   // where the library has none. A chimney keeps its proportions: a taller stack is CHOSEN for a longer rise and the
   // spare length is sunk into the roof, never stretched. A dormer is sunk until its front stands on the slope.
   addRoofProp(rec, p) {
-    const holder = new THREE.Group(); holder.position.set(p.x, p.y, p.z); holder.rotation.y = p.rot || 0; holder.userData.roofOf = rec.id; holder.userData.roofProp = p.role;
+    const holder = new THREE.Group(); holder.position.set(p.x, p.y, p.z); holder.rotation.y = p.rot || 0; holder.userData.roofOf = rec.id; holder.userData.roofProp = p.role; holder.userData.trimKey = p.key || null; // (the key: selection 'trim:<room>|<key>')
+    if (RF.isGablePiece(p)) { // a gable's window / vent / oculus / tympanum: the gable kit's keyed plate on a card (roofs.js gablePiece), a dark stand-in without it
+      const { mesh, standIn } = RF.gablePiece(THREE, p, _gableKit); mesh.traverse(o => { o.userData.roofOf = rec.id; }); holder.add(mesh); rec.group.add(holder);
+      holder.userData.kitSku = standIn ? null : `gable:${p.kind}`; holder.userData.loaded = !standIn;
+      rec.props.push({ role: p.role, kind: p.kind, key: p.key || null, cat: null, sku: holder.userData.kitSku, standIn, wants: `gable:${p.kind}`, x: p.x, y: p.y, z: p.z, dims: p.dims, fire: null, ...(p.moved && { moved: true }) });
+      return;
+    }
     const stand = RF.propStandIns({ room: rec.id, props: [{ ...p, x: 0, y: 0, z: 0, rot: 0 }] }, { THREE }); holder.add(stand);
     const K = roofPiece(this.assets.lib, p, rec.roof, (x, z) => this.roofPlan?.heightAt(x, z));
-    const info = { role: p.role, cat: K?.cat ?? p.cat, sku: K?.sku || null, standIn: !K, wants: p.wants, x: p.x, y: p.y, z: p.z, dims: p.dims, fire: p.fire ?? null };
+    const info = { role: p.role, cat: K?.cat ?? p.cat, sku: K?.sku || null, standIn: !K, wants: p.wants, x: p.x, y: p.y, z: p.z, dims: p.dims, fire: p.fire ?? null, key: p.key || null, ...(p.moved && { moved: true }) };
     rec.group.add(holder); rec.props.push(info); holder.userData.kitSku = K?.sku || null;
     if (!K) return;
     this.assets.template(K.url).then(scene => {
@@ -492,20 +547,31 @@ export class AreaWorld {
     return out;
   }
   // which roofs show: the switch is on, and the cut is off or not below the roof's base (the top of its room)
-  roofShown(rec) { return !!this.roofsOn && HT.visibleAt(rec.base, this.cut ?? null) && !this.fogRule?.(this.view?.entities[rec.id]); }
+  roofShown(rec) { const E = this.view?.entities, r = E?.[rec.id], cut = this.cut ?? null; return !!this.roofsOn && (HT.visibleAt(rec.base, cut) || HT.cutRooms(E, cut).clear.has(rec.id)) && !this.fogRule?.(r); } // (a building standing clear on a hill shows whole, its roof too: core/height.js cutRooms, 2026-10-26)
   roofPass() { if (!this.roofRecs) return; const fly = this.cutFly; for (const rec of this.roofRecs.values()) { const v = this.roofShown(rec); if (v === rec.group.visible) continue; rec.group.visible = v; if (rec.asleep) continue; if (v) fly?.arrive(rec.group, rec); else fly?.leave(rec.group, rec); } fly?.commit(); } // (a roof the cut or the switch hides flies off: cutfly.js)
   roofBounds(id) { const rec = this.roofRecs?.get(id); return rec ? rec.box.clone() : null; }
   // (tests) what is drawn: per room, style, kind, shown, the trim and which of it is a stand-in
-  roofReport() { this.roofPass(); return [...(this.roofRecs?.values() || [])].map(r => ({ room: r.id, style: r.roof.style, kind: r.roof.kind, shown: r.group.visible, base: r.base, ridgeY: r.roof.ridgeY, planes: r.roof.planes.length, standable: r.roof.standable.length, props: r.props, ridge: r.ridge || null })); }
+  roofReport() { this.roofPass(); return [...(this.roofRecs?.values() || [])].map(r => ({ room: r.id, style: r.roof.style, kind: r.roof.kind, axis: r.roof.axis || null, autoAxis: r.roof.autoAxis || null, gables: r.roof.gables.length, shown: r.group.visible, base: r.base, ridgeY: r.roof.ridgeY, planes: r.roof.planes.length, standable: r.roof.standable.length, props: r.props, ridge: r.ridge || null })); }
   // a roof under a ray: { id, point, flat } (the nearest roof that is showing), or null
   roofAt(raycaster, asleepToo = false) { // (asleepToo: a ray that is not from the eye, e.g. another seat's cursor over a roof nobody here is looking at)
     if (!this.roofsOn || !this.roofRecs?.size) return null;
     this.roofPass(); raycaster.camera ||= RAY_CAMERA;
     const groups = [...this.roofRecs.values()].filter(r => r.group.visible && (asleepToo || !r.asleep)).map(r => r.group); if (!groups.length) return null;
     this.roofLayer.updateMatrixWorld(true);
-    for (const h of raycaster.intersectObjects(groups, true)) { if (h.object instanceof THREE.Sprite) continue; const id = h.object.userData.roofOf; if (id) return { id, point: h.point, distance: h.distance, flat: h.object.userData.roofPart === 'flat' || h.object.userData.roofPart === 'skirt' }; }
+    for (const h of raycaster.intersectObjects(groups, true)) { if (h.object instanceof THREE.Sprite) continue; const id = h.object.userData.roofOf; if (!id) continue; let o = h.object; while (o && o.userData.trimKey === undefined && o.parent) o = o.parent; return { id, point: h.point, distance: h.distance, flat: h.object.userData.roofPart === 'flat' || h.object.userData.roofPart === 'skirt', ...(o?.userData.trimKey && { trim: o.userData.trimKey }) }; } // (trim: the ray met a piece of trim: a chimney, a dormer, a finial)
     return null;
   }
+  // THE TRIM UNDER A DRAG (2026-10-27): where a ray meets the planned surface of one room's roof (never its trim), or null
+  roofSurfaceAt(raycaster, roomId) {
+    const rec = this.roofRecs?.get(roomId); if (!rec || !rec.group.visible) return null; raycaster.camera ||= RAY_CAMERA;
+    this.roofLayer.updateMatrixWorld(true);
+    const h = raycaster.intersectObjects(rec.group.children.filter(c => c.isMesh && ['surface', 'flat'].includes(c.userData.roofPart)), false)[0];
+    return h ? { x: h.point.x, y: h.point.y, z: h.point.z } : null;
+  }
+  // one piece of trim: its holder (what is drawn), its planned placement
+  trimPiece(roomId, key) { const rec = this.roofRecs?.get(roomId); if (!rec) return null; const holder = rec.group.children.find(c => c.userData.trimKey === key); const prop = rec.roof.props.find(p => p.key === key); return holder && prop ? { rec, holder, prop } : null; }
+  // drawn where a drag has it (this tab only, until the drag is sent): null puts it back where it is planned
+  trimPreview(roomId, key, to) { const t = this.trimPiece(roomId, key); if (!t) return false; const p = to || t.prop; t.holder.position.set(p.x, p.y, p.z); if (p.dims && t.holder.userData.roofProp === 'chimney') t.holder.scale.y = p.dims[1] / t.prop.dims[1]; else t.holder.scale.y = 1; this.shadowKey = null; return true; }
   // THE CUT LIFTED FOR ONE PICTURE (the area's thumbnail shows every level): liftCut() draws everything until dropLift()
   // puts back the cut WANTED BY THEN. A cut set in between is kept, not lost: the picture is taken a frame later, and
   // putting back the cut remembered before it left the view on the old level while the seat had moved to another
@@ -517,10 +583,13 @@ export class AreaWorld {
     if (!this.cutDirty && this.cutHidden) return;
     this.cutDirty = false;
     const ents = this.view?.entities || {}, rooms = Object.values(ents).filter(e => e.kind === 'room'), cut = this.cut ?? null;
-    this.cutHidden = new Set(rooms.filter(r => !HT.visibleAt(HT.roomY(r.recipe), cut)).map(r => r.id));
+    // THE CUT HIDES WHAT COVERS THE LEVEL YOU ARE ON (2026-10-26, core/height.js cutRooms): a room above the cut is hidden
+    // unless its building stands clear on a hill (then it shows whole); a HILL is the earth, never cut away
+    const C = HT.cutRooms(ents, cut); this.cutHidden = C.hidden; this.cutClear = C.clear;
     const shown = rooms.filter(r => !this.cutHidden.has(r.id)), covered = new Set();
+    const atY = new Map(); for (const u of shown) { const y = HT.roomY(u.recipe); let a = atY.get(y); if (!a) atY.set(y, a = []); a.push(u.recipe); } // (the rooms on each floor height, once: was a walk over every room for every room, 2026-10-29)
     for (const r of shown) {
-      const top = HT.roomTop(ents, r), above = shown.filter(u => HT.roomY(u.recipe) === top).map(u => u.recipe);
+      const top = HT.roomTop(ents, r), above = atY.get(top) || [];
       if (above.length && FP.cellsOf(r.recipe).every(([i, j]) => above.some(u => FP.hasCell(u, r.recipe.x + i, r.recipe.z + j)))) covered.add(r.id);
     }
     const under = new Set(); if (cut == null || cut >= 0) for (const r of shown) if (HT.roomY(r.recipe) < 0) { covered.add(r.id); under.add(r.id); } // under the unopened ground (with the cut off too: the ground is closed then)
@@ -531,15 +600,16 @@ export class AreaWorld {
     // A room under the unopened ground loses its floor and walls too, by the same rule; a room under an upper floor or
     // its own roof keeps them (its outside walls are the building, and a door or window shows a little floor).
     const near = new Map(); // room id -> [[x0, z0, x1, z1] ...] ft: the holes above it, grown by UNSEEN_KEEP
+    const holesAtY = new Map(), holesOf = (y) => { let h = holesAtY.get(y); if (!h) holesAtY.set(y, h = ST.holesAt(ents, y)); return h; }; // (once per height, not once per room: each is a walk over every thing, 2026-10-29)
     for (const id of covered) {
       const r = ents[id], top = HT.roomTop(ents, r), boxes = [];
-      for (const k of ST.holesAt(ents, top)) { const [gx, gz] = k.split(':').map(Number); if (FP.hasCell(r.recipe, gx, gz)) boxes.push([gx * CELL - UNSEEN_KEEP, gz * CELL - UNSEEN_KEEP, (gx + 1) * CELL + UNSEEN_KEEP, (gz + 1) * CELL + UNSEEN_KEEP]); }
+      for (const k of holesOf(top)) { const [gx, gz] = k.split(':').map(Number); if (FP.hasCell(r.recipe, gx, gz)) boxes.push([gx * CELL - UNSEEN_KEEP, gz * CELL - UNSEEN_KEEP, (gx + 1) * CELL + UNSEEN_KEEP, (gz + 1) * CELL + UNSEEN_KEEP]); }
       near.set(id, boxes);
     }
     this.unseenNear = near; this.unseenUnder = under; this.cutGen = (this.cutGen || 0) + 1;
     // the floors that are drawn, by height, for floorStop (below): the rooms on each, and the cells a stair has opened
     const planes = new Map();
-    for (const r of shown) { if (under.has(r.id)) continue; const y = HT.roomY(r.recipe); let P = planes.get(y); if (!P) planes.set(y, P = { y, rooms: [], holes: ST.holesAt(ents, y) }); P.rooms.push(r.recipe); } // (under the closed ground: the ground stops the ray first)
+    for (const r of shown) { if (under.has(r.id) || (cut != null && cut < 0 && HT.isTerrain(r.recipe))) continue; const y = HT.roomY(r.recipe); let P = planes.get(y); if (!P) planes.set(y, P = { y, rooms: [], holes: holesOf(y) }); P.rooms.push(r.recipe); } // (under the closed ground: the ground stops the ray first; below the ground a hill is see-through and stops nothing, 2026-10-27)
     this.floorPlanes = [...planes.values()];
   }
   // A FLOOR THAT IS DRAWN STOPS THE POINTER (Harry 2026-10-06: "on floor two I can still select things on floor one
@@ -559,9 +629,11 @@ export class AreaWorld {
     const o = ray.origin, d = ray.direction; if (Math.abs(d.y) < 1e-6) return Infinity;
     let best = Infinity;
     const cell = (x, z) => `${Math.floor(x / CELL)}:${Math.floor(z / CELL)}`;
-    const solid = (P, x, z, rim = false) => { if (P.holes.size && P.holes.has(cell(x, z))) return false; for (const rc of P.rooms) if (FP.contains(rc, x, z)) return true;
-      // the slab runs SLAB_RIM past the room's outer edge, under the wall (core/height.js slabRects): a point there is slab too (not into a hole)
-      if (rim) for (const dx of [-HT.SLAB_RIM, 0, HT.SLAB_RIM]) for (const dz of [-HT.SLAB_RIM, 0, HT.SLAB_RIM]) if ((dx || dz) && !P.holes.has(cell(x + dx, z + dz)) && P.rooms.some(rc => FP.contains(rc, x + dx, z + dz))) return true;
+    const E = this.view?.entities, taken = (rc, x, z) => HT.isTerrain(rc) && this.takenShownAt(rc, x, z); // (a hill's top where a room is dug into it stops nothing: 2026-10-24)
+    const solid = (P, x, z, rim = false) => { if (P.holes.size && P.holes.has(cell(x, z))) return false; for (const rc of P.rooms) if (FP.contains(rc, x, z) && !taken(rc, x, z)) return true;
+      // the slab runs past the room's outer edge, under the wall (core/height.js slabRects): a point there is slab too (not into a hole). Since
+      // 2026-10-24 the drawn slab stops on the line (SLAB_RIM_UNDER_BAND) and the band of wall over its edge is what a ray meets first there
+      if (rim && SLAB_RIM_UNDER_BAND) for (const dx of [-SLAB_RIM_UNDER_BAND, 0, SLAB_RIM_UNDER_BAND]) for (const dz of [-SLAB_RIM_UNDER_BAND, 0, SLAB_RIM_UNDER_BAND]) if ((dx || dz) && !P.holes.has(cell(x + dx, z + dz)) && P.rooms.some(rc => FP.contains(rc, x + dx, z + dz))) return true;
       return false; };
     for (const P of this.floorPlanes) {
       const tTop = (P.y - o.y) / d.y;
@@ -572,11 +644,11 @@ export class AreaWorld {
       if (t1 <= t0 || t0 >= best) continue;
       if (solid(P, o.x + d.x * t0, o.z + d.z * t0, true)) { best = t0; continue; }
       const ts = []; // where the ray crosses a 5-ft grid line inside the slab's height: a side can only be met there
-      for (const [p, v] of [[o.x, d.x], [o.z, d.z]]) { if (Math.abs(v) < 1e-9) continue; const a = p + v * t0, b = p + v * t1; for (const off of [0, HT.SLAB_RIM, -HT.SLAB_RIM]) for (let k = Math.ceil((Math.min(a, b) - off) / CELL), n = 0; k * CELL + off <= Math.max(a, b) && n < 40; k++, n++) ts.push((k * CELL + off - p) / v); } // (the grid lines and the slab rim's faces, 6 in either side of them)
+      for (const [p, v] of [[o.x, d.x], [o.z, d.z]]) { if (Math.abs(v) < 1e-9) continue; const a = p + v * t0, b = p + v * t1; for (const off of SLAB_RIM_UNDER_BAND ? [0, SLAB_RIM_UNDER_BAND, -SLAB_RIM_UNDER_BAND] : [0]) for (let k = Math.ceil((Math.min(a, b) - off) / CELL), n = 0; k * CELL + off <= Math.max(a, b) && n < 40; k++, n++) ts.push((k * CELL + off - p) / v); } // (the grid lines and the drawn slab rim's faces: on them, since the band)
       ts.sort((a, b) => a - b);
       for (let i = 0; i < ts.length; i++) { const t = ts[i]; if (t <= t0 || t >= best) continue; const m = (t + (ts[i + 1] ?? t1)) / 2; if (solid(P, o.x + d.x * m, o.z + d.z * m, true)) { best = t; break; } }
     }
-    const tg = (GROUND_Y - o.y) / d.y; if (tg > 1e-4 && tg < best && !this.groundOpenCells?.has(cell(o.x + d.x * tg, o.z + d.z * tg))) best = tg;
+    const tg = (GROUND_Y - o.y) / d.y; if (this.groundSeeNow() >= 1 && tg > 1e-4 && tg < best && !this.groundOpenCells?.has(cell(o.x + d.x * tg, o.z + d.z * tg))) best = tg; // (2026-10-27: a faded ground, below the ground, stops nothing)
     return best;
   }
   // IS ANY OF THIS THING IN SIGHT from the camera, as far as the cut, the floors, the ground and the roofs go? For the
@@ -601,7 +673,9 @@ export class AreaWorld {
     return false;
   }
   // is this thing / shell piece of a covered room out of everybody's sight? (see cutSets)
-  unseenAt(roomId, x, z) { const bs = this.unseenNear?.get(roomId); return !!bs && !bs.some(b => x >= b[0] && x <= b[2] && z >= b[1] && z <= b[3]); }
+  // (first person, surfaces/fpv.js: `eye` = { x, z, r }: within r ft of the eyes a covered room is drawn, things, floor and
+  // walls; you are standing in it)
+  unseenAt(roomId, x, z) { const bs = this.unseenNear?.get(roomId); if (!bs) return false; const E = this.eye; if (E && Math.abs(x - E.x) < E.r && Math.abs(z - E.z) < E.r) return false; return !bs.some(b => x >= b[0] && x <= b[2] && z >= b[1] && z <= b[3]); }
   unseenThing(e) { return e.kind === 'object' && !!e.room && !this.noUnseenRule && e.place !== 'stair' && e.place !== 'kit' && !e.fromEdge && this.unseenAt(e.room, e.x, e.z); }
   unseenShell(s) { return !this.noUnseenRule && this.unseenUnder.has(s.roomId) && this.unseenAt(s.roomId, s.spec.x, s.spec.z); }
   // is this entity (or shell piece) hidden by the cut?
@@ -609,10 +683,17 @@ export class AreaWorld {
     if (this.cut == null || !e) return false;
     this.cutSets();
     if (e.kind === 'room') return this.cutHidden.has(e.id);
-    if (e.kind === 'object' && e.room && this.view?.entities[e.room]) return this.cutHidden.has(e.room);
-    if (e.kind === 'token') return !HT.visibleAt(this.pawnLevel(e), this.cut); // BY ITS BASE, not by how high the figure is (a dragon 40 ft over the yard shows with the cut at 20)
-    return e.kind === 'object' && !HT.visibleAt(e.y || 0, this.cut);
+    const E = this.view?.entities;
+    if (e.kind === 'object' && e.room && E?.[e.room]) return HT.isTerrain(E[e.room].recipe) ? HT.cutHidesBase(E, { y: HT.roomY(E[e.room].recipe), room: e.room }, this.cut) : this.cutHidden.has(e.room); // (a room's things go with it; a hill's things: core cutHidesBase)
+    // BY ITS BASE, not by how high the figure is (a dragon 40 ft over the yard shows with the cut at 20); what it stands
+    // on decides above the cut (core/height.js cutHidesBase: a hill's top, a building standing clear on a hill)
+    if (e.kind === 'token') { const y = this.pawnLevel(e); return !HT.visibleAt(y, this.cut) && HT.cutHidesBase(E, { y, room: this.pawnBaseRoom(e) }, this.cut); }
+    return e.kind === 'object' && this.cutHidesPoint(e.x, e.z, e.y || 0);
   }
+  // is a point (a loose thing, another seat's cursor) at (x, y, z) hidden by the cut? By its own height, and above the
+  // cut by what it rests on (core cutHidesBase: a hilltop, a building standing clear on a hill)
+  cutHidesPoint(x, z, y) { if (this.cut == null || HT.visibleAt(y || 0, this.cut)) return false; const E = this.view?.entities; this.openRoom ||= (rm) => this.isOpenRoom(rm); return HT.cutHidesBase(E, HT.baseUnder(E, x, z, y || 0, this.openRoom), this.cut, y || 0); }
+  pawnBaseRoom(e) { this.pawnLevel(e); return this.levels.get(e.id)?.room ?? null; }
   // ---------------- A PAWN'S BASE (core/height.js baseUnder; docs/PAWNS.md "A raised pawn") ----------------
   // a room with no top to rest a base on: a yard (and every outdoor room type), a room whose roof is off
   isOpenRoom(e) { return !!e.roof?.off || !!T.walls?.isOutdoor?.(e.recipe?.type); }
@@ -622,7 +703,7 @@ export class AreaWorld {
     const E = this.view?.entities;
     if (this.levelsOf !== E) { this.levelsOf = E; this.levels = new Map(); this.openRoom ||= (rm) => this.isOpenRoom(rm); }
     let v = this.levels.get(e.id);
-    if (v === undefined || v.e !== e) { v = { e, y: HT.baseUnder(E, e.x, e.z, e.y || 0, this.openRoom).y }; this.levels.set(e.id, v); }
+    if (v === undefined || v.e !== e) { const b = HT.baseUnder(E, e.x, e.z, e.y || 0, this.openRoom); v = { e, y: b.y, room: b.room }; this.levels.set(e.id, v); }
     return v.y;
   }
   // WHERE THE BASE IS DRAWN for a pawn whose figure is at (x, y, z) right now (a drag, a lift): its level, or higher when
@@ -671,7 +752,16 @@ export class AreaWorld {
   knownWalls() { const out = []; for (const s of this.shell.values()) if (s.spec.layer === 'walls' && s.group?.visible) out.push(s.group); return out; } // (every wall drawn under vision fog is known: fogHidesShell)
   // under vision fog a WALL piece is drawn only when its face is known (wallKnown): a wall that merely touches seen ground
   // with its end (one joining from the far side) is not drawn at all, so the known wall's far face stays whole
-  fogHidesShell(s) { return !!this.fogRule?.(s.fogEntity ||= {x:s.spec.x,z:s.spec.z,y:s.spec.y||0,dims:s.spec.dims,rot:s.spec.rot||0,room:s.roomId}) || (!!this.fogActive && s.spec.layer === 'walls' && !this.wallKnown(s)); }
+  fogHidesShell(s) { const fa = s.spec.fogAt; if (fa) { if (!this.fogActive || !this.fogKnown) return false; const y = s.spec.fogY ?? s.spec.y ?? 0, need = s.spec.fogNeed ?? 1; let n = 0; for (const [x, z] of fa) if (this.fogKnown(x, z, y) && ++n >= need) return false; return true; } // (a cave's rock: shown once the floor next to it is known, client/caves.js)
+    return !!this.fogRule?.(s.fogEntity ||= {x:s.spec.x,z:s.spec.z,y:s.spec.y||0,dims:s.spec.dims,rot:s.spec.rot||0,room:s.roomId}) || (!!this.fogActive && s.spec.layer === 'walls' && !this.wallKnown(s)); }
+  // A THING ON A ROOF (2026-10-27: a turret, a water tank, a flagpole put down on a flat roof) belongs to the roof: with my
+  // roofs off the room is open to the sky and there is no roof for it to stand on, so it is not drawn. "On a roof" = a
+  // loose thing whose base is a room's TOP with nothing built over it there (core/height.js baseUnder 'top').
+  offRoof(e) {
+    if (this.roofsOn || e.kind !== 'object' || e.room || e.parent || !((e.y || 0) > 0.5)) return false;
+    this.openRoom ||= (rm) => this.isOpenRoom(rm);
+    const b = HT.baseUnder(this.view?.entities, e.x, e.z, e.y, this.openRoom); return b.on === 'top' && Math.abs(b.y - e.y) < 0.1;
+  }
   cutPass() {
     this.cutSets();
     // NOT EVERY FRAME (frame time, 2026-10-06): only when the cut, the roofs, the rooms or the things changed (cutGen),
@@ -686,8 +776,8 @@ export class AreaWorld {
       if (hide) { if (!g.userData.cutHidden) { g.userData.cutAbove = above; if (above && !owner.asleep) fly?.leave(g, owner, g.visible); } g.userData.cutHidden = true; g.visible = false; }
       else if (g.userData.cutHidden) { g.userData.cutHidden = false; g.visible = base; if (base && g.userData.cutAbove && !owner.asleep) fly?.arrive(g, owner); }
     };
-    for (const s of this.shell.values()) { const above = this.cutHidden.has(s.roomId); set(s.group, above || this.unseenShell(s) || this.fogHidesShell(s), this.wallsOn || s.spec.layer === 'floor', above, s); }
-    for (const r of this.recs.values()) { const k = r.entity.kind; if (k === 'object' || k === 'token') { const above = this.cutHides(r.entity); set(r.group, above || this.unseenThing(r.entity) || this.fogRule?.(r.entity), true, above, r); } }
+    for (const s of this.shell.values()) { const above = this.cutHidden.has(s.roomId); set(s.group, above || this.unseenShell(s) || this.fogHidesShell(s) || this.hillSeeHides(s) || this.takenShell(s), this.wallsOn || s.spec.layer === 'floor', above, s); }
+    for (const r of this.recs.values()) { const k = r.entity.kind; if (k === 'object' || k === 'token') { const above = this.cutHides(r.entity); set(r.group, above || this.unseenThing(r.entity) || this.fogRule?.(r.entity) || this.offRoof(r.entity), true, above, r); } }
     fly?.commit();
     this.cutApplied = this.cut != null;
     this.shadowKey = null; // which things may cast the fire's shadow follows what is shown (shadowPass)
@@ -747,6 +837,7 @@ export class AreaWorld {
   sync(view, { gmSide = false } = {}) {
     const first = !this.loaded; this.loaded = !!view;
     this.view = view; const was = this.gmSide; this.gmSide = gmSide; this.cutDirty = true;
+    this.groundCover?.set(view?.ground || null); // the area's ground material (core/commands.js area.ground)
     const ents = view ? view.entities : {};
     const fresh = { rooms: [], objects: [], rerolled: [] };
     const unitsMoved = this.buildUnits(ents); // (before anything is added: a new thing of a sleeping building is made asleep)
@@ -757,18 +848,24 @@ export class AreaWorld {
       if (!r) { this.add(e); if (!first) { if (e.kind === 'object') fresh.objects.push(e.id); if (e.kind === 'room') fresh.rooms.push(e.id); } continue; }
       if (r.entity === e) continue;
       if (e.kind === 'room' && r.entity.layout?.hash !== e.layout?.hash) fresh.rerolled.push(e.id);
-      if (visualKey(e) !== r.vkey) { this.remove(e.id); this.add(e); continue; }
+      if (visualKey(e) !== r.vkey) {
+        // OPENED OR SHUT, nothing else (2026-10-30): the same rec, its mesh moved (a leaf swings, a portcullis slides:
+        // openStep) or its open twin put in place with a small pop; never the stand-in box in between
+        if (e.kind === 'object' && !!e.open !== !!r.entity.open && visualKey({ ...e, open: r.entity.open }) === r.vkey && r.visual && !r.visual.userData.placeholder) { this.openTo(r, e); continue; }
+        this.remove(e.id); this.add(e); continue;
+      }
       if (e.kind === 'room') { this.dropHalos(e.id); if (e.building) this.dropHalos(e.building); }
       r.entity = e; this.place(r);
     }
     const rooms = Object.values(ents).filter(e => e.kind === 'room');
-    const key = rooms.map(e => `${e.id}:${e.order}:${e.recipe.type}:${e.recipe.x}:${e.recipe.z}:${e.recipe.w}:${e.recipe.d}:${e.recipe.wallFamily}:${e.recipe.floor}:${e.recipe.wallSeed}:${e.hidden}:${e.recipe.turn || 0}:${e.recipe.outline ? JSON.stringify(e.recipe.outline) : ''}:${e.recipe.y || 0}:${e.recipe.tall || 1}`).sort().join('|')
-      + '#' + Object.values(ents).filter(e => e.kind === 'building' && (e.base || e.storey)).map(e => `${e.id}:${e.base || 0}:${e.storey || 10}`).sort().join('|')
+    const key = rooms.map(e => `${e.id}:${e.order}:${e.recipe.type}:${e.recipe.x}:${e.recipe.z}:${e.recipe.w}:${e.recipe.d}:${e.recipe.wallFamily}:${e.recipe.floor}:${e.recipe.wallSeed}:${e.hidden}:${e.recipe.turn || 0}:${e.recipe.outline ? JSON.stringify(e.recipe.outline) : ''}:${e.recipe.y || 0}:${e.recipe.tall || 1}${CV.isCave(e.recipe) ? `:cave${e.recipe.seed}${e.recipe.stalagObjects ? 's' : ''}` : ''}`).sort().join('|') // (a cave's rock follows its seed: a re-roll redraws it)
       + '#' + Object.values(ents).filter(e => e.kind === 'edge').map(e => JSON.stringify(e)).sort().join('|')
       + '#' + Object.values(ents).filter(isTile).map(e => tileKey(e.x, e.z, e.y)).sort().join(',') // a floor tile replaces its cell's generated floor
       + '#' + Object.values(ents).filter(e => e.kind === 'object' && e.fromEdge).map(e => e.fromEdge).sort().join(',') // a wall object still standing keeps its posts
-      + '#' + ST.stairsOf(ents).map(e => `${e.x}:${e.z}:${e.y || 0}:${ST.stairTop(e)}:${e.rot || 0}:${(e.dims || []).join('x')}`).sort().join(','); // a stair cuts its hole in the floor above
+      + '#' + ST.stairsOf(ents).map(e => `${e.x}:${e.z}:${e.y || 0}:${ST.stairTop(e)}:${e.rot || 0}:${(e.dims || []).join('x')}`).sort().join(',') // a stair cuts its hole in the floor above
+      + '#' + HO.openingsOf(ents).map(e => `${e.cat}:${e.x}:${e.z}:${e.y || 0}:${e.rot || 0}:${(e.dims || []).join('x')}`).sort().join(','); // a hole or a pit cuts the floor it is on (core/holes.js)
     if (key !== this.shellKey) { this.shellKey = key; this.buildShell(ents); this.rebuildGround(); }
+    this.syncTerrain(ents); // HILLS: the banks, worked out again only when what they depend on changed (syncTerrain)
     this.syncStairNotes(ents); // a stair that leads nowhere where it stands says so
     this.syncRoofs(ents); // (Stage F) the roofs follow the rooms, their styles and the fireplaces below
     if (unitsMoved) { for (const r of this.recs.values()) r.unit = this.unitOf(r.entity); for (const s of this.shell.values()) s.unit = this.roomUnit.get(s.roomId) || null; this.applySleep(); this.sleeping = [...this.units.values()].filter(u => u.asleep).length; } // rooms changed: every thing's unit is worked out again
@@ -780,7 +877,7 @@ export class AreaWorld {
 
   remove(id, { out = false } = {}) {
     const r = this.recs.get(id); if (!r) return;
-    this.recs.delete(id); this.pawns.delete(r); this.anims.delete(r.group); this.dropHalos(id); this.itemsGen = (this.itemsGen || 0) + 1;
+    this.recs.delete(id); this.pawns.delete(r); this.statusFx?.drop(r); this.auraFx?.drop(r); this.anims.delete(r.group); this.dropHalos(id); this.itemsGen = (this.itemsGen || 0) + 1;
     if (out && r.group.visible && !r.asleep) { this.animateOut([{ group: r.group, layer: r.entity.layer || 'furnish', x: r.entity.x, z: r.entity.z, rest: restOf(r.entity) }]); return; }
     r.group.parent?.remove(r.group);
   }
@@ -793,10 +890,12 @@ export class AreaWorld {
     this.recs.set(e.id, r); this.itemsGen = (this.itemsGen || 0) + 1;
     if (e.kind === 'room' || e.kind === 'building' || e.kind === 'edge' || e.kind === 'water' || e.kind === 'template') return; // a room is its shell (built per area); a building, an edge override and water (fx.water) are data
     if (e.kind === 'token') {
+      this.statusFx ||= createStatusFx(this); // (conditions on the table: one per world, made with its first pawn)
+      this.auraFx ||= createAuraFx(this); // (a pawn's aura: client/aurafx.js, the same way)
       this.pawns.add(r); group.userData.pawn = true; // (pawns are asked for by name each frame, and their world positions are always worked out in full: a figure turns its name inside its group)
       r.visual = this.tokenMesh(e, r); group.add(r.visual); this.layers.things.add(group); this.place(r);
       // a figure's mesh arrives later: what was drawn round the stand-in (halo, ring, label height) is redone then
-      r.ready = r.visual.userData.ready?.then(() => { if (this.recs.get(e.id) !== r) return; this.dropHalos(e.id); r.labelKey = null; this.refreshTokenLabel(r); this.cutDirty = true; this.onFigure?.(e.id); })?.catch(() => {}).then(() => { r.settled = true; });
+      r.ready = r.visual.userData.ready?.then(() => { if (this.recs.get(e.id) !== r) return; this.statusFx?.apply(r, true); this.dropHalos(e.id); r.labelKey = null; this.refreshTokenLabel(r); this.cutDirty = true; this.onFigure?.(e.id); r.visual.userData.full?.then(() => { if (this.recs.get(e.id) === r) this.statusFx?.apply(r, true); }); })?.catch(() => {}).then(() => { r.settled = true; });
       return;
     }
     r.visual = this.assets.placeholder(e.dims); group.add(r.visual);
@@ -805,6 +904,7 @@ export class AreaWorld {
     this.place(r);
     r.ready = this.visualOf(e).then(v => {
       if (!v || this.recs.get(e.id) !== r) return;
+      if (HO.pitOf(e)?.to === 'below') clipPit(v, e); // a through pit: its own black bottom cut out, the floor below shows (core/holes.js)
       this.swapVisual(r, v);
       if (this.gmSide && e.hidden) ghostify(v);
       const a = this.anims.get(group); if (a?.m.fade) a.fadeMats = null; // the real mesh fades with the rest of its spawn
@@ -819,7 +919,7 @@ export class AreaWorld {
   // 9 ft above the floor it knows, which is the room's own)
   // an entity's visual: the tuner's own, except a stair (client/stairs.js: fitted to its rise and run, climbing its +z)
   // (a bracket, post or railing section that became an object keeps the look it had: the same measured fit to its box)
-  visualOf(e) { return ST.isStair(e) || (ST.stairRole(e) && !e.url) ? stairVisual(this.assets, e) : e.fromEdge && e.url && e.dims && GEN_FIT[e.fromEdge[0]] ? supportVisual(this.assets, { url: e.url, sku: e.sku, fit: GEN_FIT[e.fromEdge[0]] }, e.dims) : this.assets.visualFor(this.inRoomFrame(e)); }
+  visualOf(e) { return HO.isHole(e) ? Promise.resolve(holeVisual(e)) : ST.isStair(e) || (ST.stairRole(e) && !e.url) ? stairVisual(this.assets, e) : e.fromEdge && e.url && e.dims && GEN_FIT[e.fromEdge[0]] ? supportVisual(this.assets, { url: e.url, sku: e.sku, fit: GEN_FIT[e.fromEdge[0]] }, e.dims) : this.assets.visualFor(this.inRoomFrame(e)); }
   inRoomFrame(e) { const ry = e.room ? HT.roomY(this.view?.entities[e.room]?.recipe) : 0; return ry ? { ...e, y: (e.y || 0) - ry } : e; }
   roomYOf(id) { return HT.roomY(this.view?.entities[id]?.recipe); }
 
@@ -830,7 +930,7 @@ export class AreaWorld {
     r.group.rotation.set(0, e.rot || 0, 0);
     if (e.kind === 'object') this.seatTilt(r); // tipped over (its `quat`, core/orient.js): inside the group, below
     if (e.libK || r.libK) { r.libK = e.libK; r.group.scale.setScalar(e.libK || 1); } // a library thing's drawing scale (library.js, "the same size for all"), set here too: a thing out of the camera's reach is not posed each frame
-    if (e.kind === 'token') { this.refreshTokenLabel(r); this.refreshTokenMark(r); }
+    if (e.kind === 'token') { this.refreshTokenLabel(r); this.refreshTokenMark(r); this.statusFx?.apply(r); this.auraFx?.apply(r); } // conditions on the table (client/statusfx.js), the aura (client/aurafx.js)
     if (e.kind === 'object') { const u = this.unitOf(e); if (u !== r.unit) { r.unit = u; const z = this.unitAsleep(u) || !!r.nap; if (z && !r.asleep) this.sleepRec(r); else if (!z && r.asleep) this.wakeRec(r); } } // moved to another building, or out of its own: it sleeps or wakes with where it is now
     if (r.it) { r.it.rest = restOf(e); r.it.spec.parent = e.parent || undefined; if (e.parent) this.settler.enqueue(r.it); }
     this.dropHalos(e.id, true);
@@ -840,7 +940,7 @@ export class AreaWorld {
   // stand-in below. The rim is the owner seat's colour (nobody's pawn: the pawn's own colour).
   pawnColor(e) { return this.assets.pawnColor?.(e) || e.color || '#d9a441'; }
   tokenMesh(e) {
-    const fig = e.fig && this.assets.figures?.pawnVisual(e, { color: this.pawnColor(e), ghost: !!(this.gmSide && e.hidden) });
+    const fig = (e.fig || e.placeholder) && this.assets.figures?.pawnVisual(e, { color: this.pawnColor(e), ghost: !!(this.gmSide && e.hidden) }); // (a PLACEHOLDER: the plain figure, blanked: figures.js)
     if (fig) return fig;
     const g = new THREE.Group();
     const col = new THREE.Color(e.color || '#d9a441');
@@ -856,21 +956,24 @@ export class AreaWorld {
     const e = r.entity;
     // A FIGURE PAWN'S NAME IS ON ITS BASE (client/figures.js NAME_ON_BASE); the floating label then carries only what
     // the base does not: damage, conditions, the GM's Hidden mark. With the name off the base it floats as before.
-    const onBase = !!r.visual?.userData.fig && this.assets.figures.name().on;
+    // A PLACEHOLDER's name floats with what it is: "Bobby · not chosen yet" (one tag; nothing on its base)
+    const onBase = !!r.visual?.userData.fig && this.assets.figures.name().on && !e.placeholder;
     if (r.visual?.userData.fig && (r.visual.userData.nameText !== (onBase ? e.name : '') || r.nameStamp !== this.assets.figures.nameStamp)) { this.assets.figures.setNameOn(r.visual, onBase ? e.name : ''); r.nameStamp = this.assets.figures.nameStamp; r.labelKey = null; }
     // damage counts up from 0 (Harry 2026-10-06): an unhurt pawn shows its name alone; there is no bar and no "bloodied"
     const dmg = e.damage > 0 ? `${e.damage} dmg` : '';
-    const text = onBase ? dmg : `${e.name}${dmg ? `  ${dmg}` : ''}`;
-    const sub = (e.conditions || []).join(' · ');
+    const text = onBase ? dmg : `${e.name}${e.placeholder ? ' · not chosen yet' : ''}${dmg ? `  ${dmg}` : ''}`;
+    const sub = ''; // (2026-10-29) conditions are no longer words under the name: they are drawn on the table (client/statusfx.js)
     const key = `${text}|${sub}|${e.hidden}|${this.gmSide}|${onBase}`;
     if (r.labelKey === key) return;
     r.labelKey = key;
     if (r.label) { r.group.remove(r.label); r.label = null; }
     if (onBase && !text && !sub && !(this.gmSide && e.hidden)) return; // nothing left to float
     r.label = labelSprite(text || (sub ? '' : ' '), { sub, pill: this.gmSide && e.hidden ? 'Hidden' : null });
-    r.label.position.y = r.visual?.userData.labelY ?? 4.4; // over a figure's head (a giant is 15 ft tall)
+    if (e.placeholder && this.quietTag?.(e.id)) r.label.visible = false; // (a selected placeholder: its ring's prompt says it, client/pawns.js)
+    r.label.position.y = r.poseTop != null ? r.poseTop + 0.95 : r.visual?.userData.labelY ?? 4.4; // over a figure's head (a giant is 15 ft tall; a figure laid down: over its body)
     r.group.add(r.label);
     if (r.mark) this.placeMark(r);
+    this.statusFx?.apply(r); // (a new label is lifted clear of the conditions' ring)
   }
   // A PAWN'S INDICATOR (Harry 2026-10-06; core/pawn.js MARKS): one of eight shapes floating over the pawn for every
   // seat, the same size on screen at any zoom (so it reads at table distance). It stands on the name label, wherever
@@ -886,7 +989,7 @@ export class AreaWorld {
     sp.renderOrder = 41; sp.scale.set(MARK_SIZE, MARK_SIZE, 1); sp.center.set(0.5, -0.5); sp.userData.mark = key;
     r.mark = sp; r.group.add(sp); this.placeMark(r);
   }
-  placeMark(r) { if (r.mark && r.label) r.mark.position.copy(r.label.position); }
+  placeMark(r) { if (!r.mark) return; if (r.label) r.mark.position.copy(r.label.position); else r.mark.position.set(0, (r.poseTop != null ? r.poseTop : (r.visual?.userData.labelY ?? 4.4) - 0.95) + 0.95, 0); } // (no label: where it would be, over the head; before 2026-10-29 it was left at the feet)
   // (tests) the indicator over a pawn: which one, and where it is on screen
   markOf(id, view) { const r = this.recs.get(id); if (!r?.mark) return null; const p = r.mark.getWorldPosition(new THREE.Vector3()); return { mark: r.mark.userData.mark, at: [p.x, p.y, p.z], visible: !!r.group.visible && r.mark.visible, size: MARK_SIZE }; }
 
@@ -909,6 +1012,9 @@ export class AreaWorld {
       for (const c of all.corners) if (!have.has(vertKey(c)) && keysAt(c).some(veiled)) { corners.push({ ...c, veiled: true }); have.add(vertKey(c)); }
     }
     applyEdgeOverrides(edges, ents);
+    // CAVES (2026-10-25, client/caves.js): a cave's outside walls are its rock, not wall pieces. The edges stay (they are
+    // the walls that stop sight and fog, along the grid line); they draw nothing, and a post where only they meet goes too.
+    for (const e of edges.values()) if (CV.isCaveRockEdge(ents, e)) e.caveRock = true;
     this.edges = edges; this.hiddenRooms = hiddenRooms;
     this.cutDirty = true; // new shell pieces: the cut pass looks at them
     const look = this.assets.look;
@@ -918,9 +1024,30 @@ export class AreaWorld {
     // carries its level ('h:3:4@10'), so pieces at different heights never share a shell key.
     const tiled = new Set(Object.values(ents).filter(isTile).map(e => tileKey(e.x, e.z, e.y))); // cells a placed floor tile covers (at its height)
     for (const rc of rooms) {
-      const { id, specs } = look.floorSpecs(rc), y = rc.y || 0, holes = ST.holesAt(ents, y); // the cells a stair comes up through: no floor, no slab
-      for (const sp of specs) { if (tiled.has(tileKey(sp.x, sp.z, y)) || (holes.size && holes.has(cellKey(sp.x, sp.z)))) continue; if (y) sp.y = (sp.y || 0) + y; want.set(sp.uid, { spec: sp, sig: `${id}|${rc.family}|${sp.sku}|${sp.x}|${sp.z}|${sp.rot}|${y}`, roomId: rc.id }); }
-      if (y > 0) { const sl = slabSpec(rc); want.set(sl.uid, { spec: sl, sig: `slab|${HT.isStoneFamily(rc.family) ? 's' : 't'}|${rc.x}|${rc.z}|${rc.w}|${rc.d}|${y}|${rc.outline ? JSON.stringify(rc.outline) : ''}|${[...holes].sort().join(',')}`, roomId: rc.id, make: () => slabVisual(rc, holes) }); } // the 1-ft floor slab an upper room stands on (derived, never an entity)
+      const { id, specs } = look.floorSpecs(rc), y = rc.y || 0, holes = ST.holesAt(ents, y); // the cells a stair comes up through (and a hole or a pit opens): no floor, no slab
+      // A ROUND HOLE (core/holes.js) cuts its squares whole like any opening; each of them gets its own floor back, the
+      // circle cut out of it (client/holes.js clipCircles): the same tile, turned as it was, so the floor round it matches
+      const rounds = HO.roundHolesAt(ents, y), roundAt = new Map();
+      for (const c of rounds) for (const [gx, gz] of c.cells) { const k = `${gx}:${gz}`; (roundAt.get(k) || roundAt.set(k, []).get(k)).push(c); }
+      const pillars = CV.isCave(rc) && ents[rc.id] ? new Set(CV.caveOf(ents, ents[rc.id]).pillarCells.map(([i, j]) => `${i}:${j}`)) : null; // (2026-10-25) a cave's pillar squares are rock: no floor tile
+      const hill = HT.isTerrain(rc); // (2026-10-24) a hill's top is not drawn where a room stands on it or is dug into it (core/height.js terrainTakenAt)
+      for (const sp of specs) {
+        if (tiled.has(tileKey(sp.x, sp.z, y))) continue;
+        if (pillars && pillars.has(`${Math.floor(sp.x / CELL)}:${Math.floor(sp.z / CELL)}`)) continue;
+        const takenBy = hill ? HT.terrainTakers(ents, y).filter(t => FP.contains(t.rc, (Math.floor(sp.x / CELL) + 0.5) * CELL, (Math.floor(sp.z / CELL) + 0.5) * CELL)).map(t => t.id) : null; // (2026-10-26: drawn, and hidden while a room that takes it shows: cutPass, takenShell)
+        if (takenBy?.length) sp.takenBy = takenBy;
+        // (2026-10-27) a hill's tile that a room takes keeps no hole of that room's floor (a stair's, a round hole's): it is
+        // drawn only while the room is cut away, and then the hill is whole (Gemini at lv -1: a black square and a circle
+        // in the hilltop, where the cathedral's round hole and the grand stair's top are)
+        const ck = cellKey(sp.x, sp.z), circ = sp.takenBy ? null : roundAt.get(ck);
+        if (!sp.takenBy && holes.size && holes.has(ck) && (!circ || sp.soft)) continue; // (a scatter decal on an opened square: left out)
+        if (y) sp.y = (sp.y || 0) + y;
+        const clip = circ && circ.map(c => ({ x: c.x, z: c.z, r: c.r }));
+        want.set(sp.uid, { spec: sp, sig: `${id}|${rc.family}|${sp.sku}|${sp.x}|${sp.z}|${sp.rot}|${y}${sp.takenBy ? '|tb:' + sp.takenBy.join(',') : ''}${clip ? `|clip:${clip.map(c => `${c.x},${c.z},${c.r}`).join(';')}` : ''}`, roomId: rc.id, ...(clip && { make: () => look.makeVisual(sp, false).then(v => clipCircles(v, clip)) }) });
+      }
+      const rk = rounds.map(c => `${c.x},${c.z},${c.r}`).join(';');
+      if (CV.isCave(rc)) for (const [uid, w] of caveShellSpecs(this, ents, rc, specs.find(sp => sp.layer === 'floor' && sp.url)?.url || null)) want.set(uid, w); // its rock, pillars, stalagmites and the face behind (client/caves.js)
+      if (y > 0 && !HT.isTerrain(rc)) { const sl = slabSpec(rc); want.set(sl.uid, { spec: sl, sig: `slab|${HT.isStoneFamily(rc.family) ? 's' : 't'}|${rc.x}|${rc.z}|${rc.w}|${rc.d}|${y}|${rc.outline ? JSON.stringify(rc.outline) : ''}|${[...holes].sort().join(',')}|${rk}`, roomId: rc.id, make: () => slabVisual(rc, holes, rounds) }); } // the 1-ft floor slab an upper room stands on (derived, never an entity)
     }
     // pieces storeys generate are things of their own (2026-10-06): each has a key, and an 'edge' override on it
     // ('open': deleted, or turned into an object that someone moved or swapped) takes the generated one away
@@ -934,11 +1061,15 @@ export class AreaWorld {
     const movedWalls = new Set(Object.values(ents).filter(e => e.kind === 'object' && e.fromEdge && e.fromEdge[0] !== 'c').map(e => e.fromEdge));
     const standing = (k) => { const e = edges.get(k); return !!e && (!e.open || movedWalls.has(k)); };
     const lonely = (v) => { const ks = keysAt(v); return ks.some(k => edges.has(k)) && !ks.some(standing); };
+    const caveOnly = (v) => { const ks = keysAt(v).filter(k => edges.has(k)); return ks.length > 0 && ks.every(k => edges.get(k).caveRock); }; // (a cave's rock corner: no post)
+    // (2026-10-26) a post where a room meets a hill's top at the room's height is the ROOM's, never the hill's: a hill is
+    // never cut away, so a post of the shrine standing on it stayed, alone on the hilltop, when the shrine was hidden
+    const vertexRoom = (rs, v) => roomOfVertex(rs.filter(r => !HT.isTerrain(r) && v.gx >= r.x && v.gx <= r.x + r.w && v.gz >= r.z && v.gz <= r.z + r.d), v) ?? roomOfVertex(rs, v);
     for (const v of corners) {
       const sfx = FP.levelSuffix(v.y || 0);
-      if (openPost.has(`c${v.gx}:${v.gz}${sfx}`) || lonely(v)) continue;
+      if (openPost.has(`c${v.gx}:${v.gz}${sfx}`) || lonely(v) || caveOnly(v)) continue;
       const sp = look.cornerSpec(v); if (sfx) { sp.uid += sfx; sp.key += sfx; sp.y = (sp.y || 0) + v.y; }
-      want.set(sp.uid, { spec: sp, sig: `${v.family}|${!!v.jamb}|${!!v.slim}|${sp.sku}|${v.y || 0}`, roomId: roomOfVertex((v.veiled ? rooms.filter(r => hiddenRooms.has(r.id)) : rooms.filter(r => !hiddenRooms.has(r.id))).filter(r => (r.y || 0) === (v.y || 0)), v) });
+      want.set(sp.uid, { spec: sp, sig: `${v.family}|${!!v.jamb}|${!!v.slim}|${sp.sku}|${v.y || 0}`, roomId: vertexRoom((v.veiled ? rooms.filter(r => hiddenRooms.has(r.id)) : rooms.filter(r => !hiddenRooms.has(r.id))).filter(r => (r.y || 0) === (v.y || 0)), v) });
     }
     // TALL ROOMS (Stage G): a room that spans several storeys has its walls and posts carried up, one plain wall piece per
     // storey above its first (no doors or windows up there). Where a room beside it stands at that height, that room's
@@ -946,10 +1077,9 @@ export class AreaWorld {
     // room: a click on one selects the room, and they hide and show with it.
     const tallBy = new Map(rooms.filter(r => r.tall > 1).map(r => [r.id, r]));
     if (tallBy.size) {
-      const stepOf = (rid) => HT.storeyHeightOf(ents[ents[rid]?.building]);
       for (const e of [...edges.values()]) {
         const t = (e.sides || [e.owner]).map(s => tallBy.get(s.room)).filter(Boolean).sort((a, b) => b.tall - a.tall)[0]; if (!t) continue;
-        const H = stepOf(t.id), plain = { ...e, kind: 'wall', open: false, swap: undefined, doorType: undefined, span: undefined, spanKeys: undefined, spanOf: undefined, override: undefined };
+        const H = HT.STOREY, plain = { ...e, kind: 'wall', open: false, swap: undefined, doorType: undefined, span: undefined, spanKeys: undefined, spanOf: undefined, override: undefined };
         for (let k = 1; k < t.tall; k++) {
           const y = (e.y || 0) + k * H; if (edges.has(FP.keyBase(e.key) + FP.levelSuffix(y))) continue;
           // (2026-10-06) an upper wall piece has the wall key of its own height, so it is a piece of its own: select, delete, swap
@@ -960,7 +1090,7 @@ export class AreaWorld {
       const cornerAt = new Set(corners.map(vertKey));
       for (const v of corners) {
         const t = [...tallBy.values()].filter(r => (r.y || 0) === (v.y || 0) && v.gx >= r.x && v.gx <= r.x + r.w && v.gz >= r.z && v.gz <= r.z + r.d).sort((a, b) => b.tall - a.tall)[0]; if (!t || lonely(v)) continue;
-        const H = stepOf(t.id);
+        const H = HT.STOREY;
         for (let k = 1; k < t.tall; k++) {
           const y = (v.y || 0) + k * H; if (cornerAt.has(vertKey({ ...v, y }))) continue;
           const ukey = `c${v.gx}:${v.gz}${FP.levelSuffix(y)}`; if (openGen.has(ukey)) continue;
@@ -969,14 +1099,49 @@ export class AreaWorld {
         }
       }
     }
+    // THE BAND BETWEEN STOREYS (2026-10-24, client/bands.js; Harry: "fill in the 1ft floor gaps between story 1 and 2
+    // walls"): the foot between a wall's top (9 ft) and the floor of the storey above (10 ft) is filled with a foot of
+    // the plain wall piece and the post that stand above it, in their own family, wherever a wall goes on above:
+    //   an upper room's walls on its outside (an edge with one side: over the wall below, over a jetty, at a setback),
+    //     and the posts at their corners; an inner wall between two upper rooms has both rooms' slabs under it
+    //   every piece a tall room carries up (it has no slab: the foot was a see-through slot)
+    // One merged piece per room and height ('band:<room>@<y>', y = the top of the foot); it belongs to the room of the walls it is cut from (hides, flies, sleeps
+    // and selects with it). A wall edited away has no band; a swapped one keeps its family's plain band.
+    const bands = new Map(), plainOf = (e) => ({ ...e, kind: 'wall', open: false, swap: undefined, panel: undefined, doorType: undefined, span: undefined, spanKeys: undefined, spanOf: undefined, override: undefined });
+    const bandAdd = (roomId, Y, sp) => { const k = `band:${roomId}@${Y}`; (bands.get(k) || bands.set(k, { roomId, Y, parts: [] }).get(k)).parts.push(sp); };
+    //   below the ground, a room's outside walls and posts get the foot ABOVE them (its top is the floor of the storey
+    //     over it, or the ground: the foot was a slot under the ground's cut edge, seen down into a cellar)
+    const banded = new Map(), topOf = (rid) => { const r = ents[rid]; return r?.recipe ? HT.roomTop(ents, r) : null; };
+    for (const e of edges.values()) {
+      if (!e.y || e.open || (e.sides || []).length !== 1 || HT.isTerrain(ents[e.owner.room]?.recipe)) continue; // (a hill is ground: its banks are its sides)
+      if (e.kind !== 'door-span' && !edgeSpecsOf(look, e).length) continue; // only where a wall piece is drawn (an outdoor room has none)
+      const Y = e.y > 0 ? e.y : topOf(e.owner.room); if (Y == null || (e.y < 0 && Y > 0)) continue;
+      const sp = look.edgeSpecs(plainOf(e))[0]; if (!sp) continue;
+      banded.set(e.key, Y); bandAdd(e.owner.room, Y, { ...sp, y: Y - 1, key: e.key });
+    }
+    for (const v of corners) {
+      if (!v.y || openPost.has(`c${v.gx}:${v.gz}${FP.levelSuffix(v.y)}`) || lonely(v)) continue;
+      const k0 = keysAt(v).find(k => banded.has(k)); if (!k0) continue;
+      const rid = vertexRoom(rooms.filter(r => (r.y || 0) === v.y && !hiddenRooms.has(r.id)), v) || vertexRoom(rooms.filter(r => (r.y || 0) === v.y), v);
+      if (rid) bandAdd(rid, banded.get(k0), { ...look.cornerSpec(v), y: banded.get(k0) - 1, key: `c${v.gx}:${v.gz}${FP.levelSuffix(v.y)}` });
+    }
+    for (const [uid, w] of want) if (w.spec.stack && !w.spec.band) bandAdd(w.roomId, (w.spec.y || 0), { ...w.spec, y: (w.spec.y || 0) - 1, key: w.spec.key || null }); // a tall room's pieces above its first storey
+    for (const [k, b] of bands) {
+      if (openGen.has(k)) continue;
+      const xs = b.parts.map(p => p.x), zs = b.parts.map(p => p.z), x0 = Math.min(...xs), x1 = Math.max(...xs), z0 = Math.min(...zs), z1 = Math.max(...zs);
+      const gx = (x0 + x1) / 2, gz = (z0 + z1) / 2, parts = b.parts;
+      const spec = { uid: k, gen: 'band', band: true, name: 'Band', layer: 'walls', roomId: b.roomId, x: gx, y: b.Y - 1, z: gz, rot: 0, dims: [x1 - x0 + 1, 1, z1 - z0 + 1], parts: parts.map(p => ({ key: p.key, id: p.id, sku: p.sku, x: p.x, z: p.z, rot: p.rot || 0, dims: p.dims })) }; // (parts: what it is cut from, for tests)
+      const sig = 'band|' + parts.map(p => `${p.sku}|${p.x.toFixed(2)}|${p.z.toFixed(2)}|${(p.rot || 0).toFixed(3)}|${(p.dims || []).join('x')}`).sort().join(';');
+      want.set(k, { spec, sig, roomId: b.roomId, make: () => Promise.all(parts.map(p => look.makeVisual({ ...p, y: 0 }, false).catch(() => null))).then(vs => bandVisual(vs.map((v, i) => ({ visual: v, x: parts[i].x - gx, y: 0, z: parts[i].z - gz, rot: parts[i].rot || 0, key: parts[i].key })))) });
+    }
     this.newShell = [];
     for (const [k, s] of this.shell) if (!want.has(k) || want.get(k).sig !== s.sig || want.get(k).roomId !== s.roomId) { s.group.parent?.remove(s.group); this.shell.delete(k); this.anims.delete(s.group); this.dropHalos('shell:' + k); }
     for (const [k, w] of want) {
       if (this.shell.has(k)) { const s = this.shell.get(k); s.group.visible = (this.wallsOn || s.spec.layer === 'floor') && !s.group.userData.cutHidden; s.hidden = hiddenRooms.has(w.roomId); this.setGhost(s, s.hidden); continue; }
       const group = new THREE.Group(); group.rotation.order = 'YXZ';
       group.position.set(w.spec.x, w.spec.y || 0, w.spec.z); group.rotation.y = w.spec.rot || 0;
-      group.userData = { shellKey: k, edgeKey: w.spec.layer === 'floor' ? null : (w.spec.key || null), roomId: w.roomId, floor: w.spec.layer === 'floor', roomPiece: (w.spec.support || w.spec.stack) && !w.spec.key ? w.roomId : null }; // walls, doors, windows AND posts pick
-      const s = { key: k, sig: w.sig, spec: w.spec, group, roomId: w.roomId, visual: null, hidden: hiddenRooms.has(w.roomId), make: w.make || null, unit: this.roomUnit?.get(w.roomId) || null };
+      group.userData = { shellKey: k, edgeKey: w.spec.layer === 'floor' ? null : (w.spec.key || null), roomId: w.roomId, floor: w.spec.layer === 'floor', roomPiece: (w.spec.support || w.spec.stack || w.spec.band || w.spec.cave) && !w.spec.key ? w.roomId : null }; // walls, doors, windows AND posts pick
+      const s = { key: k, sig: w.sig, spec: w.spec, group, roomId: w.roomId, visual: null, hidden: hiddenRooms.has(w.roomId), make: w.make || null, unit: this.roomUnit?.get(w.roomId) || null, hill: HT.isTerrain(ents[w.roomId]?.recipe) }; // (hill: a hill's top, see-through below the ground: hillSeePass)
       const stand = this.assets.placeholder(w.spec.dims); stand.userData.noPick = w.spec.layer === 'floor'; group.add(stand); s.visual = stand;
       s.ready = shellVisual(look, s).then(v => { if (this.shell.get(k) !== s || !v) return; group.remove(s.visual); group.add(v); s.visual = v; s.ghost = false; this.setGhost(s, s.hidden); }).catch(() => {}).then(() => { s.settled = true; });
       group.visible = this.wallsOn || w.spec.layer === 'floor';
@@ -984,6 +1149,7 @@ export class AreaWorld {
       this.shell.set(k, s);
       this.newShell.push(s);
     }
+    this.shellGen = (this.shellGen || 0) + 1; // (hillSeePass: which pieces are a hill's)
   }
   // the graphics preset changed the LOD tier: rebuild every visual in place (objects and the shell), as the tuner's faces
   // dial does; the stand-in stays until the new mesh is ready, so nothing blinks out
@@ -1059,6 +1225,46 @@ export class AreaWorld {
   // (tests, docs) the support pieces now drawn: [{ kind, id, standIn, room, x, y, z, h }]
   supports() { return [...this.shell.values()].filter(s => s.spec.support).map(s => ({ kind: s.spec.support, id: s.spec.id, sku: s.spec.sku || null, standIn: s.spec.standIn, room: s.roomId, x: s.spec.x, y: s.spec.y, z: s.spec.z, h: s.spec.dims[1] })); }
 
+  // HILLS BELOW THE GROUND ARE SEE-THROUGH (2026-10-27; Harry, at lv -1 on his map: "when we go to height -1, all hills
+  // etc should disappear, not just what's over top of stuff", then "maybe what we really need is something more like
+  // transparent/translucent hills", and "Rooms _under_ the ground level shouldn't change the shape of the hill"). It
+  // replaces the crater of 2026-10-26 (the earth opened at 45 degrees over a cellar or a cave being shown): at a view
+  // below the ground (the cut under 0: lv -1 and down) every hill keeps its shape and is drawn whole, its top's tiles,
+  // its bank and its rocks and bushes, faded to `hillSee` (House look ▸ Hills below ground: see-through; 0 = not drawn,
+  // 1 = solid; HILL_SEE by default), so the ground's openings over the cellars and caves under it show through. What
+  // stands on the hill stays hidden there (cutHidesBase); sight and fog do not look at it. At and above the ground: solid.
+  hillSeeNow() { return this.cut != null && this.cut < 0 ? this.hillSee : 1; }
+  setHillSee(v) { v = Math.max(0, Math.min(1, Number.isFinite(+v) ? +v : HILL_SEE)); if (v === this.hillSee) return; this.hillSee = v; this.cutDirty = true; }
+  groundSeeNow() { return this.cut != null && this.cut < 0 ? this.groundSee : 1; }
+  setGroundSee(v) { v = Math.max(0, Math.min(1, Number.isFinite(+v) ? +v : GROUND_SEE)); if (v === this.groundSee) return; this.groundSee = v; this.cutDirty = true; }
+  // THE GROUND BELOW THE GROUND (2026-10-27): the ground plane (and the patches round a round hole in it) faded to
+  // groundSee at a view below the ground, gone at 0, solid at 1 and at and above the ground. Its openings over the
+  // cellars and caves being shown are kept (at 1 it is exactly the ground of before); a faded ground stops no pick
+  // (floorStop), so a click on it at lv -1 reaches the cellar under it.
+  groundSeePass() {
+    const op = this.groundSeeNow(), P = this.groundCover?.patchGroup?.();
+    for (const o of [this.ground, ...(P ? P.children : [])]) { if (!o?.isMesh) continue; o.visible = op > 0; if (op > 0) seeMesh(o, op); else seeMesh(o, 1); }
+  }
+  hillSeeHides(s) { return s.hill && this.hillSeeNow() <= 0; } // (a tile of a hill's top at 0: not drawn; cutPass)
+  hillSeePass() { // (every frame; cheap: it acts only on a change, or on a hill tile whose visual has just arrived)
+    const op = this.hillSeeNow(); this.terrain.see(op);
+    if (this.hillShellGen !== this.shellGen) { this.hillShellGen = this.shellGen; this.hillShell = [...this.shell.values()].filter(sh => sh.hill); }
+    const tile = op > 0 && op < 1 ? op : 1;
+    for (const sh of this.hillShell || []) if ((sh.seeOp !== tile || sh.seeVis !== sh.visual) && !sh.ghost) { seeThrough(sh.visual, tile); sh.seeOp = tile; sh.seeVis = sh.visual; }
+  }
+  // (2026-10-26) a tile of a hill's top where a room stands on it or is dug into it: hidden while that room shows (the room's
+  // floor is the floor there), drawn while the cut hides it (the hill is whole again: a shrine cut away leaves the hilltop)
+  takenShell(s) { const tb = s.spec.takenBy; if (!tb) return false; const E = this.view?.entities; return tb.some(id => E?.[id] && !(this.cut != null && this.cutHidden?.has(id))); }
+  takenShownAt(rc, x, z) { const E = this.view?.entities; return HT.terrainTakers(E, HT.roomY(rc)).some(t => FP.contains(t.rc, x, z) && !(this.cut != null && this.cutHidden?.has(t.id))); } // (the same, for the pointer)
+  // HILLS (2026-10-24): the banks are worked out again only when a hill (its place, shape, height, ground, rock sides),
+  // the area's ground, a room near it, or (2026-10-26) the rooms the cut hides that take a hill changed; a quick key
+  // first, the field itself only then (client/terrain.js)
+  syncTerrain(ents = this.view?.entities || {}) {
+    const rooms = Object.values(ents).filter(e => e.kind === 'room'), hills = rooms.filter(HT.isTerrainRoom), view = this.view; // (and, when there are hills, every room's place and height: a room cuts the bank, core/terrain.js cuttersOf)
+    let hidden = []; if (hills.length && this.cut != null) { this.cutSets(); hidden = HT.terrainTakers(ents).filter(t => this.cutHidden.has(t.id)).map(t => t.id).sort(); } // (a room the cut hides takes nothing from a hill: core/terrain.js cuttersOf)
+    const tkey = hills.map(e => `${e.id}:${JSON.stringify(e.recipe)}:${e.cliff ? 1 : 0}:${e.hidden ? 1 : 0}`).sort().join('|') + '#' + (view?.ground || '') + (hills.length ? '#' + rooms.filter(e => !HT.isTerrain(e.recipe)).map(e => `${e.id}:${e.recipe.x}:${e.recipe.z}:${e.recipe.w}:${e.recipe.d}:${e.recipe.y || 0}:${e.recipe.tall || 1}:${e.recipe.outline ? JSON.stringify(e.recipe.outline) : ''}:${e.building || ''}`).sort().join('|') + '#hid:' + hidden.join(',') : '');
+    if (tkey !== this.terrainKey) { this.terrainKey = tkey; this.terrain.sync(ents, { ground: view?.ground || null, hidden }); }
+  }
   // THE GROUND OPENS over rooms below it, so a cellar or a dungeon can be seen and worked in from above. Off (whole
   // ground) unless asked: Stage B opens it while the level being worked on is below 0; the cut will drive it (Stage C).
   setGroundOpen(on) { on = !!on || (this.cut != null && this.cut < 0); if (on === !!this.groundOpen) return; this.groundOpen = on; this.rebuildGround(); } // (the cut opens it too: setCut)
@@ -1068,16 +1274,28 @@ export class AreaWorld {
     const E = this.view?.entities || {}; // a stair that comes up onto open ground (no room's floor there) cuts the ground, cut or no cut
     for (const k of ST.holesAt(E, 0)) open.add(k); // (2026-10-11: under a ground-floor ROOM too. Its floor tiles were left out there, but the ground itself lay in the hole: a stairs-down into a cellar showed grass, and the pointer stopped on it)
     this.groundOpenCells = open; // (floorStop: the ground stops the pointer except over these)
-    const key = [...open].sort().join(','); if (key === this.groundKey) return; this.groundKey = key;
+    // CAVES (2026-10-25): over a cave being shown the ground is cut along the cave's LIP, not its squares (core/caves.js),
+    // so the rock's fronts show from above and the chunks' tops come up through the ground's cut edge as its rim. The
+    // cave's box is left out of the square-by-square ground below and laid again as strips round the lip.
+    const caves = [];
+    if (this.groundOpen) for (const e of Object.values(this.view?.entities || {})) if (CV.isCaveRoom(e) && HT.roomY(e.recipe) < 0 && HT.visibleAt(HT.roomY(e.recipe), this.cut ?? null)) { const C = CV.caveOf(this.view.entities, e); caves.push({ C, cb: [Math.floor(C.box[0] / CELL) - 1, Math.floor(C.box[1] / CELL) - 1, Math.ceil(C.box[2] / CELL) + 1, Math.ceil(C.box[3] / CELL) + 1] }); }
+    const mesh = new Set(open);
+    for (const { cb } of caves) for (let gx = cb[0]; gx < cb[2]; gx++) for (let gz = cb[1]; gz < cb[3]; gz++) mesh.add(`${gx}:${gz}`);
+    const inCave = (gx, gz) => caves.some(({ cb }) => gx >= cb[0] && gx < cb[2] && gz >= cb[1] && gz < cb[3]);
+    const key = [...open].sort().join(',') + '#' + caves.map(({ C }) => `${C.id}:${C.box.map(v => v.toFixed(2)).join(',')}:${C.lipLoops.map(l => l.length).join(',')}:${C.seed}`).join('|'); if (key === this.groundKey) return; this.groundKey = key;
     const pos = [], quad = (x0, z0, x1, z1) => { if (x1 > x0 && z1 > z0) pos.push(x0, -z0, 0, x0, -z1, 0, x1, -z1, 0, x0, -z0, 0, x1, -z1, 0, x1, -z0, 0); }; // (the mesh lies flat: its local -y is world z)
-    if (!open.size) quad(-W / 2, -W / 2, W / 2, W / 2);
+    if (!mesh.size) quad(-W / 2, -W / 2, W / 2, W / 2);
     else {
+      const open = mesh; // (the squares the plain ground leaves out: the opened ones and the caves' boxes)
       const cs = [...open].map(k => k.split(':').map(Number)), gx0 = Math.min(...cs.map(c => c[0])), gx1 = Math.max(...cs.map(c => c[0])) + 1, gz0 = Math.min(...cs.map(c => c[1])), gz1 = Math.max(...cs.map(c => c[1])) + 1;
       quad(-W / 2, -W / 2, W / 2, gz0 * CELL); quad(-W / 2, gz1 * CELL, W / 2, W / 2); quad(-W / 2, gz0 * CELL, gx0 * CELL, gz1 * CELL); quad(gx1 * CELL, gz0 * CELL, W / 2, gz1 * CELL);
       for (let gz = gz0; gz < gz1; gz++) { let run = null; for (let gx = gx0; gx <= gx1; gx++) { const solid = gx < gx1 && !open.has(`${gx}:${gz}`); if (solid && run == null) run = gx; if (!solid && run != null) { quad(run * CELL, gz * CELL, gx * CELL, (gz + 1) * CELL); run = null; } } }
+      // each cave's box: solid ground less the inside of its lip, less any square opened for another room (or another cave's box: laid by that one)
+      caves.forEach(({ C, cb }, n) => { for (const [a, b, c, d] of CV.solidStrips([cb[0] * CELL, cb[1] * CELL, cb[2] * CELL, cb[3] * CELL], C.lipLoops, (gx, gz) => (open.has(`${gx}:${gz}`) && !inCave(gx, gz)) || this.groundOpenCells.has(`${gx}:${gz}`) && !C.cells.has(`${gx},${gz}`) || caves.some((o, m) => m < n && gx >= o.cb[0] && gx < o.cb[2] && gz >= o.cb[1] && gz < o.cb[3]))) quad(a, b, c, d); });
     }
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.computeVertexNormals();
-    this.ground.geometry.dispose(); this.ground.geometry = g;
+    const uv = []; for (let i = 0; i < pos.length; i += 3) uv.push(pos[i] / CELL, pos[i + 1] / CELL); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); // world UVs: one repeat per 5-ft square, on the grid (an area's ground material: groundcover.js)
+    this.ground.geometry.dispose(); this.ground.geometry = g; this.groundCover?.refresh();
   }
   // THE GHOST of the level being built on: its 5-ft grid, and the lit squares (showCells below).
   // Harry 2026-10-06: "it is showing THRU things that are on the second floor. It DOES need to show over things on the
@@ -1121,6 +1339,7 @@ export class AreaWorld {
     const keep = new Set([this.layers.shell, this.layers.things]), was = [];
     for (const c of this.scene.children) { was.push([c, c.visible]); if (!keep.has(c)) c.visible = false; }
     const sprites = []; for (const L of keep) L.traverse(o => { if ((o.isSprite || o.isLine || o.isPoints) && o.visible) { sprites.push(o); o.visible = false; } }); // only solid things hide the ghost
+    for (const sh of this.hillShell || []) if (sh.group.visible) { sprites.push(sh.group); sh.group.visible = false; } // (2026-10-28) nor a hill's top: below the ground a hill is earth, a see-through lid like the ground (hillSeePass), and the squares of a cellar drawn under it show through it
     const prev = renderer.getRenderTarget(), auto = renderer.shadowMap.autoUpdate, over = this.scene.overrideMaterial, bg = this.scene.background;
     renderer.shadowMap.autoUpdate = false; this.scene.overrideMaterial = this.ghostDepthMat; this.scene.background = null;
     try { renderer.setRenderTarget(rt); renderer.clear(true, true, false); renderer.render(this.scene, camera); }
@@ -1142,8 +1361,13 @@ export class AreaWorld {
   // ---------------- spawn animation (the tuner's choreography, local) ----------------
   // a new room: its floor, walls, doors and furniture, in the house preset's layer order, camera-side walls last
   animateRoom(roomId, objectIds, camera, { shell = true } = {}) {
-    const room = this.view?.entities[roomId]; if (!room) return 0;
-    if (this.unitAsleep(roomId)) return 0; // built out of everybody's sight (another seat, far away): it is simply there when someone looks
+    const p = this.roomPieces(roomId, objectIds, { shell }); if (!p) return 0;
+    return this.play(p.list, 'in', p.rect, camera, p.loaded);
+  }
+  // a room's pieces for its spawn-in, and the promise that its meshes have loaded (null: no room, or it is asleep)
+  roomPieces(roomId, objectIds, { shell = true } = {}) {
+    const room = this.view?.entities[roomId]; if (!room) return null;
+    if (this.unitAsleep(roomId)) return null; // built out of everybody's sight (another seat, far away): it is simply there when someone looks
     const c = room.recipe, rect = { x0: c.x * CELL, z0: c.z * CELL, x1: (c.x + c.w) * CELL, z1: (c.z + c.d) * CELL };
     const list = [];
     // shell: true = the pieces that are new with this room; 'all' = every piece it has (a replay); false = its things only
@@ -1151,8 +1375,50 @@ export class AreaWorld {
     for (const id of objectIds) { const r = this.recs.get(id); if (r) list.push({ group: r.group, layer: r.entity.layer || 'furnish', x: r.entity.x, z: r.entity.z, rest: restOf(r.entity), entityId: id, ready: r.ready }); }
     // as the tuner does: load every mesh first (the room stays unseen), then play the whole choreography with the real
     // pieces, never grey stand-ins swapping in mid-flight. A piece that won't load doesn't hold the room past 20 s.
-    const ready = Promise.race([Promise.all(list.map(it => it.ready && it.ready.catch(() => {}))), new Promise(r => setTimeout(r, 20000))]);
-    return this.play(list, 'in', rect, camera, ready);
+    const loaded = Promise.race([Promise.all(list.map(it => it.ready && it.ready.catch(() => {}))), new Promise(r => setTimeout(r, 20000))]);
+    return { roomId, list, rect, loaded };
+  }
+  // A BUILDING OF SEVERAL STOREYS COMES IN ALL AT ONCE (Harry 2026-10-22, second take: "animate the highest floor (and
+  // bring in all floors simultaneously) and then we cut down ... (with just the level change animation) to get to
+  // floor 1"). storeys: [{ y, rooms: [{ roomId, ids, shell }] }]. Every room waits for the meshes of EVERY room, so all
+  // storeys start their spin-in on the same frame (a room alone starts when its own are in: animateRoom). onDone() once
+  // everything has played and settled (the settler; DROP_SETTLE_MAX at most): main.js then walks the view of the seat
+  // that made it down to the ground storey (the storey tour). Local only, like every spawn-in.
+  animateStoreys(storeys, camera, { onDone = null } = {}) {
+    const t0 = performance.now(), ms = (t) => Math.round(t - t0);
+    const st = storeys.map(s => ({ y: s.y, rooms: s.rooms.map(r => this.roomPieces(r.roomId, r.ids, { shell: r.shell })).filter(p => p && p.list.length) })).filter(s => s.rooms.length);
+    if (!st.length) { onDone?.(); return 0; }
+    const all = Promise.all(st.flatMap(s => s.rooms.map(p => p.loaded)));
+    const drop = { t0, onDone, startAt: null, endAt: null, storeys: [], log: { t0, storeys: [], loaded: null, start: null, end: null, settled: null } };
+    const ready = all.then(() => { drop.startAt ??= performance.now(); drop.log.loaded = drop.log.start = ms(drop.startAt); });
+    let total = 0;
+    for (const s of st) {
+      const rec = { y: s.y, groups: s.rooms.flatMap(p => p.list.map(it => it.group)), out: { y: s.y, rooms: s.rooms.length, n: 0, start: null, end: null } };
+      rec.out.n = rec.groups.length;
+      for (const p of s.rooms) total = Math.max(total, this.play(p.list, 'in', p.rect, camera, ready));
+      drop.storeys.push(rec); drop.log.storeys.push(rec.out);
+    }
+    this.lastStoreys = drop.log; // (tests) ms from the drop: meshes in, each storey's start and end, all played, settled
+    (this.drops ||= []).push(drop);
+    return total;
+  }
+  dropStep(now) {
+    for (const d of [...this.drops]) {
+      if (d.startAt == null) continue; // still loading
+      const ms = (t) => Math.round(t - d.t0);
+      let playing = false;
+      for (const s of d.storeys) {
+        const on = s.groups.filter(g => this.anims.has(g));
+        if (s.out.start == null && on.some(g => this.anims.get(g).t0 <= now)) s.out.start = ms(Math.min(...on.map(g => this.anims.get(g).t0)));
+        if (on.length) playing = true; else if (s.out.end == null) s.out.end = ms(now);
+      }
+      if (playing) continue;
+      if (d.endAt == null) d.log.end = ms(d.endAt = now);
+      if (this.settler.pending() && now - d.endAt < DROP_SETTLE_MAX) continue;
+      d.log.settled = ms(now);
+      this.drops.splice(this.drops.indexOf(d), 1);
+      d.onDone?.();
+    }
   }
   animateOut(list) { return this.play(list, 'out', null, null); }
   play(list, dir, rect, camera, ready = null) {
@@ -1240,6 +1506,33 @@ export class AreaWorld {
     if (was !== key) this.dropHalos(r.entity.id); // the brackets are measured round the thing as it lies
   }
   // a thing's mesh arrived or was rebuilt: it takes the stand-in's place (inside the tilt, when the thing is tilted)
+  // OPEN / SHUT (2026-10-30, client/openlook.js): motion over OPEN_MS (eased), or at once when the viewer asked for
+  // still (reduce motion, Low graphics: statusStill, main.js); a swap to the open twin pops in over POP_MS
+  openTo(r, e) {
+    const was = r.entity; r.entity = e; r.vkey = visualKey(e); this.place(r);
+    const rig = r.visual.userData.openRig, to = e.open ? 1 : 0, still = !!this.statusStill?.();
+    if (rig) {
+      this.dropHalos(e.id);
+      if (still) { rig.set(to); this.openAnims?.delete(r); return; }
+      (this.openAnims ||= new Map()).set(r, { rig, from: rig.t, to, t0: performance.now(), ms: OPEN_MS * Math.max(0.35, Math.abs(to - rig.t)) });
+      return;
+    }
+    this.visualOf(e).then(v => {
+      if (!v || this.recs.get(e.id) !== r || !!r.entity.open !== !!e.open || r.vkey !== visualKey(e)) return; // (the relay's copy of the same change replaces the tab's own: still this look)
+      this.swapVisual(r, v); if (this.gmSide && e.hidden) ghostify(v); this.dropHalos(e.id);
+      if (!still && was) (this.openAnims ||= new Map()).set(r, { pop: v, t0: performance.now(), ms: POP_MS });
+    }).catch(() => {});
+  }
+  openStep(now) {
+    if (!this.openAnims?.size) return;
+    for (const [r, a] of this.openAnims) {
+      const p = Math.min(1, (now - a.t0) / a.ms);
+      if (a.pop) { const s = 1 + POP * Math.sin(Math.PI * p); a.pop.scale.multiplyScalar(s / (a.pop.userData.popS || 1)); a.pop.userData.popS = s; a.pop.updateMatrixWorld(true); }
+      else { const q = a.to > a.from ? T.hinge.EASE.outCubic(p) : T.hinge.EASE.inOutCubic(p); a.rig.set(a.from + (a.to - a.from) * q); }
+      if (p >= 1) { if (a.pop) { a.pop.scale.multiplyScalar(1 / (a.pop.userData.popS || 1)); a.pop.userData.popS = 1; a.pop.updateMatrixWorld(true); } this.openAnims.delete(r); this.dropHalos(r.entity.id); }
+    }
+  }
+  openingNow() { return this.openAnims?.size || 0; } // (tests: a door still swinging)
   swapVisual(r, v) { r.visual?.removeFromParent(); r.visual = v; if (r.it) r.it.visual = v; (r.tiltNode || r.group).add(v); if (r.entity.kind === 'object' && !this.anims.has(r.group)) this.seatTilt(r); }
   // (tests) a thing's box in the world as drawn, from its vertices: { min, max } in feet
   drawnBox(id) { const r = this.recs.get(id); if (!r?.visual) return null; this.settleMatrices(); r.group.updateMatrixWorld(true); const b = vertexBox(r.visual, r.visual.parent.matrixWorld); return b && { min: b.min.toArray(), max: b.max.toArray(), standIn: !!r.visual.userData?.placeholder, tilted: !!r.tiltNode }; }
@@ -1265,6 +1558,8 @@ export class AreaWorld {
   // ---------------- per frame ----------------
   frame(dt, { presence, localDrags, deco, now = performance.now(), camera }) {
     this.stepAnims(now);
+    this.openStep(now); // a door swinging, a lid popping in (openTo)
+    if (this.drops?.length) this.dropStep(now); // a building of several storeys coming in (animateStoreys)
     if (this.roofsOn) this.roofTiers(camera, now);
     if (this.assets.figures?.name().faceCamera) { const vs = []; for (const r of this.pawns) if (r.visual?.userData.nameG) vs.push(r.visual); if (vs.length) this.assets.figures.faceNames(vs, camera); } // names on bases stay toward the camera
     this.settler.tick(this.busy?.() ? 0.4 : 3); // (seating things on table tops can wait while the hand moves: interact.js)
@@ -1289,15 +1584,23 @@ export class AreaWorld {
       s.group.position.set(s.spec.x + (sh?.dx || 0), s.spec.y || 0, s.spec.z + (sh?.dz || 0)); s.shifted = !!sh;
     }
     this.hadShifts = shifts.size > 0 || (this.hadShifts && this.anims.size > 0);
-    for (const [id, m] of this.dragPlates ||= new Map()) if (!shifts.has(id)) { m.parent?.remove(m); m.material.dispose(); this.dragPlates.delete(id); }
+    for (const [id, m] of this.dragPlates ||= new Map()) if (!shifts.has(id)) { m.parent?.remove(m); m.material.dispose(); m.geometry.dispose(); this.dragPlates.delete(id); }
     for (const [id, sh] of shifts) {
       let m = this.dragPlates.get(id);
-      if (!m) { m = new THREE.Mesh(sh.rc.outline ? cellsGeometry(sh.rc) : PLATE, new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.3, depthTest: false })); m.renderOrder = 25; m.userData.halo = true; m.userData.noPick = true; m.userData.shaped = !!sh.rc.outline; this.layers.deco.add(m); this.dragPlates.set(id, m); }
-      m.material.color.set(sh.color || '#ffffff'); if (!m.userData.shaped) m.scale.set(sh.w, 1, sh.d); m.position.set(sh.x, (sh.rc.y || 0) + 0.12, sh.z); // (a shaped room's plate is its own cells, about its bounding box's centre)
+      if (!m) { m = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.3, depthTest: false })); m.renderOrder = 25; m.userData.halo = true; m.userData.noPick = true; m.userData.shaped = !!sh.rc.outline; this.layers.deco.add(m); this.dragPlates.set(id, m); }
+      m.material.color.set(sh.color || '#ffffff');
+      // its squares where they would land, each on what is drawn there (markY: on a hill's top, not under it). Built again
+      // only when it moves to other squares or the ground is built again
+      const ox = Math.round(sh.dx / CELL), oz = Math.round(sh.dz / CELL), y0 = sh.rc.y || 0, key = `${ox}:${oz}:${y0}`;
+      const cx = (sh.rc.x + sh.rc.w / 2 + ox) * CELL, cz = (sh.rc.z + sh.rc.d / 2 + oz) * CELL; // (about the footprint's middle where it lands)
+      if (m.userData.key !== key || m.userData.field !== this.terrainField) { m.userData.key = key; m.userData.field = this.terrainField; m.geometry.dispose(); m.geometry = this.drapedGeometry(FP.cellsOf(sh.rc).map(([i, j]) => [sh.rc.x + i + ox, sh.rc.z + j + oz]), y0, y0 + 0.12).translate(-cx, 0, -cz); }
+      m.position.set(sh.x, 0, sh.z); // (sh.x: the drag's centre; a remote seat's drag between squares: the plate follows it exactly)
     }
     for (const h of this.halos.values()) { const v = h.obj.userData.volume; if (!v) continue; const sh = v.roomIds.length === 1 ? shifts.get(v.roomIds[0]) : v.roomIds.map(i => shifts.get(i)).find(Boolean); v.group.position.set(v.home[0] + (sh?.dx || 0), v.y || 0, v.home[1] + (sh?.dz || 0)); }
     for (const [id, r] of this.recs) { if (!r.asleep) this.poseRec(r, id); }
     this.cutPass(); // the cut: what is above it is not drawn (and so its lamps are out: fxItems)
+    this.hillSeePass(); // (2026-10-27) below the ground the hills are drawn see-through
+    this.groundSeePass(); // (2026-10-27) and the ground
     this.cutFly.frame(now, camera); // what the cut just hid or showed, in flight (nothing in flight: nothing done)
     this.shadowPass();
     this.roofPass(); // roofs show with the switch on and the cut off or above them
@@ -1307,11 +1610,13 @@ export class AreaWorld {
     this.frameCursors(presence);
     this.framePings(now);
     this.frameSignals(deco, now, camera);
+    this.statusFx?.frame(now, camera); // conditions: the orbiters, the text labels, the floor rings (three instanced draws)
+    this.auraFx?.frame(now, camera); // auras: the light columns, the floor, the sparks and emblems (three instanced draws)
     // Every visible figure uses its grounded base's sight, including tall figures and flyers.
     // The fog pass exempts only its depth-tested silhouette, never nearby geometry.
     const fog=this.fx?.fogwar||this.fogwar;
     const sightPawns=this.fogActive ? [...this.pawns].filter(r=>r.group.visible && !this.cutHides(r.entity) && !this.fogRule?.(r.entity)) : [];
-    if(fog?.setOverlays)fog.setOverlays(this.fogActive ? [...this.layers.deco.children.filter(g=>g.userData.ruler||(g.userData.ping&&g.userData.fogged)),...[...this.cursors.values()].filter(c=>c.fogged).map(c=>c.obj),...sightPawns.flatMap(r=>[r.label,r.mark].filter(Boolean))] : []);
+    if(fog?.setOverlays)fog.setOverlays(this.fogActive ? [...this.layers.deco.children.filter(g=>g.userData.ruler||(g.userData.ping&&g.userData.fogged)),...[...this.cursors.values()].filter(c=>c.fogged).map(c=>c.obj),...sightPawns.flatMap(r=>[r.label,r.mark].filter(Boolean)),...(this.statusFx?.meshes||[])] : []);
     if(fog?.setFlyers)fog.setFlyers(sightPawns.map(r=>r.group));
     // walls known through their thickness (2026-10-18): a wall piece or post whose FACE the viewer has seen or remembers
     // keeps its cap and far face (fogwar.js); recomputed when sight or the cut changes (cutGen), not every frame
@@ -1343,7 +1648,7 @@ export class AreaWorld {
         this.cursors.set(s.seat, c); this.layers.cursors.add(c.obj);
       }
       let cy = s.pos[2] || 0; if (this.roofsOn && this.roofRecs?.size) { _down.set(new THREE.Vector3(s.pos[0], 400, s.pos[1]), DOWN); const rf = this.roofAt(_down, true); if (rf && rf.point.y > cy) cy = rf.point.y; } // with my roofs showing, on the roof over that spot (a deck, a pitch), not under it
-      c.obj.position.set(s.pos[0], cy, s.pos[1]); c.obj.visible = this.cut == null || HT.visibleAt(cy, this.cut); // on the floor it points at; a cursor above my cut is not drawn
+      c.obj.position.set(s.pos[0], cy, s.pos[1]); c.obj.visible = this.cut == null || HT.visibleAt(cy, this.cut) || !this.cutHidesPoint(s.pos[0], s.pos[1], cy); // on the floor it points at; a cursor above my cut is not drawn, unless it is on what shows there (a hilltop, a building standing clear on one: 2026-10-26)
       // VISION FOG (Harry 2026-10-15): other people's cursors show through it, dimmed and ringed where I cannot see the spot
       // ("pointing into the unknown"); drawn again after the fog pass (fogwar.js overlays), the way rulers are. The GM's is
       // withheld there unless GM_CURSOR_THROUGH_FOG: they may be standing in the room they are preparing.
@@ -1363,6 +1668,24 @@ export class AreaWorld {
     if (c.ring) c.ring.visible = on;
   }
 
+  // THE HEIGHT A FOOTPRINT MARK IS DRAWN AT over the 5-ft square (gx, gz) (2026-10-28, Harry: "the room/building
+  // placement highlights don't show on top of hills when you drag"). `at` is where it goes on flat ground (on the ground
+  // 0.12 ft up; on a level just under its floor line, ghostMaterial). At or above the ground a mark lies ON what is drawn
+  // there when that is higher: a hill's top (a room standing on it, or dug into it at the ground: the squares show where
+  // it cuts in), its bank, the earth over a room dug into a higher hill. It was drawn at the room's floor, so on a
+  // hilltop it lay 0.3 ft under the grass (depth-tested, hidden) and at the ground it showed through the hill, off to one
+  // side of the pointer. Below the ground the earth is a see-through lid over it: as it was.
+  markY(gx, gz, y, at) {
+    const T = this.terrainField; if (y < 0 || !T) return at;
+    let hi = -Infinity; for (let j = 0; j < 4; j++) for (let i = 0; i < 4; i++) hi = Math.max(hi, T.heightAt(gx * CELL + 0.2 + i * 1.53, gz * CELL + 0.2 + j * 1.53));
+    return hi + 0.12 > at ? hi + 0.12 : at;
+  }
+  // a footprint's squares as one flat-shaded geometry in world feet, each square at its markY (cells: [gx, gz] lists)
+  drapedGeometry(cells, y, at, geo = null) {
+    const pos = new Float32Array(cells.length * 18); let k = 0;
+    for (const [gx, gz] of cells) { const h = this.markY(gx, gz, y, at), a = gx * CELL, b = gz * CELL, c = a + CELL, d = b + CELL; for (const [px, pz] of [[a, b], [a, d], [c, d], [a, b], [c, d], [c, b]]) { pos[k++] = px; pos[k++] = h; pos[k++] = pz; } }
+    const g = geo || new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.computeBoundingSphere(); return g;
+  }
   ping(x, z, color, y = 0) { this.pings.push({ x, z, y: y || 0, color, t0: performance.now() }); } // (y: the height of the spot; a floor upstairs, a table top, a roof)
   // THE CELL INDICATOR: which 5-ft squares an action will take, and which it will not. `lit` cells light up in the given
   // colour (they will become the thing); `dim` cells get a small quiet mark (asked for, but not available: another room
@@ -1377,7 +1700,7 @@ export class AreaWorld {
     c.lit.material.opacity = opacity;
     this.ghostMode(c.lit, y); this.ghostMode(c.dim, y); // on a level: over what is below it, behind what is on it (the ghost, above)
     const M = new THREE.Matrix4();
-    const fill = (mesh, cells, scale, col) => { mesh.count = Math.min(CAP, cells.length); cells.slice(0, CAP).forEach(([gx, gz], i) => { M.makeScale(scale, 1, scale).setPosition((gx + 0.5) * CELL, y === 0 ? 0.12 : y - GHOST_DROP + 0.02, (gz + 0.5) * CELL); mesh.setMatrixAt(i, M); }); mesh.instanceMatrix.needsUpdate = true; mesh.material.color.set(col); };
+    const fill = (mesh, cells, scale, col) => { mesh.count = Math.min(CAP, cells.length); cells.slice(0, CAP).forEach(([gx, gz], i) => { M.makeScale(scale, 1, scale).setPosition((gx + 0.5) * CELL, this.markY(gx, gz, y, y === 0 ? 0.12 : y - GHOST_DROP + 0.02), (gz + 0.5) * CELL); mesh.setMatrixAt(i, M); }); mesh.instanceMatrix.needsUpdate = true; mesh.material.color.set(col); };
     fill(c.lit, lit, CELL - 0.3, color); fill(c.dim, dim, 1.1, dimColor); // lit: the whole square; not available: a small red mark in its middle
     c.info = { lit: lit.length, dim: dim.length, color: String(color), y };
   }
@@ -1410,7 +1733,7 @@ export class AreaWorld {
       for (const id of deco.pending || []) if (!deco.selected?.has(id)) want.set(id + '|pend', { id, kind: 'pend' });
       // other seats' selections: faint, in their colour, never on what I have selected myself (presence; hidden things
       // never reach a player's presence, and a player's view has no hidden entity to draw it on anyway)
-      for (const [id, o] of deco.remote || []) if (!deco.selected?.has(id) && (this.recs.has(id) ? !this.cutHides(this.recs.get(id).entity) : id.startsWith('wall:') && HT.visibleAt(FP.keyLevel(id.slice(5)) || 0, this.cut ?? null))) want.set(id + '|rem', { id, kind: 'rem', color: o.color || '#ffffff', seat: o.seat });
+      for (const [id, o] of deco.remote || []) if (!deco.selected?.has(id) && (this.recs.has(id) ? !this.cutHides(this.recs.get(id).entity) : id.startsWith('wall:') && (this.shell.get(id.slice(5))?.roomId ? !this.cutHides({ kind: 'room', id: this.shell.get(id.slice(5)).roomId }) : HT.visibleAt(FP.keyLevel(id.slice(5)) || 0, this.cut ?? null)))) want.set(id + '|rem', { id, kind: 'rem', color: o.color || '#ffffff', seat: o.seat });
     }
     if (this.gmSide) { // (which things are hidden is worked out once per state)
       if (this.hiddenOfE !== this.view?.entities) { this.hiddenOfE = this.view?.entities; this.hiddenIds = []; for (const [id, r] of this.recs) if (r.entity.hidden && (r.entity.kind === 'object' || r.entity.kind === 'token')) this.hiddenIds.push(id); }
@@ -1493,7 +1816,9 @@ export class AreaWorld {
   // says nothing. Never picked; shown with the stair (hidden by the cut with it).
   syncStairNotes(ents) {
     const want = new Map();
-    for (const s of ST.stairsOf(ents)) { const Q = ST.stairStatus(ents, s); if (Q.code && !(s.rule && Q.code === 'open')) want.set(s.id, { s, Q, text: STAIR_NOTE[Q.code] || 'Leads nowhere' }); }
+    // (not on the Build library's shelves, a local area: a stair lying there for the taking leads nowhere by design;
+    //  2026-10-25, the stairs joined the shelves and every one wore "No floor above yet", over its neighbours)
+    if (!this.local) for (const s of ST.stairsOf(ents)) { const Q = ST.stairStatus(ents, s); if (Q.code && !(s.rule && Q.code === 'open')) want.set(s.id, { s, Q, text: STAIR_NOTE[Q.code] || 'Leads nowhere' }); }
     this.stairNotes ||= new Map();
     for (const [id, t] of this.stairNotes) if (!want.has(id)) { t.parent?.remove(t); t.material.map?.dispose(); this.stairNotes.delete(id); }
     for (const [id, w] of want) {
@@ -1548,6 +1873,10 @@ export class AreaWorld {
   signalFor(w, style) {
     if (w.kind === 'rem') return this.remoteSignal(w);
     if (w.id.startsWith('shell:')) { const sh = this.shell.get(w.id.slice(6)); return sh ? this.sharedSignal(sh, w) : null; }
+    if (w.id.startsWith('trim:')) { // a piece of a roof's trim: the selection look round it, as round a thing
+      const [rid, key] = w.id.slice(5).split('|'), t = this.trimPiece(rid, key); if (!t || !t.rec.group.visible) return null;
+      return this.sharedSignal({ group: t.holder, visual: t.holder }, w);
+    }
     if (w.id.startsWith('roof:')) { // a roof wears the house selection look round its volume, like a room
       const rec = this.roofRecs?.get(w.id.slice(5)); if (!rec || !rec.group.visible) return null;
       const b = rec.box, group = new THREE.Group(); group.userData.halo = true; group.position.set((b.min.x + b.max.x) / 2, b.min.y, (b.min.z + b.max.z) / 2); this.layers.deco.add(group);
@@ -1644,7 +1973,7 @@ export class AreaWorld {
     if (e.kind === 'room') { const c = e.recipe, ry = HT.roomY(c); return new THREE.Box3(new THREE.Vector3(c.x * CELL, ry, c.z * CELL), new THREE.Vector3((c.x + c.w) * CELL, ry + 0.3, (c.z + c.d) * CELL)); }
     const b = new THREE.Box3();
     r.group.updateMatrixWorld(true);
-    r.group.traverse(o => { if (o.isMesh && !(o instanceof THREE.Sprite) && !o.userData.halo) { if (skip) for (let q = o; q && q !== r.group; q = q.parent) if (q === skip) return; o.geometry.computeBoundingBox?.(); b.union(o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld)); } });
+    r.group.traverse(o => { if (o.isMesh && !(o instanceof THREE.Sprite) && !o.userData.halo && !o.userData.pickPad) { if (skip) for (let q = o; q && q !== r.group; q = q.parent) if (q === skip) return; o.geometry.computeBoundingBox?.(); b.union(o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld)); } });
     return b.isEmpty() ? null : b.expandByScalar(0.08);
   }
   shellBounds(key) { const s = this.shell.get(key); if (!s) return null; s.group.updateMatrixWorld(true); return new THREE.Box3().setFromObject(s.group); }
@@ -1677,13 +2006,14 @@ export class AreaWorld {
       if (h.object instanceof THREE.Sprite || h.object.userData.noPick || h.object.userData.halo) continue;
       let o = h.object; while (o && !o.userData.entityId && !o.userData.edgeKey && !o.userData.roomPiece) o = o.parent;
       if (!o) continue;
-      const k = o.userData.entityId || (o.userData.edgeKey ? 'wall:' + o.userData.edgeKey : 'piece:' + o.userData.roomPiece);
+      const ek = o.userData.edgeKey || (h.object.userData.bandKeys && bandKeyAt(h.object, h.faceIndex)); // the band between storeys: the wall or post it was cut from (client/bands.js)
+      const k = o.userData.entityId || (ek ? 'wall:' + ek : 'piece:' + o.userData.roomPiece);
       if (seen.has(k)) continue; seen.add(k);
-      out.push(o.userData.entityId ? { entity: this.recs.get(o.userData.entityId)?.entity, point: h.point } : o.userData.edgeKey ? { wall: o.userData.edgeKey, point: h.point } : { entity: this.view?.entities[o.userData.roomPiece], point: h.point, piece: true }); // a bracket or post under an overhang selects its room
+      out.push(o.userData.entityId ? { entity: this.recs.get(o.userData.entityId)?.entity, point: h.point, ...(h.object.userData.pawnHandle && { handle: true }) } : ek ? { wall: ek, point: h.point } : { entity: this.view?.entities[o.userData.roomPiece], point: h.point, piece: true }); // a bracket or post under an overhang selects its room
     }
     const rank = (h) => h.entity?.kind === 'token' ? 0 : h.entity?.place === 'ceiling' ? 2 : isTile(h.entity) ? 3 : 1; // a floor tile: under everything on it
     out.sort((a, b) => rank(a) - rank(b));
-    if (roof) { out.push({ roof: roof.id, point: roof.point }); return out; } // then the roof itself (selection 'roof:<room id>'); never the floor under it
+    if (roof) { out.push({ roof: roof.id, point: roof.point, ...(roof.trim && { trim: roof.trim }) }); return out; } // then the roof itself (selection 'roof:<room id>'); never the floor under it
     // the room under the ray: the highest room floor the ray meets (floorPoint)
     const fp = this.floorPoint(raycaster.ray, { max: this.floorMax ?? Infinity }), rm = fp?.room && this.view?.entities[fp.room];
     if (rm && !this.fogRule?.(rm)) out.push({ entity: rm, point: new THREE.Vector3(fp.x, fp.y, fp.z), floor: true });
@@ -1707,11 +2037,13 @@ export class AreaWorld {
   //   otherwise     the highest room floor the ray meets (no higher than `max`: the cut, Stage C), else the ground at 0;
   //                 below-ground floors only where the ground is open over them (setGroundOpen)
   // -> { x, z, y, room } (room: the id of the room whose floor it is, or null)
-  floorPoint(ray, { level = null, max = Infinity } = {}) {
+  //   holes         (2026-10-22, core/holes.js) a hole or a pit's opening is no floor: the ray goes on through it to the floor
+  //                 below (holes: false keeps the floor whole: the hole tool paints on the floor it is over, not under it)
+  floorPoint(ray, { level = null, max = Infinity, holes = true } = {}) {
     const o = ray.origin, d = ray.direction; if (Math.abs(d.y) < 1e-6) return null;
     const at = (y) => { const t = (y - o.y) / d.y; return t > 0 ? [o.x + d.x * t, o.z + d.z * t] : null; };
-    const rooms = this.roomsNow();
-    const roomOn = (y, p) => rooms.find(r => HT.roomY(r.recipe) === y && FP.contains(r.recipe, p[0], p[1]));
+    const rooms = this.roomsNow(), E = this.view?.entities, open = holes && HO.openingIndex(E) ? (y, p) => HO.openAtFast(E, p[0], p[1], y) : () => false;
+    const roomOn = (y, p) => { if (open(y, p)) return null; let hill = null; for (const r of rooms) if (HT.roomY(r.recipe) === y && FP.contains(r.recipe, p[0], p[1])) { if (!HT.isTerrain(r.recipe)) return r; if (!hill && !this.takenShownAt(r.recipe, p[0], p[1])) hill = r; } return hill; }; // (a room's floor before a hill's top; a hill's top where a room takes it is no floor: 2026-10-24)
     if (level != null) { const p = at(level); return p ? { x: p[0], z: p[1], y: level, room: roomOn(level, p)?.id || null } : null; }
     // ROOFS ON (Stage F): a roof that is showing is the floor under the pointer. A flat roof or deck: the spot itself, at
     // deck height. A pitched roof: the nearest place to stand on it (its ridge points; sloped standing is not solved).
@@ -1724,9 +2056,14 @@ export class AreaWorld {
         return best ? { x: best.sp.x, z: best.sp.z, y: best.sp.y, room: null, roof: rec.id, snapped: true } : { x: hit.point.x, z: hit.point.z, y: hit.point.y, room: null, roof: rec.id };
       }
     }
-    const ys = this.roomYsNow().filter(y => y <= max);
-    for (const y of ys) { if (y < 0 && !this.groundOpen) break; if (y < 0 && max >= 0) { const g = at(0); if (g && roomOn(0, g)) break; } const p = at(y), r = p && roomOn(y, p); if (r) return { x: p[0], z: p[1], y, room: r.id }; }
-    const p = at(0); return p ? { x: p[0], z: p[1], y: 0, room: null } : null; // (with the cut below ground this is still the ground plane: "open ground")
+    // (2026-10-24) a floor above the cut is no floor unless it shows: a building standing clear on a hill shows whole and a
+    // hill itself is never cut away (core/height.js cutRooms, 2026-10-26), so it is asked of the room (cutHidden), not of
+    // the floor's height
+    const cutting = Number.isFinite(max); if (cutting) this.cutSets();
+    // (2026-10-27) below the ground a hill's top is no floor either: it is see-through there and nothing on it is drawn (hillSeeNow)
+    const under = this.cut != null && this.cut < 0, ys = this.roomYsNow(), shownOn = (y, p) => { const r = roomOn(y, p); return r && !(cutting && this.cutHidden?.has(r.id)) && !(under && HT.isTerrain(r.recipe)) ? r : null; };
+    for (const y of ys) { if (y < 0 && !this.groundOpen) break; if (y < 0 && max >= 0) { const g = at(0); if (g && shownOn(0, g)) break; } const p = at(y), r = p && shownOn(y, p); if (r) return { x: p[0], z: p[1], y, room: r.id }; }
+    const p = at(0); return p ? { x: p[0], z: p[1], y: 0, room: null } : null; // (with the cut below ground this is still the ground plane: "open ground". A hole in the ground over nothing: the ground too)
   }
   surfaceAt(raycaster, exclude = new Set(), floorY = 0) {
     this.settleMatrices();
@@ -1738,6 +2075,7 @@ export class AreaWorld {
       const n = h.face.normal.clone().transformDirection(h.object.matrixWorld);
       if (n.y < 0.6 || h.point.y < floorY + 0.4) continue;
       let o = h.object; while (o && !o.userData.entityId) o = o.parent;
+      if (this.inOpening(o?.userData.entityId, h.point)) continue;
       return { point: h.point, parent: o?.userData.entityId };
     }
     return null;
@@ -1756,10 +2094,16 @@ export class AreaWorld {
       if (h.object instanceof THREE.Sprite || !h.face || h.object.userData.halo) continue;
       if (h.face.normal.clone().transformDirection(h.object.matrixWorld).y < 0.6) continue;
       let o = h.object; while (o && !o.userData.entityId) o = o.parent;
+      if (this.inOpening(o?.userData.entityId, h.point)) continue;
       return { y: h.point.y, parent: o?.userData.entityId };
     }
     return null;
   }
+  // AN OPENING IS NOT A SURFACE (2026-10-27, Harry: "a stack of two holes on top of each other ... asks to 'drop 10 ft' and then
+  // lands on next hole, and then asks to 'drop 10 ft' again"): a round hole's invisible plate (client/holes.js holeVisual: what
+  // a click finds) and a through pit's cut-out bottom (clipPit) are skipped by the downward looks above, so whatever falls
+  // over a hole over a hole goes on down to the first real floor (core/height.js baseUnder already passes every opening).
+  inOpening(id, p) { const e = id && this.view?.entities?.[id]; return !!e && HO.isOpening(e) && p.y < HO.holeFloor(e) + 0.4 && HO.holeContains(e, p.x, p.z); }
   roomOfWall(key) { for (const s of this.shell.values()) if (s.group.userData.edgeKey === key) return s.roomId; return this.edges?.get(key)?.owner?.room || null; }
   edgeAt(key) { const e = this.edges?.get(key); if (!e) return null; const t = T.walls.edgeTransform(e); return { ...e, x: t.x, z: t.z }; }
   // the name-on-base parameters changed: every figure pawn is relettered
@@ -1773,12 +2117,6 @@ export class AreaWorld {
 
 const GHOST_DROP = 0.3; // ft under a level's floor line that its ghost grid and lit squares lie (see ghostMaterial)
 const PLATE = new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2), CELL_PLATE = new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2);
-// a shaped room's footprint as one flat geometry: a square per cell, about the middle of its bounding rectangle (feet)
-function cellsGeometry(rc) {
-  const pos = [], x0 = -rc.w * CELL / 2, z0 = -rc.d * CELL / 2;
-  for (const [i, j] of FP.cellsOf(rc)) { const a = x0 + i * CELL, b = z0 + j * CELL, c = a + CELL, d = b + CELL; pos.push(a, 0, b, a, 0, d, c, 0, d, a, 0, b, c, 0, d, c, 0, b); }
-  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); return g;
-}
 // the box of a visual's own vertices, in the frame `M` puts its parent in (halos, sprites and lines left out). Its own
 // local matrices are used, not the world's, so it is right before the scene has been drawn.
 const IDENT = new THREE.Matrix4(), TILT_V = new THREE.Vector3();
@@ -1812,22 +2150,32 @@ const shellVisual = (look, s) => s.make ? Promise.resolve(s.make()) : look.makeV
 export const SLAB_COLOR = '#5d4630', SLAB_STONE = '#77736b';
 const slabSpec = (rc) => ({ uid: `${rc.id}:slab`, id: 'floor-slab', layer: 'floor', slab: true, roomId: rc.id, x: (rc.x + rc.w / 2) * CELL, y: rc.y - 1, z: (rc.z + rc.d / 2) * CELL, rot: 0, dims: [rc.w * CELL, 1, rc.d * CELL] });
 let slabMat = null, slabStone = null;
-function slabVisual(rc, holes = null) {
+function slabVisual(rc, holes = null, rounds = []) {
   slabMat ||= new THREE.MeshStandardMaterial({ color: SLAB_COLOR, roughness: 0.92 });
   slabStone ||= new THREE.MeshStandardMaterial({ color: SLAB_STONE, roughness: 0.95 }); // (2026-10-06) a stone building's floor is not held up by a timber band (Gemini, blind: "a continuous horizontal band ... made of wood ... a significant mismatch")
   const mat = HT.isStoneFamily(rc.family) ? slabStone : slabMat;
   const g = new THREE.Group(), open = holes?.size ? (i, j) => holes.has(`${rc.x + i}:${rc.z + j}`) : null;
-  for (const [x0, z0, x1, z1] of HT.slabRects(rc.w, rc.d, rc.cells || null, open, CELL)) { // (the rim: height.js slabRects, shared with the Wall fit bench)
+  for (const [x0, z0, x1, z1] of HT.slabRects(rc.w, rc.d, rc.cells || null, open, CELL, SLAB_RIM_UNDER_BAND)) { // (the rim: height.js slabRects, shared with the Wall fit bench; drawn on the line, inside the band of wall that covers its edge: client/bands.js)
     const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, 0.98, z1 - z0), mat); m.position.set((x0 + x1) / 2 - rc.w * CELL / 2, 0.49, (z0 + z1) / 2 - rc.d * CELL / 2); m.castShadow = true; m.receiveShadow = true; m.userData.noPick = true; g.add(m);
+  }
+  // round holes (core/holes.js): the squares round the circle are slab again, the circle cut out, and the circle's own
+  // edge is the slab's cut face (client/holes.js)
+  for (const c of rounds || []) {
+    let any = false;
+    for (const [gx, gz] of c.cells) {
+      const i = gx - rc.x, j = gz - rc.z; if (!FP.hasCell(rc, gx, gz)) continue; any = true;
+      const m = new THREE.Mesh(new THREE.BoxGeometry(CELL, 0.98, CELL), mat); m.position.set((i + 0.5) * CELL - rc.w * CELL / 2, 0.49, (j + 0.5) * CELL - rc.d * CELL / 2); m.receiveShadow = true; m.userData.noPick = true; g.add(clipCircles(m, [c]));
+    }
+    if (any) { const rim = roundRim(c.r, 0.98, mat); rim.position.set(c.x - (rc.x + rc.w / 2) * CELL, 0.49, c.z - (rc.z + rc.d / 2) * CELL); g.add(rim); }
   }
   g.userData.slab = true;
   return g;
 }
 const roomOfVertex = (rooms, v) => (rooms.find(r => v.gx >= r.x && v.gx <= r.x + r.w && v.gz >= r.z && v.gz <= r.z + r.d) || rooms[0])?.id;
 function visualKey(e) {
-  if (e.kind === 'token') return `t|${e.color}|${e.hidden}|${e.fig || ''}|${e.size || 1}|${e.owner || ''}|${e.main ? 'main' : ''}`;
+  if (e.kind === 'token') return `t|${e.color}|${e.hidden}|${e.fig || ''}|${e.size || 1}|${e.owner || ''}|${e.main ? 'main' : ''}|${e.placeholder ? 'ph' : ''}`;
   if (e.kind === 'room' || e.kind === 'building') return `${e.kind}`;
-  return `o|${e.sku}|${e.url}|${e.flat}|${e.rise || ''}|${(e.s || []).join(',')}|${(e.dims || []).join(',')}|${e.open}|${e.hidden}|${e.yaw}${isTile(e) ? `|${e.cat}|${cellKey(e.x, e.z)}` : ''}`; // a tile's look depends on its world cell
+  return `o|${e.sku}|${e.url}|${e.flat}|${e.rise || ''}|${(e.s || []).join(',')}|${(e.dims || []).join(',')}|${e.open}|${e.hidden}|${e.yaw}${isTile(e) ? `|${e.cat}|${cellKey(e.x, e.z)}` : ''}${HO.pitOf(e)?.to === 'below' ? `|pit:${e.x},${e.z},${e.y || 0},${e.rot || 0}` : ''}`; // a tile's look depends on its world cell (a through pit's cut-out on where it stands)
 }
 // fade (the tuner's setOpacity): per-animation material clones, released when the spawn ends
 function setOpacity(g, a, op) {
@@ -1851,7 +2199,7 @@ export function applyEdgeOverrides(edges, ents) {
 }
 // the pieces of one edge: the tuner's own, unless the edge was opened up or its piece swapped
 export function edgeSpecsOf(look, e) {
-  if (e.open) return [];
+  if (e.open || e.caveRock) return []; // (a cave's outside wall is its rock: client/caves.js)
   const specs = look.edgeSpecs(e);
   if (e.swap && specs[0] && (e.kind === 'wall' || e.kind === 'window')) {
     const k = look.kitSpec(e.swap.piece, e.swap.family, undefined, {}, e.swap.pick);
@@ -1930,8 +2278,8 @@ function supportVisual(assets, K, dims) {
 //   dormer   by material; its window faces down the slope (the kit's meshes all face +z: checked 2026-10-06, one blind
 //            read per mesh); sunk until its front stands on the slope
 //   parapet, corner pier, finial: the kit's stated box
-const CHIMNEYS = { thatch: ['cottage', 'stone', 'mansion'], tile: ['brick', 'mansion'], slate: ['mansion'], shingle: ['stone', 'mansion'], flat: ['stone', 'mansion'] };
-const DORMERS = { thatch: ['rough-timber'], tile: ['tile'], slate: ['slate'], shingle: ['shingle'], flat: ['dressed-stone'] };
+const CHIMNEYS = { thatch: ['cottage', 'stone', 'mansion'], tile: ['brick', 'mansion'], slate: ['mansion'], shingle: ['stone', 'mansion'], flat: ['stone', 'mansion'], marble: ['stone', 'mansion'] };
+const DORMERS = { thatch: ['rough-timber'], tile: ['tile'], slate: ['slate'], shingle: ['shingle'], flat: ['dressed-stone'], marble: ['dressed-stone'] };
 export function roofPiece(lib, p, roof, heightAt = () => null) {
   const style = roof?.style || 'thatch';
   if (p.role === 'chimney') {
@@ -1955,10 +2303,14 @@ export function roofPiece(lib, p, roof, heightAt = () => null) {
     const front = heightAt(p.x + out[0] * (dims[2] / 2 - 0.05), p.z + out[1] * (dims[2] / 2 - 0.05)); // the slope under its front face
     return { cat: 'roof-dormer', sku: sku.sku, url: sku.url, dims, fit: {}, dy: front == null ? 0 : Math.min(0, front - 0.5 - p.y) };
   }
-  const simple = { parapet: ['parapet-straight', { long: 'x' }, 0], corner: ['parapet-corner', {}, 0], finial: ['roof-finial', {}, -0.25] }[p.role];
+  // (2026-10-27) the edges of a flat roof: battlements and their corner block, a deck's timber railing, a corner turret.
+  // Each role takes the first of its catalog ids the library has (roofs.js ROOF_KIT: the planner already chose, p.cat)
+  const simple = { parapet: [{ long: 'x' }, 0], corner: [{}, 0], finial: [{}, -0.25], battlement: [{ long: 'x' }, 0], merlon: [{}, 0], turret: [{}, 0], railing: [{ long: 'x' }, 0] }[p.role];
   if (!simple) return null;
-  const sku = KF.pickSku(lib, simple[0], ['--s1']); if (!sku) return null;
-  return { cat: simple[0], sku: sku.sku, url: sku.url, dims: KF.statedBox(lib, simple[0], sku.sku) || p.dims, fit: simple[1], dy: simple[2] };
+  const cat = p.cat || { parapet: 'parapet-straight', corner: 'parapet-corner', finial: 'roof-finial' }[p.role]; if (!cat) return null;
+  const sku = KF.pickSku(lib, cat, p.role === 'railing' ? ['rough-timber'] : ['--s1']); if (!sku) return null;
+  const long = /^(parapet-straight|wall-crenellated|railing-wood)$/.test(cat) ? { long: 'x' } : {}; // (a stand-in run piece is still laid along the edge)
+  return { cat, sku: sku.sku, url: sku.url, dims: KF.statedBox(lib, cat, sku.sku) || p.dims, fit: long, dy: simple[1] };
 }
 function ghostify(v) { v.traverse(o => { if (!o.isMesh) return; o.material = o.material.clone(); o.material.transparent = true; o.material.opacity = 0.42; o.material.depthWrite = false; }); }
 

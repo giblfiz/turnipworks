@@ -1,0 +1,1845 @@
+[
+  {
+    "id": "roll20",
+    "name": "Roll20",
+    "maker": "Roll20, LLC",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://roll20.net/",
+    "summary": "A long-running browser VTT with sheets for a very wide range of systems; suits groups who want to play online with nothing to install.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Flat maps; 3D dice are optional",
+        "src": "https://help.roll20.net/hc/en-us/articles/360039715613-3D-Dice",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "browser"
+        ],
+        "note": "Runs in a web browser",
+        "src": "https://roll20.net/",
+        "verified": true
+      },
+      "price": {
+        "v": "free tier",
+        "note": "Plus about $5.99/mo, Pro about $10.99/mo, Elite (Oct 2025) $12.50-14.99/mo; sources disagree. Players free",
+        "src": "https://help.roll20.net/hc/en-us/articles/28498571071255-Roll20-Subscriptions",
+        "verified": false
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Players join with a free Roll20 account",
+        "src": "https://roll20.net/",
+        "verified": false
+      },
+      "fog": {
+        "v": "yes",
+        "note": "Fog of war and Explorer mode",
+        "src": "https://help.roll20.net/hc/en-us/articles/4403801475479-What-Is-Dynamic-Lighting",
+        "verified": false
+      },
+      "lighting": {
+        "v": "yes",
+        "note": "Dynamic Lighting built in; listed as a Plus/Pro (GM) feature",
+        "src": "https://pages.roll20.net/elite-introduction",
+        "verified": true
+      },
+      "mapbuild": {
+        "v": "partial",
+        "note": "Drawing tools; Roll20 also owns Dungeon Scrawl, a separate map maker (Pro on Elite)",
+        "src": "https://pages.roll20.net/elite-introduction",
+        "verified": true
+      },
+      "levels": {
+        "v": "?",
+        "note": "No multi-floor feature confirmed",
+        "src": "https://roll20.net/",
+        "verified": false
+      },
+      "sheets": {
+        "v": "yes",
+        "note": "Character sheets for many systems, compendium, Demiplane sheet integration",
+        "src": "https://roll20.net/",
+        "verified": false
+      },
+      "ddb": {
+        "v": "yes",
+        "note": "Beyond20 supports Roll20 directly",
+        "src": "https://github.com/kakaroto/Beyond20",
+        "verified": true
+      },
+      "dice": {
+        "v": "3D",
+        "note": "3D dice, off by default, turned on in settings",
+        "src": "https://help.roll20.net/hc/en-us/articles/360039715613-3D-Dice",
+        "verified": false
+      },
+      "phone": {
+        "v": "partial",
+        "note": "Mobile app delisted Feb 2026; mobile browser for character sheets",
+        "src": "https://wiki.roll20.net/Mobile",
+        "verified": false
+      },
+      "offline": {
+        "v": "?",
+        "note": "Hosted service; no self-host option found",
+        "src": "https://roll20.net/",
+        "verified": false
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Core closed; community character sheet code is public on GitHub",
+        "src": "https://roll20.net/",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found",
+        "src": "https://roll20.net/",
+        "verified": false
+      },
+      "modding": {
+        "v": "yes",
+        "note": "Mod Scripts (API) on Pro and above; custom sheets",
+        "src": "https://pages.roll20.net/elite-introduction",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "Live since 2012",
+        "src": "https://roll20.net/",
+        "verified": false
+      },
+      "community": {
+        "v": "note",
+        "note": "Calls itself 'the #1 tabletop for playing RPGs online'; one of the largest VTT user bases",
+        "src": "https://roll20.net/",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "Nothing to install; runs in a browser",
+      "Sheets and official content for a very wide range of game systems",
+      "Free tier is enough to run a game; players never pay"
+    ],
+    "downsides": [
+      "Dynamic lighting and Mod scripts need a paid GM subscription",
+      "Hosted only; no way to run your own server",
+      "Official mobile app was delisted in 2026"
+    ],
+    "sources": [
+      {
+        "url": "https://roll20.net/",
+        "label": "Official site"
+      },
+      {
+        "url": "https://pages.roll20.net/elite-introduction",
+        "label": "Elite introduction (tier features)"
+      },
+      {
+        "url": "https://github.com/kakaroto/Beyond20",
+        "label": "Beyond20 README (supported VTTs)"
+      },
+      {
+        "url": "https://help.roll20.net/hc/en-us/articles/28498571071255-Roll20-Subscriptions",
+        "label": "Help center: subscriptions (not readable from here)"
+      },
+      {
+        "url": "https://wiki.roll20.net/Mobile",
+        "label": "Roll20 wiki: Mobile (not re-read)"
+      }
+    ]
+  },
+  {
+    "id": "foundry-vtt",
+    "name": "Foundry VTT",
+    "maker": "Foundry Gaming LLC",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://foundryvtt.com/",
+    "summary": "A one-time-purchase VTT you host yourself, with deep rules automation and a huge module ecosystem; suits GMs who like to tinker.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Core is 2D; true 3D comes from the third-party 3D Canvas module (TheRipper93)",
+        "src": "https://foundryvtt.com/packages/levels-3d-preview",
+        "verified": true
+      },
+      "platform": {
+        "v": [
+          "browser",
+          "windows",
+          "mac",
+          "linux"
+        ],
+        "note": "GM runs the app or a server; players join in a browser",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": false
+      },
+      "price": {
+        "v": "one-time",
+        "note": "$50 licence for the GM; players pay nothing",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": true
+      },
+      "accounts": {
+        "v": "gm",
+        "note": "Only the licence holder needs a foundryvtt.com account; players join by link",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": false
+      },
+      "fog": {
+        "v": "yes",
+        "note": "Fog of war with exploration memory",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": true
+      },
+      "lighting": {
+        "v": "yes",
+        "note": "Walls, lights and vision modes in core",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": true
+      },
+      "mapbuild": {
+        "v": "partial",
+        "note": "Walls, tiles and drawings over imported maps; builders via modules (3D Canvas premium)",
+        "src": "https://foundryvtt.com/packages/levels-3d-preview",
+        "verified": false
+      },
+      "levels": {
+        "v": "yes",
+        "note": "v14 Scene Levels: stacked floors in one scene, stairs, per-level walls and lights",
+        "src": "https://foundryvtt.com/releases/14.359",
+        "verified": true
+      },
+      "sheets": {
+        "v": "yes",
+        "note": "Game systems (e.g. D&D 5e, Pathfinder 2e) with rules automation; WotC and Paizo partners",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": true
+      },
+      "ddb": {
+        "v": "yes",
+        "note": "Beyond20 supports Foundry; community DDB-Importer module also exists",
+        "src": "https://github.com/kakaroto/Beyond20",
+        "verified": true
+      },
+      "dice": {
+        "v": "roller",
+        "note": "Core dice roller; 3D dice via the Dice So Nice module",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": false
+      },
+      "phone": {
+        "v": "partial",
+        "note": "FAQ: mobile not supported in core; some modules add Android support",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": true
+      },
+      "offline": {
+        "v": "yes",
+        "note": "Self-hosted on the GM's computer or a server; internet needed to activate licence",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": true
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed core; many systems and modules are open source",
+        "src": "https://foundryvtt.com/",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found; AI content policy bars AI-made prepared content",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": false
+      },
+      "modding": {
+        "v": "yes",
+        "note": "Module and system API; packages reviewed before listing",
+        "src": "https://foundryvtt.com/article/faq/",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "v14 stable shipped 2026-04-01",
+        "src": "https://foundryvtt.com/releases/14.359",
+        "verified": true
+      },
+      "community": {
+        "v": "note",
+        "note": "Large package ecosystem; 3D Canvas alone was updated within the last two weeks",
+        "src": "https://foundryvtt.com/packages/levels-3d-preview",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "Pay once, no subscription; players never pay",
+      "Deep rules automation for many systems and a vast module library",
+      "Self-host or run offline on your own machine"
+    ],
+    "downsides": [
+      "Steep learning curve; modules can break between versions",
+      "GM must host it or pay for hosting",
+      "No phone support in core"
+    ],
+    "sources": [
+      {
+        "url": "https://foundryvtt.com/article/faq/",
+        "label": "Official FAQ"
+      },
+      {
+        "url": "https://foundryvtt.com/releases/14.359",
+        "label": "v14 stable release notes"
+      },
+      {
+        "url": "https://foundryvtt.com/packages/levels-3d-preview",
+        "label": "3D Canvas package page (third-party)"
+      },
+      {
+        "url": "https://github.com/kakaroto/Beyond20",
+        "label": "Beyond20 README"
+      }
+    ]
+  },
+  {
+    "id": "fantasy-grounds",
+    "name": "Fantasy Grounds (Unity)",
+    "maker": "SmiteWorks USA, LLC",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://www.fantasygrounds.com/",
+    "summary": "A desktop VTT with heavy rules automation and many officially licensed games, free to play since November 2025; suits rules-heavy groups.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Flat maps",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "windows",
+          "mac",
+          "linux"
+        ],
+        "note": "Desktop installers and Steam; browser Online Reader is for reading modules only",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      },
+      "price": {
+        "v": "free",
+        "note": "Free to play since 2025-11-08: no licence or subscription; rulesets and modules sold separately",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Free Fantasy Grounds account to log in",
+        "src": "https://www.fantasygrounds.com/home/FantasyGroundsUnity.php",
+        "verified": false
+      },
+      "fog": {
+        "v": "yes",
+        "note": "Fog of war across rulesets",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      },
+      "lighting": {
+        "v": "yes",
+        "note": "Dynamic lighting, vision and line of sight",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      },
+      "mapbuild": {
+        "v": "partial",
+        "note": "Press kit: build maps, add lighting and walls; extent of drawing tools unclear",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": false
+      },
+      "levels": {
+        "v": "?",
+        "note": "No multi-floor feature confirmed",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": false
+      },
+      "sheets": {
+        "v": "yes",
+        "note": "Native automation of combat, effects, conditions, saves",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      },
+      "ddb": {
+        "v": "?",
+        "note": "No official integration found; community import extensions reported",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": false
+      },
+      "dice": {
+        "v": "3D",
+        "note": "3D dice on the table",
+        "src": "https://www.fantasygrounds.com/home/FantasyGroundsUnity.php",
+        "verified": false
+      },
+      "phone": {
+        "v": "no",
+        "note": "Desktop app only (Windows, macOS, Linux)",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      },
+      "offline": {
+        "v": "yes",
+        "note": "GM's computer hosts; cloud hosting also offered",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": false
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed core; rulesets are readable Lua",
+        "src": "https://www.fantasygrounds.com/home/FantasyGroundsUnity.php",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": false
+      },
+      "modding": {
+        "v": "yes",
+        "note": "Extensions, rulesets and modules; FG Forge marketplace",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "Unity version released 2020-11-05",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      },
+      "community": {
+        "v": "note",
+        "note": "Went free to play at FG Con Online in Nov 2025; long-running forums",
+        "src": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "Free to play with no licence or subscription",
+      "Strong rules automation for many officially licensed games",
+      "Runs on Windows, Mac and Linux"
+    ],
+    "downsides": [
+      "Desktop install needed for every player; no phone play",
+      "Official content for most games is sold separately",
+      "Interface takes time to learn"
+    ],
+    "sources": [
+      {
+        "url": "https://www.fantasygrounds.com/home/FantasyGroundsUnity.php",
+        "label": "Fantasy Grounds Unity page"
+      },
+      {
+        "url": "https://fantasygroundsunity.atlassian.net/wiki/spaces/FGCP/pages/1845231641/Press+Kit+-+Fantasy+Grounds+VTT",
+        "label": "Official press kit"
+      }
+    ]
+  },
+  {
+    "id": "owlbear-rodeo",
+    "name": "Owlbear Rodeo",
+    "maker": "Owlbear Rodeo (Mitch McCaffrey and team)",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://www.owlbear.rodeo/",
+    "summary": "A minimal, fast browser VTT where players join by link without an account, extended through an extension store; suits GMs who want simplicity.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200 (browser user agent; plain requests get 403)"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Infinite 2D canvas; square, hex and isometric grids",
+        "src": "https://docs.owlbear.rodeo/",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "browser"
+        ],
+        "note": "Players open the room link in a web browser",
+        "src": "https://docs.owlbear.rodeo/docs/rooms/",
+        "verified": true
+      },
+      "price": {
+        "v": "free tier",
+        "note": "Nestling free; Fledgling and Bestling paid (more storage, rooms, Forecast); prices shown in-app",
+        "src": "https://docs.owlbear.rodeo/docs/managing-your-subscription/",
+        "verified": true
+      },
+      "accounts": {
+        "v": "gm",
+        "note": "Players can join anonymously; GM needs an account",
+        "src": "https://docs.owlbear.rodeo/docs/rooms/",
+        "verified": true
+      },
+      "fog": {
+        "v": "yes",
+        "note": "Manual fog tools built in; Forecast auto-detects rooms (paid tiers)",
+        "src": "https://docs.owlbear.rodeo/docs/fog/",
+        "verified": true
+      },
+      "lighting": {
+        "v": "partial",
+        "note": "Walls, doors and lights through the official Dynamic Fog extension",
+        "src": "https://blog.owlbear.rodeo/owlbear-rodeo-2-3-release-week-day-3/",
+        "verified": true
+      },
+      "mapbuild": {
+        "v": "partial",
+        "note": "Drawing tools for sketching maps on the fly",
+        "src": "https://docs.owlbear.rodeo/",
+        "verified": true
+      },
+      "levels": {
+        "v": "?",
+        "note": "No multi-floor feature confirmed",
+        "src": "https://docs.owlbear.rodeo/",
+        "verified": false
+      },
+      "sheets": {
+        "v": "partial",
+        "note": "No rules in core; sheets and initiative come from extensions",
+        "src": "https://docs.owlbear.rodeo/",
+        "verified": false
+      },
+      "ddb": {
+        "v": "?",
+        "note": "Beyond20 does not list Owlbear; community extensions may exist",
+        "src": "https://github.com/kakaroto/Beyond20",
+        "verified": false
+      },
+      "dice": {
+        "v": "3D",
+        "note": "Official dice extension with 3D physics dice",
+        "src": "https://blog.owlbear.rodeo/",
+        "verified": false
+      },
+      "phone": {
+        "v": "?",
+        "note": "Phone use not documented",
+        "src": "https://docs.owlbear.rodeo/",
+        "verified": false
+      },
+      "offline": {
+        "v": "?",
+        "note": "Hosted service; no self-host option found",
+        "src": "https://docs.owlbear.rodeo/",
+        "verified": false
+      },
+      "opensource": {
+        "v": "partial",
+        "note": "Maker says much of it is open source (e.g. dice roller, music app); core closed",
+        "src": "https://blog.owlbear.rodeo/on-plagiarism-ai-and-centaurs/",
+        "verified": true
+      },
+      "ai": {
+        "v": "?",
+        "note": "Forecast uses a computer-vision pipeline for fog; no generative AI found",
+        "src": "https://blog.owlbear.rodeo/forecast-released/",
+        "verified": false
+      },
+      "modding": {
+        "v": "yes",
+        "note": "Extensions SDK and extension store",
+        "src": "https://docs.owlbear.rodeo/",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "Version 2.4 (May 2026); Forecast out of beta Oct 2026",
+        "src": "https://blog.owlbear.rodeo/forecast-released/",
+        "verified": true
+      },
+      "community": {
+        "v": "note",
+        "note": "Small team shipping steadily (2.4 May 2026, Forecast Oct 2026); active Discord and subreddit",
+        "src": "https://blog.owlbear.rodeo/",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "Players join by link with no account",
+      "Clean, fast and easy to learn",
+      "Official extensions add dynamic fog and 3D dice"
+    ],
+    "downsides": [
+      "No rules or sheets in core; extensions needed",
+      "Dynamic lighting is an extension, not core",
+      "Auto fog detection (Forecast) is paid-tier only"
+    ],
+    "sources": [
+      {
+        "url": "https://docs.owlbear.rodeo/docs/rooms/",
+        "label": "Docs: Rooms"
+      },
+      {
+        "url": "https://docs.owlbear.rodeo/docs/fog/",
+        "label": "Docs: Fog"
+      },
+      {
+        "url": "https://docs.owlbear.rodeo/docs/managing-your-subscription/",
+        "label": "Docs: Managing your subscription"
+      },
+      {
+        "url": "https://blog.owlbear.rodeo/owlbear-rodeo-2-3-release-week-day-3/",
+        "label": "Blog: Realtime Dynamic Fog (2.3)"
+      },
+      {
+        "url": "https://blog.owlbear.rodeo/forecast-released/",
+        "label": "Blog: Forecast released (2026-10-23)"
+      },
+      {
+        "url": "https://blog.owlbear.rodeo/on-plagiarism-ai-and-centaurs/",
+        "label": "Blog: On Plagiarism, AI and Centaurs"
+      }
+    ]
+  },
+  {
+    "id": "talespire",
+    "name": "TaleSpire",
+    "maker": "Bouncyrock Entertainment",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://talespire.com/",
+    "summary": "A 3D tabletop where you build scenes from tiles and props and throw physical dice; suits groups who want a lush 3D table and buy one copy each.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "3D",
+        "note": "Full 3D scene built from tiles and props",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "platform": {
+        "v": [
+          "windows",
+          "mac"
+        ],
+        "note": "Windows and macOS (Apple Silicon only); Linux via Proton being worked on",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "price": {
+        "v": "one-time",
+        "note": "$24.99; non-owners join via free Guest Edition on a Seat the owner buys (one-time)",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Steam account for owners and guests",
+        "src": "https://store.steampowered.com/app/720620/TaleSpire/",
+        "verified": false
+      },
+      "fog": {
+        "v": "partial",
+        "note": "Real fog of war not shipped; GMs hide areas manually with hide volumes",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "lighting": {
+        "v": "partial",
+        "note": "Line of sight hides minis; no light-and-wall vision",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "mapbuild": {
+        "v": "yes",
+        "note": "Tile, prop and slab building is the core of the product",
+        "src": "https://talespire.com/faq",
+        "verified": false
+      },
+      "levels": {
+        "v": "yes",
+        "note": "True 3D; flying, elevation and a cut plane for floors",
+        "src": "https://talespire.com/faq",
+        "verified": false
+      },
+      "sheets": {
+        "v": "partial",
+        "note": "Rules-agnostic core; sheets via Symbiotes mods",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "ddb": {
+        "v": "?",
+        "note": "No official integration; FAQ calls a partnership unlikely",
+        "src": "https://talespire.com/faq",
+        "verified": false
+      },
+      "dice": {
+        "v": "3D",
+        "note": "Physical dice you throw onto the board",
+        "src": "https://store.steampowered.com/app/720620/TaleSpire/",
+        "verified": false
+      },
+      "phone": {
+        "v": "no",
+        "note": "Desktop only (Windows, macOS)",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "offline": {
+        "v": "no",
+        "note": "Central servers only; peer-to-peer is planned",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed source",
+        "src": "https://talespire.com/",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found",
+        "src": "https://talespire.com/faq",
+        "verified": false
+      },
+      "modding": {
+        "v": "yes",
+        "note": "Symbiotes (web-view API), TaleWeaverLite models, mod.io browser",
+        "src": "https://talespire.com/faq",
+        "verified": true
+      },
+      "stage": {
+        "v": "early access",
+        "note": "Early Access since 2021-04-14; no 1.0 date",
+        "src": "https://store.steampowered.com/app/720620/TaleSpire/",
+        "verified": true
+      },
+      "community": {
+        "v": "note",
+        "note": "Steam: Very Positive, 90% of 3,316 reviews; recent 76% of 17",
+        "src": "https://store.steampowered.com/app/720620/TaleSpire/",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "Beautiful 3D scenes that are fast to build from tiles",
+      "Physical 3D dice everyone sees land",
+      "One-time price, all official content free"
+    ],
+    "downsides": [
+      "No real fog of war after years in Early Access",
+      "Every player needs a copy or a GM-bought Seat",
+      "Always online; no offline or LAN play"
+    ],
+    "sources": [
+      {
+        "url": "https://talespire.com/faq",
+        "label": "Official FAQ"
+      },
+      {
+        "url": "https://store.steampowered.com/app/720620/TaleSpire/",
+        "label": "Steam store page"
+      }
+    ]
+  },
+  {
+    "id": "alchemy-rpg",
+    "name": "Alchemy RPG",
+    "maker": "Arboreal, LLC",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://alchemyrpg.com/",
+    "summary": "A cinematic VTT built around music, animated scenes and story, with tactical maps available; suits story-first groups.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Animated scene art plus a tactical map layer with grids",
+        "src": "https://alchemyrpg.com/czepeku",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "browser",
+          "windows",
+          "mac",
+          "linux"
+        ],
+        "note": "Web plus Windows, Mac and Linux downloads",
+        "src": "https://alchemyrpg.com/",
+        "verified": true
+      },
+      "price": {
+        "v": "free tier",
+        "note": "Free Unlimited $0; Alchemist supporter tier $8/mo adds perks, not features",
+        "src": "https://alchemyrpg.com/",
+        "verified": true
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Sign-up to play",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "fog": {
+        "v": "partial",
+        "note": "GM brushes fog on and off by hand",
+        "src": "https://help.alchemyrpg.com/en/articles/10508541-keyboard-shortcuts",
+        "verified": false
+      },
+      "lighting": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "mapbuild": {
+        "v": "?",
+        "note": "Not mentioned; maps are uploaded",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "levels": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "sheets": {
+        "v": "yes",
+        "note": "Access to every game system plus a homebrew system builder",
+        "src": "https://alchemyrpg.com/",
+        "verified": true
+      },
+      "ddb": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "dice": {
+        "v": "3D",
+        "note": "Dice on screen",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "phone": {
+        "v": "?",
+        "note": "Devices FAQ answer not readable",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "offline": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed source",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "Site has a 'stance on generative AI' FAQ; answer not readable",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "modding": {
+        "v": "partial",
+        "note": "Homebrew System Builder; no API found",
+        "src": "https://alchemyrpg.com/",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "Publicly available",
+        "src": "https://alchemyrpg.com/",
+        "verified": false
+      },
+      "community": {
+        "v": "note",
+        "note": "Homepage carries testimonials from Avantris and Rowdy Crypt; active Discord",
+        "src": "https://alchemyrpg.com/",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "Everything is free; the paid tier only adds supporter perks",
+      "Music, ambience and animated scenes for story-driven play",
+      "Runs in a browser or as a desktop app"
+    ],
+    "downsides": [
+      "Tactical tools are lighter than map-first VTTs",
+      "Dynamic lighting not documented",
+      "Fog of war is manual brushing only"
+    ],
+    "sources": [
+      {
+        "url": "https://alchemyrpg.com/",
+        "label": "Official site (pricing, platforms)"
+      },
+      {
+        "url": "https://alchemyrpg.com/czepeku",
+        "label": "CZEPEKU collection page (not re-read)"
+      },
+      {
+        "url": "https://help.alchemyrpg.com/en/articles/10508541-keyboard-shortcuts",
+        "label": "Help: keyboard shortcuts (not re-read)"
+      }
+    ]
+  },
+  {
+    "id": "demiplane",
+    "name": "Demiplane",
+    "maker": "Demiplane (owned by Roll20 since June 2024)",
+    "group": "established",
+    "kind": "companion tool",
+    "url": "https://www.demiplane.com/",
+    "summary": "A character builder, digital rulebook and campaign companion for many non-D&D systems; not a map table. Suits players who want official sheets.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200 (redirects to app.demiplane.com/home)"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "?",
+        "note": "No map table of its own; tabletop play happens on Roll20",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "browser"
+        ],
+        "note": "Web app",
+        "src": "https://app.demiplane.com/home",
+        "verified": true
+      },
+      "price": {
+        "v": "?",
+        "note": "Free sign-up; rulebooks and content sold per game",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Sign-up to save characters and join campaigns",
+        "src": "https://app.demiplane.com/home",
+        "verified": false
+      },
+      "fog": {
+        "v": "no",
+        "note": "No map table of its own; tabletop play happens on Roll20",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      },
+      "lighting": {
+        "v": "no",
+        "note": "No map table of its own; tabletop play happens on Roll20",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      },
+      "mapbuild": {
+        "v": "no",
+        "note": "No map table of its own; tabletop play happens on Roll20",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      },
+      "levels": {
+        "v": "no",
+        "note": "No map table of its own; tabletop play happens on Roll20",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      },
+      "sheets": {
+        "v": "yes",
+        "note": "Official character builders and sheets per system (Nexus pages)",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": true
+      },
+      "ddb": {
+        "v": "?",
+        "note": "Not applicable; covers other systems",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      },
+      "dice": {
+        "v": "roller",
+        "note": "Rolls from sheets",
+        "src": "https://app.demiplane.com/home",
+        "verified": false
+      },
+      "phone": {
+        "v": "?",
+        "note": "Not checked",
+        "src": "https://app.demiplane.com/home",
+        "verified": false
+      },
+      "offline": {
+        "v": "?",
+        "note": "Not checked",
+        "src": "https://app.demiplane.com/home",
+        "verified": false
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed source",
+        "src": "https://www.demiplane.com/",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      },
+      "modding": {
+        "v": "?",
+        "note": "Homebrew (beta) in the app menu; no API found",
+        "src": "https://app.demiplane.com/home",
+        "verified": false
+      },
+      "stage": {
+        "v": "released",
+        "note": "Live product",
+        "src": "https://app.demiplane.com/home",
+        "verified": false
+      },
+      "community": {
+        "v": "note",
+        "note": "Its sheets are being brought into Roll20 (public beta reported)",
+        "src": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "verified": false
+      }
+    },
+    "upsides": [
+      "Official sheets and rules for many non-D&D games",
+      "Fast rules lookup in digital books",
+      "Works with Roll20 for play on a map"
+    ],
+    "downsides": [
+      "Not a VTT: no map, tokens or fog",
+      "Content is bought per game system",
+      "Needs Roll20 or another tool for map play"
+    ],
+    "sources": [
+      {
+        "url": "https://www.demiplane.com/blog/roll20-acquires-demiplane",
+        "label": "Demiplane blog: Roll20 acquires Demiplane"
+      },
+      {
+        "url": "https://app.demiplane.com/home",
+        "label": "Demiplane app home (menu)"
+      }
+    ]
+  },
+  {
+    "id": "dnd-beyond-maps",
+    "name": "D&D Beyond Maps",
+    "maker": "D&D Beyond (Wizards of the Coast)",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://www.dndbeyond.com/games",
+    "summary": "D&D Beyond's own simple browser VTT, tied to your D&D Beyond characters and books; suits D&D groups who already use D&D Beyond.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Flat maps",
+        "src": "https://www.dndbeyond.com/games",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "browser"
+        ],
+        "note": "Runs on dndbeyond.com",
+        "src": "https://www.dndbeyond.com/games",
+        "verified": false
+      },
+      "price": {
+        "v": "free tier",
+        "note": "Free for all registered users since 2025-09-16; Master Tier adds map uploads and storage",
+        "src": "https://www.dndbeyond.com/posts/2057-play-this-encounter-tonight-in-d-d-beyond-mapsno",
+        "verified": true
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Anyone with a D&D Beyond account can use it",
+        "src": "https://www.dndbeyond.com/posts/2057-play-this-encounter-tonight-in-d-d-beyond-mapsno",
+        "verified": true
+      },
+      "fog": {
+        "v": "yes",
+        "note": "Fog of war, polygonal fog added in 2025",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": true
+      },
+      "lighting": {
+        "v": "no",
+        "note": "Users ask for dynamic lighting, walls and token vision in roadmap comments",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": false
+      },
+      "mapbuild": {
+        "v": "partial",
+        "note": "Stickers and drawing on official or uploaded maps; no builder",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": true
+      },
+      "levels": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": false
+      },
+      "sheets": {
+        "v": "yes",
+        "note": "Uses D&D Beyond character sheets and rules content",
+        "src": "https://www.dndbeyond.com/games",
+        "verified": false
+      },
+      "ddb": {
+        "v": "yes",
+        "note": "It is D&D Beyond's own tool",
+        "src": "https://www.dndbeyond.com/games",
+        "verified": true
+      },
+      "dice": {
+        "v": "3D",
+        "note": "D&D Beyond 3D dice",
+        "src": "https://www.dndbeyond.com/games",
+        "verified": false
+      },
+      "phone": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": false
+      },
+      "offline": {
+        "v": "?",
+        "note": "Hosted service; no self-host option found",
+        "src": "https://www.dndbeyond.com/games",
+        "verified": false
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed source",
+        "src": "https://www.dndbeyond.com/games",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": false
+      },
+      "modding": {
+        "v": "?",
+        "note": "No API found",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": false
+      },
+      "stage": {
+        "v": "beta",
+        "note": "Labelled beta in site navigation",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": true
+      },
+      "community": {
+        "v": "note",
+        "note": "2026 roadmap comments mostly request dynamic lighting, token vision and walls",
+        "src": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "Free, and wired straight into D&D Beyond characters and books",
+      "Official adventures come with ready maps",
+      "Very simple to start for D&D groups"
+    ],
+    "downsides": [
+      "D&D only",
+      "No dynamic lighting or walls yet",
+      "Still labelled beta"
+    ],
+    "sources": [
+      {
+        "url": "https://www.dndbeyond.com/posts/2132-d-d-beyonds-2026-development-roadmap",
+        "label": "D&D Beyond 2026 development roadmap"
+      },
+      {
+        "url": "https://www.dndbeyond.com/posts/2057-play-this-encounter-tonight-in-d-d-beyond-mapsno",
+        "label": "Maps free for all registered users (2025-09-17)"
+      },
+      {
+        "url": "https://www.dndbeyond.com/games",
+        "label": "Maps page"
+      }
+    ]
+  },
+  {
+    "id": "tabletop-simulator",
+    "name": "Tabletop Simulator",
+    "maker": "Berserk Games",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://www.tabletopsimulator.com/",
+    "summary": "A physics sandbox for any tabletop game, with an RPG kit, Lua scripting and a huge Steam Workshop; suits groups who like building their own table.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site and Steam page answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "3D",
+        "note": "3D physics table",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "platform": {
+        "v": [
+          "windows",
+          "mac",
+          "linux",
+          "vr"
+        ],
+        "note": "Windows, macOS, SteamOS/Linux; HTC Vive and Oculus Rift",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "price": {
+        "v": "one-time",
+        "note": "$19.99, 4-pack $59.99; for DLC only the host needs to own it",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Steam account and own copy per player",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": false
+      },
+      "fog": {
+        "v": "partial",
+        "note": "Manual hidden and fog zones",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": false
+      },
+      "lighting": {
+        "v": "?",
+        "note": "Backgrounds change lighting; no vision system found",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": false
+      },
+      "mapbuild": {
+        "v": "yes",
+        "note": "RPG Kit tilesets, furniture and figurines to build scenes",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "levels": {
+        "v": "yes",
+        "note": "Free 3D space; stack and stage anything",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": false
+      },
+      "sheets": {
+        "v": "partial",
+        "note": "Tablet for character sheets; rules only via scripted mods",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "ddb": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": false
+      },
+      "dice": {
+        "v": "3D",
+        "note": "Physics dice",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": false
+      },
+      "phone": {
+        "v": "no",
+        "note": "Desktop and VR only",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "offline": {
+        "v": "yes",
+        "note": "Hotseat play on one computer",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed source",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": false
+      },
+      "modding": {
+        "v": "yes",
+        "note": "Lua scripting and Steam Workshop",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "Released 2015-06-05",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      },
+      "community": {
+        "v": "note",
+        "note": "Steam: Overwhelmingly Positive, 96% of 32,148 reviews; recent 97% of 277",
+        "src": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "Huge Steam Workshop of community tables and assets",
+      "Lua scripting can automate almost anything",
+      "VR and non-VR players can share a table"
+    ],
+    "downsides": [
+      "A general game sandbox, not an RPG tool; few RPG rules",
+      "No vision or dynamic lighting system found",
+      "Every player needs their own copy"
+    ],
+    "sources": [
+      {
+        "url": "https://store.steampowered.com/app/286160/Tabletop_Simulator/",
+        "label": "Steam store page"
+      },
+      {
+        "url": "https://www.tabletopsimulator.com/",
+        "label": "Official site"
+      }
+    ]
+  },
+  {
+    "id": "shard-tabletop",
+    "name": "Shard Tabletop",
+    "maker": "Shard Tabletop Inc.",
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://www.shardtabletop.com/",
+    "summary": "A D&D 5e-focused browser VTT with built-in character building and rules automation; suits 5e groups online or at the table.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Flat maps",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "browser"
+        ],
+        "note": "No install; 'works on any device'",
+        "src": "https://www.shardtabletop.com/",
+        "verified": true
+      },
+      "price": {
+        "v": "free tier",
+        "note": "Free SRD play for GMs and players; reported tiers $2.99, $5.99, $9.99/mo",
+        "src": "https://www.shardtabletop.com/howto/is-shard-tabletop-free-to-use",
+        "verified": false
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Players build characters in their own account",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      },
+      "fog": {
+        "v": "yes",
+        "note": "Rectangle, polygon and brush fog tools; preset fog regions on some maps",
+        "src": "https://www.shardtabletop.com/howto/vision-options",
+        "verified": true
+      },
+      "lighting": {
+        "v": "yes",
+        "note": "Line of sight from walls, lighting and darkvision on configured maps",
+        "src": "https://www.shardtabletop.com/howto/vision-options",
+        "verified": true
+      },
+      "mapbuild": {
+        "v": "?",
+        "note": "No map builder mentioned",
+        "src": "https://www.shardtabletop.com/howto/vision-options",
+        "verified": false
+      },
+      "levels": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      },
+      "sheets": {
+        "v": "yes",
+        "note": "5e character builder and play automation",
+        "src": "https://www.shardtabletop.com/",
+        "verified": true
+      },
+      "ddb": {
+        "v": "no",
+        "note": "D&D Beyond import disabled after it broke",
+        "src": "https://www.shardtabletop.com/release-notes/feats-amp-import",
+        "verified": true
+      },
+      "dice": {
+        "v": "?",
+        "note": "Animated dice mentioned; type not confirmed",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      },
+      "phone": {
+        "v": "yes",
+        "note": "Site says it works on any device",
+        "src": "https://www.shardtabletop.com/",
+        "verified": true
+      },
+      "offline": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed source",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      },
+      "modding": {
+        "v": "partial",
+        "note": "Content extensions for other settings, no programming; no API found",
+        "src": "https://www.shardtabletop.com/",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "Live product",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      },
+      "community": {
+        "v": "note",
+        "note": "No community size figure checked this session",
+        "src": "https://www.shardtabletop.com/",
+        "verified": false
+      }
+    },
+    "upsides": [
+      "Free 5e SRD play for GMs and players",
+      "Character building and rules automation in one tool",
+      "Dynamic lighting and fog of war built in"
+    ],
+    "downsides": [
+      "Built around D&D 5e; other systems need extensions",
+      "D&D Beyond import was turned off",
+      "Map building tools not documented"
+    ],
+    "sources": [
+      {
+        "url": "https://www.shardtabletop.com/",
+        "label": "Official site"
+      },
+      {
+        "url": "https://www.shardtabletop.com/howto/vision-options",
+        "label": "How-to: Vision options"
+      },
+      {
+        "url": "https://www.shardtabletop.com/release-notes/feats-amp-import",
+        "label": "Release notes: Feats & Import"
+      }
+    ]
+  },
+  {
+    "id": "lets-role",
+    "name": "Let's Role",
+    "maker": null,
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://lets-role.com/",
+    "summary": "A browser VTT with sheets for hundreds of systems, a no-code system builder and a mobile app; suits groups playing less common games.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Flat maps, including 'phased maps'",
+        "src": "https://lets-role.com/",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "browser",
+          "android"
+        ],
+        "note": "Web plus a syncing mobile app (Android linked; iOS not confirmed)",
+        "src": "https://lets-role.com/",
+        "verified": true
+      },
+      "price": {
+        "v": "free tier",
+        "note": "Basic free (ads on mobile); Explorer €2/mo yearly, Traveler €5/mo, Adventurer €9/mo; players free",
+        "src": "https://lets-role.com/play-pass",
+        "verified": true
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Players and GMs create an account first",
+        "src": "https://lets-role.com/",
+        "verified": true
+      },
+      "fog": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://lets-role.com/play-pass",
+        "verified": false
+      },
+      "lighting": {
+        "v": "yes",
+        "note": "Dynamic lighting on all tiers",
+        "src": "https://lets-role.com/play-pass",
+        "verified": true
+      },
+      "mapbuild": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://lets-role.com/",
+        "verified": false
+      },
+      "levels": {
+        "v": "?",
+        "note": "'Phased maps' not explained",
+        "src": "https://lets-role.com/",
+        "verified": false
+      },
+      "sheets": {
+        "v": "yes",
+        "note": "Sheets for hundreds of systems; roll from the sheet",
+        "src": "https://lets-role.com/",
+        "verified": true
+      },
+      "ddb": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://lets-role.com/",
+        "verified": false
+      },
+      "dice": {
+        "v": "3D",
+        "note": "Roll Maker and 3D dice skins",
+        "src": "https://lets-role.com/",
+        "verified": true
+      },
+      "phone": {
+        "v": "yes",
+        "note": "Mobile app that syncs with desktop",
+        "src": "https://lets-role.com/",
+        "verified": true
+      },
+      "offline": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://lets-role.com/",
+        "verified": false
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed source",
+        "src": "https://lets-role.com/",
+        "verified": false
+      },
+      "ai": {
+        "v": "?",
+        "note": "No built-in AI feature found",
+        "src": "https://lets-role.com/",
+        "verified": false
+      },
+      "modding": {
+        "v": "yes",
+        "note": "System Builder with JavaScript for advanced logic",
+        "src": "https://lets-role.com/",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "Live product",
+        "src": "https://lets-role.com/",
+        "verified": false
+      },
+      "community": {
+        "v": "note",
+        "note": "Claims hundreds of supported systems; Discord community",
+        "src": "https://lets-role.com/",
+        "verified": true
+      }
+    },
+    "upsides": [
+      "All features free; paid tiers add storage and cosmetics",
+      "Sheets for hundreds of systems plus a system builder",
+      "Mobile app alongside the browser version"
+    ],
+    "downsides": [
+      "Free tier storage is 125 MB",
+      "Ads on the free mobile app",
+      "Fog of war not documented"
+    ],
+    "sources": [
+      {
+        "url": "https://lets-role.com/",
+        "label": "Official site"
+      },
+      {
+        "url": "https://lets-role.com/play-pass",
+        "label": "Play Pass pricing"
+      }
+    ]
+  },
+  {
+    "id": "quest-portal",
+    "name": "Quest Portal",
+    "maker": null,
+    "group": "established",
+    "kind": "vtt",
+    "url": "https://www.questportal.com/",
+    "summary": "A browser and mobile VTT with campaign tools and paid AI features (GM assistant, map and art generation); suits GMs who want AI help with prep.",
+    "alive": {
+      "state": "alive",
+      "checked": "2026-10-29",
+      "how": "official site answered 200"
+    },
+    "last_checked": "2026-10-29",
+    "licence": "proprietary",
+    "features": {
+      "dims": {
+        "v": "2D",
+        "note": "Flat maps",
+        "src": "https://www.questportal.com/",
+        "verified": false
+      },
+      "platform": {
+        "v": [
+          "browser",
+          "ios",
+          "android"
+        ],
+        "note": "Web plus iOS and Android apps",
+        "src": "https://www.questportal.com/documentation",
+        "verified": true
+      },
+      "price": {
+        "v": "free tier",
+        "note": "Free forever; Pro $9.99/mo or $89.99/yr with AI credits; players' cost not stated",
+        "src": "https://www.questportal.com/pricing.md",
+        "verified": true
+      },
+      "accounts": {
+        "v": "everyone",
+        "note": "Players join by invite link or username",
+        "src": "https://www.questportal.com/documentation",
+        "verified": false
+      },
+      "fog": {
+        "v": "yes",
+        "note": "Fog of war on the free tier",
+        "src": "https://www.questportal.com/pricing.md",
+        "verified": true
+      },
+      "lighting": {
+        "v": "yes",
+        "note": "Dynamic lighting on the free tier",
+        "src": "https://www.questportal.com/pricing.md",
+        "verified": true
+      },
+      "mapbuild": {
+        "v": "yes",
+        "note": "AI map and scene generation (Pro); manual drawing not confirmed",
+        "src": "https://www.questportal.com/pricing.md",
+        "verified": true
+      },
+      "levels": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://www.questportal.com/documentation",
+        "verified": false
+      },
+      "sheets": {
+        "v": "partial",
+        "note": "Call of Cthulhu and universal sheets; automation not described",
+        "src": "https://www.questportal.com/documentation",
+        "verified": true
+      },
+      "ddb": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://www.questportal.com/documentation",
+        "verified": false
+      },
+      "dice": {
+        "v": "?",
+        "note": "Rolls from sheets and a dice roller; 3D not confirmed",
+        "src": "https://www.questportal.com/documentation",
+        "verified": false
+      },
+      "phone": {
+        "v": "yes",
+        "note": "iOS and Android apps",
+        "src": "https://www.questportal.com/documentation",
+        "verified": true
+      },
+      "offline": {
+        "v": "?",
+        "note": "Not mentioned",
+        "src": "https://www.questportal.com/documentation",
+        "verified": false
+      },
+      "opensource": {
+        "v": "no",
+        "note": "Closed source",
+        "src": "https://www.questportal.com/",
+        "verified": false
+      },
+      "ai": {
+        "v": "yes",
+        "note": "GM assistant, adventure, map, token and note generation (Pro)",
+        "src": "https://www.questportal.com/pricing.md",
+        "verified": true
+      },
+      "modding": {
+        "v": "partial",
+        "note": "Developer API and MCP server; no mod system found",
+        "src": "https://www.questportal.com/",
+        "verified": true
+      },
+      "stage": {
+        "v": "released",
+        "note": "Live product",
+        "src": "https://www.questportal.com/",
+        "verified": false
+      },
+      "community": {
+        "v": "note",
+        "note": "No community size figure checked this session",
+        "src": "https://www.questportal.com/",
+        "verified": false
+      }
+    },
+    "upsides": [
+      "Fog and dynamic lighting on the free tier",
+      "Phone apps for iOS and Android",
+      "Developer API and MCP server for tools"
+    ],
+    "downsides": [
+      "AI features need the Pro subscription",
+      "Rules automation not documented",
+      "Few system-specific sheets listed"
+    ],
+    "sources": [
+      {
+        "url": "https://www.questportal.com/",
+        "label": "Official site"
+      },
+      {
+        "url": "https://www.questportal.com/pricing.md",
+        "label": "Pricing (markdown)"
+      },
+      {
+        "url": "https://www.questportal.com/documentation",
+        "label": "Documentation"
+      }
+    ]
+  }
+]

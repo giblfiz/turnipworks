@@ -1,0 +1,46 @@
+page http://127.0.0.1:8180/ 2026-10-25 23:14:17 | libEven pref at load True
+
+SAME SIZE ON : 20138 things in 156 libraries, drawn longer side 3..3 ft, median 3.0
+  not 3 ft: 0 Counter() []
+SAME SIZE OFF: drawn longer side 0.12..26 ft, all k == 1: True
+  on, by place: {'floor': (3, 3, 2137), 'wall': (3, 3, 994), 'ground': (3, 3, 322), 'ceiling': (3, 3, 90), 'surface': (3, 3, 1025), 'tile': (3, 3, 7644), 'kit': (3, 3, 7913), 'attach': (3, 3, 13)}
+
+MEASURED (mesh boxes, the stills):
+  common         even: 250 meshes (+0 boxes), side 2.98..5.12 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 5.12)]
+  common         true: 250 meshes (+0 boxes), side 0.15..10 ft, median 2.50, 2-98% 0.25..9
+  cave           even: 101 meshes (+0 boxes), side 3..4.24 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 4.24)]
+  cave           true: 101 meshes (+0 boxes), side 5..10 ft, median 6.67, 2-98% 5..10
+  temple-nave    even: 205 meshes (+0 boxes), side 3..5.24 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 5.24)]
+  temple-nave    true: 205 meshes (+0 boxes), side 1.17..14.17 ft, median 5.00, 2-98% 2.17..9
+  cult-sanctum   even: 213 meshes (+0 boxes), side 3..5.26 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 5.26)]
+  cult-sanctum   true: 213 meshes (+0 boxes), side 0.67..14.17 ft, median 5.00, 2-98% 1..10
+  mkt-square     even: 168 meshes (+0 boxes), side 3..4.06 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 4.06)]
+  mkt-square     true: 168 meshes (+0 boxes), side 0.22..14.17 ft, median 5.00, 2-98% 0.5..10
+  min-tunnel     even: 126 meshes (+0 boxes), side 3..4.06 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 4.06)]
+  min-tunnel     true: 126 meshes (+0 boxes), side 1..10 ft, median 5.00, 2-98% 1.5..10
+  hill           even: 108 meshes (+0 boxes), side 3..5.24 ft, median 3.00, 2-98% 3..3
+     off 3 ft by > 0.6: [('floor-earth-straw', 5.24)]
+  hill           true: 108 meshes (+0 boxes), side 3..26 ft, median 5.75, 2-98% 3.5..20
+  common even: smallest-true thing ('apple-core', 2.98, 'k', 20.38), door-plank 3
+  common true: smallest-true thing None, door-plank 6.67
+
+COVERAGE: usable categories 1260; shown in some library 1083; not shown 177
+  kit piece the library does not list (KIT_PIECES is six pieces): 82
+    ['balcony-wood', 'balustrade-stone', 'balustrade-stone-pier', 'bar-counter', 'bridge-stone-natural', 'cave-mouth', 'cell-bars', 'cell-holding-wood', 'chimney-stack', 'city-wall', 'city-wall-turret', 'crypt-gate-iron', 'door-barn-double', 'door-cell-bars', 'door-crypt', 'door-face-carved', 'door-glazed', 'door-panelled', 'door-rune-sealed', 'door-secret-bookcase', 'door-tower', 'fence-picket', 'fence-post-corner', 'fence-post-rail', 'fence-wattle', 'floor-hayloft', 'floor-trapdoor', 'gallery-interior', 'gate-double-timber', 'gate-fence', 'hedge-corner', 'hedge-end-block', 'hedge-gap-arch', 'hedge-straight', 'ossuary-wall', 'parapet-corner', 'parapet-straight', 'plank-bridge', 'porch-covered', 'portcullis', 'portcullis-raised', 'privy-stall-door', 'privy-stall-partition', 'railing-iron', 'railing-wood', 'roof-dormer', 'roof-hatch', 'roof-ridge', 'roof-shingle-wood', 'roof-skylight', 'roofing-shingle-wood', 'roofing-slate', 'roofing-thatch', 'roofing-tile-clay', 'rune-tile', 'sewer-outflow', 'stable-stall', 'stable-stall-back', 'stable-stall-door', 'stable-stall-gate', 'stable-stall-partition', 'stair-exterior-wood', 'stair-grand', 'stair-half', 'stair-landing', 'stair-spiral-wide', 'stair-straight', 'stair-wall-hugging', 'tomb-door-sealed', 'wall-alcove', 'wall-corner-inner', 'wall-corner-outer', 'wall-crenellated', 'wall-crenellated-corner', 'wall-crypt-niches', 'wall-drystone', 'wall-drystone-gate', 'wall-drystone-pier', 'wall-secret-door', 'wall-shop-window', 'wall-window-shop', 'window-stained-glass']
+  in no room recipe (rooms.json): 59
+    ['bath-screen-cloth', 'boulder-pile', 'bowl-pewter', 'bowl-wood-large', 'brew-copper', 'bunk-crude', 'candle-box-sconce', 'carpetbag', 'corbel-stone', 'cradle', 'craft-saddle-horse-stand', 'cup-leather', 'dutch-oven', 'egg-sacs-floor', 'feather-duster', 'fire-ring-iron', 'fish-gutting-board', 'flask-hip', 'gargoyle-spout', 'giant-web-floor', 'jetty-bracket', 'jug-of-cider', 'keg-small', 'kettle', 'knucklebones', 'mash-tun', 'mug-large', 'offering-bowl', 'pack-saddlebags', 'pie', 'plate-ceramic', 'platter', 'platter-board-handled', 'roof-finial', 'rug-wolfskin', 'rural-horse-blanket-folded', 'rural-horseshoe-nails-box', 'rural-saddle-soap-tin', 'rural-tack-trunk', 'spinning-wheel', 'stein-stoneware', 'tankard-horn', 'tankard-wooden', 'trade-ale-jugs-crate', 'trade-ale-taster-stool', 'trade-apron-bloody', 'trade-bread-crate-delivery', 'trade-brewers-paddle', 'trade-bung-mallet', 'trade-fermenting-crock', 'trade-lard-crock', 'trade-mash-fork', 'trade-oven-rake', 'trade-spigots-box', 'trade-yeast-crock', 'treasure-hoard-heap', 'weathervane', 'web-funnel', 'wineskin-full']
+  open state (-open): placed by opening the closed one: 34
+    ['book-open', 'bottle-of-wine-open', 'bread-oven-open', 'cabinet-china-open', 'chest-ironbound-open', 'chest-plain-open', 'chest-treasure-open', 'clothes-chest-open', 'coffin-open', 'cupboard-open', 'desk-bureau-open', 'door-barn-double-open', 'door-plank-open', 'door-reinforced-open', 'flour-sack-open', 'grain-sack-open', 'helm-open', 'iron-maiden-open', 'linen-chest-open', 'mil-footlocker-open', 'pit-open', 'potato-sack-open', 'roof-hatch-open', 'rural-feed-sack-open', 'rural-grooming-box-open', 'salt-box-open', 'sarcophagus-open', 'sideboard-open', 'smith-farrier-box-open', 'spice-sacks-open', 'strongbox-open', 'trade-hop-sack-open', 'wall-window-small-open', 'wardrobe-open']
+  faction slot no room recipe names: 2
+    ['flavor-corbel', 'flavor-pillar']
+  room with almost nothing of its own: cave 0 of 101
+  room with almost nothing of its own: cave 0 of 101
+  room with almost nothing of its own: cave 0 of 101
+
+menu opens 147 / 147 | page errors []

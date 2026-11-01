@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-06T16:55:11-07:00",
- "expected_total": 518,
- "batch": 56,
+ "updated": "2026-10-24T07:45:17-07:00",
+ "expected_total": 519,
+ "batch": 57,
  "figures": [
   {
    "id": "beast-ape",
@@ -6361,6 +6361,77 @@
     "role_guess": "two-headed giant",
     "faults": []
    }
+  },
+  {
+   "id": "foe-eye-tyrant",
+   "name": "Eye tyrant",
+   "group": "large",
+   "race": null,
+   "gender": null,
+   "cls": "eye-tyrant",
+   "family": "figures",
+   "tags": [
+    "eye tyrant",
+    "floating eye",
+    "eye monster",
+    "many-eyed",
+    "aberration",
+    "floating",
+    "monster"
+   ],
+   "srd": [],
+   "height_ft": 9.0,
+   "overall_ft": 9.0,
+   "base_ft": 10,
+   "facing_deg": 0,
+   "scale": 9.0023,
+   "y0": -4.5003,
+   "centre": [
+    0.066,
+    -0.125
+   ],
+   "native_bounds": [
+    [
+     -0.4106,
+     -0.5001,
+     -0.2656
+    ],
+    [
+     0.4095,
+     0.5002,
+     0.2661
+    ]
+   ],
+   "files": {
+    "full": "models/foe-eye-tyrant.glb",
+    "hero": "tiers/foe-eye-tyrant--20k1024.glb",
+    "horde": "tiers/foe-eye-tyrant--8k512.glb"
+   },
+   "tris": {
+    "full": 49911,
+    "hero": 20000,
+    "horde": 8000
+   },
+   "kb": {
+    "full": 2796,
+    "hero": 1107,
+    "horde": 479
+   },
+   "recommended": "hero",
+   "sha1": "f043969844c264f8dc37d3f7cd4e49c626632c49",
+   "thumb": "thumbs/foe-eye-tyrant.webp",
+   "batch": 57,
+   "published_at": "2026-10-24T07:45:14-07:00",
+   "qa": {
+    "verdict": "accept",
+    "unpainted_seen": 0.0018,
+    "floating": 0,
+    "contacts": 1,
+    "reach_ft": 3.76,
+    "feet_base_ft": 1.7,
+    "notes": []
+   },
+   "gemini": null
   },
   {
    "id": "foe-fire-elemental",

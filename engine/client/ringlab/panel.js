@@ -284,7 +284,11 @@ export function mountRingPanel(host, {
   function slidText() {
     const s = slidInfo; if (!s) return 'Every row starts where these say (none had to slide to stay out of 3–6).';
     const what = s.row === 'nested' ? 'The sub-menu starts' : s.row === 'closed' ? 'The shut row is centred' : 'The extra buttons start';
-    return `${what} at ${clockText(s.from)} → slid to ${clockText(s.to)} to stay out of 3–6 (the setting is unchanged).`;
+    const parts = [];
+    if (s.from != null && Math.abs(s.to - s.from) > 0.3) parts.push(`${what} at ${clockText(s.from)} → slid to ${clockText(s.to)} to stay out of 3–6`);
+    if (s.grown) parts.push(`${s.row === 'nested' ? 'its' : 'the'} oval grown ×${(+s.grown).toFixed(2)} to fit ${s.buttons} buttons`);
+    if (s.wide) parts.push(`it runs past "ends by" to fit ${s.buttons}`);
+    return parts.length ? `${parts.join('; ')} (the settings are unchanged).`.replace(/^./, c => c.toUpperCase()) : 'Every row starts where these say (none had to slide to stay out of 3–6).';
   }
   function worldRead() {
     const el = $('[data-role="worldRead"]'); if (!el) return;

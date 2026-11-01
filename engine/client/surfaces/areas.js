@@ -6,7 +6,8 @@
 //    showing as 'closed' to the GM, maybe a constant floating button that says 'unlock this area to players' and
 //    something that uses our same 'invisible' item flavor, and something that shows in all the menus where they come up"):
 //      - a constant floating button while the GM is in a hidden area: "Hidden from players · Open this area"
-//        (#areaState, top centre under the command bar; in an open area it is a quiet "Open to players · Hide")
+//        (#areaState, top centre under the command bar, the first row of #underBar above the selection's crumbs;
+//        in an open area it is a quiet "Open to players · Hide")
 //      - the area's name and the view's frame wear the hidden look a hidden thing has (the hidden violet, a dashed
 //        edge, the eye-off mark): the name tag beside the button, a dashed violet frame round the whole view, and
 //        the same on the picture-in-picture's frame and title when ITS area is hidden
@@ -45,7 +46,8 @@ export function areasSurface(R, app) {
   const state = document.createElement('div'); state.id = 'areaState'; state.hidden = true;
   const veil = document.createElement('div'); veil.id = 'areaVeil'; veil.hidden = true; veil.setAttribute('aria-hidden', 'true');
   const none = document.createElement('div'); none.id = 'areaNone'; none.hidden = true; none.setAttribute('role', 'status');
-  appEl.append(veil, state, none);
+  appEl.append(veil, none);
+  (document.getElementById('underBar') || appEl).prepend(state); // (the first row of the column under the bar; the crumbs come under it, never over it)
   const pipHid = document.createElement('button'); pipHid.id = 'pipHid'; pipHid.hidden = true; pipHid.tabIndex = -1;
   document.getElementById('pipTitle')?.before(pipHid);
   pipHid.onclick = (ev) => { ev.stopPropagation(); if (app.pip) app.setAreaOpen(app.pip.area, true); };

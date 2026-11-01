@@ -33,7 +33,7 @@ results = []; procs = []
 def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)
 
-RP, SP = 18091, 18716
+RP, SP = (int(v) for v in os.environ.get('TW_PORTS', '18091,18716').split(','))  # TW_PORTS=a,b: free ports when another run holds these
 def start_local(full=False):
     for port in (RP, SP):
         try: urllib.request.urlopen(f'http://127.0.0.1:{port}/', timeout=0.5); sys.exit(f'port {port} is busy (a stale test server?)')
@@ -77,14 +77,14 @@ ROOFS = "(() => { const w = tw.worldOf(tw.area()); return Object.fromEntries(w.r
 # a screen point over a roof plane of this room (its box's top centre, nudged), or null
 ROOF_PT = """(id) => { const w = tw.worldOf(tw.area()), rec = w.roofRecs.get(id); if (!rec) return null; const b = rec.box;
   for (const [fx, fz] of [[0.5, 0.5], [0.3, 0.5], [0.7, 0.5], [0.5, 0.3], [0.5, 0.7], [0.25, 0.25], [0.75, 0.75]]) { const x = b.min.x + (b.max.x - b.min.x) * fx, z = b.min.z + (b.max.z - b.min.z) * fz, y = w.roofPlan.heightAt(x, z); if (y == null) continue;
-    const s = tw.screenOf(x, z, tw.main, y), h = w.pickAll(tw.rayAt(s.x, s.y))[0]; if (h && h.roof === id) return { x: s.x, y: s.y, wx: x, wz: z }; }
+    const s = tw.screenOf(x, z, tw.main, y), h = w.pickAll(tw.rayAt(s.x, s.y))[0]; if (h && h.roof === id && !h.trim) return { x: s.x, y: s.y, wx: x, wz: z }; }
   return null; }"""
 ROOF_AUDIT = """(() => { const w = tw.worldOf(tw.area()), c = document.getElementById('c').getBoundingClientRect(); let tested = 0, bad = 0, through = 0;
   for (let i = 0; i < 64; i++) for (let j = 0; j < 40; j++) { const x = c.left + (i + 0.5) * c.width / 64, y = c.top + (j + 0.5) * c.height / 40, ray = tw.rayAt(x, y);
     const h = ray.intersectObjects([w.roofLayer], true).find(h => h.object.isMesh && h.object.visible && h.object.parent?.visible !== false); if (!h) continue;
     let o = h.object, vis = true; for (let q = o; q; q = q.parent) if (!q.visible) vis = false; if (!vis) continue;
     tested++; const hits = w.pickAll(ray), sel = hits.map(x => tw.selectionFor(x)).filter(Boolean);
-    if (!sel.some(s => s.startsWith('roof:'))) bad++;
+    if (!sel.some(s => s.startsWith('roof:') || s.startsWith('trim:'))) bad++;
     for (const k of hits) { const e = k.entity; if (e && (e.kind === 'object' || e.kind === 'room') && k.point && k.point.distanceTo(ray.ray.origin) > h.distance + 0.5) through++; } }
   return { tested, bad, through }; })()"""
 
@@ -284,7 +284,16 @@ async def main():
         for i in range(1, 13): await gm.mouse.move(s0['x'] + (deck['s']['x'] - s0['x']) * i / 12, s0['y'] + (deck['s']['y'] - s0['y']) * i / 12); await gm.wait_for_timeout(25)
         await gm.mouse.up(); await gm.wait_for_timeout(900)
         cat = await gm.evaluate("tw.entities()['tok_roofwalk01']")
-        check(abs((cat.get('y') or 0) - 10) < 0.01 and abs(cat['x'] - 27.5) < 3 and abs(cat['z'] - 12.5) < 3, 'a pawn dropped on the flat deck stands on it, at deck height', {k: cat.get(k) for k in ('x', 'y', 'z')})
+        # (2026-10-26, universal levels) a pawn keeps its level: from the ground it goes to lv 1's floor there, the room
+        # under the deck, never up onto the deck because the deck shows; one already up there walks along the deck at its height
+        check(abs(cat.get('y') or 0) < 0.01 and 0 < cat['x'] < 30 and 0 < cat['z'] < 20, 'a pawn dragged from the ground to where the flat deck shows stays on lv 1: in the room under it (the deck is 10 ft over where it points)', {k: cat.get(k) for k in ('x', 'y', 'z')})
+        await gm.evaluate("tw.dispatch('token.move', { id: 'tok_roofwalk01', x: 22.5, z: 12.5, y: 10 })"); await wait(gm, "(tw.entities()['tok_roofwalk01'].y || 0) === 10 && tw.sync.pendingCount() === 0", 5000); await gm.evaluate("tw.select([])"); await gm.wait_for_timeout(400)
+        s0 = await gm.evaluate("tw.screenOf(22.5, 12.5, tw.main, 11.5)"); s1 = await gm.evaluate("tw.screenOf(27.5, 7.5, tw.main, 10)")
+        await gm.mouse.move(s0['x'], s0['y']); await gm.mouse.down()
+        for i in range(1, 13): await gm.mouse.move(s0['x'] + (s1['x'] - s0['x']) * i / 12, s0['y'] + (s1['y'] - s0['y']) * i / 12); await gm.wait_for_timeout(25)
+        await gm.mouse.up(); await gm.wait_for_timeout(900)
+        cat = await gm.evaluate("(() => { const e = tw.entities()['tok_roofwalk01'], b = tw.worldOf(tw.area()).pawnBaseInfo(e.id); return { x: e.x, y: e.y || 0, z: e.z, on: b && b.on }; })()")
+        check(abs(cat['y'] - 10) < 0.01 and abs(cat['x'] - 27.5) < 3 and abs(cat['z'] - 7.5) < 3 and cat['on'] in ('top', 'roof'), 'a pawn on the flat deck dragged along it stands on it, at deck height', cat)
         rid = await gm.evaluate(f"(() => {{ const w = tw.worldOf(tw.area()), rec = w.roofRecs.get('{R['kitchen']}'), b = rec.box, x = b.min.x + (b.max.x - b.min.x) * 0.5, z = b.min.z + (b.max.z - b.min.z) * 0.25, y = w.roofPlan.heightAt(x, z), s = tw.screenOf(x, z, tw.main, y); return {{ g: w.floorPoint(tw.rayAt(s.x, s.y).ray, {{ max: tw.floorMax() }}), ridgeY: rec.roof.ridgeY, spots: rec.roof.standable.length }}; }})()")
         check(rid['g'] and rid['g'].get('snapped') and abs(rid['g']['y'] - rid['ridgeY']) < 1e-6, 'the pointer over a pitched slope goes to the nearest place to stand: a point on the ridge', rid)
 

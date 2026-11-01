@@ -1,0 +1,71 @@
+### Visible Text
+
+#### `player-desk.png`
+* **Top Navigation & Controls:**
+  * `Pawns` (with badge `P`)
+  * `Settings` (with badge `S`)
+  * `Other games / New game`
+  * Search bar: `Search commands, things to place, people, places... or say / roll`, badge `/`
+  * User badges (top right): `H`, `P`, with `Area 1` below each
+* **Left Sidebar:** `-1` (floor level indicator)
+* **Map / Pawns:** `Bram`, `Fen`, `Eli`, `Dov`, `Cora`, `Ann`
+* **Bottom Command Bar:** `say ... or roll d20 in the bar`
+* **Bottom-Right Telemetry:** `Live (ws) · 0ms · Area 1 seq 5 · 60 fps`
+
+#### `player-phone.png`
+* **Top Navigation & Controls:**
+  * Search bar: `Search, place, say or roll`
+  * User badge (top right): `P` (with partially obscured yellow `H` circle underneath)
+  * `Pawns`
+  * `Settings`
+* **Left Sidebar:** `-1` (floor level indicator)
+* **Map / Pawns:** `Fen` (partially clipped), `Eli`, `Cora`
+* **Bottom Command Bar:** `say ... or roll d20 in the bar`
+
+---
+
+### Image Evaluations
+
+---
+
+#### 1. `player-desk.png`
+
+1. **Description (2 sentences):**  
+   The desktop interface displays a top-down isometric 3D tabletop encounter set against a gray checkerboard void representing fog of war. A large irregular sandy cavern containing five player pawns sits on the left, while a separate, fully enclosed stone dungeon room containing one pawn floats detached on the right.
+
+2. **Is there a natural cave, and does it look like one?**  
+   There is a cavern-like dirt area on the left with natural rock outcroppings and boulders, but it **does not** look like a convincing natural cave. Instead of enclosed cave walls and ambient darkness/fog, it is a flat sandy polygon floating in an infinite 3D engine checkerboard grid, several central rock pillars have glitchy checkerboard missing-texture mappings, and the perimeter abruptly drops off into the void.
+
+3. **Broken or wrong elements (with location):**
+   * **Missing/broken textures on pillars (Cavern center, left, and right):** Five stone spires/pillars (between Bram & Fen, right of Fen, near Dov, center, and left of Cora) are rendered with a gray-and-dark checkerboard placeholder material rather than rock textures.
+   * **Fog of war rendered as raw checkerboard (Global background):** The unrevealed area is drawn as a transparent/UV test checkerboard grid instead of an atmospheric fog mask or solid blackness.
+   * **Fog boundary artifacts / phantom rock geometry (Lower and upper perimeter of sandy area):** Faint gray checkerboard rock silhouettes poke into the fog below Dov, along the bottom edge, and around the edges of the clearing.
+   * **Token nameplates obscuring tokens (All pawns):** The large black label pills (`Bram`, `Fen`, `Eli`, `Dov`, `Cora`, `Ann`) sit directly on top of the character models, obscuring nearly the entire pawn figure except for the yellow base.
+   * **Detached room discontinuity (Far right):** Ann's room is completely isolated across the checkerboard void with no connecting hallway, tunnel, or wall occlusion.
+
+---
+
+#### 2. `player-phone.png`
+
+1. **Description (2 sentences):**  
+   The mobile view presents a narrow vertical crop of the cavern area centered tightly between Fen, Eli, and Cora. The interface suffers from significant responsive layout clipping, leaving most party members and the secondary room outside the viewport.
+
+2. **Is there a natural cave, and does it look like one?**  
+   It contains the same sandy floor and rock clusters, but it **does not** look like a natural cave. The tall pillars still display the broken checkerboard missing-texture glitch, and the tight viewport framing makes it appear as an untextured 3D terrain asset floating in an exposed checkerboard void.
+
+3. **Broken or wrong elements (with location):**
+   * **Top-right UI header collision (Top right):** The user profile avatar circle (`P`) collides directly with the right edge of the search input bar, overlapping it and almost completely occluding the yellow `H` user badge behind it.
+   * **Viewport edge clipping of pawn label (Far left edge):** The label `Fen` is bisected by the left screen boundary, with the pawn token largely off-screen.
+   * **Missing party members / no framing adaptation (Off-screen):** Pawns Bram, Dov, and Ann, along with the entire dungeon chamber, are entirely off-screen with no minimap, off-screen indicators, or auto-fit camera framing.
+   * **Missing/broken textures on pillars (Center & lower-right):** The vertical stone pillars still display the gray checkerboard placeholder texture.
+   * **Token nameplates obscuring models (All visible pawns):** `Eli` and `Cora` nameplates cover their respective pawns.
+
+4. **Is the phone view usable?**  
+   **No, it is not usable.** The camera does not frame the party (cutting off half the team and the other room), the left-most token and label are sliced by the viewport edge, and the top search UI elements collide and overlap, preventing basic situational awareness and touch navigation without constant, manual repositioning.
+
+---
+
+### VERDICTS
+
+* **`player-desk.png`:** **BROKEN** — Multiple rock pillars render with missing-texture checkerboard materials, and the fog of war renders as an unmasked 3D checkerboard grid with phantom mesh clipping artifacts.
+* **`player-phone.png`:** **BROKEN** — Broken responsive layout with UI collisions in the top bar, half the party and map clipped off-screen, token clipping on the screen edge, and persistent missing pillar textures.

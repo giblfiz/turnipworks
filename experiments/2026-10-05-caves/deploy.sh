@@ -17,5 +17,7 @@ cp "$HERE/floor/floor-cave-rock.webp" "$DST/tex/"
 rsync -a --delete "$HERE/web-models/" "$DST/models/"
 # the game's own straight fieldstone wall piece, for the comparison scene (library: wall-straight--fieldstone)
 cp "$ROOT/tools/spawn-tuner/assets/m/wall-straight--fieldstone.glb" "$DST/models/"
+# the library's stalagmites, for the pillars-and-stalagmites dressing
+cp "$ROOT"/tools/spawn-tuner/assets/m/{stalagmite.glb,stalagmite--s2.glb} "$DST/models/"
 find "$DST" -type d -exec chmod 755 {} +; find "$DST" -type f -exec chmod 644 {} +
 echo "deployed v=$V to $DST ($(du -sh "$DST" | cut -f1))"

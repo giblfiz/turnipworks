@@ -27,20 +27,33 @@ export const MENU = [
   { list: 'room.walls.', title: 'Walls', icon: 'brick-wall', key: 'w' },
   { list: 'room.floor.', title: 'Floor', icon: 'footprints', key: 'f' },   // (chords and the bar; off the ring)
   { cmd: 'room.fog', key: 'g', opens: 'fog', title: 'Fog height' },  // a slider at the button
-  { list: 'roof.style.', title: 'Style', icon: 'house', key: 'y' },   // a roof: thatch, clay tile, slate, wood shingle, flat (with a swatch each)
+  { list: 'roof.style.', title: 'Style', icon: 'house', key: 'y' },   // a roof: thatch, clay tile, slate, wood shingle, and the flat surfaces: plank deck, flagstone, lead, turf, whitewash (with a swatch each)
   { list: 'building.roof.', title: 'Roof style', icon: 'house', key: 'y' }, // a building: the style its roofs wear
   { list: 'building.storeys.', title: 'Storeys', icon: 'layers', key: 'o' }, // a generated building: make it again with 1, 2 or 3 storeys (docs/BUILDINGS.md)
   { cmd: 'building.reroll', key: 'b' },             // a generated building: a new layout on the same footprint
+  { list: 'roof.shape.', title: 'Shape', icon: 'square-dashed', key: 's' }, // a roof (2026-10-27): gable, hip, flat, automatic
+  { list: 'building.roofShape.', title: 'Roof shape', icon: 'square-dashed', key: 's' }, // a building: the shape its roofs take
+  { cmd: 'roof.turn', key: 'q' },                   // (on a roof's closed ring: the turn handle; here for the chord tree) its ridge the other way
   { cmd: 'roof.reroll', key: 'e' },                 // (on a roof's closed ring: a die; new dormers and finial)
-  { cmd: 'roof.hide', key: 'h' },                   // Hide roof / Show roof
-  { cmd: 'room.roofShow', key: 'j' },               // a room whose roof was hidden: put it back
+  { cmd: 'roof.hide', key: 'h' },                   // Remove roof: the room is open to the sky (the Delete key does the same)
+  { cmd: 'roof.battlements', key: 'c' },            // (2026-10-27) a flat roof, or a building: Battlements on / off
+  { cmd: 'roof.turrets', key: 'z' },                // ... Corner turrets on / off
+  { list: 'roof.edge.', title: 'Edge', icon: 'fence', key: 'g' }, // ... battlements, stone parapet, timber railing, no edge, by the building
+  { cmd: 'room.roofShow', key: 'j' },               // a room open to the sky: put its roof back
+  { cmd: 'trim.reset', key: 'r' },                  // a chimney, dormer or finial that was moved: back where the roof puts it (its closed ring)
+  { cmd: 'trim.remove', key: 'h' },                 // ... removed (the Delete key does the same)
   { cmd: 'room.reroll', key: 'e' },                 // (on a room's closed ring; here for the chord tree)
   { cmd: 'room.rotate', key: 'q' },                 // (the same)
   // a pawn (Harry 2026-10-06): sheet and damage are on its closed ring (here for the chord tree); then its two lists
+  { cmd: 'pawn.choose', key: 'p' },                // a PLACEHOLDER pawn (an invite's stand-in): Set your pawn / Choose Bobby's pawn (its closed ring)
   { cmd: 'pawn.sheet', key: 's', opens: 'sheet', title: 'Sheet' },
   { cmd: 'pawn.damage', key: 'v' },
+  { cmd: 'pawn.target', key: 't' },                 // (2026-10-29) aim your pawn at this one: Target / Untarget (surfaces/target.js; its closed ring)
+  { cmd: 'pawn.attack', key: 'a', opens: 'attack', title: 'Attack' }, // (2026-10-29) a pawn linked to a D&D Beyond sheet, Beyond20 at this table: its attacks (surfaces/beyond20.js; its closed ring)
+  { cmd: 'pawn.eyes', key: 'e', cap: 'First person' },                  // (2026-10-29) First person: look through this pawn's eyes (surfaces/fpv.js; a player's own pawn: its closed ring)
   { list: 'pawn.cond.', title: 'Conditions', icon: 'badge-alert', key: 'c' },
   { list: 'pawn.mark.', title: 'Indicators', icon: 'star', key: 'm' },
+  { list: 'pawn.aura.', title: 'Aura', icon: 'sparkles', key: 'b' },     // (2026-10-30) Aura up / down / off and the six colours (client/aurafx.js)
   { cmd: 'edit.lift', key: 'u' },                   // Raise / lower: a drag button
   { cmd: 'thing.upright', key: 'j' },               // a rolled thing: stand it upright again (the Turn is kept)
   { cmd: 'thing.tilt', key: 'b' },                  // Roll (a thing, not a pawn): a drag button, the turn's gesture about the view's axis
@@ -53,6 +66,10 @@ export const MENU = [
   { cmd: 'pawn.duplicate', key: 'x' },              // (off the ring)
   { cmd: 'pawn.give', key: 'g', opens: 'give', title: 'Give control' }, // opens the pawn's sheet card on "Moved by" (off the ring)
   { list: 'room.height.', title: 'Height', icon: 'chevrons-up', key: 'i' }, // a tall room: Taller / Shorter (one button when only one applies)
+  { list: 'room.hill.height.', title: 'Hill height', icon: 'chevrons-up', key: 'i' }, // a hill (2026-10-24): Raise 10 ft / Lower 10 ft / 10, 20 ft (never shown with the tall room's Height)
+  { cmd: 'room.hill.cliff', key: 'c' },             // a hill: Rock sides / Grass banks
+  { cmd: 'hole.wider', key: 'w' },                  // a round hole (2026-10-21, commands.js): 5 ft wider, up to 20 ft (flat, like Taller / Shorter's buttons)
+  { cmd: 'hole.narrower', key: 'q' },               // ... 5 ft narrower, down to 5 ft (w and q: no other command a hole is offered uses them)
   { cmd: 'room.stair', key: 's' },                  // an upper room or a cellar: plan its stair (off the ring)
   { cmd: 'room.replay', key: 'a' },                 // (off the ring)
   { cmd: 'cast.saveGroup', key: 'g' },              // several pawns (GM): "Save as group…" (surfaces/pawns.js, the cast)
@@ -64,6 +81,9 @@ export const MENU = [
 //   duplicate (Ctrl/⌘+D), copy (Ctrl/⌘+C), cut (Ctrl/⌘+X): Harry 2026-10-05, "We DON'T need a cut copy paste set of
 //   options in there"
 //   turn a room back 90° (Shift+R): the room's closed ring already has Turn; this keeps a room's open ring short
+//   (2026-10-29) a selection's Export… and Share link… were here (Space 8, Space 9) for a day, then went altogether
+//   (Harry: "I'm seeing an export button on all the orbital menus now", then "drop export of selections"). Exporting is
+//   the whole area's now, from Settings ▸ Area settings and the bar (client/commands.js share.area, share.areaLink)
 export const NOT_IN_MENU = ['edit.duplicate', 'edit.copy', 'edit.cut', 'room.rotateBack'];
 // THE CUTS of 2026-10-11 (Harry: "ship the cuts"; docs/design/orbital-menu-2026-10-11/README.md, "Content changes agreed")
 // WERE TO THE RING ONLY. The commands below are not drawn on any ring; the Space chord tree still holds every one of
@@ -121,7 +141,7 @@ export function menuFor(R, ctx, { skip = new Set(), ring = false } = {}) {
   const orphans = () => { for (const id of plan.orphans) { const c = avail.find(c => c.id === id); if (c) out.push(leaf(c)); } }; // a command the table forgot: just before Delete, and reported
   for (const e of MENU) {
     if (e.cmd === 'edit.delete') orphans();
-    if (e.cmd) { const c = avail.find(c => c.id === e.cmd); if (c) out.push(e.opens ? { ...leaf(c), opens: e.opens, title: e.title } : leaf(c)); continue; }
+    if (e.cmd) { const c = avail.find(c => c.id === e.cmd); if (c) out.push(e.opens ? { ...leaf(c), opens: e.opens, title: e.title } : e.cap ? { ...leaf(c), cap: e.cap } : leaf(c)); continue; } // (cap: its caption in ☰ when that is not its short name on a closed ring)
     const cs = avail.filter(c => c.id.startsWith(e.list));
     if (cs.length === 1) out.push({ ...leaf(cs[0]), key: e.key });
     else if (cs.length) out.push({ group: e.list, title: e.title, icon: e.icon, key: e.key, children: cs.map(leaf) });

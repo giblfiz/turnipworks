@@ -21,7 +21,7 @@ Harry: "by default when you are moving your pawn(s) it should show the distance 
 - **Everyone who can see the pawn sees it live.** It travels as presence (below). A hidden pawn's line reaches the
   GM side only.
 - A group: one line, for the pawn that was grabbed.
-- Not shown: the hop a pawn makes when dropped on a stair (the drop decides that; the line shows the drag).
+- Not shown: the hop a pawn makes when dropped on a ladder or a spiral (the drop decides that; the line shows the drag). A flight is walked since 2026-10-26, so the drag's own line is the path.
 
 ## 2. The distance rule
 Harry: "true distance for sure."

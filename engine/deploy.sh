@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # DEV DEPLOY (2026-10-19: two servers; docs/NETCODE.md "Two servers", docs/STATUS.md "Working rules agents follow").
 # Deploys the game client (engine/client + engine/core) to the DEV tree and restarts the DEV relay. Prod is never
-# touched: https://turnipworks.net/ serves a pinned release and moves only by the nightly roll (tw-release-roll.timer,
-# 03:30 America/Los_Angeles) or `tools/release.sh promote-now`.
+# touched: https://turnipworks.net/ serves a pinned release and moves ONLY when Harry initiates it
+# (`tools/release.sh promote-now --harry`, 2026-10-22; the nightly roll is retired).
 #   https://dev.turnipworks.net/  (box-local: http://127.0.0.1:8180/)   the game at the root (client/index.turnipworks.html)
 #   https://implausible.enterprises/projects/turnip-works/engine/      alternate entry (client/index.html), also dev
 #   relay: tw-relay-dev.service on 127.0.0.1:8098, data /var/lib/tw-relay-dev/data (its own campaigns; restarts are free)
@@ -12,10 +12,10 @@
 #   engine/deploy.sh            deploy + copy the dev campaigns aside + restart the dev relay
 #   engine/deploy.sh --no-relay deploy the client only
 # After the landing suites pass, the landing script marks what dev now serves as the release candidate:
-#   TW_LOCK_HELD=1 tools/release.sh candidate      (inside the landing lock; the nightly roll promotes it)
+#   TW_LOCK_HELD=1 tools/release.sh candidate      (inside the landing lock; it goes live only on Harry's word)
 # Both also put the feedback tickets' triage page (tools/tickets/index.html) at $WEB/tickets/.
 set -euo pipefail
-[[ "${1:-}" == "--prod" ]] && { echo "engine/deploy.sh deploys to DEV only. Prod moves by the nightly roll or tools/release.sh promote-now."; exit 2; }
+[[ "${1:-}" == "--prod" ]] && { echo "engine/deploy.sh deploys to DEV only. Prod moves only when Harry initiates it: tools/release.sh promote-now --harry."; exit 2; }
 SRC="$(cd "$(dirname "$0")" && pwd)"
 WEB=/var/www/implausible-landing/projects/turnip-works
 DST=$WEB/engine
@@ -25,6 +25,14 @@ trap 'rm -rf "$STAGE"' EXIT
 # gate (2026-10-12): never deploy a half-merged or unparseable tree (a conflict-marked world.js went live for a minute)
 "$SRC/../tests/check_source_sane.sh" || { echo "NOT DEPLOYED: the source tree is not sane (see above)"; exit 1; }
 python3 "$SRC/tools/build_types.py"   # the Build menu's types from the catalog's setting codes (client/data/types.json)
+python3 "$SRC/tools/build_site.py"    # About, Terms, Privacy, Connect D&D Beyond: docs/site/*.md -> client/site/*.html (served at /about, /terms, /privacy, /connect-dnd-beyond)
+# the phone page's film and poster (client/phone.js): generated, not in git; made once from the approved master
+"$SRC/tools/build_phone_media.sh" || { echo "NOT DEPLOYED: the phone page's film is missing (engine/tools/build_phone_media.sh)"; exit 1; }
+# the help page Connect D&D Beyond's film and pictures (client/site/ddb/): generated, not in git; copied from the USB disk
+"$SRC/tools/build_ddb_media.sh" || { echo "NOT DEPLOYED: the Connect D&D Beyond page's film or pictures are missing (engine/tools/build_ddb_media.sh)"; exit 1; }
+# the table's music (client/music.js): generated, not in git; encoded from Harry's masters on the USB disk (licence not yet
+# confirmed: kept out of the public export, tools/public-export/exclude.tsv)
+"$SRC/tools/build_music.sh" || { echo "NOT DEPLOYED: the music is missing (engine/tools/build_music.sh)"; exit 1; }
 # gate (2026-10-05): every room and type the tray lists has its icon, every listed tuner file exists
 python3 "$SRC/../tools/spawn-tuner/test/assets_check.py" --quiet || { echo "NOT DEPLOYED: listed files are missing (python3 tools/spawn-tuner/test/assets_check.py names them)"; exit 1; }
 mkdir -p "$STAGE"/{client,core}
@@ -36,7 +44,7 @@ sed -i -E "s#\?v=dev#?v=$V#g; s#TW_V = 'dev'#TW_V = '$V'#" "$STAGE/client/index.
 # this page is the dev server's: the DEV ribbon shows (a release re-stamps it "prod": tools/release.sh)
 sed -i -E 's#<meta name="tw-channel" content="[a-z]+">#<meta name="tw-channel" content="dev">#' "$STAGE/client/index.html"
 # turnipworks.net serves the game at "/": same page, resolving everything under /engine/client/, the tuner under /look/
-sed -E "s#<head>#<head>\n<base href=\"/engine/client/\">#; s#content=\"\.\./\.\./tuner/\"#content=\"/look/\"#; s#\"\.\./\.\./tuner/js/#\"/look/js/#g" "$STAGE/client/index.html" > "$STAGE/client/index.turnipworks.html"
+sed -E "s#<head>#<head>\n<base href=\"/engine/client/\">#; s#content=\"\.\./\.\./tuner/\"#content=\"/look/\"#; s#\"\.\./\.\./tuner/js/#\"/look/js/#g; s#href=\"site/(about|terms|privacy)\.html\"#href=\"/\1\"#g" "$STAGE/client/index.html" > "$STAGE/client/index.turnipworks.html"
 cat > "$STAGE/index.html" <<HTML
 <!doctype html><meta charset="utf-8"><title>Turnip Works</title>
 <script>location.replace('client/' + location.search + location.hash);</script>

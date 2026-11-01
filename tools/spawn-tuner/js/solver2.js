@@ -7851,3 +7851,15 @@ Object.assign(FOCAL, { 'lair-warren': "the chieftain's seat (wall facing the way
 Object.assign(KEY_RE, { 'lair-mouth': null, 'lair-passage': null, 'lair-warren': /^(bone-throne|throne|chair-armed)$/, 'lair-beast': /^(nest-giant|nest-monster|hay-pile)$/, 'lair-spider': /^(web-funnel|egg-sacs-floor|eggs-monster|web-cocoon|rite-mummified-remains|bones-pile)$/,
   'lair-larder': /^(butcher-block|chopping-block-kitchen|block-headsman|carcass-hanging)$/, 'lair-pit': /^(pit-open|oubliette-hatch|cage-floor)$/, 'lair-hatchery': /^(dragon-eggs|eggs-monster)$/, 'lair-trophy': null, 'lair-dragon': /^(treasure-hoard-heap|dun-treasure-hoard|coin-pile)$/ });
 // <<< type:lai
+
+// ---------------- HILL (2026-10-24, docs/VERTICAL.md "Terrain: computed banks") ----------------
+// A hill is raised ground drawn like a room: outdoor, no walls. Its top is BARE: nothing is laid out on it (the GM
+// furnishes it by hand), and its bank and the rocks on the bank are the engine's, worked out from the terraces
+// (engine/core/terrain.js, engine/client/terrain.js), never furniture. So its program places nothing.
+Object.assign(KEY, { hill: () => ({ feature: null, what: 'a hill: bare raised ground (the engine lays its banks)', outdoor: true }) });
+
+// ---------------- CAVE (2026-10-25, docs/VERTICAL.md "Caves") ----------------
+// A cave is a room walled with natural rock. Its rock, its pillars and its stalagmites are the engine's, worked out from
+// the cave's squares and seed (engine/core/caves.js, engine/client/caves.js), never furniture; its floor is bare rock the
+// GM furnishes by hand. So its program places nothing.
+Object.assign(KEY, { cave: () => ({ fail: null, feature: null, what: 'a cave: bare rock (the engine stands its walls, pillars and stalagmites)' }) });

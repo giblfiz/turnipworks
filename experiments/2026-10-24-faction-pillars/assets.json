@@ -1,0 +1,600 @@
+{
+ "batch": "faction-pillars-01",
+ "note": "see make_specs.py",
+ "assets": [
+  {
+   "id": "flavor-pillar--dragons-fct",
+   "object": "flavor-pillar",
+   "shape": "dragons",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. A single thick-bodied dragon coils in a spiral twice around the shaft, its scaly body nearly as thick as the shaft, clawed forefeet gripping the capital and its blunt horned head resting on the top edge of the capital looking outward; small folded wings lie flat against the shaft. The motif belongs to the column itself and reads from every side and from above. Palette: burnt copper and deep crimson. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with a dragon coiled around it",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: a dragon coiled around it"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--dragons-fct",
+   "object": "flavor-buttress",
+   "shape": "dragons",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is carved as one thick scaly DRAGON TAIL sweeping down onto the footing block; the pier front carries a large DRAGON HEAD in high relief with a long blunt snout and short thick horns. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: burnt copper and deep crimson. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with a dragon head and a dragon tail",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: a dragon head and a dragon tail"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--sun-fct",
+   "object": "flavor-pillar",
+   "shape": "sun",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. The capital is a large radiant round SUN FACE disc with eight short thick triangular rays, repeated on all four sides; the shaft is fluted with thick vertical grooves. The motif belongs to the column itself and reads from every side and from above. Palette: warm golden ochre and ivory. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with a radiant sun face",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: a radiant sun face"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--moon-fct",
+   "object": "flavor-pillar",
+   "shape": "moon",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. The capital is a broad silver CRESCENT MOON with a calm face, its two thick horns pointing up under the flat top slab; the shaft is carved with a few thick five-pointed stars. The motif belongs to the column itself and reads from every side and from above. Palette: silver and muted midnight blue. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with a crescent moon",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: a crescent moon"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--devils-fct",
+   "object": "flavor-pillar",
+   "shape": "devils",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. The shaft is ridged and spiralled like one great horn; the capital is four broad HORNED DEVIL HEADS facing outward, each with two short thick horns. The motif belongs to the column itself and reads from every side and from above. Palette: brick red and dark charcoal. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with horned devil heads",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: horned devil heads"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--spiders-fct",
+   "object": "flavor-pillar",
+   "shape": "spiders",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. A crouched SPIDER with a large oval abdomen clings to the upper shaft, its eight stout bent legs wrapping around the column; a thick carved web spreads over the capital. The motif belongs to the column itself and reads from every side and from above. Palette: deep plum and pale stone. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with a spider clinging to it",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: a spider clinging to it"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--skulls-fct",
+   "object": "flavor-pillar",
+   "shape": "skulls",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. The capital is a ring of four large human SKULLS facing outward, large dark eye sockets and blocky teeth; the shaft is wound with thick carved crossed long bones. The motif belongs to the column itself and reads from every side and from above. Palette: ivory bone and charcoal. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with skulls",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: skulls"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--tentacles-fct",
+   "object": "flavor-pillar",
+   "shape": "tentacles",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. Three thick OCTOPUS ARMS with large round suckers spiral up around the shaft from the base and curl over the edge of the capital. The motif belongs to the column itself and reads from every side and from above. Palette: violet and pale mauve. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with octopus tentacles wrapped round it",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: octopus tentacles wrapped round it"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--nature-fct",
+   "object": "flavor-pillar",
+   "shape": "nature",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. The shaft is a living OAK TRUNK with bark, a calm green-man face carved near the top, and the capital a thick crown of broad oak leaves. The motif belongs to the column itself and reads from every side and from above. Palette: moss green and warm oak brown. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with an oak trunk with leaves (a green man)",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: an oak trunk with leaves (a green man)"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--sword-shield-fct",
+   "object": "flavor-pillar",
+   "shape": "sword-shield",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. A large HEATER SHIELD is carved on the front and back of the shaft, each over a broad vertical SWORD whose pommel meets the capital; the capital is crenellated like a castle tower. The motif belongs to the column itself and reads from every side and from above. Palette: silver and royal blue. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with a sword and shield",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: a sword and shield"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--death-fct",
+   "object": "flavor-pillar",
+   "shape": "death",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. A peaceful RAVEN with folded wings perches on top of the capital; the shaft carries a large HOURGLASS in relief and a thick carved shroud draped from the capital. The motif belongs to the column itself and reads from every side and from above. Palette: warm ivory and ink black. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with a raven and an hourglass",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: a raven and an hourglass"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--scales-coin-fct",
+   "object": "flavor-pillar",
+   "shape": "scales-coin",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. The shaft is carved as a tall stack of broad thick COINS; on top of the capital stands a solid pair of balanced SCALES with broad deep pans on thick arms, no chains. The motif belongs to the column itself and reads from every side and from above. Palette: antique gold and deep emerald. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with balanced scales and coins",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: balanced scales and coins"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--forge-hammer-fct",
+   "object": "flavor-pillar",
+   "shape": "forge-hammer",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. The shaft is banded with thick riveted iron hoops, the capital is shaped like a broad ANVIL, and a large square-headed smith HAMMER is carved in relief down the front of the shaft. The motif belongs to the column itself and reads from every side and from above. Palette: iron grey and ember orange. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with an anvil and a smith hammer",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: an anvil and a smith hammer"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pillar--sea-storm-fct",
+   "object": "flavor-pillar",
+   "shape": "sea-storm",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    30,
+    120
+   ],
+   "aspect": "portrait",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One free-standing architectural PILLAR (a column that holds up a ceiling), not a statue: a square stepped plinth base, one thick shaft, and a broad square capital with a completely FLAT TOP. Proportions 30 inches across and 120 inches tall: a tall column about four times as tall as it is wide. The shaft is carved as rising curling OCEAN WAVES wrapping around it, a stout three-pronged TRIDENT is carved in relief up the front with its prongs on the capital, and the capital is a curling wave crest. The motif belongs to the column itself and reads from every side and from above. Palette: turquoise and pearl white. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Three-quarter view from ABOVE, camera elevation 35 degrees, so the flat top of the capital and the whole shaft down to the base are visible; the whole column fits in the frame. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one free-standing stone pillar (column) with a base and a capital, carved with ocean waves and a trident",
+    "must": [
+     "a tall free-standing column or pillar with a base and a capital",
+     "the motif: ocean waves and a trident"
+    ],
+    "must_not": [
+     "a statue or idol with no column",
+     "a wall, arch or doorway",
+     "several objects",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--skulls-fct",
+   "object": "flavor-buttress",
+   "shape": "skulls",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is carved as a row of thick VERTEBRAE like a giant spine; the pier front carries one large human SKULL in high relief with large dark eye sockets. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: ivory bone and charcoal. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with a skull and a spine",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: a skull and a spine"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--tentacles-fct",
+   "object": "flavor-buttress",
+   "shape": "tentacles",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is one great thick OCTOPUS ARM with large round suckers along its underside, its tip curling onto the footing block; two more curling arms climb the pier front. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: violet and pale mauve. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with octopus tentacles",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: octopus tentacles"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--nature-fct",
+   "object": "flavor-buttress",
+   "shape": "nature",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is a thick gnarled OAK BRANCH with broad leaves along it; the pier front carries a calm GREEN-MAN face framed by oak leaves. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: moss green and warm oak brown. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with an oak branch and a green man",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: an oak branch and a green man"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--sword-shield-fct",
+   "object": "flavor-buttress",
+   "shape": "sword-shield",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is plain and heavy, edged with a band of small heater shields; the pier front carries a large HEATER SHIELD over a broad vertical SWORD in high relief. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: silver and royal blue. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with a sword and shield",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: a sword and shield"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--death-fct",
+   "object": "flavor-buttress",
+   "shape": "death",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is carved as one long folded RAVEN WING of thick feathers; the pier front carries a large HOURGLASS in relief, and a raven with folded wings perches on the pier top. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: warm ivory and ink black. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with a raven and an hourglass",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: a raven and an hourglass"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--scales-coin-fct",
+   "object": "flavor-buttress",
+   "shape": "scales-coin",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is carved as a long row of broad COINS standing on edge; the pier front carries balanced SCALES above three broad coins in high relief, solid pans, no chains. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: antique gold and deep emerald. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with scales and coins",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: scales and coins"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--forge-hammer-fct",
+   "object": "flavor-buttress",
+   "shape": "forge-hammer",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is carved as the long thick handle of a giant smith HAMMER whose square head rests on the footing block; the pier front carries an ANVIL in high relief. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: iron grey and ember orange. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with a hammer and an anvil",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: a hammer and an anvil"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  },
+  {
+   "id": "flavor-buttress--sea-storm-fct",
+   "object": "flavor-buttress",
+   "shape": "sea-storm",
+   "lane": "3d",
+   "route": "trellis",
+   "size": [
+    30,
+    96,
+    108
+   ],
+   "aspect": "landscape",
+   "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art. One architectural FLYING BUTTRESS section meant to stand against a wall, seen from the side so the whole quarter arch shows: on the right a tall upright stone pier on a moulded foot: 9 ft tall, 3 ft along the arch and only 2.5 ft thick, the TALLEST part of the piece; from the top of the pier ONE thick half arch springs out to the left and sweeps down in a quarter circle to a stout low footing block about 6 ft away, so the piece is taller than it is long, leaving a clear open space under the arch that you can see through. The whole piece is one flat-sided slab 2.5 ft thick: pier, arch and footing share the same two flat side faces, and nothing projects more than a few inches from them. It stands alone: no wall, no panels, slats or backing behind it, no second leg. Carving, in deep relief on the flat side faces and along the arch: the arch rib is carved as a great curling OCEAN WAVE breaking downward onto the footing block; the pier front carries a stout three-pronged TRIDENT in high relief. Everything is very thick and blocky (the arch rib at least 1 ft thick). Palette: turquoise and pearl white. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR. Exactly one complete object centered with generous clear margin, no scene or additional objects, no text, no logos, no specific published mythology or recognizable product design. Seen mostly from the side (the camera 20 degrees round from square-on to the side face, elevation 20 degrees), so the full profile of pier and arch shows. Genuinely transparent background, no floor or cast shadow. Thick reconstructible parts; no wires, chains, delicate horns, thin spikes or isolated floating components.",
+   "gate": {
+    "desc": "one stone flying buttress seen from the side: a tall pier and a thick arch sweeping down from it to a low block, carved with an ocean wave and a trident",
+    "must": [
+     "a tall stone pier with a thick curved arch leaning from its top down to a lower block",
+     "open space under the arch",
+     "the motif: an ocean wave and a trident"
+    ],
+    "must_not": [
+     "a whole creature statue",
+     "a complete round arch between two equal pillars",
+     "thin spindly parts"
+    ]
+   }
+  }
+ ]
+}
