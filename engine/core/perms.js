@@ -28,10 +28,14 @@ export const CLASSES = {
   'seat.self': 'change your own name and colour',
   request: 'ask the GM to import or export (the GM approves or denies)',
   'campaign.admin': 'change campaign-wide defaults, approve requests, restore snapshots',
+  cursor: 'hide and show your own cursor (an AI seat)',
 };
 export const ALL_CLASSES = Object.keys(CLASSES);
 const PLAYER_CLASSES = new Set(['token.move', 'seat.agent', 'seat.locate', 'pawn', 'open', 'chat', 'turn', 'template', 'undo', 'seat.self', 'request', 'travel']);
 const AGENTS_NEVER = new Set(['seat.agent', 'seat.admin', 'seat.locate', 'seat.self', 'request']); // agents do not mint agents, move people or file requests
+// Held by every seat, whatever its scope lists: no box in Settings, so nobody can untick what the rules card tells an AI
+// seat to do, and a seat made before the class existed holds it too. Not listed as a permission (effectiveClasses).
+const EVERY_SEAT = new Set(['cursor']);
 
 // AN AREA IS OPEN OR HIDDEN. NOTHING ELSE (Harry 2026-10-06; docs/PAWNS.md "Areas").
 //   open   : every seat in the campaign can see the area
@@ -79,6 +83,7 @@ export function can(state, id, cls, areaId = null) {
   const s = liveSeat(state, id);
   if (!s) return no(state.seats[id] ? 'seat revoked' : 'unknown seat');
   if (!CLASSES[cls]) return no(`unknown command class ${cls}`);
+  if (EVERY_SEAT.has(cls)) return yes;
   if (s.kind === 'llm') {
     if (AGENTS_NEVER.has(cls)) return no(`agents cannot ${CLASSES[cls]}`);
     if (!scopeAllows(s.scope, cls, areaId)) return no(`outside this agent's scope (${cls}${areaId ? ' on ' + areaId : ''})`);
@@ -119,7 +124,7 @@ export function scopeWithin(state, creatorId, scope) {
 
 // What a seat may do, for the rules card and the UI (not used for enforcement).
 export function effectiveClasses(state, id, areaId) {
-  return ALL_CLASSES.filter(c => can(state, id, c, areaId).ok);
+  return ALL_CLASSES.filter(c => !EVERY_SEAT.has(c) && can(state, id, c, areaId).ok);
 }
 
 // Entity-level visibility: things hidden from players exist only for the GM side (the GM and the GM's agents).

@@ -1115,6 +1115,13 @@ def('seat.set', {
   check: ({ state }, a) => !state.seats[a.who] ? `no seat ${a.who}` : a.name !== undefined && (!a.name.trim() || a.name.length > 40) ? 'names are 1 to 40 characters' : null,
   apply: (s, a) => ({ ...s, seats: { ...s.seats, [a.who]: { ...s.seats[a.who], ...(a.invisible !== undefined && { invisible: a.invisible }), ...(a.name && { name: a.name.trim() }), ...(a.color && { color: a.color }) } } }),
 });
+// AN AI SEAT'S OWN CURSOR (Harry 2026-11-01; docs/NETCODE.md "Hiding an AI seat's cursor"). Its ghost is presence the relay
+// makes up (relay/campaign.js ghostTo), so these go through the one door and this check like any command, and then only
+// change that presence: never journaled, no log entry, nothing to undo, no apply. They name no seat: a seat can only ever
+// reach its own cursor. A person's cursor is their mouse, so a person's seat is refused.
+const aiCursor = ({ state, by }) => state.seats[by]?.kind === 'llm' ? null : 'only an AI seat has a cursor to hide or show; a person\'s cursor is their mouse';
+def('cursor.hide', { level: 'campaign', cls: 'cursor', aiOnly: true, args: {}, check: aiCursor });
+def('cursor.show', { level: 'campaign', cls: 'cursor', aiOnly: true, args: {}, check: aiCursor });
 // Settings ▸ World navigation / ▸ Area (Harry 2026-10-04): rename an area and its play settings (null = inherit the
 // campaign default; core/state.js RULE_KEYS). `grants` (seats let into an area beyond its visibility rule) was retired
 // on 2026-10-06, when an area became open or hidden and nothing else: the argument is still read so that old journals

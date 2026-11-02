@@ -158,6 +158,7 @@ export class AreaWorld {
     this.shell = new Map();      // shell key -> { key, sig, spec, group, visual, it, roomId }
     this.cursors = new Map(); this.pings = []; this.anims = new Map(); this.halos = new Map(); this.footprints = new Map(); this.dropLines = new Map();
     this.view = null; this.shellKey = ''; this.wallsOn = true; this.loaded = false;
+    this.roomsKept = []; this.hiddenIds = []; // (their caches are keyed on view.entities, undefined until a view arrives: nothing would fill them, and a frame or a pointer move before then must find a list)
     this.preset = T.house.anim;
     // (the things of a room, from an index: this was a walk over every thing in the area for every thing seated, so on a
     // big map the seating queue took minutes to run out, and every thing it seated redrew the fire's shadow: FIXES.md, "the slow state")

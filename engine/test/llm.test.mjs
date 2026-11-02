@@ -2,6 +2,7 @@
 // new reads (scene, room, catalogs), the relay's own dice, the conveniences a weak model needs, and the permission
 // checks on every one of them: an AI seat never does more than its creator, and a player's AI never sees what the
 // player may not (hidden rooms and what is in them, room labels, GM notes, the GM side's ghost in a hidden room).
+// Section 7b: cursor.hide and cursor.show (2026-11-01; docs/NETCODE.md "Hiding an AI seat's cursor").
 //   node engine/test/llm.test.mjs
 import { parseGame as parseDiceGame } from '../core/gamedice.js';
 import fs from 'node:fs';
@@ -10,6 +11,7 @@ import path from 'node:path';
 import WebSocket from 'ws';
 import { startRelay } from '../relay/server.js';
 import { ClientSync } from '../core/client-sync.js';
+import { PresenceView } from '../core/presence.js';
 import { wsTransport } from '../core/transport.js';
 
 let checks = 0, fails = 0;
@@ -51,7 +53,7 @@ ok(mine.ok, 'the player\'s pawn');
   const card = (await get(`${cp}/card?seat=${G}`)).body, pcard = (await get(`${cp}/card?seat=${P}`)).body, ncard = (await get(`${cp}/card?seat=${N}`)).body;
   const words = (s) => s.split(/\s+/).length;
   // (2026-10-29: +30 words for the one shared-builds line Harry's "share a selection" asked for; main stood at 998)
-  ok(card.length < 10800 && words(card) < 1030, `the GM assistant's card is small (${card.length} chars, ${words(card)} words; it was 22.5k / 2985 before 2026-10-20)`);
+  ok(card.length < 11100 && words(card) < 1050, `the GM assistant's card is small (${card.length} chars, ${words(card)} words; it was 22.5k / 2985 before 2026-10-20)`);
   for (const k of ['/scene?', '/room/ROOM_ID?', 'cmd=dice.roll&expr=d20&bonus=0&why=REASON', 'cmd=token.create&fig=FIGURE_ID&room=ROOM_ID', 'cmd=object.light&id=THING_ID&lit=true', 'cmd=entity.flag&ids=ID&hidden=true', 'cmd=room.set&id=ROOM_ID&name=NAME', 'ROOM LABELS', 'WORKED EXAMPLE', 'ETIQUETTE FOR AI SEATS', '/help/TOPIC?'])
     ok(card.includes(k), `the GM card has: ${k}`);
   ok(!/HIDDEN from players/.test(pcard) && !pcard.includes(V) && !pcard.includes('Secret vault'), 'the advisor\'s card names nothing hidden');
@@ -243,6 +245,80 @@ ok(mine.ok, 'the player\'s pawn');
   ok((await get(`/c/${C2.campaign}/a/${C2.area}/scene?seat=${S}`)).status === 401 && (await get(`/c/${C2.campaign}/card?seat=${S}`)).status === 401, 'on another campaign\'s address: refused');
   const GS = relay.tokens.short(C.campaign, RT.state.seats[RT.state.seats[gmAi.id].creator]);
   ok((await get(`${cp}/snapshots?seat=${GS}`)).status === 401 && (await get(`${cp}/card?seat=${GS}`)).status === 200, 'the short form is the GET API\'s only (a GM\'s short token opens no snapshots)');
+}
+
+// ---- 7b. cursor.hide, cursor.show: an idle AI seat's cursor comes off the table (docs/NETCODE.md "Hiding an AI seat's cursor") ----
+{
+  const until = async (f, ms = 1500) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (f()) return true; await sleep(15); } return f(); };
+  // a watcher is what a screen holds: the browser's own PresenceView fed by the browser's own ClientSync
+  const watcher = async () => {
+    const pv = new PresenceView(), c = new ClientSync({ token: pl.token, transport: wsTransport(`ws://127.0.0.1:${relay.port}/ws`, WebSocket), onPresence: (m) => pv.ingest(m) });
+    c.connect(); for (let i = 0; i < 100 && c.status !== 'live'; i++) await sleep(20);
+    c.subscribe(A); for (let i = 0; i < 100 && !c.view(A); i++) await sleep(20);
+    return { c, sees: (seat) => pv.on(A).some(s => s.seat === seat && s.pos) };
+  };
+  const W = await watcher(), me = gmAi.id, sees = () => W.sees(me);
+  await read(G, `room/${R}`);
+  ok(await until(sees), 'the control: an agent that read a room has a cursor on a player\'s table');
+  { const L2 = await watcher(); ok(await until(() => L2.sees(me)), 'the control: a seat joining now is shown it'); L2.c.close(); }
+
+  // hide: gone for everyone, at once, and it stays gone
+  const cseq = RT.state.cseq, seq = RT.state.areas[A].seq, t0 = Date.now(), hid = await act(G, 'cursor.hide', {}, null);
+  ok(hid.ok && hid.cursor === 'hidden', 'cursor.hide answers ok, cursor: hidden (the campaign address)', hid);
+  ok(await until(() => !sees(), 1000), `the second seat stops seeing it (${Date.now() - t0} ms)`);
+  ok(RT.state.cseq === cseq && RT.state.areas[A].seq === seq, 'presence, not a command in the log: no journal entry anywhere, nothing to undo');
+  await sleep(1300);
+  ok(!sees(), 'the relay\'s 1 s heartbeat does not bring it back');
+  { const L2 = await watcher(); await sleep(400); ok(!L2.sees(me), 'a late joiner while it is hidden does not see it'); L2.c.close(); }
+  ok(!(await get(`${cp}/presence?seat=${P}`)).body.seats.some(s => s.seat === me), 'another agent\'s presence read does not list a hidden cursor');
+
+  // watching and waiting leave it hidden
+  await read(G, 'scene'); await read(G, 'state'); await read(G, 'changes?after=0&wait=0'); await get(`${cp}/card?seat=${G}`); await get(`${cp}/presence?seat=${G}`);
+  await sleep(350);
+  ok(!sees() && RT.cursorsHidden.has(me), 'reading the whole area and waiting leave it hidden: scene, state, changes, the card, presence');
+  ok((await act(G, 'object.open', { id: 'obj_nosuchthing' })).ok === false && (await sleep(250), !sees()), 'a refused command changes nothing, so it stays hidden');
+
+  // show: back, for everyone, late joiners too
+  const shown = await act(G, 'cursor.show');
+  ok(shown.ok && shown.cursor === 'shown', 'cursor.show answers ok, cursor: shown (an area address)', shown);
+  ok(await until(sees), 'the second seat sees it again');
+  { const L2 = await watcher(); ok(await until(() => L2.sees(me)), 'and so does a seat joining now'); L2.c.close(); }
+
+  // it comes back by itself: nothing aimed at the table happens unseen
+  const back = async (what, go) => { await act(G, 'cursor.hide'); ok(await until(() => !sees()), `(hidden before ${what})`); const a = await go(); ok(await until(sees), `${what} shows it again by itself`, a); };
+  await back('a command on a thing', () => act(G, 'token.mark', { id: mine.id, mark: 'star' }));
+  await back('reading one room', () => read(G, `room/${R}`));
+  await back('reading one spot', () => read(G, 'look?x=10&z=10'));
+  await human(); await back('saying something', () => act(G, 'chat.say', { text: 'all done' }));
+  await back('a campaign-wide command, which touches no spot', () => act(G, 'music.set', { default: 'true', music: 'off' }, null));
+
+  // only its own: nobody can reach another seat's cursor
+  const human0 = await act(C.token, 'cursor.hide'); ok(!human0.ok && /AI seat/.test(human0.why), 'a person\'s seat is refused, even the GM\'s', human0);
+  const other = await act(N, 'cursor.hide', { who: me, seat2: me }); await sleep(300);
+  ok(other.ok && sees() && !RT.cursorsHidden.has(me) && RT.cursorsHidden.has(narrow.id), 'cursor.hide names no seat: who= is ignored and it hides only the caller\'s', other);
+  ok(!(await get(`${cp}/do?cmd=cursor.hide&seat=nonsense`)).body.ok, 'no token, no command');
+  ok((await act(P, 'cursor.hide')).ok && (await act(P, 'cursor.show')).ok, 'a player\'s agent may too');
+  const cards = await Promise.all([G, P, N, pl.token].map(t => get(`${cp}/card?seat=${t}`).then(r => r.body)));
+  ok(cards.slice(0, 3).every(c => /Whenever you are not actively working, hide your cursor: \S*\/do\?cmd=cursor\.hide/.test(c) && /When you start again, show it: \S*\/do\?cmd=cursor\.show/.test(c)), 'every AI seat\'s card tells it to hide when idle and show when it starts again, with the addresses');
+  ok(!cards[3].includes('cursor.hide') && !(await get(`${cp}/help/commands?seat=${pl.token}`)).body.includes('cursor.hide'), 'a person\'s card and command list do not offer it');
+  const hc = (await get(`${cp}/help/commands?seat=${N}`)).body;
+  ok(hc.includes('cursor.hide') && hc.includes('cursor.show'), 'a chat-only seat\'s command list has both: no permission to tick, none a stored scope could lack');
+  ok(!/YOU MAY:.*cursor/.test(cards[2]) && !/YOUR PERMISSIONS:.*cursor/.test(hc), 'and it is not listed as a permission');
+
+  // a hidden room's cursor stays the GM side's, through a hide and a show and for a joiner
+  await act(G, 'cursor.hide'); ok(await until(() => !sees()), '(hidden before it goes in)');
+  await read(G, `room/${V}`); await sleep(300);
+  ok(!sees(), 'reading a room in the hidden vault brings it back for the GM side only: still none for the player');
+  await act(G, 'cursor.hide'); await act(G, 'cursor.show'); await sleep(350);
+  ok(!sees(), 'cursor.show in a hidden room does not show it to a player');
+  { const L2 = await watcher(); await sleep(300); ok(!L2.sees(me), 'nor to a player joining then'); L2.c.close(); }
+
+  // an area's address puts it in that area; an area the seat cannot see does not exist
+  const A2 = (await act(G, 'area.create', { name: 'Second' }, null)).id || Object.keys(RT.state.areas).find(a => a !== A);
+  await act(G, 'cursor.hide'); ok((await act(G, 'cursor.show', {}, A2)).ok && RT.ghosts.get(me)?.area === A2, 'cursor.show on another area\'s address puts it there');
+  ok((await act(P, 'cursor.show', {}, A2).catch(() => ({}))).ok !== true && RT.ghosts.get(plAi.id)?.area !== A2, 'a player\'s agent cannot show its cursor in an area hidden from it');
+  RT.showCursor(plAi.id, A2); ok(RT.ghosts.get(plAi.id)?.area !== A2, '...nor through the door a socket would use');
+  W.c.close();
 }
 
 // ---- 8. the narrow seat: never more than its scope, nor its creator ----

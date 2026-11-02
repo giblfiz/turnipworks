@@ -265,7 +265,7 @@ export function presenceFor(rt, seat) {
   }
   for (const [sid, g] of rt.ghosts || []) { // other AI seats: where their ghost cursor is
     const s = rt.state.seats[sid];
-    if (!s || sid === seat || !g?.area || !canSee(rt.state, seat, g.area) || g.secret) continue;
+    if (!s || sid === seat || !g?.area || !canSee(rt.state, seat, g.area) || g.secret || rt.cursorsHidden.has(sid)) continue;
     out.push({ seat: sid, name: s.name, kind: 'ai', role: s.role, color: s.color, area: g.area, areaName: rt.state.areas[g.area]?.name, cursor: g.pos ? [round(g.pos[0]), round(g.pos[1])] : null, selection: [] });
   }
   return { seats: out };
@@ -340,13 +340,14 @@ export async function handleGet(rt, seat, token, rest, q, base) {
     const op = rest[2] || 'state';
     // the AI seat's ghost cursor glides to what it reads; into a hidden room it is the GM side's only (2026-10-20: a GM
     // assistant's look or room read inside a hidden room used to show its ghost there to the players)
-    const glide = (pt) => { if (isLlm) rt.ghostTo(seat, area, pt, true, isGmSide(rt.state, seat) && rt.cursorInHidden(area, pt)); };
+    // (a read of a whole area aims at nothing: it leaves a hidden cursor hidden, so a seat can watch the table while it idles)
+    const glide = (pt, aimed = true) => { if (isLlm && (aimed || !rt.cursorsHidden.has(seat))) rt.ghostTo(seat, area, pt, true, isGmSide(rt.state, seat) && rt.cursorInHidden(area, pt)); };
     if (op === 'state') {
-      glide(areaCentroid(T));
+      glide(areaCentroid(T), false);
       return [200, areaForLlm(rt, seat, area)];
     }
     if (op === 'scene') {
-      glide(areaCentroid(T));
+      glide(areaCentroid(T), false);
       return [200, sceneForLlm(rt, seat, area)];
     }
     if (op === 'room') {

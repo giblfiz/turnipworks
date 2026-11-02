@@ -54,7 +54,8 @@ Draft from the Harry–Fauna conversation of 2026-10-02. This is the shape the e
   - a ghost cursor glides to what it last read or acted on;
   - a "thinking…" tag shows between read and act;
   - its name tag shows whose agent it is;
-  - a seat can be flagged invisible.
+  - a seat can be flagged invisible;
+  - a seat takes its own cursor off the table when it has nothing to do ("Hiding an AI seat's cursor" below).
 
 ### The GET API brought up to date (2026-10-20; experiments/2026-10-20-llm-api/, code relay/llm.js, llm-card.js, things.js)
 - **The card is short; the detail is on help pages.** `/c/<c>/card` is about 9k characters for a GM's assistant (was 22.5k), about 7k for a player's advisor: copy-paste addresses for the common tasks (roll, say, add a creature to a room, move, light, open, damage, conditions, hide, rename a room, build, initiative, undo, travel, open an area), one worked example, the AI etiquette, and a list of `/c/<c>/help/<topic>` pages (rooms, things, pawns, light, dice, turns, height, areas, commands). Every line is filtered by what the seat may do; `help/commands` is the generated list of the seat's commands with their arguments (legacy and browser-only arguments left out).
@@ -72,6 +73,18 @@ Draft from the Harry–Fauna conversation of 2026-10-02. This is the shape the e
 - Visibility filtering applies to LLM seats exactly as to their creator. A player's LLM never sees GM-only areas.
 - The capability token encodes (campaign, seat, creator, scope). The relay checks every command against it. The creator, or the GM, can revoke it at any time. Revoking a human seat revokes the LLM seats it created.
 - Presence shows whose agent each LLM seat is ("Brakka's advisor", "GM assistant").
+
+### Hiding an AI seat's cursor (Harry, 2026-11-01)
+A ghost never left the table on its own: once an agent had read anything, its cursor sat there, heartbeating, until the relay restarted. So an agent hides it when it is idle, and the rules card tells it to. Code: `relay/campaign.js` (`hideCursor`, `showCursor`, `cursorsHidden`), test: the section in `engine/test/llm.test.mjs` and `engine/test/browser_agentcursor.py` (the agent opens the addresses printed on its own card).
+- **`cursor.hide`, `cursor.show`.** Ordinary `do?cmd=` commands, on the campaign's address or an area's. Registry commands: they pass the one door and `checkCommand` like the rest. Answers: `{"ok":true,"cursor":"hidden"}`, `{"ok":true,"cursor":"shown"}`.
+- **Its own, only.** They name no seat, so a `who=` is ignored and nothing can reach another seat's cursor. A person's seat is refused, the GM's too: a person's cursor is their mouse.
+- **No box in Settings, for any agent seat.** Class `cursor` is in `EVERY_SEAT` (core/perms.js): `can()` answers yes before the scope is read. A box could only be unticked, which would leave a seat with an instruction it cannot follow, and a seat made before today would not hold a new class. It is not listed under YOU MAY or YOUR PERMISSIONS.
+- **Presence, not a command in the log.** Never journaled, no `seq`, no log entry, nothing to undo, no long poll woken. An idle agent may do this after every task. Retrying with the same nonce just does it again, which changes nothing.
+- **Hidden means:** a `gone` to every seat at once (a seat that lost it to backpressure drops it after the view's 10 s of silence); no heartbeats; no ghost for a seat that subscribes later; not in another agent's `presence` read. The seat stays online in the roster: it is at the table, its cursor is not on it.
+- **It comes back by itself when aimed at the table, so an agent cannot act unseen:** any command that happens (a campaign-wide one too: `music.set`, `area.set`), and a read of one room or spot (`room/<id>`, `look`). A refused command does not.
+- **It stays hidden while the agent watches or waits:** `scene`, `state`, `changes`, `presence`, the card and the help pages. A read of a whole area aims at nothing, and a seat that polls the scene must not flicker on the table.
+- **`cursor.show`:** where it was; on an area's address, in that area (the area's middle), if the seat can see it; with no ghost yet, the seat's first area. A cursor in a hidden room stays the GM side's (`g.secret`) through a hide and a show. The GM's `invisible` flag still wins.
+- **Reconnect and restart.** An AI seat has no connection, so there is nothing to reconnect: the state lasts until its next aimed call. A person who reconnects subscribes again and is sent only unhidden ghosts. A relay restart forgets `cursorsHidden` and every ghost with it, so nobody sees the cursor until the agent's next call; the one difference is that after a restart a `scene` or `state` read also brings it back.
 
 ## Campaigns, areas and split parties
 - A campaign has many areas. Each area has its own ordered log; the thin campaign log carries the roster and locations, chat, handouts, inventory and party resources.

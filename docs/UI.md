@@ -1465,7 +1465,7 @@ A modal window with a category list on the left. Sections in order (**Harry 2026
   - Export is a JSON file of every area the seat can see; import adds those areas as new ones. Since 2026-10-29 the import reads each area as a shared build and lays it in with ordinary commands ("Sharing builds" below), never an `entities.set` of the file's contents. glTF, TaleSpire and STL buttons are placeholders.
   - **Shared builds** (2026-10-29): import a `.turnip.json`, the starter builds, your share links. "Sharing builds" below.
   - **Universal VTT (.dd2vtt)** (2026-10-24): the level you are on as a 2D battlemap for another VTT. "Universal VTT export" at the end of this file.
-  - GM agent seats get exactly the permissions ticked. Every box starts ticked (Harry 2026-11-01; before, six of them); what you untick stays unticked until the window closes. What agents may never hold (`AGENTS_NEVER`, core/perms.js) is not in the list, and never more than yours holds as before.
+  - GM agent seats get exactly the permissions ticked. Every box starts ticked (Harry 2026-11-01; before, six of them); what you untick stays unticked until the window closes. Hiding and showing its own cursor has no box: every agent seat may (docs/NETCODE.md "Hiding an AI seat's cursor"). What agents may never hold (`AGENTS_NEVER`, core/perms.js) is not in the list, and never more than yours holds as before.
 - **Tests:** `engine/test/browser_settings.py`, one block per section.
 
 ## Areas: open or hidden, and travel (Harry 2026-10-06, as built)

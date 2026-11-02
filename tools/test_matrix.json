@@ -2163,6 +2163,40 @@
       "asserting": true
     },
     {
+      "suite": "engine/test/browser_agentcursor.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_agentcursor.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        18335,
+        18935
+      ]
+    },
+    {
+      "suite": "engine/test/browser_roomsnow.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_roomsnow.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        18195,
+        18820
+      ]
+    },
+    {
       "suite": "engine/test/browser_gmcursor.py",
       "command": [
         "{python}",

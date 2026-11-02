@@ -65,6 +65,11 @@ export const rollWords = (text) => {
   return p ? { expr, label: p.label, terms: p.terms, why } : null;
 };
 
+// "/r …" IS "roll …" (2026-11-01). The "/" never gets here: it opens the bar, and one typed into the open bar is dropped
+// (surfaces/bar.js), so "/r d20" arrives as "r d20" and was no roll at all. "r" counts only with something after it, and that
+// something must still parse as a roll, so "r" alone and "r" before anything else stay whatever the bar makes of them.
+export const rollText = (text) => String(text ?? '').trim().replace(/^\/?r(?:oll)?\s+/i, 'roll ');
+
 // A GAME'S DICE in the bar (2026-10-29, core/gamedice.js): "roll coc 65 bonus 1", "roll v5 7 hunger 2 diff 3", "roll sr 12",
 // "roll duality +2", "roll 4df+1", "roll l5r 3 ring 2 skill", "roll ex 8 d9" ("roll" first, except NdF which reads like any dice);
 // "… for stealth" names it
@@ -298,7 +303,7 @@ export function defineCommands(R, app) {
   add({ id: 'chat.say', title: 'Say…', synonyms: ['chat', 'talk', 'tell'], icon: 'message-square', group: 'Talk', cls: 'chat',
     parse: (text) => { const m = text.match(/^say\s+(.+)/i); return m ? { text: m[1] } : null; }, chips: (a) => ['say', a.text], run: (ctx, a) => a?.text && app.say(a.text) });
   add({ id: 'chat.roll', title: 'Roll dice…', synonyms: ['roll', 'dice', 'd20'], icon: 'dices', group: 'Talk', cls: 'chat',
-    parse: (text) => { const m = text.match(/^(?:roll\s+|\/r\s+)?(\d*d\d+.*)$/i); const p = m && parseDice(m[1]); return p ? { expr: m[1], label: p.label, terms: p.terms } : gameRoll(text) || rollWords(text); },
+    parse: (typed) => { const text = rollText(typed), m = text.match(/^(?:roll\s+|\/r\s+)?(\d*d\d+.*)$/i), p = m && parseDice(m[1]); return p ? { expr: m[1], label: p.label, terms: p.terms } : gameRoll(text) || rollWords(text); },
     chips: (a) => ['roll', ...(a.game ? [a.label] : a.label.split(/(?=[+-])/).map(s => s.trim())), ...(a.why ? [a.why] : [])], run: (ctx, a) => a?.expr && app.roll(a.expr, a.why) });
   // WHISPER: a private line to one person at the table ("whisper Mira meet me outside"). Not a command to the relay's
   // log: surfaces/chat.js app.whisper. The Pawns menu's party rows open the bar on "whisper <name> ".

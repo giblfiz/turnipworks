@@ -40,6 +40,7 @@ export class CampaignRuntime {
     this.conns = new Set();
     this.waiters = new Map(); // area -> Set(fn) for long-polls
     this.ghosts = new Map();  // llm seat -> {area, pos, target, thinking, ...}
+    this.cursorsHidden = new Set(); // llm seats that said cursor.hide (presence, so not stored: after a restart no seat has a ghost anyway)
     this.llmSeen = new Map(); // llm seat -> last request ms (counts as online)
     this.chatLog = new Map(); // llm seat -> [ms of its says/rolls] (rate limit)
     this.aiRun = new Map();   // area -> { pair: [seat, seat], last, n } (AI-to-AI loop breaker)
@@ -226,6 +227,8 @@ export class CampaignRuntime {
     }
     const err = checkCommand({ state: this.state, by, roomTypes: this.roomgen?.types }, c);
     if (err) return { ok: false, ...err };
+    if (c.type === 'cursor.hide') { this.hideCursor(by); return { ok: true, cursor: 'hidden' }; } // (presence: not journaled)
+    if (c.type === 'cursor.show') { this.showCursor(by, cmd.area); return { ok: true, cursor: 'shown' }; }
     if (CHAT_CMDS.has(c.type)) { const g = this.chatGuard(by, c.area); if (g) return g; }
     // what only the relay decides, written into the command before it is journaled (core/commands.js `fill`): a new
     // area's visibility (the first is open, later ones start hidden), a travelling pawn's arrival and whether it opens the area
@@ -492,7 +495,7 @@ export class CampaignRuntime {
       if (fx) {
         const e = fx.type === 'transfer.in' ? fx.args.entity : this.state.areas[fx.area].entities[REGISTRY[fx.type].touches(fx.args)[0]];
         this.ghostTo(by, fx.area, entityPoint(e) || areaCentroid(this.state.areas[fx.area]), false, !!e?.hidden);
-      }
+      } else if (this.cursorsHidden.has(by)) this.showCursor(by); // a campaign-wide command (music, an area's rules) touches no spot, but it is still an act
     }
   }
 
@@ -552,7 +555,7 @@ export class CampaignRuntime {
       conn.send({ t: 'snap', area, state: { ...st, entities: gm ? ents : unnoteEntities(ents) }, cids });
     }
     // current ghosts in this area
-    for (const [seat, g] of this.ghosts) if (g.area === area && !this.state.seats[seat]?.invisible && (!g.secret || gm)) conn.send(this.ghostMsg(seat, g));
+    for (const [seat, g] of this.ghosts) if (g.area === area && !this.state.seats[seat]?.invisible && !this.cursorsHidden.has(seat) && (!g.secret || gm)) conn.send(this.ghostMsg(seat, g));
   }
 
   // ---------------- whispers ----------------
@@ -639,13 +642,23 @@ export class CampaignRuntime {
 
   // ---------------- LLM seats: synthesized presence ----------------
   // A ghost cursor glides to whatever the agent last read or acted on; "thinking…" shows between a read and the
-  // next act; the name tag says whose agent it is. A seat flagged invisible gets none of this.
+  // next act; the name tag says whose agent it is. A seat flagged invisible gets none of this. An agent with nothing to do
+  // takes its cursor off the table with cursor.hide; anything aimed at the table brings it back (ghostTo), so it cannot
+  // act unseen: every command that lands, and a read of one room or one spot. Reading a whole area and waiting do not.
   ghostTo(seat, area, point, thinking, secret = false) {
     this.llmSeen.set(seat, Date.now());
+    this.cursorsHidden.delete(seat);
     let g = this.ghosts.get(seat);
     if (g && g.area !== area) { this.sendGhost(seat, g, true); g = null; }
     if (!g) { const start = this.state.areas[area] ? areaCentroid(this.state.areas[area]) : [0, 0]; g = { area, pos: [...start], target: [...point], thinking, since: Date.now(), last: 0 }; this.ghosts.set(seat, g); }
     g.target = [...point]; g.thinking = thinking; g.since = Date.now(); g.dirty = true; g.secret = secret; // secret: aimed at something hidden
+  }
+  hideCursor(seat) { this.cursorsHidden.add(seat); const g = this.ghosts.get(seat); if (g) this.sendGhost(seat, g, true); }
+  // where it was (a hidden room's stays the GM side's: g.secret); in `area` if the address named another; else the seat's first area
+  showCursor(seat, area = null) {
+    this.cursorsHidden.delete(seat);
+    const g = this.ghosts.get(seat), to = (area && canSee(this.state, seat, area) ? area : null) || g?.area || this.state.areaOrder.find(t => canSee(this.state, seat, t));
+    if (g?.area === to) g.dirty = true; else if (to) this.ghostTo(seat, to, areaCentroid(this.state.areas[to]), false);
   }
   ghostMsg(seat, g, gone = false) {
     const s = this.state.seats[seat], creator = this.state.seats[s.creator];
@@ -653,7 +666,7 @@ export class CampaignRuntime {
       cursor: gone ? null : [+g.pos[0].toFixed(2), +g.pos[1].toFixed(2)], thinking: !gone && g.thinking, gone };
   }
   sendGhost(seat, g, gone = false) {
-    if (this.state.seats[seat]?.invisible && !gone) return;
+    if ((this.state.seats[seat]?.invisible || this.cursorsHidden.has(seat)) && !gone) return;
     const msg = this.ghostMsg(seat, g, gone);
     for (const c of this.conns) if (c.subs.has(g.area) && canSee(this.state, c.seat, g.area) && (!g.secret || gone || isGmSide(this.state, c.seat))) c.sendLossy(msg);
   }

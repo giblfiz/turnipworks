@@ -91,6 +91,7 @@ export function ruleCard(rt, seat, base, token) {
     L.push(`  - Act or speak only when someone addresses you ("@${s.name}", "${s.name}"${K.whose ? `, "${K.whose}"` : ''}), when ${K.creator ? K.creator.name : 'your creator'} asked you to handle something, or for a clear rules question nobody else is answering. Woken by a say or roll? Usually do nothing and wait again.`);
     L.push('  - Never reply to your own messages ("you": true). Never reply to another AI seat ("byKind": "ai") unless it addressed YOU by name.');
     L.push(`  - Keep it short: at most 2 messages a minute. Prefer doing (commands) over chatting. Unsure? Ask the GM in one line; the GM can undo anything you do. (The relay enforces ${CHAT_RATE.min} a minute and ${CHAT_RATE.hour} an hour, and pauses two AI seats that answer each other ${LOOP_MAX} times for ${LOOP_HOLD / 1000} s.)`);
+    L.push(`  - Whenever you are not actively working, hide your cursor: ${K.doC('cursor.hide')}  When you start again, show it: ${K.doC('cursor.show')}`);
     L.push(`  - To wait for talk (says and rolls only; waits up to 25 s; pass back the "cursor" you got): ${camp('changes', 'kinds=chat,roll&after=CURSOR&wait=25')}`);
     L.push('');
   }
@@ -239,7 +240,7 @@ export function helpPage(rt, seat, base, token, topic) {
   }
   if (topic === 'commands') {
     const all = Object.values(REGISTRY).filter(d => !d.internal && !d.quiet && !['fog.explore', 'fog.reveal', 'batch'].includes(d.type));
-    const mine = all.filter(d => { const cls = typeof d.cls === 'string' ? d.cls : d.type === 'entity.flag' ? 'reveal' : null; return cls && may(cls); });
+    const mine = all.filter(d => { const cls = typeof d.cls === 'string' ? d.cls : d.type === 'entity.flag' ? 'reveal' : null; return cls && may(cls) && (!d.aiOnly || K.s.kind === 'llm'); });
     L.push(`YOUR PERMISSIONS: ${[...new Set(K.areas.flatMap(t => effectiveClasses(rt.state, seat, t.id)))].map(c => `${c} (${CLASSES[c]})`).join('; ') || 'look only'}.`);
     L.push(`Area commands: ${at('do', 'cmd=COMMAND&...&nonce=NEW_WORD').replace(/&seat=.*/, '&seat=...')}; campaign commands (marked *): ${camp('do', 'cmd=COMMAND&...').replace(/&seat=.*/, '&seat=...')}. Lists: a,b,c or JSON. true/false for switches.`);
     const made = mine.filter(d => MINT[d.type]);
@@ -252,6 +253,7 @@ export function helpPage(rt, seat, base, token, topic) {
     if (may('turn')) L.push('  turn.roll: id (or key), n?   (GET only: the relay rolls initiative)');
     if (may('object')) L.push('  object.place: cat=PIECE_ID fills in the mesh and size; object.replace with no cat picks a similar piece   (GET only)');
     L.push(`  ("?" = optional. dice.roll: expr, bonus?, why? — the relay rolls.${may('token.move') ? ` ${may('token.edit') ? 'Pawn creation and moves take' : 'A move takes'} room=ROOM_ID for a free square there.` : ''})`);
+    if (K.s.kind === 'llm') L.push('  (cursor.hide, cursor.show: your own cursor, for every seat that can see it, at once; every AI seat may, no permission needed, and they are not logged and not undone. Hidden, it stays off the table while you read a whole area (scene, state) or wait (changes); any command that happens, or reading one room or spot (room, look), shows it again. On an area\'s address, cursor.show puts it in that area.)');
     L.push(`  Not over GET (the browser's own): fog of war exploring and the GM's "Reveal explored here", whole-building generation, painting floor tiles cell by cell, water drawing by hand.`);
   }
   return L.join('\n');

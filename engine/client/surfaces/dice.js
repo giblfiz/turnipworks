@@ -74,9 +74,11 @@ export function diceSurface(R, app) {
     const fpv = app.fpv?.pawnId?.(), seen = pawn || (fpv && E[fpv]?.kind === 'token' && !E[fpv].hidden ? fpv : null);
     const asked = seen && E[seen]?.kind === 'token' && !E[seen].hidden ? E[seen] : null;
     const pick = asked || mine.find(e => app.sel?.has(e.id)) || mine.filter(e => app.canSeePawn?.(e, area) !== false).sort((a, b) => Math.hypot(a.x - focus.x, a.z - focus.z) - Math.hypot(b.x - focus.x, b.z - focus.z))[0];
-    const dir = facing(cam);
+    const dir = facing(cam), pawnHand = !!pick && Math.hypot(pick.x - focus.x, pick.z - focus.z) < 60;
     let from, to, level;
-    if (pick && Math.hypot(pick.x - focus.x, pick.z - focus.z) < 60) {
+    const roomAt = (x, z) => Object.values(E).find(r => r.kind === 'room' && r.recipe && !r.hidden && Math.abs((r.recipe.y || 0) - level) < 0.5 && x >= r.recipe.x * 5 && x <= (r.recipe.x + r.recipe.w) * 5 && z >= r.recipe.z * 5 && z <= (r.recipe.z + r.recipe.d) * 5)?.recipe;
+    const inside = (R) => { const m = Math.min(4, R.w * 2.5 - 0.5, R.d * 2.5 - 0.5); return (v, a, b) => Math.max(a + m, Math.min(b - m, v)); }; // (4 ft in from its walls, less in a small room)
+    if (pawnHand) {
       level = baseUnder(E, pick.x, pick.z, pick.y || 0, open).y;
       from = { x: pick.x, z: pick.z, y: level + 3, r: 0.9 * Math.max(0.5, pick.size || 1), floor: level };
       to = { x: pick.x + dir.x * 8, z: pick.z + dir.z * 8, y: level };
@@ -88,14 +90,19 @@ export function diceSurface(R, app) {
       to = { x: mid.x, z: mid.z, y: level };
       // the bottom of the screen can be outside the room the view looks into: then the hand starts inside that room
       // (4 ft in from its walls), never over a wall
-      const room = Object.values(E).find(r => r.kind === 'room' && r.recipe && !r.hidden && Math.abs((r.recipe.y || 0) - level) < 0.5 && to.x >= r.recipe.x * 5 && to.x <= (r.recipe.x + r.recipe.w) * 5 && to.z >= r.recipe.z * 5 && to.z <= (r.recipe.z + r.recipe.d) * 5);
-      if (room) { const R = room.recipe, m = Math.min(4, R.w * 2.5 - 0.5, R.d * 2.5 - 0.5), c = (v, a, b) => Math.max(a + m, Math.min(b - m, v)); from.x = c(from.x, R.x * 5, (R.x + R.w) * 5); from.z = c(from.z, R.z * 5, (R.z + R.d) * 5); }
+      const room = roomAt(to.x, to.z);
+      if (room) { const c = inside(room); from.x = c(from.x, room.x * 5, (room.x + room.w) * 5); from.z = c(from.z, room.z * 5, (room.z + room.d) * 5); }
     }
     const world = diceWorld({ entities: E, edges: w.edges, from, level, reach: Math.max(20, (runtime(w).params.reject.reach || 12) + 6), isOpen: open, roofTrim: level > 0.5 ? w.roofTrimFor?.() || [] : [] }); // (out past the reach: a die that gets there still meets the walls)
     const ndc = new THREE.Vector3();
     const onScreen = (x, z) => { ndc.set(x, level, z).project(cam); return ndc.z < 1 && Math.abs(ndc.x) < 0.94 && Math.abs(ndc.y) < 0.92; };
-    // and the dice stay in the room they were thrown into (when the target is in one): never through, into or behind a wall
-    const tr = Object.values(E).find(r => r.kind === 'room' && r.recipe && !r.hidden && Math.abs((r.recipe.y || 0) - level) < 0.5 && to.x >= r.recipe.x * 5 && to.x <= (r.recipe.x + r.recipe.w) * 5 && to.z >= r.recipe.z * 5 && to.z <= (r.recipe.z + r.recipe.d) * 5)?.recipe;
+    // and the dice stay in the room they were thrown into: never through, into or behind a wall. A hand in the view: the room
+    // the target is in. A PAWN'S hand: the room the PAWN stands in, whatever is 8 ft ahead (2026-11-01, a stranger on r/VTT,
+    // player seat, 3d10 three times: a pawn less than 8 ft from a shared wall with the view facing it has its target in the
+    // room behind, so every throw from the pawn's own room was "not in the room" and that room is dark to the player: 26
+    // tries, nothing open, all the dice set down on one point in the dark next door, and no die drawn for the roller).
+    const tr = pawnHand ? roomAt(from.x, from.z) : roomAt(to.x, to.z);
+    if (pawnHand && tr) { const c = inside(tr); to.x = c(to.x, tr.x * 5, (tr.x + tr.w) * 5); to.z = c(to.z, tr.z * 5, (tr.z + tr.d) * 5); } // (the target comes back in: the last resort sets down there)
     const inRoom = tr ? (x, z) => x > tr.x * 5 + 0.8 && x < (tr.x + tr.w) * 5 - 0.8 && z > tr.z * 5 + 0.8 && z < (tr.z + tr.d) * 5 - 0.8 : () => true;
     // and the roller's camera sees it: no wall between the eye and the die (a die behind the near wall is out of sight)
     const eye = cam.position, walls = world.boxes.filter(b => b.wall);
