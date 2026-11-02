@@ -376,7 +376,7 @@ export class AreaWorld {
   // floor's height, and no outdoor fog or sea there (fx/atmos.js setLevel).
   fogLevel() {
     if (this.eyeLevel != null) return this.eyeLevel; // (first person: the level the eyes are on, surfaces/fpv.js)
-    const cut = this.cut ?? null; if (cut == null) return 0;
+    const cut = this.cut ?? null; if (cut == null) return this.viewerLevel ?? 0; // (the view on all levels: the level of a player's own pawn when that is above the ground, fog.js update)
     this.cutSets(); let top = -Infinity;
     if (this.fogLevelGen === this.cutGen && this.fogLevelCut === cut) return this.fogLevelKept; // (the same until the cut or the rooms change)
     { const E = this.view?.entities; for (const e of this.roomsNow()) if (e.recipe && HT.roomY(e.recipe) <= cut && !this.cutHidden.has(e.id) && !HT.isTerrain(e.recipe)) top = Math.max(top, HT.levelY(E, e)); } // (a hill is ground: the fog stays the ground's; so is a building's ground storey on a hill, levelY. A building standing clear above the cut, 2026-10-26, is not the level in view)

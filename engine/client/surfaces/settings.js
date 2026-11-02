@@ -666,7 +666,7 @@ export function settingsSurface(R, app) {
     for (const a of c.areas) {
       let v = app.sync.view(a.id);
       if (!v) { app.sync.subscribe(a.id); for (let i = 0; i < 40 && !app.sync.view(a.id); i++) await new Promise(r => setTimeout(r, 100)); v = app.sync.view(a.id); if (a.id !== app.area() && a.id !== app.pip?.area) app.sync.unsubscribe(a.id); }
-      areas.push({ name: a.name, visibility: a.visibility, settings: a.settings || {}, entities: v?.entities || {} });
+      areas.push({ name: a.name, visibility: a.visibility, settings: a.settings || {}, ...(v?.ground && { ground: v.ground }), entities: v?.entities || {} });
     }
     const data = { v: 1, kind: 'turnip-works-campaign', name: c.name, exportedAt: new Date().toISOString(), areas };
     S.lastExport = data;
@@ -679,15 +679,21 @@ export function settingsSurface(R, app) {
   // A CAMPAIGN FILE IS UNTRUSTED INPUT (2026-10-29): each of its areas is read as a shared build (core/share.js
   // campaignAreas: field by field, validated) and comes in through ordinary commands (client/share.js importArea), never
   // an entities.set of the file's entities. Seats, owners, fog and chat never come in; a player's pawn neither.
+  // BEST EFFORT (2026-11-01): an area that cannot be read is left out and the others come in; what each one left out is
+  // listed once, in one window, at the end (client/share.js showLeft).
   async function importData(d) {
-    const { docs, error } = SH.campaignAreas(d);
+    const { docs, reads, left, error } = SH.campaignAreas(d);
     if (error) { app.toast(`Not imported: ${error}`, true); return 0; }
-    let n = 0;
-    for (const doc of docs) {
+    let n = 0; const items = left.pieces ? [{ name: 'This file', report: { left } }] : [];
+    for (const [i, doc] of docs.entries()) {
       if (doc.empty) { const id = newId('area'); if (await app.await(app.sync.submit('area.create', { id, name: String(doc.name || 'Imported').slice(0, 60) }))) { if (doc.area?.settings) app.sync.submit('area.set', { area: id, settings: doc.area.settings }); n++; } continue; } // (an area with nothing in it yet)
-      if (await app.share?.importArea(doc)) n++;
+      if (await app.share?.importArea(doc, { left: reads[i]?.left, quiet: true })) n++;
+      if (app.share?.lastImport) items.push({ name: doc.name, ...app.share.lastImport });
     }
-    app.toast(`Imported ${n} area(s)`);
+    const pieces = items.reduce((p, x) => ({ landed: p.landed + (x.report?.pieces?.landed || 0), total: p.total + (x.report?.pieces?.total || 0), left: p.left + (x.report?.left?.pieces || 0) }), { landed: 0, total: 0, left: 0 });
+    const shortAreas = docs.length + left.pieces - n, players = reads.reduce((p, r) => p + (r?.players || 0), 0);
+    app.toast(`Imported ${shortAreas ? `${n} of ${docs.length + left.pieces}` : n} area(s)${pieces.left ? ` · ${pieces.landed} of ${pieces.total} pieces; left out ${pieces.left}` : ''}${players ? ` · ${players} player pawn${players === 1 ? '' : 's'} stayed behind (a player's pawn never leaves its campaign)` : ''}`, !!(shortAreas || pieces.left));
+    if (app.share?.showLeft(items)) close();
     return n;
   }
   S.importData = importData; S.exportJson = exportJson; // (tests)

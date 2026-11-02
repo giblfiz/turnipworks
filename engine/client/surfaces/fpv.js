@@ -9,9 +9,11 @@
 //            facing the pawn's facing; the pawn's own figure, base and name are not drawn for this seat. The map's camera
 //            is kept underneath (its focus held on the pawn, so far rooms sleep and LOD picks as if zoomed right in) and
 //            is given back EXACTLY on the way out: the pose, the rule, the cut, the roofs, the selection, the lens.
-//   LOOK     drag (mouse or finger) grabs the world: drag right and the view turns left, like the map's own literal grab
-//            (LOOK.sign; with the mouse locked it is the games' way round, the view follows the mouse). Q / E turn.
-//            "Lock mouse" (off unless asked: it is a web page) takes the pointer until Esc.
+//   LOOK     (Harry 2026-11-01: "adjust the speed and direction of the mouse drag so that it matches whatever we are using
+//            in mapgarden") a MOUSE drag is Map Garden's look: the view follows the mouse (drag right turns right, drag up
+//            looks up), LOOK.degPerPx at a 1280 x 720 window and less as the window grows, either button. A FINGER still
+//            grabs the world (drag right and the view turns left, LOOK.fingerDegPerPx: Map Garden has no touch look to
+//            match). Q / E turn. "Lock mouse" (off unless asked: it is a web page) takes the pointer until Esc.
 //   MOVE     (Harry 2026-10-30: "I get stuck on stuff because I'm trapped on the grid") W A S D or the arrows WALK while
 //            held, at WALK.speed (Shift runs), forward / back / sideways from where you look, in any direction (two keys
 //            add up: W D goes forward-right), and mouse look steers while you walk. The body is a circle (WALK.radius) that
@@ -70,7 +72,16 @@ export const WALK = {
   minHoldMs: 120,      // a tap walks at least this long (so a tap is never nothing)
   stuckMs: 600,        // a click's walk that gets no nearer its next square for this long gives up there
 };
-export const LOOK = { degPerPx: 0.28, sign: 1, lockedDegPerPx: 0.16 }; // sign 1: drag grabs the world (right turns the view left)
+// LOOK. Map Garden turns 0.11 degrees per Godot canvas unit (scaling/first_person.gd LOOK_SENSITIVITY), and its canvas is
+// 1280 x 720 stretched to fit (canvas_items + expand), so a pixel of mouse is worth less on a bigger window: the same share of
+// the window turns the same. Measured there at 1280 x 720, 1512 x 860 and 2560 x 1300: 0.110, 0.093 and 0.061 degrees a pixel.
+export const LOOK = {
+  degPerPx: 0.11, baseW: 1280, baseH: 720, // a mouse drag, degrees a CSS pixel at that window (mouseDegPerPx)
+  sign: -1,                                // -1: the view follows the mouse; 1: the drag grabs the world
+  fingerDegPerPx: 0.28, fingerSign: 1,     // a finger (or a pen) on the glass: grabs the world
+  lockedDegPerPx: 0.16,                    // "Lock mouse": the view follows the mouse
+};
+export const mouseDegPerPx = (w, h) => LOOK.degPerPx / Math.min(w / LOOK.baseW, h / LOOK.baseH);
 export const FPV_KEY = 'V';
 const MOVES = { w: 0, arrowup: 0, s: Math.PI, arrowdown: Math.PI, a: Math.PI / 2, arrowleft: Math.PI / 2, d: -Math.PI / 2, arrowright: -Math.PI / 2 };
 const D2R = Math.PI / 180;
@@ -456,7 +467,9 @@ export function fpvSurface(R, app) {
     ev.stopImmediatePropagation(); ev.preventDefault();
     if (S.drag && S.drag.id !== ev.pointerId) return; // (a second finger: ignored)
     if (document.pointerLockElement === canvas) { if (ev.button === 0) { const b = canvas.getBoundingClientRect(); click(b.left + b.width / 2, b.top + b.height / 2); } return; } // (locked: a click is a click at the centre dot)
-    S.drag = { id: ev.pointerId, x: ev.clientX, y: ev.clientY, h: S.heading, p: S.pitch, moved: 0, at: performance.now() };
+    const mouse = ev.pointerType === 'mouse';
+    S.drag = { id: ev.pointerId, x: ev.clientX, y: ev.clientY, lastX: ev.clientX, lastY: ev.clientY, moved: 0, at: performance.now(),
+      turn: mouse ? LOOK.sign * mouseDegPerPx(innerWidth, innerHeight) * D2R : LOOK.fingerSign * LOOK.fingerDegPerPx * D2R };
     try { canvas.setPointerCapture(ev.pointerId); } catch { }
   }, true);
   addEventListener('pointermove', (ev) => {
@@ -464,8 +477,9 @@ export function fpvSurface(R, app) {
     if (document.pointerLockElement === canvas) { if (ev.target !== canvas) return; ev.stopImmediatePropagation(); S.heading -= ev.movementX * LOOK.lockedDegPerPx * D2R; S.pitch = clampP(S.pitch - ev.movementY * LOOK.lockedDegPerPx * D2R); turned(S); return; }
     const d = S.drag; if (!d || d.id !== ev.pointerId) return;
     ev.stopImmediatePropagation();
-    const dx = ev.clientX - d.x, dy = ev.clientY - d.y; d.moved = Math.max(d.moved, Math.hypot(dx, dy));
-    S.heading = d.h + LOOK.sign * dx * LOOK.degPerPx * D2R; S.pitch = clampP(d.p + LOOK.sign * dy * LOOK.degPerPx * D2R);
+    d.moved = Math.max(d.moved, Math.hypot(ev.clientX - d.x, ev.clientY - d.y));
+    // from the last move, not the drag's start: past the pitch stop a turn back counts at once, and Q / E add to a drag
+    S.heading += (ev.clientX - d.lastX) * d.turn; S.pitch = clampP(S.pitch + (ev.clientY - d.lastY) * d.turn); d.lastX = ev.clientX; d.lastY = ev.clientY;
     if (d.moved > 3) turned(S);
   }, true);
   const up = (ev) => {

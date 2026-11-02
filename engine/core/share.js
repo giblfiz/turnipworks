@@ -11,23 +11,37 @@
 // fog, turns, templates, presence, a player's pawns, a pawn's sheet link.
 //
 // IMPORTED JSON IS UNTRUSTED INPUT. parseShare/validateShare: caps on bytes, nesting depth (scanned before JSON.parse),
-// counts and string lengths; `__proto__`, `constructor` and `prototype` keys refuse the whole file; unknown keys and kinds
-// refuse; nothing that looks like a URL or embedded data except the one preview picture (a magic-checked WebP / JPEG / PNG
-// data URL, never placed in the world); the result is rebuilt field by field. planImport then turns the document into
-// ORDINARY COMMANDS and dry-runs every one through the same parseArgs, check and apply the relay runs on a live command
-// (never an entities.set): what the relay would refuse is refused here, before anything is sent.
+// counts and string lengths; `__proto__`, `constructor` and `prototype` keys and unknown fields are refused; nothing that
+// looks like a URL or embedded data except the one preview picture (a magic-checked WebP / JPEG / PNG data URL, never
+// placed in the world); the result is rebuilt field by field. planImport then turns the document into ORDINARY COMMANDS and
+// dry-runs every one through the same parseArgs, check and apply the relay runs on a live command (never an entities.set):
+// what the relay would refuse is refused here, before anything is sent.
+//
+// BEST EFFORT (2026-11-01, Harry, on a map of his own: "it should try and just let the parts that are broken break").
+// A refusal now costs the PIECE, not the file. Every rule above still stands and nothing refused ever lands: the bad piece
+// is left out, what stood on it goes with it, and all of it is listed (`left`; "Imported 412 of 418 pieces; left out 6").
+//   the whole file      only what cannot be read at all: not JSON, too big, too deep, not this format, a newer version, an
+//                       unknown kind, a forbidden key at the top level, nothing readable in it
+//   a piece             an unknown or forbidden field, a bad required or structural field (a hidden flag too: a secret never
+//                       lands visible), anything the reducers refuse; the pieces past a cap
+//   a detail            a bad cosmetic field ('?' in SPEC): the piece comes in without it, the list says so
+//   what depends on it  a thing in a left-out room or on a left-out thing; a wall edit only that room owned; an upper room
+//                       with nothing under it (the reducer's own check)
+// Dropping a wrong room onto a place is still the GM's to fix: a ghost that would overlap a room is refused whole (move it).
 //
 //   exportShare(entities, { kind, ids, name, strip, area, thumb, engineVersion, now })  -> { doc, left }
 //   secretsIn(entities, { kind, ids })        what "strip secrets" would take out: { hiddenRooms, hiddenThings, pawns, traps, gmNotes }
-//   parseShare(text) -> { doc } | { error }   validateShare(obj) -> { doc } | { error }    upgradeShare(doc)
+//   parseShare(text) -> { doc, left, total } | { error }   validateShare(obj) likewise    upgradeShare(doc)
 //   placeFor(doc, target)                     the cheap part, for the ghost on every pointer move: the shift and each room's rect
-//   planImport(doc, target)                   -> { ok, why?, ops, report, shift, rooms, ids }
+//   planImport(doc, target)                   -> { ok, why?, ops, report, shift, rooms, ids }; report.pieces { landed, total }, report.left
+//   leftGroups(left), leftText(report)        what was left out, in words a GM can read
 //   summaryOf(doc)                            counts for a preview: rooms, buildings, things, pawns, levels
 import { REGISTRY, parseArgs, EDGE_KEY_RE, ownsKey } from './commands.js';
 import * as HT from './height.js';
 import { newId as mintId, isId } from './ids.js';
 import { RULE_KEYS, settingsProblem } from './state.js';
-import { cellsOf, hasCell } from './footprint.js';
+import { cellsOf, hasCell, perimeterKeys } from './footprint.js';
+import { conditionsProblem } from './conditions.js';
 
 export const SHARE_FORMAT = 'turnip-works-share';
 export const SHARE_V = 1;
@@ -38,7 +52,8 @@ export const SHARE_LIMITS = Object.freeze({
   thumb: 300 * 1024,        // the preview picture, decoded
   depth: 8,                 // nesting of objects and arrays (the format itself needs 6)
   rooms: 400, buildings: 120, objects: 12000, edges: 8000, pawns: 400, water: 200,
-  name: 60, str: 80, note: 4000, outline: 200, waterPts: 400, conditions: 20,
+  name: 60, str: 80, note: 4000, outline: 200, waterPts: 400,
+  left: 200,                // entries a report of what was left out keeps (the count stays true past it)
 });
 const CELL = 5, LIM = 100000;
 const r2 = (v) => Math.round(v * 100) / 100;
@@ -145,7 +160,7 @@ export function exportShare(entities, { kind = 'group', ids = [], name = '', str
   const doc = {
     format: SHARE_FORMAT, v: SHARE_V, kind, name: String(label).slice(0, SHARE_LIMITS.name), createdAt: (now instanceof Date ? now : new Date(now)).toISOString(),
     ...(engineVersion && { engine: String(engineVersion).slice(0, SHARE_LIMITS.str) }), secrets: !strip,
-    base: baseOf(E, roomIds, things),
+    base: (() => { try { return baseOf(E, roomIds, things); } catch { return 0; } })(), // (a campaign file's rooms are untrusted: a broken one is left out later, it does not stop the rest)
     ...(kind === 'area' && area && { area: { name: String(area.name || label).slice(0, SHARE_LIMITS.name), ...(area.settings && Object.keys(area.settings).length && { settings: area.settings }), ...(area.ground && { ground: area.ground }) } }),
     ...(thumb && { thumb }),
     buildings, rooms, objects, edges, pawns, water,
@@ -171,10 +186,41 @@ export function parseShare(text) {
   if (typeof text !== 'string') return fail('not a text file');
   if (text.length > SHARE_LIMITS.bytes) return fail(`too big: a shared build is at most ${Math.round(SHARE_LIMITS.bytes / 1048576)} MB`);
   if (jsonDepth(text) > SHARE_LIMITS.depth) return fail('nested too deeply to be a Turnip Works build');
-  let bad = null, obj;
-  try { obj = JSON.parse(text, (k, v) => { if (BAD_KEYS.has(k)) bad = k; return v; }); } catch { return fail('not JSON'); }
-  if (bad) return fail(`refused: the file has a "${bad}" key`);
+  let obj;
+  try { obj = JSON.parse(text); } catch { return fail('not JSON'); }
   return validateShare(obj);
+}
+
+// WHAT WAS LEFT OUT. pieces: whole pieces that did not come in. details: pieces that came in without some part. list: what a
+// GM reads, capped (a hostile file cannot grow it), each entry cleaned of control characters and cut short. It is text for
+// the screen and is always shown escaped.
+export const newLeft = (from = null) => ({ pieces: from?.pieces || 0, details: from?.details || 0, list: [...(from?.list || [])] });
+const clean = (s, n) => String(s).replace(/[\u0000-\u001f\u007f\u2028\u2029]/g, ' ').slice(0, n);
+export function leftOut(L, what, why, piece = true, n = 1) {
+  if (piece) L.pieces += n; else L.details += n;
+  if (L.list.length < SHARE_LIMITS.left) L.list.push({ what: clean(what, 100), why: clean(plainRefusal(why), 200), ...(piece ? {} : { detail: true }) });
+}
+// a validator's or a reducer's refusal, in words a GM can use ("objects[12].url: unknown field" -> "an unknown field (url)")
+function plainRefusal(why) {
+  const w = String(why).replace(/^\w+\[\d+\]\.?/, '').replace(/^: /, '').replace(/^[a-z]+\.[a-z]+: /, ''); // (no list index, no command name)
+  let m = w.match(/^([^:]+): unknown field$/); if (m) return `an unknown field (${m[1]})`;
+  m = w.match(/^([^:]+): missing$/); if (m) return `it has no ${m[1]}`;
+  if (/overlaps room/.test(w)) return 'it overlaps another room';
+  if (/nothing to stand on|overhang/.test(w)) return 'nothing under it to stand on';
+  if (/off the map/.test(w)) return 'it is off the map';
+  return w;
+}
+// grouped by reason, the most pieces first: [{ why, n, names, detail }]
+export function leftGroups(L) {
+  const groups = new Map();
+  for (const e of L?.list || []) { const k = `${e.detail ? 'd' : 'p'}|${e.why}`; const g = groups.get(k) || groups.set(k, { why: e.why, n: 0, names: [], detail: !!e.detail }).get(k); g.n++; g.names.push(e.what); }
+  return [...groups.values()].sort((a, b) => a.detail - b.detail || b.n - a.n);
+}
+// the line for a toast and a report: "Imported 412 of 418 pieces; left out 6", or null when everything came
+export function leftText(report) {
+  const P = report?.pieces, L = report?.left; if (!P || !L) return null;
+  if (L.pieces) return `Imported ${P.landed} of ${P.total} piece${P.total === 1 ? '' : 's'}; left out ${L.pieces}`;
+  return L.details ? `Imported all ${P.total} piece${P.total === 1 ? '' : 's'}; ${L.details} came in without some detail` : null;
 }
 
 // field specs: a key's type; '!' = required. Every record is rebuilt from these keys only; any other key refuses the file.
@@ -186,7 +232,8 @@ class Refuse extends Error {}
 const no = (why) => { throw new Refuse(why); };
 const isObj = (v) => !!v && typeof v === 'object' && !Array.isArray(v);
 const finite = (v, lim = LIM) => typeof v === 'number' && Number.isFinite(v) && Math.abs(v) <= lim;
-const noUrl = (s, where) => { if (/^\s*(data|javascript|vbscript|blob|file):/i.test(s) || /[a-z][a-z0-9+.-]*:\/\//i.test(s)) no(`${where}: links and embedded files are not allowed in a shared build`); return s; };
+const hasUrl = (s) => /^\s*(data|javascript|vbscript|blob|file):/i.test(s) || /[a-z][a-z0-9+.-]*:\/\//i.test(s);
+const noUrl = (s, where) => { if (hasUrl(s)) no(`${where}: links and embedded files are not allowed in a shared build`); return s; };
 const T = {
   ref: (v, w) => typeof v === 'string' && RE.ref.test(v) ? v : no(`${w}: not a reference`),
   num: (v, w) => finite(v) ? v : no(`${w}: not a number`),
@@ -204,7 +251,8 @@ const T = {
   vec3: (v, w) => Array.isArray(v) && v.length === 3 && v.every(x => finite(x)) ? [v[0], v[1], v[2]] : no(`${w}: not [x, y, z]`),
   quat: (v, w) => Array.isArray(v) && v.length === 4 && v.every(x => finite(x, 2)) ? [v[0], v[1], v[2], v[3]] : no(`${w}: not a quaternion`),
   outline: (v, w) => Array.isArray(v) && v.length >= 3 && v.length <= SHARE_LIMITS.outline && v.every(p => Array.isArray(p) && p.length === 2 && p.every(x => Number.isInteger(x) && Math.abs(x) <= 64)) ? v.map(([a, b]) => [a, b]) : no(`${w}: not an outline`),
-  conditions: (v, w) => Array.isArray(v) && v.length <= SHARE_LIMITS.conditions && v.every(x => typeof x === 'string' && /^[a-z][a-z -]{0,39}$/i.test(x)) ? v.slice() : no(`${w}: not a list of conditions`),
+  // (the game's own rule, so the file is never stricter than the game: "exhaustion 2" is a condition, 2026-11-01)
+  conditions: (v, w) => { const why = conditionsProblem(v); if (why) no(`${w}: ${why}`); return v.slice(); },
   edgeDir: (v, w) => Array.isArray(v) && v.length >= 3 && v.length <= 4 && typeof v[0] === 'string' && /^[a-z]{1,3}$/.test(v[0]) && v.slice(1).every(x => Number.isInteger(x) && Math.abs(x) <= 64) ? v.slice() : no(`${w}: not a plan door`),
   plan: (v, w) => {
     if (!isObj(v)) no(`${w}: not a plan`);
@@ -214,9 +262,11 @@ const T = {
     if (v.links !== undefined) { if (!isObj(v.links) || Object.keys(v.links).length > 32) no(`${w}.links: not a plan`); out.links = {}; for (const [k, e] of Object.entries(v.links)) out.links[T.ref(k, `${w}.links`)] = T.edgeDir(e, `${w}.links.${k}`); }
     return out;
   },
+  // (the game's own rule again: a roof.trim is a chimney or dormer the GM moved or took off, in feet from the room's corner,
+  // so it needs no shifting. Rebuilt piece by piece, 2026-11-01.)
   roof: (v, w) => {
-    if (!isObj(v)) no(`${w}: not a roof`);
-    const out = {}; for (const [k, x] of Object.entries(v)) { if (!['style', 'seed', 'off', 'shape', 'axis', 'edge', 'turrets'].includes(k)) no(`${w}.${k}: unknown`); out[k] = typeof x === 'boolean' ? x : typeof x === 'number' ? T.num(x, `${w}.${k}`) : T.word(x, `${w}.${k}`); }
+    const why = HT.roofProblem(v); if (why) no(`${w}: ${why}`);
+    const out = {}; for (const [k, x] of Object.entries(v)) out[k] = k === 'trim' ? Object.fromEntries(Object.entries(x).filter(([, t]) => t).map(([p, t]) => [p, t.gone ? { gone: true } : { at: [t.at[0], t.at[1]] }])) : x;
     return out;
   },
   gen: (v, w) => { // a generated building's recipe: small, flat (dials one level deeper)
@@ -243,25 +293,39 @@ const T = {
   settings: (v, w) => { if (!isObj(v)) no(`${w}: not settings`); const why = settingsProblem(v, RULE_KEYS); if (why) no(`${w}: ${why}`); return { ...v }; },
   ground: (v, w) => typeof v === 'string' && /^floor-[a-z0-9-]{1,60}$/.test(v) ? v : no(`${w}: not a ground material`),
 };
+// '!' required: bad or missing, the piece is left out. Plain: optional, but if present and bad the piece is left out
+// (what it IS, where it stands, whether it is hidden). '?' a detail: if bad, the piece comes in without it and the list says so.
+// A name is the game's own length: 80 characters for a thing, a pawn or a building, 60 for a room.
 const SPEC = {
-  building: { ref: 'ref!', name: 'name', roof: 'word', roofShape: 'word', gen: 'gen' },
-  room: { ref: 'ref!', building: 'ref', name: 'name', hidden: 'bool', fog: 'num', roof: 'roof', cliff: 'bool', type: 'cat!', x: 'int!', z: 'int!', w: 'int!', d: 'int!', y: 'int', tall: 'int', seed: 'int!', wallSeed: 'int', wallFamily: 'word', floor: 'word', turn: 'int', outline: 'outline', flavor: 'word', stalagObjects: 'bool', plan: 'plan' },
-  object: { ref: 'ref!', room: 'ref', parent: 'ref', name: 'name', cat: 'cat', sku: 'sku', flat: 'bool', place: 'word', layer: 'word', x: 'num!', y: 'num', z: 'num!', rot: 'num', yaw: 'num', quat: 'quat', s: 'vec3', dims: 'vec3', color: 'color', hidden: 'bool', pinned: 'bool', open: 'bool', lit: 'bool', rule: 'word', orient: 'word', rise: 'int', stair: 'word', down: 'bool', fromEdge: 'key', fromCave: 'bool', flavor: 'word', factionMissing: 'bool', factionWasHidden: 'bool', lightRadius: 'num' },
+  building: { ref: 'ref!', name: 'str?', roof: 'word?', roofShape: 'word?', gen: 'gen?' },
+  room: { ref: 'ref!', building: 'ref?', name: 'name?', hidden: 'bool', fog: 'num?', roof: 'roof?', cliff: 'bool?', type: 'cat!', x: 'int!', z: 'int!', w: 'int!', d: 'int!', y: 'int', tall: 'int', seed: 'int!', wallSeed: 'int?', wallFamily: 'word?', floor: 'word?', turn: 'int', outline: 'outline', flavor: 'str?', stalagObjects: 'bool?', plan: 'plan?' },
+  object: { ref: 'ref!', room: 'ref', parent: 'ref', name: 'str?', cat: 'cat', sku: 'sku', flat: 'bool', place: 'word', layer: 'word', x: 'num!', y: 'num', z: 'num!', rot: 'num', yaw: 'num', quat: 'quat', s: 'vec3', dims: 'vec3', color: 'color?', hidden: 'bool', pinned: 'bool?', open: 'bool?', lit: 'bool?', rule: 'str', orient: 'str', rise: 'int', stair: 'str', down: 'bool', fromEdge: 'key', fromCave: 'bool', flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', lightRadius: 'num?' },
   edge: { key: 'key!', as: 'word', piece: 'sku', family: 'word', pick: 'int', doorType: 'word', hidden: 'bool' },
-  pawn: { ref: 'ref!', name: 'name!', x: 'num!', z: 'num!', y: 'num', rot: 'num', color: 'color', fig: 'fig', size: 'int', hidden: 'bool', notes: 'note', gmNotes: 'note', mark: 'word', conditions: 'conditions', initBonus: 'int', visionRadius: 'num', darkvision: 'num', lightCarried: 'num' },
+  pawn: { ref: 'ref!', name: 'str!', x: 'num!', z: 'num!', y: 'num', rot: 'num?', color: 'color?', fig: 'fig?', size: 'int?', hidden: 'bool', notes: 'note?', gmNotes: 'note?', mark: 'word?', conditions: 'conditions?', initBonus: 'int?', visionRadius: 'num?', darkvision: 'num?', lightCarried: 'num?' },
   water: { ref: 'ref!', body: 'body!', hidden: 'bool' },
-  area: { name: 'name!', settings: 'settings', ground: 'ground' },
+  area: { name: 'name!', settings: 'settings?', ground: 'ground?' },
 };
-function record(v, spec, where) {
+// a forbidden key anywhere inside a value (JSON.parse makes `__proto__` an ordinary own key: it is findable, and harmless until copied)
+const badKeyIn = (v, d = 0) => { if (!v || typeof v !== 'object') return null; if (d > 32) return 'nested'; for (const k of Object.keys(v)) { if (BAD_KEYS.has(k)) return k; const b = badKeyIn(v[k], d + 1); if (b) return b; } return null; };
+function record(v, spec, where, detail = null) {
   if (!isObj(v)) no(`${where}: not a record`);
-  for (const k of Object.keys(v)) if (!spec[k]) no(`${where}.${k}: unknown field`);
+  const bad = badKeyIn(v); if (bad) no(`refused: it has a "${bad}" key`);
+  for (const k of Object.keys(v)) if (!Object.hasOwn(spec, k)) no(`${where}.${k.slice(0, 40)}: unknown field`);
   const out = {};
   for (const [k, s0] of Object.entries(spec)) {
-    const req = s0.endsWith('!'), s = req ? s0.slice(0, -1) : s0;
+    const tail = s0.at(-1), req = tail === '!', soft = tail === '?', s = req || soft ? s0.slice(0, -1) : s0;
     if (v[k] === undefined || v[k] === null) { if (req) no(`${where}.${k}: missing`); continue; }
-    out[k] = T[s](v[k], `${where}.${k}`);
+    if (!soft || !detail) { out[k] = T[s](v[k], `${where}.${k}`); continue; }
+    try { out[k] = T[s](v[k], `${where}.${k}`); } catch (e) { if (!(e instanceof Refuse)) throw e; detail(k, e.message); }
   }
   return out;
+}
+const NOUN = { buildings: 'building', rooms: 'room', objects: 'thing', edges: 'wall edit', pawns: 'creature', water: 'water' };
+// a piece's name for the list: its own if that is safe to repeat, else its catalog id or room type, else its place in the file
+function labelOf(list, v, i) {
+  const safe = (s, re) => typeof s === 'string' && s && s.length <= SHARE_LIMITS.str && !hasUrl(s) && (!re || re.test(s));
+  const name = !isObj(v) ? null : safe(v.name) ? v.name : safe(v.cat, RE.cat) ? v.cat.replace(/-/g, ' ') : safe(v.type, RE.cat) ? v.type.replace(/-/g, ' ') : null;
+  return name ? `${NOUN[list]} "${name}"` : `${NOUN[list]} ${i + 1}`;
 }
 const TOP = ['format', 'v', 'kind', 'name', 'createdAt', 'engine', 'secrets', 'base', 'area', 'thumb', 'buildings', 'rooms', 'objects', 'edges', 'pawns', 'water'];
 const THUMB_RE = /^data:image\/(webp|jpeg|png);base64,([A-Za-z0-9+/]+={0,2})$/;
@@ -275,39 +339,74 @@ export function thumbProblem(s) {
   return ok ? null : 'the picture is not what it says it is';
 }
 export function validateShare(obj) {
+  const L = newLeft();
   try {
     if (!isObj(obj)) no('not a Turnip Works build');
     if (obj.format !== SHARE_FORMAT) no(obj.kind === 'turnip-works-campaign' ? 'that is a whole-campaign file: import it from Settings ▸ Invites and exports' : 'not a Turnip Works build');
-    for (const k of Object.keys(obj)) if (!TOP.includes(k)) no(`unknown field ${String(k).slice(0, 40)}`);
+    for (const k of Object.keys(obj)) if (BAD_KEYS.has(k)) no(`refused: the file has a "${k}" key`);
     if (!Number.isInteger(obj.v) || obj.v < 1) no('no version');
     if (obj.v > SHARE_V) no(`made by a newer Turnip Works (version ${obj.v}; this one reads up to ${SHARE_V}): reload the page`);
     const up = upgradeShare(obj);
     if (!SHARE_KINDS.includes(up.kind)) no(`unknown kind: ${String(up.kind).slice(0, 20)} (one of ${SHARE_KINDS.join(', ')})`);
-    const list = (k, spec, max) => { const v = up[k] ?? []; if (!Array.isArray(v)) no(`${k}: not a list`); if (v.length > max) no(`${k}: at most ${max}`); return v.map((x, i) => record(x, spec, `${k}[${i}]`)); };
+    for (const k of Object.keys(up)) if (!TOP.includes(k)) leftOut(L, 'the file', `an unknown field (${String(k).slice(0, 40)})`, false);
+    // the file's own fields: a bad one goes back to its default, and nothing in the world depends on it
+    const soft = (k, read, dflt) => { if (up[k] == null) return dflt; try { return read(up[k]); } catch (e) { if (!(e instanceof Refuse)) throw e; leftOut(L, `the file's ${k}`, e.message, false); return dflt; } };
+    let total = 0;
+    const list = (k, spec, max) => {
+      const v = up[k] ?? [], out = [];
+      if (!Array.isArray(v)) { leftOut(L, `the file's ${k}`, `${k}: not a list`, false); return out; }
+      if (k !== 'buildings') total += v.length;
+      v.slice(0, max).forEach((x, i) => {
+        const label = labelOf(k, x, i);
+        try { out.push(record(x, spec, `${k}[${i}]`, (f, why) => leftOut(L, `${label}: its ${f}`, why, false))); }
+        catch (e) { leftOut(L, label, e instanceof Refuse ? e.message : 'it could not be read', k !== 'buildings'); } // (a building is a label on its rooms: they come in without it)
+      });
+      if (v.length > max) leftOut(L, `${v.length - max} past the limit`, `${k}: at most ${max}`, k !== 'buildings', v.length - max);
+      return out;
+    };
     const doc = {
-      format: SHARE_FORMAT, v: SHARE_V, kind: up.kind, name: T.name(up.name ?? 'Shared build', 'name') || 'Shared build',
-      createdAt: up.createdAt != null ? (typeof up.createdAt === 'string' && RE.iso.test(up.createdAt) ? up.createdAt : no('createdAt: not a date')) : null,
-      engine: up.engine != null ? T.str(up.engine, 'engine') : null, secrets: up.secrets === undefined ? true : T.bool(up.secrets, 'secrets'),
-      base: up.base == null ? 0 : T.num(up.base, 'base'),
-      area: up.area != null ? record(up.area, SPEC.area, 'area') : null,
-      thumb: up.thumb != null ? (thumbProblem(up.thumb) ? no(thumbProblem(up.thumb)) : up.thumb) : null,
+      format: SHARE_FORMAT, v: SHARE_V, kind: up.kind, name: soft('name', v => T.name(v, 'name'), 'Shared build') || 'Shared build',
+      createdAt: soft('createdAt', v => typeof v === 'string' && RE.iso.test(v) ? v : no('createdAt: not a date'), null),
+      engine: soft('engine', v => T.str(v, 'engine'), null), secrets: soft('secrets', v => T.bool(v, 'secrets'), true),
+      base: soft('base', v => T.num(v, 'base'), 0),
+      area: soft('area', v => record(v, SPEC.area, 'area', (f, why) => leftOut(L, `the area's ${f}`, why, false)), null),
+      thumb: soft('thumb', v => thumbProblem(v) ? no(thumbProblem(v)) : v, null),
       buildings: list('buildings', SPEC.building, SHARE_LIMITS.buildings), rooms: list('rooms', SPEC.room, SHARE_LIMITS.rooms),
       objects: list('objects', SPEC.object, SHARE_LIMITS.objects), edges: list('edges', SPEC.edge, SHARE_LIMITS.edges),
       pawns: list('pawns', SPEC.pawn, SHARE_LIMITS.pawns), water: list('water', SPEC.water, SHARE_LIMITS.water),
     };
-    // refs: unique, and every reference points at something in the file
+    // refs: unique (the first keeps it), and every reference points at something in the file
     const seen = new Set();
-    for (const r of [...doc.buildings, ...doc.rooms, ...doc.objects, ...doc.pawns, ...doc.water]) { if (seen.has(r.ref)) no(`ref ${r.ref} is used twice`); seen.add(r.ref); }
-    const bRefs = new Set(doc.buildings.map(b => b.ref)), rRefs = new Set(doc.rooms.map(r => r.ref)), oRefs = new Set(doc.objects.map(o => o.ref));
-    for (const r of doc.rooms) { if (r.building && !bRefs.has(r.building)) no(`room ${r.ref}: no building ${r.building}`); for (const k of Object.keys(r.plan?.links || {})) if (!rRefs.has(k)) delete r.plan.links[k]; }
-    for (const o of doc.objects) { if (o.room && !rRefs.has(o.room)) no(`thing ${o.ref}: no room ${o.room}`); if (o.parent && !oRefs.has(o.parent)) no(`thing ${o.ref}: no thing ${o.parent} under it`); if (o.parent === o.ref) no(`thing ${o.ref} rests on itself`); }
-    // a chain of things resting on things is finite (no loops)
-    const par = new Map(doc.objects.map(o => [o.ref, o.parent]));
-    for (const o of doc.objects) { let p = o.parent, k = 0; while (p && k++ <= doc.objects.length) p = par.get(p); if (p) no(`thing ${o.ref}: a loop of things resting on each other`); }
+    for (const k of ['buildings', 'rooms', 'objects', 'pawns', 'water']) doc[k] = doc[k].filter((r, i) => { if (!seen.has(r.ref)) { seen.add(r.ref); return true; } leftOut(L, labelOf(k, r, i), `ref ${r.ref} is used twice`, k !== 'buildings'); return false; });
+    const bRefs = new Set(doc.buildings.map(b => b.ref)), rRefs = new Set(doc.rooms.map(r => r.ref));
+    for (const r of doc.rooms) { if (r.building && !bRefs.has(r.building)) { delete r.building; leftOut(L, labelOf('rooms', r, 0), 'its building was left out: it stands on its own', false); } for (const k of Object.keys(r.plan?.links || {})) if (!rRefs.has(k)) delete r.plan.links[k]; }
+    doc.objects = thingsThatStand(doc.objects, rRefs, L);
     if (doc.kind === 'area' && !doc.area) doc.area = { name: doc.name };
-    if (!doc.rooms.length && !doc.objects.length && !doc.pawns.length && !doc.water.length && !doc.edges.length) no('there is nothing in it');
-    return { doc };
+    if (!doc.rooms.length && !doc.objects.length && !doc.pawns.length && !doc.water.length && !doc.edges.length) no(L.list.length ? `nothing in it could be read: ${L.list[0].what}: ${L.list[0].why}` : 'there is nothing in it');
+    return { doc, left: L, total };
   } catch (e) { if (e instanceof Refuse) return fail(e.message); throw e; }
+}
+// the things whose room and support are in the file; the rest are left out, and what rested on them goes with them (one
+// pass over the list however long the chain: a file may hold 12 000 things in a line)
+function thingsThatStand(objects, rRefs, L) {
+  const byRef = new Map(objects.map(o => [o.ref, o])), kids = new Map(), gone = new Map();
+  for (const o of objects) if (o.parent) (kids.get(o.parent) || kids.set(o.parent, []).get(o.parent)).push(o);
+  const drop = (o0, why0) => { const stack = [[o0, why0]]; while (stack.length) { const [o, why] = stack.pop(); if (gone.has(o.ref)) continue; gone.set(o.ref, why); for (const c of kids.get(o.ref) || []) stack.push([c, 'what it rested on was left out']); } };
+  for (const o of objects) {
+    if (o.room && !rRefs.has(o.room)) drop(o, 'its room was left out');
+    else if (o.parent === o.ref) drop(o, 'it rests on itself');
+    else if (o.parent && !byRef.has(o.parent)) drop(o, 'what it rested on was left out');
+  }
+  // loops of things resting on each other (each thing is walked once)
+  const done = new Set();
+  for (const o of objects) {
+    const path = new Set(); let p = o;
+    while (p && !done.has(p.ref) && !path.has(p.ref)) { path.add(p.ref); p = p.parent ? byRef.get(p.parent) : null; }
+    if (p && path.has(p.ref)) drop(p, 'a loop of things resting on each other');
+    for (const r of path) done.add(r);
+  }
+  for (const [i, o] of objects.entries()) if (gone.has(o.ref)) leftOut(L, labelOf('objects', o, i), gone.get(o.ref));
+  return objects.filter(o => !gone.has(o.ref));
 }
 
 // VERSIONS: UPGRADES[n] turns a version-n document into version n+1 (pure). Version 1 is the first; a later format adds
@@ -386,13 +485,14 @@ export function shiftKey(key, dxc, dzc, dy) {
 //   fallbackType   a room type the library has, for a room type it lacks
 //   gm             the importer is the GM side (GM notes travel)      newId     id minting
 //   engineVersion  the room engine's version (recorded on each room)
+//   left           what reading the file already left out (parseShare's `left`): the plan's report carries it on
 export function planImport(doc, target = {}) {
-  const { area: area0 = { id: 'area_import', entities: {}, order: 0, settings: {} }, resolve = null, roomTypes = null, families = null, floors = null, figs = null, fallbackType = null, gm = true, newId = mintId, engineVersion = '' } = target;
+  const { area: area0 = { id: 'area_import', entities: {}, order: 0, settings: {} }, resolve = null, roomTypes = null, families = null, floors = null, figs = null, fallbackType = null, gm = true, newId = mintId, engineVersion = '', keepPlace = false, left: readLeft = null } = target;
   const E0 = area0.entities || {};
   const P = placeFor(doc, { ...target, entities: E0 });
   const { dx, dz, dy, dxc, dzc } = P;
-  const report = { standIns: [], substitutes: [], roomTypes: [], families: [], figs: [], left: [] };
-  const ops = [], idOf = new Map();
+  const L = newLeft(readLeft), report = { standIns: [], substitutes: [], roomTypes: [], families: [], figs: [], left: L, pieces: { landed: 0, total: 0 } };
+  const idOf = new Map();
   const mint = (prefix, ref) => { const id = newId(prefix); idOf.set(ref, id); return id; };
   // buildings: new ids, names that do not repeat the target's
   let nB = Object.values(E0).filter(e => e.kind === 'building').length;
@@ -424,6 +524,28 @@ export function planImport(doc, target = {}) {
   const order = (list) => { const byRef = new Map(list.map(o => [o.ref, o])), out = [], done = new Set(); const visit = (o) => { if (done.has(o.ref)) return; done.add(o.ref); if (o.parent && byRef.has(o.parent)) visit(byRef.get(o.parent)); out.push(o); }; list.forEach(visit); return out; }; // parents first
   const inRoom = new Map(); for (const o of order(doc.objects)) if (o.room && roomRefs.has(o.room)) (inRoom.get(o.room) || inRoom.set(o.room, []).get(o.room)).push(o);
   const parentArg = (o) => o.parent ? idOf.get(o.parent) : undefined;
+  // THE DRY RUN: each op parsed and checked exactly as the relay will, against the area as the ops before it left it. A
+  // refused op costs its piece (and what depends on it), never the plan, and nothing refused reaches `out`.
+  const BY = 'seat_import0';
+  const state = { local: true, seats: { [BY]: { id: BY, kind: 'human', role: gm ? 'gm' : 'player', name: 'import' } }, areas: {}, areaOrder: [], defaults: {} };
+  let area = { ...area0, entities: { ...E0 } };
+  const out = [];
+  const run = (op) => {
+    const d = REGISTRY[op.type], p = parseArgs(op.type, op.args);
+    if (p.error) return `${op.type}: ${p.error}`;
+    try {
+      const why = d.check ? d.check({ area, state: { ...state, areas: { [area.id]: area } }, by: BY, roomTypes }, p.args) : null;
+      if (why) return `${op.type}: ${typeof why === 'object' ? why.why : why}`;
+      area = d.apply(area, p.args, { by: BY });
+    } catch { return `${op.type}: it could not be applied`; }
+    out.push({ type: op.type, args: p.args });
+    return null;
+  };
+  const refuse = (why) => ({ ok: false, why: plainWhy(why, idOf), ops: [], report, shift: P, rooms: P.rooms });
+  const goneIds = new Set(), goneRooms = [];
+  // a thing left out, and everything resting on it
+  const kids = new Map(); for (const o of doc.objects) if (o.parent) (kids.get(o.parent) || kids.set(o.parent, []).get(o.parent)).push(o);
+  const lose = (o0, why0) => { const stack = [[o0, why0]]; while (stack.length) { const [o, why] = stack.pop(), id = idOf.get(o.ref); if (goneIds.has(id)) continue; goneIds.add(id); leftOut(L, labelOf('objects', o, 0), why); for (const c of kids.get(o.ref) || []) stack.push([c, 'what it rested on was left out']); } };
   // rooms: lowest first (what an upper room stands on is made before it); hills first of all (rooms stand on them)
   const rooms = doc.rooms.slice().sort((a, b) => HT.isTerrain(b.type) - HT.isTerrain(a.type) || (a.y || 0) - (b.y || 0));
   for (const r of rooms) mint('room', r.ref);
@@ -437,58 +559,76 @@ export function planImport(doc, target = {}) {
     const fl = r.floor && floors && !floors.has(r.floor) ? (report.families.push(r.floor), undefined) : r.floor;
     let building;
     if (terrain) building = {};
-    else if (r.building) { const B = bInfo.get(r.building); building = { building: B.id, ...(!B.named && { buildingName: B.name }) }; B.named = true; }
-    else { const b = HT.buildingAt(E0, rc, HT.spanOfArgs(E0, rc)); building = b ? { building: b } : { building: newId('bld'), buildingName: `Building ${++nNew}` }; }
-    // (a room's things ride inside its layout, which the relay takes as one object: each is parsed here as the
+    else if (r.building) { const B = bInfo.get(r.building); building = { building: B.id, ...(!B.named && { buildingName: B.name }) }; }
+    else { const b = HT.buildingAt(area.entities, rc, HT.spanOfArgs(area.entities, rc)); building = b ? { building: b } : { building: newId('bld'), buildingName: `Building ${++nNew}` }; }
+    // (a room's things ride inside its layout, which the relay takes as one object: each is parsed and checked here as the
     // object.place it amounts to, so nothing of a wrong type gets in that way either)
-    const objects = [];
-    for (const o of inRoom.get(r.ref) || []) { const { room: _, ...rest } = objArgs(o), a = { ...rest, ...(o.parent && { parent: parentArg(o) }) }, p = parseArgs('object.place', a); if (p.error) return { ok: false, why: `a thing in ${r.name || r.type}: ${p.error}`, ops: [], report, shift: P, rooms: P.rooms }; objects.push({ ...p.args, ...(o.fromCave && { fromCave: true }) }); }
+    const objects = [], riding = [];
+    for (const o of inRoom.get(r.ref) || []) {
+      if (goneIds.has(idOf.get(o.ref))) continue;
+      const { room: _, ...rest } = objArgs(o), a = { ...rest, ...(o.parent && { parent: parentArg(o) }) }, p = parseArgs('object.place', a);
+      const why = p.error || REGISTRY['object.place'].check({ area }, p.args);
+      if (why) { lose(o, why); continue; }
+      objects.push({ ...p.args, ...(o.fromCave && { fromCave: true }) }); riding.push(o);
+    }
     const plan = r.plan ? { ...(r.plan.b != null && { b: r.plan.b }), ...(r.plan.entry && { entry: r.plan.entry }), links: Object.fromEntries(Object.entries(r.plan.links || {}).map(([k, e]) => [idOf.get(k), e]).filter(([k]) => k)) } : null;
-    ops.push({ type: 'room.spawn', args: { id: idOf.get(r.ref), ...building, ...(r.name && { name: r.name }), type, x: rc.x, z: rc.z, w: rc.w, d: rc.d, ...(rc.y && { y: rc.y }), ...(rc.tall && { tall: rc.tall }), seed: r.seed, ...(r.wallSeed != null && { wallSeed: r.wallSeed }), ...(wf && { wallFamily: wf }), ...(fl && { floor: fl }), ...(r.turn && { turn: r.turn }), ...(r.outline && { outline: r.outline }), ...(r.flavor && { flavor: r.flavor }), ...(r.stalagObjects && { stalagObjects: true }), ...(plan && { plan }), engine: 'v2', ...(engineVersion && { engineVersion }), layout: { hash: 'import', summary: 'imported', objects } } });
+    const why = run({ type: 'room.spawn', args: { id: idOf.get(r.ref), ...building, ...(r.name && { name: r.name }), type, x: rc.x, z: rc.z, w: rc.w, d: rc.d, ...(rc.y && { y: rc.y }), ...(rc.tall && { tall: rc.tall }), seed: r.seed, ...(r.wallSeed != null && { wallSeed: r.wallSeed }), ...(wf && { wallFamily: wf }), ...(fl && { floor: fl }), ...(r.turn && { turn: r.turn }), ...(r.outline && { outline: r.outline }), ...(r.flavor && { flavor: r.flavor }), ...(r.stalagObjects && { stalagObjects: true }), ...(plan && { plan }), engine: 'v2', ...(engineVersion && { engineVersion }), layout: { hash: 'import', summary: 'imported', objects } } });
+    if (why) {
+      // a ghost put down where it does not fit is the GM's to move, not a broken file: on one of the target's rooms, off the
+      // map, or with nothing under it when nothing of the file is missing (a room left out above is the file's fault)
+      const hit = why.match(/overlaps room (\S+)/)?.[1];
+      if (!keepPlace && (hit ? !!E0[hit] : /off the map/.test(why) || (/nothing to stand on|overhang/.test(why) && !goneRooms.length && !readLeft?.pieces))) return refuse(why);
+      goneIds.add(idOf.get(r.ref)); goneRooms.push(rc); leftOut(L, labelOf('rooms', r, 0), why);
+      for (const o of riding) lose(o, 'its room was left out');
+      continue;
+    }
+    if (r.building) bInfo.get(r.building).named = true;
     const set = { ...(r.fog != null && { fog: r.fog }), ...(r.roof && { roof: r.roof }), ...(r.cliff && { cliff: true }) };
-    if (Object.keys(set).length) after.push({ type: 'room.set', args: { id: idOf.get(r.ref), ...set } });
+    if (Object.keys(set).length) after.push({ r, op: { type: 'room.set', args: { id: idOf.get(r.ref), ...set } } });
   }
-  ops.push(...after);
-  for (const B of bInfo.values()) { const set = { ...(B.b.roof && { roof: B.b.roof }), ...(B.b.roofShape && { roofShape: B.b.roofShape }), ...(B.b.gen && { gen: shiftGen(B.b.gen, dxc, dzc) }) }; if (B.named && Object.keys(set).length) ops.push({ type: 'building.set', args: { id: B.id, ...set } }); }
-  for (const e of doc.edges) { const key = shiftKey(e.key, dxc, dzc, dy); if (!key || !EDGE_KEY_RE.test(key)) { report.left.push(`a wall edit at ${e.key}`); continue; } ops.push({ type: 'edge.set', args: { key, ...pick(e, ['as', 'piece', 'family', 'pick', 'doorType']) } }); }
+  for (const { r, op } of after) { const why = run(op); if (why) leftOut(L, `${labelOf('rooms', r, 0)}: its roof, fog or cliff`, why, false); }
+  for (const B of bInfo.values()) { const set = { ...(B.b.roof && { roof: B.b.roof }), ...(B.b.roofShape && { roofShape: B.b.roofShape }), ...(B.b.gen && { gen: shiftGen(B.b.gen, dxc, dzc) }) }; if (B.named && Object.keys(set).length) { const why = run({ type: 'building.set', args: { id: B.id, ...set } }); if (why) leftOut(L, `${labelOf('buildings', B.b, 0)}: its roof or recipe`, why, false); } }
+  // a wall edit goes with its wall: one only a left-out room had (a door in that wall) has nothing to edit
+  const lostWalls = new Set(goneRooms.flatMap(perimeterKeys)), keptWalls = new Set(goneRooms.length ? Object.values(area.entities).filter(e => e.kind === 'room').flatMap(e => perimeterKeys(e.recipe)) : []);
+  for (const e of doc.edges) {
+    const key = shiftKey(e.key, dxc, dzc, dy), what = `a wall edit at ${e.key}`;
+    if (!key || !EDGE_KEY_RE.test(key)) { leftOut(L, what, 'it does not fit the grid here'); continue; }
+    if (lostWalls.has(key) && !keptWalls.has(key)) { leftOut(L, what, 'its room was left out'); continue; }
+    const why = run({ type: 'edge.set', args: { key, ...pick(e, ['as', 'piece', 'family', 'pick', 'doorType']) } }); if (why) leftOut(L, what, why);
+  }
   // things not in a room of the file: where they land (the room there, if any, is computed after the rooms exist)
   const loose = order(doc.objects).filter(o => !(o.room && roomRefs.has(o.room)));
-  const looseOps = loose.map(o => ({ o, op: { type: 'object.place', args: { ...objArgs(o), ...(o.parent && { parent: parentArg(o) }) } } }));
+  for (const o of loose) {
+    if (goneIds.has(idOf.get(o.ref))) continue;
+    const args = { ...objArgs(o), ...(o.parent && { parent: parentArg(o) }) };
+    args.room = HT.roomAtHeight(area.entities, args.x, args.z, args.y || 0)?.id || undefined;
+    if (args.room === undefined) delete args.room;
+    const why = run({ type: 'object.place', args }); if (why) lose(o, why);
+  }
   for (const o of doc.objects) {
-    const id = idOf.get(o.ref);
-    if (o.open) ops.push({ _late: true, type: 'object.open', args: { id, open: true } });
-    if (o.lightRadius != null) ops.push({ _late: true, type: 'object.set', args: { id, lightRadius: o.lightRadius } });
+    const id = idOf.get(o.ref); if (goneIds.has(id)) continue;
+    if (o.open) { const why = run({ type: 'object.open', args: { id, open: true } }); if (why) leftOut(L, `${labelOf('objects', o, 0)}: it was open`, why, false); }
+    if (o.lightRadius != null) { const why = run({ type: 'object.set', args: { id, lightRadius: o.lightRadius } }); if (why) leftOut(L, `${labelOf('objects', o, 0)}: its light radius`, why, false); }
   }
-  const pawnOps = doc.pawns.map(t => {
+  for (const t of doc.pawns) {
     let fig = t.fig; if (fig && figs && !figs.has(fig)) { report.figs.push(t.name); fig = undefined; }
-    return { type: 'token.create', args: { id: mint('tok', t.ref), name: t.name, x: r2(t.x + dx), z: r2(t.z + dz), ...((t.y || 0) + dy ? { y: r2((t.y || 0) + dy) } : {}), rot: t.rot || 0, ...(t.color && { color: t.color }), ...(fig && { fig }), ...(t.size > 1 && { size: t.size }), ...(t.hidden && { hidden: true }), ...(t.notes && { notes: t.notes }), ...(gm && t.gmNotes && { gmNotes: t.gmNotes }), ...(t.mark && { mark: t.mark }), ...(t.conditions?.length && { conditions: t.conditions }), ...(t.initBonus != null && { initBonus: t.initBonus }), ...(t.visionRadius != null && { visionRadius: t.visionRadius }), ...(t.darkvision != null && { darkvision: t.darkvision }), ...(t.lightCarried != null && { lightCarried: t.lightCarried }) } };
-  });
-  const waterOps = doc.water.map(w => ({ type: 'water.set', args: { id: mint('wtr', w.ref), body: { ...w.body, pts: w.body.pts.map(([x, z]) => [r2(x + dx), r2(z + dz)]), ...(w.body.y != null && { y: w.body.y + dy }), ...(w.body.ground != null && { ground: w.body.ground + dy }) } } }));
-  const hidden = [...doc.rooms.filter(r => r.hidden).map(r => idOf.get(r.ref)), ...doc.water.filter(w => w.hidden).map(w => idOf.get(w.ref))];
-
-  // THE DRY RUN: each op parsed and checked exactly as the relay will, against the area as the ops before it left it
-  const BY = 'seat_import0';
-  const state = { local: true, seats: { [BY]: { id: BY, kind: 'human', role: gm ? 'gm' : 'player', name: 'import' } }, areas: {}, areaOrder: [], defaults: {} };
-  let area = { ...area0, entities: { ...E0 } };
-  const out = [];
-  const run = (op) => {
-    const d = REGISTRY[op.type], p = parseArgs(op.type, op.args);
-    if (p.error) return `${op.type}: ${p.error}`;
-    const why = d.check ? d.check({ area, state: { ...state, areas: { [area.id]: area } }, by: BY, roomTypes }, p.args) : null;
-    if (why) return `${op.type}: ${typeof why === 'object' ? why.why : why}`;
-    area = d.apply(area, p.args, { by: BY });
-    out.push({ type: op.type, args: p.args });
-    return null;
-  };
-  for (const op of ops.filter(o => !o._late)) { const why = run(op); if (why) return { ok: false, why: plainWhy(why, idOf), ops: [], report, shift: P, rooms: P.rooms }; }
-  for (const { o, op } of looseOps) {
-    op.args.room = HT.roomAtHeight(area.entities, op.args.x, op.args.z, op.args.y || 0)?.id || undefined;
-    if (op.args.room === undefined) delete op.args.room;
-    const why = run(op); if (why) return { ok: false, why: plainWhy(why, idOf, o), ops: [], report, shift: P, rooms: P.rooms };
+    const id = mint('tok', t.ref), why = run({ type: 'token.create', args: { id, name: t.name, x: r2(t.x + dx), z: r2(t.z + dz), ...((t.y || 0) + dy ? { y: r2((t.y || 0) + dy) } : {}), rot: t.rot || 0, ...(t.color && { color: t.color }), ...(fig && { fig }), ...(t.size > 1 && { size: t.size }), ...(t.hidden && { hidden: true }), ...(t.notes && { notes: t.notes }), ...(gm && t.gmNotes && { gmNotes: t.gmNotes }), ...(t.mark && { mark: t.mark }), ...(t.conditions?.length && { conditions: t.conditions }), ...(t.initBonus != null && { initBonus: t.initBonus }), ...(t.visionRadius != null && { visionRadius: t.visionRadius }), ...(t.darkvision != null && { darkvision: t.darkvision }), ...(t.lightCarried != null && { lightCarried: t.lightCarried }) } });
+    if (why) { goneIds.add(id); leftOut(L, labelOf('pawns', t, 0), why); }
   }
-  for (const op of [...ops.filter(o => o._late).map(({ _late, ...op }) => op), ...pawnOps, ...waterOps, ...(hidden.length ? [{ type: 'entity.flag', args: { ids: hidden, hidden: true } }] : [])]) { const why = run(op); if (why) return { ok: false, why: plainWhy(why, idOf), ops: [], report, shift: P, rooms: P.rooms }; }
+  for (const w of doc.water) {
+    const id = mint('wtr', w.ref), why = run({ type: 'water.set', args: { id, body: { ...w.body, pts: w.body.pts.map(([x, z]) => [r2(x + dx), r2(z + dz)]), ...(w.body.y != null && { y: w.body.y + dy }), ...(w.body.ground != null && { ground: w.body.ground + dy }) } } });
+    if (why) { goneIds.add(id); leftOut(L, labelOf('water', w, 0), why); }
+  }
+  const hidden = [...doc.rooms.filter(r => r.hidden).map(r => idOf.get(r.ref)), ...doc.water.filter(w => w.hidden).map(w => idOf.get(w.ref))].filter(id => !goneIds.has(id));
+  // (a hidden room that could not be hidden must not land at all: this one refusal is the whole plan's)
+  if (hidden.length) { const why = run({ type: 'entity.flag', args: { ids: hidden, hidden: true } }); if (why) return refuse(why); }
+  // (a thing that rested on something left out later in the run: its room's layout was made before that was known)
+  for (const op of out) if (op.type === 'room.spawn') op.args.layout = { ...op.args.layout, objects: op.args.layout.objects.filter(o => !goneIds.has(o.id)) };
   report.standIns = [...new Set(report.standIns)]; report.substitutes = [...new Set(report.substitutes)];
-  return { ok: true, ops: out, report, shift: P, rooms: P.rooms, ids: [...idOf.values()], top: [...doc.rooms.filter(r => !HT.isTerrain(r.type) && !r.building).map(r => idOf.get(r.ref)), ...[...bInfo.values()].filter(B => B.named).map(B => B.id), ...loose.filter(o => !o.parent).map(o => idOf.get(o.ref)), ...doc.pawns.map(t => idOf.get(t.ref))], area };
+  report.pieces.landed = out.reduce((n, op) => n + (op.type === 'room.spawn' ? 1 + op.args.layout.objects.length : ['object.place', 'edge.set', 'token.create', 'water.set'].includes(op.type) ? 1 : 0), 0);
+  report.pieces.total = doc.rooms.length + doc.objects.length + doc.edges.length + doc.pawns.length + doc.water.length + (readLeft?.pieces || 0);
+  if (!report.pieces.landed) return refuse(L.list.find(e => !e.detail)?.why || 'nothing in it could be placed');
+  return { ok: true, ops: out, report, shift: P, rooms: P.rooms, ids: [...idOf.values()].filter(id => !goneIds.has(id)), top: [...doc.rooms.filter(r => !HT.isTerrain(r.type) && !r.building).map(r => idOf.get(r.ref)), ...[...bInfo.values()].filter(B => B.named).map(B => B.id), ...loose.filter(o => !o.parent).map(o => idOf.get(o.ref)), ...doc.pawns.map(t => idOf.get(t.ref))].filter(id => !goneIds.has(id)), area };
 }
 // a generated building's recipe moved with it
 const shiftGen = (g, dxc, dzc) => ({ ...g, ...(Number.isInteger(g.x) && { x: g.x + dxc }), ...(Number.isInteger(g.z) && { z: g.z + dzc }) });
@@ -497,7 +637,7 @@ function plainWhy(why, idOf) {
   if (/overlaps room/.test(why)) return 'it would overlap a room that is already there: move it to open ground';
   if (/nothing to stand on|overhang/.test(why)) return 'an upper storey would have nothing under it here: put it on open ground';
   if (/off the map/.test(why)) return 'it would land off the map';
-  return why;
+  return String(why).replace(/^[a-z]+\.[a-z]+: /, '');
 }
 
 // the ops of a plan in batches that each fit one relay message (a big area goes in several; a selection is normally one)
@@ -511,21 +651,27 @@ export function chunkOps(ops, { maxOps = 1500, maxBytes = 700000 } = {}) {
 // A WHOLE-CAMPAIGN FILE (the export in Settings ▸ Invites and exports, `turnip-works-campaign`) read through the same door: each area
 // becomes a share document of kind 'area', built field by field from the file's entities (which are untrusted too), then
 // validated. The old import wrote the file's entities straight in (entities.set); this never does.
+// Best effort here too: an area that cannot be read is left out and the others come in. docs[i] is an area's document, or
+// { empty, name, area } for one with nothing in it; reads[i] its { left, total, players }; `left` what could not be read at all.
 export function campaignAreas(file) {
-  if (!isObj(file) || !Array.isArray(file.areas) || file.areas.length > 50) return fail('not a Turnip Works campaign file');
-  const docs = [];
-  for (const [i, a] of file.areas.entries()) {
-    if (!isObj(a) || !isObj(a.entities) || Object.keys(a.entities).length > 40000) return fail(`area ${i + 1}: not an area`);
-    const ents = {};
-    for (const [id, e] of Object.entries(a.entities)) if (isId(id) && isObj(e) && !BAD_KEYS.has(id)) ents[id] = { ...e, id };
-    let doc;
+  if (!isObj(file) || !Array.isArray(file.areas)) return fail('not a Turnip Works campaign file');
+  const docs = [], reads = [], left = newLeft();
+  if (file.areas.length > 50) leftOut(left, `${file.areas.length - 50} areas past the limit`, 'a file holds at most 50 areas', true, file.areas.length - 50);
+  for (const [i, a] of file.areas.slice(0, 50).entries()) {
+    const label = isObj(a) && typeof a.name === 'string' && !hasUrl(a.name) ? `area "${a.name.slice(0, SHARE_LIMITS.name)}"` : `area ${i + 1}`;
+    if (!isObj(a) || !isObj(a.entities) || Object.keys(a.entities).length > 40000) { leftOut(left, label, 'it is not an area'); continue; }
+    const pre = newLeft(), ents = {};
+    for (const [id, e] of Object.entries(a.entities)) { if (isId(id) && isObj(e) && !BAD_KEYS.has(id)) ents[id] = { ...e, id }; else leftOut(pre, 'a piece with no proper id', 'it could not be read'); }
+    let doc, players = 0;
     try {
       const settings = isObj(a.settings) && !settingsProblem(a.settings, RULE_KEYS) ? a.settings : undefined;
-      doc = exportShare(ents, { kind: 'area', name: String(a.name || 'Imported').slice(0, SHARE_LIMITS.name), area: { name: String(a.name || 'Imported').slice(0, SHARE_LIMITS.name), settings, ground: typeof a.ground === 'string' ? a.ground : undefined } }).doc;
-    } catch { return fail(`area ${i + 1}: could not be read`); }
+      if (a.settings && !settings && Object.keys(a.settings).length) leftOut(pre, `${label}: its settings`, 'they could not be read', false);
+      const out = exportShare(ents, { kind: 'area', name: String(a.name || 'Imported').slice(0, SHARE_LIMITS.name), area: { name: String(a.name || 'Imported').slice(0, SHARE_LIMITS.name), settings, ground: typeof a.ground === 'string' ? a.ground : undefined } });
+      doc = out.doc; players = out.left.players;
+    } catch { leftOut(left, label, 'it could not be read'); continue; }
     const v = validateShare(JSON.parse(JSON.stringify(doc)));
-    if (v.error) { if (v.error === 'there is nothing in it') { docs.push({ empty: true, name: doc.name, area: doc.area }); continue; } return fail(`area ${i + 1} (${doc.name}): ${v.error}`); }
-    docs.push(v.doc);
+    if (v.error) { if (v.error === 'there is nothing in it' && !pre.pieces) { docs.push({ empty: true, name: doc.name, area: doc.area }); reads.push(null); } else leftOut(left, label, v.error); continue; }
+    docs.push(v.doc); reads.push({ left: { pieces: pre.pieces + v.left.pieces, details: pre.details + v.left.details, list: [...pre.list, ...v.left.list].slice(0, SHARE_LIMITS.left) }, total: v.total + pre.pieces, players }); // (players: not a fault, the rule: a line in the toast, not the list of what broke)
   }
-  return { docs };
+  return { docs, reads, left };
 }

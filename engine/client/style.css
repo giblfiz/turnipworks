@@ -1007,6 +1007,12 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
 .shstrip.dim { opacity: .55; }
 .shlink { display: flex; gap: 6px; align-items: center; } .shlink code { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: 12px; padding: 6px 8px; border-radius: 6px; background: var(--raised); border: 1px solid var(--line); user-select: all; }
 #shareModal .snote { margin: 0; }
+.shreportbox { width: min(620px, calc(100vw - 32px)); }
+.shreport { display: flex; flex-direction: column; gap: 8px; padding: 18px; min-width: 0; }
+.shlefth { margin: 6px 0 0; font-size: 14px; overflow-wrap: anywhere; }
+.shleft { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; max-height: 38vh; overflow: auto; font-size: 13px; }
+.shleft li { padding: 6px 8px; border-radius: 6px; background: var(--raised); overflow-wrap: anywhere; }
+.shleft small { display: block; color: var(--mute); }
 @media (max-width: 640px) { .shbody { grid-template-columns: 1fr; } }
 
 /* ---------- FIRST PERSON (2026-10-29; surfaces/fpv.js, docs/UI.md "First person"). html.tw-fpv while a seat looks through a

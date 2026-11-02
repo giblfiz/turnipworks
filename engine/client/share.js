@@ -14,6 +14,8 @@
 //                  would overlap; a building lands on the ground, on a hilltop it stands wholly on; things land on the floor
 //                  under the pointer at the level in view); a click commits it as ONE batch (one undo). A whole area comes
 //                  in as a new area. Pieces this library lacks come in as stand-ins, and the toast says how many.
+//                  BEST EFFORT (2026-11-01): a broken piece is left out, not the file (core/share.js says what that means).
+//                  The toast says "Imported 412 of 418 pieces; left out 6" and a window lists them (Sh.showLeft).
 //   Starter builds the repo's engine/client/starter/ (index.json lists them): built-in shared builds, the alpha's kit.
 // Everything that reads a file goes through core/share.js parseShare + planImport: never raw entities, never a URL from
 // the file (a share link is reduced to its id and fetched from OUR relay only).
@@ -92,6 +94,7 @@ export function createShare(app, { thumbs }) {
           <p class="snote">Recipes and library pieces only, no meshes: rooms, walls and furniture come from the importer's own library.</p>
           <div class="sab"><button class="sbtn primary" data-act="download">${icon('package', 15)} Download .turnip.json</button><button class="sbtn" data-act="link"${D.busy ? ' disabled' : ''}>${icon('link', 15)} Copy share link</button></div>
           ${D.link ? `<div class="shlink"><code>${esc(D.link.url)}</code><button class="sbtn tiny" data-act="copylink">Copy</button><button class="sbtn tiny danger" data-act="unlink">Delete link</button></div><p class="snote">Unlisted: only people with the link can open it. Anyone with it can import it.</p>` : ''}
+          ${D.link?.left ? `<p class="snote bad">${plural(D.link.left.pieces + D.link.left.details, 'part')} could not go in the link: ${esc(S.leftGroups(D.link.left).slice(0, 4).map(g => g.why).join('; '))}</p>` : ''}
           ${D.error ? `<p class="snote bad">${esc(D.error)}</p>` : ''}
         </div>
       </div></div>`;
@@ -125,7 +128,7 @@ export function createShare(app, { thumbs }) {
     if (!D) return null;
     D.busy = false;
     if (!r.ok) { D.error = `No link: ${r.why}`; render(); return null; }
-    D.link = { id: r.id, url: Sh.urlOf(r.id), del: r.del };
+    D.link = { id: r.id, url: Sh.urlOf(r.id), del: r.del, left: r.left || null }; // (r.left: what the relay would not store)
     Sh.lastLink = { ...D.link, name: doc.name };
     saveLinks([...savedLinks(), { id: r.id, del: r.del, name: doc.name, at: Date.now(), campaign: C().id }]);
     copy(D.link.url, 'Share link copied');
@@ -148,9 +151,9 @@ export function createShare(app, { thumbs }) {
   Sh.importText = async (text, { from = 'file' } = {}) => {
     if (!may()) { app.toast('Importing builds is the GM\'s', true); return false; }
     if (/"kind"\s*:\s*"turnip-works-campaign"/.test(String(text).slice(0, 400))) { let d = null; try { d = JSON.parse(text); } catch { } if (d) { await app.settings?.importData(d); return true; } }
-    const { doc, error } = S.parseShare(String(text));
+    const { doc, left, error } = S.parseShare(String(text));
     if (error) { Sh.lastImport = { error }; app.toast(`Not imported: ${error}`, true); return false; }
-    return Sh.begin(doc, { from });
+    return Sh.begin(doc, { from, left });
   };
   Sh.importLink = async (link) => {
     const m = String(link || '').trim().match(SHARE_LINK_RE);
@@ -161,29 +164,57 @@ export function createShare(app, { thumbs }) {
   };
   Sh.importFile = async (file) => { if (!file) return false; if (file.size > S.SHARE_LIMITS.bytes) { app.toast('Not imported: that file is too big for a shared build', true); return false; } return Sh.importText(await file.text(), { from: 'file' }); };
   Sh.pickFile = () => { const i = Object.assign(document.createElement('input'), { type: 'file', accept: '.json,application/json' }); i.onchange = () => Sh.importFile(i.files[0]); i.click(); };
-  Sh.begin = (doc, opts = {}) => doc.kind === 'area' ? Sh.importArea(doc) : tool.start(doc, opts);
+  Sh.begin = (doc, opts = {}) => doc.kind === 'area' ? Sh.importArea(doc, opts) : tool.start(doc, opts);
   const reportText = (R) => [R.standIns.length && `${plural(R.standIns.length, 'piece')} your library lacks: shown as stand-ins`, R.substitutes.length && `${plural(R.substitutes.length, 'piece')} swapped for a close match`, R.roomTypes.length && `${plural(R.roomTypes.length, 'room type')} it lacks: built as common rooms`, R.figs.length && `${plural(R.figs.length, 'figure')} it lacks: plain pawns`].filter(Boolean).join(' · ');
-  // the ops, in batches that each fit one message (a build is one: one undo)
+  // the ops, in batches that each fit one message (a build is one: one undo). The relay checks each again; the number that
+  // landed comes back, and a short count is reported, never passed off as done.
   async function commit(plan, area) {
-    const parts = S.chunkOps(plan.ops);
-    for (const ops of parts) { const m = await app.await(app.sync.submit('batch', { ops }, area)); if (!m) return false; }
-    return parts.length;
+    const parts = S.chunkOps(plan.ops); let steps = 0;
+    for (const ops of parts) { const m = await app.await(app.sync.submit('batch', { ops }, area)); if (!m) { plan.report.stopped = `the server refused ${parts.length - steps} of ${parts.length} step${parts.length === 1 ? '' : 's'}: some of the pieces counted here did not land`; break; } steps++; }
+    return steps;
   }
-  Sh.importArea = async (doc) => {
+  // WHAT WAS LEFT OUT, in a window that stays until it is read: a toast is gone in seconds, and a GM wants to know which
+  // pieces. items: [{ name, report, error? }], one per area. Everything in it comes from the file: it is only ever escaped.
+  const leftLines = (L) => { const groups = S.leftGroups(L), kept = L.list.length, all = L.pieces + L.details; return { groups, more: Math.max(0, all - kept) }; };
+  const hasNews = (x) => x.error || x.report?.stopped || x.report?.left?.pieces || x.report?.left?.details;
+  Sh.leftReport = (items) => items.filter(hasNews).map(x => {
+    const head = x.error ? `“${x.name}”: not imported: ${x.error}` : `“${x.name}”: ${S.leftText(x.report) || 'some of it could not be read'}`;
+    const { groups, more } = leftLines(x.report?.left || S.newLeft());
+    return [head, ...(x.report?.stopped ? [`  ${x.report.stopped}`] : []), ...groups.map(g => `  ${g.detail ? 'came in without: ' : ''}${g.n} · ${g.why}: ${g.names.slice(0, 12).join(', ')}${g.names.length > 12 ? ', …' : ''}`), ...(more ? [`  and ${more} more of the same kinds, not listed`] : [])].join('\n');
+  }).join('\n\n');
+  Sh.showLeft = (items, { title = 'What was left out' } = {}) => {
+    const news = items.filter(hasNews); if (!news.length) return false;
+    ensureModal(); D = null;
+    const ul = (groups) => `<ul class="shleft">${groups.map(g => `<li><b>${g.n}</b> ${esc(g.why)}<small>${esc(g.names.slice(0, 12).join(', '))}${g.names.length > 12 ? ', …' : ''}</small></li>`).join('')}</ul>`;
+    const part = (x) => {
+      const L = x.report?.left || S.newLeft(), { groups, more } = leftLines(L), gone = groups.filter(g => !g.detail), kept = groups.filter(g => g.detail);
+      return `<h3 class="shlefth">${esc(x.name)}</h3><p class="shwhat">${esc(x.error ? `Not imported: ${x.error}` : S.leftText(x.report) || 'Some of it could not be read')}</p>${x.report?.stopped ? `<p class="snote bad">${esc(x.report.stopped)}</p>` : ''}${gone.length ? ul(gone) : ''}${kept.length ? `<p class="snote">Came in without:</p>${ul(kept)}` : ''}${more ? `<p class="snote">And ${more} more of the same kinds, not listed.</p>` : ''}`;
+    };
+    modal.innerHTML = `<div class="shmodal shreportbox" role="dialog" aria-label="${esc(title)}"><div class="shhead"><b>${esc(title)}</b><button class="sx" data-act="close" aria-label="Close">×</button></div><div class="shreport">${news.map(part).join('')}<p class="snote">A broken piece is left out; everything else came in.</p><div class="sab"><button class="sbtn primary" data-act="close">OK</button><button class="sbtn" data-act="copyleft">Copy this list</button></div></div></div>`;
+    for (const b of modal.querySelectorAll('[data-act=close]')) b.onclick = Sh.close;
+    modal.querySelector('[data-act=copyleft]').onclick = () => copy(Sh.leftReport(news), 'List copied');
+    modal.hidden = false; modal.querySelector('.sbtn.primary')?.focus();
+    return true;
+  };
+  Sh.importArea = async (doc, { left = null, quiet = false } = {}) => {
     const id = newId('area'), name = String(doc.area?.name || doc.name).slice(0, 60);
-    if (!(await app.await(app.sync.submit('area.create', { id, name })))) return false; // (a new area starts hidden from players)
+    // the plan first, against an empty area: a file with nothing usable in it makes no area at all
+    const plan = S.planImport(doc, target(id, { area: { id, entities: {}, order: 0, settings: doc.area?.settings || {} }, keepPlace: true, left }));
+    if (!plan.ok) { Sh.lastImport = { error: plan.why, name, report: plan.report }; if (!quiet) app.toast(`Not imported: ${plan.why}`, true); return false; }
+    if (!(await app.await(app.sync.submit('area.create', { id, name })))) { Sh.lastImport = { error: 'the server refused the new area', name, report: plan.report }; return false; } // (a new area starts hidden from players)
     if (doc.area?.settings && Object.keys(doc.area.settings).length) app.sync.submit('area.set', { area: id, settings: doc.area.settings });
     app.sync.subscribe(id);
     for (let i = 0; i < 80 && !app.sync.view(id); i++) await new Promise(r => setTimeout(r, 100));
     if (!app.sync.view(id)) { app.toast('Not imported: the new area did not open', true); return false; }
     if (doc.area?.ground) app.sync.submit('area.ground', { cat: doc.area.ground }, id);
-    const plan = S.planImport(doc, target(id, { keepPlace: true }));
-    if (!plan.ok) { Sh.lastImport = { error: plan.why }; app.toast(`Not imported: ${plan.why}`, true); return false; }
     const steps = await commit(plan, id);
     if (id !== app.area() && app.pip?.area !== id) app.sync.unsubscribe(id);
-    const rep = reportText(plan.report);
-    Sh.lastImport = { area: id, name, report: plan.report, ids: plan.ids, steps };
-    app.toast(`Imported “${name}” as a new area (hidden from players)${rep ? ` · ${rep}` : ''}`, !!plan.report.standIns.length);
+    const rep = reportText(plan.report), line = S.leftText(plan.report);
+    Sh.lastImport = { area: id, name, report: plan.report, ids: plan.ids, steps, ...(!steps && { error: 'the server refused it' }) };
+    if (quiet) return steps ? id : false;
+    if (!steps) { Sh.showLeft([Sh.lastImport]); return false; }
+    app.toast(`Imported “${name}” as a new area (hidden from players)${line ? ` · ${line}` : ''}${rep ? ` · ${rep}` : ''}`, !!(plan.report.standIns.length || plan.report.left.pieces || plan.report.stopped));
+    Sh.showLeft([Sh.lastImport]);
     return id;
   };
 
@@ -193,9 +224,9 @@ export function createShare(app, { thumbs }) {
   let ghost = null, cellKeys = new Set();
   const world = () => app.worldOf(app.area());
   const tool = app.shareTool = {
-    start(doc, { from } = {}) {
+    start(doc, { from, left = null } = {}) {
       app.modes.cancel();
-      app.mode = { kind: 'place', share: { doc, from }, cat: { place: 'share', name: doc.name }, rot: 0, tool: false };
+      app.mode = { kind: 'place', share: { doc, from, left }, cat: { place: 'share', name: doc.name }, rot: 0, tool: false };
       const g = ghost = new THREE.Group(); g.visible = false; g.userData.noPick = true; world().layers.deco.add(g);
       let meshes = 0;
       for (const o of doc.objects.slice(0, 600)) {
@@ -238,16 +269,17 @@ export function createShare(app, { thumbs }) {
       Sh.ghost = { ...Sh.ghost, at: [ground[0], ground[1]], dx: P.dx, dz: P.dz, dy: P.dy, clash: P.clash?.hit || null, cells: [...byY.values()].reduce((n, l) => n + l.length, 0), levels: [...byY.keys()] };
     },
     async placeAt(ray, ground, ev) {
-      const m = app.mode, doc = m?.share?.doc; if (!doc || !ground) return;
-      const plan = S.planImport(doc, target(app.area(), { at: [ground[0], ground[1]], level: app.level || 0, floorY: ground.y || 0 }));
+      const m = app.mode, doc = m?.share?.doc, left = m?.share?.left || null; if (!doc || !ground) return;
+      const plan = S.planImport(doc, target(app.area(), { at: [ground[0], ground[1]], level: app.level || 0, floorY: ground.y || 0, left }));
       if (!plan.ok) { Sh.lastImport = { error: plan.why }; app.toast(`Not placed: ${plan.why}`, true); return; }
       if (!ev?.shiftKey) app.modes.cancel();
       const area = app.area(), steps = await commit(plan, area);
       if (!steps) { Sh.lastImport = { error: 'refused' }; return; }
-      const rep = reportText(plan.report);
+      const rep = reportText(plan.report), line = S.leftText(plan.report);
       Sh.lastImport = { area, name: doc.name, report: plan.report, ids: plan.ids, top: plan.top, steps, shift: { dx: plan.shift.dx, dz: plan.shift.dz, dy: plan.shift.dy } };
       app.select(plan.top.filter(id => app.ent(id)));
-      app.toast(`Imported “${doc.name}”${steps > 1 ? ` (${steps} steps)` : ''}${rep ? ` · ${rep}` : ''}`, !!plan.report.standIns.length);
+      app.toast(`Imported “${doc.name}”${steps > 1 ? ` (${steps} steps)` : ''}${line ? ` · ${line}` : ''}${rep ? ` · ${rep}` : ''}`, !!(plan.report.standIns.length || plan.report.left.pieces || plan.report.stopped));
+      Sh.showLeft([Sh.lastImport]);
     },
   };
 

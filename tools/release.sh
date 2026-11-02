@@ -28,9 +28,9 @@
 #   THE PUBLIC MIRROR FOLLOWS LIVE (Harry, 2026-11-01): after every promote-now or rollback that passes its checks, the
 #           released commit is exported to the public repo (github.com/giblfiz/turnipworks) through
 #           tools/public-export/export.py: excludes, scrub, every gate, tests, push. It runs in the background; the command
-#           waits for it up to TW_PUBLISH_WAIT seconds (180) so a failed gate shows in its output, and the result always
-#           lands in rolls.log. A publish failure NEVER fails or rolls back a release: it logs a WARNING, the mirror stays as
-#           it was, and `status` keeps saying so until a publish succeeds.
+#           waits only until the gates have answered, at most TW_PUBLISH_WAIT seconds (300), so a failed gate shows in its
+#           output, and the result always lands in rolls.log. A publish failure NEVER fails or rolls back a release: it logs
+#           a WARNING, the mirror stays as it was, and `status` keeps saying so until a publish succeeds.
 #   tools/release.sh publish-public [ID]   that same publish, by hand, of the live release (ID must be it: a candidate is
 #                                          never published). Repeat it after fixing what a failed publish reported.
 #           Test without touching anything real: TW_PUBLIC_REMOTE=<bare repo> instead of the mirror; TW_PUBLISH_FAIL_GATE=1
@@ -53,7 +53,7 @@ KEEP="${TW_RELEASE_KEEP:-5}"   # promoted releases kept for rollback (plus curre
 VERIFY="${TW_RELEASE_VERIFY:-$REPO/engine/tools/release_verify.mjs}"
 ROLL_LOCK="${TW_RELEASE_LOCK:-/tmp/tw-release-roll.lock}"
 PUBLIC_REMOTE="${TW_PUBLIC_REMOTE:-https://github.com/giblfiz/turnipworks.git}"
-PUBLISH_WAIT="${TW_PUBLISH_WAIT:-180}"   # seconds a promote or rollback waits for the mirror before leaving it in the background
+PUBLISH_WAIT="${TW_PUBLISH_WAIT:-300}"   # the most a promote or rollback waits for the mirror's gates to answer
 EXPORT="$MAIN/tools/public-export/export.py"
 mkdir -p "$STATE/releases" "$STATE/logs"
 touch "$STATE/rolls.log" "$STATE/candidates.log" "$STATE/promoted.list" "$STATE/rejected" "$STATE/public-mirror.log"
@@ -106,7 +106,7 @@ PY
 publish_public() {
   local id=$1 why=$2 sha out log res commit
   sha=$(jget "$STATE/releases/$id/release.json" git 2>/dev/null || true)
-  log="$STATE/logs/$(date +%Y%m%d-%H%M%S)-publish-public.log"
+  log="${TW_PUBLISH_LOG:-$STATE/logs/$(date +%Y%m%d-%H%M%S)-publish-public.log}"
   [[ -n "$sha" ]] || { mirror_fail "$id" "" "its release.json has no git commit" "$log"; return 1; }
   exec 8>"$STATE/.publish.lock"; flock 8
   # queued behind another publish while live moved again: the release now live has its own publish, and it must land last
@@ -126,13 +126,17 @@ publish_public() {
 # publish_public_bg <release id> <what>: after a swap has passed. Detached from this command and from the roll lock, so a
 # slow publish holds up neither the terminal for long nor the next rollback. Always returns 0.
 publish_public_bg() {
-  local id=$1 what=$2 pid i
+  local id=$1 what=$2 pid i log="$STATE/logs/$(date +%Y%m%d-%H%M%S)-publish-public.log"
   exec 7>&-
-  roll_log "public mirror: publishing $id in the background (gates and tests first; waiting up to ${PUBLISH_WAIT} s, the result lands in rolls.log either way)"
-  setsid nohup "$TOOLS/release.sh" publish-public "$id" "$what" </dev/null >>"$STATE/logs/publish-public-bg.log" 2>&1 &
+  roll_log "public mirror: publishing $id in the background (waiting for the gates, at most ${PUBLISH_WAIT} s; the result lands in rolls.log either way)"
+  TW_PUBLISH_LOG="$log" setsid nohup "$TOOLS/release.sh" publish-public "$id" "$what" </dev/null >>"$STATE/logs/publish-public-bg.log" 2>&1 &
   pid=$!
-  for (( i = 0; i < PUBLISH_WAIT; i++ )); do kill -0 "$pid" 2>/dev/null || break; sleep 1; done
-  if kill -0 "$pid" 2>/dev/null; then echo "public mirror: still publishing in the background; tools/release.sh status tells"; return 0; fi
+  for (( i = 0; i < PUBLISH_WAIT; i++ )); do
+    kill -0 "$pid" 2>/dev/null || break
+    if grep -q "gates: .*'ok': True" "$log" 2>/dev/null; then echo "public mirror: the gates passed; the tests and the push go on in the background (tools/release.sh status tells)"; return 0; fi
+    sleep 1
+  done
+  if kill -0 "$pid" 2>/dev/null; then echo "public mirror: the gates have not answered yet; still publishing in the background (tools/release.sh status tells)"; return 0; fi
   wait "$pid" 2>/dev/null || true
   tail -n 1 "$STATE/rolls.log" | cut -f2- || true
 }

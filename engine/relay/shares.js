@@ -4,7 +4,7 @@
 //
 // WHERE: <DATA_DIR>/shares/ beside the campaigns (dev and prod each have their own DATA_DIR, so a dev link never exists on
 // prod and the other way round), copied by engine/tools/backup_data.sh with the rest of the data folder.
-//   <id>.json        the build, validated (core/share.js validateShare), without its picture
+//   <id>.json        the build as validateShare rebuilt it (a broken piece is not stored: the maker is told), no picture
 //   <id>.<webp|jpg|png>   its preview picture, when it has one
 //   <id>.meta.json   { id, at, c, s, name, kind, bytes, del: sha256(delete token), summary, thumb }
 //   takedowns.jsonl  one line per admin takedown (id, at, reason, name, campaign, seat)
@@ -56,7 +56,7 @@ export function makeShares({ dataDir, log = () => {}, now = () => Date.now() }) 
     return m;
   }
   function create({ text, c, s }) {
-    const { doc, error } = parseShare(text);
+    const { doc, left, error } = parseShare(text);
     if (error) return { status: 400, body: { ok: false, why: error } };
     const id = crypto.randomBytes(16).toString('base64url'), del = crypto.randomBytes(24).toString('base64url');
     let thumb = null;
@@ -68,7 +68,7 @@ export function makeShares({ dataDir, log = () => {}, now = () => Date.now() }) 
     fs.writeFileSync(file(id, 'meta.json'), JSON.stringify(meta), { mode: 0o600 });
     count++;
     log(`share ${id.slice(0, 6)}… "${doc.name}" (${doc.kind}, ${json.length} B) by ${s} of ${c}`); // (never the whole id, never the delete token)
-    return { status: 200, body: { ok: true, id, path: `/s/${id}`, del, summary: meta.summary } };
+    return { status: 200, body: { ok: true, id, path: `/s/${id}`, del, summary: meta.summary, ...((left.pieces || left.details) && { left }) } };
   }
   const pub = (m) => ({ id: m.id, name: m.name, kind: m.kind, at: m.at, path: `/s/${m.id}`, summary: m.summary, thumb: !!m.thumb });
 

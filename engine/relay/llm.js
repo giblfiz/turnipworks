@@ -30,7 +30,7 @@ export { ruleCard } from './llm-card.js';
 const NONCE_RE = /^[\w.:-]{1,64}$/;
 import { isId } from '../core/ids.js';
 import crypto from 'node:crypto';
-import { exportShare, planImport, parseShare, chunkOps } from '../core/share.js';
+import { exportShare, planImport, parseShare, chunkOps, leftGroups, leftText } from '../core/share.js';
 import { newId as mintNewId } from '../core/ids.js';
 
 // SHARED BUILDS over GET (2026-10-29; core/share.js, relay/shares.js): /a/<area>/share reads the whole area as a
@@ -592,7 +592,7 @@ function shareImport(rt, seat, area, q, nonce) {
   if (!m) return { ok: false, code: 'invalid', why: 'link: a Turnip Works share link (https://…/s/ID) or its 22-character ID' };
   const text = SHARES?.read(m[1]);
   if (!text) return { ok: false, code: 'invalid', why: 'no such shared build on this server (deleted, or the link is not complete)' };
-  const { doc, error } = parseShare(text);
+  const { doc, left, error } = parseShare(text);
   if (error) return { ok: false, code: 'invalid', why: error };
   const T = rt.state.areas[area], E = T.entities;
   let x = q.has('x') && q.get('x') !== '' ? Number(q.get('x')) : null, z = q.has('z') && q.get('z') !== '' ? Number(q.get('z')) : null;
@@ -603,13 +603,13 @@ function shareImport(rt, seat, area, q, nonce) {
     z ??= rooms.length ? Math.min(...rooms.map(r => r.recipe.z * 5)) + (doc.rooms.length ? (Math.max(...doc.rooms.map(r => r.z + r.d)) - Math.min(...doc.rooms.map(r => r.z))) * 2.5 : 10) : 0;
   }
   const rg = rt.roomgen;
-  const plan = planImport(doc, { area: T, at: [x, z], level: Number(q.get('y')) || 0, resolve: rg ? (c, s) => rg.sizeOf(c, s) : null, roomTypes: rg?.types || null, fallbackType: rg?.types?.has?.('common') ? 'common' : null, gm: isGmSide(rt.state, seat), engineVersion: rg?.version || '', newId: mintNewId });
+  const plan = planImport(doc, { area: T, at: [x, z], level: Number(q.get('y')) || 0, resolve: rg ? (c, s) => rg.sizeOf(c, s) : null, roomTypes: rg?.types || null, fallbackType: rg?.types?.has?.('common') ? 'common' : null, gm: isGmSide(rt.state, seat), engineVersion: rg?.version || '', newId: mintNewId, left });
   if (!plan.ok) return { ok: false, code: 'invalid', why: plan.why };
   const parts = chunkOps(plan.ops); let last = null;
   for (const [i, ops] of parts.entries()) {
     last = rt.dispatch(seat, { type: 'batch', area, args: { ops } }, { cid: nonce ? `${nonce}${i ? ':' + i : ''}` : null });
-    if (!last.ok) return { ok: false, code: last.code || 'invalid', why: last.why };
+    if (!last.ok) return { ok: false, code: last.code || 'invalid', why: last.why, ...(i && { steps: i, note: `${i} of ${parts.length} steps landed before this` }) };
   }
-  const R = plan.report;
-  return { ok: true, name: doc.name, kind: doc.kind, ids: plan.top, at: [x, z], seq: last?.seqs?.[0] ?? T.seq, steps: parts.length, ...(R.standIns.length && { standIns: R.standIns.length, note: `${R.standIns.length} piece${R.standIns.length === 1 ? '' : 's'} this library lacks: shown as stand-ins` }), ...(R.roomTypes.length && { roomTypes: R.roomTypes }) };
+  const R = plan.report, gone = leftText(R);
+  return { ok: true, name: doc.name, kind: doc.kind, ids: plan.top, at: [x, z], seq: last?.seqs?.[0] ?? T.seq, steps: parts.length, pieces: R.pieces, ...(gone && { left: gone, leftOut: leftGroups(R.left).slice(0, 20).map(g => `${g.n}${g.detail ? ' (detail)' : ''}: ${g.why}`) }), ...(R.standIns.length && { standIns: R.standIns.length, note: `${R.standIns.length} piece${R.standIns.length === 1 ? '' : 's'} this library lacks: shown as stand-ins` }), ...(R.roomTypes.length && { roomTypes: R.roomTypes }) };
 }

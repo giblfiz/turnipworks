@@ -20,6 +20,8 @@ the import checks need are made with tw.share.build (the format still has every 
   AREA     a whole area comes in as a new area, hidden from players
   DROP     a .turnip.json dropped on the window starts the ghost; ?share=<id> on the page address does too
   XSS      a build named <img onerror=…> is shown as text, never as markup
+  BEST     a good area with broken and hostile pieces in it: the rest comes in, the toast counts them, a window lists them
+           (names as text, nothing runs), nothing refused lands; a campaign file with a broken area: the other area comes in
   STARTER  the starter builds are listed in Invites and exports and one imports
 """
 import argparse, asyncio, base64, json, os, subprocess, sys, tempfile, time, urllib.parse, urllib.request
@@ -296,6 +298,42 @@ async def main():
         xs = await g2.evaluate("({ fired: window.__xss === 1, imgs: document.querySelectorAll('img[src=\"x\"]').length, text: document.getElementById('toast').textContent.includes('<img src=x') })")
         check(not xs['fired'] and xs['imgs'] == 0 and xs['text'], 'a build named <img onerror=…> is shown as text (its toast): nothing runs, no element is made', xs)
         await g2.evaluate("tw.undo()"); await idle(g2)
+
+        print('BEST EFFORT')
+        await g2.bring_to_front()
+        trap = '<img src=x onerror="window.__xss=2">'
+        broke = json.loads(json.dumps(adoc)); broke['name'] = 'Broken map'; broke['area'] = {'name': 'Broken map'}
+        n_good = sum(len(broke[k]) for k in ['rooms', 'objects', 'edges', 'pawns', 'water'])
+        broke['objects'] += [{'ref': 'o90001', 'cat': 'barrel', 'x': 200, 'z': 200, 'url': 'https://evil.example/x.glb'}, {'ref': 'o90002', 'cat': 'barrel', 'x': 200, 'z': 200, 'parent': 'o90001'}, {'ref': 'o90003', 'cat': 'barrel', 'name': trap, 'x': 'not a number', 'z': 200}]
+        broke['pawns'] += [{'ref': 'p90001', 'name': 'Thief', 'x': 5, 'z': 5, 'owner': 'seat_mira000001'}]
+        na0 = await g2.evaluate("tw.sync.campaign.areas.length")
+        await g2.evaluate(f"tw.share.importText({json.dumps(json.dumps(broke))})")
+        check(await wait(g2, f"tw.sync.campaign.areas.length === {na0 + 1} && tw.share.lastImport?.name === 'Broken map' && tw.share.lastImport?.steps > 0 && !!document.querySelector('#shareModal .shleft')", 30000), 'a good area with broken pieces in it comes in as a new area, and a window says what was left out')
+        line = await g2.evaluate("document.querySelector('#shareModal .shwhat').textContent")
+        check(line == f'Imported {n_good} of {n_good + 4} pieces; left out 4', 'the sentence: "Imported N of M pieces; left out 4"', line)
+        toast = await g2.evaluate("document.getElementById('toast').textContent")
+        check(f'Imported {n_good} of {n_good + 4} pieces; left out 4' in toast, 'the toast says it too', toast)
+        li = await g2.evaluate("document.querySelector('#shareModal .shreport').textContent")
+        check('an unknown field (url)' in li and 'what it rested on was left out' in li and 'Thief' in li and 'not a number' in li, 'the list gives each reason in words', li[:300])
+        xs = await g2.evaluate("({ fired: window.__xss === 2, imgs: document.querySelectorAll('#shareModal img, img[src=\"x\"]').length, shown: document.querySelector('#shareModal .shreport').textContent.includes('<img src=x') })")
+        check(not xs['fired'] and xs['imgs'] == 0 and xs['shown'], 'a name in the list is text: nothing runs, no element is made', xs)
+        await g2.click('#shareModal [data-act=copyleft]'); await g2.wait_for_timeout(200)
+        copied = await g2.evaluate("tw.share.lastCopied")
+        check('left out 4' in copied and 'Broken map' in copied, 'Copy this list copies it as plain text', copied[:160])
+        await g2.click('#shareModal .sbtn.primary'); await g2.wait_for_timeout(200)
+        check(await g2.evaluate("tw.share.isOpen() === false"), 'OK closes the window')
+        na = await g2.evaluate("tw.share.lastImport.area")
+        await g2.evaluate(f"tw.sync.subscribe('{na}')"); await wait(g2, f"!!tw.sync.view('{na}')", 15000)
+        ins = await g2.evaluate(f"(() => {{ const E = Object.values(tw.sync.view('{na}').entities); return {{ pieces: E.filter(e => ['room', 'object', 'edge', 'token', 'water'].includes(e.kind)).length, owned: E.filter(e => e.owner).length, thief: E.some(e => e.name === 'Thief'), evil: JSON.stringify(E).includes('evil.example') }}; }})()")
+        check(ins['pieces'] == n_good and not ins['owned'] and not ins['thief'] and not ins['evil'], 'what landed is the good pieces: no owner, no link, no thief', ins)
+        await g2.evaluate(f"tw.sync.unsubscribe('{na}')")
+        na0 = await g2.evaluate("tw.sync.campaign.areas.length")
+        camp = {'v': 1, 'kind': 'turnip-works-campaign', 'name': 'x', 'areas': ['not an area', {'name': 'Campaign area', 'entities': {'room_camp0000001': {'kind': 'room', 'recipe': {'type': 'common', 'x': 0, 'z': 0, 'w': 3, 'd': 3, 'seed': 7}}, 'obj_broken00001': {'kind': 'object', 'cat': 'barrel'}}}]}
+        n = await g2.evaluate(f"tw.settings.importData({json.dumps(camp)})")
+        check(n == 1 and await wait(g2, f"tw.sync.campaign.areas.length === {na0 + 1} && !!document.querySelector('#shareModal .shleft')", 15000), 'a campaign file: the area that is an area comes in, the window lists the rest', n)
+        li2 = await g2.evaluate("document.querySelector('#shareModal .shreport').textContent")
+        check('This file' in li2 and 'Campaign area' in li2, 'one window, area by area', li2[:300])
+        await g2.evaluate("tw.share.close()")
 
         print('STARTER')
         await g2.evaluate("tw.settings.show('admin')"); await g2.wait_for_timeout(1500)

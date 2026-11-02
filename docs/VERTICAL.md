@@ -399,6 +399,7 @@ Harry: "We need flat rooves to be more of a thing, it should be a substitute opt
 Use in docs/UI.md "Storeys: fog, flyers, tall rooms and the rest". Test: `engine/test/browser_followons.py`.
 
 - **Fog lies on the level in view.** The fog is one sheet on one floor. (A seat can turn its own fog off: Settings ▸ Me ▸ Fog and mist, 2026-10-11.)
+  - **The view on all levels, a player's own pawn upstairs (2026-11-01):** the level of that pawn (its main pawn, else its first), not the ground. The view itself does not change; only what the fog lies on. The ground's fog used to hide the pawn, its floor and its furniture, known walls alone standing out of it (fx/atmos.js drops whatever stands over cells unseen on the fog's level). The GM's own view, and a pawn on or below the ground, keep the ground. Test: `engine/test/browser_fog_upstairs.py`.
   - Cut off, or on the ground storey: the ground, exactly as before storeys. Only ground-level rooms and their walls are given to the fog, so an upper floor gets no ground fog and neither it nor a cellar changes the fog's wall mask (measured: mask, indoor map and fog heights identical before and after an upper room and a cellar were built).
   - Cut on an upper storey: that storey's rooms' own fog, at that floor's height. No outdoor fog and no fog sea up there. The ground fog below is not drawn while you look at an upper storey.
   - Cut below ground: that level's rooms' fog (a cellar's default, or its own Fog height), at that depth. No outdoor fog.

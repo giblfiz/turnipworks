@@ -14,6 +14,9 @@ client/ceilings.js; docs/UI.md "First person". A GM tab and two players (Mira, B
   WALK    (2026-10-30) W held walks smoothly at a walking pace and the others see her go; let go, she stops off the
           squares; one undo takes the walk back; into a wall at an angle she slides; aimed past a doorway's corner she
           rounds it; mouse look steers a walk; squares on, she settles on a square; W held up a stair to the floor above
+  DRAG    (2026-11-01) a known mouse drag gives Map Garden's turn, measured: the view follows the mouse, 0.11 degrees a pixel
+          at a 1280 x 720 window and less as the window grows, no dead stretch past the pitch stop, the right button too;
+          and a drag that starts on a pawn neither selects it, moves it nor walks
   STAIRS  up a stair, step by step: the pawn ends on the upper floor at 10 ft, in the room above
   FOG     Mira in first person (fog of war on): a room she has never seen is not drawn and gets no ceiling; the room
           she stands in gets one
@@ -32,7 +35,7 @@ tw_sandbox.pawn_snap('always')
 tw_sandbox.remove_campaigns()
 GL = ['--use-angle=vulkan', '--enable-features=Vulkan', '--ignore-gpu-blocklist', '--enable-gpu'] if os.environ.get('TW_GPU', '1') != '0' else ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']
 ap = argparse.ArgumentParser(); ap.add_argument('--local', action='store_true'); ap.add_argument('--page'); ap.add_argument('--stills'); ap.add_argument('--headed', action='store_true')
-ap.add_argument('--only', default='enter,key,door,walk,stairs,fog,gm,owner,tag,dice,phone,look'); ap.add_argument('--keep', action='store_true'); ap.add_argument('--probe', action='store_true')
+ap.add_argument('--only', default='enter,key,door,walk,drag,stairs,fog,gm,owner,tag,dice,phone,look'); ap.add_argument('--keep', action='store_true'); ap.add_argument('--probe', action='store_true')
 A = ap.parse_args(); ONLY = set(A.only.split(','))
 results = []; procs = []
 def check(ok, name, detail=''):
@@ -345,9 +348,9 @@ async def main():
             check(t['x'] > 31.5, 'aimed past a doorway\'s corner, she rounds it and walks through into the kitchen (no snag)', {'tok': t, 'walls': await pl.evaluate("tw.fpv.walls(30, 12.5, 4)"), 'door': await pl.evaluate(f"(() => {{ const e = tw.worldOf(tw.area()).edges.get('{DK}'); return {{ open: e?.open, kind: e?.kind, objs: Object.values(tw.entities()).filter(o => o.fromEdge === '{DK}').map(o => [o.cat, o.open, o.x, o.z]) }}; }})()")})
             check(await pl.evaluate(f"tw.fpv.blocked(27.5, {DZ + 5}, 32.5, {DZ + 5})") is True, '(the old step there, the view snapped to east, is refused by the wall)')
             # MOUSE LOOK while walking: W held, a drag turns the view, and the walk turns with it
-            await put(32.5, 17.5); await pl.evaluate("tw.fpv.setLook(90, -5)"); await pl.mouse.move(600, 450)
+            await put(32.5, 17.5); await pl.evaluate("tw.fpv.setLook(90, -5)"); await pl.mouse.move(1000, 450)
             await pl.keyboard.down('w'); await pl.wait_for_timeout(250)
-            await pl.mouse.down(); [await pl.mouse.move(600 + i * 16, 450) for i in range(1, 11)]; await pl.mouse.up()
+            await pl.mouse.down(); [await pl.mouse.move(1000 - i * 48, 450) for i in range(1, 11)]; await pl.mouse.up()
             a = await pl.evaluate(EYE); await pl.wait_for_timeout(350); b = await pl.evaluate(EYE); h = (await pl.evaluate("tw.fpv.info()"))['heading']
             await pl.keyboard.up('w'); await pl.wait_for_timeout(500); await idle(pl)
             way = math.degrees(math.atan2(b['x'] - a['x'], b['z'] - a['z']))
@@ -398,6 +401,50 @@ async def main():
             await still(pl, 'player-dice')
             await pl.evaluate("tw.fpv.exit()")
 
+        # ================= DRAG: a known mouse drag gives Map Garden's turn, measured =================
+        if 'drag' in ONLY:
+            print("DRAG: a mouse drag turns the view as Map Garden's does, and touches nothing on the way")
+            async def there(pg, x, z, rot):
+                await gm.evaluate(f"tw.dispatch('token.move', {{ id: '{MI}', x: {x}, z: {z}, y: 0, rot: {rot} }})"); await idle(gm); await idle(pg)
+                if not await pg.evaluate("tw.fpv.active()"): await pg.evaluate(f"tw.fpv.enter('{MI}')"); await pg.wait_for_timeout(800)
+            async def drag(pg, x0, y0, *legs, button='left', steps=10):
+                x, y = x0, y0; await pg.mouse.move(x, y); await pg.mouse.down(button=button)
+                for dx, dy in legs:
+                    for i in range(1, steps + 1): await pg.mouse.move(x + dx * i // steps, y + dy * i // steps)
+                    x, y = x + dx, y + dy
+                await pg.mouse.up(button=button); await pg.wait_for_timeout(60)
+            async def look(pg): i = await pg.evaluate("tw.fpv.info()"); return i['heading'], i['pitch']
+            def k(w, h): return 0.11 / min(w / 1280, h / 720)  # scaling/first_person.gd LOOK_SENSITIVITY, under its 1280 x 720 canvas_items stretch
+            def near(got, want, tol=0.06): return abs(got[0] - want[0]) < tol and abs(got[1] - want[1]) < tol
+            await there(pl, 42.5, 12.5, 0); K = k(1400, 900)
+            await pl.evaluate("tw.fpv.setLook(90, 0)")
+            await drag(pl, 500, 500, (200, -100)); got = await look(pl); want = (90 - 200 * K, 100 * K)
+            check(near(got, want), f'a drag 200 px right, 100 px up at 1400 x 900: the view turns right and looks up, {K:.4f} degrees a pixel', {'got': got, 'want': [round(v, 2) for v in want]})
+            await drag(pl, 500, 500, (-200, 100)); got = await look(pl)
+            check(near(got, (90, 0)), 'the same drag back: the view returns where it was', got)
+            await drag(pl, 500, 500, (200, -100), button='right'); got = await look(pl)
+            check(near(got, want), 'the right button drags the same (Map Garden\'s drag button)', got)
+            for w, h in ((1280, 720), (1920, 1000)):
+                await pl.set_viewport_size({'width': w, 'height': h}); await pl.wait_for_timeout(300); await pl.evaluate("tw.fpv.setLook(90, 0)")
+                await drag(pl, 300, 400, (200, -100)); got = await look(pl); want = (90 - 200 * k(w, h), 100 * k(w, h))
+                check(near(got, want), f'at {w} x {h}: {k(w, h):.4f} degrees a pixel (the same share of the window turns the same)', {'got': got, 'want': [round(v, 2) for v in want]})
+            await pl.set_viewport_size({'width': 1400, 'height': 900}); await pl.wait_for_timeout(300)
+            await pl.evaluate("tw.fpv.setLook(90, 70)")
+            await drag(pl, 500, 700, (0, -300), (0, 100)); got = await look(pl); want = (90, 80 - 100 * K)
+            check(near(got, want), 'past the pitch stop and back: the view comes down at once (no dead stretch)', {'got': got, 'want': [round(v, 2) for v in want]})
+            await pl.evaluate("tw.fpv.exit()"); await pl.wait_for_timeout(500)
+            # the GM, who could drag or select anything on the map, in Mira's eyes with Bo's pawn straight ahead
+            bo_at = await gm.evaluate(TOK + f"('{BP}')"); await there(gm, bo_at['x'], bo_at['z'] + 10, 0); await gm.evaluate("tw.clearSelection()")
+            await gm.evaluate("tw.fpv.setLook(180, -6)"); await gm.wait_for_timeout(500)
+            sx, sy = await gm.evaluate(f"(() => {{ const v = new tw.THREE.Vector3({bo_at['x']}, 2, {bo_at['z']}).project(tw.main.camera), b = document.getElementById('c').getBoundingClientRect(); return [Math.round(b.left + (v.x + 1) / 2 * b.width), Math.round(b.top + (1 - v.y) / 2 * b.height)]; }})()")
+            OTHERS = f"JSON.stringify(Object.entries(tw.entities()).filter(([k]) => k !== '{MI}'))"
+            mine = await gm.evaluate(TOK + f"('{MI}')"); others = await gm.evaluate(OTHERS); clicks = await gm.evaluate("tw.fpvLog?.length || 0")
+            await drag(gm, sx, sy, (240, 60)); await drag(gm, sx, sy, (-240, -60), button='right'); await gm.wait_for_timeout(400); await idle(gm)
+            mine2 = await gm.evaluate(TOK + f"('{MI}')"); i = await gm.evaluate("tw.fpv.info()")
+            check(await gm.evaluate(OTHERS) == others and await gm.evaluate("tw.sel.size ?? [...tw.sel].length") == 0, 'a drag that starts on a pawn neither selects nor moves anything', {'from': [sx, sy]})
+            check(mine2['x'] == mine['x'] and mine2['z'] == mine['z'] and not i.get('walking') and i['queue'] == 0 and await gm.evaluate("tw.fpvLog?.length || 0") == clicks, 'and it is not a click: no walk, no door', i.get('queue'))
+            await gm.evaluate("tw.fpv.exit()"); await gm.wait_for_timeout(500)
+
         # ================= PHONE: a finger looks, the pad steps =================
         if 'phone' in ONLY:
             print('PHONE: Mira on a phone: drag to look, the arrow pad to step')
@@ -414,7 +461,7 @@ async def main():
             await ph.evaluate("""(() => { const c = document.getElementById('c'), r = c.getBoundingClientRect(), y = r.top + r.height * 0.5; const ev = (t, x) => c.dispatchEvent(new PointerEvent(t, { pointerId: 7, pointerType: 'touch', isPrimary: true, clientX: x, clientY: y, bubbles: true, cancelable: true, buttons: t === 'pointerup' ? 0 : 1 }));
               ev('pointerdown', 120); for (let i = 1; i <= 10; i++) ev('pointermove', 120 + i * 15); ev('pointerup', 270); })()""")
             h1 = (await ph.evaluate("tw.fpv.info()"))['heading']
-            check(h1 - h0 > 20, 'a finger dragged right turns the view (grab the world: it turns left)', {'h0': h0, 'h1': h1})
+            check(abs(h1 - h0 - 150 * 0.28) < 0.1, 'a finger dragged right 150 px turns the view (grab the world: it turns left, 0.28 degrees a pixel, unlike the mouse)', {'h0': h0, 'h1': h1})
             await ph.evaluate("tw.fpv.setLook(0, -5)"); t0 = await ph.evaluate(TOK + f"('{MI}')")
             await ph.tap('#fpvHud .fpv-pad [data-m=w]'); await ph.wait_for_timeout(600); await idle(ph)
             t1 = await ph.evaluate(TOK + f"('{MI}')")

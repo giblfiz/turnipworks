@@ -119,6 +119,13 @@ export function installFog(app) {
   if(!force&&s.entities===E&&s.fog===v.fog)return;
   const sightChanged=force||s.entities!==E;
   s.entities=E;s.fog=v.fog;s.snap ||= snap;
+  // THE FOG LIES WHERE MY PAWN STANDS (2026-11-01, Harry: "Sammy Sample can see the walls of his room, but none of the objects
+  // in the room, and can't see his own pawn"). With the view on all levels the fog used to lie on the ground whatever the
+  // viewer was doing upstairs, and the atmosphere's depth pass (fx/atmos.js lowz) drops whatever stands over cells unseen ON
+  // ITS LEVEL, known walls excepted, so a pawn on an upper storey, its floor and its furniture all went under the ground's
+  // bank. A new player's view IS on all levels and the "Cut to lv N" offer only comes when a pawn changes floor, so nothing
+  // told them. The view itself is left alone (surfaces/cut.js: only the viewer changes it): this is world.js fogLevel's level.
+  {const own=active(area)?Object.values(E).filter(mine):[],t=own.find(e=>e.main)||own[0],lv=t?sightLevel(E,t.x,t.z,t.y||0,open):0;w.viewerLevel=lv>0?lv:null;}
   s.explored=unionLevels(exploredFor(v.fog,viewer(),shared()||viewer()==='party'),shared()||viewer()==='party'?s.party:viewer()===app.me()?s.own:{});
   // GM's unrestricted picture performs no fog work; it never writes player exploration.
   if(!active(area)){s.wanted=null;s.geometryKey=null;s.pending=false;refreshWorld(s);return;}

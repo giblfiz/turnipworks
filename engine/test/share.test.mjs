@@ -8,6 +8,8 @@
 //            type, a clash refused
 //   HOSTILE  oversized, deep nesting, unknown kinds and fields, script and link strings, prototype-pollution keys, ids
 //            that collide with seats, newer versions, loops, caps, a whole-campaign file
+//   BEST EFFORT  states the game itself makes pass cleanly (a moved roof trim, "exhaustion 2", long names); a broken or
+//            hostile piece is left out and listed, never let through; what stood on it goes too; one undo; the counts add up
 //   LINKS    the relay's share links: make, preview page (noindex, no script, escaped), json, thumb, no listing, limits,
 //            delete by seat and by token, the admin takedown; the GET API's export and import
 //   node engine/test/share.test.mjs
@@ -176,7 +178,9 @@ ok(Object.values(NA).filter(e => e.kind === 'object' && e.hidden).length >= Obje
 // ---------------------------------------------------------------- HOSTILE FILES
 console.log('HOSTILE');
 const good = JSON.parse(JSON.stringify(G1));
-const bad = (mut) => { const d = JSON.parse(JSON.stringify(good)); mut(d); return S.parseShare(JSON.stringify(d)); };
+// (best effort, 2026-11-01: a refusal costs the piece, not the file. `.error` here is either kind of refusal: the file's, or
+// the first thing left out; every rule below still has to bite. The BEST EFFORT section proves the piece never lands.)
+const bad = (mut) => { const d = JSON.parse(JSON.stringify(good)); mut(d); const r = S.parseShare(JSON.stringify(d)); return r.error ? r : { ...r, error: r.left.list[0]?.why }; };
 ok(S.parseShare('x'.repeat(S.SHARE_LIMITS.bytes + 1)).error?.includes('too big'), 'OVERSIZED: refused before parsing');
 const deep = '['.repeat(100000) + ']'.repeat(100000);
 let deepR; try { deepR = S.parseShare(deep); } catch (e) { deepR = { threw: e.message }; }
@@ -200,7 +204,8 @@ ok(!bad(d => { d.thumb = WEBP; }).error, 'a real WebP picture: fine');
 for (const key of ['__proto__', 'constructor', 'prototype']) {
   const top = S.parseShare(JSON.stringify(good).replace('{', `{"${key}":{"polluted":true},`));
   const inner = S.parseShare(JSON.stringify(good).replace('"ref":"o', `"${key}":{"polluted":true},"ref":"o`));
-  ok(top.error?.includes(key) && inner.error?.includes(key), `PROTOTYPE POLLUTION: a "${key}" key refuses the file (top level and inside a record)`, top.error);
+  ok(top.error?.includes(key), `PROTOTYPE POLLUTION: a "${key}" key at the top refuses the file`, top.error);
+  ok(inner.left?.list[0].why.includes(key) && inner.doc.objects.length === good.objects.length - 1 - (good.objects[0].ref && good.objects.filter(o => o.parent === good.objects[0].ref).length), `and inside a record it costs that piece (and what rested on it), listed`, inner.left);
 }
 ok(({}).polluted === undefined && Object.prototype.polluted === undefined, 'and nothing was polluted');
 ok(bad(d => { d.objects[0].ref = 'seat_mira000001'; }).error?.includes('reference'), 'A SEAT ID AS A REF: refused (refs are short names, never ids)');
@@ -228,6 +233,136 @@ ok(S.parseShare(JSON.stringify({ v: 1, kind: 'turnip-works-campaign', areas: [] 
   const CA = S.campaignAreas(JSON.parse(JSON.stringify(camp)));
   ok(!CA.error && CA.docs.length === 1 && CA.docs[0].rooms.length === 6 && CA.docs[0].area.settings.light === 'night', 'a whole-campaign file reads through the same door: each area a validated build', CA.error);
   ok(S.campaignAreas({ areas: [{ entities: { room_x: { kind: 'room', recipe: { type: 'common', x: 0, z: 0, w: 99, d: 2, seed: 1 } } } }] }).docs?.[0] || true, '(a campaign file\'s rooms are checked again when they are planned)'); }
+
+// ---------------------------------------------------------------- BEST EFFORT (Harry 2026-11-01: "it should try and just let the parts that are broken break")
+console.log('BEST EFFORT');
+const pieces = (R) => R.pieces.landed + R.left.pieces === R.pieces.total;
+const landedIn = (C, area) => { const k = kinds(ents(C, area)); return (k.room || 0) + (k.object || 0) + (k.edge || 0) + (k.token || 0) + (k.water || 0); };
+// states the GAME makes, on a small throwaway map: never a file's fault
+{ const G = await campaign('TEST legit states (throwaway)');
+  D(G, 'room.spawn', { id: 'room_legit00001', type: 'common', x: 0, z: 0, w: 6, d: 5, seed: 41 });
+  D(G, 'room.set', { id: 'room_legit00001', roof: { trim: { 'dormer:0:0:S:1': { at: [12.5, 3.25] }, 'chimney:a': { gone: true } } } });
+  D(G, 'token.create', { id: 'tok_legit000001', name: 'A watchman whose very long name runs past sixty characters but not eighty', x: 10, z: 10 });
+  D(G, 'token.set', { id: 'tok_legit000001', conditions: ['exhaustion 2', 'Hexed!'] });
+  D(G, 'object.place', { id: 'obj_legit000001', name: 'A table whose very long name runs past sixty characters but not eighty', x: 3, z: 3 });
+  const L = S.exportShare(ents(G), { kind: 'area', name: 'Legit', area: { name: 'Legit' } }).doc, r = S.parseShare(JSON.stringify(L));
+  ok(!r.error && !r.left.pieces && !r.left.details, 'a moved roof trim, a levelled condition and an 80-character name pass CLEANLY: nothing is left out', r.error || r.left);
+  const na2 = 'area_legitimport';
+  G.rt.dispatch(G.gm, { type: 'area.create', args: { id: na2, name: 'Legit' } }, {});
+  const p = S.planImport(r.doc, target(G, { areaId: na2, keepPlace: true, left: r.left }));
+  ok(p.ok && pieces(p.report) && !S.leftText(p.report), 'they plan with nothing to report', p.why || p.report.left);
+  ok(G.rt.dispatch(G.gm, { type: 'batch', area: na2, args: { ops: p.ops } }, {}).ok, 'the relay takes them');
+  const I = Object.values(ents(G, na2));
+  ok(I.find(e => e.kind === 'room').roof?.trim?.['dormer:0:0:S:1']?.at?.[0] === 12.5 && I.find(e => e.kind === 'room').roof.trim['chimney:a'].gone === true, 'the trim came through: moved and removed pieces', I.find(e => e.kind === 'room').roof);
+  ok(I.find(e => e.kind === 'token').conditions.join() === 'exhaustion 2,Hexed!', 'the conditions came through', I.find(e => e.kind === 'token').conditions);
+  const camp = S.campaignAreas(JSON.parse(JSON.stringify({ v: 1, kind: 'turnip-works-campaign', areas: [{ name: 'Legit', entities: ents(G) }] })));
+  ok(!camp.left.pieces && !camp.reads[0].left.pieces && camp.docs[0].rooms[0].roof.trim, 'and the same through the whole-campaign door', camp); }
+// a good file with broken and hostile pieces in it (all synthetic: the throwaway inn above)
+{ const d0 = JSON.parse(JSON.stringify(AR)), goodRooms = d0.rooms.length, goodThings = d0.objects.length, n0 = d0.rooms.length + d0.objects.length + d0.edges.length + d0.pawns.length + d0.water.length;
+  const seatId = 'seat_mira000001', evil = 'https://evil.example/x.glb';
+  const baseObj = { x: 200, z: 200 }, np = (r, o = {}) => d0.objects.push({ ref: r, cat: 'barrel', ...baseObj, ...o });
+  np('o90001', { url: evil });                                    // 1 an unknown field: a URL for a mesh
+  np('o90002', { sku: evil });                                    // 2 a URL where a SKU goes
+  np('o90003', { x: 1e300 });                                     // 3 a number off the map
+  np('o90004', { hidden: 'yes' });                                // 4 a secret that cannot be read: not landed visible
+  np('o90005', { parent: 'o90001' });                             // 5 rests on 1
+  np('o90006', { parent: 'o90005' });                             // 6 rests on 5
+  np('o90007', { room: 'r99999' });                               // 7 a room that is not in the file
+  np('o90008', { parent: 'o90009' }); np('o90009', { parent: 'o90008' }); // 8, 9 a loop
+  np('o90010', { color: 'red; background:url(x)', name: 'Painted barrel' }); // a bad colour: a DETAIL, it comes in plain
+  np('o90011', { place: 'stair', rise: 7 });                      // 10 a stair the reducer's own check refuses
+  d0.objects.push(JSON.parse('{"ref":"o90012","cat":"barrel","x":200,"z":200,"__proto__":{"polluted":true}}')); // 11 a pollution key on one piece
+  d0.pawns.push({ ref: 'p90001', name: 'Thief', x: 5, z: 5, owner: seatId });     // 12 a pawn claiming a player's seat
+  d0.pawns.push({ ref: 'p90002', name: 'Crown', x: 5, z: 5, main: true });        // 13 a pawn claiming to be a player's main
+  d0.pawns.push({ ref: 'p90003', name: 'javascript:alert(1)', x: 5, z: 5 });      // 14 a link for a name
+  d0.pawns.push({ ref: 'p90004', name: 'Giant', x: 5, z: 5, size: 9 });           // 15 too big: the reducer's own check
+  d0.pawns.push({ ref: 'p90005', name: 'Goon', x: 6, z: 6, conditions: ['  bad  '] }); // bad conditions: a DETAIL
+  d0.edges.push({ key: 'h:1:1; DROP' });                                          // 16 a malformed wall key
+  d0.edges.push({ key: 'h:300:300', url: evil });                                 // 17 an edge carrying a URL
+  d0.water.push({ ref: 'w90001', body: { kind: 'lava', pts: [[0, 0], [1, 1]] } });  // 18 a kind of water there is not
+  d0.rooms.push({ ref: 'r90001', type: 'common', x: 60, z: 60, w: 99, d: 3, seed: 1 }); // 19 too big for the game
+  const hostile = 19, nDetail = 2, r = S.parseShare(JSON.stringify(d0));
+  ok(!r.error && r.total === n0 + hostile + 2, 'a file with broken and hostile pieces is read', r.error || r.total);
+  ok(r.left.pieces === hostile - 3, 'what the reader refuses is listed (the reducers get the rest)', r.left.list);
+  ok(r.left.details === nDetail, 'a bad colour or condition costs that detail only', r.left.details);
+  const txt = JSON.stringify(r.doc);
+  for (const [w, what] of [['evil.example', 'a link'], [seatId, 'a seat'], ['Thief', 'the pawn with an owner'], ['Crown', 'the pawn claiming to be a main'], ['polluted', 'a pollution key'], ['javascript', 'a script link'], ['DROP', 'a malformed key'], ['lava', 'an unknown water']]) ok(!txt.includes(w), `HOSTILE: ${what} is not in what comes in`, w);
+  ok(({}).polluted === undefined, 'nothing was polluted');
+  ok(r.doc.objects.find(o => o.ref === 'o90010')?.color === undefined && r.doc.objects.find(o => o.ref === 'o90010')?.name === 'Painted barrel', 'the barrel with a bad colour comes in, plain');
+  ok(!r.doc.objects.some(o => ['o90005', 'o90006', 'o90008', 'o90009'].includes(o.ref)), 'what rested on a left-out thing went with it (and a loop went whole)');
+  const tgtA = 'area_besteffort1';
+  Bc.rt.dispatch(Bc.gm, { type: 'area.create', args: { id: tgtA, name: 'Best effort' } }, {});
+  const p = S.planImport(r.doc, target(Bc, { areaId: tgtA, keepPlace: true, left: r.left }));
+  ok(p.ok, 'the rest plans', p.why);
+  ok(pieces(p.report), 'every piece is counted: landed + left out = total', p.report.pieces);
+  ok(p.report.pieces.total === n0 + hostile + 2, 'the total is the file\'s', p.report.pieces);
+  ok(p.report.left.pieces === hostile && p.report.pieces.landed === n0 + 2, 'every broken piece is left out, every good one lands', [p.report.pieces, p.report.left.list.filter(e => !e.detail).map(e => e.what + ': ' + e.why)]);
+  ok(S.leftText(p.report) === `Imported ${n0 + 2} of ${n0 + hostile + 2} pieces; left out ${hostile}`, 'the sentence a GM reads', S.leftText(p.report));
+  ok(p.ops.every(o => o.type !== 'entities.set') && !JSON.stringify(p.ops).includes('evil.example'), 'still ordinary commands, and nothing hostile in them');
+  ok(S.leftGroups(p.report.left).some(g => /nothing|rested/.test(g.why) && g.n >= 2) && S.leftGroups(p.report.left).every(g => !/\[\d+\]|room\.spawn|token\.create/.test(g.why)), 'the reasons are in words: no list indexes, no command names', S.leftGroups(p.report.left).map(g => g.why));
+  for (const ops of S.chunkOps(p.ops)) ok(Bc.rt.dispatch(Bc.gm, { type: 'batch', area: tgtA, args: { ops } }, {}).ok, 'the relay\'s own check takes what is left');
+  ok(landedIn(Bc, tgtA) === p.report.pieces.landed, 'what the plan says landed is what is in the area', [landedIn(Bc, tgtA), p.report.pieces.landed]);
+  const NE = Object.values(ents(Bc, tgtA));
+  ok(NE.filter(e => e.kind === 'room').length === goodRooms && NE.filter(e => e.kind === 'object').length === goodThings + 1 && !NE.some(e => e.owner || e.main), 'all the good rooms and things, and no pawn with an owner', kinds(Object.fromEntries(NE.map(e => [e.id, e]))));
+  ok(NE.find(e => e.recipe?.type === 'crypt-vault')?.hidden === true, 'the hidden crypt stayed hidden with broken pieces around it');
+  // a player's seat gets nothing through: the same ops, refused by the relay, however clean the plan looks
+  const PL = Bc.rt.dispatch(Bc.gm, { type: 'seat.create', args: { id: 'seat_plyr000001', kind: 'human', role: 'player', name: 'Pip', color: '#6fc36f' } }, {});
+  ok(PL.ok && !Bc.rt.dispatch('seat_plyr000001', { type: 'batch', area: Bc.area, args: { ops: p.ops.slice(0, 2) } }, {}).ok, 'a player cannot land the plan: the relay\'s permission check still stands', PL.why); }
+// a room left out takes what depends on it: its things, the door only it had, the room above it
+{ const d = JSON.parse(JSON.stringify(b)), low = d.rooms.find(r => r.type === 'common'), up = d.rooms.find(r => r.type === 'guest');
+  d.edges.push({ key: 'h:3:6', as: 'open' }); // a wall only the common room and the storey above it have here
+  const inLow = d.objects.filter(o => o.room === low.ref).length, inUp = d.objects.filter(o => o.room === up.ref).length;
+  low.type = 'NOT A TYPE'; // (not a catalog word: the reader refuses the room)
+  const r = S.parseShare(JSON.stringify(d));
+  ok(r.left.pieces === 1 + inLow && r.doc.rooms.length === 2, 'a room the reader refuses takes the things in it', r.left.pieces);
+  const p = S.planImport(r.doc, target(Bc, { at: [-300, -300], left: r.left }));
+  ok(p.ok && pieces(p.report) && p.report.left.list.some(e => e.what.includes('guest') && /stand/.test(e.why)), 'the room upstairs has nothing to stand on: the reducer\'s own check leaves it out too', p.why || p.report.left.list.slice(-3));
+  ok(p.ops.filter(o => o.type === 'room.spawn').length === 1, 'the kitchen still comes in', p.ops.map(o => o.type).slice(0, 4));
+  ok(!p.ops.some(o => o.type === 'room.set' && !p.ops.some(s => s.type === 'room.spawn' && s.args.id === o.args.id)), 'nothing refers to a room that was left out');
+  const seq = Bc.rt.state.areas[Bc.area].seq, n = Object.keys(ents(Bc)).length;
+  ok(Bc.rt.dispatch(Bc.gm, { type: 'batch', area: Bc.area, args: { ops: p.ops } }, {}).ok && Bc.rt.state.areas[Bc.area].seq === seq + 1, 'it lands as ONE batch');
+  ok(Bc.rt.dispatch(Bc.gm, { type: 'undo', area: Bc.area, args: {} }, {}).ok && Object.keys(ents(Bc)).length === n, 'and ONE undo takes it all away'); }
+// a door in a left-out room's wall (the reducer refuses the room, so the reader cannot have known)
+{ const d = JSON.parse(JSON.stringify(R1)); d.rooms[0].w = 4; const free = { ref: 'r70001', type: 'common', x: 30, z: 30, w: 3, d: 3, seed: 9 }; d.rooms.push({ ...free });
+  d.rooms[0].type = 'no-such-type'; d.edges.push({ key: `h:${d.rooms[0].x}:${d.rooms[0].z}`, as: 'open' }, { key: 'h:30:30', as: 'open' });
+  const r = S.parseShare(JSON.stringify(d)), p = S.planImport(r.doc, target(Bc, { areaId: 'area_besteffort1', at: [-400, -400], fallbackType: null, left: r.left }));
+  ok(p.ok && p.report.left.list.some(e => /wall edit/.test(e.what) && /room was left out/.test(e.why)) && p.ops.filter(o => o.type === 'edge.set').length === 1, 'a door in a left-out wall goes with it; the edit on the room that stayed lands', p.why || p.report.left.list.slice(-3)); }
+// a ghost that does not fit is still the GM's to move: refused whole, in words, whatever else the file holds
+{ const d = JSON.parse(JSON.stringify(b)); const r = S.parseShare(JSON.stringify(d)), p = S.planImport(r.doc, target(Bc, { at: [15, 15] }));
+  ok(!p.ok && /overlap/.test(p.why) && !p.ops.length, 'a building dropped on a room is refused whole, not half-landed', p.why); }
+{ const d = JSON.parse(JSON.stringify(b)); d.rooms.forEach(r => { r.hidden = 'yes'; }); d.objects = []; d.pawns = []; d.edges = [];
+  const r = S.parseShare(JSON.stringify(d));
+  ok(r.error?.startsWith('nothing in it could be read'), 'a file with nothing usable left: the whole file is refused, and says why', r.error); }
+// caps, and a list that cannot be made to grow
+{ const many = JSON.parse(JSON.stringify(G1)); many.objects = Array.from({ length: S.SHARE_LIMITS.objects + 500 }, (_, i) => ({ ref: `o${i + 1}`, x: 0, z: 0 }));
+  const r = S.parseShare(JSON.stringify(many));
+  ok(r.doc.objects.length === S.SHARE_LIMITS.objects && r.left.pieces === 500 && r.total === S.SHARE_LIMITS.objects + 500, 'past a cap: the cap holds, and the rest is counted as left out', r.left);
+  const junk = JSON.parse(JSON.stringify(G1)); junk.objects.push(...Array.from({ length: 11000 }, (_, i) => ({ ref: `o${100001 + i}`, x: 'x'.repeat(10), z: 0, url: 'y' })));
+  const t0 = Date.now(), r2 = S.parseShare(JSON.stringify(junk));
+  ok(r2.left.list.length <= S.SHARE_LIMITS.left && r2.left.pieces === 11000 && JSON.stringify(r2.left).length < 60000, 'a file of nothing but junk: the count stays true, the list stays short', [r2.left?.list.length, r2.left?.pieces]);
+  const longK = JSON.parse(JSON.stringify(G1)); longK.objects[0]['k'.repeat(100000)] = 1;
+  ok(JSON.stringify(S.parseShare(JSON.stringify(longK)).left).length < 2000, 'a huge field name does not reach the list whole');
+  const chain = JSON.parse(JSON.stringify(G1)); chain.objects = Array.from({ length: 12000 }, (_, i) => ({ ref: `o${i + 1}`, x: 1, z: 1, parent: `o${i + 2}` }));
+  const t1 = Date.now(), r3 = S.parseShare(JSON.stringify(chain));
+  ok(r3.error?.startsWith('nothing in it could be read') && Date.now() - t1 < 3000, '12 000 things resting on a thing that is not there: one pass, no stall', [r3.error, Date.now() - t1]);
+  ok(Date.now() - t0 < 6000, 'and none of it takes long', Date.now() - t0); }
+// the whole-campaign door: one broken area does not stop the others
+{ const inn = Object.fromEntries(Object.entries(E).filter(([, e]) => e.kind !== 'token' || !e.owner));
+  const camp = { v: 1, kind: 'turnip-works-campaign', name: 'x', areas: [
+    { name: 'Inn', entities: { ...inn, 'not an id': { kind: 'object', x: 0, z: 0 }, room_broken0001: { kind: 'room', recipe: 'nope' }, obj_noplace0001: { kind: 'object', cat: 'barrel' }, tok_owned000001: { kind: 'token', name: 'P', x: 0, z: 0, owner: 'seat_mira000001' } } },
+    'not an area', { name: 'javascript:alert(1)', entities: 7 },
+    { name: 'Empty', entities: {} },
+    { name: 'Inn 2', settings: { nosuch: 1 }, entities: inn }] };
+  const CA = S.campaignAreas(JSON.parse(JSON.stringify(camp)));
+  ok(!CA.error && CA.docs.length === 3 && CA.left.pieces === 2 && CA.docs[1].empty, 'two areas that are not areas are left out; the empty one and the good ones come', [CA.error, CA.docs?.length, CA.left]);
+  ok(!JSON.stringify(CA.left).includes('javascript'), 'an area\'s bad name is not repeated');
+  const r0 = CA.reads[0], w = r0.left.list.map(e => e.what).join('|');
+  ok(r0.left.pieces === 3 && /no proper id/.test(w), 'in the first area: the bad entities are listed', r0.left);
+  ok(r0.players === 1 && !/player pawn/.test(w), 'a player\'s pawn is counted apart: the rule, not a fault', r0.players);
+  ok(CA.docs[0].rooms.length === 6, 'its six good rooms are there', CA.docs[0].rooms.length);
+  ok(CA.reads[2].left.details === 1, 'settings it cannot read are a detail, said', CA.reads[2].left);
+  const p = S.planImport(CA.docs[0], { ...target(Bc, { areaId: 'area_newimport02', keepPlace: true }), area: { id: 'area_newimport02', entities: {}, order: 0, settings: {} }, left: r0.left });
+  ok(p.ok && pieces(p.report), 'it plans, and the counts add up', p.why || p.report.pieces); }
 
 // ---------------------------------------------------------------- STARTER BUILDS (engine/client/starter/)
 { const dir = path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'client', 'starter'), idx = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
@@ -257,6 +392,10 @@ ok((await http(`/c/${A.id}/shares?seat=${PTK}`, { method: 'POST', body: JSON.str
 ok((await http(`/c/${A.id}/shares`, { method: 'POST', body: JSON.stringify(G1) })).status === 401, 'nor anyone without a seat');
 ok((await http(`/c/${A.id}/shares?seat=${ATK}`, { method: 'POST', body: '{"format":"turnip-works-share","v":1,"__proto__":{"x":1}}' })).status === 400, 'a hostile file is refused by the relay too (400)');
 ok((await http(`/c/${A.id}/shares?seat=${ATK}`, { method: 'POST', body: 'x'.repeat(LINK_LIMITS.body + 10) })).status === 413, 'an oversized one: 413');
+{ const d = JSON.parse(JSON.stringify(G1)); d.objects.push({ ref: 'o90001', cat: 'barrel', x: 1, z: 1, url: 'https://evil.example/x.glb' });
+  const mkb = await http(`/c/${A.id}/shares?seat=${ATK}`, { method: 'POST', body: JSON.stringify(d) }), got = await http(`/s/${mkb.body.id}/json`);
+  ok(mkb.status === 200 && mkb.body.left?.pieces === 1 && !got.text.includes('evil.example') && got.body.objects.length === G1.objects.length, 'a link: the broken piece is NOT stored, and the maker is told', mkb.body);
+  await http(`/c/${A.id}/shares/${mkb.body.id}/delete?seat=${ATK}`, { method: 'POST' }); }
 const files = fs.readdirSync(path.join(dataDir, 'shares'));
 ok(files.includes(`${id1}.json`) && files.includes(`${id1}.webp`) && files.includes(`${id1}.meta.json`), 'stored under DATA_DIR/shares: the build, its picture, its record');
 ok((fs.statSync(path.join(dataDir, 'shares', `${id1}.json`)).mode & 0o077) === 0, 'readable by the relay only');
@@ -278,6 +417,7 @@ ok(exp4.status === 200 && exp4.body.kind === 'area' && exp4.body.secrets === fal
 ok((await http(`/c/${A.id}/a/${A.area}/share?seat=${PTK}`)).status === 403, 'a player\'s seat cannot export (build permission)');
 const imp = await http(`/c/${Bc.id}/a/${Bc.area}/do?cmd=import&link=${encodeURIComponent(`https://turnipworks.net/s/${id1}`)}&x=400&z=400&nonce=imp1&seat=${Bc.tok}`);
 ok(imp.body.ok && imp.body.ids.length >= 2 && imp.body.kind === 'building', 'do?cmd=import&link=…: the build lands, its ids in the answer', imp.body);
+ok(imp.body.pieces?.landed === imp.body.pieces?.total && imp.body.pieces.total > 20 && !imp.body.left, 'and its count: everything came', imp.body.pieces);
 const imp2 = await http(`/c/${Bc.id}/a/${Bc.area}/do?cmd=import&link=${id1}&x=400&z=400&nonce=imp1&seat=${Bc.tok}`);
 ok(imp2.body.duplicate, 'the same nonce again: a retry, not a second copy');
 const und = await http(`/c/${Bc.id}/a/${Bc.area}/do?cmd=undo&nonce=u1&seat=${Bc.tok}`);
