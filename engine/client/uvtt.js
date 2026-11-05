@@ -94,7 +94,9 @@ export function createUvtt(app, { renderer }) {
       for (const g of hiddenNow) g.visible = true; hiddenNow.clear();
       for (const [o, dw] of unghosted) { if (dw === 'pill') { o.visible = true; continue; } delete o.userData.uvttSolid; o.material.opacity = 0.42; o.material.transparent = true; o.material.depthWrite = dw; }
     });
-    const gridWas = w.grid.visible; w.grid.visible = !!grid; put.push(() => { w.grid.visible = gridWas; });
+    // the 5-ft grid, if asked for: the ground's, also for a level above or below (seen straight down its lines are that level's
+    // squares); its holder is put up for the shot even while a build tool's level grid has it down (world.js gridHold, 2026-11-03)
+    const gridWas = w.grid.visible, holdWas = w.gridHold?.visible; w.grid.visible = !!grid; if (w.gridHold) w.gridHold.visible = true; put.push(() => { w.grid.visible = gridWas; if (w.gridHold) w.gridHold.visible = holdWas; });
     const vig = L?.params?.grade?.vignette; if (vig) { L.params.grade.vignette = 0; L.set(L.params); put.push(() => { L.params.grade.vignette = vig; L.set(L.params); }); }
     try {
       // settle: spawn and fly animations over, meshes in, the lighting stack has seen which lamps are lit (it polls)

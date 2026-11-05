@@ -11,6 +11,7 @@ const OTHER_SLOTS = 6; // a pawn's own words (text labels) shown in its Conditio
 import { markUrl } from './marks.js';
 import * as DK from '../core/darkness.js';
 import { canTilt } from '../core/commands.js';
+import { BOT_DEFAULT } from '../core/agentname.js';
 import { fallWhen } from './surfaces/falls.js';
 import * as HO from '../core/holes.js';
 import { quatOfEntity } from '../core/orient.js';
@@ -301,7 +302,7 @@ export function defineCommands(R, app) {
 
   // ---------------- chat & dice ("say …", "roll …") ----------------
   add({ id: 'chat.say', title: 'Say…', synonyms: ['chat', 'talk', 'tell'], icon: 'message-square', group: 'Talk', cls: 'chat',
-    parse: (text) => { const m = text.match(/^say\s+(.+)/i); return m ? { text: m[1] } : null; }, chips: (a) => ['say', a.text], run: (ctx, a) => a?.text && app.say(a.text) });
+    parse: (text) => { const m = text.match(/^say\s+(.+)/i); return m ? { text: m[1] } : null; }, chips: (a) => ['say', a.text], cue: 'what to say…', run: (ctx, a) => a?.text && app.say(a.text) });
   add({ id: 'chat.roll', title: 'Roll dice…', synonyms: ['roll', 'dice', 'd20'], icon: 'dices', group: 'Talk', cls: 'chat',
     parse: (typed) => { const text = rollText(typed), m = text.match(/^(?:roll\s+|\/r\s+)?(\d*d\d+.*)$/i), p = m && parseDice(m[1]); return p ? { expr: m[1], label: p.label, terms: p.terms } : gameRoll(text) || rollWords(text); },
     chips: (a) => ['roll', ...(a.game ? [a.label] : a.label.split(/(?=[+-])/).map(s => s.trim())), ...(a.why ? [a.why] : [])], run: (ctx, a) => a?.expr && app.roll(a.expr, a.why) });
@@ -314,7 +315,7 @@ export function defineCommands(R, app) {
     return s ? { to: s.id, name: s.name, text: rest.slice(s.name.length).trim() } : { to: null, name: rest.trim(), text: '' };
   };
   add({ id: 'chat.whisper', title: 'Whisper to one person… (type: whisper Mira meet me outside)', short: 'Whisper', synonyms: ['whisper', 'private message', 'tell', 'dm', 'pm', 'secret'], icon: 'message-square-lock', group: 'Talk', cls: 'chat',
-    parse: (text) => whisperTo(text), chips: (a) => ['whisper', a.to ? a.name : `${a.name || '…'} (no such person here)`, a.text || '…'],
+    parse: (text) => whisperTo(text), chips: (a) => ['whisper', a.to ? `to ${a.name}` : 'no one here by that name', a.text || '…'], cue: 'a name, then what to whisper…',
     run: (ctx, a) => { if (!a) return app.emit('bar.open', 'whisper '); if (!a.to) return app.toast(`Nobody called "${a.name}" is at the table`, true); if (!a.text) return app.emit('bar.open', `whisper ${a.name} `); app.whisper(a.to, a.text); } });
   add({ id: 'chat.assistant', title: 'Ask the assistant…', icon: 'wand-sparkles', group: 'Talk', hidden: true, stub: true, run: (ctx, a) => app.toast(`Natural language goes to the assistant seat (not wired yet): "${a?.text || ''}"`) });
 
@@ -369,6 +370,11 @@ export function defineCommands(R, app) {
   // switches it to lead down from that level instead (same place in plan, one flight lower), and back. The button names
   // what you would GET. Counted from the level you are on (core/stairs.js stairSide).
   add({ id: 'stair.flip', toggle: { of: (ctx) => ctx.sel.filter(app.ST.isConnector), is: (e) => app.stairSide(e) === 'down', on: ['Stairs up (it leads up from this level)', 'arrow-up'], off: ['Stairs down (it leads down from this level)', 'arrow-down'], mix: 'Switch stairs up / down' }, short: 'Stairs up / down', synonyms: ['stairs down', 'stairs up', 'flip stair', 'go down', 'go up', 'downstairs', 'upstairs', 'ladder down', 'switch direction'], group: 'Arrange', menu: true, cls: 'object', when: (ctx) => ctx.sel.length > 0 && ctx.sel.every(app.ST.isConnector), run: (ctx) => app.flipStairs(ctx.sel.filter(app.ST.isConnector)) });
+  // A STAIR'S WARNING (Harry 2026-11-02): the same as the × on the note (surfaces/stairnotes.js), without a small target to
+  // hit, and the only way back for a warning already dismissed. Offered only for a stair that has a warning right now.
+  const warned = (ctx) => ctx.sel.filter(e => app.ST.isConnector(e) && app.stairWarning(e));
+  add({ id: 'stair.note', toggle: { of: warned, is: (e) => app.stairWarning(e).off, on: ['Show stair warning again', 'badge-alert'], off: ['Dismiss stair warning', 'x'], mix: 'Dismiss stair warnings' }, synonyms: ['dismiss warning', 'dismiss note', 'hide warning', 'hide note', 'hide stair note', 'clear warning', 'clear note', 'get rid of note', 'no floor above yet', 'show warning', 'show note', 'bring back warning', 'restore warning'], group: 'Arrange', menu: true, cls: 'object',
+    when: (ctx) => ctx.gm && ctx.sel.length > 0 && ctx.sel.every(app.ST.isConnector) && warned(ctx).length > 0, run: (ctx) => { const xs = warned(ctx); app.setStairNotes(xs, !xs.every(e => app.stairWarning(e).off)); } });
   add({ id: 'room.stair', title: 'Add stair (joins this room to the storey below; a cellar: above)', short: 'Add stair', synonyms: ['stairs', 'staircase', 'ladder', 'steps', 'way up', 'way down', 'connect floors'], icon: 'move-vertical', group: 'Room', menu: true, cls: 'object', when: (ctx) => !!room(ctx) && ctx.gm && !HT.isTerrain(room(ctx).recipe) && !HT.meetsGround(app.entities(), room(ctx)), run: (ctx) => app.addStair(room(ctx)) }); // (a room that meets the ground needs none: on a hill too, 2026-10-24; per room since 2026-10-26)
   add({ id: 'room.replay', title: 'Replay spawn animation', short: 'Replay spawn', synonyms: ['animate', 'spawn in'], icon: 'play', group: 'Room', menu: true, when: (ctx) => !!room(ctx), run: (ctx) => app.replaySpawn(room(ctx)) });
   // ---------------- roofs (storeys, Stage F): a roof is selectable and editable like a room ----------------
@@ -464,8 +470,8 @@ export function defineCommands(R, app) {
   add({ id: 'area.transfer', title: 'Send selection to another area…', synonyms: ['move to area', 'transfer'], icon: 'send', group: 'Areas', cls: 'transfer', when: (ctx) => ctx.sel.some(e => e.kind === 'token' || e.kind === 'object'), run: () => app.emit('bar.open', 'send to ') });
   add({ id: 'people.invite', title: 'Invite a player…', synonyms: ['add player', 'invite'], icon: 'user-plus', group: 'People', cls: 'seat.admin', parse: (text) => { const m = text.match(/^invite\s+(.+)/i); return m ? { name: m[1] } : null; }, chips: (a) => ['invite', a.name],
     run: async (ctx, a) => { const t = await app.createSeat({ kind: 'human', role: 'player', name: a?.name || 'Player', color: nextColor(app) }); if (t) app.emit('output', { title: `Invite link for ${a?.name || 'Player'}${app.lastPlaceholder?.ok ? ` · ${a?.name || 'Player'}'s pawn is waiting on the table` : ''}`, text: app.inviteLink(t) }); } });
-  add({ id: 'people.agent', title: (ctx) => ctx.gm ? 'Create a GM assistant (LLM seat)…' : 'Create my advisor (LLM seat)…', synonyms: ['agent', 'assistant', 'llm', 'advisor', 'ai'], icon: 'bot', group: 'People', cls: 'seat.agent',
-    run: async (ctx) => { const t = await app.createSeat({ kind: 'llm', name: ctx.gm ? 'Assistant' : 'Advisor', color: ctx.gm ? '#b48cff' : '#5ad0c0', scope: { areas: '*', classes: ctx.gm ? ['token.move', 'object', 'room', 'chat'] : ['token.move', 'chat'] } }); if (t) app.emit('output', { title: 'Paste this URL into any chat LLM', text: app.cardUrl(t) }); } });
+  add({ id: 'people.agent', title: (ctx) => ctx.gm ? 'Create a GM assistant (LLM seat)…' : 'Create my assistant (LLM seat)…', synonyms: ['agent', 'assistant', 'llm', 'advisor', 'ai'], icon: 'bot', group: 'People', cls: 'seat.agent',
+    run: async (ctx) => { const t = await app.createSeat({ kind: 'llm', name: BOT_DEFAULT, color: ctx.gm ? '#b48cff' : '#5ad0c0', scope: { areas: '*', classes: ctx.gm ? ['token.move', 'object', 'room', 'chat'] : ['token.move', 'chat'] } }); if (t) app.emit('output', { title: 'Paste this URL into any chat LLM', text: app.cardUrl(t) }); } });
   add({ id: 'people.undoOther', title: 'Undo their last action…', synonyms: ['undo player', 'undo agent'], icon: 'undo-2', group: 'Edit', cls: 'undo', when: (ctx) => ctx.gm, run: () => app.emit('bar.open', 'undo ') });
 
   // ================= THE BAR, BROUGHT UP TO DATE (2026-10-06) =================

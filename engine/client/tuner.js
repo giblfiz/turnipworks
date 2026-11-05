@@ -15,9 +15,9 @@ export async function loadTuner(base, api) {
   let v = null;
   try { v = (await fetch(`${base}version.json?t=${Date.now()}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : null))?.v || null; } catch { }
   const q = v ? `?v=${v}` : '';
-  const files = ['solver.js', 'solver2.js', 'walls.js', 'anim.js', 'settle.js', 'look.js', 'camera.js', 'fx/index.js', 'fx/fire.js', 'hinge.js', 'fx/selection.js', 'buildings.js'];
+  const files = ['solver.js', 'solver2.js', 'walls.js', 'anim.js', 'settle.js', 'look.js', 'camera.js', 'fx/index.js', 'fx/fire.js', 'hinge.js', 'fx/selection.js', 'buildings.js', 'fx/dicephys.js'];
   const mods = await Promise.all(files.map(f => import(`${base}js/${f}${q}`)));
-  [T.solver, T.solver2, T.walls, T.anim, T.settle, T.look, T.camera, T.fx, T.fire, T.hinge, T.selection, T.buildings] = mods; // buildings.js: whole-building plans (docs/BUILDINGS.md)
+  [T.solver, T.solver2, T.walls, T.anim, T.settle, T.look, T.camera, T.fx, T.fire, T.hinge, T.selection, T.buildings, T.dicePhys] = mods; // buildings.js: whole-building plans (docs/BUILDINGS.md)
   const get = (u) => fetch(u).then(r => { if (!r.ok) throw new Error(`${u}: ${r.status}`); return r.text(); });
   // the delivered copies of the assets (the tuner's js/delivery.js; absent on an old tuner: the plain addresses are used)
   const delivered = T.look.loadDelivery ? T.look.loadDelivery(`${base}assets/delivery.json${q}`) : null;

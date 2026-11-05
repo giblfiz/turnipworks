@@ -6,7 +6,7 @@
   "description": "Turnip Works engine core: shared command core, relay, browser client",
   "scripts": {
     "relay": "node relay/server.js",
-    "test": "node test/core.test.mjs && node test/beyond20.test.mjs && node test/conditions.test.mjs && node test/aura.test.mjs && node test/library-index.test.mjs && node test/relay.test.mjs && node test/llm.test.mjs && node test/music.test.mjs && node test/gamedice.test.mjs && node test/notice.test.mjs && node test/tickets.test.mjs && node test/presence.test.mjs && node test/share.test.mjs && node test/harness.mjs"
+    "test": "node test/core.test.mjs && node test/riders.test.mjs && node test/beyond20.test.mjs && node test/conditions.test.mjs && node test/aura.test.mjs && node test/library-index.test.mjs && node test/relay.test.mjs && node test/llm.test.mjs && node test/music.test.mjs && node test/gamedice.test.mjs && node test/notice.test.mjs && node test/release_numbers.test.mjs && node test/tickets.test.mjs && node test/presence.test.mjs && node test/share.test.mjs && node test/stairnote.test.mjs && node test/walk.test.mjs && node test/harness.mjs"
   },
   "dependencies": {
     "ws": "^8.18.0"

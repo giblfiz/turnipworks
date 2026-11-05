@@ -21,7 +21,8 @@ import { parseDice, rollDice, tallyOf } from '../core/dice.js';
 const tallyText = (expr, rolls) => { const t = tallyOf(expr, typeof rolls === 'string' ? (() => { try { return JSON.parse(rolls); } catch { return null; } })() : rolls); return t ? `${t.title}: ${t.text}` : null; };
 const withTally = (roll) => { const t = roll && tallyText(roll.expr, roll.rolls); return t ? { ...roll, tally: t } : roll; };
 import { factionCatalog, resolveFaction } from '../core/faction-catalog.js';
-import { thingFor, lightOf, opens, findThings, placeArgs, similarArgs, freeSpot } from './things.js';
+import { thingFor, lightOf, opens, findThings, placeArgs, similarArgs, freeSpot, roomHint } from './things.js';
+import { CAVE_DEPTH, isCave } from '../core/caves.js';
 import { ruleCard, helpPage, CONDITIONS } from './llm-card.js';
 import { cleanConditions } from '../core/conditions.js';
 import { getAura, applyChange as auraChange } from '../core/aura.js';
@@ -106,15 +107,15 @@ export function areaForLlm(rt, seat, area) {
     // (time of day), fog (atmosphere), freeMoves, touch (may players open and light things), grid
     rules: rulesOf(rt, area),
     tokens: es.filter(e => e.kind === 'token').map(e => pawnFor(rt, e, seats, actAs, where, seen)),
-    buildings: es.filter(e => e.kind === 'building').map(e => ({ id: e.id, name: e.name, storeyHeight: H.STOREY, levels: H.levelsOf(seen, e.id), roof: e.roof || 'auto', ...(e.roofShape && { roofShape: e.roofShape }) })),
+    buildings: buildingsOf(es).map(e => ({ id: e.id, name: e.name, ...(labels && { label: e.name }), ...(e.hidden && { hidden: true }), storeyHeight: H.STOREY, levels: H.levelsOf(seen, e.id), roof: e.roof || 'auto', ...(e.roofShape && { roofShape: e.roofShape }) })),
     rooms: es.filter(e => e.kind === 'room').map(e => ({
-      id: e.id, type: e.recipe.type, ...(e.name && { name: e.name }), ...(e.building && { building: e.building }), x: e.recipe.x * 5, z: e.recipe.z * 5, w: e.recipe.w * 5, d: e.recipe.d * 5, y: H.roomY(e.recipe), height: H.roomHeight(seen, e), storey: H.levelOf(seen, e), ground: H.meetsGround(seen, e), level: H.levelLabel(H.levelOf(seen, e)), ...(e.recipe.tall > 1 && { tall: e.recipe.tall }), seed: e.recipe.seed, ...(e.recipe.turn && { turn: e.recipe.turn }), ...(e.hidden && { hidden: true }), ...(e.fog != null && { fog: e.fog }),
+      id: e.id, type: e.recipe.type, label: e.name || typeLabel(rt, e.recipe.type), ...(e.name && { name: e.name }), ...(e.building && { building: e.building }), ...buildingLabelOf(seen, e, labels), x: e.recipe.x * 5, z: e.recipe.z * 5, w: e.recipe.w * 5, d: e.recipe.d * 5, y: H.roomY(e.recipe), height: H.roomHeight(seen, e), storey: H.levelOf(seen, e), ground: H.meetsGround(seen, e), level: H.levelLabel(H.levelOf(seen, e)), ...(e.recipe.tall > 1 && { tall: e.recipe.tall }), seed: e.recipe.seed, ...(e.recipe.turn && { turn: e.recipe.turn }), ...(e.hidden && { hidden: true }), ...(e.fog != null && { fog: e.fog }),
       ...(e.recipe.outline && { outline: polyFeet(e.recipe), shape: 'not a rectangle: x, z, w, d are its bounding box; outline is its true shape (feet)' }),
       ...(roofOf(e) && { roof: roofOf(e) }), ...factionField(rt, seen, e),
       objects: e.layout?.placements?.length || 0, summary: e.layout?.summary || null,
     })),
     // stairs and ladders: what each joins and where its two ends are (a pawn crosses with token.move&stair=ID)
-    stairs: stairsOf(seen).map(s => stairInfo(seen, s)),
+    stairs: stairsOf(seen).map(s => stairFor(rt, seen, s)),
     // each thing's catalog piece ("cat"), and when it applies: light (its kind), lit, radius (feet, in the dark), open (a
     // door, chest, shutter), locked, pinned, faction (2026-10-20)
     objects: es.filter(e => e.kind === 'object').map(e => ({ id: e.id, name: e.name, x: round(e.x), z: round(e.z), y: round(e.y || 0), ...(isConnector(e) && { stair: true }), ...(quatOfEntity(e) && { quat: quatOfEntity(e) }), ...(e.room && { room: e.room }), ...(e.hidden && { hidden: true }), ...thingFor(rt, e) })),
@@ -141,10 +142,29 @@ const typeLabel = (rt, type) => { const m = rt._typeLabels || (rt._typeLabels = 
 function seenOf(rt, seat, area) {
   const T = rt.state.areas[area], labels = seesLabels(rt.state, seat, area);
   const es = Object.values(T.entities).filter(e => entityVisible(rt.state, seat, e)).map(e => labels ? e : stripEntity(e));
-  return { T, es, seen: Object.fromEntries(es.map(e => [e.id, e])), actAs: rt.state.seats[seat].kind === 'llm' ? rt.state.seats[seat].creator : seat };
+  return { T, es, labels, seen: Object.fromEntries(es.map(e => [e.id, e])), actAs: rt.state.seats[seat].kind === 'llm' ? rt.state.seats[seat].creator : seat };
+}
+// BUILDINGS AS AN AI SEAT READS THEM (2026-11-02; Harry: "Apparently they can't see building labels"): every read agrees
+// with the screen (client/surfaces/labels.js). `label` is the building's own name, "Building 3" or what the GM typed, only
+// for a seat that passes seesLabels; any other seat has the neutral `name` and no label. The building is the one a room
+// names by id, so the two pair up. A building none of whose rooms this seat can see is not there at all: no label on a
+// screen, and (as core/state.js areaForClient) an empty row would say "something is hidden here".
+const buildingsOf = (es) => { const lived = new Set(es.filter(e => e.kind === 'room' && e.building).map(e => e.building)); return es.filter(e => e.kind === 'building' && lived.has(e.id)); };
+const buildingLabelOf = (seen, room, labels) => labels && seen[room.building] ? { buildingLabel: seen[room.building].name } : {};
+// A STAIR AS AN AI SEAT READS IT (Harry 2026-11-02: "I just watched luna get confused about if stairs go up or down").
+// `from` and `to` stay as they were, but they read like a journey and are only the rooms at its bottom and top (core/stairs.js
+// stairInfo), so every read adds `ends`, each end by room and map level, and `says`, the same thing in a sentence. Read from a
+// room or a height it adds `goes` ("up" or "down") and `leadsTo`. All from `seen`, this seat's own view with labels already
+// taken out: a floor it may not see has no name and no level here, and reads exactly like one that was never built.
+const stairEnd = (rt, seen, id, level) => ({ room: id, ...(id ? { label: seen[id].name || typeLabel(rt, seen[id].recipe.type) } : level ? { label: 'open ground' } : {}), level });
+const endWords = (e) => e.level ? `${e.label} (${e.level})` : 'nothing yet';
+function stairFor(rt, seen, s, view = null) {
+  const i = stairInfo(seen, s), bottom = stairEnd(rt, seen, i.from, i.fromLevel), top = stairEnd(rt, seen, i.to, i.toLevel);
+  const at = !view ? null : view.room != null ? (view.room === i.from ? 'bottom' : view.room === i.to ? 'top' : null) : Math.abs(view.y - i.top[2]) < Math.abs(view.y - i.bottom[2]) ? 'top' : 'bottom';
+  return { ...i, ends: { bottom, top }, says: `${i.kind === 'ladder' ? 'Ladder' : 'Stairs'}: bottom ${endWords(bottom)}, top ${endWords(top)}. Up from the bottom, down from the top.${i.works ? '' : ` It does not work: ${i.note || i.why}.`}`, ...(at && { goes: at === 'bottom' ? 'up' : 'down', leadsTo: at === 'bottom' ? top : bottom }) };
 }
 const whereOf = (seen) => (e) => { const f = H.tokenFloor(seen, e); return { y: round(e.y || 0), storey: f.storey, level: f.level, ...(f.room && { room: f.room }) }; };
-const roomBrief = (rt, seen, e, things) => ({ id: e.id, type: e.recipe.type, label: e.name || typeLabel(rt, e.recipe.type), ...(e.name && { name: e.name }), ...(e.building && { building: e.building }), x: e.recipe.x * 5, z: e.recipe.z * 5, w: e.recipe.w * 5, d: e.recipe.d * 5, y: H.roomY(e.recipe), level: H.levelLabel(H.levelOf(seen, e)), ...(e.hidden && { hidden: true }), ...(e.locked && { locked: true }), ...factionField(rt, seen, e), things: things.filter(o => o.room === e.id).length });
+const roomBrief = (rt, seen, e, things, labels) => ({ id: e.id, type: e.recipe.type, label: e.name || typeLabel(rt, e.recipe.type), ...(e.name && { name: e.name }), ...(e.building && { building: e.building }), ...buildingLabelOf(seen, e, labels), x: e.recipe.x * 5, z: e.recipe.z * 5, w: e.recipe.w * 5, d: e.recipe.d * 5, y: H.roomY(e.recipe), level: H.levelLabel(H.levelOf(seen, e)), ...(e.hidden && { hidden: true }), ...(e.locked && { locked: true }), ...factionField(rt, seen, e), things: things.filter(o => o.room === e.id).length });
 
 // THE DOORS THE ROOMS IMPLY (2026-10-29), not things yet: a key and no id. door.open&key=KEY&open=true opens one (the relay
 // makes it a thing of its own then: the answer gives its id, for object.open after). Only the doors this seat could open:
@@ -165,17 +185,18 @@ function generatedDoorsFor(rt, seat, area) {
 // label for the GM side only), the pawns, the lights and the doors (things it can light and open) with ids, the stairs,
 // the turn order and the last few lines of chat. The furniture itself is in /room/<ROOM_ID>; everything in /state.
 export function sceneForLlm(rt, seat, area) {
-  const { T, es, seen, actAs } = seenOf(rt, seat, area), seats = rt.state.seats;
+  const { T, es, seen, actAs, labels } = seenOf(rt, seat, area), seats = rt.state.seats;
   const things = es.filter(e => e.kind === 'object');
   const named = (o) => ({ id: o.id, name: o.name, ...(o.room && { room: o.room }) });
   return {
     area: { id: T.id, name: T.name, visibility: visibilityOf(T), seq: T.seq },
     rules: rulesOf(rt, area),
-    rooms: es.filter(e => e.kind === 'room').map(e => roomBrief(rt, seen, e, things)),
+    buildings: buildingsOf(es).map(e => ({ id: e.id, name: e.name, ...(labels && { label: e.name }), rooms: es.filter(r => r.kind === 'room' && r.building === e.id).length, ...(e.hidden && { hidden: true }) })),
+    rooms: es.filter(e => e.kind === 'room').map(e => roomBrief(rt, seen, e, things, labels)),
     pawns: es.filter(e => e.kind === 'token').map(e => pawnFor(rt, e, seats, actAs, whereOf(seen), seen)),
     lights: things.map(o => [o, lightOf(rt, o)]).filter(([, L]) => L).map(([o, L]) => ({ ...named(o), lit: L.lit, kind: L.kind, radius: L.radius, ...(o.locked && { locked: true }), ...(o.hidden && { hidden: true }) })),
     doors: [...things.filter(o => opens(rt, o)).map(o => ({ ...named(o), open: !!o.open, ...(o.locked && { locked: true }), ...(o.hidden && { hidden: true }) })), ...generatedDoorsFor(rt, seat, area)],
-    stairs: stairsOf(seen).map(s => { const i = stairInfo(seen, s); return { id: i.id, kind: i.kind, from: i.from, to: i.to, works: i.works }; }),
+    stairs: stairsOf(seen).map(s => { const i = stairFor(rt, seen, s); return { id: i.id, kind: i.kind, from: i.from, to: i.to, ends: i.ends, says: i.says, works: i.works, ...(!i.works && { problem: i.problem, why: i.why, ...(i.note && { note: i.note }) }) }; }),
     ...(es.some(e => e.kind === 'template') && { templates: es.filter(e => e.kind === 'template').map(e => templateFor(rt, e)) }),
     ...turnsForLlm(rt, seat, T, seen, actAs),
     chat: (T.chat || []).slice(-5).map(c => ({ by: seats[c.by]?.name || c.by, text: c.text, ...(c.roll && { roll: withTally(c.roll) }) })),
@@ -185,16 +206,17 @@ export function sceneForLlm(rt, seat, area) {
 // ONE ROOM (2026-10-20): the room, and every thing and pawn in it, with ids and what each can do. A room this seat may
 // not see answers exactly like one that does not exist.
 export function roomForLlm(rt, seat, area, id) {
-  const { T, es, seen, actAs } = seenOf(rt, seat, area), r = seen[id];
+  const { T, es, seen, actAs, labels } = seenOf(rt, seat, area), r = seen[id];
   if (!r || r.kind !== 'room') return null;
   const things = es.filter(e => e.kind === 'object');
   const inRoom = (p) => H.tokenFloor(seen, p).room === id;
+  const stairs = stairsOf(seen).map(s => stairFor(rt, seen, s, { room: id })).filter(s => s.from === id || s.to === id);
   return {
     area: { id: T.id, name: T.name, seq: T.seq },
-    room: { ...roomBrief(rt, seen, r, things), storey: H.levelOf(seen, r), ground: H.meetsGround(seen, r), height: H.roomHeight(seen, r), seed: r.recipe.seed, ...(r.recipe.tall > 1 && { tall: r.recipe.tall }), ...(r.fog != null && { fog: r.fog }), ...(r.recipe.outline && { outline: polyFeet(r.recipe) }), summary: r.layout?.summary || null },
-    things: things.filter(o => o.room === id).map(o => ({ id: o.id, name: o.name, x: round(o.x), z: round(o.z), y: round(o.y || 0), ...(o.rot && { rot: round(o.rot) }), ...(isConnector(o) && { stair: true }), ...(o.hidden && { hidden: true }), ...thingFor(rt, o) })),
+    room: { ...roomBrief(rt, seen, r, things, labels), storey: H.levelOf(seen, r), ground: H.meetsGround(seen, r), height: H.roomHeight(seen, r), seed: r.recipe.seed, ...(r.recipe.tall > 1 && { tall: r.recipe.tall }), ...(r.fog != null && { fog: r.fog }), ...(r.recipe.outline && { outline: polyFeet(r.recipe) }), summary: r.layout?.summary || null },
+    things: things.filter(o => o.room === id).map(o => ({ id: o.id, name: o.name, x: round(o.x), z: round(o.z), y: round(o.y || 0), ...(o.rot && { rot: round(o.rot) }), ...(isConnector(o) && { stair: true }), ...(stairs.find(s => s.id === o.id) && { goes: stairs.find(s => s.id === o.id).goes }), ...(o.hidden && { hidden: true }), ...thingFor(rt, o) })),
     pawns: es.filter(e => e.kind === 'token' && inRoom(e)).map(e => pawnFor(rt, e, rt.state.seats, actAs, whereOf(seen), seen)),
-    stairs: stairsOf(seen).map(s => stairInfo(seen, s)).filter(s => s.from === id || s.to === id),
+    stairs,
   };
 }
 function turnsForLlm(rt, seat, T, seen, actAs) {
@@ -246,6 +268,33 @@ function talkEvents(rt, seat, area, entries, kinds) {
       ...(e.type === 'chat.say' ? { text: e.args.text } : { roll: withTally({ expr: e.args.expr, rolls: e.args.rolls, total: e.args.total, ...(e.args.why && { why: e.args.why }) }) }) };
   });
 }
+// WHAT IS AT A SPOT, as this seat may see it (2026-11-02): the room under the point, and the pawn and the thing standing
+// there. Worked out from this seat's own `seen` and nothing else, so a hidden thing there and a hidden floor under it leave
+// the answer exactly as if they did not exist, and a label this seat may not have is not in it.
+function thereFor(rt, seat, area, x, z, y) {
+  const { es, seen, labels, actAs } = seenOf(rt, seat, area), f = H.floorUnder(seen, x, z, y), room = f && seen[f.room];
+  const lo = f ? f.y : H.levelAt(y) * H.STOREY, onLevel = (e) => (e.y || 0) >= lo - 0.5 && (e.y || 0) < lo + H.STOREY - 0.5;
+  const reach = (e) => e.kind === 'token' ? (e.size || 1) * 2.5 : Math.min(15, Math.max(1, Math.max(e.dims?.[0] || 0, e.dims?.[2] || 0) / 2 + 0.5));
+  const nearest = (kind) => es.filter(e => e.kind === kind && Number.isFinite(e.x) && onLevel(e)).map(e => [e, Math.hypot(e.x - x, e.z - z)]).filter(([e, d]) => d <= reach(e)).sort((a, b) => a[1] - b[1])[0]?.[0] || null;
+  const p = nearest('token'), t = nearest('object'), b = room?.building && seen[room.building];
+  return {
+    level: f ? f.level : H.levelLabel(H.levelAt(y)),
+    ...(p && { pawn: pawnFor(rt, p, rt.state.seats, actAs, whereOf(seen), seen) }),
+    ...(t && { thing: { id: t.id, name: t.name, x: round(t.x), z: round(t.z), y: round(t.y || 0), ...(isConnector(t) && { stair: true }), ...(stairsOf(seen).some(s => s.id === t.id) && (({ says, goes, leadsTo }) => ({ says, goes, leadsTo }))(stairFor(rt, seen, t, { y }))), ...(t.hidden && { hidden: true }), ...thingFor(rt, t) } }),
+    ...(room && { room: { id: room.id, type: room.recipe.type, label: room.name || typeLabel(rt, room.recipe.type), ...(room.hidden && { hidden: true }) } }),
+    ...(b && { building: { id: b.id, ...(labels && { label: b.name }) } }),
+  };
+}
+// the pings waiting for this seat, as events of its feed: who pointed, where, and what is there (relay/campaign.js notePing).
+// Reading them hands them over: each is told once. kind "ping" travels with the talk: any feed that follows chat has it.
+const wantsPings = (kinds) => kinds.has('ping') || kinds.has('chat');
+function pingEvents(rt, seat, area = null) {
+  return rt.takePings(seat, area).map(p => {
+    const who = rt.state.seats[p.by], T = rt.state.areas[p.area], there = thereFor(rt, seat, p.area, p.x, p.z, p.y), by = who?.name || p.by;
+    const what = there.pawn?.name || there.thing?.name || (there.room ? 'the floor' : 'open ground');
+    return { seq: T.seq, area: p.area, areaName: T.name, kind: 'ping', by, byId: p.by, byKind: who?.kind === 'llm' ? 'ai' : 'human', you: false, x: round(p.x), z: round(p.z), y: round(p.y || 0), there, text: `${by} points at ${what}${there.room ? ` in ${there.room.label}` : ''}, ${there.level} (x ${round(p.x)}, z ${round(p.z)}): look at this` };
+  });
+}
 // who is where, pointing at what (Harry 2026-10-04: "Fauna, what do you think of this chair?"): every other seat in an
 // area this seat can see, with its cursor (feet), its area, and its current selection as ids with names. Hidden things
 // are left out for anyone who couldn't see them; walls and posts read as "wall" / "post".
@@ -259,7 +308,7 @@ export function presenceFor(rt, seat) {
       if (id.startsWith('wall:')) return { id, name: id[5] === 'c' ? 'post' : 'wall' };
       const e = T?.entities[id]; if (!e || !entityVisible(rt.state, seat, e)) return null;
       const v = labels ? e : stripEntity(e);
-      return { id, kind: e.kind, name: v.name || v.recipe?.type || e.cat || e.kind, ...(e.cat && { cat: e.cat }), ...(e.x != null && { x: round(e.x), z: round(e.z) }) };
+      return { id, kind: e.kind, name: v.name || v.recipe?.type || e.cat || e.kind, ...(e.kind === 'room' && { label: v.name || typeLabel(rt, e.recipe.type) }), ...(e.cat && { cat: e.cat }), ...(e.x != null && { x: round(e.x), z: round(e.z) }) };
     }).filter(Boolean);
     out.push({ seat: sid, name: s.name, kind: s.kind === 'llm' ? 'ai' : 'human', role: s.role, color: s.color, area: p.area, areaName: T?.name, cursor: p.cursor && !(p.secret && !isGmSide(rt.state, seat)) ? [round(p.cursor[0]), round(p.cursor[1])] : null, selection, secondsAgo: Math.round((now - p.at) / 1000) });
   }
@@ -282,6 +331,7 @@ function campaignTalk(rt, seat, after, kinds) {
     if (!r.resync) events.push(...talkEvents(rt, seat, a, r.entries, kinds));
     seqs[a] = T.seq;
   }
+  if (wantsPings(kinds)) events.push(...pingEvents(rt, seat));
   return { events, cursor: cursorOf(seqs), areas };
 }
 
@@ -296,7 +346,7 @@ export async function handleGet(rt, seat, token, rest, q, base) {
   // THE HELP PAGES the card links to (2026-10-20): /help lists them, /help/<topic> is one (relay/llm-card.js)
   if (rest[0] === 'help') return [200, helpPage(rt, seat, base, shortTok, rest[1] || null), 'text/plain; charset=utf-8'];
   // CATALOGS (2026-10-20): the library's pieces (things?q=candle), the room types by kind, the factions, the conditions
-  if (rest[0] === 'things') { const qq = q.get('q') || ''; return [200, { ok: true, ...(qq ? { q: qq, things: findThings(rt, qq, Math.min(40, Number(q.get('limit')) || 12)) } : { how: 'add q=WORDS (q=candle, q=chest, q=barrel); put one down with object.place&cat=ID&x=FEET&z=FEET' }) }]; }
+  if (rest[0] === 'things') { const qq = q.get('q') || ''; return [200, { ok: true, ...(qq ? { q: qq, ...(roomHint(rt, seat, null, qq) && { room: roomHint(rt, seat, null, qq) }), things: findThings(rt, qq, Math.min(40, Number(q.get('limit')) || 12)) } : { how: 'add q=WORDS (q=candle, q=chest, q=barrel); put one down with object.place&cat=ID&x=FEET&z=FEET' }) }]; }
   if (rest[0] === 'rooms') { const groups = {}; for (const t of rt.roomgen?.typeList || []) (groups[t.group || 'Inn & home'] ||= []).push({ type: t.key, name: t.label, ...(t.cells && { size_ft: t.cells.map(n => n * 5) }) }); return [200, { ok: true, how: 'room.spawn&type=TYPE&x=FEET&z=FEET&w=FEET&d=FEET', groups }]; }
   if (rest[0] === 'factions') { const lib = rt.roomgen?.lib; return [200, { ok: true, how: 'faction.set&id=ROOM_OR_BUILDING_ID&flavor=FACTION (flavor=inherit goes back)', factions: lib ? factionCatalog(lib).factions.map(f => ({ id: f.id, name: f.label, group: f.group })) : [] }]; }
   if (rest[0] === 'conditions') return [200, { ok: true, how: 'token.set&id=PAWN_ID&conditions=prone,poisoned (the whole list each time; conditions= clears). Any short text is allowed (up to 12 words of 24 characters): these have their own look on the table; any other word shows as a small text label over the pawn', conditions: CONDITIONS, exhaustion: 'exhaustion 1 .. exhaustion 6 (one level; the base rim drains)', other: 'any short word, e.g. Hexed, Blessed, deafened, petrified: a text label' }];
@@ -327,7 +377,7 @@ export async function handleGet(rt, seat, token, rest, q, base) {
         done = true; clearTimeout(timer); offs.forEach(f => f());
         resolve([200, { events: r.events, cursor: r.cursor }]);
       };
-      const arm = () => { offs.forEach(f => f()); offs = now.areas.map(a => rt.wait(a, () => finish(false))); };
+      const arm = () => { offs.forEach(f => f()); offs = [...now.areas.map(a => rt.wait(a, () => finish(false))), rt.waitPing(seat, () => finish(false))]; };
       arm();
       const timer = setTimeout(() => finish(true), wait * 1000);
     });
@@ -367,39 +417,42 @@ export async function handleGet(rt, seat, token, rest, q, base) {
       if (yq !== null && !Number.isFinite(yq)) return [400, { ok: false, why: 'y (feet) must be a number' }];
       const hOf = (e) => e.kind === 'room' ? H.roomY(e.recipe) : e.y || 0;
       const sOf = (e) => e.kind === 'room' ? H.levelOf(seen, e) : H.tokenFloor(seen, e).storey;
-      const near = vis.map(e => seesLabels(rt.state, seat, area) ? e : stripEntity(e)).map(e => ({ e, p: entityPoint(e) })).filter(({ e, p }) => p && Math.hypot(p[0] - x, p[1] - z) <= r && (yq === null || (hOf(e) >= yq - 0.5 && hOf(e) < yq + H.STOREY - 0.5)))
-        .map(({ e, p }) => ({ id: e.id, kind: e.kind, name: e.name || e.recipe?.type, x: round(p[0]), z: round(p[1]), y: round(hOf(e)), storey: sOf(e), level: e.kind === 'room' ? H.levelLabel(H.levelOf(seen, e)) : H.tokenFloor(seen, e).level, // (storey: the level's index, the map's; level: its label, 2026-10-26)
- dist: round(Math.hypot(p[0] - x, p[1] - z)) })).sort((a, b) => a.dist - b.dist);
+      const labels = seesLabels(rt.state, seat, area), shown = seenOf(rt, seat, area).seen; // (shown: labels out, for what a stair says)
+      const stairNear = (e) => !stairsOf(shown).some(s => s.id === e.id) ? {} : (({ says, goes, leadsTo }) => ({ stair: true, says, ...(yq !== null && { goes, leadsTo }) }))(stairFor(rt, shown, shown[e.id], { y: yq ?? 0 }));
+      const near = vis.map(e => labels ? e : stripEntity(e)).map(e => ({ e, p: entityPoint(e) })).filter(({ e, p }) => p && Math.hypot(p[0] - x, p[1] - z) <= r && (yq === null || (hOf(e) >= yq - 0.5 && hOf(e) < yq + H.STOREY - 0.5)))
+        .map(({ e, p }) => ({ id: e.id, kind: e.kind, name: e.name || e.recipe?.type, ...(e.kind === 'room' && { label: e.name || typeLabel(rt, e.recipe.type), ...(e.building && { building: e.building }), ...buildingLabelOf(seen, e, labels) }), x: round(p[0]), z: round(p[1]), y: round(hOf(e)), storey: sOf(e), level: e.kind === 'room' ? H.levelLabel(H.levelOf(seen, e)) : H.tokenFloor(seen, e).level, // (storey: the level's index, the map's; level: its label, 2026-10-26)
+ ...(e.kind === 'object' && stairNear(e)), dist: round(Math.hypot(p[0] - x, p[1] - z)) })).sort((a, b) => a.dist - b.dist);
       return [200, { seq: T.seq, at: [x, z], ...(yq !== null && { y: yq }), r, near }];
     }
     if (op === 'changes' && parseKinds(q)) { // only says and rolls wake you (kinds=chat,roll)
       const kinds = parseKinds(q), after = Number(q.get('after') ?? T.seq);
       const wait = Math.min(30, Math.max(0, Number(q.get('wait') ?? 25)));
-      const pick = () => { const r = rt.entriesAfter(area, Math.min(after, T.seq), seat); return r.resync ? { resync: true, seq: T.seq, events: [], why: 'too far behind; read state again' } : { events: talkEvents(rt, seat, area, r.entries, kinds), seq: r.seq }; };
+      const pick = () => { const r = rt.entriesAfter(area, Math.min(after, T.seq), seat); return r.resync ? { resync: true, seq: T.seq, events: [], why: 'too far behind; read state again' } : { events: [...talkEvents(rt, seat, area, r.entries, kinds), ...(wantsPings(kinds) ? pingEvents(rt, seat, area) : [])], seq: r.seq }; };
       const now = pick();
       if (now.events.length || now.resync || wait === 0) return [200, now];
       return new Promise(resolve => {
         let done = false, off = null;
+        const arm = () => { off?.(); const a = rt.wait(area, () => finish(false)), b = rt.waitPing(seat, () => finish(false)); off = () => { a(); b(); }; };
         const finish = (force) => {
           if (done) return;
           if (!canSee(rt.state, seat, area)) { done = true; clearTimeout(timer); off?.(); return resolve([200, { ok: false, code: 'invisible', why: 'area no longer visible' }]); }
           const r = pick();
-          if (!r.events.length && !r.resync && !force) { off = rt.wait(area, () => finish(false)); return; }
+          if (!r.events.length && !r.resync && !force) { arm(); return; }
           done = true; clearTimeout(timer); off?.(); resolve([200, r]);
         };
-        off = rt.wait(area, () => finish(false));
+        arm();
         const timer = setTimeout(() => finish(true), wait * 1000);
       });
     }
     if (op === 'changes') {
       const after = Number(q.get('after') ?? T.seq);
       const wait = Math.min(30, Math.max(0, Number(q.get('wait') ?? 25)));
-      const now = rt.entriesAfter(area, after, seat);
-      if (now.resync || now.entries.length || wait === 0) return [200, now.resync ? { ...now, why: 'too far behind; read state again' } : now];
+      const now = rt.entriesAfter(area, after, seat), pings = pingEvents(rt, seat, area), told = pings.length ? { pings } : {}; // (no `kinds`: this feed is everything, and a ping is not a log entry, so it rides beside them)
+      if (now.resync || now.entries.length || wait === 0 || pings.length) return [200, now.resync ? { ...now, why: 'too far behind; read state again', ...told } : { ...now, ...told }];
       return new Promise(resolve => {
         let done = false;
-        const finish = () => { if (done) return; done = true; clearTimeout(timer); off(); resolve([200, canSee(rt.state, seat, area) ? rt.entriesAfter(area, after, seat) : { ok: false, code: 'invisible', why: 'area no longer visible' }]); };
-        const off = rt.wait(area, finish);
+        const finish = () => { if (done) return; done = true; clearTimeout(timer); off(); offPing(); const p = pingEvents(rt, seat, area); resolve([200, canSee(rt.state, seat, area) ? { ...rt.entriesAfter(area, after, seat), ...(p.length && { pings: p }) } : { ok: false, code: 'invisible', why: 'area no longer visible' }]); };
+        const off = rt.wait(area, finish), offPing = rt.waitPing(seat, finish);
         const timer = setTimeout(finish, wait * 1000);
       });
     }
@@ -501,8 +554,16 @@ function act(rt, seat, cmd0, q) {
   }
   // A PIECE OF THE LIBRARY BY ITS ID: object.place&cat=candlestick (the mesh and its size from the library), in the room
   // it stands in (so it moves, turns and hides with that room)
+  // (a word that is a room: the answer names the call that makes the room, things.js roomHint)
+  if (cmd.type === 'object.place' && !cmd.args.cat && !cmd.args.url && cmd.args.place !== 'stair') {
+    const hint = roomHint(rt, seat, cmd.area, cmd.args.name || '');
+    if (hint && !['1', 'true'].includes(q.get('marker'))) return { ok: false, code: 'invalid', why: `${hint} (object.place with no cat would only leave a marker, a bare box with that name; marker=1 if that is what you want.)` };
+    extra.note = `no cat: this is only a marker, a bare box named "${cmd.args.name || 'object'}", no piece of the library. Find a piece with /things?q=WORDS; object.place&cat=ID puts it down.${hint ? ` ${hint}` : ''}`;
+  }
   if (cmd.type === 'object.place' && cmd.args.cat && cmd.args.place !== 'stair') {
-    const r = placeArgs(rt, cmd.args); if (r.error) return { ok: false, code: 'invalid', why: r.error };
+    const r = placeArgs(rt, cmd.args), hint = roomHint(rt, seat, cmd.area, cmd.args.cat);
+    if (r.error) return { ok: false, code: 'invalid', why: hint ? `${hint} (There is no thing "${String(cmd.args.cat).slice(0, 30)}" in the library.)` : r.error };
+    if (hint) extra.note = `this is one piece of furniture, a ${cmd.args.cat.replace(/-/g, ' ')}. ${hint}`;
     cmd = { ...cmd, args: r.args };
     if (!cmd.args.room && cmd.args.x != null) { const seen = Object.fromEntries(Object.entries(E).filter(([id]) => sees(id))), f = H.floorUnder(seen, +cmd.args.x, +cmd.args.z, +(cmd.args.y || 0)); if (f?.room) cmd = { ...cmd, args: { ...cmd.args, room: f.room } }; }
   }
@@ -535,6 +596,9 @@ function act(rt, seat, cmd0, q) {
   //                        over others does in the browser): the relay works out the outline; the larger piece when the
   //                        rectangle is cut in two
   if (cmd.type === 'room.spawn') {
+    // what the card leaves out: a seed (any will do), and a cave's height (below the ground, as the room tool puts it)
+    if (cmd.args.seed == null || cmd.args.seed === '') cmd = { ...cmd, args: { ...cmd.args, seed: String(crypto.randomInt(1, 1e6)) } };
+    if (isCave({ type: cmd.args.type }) && (cmd.args.y == null || cmd.args.y === '')) { cmd = { ...cmd, args: { ...cmd.args, y: String(CAVE_DEPTH) } }; extra.note = `a cave goes below the ground: y=${CAVE_DEPTH}, ${H.levelLabel(H.levelAt(CAVE_DEPTH))} (send y for another height)`; }
     const shaped = shapeArgs(rt, cmd, q);
     if (shaped.error) return { ok: false, code: 'invalid', why: shaped.error };
     cmd = { ...cmd, args: shaped.args }; if (shaped.note) conv.note = [conv.note, shaped.note].filter(Boolean).join(' ');
@@ -569,8 +633,11 @@ function act(rt, seat, cmd0, q) {
   const basedOn = q.has('based_on') ? Number(q.get('based_on')) : null;
   const res = rt.dispatch(seat, cmd, { cid: nonce || null, basedOn: Number.isFinite(basedOn) ? basedOn : null, force: q.get('force') === '1', fromQuery: true, stair: q.get('stair') !== '0' });
   if (res.ok && !res.duplicate) rt.llmSeen.set(seat, Date.now());
+  // A STAIR, STRAIGHT AFTER IT IS MADE OR SWITCHED, SAYS WHICH WAY IT LEADS: the moment a seat would otherwise have to guess
+  const stairId = res.ok && (res.stair || (['object.place', 'stair.flip'].includes(cmd.type) && cmd.args.id)), madeStair = {};
+  if (stairId) { const { seen } = seenOf(rt, seat, cmd.area); if (seen[stairId] && stairsOf(seen).some(s => s.id === stairId)) { const i = stairFor(rt, seen, seen[stairId]); Object.assign(madeStair, { stairSays: i.says, stairWorks: i.works }); } }
   const placed = res.ok && (cmd.type === 'token.create' || (cmd.type === 'token.move' && cmd.args.room) || cmd.type === 'object.place') ? { at: { x: Number(cmd.args.x), z: Number(cmd.args.z), ...(cmd.args.y != null && { y: Number(cmd.args.y) }) } } : {};
-  return { ...res, ...(prefix && res.ok && { id: cmd.args.id }), ...(res.ok && extra), ...placed, ...(cmd.type === 'object.replace' && res.ok && { now: cmd.args.cat }), ...((conv.note || (!res.ok && extra.note)) && { note: [conv.note, extra.note].filter(Boolean).join(' ') }) };
+  return { ...res, ...(prefix && res.ok && { id: cmd.args.id }), ...(res.ok && extra), ...placed, ...madeStair, ...(cmd.type === 'object.replace' && res.ok && { now: cmd.args.cat }), ...((conv.note || (!res.ok && extra.note)) && { note: [conv.note, extra.note].filter(Boolean).join(' ') }) };
 }
 
 // EXPORT THE AREA as a .turnip.json: /a/<area>/share[?strip=1]. The whole area only: a selection (ids=, kind=) is not

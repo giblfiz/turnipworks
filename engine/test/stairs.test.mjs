@@ -276,5 +276,20 @@ const sameStair = (Eb, b, Ea, a) => {
   } else console.log('  (no corpus of saved campaigns here: the conversion was checked on made-up stairs only)');
 }
 
+// ---- 8. a ladder whose foot is blocked (2026-11-03; on dev a ladder in a one-square passage had its foot in the rock):
+// climbed from below it still goes up; dropped on its hole from above the pawn is never sent down into the rock at its
+// foot, it stays on the top landing. A ladder with a free foot is climbed down as before.
+{
+  const rm = (id, type, x, z, w, d, y) => ({ id, kind: 'room', order: 1, recipe: { type, x, z, w, d, seed: 1, wallSeed: 2, y } });
+  const lad = { id: 'obj_lad', kind: 'object', cat: 'ladder-wood', place: 'wall', layer: 'furnish', x: 12.5, y: -20, z: 7.5, rot: Math.PI / 2, dims: [3.86, 10, 2.07], room: 'room_pass' };
+  const E = { room_pass: rm('room_pass', 'crypt-passage', 2, 0, 1, 6, -20), room_up: rm('room_up', 'cellar', 2, 0, 4, 4, -10), obj_lad: lad };
+  eq([S.stairStatus(E, lad).code, S.stairCells(lad)], ['foot', [[2, 1]]], 'the fixture: a ladder in a one-square passage, its foot (east of it) in the rock');
+  const up = S.stairHop(E, 12.5, 7.5, -20), down = S.stairHop(E, 12.5, 7.5, -10);
+  eq(up && [up.x, up.z, up.y], [17.5, 7.5, -10], 'dropped on it from the passage, the pawn climbs to the floor above (the landing beside the hole)');
+  eq(down && [down.x, down.z, down.y], [17.5, 7.5, -10], 'dropped on its hole from above, it stays on that floor, on the top landing (before: sent to the foot, inside the rock at -20)');
+  const E2 = { ...E, room_pass: rm('room_pass', 'crypt-passage', 2, 0, 2, 6, -20) }, d2 = S.stairHop(E2, 12.5, 7.5, -10);
+  eq([S.stairStatus(E2, lad).code, d2 && [d2.x, d2.z, d2.y]], [null, [17.5, 7.5, -20]], 'with floor at its foot, the hole is climbed down to the foot as before');
+}
+
 console.log(`stairs: ${checks - fails}/${checks} passed`);
 process.exit(fails ? 1 : 0);

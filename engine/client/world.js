@@ -47,6 +47,7 @@ const SLEEP_PER_FRAME = 12, UNIT_PAD = 6, UNIT_ROOF = 20; // rooms put to sleep 
 const _fr = new THREE.Frustum(), _pm = new THREE.Matrix4(), _ball = new THREE.Sphere(), _bc = new THREE.Vector3();
 const UNSEEN_KEEP = 7.5; // ft round a stair's hole within which a covered room's things are still drawn (they show through it)
 const _sv = new THREE.Vector3();
+const _ub = new THREE.Vector2(), _uc = new THREE.Color(); // (underPrepass)
 const CELL = 5, WALL_H = 9, OUTSET = 0.6; // ft: wall height; a room's volume reaches the walls' outer faces
 const OPEN_MS = 650, POP_MS = 300, POP = 0.08; // an openable's swing / slide, and the open twin's little pop (openTo; the 2026-10-02 pilot's swap: 0.35 s, 8%)
 export const NO_DROP = '#e5484d'; // a drop that would be refused (the one destructive red)
@@ -57,6 +58,13 @@ export const HILL_SEE = 0.25;
 // (2026-10-27, Harry: "Honestly, I think that should probably also apply to the ground itself. I sort of am imagining that
 // if I have a 3/4 view") the same for the ground plane at a view below the ground (the campaign's `groundSee`)
 export const GROUND_SEE = 0.25;
+// (2026-11-03, Harry: "I think that it probably looks better by default if we can see underground structures even when
+// we're overground. But they would just have a level of, you know, a level of fade to them that's relatively aggressive")
+// how strongly the cellars and caves show through the ground at a view at or above it: 0 = not at all (the ground solid
+// over them, as before), 1 = as if the ground were not there. The campaign's `underSee` (House look ▸ Above the ground:
+// underground shows); world.js underPrepass
+export const UNDER_SEE = 0.2;
+const UNDER_SMALL = 1.5; // ft: a thing under the ground smaller than this every way is not drawn through it (underList)
 // the "remote selected" look (another seat's selection, Harry 2026-10-04): the shared selection module's brackets, quiet.
 // (Kept here, as a preset passed to the module, so the game needn't wait on a tuner deploy; it can become a fifth state
 // of tools/spawn-tuner/js/fx/selection.js later.)
@@ -148,8 +156,13 @@ export class AreaWorld {
     this.groundCover = createGroundCover(this); // the area's ground material over all open ground (client/groundcover.js; core area.ground)
     this.groundSee = GROUND_SEE; // (2026-10-27) and the ground plane's (groundSeePass)
     this.hillSee = HILL_SEE; // (2026-10-27) how see-through the hills are below the ground (hillSeePass; House look sets it)
+    this.underSee = UNDER_SEE; // (2026-11-03) how strongly the underground shows through the ground from above (underPrepass)
     this.terrain = createTerrain(this); // hills and the banks the engine lays between them (client/terrain.js, core/terrain.js; 2026-10-24)
-    this.grid = new THREE.GridHelper(W, W / CELL, '#4a4e40', '#3a3d33'); this.scene.add(this.grid);
+    // the ground's 5-ft grid. It hangs in a holder of its own: grid.visible is the area's rule (settings.js), first person and
+    // the map export; gridHold.visible is only "no level grid is up" (showLevelGrid). Harry 2026-11-03: "let's only show the
+    // grid that you're drawing on." So while you build on a level above or below the ground, its ghost grid is the one grid.
+    this.gridHold = new THREE.Group(); this.gridHold.name = 'ground-grid'; this.scene.add(this.gridHold);
+    this.grid = new THREE.GridHelper(W, W / CELL, '#4a4e40', '#3a3d33'); this.gridHold.add(this.grid);
     this.layers = { shell: new THREE.Group(), things: new THREE.Group(), deco: new THREE.Group(), cursors: new THREE.Group() };
     for (const g of Object.values(this.layers)) this.scene.add(g);
     this.cutFly = gameFly(this); this.born = performance.now(); // levels above the cut fly away (cutfly.js); its carriers live in a layer of their own
@@ -777,8 +790,21 @@ export class AreaWorld {
       if (hide) { if (!g.userData.cutHidden) { g.userData.cutAbove = above; if (above && !owner.asleep) fly?.leave(g, owner, g.visible); } g.userData.cutHidden = true; g.visible = false; }
       else if (g.userData.cutHidden) { g.userData.cutHidden = false; g.visible = base; if (base && g.userData.cutAbove && !owner.asleep) fly?.arrive(g, owner); }
     };
-    for (const s of this.shell.values()) { const above = this.cutHidden.has(s.roomId); set(s.group, above || this.unseenShell(s) || this.fogHidesShell(s) || this.hillSeeHides(s) || this.takenShell(s), this.wallsOn || s.spec.layer === 'floor', above, s); }
-    for (const r of this.recs.values()) { const k = r.entity.kind; if (k === 'object' || k === 'token') { const above = this.cutHides(r.entity); set(r.group, above || this.unseenThing(r.entity) || this.fogRule?.(r.entity) || this.offRoof(r.entity), true, above, r); } }
+    // (2026-11-03) WHAT SHOWS THROUGH THE GROUND FROM ABOVE (underPrepass): the pieces and things of the rooms under the
+    // closed ground that nothing but the ground hides: the cut, fog of war, the walls switch and the rest are asked
+    // exactly as for drawing them, so a seat is shown through the ground only what it would see at lv -1 itself
+    const under = { shell: [], things: [] }, U = this.unseenUnder, lid = [], E = this.view?.entities || {}, meets = new Map(), onGround = (id) => { let v = meets.get(id); if (v === undefined) meets.set(id, v = HT.meetsGround(E, E[id])); return v; };
+    for (const s of this.shell.values()) {
+      const above = this.cutHidden.has(s.roomId), other = above || this.fogHidesShell(s) || this.hillSeeHides(s) || this.takenShell(s), base = this.wallsOn || s.spec.layer === 'floor';
+      set(s.group, other || this.unseenShell(s), base, above, s);
+      if (other || !base) continue;
+      if (U.has(s.roomId)) under.shell.push(s);
+      else if (s.spec.layer === 'floor' && !s.spec.slab && (s.hill || onGround(s.roomId))) lid.push(s); // (the lid: a floor on the ground, a hill's top)
+    }
+    for (const r of this.recs.values()) { const k = r.entity.kind; if (k === 'object' || k === 'token') { const above = this.cutHides(r.entity), other = above || this.fogRule?.(r.entity) || this.offRoof(r.entity); set(r.group, other || this.unseenThing(r.entity), true, above, r);
+      if (!other && U.size && (r.entity.room ? U.has(r.entity.room) : k === 'token' && this.pawnLevel(r.entity) < 0) && (k === 'token' || !(Math.max(...(r.entity.dims || [9])) < UNDER_SMALL))) under.things.push(r); } } // (not the apples and the candles: too small to read at a faint fade, and each is a draw)
+    let sig = under.shell.length * 7 + under.things.length * 13 + lid.length * 17; for (const L of [under.shell, under.things, lid]) for (const x of L) sig = (sig * 31 + x.group.id) % 2147483647;
+    this.underList = under; this.underLid = lid; if (sig !== this.underSig) { this.underSig = sig; this.underGen = (this.underGen || 0) + 1; } // (drawn again only when what is shown changed: a fog refresh that changes nothing costs nothing)
     fly?.commit();
     this.cutApplied = this.cut != null;
     this.shadowKey = null; // which things may cast the fire's shadow follows what is shown (shadowPass)
@@ -1253,6 +1279,122 @@ export class AreaWorld {
     const tile = op > 0 && op < 1 ? op : 1;
     for (const sh of this.hillShell || []) if ((sh.seeOp !== tile || sh.seeVis !== sh.visual) && !sh.ghost) { seeThrough(sh.visual, tile); sh.seeOp = tile; sh.seeVis = sh.visual; }
   }
+  // THE UNDERGROUND SHOWS THROUGH THE GROUND FROM ABOVE (2026-11-03; Harry: "I think that it probably looks better by
+  // default if we can see underground structures even when we're overground. But they would just have a level of ... fade
+  // to them that's relatively aggressive"). At a view at or above the ground (the cut at 0 or up, or off) the cellars,
+  // dungeons and caves under it are drawn faintly THROUGH the ground, and the surface stays exactly itself: no material of
+  // the ground, a hill or anything on them is changed, nothing is made see-through.
+  //   1  the underground   the pieces and things that nothing but the closed ground hides (cutPass: underList; fog of war,
+  //                        the cut and the rest asked as for drawing them) are drawn by themselves, lit as the scene is,
+  //                        into a buffer of their own (half size) with their own depth: a cellar's walls hide its floor
+  //                        as they should, and nothing of the surface is in it
+  //   2  the lid           the depth of what the underground lies under, alone: the ground, the patches of an area's
+  //                        ground cover, the hills' banks and tops, the floors of the rooms on the ground (underLid)
+  //   3  the picture       one screen-sized quad in the main scene, drawn after everything solid, gives the buffer at
+  //                        `underSee` where the lid is what you see: it is depth-tested AT THE LID's depth (each pixel's
+  //                        own), so a wall, a thing, a pawn or a roof standing on the ground hides it as it hides the
+  //                        ground, and it never shows over them. It writes no depth and takes no pick.
+  // 1 and 2 are drawn again only when the camera, the window, what is shown or anything in the scene moved (underKey);
+  // a still view costs the quad alone. Below the ground (cut under 0) it is off: the ground and hills fade there instead
+  // (groundSeePass, hillSeePass). Off in first person, and at 0.
+  underSeeNow() { return (this.cut == null || this.cut >= 0) && !this.eye && !this.local ? this.underSee : 0; }
+  setUnderSee(v) { v = Math.max(0, Math.min(1, Number.isFinite(+v) ? +v : UNDER_SEE)); if (v === this.underSee) return; this.underSee = v; this.underKey = null; }
+  underQuadMesh() {
+    if (this.underQuad) return this.underQuad;
+    const m = new THREE.ShaderMaterial({
+      uniforms: { tUnder: { value: null }, tLid: { value: null }, uSee: { value: 0 }, uNear: { value: 0.5 }, uFar: { value: 3000 }, uSrgb: { value: 0 } },
+      vertexShader: 'varying vec2 vUv;\nvoid main() { vUv = position.xy * 0.5 + 0.5; gl_Position = vec4(position.xy, 0.0, 1.0); }',
+      fragmentShader: `#include <packing>
+uniform sampler2D tUnder; uniform sampler2D tLid; uniform float uSee; uniform float uNear; uniform float uFar; uniform float uSrgb; varying vec2 vUv;
+void main() {
+  float d = texture2D(tLid, vUv).x;
+  vec4 u = texture2D(tUnder, vUv);
+  float vz = perspectiveDepthToViewZ(min(d, 0.9999999), uNear, uFar);
+  // drawn at the lid's own depth, pulled a little toward the eye: by more where the lid slants away from it (a pixel's
+  // samples differ in depth there), so the lid is never lost against itself, and a thing standing on it still wins
+  float slope = abs(dFdx(vz)) + abs(dFdy(vz));
+  if (d >= 1.0 || u.a < 0.004) discard;
+  gl_FragDepth = viewZToPerspectiveDepth(vz + min(2.0, 0.02 + 0.0004 * -vz + 1.5 * slope), uNear, uFar);
+  vec3 c = u.rgb / max(u.a, 0.004);
+  if (uSrgb > 0.5) c = sRGBTransferEOTF(vec4(c, 1.0)).rgb; // (the buffer was drawn as the main view draws: to the screen's colours, see underDone)
+  gl_FragColor = vec4(c, u.a * uSee);
+  #include <tonemapping_fragment>
+  #include <colorspace_fragment>
+}`,
+      transparent: true, depthTest: true, depthWrite: false, toneMapped: true });
+    const q = this.underQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), m);
+    q.name = 'fx-undersee'; q.frustumCulled = false; q.renderOrder = -1000; q.visible = false; q.raycast = () => {};
+    Object.assign(q.userData, { noPick: true, treatAsOpaque: true, halo: true, noCast: true }); // (treatAsOpaque: the contact-shadow pass leaves it out of its see-through lists, fx/lighting.js)
+    this.scene.add(q);
+    return q;
+  }
+  // called by main.js just before the main view is drawn (and underDone just after): the quad is in the scene for that one
+  // draw only, so no other view, picture or pass ever sees it
+  underPrepass(renderer, camera) {
+    const op = this.underSeeNow(), L = this.underList;
+    if (this.underQuad) this.underQuad.visible = false;
+    if (!(op > 0) || !L || !(L.shell.length || L.things.length)) { this.underShown = 0; return false; }
+    const sz = renderer.getDrawingBufferSize(_ub), w = Math.max(1, sz.x), h = Math.max(1, sz.y), hw = Math.max(1, w >> 1), hh = Math.max(1, h >> 1);
+    let lid = this.underLidRT, und = this.underRT;
+    if (!lid) {
+      lid = this.underLidRT = new THREE.WebGLRenderTarget(w, h, { depthBuffer: true }); lid.depthTexture = new THREE.DepthTexture(w, h); lid.depthTexture.type = THREE.UnsignedIntType;
+      for (const t of [lid.texture, lid.depthTexture]) t.minFilter = t.magFilter = THREE.NearestFilter;
+      und = this.underRT = new THREE.WebGLRenderTarget(hw, hh, { depthBuffer: true, type: THREE.HalfFloatType }); und.texture.minFilter = und.texture.magFilter = THREE.LinearFilter;
+      this.underDepthMat = new THREE.MeshBasicMaterial({ colorWrite: false });
+    }
+    // the buffer is drawn in the colours the main view is drawn in (underDone learns them): a material drawn into two
+    // kinds of target needs two shader programs, and on a slow machine compiling the second for every material of the
+    // underground held a tab up for minutes (the main view draws to the screen when the lighting stack is off)
+    if (this.underCS == null) this.underCS = this.fx?.lighting?.params?.on ? THREE.NoColorSpace : renderer.outputColorSpace; // (a first guess: the lighting stack's buffers, or the screen)
+    if (und.texture.colorSpace !== this.underCS) { und.texture.colorSpace = this.underCS; this.underKey = null; }
+    if (lid.width !== w || lid.height !== h) lid.setSize(w, h);
+    if (und.width !== hw || und.height !== hh) und.setSize(hw, hh);
+    const G = THREE.Object3D.prototype.__twGraph, me = camera.matrixWorld.elements, pe = camera.projectionMatrix.elements;
+    let moved = 0; for (const r of L.things) { const e = r.group.matrixWorld.elements; moved += e[12] * 1.3 + e[13] * 7.1 + e[14] * 2.9 + e[0] * 3.7 + e[2] * 5.3; } // (a pawn walking in a cellar, a thing dragged there)
+    const key = `${me.map(v => v.toFixed(4)).join(',')}|${pe[0].toFixed(5)},${pe[5].toFixed(5)},${pe[10].toFixed(6)}|${w}x${h}|${this.underGen}|${G?.gen}|${this.ground.geometry.id}|${moved.toFixed(4)}|${this.anims.size}`;
+    if (key !== this.underKey || this.anims.size) { this.underKey = key; this.underDraw(renderer, camera); }
+    const q = this.underQuadMesh(), U = q.material.uniforms;
+    U.tUnder.value = und.texture; U.tLid.value = lid.depthTexture; U.uSee.value = op; U.uNear.value = camera.near; U.uFar.value = camera.far; U.uSrgb.value = und.texture.colorSpace === THREE.SRGBColorSpace ? 1 : 0;
+    q.visible = true; this.underShown = op;
+    return true;
+  }
+  underDone(renderer) { const q = this.underQuad; if (!q) return; if (q.visible && renderer) { const cs = renderer.properties.get(q.material)?.outputColorSpace; if (cs != null) this.underCS = cs; } q.visible = false; } // (the colours the main view was just drawn in: its quad's own program says)
+  underDraw(renderer, camera) {
+    const t0 = performance.now(), sc = this.scene, L = this.underList;
+    const drawn = (o) => { for (let p = o; p; p = p.parent) { if (!p.visible) return false; if (p === sc) return true; } return false; };
+    const G = THREE.Object3D.prototype.__twGraph; if (!this.underLights || this.underLightsGen !== G?.gen) { this.underLightsGen = G?.gen; this.underLights = []; sc.traverse(o => { if (o.isLight) this.underLights.push(o); }); } // (the scene's lights: walked again only when the scene graph changed)
+    const lights = this.underLights.filter(drawn);
+    // the lid: the ground (and its cover's patches), the hills' banks, the floors on the ground and the hills' tops
+    const lid = [];
+    if (this.ground.visible) lid.push(this.ground);
+    for (const o of this.groundCover?.patchGroup?.()?.children || []) if (o.isMesh && drawn(o)) lid.push(o);
+    if (this.terrain?.group && drawn(this.terrain.group)) this.terrain.group.traverse(o => { if (o.isMesh && o.userData.terrainBank && o.visible) lid.push(o); });
+    for (const s of this.underLid || []) if (!s.asleep && drawn(s.group)) lid.push(s.group);
+    // the underground: shown for this draw only (most are hidden in the main view: nobody sees through the closed ground)
+    const list = [], was = [];
+    for (const s of L.shell) if (!s.asleep && s.group.parent) { list.push(s.group); was.push([s.group, s.group.visible]); s.group.visible = true; }
+    for (const r of L.things) if (!r.asleep && r.group.parent) { list.push(r.group); was.push([r.group, r.group.visible]); r.group.visible = true; }
+    const kids = sc.children, bg = sc.background, over = sc.overrideMaterial, mwa = sc.matrixWorldAutoUpdate, prev = renderer.getRenderTarget(), cc = renderer.getClearColor(_uc), ca = renderer.getClearAlpha(), smu = renderer.shadowMap.autoUpdate, smn = renderer.shadowMap.needsUpdate, ac = renderer.autoClear;
+    try {
+      sc.background = null; sc.matrixWorldAutoUpdate = false; renderer.shadowMap.autoUpdate = false; renderer.shadowMap.needsUpdate = false; renderer.autoClear = false; renderer.setClearColor(0x000000, 0);
+      // (the scene's lights go along in both draws although the lid needs none: three.js gives every material a new
+      // program look-up whenever the set of lights drawn with differs from the draw before, and that was 11 ms a frame on a big map)
+      sc.children = lights.concat(lid); sc.overrideMaterial = this.underDepthMat;
+      const ar = renderer.info.autoReset; renderer.info.autoReset = false; const c0 = renderer.info.render.calls, t1 = performance.now();
+      renderer.setRenderTarget(this.underLidRT); renderer.clear(true, true, false); renderer.render(sc, camera);
+      const t2 = performance.now(), c1 = renderer.info.render.calls;
+      sc.children = lights.concat(list); sc.overrideMaterial = over;
+      renderer.setRenderTarget(this.underRT); renderer.clear(true, true, false); renderer.render(sc, camera);
+      this.underSplit = { prep: +(t1 - t0).toFixed(2), lid: +(t2 - t1).toFixed(2), under: +(performance.now() - t2).toFixed(2), lidCalls: c1 - c0, underCalls: renderer.info.render.calls - c1, lights: lights.length }; renderer.info.autoReset = ar;
+    } finally {
+      sc.children = kids; sc.background = bg; sc.overrideMaterial = over; sc.matrixWorldAutoUpdate = mwa;
+      renderer.setRenderTarget(prev); renderer.setClearColor(cc, ca); renderer.shadowMap.autoUpdate = smu; renderer.shadowMap.needsUpdate = smn; renderer.autoClear = ac;
+      for (const [g, v] of was) g.visible = v;
+    }
+    this.underDraws = (this.underDraws || 0) + 1; this.underLast = { ms: +(performance.now() - t0).toFixed(2), lid: lid.length, pieces: L.shell.length, things: L.things.length, drawn: list.length, ...this.underSplit };
+  }
+  // (tests) what shows through the ground from above, and how
+  underInfo() { this.cutPass(); const L = this.underList || { shell: [], things: [] }; return { see: this.underSeeNow(), setting: this.underSee, shown: this.underShown || 0, rooms: [...new Set(L.shell.map(s => s.roomId))].sort(), things: L.things.map(r => r.entity.id).sort(), pieces: L.shell.length, lid: (this.underLid || []).length, draws: this.underDraws || 0, last: this.underLast || null }; }
   // (2026-10-26) a tile of a hill's top where a room stands on it or is dug into it: hidden while that room shows (the room's
   // floor is the floor there), drawn while the cut hides it (the hill is whole again: a shrine cut away leaves the hilltop)
   takenShell(s) { const tb = s.spec.takenBy; if (!tb) return false; const E = this.view?.entities; return tb.some(id => E?.[id] && !(this.cut != null && this.cutHidden?.has(id))); }
@@ -1327,6 +1469,7 @@ export class AreaWorld {
     obj.userData.ghost = mode; obj.userData.ghostY = y;
     return mode;
   }
+  groundGridShown() { return !!(this.grid.visible && this.gridHold.visible); } // (tests)
   ghosts() { return [this.levelGrid, ...[...(this.cellMarks?.values() || [])].flatMap(c => [c.lit, c.dim])].filter(Boolean); }
   ghostInfo() { return this.ghosts().map(o => ({ mode: o.userData.ghost, y: o.userData.ghostY, at: o.isInstancedMesh ? null : o.position.y, count: o.isInstancedMesh ? o.count : null })).concat(this.ghostPasses ? [{ passes: this.ghostPasses }] : []); } // (tests)
   // below the ground only: the depth of everything but the ground, from the main camera, for the ghost to hide behind
@@ -1352,7 +1495,8 @@ export class AreaWorld {
     return true;
   }
   showLevelGrid(y) {
-    if (y == null || y === 0) { if (this.levelGrid) { this.levelGrid.parent?.remove(this.levelGrid); this.levelGrid = null; } return; }
+    if (y == null || y === 0) { if (this.levelGrid) { this.levelGrid.parent?.remove(this.levelGrid); this.levelGrid = null; } this.gridHold.visible = true; return; }
+    this.gridHold.visible = false; // one grid: the one you are drawing on (the ground's comes back, as its rule says, when this goes)
     if (!this.levelGrid) { const g = this.levelGrid = new THREE.GridHelper(600, 120, '#cfd6c0', '#cfd6c0'); g.material.transparent = true; g.material.opacity = 0.16; this.ghostMaterial(g.material); g.renderOrder = 24; g.userData.halo = true; this.layers.deco.add(g); }
     this.levelGrid.position.y = y - GHOST_DROP; this.levelGrid.userData.y = y; this.ghostMode(this.levelGrid, y);
   }
@@ -1813,13 +1957,13 @@ export class AreaWorld {
     }
   }
   // A STAIR THAT CANNOT WORK WHERE IT STANDS SAYS SO (2026-10-11; core/stairs.js stairStatus): a small note over it, for
-  // as long as that is so. A stair the room's own layout rolled, with simply nothing built over it, is furniture and
-  // says nothing. Never picked; shown with the stair (hidden by the cut with it).
+  // as long as that is so, or until the GM dismisses it (core/stairs.js stairWarnings). A stair the room's own layout rolled,
+  // with simply nothing built over it, is furniture and says nothing. Never picked; shown with the stair (hidden by the cut with it).
   syncStairNotes(ents) {
     const want = new Map();
     // (not on the Build library's shelves, a local area: a stair lying there for the taking leads nowhere by design;
     //  2026-10-25, the stairs joined the shelves and every one wore "No floor above yet", over its neighbours)
-    if (!this.local) for (const s of ST.stairsOf(ents)) { const Q = ST.stairStatus(ents, s); if (Q.code && !(s.rule && Q.code === 'open')) want.set(s.id, { s, Q, text: STAIR_NOTE[Q.code] || 'Leads nowhere' }); }
+    if (!this.local) for (const W of ST.stairWarnings(ents)) if (!W.off) want.set(W.s.id, { s: W.s, Q: W, text: ST.STAIR_NOTE[W.code] || 'Leads nowhere' }); // (W.off: the GM dismissed this warning, 2026-11-02; surfaces/stairnotes.js is its ×)
     this.stairNotes ||= new Map();
     for (const [id, t] of this.stairNotes) if (!want.has(id)) { t.parent?.remove(t); t.material.map?.dispose(); this.stairNotes.delete(id); }
     for (const [id, w] of want) {
@@ -2353,7 +2497,6 @@ function cursorMesh(s, text) {
 
 const MARK_SIZE = 0.052; // a pawn's indicator: a share of the view's height (about 1.5 times the name label's height)
 // screen-constant text label (sprite without size attenuation), the UI typeface
-const STAIR_NOTE = { open: 'No floor above yet', 'nothing-below': 'Nothing below', 'wall-below': 'A wall runs through it', foot: 'Blocked at the foot', 'wall-above': 'Comes up through a wall', 'no-exit': 'Blocked at the top' };
 export function labelSprite(text, { sub = '', pill = null, accent = null, small = false } = {}) {
   const font = `600 ${small ? 24 : 27}px Inter, system-ui, sans-serif`, subFont = '500 20px Inter, system-ui, sans-serif';
   const c = document.createElement('canvas'), ctx = c.getContext('2d');

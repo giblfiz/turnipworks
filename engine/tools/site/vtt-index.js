@@ -134,10 +134,5 @@
     } finally { btn.disabled = false; }
   });
 
-  // the right edge fades while there are more columns to scroll to
-  const frame = document.getElementById('tableframe'), wrap = frame.querySelector('.tablewrap');
-  const edge = () => frame.classList.toggle('atend', wrap.scrollLeft + wrap.clientWidth >= wrap.scrollWidth - 2);
-  wrap.addEventListener('scroll', edge, { passive: true }); addEventListener('resize', edge); edge();
-
   apply();
 })();

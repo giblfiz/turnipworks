@@ -27,12 +27,13 @@ import { icon } from '../icons.js';
 import * as SH from '../../core/share.js';
 import { T } from '../tuner.js';
 import { newId } from '../../core/ids.js';
+import { BOT_DEFAULT, helperSeatName } from '../../core/agentname.js';
 import { DARKVISION_DEFAULT, DARKVISION_MAX, CARRIED_LIGHT_MAX } from '../../core/darkness.js';
 import { setRingScale } from './ring.js';
 import { figTree } from './figtree.js';
 import { pawnLabel } from '../pawns.js';
 import { LIB_EVEN } from '../library.js';
-import { noGlow, HILL_SEE, GROUND_SEE } from '../world.js';
+import { noGlow, HILL_SEE, GROUND_SEE, UNDER_SEE } from '../world.js';
 import { PPG_CHOICES } from '../../core/uvtt.js';
 import { GFX_DEFAULTS, GFX_PRESETS, GFX_KEYS, GFX_LABEL, GFX_ORDER, presetOf, IDLE_AFTER_MS } from '../graphics.js';
 
@@ -229,13 +230,13 @@ export function settingsSurface(R, app) {
 
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const row = (label, ctl, note = '') => `<div class="srow"><label>${label}</label><div class="sctl">${ctl}</div>${note ? `<small class="snote">${note}</small>` : ''}</div>`;
-  // ABOUT · TERMS · PRIVACY · SOURCE (2026-10-21): the site pages (docs/site/*.md, engine/tools/build_site.py). On
+  // MANUAL · ABOUT · TERMS · PRIVACY · SOURCE (2026-10-21; Manual 2026-11-04): the site pages (docs/site/*.md, engine/tools/build_site.py). On
   // turnipworks.net and dev (the page carries <base href="/engine/client/">) they live at /about, /terms, /privacy; on the
   // alternate entry (implausible.enterprises) at the client folder's site/<name>.html. A new tab: the table stays open.
   const sitePage = (p) => document.querySelector('base')?.getAttribute('href') === '/engine/client/' ? '/' + p : `site/${p}.html`;
   const metaLinks = () => {
     const a = (href, label) => `<a href="${href}" target="_blank" rel="noopener">${label}</a>`;
-    return `<div class="smeta">${['about', 'terms', 'privacy'].map(p => a(sitePage(p), p[0].toUpperCase() + p.slice(1))).join('')}${a('https://github.com/giblfiz/turnipworks', 'Source')}</div>`;
+    return `<div class="smeta">${['manual', 'about', 'terms', 'privacy'].map(p => a(sitePage(p), p[0].toUpperCase() + p.slice(1))).join('')}${a('https://github.com/giblfiz/turnipworks', 'Source')}</div>`;
   };
   // D&D BEYOND (Harry 2026-10-29; docs/BEYOND20.md): the help page "Connect D&D Beyond" (docs/site/connect-dnd-beyond.md),
   // in a new tab, and whether Beyond20 has reported in this visit (surfaces/beyond20.js app.b20.connected). In Me for
@@ -304,7 +305,7 @@ export function settingsSurface(R, app) {
       myPawnsGroup(),
       ddbGroup(),
       group('My agents', `${mine.length ? `<ul class="slist">${mine.map(s => `<li data-seat="${s.id}"><b>${esc(s.name)}</b><small>${s.online ? 'online' : 'offline'}</small><button class="sbtn" data-act="key">Copy key</button><button class="sbtn danger" data-act="revoke">Revoke</button></li>`).join('')}</ul>` : '<p class="snote">None yet.</p>'}
-        <div class="snew"><input class="agentname" placeholder="Agent name" maxlength="40"><button class="sbtn primary" data-act="agent">${icon('bot', 15)} Create agent</button></div>${newAgent ? `<p class="skey">Key for ${esc(newAgent.name)}: <code>${esc(newAgent.url)}</code></p>` : ''}`, 'LLM seats that act for you, with at most your permissions.'),
+        <div class="snew"><input class="agentname" value="${BOT_DEFAULT}" aria-label="Agent name" maxlength="40"><button class="sbtn primary" data-act="agent">${icon('bot', 15)} Create agent</button><small class="agentwill"></small></div>${newAgent ? `<p class="skey">Key for ${esc(newAgent.name)}: <code>${esc(newAgent.url)}</code></p>` : ''}`, 'LLM seats that act for you, with at most your permissions.'),
       app.gm() ? '' : group('Import and export', `<div class="sab"><button class="sbtn" data-act="req-export">Ask to export</button><label class="sbtn">Ask to import…<input type="file" accept=".json,application/json" class="reqfile" hidden></label>${exportOk ? `<button class="sbtn primary" data-act="export">${icon('package', 15)} Export now</button>` : ''}</div>${reqs.length ? `<ul class="slist">${reqs.map(r => `<li><b>${r.kind === 'import' ? 'Import' : 'Export'}</b><small class="st-${r.status}">${r.status}</small></li>`).join('')}</ul>` : ''}`, 'The GM approves or denies each request.'),
     ].join('');
   }
@@ -457,11 +458,16 @@ export function settingsSurface(R, app) {
     // (later the same day, Harry: "Honestly, I think that should probably also apply to the ground itself") a second
     // slider beside it for the ground plane (groundSee)
     const hs = hillSeeOf(d), gs = groundSeeOf(d), set = (d.hillSee != null && d.hillSee !== HILL_SEE) || (d.groundSee != null && d.groundSee !== GROUND_SEE);
+    const us = underSeeOf(d), uset = d.underSee != null && d.underSee !== UNDER_SEE;
     return group('House look', row('Spawn animation', camp('houseAnim', anim.map(k => [k, k]), anim[0])) + row('House lighting', camp('houseLight', [['', 'As tuned'], ...light.map(k => [k, k])], '')) + row('Selection style', camp('houseSelection', [['', 'As tuned'], ...selStyles.map(k => [k, k])], ''))
-      + row('Below the ground: see-through', `<label class="schk">Hills ${range('data-hillsee', hs, 0, 1, 0.05)}</label><label class="schk">Ground ${range('data-groundsee', gs, 0, 1, 0.05)}</label>` + `<button class="sbtn" data-act="hillsee-copy" title="Copy the values">${icon('copy', 15)} Copy</button>` + (set ? `<button class="sbtn" data-act="hillsee-reset" title="Back to the game's defaults (${HILL_SEE}, ${GROUND_SEE})">Reset</button>` : ''), `at lv -1 and below, how much is drawn over the cellars and caves: Hills (their tops, banks, rocks and bushes) and Ground (the open ground). 0 = gone, 1 = solid. Game defaults ${HILL_SEE} and ${GROUND_SEE}`));
+      + row('Below the ground: see-through', `<label class="schk">Hills ${range('data-hillsee', hs, 0, 1, 0.05)}</label><label class="schk">Ground ${range('data-groundsee', gs, 0, 1, 0.05)}</label>` + `<button class="sbtn" data-act="hillsee-copy" title="Copy the values">${icon('copy', 15)} Copy</button>` + (set ? `<button class="sbtn" data-act="hillsee-reset" title="Back to the game's defaults (${HILL_SEE}, ${GROUND_SEE})">Reset</button>` : ''), `at lv -1 and below, how much is drawn over the cellars and caves: Hills (their tops, banks, rocks and bushes) and Ground (the open ground). 0 = gone, 1 = solid. Game defaults ${HILL_SEE} and ${GROUND_SEE}`)
+      // (2026-11-03, Harry: "it probably looks better by default if we can see underground structures even when we're
+      // overground ... a level of fade to them that's relatively aggressive") the other way round: from above, how strongly
+      // the cellars and caves show through the ground (world.js underPrepass); the same live slider, Copy and Reset
+      + row('Above the ground: underground shows', `<label class="schk">Underground ${range('data-undersee', us, 0, 1, 0.05)}</label>` + `<button class="sbtn" data-act="undersee-copy" title="Copy the value">${icon('copy', 15)} Copy</button>` + (uset ? `<button class="sbtn" data-act="undersee-reset" title="Back to the game's default (${UNDER_SEE})">Reset</button>` : ''), `at the ground level and above, how strongly the cellars, dungeons and caves under the ground show through it (only what this seat could see down there). 0 = not at all, 1 = as if the ground were not there. Game default ${UNDER_SEE}`));
   }
-  const hillSeeOf = (d) => Number.isFinite(d?.hillSee) ? d.hillSee : HILL_SEE, groundSeeOf = (d) => Number.isFinite(d?.groundSee) ? d.groundSee : GROUND_SEE;
-  let groundPreview = null, hillPreview = null; // (the slider while it is being dragged: the view follows it before the campaign has it)
+  const hillSeeOf = (d) => Number.isFinite(d?.hillSee) ? d.hillSee : HILL_SEE, groundSeeOf = (d) => Number.isFinite(d?.groundSee) ? d.groundSee : GROUND_SEE, underSeeOf = (d) => Number.isFinite(d?.underSee) ? d.underSee : UNDER_SEE;
+  let groundPreview = null, hillPreview = null, underPreview = null; // (the slider while it is being dragged: the view follows it before the campaign has it)
   const selectionStyles = () => { try { return T.selection?.STYLE_DEFAULTS || {}; } catch { return {}; } };
 
   // UNIVERSAL VTT (2026-10-24; client/uvtt.js): this area, the level you are on, as a 2D battlemap for another VTT
@@ -493,7 +499,7 @@ export function settingsSurface(R, app) {
       + uvttGroup()
       + group('Agent seats', `${agents.length ? `<ul class="slist">${agents.map(s => `<li data-seat="${s.id}"><b>${esc(s.name)}</b><small>${s.online ? 'online' : 'offline'}</small><button class="sbtn" data-act="key">Copy key</button><button class="sbtn danger" data-act="revoke">Revoke</button></li>`).join('')}</ul>` : ''}
         <div class="scls">${cls.map(k => `<label class="schk"><input type="checkbox" data-cls="${k}" checked> ${CLASS_LABELS[k]}</label>`).join('')}</div>
-        <div class="snew"><input class="gmagent" placeholder="Agent name" maxlength="40"><button class="sbtn primary" data-act="gmagent">${icon('bot', 15)} Create agent seat</button></div>${newAgent ? `<p class="skey">Key for ${esc(newAgent.name)}: <code>${esc(newAgent.url)}</code></p>` : ''}`, 'LLM seats with exactly the permissions ticked (never more than yours).');
+        <div class="snew"><input class="gmagent" value="${BOT_DEFAULT}" aria-label="Agent name" maxlength="40"><button class="sbtn primary" data-act="gmagent">${icon('bot', 15)} Create agent seat</button><small class="agentwill"></small></div>${newAgent ? `<p class="skey">Key for ${esc(newAgent.name)}: <code>${esc(newAgent.url)}</code></p>` : ''}`, 'LLM seats with exactly the permissions ticked (never more than yours).');
   }
 
   // ---------- wiring ----------
@@ -535,6 +541,13 @@ export function settingsSurface(R, app) {
     }
     act('hillsee-copy', () => { const d = C()?.defaults, h = hs ? +hs.value : hillSeeOf(d), g = gs ? +gs.value : groundSeeOf(d); copy(`hillSee ${h.toFixed(2)} groundSee ${g.toFixed(2)}`, `Copied: below the ground, hills ${h.toFixed(2)}, ground ${g.toFixed(2)}`); });
     act('hillsee-reset', () => { hillPreview = groundPreview = null; dispatchC('campaign.set', { defaults: { hillSee: null, groundSee: null } }); });
+    const us = modal.querySelector('[data-undersee]');
+    if (us) {
+      us.oninput = () => { underPreview = +us.value; us.nextElementSibling.textContent = underPreview.toFixed(2); applyWorlds(); };
+      us.onchange = () => { const v = +(+us.value).toFixed(2); underPreview = v; applyWorlds(); dispatchC('campaign.set', { defaults: { underSee: v } }); };
+    }
+    act('undersee-copy', () => { const v = us ? +us.value : underSeeOf(C()?.defaults); copy(`underSee ${v.toFixed(2)}`, `Copied: from above, the underground ${v.toFixed(2)}`); });
+    act('undersee-reset', () => { underPreview = null; dispatchC('campaign.set', { defaults: { underSee: null } }); });
     const gsel = modal.querySelector('[data-ground]'); if (gsel) gsel.onchange = () => app.setGround?.(gsel.value || null);
     const ao = modal.querySelector('[data-areaopen]'); if (ao) ao.onclick = () => dispatchC('area.visibility', { area: app.area(), visibility: ao.classList.contains('on') ? 'hidden' : 'open' });
     for (const el of $$('[data-vision]')) el.onclick = () => dispatchC('campaign.set', { defaults: { [el.dataset.vision]: !el.classList.contains('on') } });
@@ -583,8 +596,18 @@ export function settingsSurface(R, app) {
     const gg = modal.querySelector('.gomegfx'); if (gg) gg.onclick = (ev) => { ev.preventDefault(); section = 'graphics'; scrollTo = '.gfxtop'; render(); };
     const gu = modal.querySelector('.gfxuse'); if (gu) gu.onclick = (ev) => { ev.preventDefault(); setGfx(gu.dataset.gfx); };
     act('reset', () => S.resetPrefs());
-    act('agent', async () => { const name = modal.querySelector('.agentname').value.trim() || `${C()?.my.name}'s agent`; const classes = (C()?.my.classes || []).filter(k => !AGENTS_NEVER.has(k)); await makeAgent(name, classes); });
-    act('gmagent', async () => { const name = modal.querySelector('.gmagent').value.trim() || 'GM assistant'; const classes = $$('[data-cls]').filter(x => x.checked).map(x => x.dataset.cls); if (!classes.length) { app.toast('Tick at least one permission', true); return; } await makeAgent(name, classes); });
+    // THE TWO "AGENT NAME" FIELDS (Harry 2026-11-02): they hold a real name, "assistant", selected on focus so that typing
+    // replaces it, and say under the field the seat's whole name as it will be (core/agentname.js)
+    const seatName = (inp) => helperSeatName(C()?.my.name, inp.value);
+    for (const inp of $$('.agentname, .gmagent')) {
+      const will = inp.closest('.snew').querySelector('.agentwill'), say = () => { will.textContent = `Its name: ${seatName(inp)}`; };
+      let fresh = false; // (the click that focuses the field also sets the caret at its mouseup: that one must not undo the selection)
+      inp.onfocus = () => { inp.select(); fresh = true; };
+      inp.onmouseup = (ev) => { if (fresh) ev.preventDefault(); fresh = false; };
+      inp.oninput = say; say();
+    }
+    act('agent', async () => { const name = seatName(modal.querySelector('.agentname')); const classes = (C()?.my.classes || []).filter(k => !AGENTS_NEVER.has(k)); await makeAgent(name, classes); });
+    act('gmagent', async () => { const name = seatName(modal.querySelector('.gmagent')); const classes = $$('[data-cls]').filter(x => x.checked).map(x => x.dataset.cls); if (!classes.length) { app.toast('Tick at least one permission', true); return; } await makeAgent(name, classes); });
     for (const li of $$('li[data-seat]')) {
       const id = li.dataset.seat;
       li.querySelector('[data-act=revoke]')?.addEventListener('click', () => dispatchC('seat.revoke', { who: id }));
@@ -759,6 +782,8 @@ export function settingsSurface(R, app) {
       if (hillPreview != null && d.hillSee === hillPreview) hillPreview = null; // (the campaign has it now)
       w.setHillSee?.(hillPreview ?? hillSeeOf(d));
       if (groundPreview != null && d.groundSee === groundPreview) groundPreview = null;
+      if (underPreview != null && d.underSee === underPreview) underPreview = null;
+      w.setUnderSee?.(underPreview ?? underSeeOf(d)); // House look ▸ Above the ground: underground shows (world.js underPrepass)
       w.setGroundSee?.(groundPreview ?? groundSeeOf(d)); // House look ▸ Below the ground: Ground (world.js groundSeePass) // House look ▸ Hills below ground: see-through (world.js hillSeePass)
       app.gfx?.applyWorld?.(w); // Me ▸ Graphics: this seat's own switches, Fog and mist among them (graphics.js; fx/atmos.js setOff: nothing drawn, nothing simulated)
       if (T.house.anim && w.preset !== T.house.anim) w.preset = T.house.anim;

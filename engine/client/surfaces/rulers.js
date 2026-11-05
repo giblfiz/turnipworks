@@ -419,6 +419,7 @@ export function rulersSurface(R, app) {
   // the segments of an item: a ruler's one line; a template's outline on its floor (and what says "this one is 3D")
   function segmentsOf(it) {
     const out = [];
+    if (it.path) { for (let i = 1; i < it.path.length; i++) { const p = it.path[i - 1], q = it.path[i]; out.push(p.x, p.y + L.lift, p.z, q.x, q.y + L.lift, q.z); } return out; } // (a dragged pawn's walk round a wall)
     if (it.from) { out.push(it.from.x, it.from.y + L.lift, it.from.z, it.to.x, it.to.y + L.lift, it.to.z); return out; }
     const g = it.g, y = g.y + L.lift, o = MS.outline(g) || circlePts(g.x, g.z, g.size);
     loop(o, y, out);
@@ -458,7 +459,7 @@ export function rulersSurface(R, app) {
     if (!v) visuals.set(key, v = makeVisual(layerGroup));
     const quiet = it.quiet && !it.hot, lineO = it.quiet ? (it.hot ? L.hotLineOpacity : L.keptLineOpacity) : 1, fillO = it.quiet ? (it.hot ? L.hotFillOpacity : L.keptFillOpacity) : L.fillOpacity, cellO = it.quiet ? (it.hot ? L.hotCellOpacity : L.keptCellOpacity) : L.cellOpacity;
     const width = it.kind === 'move' ? L.moveWidth : quiet ? L.keptLineWidth : L.lineWidth;
-    const sig = it.from ? `L|${[it.from.x, it.from.y, it.from.z, it.to.x, it.to.y, it.to.z].map(r2).join()}` : `S|${it.g.shape}|${[it.g.x, it.g.y, it.g.z, it.g.dir, it.g.size, it.g.width].map(r2).join()}|${it.range ? [it.range.from.x, it.range.from.z].map(r2).join() : ''}`;
+    const sig = it.path ? `P|${it.path.map(p => [p.x, p.y, p.z].map(r2).join()).join('|')}` : it.from ? `L|${[it.from.x, it.from.y, it.from.z, it.to.x, it.to.y, it.to.z].map(r2).join()}` : `S|${it.g.shape}|${[it.g.x, it.g.y, it.g.z, it.g.dir, it.g.size, it.g.width].map(r2).join()}|${it.range ? [it.range.from.x, it.range.from.z].map(r2).join() : ''}`;
     v.line.material.color.set(it.color); v.line.material.linewidth = width; v.line.material.opacity = lineO;
     v.casing.material.linewidth = width + (L.casingWidth - L.lineWidth); v.casing.material.opacity = L.casingOpacity * (quiet ? 0.55 : 1);
     v.fill.material.color.set(it.color); v.fill.material.opacity = fillO;
@@ -559,7 +560,7 @@ export function rulersSurface(R, app) {
     start(a, b, k = 'rule') { dismissKeep(); const E = (p) => p.pawn ? { x: ents()[p.pawn].x, y: ents()[p.pawn].y || 0, z: ents()[p.pawn].z, pawn: p.pawn } : { x: p.x, y: p.y || 0, z: p.z }; select(null); live = { k: 'rule', a: E(a), b: E(b), stage: 'set' }; if (k !== 'rule') setShape(live, k); pushEsc(); wake(); return S.state(); },
     live: () => live, armed: () => armed, selected: () => sel?.id || null,
     items: [], // what was drawn this frame: { key, kind, text, caught: [ids], g?, from?, to?, quiet, hot, color }
-    state: () => ({ armed: armed ? { ...armed } : null, live: live ? { k: live.k, stage: live.stage, a: { ...live.a }, b: { ...live.b }, fixed: live.fixed || null } : null, sel: sel?.id || null, hover: hoverId, items: S.items.map(i => ({ key: i.key, kind: i.kind, text: i.text, caught: i.caught || [], quiet: !!i.quiet, hot: !!i.hot, color: i.color, cells: visuals.get(i.key)?.cellCount || 0, segs: visuals.get(i.key)?.segCount || 0 })), rings: [...rings.keys()], strips: [...layer.querySelectorAll('.rstrip:not([hidden])')].map(e => ({ key: e.dataset.key, buttons: [...e.querySelectorAll('[data-act]')].map(b => b.dataset.act) })) }),
+    state: () => ({ armed: armed ? { ...armed } : null, live: live ? { k: live.k, stage: live.stage, a: { ...live.a }, b: { ...live.b }, fixed: live.fixed || null } : null, sel: sel?.id || null, hover: hoverId, items: S.items.map(i => ({ key: i.key, kind: i.kind, text: i.text, ...(i.path && { path: i.path.map(p => [r2(p.x), r2(p.z)]) }), ...(i.noRoute && { noRoute: true }), caught: i.caught || [], quiet: !!i.quiet, hot: !!i.hot, color: i.color, cells: visuals.get(i.key)?.cellCount || 0, segs: visuals.get(i.key)?.segCount || 0 })), rings: [...rings.keys()], strips: [...layer.querySelectorAll('.rstrip:not([hidden])')].map(e => ({ key: e.dataset.key, buttons: [...e.querySelectorAll('[data-act]')].map(b => b.dataset.act) })) }),
     distance: (a, b, opts) => MS.distance(a, b, rule(), opts), format: (d) => MS.format(d, { units: units() }),
   };
   const colorOf = (seatId) => app.seatColor(seatId);
@@ -570,6 +571,24 @@ export function rulersSurface(R, app) {
     const ux = flat > 1e-6 ? dx / flat : 0, uz = flat > 1e-6 ? dz / flat : 0, clip = flat > A.r + B.r;
     const from = clip ? { x: A.x + ux * A.r, y: A.y, z: A.z + uz * A.r } : { x: A.x, y: A.y, z: A.z }, to = clip ? { x: B.x - ux * B.r, y: B.y, z: B.z - uz * B.r } : { x: B.x, y: B.y, z: B.z };
     return { key, kind, from, to, d, text: MS.format(d, { units: units() }), color, at: { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2, z: (from.z + to.z) / 2 } };
+  }
+  // THE WALK (surfaces/moverings.js, 2026-11-02): for the seat dragging, a line that has to go round a wall follows the
+  // shortest walk the movement rings know of, and reads that walk's length (each leg by the campaign's distance rule, the
+  // height on the last). Where no walk is known (unexplored, walled off, past the rings) it stays the straight line.
+  // NO WALK KNOWN (Harry 2026-11-03: "I would love it if it also turned red"): the straight line, in MOVE_RINGS_LOOK.noRoute.
+  // This seat's own line only; what other seats get is the two ends, as before, drawn in the dragger's colour.
+  function walkItem(it, A, B) {
+    const walk = app.moveRings?.walk?.(B.x, B.z), red = app.moveRings?.LOOK?.noRoute;
+    if (walk === false) return red ? { ...it, color: red, noRoute: true } : it;
+    if (!walk?.bends) return it;
+    const P = walk.points.map(([x, z], i, a) => ({ x, z, y: i === a.length - 1 ? B.y : A.y }));
+    let ft = 0, across = 0;
+    for (let i = 1; i < P.length; i++) { const d = MS.distance({ ...P[i - 1], y: 0 }, { ...P[i], y: 0 }, rule()); ft += d.ft; across += d.across; }
+    const up = B.y - A.y, ny = Math.round(Math.abs(up) / MS.CELL) * MS.CELL; // (the square-counting rules: the legs' squares, or the climb's when it is more, as they count it)
+    const f = rule() === 'true' ? Math.hypot(across, up) : Math.max(ft, ny), d = { ft: f, across, up: rule() === 'true' ? up : Math.sign(up) * ny, squares: f / MS.CELL, rule: rule() };
+    let half = walk.length / 2, at = P[0];
+    for (let i = 1; i < P.length; i++) { const l = Math.hypot(P[i].x - P[i - 1].x, P[i].z - P[i - 1].z); if (half <= l) { const k = l > 0 ? half / l : 0; at = { x: P[i - 1].x + (P[i].x - P[i - 1].x) * k, y: A.y, z: P[i - 1].z + (P[i].z - P[i - 1].z) * k }; break; } half -= l; at = P[i]; }
+    return { ...it, path: P, from: P[0], to: P.at(-1), d, text: MS.format(d, { units: units() }), at };
   }
   function shapeItem(key, g, color, { not = null, quiet = false, hot = false, name = null, extra = '' } = {}) {
     const caught = quiet && !hot ? [] : caughtOf(g, not), mid = g.shape === 'circle' || g.shape === 'sphere' ? { x: g.x, y: g.y, z: g.z } : { x: g.x + Math.cos(g.dir) * g.size / 2, y: g.y, z: g.z + Math.sin(g.dir) * g.size / 2 };
@@ -594,7 +613,7 @@ export function rulersSurface(R, app) {
     let mine = null;
     if (move && E[move.lead]?.kind === 'token') {
       const e = E[move.lead], A = { x: e.x, y: e.y || 0, z: e.z, r: 0 }, B = { x: e.x + move.dx, y: (e.y || 0) + move.dy, z: e.z + move.dz, r: 0 };
-      if (Math.hypot(move.dx, move.dz, move.dy) > 0.01) { items.push(ruleItem('move', 'move', A, B, app.myColor())); mine = { k: 'move', a: [A.x, A.z, A.y], b: [B.x, B.z, B.y], ap: e.id }; }
+      if (Math.hypot(move.dx, move.dz, move.dy) > 0.01) { items.push(walkItem(ruleItem('move', 'move', A, B, app.myColor()), A, B)); mine = { k: 'move', a: [A.x, A.z, A.y], b: [B.x, B.z, B.y], ap: e.id }; } // (other seats are sent the two ends only, as before: the walk is this seat's, worked out from what this seat knows)
     }
     // 2. what is in my hand
     if (live) {

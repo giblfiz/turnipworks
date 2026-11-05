@@ -20,7 +20,7 @@
 import { T } from '../tuner.js';
 import { parseDice, faceTag } from '../dice.js';
 import { diceWorld } from '../diceworld.js';
-import { baseUnder } from '../../core/height.js';
+import { baseUnder, sightLevel } from '../../core/height.js';
 import * as THREE from 'three';
 
 const THROW_WAIT_MS = 2500, MAX_DICE = 40;
@@ -47,7 +47,11 @@ export function diceSurface(R, app) {
   const open = (r) => !!r?.roof?.off || !!T.walls?.isOutdoor?.(r?.recipe?.type);
   const playing = new Map(); // roll id -> { world, settled }
   const started = new Set(); // roll ids already played here (the roller's own echo, after its dice are gone, plays nothing)
-  const levels = new Map();  // `${id}:${i}` -> the floor a die came to rest on (for the sight test)
+  // `${id}:${i}` -> the sight level of the floor a die comes to rest on, read from the recording (for the sight test). NEVER
+  // from where the die happens to be (2026-11-02): the house look's hand lets go 14.2 ft up, ~18 ft with the die's lift, over
+  // the top of a 10-ft room, so a level read from the first frame said "on the roof", the player sees nothing there, and in
+  // a roofed room with fog on no die was drawn for a player at all, in the air or at rest.
+  const levels = new Map();
 
   function runtime(w) {
     if (w.dice) return w.dice;
@@ -107,7 +111,10 @@ export function diceSurface(R, app) {
     // and the roller's camera sees it: no wall between the eye and the die (a die behind the near wall is out of sight)
     const eye = cam.position, walls = world.boxes.filter(b => b.wall);
     const behindWall = (x, z) => walls.some(b => segHitsBox(eye.x, eye.y, eye.z, x, level + 0.8, z, b));
-    const visible = (x, z) => inRoom(x, z) && app.fog.visible(x, z, level, area) && onScreen(x, z), rest = (x, z) => !behindWall(x, z);
+    // (the fog is asked at the SIGHT level: outdoors is one surface, level 0, so a hilltop at 10 ft and a shrine on it are 0.
+    // Asked at 10, nothing there was ever in sight, and every throw on a hill was set down flat. 2026-11-02)
+    const sight = sightLevel(E, from.x, from.z, level, open);
+    const visible = (x, z) => inRoom(x, z) && app.fog.visible(x, z, sight, area) && onScreen(x, z), rest = (x, z) => !behindWall(x, z);
     const r = await runtime(w).simulate({ dice: list.map(d => d.type), from, to, world, visible, rest, by: me, until: t0 + waitFor(list.length) - MARGIN_MS });
     app.dice.last = { from, to, level, world: { surfaces: world.surfaces.length, boxes: world.boxes.length, cylinders: world.cylinders.map(c => c.id), things: world.boxes.filter(b => b.id).map(b => b.id), walls: world.boxes.filter(b => b.wall).length, left: world.left }, tries: r.tries, reasons: r.reasons, fallback: r.fallback, gentled: r.gentled || null, ms: r.ms, bytes: r.rec.b.length, n: list.length, hands: r.hands, setDown: r.setDown, wall: Math.round(performance.now() - t0) };
     return r.rec;
@@ -124,6 +131,7 @@ export function diceSurface(R, app) {
     try {
       const color = app.seatColor(e.by);
       const D = runtime(w);
+      T.dicePhys.decode(e.args.throw).final.forEach((f, i) => levels.set(`${e.args.id}:${i}`, sightLevel(w.view?.entities, f.p[0], f.p[2], f.p[1], open)));
       playing.set(e.args.id, { world: w, settled: false, area: e.area });
       // a game's dice (core/gamedice.js, 2026-10-29): each die wears its skin (Hunger red, Hope gold, symbol faces) and its
       // tag says its face ("+", "S+T", "00"); plain dice as before
@@ -159,8 +167,7 @@ export function diceSurface(R, app) {
       for (const d of w.dice.root.children) {
         if (d.userData.waiting) { d.visible = false; continue; } // (a big pool's later handful, still in the hand: fx/dice.js)
         if (!fogOn) { d.visible = true; continue; }
-        const k = d.userData.dieId; let lv = levels.get(k);
-        if (lv == null) { lv = baseUnder(w.view?.entities, d.position.x, d.position.z, d.position.y, open).y; levels.set(k, lv); }
+        const lv = levels.get(d.userData.dieId) ?? sightLevel(w.view?.entities, d.position.x, d.position.z, d.position.y, open); // (cleared mid-throw, below: as it stands, this frame)
         d.visible = app.fog.visible(d.position.x, d.position.z, lv, area);
       }
     }

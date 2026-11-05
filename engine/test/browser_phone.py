@@ -26,6 +26,13 @@ funnel lines are marked `sandbox` and left out.
   P6 a phone opening a seat link (#s=…): the table, laid out for a phone, no banner
   P7 once per visit: a reload in the same tab shows no banner; a new visit does, and untouched it goes by itself after
      a few seconds; × closes it at once
+  P10 a computer from a Google ad that lands on /vtt-index (2026-11-02): the page notes utm_* and gclid and cleans the address
+     bar; it asks for nothing off this site and POSTs nothing (no tracker); "Open Turnip Works", start a table: the
+     funnel's 'campaign' line has the utm_* and the gclid
+  P11 a phone, the same ad: /vtt-index, then the front door: the banner's 'phone' line and the emailed link have them
+  P12 a computer from an ad sitelink that lands on /features, /dice, /switching or /export (2026-11-04): each notes utm_* and
+     gclid, cleans the address bar, POSTs nothing, asks for nothing off this site; its "Open Turnip Works" goes to the front
+     door (the rest of the road is P10's, the same front door)
 """
 import argparse, glob, http.server, json, mimetypes, os, re, shutil, subprocess, sys, tempfile, threading, time, urllib.parse, urllib.request
 from playwright.sync_api import sync_playwright
@@ -33,6 +40,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'
 tw_sandbox.remove_campaigns()
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ENGINE = os.path.dirname(HERE); REPO = os.path.dirname(ENGINE)
+LANDING = ['features', 'dice', 'switching', 'export']   # the ad sitelink pages (engine/tools/build_site.py LANDING): P12
 TUNER = os.path.join(REPO, 'tools', 'spawn-tuner'); SHOTS = os.path.join(REPO, 'experiments', '2026-10-24-phone', 'stills')
 ap = argparse.ArgumentParser(); ap.add_argument('--live'); ap.add_argument('--data'); ap.add_argument('--real-mail'); ap.add_argument('--no-shots', action='store_true'); ap.add_argument('--local', action='store_true')
 A = ap.parse_args()
@@ -57,6 +65,7 @@ class Site(http.server.BaseHTTPRequestHandler):
         path = urllib.parse.urlsplit(self.path).path
         if path in ('/', '/engine/client/'): return self.out(200, turnipworks_page(), 'text/html; charset=utf-8')
         if path == '/privacy': return self.out(200, open(os.path.join(ENGINE, 'client', 'site', 'privacy.html'), 'rb').read(), 'text/html; charset=utf-8')
+        if path in ('/vtt-index', *(f'/{p}' for p in LANDING)): return self.out(200, open(os.path.join(ENGINE, 'client', 'site', path[1:] + '.html'), 'rb').read(), 'text/html; charset=utf-8')
         m = re.match(r'^/look/((?:js|data|assets)/.+|version\.json)$', path); f = None
         if m: f = os.path.join(TUNER, m.group(1))
         elif path.startswith('/engine/'): f = os.path.join(ENGINE, path[len('/engine/'):])
@@ -84,6 +93,7 @@ def cleanup():
     for d in tmp: shutil.rmtree(d, ignore_errors=True)
 
 AD = {'utm_source': 'reddit', 'utm_medium': 'paid', 'utm_campaign': 'phone-test', 'utm_content': 'film-15c-4x5', 'rdt_cid': 'RDTtest123'}
+GOOGLE = {'utm_source': 'google', 'utm_medium': 'cpc', 'utm_campaign': 'switch', 'utm_content': 'comparison', 'gclid': 'GCLIDtest123'}
 
 def main():
     live = A.live.rstrip('/') if A.live else None
@@ -221,6 +231,69 @@ def main():
         xp.tap('#phoneBanner .pb-x'); time.sleep(0.6)
         check(not xp.evaluate("!!document.getElementById('phoneBanner')") and not xp.errs, 'P7c × closes it at once')
         shut(xctx, xp)
+        # ---------- P10: a computer from an ad that lands on the comparison index ----------
+        def index_visit(pg):   # -> (the note, the address bar); land on /vtt-index, then click through to the front door
+            pg.goto(origin + '/vtt-index?' + urllib.parse.urlencode(GOOGLE), wait_until='load')
+            pg.wait_for_function("localStorage.getItem('tw.landing') !== null", timeout=15000)
+            seen = pg.evaluate("({ note: JSON.parse(localStorage.getItem('tw.landing')), url: location.href })")
+            pg.click('a.play'); pg.wait_for_url(lambda a: urllib.parse.urlsplit(a).path == '/', timeout=30000)
+            if not live: pg.goto(addr())   # the local site has no /api/tw-relay: the same front door, told where the relay is
+            return seen
+        host = urllib.parse.urlsplit(origin).netloc
+        ictx, ik = ctx_page(False)
+        ik.route(re.compile(r'/campaigns(\?|$)'), lambda route: route.continue_(headers={**route.request.headers, 'cf-ipcountry': 'US', 'x-tw-test': tw_sandbox.SID}))
+        ik_posts = []; ik.on('request', lambda r: ik_posts.append(r.url) if r.method == 'POST' else None)
+        seen = index_visit(ik)
+        n_note = seen['note'] or {}
+        check(all(n_note.get(k) == v for k, v in GOOGLE.items()), 'P10 /vtt-index notes the ad: utm_* and gclid in tw.landing', n_note)
+        check('utm_' not in seen['url'] and 'gclid' not in seen['url'], 'P10b the address bar is cleaned there too', seen['url'])
+        check(not ik_posts, 'P10c the index POSTed nothing', ik_posts)
+        ik.wait_for_selector('#start:not([hidden])', timeout=90000)
+        ik.fill('#newCampaign [name=name]', 'TEST index landing (throwaway)'); ik.click('#newCampaign button[type=submit]')
+        cl = None
+        for _ in range(100):
+            cl = next((e for e in events() if e.get('ev') == 'campaign' and (e.get('landing') or {}).get('gclid') == 'GCLIDtest123'), None)
+            if cl: break
+            time.sleep(0.2)
+        L = (cl or {}).get('landing') or {}
+        check(cl and all(L.get(k) == v for k, v in GOOGLE.items()) and L.get('click') == 'google' and cl.get('test') == 'sandbox' and cl.get('country') == 'US', 'P10d the table\'s funnel line carries the utm_* and the gclid', cl)
+        shut(ictx, ik)
+        ictx, ik = ctx_page(False); ik.goto(origin + '/vtt-index?' + urllib.parse.urlencode(GOOGLE), wait_until='networkidle'); time.sleep(1)
+        off = [u for u in ik.reqs if u.startswith('http') and urllib.parse.urlsplit(u).netloc != host]
+        check(not off, 'P10e the page itself asks for nothing off this site (no tracker, no pixel)', off)
+        check(not ik.errs, 'P10f no page errors', ik.errs)
+        shut(ictx, ik)
+        # ---------- P12: the ad sitelink pages (2026-11-04) ----------
+        for lp in LANDING:
+            lctx, lk = ctx_page(False); lposts = []; lk.on('request', lambda r: lposts.append(r.url) if r.method == 'POST' else None)
+            lk.goto(origin + f'/{lp}?' + urllib.parse.urlencode(GOOGLE), wait_until='networkidle')
+            try: lk.wait_for_function("localStorage.getItem('tw.landing') !== null", timeout=15000)
+            except Exception: pass
+            seen = lk.evaluate("({ note: JSON.parse(localStorage.getItem('tw.landing') || 'null'), url: location.href })")
+            note = seen['note'] or {}
+            off = [u for u in lk.reqs if u.startswith('http') and urllib.parse.urlsplit(u).netloc != host]
+            check(all(note.get(k) == v for k, v in GOOGLE.items()) and 'utm_' not in seen['url'] and 'gclid' not in seen['url'],
+                  f'P12 /{lp} notes the ad (utm_* and gclid) and cleans the address bar', (note, seen['url']))
+            check(not lposts and not off and not lk.errs, f'P12b /{lp} POSTs nothing, asks for nothing off this site, no page errors', (lposts, off, lk.errs))
+            lk.click('a.play'); lk.wait_for_url(lambda a: urllib.parse.urlsplit(a).path == '/', timeout=30000)
+            check(urllib.parse.urlsplit(lk.url).path == '/', f'P12c /{lp}: "Open Turnip Works" goes to the front door', lk.url)
+            shut(lctx, lk)
+        # ---------- P11: a phone from the same ad ----------
+        n0 = len(events())
+        ipc, ip = ctx_page(True)
+        seen = index_visit(ip)
+        check(all((seen['note'] or {}).get(k) == v for k, v in GOOGLE.items()), 'P11 a phone: /vtt-index notes the ad too', seen['note'])
+        ip.wait_for_selector('#phoneBanner', timeout=60000); time.sleep(0.8)
+        pl = [e for e in events()[n0:] if e.get('ev') == 'phone']
+        L = (pl[-1].get('landing') or {}) if pl else {}
+        check(len(pl) == 1 and all(L.get(k) == v for k, v in GOOGLE.items()) and pl[0].get('test') == 'sandbox', 'P11b the front door\'s "phone banner shown" line carries the utm_* and the gclid', pl)
+        ip.tap('#phoneBanner .pb-open'); ip.fill('#phoneBanner .lm-email', 'fixture@example.invalid'); ip.tap('#phoneBanner .lm-send')
+        ip.wait_for_selector('#phoneBanner .pb-card.done', timeout=30000)
+        mail = (outbox() or [None])[-1]
+        link = mail['text'].split('\n')[2] if mail else ''
+        q = dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(link).query))
+        check(all(q.get(k) == v for k, v in GOOGLE.items()) and q.get('tw_handoff'), 'P11c the emailed link carries them to the computer', link)
+        shut(ipc, ip)
         # ---------- P9: the real mail through the dev relay (box-local, so marked `local`) ----------
         if A.real_mail:
             rctx, rp = ctx_page(True, country=None, sandboxed=False)

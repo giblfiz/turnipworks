@@ -24,7 +24,7 @@ A = ap.parse_args()
 results = []; procs = []
 def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)
-RP, SP = 18091, 18716
+RP, SP = map(int, os.environ.get('TW_PORTS', '18091,18716').split(','))
 def start_local():
     for port in (RP, SP):
         try: urllib.request.urlopen(f'http://127.0.0.1:{port}/', timeout=0.5); sys.exit(f'port {port} is busy (a stale test server?)')
@@ -162,12 +162,15 @@ async def main():
           const br = tw.buildableRect({{ x: 24, z: 14, w: 20, d: 18 }}, 10), b = tw.spawnBuilding(type, {{ x: 24, z: 14, w: 20, d: 18 }});
           await new Promise(r => setTimeout(r, 2500));
           const rooms = Object.values(tw.entities()).filter(e => e.kind === 'room' && !before.has(e.id)), far = tw.spawnBuilding(type, {{ x: 80, z: 80, w: 6, d: 6 }});
+          const farToast = document.querySelector('#toast').textContent, farWhy = tw.unbuildableWhy({{ x: 80, z: 80, w: 6, d: 6 }}, 10), r0 = rooms[0]?.recipe, takenWhy = r0 ? tw.unbuildableWhy({{ x: r0.x, z: r0.z, w: r0.w, d: r0.d }}, 10) : null;
           tw.setLevel(0);
-          return {{ br, b, far, stair: tw.lastStair, big: tw.entities()['{R['big']}'].building, rooms: rooms.map(e => ({{ ...e.recipe, building: e.building }})) }}; }})()""")
+          return {{ br, b, far, farToast, farWhy, takenWhy, stair: tw.lastStair, big: tw.entities()['{R['big']}'].building, rooms: rooms.map(e => ({{ ...e.recipe, building: e.building }})) }}; }})()""")
         rs = res['rooms']; inside = all(r['x'] >= 28 and r['z'] >= 18 and r['x'] + r['w'] <= 40 and r['z'] + r['d'] <= 28 and r.get('y') == 10 for r in rs)
         check(res['br'] == {'x': 28, 'z': 18, 'w': 12, 'd': 10}, 'of a 100 × 90 ft drag over a 40 × 30 ft room, the part that can be built on at lv 2 is the room plus two squares out (60 × 50 ft)', res['br'])
         check(len(rs) >= 2 and inside and all(r['building'] == res['big'] for r in rs), 'the building tool packs an upper storey into it: every room at 10 ft, inside that part, in the building below', f"{len(rs)} rooms {sorted(r['type'] for r in rs)}")
         check(res['far'] is None, 'over open ground at lv 2 it is refused with a message (nothing to stand on)')
+        check(res['farWhy'] == 'air' and 'Nothing to stand on' in res['farToast'] and 'overlap' not in res['farToast'], 'in midair the refusal says there is nothing to stand on, not that it overlaps (Harry 2026-11-03)', res['farToast'])
+        check(res['takenWhy'] == 'taken', 'over a room already on that level the refusal is the overlap one', res['takenWhy'])
         await settle(gm)
         sup = await gm.evaluate(f"{W}.supports().length")
         check(sup > 0, 'the overhanging part gets its brackets and posts like any upper room', f'{sup} support pieces')

@@ -72,6 +72,20 @@ pl.submit('token.move', { id: 'tok_keeper001', x: 0, z: 0 }, T1);
 ok(pl.view(T1).entities.tok_keeper001.x === 30, 'locally invalid move is not even drawn');
 await waitFor(() => pl.ev.nacks.length, 3000, 'nack');
 ok(pl.ev.nacks[0]?.code === 'invalid' && /belongs/.test(pl.ev.nacks[0].why), 'relay refuses moving the NPC');
+// what stands on a thing goes with it (2026-11-02), and a player is refused before any of that: nothing moves, and the
+// refusal says nothing of what is hidden on the desk
+{ const place = (id, extra = {}) => gm.submit('object.place', { id, name: 'crate', cat: 'crate', x: 60, z: 60, dims: [2, 2, 2], ...extra }, T1);
+  place('obj_rider00001'); place('obj_rider00002', { parent: 'obj_rider00001' });
+  gm.submit('entity.flag', { ids: ['obj_rider00002'], hidden: true }, T1);
+  await waitFor(() => pl.view(T1)?.entities.obj_rider00001 && gm.pendingCount() === 0, 3000, 'player sees the desk');
+  ok(!pl.view(T1).entities.obj_rider00002, 'the thing hidden on the desk is not at the player seat');
+  const n0 = pl.ev.nacks.length; pl.submit('object.delete', { id: 'obj_rider00001' }, T1);
+  await waitFor(() => pl.ev.nacks.length > n0, 3000, 'nack');
+  const R = relay.campaigns.get(C.campaign).state.areas[T1].entities, no = pl.ev.nacks.at(-1);
+  ok(no.code === 'forbidden' && !JSON.stringify(no).includes('obj_rider00002') && R.obj_rider00001 && R.obj_rider00002, 'the relay refuses a player deleting a desk, and names nothing hidden on it');
+  gm.submit('object.delete', { id: 'obj_rider00001' }, T1);
+  await waitFor(() => { const E = relay.campaigns.get(C.campaign).state.areas[T1].entities; return !E.obj_rider00001 && !E.obj_rider00002; }, 3000, 'the GM deletes them');
+  ok(true, "the GM's single object.delete takes the desk and the hidden thing on it, on the relay"); }
 // concurrent drops on the same token from both seats: server order wins, both converge
 for (let i = 0; i < 10; i++) { gm.submit('token.move', { id: 'tok_brakka001', x: 100 + i, z: 0 }, T1); pl.submit('token.move', { id: 'tok_brakka001', x: 200 + i, z: 0 }, T1); }
 await waitFor(() => gm.pendingCount() === 0 && pl.pendingCount() === 0 && stableStringify(gm.view(T1)) === stableStringify(pl.view(T1)), 4000, 'converge');
@@ -124,7 +138,7 @@ const cp = `/c/${C.campaign}`;
 const docs = async (tok) => { const card = (await get(`${cp}/card?seat=${tok}`)).body, idx = (await get(`${cp}/help?seat=${tok}`)).body; let all = card; for (const t of new Set([...idx.matchAll(/\/help\/([\w-]+)\?/g)].map(m => m[1]))) all += '\n' + (await get(`${cp}/help/${t}?seat=${tok}`)).body; return all; };
 {
   const card = await get(`${cp}/card?seat=${adTok}`);
-  ok(card.status === 200 && /Advisor \(Brakka's agent\)/.test(card.body) && !/room.spawn/.test(card.body), 'advisor rules card: whose agent, no room commands');
+  ok(card.status === 200 && /rules card for Brakka's Advisor\n/.test(card.body) && !/room.spawn/.test(card.body), 'advisor rules card: whose agent, no room commands');
   const st = await get(`${cp}/a/${T1}/state?seat=${asTok}`);
   ok(st.body.area.seq > 0 && st.body.rooms[0]?.summary, 'assistant reads semantic area with room summary');
   await waitFor(() => gm.ev.pres.some(p => p.ghost && p.seat === 'seat_assist01' && p.thinking), 2000, 'ghost thinking');

@@ -326,20 +326,20 @@ export function createModes(app) {
     }
     // on the ground a whole building never clips: it needs its rectangle. Off the ground it takes the part that can be built on (app.buildableRect)
     const lvl = app.level || 0, clash = lvl === 0 ? Object.values(app.entities()).some(r => r.kind === 'room' && !HT.isTerrain(r.recipe) && HT.roomY(r.recipe) < 10 && HT.roomTop(app.entities(), r) > 0 && app.footprint.overlap(r.recipe, m.rect)) : !app.buildableRect(m.rect, lvl);
-    m.ok = !clash;
+    m.ok = !clash; m.why = clash ? (lvl === 0 ? 'taken' : app.unbuildableWhy(m.rect, lvl) || 'taken') : null;
     const wd = app.worldOf(app.area());
     if (!rectMesh) { rectMesh = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.28, depthTest: false })); rectMesh.renderOrder = 25; rectMesh.userData.footprint = 'building'; rectMesh.userData.noPick = true; wd.layers.deco.add(rectMesh); }
     rectMesh.material.color.set(m.ok ? (m.start ? app.myColor() : '#ffffff') : '#e5484d');
     // its squares, each on what is drawn there (2026-10-28: on a hill's top, not under it: world.js markY)
     const key = `${m.rect.x}:${m.rect.z}:${m.rect.w}:${m.rect.d}:${lvl}`;
     if (rectMesh.userData.key !== key || rectMesh.userData.field !== wd.terrainField) { rectMesh.userData.key = key; rectMesh.userData.field = wd.terrainField; const cells = []; for (let gz = m.rect.z; gz < m.rect.z + m.rect.d; gz++) for (let gx = m.rect.x; gx < m.rect.x + m.rect.w; gx++) cells.push([gx, gz]); rectMesh.geometry.dispose(); rectMesh.geometry = wd.drapedGeometry(cells, lvl, lvl + 0.1); }
-    if (ev) { sizeLabel.hidden = false; sizeLabel.classList.remove('bad'); sizeLabel.textContent = m.start ? `${m.rect.w * CELL} × ${m.rect.d * CELL} ft · ${app.packPreview(m.rect)} rooms${m.ok ? '' : ' · overlaps'}` : `drag out a ${m.node.label.toLowerCase()}`; sizeLabel.style.left = `${ev.clientX + 40}px`; sizeLabel.style.top = `${ev.clientY + 40}px`; }
+    if (ev) { sizeLabel.hidden = false; sizeLabel.classList.remove('bad'); sizeLabel.textContent = m.start ? `${m.rect.w * CELL} × ${m.rect.d * CELL} ft · ${app.packPreview(m.rect)} rooms${m.ok ? '' : m.why === 'air' ? ' · nothing under it' : ' · overlaps'}` : `drag out a ${m.node.label.toLowerCase()}`; sizeLabel.style.left = `${ev.clientX + 40}px`; sizeLabel.style.top = `${ev.clientY + 40}px`; }
   };
   M.roomUp = (ev) => {
     const m = app.mode; if (!rectKind(m) || !m.start) return;
     const { rect, ok, type } = m;
     m.start = null;
-    if (m.kind === 'building') { if (ok && rect) app.spawnBuilding(m.node, rect); else app.toast('A building needs clear ground: its rooms cannot overlap others', true); }
+    if (m.kind === 'building') { if (ok && rect) app.spawnBuilding(m.node, rect); else app.toast(m.why === 'air' ? app.unbuildableWords('air') : (app.level || 0) ? app.unbuildableWords('taken') : 'A building needs clear ground: its rooms cannot overlap others', true); }
     else if (rect && m.plan) {
       const P = m.plan; app.lastRoomPlan = { kind: P.kind, pieces: P.pieces || 1, cells: P.piece?.cells || 0, over: P.overName }; // (tests)
       if (P.kind === 'unsupported') app.toast('Nothing to stand on there: an upper room goes over the rooms below it, up to 10 ft out', true);

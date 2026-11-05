@@ -11,6 +11,7 @@ import { lightKind, lightRadiusOf, LIGHT_RADII } from '../core/darkness.js';
 import { roomY } from '../core/height.js';
 import { hasCell } from '../core/footprint.js';
 import { opensIn } from '../core/openables.js';
+import { can } from '../core/perms.js';
 
 // The tuner's fireType() (tools/spawn-tuner/js/fx/fire.js) decides which things burn in the game. That module imports
 // three.js, so it cannot load in Node: its one pure function is read from the source the game runs (no copy to drift).
@@ -61,6 +62,29 @@ export function placeArgs(rt, a) {
   const sz = rt.roomgen.sizeOf(a.cat, a.sku || null); if (!sz) return { error: `${a.cat} has no mesh yet` };
   return { args: { ...a, name: a.name || a.cat.replace(/-/g, ' '), sku: sz.sku, url: sz.url, flat: String(sz.flat), place: a.place || sz.place || 'floor', s: JSON.stringify(sz.s), dims: JSON.stringify(sz.dims), yaw: String(sz.yaw || 0), ...(a.y == null && sz.place === 'wall' && { y: '7' }) } };
 }
+// A ROOM IS NOT A THING (2026-11-02; a helper called Luna: "placing a 'cave' object only makes a marker rather than a cave
+// room"). object.place with no cat answers ok and leaves a bare box with that name on the table, so a word that names a
+// room type must get the right call back at the moment of the mistake. A word names a room type when it is the type's key
+// or label ("Cave mouth"), or one word of them ("crypt", "forge"), or a plain synonym of one ("basement").
+const ROOM_WORDS = { basement: 'cellar', cavern: 'cave', grotto: 'cave' };
+const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+export function roomTypesNamed(rt, word) {
+  const types = rt.roomgen?.typeList || [], w0 = norm(word), w = ROOM_WORDS[w0] || w0;
+  if (!w || w === 'room') return [];
+  const exact = types.filter(t => norm(t.key) === w || norm(t.label) === w), cave = /\bcave\b/.test(w) ? types.filter(t => t.key === 'cave') : [];
+  if (exact.length) return [...new Set([...cave, ...exact])];
+  return w.includes(' ') ? [] : types.filter(t => norm(t.key).split(' ').includes(w) || norm(t.label).split(' ').includes(w)).slice(0, 4);
+}
+// the right call, spelled out: under the ground for what lives there, in the type's own size
+const BELOW = /^(cave|cellar|mansion-cellar|crypt-|dun-|min-)/;
+const roomCall = (t) => `room.spawn&type=${t.key}&x=FEET&z=FEET&w=${(t.cells?.[0] || 6) * 5}&d=${(t.cells?.[1] || 4) * 5}${BELOW.test(t.key) ? '&y=-10' : ''}`;
+// what to say when `word` was asked of the things and is a room: null when it is no room. area null: the seat's right anywhere
+export function roomHint(rt, seat, area, word) {
+  const ts = roomTypesNamed(rt, word); if (!ts.length) return null;
+  const list = ts.map(t => `${t.label} (${roomCall(t)})`).join('; ');
+  return can(rt.state, seat, 'room', area).ok ? `"${word}" is a room, not a thing. Make it with ${list}.` : `"${word}" is a room, not a thing, and this seat has no "room" permission, so it cannot build one: ask the GM (${ts[0].label}: ${roomCall(ts[0])}).`;
+}
+
 // REPLACE WITH SIMILAR (the ring's "Replace with similar", client/assets.js similar): with no cat, the next mesh of the
 // same piece, else a sibling piece that shares a word of its name and is put down the same way
 export function similarArgs(rt, e, a) {

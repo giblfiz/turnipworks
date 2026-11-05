@@ -140,7 +140,7 @@ async def main():
             rm, cm = await menu_ids(gm, ring=True), await menu_ids(gm)
             check(not [i for i in rm + cm if i.startswith('share.')], f"a {what}: no share entry on its ring ☰ or in its Space chords", (rm + cm)[-5:])
         await gm.evaluate(f"tw.select(['{kitchen}'])"); await gm.wait_for_timeout(150)
-        tops = await gm.evaluate("""(async () => { const out = {}; for (const q of ['export', 'share link']) { tw.emit('bar.open', q); await new Promise(r => setTimeout(r, 300)); out[q] = document.querySelector('#results .res')?.dataset.ref || ''; document.querySelector('#bar input').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await new Promise(r => setTimeout(r, 80)); } return out; })()""")
+        tops = await gm.evaluate("""(async () => { const out = {}; for (const q of ['export', 'share link']) { tw.emit('bar.open', q); await new Promise(r => setTimeout(r, 300)); out[q] = document.querySelector('#results .res')?.dataset.ref || ''; document.querySelector('#bar textarea').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await new Promise(r => setTimeout(r, 80)); } return out; })()""")
         check(tops.get('export') == 'cmd:share.area' and tops.get('share link') == 'cmd:share.areaLink', 'the bar, with a room selected: "export" and "share link" mean the AREA (Export this area…, Share link to this area…)', tops)
         await bar(gm, 'export')
         check(await wait(gm, "tw.share.isOpen()", 10000), 'the bar: "export" opens the window')

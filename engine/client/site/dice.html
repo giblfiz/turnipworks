@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dice for your game system · Turnip Works</title>
+<meta name="description" content="3D dice in Turnip Works for D&amp;D, Call of Cthulhu, Vampire V5, Shadowrun, Daggerheart, Fate, L5R and Exalted. What to type, with examples to copy.">
+<link rel="canonical" href="https://turnipworks.net/dice">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Turnip Works">
+<meta property="og:title" content="Dice for your game system">
+<meta property="og:description" content="3D dice in Turnip Works for D&amp;D, Call of Cthulhu, Vampire V5, Shadowrun, Daggerheart, Fate, L5R and Exalted. What to type, with examples to copy.">
+<meta property="og:url" content="https://turnipworks.net/dice">
+<meta property="og:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dice for your game system">
+<meta name="twitter:description" content="3D dice in Turnip Works for D&amp;D, Call of Cthulhu, Vampire V5, Shadowrun, Daggerheart, Fate, L5R and Exalted. What to type, with examples to copy.">
+<meta name="twitter:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta name="twitter:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<link rel="icon" href="/engine/client/mark.svg" type="image/svg+xml">
+<style>@font-face { font-family: Inter; src: url('/engine/client/vendor/inter/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+:root { --bg: #e9e6df; --paper: #fcfbf8; --raised: #f0ede6; --line: rgba(20,20,20,.14); --ink: #1a1917; --ink-2: #3d3b36; --mute: #5f5c55; --accent: #a8770f; color-scheme: light; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { color: var(--ink); }
+.top { max-width: 46rem; margin: 0 auto; padding: 18px 20px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 650; font-size: 17px; letter-spacing: -.01em; }
+.brand img { width: 36px; height: 36px; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-left: auto; font-size: 14px; }
+.links a { color: var(--ink-2); text-decoration: none; }
+.links a:hover, .links a[aria-current] { color: var(--ink); text-decoration: underline; }
+.links a[aria-current] { font-weight: 650; }
+main { max-width: 46rem; margin: 16px auto 0; padding: 28px 20px 32px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+@media (min-width: 760px) { main { padding: 40px 48px 44px; } }
+h1 { margin: 0 0 4px; font-size: 30px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
+.updated { margin: 0 0 24px; color: var(--mute); font-size: 14px; }
+h2 { margin: 34px 0 8px; font-size: 20px; line-height: 1.3; font-weight: 680; letter-spacing: -.01em; }
+h3 { margin: 24px 0 6px; font-size: 17px; font-weight: 650; }
+p, ul { margin: 0 0 14px; } ul { padding-left: 22px; } li { margin: 0 0 6px; }
+strong { font-weight: 650; }
+.play { display: inline-block; margin-top: 18px; padding: 10px 16px; border-radius: 9px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; }
+.play:hover { color: var(--paper); background: var(--ink-2); }
+@media (max-width: 520px) { .top .links { margin-left: 0; width: 100%; } }
+footer { max-width: 46rem; margin: 0 auto; padding: 18px 20px 40px; color: var(--mute); font-size: 13px; }
+ol { margin: 0 0 14px; padding-left: 24px; } ol li { margin: 0 0 8px; padding-left: 2px; }
+code { font: 14px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; background: var(--raised); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+pre { margin: 0 0 14px; padding: 10px 14px; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
+pre code { background: none; border: 0; padding: 0; }
+kbd { font: 600 13px/1 Inter, system-ui, sans-serif; padding: 2px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--paper); }
+figure { margin: 18px 0 22px; }
+figure video, figure img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #1a1917; }
+figcaption { margin-top: 6px; color: var(--mute); font-size: 14px; }
+.note { padding: 12px 16px; margin: 0 0 16px; border-radius: 10px; background: var(--raised); border: 1px solid var(--line); }
+.note p:last-child { margin-bottom: 0; }
+ol.steps { padding-left: 26px; } ol.steps > li { margin: 0 0 26px; } ol.steps > li > p { margin: 0 0 8px; } ol.steps > li::marker { font-weight: 700; }
+ol.steps img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #1a1917; }
+footer .links { margin: 0 0 6px; }</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><img src="/engine/client/mark.svg" alt="" width="36" height="36">Turnip Works</a>
+  <nav class="links" aria-label="Turnip Works pages"><a href="/features">Features</a><a href="/manual">Manual</a><a href="/dice" aria-current="page">Dice</a><a href="/switching">Switching</a><a href="/vtt-index">Compare VTTs</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://github.com/giblfiz/turnipworks">Source</a></nav>
+</header>
+<main>
+<h1>Dice for your game system</h1>
+<p class="updated">Last updated 4 November 2026</p>
+<p>Every roll in Turnip Works is a set of real 3D dice that tumble across the table. Everyone at the table sees the same throw and the same numbers, and the result goes into chat. You roll by typing into the command bar: press <kbd>/</kbd> (or <kbd>Ctrl</kbd>+<kbd>K</kbd>, <kbd>⌘</kbd>+<kbd>K</kbd> on a Mac), type the roll, press Enter.</p>
+<p>Plain dice work as you'd write them. For other games, start with <code>roll</code> (or <code>/r</code>) and the game's word, and the table reads the dice the way that game does: successes, Hope or Fear, glitches. Everything below can be copied straight into the bar.</p>
+<h2>Plain dice, and D&amp;D</h2>
+<p>Type the dice. <code>roll</code>, <code>r</code> and <code>/r</code> in front are fine too.</p>
+<pre><code>/r 2d6+1
+</code></pre>
+<pre><code>roll d20+5 adv
+</code></pre>
+<pre><code>roll 4d6kh3
+</code></pre>
+<ul>
+<li><code>kh3</code> keeps the highest three, <code>kl1</code> keeps the lowest one.</li>
+<li><code>adv</code> or <code>advantage</code>, <code>dis</code> or <code>disadvantage</code> after a d20 rolls two and keeps the right one.</li>
+<li>Add <code>for</code> and a reason to label a roll: <code>roll d20+3 for perception</code>.</li>
+<li>Named checks roll a d20 plus whatever bonus you add: <code>roll stealth</code>, <code>roll dex save advantage</code>, <code>roll athletics +4</code>. Turnip Works doesn't read a character sheet, so the bonus is yours to type.</li>
+<li>A die can have 2 to 1000 sides, up to 100 dice a term. Use <code>d100</code> for percentile; exploding dice and rerolls aren't there yet.</li>
+</ul>
+<p>Rolling from D&amp;D Beyond? A player's rolls from their D&amp;D Beyond sheet can land on the table as these same 3D dice, through the free Beyond20 extension. The setup is on <a href="/connect-dnd-beyond">Connect D&amp;D Beyond</a>.</p>
+<h2>Call of Cthulhu 7th edition</h2>
+<p>Words: <code>coc</code>, <code>cthulhu</code>, <code>percentile</code>. Then the skill, and <code>bonus</code> or <code>penalty</code> dice if you have them (up to two).</p>
+<pre><code>roll coc 65 bonus 1
+</code></pre>
+<pre><code>roll cthulhu 40 penalty 2
+</code></pre>
+<p>You get the tens dice and the units die, the one kept, and the level: critical, extreme, hard or regular success, failure, or fumble. For example: <em>23, hard success (tens 70 20, best kept)</em>.</p>
+<h2>Vampire: The Masquerade 5th edition</h2>
+<p>Words: <code>v5</code>, <code>vampire</code>, <code>vtm</code>. Then the pool, <code>hunger</code> and the difficulty.</p>
+<pre><code>roll v5 7 hunger 2 diff 3
+</code></pre>
+<pre><code>roll vampire 5 h1
+</code></pre>
+<p>6 and up is a success, and each pair of 10s counts four. The Hunger dice are red. The result names a messy critical when a Hunger die shows a 10 in a critical, and a bestial failure when a Hunger die shows a 1 on a failed roll. For example: <em>6 successes, win by 3, messy critical</em>.</p>
+<h2>Shadowrun</h2>
+<p>Words: <code>sr</code>, <code>shadowrun</code>. Then the pool, and a <code>threshold</code> if there is one.</p>
+<pre><code>roll sr 12
+</code></pre>
+<pre><code>roll shadowrun 12 thr 3
+</code></pre>
+<p>5s and 6s are hits. More than half the dice showing 1 is a glitch, and a glitch with no hits is a critical glitch. With a threshold you get the net hits.</p>
+<h2>Daggerheart</h2>
+<p>Words: <code>duality</code>, <code>daggerheart</code>, <code>dh</code>. Then your modifier, and <code>diff</code> for the difficulty.</p>
+<pre><code>roll duality +2
+</code></pre>
+<pre><code>roll dh -1 diff 14
+</code></pre>
+<p>Two d12s, Hope in gold and Fear in violet. The result says which was higher, and doubles are a critical success. For example: <em>15 with Hope (Hope 9, Fear 4, +2)</em>. The roll reports Hope or Fear; keeping count of Hope and Fear tokens is still up to you.</p>
+<h2>Fate</h2>
+<p><code>4df</code> works on its own, or <code>fate</code>, or <code>fudge</code>. Add a modifier, and <code>diff</code> for the opposition.</p>
+<pre><code>4df+1
+</code></pre>
+<pre><code>roll fate +2 diff 3
+</code></pre>
+<p>You get the total and its word on the ladder (Mediocre, Fair, Good and so on), and with a difficulty, how many shifts you won or lost by.</p>
+<h2>Legend of the Five Rings 5th edition</h2>
+<p>Words: <code>l5r</code>, <code>rings</code>. Then ring dice and skill dice, and <code>tn</code> for the target number.</p>
+<pre><code>roll l5r 3 ring 2 skill
+</code></pre>
+<pre><code>roll l5r 3r 2s tn 2
+</code></pre>
+<p>Ring dice are dark and skill dice are ivory, with the game's symbols. The result lists every face (success, opportunity, strife, explosive) and how many you may keep. Nothing is kept or exploded for you: choosing is part of the game.</p>
+<h2>Exalted 3rd edition</h2>
+<p>Words: <code>ex</code>, <code>exalted</code>. Then the pool, and <code>d9</code> or <code>double 8</code> to change which numbers count twice, <code>tn</code> for the target number, <code>diff</code> for the difficulty.</p>
+<pre><code>roll exalted 15
+</code></pre>
+<pre><code>roll ex 8 d9
+</code></pre>
+<p>7 and up is a success and 10s count double. No successes with a 1 showing is a botch.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each player can turn the 3D dice off (Settings ▸ Controls ▸ 3D dice) and still see every result in chat.</li>
+<li>A roll of more than 40 dice shows its result in chat without throwing them.</li>
+<li>Secret GM rolls aren't built yet. Every roll is seen by the table.</li>
+<li>An AI assistant seated at the table rolls the same dice, game dice included, and everyone sees them tumble.</li>
+</ul>
+<p>Missing your game? Tell us: Settings ▸ Feedback in the game, or <a href="mailto:hello@turnipworks.net">hello@turnipworks.net</a>. Game dice get added when someone asks for them. For everything else the table does, see the <a href="/features">feature tour</a>.</p>
+<a class="play" href="/">Open Turnip Works</a>
+</main>
+<footer>
+  <nav class="links" aria-label="Turnip Works pages"><a href="/features">Features</a><a href="/manual">Manual</a><a href="/dice" aria-current="page">Dice</a><a href="/switching">Switching</a><a href="/vtt-index">Compare VTTs</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://github.com/giblfiz/turnipworks">Source</a></nav>
+  <div>© 2026 Implausible Enterprises LLC · Engine AGPL-3.0 · Assets CC BY 4.0</div>
+</footer>
+<script type="module" src="/engine/client/landing.js"></script>
+</body>
+</html>

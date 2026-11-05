@@ -417,7 +417,7 @@ async def main():
             spot = await gm.evaluate("(() => { const g = tw.groundAt(6, %d), s = tw.pawnTool.spots?.[0] || null;" % ly + " return { g: g && [g[0], g[1]], s, lit: tw.worldOf(tw.area()).cellMarks?.get('pawn-tool')?.lit.count || 0 }; })()")
             check(f2[0] < f0[0] - 3 and i['active'] and i['drag'] == 'list', 'held at the left edge: the view pans left', [round(f2[0] - f0[0], 1), i, ly, await gm.evaluate("document.elementFromPoint(6, %d)?.id + '/' + document.elementFromPoint(6, %d)?.className" % (ly, ly))])
             check(spot['lit'] >= 1 and (not spot['s'] or (abs(spot['s'][0] - spot['g'][0]) <= 2.6 and abs(spot['s'][1] - spot['g'][1]) <= 2.6)), 'the figure\'s lit square is under the pointer as the world slides', spot)
-            inp = await gm.evaluate("(() => { const r = document.querySelector('#bar input').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()")
+            inp = await gm.evaluate("(() => { const r = document.querySelector('#bar textarea').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()")
             await gm.mouse.move(400, 400); await gm.wait_for_timeout(120)
             if inp['y'] < K['BAND_PX']:
                 await glide({'x': 400, 'y': 400}, inp); f0 = await gm.evaluate(FOCUS); await gm.wait_for_timeout(700); f1 = await gm.evaluate(FOCUS); i = await gm.evaluate('tw.edgePan.info()')

@@ -88,7 +88,7 @@ async def main():
         off = await gm.evaluate("({ on: tw.labelsOn(), shown: tw.labelInfo().filter(l => l.visible).length, drawn: [...document.querySelectorAll('#labels .rlabel')].filter(el => el.getBoundingClientRect().width && +getComputedStyle(el).opacity > 0.05).length, stored: localStorage.getItem('tw.labels') })")
         check(not off['on'] and off['shown'] == 0 and off['drawn'] == 0 and off['stored'] == 'off', 'L: every room and building label goes (and the browser remembers it)', off)
         await gm.keyboard.press('/'); await gm.keyboard.type('hall', delay=10); await gm.wait_for_timeout(300)
-        typed = await gm.evaluate("({ on: tw.labelsOn(), value: document.querySelector('#bar input').value })")
+        typed = await gm.evaluate("({ on: tw.labelsOn(), value: document.querySelector('#bar textarea').value })")
         await gm.keyboard.press('Escape'); await gm.wait_for_timeout(200)
         check(not typed['on'] and typed['value'] == 'hall', 'typing "hall" in the command bar puts the l\'s in the bar and leaves the labels alone', typed)
         await gm.keyboard.press('l'); await gm.wait_for_timeout(600)
@@ -162,7 +162,7 @@ async def main():
         pt = await gm.evaluate(targets['command bar'][1]); await gm.evaluate(PLACE, [btn, pt[0], pt[1]])
         rect0 = await gm.evaluate(f"JSON.stringify(tw.entities()['{room}'].recipe)")
         await gm.mouse.click(pt[0], pt[1]); await gm.wait_for_timeout(400)
-        clk = await gm.evaluate(f"({{ open: document.querySelector('#bar').classList.contains('open') || document.activeElement === document.querySelector('#bar input'), same: JSON.stringify(tw.entities()['{room}'].recipe) === {rect0!r} }})")
+        clk = await gm.evaluate(f"({{ open: document.querySelector('#bar').classList.contains('open') || document.activeElement === document.querySelector('#bar textarea'), same: JSON.stringify(tw.entities()['{room}'].recipe) === {rect0!r} }})")
         await gm.keyboard.press('Escape'); await gm.wait_for_timeout(200)
         check(clk['open'] and clk['same'], 'clicking the bar where a ring button lies under it opens the bar; the room is untouched', clk)
         # the ring still covers the world's labels: a room label under a ring button is under it

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire? · Turnip Works</title>
+<meta name="description" content="What&#x27;s different in Turnip Works if you play on Roll20, Foundry VTT, Owlbear Rodeo or TaleSpire, what it doesn&#x27;t do yet, and how maps come and go.">
+<link rel="canonical" href="https://turnipworks.net/switching">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Turnip Works">
+<meta property="og:title" content="Coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire?">
+<meta property="og:description" content="What&#x27;s different in Turnip Works if you play on Roll20, Foundry VTT, Owlbear Rodeo or TaleSpire, what it doesn&#x27;t do yet, and how maps come and go.">
+<meta property="og:url" content="https://turnipworks.net/switching">
+<meta property="og:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire?">
+<meta name="twitter:description" content="What&#x27;s different in Turnip Works if you play on Roll20, Foundry VTT, Owlbear Rodeo or TaleSpire, what it doesn&#x27;t do yet, and how maps come and go.">
+<meta name="twitter:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta name="twitter:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<link rel="icon" href="/engine/client/mark.svg" type="image/svg+xml">
+<style>@font-face { font-family: Inter; src: url('/engine/client/vendor/inter/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+:root { --bg: #e9e6df; --paper: #fcfbf8; --raised: #f0ede6; --line: rgba(20,20,20,.14); --ink: #1a1917; --ink-2: #3d3b36; --mute: #5f5c55; --accent: #a8770f; color-scheme: light; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { color: var(--ink); }
+.top { max-width: 46rem; margin: 0 auto; padding: 18px 20px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 650; font-size: 17px; letter-spacing: -.01em; }
+.brand img { width: 36px; height: 36px; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-left: auto; font-size: 14px; }
+.links a { color: var(--ink-2); text-decoration: none; }
+.links a:hover, .links a[aria-current] { color: var(--ink); text-decoration: underline; }
+.links a[aria-current] { font-weight: 650; }
+main { max-width: 46rem; margin: 16px auto 0; padding: 28px 20px 32px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+@media (min-width: 760px) { main { padding: 40px 48px 44px; } }
+h1 { margin: 0 0 4px; font-size: 30px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
+.updated { margin: 0 0 24px; color: var(--mute); font-size: 14px; }
+h2 { margin: 34px 0 8px; font-size: 20px; line-height: 1.3; font-weight: 680; letter-spacing: -.01em; }
+h3 { margin: 24px 0 6px; font-size: 17px; font-weight: 650; }
+p, ul { margin: 0 0 14px; } ul { padding-left: 22px; } li { margin: 0 0 6px; }
+strong { font-weight: 650; }
+.play { display: inline-block; margin-top: 18px; padding: 10px 16px; border-radius: 9px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; }
+.play:hover { color: var(--paper); background: var(--ink-2); }
+@media (max-width: 520px) { .top .links { margin-left: 0; width: 100%; } }
+footer { max-width: 46rem; margin: 0 auto; padding: 18px 20px 40px; color: var(--mute); font-size: 13px; }
+ol { margin: 0 0 14px; padding-left: 24px; } ol li { margin: 0 0 8px; padding-left: 2px; }
+code { font: 14px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; background: var(--raised); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+pre { margin: 0 0 14px; padding: 10px 14px; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
+pre code { background: none; border: 0; padding: 0; }
+kbd { font: 600 13px/1 Inter, system-ui, sans-serif; padding: 2px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--paper); }
+figure { margin: 18px 0 22px; }
+figure video, figure img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #1a1917; }
+figcaption { margin-top: 6px; color: var(--mute); font-size: 14px; }
+.note { padding: 12px 16px; margin: 0 0 16px; border-radius: 10px; background: var(--raised); border: 1px solid var(--line); }
+.note p:last-child { margin-bottom: 0; }
+ol.steps { padding-left: 26px; } ol.steps > li { margin: 0 0 26px; } ol.steps > li > p { margin: 0 0 8px; } ol.steps > li::marker { font-weight: 700; }
+ol.steps img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #1a1917; }
+footer .links { margin: 0 0 6px; }</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><img src="/engine/client/mark.svg" alt="" width="36" height="36">Turnip Works</a>
+  <nav class="links" aria-label="Turnip Works pages"><a href="/features">Features</a><a href="/manual">Manual</a><a href="/dice">Dice</a><a href="/switching" aria-current="page">Switching</a><a href="/vtt-index">Compare VTTs</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://github.com/giblfiz/turnipworks">Source</a></nav>
+</header>
+<main>
+<h1>Coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire?</h1>
+<p class="updated">Last updated 4 November 2026</p>
+<p>You already have a virtual tabletop, and it probably works. This page is the short, honest version of what changes if you try Turnip Works: what's different, what it doesn't do yet, and how your maps come and go. Nothing here needs you to move your campaign. Plenty of people will build a map here and play it somewhere else, and that's fine too.</p>
+<h2>The short version</h2>
+<p>Turnip Works is a 3D tabletop in a browser tab. The table is a real 3D scene with miniatures, furniture, lamps and walls, which you can look at from above, tilt, or walk through in first person. It's free, with no paid tier, and nobody needs an account: not the players, not the GM. You start a table and send links. The engine is open source (AGPL) and the 3D assets are CC BY 4.0.</p>
+<p>It's also young. It's in open beta, two of us make it, and it changes every week.</p>
+<h2>If you play on Roll20</h2>
+<p>Roll20 is a 2D tabletop in the browser, with character sheets for a long list of systems, official adventures to buy, and scripting on its Pro plan. Everyone at a Roll20 table has an account.</p>
+<p>What's different here: the map is 3D, and you build it by dropping in rooms and buildings that furnish themselves, instead of uploading a picture. No one signs up for anything. Fog of war and lighting work out what each player can see from the walls, their darkvision and the lamps, with nothing to draw by hand.</p>
+<p>What you'll miss: character sheets that do the maths, a compendium, and bought adventures. Turnip Works has none of those. A pawn can link to your sheet elsewhere, and damage and conditions sit on the pawn itself. If your group uses D&amp;D Beyond, rolls from the sheet can land on our table through <a href="/connect-dnd-beyond">Beyond20</a>.</p>
+<h2>If you play on Foundry VTT</h2>
+<p>Foundry is a one-time licence the GM buys and runs on their own computer or a server. Players join in a browser. Its strength is depth: game systems that automate the rules, and thousands of community modules.</p>
+<p>What's different here: nothing to host, install or keep updated. The GM opens a tab, same as the players. The table is 3D out of the box, with several floors, stairs, cellars and caves.</p>
+<p>What you'll miss: rules automation and modules. Turnip Works has no system rules engine (attacks roll, but nothing checks them against armour class), no module ecosystem, and you can't run it offline or on your own server yet. What it does have for tinkerers is a plain web API, so an AI assistant or a script can sit at the table.</p>
+<h2>If you play on Owlbear Rodeo</h2>
+<p>Owlbear Rodeo is the closest in spirit: a simple 2D tabletop in the browser, quick to start, where players join without an account. Its extensions add sheets, initiative and lighting.</p>
+<p>What's different here: the table is 3D, and fog of war, lighting, initiative and conditions are built in rather than added. The GM doesn't need an account either.</p>
+<p>What you'll miss: Owlbear's extension store, and uploading any picture you like as a map. Turnip Works can't use your existing map images yet; you build the map here instead.</p>
+<h2>If you play on TaleSpire</h2>
+<p>TaleSpire is the other 3D one: a beautiful tile-based tabletop you buy and install through Steam, on Windows or a Mac.</p>
+<p>What's different here: Turnip Works runs in a browser, so there's nothing to buy or install, players join from a link, and it works on phones, with some rough edges. Fog of war is real: each player sees only what their pawn can see. Rooms and buildings place whole and furnish themselves, rather than being built tile by tile.</p>
+<p>What you'll miss: TaleSpire's mod and community content, its hand-built detail, and its years of polish.</p>
+<h2>What Turnip Works doesn't do yet</h2>
+<ul>
+<li><strong>Character sheets and rules automation.</strong> No sheets, no compendium. Link a sheet, track damage and conditions on the pawn.</li>
+<li><strong>Bringing in maps.</strong> It can't read a map image or a Universal VTT file. You build maps here.</li>
+<li><strong>Secret rolls.</strong> Every roll is seen by the table for now.</li>
+<li><strong>Voice and video.</strong> Use Discord or whatever your group already uses.</li>
+<li><strong>Modules, a marketplace, offline play or self-hosting.</strong></li>
+<li><strong>A computer is best.</strong> It needs working 3D graphics (WebGL). Phones work by touch, but some screens are still desktop-sized.</li>
+</ul>
+<h2>Moving maps in and out</h2>
+<p><strong>Out:</strong> any level you build can be downloaded as a Universal VTT file, with the picture, walls, doors, windows and lights, which Foundry, Roll20 and Fantasy Grounds can import. So you can build a tavern here in a few minutes and run it at your usual table. <a href="/export">How to export</a>.</p>
+<p><strong>Between Turnip Works GMs:</strong> a whole area can be shared as a file or an unlisted link, and opens in the other GM's campaign as a 3D build, furniture and all.</p>
+<p><strong>In:</strong> not yet. There's no import from other tabletops. When it comes, it'll be in the <a href="/features">feature tour</a>.</p>
+<h2>Comparing them properly</h2>
+<p>We keep a public <a href="/vtt-index">VTT comparison index</a>: many tabletops, ours included, scored by the same rules on the features people ask about, with a source for every cell. We make Turnip Works, so read it knowing that. If we got your favourite tabletop wrong, the page says how to correct us.</p>
+<p>The easiest way to find out if it suits your table is to open one. It takes about a minute, and there's nothing to sign up for.</p>
+<a class="play" href="/">Open Turnip Works</a>
+</main>
+<footer>
+  <nav class="links" aria-label="Turnip Works pages"><a href="/features">Features</a><a href="/manual">Manual</a><a href="/dice">Dice</a><a href="/switching" aria-current="page">Switching</a><a href="/vtt-index">Compare VTTs</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://github.com/giblfiz/turnipworks">Source</a></nav>
+  <div>© 2026 Implausible Enterprises LLC · Engine AGPL-3.0 · Assets CC BY 4.0</div>
+</footer>
+<script type="module" src="/engine/client/landing.js"></script>
+</body>
+</html>

@@ -249,9 +249,9 @@ async def quickbar(rig, P):
     # warm: the goblin meshes and the bar's thumbnails (real time), then everything warmed is taken away again
     far = await pawns(S, 'foe-goblin-spear', cm['cx'] + 400, cm['cz'], count=6); await settle(S)
     await S.ev("(ids) => { tw.select(ids); tw.deleteSelection(); tw.clearSelection(); }", far)
-    await S.ev("(() => { const i = document.querySelector('#bar input'); })()")
+    await S.ev("(() => { const i = document.querySelector('#bar textarea'); })()")
     for word in (P.get('words', '6 goblin spear'), 'barrel'):
-        await S.page.keyboard.press('/'); await S.page.locator('#bar input').fill(word); await S.page.wait_for_timeout(1500)
+        await S.page.keyboard.press('/'); await S.page.locator('#bar textarea').fill(word); await S.page.wait_for_timeout(1500)
         await S.page.wait_for_function("[...document.querySelectorAll('#results img')].every(i => i.complete)", timeout=20000)
         await S.page.keyboard.press('Escape'); await S.page.keyboard.press('Escape'); await S.page.wait_for_timeout(300)
     await S.page.wait_for_function("tw.sync.pendingCount() === 0"); await S.page.wait_for_timeout(800)

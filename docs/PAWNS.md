@@ -223,6 +223,9 @@ relay, a raw socket per seat). The pictures Gemini read are made by `--shots` (n
   above the pawn's name; **damage as a number** beside a cracked heart, the indicator and the condition words on the
   row; **pets and familiars are smaller portraits in the same row** (every other pawn that seat owns; up to four, then
   "+2"), each with its own damage; action icons under the name, each with a hover name shown at once.
+- **(2026-11-03) The click cuts the view to the pawn's level, up or down; dragging a portrait onto the map seizes that
+  pawn** (it moves the pawn itself, onto the floor under the pointer, one undo; only for whoever could drag the token).
+  docs/UI.md "Getting to any pawn: the Pawns menu's portraits".
 - **Icons, for everyone:** Sheet (opens the link in a new tab; with no link yet it selects the pawn and opens its
   card), Follow, Whisper. **For the GM:** Bring here, Send to another area ▸, Control ▸ (who moves it). What cannot be
   done is not shown (no whisper to yourself; no Control for a pawn that is not on this table).

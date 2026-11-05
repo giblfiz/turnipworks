@@ -14,19 +14,16 @@ body.wide main > p, body.wide main > h2, body.wide main > ul, body.wide main > d
 .filters input[type=checkbox], .fix input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); }
 .filters .count { margin: 0 0 0 auto; color: var(--mute); font-size: 13px; align-self: center; }
 .tableframe { position: relative; margin: 8px 0 10px; }
-.tableframe::after { content: ''; position: absolute; top: 1px; right: 1px; bottom: 1px; width: 32px; border-radius: 0 10px 10px 0; background: linear-gradient(to right, rgba(26,25,23,0), rgba(26,25,23,.24)); pointer-events: none; transition: opacity .2s; }
-.tableframe.atend::after { opacity: 0; }
-.tablewrap { overflow: auto; max-height: 78vh; margin: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); -webkit-overflow-scrolling: touch; }
+.tablewrap { overflow-y: auto; max-height: 78vh; margin: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
 .tablewrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-table.vtt { border-collapse: separate; border-spacing: 0; font-size: 13px; line-height: 1.35; min-width: 100%; }
-table.vtt caption { caption-side: top; text-align: left; padding: 8px 10px; color: var(--mute); font-size: 13px; position: sticky; left: 0; }
-table.vtt th, table.vtt td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; vertical-align: top; }
+table.vtt { border-collapse: separate; border-spacing: 0; font-size: 13px; line-height: 1.3; width: 100%; }
+table.vtt th, table.vtt td { padding: 5px 5px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: break-word; } /* (break-word, not anywhere: anywhere lets the table size its columns as if every word could split, and it then splits them; the cards take over below the width where every column fits whole, about 1206 px) */
 table.vtt thead th { position: sticky; top: 0; z-index: 2; background: var(--raised); font-weight: 650; }
 table.vtt thead th button { font: inherit; color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
-table.vtt thead th button::after { content: ''; display: inline-block; width: 1em; color: var(--mute); }
+table.vtt thead th button::after { content: ''; color: var(--mute); }
 table.vtt thead th[aria-sort=ascending] button::after { content: ' \2191'; }
 table.vtt thead th[aria-sort=descending] button::after { content: ' \2193'; }
-table.vtt th.nm, table.vtt th.nmh { position: sticky; left: 0; z-index: 1; background: var(--paper); white-space: normal; min-width: 9rem; max-width: 13rem; border-right: 1px solid var(--line); }
+table.vtt th.nm, table.vtt th.nmh { background: var(--paper); min-width: 8rem; max-width: 11rem; border-right: 1px solid var(--line); }
 table.vtt thead th.nmh { z-index: 3; background: var(--raised); }
 table.vtt th.nm a { font-weight: 650; color: var(--ink); }
 table.vtt th.nm a:hover { color: var(--accent); }
@@ -74,7 +71,7 @@ dialog#detail::backdrop { background: rgba(26,25,23,.62); }
 @media (min-width: 640px) { .dlg .acts { padding: 12px 30px 14px; } }
 .dlg .acts .hint { margin-left: auto; font-size: 13px; color: var(--ink-2); }
 .dlg .acts a { font-size: 14px; color: #85590a; }
-@media (max-width: 520px) { table.vtt th.nm, table.vtt th.nmh { min-width: 7.5rem; max-width: 9.5rem; } .filters .count { margin-left: 0; } }
+@media (max-width: 520px) { .filters .count { margin-left: 0; } }
 form.fix select, form.fix input:not([type=checkbox]), form.fix textarea { width: 100%; min-width: 0; }
 p.legend { margin: 0 0 6px; font-size: 13px; color: var(--mute); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 p.legend span { padding: 1px 8px; border-radius: 6px; border: 1px solid var(--line); color: var(--ink); }
@@ -82,7 +79,6 @@ p.legend span.v-q, p.legend span.unv { color: var(--mute); }
 p.legend span.unv { border: 0; padding: 0; }
 .dlg .srcl { font-size: 13px; white-space: nowrap; color: #85590a; text-decoration: underline; }
 table.vtt caption.sr, .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-p.legend .swipe { border: 0; padding: 0; font-weight: 600; color: var(--ink-2); }
 @media (hover: none) { p.legend .hov { display: none; } }
 p.legend b { color: var(--ink-2); }
 p.legend span.hov { border: 0; padding: 0; color: var(--mute); }
@@ -105,3 +101,20 @@ p.legend span.hov { border: 0; padding: 0; color: var(--mute); }
 }
 @media (max-width: 560px) { p.legend { font-size: 12px; gap: 4px; } p.legend span { padding: 0 6px; } }
 .nw { white-space: nowrap; }
+/* NO SIDEWAYS SCROLLING (Nick's rule, relayed by Harry 2026-11-02; docs/UI.md). Every column fits the table where the
+   screen is wide enough; below that each product is a card: the same criterion in the same place on every card, so
+   the eye can still run down them, and the column headers stay as the sort buttons. */
+@media (max-width: 1239px) {
+  .tablewrap { max-height: none; overflow: visible; border: 0; border-radius: 0; background: none; }
+  table.vtt, table.vtt thead, table.vtt tbody, table.vtt th, table.vtt td { display: block; }
+  table.vtt thead tr { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin: 0 0 10px; }
+  table.vtt thead tr::before { content: 'Sort by'; color: var(--mute); font-size: 13px; }
+  table.vtt thead th, table.vtt thead th.nmh { position: static; min-width: 0; max-width: none; padding: 2px 8px; border: 1px solid var(--line); border-radius: 7px; background: var(--raised); }
+  table.vtt thead th[aria-sort] { border-color: var(--ink-2); }
+  table.vtt tbody tr { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(11rem, 100%), 1fr)); gap: 2px 8px; margin: 0 0 10px; padding: 8px 10px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+  table.vtt tbody tr[hidden] { display: none; }
+  table.vtt tbody th.nm { grid-column: 1 / -1; min-width: 0; max-width: none; padding: 0 0 4px; border: 0; background: none; font-size: 15px; }
+  table.vtt tbody th.nm small { display: inline; margin-left: 6px; }
+  table.vtt tbody td { display: flex; justify-content: space-between; gap: 10px; padding: 2px 6px; border: 0; border-radius: 5px; text-align: right; overflow-wrap: anywhere; }
+  table.vtt tbody td::before { content: attr(data-l); flex: none; max-width: 60%; color: var(--ink-2); text-align: left; }
+}

@@ -13,6 +13,7 @@ import { LIGHT_RADII, DARKVISION_DEFAULT } from '../core/darkness.js';
 import { CHAT_RATE, LOOP_MAX, LOOP_HOLD } from './campaign.js';
 import { FIGURES } from './figures.js';
 import { MINT } from './llm.js';
+import { botOf } from '../core/agentname.js';
 
 export { CONDITIONS } from '../core/pawn.js'; // the ring's list, each with its own look on the table (core/conditions.js); any other short word shows as a text label
 // arguments the card never offers: legacy (hp), the browser's own (solved layouts, recordings, asset paths), bookkeeping
@@ -31,12 +32,14 @@ function kit(rt, seat, base, token) {
   const doC = (cmd, qs = '') => camp('do', `cmd=${cmd}${qs ? '&' + qs : ''}&nonce=NEW_WORD`);
   const help = (t) => camp(`help/${t}`);
   const whose = creator ? `${creator.name}'s ${s.role === 'gm' || gm ? 'GM assistant' : 'agent'}` : null;
-  return { s, creator, whose, areas, A, c, tok, may, gm, at, camp, doA, doC, help };
+  // a seat named "<owner>'s <bot>" (core/agentname.js) needs no "(Harry's agent)" after its name, and answers to its botname too
+  const bot = creator ? botOf(creator.name, s.name) : null;
+  return { s, creator, whose, bot, areas, A, c, tok, may, gm, at, camp, doA, doC, help };
 }
 
 export function ruleCard(rt, seat, base, token) {
   const K = kit(rt, seat, base, token), { s, may, gm, at, camp, doA, help } = K, L = [];
-  L.push(`TURNIP WORKS — rules card for ${s.name}${K.whose ? ` (${K.whose})` : ''}`);
+  L.push(`TURNIP WORKS — rules card for ${s.name}${K.whose && !K.bot ? ` (${K.whose})` : ''}`);
   L.push(`Campaign "${rt.state.name}". You play by opening web addresses (plain GET; no tools needed). Every address below already holds your seat token (seat=...): keep it secret.`);
   L.push('HOW: copy an address, replace each CAPITALISED word (ROOM_ID, PAWN_ID, THING_ID, FEET, TEXT, NEW_WORD...) with a real value, open it, read the JSON answer. {"ok":true} = it happened; {"ok":false,"why":"..."} says why not. Write a space in a value as %20.');
   L.push('');
@@ -46,33 +49,37 @@ export function ruleCard(rt, seat, base, token) {
   L.push(`YOU MAY: ${[...new Set(K.areas.flatMap(t => effectiveClasses(rt.state, seat, t.id)))].join(', ') || 'look only'} (what each means: ${help('commands')}).`);
   L.push('');
   L.push('1. LOOK FIRST (every id you need is in these answers; feet everywhere: x grows east, z grows south, y is height):');
-  L.push(`   THE SCENE (rooms, pawns, lights, doors, turn order, recent chat): ${at('scene')}`);
+  L.push(`   THE SCENE (rooms, buildings, pawns, lights, doors, turn order, recent chat): ${at('scene')}`);
   L.push(`   ONE ROOM, everything in it: ${at('room/ROOM_ID')}`);
   L.push(`   NEAR A POINT: ${at('look', 'x=FEET&z=FEET&r=15')}   (everything at once, larger: ${at('state')})`);
   L.push(`2. ACT: ${doA('COMMAND', 'ARGUMENTS')}`);
-  L.push('   nonce: a new made-up word for each action (the same word again is a retry: it never happens twice). Optional based_on=SEQ (the "seq" you read): if someone changed that same thing since, the answer is "stale" with the changes; read again and retry.');
+  L.push('   nonce: a new made-up word for each action (the same word again is a retry: it never happens twice).');
   const allowed = (type) => { const d = REGISTRY[type]; if (!d) return type === 'turn.roll' && may('turn'); const cls = typeof d.cls === 'string' ? d.cls : type === 'entity.flag' ? 'reveal' : null; return !!cls && may(cls); };
   L.push('3. COMMON TASKS (one address each):');
   if (allowed('dice.roll')) {
     L.push(`   ROLL DICE (the relay rolls fairly and answers with the numbers; everyone sees the dice tumble): ${doA('dice.roll', 'expr=d20&bonus=0&why=REASON')}`);
-    L.push('     expr: d20, 2d6, 3d8, 4d6kh3 (keep highest 3), d20adv, d20dis. bonus: a number added to the total (bonus=-1 subtracts). why: what the roll is for.');
-    L.push('     Other games\' dice (the answer\'s "tally" counts them): expr=coc 65 bonus 1, v5 7 hunger 2 diff 3, sr 12, duality 2, 4df 1, l5r 3 ring 2 skill, ex 8. help/dice explains each.');
+    L.push('     expr: d20, 2d6, 4d6kh3 (keep highest 3), d20adv, d20dis. bonus=-1 subtracts. why: what it is for.');
+    L.push('     Other games\' dice (coc, v5, sr, duality, 4df, l5r, ex; the answer\'s "tally" counts them): help/dice.');
   }
   if (allowed('chat.say')) L.push(`   SAY SOMETHING: ${doA('chat.say', 'text=TEXT')}`);
   if (allowed('token.create')) L.push(`   ADD A CREATURE TO A ROOM: find a figure: ${camp('figures', 'q=WORDS')} (q=goblin, q=owlbear, q=elf+wizard), then ${doA('token.create', 'fig=FIGURE_ID&room=ROOM_ID')}  (it stands on a free square of that room; or give x=FEET&z=FEET; name=NAME is optional; hidden=true keeps it from the players)`);
-  if (allowed('token.move')) L.push(`   MOVE A PAWN: ${doA('token.move', 'id=PAWN_ID&x=FEET&z=FEET')}  (or room=ROOM_ID: a free square there)${s.kind === 'llm' && !gm ? '. Only your own pawns ("yours": true).' : ''}`);
+  if (allowed('token.move')) L.push(`   MOVE A PAWN: ${doA('token.move', 'id=PAWN_ID&x=FEET&z=FEET')}  (or room=ROOM_ID: a free square there; stair=STAIR_ID crosses a stair, to=top its upper end, to=bottom its lower)${s.kind === 'llm' && !gm ? '. Only your own pawns ("yours": true).' : ''}`);
+  L.push('   STAIRS ("stairs" in the scene): "ends" names the bottom and top, room and level; "from" is the bottom room, "to" the top, never a direction. room/ROOM_ID adds "goes": "up" or "down", from that room.');
   if (allowed('object.light')) L.push(`   LIGHT OR PUT OUT a candle, lamp, torch or fire ("lights" in the scene): ${doA('object.light', 'id=THING_ID&lit=true')}  (lit=false puts it out)`);
   if (allowed('object.open')) L.push(`   OPEN OR CLOSE a door, chest or shutter ("doors" in the scene): ${doA('object.open', 'id=THING_ID&open=true')}  (open=false closes it); one with a "key", no id: ${doA('door.open', 'key=KEY&open=true')}`);
   if (allowed('token.damage')) L.push(`   DAMAGE: ${doA('token.damage', 'id=PAWN_ID&damage=NEW_TOTAL')}  (damage counts UP from 0 = unhurt; a pawn at 12 hit for 7: damage=19)`);
-  L.push('   TARGET: a pawn\'s "target" (in state and the scene, with "targetName") is the pawn its player is aiming at: when a player says "attack" (or "hit it"), they mean their pawn\'s target.' + (allowed('token.set') ? ` Set it: ${doA('token.set', 'id=PAWN_ID&target=TARGET_ID')} (target= with nothing clears).` : ''));
-  if (allowed('token.set')) L.push(`   SAVED ATTACKS (a pawn's "attacks", names and dice only, 8 at most, the last used first): ${doA('token.set', 'id=PAWN_ID&attacks=[{"name":"Longsword","hit":"+5","dmg":"1d8+3"}]')}  (attacks=[] clears; the whole list each time)`);
+  L.push('   TARGET: a pawn\'s "target" ("targetName") is the pawn its player is aiming at: "attack" means that one.' + (allowed('token.set') ? ` Set it: ${doA('token.set', 'id=PAWN_ID&target=TARGET_ID')} (target= with nothing clears).` : ''));
+  if (allowed('token.set')) L.push(`   SAVED ATTACKS (names and dice only, 8 at most): ${doA('token.set', 'id=PAWN_ID&attacks=[{"name":"Longsword","hit":"+5","dmg":"1d8+3"}]')}  (attacks=[] clears; the whole list each time)`);
   if (allowed('token.set')) L.push(`   CONDITIONS: ${doA('token.set', 'id=PAWN_ID&conditions=prone,poisoned')}  (the whole list; conditions= clears. Any short text works; ${camp('conditions')} lists those drawn as pictures)`);
   if (allowed('entity.flag')) L.push(`   HIDE FROM PLAYERS / REVEAL: ${doA('entity.flag', 'ids=ID&hidden=true')}  (hidden=false reveals; a room id hides the whole room and everything in it)`);
   if (allowed('room.set')) {
     L.push(`   RENAME A ROOM (its label): ${doA('room.set', 'id=ROOM_ID&name=NAME')}  (name= with nothing goes back to its type's name)`);
-    L.push('   ROOM LABELS (a room\'s name) are ALREADY hidden from the players: only the GM side ever receives them. So "hide a room\'s label from the players" needs NO command: say that it already is. Do NOT use entity.flag for it: that hides the WHOLE room (walls, floor, everything in it). Each person shows or hides labels on their own screen ("Hide room labels" in the command bar); no command here does that.');
+    L.push('   ROOM AND BUILDING LABELS: "label" is what people read on the map. The scene\'s "buildings" pair each id with its label ("Building 3"); a room gives its "building" and "buildingLabel". Labels are ALREADY hidden from the players, so hiding one needs NO command. Do NOT use entity.flag for it: that hides the WHOLE room.');
   }
-  if (allowed('room.spawn')) L.push(`   BUILD A ROOM: ${doA('room.spawn', 'type=TYPE&x=FEET&z=FEET&w=FEET&d=FEET')}  (x, z, w, d in FEET, multiples of 5, 5..80 a side; types like common, kitchen, temple-nave, cult-sanctum, mkt-square, min-tunnel: ${help('rooms')})`);
+  if (gm && !may('room')) L.push('   LABELS: this seat has no "room" permission, so it reads no labels: every building is just "Building". A seat with Rooms ticked reads them.');
+  if (allowed('room.spawn')) L.push(`   BUILD A ROOM: ${doA('room.spawn', 'type=TYPE&x=FEET&z=FEET&w=FEET&d=FEET')}  (x, z, w, d in FEET, multiples of 5, 5..80 a side; types like common, kitchen, temple-nave: ${help('rooms')}). Below ground, a cave, cellar, basement or crypt is a room too, never a thing: add y=-10 (type=cave, type=cellar, type=crypt-vault); upstairs y=10.`);
+  else if (allowed('object.place')) L.push('   A cave, cellar or crypt is a ROOM, not a thing: this seat has no "room" permission, so it cannot build one. Ask the GM.');
+  if (allowed('object.place')) L.push(`   PUT A THING DOWN: ${doA('object.place', 'cat=PIECE_ID&x=FEET&z=FEET')}  (find it: ${camp('things', 'q=WORDS')}; with no cat you get only a marker)`);
   if (allowed('room.spawn')) L.push(`   IMPORT A SHARED BUILD: ${doA('import', 'link=LINK')} (${help('sharing')})`);
   if (allowed('turn.roll')) L.push(`   THE TURN ORDER is "turns" in the scene. ROLL INITIATIVE for a pawn: ${doA('turn.roll', 'id=PAWN_ID')}${gm ? '' : '  (your own pawns)'}`);
   if (allowed('undo')) L.push(`   UNDO your last action: ${doA('undo')}`);
@@ -82,17 +89,16 @@ export function ruleCard(rt, seat, base, token) {
   L.push('4. WORKED EXAMPLE (the start of each address, up to "do?", is the same as above; every address ends with your &seat=...):');
   L.push('   You open the scene. It answers {"area":{"seq":12,...},"rooms":[{"id":"room_ab12cd34ef","type":"common","label":"Common room",...}],"lights":[{"id":"obj_77aa88bb99","name":"candlestick","room":"room_ab12cd34ef","lit":false}],...}');
   if (allowed('dice.roll')) L.push('   "Roll for the goblin\'s stealth, +6" -> do?cmd=dice.roll&expr=d20&bonus=6&why=Goblin%20stealth&nonce=roll1 -> {"ok":true,"expr":"d20+6","rolls":[13],"total":19}');
-  if (allowed('token.create')) L.push('   "Put a goblin in the common room" -> figures?q=goblin -> {"figures":[{"id":"foe-goblin-club",...}]} -> do?cmd=token.create&fig=foe-goblin-club&room=room_ab12cd34ef&nonce=gob1 -> {"ok":true,"id":"tok_..."}');
-  if (allowed('object.light')) L.push('   "Light the candle" -> do?cmd=object.light&id=obj_77aa88bb99&lit=true&nonce=light1 -> {"ok":true,...}');
   L.push('   Then say in one line what you did. If an answer is {"ok":false}, read its "why", fix that one thing and try again with a NEW nonce.');
   L.push('');
   if (s.kind === 'llm') {
     L.push('ETIQUETTE FOR AI SEATS (the table is for the humans):');
-    L.push(`  - Act or speak only when someone addresses you ("@${s.name}", "${s.name}"${K.whose ? `, "${K.whose}"` : ''}), when ${K.creator ? K.creator.name : 'your creator'} asked you to handle something, or for a clear rules question nobody else is answering. Woken by a say or roll? Usually do nothing and wait again.`);
+    L.push(`  - Act or speak only when someone addresses you ("@${s.name}", "${s.name}"${K.bot ? `, "${K.bot}"` : K.whose ? `, "${K.whose}"` : ''}), when ${K.creator ? K.creator.name : 'your creator'} asked you to handle something, or for a clear rules question nobody else is answering. Woken by a say or roll? Usually do nothing and wait again.`);
     L.push('  - Never reply to your own messages ("you": true). Never reply to another AI seat ("byKind": "ai") unless it addressed YOU by name.');
-    L.push(`  - Keep it short: at most 2 messages a minute. Prefer doing (commands) over chatting. Unsure? Ask the GM in one line; the GM can undo anything you do. (The relay enforces ${CHAT_RATE.min} a minute and ${CHAT_RATE.hour} an hour, and pauses two AI seats that answer each other ${LOOP_MAX} times for ${LOOP_HOLD / 1000} s.)`);
+    L.push(`  - Keep it short: at most 2 messages a minute. Prefer doing (commands) over chatting. Unsure? Ask the GM in one line; the GM can undo anything you do. (The relay enforces ${CHAT_RATE.min} a minute, ${CHAT_RATE.hour} an hour.)`);
     L.push(`  - Whenever you are not actively working, hide your cursor: ${K.doC('cursor.hide')}  When you start again, show it: ${K.doC('cursor.show')}`);
-    L.push(`  - To wait for talk (says and rolls only; waits up to 25 s; pass back the "cursor" you got): ${camp('changes', 'kinds=chat,roll&after=CURSOR&wait=25')}`);
+    L.push(`  - To wait for talk (says, rolls, pings; waits up to 25 s; pass back the "cursor" you got): ${camp('changes', 'kinds=chat,roll&after=CURSOR&wait=25')}`);
+    L.push('  - A person holding a click on the map makes a PING: it comes in that wait as kind "ping", with "by", x, z, y and "there" (the pawn, thing, room at that spot). It usually means "look at this".');
     L.push('');
   }
   L.push(`5. MORE, when you need it (plain text, your own addresses inside): ${help('TOPIC')} with TOPIC one of:`);
@@ -127,6 +133,7 @@ export function helpPage(rt, seat, base, token, topic) {
     if (!may('room')) no('build or change rooms');
     else {
       L.push(`BUILD: ${doA('room.spawn', 'type=TYPE&x=FEET&z=FEET&w=FEET&d=FEET')}`);
+      L.push('  A cave, a cellar, a basement, a crypt: rooms, one level down with y=-10 (type=cave has no command of its own, and goes below the ground by itself). No thing makes one: object.place makes one piece of furniture.');
       L.push('  x, z, w, d in FEET on the 5-ft grid (multiples of 5; w=30 d=20 is a 30×20 ft room, 5..80 ft a side), exactly as rooms are reported. (Cells only if you name them cx, cz, cw, cd.) The relay furnishes it (seed=NUMBER picks another arrangement). A room may not overlap another. Add clip=1 to make whatever part of the rectangle does NOT overlap existing rooms (an L-shaped room, usually); or give outline=[[x,z],...] (feet, clockwise from the top-left corner) for a room that is not a rectangle. name=NAME gives it a label.');
       L.push('  Off the ground: y=FEET (10 = one storey up, -10 = a cellar or dungeon below; see help/height). tall=2 makes ONE room two storeys high (a great hall, a temple nave).');
       L.push(`ROOM TYPES (type=KEY), by kind:`);
@@ -149,6 +156,7 @@ export function helpPage(rt, seat, base, token, topic) {
     if (!may('object')) no('place or change things');
     else {
       L.push(`FIND A PIECE in the library: ${camp('things', 'q=WORDS')} (q=candle, q=chest, q=barrel). Each hit: id, place (floor, wall, surface), and light / opens when it is one.`);
+      L.push('A thing is one piece of furniture. object.place with no cat leaves only a marker, a bare box with that name, and a word that names a room (cave, cellar, crypt) is refused with the room.spawn that makes the room.');
       L.push(`PUT IT DOWN: ${doA('object.place', 'cat=PIECE_ID&x=FEET&z=FEET')}  (y=FEET to raise it, e.g. on a table at 3; a wall piece hangs at 7 by itself; rot=RADIANS turns it; it belongs to the room it stands in)`);
       L.push(`MOVE OR LIFT: ${doA('object.move', 'id=THING_ID&x=FEET&z=FEET')}  (y=FEET lifts or lowers it; rot=RADIANS turns it: 1.5708 is a quarter turn)`);
       L.push(`TIP IT OVER (roll it onto its side): ${doA('object.set', 'id=THING_ID&quat=[0,0,0.7071,0.7071]')}  (a unit quaternion [x,y,z,w]; [0,0,0,1] stands it up again; not stairs, floor tiles or wall pieces). Rename: object.set&name=NAME.`);
@@ -196,8 +204,9 @@ export function helpPage(rt, seat, base, token, topic) {
     L.push('  expr=l5r R ring S skill [tn N]  Legend of the Five Rings 5e: R ring d6s, S skill d12s with symbol faces (success, opportunity, strife, explosive = a success that may roll one more die). The tally lists every face and the totals if all were kept; the player keeps up to R dice (they or the GM choose).');
     L.push('  expr=ex POOL [tn T] [double D | nodouble] [diff N]  Exalted: POOL d10s; 7+ is a success, each 10 counts 2. "BOTCH": no successes and at least one 1. tn lowers or raises the target number, double 9 (or d9) doubles 9s too, nodouble for rolls that never double (damage); diff gives threshold successes. Charms change these: write them in.');
     L.push(`SAY: ${doA('chat.say', 'text=TEXT')}`);
-    L.push(`WAIT FOR TALK (says and rolls in every area you can see; waits up to 25 s; pass back the "cursor"): ${camp('changes', 'kinds=chat,roll&after=CURSOR&wait=25')}  (one area: ${at('changes', 'after=SEQ&kinds=chat,roll&wait=25')}). Each event: "by" (who), "byKind" (human or ai), "you": true for your own, the area, and the "text" or "roll".`);
-    L.push(`FOLLOW EVERYTHING in one area (moves, builds...; waits up to 25 s): ${at('changes', 'after=SEQ&wait=25')}`);
+    L.push(`WAIT FOR TALK (says, rolls and pings in every area you can see; waits up to 25 s; pass back the "cursor"): ${camp('changes', 'kinds=chat,roll&after=CURSOR&wait=25')}  (one area: ${at('changes', 'after=SEQ&kinds=chat,roll&wait=25')}). Each event: "by" (who), "byKind" (human or ai), "you": true for your own, the area, and the "text" or "roll".`);
+    L.push('PINGS: a person holds a click on the map (or Alt/Option+click, or holds a finger still) to point at something. It usually means "look at this", and what they say next is about it. It reaches you once, in the same wait (any feed with kinds holding chat or ping), as kind "ping": "by", the area, x, z, y, "text" (one line) and "there": "level", and when there is one the "pawn", "thing", "room" and "building" at that spot, as your seat may see them. A ping you may not see never arrives. Nothing keeps it: it is not in the scene, state or chat, and after 2 minutes unread it is gone.');
+    L.push(`FOLLOW EVERYTHING in one area (moves, builds...; waits up to 25 s): ${at('changes', 'after=SEQ&wait=25')}  (a ping comes beside the entries, as "pings")`);
     L.push(`WHO IS POINTING AT WHAT (each other seat's area, cursor in feet and selection with names), e.g. when someone asks "what do you think of this chair?": ${camp('presence')}`);
   }
   if (topic === 'turns') {
@@ -209,8 +218,9 @@ export function helpPage(rt, seat, base, token, topic) {
     L.push('Heights are feet, as "y", on everything: rooms (their floor), objects and pawns. 0 is the ground, negative is below ground. A storey is 10 ft everywhere.');
     L.push('Which floor: worked out from the height, never stored. The levels are the map\'s, the same everywhere: "level" "lv 1" is 0 to 9 ft, "lv 2" 10 to 19 ft, "lv -1" -10 to -1 ft (there is no lv 0); "storey" is the same as a number (0 = lv 1, 1 = lv 2, -1 = lv -1). A room on a hill is on the level of its floor (a shrine on a 10-ft hill is lv 2) and has "ground": true when its floor is the ground it stands on. A pawn also has "room": the room it stands in; a pawn on a stair stands on its treads, and is on the lower level until its feet reach the top.');
     L.push(`See one storey only: ${at('look', 'x=FEET&z=FEET&r=15&y=FEET')}`);
-    if (may('room')) L.push('BUILD UPSTAIRS OR DOWN: room.spawn with y=10 (or -10). An upper room must stand on rooms below it (it may overhang them by at most 10 ft); below ground anything goes. Rooms at different heights may share x and z. A room off the ground floor gets a stair by itself (the answer has "stair"; stair=0 for none) and no outside door.');
-    L.push(`STAIRS AND LADDERS ("stairs" in the scene and state: id, from and to rooms, bottom and top points [x, z, y], "works" or a "problem"). TAKE A PAWN ACROSS: ${doA('token.move', 'id=PAWN_ID&stair=STAIR_ID')} (to=top or to=bottom picks the end).`);
+    if (may('room')) L.push('BUILD UPSTAIRS OR DOWN (a cellar, a cave, a crypt): room.spawn with y=10 (or -10). An upper room must stand on rooms below it (it may overhang them by at most 10 ft); below ground anything goes. Rooms at different heights may share x and z. A room off the ground floor gets a stair by itself (the answer has "stair"; stair=0 for none) and no outside door.');
+    L.push(`STAIRS AND LADDERS ("stairs" in the scene, state and a room): "ends" names its bottom and its top, each with its room and level, and "says" puts it in words. "from" is always the room at the BOTTOM and "to" the room at the TOP, even for a stair switched to lead down: never a direction of travel. Read from one room (${at('room/ROOM_ID')}), or with y= in look, each adds "goes": "up" or "down", and "leadsTo": the room and level it reaches from there. "bottom" and "top" are the points [x, z, y] a pawn stands on. "kind": "ladder" for a ladder. "down" only records which floor it was put in for: it is no direction, so read "ends" and "goes". "works": false comes with "note" (the words over it on the table) and "why". A floor you may not see reads as nothing built.`);
+    L.push(`TAKE A PAWN ACROSS: ${doA('token.move', 'id=PAWN_ID&stair=STAIR_ID')} (to=top: to its upper end; to=bottom: to its lower end; left out: the end it is not at). The answer to placing or switching a stair has "stairSays": which way it leads.`);
     if (may('object')) {
       L.push(`  ADD ONE: ${doA('object.place', 'place=stair&rise=10&x=FEET&z=FEET&rot=0&dims=[4.4,10,10]&room=LOWER_ROOM_ID')} (x, z: the middle of its squares; rot 0 climbs toward +z, quarter turns in radians).`);
       L.push(`  MAKE IT LEAD DOWN instead of up: ${doA('stair.flip', 'id=STAIR_ID&y=ITS_Y_MINUS_ITS_RISE&down=true')} (back: y=ITS_Y_PLUS_ITS_RISE&down=false). The hole and the railing move with it; edge.set&key=KEY&as=open removes one railing or bracket piece (edge.reset brings it back).`);
@@ -242,6 +252,7 @@ export function helpPage(rt, seat, base, token, topic) {
     const all = Object.values(REGISTRY).filter(d => !d.internal && !d.quiet && !['fog.explore', 'fog.reveal', 'batch'].includes(d.type));
     const mine = all.filter(d => { const cls = typeof d.cls === 'string' ? d.cls : d.type === 'entity.flag' ? 'reveal' : null; return cls && may(cls) && (!d.aiOnly || K.s.kind === 'llm'); });
     L.push(`YOUR PERMISSIONS: ${[...new Set(K.areas.flatMap(t => effectiveClasses(rt.state, seat, t.id)))].map(c => `${c} (${CLASSES[c]})`).join('; ') || 'look only'}.`);
+    L.push('Optional based_on=SEQ (the "seq" you read) on any command: if someone changed that same thing since, the answer is "stale" with the changes; read again and retry.');
     L.push(`Area commands: ${at('do', 'cmd=COMMAND&...&nonce=NEW_WORD').replace(/&seat=.*/, '&seat=...')}; campaign commands (marked *): ${camp('do', 'cmd=COMMAND&...').replace(/&seat=.*/, '&seat=...')}. Lists: a,b,c or JSON. true/false for switches.`);
     const made = mine.filter(d => MINT[d.type]);
     if (made.length) L.push(`IDS: to create something (${made.map(d => d.type).join(', ')}) leave id out: the answer gives you the new "id". If you do send one it must look like ${[...new Set(made.map(d => `${MINT[d.type]}_ab12cd34ef`))].join(' / ')}.`);

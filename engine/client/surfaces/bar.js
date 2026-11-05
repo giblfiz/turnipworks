@@ -3,6 +3,9 @@
 // Up recalls history (empty input, or from the top result); Down enters the results. Enter runs; Shift+Enter on a
 // figure/object result adds to the pick. Results the seat can't use never appear. Highlight previews (world thing lights up,
 // an asset shows its ghost). Catalog results can be dragged straight into the world, and so can figures (as pawns).
+// The field is a textarea that is always one logical line (2026-11-02): it wraps, the bar grows down to BAR_LINES lines and
+// then it scrolls inside itself (fit); Enter never breaks a line and pasted line breaks become spaces.
+// What you type is shown once (2026-11-03): the typed command word becomes the bar's one chip, the rest stays text (lift).
 import { icon } from '../icons.js';
 import { playerPortrait } from '../portraits.js';
 import { keyLabel } from '../registry.js';
@@ -11,12 +14,13 @@ import { FILLER, forms, near } from '../barwords.js';
 
 const SECTIONS = [['cmd', 'Commands'], ['intent', ''], ['figs', 'Figures: Shift-click to pick several · click or drag to place'], ['place', 'Place'], ['world', 'In the world'], ['places', 'Places and areas'], ['people', 'People'], ['cues', 'Cues']];
 const CAP = { cmd: 8, figs: 8, place: 8, world: 6, places: 5, people: 5, cues: 3, intent: 3 };
+const BAR_LINES = 6; // the field grows to this many lines, then scrolls inside itself
 
 export function barSurface(R, app) {
-  const root = document.getElementById('bar'), input = root.querySelector('input'), list = document.getElementById('results');
-  const chipsEl = root.querySelector('.chips');
+  const root = document.getElementById('bar'), input = root.querySelector('textarea'), list = document.getElementById('results');
+  const chipsEl = root.querySelector('.chips'), fieldEl = root.querySelector('.field');
   let open = false, rows = [], hi = -1, hist = [], histAt = -1, dragging = null;
-  let activeQuery = '', lastList = null, recalled = false;
+  let activeQuery = '', lastList = null, recalled = false, arrowed = false; // arrowed: the highlight got where it is by the arrow keys
   const picked = new Map();
   const pickKey = r => r.pick ? `${r.pick.kind}:${r.pick.fig?.id || r.pick.cat?.id || 'plain'}:${r.pick.count}` : null;
   const pickItems = () => [...picked.values()];
@@ -43,34 +47,96 @@ export function barSurface(R, app) {
     if (!picked.size) return;
     const items = pickItems(); remember(); close(); app.pickTool.start(items);
   }
+  // ---------- the field (Harry 2026-11-02: "when I type like a freaking essay into the quickbar, it doesn't scale to let me
+  // keep going, I just sort of get a visual mess as I'm typing") ----------
+  // A hidden copy of the text, laid out as the field lays it out: how wide it is on one line, and where the caret falls.
+  const shadow = document.createElement('div'); shadow.className = 'barmeasure'; shadow.setAttribute('aria-hidden', 'true'); root.append(shadow);
+  const metrics = () => { const cs = getComputedStyle(input), line = parseFloat(cs.lineHeight) || 20, pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom); return { cs, line, pad, rest: line + pad, max: line * BAR_LINES + pad }; };
+  const dress = (cs) => { shadow.style.font = cs.font; shadow.style.lineHeight = cs.lineHeight; };
+  // which wrapped line of the text the caret is on (0 = the first), and how many there are
+  const caretLine = () => { const { cs, line } = metrics(); dress(cs); shadow.style.whiteSpace = ''; shadow.style.width = `${input.clientWidth}px`; const at = input.selectionStart, mark = document.createElement('span'); shadow.textContent = input.value.slice(0, at); mark.textContent = input.value.slice(at) || '\u200b'; shadow.append(mark); return Math.round(mark.offsetTop / line); };
+  const lastLine = () => { const { line, pad } = metrics(); return Math.max(0, Math.round((input.scrollHeight - pad) / line) - 1); };
+  // Fit the bar to the text: the field takes the height of its text, up to BAR_LINES, and everything under the bar follows
+  // --bar-grow (style.css; the text scale is applied there). The one chip, the verb, sits at the start of the first line.
+  function fit() {
+    const { rest, max } = metrics(), top = input.scrollTop;
+    input.style.height = `${rest}px`;
+    const want = input.value ? Math.max(rest, input.scrollHeight) : rest, h = Math.min(want, max);
+    input.style.height = `${h}px`;
+    input.style.overflowY = want > max ? 'auto' : 'hidden';
+    input.scrollTop = input.selectionEnd >= input.value.length ? input.scrollHeight : top; // (the caret stays in view: typing at the end, the end)
+    root.classList.toggle('tall', h > rest);
+    root.classList.toggle('over', want > max);
+    root.parentElement.style.setProperty('--bar-grow', `${h - rest}px`);
+  }
+  if (typeof ResizeObserver === 'function') new ResizeObserver(() => { if (open) fit(); }).observe(fieldEl); // (the window, the bar opening wider, the text size)
+  function enter(ev) { const r = rows[hi >= 0 ? hi : 0]; if (ev.shiftKey && r?.pick) pick(r); else if (picked.size && ev.key === 'Enter') placePick(); else if (r && ev.key === 'Enter' && !heldBack(r)) activate(r, ev); }
   function escape() { if (picked.size) { clearPick(); return true; } close(); return true; }
+  // ---------- WHAT YOU TYPE IS SHOWN ONCE (Harry 2026-11-03: "you shouldn't be putting what I type into a chip and into the
+  // bar simultaneously. Like if I 'say hello there everyone' it's fine for 'Say' to turn into a chip, but why are we turning
+  // 'hello there everyone' into a chip") ----------
+  // The typed command word, once the bar knows it ("say ", "whisper ", "roll ", "new area "), leaves the field and becomes
+  // the bar's one chip; the rest stays plain text in the field. The line the bar works on is the two together (line()).
+  // Backspace at the start of the field puts the word back as text, and it stays text until that word is edited.
+  let lifted = null, unlifted = null, canLift = null; // lifted: { word (as typed), label (the chip), cue (the empty field's placeholder) } · unlifted: the word put back
+  const line = () => lifted ? `${lifted.word} ${input.value}` : input.value;
+  const wordsRe = (w) => String(w).trim().split(/\s+/).map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+');
+  function lift(can) {
+    if (lifted || recalled || !can) return;
+    const v = input.value, m = v.match(new RegExp(`^\\s*(${wordsRe(can.label)})\\s+`, 'i'));
+    if (!m || (unlifted && m[1].toLowerCase().replace(/\s+/g, ' ') === unlifted)) return;
+    const a = input.selectionStart ?? v.length, b = input.selectionEnd ?? a, n = m[0].length;
+    if (a < n) return; // (the caret is still in the word: it is being typed or edited there)
+    lifted = { word: m[1], label: can.label, cue: can.cue || '' };
+    input.value = v.slice(n); input.setSelectionRange(a - n, b - n);
+    paintChip();
+  }
+  function unlift() {
+    const w = lifted.word, rest = input.value;
+    lifted = null; unlifted = w.toLowerCase().replace(/\s+/g, ' ');
+    input.value = rest ? `${w} ${rest}` : w; input.setSelectionRange(w.length, w.length);
+    histAt = -1; update(); paintChip();
+  }
+  function paintChip() { chipsEl.innerHTML = lifted && !recalled ? `<span class="chip verb">${esc(lifted.label)}</span>` : ''; placeholder(); fit(); }
+  const atStart = () => !!lifted && input.selectionStart === 0 && input.selectionEnd === 0;
+  // a TYPED INTENT in a recalled list (say hello there, roll d20, 6 goblins: the rows that wear chips) runs only when it is
+  // chosen, by the arrows or a click. A bare Enter on the blank bar, or a mouse resting on the row, repeats nothing. A list
+  // opened on nothing typed is not this: a phone's Roll d20 and Say… are the empty bar's own rows.
+  const heldBack = (r) => !!r && recalled && !!activeQuery && !arrowed && (r.sec === 'intent' || !!r.chips);
   try { hist = JSON.parse(localStorage.getItem('tw.barHistory') || '[]'); } catch { }
 
   function show(prefill = null) {
     const wasOpen = open;
     open = true; root.classList.add('open'); list.hidden = false;
+    lifted = unlifted = null;
     input.value = prefill ?? '';
     input.focus(); input.select?.();
     if (prefill) input.setSelectionRange(prefill.length, prefill.length);
     histAt = -1;
     if (prefill == null && lastList) {
-      recalled = true; update(lastList.query); setHi(Math.min(lastList.hi, rows.length - 1));
+      // THE REOPENED BAR IS BLANK (Harry 2026-11-02, from Nick's note: "that should never actually populate the bar itself ...
+      // if you are in the bar, the bar should itself be blank, and just give options from the last time below it"): the list
+      // comes back below the bar, its typed intent row among the options, but no chips and no text (update), and that row
+      // is not the highlight: nothing in the bar says what a bare Enter would do, so it does nothing (see Enter, below).
+      recalled = true; update(lastList.query); arrowed = false;
+      const at = Math.min(lastList.hi, rows.length - 1); setHi(heldBack(rows[at]) ? -1 : at);
       list.scrollTop = lastList.scroll;
-    } else { recalled = false; update(); }
+    } else { recalled = false; update(); lift(canLift); }
+    paintChip();
     if (!wasOpen) app.escapeStack.push(escape);
   }
   function close() {
     if (!open) return false;
     lastList = { query: activeQuery, hi, scroll: list.scrollTop };
     picked.clear();
-    open = false; root.classList.remove('open'); list.hidden = true; input.blur(); input.value = ''; chipsEl.innerHTML = '';
+    open = false; root.classList.remove('open'); list.hidden = true; input.blur(); input.value = ''; lifted = unlifted = null; chipsEl.innerHTML = ''; fit();
     app.previews.detachAll(list); setHi(-1); app.modes.preview?.(null);
     const i = app.escapeStack.indexOf(escape); if (i >= 0) app.escapeStack.splice(i, 1);
     placeholder();
     app.emit('bar.close');
   }
-  app.on((what, data) => { if (what === 'bar.open') show(typeof data === 'string' ? data : null); if (what === 'selection' || what === 'refresh') placeholder(); if (open && what === 'refresh') { const oldHi = hi, scroll = list.scrollTop; update(activeQuery); setHi(oldHi); list.scrollTop = scroll; } });
-  function placeholder() { const n = app.sel.size, hand = document.documentElement.classList.contains('tw-hand'); /* (a phone: words that fit, docs/UI.md "On a phone") */ input.placeholder = n ? (hand ? `${n} selected · a command…` : `${n} selected · type a command, or say / roll …`) : hand ? 'Search, place, say or roll' : 'Search commands, things to place, people, places… or say / roll'; }
+  app.on((what, data) => { if (what === 'bar.open') show(typeof data === 'string' ? data : null); if (what === 'selection' || what === 'refresh') placeholder(); if (open && what === 'refresh') { const oldHi = hi, scroll = list.scrollTop; update(activeQuery); setHi(oldHi); list.scrollTop = scroll; fit(); } });
+  function placeholder() { if (lifted) { input.placeholder = lifted.cue; return; } const n = app.sel.size, hand = document.documentElement.classList.contains('tw-hand'); /* (a phone: words that fit, docs/UI.md "On a phone") */ input.placeholder = n ? (hand ? `${n} selected · a command…` : `${n} selected · type a command, or say / roll …`) : hand ? 'Search, place, say or roll' : 'Search commands, things to place, people, places… or say / roll'; }
   // The shared drag gesture captures Escape before the input sees it. Let it cancel the ghost,
   // and clear the bar pick as well, just as Escape does before a drag starts.
   addEventListener('keydown', ev => { if (open && ev.key === 'Escape' && app.draggingOut?.()) clearPick(); }, true);
@@ -78,24 +144,38 @@ export function barSurface(R, app) {
   input.addEventListener('input', () => {
     // a leading "/" is the open-the-bar key typed again (Harry 2026-10-29: "if I start a quick bar command with / it
     // should ignore it"): drop it, keeping the caret where it was. No command starts with "/".
-    const v = input.value, m = v.match(/^\s*\/+\s*/);
+    // (one logical line: a pasted line break is a space, one for one, so the caret stays where it was)
+    if (input.value.includes('\n')) { const at = input.selectionStart; input.value = input.value.replace(/\n/g, ' '); input.setSelectionRange(at, at); }
+    // (not after a chip: "say /shrug" says it)
+    const v = input.value, m = !lifted && v.match(/^\s*\/+\s*/);
     if (m) { const at = Math.max(0, (input.selectionStart ?? v.length) - m[0].length); input.value = v.slice(m[0].length); input.setSelectionRange(at, at); }
-    histAt = -1; recalled = false; update();
+    if (unlifted && !new RegExp(`^\\s*${wordsRe(unlifted)}(\\s|$)`, 'i').test(input.value)) unlifted = null; // (the word put back has been edited: it may become a chip again)
+    histAt = -1; recalled = false; update(); lift(canLift); paintChip();
+  });
+  // (a phone's keyboard may send its Enter only as text: that is an Enter too, never a line break; and its Backspace may
+  // come only as an input event: at the start of the field it puts the chip's word back, as the key does)
+  input.addEventListener('beforeinput', (ev) => {
+    if (ev.inputType === 'insertLineBreak' || ev.inputType === 'insertParagraph') { ev.preventDefault(); enter({ key: 'Enter', shiftKey: false }); }
+    else if (ev.inputType.startsWith('deleteContentBackward') || ev.inputType.startsWith('deleteWordBackward')) { if (atStart()) { ev.preventDefault(); unlift(); } }
   });
   input.addEventListener('keydown', (ev) => {
     if (ev.key === 'Escape') { ev.preventDefault(); ev.stopPropagation(); escape(); return; }
-    if (ev.key === 'ArrowDown') { ev.preventDefault(); setHi(Math.min(rows.length - 1, hi + 1)); return; }
+    if (ev.key === 'Backspace' && atStart()) { ev.preventDefault(); unlift(); return; } // back into the chip: the word is text again
+    // INSIDE WRAPPED TEXT the arrows move the caret by line, as in any text: Down goes to the results from the last line,
+    // Up recalls history from the first. Once the arrows are in the results they stay there.
+    if (ev.key === 'ArrowDown') { if (hi <= 0 && caretLine() < lastLine()) return; ev.preventDefault(); arrowed = true; setHi(Math.min(rows.length - 1, hi + 1)); return; }
     if (ev.key === 'ArrowUp') {
+      if (input.value && hi <= 0 && caretLine() > 0) return;
       ev.preventDefault();
       if (!input.value || hi <= 0) { // history, as in a shell or an omnibox
         if (!hist.length) return;
         histAt = Math.min(hist.length - 1, histAt + 1);
-        input.value = hist[hist.length - 1 - histAt]; recalled = false; update(); setHi(-1);
+        lifted = unlifted = null; input.value = hist[hist.length - 1 - histAt]; recalled = false; update(); setHi(-1); lift(canLift); paintChip();
         return;
       }
-      setHi(hi - 1); return;
+      arrowed = true; setHi(hi - 1); return;
     }
-    if (ev.key === 'Enter' || (ev.key === ' ' && ev.shiftKey)) { ev.preventDefault(); const r = rows[hi >= 0 ? hi : 0]; if (ev.shiftKey && r?.pick) pick(r); else if (picked.size && ev.key === 'Enter') placePick(); else if (r && ev.key === 'Enter') activate(r, ev); return; }
+    if (ev.key === 'Enter' || (ev.key === ' ' && ev.shiftKey)) { ev.preventDefault(); enter(ev); return; }
   });
 
   // ---------- scoring ----------
@@ -105,6 +185,7 @@ export function barSurface(R, app) {
   // whole lines match nothing; and the old letters-in-order fallback ran over long descriptions and matched nearly anything).
   function score(q, ...texts) {
     if (!q) return 1;
+    if (q.length > 120) return 0; // nothing has a name this long; an essay's every keystroke was searching the whole catalog (150+ ms at 300 words)
     const words = q.toLowerCase().split(/\s+/).filter(Boolean), line = words.join(' ');
     if (words.length > 1 && texts.some(t => t && String(t).toLowerCase() === line)) return 110; // the whole line is a title or synonym ("trap corridor", "build a building")
     let total = 0, counted = 0;
@@ -125,19 +206,28 @@ export function barSurface(R, app) {
   const boost = (id) => { const u = R.usage(id); const age = (Date.now() - u.last) / 3.6e6; return Math.min(18, u.n * 2) + (u.last ? Math.max(0, 14 - age) : 0); };
 
   // ---------- results ----------
-  function update(query = input.value.trim()) {
+  function update(query = line().trim()) {
     const q = activeQuery = query;
     const ctx = R.ctx();
     const out = [];
-    // typed intents (arguments as chips): roll d20+5, -7 on selected pawns, say …, new area …, invite …
-    let intentChips = null;
+    // typed intents: roll d20+5, -7 on selected pawns, say …, new area …, invite …. The row says what Enter will do. While you
+    // type, it leaves out the words you typed (they are in the bar, once: unechoed); in a recalled list the bar is blank, so
+    // the row has them all.
+    let intentChips = null, cue = '';
     for (const c of R.available(ctx)) {
       if (!c.parse || !q) continue;
       const a = safe(() => c.parse(q, ctx));
       if (!a) continue;
       const chips = c.chips ? c.chips(a, ctx) : [c.title];
-      out.push({ sec: 'intent', s: 1000, ref: `cmd:${c.id}`, title: chips.join(' '), chips, icon: R.iconOf(c, ctx), keys: c.keys, run: () => R.run(c, a, ctx), sub: 'Enter to do it' });
-      intentChips = intentChips || chips;
+      out.push({ sec: 'intent', s: 1000, ref: `cmd:${c.id}`, title: chips.join(' '), chips: recalled ? chips : unechoed(chips, q), icon: R.iconOf(c, ctx), keys: c.keys, run: () => R.run(c, a, ctx), sub: recalled ? 'Down arrow, then Enter, or click' : 'Enter to do it' });
+      if (!intentChips) { intentChips = chips; cue = c.cue || ''; }
+    }
+    // a command word and a space, nothing after it yet ("say ", or the Pawns menu's "whisper Kit "... its "whisper "): the
+    // word becomes the chip now, before the first letter of what follows
+    if (!intentChips && q && /\s$/.test(input.value) && !lifted) for (const c of R.available(ctx)) {
+      if (!c.parse || !c.chips) continue;
+      const a = ['x', '1', 'd20'].map(w => safe(() => c.parse(`${q} ${w}`, ctx))).find(Boolean), v = a && safe(() => c.chips(a, ctx))?.[0];
+      if (v && String(v).toLowerCase() === q.toLowerCase().replace(/\s+/g, ' ')) { intentChips = [v]; cue = c.cue || ''; break; }
     }
     // A PHONE'S EMPTY BAR (Harry 2026-10-24, "the default user for this mode is 'player on the road'"): the two things a
     // player does most, without the phone's keyboard: a d20 at once, and the field set to "say ". Typed rolls as ever.
@@ -175,7 +265,8 @@ export function barSurface(R, app) {
       if (lead && found.length) intentChips = intentChips || ['add pawn', ...(n > 1 ? [`${n} ×`] : []), found[0].fig.name, 'click a square'];
       else if (FQ.explicit && !FQ.text) intentChips = intentChips || ['place pawn', 'type a name…']; // (the Pawns menu's search button lands here: "place pawn ▸", the cursor after it)
     }
-    chipsEl.innerHTML = intentChips ? intentChips.map((c, i) => `<span class="chip${i ? '' : ' verb'}">${esc(c)}</span>`).join('<span class="sep">▸</span>') : '';
+    // the verb the bar may lift out of the field (lift): the first typed intent's ("place pawn ▸ type a name…": its cue)
+    canLift = intentChips && !recalled ? { label: String(intentChips[0]), cue: cue || (/…$/.test(intentChips[1] || '') && intentChips[1].length > 1 ? intentChips[1] : '') } : null;
 
     // commands
     for (const c of R.available(ctx)) {
@@ -220,7 +311,7 @@ export function barSurface(R, app) {
     // cues: lighting is real now (the "Lighting here: …" commands set this area's lighting profile); weather is still to come
     if (q) for (const [name, ic] of [['Rain', 'droplet']]) { const s = score(q, name, 'cue weather'); if (s) out.push({ sec: 'cues', s: s - 20, title: `${name} (later)`, sub: 'cue', icon: ic, disabled: true, run: () => {} }); }
     // natural-language fallback: nothing matched → the assistant seat (stub)
-    if (q && q.split(/\s+/).length >= 2 && !out.some(r => r.sec !== 'cues' && r.s > 30)) out.push({ sec: 'intent', s: 500, ref: 'assistant', title: `Ask the assistant: “${q}”`, icon: 'wand-sparkles', sub: 'sends to the GM assistant seat (not wired yet)', run: () => R.run('chat.assistant', { text: q }) });
+    if (q && q.split(/\s+/).length >= 2 && !out.some(r => r.sec !== 'cues' && r.s > 30)) out.push({ sec: 'intent', s: 500, ref: 'assistant', title: recalled ? `Ask the assistant: “${q}”` : 'Ask the assistant', icon: 'wand-sparkles', sub: 'sends to the GM assistant seat (not wired yet)', run: () => R.run('chat.assistant', { text: q }) });
 
     // assemble: sections in order, each ranked and capped
     // one ranked list: sections ordered by their best match (typed intents first), each ranked and capped
@@ -247,7 +338,7 @@ export function barSurface(R, app) {
       el.innerHTML = `${r.pick ? '<span class="pick-check" aria-hidden="true"></span>' : ''}${visual}<span class="txt"><span class="t">${r.chips ? r.chips.map((c, j) => `<span class="chip${j ? '' : ' verb'}">${esc(c)}</span>`).join('') : esc(r.title)}</span><span class="s">${esc(r.sub || '')}</span></span>${keys ? `<span class="keys">${keys}</span>` : ''}${r.alt ? `<button class="mini" data-alt>${icon(r.alt.icon, 14)} ${r.alt.label}</button>` : ''}`;
       if (r.pic) el.querySelector('.pic img').onerror = (ev) => { ev.target.parentNode.classList.remove('img', 'pic'); ev.target.parentNode.innerHTML = icon(r.icon || 'user', 24); }; // no picture: the plain icon
       if (r.cat) { app.previews.attach(el.querySelector('[data-pv]'), app.previewOf(r.cat)); el.title = 'Click to place (Shift: keep placing) · or drag it into the world'; }
-      el.addEventListener('pointermove', () => { if (hi !== i) setHi(i); }); // only real mouse movement moves the highlight
+      el.addEventListener('pointermove', () => { if (hi !== i) { arrowed = false; setHi(i); } }); // only real mouse movement moves the highlight
       el.addEventListener('pointerdown', (ev) => {
         if (ev.target.closest('[data-alt]')) return;
         ev.preventDefault();
@@ -325,6 +416,14 @@ export function barSurface(R, app) {
   return { name: 'bar', open: show, close, isOpen: () => open };
 }
 const safe = (fn) => { try { return fn(); } catch { return null; } };
+// A typed intent's chips without the words that were typed (Harry 2026-11-03: what you type is shown once, in the bar).
+// The verb stays, and so does what you did not type: the selection, a person or place the words found ("Mira" from "mi"),
+// a unit ("10 ft"). An arrow with nothing after it goes too. ("say hello there" → say · "-7" → damage → Brakka)
+export function unechoed(chips, typed) {
+  const flat = (s) => String(s ?? '').toLowerCase().replace(/\s+/g, ''), all = flat(typed);
+  const kept = chips.filter((c, i) => !i || c === '→' || !flat(c) || !all.includes(flat(c)));
+  return kept.filter((c, i) => c !== '→' || kept.slice(i + 1).some(x => x !== '→'));
+}
 // What a typed line says about figures: { change, explicit, count, text }.
 //   change    "change figure <text>"                         explicit   it names pawns outright (a verb's noun, or a count)
 //   count     "6 goblins", "add 6 goblins", "goblin x6"      text       what is left to search the figure list with

@@ -44,7 +44,7 @@ sed -i -E "s#\?v=dev#?v=$V#g; s#TW_V = 'dev'#TW_V = '$V'#" "$STAGE/client/index.
 # this page is the dev server's: the DEV ribbon shows (a release re-stamps it "prod": tools/release.sh)
 sed -i -E 's#<meta name="tw-channel" content="[a-z]+">#<meta name="tw-channel" content="dev">#' "$STAGE/client/index.html"
 # turnipworks.net serves the game at "/": same page, resolving everything under /engine/client/, the tuner under /look/
-sed -E "s#<head>#<head>\n<base href=\"/engine/client/\">#; s#content=\"\.\./\.\./tuner/\"#content=\"/look/\"#; s#\"\.\./\.\./tuner/js/#\"/look/js/#g; s#href=\"site/(about|terms|privacy)\.html\"#href=\"/\1\"#g" "$STAGE/client/index.html" > "$STAGE/client/index.turnipworks.html"
+sed -E "s#<head>#<head>\n<base href=\"/engine/client/\">#; s#content=\"\.\./\.\./tuner/\"#content=\"/look/\"#; s#\"\.\./\.\./tuner/js/#\"/look/js/#g; s#href=\"site/(manual|about|terms|privacy)\.html\"#href=\"/\1\"#g" "$STAGE/client/index.html" > "$STAGE/client/index.turnipworks.html"
 cat > "$STAGE/index.html" <<HTML
 <!doctype html><meta charset="utf-8"><title>Turnip Works</title>
 <script>location.replace('client/' + location.search + location.hash);</script>

@@ -68,7 +68,7 @@ PROPS = '#results .res[data-pick-kind=object]'
 async def bar(pg, text):
     if not await pg.locator('#bar').evaluate("e => e.classList.contains('open')"):
         await pg.keyboard.press('/')
-    await pg.locator('#bar input').fill(text)
+    await pg.locator('#bar textarea').fill(text)
     await pg.wait_for_timeout(180)
 
 async def closed(pg):
@@ -98,7 +98,7 @@ async def drag_row(pg, row, mods=(), cancel=None):
         await pg.screenshot(path=os.path.join(A.shots, 'bar-group-preview-' + str(len(results)) + '.png'))
     if cancel == 'escape': await pg.keyboard.press('Escape')
     elif cancel == 'outside':
-        box = await pg.locator('#bar input').bounding_box()
+        box = await pg.locator('#bar textarea').bounding_box()
         await pg.mouse.move(box['x'] + 20, box['y'] + 10)
     await pg.mouse.up()
     for mod in mods: await pg.keyboard.up(mod)
@@ -108,7 +108,7 @@ async def snapshot(pg):
     return await pg.evaluate("""(() => { const l = document.querySelector('#results'); return {
       titles: [...l.querySelectorAll('.res .t')].map(e => e.textContent),
       hi: l.querySelector('.res.hi')?.dataset.i, scroll: l.scrollTop,
-      value: document.querySelector('#bar input').value
+      value: document.querySelector('#bar textarea').value
     }; })()""")
 
 async def main():
@@ -138,12 +138,12 @@ async def main():
         await gm.evaluate("tw.settings.setPref('pawnSnap', 'always')")
         # a leading "/" (the open key typed again inside the open bar) is dropped (Harry 2026-10-29)
         await bar(gm, '')
-        await gm.locator('#bar input').press_sequentially('/orc')
+        await gm.locator('#bar textarea').press_sequentially('/orc')
         await gm.wait_for_timeout(180)
-        check(await gm.locator('#bar input').input_value() == 'orc', 'a leading "/" typed into the open bar is dropped', await gm.locator('#bar input').input_value())
-        await gm.locator('#bar input').fill('// orc')
-        await gm.locator('#bar input').dispatch_event('input')
-        check(await gm.locator('#bar input').input_value() == 'orc', 'pasted "// orc" reads as "orc"', await gm.locator('#bar input').input_value())
+        check(await gm.locator('#bar textarea').input_value() == 'orc', 'a leading "/" typed into the open bar is dropped', await gm.locator('#bar textarea').input_value())
+        await gm.locator('#bar textarea').fill('// orc')
+        await gm.locator('#bar textarea').dispatch_event('input')
+        check(await gm.locator('#bar textarea').input_value() == 'orc', 'pasted "// orc" reads as "orc"', await gm.locator('#bar textarea').input_value())
         await bar(gm, 'orc')
         n = await gm.locator(PAWNS).count()
         check(n >= 5, 'orc search offers five different figure rows', n)
@@ -168,7 +168,7 @@ async def main():
 
         await bar(gm, 'orc')
         await gm.locator(PAWNS).nth(0).hover()
-        await gm.locator('#bar input').focus()
+        await gm.locator('#bar textarea').focus()
         await gm.keyboard.press('Shift+Enter'); await gm.keyboard.press('ArrowDown'); await gm.keyboard.press('Shift+Space')
         check(await gm.locator(PICKED).count() == 2, 'Shift+Enter and Shift+Space pick by keyboard')
         await gm.locator(PICKED).first.click(modifiers=['Control'])
@@ -183,14 +183,14 @@ async def main():
         await bar(gm, '6 goblins')
         await gm.locator(PAWNS).first.click(modifiers=['Shift'])
         check(await gm.locator('.pick-count').inner_text() == '6 picked', 'counted row contributes six to the pick')
-        await gm.locator('#bar input').focus(); await gm.keyboard.press('Enter')
+        await gm.locator('#bar textarea').focus(); await gm.keyboard.press('Enter')
         check(await gm.evaluate("tw.mode?.kind === 'place'"), 'Enter arms the picked group')
         await gm.mouse.move(1100, 650); await gm.wait_for_timeout(150); await gm.mouse.click(1100, 650)
         check(await wait(gm, f'{TOKENS}.length === 6 && tw.sync.pendingCount() === 0'), 'counted group places six goblins')
         check(await undo(gm, TOKENS, 0), 'six counted pawns undo together')
 
         await bar(gm, 'orc'); await gm.locator(PAWNS).first.click(modifiers=['Shift'])
-        await gm.locator('#bar input').fill('cup'); await gm.wait_for_timeout(180)
+        await gm.locator('#bar textarea').fill('cup'); await gm.wait_for_timeout(180)
         await gm.locator(PROPS).first.click(modifiers=['Shift'])
         check(await gm.locator('.pick-count').inner_text() == '2 picked', 'figures and objects can share a pick across searches')
         await gm.locator('[data-pick-place]').click()
@@ -201,14 +201,14 @@ async def main():
 
         # A mixed existing cluster is deliberately left at the same drop point.
         await bar(gm, 'orc'); await gm.locator(PAWNS).first.click(modifiers=['Shift'])
-        await gm.locator('#bar input').fill('cup'); await gm.wait_for_timeout(180)
+        await gm.locator('#bar textarea').fill('cup'); await gm.wait_for_timeout(180)
         await gm.locator(PROPS).first.click(modifiers=['Shift'])
         await gm.locator('[data-pick-place]').click()
         await gm.mouse.move(1100, 650); await gm.wait_for_timeout(150); await gm.mouse.click(1100, 650)
         await wait(gm, f'{TOKENS}.length === 1 && {OBJECTS}.length === 1 && tw.sync.pendingCount() === 0')
         blockers = await gm.evaluate("Object.values(tw.entities()).filter(e => ['token','object'].includes(e.kind)).map(e => e.id)")
         await bar(gm, 'owlbear'); await gm.locator(PAWNS).first.click(modifiers=['Shift'])
-        await gm.locator('#bar input').fill('orc'); await gm.wait_for_timeout(180)
+        await gm.locator('#bar textarea').fill('orc'); await gm.wait_for_timeout(180)
         await gm.locator(PAWNS).first.click(modifiers=['Shift'])
         await drag_row(gm, gm.locator(PICKED).first)
         check(await wait(gm, f'{TOKENS}.length === 3 && {OBJECTS}.length === 1 && tw.sync.pendingCount() === 0'), 'large/small pick places beside existing pawn and object')
@@ -252,7 +252,7 @@ async def main():
 
         await bar(gm, 'orc')
         await gm.locator(PAWNS).first.click(modifiers=['Shift'])
-        await gm.locator('#bar input').focus()
+        await gm.locator('#bar textarea').focus()
         for _ in range(6): await gm.keyboard.press('ArrowDown')
         await gm.keyboard.press('Escape')  # clear the pick first; second Escape closes the list
         await gm.locator('#results').evaluate('e => e.scrollTop = 120')
@@ -262,10 +262,12 @@ async def main():
         await gm.keyboard.press('/')
         after = await snapshot(gm)
         check(after['value'] == '', 'reopening starts with empty text')
+        check(await gm.locator('#bar .chips').inner_text() == '', 'reopening shows no chips in the bar (browser_barrecall.py has the typed intents)')
         check(after['titles'] == before['titles'], 'reopening preserves previous result list')
         check(after['hi'] == before['hi'], 'reopening preserves highlighted row')
         check(abs(after['scroll'] - before['scroll']) < 2, 'reopening preserves list scroll', [before['scroll'], after['scroll']])
         check(await gm.locator('.bar-last').inner_text() == 'last: orc', 'recalled query is labelled subtly')
+        check(await gm.locator('#results .bar-last').count() == 1 and await gm.locator('#bar .bar-last').count() == 0, 'the label sits with the list below, not in the bar')
         check(await gm.locator(PICKED).count() == 0, 'multi-pick is not carried over')
         await gm.keyboard.type('owlbear')
         after_type = await snapshot(gm)
@@ -274,7 +276,7 @@ async def main():
         await gm.reload(); check(await wait(gm, 'window.tw && tw.ready?.()', 60000), 'reload rejoins campaign')
         await gm.keyboard.press('/')
         check(not await gm.locator('.bar-last').is_visible(), 'reload resets last-list recall')
-        check(await gm.locator('#bar input').input_value() == '', 'reload keeps empty input')
+        check(await gm.locator('#bar textarea').input_value() == '', 'reload keeps empty input')
         check(not errors, 'no page errors', errors[:4])
         await browser.close()
 

@@ -16,7 +16,7 @@ import { autoTransport } from '../core/transport.js';
 import { withNetSim } from '../core/netsim.js';
 import { PresenceSender, PresenceView } from '../core/presence.js';
 import { makeRoomGen, SOLVER_OPTS } from '../core/roomgen.js';
-import { REGISTRY, turnPlan, canTilt, applyArea, roomPlayerPawns, HIDE_ROOM_HIDES_PLAYER_PAWNS } from '../core/commands.js';
+import { REGISTRY, turnPlan, canTilt, applyArea, roomPlayerPawns, HIDE_ROOM_HIDES_PLAYER_PAWNS, restingOn, goesWith } from '../core/commands.js';
 import { quatOfEntity, rollQuat, foldTurn, Q_ID } from '../core/orient.js';
 import { ROLL_AXIS } from './commands.js';
 import { newArea } from '../core/state.js';
@@ -70,6 +70,7 @@ import { installLinkMail } from './surfaces/linkmail.js';
 import { settingsSurface, prefFaces, loadPrefs } from './surfaces/settings.js';
 import { cursorSurface } from './surfaces/cursor.js';
 import { labelsSurface } from './surfaces/labels.js';
+import { stairNotesSurface } from './surfaces/stairnotes.js';
 import { undoChipsSurface } from './surfaces/undochips.js';
 import { floorDropSurface } from './surfaces/floordrop.js';
 import { fallsSurface } from './surfaces/falls.js';
@@ -84,6 +85,7 @@ import { attacksSurface } from './surfaces/attacks.js';
 import { xraySurface } from './surfaces/xray.js';
 import { lightReachSurface } from './surfaces/lightreach.js';
 import { rulersSurface } from './surfaces/rulers.js';
+import { moveRingsSurface } from './surfaces/moverings.js';
 import { fpvSurface } from './surfaces/fpv.js';
 import { installStairs } from './stairs.js';
 import * as ST from '../core/stairs.js';
@@ -175,7 +177,7 @@ if (ringLab && !token) {
     if (!r?.ok) { $('#gameNotice').textContent = 'The table could not be reached. Try again in a moment.'; return; }
     // Full address: a bare #s resolves against <base>, which broke invite links at the site's root.
     history.replaceState(null, '', gamesAddress(`s=${encodeURIComponent(r.token)}`));
-    $('#start').hidden = true; LOAD.again('Opening your table');
+    $('#start').hidden = true; LOAD.seat?.({ kind: 'human', role: 'gm' }); LOAD.again('Opening your table'); // (the loading screen's tips: a GM's from here)
     start(r.token);
   });
 }
@@ -243,7 +245,7 @@ async function boot(token) {
   let everLive = false; const bootAt = performance.now(); let relayTimer = null, loadUp = true; // loadUp: the loading screen is waiting for the main area's first real frame (the first load, then each travel)
   function netStatus(s) {
     if (s === 'kicked') { clearTimeout(relayTimer); LOAD.clear('net'); showKicked(sync.kickedBy, () => sync.rejoin()); return; } // the GM's disconnect (kicked.js): no reconnecting pill
-    if (s === 'live') { hideKicked(); rememberGame(token, sync.campaign, true); wasRemembered ||= rememberedGames().some(g => g.token === token); clearTimeout(relayTimer); relayTimer = null; if (!everLive) { everLive = true; LOAD.at('welcome', loadKey); } else LOAD.clear('net'); return; }
+    if (s === 'live') { hideKicked(); rememberGame(token, sync.campaign, true); wasRemembered ||= rememberedGames().some(g => g.token === token); clearTimeout(relayTimer); relayTimer = null; if (!everLive) { everLive = true; LOAD.seat?.(sync.campaign?.my); LOAD.at('welcome', loadKey); } else LOAD.clear('net'); return; }
     if (s === 'denied' || s === 'closed') { clearTimeout(relayTimer); LOAD.clear('net'); if (s === 'denied') {
       if (ringLab && localStorage.getItem('tw.ringlab.token') === token) {
         localStorage.removeItem('tw.ringlab.token'); dropGame(token);
@@ -669,11 +671,21 @@ async function boot(token) {
     if (!e) return [];
     if (e.kind === 'building') return all.filter(x => x.kind === 'room' && x.building === e.id);
     if (e.kind === 'room') return all.filter(x => x.kind === 'object' && x.room === e.id && !x.parent);
-    if (e.kind === 'object') return all.filter(x => x.kind === 'object' && x.parent === e.id);
+    if (e.kind === 'object') return restingOn(app.entities(), e.id); // (the one walk: core goesWith, so delete and turn agree with move)
     return [];
   };
   app.descendants = (e) => { const out = []; const walk = (x) => { for (const c of app.childrenOf(x)) { out.push(c); walk(c); } }; walk(e); return out; };
   app.crumbs = (e) => { const out = []; let x = e; for (let i = 0; x && i < 8; i++) { out.unshift(x); x = app.parentOf(x); } return out; };
+  // THE SELECTION FOLDS UP (Harry 2026-11-02, from Nick's note: "a desk should get grabbed rather than individual objects
+  // on the desk"): of these ids, drop any thing whose carrier is also among them. "Sits on" is exactly what `descendants`
+  // walks, an object's `parent` that is itself an object, so this rule and "moving a parent carries its contents" cannot
+  // disagree (a cup on a tray on the desk folds into the desk even if the tray is not among them). Never parentOf: that
+  // climbs on to the room, and things do not fold into their room.
+  app.foldUp = (ids) => {
+    const E = app.entities(), all = new Set(ids);
+    const riding = (id) => { const seen = new Set([id]); for (let e = E[id]; e?.kind === 'object' && E[e.parent]?.kind === 'object' && !seen.has(e.parent); e = E[e.parent]) { if (all.has(e.parent)) return true; seen.add(e.parent); } return false; };
+    return ids.filter(id => !riding(id));
+  };
   function roomAt(x, z, y = 0) { return HT.roomAtHeight(app.entities(), x, z, y); } // at a height: the room whose floor is under the point and whose ceiling is above it (core/height.js) // the room whose floor the point is on (an L-shaped room's notch is not its floor)
   app.roomAt = roomAt;
   const cap = (s) => s ? s[0].toUpperCase() + s.slice(1) : s; // catalog roles read 'table square': show 'Table square'
@@ -709,8 +721,10 @@ async function boot(token) {
       if (e.kind === 'building') { for (const r of app.childrenOf(e)) { ops.push({ type: 'room.delete', args: { id: r.id } }); gone.add(r.id); } continue; }
       if (e.kind === 'room' && !gone.has(e.id)) { ops.push({ type: 'room.delete', args: { id: e.id } }); gone.add(e.id); }
     }
+    // what stands on a thing goes with it (core object.delete), so what is on something also selected is not asked for again
+    const tops = new Set(app.foldUp(sel.map(e => e.id))), stays = [];
     for (const e of sel) {
-      if (e.kind === 'object' && !gone.has(e.room)) ops.push({ type: 'object.delete', args: { id: e.id } });
+      if (e.kind === 'object' && !gone.has(e.room) && tops.has(e.id)) { ops.push({ type: 'object.delete', args: { id: e.id } }); stays.push(...goesWith(app.entities(), e.id).kept); }
       if (e.kind === 'token') ops.push({ type: 'token.delete', args: { id: e.id } });
     }
     const opened = roofs.filter(e => !gone.has(e.room));
@@ -719,6 +733,7 @@ async function boot(token) {
     const trims = new Map(); for (const e of all) if (e.kind === 'trim' && !e.locked && !gone.has(e.room) && !opened.some(o => o.room === e.room)) { if (!trims.has(e.room)) trims.set(e.room, {}); trims.get(e.room)[e.key] = { gone: true }; }
     for (const [room, trim] of trims) ops.push({ type: 'room.set', args: { id: room, roof: { trim } } });
     if (ops.length) { app.batch(ops); app.clearSelection(); }
+    if (ops.length && stays.length) app.toast(stays.length > 1 ? `${stays.length} locked things stayed where they were` : `${app.nameOf(stays[0])} is locked: it stayed where it was`);
     if (opened.length && opened.length === ops.length) app.toast(opened.length > 1 ? `${opened.length} roofs removed: open to the sky (undo puts them back)` : 'Roof removed: open to the sky. Undo, or "roof back" in the command bar, puts it back');
   };
   app.selectAll = () => {
@@ -739,11 +754,15 @@ async function boot(token) {
     return null;
   };
   // where a STANDING pawn walks to on its level (core/height.js pawnStepTo): the height of its figure at (nx, nz)
+  // over SOLID ROCK below the ground at (nx, nz) on its level (core/height.js pawnStepTo `rock`; Harry 2026-11-03: "dragging thru
+  // rock should push back onto legal space on the same level"): a standing pawn does not go there
+  const rockAt = (E, e, nx, nz) => { const fig = e.y || 0, op = openOf(), fb = HT.baseUnder(E, e.x, e.z, fig, op); return !!HT.pawnStepTo(E, nx, nz, fb.y, op, fb).rock; };
   const standY = (E, e, nx, nz) => { const fig = e.y || 0, op = openOf(), fb = HT.baseUnder(E, e.x, e.z, fig, op), st = HT.pawnStepTo(E, nx, nz, fb.y, op, fb); return !st.below || st.walk ? st.y + Math.max(0, fig - fb.y) : fig; };
   // ONE STRETCH OF A WALK (first person, client/surfaces/fpv.js): pawn e (where the walker is: its x, z, y) going on to
   // (nx, nz) by moveBy's own rule, below. -> { y, over, pit }: the figure's height there; over = it stood and is now out
   // over open air (moveBy offers the fall); pit = it is now on a pit it was not on (the fall into it is offered)
   app.walkStep = (e, nx, nz) => {
+    if (app.pawnStands(e) && rockAt(app.entities(), e, nx, nz)) return { y: e.y || 0, over: false, pit: false, rock: true }; // (first person: rock stops a step as a wall does)
     const stands = app.pawnStands(e), ny = stands ? standY(app.entities(), e, nx, nz) : e.y || 0, ly = app.pawnLandY(e, nx, ny, nz);
     const over = stands && !app.pawnStands(e, nx, ly, nz), pit = !over && stands ? app.pitAt(e, nx, ly, nz) : null;
     return { y: ly, over, pit: !!pit && app.pitAt(e)?.pit !== pit.pit };
@@ -753,7 +772,7 @@ async function boot(token) {
   // (core/height.js pawnStepTo, 2026-10-26: universal levels): up and down a stair's treads, onto a hill from its foot,
   // off its edge onto the ground below; where its level has no floor it stays at its height and is offered the fall.
   // (walk: a first-person walk's id, client/surfaces/fpv.js: its moves join one undo step on the relay, relay/campaign.js)
-  app.moveBy = (things, dx, dz, { rot = null, dy = 0, ys = null, walk = null } = {}) => {
+  app.moveBy = (things, dx, dz, { rot = null, dy = 0, ys = null, walk = null, at = null } = {}) => {
     const ops = [], seen = new Set();
     const cdx = Math.round(dx / CELL), cdz = Math.round(dz / CELL);
     const rooms = roomsIn(things);
@@ -764,15 +783,17 @@ async function boot(token) {
       for (const r of [...rooms].sort((a, b) => ((b.recipe.x + b.recipe.w / 2) * cdx + (b.recipe.z + b.recipe.d / 2) * cdz) - ((a.recipe.x + a.recipe.w / 2) * cdx + (a.recipe.z + a.recipe.d / 2) * cdz))) ops.push({ type: 'room.move', args: { id: r.id, dx: cdx, dz: cdz } });
     }
     for (const r of rooms) seen.add(r.id);
-    const moving = [], over = []; // over: pawns that stood where they were and are now over open air (the fall offer)
+    const moving = [], over = [], rocked = []; // over: pawns that stood where they were and are now over open air (the fall offer); rocked: kept off solid rock
     for (const e of things) if ((e.kind === 'object' || e.kind === 'token') && !seen.has(e.room)) { moving.push(e); for (const d of app.descendants(e)) moving.push(d); }
     for (const e of new Set(moving)) {
       if (seen.has(e.id)) continue; seen.add(e.id);
       if (e.kind === 'token') {
-        const nx = e.x + dx, nz = e.z + dz, E = app.entities();
+        // (at: where a drag let it go when that is not the drag's offset: over rock, the last floor of its level it crossed)
+        const A = at?.get(e.id), nx = A ? A[0] : e.x + dx, nz = A ? A[1] : e.z + dz, E = app.entities();
         let ny = (e.y || 0) + dy;
         if (ys?.has(e.id)) ny = ys.get(e.id);
-        else if (!dy && !rooms.length && app.pawnStands(e)) ny = standY(E, e, nx, nz);
+        else if (!dy && !rooms.length && app.pawnStands(e)) { if (rockAt(E, e, nx, nz)) { rocked.push(e); continue; } ny = standY(E, e, nx, nz); } // (the arrow keys, the bar: never into rock)
+        if (A && Math.abs(nx - e.x) < 1e-6 && Math.abs(nz - e.z) < 1e-6 && Math.abs(ny - (e.y || 0)) < 1e-6) continue; // (held on the spot it started from: nothing to send)
         // A PAWN THAT LANDS ON A LADDER OR A SPIRAL GOES TO ITS OTHER END (core/stairs.js stairHop: dropped on it from the floor
         // it stands on, it arrives on the landing upstairs; dropped on the hole from above, at its foot). A flight is walked.
         const fl = HT.floorUnder(E, nx, nz, ny)?.y ?? Math.min(0, ny);
@@ -791,7 +812,8 @@ async function boot(token) {
       // a thing belongs to the room it stands in (so it turns, moves and hides with that room): keep that current
       { const now = roomAt(e.x + dx, e.z + dz, (e.y || 0) + dy)?.id || ''; ops.push({ type: 'object.move', args: { id: e.id, x: r2(e.x + dx), z: r2(e.z + dz), ...(dy && { y: r2((e.y || 0) + dy) }), ...(now !== (e.room || '') && { room: now }) } }); }
     }
-    const cid = app.batch(ops);
+    const cid = ops.length ? app.batch(ops) : null;
+    if (rocked.length) app.toast(rocked.length > 1 ? `Solid rock there: ${rocked.length} pawns stay on their level` : `Solid rock there: ${app.nameOf(rocked[0])} stays where it is`);
     if (cid && over.length) app.falls?.offer(over);
     return cid;
   };
@@ -821,11 +843,17 @@ async function boot(token) {
   };
   app.nudgeScreen = (sx, sy, ft = CELL) => { const a = app.arrowAxes(); return app.nudge((sx * a.right[0] + sy * a.up[0]) * ft, (sx * a.right[1] + sy * a.up[1]) * ft); };
   app.nudge = (dx, dz) => app.moveBy(selOf(e => movable(e) || (app.gm() && (e.kind === 'room' || e.kind === 'building'))), dx, dz);
+  // A THING'S TURN, WITH WHAT STANDS ON IT (Harry 2026-11-02): every one keeps its place on the thing, turned with it about
+  // the pivot, its own centre unless it turns as one of a group. A locked thing stays, and what stands on it (core goesWith).
+  app.turnOps = (e, a, [px, pz] = [e.x, e.z]) => {
+    const E = app.entities(), cs = Math.cos(a), sn = Math.sin(a);
+    return [e, ...goesWith(E, e.id).gone.map(id => E[id])].map(x => { const dx = x.x - px, dz = x.z - pz, still = !dx && !dz; return { type: x.kind === 'token' ? 'token.move' : 'object.move', args: { id: x.id, x: still ? x.x : r2(px + dx * cs + dz * sn), z: still ? x.z : r2(pz - dx * sn + dz * cs), rot: (x.rot || 0) + a } }; });
+  };
   app.rotateSelection = (deg) => {
-    const ops = [];
+    const ops = [], tops = new Set(app.foldUp(selOf(movable).map(e => e.id)));
     for (const e of selOf(movable)) {
-      const rot = (e.rot || 0) + (ST.isConnector(e) ? Math.sign(deg) * 90 : deg) * Math.PI / 180; // a stair stands on whole squares: quarter turns
-      ops.push(e.kind === 'token' ? { type: 'token.move', args: { id: e.id, x: e.x, z: e.z, rot } } : { type: 'object.move', args: { id: e.id, x: e.x, z: e.z, rot } });
+      if (!tops.has(e.id)) continue; // (it turns with what it stands on)
+      ops.push(...app.turnOps(e, (ST.isConnector(e) ? Math.sign(deg) * 90 : deg) * Math.PI / 180)); // a stair stands on whole squares: quarter turns
     }
     app.batch(ops);
   };
@@ -1048,6 +1076,15 @@ async function boot(token) {
     }
     return best && { x: best.x, z: best.z, w: best.w, d: best.d };
   };
+  // WHY A DRAG OFF THE GROUND CANNOT BE BUILT ON (Harry 2026-11-03: in midair it said "cannot overlap another" when the
+  // answer was "needs a surface"): null = some of it can; 'air' = above the ground, no square of it has anything under it
+  // (no room or hill below, nor one within two squares); 'taken' = the squares that are carried are all rooms already.
+  app.unbuildableWhy = (rect, level = app.level || 0) => {
+    if (!level || app.buildableRect(rect, level)) return null;
+    if (level > 0) { const S = HT.supportAt(app.entities(), level); let any = false; if (S.any) for (let gz = rect.z; gz < rect.z + rect.d && !any; gz++) for (let gx = rect.x; gx < rect.x + rect.w; gx++) if (S.ok(gx, gz)) { any = true; break; } if (!any) return 'air'; }
+    return 'taken';
+  };
+  app.unbuildableWords = (why) => why === 'air' ? 'Nothing to stand on there: a building on an upper level goes over the rooms below it, or up to 10 ft out from them' : 'A building cannot overlap another: the rooms on this level already fill that space';
   // one generated building, as ONE command (one undo): a new one, or `replace` made again (other seed, other storey count)
   app.makeBuilding = (gen, { name = null, replace = null } = {}) => {
     const plan = app.buildingPlan(gen); if (!plan) { app.toast('No such building type here', true); return null; }
@@ -1106,7 +1143,7 @@ async function boot(token) {
       return app.makeBuilding({ code: node.code, x: rect0.x, z: rect0.z, w: rect0.w, d: rect0.d, seed, storeys: opts.storeys, front: opts.front || 'S', dials: opts.dials, outbuildings: opts.outbuildings, flavor: opts.flavor }, { name: node.label });
     }
     const y = app.level || 0, rect = app.buildableRect(rect0, y);
-    if (!rect) { app.toast(y > 0 ? 'Nothing to build on there: an upper storey stands over rooms below (or up to two squares out)' : 'No free ground there on this level', true); return null; }
+    if (!rect) { app.toast(app.unbuildableWords(app.unbuildableWhy(rect0, y)), true); return null; }
     const plan = packRooms(rect, roomsOfType(node));
     if (!plan.length) { app.toast(y && (rect.w !== rect0.w || rect.d !== rect0.d) ? `Only ${rect.w * 5} × ${rect.d * 5} ft of that can be built on at this level: too small for a building (10 × 10 ft at least)` : 'Too small for a building: drag at least 10 × 10 ft', true); return null; }
     const v = sync.view(app.area()), ents = { ...v.entities }, ops = [], ids = [];
@@ -1132,7 +1169,8 @@ async function boot(token) {
   app.replaySpawn = (r) => { const w = worldOf(app.area()); const ids = Object.values(app.entities()).filter(e => e.room === r.id).map(e => e.id); w.animateRoom(r.id, ids, app.main?.camera, { shell: 'all' }); }; // (fixed 2026-10-06: it called a function that no longer existed, found by the command audit)
 
   // ---------- chat & dice ----------
-  app.say = (text) => app.dispatch('chat.say', { id: newId('msg'), text: text.slice(0, 500) });
+  // (4000 characters, core's `long`: about 700 words, 2026-11-02, so what the bar lets you write arrives whole. It was 500.)
+  app.say = (text) => { if (text.length > 4000) app.toast(`Message cut to 4000 characters (it was ${text.length})`, true); return app.dispatch('chat.say', { id: newId('msg'), text: text.slice(0, 4000) }); };
   // a roll: the numbers here (crypto), then the dice's tumble (surfaces/dice.js: thrown once, by this client, played by
   // every seat; never waited on longer than app.dice.waitFor(dice): 2.5 s, a little more for a big pool), then one dice.roll command carrying both
   // opts (2026-10-29, Beyond20 intake: surfaces/beyond20.js):
@@ -1312,7 +1350,9 @@ async function boot(token) {
     const fy = HT.floorUnder(app.entities(), e.x, e.z, y)?.y ?? Math.min(0, y);
     const s = app.worldOf(app.area()).surfaceBelow(e.x, y, e.z, new Set([e.id, ...app.descendants(e).map(d => d.id)]), fy);
     const land = s && y - s.y < 1.5 ? s : null, ny = r2(land ? land.y : y - fy < 0.05 ? fy : y), now = roomAt(e.x, e.z, ny)?.id || '';
-    return app.dispatch('object.move', { id: e.id, x: e.x, z: e.z, y: ny, parent: land?.parent || '', ...(now !== (e.room || '') && !(e.fromEdge) && { room: now }) });
+    const E = app.entities(), rise = ny - (e.y || 0), riders = rise ? goesWith(E, e.id).gone.map(id => ({ type: 'object.move', args: { id, x: E[id].x, z: E[id].z, y: r2((E[id].y || 0) + rise) } })) : []; // (what stands on it rises with it)
+    const move = { id: e.id, x: e.x, z: e.z, y: ny, parent: land?.parent || '', ...(now !== (e.room || '') && !(e.fromEdge) && { room: now }) };
+    return riders.length ? app.batch([{ type: 'object.move', args: move }, ...riders]) : app.dispatch('object.move', move);
   };
 
   // ---------- THE LEVEL (storeys; one level, Harry 2026-10-06) ----------
@@ -1377,7 +1417,7 @@ async function boot(token) {
   app.uvtt = createUvtt(app, { renderer }); // Universal VTT (.dd2vtt) export of the storey in view (uvtt.js; Settings ▸ Invites and exports)
   app.share = createShare(app, { thumbs: app.thumbs }); // shared builds: export, share links, import with a ghost (share.js, core/share.js)
   app.intro = createIntro(app);
-  for (const s of [fpvSurface /* first: its keys, while looking, come before every other surface's (the launchers' letters too) */, traySurface, buildSurface, pawnsSurface, settingsSurface, turnsSurface, targetSurface, attacksSurface, beyond20Surface, xraySurface, lightReachSurface, rulersSurface /* all before the keys surface, which reads the key map once */, keysSurface, barSurface, ringSurface, rosterSurface, diceSurface, announceSurface, chatSurface, crumbsSurface, cursorSurface, labelsSurface, undoChipsSurface, floorDropSurface, fallsSurface, cutSurface, fpsSurface, areasSurface]) app.registry.use(s);
+  for (const s of [fpvSurface /* first: its keys, while looking, come before every other surface's (the launchers' letters too) */, traySurface, buildSurface, pawnsSurface, settingsSurface, turnsSurface, targetSurface, attacksSurface, beyond20Surface, xraySurface, lightReachSurface, moveRingsSurface, rulersSurface /* all before the keys surface, which reads the key map once */, keysSurface, barSurface, ringSurface, rosterSurface, diceSurface, announceSurface, chatSurface, crumbsSurface, cursorSurface, labelsSurface, stairNotesSurface, undoChipsSurface, floorDropSurface, fallsSurface, cutSurface, fpsSurface, areasSurface]) app.registry.use(s);
   installLinkMail(app, { lab: ringLab || labelLab }); // "email yourself your link": the card, its chat line, the bar's "email my link" (surfaces/linkmail.js)
   installArrival(app); // a player's first arrival: the camera on their own pawn, and one offer if it is a placeholder (client/arrival.js)
   if (ringLab) { app.registry.use(ringLabSurface); installRingLabTable(app, token); }
@@ -1444,7 +1484,9 @@ async function boot(token) {
         // previous frame, so the main scene landed INSIDE the PiP and the main window went blank (Harry 2026-10-04)
         renderer.setScissorTest(false); world.ghostPrepass(renderer, v.camera); renderer.setScissorTest(true); // (only while a ghost grid is up below the ground: world.js ghostMaterial)
         renderer.setViewport(px.x, px.y, px.w, px.h); renderer.setScissor(px.x, px.y, px.w, px.h);
-        renderer.setScissorTest(false); world.fx.render(dt * 1000); renderer.setScissorTest(true); // fx counts in milliseconds
+        renderer.setScissorTest(false); world.underPrepass(renderer, v.camera); renderer.setScissorTest(true); // (2026-11-03) the underground, faintly through the ground from above: world.js underPrepass
+        renderer.setViewport(px.x, px.y, px.w, px.h); renderer.setScissor(px.x, px.y, px.w, px.h);
+        renderer.setScissorTest(false); try { world.fx.render(dt * 1000); } finally { world.underDone(renderer); } renderer.setScissorTest(true); // fx counts in milliseconds
         app.lastRenders.push({ view: 'main', area: v.area, via: 'fx', viewport: px });
         continue;
       }

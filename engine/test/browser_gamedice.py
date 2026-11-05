@@ -121,7 +121,7 @@ async def main():
             for pg in (gm, pl): await pg.evaluate("tw.dice.clear()"); await pg.evaluate(f"({LOOK})(20, 12, 34)")
             await pl.wait_for_timeout(300)
             if not await pl.locator('#bar').evaluate("e => e.classList.contains('open')"): await pl.keyboard.press('/')
-            await pl.locator('#bar input').fill(words); await pl.wait_for_timeout(300)
+            await pl.locator('#bar textarea').fill(words); await pl.wait_for_timeout(300)
             top = await pl.evaluate("document.querySelector('#results .res[data-i=\"0\"]')?.dataset.ref || null")
             await pl.keyboard.press('Enter')
             got = await wait(pl, f"{LAST}?.roll?.expr === {json.dumps(label)}", 15000, f'{kind} committed')

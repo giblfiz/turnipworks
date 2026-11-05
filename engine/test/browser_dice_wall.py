@@ -16,6 +16,14 @@ Two rooms sharing one wall at z = 20; the pawn in the south one, 7.5 ft from it,
   W9  a pawn really upstairs (a storey over a ground room), 7.5 ft from a wall shared with the next upstairs room, facing it:
       thrown, landing on its own floor in its own room, drawn for the roller
   W10 a phone-sized player seat, same wall, facing it: the empty bar's Roll d20 throws, and it reaches that screen
+  W11 a hand above the roof (2026-11-02, dev and the live release: nothing drawn for a player in a roofed room with fog on). The
+      house look's throw starts ~18 ft up, over a 10-ft room's top, and each die's level was read once, from wherever it first
+      was: "on the roof", where the player sees nothing, for the whole throw. W1 to W5 passed by luck whenever their seek got in
+      before a frame did, and local runs blank the house look, whose hand is 14.2 ft high (the default 3 ft never reaches the
+      top). So: the house's throw, each die held at the start of the throw for some frames, then at rest
+  W12 the same upstairs: the hand over that room's top, the dice on its floor
+  W13 a pawn on a hilltop, 10 ft up, fog on (same day, same table of places): every throw was "unseen" and set down flat. Sight
+      outdoors is one surface, level 0, and the throw asked the fog at the hill's height, 10
   W7  no page errors
   local:  python3 engine/test/browser_dice_wall.py --local   (TW_GPU=0: SwiftShader)
 """
@@ -33,7 +41,7 @@ def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail)[:500] if detail != '' else ''}", flush=True)
 
 procs = []
-RP, SP = 18321, 18322
+RP, SP = [int(v) for v in os.environ.get('TW_PORTS', '18321,18322').split(',')]  # (relay, static: another run of this suite may hold the defaults)
 def start_local():
     import socket
     for port in (RP, SP):
@@ -80,6 +88,7 @@ async def main():
         await gm.evaluate("tw.spawnRoom('common', 8, 0, 4, 8, 7620)"); await idle()
         for z in (4, 0): await gm.evaluate("(z) => tw.spawnRoom('guest', 8, z, 4, 4, 7621 + z, undefined, 10)", z); await idle()
         await action(gm, "tw.batch([...tw.worldOf(tw.area()).edges.values()].filter(e => e.sides.length >= 1).map(e => ({type:'edge.set',args:{key:e.key,as:'wall',piece:'wall-straight'}})))")
+        await gm.evaluate("tw.spawnRoom('hill', 14, 0, 8, 8, 7630, undefined, 10)"); await idle()  # (W13: after the walls, a hill has none)
         invite = await gm.evaluate("async () => tw.inviteLink(await tw.createSeat({kind:'human',role:'player',name:'Mira',color:'#67aadd'}))")
         seat = await gm.evaluate("tw.sync.campaign.seats.find(s => s.name === 'Mira').id")
         PAWN = await gm.evaluate("Object.values(tw.entities()).find(e => e.kind === 'token')?.id")
@@ -97,23 +106,32 @@ async def main():
         HOLD = "tw.worldOf(tw.area()).dice.params.timing.linger = 3600"
         async def warm(pg):
             await pg.evaluate("tw.roll('d6')"); await wait(pg, "!!tw.worldOf(tw.area()).dice", 60000, 'dice made'); await pg.evaluate(HOLD)
+        FRAMES = "tw.gfx?.wake?.('dice'); new Promise(r => { let n = 6; const f = () => --n ? requestAnimationFrame(f) : r(); f(); })"
+        # (the house look's throw, as it stood on 2026-11-02: GET /tuner/house, which a local run does not load)
+        HOUSE_THROW = "(() => { const P = tw.worldOf(tw.area()).dice.params; Object.assign(P.throw, { height: 14.2, angle: 10, strength: 10.7, spin: 26, realMM: 53, timeScale: 0.5 }); Object.assign(P.physics, { bounce: 0.85, tableBounce: 0.85, damping: 0.5, angDamping: 1.5 }); Object.assign(P.reject, { tries: 15, reach: 30, settle: 4.4 }); P.look.size = 3; })()"
+        async def in_the_air(pg, rid):  # the die's first frames, whatever a slow tab did before them
+            if not await wait(pg, f"!!tw.dice.info().find(t => t.id === '{rid}')", 60000, 'the throw reached this seat'): return None
+            await pg.evaluate(f"tw.dice.seek('{rid}', 0)"); await pg.evaluate(FRAMES)
+            return await pg.evaluate(READ, rid)
         async def pin(pg, rid):
             if not await wait(pg, f"!!tw.dice.info().find(t => t.id === '{rid}')", 60000, 'the throw reached this seat'): return False
             await pg.evaluate(f"tw.dice.seek('{rid}', 99)")
             await pg.evaluate("tw.gfx?.wake?.('dice'); new Promise(r => { let n = 4; const f = () => --n ? requestAnimationFrame(f) : r(); f(); })"); await pg.wait_for_timeout(300)
             return True
-        async def roll(pg, how=None):
+        async def roll(pg, how=None, air=False):
             for q in seats: await q.evaluate("tw.dice.clear()")
             n0 = await pg.evaluate("tw.view().chat.length")
             if how: await how()
             else: await pg.evaluate("tw.roll('3d10')")
             await wait(pg, f"tw.view().chat.length > {n0}", 20000, 'committed')
             rid = await pg.evaluate(f"{LAST}.id"); rolls = await pg.evaluate(f"{LAST}.roll.rolls")
-            o = next(q for q in seats if q is not pg); await asyncio.gather(pin(pg, rid), pin(o, rid))
+            o = next(q for q in seats if q is not pg)
+            hand = await in_the_air(pg, rid) if air else None
+            await asyncio.gather(pin(pg, rid), pin(o, rid))
             ab = await pg.evaluate("tw.dice.abPixels()"); r = await pg.evaluate(READ, rid); other = await o.evaluate(READ, rid)
             spread = len({tuple(a) for a in (r['at'] or [])}) == len(r['at'] or []) > 0
             in_a = bool(r['at']) and all(0 < a[0] < 20 and 20 < a[1] < 40 for a in r['at'])
-            return {**r, 'rolls': rolls, 'px': ab and ab['px'], 'spread': spread, 'inA': in_a, 'otherReads': other['reads']}
+            return {**r, 'rolls': rolls, 'px': ab and ab['px'], 'spread': spread, 'inA': in_a, 'otherReads': other['reads'], 'hand': hand and {'ys': hand['ys'], 'drawn': hand['drawn']}}
 
         await warm(gm); await warm(pl)
         await pl.evaluate(LOOK, [10, 27.5, 34, 0]); await pl.wait_for_timeout(800)
@@ -166,6 +184,26 @@ async def main():
         ys = f['ys'] or []
         check(up and lvl == 10 and not f['fallback'] and all(40 < a[0] < 60 and 20 < a[1] < 40 for a in f['at'] or [[0, 0]]) and len(ys) == 3 and all(10 < y < 13 for y in ys) and f['drawn'] == [True] * 3 and (f['px'] or 0) > 200,
               'W9 upstairs, 7.5 ft from a shared wall, facing it: thrown, on its own floor, in its own room, drawn', {**f, 'up': up, 'level': lvl, 'ys': ys, 'state': lv})
+        await pl.evaluate(HOUSE_THROW)
+        async def thrown():  # (a throw set down flat, the last resort, never left the hand high: another one)
+            for _ in range(5):
+                t = await roll(pl, air=True)
+                if not t['fallback']: break
+            return t
+        u = await thrown()
+        hy = (u['hand'] or {}).get('ys') or [0]
+        check(min(hy) > 20 and (u['hand'] or {}).get('drawn') == [True] * 3 and u['drawn'] == [True] * 3 and (u['px'] or 0) > 200, 'W12 upstairs, the house\'s throw: from over that room\'s top, drawn in the air and at rest', {k: u[k] for k in ('hand', 'drawn', 'px', 'ys', 'fallback', 'tries', 'reasons')})
+        await action(gm, f"tw.dispatch('token.move', {{ id: '{PAWN}', x: 10, z: 27.5, y: 0 }})"); await wait(pl, f"(tw.entities()['{PAWN}'].y || 0) === 0 && tw.fog.visible(10, 27, 0)", 40000, 'pawn back down')
+        await pl.wait_for_timeout(1500); await pl.evaluate(LOOK, [10, 27.5, 34, 180]); await pl.wait_for_timeout(800)
+        v = await thrown()
+        hy = (v['hand'] or {}).get('ys') or [0]
+        check(min(hy) > 10 and (v['hand'] or {}).get('drawn') == [True] * 3 and v['inA'] and v['drawn'] == [True] * 3 and (v['px'] or 0) > 200, 'W11 a roofed room, fog on, the house\'s throw: from over the roof, drawn in the air and at rest', {k: v[k] for k in ('hand', 'drawn', 'px', 'ys', 'at', 'fallback', 'tries', 'reasons')})
+
+        await action(gm, f"tw.dispatch('token.move', {{ id: '{PAWN}', x: 90, z: 20, y: 10 }})")
+        on = await wait(pl, f"tw.entities()['{PAWN}'].x === 90 && tw.fog.visible(90, 20, 0)", 40000, 'pawn on the hill')
+        await pl.wait_for_timeout(1500); await pl.evaluate(LOOK, [90, 20, 34, 180]); await pl.wait_for_timeout(800)
+        h = await thrown(); ys = h['ys'] or []
+        check(on and not h['fallback'] and len(ys) == 3 and all(10 < y < 14 for y in ys) and (h['hand'] or {}).get('drawn') == [True] * 3 and h['drawn'] == [True] * 3 and (h['px'] or 0) > 200, 'W13 on a hilltop, fog on: thrown, on the hilltop, drawn in the air and at rest', {k: h[k] for k in ('hand', 'drawn', 'px', 'ys', 'fallback', 'tries', 'reasons')})
         await action(gm, f"tw.dispatch('token.move', {{ id: '{PAWN}', x: 10, z: 27.5, y: 0 }})"); await wait(pl, f"(tw.entities()['{PAWN}'].y || 0) === 0 && tw.fog.visible(10, 27, 0)", 40000, 'pawn back down')
 
         print('A PHONE-SIZED PLAYER SEAT')
@@ -178,7 +216,7 @@ async def main():
             await ph.wait_for_timeout(2000); await warm(ph); await ph.evaluate(LOOK, [10, 27.5, 34, 0]); await ph.wait_for_timeout(800)
             rows = []
             async def tap_roll():
-                await ph.locator('#bar input').tap(timeout=20000); await ph.wait_for_timeout(900)
+                await ph.locator('#bar textarea').tap(timeout=20000); await ph.wait_for_timeout(900)
                 rows.extend(await ph.evaluate("[...document.querySelectorAll('#results .res')].slice(0, 2).map(r => r.innerText.replace(/\\s+/g, ' ').trim())"))
                 await ph.locator('#results .res').first.tap(timeout=20000)
             g = await roll(ph, how=tap_roll)

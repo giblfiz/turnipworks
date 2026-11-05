@@ -97,6 +97,17 @@ export function installStairs(app, { roomgen, toast }) {
     return cid;
   };
   app.stairStatus = (e) => ST.stairStatus(ents(), e);
+  // THE WARNING OVER A STAIR (core/stairs.js stairWarnings): what it says now, and the GM's dismissal of it (the × on the
+  // note, surfaces/stairnotes.js; stair.note in the ring and the bar). off: true dismisses, false brings it back. Each stair's
+  // own code, one undo for the lot.
+  app.stairWarning = (e) => ST.stairWarning(ents(), e);
+  app.setStairNotes = (list, off) => {
+    const ops = list.map(app.stairWarning).filter(w => w && w.off !== off).map(w => ({ type: 'object.set', args: { id: w.s.id, noteOff: off ? w.code : '' } }));
+    if (!ops.length) return null;
+    const cid = app.batch(ops);
+    if (off) toast('Warning dismissed. To show it again, select the stair.');
+    return cid;
+  };
   // THE OFFER for a room drawn by hand (core/stairs.js stairOffer; docs/UI.md "Stairs"): nothing is placed. When a
   // straight flight lines up with a hallway or common room, a conditional button offers it; taking it puts the stair
   // in and lays the new room's furniture again round the hole (same seed), as ONE command.

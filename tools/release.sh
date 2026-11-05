@@ -17,10 +17,23 @@
 #                                          roll back to it." No agent promotes on its own judgement, not at 0 connections,
 #                                          not for a "hotfix"; the nightly roll is retired (its timer is disabled and
 #                                          `roll` refuses). An agent says "on dev, candidate <id>, awaiting Harry's go".
-#   tools/release.sh promote-now --harry [--warn S] [ID]   put the candidate (or ID) live: banner 60 s (S) when seats are
-#                                          connected, a copy of the campaigns, the swap, the checks, automatic rollback on
-#                                          a failed check. --harry is required: run it only on Harry's word, in the turn
-#                                          he gave it.
+#   tools/release.sh promote-now --harry [--warn S] [--feature] [ID]   put the candidate (or ID) live: banner 60 s (S) when
+#                                          seats are connected, a copy of the campaigns, the swap, the checks, automatic
+#                                          rollback on a failed check. --harry is required: run it only on Harry's word, in
+#                                          the turn he gave it.
+#   VERSIONS (Harry, 2026-11-02): "I'm declaring this to be version 0.3.4. Anything that doesn't get pushed live is not a
+#           version. Small numbers for fixes and tweaks, mid numbers for features of some size. Full version is an event we
+#           discuss." A release gets its number when promote-now has swapped it in and its checks have passed, never before:
+#             promote-now --harry                                     the small number (0.3.4 -> 0.3.5), the default
+#             promote-now --harry --feature                           the mid number (0.3.5 -> 0.4.0); the operator chooses
+#             promote-now --harry --full-version-event 1.0.0          the full number; only the exact next one is accepted
+#           $STATE/versions.log is the append-only ledger: version, release id, git, time. A release keeps its number for
+#           good: rollback and a re-promote add no line and use none up, and the next new number is the ledger's highest
+#           plus one. The number reaches the page as `version` in the release's release.json (/release.json, no-store, and it
+#           follows `current` through a rollback); that field is the one write to a release after it is cut. A release
+#           whose page has no version line (0.3.4 and everything before it) keeps its files untouched. Each number is
+#           tagged vX.Y.Z on the release's commit and pushed, with the live-<id> tag. Never fails a swap: a number that
+#           could not be written or read back is a WARNING in rolls.log, and prod stays as the swap left it.
 #   MARKED: every release that goes live (promote-now or rollback) gets git tag live-<release id> on the commit it was
 #           cut from, and the branch `live` is moved to that commit; both are pushed to origin. `git log live` is what
 #           players have; `git checkout live-<id>` is any earlier one; promote-now <id> brings a kept one back.
@@ -55,8 +68,9 @@ ROLL_LOCK="${TW_RELEASE_LOCK:-/tmp/tw-release-roll.lock}"
 PUBLIC_REMOTE="${TW_PUBLIC_REMOTE:-https://github.com/giblfiz/turnipworks.git}"
 PUBLISH_WAIT="${TW_PUBLISH_WAIT:-300}"   # the most a promote or rollback waits for the mirror's gates to answer
 EXPORT="$MAIN/tools/public-export/export.py"
+LEDGER="$STATE/versions.log"
 mkdir -p "$STATE/releases" "$STATE/logs"
-touch "$STATE/rolls.log" "$STATE/candidates.log" "$STATE/promoted.list" "$STATE/rejected" "$STATE/public-mirror.log"
+touch "$STATE/rolls.log" "$STATE/candidates.log" "$STATE/promoted.list" "$STATE/rejected" "$STATE/public-mirror.log" "$LEDGER"
 
 now() { date -Iseconds; }
 roll_log() { printf '%s\t%s\n' "$(now)" "$*" >> "$STATE/rolls.log"; echo "$*"; }
@@ -73,13 +87,63 @@ mark_live() {
   local id=$1 sha; sha=$(jget "$STATE/releases/$id/release.json" git)
   [[ -n "$sha" ]] || { roll_log "mark: $id has no git commit in release.json; not marked"; return 0; }
   local G=(git -C "$MAIN") P=(env GH_CONFIG_DIR=$HOME/.config/gh git -C "$MAIN")
+  local ver vtag=() what="tag live-$id + branch live"; ver=$(version_of "$id")
   "${G[@]}" rev-parse -q --verify "refs/tags/live-$id" >/dev/null || "${G[@]}" tag -a "live-$id" "$sha" -m "live on turnipworks.net from $(now) (release $id)" || true
-  "${G[@]}" update-ref refs/heads/live "$sha" || true
-  if "${P[@]}" push -q origin "refs/tags/live-$id" "+refs/heads/live:refs/heads/live" 2>&1; then
-    roll_log "marked: tag live-$id + branch live -> ${sha:0:8} (pushed)"
-  else
-    roll_log "marked locally: tag live-$id + branch live -> ${sha:0:8}; PUSH FAILED (push them by hand)"
+  if [[ -n "$ver" ]]; then
+    "${G[@]}" rev-parse -q --verify "refs/tags/v$ver" >/dev/null || "${G[@]}" tag -a "v$ver" "$sha" -m "Turnip Works $ver (release $id)" || true
+    vtag=("refs/tags/v$ver"); what="tags live-$id, v$ver + branch live"
   fi
+  "${G[@]}" update-ref refs/heads/live "$sha" || true
+  if "${P[@]}" push -q origin "refs/tags/live-$id" "${vtag[@]}" "+refs/heads/live:refs/heads/live" 2>&1; then
+    roll_log "marked: $what -> ${sha:0:8} (pushed)"
+  else
+    roll_log "marked locally: $what -> ${sha:0:8}; PUSH FAILED (push them by hand)"
+  fi
+}
+
+# ---------- version numbers (usage header, VERSIONS) ----------
+version_of() { awk -F'\t' -v id="$1" '$2 == id { print $1; exit }' "$LEDGER"; }
+top_version() { awk -F'\t' '$1 ~ /^[0-9]+\.[0-9]+\.[0-9]+$/ { print $1 }' "$LEDGER" | sort -V | tail -n 1; }
+next_version() { # <small|feature|full>
+  local a b c; IFS=. read -r a b c <<< "$(top_version)"
+  case $1 in feature) echo "$a.$((b + 1)).0" ;; full) echo "$((a + 1)).0.0" ;; *) echo "$a.$b.$((c + 1))" ;; esac
+}
+# check_number <id> <small|feature|full> <the full number as typed>: the operator's choice, before anything moves
+check_number() {
+  local have; have=$(version_of "$1")
+  if [[ -n "$have" ]]; then
+    [[ "$2" == small ]] || { echo "REFUSED: $1 is already v$have and a release keeps its number: leave out --feature / --full-version-event"; return 1; }
+    return 0
+  fi
+  [[ -n "$(top_version)" ]] || { echo "REFUSED: the version ledger $LEDGER has no numbers in it, so the next one is unknown. Restore it first."; return 1; }
+  [[ "$2" != full || "$3" == "$(next_version full)" ]] || { echo "REFUSED: a full version is an event Harry and Fauna discuss. If this is it: --full-version-event $(next_version full)"; return 1; }
+}
+# stamp_release <id> <version>: `version` in the release's own release.json, swapped in whole
+stamp_release() {
+  local dir="$STATE/releases/$1"
+  [[ "$(jget "$dir/release.json" version)" != "$2" ]] || return 0
+  grep -q 'id="twl-ver"' "$dir/engine/client/index.turnipworks.html" 2>/dev/null || return 0
+  python3 - "$dir/release.json" "$2" <<'PY'
+import json, os, sys
+path, version = sys.argv[1:]
+release = json.load(open(path)); release['version'] = version
+with open(path + '.tmp', 'w') as f: json.dump(release, f, indent=1)
+os.chmod(path + '.tmp', 0o644); os.replace(path + '.tmp', path)
+PY
+}
+# number_release <id> <small|feature|full, or empty for a rollback>: after a swap has passed its checks, so a failed
+# promote leaves no trace. The ledger line comes first: a line without a stamp is repaired by the next swap to that release;
+# a stamp without a line would hand the same number out twice.
+number_release() {
+  local id=$1 bump=$2 v res sha
+  v=$(version_of "$id")
+  if [[ -z "$v" && -n "$bump" ]]; then
+    v=$(next_version "$bump"); sha=$(jget "$STATE/releases/$id/release.json" git)
+    printf '%s\t%s\t%s\t%s\n' "$v" "$id" "$sha" "$(now)" >> "$LEDGER" || return 1
+    roll_log "version: $id is v$v"
+  fi
+  [[ -z "$v" ]] || stamp_release "$id" "$v" || return 1
+  res=$(node "$VERIFY" number --want "$v" --host "$PROD_HOST") || roll_log "WARNING: VERSION NOT CONFIRMED on the page for $id: $res"
 }
 
 # ---------- the public mirror ----------
@@ -226,14 +290,15 @@ restart_prod() {
   for i in $(seq 1 150); do [[ "$(health "$PROD_PORT")" == *'"ok":true'* ]] && return 0; sleep 0.2; done
   return 1
 }
-run_verify() { # run_verify <id> → prints the JSON line, exit status = verified
-  node "$VERIFY" verify --release "$STATE/releases/$1" --port "$PROD_PORT" --host "$PROD_HOST"
+run_verify() { # run_verify <id> [--number <ledger's number>] → prints the JSON line, exit status = verified
+  local id=$1; shift
+  node "$VERIFY" verify --release "$STATE/releases/$id" --port "$PROD_PORT" --host "$PROD_HOST" "$@"
 }
 
 # ---------- roll / promote-now / rollback: one road ----------
-# swap_to <target id> <warn seconds> <what> <banner word>
+# swap_to <target id> <warn seconds> <what> <banner word> [<small|feature|full>: number it if it has no number yet]
 swap_to() {
-  local target=$1 warn=$2 what=$3 word=$4
+  local target=$1 warn=$2 what=$3 word=$4 bump=${5:-}
   local cur prev log c at_s at until res
   cur=$(link_id current); prev=$(link_id previous)
   log="$STATE/logs/$(date +%Y%m%d-%H%M%S)-$what.log"
@@ -273,7 +338,8 @@ swap_to() {
   rm -f "$STATE/rolling"
   local why; why=$(grep -m1 'VERIFY FAILED' "$log" | sed -E 's/.*"failed":\[([^]]*)\].*/\1/' | cut -c1-300 || true)
   case $rc in
-    0) mark_live "$target"
+    0) number_release "$target" "$bump" || roll_log "WARNING: VERSION NOT RECORDED for $target (live is fine; read the ledger $LEDGER)"
+       mark_live "$target"
        roll_log "$what OK: $cur -> $target ($(grep -m1 'connections:' "$log" | sed -E 's/^[^ ]+ //' | cut -c1-80); log $(basename "$log"))" ;;
     1) roll_log "$what FAILED VERIFY, ROLLED BACK: $cur -> $target -> $cur (why: $why; log $(basename "$log"))"
        [[ "$what" == rollback ]] || printf '%s\t%s\t%s\n' "$target" "$(now)" "$why" >> "$STATE/rejected" ;;
@@ -293,8 +359,8 @@ cmd_roll() {
 }
 cmd_promote_now() {
   exec 7>"$ROLL_LOCK"; flock -n 7 || { echo "a roll is running"; exit 1; }
-  local warn=60 target="" harry=""
-  while [[ $# -gt 0 ]]; do case "$1" in --warn) warn=$2; shift 2;; --harry) harry=1; shift;; *) target=$1; shift;; esac; done
+  local warn=60 target="" harry="" bump=small full="" feature=""
+  while [[ $# -gt 0 ]]; do case "$1" in --warn) warn=$2; shift 2;; --harry) harry=1; shift;; --feature) feature=1; bump=feature; shift;; --full-version-event) full=$2; bump=full; shift 2;; *) target=$1; shift;; esac; done
   if [[ -z "$harry" ]]; then
     echo "REFUSED: live moves only when Harry initiates it (2026-10-22). On his word: tools/release.sh promote-now --harry [ID]"
     echo "candidate $(link_id candidate), prod $(link_id current)"; exit 1
@@ -302,7 +368,11 @@ cmd_promote_now() {
   target=${target:-$(link_id candidate)}
   [[ -n "$target" && -d "$STATE/releases/$target" ]] || { echo "no such release: '$target' (tools/release.sh list)"; exit 1; }
   [[ "$target" != "$(link_id current)" ]] || { echo "$target is already prod"; exit 0; }
-  swap_to "$target" "$warn" promote-now updating
+  [[ -z "$feature" || "$bump" != full ]] || { echo "REFUSED: --feature or --full-version-event, not both"; exit 1; }
+  check_number "$target" "$bump" "$full" || exit 1
+  local ver; ver=$(version_of "$target")
+  if [[ -n "$ver" ]]; then echo "$target keeps v$ver"; else echo "$target becomes v$(next_version "$bump") once its checks pass"; fi
+  swap_to "$target" "$warn" promote-now updating "$bump"
 }
 cmd_rollback() {
   exec 7>"$ROLL_LOCK"; flock -n 7 || { echo "a roll is running"; exit 1; }
@@ -312,12 +382,15 @@ cmd_rollback() {
   swap_to "$prev" "$warn" rollback restarting
 }
 
+version_label() { local v; v=$(version_of "$1"); if [[ -n "$v" ]]; then echo "v$v"; else echo "no number"; fi; }
 cmd_status() {
   local r
   for r in current previous candidate; do
     local id; id=$(link_id "$r")
-    if [[ -n "$id" ]]; then printf '%-9s %s  (git %s, client %s, tuner %s)\n' "$r" "$id" "$(jget "$STATE/releases/$id/release.json" git | cut -c1-8)" "$(jget "$STATE/releases/$id/release.json" client)" "$(jget "$STATE/releases/$id/release.json" tuner)"; else printf '%-9s -\n' "$r"; fi
+    if [[ -n "$id" ]]; then printf '%-9s %s  (%s, git %s, client %s, tuner %s)\n' "$r" "$id" "$(version_label "$id")" "$(jget "$STATE/releases/$id/release.json" git | cut -c1-8)" "$(jget "$STATE/releases/$id/release.json" client)" "$(jget "$STATE/releases/$id/release.json" tuner)"; else printf '%-9s -\n' "$r"; fi
   done
+  if [[ -n "$(top_version)" ]]; then echo "live version: $(version_label "$(link_id current)") (next promote v$(next_version small), --feature v$(next_version feature); ledger $LEDGER)"
+  else echo "WARNING: live version unknown: the ledger $LEDGER has no numbers in it"; fi
   echo "prod relay :$PROD_PORT $(health "$PROD_PORT")"
   echo "dev relay  :$DEV_PORT $(health "$DEV_PORT")"
   echo "dev serves client $(grep -oE "TW_V = '[0-9]+'" "$DEV_WEB/engine/client/index.turnipworks.html" | grep -oE '[0-9]+'), tuner $(jget "$DEV_WEB/tuner/version.json" v)"
@@ -327,17 +400,17 @@ cmd_status() {
   [[ -s "$STATE/rejected" ]] && { echo "rejected candidates:"; tail -n 3 "$STATE/rejected" | sed 's/^/  /'; }
   return 0
 }
-cmd_list() { ls -1 "$STATE/releases" | while read -r id; do printf '%s  %s\n' "$id" "$(cat "$STATE/releases/$id/release.json" | tr -d '\n ' | cut -c1-160)"; done; }
+cmd_list() { ls -1 "$STATE/releases" | while read -r id; do printf '%s  %s  %s\n' "$id" "$(version_label "$id")" "$(cat "$STATE/releases/$id/release.json" | tr -d '\n ' | cut -c1-160)"; done; }
 
 case "${1:-}" in
   candidate) shift; cmd_candidate "$@" ;;
   roll) cmd_roll ;;
   promote-now) shift; cmd_promote_now "$@" ;;
   rollback) shift; cmd_rollback "$@" ;;
-  verify) id=$(link_id current); res=$(run_verify "$id") && { echo "prod $id verified: $res"; } || { echo "prod $id NOT verified: $res"; exit 1; } ;;
+  verify) id=$(link_id current); res=$(run_verify "$id" --number "$(version_of "$id")") && { echo "prod $id verified: $res"; } || { echo "prod $id NOT verified: $res"; exit 1; } ;;
   status) cmd_status ;;
   list) cmd_list ;;
   mark) shift; mark_live "${1:-$(link_id current)}" ;;
   publish-public) shift; cmd_publish_public "$@" ;;
-  *) sed -n '2,43p' "$0"; exit 2 ;;
+  *) sed -n '2,56p' "$0"; exit 2 ;;
 esac

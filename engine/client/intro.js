@@ -58,7 +58,7 @@ export function createIntro(app) {
       pos = [innerWidth * 0.55, innerHeight * 0.55]; show();
       // the phantom: a real seat (an agent seat of this GM, allowed rooms only), with its own cursor in the world
       const pid = newId('seat');
-      const token = await app.createSeat({ id: pid, kind: 'llm', name: 'Intro', color: COLOR, scope: { areas: '*', classes: ['room'] } });
+      const token = await app.createSeat({ id: pid, kind: 'llm', name: 'Intro', phantom: true, color: COLOR, scope: { areas: '*', classes: ['room'] } });
       if (!token) throw new Error('intro: no phantom seat');
       phantom = { token, id: pid };
       app.pv.hidden.add(pid); // its cursor in the world is NOT drawn on this screen: the ghost above is that cursor here (the world one, the relay's ghost for an AI seat, eases slowly toward what the seat last looked at: a second turning ring trailing seconds behind, Harry 2026-10-11). Other seats still see it.

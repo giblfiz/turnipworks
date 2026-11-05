@@ -17,7 +17,7 @@ import { pawnDarkProblem, withDarkFields, feetProblem, LIGHT_RADIUS_MAX } from '
 import { newArea, areaRules, settingsProblem, mergeSettings, RULE_KEYS, CAMPAIGN_KEYS } from './state.js';
 import { overlap as roomsOverlap, outlineProblem, storedOutline, turnOutline, perimeterKeys as footprintKeys, keyBase, keyLevel, levelSuffix, hasCell } from './footprint.js';
 import { roofProblem, roofShapeProblem, mergeRoof, heightProblem, spanOfArgs, roomClash, supportProblem, STOREY, roomY, roomTop, STEP, MAX_Y, isTerrain } from './height.js';
-import { isStair, isConnector, isPlacedStair, stairRole, stairsTouching, stairLinks, stairTop, stairBase, stairRise, stairRoomAt } from './stairs.js';
+import { isStair, isConnector, isPlacedStair, stairRole, stairsTouching, stairLinks, stairTop, stairBase, stairRise, stairRoomAt, stairWarning, STAIR_CODES } from './stairs.js';
 import { isCave } from './caves.js';
 import { MARK_KEYS, sheetProblem, cleanSheet, DAMAGE_LIMIT, attacksProblem } from './pawn.js';
 import { infoProblem } from './beyond20.js';
@@ -80,7 +80,7 @@ def('fog.view',{level:'area',cls:'campaign.admin',args:{fog:'obj'},internal:true
 // Chat and rolls live in area.chat (last CHAT_KEEP lines).
 const CHAT_KEEP = 100;
 const ownsOrGm = (state, by, e) => { const who = principalOf(state, by); return who.role === 'gm' || e.owner === who.id; };
-const OBJ_ARGS = { fromCave: 'bool?', flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', rise: 'int?', stair: 'str?', down: 'bool?', fromEdge: 'str?', rule: 'str?', orient: 'str?', lit: 'bool?', name: 'str?', cat: 'str?', sku: 'str?', url: 'url?', flat: 'bool?', place: 'str?', layer: 'str?', y: 'num?', rot: 'num?', yaw: 'num?', tiltZ: 'num?', quat: 'quat?', s: 'vec3?', dims: 'vec3?', room: 'id?', parent: 'id?', color: 'color?', hidden: 'bool?', pinned: 'bool?' };
+const OBJ_ARGS = { fromCave: 'bool?', flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', rise: 'int?', stair: 'str?', down: 'bool?', noteOff: 'str?', fromEdge: 'str?', rule: 'str?', orient: 'str?', lit: 'bool?', name: 'str?', cat: 'str?', sku: 'str?', url: 'url?', flat: 'bool?', place: 'str?', layer: 'str?', y: 'num?', rot: 'num?', yaw: 'num?', tiltZ: 'num?', quat: 'quat?', s: 'vec3?', dims: 'vec3?', room: 'id?', parent: 'id?', color: 'color?', hidden: 'bool?', pinned: 'bool?' };
 // A THING TIPPED OVER: `quat`, a unit quaternion [x, y, z, w] = its orientation under its Turn (core/orient.js: what is
 // drawn is Ry(rot) · Q(quat)). Absent = upright, so every campaign from before loads unchanged. Named for what it is,
 // never for the button's label ("Roll"); nothing to do with `yaw` (a mesh's alignment correction). It replaced `tiltZ`
@@ -98,6 +98,7 @@ const objectFrom = (a, extra = {}) => ({
   ...(a.flavor && a.flavor !== 'inherit' && { flavor: a.flavor }), ...(a.factionMissing && { factionMissing: true, factionWasHidden: !!a.factionWasHidden }), hidden: !!a.hidden, locked: false, pinned: !!a.pinned, open: false, rule: a.rule || null, orient: a.orient || null, lit: a.lit ?? true, ...(quatArg(a) && canTilt(a) && { quat: quatArg(a) }), ...(a.fromEdge && { fromEdge: a.fromEdge }), ...(a.place === 'stair' && { rise: a.rise || 10, ...(a.stair && { stair: a.stair }) }),
   // a stair of the catalog (core/stairs.js STAIR_ROLES): `down` = it was put in for the level at its TOP; `rise` only when it is not the piece's own
   ...(a.place !== 'stair' && a.down && { down: true }), ...(a.place !== 'stair' && a.rise && a.rise !== 10 && { rise: a.rise }),
+  ...(STAIR_CODES.includes(a.noteOff) && isConnector({ ...a, kind: 'object' }) && { noteOff: a.noteOff }), // the warning its GM dismissed (core/stairs.js), as a campaign file carries it; anything else in this argument is ignored
   ...(a.fromCave && { fromCave: true }), // a cave's own stalagmite, where its rule put it (core/caves.js STALAG_CAT); gone once the GM moves it
   ...extra,
 });
@@ -443,12 +444,25 @@ def('object.move', {
   },
   touches: (a) => [a.id],
 });
+// DISMISSING A STAIR'S WARNING is an argument of object.set, not a command of its own (2026-11-02): noteOff=CODE dismisses
+// the warning the stair shows now, noteOff='' brings it back (core/stairs.js "THE NOTE OVER A STAIR"). A new command type
+// would stop an open tab from before the deploy cold: applyArea has no reducer for a type it has not heard of, so that
+// tab could follow nothing after the first dismissal. object.set it has, and the field goes through its `...rest`.
+// Allowed on a locked stair: the lock is against moving it, and this changes nothing about the stair.
+const noteProblem = (area, e, a) => {
+  if (!isConnector(e)) return `${e.name} is not a stair`;
+  if (a.noteOff === '') return e.noteOff ? null : 'that stair has no dismissed warning';
+  const W = stairWarning(area.entities, e);
+  return W?.code !== a.noteOff ? 'that stair is not showing that warning' : W.off ? 'that warning is already dismissed' : null;
+};
+const onlyNote = (a) => a.noteOff !== undefined && Object.keys(a).every(k => k === 'id' || k === 'noteOff');
 def('object.set', {
-  level: 'area', cls: 'object', args: { id: 'id', name: 'str?', s: 'vec3?', dims: 'vec3?', tiltZ: 'num?', quat: 'quat?', lightRadius: 'numOrNone?' }, // lightRadius: the GM's own reach for a light in a dark area (core/darkness.js); null = its kind's
-  check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : feetProblem(a.lightRadius, LIGHT_RADIUS_MAX, 'a light radius') || (a.quat !== undefined || a.tiltZ !== undefined) && quatArg(a) && !canTilt(e) ? 'a stair, a ladder, a floor tile or a wall piece cannot be tilted' : null; },
+  level: 'area', cls: 'object', args: { id: 'id', name: 'str?', s: 'vec3?', dims: 'vec3?', tiltZ: 'num?', quat: 'quat?', lightRadius: 'numOrNone?', noteOff: 'str?' }, // lightRadius: the GM's own reach for a light in a dark area (core/darkness.js); null = its kind's
+  check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked && !onlyNote(a) ? `${e.name} is locked` : feetProblem(a.lightRadius, LIGHT_RADIUS_MAX, 'a light radius') || (a.quat !== undefined || a.tiltZ !== undefined) && quatArg(a) && !canTilt(e) ? 'a stair, a ladder, a floor tile or a wall piece cannot be tilted' : a.noteOff !== undefined ? noteProblem(area, e, a) : null; },
   apply: (t, a) => { // quat: its whole orientation under the Turn; [0, 0, 0, 1] = upright again (the field is removed). tiltZ: the old way to say it
-    const { id, tiltZ, quat, lightRadius, ...rest } = a, e = withDarkFields({ ...(a.s || a.dims || quat !== undefined || tiltZ !== undefined ? notCaves(t.entities[id]) : t.entities[id]), ...rest }, a, ['lightRadius']);
+    const { id, tiltZ, quat, lightRadius, noteOff, ...rest } = a, e = withDarkFields({ ...(a.s || a.dims || quat !== undefined || tiltZ !== undefined ? notCaves(t.entities[id]) : t.entities[id]), ...rest }, a, ['lightRadius']);
     if (quat !== undefined || tiltZ !== undefined) { const q = quatArg(a); delete e.tiltZ; if (q) e.quat = q; else delete e.quat; }
+    if (noteOff !== undefined) { if (noteOff) e.noteOff = noteOff; else delete e.noteOff; }
     return put(t, e);
   },
   touches: (a) => [a.id],
@@ -520,15 +534,28 @@ def('stair.flip', {
   },
   touches: (a) => [a.id],
 });
+// WHAT STANDS ON A THING GOES WITH IT (Harry 2026-11-02: "for every action on a parent, not only move"). One walk: the client's
+// app.descendants stands on restingOn too, so moving, hiding, copying, deleting and turning cannot disagree about what is on
+// what. goesWith is what actually goes: a LOCKED thing stays, and so does what stands on it. (Hidden things go with their
+// parent: only the GM side holds `object`, and it sees them. A player is refused by class before anything here runs.)
+export const restingOn = (entities, id) => Object.values(entities).filter(e => e.kind === 'object' && e.parent === id);
+export function goesWith(entities, id) {
+  const gone = [], kept = [], seen = new Set([id]);
+  const walk = (at) => { for (const c of restingOn(entities, at)) { if (seen.has(c.id)) continue; seen.add(c.id); if (c.locked) kept.push(c); else { gone.push(c.id); walk(c.id); } } };
+  walk(id);
+  return { gone, kept };
+}
 def('object.delete', {
   level: 'area', cls: 'object', args: { id: 'id' },
   check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : null; },
-  apply: (t, a) => { // things resting on it fall to the floor with it gone (parent cleared)
+  apply: (t, a) => { // what stands on it goes too; a locked thing stays where it is, standing on nothing now
+    const { gone, kept } = goesWith(t.entities, a.id);
     let out = drop(t, a.id);
-    for (const e of Object.values(out.entities)) if (e.kind === 'object' && e.parent === a.id) out = put(out, { ...e, parent: null });
+    for (const id of gone) out = drop(out, id);
+    for (const c of kept) out = put(out, { ...c, parent: null });
     return out;
   },
-  touches: (a, t) => [a.id, ...(t ? Object.values(t.entities).filter(e => e.parent === a.id).map(e => e.id) : [])],
+  touches: (a, t) => { if (!t) return [a.id]; const { gone, kept } = goesWith(t.entities, a.id); return [a.id, ...gone, ...kept.map(c => c.id)]; },
 });
 // flags on many things at once: hidden (GM: 'reveal'), locked and pinned (GM: 'object')
 // HIDING A ROOM hides the whole of it (Harry 2026-10-05): the room, everything in it and the wall edits only it owns, so
@@ -968,7 +995,7 @@ const CHAT_OPS = new Set(['chat.say', 'dice.roll', 'chat.unsay', 'chat.restore']
 // Chat and dice ("say …" in the bar). Undo of a line removes it; a roll is one step.
 const chatLine = (t, line) => ({ ...t, chat: [...(t.chat || []), line].slice(-CHAT_KEEP) });
 def('chat.say', {
-  level: 'area', cls: 'chat', args: { id: 'id', text: 'text' },
+  level: 'area', cls: 'chat', args: { id: 'id', text: 'long' },
   check: ({ area }, a) => (area.chat || []).some(c => c.id === a.id) ? 'duplicate message id' : null,
   apply: (t, a, meta) => chatLine(t, { id: a.id, by: meta?.by || null, text: a.text }),
   inverse: (t, a) => ({ type: 'chat.unsay', args: { id: a.id } }),
@@ -1062,7 +1089,7 @@ def('seat.create', {
   level: 'campaign',
   // humans are created by the GM; LLM seats by any human seat, for themselves
   cls: (state, by, a) => a.kind === 'llm' ? 'seat.agent' : 'seat.admin',
-  args: { id: 'id', kind: 'enum:human|llm', role: 'enum:gm|player?', name: 'str', color: 'color?', scope: 'obj?', invisible: 'bool?', location: 'id?' },
+  args: { id: 'id', kind: 'enum:human|llm', role: 'enum:gm|player?', name: 'str', color: 'color?', scope: 'obj?', invisible: 'bool?', location: 'id?', phantom: 'bool?' }, // phantom: the intro's stand-in, not a helper: its name is left as sent (relay/campaign.js dispatch)
   check: ({ state, by }, a) => {
     if (state.seats[a.id]) return `seat ${a.id} exists`;
     if (a.kind === 'human') return a.role ? null : 'human seats need a role';
@@ -1409,7 +1436,7 @@ def('party.set', {
 
 // ---------------- shape validation & coercion ----------------
 // Turns raw args (JSON from a socket, or strings from a GET query) into typed args, or explains why not.
-const CLEARABLE = new Set(['sheet', 'notes', 'gmNotes', 'mark']);
+const CLEARABLE = new Set(['sheet', 'notes', 'gmNotes', 'mark', 'noteOff']);
 export function parseArgs(type, raw, { fromQuery = false, depth = 0 } = {}) {
   const d = REGISTRY[type];
   if (!d) return { error: `unknown command ${type}. Known: ${Object.keys(REGISTRY).filter(k => !REGISTRY[k].internal && !REGISTRY[k].quiet).join(', ')}` };
@@ -1420,7 +1447,7 @@ export function parseArgs(type, raw, { fromQuery = false, depth = 0 } = {}) {
     let v = raw?.[k];
     if (spec === 'idOrNone' && (v === '' || v === null)) { out[k] = ''; continue; }
     if (['intOrNone','numOrNone'].includes(spec) && (v === null || v === '' || v === 'none' || v === 'null')) { out[k] = null; continue; } // null (or an empty value in a query) takes the number away
-    if (v === '' && opt && CLEARABLE.has(k)) { out[k] = ''; continue; } // '' clears a pawn's sheet link, notes or indicator
+    if (v === '' && opt && CLEARABLE.has(k)) { out[k] = ''; continue; } // '' clears a pawn's sheet link, notes or indicator, and a stair's dismissal
     if (v === undefined || v === null || v === '') { if (opt) continue; return { error: `missing ${k} (${spec})` }; }
     if (fromQuery && typeof v === 'string') {
       if (spec === 'num' || spec === 'int') v = Number(v);

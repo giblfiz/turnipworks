@@ -32,7 +32,7 @@ Harry has a second menu/hotkey UI (a deep, chorded, visual-feedback menu system)
 - **Context-aware.** Results favor a matching title prefix, then the current selection, recency and frequency; for example, “graphics” keeps the Graphics quality presets visible among synonym matches. Commands apply to the whole selection. Results the seat can't use never appear (permissions decide what a player sees).
 - **Preview on highlight.** The world object lights up, an asset shows its ghost, and the camera hints where it would go.
 - **Teaches shortcuts.** Every command shows its key.
-- **Arguments as chips** (move ▸ Brakka ▸ to ▸ [click]; roll ▸ d20 ▸ +5 ▸ advantage). Typing and clicking mix.
+- **The command word as a chip; what you type stays text** ("say" ▸ hello there everyone; see “What you type is shown once”, below). The row below says what Enter will do, with what you did not type: the selection, a person or place the words found, a unit. Typing and clicking mix.
 - **Instant.** The local fuzzy index over the catalog and the scene answers within a frame.
 - **Natural-language fallback.** Text that matches nothing goes, on Enter, to the GM's assistant seat (an LLM seat using the same commands, so it is undoable).
 - **Samples and icons everywhere (premium).** Every result has a visual:
@@ -50,7 +50,22 @@ Harry has a second menu/hotkey UI (a deep, chorded, visual-feedback menu system)
 
 The group has a ghost for every member, laid out on nearby free squares with room for their footprints. Drop/click submits one batch, so one undo removes the whole group and other seats receive it together. R turns the members; a dragged pawn group follows **Pawns snap to squares** and its Shift inversion, while click-to-place uses squares as before. A drag cancelled with Esc or released off the map places nothing and restores the list. Floor tiles within a picked group paint individual cells; a single unpicked floor dragged from the list retains its whole-floor behavior.
 
-**`/` reopens the last result list with an empty text field**, its scroll position and highlighted row, and a quiet **“last: orc”** label. Typing replaces it immediately. The query is re-evaluated against current permissions and scene state; no stale commands are retained. This memory lasts only until page reload, and explicit prefilled searches (for example from the Pawns menu) still open their own query. Up-arrow history remains separate.
+**Long text grows the bar (Harry 2026-11-02: "when I type like a freaking essay into the quickbar, it doesn't scale to let me keep going, I just sort of get a visual mess as I'm typing").** The field wraps and the bar grows down as you type, up to 6 lines; past that it scrolls inside itself with the caret in view, and you keep typing. It is one logical line: Enter runs, never breaks a line (Shift+Enter is unchanged), and pasted line breaks become spaces.
+- **Everything under the bar moves with it:** the results (which also get shorter, to stay on screen) and the column of area pills and crumbs, through `--bar-grow` (style.css), which `surfaces/bar.js fit()` sets and the text size scales. A top-docked button follows the bar's measured bottom (`--under-bar`). The PiP does not move: the grown bar lies over it while you type, as the results always have.
+- **The one chip never squeezes the text.** The bar's only chip is the command word (below), so it stays beside the first line however long the text grows; the words wrap beside it.
+- **In wrapped text the arrows move the caret by line.** Up recalls history only from the first line, and Down goes to the results only from the last.
+- **A say arrives whole, up to 4000 characters** (core's `long`, about 700 words; it was 500, and the rest was lost without a word). Past that it is cut there and a toast says so. A say over 200 characters is announced at reading size in a box that stays on screen; the chat log has it all. A whisper is still 500 at most.
+- Past 120 characters the bar stops searching names (nothing is that long); only typed intents answer, so a long line stays quick to type.
+
+**What you type is shown once (Harry 2026-11-03: "the longer text thing is a little messy... I would say the main problem is that you shouldn't be putting what I type into a chip and into the bar simultaneously. Like if I 'say hello there everyone' it's fine for 'Say' to turn into a chip, but why are we turning 'hello there everyone' into a chip... and worse we are turning it into a chip AND showing the typed text, so every letter I type adds two to the bar").** Before, the bar showed `[say] ▸ [hello there everyone]` and then the field's own `say hello there everyone`, and the row below repeated the words a third time.
+- **The command word becomes the bar's one chip, as soon as the bar knows it** ("say ", "whisper ", "roll ", "new area ", "invite ", "condition ", "initiative bonus " …: the first typed intent's verb, when you typed that word). It leaves the field; **everything after it stays plain, editable text in the field, once.** The line the bar runs is the chip's word and the field together, so history, Enter and the results are as before. A prefill does the same: the Pawns menu's whisper opens on `[whisper] Kit `, its search on `[place pawn]` with "type a name…" in the empty field, the phone's Say… on `[say]` with "what to say…".
+- **Backspace at the start of the field puts the word back as text** (the caret after it). It stays text until that word is edited; with the caret still inside the word it is not lifted again, so typing the word does not jump. A "/" after the chip is kept ("say /shrug"); only a leading one is the open key.
+- **Nothing else repeats the typed words while you type.** No argument chips in the bar. The row below keeps the verb and drops every chip whose words you typed (`unechoed` in `surfaces/bar.js`): "say hello there" → `say · Enter to do it`; "roll d20+5" → `roll`; "+7" with pawns selected → `damage → Brakka, Goblin`; "whisper Mira the north gate" → `whisper · to Mira` (the person it found, never the message). The assistant fallback reads "Ask the assistant", without your line in quotes. Search results (figures, places, people) are still found things, named as themselves.
+- **In a recalled list the row has it all** ("last: say hello there", the row `say · hello there everyone`): the bar is blank then, so the row is the only copy (the blank-bar rule, next paragraph).
+- Commands whose word you did not type ("-7", "6 goblins", "level 2") get no chip in the bar; the row says what they will do.
+- Test: `engine/test/browser_barchips.py` types say, roll and whisper a key at a time (a second tab receives the whisper) and a long paragraph, on a computer and an emulated phone, and checks after every key that the words are in the field once and nowhere else on the page.
+
+**`/` or a click reopens the last result list below a blank bar**, with its scroll position and highlighted row, and a quiet **“last: orc”** label at the top of the list, under the bar. **Nothing appears in the bar itself: no text and no chips, the placeholder as for an empty bar** (Harry 2026-11-02, from Nick's note: "that should never actually populate the bar itself ... the bar should itself be blank, and just give options from the last time below it.. which might include saying the thing"). **A typed intent in that list (say, roll, whisper, "6 goblins": the rows that wear chips) runs only when it is chosen: Down arrow then Enter, or a click.** Its row is listed but not restored as the highlight, and a bare Enter on the blank bar, or a mouse resting on the row, does nothing, so nothing repeats unseen. Ordinary result lists keep their restored highlight and Enter runs it. Typing replaces it immediately. The query is re-evaluated against current permissions and scene state; no stale commands are retained. This memory lasts only until page reload, and explicit prefilled searches (for example from the Pawns menu) still open their own query. Up-arrow history remains separate.
 
 ## L for labels, O for a thing's state, and the ring under the HUD (Harry 2026-10-20, as built)
 - **L turns the room and building labels off and on** (`view.labels`; this browser only, remembered in `localStorage` `tw.labels`). The same switch: "labels" in the command bar (its row shows L), Settings ▸ Me ▸ Interface ▸ "Room and building labels" (GM side only: players never see labels), the "?" sheet. Pawn names are not labels: they are drawn in the 3D picture (on the base, or a floating sprite) and stay. Like every letter, L does nothing while a text field (the command bar) has focus.
@@ -321,7 +336,7 @@ Harry: "Shift should be 'snap to steps' across the board." The default drag is f
     - **Library areas are knolled** (not shelves): a plain neutral plane; everything in a tidy grid at 90°, spaced by size, in sections per category (centrepieces, furniture, storage, lights, dressing, table and tools, the factions, then floors, walls, doors & windows, stairs); seen from above. Each thing lies as it is placed (since 2026-10-29; until then the way its silhouette read best from above, a chair on its side): it stands as in a room, and what hangs on a wall, and the walls, doors and windows, lie on their backs, face up. A pick in the library flies the camera to it; meshes load as the camera comes near. Drag-out places the thing upright, with its usual placement rules. See "The library PiP cleaned up (2026-10-29)".
     - **The PiP takes input under the pointer** (every view is a full viewport):
       - Over the PiP the pointer is the **select pointer** (the arrow); the active build tool is suspended, not cancelled, and its pointer comes back over the main view.
-      - Click and hover select and highlight there. Wheel zoom, two-finger pan, pinch, Option/middle-drag rotate and F (frame the picked thing) all move the PiP's own camera; Cmd/Ctrl+C copies the picked thing.
+      - Click and hover select and highlight there. Wheel zoom, two-finger pan, pinch, Option/middle-drag rotate (about the PiP's own centre) and F (frame the picked thing) all move the PiP's own camera; Cmd/Ctrl+C copies the picked thing.
       - The library is read-only: Delete, rotate and the rest are inert there.
       - A drag that starts in a view stays with it until release, and a wheel/trackpad sequence stays with the view it started in until ~150 ms of quiet.
       - A drag that starts on a library thing becomes the placement ghost, with the place pointer, as it crosses into the main view.
@@ -636,6 +651,7 @@ Harry, first: "maybe that can also just happen on double click"; then, the same 
   - a ping inside a room hidden from players, or on a hidden thing, reaches the GM side only (the relay decides);
   - a ping on a level your view is cut below is NOT drawn in the world: a small mark in the pinger's colour pulses beside that storey on your level meter, and your view does not move. (Chosen over dropping it: you learn where to look.)
 - **Rate limit:** one per 600 ms from a seat; the relay passes at most 4 in 3 s per connection.
+- **AI seats are told (2026-11-02):** every helper that may see a person's ping gets it in its feed, with what is at that spot as that helper's seat may see it (docs/NETCODE.md "A ping reaches the helpers"). A human can point and say "that one".
 - **Room left, not built:** the GM's Shift + press-and-hold "pull everyone's view here". **AI seats** cannot ping through the GET API yet (not trivial: the relay's ping path is tied to a live connection).
 - Code: `armHold` and `click` in `engine/client/input.js`, `app.ping` / `app.showPing` in `main.js`, `app.meterPing` in `surfaces/cut.js`, `presence()` in `engine/relay/campaign.js`. Test: `engine/test/browser_nits.py`.
 
@@ -709,6 +725,17 @@ Harry, after playing on dev: "I keep getting pawns popping up and down by full l
 - **Where its level has no floor** (off an upper floor's edge, over a hole): it stays at its height when let go, and **Fall 10 ft?** is offered, as since 2026-10-22. Over a hole in a floor that stands on a hill there is nothing to fall into: it stays on the floor.
 - **Raise / lower** is not a drag: it still sets the pawn's height, and its base falls to what is under it. A pawn up in the air (raised) keeps its height when dragged. A pawn on a table top keeps its height over the floor while it is over the table.
 - **Things** (furniture) are as they were: let go over another floor that shows, a thing lands there.
+
+### Getting to any pawn: the Pawns menu's portraits (Harry 2026-11-03, as built)
+Harry, on dev, after a pawn of his went where no view showed it: "he put a pawn on a ladder, and boom all of a sudden they are invisible and I can't even really figure out what level they are on", then: "a bug with landing weird on a misplaced ladder is ok... but can't get to the pawn is not ok", and "when you click a portrait in the pawns you go to them (that should also cut you to their level)... but lets also let you drag that portrait onto the board as if you had seized their token, so you can always grab and place them from the pawn menu." Code: `client/surfaces/pawns.js` (goTo, seizeOut), `client/input.js` (`app.handMove.begin(ev, { seize })`, the seized branch of dragMove), `core/stairs.js` stairHop. Tests: `engine/test/browser_pawngo.py`, `engine/test/stairs.test.mjs` section 8.
+- **What had happened on dev (read from the journal, not re-run there).** The pawn was dragged from a cell block along a one-square crypt passage at lv -2 towards a ladder. Somewhere on the way the pointer left the passage, so the pawn's level there was solid rock, and the walk's rule for "below the ground with no room" (docs/VERTICAL.md "Universal levels", *through the earth*) lifted it to the top of the earth: 0 ft. It walked on at 0 ft to the ladder's square, where a ladder from -20 to -10 was not one of its ends, so no climb, and it was put down at 0 ft on the cave's top, at the foot of the hill's bank, under a hilltop room: inside the bank, drawn only in X-ray. Its level (lv 1) was not one the GM would look at, and the Pawns menu's click only ever took the view UP.
+- **A click on a portrait goes to the pawn and cuts to its level, always**: up or down, and from all levels (`app.cutToPawn`: the room it is in, else the 10-ft band its base is on). It is centred on and selected. The party rows' portraits and pets, Mine's tiles, On the table's kinds and the number keys all go through it. A player clicking a pawn they cannot move (another player's) gets the old rule: the view goes up to it if it is above the cut and is never taken down to another level.
+- **Drag a portrait onto the map and you have the pawn in your hand**, as if its token had been grabbed: it is under the pointer, on the floor that shows there (the level in view, upstairs or below ground; the cut decides what shows), with the drag line and the movement rings from where it stood. Let go and it is the ordinary pawn drop: one `token.move`, one undo, a ladder's climb and the fall offer as for any drop. It is the pawn itself, never a copy, wherever it was, drawn or not. Esc while it is in the hand, or never reaching the map, and nothing moved. The menu steps aside for the drag unless it is pinned.
+  - *Decided for Harry:* a seized pawn lands on the floor under the pointer, not on its own level (a token dragged on the map keeps its level). That is what makes it a way to rescue a pawn from wherever it went. *The other choice:* walk it on its own level from where it stood, as a token drag does.
+- **Who can seize a portrait:** exactly who could drag that token (`app.canTouch` and the move permission): a player their own pawns, the GM any. A portrait that can be seized has the grab cursor and takes the finger on a phone (`touch-action: none`, as a bench tile; a tap is still a tap: it goes to the pawn). Portraits that seize: a party row's portrait and its pets, Mine's tiles of pawns on this table, and On the table's portrait of a kind with one pawn. Only pawns in the area in view; a pawn in another area is reached by its click first. A drag on the rest of a party row still sets the marching order.
+- **The ladder's drop, one small rule (2026-11-03):** dropped from above onto the hole of a ladder or spiral whose foot is blocked ("Blocked at the foot": wall or rock where its foot landing would be), the pawn is not sent down into it; it stays on the top landing. Climbed from below it still goes up. Everything else about the hop is as before.
+- **Through rock below the ground, the pawn keeps its level (2026-11-03, the same day).** Harry: "Nope, dragging thru rock should push back onto legal space on the same level." Dragged off a passage into the rock, a pawn is held on the last floor of its level it crossed (drawn there while the pointer is over the rock, let go there) and follows the pointer again once it is back over that level's floor; the arrow keys do not step it into rock ("Solid rock there: … stays where it is"). Rules: docs/VERTICAL.md "Universal levels", *never through rock below the ground*. Tests: `levels.test.mjs` 2b, `browser_pawngo.py` ROCK.
+- **Not done (reported):** a pawn standing at the foot of a hill's bank is still drawn inside the bank ("standing on a hill's bank", docs/VERTICAL.md); the click selects it there (its selection bracket shows) and the portrait drag takes it out.
 
 ### Dragging a figure out of a list (Harry 2026-10-06, as built)
 Harry, while playing: "I notice a small tweak: the pawns can't be dragged out of the text-search menu."
@@ -921,6 +948,7 @@ Spec: docs/VERTICAL.md. **Changed 2026-10-06: the level is one thing now, there 
   - With a pawn selected, [ and ] changed its HP at the time (since 2026-10-06 they step levels always; a pawn's keys are = and -: "Pawn ring").
 - **Drawing a room on an upper level.** Pick the room type, go up, drag as on the ground.
   - A faint grid shows at that height. Every square you may build on is lit faintly: over the rooms below, and up to two squares (10 ft) out from them.
+  - **One grid: the one you are drawing on (Harry 2026-11-03: "when you're up on like level 2 and building, we're going to want to not show the ground grid ... that thing where we get two grids at the same time is not a great look and a little bit confusing. So let's only show the grid that you're drawing on").** While the level's grid is up (a build tool on any level above or below the ground) the ground's 5-ft grid is not drawn. When it goes (back to lv 1, or the tool put away) the ground grid comes back exactly as the area's grid rule says: an area with "Hide the grid" stays gridless throughout, and the level grid still shows there while you build (it is the drawing aid, not the area's grid). First person still hides the ground grid and gives it back. A map export (.dd2vtt) with "grid" ticked still draws the 5-ft grid on any level, also while you build there (seen straight down, its lines are that level's squares). How: the ground grid hangs in a holder of its own (world.js `gridHold`); the area rule, first person and the export set the grid's own visibility as before, and `showLevelGrid` only lowers the holder. Test: engine/test/browser_onegrid.py.
   - **The grid and the lit squares draw over what is BELOW the level and behind what is ON it (Harry 2026-10-06: "it is showing THRU things that are on the second floor. It DOES need to show over things on the first floor, but it also needs to not ghost thru things on the second floor").** Walls, furniture and floors of rooms already on that level (or above) hide them; the storey underneath does not. They lie 0.3 ft under the level's floor line. The same below ground: there they also show through the ground, and a cellar's own walls, floor and things hide them. On the ground level nothing changed.
   - While you drag, the squares that will become the room light in your colour at that height. Squares more than two out get the small red mark and are left out; the readout says so. A drag with nothing under it at all is refused with a message.
   - The room joins the building it stands on. Its furniture is laid out for it, at its height. It stands on a one-foot slab.
@@ -977,6 +1005,12 @@ Harry: "start in on the fixes to stairs & ladders as a placeable object with a c
   - It is counted from the level you are on. A stair seen from the floor it arrives at reads as stairs down there.
 - **The hole and the railing are never left behind.** Move, turn, duplicate, delete or undo a stair and they move, close or come back with it.
 - **A stair that leads nowhere says so**, in a small note over it, for as long as that is so: "No floor above yet", "Nothing below", "A wall runs through it", "Blocked at the foot", "Comes up through a wall", "Blocked at the top". It is still placed, and it starts working the moment the missing floor is built. The switch also says it once in a message.
+- **A stair's warning can be dismissed (2026-11-02; Harry: "they are fine as *warnings*... but how do I get rid of them?", then "Yeah, we need a dismiss button on these").** The GM side only; everyone sees the note, as before.
+  - **The × on the note.** A small round button just past the note's right end, always showing (a phone has no hover). One click or tap hides that stair's note and says how to get it back. It is a real button laid over the canvas and moved to the note every frame (`surfaces/stairnotes.js`), the room label's pattern, because notes are sprites and sprites are never picked. Target: 28 px round a 20 px disc with a mouse, 44 px round a 28 px disc on a coarse pointer. It lets the pointer through while a tool is live, and it goes with the note: off screen, under the PiP, in first person, and while the GM previews what players see.
+  - **The stair's ☰, the command bar and the Space chord** (`stair.note`, chord letter X): **Dismiss stair warning**, and on a stair already dismissed **Show stair warning again**, which is the only way back besides undo. Offered only while the stair has a warning. With several stairs selected it dismisses them all (a mix: "Dismiss stair warnings").
+  - **What it is.** The dismissal is in the world, on the stair, for every seat, through a reload: `noteOff`, the one code dismissed. Undo and redo work. It changes nothing about the stair: `stairStatus`, the pawn's crossing, the message from the switch and what an AI seat reads (`problem`, plus `dismissed: true`) all still tell the truth. It also works on a locked stair.
+  - **It is tied to the fault.** A different fault shows its own note, with its own ×. A fault that clears and later comes back under the same code stays dismissed (the simple rule: nothing clears the field). Only the latest dismissal is kept, so dismiss fault A, then fault B, and A coming back shows again.
+  - **A copy starts fresh.** Duplicate, copy and paste, and a shared build all show the stair's warning again; a campaign file exported and imported keeps the dismissal.
 - **Drawing a room no longer places a stair.** When a straight flight lines up with a hallway or common room, a conditional button beside the new room offers **Add stairs down** (a cellar: **Add stairs up**). It follows the conditional-button rules: about 12 s beside the room, then a line in the chat with the same button. Pressing it puts the stair in and lays the new room's furniture again round the hole; one undo takes both back.
 - **"Add stair" left the room's menu on 2026-10-11** ("The cuts"). "add stair" in the command bar still plans one for the selected room (the planner's stair; a ladder where no flight fits). Its replacement is everything above.
 - **Old campaigns:** the stairs that arrived with rooms are ordinary placed stairs now, with the same menu.
@@ -1091,6 +1125,7 @@ Harry: "When dragging in floor tiles, it should by default change the entire flo
 - **A hill's menu** (☰, it is a room: select it by its label): **Hill height ▸** Raise 10 ft · Lower 10 ft · 10 ft · 20 ft (pawns on it ride along; one undo. Whole storeys since 2026-10-26, Harry: "5-foot hills can be done as objects, sort of like tables"; a 5 or 15-ft hill from before goes to the next storey up or down. A 10-ft hill is as low as one goes: no Lower.) and **Rock sides** / **Grass banks** (its banks become steep rock faces). The bar finds them by name with the hill selected: "raise hill", "lower hill", "hill 20 ft", "rock face", "cliff", "grass banks". Its floor: drag a floor onto it, or "floor: meadow".
 - **Standing on it:** drag a pawn or a thing onto the top and it stands there, 10 ft up (a thing becomes the hill's and rides with it): a pawn walks up onto a hill from its foot, and walked off its edge it is on the ground below (a bank is walked, not fallen). Nobody stands on a bank. A hill drawn or raised so that its bank covers a pawn says so ("Pip stands where the hill's bank now is …"); move the pawn.
 - **The view:** a hill is ground: the level meter's cut never hides it, and at lv 1 and above it never hides what stands on it either; going up onto one offers no "Cut to lv 2", and fog of war over it is the ground's (a pawn on top sees down, and is seen). Below the ground (lv -1 and down) the hill is the earth over the cellars and caves, like the ground: what stands on it is not drawn (a building on it included: the hilltop is whole where it stood). **Below the ground the hill is see-through (2026-10-27, Harry: "maybe what we really need is something more like transparent/translucent hills"):** it keeps its shape, top, banks, rocks and bushes, faded so the cellars and caves under it show through the ground's openings; the pointer goes through it. **The ground fades with it** (Harry, the same day: "Honestly, I think that should probably also apply to the ground itself. I sort of am imagining that if I have a 3/4 view"): from a slant you see the cellars and caves under the open ground too, and a click on the faded ground reaches the cellar under it. How see-through is the GM's: Settings ▸ House look ▸ **Below the ground: see-through**, two sliders side by side, **Hills** and **Ground**, each from 0 (gone) to 1 (solid), 0.25 unless set, each with its readout; **Copy** ("hillSee 0.25 groundSee 0.25") and **Reset**. The view follows a slider as it moves; let go, the campaign keeps it for every seat. At 1 the ground is exactly as before (opened over the rooms below, a click stopped by it). *(The square crater over a cellar of 2026-10-26 is gone: "Rooms under the ground level shouldn't change the shape of the hill".)*
+- **From above, the underground shows through (2026-11-03, Harry: "I think that it probably looks better by default if we can see underground structures even when we're overground. But they would just have a level of, you know, a level of fade to them that's relatively aggressive, right? ... I think it should basically always be running"):** at the ground level and above (and with the cut off), the cellars, dungeon rooms and caves under the ground show faintly through it: their floors, walls, things and pawns, as a pale ghost over the grass, a ground-floor room's floor and a hill's top. The surface is untouched: the grass, the hill, the buildings and everything standing on the ground are drawn exactly as before and hide the ghost where they stand. A seat sees through the ground only what it would see by going down there itself (fog of war, hidden rooms). Nothing shown through the ground takes a click: the ground does, as before. Below the ground nothing changes (the two sliders above). How strongly is the GM's: Settings ▸ House look ▸ **Above the ground: underground shows**, one slider, **Underground**, from 0 (off: the old look) to 1, UNDER_SEE unless set, with its readout, **Copy** ("underSee 0.20") and **Reset**; live while dragged, kept by the campaign when let go. The rule and how it is drawn: docs/VERTICAL.md "The underground shows from above".
 - **Building on a hill (2026-10-24):** pick any room in Build (or the bar) and start the drag ON the hill's top: the room stands on the hill, its floor at the hill's height, its walls up from there. The size label says "· on the 10-ft hill". On a 10-ft hill it is on lv 2 (the levels are the map's: 2026-10-26), but it meets the ground there: its door opens onto the hilltop, no stair is offered down. Things and pawns put in it stand on its floor. Up to 10 ft of it may hang off the hill's edge (brackets and posts under it, as a jetty); more is refused. With the meter on another level (] to lv 2) the room tool draws on that level as ever: on a 10-ft hill lv 2 is its top too.
 - **Dug into a hill:** start the drag on the open ground and drag into the hill, or draw the room first and the hill over it: the room keeps its floor at the ground, and the hill gives way to it. Its walls hold the earth back (the bank lies against them outside), no earth inside, the hill's grass not drawn over it. The size label says "· dug into the hill". Rooms always win over the bank, whichever came first; moving, deleting or undoing the room moves the cut with it. A pawn in it stands on its floor.
 - **Hill height with a building on it:** Raise / Lower carries what stands on the hill (the rooms on its top, every storey on them, their things, the pawns in them) up or down with it; a room dug into the hill stays put, and so do a building's rooms on the plain (by rooms, not by building, since 2026-10-26). One undo.
@@ -1254,7 +1289,7 @@ Harry: "When dragging around objects, if you drag them to the edge of the window
 - **What counts as "in the hand":** a thing, a pawn or a room being moved; a thing dragged out of the library window; a figure, a cast member, a bench pawn or a piece of furniture dragged out of a list (the command bar, the Pawns menu); **a rectangle being drawn for a room or a building; a floor paint stroke** (both since later on 2026-10-11).
   - **Drawing a rectangle:** the corner you started on is a square of the world, so it stays where you put it while the view slides and the rectangle grows (up to the tools' own limits: 16 squares a side for a room, 24 for a building).
   - **A paint stroke:** the run goes on square by square under the pointer, with no gaps; Shift's rectangle grows the same way.
-  - **Not the selection box.** It is a box of screen pixels that takes what is wholly inside it and in sight; panning it would mean selecting things that have left the screen. (Decided by me.)
+  - **Not the selection box.** It is a box of screen pixels that takes what is mostly inside it and in sight; panning it would mean selecting things that have left the screen. (Decided by me.)
 - **Never on a hover.** With nothing in the hand the edges do nothing.
 - **What keeps it from firing by accident:**
   - **the delay:** the pointer must rest in the band for 0.15 s; crossing it does nothing, and the speed then comes in over 0.2 s;
@@ -1326,10 +1361,29 @@ A third of a second after the hand stops, everything is back; contact shadows fa
   - double-click steps inside.
 - **Breadcrumb with the selection** (Inn ▸ Kitchen ▸ Table ▸ Cup): click any level. This is the guaranteed escape hatch.
 - **Hover previews what a click would select,** with the outline at the level that would be picked.
-- **Marquee** takes things wholly inside the box at the current granularity.
-- **Moving a parent** carries its contents.
+- **Marquee** takes things **mostly** inside the box at the current granularity (Harry 2026-11-03, trying the desk rule on dev: "Drag is not grabbing the desk unless you get every little last inch of the desk in the box, and it's a little messy. I would say we need a sort of 'most of' the object rule with drag.").
+  - **Most of it, as drawn:** a thing is taken when at least half of it, as it appears on screen, is inside the box (`MARQUEE_MOST = 0.5` in `client/marquee.js`). It used to be all eight corners of the thing's world bounding box, which is every last inch and a margin more: that box on screen reaches past the drawn outline. What is measured is the drawn surface: each mesh is sampled once (128 points by area, cached per geometry), and each point counts for the screen area its patch covers in perspective, faces the renderer culls left out. Only things the box partly holds are sampled; a world box wholly inside or wholly outside settles it at once. Against rays cast at every pixel of 42 library things from four views, the share is within 4% at the median and 12% at the 90th percentile. On a map of 1,232 things a box is decided in 13 to 20 ms (the old rule took ~100 ms there, nearly all of it re-deriving every mesh's bounds).
+  - **The same rule at every granularity:** things at table distance; rooms and buildings at the overview, by their floor rectangles (a building by all its rooms the cut leaves drawn, so a box over most of a building takes it, not a box over one of its rooms).
+  - **A thing counts by its own area, the whole of it:** a cup is taken by a box over most of the cup; a big rug under the furniture is not taken by a box over a corner of it (and a box cannot start on the rug: a press there drags it). A thing partly off the screen counts its off-screen part too, so the box cannot take a sliver of it. Out of sight stays out (`world.inSight`), and the tiles rule stands ("A marquee takes tiles only when it holds nothing else"). There is no live preview of the box's set; hover previews a click.
+  - **It folds up onto what things sit on (Harry 2026-11-02, from Nick's note: "like a desk should get grabbed rather than individual objects on the desk").** When the box takes a thing and the thing it sits on, the selection is the desk, not what is on it. If the box holds less than half of the desk, the things on it that it takes stay selected; if it holds most of the desk, the selection is the desk and everything on it comes along, the things outside the box too. With Shift, the box adds and then the whole selection folds, so the order of the two boxes does not matter.
+  - "Sits on" is exactly what moving a parent carries: an object's `parent` when that is an object (`app.foldUp` in `main.js`, the inverse of `app.descendants`). Rolled rooms set it on everything laid on a surface, and setting a thing down on a surface by hand sets it. Things do not fold into their room at table distance, and the zoom detent's granularity is unchanged.
+  - Only the marquee folds. Shift-click, Cmd/Ctrl+A and Enter ("select children") still give exactly what they name. A table's chairs and a table on a dais are not on it in this sense (moving the table leaves them), so they stay separately selected.
+- **What stands on a thing goes with it, for every action on the parent** (Harry 2026-11-02; the walk is `goesWith` / `restingOn` in `core/commands.js`, and `app.descendants` stands on the same one):
+  - **Moving a parent** carries its contents, and so does raising or lowering it.
+  - **Delete** takes the thing and everything on it, on the relay (`object.delete`), so an AI seat's delete does the same. One undo restores all of it.
+  - **Cut** takes the desk and its contents, and the originals do not stay. **Copy** and **Duplicate** hold them, and a paste lands them in place on the new desk with their parents re-joined.
+  - **Turn** (R, Shift+R, the ring's drag) turns what is on it with it, about the desk's own centre, each keeping its place on the desk.
+  - **A locked thing is never taken along.** A delete leaves it where it is, standing on nothing, and a toast says so (one undo puts it back on the desk). A turn leaves it where it is. What stands on a locked thing stays with it.
+  - Hidden things go with their parent: only the GM side holds `object`, and it sees them. A player is refused by class, on the relay.
+  - Not this: Roll (tipping the desk), and sending it to another area.
 
 ## Industry standards, premium grade (Harry: "100% industry standard" on every conflict)
+- **No horizontal scrollbars, anywhere (Nick's rule, relayed by Harry 2026-11-02: "horizontal scrollbars are always a UI failure"):**
+  - content wraps, truncates with a way to read it (a title, a details view), or the layout changes; it never scrolls sideways;
+  - `overflow-x: hidden` over clipped content is not a fix, it hides the failure. Something clipped on purpose is art or a stage, not content, and is named with its reason in `DECORATIVE` in the test;
+  - fixed-width columns inside a box that can scroll vertically are the usual cause: a classic scrollbar takes its width out of them, so a Mac with overlay scrollbars never shows the fault. Use fluid tracks;
+  - inside `zoom: var(--ts)` (the text size) `100vw` is scaled as well: divide the room by `--ts`, or the largest text size runs a window off a small screen;
+  - the guard is `engine/test/browser_no_hscroll.py`: real scrollbars on, every surface, four screen sizes, both ends of the text size. A new sideways scroller fails it.
 - **Selection:**
   - click selects; Shift-click adds; Ctrl/Cmd-click toggles;
   - **left-drag on empty space draws a selection box**;
@@ -1342,9 +1396,14 @@ A third of a second after the hand stops, everything is back; contact shadows fa
   - touch: one-finger drag pans, long-press opens the context menu, long-press-drag selects.
   - **trackpad (Harry 2026-10-04, a MacBook with no mouse):**
     - two-finger scroll pans; pinch zooms (Safari: gesture events);
-    - **"Option to rotate"**: Option + drag (anywhere) and Option + two-finger scroll rotate the camera, pivoting on the ground point under the pointer where the move began (exactly like middle-drag); two-finger rotate turns the view (Safari);
+    - **"Option to rotate"**: Option + drag (anywhere) and Option + two-finger scroll rotate the camera, exactly like middle-drag; two-finger rotate turns the view (Safari);
     - on empty space, Cmd+drag pans; Cmd/Ctrl+D duplicates (Alt-drag no longer duplicates: Option rotates);
     - a mouse wheel still zooms to the cursor; the wheel's deltas tell the two devices apart (`engine/client/input.js`).
+  - **Every mouse and keyboard rotate pivots on the centre of the view (Harry 2026-11-02, from Nick's note: "when he rotates the camera, it rotates from mouse center rather than center of screen"):**
+    - middle-drag, Option-drag, Option + two-finger scroll, Safari's rotate gesture and Q / E / PageUp / PageDown all turn about the ground point at the centre of the view they are in. In the PiP that is the PiP's own centre, never the main canvas's.
+    - This replaced the rule of 2026-10-04, "one rotate behaviour for every rotate input": the ground point under the pointer where the gesture started, as in the tuner and Map Garden, no fixed orbit centre. There is still one behaviour; its pivot moved. `ROTATE_ON_POINTER` in `engine/client/input.js` puts the old rule back in one line.
+    - Not part of it: a two-finger twist or tilt on a touch screen stays on the fingers' midpoint (fingers hold the world, and the note was about the mouse; "On a phone"). First person is untouched. The wheel and a pinch still zoom toward the cursor. The tuner keeps its own rule.
+    - The centre of a view is the camera's focus, so a view that looks at no ground (the horizon) turns about that focus too: nothing to fall back from, nothing to jump to.
 - **Editing:**
   - undo/redo (Cmd/Ctrl+Z, Shift+Cmd+Z, Ctrl+Y);
   - cut, copy, paste; Cmd/Ctrl+D duplicates; Alt-drag duplicates;
@@ -1390,7 +1449,7 @@ A modal window with a category list on the left. Sections in order (**Harry 2026
    - Grid.
    - Play rules: free moves, what players may touch.
    - Every field shows "using default" or "overridden here", with a one-click reset.
-6. **House look (H).** GM. spawn animation, house lighting, selection style, below the ground: hills and ground see-through (2026-10-27, "Hills").
+6. **House look (H).** GM. spawn animation, house lighting, selection style, below the ground: hills and ground see-through (2026-10-27, "Hills"), above the ground: underground shows (2026-11-03, "Hills").
    - Sections 3, 4 and 6 are Global defaults split in three (Harry 2026-10-24: "a little bit overweight"; three sections was his pick).
 7. **Me (M).** Everyone; lives with the player and follows them across devices.
    - Identity: name, seat colour, avatar.
@@ -1452,11 +1511,11 @@ A modal window with a category list on the left. Sections in order (**Harry 2026
   - Lighting picks a profile from the tuner's built-in lighting looks; the grid toggle shows or hides the grid.
   - The old atmosphere `fog` placeholder is stored, but nothing uses it. (Fog of war works, "Vision fog of war"; the music works since 2026-10-30, "Music".)
 - **Me** lives in this browser (`tw.prefs`), except name and colour, which live on the relay.
-  - Controls: zoom and rotate speed and invert reach every camera input: wheel and pinch zoom, orbit drags, and (through the one `rotateView` in `input.js`) Option-scroll, Safari's rotate gesture and Q/E.
+  - Controls: zoom and rotate speed and invert reach every camera input: wheel and pinch zoom, orbit drags, and (through the one `rotateView` in `input.js`) Option-scroll, Safari's rotate gesture and Q/E. Every rotate pivots on the centre of the view (2026-11-02, "Industry standards"; before that, on the ground under the pointer).
   - Graphics: see "Graphics: what the picture costs" (2026-10-11). Geometry detail is its own row: it applies at once, every world's object and shell visuals are rebuilt in place (`app.setFaces` → `AreaWorld.refreshVisuals`), as the tuner's faces dial does. A `?faces=` URL still wins.
   - Display: ring size (`setRingScale`), text size (`--ts`, which zooms the chrome), announcements on/off and speed, others' cursors, and reduced motion (the `reduce-motion` class; announcements fade instead of flying).
   - Sound: the Music switch and volume work (2026-10-30, "Music"); Sound effects are stored but do nothing yet.
-  - My agents: create, copy key (the rules card URL), revoke.
+  - My agents: create, copy key (the rules card URL), revoke. **The name (Harry 2026-11-02):** the field holds a real name, `assistant`, selected on focus so typing replaces it, with the seat's whole name under it as you type ("Its name: Harry's assistant"); left empty it is `assistant`. The same in Agent seats. docs/NETCODE.md "A helper's seat name".
   - Reset to defaults.
 - **Invites and exports:**
   - Invites (copy link) and revoke.
@@ -1537,7 +1596,8 @@ lines of code, before anything else is asked for), in the house colour (a warm f
 because the table it gives way to is the same in both):
 
 - **The mark** (below), the name set in type, one bar, one line of words: **"Fetching the game"**, **"Opening your
-  table"**, **"Setting out the room"**. No percentages, no technical words, no tips.
+  table"**, **"Setting out the room"**. No percentages, no technical words. *(It said "no tips" too, until Harry asked
+  for them on 2026-11-02: "The tips", below.)*
 - **It is painted before any script or stylesheet has answered** (the stylesheet link moved below it in the page).
   The theme is also chosen there, so a light-scheme browser no longer flashes dark first.
 - **Only `transform` and `opacity` move** (the bar's length, the mark's slow sway, the words crossing over): those are
@@ -1595,6 +1655,94 @@ because the table it gives way to is the same in both):
   still fills. **Small screens:** a smaller mark and name under 480 px either way; the button is 44 px tall.
   **Screen readers:** one polite live region that hears "Turnip Works is loading", "Opening your table", then nothing
   more (or the sentence of a failure); the moving words are hidden from it.
+
+- **The version number (Harry 2026-11-02: "display it at the bottom of the loading screen").** Small and quiet at the
+  foot of the screen, centred, 13 px, cream at 78% (about 7:1 against the screen there): "v0.3.5" on turnipworks.net, "dev build" on dev and on local test
+  sites, never a number there (a number exists only once a release has gone live: docs/NETCODE.md "Version numbers"). It
+  is the same line on a first load and on travelling, stays through a failure so a player can read it out, and is left
+  off the small reconnecting pill, and off a failure on a screen under 480 px tall, where the sentences need the room. A
+  phone keeps it above the home bar (`env(safe-area-inset-bottom)`). The phone banner sits in the same place but waits for
+  this screen to go. If `/release.json` is slow, fails, or names another build, the line is blank and nothing else
+  changes. Test: `engine/test/browser_version.py`.
+
+- **The tips (Harry 2026-11-02: "whenever we have a loading screen ... we can put a tip about hotkeys or how to use the
+  mouse or trackpad or whatever on there. We can also sort of design that so it's got a little bit of awareness whether
+  they're signing in on a phone or a GM seat or a regular seat ... And then we just kind of rotate through the sort of
+  tooltips as it's loading. And that can be spread across multiple sign-ins.").** One short sentence under the words, a
+  key drawn as a small key cap. In the page itself with the rest of the screen (its own small script, after the
+  screen's), so it is there at the first paint, before any script or stylesheet has answered.
+  - **It never holds the screen.** The screen leaves exactly when it did before; a tip is cut off mid-sentence if the
+    table is ready. If the tips' script fails, the tip is blank and nothing else changes (a test breaks it on purpose).
+  - **Six lists, by hand, most useful first:** a touch screen (`window.TW_TOUCH`: a phone, or a tablet with no mouse
+    or trackpad; `?hand=1` / `?hand=0` force it as for the phone layout) or a computer; the GM's seat or a player's;
+    and for each screen a short list that is true for ANY seat. A player's list never names a GM's tool.
+  - **Whose seat, at the first paint:** the seat link carries it. A token's first half is its claims, signed by the
+    relay, and `sc` is the role ("gm" or "player"; an AI seat's is its scope); a link whose claims do not match its
+    seat opens no table, so the claim is never wrong for a table that opens. If a link cannot be read, the role this
+    browser remembered for that seat (`tw.games`, written on every visit). A page with no seat link that will show the
+    start form is a GM about to start a table, and "Start a campaign" says so again. Anything else (`#games`, a link
+    that cannot be read on a first visit) gets the any-seat list, and when the table says who this is
+    (`twLoad.seat`, from main.js) the NEXT tip is from that seat's own list: the one showing is never swapped.
+    (The brief assumed the role was unknown until the relay answered; it is in the link. The any-seat lists are now
+    only for those two cases.)
+  - **AI seats never get one,** from the first paint (their link says so) or once the table does.
+  - **Where:** the full screen only: the first load, starting a table, travelling to an area. Never the reconnecting
+    pill, never a failure (the sentence and the button need the room; it comes back if the failure mends).
+  - **The pace:** one at a time, each for its reading time: 1.8 s plus 55 ms a letter, at least 6 s (so 6 to 6.8 s
+    for these). A crossfade of 0.3 s in opacity only. If the page freezes, the tip it has simply stays.
+  - **Across sign-ins:** `localStorage` `tw.tips` holds where each list is up to (a number per list; never a seat
+    link), so each load starts at the first tip not yet seen and a person walks the whole list before it repeats.
+    **A tip counts as seen after 1.5 s on the screen with the page in view** (`SEEN_MS`). A load quicker than that
+    shows the same tip next time: 1.5 s is enough to read most of one short sentence, and the rule's mistakes cost
+    unevenly (a tip shown twice is cheap; one skipped unread is lost until the list comes round).
+  - **For a screen reader** it is hidden (`aria-hidden`), like the moving words: the one polite region still hears
+    "Turnip Works is loading", "Opening your table", and nothing more. **Reduce motion:** no crossfade, a plain swap.
+  - **Its room:** a box of a fixed height (two lines; three under 480 px wide), wider than the bar (up to 440 px;
+    560 px on a phone on its side) and centred on it, so the bar and the words never move as tips change length. It
+    wraps and never scrolls sideways. Below 300 px tall it gives way, as the version line does on a failure. Cream on
+    a soft dark pool, so the words are at least 7:1 against the brightest part of the glow behind them (measured from
+    the picture, in Chromium and Firefox: 7.4 on a desktop, 8.8 on a phone, 9.2 on its side; the pool reaches past the
+    box, so it has no edge).
+  - **The lists (2026-11-02).** Ctrl and Alt read Cmd and Option on a Mac.
+    - *Computer, GM:* Press B for Build, to drag out rooms, whole buildings and furniture · To bring a player in, type
+      invite and their name in the command bar · Press ? to see every key and mouse move · Scroll the mouse wheel to
+      zoom, and drag with the right button to pan · On a trackpad, scroll with two fingers to pan and pinch to zoom ·
+      Hold the left mouse button still for half a second, or Alt+click, to ping a spot for everyone · Press / to open the
+      command bar, then type /r d20 to roll · Select a room, then press Space and H, to hide it from players · Type 6
+      goblins in the command bar, then click the map to set all six down · Hold Alt and drag to turn and tilt the
+      view; Q and E turn it too · [ and ] go down and up a level, and \ shows every level at once · Drag a box around
+      a table to select it; what stands on it goes with it · X shows every pawn through walls and floors, on your
+      screen only.
+    - *Computer, player:* Drag your pawn to move it, or click it and step a square at a time with the arrow keys ·
+      Press / ... /r d20 · Type say and your words in the command bar to talk to the table · the wheel · the trackpad
+      · the ping · Alt and drag, Q and E · Press ? · Press V to look through your pawn's eyes, and walk with W A S D ·
+      Press M and drag to measure; then 1 to 5 make it a line, cone, circle, sphere or cube · Select a door and press
+      O to open or close it · Select a pawn and press = to add a point of damage, or - to take one off · To choose the
+      figure your pawn wears, open Settings (S), then Me ▸ My pawns.
+    - *Computer, any seat:* the wheel · the trackpad · the ping · Alt and drag · ? · / and /r d20.
+    - *Touch, GM:* Tap Build to add rooms, buildings and furniture · Drag one finger to look around the table, and
+      pinch to zoom · To bring a player in, type invite ... · Tap a thing, then drag it to move it · Hold a finger
+      still on a spot to ping it for everyone · Tap the command bar to roll dice or say something to the table · While
+      placing something, it goes down where you lift your finger · Tap a room's name on the map to select the whole
+      room · Twist two fingers to turn the view · Slide two fingers up or down together to tilt the view · Type 6
+      goblins in the command bar, then tap the map to set all six down.
+    - *Touch, player:* one finger, pinch · Tap your pawn, then drag it to move it · Tap the command bar ... · the held
+      finger · the twist · the tilt · Tap your pawn, then Eyes, to look through its eyes · Tap a pawn and drag its
+      Damage button to mark a hit · Tap Pawns to see your party, and follow any of them · To choose your pawn's figure,
+      open Settings, then Me ▸ My pawns · Hold a finger on open ground, then drag, to select with a box.
+    - *Touch, any seat:* one finger, pinch · the command bar · the held finger · the twist · the tilt.
+    Written so a tablet (touch, the computer's layout) reads only what is true there too: no tip names the phone's
+    own Move button or the placing chip's Cancel.
+  - **Kept true by a test:** `engine/test/browser_tips.py` holds every key a tip names (`{K}` in the source) to the
+    game's own key table, for the seat that reads it (a key that is gone, or a GM's key in a player's tip, fails),
+    checks the bar takes the words the tips use, and plays the tips that are not obvious in the real game, as the GM
+    and as a player, on a computer and on an emulated phone (the ping by holding and by Alt+click, Alt-drag, Q / E /
+    PageUp / PageDown, Space H on a room, "6 goblins", "invite Sam", "/r d20", "say", V and W A S D, M and 2, = and -,
+    O on a door in a wall and on a chest, Settings ▸ Me ▸ My pawns; on the phone a held finger, a box, the twist and
+    the tilt, a pawn's ring with Eyes and Damage, Pawns ▸ Follow, a room's name, a thing dragged, six goblins put
+    down where the finger lifts). The box around a table is `browser_marqueefold.py`'s; the finger's pinch, twist,
+    tilt and placing are also `browser_handheld.py`'s. Code: `engine/client/index.html` (the tips' script, after the
+    screen's), `main.js` (`LOAD.seat` twice).
 
 **When something fails, the same screen says so in a sentence and offers one thing to do** (the bar goes away):
 
@@ -1743,7 +1891,8 @@ Harry: "The 'poor focus' on lower levels is not really working out. I think we s
 ## Rulers and templates (Harry 2026-10-11, as built 2026-10-12)
 Design, Harry's words, the exact tests and the choices made without him: **docs/RULERS.md**.
 - **Dragging a pawn shows how far it has gone**: a line from where it stood and "30 ft · 6 sq", for everyone who can
-  see the pawn, in both pawn modes (free; snapping to squares). No tool, no key.
+  see the pawn, in both pawn modes (free; snapping to squares). No tool, no key. For the seat dragging, a line that
+  would cut through a wall follows the walk instead and reads its length (Movement rings, below).
 - **M measures** (hold, or tap, like P, B and S). Hold M with a pawn selected: a ruler from that pawn to the pointer,
   at once. Otherwise drag from A to B. An end on a pawn sticks to it, measures base edge to base edge, and follows.
   Both ends drag again. A click elsewhere or Esc lets it go; a press on a pawn does not. Never stored.
@@ -1761,6 +1910,53 @@ Design, Harry's words, the exact tests and the choices made without him: **docs/
   (docs/NETCODE.md); other seats draw them in the measurer's colour.
 - Code: `surfaces/rulers.js` (`RULER_KEYS`, `RULER_LOOK`), `core/measure.js`. Tests: `engine/test/browser_rulers.py`,
   `engine/test/rulers.test.mjs`.
+
+## Movement rings (Harry 2026-11-02, as built)
+First built as "move rings"; Harry: "I think 'movement rings' would be better" (he read "move rings" as rings that
+move). Harry: "When a pawn gets clicked on we could have some little rings showing it's move distances. I'm thinking something
+faint, like a topo map with a thicker line at 10/20/30/40. These would need to be wall/pathfinding aware.. so they would
+flow 'around' doors/walls." Then: "it doesn't need to go huge, just like 30 or 40." "FoW leak is an issue!" "Diagonal can
+be ignored, as can a lot of details you are mentioning... It's a hint not a rule."
+- **While a pawn is dragged, and only then** (never on a click or a select): faint contour lines of how far it could
+  WALK from where the drag began. Since Harry's look (2026-11-03, below): a ring every 5 ft, bold at 15, the strongest
+  at 30, nothing past it, with very faint lines every half foot between. They stay where the drag began while the pawn
+  moves, and when it is let go they fade out there over a second (Harry: "a 'fades out' that is nice and long, maybe a
+  whole second"); while fading they offer no route. Several pawns dragged: the grabbed one's.
+- **Only the seat dragging sees them.** Nothing is sent: other seats see the straight line and number they always saw.
+- **Walls**: the walls of the pawn's own level, for feet: an open door lets the walk through, a shut one stops it, a
+  window is a wall (sight still passes it), a shut barred door stops it. A door opened or shut is picked up by the next
+  drag. Ignored: diagonal rules (true distance per step, any angle), size, stairs and levels, hills, furniture, other
+  pawns, speed. It never blocks or warns about a move.
+- **The dragged line follows the walk** for the seat dragging: where the straight line would go through a wall it bends
+  through the doorway, and the number is the walk's length (each leg by the campaign's distance rule). Where no walk is
+  known (unexplored ground, walled off, further than the last ring) it is the straight line, as before.
+- **No walk known: the line turns red** (Harry 2026-11-03: "the measurement bar goes to 'as the crow flies' when you
+  take an impossible/too far move. That is the right thing, but I would love it if it also turned red when that
+  happens"). The dragging seat's own straight line and its number go warning red (`MOVE_RINGS_LOOK.noRoute`, `#ff2d55`, a crimson rose Gemini picked blind from five as the red that
+  does not vanish into warm wood; over the line's usual dark edge; a choice in the tuner, Off included). A spot the walk reaches keeps the seat's colour.
+  Never red during the fade out or at the drop (there is no line then), and never on another seat's screen: they keep
+  the dragger's colour, since a red GM line would tell a player there is no way through walls they have not seen.
+- **The fog rule.** The rings and the route never tell a seat about ground it cannot know. Under fog of war (a player, or
+  the GM viewing as a player) only what that viewer has explored or sees now is walkable; every other cell is a wall, so
+  a ring stops at the fog's edge and no unexplored wall, room or secret door can bend it. Fog off for the area: all the
+  walls the seat has. The GM: everything the GM has. Hidden rooms never reach a player's page at all (the relay's
+  withholding is untouched). Tested both ways: `engine/test/walk.test.mjs` and `browser_moverings.py` FOG (the GM opening
+  a door a player has never seen changes not one cell of that player's field, while the player who explored past it gets
+  her ring through it; a GM dragging a monster through unexplored ground puts nothing new on a player's page).
+- **The look is Harry's** (2026-11-03, sent from the tuner and shipped unchanged: "I'm loving the rings. I think I have
+  them tuned in a way I like"), `MOVE_RINGS_LOOK` (surfaces/moverings.js): every 5 ft, bold 15, last 30; thin 0.3 /
+  bold 0.5 / last 0.7 strength, 1.2 / 2 / 2.8 px; in-between lines every 0.5 ft at 0.06, 0.7 px; fill 0.01 to 30 ft;
+  parchment white with a soft dark edge (0.75, 1.5 px); fade in 350 ms, fade out 1000 ms; 0.1 ft over the floor.
+  Zoomed far out, rings closer than 7 px fade away. (The first look, picked blind by Gemini from five variants: every
+  10 ft, bold 30, last 40, thin 0.42 / bold 0.66 / last 0.28, 1.3 / 2.4 / 1.1 px, no fill.)
+- **Tuner**: "movement rings tuner" in the bar (or `?movelab=1`; the old "move rings tuner" still finds it): sliders for every value, Hold (the last drag's rings stay up
+  after letting go), Undo / Revert, Copy settings for the JSON. This browser only.
+- **Cost**: nothing until a drag starts; then one field of about 5 000 cells of 1.25 ft (the fog's own cell) out to the
+  reach, 3 to 5 ms on the build box on a 37-room town, and one quad with one material compiled while the table loads (no
+  lights, no fog: nothing ever compiles it again). Frame time while dragging is the same with and without them.
+- Code: `core/walk.js` (the field and the route), `client/vision.js` `blockingSegments(..., { walk: true })`,
+  `client/surfaces/moverings.js` (`MOVE_RINGS_LOOK`, the shader, the tuner), the line in `surfaces/rulers.js` (`walkItem`).
+  Tests: `engine/test/walk.test.mjs`, `engine/test/browser_moverings.py`.
 
 ## Graphics: what the picture costs (Harry 2026-10-11, as built)
 
@@ -1929,7 +2125,7 @@ A phone goes **straight into the game**. `index.html` marks it before anything l
 - **Layout** (style.css "ON A PHONE"; where things sit and how big a finger's target is, never the house look's colours, type or ring). Portrait: the command bar across the top (left of the avatars), the launchers under it, the area pills to their right (name and Hide; "Open to players" dropped), Other games under the launchers, the crumbs over the chat, an open tray at most 62 % of the height. Landscape: the area pills between the bar and the avatars (off the middle, where a ring opens), the chat on the right so the trays have the left, Settings one column with its sections as a row. Both: key caps and the trays' key-hint footers hidden, the bar 44 px with a 16 px field (iOS does not zoom into it) and a shorter placeholder ("Search, place, say or roll"), finger targets at least 40 px (launchers, Other games, Hide, a tray's pin, Settings' ✕ and sections, the GM-link card's ✕, the PiP's buttons, the crumbs), the page itself never pinch-zooms (`touch-action: pan-x pan-y`).
 - **The finger** (input.js): a tap selects, and the ring comes up (it always did, unless a tool was live: a live tool hides the ring, and on a phone a tool never ended, which is why "the orbital menus don't come up"); a tap on bare ground clears; one finger pans; a long press selects or pings, and long-press-drag draws a box, as before.
 - **Placing** (from the catalog in the command bar, Build, Pawns ▸ Place a pawn): with a tool live the finger is the mouse's left button. The ghost comes to the finger and follows it; **lifting the finger puts the thing down there** (a tap: at the tap). Room and building tools: a finger drag draws the rectangle; floor paint: a drag paints. A second finger drops the stroke and moves the camera instead. **A chip says what the finger will do, with Cancel** (client/handheld.js `#handTool`: "Placing Chair plain: lift your finger to put it down · Cancel"; Escape's job on a computer). Picking a thing, a room or a pawn in a tray **closes that tray** so the map is free (not a pinned tray, not during the intro, and not the building tool a TYPE arms: the tray then shows its rooms). A tapped command-bar row no longer lets its click fall through to what was under it (it opened Settings).
-- **Two fingers, the maps apps' standard** (Google Maps, Apple Maps): **pinch** zooms about the fingers and the pair drags the map (as before); **twist** turns the view (yaw) about the point between the fingers once they have turned 10°, the map turning with them; **both fingers up or down, side by side, tilt** (pitch; up looks toward the horizon, never below the floor). The gesture is read in its first few pixels and keeps that reading until the fingers lift (a tilt never zooms). Rates and invert: Settings ▸ Me ▸ Controls, as for every rotate. Lift one of two fingers and the other pans on. On iOS Safari the gesture events that also arrive for two fingers are ignored while the pointers have them.
+- **Two fingers, the maps apps' standard** (Google Maps, Apple Maps): **pinch** zooms about the fingers and the pair drags the map (as before); **twist** turns the view (yaw) about the point between the fingers once they have turned 10°, the map turning with them (the mouse's and the keys' rotate moved to the centre of the view on 2026-11-02; the fingers did not: they hold the world); **both fingers up or down, side by side, tilt** (pitch; up looks toward the horizon, never below the floor). The gesture is read in its first few pixels and keeps that reading until the fingers lift (a tilt never zooms). Rates and invert: Settings ▸ Me ▸ Controls, as for every rotate. Lift one of two fingers and the other pans on. On iOS Safari the gesture events that also arrive for two fingers are ignored while the pointers have them.
 - **A finger on a room label** is a finger on the map: a drag pans (labels cover much of a zoomed-out map); with another finger down it is part of the pinch; held first (the ping), then dragged, it moves the room as on a computer; a tap is the label's click.
 - **Long press as right-click:** nothing to add. A computer's right button only pans (right-click menus are tabled), and a phone pans with one finger.
 - **Not done (the 20 %):** the level meter is still 20 px wide (and hidden on a one-storey map, below); *(historical: the Build library's picture-in-picture took a quarter of a portrait screen: a phone has no PiP now, below)*; Settings is a full-screen window with desktop-sized rows; dragging a catalog row out of the command bar onto the map was not tried on a phone; rotating a thing being placed (R) has no touch way; real-phone checks were portrait only (turning the phone is a phone setting). *(Historical: "the ring keeps the house size, so zoomed in its top can pass under the HUD": fixed by the tweaks below.)*

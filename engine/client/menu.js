@@ -58,6 +58,7 @@ export const MENU = [
   { cmd: 'thing.upright', key: 'j' },               // a rolled thing: stand it upright again (the Turn is kept)
   { cmd: 'thing.tilt', key: 'b' },                  // Roll (a thing, not a pawn): a drag button, the turn's gesture about the view's axis
   { cmd: 'stair.flip', key: 'w' },                  // (never offered with a room's Walls) a stair, spiral or ladder: Stairs down / Stairs up
+  { cmd: 'stair.note', key: 'x' },                  // (a stair with a warning, GM) Dismiss stair warning / Show stair warning again
   { cmd: 'thing.rename', key: 'n' },                // a thing or a building; a pawn's opens its sheet card on the name (off a pawn's ring: RING_NOT_FOR)
   { cmd: 'room.rename', key: 'n' },                 // never offered together with the one above (off the ring)
   { cmd: 'thing.pin', key: 'p' },

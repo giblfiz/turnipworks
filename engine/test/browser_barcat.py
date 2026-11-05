@@ -67,9 +67,9 @@ async def wait(pg, js, timeout=12000, what=''):
 # Type every query of one (seat, selection) group into the real bar and read the rows back, in order.
 RUN = """async ([qs, sel]) => {
   tw.select(sel); await new Promise(r => setTimeout(r, 60));
-  tw.emit('bar.open'); const input = document.querySelector('#bar input'), out = [];
+  tw.emit('bar.open'); const input = document.querySelector('#bar textarea'), out = [];
   for (const q of qs) {
-    input.value = q; input.dispatchEvent(new Event('input'));
+    tw.emit('bar.open', q); // (a fresh bar on each line: a chip the last line made ("roll") must not stay on this one)
     out.push([...document.querySelectorAll('#results .res')].map(el => ({ ref: el.dataset.ref || '', t: el.querySelector('.t')?.textContent || '', d: el.classList.contains('disabled') })));
   }
   input.value = ''; input.dispatchEvent(new Event('input')); document.activeElement?.blur(); tw.registry.surfaces.find(s => s.name === 'bar')?.close(); tw.select([]);

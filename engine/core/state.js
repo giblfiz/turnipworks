@@ -30,10 +30,11 @@ export const RULE_KEYS = { light: ['house', 'day', 'night', 'deep-night', 'dayli
 // distance: how a distance is counted (core/measure.js RULES): 'true' straight line (the default) | 'five' squares, every
 // diagonal 5 ft | 'alt' squares, diagonals alternating 5 / 10. units: what a readout is written in.
 // sharedPartyVision stays campaign-wide (one party union per area; per-area would add nothing a player could use).
-export const CAMPAIGN_KEYS = { sharedPartyVision: 'bool', travelLocked: 'bool', distance: ['true', 'five', 'alt'], units: ['ft', 'm'], genre: 'str', rolls: ['public', 'hidden'], houseAnim: 'str', houseLight: 'str', houseSelection: 'str', hillSee: 'unit', groundSee: 'unit' };
+export const CAMPAIGN_KEYS = { sharedPartyVision: 'bool', travelLocked: 'bool', distance: ['true', 'five', 'alt'], units: ['ft', 'm'], genre: 'str', rolls: ['public', 'hidden'], houseAnim: 'str', houseLight: 'str', houseSelection: 'str', hillSee: 'unit', groundSee: 'unit', underSee: 'unit' };
 // hillSee (2026-10-27): how see-through the hills are at a view below the ground, 0 (not drawn) to 1 (solid); unset = the
 // game's default (client/world.js HILL_SEE). groundSee: the same for the ground plane (GROUND_SEE). House look ▸ Below
-// the ground: see-through.
+// the ground: see-through. underSee (2026-11-03): how strongly the cellars and caves show through the ground at a view at or
+// above it, 0 (not at all) to 1; unset = UNDER_SEE. House look ▸ Above the ground: underground shows.
 const defined = (o) => Object.fromEntries(Object.entries(o || {}).filter(([, v]) => v !== null && v !== undefined));
 export function areaRules(state, areaId) {
   return { ...RULE_DEFAULTS, ...defined(pick(state.defaults, RULE_KEYS)), ...defined(state.areas[areaId]?.settings) };

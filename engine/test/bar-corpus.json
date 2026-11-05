@@ -725,6 +725,9 @@
   {"q": "tentacle column", "ctx": "none", "seat": "gm", "want": ["title:Tentacle pillar"]},
   {"q": "moon pillar", "ctx": "none", "seat": "gm", "want": ["title:Moon pillar"]},
   {"q": "skull pier", "ctx": "none", "seat": "gm", "want": ["title:Skeleton pier"]},
-  {"q": "sea storm buttress", "ctx": "none", "seat": "gm", "want": ["title:Sea & storm pier"]}
+  {"q": "sea storm buttress", "ctx": "none", "seat": "gm", "want": ["title:Sea & storm pier"]},
+  {"q": "movement rings tuner", "ctx": "none", "seat": "gm", "want": ["cmd:view.moveRingsTuner"], "must": true},
+  {"q": "move rings tuner", "ctx": "none", "seat": "gm", "want": ["cmd:view.moveRingsTuner"], "must": true},
+  {"q": "movement rings", "ctx": "none", "seat": "player", "want": ["cmd:view.moveRingsTuner"]}
  ]
 }

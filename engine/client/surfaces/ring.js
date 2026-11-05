@@ -607,7 +607,7 @@ export function ringSurface(R, app) {
         for (const tk of guide.querySelectorAll('.tick')) tk.classList.toggle('on', drag.notch != null && +tk.dataset.k === drag.notch);
         drag.delta = d;
         const cc = app.centroid(sel); app.localDrags.clear();
-        for (const x of sel) { const p = rotAbout(x, cc, d, sel.length > 1); app.localDrags.set(x.id, { x: p.x, z: p.z, rot: (x.rot || 0) + d }); }
+        for (const o of turnAll(sel, d, cc)) app.localDrags.set(o.args.id, { x: o.args.x, z: o.args.z, rot: o.args.rot }); // (what stands on it turns with it)
         app.ps.set(app.area(), { cursor: app.cursor, drag: [...app.localDrags].map(([id, p]) => ({ id, ...p })) });
         const rr = Math.hypot(hx - cx, hy - cy), aa = Math.atan2(e.clientX - cx, -(e.clientY - cy));
         put(cx + rr * Math.sin(aa), cy - rr * Math.cos(aa), -d * 180 / Math.PI);
@@ -698,7 +698,7 @@ export function ringSurface(R, app) {
         const now = (x) => app.selected().find(y => y.id === x.id) || x; // the thing as it is now (another seat may have changed it mid-drag)
         if (kind === 'lift' && d.y != null) { app.liftTo(now(d.sel[0]), d.y); log.committed = true; }
         if (kind === 'tilt' && d.delta) { app.rollSelection(d.delta, { axis: d.axis, things: d.sel.map(now) }); log.committed = true; } // one command for the gesture: one undo step
-        if (kind === 'rotate' && d.delta) { const cc = app.centroid(d.sel); app.batch(d.sel.map(x => { const p = rotAbout(x, cc, d.delta, d.sel.length > 1); return { type: x.kind === 'token' ? 'token.move' : 'object.move', args: { id: x.id, x: r2(p.x), z: r2(p.z), rot: (x.rot || 0) + d.delta } }; })); log.committed = true; }
+        if (kind === 'rotate' && d.delta) { app.batch(turnAll(d.sel, d.delta, app.centroid(d.sel))); log.committed = true; }
         // damage: the change, applied to every selected pawn as it is NOW (another seat may have hit it mid-drag)
         if (kind === 'fog' && (d.fogDefault ? d.fogOwn || d.fogDef > 0 : d.fog !== d.fog0)) { app.dispatch('room.set', { id: e0.id, fog: d.fogDefault ? -1 : +(+d.fog).toFixed(2) }); log.committed = true; }
         if (kind === 'damage' && d.dmg != null && d.dmg !== d.dmg0) { app.damageDelta(d.sel.map(now), d.dmg - d.dmg0); log.committed = true; }
@@ -798,7 +798,8 @@ export function ringSurface(R, app) {
     }
     listen(true); app.escapeStack.push(onEsc);
   }
-  const rotAbout = (x, c, a, group) => { if (!group) return { x: x.x, z: x.z }; const dx = x.x - c[0], dz = x.z - c[1], cs = Math.cos(a), sn = Math.sin(a); return { x: c[0] + dx * cs + dz * sn, z: c[1] - dx * sn + dz * cs }; };
+  // a turn of these things: each about its own centre, or as one about the group's centre; what stands on them with them
+  const turnAll = (sel, a, c) => { const tops = new Set(app.foldUp(sel.map(x => x.id))); return sel.filter(x => tops.has(x.id)).flatMap(x => sel.length > 1 ? app.turnOps(x, a, c) : app.turnOps(x, a)); };
 
   // ---------- sub-menus: one component, opened AT the button that asked for it ----------
   // Harry 2026-10-05: "when a sub-menu spawns it should spawn near the button that spawned it (covering that part of

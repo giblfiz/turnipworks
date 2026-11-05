@@ -18,7 +18,7 @@ export function clipFrom(app, things) {
   const cx = pts.reduce((a, p) => a + p[0], 0) / pts.length, cz = pts.reduce((a, p) => a + p[1], 0) / pts.length;
   for (const e of take.values()) {
     if (e.kind === 'room') {
-      const objects = Object.values(E).filter(o => o.kind === 'object' && o.room === e.id).map(o => ({ ...o }));
+      const objects = Object.values(E).filter(o => o.kind === 'object' && o.room === e.id).map(({ noteOff, ...o }) => o); // (a copy of a stair shows its own warning: a dismissal belongs to the stair it was made on, core/stairs.js)
       items.push({ kind: 'room', e: { id: e.id, recipe: e.recipe }, dx: (e.recipe.x + e.recipe.w / 2) * CELL - cx, dz: (e.recipe.z + e.recipe.d / 2) * CELL - cz, objects });
     } else items.push({ kind: e.kind, e: { ...e }, dx: e.x - cx, dz: e.z - cz });
   }

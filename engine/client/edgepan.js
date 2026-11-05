@@ -37,7 +37,7 @@ export const EDGE_PAN = {
   // which canvas gestures pan (input.js): moving things, pawns and rooms; a drag out of the library; a rectangle being
   // drawn for a room or a building (its first corner is a world square, so it stays where it was put while the view
   // slides and the rectangle grows); a floor paint stroke (the run goes on, square by square, under the pointer).
-  // NOT the selection box ('marquee'): it is a box of screen pixels that takes what is wholly inside it and in sight;
+  // NOT the selection box ('marquee'): it is a box of screen pixels that takes what is mostly inside it and in sight;
   // panning it would mean selecting things that have left the screen.
   KINDS: ['move', 'libDrag', 'room', 'paint'],
 };

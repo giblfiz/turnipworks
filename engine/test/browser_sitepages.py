@@ -8,9 +8,9 @@
   BUILD  the committed engine/client/site/*.html match docs/site/*.md (engine/tools/build_site.py --check)
   PAGE   each page loads with no console error, carries its title and a "Last updated" date, has no "placeholder" in it,
          and reads on a 400-px phone (no sideways scroll, body text >= 15 px); every link to another site page resolves
-  START  a first visit's start card shows About · Terms · Privacy · Source and each opens its page
+  START  a first visit's start card shows Manual · About · Terms · Privacy · Source and each opens its page
   SET    (--local) in a live table, Settings shows the same row under Other games, and each opens its page
-  ROUTE  (--page, a server behind nginx: dev at 127.0.0.1:8180) /about, /terms, /privacy answer 200 as HTML, /about/ and
+  ROUTE  (--page, a server behind nginx: dev at 127.0.0.1:8180) every page above answers 200 as HTML, /about/ and
          /about.html 301 to /about, and the game root, /engine/client/, /look/version.json, /play and /api/tw-relay/health
          still answer as before
 --local serves the repo with a throwaway relay (the pages at /engine/client/site/<name>.html, the address the alternate
@@ -26,7 +26,9 @@ GL = ['--use-angle=vulkan', '--enable-features=Vulkan', '--ignore-gpu-blocklist'
 ap = argparse.ArgumentParser(); ap.add_argument('--local', action='store_true'); ap.add_argument('--page', help='site origin behind nginx, e.g. http://127.0.0.1:8180'); ap.add_argument('--headed', action='store_true')
 A = ap.parse_args()
 if not A.local and not A.page: ap.error('choose --local or --page ORIGIN')
-PAGES = {'about': 'About Turnip Works', 'terms': 'Terms of Use', 'privacy': 'Privacy Policy', 'connect-dnd-beyond': 'Connect D&D Beyond'}  # (the help page: 2026-10-29; its film and Settings entry: browser_ddbpage.py)
+PAGES = {'about': 'About Turnip Works', 'terms': 'Terms of Use', 'privacy': 'Privacy Policy', 'connect-dnd-beyond': 'Connect D&D Beyond',
+         'features': 'A tour of Turnip Works', 'dice': 'Dice for your game system', 'switching': 'Coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire?',
+         'export': 'Take your maps to Foundry, Roll20 or Fantasy Grounds', 'manual': 'The Turnip Works manual'}  # (the guide pages for ad sitelinks: 2026-11-04)  # (the help page: 2026-10-29; its film and Settings entry: browser_ddbpage.py)
 results = []; procs = []; tmp = []
 def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)
@@ -111,15 +113,15 @@ async def main():
         await pg.goto(game)
         check(await wait(pg, "!!document.querySelector('#start:not([hidden]) .metalinks a')", 30000, 'start card'), 'start card shows the link row')
         links = await pg.evaluate("[...document.querySelectorAll('#start .metalinks a')].map(a => [a.textContent, a.href])")
-        check([t for t, _ in links] == ['About', 'Terms', 'Privacy', 'Source'], 'start card: About · Terms · Privacy · Source', [t for t, _ in links])
-        for label, href in links[:3]:
+        check([t for t, _ in links] == ['Manual', 'About', 'Terms', 'Privacy', 'Source'], 'start card: Manual · About · Terms · Privacy · Source', [t for t, _ in links])
+        for label, href in links[:4]:
             want = addr(label.lower())
             check(href == want, f'start card: {label} points at {want}', href)
             async with ctx.expect_page() as newp: await pg.click(f'#start .metalinks a:text-is("{label}")')
             np = await newp.value; await np.wait_for_load_state('load')
             check(await np.evaluate("document.querySelector('h1')?.textContent") == PAGES[label.lower()], f'start card: {label} opens its page in a new tab')
             await np.close()
-        check(links and links[3][1] == 'https://github.com/giblfiz/turnipworks', 'start card: Source is the public repo', links[3][1] if len(links) > 3 else None)
+        check(links and links[-1][1] == 'https://github.com/giblfiz/turnipworks', 'start card: Source is the public repo', links[-1][1] if links else None)
         check(not errs, 'start card: no page errors', errs[:3])
 
         if A.local:
@@ -129,9 +131,9 @@ async def main():
             await pg.evaluate("tw.settings.show('nav')")
             check(await wait(pg, "!!document.querySelector('#settingsModal .smeta a')", 8000, 'settings links'), 'Settings shows the link row')
             sl = await pg.evaluate("[...document.querySelectorAll('#settingsModal .smeta a')].map(a => [a.textContent, a.href, a.target])")
-            check([t for t, _, _ in sl] == ['About', 'Terms', 'Privacy', 'Source'], 'Settings: About · Terms · Privacy · Source', [t for t, _, _ in sl])
+            check([t for t, _, _ in sl] == ['Manual', 'About', 'Terms', 'Privacy', 'Source'], 'Settings: Manual · About · Terms · Privacy · Source', [t for t, _, _ in sl])
             check(all(t == '_blank' for _, _, t in sl), 'Settings: the links open a new tab (the table stays)')
-            for label, href, _ in sl[:3]:
+            for label, href, _ in sl[:4]:
                 check(href == addr(label.lower()), f'Settings: {label} points at its page', href)
                 async with ctx.expect_page() as newp: await pg.click(f'#settingsModal .smeta a:text-is("{label}")')
                 np = await newp.value; await np.wait_for_load_state('load')

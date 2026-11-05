@@ -181,7 +181,7 @@ async def main():
             await gm.evaluate("(tw.setLevel(10), tw.setCut(19, { pinned: true, by: 'test' }))"); await gm.wait_for_timeout(400)
             await view(gm, 30, 10, 60, 62); await settle(gm); await quiet(gm)
             # the bar knows it by its words
-            rows = await gm.evaluate("""async (qs) => { tw.emit('bar.open'); const input = document.querySelector('#bar input'), out = {};
+            rows = await gm.evaluate("""async (qs) => { tw.emit('bar.open'); const input = document.querySelector('#bar textarea'), out = {};
               for (const q of qs) { input.value = q; input.dispatchEvent(new Event('input')); await new Promise(r => setTimeout(r, 30)); out[q] = [...document.querySelectorAll('#results .res')].slice(0, 6).map(el => el.dataset.ref || ''); }
               input.value = ''; input.dispatchEvent(new Event('input')); document.activeElement?.blur(); tw.registry.surfaces.find(s => s.name === 'bar')?.close(); return out; }""", ['hole', 'pit', 'opening', 'drop', 'chasm', 'round hole', 'hole 15 ft'])
             okw = all(any(r.startswith('cat:hole') or r == 'cmd:hole.size' for r in rows[q][:4]) for q in rows)

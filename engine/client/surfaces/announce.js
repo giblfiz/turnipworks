@@ -11,6 +11,7 @@
 import { tallyOf } from '../../core/dice.js';
 const MAX_DWELL = 8, FLY_MS = 650, FADE_MS = 320;
 
+const LONG_SAY = 200; // characters: past this a say is announced at reading size (the bar takes up to 4000 since 2026-11-02)
 export function announceSurface(R, app) {
   const root = document.createElement('div'); root.id = 'announce'; root.setAttribute('aria-live', 'polite');
   document.body.append(root);
@@ -65,7 +66,7 @@ export function announceSurface(R, app) {
     if (it.area !== app.area()) { pending.delete(it.c.id); next(); return; } // moved to another area meanwhile
     const { c } = it, col = app.seatColor(c.by) || '#e0b04a', n = nat(c);
     const el = document.createElement('div');
-    el.className = `ann${c.roll ? ' roll' : ''}${n ? ' ' + n : ''}`;
+    el.className = `ann${c.roll ? ' roll' : ''}${n ? ' ' + n : ''}${!c.roll && (c.text || '').length > LONG_SAY ? ' long' : ''}`; // (a long say: smaller, in a box that stays on screen; the log has it whole)
     el.style.setProperty('--c', col);
     // the content is laid out like a log line (name, then the words), only bigger: the flight is then a pure scale
     const g = c.roll && tallyOf(c.roll.expr, c.roll.rolls); // a game's dice: its name, what they say, each die's face (2026-10-29)
@@ -78,6 +79,7 @@ export function announceSurface(R, app) {
       : `<div class="aline"><span class="who">${esc(name(c.by))}</span> <span class="said">${esc(c.text)}</span></div>`;
     el.addEventListener('click', (ev) => { ev.stopPropagation(); land(); });
     root.append(el);
+    if (el.scrollHeight > el.clientHeight + 1) el.classList.add('more');
     const dwell = dwellOf(c, queue.length);
     cur = { c, area: it.area, el, phase: 'dwell', dwell, rec: { id: c.id, shownAt: performance.now(), dwell, words: c.roll ? null : words(c.text), mode: null } };
     log.push(cur.rec);

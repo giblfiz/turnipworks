@@ -290,7 +290,7 @@ export const outdoorBase = (entities, b) => { const r = b?.room && entities?.[b.
 // floor of that level under (x, z), whatever building is there. It changes level only by:
 //   a stair      a flight under (x, z) whose treads there are within 5 ft of `from`: the treads' height (so a drag along a
 //                stair carries it smoothly up or down, never a jump; let go halfway, it stands halfway)
-//   the earth    the level is solid earth there (a hill rises through it, or it is below the ground): it climbs to the
+//   the earth    the level is solid earth there because a hill rises through it (never below the ground: that is ROCK, below, and it climbs nothing): it climbs to the
 //                top of the earth there, the hill's top or the floor of the room on it (terrain is walked, not built)
 //   nothing      no floor of its level there (off a hill's edge, an upper floor's edge, over a hole or a pit's opening):
 //                the highest ground below, `below: true` (a caller walks it there off a hill onto lower ground, `walk`,
@@ -298,6 +298,8 @@ export const outdoorBase = (entities, b) => { const r = b?.room && entities?.[b.
 // An explicit raise / lower is not this (it sets the figure's height; the base falls to what is under it).
 // `fromBase`: what its base rests on now (baseUnder where it stands), for `walk`; without it nothing walks down.
 //   -> { y, room, on, stair?, below?, walk?, climb? }
+// a room (not a hill) whose height takes in the level whose floor is at `lo`, with (x, z) in its footprint
+const levelRoomAt = (entities, x, z, lo) => Object.values(entities || {}).some(e => e.kind === 'room' && e.recipe && !isTerrain(e.recipe) && roomY(e.recipe) <= lo + 0.5 && roomTop(entities, e) > lo + 0.5 && contains(e.recipe, x, z));
 export function pawnStepTo(entities, x, z, from = 0, isOpen = null, fromBase = null) {
   from = from || 0;
   for (const t of stairWalk(entities).at(x, z)) if (Math.abs(t.y - from) <= STEP + 1e-9) return { y: t.y, room: t.room, on: 'stair', stair: t.id }; // (treads within 5 ft of its feet: under 5 ft is standing, the house's D&D rule; a stairwell further down is a drop)
@@ -309,9 +311,16 @@ export function pawnStepTo(entities, x, z, from = 0, isOpen = null, fromBase = n
   // a floor of this level: a room's floor or top, a stair; the ground or a hill's top only where no higher earth is over it
   // (inside a hill there is no ground at 0; a terrace on a terrace buries the lower top), and never the ground below 0
   const br = b.room && entities?.[b.room], earthy = !br?.recipe || isTerrain(br.recipe);
+  // SOLID ROCK BELOW THE GROUND (Harry 2026-11-03: "Nope, dragging thru rock should push back onto legal space on the
+  // same level."): below the ground, where no room of this level stands at (x, z), the level is rock. The pawn never
+  // climbs out of it to the surface (until that day it did: the earth's top, 0 ft, from any depth): `rock`, at its own
+  // height, and the caller keeps it on the last floor of its level it stood on (client/input.js walkTo, main.js moveBy,
+  // first person). The top of a room further down is rock too, here. A room of this level with no floor at (x, z) (a
+  // hole, a pit's opening) is not rock: the highest ground below, as above the ground.
+  if (lo < 0 && !levelRoomAt(entities, x, z, lo)) return { y: from, room: null, on: 'rock', below: true, rock: true };
   const real = b.y >= lo - 0.5 && !(earthy && earth > b.y + 0.5) && !(b.on === 'ground' && b.y < 0);
   if (real) return b;
-  if (earth > lo + 0.5) { const u = baseUnder(entities, x, z, earth + 0.5, isOpen); return { ...u, climb: true }; }
+  if (lo >= 0 && earth > lo + 0.5) { const u = baseUnder(entities, x, z, earth + 0.5, isOpen); return { ...u, climb: true }; } // (terrain is walked: a hill rises through the level)
   const walk = !!fromBase && outdoorBase(entities, fromBase) && outdoorBase(entities, b);
   return { ...b, below: true, ...(walk && { walk: true }) };
 }

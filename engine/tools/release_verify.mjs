@@ -6,6 +6,11 @@
 //       the release, the relay's /health names it, and a headless seat can make a sandbox campaign, join it over the
 //       websocket, see its first area, and delete it. Prints one JSON line; exit 0 = verified.
 //       TW_RELEASE_FAIL_VERIFY=1 makes it fail on purpose (the rollback test).
+//       --number <ledger's number, '' for none>: also the version number (tools/release.sh verify asks; a swap does not,
+//       because its number is written only after these checks pass, and a label never rolls a release back).
+//   node engine/tools/release_verify.mjs number --want <number> [--host H] [--origin O]
+//       Read-only: two GETs through the box's own nginx. Is the number the page is served the ledger's? A page with no
+//       version line (every release before 0.3.5) has nothing to compare. Three tries, a second apart.
 //   node engine/tools/release_verify.mjs spawn --release <dir>
 //       Before a release becomes the candidate: start ITS relay code on a free port with a throwaway data folder
 //       and its own tuner files; a seat joins a new campaign there. Nothing live is touched.
@@ -65,6 +70,13 @@ async function joinOnce(httpBase, wsUrl, host) {
   }
 }
 
+// what the page is served against the ledger's number ('' = the ledger has none)
+function numberSays(page, rj, want) {
+  if (!page.text.includes('id="twl-ver"')) return { ok: true, what: `this release's page has no version line (ledger: ${want || 'no number'})` };
+  const served = rj.json?.version ?? '';
+  return served === want ? { ok: true, what: `the page is served ${want ? 'v' + want : 'no number'}, as in the ledger` } : { ok: false, what: `/release.json says version '${served}', the ledger '${want}'` };
+}
+
 async function verify() {
   const dir = opt('release'), port = Number(opt('port', 8097)), host = opt('host', 'turnipworks.net');
   const rel = JSON.parse(fs.readFileSync(path.join(dir, 'release.json'), 'utf8'));
@@ -82,6 +94,7 @@ async function verify() {
     main.status === 200 && main.text.includes('ClientSync') ? pass('client code served') : fail(`client main.js: HTTP ${main.status}`);
     const rj = await req(origin + '/release.json', { host });
     rj.json?.id === rel.id ? pass('/release.json names it') : fail(`/release.json: ${rj.text.slice(0, 120)}`);
+    if (opt('number') !== null) { const n = numberSays(page, rj, opt('number')); (n.ok ? pass : fail)(n.what); }
     const tv = await req(origin + '/look/version.json', { host });
     tv.json?.v === rel.tuner ? pass(`/look/ tuner ${rel.tuner}`) : fail(`/look/version.json: ${tv.text.slice(0, 120)} (want ${rel.tuner})`);
     const j = await joinOnce(origin + '/api/tw-relay', 'ws://127.0.0.1/api/tw-relay/ws', host);
@@ -91,6 +104,20 @@ async function verify() {
   const ok = checks.every(c => c.ok);
   console.log(JSON.stringify({ ok, release: rel.id, failed: checks.filter(c => !c.ok).map(c => c.what), passed: checks.filter(c => c.ok).map(c => c.what) }));
   process.exit(ok ? 0 : 1);
+}
+
+async function number() {
+  const want = opt('want', ''), host = opt('host', 'turnipworks.net'), origin = opt('origin', 'http://127.0.0.1');
+  let res = null;
+  for (let i = 0; i < 3 && !res?.ok; i++) {
+    if (i) await sleep(1000);
+    try {
+      const page = await req(origin + '/', { host }), rj = await req(origin + '/release.json', { host });
+      res = page.status === 200 && rj.status === 200 ? numberSays(page, rj, want) : { ok: false, what: `page HTTP ${page.status}, /release.json HTTP ${rj.status}` };
+    } catch (e) { res = { ok: false, what: 'error: ' + e.message }; }
+  }
+  console.log(JSON.stringify(res));
+  process.exit(res.ok ? 0 : 1);
 }
 
 async function spawnCheck() {
@@ -155,6 +182,7 @@ async function seat() {
 }
 
 if (cmd === 'verify') await verify();
+else if (cmd === 'number') await number();
 else if (cmd === 'spawn') await spawnCheck();
 else if (cmd === 'seat') await seat();
-else { console.error('usage: release_verify.mjs verify|spawn|seat … (see the header)'); process.exit(2); }
+else { console.error('usage: release_verify.mjs verify|number|spawn|seat … (see the header)'); process.exit(2); }

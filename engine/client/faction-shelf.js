@@ -5,7 +5,7 @@ import { T } from './tuner.js';
 export function createFactionShelf(app) {
   const panel = document.createElement('section'); panel.id = 'factionShelf'; panel.className = 'clip'; panel.hidden = true;
   panel.setAttribute('aria-label', 'Factions library');
-  Object.assign(panel.style, { position: 'fixed', zIndex: 25, left: '16px', top: '120px', maxWidth: 'calc(100vw - 32px)', maxHeight: 'calc(100vh - 144px)', overflow: 'auto', padding: '14px', borderRadius: '12px', background: 'var(--surface-solid)', color: 'var(--ink)', border: '1px solid var(--line-strong)', boxShadow: 'var(--shadow)', pointerEvents: 'auto' });
+  Object.assign(panel.style, { position: 'fixed', zIndex: 25, left: '16px', top: '120px', boxSizing: 'border-box', maxWidth: 'calc(100vw - 32px)', maxHeight: 'calc(100vh - 144px)', overflowY: 'auto', padding: '14px', borderRadius: '12px', background: 'var(--surface-solid)', color: 'var(--ink)', border: '1px solid var(--line-strong)', boxShadow: 'var(--shadow)', pointerEvents: 'auto' });
   document.getElementById('app').append(panel); // share the preview canvas's stacking context
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const close = () => {
@@ -23,8 +23,8 @@ export function createFactionShelf(app) {
     panel.innerHTML = `<header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b>Factions</b><button data-close aria-label="Close factions library">×</button></header><div style="font-size:12px;margin-bottom:10px">Click a piece, then place it in the world · or drag it out</div>`;
     for (const f of factions) {
       const row = document.createElement('div'); row.className = 'faction-shelf-row'; row.dataset.faction = f.id;
-      Object.assign(row.style, { display: 'grid', gridTemplateColumns: `100px repeat(${slots.length}, 82px)`, gap: '6px', alignItems: 'center', paddingBottom: '10px' });
-      row.innerHTML = `<div style="display:flex;align-items:center;gap:6px">${f.emblem ? `<img src="${esc(new URL(f.emblem, T.base).href)}" alt="" width="32" height="32" style="object-fit:cover;border-radius:50%">` : ''}<b>${esc(f.label)}</b></div>`;
+      Object.assign(row.style, { display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center', paddingBottom: '10px' }); // (a narrow window wraps a faction's pieces: Nick's rule, docs/UI.md)
+      row.innerHTML = `<div style="flex:0 0 100px;display:flex;align-items:center;gap:6px">${f.emblem ? `<img src="${esc(new URL(f.emblem, T.base).href)}" alt="" width="32" height="32" style="object-fit:cover;border-radius:50%">` : ''}<b>${esc(f.label)}</b></div>`;
       for (const cat of slots) {
         const item = byKey.get(`${f.id}|${cat}`), cell = document.createElement(item ? 'button' : 'div');
         Object.assign(cell.style, { width: '82px', minHeight: '94px', fontSize: '11px', padding: '4px', textAlign: 'center' });

@@ -1,10 +1,11 @@
 // Pointer input, industry standard (Harry: "100% industry standard" on every conflict).
-//   left-drag on empty space   marquee: selects things WHOLLY inside, at the current granularity
+//   left-drag on empty space   marquee: selects things MOSTLY inside (as drawn), at the current granularity; a desk, not what is on it
 //   left-drag on a thing       moves the selection (contents ride along); Cmd/Ctrl+D duplicates
 //   click / Shift / Cmd-Ctrl   select / add / toggle; clicking the same spot again cycles down the stack
 //   double-click               step inside (building → rooms, room → its things, area → what's on it)
-//   orbit                      middle-drag (as in the tuner and Map Garden; pitch stays above the floor), Alt+right-drag,
-//                              Option/Alt+drag on empty space, Option/Alt+two-finger scroll, two-finger rotate (Safari)
+//   orbit                      middle-drag (pitch stays above the floor), Alt+right-drag, Option/Alt+drag on empty space,
+//                              Option/Alt+two-finger scroll, two-finger rotate (Safari), Q/E/PageUp/PageDown: all about
+//                              the centre of the view (2026-11-02; below, ROTATE_ON_POINTER)
 //   pan                        right-drag, Space+drag, Cmd/Ctrl+drag on empty space, two-finger scroll (trackpad),
 //                              one finger (touch), two fingers
 //   zoom                       mouse wheel to the cursor, pinch (trackpad: the ctrlKey wheel; Safari: gesture events)
@@ -22,6 +23,7 @@ import { detent } from '../core/measure.js';
 import * as HT from '../core/height.js';
 import * as RF from './roofs.js';
 import { installTurnHandle } from './turnhandle.js';
+import * as MQ from './marquee.js';
 
 const DRAG_PX = 4, LONG_MS = 500;
 
@@ -108,7 +110,7 @@ export function installInput(app, canvas) {
       return;
     }
     app.lastDown = { button: ev.button, space, mode: app.mode?.kind || null };
-    if (ev.button === 1 || ev.button === 2 || (ev.button === 0 && space)) { g = { kind: 'pan' }; app.main.rule = 'free'; app.main.grab.beginGrab(ev.clientX, ev.clientY, ev.button === 1 || (ev.altKey && ev.button === 2) ? 'orbit' : 'pan'); if (ev.button === 1) ev.preventDefault(); return; }
+    if (ev.button === 1 || ev.button === 2 || (ev.button === 0 && space)) { g = { kind: 'pan' }; app.main.rule = 'free'; grabView(app.main, ev.clientX, ev.clientY, ev.button === 1 || (ev.altKey && ev.button === 2) ? 'orbit' : 'pan'); if (ev.button === 1) ev.preventDefault(); return; }
     if (ev.button !== 0) return;
     if (app.mode?.kind === 'room' || app.mode?.kind === 'building') { if (app.modes.roomDown(ground)) g = { kind: 'room' }; return; }
     if (app.modes.isPaint()) { if (app.modes.paintDown(ground, ev)) g = { kind: 'paint' }; return; } // floor tiles: a paint stroke
@@ -155,7 +157,7 @@ export function installInput(app, canvas) {
     const r = app.rayAt(ev.clientX, ev.clientY), ground = groundOf(r, planeOf());
     app.cursor = ground;
     if (ev.pointerType === 'touch') { touches.set(ev.pointerId, { x: ev.clientX, y: ev.clientY }); app.main.grab.pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY }); }
-    if (g?.kind === 'pipPress' && Math.hypot(ev.clientX - g.x, ev.clientY - g.y) > DRAG_PX) { app.library?.touched(); g.view.rule = g.view.rule === 'follow' ? 'free' : g.view.rule; g.view.grab.beginGrab(g.x, g.y, g.mode); g = { kind: 'pipPan', view: g.view }; }
+    if (g?.kind === 'pipPress' && Math.hypot(ev.clientX - g.x, ev.clientY - g.y) > DRAG_PX) { app.library?.touched(); g.view.rule = g.view.rule === 'follow' ? 'free' : g.view.rule; grabView(g.view, g.x, g.y, g.mode); g = { kind: 'pipPan', view: g.view }; }
     if (g?.kind === 'pipPan') { g.view.grab.dragTo(ev.clientX, ev.clientY); return; }
     if (g?.kind === 'pipPress') return;
     if (g?.kind === 'libPress' && Math.hypot(ev.clientX - g.x, ev.clientY - g.y) > DRAG_PX) { app.modes.place(g.cat, { viaDrag: true }); g = { kind: 'libDrag' }; }
@@ -190,7 +192,7 @@ export function installInput(app, canvas) {
       // Option/Alt-drag ROTATES, wherever it starts (Harry 2026-10-04: "Option to rotate" for anyone without a middle
       // button; it used to duplicate when the drag began on a piece of furniture or a wall, which in a furnished room is
       // almost everywhere, so it seemed not to work). Cmd/Ctrl-drag on empty space pans. Duplicate: Cmd/Ctrl+D.
-      app.main.rule = 'free'; app.main.grab.beginGrab(g.x, g.y, g.alt ? 'orbit' : 'pan'); g = { kind: 'pan' };
+      app.main.rule = 'free'; grabView(app.main, g.x, g.y, g.alt ? 'orbit' : 'pan'); g = { kind: 'pan' };
       app.main.grab.dragTo(ev.clientX, ev.clientY); return;
     }
     if (g.kind === 'press' && moved > DRAG_PX) {
@@ -330,13 +332,18 @@ export function installInput(app, canvas) {
   // edge pan); end(ev, false) puts it back with nothing sent.
   let handLast = null;
   app.handMove = {
-    begin(ev) {
+    // { seize: pawn } (2026-11-03, the Pawns menu's portraits: surfaces/pawns.js): THAT pawn, whether or not it is selected
+    // or the cut shows it, is taken into the hand as if its token had been grabbed, and it goes to the pointer (not by
+    // the pointer's travel). It lands on the floor under the pointer (dragMove, below), with the drag line and the
+    // movement rings from where it stood, and is let go with the ordinary pawn drop (one token.move, one undo).
+    begin(ev, { seize = null } = {}) {
       if (g || !app.main) return false;
-      const sel = app.selected().filter(e => (e.kind === 'token' || e.kind === 'object') && draggable(e)); if (!sel.length) return false;
+      const sel = (seize ? [seize] : app.selected()).filter(e => (e.kind === 'token' || e.kind === 'object') && draggable(e)); if (!sel.length) return false;
+      if (seize && (sel[0].kind !== 'token' || !app.entities()[sel[0].id])) return false;
       const lead = sel[0], r = app.rayAt(ev.clientX, ev.clientY);
-      let ground = groundOf(r, app.floorYOf?.(lead) ?? (lead.y || 0));
+      let ground = seize ? null : groundOf(r, app.floorYOf?.(lead) ?? (lead.y || 0));
       if (!ground) { ground = [lead.x, lead.z]; ground.y = app.floorYOf?.(lead) ?? 0; }
-      g = { target: lead.id }; startMove(ground, false, { x: ev.clientX, y: ev.clientY }); g.hand = true; handLast = ev;
+      g = { target: lead.id }; startMove(ground, false, seize ? null : { x: ev.clientX, y: ev.clientY }, seize ? sel : null); g.hand = true; g.seize = !!seize; handLast = ev;
       return true;
     },
     to(ev) { if (g?.kind !== 'move' || !g.hand) return; handLast = ev; onMove(ev); },
@@ -367,9 +374,9 @@ export function installInput(app, canvas) {
     try { app.moveTrim(it, to.x, to.z); app.trimDragLast = { key: it.key, to }; } catch (e) { app.toast(`That move could not be sent: ${e?.message || e}`, true); }
   }
   // ---------- moving the selection ----------
-  function startMove(ground, alt, press = null) {
-    app.materializeSelection(); // a generated wall/door/window becomes an object first, so the drag shows the real thing
-    const things = app.selected().filter(draggable);
+  function startMove(ground, alt, press = null, only = null) {
+    if (!only) app.materializeSelection(); // a generated wall/door/window becomes an object first, so the drag shows the real thing
+    const things = (only || app.selected()).filter(draggable);
     const rooms = app.roomsIn(things); // the rooms that move (a building: all of its rooms)
     const inRooms = new Set(rooms.map(r => r.id));
     const set = new Map();
@@ -391,7 +398,7 @@ export function installInput(app, canvas) {
     const E = app.entities(), lead = g.things.find(e => e.id === g.lead) || g.things[0], members = new Map();
     for (const e of g.things) {
       const fig = e.y || 0, fb = HT.baseUnder(E, e.x, e.z, fig, openFn()), stands = !!app.pawnStands?.(e);
-      members.set(e.id, { stands, y: fb.y, fb, fb0: fb.y, rise: stands ? Math.max(0, fig - fb.y) : 0, hang: null }); // (rise: a pawn standing on a table top keeps that height over the floor while it can)
+      members.set(e.id, { stands, y: fb.y, fb, fb0: fb.y, rise: stands ? Math.max(0, fig - fb.y) : 0, hang: null, ok: [0, 0], rock: false }); // (ok: the move that last put it on a floor of its level; rock: it is over solid rock now) // (rise: a pawn standing on a table top keeps that height over the floor while it can)
     }
     const L = members.get(lead.id), r = press && press.x != null ? app.rayAt(press.x, press.y) : null, p = r && groundOf(r, L.y);
     g.walk = { y: L.y, off: p ? [lead.x - p[0], lead.z - p[1]] : [0, 0], members, lead: lead.id };
@@ -417,7 +424,10 @@ export function installInput(app, canvas) {
     for (const e of g.things) {
       const m = W.members.get(e.id); if (!m.stands) continue;
       const st = HT.pawnStepTo(E, e.x + dx, e.z + dz, m.y, openFn(), m.fb);
-      if (!st.below || st.walk) { m.y = st.y; m.fb = st; m.hang = null; } else m.hang = st;
+      // SOLID ROCK BELOW THE GROUND (Harry 2026-11-03: "dragging thru rock should push back onto legal space on the same
+      // level"): over rock the pawn is held on the LAST FLOOR OF ITS LEVEL IT CROSSED (m.ok), shown there and let go there
+      // (dragMove, endMove), and goes on with the pointer once the pointer is over its level's floor again
+      if (!st.below || st.walk) { m.y = st.y; m.fb = st; m.hang = null; m.ok = [dx, dz]; m.rock = false; } else { m.hang = st; m.rock = !!st.rock; }
       if (e.id === W.lead) W.y = m.y;
     }
   }
@@ -450,10 +460,15 @@ export function installInput(app, canvas) {
     return [c(lead.x + dx) - lead.x, c(lead.z + dz) - lead.z];
   };
   function dragMove(ground, ev, r) {
+    // a SEIZED pawn (handMove.begin seize) is on the floor that shows under the pointer, not walked on its level from
+    // where it stood: the walk's plane is set to that floor at every move (its base goes there; walkTo is not run)
+    const seat = g.seize && g.walk && r ? groundOf(r) : null;
+    if (g.seize && !seat) return; // (off every floor: it stays where it was last shown)
+    if (seat) ground = seat;
     if (!ground || !g.start) return;
     const wl = g.walk && (g.things.find(e => e.id === g.walk.lead) || g.things[0]);
     let dx = wl ? ground[0] + g.walk.off[0] - wl.x : ground[0] - g.start[0], dz = wl ? ground[1] + g.walk.off[1] - wl.z : ground[1] - g.start[1];
-    if (wl && r) [dx, dz] = walkAim(r, ev, wl, dx, dz);
+    if (wl && r && !seat) [dx, dz] = walkAim(r, ev, wl, dx, dz);
     if (g.rooms.length || g.things.some(isTile)) { dx = Math.round(dx / 5) * 5; dz = Math.round(dz / 5) * 5; } // rooms and floor tiles live on the 5-ft grid
     [dx, dz] = pawnSnap(dx, dz, ev);
     [dx, dz] = thingSnap(dx, dz, ev);
@@ -472,12 +487,13 @@ export function installInput(app, canvas) {
       const step = g.things.every(e => app.modes.isPost(e.cat)) ? 2.5 : 5;
       dx = Math.round(dx / step) * step; dz = Math.round(dz / step) * step; g.dx = dx; g.dz = dz;
     }
-    if (g.walk) walkTo(dx, dz);
+    if (seat) { const m = g.walk.members.get(wl.id), fb = HT.baseUnder(app.entities(), wl.x + dx, wl.z + dz, seat.y || 0, openFn()); m.y = fb.y; m.fb = fb; m.hang = null; g.walk.y = m.y; }
+    else if (g.walk) walkTo(dx, dz);
     app.localDrags.clear();
-    for (const e of g.moving) { const m = g.walk?.members.get(e.id); app.localDrags.set(e.id, { x: e.x + dx, z: e.z + dz, rot: g.single && e === g.things[0] ? g.single.rot : undefined, ...(m?.stands && { y: m.y + m.rise }) }); } // (a pawn hanging over a drop stays at the height it walked on)
+    for (const e of g.moving) { const m = g.walk?.members.get(e.id), o = m?.rock ? m.ok : [dx, dz]; app.localDrags.set(e.id, { x: e.x + o[0], z: e.z + o[1], rot: g.single && e === g.things[0] ? g.single.rot : undefined, ...(m?.stands && { y: m.y + m.rise }) }); } // (a pawn hanging over a drop stays at the height it walked on)
     app.moveDrag = { dx, dz, free: g.free, single: g.single ? { x: g.single.x, z: g.single.z, edge: g.single.edge || null } : null }; // (tests)
     // pawns: where they would land if let go now, for the distance readout (surfaces/rulers.js): the walk (startWalk)
-    if (g.walk) { const m = g.walk.members.get(g.walk.lead); app.moveDrag.pawns = { lead: g.walk.lead, n: g.things.length, dx, dz, dy: m.stands ? Math.round((m.y - m.fb0) * 100) / 100 : 0, hang: !!m.hang, on: m.hang ? null : m.fb.on }; }
+    if (g.walk) { const m = g.walk.members.get(g.walk.lead), o = m.rock ? m.ok : [dx, dz]; app.moveDrag.pawns = { lead: g.walk.lead, n: g.things.length, dx: o[0], dz: o[1], rock: !!m.rock, dy: m.stands ? Math.round((m.y - m.fb0) * 100) / 100 : 0, y0: m.fb0, hang: !!m.hang, on: m.hang ? null : m.fb.on }; } // (y0: the floor it started on, where the movement rings lie: surfaces/moverings.js)
     // ROOMS: each goes out as ONE drag entry at its would-be centre; the view carries the room's floor, walls and things
     // along and draws its footprint there (world.js), here and for every other seat (presence), in my colour, or red
     // when the drop would be refused (it overlaps a room that is staying put)
@@ -504,13 +520,13 @@ export function installInput(app, canvas) {
     // under the pointer at release is higher or lower (an upper room, the ground beside the building, a cellar seen
     // through the opened ground), the THINGS land there, at that floor's height. Rooms never change height by a drag, and
     // PAWNS keep their level (2026-10-26): they land where they walked (startWalk), each at its own height.
-    let ys = null;
-    if (g.walk) { ys = new Map(); for (const [id, m] of g.walk.members) if (m.stands) ys.set(id, m.y + m.rise); }
+    let ys = null, at = null;
+    if (g.walk) { ys = new Map(); at = new Map(); for (const [id, m] of g.walk.members) { if (m.stands) ys.set(id, m.y + m.rise); if (m.rock) { const e = g.things.find(t => t.id === id); if (e) at.set(id, [e.x + m.ok[0], e.z + m.ok[1]]); } } } // (let go over rock: on the last floor it crossed)
     else if (r && !g.rooms.length && !g.single && g.start && !g.things.some(isTile)) {
       const free = groundOf(r);
       if (free && (free.y || 0) !== (g.start.y || 0)) { dx = free[0] - g.start[0]; dz = free[1] - g.start[1]; [dx, dz] = pawnSnap(dx, dz, ev); dy = (free.y || 0) - (g.start.y || 0); g.dx = dx; g.dz = dz; }
     }
-    app.lastDrop = { dx, dz, dy, ...(ys && { ys: Object.fromEntries(ys) }) }; // (tests)
+    app.lastDrop = { dx, dz, dy, ...(ys && { ys: Object.fromEntries(ys) }), ...(at?.size && { at: Object.fromEntries(at) }) }; // (tests)
     app.localDrags.clear(); app.roomDrag = null; app.moveDrag = null;
     if (!dx && !dz && !(g.single && (g.single.x !== g.things[0].x || g.single.z !== g.things[0].z))) return;
     if (g.alt) { // Alt-drag duplicates, leaving the originals where they were
@@ -528,37 +544,60 @@ export function installInput(app, canvas) {
     }
     // a room dropped onto another room: refused, and said so (moveBy toasts; the footprint was red all along)
     if (g.rooms.length && !g.ok) { const c = g.clash; app.worldOf(app.area()).flashRect((c.room.recipe.x * 5) + dx, (c.room.recipe.z * 5) + dz, (c.room.recipe.x + c.room.recipe.w) * 5 + dx, (c.room.recipe.z + c.room.recipe.d) * 5 + dz); app.lastRefusal = { what: 'room.move', room: c.room.id, hit: c.hit.id, at: Date.now() }; }
-    app.moveBy(g.things, dx, dz, { dy, ys });
+    app.moveBy(g.things, dx, dz, { dy, ys, at });
   }
 
-  // marquee: things WHOLLY inside the box, at the current granularity (rooms and buildings at the overview detent)
+  // (tests) the share of a thing, as drawn, that a box of client pixels [x0, y0, x1, y1] holds: what selectBox weighs
+  app.marqueeShare = (id, [x0, y0, x1, y1]) => { const w = world(), r = w.recs.get(id); if (!r) return null; const skip = (o) => !!(o.userData.halo || o.userData.pickPad); return MQ.thingShare(MQ.boxFrame(app.main, canvas.getBoundingClientRect(), Math.min(x0, x1), Math.min(y0, y1), Math.max(x0, x1), Math.max(y0, y1)), r, MQ.boundsFast(r, skip), skip); };
+  // marquee: things MOSTLY inside the box (MARQUEE_MOST of them as drawn, marquee.js; Harry 2026-11-03), at the current
+  // granularity (rooms and buildings at the overview detent), folded up onto what they sit on (app.foldUp)
   function selectBox(m) {
+    const t0 = performance.now();
     const x0 = Math.min(m.x, m.x1), x1 = Math.max(m.x, m.x1), y0 = Math.min(m.y, m.y1), y1 = Math.max(m.y, m.y1);
-    const w = world(), ids = [];
-    const inside = (b) => { if (!b) return false; for (const x of [b.min.x, b.max.x]) for (const y of [b.min.y, b.max.y]) for (const z of [b.min.z, b.max.z]) { const s = app.screenOf(x, z, app.main, y); if (s.x < x0 || s.x > x1 || s.y < y0 || s.y > y1) return false; } return true; };
-    const overview = app.overview();
+    const w = world(), ids = [], F = MQ.boxFrame(app.main, canvas.getBoundingClientRect(), x0, y0, x1, y1);
+    const skip = (o) => !!(o.userData.halo || o.userData.pickPad); // (what boundsOf leaves out)
+    const overview = app.overview(), units = new Map(); // (overview) a building, or a room on its own -> [inside, all]
     for (const [id, r] of w.recs) {
       const e = r.entity;
       if (overview ? e.kind !== 'room' : !(e.kind === 'object' || e.kind === 'token')) continue;
       if (w.cutHides(e)) continue; // a box never takes what the cut hides
-      if (!inside(w.boundsOf(r))) continue;
+      if (overview) { // a building is taken by the share of all its drawn rooms that is in the box, a room on its own by its own
+        const u = e.building || id, acc = units.get(u) || [0, 0], c = e.recipe, ry = HT.roomY(c); units.set(u, acc);
+        MQ.addRect(F, acc, c.x * 5, c.z * 5, (c.x + c.w) * 5, (c.z + c.d) * 5, ry); continue;
+      }
+      if (MQ.thingShare(F, r, MQ.boundsFast(r, skip), skip) < MQ.MARQUEE_MOST) continue;
       // ... nor what a floor, the ground or a roof hides (Harry 2026-10-06: a box dragged on lv 2 gathered the things
       // of lv 1 under its floor, drawn or not): world.inSight, asked only of the things already inside the box
-      if (!overview && !w.inSight(r, app.main.camera)) continue;
-      ids.push(overview && e.building ? e.building : id);
+      if (!w.inSight(r, app.main.camera)) continue;
+      ids.push(id);
     }
+    for (const [u, [a, all]] of units) if (all > 0 && a / all >= MQ.MARQUEE_MOST) ids.push(u);
+    app.lastMarquee = { ms: performance.now() - t0, ...F.stats, took: ids.length, box: [x0, y0, x1, y1] }; // (tests: the cost)
     // floor tiles come along only when the box holds nothing else (sweeping a furnished room picks the furniture)
-    const notTiles = ids.filter(id => !isTile(app.ent(id)));
-    app.select([...new Set(notTiles.length ? notTiles : ids)], m.shift ? 'add' : 'replace');
+    const notTiles = ids.filter(id => !isTile(app.ent(id))), took = [...new Set(notTiles.length ? notTiles : ids)];
+    // ... and what the box takes folds up (Harry 2026-11-02, from Nick's note): the desk, not the things on it, when the box
+    // holds both; only the things on it when it holds just those. Shift adds, then folds, so the order of the boxes is no matter.
+    app.select(app.foldUp(m.shift ? [...new Set([...app.sel, ...took])] : took));
   }
 
   // ---------- wheel, keys that belong to gestures ----------
-  // ONE rotate behaviour for every rotate input (Harry 2026-10-04): free camera rotation, exactly the tuner's and Map
-  // Garden's middle-drag: yaw and pitch pivoting on the ground point that was under the pointer where the gesture
-  // STARTED (grab-the-world: that point stays put on screen), the pitch kept above the floor. No fixed orbit centre.
-  // Middle-drag and Option-drag go through GrabCamera's own orbit grab; Option + two-finger scroll, Safari's two-finger
-  // rotate and Q/E/PageUp/PageDown use this, with the same rates.
+  // ONE rotate behaviour for every rotate input (Harry 2026-10-04): free camera rotation, yaw and pitch, the pitch kept
+  // above the floor, at the same rates from every input. Middle-drag and Option-drag go through GrabCamera's own orbit
+  // grab (grabView); Option + two-finger scroll, Safari's two-finger rotate and Q/E/PageUp/PageDown use rotateView.
+  // WHERE IT PIVOTS: on the ground point at the CENTRE OF THE VIEW the gesture is in, the main view's or the PiP's own
+  // (Harry 2026-11-02, from Nick's note: "when he rotates the camera, it rotates from mouse center rather than center of
+  // screen"). That replaces the rule of 2026-10-04: the ground point under the pointer where the gesture STARTED, stayed
+  // put on screen, exactly the tuner's and Map Garden's middle-drag, "no fixed orbit centre". GrabCamera always looks at
+  // its focus, so the point at the centre of a view IS that view's focus, and turning without pinning anything turns
+  // about it. So there is no anchor to take, none to go stale (zoom to the cursor with Q held moves the pivot with the
+  // view, it is not pulled back) and nothing to lose when the middle of the view looks at no ground: the horizon turns
+  // about the focus like everything else, which was the old rule's own fallback. The tuner keeps its own rule.
+  // TOUCH IS NOT PART OF THIS: fingers hold the world, so a twist or a tilt stays on the fingers' midpoint (twoMove).
+  // Going back to the rule of 2026-10-04 is this one line: true, and every input below follows it.
+  const ROTATE_ON_POINTER = false;
   const pivotAt = (x, y, V = app.main) => ({ anchor: V.grab.groundAt(x, y), x, y });
+  const rotatePivot = (x, y, V = app.main) => ROTATE_ON_POINTER ? pivotAt(x, y, V) : { anchor: null, x, y }; // (x, y stay the pointer's: Safari's pinch zooms there)
+  function grabView(V, x, y, mode) { V.grab.beginGrab(x, y, mode); if (mode === 'orbit') V.grab.grab.anchor = rotatePivot(x, y, V).anchor; }
   // every rotate input that isn't GrabCamera's own orbit drag (Option-scroll, Safari's rotate gesture, Q/E) comes through
   // here, so the player's Settings › Me › Controls rotate speed and invert apply to all of them (the orbit drag gets them in
   // surfaces/settings.js)
@@ -617,8 +656,8 @@ export function installInput(app, canvas) {
     app.refresh?.();
   }
   let lastPtr = null;
-  // (on the window, not the canvas: the pointer may be over a room label or another overlay when Q / E is pressed, and the
-  // pivot must still be the ground under it; with the canvas alone it was wherever the pointer last crossed bare canvas)
+  // (on the window, not the canvas: the pointer may be over a room label or another overlay when Q / E is pressed. Only
+  // ROTATE_ON_POINTER reads it now; with the canvas alone it was wherever the pointer last crossed bare canvas)
   addEventListener('pointermove', (ev) => { lastPtr = [ev.clientX, ev.clientY]; }, true);
 
   // The wheel, mouse or trackpad (Harry 2026-10-04, on a MacBook with no mouse; re-done 2026-10-06 after "mouse wheel
@@ -645,9 +684,9 @@ export function installInput(app, canvas) {
     let did;
     if (ev.ctrlKey) { G.zoomAt(cx, cy, Math.exp(Math.max(-60, Math.min(60, ev.deltaY)) * 0.01)); did = 'zoom'; }
     else if (classify(ev) === 'trackpad') {
-      if (ev.altKey) { // rotate, pivoting where this scroll gesture began (the same rates as a drag)
+      if (ev.altKey) { // rotate (the same rates as a drag; the pivot is taken when this scroll gesture begins)
         const now = performance.now();
-        if (!wheelPivot || now - wheelPivot.at > 350 || wheelPivot.view !== V) wheelPivot = { ...pivotAt(cx, cy, V), view: V };
+        if (!wheelPivot || now - wheelPivot.at > 350 || wheelPivot.view !== V) wheelPivot = { ...rotatePivot(cx, cy, V), view: V };
         wheelPivot.at = now;
         rotateView(wheelPivot, -ev.deltaX * 0.4, ev.deltaY * 0.3, V);
         did = 'orbit';
@@ -665,7 +704,7 @@ export function installInput(app, canvas) {
   labelLayer?.addEventListener('contextmenu', (ev) => ev.preventDefault());
   // Safari on a Mac: pinch and two-finger rotate arrive as gesture events (scale and rotation, cumulative)
   let gest = null;
-  canvas.addEventListener('gesturestart', (ev) => { ev.preventDefault(); if (!app.main || touches.size) return; /* (iOS Safari sends these for two fingers on the glass too: the pointers above have them) */ const V = inPip(ev) && app.pip ? app.pip : app.main; if (V !== app.main) app.library?.touched(); gest = { scale: 1, rotation: 0, V, pivot: pivotAt(ev.clientX, ev.clientY, V) }; });
+  canvas.addEventListener('gesturestart', (ev) => { ev.preventDefault(); if (!app.main || touches.size) return; /* (iOS Safari sends these for two fingers on the glass too: the pointers above have them) */ const V = inPip(ev) && app.pip ? app.pip : app.main; if (V !== app.main) app.library?.touched(); gest = { scale: 1, rotation: 0, V, pivot: rotatePivot(ev.clientX, ev.clientY, V) }; });
   canvas.addEventListener('gesturechange', (ev) => {
     ev.preventDefault(); if (!app.main || !gest) return;
     const G = gest.V.grab;
@@ -681,7 +720,7 @@ export function installInput(app, canvas) {
     if (ev.code === 'Space' && !ev.target.closest?.('input, textarea')) { space = true; canvas.classList.add('panning'); }
     if (app.main && !ev.target.closest?.('input, textarea, [contenteditable]')) {
       const k = ev.key.toLowerCase();
-      if (RATE[k] && !ev.ctrlKey && !ev.metaKey && !held.has(k) && !app.tray?.takesKeys('build') && !app.tray?.takesKeys('pawns')) { /* an open Build or Pawns menu owns letters (a pinned one: only under the pointer) */ const r = canvas.getBoundingClientRect(); held.set(k, pivotAt(...(lastPtr || [r.left + r.width / 2, r.top + r.height / 2]))); app.main.rule = 'free'; }
+      if (RATE[k] && !ev.ctrlKey && !ev.metaKey && !held.has(k) && !app.tray?.takesKeys('build') && !app.tray?.takesKeys('pawns')) { /* an open Build or Pawns menu owns letters (a pinned one: only under the pointer) */ const r = canvas.getBoundingClientRect(); held.set(k, rotatePivot(...(lastPtr || [r.left + r.width / 2, r.top + r.height / 2]))); app.main.rule = 'free'; }
     }
   });
   addEventListener('keyup', (ev) => { if (ev.code === 'Space') { space = false; canvas.classList.remove('panning'); } held.delete(ev.key.toLowerCase()); });

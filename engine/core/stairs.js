@@ -11,7 +11,7 @@
 //
 // Pure data: the relay and the browser run the same code. `entities` is an area's entity map.
 import { hasCell, cellsOf } from './footprint.js';
-import { roomY, roomTop, roomHeight, floorUnder, meetsGround, STEP, isStoneFamily } from './height.js';
+import { roomY, roomTop, roomHeight, meetsGround, STEP, isStoneFamily, levelOf, levelLabel } from './height.js';
 import { holeCellsAt } from './holes.js';
 
 const CELL = 5;
@@ -145,8 +145,10 @@ function holesAtNow(entities, y) {
 }
 // the two rooms a stair joins: { from, to } (room ids; to = null: it comes up onto open ground or a deck)
 export function stairLinks(entities, s) {
-  const cells = stairCells(s), E = stairEnds(s, entities);
-  const from = (s.room && entities[s.room] ? entities[s.room] : roomWithCell(entities, baseOf_(s), ...cells[0]))?.id || null;
+  const cells = stairCells(s), E = stairEnds(s, entities), base = baseOf_(s), own = s.room && entities[s.room];
+  // (`room` can name a room the stair is not standing in: one put under a room with that room's id. Its bottom is where its foot is.)
+  const inOwn = own && base >= roomY(own.recipe) && base < roomTop(entities, own);
+  const from = (inOwn ? own : cells.map(c => roomWithCell(entities, base, ...c)).find(Boolean))?.id || null;
   const up = roomWithCell(entities, stairTop(s), ...E.topCell) || cells.map(c => roomWithCell(entities, stairTop(s), ...c)).find(Boolean) || null;
   return { from, to: up?.id || null };
 }
@@ -359,6 +361,23 @@ export function stairStatus(entities, s) {
   return { code: null, why: '' };
 }
 
+// THE NOTE OVER A STAIR, AND ITS DISMISSAL (Harry 2026-11-02: "they are fine as *warnings*... but how do I get rid of
+// them?" "Yeah, we need a dismiss button on these."). stairWarnings lists what the notes say: a code from stairStatus on
+// a stair that counts (stairsOf), except a stair a room's own layout rolled with simply nothing built over it, which is
+// furniture and says nothing. `noteOff` on the stair is the ONE code the GM dismissed (object.set noteOff=CODE; '' takes
+// it back), and it silences that code only: a different fault shows its own note. It is one word, not a list, and
+// nothing clears it when the fault goes, so a fault that returns under the same code stays dismissed. Compared with ===
+// wherever it is read, so anything else in that field (an old file, a hand edit) just means the note shows.
+//   stairWarnings(entities)  -> [{ s, code, why, off }]    off: this warning is the dismissed one (no note is drawn)
+//   stairWarning(entities, s) -> that for one stair, or null
+export const STAIR_CODES = ['open', 'nothing-below', 'wall-below', 'foot', 'wall-above', 'no-exit'];
+export function stairWarnings(entities) {
+  const out = [];
+  for (const s of stairsOf(entities)) { const Q = stairStatus(entities, s); if (Q.code && !(s.rule && Q.code === 'open')) out.push({ s, code: Q.code, why: Q.why, off: s.noteOff === Q.code }); }
+  return out;
+}
+export const stairWarning = (entities, s) => stairWarnings(entities).find(w => w.s.id === s.id) || null;
+
 // UP OR DOWN (Harry 2026-10-11: "a context menu that lets you switch them to 'stairs down' instead of 'stairs up'").
 // A stair put down on a level goes UP from it. Switched to DOWN it keeps its place in plan and its turn, and its body
 // moves down one flight: its top is now level with the floor it was put on (the hole is in THAT floor) and it stands
@@ -491,7 +510,9 @@ export function stairHop(entities, x, z, y = 0) {
       if (stairRole(s) && !E.floor && stairTop(s) !== 0) continue; // a catalog stair under no floor (a one-storey hall) leads nowhere: the pawn stays where it was put
       return { ...E.top, stair: s.id };
     }
-    if (Math.abs(stairTop(s) - y) < 0.5) return { ...stairEnds(s, entities, near).foot, stair: s.id };
+    // (2026-11-03) from above onto one whose FOOT is blocked (stairStatus 'foot': a wall or rock where its foot landing
+    // would be) it is not climbed down into that: the pawn stays at the end it was dropped on, on the top landing
+    if (Math.abs(stairTop(s) - y) < 0.5) { const E = stairEnds(s, entities, near); return { ...(stairStatus(entities, s).code === 'foot' ? E.top : E.foot), stair: s.id }; }
   }
   return null;
 }
@@ -502,12 +523,17 @@ function onPiece(s, x, z) {
   const c = Math.cos(s.rot || 0), n = Math.sin(s.rot || 0), ux = x - s.x, uz = z - s.z, lx = ux * c - uz * n, lz = ux * n + uz * c;
   return Math.abs(lx) <= (s.dims?.[0] || CELL) / 2 + 0.25 && Math.abs(lz) <= (s.dims?.[2] || CELL) / 2 + 0.25;
 }
-// what a seat is told about a stair (feet): where it is, what it joins, where each end is
+// the small note over a stair that cannot work where it stands (client/world.js syncStairNotes; an AI seat is told the same words)
+export const STAIR_NOTE = { open: 'No floor above yet', 'nothing-below': 'Nothing below', 'wall-below': 'A wall runs through it', foot: 'Blocked at the foot', 'wall-above': 'Comes up through a wall', 'no-exit': 'Blocked at the top' };
+// what a seat is told about a stair (feet): where it is, what it joins, where each end is. `from` is ALWAYS the room at its
+// BOTTOM and `to` the room at its TOP, whichever way it was put in (`down`: stair.flip): they are not a direction of travel.
+// A level is the level of the room at that end, or lv 1 for the open ground at height 0; with neither, null. It is never
+// worked out from the height alone: an end this seat cannot see reads exactly as an end where nothing is built.
 export function stairInfo(entities, s) {
   const L = stairLinks(entities, s), E = stairEnds(s, entities), cells = stairCells(s);
-  const fl = (yy, p) => floorUnder(entities, p.x, p.z, yy);
+  const lv = (id, y) => id ? levelLabel(levelOf(entities, entities[id])) : y === 0 ? levelLabel(0) : null;
   const Q = stairStatus(entities, s);
-  return { id: s.id, kind: stairKind(s), ...(stairRole(s) && { piece: s.cat }), ...(s.down && { down: true }), works: !Q.code, ...(Q.code && { problem: Q.code, why: Q.why }), rise: stairTop(s) - baseOf_(s), from: L.from, to: L.to, fromLevel: fl(baseOf_(s), s)?.level || null, toLevel: fl(stairTop(s), E.top)?.level || null,
+  return { id: s.id, kind: stairKind(s), ...(stairRole(s) && { piece: s.cat }), ...(s.down && { down: true }), works: !Q.code, ...(Q.code && { problem: Q.code, why: Q.why, ...(!(s.rule && Q.code === 'open') && { note: STAIR_NOTE[Q.code] || 'Leads nowhere' }) }), ...(Q.code && s.noteOff === Q.code && { dismissed: true }), rise: stairTop(s) - baseOf_(s), from: L.from, to: L.to, fromLevel: lv(L.from, baseOf_(s)), toLevel: lv(L.to, stairTop(s)),
     cells: cells.map(([gx, gz]) => [gx * CELL, gz * CELL]), bottom: [E.foot.x, E.foot.z, E.foot.y], top: [E.top.x, E.top.z, E.top.y],
     railing: stairRails(entities, s).filter(r => entities['edge_' + r.key.replace(/:/g, 'z').replace(/-/g, 'm').replace('@', 'a')]?.as !== 'open').map(r => ({ key: r.key, x: r.x, z: r.z })) }; // the sections round its hole upstairs (edge.set key=KEY as=open removes one)
 }

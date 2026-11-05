@@ -162,7 +162,7 @@ async def main():
         async def bar(q, sel=None):
             await pg.keyboard.press('Escape'); await pg.evaluate('tw.modes.cancel(); tw.clearSelection()')
             if sel: await pg.evaluate("(s) => tw.select(s)", sel)
-            await pg.keyboard.press('/'); await pg.locator('#bar input').fill(q); await pg.wait_for_timeout(300)
+            await pg.keyboard.press('/'); await pg.locator('#bar textarea').fill(q); await pg.wait_for_timeout(300)
             return await pg.evaluate('[...document.querySelectorAll("#results .res")].map(el => el.dataset.ref || "")')
         got = await bar('battlements on', sel)
         check(got and got[0] == 'cmd:roof.battlements', 'bar "battlements on" (a roof selected) -> Battlements on, first', got[:3])

@@ -62,7 +62,7 @@ async def main():
         # ---------- BAR ----------
         async def bar(q):
             await pg.keyboard.press('Escape'); await pg.evaluate('tw.modes.cancel();tw.clearSelection()')
-            await pg.keyboard.press('/'); await pg.locator('#bar input').fill(q); await pg.wait_for_timeout(250)
+            await pg.keyboard.press('/'); await pg.locator('#bar textarea').fill(q); await pg.wait_for_timeout(250)
             return await pg.evaluate('[...document.querySelectorAll("#results .res")].map(el => el.dataset.ref || "")')
         places = [r for r in await bar('bars') if r.startswith('cat:')]; check('cat:cell-bars' in places[:3], 'bar "bars" -> cell-bars among the first three to place ("bar" is also the tavern word)', places[:3])
         for q, want in [('iron bars', 'cat:cell-bars'), ('cell bars', 'cat:cell-bars'), ('jail bars', 'cat:cell-bars'), ('prison bars', 'cat:cell-bars'),

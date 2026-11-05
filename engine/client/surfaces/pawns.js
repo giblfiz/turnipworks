@@ -78,16 +78,22 @@ export function pawnsSurface(R, app) {
 
   // ---------------- doing things ----------------
   const whenLoaded = (area, id, fn, tries = 80) => { if (app.area() === area && app.entities()[id]) return fn(); if (tries > 0) setTimeout(() => whenLoaded(area, id, fn, tries - 1), 50); };
-  // GO TO a pawn: the view centres on it (in its own area, on its own level) and it is selected
+  // GO TO a pawn: the view centres on it (in its own area, on its own level) and it is selected.
+  // ITS LEVEL, ALWAYS (Harry 2026-11-03: "when you click a portrait in the pawns you go to them (that should also cut you
+  // to their level)"): the view is cut to the pawn's level, up or down, from all levels too (surfaces/cut.js cutToPawn:
+  // the room it is in, else the 10-ft band its base is on), so a pawn under the level you were on, in a cellar or a
+  // cave, is shown and selected. Until then the view only ever went UP to a pawn above the cut, and a pawn below it
+  // was centred on but neither drawn nor selected. For a pawn this seat cannot move (another player's, seen by a
+  // player) the old rule stands: the view goes up to it if it is above the cut, never anywhere else.
   function goTo(rec) {
     if (!rec) return;
     const land = () => {
       const e = app.entities()[rec.id]; if (!e) return;
-      const fy = HT.floorUnder(app.entities(), e.x, e.z, e.y || 0)?.y ?? 0;
-      if (app.cut?.y != null && fy > app.cut.y + 0.5) app.goLevel?.(fy, 'pawns');
+      if (app.canTouch(e) && app.cutToPawn) app.cutToPawn(e, 'pawns');
+      else { const fy = HT.floorUnder(app.entities(), e.x, e.z, e.y || 0)?.y ?? 0; if (app.cut?.y != null && fy > app.cut.y + 0.5) app.goLevel?.(fy, 'pawns'); }
       app.centreOn({ x: e.x, y: e.y || 0, z: e.z });
       app.select(e.id);
-      P.lastGo = { id: e.id, area: app.area(), at: performance.now() }; // (tests)
+      P.lastGo = { id: e.id, area: app.area(), at: performance.now(), cut: app.cut?.y ?? null, level: app.level }; // (tests)
     };
     if (rec.area && rec.area !== app.area()) { app.setMain(rec.area); whenLoaded(rec.area, rec.id, land); } else land();
   }
@@ -164,8 +170,8 @@ export function pawnsSurface(R, app) {
     const el = document.createElement('div'); el.className = 'ppop';
     el.innerHTML = `<header><b>${esc(title)}</b></header>${items.map((it, i) => `<button class="ppi ${it.cls || ''}${it.off ? ' off' : ''}" data-i="${i}"${it.off ? ' disabled' : ''}>${it.dot ? `<i class="pdot" style="background:${esc(it.dot)}"></i>` : ''}${icon(it.icon || 'chevron-right', 15)}<span><b>${esc(it.label)}</b>${it.sub ? `<small>${esc(it.sub)}</small>` : ''}</span></button>`).join('')}`;
     document.getElementById('app').append(el);
-    const r = anchor.getBoundingClientRect();
-    el.style.left = `${Math.max(8, Math.min(innerWidth - el.offsetWidth - 8, r.left))}px`; el.style.top = `${Math.max(8, Math.min(innerHeight - el.offsetHeight - 8, r.bottom + 4))}px`;
+    const r = anchor.getBoundingClientRect(), b = el.getBoundingClientRect(), z = b.width / (el.offsetWidth || 1); // (.ppop wears the text size's zoom, which scales its own left and top too)
+    el.style.left = `${Math.max(8, Math.min(innerWidth - b.width - 8, r.left)) / z}px`; el.style.top = `${Math.max(8, Math.min(innerHeight - b.height - 8, r.bottom + 4)) / z}px`;
     for (const x of el.querySelectorAll('.ppi')) x.onclick = (ev) => { ev.stopPropagation(); const it = items[+x.dataset.i]; closePop(); it.run?.(); };
     pop = { el, title, items };
   }
@@ -348,6 +354,28 @@ export function pawnsSurface(R, app) {
       onEnd: (ok) => { tray.classList.remove('out'); if (!ok) return; done?.(); P.lastDragOut = true; if (aside && !app.tray.held()) close(); },
     });
   }
+  // SEIZE A PAWN BY ITS PORTRAIT (Harry 2026-11-03: "lets also let you drag that portrait onto the board as if you had
+  // seized their token, so you can always grab and place them from the pawn menu"). A press on a portrait that moves
+  // past the threshold (app.dragOut) takes THAT pawn into the hand once the pointer is over the map (input.js
+  // app.handMove.begin seize): it is under the pointer, on the floor that shows there, with the drag line and the
+  // movement rings from where it stood; let go on the map and it is put down with the ordinary pawn drop (one
+  // token.move, one undo; a ladder's hop and the fall offer as for any drop). It is the pawn itself, never a copy. Let
+  // go anywhere else, or Esc: nothing moved. Only a seat that could drag the token can drag its portrait (app.canTouch:
+  // a player their own pawns, the GM any), and only a pawn in the area in view. A press that never moves is the
+  // portrait's ordinary click (go to it).
+  const seizable = (id) => { const e = id && app.entities()[id]; return !!e && e.kind === 'token' && app.canTouch(e) && app.can('token.move'); };
+  function seizeOut(ev, id) {
+    if (ev.button !== 0 && ev.pointerType === 'mouse') return;
+    if (!seizable(id)) return;
+    const aside = app.tray.dismissable('pawns'); let held = false;
+    app.dragOut(ev, {
+      begin: () => { if (!seizable(id)) return false; if (aside) tray.classList.add('out'); },
+      move: (m, over) => { if (!over) return; if (!held) { held = !!app.handMove?.begin(m, { seize: app.entities()[id] }); if (!held) return; } app.handMove.to(m); },
+      drop: (m) => { if (!held) return false; held = false; app.handMove.end(m, true); app.select(id); P.lastSeize = { id, at: Date.now() }; },
+      end: (done) => { if (held) { held = false; app.handMove.end(null, false); } tray.classList.remove('out'); if (done && aside && !app.tray.held()) close(); },
+    });
+  }
+  P.seizable = seizable; // (tests)
   const canPlace = () => app.can('token.edit');
   function placeHtml() {
     if (!canPlace()) return '';
@@ -462,7 +490,7 @@ export function pawnsSurface(R, app) {
     }
     const rs = rows(), byseat = new Map(rs.map(r => [r.seat.id, r])), recs = new Map(rs.flatMap(r => [r.main, ...r.pets].filter(Boolean).map(p => [p.id, p])));
     const T = turns();
-    for (const el of tray.querySelectorAll('[data-go]')) { if (!el.dataset.go) continue; el.onclick = (ev) => { ev.stopPropagation(); if (justDragged) return; goTo(recs.get(el.dataset.go)); }; const k = el.querySelector('kbd')?.textContent; if (k) keymap.set(k.toLowerCase(), () => goTo(recs.get(el.dataset.go))); }
+    for (const el of tray.querySelectorAll('[data-go]')) { if (!el.dataset.go) continue; el.onclick = (ev) => { ev.stopPropagation(); if (justDragged) return; goTo(recs.get(el.dataset.go)); }; const k = el.querySelector('kbd')?.textContent; if (k) keymap.set(k.toLowerCase(), () => goTo(recs.get(el.dataset.go))); if (recs.get(el.dataset.go)?.area === app.area() && seizable(el.dataset.go)) { el.classList.add('seize'); el.addEventListener('pointerdown', (ev) => seizeOut(ev, el.dataset.go)); } }
     for (const el of tray.querySelectorAll('.prow')) {
       const row = byseat.get(el.dataset.seat); if (!row) continue;
       for (const a of el.querySelectorAll('.pact')) {
@@ -494,7 +522,7 @@ export function pawnsSurface(R, app) {
     // mine
     const items = mineItems();
     const useMine = (it) => { if (!it) return; if (it.rec) goTo(it.rec); else if (it.kind === 'bench') bringOn(it.def); else app.toast(`${it.def.name} is on a table you are not at`); };
-    for (const el of tray.querySelectorAll('[data-mine]')) { const it = items[+el.dataset.mine]; el.onclick = (ev) => { ev.stopPropagation(); useMine(it); }; if (it?.kind === 'bench') { el.classList.add('drags'); el.onpointerdown = (ev) => dragOutOf(ev, () => app.pawnTool.start(null, { def: it.def }), () => { P.lastBringOn = it.def.id; }); } const k = el.querySelector('kbd')?.textContent; if (k) keymap.set(k.toLowerCase(), () => useMine(it)); }
+    for (const el of tray.querySelectorAll('[data-mine]')) { const it = items[+el.dataset.mine]; el.onclick = (ev) => { ev.stopPropagation(); useMine(it); }; if (it?.rec && it.rec.area === app.area() && seizable(it.rec.id)) { el.classList.add('drags', 'seize'); el.onpointerdown = (ev) => { if (!ev.target.closest('.tmenu')) seizeOut(ev, it.rec.id); }; } else if (it?.kind === 'bench') { el.classList.add('drags'); el.onpointerdown = (ev) => dragOutOf(ev, () => app.pawnTool.start(null, { def: it.def }), () => { P.lastBringOn = it.def.id; }); } const k = el.querySelector('kbd')?.textContent; if (k) keymap.set(k.toLowerCase(), () => useMine(it)); }
     for (const el of tray.querySelectorAll('[data-menu]')) { el.onmousedown = (ev) => ev.preventDefault(); el.onclick = (ev) => { ev.stopPropagation(); mineMenu(items[+el.dataset.menu], el); }; }
     const np = tray.querySelector('[data-newpawn]'); if (np) { const go = () => app.settings.editPawn('new'); np.onclick = (ev) => { ev.stopPropagation(); go(); }; keymap.set('n', go); }
     // the cast
@@ -511,7 +539,8 @@ export function pawnsSurface(R, app) {
     const gs = new Map(kinds().map(g => [g.key, g]));
     for (const el of tray.querySelectorAll('.krow')) {
       const key = el.dataset.kind, g = gs.get(key) || (key.startsWith('solo|') ? { key, list: [app.entities()[key.slice(5)]].filter(Boolean) } : null); if (!g || !g.list.length) continue;
-      el.querySelector('[data-kgo]').onclick = (ev) => { ev.stopPropagation(); if (justDragged) return; goKind(g); };
+      const kf = el.querySelector('[data-kgo]'); kf.onclick = (ev) => { ev.stopPropagation(); if (justDragged) return; goKind(g); };
+      if (g.list.length === 1 && seizable(g.list[0].id)) { kf.classList.add('seize'); kf.addEventListener('pointerdown', (ev) => seizeOut(ev, g.list[0].id)); } // (one pawn of its kind: its portrait seizes it, as a party portrait does)
       for (const a of el.querySelectorAll('[data-kact]')) { a.onmousedown = (ev) => ev.preventDefault(); a.onclick = (ev) => { ev.stopPropagation(); if (a.dataset.kact === 'all') { app.select(g.list.map(e => e.id)); P.lastSelectAll = g.key; } else if (a.dataset.kact === 'reveal') app.setHidden(g.list, false); }; }
     }
     for (const el of tray.querySelectorAll('[data-cmd]')) el.onclick = (ev) => { ev.stopPropagation(); const tool = el.classList.contains('mtool'); if (tool && !app.tray.pinned('pawns') && !app.tray.held()) close(); /* (a tool for the map: the menu steps aside) */ R.run(el.dataset.cmd); lastHtml = ''; setTimeout(render, 0); };
@@ -521,7 +550,7 @@ export function pawnsSurface(R, app) {
   // ---------------- dragging a row: the marching order ----------------
   let drag = null, justDragged = false;
   function startDrag(ev, el, { rows: rowsOf, idOf, commit }) {
-    if (ev.button !== 0 || ev.target.closest('.pact, .ppet, textarea, .tmenu')) return;
+    if (ev.button !== 0 || ev.target.closest('.pact, .ppet, textarea, .tmenu, .seize')) return; // (a portrait that can be seized drags its pawn instead)
     const x0 = ev.clientX, y0 = ev.clientY, id = idOf(el);
     const move = (e) => {
       if (!drag && Math.hypot(e.clientX - x0, e.clientY - y0) < 7) return;

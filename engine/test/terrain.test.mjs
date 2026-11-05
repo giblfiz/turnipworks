@@ -171,6 +171,8 @@ rt.close(); fs.rmSync(dir, { recursive: true, force: true });
 }
 // (2026-10-27) House look ▸ Hills below ground: see-through is a campaign setting, a number from 0 to 1
 { const { settingsProblem, CAMPAIGN_KEYS } = await import('../core/state.js');
-  ok('hillSee and groundSee: 0, 0.25 and 1 are fine; 1.5, -0.1, "0.2" and NaN are refused; null resets it', ['hillSee', 'groundSee'].every(k => [0, 0.25, 1, null].every(v => !settingsProblem({ [k]: v }, CAMPAIGN_KEYS)) && [1.5, -0.1, '0.2', NaN].every(v => !!settingsProblem({ [k]: v }, CAMPAIGN_KEYS)))); }
+  ok('hillSee and groundSee: 0, 0.25 and 1 are fine; 1.5, -0.1, "0.2" and NaN are refused; null resets it', ['hillSee', 'groundSee'].every(k => [0, 0.25, 1, null].every(v => !settingsProblem({ [k]: v }, CAMPAIGN_KEYS)) && [1.5, -0.1, '0.2', NaN].every(v => !!settingsProblem({ [k]: v }, CAMPAIGN_KEYS))));
+  // (2026-11-03) and House look ▸ Above the ground: underground shows
+  ok('underSee: the same kind (0 to 1, null resets it)', [0, 0.15, 1, null].every(v => !settingsProblem({ underSee: v }, CAMPAIGN_KEYS)) && [1.5, -0.1, '0.2', NaN].every(v => !!settingsProblem({ underSee: v }, CAMPAIGN_KEYS))); }
 console.log(`terrain: ${n - fails}/${n} passed`);
 process.exit(fails ? 1 : 0);

@@ -61,18 +61,27 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 #pv { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: var(--z-pipview); }
 
 /* ---------- the command bar (top centre) ---------- */
-#bar { position: absolute; z-index: var(--z-bar); top: 12px; left: 50%; transform: translateX(-50%); width: min(560px, calc(100% - 200px)); display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); backdrop-filter: blur(10px); transition: width .15s ease; }
+#bar { position: absolute; z-index: var(--z-bar); top: 12px; left: 50%; transform: translateX(-50%); width: min(560px, calc(100% - 200px)); display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); backdrop-filter: blur(10px); transition: width .15s ease; }
 #bar .lead::before { content: ''; display: block; width: 16px; height: 16px; background: currentColor; opacity: .55; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>') center/contain no-repeat; mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>') center/contain no-repeat; }
 #bar .field { flex: 1; display: flex; align-items: center; gap: 6px; min-width: 0; }
-#bar input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 14px; }
-#bar input::placeholder { color: var(--mute); }
+/* THE FIELD WRAPS AND THE BAR GROWS DOWN (Harry 2026-11-02: "when I type like a freaking essay into the quickbar, it doesn't
+   scale to let me keep going"): a textarea sized by bar.js fit(), up to BAR_LINES lines, then it scrolls inside itself.
+   Its height is one line and the padding at rest. What sits under the bar reads --bar-grow: results, #underBar. */
+#bar textarea { display: block; flex: 1; min-width: 0; height: 38px; margin: 0; padding: 9px 0; border: 0; outline: 0; background: transparent; color: inherit; font: inherit; font-size: 14px; line-height: 20px; resize: none; overflow: hidden; overflow-wrap: anywhere; scrollbar-width: thin; }
+#bar textarea::placeholder { color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#bar.tall { align-items: flex-start; } #bar.tall .lead { margin-top: 11px; }
+#bar .chips { flex: none; max-width: 45%; } #bar .chips .chip { max-width: 100%; }
+#bar.tall .field { align-items: flex-start; } #bar.tall .chips { margin-top: 9px; } .tw-hand #bar.tall .chips { margin-top: 11px; } /* (the verb chip stays on the first line of wrapped text, Harry 2026-11-03) */
+#bar.over textarea { -webkit-mask-image: linear-gradient(to bottom, transparent 9px, #000 9px); mask-image: linear-gradient(to bottom, transparent 9px, #000 9px); } /* (scrolled: the padding band hides the sliver of the line above, so the top line starts clean) */
+#results .res.intent .t { display: flex; align-items: center; gap: 4px; min-width: 0; } #results .res.intent .chip { display: block; min-width: 0; flex: 0 1 auto; } #results .res.intent .chip.verb { flex: none; } /* (block: text-overflow does nothing on an inline-flex. The verb stays whole; the long words get the ellipsis) */
+#bar .barmeasure { position: absolute; left: 0; top: 0; visibility: hidden; pointer-events: none; white-space: pre-wrap; overflow-wrap: anywhere; }
 #bar.open { width: min(680px, calc(100% - 24px)); border-color: var(--line-strong); }
 #bar.open .hint { display: none; }
 #bar .chips:empty { display: none; }
 .chip { display: inline-flex; align-items: center; padding: 1px 8px; border-radius: 6px; background: var(--raised); border: 1px solid var(--line); font-weight: 550; white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
 .chip.verb { background: var(--ink); color: var(--bg); border-color: transparent; }
 .sep { color: var(--mute); margin: 0 2px; }
-#results { position: absolute; z-index: var(--z-results); top: 58px; left: 50%; transform: translateX(-50%); width: min(680px, calc(100% - 24px)); max-height: min(560px, calc(100% - 140px)); overflow-y: auto; padding: 6px; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 12px; box-shadow: var(--shadow); }
+#results { position: absolute; z-index: var(--z-results); top: calc((58px + var(--bar-grow, 0px)) * var(--ts, 1)); left: 50%; transform: translateX(-50%); width: min(680px, calc(100% - 24px)); max-height: min(560px, calc(100% - 140px - var(--bar-grow, 0px) * var(--ts, 1))); overflow-y: auto; padding: 6px; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 12px; box-shadow: var(--shadow); }
 #results .bar-status { position: sticky; top: -6px; z-index: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px; background: var(--surface-solid); border-bottom: 1px solid var(--line); }
 #results .bar-status[hidden] { display: none; }
 #results .bar-last { color: var(--mute); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
@@ -108,11 +117,12 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
    keeps clear of the launchers as the closed bar does (240 px a side, less on a narrow window, never under 540 px wide); a long chain of crumbs wraps onto a second row.
    A conditional button docked at the top sits under the column (--under-bar, surfaces/crumbs.js). The column itself
    makes no stacking context (no z-index, no transform): each pill keeps its own layer in the :root table. */
-#underBar { position: absolute; left: clamp(8px, (100% - 540px) / 2, 240px * var(--ts, 1)); right: clamp(8px, (100% - 540px) / 2, 240px * var(--ts, 1)); top: calc(58px * var(--ts, 1)); display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
+#underBar { position: absolute; left: clamp(8px, (100% - 540px) / 2, 240px * var(--ts, 1)); right: clamp(8px, (100% - 540px) / 2, 240px * var(--ts, 1)); top: calc((58px + var(--bar-grow, 0px)) * var(--ts, 1)); display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
 /* breadcrumb (under the bar and the area pills, only with a selection) */
-#crumbs { position: relative; z-index: var(--z-crumbs); pointer-events: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 2px; max-width: calc(100% - 14px); padding: 3px 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; box-shadow: var(--shadow); white-space: nowrap; overflow-x: auto; }
+#crumbs { position: relative; z-index: var(--z-crumbs); pointer-events: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 2px; max-width: calc(100% - 14px); padding: 3px 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; box-shadow: var(--shadow); white-space: nowrap; }
 #bar.open ~ #underBar #crumbs { display: none; }
-.crumb { white-space: nowrap; border: 0; background: transparent; color: var(--ink-2); padding: 2px 6px; border-radius: 6px; display: inline-flex; gap: 4px; align-items: center; }
+.crumb { white-space: nowrap; border: 0; background: transparent; color: var(--ink-2); padding: 2px 6px; border-radius: 6px; display: inline-flex; gap: 4px; align-items: center; min-width: 0; max-width: 100%; box-sizing: border-box; }
+.crumb .cname { min-width: 0; overflow: hidden; text-overflow: ellipsis; } .crumb svg { flex: none; } /* (the whole name is the button's title) */
 .crumb:hover { background: var(--raised); color: var(--ink); }
 .crumb.cur { color: var(--ink); font-weight: 600; }
 .crumb .hid { color: var(--hidden); }
@@ -206,7 +216,7 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 /* chat */
 #chat { position: absolute; z-index: var(--z-chat); left: 12px; bottom: 34px; width: min(340px, calc(100% - 24px)); max-height: 128px; overflow: hidden; padding: 6px 8px; border-radius: 10px; background: color-mix(in srgb, var(--surface-solid) 70%, transparent); border: 1px solid var(--line); font-size: 12px; cursor: pointer; mask-image: linear-gradient(transparent, #000 30%); }
 #chat.expanded { max-height: 50vh; overflow-y: auto; mask-image: none; background: var(--surface-solid); }
-#chat .line { padding: 1px 0; color: var(--ink-2); } #chat .who { font-weight: 650; } #chat .total { color: var(--ink); }
+#chat .line { padding: 1px 0; color: var(--ink-2); overflow-wrap: anywhere; } #chat .who { font-weight: 650; } #chat .total { color: var(--ink); }
 #bubbles { position: absolute; inset: 0; pointer-events: none; z-index: var(--z-bubbles); }
 .bubble { position: absolute; max-width: 260px; padding: 5px 10px; border-radius: 12px 12px 12px 3px; background: var(--surface-solid); border: 1px solid var(--line-strong); border-left: 3px solid var(--c); box-shadow: var(--shadow); font-size: 13px; }
 
@@ -254,7 +264,7 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 .launcher.live { border-color: var(--accent); box-shadow: var(--shadow), 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
 .launcher .lcap { font-size: 11px; font-weight: 650; color: var(--ink-2); line-height: 1; }
 .launcher kbd { position: absolute; top: -6px; right: -6px; font-size: 10px; }
-#buildMenu { position: absolute; z-index: var(--z-trays); display: flex; flex-direction: column; gap: 8px; width: 236px; padding: 10px; box-sizing: border-box; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; animation: tray-in .18s ease-out; }
+#buildMenu { position: absolute; z-index: var(--z-trays); display: flex; flex-direction: column; gap: 8px; width: min(236px, calc((100vw - 44px) / var(--ts, 1))); padding: 10px; box-sizing: border-box; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; animation: tray-in .18s ease-out; }
 @keyframes tray-in { from { transform: translateX(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
 #buildMenu .banc { display: flex; flex-direction: column; gap: 4px; }
 .bchip { display: flex; align-items: center; gap: 8px; padding: 4px 8px 4px 4px; border-radius: 10px; border: 1px solid var(--line); background: var(--raised); color: var(--ink); cursor: pointer; text-align: left; width: 100%; }
@@ -265,12 +275,13 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 #buildMenu .blevel { display: flex; align-items: baseline; justify-content: space-between; padding: 2px 2px 0; }
 #buildMenu .blevel b { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
 #buildMenu .blevel kbd { font-size: 10px; }
-.bgrid { display: grid; grid-template-columns: repeat(2, 104px); gap: 6px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; flex: 1; padding-bottom: 2px; }
-.btile { position: relative; width: 104px; height: 112px; border-radius: 12px; border: 1px solid var(--line); background: var(--raised); color: var(--ink); display: grid; grid-template-rows: 70px 1fr; justify-items: center; align-items: center; padding: 6px 4px 4px; cursor: pointer; transition: border-color .1s, transform .1s, background .1s; }
+/* (fluid tracks, not 104 px: a classic vertical scrollbar takes its width out of these columns; fixed ones then overflow sideways. Nick's rule, docs/UI.md) */
+.bgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; flex: 1; padding-bottom: 2px; }
+.btile { position: relative; width: 100%; height: 112px; border-radius: 12px; border: 1px solid var(--line); background: var(--raised); color: var(--ink); display: grid; grid-template-rows: 70px 1fr; justify-items: center; align-items: center; padding: 6px 4px 4px; cursor: pointer; transition: border-color .1s, transform .1s, background .1s; }
 .btile:hover { border-color: var(--line-strong); transform: translateY(-1px); }
 .btile.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--raised)); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 45%, transparent); }
 .btile.off { opacity: .5; }
-.btile .bl { font-size: 11.5px; font-weight: 600; line-height: 1.15; text-align: center; max-height: 2.3em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: var(--ink-2); }
+.btile .bl { max-width: 100%; overflow-wrap: anywhere; font-size: 11.5px; font-weight: 600; line-height: 1.15; text-align: center; max-height: 2.3em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: var(--ink-2); }
 .btile.sel .bl { color: var(--ink); }
 .btile kbd { position: absolute; top: 4px; left: 4px; font-size: 10px; min-width: 15px; padding: 0 3px; }
 .btile .more { position: absolute; top: 7px; right: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--mute); }
@@ -374,6 +385,15 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 #pipFrame .rz[data-d="ne"] { top: -6px; right: -6px; cursor: nesw-resize; } #pipFrame .rz[data-d="sw"] { bottom: -6px; left: -6px; cursor: nesw-resize; }
 #pipFrame .rz[data-d="nw"] { top: -6px; left: -6px; cursor: nwse-resize; } #pipFrame .rz[data-d="se"] { bottom: -6px; right: -6px; cursor: nwse-resize; }
 #labels.passive .rlabel { pointer-events: none; }
+/* THE × ON A STAIR'S WARNING (surfaces/stairnotes.js): placed by a transform at its centre. The button is the target and the disc is
+   what is drawn: 28 px of target round a 20 px disc with a mouse, 44 px round 28 on a phone. */
+#stairNoteX { position: absolute; inset: 0; z-index: var(--z-labels); pointer-events: none; overflow: hidden; }
+#stairNoteX.passive .snx { pointer-events: none; }
+.snx { position: absolute; left: 0; top: 0; width: 28px; height: 28px; margin: -14px 0 0 -14px; padding: 0; border: 0; background: none; display: grid; place-items: center; color: #15171b; cursor: pointer; pointer-events: auto; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.snx[hidden] { display: none; }
+.snx-d { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: #f2efe8; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.65); transition: background var(--t-fast, 120ms), color var(--t-fast, 120ms); }
+.snx:hover .snx-d, .snx:active .snx-d { background: #b23a33; color: #fff; } /* (light on the dark note: Gemini's blind read lost a dark disc against it) */
+@media (pointer: coarse) { .snx { width: 44px; height: 44px; margin: -22px 0 0 -22px; } .snx-d { width: 28px; height: 28px; } }
 
 .rbtn.menu.open { background: var(--surface-solid); color: var(--ink); border-color: var(--line-strong); } /* ☰ open: the same spot, now ×  */
 .rbtn.ex { transform: translate(-50%, -50%) scale(var(--exs, 1)); } .rbtn.ex:hover { transform: translate(-50%, -50%) scale(calc(var(--exs, 1) * 1.06)); }
@@ -386,6 +406,8 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
   background: rgba(16, 17, 15, .74); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   box-shadow: 0 14px 44px rgba(0,0,0,.42), inset 4px 0 0 var(--c); color: #f3efe6; font-size: 40px; line-height: 1.2; text-align: left; }
 #announce .ann .aline { font-size: 40px; overflow-wrap: anywhere; }
+#announce .ann.long { top: 50%; width: min(78vw, 980px); max-height: calc(100% - 140px); overflow: hidden auto; scrollbar-width: thin; } #announce .ann.long .aline { font-size: clamp(14px, 1vw + 6px, 18px); line-height: 1.4; }
+#announce .ann.long.more { -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent); } /* (more below than fits: it fades out; the log has it all) */
 #announce .ann .who { color: var(--c); font-weight: 650; }
 #announce .ann .sep, #announce .ann .arrow { opacity: .55; font-weight: 400; }
 #announce .ann .expr { font-weight: 500; }
@@ -422,12 +444,13 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 #settingsModal.pinned .smodal { pointer-events: auto; }
 
 /* ---------- the Pawns menu (surfaces/pawns.js; docs/PAWNS.md): the Build tray's family, three tiles wide ---------- */
-#pawnsTray { position: absolute; z-index: var(--z-trays); display: flex; flex-direction: column; gap: 8px; width: 348px; padding: 10px; box-sizing: border-box; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; animation: tray-in .18s ease-out; }
+/* (the tray and Settings wear zoom: var(--ts): inside it 100vw is scaled too, so the room there is divided back by --ts, or the largest text size runs them off a small screen) */
+#pawnsTray { position: absolute; z-index: var(--z-trays); display: flex; flex-direction: column; gap: 8px; width: min(348px, calc((100vw - 44px) / var(--ts, 1))); padding: 10px; box-sizing: border-box; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; animation: tray-in .18s ease-out; }
 #pawnsTray .pbody { display: flex; flex-direction: column; gap: 16px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; flex: 1; padding-right: 2px; }
 #pawnsTray .psec { display: flex; flex-direction: column; gap: 6px; }
 #pawnsTray .blevel { display: flex; align-items: center; justify-content: space-between; padding: 0 2px; min-height: 24px; }
 #pawnsTray .blevel b { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
-#pawnsTray .bgrid { grid-template-columns: repeat(3, 104px); gap: 7px; overflow: visible; flex: none; }
+#pawnsTray .bgrid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 7px; overflow: visible; flex: none; }
 #pawnsTray footer { font-size: 11px; color: var(--mute); padding: 2px 2px 0; line-height: 1.5; }
 #pawnsTray footer kbd { font-size: 10px; }
 .phbtn { position: relative; display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 6px 0 7px; border-radius: 9px; border: 1px solid var(--line); background: var(--raised); color: var(--ink-2); cursor: pointer; }
@@ -455,15 +478,15 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 .pimg.pfb { display: grid; place-items: center; background: color-mix(in srgb, var(--c, #888) 30%, #16181c); color: #fff; font-weight: 800; font-size: 22px; }
 .pface kbd { position: absolute; top: -6px; left: -7px; font-size: 10px; min-width: 15px; padding: 0 3px; }
 .pmain { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
-.pwho { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 16px; }
+.pwho { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 6px; min-height: 16px; }
 .pwho small { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pname { font-weight: 650; font-size: 13.5px; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pname em { font-weight: 500; font-style: normal; color: var(--mute); font-size: 12px; }
-.pstat { display: inline-flex; align-items: center; gap: 4px; flex: none; }
+.pstat { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 4px; flex: 0 1 auto; min-width: 0; }
 .pdmg { display: inline-flex; align-items: center; gap: 2px; padding: 0 5px 0 4px; height: 18px; border-radius: 9px; background: color-mix(in srgb, var(--danger) 22%, transparent); color: color-mix(in srgb, var(--danger) 55%, var(--ink)); font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums; }
 .pcond { font-style: normal; font-size: 9.5px; font-weight: 700; padding: 1px 5px; border-radius: 8px; background: color-mix(in srgb, var(--ink) 12%, transparent); color: var(--ink-2); max-width: 62px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .phid { display: inline-flex; color: var(--hidden); }
-.pacts { display: flex; align-items: center; gap: 3px; margin-top: 1px; }
+.pacts { display: flex; flex-wrap: wrap; align-items: center; gap: 3px; margin-top: 1px; }
 .pact { width: 27px; height: 26px; border-radius: 7px; border: 1px solid var(--line); background: var(--surface-solid); color: var(--ink-2); display: grid; place-items: center; padding: 0; cursor: pointer; }
 .pact:hover { border-color: var(--accent); color: var(--ink); }
 .pact.on { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface-solid)); }
@@ -495,7 +518,7 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 .btile.mine.away { opacity: .6; }
 .btile .mstar { position: absolute; top: 5px; left: 26px; color: var(--accent); display: inline-flex; } .btile .mstar svg { fill: currentColor; }
 .btile kbd + .mstar { left: 26px; } .btile.mine:not(:has(kbd)) .mstar { left: 6px; }
-.btile .mstat { position: absolute; left: 6px; top: 60px; display: inline-flex; gap: 3px; align-items: center; }
+.btile .mstat { position: absolute; left: 6px; right: 6px; bottom: 38px; display: flex; flex-wrap: wrap-reverse; gap: 3px; align-items: center; } /* (bottom-anchored where top: 60px was: a second row of conditions climbs over the picture instead of running off the tile) */
 .btile .mstat .pcond { background: rgba(0, 0, 0, .7); color: #fff; } .btile .mstat .pdmg { background: var(--danger); color: #fff; }
 .tmenu { position: absolute; top: 4px; right: 4px; width: 22px; height: 20px; border-radius: 7px; border: 1px solid var(--line); background: var(--surface-solid); color: var(--ink-2); display: grid; place-items: center; padding: 0; cursor: pointer; }
 .tmenu:hover { border-color: var(--accent); color: var(--ink); }
@@ -510,18 +533,18 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 #pawnsTray .pbody.tree .banc { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
 /* On the table: a kind per row */
 .krows { display: flex; flex-direction: column; gap: 5px; }
-.krow { display: flex; align-items: center; gap: 9px; padding: 4px 7px 4px 4px; border-radius: 11px; border: 1px solid var(--line); background: var(--raised); flex: 1; min-width: 0; }
+.krow { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; padding: 4px 7px 4px 4px; border-radius: 11px; border: 1px solid var(--line); background: var(--raised); flex: 1; min-width: 0; }
 .krow:hover { border-color: var(--line-strong); }
 .krow.hid { border: 1.5px dashed var(--hidden); background: color-mix(in srgb, var(--hidden) 13%, var(--raised)); }
 .kface { position: relative; flex: none; width: 48px; height: 48px; padding: 0; border-radius: 10px; border: 2px solid var(--line-strong); background: #000; cursor: pointer; display: grid; place-items: center; }
 .kface:hover { border-color: var(--accent); } .kface .nic { width: 44px; height: 44px; border-radius: 8px; }
 .krow.hid .kface { border-color: var(--hidden); } .krow.hid .kface .nic { opacity: .6; }
 .kface .kn { position: absolute; right: -6px; bottom: -5px; font-style: normal; font-size: 11px; font-weight: 800; padding: 0 5px; border-radius: 8px; background: var(--ink); color: var(--surface-solid); }
-.kmain { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.kmain { flex: 1 1 96px; min-width: 96px; display: flex; flex-direction: column; gap: 2px; }
 .kname { display: flex; align-items: baseline; gap: 5px; } .kname b { font-weight: 650; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .kname small { color: var(--mute); font-weight: 700; }
 .khid { color: var(--hidden); font-size: 10.5px; font-weight: 650; }
-.kdmg { display: inline-flex; align-items: center; gap: 3px; color: color-mix(in srgb, var(--danger) 60%, var(--ink)); } .kdmg b { font-size: 11.5px; font-weight: 800; padding: 0 5px; border-radius: 8px; background: color-mix(in srgb, var(--danger) 22%, transparent); } .kdmg small { font-size: 10px; color: var(--mute); }
-.kacts { display: flex; gap: 3px; flex: none; } .pact.rev { color: var(--hidden); border-color: var(--hidden); }
+.kdmg { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 3px; color: color-mix(in srgb, var(--danger) 60%, var(--ink)); } .kdmg b { font-size: 11.5px; font-weight: 800; padding: 0 5px; border-radius: 8px; background: color-mix(in srgb, var(--danger) 22%, transparent); } .kdmg small { font-size: 10px; color: var(--mute); }
+.kacts { display: flex; flex-wrap: wrap; gap: 3px; flex: 0 1 auto; min-width: 0; } .pact.rev { color: var(--hidden); border-color: var(--hidden); }
 /* a turn order: the same rows, a marker on whose turn it is */
 .trow { display: flex; align-items: stretch; gap: 4px; position: relative; } .trow > .prow, .trow > .krow { flex: 1; min-width: 0; }
 .prows.turns.can .trow { cursor: grab; touch-action: none; }
@@ -535,11 +558,11 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 .mpn { flex: 1; min-width: 0; display: flex; flex-direction: column; } .mpn small { color: var(--mute); }
 .mped { margin-top: 12px; padding: 12px; border: 1px solid var(--line-strong); border-radius: 12px; background: color-mix(in srgb, var(--ink) 3%, transparent); display: flex; flex-direction: column; gap: 8px; }
 .mped h4 { margin: 0; font-size: 14px; }
-.mpfig { display: grid; grid-template-columns: 150px 1fr; gap: 12px; align-items: start; }
+.mpfig { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; } .mpfig > .mpprev { flex: 0 0 150px; } .mpfig > .mptree { flex: 1 1 240px; min-width: 0; }
 .mpprev { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; } .mpprev small { color: var(--mute); font-size: 11px; }
 .mptree { max-height: 380px; overflow-y: auto; padding: 2px; display: flex; flex-direction: column; gap: 6px; }
 .mptree .banc { display: flex; flex-direction: row; flex-wrap: wrap; gap: 4px; } .mptree .bchip { width: auto; }
-.mptree .bgrid { grid-template-columns: repeat(auto-fill, 104px); overflow: visible; flex: none; }
+.mptree .bgrid { grid-template-columns: repeat(auto-fill, minmax(min(96px, 100%), 1fr)); overflow: visible; flex: none; }
 .mped textarea { width: 100%; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--bg); color: var(--ink); padding: 6px 8px; resize: vertical; }
 /* a small menu at an icon (areas, people) */
 .ppop { position: fixed; z-index: var(--z-popover); min-width: 190px; max-width: 280px; max-height: 60vh; overflow-y: auto; padding: 6px; border-radius: 12px; background: var(--surface-solid); border: 1px solid var(--line-strong); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 3px; zoom: var(--ts, 1); }
@@ -557,7 +580,7 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 .launcher .dot[hidden] { display: none; }
 #settingsModal { position: fixed; inset: 0; z-index: var(--z-modal); display: grid; place-items: center; background: rgba(8, 9, 7, .55); backdrop-filter: blur(2px); }
 #settingsModal[hidden] { display: none; }
-.smodal { display: grid; grid-template-columns: 216px 1fr; width: min(860px, calc(100vw - 32px)); height: min(640px, calc(100vh - 32px)); background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow), 0 24px 60px rgba(0,0,0,.45); overflow: hidden; animation: smodal-in .16s ease-out; }
+.smodal { display: grid; grid-template-columns: 216px 1fr; width: min(860px, calc((100vw - 32px) / var(--ts, 1))); height: min(640px, calc((100vh - 32px) / var(--ts, 1))); background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow), 0 24px 60px rgba(0,0,0,.45); overflow: hidden; animation: smodal-in .16s ease-out; }
 @keyframes smodal-in { from { transform: scale(.97); opacity: 0; } to { transform: none; opacity: 1; } }
 html.reduce-motion .smodal { animation: none; }
 .scats { display: flex; flex-direction: column; gap: 2px; padding: 14px 10px; background: var(--raised); border-right: 1px solid var(--line); overflow-y: auto; }
@@ -575,12 +598,14 @@ html.reduce-motion .smodal { animation: none; }
 .sgrp { margin: 6px 0 16px; }
 .sgrp h3 { margin: 0 0 6px; font-size: 11px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; color: var(--mute); }
 .snote { color: var(--mute); font-size: 12px; margin: 2px 0 8px; }
-.srow { display: grid; grid-template-columns: 190px 1fr; align-items: center; gap: 4px 12px; padding: 7px 0; border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
-.srow > label { font-size: 13px; font-weight: 600; color: var(--ink); }
-.srow .snote { grid-column: 2; margin: 0; font-size: 11px; }
+/* label and control on one line where there is room, one over the other where there is not (flex, not a width query: a query's pixels do not follow the text size's zoom) */
+.srow { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 7px 0; border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+.srow > label { flex: 0 0 190px; max-width: 100%; font-size: 13px; font-weight: 600; color: var(--ink); }
+.srow > .sctl { flex: 1 1 240px; }
+.srow .snote { flex: 0 1 calc(100% - 202px); min-width: min(100%, 320px); margin: 0 0 0 auto; font-size: 11px; }
 .sctl { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
 .sctl output { font-size: 11px; color: var(--mute); min-width: 30px; font-variant-numeric: tabular-nums; }
-.sctl input[type=range] { width: 150px; accent-color: var(--accent); }
+.sctl input[type=range] { width: 150px; max-width: 100%; min-width: 60px; flex: 0 1 150px; accent-color: var(--accent); }
 .spane input:not([type]), .spane input[type=text], .spane select { height: 30px; padding: 0 9px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--surface-solid); color: var(--ink); font-size: 13px; min-width: 0; }
 .spane input[type=color] { width: 44px; height: 30px; padding: 2px; border-radius: 8px; border: 1px solid var(--line-strong); background: none; }
 .stog { position: relative; width: 38px; height: 22px; border-radius: 11px; border: 1px solid var(--line-strong); background: var(--raised); cursor: pointer; padding: 0; flex: none; transition: background .12s; }
@@ -590,7 +615,7 @@ html.reduce-motion .smodal { animation: none; }
 html.reduce-motion .stog, html.reduce-motion .stog i { transition: none; }
 .sinh { font-size: 11px; color: var(--mute); padding: 2px 7px; border-radius: 6px; background: color-mix(in srgb, var(--ink) 5%, transparent); }
 .sinh.over { color: var(--ink); background: color-mix(in srgb, var(--accent) 20%, transparent); }
-.sbtn { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font-size: 12.5px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.sbtn { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; max-width: 100%; box-sizing: border-box; padding: 0 11px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font-size: 12.5px; font-weight: 600; cursor: pointer; }
 .sbtn:hover:not([disabled]) { border-color: var(--accent); }
 .sbtn[disabled] { opacity: .45; cursor: default; }
 /* Settings ▸ Me / Vision, distance & rules ▸ D&D Beyond (2026-10-29): Beyond20's state in this tab, and the help page in a new tab */
@@ -600,7 +625,7 @@ a.sbtn.sddb-help { text-decoration: none; }
 .sbtn.primary { background: var(--accent); border-color: var(--accent); color: #151515; }
 .sbtn.danger { color: var(--danger, #e5484d); }
 .sbtn.danger.armed { background: var(--danger, #e5484d); color: #fff; }
-.sbtn.tiny { height: 22px; padding: 0 7px; font-size: 11px; }
+.sbtn.tiny { min-height: 22px; padding: 0 7px; font-size: 11px; }
 .sareas, .slist { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .sarea { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--raised); }
 .sarea.here { border-color: var(--accent); }
@@ -608,14 +633,15 @@ a.sbtn.sddb-help { text-decoration: none; }
 .san small { font-size: 11px; color: var(--mute); }
 .san input { font-weight: 650; }
 .sab { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-.slist li { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--raised); font-size: 13px; }
+.slist li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; overflow-wrap: anywhere; padding: 6px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--raised); font-size: 13px; }
 .slist li > small { color: var(--mute); margin-right: auto; }
 .slist li > b + small { margin-left: 4px; }
 .slist.dim li { opacity: .7; }
 .st-approved { color: #4caf50 !important; } .st-denied { color: var(--danger, #e5484d) !important; } .st-pending { color: var(--accent) !important; }
 .snew { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
 .snew input { flex: 1; min-width: 140px; }
-.schk { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; margin-right: 10px; }
+.snew .agentwill { flex-basis: 100%; opacity: 0.75; }
+.schk { display: inline-flex; flex-wrap: wrap; max-width: 100%; align-items: center; gap: 5px; font-size: 12.5px; margin-right: 10px; }
 .scls { display: flex; flex-wrap: wrap; gap: 4px 0; margin: 6px 0; }
 .skey code { font-size: 11px; word-break: break-all; background: var(--raised); padding: 2px 5px; border-radius: 5px; }
 .skeys { margin-top: 8px; font-size: 12.5px; }
@@ -623,8 +649,9 @@ a.sbtn.sddb-help { text-decoration: none; }
 .skeys table { border-collapse: collapse; margin-top: 6px; width: 100%; }
 .skeys td { padding: 3px 6px; border-bottom: 1px solid var(--line); }
 .skeys td:last-child { text-align: right; }
-.sfoot { padding-top: 6px; }
-@media (max-width: 640px) { .smodal { grid-template-columns: 1fr; grid-template-rows: auto 1fr; } .scats { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); } .scats .stitle { display: none; } .srow { grid-template-columns: 1fr; } }
+.sfoot { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 6px; }
+/* Settings on a narrow screen: every section stays in sight, in Harry's order, on as many lines as it takes (they used to be a strip that scrolled sideways: Nick's rule, docs/UI.md) */
+@media (max-width: 640px) { .smodal { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); } .scats { flex-direction: row; flex-wrap: wrap; gap: 2px 4px; padding: 8px; border-right: 0; border-bottom: 1px solid var(--line); overflow-y: visible; } .scats .stitle, .scat kbd { display: none; } .scat { gap: 6px; padding: 5px 8px; font-size: 12.5px; } .scats .other-games { margin-top: 0; } }
 /* Settings ▸ Me: text size (personal) scales the chrome; reduced motion stops UI transitions */
 #bar, #crumbs, #chat, #roster, #launchers, #buildMenu, #pawnsTray, .smodal, #followPill { zoom: var(--ts, 1); }
 html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
@@ -805,9 +832,10 @@ body.drag-in-hand #levelMeter { pointer-events: none; } /* something is in the h
    menu's tree, cast and bench tiles. A row that drags takes the finger itself (so a touch drag is a drag, not a scroll);
    the list it came from steps aside while it is in the hand, and room labels and the ring never catch the drop. */
 .res.drags, #pawnsTray .btile.drags { touch-action: none; }
+#pawnsTray .seize { touch-action: none; cursor: grab; } /* a portrait that seizes its pawn (surfaces/pawns.js seizeOut): a finger on it drags the pawn, as a bench tile does */
 #results.out, #pawnsTray.out { visibility: hidden; pointer-events: none; }
 body.dragging-out, body.dragging-out * { cursor: grabbing !important; }
-body.dragging-out #labels .rlabel, body.dragging-out #ring > * { pointer-events: none !important; } /* (nor the selected thing's ring: a pawn beside it is still a place to let go) */
+body.dragging-out #labels .rlabel, body.dragging-out #stairNoteX .snx, body.dragging-out #ring > * { pointer-events: none !important; } /* (nor the selected thing's ring: a pawn beside it is still a place to let go) */
 #dragFig { position: fixed; z-index: var(--z-ghost); width: 56px; height: 56px; margin: -66px 0 0 -66px; /* up and left of the pointer: the pawn it is over stays in sight */ border-radius: 12px; overflow: hidden; pointer-events: none; background: var(--raised); border: 2px solid var(--seat, var(--accent)); box-shadow: var(--shadow, 0 6px 18px rgba(0, 0, 0, .35)); opacity: .92; }
 #dragFig img { width: 100%; height: 100%; object-fit: cover; display: block; }
 #start .mark { display: block; margin: -4px 0 8px -6px; }
@@ -840,9 +868,9 @@ body.dragging-out #labels .rlabel, body.dragging-out #ring > * { pointer-events:
 
 /* Faction emblems: two data-grouped rows, shared by ☰ and the first drag-out offer. */
 #ring > .flyout.grid.faction-panel { display: block; width: max-content; }
-.faction-grid { display: flex; flex-direction: column; gap: 7px; max-width: min(540px, calc(100vw - 48px)); overflow-x: auto; padding: 3px; }
+.faction-grid { display: flex; flex-direction: column; gap: 7px; max-width: min(540px, calc(100vw - 48px)); padding: 3px; }
 .faction-panel .faction-grid { margin-top: 9px; }
-.faction-row { display: flex; gap: 6px; min-height: 42px; }
+.faction-row { display: flex; flex-wrap: wrap; gap: 6px; min-height: 42px; }
 .faction-choice { flex: 0 0 42px; width: 42px; height: 42px; padding: 3px; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--line-strong); background: var(--surface-solid); color: var(--ink); cursor: pointer; }
 .faction-choice img { width: 32px; height: 32px; object-fit: cover; border-radius: 50%; pointer-events: none; }
 .faction-choice:hover, .faction-choice:focus-visible { border-color: var(--accent); }
@@ -882,7 +910,7 @@ body.dragging-out #labels .rlabel, body.dragging-out #ring > * { pointer-events:
 .smeta a, #start .metalinks a { color: var(--mute); text-decoration: none; } .smeta a:hover, #start .metalinks a:hover { color: var(--ink); text-decoration: underline; }
 #start .accept { margin: 0; font-size: 12px; color: var(--mute); } #start .accept a { color: var(--ink-2); }
 #start .metalinks { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12.5px; }
-@media (max-width: 640px) { .smeta { flex-wrap: nowrap; align-items: center; padding: 0 6px; white-space: nowrap; } }
+@media (max-width: 640px) { .smeta { align-items: center; padding: 0 6px; } }
 
 /* A GM preview is always explicit, with a direct way back. */
 #visionBadge { position:fixed; top:62px; left:50%; transform:translateX(-50%); z-index: var(--z-badge); padding:8px 16px; border:1px solid #e0b04a; border-radius:18px; background:#30281b; color:#ffe1a0; font:600 14px system-ui; cursor:pointer; }
@@ -917,8 +945,8 @@ body.dragging-out #labels .rlabel, body.dragging-out #ring > * { pointer-events:
 .tw-hand kbd, .tw-hand #bar .hint { display: none !important; }    /* (no keyboard: the key caps are noise) */
 html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that starts on the HUD never zooms the page itself; lists still scroll) */
 .tw-hand .rlabel { touch-action: none; }  /* (a finger on a room label is a finger on the map: input.js labelPress) */
-.tw-hand #bar { height: 44px; }
-.tw-hand #bar input, .tw-hand .lmcard .lm-email { font-size: 16px; } /* (16 px: iOS does not zoom into a field) */
+.tw-hand #bar { min-height: 44px; }
+.tw-hand #bar textarea, .tw-hand .lmcard .lm-email { font-size: 16px; } /* (16 px: iOS does not zoom into a field) */
 .tw-hand #otherGames { min-height: 40px; padding: 0 12px; font-size: 12px; }
 .tw-hand #areaState button { min-height: 40px; padding: 0 12px; }
 .tw-hand .tpin { width: 40px; height: 40px; }
@@ -926,8 +954,6 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
 .tw-hand .lmcard .lm-email, .tw-hand .lmcard .lm-send { min-height: 44px; }
 .tw-hand .lmcard .lm-news { min-height: 36px; }
 .tw-hand .lmcard .lm-privacy { display: inline-flex; align-items: center; min-height: 36px; }
-.tw-hand #pawnsTray { width: min(348px, calc(100vw - 40px)); }
-.tw-hand #pawnsTray .bgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .tw-hand #pawnsTray .bgrid .btile { width: auto; }
 .tw-hand #chat .abtn { min-height: 32px; }
 .tw-hand #buildMenu footer, .tw-hand #pawnsTray footer { display: none; } /* (key hints and mouse words) */
 .tw-hand .smodal .sx { width: 40px; height: 40px; } .tw-hand .scat { min-height: 40px; } .tw-hand .smodal .sbtn { min-height: 36px; }
@@ -935,7 +961,7 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
 .tw-hand #levelMeter:not(:hover):not(.scrub) { width: 26px; } .tw-hand #levelMeter .lm-roof, .tw-hand #levelMeter .lm-all { height: 30px; padding-left: 6px; } /* (a wider strip for a thumb; it still opens out to 104 px) */
 .tw-hand #pipFrame .bar button { min-width: 36px; min-height: 32px; }
 .tw-hand #crumbs .crumb { min-height: 36px; }
-.tw-hand #bar input { align-self: stretch; }
+.tw-hand #bar textarea { height: 42px; line-height: 24px; }
 /* "WE ARE PAYING BLOOD PRICE FOR EVERYTHING ON THE SCREEN" (Harry 2026-10-24; docs/UI.md "On a phone"): what stays up all
    the time on a computer is tucked away on a phone; each is still reachable (named here) */
 .tw-hand #otherGames { display: none; }                 /* Settings ▸ Other games / New game */
@@ -954,7 +980,7 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
   .tw-hand #areaState { left: auto; right: 8px; top: 72px; transform: none; max-width: calc(100% - 240px); }
   .tw-hand #areaState .astate { display: none; }
   .tw-hand #areaState .aname { max-width: 96px; }
-  .tw-hand #results { top: 58px; left: 30px; width: calc(100% - 38px); transform: none; }
+  .tw-hand #results { top: calc((58px + var(--bar-grow, 0px)) * var(--ts, 1)); left: 30px; width: calc(100% - 38px); transform: none; }
   .tw-hand #crumbs { top: auto; bottom: 120px; left: 30px; transform: none; max-width: calc(100% - 38px); }
   .tw-hand #buildMenu, .tw-hand #pawnsTray { max-height: 62vh !important; }   /* (the map stays below an open tray) */
   .tw-hand #handTool { left: 50%; bottom: 84px; transform: translateX(-50%); }
@@ -965,7 +991,7 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
   .tw-hand #handTool { left: 30px; bottom: 14px; }
   .tw-hand #areaState { left: auto; right: 58px; top: 14px; transform: none; max-width: none; } .tw-hand #areaState .astate { display: none; } /* (between the bar and the avatars: off the middle, where a ring opens) */
   .tw-hand #areaState .aname { max-width: 96px; }
-  .tw-hand .smodal { grid-template-columns: 1fr; grid-template-rows: auto 1fr; } .tw-hand .scats { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); } .tw-hand .scats .stitle { display: none; }
+  .tw-hand .smodal { grid-template-columns: 172px minmax(0, 1fr); } .tw-hand .scats { padding: 8px 6px; } .tw-hand .scats .stitle, .tw-hand .scat kbd { display: none; } /* (a short screen keeps its height for the pane: the sections are a rail that scrolls down) */
 }
 /* the live tool, and its way out (client/handheld.js): a phone has no Escape and no hover */
 #handTool { position: absolute; z-index: var(--z-follow); display: flex; align-items: center; gap: 8px; max-width: calc(100% - 40px); padding: 4px 4px 4px 12px; border-radius: 12px; background: var(--surface-solid); border: 1px solid var(--accent); box-shadow: var(--shadow); color: var(--ink); font-size: 13px; }
@@ -994,15 +1020,15 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
 /* SHARE A BUILD (2026-10-29; client/share.js): the Export / Share link window, in the Settings window's own parts */
 #shareModal { position: fixed; inset: 0; z-index: var(--z-modal); display: grid; place-items: center; background: rgba(8, 9, 7, .55); backdrop-filter: blur(2px); }
 #shareModal[hidden] { display: none; }
-.shmodal { width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow), 0 24px 60px rgba(0,0,0,.45); zoom: var(--ts, 1); }
+.shmodal { width: min(760px, calc((100vw - 32px) / var(--ts, 1))); max-height: calc((100vh - 32px) / var(--ts, 1)); overflow: auto; background: var(--surface-solid); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: var(--shadow), 0 24px 60px rgba(0,0,0,.45); zoom: var(--ts, 1); }
 .shhead { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 15px; }
 .shhead .sx { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--line); background: var(--raised); color: var(--ink); font-size: 18px; cursor: pointer; }
-.shbody { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px; padding: 18px; }
+.shbody { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 18px; padding: 18px; }
 .shpic { aspect-ratio: 1.6; border-radius: 10px; border: 1px solid var(--line); background: var(--raised); display: grid; place-items: center; overflow: hidden; color: var(--mute); font-size: 13px; }
 .shpic img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .shside { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .shlab { display: grid; gap: 4px; font-size: 12px; color: var(--ink-2); font-weight: 600; }
-.shlab input { height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font: inherit; font-size: 14px; font-weight: 500; }
+.shlab input { box-sizing: border-box; width: 100%; min-width: 0; height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font: inherit; font-size: 14px; font-weight: 500; }
 .shwhat { margin: 2px 0 0; font-size: 13px; color: var(--ink); } .shwhat small { color: var(--mute); }
 .shstrip.dim { opacity: .55; }
 .shlink { display: flex; gap: 6px; align-items: center; } .shlink code { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: 12px; padding: 6px 8px; border-radius: 6px; background: var(--raised); border: 1px solid var(--line); user-select: all; }
@@ -1019,7 +1045,7 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
    pawn's eyes: the HUD is cut to what you use there (the Exit, the command bar for rolls and words, the chat and roll log,
    the toasts, the turn order); the map's own overlays (labels, the ring, the level meter, the crumbs, the launchers, the
    area pills) go until you leave. */
-html.tw-fpv #labels, html.tw-fpv #ring, html.tw-fpv #levelMeter, html.tw-fpv #launchers, html.tw-fpv #crumbs, html.tw-fpv #undoChips,
+html.tw-fpv #labels, html.tw-fpv #stairNoteX, html.tw-fpv #ring, html.tw-fpv #levelMeter, html.tw-fpv #launchers, html.tw-fpv #crumbs, html.tw-fpv #undoChips,
 html.tw-fpv #introHint, html.tw-fpv #modeLabel, html.tw-fpv #areaState, html.tw-fpv #pipHid, html.tw-fpv #buildMenu, html.tw-fpv #pawnsTray,
 html.tw-fpv #rulers, html.tw-fpv #toolCursor, html.tw-fpv #marquee, html.tw-fpv #fpvTags .fpv-tag[data-mine] { display: none !important; }
 html.tw-fpv #c { cursor: grab; } html.tw-fpv #c:active { cursor: grabbing; }

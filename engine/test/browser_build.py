@@ -518,16 +518,17 @@ async def main():
         ob = await wheel(24.5, 0.5, alt=True)
         fl = await wheel(0.5, -400.5, alt=True, pause=0.05)
         check(ob['did'] == 'orbit' and abs(ob['dy']) > 1 and fl['did'] == 'orbit' and fl['p'] >= fl['min'] - 1e-6, 'Option + two-finger scroll rotates (yaw), and the pitch never drops below the floor', [ob, fl])
-        # one rotate behaviour: the ground point under the pointer where the gesture began stays put on screen
-        pv = await gm.evaluate("""(async () => { const c = document.getElementById('c'), g = tw.main.grab; await new Promise(r => setTimeout(r, 500));
-          const a = g.groundAt(500, 420); const w = (dx, dy) => c.dispatchEvent(new WheelEvent('wheel', { deltaX: dx, deltaY: dy, deltaMode: 0, altKey: true, clientX: 500, clientY: 420, bubbles: true, cancelable: true }));
+        # one rotate behaviour: the ground point at the centre of the view stays put on screen, wherever the pointer is
+        # (2026-11-02; on 2026-10-04 it was the point under the pointer; browser_rotatepivot.py has every input)
+        pv = await gm.evaluate("""(async () => { const c = document.getElementById('c'), g = tw.main.grab, b = c.getBoundingClientRect(), mx = b.left + b.width / 2, my = b.top + b.height / 2; await new Promise(r => setTimeout(r, 500));
+          const a = g.groundAt(mx, my); const w = (dx, dy) => c.dispatchEvent(new WheelEvent('wheel', { deltaX: dx, deltaY: dy, deltaMode: 0, altKey: true, clientX: 500, clientY: 420, bubbles: true, cancelable: true }));
           for (let i = 0; i < 6; i++) { w(9.5, 3.25); await new Promise(r => setTimeout(r, 30)); }
-          const s = tw.screenOf(a.x, a.z, tw.main, 0); return { dx: s.x - 500, dy: s.y - 420 }; })()""")
+          const s = tw.screenOf(a.x, a.z, tw.main, 0); return { dx: s.x - mx, dy: s.y - my }; })()""")
         await gm.mouse.move(520, 400); await gm.wait_for_timeout(200)
-        qk = await gm.evaluate("(() => { const g = tw.main.grab; const a = g.groundAt(520, 400); return [a.x, a.z, g.yaw]; })()")
+        qk = await gm.evaluate("(() => { const g = tw.main.grab, b = document.getElementById('c').getBoundingClientRect(), mx = b.left + b.width / 2, my = b.top + b.height / 2; const a = g.groundAt(mx, my); return [a.x, a.z, g.yaw, mx, my]; })()")
         await gm.keyboard.down('q'); await wait(gm, f"Math.abs(tw.main.grab.yaw - ({qk[2]})) > 8", 6000, 'q turns'); await gm.keyboard.up('q')
-        qa = await gm.evaluate(f"(() => {{ const s = tw.screenOf({qk[0]}, {qk[1]}, tw.main, 0); return [s.x - 520, s.y - 400, tw.main.grab.yaw]; }})()")
-        check(abs(pv['dx']) < 2 and abs(pv['dy']) < 2 and abs(qa[0]) < 2 and abs(qa[1]) < 2 and abs(qa[2] - qk[2]) > 5, 'every rotate pivots on the ground point under the pointer where it began (Option+scroll, Q/E), like middle-drag', [pv, qa])
+        qa = await gm.evaluate(f"(() => {{ const s = tw.screenOf({qk[0]}, {qk[1]}, tw.main, 0); return [s.x - {qk[3]}, s.y - {qk[4]}, tw.main.grab.yaw]; }})()")
+        check(abs(pv['dx']) < 2 and abs(pv['dy']) < 2 and abs(qa[0]) < 2 and abs(qa[1]) < 2 and abs(qa[2] - qk[2]) > 5, 'every rotate pivots on the ground point at the centre of the view, not the pointer (Option+scroll, Q/E), like middle-drag', [pv, qa])
         ge = await gm.evaluate("""(() => { const c = document.getElementById('c'), g = tw.main.grab, d0 = g.dist, y0 = g.yaw;
           const ev = (t, s, r) => { const e = new Event(t, { cancelable: true }); Object.assign(e, { scale: s, rotation: r, clientX: 500, clientY: 420 }); c.dispatchEvent(e); };
           ev('gesturestart', 1, 0); ev('gesturechange', 1.5, 20); ev('gestureend', 1.5, 20); return { dd: g.dist - d0, dy: g.yaw - y0 }; })()""")

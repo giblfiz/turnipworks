@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""THE SITE PAGES: docs/site/{about,terms,privacy,connect-dnd-beyond}.md -> engine/client/site/<name>.html  (2026-10-21)
+"""THE SITE PAGES: docs/site/{about,terms,privacy,connect-dnd-beyond,features,dice,switching,export,manual}.md -> engine/client/site/<name>.html  (2026-10-21)
 
   python3 engine/tools/build_site.py           write the pages (engine/deploy.sh runs this)
   python3 engine/tools/build_site.py --check   exit 1 if a committed page differs from its source
@@ -18,7 +18,7 @@ SEARCH AND LINK PREVIEWS (2026-10-23): each page carries a canonical address on 
 card tags (the picture is the game's own card, OG_IMAGE below; the homepage, engine/client/index.html, carries the same
 set by hand). This also writes, beside the pages (so a release carries them with the client):
   robots.txt    PROD's (allow everyone, search and AI crawlers named; the sitemap). Dev answers its own Disallow: / in nginx.
-  sitemap.xml   the public pages: /, /about, /vtt-index, /terms, /privacy, /connect-dnd-beyond (never a campaign or table address)
+  sitemap.xml   the public pages: /, NAV, HELP (never a campaign or table address)
   llms.txt      copied from docs/site/llms.txt (a plain summary for AI assistants; llmstxt.org)
 nginx serves them at /robots.txt, /sitemap.xml and /llms.txt (engine/relay/nginx-*.conf). engine/test/seo_check.py checks it all.
 
@@ -27,6 +27,14 @@ against docs/site/vtt-index.schema.json here: a bad row stops the build) -> vtt-
 with engine/tools/site/vtt-index.{css,js} inlined), plus vtt-index.json, vtt-index.schema.json and vtt-index-md.txt (the
 whole table as Markdown) beside it. nginx serves them at /vtt-index, /vtt-index.json, /vtt-index.schema.json and
 /vtt-index.md. How to update the data: docs/VTT_INDEX.md (tools/vtt-index/vtt_index.py).
+
+THE GUIDE PAGES (2026-11-04, for Google Ads sitelinks: each a distinct page): /features (a tour of what is live), /dice (the
+game-system dice words), /switching (coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire), in the nav row; /export
+(Universal VTT files for Foundry, Roll20, Fantasy Grounds) as a help page. All four load landing.js (LANDING above).
+
+THE MANUAL (2026-11-04, Harry: "one of the things we clearly need for Turnip Works is an instruction manual"): /manual, one
+long page with an anchored contents list (heading ids by attr_list, `## Building {#building}`), in the nav row after
+Features, and linked from the game's start card and Settings. Like /features it describes only what branch `live` has.
 """
 import datetime, html, json, os, re, sys
 import markdown
@@ -35,9 +43,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import site_vtt_
 HERE = os.path.dirname(os.path.abspath(__file__)); ENGINE = os.path.dirname(HERE); REPO = os.path.dirname(ENGINE)
 SRC = os.path.join(REPO, 'docs', 'site'); OUT = os.path.join(ENGINE, 'client', 'site')
 PAGES = ['about', 'terms', 'privacy']       # the Markdown pages
-NAV = ['about', 'vtt-index', 'terms', 'privacy']   # the link row on every page (and the sitemap, after /)
+NAV = ['features', 'manual', 'dice', 'switching', 'vtt-index', 'about', 'terms', 'privacy']   # the link row on every page (and the sitemap, after /)
 INDEX = 'vtt-index'
-HELP = ['connect-dnd-beyond']   # help pages: rendered like the Markdown pages, in the sitemap, not in the nav row
+HELP = ['connect-dnd-beyond', 'export']   # help pages: rendered like the Markdown pages, in the sitemap, not in the nav row
+# AD LANDING PAGES (2026-11-04): pages an ad's sitelink lands on. Each loads client/landing.js, the same first-party note the
+# front door and /vtt-index take (dd5b508f), so a table started later from "/" still carries the utm_* and the click id.
+LANDING = ['features', 'dice', 'switching', 'export']
 SOURCE = 'https://github.com/giblfiz/turnipworks'
 SITE = 'https://turnipworks.net'
 # the link preview's picture: a real frame of the game (the approved promo, 2026-10-23), 1200x630. A new picture gets a
@@ -76,7 +87,7 @@ strong { font-weight: 650; }
 footer { max-width: 46rem; margin: 0 auto; padding: 18px 20px 40px; color: var(--mute); font-size: 13px; }
 ol { margin: 0 0 14px; padding-left: 24px; } ol li { margin: 0 0 8px; padding-left: 2px; }
 code { font: 14px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; background: var(--raised); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
-pre { margin: 0 0 14px; padding: 10px 14px; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; }
+pre { margin: 0 0 14px; padding: 10px 14px; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
 pre code { background: none; border: 0; padding: 0; }
 kbd { font: 600 13px/1 Inter, system-ui, sans-serif; padding: 2px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--paper); }
 figure { margin: 18px 0 22px; }
@@ -160,6 +171,8 @@ def render(name, metas, data=None):
     links = f'<nav class="links" aria-label="Turnip Works pages">{nav}<a href="{SOURCE}">Source</a></nav>'
     out = markdown.markdown(body, extensions=['extra', 'sane_lists', 'md_in_html'], output_format='html')
     extra = {'head_extra': '', 'body_attr': '', 'script': ''}
+    if name in LANDING:
+        extra['script'] = '\n<script type="module" src="/engine/client/landing.js"></script>'
     if name == INDEX:
         out = vtt.body(out, data)
         extra = {'head_extra': '\n' + vtt.head_extra(data, meta['description']), 'body_attr': ' class="wide"', 'script': '\n' + vtt.script()}

@@ -38,7 +38,10 @@ export function mergeSegments(segments) {
 // (client/diceworld.js: a shut barred door is a box there). A pawn's own move is not blocked by anything in the engine.
 export const SEE_THROUGH = /^(cell-bars|door-cell-bars|portcullis)(-|$)/;
 export const seeThrough = (cat) => SEE_THROUGH.test(cat || '');
-export function blockingSegments(edges, entities = {}, level = 0) {
+// WALKING (the movement rings, core/walk.js; 2026-11-02): `walk` asks for what stops FEET rather than sight. A window is a
+// wall, bars and a shut barred door stop a walker, and a door hidden from the players still stands for the GM side that
+// has it (a player's page never receives one). Open doors, opened-up edges and gaps let a walker through, as they do sight.
+export function blockingSegments(edges, entities = {}, level = 0, { walk = false } = {}) {
   const values = edges instanceof Map ? [...edges.values()] : Array.isArray(edges) ? edges : Object.values(edges || {});
   const byKey = new Map(values.map(e => [e.key,e])), overrides = new Map(Object.values(entities).filter(e => e.kind === 'edge').map(e => [e.key,e]));
   const out = [];
@@ -53,20 +56,20 @@ export function blockingSegments(edges, entities = {}, level = 0) {
     if (stacked && byKey.has(key)) continue; // the real upper room owns this shared wall
     const parent = !stacked && e.spanOf && byKey.get(e.spanOf), o = overrides.get(parent?.key || key), local = overrides.get(key);
     const kind = stacked || local?.as === 'wall' || o?.as === 'wall' ? 'wall' : parent?.kind || e.kind;
-    if (local?.as === 'open' || o?.as === 'open' || (!stacked && (e.open || parent?.open)) || ['window','open','gap'].includes(kind)) continue;
-    if (!['wall','door','door-span'].includes(kind)) continue;
-    if (kind !== 'wall' && seeThrough(local?.doorType || o?.doorType || parent?.doorType || e.doorType)) continue; // a generated door swapped for the barred one
+    if (local?.as === 'open' || o?.as === 'open' || (!stacked && (e.open || parent?.open)) || (walk ? ['open','gap'] : ['window','open','gap']).includes(kind)) continue;
+    if (!['wall','door','door-span',...(walk ? ['window'] : [])].includes(kind)) continue;
+    if (!walk && kind !== 'wall' && seeThrough(local?.doorType || o?.doorType || parent?.doorType || e.doorType)) continue; // a generated door swapped for the barred one
     const x = e.gx * 5, z = e.gz * 5;
     out.push(e.dir === 'h' ? [x,z,x+5,z] : [x,z,x,z+5]);
   }
   // Materialised walls and doors are ordinary objects. Their replacement edge is
   // open; block at their current position, with the same rotation as the mesh.
   for (const e of Object.values(entities)) {
-    if (e.kind !== 'object' || e.hidden || (e.y || 0) - ground(e.room) !== level || e.open) continue;
+    if (e.kind !== 'object' || (e.hidden && !walk) || (e.y || 0) - ground(e.room) !== level || e.open) continue;
     const cat = e.cat || '';
     const door = /(^door-|(^|-)gate(-|$)|portcullis)/.test(cat);
-    const wall = /^wall-straight/.test(cat) || (e.fromEdge && e.layer === 'walls' && !/window|doorway/.test(cat));
-    if ((!door && !wall) || /-open$/.test(cat) || seeThrough(cat)) continue; // (bars: seen through, above)
+    const wall = /^wall-straight/.test(cat) || (e.fromEdge && e.layer === 'walls' && !(walk ? /doorway/ : /window|doorway/).test(cat));
+    if ((!door && !wall) || /-open$/.test(cat) || (!walk && seeThrough(cat))) continue; // (bars: seen through, above)
     const half = (e.dims?.[0] || 5)/2, a = e.rot || 0, dx = Math.cos(a)*half, dz = -Math.sin(a)*half;
     out.push([e.x-dx,e.z-dz,e.x+dx,e.z+dz]);
   }

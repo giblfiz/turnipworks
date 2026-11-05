@@ -152,6 +152,7 @@ export function fpvSurface(R, app) {
     cam.fov = FPV.fov; cam.near = FPV.near; cam.far = FPV.far; cam.updateProjectionMatrix();
     if (!app.fog?.dark?.()) w.scene.background = new THREE.Color(FPV.sky);
     if (w.grid) w.grid.visible = false; // (the build grid at eye level is a moiré to the horizon)
+    if (w.levelGrid) w.levelGrid.visible = false; // (and so is the grid of a level being built on: Harry 2026-11-03, one grid, the one you draw on, and none at eye level)
     w.eye = { x: e.x, z: e.z, r: FPV.wake }; w.cutGen = (w.cutGen || 0) + 1;
     w.fogDrawOff = true; // (fog of war's overlay is a top-down look: not drawn at eye level; client/fog.js. What a seat may not see stays withheld.)
     V.glide = null; V.eyes = (c, dt) => frame(c, dt);
@@ -171,7 +172,7 @@ export function fpvSurface(R, app) {
     for (const c of s.hidden) c.visible = true;
     const dl = s.w.dropLines?.get(s.id); if (dl && s.dropWas != null) dl.visible = s.dropWas;
     s.ceil.clear(); s.w.eye = null; s.w.eyeLevel = null; s.w.fogDrawOff = false; s.w.cutGen = (s.w.cutGen || 0) + 1;
-    if (s.saved.bg) s.w.scene.background = s.saved.bg; if (s.w.grid && s.saved.grid != null) s.w.grid.visible = s.saved.grid;
+    if (s.saved.bg) s.w.scene.background = s.saved.bg; if (s.w.grid && s.saved.grid != null) s.w.grid.visible = s.saved.grid; if (s.w.levelGrid) s.w.levelGrid.visible = true;
     const V = s.V, cam = V.camera; V.eyes = null;
     cam.fov = s.saved.fov; cam.near = s.saved.near; cam.far = s.saved.far; cam.updateProjectionMatrix();
     V.glide = null; V.setPose(s.saved.pose); V.rule = s.saved.rule; V.follow = s.saved.follow;
@@ -206,6 +207,7 @@ export function fpvSurface(R, app) {
     for (const c of rec.group.children) if (c.visible) { c.visible = false; s.hidden.add(c); }
     const dl = s.w.dropLines?.get(s.id); if (dl) { if (s.dropWas == null) s.dropWas = dl.visible; dl.visible = false; }
     if (s.w.grid?.visible) s.w.grid.visible = false; // (the area's grid rule puts it back on a settings pass: not while you look)
+    if (s.w.levelGrid?.visible) s.w.levelGrid.visible = false; // (a level grid made while you look, e.g. the build tool picked up)
     // turning (Q / E held)
     if (s.turn.size) { const k = (s.turn.has('q') ? 1 : 0) - (s.turn.has('e') ? 1 : 0); if (k) { s.heading += k * FPV.turnRate * D2R * dt; turned(s, now); } }
     // someone else turned it (the GM, an undo): the view follows, unless this seat is turning it now
@@ -296,6 +298,7 @@ export function fpvSurface(R, app) {
       if (segs.some(sg => crosses(p.x, p.z, nx, nz, sg))) break; // (never through a wall, whatever the pushes said)
       if (Math.hypot(nx - p.x, nz - p.z) < 1e-4) break;
       const st = app.walkStep({ ...e, x: p.x, z: p.z, y: p.y }, nx, nz);
+      if (st.rock) { touched = true; break; } // (solid rock below the ground stops a step, as a wall does: core/height.js pawnStepTo)
       // a ladder or a spiral where it steps onto a new square: moveBy takes it to the other end; the walk stops
       const sq = `${Math.floor(nx / 5)}:${Math.floor(nz / 5)}`;
       if (sq !== s.walk.sq) { s.walk.sq = sq; const fl = HT.floorUnder(E(), nx, nz, st.y)?.y ?? Math.min(0, st.y); if (Math.abs(st.y - fl) < 1 && app.stairHop(nx, nz, fl)) { p.x = nx; p.z = nz; p.y = st.y; send(s, e, now); endWalk(s); s.halt = true; return; } }

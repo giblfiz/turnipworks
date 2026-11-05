@@ -16,8 +16,8 @@
           and a #vtt=<id> address opens it on load
   FIX     "Correct this row" fills the form; a correction with no words is refused in the page; one with words reaches
           the relay's ticket box (its test sandbox) as kind "correction" with the product and field
-  PHONE   at 400 x 800: no sideways scroll on the page (the table scrolls inside its own box), body text >= 15 px, the
-          details fit the screen
+  PHONE   at 400 x 800: nothing scrolls sideways (below 1240 px each product is a card; Nick's rule, docs/UI.md), body text
+          >= 15 px, a filter still hides cards, the headers still sort, the details fit the screen
   ROUTE   (--page) /vtt-index answers HTML, /vtt-index/ and /vtt-index.html 301 to it, /vtt-index.json and
           /vtt-index.schema.json answer JSON (the data validates), /vtt-index.md answers text/markdown, llms.txt and
           sitemap.xml name the page
@@ -230,7 +230,15 @@ async def run(url, relay):
         m = await pp.evaluate("""() => { const w = document.querySelector('.tablewrap'); return { sw: document.scrollingElement.scrollWidth, iw: innerWidth,
             tw: w.scrollWidth, tc: w.clientWidth, fs: parseFloat(getComputedStyle(document.querySelector('main > p:not(.updated)')).fontSize) } }""")
         check(m['sw'] <= m['iw'], 'PHONE no sideways scroll on the page at 400 px', m)
-        check(m['tw'] > m['tc'], 'PHONE the table scrolls sideways inside its own box', m)
+        check(m['tw'] <= m['tc'] + 1, 'PHONE nothing scrolls sideways: each product is a card (Nick\'s rule, docs/UI.md)', m)
+        card = await pp.evaluate("() => { const r = document.querySelector('#vtt tbody tr[data-id=\"turnip-works\"]'), cells = [...r.cells], b = cells.map(c => c.getBoundingClientRect()); return { cells: cells.length, inside: b.every(x => x.left >= 0 && x.right <= innerWidth), label: getComputedStyle(cells[5], '::before').content } }")
+        check(card['inside'] and card['cells'] >= 19 and card['label'] not in ('none', 'normal', '""'), 'PHONE every cell of a card is on the screen, under its own label', card)
+        hid = await pp.evaluate("() => { const s = document.querySelector('#filters input[data-f=\"q\"]'); s.value = 'zzzznothing'; s.dispatchEvent(new Event('input', { bubbles: true })); const n = [...document.querySelectorAll('#vtt tbody tr')].filter(r => r.getBoundingClientRect().height > 0).length; s.value = ''; s.dispatchEvent(new Event('input', { bubbles: true })); return n }")
+        check(hid == 0, 'PHONE a filter hides cards too (a card is display: grid, the hidden attribute must still win)', hid)
+        await pp.click('#vtt thead button[data-sort="fog"]')
+        firstfog = await pp.evaluate("() => document.querySelector('#vtt tbody tr [data-c=fog]').dataset.v")
+        check(firstfog == 'yes', 'PHONE the column headers still sort, as buttons above the cards', firstfog)
+        await pp.click('#vtt thead button[data-sort="name"]')
         check(m['fs'] >= 15, 'PHONE body text is at least 15 px', m['fs'])
         ph = await pp.evaluate("() => ({ top: Math.round(document.querySelector('.tableframe').getBoundingClientRect().top), fold: document.getElementById('ffold').open, h: innerHeight })")
         check(not ph['fold'] and ph['top'] < 1.2 * ph['h'], 'PHONE the filters fold away; the table starts within the first screen and a bit (the disclosure comes first)', ph)

@@ -90,7 +90,7 @@ async def main():
         # ---------- BAR ----------
         async def bar(q):
             await pg.keyboard.press('Escape'); await pg.evaluate('tw.modes.cancel();tw.clearSelection()')
-            await pg.keyboard.press('/'); await pg.locator('#bar input').fill(q); await pg.wait_for_timeout(250)
+            await pg.keyboard.press('/'); await pg.locator('#bar textarea').fill(q); await pg.wait_for_timeout(250)
             rows = await pg.evaluate('[...document.querySelectorAll("#results .res")].map(el => ({ref: el.dataset.ref || "", t: el.querySelector(".t")?.textContent || ""}))')
             return rows
         lines = [(f'{lib["labels"][f].lower()} pillar', f'{lib["labels"][f]} pillar') for f in lib['pillars']]

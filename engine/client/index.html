@@ -57,6 +57,23 @@ html { background: #2c2823; }
 #twl.pill .twl-in { display: flex; align-items: center; gap: 9px; width: auto; }
 #twl.pill .twl-mark { width: 24px; height: 24px; filter: none; } #twl.pill .twl-name, #twl.pill .twl-bar { display: none; }
 #twl.pill .twl-words { width: auto; min-height: 0; white-space: nowrap; font-size: 13px; } #twl.pill .twl-words > span { position: static; display: none; } #twl.pill .twl-words > span.on { display: inline; }
+/* the version number (2026-11-02; docs/UI.md "The loading screen"): small and quiet at the foot of the screen, and never in the reconnecting pill */
+.twl-ver { position: absolute; left: 0; right: 0; bottom: max(12px, env(safe-area-inset-bottom)); text-align: center; font-size: 13px; line-height: 1.4; letter-spacing: .04em; color: rgba(246, 234, 210, .78); }
+#twl.pill .twl-ver { display: none; }
+@media (max-height: 480px) { #twl.failed .twl-ver { display: none; } } /* a failure's sentences fill a screen this short */
+/* THE TIP (Harry 2026-11-02; docs/UI.md "The loading screen"): one sentence under the words, in a box of a fixed height
+   (two lines; three on a narrow screen) so nothing moves when the next tip is longer or shorter. Only the full screen
+   has one: never the reconnecting pill, never a failure, and not on a screen too short to hold it. */
+.twl-tip { --tw: min(440px, calc(100vw - 48px)); position: relative; justify-self: start; width: var(--tw); margin: 4px 0 0 calc((100% - var(--tw)) / 2); height: 2.9em; font-size: 14px; line-height: 1.45; color: #f6ead2; text-wrap: balance; overflow-wrap: break-word;
+} /* (wider than the bar, centred on it) */
+/* a soft dark pool under the words, reaching past the box so it has no edge: it keeps them at 7:1 where the screen's glow is brightest */
+.twl-tip::before { content: ''; position: absolute; inset: -14px -48px; z-index: -1; pointer-events: none; background: radial-gradient(closest-side, rgba(30, 24, 19, .55), rgba(30, 24, 19, .48) 55%, rgba(30, 24, 19, 0)); }
+.twl-tip > span { position: absolute; left: 0; right: 0; top: 0; }
+#twl .twl-tip kbd { display: inline-block; min-width: 0; margin: 0 1px; padding: 0 5px; border: 0; border-radius: 4px; background: rgba(20, 16, 12, .5); box-shadow: 0 0 0 1px rgba(246, 234, 210, .22); color: #f6ead2; font: 600 12.5px/1.35 system-ui, -apple-system, 'Segoe UI', sans-serif; text-align: center; white-space: nowrap; }
+#twl.failed .twl-tip, #twl.pill .twl-tip, .twl-tip[hidden] { display: none; }
+@media (max-width: 480px) { .twl-tip { height: 4.35em; } .twl-tip::before { inset: -14px -12px; } } /* (the shade stays on the screen) */
+@media (max-height: 480px) and (min-width: 481px) { .twl-tip { --tw: min(560px, calc(100vw - 48px)); margin-top: 0; font-size: 13px; } } /* a phone on its side: wider, so two lines hold every tip */
+@media (max-height: 299px) { .twl-tip { display: none; } }
 @media (max-width: 480px), (max-height: 480px) { .twl-mark { width: 76px; height: 76px; } .twl-name { font-size: 24px; } .twl-in { gap: 10px; } }
 @media (prefers-reduced-motion: reduce) { .twl-mark { animation: none; } }
 .reduce-motion .twl-mark { animation: none; }
@@ -83,6 +100,9 @@ html { background: #2c2823; }
   try { hand = matchMedia('(pointer: coarse)').matches && !matchMedia('(any-pointer: fine)').matches && Math.min(screen.width, screen.height) <= 540; } catch (e) { }
   if (q.get('hand') === '1') hand = true; else if (q.get('hand') === '0') hand = false;
   window.TW_HAND = hand;
+  // a TOUCH SCREEN, whatever its size (a phone or a tablet with no mouse or trackpad): the loading screen's tips for fingers
+  var touch = hand; try { touch = hand || (matchMedia('(pointer: coarse)').matches && !matchMedia('(any-pointer: fine)').matches); } catch (e) { }
+  window.TW_TOUCH = q.get('hand') === '0' ? false : touch;
   window.TW_PHONE = (function () {
     try {
       if (q.get('phone') === '1') return true;
@@ -130,10 +150,25 @@ html { background: #2c2823; }
     <div class="twl-name">Turnip Works</div>
     <div class="twl-bar"><div class="twl-fill"></div></div>
     <div class="twl-words" aria-hidden="true"></div>
+    <div class="twl-tip" aria-hidden="true"></div>
     <div class="twl-fail"><div class="twl-why"></div><button type="button"></button><div class="twl-detail"></div></div>
     <div class="twl-sr" role="status" aria-live="polite"></div>
   </div>
+  <div class="twl-ver" id="twl-ver"></div>
 </div>
+<script>
+// THE VERSION NUMBER (Harry 2026-11-02; docs/NETCODE.md "Version numbers"). A number exists only once a release has gone
+// live, so a build carries none: tools/release.sh writes it into the live release's release.json, which /release.json
+// serves no-store, and that follows the `current` link through a rollback. A script of its own: it can only ever leave this
+// line blank. Nothing waits for it, and any failure, a slow answer, or an answer about another build of the page shows nothing.
+(() => {
+  const el = document.getElementById('twl-ver');
+  if (document.querySelector('meta[name="tw-channel"]')?.content !== 'prod') { el.textContent = 'dev build'; return; }
+  const stop = new AbortController(); setTimeout(() => stop.abort(), 4000);
+  fetch('/release.json', { cache: 'no-store', signal: stop.signal }).then(r => r.ok ? r.json() : null)
+    .then(r => { if (r?.client === window.TW_V && /^\d+\.\d+\.\d+$/.test(r.version || '')) el.textContent = 'v' + r.version; }).catch(() => { });
+})();
+</script>
 <script>
 // The loading screen's code (docs/UI.md "The loading screen"). main.js tells it what has happened: twLoad.at('code' |
 // 'look' | 'welcome' | 'state'), twLoad.done() at the first real frame, twLoad.fail(kind), twLoad.wait / twLoad.clear.
@@ -272,6 +307,116 @@ html { background: #2c2823; }
   addEventListener('error', (ev) => { const t = ev.target; if (t && t.tagName === 'SCRIPT' && !gone && t.src && new URL(t.src, location.href).origin === location.origin) fail('code', t.src); }, true);
 })();
 </script>
+<script>
+// THE TIPS (Harry 2026-11-02: "whenever we have a loading screen ... we can put a tip about hotkeys or how to use the mouse
+// or trackpad ... a little bit of awareness whether they're signing in on a phone or a GM seat or a regular seat ... rotate
+// through the sort of tooltips as it's loading. And that can be spread across multiple sign-ins."; docs/UI.md "The
+// loading screen"). A script of its own, like the version line: it only ever writes the tip, it never holds the screen
+// (the screen leaves exactly when it would without it), and an error here leaves the tip blank and nothing else.
+//   WHO: a touch screen (TW_TOUCH, above) or a computer; the GM seat or a player's. The seat's role is in its link: the
+//   token's first half is its claims, `sc` the role ("gm" / "player"; an AI seat's is its scope, an object), signed, and
+//   a link whose claims do not match its seat opens no table. Failing that, the role this browser remembered for that
+//   seat (tw.games, which main.js writes on every visit). A page with no seat link that will show the start form is a GM
+//   about to start a table. Anything else (#games, a link that cannot be read) gets the tips true for ANY seat, and
+//   moves on to its own set at the next tip once the table says who this is (twLoad.seat): never a swap. AI seats: none.
+//   WHERE: the full screen (the first load, starting a table, travelling). Not the pill, not a failure (style above).
+//   PACE: one at a time, at least 6 s, longer for a long one (reading time). A frozen page keeps the tip it has.
+//   ACROSS SIGN-INS: localStorage tw.tips holds a position per set; each load starts at the first tip not yet seen, so
+//   a person walks the whole list before it repeats. A tip counts as SEEN once it has been on the screen for 1.5 s with
+//   the page in view (a load quicker than that shows the same tip next time).
+(() => {
+  const root = document.getElementById('twl'), box = root.querySelector('.twl-tip'), L = window.twLoad || {};
+  const SEEN_MS = 1500, MIN_MS = 6000, FADE_MS = 300, KEY = 'tw.tips';
+  const readMs = (t) => Math.max(MIN_MS, 1800 + 55 * t.replace(/[{}]/g, '').length);
+  // one short sentence each; {K} is a key, drawn as a key cap ({Ctrl} and {Alt} read Cmd and Option on a Mac).
+  // engine/test/browser_tips.py holds every key named here to the game's own key table, for the seat that reads it.
+  const T = {
+    // a computer
+    move: 'Drag your pawn to move it, or click it and step a square at a time with the arrow keys.',
+    bar: 'Press {/} to open the command bar, then type /r d20 to roll.',
+    say: 'Type say and your words in the command bar to talk to the table.',
+    wheel: 'Scroll the mouse wheel to zoom, and drag with the right button to pan.',
+    pad: 'On a trackpad, scroll with two fingers to pan and pinch to zoom.',
+    ping: 'Hold the left mouse button still for half a second, or {Alt}+click, to ping a spot for everyone.',
+    turn: 'Hold {Alt} and drag to turn and tilt the view; {Q} and {E} turn it too.',
+    keys: 'Press {?} to see every key and mouse move.',
+    eyes: 'Press {V} to look through your pawn\'s eyes, and walk with {W} {A} {S} {D}.',
+    measure: 'Press {M} and drag to measure; then {1}\u00a0to\u00a0{5} make it a line, cone, circle, sphere or cube.', // ("1 to 5" never split across lines)
+    damage: 'Select a pawn and press {=} to add a point of damage, or {-} to take one off.',
+    door: 'Select a door and press {O} to open or close it.',
+    figure: 'To choose the figure your pawn wears, open Settings ({S}), then Me ▸ My pawns.',
+    build: 'Press {B} for Build, to drag out rooms, whole buildings and furniture.',
+    invite: 'To bring a player in, type invite and their name in the command bar.',
+    hide: 'Select a room, then press {Space} and {H}, to hide it from players.',
+    goblins: 'Type 6 goblins in the command bar, then click the map to set all six down.',
+    levels: '{[} and {]} go down and up a level, and {\\} shows every level at once.',
+    box: 'Drag a box around a table to select it; what stands on it goes with it.',
+    xray: '{X} shows every pawn through walls and floors, on your screen only.',
+    // a touch screen
+    look: 'Drag one finger to look around the table, and pinch to zoom.',
+    tdrag: 'Tap your pawn, then drag it to move it.',
+    troll: 'Tap the command bar to roll dice or say something to the table.',
+    tping: 'Hold a finger still on a spot to ping it for everyone.',
+    twist: 'Twist two fingers to turn the view.',
+    ttilt: 'Slide two fingers up or down together to tilt the view.',
+    teyes: 'Tap your pawn, then Eyes, to look through its eyes.',
+    tdamage: 'Tap a pawn and drag its Damage button to mark a hit.',
+    tparty: 'Tap Pawns to see your party, and follow any of them.',
+    tfigure: 'To choose your pawn\'s figure, open Settings, then Me ▸ My pawns.',
+    tbox: 'Hold a finger on open ground, then drag, to select with a box.',
+    tbuild: 'Tap Build to add rooms, buildings and furniture.',
+    tplace: 'While placing something, it goes down where you lift your finger.',
+    tthing: 'Tap a thing, then drag it to move it.',
+    tlabel: 'Tap a room\'s name on the map to select the whole room.',
+    tgoblins: 'Type 6 goblins in the command bar, then tap the map to set all six down.',
+  };
+  // the sets, by hand, most useful first (a tip may be in several)
+  const SETS = {
+    'computer.gm': 'build invite keys wheel pad ping bar hide goblins turn levels box xray',
+    'computer.player': 'move bar say wheel pad ping turn keys eyes measure door damage figure',
+    'computer.any': 'wheel pad ping turn keys bar',
+    'touch.gm': 'tbuild look invite tthing tping troll tplace tlabel twist ttilt tgoblins',
+    'touch.player': 'look tdrag troll tping twist ttilt teyes tdamage tparty tfigure tbox',
+    'touch.any': 'look troll tping twist ttilt',
+  };
+  for (const k in SETS) SETS[k] = SETS[k].split(' ');
+  const MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent), NAMES = MAC ? { Ctrl: 'Cmd', Alt: 'Option' } : {};
+  // who this is
+  const hash = new URLSearchParams(location.hash.slice(1));
+  let games = []; try { const rows = JSON.parse(localStorage.getItem('tw.games') || '[]'); if (Array.isArray(rows)) games = rows.filter(g => g && ['campaign', 'token', 'name', 'seat', 'role'].every(k => typeof g[k] === 'string') && g.token && g.campaign && Number.isFinite(g.lastUsed) && g.lastUsed > 0).sort((a, b) => b.lastUsed - a.lastUsed); } catch { } // (as games.js rememberedGames: the one main.js opens)
+  const token = hash.has('s') ? hash.get('s') : !hash.has('games') ? games[0]?.token : null;
+  const claim = (t) => { try { const sc = JSON.parse(atob(String(t).split('.')[0].replace(/-/g, '+').replace(/_/g, '/'))).sc; return typeof sc === 'string' ? sc : sc && typeof sc === 'object' ? 'ai' : null; } catch { return null; } };
+  let role = token ? claim(token) || games.find(g => g.token === token)?.role || null : hash.has('games') ? null : 'gm';
+  if (role !== 'gm' && role !== 'player' && role !== 'ai') role = null;
+  const device = window.TW_TOUCH ? 'touch' : 'computer', set = () => `${device}.${role || 'any'}`;
+  // where each set is up to, in this browser
+  const mem = () => { try { const m = JSON.parse(localStorage.getItem(KEY) || '{}'); return m && typeof m === 'object' && !Array.isArray(m) ? m : {}; } catch { return {}; } };
+  const seen = (s) => { const m = mem(); m[s] = ((+m[s] || 0) + 1) % SETS[s].length; try { localStorage.setItem(KEY, JSON.stringify(m)); } catch { } };
+  const draw = (el, t) => { t.split(/\{([^}]+)\}/).forEach((part, i) => { if (i % 2) { const k = document.createElement('kbd'); k.textContent = NAMES[part] || part; el.append(k); } else if (part) el.append(part); }); };
+  const still = () => document.documentElement.classList.contains('reduce-motion') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = null, timers = [];
+  const quiet = () => { for (const t of timers) clearTimeout(t); timers = []; };
+  function show(fresh) { // (fresh: the screen has just come up, so the tip is simply there, with no crossfade)
+    quiet(); if (role === 'ai') return;
+    const s = set(), id = SETS[s][(+mem()[s] || 0) % SETS[s].length], text = T[id];
+    if (!cur || cur.id !== id) {
+      const span = document.createElement('span'); draw(span, text); const old = [...box.children];
+      if (!cur || fresh || still()) box.replaceChildren(span);
+      else { box.append(span); try { span.animate([{ opacity: 0 }, { opacity: 1 }], { duration: FADE_MS, easing: 'ease-out' }); for (const o of old) o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: FADE_MS, easing: 'ease-in', fill: 'forwards' }).onfinish = () => o.remove(); } catch { for (const o of old) o.remove(); } }
+    }
+    cur = { id, set: s, text, at: performance.now() }; L.tip = cur;
+    const c = cur; timers.push(setTimeout(() => { if (!document.hidden) { seen(s); c.seen = true; } }, SEEN_MS), setTimeout(() => show(), readMs(text)));
+  }
+  // the full screen is up: rotate; anything else (gone, the pill, a failure): stop where it is
+  const full = () => !root.hidden && root.className === '';
+  const watch = () => { if (role === 'ai') { box.hidden = true; quiet(); return; } if (full() && !timers.length) show(true); else if (!full()) quiet(); };
+  new MutationObserver(watch).observe(root, { attributes: true, attributeFilter: ['hidden', 'class'] });
+  // main.js says who this seat is once the table answers ({ kind, role }); the next tip is from that seat's own set
+  L.seat = (me) => { const r = me?.kind === 'llm' ? 'ai' : me?.role; if (r === 'gm' || r === 'player' || r === 'ai') role = r; watch(); };
+  L.tips = { T, SETS, set, role: () => role, SEEN_MS, MIN_MS, readMs, draw }; // (tests and the console)
+  watch();
+})();
+</script>
 <link rel="stylesheet" href="style.css?v=dev">
 <div id="start" hidden>
   <div class="card">
@@ -292,13 +437,14 @@ html { background: #2c2823; }
       <p class="hint accept">Starting a campaign means you accept the <a href="site/terms.html" target="_blank" rel="noopener">Terms</a> and the <a href="site/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
     </form>
     <p class="hint">Joining someone's game? Open the invite link they sent you.</p>
-    <nav class="metalinks" aria-label="About Turnip Works"><a href="site/about.html" target="_blank" rel="noopener">About</a><a href="site/terms.html" target="_blank" rel="noopener">Terms</a><a href="site/privacy.html" target="_blank" rel="noopener">Privacy</a><a href="https://github.com/giblfiz/turnipworks" target="_blank" rel="noopener">Source</a></nav>
+    <nav class="metalinks" aria-label="About Turnip Works"><a href="site/manual.html" target="_blank" rel="noopener">Manual</a><a href="site/about.html" target="_blank" rel="noopener">About</a><a href="site/terms.html" target="_blank" rel="noopener">Terms</a><a href="site/privacy.html" target="_blank" rel="noopener">Privacy</a><a href="https://github.com/giblfiz/turnipworks" target="_blank" rel="noopener">Source</a></nav>
   </div>
 </div>
 <div id="app" hidden>
   <button id="otherGames" type="button">Other games / New game</button>
   <canvas id="c"></canvas>
   <div id="labels" aria-label="Room and building labels"></div>
+  <div id="stairNoteX" aria-label="Dismiss buttons on stair warnings"></div>
   <div id="ring" class="overlay" hidden></div>
   <div id="launchers"></div>
   <div id="buildMenu" hidden></div>
@@ -309,7 +455,7 @@ html { background: #2c2823; }
   <div id="levelMeter" role="status" aria-label="Levels"></div>
   <div id="bar" role="search">
     <span class="lead"></span>
-    <div class="field"><div class="chips"></div><input type="text" spellcheck="false" autocomplete="off" aria-label="Command bar"></div>
+    <div class="field"><div class="chips"></div><textarea rows="1" spellcheck="false" autocomplete="off" enterkeyhint="go" aria-label="Command bar"></textarea></div>
     <span class="hint"></span>
   </div>
   <div id="results" class="clip" hidden role="listbox"></div>

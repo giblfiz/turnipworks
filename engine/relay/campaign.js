@@ -11,6 +11,7 @@ import { newId } from '../core/ids.js';
 import { buildingAt, spanOfArgs, floorUnder } from '../core/height.js';
 import { Journal } from './store.js';
 import { seesLabels, stripEntry, stripEntity, stripEntities, unnoteEntry, unnoteEntity, unnoteEntities } from '../core/labels.js';
+import { helperSeatName } from '../core/agentname.js';
 import { seesDamageUndo } from '../core/pawn.js';
 import { forPlayers as turnsForPlayers } from '../core/turns.js';
 import { cleanRuler } from '../core/measure.js';
@@ -26,6 +27,7 @@ const UNDO_DEPTH = 200;
 const CHAT_CMDS = new Set(['chat.say', 'dice.roll']);
 export const CHAT_RATE = { min: 3, hour: 20 };
 export const LOOP_MAX = 3, LOOP_HOLD = 60e3;
+export const PING_KEEP = 8, PING_STALE = 120e3; // a helper's waiting pings: how many at most, and for how long (memory only: relay/campaign.js notePing)
 
 export class CampaignRuntime {
   constructor({ id, dir, tokens, roomgen = null, log = () => {} }) {
@@ -46,6 +48,8 @@ export class CampaignRuntime {
     this.aiRun = new Map();   // area -> { pair: [seat, seat], last, n } (AI-to-AI loop breaker)
     this.chatHold = new Map(); // llm seat -> ms until which its chat is throttled
     this.lastPres = new Map(); // human seat -> { area, cursor, sel, at } (GET /presence)
+    this.pings = new Map();   // llm seat -> [{ area, by, x, z, y, secret, at }]: pings waiting for its next read of the feed (never stored)
+    this.pingWaiters = new Map(); // llm seat -> Set(fn): its long polls, woken only by a ping meant for it
     this.sinceSnap = 0;
   }
 
@@ -177,7 +181,9 @@ export class CampaignRuntime {
   // ---------------- the one door ----------------
   // cmd: { type, area?, args (raw) }. opts: { cid (nonce), basedOn, force, fromQuery, conn }
   dispatch(by, cmd0, opts = {}) {
-    const cmd = migrateCommand(cmd0); // `table`, `table.create` and friends from an old client or agent
+    let cmd = migrateCommand(cmd0); // `table`, `table.create` and friends from an old client or agent
+    // A HELPER'S SEAT IS NAMED HERE (core/agentname.js), whichever way it was made, before the command is journaled
+    if (cmd.type === 'seat.create' && cmd.args?.kind === 'llm' && !cmd.args.phantom && this.state.seats[by]?.kind === 'human' && (cmd.args.name == null || typeof cmd.args.name === 'string')) cmd = { ...cmd, args: { ...cmd.args, name: helperSeatName(this.state.seats[by].name, cmd.args.name) } };
     const { cid = null } = opts;
     if (cid && this.nonces.has(`${by}|${cid}`)) return { ...this.nonces.get(`${by}|${cid}`), duplicate: true };
     const d = REGISTRY[cmd.type];
@@ -600,6 +606,7 @@ export class CampaignRuntime {
       const T = this.state.areas[m.area], f = T && floorUnder(T.entities, cursor[0], cursor[1], cursor[2] || 0);
       const secret = !!m.secret || !!(f?.room && T.entities[f.room]?.hidden); // (the sender also says so when the thing it pointed at is hidden)
       this.broadcastPresence(conn, { area: m.area, cursor, ping: true }, secret);
+      this.notePing(conn.seat, m.area, cursor, secret, now);
       return;
     }
     const sel = Array.isArray(m.sel) ? m.sel.filter(id => typeof id === 'string' && /^[\w:.-]{1,48}$/.test(id)).slice(0, 64) : null;
@@ -680,6 +687,35 @@ export class CampaignRuntime {
       if (g.dirty || now - g.last > 1000) { this.sendGhost(seat, g); g.last = now; g.dirty = dist > 0.02; }
     }
   }
+
+  // ---------------- a person points: the AI seats are told ----------------
+  // A PING REACHES THE HELPERS (Harry 2026-11-02: "can we also log 'long clicks' so they can know what is there"). "Log" here
+  // means tell the helper: a ping is still presence, never stored, not in the journal or a snapshot. Every helper that is
+  // connected and may see the ping (the same rule as broadcastPresence: the area, and the GM side only for a secret one)
+  // gets it in its feed. Only the point waits here, at most PING_KEEP for PING_STALE, and what is there is worked out when
+  // it is delivered, from what that seat may see THEN (relay/llm.js pingEvents). Only a person's ping, so an AI seat that
+  // reaches this path (it can over a websocket) neither hears itself nor sets another helper off.
+  // Each seat is woken by its own queue, never by rt.wake: a long poll that ended early would tell a player's helper that
+  // something it may not see had just happened.
+  notePing(by, area, [x, z, y = 0], secret, now = Date.now()) {
+    if (this.state.seats[by]?.kind !== 'human') return;
+    const online = this.online();
+    for (const s of Object.values(this.state.seats)) {
+      if (s.kind !== 'llm' || !online.has(s.id) || !canSee(this.state, s.id, area) || (secret && !isGmSide(this.state, s.id))) continue;
+      const q = (this.pings.get(s.id) || []).filter(p => now - p.at < PING_STALE);
+      q.push({ area, by, x, z, y, secret, at: now });
+      this.pings.set(s.id, q.slice(-PING_KEEP));
+      const w = this.pingWaiters.get(s.id); if (w) { this.pingWaiters.delete(s.id); for (const fn of w) fn(); }
+    }
+  }
+  // hand over and forget a seat's waiting pings (of one area, or all): stale ones go, and a ping the seat may no longer see goes unread
+  takePings(seat, area = null, now = Date.now()) {
+    const q = this.pings.get(seat); if (!q) return [];
+    const fresh = q.filter(p => now - p.at < PING_STALE), mine = fresh.filter(p => !area || p.area === area), rest = fresh.filter(p => !mine.includes(p));
+    if (rest.length) this.pings.set(seat, rest); else this.pings.delete(seat);
+    return mine.filter(p => canSee(this.state, seat, p.area) && (isGmSide(this.state, seat) || !(p.secret || this.cursorInHidden(p.area, [p.x, p.z, p.y]))));
+  }
+  waitPing(seat, fn) { if (!this.pingWaiters.has(seat)) this.pingWaiters.set(seat, new Set()); this.pingWaiters.get(seat).add(fn); return () => this.pingWaiters.get(seat)?.delete(fn); }
 
   // ---------------- long-poll support ----------------
   wait(area, fn) { if (!this.waiters.has(area)) this.waiters.set(area, new Set()); this.waiters.get(area).add(fn); return () => this.waiters.get(area)?.delete(fn); }

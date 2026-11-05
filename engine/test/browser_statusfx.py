@@ -147,7 +147,7 @@ async def main():
         gone = await wait(gm, f"!{C(MI)}.includes('Hexed')", 5000)
         check(tile and 'Hexed' in tile and other and gone, 'S4b the ring lists "✓ Hexed" (and "Other…"); pressing it takes it off for everyone', {'tile': tile, 'other': other})
         await open_menu(pl, MI); await press(pl, 'pawn.cond.'); await nest(pl, 'pawn.cond.other')
-        st = await pl.evaluate("({ open: document.querySelector('#bar').classList.contains('open'), text: document.querySelector('#bar input').value })")
+        st = await pl.evaluate("({ open: document.querySelector('#bar').classList.contains('open'), text: document.querySelector('#bar .chips').innerText + ' ' + document.querySelector('#bar textarea').value })")  # ("condition" is the chip)
         check(st['open'] and st['text'] == 'condition ', '"Other…" opens the bar on "condition " with the cursor there', st); await pl.keyboard.press('Escape')
 
         print('S5 PAST FOUR')

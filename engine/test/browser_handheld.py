@@ -154,7 +154,7 @@ async def phone(p, page, W, H):
 
     # ================= PLACE: the command bar =================
     async def bar_pick(word):
-        b = await at(pg, '#bar input'); await tap(cdp, *b); await pg.wait_for_timeout(300)
+        b = await at(pg, '#bar textarea'); await tap(cdp, *b); await pg.wait_for_timeout(300)
         await pg.keyboard.type(word, delay=15); await pg.wait_for_timeout(700)
         r = await at(pg, '#results .res'); await tap(cdp, *r); await pg.wait_for_timeout(700)
     await bar_pick('chair plain')
@@ -358,10 +358,10 @@ async def tweaks(p, page, W, H):
     await pg.evaluate("tw.sync.submit('area.create', { id: 'area_pipoff0001', name: 'Cellar Road' })"); await wait(pg, "tw.sync.campaign.areas.length === 2", 8000, 'second area')
     home = await pg.evaluate("tw.area()")
     direct = await pg.evaluate("({ allowed: tw.pipAllowed(), ret: tw.openPip('area_pipoff0001'), local: tw.openLocalPip('lib:test'), pip: !!tw.pip, frame: !document.getElementById('pipFrame').hidden, views: tw.views.length })")
-    b = await at(pg, '#bar input'); await tap(cdp, *b); await pg.wait_for_timeout(300)
+    b = await at(pg, '#bar textarea'); await tap(cdp, *b); await pg.wait_for_timeout(300)
     await pg.keyboard.type('picture in picture', delay=10); await pg.wait_for_timeout(600)
     pipRows = await pg.evaluate("[...document.querySelectorAll('#results .res')].map(r => r.innerText.replace(/\\s+/g, ' ')).filter(t => /picture-in-picture/i.test(t))")
-    await pg.fill('#bar input', 'Cellar Road'); await pg.wait_for_timeout(600)
+    await pg.fill('#bar textarea', 'Cellar Road'); await pg.wait_for_timeout(600)
     alts = await pg.evaluate("document.querySelectorAll('#results [data-alt]').length")
     placeRow = await pg.evaluate("[...document.querySelectorAll('#results .res')].some(r => /Cellar Road/.test(r.innerText))")
     await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
@@ -400,7 +400,7 @@ async def tweaks(p, page, W, H):
     check(abs(pc['fx'] - 22.5) < 1.5 and abs(pc['fz'] - 12.5) < 1.5 and mine['sel'] == ['tok_tweakpat1'] and 'hand.move' in mine['ids'] and 'hand.delete' not in mine['ids'] and pinside and theirs and theirs_in and 'hand.move' not in theirs and 'hand.delete' not in theirs, f"PLAYER {tag}: the link opens on my pawn; a tap brings its ring, whole on screen, with Move and no Delete; the GM's pawn: neither", {'cam': [round(pc['fx'], 1), round(pc['fz'], 1)], 'mine': mine, 'inside': pinside, 'theirs': theirs})
     if A.shots: await pl.screenshot(path=os.path.join(SHOTS, f'tweaks-{tag}-player-theirs.jpg'), type='jpeg', quality=70)
     await pl.evaluate("tw.clearSelection()"); await pl.wait_for_timeout(300)
-    b = await at(pl, '#bar input'); await tap(pcdp, *b); await pl.wait_for_timeout(600)
+    b = await at(pl, '#bar textarea'); await tap(pcdp, *b); await pl.wait_for_timeout(600)
     rows = await pl.evaluate("[...document.querySelectorAll('#results .res')].slice(0, 2).map(r => r.innerText.replace(/\\s+/g, ' ').trim())")
     if A.shots: await pl.screenshot(path=os.path.join(SHOTS, f'tweaks-{tag}-player-bar.jpg'), type='jpeg', quality=70)
     r = await at(pl, '#results .res'); await tap(pcdp, *r)

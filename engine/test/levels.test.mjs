@@ -87,6 +87,45 @@ ok('a stair that is walked is never hopped (a ladder or a spiral still is)', S.s
   ok('raise / lower is not a walk: a pawn raised 30 ft keeps its base where it is (the highest ground under it)', HT.baseUnder(I, C(1), C(1), 30).y === 20);
 }
 
+// ---- 2b. solid rock below the ground (Harry 2026-11-03: "Nope, dragging thru rock should push back onto legal space on
+// the same level."). The shape of the dev map where a pawn went missing, made here by hand: a one-square passage at -20
+// (cell 6, z -6..5) under a cave at -10, a ladder in the passage, a 10-ft hill to the east. A drag that slips off the
+// passage into the rock keeps the pawn at -20 on the last passage square it crossed (client/input.js walkTo: `ok`);
+// before, the rock lifted it to the earth's top, 0 ft, and it walked on up there.
+{
+  const R2 = ents(room('room_pass', 'crypt-passage', 6, -6, 1, 12, -20, 'bld_r'), room('room_cave', 'cave', 6, -6, 16, 11, -10, 'bld_r'), room('room_hill', 'hill', 7, -5, 16, 16, 10, null),
+    { id: 'bld_r', kind: 'building', name: 'B' },
+    { id: 'obj_lad', kind: 'object', cat: 'ladder-wood', place: 'wall', layer: 'furnish', x: 31.5, y: -20, z: -21, rot: Math.PI / 2, dims: [3.86, 10, 2.07], room: 'room_pass' });
+  // a drag as client/input.js carries it, through points: { y, at: [x, z] where it is shown / let go, rock }
+  const drag = (E, pts, y0) => {
+    let [x0, z0] = pts[0], y = y0, fb = HT.baseUnder(E, x0, z0, y0), at = [x0, z0], rock = false, ever = false, up = false; const seen = [];
+    for (let p = 0; p + 1 < pts.length; p++) for (let i = 1; i <= 30; i++) {
+      const x = pts[p][0] + (pts[p + 1][0] - pts[p][0]) * i / 30, z = pts[p][1] + (pts[p + 1][1] - pts[p][1]) * i / 30, t = HT.pawnStepTo(E, x, z, y, null, fb);
+      if (!t.below || t.walk) { y = t.y; fb = t; at = [x, z]; rock = false; } else rock = !!t.rock;
+      ever ||= rock; up ||= y > y0 + 0.5; seen.push(y);
+    }
+    return { y, at, rock, ever, up, seen };
+  };
+  const along = drag(R2, [[32.5, 25], [28, 5], [32.5, -21]], -20); // down the passage, the pointer slipping a square west of it on the way
+  ok('rock: a drag along the one-square passage that slips into the rock beside it stays at -20 the whole way (before: up to 0 ft for good)', along.ever && !along.up && along.seen.every(y => y === -20) && along.y === -20, along);
+  ok('...and ends in the passage, on its floor, where the pointer came back to it', !along.rock && HT.floorUnder(R2, ...along.at, -20)?.room === 'room_pass', along.at);
+  const fl = HT.floorUnder(R2, ...along.at, along.y)?.y, hop = S.stairHop(R2, 32.5, -21, fl);
+  ok('...so dropped on the ladder there it climbs it, to the cave at -10 (on dev the pawn missed the ladder at 0 ft and was left inside a hill\'s bank)', fl === -20 && hop && hop.y === -10 && HT.floorUnder(R2, hop.x, hop.z, -10)?.room === 'room_cave', hop);
+  const out = drag(R2, [[32.5, 10], [32.5, 0], [60, 0], [90, 5]], -20); // off the passage's side and on through rock with no floor of lv -2 anywhere
+  ok('rock with no floor of its level anywhere near: held on the last passage square it crossed, still at -20, over rock (let go: there)', out.rock && out.y === -20 && !out.up && HT.floorUnder(R2, ...out.at, -20)?.room === 'room_pass', out);
+  const st = HT.pawnStepTo(R2, 60, 0, -20, null, HT.baseUnder(R2, 32.5, 0, -20));
+  ok('pawnStepTo over rock below the ground says so and climbs nothing', st.rock && st.below && st.y === -20 && !st.climb, st);
+  ok('...at lv -1 too, where the earth\'s top is one storey up (the old climb out of a cellar through its wall)', HT.pawnStepTo(R2, 115, 0, -10, null, HT.baseUnder(R2, 50, 0, -10)).rock);
+  const inCave = drag(R2, [[50, -15], [80, -15]], -10);
+  ok('the cave at lv -1 is walked as any floor (no rock inside a room of the level)', !inCave.ever && inCave.seen.every(y => y === -10), inCave);
+  ok('above the ground nothing changed: onto the hill from its foot, up onto its top', last(walk(R2, [C(3), C(8)], 0, [C(10), C(8)])) === 10);
+  // a room of the level with an opening (a pit) over a room further down is not rock: the fall, as above the ground
+  const R3 = ents(room('room_cel', 'cellar', 0, 0, 4, 4, -10), room('room_deep', 'cellar', 0, 0, 4, 4, -20),
+    { id: 'obj_pit', kind: 'object', cat: 'hole-round', place: 'floor', layer: 'floor', flat: true, x: 10, y: -10, z: 10, dims: [5, 0.05, 5], room: 'room_cel' });
+  const ph = HT.pawnStepTo(R3, 10, 10, -10, null, HT.baseUnder(R3, 2.5, 2.5, -10));
+  ok('a hole in a cellar floor is not rock: the pawn hangs over it with the fall to the room under it offered (before: up to the ground at 0)', !ph.rock && ph.below && !ph.climb && ph.y === -20, ph);
+}
+
 // ---- 3. the corpus ----
 {
   const dir = corpusDir(); let camps = 0, pawns = 0, buried = 0, moved = [], hillless = 0, diffs = [];

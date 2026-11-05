@@ -57,25 +57,25 @@ def cell(fid, c):
     t = val_text(fid, v)
     tip = c.get('note') or ''
     data = json.dumps(v) if isinstance(v, list) else v
-    return (f'<td class="{tone(fid, v)}" data-c="{fid}" data-v="{E(data)}"' + (f' title="{E(tip)}"' if tip else '') + '>'
+    return (f'<td role="cell" class="{tone(fid, v)}" data-c="{fid}" data-l="{E(SHORT[fid])}" data-v="{E(data)}"' + (f' title="{E(tip)}"' if tip else '') + '>'
             + E(t) + ('<span class="unv" title="not confirmed from a source"> (?)</span>' if unv else '') + '</td>')
 
 
 def table(d):
     P = sorted(d['products'], key=lambda p: p['name'].lower().lstrip('(').replace('unnamed) ', 'zzz'))
-    head = ('<tr><th scope="col" class="nmh"><button type="button" data-sort="name">Product</button></th>'
-            + ''.join(f'<th scope="col"><button type="button" data-sort="{c}">{E(SHORT[c])}</button></th>' for c in COLS)
-            + '<th scope="col"><button type="button" data-sort="alive">Site</button></th></tr>')
+    head = ('<tr role="row"><th role="columnheader" scope="col" class="nmh"><button type="button" data-sort="name">Product</button></th>'
+            + ''.join(f'<th role="columnheader" scope="col"><button type="button" data-sort="{c}">{E(SHORT[c])}</button></th>' for c in COLS)
+            + '<th role="columnheader" scope="col"><button type="button" data-sort="alive">Site</button></th></tr>')
     rows = []
     for p in P:
         fl = flags(p)
         attrs = ' '.join(f'data-{k}="{E(v)}"' for k, v in fl.items())
         sub = E(GROUP[p['group']]) + ('' if p['kind'] == 'vtt' else f' · <span class="nw">{E(p["kind"])}</span>')
-        name = (f'<th scope="row" class="nm"><a href="#vtt={E(p["id"])}" data-open="{E(p["id"])}">{E(p["name"])}</a>'
+        name = (f'<th role="rowheader" scope="row" class="nm"><a href="#vtt={E(p["id"])}" data-open="{E(p["id"])}">{E(p["name"])}</a>'
                 + (' <span class="ours">we make this</span>' if p['group'] == 'ours' else '') + f'<small>{sub}</small></th>')
         al = p['alive']
-        alive = f'<td class="al-{al["state"]}" data-c="alive" data-v="{al["state"]}" title="{E((al.get("how") or "") + ", checked " + al["checked"])}">{ALIVE[al["state"]]}</td>'
-        rows.append(f'<tr {attrs}>' + name + ''.join(cell(c, p['features'][c]) for c in COLS) + alive + '</tr>')
+        alive = f'<td role="cell" class="al-{al["state"]}" data-c="alive" data-l="Site" data-v="{al["state"]}" title="{E((al.get("how") or "") + ", checked " + al["checked"])}">{ALIVE[al["state"]]}</td>'
+        rows.append(f'<tr role="row" {attrs}>' + name + ''.join(cell(c, p['features'][c]) for c in COLS) + alive + '</tr>')
     return head, '\n'.join(rows), len(P)
 
 
@@ -97,7 +97,7 @@ def filters(d):
   </div></details>
   <p class="count" id="count" aria-live="polite">Showing {n} of {n}</p>
 </form>
-<p class="legend" aria-label="What the cell colours mean"><b>Key</b> <span class="v-yes">yes</span> <span class="v-part">partial</span> <span class="v-no">no</span> <span class="v-q">? unknown</span> <span class="v-n">n/a, or a plain value</span> <span class="unv">(?) not confirmed from a source</span> <span class="swipe">more columns to the right: scroll or swipe the table sideways \u2192</span><span class="hov">· hover a cell for its note</span></p>'''
+<p class="legend" aria-label="What the cell colours mean"><b>Key</b> <span class="v-yes">yes</span> <span class="v-part">partial</span> <span class="v-no">no</span> <span class="v-q">? unknown</span> <span class="v-n">n/a, or a plain value</span> <span class="unv">(?) not confirmed from a source</span><span class="hov">· hover a cell for its note</span></p>'''
 
 
 def glossary(d):
@@ -139,9 +139,9 @@ def data_links(d):
 
 def body(md_html, d):
     head, rows, n = table(d)
-    tbl = (filters(d) + f'\n<div class="tableframe" id="tableframe"><div class="tablewrap" tabindex="0" role="region" aria-label="The comparison table (scrolls sideways)"><table class="vtt" id="vtt">'
+    tbl = (filters(d) + f'\n<div class="tableframe" id="tableframe"><div class="tablewrap" tabindex="0" role="region" aria-label="The comparison table"><table class="vtt" id="vtt" role="table">'
            f'<caption class="sr">{n} virtual tabletops and related tools, by name. Hover a cell for its note; open a name for the details and sources.</caption>'
-           f'<thead>{head}</thead><tbody>\n{rows}\n</tbody></table></div></div>'
+           f'<thead role="rowgroup">{head}</thead><tbody role="rowgroup">\n{rows}\n</tbody></table></div></div>'
            '<noscript><p class="small">Filtering and the detail view need JavaScript; the same details are in <a href="/vtt-index.md">the plain-text version</a>.</p></noscript>')
     rep = {'TABLE': tbl, 'GLOSSARY': glossary(d), 'CORRECT': correct(d), 'DATA': data_links(d)}
     out = md_html.replace('[[COUNT]]', str(n))
@@ -170,8 +170,11 @@ def head_extra(d, desc):
             f'<script type="application/ld+json">{js}</script>\n<style>{asset("vtt-index.css").strip()}</style>')
 
 
+# landing.js (2026-11-02): the page an ad's comparison group lands on, so it notes the visit exactly as the front door does
+# (first touch, in this browser's local storage), and a table started later from "/" carries the utm_* and the click id.
+# It imports nothing and sends nothing from here: the note reaches our relay only with POST /campaigns. Not a tracker.
 def script():
-    return '<script>' + asset('vtt-index.js').strip() + '</script>'
+    return '<script>' + asset('vtt-index.js').strip() + '</script>\n<script type="module" src="/engine/client/landing.js"></script>'
 
 
 # ---- the plain-text copy (/vtt-index.md) ----

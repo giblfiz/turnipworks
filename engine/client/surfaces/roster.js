@@ -66,8 +66,8 @@ export function rosterSurface(R, app) {
     pop = document.createElement('div'); pop.className = 'ppop rosterpop'; pop.dataset.seat = s.id;
     pop.innerHTML = `<header><b>${esc(s.name)}</b></header>${items.map((it, i) => `<button class="ppi${it.off ? ' off' : ''}" data-i="${i}" data-act="${it.act}"${it.off ? ' disabled' : ''}>${icon(it.ic, 15)}<span><b>${esc(it.label)}</b>${it.sub ? `<small>${esc(it.sub)}</small>` : ''}</span></button>`).join('')}`;
     document.getElementById('app').append(pop);
-    const r = anchor.getBoundingClientRect();
-    pop.style.left = `${Math.max(8, Math.min(innerWidth - pop.offsetWidth - 8, r.right - pop.offsetWidth))}px`; pop.style.top = `${Math.max(8, Math.min(innerHeight - pop.offsetHeight - 8, r.bottom + 6))}px`;
+    const r = anchor.getBoundingClientRect(), b = pop.getBoundingClientRect(), z = b.width / (pop.offsetWidth || 1); // (.ppop wears the text size's zoom, which scales its own left and top too)
+    pop.style.left = `${Math.max(8, Math.min(innerWidth - b.width - 8, r.right - b.width)) / z}px`; pop.style.top = `${Math.max(8, Math.min(innerHeight - b.height - 8, r.bottom + 6)) / z}px`;
     for (const x of pop.querySelectorAll('.ppi')) x.onclick = (ev) => { ev.stopPropagation(); const it = items[+x.dataset.i]; closePop(); it.run?.(); };
   }
 

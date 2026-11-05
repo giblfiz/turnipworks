@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A tour of Turnip Works · Turnip Works</title>
+<meta name="description" content="What the Turnip Works 3D tabletop does: buildings that furnish themselves, fog of war with darkvision, first person, 3D dice, a command bar, links for players.">
+<link rel="canonical" href="https://turnipworks.net/features">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Turnip Works">
+<meta property="og:title" content="A tour of Turnip Works">
+<meta property="og:description" content="What the Turnip Works 3D tabletop does: buildings that furnish themselves, fog of war with darkvision, first person, 3D dice, a command bar, links for players.">
+<meta property="og:url" content="https://turnipworks.net/features">
+<meta property="og:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A tour of Turnip Works">
+<meta name="twitter:description" content="What the Turnip Works 3D tabletop does: buildings that furnish themselves, fog of war with darkvision, first person, 3D dice, a command bar, links for players.">
+<meta name="twitter:image" content="https://turnipworks.net/engine/client/site/og-20261023.jpg">
+<meta name="twitter:image:alt" content="Three dice tumbling over four miniatures in a furnished 3D tavern, on a Turnip Works table">
+<link rel="icon" href="/engine/client/mark.svg" type="image/svg+xml">
+<style>@font-face { font-family: Inter; src: url('/engine/client/vendor/inter/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+:root { --bg: #e9e6df; --paper: #fcfbf8; --raised: #f0ede6; --line: rgba(20,20,20,.14); --ink: #1a1917; --ink-2: #3d3b36; --mute: #5f5c55; --accent: #a8770f; color-scheme: light; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { color: var(--ink); }
+.top { max-width: 46rem; margin: 0 auto; padding: 18px 20px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 650; font-size: 17px; letter-spacing: -.01em; }
+.brand img { width: 36px; height: 36px; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-left: auto; font-size: 14px; }
+.links a { color: var(--ink-2); text-decoration: none; }
+.links a:hover, .links a[aria-current] { color: var(--ink); text-decoration: underline; }
+.links a[aria-current] { font-weight: 650; }
+main { max-width: 46rem; margin: 16px auto 0; padding: 28px 20px 32px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+@media (min-width: 760px) { main { padding: 40px 48px 44px; } }
+h1 { margin: 0 0 4px; font-size: 30px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
+.updated { margin: 0 0 24px; color: var(--mute); font-size: 14px; }
+h2 { margin: 34px 0 8px; font-size: 20px; line-height: 1.3; font-weight: 680; letter-spacing: -.01em; }
+h3 { margin: 24px 0 6px; font-size: 17px; font-weight: 650; }
+p, ul { margin: 0 0 14px; } ul { padding-left: 22px; } li { margin: 0 0 6px; }
+strong { font-weight: 650; }
+.play { display: inline-block; margin-top: 18px; padding: 10px 16px; border-radius: 9px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; }
+.play:hover { color: var(--paper); background: var(--ink-2); }
+@media (max-width: 520px) { .top .links { margin-left: 0; width: 100%; } }
+footer { max-width: 46rem; margin: 0 auto; padding: 18px 20px 40px; color: var(--mute); font-size: 13px; }
+ol { margin: 0 0 14px; padding-left: 24px; } ol li { margin: 0 0 8px; padding-left: 2px; }
+code { font: 14px/1.4 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; background: var(--raised); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+pre { margin: 0 0 14px; padding: 10px 14px; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
+pre code { background: none; border: 0; padding: 0; }
+kbd { font: 600 13px/1 Inter, system-ui, sans-serif; padding: 2px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--paper); }
+figure { margin: 18px 0 22px; }
+figure video, figure img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #1a1917; }
+figcaption { margin-top: 6px; color: var(--mute); font-size: 14px; }
+.note { padding: 12px 16px; margin: 0 0 16px; border-radius: 10px; background: var(--raised); border: 1px solid var(--line); }
+.note p:last-child { margin-bottom: 0; }
+ol.steps { padding-left: 26px; } ol.steps > li { margin: 0 0 26px; } ol.steps > li > p { margin: 0 0 8px; } ol.steps > li::marker { font-weight: 700; }
+ol.steps img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #1a1917; }
+footer .links { margin: 0 0 6px; }</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><img src="/engine/client/mark.svg" alt="" width="36" height="36">Turnip Works</a>
+  <nav class="links" aria-label="Turnip Works pages"><a href="/features" aria-current="page">Features</a><a href="/manual">Manual</a><a href="/dice">Dice</a><a href="/switching">Switching</a><a href="/vtt-index">Compare VTTs</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://github.com/giblfiz/turnipworks">Source</a></nav>
+</header>
+<main>
+<h1>A tour of Turnip Works</h1>
+<p class="updated">Last updated 4 November 2026</p>
+<p>Turnip Works is a free 3D virtual tabletop that runs in a browser tab. Here's what's on the table today, one thing at a time. Everything on this page works on the live site now. The things we're still building aren't listed.</p>
+<h2>Buildings that furnish themselves</h2>
+<p>Open the Build tray, pick a building, and drag out its footprint. As you drag, it tells you the size and how many rooms it will have ("60 × 40 ft · 13 rooms"). Let go and the whole building goes up in a few seconds: rooms, doors, a hallway, stairs, a cellar, and furniture down to the candles. An inn gets a yard and a stable, a castle gets a courtyard and a gatehouse.</p>
+<p>There are 13 kinds: tavern and inn, mansion, castle, crypt and tomb, mine, smithy and workshop, monster lair, wizard's tower, cult sanctum, temple and chapel, dungeon and prison, farmstead, and market and village. Towers go up, crypts and dungeons go down. Don't like it? Re-roll it, change the number of storeys, or undo it with one <kbd>Ctrl</kbd>+<kbd>Z</kbd>. You can also type it: <code>build inn 12x8</code>, <code>build castle 16x12 3 storeys</code>.</p>
+<h2>Rooms, one at a time</h2>
+<p>If you'd rather build by hand, pick a room type and drag a rectangle on the 5-foot grid. Draw two that overlap and you get an L-shaped room. Rooms can be turned, dragged and hidden from players until they find them.</p>
+<h2>Floors, cellars, hills and caves</h2>
+<p>A building can have several storeys, with stairs between them. The level meter shows which floor you're looking at, and <kbd>[</kbd> and <kbd>]</kbd> move between them. Pawns keep track of which floor they're on and walk the stairs. There are pits too, and the game asks before anyone falls 20 feet.</p>
+<p>Outside, there's open ground and yards. Type <code>hill</code> for a grassy hill one storey high, then build on it or dig a room into it. Type <code>cavern</code> (or press Build cave) for a cave below ground, with rock, pillars and stalagmites. Wells and troughs hold water you can see ripple. There's no drawing rivers or lakes yet.</p>
+<h2>Fog of war that knows about darkvision</h2>
+<p>Each player sees only what their own pawn can see, worked out from the walls and doors. The GM sees everything. Turn the lights out in an area and it gets properly dark: pawns see 30 feet in the dark unless you say otherwise (<code>darkvision 60</code>), and torches, lanterns, lamps and candles each light their own reach. Snuff a lantern and the dark pours back in. Dice never bounce off things a player can't see, so a throw can't give away the hidden door.</p>
+<h2>First person</h2>
+<p>Press <kbd>V</kbd>, or Eyes on your pawn's ring, and look through its eyes. <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> walks, <kbd>Shift</kbd> runs, the mouse looks around, and walls and shut doors stop you. Click a door to open it. The others see an "in first person" tag over your pawn. On a phone, a four-arrow pad does the walking.</p>
+<h2>Pawns, damage and conditions</h2>
+<p>Drag a figure out of the library, or type <code>6 goblins</code>. Click a pawn and its ring opens: turn, sheet, damage, and a menu for the rest. Damage is a drag, or type <code>7 damage</code> or <code>heal 5</code>. Conditions show on the figure itself: a prone pawn lies down, a charmed one has a heart circling its head, an unconscious one has Zs rising. Give a pawn an aura and it glows, from a dim shimmer to a bonfire, in six colours. <code>roll initiative</code> starts the fight and keeps the turn order.</p>
+<p>A pawn's sheet card holds a link to your character sheet, wherever you keep it, plus notes and GM notes. Players on D&amp;D Beyond can roll from their sheet onto the table with <a href="/connect-dnd-beyond">Beyond20</a>.</p>
+<h2>3D dice, for many games</h2>
+<p>Every roll is real 3D dice tumbling across the table, and everyone sees the same throw. Plain dice, D&amp;D advantage and keep-highest work as you'd write them. So do the dice of Call of Cthulhu, Vampire V5 with Hunger dice, Shadowrun, Daggerheart's Hope and Fear, Fate, Legend of the Five Rings and Exalted, each read the way its game reads them. <a href="/dice">What to type for each game</a>.</p>
+<h2>The command bar</h2>
+<p>Press <kbd>/</kbd> and type what you want. <code>spike trap</code> finds the trap. <code>sphere 20</code> puts down a spell area and shows who's caught in it. <code>roll initiative</code>, <code>invite Bobby</code>, <code>build inn 12x8</code>, <code>darkvision 60</code>, <code>send to the dungeon</code>. The bar searches the whole library and every command, so you rarely need a menu.</p>
+<h2>Inviting players</h2>
+<p>Type <code>invite Bobby</code>, or open Settings ▸ Invites and exports. You get a link. Send it however you like. Bobby clicks it and he's in, already standing at the table as a grey pawn waiting for him to pick his figure. No account, no password, nothing to install, for him or for you. A browser remembers the games it's joined.</p>
+<h2>Phones</h2>
+<p>A phone opens straight into the game. Tap a pawn to select it, one finger pans, pinch zooms, twist turns, two fingers tilt. The ring gets Move and Delete buttons, and the bar offers Roll d20 and Say. A phone can also email itself the link, for when a bigger screen is nearby. Some screens, like Settings, are still laid out for a computer.</p>
+<h2>An AI helper at the table, if you want one</h2>
+<p>Any chat assistant that can open a web link can sit at your table as the GM's helper. Make one from the command bar (type <code>assistant</code>, then Create a GM assistant), paste the link it gives you into your chat assistant, and it can look at the scene, place things, move pawns and roll the same dice everyone sees, with only the permissions you gave it. There's no AI built into the game itself; this is a plain web API.</p>
+<h2>Areas, music and the rest</h2>
+<ul>
+<li><strong>Areas:</strong> a campaign holds many maps (the town, the road, the dungeon). Select the party and type <code>send to the dungeon</code> to move them from one to the next.</li>
+<li><strong>Music:</strong> each area can play a track or a playlist, and each person sets their own volume.</li>
+<li><strong>Sharing builds:</strong> hand a whole area to another GM as a file or an unlisted link, and they get it in 3D in their own campaign.</li>
+<li><strong>Taking a map elsewhere:</strong> download any level as a <a href="/export">Universal VTT file</a> for Foundry, Roll20 or Fantasy Grounds.</li>
+<li><strong>Feedback:</strong> Settings ▸ Feedback sends us a bug or an idea from inside the game.</li>
+</ul>
+<h2>And it's yours</h2>
+<p>Turnip Works is free, with no paid tier. The engine is open source under the GNU AGPL, and the 3D assets, every chair and goblin, are Creative Commons Attribution 4.0. It's in open beta and new things land every week. <a href="/about">More about us</a>. Coming from another tabletop? <a href="/switching">What's different</a>.</p>
+<a class="play" href="/">Open Turnip Works</a>
+</main>
+<footer>
+  <nav class="links" aria-label="Turnip Works pages"><a href="/features" aria-current="page">Features</a><a href="/manual">Manual</a><a href="/dice">Dice</a><a href="/switching">Switching</a><a href="/vtt-index">Compare VTTs</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://github.com/giblfiz/turnipworks">Source</a></nav>
+  <div>© 2026 Implausible Enterprises LLC · Engine AGPL-3.0 · Assets CC BY 4.0</div>
+</footer>
+<script type="module" src="/engine/client/landing.js"></script>
+</body>
+</html>

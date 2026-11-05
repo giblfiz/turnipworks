@@ -42,6 +42,7 @@ import { newId as mintId, isId } from './ids.js';
 import { RULE_KEYS, settingsProblem } from './state.js';
 import { cellsOf, hasCell, perimeterKeys } from './footprint.js';
 import { conditionsProblem } from './conditions.js';
+import { STAIR_CODES } from './stairs.js';
 
 export const SHARE_FORMAT = 'turnip-works-share';
 export const SHARE_V = 1;
@@ -122,7 +123,11 @@ function baseOf(E, roomIds, things) {
   return Math.min(...roots.map(e => { const f = HT.floorUnder(E, e.x, e.z, (e.y || 0) + 0.5); return f ? f.y : HT.terrainTopAt(E, e.x, e.z); }));
 }
 
-export function exportShare(entities, { kind = 'group', ids = [], name = '', strip = false, area = null, thumb = null, engineVersion = '', now = new Date() } = {}) {
+// A DISMISSED STAIR WARNING (core/stairs.js noteOff) stays in its own world. A campaign file is that world again, so its
+// import keeps the dismissal (keepNotes, from campaignAreas only). A shared build lands in someone else's world, so its
+// stairs say what they say there, and its file does not carry the field at all: a build with it in would lose that
+// stair at any older page, because validateShare refuses a field it does not know.
+export function exportShare(entities, { kind = 'group', ids = [], name = '', strip = false, area = null, thumb = null, engineVersion = '', now = new Date(), keepNotes = false } = {}) {
   if (!SHARE_KINDS.includes(kind)) throw new Error(`kind: one of ${SHARE_KINDS.join(', ')}`);
   const E = entities || {}, c = collect(E, { kind, ids });
   let left = { players: c.players, hidden: 0, pawns: 0, traps: 0, gmNotes: 0 };
@@ -151,7 +156,7 @@ export function exportShare(entities, { kind = 'group', ids = [], name = '', str
   const objIds = [...c.objects];
   for (const id of objIds) refOf(OBJ_REF, id);
   const R = (v, k) => Math.round(v * k) / k, vec = (a, k) => Array.isArray(a) ? a.map(v => typeof v === 'number' ? R(v, k) : v) : a;
-  const objects = objIds.map(id => { const o0 = E[id], o = { ...o0, x: R(o0.x, 100), z: R(o0.z, 100), ...(o0.y != null && { y: R(o0.y, 1000) }), ...(o0.rot != null && { rot: R(o0.rot, 1e4) }), ...(o0.s && { s: vec(o0.s, 1e4) }), ...(o0.dims && { dims: vec(o0.dims, 1000) }), ...(o0.quat && { quat: vec(o0.quat, 1e6) }) }; return { ref: ref.get(id), ...(o.room && ref.has(o.room) && { room: ref.get(o.room) }), ...(o.parent && ref.has(o.parent) && { parent: ref.get(o.parent) }), ...pick(o, OBJ_KEYS), ...(o.lit === false && { lit: false }), ...(o.y === 0 && { y: undefined }) }; }).map(o => JSON.parse(JSON.stringify(o)));
+  const objects = objIds.map(id => { const o0 = E[id], o = { ...o0, x: R(o0.x, 100), z: R(o0.z, 100), ...(o0.y != null && { y: R(o0.y, 1000) }), ...(o0.rot != null && { rot: R(o0.rot, 1e4) }), ...(o0.s && { s: vec(o0.s, 1e4) }), ...(o0.dims && { dims: vec(o0.dims, 1000) }), ...(o0.quat && { quat: vec(o0.quat, 1e6) }) }; return { ref: ref.get(id), ...(o.room && ref.has(o.room) && { room: ref.get(o.room) }), ...(o.parent && ref.has(o.parent) && { parent: ref.get(o.parent) }), ...pick(o, OBJ_KEYS), ...(keepNotes && o.noteOff && { noteOff: o.noteOff }), ...(o.lit === false && { lit: false }), ...(o.y === 0 && { y: undefined }) }; }).map(o => JSON.parse(JSON.stringify(o)));
   const edges = [...c.edges].map(id => pick(E[id], EDGE_KEYS));
   const pawns = [...c.pawns].map(id => { const t = E[id]; return { ref: refOf(PAWN_REF, id), ...pick(t, PAWN_KEYS), ...(Array.isArray(t.conditions) && !t.conditions.length && { conditions: undefined }) }; }).map(t => JSON.parse(JSON.stringify(t)));
   const water = [...c.water].map(id => ({ ref: refOf(WATER_REF, id), body: E[id].body, ...(E[id].hidden && { hidden: true }) }));
@@ -248,6 +253,7 @@ const T = {
   fig: (v, w) => typeof v === 'string' && RE.fig.test(v) ? v : no(`${w}: not a figure id`),
   color: (v, w) => typeof v === 'string' && RE.color.test(v) ? v : no(`${w}: not a #rrggbb colour`),
   key: (v, w) => typeof v === 'string' && EDGE_KEY_RE.test(v) ? v : no(`${w}: not a wall segment`),
+  stairCode: (v, w) => STAIR_CODES.includes(v) ? v : no(`${w}: not a stair warning`),
   vec3: (v, w) => Array.isArray(v) && v.length === 3 && v.every(x => finite(x)) ? [v[0], v[1], v[2]] : no(`${w}: not [x, y, z]`),
   quat: (v, w) => Array.isArray(v) && v.length === 4 && v.every(x => finite(x, 2)) ? [v[0], v[1], v[2], v[3]] : no(`${w}: not a quaternion`),
   outline: (v, w) => Array.isArray(v) && v.length >= 3 && v.length <= SHARE_LIMITS.outline && v.every(p => Array.isArray(p) && p.length === 2 && p.every(x => Number.isInteger(x) && Math.abs(x) <= 64)) ? v.map(([a, b]) => [a, b]) : no(`${w}: not an outline`),
@@ -299,7 +305,7 @@ const T = {
 const SPEC = {
   building: { ref: 'ref!', name: 'str?', roof: 'word?', roofShape: 'word?', gen: 'gen?' },
   room: { ref: 'ref!', building: 'ref?', name: 'name?', hidden: 'bool', fog: 'num?', roof: 'roof?', cliff: 'bool?', type: 'cat!', x: 'int!', z: 'int!', w: 'int!', d: 'int!', y: 'int', tall: 'int', seed: 'int!', wallSeed: 'int?', wallFamily: 'word?', floor: 'word?', turn: 'int', outline: 'outline', flavor: 'str?', stalagObjects: 'bool?', plan: 'plan?' },
-  object: { ref: 'ref!', room: 'ref', parent: 'ref', name: 'str?', cat: 'cat', sku: 'sku', flat: 'bool', place: 'word', layer: 'word', x: 'num!', y: 'num', z: 'num!', rot: 'num', yaw: 'num', quat: 'quat', s: 'vec3', dims: 'vec3', color: 'color?', hidden: 'bool', pinned: 'bool?', open: 'bool?', lit: 'bool?', rule: 'str', orient: 'str', rise: 'int', stair: 'str', down: 'bool', fromEdge: 'key', fromCave: 'bool', flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', lightRadius: 'num?' },
+  object: { ref: 'ref!', room: 'ref', parent: 'ref', name: 'str?', cat: 'cat', sku: 'sku', flat: 'bool', place: 'word', layer: 'word', x: 'num!', y: 'num', z: 'num!', rot: 'num', yaw: 'num', quat: 'quat', s: 'vec3', dims: 'vec3', color: 'color?', hidden: 'bool', pinned: 'bool?', open: 'bool?', lit: 'bool?', rule: 'str', orient: 'str', rise: 'int', stair: 'str', down: 'bool', noteOff: 'stairCode?', fromEdge: 'key', fromCave: 'bool', flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', lightRadius: 'num?' },
   edge: { key: 'key!', as: 'word', piece: 'sku', family: 'word', pick: 'int', doorType: 'word', hidden: 'bool' },
   pawn: { ref: 'ref!', name: 'str!', x: 'num!', z: 'num!', y: 'num', rot: 'num?', color: 'color?', fig: 'fig?', size: 'int?', hidden: 'bool', notes: 'note?', gmNotes: 'note?', mark: 'word?', conditions: 'conditions?', initBonus: 'int?', visionRadius: 'num?', darkvision: 'num?', lightCarried: 'num?' },
   water: { ref: 'ref!', body: 'body!', hidden: 'bool' },
@@ -513,7 +519,7 @@ export function planImport(doc, target = {}) {
       place: o.place, layer: o.layer, x, y, z, rot: o.rot || 0, yaw: same ? (o.yaw || 0) : (lib?.yaw ?? o.yaw ?? 0), ...(o.quat && { quat: o.quat }),
       s: (same ? o.s : lib?.s) || o.s || undefined, dims: (same ? o.dims : lib?.dims) || o.dims || undefined,
       ...(o.color && { color: o.color }), ...(o.hidden && { hidden: true }), ...(o.pinned && { pinned: true }), ...(o.lit === false && { lit: false }),
-      ...(o.rule && { rule: o.rule }), ...(o.orient && { orient: o.orient }), ...(o.rise && { rise: o.rise }), ...(o.stair && { stair: o.stair }), ...(o.down && { down: true }),
+      ...(o.rule && { rule: o.rule }), ...(o.orient && { orient: o.orient }), ...(o.rise && { rise: o.rise }), ...(o.stair && { stair: o.stair }), ...(o.down && { down: true }), ...(o.noteOff && { noteOff: o.noteOff }),
       ...(o.fromEdge && { fromEdge: shiftKey(o.fromEdge, dxc, dzc, dy) }), ...(o.fromCave && { fromCave: true }), ...(o.flavor && { flavor: o.flavor }),
       ...(o.factionMissing && { factionMissing: true, factionWasHidden: !!o.factionWasHidden }),
     };
@@ -666,7 +672,7 @@ export function campaignAreas(file) {
     try {
       const settings = isObj(a.settings) && !settingsProblem(a.settings, RULE_KEYS) ? a.settings : undefined;
       if (a.settings && !settings && Object.keys(a.settings).length) leftOut(pre, `${label}: its settings`, 'they could not be read', false);
-      const out = exportShare(ents, { kind: 'area', name: String(a.name || 'Imported').slice(0, SHARE_LIMITS.name), area: { name: String(a.name || 'Imported').slice(0, SHARE_LIMITS.name), settings, ground: typeof a.ground === 'string' ? a.ground : undefined } });
+      const out = exportShare(ents, { kind: 'area', keepNotes: true, name: String(a.name || 'Imported').slice(0, SHARE_LIMITS.name), area: { name: String(a.name || 'Imported').slice(0, SHARE_LIMITS.name), settings, ground: typeof a.ground === 'string' ? a.ground : undefined } });
       doc = out.doc; players = out.left.players;
     } catch { leftOut(left, label, 'it could not be read'); continue; }
     const v = validateShare(JSON.parse(JSON.stringify(doc)));

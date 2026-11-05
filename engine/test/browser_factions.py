@@ -28,7 +28,7 @@ async def idle(pg):await wait(pg,'tw.sync.pendingCount() === 0')
 async def cam(pg,x=15,z=20,dist=90,pitch=55):
     await pg.evaluate('([x,z,d,p])=>{const g=tw.main.grab;g.focus.set(x,0,z);g.dist=d;g.pitch=p;g.yaw=0;g.update();tw.main.rule="free"}',[x,z,dist,pitch]);await pg.wait_for_timeout(300)
 async def command(pg,text):
-    await pg.keyboard.press('/');await pg.locator('#bar input').fill(text);await pg.wait_for_timeout(250);await pg.keyboard.press('Enter');await idle(pg)
+    await pg.keyboard.press('/');await pg.locator('#bar textarea').fill(text);await pg.wait_for_timeout(250);await pg.keyboard.press('Enter');await idle(pg)
 async def snap(pg,name):
     Path(A.shots).mkdir(parents=True,exist_ok=True);await pg.screenshot(path=str(Path(A.shots)/(name+'.png')))
 SLOTS="Object.values(tw.entities()).filter(e=>e.kind==='object' && e.room===window.rid && e.cat.startsWith('flavor-'))"
@@ -75,7 +75,7 @@ async def main():
         await command(gm,'faction moon');check(await gm.evaluate('factionShape(tw.entities()[banner]) === "moon"'),'one banner override')
         await gm.evaluate('tw.select(rid)');await command(gm,'faction devils');check(await gm.evaluate('factionShape(tw.entities()[banner]) === "moon"'),'room change preserves banner override')
         await gm.evaluate('tw.select(banner)');await command(gm,'faction inherit');check(await gm.evaluate('!tw.entities()[banner].flavor && factionShape(tw.entities()[banner]) === "devils"'),'banner inherits again')
-        await gm.evaluate('tw.clearSelection()');await gm.keyboard.press('/');await gm.locator('#bar input').fill('spider banner');await gm.wait_for_timeout(400)
+        await gm.evaluate('tw.clearSelection()');await gm.keyboard.press('/');await gm.locator('#bar textarea').fill('spider banner');await gm.wait_for_timeout(400)
         check('Spider banner' in await gm.locator('#results').inner_text(),'spider banner search names a placeable object');await snap(gm,'search');await gm.keyboard.press('Enter');check(await gm.evaluate('!!tw.mode'),'search enters placement');await gm.keyboard.press('Escape')
         # Whole building + overridden side room.
         bid=await gm.evaluate("tw.makeBuilding({code:'TEM',x:20,z:0,w:14,d:12,seed:71,storeys:1})");await idle(gm)

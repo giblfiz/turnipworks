@@ -8,14 +8,14 @@
   ... --mock card.png                                                also draw a chat-app style preview card (Playwright)
 
   SRC    engine/client/site/* match their sources (build_site.py --check); the homepage source carries the same picture
-  TAGS   /, /about, /vtt-index, /terms, /privacy, /connect-dnd-beyond, fetched as Googlebot, Discordbot, Twitterbot and facebookexternalhit: 200 HTML, one
+  TAGS   every page in PAGES below (the sitemap's), fetched as Googlebot, Discordbot, Twitterbot and facebookexternalhit: 200 HTML, one
          <title>, a description of 50-170 characters, canonical = og:url = https://turnipworks.net<path>, og:title,
          og:description, og:type, og:site_name, og:image (absolute https) 1200x630, twitter:card summary_large_image,
          twitter:image; every tag inside <head> and in the first 32 KB; no key twice; no "forever" in any copy
   IMAGE  the picture answers 200 image/jpeg here, is 1200x630 and under 300 KB
   ROBOTS dev: robots.txt shuts everyone out and every page says X-Robots-Tag noindex. prod: robots.txt lets every named
          search and AI crawler fetch the pages (urllib.robotparser) but not /api/, names the sitemap; no page says noindex
-  MAP    sitemap.xml parses, lists exactly the six public pages (no campaign or table address), each answers 200 here
+  MAP    sitemap.xml parses, lists exactly the public pages (PAGES) (no campaign or table address), each answers 200 here
   LLMS   llms.txt answers 200 text/plain utf-8, starts "# Turnip Works" with a "> " summary, and its turnipworks.net links
          answer 200 here
 Absolute turnipworks.net addresses are asked of the server under test by their path (dev serves the same files).
@@ -26,7 +26,7 @@ import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ENGINE = os.path.dirname(HERE); REPO = os.path.dirname(ENGINE)
 SITE = 'https://turnipworks.net'
-PAGES = ['/', '/about', '/vtt-index', '/terms', '/privacy', '/connect-dnd-beyond']
+PAGES = ['/', '/features', '/manual', '/dice', '/switching', '/vtt-index', '/about', '/terms', '/privacy', '/connect-dnd-beyond', '/export']  # the sitemap's order: /, NAV, HELP (build_site.py)
 BOTS = {'Googlebot': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
         'Discordbot': 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)',
         'Twitterbot': 'Twitterbot/1.0',
@@ -158,7 +158,7 @@ def server_checks():
     try: locs = [e.text for e in ET.fromstring(b).iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
     except ET.ParseError as e: locs = [repr(e)]
     check(st == 200 and 'xml' in h.get('Content-Type', ''), 'MAP /sitemap.xml answers 200 XML', f'{st} {h.get("Content-Type")}')
-    check(locs == [SITE + p for p in PAGES], 'MAP lists exactly the six public pages', locs)
+    check(locs == [SITE + p for p in PAGES], f'MAP lists exactly the {len(PAGES)} public pages', locs)
     dead = [l for l in locs if get(l)[0] != 200]
     check(not dead and not any(c in ''.join(locs) for c in '#?'), 'MAP every address answers 200, none a campaign or table', dead or '')
     st, h, b = get('/llms.txt'); txt = b.decode('utf-8', 'replace')

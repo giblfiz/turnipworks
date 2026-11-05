@@ -153,15 +153,15 @@ async def main():
         check('Roll initiative' not in await mi.evaluate(OFFERS) and not await mi.evaluate("tw.actionLines.list().some(l => l.kind === 'roll-init')"), 'her offer is gone once her pawn has a number (used: it leaves no chat line)')
         # Kit has no bonus: it asks first
         await kit.evaluate("[...document.querySelectorAll('.cbtn')].find(b => /Roll initiative/.test(b.textContent)).click()"); await kit.wait_for_timeout(350)
-        st = await kit.evaluate("({ open: document.querySelector('#bar').classList.contains('open'), text: document.querySelector('#bar input').value, init: tw.turns().init, chat: (tw.view().chat || []).length })")
+        st = await kit.evaluate("({ open: document.querySelector('#bar').classList.contains('open'), text: document.querySelector('#bar .chips').innerText + ' ' + document.querySelector('#bar textarea').value, init: tw.turns().init, chat: (tw.view().chat || []).length })")
         check(st['open'] and st['text'] == 'initiative bonus ' and ZE not in st['init'] and st['chat'] == c0 + 1, 'Kit (no bonus set) presses it: nothing is rolled yet; the bar opens on "initiative bonus " for the number', st)
         await kit.evaluate(f"tw.sel.delete('{ZE}'); tw.emit('selection'); tw.sel.add('{ZE}'); tw.emit('selection')")
         check(await kit.evaluate(f"tw.sel.has('{ZE}') && document.querySelector('#bar').classList.contains('open')"), 'a transient selection rebase leaves the bonus prompt active')
         await kit.keyboard.type('2', delay=10); await kit.wait_for_timeout(250)
-        chips = await kit.evaluate("[...document.querySelectorAll('#bar .chips .chip')].map(c => c.textContent)")
+        chips = await kit.evaluate("[...document.querySelectorAll('#results .res.intent .chip')].map(c => c.textContent)")  # (the row below: the bar has the verb chip and the 2)
         await kit.keyboard.press('Enter'); await settle(); kit_rolled = await wait(kit, f"'{ZE}' in tw.turns().init", 5000, 'kit init')
         if not kit_rolled:
-            state = await kit.evaluate("""() => ({ selected: [...tw.sel], barOpen: document.querySelector('#bar').classList.contains('open'), barText: document.querySelector('#bar input').value,
+            state = await kit.evaluate("""() => ({ selected: [...tw.sel], barOpen: document.querySelector('#bar').classList.contains('open'), barText: document.querySelector('#bar textarea').value,
               zed: tw.entities().tok_zed0000001, turns: tw.turns(), pending: tw.sync.pendingCount(), recentSelection: tw.selLog.slice(-5), lastRolls: tw.lastInitRolls })""")
             print('    Kit initiative diagnostic: ' + str(state), flush=True)
         T, _ = await same(TURNS); chat = await gm.evaluate(CHAT); z = await gm.evaluate(f"{E(ZE)}.initBonus")
@@ -173,9 +173,9 @@ async def main():
         chat2 = await gm.evaluate(CHAT)
         check(len(chat2) == len(chat) + 1 and chat2[-1]['roll']['expr'] == 'd20+2' and not await kit.evaluate("document.querySelector('#bar').classList.contains('open')"), '"Roll your initiative" from the bar, with a bonus set, just rolls (and replaces his number)')
         # typed number (dice on the table)
-        await sel(mi, BR); await bar(mi, 'initiative 17', enter=False); chips = await mi.evaluate("[...document.querySelectorAll('#bar .chips .chip')].map(c => c.textContent)"); await mi.keyboard.press('Enter'); await settle()
+        await sel(mi, BR); await bar(mi, 'initiative 17', enter=False); chips = await mi.evaluate("[[...document.querySelectorAll('#bar .chips .chip')].map(c => c.textContent), document.querySelector('#bar textarea').value, ...[...document.querySelectorAll('#results .res.intent .chip')].map(c => c.textContent)]"); await mi.keyboard.press('Enter'); await settle()
         await wait(gm, f"tw.turns().init['{BR}'] === 17", 5000, 'typed'); T, _ = await same(TURNS); chat3 = await gm.evaluate(CHAT)
-        check(chips[:3] == ['initiative', '17', 'rolled at the table'] and T['init'][BR] == 17 and not chat3[-1]['roll'] and '17' in chat3[-1]['text'] and 'Brakka' in chat3[-1]['text'], '"initiative 17": the typed number is taken in place of a roll (a say line, no dice)', [chips, chat3[-1:]])
+        check(chips[:4] == [['initiative'], '17', 'initiative', 'rolled at the table'] and T['init'][BR] == 17 and not chat3[-1]['roll'] and '17' in chat3[-1]['text'] and 'Brakka' in chat3[-1]['text'], '"initiative 17": the typed number is taken in place of a roll (a say line, no dice)', [chips, chat3[-1:]])
         # a player cannot set another's
         await sel(mi, ZE); await bar(mi, 'initiative 20', enter=True); await settle(); await mi.wait_for_timeout(300)
         check((await gm.evaluate(TURNS))['init'][ZE] != 20 or T['init'][ZE] == 20, 'Mira typing "initiative 20" with Kit\'s pawn selected changes her own pawn or nothing, never his', (await gm.evaluate(TURNS))['init'])

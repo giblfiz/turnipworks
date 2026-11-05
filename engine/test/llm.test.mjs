@@ -54,7 +54,7 @@ ok(mine.ok, 'the player\'s pawn');
   const words = (s) => s.split(/\s+/).length;
   // (2026-10-29: +30 words for the one shared-builds line Harry's "share a selection" asked for; main stood at 998)
   ok(card.length < 11100 && words(card) < 1050, `the GM assistant's card is small (${card.length} chars, ${words(card)} words; it was 22.5k / 2985 before 2026-10-20)`);
-  for (const k of ['/scene?', '/room/ROOM_ID?', 'cmd=dice.roll&expr=d20&bonus=0&why=REASON', 'cmd=token.create&fig=FIGURE_ID&room=ROOM_ID', 'cmd=object.light&id=THING_ID&lit=true', 'cmd=entity.flag&ids=ID&hidden=true', 'cmd=room.set&id=ROOM_ID&name=NAME', 'ROOM LABELS', 'WORKED EXAMPLE', 'ETIQUETTE FOR AI SEATS', '/help/TOPIC?'])
+  for (const k of ['/scene?', '/room/ROOM_ID?', 'cmd=dice.roll&expr=d20&bonus=0&why=REASON', 'cmd=token.create&fig=FIGURE_ID&room=ROOM_ID', 'cmd=object.light&id=THING_ID&lit=true', 'cmd=entity.flag&ids=ID&hidden=true', 'cmd=room.set&id=ROOM_ID&name=NAME', 'ROOM AND BUILDING LABELS', 'WORKED EXAMPLE', 'ETIQUETTE FOR AI SEATS', '/help/TOPIC?'])
     ok(card.includes(k), `the GM card has: ${k}`);
   ok(!/HIDDEN from players/.test(pcard) && !pcard.includes(V) && !pcard.includes('Secret vault'), 'the advisor\'s card names nothing hidden');
   for (const k of ['room.spawn', 'token.create', 'entity.flag', 'area.visibility', 'object.place', 'room.set', 'ROOM LABELS']) ok(!pcard.includes(k), `the advisor's card offers no GM command (${k})`);
@@ -155,6 +155,33 @@ ok(mine.ok, 'the player\'s pawn');
   ok(['coc [SKILL]', 'v5 POOL', 'sr POOL', 'duality [MOD]', '4df [MOD]', 'l5r R ring S skill', 'ex POOL', 'BOTCH', 'messy critical', 'CRITICAL GLITCH', 'with Hope'].every(k => help.includes(k)), 'help/dice explains each game');
 }
 
+// ---- 3c. a helper's seat is named "<username>'s <botname>" (2026-11-02; core/agentname.js), on every path, and no seat already made is renamed ----
+{
+  ok(gmAi.ok && RT.state.seats[gmAi.id].name === "Harry's Helper" && RT.state.seats[plAi.id].name === "Brakka's Advisor", 'GET seat.create names the seat <username>\'s <botname>');
+  const named = async (name, tok = C.token) => { const r = await seat(tok, { kind: 'llm', ...(name != null && { name }), scope: { areas: '*', classes: ['chat'] } }); return RT.state.seats[r.id]?.name; };
+  ok(await named(null) === "Harry's assistant" && await named('') === "Harry's assistant" && await named('   ') === "Harry's assistant", 'no name at all, or a blank one: assistant');
+  ok(await named('Luna') === "Harry's Luna", 'a botname');
+  ok(await named("Harry's Luna") === "Harry's Luna" && await named("harry’s Luna") === "Harry's Luna" && await named("HARRY'S luna") === "Harry's luna", 'a name already starting with the username is not doubled (any case, a curly apostrophe)');
+  ok(await named("Mira's Luna") === "Harry's Mira's Luna", 'someone else\'s name is only a botname');
+  const ws = new WebSocket(`ws://127.0.0.1:${relay.port}/ws`); await new Promise(r => ws.on('open', r));
+  ws.send(JSON.stringify({ t: 'hello', token: C.token })); await sleep(150); ws.send(JSON.stringify({ t: 'cmd', cid: 'seatws1', type: 'seat.create', args: { id: 'seat_wsnamed01', kind: 'llm', name: 'Bot', scope: { areas: '*', classes: ['chat'] } } })); await sleep(200); ws.close();
+  ok(RT.state.seats.seat_wsnamed01?.name === "Harry's Bot", 'the browser\'s path (a socket command) too');
+  // a long username: the whole name is at most 40, the botname stays
+  const { helperSeatName: hn, botOf } = await import('../core/agentname.js');
+  const L = 'Bartholomew-Maximilian-Featherstonehaugh-III';
+  ok(hn(L, 'assistant').length <= 40 && hn(L, 'assistant').endsWith("…'s assistant") && hn(L, 'assistant').startsWith('Bartholomew'), 'a long username gives way with an ellipsis, the botname stays whole', hn(L, 'assistant'));
+  ok(hn(L, hn(L, 'Luna')) === hn(L, 'Luna'), 'shortened, it is still not doubled');
+  ok(hn(L, 'x'.repeat(40)).length <= 40 && hn(L, 'x'.repeat(40)).split("'s ")[0].length >= 8, 'a long botname too: at least 8 characters of the username remain', hn(L, 'x'.repeat(40)));
+  ok(hn('Harry', 'y'.repeat(40)).length <= 40 && hn('A'.repeat(40), '').length <= 40, 'never past 40');
+  ok(botOf('Harry', "Harry's Luna") === 'Luna' && botOf('Harry', 'Luna') === null, 'botOf reads the botname back');
+  // no seat already made is renamed: a journaled seat.create replays as it was
+  RT.applyRecord({ r: RT.r + 1, at: Date.now(), by: C.seat, camp: { type: 'seat.create', args: { id: 'seat_oldname01', kind: 'llm', name: 'Old Luna', scope: { areas: '*', classes: ['chat'] } } }, fx: [] });
+  ok(RT.state.seats.seat_oldname01?.name === 'Old Luna', 'a seat already in the journal keeps its name on replay');
+  const oldTok = relay.tokens.mint(C.campaign, RT.state.seats.seat_oldname01), oldCard = (await get(`${cp}/card?seat=${oldTok}`)).body, newCard = (await get(`${cp}/card?seat=${G}`)).body;
+  ok(oldCard.includes("rules card for Old Luna (Harry's GM assistant)") && oldCard.includes('"Harry\'s GM assistant"'), 'and its card still says whose it is, and answers to that');
+  ok(newCard.split('\n')[0].endsWith("rules card for Harry's Helper") && newCard.includes('"@Harry\'s Helper", "Harry\'s Helper", "Helper"'), 'a new seat\'s card needs no "(Harry\'s GM assistant)", and it answers to its botname');
+}
+
 // ---- 4. pawns: into a room, conditions, darkvision; the advisor only its own ----
 {
   const gob = await act(G, 'token.create', { fig: 'foe-goblin-club', room: R });
@@ -174,6 +201,83 @@ ok(mine.ok, 'the player\'s pawn');
   ok((await act(G, 'token.set', { id: gob.id, conditions: '' })).ok && !E()[gob.id].conditions.length, 'conditions= clears them');
   ok(!(await act(P, 'token.set', { id: gob.id, conditions: 'prone' })).ok && (await act(P, 'token.damage', { id: gob.id, damage: 5 })).ok, 'the advisor may not set the goblin\'s conditions, may change its damage (everyone\'s, as in the browser)');
   ok(!(await act(G, 'entity.flag', { ids: gob.id, hidden: 'maybe' })).ok, 'a switch that is not true or false is refused (it used to read as false: revealed)');
+}
+
+// ---- 4b. which way a stair goes (2026-11-02; Harry: "I just watched luna get confused about if stairs go up or down"): a stair up and a flipped stair down from one room, read from each end ----
+{
+  const hall = await act(G, 'room.spawn', { type: 'hallway', x: 800, z: 0, w: 40, d: 40, seed: 31, name: 'Long Hall', stair: '0' });
+  const above = await act(G, 'room.spawn', { type: 'guest', x: 800, z: 0, w: 40, d: 40, seed: 32, y: 10, name: 'Attic', stair: '0' });
+  const below = await act(G, 'room.spawn', { type: 'cellar', x: 800, z: 0, w: 40, d: 40, seed: 33, y: -10, name: 'Root cellar', stair: '0' });
+  ok(hall.ok && above.ok && below.ok && !above.stair && !below.stair, 'three storeys, no stair yet', [hall, above, below]);
+  const place = (args) => act(G, 'object.place', { place: 'stair', rise: 10, rot: 0, dims: '[4.4,10,10]', ...args });
+  const up = await place({ x: 807.5, z: 15, y: 0, room: hall.id });
+  const dn = await place({ x: 827.5, z: 15, y: 0, room: hall.id });
+  const flip = await act(G, 'stair.flip', { id: dn.id, y: -10, down: 'true' });
+  ok(up.ok && dn.ok && flip.ok, 'a stair up, and one switched to lead down', [up, dn, flip]);
+  ok(/bottom Long Hall \(lv 1\), top Attic \(lv 2\)/.test(up.stairSays) && up.stairWorks === true, 'placing a stair says which way it leads, in the answer', up);
+  ok(/bottom Root cellar \(lv -1\), top Long Hall \(lv 1\)/.test(flip.stairSays) && flip.stairWorks === true, 'switching one too', flip);
+  const st = (await read(G, 'state')).body.stairs, sc = (await read(G, 'scene')).body.stairs, si = (id) => st.find(x => x.id === id), ss = (id) => sc.find(x => x.id === id);
+  // what from and to really hold: bottom and top, for the flipped stair as well, and never a journey
+  ok(si(up.id).from === hall.id && si(up.id).to === above.id && si(up.id).fromLevel === 'lv 1' && si(up.id).toLevel === 'lv 2', 'state, the stair up: from the bottom room, to the top room', { ...si(up.id), railing: 0, cells: 0, hall: hall.id, above: above.id });
+  ok(si(dn.id).from === below.id && si(dn.id).to === hall.id && si(dn.id).fromLevel === 'lv -1' && si(dn.id).toLevel === 'lv 1' && si(dn.id).down === true, 'state, the flipped stair: `from` is still the BOTTOM room, the cellar, not the room it leads down from');
+  for (const [what, s] of [['state', si(dn.id)], ['scene', ss(dn.id)]]) ok(s.ends.bottom.room === below.id && s.ends.bottom.label === 'Root cellar' && s.ends.bottom.level === 'lv -1' && s.ends.top.room === hall.id && s.ends.top.label === 'Long Hall' && s.ends.top.level === 'lv 1' && /Up from the bottom, down from the top/.test(s.says), `${what}: both ends, by room and level, in words`, s);
+  const roomRead = async (id) => (await read(G, `room/${id}`)).body, way = (r, id) => r.stairs.find(x => x.id === id);
+  const fromHall = await roomRead(hall.id), fromAttic = await roomRead(above.id), fromCellar = await roomRead(below.id);
+  ok(way(fromHall, up.id).goes === 'up' && way(fromHall, up.id).leadsTo.room === above.id && way(fromHall, up.id).leadsTo.level === 'lv 2', 'from the hall the stair up goes up, to the attic, lv 2', way(fromHall, up.id));
+  ok(way(fromHall, dn.id).goes === 'down' && way(fromHall, dn.id).leadsTo.room === below.id && way(fromHall, dn.id).leadsTo.level === 'lv -1', 'from the hall the flipped stair goes down, to the cellar, lv -1', way(fromHall, dn.id));
+  ok(way(fromAttic, up.id).goes === 'down' && way(fromAttic, up.id).leadsTo.room === hall.id, 'read from its other end, the stair up goes down');
+  ok(way(fromCellar, dn.id).goes === 'up' && way(fromCellar, dn.id).leadsTo.room === hall.id, 'and the flipped stair goes up');
+  ok(fromHall.things.find(x => x.id === up.id)?.goes === 'up' && fromCellar.things.find(x => x.id === dn.id)?.goes === 'up', 'a room\'s things carry the word too');
+  const lk = (await read(G, `look?x=807.5&z=15&r=3&y=0`)).body.near.find(x => x.id === up.id), lk2 = (await read(G, `look?x=827.5&z=15&r=3&y=-10`)).body.near.find(x => x.id === dn.id);
+  ok(lk?.goes === 'up' && lk.leadsTo.room === above.id && lk2?.goes === 'up', 'look with y= reads it from that height', [lk, lk2]);
+  const pawn = await act(G, 'token.create', { name: 'Walker', x: 807.5, z: 5 });
+  const top = await act(G, 'token.move', { id: pawn.id, stair: up.id, to: 'top' }), bot = await act(G, 'token.move', { id: pawn.id, stair: up.id, to: 'bottom' });
+  ok(top.at === undefined && RT.state.areas[A].entities[pawn.id] && bot.ok, 'to=top and to=bottom', [top.ok, bot.ok]);
+  await act(G, 'token.move', { id: pawn.id, stair: dn.id, to: 'top' });
+  ok(RT.state.areas[A].entities[pawn.id].y === 0, 'on the flipped stair to=top is still its upper end (the hall), not "the way it leads"', RT.state.areas[A].entities[pawn.id].y);
+  await act(G, 'token.move', { id: pawn.id, stair: dn.id, to: 'bottom' });
+  ok(RT.state.areas[A].entities[pawn.id].y === -10, 'and to=bottom its lower end (the cellar)');
+  // a stair put under a room, naming that room: its bottom is where its foot is
+  const under = await place({ x: 817.5, z: 30, y: -10, room: hall.id });
+  ok(/bottom Root cellar \(lv -1\), top Long Hall \(lv 1\)/.test(under.stairSays), 'a stair placed under a room says plainly where it leads, even with room= the upper room', under);
+  await act(G, 'object.delete', { id: under.id });
+  // a ladder says so; a stair with a problem says so, in the game's words
+  const lad = await act(G, 'object.place', { cat: 'ladder-wood', x: 845.5, z: 5, y: 0 });
+  const noted = await act(G, 'object.place', { place: 'stair', rise: 10, rot: 0, dims: '[4.4,10,10]', x: 900, z: 500, y: 40 });
+  const scene2 = (await read(G, 'scene')).body;
+  ok(lad.ok && /^Ladder: /.test(lad.stairSays) && scene2.stairs.find(x => x.id === lad.id).kind === 'ladder', 'a ladder says so', lad);
+  const bad = scene2.stairs.find(x => x.id === noted.id);
+  ok(noted.stairWorks === false && bad?.works === false && bad.note === 'Nothing below' && /nothing is built below|stands on no floor/.test(bad.why) && bad.says.includes('It does not work: Nothing below.') && bad.ends.bottom.level === null && bad.ends.top.level === null, 'a stair that cannot work: works false, the note on the table word for word, and no invented level', bad);
+  // hidden floors stay hidden: a stair that reaches a floor this seat may not see names neither room nor level, and reads as one with nothing built
+  const check = async (label) => {
+    const scene = (await read(P, 'scene')).body, state = (await read(P, 'state')).body, room = (await read(P, `room/${hall.id}`)).body, text = JSON.stringify([scene, state, room, (await read(P, 'look?x=807.5&z=15&r=30')).body, (await read(P, 'look?x=807.5&z=15&r=30&y=0')).body]);
+    return { scene, state, room, text, label };
+  };
+  const shown = await check();
+  ok(!shown.text.includes('Long Hall') && !shown.text.includes('Attic') && !shown.text.includes('Root cellar') && shown.scene.stairs.find(x => x.id === up.id)?.ends.top.label === 'Guest room', "a player's agent: no GM label anywhere, each room by its type", shown.scene.stairs.find(x => x.id === up.id)?.ends);
+  ok((await act(G, 'entity.flag', { ids: above.id, hidden: true })).ok && (await act(G, 'entity.flag', { ids: below.id, hidden: true })).ok, 'the GM hides the attic and the cellar');
+  const hid = await check(), vis = hid.scene.stairs.filter(x => x.from === hall.id || x.to === hall.id);
+  ok(!hid.text.includes(above.id) && !hid.text.includes(below.id) && !hid.text.includes('lv 2') && !hid.text.includes('lv -1') && !hid.text.includes('"storey":-1'), "hidden floors: neither the room nor the level reaches a player's agent, in any stair field", ['lv 2', 'lv -1', '"storey":-1', above.id, below.id].filter(k => hid.text.includes(k)).concat(hid.text.match(/.{120}lv -1.{60}|.{120}lv 2.{60}/)?.[0] || ''));
+  // a stair the GM left visible, standing in the open room and reaching the hidden attic: it may be seen, what it reaches may not
+  await act(G, 'entity.flag', { ids: up.id, hidden: false });
+  const hung = (await read(P, 'scene')).body.stairs.find(x => x.id === up.id), hungRoom = (await read(P, `room/${hall.id}`)).body.stairs.find(x => x.id === up.id);
+  ok(hung && hung.to === null && hung.ends.top.room === null && hung.ends.top.level === null && hung.ends.top.label === undefined && hung.works === false && hung.note === 'No floor above yet', "a visible stair up to a hidden floor: no room, no level, and the same words as a stair to nothing", hung);
+  ok(hungRoom.goes === 'up' && hungRoom.leadsTo.room === null && hungRoom.leadsTo.level === null && !JSON.stringify(hungRoom).includes(above.id), 'read from the room too');
+  const never = await act(G, 'room.spawn', { type: 'hallway', x: 1000, z: 0, w: 40, d: 40, seed: 35, stair: '0' }), bare = await place({ x: 1007.5, z: 15, y: 0, room: never.id });
+  const [a0, b0] = [(await read(P, 'scene')).body.stairs.find(x => x.id === up.id), (await read(P, 'scene')).body.stairs.find(x => x.id === bare.id)], strip = ({ id, from, says, ends, ...r }) => ({ ...r, top: ends.top });
+  ok(JSON.stringify(strip(a0)) === JSON.stringify(strip(b0)) && a0.says === b0.says, 'to the letter: a stair up to a hidden floor reads as a stair up to nothing', [a0, b0]);
+  for (const id of [above.id, below.id]) await act(G, 'entity.flag', { ids: id, hidden: false });
+  // a stair below ground: up onto open ground
+  const pit = await act(G, 'room.spawn', { type: 'cellar', x: 800, z: 200, w: 30, d: 30, seed: 34, y: -10, stair: '0' });
+  const out = await place({ x: 812.5, z: 215, y: -10, room: pit.id });
+  const si2 = (await read(G, 'state')).body.stairs.find(x => x.id === out.id);
+  ok(si2.from === pit.id && si2.to === null && si2.fromLevel === 'lv -1' && si2.toLevel === 'lv 1' && si2.ends.top.label === 'open ground' && si2.ends.top.level === 'lv 1' && si2.works, 'a stair going below ground: its top is the open ground, lv 1', si2);
+  for (const id of [pawn.id]) await act(G, 'token.delete', { id });
+  for (const id of [hall.id, above.id, below.id, pit.id, never.id]) await act(G, 'room.delete', { id });
+  for (const id of [up.id, dn.id, lad.id, noted.id, out.id, bare.id]) await act(G, 'object.delete', { id });
+  const card = (await get(`${cp}/card?seat=${G}`)).body, help = (await get(`${cp}/help/height?seat=${G}`)).body;
+  ok(/to=top its upper end, to=bottom its lower/.test(card) && /never a direction/.test(card), 'the card leaves no doubt which end is which');
+  ok(/to=top: to its upper end; to=bottom: to its lower end/.test(help) && /always the room at the BOTTOM/.test(help), 'nor does help/height');
 }
 
 // ---- 5. things: lights, doors, the library, replace with similar, re-roll; rules ----
@@ -207,6 +311,50 @@ ok(mine.ok, 'the player\'s pawn');
   ok((await get(`${cp}/factions?seat=${G}`)).body.factions.some(f => f.id === 'sun') && Object.keys((await get(`${cp}/rooms?seat=${G}`)).body.groups).length >= 8, 'the factions and the room types by kind');
 }
 
+// ---- 5b. a room is not a thing (2026-11-02; a helper: "placing a 'cave' object only makes a marker rather than a cave room"): the answer names the right call ----
+{
+  const objs = () => Object.values(RT.state.areas[A].entities).filter(e => e.kind === 'object').length;
+  const card = (await get(`${cp}/card?seat=${G}`)).body, build = card.split('\n').find(l => l.includes('BUILD A ROOM'));
+  ok(/cave/.test(build) && /cellar/.test(build) && /basement/.test(build) && /crypt/.test(build) && /y=-10/.test(build), 'the main card: a helper who wants a cave, cellar, basement or crypt finds y=-10 on the line it starts from', build);
+  ok(/PUT A THING DOWN/.test(card) && /only a marker/.test(card), 'and that a thing with no cat is only a marker');
+  const open = (await act(G, 'room.spawn', { type: 'common', x: 1200, z: 0, w: 30, d: 30 }));
+  ok(open.ok, 'the card\'s own room.spawn address works as printed: no seed needed', open);
+  const n0 = objs();
+  const noCat = await act(G, 'object.place', { name: 'cave', x: 1300, z: 0 });
+  ok(noCat.ok === false && /is a room, not a thing/.test(noCat.why) && noCat.why.includes('room.spawn&type=cave') && noCat.why.includes('y=-10') && objs() === n0, 'object.place name=cave: refused, and the answer names the right call; nothing placed', noCat);
+  const named = await act(G, 'object.place', { cat: 'cave', x: 1300, z: 0 });
+  ok(named.ok === false && named.why.includes('room.spawn&type=cave') && objs() === n0, 'cat=cave: the same', named);
+  for (const w of ['cellar', 'basement', 'Crypt', 'dungeon', 'Cavern']) { const r = await act(G, 'object.place', { name: w, x: 1300, z: 0 }); ok(r.ok === false && /room\.spawn&type=/.test(r.why), `object.place name=${w}: the room's call`, r); }
+  const bare = await act(G, 'object.place', { name: 'cave', x: 1300, z: 0, marker: 1 }), plain = await act(G, 'object.place', { name: 'X marks the spot', x: 1301, z: 0 });
+  ok(bare.ok && /only a marker/.test(bare.note) && plain.ok && /only a marker/.test(plain.note) && /things\?q=WORDS/.test(plain.note), 'marker=1 still leaves the box; any other name too, and the answer says it is only a marker', [bare, plain]);
+  await act(G, 'object.delete', { id: bare.id }); await act(G, 'object.delete', { id: plain.id });
+  // a cave: no command of its own, below the ground by itself, and the stair it comes with says where it leads
+  const cave = await act(G, 'room.spawn', { type: 'cave', x: 1200, z: 0, w: 35, d: 25 }), rm = RT.state.areas[A].entities[cave.id];
+  ok(cave.ok && rm.recipe.type === 'cave' && rm.recipe.y === -10 && /y=-10, lv -1/.test(cave.note), 'room.spawn type=cave goes below the ground, as the room tool does, and says so', cave);
+  ok(cave.stair && /top Common room \(lv 1\)|top open ground \(lv 1\)/.test(cave.stairSays) && /bottom Cave \(lv -1\)/.test(cave.stairSays), 'and the stair it comes with says where it leads, straight away', cave);
+  const y0 = await act(G, 'room.spawn', { type: 'cave', x: 1400, z: 0, w: 35, d: 25, y: 0 });
+  ok(y0.ok && !RT.state.areas[A].entities[y0.id].recipe.y && !y0.note, 'a y sent is kept', y0);
+  await act(G, 'room.delete', { id: y0.id });
+  // the same trap for every word that is both: each piece is placed, and its answer names the room
+  const lib = RT.roomgen.lib, both = ['pigsty', 'forge', 'smelter', 'throne', 'cave-mouth'].filter(c => lib.objects[c]);
+  ok(both.length === 5, 'the words that are both a piece and a room, as the catalog stands', both);
+  for (const c of both) { const r = await act(G, 'object.place', { cat: c, x: 1300, z: 40 }); ok(r.ok && /one piece of furniture/.test(r.note) && /room\.spawn&type=/.test(r.note), `cat=${c}: placed, and the answer names the room`, r); if (r.id) await act(G, 'object.delete', { id: r.id }); }
+  const mouth = await act(G, 'object.place', { cat: 'cave-mouth', x: 1300, z: 40 });
+  ok(mouth.note.includes('room.spawn&type=cave&') && mouth.note.includes('room.spawn&type=lair-mouth'), 'a cave mouth names the cave too', mouth.note); await act(G, 'object.delete', { id: mouth.id });
+  const types = RT.roomgen.typeList, words = new Set(types.flatMap(t => [...t.key.split('-'), ...t.label.toLowerCase().split(/[^a-z]+/)]).filter(w => w.length > 3));
+  ok(Object.keys(lib.objects).filter(o => words.has(o)).every(o => both.includes(o)), 'and no other piece is a room\'s word (a new one would fail here, to be looked at)', Object.keys(lib.objects).filter(o => words.has(o)));
+  const cand = await act(G, 'object.place', { cat: 'candlestick', x: 1300, z: 40 });
+  ok(cand.ok && !cand.note, 'a plain piece: no note'); await act(G, 'object.delete', { id: cand.id });
+  const q = (await get(`${cp}/things?q=cave&seat=${G}`)).body;
+  ok(q.room?.includes('room.spawn&type=cave') && q.things.length > 0, 'a search of the things for "cave" says it is a room, beside the furniture', q.room);
+  // a seat that may place things but not rooms is told so, in the answer and on its card
+  const handy = await seat(C.token, { kind: 'llm', name: 'Handy', scope: { areas: '*', classes: ['object', 'chat'] } });
+  const h = await act(handy.token, 'object.place', { name: 'cave', x: 1300, z: 0 }), hc = (await get(`${cp}/card?seat=${handy.token}`)).body;
+  ok(h.ok === false && /no "room" permission/.test(h.why) && /ask the GM/.test(h.why), 'a seat without the room class is told it cannot build one, and to ask the GM', h);
+  ok(/is a ROOM, not a thing/.test(hc) && !hc.includes('cmd=room.spawn'), 'its card says so too, and offers no room.spawn');
+  for (const id of [cave.id, open.id]) await act(G, 'room.delete', { id });
+}
+
 // ---- 6. labels, GM notes and the GM side's ghost never reach the player side ----
 {
   const pls = new ClientSync({ token: pl.token, transport: wsTransport(`ws://127.0.0.1:${relay.port}/ws`, WebSocket), onPresence: (m) => ghosts.push(m) });
@@ -232,6 +380,34 @@ ok(mine.ok, 'the player\'s pawn');
   const pp = (await get(`${cp}/presence?seat=${P}`)).body;
   ok(!pp.seats.some(s => s.seat === gmAi.id && s.cursor && s.cursor[0] >= vr.x * 5 && s.cursor[0] <= (vr.x + vr.w) * 5), 'nor in the advisor\'s presence read');
   pls.close();
+}
+
+// ---- 6b. building labels (2026-11-02; Harry: "Apparently they can't see building labels"): every read agrees with the screen, within seesLabels ----
+{
+  const keep = await act(G, 'room.spawn', { type: 'common', x: 400, z: 0, w: 20, d: 20, seed: 11 }), mill = await act(G, 'room.spawn', { type: 'kitchen', x: 400, z: 60, w: 20, d: 20, seed: 12 });
+  ok(keep.ok && mill.ok, 'two rooms, each its own building', [keep, mill]);
+  const E = () => RT.state.areas[A].entities, kb = E()[keep.id].building, mb = E()[mill.id].building, auto = E()[mb].name;
+  ok(/^Building \d+$/.test(auto), 'a building nobody named has the label the screen shows, "Building N"', auto);
+  ok((await act(G, 'building.set', { id: kb, name: 'Keep of Whispers' })).ok, 'the GM side names one');
+  const all = async (tok) => ({ scene: (await read(tok, 'scene')).body, state: (await read(tok, 'state')).body, room: (await read(tok, `room/${keep.id}`)).body, look: (await read(tok, 'look?x=410&z=10&r=12')).body });
+  const g = await all(G), row = (o, id) => o.buildings.find(b => b.id === id);
+  ok(row(g.scene, kb)?.label === 'Keep of Whispers' && row(g.scene, mb)?.label === auto && row(g.scene, kb).rooms === 1, 'the scene lists the buildings: id and label, paired', g.scene.buildings);
+  ok(row(g.state, kb)?.label === 'Keep of Whispers' && row(g.state, kb).name === 'Keep of Whispers' && row(g.state, mb)?.label === auto, 'state agrees (label beside the old name)');
+  for (const [what, r] of [['scene', g.scene.rooms.find(x => x.id === keep.id)], ['state', g.state.rooms.find(x => x.id === keep.id)], ['room', g.room.room], ['look', g.look.near.find(x => x.id === keep.id)]])
+    ok(r?.building === kb && r.buildingLabel === 'Keep of Whispers' && r.label === 'Common room', `${what}: a room gives its building's id and label, and its own label as the screen shows it`, r);
+  for (const [who, tok] of [["the player's agent", P], ['a GM-side seat without the room class', N]]) {
+    const v = await all(tok), text = JSON.stringify(v);
+    ok(!text.includes('Keep of Whispers') && !text.includes(auto) && !text.includes('buildingLabel'), `${who} reads no building label (the gate, unchanged)`);
+    ok(row(v.scene, kb)?.name === 'Building' && !('label' in row(v.scene, kb)) && row(v.state, kb)?.name === 'Building' && !('label' in row(v.state, kb)), `${who}: the neutral name and no label, in the scene and state alike`);
+    ok(v.scene.rooms.find(x => x.id === keep.id)?.label === 'Common room', `${who}: a room's type, as before`);
+  }
+  // a building none of whose rooms a seat can see is not there at all (as a snapshot leaves it out: an empty row says "something is hidden here")
+  ok((await act(G, 'entity.flag', { ids: mill.id, hidden: true })).ok, 'the GM hides the only room of a building');
+  for (const tok of [P]) { const v = await all(tok); ok(!row(v.scene, mb) && !row(v.state, mb), 'the player\'s agent has no row for it, in the scene or state'); }
+  ok(row((await read(G, 'scene')).body, mb)?.label === auto, 'the GM side still has it');
+  await act(G, 'entity.flag', { ids: mill.id, hidden: false });
+  await act(G, 'room.delete', { id: keep.id }); await act(G, 'room.delete', { id: mill.id });
+  ok(!row((await read(G, 'scene')).body, kb) && !row((await read(G, 'state')).body, kb), 'a building with no rooms left has no label on any screen, and no row');
 }
 
 // ---- 7. the short token: the card's addresses carry it; it works only on the GET API, only for its own campaign ----
@@ -319,6 +495,106 @@ ok(mine.ok, 'the player\'s pawn');
   ok((await act(P, 'cursor.show', {}, A2).catch(() => ({}))).ok !== true && RT.ghosts.get(plAi.id)?.area !== A2, 'a player\'s agent cannot show its cursor in an area hidden from it');
   RT.showCursor(plAi.id, A2); ok(RT.ghosts.get(plAi.id)?.area !== A2, '...nor through the door a socket would use');
   W.c.close();
+}
+
+// ---- 7c. a ping reaches the helpers (2026-11-02; docs/NETCODE.md "A ping reaches the helpers"): who, where, what is there; never more than the seat may see ----
+{
+  const live = async (token) => { const ws = new WebSocket(`ws://127.0.0.1:${relay.port}/ws`); await new Promise(r => ws.on('open', r)); const got = []; ws.on('message', (d) => got.push(String(d))); ws.send(JSON.stringify({ t: 'hello', token })); for (let i = 0; i < 100 && !got.some(f => f.includes('"welcome"')); i++) await sleep(20); ws.send(JSON.stringify({ t: 'sub', area: A })); for (let i = 0; i < 100 && !got.some(f => f.includes('"snap"') || f.includes('"log"')); i++) await sleep(20); return ws; };
+  const gmConn = await live(C.token), plConn = await live(pl.token);
+  const ping = async (ws, cursor, extra = {}) => { ws.send(JSON.stringify({ t: 'pres', area: A, cursor, ping: true, ...extra })); await sleep(60); };
+  const feed = async (tok, kinds = 'chat,roll') => (await get(`${cp}/changes?kinds=${kinds}&wait=0&seat=${tok}`)).body.events.filter(e => e.kind === 'ping');
+  const drain = async () => { await feed(G); await feed(P); await feed(N); await sleep(3100); };
+  await read(G, 'scene'); await read(P, 'scene'); await read(N, 'scene'); await drain(); // (all three are online; no ping waits)
+  const room = await act(G, 'room.spawn', { type: 'common', x: 600, z: 0, w: 30, d: 30, seed: 21, name: 'Sly Fox' }), lab = RT.state.areas[A].entities[room.id].building;
+  await act(G, 'building.set', { id: lab, name: 'Keep of Shadows' });
+  const gob = await act(G, 'token.create', { name: 'Grum', x: 612.5, z: 12.5, gmNotes: 'QZX the goblin is the heir' });
+  ok(room.ok && gob.ok, 'a room with a label, and a pawn with a GM note');
+
+  // who, where, what is there: the GM side and the player side, each as it may see
+  await ping(plConn, [612.5, 12.5, 2]);
+  const [eG] = await feed(G), [eP] = await feed(P), [eN] = await feed(N);
+  ok(eG?.kind === 'ping' && eG.by === 'Brakka' && eG.byKind === 'human' && eG.x === 612.5 && eG.z === 12.5 && eG.y === 2 && eG.area === A, 'the GM helper hears who pointed and where (area, x, z, y)', eG);
+  ok(eG?.there.pawn?.name === 'Grum' && eG.there.room?.label === 'Sly Fox' && eG.there.building?.label === 'Keep of Shadows' && eG.there.level === 'lv 1' && /Brakka points at Grum in Sly Fox/.test(eG.text), 'and what is there, as its seat may see it', eG?.there);
+  ok(eP?.there.pawn?.name === 'Grum' && eP.there.room?.label === 'Common room' && !('label' in eP.there.building), "a player's agent: the pawn, the room by its type, no label");
+  ok(eN?.there.room?.label === 'Common room', 'a GM-side seat without the room class: no label either');
+  ok(!JSON.stringify([eG, eP, eN]).includes('QZX') && !JSON.stringify([eP, eN]).includes('Sly Fox') && !JSON.stringify([eP, eN]).includes('Keep of Shadows'), 'no GM note for anyone, no label for a seat that may not have one');
+  ok(!(await feed(G)).length, 'told once: the next read has it no more');
+  ok(!(await feed(P, 'roll')).length, 'a feed that follows only rolls has no pings');
+  await ping(plConn, [612.5, 12.5, 0]); await sleep(3100);
+  ok((await feed(P, 'ping')).length === 1 && (await feed(G, 'chat')).length === 1, 'kinds=ping and kinds=chat both carry them');
+  ok((await feed(P)).length === 0, 'and they are gone');
+
+  // a thing: the ping names it. Ground with nothing on it: says so.
+  const lamp = await act(G, 'object.place', { cat: 'candlestick', x: 620, z: 20 });
+  await ping(gmConn, [620, 20, 0.5]);
+  ok((await feed(P))[0]?.there.thing?.id === lamp.id, 'a thing at the spot', lamp);
+  await feed(G);
+  await sleep(3100);
+  await ping(gmConn, [900, 900]);
+  const open = (await feed(P))[0];
+  ok(open && !open.there.room && !open.there.thing && open.there.level === 'lv 1' && /open ground/.test(open.text), 'nothing there: open ground', open);
+  await feed(G); await feed(N);
+
+  // the same secrecy as the ping: a hidden room reaches the GM side only, in the event and in its timing
+  const crypt = await act(G, 'room.spawn', { type: 'crypt-vault', x: 660, z: 0, w: 20, d: 20, seed: 8, name: 'Bone cellar' });
+  await act(G, 'entity.flag', { ids: crypt.id, hidden: true });
+  await sleep(3100);
+  const slept = (async () => { const t = Date.now(), r = await get(`${cp}/a/${A}/changes?after=${RT.state.areas[A].seq}&wait=2&seat=${P}`); return { t: Date.now() - t, r: r.body }; })();
+  const sleptK = (async () => { const t = Date.now(), r = await get(`${cp}/changes?kinds=chat,roll&wait=2&seat=${P}`); return { t: Date.now() - t, r: r.body }; })();
+  await sleep(150);
+  await ping(gmConn, [670, 10, 0]);
+  const [s1, s2] = await Promise.all([slept, sleptK]);
+  ok(s1.t > 1800 && s2.t > 1800 && !s1.r.pings && !s2.r.events.length, "a ping in a hidden room does not end a player's helper's long sleep early, on either feed (the timing would say something happened)", [s1.t, s2.t]);
+  const hid = (await feed(G))[0];
+  ok(hid?.there.room?.label === 'Bone cellar' && hid.there.room.hidden === true && !(await feed(P)).length, 'the GM side hears it, and the room is named; the player side hears nothing');
+  await sleep(3100);
+  await ping(gmConn, [612.5, 12.5, 0], { secret: true }); // (the sender says the thing it pointed at is hidden)
+  ok((await feed(G)).length === 1 && !(await feed(P)).length, 'a ping the sender marks secret: the same');
+
+  // omission tricks: a hidden pawn and a hidden thing at the spot leave a player's helper's answer exactly as it was
+  await sleep(3100);
+  await ping(gmConn, [630, 12.5, 0]);
+  const before = (await feed(P))[0]; await feed(G);
+  const hidden = await act(G, 'token.create', { name: 'Assassin', x: 630, z: 12.5, hidden: true }), box = await act(G, 'object.place', { cat: 'candlestick', x: 630.2, z: 12.5, hidden: true });
+  await act(G, 'entity.flag', { ids: box.id, hidden: true });
+  await sleep(3100);
+  await ping(gmConn, [630, 12.5, 0]);
+  const after = (await feed(P))[0], gAfter = (await feed(G))[0];
+  ok(hidden.ok && before && after && JSON.stringify({ ...after, seq: 0 }) === JSON.stringify({ ...before, seq: 0 }), "a hidden pawn and thing at the spot: the player's helper gets the same answer, to the letter", [before?.there, after?.there]);
+  ok(gAfter?.there.pawn?.name === 'Assassin' && gAfter.there.pawn.hidden === true, 'the GM side reads the hidden pawn, marked hidden');
+
+  // a long sleep wakes on one; a helper does not hear itself; memory is bounded and stale ones go; nothing is stored
+  await sleep(3100); await feed(N); await feed(G); await feed(P);
+  const t0 = Date.now(), wake = get(`${cp}/changes?kinds=chat,roll&wait=5&seat=${G}`), wakeA = get(`${cp}/a/${A}/changes?after=${RT.state.areas[A].seq}&wait=5&seat=${P}`), wakeB = get(`${cp}/a/${A}/changes?kinds=chat,roll&after=${RT.state.areas[A].seq}&wait=5&seat=${N}`);
+  await sleep(100); const seq0 = RT.state.areas[A].seq, r0 = RT.r;
+  await ping(gmConn, [612.5, 12.5, 0]);
+  const [w, wA, wB] = await Promise.all([wake, wakeA, wakeB]);
+  ok(Date.now() - t0 < 2500 && w.body.events[0]?.kind === 'ping' && wA.body.pings?.[0]?.kind === 'ping' && wA.body.entries.length === 0 && wB.body.events[0]?.kind === 'ping', 'a long sleep wakes on a ping: the campaign feed, the area feed and the plain feed', [Date.now() - t0, w.body, wA.body]);
+  ok(RT.state.areas[A].seq === seq0 && RT.r === r0 && !JSON.stringify(RT.state).includes('"ping"'), 'nothing journaled: the sequence does not move and the state does not hold it');
+  ok(!fs.readFileSync(path.join(dataDir, C.campaign, 'journal.jsonl'), 'utf8').includes('"ping"'), 'nor does the journal');
+  const self = await live(G);
+  await sleep(3100); await ping(self, [612.5, 12.5, 0]);
+  const heard = [await feed(G), await feed(P), await feed(N)];
+  ok(heard.every(h => !h.length), 'an AI seat over a websocket: it does not hear its own ping, and sets no other helper off', heard.map(h => h.map(e => [e.by, e.x]))); self.close();
+  await sleep(3100);
+  for (let i = 0; i < 12; i++) await ping(gmConn, [612.5 + i, 12.5, 0]);
+  ok((await feed(P)).length === 4, 'twelve in a burst: the rate limit holds, four reach a helper (the relay allows 4 in 3 s per connection)');
+  await feed(G); await feed(N); await sleep(3100);
+  const now = Date.now();
+  for (let i = 0; i < 20; i++) RT.notePing(C.seat, A, [612.5, 12.5, 0], false, now);
+  ok(RT.pings.get(plAi.id).length === 8, 'at most 8 wait for a helper that is not reading');
+  ok((await feed(P)).length === 8 && !RT.pings.has(plAi.id), 'read: dropped');
+  RT.notePing(C.seat, A, [612.5, 12.5, 0], false, now - 121e3);
+  ok(!RT.takePings(gmAi.id, null, now).filter(p => p.at === now - 121e3).length, 'stale ones go unread');
+  RT.pings.clear();
+  RT.llmSeen.delete(plAi.id); await ping(gmConn, [612.5, 12.5, 0]);
+  ok(!RT.pings.has(plAi.id), 'a helper that is not connected is not queued for');
+  await read(P, 'scene');
+  gmConn.close(); plConn.close(); await sleep(100);
+  const card = (await get(`${cp}/card?seat=${P}`)).body, words = (s) => s.split(/\s+/).length;
+  ok(/PING/.test(card) && /look at this/.test(card) && /kinds=chat,roll/.test(card), 'the card tells a helper of pings, and what one usually means');
+  ok((await get(`${cp}/help/dice?seat=${G}`)).body.includes('PINGS:'), 'help/dice has the detail');
+  RT.pings.clear();
 }
 
 // ---- 8. the narrow seat: never more than its scope, nor its creator ----

@@ -219,10 +219,10 @@ async def main():
         tok_ad = urllib.parse.parse_qs(urllib.parse.urlparse(card_ad).query)['seat'][0]
         cbase = card_as.split('/card?')[0]
         with urllib.request.urlopen(urllib.request.Request(card_ad, headers=UA)) as r: card_text = r.read().decode()
-        check("Advisor (Brakka's agent)" in card_text and 'room.spawn' not in card_text, "advisor's rules card says whose agent it is and offers no GM commands")
+        check("rules card for Brakka's assistant" in card_text and 'room.spawn' not in card_text, "advisor's rules card says whose agent it is and offers no GM commands")
         st, s = get(f'{cbase}/a/{T1}/state?seat={tok_as}')
-        await wait(gm, "tw.cursors().some(c => c.ghost && c.name === 'Assistant' && c.thinking)", 6000, 'ghost thinking')
-        g = await gm.evaluate("tw.cursors().find(c => c.ghost && c.name === 'Assistant')")
+        await wait(gm, "tw.cursors().some(c => c.ghost && c.name.startsWith('Harry') && c.thinking)", 6000, 'ghost thinking')
+        g = await gm.evaluate("tw.cursors().find(c => c.ghost && c.name.startsWith('Harry'))")
         check(g and g['thinking'] and "Harry's GM assistant" in (g['label'] or ''), 'GM assistant read the area: ghost cursor shows "thinking" with whose agent', json.dumps(g))
         kx, kz = keeper['x'] + 20, keeper['z'] + 12
         st, r = get(f"{cbase}/a/{T1}/do?cmd=token.move&id={keeper['id']}&x={kx}&z={kz}&based_on={s['area']['seq']}&nonce=as-1&seat={tok_as}")
@@ -230,7 +230,7 @@ async def main():
         # the ghost glides to what it acted on: sample it in the player tab
         samples = []
         for _ in range(50):  # until it arrives (≤ 4 s): background tabs under software GL draw slowly
-            c = await pl.evaluate("tw.cursors().find(c => c.ghost && c.name === 'Assistant')")
+            c = await pl.evaluate("tw.cursors().find(c => c.ghost && c.name.startsWith('Harry'))")
             if c and c['pos']: samples.append(c['pos'])
             if samples and ((samples[-1][0] - kx) ** 2 + (samples[-1][1] - kz) ** 2) ** 0.5 < 0.5: break
             await pl.wait_for_timeout(80)
@@ -244,8 +244,8 @@ async def main():
         st, r = get(f"{cbase}/a/{T1}/do?cmd=token.move&id={brakka['id']}&x={bx['x'] + 5}&z={bx['z']}&based_on={s2['area']['seq']}&nonce=ad-2&seat={tok_ad}")
         check(r.get('ok'), "player's advisor moves the player's own token via GET")
         await wait(gm, f"Math.abs(tw.entities()['{brakka['id']}'].x - {bx['x'] + 5}) < 0.01", 5000)
-        await wait(gm, "tw.cursors().some(c => c.ghost && c.name === 'Advisor')", 5000, 'advisor ghost on GM tab')
-        ga = await gm.evaluate("tw.cursors().find(c => c.ghost && c.name === 'Advisor')")
+        await wait(gm, "tw.cursors().some(c => c.ghost && c.name.startsWith('Brakka'))", 5000, 'advisor ghost on GM tab')
+        ga = await gm.evaluate("tw.cursors().find(c => c.ghost && c.name.startsWith('Brakka'))")
         check(ga and "Brakka's agent" in (ga['label'] or ''), "advisor's ghost shows on the GM tab as Brakka's agent")
 
         # ---------- M5: second area (GM-only), follow-group PiP, atomic transfer ----------

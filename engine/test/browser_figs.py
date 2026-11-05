@@ -103,7 +103,7 @@ ROWS = """[...document.querySelectorAll('#results > *')].map(el => el.classList.
 async def bar(pg, text, enter=False):
     """type into the command bar (as a person does); returns the rows drawn"""
     if not await pg.evaluate("document.querySelector('#bar').classList.contains('open')"): await pg.keyboard.press('/'); await pg.wait_for_timeout(120)
-    await pg.evaluate("(() => { const i = document.querySelector('#bar input'); i.value = ''; i.dispatchEvent(new Event('input', { bubbles: true })); })()")
+    await pg.evaluate("tw.emit('bar.open', '')")  # (a fresh, empty bar: a verb chip the last line lifted ("add pawn") must not stay)
     await pg.keyboard.type(text, delay=6); await pg.wait_for_timeout(150)
     rows = await pg.evaluate(ROWS)
     if enter: await pg.keyboard.press('Enter'); await pg.wait_for_timeout(250)
@@ -185,8 +185,8 @@ async def main():
             check(any(t.startswith('Add pawn') for t in titles), '"add pawn" finds the Add pawn command, with a line saying what to type', str(titles[:4]))
             for q in ('figure', 'mini', 'spawn', 'place figure', 'creature', 'monster'):
                 rows = await bar(gm, q); check(any(r.get('title', '').startswith('Add pawn') for r in rows), f'"{q}" finds Add pawn', str([r.get('title') for r in rows][:3]))
-            chips = await gm.evaluate("(async () => { const i = document.querySelector('#bar input'); i.value = '6 goblins'; i.dispatchEvent(new Event('input', { bubbles: true })); return [...document.querySelectorAll('#bar .chips .chip')].map(c => c.textContent); })()")
-            check(chips[:2] == ['add pawn', '6 ×'] and chips[-1] == 'click a square', 'a count shows as chips in the bar: add pawn ▸ 6 × ▸ the figure ▸ click a square', str(chips))
+            chips = await gm.evaluate("(async () => { tw.emit('bar.open', '6 goblins'); const r = document.querySelector('#results .res.drags'); return [[...document.querySelectorAll('#bar .chips .chip')].map(c => c.textContent), ...(r ? [...r.querySelectorAll('.chip')].map(c => c.textContent) : [])]; })()")
+            check(chips[0] == [] and chips[1:3] == ['add pawn', '6 ×'] and chips[-1] == 'click a square', 'a count shows as chips on the row: add pawn ▸ 6 × ▸ the figure ▸ click a square (the bar has only what was typed: no verb was typed)', str(chips))
             await gm.keyboard.press('Escape'); await gm.wait_for_timeout(150)
 
         ids = {}
@@ -320,7 +320,7 @@ async def main():
             print('DRAG: a figure row is dragged out of the command bar onto the map')
             await gm.evaluate("(() => { tw.clearSelection(); if (tw.mode) tw.modes.cancel(); tw.cutToRoom?.(tw.entities()['%s'], 'test'); })()" % R['common']); await view(gm, 20, 15, 80, 62)
             ROWC = "(() => { const r = document.querySelector('#results .res.drags').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()"
-            LIST = "(() => { const l = document.querySelector('#results'); return { vis: l.hidden ? 'gone' : getComputedStyle(l).visibility, open: document.querySelector('#bar').classList.contains('open'), text: document.querySelector('#bar input').value }; })()"
+            LIST = "(() => { const l = document.querySelector('#results'); return { vis: l.hidden ? 'gone' : getComputedStyle(l).visibility, open: document.querySelector('#bar').classList.contains('open'), text: document.querySelector('#bar textarea').value }; })()"
             MID = "({ fig: tw.mode?.pawn?.fig?.id || null, n: tw.mode?.pawn?.n || 0, via: !!tw.mode?.viaDrag, rot: tw.mode?.rot || 0, cells: tw.worldOf(tw.area()).cellMarks?.get('pawn-tool')?.lit.count || 0, list: %s, label: document.getElementById('modeLabel').textContent, body: document.body.classList.contains('dragging-out') })" % LIST
             NT = f"{TOKENS}.length"
             async def out(text, x, z, y=0, up=True, shift=False, key=None, to=None, shot=None):
@@ -634,7 +634,7 @@ async def main():
             SAMPLES = {'pawn.damageTyped': '+2', 'chat.say': 'say audit', 'chat.roll': 'roll d20', 'area.new': 'new area Audit annex', 'people.invite': 'invite Audit guest', 'level.goto': 'level 2', 'area.rename': 'rename area Audit hall', 'chat.assistant': None, 'measure.typed': 'circle 10', 'measure.keepRounds': 'keep 2'}
             STEP = """async ({ sel, done, notRun, samples, kind }) => {
               const R = tw.registry, sleep = (ms) => new Promise(r => setTimeout(r, ms)), barS = R.surfaces.find(s => s.name === 'bar');
-              const tidy = () => { try { document.querySelector('#bar input').blur(); } catch {} if (barS?.isOpen()) barS.close(); if (tw.settings?.isOpen) tw.settings.close(); if (tw.mode) tw.modes.cancel(); tw.rulers?.cancel(); if (tw.build?.isOpen) tw.build.close(); if (tw.pawns?.isOpen) tw.pawns.close(); const o = document.querySelector('#output'); if (o && !o.hidden) o.hidden = true; document.querySelector('.ring-edit')?.blur?.();
+              const tidy = () => { try { document.querySelector('#bar textarea').blur(); } catch {} if (barS?.isOpen()) barS.close(); if (tw.settings?.isOpen) tw.settings.close(); if (tw.mode) tw.modes.cancel(); tw.rulers?.cancel(); if (tw.build?.isOpen) tw.build.close(); if (tw.pawns?.isOpen) tw.pawns.close(); const o = document.querySelector('#output'); if (o && !o.hidden) o.hidden = true; document.querySelector('.ring-edit')?.blur?.();
                 if (tw.visionViewer !== 'gm') tw.setVisionViewer('gm'); // view-as commands alter later fixtures; audit each command from the GM's same visible table
                 if ((tw.level || 0) !== 0) tw.setLevel(0); if (tw.cut?.y != null) tw.cutOff('test'); if (!!tw.roofs !== (kind === 'roof')) tw.setRoofs(kind === 'roof', 'test'); }; // the view as each command should meet it
               tidy(); for (let i = 0; i < 60 && tw.sync.pendingCount() > 0; i++) await sleep(50);
@@ -645,7 +645,7 @@ async def main():
               const title = R.titleOf(c, ctx), out = { id: c.id, title, group: c.group, found: true, ran: true, err: null, seq: 0, sent: [], area: tw.area() };
               // RESOLVES: its own title, typed into the bar, finds it (stubs and typed-only commands are reached by their text)
               if (!c.stub && !(c.hidden && c.parse) && c.id !== 'view.bar') {
-                tw.emit('bar.open'); const i = document.querySelector('#bar input'); i.value = title; i.dispatchEvent(new Event('input', { bubbles: true }));
+                tw.emit('bar.open'); const i = document.querySelector('#bar textarea'); i.value = title; i.dispatchEvent(new Event('input', { bubbles: true }));
                 const titles = [...document.querySelectorAll('#results .res .t')].map(e => e.textContent); out.found = titles.includes(title); if (!out.found) out.got = titles.slice(0, 3);
                 tidy(); if (!sel) tw.clearSelection(); else tw.select(sel);
               }
@@ -732,7 +732,7 @@ async def main():
               const made = await (new Function('tw', 'return (async () => { ' + setup + ' })()'))(tw); if (sel === '$setup') sel = made; await sleep(250); await settle(); if (sel) tw.select(sel); await sleep(80);
               const c = R.get(id), ctx = R.ctx(), ok = R.available(ctx).includes(c), title = ok ? R.titleOf(c, ctx) : null, out = { id, available: ok, title, found: false, ran: false, err: null,
                 ...(!ok && id === 'thing.upright' && { fixture: { selected: ctx.sel.map(e => ({ id: e.id, place: e.place, quat: e.quat, tiltZ: e.tiltZ, locked: e.locked })), raw: tw.entities()[sel]?.quat || null, pending: tw.sync.pendingCount() } }) };
-              if (ok) { tw.emit('bar.open'); const i = document.querySelector('#bar input'); i.value = c.hidden && c.parse ? samples[id] : title; i.dispatchEvent(new Event('input', { bubbles: true })); const expected = c.hidden && c.parse ? c.chips(c.parse(samples[id], ctx), ctx).join('') : title; out.found = [...document.querySelectorAll('#results .res .t')].map(e => e.textContent).includes(expected); R.surfaces.find(s => s.name === 'bar').close(); if (sel) tw.select(sel);
+              if (ok) { tw.emit('bar.open'); const i = document.querySelector('#bar textarea'); i.value = c.hidden && c.parse ? samples[id] : title; i.dispatchEvent(new Event('input', { bubbles: true })); const expected = c.hidden && c.parse ? c.chips(c.parse(samples[id], ctx), ctx).join('') : title; out.found = [...document.querySelectorAll('#results .res .t')].map(e => e.textContent).includes(expected); R.surfaces.find(s => s.name === 'bar').close(); if (sel) tw.select(sel);
                 try { const args = c.parse && samples[id] ? c.parse(samples[id], R.ctx()) : undefined; out.ran = R.run(c, args, R.ctx()); await sleep(120); } catch (e) { out.err = String(e?.stack || e).slice(0, 240); } }
               await settle(); out.seq = tw.seq() - seq0; if (tw.pip) tw.closePip(); return out; }"""
             for cid, sel, setup in SPECIAL:
