@@ -329,7 +329,7 @@ async def front_doors(browser, page, site):
     """What a visitor meets before any table: the site's pages, the start page with a long memory, the phone page."""
     print('SITE: the pages around the game, every size')
     pages = [('about', 'about.html'), ('terms', 'terms.html'), ('privacy', 'privacy.html'), ('connect-dnd-beyond', 'connect-dnd-beyond.html'), ('vtt-index', 'vtt-index.html'),
-             ('features', 'features.html'), ('dice', 'dice.html'), ('switching', 'switching.html'), ('export', 'export.html'), ('manual', 'manual.html')]
+             ('features', 'features.html'), ('dice', 'dice.html'), ('switching', 'switching.html'), ('export', 'export.html'), ('manual', 'manual.html'), ('assets', 'assets.html')]
     bad = []
     if not A.sizes:  # either side of the index's table-to-cards line, and the ordinary laptop widths
         for w in (1240, 1239, 1280, 1366, 1600):

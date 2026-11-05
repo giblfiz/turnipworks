@@ -1,0 +1,85 @@
+{
+  "_about": "The assets page's words and hero pictures per pack (engine/tools/site_assets.py). A pack is a Build-menu type with rooms (its slug: engine/client/data/types.json), or one of the page's own packs (building-kit, faction-pieces, figures). blurb: one or two sentences. hero: the still's name stem in the masters' h/ (tools/site-assets/media.py; <stem>-600.webp and <stem>-1200.webp), made by tools/promo/capture.py --probe --shot <shot>. A new still gets a new stem (Cloudflare keeps a picture about 4 hours).",
+  "packs": {
+    "tavern-inn": {
+      "blurb": "Common rooms, kitchens, cellars, guest rooms and the stable yard: the bar counter and casks, trestle tables, tankards and dice cups, all the clutter of a busy inn.",
+      "hero": "tavern-inn-20261104",
+      "shot": "site-hero-tav"
+    },
+    "aristocrat-manor": {
+      "blurb": "A noble house from entrance hall to ballroom: canopy beds, harpsichords, china cabinets, silver on the sideboard and a garden with topiary and a sundial.",
+      "hero": "aristocrat-manor-20261104",
+      "shot": "site-hero-nob"
+    },
+    "castle-keep": {
+      "blurb": "Great halls and throne rooms, barracks, armouries and a gatehouse: thrones and banners, weapon racks, training dummies and a feast on the long table.",
+      "hero": "castle-keep-20261104",
+      "shot": "site-hero-cas"
+    },
+    "temple-chapel": {
+      "blurb": "Naves, shrines, cloisters and a bell tower: altars and pews, lecterns, fonts, prayer candles and a scriptorium's copy stands.",
+      "hero": "temple-chapel-20261104",
+      "shot": "site-hero-tem"
+    },
+    "blacksmith-workshop": {
+      "blurb": "Forges and workshops for the smith, the armourer, the carpenter and the potter: anvils, bellows, quench tubs, tool racks and the wares out front.",
+      "hero": "blacksmith-workshop-20261104",
+      "shot": "site-hero-smi"
+    },
+    "market-village": {
+      "blurb": "A square, a street and the shops along it: stalls and awnings, a bakery, an apothecary, a tailor and a curio shop, each stocked for its trade.",
+      "hero": "market-village-20261104",
+      "shot": "site-hero-mkt"
+    },
+    "peasant-hut-farm": {
+      "blurb": "A cottage and its farm: kitchen and loft, byre, coop, pigsty, barn and dairy, the vegetable patch, the orchard and the field.",
+      "hero": "peasant-hut-farm-20261104",
+      "shot": "site-hero-hut"
+    },
+    "dungeon-prison": {
+      "blurb": "Cell blocks, guard rooms, trap corridors, sewers, chasms and vaults: bars and manacles, levers, spike pits and a treasure chest at the end.",
+      "hero": "dungeon-prison-20261104",
+      "shot": "site-hero-dun"
+    },
+    "crypt-tomb": {
+      "blurb": "Antechambers, burial vaults, ossuaries and catacombs: sarcophagi, wall niches, skull piles, effigies and an embalming table.",
+      "hero": "crypt-tomb-20261104",
+      "shot": "site-hero-cry"
+    },
+    "wizard-alchemist-library": {
+      "blurb": "Laboratory, study, summoning chamber and observatory: alembics and cauldrons, hundreds of potions and specimen jars, grimoires, crystal balls and a great telescope.",
+      "hero": "wizard-alchemist-library-20261104",
+      "shot": "site-hero-arc"
+    },
+    "cult-sanctum": {
+      "blurb": "A hidden entrance, a processional passage and the sanctum itself: dark idols, sacrificial altars, ritual circles, hooded robes and black candles.",
+      "hero": "cult-sanctum-20261104",
+      "shot": "site-hero-clt"
+    },
+    "mine": {
+      "blurb": "Tunnels, the working face, shaft head and smelter: rails and carts, timber sets, ore piles, lamps and powder kegs.",
+      "hero": "mine-20261104",
+      "shot": "site-hero-min"
+    },
+    "monster-lair": {
+      "blurb": "Cave mouths, warrens, a spider's nest, a hatchery and a dragon's hoard: webs and egg sacs, bones and carcasses, crude thrones and heaps of gold.",
+      "hero": "monster-lair-20261104",
+      "shot": "site-hero-lai"
+    },
+    "building-kit": {
+      "blurb": "The pieces every room is built from: walls, doors and windows in each wall style, stairs, and every floor as a 5-ft tile.",
+      "hero": null,
+      "shot": null
+    },
+    "faction-pieces": {
+      "blurb": "Thirteen factions' banners, altarpieces, idols, censers, reliefs and sigils, to give a temple, a cult or a castle its allegiance.",
+      "hero": null,
+      "shot": null
+    },
+    "figures": {
+      "blurb": "Miniatures for the table: heroes of every class, townsfolk, foes and monsters, large creatures on bigger bases, and beasts and mounts.",
+      "hero": null,
+      "shot": null
+    }
+  }
+}

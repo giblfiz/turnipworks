@@ -30,6 +30,10 @@ python3 "$SRC/tools/build_site.py"    # About, Terms, Privacy, Connect D&D Beyon
 "$SRC/tools/build_phone_media.sh" || { echo "NOT DEPLOYED: the phone page's film is missing (engine/tools/build_phone_media.sh)"; exit 1; }
 # the help page Connect D&D Beyond's film and pictures (client/site/ddb/): generated, not in git; copied from the USB disk
 "$SRC/tools/build_ddb_media.sh" || { echo "NOT DEPLOYED: the Connect D&D Beyond page's film or pictures are missing (engine/tools/build_ddb_media.sh)"; exit 1; }
+# the assets page's pictures (client/site/library/): generated, not in git; masters on the USB disk, a new look's picture drawn
+# here (tools/site-assets/media.py). Never a blocker: a picture it cannot make leaves that card blank and says WARNING
+PYV=python3; [[ -x $PYV ]] || PYV=python3
+"$PYV" "$SRC/../tools/site-assets/media.py" install --render || echo "WARNING: the assets page's pictures were not brought up to date (tools/site-assets/media.py)"
 # the table's music (client/music.js): generated, not in git; encoded from Harry's masters on the USB disk (licence not yet
 # confirmed: kept out of the public export, tools/public-export/exclude.tsv)
 "$SRC/tools/build_music.sh" || { echo "NOT DEPLOYED: the music is missing (engine/tools/build_music.sh)"; exit 1; }

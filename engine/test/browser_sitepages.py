@@ -28,7 +28,7 @@ A = ap.parse_args()
 if not A.local and not A.page: ap.error('choose --local or --page ORIGIN')
 PAGES = {'about': 'About Turnip Works', 'terms': 'Terms of Use', 'privacy': 'Privacy Policy', 'connect-dnd-beyond': 'Connect D&D Beyond',
          'features': 'A tour of Turnip Works', 'dice': 'Dice for your game system', 'switching': 'Coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire?',
-         'export': 'Take your maps to Foundry, Roll20 or Fantasy Grounds', 'manual': 'The Turnip Works manual'}  # (the guide pages for ad sitelinks: 2026-11-04)  # (the help page: 2026-10-29; its film and Settings entry: browser_ddbpage.py)
+         'export': 'Take your maps to Foundry, Roll20 or Fantasy Grounds', 'manual': 'The Turnip Works manual', 'assets': 'Assets'}  # (the guide pages for ad sitelinks: 2026-11-04)  # (the help page: 2026-10-29; its film and Settings entry: browser_ddbpage.py)
 results = []; procs = []; tmp = []
 def check(ok, name, detail=''):
     results.append((bool(ok), name, detail)); print(f"  {'ok  ' if ok else 'FAIL'} {name}{' — ' + str(detail) if detail else ''}", flush=True)

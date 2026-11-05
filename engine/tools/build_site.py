@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""THE SITE PAGES: docs/site/{about,terms,privacy,connect-dnd-beyond,features,dice,switching,export,manual}.md -> engine/client/site/<name>.html  (2026-10-21)
+"""THE SITE PAGES: docs/site/{about,terms,privacy,connect-dnd-beyond,features,dice,switching,assets,export,manual}.md -> engine/client/site/<name>.html  (2026-10-21)
 
   python3 engine/tools/build_site.py           write the pages (engine/deploy.sh runs this)
   python3 engine/tools/build_site.py --check   exit 1 if a committed page differs from its source
@@ -28,6 +28,12 @@ with engine/tools/site/vtt-index.{css,js} inlined), plus vtt-index.json, vtt-ind
 whole table as Markdown) beside it. nginx serves them at /vtt-index, /vtt-index.json, /vtt-index.schema.json and
 /vtt-index.md. How to update the data: docs/VTT_INDEX.md (tools/vtt-index/vtt_index.py).
 
+THE ASSETS PAGE (2026-11-04): /assets, every prop, room kit and figure by pack (the game's own Build tree), each with its own
+address on the page, its file and a "Use it in Turnip Works" link (client/deeplink.js). docs/site/assets.md (the words) +
+docs/site/assets-packs.json (each pack's sentence and hero) + engine/tools/site_assets_data.mjs (the data, run in Node) ->
+assets.html (engine/tools/site_assets.py, engine/tools/site/assets.{css,js} inlined) and assets.json beside it (nginx: /assets
+and /assets.json). Its pictures are git-ignored, in client/site/library/ (tools/site-assets/media.py; engine/deploy.sh).
+
 THE GUIDE PAGES (2026-11-04, for Google Ads sitelinks: each a distinct page): /features (a tour of what is live), /dice (the
 game-system dice words), /switching (coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire), in the nav row; /export
 (Universal VTT files for Foundry, Roll20, Fantasy Grounds) as a help page. All four load landing.js (LANDING above).
@@ -39,16 +45,23 @@ Features, and linked from the game's start card and Settings. Like /features it 
 import datetime, html, json, os, re, sys
 import markdown
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import site_vtt_index as vtt  # noqa: E402
+import site_assets  # noqa: E402
+import subprocess  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ENGINE = os.path.dirname(HERE); REPO = os.path.dirname(ENGINE)
 SRC = os.path.join(REPO, 'docs', 'site'); OUT = os.path.join(ENGINE, 'client', 'site')
 PAGES = ['about', 'terms', 'privacy']       # the Markdown pages
-NAV = ['features', 'manual', 'dice', 'switching', 'vtt-index', 'about', 'terms', 'privacy']   # the link row on every page (and the sitemap, after /)
+NAV = ['features', 'manual', 'assets', 'dice', 'switching', 'vtt-index', 'about', 'terms', 'privacy']   # the link row on every page (and the sitemap, after /)
 INDEX = 'vtt-index'
 HELP = ['connect-dnd-beyond', 'export']   # help pages: rendered like the Markdown pages, in the sitemap, not in the nav row
 # AD LANDING PAGES (2026-11-04): pages an ad's sitelink lands on. Each loads client/landing.js, the same first-party note the
 # front door and /vtt-index take (dd5b508f), so a table started later from "/" still carries the utm_* and the click id.
-LANDING = ['features', 'dice', 'switching', 'export']
+LANDING = ['features', 'dice', 'switching', 'export']  # (and assets: its own script loads landing.js, site_assets.script)
+ASSETS = 'assets'
+# NOT COMMITTED (2026-11-04): the assets page and its data follow the tuner's library, which changes whenever an asset
+# lands; committed, they would make --check (and the suites that run it) fail on every new asset. Written by every build
+# (engine/deploy.sh), git-ignored, and a release carries them with the client like the pictures.
+GENERATED = {ASSETS + '.html', ASSETS + '.json'}
 SOURCE = 'https://github.com/giblfiz/turnipworks'
 SITE = 'https://turnipworks.net'
 # the link preview's picture: a real frame of the game (the approved promo, 2026-10-23), 1200x630. A new picture gets a
@@ -173,12 +186,33 @@ def render(name, metas, data=None):
     extra = {'head_extra': '', 'body_attr': '', 'script': ''}
     if name in LANDING:
         extra['script'] = '\n<script type="module" src="/engine/client/landing.js"></script>'
+    if name == ASSETS:
+        d, metas_a = assets_data()
+        out = site_assets.body(out, d, metas_a)
+        desc = meta['description'].replace('[[THINGS]]', f"{d['counts']['things']:,}").replace('[[FIGURES]]', str(d['counts']['figures']))
+        meta = {**meta, 'description': desc}
+        extra = {'head_extra': '\n' + site_assets.head_extra(d, desc), 'body_attr': ' class="wide"', 'script': '\n' + site_assets.script(metas_a)}
     if name == INDEX:
         out = vtt.body(out, data)
         extra = {'head_extra': '\n' + vtt.head_extra(data, meta['description']), 'body_attr': ' class="wide"', 'script': '\n' + vtt.script()}
     return TEMPLATE.format(title=html.escape(meta['title']), description=html.escape(meta['description'], quote=True), css=CSS.strip(),
                            url=f'{SITE}/{name}', og_image=OG_IMAGE, og_alt=html.escape(OG_ALT, quote=True),
                            links=links, updated=f'{day.day} {day:%B %Y}', year=day.year, body=out, **extra)
+
+
+_ASSETS = None
+def assets_data():
+    """the assets page's data (engine/tools/site_assets_data.mjs: the game's Build tree, run in Node) and its packs' words"""
+    global _ASSETS
+    if _ASSETS is None:
+        r = subprocess.run(['node', os.path.join(HERE, 'site_assets_data.mjs')], capture_output=True, text=True)
+        if r.returncode: sys.exit('the assets page data failed (node engine/tools/site_assets_data.mjs):\n' + r.stderr[-2000:])
+        d = json.loads(r.stdout)
+        metas = json.load(open(os.path.join(SRC, 'assets-packs.json'), encoding='utf-8'))['packs']
+        missing = [p['slug'] for p in d['packs'] if p['slug'] not in metas]
+        if missing: sys.exit(f'docs/site/assets-packs.json has no entry for the pack(s) {", ".join(missing)} (a new Build-menu type with rooms: give it a sentence)')
+        _ASSETS = (d, metas)
+    return _ASSETS
 
 
 def robots():
@@ -206,12 +240,13 @@ def main():
     files += [('robots.txt', robots()), ('sitemap.xml', sitemap(metas)), ('llms.txt', open(os.path.join(SRC, 'llms.txt'), encoding='utf-8').read()),
               (INDEX + '.json', open(os.path.join(SRC, INDEX + '.json'), encoding='utf-8').read()),
               (INDEX + '.schema.json', open(os.path.join(SRC, INDEX + '.schema.json'), encoding='utf-8').read()),
-              (INDEX + '-md.txt', vtt.markdown(data))]  # (.txt: engine/deploy.sh leaves *.md files out of the client)
+              (INDEX + '-md.txt', vtt.markdown(data)),  # (.txt: engine/deploy.sh leaves *.md files out of the client)
+              (ASSETS + '.json', json.dumps(assets_data()[0], ensure_ascii=False, separators=(',', ':')))]
     for p, page in files:
         dst = os.path.join(OUT, p)
         old = open(dst, encoding='utf-8').read() if os.path.exists(dst) else None
         if check:
-            if old != page: bad.append(p)
+            if old != page and p not in GENERATED: bad.append(p)
         elif old != page:
             open(dst, 'w', encoding='utf-8').write(page)
     if bad: sys.exit(f'site pages out of date: {", ".join(bad)} (run python3 engine/tools/build_site.py)')

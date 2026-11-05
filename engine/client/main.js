@@ -8,6 +8,7 @@
 //      ?nointro (no first-visit pantomime)
 import { installFeedbackHook } from './feedback-hook.js'; // first: its error listeners are up before anything else runs (Settings ▸ Feedback)
 import { landing } from './landing.js'; // notes where this visitor came from and cleans the address bar before main.js reads location.search (client/landing.js)
+import { readDeepLink, installDeepLink } from './deeplink.js'; // ?place= / ?pawn= / ?pack= from the assets page (client/deeplink.js): the GM's tool armed, nothing placed without a click
 import * as THREE from 'three';
 import { campaignName } from '../core/campaign-names.js';
 import { rememberedGames, rememberGame, dropGame, forgetGames, renderGames, gamesAddress, openGames } from './games.js';
@@ -102,6 +103,7 @@ import { showNotice, noticeLive, currentNotice } from './notice.js';
 import { showKicked, hideKicked, kickedShown } from './kicked.js';
 
 const qs = new URLSearchParams(location.search);
+const deepLink = readDeepLink(location.search); // (read before anything cleans the address)
 const ringLab = qs.get('ringlab') === '1';
 const labelLab = qs.get('labellab') === '1'; // Label lab (surfaces/labellab.js): the label look's drawer, over its own design table when there is no seat
 const V = window.TW_V || 'dev';
@@ -1613,7 +1615,8 @@ async function boot(token) {
     if (!app.gm()) return app.toast('Only the GM side builds: open the link as the GM', true);
     setTimeout(() => { const id = app.buildAt(node, num('w') || 12, num('d') || 8, { seed: num('seed'), storeys: num('storeys'), front: qs.get('front') || 'S', ...(Object.keys(dials).length && { dials }), ...(qs.get('outbuildings') === '0' && { outbuildings: false }) }); void id; }, 600);
   }; go(); }
-  if (!qs.has('nointro')) { const t0 = performance.now(); const go = () => app.ready() && app.main && !firstLoad ? setTimeout(() => app.intro.run(), 900) : performance.now() - t0 < 60000 && setTimeout(go, 300); go(); }
+  installDeepLink(app, { link: deepLink, loaded: () => app.loaded(), types: typesData.types });
+  if (!qs.has('nointro') && !deepLink) { const t0 = performance.now(); const go = () => app.ready() && app.main && !firstLoad ? setTimeout(() => app.intro.run(), 900) : performance.now() - t0 < 60000 && setTimeout(go, 300); go(); }
 }
 const r2 = (v) => Math.round(v * 100) / 100;
 const RELAY_PATIENCE_MS = 8000; // a first connection that has not answered by then: the loading screen says so (and the page keeps trying)

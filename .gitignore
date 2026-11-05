@@ -48,3 +48,7 @@ engine/client/data/terrain
 engine/client/data/caves
 # the table music (2026-10-30, client/music.js; engine/tools/build_music.sh makes it from the masters on the USB disk)
 engine/client/data/music
+# the assets page and its data and pictures: generated at every deploy (engine/tools/build_site.py, tools/site-assets/media.py)
+engine/client/site/assets.html
+engine/client/site/assets.json
+engine/client/site/library/

@@ -40,7 +40,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'
 tw_sandbox.remove_campaigns()
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ENGINE = os.path.dirname(HERE); REPO = os.path.dirname(ENGINE)
-LANDING = ['features', 'dice', 'switching', 'export']   # the ad sitelink pages (engine/tools/build_site.py LANDING): P12
+LANDING = ['features', 'dice', 'switching', 'export', 'assets']   # the ad sitelink pages (engine/tools/build_site.py LANDING): P12
 TUNER = os.path.join(REPO, 'tools', 'spawn-tuner'); SHOTS = os.path.join(REPO, 'experiments', '2026-10-24-phone', 'stills')
 ap = argparse.ArgumentParser(); ap.add_argument('--live'); ap.add_argument('--data'); ap.add_argument('--real-mail'); ap.add_argument('--no-shots', action='store_true'); ap.add_argument('--local', action='store_true')
 A = ap.parse_args()

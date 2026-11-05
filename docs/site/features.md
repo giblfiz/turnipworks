@@ -35,7 +35,7 @@ Press <kbd>V</kbd>, or Eyes on your pawn's ring, and look through its eyes. <kbd
 
 ## Pawns, damage and conditions
 
-Drag a figure out of the library, or type `6 goblins`. Click a pawn and its ring opens: turn, sheet, damage, and a menu for the rest. Damage is a drag, or type `7 damage` or `heal 5`. Conditions show on the figure itself: a prone pawn lies down, a charmed one has a heart circling its head, an unconscious one has Zs rising. Give a pawn an aura and it glows, from a dim shimmer to a bonfire, in six colours. `roll initiative` starts the fight and keeps the turn order.
+Pick a figure from Pawns ▸ Place a pawn, or type one into the command bar, like `6 goblins`. Click a pawn and its ring opens: turn, sheet, damage, and a menu for the rest. Damage is a drag, or type `7 damage` or `heal 5`. Conditions show on the figure itself: a prone pawn lies down, a charmed one has a heart circling its head, an unconscious one has Zs rising. Give a pawn an aura and it glows, from a dim shimmer to a bonfire, in six colours. `roll initiative` starts the fight and keeps the turn order.
 
 A pawn's sheet card holds a link to your character sheet, wherever you keep it, plus notes and GM notes. Players on D&D Beyond can roll from their sheet onto the table with [Beyond20](/connect-dnd-beyond).
 

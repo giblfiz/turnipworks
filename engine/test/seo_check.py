@@ -26,7 +26,7 @@ import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ENGINE = os.path.dirname(HERE); REPO = os.path.dirname(ENGINE)
 SITE = 'https://turnipworks.net'
-PAGES = ['/', '/features', '/manual', '/dice', '/switching', '/vtt-index', '/about', '/terms', '/privacy', '/connect-dnd-beyond', '/export']  # the sitemap's order: /, NAV, HELP (build_site.py)
+PAGES = ['/', '/features', '/manual', '/assets', '/dice', '/switching', '/vtt-index', '/about', '/terms', '/privacy', '/connect-dnd-beyond', '/export']  # the sitemap's order: /, NAV, HELP (build_site.py)
 BOTS = {'Googlebot': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
         'Discordbot': 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)',
         'Twitterbot': 'Twitterbot/1.0',
