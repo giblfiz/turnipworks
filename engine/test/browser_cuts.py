@@ -10,7 +10,8 @@ screen see it" is asked of the GM side), and a player.
           room selected (and the command bar). ENTER IS NOT RENAME: it steps into the room's children, as it always did. An unselected room's label still looks into the room on a
           double-click. Enter saves, Escape does not, an unchanged name sends nothing. The second GM tab sees the name
           at once; the player never receives it; Ctrl+Z takes it back and redo returns it.
-  RING    the room's ring has no Rename, Room type, Replay spawn or Delete; the bar still finds each
+  RING    the room's ring has no Rename, Room type, Replay spawn or Delete; the bar still finds each; the Space chords
+          keep all but Room type (2026-11-05: no key changes a room's type), and Space T on a room does nothing
   PLAYER  a player has no labels and cannot rename a room; a player's own pawn opens Conditions, Indicators and
           Raise / lower and nothing the GM alone may do; a selection with nothing behind the menu button has no menu button
   HELP    the "?" sheet lists Delete with its key for a room, a prop and a pawn
@@ -161,10 +162,18 @@ async def main():
         found = await gm.evaluate(f"""(async () => {{ tw.select(['{RA}']); const out = {{}}; for (const q of ['replay spawn', 'room type: kitchen', 'floor: cobble', 'floor: by room type', 'delete', 'rename', 'select children']) {{ tw.emit('bar.open', q); await new Promise(r => setTimeout(r, 240)); out[q] = [...document.querySelectorAll('#results .res .t')].slice(0, 4).map(e => e.innerText); document.querySelector('#bar textarea').dispatchEvent(new KeyboardEvent('keydown', {{ key: 'Escape', bubbles: true }})); await new Promise(r => setTimeout(r, 60)); }} return out; }})()""")
         want = {'replay spawn': 'Replay spawn', 'room type: kitchen': 'Room type: Kitchen', 'floor: cobble': 'Floor: cobble', 'floor: by room type': 'Floor: by room type', 'delete': 'Delete', 'rename': 'Rename', 'select children': 'Select children'}
         check(all(any(w.lower() in t.lower() for t in found[q]) for q, w in want.items()), 'the command bar finds each of them by name with the room selected (and Select children)', {q: found[q][:1] for q in want})
-        # THE CUTS WERE TO THE RING ONLY: the Space chords keep every one of them (2026-10-12)
+        # THE CUTS WERE TO THE RING ONLY: the Space chords keep every one of them (2026-10-12), but Room type (2026-11-05)
         await gm.evaluate(f"tw.select(['{RA}'])"); await gm.wait_for_timeout(200); await gm.keyboard.press('Space'); await gm.wait_for_timeout(200); cr = await gm.evaluate('tw.chordState()')
         kv = dict(zip(cr['items'], cr['keys'])) if cr else {}
-        check(cr and [kv.get(k) for k in ('▸room.type.', '▸room.floor.', 'room.rename', 'room.replay', 'edit.delete')] == ['t', 'f', 'n', 'a', 'd'] and len(set(cr['keys'])) == len(cr['keys']) and cr['items'][-1] == 'edit.delete', "a room's Space chords still hold what left its ring, on the letters they always had: T room type, F floor, N rename, A replay, D delete (last)", cr and list(zip(cr['keys'], cr['items'])))
+        check(cr and [kv.get(k) for k in ('▸room.floor.', 'room.rename', 'room.replay', 'edit.delete')] == ['f', 'n', 'a', 'd'] and len(set(cr['keys'])) == len(cr['keys']) and cr['items'][-1] == 'edit.delete', "a room's Space chords still hold what left its ring, on the letters they always had: F floor, N rename, A replay, D delete (last)", cr and list(zip(cr['keys'], cr['items'])))
+        # NO KEY CHANGES A ROOM'S TYPE (2026-11-05, Harry: "I don't think we should have a quick-key to change a room type at
+        # all, that is just bound for chaos"): no Room type ▸ in the chords, and Space T on a room does nothing (the bar keeps it)
+        check(cr and '▸room.type.' not in cr['items'] and 't' not in cr['keys'] and not any(i.startswith('room.type.') for i in cr['items']), "a room's Space chords have no Room type (no T)", cr and list(zip(cr['keys'], cr['items'])))
+        t0 = await gm.evaluate(f"[tw.entities()['{RA}'].recipe.type, tw.entities()['{RA}'].recipe.seed]")
+        await gm.keyboard.press('t'); await gm.wait_for_timeout(600)
+        t1 = await gm.evaluate(f"[tw.entities()['{RA}'].recipe.type, tw.entities()['{RA}'].recipe.seed, !!tw.chordState()]")
+        check(t1 == t0 + [False], 'Space T on a room: the chord just closes; the room keeps its type and its layout', [t0, t1])
+        await gm.evaluate(f"tw.select(['{RA}'])"); await gm.wait_for_timeout(200); await gm.keyboard.press('Space'); await gm.wait_for_timeout(200)
         await gm.keyboard.press('n'); okc = await wait(gm, editing(RA), 3000, 'Space N'); await gm.keyboard.press('Escape'); await gm.wait_for_timeout(200)
         await gm.evaluate(f"tw.select(['{PW}'])"); await gm.wait_for_timeout(200); await gm.keyboard.press('Space'); await gm.wait_for_timeout(200); cp = await gm.evaluate('tw.chordState()')
         kp = dict(zip(cp['items'], cp['keys'])) if cp else {}

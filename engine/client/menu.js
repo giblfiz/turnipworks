@@ -23,7 +23,10 @@ export const MENU = [
   { cmd: 'thing.open', key: 'o' },                  // Open / Close
   { cmd: 'faction.set', key: 'v', opens: 'faction', title: 'Faction' },
   { cmd: 'thing.replace', key: 'r', opens: 'replace', title: 'Replace' },
-  { list: 'room.type.', title: 'Room type', icon: 'house', key: 't' },     // (chords and the bar; off the ring: RING_CUT)
+  // (2026-11-05) a room's Room type ▸ (Space T) is gone from the chords too, and from every menu: changing a room's type
+  // re-rolls it, and a hill given a room type on live floated a storey up and vanished. Harry: "I don't think we should
+  // have a quick-key to change a room type at all, that is just bound for chaos." The bar keeps it ("room type: kitchen":
+  // client/commands.js room.type.*, menu: false). Space T is a pawn's Target only.
   { list: 'room.walls.', title: 'Walls', icon: 'brick-wall', key: 'w' },
   { list: 'room.floor.', title: 'Floor', icon: 'footprints', key: 'f' },   // (chords and the bar; off the ring)
   { cmd: 'room.fog', key: 'g', opens: 'fog', title: 'Fog height' },  // a slider at the button
@@ -91,13 +94,13 @@ export const NOT_IN_MENU = ['edit.duplicate', 'edit.copy', 'edit.cut', 'room.rot
 // them, with the letter it always had (2026-10-12: the first cut took the chords too, which nobody asked for).
 //   delete (Del / Backspace): off EVERY ring. The key is on the "?" sheet, the bar finds it, undo brings the thing back
 //   a pawn's Duplicate: Ctrl/⌘+D and the bar          a pawn's Give control, and its name: on its sheet card
-//   a room's Replay spawn: the bar only                  a room's Room type ▸: the bar only ("room type: kitchen")
+//   a room's Replay spawn: the bar only                  (a room's Room type ▸: since 2026-11-05 in no menu, no chord; the bar only)
 //   a room's Rename: at its own label (F2, or double-click the selected label; the bar)
 //   a room's Add stair: stairs, spirals and ladders are placed from the library and switched up / down (stair.flip); a
 //   room drawn off the ground is OFFERED its stair by a button beside it; "add stair" in the bar still plans one
 //   a room's Floor ▸: drag a floor in from the library (it changes the whole room's floor); the bar sets one by name ("floor: cobble")
 // An entry ending in a dot is a whole list, by its prefix.
-export const RING_CUT = ['edit.delete', 'pawn.duplicate', 'pawn.give', 'room.replay', 'room.rename', 'room.type.', 'room.floor.', 'room.stair', 'room.roofShow'];
+export const RING_CUT = ['edit.delete', 'pawn.duplicate', 'pawn.give', 'room.replay', 'room.rename', 'room.floor.', 'room.stair', 'room.roofShow'];
 const offRing = (id) => RING_CUT.some(x => x.endsWith('.') ? id.startsWith(x) : id === x);
 const notInMenu = (id) => NOT_IN_MENU.includes(id);
 // A command that is on the ring for some selections and not for others: true = leave it off the ring for this one.

@@ -107,6 +107,19 @@ ok('the hill is grass by default', A().room_hill0001?.recipe.floor === 'floor-gr
 ok('a hill at 0 is refused', !run('room.spawn', { id: 'room_hill0000', type: 'hill', x: 20, z: 0, w: 2, d: 2, seed: 5, layout: NOLAY }).ok);
 ok('a hill on the hill (20 ft) spawns', run('room.spawn', { id: 'room_hill0002', type: 'hill', x: 1, z: 1, w: 2, d: 2, y: 20, seed: 5, layout: NOLAY }).ok);
 ok('a ground room inside the hill spawns, dug into it (2026-10-24)', run('room.spawn', { id: 'room_cmn00001', type: 'common', x: 2, z: 2, w: 2, d: 2, seed: 5, building: 'bld_dug00001', buildingName: 'Dug', layout: NOLAY }).ok);
+// "Room type" does not cross ground and rooms (2026-11-05, live: a hill made a chapel floated 10 ft up and vanished
+// at the ground). A hill's y is its height, a room's its floor: refused both ways; within each side it still works.
+r = run('room.reroll', { id: 'room_hill0001', seed: 6, type: 'chapel', layout: NOLAY });
+ok('a hill cannot be given a room type (room.reroll type=chapel refused)', !r.ok && A().room_hill0001.recipe.type === 'hill' && A().room_hill0001.recipe.y === 10, r.error);
+r = run('room.reroll', { id: 'room_cmn00001', seed: 6, type: 'hill', layout: NOLAY });
+ok('a room cannot be made a hill', !r.ok && A().room_cmn00001.recipe.type === 'common', r.error);
+ok('a hill still re-rolls (no type)', run('room.reroll', { id: 'room_hill0001', seed: 7, layout: NOLAY }).ok && A().room_hill0001.recipe.type === 'hill' && A().room_hill0001.recipe.seed === 7);
+ok('a room still changes type (common -> kitchen)', run('room.reroll', { id: 'room_cmn00001', seed: 7, type: 'kitchen', layout: NOLAY }).ok && A().room_cmn00001.recipe.type === 'kitchen');
+ok('(and back)', run('undo').ok && A().room_cmn00001.recipe.type === 'common');
+r = run('room.spawn', { id: 'room_cave0001', type: 'cave', x: 40, z: 0, w: 3, d: 3, y: -10, seed: 5, building: 'bld_cave0001', buildingName: 'Cave', layout: NOLAY });
+ok('a cave under the ground spawns', r.ok, r.error);
+ok('a cave becomes a room (its y is a floor, as a room\'s: a cellar at -10)', run('room.reroll', { id: 'room_cave0001', seed: 6, type: 'cellar', layout: NOLAY }).ok && A().room_cave0001.recipe.type === 'cellar' && A().room_cave0001.recipe.y === -10);
+ok('a cellar cannot be made a hill either', !run('room.reroll', { id: 'room_cave0001', seed: 6, type: 'hill', layout: NOLAY }).ok);
 ok('raise 5 ft', run('room.move', { id: 'room_hill0001', dx: 0, dz: 0, dy: 5 }).ok && A().room_hill0001.recipe.y === 15);
 ok('lower to 5 ft', run('room.move', { id: 'room_hill0001', dx: 0, dz: 0, dy: -10 }).ok && A().room_hill0001.recipe.y === 5);
 ok('not to the ground', !run('room.move', { id: 'room_hill0001', dx: 0, dz: 0, dy: -5 }).ok && A().room_hill0001.recipe.y === 5);

@@ -701,7 +701,7 @@ async def main():
             if await gm.evaluate("!!document.querySelector('#settingsModal .mptree [data-fig]')"): break
             await gm.click('#settingsModal .mptree [data-node]'); await gm.wait_for_timeout(300)
         fig = await gm.evaluate("document.querySelector('#settingsModal .mptree [data-fig]')?.dataset.fig")
-        await gm.click('#settingsModal .mptree [data-fig]'); await gm.click('#settingsModal [data-act=pawn-save]')
+        await gm.click('#settingsModal .mptree [data-fig]')  # applied at once: there is no Save button (Harry 2026-11-05)
         ok_c = await wait(gm, f"(() => {{ const e = tw.entities()['{ph['id']}'], d = tw.sync.campaign.pawns.find(d => d.id === '{ph['def']}'); return e && !e.placeholder && e.fig === '{fig}' && d && !d.placeholder && d.owner === '{C}'; }})()", 8000, 'GM chose')
         check(ok_c, 'the GM choosing her figure makes it an ordinary pawn (still hers)', fig)
         await gm.evaluate('tw.settings.close()'); await gm.evaluate('tw.undo()')

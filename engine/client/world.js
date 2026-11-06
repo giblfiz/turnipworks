@@ -623,7 +623,7 @@ export class AreaWorld {
     this.unseenNear = near; this.unseenUnder = under; this.cutGen = (this.cutGen || 0) + 1;
     // the floors that are drawn, by height, for floorStop (below): the rooms on each, and the cells a stair has opened
     const planes = new Map();
-    for (const r of shown) { if (under.has(r.id) || (cut != null && cut < 0 && HT.isTerrain(r.recipe))) continue; const y = HT.roomY(r.recipe); let P = planes.get(y); if (!P) planes.set(y, P = { y, rooms: [], holes: holesOf(y) }); P.rooms.push(r.recipe); } // (under the closed ground: the ground stops the ray first; below the ground a hill is see-through and stops nothing, 2026-10-27)
+    for (const r of shown) { if (under.has(r.id) || (cut != null && cut < 0 && HT.isTerrain(r.recipe))) continue; const y = HT.roomY(r.recipe); let P = planes.get(y); if (!P) planes.set(y, P = { y, rooms: [], ids: [], holes: holesOf(y) }); P.rooms.push(r.recipe); P.ids.push(r.id); } // (under the closed ground: the ground stops the ray first; below the ground a hill is see-through and stops nothing, 2026-10-27)
     this.floorPlanes = [...planes.values()];
   }
   // A FLOOR THAT IS DRAWN STOPS THE POINTER (Harry 2026-10-06: "on floor two I can still select things on floor one
@@ -644,10 +644,14 @@ export class AreaWorld {
     let best = Infinity;
     const cell = (x, z) => `${Math.floor(x / CELL)}:${Math.floor(z / CELL)}`;
     const E = this.view?.entities, taken = (rc, x, z) => HT.isTerrain(rc) && this.takenShownAt(rc, x, z); // (a hill's top where a room is dug into it stops nothing: 2026-10-24)
-    const solid = (P, x, z, rim = false) => { if (P.holes.size && P.holes.has(cell(x, z))) return false; for (const rc of P.rooms) if (FP.contains(rc, x, z) && !taken(rc, x, z)) return true;
+    // A FLOOR THE FOG OF WAR KEEPS FROM THIS SEAT IS NOT DRAWN, SO IT STOPS NOTHING (2026-11-05, Harry on live: a new
+    // player "couldn't select" his own pawn, stood in a taproom under an upper storey he had never seen: the ray stopped
+    // at that undrawn floor, short of the pawn he could see). cutPass works out fogFloors as it hides the pieces.
+    const FF = this.fogActive && this.fogFloors?.size ? this.fogFloors : null, drawn = (P, i) => !FF || !FF.has(P.ids?.[i]);
+    const solid = (P, x, z, rim = false) => { if (P.holes.size && P.holes.has(cell(x, z))) return false; for (let i = 0; i < P.rooms.length; i++) { const rc = P.rooms[i]; if (FP.contains(rc, x, z) && !taken(rc, x, z) && drawn(P, i)) return true; }
       // the slab runs past the room's outer edge, under the wall (core/height.js slabRects): a point there is slab too (not into a hole). Since
       // 2026-10-24 the drawn slab stops on the line (SLAB_RIM_UNDER_BAND) and the band of wall over its edge is what a ray meets first there
-      if (rim && SLAB_RIM_UNDER_BAND) for (const dx of [-SLAB_RIM_UNDER_BAND, 0, SLAB_RIM_UNDER_BAND]) for (const dz of [-SLAB_RIM_UNDER_BAND, 0, SLAB_RIM_UNDER_BAND]) if ((dx || dz) && !P.holes.has(cell(x + dx, z + dz)) && P.rooms.some(rc => FP.contains(rc, x + dx, z + dz))) return true;
+      if (rim && SLAB_RIM_UNDER_BAND) for (const dx of [-SLAB_RIM_UNDER_BAND, 0, SLAB_RIM_UNDER_BAND]) for (const dz of [-SLAB_RIM_UNDER_BAND, 0, SLAB_RIM_UNDER_BAND]) if ((dx || dz) && !P.holes.has(cell(x + dx, z + dz)) && P.rooms.some((rc, i) => FP.contains(rc, x + dx, z + dz) && drawn(P, i))) return true;
       return false; };
     for (const P of this.floorPlanes) {
       const tTop = (P.y - o.y) / d.y;
@@ -794,8 +798,10 @@ export class AreaWorld {
     // closed ground that nothing but the ground hides: the cut, fog of war, the walls switch and the rest are asked
     // exactly as for drawing them, so a seat is shown through the ground only what it would see at lv -1 itself
     const under = { shell: [], things: [] }, U = this.unseenUnder, lid = [], E = this.view?.entities || {}, meets = new Map(), onGround = (id) => { let v = meets.get(id); if (v === undefined) meets.set(id, v = HT.meetsGround(E, E[id])); return v; };
+    const fogFloor = new Map(); // room id -> is every piece of its floor kept from this seat by the fog of war? (floorStop)
     for (const s of this.shell.values()) {
-      const above = this.cutHidden.has(s.roomId), other = above || this.fogHidesShell(s) || this.hillSeeHides(s) || this.takenShell(s), base = this.wallsOn || s.spec.layer === 'floor';
+      const fogged = this.fogHidesShell(s), above = this.cutHidden.has(s.roomId), other = above || fogged || this.hillSeeHides(s) || this.takenShell(s), base = this.wallsOn || s.spec.layer === 'floor';
+      if (s.spec.layer === 'floor' && s.roomId) fogFloor.set(s.roomId, fogged && fogFloor.get(s.roomId) !== false);
       set(s.group, other || this.unseenShell(s), base, above, s);
       if (other || !base) continue;
       if (U.has(s.roomId)) under.shell.push(s);
@@ -804,6 +810,7 @@ export class AreaWorld {
     for (const r of this.recs.values()) { const k = r.entity.kind; if (k === 'object' || k === 'token') { const above = this.cutHides(r.entity), other = above || this.fogRule?.(r.entity) || this.offRoof(r.entity); set(r.group, other || this.unseenThing(r.entity), true, above, r);
       if (!other && U.size && (r.entity.room ? U.has(r.entity.room) : k === 'token' && this.pawnLevel(r.entity) < 0) && (k === 'token' || !(Math.max(...(r.entity.dims || [9])) < UNDER_SMALL))) under.things.push(r); } } // (not the apples and the candles: too small to read at a faint fade, and each is a draw)
     let sig = under.shell.length * 7 + under.things.length * 13 + lid.length * 17; for (const L of [under.shell, under.things, lid]) for (const x of L) sig = (sig * 31 + x.group.id) % 2147483647;
+    this.fogFloors = new Set([...fogFloor].filter(([, v]) => v).map(([k]) => k));
     this.underList = under; this.underLid = lid; if (sig !== this.underSig) { this.underSig = sig; this.underGen = (this.underGen || 0) + 1; } // (drawn again only when what is shown changed: a fog refresh that changes nothing costs nothing)
     fly?.commit();
     this.cutApplied = this.cut != null;
@@ -2206,7 +2213,10 @@ void main() {
     // the floor's height
     const cutting = Number.isFinite(max); if (cutting) this.cutSets();
     // (2026-10-27) below the ground a hill's top is no floor either: it is see-through there and nothing on it is drawn (hillSeeNow)
-    const under = this.cut != null && this.cut < 0, ys = this.roomYsNow(), shownOn = (y, p) => { const r = roomOn(y, p); return r && !(cutting && this.cutHidden?.has(r.id)) && !(under && HT.isTerrain(r.recipe)) ? r : null; };
+    // (2026-11-05) nor is a floor the fog of war keeps from this seat (fogFloors, as floorStop): it is not drawn, and a pawn
+    // put down there would land on it, upstairs in a room the player has never seen (and learn that it is there)
+    const FF = this.fogActive && this.fogFloors?.size ? this.fogFloors : null;
+    const under = this.cut != null && this.cut < 0, ys = this.roomYsNow(), shownOn = (y, p) => { const r = roomOn(y, p); return r && !(cutting && this.cutHidden?.has(r.id)) && !(under && HT.isTerrain(r.recipe)) && !FF?.has(r.id) ? r : null; };
     for (const y of ys) { if (y < 0 && !this.groundOpen) break; if (y < 0 && max >= 0) { const g = at(0); if (g && shownOn(0, g)) break; } const p = at(y), r = p && shownOn(y, p); if (r) return { x: p[0], z: p[1], y, room: r.id }; }
     const p = at(0); return p ? { x: p[0], z: p[1], y: 0, room: null } : null; // (with the cut below ground this is still the ground plane: "open ground". A hole in the ground over nothing: the ground too)
   }
@@ -2234,7 +2244,8 @@ void main() {
     // from players: the drag previewed, the release sent nothing, the thing fell back (Harry 2026-10-05: "raise is now
     // dropping everything instantly back to the floor"). Sprites are skipped below; this only keeps them from throwing.
     rc.camera = RAY_CAMERA;
-    const things = [...this.recs.values()].filter(r => r.entity.kind === 'object' && !r.asleep && !isTile(r.entity) && !exclude.has(r.entity.id) && !r.visual?.userData?.placeholder && !this.cutHides(r.entity)).map(r => r.group);
+    const fogged = this.fogActive && this.fogRule ? (e) => this.fogRule(e) : () => false; // (2026-11-05) a thing the fog keeps from this seat is no surface: not drawn, so nothing lands on it (a raised pawn's base)
+    const things = [...this.recs.values()].filter(r => r.entity.kind === 'object' && !r.asleep && !isTile(r.entity) && !exclude.has(r.entity.id) && !r.visual?.userData?.placeholder && !this.cutHides(r.entity) && !fogged(r.entity)).map(r => r.group);
     for (const h of rc.intersectObjects(things, true)) {
       if (h.object instanceof THREE.Sprite || !h.face || h.object.userData.halo) continue;
       if (h.face.normal.clone().transformDirection(h.object.matrixWorld).y < 0.6) continue;

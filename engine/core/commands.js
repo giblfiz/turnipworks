@@ -687,6 +687,12 @@ def('room.reroll', {
     if (!r) return `no room ${a.id}`;
     if (r.locked) return 'that room is locked';
     if (a.type && roomTypes && !roomTypes.has(a.type)) return `unknown room type ${a.type}`;
+    // GROUND AND ROOMS DO NOT TURN INTO EACH OTHER (2026-11-05: on live a hill was given "Room type: Chapel" and the
+    // chapel floated 10 ft up, cut from view at the ground). A hill's `y` is its HEIGHT, a room's (a cave's too) its
+    // FLOOR, and a hill has no building: the same recipe means two different things, so the change is refused. A hill has
+    // its own height and rock-side commands; a room on the hill is drawn on it. (Journal replay applies without checks:
+    // a change made before this rule replays as it did.)
+    if (a.type && isTerrain(a.type) !== isTerrain(r.recipe)) return isTerrain(r.recipe) ? `a hill cannot become a ${a.type}: draw the room on the hill instead` : `a room cannot become a hill: draw the hill instead`;
     return layoutObjectsOk(area, a.layout);
   },
   apply: (t, a) => {

@@ -558,6 +558,10 @@ html.tool-room #buildMenu, html.tool-room #buildMenu *, html.tool-room #launcher
 .mpn { flex: 1; min-width: 0; display: flex; flex-direction: column; } .mpn small { color: var(--mute); }
 .mped { margin-top: 12px; padding: 12px; border: 1px solid var(--line-strong); border-radius: 12px; background: color-mix(in srgb, var(--ink) 3%, transparent); display: flex; flex-direction: column; gap: 8px; }
 .mped h4 { margin: 0; font-size: 14px; }
+/* no Save button: a quiet line says the edit took; a value that cannot be kept is said beside its field */
+.mphd { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; min-width: 0; }
+.mpstat { color: var(--mute); font-size: 11px; } .mpstat.bad { color: var(--danger); }
+.mperr { flex: 1 0 100%; color: var(--danger); font-size: 11px; } .mperr:empty { display: none; }
 .mpfig { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; } .mpfig > .mpprev { flex: 0 0 150px; } .mpfig > .mptree { flex: 1 1 240px; min-width: 0; }
 .mpprev { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; } .mpprev small { color: var(--mute); font-size: 11px; }
 .mptree { max-height: 380px; overflow-y: auto; padding: 2px; display: flex; flex-direction: column; gap: 6px; }

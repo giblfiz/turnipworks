@@ -1277,3 +1277,26 @@ Harry: "whenever we have a loading screen ... we can put a tip about hotkeys or 
 - **Two layout traps:** a grid item wider than its track with `justify-self: center` is NOT centred in Chromium (it overflows to the right from the track's start); centred with a computed negative margin instead. And the screen's radial glow is brightest just under the bar, where the tip sits: cream there measured 6.4 to 6.9:1, so a soft dark radial pool (a `::before` that reaches past the box, so no edge shows) brings it to 7.4 to 9.3:1 in Chromium and Firefox, measured from the picture against the brightest pixel behind the box. Gemini, blind, called it "intentional ... though visually heavy" once in seven reads.
 - **Kept true:** `engine/test/browser_tips.py` (P: the page alone, audiences by crafted tokens; G: the real game, every `{K}` in a tip held to `tw.registry.keymap` for that seat, and the non-obvious tips played as GM and player, on a computer and an emulated phone).
 - **Not verified:** a real phone, a real tablet, a real trackpad (the trackpad's pan and pinch are synthetic wheel events here), Safari/WebKit (cannot start on the build box), a Mac's Cmd/Option names (the mapping is code-read only).
+
+## A floor the fog keeps from a player stops no click (2026-11-05; client/world.js floorStop, cutPass fogFloors)
+
+**The report.** Live v0.4.1, Harry's tavern campaign: two invited players (Fizban, then zifnab) "couldn't select" their own
+pawns reliably, worst after a reload. **The cause.** Each pawn stood on the ground floor under an upper storey the player
+had never seen. The fog of war does not draw that room (its floor, slab and walls are all fog-hidden), so the player saw
+his pawn plainly; but floorStop, "the pointer selects what you can see", counted every room the seat was sent, drawn or
+not, so every pointer ray stopped at the undrawn upper floor, short of the pawn. From the journal (likely, not proven): Fizban's placeholder was set down under the inn's upper
+"fine" room; zifnab moved his pawn about, left it under the upper guest rooms, and after his reload could not take it.
+Not the placeholder as such: a pawn with a figure does the same (the suite's I5/I6). **The fix.** cutPass notes the rooms whose every floor piece the fog hides
+(`fogFloors`); floorStop lets those through. The GM has no fog: nothing changes there. What the fog hides stays hidden
+(pieces and things it hides are cutHidden and out of every pick as before); only a floor nobody draws for this seat no
+longer swallows the click. **The suite.** engine/test/browser_invite_pawn.py: real clicks on the pixels where the pawn
+shows, counted (0/10 before the fix, 10/10 after), on the placeholder, under the upper storey, after a reload, upstairs,
+and the Pawns menu portrait.
+**Follow-on, the same day: the drop point too.** world.floorPoint (what every drop, tool and the Pawns menu's portrait
+drag asks for "the floor under the pointer") also took the highest floor the ray met, drawn or not: a player who put his
+pawn down from its portrait under that storey had it land UP in the unseen room, at 10 ft (and so learnt it was there).
+It now skips the fogFloors rooms as floorStop does (the explicit `level` plane a walk or a build tool asks for is
+unchanged). surfaceBelow (a raised pawn's base, a lifted thing's landing) no longer lands on a thing the fog keeps from
+the seat. Unchanged and already right: pickAll and hover (they ask floorPoint and check fogRule for the room),
+surfaceAt (its things are cutHidden-filtered). Suite I5b/I5c: the player's floor point is the ground, the GM's the upper
+floor; the portrait drop lands on the ground (before: y 10 in the unseen room).

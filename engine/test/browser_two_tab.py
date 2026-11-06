@@ -418,8 +418,7 @@ async def main():
             if await bob.evaluate("!!document.querySelector('#settingsModal .mptree [data-fig]')"): break
             await bob.click('#settingsModal .mptree [data-node]'); await bob.wait_for_timeout(300)
         fig = await bob.evaluate("document.querySelector('#settingsModal .mptree [data-fig]')?.dataset.fig")
-        await bob.click('#settingsModal .mptree [data-fig]'); await bob.wait_for_timeout(200)
-        await bob.click('#settingsModal [data-act=pawn-save]')
+        await bob.click('#settingsModal .mptree [data-fig]'); await bob.wait_for_timeout(200)  # applied at once: no Save button (Harry 2026-11-05)
         chosen = f"(() => {{ const e = tw.entities()['{ph['id']}']; return !!e && !e.placeholder && e.fig === '{fig}'; }})()"
         ok_b = await wait(bob, chosen, 8000, 'chosen (Bobby)'); ok_g = await wait(gm, chosen, 8000, 'chosen (GM)')
         dd = await gm.evaluate(f"tw.sync.campaign.pawns.find(d => d.id === '{ph['def']}')")

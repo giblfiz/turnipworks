@@ -179,8 +179,8 @@ async def main():
         # D6: My pawns "Sees in the dark (ft)" = 60 (the form), synced; the bar's "darkvision 40", undo; the GM's "light radius 30"
         await pl.evaluate(f"tw.settings.editPawn('{DEF}')"); await pl.wait_for_timeout(600)
         has_field = await pl.locator('.mped .mpdark').count()
-        await pl.fill('.mped .mpdark', '60'); await pl.click('.mped [data-act=pawn-save]')
-        await wait(pl, 'tw.sync.pendingCount() === 0', 15000); await pl.keyboard.press('Escape')
+        await pl.fill('.mped .mpdark', '60'); await pl.keyboard.press('Escape')  # no Save button: closing applies it (Harry 2026-11-05)
+        await wait(pl, 'tw.sync.pendingCount() === 0', 15000)
         synced = await wait(gm, f"tw.entities()['{PA}']?.darkvision === 60 && tw.sync.campaign.pawns.find(d => d.id === '{DEF}')?.darkvision === 60", 15000, 'darkvision synced')
         sees45 = await wait(pl, V(47.5, bz), 15000, 'sees 45 ft')
         await pl.evaluate(f"tw.sel.clear(); tw.sel.add('{PA}')")

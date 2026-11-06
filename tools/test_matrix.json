@@ -2096,6 +2096,15 @@
       "timeout": 1200
     },
     {
+      "suite": "engine/test/browser_invite_pawn.py",
+      "command": ["{python}", "engine/test/browser_invite_pawn.py", "--local"],
+      "asserting": true,
+      "env": { "TW_GPU": "1" },
+      "port_env": "TW_PORTS",
+      "ports": [18557, 18957],
+      "timeout": 1500
+    },
+    {
       "suite": "engine/test/browser_fogwar_game.py",
       "command": ["{python}", "engine/test/browser_fogwar_game.py", "--local"],
       "asserting": true,

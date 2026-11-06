@@ -263,7 +263,20 @@ relay, a raw socket per seat). The pictures Gemini read are made by `--shots` (n
   (the GM and the GM's assistants move it) / **Take it back**, Edit…, Forget.
 - **Settings ▸ Me ▸ My pawns:** the list (picture, name, "on the bench" / "on the table: <area>", whose pet), and an
   editor: the figure picker (the same tree as placing, below), name, sheet link, notes, "pet or familiar of", "my main
-  pawn". Picking a figure offers its name. Saving a pawn that stands on the table I am at changes that pawn too.
+  pawn". Picking a figure offers its name. A change to a pawn that stands on the table I am at changes that pawn too.
+- **No Save button (Harry 2026-11-05: "When I edit a pawn in the 'me' menu, there shouldn't be a 'Save' button, all
+  edits should automatically be applied, probably instantly but at the very least on closing the window").** A choice
+  (figure, No figure, pet, main) is applied at once; typing (name, sheet link, notes, the two distances) half a second
+  after the last key, and at once when the field is left, another pawn is opened, Settings closes or the page goes
+  away. A burst of typing is one `pawn.define` (and one `token.set` on the table: one undo step there); only the
+  fields that changed are sent, and nothing when nothing did. A **new pawn** is created only once it has a name
+  (picking a figure offers one); an untouched "New pawn" left behind makes nothing, and later edits change that same
+  pawn. A value that cannot be kept (an emptied name, a sheet link that is not a web link) is not sent: it is said
+  beside its field and the table keeps the last good one. A quiet line by the heading says "Saving…" / "Saved". No
+  Cancel: `pawn.define` is a campaign command, out of reach of the relay's undo, so after a change the editor offers
+  **"Put it back as it was"** (the pawn as it was when the editor opened). The editor stays open beside "New pawn"
+  until another pawn is opened or Settings closes. The GM's editor on a player's pawn works the same way; the
+  player (and, for the pawn on the table, everyone) sees each change live.
 - **Data:** `pawn.define` / `pawn.forget` (campaign commands; `state.pawns`), `pawn.bring` / `pawn.bench` (area
   commands; a player may: no approval). The relay writes the pawn from the definition, whatever the sender says. One
   pawn per definition, campaign-wide. A definition is sent to its owner and to the GM side, to nobody else. 200 a seat

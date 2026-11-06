@@ -32,6 +32,7 @@ import { DARKVISION_DEFAULT, DARKVISION_MAX, CARRIED_LIGHT_MAX } from '../../cor
 import { setRingScale } from './ring.js';
 import { figTree } from './figtree.js';
 import { pawnLabel } from '../pawns.js';
+import { cleanSheet, sheetProblem } from '../../core/pawn.js';
 import { LIB_EVEN } from '../library.js';
 import { noGlow, HILL_SEE, GROUND_SEE, UNDER_SEE } from '../world.js';
 import { PPG_CHOICES } from '../../core/uvtt.js';
@@ -93,6 +94,7 @@ export function settingsSurface(R, app) {
   let prefs = loadPrefs();
   let section = 'nav', confirmDel = null, lastKey = null, newAgent = null;
   let pawnEdit = null, picker = null, scrollTo = null; // Me ▸ My pawns: the pawn being defined or edited, and its figure picker
+  let pawnTimer = null, pawnStat = '', pawnSends = 0; // its typing's wait before it is applied; the quiet line that says it took
   const C = () => app.sync.campaign;
   const SECTIONS = [
     // S opens Settings (always on World navigation); then a letter picks a section (S then N, I, V, D, A, H, M, G, K, F, the
@@ -136,7 +138,7 @@ export function settingsSurface(R, app) {
     show: (sec) => { section = sec; if (S.isOpen) render(); else open(sec); },
     // Me ▸ My pawns, on a new pawn ('new') or on one being edited (its id): the door the Pawns menu's "New pawn" opens
     editPawn: (id) => { startPawnEdit(id); scrollTo = '.mped'; if (S.isOpen) { section = 'me'; render(); } else open('me'); },
-    pawnEdit: () => pawnEdit && { ...pawnEdit, tree: picker?.state() },
+    pawnEdit: () => pawnEdit && { ...pawnEdit, tree: picker?.state(), stat: pawnStat, waiting: !!pawnTimer }, // (stat: '' | saving | saved | refused; waiting: typing not yet applied)
     prefs: () => ({ ...prefs }),
     setPref: (k, v) => setPref(k, v),
     setGfx: (name) => setGfx(name), setAuto: (name) => setAuto(name), // Me ▸ Graphics: a preset by hand; Auto's own pick (graphics.js)
@@ -158,7 +160,7 @@ export function settingsSurface(R, app) {
     render();
     app.emit('settings.open');
   }
-  function close() { if (!S.isOpen) return false; S.isOpen = false; lastSec = null; confirmDel = null; pawnEdit = null; picker = null; b.classList.remove('open'); modal.hidden = true; app.emit('settings.close'); }
+  function close() { if (!S.isOpen) return false; flushPawn(); S.isOpen = false; lastSec = null; confirmDel = null; pawnEdit = null; picker = null; b.classList.remove('open'); modal.hidden = true; app.emit('settings.close'); }
   // Escape and a click on the backdrop close it, unless it is PINNED (surfaces/tray.js: hold, tap, pin). Pinned, the
   // window stays where it is, the backdrop is gone and the map behind it takes the pointer and the keys.
   function closeIfOpen() { if (!S.isOpen) return false; if (!app.tray.dismissable('settings')) { queueMicrotask(() => S.isOpen && app.escapeStack.unshift(closeIfOpen)); return false; } close(); }
@@ -224,9 +226,11 @@ export function settingsSurface(R, app) {
     badge();
     const c = C(); if (!S.isOpen || !c) return;
     if (String(c.cseq) === modal.dataset.cseq && cur() === modal.querySelector('.spane')?.dataset.sec && String(!!app.b20?.connected) === modal.dataset.b20) return;
-    if (modal.contains(document.activeElement) && document.activeElement.matches('input[type=text], input:not([type]), textarea')) return;
+    if (typingHere()) return;
     render();
   });
+  // (number: a pawn's darkvision, applied as it is typed: a redraw would take the field from under the typing)
+  const typingHere = () => modal.contains(document.activeElement) && document.activeElement.matches('input[type=text], input[type=number], input:not([type]), textarea');
 
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const row = (label, ctl, note = '') => `<div class="srow"><label>${label}</label><div class="sctl">${ctl}</div>${note ? `<small class="snote">${note}</small>` : ''}</div>`;
@@ -340,15 +344,23 @@ export function settingsSurface(R, app) {
   // ever sent her own (core/party.js defsFor), so nothing of anyone else's can reach a player's editor.
   const defsOf = (owner) => (C()?.pawns || []).filter(d => d.owner === owner);
   const seatName = (id) => C()?.seats.find(s => s.id === id)?.name || 'Player';
+  const PAWN_FIELDS = ['name', 'fig', 'sheet', 'notes', 'petOf', 'main', 'darkvision', 'lightCarried'];
   function startPawnEdit(id) {
+    flushPawn(); // what was typed into the pawn open before goes in first
     const d = id && id !== 'new' ? (C()?.pawns || []).find(x => x.id === id && (x.owner === myId() || app.gm())) : null;
     const ft = (v) => Number.isFinite(v) ? String(v) : ''; // '' = the default (darkvision 30 ft, no carried light)
     pawnEdit = d ? { id: d.id, isNew: false, owner: d.owner, placeholder: !!d.placeholder, name: d.name, fig: d.fig || '', sheet: d.sheet || '', notes: d.notes || '', petOf: d.petOf || '', main: !!d.main, named: true, darkvision: ft(d.darkvision), lightCarried: ft(d.lightCarried) }
       : { id: null, isNew: true, owner: myId(), name: '', fig: '', sheet: '', notes: '', petOf: '', main: !myDefs().length, named: false, darkvision: '', lightCarried: '' };
+    // what the table holds, as this editor last knew it (a change is sent only where it differs: nothing else is touched,
+    // so the GM and the player editing one pawn at once do not undo each other); a new pawn has none until it is kept.
+    // `opened` is the pawn as it was when the editor opened, for "Put it back as it was".
+    pawnEdit.base = d ? pawnPayload(pawnEdit).p : null;
+    pawnEdit.opened = d ? Object.fromEntries(PAWN_FIELDS.map(k => [k, pawnEdit[k]])) : null;
+    pawnStat = '';
     picker = figTree(app, {
       selected: () => pawnEdit?.fig || null,
       onChange: () => { if (S.isOpen) render(); },
-      onPick: (f) => { if (!pawnEdit) return; pawnEdit.fig = f.id; if (!pawnEdit.named || !pawnEdit.name.trim()) pawnEdit.name = pawnLabel(f); render(); },
+      onPick: (f) => { if (!pawnEdit) return; pawnEdit.fig = f.id; if (!pawnEdit.named || !pawnEdit.name.trim()) pawnEdit.name = pawnLabel(f); flushPawn(); render(); },
       onMore: () => app.toast('Every figure of this family is in the command bar: type its name there, then "change figure" on your pawn'),
     });
     const f = d?.fig && F.get(d.fig); // open the picker where the pawn's own figure is
@@ -359,37 +371,87 @@ export function settingsSurface(R, app) {
     const status = (d) => [d.main ? '★ main' : '', d.petOf && nameOf(d.petOf) ? `${nameOf(d.petOf)}'s` : '', d.at ? `on the table: ${app.areaName(d.at)}` : d.away ? 'on a table' : 'on the bench'].filter(Boolean).join(' · ');
     const cards = defs.map(d => `<li class="mpcard${pawnEdit?.id === d.id ? ' sel' : ''}" data-def="${d.id}">${figPic(d.fig, 56)}<div class="mpn"><b>${esc(d.name)}</b><small>${esc(status(d))}</small></div><button class="sbtn" data-act="pawn-edit">Edit</button><button class="sbtn danger" data-act="pawn-forget" title="Forget this pawn">${icon('trash-2', 15)}</button></li>`).join('');
     const e = pawnEdit, f = e?.fig && F.get(e.fig), foreign = !!e && e.owner !== myId(), odefs = e ? defsOf(e.owner) : defs;
-    const head = !e ? '' : e.isNew ? 'New pawn' : foreign && e.placeholder ? `Choose ${esc(seatName(e.owner))}'s pawn` : e.placeholder ? 'Set your pawn' : `Edit ${esc(odefs.find(d => d.id === e.id)?.name || 'pawn')}`;
+    const head = !e ? '' : e.isNew ? 'New pawn' : foreign && e.placeholder ? `Choose ${esc(seatName(e.owner))}'s pawn` : e.placeholder ? 'Set your pawn' : `Edit ${esc(odefs.find(d => d.id === e.id)?.name || e.base?.name || 'pawn')}`;
+    const bad = e ? pawnPayload(e).bad : {}, err = (k) => `<small class="mperr" data-err="${k}" role="alert">${esc(bad[k] || '')}</small>`;
+    const changed = !!e?.opened && PAWN_FIELDS.some(k => e[k] !== e.opened[k]);
     const phNote = e?.placeholder ? `<p class="snote mpph">${foreign ? `${esc(seatName(e.owner))}'s pawn is a stand-in until a figure is picked for it. ${esc(seatName(e.owner))} can pick one too; whoever picks first decides.` : 'Your pawn is a stand-in until you pick a figure. Pick one from the pictures, and give it a name.'}</p>` : '';
-    const editor = !e ? '' : `<div class="mped${e.placeholder ? ' placeholder' : ''}" data-edit="${e.isNew ? 'new' : e.id}"${foreign ? ` data-owner="${esc(e.owner)}"` : ''}><h4>${head}</h4>${phNote}
+    const editor = !e ? '' : `<div class="mped${e.placeholder ? ' placeholder' : ''}" data-edit="${e.isNew ? 'new' : e.id}"${foreign ? ` data-owner="${esc(e.owner)}"` : ''}><div class="mphd"><h4>${head}</h4><small class="mpstat${pawnStat === 'refused' ? ' bad' : ''}" aria-live="polite">${esc(statText())}</small></div>${phNote}
       <div class="mpfig"><div class="mpprev">${figPic(e.fig, 112)}<b>${f ? esc(f.name) : 'No figure yet'}</b><small>${f ? esc(F.describe(f)) : 'pick one from the pictures'}</small>${f ? `<button class="sbtn tiny" data-act="pawn-nofig">No figure</button>` : ''}</div><div class="mptree clip">${picker.html()}</div></div>
-      ${row('Name', `<input class="mpname" value="${esc(e.name)}" maxlength="80" placeholder="What it is called on the table">`)}
-      ${row('Sheet link', `<input class="mpsheet" value="${esc(e.sheet)}" maxlength="500" placeholder="https://… (its character sheet; optional)">`)}
+      ${row('Name', `<input class="mpname" value="${esc(e.name)}" maxlength="80" placeholder="What it is called on the table">${err('name')}`)}
+      ${row('Sheet link', `<input class="mpsheet" value="${esc(e.sheet)}" maxlength="500" placeholder="https://… (its character sheet; optional)">${err('sheet')}`)}
       ${row('Notes', `<textarea class="mpnotes" maxlength="4000" rows="3" placeholder="Everyone at the table can read these (optional)">${esc(e.notes)}</textarea>`)}
       ${row('Pet or familiar of', select('class="mppet"', [['', 'Nobody: it is its own pawn'], ...odefs.filter(d => d.id !== e.id).map(d => [d.id, d.name])], e.petOf))}
       ${row(foreign ? `${esc(seatName(e.owner))}'s main pawn` : 'My main pawn', toggle('data-mpmain', e.main), 'a main pawn wears the full-detail figure')}
       ${row('Sees in the dark (ft)', `<input class="mpdark" type="number" min="0" max="${DARKVISION_MAX}" step="5" value="${esc(e.darkvision)}" placeholder="${DARKVISION_DEFAULT}" aria-label="Sees in the dark, in feet">`, `its darkvision where an area is dark (blank: ${DARKVISION_DEFAULT} ft; 0: none)`)}
       ${row('Carries a light (ft)', `<input class="mplight" type="number" min="0" max="${CARRIED_LIGHT_MAX}" step="5" value="${esc(e.lightCarried)}" placeholder="0" aria-label="Carries a light, in feet">`, 'a torch is 40, a lantern 60; it lights the dark for everyone')}
-      <div class="sab"><button class="sbtn primary" data-act="pawn-save">${icon('check', 15)} ${e.isNew ? 'Add to my pawns' : 'Save'}</button><button class="sbtn" data-act="pawn-cancel">Cancel</button></div></div>`;
-    const mine = group('My pawns', `${defs.length ? `<ul class="slist mpl">${cards}</ul>` : '<p class="snote">None yet.</p>'}${e ? '' : `<div class="snew"><button class="sbtn primary" data-act="pawn-new">${icon('plus', 15)} New pawn</button></div>`}${foreign ? '' : editor}`, 'The pawns you keep in this campaign. Bring them onto the table, and send them back to your bench, from the Pawns menu (P).');
+      ${changed ? `<div class="sab"><button class="sbtn tiny" data-act="pawn-revert" title="Every field back to how it was when you opened it">${icon('undo-2', 14)} Put it back as it was</button></div>` : ''}</div>`;
+    // NO SAVE BUTTON (Harry 2026-11-05: "there shouldn't be a 'Save' button, all edits should automatically be applied").
+    // The editor stays open until another pawn is opened or the window closes, so "New pawn" stays offered beside it
+    // (but not on a new pawn nobody has started yet).
+    const mine = group('My pawns', `${defs.length ? `<ul class="slist mpl">${cards}</ul>` : '<p class="snote">None yet.</p>'}${e && !e.base ? '' : `<div class="snew"><button class="sbtn primary" data-act="pawn-new">${icon('plus', 15)} New pawn</button></div>`}${foreign ? '' : editor}`, 'The pawns you keep in this campaign. Bring them onto the table, and send them back to your bench, from the Pawns menu (P).');
     // the GM choosing a player's pawn: its own group, first (it is what the GM came for), the GM's own pawns after it
     return foreign ? group(`${esc(seatName(e.owner))}'s pawn`, editor, `Kept with ${esc(seatName(e.owner))}'s pawns; ${esc(seatName(e.owner))} sees the change at once.`) + mine : mine;
   }
-  function savePawn() {
-    const e = pawnEdit; if (!e) return;
-    const name = e.name.trim(); if (!name) { app.toast('Give the pawn a name', true); modal.querySelector('.mpname')?.focus(); return; }
-    const f = e.fig && F.get(e.fig), id = e.isNew ? newId('def') : e.id, size = f?.size || 1;
+  // EVERY EDIT IS APPLIED (Harry 2026-11-05: "all edits should automatically be applied, probably instantly but at the
+  // very least on closing the window"). A choice (figure, main, pet) goes at once; typing waits PAWN_TYPE_MS after the
+  // last key, and goes at once when the field is left, another pawn is opened, Settings closes or the page goes away.
+  // One burst of typing is one pawn.define (and one token.set: one undo step for the pawn on the table). Only what
+  // differs from what the table holds is sent, and nothing at all when nothing differs. A NEW pawn is kept (created)
+  // only once it has a name: picking a figure offers one; an untouched "New pawn" left behind makes nothing. A value
+  // that cannot be kept (an empty name, a sheet link that is not a web link) is not sent: it is said beside its field
+  // and the table keeps the last good one.
+  const PAWN_TYPE_MS = 500;
+  // what the editor holds, as the pawn.define arguments it would send; `bad`: the fields left out, and why
+  function pawnPayload(e) {
+    const f = e.fig && F.get(e.fig), bad = {}, p = {};
+    const name = e.name.trim();
+    if (name) p.name = name; else if (e.base) bad.name = `A pawn needs a name: it is still “${e.base.name}” on the table`; else if (e.fig) bad.name = 'Give it a name to keep it';
+    p.fig = f ? f.id : 'none'; p.size = f?.size || 1;
+    const sheet = cleanSheet(e.sheet), sp = sheetProblem(sheet);
+    if (sp) bad.sheet = `Not kept: ${sp}`; else p.sheet = sheet;
+    p.notes = e.notes; p.petOf = e.petOf || ''; p.main = !!e.main;
     // darkvision / carried light: a number of feet (clamped, to the nearest foot), or blank = the default
     const feet = (v, max) => { const t = String(v ?? '').trim(); if (!t) return null; const n = Math.round(Number(t)); return Number.isFinite(n) ? Math.max(0, Math.min(max, n)) : null; };
-    const dark = { darkvision: feet(e.darkvision, DARKVISION_MAX), lightCarried: feet(e.lightCarried, CARRIED_LIGHT_MAX) };
-    // a PLACEHOLDER saved with no figure picked stays a placeholder (a figure, chosen, ends it: core/commands.js withPlaceholder)
-    const ph = e.placeholder && !f ? { placeholder: true } : {};
-    dispatchC('pawn.define', { id, name, fig: f ? f.id : 'none', size, sheet: e.sheet.trim(), notes: e.notes, petOf: e.petOf || '', main: !!e.main, ...dark, ...ph });
-    // its pawn, when it stands on the table I am at, changes with it (elsewhere: the next time it is brought on)
-    const t = Object.values(app.entities()).find(x => x.kind === 'token' && x.def === id);
-    if (t) app.batch([{ type: 'token.set', args: { id: t.id, name, fig: f ? f.id : 'none', size, sheet: e.sheet.trim(), notes: e.notes, main: !!e.main, ...dark, ...ph } }]);
-    S.lastPawnSaved = id; pawnEdit = null; picker = null; render();
+    p.darkvision = feet(e.darkvision, DARKVISION_MAX); p.lightCarried = feet(e.lightCarried, CARRIED_LIGHT_MAX);
+    return { p, bad };
   }
+  const statText = () => pawnStat === 'saving' ? 'Saving…' : pawnStat === 'saved' ? 'Saved' : pawnStat === 'refused' ? 'Not saved: the table refused it'
+    : pawnEdit && !pawnEdit.base ? 'Kept as soon as it has a name or a figure' : 'Changes apply as you make them';
+  function setPawnStat(s) { pawnStat = s; const el = modal.querySelector('.mped .mpstat'); if (el) { el.textContent = statText(); el.classList.toggle('bad', s === 'refused'); } }
+  function showPawnProblems(bad) { for (const el of modal.querySelectorAll('.mped [data-err]')) el.textContent = bad[el.dataset.err] || ''; }
+  function schedulePawn() { clearTimeout(pawnTimer); pawnTimer = setTimeout(flushPawn, PAWN_TYPE_MS); if (pawnEdit?.base || pawnEdit?.name.trim()) setPawnStat('saving'); }
+  function flushPawn() {
+    clearTimeout(pawnTimer); pawnTimer = null;
+    const e = pawnEdit; if (!e) return;
+    const { p, bad } = pawnPayload(e); showPawnProblems(bad);
+    let diff;
+    if (!e.base) { if (!p.name) return setPawnStat(''); diff = p; } // not kept until it has a name
+    else { diff = {}; for (const k of Object.keys(p)) if (p[k] !== e.base[k]) diff[k] = p[k]; }
+    if (!Object.keys(diff).length) { if (pawnStat === 'saving') setPawnStat(Object.keys(bad).length ? '' : 'saved'); return; } // (a field left out says so beside it: no "Saved" over it)
+    const create = !e.base, id = create ? newId('def') : e.id, prev = e.base;
+    // a PLACEHOLDER given "No figure" stays a placeholder; a figure chosen ends it (core/commands.js withPlaceholder)
+    const ph = e.placeholder && 'fig' in diff && diff.fig === 'none' ? { placeholder: true } : {};
+    const cid = dispatchC('pawn.define', { id, ...diff, ...ph });
+    if (create) { e.id = id; e.isNew = false; }
+    e.base = { ...(prev || {}), ...diff };
+    if ('fig' in diff && !ph.placeholder) e.placeholder = false;
+    // its pawn, when it stands on the table I am at, changes with it (elsewhere: the next time it is brought on)
+    const t = !create && Object.values(app.entities()).find(x => x.kind === 'token' && x.def === id);
+    const tk = Object.fromEntries(Object.entries(diff).filter(([k]) => k !== 'petOf'));
+    if (t && Object.keys(tk).length) app.batch([{ type: 'token.set', args: { id: t.id, ...tk, ...ph } }]);
+    S.lastPawnSaved = id;
+    const n = ++pawnSends; setPawnStat(cid ? 'saving' : 'refused');
+    if (!cid) { e.base = prev; if (create) { e.id = null; e.isNew = true; } return; }
+    app.await(cid).then((m) => {
+      if (pawnEdit !== e || n !== pawnSends) return; // (a newer change, or another pawn, owns the line now)
+      if (m) return setPawnStat('saved');
+      // refused (the toast says why): the table kept what it had, and the next change sends these fields again
+      if (create) { e.base = null; e.id = null; e.isNew = true; } else for (const k of Object.keys(diff)) e.base[k] = prev[k];
+      setPawnStat('refused');
+    });
+  }
+  addEventListener('pagehide', () => flushPawn());
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushPawn(); });
 
   // ---------- Area settings (the area in the main view), Area defaults, Vision, distance & rules, House look ----------
   const areaOf = (id = app.area()) => C()?.areas.find(a => a.id === id);
@@ -572,21 +634,29 @@ export function settingsSurface(R, app) {
     act('create', () => { const n = modal.querySelector('.newname').value.trim() || `Area ${(C()?.areas.length || 0) + 1}`; dispatchC('area.create', { id: newId('area'), name: n }); });
     // me ▸ my pawns
     act('pawn-new', () => { startPawnEdit('new'); scrollTo = '.mped'; render(); });
-    act('pawn-cancel', () => { pawnEdit = null; picker = null; render(); });
-    act('pawn-save', () => savePawn());
-    act('pawn-nofig', () => { pawnEdit.fig = ''; render(); });
+    // (no Save and no Cancel: every edit is applied as it is made. "Put it back as it was" restores the pawn as it was
+    // when the editor opened: pawn.define is a campaign command, so the relay's undo does not reach it)
+    act('pawn-revert', () => { if (!pawnEdit?.opened) return; Object.assign(pawnEdit, pawnEdit.opened); flushPawn(); render(); });
+    act('pawn-nofig', () => { pawnEdit.fig = ''; flushPawn(); render(); });
     for (const li of $$('li[data-def]')) {
       li.querySelector('[data-act=pawn-edit]').onclick = () => { startPawnEdit(li.dataset.def); scrollTo = '.mped'; render(); };
-      li.querySelector('[data-act=pawn-forget]').onclick = () => { if (pawnEdit?.id === li.dataset.def) { pawnEdit = null; picker = null; } dispatchC('pawn.forget', { id: li.dataset.def }); };
+      li.querySelector('[data-act=pawn-forget]').onclick = () => { if (pawnEdit?.id === li.dataset.def) { clearTimeout(pawnTimer); pawnTimer = null; pawnEdit = null; picker = null; } dispatchC('pawn.forget', { id: li.dataset.def }); };
     }
     if (pawnEdit && picker) {
       const ed = modal.querySelector('.mped');
       if (ed) {
         picker.wire(ed.querySelector('.mptree'));
-        const bind = (sel, k, after) => { const el = ed.querySelector(sel); if (el) el.oninput = el.onchange = () => { pawnEdit[k] = el.value; after?.(); }; };
-        bind('.mpname', 'name', () => { pawnEdit.named = true; }); bind('.mpsheet', 'sheet'); bind('.mpnotes', 'notes'); bind('.mppet', 'petOf'); bind('.mpdark', 'darkvision'); bind('.mplight', 'lightCarried');
-        const mt = ed.querySelector('[data-mpmain]'); if (mt) mt.onclick = () => { pawnEdit.main = !pawnEdit.main; render(); };
-        ed.querySelector('.mpname').onkeydown = (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); savePawn(); } };
+        // typed fields: applied PAWN_TYPE_MS after the last key, and at once when the field is left; then the redraw the
+        // typing held back (the list's name, the heading), unless the next field is being typed into
+        const bind = (sel, k, after) => {
+          const el = ed.querySelector(sel); if (!el) return;
+          el.oninput = () => { pawnEdit[k] = el.value; after?.(); schedulePawn(); };
+          el.onchange = el.onblur = () => { if (!pawnEdit) return; pawnEdit[k] = el.value; after?.(); flushPawn(); setTimeout(() => { if (S.isOpen && !typingHere()) render(); }, 0); };
+        };
+        bind('.mpname', 'name', () => { pawnEdit.named = true; }); bind('.mpsheet', 'sheet'); bind('.mpnotes', 'notes'); bind('.mpdark', 'darkvision'); bind('.mplight', 'lightCarried');
+        const pet = ed.querySelector('.mppet'); if (pet) pet.onchange = () => { pawnEdit.petOf = pet.value; flushPawn(); render(); };
+        const mt = ed.querySelector('[data-mpmain]'); if (mt) mt.onclick = () => { pawnEdit.main = !pawnEdit.main; flushPawn(); render(); };
+        ed.querySelector('.mpname').onkeydown = (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); flushPawn(); } };
       }
     }
     // me
