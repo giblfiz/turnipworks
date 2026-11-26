@@ -14,11 +14,13 @@
 //   POST /c/:cid/delete?seat=TOKEN[&purge=1] → delete the campaign (its GM, a person); files moved to data/removed-<date>/
 //   /c/:cid/tickets…, /tickets…           feedback tickets (relay/tickets.js: the testers' tickets and the triage)
 //   /c/:cid/linkmail, /linkmail/optout    "email yourself your link" (relay/linkmail.js; the mail: relay/mailer.js)
-//   /linkmail/handoff[/shown|/opened]     the phone page's "email yourself the link" (relay/linkmail.js, client/phone.js)
+//   /linkmail/handoff[/shown|/opened|/link|/step|/ics]   the phone front door's handoffs and lines (relay/linkmail.js, client/phone.js)
 //   GET  /admin/funnel?days=&tests=1      the funnel's daily counts (relay/funnel.js), box-only like /admin/notice
 //   GET  /admin/linkmail                  the address book's counts (no addresses), box-only
 //   GET  /c/:cid/a/:area/state|look|changes|do …   (see relay/llm.js; /t/ is the pre-rename alias)
 //   /c/:cid/shares…, /s/:id…, /admin/shares/:id/takedown   share links (relay/shares.js): unlisted shared builds
+//   /c/:cid/uploads…                    uploaded models (relay/uploads.js; the converter relay/upload-worker/)
+//   /dmca, /dmca/notice, /admin/dmca…    the copyright policy, takedown notices, counter-notices (relay/dmca.js)
 //   POST /admin/notice {text, at, until}  → a banner on every connected seat (the release roll; docs/NETCODE.md
 //                                          "Two servers"). Box-only: header x-tw-admin = DATA_DIR/admin-key, and
 //                                          nginx answers 404 for /api/tw-relay/admin/ from outside.
@@ -44,6 +46,8 @@ import { stableStringify } from '../core/hash.js';
 import { campaignName } from '../core/campaign-names.js';
 import { makeTickets } from './tickets.js';
 import { makeShares } from './shares.js';
+import { makeUploads } from './uploads.js';
+import { makeDmca } from './dmca.js';
 import { useShares } from './llm.js';
 import { makeFunnel } from './funnel.js';
 import { makeLinkMail } from './linkmail.js';
@@ -92,6 +96,7 @@ export async function startRelay({
   // message, no websocket pong) is closed and its seat goes offline. Browsers ping every 2 s and answer pings by
   // themselves; a background tab's timers can slow to once a minute, hence 90 s.
   reapMs = Number(process.env.TW_REAP_MS) || 90000,
+  uploadOpts = {}, // (tests: { quota, limits } for relay/uploads.js and relay/dmca.js)
 } = {}) {
   fs.mkdirSync(dataDir, { recursive: true });
   const secretFile = path.join(dataDir, 'secret');
@@ -122,6 +127,13 @@ export async function startRelay({
   const figs = loadFigures(tunerData); log(`figure list: ${figs.list.length} figures${figs.file ? '' : ' (no figures.json in ' + tunerData + ')'}`);
 
   const campaigns = new Map();
+  // UPLOADED MODELS (2026-11-06, docs/UPLOADS.md): <dataDir>/uploads/ and each campaign's uploads.json (relay/uploads.js);
+  // the safe-harbour machinery, notices, counter-notices, strikes, <dataDir>/dmca/ (relay/dmca.js). dmca is filled in just after:
+  // each needs the other.
+  const dmca = {};
+  const uploads = makeUploads({ dataDir, campaigns, secret: fs.readFileSync(secretFile, 'utf8').trim(), log, channel, dmca, quota: uploadOpts.quota });
+  Object.assign(dmca, makeDmca({ dataDir, uploads, secret: fs.readFileSync(secretFile, 'utf8').trim(), log, channel, limits: uploadOpts.limits }));
+  log(`uploads: ${uploads.enabled() ? 'on' : 'off'}${uploads.enabled() && !uploads.workerReady() ? ' (no converter installed: npm ci in relay/upload-worker)' : ''}; public sharing of uploads ${dmca.publicSharing().on ? 'ON' : 'off'}`);
   const hooksFor = (rt) => ({ camp: (camp, by) => { if (camp.type === 'seat.create') funnel.seatMade(rt, camp.args, by); }, commit: (rec, by) => funnel.committed(rt, rec, by) });
   try { migrateDataDir(dataDir, log); } catch (e) { log(`area migration failed (old files still load): ${e.stack}`); }
   for (const d of fs.readdirSync(dataDir)) {
@@ -305,6 +317,8 @@ export async function startRelay({
         return send(200, deleteCampaign(a.rt.id, { purge: url.searchParams.get('purge') === '1', by: a.seat }));
       }
       if (await shares.handle(req, res, { url, parts, send, auth, readBody, isAdmin, ipOf })) return;
+      if (await uploads.handle(req, res, { url, parts, send, auth, readBody, ipOf })) return;
+      if (await dmca.handle(req, res, { url, parts, send, readBody, isAdmin, ipOf })) return;
       if (await tickets.handle(req, res, { url, parts, send, auth, readBody, canSee })) return;
       if (await linkmail.handle(req, res, { url, parts, send, auth, readBody })) return;
       if (parts[0] === 'c' && parts[1] && req.method === 'GET') {
@@ -475,7 +489,7 @@ export async function startRelay({
   log(`relay listening on ${host}:${actualPort}, data ${dataDir}, ${campaigns.size} campaigns`);
 
   async function close() {
-    clearInterval(ghostTimer); clearInterval(reaper); funnel.close();
+    clearInterval(ghostTimer); clearInterval(reaper); funnel.close(); uploads.close(); dmca.close();
     for (const c of wss.clients) c.terminate();
     for (const s of sse.values()) s.res.end();
     // one campaign that cannot be saved (its directory was deleted under the relay, a full disk) must not cost the
@@ -485,7 +499,7 @@ export async function startRelay({
     if (failed) log(`shutdown: ${failed} of ${campaigns.size} campaigns could not be saved`);
     await new Promise(r => server.close(r));
   }
-  return { port: actualPort, campaigns, close, roomgen, tokens, deleteCampaign, adminKey, tickets, funnel, linkmail, shares };
+  return { port: actualPort, campaigns, close, roomgen, tokens, deleteCampaign, adminKey, tickets, funnel, linkmail, shares, uploads, dmca };
 }
 
 function readBody(req, max) {

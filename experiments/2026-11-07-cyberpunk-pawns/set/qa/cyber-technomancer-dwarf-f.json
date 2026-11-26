@@ -1,0 +1,166 @@
+{
+ "file": "cyber-technomancer-dwarf-f.glb",
+ "tris": 49566,
+ "kb": 3068,
+ "native_extent": [
+  0.64,
+  1.001,
+  0.52
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  98,
+  64,
+  43
+ ],
+ "mean_saturation": 0.535,
+ "sized_by": "its highest point",
+ "overall_ft": 4.3,
+ "pieces": {
+  "connected_parts": 415,
+  "main_part_area_share": 0.8395,
+  "floating": [
+   {
+    "area_share": 0.0012,
+    "gap_ft": 0.12,
+    "size_ft": 0.29
+   },
+   {
+    "area_share": 0.00023,
+    "gap_ft": 0.03,
+    "size_ft": 0.25
+   },
+   {
+    "area_share": 0.00021,
+    "gap_ft": 0.15,
+    "size_ft": 0.22
+   },
+   {
+    "area_share": 0.0001,
+    "gap_ft": 0.03,
+    "size_ft": 0.17
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.13
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.12,
+    "size_ft": 0.05
+   }
+  ],
+  "floating_count": 6,
+  "floating_area_share": 0.00177,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 4.2988,
+ "y0": -2.1505,
+ "stated_ft": {
+  "body": 4.3,
+  "figure_top": 4.3,
+  "overall": 4.3
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3214,
+   -0.5003,
+   -0.2578
+  ],
+  [
+   0.3186,
+   0.5004,
+   0.2618
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49566,
+   "tex": 2048,
+   "kb": 3068
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1223
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 517
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.82,
+    "z": -0.41,
+    "size_ft": [
+     1.13,
+     1.15
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.8,
+    "sole_p90_ft": 0.17
+   },
+   {
+    "x": 0.71,
+    "z": 0.23,
+    "size_ft": [
+     0.81,
+     1.36
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.82,
+    "sole_p90_ft": 0.17
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.51,
+  "plan_hull_area_sqft": 4.59,
+  "lowest_slab_share_of_plan": 0.329
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.75,
+   "d": 2.23,
+   "h": 4.3
+  },
+  "centre": [
+   -0.145,
+   0.186
+  ],
+  "contacts_radius_ft": 1.3,
+  "reach_radius_ft": 1.56,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.961,
+  "plate_lost_share": 0.012,
+  "added_share": 0.028,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.961,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "cyber-technomancer-dwarf-f",
+ "sha1": "e34fbafded6e11041a5a584c071b931f2b8f541e",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "2 separate part(s) lying within 0.03 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 8.5
+}

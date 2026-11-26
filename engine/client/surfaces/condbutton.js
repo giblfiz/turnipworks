@@ -19,7 +19,8 @@
 //   6. IT DOES NOT JUST FADE (Harry 2026-10-06: "instead of fading away, they should go down into the chat area, so
 //      you still have access to them later"). When its time is up, or a newer offer takes its place, it flies down
 //      into the chat log and stays there as a quiet, LOCAL action line with the same button on it (surfaces/chat.js,
-//      app.actionLines). A button that was pressed, or whose condition simply ended, leaves no line.
+//      app.actionLines). A button that was pressed, or whose condition simply ended, leaves no line. EVERY button with
+//      a life gets this: without a `line` of its own, one is made from its text and run (autoLine, below).
 //
 // A NEW CONDITIONAL BUTTON WITH A CHAT LINE is two calls:
 //   app.actionLines.kind('damage-undo', { valid: (data) => null | 'already undone', run: (data) => ..., restorable: false })
@@ -37,7 +38,26 @@ export const DOCKS = ['top', 'bottom', 'bottom2']; // fixed screen slots: under 
 
 export function createConditionalButtons(app, layer) {
   const live = new Map(); // key -> { el, spec, at }
+  // RULE 6 IS THE DEFAULT (2026-11-13, Harry: "any sane implementation would have that as a shared sub-function that
+  // always behaves the same"). Until then the chat line was opt-in: a button shown without a `line` simply faded, and
+  // every offer written without one ("Take it underground", "Re-roll", a building's "Cut to lv 1", the faction picker)
+  // quietly lost its way back. Now a button with a life and no `line` gets one made here: its text (or `lineText`) and
+  // its button (`lineButton`, else its text), pressed from the chat it asks the button's own `when` and runs its own
+  // `run` (or `lineRun`). Such a line lives for this page load (a closure cannot be saved). `line: false` opts out, and
+  // must say why where it is written (test: engine/test/condlines.test.mjs).
+  const autoFns = new Map(); let autoN = 0, autoKind = false;
+  function autoLine(key, spec) {
+    const AL = app.actionLines; if (!AL || !spec.life) return undefined;
+    const text = spec.lineText || spec.text, button = spec.lineButton || spec.text;
+    if (!text || !button || !(spec.lineRun || spec.run)) return undefined;
+    if (!autoKind) { autoKind = true; AL.kind('offer', { restorable: false,
+      valid: (d) => { const f = autoFns.get(d.fid); if (!f) return 'no longer available'; if (d.area && d.area !== app.area()) return 'in another area'; try { return f.when && !f.when() ? 'no longer applies' : null; } catch { return 'no longer applies'; } },
+      run: (d) => { const f = autoFns.get(d.fid); if (!f) return 'no longer available'; const out = (f.lineRun || f.run)?.({ spec: f, fromChat: true }); return out === 'keep' ? undefined : out; } }); }
+    const fid = `${key}#${++autoN}`; autoFns.set(fid, spec); if (autoFns.size > 40) autoFns.delete(autoFns.keys().next().value);
+    return { kind: 'offer', text, button, group: spec.lineGroup || null, data: { fid, area: spec.area || null } };
+  }
   function show(key, spec) {
+    if (spec.line === undefined) spec.line = autoLine(key, spec);
     let b = live.get(key);
     if (b && b.spec?.line && !b.done && b.spec !== spec) { toChat(key, b); b = null; } // rule 6: the older offer lives on in the chat
     if (!b) {

@@ -113,8 +113,8 @@ Grammar and legend: see `README.md`. One role per line. Style families and varia
 - **fireplace-grand** — huge hooded fireplace · wall · 2x2 · size:110x48x100 · stone · set:CAS!,NOB · var:lit,ruin · aff:lit,hazard · mesh · P2 · great halls; heraldry above
 - **cook-hearth-spit** — kitchen hearth with spit and pot crane · wall · 1x2 · size:72x36x72 · mixed · set:TAV,CAS,NOB,HUT · var:lit · aff:lit,use,hazard · mesh · P1 · kitchen anchor
 - **bread-oven** — domed masonry bread oven · wall · 1 · size:60x60x60 · stone · set:TAV,HUT,CAS,MKT · var:lit,ruin,open · aff:use · mesh · P1 · kitchens and village bakeries
-- **bar-counter** — serving counter segment (straight, corner, end, flap) · kit · 1 · size:60x24x42 · wood · set:TAV! · var:ruin,wealth · aff:block,cover,use · kit · P1 · THE tavern signature; staff side vs customer side
-- **back-bar-shelves** — shelving behind the bar with bottles · wall · 1 · size:60x14x84 · wood · set:TAV! · var:fill · aff:loot · mesh · P1 · always behind the counter
+- **bar-counter** — serving counter segment (straight, corner, end, flap) · kit · 1 · size:60x24x42 · wood · set:TAV!,MOD · var:ruin,wealth · aff:block,cover,use · kit · P1 · THE tavern signature; staff side vs customer side
+- **back-bar-shelves** — shelving behind the bar with bottles · wall · 1 · size:60x14x84 · wood · set:TAV!,MOD · var:fill · aff:loot · mesh · P1 · always behind the counter
 - **cask-rack** — horizontal rack of casks with taps · wall · 1x2 · size:72x30x60 · wood · set:TAV!,NOB · var:fill · aff:loot · mesh · P1 · behind the bar or in the cellar
 - **forge** — smith's forge with hood · floor · 2x2 · size:72x60x72 · stone · set:SMI! · var:lit,ruin · aff:lit,use,hazard · mesh · P1 · smithy anchor; the room is built around it
 - **bellows-great** — large two-handled bellows · floor · 1 · size:48x30x36 · mixed · set:SMI! · var:- · aff:use · mesh · P2 · beside the forge
@@ -144,7 +144,7 @@ Grammar and legend: see `README.md`. One role per line. Style families and varia
 
 ### C1. Seating
 - **stool-three-leg** — plain three-legged stool · floor · sub · size:14x14x18 · wood · set:ANY · var:ruin,shape · aff:sit,carry · mesh · P1 · peasant homes, bars, workshops
-- **stool-bar** — tall bar stool · floor · sub · size:15x15x30 · wood · set:TAV!,ARC · var:ruin · aff:sit · mesh · P1 · line them along the bar counter
+- **stool-bar** — tall bar stool · floor · sub · size:15x15x30 · wood · set:TAV!,ARC,MOD,CYB · var:ruin · aff:sit · mesh · P1 · line them along the bar counter
 - **chair-plain** — simple wooden chair · floor · sub · size:18x18x36 · wood · set:ANY · var:ruin,wealth,shape · aff:sit · mesh · P1 · the default chair
 - **chair-armed** — armchair, carved · floor · sub · size:24x22x42 · wood · set:NOB,CAS,TAV,ARC · var:ruin,wealth · aff:sit · mesh · P1 · head of table; study; by the fire
 - **chair-upholstered** — padded, cushioned chair · floor · sub · size:28x28x40 · mixed · set:NOB!,TAV,ARC · var:ruin · aff:sit · mesh · P1 · parlors; the "comfortable chair" test
@@ -174,7 +174,7 @@ Grammar and legend: see `README.md`. One role per line. Style families and varia
 - **cot** — simple frame cot · floor · 1x2 · size:30x76x18 · wood · set:CAS,DUN,MIN,HUT · var:ruin · aff:sleep · mesh · P1 · infirmaries, cells
 - **bunk-bed** — two-tier bunk · floor · 1x2 · size:36x78x66 · wood · set:CAS!,MIN,CLT,LAI · var:ruin · aff:sleep · mesh · P1 · barracks, miners' dormitory
 - **bed-single** — single bed with blanket · floor · 1x2 · size:40x80x24 · wood · set:TAV,HUT,NOB,SMI · var:ruin,wealth,shape · aff:sleep · mesh · P1 · inn rooms
-- **bed-double** — double bed · floor · 2x2 · size:60x82x30 · wood · set:TAV,NOB,HUT,SMI · var:ruin,wealth · aff:sleep · mesh · P1 · the good inn room
+- **bed-double** — double bed · floor · 2x2 · size:60x82x30 · wood · set:TAV,NOB,HUT,SMI,MOD · var:ruin,wealth · aff:sleep · mesh · P1 · the good inn room
 - **bed-canopy** — four-poster canopy bed · floor · 2x2 · size:66x86x84 · mixed · set:NOB!,CAS,TAV,ARC · var:ruin · aff:sleep,hide · mesh · P1 · noble bedchamber anchor
 - **cradle** — wooden rocking cradle · floor · sub · size:36x20x28 · wood · set:HUT,NOB · var:- · aff:- · mesh · P3 · family homes; plot hooks
 
@@ -185,7 +185,7 @@ Grammar and legend: see `README.md`. One role per line. Style families and varia
 - **bookshelf** — full bookshelf · wall · 1 · size:40x14x78 · wood · set:ARC!,NOB,TEM,CLT · var:fill,ruin,shape · aff:loot,los · mesh · P1 · libraries; line walls
 - **shelf-wall** — wall-mounted plank shelf · wall · 1 · size:48x10x12 · wood · set:ANY · var:fill,shape · aff:loot · mesh · P1 · takes surface clutter
 - **shelving-freestanding** — open storage shelving · floor · 1 · size:48x18x72 · wood · set:TAV,SMI,MKT,DUN,CRY,ARC,MIN,HUT,CLT · var:fill,ruin · aff:loot,los · mesh · P1 · storerooms, cellars
-- **wine-rack** — lattice wine rack · wall · 1 · size:40x14x60 · wood · set:NOB,TAV,CAS · var:fill · aff:loot · mesh · P3 · cellars
+- **wine-rack** — lattice wine rack · wall · 1 · size:40x14x60 · wood · set:NOB,TAV,CAS,MOD · var:fill · aff:loot · mesh · P3 · cellars
 - **coat-pegs** — pegboard with cloaks and hats · wall · sub · size:36x8x24 · mixed · set:TAV,HUT,NOB,MIN,CLT,SMI · var:fill · aff:- · thin · P3 · by the door
 - **scroll-rack** — honeycomb scroll cubby · wall · 1 · size:40x14x48 · wood · set:ARC!,TEM,CAS · var:fill · aff:loot · mesh · P1 · scholars and archives
 
@@ -258,7 +258,7 @@ Grammar and legend: see `README.md`. One role per line. Style families and varia
 - **salt-cellar** — ornate salt cellar · surface · tiny · size:5x4x5 · metal · set:NOB!,CAS · var:- · aff:carry · mesh · P3 · high-table status object
 
 ## G. Food & provisions
-- **bread-loaf** — round loaf · surface · tiny · size:8x8x4~0.7-1.5 · food · set:ANY · var:pile,shape · aff:carry · mesh · P1 · any table; basket filler
+- **bread-loaf** — round loaf · surface · tiny · size:8x8x4~0.7-1.5 · food · set:ANY,MOD · var:pile,shape · aff:carry · mesh · P1 · any table; basket filler
 - **cheese-wheel** — cheese wheel (whole/cut) · surface · tiny · size:14x14x5~0.5-1.6 · food · set:TAV,HUT,MKT,CAS · var:pile,shape · aff:carry · mesh · P1 · larders, market stalls
 - **turnip-pile** — heap of turnips · floor · sub · size:24x24x10~0.5-2.5 · food · set:HUT!,MKT,TAV · var:pile · aff:- · mesh · P1 · house mascot; ship this first and make it beautiful
 - **cabbage** — cabbages · floor · tiny · size:12x12x8~0.6-1.6 · food · set:HUT,MKT · var:pile · aff:carry · mesh · P2 · gardens, stalls, cellars
@@ -416,28 +416,28 @@ Grammar and legend: see `README.md`. One role per line. Style families and varia
 - **painting-landscape** — framed landscape · wall · sub · size:42x2x30~0.6-1.8 · mixed · set:NOB,TAV · var:- · aff:- · flat · P1 · parlors
 - **mirror-standing** — tall standing mirror · floor · sub · size:26x20x70 · mixed · set:NOB!,LAI,TAV,ARC · var:ruin · aff:- · mesh · P3 · bedchambers; vampire tells
 - **rug-small** — small rug · floor · 1 · size:60x40x0.5~0.7-1.3 · cloth · set:ANY · var:wealth,shape · aff:- · flat · P1 · under tables, before hearths
-- **rug-runner** — long narrow hallway runner · floor · 1x3 · size:36x160x0.4~0.8-1.2 · cloth · set:TAV!,NOB,CAS,ARC,CLT · var:wealth · aff:- · flat · P1 · hallways and stair landings; tiles end to end
-- **rug-grand** — large patterned carpet · floor · 2x3 · size:110x170x0.5~0.7-1.2 · cloth · set:NOB!,CAS,TAV · var:ruin · aff:- · flat · P2 · throne-room runner, bedchambers
+- **rug-runner** — long narrow hallway runner · floor · 1x3 · size:36x160x0.4~0.8-1.2 · cloth · set:TAV!,NOB,CAS,ARC,CLT,MOD · var:wealth · aff:- · flat · P1 · hallways and stair landings; tiles end to end
+- **rug-grand** — large patterned carpet · floor · 2x3 · size:110x170x0.5~0.7-1.2 · cloth · set:NOB!,CAS,TAV,MOD · var:ruin · aff:- · flat · P2 · throne-room runner, bedchambers
 - **rug-fur** — animal-skin rug · floor · 1x2 · size:48x72x1.5~0.8-1.3 · organic · set:NOB,CAS,TAV · var:- · aff:- · flat · P2 · lodges, hearthside
-- **rug-round** — round woven rug · floor · 1 · size:60x60x0.5~0.7-1.4 · cloth · set:TAV,NOB,HUT,ARC · var:- · aff:- · flat · P1 · under round tables, bedside
-- **rug-oval** — oval woven rug · floor · 1x2 · size:48x72x0.5~0.8-1.3 · cloth · set:TAV,NOB · var:- · aff:- · flat · P1 · before hearths and beds
+- **rug-round** — round woven rug · floor · 1 · size:60x60x0.5~0.7-1.4 · cloth · set:TAV,NOB,HUT,ARC,MOD · var:- · aff:- · flat · P1 · under round tables, bedside
+- **rug-oval** — oval woven rug · floor · 1x2 · size:48x72x0.5~0.8-1.3 · cloth · set:TAV,NOB,MOD · var:- · aff:- · flat · P1 · before hearths and beds
 - **rug-braided-round** — round braided rag rug · floor · 1 · size:48x48x0.6~0.7-1.3 · cloth · set:HUT!,TAV · var:- · aff:- · flat · P1 · cottages, cheap rooms
-- **rug-round-fine** — fine round medallion carpet · floor · 2x2 · size:96x96x0.5~0.8-1.2 · cloth · set:NOB!,CAS,TAV · var:- · aff:- · flat · P2 · noble chambers, solars
+- **rug-round-fine** — fine round medallion carpet · floor · 2x2 · size:96x96x0.5~0.8-1.2 · cloth · set:NOB!,CAS,TAV,MOD · var:- · aff:- · flat · P2 · noble chambers, solars
 - **rug-hearth-halfmoon** — half-moon hearth rug · floor · 1 · size:60x30x0.6 · cloth · set:TAV,HUT,NOB · var:- · aff:- · flat · P1 · in front of every fireplace
-- **rug-striped-woven** — striped woven rug · floor · 1 · size:60x36x0.4~0.8-1.4 · cloth · set:TAV,HUT,MKT,SMI · var:- · aff:- · flat · P1 · common rooms, guest rooms
+- **rug-striped-woven** — striped woven rug · floor · 1 · size:60x36x0.4~0.8-1.4 · cloth · set:TAV,HUT,MKT,SMI,MOD · var:- · aff:- · flat · P1 · common rooms, guest rooms
 - **rug-rush-mat** — woven rush floor mat · floor · 1 · size:72x48x0.4~0.7-1.3 · organic · set:HUT!,TAV,TEM · var:- · aff:- · flat · P1 · peasant floors, monk cells
-- **rug-sheepskin** — sheepskin rug · floor · sub · size:30x40x2~0.8-1.2 · organic · set:HUT,NOB,TAV,CMP,ARC · var:- · aff:- · flat · P1 · bedside, by the fire
+- **rug-sheepskin** — sheepskin rug · floor · sub · size:30x40x2~0.8-1.2 · organic · set:HUT,NOB,TAV,CMP,ARC,MOD · var:- · aff:- · flat · P1 · bedside, by the fire
 - **rug-bearskin** — bearskin rug with the head · floor · 1x2 · size:60x84x8~0.8-1.3 · organic · set:NOB!,CAS,TAV,CMP,LAI · var:- · aff:- · flat · P2 · lodges, lords' hearths
 - **rug-wolfskin** — wolfskin rug · floor · 1 · size:30x60x2~0.8-1.2 · organic · set:CMP!,HUT,TAV · var:- · aff:- · flat · P2 · hunters' cabins, mercenary rooms
-- **rug-cowhide** — cowhide rug · floor · 1 · size:54x66x0.5~0.8-1.2 · organic · set:HUT,TAV,MKT · var:- · aff:- · flat · P3 · farmhouses, rustic inns
+- **rug-cowhide** — cowhide rug · floor · 1 · size:54x66x0.5~0.8-1.2 · organic · set:HUT,TAV,MKT,MOD · var:- · aff:- · flat · P3 · farmhouses, rustic inns
 - **rug-hay-scatter** — loose hay scattered on the floor · floor · 1 · size:60x48x1~0.6-1.6 · organic · set:TAV,HUT!,CMP,ARC,LAI · var:shape · aff:- · flat · P1 · stables, barns, byres; breaks up dirt floors
 - **decal-dirt-patch** — patch of damp dirt and mud · ground · sub · size:48x36x0.5~0.6-1.6 · organic · set:TAV,HUT,CMP,LAI · var:shape · aff:- · flat · P1 · scatter on earth floors; breaks up repetition
 - **trophy-head** — mounted stag head · wall · sub · size:30x20x30~0.8-1.4 · organic · set:NOB,TAV,CAS,LAI · var:- · aff:- · mesh · P2 · hunting lodges, taverns
 - **armor-decorative** — ornate suit of armor · floor · sub · size:24x18x72 · metal · set:NOB!,CAS · var:ruin · aff:hide · mesh · P2 · hallways (is it moving?)
-- **statue-bust** — bust on a plinth · floor · sub · size:16x16x54 · stone · set:NOB!,ARC · var:ruin · aff:cover · mesh · P2 · galleries, libraries
+- **statue-bust** — bust on a plinth · floor · sub · size:16x16x54 · stone · set:NOB!,ARC,MOD · var:ruin · aff:cover · mesh · P2 · galleries, libraries
 - **statue-heroic** — full heroic statue on a pedestal · floor · 1 · size:36x36x110~0.7-2 · stone · set:NOB,MKT,RUI · var:ruin,shape · aff:block,cover · mesh · P1 · courtyards, town squares; toppled in ruins
-- **vase-flowers** — vase with flowers · surface · tiny · size:8x8x18 · ceramic · set:NOB!,TAV,CRY · var:ruin · aff:carry · mesh · P1 · side tables, windowsills
-- **planter-topiary** — potted topiary · floor · sub · size:22x22x48~0.6-1.5 · organic · set:NOB! · var:ruin · aff:cover · mesh · P1 · terraces, garden edges
+- **vase-flowers** — vase with flowers · surface · tiny · size:8x8x18 · ceramic · set:NOB!,TAV,CRY,MOD · var:ruin · aff:carry · mesh · P1 · side tables, windowsills
+- **planter-topiary** — potted topiary · floor · sub · size:22x22x48~0.6-1.5 · organic · set:NOB!,MOD · var:ruin · aff:cover · mesh · P1 · terraces, garden edges
 - **lute** — lute on a stand · floor · sub · size:16x8x36 · wood · set:TAV,NOB · var:- · aff:carry · thin · P3 · bard's corner
 - **harp** — standing harp · floor · sub · size:24x18x60 · wood · set:NOB · var:- · aff:use · thin · P3 · solar music room
 - **curtains-drapes** — heavy window drapes · wall · 1 · size:60x6x96 · cloth · set:NOB!,CAS,TEM,TAV,ARC · var:open,ruin · aff:hide,los · flat · P1 · scene state: drawn/open changes light

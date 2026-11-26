@@ -4,7 +4,8 @@
   python3 engine/test/browser_stairnote.py --local [--shots]
 
   SHOWN    a stair with nothing over it wears its note, and on the GM's seat a × just past the note's end
-  PLAYER   a player sees the note, has no ×, and the relay refuses the command from that seat
+  PLAYER   (2026-11-06) a player never sees the note (the notes are the GM's), has no ×, and the relay refuses the
+           command from that seat; the GM previewing what players see sees none either
   CLICK    a real mouse click on the × hides the note on both seats, and selects nothing behind it
   RELOAD   a reload keeps it hidden
   RING     the stair's ☰ offers "Show stair warning again"; a real click brings the note back
@@ -107,7 +108,7 @@ async def main():
         check(x[0]['box'][2] >= 28 and d[2] >= 18, 'a mouse target of 28 px round a 20 px disc', x[0])
         await shot(gm, 'desktop-shown')
 
-        print('PLAYER: sees it, cannot touch it')
+        print('PLAYER: does not see it, cannot touch it')
         await gm.keyboard.press('/'); await gm.keyboard.type('invite Mira', delay=8); await gm.wait_for_timeout(300); await gm.keyboard.press('Enter')
         await wait(gm, "!document.querySelector('#output').hidden", 10000, 'invite link')
         invite = await gm.evaluate("document.querySelector('#output textarea').value"); await gm.keyboard.press('Escape')
@@ -115,9 +116,14 @@ async def main():
         check(await wait(pl, 'window.tw && tw.ready && tw.ready()', 45000), 'player tab joined')
         tr = [await gm.evaluate('tw.transport()'), await pl.evaluate('tw.transport()')]
         check(tr == [A.transport, A.transport], f'both seats are on {A.transport}: what follows is that transport, not a fallback', tr)
-        await wait(pl, f"tw.worldOf(tw.area()).stairNoteList().length === 1", 15000, 'player note')
-        await pl.wait_for_timeout(500)
-        check(len(await pl.evaluate(NOTES)) == 1, 'a player sees the note (GM-only notes is a separate question)')
+        await wait(pl, f"{W}?.recs.has('{SID}')", 15000, 'player has the stair')
+        await pl.wait_for_timeout(800)
+        check(await pl.evaluate(f"{W}.recs.has('{SID}')") and await pl.evaluate(NOTES) == [], 'a player sees the stair but never its note (GM-only, 2026-11-06)', await pl.evaluate(NOTES))
+        check(len(await gm.evaluate(NOTES)) == 1, 'the GM still does')
+        await gm.evaluate("tw.setVisionViewer('party')"); await gm.wait_for_timeout(600)
+        check(await gm.evaluate(NOTES) == [] and await gm.evaluate("tw.stairNoteX().length") == 0, 'the GM previewing what players see: no note, no ×', await gm.evaluate(NOTES))
+        await gm.evaluate("tw.setVisionViewer('gm')"); await gm.wait_for_timeout(600)
+        check(len(await gm.evaluate(NOTES)) == 1, 'back to the GM view: the note again')
         check(await pl.evaluate("document.querySelectorAll('#stairNoteX .snx').length") == 0 and await pl.evaluate("tw.stairNoteX().length") == 0, 'and has no ×')
         await pl.evaluate(f"tw.select(['{SID}'])"); await pl.wait_for_timeout(300)
         ctx_cmd = await pl.evaluate("tw.registry.available().some(c => c.id === 'stair.note')")
@@ -127,7 +133,7 @@ async def main():
         await pl.wait_for_timeout(900)
         await idle(pl); await idle(gm)
         check(await gm.evaluate(f"!tw.entities()['{SID}'].noteOff"), 'the same command typed into the player seat by hand: the relay refuses, nothing changes', cid)
-        check(len(await gm.evaluate(NOTES)) == 1 and len(await pl.evaluate(NOTES)) == 1, 'both seats still have the note')
+        check(len(await gm.evaluate(NOTES)) == 1 and await pl.evaluate(NOTES) == [], 'the GM still has the note, the player still none')
 
         print('CLICK: a real click on the ×')
         d = (await gm.evaluate("tw.stairNoteX()"))[0]['disc']
@@ -136,8 +142,7 @@ async def main():
         await gm.mouse.move(d[0] + d[2] / 2, d[1] + d[3] / 2); await gm.wait_for_timeout(250); await shot(gm, 'desktop-hover')
         await gm.mouse.click(d[0] + d[2] / 2, d[1] + d[3] / 2); await idle(gm)
         check(await gm.evaluate(NOTES) == [], 'the note is gone from the GM seat', await gm.evaluate(NOTES))
-        await wait(pl, "tw.worldOf(tw.area()).stairNoteList().length === 0", 8000, 'player note gone')
-        check(await pl.evaluate(NOTES) == [], 'and from the player seat: it is in the world, not in a browser')
+        check(await pl.evaluate(NOTES) == [], 'the player seat still draws none')
         tr = [await gm.evaluate('tw.transport()'), await pl.evaluate('tw.transport()')]
         check(tr == [A.transport, A.transport], 'and neither seat dropped to another transport to get it', tr)
         check(await gm.evaluate("tw.stairNoteX().length") == 0 and await gm.evaluate("document.querySelectorAll('#stairNoteX .snx').length") == 0, 'the × goes with it')
@@ -168,8 +173,8 @@ async def main():
         n = await gm.evaluate(NOTES)
         check(len(n) == 1 and n[0]['text'] == 'No floor above yet', 'a real click brings the note back', n)
         check(await gm.evaluate(f"!('noteOff' in tw.entities()['{SID}'])"), 'and leaves nothing on the stair')
-        await wait(pl, "tw.worldOf(tw.area()).stairNoteList().length === 1", 8000, 'player note back')
-        check(len(await pl.evaluate(NOTES)) == 1, 'for the player too')
+        await pl.wait_for_timeout(800)
+        check(await pl.evaluate(NOTES) == [], 'not for the player: the notes are the GM\'s')
 
         print('BAR: without the small target')
         await gm.keyboard.press('Escape'); await gm.evaluate(f"tw.select(['{SID}'])"); await gm.wait_for_timeout(300)

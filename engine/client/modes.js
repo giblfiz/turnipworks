@@ -47,7 +47,7 @@ export function createModes(app) {
   const sizeLabel = document.getElementById('modeLabel');
   let wholeLit = null; // the room lit while a floor is dragged over it (showWhole, below)
 
-  function clearGhost() { clearRun(); if (app.mode) app.mode.run = null; if (wholeLit) { app.worlds.get(app.area())?.clearCells('floor-drop'); wholeLit = null; sizeLabel.hidden = true; } if (ghost) { ghost.parent?.remove(ghost); ghost = null; } if (rectMesh) { rectMesh.parent?.remove(rectMesh); rectMesh = null; } clearPaint(); app.pawnTool?.clear(); app.pickTool?.clear(); app.shareTool?.clear(); app.worlds.get(app.area())?.clearCells('room-tool'); app.worlds.get(app.area())?.clearCells('level-valid'); sizeLabel.hidden = true; }
+  function clearGhost() { clearRun(); if (app.mode) app.mode.run = null; if (wholeLit) { app.worlds.get(app.area())?.clearCells('floor-drop'); wholeLit = null; sizeLabel.hidden = true; } if (ghost) { ghost.parent?.remove(ghost); ghost = null; } if (rectMesh) { rectMesh.parent?.remove(rectMesh); rectMesh = null; } clearPaint(); app.pawnTool?.clear(); app.pickTool?.clear(); app.shareTool?.clear(); app.uploadTool?.clear(); app.worlds.get(app.area())?.clearCells('room-tool'); app.worlds.get(app.area())?.clearCells('level-valid'); sizeLabel.hidden = true; }
   // a finger's stroke (a room being drawn, a paint stroke) dropped when a second finger lands: the tool stays (input.js)
   M.abortStroke = () => { const m = app.mode; if (!m) return; m.start = null; if (m.paint) { m.paint = null; clearPaint(); } if (rectMesh) { rectMesh.parent?.remove(rectMesh); rectMesh = null; } app.worlds.get(app.area())?.clearCells('room-tool'); sizeLabel.hidden = true; };
   M.cancel = () => { clearGhost(); app.mode = null; app.refresh(); };
@@ -141,6 +141,7 @@ export function createModes(app) {
     if (m.pick) return app.pickTool.placeAt(ray, ground, ev);
     if (m.pawn) return app.pawnTool.placeAt(ray, ground, ev); // a figure, or a group of them (client/pawns.js)
     if (m.share) return app.shareTool.placeAt(ray, ground, ev); // a shared build: its ghost commits as one batch (client/share.js)
+    if (m.upload) return app.uploadTool.placeAt(ray, ground, ev); // an uploaded model (client/uploads.js)
     const p = M.placementAt(m.cat, m.size, ray, ground, { alt: ev?.altKey, rot: m.rot });
     if (!p) return;
     if (m.cat.place === 'tile') {
@@ -248,7 +249,7 @@ export function createModes(app) {
   // (step: a hill's height over the ground it is drawn on; 10 ft unless asked)
   // (a CAVE, 2026-10-25: below the ground. Started on the ground or above, the tool first goes down to lv -1, so the
   // GM drags it out on that level's grid and sees it made)
-  M.roomTool = (type, { tool = false, step = null } = {}) => { if (CV.isCave({ type }) && (app.level || 0) >= 0) app.goLevel?.(CV.CAVE_DEPTH, 'tool'); clearGhost(); app.mode = { kind: 'room', type, start: null, rect: null, tool, ...(step && { step }) }; if (!tool) app.toast(`Drag a rectangle for the ${app.roomgen.typeList.find(t => t.key === type)?.label.toLowerCase() || type} (Esc cancels)`); app.refresh(); };
+  M.roomTool = (type, { tool = false, step = null } = {}) => { clearGhost(); /* (a cave is drawn on the level you are on, the ground by default: 2026-11-12, levels are advanced; its offer "Take it underground" takes it to lv -1, client/main.js caveUnderground) */ app.mode = { kind: 'room', type, start: null, rect: null, tool, ...(step && { step }) }; if (!tool) app.toast(`Drag a rectangle for the ${app.roomgen.typeList.find(t => t.key === type)?.label.toLowerCase() || type} (Esc cancels)`); app.refresh(); };
   // the building tool: a Type from the Build menu; the rectangle becomes that type's rooms (client/pack.js)
   M.buildingTool = (node) => { clearGhost(); app.mode = { kind: 'building', type: node.code, node, start: null, rect: null, tool: true }; app.refresh(); };
   const rectKind = (m) => m?.kind === 'room' || m?.kind === 'building';
@@ -405,6 +406,7 @@ export function createModes(app) {
     if (m?.pick) return app.pickTool.hover(ray, ground, ev);
     if (m?.pawn) return app.pawnTool.hover(ray, ground, ev);
     if (m?.share) return app.shareTool.hover(ray, ground, ev);
+    if (m?.upload) return app.uploadTool.hover(ray, ground, ev);
     if (m?.kind === 'place' && ghost) {
       const p = M.placementAt(m.cat, m.size, ray, ground, { alt: ev?.altKey, rot: m.rot });
       ghost.visible = !!p;
@@ -446,6 +448,7 @@ export function createModes(app) {
     if (key === M._validKey) return; M._validKey = key;
     if (on) w.showCells('level-valid', { lit: cells, color: '#ffffff', opacity: 0.13, y: app.level }); else w.clearCells('level-valid');
   };
+  M.ghostInfo = () => app.mode?.pawn ? app.pawnTool?.ghostInfo?.() : ghost ? { visible: ghost.visible, x: ghost.position.x, z: ghost.position.z } : null; // (tests)
   M.postSnap = postSnap; M.isPost = (cat) => POST.test(cat || '') || POST_FLOOR.test(cat || '');
   M.key = (ev) => {
     if (app.mode?.kind === 'place' && ev.key.toLowerCase() === 'r') { app.mode.rot += (ev.shiftKey ? -1 : 1) * Math.PI / 4; return true; }

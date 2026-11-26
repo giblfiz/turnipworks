@@ -85,7 +85,7 @@ Harry 2026-09-30: small things are individual assets. Coarse roles (`bowl`, `pla
 ### V3. Plates, bowls & serving
 - **plate-slate** — slate serving slab · surface · tiny · size:14x9x0.8 · stone · set:TAV,NOB · var:- · aff:carry · mesh · P3 · cheese board, hearthside
 - **bowl-soup-empty** — deep wooden soup bowl, empty · surface · tiny · size:6.5x6.5x3 · wood · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P1 · fill it from the food list (soup-bowl, stew-bowl)
-- **platter-board-handled** — handled wooden serving board · surface · tiny · size:9x18x1.2 · wood · set:TAV,HUT · var:- · aff:carry · mesh · P2 · cheese and bread boards
+- **platter-board-handled** — handled wooden serving board · surface · tiny · size:9x18x1.2 · wood · set:TAV,HUT,MOD · var:- · aff:carry · mesh · P2 · cheese and bread boards
 - **dish-covered-pewter** — covered pewter dish · surface · tiny · size:10x10x5 · metal · set:CAS,NOB,TAV · var:open · aff:carry · mesh · P3 · keeps food warm
 - **trencher-stack** — stack of wooden trenchers · surface · tiny · size:8x8x6~0.6-1.5 · wood · set:TAV,CAS · var:- · aff:carry · mesh · P1 · servery shelves
 - **plate-tin-camp** — tin camp plate · surface · tiny · size:8x8x1 · metal · set:CMP,MIN,CAS · var:- · aff:carry · mesh · P2 · soldiers and miners
@@ -101,7 +101,7 @@ Harry 2026-09-30: small things are individual assets. Coarse roles (`bowl`, `pla
 - **trencher-wood** — square wooden trencher · surface · tiny · size:8x8x1 · wood · set:TAV!,HUT,CAS · var:- · aff:carry · mesh · P1 · the common plate
 - **plate-wood-round** — round turned wooden plate · surface · tiny · size:9x9x1 · wood · set:HUT,TAV,CMP · var:- · aff:carry · mesh · P1 · cottage table
 - **plate-pewter** — pewter plate · surface · tiny · size:9x9x1 · metal · set:TAV,CAS,MKT · var:- · aff:carry · mesh · P1 · tavern and castle service
-- **plate-ceramic** — glazed earthenware plate · surface · tiny · size:9x9x1 · ceramic · set:TAV,HUT,MKT · var:- · aff:carry · mesh · P2 · merchant homes
+- **plate-ceramic** — glazed earthenware plate · surface · tiny · size:9x9x1 · ceramic · set:TAV,HUT,MKT,MOD · var:- · aff:carry · mesh · P2 · merchant homes
 - **plate-silver** — silver plate · surface · tiny · size:10x10x0.8 · metal · set:NOB!,CAS · var:- · aff:carry · mesh · P2 · noble service
 - **plate-gold** — gold plate · surface · tiny · size:10x10x0.8 · metal · set:NOB,CAS,LAI · var:- · aff:carry,loot · mesh · P3 · royal; hoard dressing
 - **plate-painted** — painted display plate · surface · tiny · size:11x11x1 · ceramic · set:NOB,HUT · var:- · aff:carry · mesh · P3 · on the dresser rack
@@ -153,11 +153,11 @@ Harry 2026-09-30: small things are individual assets. Coarse roles (`bowl`, `pla
 - **pan-long-handle** — long-handled frying pan · surface · tiny · size:10x22x3 · metal · set:TAV,CAS,HUT · var:- · aff:carry · mesh · P1 · reaches into the hearth
 - **pan-skillet-footed** — footed skillet · surface · tiny · size:9x18x4 · metal · set:HUT,CMP · var:- · aff:carry · mesh · P3 · sits in coals
 - **griddle-iron** — iron griddle with bail handle · surface · tiny · size:13x13x9 · metal · set:HUT,TAV,CMP · var:- · aff:carry · mesh · P2 · flatbreads, oatcakes
-- **roasting-pan** — dripping pan · surface · tiny · size:11x20x3 · metal · set:TAV,CAS · var:- · aff:carry · mesh · P3 · under the spit
+- **roasting-pan** — dripping pan · surface · tiny · size:11x20x3 · metal · set:TAV,CAS,MOD · var:- · aff:carry · mesh · P3 · under the spit
 - **pie-dish** — pie dish · surface · tiny · size:10x10x2.5 · ceramic · set:TAV,HUT,NOB,CAS · var:- · aff:carry · mesh · P3 · fill with pie from the food list
 - **baking-tin** — baking tin · surface · tiny · size:8x12x3 · metal · set:TAV,MKT,CAS · var:- · aff:carry · mesh · P3 · bakery shelves
 - **bread-pan-clay** — clay bread pot · surface · tiny · size:9x9x7 · ceramic · set:HUT,MKT · var:- · aff:carry · mesh · P3 · domestic baking
-- **saucepan-copper** — copper saucepan · surface · tiny · size:7x14x5 · metal · set:CAS,NOB · var:- · aff:carry · mesh · P3 · sauces for the lord
+- **saucepan-copper** — copper saucepan · surface · tiny · size:7x14x5 · metal · set:CAS,NOB,MOD · var:- · aff:carry · mesh · P3 · sauces for the lord
 - **dutch-oven** — lidded iron camp oven · surface · tiny · size:12x12x8 · metal · set:CMP,TAV · var:open · aff:carry · mesh · P2 · buried in coals
 - **trivet** — iron trivet stand · surface · tiny · size:8x8x4 · metal · set:HUT,TAV,CAS · var:- · aff:carry · mesh · P3 · under hot pots
 - **pot-hook-chain** — pot crane hook and chain · attach · tiny · size:4x6x30 · metal · set:HUT,TAV · var:- · aff:- · thin · P1 · hangs from the hearth crane
@@ -166,8 +166,8 @@ Harry 2026-09-30: small things are individual assets. Coarse roles (`bowl`, `pla
 ### V5. Kitchen tools
 - **sieve-wooden-drum** — wooden drum sieve · surface · tiny · size:12x12x4 · wood · set:TAV,HUT,MIN · var:- · aff:carry · mesh · P3 · sifting grain
 - **bellows-kitchen-small** — small kitchen fire-fan · surface · tiny · size:7x16x2 · organic · set:HUT,TAV · var:- · aff:carry · mesh · P3 · coaxing coals
-- **utensil-rack-wall** — wall rack of ladles, spoons and tongs · wall · sub · size:24x5x18 · metal · set:TAV,HUT,CAS · var:- · aff:- · thin · P1 · beside the hearth
-- **knife-rack-wall** — magnet-free wooden knife rack · wall · tiny · size:12x3x6 · wood · set:TAV,CAS · var:- · aff:- · thin · P1 · butcher and kitchen
+- **utensil-rack-wall** — wall rack of ladles, spoons and tongs · wall · sub · size:24x5x18 · metal · set:TAV,HUT,CAS,MOD · var:- · aff:- · thin · P1 · beside the hearth
+- **knife-rack-wall** — magnet-free wooden knife rack · wall · tiny · size:12x3x6 · wood · set:TAV,CAS,MOD · var:- · aff:- · thin · P1 · butcher and kitchen
 - **meat-hook-single** — single iron meat hook · ceiling · tiny · size:3x0.6x7 · metal · set:TAV,MKT,DUN,CAS · var:- · aff:carry · thin · P3 · beams, butchers, dungeons
 - **pastry-cutter** — pastry crimping wheel · surface · tiny · size:1.5x6x2 · mixed · set:TAV,NOB,CAS · var:- · aff:carry · thin · P3 · pie decoration
 - **bread-stamp** — carved bread stamp · surface · tiny · size:4x4x4 · wood · set:TEM,MKT,TAV,CAS · var:- · aff:carry · mesh · P3 · marked loaves
@@ -242,7 +242,7 @@ Harry 2026-09-30: small things are individual assets. Coarse roles (`bowl`, `pla
 - **table-runner-embroidered** — embroidered table runner · floor · 1x2 · size:16x84x0.3~0.7-1.3 · cloth · set:NOB,CAS · var:- · aff:- · flat · P3 · high table
 - **placemat-rush** — woven rush placemat · surface · tiny · size:12x16x0.3 · organic · set:HUT,TAV · var:- · aff:- · flat · P1 · cottage table
 - **apron-hanging** — apron on a hook · wall · tiny · size:20x3x30 · cloth · set:TAV,HUT,SMI · var:- · aff:- · mesh · P3 · kitchen doors
-- **towel-hanging** — linen towel on a rail · wall · tiny · size:18x3x24 · cloth · set:NOB,TAV,ARC,HUT · var:- · aff:- · mesh · P3 · washstands
+- **towel-hanging** — linen towel on a rail · wall · tiny · size:18x3x24 · cloth · set:NOB,TAV,ARC,HUT,MOD · var:- · aff:- · mesh · P3 · washstands
 
 ### V8. Drinks & dishes in vessels
 - **mug-of-cider** — clay mug of cider · surface · tiny · size:4x5x4.5 · mixed · set:TAV,HUT,ARC · var:- · aff:carry · mesh · P3 · harvest festival

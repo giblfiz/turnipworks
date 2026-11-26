@@ -591,6 +591,25 @@ document.addEventListener("keydown", (e) => {
   if (act) { e.preventDefault(); act(); }
 });
 
+// ---------------------------------------------------------------- deep link (2026-11-10)
+// ?sku=<asset sku> (or #<asset sku>) opens that asset; ?sku=<group> on a page whose assets carry a `group`
+// (meshy-depth: shipped + each Meshy attempt of one sku) opens the group's first entry with the list narrowed to it.
+// Filters are widened for this load only (status All, nothing else narrowed) so a reviewed asset still opens;
+// nothing is saved until a filter is changed by hand. No param: the page behaves exactly as before.
+function deepLink() {
+  let want = qs.get("sku") || qs.get("asset") || "";
+  if (!want && location.hash.length > 1) { try { want = decodeURIComponent(location.hash.slice(1)); } catch { want = ""; } }
+  if (!want) return null;
+  const exact = bySku.get(want);
+  const asset = exact || data.find((a) => a.group === want);
+  if (!asset) { toast(`No asset "${want}" on this page`, true); return null; }
+  for (const el of Object.values(F)) el.value = el === F.status ? "all" : "";
+  const m = META.assets[asset.sku] || {};
+  const roleOpt = `r:${m.domain}|${m.role}`;
+  if (!exact && [...F.role.options].some((o) => o.value === roleOpt)) F.role.value = roleOpt;
+  return asset;
+}
+
 // ---------------------------------------------------------------- boot
 $("ratings").append(ratingBox("model", "3D model"), ratingBox("plate", "Concept image"));
 Promise.all([
@@ -607,8 +626,9 @@ Promise.all([
   data = payload.assets;
   for (const a of data) bySku.set(a.sku, a);
   buildFilterOptions();
+  const linked = deepLink();
   renderList();
-  const first = filtered.find((a) => !reviewed(a.sku)) || filtered[0];
+  const first = linked || filtered.find((a) => !reviewed(a.sku)) || filtered[0];
   if (first) go(first.sku, { noHistory: true }); else showDone();
 }).catch((error) => { $("count").textContent = `Could not load review: ${error}`; });
 

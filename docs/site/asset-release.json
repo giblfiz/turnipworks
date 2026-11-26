@@ -1,0 +1,512 @@
+{
+ "_about": "The assets page's pack downloads (engine/tools/site_assets.py): a GitHub release of giblfiz/turnipworks and each page pack's zips on it, written by tools/asset-packs/build_packs.py --site-json from the build's packs.json. `published` gates every link: flip it to true ONLY after the release is published (it is a draft until Harry says so; engine/test/asset_release_test.py checks with gh), then deploy.",
+ "repo": "giblfiz/turnipworks",
+ "tag": "assets-2026-11-07",
+ "published": true,
+ "packs": {
+  "tavern-inn": [
+   {
+    "edition": "game",
+    "file": "turnipworks-tavern-inn-2026-11-07.zip",
+    "bytes": 190577205,
+    "sha256": "43c4221a6dad8093eb1734555834085c797383a64413c2c9e429671775929779",
+    "models": 947,
+    "images": 266
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-tavern-inn-hd-2026-11-07.zip",
+    "bytes": 1173549110,
+    "sha256": "9cfe5ee59baa68a8d1c6f65341e1314fcedad6ad14920422d3275bed61c673f6",
+    "models": 947,
+    "images": 0
+   }
+  ],
+  "aristocrat-manor": [
+   {
+    "edition": "game",
+    "file": "turnipworks-aristocrat-manor-2026-11-07.zip",
+    "bytes": 153785714,
+    "sha256": "68d4f968f5ff93776a61390146612fbc67bdc6e63ada446351cf6126a9b1002a",
+    "models": 744,
+    "images": 184
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-aristocrat-manor-hd-2026-11-07.zip",
+    "bytes": 925465367,
+    "sha256": "2e57e12f1559e1612404c28c42d87d2f058ff5ed8b64263ad335b424efae1f89",
+    "models": 744,
+    "images": 0
+   }
+  ],
+  "castle-keep": [
+   {
+    "edition": "game",
+    "file": "turnipworks-castle-keep-2026-11-07.zip",
+    "bytes": 143860382,
+    "sha256": "58fb08830787da5c2f3f1d237d1b27812e22835b4746a49d30c0c8236ab527d1",
+    "models": 689,
+    "images": 184
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-castle-keep-hd-2026-11-07.zip",
+    "bytes": 855052789,
+    "sha256": "628c0bbb40d905dbecfabe53605335092ac75056ffbf49cf09182f6e14bfdf7c",
+    "models": 689,
+    "images": 0
+   }
+  ],
+  "temple-chapel": [
+   {
+    "edition": "game",
+    "file": "turnipworks-temple-chapel-2026-11-07.zip",
+    "bytes": 73083866,
+    "sha256": "8e13a3d41decd456537fa0fb1523fa50dbf5ff09a91c8546b32c936c26be3818",
+    "models": 340,
+    "images": 43
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-temple-chapel-hd-2026-11-07.zip",
+    "bytes": 414853140,
+    "sha256": "295ad3a7837beb2e0168d32248f300d08ca88d74189c84af53856a3e5b1b036b",
+    "models": 340,
+    "images": 0
+   }
+  ],
+  "blacksmith-workshop": [
+   {
+    "edition": "game",
+    "file": "turnipworks-blacksmith-workshop-2026-11-07.zip",
+    "bytes": 103964592,
+    "sha256": "27364059ec6795442b7dbed0e110b3f67e5159441944da1140cde1a8fca95584",
+    "models": 483,
+    "images": 77
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-blacksmith-workshop-hd-2026-11-07.zip",
+    "bytes": 597825024,
+    "sha256": "4c130df57fb4ad9b78f9e6851ae21467041ef98d0570b39e81e8ff6295deb65f",
+    "models": 483,
+    "images": 0
+   }
+  ],
+  "market-village": [
+   {
+    "edition": "game",
+    "file": "turnipworks-market-village-2026-11-07.zip",
+    "bytes": 140326985,
+    "sha256": "95fef9cd58b04914d9ba7b823c1f13ad8841a99557212192340eec0988a8e363",
+    "models": 661,
+    "images": 138
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-market-village-hd-2026-11-07.zip",
+    "bytes": 821441691,
+    "sha256": "58857bfd4466b6bd77075309ba785ecdc5cd3860dc75cb8967afcd9320d1c1d5",
+    "models": 661,
+    "images": 0
+   }
+  ],
+  "peasant-hut-farm": [
+   {
+    "edition": "game",
+    "file": "turnipworks-peasant-hut-farm-2026-11-07.zip",
+    "bytes": 134785041,
+    "sha256": "43fa39484782f2d9a0e2c1a0b2407cbad188ac7e77aab4a39e14083e5fb1695b",
+    "models": 644,
+    "images": 142
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-peasant-hut-farm-hd-2026-11-07.zip",
+    "bytes": 801633273,
+    "sha256": "3db84eab26fec481d117e91c3c33e7dcd0134c89d425db75121310813a9133ad",
+    "models": 644,
+    "images": 0
+   }
+  ],
+  "dungeon-prison": [
+   {
+    "edition": "game",
+    "file": "turnipworks-dungeon-prison-2026-11-07.zip",
+    "bytes": 96375956,
+    "sha256": "2c2b581a443dbf3fabf402ab67050a63a8b2d76062293759f9fcbb8c4642d5a2",
+    "models": 432,
+    "images": 122
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-dungeon-prison-hd-2026-11-07.zip",
+    "bytes": 540934811,
+    "sha256": "d32a45d1eb6ad16ed01ca3678026e31c99b34b0b61680f63e377a6b7fdb67a72",
+    "models": 432,
+    "images": 0
+   }
+  ],
+  "crypt-tomb": [
+   {
+    "edition": "game",
+    "file": "turnipworks-crypt-tomb-2026-11-07.zip",
+    "bytes": 61099593,
+    "sha256": "4a1a1bef69f165863a2b68ae66c6359fc0b4c58d70f4bbf1c69a85c8acbc2554",
+    "models": 285,
+    "images": 81
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-crypt-tomb-hd-2026-11-07.zip",
+    "bytes": 353362002,
+    "sha256": "a3cfd1321fedc3020e5e88e1314f79fe0f760265b55284b82dd14d17a9a74b14",
+    "models": 285,
+    "images": 0
+   }
+  ],
+  "wizard-alchemist-library": [
+   {
+    "edition": "game",
+    "file": "turnipworks-wizard-alchemist-library-2026-11-07.zip",
+    "bytes": 89602541,
+    "sha256": "842c702e385c5a8d4c1554dfa4b99093c07077c9fe961e22ace92f25218ea6f8",
+    "models": 411,
+    "images": 88
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-wizard-alchemist-library-hd-2026-11-07.zip",
+    "bytes": 506972662,
+    "sha256": "61f111646a802f4ac996e37d0b5b45509d583f4eeccba12fe92516fd0eb7639b",
+    "models": 411,
+    "images": 0
+   }
+  ],
+  "cult-sanctum": [
+   {
+    "edition": "game",
+    "file": "turnipworks-cult-sanctum-2026-11-07.zip",
+    "bytes": 80702211,
+    "sha256": "e67fe625f409ae152d5a205f4b85e71cf450282c2bafe4dda37313db74b89be0",
+    "models": 383,
+    "images": 58
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-cult-sanctum-hd-2026-11-07.zip",
+    "bytes": 467557076,
+    "sha256": "3f8434a6b8f15e10481719626b57074322e5c08437d0ded61a8f4ea069e1ddac",
+    "models": 383,
+    "images": 0
+   }
+  ],
+  "mine": [
+   {
+    "edition": "game",
+    "file": "turnipworks-mine-2026-11-07.zip",
+    "bytes": 68541413,
+    "sha256": "10a594a23c941f27e4930000c86d6e434d282f43599f6fa0a6ce70eaef0600b1",
+    "models": 317,
+    "images": 55
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-mine-hd-2026-11-07.zip",
+    "bytes": 387715897,
+    "sha256": "2f2c545dc09e76da613e8a638e02b2677e4cf9b692ac1aec5c975ef664c7da26",
+    "models": 317,
+    "images": 0
+   }
+  ],
+  "monster-lair": [
+   {
+    "edition": "game",
+    "file": "turnipworks-monster-lair-2026-11-07.zip",
+    "bytes": 83924335,
+    "sha256": "f7c37ddd67e86481d96fd5b6699170c5be38cd6fd8e57dd62d19fe4a4a4cab1b",
+    "models": 372,
+    "images": 81
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-monster-lair-hd-2026-11-07.zip",
+    "bytes": 469027413,
+    "sha256": "521df70d2630a1aa3fc8d1b4c48a2a7e43b143c43fa3053a288e4b55638d72f1",
+    "models": 372,
+    "images": 0
+   }
+  ],
+  "modern": [
+   {
+    "edition": "game",
+    "file": "turnipworks-modern-2026-11-07.zip",
+    "bytes": 86546655,
+    "sha256": "61934c0ae8d9ff27c994229e82c82174c15ee1c70ca12f451400ea4f9cc97683",
+    "models": 412,
+    "images": 28
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-modern-hd-2026-11-07.zip",
+    "bytes": 503559842,
+    "sha256": "96470d09f70a6c40178c05ecdd76096a98af0dbd233d30344f00077dd5e3a444",
+    "models": 412,
+    "images": 0
+   }
+  ],
+  "norse-steading": [
+   {
+    "edition": "game",
+    "file": "turnipworks-norse-steading-2026-11-07.zip",
+    "bytes": 47433149,
+    "sha256": "8aff6cff06ae642035a5eabff88f4fd531ca71e5406d65dcef4ef3e08b4598fa",
+    "models": 219,
+    "images": 34
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-norse-steading-hd-2026-11-07.zip",
+    "bytes": 267226452,
+    "sha256": "7a7ba69e0eff84bb17d3eeb28a1d35492ed0d9812d0289440faf536e21d6f723",
+    "models": 219,
+    "images": 0
+   }
+  ],
+  "middle-east": [
+   {
+    "edition": "game",
+    "file": "turnipworks-middle-east-2026-11-07.zip",
+    "bytes": 54761106,
+    "sha256": "25aa815d593d39ff201dc446ede96e0f7724f625743a64a1fbe3de744d32dad8",
+    "models": 244,
+    "images": 59
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-middle-east-hd-2026-11-07.zip",
+    "bytes": 302317019,
+    "sha256": "d0f6f714938c0352e422766b1adb8a50140b395586c60715f9c6f1178d3623f1",
+    "models": 244,
+    "images": 0
+   }
+  ],
+  "rus-medieval": [
+   {
+    "edition": "game",
+    "file": "turnipworks-rus-medieval-2026-11-07.zip",
+    "bytes": 60281491,
+    "sha256": "da23506300e13610ec0ad3144604d6d2f375bc796f64dd1a86156293ba58a582",
+    "models": 283,
+    "images": 32
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-rus-medieval-hd-2026-11-07.zip",
+    "bytes": 346733698,
+    "sha256": "f6baa4ef1aab0e23566b04a01c5cb35585709dda73eed30c6f4533889f5b7d53",
+    "models": 283,
+    "images": 0
+   }
+  ],
+  "mesoamerica": [
+   {
+    "edition": "game",
+    "file": "turnipworks-mesoamerica-2026-11-07.zip",
+    "bytes": 30558995,
+    "sha256": "653918e299a05f7c4b125acaad8ddce3ee27af75835149f801a5b3ab73d474fa",
+    "models": 142,
+    "images": 37
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-mesoamerica-hd-2026-11-07.zip",
+    "bytes": 171679626,
+    "sha256": "93cc57ce513948d5b58c6dcadc013d663b87302f492fffff651fad2274993baf",
+    "models": 142,
+    "images": 0
+   }
+  ],
+  "japan": [
+   {
+    "edition": "game",
+    "file": "turnipworks-japan-2026-11-07.zip",
+    "bytes": 38112617,
+    "sha256": "88d339053684ddd6bb755e230ecf421651d9e057066891a1ebd8968d66d164ff",
+    "models": 177,
+    "images": 15
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-japan-hd-2026-11-07.zip",
+    "bytes": 213869263,
+    "sha256": "099afcb82e564b315df47534e19a1e8944a0f039cd9c5520517718a042f96b5e",
+    "models": 177,
+    "images": 0
+   }
+  ],
+  "china": [
+   {
+    "edition": "game",
+    "file": "turnipworks-china-2026-11-07.zip",
+    "bytes": 38025532,
+    "sha256": "2be3953323788716ad144531dd81acdf8520879c2a0451f9983211cd04ace96c",
+    "models": 177,
+    "images": 19
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-china-hd-2026-11-07.zip",
+    "bytes": 214457023,
+    "sha256": "79d6344c1a3f56a5b2c345a4f54a8182872029c60a2707e9ef3909b5edc792db",
+    "models": 177,
+    "images": 0
+   }
+  ],
+  "india": [
+   {
+    "edition": "game",
+    "file": "turnipworks-india-2026-11-07.zip",
+    "bytes": 36551777,
+    "sha256": "6ea11227a0edc729fe83bf34a6e1768e82d3ebbb967268eac7be1678f0a8ca9d",
+    "models": 171,
+    "images": 9
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-india-hd-2026-11-07.zip",
+    "bytes": 207270080,
+    "sha256": "2cf672842a2a8b6c7f98a79a66acd84a3b4f80d41751834e6e18d38cc1bf683c",
+    "models": 171,
+    "images": 0
+   }
+  ],
+  "building-kit": [
+   {
+    "edition": "game",
+    "file": "turnipworks-building-kit-2026-11-07.zip",
+    "bytes": 47596221,
+    "sha256": "fb7dab8f0703a72bb069264e040536087122c66af3a393532e4ecb4cef0d8d46",
+    "models": 182,
+    "images": 306
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-building-kit-hd-2026-11-07.zip",
+    "bytes": 219457607,
+    "sha256": "a6adfa6b4b18834c85bd99c641152057c0423172c7ef7b573e718429ab31047f",
+    "models": 182,
+    "images": 0
+   }
+  ],
+  "faction-pieces": [
+   {
+    "edition": "game",
+    "file": "turnipworks-faction-pieces-2026-11-07.zip",
+    "bytes": 25816792,
+    "sha256": "a364f4db3f2c3fde01d5fa1caf22ebfc825b083897f62b8c3b50d7cf6c774ad5",
+    "models": 97,
+    "images": 68
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-faction-pieces-hd-2026-11-07.zip",
+    "bytes": 132693390,
+    "sha256": "8627e5d1a7ee3e0d0f1580e97fb12928f3a507f8cb38799d1f814ce3b0ee1060",
+    "models": 97,
+    "images": 0
+   }
+  ],
+  "figures": [
+   {
+    "edition": "game",
+    "file": "turnipworks-figures-2026-11-07.zip",
+    "bytes": 590738760,
+    "sha256": "512d67377bd39fa1917ee66a751fb62ce755b905feeaddaf6ee82e51536af51e",
+    "models": 775,
+    "images": 0
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-figures-hero-hd-2026-11-07.zip",
+    "bytes": 708428907,
+    "sha256": "849ae4b2af866691dff4991181fffcc505b90d2725cd0004fdb836cc06a12960",
+    "models": 315,
+    "images": 0,
+    "group": "hero",
+    "label": "Heroes"
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-figures-townsfolk-hd-2026-11-07.zip",
+    "bytes": 324578033,
+    "sha256": "4b52317ed65280646b2fd107d1a0cfe334e0b7424e2bddb3fb9ee379d553ec75",
+    "models": 146,
+    "images": 0,
+    "group": "townsfolk",
+    "label": "Townsfolk"
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-figures-foe-hd-2026-11-07.zip",
+    "bytes": 377783735,
+    "sha256": "b3595224895503e5fc713dc31ee0bc2e8c753b7802ef665d20ba0a8a0fd5c39b",
+    "models": 167,
+    "images": 0,
+    "group": "foe",
+    "label": "Foes & monsters"
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-figures-large-hd-2026-11-07.zip",
+    "bytes": 139576169,
+    "sha256": "b35f45b64df8ba11a39f40371f776fc2c5230bba0ad0267a6e3cfbaab7cd8193",
+    "models": 64,
+    "images": 0,
+    "group": "large",
+    "label": "Large creatures"
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-figures-beast-hd-2026-11-07.zip",
+    "bytes": 57362835,
+    "sha256": "33ae9310bac9b2dc9b8c560bd28e79d17166e726757d4b5d98fa3e0db8601504",
+    "models": 30,
+    "images": 0,
+    "group": "beast",
+    "label": "Beasts & mounts"
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-figures-runner-hd-2026-11-07.zip",
+    "bytes": 60136445,
+    "sha256": "ba2d6c752cb80378b8e9ab4c70974b4d1358201d379b158bf017f9b61c7719b1",
+    "models": 27,
+    "images": 0,
+    "group": "runner",
+    "label": "Runners"
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-figures-modern-hd-2026-11-07.zip",
+    "bytes": 32291851,
+    "sha256": "d5a279a6d936066d29a91baf035edc43f41b8c03d46a4c7f9e5de3372dd7bfc1",
+    "models": 16,
+    "images": 0,
+    "group": "modern",
+    "label": "Modern people"
+   },
+   {
+    "edition": "hd",
+    "file": "turnipworks-figures-robot-hd-2026-11-07.zip",
+    "bytes": 21511631,
+    "sha256": "ea9e34a5ed2c0a3dbca87666f22d9150ca3ab0d561c34555cfee3a419cf46216",
+    "models": 10,
+    "images": 0,
+    "group": "robot",
+    "label": "Robots & drones"
+   }
+  ]
+ }
+}

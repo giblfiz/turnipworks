@@ -1,0 +1,15 @@
+{
+  "name": "tw-upload-worker",
+  "private": true,
+  "description": "The sandboxed converter for user-uploaded models: relay/uploads.js runs worker.mjs in a child process with no network, no access to the data folder, a CPU and memory cap and a timeout. docs/UPLOADS.md.",
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/extensions": "4.5.1",
+    "@gltf-transform/functions": "4.5.1",
+    "gltf-validator": "2.0.0-dev.3.10",
+    "meshoptimizer": "1.2.0",
+    "sharp": "0.35.5"
+  }
+}

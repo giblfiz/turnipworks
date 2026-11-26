@@ -15,18 +15,88 @@ RUN_PREFIX=openmesh                   # remote run dir: /workspace/tw-runs/openm
 
 need_key() { : "${RUNPOD_API_KEY:?RUNPOD_API_KEY is not in the environment (do not read credential files; start from a fauna session)}"; }
 
+# RunPod APIs (OPS-441). REST v1 (rest.runpod.io/v1) returns 410 Gone from 2026-11-16, so pods are listed, read and
+# deleted through REST v2 (spec: https://api.runpod.io/v2/openapi.json). runpodctl 2.14's `pod get/list/delete` are v1
+# and die with it; its `pod create`, `gpu list` and `remove pod` are GraphQL (probed 2026-11-06), which RunPod
+# deprecates "early 2027". Both base URLs can be overridden for the mock-API test (RP_API, RP_GQL).
+RP_API=${RP_API:-https://api.runpod.io/v2}
+RP_GQL=${RP_GQL:-https://api.runpod.io/graphql}
+
+# rp_v2 METHOD PATH [BODYFILE]: one REST v2 call. Backs off exponentially on 429 (RunPod asks for this). Prints the
+# HTTP status (000 = no answer); the body goes to BODYFILE, default /dev/null.
+rp_v2() {
+  need_key; local m=$1 path=$2 out=${3:-/dev/null} code i
+  for i in 1 2 3 4 5 6; do
+    code=$(curl -s -m 30 -X "$m" -o "$out" -w '%{http_code}' -H "Authorization: Bearer $RUNPOD_API_KEY" "$RP_API$path") || code=${code:-000}
+    [[ $code == 429 ]] || break
+    sleep $((2 ** i))
+  done
+  echo "${code:-000}"
+}
+
 # account: balance, spend/hr, pods (GraphQL; read-only)
 rp_account() {
   need_key
   curl -s -m 30 -H "Authorization: Bearer $RUNPOD_API_KEY" -H "Content-Type: application/json" \
     -d '{"query":"query { myself { clientBalance currentSpendPerHr pods { id name desiredStatus costPerHr } } }"}' \
-    https://api.runpod.io/graphql | jq -c '.data.myself'
+    "$RP_GQL" | jq -c '.data.myself'
 }
 rp_balance() { rp_account | jq -r '.clientBalance'; }
-# HTTP status of GET pod (404 = gone)
-rp_pod_http() { need_key; curl -s -m 30 -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $RUNPOD_API_KEY" "https://rest.runpod.io/v1/pods/$1"; }
-rp_our_pods() { rp_pod_list | jq -c --arg n "$POD_NAME" '[.[] | select(.name == $n)]'; }   # sibling agents run tw-arc / tw-clt / tw-tem / tw-mkt: never ours to touch
-rp_pod_list() { need_key; curl -s -m 30 -H "Authorization: Bearer $RUNPOD_API_KEY" https://rest.runpod.io/v1/pods | jq -c '[.[] | {id, name, desiredStatus, costPerHr}]'; }
+# HTTP status of GET pod (raw). To decide whether a pod is gone, use rp_pod_state: v2 can answer a deleted pod with
+# 200 + status TERMINATED as well as with 404.
+rp_pod_http() { rp_v2 GET "/pods/$1"; }
+# rp_pod_get ID: the pod's v2 JSON on stdout, or return 1 (no body printed) when the API doesn't answer 200
+rp_pod_get() {
+  local f code; f=$(mktemp); code=$(rp_v2 GET "/pods/$1" "$f")
+  if [[ $code == 200 ]] && jq -e .id "$f" >/dev/null 2>&1; then cat "$f"; rm -f "$f"; return 0; fi
+  rm -f "$f"; echo "rp_pod_get $1: GET -> $code" >&2; return 1
+}
+# rp_pod_state ID: "gone" (404, or 200 with status TERMINATED) | "present:<STATUS>" | "unknown:<http code>".
+# Only "gone" means gone. A 410, a 401, a timeout are "unknown", never "gone" and never "present".
+rp_pod_state() {
+  local f code st; f=$(mktemp); code=$(rp_v2 GET "/pods/$1" "$f")
+  case $code in
+    404) echo gone;;
+    200) st=$(jq -r '.status // empty' "$f" 2>/dev/null || true)
+         if [[ $st == TERMINATED ]]; then echo gone; elif [[ -n $st ]]; then echo "present:$st"; else echo "unknown:200-unparsed"; fi;;
+    *) echo "unknown:$code";;
+  esac
+  rm -f "$f"
+}
+# rp_pod_delete ID: DELETE through v2; prints the HTTP status (204 = deleted, 404 = already gone). Verify with rp_pod_state.
+rp_pod_delete() { rp_v2 DELETE "/pods/$1"; }
+# rp_pod_kill ID: v2 DELETE, and if the pod is not then verifiably gone, the GraphQL `runpodctl remove pod` as a second
+# road. Prints the final rp_pod_state; returns 0 only when that is "gone".
+rp_pod_kill() {
+  local st dc
+  dc=$(rp_pod_delete "$1"); sleep 6; st=$(rp_pod_state "$1")
+  if [[ $st != gone ]]; then
+    echo "$(date -Is) v2 DELETE pod $1 -> $dc, state -> $st; trying runpodctl remove pod (GraphQL)" >&2
+    "$RUNPODCTL" remove pod "$1" >&2 || true; sleep 10; st=$(rp_pod_state "$1")
+  fi
+  echo "$st"; [[ $st == gone ]]
+}
+# rp_pod_list: every pod on the account (all pages) as [{id, name, status, cost, desiredStatus, costPerHr}]; the last two
+# are v1-shaped aliases for older callers. If ANY page fails, prints nothing and returns 1: a list we could not read is
+# UNKNOWN, never "no pods".
+rp_pod_list() {
+  local f code cur="" all='[]' page q
+  f=$(mktemp)
+  for page in $(seq 1 50); do
+    q="/pods?limit=1000"; [[ -n $cur ]] && q+="&cursor=$(jq -rn --arg c "$cur" '$c | @uri')"
+    code=$(rp_v2 GET "$q" "$f")
+    if [[ $code != 200 ]] || ! jq -e '.pods | type == "array"' "$f" >/dev/null 2>&1; then
+      echo "rp_pod_list: UNKNOWN (GET /pods -> $code). This is not the same as no pods." >&2; rm -f "$f"; return 1
+    fi
+    all=$(jq -c --argjson a "$all" '$a + [.pods[] | {id, name, status, cost, desiredStatus: .status, costPerHr: .cost}]' "$f")
+    if [[ $(jq -r '.pagination.hasNextPage // false' "$f") != true ]]; then rm -f "$f"; echo "$all"; return 0; fi
+    cur=$(jq -r '.pagination.nextCursor // empty' "$f")
+    [[ -n $cur ]] || break
+  done
+  rm -f "$f"; echo "rp_pod_list: UNKNOWN (pagination did not end cleanly)" >&2; return 1
+}
+# sibling agents run tw-arc / tw-clt / tw-tem / tw-mkt: never ours to touch. Returns 1 when the list is unknown.
+rp_our_pods() { local l; l=$(rp_pod_list) || return 1; jq -c --arg n "$POD_NAME" '[.[] | select(.name == $n and .status != "TERMINATED")]' <<<"$l"; }
 # stock of a GPU in the volume's data centre: High | Medium | Low | none | (empty = not offered)
 rp_stock() { "$RUNPODCTL" gpu list 2>/dev/null | jq -r --arg g "$1" --arg dc "$DC" '.[] | select(.gpuId == $g) | (.dataCenterAvailability // [])[] | select(.dataCenterId == $dc) | .stockStatus'; }
 rp_price() { "$RUNPODCTL" gpu list 2>/dev/null | jq -r --arg g "$1" '.[] | select(.gpuId == $g) | .securePricePerHr'; }

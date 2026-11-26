@@ -30,6 +30,14 @@
 //   {ev:'phone', at, pg, test, country, landing}      the phone page was shown (pg: the page's own random id)
 //   {ev:'handoff', at, h, pg, test, country, landing} "email yourself the link" sent from it (no address here)
 //   {ev:'handoff_open', at, h, device, test, country} that link opened (device: desktop | phone), once per h and device
+// THE PHONE FRONT DOOR v2 (2026-11-24; client/phone.js, docs/UI.md "The phone front door"): the page is shown at once
+// (no game behind it), so 'phone' now means "a phone arrived at the front door", and two more kinds of line:
+//   {ev:'handoff', …, via}                          via: email | share | copy | ics (the link went out by the phone's own
+//                                                    share sheet, the clipboard or a calendar reminder: no address)
+//   {ev:'phone_step', at, pg, what, test, country}   one thing the page saw, once per page and kind (PHONE_STEPS):
+//                                                    the film started / finished, the buttons came into view, which
+//                                                    button was pressed, a share finished or was cancelled, a copy took
+// No address, name or IP in any of them; pg is the page's own random id (it ties a step to the 'phone' line's landing).
 // A table started from an opened handoff link carries `landing.handoff = h` on its 'campaign' line, so the report can
 // say "phone ad → desktop" (the phone visit's utm_* and click id ride in the link).
 //
@@ -213,11 +221,21 @@ export function makeFunnel({ dataDir, secret = crypto.randomBytes(16).toString('
     const country = countryOf(req);
     return append({ ev: 'phone', pg: PG.test(pg || '') ? pg : null, test: testReason(req, ''), country, landing: cleanLanding(landing, { clicks: adEligibleCountry(country) }) });
   }
-  function handoffSent({ req, h, pg, landing }) {
+  function handoffSent({ req, h, pg, landing, via = 'email' }) {
     const country = countryOf(req);
     for (const [k, v] of handoffs) if (now() - v.at > 120 * 86400e3) handoffs.delete(k);
-    return append({ ev: 'handoff', h, pg: PG.test(pg || '') ? pg : null, test: testReason(req, ''), country, landing: cleanLanding(landing, { clicks: adEligibleCountry(country) }) });
+    if (handoffs.has(h)) return null; // (a link the page made is registered once)
+    return append({ ev: 'handoff', h, pg: PG.test(pg || '') ? pg : null, via: HANDOFF_VIA.includes(via) ? via : 'email', test: testReason(req, ''), country, landing: cleanLanding(landing, { clicks: adEligibleCountry(country) }) });
   }
+  // -> the line, or null (an unknown kind, no page id, or that page already said it)
+  const stepsSeen = new Map(); // pg -> Set(what), memory only, bounded
+  function phoneStep({ req, pg, what }) {
+    if (!PG.test(pg || '') || !PHONE_STEPS.includes(what)) return null;
+    let S = stepsSeen.get(pg); if (!S) { S = new Set(); stepsSeen.set(pg, S); if (stepsSeen.size > 20000) stepsSeen.delete(stepsSeen.keys().next().value); }
+    if (S.has(what)) return null; S.add(what);
+    return append({ ev: 'phone_step', pg, what, test: testReason(req, ''), country: countryOf(req) });
+  }
+  const knownHandoff = (h) => handoffs.has(h);
   // -> true when this is the first open of that link on that kind of device (an unknown link: false, nothing written)
   function handoffOpened({ req, h, device }) {
     const d = device === 'phone' ? 'phone' : 'desktop', H = handoffs.get(h);
@@ -227,7 +245,7 @@ export function makeFunnel({ dataDir, secret = crypto.randomBytes(16).toString('
   }
 
   return {
-    file, created, seatMade, attached, detached, committed, phoneShown, handoffSent, handoffOpened,
+    file, created, seatMade, attached, detached, committed, phoneShown, handoffSent, handoffOpened, phoneStep, knownHandoff,
     onPlayed: (fn) => { hooks.push(fn); },
     table: (cid) => { const t = tables.get(cid); return t ? { ...t, joined: [...t.joined], gmMs: gmMsOf(cid, t) } : null; },
     handoff: (h) => { const H = handoffs.get(h); return H ? { at: H.at, opened: [...H.opened] } : null; },
@@ -246,7 +264,11 @@ export function readEvents(file) {
 }
 const dayOf = (ms, tz) => new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(ms));
 export const DAY_COLS = ['started', 'invites', 'invited', 'joined', 'played', 'together', 'sameNet', 'engaged'];
-export const PHONE_COLS = ['phone', 'handoff', 'opened', 'fromPhone'];
+export const PHONE_COLS = ['phone', 'tapped', 'handoff', 'opened', 'fromPhone'];
+// the phone front door's own lines (client/phone.js): what it saw, once per page each. tap_* = a button pressed (share: the
+// phone's share sheet; email: the email form opened; copy; ics: the calendar reminder; here: "try it on this phone").
+export const PHONE_STEPS = ['video_start', 'video_end', 'cta_visible', 'tap_share', 'tap_email', 'tap_copy', 'tap_ics', 'tap_here', 'share_done', 'share_cancel', 'copy_ok', 'email_fail'];
+export const HANDOFF_VIA = ['email', 'share', 'copy', 'ics'];
 export const BY_KEYS = ['utm_content', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'ref', 'referrer'];
 // -> { tz, days: [{day, started, invites, invited, joined, played, together, sameNet, engaged, phone, handoff, opened,
 //      fromPhone}], totals, excluded: {why: n}, by?: [...], tables? }
@@ -260,10 +282,11 @@ export const BY_KEYS = ['utm_content', 'utm_source', 'utm_medium', 'utm_campaign
 // by: 'utm_content' (or another BY_KEYS key) adds rows per value of that key and the click id's platform (`click`:
 //   google | meta | reddit | … | null), with the same counts; a handoff's opens and tables count under the phone visit's.
 export function report(events, { days = 30, tz = 'America/Los_Angeles', tests = false, until = Date.now(), by = null } = {}) {
-  const T = new Map(), H = new Map(), P = [], X = new Map(); // X: a phone page (pg_) or handoff (hd_) excluded by hand
+  const T = new Map(), H = new Map(), P = [], X = new Map(), S = []; // X: a phone page (pg_) or handoff (hd_) excluded by hand; S: phone_step lines
   for (const e of events) if ((e.ev === 'exclude' || e.ev === 'include') && /^(pg|hd)_/.test(e.c || '')) { if (e.ev === 'exclude') X.set(e.c, e.why || 'by hand'); else X.delete(e.c); }
   for (const e of events) {
     if (e.ev === 'phone') { P.push(e); continue; }
+    if (e.ev === 'phone_step') { S.push(e); continue; }
     if (e.ev === 'handoff') { H.set(e.h, { ...e, opens: [] }); continue; }
     if (e.ev === 'handoff_open') { const h = H.get(e.h); if (h && !h.opens.some(o => o.device === e.device)) h.opens.push(e); continue; }
     if (e.ev === 'campaign') T.set(e.c, { c: e.c, at: e.at, test: e.test || null, excluded: null, country: e.country || null, landing: e.landing || null, invites: [], joins: [], played: null, together: null, engaged: null });
@@ -297,13 +320,22 @@ export function report(events, { days = 30, tz = 'America/Los_Angeles', tests = 
   }
   // the phone page: the same exclusions (sandbox, box-local), each line on its own
   const skip = (e, kind) => { const why = e.test || X.get(kind === 'phone' ? e.pg : e.h) || (kind === 'handoff' && X.get(e.pg)); if (!why) return false; if (e.at >= since && e.at <= until) excluded[`${kind} ${why}`] = (excluded[`${kind} ${why}`] || 0) + 1; return true; };
-  for (const e of P) if (!skip(e, 'phone')) add('phone', e.at, e.landing);
+  const pgLanding = new Map();
+  for (const e of P) { if (e.pg) pgLanding.set(e.pg, e.landing); if (!skip(e, 'phone')) add('phone', e.at, e.landing); }
+  // the front door's steps: per kind, once per page (the relay writes each once; a restart could repeat one, so counted by page)
+  const steps = Object.fromEntries(PHONE_STEPS.map(k => [k, 0])), via = Object.fromEntries(HANDOFF_VIA.map(k => [k, 0])), stepSeen = new Set(), tappedPg = new Set();
+  for (const e of S) {
+    if (e.at < since || e.at > until || e.test || X.get(e.pg) || stepSeen.has(e.pg + ' ' + e.what)) continue;
+    stepSeen.add(e.pg + ' ' + e.what); if (e.what in steps) steps[e.what]++;
+    if (/^tap_/.test(e.what) && !tappedPg.has(e.pg)) { tappedPg.add(e.pg); add('tapped', e.at, pgLanding.get(e.pg)); }
+  }
   for (const h of H.values()) {
     if (skip(h, 'handoff')) continue;
+    if (h.at >= since && h.at <= until) via[HANDOFF_VIA.includes(h.via) ? h.via : 'email']++;
     add('handoff', h.at, h.landing);
     const o = h.opens.find(x => x.device === 'desktop' && !x.test); if (o) add('opened', o.at, h.landing);
   }
-  const out = { tz, since: new Date(since).toISOString(), until: new Date(until).toISOString(), days: [...rows.values()].sort((a, b) => a.day < b.day ? -1 : 1), totals, excluded };
+  const out = { tz, since: new Date(since).toISOString(), until: new Date(until).toISOString(), days: [...rows.values()].sort((a, b) => a.day < b.day ? -1 : 1), totals, excluded, steps, via };
   if (byKey) out.by = [...groups.values()].sort((a, b) => b.started + b.phone - (a.started + a.phone) || String(a[byKey]).localeCompare(String(b[byKey])));
   if (tests) out.tables = [...T.values()].filter(t => t.at >= since).map(t => ({ c: t.c, at: new Date(t.at).toISOString(), test: t.test, excluded: t.excluded, country: t.country, invites: t.invites.length, joins: t.joins.length, played: !!t.played, together: !!(t.played?.together || t.together), sameNet: t.played?.sameNet ?? null, engaged: !!t.engaged, click: clickSourceOf(t.landing), handoff: t.landing?.handoff || null, landing: t.landing }));
   return out;

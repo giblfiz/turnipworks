@@ -21,7 +21,7 @@ import * as FP from '../core/footprint.js';
 import * as ST from '../core/stairs.js';
 import * as HO from '../core/holes.js';
 import { stairVisual } from './stairs.js';
-import { holeVisual, clipCircles, clipPit, roundRim } from './holes.js';
+import { holeVisual, clipCircles, clipPit, sinkPit, roundRim } from './holes.js';
 import { bandVisual, bandKeyAt, SLAB_RIM_UNDER_BAND } from './bands.js';
 import * as HT from '../core/height.js';
 import { quatOfEntity, qMul, qAxis } from '../core/orient.js';
@@ -36,6 +36,7 @@ import { markCanvas } from './marks.js';
 import { createStatusFx } from './statusfx.js';
 import { createAuraFx } from './aurafx.js';
 import { GM_CURSOR_THROUGH_FOG } from '../core/fog.js';
+import { geoBox } from './geobox.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // FAR BUILDINGS SLEEP (big maps, 2026-10-06; see the SLEEP section of AreaWorld). Feet and milliseconds.
@@ -48,6 +49,7 @@ const _fr = new THREE.Frustum(), _pm = new THREE.Matrix4(), _ball = new THREE.Sp
 const UNSEEN_KEEP = 7.5; // ft round a stair's hole within which a covered room's things are still drawn (they show through it)
 const _sv = new THREE.Vector3();
 const _ub = new THREE.Vector2(), _uc = new THREE.Color(); // (underPrepass)
+const _bb = new THREE.Box3(); // (boundsOf: a mesh's box, kept with its geometry: geobox.js)
 const CELL = 5, WALL_H = 9, OUTSET = 0.6; // ft: wall height; a room's volume reaches the walls' outer faces
 const OPEN_MS = 650, POP_MS = 300, POP = 0.08; // an openable's swing / slide, and the open twin's little pop (openTo; the 2026-10-02 pilot's swap: 0.35 s, 8%)
 export const NO_DROP = '#e5484d'; // a drop that would be refused (the one destructive red)
@@ -64,6 +66,7 @@ export const GROUND_SEE = 0.25;
 // over them, as before), 1 = as if the ground were not there. The campaign's `underSee` (House look ▸ Above the ground:
 // underground shows); world.js underPrepass
 export const UNDER_SEE = 0.2;
+export const UNDER_FADE_MS = 300; // (underPrepass) the underground fades back in over this once the hand stops
 const UNDER_SMALL = 1.5; // ft: a thing under the ground smaller than this every way is not drawn through it (underList)
 // the "remote selected" look (another seat's selection, Harry 2026-10-04): the shared selection module's brackets, quiet.
 // (Kept here, as a preset passed to the module, so the game needn't wait on a tuner deploy; it can become a fifth state
@@ -84,6 +87,7 @@ export function noGlow(house) {
 export const REMOTE_LOOK = { name: 'remote', selected: { style: 'brackets', color: 'seat', ghost: 0, dials: { brackets: { anim: 'none', opacity: 0.4, weight: 2, size: 0.18 } } } };
 
 const FIRE_RE = /^(fireplace|hearth|cook-hearth)/; // what gets a chimney above it (a firepit or a brazier does not)
+const ROOF_MARK_RE = /^ind-sanctum/; // (2026-11-07) what a temple's shikhara stands over (roofs.js ROOF_ORNAMENTS 'mark')
 const ROOF_WALL = '#b9ad98';                        // a gable end's plaster
 const _down = new THREE.Raycaster(), DOWN = new THREE.Vector3(0, -1, 0);
 let _roofTex = null;
@@ -134,7 +138,23 @@ export const PAWN_BEAM = {
   labelScale: 0.9,         // of a small label's size
   recheckMs: 400,          // a flyer that is not moving asks again what is under it this often (a table's mesh may have arrived)
 };
+// A FLYING PAWN (Harry 2026-11-06: "for pawns that often fly (like say a dragon) let's make an alt of them flying and when
+// they get their vertical set switch to flying mode"; docs/PAWNS.md "A flying pawn"). At FLY.at feet or more over its base
+// (the height a pawn stays up at: PAWN_BEAM.land) a figure with a flying pose wears it (client/figures.js setFlying); one
+// without stays standing, lifted. Under it, on the floor round its base, a soft SHADOW (FLY.shadow), so the square it is
+// over reads from table distance with the base and the beam. Nothing is stored: the pose and the shadow follow the height,
+// the same for every seat.
+export const FLY = { at: PAWN_BEAM.land, shadow: { on: true, reach: 1.55, opacity: 0.5, lift: 0.015 } }; // reach: the shadow's radius as a multiple of the base's
 const _bv = new THREE.Vector3();
+let SHADOW_GEO = null, SHADOW_MAT = null;
+function flyShadow() {
+  SHADOW_GEO ||= new THREE.CircleGeometry(1, 40).rotateX(-Math.PI / 2);
+  SHADOW_MAT ||= new THREE.ShaderMaterial({ transparent: true, depthWrite: false, toneMapped: false, fog: false, uniforms: { uA: { value: FLY.shadow.opacity } },
+    vertexShader: 'varying vec2 vP; void main(){ vP = position.xz; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: 'uniform float uA; varying vec2 vP; void main(){ float r = length(vP); float a = uA * (1.0 - smoothstep(0.35, 1.0, r)); gl_FragColor = vec4(0.04, 0.035, 0.03, a); }' });
+  const m = new THREE.Mesh(SHADOW_GEO, SHADOW_MAT); m.renderOrder = -1; m.raycast = () => {}; m.castShadow = m.receiveShadow = false;
+  Object.assign(m.userData, { halo: true, noPick: true, flyShadow: true }); return m;
+}
 const BEAM_GEO = new THREE.CylinderGeometry(1, 1, 1, 14, 1, true).translate(0, 0.5, 0);
 const GROUND_Y = -0.02, STOP_SLACK = 0.05; // ft: where the ground mesh lies; how far past a floor a pick still counts (a rug, a floor tile)
 const _so = new THREE.Vector3(), _sd = new THREE.Vector3(), _sr = new THREE.Raycaster();
@@ -202,6 +222,11 @@ export class AreaWorld {
   //   pickNear a pick hands the raycast only what stands near the pointer's ray (nearRay)
   static ROOF_SURFACE = 'sections'; // or 'painted': the flat generated texture (setRoofSurface)
   static ROOF_TIER = 'auto';        // (measurements) 'near' / 'far' pins every roof to one tier
+  // CEILING FITTINGS AT THE TABLE (2026-11-07, the cyberpunk pack; wave 1's blind read: from the table camera a fluorescent
+  // fitting on the ceiling read as "rectangular capsule fixtures placed randomly on the floor"): from the table only its
+  // LIGHT is drawn (the fitting's mesh is not; fx/fire.js lights by the group, not the mesh); from a pawn's eyes (first
+  // person, this.eye) you look up and see it. 'always' draws them everywhere, as before (the way back).
+  static CEILING_FITTINGS = 'eyes';
   static PERF = { aoList: true, sleep: true, shadowList: true, freeze: true, lightSlots: false, pickNear: true };
   setPerf(p = {}) { this.perf = { ...AreaWorld.PERF, ...this.perf, ...p }; this.fx?.lighting.setPerf?.({ aoList: this.perf.aoList, shadowList: this.perf.shadowList }); this.fx?.fire.setSlots?.(this.perf.lightSlots); if (!this.perf.sleep) this.wakeAll(); if (!this.perf.freeze) { this.scene.matrixWorldAutoUpdate = true; this.mwManual = false; } return this.perf; }
 
@@ -434,13 +459,20 @@ export class AreaWorld {
     try { for (const r of this.roomgen?.roomsOf(E) || []) fam.set(r.id, r.family); } catch { }
     const famOf = (r) => fam.get(r.id);
     for (const e of Object.values(E)) {
-      if (e.kind !== 'room' || !e.recipe || HT.roomY(e.recipe) < 0 || T.walls?.isOutdoor?.(e.recipe.type)) continue; // no roof below ground or over a yard
+      if (e.kind !== 'room' || !e.recipe || HT.roomY(e.recipe) < 0) continue; // no roof below ground
+      // (2026-11-07, the cyberpunk pack's ROOFTOP) a yard has no roof; an outdoor room UP on a building (a rooftop laid at
+      // 10 ft over an office) has none either, but it COVERS the rooms under it (roofs.js `none`: open to the sky, still
+      // covering), so the office's roof is not drawn through the rooftop's floor and its things
+      if (T.walls?.isOutdoor?.(e.recipe.type)) { const c = e.recipe, y = HT.roomY(c); if (y > 0 && !HT.isTerrain(c.type)) rooms.push({ id: e.id, building: e.building || e.id, x: c.x, z: c.z, w: c.w, d: c.d, ...(c.outline && { outline: c.outline }), y, top: y + 0.5, style: 'deck', none: true, seed: c.seed ?? 1 }); continue; }
       const c = e.recipe, none = !!e.roof?.off || !!e.hidden, kind = HT.roofShapeOf(E, e), axis = this.roofTurnPreview?.room === e.id ? this.roofTurnPreview.axis : e.roof?.axis; // (roofTurnPreview: the ring's turn handle mid-drag, this tab only)
       const style = HT.roofStyleOf(E, e, famOf), edge = HT.roofEdgeOf(E, e, RF.flatSurfaceOf(style), famOf), turrets = HT.roofTurretsOf(E, e, edge, famOf);
-      rooms.push({ id: e.id, building: e.building || e.id, x: c.x, z: c.z, w: c.w, d: c.d, ...(c.outline && { outline: c.outline }), y: HT.roomY(c), top: HT.ceilingOf(E, e), style, edge, ...(turrets && { turrets }), family: famOf(e) ?? null, seed: e.roof?.seed ?? c.seed ?? 1, ...(kind && { kind }), ...(axis && { axis }), ...(e.roof?.trim && { trim: e.roof.trim }), ...(none && { props: false, none: true }) });
+      const form = HT.roofFormOf(E, e, style, famOf), ornament = HT.roofOrnamentOf(e, famOf); // (2026-11-07) how its culture builds a roof; what its type carries
+      rooms.push({ id: e.id, building: e.building || e.id, x: c.x, z: c.z, w: c.w, d: c.d, ...(c.outline && { outline: c.outline }), y: HT.roomY(c), top: HT.ceilingOf(E, e), style, edge, ...(turrets && { turrets }), family: famOf(e) ?? null, seed: e.roof?.seed ?? c.seed ?? 1, ...(kind && { kind }), ...(axis && { axis }), ...(e.roof?.trim && { trim: e.roof.trim }), ...(form && { form }), ...(ornament && { ornament }), ...(none && { props: false, none: true }) });
     }
     const fires = Object.values(E).filter(e => e.kind === 'object' && FIRE_RE.test(e.cat || '') && (e.y || 0) >= 0 && !(e.hidden)).map(e => ({ id: e.id, x: e.x, z: e.z }));
-    return { rooms, fires };
+    // (2026-11-07) where a room's 'mark' ornament stands: a Nagara temple's shikhara rises over its sanctum
+    const marks = Object.values(E).filter(e => e.kind === 'object' && ROOF_MARK_RE.test(e.cat || '') && !e.hidden).map(e => ({ x: e.x, z: e.z }));
+    return { rooms, fires, marks };
   }
   // (2026-10-27) the edge pieces of every roof (battlements, parapets, railings, corner turrets) for the dice
   // (diceworld.js roofTrim): from the roofs drawn, or, with my roofs off, planned from the rooms (the same rule: a roof's
@@ -455,11 +487,11 @@ export class AreaWorld {
   syncRoofs(ents = this.view?.entities || {}) {
     this.roofRecs ||= new Map();
     if (!this.roofsOn || !this.roomgen) { if (this.roofRecs.size) { for (const id of [...this.roofRecs.keys()]) this.dropRoof(id); this.cutDirty = true; } this.roofKey = null; return; }
-    const { rooms, fires } = this.roofInputs(ents), key = JSON.stringify([rooms, fires]);
+    const { rooms, fires, marks } = this.roofInputs(ents), key = JSON.stringify([rooms, fires, marks]);
     if (key === this.roofKey) return;
     this.roofKey = key; this.cutDirty = true;
     const lib = this.assets.lib, has = (id) => !!lib.objects[id] && !!this.roomgen.sizeOf(id);
-    const plan = this.roofPlan = RF.planRoofs(rooms, { fires, has });
+    const plan = this.roofPlan = RF.planRoofs(rooms, { fires, marks, has });
     const none = new Set(rooms.filter(r => r.none).map(r => r.id));
     if (!this.roofLayer) { this.roofLayer = new THREE.Group(); this.roofLayer.name = 'roofs'; this.scene.add(this.roofLayer); }
     const tex = roofTextures(lib);
@@ -532,9 +564,11 @@ export class AreaWorld {
   // THE RIDGE CAP: the kit's 5-ft ridge sections laid end to end along every ridge (thatch has its own raised ridge;
   // lead for the rest), each run divided into whole sections; the drawn strip stays where the library has no ridge piece
   addRidge(rec) {
-    const style = rec.roof.style, sku = KF.pickSku(this.assets.lib, 'roof-ridge', [style === 'thatch' ? 'thatch' : 'lead']);
-    rec.ridge = { sku: sku?.sku || null, standIn: !sku, n: 0, loaded: 0 };
-    if (!sku || !rec.roof.ridges.length) return;
+    // (2026-11-07) a culture style names its own ridge (RF.ROOF_STYLES[style].ridge: roof-ridge--kawara, ...; 'none': no
+    // cap, a turf roof's ridge is turf), else lead as before until its piece is in
+    const style = rec.roof.style, want = RF.ROOF_STYLES[style]?.ridge, sku = want === 'none' ? null : KF.pickSku(this.assets.lib, 'roof-ridge', [want || (style === 'thatch' ? 'thatch' : 'lead'), 'lead']);
+    rec.ridge = { sku: sku?.sku || null, standIn: !sku, n: 0, loaded: 0, hips: 0 };
+    if (!sku || !(rec.roof.ridges.length || rec.roof.hips?.length)) return;
     const box = KF.statedBox(this.assets.lib, 'roof-ridge', sku.sku) || [5, 0.75, 1.2], sink = style === 'thatch' ? 0.33 : 0.12;
     const drawn = rec.group.children.find(c => c.userData.roofPart === 'ridge');
     for (const { a, b } of rec.roof.ridges) {
@@ -547,6 +581,25 @@ export class AreaWorld {
           const fit = KF.fitPiece(THREE, scene.clone(true), [L / n + 0.04, box[1], box[2]], { long: 'x' }); holder.add(fit); holder.traverse(o => { o.userData.roofOf = rec.id; });
           if (drawn?.parent) drawn.parent.remove(drawn); // the real cap is on: the drawn strip goes
           rec.ridge.loaded++; this.shadowKey = null; this.cutDirty = true;
+        }).catch(() => { });
+      }
+    }
+    // (2026-11-07) THE HIPS: the same pieces in short lengths up each hip line, each tilted to its own stretch of it (a bent
+    // roof's hip curves up at the eave: RF.bendAt), so the cap follows the roof; the drawn hip strip goes when they are on
+    const hipDrawn = rec.group.children.find(c => c.userData.roofPart === 'hip');
+    for (const { a, b, bend } of rec.roof.hips || []) {
+      const P = (f) => { const x = a[0] + (b[0] - a[0]) * f, z = a[2] + (b[2] - a[2]) * f; return [x, a[1] + (b[1] - a[1]) * f + RF.bendAt(bend, x, z), z]; };
+      const L3 = Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]), n = Math.max(2, Math.round(L3 / 2.5));
+      for (let i = 0; i < n; i++) {
+        const p0 = P(i / n), p1 = P(i + 1 === n ? 1 + 0.35 / L3 : (i + 1) / n), d = [p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]], l = Math.hypot(...d), holder = new THREE.Group(); // (the top piece runs 0.35 ft on, under the ridge or the gable's foot: no seam where the hip meets them)
+        holder.position.set((p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2 - sink, (p0[2] + p1[2]) / 2);
+        holder.rotation.order = 'YZX'; holder.rotation.set(0, Math.atan2(-d[2], d[0]), Math.asin(d[1] / l));
+        holder.userData.roofOf = rec.id; holder.userData.roofProp = 'hip'; holder.userData.sku = holder.userData.kitSku = sku.sku; rec.group.add(holder); rec.ridge.hips++;
+        this.assets.template(sku.url).then(scene => {
+          if (!scene || this.roofRecs.get(rec.id) !== rec) return;
+          const fit = KF.fitPiece(THREE, scene.clone(true), [l + 0.06, box[1], box[2]], { long: 'x' }); holder.add(fit); holder.traverse(o => { o.userData.roofOf = rec.id; });
+          if (hipDrawn?.parent) hipDrawn.parent.remove(hipDrawn);
+          this.shadowKey = null; this.cutDirty = true;
         }).catch(() => { });
       }
     }
@@ -601,7 +654,16 @@ export class AreaWorld {
     // unless its building stands clear on a hill (then it shows whole); a HILL is the earth, never cut away
     const C = HT.cutRooms(ents, cut); this.cutHidden = C.hidden; this.cutClear = C.clear;
     const shown = rooms.filter(r => !this.cutHidden.has(r.id)), covered = new Set();
-    const atY = new Map(); for (const u of shown) { const y = HT.roomY(u.recipe); let a = atY.get(y); if (!a) atY.set(y, a = []); a.push(u.recipe); } // (the rooms on each floor height, once: was a walk over every room for every room, 2026-10-29)
+    // A STOREY THE FOG KEEPS FROM THIS SEAT COVERS NOTHING (2026-11-05, Harry on live as an invited player: a tavern's
+    // common room he had explored showed floor and walls and nearly none of its furniture, under an upper storey he had
+    // never seen). That storey is not drawn for him, so he looks straight down into the room: it is not covered. A room
+    // above counts as a cover only when its whole floor is drawn for this seat: a partly seen upper room (some floor
+    // pieces fog-hidden) covers nothing yet, so a peek through its undrawn part never finds an emptied room. (Coarser
+    // than cell by cell, on purpose: it can only draw more, never show what the fog keeps.) Fog refreshes re-work this
+    // (fog.js refreshWorld sets cutDirty).
+    let fogOpen = null;
+    if (this.fogActive && this.fogRule) { fogOpen = new Set(); for (const r of shown) if (this.fogRule(r)) fogOpen.add(r.id); for (const s of this.shell.values()) if (s.spec.layer === 'floor' && s.roomId && !fogOpen.has(s.roomId) && this.fogHidesShell(s)) fogOpen.add(s.roomId); }
+    const atY = new Map(); for (const u of shown) { if (fogOpen?.has(u.id)) continue; const y = HT.roomY(u.recipe); let a = atY.get(y); if (!a) atY.set(y, a = []); a.push(u.recipe); } // (the rooms on each floor height, once: was a walk over every room for every room, 2026-10-29)
     for (const r of shown) {
       const top = HT.roomTop(ents, r), above = atY.get(top) || [];
       if (above.length && FP.cellsOf(r.recipe).every(([i, j]) => above.some(u => FP.hasCell(u, r.recipe.x + i, r.recipe.z + j)))) covered.add(r.id);
@@ -734,7 +796,10 @@ export class AreaWorld {
     this.openRoom ||= (rm) => this.isOpenRoom(rm);
     const b = HT.baseUnder(E, x, z, y, this.openRoom); let by = b.y, on = b.on;
     if (y - by > PAWN_BEAM.min) {
-      const sb = this.surfaceBelow(x, y, z, new Set([r.entity.id]), by); if (sb && sb.y > by && sb.y <= y) { by = sb.y; on = 'thing'; }
+      // (2026-11-07) ROUNDING: a pawn settled onto a top is stored at its height to the hundredth (main.js r2), which can be a hair
+      // UNDER the mesh's top (2.45 for a desk at 2.4539): that top is still the one it stands on, or its base was drawn on the floor
+      // under the table with a "2.5 ft" beam (found by the riders lane's blind read). The ray starts 0.05 ft over the feet.
+      const sb = this.surfaceBelow(x, y, z, new Set([r.entity.id]), by); if (sb && sb.y > by && sb.y <= y + 0.02) { by = Math.min(sb.y, y); on = 'thing'; }
       if (b.on === 'top' && this.roofsOn && this.roofRecs?.size) { // (a pitch: the highest of the roof under the base's middle and its rim, so the disc lies ON the slope, not half inside it)
         const rad = (r.visual?.userData.base?.userData.radius || 1.7) * 0.9;
         for (const [dx, dz] of [[0, 0], [rad, 0], [-rad, 0], [0, rad], [0, -rad]]) { _down.set(new THREE.Vector3(x + dx, y + 0.05, z + dz), DOWN); const rf = this.roofAt(_down, true); if (rf && rf.point.y > by && rf.point.y <= y) { by = rf.point.y; on = 'roof'; } }
@@ -747,6 +812,10 @@ export class AreaWorld {
   setFoot(r, drop) {
     const foot = r.visual?.userData.foot; if (!foot) return;
     if (!(drop > PAWN_BEAM.min)) drop = 0;
+    const fly = drop >= FLY.at - 1e-3, U = r.visual.userData; // A FLYING PAWN (FLY): its pose and its shadow follow its height
+    if (U.fig && !!U.flying !== fly) this.assets.figures?.setFlying?.(r.visual, fly);
+    if (FLY.shadow.on && fly && !U.flyShadow) { const sh = U.flyShadow = flyShadow(), R = (U.base?.userData.radius || 1.8) * FLY.shadow.reach; sh.scale.set(R, 1, R); sh.position.y = FLY.shadow.lift; foot.add(sh); }
+    if (U.flyShadow) U.flyShadow.visible = fly && FLY.shadow.on;
     if (foot.position.y === -drop && (r.footDrop || 0) === drop) return;
     foot.position.y = -drop; r.footDrop = drop; r.group.userData.footDrop = drop; this.mwStale = true;
     this.dropHalos(r.entity.id); // what is drawn round it (brackets, a hover outline) was measured with the base where it was
@@ -756,6 +825,7 @@ export class AreaWorld {
     const r = this.recs.get(id); if (!r || r.entity.kind !== 'token') return null;
     const foot = r.visual?.userData.foot, l = this.dropLines.get(id), p = new THREE.Vector3(); r.group.updateMatrixWorld(true); foot?.getWorldPosition(p);
     return { fig: r.visual?.userData.fig || null, nameOnBase: !!r.visual?.userData.nameG && r.visual.userData.nameG.parent === foot, visible: !!r.group.visible, figureY: +r.group.position.y.toFixed(3), baseY: foot ? +p.y.toFixed(3) : null, drop: +(r.footDrop || 0).toFixed(3), level: this.pawnLevel(r.entity), on: r.baseAt?.on || null, room: r.baseAt?.room || null,
+      pose: r.visual?.userData.pose || null, flying: !!r.visual?.userData.flying, shadow: !!r.visual?.userData.flyShadow?.visible, sizeK: r.visual?.userData.sizeK ?? null, drawnHeight: r.visual?.userData.height ?? null,
       beam: l?.userData.beam ? { color: l.userData.color, radius: +l.userData.radius.toFixed(3), casing: +(l.userData.radius * PAWN_BEAM.casing).toFixed(3), from: +l.position.y.toFixed(3), length: +l.children[0].scale.y.toFixed(3), label: l.userData.text, labelY: +(l.position.y + l.userData.tag.position.y).toFixed(3), visible: !!l.visible } : null };
   }
   // wall pieces whose face is seen: sample each long face a little off the wall (ends left out, so a wall that only
@@ -771,12 +841,14 @@ export class AreaWorld {
   // under vision fog a WALL piece is drawn only when its face is known (wallKnown): a wall that merely touches seen ground
   // with its end (one joining from the far side) is not drawn at all, so the known wall's far face stays whole
   fogHidesShell(s) { const fa = s.spec.fogAt; if (fa) { if (!this.fogActive || !this.fogKnown) return false; const y = s.spec.fogY ?? s.spec.y ?? 0, need = s.spec.fogNeed ?? 1; let n = 0; for (const [x, z] of fa) if (this.fogKnown(x, z, y) && ++n >= need) return false; return true; } // (a cave's rock: shown once the floor next to it is known, client/caves.js)
-    return !!this.fogRule?.(s.fogEntity ||= {x:s.spec.x,z:s.spec.z,y:s.spec.y||0,dims:s.spec.dims,rot:s.spec.rot||0,room:s.roomId}) || (!!this.fogActive && s.spec.layer === 'walls' && !this.wallKnown(s)); }
+    return !!this.fogRule?.(s.fogEntity ||= {x:s.spec.x,z:s.spec.z,y:s.spec.y||0,dims:s.spec.dims,rot:s.spec.rot||0,room:s.roomId,layer:s.spec.layer}) || (!!this.fogActive && s.spec.layer === 'walls' && !this.wallKnown(s)); }
   // A THING ON A ROOF (2026-10-27: a turret, a water tank, a flagpole put down on a flat roof) belongs to the roof: with my
   // roofs off the room is open to the sky and there is no roof for it to stand on, so it is not drawn. "On a roof" = a
   // loose thing whose base is a room's TOP with nothing built over it there (core/height.js baseUnder 'top').
+  // (2026-11-06) A PAWN STANDING ON A ROOF goes the same way (docs/KNOWN_BUGS.md "pawns on roofs show with roofs off": it
+  // stood in the air over the open room). Standing: its figure at its base; a pawn raised over the roof (flying) still shows.
   offRoof(e) {
-    if (this.roofsOn || e.kind !== 'object' || e.room || e.parent || !((e.y || 0) > 0.5)) return false;
+    if (this.roofsOn || (e.kind !== 'object' && e.kind !== 'token') || (e.kind === 'object' && (e.room || e.parent)) || !((e.y || 0) > 0.5)) return false;
     this.openRoom ||= (rm) => this.isOpenRoom(rm);
     const b = HT.baseUnder(this.view?.entities, e.x, e.z, e.y, this.openRoom); return b.on === 'top' && Math.abs(b.y - e.y) < 0.1;
   }
@@ -800,14 +872,14 @@ export class AreaWorld {
     const under = { shell: [], things: [] }, U = this.unseenUnder, lid = [], E = this.view?.entities || {}, meets = new Map(), onGround = (id) => { let v = meets.get(id); if (v === undefined) meets.set(id, v = HT.meetsGround(E, E[id])); return v; };
     const fogFloor = new Map(); // room id -> is every piece of its floor kept from this seat by the fog of war? (floorStop)
     for (const s of this.shell.values()) {
-      const fogged = this.fogHidesShell(s), above = this.cutHidden.has(s.roomId), other = above || fogged || this.hillSeeHides(s) || this.takenShell(s), base = this.wallsOn || s.spec.layer === 'floor';
-      if (s.spec.layer === 'floor' && s.roomId) fogFloor.set(s.roomId, fogged && fogFloor.get(s.roomId) !== false);
+      const kept = this.fogHidesShell(s), fogged = kept && !this.floorOnEarth(s), above = this.cutHidden.has(s.roomId), other = above || fogged || this.hillSeeHides(s) || this.takenShell(s), base = this.wallsOn || s.spec.layer === 'floor';
+      if (s.spec.layer === 'floor' && s.roomId) fogFloor.set(s.roomId, kept && fogFloor.get(s.roomId) !== false);
       set(s.group, other || this.unseenShell(s), base, above, s);
       if (other || !base) continue;
       if (U.has(s.roomId)) under.shell.push(s);
       else if (s.spec.layer === 'floor' && !s.spec.slab && (s.hill || onGround(s.roomId))) lid.push(s); // (the lid: a floor on the ground, a hill's top)
     }
-    for (const r of this.recs.values()) { const k = r.entity.kind; if (k === 'object' || k === 'token') { const above = this.cutHides(r.entity), other = above || this.fogRule?.(r.entity) || this.offRoof(r.entity); set(r.group, other || this.unseenThing(r.entity), true, above, r);
+    for (const r of this.recs.values()) { const k = r.entity.kind; if (k === 'object' || k === 'token') { const above = this.cutHides(r.entity), other = above || this.fogRule?.(r.entity) || this.offRoof(r.entity); set(r.group, other || this.unseenThing(r.entity), true, above, r); if (k === 'object') this.ceilingFit(r);
       if (!other && U.size && (r.entity.room ? U.has(r.entity.room) : k === 'token' && this.pawnLevel(r.entity) < 0) && (k === 'token' || !(Math.max(...(r.entity.dims || [9])) < UNDER_SMALL))) under.things.push(r); } } // (not the apples and the candles: too small to read at a faint fade, and each is a draw)
     let sig = under.shell.length * 7 + under.things.length * 13 + lid.length * 17; for (const L of [under.shell, under.things, lid]) for (const x of L) sig = (sig * 31 + x.group.id) % 2147483647;
     this.fogFloors = new Set([...fogFloor].filter(([, v]) => v).map(([k]) => k));
@@ -938,7 +1010,8 @@ export class AreaWorld {
     this.place(r);
     r.ready = this.visualOf(e).then(v => {
       if (!v || this.recs.get(e.id) !== r) return;
-      if (HO.pitOf(e)?.to === 'below') clipPit(v, e); // a through pit: its own black bottom cut out, the floor below shows (core/holes.js)
+      if (HO.pitOf(e)?.sunk) v = sinkPit(v, e); // a sunken piece (the stepwell): lowered so its rim meets the floor, its body in the ground (core/holes.js)
+      else if (HO.pitOf(e)?.to === 'below') clipPit(v, e); // a through pit: its own black bottom cut out, the floor below shows (core/holes.js)
       this.swapVisual(r, v);
       if (this.gmSide && e.hidden) ghostify(v);
       const a = this.anims.get(group); if (a?.m.fade) a.fadeMats = null; // the real mesh fades with the rest of its spawn
@@ -975,7 +1048,10 @@ export class AreaWorld {
   pawnColor(e) { return this.assets.pawnColor?.(e) || e.color || '#d9a441'; }
   tokenMesh(e) {
     const fig = (e.fig || e.placeholder) && this.assets.figures?.pawnVisual(e, { color: this.pawnColor(e), ghost: !!(this.gmSide && e.hidden) }); // (a PLACEHOLDER: the plain figure, blanked: figures.js)
-    if (fig) return fig;
+    if (fig) { // the figure it wears changed (a flying pawn's pose, FLY): what is drawn round it and over its head is redone
+      fig.userData.onPose = () => { const r = this.recs.get(e.id); if (!r || r.visual !== fig) return; this.statusFx?.apply(r, true); this.auraFx?.apply(r); r.labelKey = null; this.refreshTokenLabel(r); this.placeMark?.(r); this.dropHalos(e.id); this.cutDirty = true; this.mwStale = true; };
+      return fig;
+    }
     const g = new THREE.Group();
     const col = new THREE.Color(e.color || '#d9a441');
     const mat = (c) => { const m = new THREE.MeshStandardMaterial({ color: c, roughness: 0.6, transparent: !!(this.gmSide && e.hidden), opacity: this.gmSide && e.hidden ? 0.42 : 1 }); return m; };
@@ -1337,10 +1413,19 @@ void main() {
   }
   // called by main.js just before the main view is drawn (and underDone just after): the quad is in the scene for that one
   // draw only, so no other view, picture or pass ever sees it
+  // WHILE THE HAND MOVES (2026-11-06, the SPEED lane, lever underMove: engine/client/levers.js, docs/PERF.md): a moving
+  // camera made both buffers be drawn again every frame (a full-size depth pass of the lid and a lit half-size pass of the
+  // underground). While the hand moves the faint underground is left out instead, and a moment after it stops it is
+  // drawn once and fades back in over UNDER_FADE_MS. At rest nothing is different. (A redraw every few frames was the
+  // other way: the buffer is screen-space, so a stale one slides against the ground while the camera moves.)
   underPrepass(renderer, camera) {
-    const op = this.underSeeNow(), L = this.underList;
+    let op = this.underSeeNow(); const L = this.underList;
     if (this.underQuad) this.underQuad.visible = false;
     if (!(op > 0) || !L || !(L.shell.length || L.things.length)) { this.underShown = 0; return false; }
+    const now = performance.now();
+    if (this.underMoveSkip?.()) { this.underShown = 0; this.underBack = null; this.underSkipped = (this.underSkipped || 0) + 1; return false; }
+    if (this.underBack === null) this.underBack = now; // (the first frame after the hand stopped)
+    if (this.underBack != null) { const k = Math.min(1, (now - this.underBack) / UNDER_FADE_MS); op *= k * k * (3 - 2 * k); if (k >= 1) this.underBack = undefined; }
     const sz = renderer.getDrawingBufferSize(_ub), w = Math.max(1, sz.x), h = Math.max(1, sz.y), hw = Math.max(1, w >> 1), hh = Math.max(1, h >> 1);
     let lid = this.underLidRT, und = this.underRT;
     if (!lid) {
@@ -1404,8 +1489,16 @@ void main() {
   underInfo() { this.cutPass(); const L = this.underList || { shell: [], things: [] }; return { see: this.underSeeNow(), setting: this.underSee, shown: this.underShown || 0, rooms: [...new Set(L.shell.map(s => s.roomId))].sort(), things: L.things.map(r => r.entity.id).sort(), pieces: L.shell.length, lid: (this.underLid || []).length, draws: this.underDraws || 0, last: this.underLast || null }; }
   // (2026-10-26) a tile of a hill's top where a room stands on it or is dug into it: hidden while that room shows (the room's
   // floor is the floor there), drawn while the cut hides it (the hill is whole again: a shrine cut away leaves the hilltop)
-  takenShell(s) { const tb = s.spec.takenBy; if (!tb) return false; const E = this.view?.entities; return tb.some(id => E?.[id] && !(this.cut != null && this.cutHidden?.has(id))); }
-  takenShownAt(rc, x, z) { const E = this.view?.entities; return HT.terrainTakers(E, HT.roomY(rc)).some(t => FP.contains(t.rc, x, z) && !(this.cut != null && this.cutHidden?.has(t.id))); } // (the same, for the pointer)
+  // (2026-11-24, Harry: "fix the holes in floor bug") a room the fog of war keeps from this seat takes nothing from the hill:
+  // its top is drawn there (the fog's checker, as any unseen ground) instead of a hole into the hill the room's own shape
+  takenShell(s) { const tb = s.spec.takenBy; if (!tb) return false; const E = this.view?.entities; return tb.some(id => E?.[id] && !(this.cut != null && this.cutHidden?.has(id)) && !this.fogKeeps(E[id])); }
+  takenShownAt(rc, x, z) { const E = this.view?.entities; return HT.terrainTakers(E, HT.roomY(rc)).some(t => FP.contains(t.rc, x, z) && !(this.cut != null && this.cutHidden?.has(t.id)) && !this.fogKeeps(E?.[t.id])); } // (the same, for the pointer)
+  fogKeeps(e) { return !!(e && this.fogActive && this.fogRule?.(e)); }
+  // A FLOOR ON THE EARTH OF A HILL IS ALWAYS DRAWN once its room is known (2026-11-24, Harry: "fix the holes in floor bug"): it
+  // stands where the hill's top would be (taken), so an undrawn piece was a hole into the hill. Drawn, its unseen part is the
+  // fog's checker floor (fx/fogwar.js), as unseen floor on flat ground is. An upper storey's unseen floor stays undrawn (under
+  // it is a room, seen or not, not a void), and the fog still counts it kept for picking and covering (fogFloors, cutSets).
+  floorOnEarth(s) { if (s.spec.layer !== 'floor' || !s.roomId) return false; const E = this.view?.entities, r = E?.[s.roomId]; return !!r?.recipe && HT.roomY(r.recipe) > 0 && HT.meetsGround(E, r) && !this.fogKeeps(r); }
   // HILLS (2026-10-24): the banks are worked out again only when a hill (its place, shape, height, ground, rock sides),
   // the area's ground, a room near it, or (2026-10-26) the rooms the cut hides that take a hill changed; a quick key
   // first, the field itself only then (client/terrain.js)
@@ -1643,7 +1736,7 @@ void main() {
     const g = r.group, was = r.tiltKey; r.tiltKey = key; r.tiltOn = v;
     if (!key) {
       if (r.tiltNode) { g.add(v); r.tiltNode.removeFromParent(); r.tiltNode = null; }
-      if (was) { g.userData.pickR = undefined; g.matrixWorldNeedsUpdate = true; this.mwStale = true; this.dropHalos(r.entity.id); }
+      if (was) { g.userData.pickR = undefined; g.matrixWorldNeedsUpdate = true; this.mwStale = true; this.dropHalos(r.entity.id); if (r.it && !this.posing) this.settler.enqueueRiders?.(r.it); }
       return;
     }
     let n = r.tiltNode; if (!n) { n = r.tiltNode = new THREE.Group(); n.userData.tilt = true; g.add(n); }
@@ -1656,6 +1749,16 @@ void main() {
     g.userData.pickR = Math.hypot(w, h, d) + 6; // the pointer's "could this ray touch it" sphere (nearRay): any way up
     g.matrixWorldNeedsUpdate = true; this.mwStale = true; this.cutDirty = true;
     if (was !== key) this.dropHalos(r.entity.id); // the brackets are measured round the thing as it lies
+    if (was !== key && r.it && !this.posing) this.settler.enqueueRiders?.(r.it); // (2026-11-06) what stands on it is seated again, on its top as it lies now
+  }
+  // (2026-11-06) run `fn` with these things posed as they WILL lie (poses: Map id -> quat, null = upright), then put them
+  // back as their data says: so a ray can ask what is under a spot once a table has been tipped, before the tip is sent
+  // (main.js tiltLandings). fn gets the posed things' world bounds.
+  withTilts(poses, fn) {
+    const recs = [...poses.keys()].map(id => this.recs.get(id)).filter(r => r && r.visual && !r.asleep);
+    this.posing = true; // (seatTilt: no re-seating of what stands on them for a pose that is only asked about)
+    try { for (const r of recs) this.seatTilt(r, poses.get(r.entity.id) || null); this.settleMatrices(); return fn(new Map(recs.map(r => [r.entity.id, this.boundsOf(r)]))); }
+    finally { for (const r of recs) this.seatTilt(r); this.settleMatrices(); this.posing = false; }
   }
   // a thing's mesh arrived or was rebuilt: it takes the stand-in's place (inside the tilt, when the thing is tilted)
   // OPEN / SHUT (2026-10-30, client/openlook.js): motion over OPEN_MS (eased), or at once when the viewer asked for
@@ -1685,7 +1788,8 @@ void main() {
     }
   }
   openingNow() { return this.openAnims?.size || 0; } // (tests: a door still swinging)
-  swapVisual(r, v) { r.visual?.removeFromParent(); r.visual = v; if (r.it) r.it.visual = v; (r.tiltNode || r.group).add(v); if (r.entity.kind === 'object' && !this.anims.has(r.group)) this.seatTilt(r); }
+  swapVisual(r, v) { r.visual?.removeFromParent(); r.visual = v; if (r.it) r.it.visual = v; (r.tiltNode || r.group).add(v); if (r.entity.kind === 'object' && !this.anims.has(r.group)) this.seatTilt(r); this.ceilingFit(r); }
+  ceilingFit(r) { const v = r.visual; if (!v || r.entity.kind !== 'object' || !CEILING_FIT.test(r.entity.cat || '')) return; const show = AreaWorld.CEILING_FITTINGS === 'always' || !!this.eye; if (v.visible !== show) v.visible = show; }
   // (tests) a thing's box in the world as drawn, from its vertices: { min, max } in feet
   drawnBox(id) { const r = this.recs.get(id); if (!r?.visual) return null; this.settleMatrices(); r.group.updateMatrixWorld(true); const b = vertexBox(r.visual, r.visual.parent.matrixWorld); return b && { min: b.min.toArray(), max: b.max.toArray(), standIn: !!r.visual.userData?.placeholder, tilted: !!r.tiltNode }; }
 
@@ -1799,8 +1903,8 @@ void main() {
         c = { obj: cursorMesh(s, text), text, color: s.color };
         this.cursors.set(s.seat, c); this.layers.cursors.add(c.obj);
       }
-      let cy = s.pos[2] || 0; if (this.roofsOn && this.roofRecs?.size) { _down.set(new THREE.Vector3(s.pos[0], 400, s.pos[1]), DOWN); const rf = this.roofAt(_down, true); if (rf && rf.point.y > cy) cy = rf.point.y; } // with my roofs showing, on the roof over that spot (a deck, a pitch), not under it
-      c.obj.position.set(s.pos[0], cy, s.pos[1]); c.obj.visible = this.cut == null || HT.visibleAt(cy, this.cut) || !this.cutHidesPoint(s.pos[0], s.pos[1], cy); // on the floor it points at; a cursor above my cut is not drawn, unless it is on what shows there (a hilltop, a building standing clear on one: 2026-10-26)
+      let cy = s.pos[2] || 0, up = cy + (s.pos[3] || 0); if (this.roofsOn && this.roofRecs?.size) { _down.set(new THREE.Vector3(s.pos[0], 400, s.pos[1]), DOWN); const rf = this.roofAt(_down, true); if (rf && rf.point.y > up) cy = up = rf.point.y; } // with my roofs showing, on the roof over that spot (a deck, a pitch), not under it
+      c.obj.position.set(s.pos[0], up, s.pos[1]); // (2026-11-06) on what the pointer is over (`up`: the table's top, the pawn), not the floor behind it; which floor it is (cy) still decides the cut and the fog c.obj.visible = this.cut == null || HT.visibleAt(cy, this.cut) || !this.cutHidesPoint(s.pos[0], s.pos[1], cy); // on the floor it points at; a cursor above my cut is not drawn, unless it is on what shows there (a hilltop, a building standing clear on one: 2026-10-26)
       // VISION FOG (Harry 2026-10-15): other people's cursors show through it, dimmed and ringed where I cannot see the spot
       // ("pointing into the unknown"); drawn again after the fog pass (fogwar.js overlays), the way rulers are. The GM's is
       // withheld there unless GM_CURSOR_THROUGH_FOG: they may be standing in the room they are preparing.
@@ -1970,7 +2074,9 @@ void main() {
     const want = new Map();
     // (not on the Build library's shelves, a local area: a stair lying there for the taking leads nowhere by design;
     //  2026-10-25, the stairs joined the shelves and every one wore "No floor above yet", over its neighbours)
-    if (!this.local) for (const W of ST.stairWarnings(ents)) if (!W.off) want.set(W.s.id, { s: W.s, Q: W, text: ST.STAIR_NOTE[W.code] || 'Leads nowhere' }); // (W.off: the GM dismissed this warning, 2026-11-02; surfaces/stairnotes.js is its ×)
+    // (2026-11-06) and only on the GM side: a stair's warning is a note to whoever builds the map, so a player seat (and
+    // the GM previewing what players see, which syncs with gmSide false: fog.js setVisionViewer) never draws one
+    if (!this.local && this.gmSide) for (const W of ST.stairWarnings(ents)) if (!W.off) want.set(W.s.id, { s: W.s, Q: W, text: ST.STAIR_NOTE[W.code] || 'Leads nowhere' }); // (W.off: the GM dismissed this warning, 2026-11-02; surfaces/stairnotes.js is its ×)
     this.stairNotes ||= new Map();
     for (const [id, t] of this.stairNotes) if (!want.has(id)) { t.parent?.remove(t); t.material.map?.dispose(); this.stairNotes.delete(id); }
     for (const [id, w] of want) {
@@ -2125,7 +2231,7 @@ void main() {
     if (e.kind === 'room') { const c = e.recipe, ry = HT.roomY(c); return new THREE.Box3(new THREE.Vector3(c.x * CELL, ry, c.z * CELL), new THREE.Vector3((c.x + c.w) * CELL, ry + 0.3, (c.z + c.d) * CELL)); }
     const b = new THREE.Box3();
     r.group.updateMatrixWorld(true);
-    r.group.traverse(o => { if (o.isMesh && !(o instanceof THREE.Sprite) && !o.userData.halo && !o.userData.pickPad) { if (skip) for (let q = o; q && q !== r.group; q = q.parent) if (q === skip) return; o.geometry.computeBoundingBox?.(); b.union(o.geometry.boundingBox.clone().applyMatrix4(o.matrixWorld)); } });
+    r.group.traverse(o => { if (o.isMesh && !(o instanceof THREE.Sprite) && !o.userData.halo && !o.userData.pickPad) { if (skip) for (let q = o; q && q !== r.group; q = q.parent) if (q === skip) return; geoBox(o.geometry); if (o.geometry.boundingBox) b.union(_bb.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld)); } });
     return b.isEmpty() ? null : b.expandByScalar(0.08);
   }
   shellBounds(key) { const s = this.shell.get(key); if (!s) return null; s.group.updateMatrixWorld(true); return new THREE.Box3().setFromObject(s.group); }
@@ -2149,7 +2255,7 @@ void main() {
       for (const g of this.layers.things.children) { asked++; if (g.userData.cutHidden || !this.nearRay(ray, g)) continue; const r = this.recs.get(g.userData.entityId); if (r && r.group === g && (r.entity.kind === 'token' || r.entity.kind === 'object') && !this.cutHides(r.entity)) near.push(g); }
       for (const g of this.layers.shell.children) { asked++; if (!g.visible || !(g.userData.edgeKey || g.userData.roomPiece) || !this.nearRay(ray, g)) continue; near.push(g); }
     }
-    const out = [], seen = new Set();
+    const out = [], seen = new Set(), dist = new Map();
     const roof = this.roofAt(raycaster); // a roof that is showing is in the way of everything under it (you can only click what you can see)
     const stop = this.floorStop(raycaster.ray) + STOP_SLACK; // and so is a floor, a slab or the ground (floorStop)
     this.lastPick = { asked, tested: near.length }; // (tests, measurements)
@@ -2162,8 +2268,14 @@ void main() {
       const k = o.userData.entityId || (ek ? 'wall:' + ek : 'piece:' + o.userData.roomPiece);
       if (seen.has(k)) continue; seen.add(k);
       out.push(o.userData.entityId ? { entity: this.recs.get(o.userData.entityId)?.entity, point: h.point, ...(h.object.userData.pawnHandle && { handle: true }) } : ek ? { wall: ek, point: h.point } : { entity: this.view?.entities[o.userData.roomPiece], point: h.point, piece: true }); // a bracket or post under an overhang selects its room
+      dist.set(out[out.length - 1], h.distance);
     }
-    const rank = (h) => h.entity?.kind === 'token' ? 0 : h.entity?.place === 'ceiling' ? 2 : isTile(h.entity) ? 3 : 1; // a floor tile: under everything on it
+    // (2026-11-06) A WALL HIDES WHAT IS BEHIND IT. The stack puts a pawn first wherever the ray meets it (a pawn among the
+    // furniture is what you mean), but not through a wall: what the ray meets past the first wall piece comes after that
+    // wall, in the order met, so a click on a wall takes the wall and a click again goes on to the pawn behind it
+    // ("a click on a wall picks the pawn behind it", docs/KNOWN_BUGS.md). 0.15 ft of slack for a thing hung flush on the wall.
+    const wallAt = out.find(h => h.wall || h.piece), wd = wallAt ? dist.get(wallAt) + 0.15 : Infinity;
+    const rank = (h) => h !== wallAt && !h.wall && !h.piece && dist.get(h) > wd ? 4 : h.entity?.kind === 'token' ? 0 : h.entity?.place === 'ceiling' ? 2 : isTile(h.entity) ? 3 : 1; // a floor tile: under everything on it
     out.sort((a, b) => rank(a) - rank(b));
     if (roof) { out.push({ roof: roof.id, point: roof.point, ...(roof.trim && { trim: roof.trim }) }); return out; } // then the roof itself (selection 'roof:<room id>'); never the floor under it
     // the room under the ray: the highest room floor the ray meets (floorPoint)
@@ -2331,7 +2443,7 @@ const roomOfVertex = (rooms, v) => (rooms.find(r => v.gx >= r.x && v.gx <= r.x +
 function visualKey(e) {
   if (e.kind === 'token') return `t|${e.color}|${e.hidden}|${e.fig || ''}|${e.size || 1}|${e.owner || ''}|${e.main ? 'main' : ''}|${e.placeholder ? 'ph' : ''}`;
   if (e.kind === 'room' || e.kind === 'building') return `${e.kind}`;
-  return `o|${e.sku}|${e.url}|${e.flat}|${e.rise || ''}|${(e.s || []).join(',')}|${(e.dims || []).join(',')}|${e.open}|${e.hidden}|${e.yaw}${isTile(e) ? `|${e.cat}|${cellKey(e.x, e.z)}` : ''}${HO.pitOf(e)?.to === 'below' ? `|pit:${e.x},${e.z},${e.y || 0},${e.rot || 0}` : ''}`; // a tile's look depends on its world cell (a through pit's cut-out on where it stands)
+  return `o|${e.upload || ''}|${e.sku}|${e.url}|${e.flat}|${e.rise || ''}|${(e.s || []).join(',')}|${(e.dims || []).join(',')}|${e.open}|${e.hidden}|${e.yaw}${isTile(e) ? `|${e.cat}|${cellKey(e.x, e.z)}` : ''}${HO.pitOf(e)?.to === 'below' ? `|pit:${e.x},${e.z},${e.y || 0},${e.rot || 0}` : ''}`; // a tile's look depends on its world cell (a through pit's cut-out on where it stands)
 }
 // fade (the tuner's setOpacity): per-animation material clones, released when the spawn ends
 function setOpacity(g, a, op) {
@@ -2377,6 +2489,8 @@ export const SUPPORT_KIT = {
   post: { ids: ['post-timber', 'pillar-square'], skus: ['--plain', '--s1'], box: [1, 9, 1], fit: {}, own: true },
   buttress: { ids: ['pillar-square', 'buttress'], skus: ['--s1'], box: [2.5, 9, 2.5], fit: {}, own: true }, // a free-standing stone pier (the buttress piece is drawn to lean on a wall)
 };
+const CEILING_FIT = /^(light-fluorescent|range-hood|camera-dome)$/; // (2026-11-07, modrooms: the kitchen's canopy hood over the range hid the range from the table; vehicles lane: the dome camera)
+// (AreaWorld.CEILING_FITTINGS) a ceiling fitting that reads as floor clutter from the table
 const SUPPORT_BOX = { bracket: [0.7, 2.4, 2.2], corbel: [0.9, 1.5, 1.5], post: [0.8, 9, 0.8], buttress: [1.4, 9, 1.4] };
 export function resolveSupportKit(lib) {
   const out = {};
@@ -2461,6 +2575,9 @@ export function roofPiece(lib, p, roof, heightAt = () => null) {
   }
   // (2026-10-27) the edges of a flat roof: battlements and their corner block, a deck's timber railing, a corner turret.
   // Each role takes the first of its catalog ids the library has (roofs.js ROOF_KIT: the planner already chose, p.cat)
+  // (2026-11-07) a culture's ornament (roofs.js ROOF_ORNAMENTS, a ridge end): the generated piece, kept to its own
+  // proportions inside the box the planner gave it (a dome, a shikhara: scaled to the roof)
+  if (p.fit === 'ornament') { const cat = p.cat; if (!cat) return null; const sku = KF.pickSku(lib, cat, []); if (!sku) return null; return { cat, sku: sku.sku, url: sku.url, dims: p.dims, fit: { uniform: 'fit' }, dy: 0 }; }
   const simple = { parapet: [{ long: 'x' }, 0], corner: [{}, 0], finial: [{}, -0.25], battlement: [{ long: 'x' }, 0], merlon: [{}, 0], turret: [{}, 0], railing: [{ long: 'x' }, 0] }[p.role];
   if (!simple) return null;
   const cat = p.cat || { parapet: 'parapet-straight', corner: 'parapet-corner', finial: 'roof-finial' }[p.role]; if (!cat) return null;

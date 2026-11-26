@@ -257,6 +257,9 @@ cmd_candidate() {
   cp -al "$DEV_WEB/tuner/assets" "$TMP/tuner/assets"
   git -C "$MAIN" archive "$SHA" engine/relay engine/core engine/package.json | tar -x -C "$TMP/app" --strip-components=1
   cp -a "$MAIN/engine/node_modules" "$TMP/app/node_modules"
+  # the upload converter's own packages (2026-11-06, docs/UPLOADS.md): `npm ci` in engine/relay/upload-worker on main first.
+  # Without them a relay simply says it cannot convert models (uploads are off on prod until the safe-harbour record anyway)
+  if [[ -d "$MAIN/engine/relay/upload-worker/node_modules" ]]; then cp -a "$MAIN/engine/relay/upload-worker/node_modules" "$TMP/app/relay/upload-worker/node_modules"; fi
   python3 - "$TMP/release.json" "$ID" "$SHA" "$V" "$TV" <<'PY'
 import json, sys, datetime, getpass
 out, id_, sha, v, tv = sys.argv[1:]

@@ -26,8 +26,8 @@ trap 'rm -rf "$STAGE"' EXIT
 "$SRC/../tests/check_source_sane.sh" || { echo "NOT DEPLOYED: the source tree is not sane (see above)"; exit 1; }
 python3 "$SRC/tools/build_types.py"   # the Build menu's types from the catalog's setting codes (client/data/types.json)
 python3 "$SRC/tools/build_site.py"    # About, Terms, Privacy, Connect D&D Beyond: docs/site/*.md -> client/site/*.html (served at /about, /terms, /privacy, /connect-dnd-beyond)
-# the phone page's film and poster (client/phone.js): generated, not in git; made once from the approved master
-"$SRC/tools/build_phone_media.sh" || { echo "NOT DEPLOYED: the phone page's film is missing (engine/tools/build_phone_media.sh)"; exit 1; }
+# the phone front door's film loop and poster (client/phone.js, index.html #front): generated, not in git; made once from the approved master
+"$SRC/tools/build_phone_media.sh" || { echo "NOT DEPLOYED: the phone front door's film is missing (engine/tools/build_phone_media.sh)"; exit 1; }
 # the help page Connect D&D Beyond's film and pictures (client/site/ddb/): generated, not in git; copied from the USB disk
 "$SRC/tools/build_ddb_media.sh" || { echo "NOT DEPLOYED: the Connect D&D Beyond page's film or pictures are missing (engine/tools/build_ddb_media.sh)"; exit 1; }
 # the assets page's pictures (client/site/library/): generated, not in git; masters on the USB disk, a new look's picture drawn
@@ -63,8 +63,8 @@ if (L.objects.length < 10) throw new Error('room engine produced ' + L.objects.l
 console.log('room engine ok:', rg.version, L.objects.length, 'objects, hash', L.hash);
 "
 grep -q '"v"' "$WEB/tuner/version.json" || { echo "the tuner has no version.json: deploy the tuner first (tools/spawn-tuner/deploy.sh)"; exit 1; }
-mkdir -p "$DST"
-rsync -a --delete "$STAGE/" "$DST/"
+# the copy sets the modes itself, 644 / 755 (the stage is a 700 mktemp folder of 660 files; tools/publish_tree.sh, 2026-11-06)
+"$SRC/../tools/publish_tree.sh" "$STAGE/" "$DST/" --delete
 find "$DST" -type d -exec chmod 755 {} +
 find "$DST" -type f -exec chmod 644 {} +
 echo "deployed client v=$V ($(du -sh "$DST" | cut -f1)) to $DST; tuner $(cat "$WEB/tuner/version.json")"

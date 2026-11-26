@@ -2,7 +2,8 @@
 // a room type's things come from its library area in the PiP). Like folders, with symlinks: a thing that belongs in
 // several places is listed in each. Built at boot from what already exists:
 //   types      the catalog's setting codes (TAV, NOB, CAS…), engine/client/data/types.json (tools/build_types.py)
-//   rooms      the tuner's room recipes; a room's recipes ('tav-common-room') name its type
+//   rooms      the tuner's room recipes; a room's recipes ('tav-common-room') name its type, or a type lists its rooms
+//              (the Modern genre's buildings: engine/tools/modern_buildings.json)
 //   furniture  a room's recipe slots, things that stand, hang or mount on their own (catalog place floor / wall /
 //              ceiling / ground: the "furnish / store" side)
 //   objects    the room's things that sit ON something (place 'surface': the "dress" side), listed under each piece of
@@ -41,12 +42,14 @@ export function buildTaxonomy({ lib, roomTypes, data, usable = () => true, spawn
   const libItem = (id) => { const o = lib.objects[id]; return o && placeOf(o) !== 'kit' && !isOpenState(lib, id) && !isFactionSlot(id) && o.skus.some(k => (k.kind === 'flat' || k.bounds) && usable(k)) ? o : null; };
   const add = (n) => { nodes.set(n.id, n); return n; };
 
-  const genres = data.genres.map(g => add({ id: `g:${g.key}`, level: 'genre', label: g.label, key: g.key, parent: null, children: [] }));
+  const genres = data.genres.map(g => add({ id: `g:${g.key}`, level: 'genre', label: g.label, key: g.key, parent: null, children: [], ...(g.pack && { pack: g.pack, was: g.was || [] }) })); // (pack: a genre the assets page shows as ONE pack, the Modern genre; was: the old slugs a link may carry)
   for (const t of data.types) {
     const g = nodes.get(`g:${t.genre}`); if (!g) continue;
-    const rooms = roomTypes.filter(r => (r.recipes || []).some(x => x.startsWith(t.code.toLowerCase() + '-')));
+    // a type's rooms: its own list when it has one (the Modern genre's buildings, engine/tools/modern_buildings.json: rooms
+    // join a building by that map, in its order, 2026-11-07), else the rooms whose recipes carry its code ('tav-common-room')
+    const rooms = t.rooms ? t.rooms.map(k => roomTypes.find(r => r.key === k)).filter(Boolean) : roomTypes.filter(r => (r.recipes || []).some(x => x.startsWith(t.code.toLowerCase() + '-')));
     const have = t.roles.filter(id => libItem(id)).length;
-    const tn = add({ id: `t:${t.code}`, level: 'type', label: t.label, code: t.code, parent: g.id, children: [], have, roles: t.roles.length,
+    const tn = add({ id: `t:${t.code}`, level: 'type', label: t.label, code: t.code, parent: g.id, children: [], have, roles: t.roles.length, ...(t.hub && { hub: t.hub }), ...(t.hall && { hall: t.hall }), ...(t.lift && { lift: true }),
       note: rooms.length ? `${rooms.length} room${rooms.length === 1 ? '' : 's'}` : 'no room recipes yet', disabled: !rooms.length });
     g.children.push(tn.id);
     for (const r of rooms) {
@@ -123,7 +126,7 @@ export function buildTaxonomy({ lib, roomTypes, data, usable = () => true, spawn
   for (const n of nodes.values()) assignKeys(n.children.map(id => nodes.get(id)));
   assignKeys(genres);
   return {
-    nodes, genres: genres.map(g => g.id),
+    nodes, genres: genres.map(g => g.id), legacy: data.legacy || {}, // (legacy: an old saved building's type code -> the type that re-rolls it; main.js nodeOfCode)
     get: (id) => nodes.get(id),
     childrenOf: (id) => (id == null ? genres.map(g => g.id) : nodes.get(id)?.children || []).map(c => nodes.get(c)),
     siblingsOf: (id) => { const n = nodes.get(id); return n?.parent ? nodes.get(n.parent).children.map(c => nodes.get(c)) : genres; },

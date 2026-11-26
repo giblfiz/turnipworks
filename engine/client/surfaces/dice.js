@@ -15,7 +15,7 @@
 // EVERY SEAT plays the recording when the entry arrives (camera, zoom and world copy do not matter), turning each die's
 // numbering to the committed number. The chat line and the big announce wait for the dice to settle (the house look's
 // timing.result: 'settle', or 'now'). A die is drawn only where THIS viewer can see, the rule pawns follow (a player
-// never sees the GM's dice land in the dark). The dice in the air stir the fog (fx addStirrers). Settings ▸ Me ▸ 3D dice
+// never sees the GM's dice land in the dark). The dice in the air stir the fog (fx addStirrers). Settings ▸ Controls ▸ 3D dice
 // off: nothing is drawn (the line still comes).
 import { T } from '../tuner.js';
 import { parseDice, faceTag } from '../dice.js';

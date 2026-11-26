@@ -1,0 +1,85 @@
+town: ANGLE (NVIDIA, Vulkan 1.4.329 (NVIDIA NVIDIA GeForce RTX 3060 (0x00002504)), NVIDIA) (up in 5.0 s)
+ok
+
+ CPU profile of rest (2835.0 ms), total time by function:
+     2226.4  (root) :0
+     2125.9  frame main.js?v=dev:1453
+     2121.1  frameInner main.js?v=dev:1460
+     1883.2  w :36
+     1238.4  render index.js:257
+     1237.2  render lighting.js:443
+     1237.2  L.render :42
+     1236.9  render postprocessing-6.39.5.js:1297
+     1217.3  WebGLRenderer.render three.module.js:29998
+     1181.6  render postprocessing-6.39.5.js:6896
+      730.3  renderScene three.module.js:30298
+      707.7  renderObjects three.module.js:30446
+      655.6  WebGLRenderer.renderBufferDirect three.module.js:29609
+      468.1  frame world.js:1732
+      459.1  projectObject three.module.js:30184
+      368.5  setProgram three.module.js:30647
+      212.0  beforeRender world.js:322
+      206.2  frame index.js:256
+      187.9  updateMatrices world.js:226
+      161.2  poseRec world.js:1714
+      144.3  app.emit main.js?v=dev:518
+      142.9  setup three.module.js:15263
+ self time:
+      363.1  projectObject three.module.js:30184
+      122.7  poseRec world.js:1714
+      103.2  touchGroup world.js:249
+       97.3  WebGLRenderer.renderBufferDirect three.module.js:29609
+       87.8  frame target.js:97
+       78.9  intersectsObject three.module.js:13499
+       62.6  frame world.js:1732
+       58.6  needsUpdate three.module.js:15387
+       52.0  setProgram three.module.js:30647
+       50.1  setup three.module.js:15263
+       47.3  refreshUniformsCommon three.module.js:28060
+       41.6  updateMatrixWorld three.module.js:7811
+
+ CPU profile of pan (5709.4 ms), total time by function:
+     5413.6  (root) :0
+     5114.5  frame main.js?v=dev:1453
+     5098.2  frameInner main.js?v=dev:1460
+     4582.4  w :36
+     2634.8  render index.js:257
+     2634.3  L.render :42
+     2634.0  render lighting.js:443
+     2631.1  render postprocessing-6.39.5.js:1297
+     2589.4  WebGLRenderer.render three.module.js:29998
+     2516.5  render postprocessing-6.39.5.js:6896
+     1572.9  renderScene three.module.js:30298
+     1547.7  renderObjects three.module.js:30446
+     1485.1  renderObject three.module.js:30469
+     1406.0  WebGLRenderer.renderBufferDirect three.module.js:29609
+     1303.3  frame world.js:1732
+      960.1  projectObject three.module.js:30184
+      839.9  setProgram three.module.js:30647
+      488.3  app.emit main.js?v=dev:518
+      485.2  w :51
+      477.4  beforeRender world.js:322
+      459.9  frame index.js:256
+      417.2  updateMatrices world.js:226
+ self time:
+      739.8  projectObject three.module.js:30184
+      219.1  WebGLRenderer.renderBufferDirect three.module.js:29609
+      218.3  (anon) labels.js:101
+      191.4  touchGroup world.js:249
+      184.0  (program) :0
+      173.5  poseRec world.js:1714
+      168.4  frame target.js:97
+      145.3  frame world.js:1732
+      129.0  traverse three.module.js:7759
+      113.5  needsUpdate three.module.js:15387
+      108.7  applyMatrix4 three.module.js:4207
+      104.4  updateMatrixWorld three.module.js:7811
+
+== local · town · asis · round 1 · preset low · ANGLE (NVIDIA, Vulkan 1.4.329 (NVIDIA NVIDIA GeForce RTX 306
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    78  36.5 | 33.3  33.4    50    50    1 |   25.4   40.4 |    38    38 |  2.6    3.7 |   978    0     0 | lowres 0% tried 
+ pan     |   185  34.6 | 33.3  33.4  83.3   117    3 |   25.2   36.3 |    51    71 |  3.0    4.6 |  1053    0     1 | lowres 0% tried small-,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 15.5  world 6.2  fxFrame 2.6  emit 1.8
+   pan     fxRender 14.1  world 7.4  emit 2.6  fxFrame 2.5  interact 0.5
+tw_sandbox: live house look and ratings unchanged by this run (sandbox lightuse-1764865-6aeed542)

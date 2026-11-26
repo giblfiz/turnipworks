@@ -26,14 +26,14 @@
   var figPic = function (id) { var f = D.figures[id]; return D.media + 'f/' + id + '-' + f.x.split('-').pop() + '.webp'; };
   var lookFile = function (t, sku) { return D.files + (t.f ? 'assets/flat/' + sku + '.webp' : 'assets/m/' + sku + '.glb'); };
   var figFile = function (id) { return D.files + 'assets/figures/' + id + '--' + D.figures[id].x + '.glb'; };
-  var packBy = function (slug) { return D.packs.filter(function (p) { return p.slug === slug; })[0]; };
+  var packBy = function (slug) { return D.packs.filter(function (p) { return p.slug === slug || (p.was || []).indexOf(slug) >= 0; })[0]; }; // (was: a pack's old slugs, 2026-11-07: modern-city and cyberpunk are the Modern pack)
   var heroSrc = function (p, w) { var h = CFG.heroes[p.slug]; return h ? D.media + 'h/' + h + '-' + w + '.webp' : null; };
 
   // ---- sizes, in feet (the catalog is in inches) ----
   var ft = function (inch) { var f = inch / 12; return f < 1 ? Math.round(inch) + ' in' : (Math.round(f * 10) / 10) + ' ft'; };
   var sizeText = function (s) { return s ? ft(s[0]) + ' × ' + ft(s[1]) + ', ' + ft(s[2]) + ' tall' : null; };
   var PLACE = { floor: 'stands on the floor', wall: 'hangs on a wall', ceiling: 'hangs from the ceiling', surface: 'sits on a table or shelf', kit: 'set along a 5-ft grid line', tile: 'a 5-ft floor tile', ground: 'stands on open ground', stair: 'a stair' };
-  var GROUP = { hero: 'Hero', townsfolk: 'Townsfolk', foe: 'Foe', large: 'Large creature', beast: 'Beast or mount' };
+  var GROUP = { hero: 'Hero', townsfolk: 'Townsfolk', foe: 'Foe', large: 'Large creature', beast: 'Beast or mount', runner: 'Runner', modern: 'Modern person', robot: 'Robot or drone' };
 
   // ---- cards ----
   function thingCard(e) {
@@ -58,6 +58,21 @@
     var v = p.code + (r ? '/' + r.key : '');
     return '<a class="btn primary" href="/?pack=' + encodeURIComponent(v) + '">Use it in Turnip Works</a>';
   }
+  // ---- a pack's zips on the GitHub release (CFG.release: only when it is published; site_assets.release) ----
+  var size = function (b) { return b >= 1e9 ? (b / 1e9).toFixed(1) + ' GB' : b >= 10e6 ? Math.round(b / 1e6) + ' MB' : (b / 1e6).toFixed(1) + ' MB'; };
+  function downloads(p, r) {
+    var zs = CFG.release && CFG.release.packs[p.slug]; if (!zs || !zs.length) return '';
+    // a figure group's view: the game zip (every figure) and that group's HD zip; anywhere else the pack's zips
+    var show = zs.filter(function (z) { return !(r && z.group && z.group !== r.key); });
+    var btn = function (z) { return '<a class="btn dlb" href="' + E(z.url) + '" download><span aria-hidden="true">↓</span> Download ' + (z.edition === 'hd' ? 'HD' : 'game') + ' edition' + (z.label ? ' · ' + E(z.label) : '') + ' <small>' + E(size(z.bytes)) + '</small></a>'; };
+    // several HD zips (the figures, one per group): one button that opens the list, not a wall of buttons beside the group
+    // chips of the same names (Gemini's reads, 2026-11-07)
+    var hd = show.filter(function (z) { return z.edition === 'hd'; }), many = hd.length > 1;
+    return '<div class="dls"><span class="dlh">Download the ' + (p.kind === 'figures' ? 'figures' : 'pack') + '</span>' + show.filter(function (z) { return !(many && z.edition === 'hd'); }).map(btn).join('') +
+      (many ? '<details class="hdd"><summary class="btn dlb">HD edition, by group · ' + hd.length + ' zips <small>' + E(size(hd.reduce(function (n, z) { return n + z.bytes; }, 0))) + '</small> <span class="chev" aria-hidden="true">▾</span></summary><p class="hdl">' +
+        hd.map(function (z) { return '<a class="dl" href="' + E(z.url) + '" download><span aria-hidden="true">↓</span> HD · ' + E(z.label) + ' <small>' + E(size(z.bytes)) + '</small></a>'; }).join('') + '</p></details>' : '') +
+      '<a class="all" href="' + E(CFG.release.page) + '">All packs on GitHub</a></div>';
+  }
   function packView(p, r) {
     var hero = heroSrc(p, 1200), n = p.things.length;
     var h = crumbs(p, r) + '<div class="phead' + (hero && !r ? ' has-hero' : '') + '">' +
@@ -66,7 +81,7 @@
       '<p>' + (r ? E(p.label) + (r.cells ? ' · drawn ' + r.cells[0] * 5 + ' × ' + r.cells[1] * 5 + ' ft to start' : '') : E(CFG.blurbs[p.slug] || '')) + '</p>' +
       '<p class="small">' + (r ? '' : E(p.kind === 'figures' ? n + ' figures' : p.rooms.length + ' ' + (p.kind ? 'groups' : 'rooms') + ', ' + n + ' things')) + '</p>' +
       '<div class="acts">' + useLink(p, r) + '<button type="button" class="copy" data-link="' + E(location.pathname + '#pack/' + p.slug + (r ? '/' + r.key : '')) + '">Copy link</button>' +
-      (p.kind ? '' : '<span class="hint">As the GM: opens your table with the Build menu at this ' + (r ? 'room' : 'pack') + '. Nothing is built until you drag it out.</span>') + '</div></div></div>';
+      (p.kind ? '' : '<span class="hint">As the GM: opens your table with the Build menu at this ' + (r ? 'room' : 'pack') + '. Nothing is built until you drag it out.</span>') + '</div>' + downloads(p, r) + '</div></div>';
     h += '<ul class="chips" aria-label="Rooms"><li><a href="#pack/' + E(p.slug) + '"' + (r ? '' : ' aria-current="page"') + '>All ' + E(p.kind === 'figures' ? 'figures' : 'things') + '</a></li>' +
       p.rooms.map(function (x) { return '<li><a href="#pack/' + E(p.slug) + '/' + E(x.key) + '"' + (x === r ? ' aria-current="page"' : '') + '>' + E(x.label) + '</a></li>'; }).join('') + '</ul>';
     if (r) {
@@ -176,7 +191,7 @@
       var html = '', p, r, mm;
       if ((mm = h.match(/^pack\/([^/]+)(?:\/(.+))?$/)) && (p = packBy(mm[1]))) {
         r = mm[2] ? p.rooms.filter(function (x) { return x.key === mm[2]; })[0] : null;
-        if (mm[2] && !r) { location.replace('#pack/' + p.slug); return; }
+        if ((mm[2] && !r) || mm[1] !== p.slug) { location.replace('#pack/' + p.slug + (r ? '/' + r.key : '')); return; }
         html = packView(p, r); count.textContent = ''; if (q.value) q.value = '';
       } else if ((mm = h.match(/^find\/(.*)$/))) {
         if (q.value !== mm[1]) q.value = mm[1];

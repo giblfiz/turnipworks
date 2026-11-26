@@ -1,0 +1,133 @@
+{
+ "file": "cul-mde-small-rogue.glb",
+ "tris": 49437,
+ "kb": 2520,
+ "native_extent": [
+  0.589,
+  1.001,
+  0.396
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  105,
+  52,
+  24
+ ],
+ "mean_saturation": 0.781,
+ "sized_by": "its highest point",
+ "overall_ft": 3.1,
+ "pieces": {
+  "connected_parts": 7,
+  "main_part_area_share": 0.9996,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.0957,
+ "y0": -1.55,
+ "stated_ft": {
+  "body": 3.1,
+  "figure_top": 3.1,
+  "overall": 3.1
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2964,
+   -0.5007,
+   -0.1977
+  ],
+  [
+   0.2927,
+   0.5007,
+   0.198
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49437,
+   "tex": 2048,
+   "kb": 2520
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1010
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 434
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.57,
+    "z": 0.15,
+    "size_ft": [
+     0.67,
+     0.75
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.039
+   },
+   {
+    "x": -0.52,
+    "z": -0.12,
+    "size_ft": [
+     0.68,
+     0.71
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.038
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 0.61,
+  "plan_hull_area_sqft": 1.6,
+  "lowest_slab_share_of_plan": 0.379
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.82,
+   "d": 1.22,
+   "h": 3.1
+  },
+  "centre": [
+   0.024,
+   0.122
+  ],
+  "contacts_radius_ft": 0.9,
+  "reach_radius_ft": 0.95,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.921,
+  "plate_lost_share": 0.012,
+  "added_share": 0.073,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.921,
+  "view_yaw_deg": 350,
+  "view_elev_deg": 8
+ },
+ "id": "cul-mde-small-rogue",
+ "sha1": "22428bed082e6d85b0d37fec56ba66edfefe3495",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 9.0
+}

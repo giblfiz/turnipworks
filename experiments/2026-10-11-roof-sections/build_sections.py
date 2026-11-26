@@ -39,6 +39,18 @@ STYLES = {
     # the temple roof (2026-10-27, experiments/2026-10-27-roofs-temple): big marble pan tiles under rounded cover tiles, four courses
     'marble':  dict(plate='marble',       smooth=4,  ragged=False, joints=(40, 0.035), T=0.24, var=0.10, roll=0.04, lift=0.03, rough=0.72,
                     path=os.path.join(ROOT, 'experiments/2026-10-27-roofs-temple/plates/roofing-marble.png')),
+    # the culture roofs (2026-11-07, experiments/2026-11-07-culture-roofs/assets: plates by gen_plates.py + finish.py). `grid`: the roof plane is a
+    # 10 x 10 grid of quads and the far tier 4 x 4, because the engine bends these slopes near the eaves (a vertex-shader lift)
+    'kawara':  dict(plate='kawara',  smooth=4,  ragged=False, joints=(120, 0.04), T=0.26, var=0.12, roll=0.05, lift=0.03, rough=0.82, grid=10,
+                    path=os.path.join(ROOT, 'experiments/2026-11-07-culture-roofs/assets/seamless/roofing-kawara.png')),
+    'tongwa':  dict(plate='tongwa',  smooth=4,  ragged=False, joints=(120, 0.04), T=0.26, var=0.12, roll=0.05, lift=0.03, rough=0.85, grid=10,
+                    path=os.path.join(ROOT, 'experiments/2026-11-07-culture-roofs/assets/seamless/roofing-tongwa.png')),
+    'glazed':  dict(plate='glazed',  smooth=4,  ragged=False, joints=(120, 0.04), T=0.26, var=0.10, roll=0.04, lift=0.03, rough=0.55, grid=10,
+                    path=os.path.join(ROOT, 'experiments/2026-11-07-culture-roofs/assets/seamless/roofing-glazed.png')),
+    'sod':     dict(plate='sod',     smooth=14, ragged=True,  joints=None,        T=0.50, var=0.20, roll=0.0,  lift=0.0,  rough=0.98, cols=24, grid=10,
+                    path=os.path.join(ROOT, 'experiments/2026-11-07-culture-roofs/assets/seamless/roofing-sod.png')),
+    'tes':     dict(plate='tes',     smooth=4,  ragged=False, joints=(120, 0.04), T=0.24, var=0.20, roll=0.10, lift=0.05, rough=0.95, grid=10,
+                    path=os.path.join(ROOT, 'experiments/2026-11-07-culture-roofs/assets/seamless/roofing-tes.png')),
 }
 MARGIN = 8  # px: how far a wedge runs on under the butt above it
 
@@ -137,7 +149,13 @@ def build(st):
             if kind == 'smooth': s = smooth[(round(p[0] % FT, 4), round(p[1], 4), round(p[2] % FT, 4))]; nn = s / np.linalg.norm(s)
             I.append(len(P)); P.append(p); Nn.append(nn); UV.append(t)
     # the roof plane itself under the wedges (two triangles): whatever a trim cut opens up shows the same painting, never the room below
-    for q in ((0, 0), (FT, FT), (FT, 0), (0, 0), (0, FT), (FT, FT)): I.append(len(P)); P.append(np.array([q[0], 0.0, q[1]])); Nn.append(np.array([0.0, 1.0, 0.0])); UV.append((q[0] / FT, 1 - q[1] / FT))
+    # (`grid: n`, 2026-11-07 culture roofs: the engine bends kawara/tongwa/glazed slopes near the eaves in the vertex shader, so a big
+    # flat triangle would poke through the wedges: the plane is an n x n grid of quads instead; the old styles keep their two triangles)
+    G = S.get('grid') or 1
+    for gi in range(G):
+        for gj in range(G):
+            x0_, x1_, z0_, z1_ = gi * FT / G, (gi + 1) * FT / G, gj * FT / G, (gj + 1) * FT / G
+            for q in ((x0_, z0_), (x1_, z1_), (x1_, z0_), (x0_, z0_), (x0_, z1_), (x1_, z1_)): I.append(len(P)); P.append(np.array([q[0], 0.0, q[1]])); Nn.append(np.array([0.0, 1.0, 0.0])); UV.append((q[0] / FT, 1 - q[1] / FT))
     P = np.array(P, np.float32); Nn = np.array(Nn, np.float32); UV = np.array(UV, np.float32); I = np.array(I, np.uint32)
     # weld (same place, normal and uv)
     key = np.round(np.hstack([P, Nn, UV]), 4); _, first, inv = np.unique(key, axis=0, return_index=True, return_inverse=True)
@@ -165,6 +183,14 @@ def build(st):
     # the far tier: one quad at the mean height
     fP = np.array([[0, mean_h, 0], [FT, mean_h, 0], [FT, mean_h, FT], [0, mean_h, FT]], np.float32); fN = np.array([[0, 1, 0]] * 4, np.float32)
     fUV = np.array([[0, 1], [1, 1], [1, 0], [0, 0]], np.float32); fI = np.array([0, 2, 1, 0, 3, 2], np.uint32)
+    if S.get('grid'):  # the far tier as a 4 x 4 grid (same winding, same UVs and normal map), so the engine's eave bend lifts it smoothly
+        F4 = 4; g = np.linspace(0, FT, F4 + 1)
+        fP = np.array([[x, mean_h, z] for z in g for x in g], np.float32); fN = np.array([[0, 1, 0]] * len(fP), np.float32)
+        fUV = np.array([[x / FT, 1 - z / FT] for z in g for x in g], np.float32); idx = lambda i, j: j * (F4 + 1) + i; fI = []
+        for j in range(F4):
+            for i in range(F4):
+                a_, b_, c_, d_ = idx(i, j), idx(i + 1, j), idx(i + 1, j + 1), idx(i, j + 1); fI += [a_, c_, b_, a_, d_, c_]
+        fI = np.array(fI, np.uint32)
     os.makedirs(f'{HERE}/out', exist_ok=True)
     glb = write_glb(f'{HERE}/out/roof-section--{st}.glb', [('near', P, Nn, UV, I, 0), ('far', fP, fN, fUV, fI, 1)], cimg, nimg, S['rough'])
     cimg.resize((512, 512)).save(f'{HERE}/out/{st}-colour.jpg', quality=88); nimg.save(f'{HERE}/out/{st}-normal.png')
@@ -172,7 +198,7 @@ def build(st):
     # the tiling check, measured: every vertex on an edge has its twin on the opposite edge (same height, same place along the edge)
     def edge(axis, at): m = np.abs(P[:, axis] - at) < 1e-4; o = 2 - axis; return sorted({(round(float(p[o]), 3), round(float(p[1]), 3)) for p in P[m]})
     tile_x = edge(0, 0) == edge(0, FT); tile_z = edge(2, 0) == edge(2, FT)
-    rep = dict(style=st, plate=os.path.relpath(S.get('path') or PLATES % S['plate'], ROOT if S.get('path') else '<repo>'), pieces=n_pieces, triangles=int(len(I) // 3), vertices=int(len(P)), far_triangles=2,
+    rep = dict(style=st, plate=os.path.relpath(S.get('path') or PLATES % S['plate'], ROOT if S.get('path') else '<repo>'), pieces=n_pieces, triangles=int(len(I) // 3), vertices=int(len(P)), far_triangles=int(len(fI) // 3),
                butt_ft=S['T'], max_ft=round(float(P[:, 1].max()), 3), mean_ft=round(mean_h, 4), uncovered=round(holes, 4), rolled_px=int(shift),
                edge_vertices=[len(edge(0, 0)), len(edge(2, 0))], tiles_along_eave=bool(tile_x), tiles_up_slope=bool(tile_z), kb=round(glb / 1024), sha=hashlib.sha1(open(f'{HERE}/out/roof-section--{st}.glb', 'rb').read()).hexdigest()[:8])
     print(json.dumps(rep)); return rep
@@ -217,5 +243,5 @@ if __name__ == '__main__':
         dst = f'{ROOT}/engine/client/data/roof'; os.makedirs(dst, exist_ok=True)
         for r in reps: shutil.copy(f"{HERE}/out/roof-section--{r['style']}.glb", dst)
         man = {'about': 'Roof sections: one modelled 5 ft x 5 ft patch of roofing per roof style, laid out instanced by engine/client/roofs.js. Built by experiments/2026-10-11-roof-sections/build_sections.py --install; never edit by hand.',
-               'size_ft': FT, 'sections': {**(json.load(open(f'{ROOT}/engine/client/data/roofsections.json')).get('sections', {}) if os.path.exists(f'{ROOT}/engine/client/data/roofsections.json') else {}), **{r['style']: {'url': f"roof/roof-section--{r['style']}.glb", 'rev': r['sha'], 'triangles': r['triangles'], 'far_triangles': 2, 'mean_ft': r['mean_ft'], 'max_ft': r['max_ft'], 'kb': r['kb']} for r in reps}}}  # (a build of some styles keeps the others' entries)
+               'size_ft': FT, 'sections': {**(json.load(open(f'{ROOT}/engine/client/data/roofsections.json')).get('sections', {}) if os.path.exists(f'{ROOT}/engine/client/data/roofsections.json') else {}), **{r['style']: {'url': f"roof/roof-section--{r['style']}.glb", 'rev': r['sha'], 'triangles': r['triangles'], 'far_triangles': r['far_triangles'], 'mean_ft': r['mean_ft'], 'max_ft': r['max_ft'], 'kb': r['kb']} for r in reps}}}  # (a build of some styles keeps the others' entries)
         json.dump(man, open(f'{ROOT}/engine/client/data/roofsections.json', 'w'), indent=1); print('installed', dst)

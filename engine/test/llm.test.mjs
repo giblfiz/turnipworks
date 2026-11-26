@@ -237,6 +237,22 @@ ok(mine.ok, 'the player\'s pawn');
   ok(RT.state.areas[A].entities[pawn.id].y === 0, 'on the flipped stair to=top is still its upper end (the hall), not "the way it leads"', RT.state.areas[A].entities[pawn.id].y);
   await act(G, 'token.move', { id: pawn.id, stair: dn.id, to: 'bottom' });
   ok(RT.state.areas[A].entities[pawn.id].y === -10, 'and to=bottom its lower end (the cellar)');
+  // ON AND OFF A STAIR WITH NO HEIGHT GIVEN (2026-11-24, Harry: "I can back him off the stairs and leave him floating";
+  // relay/llm.js, core/height.js pawnWalkY): a standing pawn walks there as a drag would carry it
+  { const S1 = await act(G, 'token.create', { name: 'Stepper', x: 807.5, z: 2.5 }), Y = () => RT.state.areas[A].entities[S1.id].y || 0, mv = (x, z, extra = {}) => act(G, 'token.move', { id: S1.id, x, z, ...extra });
+    await mv(807.5, 15); const mid = Y();
+    ok(mid > 3 && mid < 8, 'API: moved onto the middle of a flight (no y), it stands on its treads there (before: kept 0, under the stair)', mid);
+    await mv(807.5, 2.5);
+    ok(Y() === 0, 'API: backed off the foot from halfway up: on the floor at 0 (before: left in the air at the tread\'s height)', Y());
+    await mv(807.5, 18); const hi = Y(), side = await mv(813.5, 18);
+    ok(hi > 8 && Y() === 0 && side.ok && !side.note, 'API: off the side from near the top: it just drops to the floor, no fall and nothing to say (Harry 2026-11-25)', [hi, Y(), side.note]);
+    await mv(807.5, 15); await mv(807.5, 22.5);
+    ok(Y() === 10, 'API: from halfway up on past the top: on the floor above at 10', Y());
+    await mv(807.5, 2.5, { y: 0 }); await mv(807.5, 15, { y: 2 });
+    ok(Y() === 2, 'API: a y given is kept as given', Y());
+    await act(G, 'token.move', { id: S1.id, x: 830, z: 30, y: 16 }); await mv(807.5, 15);
+    ok(Y() === 16, 'API: a raised pawn (16 ft, 6 over the attic floor) moved over the stair keeps its height', Y());
+    await act(G, 'token.delete', { id: S1.id }); }
   // a stair put under a room, naming that room: its bottom is where its foot is
   const under = await place({ x: 817.5, z: 30, y: -10, room: hall.id });
   ok(/bottom Root cellar \(lv -1\), top Long Hall \(lv 1\)/.test(under.stairSays), 'a stair placed under a room says plainly where it leads, even with room= the upper room', under);

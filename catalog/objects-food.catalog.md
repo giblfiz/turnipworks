@@ -5,11 +5,11 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 ## W. Food — object level
 
 ### W1. Fruit
-- **apple** — single red apple · surface · tiny · size:3x3x3~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P1 · table scatter; bowls; the one the rogue pockets
+- **apple** — single red apple · surface · tiny · size:3x3x3~0.7-1.5 · food · set:ANY,MOD · var:- · aff:carry · mesh · P1 · table scatter; bowls; the one the rogue pockets
 - **apple-green** — single green apple · surface · tiny · size:3x3x3~0.7-1.5 · food · set:HUT,MKT,TAV · var:- · aff:carry · mesh · P3 · colour variety beside red apples
 - **apple-bitten** — apple with a bite taken out · surface · tiny · size:3x3x3~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P2 · someone was just here
 - **apple-basket** — basket of apples · surface · sub · size:16x16x12~0.7-1.5 · food · set:HUT,MKT,TAV · var:- · aff:carry · mesh · P1 · kitchens, stalls, cart beds
-- **apple-crate** — open crate of apples · floor · sub · size:20x14x12~0.8-1.3 · food · set:MKT,TAV,HUT · var:- · aff:carry · mesh · P2 · market stacks, cellars
+- **apple-crate** — open crate of apples · floor · sub · size:20x14x12~0.8-1.3 · food · set:MKT,TAV,HUT,MOD · var:- · aff:carry · mesh · P2 · market stacks, cellars
 - **pear** — single pear · surface · tiny · size:3x3x4~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P1 · fruit bowls; noble tables
 - **pear-pile** — small heap of pears · surface · tiny · size:9x9x6~0.6-2 · food · set:MKT,NOB,HUT,TAV · var:pile · aff:carry · mesh · P3 · stalls, bowls
 - **plum-handful** — handful of plums · surface · tiny · size:5x5x2~0.7-1.5 · food · set:MKT,NOB,HUT · var:- · aff:carry · mesh · P3 · fruit bowls
@@ -25,10 +25,10 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 - **strawberries-bowl** — bowl of wild strawberries · surface · tiny · size:6x6x3 · food · set:HUT,NOB,MKT,TAV · var:- · aff:carry · mesh · P3 · summer, fey offerings
 - **berries-basket** — basket of mixed wild berries · surface · tiny · size:9x9x6~0.8-1.3 · food · set:HUT,GRV,CMP,MKT · var:- · aff:carry · mesh · P2 · foragers, fey tables
 - **blackberry-handful** — handful of blackberries · surface · tiny · size:3x3x1.5~0.7-1.5 · food · set:HUT,GRV,CMP,TAV · var:- · aff:carry · mesh · P3 · hedgerow forage
-- **fruit-crate-mixed** — crate of mixed fruit · floor · sub · size:20x14x12~0.8-1.3 · food · set:MKT,TAV,HUT · var:- · aff:carry · mesh · P3 · stalls, deliveries
+- **fruit-crate-mixed** — crate of mixed fruit · floor · sub · size:20x14x12~0.8-1.3 · food · set:MKT,TAV,HUT,MOD · var:- · aff:carry · mesh · P3 · stalls, deliveries
 
 ### W2. Vegetables & roots
-- **potato** — single potato · surface · tiny · size:3x2.5x2~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P1 · kitchens, cellars, peasants' tables
+- **potato** — single potato · surface · tiny · size:3x2.5x2~0.7-1.5 · food · set:ANY,MOD · var:- · aff:carry · mesh · P1 · kitchens, cellars, peasants' tables
 - **potato-pile** — heap of potatoes · floor · sub · size:18x18x9~0.5-2 · food · set:HUT,TAV,MKT,CAS · var:pile · aff:carry · mesh · P1 · root cellars, sacks spilling
 - **potato-sack-open** — open sack spilling potatoes · floor · sub · size:24x18x22~0.8-1.3 · food · set:HUT,TAV,MKT · var:- · aff:carry · mesh · P1 · cellars, kitchens
 - **potato-peeled** — peeled potatoes and peelings · surface · tiny · size:8x6x3 · food · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P3 · prep tables
@@ -42,10 +42,10 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 - **radish-bunch** — bunch of radishes · surface · tiny · size:4x3x9~0.7-1.5 · food · set:HUT,MKT · var:- · aff:carry · mesh · P3 · salad plates
 - **onion** — single onion · surface · tiny · size:3x3x3.5~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P1 · prep tables
 - **onion-sliced** — halved and sliced onion · surface · tiny · size:4x3x2 · food · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P3 · cutting boards
-- **garlic-bulb** — garlic bulb · surface · tiny · size:2x2x2.5~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P2 · kitchens; vampire wards
+- **garlic-bulb** — garlic bulb · surface · tiny · size:2x2x2.5~0.7-1.5 · food · set:ANY,MOD · var:- · aff:carry · mesh · P2 · kitchens; vampire wards
 - **garlic-braid** — braided garlic · wall · tiny · size:4x3x18~0.7-1.5 · food · set:HUT,TAV,CRY · var:- · aff:carry · mesh · P2 · hung on doors against the undead
 - **leek-bunch** — bunch of leeks · surface · tiny · size:5x4x18~0.7-1.5 · food · set:HUT,MKT · var:- · aff:carry · mesh · P3 · stalls, stews
-- **cabbage-single** — single cabbage head · surface · tiny · size:7x7x6~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P1 · prep tables; the cabbage merchant
+- **cabbage-single** — single cabbage head · surface · tiny · size:7x7x6~0.7-1.5 · food · set:ANY,MOD · var:- · aff:carry · mesh · P1 · prep tables; the cabbage merchant
 - **cabbage-cut** — cabbage cut in half · surface · tiny · size:7x6x4~0.7-1.5 · food · set:TAV,HUT · var:- · aff:carry · mesh · P3 · kitchens
 - **lettuce** — lettuce head · surface · tiny · size:8x8x5~0.7-1.5 · food · set:HUT,MKT,NOB · var:- · aff:carry · mesh · P3 · gardens, stalls
 - **peas-pods** — pea pods in a heap · surface · tiny · size:8x6x2~0.7-1.5 · food · set:HUT,MKT · var:- · aff:carry · mesh · P3 · shelling scenes
@@ -56,12 +56,12 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 - **corn-ears** — ears of grain maize, husked · surface · tiny · size:8x6x3~0.7-1.5 · food · set:HUT,MKT · var:- · aff:carry · mesh · P3 · harvest stalls
 - **mushroom-cluster-edible** — cluster of edible mushrooms · surface · tiny · size:4x4x3~0.7-1.5 · food · set:HUT,GRV,CMP,MKT,TAV · var:- · aff:carry · mesh · P2 · foragers
 - **mushroom-basket** — basket of mushrooms · surface · sub · size:14x14x9~0.8-1.3 · food · set:HUT,GRV,MKT · var:- · aff:carry · mesh · P3 · forage haul
-- **vegetable-basket-mixed** — basket of mixed vegetables · surface · sub · size:16x16x12~0.8-1.3 · food · set:HUT,MKT,TAV · var:- · aff:carry · mesh · P1 · kitchens, stalls, doorsteps
-- **vegetable-crate-mixed** — crate of mixed vegetables · floor · sub · size:20x14x12~0.8-1.3 · food · set:MKT,TAV,CAS,HUT · var:- · aff:carry · mesh · P2 · deliveries, stall stacks
+- **vegetable-basket-mixed** — basket of mixed vegetables · surface · sub · size:16x16x12~0.8-1.3 · food · set:HUT,MKT,TAV,MOD · var:- · aff:carry · mesh · P1 · kitchens, stalls, doorsteps
+- **vegetable-crate-mixed** — crate of mixed vegetables · floor · sub · size:20x14x12~0.8-1.3 · food · set:MKT,TAV,CAS,HUT,MOD · var:- · aff:carry · mesh · P2 · deliveries, stall stacks
 
 ### W3. Herbs, spices & nuts
 - **herb-bundle-fresh** — bundle of fresh herbs · surface · tiny · size:3x3x10~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P2 · cutting boards, apothecaries
-- **herb-pot** — potted kitchen herbs · surface · tiny · size:6x6x10~0.7-1.5 · organic · set:HUT,TAV,NOB · var:- · aff:carry · mesh · P3 · windowsills
+- **herb-pot** — potted kitchen herbs · surface · tiny · size:6x6x10~0.7-1.5 · organic · set:HUT,TAV,NOB,MOD · var:- · aff:carry · mesh · P3 · windowsills
 - **salt-block** — block of salt · surface · tiny · size:6x4x3~0.7-2 · food · set:TAV,CAS,MKT,MIN,HUT · var:- · aff:carry · mesh · P3 · larders, trade goods
 - **salt-sack** — sack of salt · floor · sub · size:16x12x20~0.7-1.3 · cloth · set:TAV,CAS,MKT,LAI · var:- · aff:carry · mesh · P1 · preserving rooms
 - **pepper-pouch** — pouch of peppercorns · surface · tiny · size:3x3x4 · food · set:NOB,MKT · var:- · aff:carry · mesh · P3 · luxury spice
@@ -76,7 +76,7 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 
 ### W4. Grains & baking
 - **bread-round-loaf-cut** — round loaf, cut with slices · surface · tiny · size:8x8x4~0.8-1.3 · food · set:ANY · var:- · aff:carry · mesh · P1 · tables mid-meal
-- **bread-long-loaf** — long loaf (baguette) · surface · tiny · size:3x3x24~0.8-1.2 · food · set:TAV,MKT,NOB,HUT · var:- · aff:carry · mesh · P1 · under an arm; poking out of baskets
+- **bread-long-loaf** — long loaf (baguette) · surface · tiny · size:3x3x24~0.8-1.2 · food · set:TAV,MKT,NOB,HUT,MOD · var:- · aff:carry · mesh · P1 · under an arm; poking out of baskets
 - **bread-long-loaf-torn** — long loaf torn in half · surface · tiny · size:5x3x13~0.8-1.2 · food · set:TAV,HUT,CMP · var:- · aff:carry · mesh · P3 · mid-meal
 - **bread-braided** — braided loaf · surface · tiny · size:12x5x4~0.8-1.3 · food · set:TAV,NOB,TEM,MKT,CAS · var:- · aff:carry · mesh · P2 · festivals, feast tables
 - **bread-rye-dark** — dark rye loaf · surface · tiny · size:7x7x4~0.8-1.3 · food · set:HUT,TAV,CAS · var:- · aff:carry · mesh · P3 · peasant and soldier bread
@@ -109,7 +109,7 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 - **oats-bowl-dry** — bowl of dry oats · surface · tiny · size:6x6x3 · food · set:HUT,TAV · var:- · aff:carry · mesh · P3 · stables, larders
 
 ### W5. Dairy & eggs
-- **cheese-wheel-cut** — cheese wheel with a wedge cut out · surface · tiny · size:14x14x5~0.5-1.6 · food · set:TAV,HUT,MKT,CAS · var:- · aff:carry · mesh · P1 · tables, larders
+- **cheese-wheel-cut** — cheese wheel with a wedge cut out · surface · tiny · size:14x14x5~0.5-1.6 · food · set:TAV,HUT,MKT,CAS,MOD · var:- · aff:carry · mesh · P1 · tables, larders
 - **cheese-wedge** — cheese wedge · surface · tiny · size:5x3x3~0.6-1.6 · food · set:ANY · var:- · aff:carry · mesh · P1 · plates, rations
 - **cheese-slice** — single slice of cheese · surface · tiny · size:4x3x0.3 · food · set:ANY · var:- · aff:carry · mesh · P1 · plates, bread
 - **cheese-small-round** — small round cheese · surface · tiny · size:5x5x3~0.7-1.4 · food · set:HUT,MKT,TAV · var:- · aff:carry · mesh · P2 · farm cheeses
@@ -120,7 +120,7 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 - **butter-pat** — pat of butter on a dish · surface · tiny · size:4x4x1.5 · food · set:ANY · var:- · aff:carry · mesh · P2 · bread's companion
 - **butter-crock** — crock of butter · surface · tiny · size:5x5x5 · ceramic · set:HUT,TAV · var:- · aff:carry · mesh · P3 · farm kitchens
 - **cream-jug** — jug of cream · surface · tiny · size:4x4x6 · ceramic · set:HUT,NOB,TAV · var:- · aff:carry · mesh · P3 · dairy tables
-- **egg** — single egg · surface · tiny · size:1.8x1.8x2.3~0.8-1.2 · food · set:ANY · var:- · aff:carry · mesh · P1 · kitchens, nests
+- **egg** — single egg · surface · tiny · size:1.8x1.8x2.3~0.8-1.2 · food · set:ANY,MOD · var:- · aff:carry · mesh · P1 · kitchens, nests
 - **egg-cracked** — cracked egg · surface · tiny · size:2x2x2 · food · set:TAV,HUT · var:- · aff:carry · mesh · P3 · prep mess
 - **eggs-bowl** — bowl of eggs · surface · tiny · size:8x8x4 · food · set:HUT,TAV · var:- · aff:carry · mesh · P2 · kitchens
 - **egg-fried-pan** — eggs frying in a pan · surface · tiny · size:16x9x3 · mixed · set:TAV,HUT,CMP · var:- · aff:carry · mesh · P3 · breakfast scenes
@@ -128,7 +128,7 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 - **eggs-nest** — eggs in a straw nest · surface · tiny · size:7x7x3 · organic · set:HUT,MKT · var:- · aff:carry · mesh · P3 · coops
 
 ### W6. Meat & fowl
-- **meat-raw-joint** — raw joint of meat · surface · tiny · size:8x6x6~0.7-1.6 · food · set:TAV,CAS,MKT,LAI · var:- · aff:carry · mesh · P2 · butcher blocks, kitchens
+- **meat-raw-joint** — raw joint of meat · surface · tiny · size:8x6x6~0.7-1.6 · food · set:TAV,CAS,MKT,LAI,MOD · var:- · aff:carry · mesh · P2 · butcher blocks, kitchens
 - **meat-raw-steak** — raw steak · surface · tiny · size:8x5x1.5~0.7-1.4 · food · set:TAV,CAS,MKT · var:- · aff:carry · mesh · P3 · butchers
 - **meat-ribs-raw** — rack of raw ribs · surface · tiny · size:12x7x2.5~0.7-1.6 · food · set:MKT,CAS,TAV · var:- · aff:carry · mesh · P3 · butchers
 - **meat-roast-joint** — roast joint on a board · surface · tiny · size:14x10x7 · mixed · set:TAV,CAS,NOB · var:- · aff:carry · mesh · P1 · carving at the table
@@ -141,11 +141,11 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 - **goose-roast** — roast goose · surface · tiny · size:13x8x7~0.8-1.3 · food · set:NOB,CAS,TAV · var:- · aff:carry · mesh · P3 · midwinter feasts
 - **pheasant-roast-dressed** — roast pheasant with feathers set back on · surface · tiny · size:18x8x10~0.8-1.3 · food · set:NOB,CAS · var:- · aff:carry · mesh · P3 · noble showpiece
 - **rabbit-roast** — roast rabbit · surface · tiny · size:12x5x4~0.8-1.3 · food · set:HUT,CMP,TAV · var:- · aff:carry · mesh · P3 · poachers' supper
-- **sausage-link** — single sausage · surface · tiny · size:1x1x6~0.7-1.5 · food · set:ANY · var:- · aff:carry · mesh · P1 · plates, pans
+- **sausage-link** — single sausage · surface · tiny · size:1x1x6~0.7-1.5 · food · set:ANY,MOD · var:- · aff:carry · mesh · P1 · plates, pans
 - **sausages-pan** — sausages sizzling in a pan · surface · tiny · size:16x9x3 · mixed · set:TAV,HUT,CMP · var:- · aff:carry · mesh · P3 · breakfast
 - **sausage-coil** — coiled sausage · surface · tiny · size:7x7x1.5~0.7-1.5 · food · set:MKT,TAV · var:- · aff:carry · mesh · P3 · butcher counters
 - **ham-whole-glazed** — whole glazed ham · surface · tiny · size:14x9x7~0.7-1.4 · food · set:NOB,CAS,TAV · var:- · aff:carry · mesh · P2 · feasts
-- **ham-sliced** — ham with slices carved · surface · tiny · size:14x9x7~0.7-1.4 · food · set:TAV,NOB,CAS · var:- · aff:carry · mesh · P2 · mid-feast
+- **ham-sliced** — ham with slices carved · surface · tiny · size:14x9x7~0.7-1.4 · food · set:TAV,NOB,CAS,MOD · var:- · aff:carry · mesh · P2 · mid-feast
 - **bacon-slab** — slab of bacon · surface · tiny · size:10x6x2~0.7-1.4 · food · set:TAV,HUT,MKT · var:- · aff:carry · mesh · P3 · larders
 - **jerky-bundle** — bundle of dried meat · surface · tiny · size:3x2x8 · food · set:CMP,MIN,CAS,TAV · var:- · aff:carry · mesh · P3 · rations
 - **meat-skewers** — meat skewers · surface · tiny · size:12x4x2 · food · set:MKT,CMP,TAV · var:- · aff:carry · mesh · P2 · street food, camps
@@ -237,11 +237,11 @@ Single-object food meshes (Harry 2026-09-30: each distinct small object is its o
 
 ### W12. Staple piles & bulk
 - **bread-pile** — heap of loaves · surface · sub · size:20x16x12~0.6-1.8 · food · set:MKT,TAV,CAS · var:- · aff:carry · mesh · P2 · bakery counters, feasts
-- **onion-pile** — heap of onions · floor · sub · size:14x14x7~0.5-2 · food · set:HUT,MKT,TAV · var:- · aff:carry · mesh · P2 · kitchens, stalls
-- **carrot-pile** — heap of carrots · floor · sub · size:16x14x6~0.5-2 · food · set:HUT,MKT,TAV · var:- · aff:carry · mesh · P3 · stalls, root cellars
+- **onion-pile** — heap of onions · floor · sub · size:14x14x7~0.5-2 · food · set:HUT,MKT,TAV,MOD · var:- · aff:carry · mesh · P2 · kitchens, stalls
+- **carrot-pile** — heap of carrots · floor · sub · size:16x14x6~0.5-2 · food · set:HUT,MKT,TAV,MOD · var:- · aff:carry · mesh · P3 · stalls, root cellars
 - **cabbage-crate** — crate of cabbages · floor · sub · size:20x14x14~0.8-1.3 · food · set:MKT,TAV,HUT · var:- · aff:carry · mesh · P2 · stalls, deliveries
 - **pear-basket** — basket of pears · surface · sub · size:16x16x12~0.8-1.3 · food · set:MKT,NOB,HUT · var:- · aff:carry · mesh · P2 · orchards, stalls
-- **potato-crate** — crate of potatoes · floor · sub · size:20x14x12~0.8-1.3 · food · set:MKT,TAV,CAS,HUT · var:- · aff:carry · mesh · P3 · deliveries
+- **potato-crate** — crate of potatoes · floor · sub · size:20x14x12~0.8-1.3 · food · set:MKT,TAV,CAS,HUT,MOD · var:- · aff:carry · mesh · P3 · deliveries
 - **fish-crate-iced** — crate of fish on ice · floor · sub · size:24x16x10~0.8-1.3 · food · set:MKT · var:- · aff:carry · mesh · P3 · fish stall
 - **egg-crate** — crate of eggs in straw · floor · sub · size:18x12x8~0.8-1.3 · food · set:MKT,HUT · var:- · aff:carry · mesh · P3 · market carts
 - **cheese-shelf-aging** — shelf of aging cheeses · wall · 1 · size:48x18x72~0.8-1.3 · mixed · set:TAV,HUT,CAS · var:- · aff:carry · mesh · P3 · cheese cellars

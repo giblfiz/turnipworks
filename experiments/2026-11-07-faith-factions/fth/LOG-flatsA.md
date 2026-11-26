@@ -1,0 +1,8 @@
+flavor-banner--christian | tries 2 | PASS single whole object, margin, RGBA corners 0, Latin cross, no text; first try failed edge margin | Red and gold three-point processional banner with Latin cross and tassels.
+flavor-relief--christian | tries 3 | PASS one whole roundel, RGBA corners 0, cross/quatrefoil, no text; FAIL generous margin (all attempts) | Gilded flared cross within a limestone quatrefoil roundel.
+flavor-sigil--christian | tries 3 | PASS one whole object, RGBA corners 0, no text; FAIL eleven-circuit Chartres geometry and generous margin | Pale stone labyrinth with scalloped rim and six-lobed centre, but too few circuits.
+flavor-banner--buddhist | tries 3 | PASS single whole scroll, RGBA corners 0, Buddha pose and hand positions, no text; FAIL generous margin | Maroon and gold thangka depicts Shakyamuni on a lotus with earth-touching right hand.
+flavor-relief--buddhist | tries 3 | PASS one whole object, RGBA corners 0, eight spokes, no text; FAIL generous margin | Gold eight-spoked dharma wheel with swirl hub on red wood.
+flavor-sigil--buddhist | tries 3 | PASS one whole object, RGBA corners 0, eight petals, no text; FAIL generous margin | Cream and saffron eight-petalled lotus in a gold ring on maroon.
+flavor-mat--buddhist | tries 3 | PASS whole mat, requested design, no text; FAIL generous clear margin; PASS RGBA and four corners alpha 0 | Maroon runner with gold border and lotus bands; second attempt had corner alpha 1.
+flavor-relief--hindu | tries 3 | PASS one whole object, RGBA corners 0, Om with crescent and dot, no other text; FAIL generous margin | Vermilion and saffron Om relief inside lotus petals and sandstone border.

@@ -1,0 +1,169 @@
+{
+ "file": "foe-quetzalcoatlus.glb",
+ "tris": 46454,
+ "kb": 2194,
+ "native_extent": [
+  0.471,
+  0.967,
+  1.001
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  112,
+  75,
+  29
+ ],
+ "mean_saturation": 0.782,
+ "sized_by": "its highest point",
+ "overall_ft": 16.0,
+ "pieces": {
+  "connected_parts": 1,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 16.5551,
+ "y0": -8.0035,
+ "stated_ft": {
+  "body": 16.0,
+  "figure_top": 16.0,
+  "overall": 16.0
+ },
+ "base_ft": 15,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2358,
+   -0.4835,
+   -0.5006
+  ],
+  [
+   0.2356,
+   0.483,
+   0.5008
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 46454,
+   "tex": 2048,
+   "kb": 2194
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 886
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 396
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 2.11,
+    "z": 2.76,
+    "size_ft": [
+     2.67,
+     2.87
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.35,
+    "sole_p90_ft": 0.195
+   },
+   {
+    "x": -2.17,
+    "z": 2.76,
+    "size_ft": [
+     2.67,
+     2.87
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.33,
+    "sole_p90_ft": 0.202
+   },
+   {
+    "x": -2.21,
+    "z": -1.84,
+    "size_ft": [
+     2.6,
+     2.87
+    ],
+    "off_ground_ft": 0.072,
+    "sole_level_share": 0.67,
+    "sole_p90_ft": 0.191
+   },
+   {
+    "x": 2.14,
+    "z": -1.84,
+    "size_ft": [
+     2.6,
+     2.87
+    ],
+    "off_ground_ft": 0.072,
+    "sole_level_share": 0.67,
+    "sole_p90_ft": 0.191
+   },
+   {
+    "x": -0.03,
+    "z": -5.97,
+    "size_ft": [
+     0.67,
+     1.67
+    ],
+    "off_ground_ft": 1.324,
+    "sole_level_share": 0.53,
+    "sole_p90_ft": 1.428
+   }
+  ],
+  "contact_count": 5,
+  "max_off_ground_ft": 1.324,
+  "lowest_slab_area_sqft": 20.77,
+  "plan_hull_area_sqft": 85.18,
+  "lowest_slab_share_of_plan": 0.244
+ },
+ "plan": {
+  "size_ft": {
+   "w": 7.8,
+   "d": 16.57,
+   "h": 16.0
+  },
+  "centre": [
+   0.001,
+   -1.021
+  ],
+  "contacts_radius_ft": 5.72,
+  "reach_radius_ft": 8.8,
+  "share_outside_2p5ft": 0.84
+ },
+ "silhouette": {
+  "iou": 0.866,
+  "plate_lost_share": 0.046,
+  "added_share": 0.101,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.827,
+  "view_yaw_deg": 325,
+  "view_elev_deg": 8
+ },
+ "id": "foe-quetzalcoatlus",
+ "sha1": "5c6c3ae9c190454c71a5c9460611838058eee566",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 1.32 ft off the ground",
+  "reaches 1.3 ft outside its square"
+ ],
+ "qa_seconds": 8.5
+}

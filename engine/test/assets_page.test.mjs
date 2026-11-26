@@ -6,6 +6,7 @@
 //   links    readDeepLink / withoutDeepLink read and clean ?place= ?pawn= ?pack=, and keep everything else
 //   pack     every pack's and room's ?pack= value names its Build-menu node (packNode), by code and by slug
 //   names    every ?place= on the page is a command-bar catalog id and every ?pawn= a figure id
+//   (the packs' download links: engine/test/asset_release_test.py)
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { buildTaxonomy } from '../client/taxonomy.js';
@@ -24,10 +25,19 @@ const D = JSON.parse(execFileSync('node', [new URL('../tools/site_assets_data.mj
 const ASSETS = new URL('../../tools/spawn-tuner/assets/', import.meta.url).pathname;
 
 // ---- data
-const typed = [...X.nodes.values()].filter(t => t.level === 'type' && t.children.length);
+// (2026-11-07) a genre that is ONE pack (the Modern genre: its types are buildings, engine/tools/modern_buildings.json) is
+// one pack of all its buildings' rooms, each room once, in the buildings' order; every other type with rooms is a pack
+const genreOf = (t) => X.get(t.parent), onePack = (t) => !!genreOf(t)?.pack;
+const typed = [...X.nodes.values()].filter(t => t.level === 'type' && t.children.length && !onePack(t));
 const byCode = new Map(D.packs.map(p => [p.code, p]));
 ok('every Build-menu type with rooms is a pack', typed.every(t => byCode.has(t.code)), typed.filter(t => !byCode.has(t.code)).map(t => t.code).join(', ') || `${typed.length} types`);
 ok('each pack has the same rooms as its Build-menu type, in order', typed.every(t => JSON.stringify(byCode.get(t.code).rooms.map(r => r.key)) === JSON.stringify(t.children.map(id => X.get(id).roomKey))));
+const packGenres = X.genres.map(id => X.get(id)).filter(g => g.pack);
+ok('the Modern genre is one pack, "modern", and no pack is City or Cyberpunk', packGenres.some(g => g.key === 'modern' && g.pack === 'modern') && D.packs.filter(p => p.genre === 'Modern').map(p => p.slug).join() === 'modern' && !D.packs.some(p => ['modern-city', 'cyberpunk'].includes(p.slug)), D.packs.filter(p => p.genre === 'Modern').map(p => p.slug));
+for (const g of packGenres) {
+  const want = [...new Set(g.children.flatMap(tid => X.get(tid).children.map(id => X.get(id).roomKey)))], P = byCode.get(g.pack);
+  ok(`the ${g.label} pack holds each of its buildings' rooms once, in their order`, P && JSON.stringify(P.rooms.map(r => r.key)) === JSON.stringify(want), P?.rooms.length);
+}
 ok('the page\'s own packs are there: building kit, faction pieces, figures', ['building-kit', 'faction-pieces', 'figures'].every(s => D.packs.some(p => p.slug === s)));
 const onPage = new Set(D.packs.filter(p => p.kind !== 'figures').flatMap(p => p.things));
 const placeable = [...handPlaceable(lib, usable)].filter(id => !isFloorCat(id) && !isFactionSlot(id) && lib.objects[id]);
@@ -41,6 +51,10 @@ const noSku = looks.filter(x => !lib.objects[x.id]?.skus.some(k => k.sku === x.s
 ok('every look is a usable sku of its thing (nothing rated out, nothing retired)', !noSku.length, noSku.slice(0, 8).map(x => x.sku).join(', '));
 const figOk = Object.entries(D.figures).every(([id, f]) => figs.some(g => g.id === id && g.url === `assets/figures/${id}--${f.x}.glb`));
 ok('every figure\'s file is the one the game loads (figures.json url)', figOk, `${Object.keys(D.figures).length} figures`);
+// (2026-11-07) every figure the game lists is on the page, in a group of the Figures pack (the Modern genre's runners,
+// modern people and robots were in none)
+const figPackIds = new Set(D.packs.find(p => p.slug === 'figures').things), offFig = figs.filter(f => f.url && f.thumb && !figPackIds.has(f.id));
+ok('every figure of the game is in the Figures pack', !offFig.length, offFig.length ? `${offFig.length} missing, groups ${[...new Set(offFig.map(f => f.group))].join(', ')}` : `${figPackIds.size} figures`);
 ok('the credit line and licence are the house\'s', D.credit === 'Turnip Works assets (https://turnipworks.net), CC BY 4.0' && D.license === 'https://creativecommons.org/licenses/by/4.0/');
 const refs = D.packs.flatMap(p => p.rooms.flatMap(r => r.sections.flatMap(s => s[2].map(e => [p, e]))));
 const badRef = refs.filter(([p, e]) => p.kind === 'figures' ? !D.figures[e] : !(D.things[e.split('|')[0]]?.l[+e.split('|')[1] || 0]));
@@ -54,14 +68,19 @@ ok('withoutDeepLink keeps the rest of the address', withoutDeepLink({ pathname: 
 ok('the keys are place, pawn, pack', DEEP_KEYS.join() === 'place,pawn,pack');
 
 // ---- pack: every pack's and room's link names its Build-menu node
-const tx = { get: (id) => X.get(id) };
 let packBad = [];
-for (const p of D.packs.filter(p => !p.kind)) {
+const tx = { get: (id) => X.get(id), genres: X.genres };
+for (const p of D.packs.filter(p => !p.kind && byCode.get(p.code) && packGenres.some(g => g.pack === p.code))) {
+  if (packNode(tx, types.types, p.code)?.id !== `g:${packGenres.find(g => g.pack === p.code).key}`) packBad.push(p.code);
+  for (const r of p.rooms) if (packNode(tx, types.types, `${p.code}/${r.key}`)?.roomKey !== r.key) packBad.push(`${p.code}/${r.key}`);
+}
+for (const p of D.packs.filter(p => !p.kind && !packGenres.some(g => g.pack === p.code))) {
   const t = types.types.find(x => x.code === p.code);
   if (packNode(tx, types.types, p.code)?.id !== `t:${p.code}` || packNode(tx, types.types, t.slug)?.id !== `t:${p.code}`) packBad.push(p.code);
   for (const r of p.rooms) if (packNode(tx, types.types, `${p.code}/${r.key}`)?.id !== `r:${p.code}:${r.key}`) packBad.push(`${p.code}/${r.key}`);
 }
 ok('every pack\'s and room\'s ?pack= names its Build-menu node (by code and by slug)', !packBad.length, packBad.slice(0, 8).join(', ') || `${D.packs.filter(p => !p.kind).length} packs`);
+ok('packNode: the old Modern links still land (cyberpunk, modern-city, CYB, MOD; 2026-11-07)', packNode(tx, types.types, 'cyberpunk')?.id === 'g:modern' && packNode(tx, types.types, 'cyberpunk/cyb-clinic')?.roomKey === 'cyb-clinic' && packNode(tx, types.types, 'modern-city/mod-apartment')?.id === 'r:APT:mod-apartment' && packNode(tx, types.types, 'MOD/mod-bar')?.id === 'r:BAR:mod-bar' && packNode(tx, types.types, 'CYB/cyb-server')?.id === 'r:OFC:cyb-server' && packNode(tx, types.types, 'APT/cyb-rooftop')?.id === 'r:APT:cyb-rooftop');
 ok('packNode: an unknown type or room is null', packNode(tx, types.types, 'XXX') === null && packNode(tx, types.types, 'TAV/nowhere') === null && packNode(tx, types.types, 'RUI') === null);
 
 // ---- names: what the page's buttons ask for is what the game can find (assets.js catalog ids, figure ids)

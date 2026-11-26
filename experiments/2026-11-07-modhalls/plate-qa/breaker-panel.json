@@ -1,0 +1,11 @@
+{
+ "id": "breaker-panel",
+ "time": "2026-11-08T02:29:31.083709+00:00",
+ "generator": "SDXL base 1.0 (CreativeML Open RAIL++-M) on the RunPod pod, tools/sdxl_plates.py short prompt, seed 1; BiRefNet matte",
+ "prompt": "Use case: stylized-concept. Asset for Turnip Works, heroic hand-painted miniature game art, for a MODERN CITY setting (present day): the same chunky storybook miniature style the game uses for its fantasy props, applied to a modern object. ONE electrical breaker panel on a wall. An ELECTRICAL BREAKER PANEL: a flat grey-painted steel box mounted on a wall, its hinged door swung half open to show two columns of black breaker switches, two thick grey conduit pipes running up out of its top, a small yellow warning triangle with a lightning bolt pictogram (no words). Real-world size about 20 in wide x 6 in deep x 30 in tall: keep these proportions. Palette: back-of-house colours (battleship grey and dull green painted steel, galvanised zinc, a safety-yellow or red accent, grime at the edges, chipped paint); avoid an all-grey result: warm brown grime and pale worn edges. Stout connected forms, broad bevels, clear part separation, matte painted gradients, restrained surface texture, no glossy PBR, no photorealism. Glass is painted OPAQUE (soft blue-grey with a pale highlight), never see-through. Exactly one complete object centered with generous clear margin, no scene or additional objects, no people or creatures. NO text, NO letters, NO numbers, NO logos, NO brand names, NO stickers and no recognisable real product design anywhere. Seen from its broad room-facing side at a slight three-quarter angle from slightly above (camera elevation 15 degrees); the whole piece fits in the frame. Background: perfectly uniform solid flat chroma blue (#0000FF) edge to edge, no floor, no ground, no cast shadow, no vignette; the object itself has no saturated blue anywhere and reflects no blue light. Thick reconstructible parts; no wires, cables, thin rods, thin poles or isolated floating components.",
+ "plate": "inputs/breaker-panel.png",
+ "sha256": "1899887f31ae1b3d8e637eb0787636343967ba7ffee7dfce23d1d24a7f585b48",
+ "refs": [],
+ "status": "accepted",
+ "evidence": "tools/pick_plates.py: blind read of three seeds (work/pick-*-breaker-panel/answer.txt) and the gate MATCH step; candidate breaker-panel--s1 matched, measured ok, no text"
+}

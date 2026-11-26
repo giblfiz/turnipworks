@@ -41,7 +41,7 @@
 import * as THREE from 'three';
 import { icon } from '../icons.js';
 import * as HT from '../../core/height.js';
-import { blockingSegments, seeThrough } from '../vision.js';
+import { blockingSegments, seeThrough, solidEdges } from '../vision.js';
 import { createCeilings } from '../ceilings.js';
 
 export const FPV = {
@@ -327,7 +327,7 @@ export function fpvSurface(R, app) {
     const rot = headingRot(s), dx = to.x - e.x, dz = to.z - e.z;
     w.sentAt = now;
     if (Math.hypot(dx, dz) < 0.01 && Math.abs(angleDiff(rot, e.rot || 0)) < 1e-3) return null;
-    const cid = app.moveBy([e], dx, dz, { rot, walk: w.id });
+    const cid = app.moveBy([e], dx, dz, { rot, walk: w.id, hop: true }); // (hop: a ladder walked onto is climbed, main.js moveBy)
     if (cid) { s.lastRot = rot; s.rotDirty = false; w.sends = (w.sends || 0) + 1; }
     const n = E()[s.id]; if (n) w.sent = { x: n.x, z: n.z }; // (where the pawn is now: a ladder's other end, rounded to the hundredth)
     return cid;
@@ -397,7 +397,7 @@ export function fpvSurface(R, app) {
     if (Math.abs(tx - e.x) < 0.01 && Math.abs(tz - e.z) < 0.01) return false;
     if (stepBlocked(e, e.x, e.z, tx, tz)) { s.blocked++; bump(s, tx - e.x, tz - e.z); return false; }
     const rot = +(((s.heading % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)).toFixed(4);
-    const cid = app.moveBy([e], tx - e.x, tz - e.z, { rot });
+    const cid = app.moveBy([e], tx - e.x, tz - e.z, { rot, hop: true });
     if (cid) { s.lastRot = rot; s.rotDirty = false; s.steps++; }
     return !!cid;
   }
@@ -410,9 +410,9 @@ export function fpvSurface(R, app) {
   function moveSegments(level) {
     const w = world(), ents = E(), key = [w.edges, ents, level];
     if (segKey && segKey.every((v, i) => v === key[i])) return segs;
-    const edges = [...(w.edges?.values() || [])].map(ed => ed.kind === 'window' ? { ...ed, kind: 'wall' } : ed.doorType && seeThrough(ed.doorType) && !ed.open ? { ...ed, doorType: null } : ed);
-    const things = {}; // shut bars count as a door here (vision.js leaves them out: they are seen through)
-    for (const [id, x] of Object.entries(ents)) things[id] = x.kind === 'object' && seeThrough(x.cat) && !x.open && /door|portcullis/.test(x.cat) ? { ...x, cat: 'door-plank' } : x;
+    const edges = solidEdges(w.edges).map(ed => ed.kind === 'window' ? { ...ed, kind: 'wall' } : ed.doorType && seeThrough(ed.doorType) && !ed.open ? { ...ed, doorType: null } : ed); // (glass panels: a wall)
+    const things = {}; // shut bars count as a door here (vision.js leaves them out: they are seen through); glass and chain-link sections as a wall
+    for (const [id, x] of Object.entries(ents)) things[id] = x.kind === 'object' && seeThrough(x.cat) && !x.open ? (/door|portcullis|(^|-)gate(-|$)/.test(x.cat) ? { ...x, cat: 'door-plank' } : { ...x, cat: 'wall-straight' }) : x;
     segKey = key; segs = blockingSegments(edges, things, level);
     return segs;
   }

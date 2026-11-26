@@ -9,7 +9,9 @@
 //            at 40, nothing past it (MOVE_RINGS_LOOK). The dragged line (surfaces/rulers.js) follows the shortest walk
 //            from the same field and reads its length; where no walk is known it is the straight line it always was
 //   WALLS    the pawn's level's walls for FEET (client/vision.js blockingSegments `walk`): a window is a wall, an open door
-//            lets it through, a shut one stops it. Stairs, hills, furniture, pawns, size and speed are ignored
+//            lets it through, a shut one stops it. Stairs, hills, furniture, pawns and speed are ignored. SIZE is not
+//            (2026-11-06): a base wider than a square keeps its middle its disc's radius from every wall (core/size.js
+//            clearanceOf), so a large pawn's rings pass a 10-ft opening and stop at a 5-ft door
 //
 // THE FOG RULE (the hard requirement). The rings and the route never tell a seat about ground it cannot know:
 //   * a seat under fog of war (a player; the GM viewing as a player) walks only on what that viewer has explored or sees
@@ -25,6 +27,7 @@
 // ShaderMaterial with no lights and no fog, so no light count or scene change ever compiles it again). The contours are
 // worked out per pixel from the texture (fwidth), so they stay one or two pixels wide at any zoom.
 import { walkField, routeTo, distanceAt, FAR, WALK } from '../../core/walk.js';
+import { clearanceOf } from '../../core/size.js';
 import { blockingSegments } from '../vision.js';
 import { sightLevel } from '../../core/height.js';
 import { T } from '../tuner.js';
@@ -155,7 +158,8 @@ export function moveRingsSurface(R, app) {
     const fog = !!app.fog?.active?.(area); // under fog of war: only what this viewer knows is walkable
     const known = fog ? (x, z) => app.fog.explored(x, z, level, area) : null;
     const segs = wallsNear(w, E, e.x, e.z, level), t1 = performance.now();
-    const F = walkField({ origin: [e.x, e.z], reach: L.reach, segments: segs, known });
+    const clear = clearanceOf(app.assets?.figures?.sizeOf?.(e) || 1);
+    const F = walkField({ origin: [e.x, e.z], reach: L.reach, segments: segs, known, clear });
     const t2 = performance.now();
     const T_ = texture(), data = T_.image.data, n = F.n, N = texN; data.fill(FAR);
     for (let j = 0; j < n && j < N; j++) data.set(F.dist.subarray(j * n, j * n + Math.min(n, N)), j * N);
@@ -163,9 +167,19 @@ export function moveRingsSurface(R, app) {
     U.uO.value.set(F.x0 + F.cell / 2, F.z0 + F.cell / 2); U.uCell.value = F.cell; U.uN.value = N; U.uJump.value = F.cell * 1.6;
     const size = n * F.cell; mesh.scale.set(size, 1, size); mesh.position.set(F.x0 + size / 2, y + L.lift, F.z0 + size / 2);
     if (mesh.parent !== w.layers.deco) w.layers.deco.add(mesh);
-    return { key: keyOf(area, drag, e), area, w, lead: e.id, F, level, y, fog, known, walls: segs, born: performance.now(), wallMs: t1 - t0, fieldMs: t2 - t1, totalMs: performance.now() - t0, segs: segs.length };
+    return { key: keyOf(area, drag, e), area, w, lead: e.id, F, level, y, fog, known, clear, walls: segs, born: performance.now(), wallMs: t1 - t0, fieldMs: t2 - t1, totalMs: performance.now() - t0, segs: segs.length };
   }
-  const keyOf = (area, drag, e) => `${area}|${drag.lead}|${e.x}|${e.z}`;
+  const keyOf = (area, drag, e) => `${area}|${drag.lead}|${e.x}|${e.z}|${e.size || ''}`;
+  // THE WALLS A PAWN'S FEET MEET round (x, z), on the level of a figure at height y (the same walls as the rings): what a
+  // big base is checked against (core/size.js crampedAt; client/pawns.js app.pawnFits). Kept while the area's state and
+  // edges are the same and the point stays within a few squares.
+  let wallsMemo = null;
+  app.pawnWalls = (x, z, y = 0, area = app.area()) => {
+    const w = area && app.worlds.get(area); if (!w) return [];
+    const E = w.view?.entities || {}, level = sightLevel(E, x, z, y, open), m = wallsMemo;
+    if (m && m.w === w && m.E === E && m.edges === w.edges && m.level === level && Math.abs(m.x - x) < 15 && Math.abs(m.z - z) < 15) return m.segs;
+    const segs = wallsNear(w, E, x, z, level); wallsMemo = { w, E, edges: w.edges, level, x, z, segs }; return segs;
+  };
   const stats = { drags: 0, last: null, worst: 0 };
   let leaving = 0; // when the drop came: the rings fade out over fadeOutMs from then (still the drag's field; no route is offered)
   function stop() { leaving = 0; if (cur) { mesh.visible = false; cur = null; } }
@@ -222,7 +236,7 @@ export function moveRingsSurface(R, app) {
       if (!cur) return null;
       const knows = cur.known || (() => true), side = 0.7;
       const seen = ([ax, az, bx, bz]) => { const len = Math.hypot(bx - ax, bz - az) || 1, nx = -(bz - az) / len, nz = (bx - ax) / len, k = Math.ceil(len / 0.5); for (let q = 0; q <= k; q++) { const x = ax + (bx - ax) * q / k, z = az + (bz - az) * q / k; if (knows(x + nx * side, z + nz * side) || knows(x - nx * side, z - nz * side)) return true; } return false; };
-      const kept = cur.walls.filter(seen), G = walkField({ origin: [cur.F.ox, cur.F.oz], reach: L.reach, segments: kept, known: cur.known });
+      const kept = cur.walls.filter(seen), G = walkField({ origin: [cur.F.ox, cur.F.oz], reach: L.reach, segments: kept, known: cur.known, clear: cur.clear });
       return { same: G.n === cur.F.n && G.dist.every((d, k) => d === cur.F.dist[k]), dropped: cur.walls.length - kept.length, kept: kept.length };
     },
     set(k, v) { if (!(k in L)) return false; L[k] = v; look(); if (cur && (k === 'reach')) { const d = app.moveDrag?.pawns; cur = null; if (d) ensure(); } app.gfx?.wake?.('moveRings'); app.refresh(); return true; },

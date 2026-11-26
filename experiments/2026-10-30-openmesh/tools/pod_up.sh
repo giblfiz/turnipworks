@@ -4,7 +4,7 @@
 # moment a pod id exists, and a second one on the pod itself (tools/pod_deadman.sh) once ssh answers. Writes B/pod.json and the START line in B/spend.log, then runs the TRELLIS.2 setup.
 #   tools/pod_up.sh [HOURS=1] [--dry-run] [--gpu a100|4090] [--no-setup]
 # The method is the yard's and inn-02's: `runpodctl pod create ... --network-volume-id ... --wait`, then
-# `nohup bash -c 'sleep N; runpodctl pod delete ID'`, then src/setup_runpod_trellis2_clean.sh on the pod.
+# `nohup bash -c 'sleep N; <delete ID>'` (now REST v2 + GraphQL fallback: pod_lib.sh rp_pod_kill, OPS-441), then src/setup_runpod_trellis2_clean.sh on the pod.
 set -euo pipefail
 source "$(dirname "$0")/pod_lib.sh"
 hours=1; dry=0; force_gpu=""; setup=1
@@ -42,7 +42,7 @@ fi
 arm_timer() {   # $1 pod id. Detached from this shell; survives it.
   rm -f "$B/deletion-timer.pid"
   nohup setsid "$TOOLS/pod_timer.sh" "$1" "$secs" >> "$B/deletion-timer.log" 2>&1 < /dev/null &
-  sleep 2; test -f "$B/deletion-timer.pid" && kill -0 "$(cat "$B/deletion-timer.pid")" || { echo "TIMER DID NOT START: deleting pod $1 now" >&2; "$RUNPODCTL" pod delete "$1"; exit 1; }
+  sleep 2; test -f "$B/deletion-timer.pid" && kill -0 "$(cat "$B/deletion-timer.pid")" || { echo "TIMER DID NOT START: deleting pod $1 now" >&2; rp_pod_kill "$1" || echo "POD $1 NOT VERIFIED GONE: delete it by hand" >&2; exit 1; }
 }
 id=""; gpu=""
 for g in "${order[@]}"; do
@@ -51,13 +51,17 @@ for g in "${order[@]}"; do
   set +e; eval "$(create_cmd "$g")" > "$B/pod-create.out" 2> "$B/pod-create.err"; rc=$?; set -e
   cat "$B/pod-create.err" | tail -3
   # whatever the CLI said, ask the account: a pod may exist even after an error or a --wait timeout
-  id=$(rp_pod_list | jq -r --arg n "$POD_NAME" '[.[] | select(.name == $n)][0].id // empty')
-  if [[ -z $id && $rc != 0 ]]; then sleep 15; id=$(rp_pod_list | jq -r --arg n "$POD_NAME" '[.[] | select(.name == $n)][0].id // empty'); fi   # the list can lag
+  # (a failed list is retried, never read as "no pod": under set -e it would otherwise exit with a pod up and no timer)
+  id=""; for lt in 1 2 3; do
+    l=$(rp_pod_list) && { id=$(jq -r --arg n "$POD_NAME" '[.[] | select(.name == $n)][0].id // empty' <<<"$l"); [[ -n $id || $rc == 0 ]] && break; }
+    sleep 15                                                                                    # the list can lag, or 429
+  done
+  [[ -n $id ]] || id=$(sed -n '/^{/,$p' "$B/pod-create.out" | jq -r '.id // empty' 2>/dev/null || true)   # last resort: the CLI's own answer
   if [[ -n $id ]]; then gpu=$g; printf "%s\n" "$id" > "$B/pod-ever-created"; arm_timer "$id"; echo "pod $id exists; deletion timer armed ($hours h)"; break; fi
   echo "no pod from $g (rc $rc): $(tail -c 300 "$B/pod-create.out")"
 done
 [[ -n $id ]] || { echo "could not create a pod (A100 and 4090 both refused)"; exit 1; }
-n=$(rp_our_pods | jq 'length')
+n=$(rp_our_pods | jq 'length') || n="unknown (pod list failed)"
 if [[ $n != 1 ]]; then echo "WARNING: the account lists $n pods named $POD_NAME, expected 1: $(rp_our_pods)" >&2; log_spend "WARNING $n pods named $POD_NAME after create: $(rp_our_pods)"; fi
 
 # ssh address: from the create output, else ask (it can take a minute after a --wait timeout)
@@ -65,10 +69,11 @@ host=$(sed -n '/^{/,$p' "$B/pod-create.out" | jq -r '.ssh.ip // empty' 2>/dev/nu
 port=$(sed -n '/^{/,$p' "$B/pod-create.out" | jq -r '.ssh.port // empty' 2>/dev/null || true)
 for i in $(seq 1 30); do
   [[ -n $host && -n $port ]] && break
-  sleep 10; j=$("$RUNPODCTL" pod get "$id" 2>/dev/null || true)
-  host=$(jq -r '.ssh.ip // empty' <<<"$j" 2>/dev/null || true); port=$(jq -r '.ssh.port // empty' <<<"$j" 2>/dev/null || true)
+  sleep 10; j=$(rp_pod_get "$id" 2>/dev/null || true)          # REST v2 (runpodctl 2.14 `pod get` is v1; OPS-441)
+  host=$(jq -r '.ssh.direct.host // empty' <<<"$j" 2>/dev/null || true); port=$(jq -r '.ssh.direct.port // empty' <<<"$j" 2>/dev/null || true)
 done
-cost=$(rp_pod_list | jq -r --arg i "$id" '.[] | select(.id == $i) | .costPerHr')
+cost=$(rp_pod_get "$id" 2>/dev/null | jq -r '.cost // empty') || cost=""
+[[ -n $cost ]] || cost=$(rp_price "$gpu")                         # GraphQL list price, if v2 did not answer
 jq -n --arg id "$id" --arg name "$POD_NAME" --arg gpu "$gpu" --arg host "$host" --arg port "$port" --arg cost "$cost" --arg start "$create_start" \
   --arg hours "$hours" --arg fires "$(date -d "+${secs} seconds" -Is)" --arg bal "$bal" --arg vol "$VOLUME_ID" --arg dc "$DC" \
   '{id: $id, name: $name, gpu: $gpu, host: $host, port: ($port | tonumber? // $port), cost_per_hr: ($cost | tonumber? // $cost), start: $start,
@@ -76,7 +81,7 @@ jq -n --arg id "$id" --arg name "$POD_NAME" --arg gpu "$gpu" --arg host "$host" 
 note=""; [[ $gpu == "$GPU_4090" && -z $force_gpu ]] && note=" (A100 stock in $DC: ${sa:-not offered})"
 log_spend "START RunPod pod $id $POD_NAME: 1x $gpu secure $DC @ \$$cost/hr$note; balance \$$bal; deletion timer $hours h => worst case \$$(python3 -c "print(round($hours*$cost,2))")"
 cat "$POD_JSON"
-[[ -n $host && -n $port ]] || { echo "pod $id has no ssh address yet; the timer is armed. Check 'runpodctl pod get $id', fix pod.json, run tools/pod_setup.sh"; exit 1; }
+[[ -n $host && -n $port ]] || { echo "pod $id has no ssh address yet; the timer is armed. Check it (source tools/pod_lib.sh; rp_pod_get $id | jq .ssh), fix pod.json, run tools/pod_setup.sh"; exit 1; }
 # second timer, ON THE POD (tools/pod_deadman.sh): fires 2 min after the local one, and does not need the build box to be up
 for i in 1 2 3 4 5 6; do "$TOOLS/pod_deadman.sh" && break; echo "dead-man's switch not armed yet (ssh not up?), try $i"; sleep 15; done
 "$TOOLS/pod_deadman.sh" --status | grep -q '^armed' || { echo "NO POD-SIDE DEAD-MAN SWITCH: deleting pod immediately" >&2; "$TOOLS/pod_down.sh" --force; exit 1; }

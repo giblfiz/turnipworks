@@ -1,0 +1,157 @@
+{
+ "file": "cul-nrs-tiefling-caster.glb",
+ "tris": 48646,
+ "kb": 2704,
+ "native_extent": [
+  0.431,
+  1.001,
+  0.353
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  88,
+  48,
+  31
+ ],
+ "mean_saturation": 0.645,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 45,
+  "main_part_area_share": 0.9996,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.9969,
+ "y0": -3.0042,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2163,
+   -0.501,
+   -0.1759
+  ],
+  [
+   0.2152,
+   0.4997,
+   0.1767
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48646,
+   "tex": 2048,
+   "kb": 2704
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1061
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 458
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.93,
+    "z": 0.26,
+    "size_ft": [
+     0.73,
+     1.0
+    ],
+    "off_ground_ft": 0.009,
+    "sole_level_share": 0.91,
+    "sole_p90_ft": 0.065
+   },
+   {
+    "x": -0.43,
+    "z": -0.01,
+    "size_ft": [
+     0.7,
+     0.98
+    ],
+    "off_ground_ft": 0.009,
+    "sole_level_share": 0.91,
+    "sole_p90_ft": 0.063
+   },
+   {
+    "x": -0.91,
+    "z": 0.59,
+    "size_ft": [
+     0.3,
+     0.3
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.98,
+    "sole_p90_ft": 0.035
+   },
+   {
+    "x": 0.25,
+    "z": -0.51,
+    "size_ft": [
+     0.2,
+     0.28
+    ],
+    "off_ground_ft": 0.351,
+    "sole_level_share": 0.22,
+    "sole_p90_ft": 0.517
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.351,
+  "lowest_slab_area_sqft": 0.95,
+  "plan_hull_area_sqft": 4.45,
+  "lowest_slab_share_of_plan": 0.213
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.59,
+   "d": 2.11,
+   "h": 6.0
+  },
+  "centre": [
+   0.122,
+   0.537
+  ],
+  "contacts_radius_ft": 1.16,
+  "reach_radius_ft": 1.69,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.882,
+  "plate_lost_share": 0.055,
+  "added_share": 0.071,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.827,
+  "view_yaw_deg": 5,
+  "view_elev_deg": 8
+ },
+ "id": "cul-nrs-tiefling-caster",
+ "sha1": "510fd9a54a56914108d6fe2ee59d8a68beaf0edc",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.35 ft off the ground"
+ ],
+ "qa_seconds": 7.7
+}

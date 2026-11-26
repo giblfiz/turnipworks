@@ -326,6 +326,17 @@ How this reads against our design (*our reading, 60%*):
 
 **Not legal advice. This is a plain-language summary for a conversation with counsel.**
 
+**Update 2026-11-06 (lane "uploads"; docs/UPLOADS.md, docs/legal/).** Uploads are built (dev only) with the safe-harbour
+machinery, and the drafts went through an adversarial review (docs/legal/ADVERSARIAL_REVIEW.md). Four corrections to
+this section and to "Decided", for the record (Harry's decisions above are unchanged):
+- "Fundamentally we are not *distributing* anything" does not settle copyright: storing and serving copies to the
+  campaign's browsers is reproduction whether or not it is distribution. The safe harbour is what we lean on. [99%, the reviewer]
+- The registration matters before **hosting** on prod, not only before going public: the harbour does not cover what was
+  stored before an agent existed. Prod therefore takes uploads only once the record is complete (docs/UPLOADS.md "Where it is on").
+- The fee: the Copyright Office's FAQ still lists $6; the $25 figure below was a proposal, not yet a rule.
+- The conversion runs on the server (a stranger's file must be rebuilt before it is served); the case law treats that
+  as part of storage (docs/legal/WORKING_NOTES.md §2). The Import Lab stays the front end for files over the cap.
+
 What it is: a US law gives a service that stores users' files protection from copyright damages for those files, on conditions. One condition is registering a named contact, the "designated agent", with the US Copyright Office.
 
 Registering:

@@ -188,10 +188,28 @@ export function curveOf(settings, scale = 1, anchor = { x: 0, y: 0 }, grow = 0, 
 // even slid, gets the oval grown (rx and ry together) by the smallest factor that fits, up to GROW_MAX, for that selection,
 // shut and open alike (one oval, so the slide stays on it). Only past that do extra buttons step out a ring.
 export const GROW_MAX = 1.5, GROW_STEP = 0.01;
+// WORKED OUT ONCE PER SHAPE (2026-11-06, the SPEED lane). The game's ring asks for its slots every frame (surfaces/ring.js
+// position), and finding them is a search: the row slides along the oval in 2-px steps until it is clear of 3–6, and a
+// row too long for the oval tries it grown in 1% steps up to ×1.5, each grown oval a new 2048-point table (and the table
+// cache, 64 long, was cleared by that very search). With a pawn selected that was 100 to 130 ms of every frame on
+// the build box and on the front web server (tools/perf-bench/lightuse.py, the drag and ring phases). The answer does not depend on WHERE
+// the ring is: the oval is centred on the anchor and the 3–6 test is made against the anchor, so it is worked out about
+// (0, 0) once per (shape, counts, scale) and moved to the anchor. Only the shape's fields the search reads are its key.
+const slotMemo = new Map();
+export const slotStats = { searches: 0 }; // (tests: how many searches were run)
+export const clearSlotMemo = () => slotMemo.clear();
 export function curveSlots(settings, counts, scale = 1, anchor = { x: 0, y: 0 }) {
-  let r = curveSlotsAt(settings, counts, scale, anchor, 1);
-  for (let k = 1 + GROW_STEP; r.spill && k <= GROW_MAX + 1e-9; k += GROW_STEP) { const t = curveSlotsAt(settings, counts, scale, anchor, +k.toFixed(2), true); if (t) { r = t; break; } }
-  return r;
+  const key = JSON.stringify([settings.curve, !!settings.fullClock, settings.labelMode, settings.labelOffset, !!settings.world?.on, settings.labelWhen, settings.fontSize, counts.primary, counts.secondary, counts.menu, scale]);
+  let r = slotMemo.get(key);
+  if (!r) {
+    const o = { x: 0, y: 0 }; slotStats.searches++;
+    r = curveSlotsAt(settings, counts, scale, o, 1);
+    for (let k = 1 + GROW_STEP; r.spill && k <= GROW_MAX + 1e-9; k += GROW_STEP) { const t = curveSlotsAt(settings, counts, scale, o, +k.toFixed(2), true); if (t) { r = t; break; } }
+    if (slotMemo.size >= 96) slotMemo.delete(slotMemo.keys().next().value);
+    slotMemo.set(key, r);
+  }
+  const c = r.curve, ax = +anchor.x || 0, ay = +anchor.y || 0;
+  return { ...r, curve: { ...c, cx: c.cx + ax, cy: c.cy + ay }, closed: { primary: [...r.closed.primary], menu: [...r.closed.menu] }, expanded: { primary: [...r.expanded.primary], secondary: [...r.expanded.secondary], menu: [...r.expanded.menu] } };
 }
 function curveSlotsAt(settings, counts, scale, anchor, gk, mustFit = false) {
   const C = settings.curve, c = curveOf(settings, scale, anchor, 0, gk), lut = ellipseLut(c.rx, c.ry);

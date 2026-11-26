@@ -3675,6 +3675,7 @@
    "nature",
    "sword-shield"
   ],
+  "rite": true,
   "slots": {
    "anchor": [
     "altar-stone",
@@ -3744,6 +3745,7 @@
    "nature",
    "sword-shield"
   ],
+  "rite": true,
   "slots": {
    "anchor": [
     "altar-stone",
@@ -3884,6 +3886,7 @@
    "nature",
    "sword-shield"
   ],
+  "rite": true,
   "slots": {
    "anchor": [
     "flavor-idol",
@@ -10981,6 +10984,419 @@
   ]
  },
  {
+  "key": "mod-apartment",
+  "label": "Apartment",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-planks-laminate",
+   "floor-tile-carpet"
+  ],
+  "recipes": [
+   "mod-apartment"
+  ],
+  "color": "#9fb4b0",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "sofa",
+    "tv-stand",
+    "bed-double",
+    "kitchenette"
+   ],
+   "furnish": [
+    "armchair",
+    "coffee-table",
+    "fridge",
+    "table-dining",
+    "chair-plain",
+    "houseplant"
+   ],
+   "light": [
+    "lamp-floor",
+    "light-fluorescent"
+   ],
+   "dress": [
+    "cardboard-boxes"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-office",
+  "label": "Office floor",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-tile-carpet"
+  ],
+  "recipes": [
+   "mod-office"
+  ],
+  "color": "#8a9bb3",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "cubicle-desk",
+    "office-chair"
+   ],
+   "furnish": [
+    "filing-cabinet",
+    "water-cooler",
+    "photocopier",
+    "whiteboard",
+    "houseplant",
+    "coffee-station"
+   ],
+   "light": [
+    "light-fluorescent"
+   ],
+   "dress": [
+    "cardboard-boxes"
+   ],
+   "gadgets": [
+    "laptop-open",
+    "monitor-crt",
+    "monitor-flat",
+    "keyboard",
+    "mouse-computer",
+    "coffee-cup-paper",
+    "desk-phone",
+    "paper-stack",
+    "donut",
+    "donut-box",
+    "camera-security",
+    "camera-dome"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-office"
+  ]
+ },
+ {
+  "key": "mod-bar",
+  "label": "Bar & nightclub",
+  "program": "generic",
+  "family": "city-brick",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-tile-dark"
+  ],
+  "recipes": [
+   "mod-bar"
+  ],
+  "color": "#b0466d",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "bar-counter",
+    "back-bar-shelves",
+    "stool-bar"
+   ],
+   "furnish": [
+    "booth-seat",
+    "table-cafe",
+    "table-billiards",
+    "jukebox",
+    "dj-booth",
+    "speaker-stack"
+   ],
+   "light": [
+    "sign-neon",
+    "light-fluorescent"
+   ],
+   "dress": [
+    "cardboard-boxes",
+    "trash-bags"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-street",
+  "label": "City street",
+  "program": "outdoors",
+  "family": "city-brick",
+  "cells": [
+   10,
+   5
+  ],
+  "floors": [
+   "floor-asphalt"
+  ],
+  "recipes": [
+   "mod-street"
+  ],
+  "color": "#6d7178",
+  "group": "Modern",
+  "outdoor": true,
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "road-strip",
+    "car-sedan",
+    "car-hatchback",
+    "streetlight"
+   ],
+   "furnish": [
+    "fire-hydrant",
+    "trash-can-city",
+    "newspaper-box",
+    "bench-street",
+    "traffic-cone"
+   ],
+   "dress": [
+    "crosswalk-strip",
+    "manhole-cover",
+    "decal-oil-stain",
+    "decal-litter"
+   ],
+   "vehicles": [
+    "car-sedan",
+    "car-hatchback",
+    "car-police",
+    "suv-armoured",
+    "van-armoured",
+    "motorbike"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-street"
+  ]
+ },
+ {
+  "key": "mod-alley",
+  "label": "Back alley",
+  "program": "outdoors",
+  "family": "city-brick",
+  "cells": [
+   8,
+   2
+  ],
+  "floors": [
+   "floor-asphalt",
+   "floor-concrete-garage"
+  ],
+  "recipes": [
+   "mod-alley"
+  ],
+  "color": "#5d5650",
+  "group": "Modern",
+  "outdoor": true,
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "dumpster",
+    "trash-bags"
+   ],
+   "furnish": [
+    "cardboard-boxes",
+    "pallet-stack",
+    "oil-drum",
+    "ac-unit"
+   ],
+   "light": [
+    "streetlight"
+   ],
+   "dress": [
+    "decal-litter",
+    "decal-oil-stain"
+   ],
+   "vehicles": [
+    "car-police",
+    "motorbike",
+    "car-hatchback"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-alley"
+  ]
+ },
+ {
+  "key": "mod-garage",
+  "label": "Parking garage",
+  "program": "generic",
+  "family": "concrete",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-concrete-garage"
+  ],
+  "recipes": [
+   "mod-garage"
+  ],
+  "color": "#9a9a92",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "pillar-concrete",
+    "car-sedan",
+    "car-hatchback",
+    "parking-line-strip"
+   ],
+   "furnish": [
+    "jersey-barrier",
+    "parking-barrier",
+    "oil-drum",
+    "traffic-cone"
+   ],
+   "light": [
+    "light-fluorescent"
+   ],
+   "dress": [
+    "decal-oil-stain"
+   ],
+   "vehicles": [
+    "car-sedan",
+    "car-hatchback",
+    "car-police",
+    "suv-armoured",
+    "van-armoured",
+    "motorbike"
+   ],
+   "gadgets": [
+    "camera-security"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-garage"
+  ]
+ },
+ {
+  "key": "mod-store",
+  "label": "Convenience store",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-tile-vinyl"
+  ],
+  "recipes": [
+   "mod-store"
+  ],
+  "color": "#d8c25a",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "store-shelving",
+    "drinks-cooler",
+    "checkout-counter"
+   ],
+   "furnish": [
+    "atm",
+    "coffee-station",
+    "cardboard-boxes"
+   ],
+   "light": [
+    "light-fluorescent"
+   ],
+   "dress": [
+    "decal-litter"
+   ],
+   "gadgets": [
+    "camera-security",
+    "camera-dome",
+    "coffee-cup-paper",
+    "donut-box"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-store"
+  ]
+ },
+ {
+  "key": "mod-warehouse",
+  "label": "Warehouse",
+  "program": "generic",
+  "family": "concrete",
+  "cells": [
+   8,
+   8
+  ],
+  "floors": [
+   "floor-concrete-polished",
+   "floor-concrete-garage"
+  ],
+  "recipes": [
+   "mod-warehouse"
+  ],
+  "color": "#b08a52",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "pallet-racking",
+    "forklift"
+   ],
+   "furnish": [
+    "pallet-boxes",
+    "pallet-stack",
+    "oil-drum",
+    "cardboard-boxes",
+    "jersey-barrier"
+   ],
+   "light": [
+    "light-fluorescent"
+   ],
+   "dress": [
+    "decal-oil-stain"
+   ],
+   "vehicles": [
+    "van-armoured",
+    "suv-armoured",
+    "forklift"
+   ]
+  },
+  "missing": [
+   "shipping-container"
+  ],
+  "borrow": [
+   "veh-warehouse"
+  ]
+ },
+ {
   "key": "hill",
   "floors": [
    "floor-grass",
@@ -11048,6 +11464,2805 @@
   "color": "#6e6252",
   "byHand": true,
   "slots": {},
+  "missing": []
+ },
+ {
+  "key": "nrs-longhouse",
+  "label": "Longhouse",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   8,
+   4
+  ],
+  "floors": [
+   "floor-earth-straw",
+   "floor-earth-packed",
+   "floor-planks-rushes",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "nrs-longhouse"
+  ],
+  "color": "#8a6a48",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ],
+  "slots": {
+   "anchor": [
+    "nrs-long-hearth",
+    "nrs-sleeping-platform",
+    "nrs-roof-post"
+   ],
+   "furnish": [
+    "nrs-loom",
+    "nrs-sea-chest",
+    "nrs-quern",
+    "nrs-wool-baskets",
+    "cauldron-crane",
+    "stool-three-leg"
+   ],
+   "store": [
+    "barrel",
+    "sack",
+    "grain-sack-open",
+    "crate"
+   ],
+   "light": [
+    "lantern-wall-horn",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "rug-sheepskin",
+    "rug-fur",
+    "nrs-shield-row"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "nrs-meadhall",
+  "label": "Mead hall (high seat)",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   10,
+   5
+  ],
+  "floors": [
+   "floor-earth-straw",
+   "floor-earth-packed",
+   "floor-planks-rushes",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "nrs-meadhall"
+  ],
+  "color": "#a0603a",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ],
+  "slots": {
+   "anchor": [
+    "nrs-high-seat",
+    "nrs-long-hearth",
+    "nrs-roof-post"
+   ],
+   "furnish": [
+    "table-trestle",
+    "bench-long",
+    "nrs-sleeping-platform",
+    "nrs-spear-rack",
+    "nrs-sea-chest"
+   ],
+   "store": [
+    "barrel"
+   ],
+   "light": [
+    "lantern-wall-horn",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "nrs-shield-row",
+    "rug-bearskin",
+    "horn-drinking-banded",
+    "tankard-horn"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "nrs-smithy",
+  "label": "Norse smithy",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-earth-bare",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "nrs-smithy"
+  ],
+  "color": "#6f5f55",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs",
+   "smi"
+  ],
+  "slots": {
+   "anchor": [
+    "nrs-forge",
+    "anvil",
+    "quench-trough"
+   ],
+   "furnish": [
+    "nrs-spear-rack",
+    "grindstone",
+    "nrs-sea-chest",
+    "table-work"
+   ],
+   "store": [
+    "smith-coal-heap",
+    "coal-bin",
+    "woodpile",
+    "barrel"
+   ],
+   "light": [
+    "lantern-wall-horn",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "tool-rack-smith"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "nrs-boathouse",
+  "label": "Boathouse (naust)",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   8,
+   4
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-gravel",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "nrs-boathouse"
+  ],
+  "color": "#6d7f86",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ],
+  "slots": {
+   "anchor": [
+    "nrs-boat"
+   ],
+   "furnish": [
+    "nrs-oar-rack",
+    "nrs-sail-trestle",
+    "nrs-sea-chest"
+   ],
+   "store": [
+    "barrel",
+    "rope-coil",
+    "crate"
+   ],
+   "light": [
+    "lantern-wall-horn",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "nrs-shield-row",
+    "bucket"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "nrs-weaving",
+  "label": "Weaving hut",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-earth-straw",
+   "floor-earth-packed",
+   "floor-planks-rushes",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "nrs-weaving"
+  ],
+  "color": "#b0835c",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ],
+  "slots": {
+   "anchor": [
+    "nrs-loom"
+   ],
+   "furnish": [
+    "nrs-wool-baskets",
+    "stool-three-leg",
+    "nrs-sea-chest",
+    "nrs-quern",
+    "hearth-central"
+   ],
+   "store": [
+    "sack",
+    "barrel"
+   ],
+   "light": [
+    "lantern-wall-horn",
+    "torch-bracket-rough"
+   ],
+   "dress": [
+    "rug-sheepskin"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "nrs-yard",
+  "label": "Steading yard (runestone)",
+  "program": "outdoors",
+  "family": "norse-stave",
+  "cells": [
+   7,
+   6
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-grass-worn",
+   "floor-earth-bare",
+   "floor-gravel"
+  ],
+  "recipes": [
+   "nrs-yard"
+  ],
+  "color": "#7f9455",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ],
+  "outdoor": true,
+  "slots": {
+   "anchor": [
+    "nrs-runestone",
+    "well"
+   ],
+   "furnish": [
+    "nrs-fish-rack",
+    "woodpile",
+    "hay-bale",
+    "cart-hand",
+    "chopping-block"
+   ],
+   "plants": [
+    "bush",
+    "tree-birch"
+   ],
+   "edge": [
+    "fence-wattle",
+    "fence-post-rail",
+    "fence-post-corner",
+    "gate-fence"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mde-courtyard",
+  "label": "Caravanserai courtyard",
+  "program": "outdoors",
+  "family": "mde-plaster",
+  "cells": [
+   8,
+   8
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-setts-courtyard",
+   "floor-flagstone-square",
+   "floor-cobble"
+  ],
+  "recipes": [
+   "mde-courtyard"
+  ],
+  "color": "#c9a66b",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ],
+  "outdoor": true,
+  "slots": {
+   "anchor": [
+    "mde-floor-fountain",
+    "well"
+   ],
+   "furnish": [
+    "water-trough",
+    "mde-bales",
+    "mde-saddle-packs",
+    "mde-water-jar",
+    "hitching-post"
+   ],
+   "edge": [
+    "mde-arcade",
+    "mde-arcade-pier",
+    "mde-khan-gate"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mde-souk",
+  "label": "Souk shop",
+  "program": "generic",
+  "family": "mde-plaster",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-terracotta",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "mde-souk"
+  ],
+  "color": "#c46a3a",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde",
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "counter-shop",
+    "shop-shelf-stocked"
+   ],
+   "furnish": [
+    "shop-floor-stock",
+    "craft-display-table-goods",
+    "mde-inlaid-chest"
+   ],
+   "store": [
+    "mde-bales",
+    "mde-water-jar",
+    "mde-saddle-packs"
+   ],
+   "light": [
+    "lantern-pierced-tin",
+    "lantern-wall-brass"
+   ],
+   "dress": [
+    "rug-striped-woven"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mde-hammam",
+  "label": "Hammam (bathhouse)",
+  "program": "generic",
+  "family": "mde-plaster",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-marble-cabochon",
+   "floor-flagstone-large",
+   "floor-tile-hex"
+  ],
+  "recipes": [
+   "mde-hammam"
+  ],
+  "color": "#9fc2c0",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ],
+  "slots": {
+   "anchor": [
+    "mde-floor-fountain",
+    "mde-hammam-bench"
+   ],
+   "furnish": [
+    "mde-wall-basin",
+    "mde-water-jar"
+   ],
+   "light": [
+    "lantern-pierced-tin",
+    "lantern-wall-brass",
+    "oil-lamp"
+   ],
+   "dress": [
+    "bucket",
+    "bowl-wood-large"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mde-audience",
+  "label": "Reception hall (qa'a)",
+  "program": "generic",
+  "family": "mde-plaster",
+  "cells": [
+   7,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-square",
+   "floor-marble-cabochon",
+   "floor-tile-hex"
+  ],
+  "recipes": [
+   "mde-audience"
+  ],
+  "color": "#b7894f",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ],
+  "slots": {
+   "anchor": [
+    "mde-dais",
+    "mde-floor-fountain"
+   ],
+   "furnish": [
+    "mde-divan",
+    "mde-tray-table",
+    "mde-inlaid-chest",
+    "mde-water-jar"
+   ],
+   "light": [
+    "lantern-pierced-tin",
+    "lantern-wall-brass"
+   ],
+   "dress": [
+    "rug-grand",
+    "rug-striped-woven"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mde-coffee",
+  "label": "Coffee house",
+  "program": "generic",
+  "family": "mde-plaster",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-terracotta",
+   "floor-tile-hex"
+  ],
+  "recipes": [
+   "mde-coffee"
+  ],
+  "color": "#8c5a3c",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ],
+  "slots": {
+   "anchor": [
+    "mde-coffee-brazier",
+    "mde-divan"
+   ],
+   "furnish": [
+    "mde-tray-table",
+    "mde-water-jar"
+   ],
+   "light": [
+    "lantern-pierced-tin",
+    "lantern-wall-brass"
+   ],
+   "dress": [
+    "pillows-cushions",
+    "rug-striped-woven"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mde-garden",
+  "label": "Courtyard garden",
+  "program": "outdoors",
+  "family": "mde-plaster",
+  "cells": [
+   6,
+   6
+  ],
+  "floors": [
+   "floor-setts-courtyard",
+   "floor-flagstone-large",
+   "floor-grass-worn"
+  ],
+  "recipes": [
+   "mde-garden"
+  ],
+  "color": "#7fa060",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ],
+  "outdoor": true,
+  "slots": {
+   "anchor": [
+    "mde-floor-fountain",
+    "fountain-courtyard"
+   ],
+   "furnish": [
+    "citrus-tree-tub",
+    "flowerbed",
+    "bench-stone",
+    "trellis-vine",
+    "mde-water-jar"
+   ],
+   "plants": [
+    "palm-potted",
+    "planter-stone"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "rus-izba",
+  "label": "Izba (log house)",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-boards-rough",
+   "floor-planks-worn",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "rus-izba"
+  ],
+  "color": "#a4783f",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ],
+  "slots": {
+   "anchor": [
+    "rus-stove"
+   ],
+   "furnish": [
+    "table-square",
+    "bench-long",
+    "rus-chest",
+    "stool-three-leg"
+   ],
+   "light": [
+    "rushlight-holder-wall",
+    "candle-box-sconce",
+    "rushlight-holder"
+   ],
+   "dress": [
+    "rus-icon-corner",
+    "rug-rush-mat",
+    "firewood-basket"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "rus-terem",
+  "label": "Terem hall",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   6,
+   4
+  ],
+  "floors": [
+   "floor-planks-polished",
+   "floor-planks-worn",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "rus-terem"
+  ],
+  "color": "#a9473c",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ],
+  "slots": {
+   "anchor": [
+    "rus-tiled-stove",
+    "table-trestle"
+   ],
+   "furnish": [
+    "rus-high-chair",
+    "bench-long",
+    "rus-chest"
+   ],
+   "light": [
+    "sconce-candle-single",
+    "candle-box-sconce",
+    "candlestick-floor"
+   ],
+   "dress": [
+    "rus-icon-corner",
+    "table-runner-embroidered",
+    "rug-striped-woven"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "rus-banya",
+  "label": "Banya (bathhouse)",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-boards-rough",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "rus-banya"
+  ],
+  "color": "#8aa0a6",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ],
+  "slots": {
+   "anchor": [
+    "rus-banya-heater",
+    "rus-banya-shelf"
+   ],
+   "furnish": [
+    "washtub",
+    "bathtub-wood",
+    "bench-long"
+   ],
+   "light": [
+    "rushlight-holder-wall",
+    "rushlight-holder"
+   ],
+   "dress": [
+    "rus-besom-rack",
+    "bucket"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "rus-church",
+  "label": "Wooden church",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   5,
+   6
+  ],
+  "floors": [
+   "floor-planks-worn",
+   "floor-planks-dark",
+   "floor-boards-rough"
+  ],
+  "recipes": [
+   "rus-church"
+  ],
+  "color": "#d2a640",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ],
+  "slots": {
+   "anchor": [
+    "rus-iconostasis",
+    "altar-stone"
+   ],
+   "furnish": [
+    "rus-lectern",
+    "bench-long"
+   ],
+   "light": [
+    "candlestand-pricket",
+    "candle-tree"
+   ],
+   "dress": [
+    "rite-altar-cloth"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "rus-market",
+  "label": "Market row stall",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-boards-rough",
+   "floor-planks-worn",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "rus-market"
+  ],
+  "color": "#8b6a3d",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus",
+   "mkt"
+  ],
+  "slots": {
+   "anchor": [
+    "counter-shop",
+    "shop-shelf-stocked"
+   ],
+   "furnish": [
+    "shop-floor-stock",
+    "rus-chest"
+   ],
+   "store": [
+    "barrel",
+    "sack"
+   ],
+   "light": [
+    "rushlight-holder-wall",
+    "candle-box-sconce"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "rus-yard",
+  "label": "Stockade yard",
+  "program": "outdoors",
+  "family": "rus-log",
+  "cells": [
+   7,
+   6
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-earth-bare",
+   "floor-grass-worn"
+  ],
+  "recipes": [
+   "rus-yard"
+  ],
+  "color": "#7c8b5a",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ],
+  "outdoor": true,
+  "slots": {
+   "anchor": [
+    "rus-well-sweep",
+    "well"
+   ],
+   "furnish": [
+    "rus-sledge",
+    "woodpile",
+    "hay-pile",
+    "cart-hand",
+    "chopping-block"
+   ],
+   "plants": [
+    "tree-birch",
+    "bush"
+   ],
+   "edge": [
+    "rus-palisade",
+    "post-timber",
+    "rus-yard-gate"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mes-shrine",
+  "label": "Temple summit shrine",
+  "program": "generic",
+  "family": "mes-stucco",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-square"
+  ],
+  "recipes": [
+   "mes-shrine"
+  ],
+  "color": "#c8423a",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "slots": {
+   "anchor": [
+    "mes-altar",
+    "mes-brazier"
+   ],
+   "furnish": [
+    "mes-chacmool",
+    "mes-water-jar"
+   ],
+   "dress": [
+    "rug-rush-mat"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mes-ballcourt",
+  "label": "Ballcourt",
+  "program": "outdoors",
+  "family": "mes-stucco",
+  "cells": [
+   16,
+   6
+  ],
+  "floors": [
+   "floor-ind-lime"
+  ],
+  "recipes": [
+   "mes-ballcourt"
+  ],
+  "color": "#d1b07a",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "outdoor": true,
+  "slots": {
+   "anchor": [
+    "mes-court-ring",
+    "mes-court-wall",
+    "mes-court-endwall"
+   ],
+   "dress": [
+    "mes-court-ball",
+    "decal-mes-court-line"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mes-house",
+  "label": "Noble's house",
+  "program": "generic",
+  "family": "mes-stucco",
+  "cells": [
+   6,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-earth-packed",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "mes-house"
+  ],
+  "color": "#c98a4a",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "slots": {
+   "anchor": [
+    "mes-icpalli",
+    "mes-comal-hearth"
+   ],
+   "furnish": [
+    "mes-reed-chest",
+    "mes-metate",
+    "mes-water-jar",
+    "storage-jar"
+   ],
+   "light": [
+    "mes-brazier"
+   ],
+   "dress": [
+    "rug-rush-mat"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mes-market",
+  "label": "Market plaza",
+  "program": "outdoors",
+  "family": "mes-stucco",
+  "cells": [
+   8,
+   7
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-flagstone-large",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "mes-market"
+  ],
+  "color": "#c9a052",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "outdoor": true,
+  "slots": {
+   "anchor": [
+    "mes-spread-maize",
+    "mes-spread-chilies",
+    "mes-spread-pottery",
+    "mes-spread-cloth"
+   ],
+   "furnish": [
+    "mes-water-jar"
+   ]
+  },
+  "missing": [
+   "mes-awning"
+  ]
+ },
+ {
+  "key": "mes-chinampa",
+  "label": "Chinampa garden",
+  "program": "outdoors",
+  "family": "mes-stucco",
+  "cells": [
+   7,
+   6
+  ],
+  "floors": [
+   "floor-water-flooded"
+  ],
+  "recipes": [
+   "mes-chinampa"
+  ],
+  "color": "#4f8f6a",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "outdoor": true,
+  "slots": {
+   "anchor": [
+    "mes-chinampa-bed"
+   ],
+   "furnish": [
+    "mes-ahuejote",
+    "mes-canoe"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mes-scribe",
+  "label": "Scribe's room",
+  "program": "generic",
+  "family": "mes-stucco",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-earth-packed",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "mes-scribe"
+  ],
+  "color": "#3f8f8f",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "slots": {
+   "anchor": [
+    "mes-codex-mat"
+   ],
+   "furnish": [
+    "mes-paint-pots",
+    "mes-reed-chest",
+    "mes-icpalli",
+    "mes-water-jar"
+   ],
+   "light": [
+    "mes-brazier"
+   ],
+   "dress": [
+    "rug-rush-mat"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "jpn-house",
+  "label": "Tatami room",
+  "program": "generic",
+  "family": "jpn-shoji",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-tatami",
+   "floor-jpn-cedar"
+  ],
+  "recipes": [
+   "jpn-room-house"
+  ],
+  "color": "#c9b77a",
+  "group": "Japan",
+  "tiers": [
+   "jpn"
+  ],
+  "slots": {
+   "anchor": [
+    "jpn-tokonoma",
+    "jpn-low-table"
+   ],
+   "furnish": [
+    "jpn-zabuton",
+    "jpn-byobu",
+    "jpn-armour-chest"
+   ],
+   "store": [
+    "jpn-tansu"
+   ],
+   "light": [
+    "jpn-andon"
+   ],
+   "dress": [
+    "jpn-tea-utensils"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "jpn-teahouse",
+  "label": "Tea house",
+  "program": "generic",
+  "family": "jpn-shoji",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-tatami"
+  ],
+  "recipes": [
+   "jpn-room-teahouse"
+  ],
+  "color": "#8f9a5c",
+  "group": "Japan",
+  "tiers": [
+   "jpn"
+  ],
+  "slots": {
+   "anchor": [
+    "jpn-tokonoma",
+    "jpn-ro-kama"
+   ],
+   "furnish": [
+    "jpn-zabuton"
+   ],
+   "store": [
+    "jpn-tansu"
+   ],
+   "light": [
+    "jpn-andon"
+   ],
+   "dress": [
+    "jpn-tea-utensils"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "jpn-dojo",
+  "label": "Dojo",
+  "program": "generic",
+  "family": "jpn-shoji",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-jpn-cedar",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "jpn-room-dojo"
+  ],
+  "color": "#b98d55",
+  "group": "Japan",
+  "tiers": [
+   "jpn"
+  ],
+  "slots": {
+   "anchor": [
+    "jpn-kamidana"
+   ],
+   "furnish": [
+    "jpn-bokken-rack",
+    "jpn-taiko",
+    "jpn-armour-chest"
+   ],
+   "light": [
+    "jpn-andon"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "jpn-shrine",
+  "label": "Shrine hall",
+  "program": "generic",
+  "family": "jpn-shrine",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-jpn-cedar",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "jpn-room-shrine"
+  ],
+  "color": "#d0563c",
+  "group": "Japan",
+  "tiers": [
+   "jpn"
+  ],
+  "slots": {
+   "anchor": [
+    "jpn-shinsen-altar",
+    "jpn-saisen-bako"
+   ],
+   "furnish": [
+    "jpn-bell-rope",
+    "jpn-taiko"
+   ],
+   "light": [
+    "jpn-andon"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "jpn-shrine-court",
+  "label": "Shrine approach",
+  "program": "outdoors",
+  "family": "jpn-shrine",
+  "cells": [
+   6,
+   6
+  ],
+  "floors": [
+   "floor-gravel",
+   "floor-jpn-moss"
+  ],
+  "recipes": [
+   "jpn-room-shrine-court"
+  ],
+  "color": "#a8a49a",
+  "outdoor": true,
+  "group": "Japan",
+  "tiers": [
+   "jpn"
+  ],
+  "slots": {
+   "anchor": [
+    "jpn-torii",
+    "jpn-chozuya"
+   ],
+   "furnish": [
+    "jpn-toro",
+    "jpn-komainu",
+    "jpn-pine"
+   ],
+   "light": [
+    "jpn-toro"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "jpn-shop",
+  "label": "Sake merchant's shop",
+  "program": "generic",
+  "family": "jpn-shoji",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-jpn-cedar"
+  ],
+  "recipes": [
+   "jpn-room-shop"
+  ],
+  "color": "#8a6a48",
+  "group": "Japan",
+  "tiers": [
+   "jpn"
+  ],
+  "slots": {
+   "anchor": [
+    "jpn-shop-platform"
+   ],
+   "furnish": [
+    "jpn-shop-shelves",
+    "jpn-tansu"
+   ],
+   "store": [
+    "jpn-sake-casks"
+   ],
+   "light": [
+    "jpn-andon"
+   ],
+   "dress": [
+    "jpn-sugidama"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "jpn-garden",
+  "label": "Tea garden",
+  "program": "outdoors",
+  "family": "jpn-shoji",
+  "cells": [
+   6,
+   6
+  ],
+  "floors": [
+   "floor-jpn-moss",
+   "floor-grass-worn"
+  ],
+  "recipes": [
+   "jpn-room-garden"
+  ],
+  "color": "#6f8f4a",
+  "outdoor": true,
+  "group": "Japan",
+  "tiers": [
+   "jpn"
+  ],
+  "slots": {
+   "anchor": [
+    "jpn-tsukubai",
+    "jpn-toro"
+   ],
+   "furnish": [
+    "jpn-maple",
+    "jpn-pine",
+    "fence-bamboo"
+   ],
+   "light": [
+    "jpn-toro"
+   ],
+   "dress": [
+    "decal-stepping-stones"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "chn-hall",
+  "label": "Courtyard-house hall",
+  "program": "generic",
+  "family": "chn-brick",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-chn-brick",
+   "floor-flagstone-square"
+  ],
+  "recipes": [
+   "chn-room-hall"
+  ],
+  "color": "#8e3b2f",
+  "group": "China",
+  "tiers": [
+   "chn"
+  ],
+  "slots": {
+   "anchor": [
+    "chn-console-table",
+    "chn-square-table"
+   ],
+   "furnish": [
+    "chn-armchair",
+    "chn-standing-screen",
+    "chn-penjing"
+   ],
+   "store": [
+    "chn-porcelain-jars"
+   ],
+   "light": [
+    "chn-palace-lantern"
+   ],
+   "dress": [
+    "chn-scroll-landscape"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "chn-teahouse",
+  "label": "Tea house",
+  "program": "generic",
+  "family": "chn-brick",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-chn-brick",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "chn-room-teahouse"
+  ],
+  "color": "#7a8a4e",
+  "group": "China",
+  "tiers": [
+   "chn"
+  ],
+  "slots": {
+   "anchor": [
+    "chn-tea-counter",
+    "chn-square-table"
+   ],
+   "furnish": [
+    "chn-bench"
+   ],
+   "store": [
+    "chn-porcelain-jars",
+    "chn-steamer-stack"
+   ],
+   "light": [
+    "chn-palace-lantern"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "chn-study",
+  "label": "Scholar's study",
+  "program": "generic",
+  "family": "chn-brick",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-chn-brick",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "chn-room-study"
+  ],
+  "color": "#5b6b7a",
+  "group": "China",
+  "tiers": [
+   "chn"
+  ],
+  "slots": {
+   "anchor": [
+    "chn-painting-table",
+    "chn-bookcase"
+   ],
+   "furnish": [
+    "chn-armchair",
+    "chn-standing-screen",
+    "chn-penjing"
+   ],
+   "light": [
+    "chn-palace-lantern"
+   ],
+   "dress": [
+    "chn-scroll-landscape"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "chn-temple",
+  "label": "Temple hall",
+  "program": "generic",
+  "family": "chn-temple",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-chn-brick"
+  ],
+  "recipes": [
+   "chn-room-temple"
+  ],
+  "color": "#c8902e",
+  "group": "China",
+  "tiers": [
+   "chn"
+  ],
+  "slots": {
+   "anchor": [
+    "chn-buddha-altar",
+    "chn-offering-table"
+   ],
+   "furnish": [
+    "chn-incense-burner",
+    "chn-kneeling-cushion",
+    "chn-temple-bell",
+    "chn-temple-drum"
+   ],
+   "light": [
+    "chn-palace-lantern"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "chn-market",
+  "label": "Market street",
+  "program": "outdoors",
+  "family": "chn-brick",
+  "cells": [
+   7,
+   4
+  ],
+  "floors": [
+   "floor-chn-paving",
+   "floor-earth-packed"
+  ],
+  "recipes": [
+   "chn-room-market"
+  ],
+  "color": "#a07a4c",
+  "outdoor": true,
+  "group": "China",
+  "tiers": [
+   "chn"
+  ],
+  "slots": {
+   "anchor": [
+    "chn-market-stall"
+   ],
+   "furnish": [
+    "chn-steamer-stack",
+    "chn-carrying-pole"
+   ],
+   "store": [
+    "chn-porcelain-jars"
+   ],
+   "light": [
+    "chn-lantern-pole"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "chn-courtyard",
+  "label": "Courtyard",
+  "program": "outdoors",
+  "family": "chn-brick",
+  "cells": [
+   6,
+   6
+  ],
+  "floors": [
+   "floor-chn-paving",
+   "floor-chn-brick"
+  ],
+  "recipes": [
+   "chn-room-courtyard"
+  ],
+  "color": "#8a8f84",
+  "outdoor": true,
+  "group": "China",
+  "tiers": [
+   "chn"
+  ],
+  "slots": {
+   "anchor": [
+    "chn-taihu-rock",
+    "chn-screen-wall"
+   ],
+   "furnish": [
+    "chn-goldfish-vat",
+    "chn-stone-table",
+    "chn-pomegranate-tub"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "ind-haveli",
+  "label": "Haveli courtyard",
+  "program": "outdoors",
+  "family": "ind-lime",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-ind-lime",
+   "floor-ind-sandstone"
+  ],
+  "recipes": [
+   "ind-room-haveli"
+  ],
+  "color": "#e0b04a",
+  "outdoor": true,
+  "group": "India",
+  "tiers": [
+   "ind"
+  ],
+  "slots": {
+   "anchor": [
+    "ind-tulsi"
+   ],
+   "furnish": [
+    "ind-charpai",
+    "ind-jhula"
+   ],
+   "store": [
+    "ind-water-pots"
+   ],
+   "dress": [
+    "decal-mandana"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "ind-durbar",
+  "label": "Palace hall (durbar)",
+  "program": "generic",
+  "family": "ind-sandstone",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-ind-sandstone",
+   "floor-ind-lime"
+  ],
+  "recipes": [
+   "ind-room-durbar"
+  ],
+  "color": "#b5452e",
+  "group": "India",
+  "tiers": [
+   "ind"
+  ],
+  "slots": {
+   "anchor": [
+    "ind-gaddi-throne"
+   ],
+   "furnish": [
+    "ind-floor-seating"
+   ],
+   "light": [
+    "ind-lamp-stand"
+   ],
+   "dress": [
+    "rug-ind-durrie"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "ind-mandapa",
+  "label": "Shiva temple hall",
+  "program": "generic",
+  "family": "ind-temple",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-ind-temple"
+  ],
+  "recipes": [
+   "ind-room-mandapa"
+  ],
+  "color": "#d79a3a",
+  "group": "India",
+  "tiers": [
+   "ind"
+  ],
+  "slots": {
+   "anchor": [
+    "ind-sanctum-door",
+    "ind-nandi"
+   ],
+   "furnish": [
+    "ind-temple-pillar",
+    "ind-temple-bell"
+   ],
+   "light": [
+    "ind-lamp-stand"
+   ],
+   "dress": [
+    "decal-mandana"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "ind-bazaar",
+  "label": "Bazaar shop",
+  "program": "generic",
+  "family": "ind-lime",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-ind-lime",
+   "floor-earth-packed"
+  ],
+  "recipes": [
+   "ind-room-bazaar"
+  ],
+  "color": "#c96f2e",
+  "group": "India",
+  "tiers": [
+   "ind"
+  ],
+  "slots": {
+   "anchor": [
+    "ind-merchant-seat"
+   ],
+   "furnish": [
+    "ind-grain-baskets"
+   ],
+   "store": [
+    "ind-brass-pots",
+    "ind-grain-jars"
+   ],
+   "light": [
+    "ind-lamp-stand"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "ind-stepwell",
+  "label": "Stepwell",
+  "program": "outdoors",
+  "family": "ind-sandstone",
+  "cells": [
+   7,
+   7
+  ],
+  "floors": [
+   "floor-ind-temple",
+   "floor-ind-sandstone"
+  ],
+  "recipes": [
+   "ind-room-stepwell"
+  ],
+  "color": "#9a7a4a",
+  "outdoor": true,
+  "group": "India",
+  "tiers": [
+   "ind"
+  ],
+  "slots": {
+   "anchor": [
+    "ind-stepwell"
+   ],
+   "furnish": [
+    "ind-chhatri"
+   ],
+   "store": [
+    "ind-water-pots"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "ind-kitchen",
+  "label": "Household kitchen",
+  "program": "generic",
+  "family": "ind-lime",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-ind-lime"
+  ],
+  "recipes": [
+   "ind-room-kitchen"
+  ],
+  "color": "#a8642e",
+  "group": "India",
+  "tiers": [
+   "ind"
+  ],
+  "slots": {
+   "anchor": [
+    "ind-chulha"
+   ],
+   "furnish": [
+    "ind-grinding-stone",
+    "ind-niche-shelf"
+   ],
+   "store": [
+    "ind-grain-jars",
+    "ind-water-pots",
+    "ind-brass-pots"
+   ],
+   "light": [
+    "ind-lamp-stand"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cyb-clinic",
+  "label": "Street clinic",
+  "program": "generic",
+  "family": "concrete",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-tile-vinyl"
+  ],
+  "recipes": [
+   "cyb-clinic"
+  ],
+  "color": "#5fb3a8",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "surgical-chair",
+    "cyberware-rack"
+   ],
+   "furnish": [
+    "med-monitor-rig",
+    "tool-tray-cart",
+    "med-cabinet",
+    "lobby-bench",
+    "gear-case-stack"
+   ],
+   "light": [
+    "surgical-light",
+    "light-fluorescent",
+    "light-wall-strip"
+   ],
+   "dress": [
+    "cardboard-boxes"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cyb-lobby",
+  "label": "Corporate lobby",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-concrete-polished"
+  ],
+  "recipes": [
+   "cyb-lobby"
+  ],
+  "color": "#6f8fb8",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "reception-desk",
+    "turnstile-gate",
+    "wall-glass-curtain"
+   ],
+   "furnish": [
+    "sculpture-abstract",
+    "planter-modern",
+    "lobby-bench",
+    "vending-machine",
+    "atm"
+   ],
+   "light": [
+    "video-screen",
+    "light-fluorescent"
+   ],
+   "vehicles": [
+    "drone-hexapod",
+    "drone-quad-heavy"
+   ],
+   "gadgets": [
+    "camera-security",
+    "camera-dome",
+    "monitor-flat",
+    "keyboard",
+    "desk-phone",
+    "paper-stack",
+    "coffee-cup-paper"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-lobby"
+  ]
+ },
+ {
+  "key": "cyb-server",
+  "label": "Server room",
+  "program": "generic",
+  "family": "concrete",
+  "cells": [
+   6,
+   6
+  ],
+  "floors": [
+   "floor-raised-tile"
+  ],
+  "recipes": [
+   "cyb-server"
+  ],
+  "color": "#3f6fa0",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "server-rack"
+   ],
+   "furnish": [
+    "cooling-unit",
+    "terminal-desk",
+    "office-chair"
+   ],
+   "light": [
+    "light-fluorescent",
+    "light-wall-strip"
+   ],
+   "dress": [
+    "cardboard-boxes"
+   ],
+   "gadgets": [
+    "camera-security",
+    "laptop-open",
+    "monitor-crt",
+    "keyboard",
+    "mouse-computer",
+    "coffee-cup-paper",
+    "paper-stack"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-server"
+  ]
+ },
+ {
+  "key": "cyb-noodle",
+  "label": "Noodle bar",
+  "program": "generic",
+  "family": "city-brick",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-tile-dark"
+  ],
+  "recipes": [
+   "cyb-noodle"
+  ],
+  "color": "#d9823b",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "noodle-counter",
+    "stool-bar"
+   ],
+   "furnish": [
+    "table-cafe",
+    "vending-machine"
+   ],
+   "light": [
+    "sign-neon",
+    "light-fluorescent"
+   ],
+   "dress": [
+    "trash-bags",
+    "cardboard-boxes"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cyb-capsule",
+  "label": "Capsule hotel",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   8,
+   4
+  ],
+  "floors": [
+   "floor-tile-vinyl"
+  ],
+  "recipes": [
+   "cyb-capsule"
+  ],
+  "color": "#c9c3b2",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "capsule-pod"
+   ],
+   "furnish": [
+    "locker-bank",
+    "vending-machine"
+   ],
+   "light": [
+    "light-fluorescent",
+    "light-wall-strip"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cyb-hideout",
+  "label": "Gang hideout",
+  "program": "generic",
+  "family": "concrete",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-concrete-garage"
+  ],
+  "recipes": [
+   "cyb-hideout"
+  ],
+  "color": "#9b4a5c",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "oil-drum-fire",
+    "fence-chain-link",
+    "gate-chain-link"
+   ],
+   "furnish": [
+    "sofa-salvaged",
+    "mattress-floor",
+    "motorbike",
+    "weapon-locker",
+    "gear-case-stack",
+    "cardboard-boxes",
+    "pallet-stack",
+    "oil-drum"
+   ],
+   "light": [
+    "light-wall-strip"
+   ],
+   "dress": [
+    "trash-bags",
+    "decal-litter",
+    "decal-oil-stain"
+   ],
+   "vehicles": [
+    "motorbike",
+    "van-armoured",
+    "car-hatchback",
+    "drone-rover-sentry"
+   ],
+   "gadgets": [
+    "monitor-crt",
+    "donut-box",
+    "coffee-cup-paper"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-hideout"
+  ]
+ },
+ {
+  "key": "cyb-talisman",
+  "label": "Magic-supply shop",
+  "program": "generic",
+  "family": "city-brick",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-planks-laminate"
+  ],
+  "recipes": [
+   "cyb-talisman"
+  ],
+  "color": "#8e63b8",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "curio-shelf",
+    "display-counter-glass"
+   ],
+   "furnish": [
+    "herb-drying-rack",
+    "crystal-display"
+   ],
+   "light": [
+    "sign-neon"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "cyb-rigger",
+  "label": "Rigger's garage",
+  "program": "generic",
+  "family": "concrete",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-concrete-garage"
+  ],
+  "recipes": [
+   "cyb-rigger"
+  ],
+  "color": "#c79a3a",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "car-sedan",
+    "workbench-garage"
+   ],
+   "furnish": [
+    "car-hatchback",
+    "engine-hoist",
+    "tool-chest-rolling",
+    "drone-parked",
+    "terminal-desk",
+    "motorbike",
+    "gear-case-stack",
+    "oil-drum",
+    "cardboard-boxes"
+   ],
+   "light": [
+    "light-fluorescent",
+    "light-wall-strip"
+   ],
+   "dress": [
+    "decal-oil-stain"
+   ],
+   "vehicles": [
+    "car-sedan",
+    "car-hatchback",
+    "motorbike",
+    "van-armoured",
+    "suv-armoured",
+    "drone-parked",
+    "drone-quad-light",
+    "drone-quad-heavy",
+    "drone-rover-arm",
+    "drone-rover-sentry",
+    "drone-hexapod"
+   ],
+   "gadgets": [
+    "laptop-open",
+    "monitor-crt",
+    "keyboard",
+    "mouse-computer",
+    "coffee-cup-paper",
+    "donut",
+    "camera-security"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-rigger"
+  ]
+ },
+ {
+  "key": "cyb-safehouse",
+  "label": "Safehouse",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   6,
+   5
+  ],
+  "floors": [
+   "floor-planks-laminate",
+   "floor-tile-carpet"
+  ],
+  "recipes": [
+   "cyb-safehouse"
+  ],
+  "color": "#7a8a6e",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "terminal-desk"
+   ],
+   "furnish": [
+    "office-chair",
+    "mattress-floor",
+    "sofa-salvaged",
+    "gear-case-stack",
+    "weapon-locker",
+    "safe-floor",
+    "kitchenette",
+    "fridge"
+   ],
+   "light": [
+    "video-screen",
+    "lamp-floor",
+    "light-wall-strip"
+   ],
+   "dress": [
+    "cardboard-boxes"
+   ],
+   "vehicles": [
+    "drone-quad-light",
+    "drone-rover-arm",
+    "drone-parked"
+   ],
+   "gadgets": [
+    "laptop-open",
+    "monitor-crt",
+    "keyboard",
+    "mouse-computer",
+    "coffee-cup-paper",
+    "donut-box",
+    "paper-stack",
+    "camera-security"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-safehouse"
+  ]
+ },
+ {
+  "key": "cyb-rooftop",
+  "label": "Rooftop",
+  "program": "outdoors",
+  "family": "concrete",
+  "cells": [
+   8,
+   8
+  ],
+  "floors": [
+   "floor-roof-gravel"
+  ],
+  "recipes": [
+   "cyb-rooftop"
+  ],
+  "color": "#7d7f86",
+  "outdoor": true,
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "roof-access-hut",
+    "water-tank-roof",
+    "parapet-roof-low"
+   ],
+   "furnish": [
+    "hvac-unit",
+    "satellite-dish",
+    "antenna-mast",
+    "roof-vent",
+    "billboard-roof"
+   ],
+   "light": [
+    "antenna-mast",
+    "billboard-roof"
+   ],
+   "vehicles": [
+    "helicopter",
+    "helicopter-gunship",
+    "drone-quad-light",
+    "drone-quad-heavy"
+   ]
+  },
+  "missing": [],
+  "borrow": [
+   "veh-rooftop"
+  ]
+ },
+ {
+  "key": "mod-penthouse",
+  "label": "Penthouse",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-marble-slab",
+   "floor-concrete-polished",
+   "floor-planks-laminate"
+  ],
+  "recipes": [
+   "mod-penthouse"
+  ],
+  "color": "#c9b28a",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "sofa-sectional",
+    "kitchen-run-lux",
+    "kitchen-island",
+    "piano-grand"
+   ],
+   "furnish": [
+    "elevator-car",
+    "elevator-doors",
+    "coffee-table",
+    "lounge-chair",
+    "dining-set-lux",
+    "bed-platform",
+    "stool-bar",
+    "bar-cart",
+    "wine-rack",
+    "houseplant",
+    "citrus-tree-tub",
+    "palm-potted",
+    "fern-potted",
+    "planter-topiary",
+    "statue-bust"
+   ],
+   "light": [
+    "lamp-floor"
+   ],
+   "dress": [
+    "art-canvas",
+    "rug-round-fine",
+    "rug-round",
+    "rug-oval",
+    "rug-grand",
+    "rug-striped-woven",
+    "rug-cowhide",
+    "rug-sheepskin",
+    "vase-flowers",
+    "tea-service-tray"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-bathroom",
+  "label": "Bathroom",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   2,
+   2
+  ],
+  "floors": [
+   "floor-tile-bath-hex",
+   "floor-tile-vinyl"
+  ],
+  "recipes": [
+   "mod-bathroom"
+  ],
+  "color": "#9ec9d4",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "bathtub",
+    "shower-stall",
+    "toilet",
+    "sink-vanity"
+   ],
+   "furnish": [
+    "towel-rail",
+    "towel-hanging",
+    "towel-stack",
+    "plant-pot"
+   ],
+   "light": [
+    "mirror-bathroom"
+   ],
+   "dress": [
+    "rug-runner"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-restroom",
+  "label": "Public restroom",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-tile-bath-hex",
+   "floor-tile-vinyl"
+  ],
+  "recipes": [
+   "mod-restroom"
+  ],
+  "color": "#7fa9b8",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "toilet-stall",
+    "sink-row"
+   ],
+   "furnish": [
+    "urinal",
+    "sink-vanity"
+   ],
+   "light": [
+    "mirror-bathroom",
+    "light-fluorescent"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-kitchen",
+  "label": "Restaurant kitchen",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   6,
+   4
+  ],
+  "floors": [
+   "floor-quarry-tile",
+   "floor-tile-vinyl"
+  ],
+  "recipes": [
+   "mod-kitchen"
+  ],
+  "color": "#b8b8ae",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "range-commercial",
+    "table-prep-steel"
+   ],
+   "furnish": [
+    "dish-station",
+    "fridge-reach-in",
+    "cooler-walkin-door",
+    "shelving-wire",
+    "pot-rack-wall",
+    "knife-rack-wall",
+    "utensil-rack-wall"
+   ],
+   "store": [
+    "vegetable-crate-mixed",
+    "potato-crate",
+    "apple-crate",
+    "fruit-crate-mixed",
+    "vegetable-basket-mixed"
+   ],
+   "light": [
+    "range-hood",
+    "light-fluorescent"
+   ],
+   "dress": [
+    "cabbage-single",
+    "carrot-pile",
+    "onion-pile",
+    "potato",
+    "bread-loaf",
+    "bread-long-loaf",
+    "cheese-wheel-cut",
+    "meat-raw-joint",
+    "garlic-bulb",
+    "apple",
+    "sausage-link",
+    "egg",
+    "ham-sliced",
+    "saucepan-copper",
+    "roasting-pan",
+    "plate-ceramic",
+    "platter-board-handled"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-fire-escape",
+  "label": "Fire escape",
+  "program": "outdoors",
+  "family": "city-brick",
+  "cells": [
+   4,
+   2
+  ],
+  "floors": [
+   "floor-grating-steel",
+   "floor-concrete-garage"
+  ],
+  "recipes": [
+   "mod-fire-escape"
+  ],
+  "color": "#5a4a44",
+  "group": "Modern",
+  "outdoor": true,
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "stair-fire-escape",
+    "railing-iron"
+   ],
+   "furnish": [
+    "ladder-fire-escape",
+    "ac-unit",
+    "houseplant",
+    "plant-pot",
+    "herb-pot"
+   ],
+   "dress": [
+    "trash-bags",
+    "cardboard-boxes"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-penthouse-exec",
+  "label": "Exec penthouse",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   8,
+   6
+  ],
+  "floors": [
+   "floor-marble-slab",
+   "floor-concrete-polished"
+  ],
+  "recipes": [
+   "cyb-penthouse-exec"
+  ],
+  "color": "#8a7fb0",
+  "group": "Modern",
+  "tiers": [
+   "cyb",
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "sofa-sectional",
+    "kitchen-run-lux",
+    "kitchen-island",
+    "piano-grand"
+   ],
+   "furnish": [
+    "elevator-car",
+    "elevator-doors",
+    "coffee-table",
+    "lounge-chair",
+    "dining-set-lux",
+    "stool-bar",
+    "bar-cart",
+    "planter-modern",
+    "houseplant",
+    "sculpture-abstract",
+    "drone-parked"
+   ],
+   "light": [
+    "lamp-floor",
+    "video-screen"
+   ],
+   "dress": [
+    "art-canvas"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-apartment-hallway",
+  "label": "Apartment hallway",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   6,
+   2
+  ],
+  "floors": [
+   "floor-tile-carpet",
+   "floor-planks-laminate",
+   "floor-tile-vinyl"
+  ],
+  "recipes": [
+   "mod-apartment-hallway"
+  ],
+  "color": "#b9a58c",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "sconce-wall-modern"
+   ],
+   "furnish": [
+    "fire-extinguisher",
+    "exit-sign",
+    "trash-chute-hatch",
+    "mailbox-bank",
+    "laundry-cart",
+    "houseplant",
+    "planter-modern",
+    "elevator-car",
+    "elevator-doors"
+   ],
+   "light": [
+    "sconce-wall-modern"
+   ],
+   "dress": [
+    "rug-runner",
+    "art-canvas"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-office-corridor",
+  "label": "Office corridor",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   6,
+   2
+  ],
+  "floors": [
+   "floor-tile-carpet",
+   "floor-tile-vinyl",
+   "floor-concrete-polished"
+  ],
+  "recipes": [
+   "mod-office-corridor"
+  ],
+  "color": "#a9b3b8",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "light-fluorescent"
+   ],
+   "furnish": [
+    "fire-extinguisher",
+    "exit-sign",
+    "notice-board-cork",
+    "water-cooler",
+    "vending-machine",
+    "recycling-bins",
+    "houseplant",
+    "planter-modern",
+    "lobby-bench",
+    "elevator-car",
+    "elevator-doors"
+   ],
+   "light": [
+    "light-fluorescent"
+   ],
+   "dress": [
+    "whiteboard",
+    "art-canvas"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-hotel-corridor",
+  "label": "Hotel corridor",
+  "program": "generic",
+  "family": "drywall",
+  "cells": [
+   6,
+   2
+  ],
+  "floors": [
+   "floor-tile-carpet",
+   "floor-planks-laminate",
+   "floor-marble-slab"
+  ],
+  "recipes": [
+   "mod-hotel-corridor"
+  ],
+  "color": "#9c6b62",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "sconce-wall-modern"
+   ],
+   "furnish": [
+    "fire-extinguisher",
+    "exit-sign",
+    "ice-machine",
+    "room-service-cart",
+    "housekeeping-cart",
+    "luggage-cart",
+    "planter-modern",
+    "palm-potted",
+    "elevator-car",
+    "elevator-doors"
+   ],
+   "light": [
+    "sconce-wall-modern"
+   ],
+   "dress": [
+    "rug-runner",
+    "art-canvas"
+   ]
+  },
+  "missing": []
+ },
+ {
+  "key": "mod-service-corridor",
+  "label": "Service corridor",
+  "program": "generic",
+  "family": "concrete",
+  "cells": [
+   6,
+   2
+  ],
+  "floors": [
+   "floor-concrete-garage",
+   "floor-concrete-polished",
+   "floor-tile-vinyl"
+  ],
+  "recipes": [
+   "mod-service-corridor"
+  ],
+  "color": "#7d7f78",
+  "group": "Modern",
+  "tiers": [
+   "mod"
+  ],
+  "slots": {
+   "anchor": [
+    "pipe-run-wall"
+   ],
+   "furnish": [
+    "fire-extinguisher",
+    "exit-sign",
+    "breaker-panel",
+    "mop-bucket",
+    "shelving-wire",
+    "locker-bank",
+    "tool-chest-rolling",
+    "cardboard-boxes",
+    "oil-drum"
+   ],
+   "light": [
+    "light-fluorescent",
+    "light-wall-strip"
+   ],
+   "dress": [
+    "trash-bags"
+   ]
+  },
   "missing": []
  }
 ]

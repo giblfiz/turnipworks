@@ -109,7 +109,7 @@ async def main():
 
         print('INN (2 storeys + cellar), every level showing: all storeys spin in together, watched from lv 2; then down to lv 1')
         pn0, pc0 = await pl.evaluate("tw.cutLog.length"), await pl.evaluate("tw.cut.y")
-        await gm.evaluate("tw.buildAt(tw.buildingNode('inn'), 12, 8, { seed: 7 })")
+        await gm.evaluate("tw.buildAt(tw.buildingNode('inn'), 12, 8, { seed: 7, storeys: 2 })")
         if A.shots:
             os.makedirs(A.shots, exist_ok=True)
             if await wait(gm, f"{W}.lastStoreys && {W}.lastStoreys.start != null", 60000): await gm.wait_for_timeout(1500); await gm.screenshot(path=os.path.join(A.shots, 'inn-spin-top.png'))

@@ -21,6 +21,7 @@ const AUTOMATION_HOLD_MS = 1500;
 const KEYS = { p: 'pawns', b: 'build', s: 'settings' };
 const CMD = { pawns: 'pawns.menu', build: 'build.menu', settings: 'settings.menu' };
 const inField = (t) => t?.closest?.('input, textarea, select, [contenteditable]');
+const HAND = () => document.documentElement.classList.contains('tw-hand');
 
 export function traySurface(R, app) {
   let pins = {}; try { pins = JSON.parse(localStorage.getItem('tw.traypin') || '{}') || {}; } catch { }
@@ -38,8 +39,9 @@ export function traySurface(R, app) {
     dismissable: (name) => !pins[name],
     held: () => press?.name || null,
     // the pin button every menu carries in its corner
-    pinButton: (name) => `<button class="tpin${pins[name] ? ' on' : ''}" data-pin="${name}" tabindex="-1" aria-pressed="${!!pins[name]}" data-tip="${pins[name] ? 'Pinned: stays open while you work. Click to unpin' : 'Pin: keep this open while you work on the map'}" aria-label="${pins[name] ? 'Unpin' : 'Pin open'}">${icon('pin', 15)}</button>`,
-    wirePin(root) { for (const b of root.querySelectorAll('.tpin')) { b.onmousedown = (ev) => ev.preventDefault(); b.onclick = (ev) => { ev.stopPropagation(); T.setPin(b.dataset.pin, !pins[b.dataset.pin]); }; } },
+    // (a phone, 2026-11-11: a Done ✕ beside the pin, for the trays that have no ✕ of their own: a phone has no Escape)
+    pinButton: (name) => `<button class="tpin${pins[name] ? ' on' : ''}" data-pin="${name}" tabindex="-1" aria-pressed="${!!pins[name]}" data-tip="${pins[name] ? 'Pinned: stays open while you work. Click to unpin' : 'Pin: keep this open while you work on the map'}" aria-label="${pins[name] ? 'Unpin' : 'Pin open'}">${icon('pin', 15)}</button>${HAND() && name !== 'settings' ? `<button class="tdone" data-done="${name}" tabindex="-1" aria-label="Done: close">${icon('x', 18)}</button>` : ''}`,
+    wirePin(root) { for (const b of root.querySelectorAll('.tpin')) { b.onmousedown = (ev) => ev.preventDefault(); b.onclick = (ev) => { ev.stopPropagation(); T.setPin(b.dataset.pin, !pins[b.dataset.pin]); }; } for (const b of root.querySelectorAll('.tdone')) { b.onmousedown = (ev) => ev.preventDefault(); b.onclick = (ev) => { ev.stopPropagation(); app[b.dataset.done]?.close(); }; } },
     state: () => ({ pins: { ...pins }, held: press?.name || null, open: Object.values(KEYS).filter(n => app[n]?.isOpen) }),
   };
 

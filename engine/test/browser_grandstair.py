@@ -178,6 +178,12 @@ async def main():
             await drag(gm, a, b); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) > 0.5 && tw.sync.pendingCount() === 0", 6000, 'pawn on the stair')
             t = await gm.evaluate(MIRA)
             check(0.5 < t['y'] < 9.5 and t['on'] == 'stair', f'a pawn dragged onto the {hand} half of the stair stands on its treads, part way up', t)
+            if hand == 'left' and t['y'] >= 5:  # (Harry 2026-11-25) off the stair's SIDE 5 ft or more up: it just drops to the floor beside, no fall offer
+                a = await scr(gm, t['x'], t['z'], t['y'] + 1.2); b = await scr(gm, t['x'] - 5, t['z'], 0)
+                await drag(gm, a, b); await gm.wait_for_timeout(300); await wait(gm, 'tw.sync.pendingCount() === 0', 6000); s2 = await gm.evaluate(MIRA); hang = await gm.evaluate("!!tw.falls?.hanging?.('tok_mira00001')")
+                check(s2['y'] == 0 and not hang and s2['x'] < t['x'] - 2, f'stepped off its side {t["y"]} ft up, it just drops to the floor beside it: no fall offered (Harry 2026-11-25)', [s2, hang])
+                a = await scr(gm, s2['x'], s2['z'], 1.2); b = await scr(gm, st['x'] + dx, st['z'], 5)
+                await drag(gm, a, b); await wait(gm, "(tw.entities()['tok_mira00001'].y || 0) > 0.5 && tw.sync.pendingCount() === 0", 6000, 'back on the stair'); t = await gm.evaluate(MIRA)
             for (x, z, y) in ((st['x'] + dx, 4, 9), (want[0], want[1], 10)): # on up to its top row, then off it on that hand
                 await view(gm, (t['x'] + x) / 2, (t['z'] + z) / 2 + 4, 48, 64, 0.0); await gm.wait_for_timeout(300) # (the far wall is under the top bar otherwise)
                 a = await scr(gm, t['x'], t['z'], t['y'] + 1.2); b = await scr(gm, x, z, y)

@@ -1,0 +1,146 @@
+{
+ "file": "cul-chn-silk-merchant.glb",
+ "tris": 47840,
+ "kb": 2891,
+ "native_extent": [
+  0.487,
+  1.0,
+  0.442
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0114,
+  "seen": 0.0127
+ },
+ "mean_rgb": [
+  77,
+  45,
+  30
+ ],
+ "mean_saturation": 0.518,
+ "sized_by": "its highest point",
+ "overall_ft": 5.6,
+ "pieces": {
+  "connected_parts": 138,
+  "main_part_area_share": 0.9748,
+  "floating": [
+   {
+    "area_share": 0.00066,
+    "gap_ft": 0.04,
+    "size_ft": 0.2
+   },
+   {
+    "area_share": 0.00047,
+    "gap_ft": 0.05,
+    "size_ft": 0.18
+   }
+  ],
+  "floating_count": 2,
+  "floating_area_share": 0.00113,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.601,
+ "y0": -2.8055,
+ "stated_ft": {
+  "body": 5.6,
+  "figure_top": 5.6,
+  "overall": 5.6
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2434,
+   -0.5009,
+   -0.2191
+  ],
+  [
+   0.2433,
+   0.4992,
+   0.2228
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47840,
+   "tex": 2048,
+   "kb": 2891
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1130
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 484
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.81,
+    "z": -0.45,
+    "size_ft": [
+     1.05,
+     1.05
+    ],
+    "off_ground_ft": 0.01,
+    "sole_level_share": 0.67,
+    "sole_p90_ft": 0.119
+   },
+   {
+    "x": 0.66,
+    "z": -0.03,
+    "size_ft": [
+     0.84,
+     1.21
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.84,
+    "sole_p90_ft": 0.098
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.01,
+  "lowest_slab_area_sqft": 1.25,
+  "plan_hull_area_sqft": 4.97,
+  "lowest_slab_share_of_plan": 0.251
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.72,
+   "d": 2.47,
+   "h": 5.6
+  },
+  "centre": [
+   -0.139,
+   0.098
+  ],
+  "contacts_radius_ft": 1.22,
+  "reach_radius_ft": 1.46,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.951,
+  "plate_lost_share": 0.017,
+  "added_share": 0.033,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.951,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 0
+ },
+ "id": "cul-chn-silk-merchant",
+ "sha1": "fad44e2ad39e4e98a20d50e9eb61c69fa56ae566",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "2 separate part(s) lying within 0.05 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 8.5
+}

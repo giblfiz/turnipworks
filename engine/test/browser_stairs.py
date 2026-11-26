@@ -268,6 +268,20 @@ async def main():
         await drag(pl, a, b, 16); await wait(pl, "(tw.entities()['tok_mira00001'].y || 0) === 0 && tw.sync.pendingCount() === 0", 6000, 'pawn downstairs')
         t = await pl.evaluate(MIRA)
         check(t['y'] == 0 and abs(t['x'] - foot['x']) < 2.6 and abs(t['z'] - foot['z']) < 2.6, 'and on down to the stair\'s foot: the floor below (y 0)', t)
+        # BACKED OFF THE STAIR (2026-11-24, Harry: "I can back him off the stairs and leave him floating"): with lv 1 showing,
+        # up the flight to near its top, then pulled back past its foot in two quick samples: on the floor at 0, not in the
+        # air and not offered a fall (before: hung at the tread's height, offered "falls 9 ft", left floating when ignored)
+        await pl.evaluate("tw.setCut(9, { pinned: true, by: 'test' })"); await pl.wait_for_timeout(500)
+        hi = await pl.evaluate(f"(() => {{ const s = tw.entities()['{SID}'], [dx, dz] = tw.ST.stairDir(s), L = (s.dims?.[2] || 10) / 2 - 1; return {{ x: s.x + dx * L, z: s.z + dz * L }}; }})()")
+        a = await scr(pl, foot['x'], foot['z'], 1.2); b = await scr(pl, hi['x'], hi['z'], 8)
+        await drag(pl, a, b, 16); await wait(pl, "(tw.entities()['tok_mira00001'].y || 0) > 7 && tw.sync.pendingCount() === 0", 6000, 'pawn high on the stair')
+        t = await pl.evaluate(MIRA)
+        back = {'x': foot['x'] - (hi['x'] - foot['x']) * 0.15, 'z': foot['z'] - (hi['z'] - foot['z']) * 0.15}
+        a = await scr(pl, t['x'], t['z'], t['y'] + 1.2); b = await scr(pl, back['x'], back['z'], 0)
+        await drag(pl, a, b, 2); await wait(pl, "tw.sync.pendingCount() === 0", 6000, 'move sent'); await pl.wait_for_timeout(400)
+        t2 = await pl.evaluate(MIRA); hang = await pl.evaluate("!!tw.falls?.hanging?.('tok_mira00001')")
+        check(t['y'] > 7 and t2['y'] == 0 and t2['on'] == 'floor' and not hang, 'up near the top, then pulled back past the foot in two samples: on the floor at 0, not in the air, no fall offered', [t, t2, hang])
+        check(await gm.evaluate("(tw.entities()['tok_mira00001'].y || 0) === 0"), '...and the GM sees it there too')
         # with the cut showing the destination, a pawn can simply be dragged onto that floor
         far = await pl.evaluate(f"(() => {{ const rc = tw.entities()['{U}'].recipe, S = tw.ST, holes = S.holesAt(tw.entities(), 10); for (let i = 0; i < rc.w; i++) for (let j = 0; j < rc.d; j++) {{ const gx = rc.x + i, gz = rc.z + j; if (holes.has(gx + ':' + gz)) continue; const p = tw.screenOf(gx * 5 + 2.5, gz * 5 + 2.5, tw.main, 10), hit = tw.worldOf(tw.area()).pick(tw.rayAt(p.x, p.y)); if (hit?.floor) return {{ x: gx * 5 + 2.5, z: gz * 5 + 2.5 }}; }} return null; }})()")
         if far:

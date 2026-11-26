@@ -611,8 +611,8 @@ async def main():
         exact = {
             'building': (['thing.hide', 'menu'], ['faction.set', '▸building.roof.', 'thing.rename', 'thing.lock']),
             'prop': (['edit.rotate', 'edit.resize', 'thing.pin', 'menu'], ['thing.replace', 'edit.lift', 'thing.tilt', 'thing.rename', 'thing.lock', 'thing.hide']),
-            'pawn': (['edit.rotate', 'pawn.sheet', 'pawn.damage', 'menu'], ['▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'edit.lift', 'thing.hide', 'pawn.travel']),
-            'pawns': (['edit.rotate', 'pawn.damage', 'menu'], ['▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'thing.hide', 'cast.saveGroup', 'pawn.travel']),
+            'pawn': (['edit.rotate', 'pawn.sheet', 'pawn.damage', 'menu'], ['▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'pawn.resize', 'edit.lift', 'thing.hide', 'pawn.travel']),
+            'pawns': (['edit.rotate', 'pawn.damage', 'menu'], ['▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'pawn.resize', 'thing.hide', 'cast.saveGroup', 'pawn.travel']),
             'pawn+prop': (['edit.rotate', 'menu'], ['thing.hide']),
             'rooms': (['thing.hide', 'menu'], ['thing.lock']),
             'many': (['edit.rotate', 'thing.pin', 'menu'], ['thing.tilt', 'thing.lock', 'thing.hide']),
@@ -620,12 +620,12 @@ async def main():
             'lit+openable': (['edit.rotate', 'menu'], ['thing.tilt', 'thing.pin', 'thing.lock', 'thing.hide']),  # (two KINDS of thing: Pin has no one slot on the closed ring, so it is behind ☰, as before the cuts)
         }
         got = {k: (opened[k]['closed'], opened[k]['top']) for k in exact if k in opened}
-        check(len(got) >= 7 and all(got[k] == exact[k] for k in got), 'each kind of selection, closed | open, exactly (a pawn: turn · sheet · damage | Conditions ▸, Indicators ▸, Raise / lower, Hide, Send to area; several pawns; a pawn with a prop; several rooms; several lights; a light with a chest)', {k: got[k] for k in got if got[k] != exact[k]} or sorted(got))
+        check(len(got) >= 7 and all(got[k] == exact[k] for k in got), 'each kind of selection, closed | open, exactly (a pawn: turn · sheet · damage | Conditions ▸, Indicators ▸, Aura ▸, Size (the resize drag, 2026-11-07), Raise / lower, Hide, Send to area; several pawns; a pawn with a prop; several rooms; several lights; a light with a chest)', {k: got[k] for k in got if got[k] != exact[k]} or sorted(got))
         if 'lit openable' in opened: check(opened['lit openable']['top'] == ['thing.replace', 'edit.lift', 'thing.tilt', 'thing.rename', 'thing.lock', 'thing.hide'] and 'thing.light' in opened['lit openable']['closed'] and 'thing.open' in opened['lit openable']['closed'], 'a thing that both lights and opens: both on its closed ring, the same five behind ☰', opened['lit openable'])
         else: print('    (no thing in this inn both lights and opens: that combination is not exercised here)')
         banned = {k: [c for c in m['top'] + [i for n in m['menu'] for i in n.get('items', [])] if c in ('edit.duplicate', 'edit.copy', 'edit.cut', '▸copy', '▸edit')] for k, m in opened.items()}
         check(not any(banned.values()), 'the clipboard\'s duplicate, copy and cut are nowhere in the ring, for any kind of selection; there is no Edit ▸ or Copy ▸ group (the Duplicate a pawn had left the ring too on 2026-10-11)', {k: v for k, v in banned.items() if v})
-        allowed = {'faction', 'sheet', 'replace', 'room.type.', 'room.walls.', 'room.floor.', 'fog', 'pawn.cond.', 'pawn.mark.', 'give', 'travel', 'building.roof.', 'roof.style.'}  # (a building's Roof style and a roof's Style: Stage F)
+        allowed = {'faction', 'sheet', 'replace', 'room.type.', 'room.walls.', 'room.floor.', 'fog', 'pawn.cond.', 'pawn.mark.', 'pawn.size.', 'pawn.aura.', 'give', 'travel', 'building.roof.', 'roof.style.'}  # (a building's Roof style and a roof's Style: Stage F)
         check(all(set(m['subs']) <= allowed for m in opened.values()) and opened['prop']['subs'] == ['replace'] and all(m['subs'] in (['replace'], []) for k, m in opened.items() if k in ('openable', 'lit prop', 'wall', 'door', 'window', 'many')), 'ordinary things are flat: the only ▸ on a prop, a chest, a candle, a wall piece or a door is Replace; rooms and pawns add their long lists; buildings also offer Faction', {k: m['subs'] for k, m in opened.items()})
         p_, lp = opened['prop']['top'], (opened.get('lit prop') or {}).get('top', [])
         check(p_ == ['thing.replace', 'edit.lift', 'thing.tilt', 'thing.rename', 'thing.lock', 'thing.hide'] and (not lp or lp == ['thing.light'] + p_) and all(opened[k]['top'] == [c for c in p_ if c != 'thing.tilt' or k == 'openable'] for k in ('openable', 'wall', 'door', 'window') if k in opened), 'the fixed order: (light) Replace ▸, raise / lower, roll, rename, lock, hide (no delete); a candle is a prop with Light in front; a chest opens the same six; a wall piece, a door and a window the five without Roll', {k: opened[k]['top'] for k in ('prop', 'lit prop', 'openable', 'wall', 'door', 'window') if k in opened})

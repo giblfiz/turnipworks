@@ -1,0 +1,940 @@
+{
+ "before": {
+  "cathedral": {
+   "n": 48,
+   "items": 0,
+   "h": 0,
+   "foot": 0,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cathedral-dark": {
+   "n": 48,
+   "items": 0,
+   "h": 0,
+   "foot": 0,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cellar": {
+   "n": 48,
+   "items": 178,
+   "h": 5.77,
+   "foot": 24.59,
+   "overlap": 16,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s202: cask-rack--s2 overlaps lantern-wall-iron--hex",
+    "6x5 s404: cask-rack--s2 overlaps torch-bracket-rough--s1",
+    "6x5 s505: cask-rack overlaps lantern-wall-iron--common"
+   ]
+  },
+  "chn-study": {
+   "n": 48,
+   "items": 128,
+   "h": 6.01,
+   "foot": 7.7,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "common": {
+   "n": 48,
+   "items": 62,
+   "h": 6.2,
+   "foot": 14.35,
+   "overlap": 2,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1414: back-bar-shelves--s2 overlaps monster-head-trophy",
+    "4x4 s1414: back-bar-shelves--s2 overlaps bard-masks-theatre"
+   ]
+  },
+  "cult-library": {
+   "n": 48,
+   "items": 509,
+   "h": 6.36,
+   "foot": 10.13,
+   "overlap": 2,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1010: bookshelf--fine--s2 overlaps torch-sconce--s2",
+    "8x6 s1212: bookshelf--fine--s2 overlaps sconce-candle-single--iron"
+   ]
+  },
+  "cyb-capsule": {
+   "n": 48,
+   "items": 70,
+   "h": 6.33,
+   "foot": 10.65,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cyb-lobby": {
+   "n": 48,
+   "items": 31,
+   "h": 6.35,
+   "foot": 10.68,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cyb-noodle": {
+   "n": 48,
+   "items": 152,
+   "h": 6.34,
+   "foot": 10.65,
+   "overlap": 22,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1616: vending-machine overlaps sign-neon--noodle-bowl",
+    "6x5 s101: vending-machine overlaps sign-neon--noodle-bowl",
+    "6x5 s202: vending-machine overlaps sign-neon--noodle-bowl"
+   ]
+  },
+  "cyb-rigger": {
+   "n": 48,
+   "items": 48,
+   "h": 4.3,
+   "foot": 15.02,
+   "overlap": 62,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: terminal-desk overlaps laptop-open",
+    "4x4 s202: terminal-desk overlaps coffee-cup-paper",
+    "4x4 s404: terminal-desk overlaps laptop-open"
+   ]
+  },
+  "cyb-safehouse": {
+   "n": 48,
+   "items": 48,
+   "h": 4.3,
+   "foot": 15.04,
+   "overlap": 109,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: terminal-desk overlaps keyboard",
+    "4x4 s101: terminal-desk overlaps coffee-cup-paper",
+    "4x4 s202: terminal-desk overlaps keyboard"
+   ]
+  },
+  "cyb-server": {
+   "n": 48,
+   "items": 147,
+   "h": 4.56,
+   "foot": 20.38,
+   "overlap": 83,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: terminal-desk overlaps keyboard",
+    "4x4 s101: terminal-desk overlaps coffee-cup-paper",
+    "4x4 s202: terminal-desk overlaps keyboard"
+   ]
+  },
+  "cyb-talisman": {
+   "n": 48,
+   "items": 342,
+   "h": 7,
+   "foot": 13.4,
+   "overlap": 3,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s505: curio-shelf overlaps sign-neon--flask",
+    "8x6 s1010: curio-shelf overlaps sign-neon--flask",
+    "8x6 s1414: curio-shelf overlaps sign-neon--flask"
+   ]
+  },
+  "mansion-cellar": {
+   "n": 48,
+   "items": 175,
+   "h": 5.77,
+   "foot": 24.6,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "6x5 s909: cask-rack--s2 overlaps torch-bracket-rough--s1"
+   ]
+  },
+  "mansion-library": {
+   "n": 48,
+   "items": 479,
+   "h": 6.34,
+   "foot": 10.32,
+   "overlap": 8,
+   "door": 0,
+   "window_tall": 121,
+   "ex": [
+    "8x6 s101: bookshelf--fine--s2 overlaps sconce-candle-triple--fine",
+    "8x6 s404: bookshelf--fine--s1 overlaps sconce-candle-triple--fine",
+    "8x6 s606: bookshelf--fine--s2 overlaps sconce-candle-triple--fine"
+   ]
+  },
+  "mde-souk": {
+   "n": 48,
+   "items": 479,
+   "h": 6,
+   "foot": 7.02,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1111: shop-shelf-stocked--mde overlaps price-board"
+   ]
+  },
+  "mkt-apothecary": {
+   "n": 48,
+   "items": 477,
+   "h": 5.77,
+   "foot": 9.26,
+   "overlap": 11,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s303: shop-shelf-stocked--apoth overlaps price-board",
+    "4x4 s404: shop-shelf-stocked--apoth overlaps lantern-wall-horn--s1",
+    "4x4 s909: shop-shelf-stocked--apoth overlaps price-board"
+   ]
+  },
+  "mkt-backroom": {
+   "n": 48,
+   "items": 141,
+   "h": 5.79,
+   "foot": 9.83,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s303: shop-shelf-stocked--general overlaps lantern-wall-horn--s1"
+   ]
+  },
+  "mkt-bakery": {
+   "n": 48,
+   "items": 347,
+   "h": 5.67,
+   "foot": 11.2,
+   "overlap": 9,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1414: shop-shelf-stocked--bakery overlaps price-board",
+    "4x4 s1515: shop-shelf-stocked--bakery--s2 overlaps price-board",
+    "6x5 s303: shop-shelf-stocked--bakery overlaps price-board"
+   ]
+  },
+  "mkt-curio": {
+   "n": 48,
+   "items": 459,
+   "h": 5.65,
+   "foot": 10.75,
+   "overlap": 22,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: shop-shelf-stocked--curio overlaps price-board",
+    "4x4 s202: shop-shelf-stocked--curio overlaps price-board",
+    "4x4 s404: shop-shelf-stocked--curio--s2 overlaps price-board"
+   ]
+  },
+  "mkt-general": {
+   "n": 48,
+   "items": 422,
+   "h": 5.63,
+   "foot": 9.78,
+   "overlap": 4,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1010: shop-shelf-stocked--general overlaps lantern-wall-iron--common",
+    "6x5 s606: shop-shelf-stocked--general overlaps lantern-wall-iron--hex",
+    "8x6 s707: shop-shelf-stocked--general--s2 overlaps price-board"
+   ]
+  },
+  "mkt-tailor": {
+   "n": 48,
+   "items": 382,
+   "h": 6.5,
+   "foot": 12.12,
+   "overlap": 16,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: shop-shelf-stocked--tailor overlaps lantern-wall-brass--common",
+    "4x4 s303: shop-shelf-stocked--tailor overlaps price-board",
+    "4x4 s404: shop-shelf-stocked--tailor overlaps price-board"
+   ]
+  },
+  "mod-bar": {
+   "n": 48,
+   "items": 89,
+   "h": 7.99,
+   "foot": 7.9,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "mod-kitchen": {
+   "n": 48,
+   "items": 112,
+   "h": 5.99,
+   "foot": 8.47,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "mod-office-corridor": {
+   "n": 48,
+   "items": 19,
+   "h": 6.33,
+   "foot": 10.63,
+   "overlap": 15,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s909: vending-machine overlaps notice-board-cork",
+    "4x4 s1212: vending-machine overlaps fire-extinguisher",
+    "4x4 s1212: vending-machine overlaps art-canvas"
+   ]
+  },
+  "mod-service-corridor": {
+   "n": 48,
+   "items": 17,
+   "h": 6,
+   "foot": 8.49,
+   "overlap": 26,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: shelving-wire overlaps pipe-run-wall",
+    "4x4 s101: shelving-wire overlaps pipe-run-wall",
+    "4x4 s606: shelving-wire overlaps light-wall-strip"
+   ]
+  },
+  "rus-market": {
+   "n": 48,
+   "items": 463,
+   "h": 6,
+   "foot": 9.45,
+   "overlap": 15,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s707: shop-shelf-stocked--rus overlaps price-board",
+    "4x4 s808: shop-shelf-stocked--rus overlaps lantern-wall-iron--common",
+    "4x4 s909: shop-shelf-stocked--rus overlaps price-board"
+   ]
+  },
+  "smi-armoury": {
+   "n": 48,
+   "items": 32,
+   "h": 4.99,
+   "foot": 7.47,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "8x6 s707: shop-shelf-stocked--smith overlaps shield-display--s2"
+   ]
+  },
+  "smi-forge": {
+   "n": 48,
+   "items": 47,
+   "h": 5.02,
+   "foot": 7.52,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "smi-shopfront": {
+   "n": 48,
+   "items": 383,
+   "h": 5,
+   "foot": 7.49,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "storeroom": {
+   "n": 48,
+   "items": 8,
+   "h": 5.73,
+   "foot": 24.42,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "temple-nave": {
+   "n": 48,
+   "items": 0,
+   "h": 0,
+   "foot": 0,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "wiz-apothecary": {
+   "n": 48,
+   "items": 158,
+   "h": 6.68,
+   "foot": 7.88,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 23,
+   "ex": []
+  },
+  "wiz-bedchamber": {
+   "n": 48,
+   "items": 48,
+   "h": 6.51,
+   "foot": 7.19,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "wiz-lab": {
+   "n": 48,
+   "items": 138,
+   "h": 6.5,
+   "foot": 7.18,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "8x6 s1111: alch-reagent-shelf-tall--s1 overlaps lantern-wall-iron--common"
+   ]
+  },
+  "wiz-observatory": {
+   "n": 48,
+   "items": 32,
+   "h": 6.5,
+   "foot": 7.24,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "wiz-stair": {
+   "n": 48,
+   "items": 48,
+   "h": 6.52,
+   "foot": 7.16,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "wiz-store": {
+   "n": 48,
+   "items": 528,
+   "h": 6.91,
+   "foot": 8.7,
+   "overlap": 31,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s202: alch-reagent-shelf-tall--s2 overlaps sconce-candle-single--iron",
+    "4x4 s303: alch-reagent-shelf-tall--s2 overlaps lantern-wall-iron--common",
+    "4x4 s606: alch-reagent-shelf-tall--s2 overlaps sconce-candle-single--iron"
+   ]
+  },
+  "wiz-study": {
+   "n": 48,
+   "items": 539,
+   "h": 6.5,
+   "foot": 7.2,
+   "overlap": 12,
+   "door": 0,
+   "window_tall": 23,
+   "ex": [
+    "4x4 s101: bookshelf--arcane overlaps sconce-candle-double--iron",
+    "4x4 s404: bookshelf--arcane overlaps sconce-candle-double--wood",
+    "4x4 s606: bookshelf--arcane--s2 overlaps sconce-candle-single--iron"
+   ]
+  }
+ },
+ "after": {
+  "cathedral": {
+   "n": 48,
+   "items": 0,
+   "h": 0,
+   "foot": 0,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cathedral-dark": {
+   "n": 48,
+   "items": 0,
+   "h": 0,
+   "foot": 0,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cellar": {
+   "n": 48,
+   "items": 242,
+   "h": 4.1,
+   "foot": 17.75,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "chn-study": {
+   "n": 48,
+   "items": 128,
+   "h": 6,
+   "foot": 5.03,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "common": {
+   "n": 48,
+   "items": 77,
+   "h": 5.77,
+   "foot": 12.02,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cult-library": {
+   "n": 48,
+   "items": 782,
+   "h": 6.69,
+   "foot": 5.1,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cyb-capsule": {
+   "n": 48,
+   "items": 54,
+   "h": 6.34,
+   "foot": 11.15,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cyb-lobby": {
+   "n": 48,
+   "items": 28,
+   "h": 6.35,
+   "foot": 11.19,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "cyb-noodle": {
+   "n": 48,
+   "items": 136,
+   "h": 6.34,
+   "foot": 11.16,
+   "overlap": 23,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "6x5 s101: vending-machine overlaps sign-neon--noodle-bowl",
+    "6x5 s202: vending-machine overlaps sign-neon--noodle-bowl",
+    "6x5 s404: vending-machine overlaps sign-neon--noodle-bowl"
+   ]
+  },
+  "cyb-rigger": {
+   "n": 48,
+   "items": 48,
+   "h": 4.3,
+   "foot": 15.02,
+   "overlap": 62,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: terminal-desk overlaps laptop-open",
+    "4x4 s202: terminal-desk overlaps coffee-cup-paper",
+    "4x4 s404: terminal-desk overlaps laptop-open"
+   ]
+  },
+  "cyb-safehouse": {
+   "n": 48,
+   "items": 48,
+   "h": 4.3,
+   "foot": 15.04,
+   "overlap": 109,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: terminal-desk overlaps keyboard",
+    "4x4 s101: terminal-desk overlaps coffee-cup-paper",
+    "4x4 s202: terminal-desk overlaps keyboard"
+   ]
+  },
+  "cyb-server": {
+   "n": 48,
+   "items": 258,
+   "h": 6.09,
+   "foot": 16.63,
+   "overlap": 88,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: terminal-desk overlaps keyboard",
+    "4x4 s101: terminal-desk overlaps laptop-open",
+    "4x4 s202: terminal-desk overlaps keyboard"
+   ]
+  },
+  "cyb-talisman": {
+   "n": 48,
+   "items": 469,
+   "h": 7,
+   "foot": 7.72,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "8x6 s1010: curio-shelf overlaps sign-neon--flask"
+   ]
+  },
+  "mansion-cellar": {
+   "n": 48,
+   "items": 238,
+   "h": 4.1,
+   "foot": 17.78,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "mansion-library": {
+   "n": 48,
+   "items": 759,
+   "h": 6.91,
+   "foot": 5.29,
+   "overlap": 4,
+   "door": 0,
+   "window_tall": 23,
+   "ex": [
+    "8x6 s404: bookshelf--fine--s2 overlaps sconce-candle-triple--fine",
+    "8x6 s1010: bookshelf--fine--s2 overlaps sconce-candle-triple--fine",
+    "8x6 s1212: bookshelf--fine--s2 overlaps sconce-candle-triple--fine"
+   ]
+  },
+  "mde-souk": {
+   "n": 48,
+   "items": 479,
+   "h": 6,
+   "foot": 7.02,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1111: shop-shelf-stocked--mde overlaps price-board"
+   ]
+  },
+  "mkt-apothecary": {
+   "n": 48,
+   "items": 479,
+   "h": 5.75,
+   "foot": 9.17,
+   "overlap": 7,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s606: shop-shelf-stocked--apoth overlaps price-board",
+    "4x4 s1212: shop-shelf-stocked--apoth overlaps price-board",
+    "4x4 s1313: shop-shelf-stocked--apoth overlaps price-board"
+   ]
+  },
+  "mkt-backroom": {
+   "n": 48,
+   "items": 141,
+   "h": 5.79,
+   "foot": 9.83,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s303: shop-shelf-stocked--general overlaps lantern-wall-horn--s1"
+   ]
+  },
+  "mkt-bakery": {
+   "n": 48,
+   "items": 347,
+   "h": 5.67,
+   "foot": 11.2,
+   "overlap": 9,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1414: shop-shelf-stocked--bakery overlaps price-board",
+    "4x4 s1515: shop-shelf-stocked--bakery--s2 overlaps price-board",
+    "6x5 s303: shop-shelf-stocked--bakery overlaps price-board"
+   ]
+  },
+  "mkt-curio": {
+   "n": 48,
+   "items": 459,
+   "h": 5.65,
+   "foot": 10.75,
+   "overlap": 22,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: shop-shelf-stocked--curio overlaps price-board",
+    "4x4 s202: shop-shelf-stocked--curio overlaps price-board",
+    "4x4 s404: shop-shelf-stocked--curio--s2 overlaps price-board"
+   ]
+  },
+  "mkt-general": {
+   "n": 48,
+   "items": 422,
+   "h": 5.63,
+   "foot": 9.78,
+   "overlap": 4,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s1010: shop-shelf-stocked--general overlaps lantern-wall-iron--common",
+    "6x5 s606: shop-shelf-stocked--general overlaps lantern-wall-iron--hex",
+    "8x6 s707: shop-shelf-stocked--general--s2 overlaps price-board"
+   ]
+  },
+  "mkt-tailor": {
+   "n": 48,
+   "items": 382,
+   "h": 6.5,
+   "foot": 12.12,
+   "overlap": 16,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: shop-shelf-stocked--tailor overlaps lantern-wall-brass--common",
+    "4x4 s303: shop-shelf-stocked--tailor overlaps price-board",
+    "4x4 s404: shop-shelf-stocked--tailor overlaps price-board"
+   ]
+  },
+  "mod-bar": {
+   "n": 48,
+   "items": 89,
+   "h": 7.99,
+   "foot": 7.9,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "mod-kitchen": {
+   "n": 48,
+   "items": 112,
+   "h": 5.99,
+   "foot": 8.47,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "mod-office-corridor": {
+   "n": 48,
+   "items": 14,
+   "h": 6.32,
+   "foot": 11.11,
+   "overlap": 13,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s202: vending-machine overlaps fire-extinguisher",
+    "4x4 s707: vending-machine overlaps art-canvas",
+    "4x4 s1212: vending-machine overlaps fire-extinguisher"
+   ]
+  },
+  "mod-service-corridor": {
+   "n": 48,
+   "items": 17,
+   "h": 6,
+   "foot": 8.49,
+   "overlap": 26,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s101: shelving-wire overlaps pipe-run-wall",
+    "4x4 s101: shelving-wire overlaps pipe-run-wall",
+    "4x4 s606: shelving-wire overlaps light-wall-strip"
+   ]
+  },
+  "rus-market": {
+   "n": 48,
+   "items": 463,
+   "h": 6,
+   "foot": 9.45,
+   "overlap": 15,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s707: shop-shelf-stocked--rus overlaps price-board",
+    "4x4 s808: shop-shelf-stocked--rus overlaps lantern-wall-iron--common",
+    "4x4 s909: shop-shelf-stocked--rus overlaps price-board"
+   ]
+  },
+  "smi-armoury": {
+   "n": 48,
+   "items": 32,
+   "h": 4.99,
+   "foot": 7.47,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "8x6 s707: shop-shelf-stocked--smith overlaps shield-display--s2"
+   ]
+  },
+  "smi-forge": {
+   "n": 48,
+   "items": 47,
+   "h": 5.02,
+   "foot": 7.52,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "smi-shopfront": {
+   "n": 48,
+   "items": 383,
+   "h": 5,
+   "foot": 7.49,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "storeroom": {
+   "n": 48,
+   "items": 16,
+   "h": 4.06,
+   "foot": 17.66,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "temple-nave": {
+   "n": 48,
+   "items": 0,
+   "h": 0,
+   "foot": 0,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "wiz-apothecary": {
+   "n": 48,
+   "items": 161,
+   "h": 6.7,
+   "foot": 4.66,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 23,
+   "ex": []
+  },
+  "wiz-bedchamber": {
+   "n": 48,
+   "items": 48,
+   "h": 6.51,
+   "foot": 4.26,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "wiz-lab": {
+   "n": 48,
+   "items": 144,
+   "h": 6.52,
+   "foot": 4.86,
+   "overlap": 1,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "6x5 s1313: apothecary-drawers--s2 overlaps sconce-candle-single--wood"
+   ]
+  },
+  "wiz-observatory": {
+   "n": 48,
+   "items": 32,
+   "h": 6.5,
+   "foot": 4.39,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "wiz-stair": {
+   "n": 48,
+   "items": 48,
+   "h": 6.52,
+   "foot": 4.2,
+   "overlap": 0,
+   "door": 0,
+   "window_tall": 0,
+   "ex": []
+  },
+  "wiz-store": {
+   "n": 48,
+   "items": 790,
+   "h": 6.94,
+   "foot": 4.32,
+   "overlap": 23,
+   "door": 0,
+   "window_tall": 0,
+   "ex": [
+    "4x4 s202: alch-reagent-shelf-tall--s2 overlaps sconce-candle-single--iron",
+    "4x4 s404: alch-reagent-shelf-tall--s2 overlaps sconce-candle-single--iron",
+    "4x4 s606: alch-reagent-shelf-tall--s2 overlaps lantern-wall-iron--common"
+   ]
+  },
+  "wiz-study": {
+   "n": 48,
+   "items": 664,
+   "h": 6.5,
+   "foot": 4.28,
+   "overlap": 11,
+   "door": 0,
+   "window_tall": 23,
+   "ex": [
+    "4x4 s101: bookshelf--arcane overlaps lantern-wall-iron--hex",
+    "4x4 s303: bookshelf--arcane overlaps lantern-wall-iron--common",
+    "4x4 s404: bookshelf--arcane overlaps lantern-wall-iron--common"
+   ]
+  }
+ }
+}

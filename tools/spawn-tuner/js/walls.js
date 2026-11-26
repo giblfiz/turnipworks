@@ -61,11 +61,13 @@ export const turnSide = (side, turn = 0) => CLOCK[(CLOCK.indexOf(side) + turn) %
 // does an index along the room's own side run the other way along the world side it has turned onto? (N and S count from
 // the west, W and E from the north)
 const flips = (own, turn) => { let s = own, f = false; for (let i = 0; i < turn % 4; i++) { if (s === 'E' || s === 'W') f = !f; s = turnSide(s, 1); } return f; };
-export function chooseExteriorDoor(room, rooms) {
+// `closed(edge)` (optional; the engine's core/roomgen.js, 2026-11-06): an exterior edge that opens onto nothing you can
+// walk out to (a room dug into a hill: solid earth outside that wall) is never a door
+export function chooseExteriorDoor(room, rooms, closed = null) {
   if (isOutdoor(room.type)) return null; // a yard has no walls to put a door in; its way out is the gate (computeEdges)
   const others = rooms.filter(r => r.id !== room.id && !isOutdoor(r.type)); // a yard next door is still "outside"
   const shared = new Set(others.flatMap(r => perimeter(r).map(e => e.key)));
-  const ext = perimeter(room).filter(e => !shared.has(e.key));
+  const ext = perimeter(room).filter(e => !shared.has(e.key) && !(closed && closed(e)));
   if (!ext.length) return null;
   const h = hash(room.wallSeed ?? room.seed, 'door'), turn = ((room.turn || 0) % 4 + 4) % 4;
   const order = doorOrder(room, h % 2 ? SIDE_PREF : ['S', 'W', 'E', 'N'], turn); // castle / crypt / mansion: DOOR_ENDS, at the end of this file
@@ -121,9 +123,15 @@ export const roleOf = (type) => (ROLES[type] || { role: 'terminal' }).role;
 export const isOutdoor = (type) => roleOf(type) === 'outdoor';
 const LINK_RANK = { passage: 0, hub: 1, uses: 2, mixed: 3, terminal: 9 };
 
+// AN EN SUITE (2026-11-07, modrooms lane): a room type whose ROLES entry lists `suiteOf: [types]` (the bathroom: the
+// apartment, the penthouse) opens into a room of one of those types it touches, whatever their roles (two terminals never
+// open into each other otherwise). The suite keeps that door as its only one (it is preferred over any other link and its
+// street door goes quiet, as any terminal's does); the HOST keeps its own doors as if the suite were not there.
+const suiteHost = (suite, host) => (ROLES[suite.type]?.suiteOf || []).includes(host.type);
 // Should two touching rooms get a connecting door? (v2)  Returns a reason string or null.
 function linkWhy(a, b) {
   if (mktNoLink(a, b)) return null; // market & village: two shop fronts side by side are two businesses (at the end of this file)
+  if (suiteHost(a, b) || suiteHost(b, a)) return 'en suite'; // (2026-11-07, modrooms) a bathroom against a flat opens into it (ROLES[type].suiteOf)
   const ra = roleOf(a.type), rb = roleOf(b.type);
   if (ra === 'terminal' && rb === 'terminal') return null;                  // terminals never open into each other
   const usesA = (ROLES[a.type]?.uses || []).includes(b.type), usesB = (ROLES[b.type]?.uses || []).includes(a.type);
@@ -166,17 +174,17 @@ function doorsV2(rooms, edges, byId, open, opts = {}) {
   }
   for (const r of rooms) {
     if (roleOf(r.type) !== 'terminal') continue;
-    const mine = links.filter(l => l.a === r || l.b === r);
+    const mine = links.filter(l => (l.a === r || l.b === r) && !(l.why === 'en suite' && suiteHost(l.a === r ? l.b : l.a, r))); // (a host's en suite is not one of its doors)
     if (mine.some(l => l.planned)) { const drop = new Set(mine.filter(l => !l.planned).map(l => l.k)); links = links.filter(l => !drop.has(l.k)); continue; } // its plan's doors are its doors
     if (mine.length < 2) continue;
-    const rank = (l) => { const o = l.a === r ? l.b : l.a; return LINK_RANK[roleOf(o.type)] * 100 - l.run.length; };
+    const rank = (l) => { const o = l.a === r ? l.b : l.a; return (l.why === 'en suite' ? -1000 : LINK_RANK[roleOf(o.type)] * 100) - l.run.length; };
     mine.sort((x, y) => rank(x) - rank(y) || (x.k < y.k ? -1 : 1));
     const drop = new Set(mine.slice(1).map(l => l.k));
     links = links.filter(l => !drop.has(l.k));
     for (const l of mine.slice(1)) l.dropped = `terminal ${r.type} keeps one door`;
   }
   // exterior doors: sticky choice at creation; a terminal's goes quiet once it has an interior door
-  const interior = new Set(links.flatMap(l => [l.a.id, l.b.id]));
+  const interior = new Set(links.flatMap(l => l.why === 'en suite' ? [suiteHost(l.a, l.b) ? l.a.id : l.b.id] : [l.a.id, l.b.id])); // (an en suite's host keeps its street door)
   for (const r of rooms) {
     if (!r.extDoor || isOutdoor(r.type)) continue; // (a room turned into a yard keeps no door of its own)
     if (!r.plan && roleOf(r.type) === 'terminal' && interior.has(r.id)) continue; // (a planned room's street door is the plan's)
@@ -1047,3 +1055,284 @@ for (const k of LAI_ROOMS) if (k !== 'lair-mouth') NO_WINDOWS.add(k);
   DOORS['lair-pit'] = { main: 'crypt-gate-iron', inner: 'crypt-gate-iron' }; }
 THROUGH.add('lair-passage'); DOOR_ENDS.add('lair-passage'); DOOR_ENDS.add('lair-trophy'); // walked end to end
 // <<< type:lai
+// >>> type:mod
+// ---- modern city (sprawl pack, 2026-11-06): the Modern genre's City type, eight rooms. Three wall families of its own:
+// `drywall` (painted plaster inside a flat or an office), `city-brick` (red city brick: bars, alleys, shop backs),
+// `concrete` (cast concrete: the parking garage, the warehouse). Each borrows
+// what it lacks from its nearest fantasy relative (FAMILY_FALLBACK), which also decides its corner piece (look.js
+// (the shop glass is not a family: it is a special panel of drywall, `wall-storefront--drywall`, PANELS below)
+// cornerSpec: a stone family's corners are pillar-square, the rest post-timber, in the family's own sku when one exists:
+// post-timber--drywall, pillar-square--city-brick, pillar-square--concrete). Doors are modern: a flat slab door, a steel
+// fire door, the glass shop door, and the roller shutter (a leaf that slides UP: engine/client/openlook.js RIGS). The
+// street and the alley are outdoor (no walls). Nothing here changes a fantasy room: every table is keyed by these keys. ----
+Object.assign(ROLES, {
+  'mod-apartment': { role: 'terminal', who: 'the people who live here' },
+  'mod-office': { role: 'hub', who: 'office workers and visitors' },
+  'mod-bar': { role: 'hub', who: 'drinkers, staff, the band' },
+  'mod-street': { role: 'outdoor', who: 'everyone: drivers, walkers' },
+  'mod-alley': { role: 'outdoor', who: 'staff on a break, deliveries, people who would rather not be seen' },
+  'mod-garage': { role: 'terminal', who: 'drivers' }, // (a hub walks a loop round the room after its program: through parked cars and columns),
+  'mod-store': { role: 'terminal', who: 'customers and the clerk' },
+  'mod-warehouse': { role: 'hub', who: 'loaders and forklift drivers' },
+});
+export const MOD_ROOMS = ['mod-apartment', 'mod-office', 'mod-bar', 'mod-street', 'mod-alley', 'mod-garage', 'mod-store', 'mod-warehouse'];
+export const MOD_FAMILIES = ['drywall', 'city-brick', 'concrete'];
+WALL_FAMILIES.push(...MOD_FAMILIES);
+Object.assign(FAMILY_FALLBACK, { drywall: 'noble-interior', 'city-brick': 'fieldstone', concrete: 'dressed-stone' });
+Object.assign(TO_KIT, { drywall: 'kit-half-timber', 'city-brick': 'kit-stone', concrete: 'kit-stone' });
+// the shop's glass front: every panel of the wall that has its street door is a pane of shop glass (the market shop's rule)
+PANELS['mod-store'] = [{ ids: ['wall-storefront'], sides: 'all', ends: true, every: [1, 1], only: (p, r, edges) => perimeter(r).some(q => q.side === p.side && edges.get(q.key)?.kind === 'door' && edges.get(q.key).sides.length === 1) }];
+{ // doors: slab doors inside homes and offices, steel doors at the back and in the working rooms, the glass door on the
+  // shop, a roller shutter (10 ft) on the garage and the warehouse's way in
+  const flush = 'door-flush', steel = 'door-steel', shutter = 'door-roller-shutter';
+  DOORS['mod-apartment'] = { main: flush, inner: flush };
+  DOORS['mod-office'] = { main: flush, inner: flush };
+  DOORS['mod-bar'] = { main: steel, inner: flush };
+  DOORS['mod-store'] = { main: 'door-shopfront', inner: steel };
+  DOORS['mod-garage'] = { main: steel, wide: shutter, inner: steel };
+  DOORS['mod-warehouse'] = { main: shutter, wide: shutter, inner: steel }; }
+SPANS['mod-garage'] = [2]; SPANS['mod-warehouse'] = [2]; // the vehicle door: 10 ft
+// <<< type:mod
+
+// >>> type:cyb
+// ---- the cyberpunk pack, wave 2 (2026-11-07): the Modern genre's Cyberpunk type, ten rooms, on wave 1's three wall families
+// (drywall, city-brick, concrete: type:mod above). The corporate lobby's street wall is GLASS (a special panel of drywall,
+// `wall-glass-curtain--drywall`, the convenience store's rule): engine/client/vision.js sees through it and stops feet at it.
+// The rooftop is outdoor (no walls of its own; its program lays a low parapet on the open edges). Every table is keyed by
+// these keys: nothing here changes a fantasy or a City room. ----
+Object.assign(ROLES, {
+  'cyb-clinic': { role: 'terminal', who: 'the street doctor and the patient on the chair' },
+  'cyb-lobby': { role: 'hub', who: 'visitors, guards, the receptionist' },
+  'cyb-server': { role: 'terminal', who: 'technicians, and whoever breaks in' },
+  'cyb-noodle': { role: 'terminal', who: 'the cook and the customers' },
+  'cyb-capsule': { role: 'terminal', who: 'guests sleeping in rows' },
+  'cyb-hideout': { role: 'hub', who: 'the gang' },
+  'cyb-talisman': { role: 'terminal', who: 'the shopkeeper and the customers' },
+  'cyb-rigger': { role: 'hub', who: 'the rigger and the crew' },
+  'cyb-safehouse': { role: 'terminal', who: 'the crew lying low' },
+  'cyb-rooftop': { role: 'outdoor', who: 'whoever comes up the stairs, and whatever lands' },
+});
+export const CYB_ROOMS = ['cyb-clinic', 'cyb-lobby', 'cyb-server', 'cyb-noodle', 'cyb-capsule', 'cyb-hideout', 'cyb-talisman', 'cyb-rigger', 'cyb-safehouse', 'cyb-rooftop'];
+// the lobby's front: every panel of the wall with its street door is a pane of the tower's glass (the store's rule)
+PANELS['cyb-lobby'] = [{ ids: ['wall-glass-curtain'], sides: 'all', ends: true, every: [1, 1], only: (p, r, edges) => perimeter(r).some(q => q.side === p.side && edges.get(q.key)?.kind === 'door' && edges.get(q.key).sides.length === 1) }];
+NO_WINDOWS.add('cyb-server'); NO_WINDOWS.add('cyb-safehouse'); NO_WINDOWS.add('cyb-capsule'); // (the capsules stand against the long walls: a window behind them read as the pods clipping the wall) // (a server room has none; a safehouse keeps its blinds down: no window to be seen through)
+DOOR_ENDS.add('cyb-capsule'); // the capsules line both long walls: walked in at an end, down the aisle
+{ const flush = 'door-flush', steel = 'door-steel', shutter = 'door-roller-shutter';
+  DOORS['cyb-clinic'] = { main: steel, inner: steel };
+  DOORS['cyb-lobby'] = { main: 'door-shopfront', inner: flush }; // (the glass door in the glass front)
+  DOORS['cyb-server'] = { main: steel, inner: steel };
+  DOORS['cyb-noodle'] = { main: 'door-shopfront', inner: flush };
+  DOORS['cyb-capsule'] = { main: steel, inner: flush };
+  DOORS['cyb-hideout'] = { main: steel, wide: shutter, inner: steel };
+  DOORS['cyb-talisman'] = { main: 'door-shopfront', inner: flush };
+  DOORS['cyb-rigger'] = { main: shutter, wide: shutter, inner: steel };
+  DOORS['cyb-safehouse'] = { main: steel, inner: flush }; }
+SPANS['cyb-rigger'] = [2]; // the vehicle door: 10 ft
+// <<< type:cyb
+
+// >>> type:modrooms
+// ---- the modrooms lane (2026-11-07): five more Modern rooms on wave 1's wall families (experiments/2026-11-07-modrooms).
+// The penthouse's outside walls are GLASS but for the door's (the tower's glass wall, `wall-glass-curtain--drywall`: seen
+// through, stops feet, engine/client/vision.js); the wet rooms' tiled panel (`wall-tiled--drywall`) is off by default (MX_TILES). The
+// fire escape is outdoor: no walls of its own; its program lays the iron railing on the open edges. Every table is keyed by
+// these keys: nothing here changes any other room. ----
+Object.assign(ROLES, {
+  'mod-penthouse': { role: 'terminal', who: 'the owner and their guests' },
+  'mod-penthouse-exec': { role: 'terminal', who: 'the executive, the bodyguards, the guests' },
+  'mod-bathroom': { role: 'terminal', who: 'whoever lives here', suiteOf: ['mod-apartment', 'mod-penthouse', 'mod-penthouse-exec', 'cyb-safehouse', 'cyb-capsule'] }, // (an en suite: suiteHost above)
+  'mod-restroom': { role: 'terminal', who: 'customers and staff' },
+  'mod-kitchen': { role: 'terminal', who: 'the cooks, the dishwasher, the servers at the pass' },
+  'mod-fire-escape': { role: 'outdoor', who: 'tenants on a smoke break, and anyone leaving in a hurry' },
+});
+export const MX_ROOMS = ['mod-penthouse', 'mod-penthouse-exec', 'mod-bathroom', 'mod-restroom', 'mod-kitchen', 'mod-fire-escape'];
+for (const k of ['mod-penthouse', 'mod-penthouse-exec']) PANELS[k] = [{ ids: ['wall-glass-curtain'], sides: 'all', ends: true, every: [1, 1], doorWall: false }];
+// TILED WALLS ARE OFF by default (2026-11-07): the blind read of the game's stills called the tiled panel "distressed and
+// corrugated", "torn, paper-like" in all three wet rooms, and its re-plate waits on the image quota (2026-11-11). The piece
+// stays on these rooms' shelves (library-index.js ROOM_KIT) for a GM to lay by hand; MX_TILES = true lays it again.
+export const MX_TILES = false;
+if (MX_TILES) for (const k of ['mod-bathroom', 'mod-restroom', 'mod-kitchen']) PANELS[k] = [{ ids: ['wall-tiled'], sides: 'all', ends: true, every: [1, 1] }];
+NO_WINDOWS.add('mod-restroom'); NO_WINDOWS.add('mod-kitchen'); NO_WINDOWS.add('mod-penthouse'); NO_WINDOWS.add('mod-penthouse-exec'); // (the penthouse's light is its glass: the door's wall stays solid, for the kitchen run and the art)
+// (a restroom has none; the kitchen's walls are its working faces)
+{ const flush = 'door-flush', steel = 'door-steel';
+  DOORS['mod-penthouse'] = { main: flush, inner: flush };
+  DOORS['mod-penthouse-exec'] = { main: steel, inner: flush }; // (a security door at the lift)
+  DOORS['mod-bathroom'] = { main: flush, inner: flush };
+  DOORS['mod-restroom'] = { main: flush, inner: flush };
+  DOORS['mod-kitchen'] = { main: steel, inner: flush }; }
+// <<< type:modrooms
+
+// >>> type:modhalls
+// ---- the modhalls lane (2026-11-07): the Modern genre's four corridors (experiments/2026-11-07-modhalls). Passages, as the
+// fantasy halls (buildings:walls.halls): the whole-building generator's spine in the Modern buildings, which plans every
+// door (docs/BUILDINGS.md), so NOT in THROUGH or DOOR_ENDS. Slab doors to the flats, offices and hotel rooms; steel fire
+// doors in the service corridor (concrete). The service corridor has no windows (it runs behind the rooms). ----
+Object.assign(ROLES, {
+  'mod-apartment-hallway': { role: 'passage', who: 'tenants and their visitors' },
+  'mod-office-corridor': { role: 'passage', who: 'office workers and visitors' },
+  'mod-hotel-corridor': { role: 'passage', who: 'guests, housekeeping, room service' },
+  'mod-service-corridor': { role: 'passage', who: 'staff, cleaners, the maintenance crew' },
+});
+export const MH_ROOMS = ['mod-apartment-hallway', 'mod-office-corridor', 'mod-hotel-corridor', 'mod-service-corridor'];
+NO_WINDOWS.add('mod-service-corridor');
+{ const flush = 'door-flush', steel = 'door-steel';
+  DOORS['mod-apartment-hallway'] = { main: flush, inner: flush };
+  DOORS['mod-office-corridor'] = { main: flush, inner: flush };
+  DOORS['mod-hotel-corridor'] = { main: flush, inner: flush };
+  DOORS['mod-service-corridor'] = { main: steel, inner: steel }; }
+// <<< type:modhalls
+
+// >>> nrs:walls
+// ---- Norse steading (NRS, 2026-11-06, experiments/2026-11-06-cultures-b): six rooms in `norse-stave` (upright staves under a
+// wall plate carved with interlace; a low carved portal). No windows: a hall is lit by its hearth, the smoke hole and its doors.
+// The family borrows rough-timber's corner posts, floors and family-keyed props (trapdoors) ----
+WALL_FAMILIES.push('norse-stave');
+FAMILY_FALLBACK['norse-stave'] = 'rough-timber';
+TO_KIT['norse-stave'] = 'kit-plank';
+export const NRS_ROOMS = ['nrs-longhouse', 'nrs-meadhall', 'nrs-smithy', 'nrs-boathouse', 'nrs-weaving', 'nrs-yard'];
+Object.assign(ROLES, {
+  'nrs-longhouse': { role: 'hub', who: 'the household' },
+  'nrs-meadhall': { role: 'hub', who: 'the chieftain, his household and his guests' },
+  'nrs-smithy': { role: 'terminal', who: 'the smith' },
+  'nrs-boathouse': { role: 'terminal', who: 'the crew' },
+  'nrs-weaving': { role: 'terminal', who: 'the weavers' },
+  'nrs-yard': { role: 'outdoor', who: 'everyone' },
+});
+for (const k of NRS_ROOMS) if (!isOutdoor(k)) { NO_WINDOWS.add(k); DOORS[k] = { main: 'door-plank', inner: 'door-plank' }; }
+SPANS['nrs-boathouse'] = [2, 3]; // the boat goes out through a wide end door
+// <<< nrs:walls
+
+// >>> mde:walls
+// ---- Middle East / Mamluk (MDE, 2026-11-06, experiments/2026-11-06-cultures-b): six rooms in `mde-plaster` (cream lime plaster
+// over striped ablaq stone, a pointed striped arch for the doorway, a mashrabiya lattice for the window). It borrows dressed
+// stone's corner pillars, floors and family-keyed props ----
+WALL_FAMILIES.push('mde-plaster');
+FAMILY_FALLBACK['mde-plaster'] = 'dressed-stone';
+TO_KIT['mde-plaster'] = 'kit-stone';
+export const MDE_ROOMS = ['mde-courtyard', 'mde-souk', 'mde-hammam', 'mde-audience', 'mde-coffee', 'mde-garden'];
+Object.assign(ROLES, {
+  'mde-courtyard': { role: 'outdoor', who: 'merchants, their beasts and goods' },
+  'mde-hammam': { role: 'terminal', who: 'the bathers' },
+  'mde-audience': { role: 'hub', who: 'the host and his guests' },
+  'mde-coffee': { role: 'hub', who: 'the customers' },
+  'mde-garden': { role: 'outdoor', who: 'the household' },
+});
+mktRegisterShop('mde-souk'); // a shop of the market's skeleton: hub, open to the street (no glazed shop window in this family)
+NO_WINDOWS.add('mde-hammam'); // (a bath is lit from its dome; its walls are benches and basins)
+for (const k of ['mde-hammam', 'mde-audience', 'mde-coffee', 'mde-souk']) DOORS[k] = { main: 'door-reinforced', inner: 'door-plank' };
+// <<< mde:walls
+
+// >>> rus:walls
+// ---- Medieval Rus' (RUS, 2026-11-06, experiments/2026-11-06-cultures-b): six rooms in `rus-log` (horizontal round logs, a
+// carved board under the wall plate, a carved lintel, a small mica window in a plain frame). It borrows the log cabin's
+// corners and doorway when it lacks them, and rough timber's floors and props ----
+WALL_FAMILIES.push('rus-log');
+FAMILY_FALLBACK['rus-log'] = 'log-cabin';
+TO_KIT['rus-log'] = 'kit-plank';
+export const RUS_ROOMS = ['rus-izba', 'rus-terem', 'rus-banya', 'rus-church', 'rus-market', 'rus-yard'];
+Object.assign(ROLES, {
+  'rus-izba': { role: 'hub', who: 'the family' },
+  'rus-terem': { role: 'hub', who: 'the boyar, his family and guests' },
+  'rus-banya': { role: 'terminal', who: 'the bathers' },
+  'rus-church': { role: 'terminal', who: 'the priest and the faithful' },
+  'rus-yard': { role: 'outdoor', who: 'everyone' },
+});
+mktRegisterShop('rus-market');
+NO_WINDOWS.add('rus-banya');
+for (const k of ['rus-izba', 'rus-terem', 'rus-banya', 'rus-church', 'rus-market']) DOORS[k] = { main: 'door-plank', inner: 'door-plank' };
+// <<< rus:walls
+
+// >>> mes:walls
+// ---- Mexica (MES, 2026-11-06, experiments/2026-11-06-cultures-b): six rooms in `mes-stucco` (cream-white lime stucco over
+// stone, a red base band; open doorways under a heavy lintel hung with a woven cotton curtain, never a hinged door; no
+// windows). It borrows dressed stone's corner pillars, floors and family-keyed props ----
+WALL_FAMILIES.push('mes-stucco');
+FAMILY_FALLBACK['mes-stucco'] = 'dressed-stone';
+TO_KIT['mes-stucco'] = 'kit-stone';
+export const MES_ROOMS = ['mes-shrine', 'mes-ballcourt', 'mes-house', 'mes-market', 'mes-chinampa', 'mes-scribe'];
+Object.assign(ROLES, {
+  'mes-shrine': { role: 'terminal', who: 'the priests' },
+  'mes-ballcourt': { role: 'outdoor', who: 'the players and the onlookers' },
+  'mes-house': { role: 'hub', who: 'the household' },
+  'mes-market': { role: 'outdoor', who: 'vendors and buyers' },
+  'mes-chinampa': { role: 'outdoor', who: 'the farmers' },
+  'mes-scribe': { role: 'terminal', who: 'the painter-scribe' },
+});
+for (const k of MES_ROOMS) if (!isOutdoor(k)) { NO_WINDOWS.add(k); DOORS[k] = { main: 'door-curtain', inner: 'door-curtain' }; }
+// <<< mes:walls
+
+// >>> jpn:walls
+// ---- Japan (culture pack, 2026-11-06, cultures-a): a Kyoto townhouse, tea house and Shinto shrine of the late Edo period.
+// Walls: jpn-shoji (dark cedar posts and rails, white shoji lattice or earthen plaster) for the house, tea house, dojo and
+// shop; jpn-shrine (vermilion posts and beams, white plaster) for the shrine hall. Doors: the wooden lattice street door
+// (koshido) to outside, fusuma panels between rooms (both leaves SLIDE since 2026-11-07: their SKUs say `slides`, client/openlook.js).
+// Two rooms are OUTDOOR: the shrine approach and the tea garden. Graph roles for a building layout: the tatami room and
+// the shop are hubs; the rest terminals. ----
+Object.assign(ROLES, {
+  'jpn-house': { role: 'hub', who: 'the household and its guests' },
+  'jpn-teahouse': { role: 'terminal', who: 'the host and up to five guests' },
+  'jpn-dojo': { role: 'terminal', who: 'the master and the students' },
+  'jpn-shrine': { role: 'terminal', who: 'worshippers' },
+  'jpn-shrine-court': { role: 'outdoor', who: 'worshippers on the approach' },
+  'jpn-shop': { role: 'hub', who: 'customers at the front, the household behind' },
+  'jpn-garden': { role: 'outdoor', who: 'the host and the tea guests' },
+});
+export const JPN_ROOMS = ['jpn-house', 'jpn-teahouse', 'jpn-dojo', 'jpn-shrine', 'jpn-shrine-court', 'jpn-shop', 'jpn-garden'];
+WALL_FAMILIES.push('jpn-shoji', 'jpn-shrine');
+FAMILY_FALLBACK['jpn-shoji'] = 'half-timber'; FAMILY_FALLBACK['jpn-shrine'] = 'half-timber'; // (corner posts, floors and family-keyed props borrow half-timber's)
+TO_KIT['jpn-shoji'] = 'kit-half-timber'; TO_KIT['jpn-shrine'] = 'kit-half-timber';
+NO_WINDOWS.add('jpn-shrine'); // a worship hall: its walls are plain (jpn-shrine has no window piece)
+{ const leaf = { 'door-plank': 'jpn-koshido-leaf', 'door-panelled': 'jpn-fusuma-leaf' }, house = { main: 'door-plank', inner: 'door-panelled', leaf };
+  for (const k of ['jpn-house', 'jpn-teahouse', 'jpn-dojo', 'jpn-shop']) DOORS[k] = house;
+  DOORS['jpn-shrine'] = { main: 'door-panelled', inner: 'door-panelled', leaf }; } // (the hall's front stands open in life; a fusuma-like panel until an open front exists)
+DOOR_ENDS.add('jpn-shrine'); // entered facing the offering table down the long axis
+// <<< jpn:walls
+
+// >>> chn:walls
+// ---- China (culture pack, 2026-11-06, cultures-a): a well-off official's courtyard house in mid-Qing Beijing and a
+// Buddhist temple hall. Walls: chn-brick (blue-grey brick between dark red-brown columns, timber lattice partitions) for
+// the house rooms and the tea house; chn-temple (red ochre plaster, red columns, a blue-green painted beam) for the
+// temple hall only (red is the temple's, not the house's). Doors: the dark lacquered street door with bronze studs to
+// outside, lattice doors between rooms (leaves that swing). The market street and the courtyard are OUTDOOR. Graph:
+// the hall and the tea house are hubs, the study and the temple hall terminals. ----
+Object.assign(ROLES, {
+  'chn-hall': { role: 'hub', who: 'the household and its guests' },
+  'chn-teahouse': { role: 'hub', who: 'customers' },
+  'chn-study': { role: 'terminal', who: 'the scholar' },
+  'chn-temple': { role: 'terminal', who: 'worshippers and monks' },
+  'chn-market': { role: 'outdoor', who: 'everyone' },
+  'chn-courtyard': { role: 'outdoor', who: 'the household' },
+});
+export const CHN_ROOMS = ['chn-hall', 'chn-teahouse', 'chn-study', 'chn-temple', 'chn-market', 'chn-courtyard'];
+WALL_FAMILIES.push('chn-brick', 'chn-temple');
+FAMILY_FALLBACK['chn-brick'] = 'half-timber'; FAMILY_FALLBACK['chn-temple'] = 'half-timber'; // (timber corner posts: the culture's own red-brown column where it has one)
+TO_KIT['chn-brick'] = 'kit-stone'; TO_KIT['chn-temple'] = 'kit-stone';
+NO_WINDOWS.add('chn-temple'); // the hall's light comes through its doors (chn-temple has no window piece)
+{ const leaf = { 'door-plank': 'chn-gate-leaf', 'door-panelled': 'chn-lattice-leaf' }, house = { main: 'door-plank', inner: 'door-panelled', leaf };
+  for (const k of ['chn-hall', 'chn-teahouse', 'chn-study']) DOORS[k] = house;
+  DOORS['chn-temple'] = { main: 'door-panelled', inner: 'door-panelled', leaf }; } // a temple hall's front is a row of lattice doors
+DOOR_ENDS.add('chn-temple'); // entered facing the altar down the long axis
+// <<< chn:walls
+
+// >>> ind:walls
+// ---- India (culture pack, 2026-11-06, cultures-a): 18th-century Jaipur-Amber, Rajasthan. Walls: ind-lime (ivory lime
+// plaster with painted borders, the jharokha window) for the bazaar shop and the household kitchen; ind-sandstone (red
+// sandstone, cusped arches, jali windows) for the palace hall; ind-temple (golden sandstone carved in horizontal bands)
+// for the Shiva temple's hall, which has no windows. Doors: carved teak leaves with brass studs. The haveli courtyard and
+// the stepwell are OUTDOOR. Graph: the shop is a hub (street in front, the household behind), the rest terminals. ----
+Object.assign(ROLES, {
+  'ind-haveli': { role: 'outdoor', who: 'the household' },
+  'ind-durbar': { role: 'terminal', who: 'the ruler and his court' },
+  'ind-mandapa': { role: 'terminal', who: 'worshippers' },
+  'ind-bazaar': { role: 'hub', who: 'customers at the front, the merchant\'s household behind' },
+  'ind-stepwell': { role: 'outdoor', who: 'everyone who comes for water' },
+  'ind-kitchen': { role: 'terminal', who: 'the household' },
+});
+export const IND_ROOMS = ['ind-haveli', 'ind-durbar', 'ind-mandapa', 'ind-bazaar', 'ind-stepwell', 'ind-kitchen'];
+WALL_FAMILIES.push('ind-lime', 'ind-sandstone', 'ind-temple');
+FAMILY_FALLBACK['ind-lime'] = 'dressed-stone'; FAMILY_FALLBACK['ind-sandstone'] = 'dressed-stone'; FAMILY_FALLBACK['ind-temple'] = 'dressed-stone'; // (stone corner pillars: the culture's own red sandstone pillar where it has one)
+TO_KIT['ind-lime'] = 'kit-stone'; TO_KIT['ind-sandstone'] = 'kit-stone'; TO_KIT['ind-temple'] = 'kit-stone';
+NO_WINDOWS.add('ind-mandapa'); // a temple hall is lit by its lamps (ind-temple has no window piece)
+{ const leaf = { 'door-plank': 'ind-carved-leaf' }, carved = { main: 'door-plank', inner: 'door-plank', leaf };
+  for (const k of ['ind-durbar', 'ind-mandapa', 'ind-bazaar', 'ind-kitchen']) DOORS[k] = carved; }
+DOOR_ENDS.add('ind-mandapa'); DOOR_ENDS.add('ind-durbar'); // entered facing the sanctum, the throne, down the long axis
+// <<< ind:walls

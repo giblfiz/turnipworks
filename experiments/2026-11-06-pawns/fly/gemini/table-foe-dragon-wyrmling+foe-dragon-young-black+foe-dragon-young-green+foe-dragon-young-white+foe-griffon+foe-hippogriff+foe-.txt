@@ -1,0 +1,159 @@
+### Text and Labels
+- **img1.png**: None visible (no text, labels, or numerals on the figure, base, flight rod, or grid).
+- **img2.png**: None visible.
+- **img3.png**: None visible.
+- **img4.png**: None visible.
+- **img5.png**: None visible.
+- **img6.png**: None visible.
+- **img7.png**: None visible.
+
+---
+
+### Detailed Analysis by Image
+
+#### **img1.png**
+- **Creature**:
+  - *Best guess*: Red Dragon (or Red Dragon Wyrmling)
+  - *Second guess*: Wyvern (or Drake)
+- **Stance**: **FLYING** (airborne, elevated on a tall flight peg, diving forward with wings spread and swept upward).
+- **Colours**: Painted crimson / warm orange-red across the body and wings, with pale cream / yellowish horns and spinal ridges. Mounted on a peach-colored flight rod over a round grey base with a peach rim.
+- **Faults / Malformations**: None. The model is intact, opaque, and solid; fine facial details are slightly soft due to the viewing distance, but the figure is clearly legible.
+
+---
+
+#### **img2.png**
+- **Creature**:
+  - *Best guess*: Black Dragon
+  - *Second guess*: Wyvern (or Shadow Drake / Gargoyle)
+- **Stance**: **FLYING** (airborne on a flight stand, banking forward with large wings spread wide to the sides).
+- **Colours**: Charcoal / matte black scales and body, dark greyish-brown wing membranes, pale tan horns sweeping forward/down along the head, and a subtle red highlight inside the mouth. Peach flight rod and base rim.
+- **Faults / Malformations**: None. Fully intact and opaque; deep self-shadowing makes the underbelly slightly dark to discern at distance.
+
+---
+
+#### **img3.png**
+- **Creature**:
+  - *Best guess*: Green Dragon
+  - *Second guess*: Forest Drake (or Wyvern)
+- **Stance**: **FLYING** (airborne, swooping forward with wings spread wide).
+- **Colours**: Forest green / emerald body and scales, pale yellow/cream wing membranes, and light tan/cream horns and head frills. Peach flight rod and base rim.
+- **Faults / Malformations**: None. Mesh is clean, fully opaque, and clearly rendered.
+
+---
+
+#### **img4.png**
+- **Creature**:
+  - *Best guess*: White Dragon (or Silver Dragon)
+  - *Second guess*: Couatl / Feathered Serpent (or Wyvern)
+- **Stance**: **FLYING** (airborne on a flight rod, banking forward with wings raised high and spread upward/back).
+- **Colours**: Ivory / off-white body and wings, accented with light brown/tan horns and crest spines. Peach flight rod and base rim.
+- **Faults / Malformations**: None. The model is intact and solid, though the light monochromatic palette against the neutral tabletop makes crest edges slightly lower in contrast.
+
+---
+
+#### **img5.png**
+- **Creature**:
+  - *Best guess*: Griffin (Gryphon)
+  - *Second guess*: Hippogriff (or Giant Eagle)
+- **Stance**: **FLYING** (airborne, swooping downwards with broad feathered wings spread wide and golden fore-talons outstretched).
+- **Colours**: White feathered head and neck ruff, golden-yellow beak and raptor talons, rich chestnut/reddish-brown feathered wings, and a tawny/golden-brown feline body. Peach flight rod and base rim.
+- **Faults / Malformations**: None. Intact, fully opaque, and very clear.
+
+---
+
+#### **img6.png**
+- **Creature**:
+  - *Best guess*: Griffin (Gryphon)
+  - *Second guess*: Hippogriff
+- **Stance**: **FLYING** (airborne, gliding/diving with wings spread wide and talons extended).
+- **Colours**: Muted greyish-brown and tan feathered wings, grey/off-white head feathers, yellow/ochre talons, and a brown feline hindbody. Peach flight rod and base rim.
+- **Faults / Malformations**: None. Solid, complete, and clearly legible.
+
+---
+
+#### **img7.png**
+- **Creature**:
+  - *Best guess*: Pegasus (Winged Horse)
+  - *Second guess*: Alicorn (Winged Unicorn)
+- **Stance**: **FLYING** (airborne on the flight rod, legs tucked in a galloping flight posture with feathered wings spread upwards).
+- **Colours**: Pale cream / off-white horse body and feathered wings, with a dark grey/slate mane and tail accents. Peach flight rod and base rim.
+- **Faults / Malformations**: None. Clean, intact, and opaque.
+
+---
+
+```json
+{
+  "images": [
+    {
+      "image": "img1",
+      "creature": "Red Dragon",
+      "second": "Wyvern",
+      "flying": true,
+      "wings": "spread",
+      "colours": "crimson red, warm orange, pale cream horns",
+      "faults": "none",
+      "blind": "A red dragon miniature with horns and spread wings poised atop a tall peach flight stand above a circular grey base."
+    },
+    {
+      "image": "img2",
+      "creature": "Black Dragon",
+      "second": "Wyvern",
+      "flying": true,
+      "wings": "spread",
+      "colours": "charcoal black, dark grey-brown membranes, tan horns",
+      "faults": "none",
+      "blind": "A charcoal-black dragon miniature banking forward with broad bat-like wings spread wide atop a tall flight stand."
+    },
+    {
+      "image": "img3",
+      "creature": "Green Dragon",
+      "second": "Forest Drake",
+      "flying": true,
+      "wings": "spread",
+      "colours": "forest green, pale yellow wing membranes, cream horns",
+      "faults": "none",
+      "blind": "A green dragon miniature with yellowish wing membranes and pale horns flying forward atop a tall peach flight stand."
+    },
+    {
+      "image": "img4",
+      "creature": "White Dragon",
+      "second": "Couatl",
+      "flying": true,
+      "wings": "spread",
+      "colours": "ivory white, off-white, light brown horns",
+      "faults": "none",
+      "blind": "An ivory-white dragon miniature with tan horns and wings swept high into the air atop a tall flight stand."
+    },
+    {
+      "image": "img5",
+      "creature": "Griffin",
+      "second": "Hippogriff",
+      "flying": true,
+      "wings": "spread",
+      "colours": "white head, chestnut brown wings, golden talons, tawny body",
+      "faults": "none",
+      "blind": "A griffin miniature with a white eagle head, brown outstretched wings, and extended golden talons swooping atop a tall flight stand."
+    },
+    {
+      "image": "img6",
+      "creature": "Griffin",
+      "second": "Hippogriff",
+      "flying": true,
+      "wings": "spread",
+      "colours": "grey-brown and tan wings, grey-white head, yellow talons, brown body",
+      "faults": "none",
+      "blind": "A brown-and-grey griffin miniature with broad feathered wings and extended talons flying atop a tall flight stand."
+    },
+    {
+      "image": "img7",
+      "creature": "Pegasus",
+      "second": "Alicorn",
+      "flying": true,
+      "wings": "spread",
+      "colours": "cream white body and wings, dark grey mane",
+      "faults": "none",
+      "blind": "An off-white pegasus miniature with a dark mane and outstretched feathered wings in flight atop a tall flight stand."
+    }
+  ]
+}
+```

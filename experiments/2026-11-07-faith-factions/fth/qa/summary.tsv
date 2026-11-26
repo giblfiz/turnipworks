@@ -1,0 +1,34 @@
+sku	verdict	reason	reads_as	confidence	unpainted_visible	floating_share	slab	size_ft	catalog_in	fp_factor	h_factor	rules	vision	notes
+flavor-altar--buddhist	accept	-			0.0	0	0	5x1.82x2.61	60x24x36	1.1	1.15	prop	0	
+flavor-altarpiece--buddhist	accept	-			0.0	0	0	1.25x1.33x1.19	16x10x10	1.5	1.43	prop	0	footprint proportion 1.5x off the catalog (1.3 x 1.2 ft)
+flavor-altarpiece--christian	accept	-			0.0	0	0	2.5x0.93x2.12	30x10x30	1.12	1.18	prop	0	
+flavor-altarpiece--hindu	accept	-			0.0	0	0	1.5x1.49x0.84	18x18x12	1.0	1.19	prop	0	
+flavor-bell--hindu	reject	override: mesh read: melted, blobby closed bottom, warped rim; superseded by flavor-bell--hindu--v2 (was accept: )			0.0	0	0	1.61x1.6x3	14x14x36	1.01	1.38	prop	0	1 separate piece(s) standing on the floor (7%)
+flavor-bell--hindu--v2	accept	-			0.0	0	0	1.7x1.7x3	14x14x36	1.0	1.46	prop	0	height proportion 1.46x off the catalog
+flavor-censer--buddhist	reject	override: mesh read: garbled writing-like markings on the stem band (text on a sacred object); superseded by flavor-censer--buddhist--v2 (was accept: )			0.0	0	0	1.74x1.75x4	20x20x48	1.0	1.05	prop	0	
+flavor-censer--buddhist--v2	accept	-			0.0	0	0	1.65x1.65x4	20x20x48	1.0	1.01	prop	0	
+flavor-censer--christian	accept	-			0.0	0	0	1.84x2.05x5.5	18x18x66	1.11	1.36	prop	0	
+flavor-censer--hindu	accept	-			0.0	0	0	2.47x2.66x5	16x16x60	1.08	2.0	prop	0	height proportion 2.0x off the catalog
+flavor-censer--muslim	reject	override: mesh read: garbled writing-like knotwork in the base medallions (text on a sacred object); superseded by flavor-censer--muslim--v2 (was accept: )			0.0	0	0	2.5x2.5x4.5	18x18x54	1.0	1.67	prop	0	height proportion 1.67x off the catalog
+flavor-censer--muslim--v2	accept	-			0.0	0	0	2.49x2.49x4.5	18x18x54	1.0	1.66	prop	0	height proportion 1.66x off the catalog
+flavor-corbel--muslim	reject	override: mesh read: read as broken stone (missing chunks); superseded by flavor-corbel--muslim--v2 (was accept: )			0.0	0	0	1.79x1.42x2.5	24x24x30	1.26	1.12	prop	0	underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)
+flavor-corbel--muslim--v2	accept	override: mesh read: whole and text-free; its one flaw is an open back (hollow behind the backplate), which faces the wall it is mounted on (was accept: )			0.0	0	0	2.31x1.38x2.5	24x24x30	1.68	1.16	prop	0	footprint proportion 1.68x off the catalog (2.3 x 1.4 ft)
+flavor-font--christian	accept	-			0.0	0	0	2.31x2.33x4.5	36x36x54	1.01	1.29	prop	0	
+flavor-font--muslim	accept	-			0.0	0	0	4x3.85x2.74	48x48x40	1.04	1.21	prop	0	
+flavor-gate--hindu	reject	override: a 9.3 x 9.5 x 10 ft cube; superseded by flavor-gate--hindu--v2 (was reroll-plate: footprint 9.5 x 9.3 ft, catalog 8.0 x 2.0 ft: squarer by 3.94x)			0.0	0	0	9.34x9.49x10	96x24x120	3.94	1.19	prop	0	
+flavor-gate--hindu--v2	accept	-			0.0	0	0	8.19x2.28x10	96x24x120	1.11	1.02	prop	0	
+flavor-idol--buddhist	accept	-			0.0	0	0	4.69x4.11x8	60x48x96	1.09	1.07	prop	0	
+flavor-idol--christian	accept	-			0.0	0	0	5.15x2.61x9	48x30x108	1.23	1.29	prop	0	
+flavor-idol--hindu	accept	-			0.0	0	0	5.41x5.41x9	60x54x108	1.11	1.08	prop	0	
+flavor-idol--muslim	reject	override: mesh read: garbled pseudo-Arabic calligraphy in the border panels (text on the qibla niche); superseded by flavor-idol--muslim--v2 (was accept: )			0.0	0	0	6.66x2.22x10	72x24x120	1.0	1.11	prop	0	
+flavor-idol--muslim--v2	accept	-			0.0	0	0	6.44x2.37x10	72x24x120	1.1	1.07	prop	0	
+flavor-lamp--muslim	accept	-			0.0	0	0	1.51x1.51x3	14x14x36	1.0	1.29	prop	0	
+flavor-pulpit--muslim	accept	-			0.003	0	0	3.06x7.85x8.83	30x96x106	1.25	1.02	prop	0	
+flavor-sculpture--buddhist	accept	-			0.0	0	0	4.41x3.83x8	48x48x96	1.15	1.1	prop	0	
+flavor-sculpture--christian	accept	-			0.0	0	0	2.53x2.09x7	30x24x84	1.03	1.01	prop	0	
+flavor-stand--christian	accept	-			0.0	0	0	2.43x1.82x4.5	18x18x54	1.33	1.62	prop	0	height proportion 1.62x off the catalog
+flavor-stand--muslim	reject	override: hall stills read: script-like marks on open book pages (the inlaid cradle read as an open Qur'an with fake writing); superseded by flavor-stand--muslim--v2 (was accept: )			0.0	0	0	1.33x1.02x1.05	12x16x14	1.02	1.11	prop	0	
+flavor-stand--muslim--v2	reject	override: mesh read: no text, but broken (detached struts, floating hinge joints); superseded by flavor-stand--muslim--v3 (was accept: )			0.0	0	0	1.33x1.1x1.11	12x16x14	1.1	1.05	prop	0	
+flavor-stand--muslim--v3	accept	-			0.0	0	0	1.33x1.33x0.94	12x16x14	1.33	1.24	prop	0	
+flavor-wheel--buddhist	reject	override: mesh read: stylized pseudo-script embossed on the drum; superseded by flavor-wheel--buddhist--v2 (was accept: )			0.0	0	0	3.36x2.33x6	30x30x72	1.44	1.34	prop	0	
+flavor-wheel--buddhist--v2	accept	-			0.0	0	0	3.37x2.5x6	30x30x72	1.35	1.35	prop	0	

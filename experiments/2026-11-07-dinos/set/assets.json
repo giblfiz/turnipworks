@@ -1,0 +1,542 @@
+{
+ "assets": [
+  {
+   "id": "foe-velociraptor",
+   "object": "foe-velociraptor",
+   "family": "figures",
+   "group": "foe",
+   "source": "generate",
+   "lane": "3d",
+   "generation": "figure",
+   "kind": "odd",
+   "subject": "a velociraptor",
+   "height_ft": {
+    "body": 5.0,
+    "figure_top": 5.0,
+    "overall": 5.0
+   },
+   "shaft": null,
+   "base_ft": 5,
+   "body": null,
+   "canary": false,
+   "name": "Velociraptor",
+   "cls": "velociraptor",
+   "boss": false,
+   "tags": [
+    "velociraptor",
+    "raptor",
+    "deinonychus",
+    "utahraptor",
+    "pack hunter",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "velociraptor",
+    "deinonychus"
+   ],
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of a velociraptor.\n\nThe supplied image is ANOTHER FIGURE OF THE SAME SET, already made. The new figure must belong to the same set: the SAME painting style, the same chunkiness and level of detail, the same lighting, the same camera angle and the same flat blue background. It is a DIFFERENT character, described below: do not copy the reference's armour, colours, face or pose, and do NOT copy how far its sword and shield are held out to the sides.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: ONE single whole creature in frame, top to bottom, at rest in a clear, stable, compact pose, its underside flat on one level as if on an invisible floor. COMPACT: all of it fits inside an upright cylinder 4 ft across; nothing stretched far out to the side.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: A velociraptor, 5 ft tall at the head, standing fairly upright so it fits inside a 4-ft cylinder: a lean two-legged predator with a long low snout showing a row of small thick cream teeth, three-fingered clawed hands held forward close to its chest, strong bird-like legs with a big curved sickle claw raised on each foot, and a stiff tail curved round close beside its legs to the ground. Scaly skin, no feathers: an ochre-tan hide with dark moss-green stripes down its back and a cream belly.\n",
+   "refs": [
+    "experiments/2026-10-06-figures/set/inputs/foe-tyrannosaur.jpg"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one lean two-legged raptor dinosaur with a long snout and clawed hands",
+    "must": [
+     "the whole creature, nothing cut off",
+     "a long snout and clawed hands on two legs",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a rider, a second creature or scenery"
+    ]
+   },
+   "qwen": "Picture 1 is a painted tabletop miniature figure from a set (a tyrannosaur), alone on a flat chroma-blue background. Make ONE NEW figure of the SAME SET: a velociraptor. Keep EXACTLY its look: the same heroic hand-painted style, stout chunky miniature proportions with broad simple shapes, thick sturdy limbs, matte diffuse paint with soft gradients and subtle brush texture, the same soft even lighting, the same camera (three-quarter front view, very slightly above eye level) and the same perfectly flat uniform chroma-blue background. It is a DIFFERENT animal, described here: a velociraptor: a man-sized, lean, two-legged predator 5 ft tall at the head, standing fairly upright: a long low snout with a row of small thick cream teeth showing, a sharp-eyed head, three-fingered clawed hands held forward close to its chest, strong bird-like legs with a big curved SICKLE CLAW raised on each foot, a stiff tail curved round close beside its legs to the ground. SCALY skin (no feathers at all): ochre-tan hide with dark moss-green stripes down its back and a cream belly. Palette: the set's moss green, ochre, warm brown, burgundy and cream; NO blue, teal or cyan anywhere on the animal. Standing still on its two legs in a compact stable pose, both feet flat on one level, a clear gap between the legs; the tail curved round close beside its legs down to the ground, nothing stretched out. No base, no ground, no rock, no grass, no cast shadow under the feet: it stands on nothing. Exactly one whole animal, centred, with generous clear blue space all around; nothing cut off by the frame. No feathers, no text, no glow, no scenery, not a statue, not a photo.",
+   "cyl_ft": 4
+  },
+  {
+   "id": "foe-ankylosaurus",
+   "object": "foe-ankylosaurus",
+   "family": "figures",
+   "group": "large",
+   "source": "generate",
+   "lane": "3d",
+   "generation": "figure",
+   "kind": "quad",
+   "subject": "an ankylosaurus",
+   "height_ft": {
+    "body": 6.5,
+    "figure_top": 6.5,
+    "overall": 6.5,
+    "length": 12
+   },
+   "shaft": null,
+   "base_ft": 15,
+   "body": null,
+   "canary": false,
+   "name": "Ankylosaurus",
+   "cls": "ankylosaurus",
+   "boss": true,
+   "tags": [
+    "ankylosaurus",
+    "ankylosaur",
+    "armored dinosaur",
+    "armoured dinosaur",
+    "club tail",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "ankylosaurus"
+   ],
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of an ankylosaurus.\n\nThe supplied image is ANOTHER FIGURE OF THE SAME SET, already made. The new figure must belong to the same set: the SAME painting style, the same chunkiness and level of detail, the same lighting, the same camera angle and the same flat blue background. It is a DIFFERENT character, described below: do not copy the reference's armour, colours, face or pose, and do NOT copy how far its sword and shield are held out to the sides.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: ONE single whole animal in frame from nose to tail tip and from the top of its head to its feet, standing still and square on ALL FOUR legs in a calm, stable pose (not running, not rearing, not leaping). All four legs are separately and clearly visible, each one thick and sturdy, none hidden behind another, with clear background between them and under the belly; all four feet FLAT on the same level. COMPACT: the whole animal fits inside an upright cylinder 12.5 ft across: neck and head up, tail carried low and close, nothing stretched out.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: An ankylosaurus, 6.5 ft tall at the top of its back, a very broad low body about 12 ft long with its tail curved close: its back a wide dome covered in rows of thick bony plates with short blunt spikes along the flanks, a broad flat head with two short horns at its back corners and a blunt beak, four short thick pillar legs, and a thick tail ending in a big heavy round bony club, curved round beside its flank. Ochre-brown armour plates with moss-green skin between them and a cream throat.\n",
+   "refs": [
+    "experiments/2026-10-06-figures/set/inputs/foe-triceratops.jpg"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one low armoured four-legged dinosaur with a bony tail club",
+    "must": [
+     "the whole animal, nose to tail and head to feet",
+     "FOUR separate legs all visible, with gaps between them",
+     "an armoured back of bony plates",
+     "a big bony club at the tail tip",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a rider, a second creature or scenery"
+    ]
+   },
+   "qwen": "Picture 1 is a painted tabletop miniature figure from a set (a triceratops), alone on a flat chroma-blue background. Make ONE NEW figure of the SAME SET: an ankylosaurus. Keep EXACTLY its look: the same heroic hand-painted style, stout chunky miniature proportions with broad simple shapes, thick sturdy limbs, matte diffuse paint with soft gradients and subtle brush texture, the same soft even lighting, the same camera (three-quarter front view, very slightly above eye level) and the same perfectly flat uniform chroma-blue background. It is a DIFFERENT animal, described here: an ankylosaurus: a low, very broad armoured dinosaur on four short thick legs, its back a wide dome covered in rows of thick bony plates and short blunt spikes along its flanks, a broad flat head with two short horns at the back corners and a blunt beak, and a thick tail ending in a big heavy round bony CLUB; the tail curved round beside its flank. Ochre-brown armour plates with moss-green skin between them and a cream throat. Palette: the set's moss green, ochre, warm brown, burgundy and cream; NO blue, teal or cyan anywhere on the animal. Standing still and square on ALL FOUR legs, all four legs separately visible with blue background between them, all four feet flat on one level; compact: head up, tail curved round close beside its body, nothing stretched out. No base, no ground, no rock, no grass, no cast shadow under the feet: it stands on nothing. Exactly one whole animal, centred, with generous clear blue space all around; nothing cut off by the frame. No feathers, no text, no glow, no scenery, not a statue, not a photo.",
+   "cyl_ft": 12.5
+  },
+  {
+   "id": "foe-stegosaurus",
+   "object": "foe-stegosaurus",
+   "family": "figures",
+   "group": "large",
+   "source": "generate",
+   "lane": "3d",
+   "generation": "figure",
+   "kind": "quad",
+   "subject": "a stegosaurus",
+   "height_ft": {
+    "body": 12.0,
+    "figure_top": 12.0,
+    "overall": 12.0,
+    "length": 13
+   },
+   "shaft": null,
+   "base_ft": 15,
+   "body": null,
+   "canary": false,
+   "name": "Stegosaurus",
+   "cls": "stegosaurus",
+   "boss": true,
+   "tags": [
+    "stegosaurus",
+    "stegosaur",
+    "plated dinosaur",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "stegosaurus"
+   ],
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of a stegosaurus.\n\nThe supplied image is ANOTHER FIGURE OF THE SAME SET, already made. The new figure must belong to the same set: the SAME painting style, the same chunkiness and level of detail, the same lighting, the same camera angle and the same flat blue background. It is a DIFFERENT character, described below: do not copy the reference's armour, colours, face or pose, and do NOT copy how far its sword and shield are held out to the sides.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: ONE single whole animal in frame from nose to tail tip and from the top of its head to its feet, standing still and square on ALL FOUR legs in a calm, stable pose (not running, not rearing, not leaping). All four legs are separately and clearly visible, each one thick and sturdy, none hidden behind another, with clear background between them and under the belly; all four feet FLAT on the same level. COMPACT: the whole animal fits inside an upright cylinder 12.5 ft across: neck and head up, tail carried low and close, nothing stretched out.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: A stegosaurus, 12 ft tall at the top of its back plates, a massive body about 13 ft long with its tail curved close: a high-arched back carrying two rows of big upright kite-shaped bony plates, a small low head on a short neck, hind legs much longer than the front legs, four pillar legs, and a thick tail curved round beside its flank with four big thick spikes at the tip. Moss-green hide with ochre bands and a cream belly; the plates burgundy-red edged with ochre.\n",
+   "refs": [
+    "experiments/2026-10-06-figures/set/inputs/foe-triceratops.jpg"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one four-legged dinosaur with two rows of big back plates and a spiked tail",
+    "must": [
+     "the whole animal, nose to tail and head to feet",
+     "FOUR separate legs all visible, with gaps between them",
+     "two rows of big upright plates on the back",
+     "big spikes at the tail tip",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a rider, a second creature or scenery"
+    ]
+   },
+   "qwen": "Picture 1 is a painted tabletop miniature figure from a set (a triceratops), alone on a flat chroma-blue background. Make ONE NEW figure of the SAME SET: a stegosaurus. Keep EXACTLY its look: the same heroic hand-painted style, stout chunky miniature proportions with broad simple shapes, thick sturdy limbs, matte diffuse paint with soft gradients and subtle brush texture, the same soft even lighting, the same camera (three-quarter front view, very slightly above eye level) and the same perfectly flat uniform chroma-blue background. It is a DIFFERENT animal, described here: a stegosaurus: a big four-legged dinosaur with a high-arched back carrying TWO ROWS of big upright kite-shaped bony PLATES, a small low head on a short neck, hind legs much longer than the front legs, and a thick tail held low and curved round beside its flank with FOUR big thick SPIKES at its tip. Moss-green hide with ochre bands and a cream belly; the plates burgundy-red edged with ochre. Palette: the set's moss green, ochre, warm brown, burgundy and cream; NO blue, teal or cyan anywhere on the animal. Standing still and square on ALL FOUR legs, all four legs separately visible with blue background between them, all four feet flat on one level; compact: head up, tail curved round close beside its body, nothing stretched out. No base, no ground, no rock, no grass, no cast shadow under the feet: it stands on nothing. Exactly one whole animal, centred, with generous clear blue space all around; nothing cut off by the frame. No feathers, no text, no glow, no scenery, not a statue, not a photo.",
+   "cyl_ft": 12.5
+  },
+  {
+   "id": "foe-spinosaurus",
+   "object": "foe-spinosaurus",
+   "family": "figures",
+   "group": "large",
+   "source": "generate",
+   "lane": "3d",
+   "generation": "figure",
+   "kind": "odd",
+   "subject": "a spinosaurus",
+   "height_ft": {
+    "body": 15.0,
+    "figure_top": 15.0,
+    "overall": 15.0
+   },
+   "shaft": null,
+   "base_ft": 15,
+   "body": null,
+   "canary": false,
+   "name": "Spinosaurus",
+   "cls": "spinosaurus",
+   "boss": true,
+   "tags": [
+    "spinosaurus",
+    "spinosaur",
+    "sail-back dinosaur",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "spinosaurus"
+   ],
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of a spinosaurus.\n\nThe supplied image is ANOTHER FIGURE OF THE SAME SET, already made. The new figure must belong to the same set: the SAME painting style, the same chunkiness and level of detail, the same lighting, the same camera angle and the same flat blue background. It is a DIFFERENT character, described below: do not copy the reference's armour, colours, face or pose, and do NOT copy how far its sword and shield are held out to the sides.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: ONE single whole creature in frame, top to bottom, at rest in a clear, stable, compact pose, its underside flat on one level as if on an invisible floor. COMPACT: all of it fits inside an upright cylinder 12.5 ft across; nothing stretched far out to the side.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: A spinosaurus, 15 ft tall at the top of its sail, standing fairly upright so it fits inside a 12.5-ft cylinder: a huge two-legged predator with a long narrow crocodile-like snout lined with thick cream teeth, a tall sail of skin on its back held up by long spines, strong arms with big hooked claws held close in front of its chest, two massive legs with big clawed feet flat on the ground, and a deep paddle-like tail curved round close beside its legs to the ground. Moss-green and ochre hide with a cream belly; the sail burgundy-red with ochre stripes.\n",
+   "refs": [
+    "experiments/2026-10-06-figures/set/inputs/foe-tyrannosaur.jpg"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one huge two-legged dinosaur with a long crocodile snout and a tall back sail",
+    "must": [
+     "the whole creature, nothing cut off",
+     "a tall sail on its back",
+     "a long narrow snout",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a rider, a second creature or scenery"
+    ]
+   },
+   "qwen": "Picture 1 is a painted tabletop miniature figure from a set (a tyrannosaur), alone on a flat chroma-blue background. Make ONE NEW figure of the SAME SET: a spinosaurus. Keep EXACTLY its look: the same heroic hand-painted style, stout chunky miniature proportions with broad simple shapes, thick sturdy limbs, matte diffuse paint with soft gradients and subtle brush texture, the same soft even lighting, the same camera (three-quarter front view, very slightly above eye level) and the same perfectly flat uniform chroma-blue background. It is a DIFFERENT animal, described here: a spinosaurus: a huge two-legged predator with a long narrow crocodile-like SNOUT lined with cream teeth, a tall SAIL of skin on its back held up by long spines (the sail as tall as its body is deep), strong arms with big hooked claws held close in front, two thick legs with big clawed feet, and a deep paddle-like tail curved round close beside its legs to the ground. Moss-green and ochre hide with a cream belly; the sail burgundy-red with ochre stripes. Palette: the set's moss green, ochre, warm brown, burgundy and cream; NO blue, teal or cyan anywhere on the animal. Standing still on its two legs in a compact stable pose, both feet flat on one level, a clear gap between the legs; the tail curved round close beside its legs down to the ground, nothing stretched out. No base, no ground, no rock, no grass, no cast shadow under the feet: it stands on nothing. Exactly one whole animal, centred, with generous clear blue space all around; nothing cut off by the frame. No feathers, no text, no glow, no scenery, not a statue, not a photo.",
+   "cyl_ft": 12.5
+  },
+  {
+   "id": "foe-brontosaurus",
+   "object": "foe-brontosaurus",
+   "family": "figures",
+   "group": "large",
+   "source": "generate",
+   "lane": "3d",
+   "generation": "figure",
+   "kind": "quad",
+   "subject": "a brontosaurus",
+   "height_ft": {
+    "body": 24.0,
+    "figure_top": 24.0,
+    "overall": 24.0,
+    "length": 17
+   },
+   "shaft": null,
+   "base_ft": 20,
+   "body": null,
+   "canary": false,
+   "name": "Brontosaurus",
+   "cls": "brontosaurus",
+   "boss": true,
+   "tags": [
+    "brontosaurus",
+    "apatosaurus",
+    "brachiosaurus",
+    "diplodocus",
+    "sauropod",
+    "long neck",
+    "longneck",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "brontosaurus",
+    "apatosaurus",
+    "brachiosaurus"
+   ],
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of a brontosaurus.\n\nThe supplied image is ANOTHER FIGURE OF THE SAME SET, already made. The new figure must belong to the same set: the SAME painting style, the same chunkiness and level of detail, the same lighting, the same camera angle and the same flat blue background. It is a DIFFERENT character, described below: do not copy the reference's armour, colours, face or pose, and do NOT copy how far its sword and shield are held out to the sides.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: ONE single whole animal in frame from nose to tail tip and from the top of its head to its feet, standing still and square on ALL FOUR legs in a calm, stable pose (not running, not rearing, not leaping). All four legs are separately and clearly visible, each one thick and sturdy, none hidden behind another, with clear background between them and under the belly; all four feet FLAT on the same level. COMPACT: the whole animal fits inside an upright cylinder 17 ft across: neck and head up, tail carried low and close, nothing stretched out.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: A brontosaurus, 24 ft tall at the top of its head, a massive body about 17 ft long with its tail curved close: an enormous long-necked plant-eater on four huge pillar legs, its long thick neck raised high in a gentle S-curve with a small head on top, a deep barrel body, and a long thick tail curved round close beside its flank to the ground. Moss-green hide with soft ochre bands across the back and a cream belly and throat.\n",
+   "refs": [
+    "experiments/2026-10-06-figures/set/inputs/foe-triceratops.jpg"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one enormous long-necked four-legged dinosaur with a small head",
+    "must": [
+     "the whole animal, nose to tail and head to feet",
+     "FOUR separate legs all visible, with gaps between them",
+     "a very long neck raised high with a small head",
+     "four huge pillar legs",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a rider, a second creature or scenery"
+    ]
+   },
+   "qwen": "Picture 1 is a painted tabletop miniature figure from a set (a triceratops), alone on a flat chroma-blue background. Make ONE NEW figure of the SAME SET: a brontosaurus. Keep EXACTLY its look: the same heroic hand-painted style, stout chunky miniature proportions with broad simple shapes, thick sturdy limbs, matte diffuse paint with soft gradients and subtle brush texture, the same soft even lighting, the same camera (three-quarter front view, very slightly above eye level) and the same perfectly flat uniform chroma-blue background. It is a DIFFERENT animal, described here: a brontosaurus: an enormous long-necked plant-eating dinosaur on four huge pillar legs, its LONG NECK raised high in a gentle S-curve with a small head on top, a massive barrel body, and a long thick tail curved round close beside its flank to the ground. Moss-green hide with soft ochre bands across the back and a cream belly and throat. Palette: the set's moss green, ochre, warm brown, burgundy and cream; NO blue, teal or cyan anywhere on the animal. Standing still and square on ALL FOUR legs, all four legs separately visible with blue background between them, all four feet flat on one level; compact: head up, tail curved round close beside its body, nothing stretched out. No base, no ground, no rock, no grass, no cast shadow under the feet: it stands on nothing. Exactly one whole animal, centred, with generous clear blue space all around; nothing cut off by the frame. No feathers, no text, no glow, no scenery, not a statue, not a photo.",
+   "cyl_ft": 17
+  },
+  {
+   "id": "foe-pterodactyl",
+   "object": "foe-pterodactyl",
+   "family": "figures",
+   "group": "large",
+   "source": "generate",
+   "lane": "3d",
+   "generation": "figure",
+   "kind": "quad",
+   "subject": "a pterodactyl (a pteranodon)",
+   "height_ft": {
+    "body": 6.0,
+    "figure_top": 6.0,
+    "overall": 6.0
+   },
+   "shaft": null,
+   "base_ft": 10,
+   "body": null,
+   "canary": false,
+   "name": "Pterodactyl",
+   "cls": "pterodactyl",
+   "boss": false,
+   "tags": [
+    "pterodactyl",
+    "pteranodon",
+    "pterosaur",
+    "flying reptile",
+    "flier",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "pteranodon"
+   ],
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of a pterodactyl (a pteranodon).\n\nThe supplied image is ANOTHER FIGURE OF THE SAME SET, already made. The new figure must belong to the same set: the SAME painting style, the same chunkiness and level of detail, the same lighting, the same camera angle and the same flat blue background. It is a DIFFERENT character, described below: do not copy the reference's armour, colours, face or pose, and do NOT copy how far its sword and shield are held out to the sides.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: ONE single whole animal in frame from nose to tail tip and from the top of its head to its feet, standing still and square on ALL FOUR legs in a calm, stable pose (not running, not rearing, not leaping). All four legs are separately and clearly visible, each one thick and sturdy, none hidden behind another, with clear background between them and under the belly; all four feet FLAT on the same level. COMPACT: the whole animal fits inside an upright cylinder 8.5 ft across: neck and head up, tail carried low and close, nothing stretched out.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: A pterodactyl (a pteranodon), 6 ft tall at the top of its crest, standing on the ground on all fours with its big leathery wings FOLDED tight against its arms, walking on its folded wing-knuckles and two small back feet: a long pointed toothless beak and a long bony crest sweeping back from the back of its head. Ochre-brown and moss-green leathery skin, a cream chest, a burgundy crest.\n",
+   "refs": [
+    "experiments/2026-10-06-figures/set/inputs/foe-triceratops.jpg"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one pterosaur standing on all fours with folded wings, a long beak and a back-swept head crest",
+    "must": [
+     "the whole animal, nose to tail and head to feet",
+     "FOUR separate legs all visible, with gaps between them",
+     "a long pointed beak and a crest sweeping back from the head",
+     "wings folded, standing on all fours",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a rider, a second creature or scenery"
+    ]
+   },
+   "qwen": "Picture 1 is a painted tabletop miniature figure from a set (a triceratops), alone on a flat chroma-blue background. Make ONE NEW figure of the SAME SET: a pterodactyl (a pteranodon). Keep EXACTLY its look: the same heroic hand-painted style, stout chunky miniature proportions with broad simple shapes, thick sturdy limbs, matte diffuse paint with soft gradients and subtle brush texture, the same soft even lighting, the same camera (three-quarter front view, very slightly above eye level) and the same perfectly flat uniform chroma-blue background. It is a DIFFERENT animal, described here: a pterodactyl (a pteranodon): a flying reptile standing on the ground on all fours, its big leathery WINGS FOLDED against its arms so it walks on its folded wing-knuckles and two small back feet, a long pointed toothless BEAK, and a long bony CREST sweeping back from the back of its head. Ochre-brown and moss-green leathery skin, a cream chest, a burgundy crest. Palette: the set's moss green, ochre, warm brown, burgundy and cream; NO blue, teal or cyan anywhere on the animal. Standing still and square on ALL FOUR legs, all four legs separately visible with blue background between them, all four feet flat on one level; compact: head up, tail curved round close beside its body, nothing stretched out. No base, no ground, no rock, no grass, no cast shadow under the feet: it stands on nothing. Exactly one whole animal, centred, with generous clear blue space all around; nothing cut off by the frame. No feathers, no text, no glow, no scenery, not a statue, not a photo.",
+   "cyl_ft": 8.5
+  },
+  {
+   "id": "foe-pterodactyl-fly",
+   "object": "foe-pterodactyl",
+   "family": "figures",
+   "group": "fly",
+   "source": "generate",
+   "generation": "figure-fly",
+   "kind": "fly",
+   "subject": "a pterodactyl (a pteranodon), flying",
+   "height_ft": {
+    "body": 6.0,
+    "figure_top": 6.0,
+    "overall": 6.0
+   },
+   "base_ft": 10,
+   "name": "Pterodactyl (flying)",
+   "standing": "foe-pterodactyl",
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of a pterodactyl (a pteranodon), FLYING.\n\nThe supplied image is THIS SAME CREATURE'S OWN STANDING FIGURE, already made in this set. Make a second figure of the SAME individual: the SAME painting style and paint scheme, the same colours and markings, the same head, crest, beak and proportions, the same chunkiness and level of detail, the same lighting and the same flat blue background. Only the POSE changes: now it is FLYING.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: FLYING, seen in mid-air: its body roughly LEVEL (horizontal, head a little raised), its two WINGS SPREAD WIDE and raised in a strong up-stroke (a clear V seen from the front), each wing drawn as ONE thick solid opaque shape (thick like a wargaming miniature's cast wing, a leathery skin wing with a thick bony leading edge, never a thin translucent membrane). Its legs tucked up under the body. COMPACT for a tabletop piece: the wing tips not stretched to the image edges. The wingspan about three times the body's length.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: the same pteranodon, flying: long pointed beak, back-swept crest, wings spread wide.\n",
+   "refs": [
+    "STANDING:foe-pterodactyl"
+   ],
+   "gate": {
+    "desc": "one flying pterosaur with its wings spread wide, a long beak and a back-swept crest",
+    "must": [
+     "the whole creature, both wing tips and the tail inside the picture",
+     "two wings spread wide",
+     "a long beak and a head crest",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a base, flight stand, rod, perch or ground under it",
+     "the wings folded or hidden"
+    ]
+   },
+   "qwen": "Picture 1 is THIS SAME CREATURE'S OWN STANDING FIGURE, already made in this set. Make a second figure of the SAME individual: the same painting style and paint scheme, the same colours and markings, the same head, crest, beak and proportions, the same chunkiness, lighting, camera and flat chroma-blue background. Only the POSE changes: it is FLYING in mid-air, body level and seen from slightly above and in front, its two big leathery WINGS SPREAD WIDE in a strong up-stroke (a clear V), each wing ONE thick solid opaque shape with a thick bony leading edge; legs tucked under the body. No base, no stand, no rod, no ground, no shadow: it floats on the plain blue. The whole creature in the picture, both wing tips inside the frame with clear blue space around them. No feathers, no blue or teal on the creature, no text, no glow, no scenery."
+  },
+  {
+   "id": "foe-quetzalcoatlus",
+   "object": "foe-quetzalcoatlus",
+   "family": "figures",
+   "group": "large",
+   "source": "generate",
+   "lane": "3d",
+   "generation": "figure",
+   "kind": "quad",
+   "subject": "a quetzalcoatlus",
+   "height_ft": {
+    "body": 16.0,
+    "figure_top": 16.0,
+    "overall": 16.0
+   },
+   "shaft": null,
+   "base_ft": 15,
+   "body": null,
+   "canary": false,
+   "name": "Quetzalcoatlus",
+   "cls": "quetzalcoatlus",
+   "boss": true,
+   "tags": [
+    "quetzalcoatlus",
+    "azhdarchid",
+    "pterosaur",
+    "giant pterosaur",
+    "flying reptile",
+    "flier",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "quetzalcoatlus"
+   ],
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of a quetzalcoatlus.\n\nThe supplied image is ANOTHER FIGURE OF THE SAME SET, already made. The new figure must belong to the same set: the SAME painting style, the same chunkiness and level of detail, the same lighting, the same camera angle and the same flat blue background. It is a DIFFERENT character, described below: do not copy the reference's armour, colours, face or pose, and do NOT copy how far its sword and shield are held out to the sides.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: ONE single whole animal in frame from nose to tail tip and from the top of its head to its feet, standing still and square on ALL FOUR legs in a calm, stable pose (not running, not rearing, not leaping). All four legs are separately and clearly visible, each one thick and sturdy, none hidden behind another, with clear background between them and under the belly; all four feet FLAT on the same level. COMPACT: the whole animal fits inside an upright cylinder 12.5 ft across: neck and head up, tail carried low and close, nothing stretched out.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: A quetzalcoatlus, 16 ft tall at the top of its head, a giant flying reptile standing tall on the ground on all fours like a giraffe-sized stork, its huge leathery wings FOLDED against its long front limbs so it stands on its folded wing-knuckles and two back feet: a very long stiff neck held up high and an enormous long pointed toothless beak on a big head with a low crest. Ochre and warm-brown leathery skin with a cream neck and chest, a burgundy-red crest and beak tip.\n",
+   "refs": [
+    "experiments/2026-10-06-figures/set/inputs/foe-triceratops.jpg"
+   ],
+   "gate_refs": [],
+   "gate": {
+    "desc": "one giant long-necked pterosaur standing tall on all fours with folded wings and an enormous beak",
+    "must": [
+     "the whole animal, nose to tail and head to feet",
+     "FOUR separate legs all visible, with gaps between them",
+     "a very long neck held high and an enormous beak",
+     "wings folded, standing on all fours",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a rider, a second creature or scenery"
+    ]
+   },
+   "qwen": "Picture 1 is a painted tabletop miniature figure from a set (a triceratops), alone on a flat chroma-blue background. Make ONE NEW figure of the SAME SET: a quetzalcoatlus. Keep EXACTLY its look: the same heroic hand-painted style, stout chunky miniature proportions with broad simple shapes, thick sturdy limbs, matte diffuse paint with soft gradients and subtle brush texture, the same soft even lighting, the same camera (three-quarter front view, very slightly above eye level) and the same perfectly flat uniform chroma-blue background. It is a DIFFERENT animal, described here: a quetzalcoatlus: a GIANT flying reptile standing tall on the ground on all fours like a giraffe-sized stork, its huge leathery WINGS FOLDED against its long front limbs so it stands on its folded wing-knuckles and two back feet, a very long stiff NECK held up high, and an enormous long pointed toothless BEAK on a big head with a low crest. Ochre and warm-brown leathery skin with a cream neck and chest, a burgundy-red crest and beak tip. Palette: the set's moss green, ochre, warm brown, burgundy and cream; NO blue, teal or cyan anywhere on the animal. Standing still and square on ALL FOUR legs, all four legs separately visible with blue background between them, all four feet flat on one level; compact: head up, tail curved round close beside its body, nothing stretched out. No base, no ground, no rock, no grass, no cast shadow under the feet: it stands on nothing. Exactly one whole animal, centred, with generous clear blue space all around; nothing cut off by the frame. No feathers, no text, no glow, no scenery, not a statue, not a photo.",
+   "cyl_ft": 12.5
+  },
+  {
+   "id": "foe-quetzalcoatlus-fly",
+   "object": "foe-quetzalcoatlus",
+   "family": "figures",
+   "group": "fly",
+   "source": "generate",
+   "generation": "figure-fly",
+   "kind": "fly",
+   "subject": "a quetzalcoatlus, flying",
+   "height_ft": {
+    "body": 16.0,
+    "figure_top": 16.0,
+    "overall": 16.0
+   },
+   "base_ft": 15,
+   "name": "Quetzalcoatlus (flying)",
+   "standing": "foe-quetzalcoatlus",
+   "prompt": "Create a new single asset in the Turnip Works house style (heroic hand-painted): a painted tabletop miniature FIGURE of a quetzalcoatlus, FLYING.\n\nThe supplied image is THIS SAME CREATURE'S OWN STANDING FIGURE, already made in this set. Make a second figure of the SAME individual: the SAME painting style and paint scheme, the same colours and markings, the same head, crest, beak and proportions, the same chunkiness and level of detail, the same lighting and the same flat blue background. Only the POSE changes: now it is FLYING.\n\nGeometry: heroic-scale tabletop miniature proportions: stout and chunky, slightly oversized head, hands, feet and held things; thick limbs; broad simple shapes; deep readable folds and plates rather than fine detail. Hands are simple chunky fists or mitten shapes. Every part thick enough to reconstruct as 3D geometry and to survive as a printed tabletop piece.\nHeld things: BROAD and chunky, never thin: wide blades, big heads on hammers, maces, staffs and spears, thick shafts. They are PALE or BRIGHT (bone-white wood, bright steel, cream, brass) against the clothes and skin, never plain dark wood-brown, so they show when the figure is seen small from above.\nFinish: FULLY PAINTED in full colour, diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights, low-frequency surface detail, mostly matte. A simple readable painted face.\nPalette: rich but softened burgundy, moss green, ochre, cream, warm honey leather and wood, warm grey steel, used where they suit the figure. NO blue, teal or cyan anywhere on the figure (the background is a blue mask).\nAvoid: grey unpainted primer, bare plastic or pewter, a bronze or stone statue look; photorealism, plastic toy gloss, strong reflections, black outlines, hard cel-shading bands, comic inking, flat vector art, anime or chibi proportions; thin fragile parts, loose straps, flying cloaks, long capes, banners, chains, feathers or hair strands sticking out; glow, magic effects, sparks, smoke; text, logos, emblems; multiple views, variants, a turnaround sheet or a grid in one image.\n\nPose: FLYING, seen in mid-air: its body roughly LEVEL (horizontal, head a little raised), its two WINGS SPREAD WIDE and raised in a strong up-stroke (a clear V seen from the front), each wing drawn as ONE thick solid opaque shape (thick like a wargaming miniature's cast wing, a leathery skin wing with a thick bony leading edge, never a thin translucent membrane). Its legs tucked up under the body. COMPACT for a tabletop piece: the wing tips not stretched to the image edges. A HUGE wingspan, about four times the body's length; the long neck stretched forward, the enormous beak pointing ahead.\nNO BASE: no base, no ground disc, no plinth, no pedestal, no rock, no grass tuft, no patch of floor under the feet. The figure floats on the plain background, standing on nothing. No cast shadow and no dark blob under the feet.\n\nPresentation for image-to-3D: exactly one complete figure, centered, three-quarter FRONT view (turned about 30 degrees, face and chest clearly visible) from very slightly above eye level, generous clear space around every edge, perfectly uniform solid chroma-blue background, no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts and no dark shadowed side, no environment, no scenery, no additional objects or other figures. The blue background is a removable mask and must not reflect blue light onto the figure.\n\nSpecific design: the same quetzalcoatlus, flying: enormous beak, long neck stretched forward, giant wings spread wide.\n",
+   "refs": [
+    "STANDING:foe-quetzalcoatlus"
+   ],
+   "gate": {
+    "desc": "one giant flying pterosaur with a long neck, an enormous beak and its huge wings spread wide",
+    "must": [
+     "the whole creature, both wing tips and the tail inside the picture",
+     "two huge wings spread wide",
+     "a long neck and an enormous beak",
+     "fully painted in colour"
+    ],
+    "must_not": [
+     "any base, ground disc, plinth, pedestal, rock or patch of ground under the feet",
+     "a cast shadow or dark blob under the feet",
+     "the figure cropped by the frame anywhere (head, hat, weapon tip, feet, tail)",
+     "limbs fused together or fused to the body with no gap where the spec asks for a gap",
+     "a missing or broken held thing (something else carried as well is fine)",
+     "more than one figure, or several views of the figure",
+     "an unpainted grey, metal or stone statue look",
+     "a weapon or arm held far out to the side at arm's length",
+     "a base, flight stand, rod, perch or ground under it",
+     "the wings folded or hidden"
+    ]
+   },
+   "qwen": "Picture 1 is THIS SAME CREATURE'S OWN STANDING FIGURE, already made in this set. Make a second figure of the SAME individual: the same painting style and paint scheme, the same colours and markings, the same head, crest, beak and proportions, the same chunkiness, lighting, camera and flat chroma-blue background. Only the POSE changes: it is FLYING in mid-air, body level and seen from slightly above and in front, its two big leathery WINGS SPREAD WIDE in a strong up-stroke (a clear V), each wing ONE thick solid opaque shape with a thick bony leading edge; legs tucked under the body. No base, no stand, no rod, no ground, no shadow: it floats on the plain blue. The whole creature in the picture, both wing tips inside the frame with clear blue space around them. No feathers, no blue or teal on the creature, no text, no glow, no scenery."
+  }
+ ]
+}

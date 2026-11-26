@@ -24,6 +24,7 @@ import * as HT from '../core/height.js';
 import * as RF from './roofs.js';
 import { installTurnHandle } from './turnhandle.js';
 import * as MQ from './marquee.js';
+import { pawnPoint } from './pawns.js';
 
 const DRAG_PX = 4, LONG_MS = 500;
 
@@ -56,6 +57,18 @@ export function installInput(app, canvas) {
     if (lv === 'ground') { p = world().floorPoint(r.ray, { max: app.floorMax?.() ?? Infinity }); if (!(p?.room && HT.isTerrain(app.entities()[p.room]?.recipe))) p = null; lv = 0; } // (on a hill's top: that point; else the level's plane)
     p ||= world().floorPoint(r.ray, { level: lv, max: app.floorMax?.() ?? Infinity, holes: !holeTool() }); if (!p) return null;
     const g = [p.x, p.z]; g.y = p.y; g.room = p.room; return g;
+  };
+  // (2026-11-06) WHAT OTHER SEATS SEE OF MY POINTER: the point on what is under it (a table's top, a pawn, a wall's face),
+  // not the floor point behind it. Both lie on my ray, so on my screen they are the same place; from another seat's
+  // camera the floor point sits away from what I point at, the farther the higher the thing (Nick 2026-11-01: "a hover
+  // cursor effect that never comes out distant from the mouse"). Sent as [x, z, floor y, lift]: the floor under that point
+  // (what the relay's hidden-room and fog rules go by, core/height.js floorUnder, as the relay asks it) and the height
+  // above it. Open ground, a floor, a roof (each seat puts a cursor on its own roofs) and a tool in the hand: as before.
+  const pointerOn = (ground, hit) => {
+    const p = hit && !hit.floor && !hit.roof && hit.point; if (!p) return ground;
+    const fy = HT.floorUnder(app.entities(), p.x, p.z, p.y)?.y ?? 0, lift = p.y - fy;
+    if (!(lift > 0.05 && lift <= 60)) return ground;
+    const c = [p.x, p.z, fy, lift]; c.y = fy; c.room = ground.room; return c;
   };
   const planeOf = () => (g?.kind === 'move' || g?.kind === 'press') ? (g.kind === 'move' ? g.walk?.y ?? g.start?.y : g.ground?.y) ?? null : null; // (pawns: the plane of the level they walk on)
   app.groundAt = (cx, cy, planeY = null) => groundOf(app.rayAt(cx, cy), planeY);
@@ -128,6 +141,24 @@ export function installInput(app, canvas) {
     app.lastPress = { hits: hits.map(h => h.entity?.id || h.wall), ids, overview: app.overview(), dist: app.main.grab.dist };
     armHold(g, ev);
   };
+  // NO NATIVE DRAG-AND-DROP FROM THE TABLE (streetfix, 2026-11-07; Harry on dev, Firefox: "when I click an object and then
+  // try to drag it, I end up grabbing like an image of the whole screen ... sometimes it goes away"). The cause: a text
+  // selection on the page that takes in the table's canvas (a triple-click, a drag-select in a panel run on past its edge,
+  // select-all). A press inside a selection is the browser's own drag of that selection, and Firefox starts one from the
+  // canvas: the ghost is the full-window canvas, and the thing under the pointer does not move. A click that collapses the
+  // selection was the "goes away". So: a press on the table drops any page selection first, the canvas is never part of
+  // one (user-select: none, style.css #c), and a native drag that would start from the canvas, from an image that is not
+  // marked draggable (the launcher icons), or that would carry the canvas along is cancelled. Kept: dragging text out of
+  // an input or textarea, a link, anything marked draggable="true", and dropping FILES onto the page (uploads.js,
+  // share.js: those are drops from outside, never a dragstart here). Every drag the app itself has (the library tray,
+  // pawns from the panel, the ring's handles) is pointer events, not native drag-and-drop.
+  const carriesCanvas = () => { const s = getSelection?.(); if (!s || s.isCollapsed) return false; for (let i = 0; i < s.rangeCount; i++) if (s.getRangeAt(i).intersectsNode(canvas)) return true; return false; };
+  canvas.addEventListener('pointerdown', () => { const s = getSelection?.(); if (s && !s.isCollapsed) s.removeAllRanges(); }, true);
+  document.addEventListener('dragstart', (ev) => {
+    const t = ev.target, el = t?.nodeType === 1 ? t : t?.parentElement;
+    if (el?.closest?.('input, textarea, [contenteditable=""], [contenteditable="true"], a[href], [draggable="true"]') && el !== canvas) return;
+    if (el === canvas || el?.tagName === 'CANVAS' || el?.tagName === 'IMG' || carriesCanvas()) ev.preventDefault();
+  }, true);
   canvas.addEventListener('pointerdown', canvasDown);
   // PRESS AND HOLD PINGS (Harry 2026-10-06: "pinging: let's go with whatever the norm is, not double click"; the norm
   // on tabletops is a long press on the map: Foundry's canvas pings from its long-press handler). Hold the left button
@@ -147,13 +178,16 @@ export function installInput(app, canvas) {
   }
 
   canvas.addEventListener('pointermove', (ev) => onMove(ev));
+  // THE POINTER LEFT THE WINDOW: a paste then lands beside what was copied, not at the last spot it was on the table
+  // (main.js pasteData). Over a label, a ring or the bar it is still "at the cursor", as Ping here is.
+  document.addEventListener('pointerout', (ev) => { if (!ev.relatedTarget) app.pointerOff = true; });
   // EDGE AUTO-PAN (edgepan.js): while one of these gestures is live and the pointer rests at an edge of the window the
   // view pans, and the gesture is run again for the same pointer place, so what is in the hand stays under the pointer
   let lastMove = null;
   app.edgePan?.source({ name: 'canvas', active: () => !!g && app.edgePan.K.KINDS.includes(g.kind), refresh: () => { if (lastMove && g) onMove(lastMove); } });
   function onMove(ev) {
     if (!app.main) return;
-    lastMove = ev;
+    lastMove = ev; app.pointerOff = false;
     const r = app.rayAt(ev.clientX, ev.clientY), ground = groundOf(r, planeOf());
     app.cursor = ground;
     if (ev.pointerType === 'touch') { touches.set(ev.pointerId, { x: ev.clientX, y: ev.clientY }); app.main.grab.pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY }); }
@@ -173,8 +207,9 @@ export function installInput(app, canvas) {
       app.library?.hoverAt(null);
       app.modes.hover(r, ground, ev);
       // hover always previews what a click would select, at the right level
-      if (!app.mode && !inPip(ev)) { const hit = world().pick(r), h = app.selectionFor(hit); TH.hover(hit); if (h !== app.hover) { app.hover = h; app.emit('hover', h); } } else TH.hover(null);
-      if (ground) app.ps.set(app.area(), { cursor: ground, drag: null });
+      let hit = null;
+      if (!app.mode && !inPip(ev)) { hit = world().pick(r); const h = app.selectionFor(hit); TH.hover(hit); if (h !== app.hover) { app.hover = h; app.emit('hover', h); } } else TH.hover(null);
+      if (ground) app.ps.set(app.area(), { cursor: pointerOn(ground, hit), drag: null });
       return;
     }
     const moved = Math.hypot(ev.clientX - (g.x ?? ev.clientX), ev.clientY - (g.y ?? ev.clientY));
@@ -380,8 +415,11 @@ export function installInput(app, canvas) {
     const rooms = app.roomsIn(things); // the rooms that move (a building: all of its rooms)
     const inRooms = new Set(rooms.map(r => r.id));
     const set = new Map();
-    for (const e of things) if ((e.kind === 'object' || e.kind === 'token') && !inRooms.has(e.room)) { set.set(e.id, e); for (const d of app.descendants(e)) set.set(d.id, d); }
-    g = { kind: 'move', start: ground, things, rooms, moving: [...set.values()], alt, dx: 0, dz: 0, ok: true, lead: g?.target || null };
+    // WHAT RIDES is decided HERE, at the grab (2026-11-07, core/riders.js): what stands on a dragged thing, pawns too, is
+    // drawn going with it and is carried in its move when it is let go; a pawn the table is dragged under is not.
+    const riders = app.ridersSnapshot(things.filter(e => e.kind === 'object' && !inRooms.has(e.room))), E = app.entities();
+    for (const e of things) if ((e.kind === 'object' || e.kind === 'token') && !inRooms.has(e.room)) { set.set(e.id, e); for (const id of riders.get(e.id) || []) if (E[id]) set.set(id, E[id]); }
+    g = { kind: 'move', start: ground, things, rooms, riders, moving: [...set.values()], alt, dx: 0, dz: 0, ok: true, lead: g?.target || null };
     if (!rooms.length && things.length && things.every(e => e.kind === 'token') && !alt) startWalk(press);
   }
   // PAWNS WALK ON THEIR LEVEL (Harry 2026-10-26: "I keep getting pawns popping up and down by full level increments
@@ -397,8 +435,9 @@ export function installInput(app, canvas) {
   function startWalk(press) {
     const E = app.entities(), lead = g.things.find(e => e.id === g.lead) || g.things[0], members = new Map();
     for (const e of g.things) {
-      const fig = e.y || 0, fb = HT.baseUnder(E, e.x, e.z, fig, openFn()), stands = !!app.pawnStands?.(e);
-      members.set(e.id, { stands, y: fb.y, fb, fb0: fb.y, rise: stands ? Math.max(0, fig - fb.y) : 0, hang: null, ok: [0, 0], rock: false }); // (ok: the move that last put it on a floor of its level; rock: it is over solid rock now) // (rise: a pawn standing on a table top keeps that height over the floor while it can)
+      const fig = e.y || 0, fb = { ...HT.baseUnder(E, e.x, e.z, fig, openFn()), x: e.x, z: e.z }, stands = !!app.pawnStands?.(e); // (x, z: where it stands, for core/height.js pawnStepTo entersStair)
+      const size = app.figures?.sizeOf(e) || 1;
+      members.set(e.id, { stands, y: fb.y, fb, fb0: fb.y, rise: stands ? Math.max(0, fig - fb.y) : 0, hang: null, ok: [0, 0], rock: false, size, cramped: false, cramped0: size > 1 && stands && !app.pawnFits(e.x, e.z, size, fb.y) }); // (ok: the move that last put it on a floor of its level; rock: it is over solid rock now) // (rise: a pawn standing on a table top keeps that height over the floor while it can)
     }
     const L = members.get(lead.id), r = press && press.x != null ? app.rayAt(press.x, press.y) : null, p = r && groundOf(r, L.y);
     g.walk = { y: L.y, off: p ? [lead.x - p[0], lead.z - p[1]] : [0, 0], members, lead: lead.id };
@@ -427,12 +466,15 @@ export function installInput(app, canvas) {
       // SOLID ROCK BELOW THE GROUND (Harry 2026-11-03: "dragging thru rock should push back onto legal space on the same
       // level"): over rock the pawn is held on the LAST FLOOR OF ITS LEVEL IT CROSSED (m.ok), shown there and let go there
       // (dragMove, endMove), and goes on with the pointer once the pointer is over its level's floor again
-      if (!st.below || st.walk) { m.y = st.y; m.fb = st; m.hang = null; m.ok = [dx, dz]; m.rock = false; } else { m.hang = st; m.rock = !!st.rock; }
+      // A BASE TOO BIG FOR WHERE IT IS GOING (2026-11-06, core/size.js crampedAt): held like rock, where it last had room,
+      // and the label says so (dragMove); a pawn that started cramped may still be dragged out (only a new squeeze holds it)
+      if ((!st.below || st.walk) && m.size > 1 && !m.cramped0 && !app.pawnFits(e.x + dx, e.z + dz, m.size, st.y)) { m.hang = null; m.rock = true; m.cramped = true; }
+      else if (!st.below || st.walk) { m.y = st.y; m.fb = { ...st, x: e.x + dx, z: e.z + dz }; m.hang = null; m.ok = [dx, dz]; m.rock = false; m.cramped = false; } else { m.hang = st; m.rock = !!st.rock; m.cramped = false; }
       if (e.id === W.lead) W.y = m.y;
     }
   }
   // PAWNS AND THE SQUARES. Since 2026-10-11 a dragged pawn moves FREELY and Shift snaps it to the centre of a 5-ft
-  // square (Harry: "we should flip 'shift to grid' for pawns as well, though I am less sure here"); Settings ▸ Me has
+  // square (Harry: "we should flip 'shift to grid' for pawns as well, though I am less sure here"); Settings ▸ Controls has
   // the old rule (2026-10-06: it snaps, Shift frees it). app.pawnSnaps (main.js) answers which. Several pawns dragged together keep their
   // spacing: the one that was grabbed lands on a centre and the rest go with it. Other seats see the snapped place.
   const PAWN_CELL = 5;
@@ -446,7 +488,7 @@ export function installInput(app, canvas) {
       return flat > 1e-6 && to !== flat && d !== 'five' && d !== 'alt' ? [dx * to / flat, dz * to / flat] : [dx, dz];
     }
     // (a large creature's base covers 2 x 2 squares: it stands where the four meet, client/pawns.js pawnPoint)
-    const lead = g.things.find(e => e.id === g.lead) || g.things[0], size = app.figures?.sizeOf(lead) || 1, c = (v) => size % 2 ? (Math.floor(v / PAWN_CELL) + 0.5) * PAWN_CELL : Math.round(v / PAWN_CELL) * PAWN_CELL;
+    const lead = g.things.find(e => e.id === g.lead) || g.things[0], size = app.figures?.sizeOf(lead) || 1, c = (v) => pawnPoint(v, size); // (a tiny one: a quarter's middle)
     return [c(lead.x + dx) - lead.x, c(lead.z + dz) - lead.z];
   };
   // ORDINARY THINGS (furniture) move freely; SHIFT snaps the one that was grabbed to the half squares (2.5 ft: a square's
@@ -487,13 +529,14 @@ export function installInput(app, canvas) {
       const step = g.things.every(e => app.modes.isPost(e.cat)) ? 2.5 : 5;
       dx = Math.round(dx / step) * step; dz = Math.round(dz / step) * step; g.dx = dx; g.dz = dz;
     }
-    if (seat) { const m = g.walk.members.get(wl.id), fb = HT.baseUnder(app.entities(), wl.x + dx, wl.z + dz, seat.y || 0, openFn()); m.y = fb.y; m.fb = fb; m.hang = null; g.walk.y = m.y; }
+    if (seat) { const m = g.walk.members.get(wl.id), fb = HT.baseUnder(app.entities(), wl.x + dx, wl.z + dz, seat.y || 0, openFn()); m.y = fb.y; m.fb = { ...fb, x: wl.x + dx, z: wl.z + dz }; m.hang = null; g.walk.y = m.y; }
     else if (g.walk) walkTo(dx, dz);
     app.localDrags.clear();
     for (const e of g.moving) { const m = g.walk?.members.get(e.id), o = m?.rock ? m.ok : [dx, dz]; app.localDrags.set(e.id, { x: e.x + o[0], z: e.z + o[1], rot: g.single && e === g.things[0] ? g.single.rot : undefined, ...(m?.stands && { y: m.y + m.rise }) }); } // (a pawn hanging over a drop stays at the height it walked on)
     app.moveDrag = { dx, dz, free: g.free, single: g.single ? { x: g.single.x, z: g.single.z, edge: g.single.edge || null } : null }; // (tests)
     // pawns: where they would land if let go now, for the distance readout (surfaces/rulers.js): the walk (startWalk)
-    if (g.walk) { const m = g.walk.members.get(g.walk.lead), o = m.rock ? m.ok : [dx, dz]; app.moveDrag.pawns = { lead: g.walk.lead, n: g.things.length, dx: o[0], dz: o[1], rock: !!m.rock, dy: m.stands ? Math.round((m.y - m.fb0) * 100) / 100 : 0, y0: m.fb0, hang: !!m.hang, on: m.hang ? null : m.fb.on }; } // (y0: the floor it started on, where the movement rings lie: surfaces/moverings.js)
+    if (g.walk && ev) { const cr = g.things.find(e => g.walk.members.get(e.id)?.cramped); if (cr) { roomLabel.hidden = false; roomLabel.classList.add('bad'); roomLabel.textContent = app.tooBig?.(cr.name, g.walk.members.get(cr.id).size) || 'Too big to fit there'; roomLabel.style.left = `${ev.clientX + 40}px`; roomLabel.style.top = `${ev.clientY + 40}px`; } else if (!g.rooms.length && roomLabel.classList.contains('bad')) { roomLabel.hidden = true; roomLabel.classList.remove('bad'); } }
+    if (g.walk) { const m = g.walk.members.get(g.walk.lead), o = m.rock ? m.ok : [dx, dz]; app.moveDrag.pawns = { cramped: !!m.cramped, lead: g.walk.lead, n: g.things.length, dx: o[0], dz: o[1], rock: !!m.rock, dy: m.stands ? Math.round((m.y - m.fb0) * 100) / 100 : 0, y0: m.fb0, hang: !!m.hang, on: m.hang ? null : m.fb.on }; } // (y0: the floor it started on, where the movement rings lie: surfaces/moverings.js)
     // ROOMS: each goes out as ONE drag entry at its would-be centre; the view carries the room's floor, walls and things
     // along and draws its footprint there (world.js), here and for every other seat (presence), in my colour, or red
     // when the drop would be refused (it overlaps a room that is staying put)
@@ -521,13 +564,14 @@ export function installInput(app, canvas) {
     // through the opened ground), the THINGS land there, at that floor's height. Rooms never change height by a drag, and
     // PAWNS keep their level (2026-10-26): they land where they walked (startWalk), each at its own height.
     let ys = null, at = null;
-    if (g.walk) { ys = new Map(); at = new Map(); for (const [id, m] of g.walk.members) { if (m.stands) ys.set(id, m.y + m.rise); if (m.rock) { const e = g.things.find(t => t.id === id); if (e) at.set(id, [e.x + m.ok[0], e.z + m.ok[1]]); } } } // (let go over rock: on the last floor it crossed)
+    if (g.walk) { ys = new Map(); at = new Map(); for (const [id, m] of g.walk.members) { if (m.stands) ys.set(id, m.hang?.side ? m.hang.y : m.y + m.rise); if (m.rock) { const e = g.things.find(t => t.id === id); if (e) at.set(id, [e.x + m.ok[0], e.z + m.ok[1]]); } } } // (let go over rock: on the last floor it crossed)
     else if (r && !g.rooms.length && !g.single && g.start && !g.things.some(isTile)) {
       const free = groundOf(r);
       if (free && (free.y || 0) !== (g.start.y || 0)) { dx = free[0] - g.start[0]; dz = free[1] - g.start[1]; [dx, dz] = pawnSnap(dx, dz, ev); dy = (free.y || 0) - (g.start.y || 0); g.dx = dx; g.dz = dz; }
     }
     app.lastDrop = { dx, dz, dy, ...(ys && { ys: Object.fromEntries(ys) }), ...(at?.size && { at: Object.fromEntries(at) }) }; // (tests)
     app.localDrags.clear(); app.roomDrag = null; app.moveDrag = null;
+    { const cr = g.walk ? g.things.filter(e => g.walk.members.get(e.id)?.cramped) : []; if (cr.length) { app.toast(`${app.tooBig?.(cr.length > 1 ? `${cr.length} pawns` : cr[0].name, g.walk.members.get(cr[0].id).size) || 'Too big to fit there'}: ${cr.length > 1 ? 'they stay' : 'it stays'} where ${cr.length > 1 ? 'they' : 'it'} last had room`, true); app.lastRefusal = { what: 'pawn.fit', ids: cr.map(e => e.id), at: Date.now() }; } } // (a big base dragged into a narrow place: held where it last fit, and said so)
     if (!dx && !dz && !(g.single && (g.single.x !== g.things[0].x || g.single.z !== g.things[0].z))) return;
     if (g.alt) { // Alt-drag duplicates, leaving the originals where they were
       const things = g.things.filter(e => e.kind === 'object' || e.kind === 'token');
@@ -537,14 +581,14 @@ export function installInput(app, canvas) {
     }
     if (g.single) {
       const e = g.things[0], p = g.single;
-      const ops = [app.modes.edgeTaken(p.edge, e.fromEdge), ...(isTile(e) ? tilesAt(app, p.x, p.z, new Set([e.id]), p.y || 0).map(o => ({ type: 'object.delete', args: { id: o.id } })) : []), { type: 'object.move', args: { id: e.id, x: p.x, z: p.z, y: p.y, rot: p.rot, parent: p.parent || '', room: p.room || '' } }];
-      for (const d of app.descendants(e)) ops.push({ type: 'object.move', args: { id: d.id, x: r2(d.x + dx), z: r2(d.z + dz) } });
+      const carry = g.riders?.get(e.id); // (what rides it: in its move, so it keeps its place on it, up or down with it too)
+      const ops = [app.modes.edgeTaken(p.edge, e.fromEdge), ...(isTile(e) ? tilesAt(app, p.x, p.z, new Set([e.id]), p.y || 0).map(o => ({ type: 'object.delete', args: { id: o.id } })) : []), { type: 'object.move', args: { id: e.id, x: p.x, z: p.z, y: p.y, rot: p.rot, parent: p.parent || '', room: p.room || '', ...(carry?.length && { carry }) } }];
       app.batch(ops);
       return;
     }
     // a room dropped onto another room: refused, and said so (moveBy toasts; the footprint was red all along)
     if (g.rooms.length && !g.ok) { const c = g.clash; app.worldOf(app.area()).flashRect((c.room.recipe.x * 5) + dx, (c.room.recipe.z * 5) + dz, (c.room.recipe.x + c.room.recipe.w) * 5 + dx, (c.room.recipe.z + c.room.recipe.d) * 5 + dz); app.lastRefusal = { what: 'room.move', room: c.room.id, hit: c.hit.id, at: Date.now() }; }
-    app.moveBy(g.things, dx, dz, { dy, ys, at });
+    app.moveBy(g.things, dx, dz, { dy, ys, at, riders: g.riders });
   }
 
   // (tests) the share of a thing, as drawn, that a box of client pixels [x0, y0, x1, y1] holds: what selectBox weighs
@@ -618,7 +662,7 @@ export function installInput(app, canvas) {
   //   both up or down     side by side, moving together, neither spreading nor turning: TILT (pitch), never below the floor
   // The gesture is read once, from the first few pixels, and keeps that reading until the fingers lift (a tilt never
   // zooms; a pinch never tilts). Nothing moves until it is read (a few pixels). Rates and the invert come from
-  // Settings ▸ Me ▸ Controls, as for every other rotate (rotateView).
+  // Settings ▸ Controls, as for every other rotate (rotateView).
   const TWO_PX = 10, TWIST_DEG = 10, TILT_PX = 12;
   const angOf = (a, b) => Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
   const angDiff = (p, q) => ((p - q + 540) % 360) - 180;
@@ -666,7 +710,7 @@ export function installInput(app, canvas) {
   //   ctrlKey              a pinch (Chrome, Firefox, Edge on a Mac; also Ctrl+wheel)      → zoom at the cursor
   //   trackpad scroll      → PAN (Figma, Maps); with Option/Alt held → ORBIT (never below the floor)
   //   mouse wheel          → zoom at the cursor
-  // Settings ▸ Me ▸ Scroll wheel (auto / zoom / pan) overrules the guess.
+  // Settings ▸ Controls ▸ Scroll wheel (auto / zoom / pan) overrules the guess.
   const wheelKind = makeWheelClassifier({ mode: () => app.prefs?.wheel || 'auto' });
   app.wheelClassifier = wheelKind;
   const classify = (ev) => { const kind = wheelKind.classify(ev, performance.now()); if (kind === 'trackpad') app.trackpad = true; return kind; };

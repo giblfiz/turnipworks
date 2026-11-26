@@ -71,6 +71,8 @@ const newFactions = (S.lib.factions || []).filter(f => f.available && !['sun','m
 for (const f of newFactions) for (const [type,w,d] of [['temple-nave',6,9],['cathedral',8,14],['cathedral-dark',8,14],['temple-shrine',4,5],['cult-sanctum',6,9],['cult-vault',4,5]]) for (const seed of [31,62,93,124,155,186]) {
   const r=H.mk('r',type,10,10,w,d,seed,1);r.flavor=f.id;
   const L=H.build([r]).solve('r');
-  assert(L.placements.some(p=>p.id==='flavor-idol' && S.lib.objects[p.id].skus.find(s=>s.sku===p.sku)?.shape===f.id),`${type}/${f.id}/seed${seed}: actual faction idol missing`);
+  // (2026-11-07, faith-factions: a reverent faction (the four real-world faiths) never dresses the dark cathedral or a cult room)
+  const barred = f.reverent && /^(cathedral-dark|cult-)/.test(type), has = L.placements.some(p=>p.id==='flavor-idol' && S.lib.objects[p.id].skus.find(s=>s.sku===p.sku)?.shape===f.id);
+  assert(barred ? !has : has,`${type}/${f.id}/seed${seed}: ${barred ? 'a real-world faith dressed a cult room' : 'actual faction idol missing'}`);
 }
 console.log(`factions: ${newFactions.length} new families retain actual idols across six room recipes and six seeds`);

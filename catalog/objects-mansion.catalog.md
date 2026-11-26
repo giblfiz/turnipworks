@@ -22,7 +22,7 @@ The mansion's two new wall families (`noble-panel`: dark oak wainscot under plas
 
 ## C8. Noble furniture (mansion, 2026-10-05)
 
-- **sofa** — three-seat upholstered sofa with a carved frame · floor · 1x2 · size:84x34x38 · mixed · set:NOB!,TAV · var:ruin · aff:sit · mesh · P1 · the drawing room's seat; first piece of the burgundy suite
+- **sofa** — three-seat upholstered sofa with a carved frame · floor · 1x2 · size:84x34x38 · mixed · set:NOB!,TAV,MOD · var:ruin · aff:sit · mesh · P1 · the drawing room's seat; first piece of the burgundy suite
 - **settee** — two-seat upholstered settee · floor · 1 · size:56x30x38 · mixed · set:NOB!,TAV · var:ruin · aff:sit · mesh · P2 · faces the sofa across the hearth rug
 - **stool-upholstered** — low upholstered stool on turned legs · floor · tiny · size:22x16x19 · mixed · set:NOB,TAV · var:- · aff:sit · mesh · P3 · at the harpsichord, the vanity, the harp
 - **bench-upholstered** — long backless upholstered bench · floor · 1 · size:60x18x19 · mixed · set:NOB!,TEM · var:shape · aff:sit · mesh · P1 · along ballroom and hall walls; at the foot of the state bed
@@ -31,7 +31,7 @@ The mansion's two new wall families (`noble-panel`: dark oak wainscot under plas
 - **table-console** — marble-topped wall table on scrolled legs · wall · 1 · size:48x18x34 · mixed · set:NOB! · var:- · aff:use · mesh · P1 · under a pier mirror in halls and ballrooms
 - **table-card** — square baize-topped card table · floor · sub · size:36x36x29 · wood · set:NOB,TAV · var:- · aff:use · mesh · P2 · drawing rooms; four chairs round it
 - **table-games** — small table with an inlaid chequer board and chunky pieces · floor · sub · size:30x30x29 · wood · set:NOB,ARC,TAV · var:- · aff:use · mesh · P2 · by a window, two chairs
-- **table-billiards** — billiard table with green baize, balls and two cues on it · floor · 1x2 · size:60x108x33 · mixed · set:NOB! · var:- · aff:cover,use · mesh · P2 · big drawing rooms and libraries; needs walking room all round
+- **table-billiards** — billiard table with green baize, balls and two cues on it · floor · 1x2 · size:60x108x33 · mixed · set:NOB!,MOD · var:- · aff:cover,use · mesh · P2 · big drawing rooms and libraries; needs walking room all round
 - **table-library** — long library table with a leather top · floor · 1x2 · size:84x40x30 · wood · set:NOB,ARC,CLT · var:- · aff:cover,use · mesh · P2 · the middle of a library; books and a globe on and by it
 - **desk-partners** — big pedestal desk with a leather top · floor · 1x2 · size:66x36x31 · wood · set:NOB!,ARC,MKT · var:- · aff:use,loot,cover · mesh · P2 · the study's command position
 - **desk-bureau** — fall-front writing bureau, closed · wall · 1 · size:38x20x44 · wood · set:NOB,ARC,TAV · var:open · aff:use,loot,open · mesh · P2 · drawing rooms and bedchambers
@@ -58,7 +58,7 @@ The mansion's two new wall families (`noble-panel`: dark oak wainscot under plas
 ## F9. Noble table pieces (mansion, 2026-10-05)
 
 - **centerpiece-epergne** — silver table centrepiece stand piled with fruit · surface · tiny · size:16x16x20 · mixed · set:NOB! · var:- · aff:carry,loot · mesh · P3 · the middle of the dining table
-- **tea-service-tray** — tray with a teapot, cups and a plate of cakes · surface · tiny · size:20x14x9 · mixed · set:NOB,TAV · var:- · aff:carry · mesh · P3 · drawing-room tables
+- **tea-service-tray** — tray with a teapot, cups and a plate of cakes · surface · tiny · size:20x14x9 · mixed · set:NOB,TAV,MOD · var:- · aff:carry · mesh · P3 · drawing-room tables
 
 ## L3. Noble decor (mansion, 2026-10-05)
 
@@ -74,8 +74,8 @@ The mansion's two new wall families (`noble-panel`: dark oak wainscot under plas
 - **birdbath** — shallow stone birdbath on a stem · ground · sub · size:24x24x34 · stone · set:NOB,GRV,HUT · var:- · aff:- · mesh · P3 · among the flowerbeds; generated dry
 - **lily-pond** — low round stone-kerbed garden pool · ground · 2x2 · size:108x108x16 · stone · set:NOB!,GRV · var:- · aff:hazard · mesh · P2 · a second water feature; generated dry, the engine adds the water
 - **bush-rose** — rose bush in bloom · ground · sub · size:36x36x42~0.7-1.3 · organic · set:NOB,HUT,GRV · var:shape · aff:- · mesh · P3 · formal beds and along paths
-- **palm-potted** — potted palm in a big glazed pot · floor · sub · size:48x48x96~0.6-1.2 · mixed · set:NOB! · var:shape · aff:los · mesh · P1 · the conservatory's signature; hall and ballroom corners
-- **fern-potted** — big fern in a pot on a short stand · floor · sub · size:30x30x44~0.7-1.3 · mixed · set:NOB,GRV,ARC · var:- · aff:- · mesh · P2 · conservatories, landings
-- **citrus-tree-tub** — small orange tree in a square wooden tub · floor · sub · size:30x30x66~0.7-1.3 · mixed · set:NOB! · var:- · aff:- · mesh · P2 · conservatories and terraces
+- **palm-potted** — potted palm in a big glazed pot · floor · sub · size:48x48x96~0.6-1.2 · mixed · set:NOB!,MOD · var:shape · aff:los · mesh · P1 · the conservatory's signature; hall and ballroom corners
+- **fern-potted** — big fern in a pot on a short stand · floor · sub · size:30x30x44~0.7-1.3 · mixed · set:NOB,GRV,ARC,MOD · var:- · aff:- · mesh · P2 · conservatories, landings
+- **citrus-tree-tub** — small orange tree in a square wooden tub · floor · sub · size:30x30x66~0.7-1.3 · mixed · set:NOB!,MOD · var:- · aff:- · mesh · P2 · conservatories and terraces
 - **plant-stand-tiered** — stepped plant stand crowded with pots · floor · 1 · size:54x26x54 · mixed · set:NOB!,GRV,MKT · var:- · aff:cover · mesh · P1 · against the conservatory's glass
 - **bench-potting** — potting bench with pots, a trug and a soil bin · wall · 1 · size:60x24x54 · mixed · set:NOB,HUT,GRV · var:- · aff:use · mesh · P2 · the conservatory's working corner

@@ -3,7 +3,7 @@
 // plain URLs, and gets small semantic JSON back. Writes are GETs carrying the seat token, a nonce (idempotency)
 // and based_on (the seq it read), so a retry never double-applies and a stale plan is caught.
 import { quatOfEntity } from '../core/orient.js';
-import { REGISTRY, doorFogged } from '../core/commands.js';
+import { REGISTRY, doorFogged, ridersOf } from '../core/commands.js';
 import { can, canSee, entityVisible, visibilityOf } from '../core/perms.js';
 import { entityPoint, areaCentroid, projectCampaign } from '../core/state.js';
 import { seesLabels, stripEntity } from '../core/labels.js';
@@ -11,6 +11,7 @@ import { piecesOf, polyFeet } from '../core/footprint.js';
 import * as H from '../core/height.js';
 import { stairsOf, stairInfo, stairEnds, stairTop, stairBase, isConnector } from '../core/stairs.js';
 import { FIGURES, findFigures, figureArgs, brief as figBrief } from './figures.js';
+import { parseSize, sizeStep, squaresOf, sizeWord, SIZE_MAX } from '../core/size.js';
 import { forPlayers as turnsForPlayers, turnRows, keyOfPawn, keyPawns, bonusOf, isTurnKey, turnKeyOf } from '../core/turns.js';
 import { pawnKindLabel } from '../core/pawn.js';
 import { isGmSide } from '../core/perms.js';
@@ -133,7 +134,7 @@ export function areaForLlm(rt, seat, area) {
 const round = (v) => Math.round(v * 100) / 100;
 const rulesOf = (rt, area) => { const r = areaRules(rt.state, area); return Object.fromEntries(Object.keys(RULE_KEYS).filter(k => r[k] !== undefined && k !== 'music').map(k => [k, r[k]])); };
 // a pawn as an AI seat reads it; darkvision, lightCarried and visionRadius only when the pawn has its own
-const pawnFor = (rt, e, seats, actAs, where, seen = null) => ({ id: e.id, name: e.name, x: round(e.x), z: round(e.z), ...where(e), owner: e.owner ? seats[e.owner]?.name || e.owner : null, yours: e.owner === actAs, damage: e.damage || 0, ...(e.conditions?.length && { conditions: e.conditions }), ...(e.mark && { mark: e.mark }), ...(e.fig && { figure: e.fig }), ...(e.size > 1 && { squares: e.size }), ...(e.main && { main: true }), ...(e.darkvision != null && { darkvision: e.darkvision }), ...(e.lightCarried != null && { lightCarried: e.lightCarried }), ...(e.visionRadius != null && { visionRadius: e.visionRadius }), ...(e.hidden && { hidden: true }), ...(e.target && seen?.[e.target] && { target: e.target, targetName: seen[e.target].name }), ...(e.attacks?.length && { attacks: e.attacks }), ...(e.aura?.level > 0 && { aura: e.aura }) }); // target (2026-10-29): who it is aiming at
+const pawnFor = (rt, e, seats, actAs, where, seen = null) => ({ id: e.id, name: e.name, x: round(e.x), z: round(e.z), ...where(e), owner: e.owner ? seats[e.owner]?.name || e.owner : null, yours: e.owner === actAs, damage: e.damage || 0, ...(e.conditions?.length && { conditions: e.conditions }), ...(e.mark && { mark: e.mark }), ...(e.fig && { figure: e.fig }), ...(e.size > 0 && e.size !== 1 && { squares: e.size, size: sizeWord(e.size) }), ...(e.main && { main: true }), ...(e.darkvision != null && { darkvision: e.darkvision }), ...(e.lightCarried != null && { lightCarried: e.lightCarried }), ...(e.visionRadius != null && { visionRadius: e.visionRadius }), ...(e.hidden && { hidden: true }), ...(e.target && seen?.[e.target] && { target: e.target, targetName: seen[e.target].name }), ...(e.attacks?.length && { attacks: e.attacks }), ...(e.aura?.level > 0 && { aura: e.aura }) }); // target (2026-10-29): who it is aiming at
 const templateFor = (rt, e) => ({ id: e.id, shape: e.shape, x: round(e.x), z: round(e.z), ...(e.y && { y: e.y }), dir: e.dir || 0, size: e.size, ...(e.width && { width: e.width }), ...(e.rounds && { rounds: e.rounds, left: e.left ?? e.rounds }), ...(e.attach && { attach: e.attach }), ...(e.name && { name: e.name }), owner: rt.state.seats[e.owner]?.name || null, ...(e.hidden && { hidden: true }) });
 // a room's faction: its own, its building's, or its type's default (core/factions.js effectiveFaction); own: true when set on it
 function factionField(rt, seen, e) { let f = null; try { f = rt.roomgen?.factionOf?.(seen, e) || null; } catch { } return f ? { faction: f, ...(e.recipe?.flavor && { factionOwn: true }) } : {}; }
@@ -491,6 +492,13 @@ function friendly(rt, seat, cmd, q) {
     const cur = cmd.type === 'token.set' ? rt.state.areas[cmd.area]?.entities?.[a.id]?.aura : null;
     a.aura = JSON.stringify(g.set || auraChange(cur, g.change));
   }
+  // SIZE (2026-11-06, core/size.js): size=large (tiny, small, medium, large, huge, gargantuan), size=15ft, size=3 (squares a
+  // side), size=bigger / smaller: the number the relay's check then holds (0.5, or 1 to 8)
+  if (['token.set', 'token.create', 'pawn.define'].includes(cmd.type) && typeof a.size === 'string' && a.size.trim() && !/^\d+(\.\d+)?$/.test(a.size.trim())) {
+    const z = parseSize(a.size); if (!z) return { error: `size: ${a.size.slice(0, 20)}? tiny, small, medium, large, huge, gargantuan, 25ft (up to ${SIZE_MAX * 5} ft), a number of squares (0.5 to ${SIZE_MAX}), bigger or smaller` };
+    const cur = cmd.type === 'token.set' ? rt.state.areas[cmd.area]?.entities?.[a.id] : null;
+    a.size = String(z.step ? sizeStep(squaresOf(cur), z.step) : z.squares);
+  }
   if (cmd.type === 'area.set') {
     const set = {}; let n = 0;
     for (const k of Object.keys(RULE_KEYS)) if (a[k] != null) { const v = String(a[k]); n++; set[k] = v === 'default' ? null : RULE_KEYS[k] === 'bool' ? ['true', '1', 'yes', 'on'].includes(v.toLowerCase()) : v; delete a[k]; }
@@ -630,6 +638,26 @@ function act(rt, seat, cmd0, q) {
     const ends = stairEnds(s, E, t), to = q.get('to') === 'top' ? ends.top : q.get('to') === 'bottom' ? ends.foot : (t.y || 0) < (stairBase(s) + stairTop(s)) / 2 ? ends.top : ends.foot;
     cmd = { ...cmd, args: { ...cmd.args, x: to.x, z: to.z, y: to.y } };
   }
+  // ON OR OFF A STAIR WITH NO HEIGHT GIVEN (2026-11-24, core/height.js pawnWalkY): a standing pawn walks there as a drag
+  // would carry it (onto a flight's treads, off it onto the floor it steps out onto), instead of keeping its height and
+  // being left in the air. Off a flight's side it lands on the floor beside, however high up (Harry 2026-11-25); out over nothing at its level (off the top into the air) it lands on the ground below and the answer says so (there is no fall to offer).
+  else if (cmd.type === 'token.move' && (cmd.args.y == null || cmd.args.y === '') && E[cmd.args.id]?.kind === 'token') {
+    const w = H.pawnWalkY(E, E[cmd.args.id], Number(cmd.args.x), Number(cmd.args.z));
+    if (w && Math.abs(w.y - (E[cmd.args.id].y || 0)) > 0.005) {
+      cmd = { ...cmd, args: { ...cmd.args, y: String(w.y) } };
+      if (w.drop >= H.STEP) extra.note = [extra.note, `${E[cmd.args.id].name || 'the pawn'} dropped ${Math.round(w.drop)} ft to the ground below (y=${w.y}): nothing to stand on there at its level`].filter(Boolean).join(' ');
+    }
+  }
+  // WHAT STANDS ON A THING GOES WITH IT (Harry 2026-11-07, core/riders.js): an AI seat's object.move carries the pawns on
+  // the thing's top and the things on it, as a drag in the browser does. The seat has no view, so the relay asks the data
+  // (the things' parents; a pawn's feet at the thing's top, over its box), as the area stands before the move. carry=none:
+  // nothing rides; carry=ID,ID: these (checked as any carry is). The answer names what rode ("carried"), as this seat sees it.
+  let carried = null;
+  if (cmd.type === 'object.move' && E[cmd.args.id]?.kind === 'object') {
+    const c = q.get('carry');
+    if (c === 'none') { const { carry: _, ...rest } = cmd.args; cmd = { ...cmd, args: rest }; }
+    else if (c == null || c === '') { const r = ridersOf(E, cmd.args.id); if (r.length) { cmd = { ...cmd, args: { ...cmd.args, carry: r.join(',') } }; carried = r.filter(sees); } }
+  }
   const basedOn = q.has('based_on') ? Number(q.get('based_on')) : null;
   const res = rt.dispatch(seat, cmd, { cid: nonce || null, basedOn: Number.isFinite(basedOn) ? basedOn : null, force: q.get('force') === '1', fromQuery: true, stair: q.get('stair') !== '0' });
   if (res.ok && !res.duplicate) rt.llmSeen.set(seat, Date.now());
@@ -637,7 +665,7 @@ function act(rt, seat, cmd0, q) {
   const stairId = res.ok && (res.stair || (['object.place', 'stair.flip'].includes(cmd.type) && cmd.args.id)), madeStair = {};
   if (stairId) { const { seen } = seenOf(rt, seat, cmd.area); if (seen[stairId] && stairsOf(seen).some(s => s.id === stairId)) { const i = stairFor(rt, seen, seen[stairId]); Object.assign(madeStair, { stairSays: i.says, stairWorks: i.works }); } }
   const placed = res.ok && (cmd.type === 'token.create' || (cmd.type === 'token.move' && cmd.args.room) || cmd.type === 'object.place') ? { at: { x: Number(cmd.args.x), z: Number(cmd.args.z), ...(cmd.args.y != null && { y: Number(cmd.args.y) }) } } : {};
-  return { ...res, ...(prefix && res.ok && { id: cmd.args.id }), ...(res.ok && extra), ...placed, ...madeStair, ...(cmd.type === 'object.replace' && res.ok && { now: cmd.args.cat }), ...((conv.note || (!res.ok && extra.note)) && { note: [conv.note, extra.note].filter(Boolean).join(' ') }) };
+  return { ...res, ...(prefix && res.ok && { id: cmd.args.id }), ...(res.ok && extra), ...placed, ...madeStair, ...(cmd.type === 'object.replace' && res.ok && { now: cmd.args.cat }), ...(res.ok && carried?.length && { carried }), ...((conv.note || (!res.ok && extra.note)) && { note: [conv.note, extra.note].filter(Boolean).join(' ') }) };
 }
 
 // EXPORT THE AREA as a .turnip.json: /a/<area>/share[?strip=1]. The whole area only: a selection (ids=, kind=) is not

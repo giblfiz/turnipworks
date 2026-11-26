@@ -74,6 +74,33 @@ rest are leaves; a room that `uses` another opens off it).
 The last five have dials and storeys only: their rooms land on other branches. Each needs a `rooms` programme written
 once its rooms exist; until then it builds from the derived one.
 
+**The Modern genre's buildings (2026-11-07):** Apartment block (APT), Office tower (OFC), Bar & nightclub (BAR),
+Storefronts (SHP), Warehouse & garage (WHS) and Hideout (HID) have no entry here: they build from the derived programme.
+Their rooms come from `engine/tools/modern_buildings.json`, not a recipe prefix, and each names its `hub` there (the
+room the derived programme builds round, even when its role is not `hub`: the apartment, the corner store; client/main.js
+`rolesOf`). Their outdoor rooms (rooftop, alley, street) go out back as the derived programme's one outdoor room. A type
+with no indoor room cannot be generated (the plan comes back with one room of no type), so Modern has no Street type.
+A building generated before 2026-11-07 keeps the code MOD or CYB in its `gen`: `types.json` `legacy` makes both the
+Office tower, so the storey offers and Re-roll still work on it.
+
+**Modern corridors (2026-11-07, modhalls lane; Harry: "definitely modern hallways as well").** Before this, a Modern
+building had no corridor room, so the packed solver laid its HUB's type as the corridor: a generated apartment block's
+spine was a row of one-cell "Apartment" rooms, an office tower's a row of "Corporate lobby" rooms. Now each building also
+names its `hall` in modern_buildings.json, and the plan's spine is that room, exactly where a fantasy building has its
+hallway (the wing off the hub, the corridor back from it on a deep plot, every upper floor's corridor over the stair core):
+
+| Building | Its corridor (`hall`) | Also in its tray |
+|---|---|---|
+| Apartment block (APT) | Apartment hallway: runner, sconces, unit doors both sides, trash chute, mailboxes (ground floor) | Hotel corridor (with the capsule hotel) |
+| Office tower (OFC) | Office corridor: carpet tiles, ceiling panels, notice board, water cooler, vending machine | Service corridor |
+| Bar & nightclub, Storefronts, Warehouse & garage, Hideout | Service corridor: concrete, pipes high on one wall, breaker panel, mop bucket, steel doors | |
+
+`buildings.js buildingRoles(roles, { hub, hall, rooms })` is what client/main.js `rolesOf` (and the tests) build with: the
+hub becomes a hub, the hall a `passage` with `hall: true`, and any OTHER corridor the building lists (a passage whose key
+reads as one: `HALL_RE`) `hall: false`: `programmeFor` takes the named hall as the type's hallway and never lays the
+others as leaf rooms (the hotel corridor is drawn by hand). Rooms: `tools/spawn-tuner/build_data.py` / `js/solver2.js` /
+`js/walls.js` blocks `type:modhalls`. Tests: `engine/test/modern_buildings.test.mjs` (halls), `tools/spawn-tuner/test/mh.test.mjs`.
+
 Per room, a programme entry says: its length range along a hall or hub wall; which floor (ground, upper, cellar under
 which room); its zone (behind the hub, beside it at the street, along a corridor); `touch` (must open off the hub, or
 off another room); `near` (should share a wall with a room, and gets a door to it when it does); `need`; `from` (only

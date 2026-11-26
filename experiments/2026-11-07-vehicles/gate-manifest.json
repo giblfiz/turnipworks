@@ -1,0 +1,378 @@
+{
+ "assets": {
+  "helicopter": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "helicopter",
+    "alt": "light utility helicopter",
+    "feature": "large bulbous cockpit canopy and enclosed fenestron tail rotor",
+    "era": "near-future",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: helicopter (fenestron tail, bulbous canopy), near-future"
+   }
+  },
+  "helicopter-gunship": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "attack helicopter",
+    "alt": "military gunship",
+    "feature": "chin-mounted rotary cannon and wing-mounted rocket pods",
+    "era": "near-future",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: attack helicopter, chin rotary cannon, rocket pods"
+   }
+  },
+  "car-police": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "police car",
+    "alt": "patrol cruiser",
+    "feature": "red and blue rooftop emergency light bar with a heavy front push bumper",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: police car, light bar, push bumper; no text read"
+   }
+  },
+  "suv-armoured": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "armored SUV",
+    "alt": "tactical patrol vehicle",
+    "feature": "faceted matte-black armored body with an illuminated horizontal grille light strip",
+    "era": "near-future",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: armored SUV"
+   }
+  },
+  "van-armoured": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "armored personnel carrier",
+    "alt": "six-wheeled armored truck",
+    "feature": "six heavy off-road wheels and an open rooftop observation cupola",
+    "era": "near-future",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: armored personnel carrier, six wheels"
+   }
+  },
+  "drone-quad-light": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "combat drone",
+    "alt": "quadcopter gun drone",
+    "feature": "four ducted rotor fans with orange-and-white rims and a central glowing red optic eye",
+    "era": "near-future/cyberpunk",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: combat drone, four ducted rotors (the pistol not named: judged on the mesh read)"
+   }
+  },
+  "drone-quad-heavy": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "combat drone",
+    "alt": "quadcopter gunship",
+    "feature": "black-and-yellow hazard-striped rotor cowlings and an underslung rotary cannon",
+    "era": "near-future/cyberpunk",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: combat drone, underslung rotary cannon"
+   }
+  },
+  "drone-hexapod": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "spider tank",
+    "alt": "hexapod combat walker",
+    "feature": "six articulated mechanical legs supporting a rotating cannon turret and four red sensor lenses",
+    "era": "near-future/cyberpunk",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: spider tank, six legs, cannon turret"
+   }
+  },
+  "drone-rover-arm": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "robotic rover",
+    "alt": "utility rover",
+    "feature": "articulated robotic arm with a two-prong mechanical claw and a prominent green central sensor lens",
+    "era": "near-future/cyberpunk",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: robotic rover with an arm and claw"
+   }
+  },
+  "drone-rover-sentry": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "armored scout car",
+    "alt": "assault buggy",
+    "feature": "roof-mounted autocannon turret with an external ammo box and four oversized off-road wheels",
+    "era": "near-future/cyberpunk",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: armored scout car with a turret"
+   }
+  },
+  "camera-security": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "security camera",
+    "alt": "surveillance camera",
+    "feature": "wall-mounted bracket with an overhanging sun shield, glowing red indicator LED, and a teal and yellow stripe",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: security camera on a wall bracket"
+   }
+  },
+  "camera-dome": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "dome security camera",
+    "alt": "ceiling surveillance camera",
+    "feature": "tinted hemispherical dome with visible internal lens and a red indicator light on the mounting collar",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: dome security camera"
+   }
+  },
+  "laptop-open": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "laptop",
+    "alt": "portable computer",
+    "feature": "open display showing colorful rectangular window tiles, amber top status light, and hazard stripes on the base",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: laptop"
+   }
+  },
+  "monitor-crt": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "CRT monitor",
+    "alt": "computer monitor",
+    "feature": "bulky beige housing with curved cyan screen, top cooling vents, and an orange power button",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: CRT monitor"
+   }
+  },
+  "monitor-flat": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "computer monitor",
+    "alt": "flat-screen display",
+    "feature": "dark bezel with reddish-brown corner bumpers, glowing cyan power light, and layered UI windows on screen",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: computer monitor"
+   }
+  },
+  "keyboard": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "computer keyboard",
+    "alt": "keyboard",
+    "feature": "blank grey keycaps with three colorful status buttons (cyan, pink, yellow) and a top accent bar",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: computer keyboard"
+   }
+  },
+  "mouse-computer": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "computer mouse",
+    "alt": "mouse",
+    "feature": "ribbed teal scroll wheel with a red central stripe and a short front cord segment",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: computer mouse"
+   }
+  },
+  "donut": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "donut",
+    "alt": "doughnut",
+    "feature": "bright pink frosting topped with colorful elongated sprinkles",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: donut"
+   }
+  },
+  "donut-box": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "box of donuts",
+    "alt": "donut box",
+    "feature": "open pink bakery box containing five assorted frosted donuts and one empty slot",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: box of donuts"
+   }
+  },
+  "coffee-cup-paper": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "disposable coffee cup",
+    "alt": "paper coffee cup",
+    "feature": "white paper cup with a plastic travel sipping lid and a brown cardboard heat sleeve",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind: disposable coffee cup"
+   }
+  },
+  "desk-phone": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "stack of papers",
+    "alt": "document stack",
+    "feature": "stack of multicolored file folders and sheets clamped with a black binder clip",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "blind read named it \"stack of papers\" and the paper-stack plate \"office telephone\": the two answers are swapped (the worker log and the files' own sizes, 1312x1199 phone / 1720x1208 papers, say each file is what its name says); the mesh sheet read decides"
+   }
+  },
+  "paper-stack": {
+   "status": "accepted",
+   "blind": {
+    "text": [],
+    "object": "office telephone",
+    "alt": "desk phone",
+    "feature": "coiled handset cord, green LCD display, and blank keypad with three colored side buttons",
+    "era": "modern",
+    "whole": true,
+    "single": true,
+    "concerns": ""
+   },
+   "match": {
+    "match": true,
+    "why": "see desk-phone: the blind answers were swapped between the two files"
+   }
+  }
+ }
+}

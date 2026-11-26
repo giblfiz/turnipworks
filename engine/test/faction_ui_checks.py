@@ -38,6 +38,9 @@ async def run(pg, check, snap):
         await pg.locator(CHOICES).first.wait_for(state='visible'); await pg.wait_for_timeout(300)
 
     async def pick(faction):
+        # (2026-11-13) a missed faction offer now goes down into the chat (condbutton.js rule 6); at this test's framing its
+        # line lies under the ring's faction buttons, so the chat's action lines are cleared before each pick
+        await pg.evaluate("tw.actionLines && tw.actionLines.clear()")
         await pg.locator('#ring .rbtn[data-nest][data-faction="'+faction+'"]').click()
         await idle()
 

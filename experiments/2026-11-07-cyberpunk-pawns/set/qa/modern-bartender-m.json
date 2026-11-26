@@ -1,0 +1,176 @@
+{
+ "file": "modern-bartender-m.glb",
+ "tris": 48756,
+ "kb": 2944,
+ "native_extent": [
+  0.715,
+  1.001,
+  0.497
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  97,
+  74,
+  53
+ ],
+ "mean_saturation": 0.317,
+ "sized_by": "its highest point",
+ "overall_ft": 4.5,
+ "pieces": {
+  "connected_parts": 135,
+  "main_part_area_share": 0.9073,
+  "floating": [
+   {
+    "area_share": 0.00035,
+    "gap_ft": 0.04,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 0.00029,
+    "gap_ft": 0.04,
+    "size_ft": 0.38
+   },
+   {
+    "area_share": 0.00028,
+    "gap_ft": 0.05,
+    "size_ft": 0.16
+   },
+   {
+    "area_share": 0.00023,
+    "gap_ft": 0.04,
+    "size_ft": 0.41
+   },
+   {
+    "area_share": 9e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.16
+   },
+   {
+    "area_share": 7e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.13
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.12
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.06,
+    "size_ft": 0.07
+   }
+  ],
+  "floating_count": 9,
+  "floating_area_share": 0.00136,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 4.4956,
+ "y0": -2.2502,
+ "stated_ft": {
+  "body": 4.5,
+  "figure_top": 4.5,
+  "overall": 4.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3567,
+   -0.5006,
+   -0.2471
+  ],
+  [
+   0.358,
+   0.5005,
+   0.2501
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48756,
+   "tex": 2048,
+   "kb": 2944
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1105
+  },
+  "8k512": {
+   "tris": 7998,
+   "tex": 512,
+   "kb": 480
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.92,
+    "z": -0.05,
+    "size_ft": [
+     0.92,
+     1.41
+    ],
+    "off_ground_ft": 0.003,
+    "sole_level_share": 0.77,
+    "sole_p90_ft": 0.075
+   },
+   {
+    "x": -0.8,
+    "z": -0.48,
+    "size_ft": [
+     1.12,
+     1.27
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.75,
+    "sole_p90_ft": 0.076
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.003,
+  "lowest_slab_area_sqft": 1.72,
+  "plan_hull_area_sqft": 5.35,
+  "lowest_slab_share_of_plan": 0.321
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.21,
+   "d": 2.23,
+   "h": 4.5
+  },
+  "centre": [
+   0.003,
+   0.058
+  ],
+  "contacts_radius_ft": 1.38,
+  "reach_radius_ft": 1.66,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.947,
+  "plate_lost_share": 0.012,
+  "added_share": 0.043,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.947,
+  "view_yaw_deg": 5,
+  "view_elev_deg": 8
+ },
+ "id": "modern-bartender-m",
+ "sha1": "f319eb0b431bc566792d18da1ed99e63d02ba228",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "5 separate part(s) lying within 0.05 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 9.3
+}

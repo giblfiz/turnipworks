@@ -121,10 +121,27 @@ const LOW = 'room_stlow0001', UP = 'room_stup00001', CEL = 'room_stcel0001', TOP
   eq(code(put(A, 15, 12.5, -Math.PI / 2), 'obj_st00000009'), 'open', 'nothing built over it: open (it will work the day there is a floor)');
   eq(code(put(up(A, 0, 0, 3, 4), 15, 12.5, -Math.PI / 2), 'obj_st00000009'), 'wall-above', 'half under the room above: it comes up through that room\'s wall');
   eq(code(put(up(A, 2, 2, 2, 1), 15, 12.5, -Math.PI / 2), 'obj_st00000009'), 'no-exit', 'the room above is only its own two squares: nowhere to step off');
-  eq(code(put(up(A, 0, 0, 6, 4), 5, 12.5, -Math.PI / 2), 'obj_st00000009'), 'foot', 'its foot against the wall of the room it stands in: blocked at the foot');
+  { const T2 = put(up(A, 0, 0, 6, 4), 5, 12.5, -Math.PI / 2), st = T2.entities.obj_st00000009, E2 = S.stairEnds(st, T2.entities);
+    eq([code(T2, 'obj_st00000009'), E2.footCell], [null, [0, 1]], 'its foot square against the wall of the room it stands in: it steps off beside its bottom step instead (2026-11-25), and works'); }
+  { let C = newArea('area_stairs003', 's'); C = room(C, LOW, 0, 2, 2, 1); C = room(C, UP, 0, 0, 6, 4, 10, 'guest');
+    eq(code(applyArea(C, 'object.place', { id: 'obj_st00000009', ...FLIGHT, x: 5, y: 0, z: 12.5, rot: -Math.PI / 2, room: LOW }), 'obj_st00000009'), 'foot', 'in a room only as big as the flight, no square open by its foot at all: still blocked at the foot'); }
   { const two = room(up(A, 0, 0, 8, 4), 'room_stside001', 6, 0, 2, 4, 0, 'kitchen'); eq(code(put(two, 30, 12.5, -Math.PI / 2), 'obj_st00000009'), 'wall-below', 'astride two rooms of its own floor: a wall runs through it'); }
   eq(code(put(A, 15, 12.5, -Math.PI / 2, { y: 30, room: undefined }), 'obj_st00000009'), 'nothing-below', 'left in the air: it stands on no floor');
   { const out = put(A, 45, 12.5, -Math.PI / 2, { room: undefined }); eq([code(out, 'obj_st00000009'), holes(out, 10)], ['open', ['8:2', '9:2']], 'outdoors on the ground: it stands, with nothing above it'); }
+  // (2026-11-06) A FLIGHT THAT COMES UP ONTO A HILL'S EDGE is cut into the bank, not through a wall (a hill has no walls).
+  // Outdoors at x 45 its squares are 8:2 (foot end) and 9:2 (top end), it steps off onto 10:2.
+  { const hillAt = (T, x, w, id = 'room_sthill001') => applyArea(T, 'room.spawn', { id, type: 'hill', x, z: 0, w, d: 4, y: 10, seed: 1, layout: EMPTY });
+    const out = (T) => put(T, 45, 12.5, -Math.PI / 2, { room: undefined });
+    const H = out(hillAt(A, 9, 4));
+    eq(code(H, 'obj_st00000009'), null, 'its top square on a hill, its foot square in the open air beyond the bank: it works, no "Comes up through a wall"');
+    { const I = S.stairInfo(H.entities, H.entities.obj_st00000009); ok(I.works && !I.note && I.to === 'room_sthill001', 'a seat is told it works, and that it comes up onto the hill', JSON.stringify(I)); }
+    { const w = []; for (let i = 0; i <= 12; i++) w.push(step(H, 38 + i * 1.5, 12.5, w.length ? w.at(-1) : 0)); ok(w[0] === 0 && w.at(-1) === 10 && w.every((y, i) => !i || Math.abs(y - w[i - 1]) < 2.5), 'a pawn walks up it from the plain onto the hilltop', JSON.stringify(w)); }
+    const R = out(room(hillAt(A, 9, 6), 'room_sthilltop', 9, 0, 4, 4, 10, 'common', { building: 'bld_st00000002', buildingName: 'Shrine' }));
+    eq([R.entities.room_sthilltop && HT.hillUnder(R.entities, R.entities.room_sthilltop.recipe), code(R, 'obj_st00000009')], [10, null], 'into a room standing on the hill, the open part below it the bank: it works');
+    eq(code(out(hillAt(A, 10, 4)), 'obj_st00000009'), 'open', 'the hill only beyond its top (none of its squares under it): nothing over it, as before');
+    eq(code(put(up(A, 0, 0, 3, 4), 15, 12.5, -Math.PI / 2), 'obj_st00000009'), 'wall-above', 'a real room over half of it, no hill: still "Comes up through a wall"');
+    const two = out(applyArea(room(hillAt(A, 9, 6), 'room_sthilltop', 9, 0, 4, 4, 10, 'common', { building: 'bld_st00000002', buildingName: 'Shrine' }), 'room.spawn', { id: 'room_stover001', type: 'guest', x: 8, z: 2, w: 1, d: 1, y: 10, seed: 1, building: 'bld_st00000002', buildingName: 'Shrine', layout: EMPTY }));
+    eq([!!two.entities.room_stover001, code(two, 'obj_st00000009')], [true, 'wall-above'], 'a room on the hill at its top and another room over its foot: two rooms, real walls: still "Comes up through a wall"'); }
   const info = S.stairInfo(put(A, 15, 12.5, -Math.PI / 2).entities, put(A, 15, 12.5, -Math.PI / 2).entities.obj_st00000009);
   ok(info.works === false && info.problem === 'open' && /no floor/.test(info.why), 'a seat is told whether each stair works, and why not', JSON.stringify(info));
 }
@@ -283,10 +300,23 @@ const sameStair = (Eb, b, Ea, a) => {
   const rm = (id, type, x, z, w, d, y) => ({ id, kind: 'room', order: 1, recipe: { type, x, z, w, d, seed: 1, wallSeed: 2, y } });
   const lad = { id: 'obj_lad', kind: 'object', cat: 'ladder-wood', place: 'wall', layer: 'furnish', x: 12.5, y: -20, z: 7.5, rot: Math.PI / 2, dims: [3.86, 10, 2.07], room: 'room_pass' };
   const E = { room_pass: rm('room_pass', 'crypt-passage', 2, 0, 1, 6, -20), room_up: rm('room_up', 'cellar', 2, 0, 4, 4, -10), obj_lad: lad };
-  eq([S.stairStatus(E, lad).code, S.stairCells(lad)], ['foot', [[2, 1]]], 'the fixture: a ladder in a one-square passage, its foot (east of it) in the rock');
+  eq([S.stairStatus(E, lad).code, S.stairCells(lad), S.stairEnds(lad, E).footCell], [null, [[2, 1]], [2, 0]], 'the fixture: a ladder in a one-square passage facing its wall (its foot square east of it is rock): it steps off beside itself in the passage instead (2026-11-25; until then "Blocked at the foot")');
   const up = S.stairHop(E, 12.5, 7.5, -20), down = S.stairHop(E, 12.5, 7.5, -10);
   eq(up && [up.x, up.z, up.y], [17.5, 7.5, -10], 'dropped on it from the passage, the pawn climbs to the floor above (the landing beside the hole)');
-  eq(down && [down.x, down.z, down.y], [17.5, 7.5, -10], 'dropped on its hole from above, it stays on that floor, on the top landing (before: sent to the foot, inside the rock at -20)');
+  eq(down && [down.x, down.z, down.y], [12.5, 2.5, -20], 'from above it is climbed down to that square in the passage (first person; a drop from above stays on top of it: client/main.js moveBy)');
+  // A LADDER IN A 5-FT CORRIDOR FACING ITS WALL, AT BOTH ENDS (2026-11-25): one corridor over another, both one square
+  // wide (x 10..15), the ladder on [2,2] facing east into the rock at both levels. Each end steps off beside it, the same
+  // square whoever asks; with the corridors two squares wide the facing squares are open and nothing changes.
+  { const cor = (w) => ({ room_lo: rm('room_lo', 'crypt-passage', 2, 0, w, 6, 0), room_hi: rm('room_hi', 'crypt-passage', 2, 0, w, 6, 10), obj_l2: { ...lad, id: 'obj_l2', x: 12.5, y: 0, z: 12.5, room: 'room_lo' } });
+    const Ec = cor(1), L2 = Ec.obj_l2, e1 = S.stairEnds(L2, Ec), e2 = S.stairEnds(L2, JSON.parse(JSON.stringify(Ec)));
+    eq([S.stairStatus(Ec, L2).code, e1.footCell, e1.topCell], [null, [2, 1], [2, 1]], 'a ladder in a 5-ft corridor facing its wall at both ends: it works, stepping off beside itself at the foot and at the top');
+    eq([e2.footCell, e2.topCell, S.stairEnds(L2, Ec, { x: 12.5, z: 17.5 }).footCell], [[2, 1], [2, 1], [2, 3]], '...the same squares from a copy of the rooms (no state in it); a pawn dropped nearer the other side steps off on its side');
+    const Eo = cor(2), eo = S.stairEnds(Eo.obj_l2, Eo), bare = S.stairEnds(Eo.obj_l2);
+    eq([S.stairStatus(Eo, Eo.obj_l2).code, eo.footCell, eo.topCell], [null, bare.footCell, bare.topCell], 'with the facing squares open, nothing changes: it steps off straight ahead at both ends');
+    const Ep = { ...Ec, tok_a: { id: 'tok_a', kind: 'token', x: 12.5, z: 7.5, y: 0 } };
+    eq(S.stairEnds(Ep.obj_l2, Ep).footCell, [2, 1], 'a pawn standing on the chosen square does not move the choice (no oscillation)'); }
+  { const Eb = { ...E, room_pass: rm('room_pass', 'crypt-passage', 2, 1, 1, 1, -20) };
+    eq([S.stairStatus(Eb, lad).code, S.stairHop(Eb, 12.5, 7.5, -10)], ['foot', null], 'a passage only as big as the ladder (no open square by it at all): still blocked at the foot, and from above no hop'); }
   const E2 = { ...E, room_pass: rm('room_pass', 'crypt-passage', 2, 0, 2, 6, -20) }, d2 = S.stairHop(E2, 12.5, 7.5, -10);
   eq([S.stairStatus(E2, lad).code, d2 && [d2.x, d2.z, d2.y]], [null, [17.5, 7.5, -20]], 'with floor at its foot, the hole is climbed down to the foot as before');
 }

@@ -1,0 +1,212 @@
+{
+ "helicopter": {
+  "read": {
+   "cell": 1,
+   "object": "helicopter",
+   "alt": "chopper",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": true,
+   "note": "Correctly identified as a helicopter/chopper and modern-day."
+  }
+ },
+ "helicopter-gunship": {
+  "read": {
+   "cell": 2,
+   "object": "gunship",
+   "alt": "attack helicopter",
+   "era": "futuristic",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": false,
+   "note": "Correctly identified as a gunship / attack helicopter, but perceived as futuristic."
+  }
+ },
+ "car-police": {
+  "read": {
+   "cell": 3,
+   "object": "police car",
+   "alt": "patrol car",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": true,
+   "note": "Correctly identified as a modern police/patrol car."
+  }
+ },
+ "suv-armoured": {
+  "read": {
+   "cell": 4,
+   "object": "SUV",
+   "alt": "off-road vehicle",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": true,
+   "note": "Identified as an SUV / off-road vehicle and modern-day (armour not explicitly called out, but object class matches)."
+  }
+ },
+ "van-armoured": {
+  "read": {
+   "cell": 5,
+   "object": "armored personnel carrier",
+   "alt": "APC",
+   "era": "futuristic",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": false,
+   "note": "Exact match on vehicle type (armored personnel carrier / APC), but perceived as futuristic."
+  }
+ },
+ "drone-quad-light": {
+  "read": {
+   "cell": 6,
+   "object": "jetpack",
+   "alt": "drone",
+   "era": "futuristic",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": false,
+   "note": "Primary read was jetpack, but alternative name matched 'drone'; perceived as futuristic."
+  }
+ },
+ "drone-quad-heavy": {
+  "read": {
+   "cell": 1,
+   "object": "drone",
+   "alt": "quadcopter",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": true,
+   "note": "Identified as drone / quadcopter; correctly matches object type and modern era."
+  }
+ },
+ "drone-hexapod": {
+  "read": {
+   "cell": 8,
+   "object": "mech",
+   "alt": "combat walker",
+   "era": "futuristic",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": false,
+   "note": "Identified as a combat walker / mech (matching a legged robot walker), but perceived as futuristic."
+  }
+ },
+ "drone-rover-arm": {
+  "read": {
+   "cell": 2,
+   "object": "rover",
+   "alt": "tracked robot",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": true,
+   "note": "Identified as rover / tracked robot; correctly matches object type and modern era."
+  }
+ },
+ "drone-rover-sentry": {
+  "read": {
+   "cell": 10,
+   "object": "rover",
+   "alt": "ground drone",
+   "era": "futuristic",
+   "broken": "none"
+  },
+  "match": {
+   "match": true,
+   "modern": false,
+   "note": "Correctly identified as a rover / ground drone, but perceived as futuristic."
+  }
+ },
+ "camera-security": {
+  "read": {
+   "cell": 3,
+   "object": "toaster",
+   "alt": "small appliance",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": false,
+   "modern": true,
+   "note": "Identified as toaster / small appliance; reads as modern-day, but fails to read as a security camera."
+  }
+ },
+ "keyboard": {
+  "read": {
+   "cell": 1,
+   "object": "ammo crate",
+   "alt": "military footlocker",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": false,
+   "modern": true,
+   "note": "Observer identified an ammo crate / military footlocker; does not match a computer keyboard, though it reads as modern."
+  }
+ },
+ "donut-box": {
+  "read": {
+   "cell": 2,
+   "object": "gas can",
+   "alt": "jerry can",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": false,
+   "modern": true,
+   "note": "Observer identified a gas can / jerry can; does not match an open box of donuts, though it reads as modern."
+  }
+ },
+ "paper-stack": {
+  "read": {
+   "cell": 3,
+   "object": "first aid kit",
+   "alt": "medkit",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": false,
+   "modern": true,
+   "note": "Observer identified a first aid kit / medkit; does not match a stack of papers and folders, though it reads as modern."
+  }
+ },
+ "desk-phone": {
+  "read": {
+   "cell": 4,
+   "object": "car battery",
+   "alt": "ammo box",
+   "era": "modern",
+   "broken": "none"
+  },
+  "match": {
+   "match": false,
+   "modern": true,
+   "note": "Observer identified a car battery / ammo box; does not match an office desk phone, though it reads as modern."
+  }
+ }
+}

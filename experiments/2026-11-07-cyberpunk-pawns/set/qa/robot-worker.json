@@ -1,0 +1,188 @@
+{
+ "file": "robot-worker.glb",
+ "tris": 47738,
+ "kb": 2927,
+ "native_extent": [
+  0.968,
+  1.0,
+  0.858
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  91,
+  70,
+  47
+ ],
+ "mean_saturation": 0.328,
+ "sized_by": "its highest point",
+ "overall_ft": 4.5,
+ "pieces": {
+  "connected_parts": 324,
+  "main_part_area_share": 0.7122,
+  "floating": [
+   {
+    "area_share": 0.00026,
+    "gap_ft": 0.08,
+    "size_ft": 0.43
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.1
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.19,
+    "size_ft": 0.16
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.27,
+    "size_ft": 0.2
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.15,
+    "size_ft": 0.05
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.11,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.1,
+    "size_ft": 0.06
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.08,
+    "size_ft": 0.04
+   }
+  ],
+  "floating_count": 11,
+  "floating_area_share": 0.00033,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 4.5039,
+ "y0": -2.2538,
+ "stated_ft": {
+  "body": 4.5,
+  "figure_top": 4.5,
+  "overall": 4.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4942,
+   -0.5006,
+   -0.4282
+  ],
+  [
+   0.474,
+   0.4994,
+   0.4296
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47738,
+   "tex": 2048,
+   "kb": 2927
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1179
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 513
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.27,
+    "z": -0.56,
+    "size_ft": [
+     1.61,
+     2.16
+    ],
+    "off_ground_ft": 0.259,
+    "sole_level_share": 0.32,
+    "sole_p90_ft": 0.366
+   },
+   {
+    "x": 1.58,
+    "z": -0.49,
+    "size_ft": [
+     0.97,
+     2.72
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.37,
+    "sole_p90_ft": 0.303
+   },
+   {
+    "x": -1.04,
+    "z": -0.51,
+    "size_ft": [
+     0.96,
+     2.7
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.34,
+    "sole_p90_ft": 0.313
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.259,
+  "lowest_slab_area_sqft": 2.47,
+  "plan_hull_area_sqft": 13.07,
+  "lowest_slab_share_of_plan": 0.189
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.36,
+   "d": 3.86,
+   "h": 4.5
+  },
+  "centre": [
+   0.296,
+   -0.478
+  ],
+  "contacts_radius_ft": 2.09,
+  "reach_radius_ft": 2.6,
+  "share_outside_2p5ft": 0.004
+ },
+ "silhouette": {
+  "iou": 0.936,
+  "plate_lost_share": 0.021,
+  "added_share": 0.045,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.907,
+  "view_yaw_deg": 30,
+  "view_elev_deg": 8
+ },
+ "id": "robot-worker",
+ "sha1": "e3118fc6436ad6c9c11a38ef36993ab470472a51",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.08 ft of the body (not joined to it)",
+  "one foot is 0.26 ft off the ground"
+ ],
+ "qa_seconds": 6.8
+}

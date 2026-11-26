@@ -17,3 +17,17 @@ Harry is designing a **flavor** system: a short list of symbol-themes (never nam
 
 - **flavor-corbel** — stout carved wall bracket bearing the faction motif, flat back and flat beam-bearing top · wall · sub · size:24x24x30 · stone · set:CLT!,TEM! · var:shape · aff:- · mesh · P1 · slot 9; front faces away from the wall, top at beam height; a line along the long walls of large naves and sanctums
 - **flavor-pillar** — free-standing column carved in the faction's motif, flat-topped capital to carry a ceiling · floor · sub · size:30x30x120 · stone · set:CLT,TEM · var:shape · aff:block,los,cover · mesh · P1 · slot 10 (Harry, 2026-10-24: pillars for each faction); placed by hand, snaps like a post (a grid cross or an edge midpoint); one storey tall; no room recipe rolls it
+
+## K8. The faiths' own roles (2026-11-07, lane faith-factions)
+
+The four real-world faith factions (`christian`, `buddhist`, `hindu`, `muslim`; roster and sensitivity read in `experiments/2026-11-07-faith-factions/DESIGN.md`) fill the core slots they use and leave the rest deliberately empty (a mosque has no idol); what a faith uses that no core slot fits gets one of the roles below. Only the faiths fill them (`ownSlots` in tools/spawn-tuner/factions.py), so the Factions shelf shows them only in those rows. Temple sets only (TEM): no cult room asks for them, and the faiths never dress a cult room. Each piece carries its own name ("Minbar", "Prayer wheel"); no piece carries text in any script.
+
+- **flavor-altar** — the faith's own altar or offering table, standing in for the plain stone altar · floor · 1x2 · size:60x24x36 · wood · set:TEM · var:shape · aff:block · mesh · P1 · the Buddhist offering table; before the focus on the hall's axis
+- **flavor-mat** — where the faithful sit or kneel in rows: a seating runner, a prayer carpet · floor · 1x2 · size:30x96x0.2 · cloth · set:TEM · var:shape · aff:sit · flat · P1 · in clear rows facing the focus; nothing stands on them
+- **flavor-pulpit** — the faith's pulpit: the minbar · floor · 1x2 · size:30x96x106~0.8-1.1 · wood · set:TEM · var:shape · aff:block,cover,los · mesh · P1 · against the focus wall, to the worshipper's right of the mihrab; only in a hall 16 ft across or more
+- **flavor-stand** — a stand of the rite near the focus: a thurible on its stand, an empty rehal · floor · sub · size:18x18x54 · mixed · set:TEM · var:shape · aff:- · mesh · P1 · beside the altar or the mihrab
+- **flavor-font** — the faith's water: a baptismal font, an ablution fountain · floor · 1 · size:36x36x54 · stone · set:TEM · var:shape · aff:block · mesh · P1 · the Christian font by the door; the ablution fountain is placed by hand (a courtyard), never on a prayer floor
+- **flavor-lamp** — a hanging lamp of the faith: the mosque lamp · ceiling · tiny · size:14x14x36 · mixed · set:TEM · var:shape,lit · aff:lit · mesh · P1 · hung in rows over the prayer rows
+- **flavor-wheel** — a standing prayer wheel in its frame · floor · 1 · size:30x30x72 · metal · set:TEM · var:shape · aff:use,block · mesh · P1 · along the side walls of a Buddhist hall with room to turn it
+- **flavor-bell** — a temple bell hung at the entrance · ceiling · tiny · size:14x14x36 · metal · set:TEM · var:shape · aff:use · mesh · P1 · inside the door, rung on entering
+- **flavor-gate** — a free-standing gateway arch of the faith: the torana · floor · 1x2 · size:96x24x120 · stone · set:TEM · var:shape · aff:block · mesh · P1 · placed by hand, walked through; no room recipe rolls it

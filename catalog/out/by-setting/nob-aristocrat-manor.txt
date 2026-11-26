@@ -1,4 +1,4 @@
-NOB — aristocrat-manor: 646 roles (+ ANY-tagged roles) — ! = signature
+NOB — aristocrat-manor: 651 roles (+ ANY-tagged roles) — ! = signature
 
 ! P1  balustrade-stone           [kit/edge] noble terraces
 ! P1  door-double-grand          [kit/edge] throne rooms, great halls, chapels
@@ -118,6 +118,7 @@ NOB — aristocrat-manor: 646 roles (+ ANY-tagged roles) — ! = signature
   P1  linen-chest-open           [floor/sub] open state of linen-chest
   P1  strongbox-open             [surface/tiny] open state of strongbox; robbed
   P1  wardrobe-open              [wall/1] open state of wardrobe; someone hid here
+  P1  casket-ornate-open         [surface/tiny] open state of casket-ornate
   P1  strongbox-stack            [floor/1] vault walls; counting houses
   P1  candelabra-standing        [floor/sub] flanks altars and thrones
   P1  lantern-post               [ground/sub] streets, manor drives
@@ -244,6 +245,9 @@ NOB — aristocrat-manor: 646 roles (+ ANY-tagged roles) — ! = signature
   P2  decal-star-floor           [floor/2x2] the middle of an observatory floor; a separate prop, not part of the floor
   P2  parapet-corner             [kit/edge] stands at the corners and ends of a parapet run
   P2  parapet-straight           [kit/edge] the ledge round a flat or low roof; half cover in a rooftop chase
+  P2  roof-bartizan              [floor/1] a roof object: stands on a flat roof, at a corner of the parapet; a lookout's cover (generated 2026-10-27)
+  P2  roof-cistern               [floor/1] a roof object: stands on a flat roof; rain water for the house below, something to crouch behind (generated 2026-10-27)
+  P2  roof-flagpole              [floor/1] a roof object: stands on a flat roof, the highest one of a keep; plain cloth, no emblem (generated 2026-10-27)
   P2  roofing-slate              [kit/1] mansion, church and castle-turret roofs
   P2  roofing-tile-clay          [kit/1] town roofs and better inns
   P2  floor-gravel               [ground/1] forecourts and drives; generated 2026-10-05 (2 variants)
@@ -262,6 +266,7 @@ NOB — aristocrat-manor: 646 roles (+ ANY-tagged roles) — ! = signature
   P2  table-games                [floor/sub] by a window, two chairs
   P2  table-library              [floor/1x2] the middle of a library; books and a globe on and by it
   P2  trunk-travel               [floor/sub] guests' luggage
+  P2  trunk-travel-open          [floor/sub] open state of trunk-travel
   P2  vault-shelf-treasure       [floor/1] along vault walls, back to the wall
   P2  bottle-cluster             [surface/tiny] bar backs, alchemy shelves
   P2  platter                    [surface/tiny] takes roasts and bread

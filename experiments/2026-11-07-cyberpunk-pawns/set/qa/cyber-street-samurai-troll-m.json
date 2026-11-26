@@ -1,0 +1,196 @@
+{
+ "file": "cyber-street-samurai-troll-m.glb",
+ "tris": 49935,
+ "kb": 3119,
+ "native_extent": [
+  0.736,
+  1.0,
+  0.458
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0071,
+  "seen": 0.0026
+ },
+ "mean_rgb": [
+  95,
+  60,
+  32
+ ],
+ "mean_saturation": 0.66,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 5.04,
+  "length_ft": 5.22,
+  "low_end_ft": [
+   -2.1,
+   3.6,
+   1.18
+  ],
+  "high_end_ft": [
+   -2.41,
+   8.79,
+   1.55
+  ],
+  "tilt_from_upright_deg": 5.2,
+  "thickness_ft": 0.55,
+  "clear_share": 0.82,
+  "joined_share": 0.18,
+  "broken_share": 0.0,
+  "walk_low_to_high": "-----#######--------------------------"
+ },
+ "overall_ft": 8.68,
+ "pieces": {
+  "connected_parts": 183,
+  "main_part_area_share": 0.9705,
+  "floating": [
+   {
+    "area_share": 0.00013,
+    "gap_ft": 0.04,
+    "size_ft": 0.47
+   },
+   {
+    "area_share": 5e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.21
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.08,
+    "size_ft": 0.1
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.14
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.08,
+    "size_ft": 0.1
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.09
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.1
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.11,
+    "size_ft": 0.06
+   }
+  ],
+  "floating_count": 15,
+  "floating_area_share": 0.00032,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 8.695,
+ "y0": -4.3559,
+ "stated_ft": {
+  "body": 8.5,
+  "figure_top": 8.5,
+  "overall": 8.5
+ },
+ "base_ft": 10,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3686,
+   -0.501,
+   -0.23
+  ],
+  [
+   0.3675,
+   0.4995,
+   0.2285
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49935,
+   "tex": 2048,
+   "kb": 3119
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1194
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 514
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -1.19,
+    "z": -0.3,
+    "size_ft": [
+     1.52,
+     2.32
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.78,
+    "sole_p90_ft": 0.121
+   },
+   {
+    "x": 1.23,
+    "z": -0.3,
+    "size_ft": [
+     1.52,
+     2.28
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.78,
+    "sole_p90_ft": 0.12
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 5.26,
+  "plan_hull_area_sqft": 18.06,
+  "lowest_slab_share_of_plan": 0.291
+ },
+ "plan": {
+  "size_ft": {
+   "w": 6.4,
+   "d": 3.98,
+   "h": 8.68
+  },
+  "centre": [
+   0.038,
+   0.095
+  ],
+  "contacts_radius_ft": 1.99,
+  "reach_radius_ft": 3.26,
+  "share_outside_2p5ft": 0.174
+ },
+ "silhouette": {
+  "iou": 0.877,
+  "plate_lost_share": 0.031,
+  "added_share": 0.105,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.794,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 0
+ },
+ "id": "cyber-street-samurai-troll-m",
+ "sha1": "64cf3ff0377add3562533904f94f211c5e60549b",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "2 separate part(s) lying within 0.04 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 12.3
+}

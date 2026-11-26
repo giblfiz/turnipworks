@@ -599,6 +599,7 @@ let tool = null;
 const palette = $('#palette'), pgroups = $('#pgroups'), psearch = $('#roomSearch');
 const PKEY = 'tuner.palette.open';
 const groupOf = (t) => {
+  const own = buildTypes.find(b => b.rooms?.includes(t.key)); if (own) return own; // (a modern building lists its rooms: engine/tools/modern_buildings.json, 2026-11-07; a room in several is under the first)
   for (const rc of t.recipes || []) { const bt = buildTypes.find(b => rc.startsWith(b.code.toLowerCase() + '-')); if (bt) return bt; }
   return { code: (t.group || 'other').toLowerCase().replace(/[^a-z0-9]+/g, '-'), label: t.group || 'Other' }; // a room no type claims still shows, under its own heading
 };

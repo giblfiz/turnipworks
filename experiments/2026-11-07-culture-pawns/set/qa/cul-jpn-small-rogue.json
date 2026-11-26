@@ -1,0 +1,133 @@
+{
+ "file": "cul-jpn-small-rogue.glb",
+ "tris": 46760,
+ "kb": 2404,
+ "native_extent": [
+  0.562,
+  1.002,
+  0.429
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  84,
+  54,
+  31
+ ],
+ "mean_saturation": 0.624,
+ "sized_by": "its highest point",
+ "overall_ft": 3.1,
+ "pieces": {
+  "connected_parts": 8,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.0952,
+ "y0": -1.5503,
+ "stated_ft": {
+  "body": 3.1,
+  "figure_top": 3.1,
+  "overall": 3.1
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2813,
+   -0.5009,
+   -0.2135
+  ],
+  [
+   0.2808,
+   0.5007,
+   0.2154
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 46760,
+   "tex": 2048,
+   "kb": 2404
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 977
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 431
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.49,
+    "z": -0.22,
+    "size_ft": [
+     0.63,
+     0.7
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.99,
+    "sole_p90_ft": 0.015
+   },
+   {
+    "x": 0.48,
+    "z": 0.25,
+    "size_ft": [
+     0.56,
+     0.76
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 1.0,
+    "sole_p90_ft": 0.017
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 0.63,
+  "plan_hull_area_sqft": 1.58,
+  "lowest_slab_share_of_plan": 0.397
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.74,
+   "d": 1.33,
+   "h": 3.1
+  },
+  "centre": [
+   -0.033,
+   0.134
+  ],
+  "contacts_radius_ft": 0.87,
+  "reach_radius_ft": 1.0,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.923,
+  "plate_lost_share": 0.025,
+  "added_share": 0.056,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.923,
+  "view_yaw_deg": 0,
+  "view_elev_deg": 8
+ },
+ "id": "cul-jpn-small-rogue",
+ "sha1": "f5dc4529595d04b6d51fad9e6197a4a942369b45",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 8.4
+}

@@ -77,7 +77,7 @@ export function areasSurface(R, app) {
     if (pipHidden) { pipHid.innerHTML = `${icon('eye-off', 13)}<span>Hidden from players</span>`; pipHid.title = 'Hidden from players. Click to open this area to them'; }
     // the area in my main view was hidden and is open again (or was the only one, hidden then opened): take it up again
     // (the relay dropped the subscription when it was hidden; nothing else asks for it back)
-    if (c && id && a && app.sync.status === 'live' && !app.sync.view(id) && app.sync.areas.get(id)?.want === false) { app.sync.subscribe(id); if (c.my.location !== id) app.sync.submit('seat.locate', { area: id }); }
+    if (c && id && a && app.sync.status === 'live' && !app.sync.view(id) && app.sync.areas.get(id)?.want === false) { app.sync.subscribe(id); app.locate(id); }
     // a player with no open area at all (the GM hid the only one): say so, rather than an empty world
     const empty = !!c && !gm && c.areas.length === 0;
     none.hidden = !empty;

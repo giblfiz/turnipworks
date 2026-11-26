@@ -17,6 +17,8 @@ What this drives, in a real browser, as a GM and a player would:
   the cut      at lv 1 the hill and the pawn on it still show (a hill is ground); the fog's level stays the ground's
   sight        with fog of war on, a player's pawn on the ground sees the hill top beside it, and from the top the ground
   sync         a player's tab gets the hill and draws its banks; a reload keeps it all
+  bury         (2026-11-06) a hill drawn with the room tool over a pawn and a barrel on the ground lifts them onto its
+               top (before: left at 0, inside the earth); one undo puts the hill, the pawn and the barrel back
   errors       no page errors anywhere
 
   local:  python3 engine/test/browser_hills.py --local
@@ -321,6 +323,31 @@ async def main():
         print('SIGHT: fog of war over a hill is the ground\'s')
         sl = await gm.evaluate(f"(async () => {{ const H = await import(new URL('../core/height.js', document.baseURI).href); const E = tw.entities(), open = (r) => true; return [H.sightLevel(E, 17.5, 17.5, 10, open), H.sightLevel(E, 52.5, 47.5, 0, open)]; }})()")
         check(sl == [0, 0], 'a pawn on the hill and one on the ground see at the same level (the ground\'s)', sl)
+
+        print('BURY (2026-11-06): a hill drawn over a pawn and a barrel lifts them onto its top')
+        BP, BB = 'tok_hillbury1', 'obj_hillbury1'
+        await gm.evaluate(f"tw.dispatch('token.create', {{ id: '{BP}', name: 'Wren', x: 212.5, z: 212.5, color: '#d46a6a' }})")
+        await gm.evaluate(f"(() => {{ const b = Object.values(tw.entities()).find(e => e.kind === 'object' && /barrel/.test(e.cat || '')); return tw.dispatch('object.place', {{ id: '{BB}', name: b.name, cat: b.cat, sku: b.sku, url: b.url, place: b.place, layer: b.layer, s: b.s, yaw: b.yaw || 0, dims: b.dims, x: 217.5, y: 0, z: 207.5, rot: 0 }}); }})()")
+        await wait(gm, f"!!tw.entities()['{BP}'] && !!tw.entities()['{BB}'] && tw.sync.pendingCount() === 0", 8000, 'pawn and barrel'); await gm.wait_for_timeout(800)
+        n0 = await gm.evaluate(f"{HILLS}.length")
+        await view(gm, 215, 215, 90, 70)
+        await bar_text(gm, 'hill'); await gm.keyboard.press('Enter'); await gm.wait_for_timeout(400)
+        await drag(gm, await scr(gm, C(40), C(40)), await scr(gm, C(45), C(45)))
+        await wait(gm, f"{HILLS}.length === {n0 + 1} && tw.sync.pendingCount() === 0", 8000, 'the hill over them'); await gm.wait_for_timeout(600)
+        await gm.keyboard.press('Escape'); await gm.keyboard.press('Escape')
+        BH = await gm.evaluate(f"{HILLS}.find(h => h.recipe.x === 40 && h.recipe.z === 40)")
+        check(BH and [BH['recipe'][k] for k in ('w', 'd')] == [6, 6] and BH['recipe'].get('y') == 10, 'the room tool drew a 10-ft hill over them', BH and BH['recipe'])
+        bh = BH['id'] if BH else ''
+        pe, be = await gm.evaluate(f"tw.entities()['{BP}']"), await gm.evaluate(f"tw.entities()['{BB}']")
+        check(abs((pe.get('y') or 0) - 10) < 0.01, "the pawn is on the hill's top (10 ft), not left inside it at 0", pe.get('y'))
+        pb = await gm.evaluate(f"{W}.pawnBaseInfo('{BP}')")
+        check(pb and abs(pb['baseY'] - 10) < 0.05 and pb['room'] == bh and pb['drop'] == 0, 'its base rests on the hill top (no beam, no gap)', pb)
+        check(abs((be.get('y') or 0) - 10) < 0.01 and be.get('room') == bh, "the barrel is on the top too, and the hill's", {k: be.get(k) for k in ('y', 'room')})
+        await gm.wait_for_timeout(300)
+        check(BP not in (await gm.evaluate("tw.lastBuried || []")), "no 'stands where the hill's bank now is' toast for it", await gm.evaluate("tw.lastBuried"))
+        await gm.keyboard.press('Control+z'); await wait(gm, f"{HILLS}.length === {n0}", 5000, 'undo the hill'); await gm.wait_for_timeout(400)
+        u = await gm.evaluate(f"[tw.entities()['{BP}']?.y || 0, tw.entities()['{BB}']?.y || 0, {HILLS}.length]")
+        check(u == [0, 0, n0], 'one undo takes the hill away and puts the pawn and the barrel back on the ground', u)
 
         print('SYNC: a player sees it; a reload keeps it')
         link = await gm.evaluate("async () => tw.inviteLink(await tw.createSeat({ kind: 'human', role: 'player', name: 'Pat', color: '#67aadd' }))")

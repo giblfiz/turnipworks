@@ -1,3 +1,4 @@
+import { squaresOf } from './size.js';
 // MEASURING: distances, rulers and templates (Harry and Fauna 2026-10-11; docs/RULERS.md). Pure functions: the relay,
 // every client and the tests run the same code. Feet throughout; x and z are the ground plane, y is height.
 //
@@ -25,7 +26,7 @@ export const SHAPES = ['line', 'cone', 'circle', 'sphere', 'cube'];
 export const SHAPE_NAMES = { line: 'Line', cone: 'Cone', circle: 'Circle', sphere: 'Sphere', cube: 'Cube' };
 
 // the space a pawn takes up, as a circle on the ground: 2.5 ft per square of its size (a 1-square pawn: 5 ft across)
-export const pawnRadius = (e) => 2.5 * (e?.size > 1 ? e.size : 1);
+export const pawnRadius = (e) => 2.5 * squaresOf(e); // (tiny: 1.25 ft; core/size.js)
 
 // THE DISTANCE from a to b ({ x, y, z } each). ra / rb: the radius of the pawn that end is attached to (0 = a bare
 // point), so a measurement between two pawns runs BASE EDGE TO BASE EDGE, not centre to centre.

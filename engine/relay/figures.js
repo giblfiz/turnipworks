@@ -31,8 +31,8 @@ export const brief = (f) => ({ id: f.id, name: f.name, group: f.group, height_ft
 // what a token.create / token.set with a figure needs before it is dispatched: the id checked, its size filled in
 export function figureArgs(type, args) {
   if (args.fig == null || args.fig === '' || !FIGURES.list.length) return { args };
-  if (args.fig === 'none') return type === 'token.set' ? { args: { ...args, size: '1' } } : { args: (({ fig, ...a }) => a)(args) };
+  if (args.fig === 'none') return type === 'token.set' ? { args: { size: '1', ...args } } : { args: (({ fig, ...a }) => a)(args) };
   const f = FIGURES.byId.get(String(args.fig));
   if (!f) { const near = findFigures(String(args.fig).replace(/-/g, ' '), 5).map(x => x.id); return { error: `no figure "${String(args.fig).slice(0, 40)}"${near.length ? `; did you mean ${near.join(', ')}?` : ''} Search the list: .../figures?q=owlbear` }; }
-  return { args: { ...args, size: String(f.size || 1), ...(type === 'token.create' && !args.name && { name: f.name }) }, figure: f };
+  return { args: { ...args, size: args.size != null && args.size !== '' ? args.size : String(f.size || 1), ...(type === 'token.create' && !args.name && { name: f.name }) }, figure: f }; // (a size sent with it wins: size=huge&fig=goblin)
 }

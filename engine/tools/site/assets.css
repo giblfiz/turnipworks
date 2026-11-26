@@ -76,3 +76,24 @@ dialog#asset::backdrop { background: rgba(20, 18, 15, .55); }
 .dlg .where a { color: var(--ink-2); }
 .dlg .lic { margin: 14px 0 0; font-size: 12.5px; color: var(--mute); }
 .dlg .lic code { font-size: 12px; }
+/* the packs' zips on GitHub (2026-11-07: only while docs/site/asset-release.json is published). A card with downloads is
+   the card plus a row of links under it, one frame; every row wraps (no horizontal scrolling at any width) */
+.rel { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2); }
+.rel span { flex: 1 1 18rem; min-width: 0; }
+ul.packs li.has-dl { display: flex; flex-direction: column; }
+li.has-dl a.pk { flex: 1 1 auto; height: auto; border-bottom: 0; border-radius: 12px 12px 0 0; }
+.pkdl { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 12px 11px; background: var(--raised); border: 1px solid var(--line); border-top: 1px dashed var(--line); border-radius: 0 0 12px 12px; }
+.pkdl a.dl { font: 600 12.5px/1 Inter, system-ui, sans-serif; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 7px; padding: 6px 9px; text-decoration: none; white-space: nowrap; }
+.pkdl a.dl:hover, .pkdl a.dl:focus-visible { border-color: var(--ink-2); }
+.pkdl small, .dls small { color: var(--mute); font-weight: 500; }
+.dls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0 0; padding: 10px 0 0; border-top: 1px solid var(--line); }
+.dls .dlh { flex-basis: 100%; color: var(--mute); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.dls a.dlb { background: var(--raised); }
+.dls .hdd { display: contents; }
+.dls .hdd summary { list-style: none; }
+.dls .hdd summary::-webkit-details-marker { display: none; }
+.dls .hdd[open] .chev { display: inline-block; transform: rotate(180deg); }
+.dls .hdl { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 8px; background: var(--raised); border: 1px solid var(--line); border-radius: 9px; }
+.dls .hdl a.dl, .pkdl a.dl { font: 600 12.5px/1 Inter, system-ui, sans-serif; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 7px; padding: 6px 9px; text-decoration: none; white-space: nowrap; }
+.dls .hdl a.dl:hover, .dls .hdl a.dl:focus-visible { border-color: var(--ink-2); }
+.dls .all { flex-basis: 100%; font-size: 13px; color: var(--ink-2); }

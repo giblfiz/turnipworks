@@ -20,7 +20,7 @@ export function factionCatalog(lib) {
     const id = factionOfSku(sku); if (!id || !sku.url) continue;
     if (!found.has(id)) {
       const m = factionMetadata(lib, id) || {};
-      found.set(id, { id, label: m.label || cap(id), pieceLabel: pieceLabel(id, m), group: m.group || 'neutral', emblem: m.emblem || null, aliases: [...new Set([singular(id), ...(m.aliases || [])])], slots: {} });
+      found.set(id, { id, label: m.label || cap(id), pieceLabel: pieceLabel(id, m), group: m.group || 'neutral', emblem: m.emblem || null, aliases: [...new Set([singular(id), ...(m.aliases || [])])], slots: {}, ...(m.reverent && { reverent: true }) });
     }
     const f = found.get(id);
     if (!f.slots[cat]) f.slots[cat] = sku;
@@ -32,7 +32,26 @@ export function factionCatalog(lib) {
 export function factionPieceName(lib, cat, sku) {
   const k = typeof sku === 'string' ? lib.objects?.[cat]?.skus?.find(k => k.sku === sku) : sku;
   const id = factionOfSku(k), m = factionMetadata(lib, id);
+  if (id && m?.names?.[cat]) return m.names[cat]; // a faith's pieces carry their own names: "Mihrab", "Crucifix", never "Muslim idol"
   return id ? `${pieceLabel(id, m)} ${factionSlotName(cat)}` : cap(factionSlotName(cat));
+}
+// Real-world faiths (2026-11-07, faith-factions): `reverent` factions never dress a room whose type only sinister factions
+// dress (the cult sanctum, the dark cathedral: sacrificial altars, cages, blood bowls, bones). `omit` = core slots the
+// faith deliberately does not use (a mosque has no idol); `ownSlots` = roles only that faith fills (the minbar).
+export const isReverent = (lib, id) => !!factionMetadata(lib, id)?.reverent;
+const SINISTER = new Set(['devils', 'spiders', 'dragons', 'skulls', 'tentacles']);
+export function faithBarredType(type, lib) {
+  const list = type?.flavors || [];
+  if (!list.length) return false;
+  const sinister = (f) => SINISTER.has(f) || factionMetadata(lib, f)?.group === 'sinister';
+  return list.every(sinister);
+}
+// the cells of one shelf row: core slots for every faction (a deliberate omission is a blank spacer, a missing piece a
+// visible gap); a slot some faction owns appears only in its owners' rows
+export function factionRowSlots(lib, f, slots) {
+  const owned = new Set(factionCatalog(lib).factions.flatMap(x => factionMetadata(lib, x.id)?.ownSlots || []));
+  const m = factionMetadata(lib, f.id) || {}, mine = new Set(m.ownSlots || []), omit = new Set(m.omit || []);
+  return slots.filter(cat => !owned.has(cat) || mine.has(cat)).map(cat => ({ cat, state: f.slots[cat] ? 'piece' : omit.has(cat) ? 'omit' : 'gap' }));
 }
 export function resolveFaction(lib, query) {
   const q = String(query || '').trim().toLowerCase();
@@ -43,6 +62,6 @@ export function factionSearchItems(lib) {
   return factions.flatMap(f => slots.flatMap(cat => {
     const k = f.slots[cat], o = lib.objects[cat]; if (!k) return [];
     const aliases = [f.id, f.label, f.pieceLabel, ...f.aliases].join(' ');
-    return [{ id: cat, name: factionPieceName(lib, cat, k), desc: o.desc || '', hint: `${aliases} faction flavor religion cult temple heraldry emblem ${SLOT_HINTS[cat] || ''}`, place: o.place, sku: k.sku, url: k.url, flat: k.kind === 'flat', aff: o.aff || [], faction: f.id }];
+    return [{ id: cat, name: factionPieceName(lib, cat, k), desc: o.desc || '', hint: `${aliases} faction ${f.reverent ? 'faith religion historical temple' : 'flavor religion cult temple heraldry emblem'} ${SLOT_HINTS[cat] || ''}`, place: o.place, sku: k.sku, url: k.url, flat: k.kind === 'flat', aff: o.aff || [], faction: f.id }];
   }));
 }

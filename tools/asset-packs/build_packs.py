@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-"""Package the Turnip Works asset library as downloadable CC BY 4.0 zip packs.
+"""Package the Turnip Works asset library as downloadable CC BY 4.0 zip packs, one per pack of the assets page.
 
-    python3 tools/asset-packs/build_packs.py --out /mnt/usb/turnip-works/asset-packs/2026-10-22 [--tier runtime,hd,figures,figures-full]
+    python3 tools/asset-packs/build_packs.py --out /mnt/usb/turnip-works/asset-packs/assets-2026-11-07 --tag 2026-11-07
     python3 tools/asset-packs/build_packs.py --plan          print the pack table, write nothing
+    ... --notes        RELEASE_NOTES.md (the GitHub release body) from --out/packs.json
+    ... --site-json    docs/site/asset-release.json (the assets page's download links, published: false) from --out/packs.json
+Then: a DRAFT release (experiments/2026-11-07-packs/upload.py uploads with retries and checks every asset's size and
+GitHub's SHA-256 digest against SHA256SUMS). Publishing is Harry's call; after it, flip `published` and deploy (docs/STATUS.md
+"Asset packs on GitHub").
 
 READS (never writes) the library as the game serves it:
     tools/spawn-tuner/data/library.json, data/figures.json, data/orient.json, catalog/*.catalog.md (via src/catalog_tool.py),
@@ -78,6 +83,44 @@ for b in ("castle-01", "crypt-01", "mansion-01", "vertical-01", "dun-01", "mkt-0
 for b in ("dun-flats-01", "min-flats-01", "tem-flats-01", "hut-flats-01", "lai-flats-01", "cult-flats-01", "wizard-flats-01"):
     CHAIN[b] = (OPENAI, "chroma key", "finish scripts")
 CHAIN_FIGURES = (OPENAI, "BiRefNet mask (MIT)", OWN_TRELLIS)
+# The batches since 2026-10-22 (provenance survey 2026-11-07, from each batch's own records under experiments/: the lab
+# notes, briefs and gate manifests). ALPHA: the image tool's own transparent background, no separate mask.
+ALPHA = "the image tool's own transparent background"
+TEXT = OPENAI + ", text-only prompts"
+EITHER = "Microsoft TRELLIS.2 (self-hosted, MIT, or via fal.ai)"
+CHAIN.update({
+    "bars-01": (TEXT, ALPHA, FAL_TRELLIS), "roof-props-01": (TEXT, ALPHA, FAL_TRELLIS),
+    "faction-pillars-01": (TEXT, ALPHA, EITHER),
+    "caves-01": (OPENAI, "seamless finish scripts"),
+    **{b: (OPENAI, ALPHA, OWN_TRELLIS) for b in ("chn-01", "ind-01", "jpn-01", "croof-01", "cultb-mde-01", "cultb-mes-01",
+                                                 "cultb-nrs-01", "cultb-rus-01")},
+    **{b: (OPENAI, "chroma key or seamless finish scripts") for b in ("chn-flats-01", "ind-flats-01", "jpn-flats-01",
+                                                                      "cultb-mes-flats-01", "cyberpunk-flats-02",
+                                                                      "modrooms-flats-03", "sprawl-flats-01")},
+    "fth-01": (OPENAI, ALPHA, EITHER), "fth-flats-01": (OPENAI, ALPHA),
+    **{b: (TEXT, ALPHA, OWN_TRELLIS) for b in ("cyberpunk-02", "sprawl-01", "modrooms-03", "moddesk-03", "vehicles-03")},
+    "openmesh-01": (OPENAI + ", edits of our own renders and plates", ALPHA, EITHER),
+    "meshy-01": (TEXT, ALPHA, "Meshy (paid Pro plan: the customer owns the output)"),
+})
+# NOT SHIPPED (2026-11-07): what the licence audit (docs/LICENSING_AUDIT.md section 4) has not cleared for a CC BY grant.
+# Held by name until it is, then delete the line and rebuild the packs that hold them (--only). The page still shows them.
+HOLD = {
+    # modhalls-01: 10 plates by Gemini through agy-run (the audit flags Antigravity's third-party-access clause and records
+    # agy-run as never generating pixels) and 5 by SDXL base 1.0 on our pod (CreativeML Open RAIL++-M, not in the audit)
+    "batch:modhalls-01": "plates by Gemini via agy-run and by SDXL 1.0: neither route is in the licence audit yet",
+    # the seven new dinosaurs: plates by Qwen-Image-Edit-2511 (Apache-2.0) on our pod, not in the audit yet
+    **{f"figure:foe-{d}": "plate by Qwen-Image-Edit-2511 (Apache-2.0): not in the licence audit yet"
+       for d in ("ankylosaurus", "brontosaurus", "pterodactyl", "quetzalcoatlus", "spinosaurus", "stegosaurus", "velociraptor")},
+    # a beholder-like design: the beholder is a publisher's product identity (the redesign is recorded; Harry's call)
+    "figure:foe-eye-tyrant": "a beholder-like design: product-identity question for Harry before a CC BY grant",
+}
+FIG_BATCHES = [  # (test(figure), batch, chain, style reference): the figure batches after the first 518
+    (lambda f: f["group"] in ("runner", "modern", "robot"), "cyberpunk-pawns (2026-11-07)", CHAIN_FIGURES, "our own body-reference plates"),
+    (lambda f: f["id"].startswith("cul-"), "culture-pawns (2026-11-07)", CHAIN_FIGURES, "our own body-reference plates"),
+]
+FLY_CHAIN = (OPENAI + ", an edit of the figure's own standing plate", "BiRefNet mask (MIT)", EITHER)
+MADE_WITH = ("pictures by Google Gemini image models or OpenAI image generation, 3D by Microsoft TRELLIS.2 (self-hosted, "
+             "or through fal.ai), and three shelving and rack models by Meshy on its paid plan")
 CODEX_WALLS = {"wall-doorway--log-cabin", "wall-window-small--log-cabin", "wall-window-small-open--log-cabin",
                "wall-straight--rough-timber--s4"}  # walls-01 rows made by the 10-05 log-cabin / plank-s4 Codex runs
 
@@ -88,54 +131,24 @@ def chain_of(sku, src):
     return CHAIN.get(src)
 
 
-STYLE_TEXT_ONLY = {"factions-01", "factions-flats-01"}  # the only batches with no house-style plate as input
+STYLE_TEXT_ONLY = {"factions-01", "factions-flats-01", "bars-01", "roof-props-01", "faction-pillars-01", "cyberpunk-02",
+                   "sprawl-01", "modrooms-03", "moddesk-03", "vehicles-03", "meshy-01"}  # no house-style plate as input
 
 # ---------------------------------------------------------------- packs
-SETTING = {  # catalog `set` code -> pack (the 16 room types of data/types.json, CMP and GRV folded into outdoors)
-    "TAV": "tavern-inn", "NOB": "manor-mansion", "CAS": "castle-keep", "TEM": "temple-chapel", "SMI": "smithy-workshop",
-    "MKT": "market-village", "HUT": "farmstead", "DUN": "dungeon-prison", "CRY": "crypt-tomb", "ARC": "wizard-alchemist",
-    "CLT": "cult-sanctum", "MIN": "mine", "RUI": "dungeon-prison", "LAI": "monster-lair", "CMP": "outdoors-camp", "GRV": "outdoors-camp",
-}
-BATCH_SETTING = {"castle-01": "CAS", "crypt-01": "CRY", "mansion-01": "NOB", "dun-01": "DUN", "dun-flats-01": "DUN",
-                 "mkt-01": "MKT", "wizard-01": "ARC", "wizard-flats-01": "ARC", "min-01": "MIN", "min-flats-01": "MIN",
-                 "tem-01": "TEM", "tem-flats-01": "TEM", "smi-01": "SMI", "hut-01": "HUT", "hut-flats-01": "HUT",
-                 "lai-01": "LAI", "lai-flats-01": "LAI", "cult-01": "CLT", "cult-flats-01": "CLT", "stable-01": "HUT"}
-SIG_ORDER = ["TAV", "DUN", "CRY", "CAS", "NOB", "TEM", "CLT", "ARC", "SMI", "MKT", "HUT", "MIN", "LAI", "RUI", "CMP", "GRV"]
-DOMAIN = {"A": "structure-kit", "B": "fixtures-hearths", "C": "furniture", "D": "containers", "E": "lighting",
-          "F": "tableware-kitchen", "V": "tableware-kitchen", "G": "food-provisions", "W": "food-provisions",
-          "H": "trades-tools", "Y": "trades-tools", "S": "trades-tools", "I": "arms-armor-loot", "T": "arms-armor-loot",
-          "X": "arms-armor-loot", "J": "dungeon-prison", "K": "temple-chapel", "L": "manor-mansion", "M": "outdoors-camp",
-          "N": "outdoors-camp", "U": "outdoors-camp", "O": "dungeon-prison", "Q": "floors-rugs-decals", "R": "wizard-alchemist"}
-PACKS = {  # slug -> (title, one line for the README and the release notes)
-    "tavern-inn": ("Tavern & Inn", "bar counters, taps, kegs, inn fittings and the props that say 'tavern'"),
-    "manor-mansion": ("Manor & Mansion", "noble furniture, decor, panelling and the mansion's own structure"),
-    "castle-keep": ("Castle & Keep", "thrones, banners, barracks, castle structure and fixtures"),
-    "temple-chapel": ("Temple & Chapel", "altars, pews, shrines and religious fittings"),
-    "smithy-workshop": ("Smithy & Workshop", "forges, anvils, quench troughs, shop fronts"),
-    "market-village": ("Market & Village", "stalls, shop stock, signs and street furniture"),
-    "farmstead": ("Farmstead & Stable", "peasant hut, farmyard and stable pieces"),
-    "dungeon-prison": ("Dungeon, Prison & Ruins", "cells, shackles, traps, guard-room pieces, rubble and broken columns"),
-    "crypt-tomb": ("Crypt & Tomb", "sarcophagi, ossuaries, funerary pieces and crypt structure"),
-    "wizard-alchemist": ("Wizard's Tower & Alchemist", "alchemy benches, stills, arcane devices, books and magic"),
-    "cult-sanctum": ("Cult Sanctum", "ritual altars, idols, braziers and sanctum structure"),
-    "mine": ("Mine", "mine carts, timbering, ore and mining tools"),
-    "monster-lair": ("Monster Lair", "hoards, bones, nests and lair dressing"),
-    "outdoors-camp": ("Outdoors, Yard & Camp", "trees, rocks, yard furniture, gardens, camp and wilderness"),
-    "structure-kit": ("Structure Kit", "walls, doors, windows, stairs, posts and roofs in several style families"),
-    "fixtures-hearths": ("Fixtures & Hearths", "hearths, ovens, counters, wells and other room anchors"),
-    "furniture": ("Furniture", "seating, tables, beds, wardrobes and shelving"),
-    "containers": ("Containers", "chests, barrels, crates, sacks and baskets"),
-    "lighting": ("Lighting", "candles, lanterns, sconces, chandeliers and braziers"),
-    "tableware-kitchen": ("Tableware & Kitchen", "plates, cups, jugs, pots, pans and kitchen tools"),
-    "food-provisions": ("Food & Provisions", "bread, fruit, meat, cheese, dishes and stores"),
-    "trades-tools": ("Trades & Tools", "craft, farm, textile, scholarly and shop tools"),
-    "arms-armor-loot": ("Arms, Armour, Loot & Small Things", "weapons, armour, treasure, gear and hand-sized objects"),
-    "factions": ("Faction Flavour", "banners, idols, altarpieces and emblems for 13 factions"),
-    "floors-rugs-decals": ("Floors, Rugs & Decals", "seamless 5-ft floor tiles, rugs and floor decals (WebP images)"),
-}
-FIG_PACKS = {"hero": ("Figures: Heroes", "player-character figures"), "foe": ("Figures: Foes", "monsters and enemies"),
-             "townsfolk": ("Figures: Townsfolk", "commoners, merchants, guards and other NPCs"),
-             "large": ("Figures: Large Creatures", "large and huge creatures"), "beast": ("Figures: Beasts", "animals and beasts")}
+# THE PACKS ARE THE ASSETS PAGE'S (2026-11-07, Harry: "deeplink to the release packs we host on GitHub"): one pack per pack
+# card on turnipworks.net/assets (engine/tools/site_assets_data.mjs: a Build-menu type with rooms, the Modern genre as one
+# pack, the building kit, the faction pieces, the figures), holding exactly the things that card lists, so the page's
+# download link for a pack is that pack's zip. A thing in several packs (a barrel in the tavern and the cellar) is in each
+# zip. Also in a pack: the open twin of any thing it holds (`open_of`: chest-plain-open with chest-plain), and every sku
+# of a thing, the ones the game keeps out of rooms in models/extras/. A library object the page lists nowhere (a rated-out
+# crown, a forklift no room recipe names, the roofing pictures) goes to the pack holding most of its batch, so nothing the
+# 2026-10-22 packs shipped is lost. Titles and READMEs take the page's own label and sentence (docs/site/assets-packs.json).
+# The figures: ONE game zip (the page's Figures pack) and the HD edition one zip per group (all of it is 2.2 GB, over
+# GitHub's 2 GiB a file), each named for its group on the page.
+FIG_GROUPS = {"hero": "Heroes", "townsfolk": "Townsfolk", "foe": "Foes & monsters", "large": "Large creatures",
+              "beast": "Beasts & mounts", "runner": "Runners", "modern": "Modern people", "robot": "Robots & drones"}
+PACKS = {}      # slug -> (title, blurb), filled by plan() from the page
+ORDER = []      # the page's order
 
 SRD_NOTICE = ("This work includes material taken from the System Reference Document 5.1 (\"SRD 5.1\") by Wizards of the Coast "
               "LLC and available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed "
@@ -143,35 +156,12 @@ SRD_NOTICE = ("This work includes material taken from the System Reference Docum
               "https://creativecommons.org/licenses/by/4.0/legalcode.")
 
 
-def domain_letter(d):
-    m = re.match(r"([A-Z])", d or "")
-    return m.group(1) if m else ""
-
-
-def pack_of(oid, sku, role):
-    """Per SKU, not per object: one catalog object can hold variants from several batches (a castle-batch chair)."""
-    src = sku["src"]
-    if src.startswith("factions") or oid.endswith("-fct") or sku["sku"].endswith("-fct"):
-        return "factions"
-    if src in ("floors-01", "floors-02", "rugs-01"):
-        return "floors-rugs-decals"
-    if src in ("outdoors-01", "outdoors-02"):
-        return "outdoors-camp"
-    sig = set(role["sig"])
-    sets = set(role["set"]) - {"ANY"}
-    if "ruin" in role["var"] and "RUI" not in sig:
-        sets.discard("RUI")  # catalog_tool adds RUI to anything with a ruined variant; that is not where a human looks
-    letter = domain_letter(role["domain"])
-    if sig:
-        b = BATCH_SETTING.get(src)
-        return SETTING[b if b in sig else sorted(sig, key=SIG_ORDER.index)[0]]
-    if letter == "A" or src == "vertical-01":
-        return "structure-kit"  # the kit (walls, doors, stairs, roofs) is one system across settings, by style family
-    if src in BATCH_SETTING:
-        return SETTING[BATCH_SETTING[src]]
-    if len(sets) == 1:
-        return SETTING[next(iter(sets))]
-    return DOMAIN.get(letter, "arms-armor-loot")
+def page_packs():
+    """the assets page's data (the same Node script build_site.py runs) and its packs' sentences"""
+    import subprocess
+    r = subprocess.run(["node", str(ROOT / "engine/tools/site_assets_data.mjs")], capture_output=True, text=True, check=True)
+    metas = json.loads((ROOT / "docs/site/assets-packs.json").read_text())["packs"]
+    return json.loads(r.stdout), metas
 
 
 # ---------------------------------------------------------------- GLB
@@ -204,14 +194,43 @@ def write_glb(js, bin_):
 def mesh_bounds(js):
     """AABB of every POSITION accessor (the library's GLBs carry no node transforms: checked over every file)."""
     lo, hi = [math.inf] * 3, [-math.inf] * 3
-    for n in js["nodes"]:
-        assert not any(k in n for k in ("matrix", "translation", "rotation", "scale")), "unexpected node transform"
+    if any(k in n for n in js["nodes"] for k in ("matrix", "translation", "rotation", "scale")):
+        return scene_bounds(js)  # (2026-11-07: roof-chiwen carries a baked quarter turn on a node, which the game draws)
     for m in js["meshes"]:
         for p in m["primitives"]:
             a = js["accessors"][p["attributes"]["POSITION"]]
             lo = [min(x, y) for x, y in zip(lo, a["min"])]
             hi = [max(x, y) for x, y in zip(hi, a["max"])]
     return lo, hi
+
+
+def scene_bounds(js):
+    """AABB of the scene with its node transforms applied (each primitive's POSITION box corners through its node's world
+    matrix: exact for the box of a turned box, as three.js's Box3.setFromObject on the accessor bounds)"""
+    import numpy as np
+    def local(n):
+        if "matrix" in n:
+            return np.array(n["matrix"], dtype=float).reshape(4, 4).T
+        x, y, z, w = n.get("rotation", (0, 0, 0, 1))
+        R = np.array([[1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w)],
+                      [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w)],
+                      [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]])
+        M = np.eye(4); M[:3, :3] = R * np.array(n.get("scale", (1, 1, 1)))[None, :]; M[:3, 3] = n.get("translation", (0, 0, 0))
+        return M
+    pts = []
+    def walk(i, parent):
+        n = js["nodes"][i]; W = parent @ local(n)
+        if "mesh" in n:
+            for p in js["meshes"][n["mesh"]]["primitives"]:
+                a = js["accessors"][p["attributes"]["POSITION"]]
+                c = np.array([[x, y, z, 1] for x in (a["min"][0], a["max"][0]) for y in (a["min"][1], a["max"][1]) for z in (a["min"][2], a["max"][2])])
+                pts.append((W @ c.T).T[:, :3])
+        for ch in n.get("children", ()):
+            walk(ch, W)
+    for i in js["scenes"][js.get("scene", 0)]["nodes"]:
+        walk(i, np.eye(4))
+    P = np.vstack(pts)
+    return [float(v) for v in P.min(axis=0)], [float(v) for v in P.max(axis=0)]
 
 
 def fix_normals(js, bin_):
@@ -338,27 +357,73 @@ def load():
 
 
 def plan():
+    """rows per pack slug (the page's packs), figures per group, what was excluded, and where the page-less things went"""
     roles, lib, figs = load()
     orient = load_orient(lib)
-    rows, excluded = defaultdict(list), []
-    for oid, obj in sorted(lib["objects"].items()):
-        role = roles[oid]
-        for s in obj["skus"]:
-            pk = pack_of(oid, s, role)
-            if EXCLUDE.search(s["sku"]) or EXCLUDE.search(s.get("url", "")):
-                excluded.append((s["sku"], "excluded by name (LICENSING.md)"))
-                continue
-            m = s.get("model") or {}
-            hidden = bool(m.get("masking")) or (m.get("stars") is not None and m["stars"] < 3)
-            rows[pk].append({"oid": oid, "obj": obj, "role": role, "sku": s, "yaw": orient.get(s.get("mesh")),
-                             "extra": hidden})
+    D, metas = page_packs()
+    PACKS.clear(); ORDER.clear()
+    members = {}                                      # pack slug -> object ids, in the page's order
+    for p in D["packs"]:
+        if p.get("kind") == "figures":
+            continue
+        blurb = (metas.get(p["slug"]) or {}).get("blurb") or p["label"]
+        blurb = blurb.replace("modern-day, near-future and Shadowrun-style games (not an official or licensed product)",
+                              "modern-day and near-future games")  # (no third party's mark in the zips)
+        PACKS[p["slug"]] = (p["label"], blurb)
+        ORDER.append(p["slug"])
+        members[p["slug"]] = list(dict.fromkeys(p["things"]))
+    twins = defaultdict(list)                         # a thing -> its open twins
+    for oid, o in lib["objects"].items():
+        if o.get("open_of"):
+            twins[o["open_of"]].append(oid)
+    for slug, ids in members.items():
+        have = set(ids)
+        for oid in list(ids):
+            for t in sorted(twins.get(oid, ())):
+                if t not in have:
+                    ids.append(t); have.add(t)
+    # a thing the page lists in no pack: the pack holding most of its batch (by sku src)
+    placed = {oid for ids in members.values() for oid in ids}
+    by_src = defaultdict(Counter)
+    for slug, ids in members.items():
+        for oid in ids:
+            for s in lib["objects"][oid]["skus"]:
+                by_src[s["src"]][slug] += 1
+    homeless = {}
+    for oid in sorted(set(lib["objects"]) - placed):
+        votes = Counter()
+        for s in lib["objects"][oid]["skus"]:
+            votes.update(by_src.get(s["src"], {}))
+        slug = votes.most_common(1)[0][0] if votes else ORDER[0]
+        members[slug].append(oid); homeless[oid] = slug
+    rows, excluded, held = defaultdict(list), [], {}
+    for slug, ids in members.items():
+        for oid in ids:
+            obj, role = lib["objects"][oid], roles[oid]
+            for s in obj["skus"]:
+                if EXCLUDE.search(s["sku"]) or EXCLUDE.search(s.get("url", "")):
+                    excluded.append((s["sku"], "excluded by name (LICENSING.md)"))
+                    continue
+                why = HOLD.get(f"batch:{s['src']}") or HOLD.get(f"sku:{s['sku']}")
+                if why:
+                    held.setdefault(s["sku"], why)
+                    continue
+                m = s.get("model") or {}
+                hidden = bool(m.get("masking")) or (m.get("stars") is not None and m["stars"] < 3)
+                rows[slug].append({"oid": oid, "obj": obj, "role": role, "sku": s, "yaw": orient.get(s.get("mesh")),
+                                   "extra": hidden})
     fig_rows = defaultdict(list)
     for f in figs:
         if EXCLUDE.search(f["id"]):
             excluded.append((f["id"], "excluded by name"))
             continue
+        if HOLD.get(f"figure:{f['id']}"):
+            held[f["id"]] = HOLD[f"figure:{f['id']}"]
+            continue
         fig_rows[f["group"]].append(f)
-    return rows, fig_rows, excluded
+    unknown = sorted(set(fig_rows) - set(FIG_GROUPS))
+    assert not unknown, f"figure groups with no name here (FIG_GROUPS): {unknown}"
+    return rows, fig_rows, excluded + [(k, "held: " + v) for k, v in sorted(held.items())], homeless
 
 
 # ---------------------------------------------------------------- pack contents
@@ -377,7 +442,9 @@ def place_mesh(row, b, yaw):
 
 SET_WORD = {"TAV": "tavern", "DUN": "dungeon", "MIN": "mine", "CAS": "castle", "NOB": "manor", "RUI": "ruins",
             "HUT": "farmstead", "SMI": "smithy", "TEM": "temple", "CRY": "crypt", "MKT": "market", "ARC": "wizard",
-            "CMP": "camp", "LAI": "lair", "GRV": "grove", "CLT": "cult", "ANY": "anywhere"}
+            "CMP": "camp", "LAI": "lair", "GRV": "grove", "CLT": "cult", "ANY": "anywhere",
+            "MOD": "modern", "CYB": "cyberpunk", "NRS": "norse", "MDE": "middle-east", "RUS": "rus", "MES": "mexica",
+            "JPN": "japan", "CHN": "china", "IND": "india"}
 
 
 def tags_of(row):
@@ -456,7 +523,7 @@ def readme(title, blurb, tier, n_models, n_images, figures=False, has_extras=Fal
                 "hd": "full-detail tier (the full TRELLIS mesh, typically 40,000 to 150,000 faces, 2048 px colour map embedded)",
                 "figures": "game tier (about 8,000 faces with a 512 px picture for horde and townsfolk figures, about 20,000 with 1024 px for heroes and large creatures)",
                 "figures-full": "full-detail tier (about 50,000 faces, 2048 px)"}[tier]
-    L = [f"# Turnip Works: {title}", "", f"{blurb[:1].upper() + blurb[1:]}.", "",
+    L = [f"# Turnip Works: {title}", "", blurb[:1].upper() + blurb[1:] + ("" if blurb.endswith(".") else "."), "",
          (f"{n_images} images (WebP)." if not n_models else
           f"{n_models} 3D models" + (f" and {n_images} images" if n_images else "") + f", {tiername}."),
          "Part of the Turnip Works asset library: free to use, change and sell under CC BY 4.0, including in commercial "
@@ -496,11 +563,12 @@ def readme(title, blurb, tier, n_models, n_images, figures=False, has_extras=Fal
           "`[0.9, 1.1]` means a rigid, human-scaled object such as a chair or a door.",
           ]
     if figures:
-        L += ["Figures stand on the origin at their own height (`height_ft`); `base_ft` is the base the game puts under them "
+        L += ["A creature that flies in the game also has its airborne pose, `<id>--flying.glb` (`pose_of` names its figure), "
+              "with its lowest point on the origin.",
+              "Figures stand on the origin at their own height (`height_ft`); `base_ft` is the base the game puts under them "
               "(5 ft for Medium creatures). Faces +Z."]
     L += ["", "## Made with AI (please read)", "",
-          "Every model and image here was generated with AI. Pictures were made with Google Gemini image models or OpenAI image "
-          "generation, and turned into 3D with Microsoft TRELLIS.2 (self-hosted, or through fal.ai). People chose, corrected, "
+          f"Every model and image here was generated with AI: {MADE_WITH}. People chose, corrected, "
           "rejected and arranged the results; they did not sculpt or paint them by hand. Each entry's `provenance` field names "
           "its batch and generator chain. Most batches used one of our own house-style plates as a style reference; the plate's "
           "lineage includes a third-party screenshot used only for proportions and finish, and no third-party content was copied "
@@ -568,8 +636,11 @@ def zipname(slug, tier, tag):
     return f"turnipworks-{slug}{suffix}-{tag}.zip"
 
 
+ZIP_DATE = (2026, 10, 22, 0, 0, 0)   # every entry's timestamp (so a rebuild is byte-identical); main() sets it from --tag
+
+
 def add(z, name, data):
-    zi = zipfile.ZipInfo(name, date_time=(2026, 10, 22, 0, 0, 0))
+    zi = zipfile.ZipInfo(name, date_time=ZIP_DATE)
     zi.compress_type = zipfile.ZIP_DEFLATED
     zi.external_attr = 0o644 << 16
     z.writestr(zi, data, compresslevel=6)
@@ -609,7 +680,7 @@ def write_pack(out, slug, rows, tier, tag, licence, extra_files=()):
         if not recs:
             z.close(); fh.close(); tmp.unlink(); return None
         add(z, f"{top}/catalog.json", json.dumps({"pack": slug, "title": title, "tier": tier, "release": tag,
-                                                  "credit": CREDIT, "license": LICENSE_URL, "units": "metres; size_in in inches",
+                                                  "page": f"https://turnipworks.net/assets#pack/{slug}", "credit": CREDIT, "license": LICENSE_URL, "units": "metres; size_in in inches",
                                                   "grid": "5 ft squares", "entries": recs}, indent=1))
         add(z, f"{top}/catalog.csv", csv_text(recs))
         add(z, f"{top}/LICENSE-ASSETS", licence)
@@ -620,9 +691,15 @@ def write_pack(out, slug, rows, tier, tag, licence, extra_files=()):
             "bytes": path.stat().st_size, "extras": sum(r["extra"] for r in rows if r["sku"]["kind"] == "mesh")}
 
 
-def write_fig_pack(out, group, figs, tier, tag, licence):
-    title, blurb = FIG_PACKS[group]
-    slug = f"figures-{group}"
+def fig_provenance(f):
+    """(batch, generator chain, style reference) of one figure (FIG_BATCHES: the batches after the first 518)"""
+    for test, batch, chain, style in FIG_BATCHES:
+        if test(f):
+            return batch, chain, style
+    return "figures-518 (2026-10-06)", CHAIN_FIGURES, "house style plate D + our own pilot and body-reference plates"
+
+
+def write_fig_pack(out, slug, title, blurb, figs, tier, tag, licence):
     top = zipname(slug, tier, tag)[:-4]
     path = out / zipname(slug, tier, tag)
     recs = []
@@ -638,10 +715,22 @@ def write_fig_pack(out, group, figs, tier, tag, licence):
                          "size_category": f.get("size"), "faces": faces, "measured_height_m": round(height_m, 4),
                          "applied_scale": round(f["k"] * FT, 6), "applied_yaw_deg": f.get("yaw") or 0,
                          **({"normals_renormalised": nfix} if nfix else {}),
-                         "provenance": {"batch": "figures-518 (2026-10-06)", "generators": list(CHAIN_FIGURES),
-                                        "style_reference": "house style plate D + our own pilot and body-reference plates",
-                                        "ai_generated": True}})
-        add(z, f"{top}/catalog.json", json.dumps({"pack": slug, "title": title, "tier": tier, "release": tag, "credit": CREDIT,
+                         "provenance": dict(zip(("batch", "generators", "style_reference"), fig_provenance(f)), ai_generated=True)})
+            recs[-1]["provenance"]["generators"] = list(recs[-1]["provenance"]["generators"])
+            if f.get("fly"):  # A FLYING POSE (2026-11-06): the game's second, airborne mesh, placed by its own k, c and yaw
+                F = {**f, **f["fly"], "id": f"{f['id']}--flying", "name": f"{f['name']}, flying"}
+                data, faces, height_m, nfix = build_figure(F, tier)
+                file = f"models/{F['id']}.glb"
+                add(z, f"{top}/{file}", data)
+                recs.append({**recs[-1], "file": file, "id": F["id"], "name": F["name"], "pose": "flying", "pose_of": f["id"],
+                             "height_ft": F.get("h"), "faces": faces, "measured_height_m": round(height_m, 4),
+                             "applied_scale": round(F["k"] * FT, 6), "applied_yaw_deg": F.get("yaw") or 0,
+                             "provenance": {**recs[-1]["provenance"], "generators": list(FLY_CHAIN)}})
+                recs[-1].pop("normals_renormalised", None)
+                if nfix:
+                    recs[-1]["normals_renormalised"] = nfix
+        add(z, f"{top}/catalog.json", json.dumps({"pack": slug, "title": title, "tier": tier, "release": tag,
+                                                  "page": "https://turnipworks.net/assets#pack/figures", "credit": CREDIT,
                                                   "license": LICENSE_URL, "units": "metres", "entries": recs}, indent=1))
         add(z, f"{top}/catalog.csv", fig_csv(recs))
         add(z, f"{top}/LICENSE-ASSETS", licence)
@@ -649,31 +738,34 @@ def write_fig_pack(out, group, figs, tier, tag, licence):
         add(z, f"{top}/README.md", readme(title, blurb, tier, len(recs), 0, figures=True))
     tmp.rename(path)
     return {"zip": path.name, "slug": slug, "title": title, "tier": tier, "models": len(recs), "images": 0,
-            "bytes": path.stat().st_size, "extras": 0}
+            "figures": len(figs), "bytes": path.stat().st_size, "extras": 0}
 
 
 # ---------------------------------------------------------------- release notes (GitHub release body)
 def release_notes(done, tag, rtag):
     dl = f"https://github.com/giblfiz/turnipworks/releases/download/{rtag}"
     def mb(b):
-        return f"{b / 1e6:,.0f} MB" if b >= 10e6 else f"{b / 1e6:.1f} MB"
-    main = {d["slug"]: d for d in done if d["tier"] in ("runtime", "figures")}
-    hd = {d["slug"]: d for d in done if d["tier"] in ("hd", "figures-full")}
-    titles = {**{k: v[0] for k, v in PACKS.items()}, **{f"figures-{k}": v[0] for k, v in FIG_PACKS.items()}}
-    blurbs = {**{k: v[1] for k, v in PACKS.items()}, **{f"figures-{k}": v[1] for k, v in FIG_PACKS.items()}}
-    n_props = sum(d["models"] for d in main.values() if not d["slug"].startswith("figures"))
-    n_img = sum(d["images"] for d in main.values())
-    n_fig = sum(d["models"] for d in main.values() if d["slug"].startswith("figures"))
-    L = [f"Turnip Works asset library, {tag}: **{n_props:,} props and building pieces, {n_fig} figures and {n_img} flat "
-         "images** (floor tiles, rugs, decals, banners, emblems), as downloadable zips. Free to use, change and sell, "
-         "commercially too, under **CC BY 4.0**. Other virtual tabletops and games are very welcome to use them.", "",
+        return f"{b / 1e9:.1f} GB" if b >= 1e9 else f"{b / 1e6:,.0f} MB" if b >= 10e6 else f"{b / 1e6:.1f} MB"
+    game = {d["slug"]: d for d in done if d["tier"] in ("runtime", "figures")}
+    hd = defaultdict(list)
+    for d in done:
+        if d["tier"] in ("hd", "figures-full"):
+            hd[d["pack"]].append(d)
+    rows = plan()[0]  # (the distinct skus shipped: a thing in several packs counts once; held ones not at all)
+    shipped = {(r["sku"]["sku"], r["sku"]["kind"]) for rs in rows.values() for r in rs}
+    n_props = sum(1 for _, k in shipped if k == "mesh")
+    n_img = sum(1 for _, k in shipped if k != "mesh")
+    n_fig = sum(d.get("figures", d["models"]) for d in done if d["tier"] == "figures")
+    L = [f"Turnip Works asset library, {tag}: **{n_props:,} 3D props and building pieces, {n_fig} figures and {n_img} flat "
+         "images** (floor tiles, rugs, decals, banners, emblems) in the packs of [the assets page](https://turnipworks.net/assets), "
+         "as downloadable zips. Free to use, change and sell, commercially too, under **CC BY 4.0**. Other virtual tabletops "
+         "and games are very welcome to use them.", "",
          "## Credit line", "", "```", CREDIT, "```", "",
          "Add the asset names if you like, and say if you changed them (\"modified: recoloured\"). Every zip carries "
          "`ATTRIBUTION.txt` with longer forms, the licence text (`LICENSE-ASSETS`), a README and a `catalog.csv` / "
          "`catalog.json`. The licence: https://creativecommons.org/licenses/by/4.0/", "",
          "## Made with AI", "",
-         "Every model and image was generated with AI: pictures by Google Gemini image models or OpenAI image generation, "
-         "3D by Microsoft TRELLIS.2 (self-hosted, or through fal.ai). People chose, corrected, rejected and arranged them; "
+         f"Every model and image was generated with AI: {MADE_WITH}. People chose, corrected, rejected and arranged them; "
          "nobody sculpted or painted them by hand. **If you ship them, you may have to disclose that**: Steam, for example, "
          "requires developers to disclose AI-generated content, and these are pre-generated AI content. Each catalog entry "
          "names its batch and generator chain. Purely machine-generated material may not be protected by copyright in some "
@@ -693,23 +785,23 @@ def release_notes(done, tag, rtag):
          "new GLTFLoader().load('models/anvil.glb', (gltf) => scene.add(gltf.scene)); // already at real size, in metres",
          "```", "",
          "## Packs", "",
-         "Each pack comes in two editions. The **game** edition is what Turnip Works itself draws (3,000 to 5,000 faces "
-         "with a 128 to 256 px colour map for props; figures 8,000 to 20,000 faces): small and fast, good for a VTT. The "
-         "**HD** edition is the full generated mesh with a 2048 px colour map, for close-ups, renders and printing.", "",
-         "| pack | what | models | images | game zip | HD zip |", "|---|---|--:|--:|--:|--:|"]
-    order = list(PACKS) + [f"figures-{g}" for g in FIG_PACKS]
-    for slug in order:
-        d = main.get(slug)
+         "One pack per pack on the assets page, holding what that page lists (so a barrel used in the tavern and the "
+         "cellar is in both). Each comes in two editions. The **game** edition is what Turnip Works itself draws (3,000 to "
+         "5,000 faces with a 128 to 256 px colour map for props; figures 8,000 to 20,000 faces): small and fast, good for "
+         "a VTT. The **HD** edition is the full generated mesh with a 2048 px colour map, for close-ups, renders and "
+         "printing. The figures' HD edition comes one zip per group.", "",
+         "| pack | models | images | game zip | HD zip |", "|---|--:|--:|--:|--:|"]
+    for slug in [*ORDER, "figures"]:
+        d = game.get(slug)
         if not d:
             continue
-        h = hd.get(slug)
-        L.append(f"| **{titles[slug]}** | {blurbs[slug]} | {d['models'] or '-'} | {d['images'] or '-'} | "
-                 f"[{mb(d['bytes'])}]({dl}/{d['zip']}) | "
-                 + (f"[{mb(h['bytes'])}]({dl}/{h['zip']})" if h else "-") + " |")
-    tm, th = sum(d["bytes"] for d in main.values()), sum(d["bytes"] for d in hd.values())
-    L += [f"| **all** | | {n_props + n_fig:,} | {n_img} | {mb(tm)} | {mb(th)} |", "",
-          "Packs are grouped the way you'd furnish a room: one per room type (tavern, crypt, smithy ...), then the "
-          "everyday things that turn up everywhere (furniture, lighting, food ...), then the structure kit and the figures. "
+        hs = sorted(hd.get(slug, []), key=lambda h: list(FIG_GROUPS).index(h["group"]) if h.get("group") else 0)
+        cell = "<br>".join(f"[{(FIG_GROUPS[h['group']] + ' ') if h.get('group') else ''}{mb(h['bytes'])}]({dl}/{h['zip']})" for h in hs) or "-"
+        L.append(f"| [**{d['title']}**](https://turnipworks.net/assets#pack/{slug}) | {d['models'] or '-'} | {d['images'] or '-'} | "
+                 f"[{mb(d['bytes'])}]({dl}/{d['zip']}) | {cell} |")
+    tm = sum(d["bytes"] for d in game.values())
+    th = sum(h["bytes"] for hs in hd.values() for h in hs)
+    L += [f"| **all** | | | {mb(tm)} | {mb(th)} |", "",
           "A few models the game keeps out of its own rooms (low review score or a known flaw) sit in `models/extras/`. "
           "`SHA256SUMS` lists every zip's checksum; `packs.json` indexes the packs.", "",
           "## Not included", "",
@@ -718,65 +810,137 @@ def release_notes(done, tag, rtag):
     return "\n".join(L)
 
 
+def jobs(rows, fig_rows, tiers, only):
+    """(kind, slug, tier, ...) for every zip to write: the page's packs, the figures' game zip and their HD zips by group"""
+    out = []
+    for tier in tiers:
+        if tier in ("runtime", "hd"):
+            out += [("pack", slug, tier) for slug in ORDER if slug in rows and (not only or slug in only)]
+        elif tier == "figures" and (not only or "figures" in only):
+            out.append(("fig", "figures", tier, None))
+        elif tier == "figures-full":
+            out += [("fig", f"figures-{g}", tier, g) for g in FIG_GROUPS if g in fig_rows and (not only or "figures" in only or f"figures-{g}" in only)]
+    return out
+
+
+_W = {}
+
+
+def _init(rows, fig_rows, packs, order, out, tag, licence, extra):
+    PACKS.update(packs); ORDER[:] = order
+    _W.update(rows=rows, fig_rows=fig_rows, out=out, tag=tag, licence=licence, extra=extra)
+
+
+def run(job):
+    w = _W
+    if job[0] == "pack":
+        _, slug, tier = job
+        r = write_pack(w["out"], slug, w["rows"][slug], tier, w["tag"], w["licence"], w["extra"].get(slug, ()))
+        if r:
+            r["pack"] = slug
+        return r
+    _, slug, tier, g = job
+    figs = [f for grp, fs in w["fig_rows"].items() if g in (None, grp) for f in fs]
+    title = "Figures" if g is None else f"Figures: {FIG_GROUPS[g]}"
+    blurb = (PAGE_FIG_BLURB if g is None else f"the {FIG_GROUPS[g].lower()} of the Turnip Works figures, full detail")
+    r = write_fig_pack(w["out"], slug, title, blurb, figs, tier, w["tag"], w["licence"])
+    r.update(pack="figures", **({"group": g} if g else {}))
+    return r
+
+
+def site_release(done, rtag):
+    """docs/site/asset-release.json: the release the assets page links, each page pack's zips (engine/tools/site_assets.py).
+    A new release always starts unpublished: the page shows no link until the flag is flipped (after Harry publishes)."""
+    packs = defaultdict(list)
+    for d in sorted(done, key=lambda d: (d["tier"] in ("hd", "figures-full"), list(FIG_GROUPS).index(d["group"]) if d.get("group") else 0)):
+        z = {"edition": "hd" if d["tier"] in ("hd", "figures-full") else "game", "file": d["zip"], "bytes": d["bytes"],
+             "sha256": d["sha256"], "models": d["models"], "images": d["images"]}
+        if d.get("group"):
+            z.update(group=d["group"], label=FIG_GROUPS[d["group"]])
+        packs[d["pack"]].append(z)
+    order = [*ORDER, "figures"]
+    return {"_about": "The assets page's pack downloads (engine/tools/site_assets.py): a GitHub release of giblfiz/turnipworks "
+                      "and each page pack's zips on it, written by tools/asset-packs/build_packs.py --site-json from the build's "
+                      "packs.json. `published` gates every link: flip it to true ONLY after the release is published (it is a "
+                      "draft until Harry says so; engine/test/asset_release_test.py checks with gh), then deploy.",
+            "repo": "giblfiz/turnipworks", "tag": rtag, "published": False,
+            "packs": {k: packs[k] for k in sorted(packs, key=lambda k: order.index(k) if k in order else len(order))}}
+
+
+PAGE_FIG_BLURB = "every figure in the game: heroes, townsfolk, foes and monsters, large creatures, beasts and mounts, runners, modern people and robots"
+
+
 def main():
+    global ZIP_DATE
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="/mnt/usb/turnip-works/asset-packs/out")
-    ap.add_argument("--tag", default="2026-10-22")
+    ap.add_argument("--tag", default="2026-11-07")
     ap.add_argument("--tier", default="runtime,hd,figures,figures-full")
-    ap.add_argument("--only", default="", help="comma list of pack slugs")
+    ap.add_argument("--only", default="", help="comma list of pack slugs (figures, or figures-<group> for one HD zip)")
     ap.add_argument("--plan", action="store_true")
-    ap.add_argument("--release-tag", default="assets-2026-10-22")
+    ap.add_argument("--jobs", type=int, default=max(1, (os.cpu_count() or 2) - 2))
+    ap.add_argument("--release-tag", default=None, help="default assets-<tag>")
     ap.add_argument("--notes", action="store_true", help="write RELEASE_NOTES.md from --out/packs.json and stop")
+    ap.add_argument("--site-json", action="store_true",
+                    help="write docs/site/asset-release.json (the assets page's download links) from --out/packs.json and stop")
     a = ap.parse_args()
-    rows, fig_rows, excluded = plan()
+    rtag = a.release_tag or f"assets-{a.tag}"
+    ZIP_DATE = tuple(int(x) for x in a.tag.split("-")) + (0, 0, 0)
+    rows, fig_rows, excluded, homeless = plan()
     only = set(filter(None, a.only.split(",")))
     if a.plan:
-        for slug, rs in sorted(rows.items(), key=lambda kv: -len(kv[1])):
+        for slug in ORDER:
+            rs = rows[slug]
             c = Counter(r["sku"]["kind"] for r in rs)
-            print(f"{slug:22s} mesh {c['mesh']:4d}  flat {c['flat']:4d}  extras {sum(r['extra'] for r in rs)}")
+            print(f"{slug:26s} things {len({r['oid'] for r in rs}):4d}  mesh {c['mesh']:4d}  flat {c['flat']:4d}  extras {sum(r['extra'] for r in rs)}")
         for g, fs in fig_rows.items():
-            print(f"figures-{g:14s} {len(fs)}")
+            print(f"figures-{g:18s} {len(fs)}")
+        print("not on the page, placed by batch:", homeless)
         print("excluded:", excluded)
-        missing = [s for s in rows if s not in PACKS]
-        assert not missing, missing
         return
     out = Path(a.out)
     if a.notes:
-        (out / "RELEASE_NOTES.md").write_text(release_notes(json.loads((out / "packs.json").read_text()), a.tag, a.release_tag))
+        (out / "RELEASE_NOTES.md").write_text(release_notes(json.loads((out / "packs.json").read_text()), a.tag, rtag))
+        return
+    if a.site_json:
+        p = ROOT / "docs/site/asset-release.json"
+        p.write_text(json.dumps(site_release(json.loads((out / "packs.json").read_text()), rtag), indent=1) + "\n")
+        print("wrote", p, "(published: false)")
         return
     out.mkdir(parents=True, exist_ok=True)
     licence = (ROOT / "LICENSE-ASSETS").read_bytes()
-    extra = {"structure-kit": [(f"images/wallkit/{p.name}", p, "wall kit texture: " + p.name.split(".")[0])
-                               for p in sorted((ASSETS / "wallkit").glob("*.webp"))],
-             "factions": [(f"images/emblems/{p.name}", p, "faction emblem: " + p.stem) for p in sorted((ASSETS / "emblems").glob("*.webp"))]}
+    extra = {"building-kit": [(f"images/wallkit/{p.name}", str(p), "wall kit texture: " + p.name.split(".")[0])
+                              for p in sorted((ASSETS / "wallkit").glob("*.webp"))],
+             "faction-pieces": [(f"images/emblems/{p.name}", str(p), "faction emblem: " + p.stem) for p in sorted((ASSETS / "emblems").glob("*.webp"))]}
     done = []
     manifest = out / "packs.json"
     if manifest.exists():
         done = [d for d in json.loads(manifest.read_text()) if (out / d["zip"]).exists()]
-    have = {(d["slug"], d["tier"]) for d in done}
-    for tier in a.tier.split(","):
-        if tier in ("runtime", "hd"):
-            for slug in PACKS:
-                if (only and slug not in only) or (slug, tier) in have or slug not in rows:
-                    continue
-                r = write_pack(out, slug, rows[slug], tier, a.tag, licence, extra.get(slug, ()))
-                if r:
-                    done.append(r); print(f"{r['zip']:60s} {r['models']:4d} models {r['images']:4d} images {r['bytes'] / 1e6:8.1f} MB", flush=True)
-                    manifest.write_text(json.dumps(done, indent=1))
-        else:
-            for g, fs in fig_rows.items():
-                if (only and f"figures-{g}" not in only) or (f"figures-{g}", tier) in have:
-                    continue
-                r = write_fig_pack(out, g, fs, tier, a.tag, licence)
-                done.append(r); print(f"{r['zip']:60s} {r['models']:4d} models {r['bytes'] / 1e6:8.1f} MB", flush=True)
-                manifest.write_text(json.dumps(done, indent=1))
+    have = {d["zip"] for d in done}
+    todo = [j for j in jobs(rows, fig_rows, a.tier.split(","), only)
+            if zipname(j[1], j[2], a.tag) not in have]
+    # biggest first, so the long HD zips start early
+    todo.sort(key=lambda j: (j[2] not in ("hd", "figures-full"), -len(rows.get(j[1], ())) if j[0] == "pack" else 0))
+    import multiprocessing as mp
+    with mp.get_context("fork").Pool(a.jobs, initializer=_init,
+                                      initargs=(rows, fig_rows, dict(PACKS), list(ORDER), out, a.tag, licence, extra)) as pool:
+        for r in pool.imap_unordered(run, todo):
+            if not r:
+                continue
+            done.append(r)
+            print(f"{r['zip']:62s} {r['models']:4d} models {r['images']:4d} images {r['bytes'] / 1e6:8.1f} MB", flush=True)
+            manifest.write_text(json.dumps(sorted(done, key=lambda d: d["zip"]), indent=1))
     with open(out / "SHA256SUMS", "w") as fh:
         for d in sorted(done, key=lambda d: d["zip"]):
             h = hashlib.sha256()
             with open(out / d["zip"], "rb") as zf:
                 for blk in iter(lambda: zf.read(1 << 20), b""):
                     h.update(blk)
+            d["sha256"] = h.hexdigest()
             fh.write(f"{h.hexdigest()}  {d['zip']}\n")
+    manifest.write_text(json.dumps(sorted(done, key=lambda d: d["zip"]), indent=1))
+    (out / "RELEASE_NOTES.md").write_text(release_notes(done, a.tag, rtag))
+    print("not on the page, placed by batch:", homeless)
     print("excluded:", excluded)
 
 

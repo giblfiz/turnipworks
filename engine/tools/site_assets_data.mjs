@@ -86,16 +86,21 @@ function entriesOf(list, mine, pack) {
   }
   return entries;
 }
-for (const g of X.genres.map(id => X.get(id))) for (const tid of g.children) {
-  const t = X.get(tid), type = data.types.find(x => x.code === t.code);
-  if (!t.children.length) continue; // (ruins, camp, grove: no room recipes yet, so nothing to place from them)
-  const pack = { slug: type.slug, code: t.code, label: t.label, genre: g.label, rooms: [], things: [], more: [] };
-  const mine = new Set(), more = new Set();
-  for (const rid of t.children) {
-    const r = X.get(rid), recipe = rooms.find(x => x.key === r.roomKey) || { slots: {} };
+// A GENRE THAT IS ONE PACK (2026-11-07, Harry: the Modern genre's City and Cyberpunk become one Modern pack; its Build-menu
+// types are buildings, engine/tools/modern_buildings.json): one pack of all its buildings' rooms, each room once, in the
+// buildings' order; its `code` is the genre's pack slug (?pack=modern/<room>: client/deeplink.js), `was` the old slugs
+const units = X.genres.map(id => X.get(id)).flatMap(g => g.pack ? [{ g, ts: g.children.map(id => X.get(id)).filter(t => t.children.length) }] : g.children.map(id => ({ g, ts: [X.get(id)] })));
+for (const { g, ts } of units) {
+  const t = ts[0]; if (!t?.children.length) continue; // (ruins, camp, grove: no room recipes yet, so nothing to place from them)
+  const type = data.types.find(x => x.code === t.code), codes = new Set(ts.map(x => x.code));
+  const pack = g.pack ? { slug: g.pack, code: g.pack, label: g.label, genre: g.label, was: g.was || [], rooms: [], things: [], more: [] } : { slug: type.slug, code: t.code, label: t.label, genre: g.label, rooms: [], things: [], more: [] };
+  const mine = new Set(), more = new Set(), seen = new Set();
+  for (const rid of ts.flatMap(x => x.children)) {
+    const r = X.get(rid); if (seen.has(r.roomKey)) continue; seen.add(r.roomKey);
+    const recipe = rooms.find(x => x.key === r.roomKey) || { slots: {} };
     const room = { key: r.roomKey, label: r.label, cells: r.cells, sections: [] };
     for (const [key, title, list] of libraryContents(r, { lib, recipe, usable })) {
-      if (key === `more:${t.code}`) { for (const it of list) more.add(it.cat); continue; }
+      if (key.startsWith('more:') && codes.has(key.slice(5))) { for (const it of list) more.add(it.cat); continue; }
       if (key.startsWith('faction:')) { room.factions = true; continue; }
       if (key.startsWith('kit:')) { // this room's own wall family, and the special pieces routed to it
         const own = list.filter(it => { const k = skuOf(it.cat, it.sku); return !k?.family || k.family === recipe.family; });
@@ -136,7 +141,10 @@ for (const g of X.genres.map(id => X.get(id))) for (const tid of g.children) {
 }
 
 // the figures: the command bar's list, by group
-const GROUPS = [['hero', 'Heroes'], ['townsfolk', 'Townsfolk'], ['foe', 'Foes & monsters'], ['large', 'Large creatures'], ['beast', 'Beasts & mounts']];
+// (2026-11-07) and the Modern genre's: runners, modern people, robots (client/pawntree.js); a figure in a group named nowhere
+// here is on no page (assets_page.test checks every figure is)
+const GROUPS = [['hero', 'Heroes'], ['townsfolk', 'Townsfolk'], ['foe', 'Foes & monsters'], ['large', 'Large creatures'], ['beast', 'Beasts & mounts'],
+  ['runner', 'Runners'], ['modern', 'Modern people'], ['robot', 'Robots & drones']];
 const figures = {};
 const figPack = { slug: 'figures', code: 'FIG', label: 'Figures', genre: 'Fantasy', kind: 'figures', rooms: [], things: [] };
 for (const [key, label] of GROUPS) {

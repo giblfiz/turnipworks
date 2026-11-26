@@ -20,8 +20,9 @@ python3 "$SRC/prep/delivery.py" || { echo "NOT DEPLOYED: prep/delivery.py failed
 python3 "$SRC/test/assets_check.py" --quiet || { echo "NOT DEPLOYED: listed files are missing (python3 tools/spawn-tuner/test/assets_check.py names them; usually prep/flats.py then build_data.py)"; exit 1; }
 node "$SRC/ring/extract.mjs"
 cp "$SRC/../../engine/client/icons.js" "$SRC/ring/line-icons.js"
-mkdir -p "$DST"
-rsync -aH --delete --exclude '*.owner' --exclude 'assets/d/.*' --exclude test --exclude prep --exclude '*.py' --exclude '*.md' --exclude deploy.sh --exclude '__pycache__' "$SRC/" "$DST/"
+# the copy sets the modes itself, 644 / 755, so a step below that stops the deploy cannot leave new files at the
+# checkout's 660 (2026-11-06: new icon files were 403 on dev until fixed by hand; tools/publish_tree.sh)
+"$SRC/../publish_tree.sh" "$SRC/" "$DST/" -H --delete --exclude '*.owner' --exclude 'assets/d/.*' --exclude test --exclude prep --exclude '*.py' --exclude '*.md' --exclude deploy.sh --exclude '__pycache__'
 sed -i -E "s#from './([a-z0-9]+)\.js'#from './\1.js?v=$V'#g; s#\.json\?v=[0-9a-z]+#.json?v=$V#g" "$DST"/js/*.js
 # FX modules (js/fx/, 2026-10-02): stamp their relative imports too, and main.js's './fx/index.js'
 sed -i -E "s#from '(\.\.?/)(fx/)?([a-z0-9]+)\.js'#from '\1\2\3.js?v=$V'#g" "$DST"/js/fx/*.js

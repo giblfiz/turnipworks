@@ -92,7 +92,7 @@ ESSAY = ' '.join(f'the old road bends past mill {k} and the river runs brown und
 async def boot(browser, name, errors, url=None, **kw):
     ctx = await browser.new_context(reduced_motion='reduce', permissions=['clipboard-read', 'clipboard-write'], **kw)
     pg = await ctx.new_page(); pg.on('pageerror', lambda e: errors.append(f'{name}: {e}'))
-    await pg.goto(url or PAGE)
+    await pg.goto(url or (PAGE + ('&phone=0' if kw.get('is_mobile') else '')))  # (a phone at the bare front door gets the front door page: browser_phone.py)
     if not url:
         await pg.fill('#newCampaign input[name=name]', f"TEST bar chips {name} {time.strftime('%H:%M:%S')} (throwaway)"); await pg.fill('#newCampaign input[name=gm]', 'Fauna-test'); await pg.click('#newCampaign button')
     check(await wait(pg, 'window.tw && tw.ready && tw.ready()', 60000), f'{name}: live')

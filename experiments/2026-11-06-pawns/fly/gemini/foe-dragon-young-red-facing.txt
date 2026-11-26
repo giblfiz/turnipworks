@@ -1,0 +1,23 @@
+The labels visible in the top-left corner of each panel are **A**, **B**, **C**, and **D**.
+
+Viewing each panel around the miniature figure:
+- **Panel A**: shows the creature's **face / front** (head, chest, front legs, and both wings facing forward).
+- **Panel B**: shows the creature's **left side** (head pointing left, tail extending to the right).
+- **Panel C**: shows the creature's **back / tail** (dorsal scales/spine, back of the wings, and tail pointing downward).
+- **Panel D**: shows the creature's **right side** (tail extending to the left, head pointing right).
+
+The panel in which the creature's **face** is pointing most directly toward the viewer is **A**.
+
+```json
+{
+  "labels": ["A", "B", "C", "D"],
+  "panels": {
+    "A": "face / front",
+    "B": "left side",
+    "C": "back / tail",
+    "D": "right side"
+  },
+  "front": "A",
+  "confidence": 1.0
+}
+```

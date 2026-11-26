@@ -1,0 +1,163 @@
+{
+ "file": "cul-ind-tiefling-fighter.glb",
+ "tris": 49831,
+ "kb": 3005,
+ "native_extent": [
+  0.478,
+  1.001,
+  0.467
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0005,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  113,
+  64,
+  49
+ ],
+ "mean_saturation": 0.626,
+ "sized_by": "its highest point",
+ "overall_ft": 5.8,
+ "pieces": {
+  "connected_parts": 76,
+  "main_part_area_share": 0.9986,
+  "floating": [
+   {
+    "area_share": 7e-05,
+    "gap_ft": 0.08,
+    "size_ft": 0.07
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 7e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.8018,
+ "y0": -2.9065,
+ "stated_ft": {
+  "body": 5.8,
+  "figure_top": 5.8,
+  "overall": 5.8
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2366,
+   -0.501,
+   -0.2331
+  ],
+  [
+   0.2416,
+   0.4996,
+   0.2342
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49831,
+   "tex": 2048,
+   "kb": 3005
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1151
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 483
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.57,
+    "z": 0.2,
+    "size_ft": [
+     0.75,
+     0.92
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.88,
+    "sole_p90_ft": 0.062
+   },
+   {
+    "x": -0.68,
+    "z": -0.16,
+    "size_ft": [
+     0.72,
+     0.89
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.85,
+    "sole_p90_ft": 0.079
+   },
+   {
+    "x": 0.29,
+    "z": -1.26,
+    "size_ft": [
+     0.22,
+     0.39
+    ],
+    "off_ground_ft": 0.153,
+    "sole_level_share": 0.12,
+    "sole_p90_ft": 0.446
+   },
+   {
+    "x": 0.36,
+    "z": 1.25,
+    "size_ft": [
+     0.19,
+     0.22
+    ],
+    "off_ground_ft": 0.194,
+    "sole_level_share": 0.46,
+    "sole_p90_ft": 0.377
+   }
+  ],
+  "contact_count": 4,
+  "max_off_ground_ft": 0.194,
+  "lowest_slab_area_sqft": 0.81,
+  "plan_hull_area_sqft": 5.04,
+  "lowest_slab_share_of_plan": 0.161
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.77,
+   "d": 2.71,
+   "h": 5.8
+  },
+  "centre": [
+   0.34,
+   0.002
+  ],
+  "contacts_radius_ft": 1.35,
+  "reach_radius_ft": 1.64,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.911,
+  "plate_lost_share": 0.063,
+  "added_share": 0.028,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.9,
+  "view_yaw_deg": 20,
+  "view_elev_deg": 8
+ },
+ "id": "cul-ind-tiefling-fighter",
+ "sha1": "ccf818ba25edaef46936d2868dcfac8543bc974f",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.19 ft off the ground"
+ ],
+ "qa_seconds": 12.1
+}

@@ -43,6 +43,17 @@ export const PIT_CATS = {
   'pit-open': { to: 'bottom', open: 0.8, shape: 'square', bottom: 0, name: 'the pit' },
   'chasm-strip': { to: 'bottom', open: 0.8, shape: 'square', bottom: 0, name: 'the chasm' },
   'chasm-strip-wide': { to: 'bottom', open: 0.8, shape: 'square', bottom: 0, name: 'the chasm' },
+  // A SUNKEN PIECE (2026-11-07, lane culture-roofs: the Indian stepwell stood on the ground as a 4-ft box of stairs).
+  //   sunk   the share of its own drawn height it is lowered by, so its rim meets the floor and its body goes down
+  //          into the ground (measured off the mesh: the stepwell's paved rim is at 0.56-0.65 of its height, the
+  //          pillared gallery on its fourth side rises above it, the pool is at 0.03). The floor over its opening is
+  //          cut as a through pit's is; its mesh is NOT cut (what is under the floor is the piece itself). Over nothing
+  //          a pawn put on it is offered the fall to its bottom (`bottom`: the pool, about 4 ft down).
+  //   core   the solid middle of its plan, [x0, z0, x1, z1] in its GLB's own units (measured: every ray down meets it;
+  //          experiments/2026-11-07-culture-roofs/such/tools/core_rect.py): THAT is stretched over the cut, its ragged edge
+  //          going under the ground round it (Gemini, blind, on the first sunk stepwell: "large gaps around it revealing
+  //          the black void": the mesh has no geometry in its corners and along one side)
+  'ind-stepwell': { to: 'below', open: 0.97, shape: 'square', bottom: -4, sunk: 0.62, core: [-0.374, -0.393, 0.333, 0.304], name: 'the stepwell' },
 };
 export const isHoleCat = (cat) => !!HOLE_CATS[cat];
 export const isHole = (e) => e?.kind === 'object' && !e.parent && !!HOLE_CATS[e.cat];

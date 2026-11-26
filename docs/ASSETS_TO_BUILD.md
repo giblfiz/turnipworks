@@ -4,6 +4,19 @@ A living wishlist: things a room grammar asked for and the library could not giv
 
 **Status, 2026-10-05 (evening):** the Outdoors batch ran. 53 of 54 meshes shipped (`experiments/2026-10-05-yard-props/`, library source `outdoors-02`, $0.76 on RunPod) and the remaining ground textures were made on the free Codex image route (`experiments/2026-10-05-outdoors/`). A line marked **shipped** has a mesh in the tuner and the game; what is still wanted is collected under **Still to build** at the end of the Outdoors section.
 
+**Which mesh route (2026-11-07, `experiments/2026-11-07-meshy/`):** TRELLIS.2 on our pod stays the default. It costs
+about $0.01 a mesh, and from a good plate every route makes a recognisable object: 24 of 24 were named right blind.
+Meshy (paid; about 1,500 credits left at $0.02 a credit on the Pro plan) is worth it for one kind of thing: a
+**hard-surface cabinet or fixture whose identity lives in many small regular units on flat faces** (shop shelving with rows
+of goods, server racks). TRELLIS melts those units into blobs and leaves floating fragments. Use **Smart Topology
+`meshy-t2.5` at 10k with one 2K base-colour map, no PBR**: 15 credits ($0.30) and about 42 s. It scored as well as or
+better than Meshy 7.1 (30 credits), gives the only clean mesh, and draws undecimated at the game's 10k tier. Ask for
+remesh and texture in ONE API task: then the texture lands on the remesh. Do not pay Meshy for big open structure
+(pallet racking, lattice masts, chain-link): every route scored 7-9 there. Do not pay it for glass fronts with contents
+either (drinks cooler): Meshy lost the glass and bottles there too, so re-roll TRELLIS seeds instead. At table distance
+the routes are hard to tell apart; Meshy's gain shows close up, so spend it on a room's signature pieces. Paid-plan
+output is ours; keep any AI identifiers Meshy embeds (today it embeds none).
+
 How to read a line:
 
 - **sku**: the proposed mesh name. The part before `--` is the catalog role; after it, the variant (`--s` small, `--l` large, `--s1` a shape).
@@ -437,3 +450,86 @@ Each becomes a room by ONE `SMI_CRAFTS` line + one room-type line + one recipe (
 | Glassblower | a glory-hole furnace (fire, a glowing mouth) | a blowing bench with rails | blowpipes rack (thin: one chunky rack) | sand and ash bins | a shelf of bottles (the apothecary's stock reads close) | |
 | Weaver & dyer | DYE VATS (water, coloured) | a loom | shuttles and combs | wool sacks, `spinning-wheel` | cloth bolts (the tailor's stock) | |
 | Dwarven or arcane forge | `smith-forge-dwarven-hearth`, `smith-molten-channel` | `smith-rune-anvil` | as the smith | `smith-ingot-mithral` | as the smith | a variant line of the forge, in another wall family |
+
+## The cyberpunk pack: Modern city (wave 1, 2026-11-06) and Cyberpunk (wave 2, 2026-11-07)
+
+**Wave 2 built 2026-11-07** (`experiments/2026-11-07-cyberpunk-rooms/`, library source `cyberpunk-02`; rules in words:
+`tools/spawn-tuner/ROOMS.md` → Cyberpunk): Build → Modern → **Cyberpunk**, ten rooms (street clinic, corporate lobby,
+server room, noodle bar, capsule hotel, gang hideout, magic-supply shop, rigger's garage, safehouse, rooftop), 50 meshes,
+glass and chain-link seen through (vision.js), the rooftop covering the room under it. Still wanted from the old roster
+below: the security checkpoint (scanner-arch, xray-belt, guard-desk, barrier-post), a fixer's back room (couch-leather,
+desk with screens: the safehouse covers most of it), the squat's tarp shelter and shopping cart, the noodle CART (an
+outdoor stall; wave 2 built an indoor counter), elevator doors and a keypad security door, corrugated and glass-curtain
+WALL FAMILIES (wave 2 made glass a panel of drywall, not a family), cable trays, the lodge (ritual room: needs its own
+sensitivity read), a pool-table re-plate (wave 1's cue reads oversized), a lobby GLASS BARRIER piece to close the gaps beside the
+turnstile banks (Gemini, blind: "anyone can bypass them"), an orient read of `terminal-desk` (the server room's workstation
+read as "a chair alone facing the door"). Blind reads: `experiments/2026-11-07-cyberpunk-rooms/ROOM_READS.md`.
+
+
+The Modern genre's City type (Build → Modern → City) shipped its wave 1 on 2026-11-06: eight rooms and about 75 meshes (`experiments/2026-11-06-sprawl/`, library source `sprawl-01`; rules in words: `tools/spawn-tuner/ROOMS.md` → City). The roster still to build is in `experiments/2026-11-06-sprawl/DESIGN.md` (waves 2 and 3) and is summarised here. Every line is a modern sku in the exclusive tier `mod`; no words, numbers or logos on anything.
+
+| wave | rooms | meshes wanted | notes |
+|---|---|---|---|
+| 2: near-future | street clinic, corporate lobby, security checkpoint, server room, fixer's back room, squat, rooftop, noodle stall | surgical-chair, med-monitor-rig, iv-stand, med-cabinet, cooler-medical, tool-tray-cart; reception-desk, turnstile-gate, lobby-sofa, sculpture-abstract, planter-modern; scanner-arch, xray-belt, guard-desk, barrier-post; server-rack (+ s2), cooling-unit, cable-tray, terminal-desk; desk-terminal, safe-floor, weapon-locker, couch-leather, gear-case-stack; mattress-floor, oil-drum-fire, tarp-shelter, shopping-cart, sofa-salvaged; hvac-unit, water-tank-roof, satellite-dish, roof-access-hut, antenna-mast, roof-vent; noodle-cart, stool-street, propane-tank, crates-produce--mod; vending-machine, terminal-kiosk, drone-parked, motorbike; glass-curtain and corrugated wall kits, chain-link fence + gate, elevator doors, a keypad security door, more neon shapes, a wall screen (about 63) | a ROOFTOP room needs an outdoor room to cover the room under it (roofs.js), or a hand-dressed flat roof; glass and chain-link walls need a see-through rule in vision.js (none exists) |
+| 3: magic in the city | talisman shop, lodge (ritual room) | shelf-curios--mod, display-case-glass, counter-shop--mod, herb-drying-rack, crystal-display; altar-low, candle-cluster, floor-cushions, totem-post, incense-stand, bookshelf--mod; flats ritual-circle, rug-woven--mod, decal-chalk-sigils (about 11) | |
+
+## Vehicles (2026-11-07)
+
+**Built 2026-11-07** (`experiments/2026-11-07-vehicles/`, library source `vehicles-03`, catalog
+`catalog/objects-vehicles.catalog.md`). Harry: "we maybe need a few more vehicle options... take a peek at 'simplified
+shadowrun 2' on your box, and grab a few things from there... choppers, APC, cop car." From his sheet's vehicles and drones,
+under generic names: helicopter (light passenger), helicopter-gunship, car-police, suv-armoured, van-armoured (the APC),
+drone-quad-light, drone-quad-heavy, drone-hexapod, drone-rover-arm, drone-rover-sentry (10 meshes; tier `mod`). The
+City pack's sedan, hatchback and the Cyberpunk pack's motorbike and parked drone were there already. On the shelves of nine
+Modern rooms in a **Vehicles** section (`catalog/rooms-vehicles.md`); parked by the programs (`js/solver2.js` block
+`veh:solver2`): a police cruiser in about one street in three, a helicopter on half the roofs big enough for its rotor, a
+second drone in most rigger's garages. Still wanted: the sheet's 10-cm insect spy drone (a speck at table distance: a
+figure-sized token instead?), a milspec armoured car, a helipad marking for the roof (it needs a letter-free design), a
+hovering pose for the drones (they rest on the floor).
+
+**Security cameras and desk things (2026-11-07, same batch, library source `moddesk-03`, catalog
+`catalog/objects-modern-desk.catalog.md`).** Harry: "for modern, we need security cameras for the wall. Also a bunch of desk
+debris (laptop, CRT, mouse, donut)". camera-security (wall, 7.9 ft up), camera-dome (ceiling: drawn from a pawn's eyes only),
+laptop-open, monitor-crt, monitor-flat, keyboard, mouse-computer, donut, donut-box, coffee-cup-paper, desk-phone, paper-stack
+(12). Shelved under Dressing (`gadgets` slot) in the office, lobby, server room, store, garage, safehouse, rigger's garage
+and hideout; laid by `veh:solver2` on the MEASURED work tops of the cubicle, terminal and reception desks and the garage
+workbench. Still wanted: a re-plate round when the Codex plan resets (2026-11-11) for the small things that read poorly alone
+(keyboard, papers, phone, box of donuts: named correctly close up, read as crates and boxes at table distance).
+## Culture packs B: still wanted (2026-11-07)
+
+Built: experiments/2026-11-06-cultures-b/spec.py (86 meshes). Wanted next, by pack:
+
+| pack | what | why |
+|---|---|---|
+| all four | ~~gable-kit pictures for `norse-stave`, `rus-log`~~ **built 2026-11-07** (culture-roofs lane) | |
+| Norse | ~~a pitched TURF roof style~~ **built 2026-11-07** (`sod`, docs/VERTICAL.md "Culture roofs"); still wanted: a framed smoke opening | many Viking halls were turf-roofed |
+| Norse | a byre end for the longhouse (stall partitions exist: `stable-stall-partition`) | the sensitivity read: a farm longhouse housed its cattle |
+| Middle East | a zellige / geometric tile floor | the rich rooms use the library's marble and hex tiles |
+| Rus' | a timber-paved street floor (Novgorod's log roads) and an earlier, simpler sanctuary screen | the sensitivity read's missing signatures; the two-tier iconostasis is late medieval |
+| Mexica | transverse end zones for an I-shaped ballcourt; twin summit shrines; a canal landing | the court is a plain rectangle today; Templo Mayor's paired shrines |
+
+<!-- >>> jpn:assets -->
+## Culture packs: Japan (2026-11-06, cultures-a)
+
+Built: 33 meshes in run `jpn-01` (two wall families, two door leaves, a vermilion post, a bamboo fence, 27 props), floors (tatami, cedar, moss), stepping stones, seven room icons and the type icon. Prompts `experiments/2026-11-06-cultures-a/spec_jpn.py`. Wanted, not built:
+- **A sliding door** (shoji, fusuma, the street koshido): the engine hangs every leaf on a hinge. The leaves exist; a slide is an openables change (`engine/client/assets.js`).
+- ~~A kawara roof style~~ **built 2026-11-07**: `kawara`, the irimoya shape and the bent eave (docs/VERTICAL.md "Culture roofs"). Still wanted: cypress bark (hiwadabuki) for the shrine, a street-front pent roof (hisashi).
+- An **engawa** (the veranda along a tatami room's garden side), **tatami edge-joining** across a room (one mat pattern per cell today), **noren** curtains at a shop door, a **kamado** stove for a farmhouse kitchen (doma), a Buddhist temple (the pack's sacred space is Shinto only).
+<!-- <<< jpn:assets -->
+
+<!-- >>> chn:assets -->
+## Culture packs: China (2026-11-06, cultures-a)
+
+Built: run `chn-01` (two wall families, two door leaves, a red-brown column, props of the hall, tea house, study, temple, market and courtyard), floors (square brick, herringbone paving), a landscape scroll, six room icons and the type icon. Prompts `experiments/2026-11-06-cultures-a/spec_chn.py`. Wanted, not built:
+- ~~Roof styles~~ **built 2026-11-07**: `tongwa` on the house (a plain hard gable), green `glazed` irimoya with upturned corners and chiwen on the temple.
+- **A moon gate** (a round doorway panel for a garden wall), a **covered veranda** (chuilang) joining courtyard buildings, a **kang** (the heated brick bed of a north-China bedroom), the bell and drum TOWERS of a temple court (here the bell and drum stand inside by the door), bird cages for the tea house (an empty cage reads wrong; birds are figures).
+<!-- <<< chn:assets -->
+
+<!-- >>> ind:assets -->
+## Culture packs: India (2026-11-06, cultures-a)
+
+Built: run `ind-01` (three wall families with the jharokha and jali windows, a red sandstone pillar, a carved door leaf, props of the courtyard, palace hall, temple, shop, stepwell and kitchen), floors (red sandstone, temple sandstone, polished lime), a mandana floor painting and a durrie, six room icons and the type icon. Prompts `experiments/2026-11-06-cultures-a/spec_ind.py`. Wanted, not built:
+- ~~The shikhara; a chhatri roof feature~~ **built 2026-11-07** (roof ornaments: the shikhara over the sanctum, chhatris on the palace hall's terrace corners).
+- **A sunken stepwell**: the tank stands on the ground as a prop (48 in high); a floor cut like the mine shaft's (`Pits`) would sink it.
+- The **sanctum itself** (garbhagriha) as its own room, a **courtyard well**, a **zenana** (the women's quarters) and a **diwan-khana** (the haveli's sitting room), a **tandoor** for a Punjab kitchen.
+<!-- <<< ind:assets -->

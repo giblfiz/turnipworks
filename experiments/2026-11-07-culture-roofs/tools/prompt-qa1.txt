@@ -1,0 +1,4 @@
+You are judging pictures from a 3D tabletop game (a hand-painted miniature style), seen from a table camera. The files in this folder are: {FILES}.
+For EACH file, in order, first report every explicit label, overlay or text you can see (or "none"), then answer as JSON lines (one object per file):
+{"file": ..., "buildings": number, "roof_shape": "gable / hip / hip-and-gable / flat / dome / other (describe)", "roof_material": "...", "eaves": "straight / curved / upturned corners", "culture_from_roofline": "the culture or region the ROOFS suggest, with confidence 0-100", "defects": "anything broken: holes, gaps, z-fighting, floating pieces, black slits, roof pieces poking through each other, stretched textures (be specific about where)"}
+Judge only what you see; say "unsure" when you are.

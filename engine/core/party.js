@@ -23,7 +23,7 @@ export function partyPawns(state, viewer) {
     if (!canSee(state, viewer, aid)) continue;
     for (const e of Object.values(state.areas[aid].entities)) {
       if (e.kind !== 'token' || !e.owner || (e.hidden && !gm) || !liveSeat(state, e.owner)) continue;
-      out.push({ id: e.id, area: aid, owner: e.owner, name: e.name, ...(e.fig && { fig: e.fig }), ...(e.size > 1 && { size: e.size }), ...(e.main && { main: true }), ...(e.damage > 0 && { damage: e.damage }),
+      out.push({ id: e.id, area: aid, owner: e.owner, name: e.name, ...(e.fig && { fig: e.fig }), ...(e.size != null && e.size !== 1 && { size: e.size }), ...(e.main && { main: true }), ...(e.damage > 0 && { damage: e.damage }),
         ...(e.conditions?.length && { conditions: e.conditions }), ...(e.mark && { mark: e.mark }), ...(e.sheet && { sheet: e.sheet }), ...(e.def && { def: e.def }), ...(e.lender && { lender: e.lender }), ...(e.hidden && { hidden: true }) });
     }
   }

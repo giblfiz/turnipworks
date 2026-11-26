@@ -1,4 +1,4 @@
-ARC — wizard-alchemist-library: 535 roles (+ ANY-tagged roles) — ! = signature
+ARC — wizard-alchemist-library: 537 roles (+ ANY-tagged roles) — ! = signature
 
 ! P1  bookshelf                  [wall/1] libraries; line walls
 ! P1  desk-writing               [floor/1] study anchor
@@ -334,6 +334,7 @@ ARC — wizard-alchemist-library: 535 roles (+ ANY-tagged roles) — ! = signatu
   P2  floor-tile-hex             [kit/1] kitchens, bathhouses, front desks
   P2  stair-spiral               [kit/1] towers; compact in footprint
   P2  wall-shop-window           [kit/edge] the apothecary's street wall; a special panel in the `half-timber` family
+  P2  roof-bartizan              [floor/1] a roof object: stands on a flat roof, at a corner of the parapet; a lookout's cover (generated 2026-10-27)
   P2  floor-tile-encaustic       [kit/1] conservatories and garden halls
   P2  roof-skylight              [kit/1] lights the room below; a thief's way in
   P2  stair-spiral-wide          [kit/2x2] towers; one full turn per storey so copies stack and every floor enters on the same side
@@ -344,6 +345,7 @@ ARC — wizard-alchemist-library: 535 roles (+ ANY-tagged roles) — ! = signatu
   P2  table-library              [floor/1x2] the middle of a library; books and a globe on and by it
   P2  storage-jar                [floor/sub] oil, grain, wine; ruins full of broken ones
   P2  trunk-travel               [floor/sub] guests' luggage
+  P2  trunk-travel-open          [floor/sub] open state of trunk-travel
   P2  brazier-tripod             [floor/sub] warmth and ritual; cold charcoal and ash, no fire, engine fire FX adds it
   P2  bottle-cluster             [surface/tiny] bar backs, alchemy shelves
   P2  herbs-drying               [ceiling/tiny] hang from beams; apothecary mood

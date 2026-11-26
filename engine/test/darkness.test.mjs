@@ -204,13 +204,16 @@ const fireType = fireTypeOf(TUNER + 'js');
 const ROWS = {
   candle: 'candelabra candelabra-standing candle candle-black candle-box-sconce candle-cluster candle-drippings-mound candle-stubs-dish candle-tree candlestand-pricket candlestick candlestick-floor flavor-censer prayer-candle-rack rite-bone-candelabra rite-memorial-sand-tray rite-offering-candles-tray rite-pillar-candle-tall rushlight-holder rushlight-holder-wall sconce-candle-double sconce-candle-single sconce-candle-triple shrine-wayside skull-candle',
   // oil lamps: every id with "lamp" except the street lights (lamp-post-*, lamp-pole), which stay lanterns
-  lamp: 'lamp-oil-brass lamp-wall-bracket lamp-wall-shelf mine-lamp-rack oil-lamp rite-sanctuary-lamp',
-  lantern: 'lamp-pole lamp-post-iron lamp-post-wood lantern-hand lantern-hanging lantern-pierced-tin lantern-post lantern-post-indoor lantern-wall-brass lantern-wall-horn lantern-wall-iron mil-guard-lantern rural-lantern-barn watch-lantern-bell',
+  // 2026-11-07 (modrooms): the bathroom mirror's light bar and the lift's arrow lamp are lamps; the range's burner and the reach-in fridge glow
+  lamp: 'capsule-pod curio-shelf elevator-doors mirror-bathroom ind-lamp-stand lamp-floor lamp-oil-brass lamp-wall-bracket lamp-wall-shelf light-fluorescent light-wall-strip mine-lamp-rack noodle-counter oil-lamp rite-sanctuary-lamp roof-access-hut surgical-light',
+  lantern: 'chn-lantern-pole chn-palace-lantern jpn-andon jpn-toro lamp-pole lamp-post-iron lamp-post-wood lantern-hand lantern-hanging lantern-pierced-tin lantern-post lantern-post-indoor lantern-wall-brass lantern-wall-horn lantern-wall-iron mil-guard-lantern rural-lantern-barn streetlight watch-lantern-bell',
   torch: 'cresset-wall torch-bracket-fine torch-bracket-rough torch-sconce torch-stand',
-  fire: 'brazier-irons brazier-large brazier-standing brazier-tripod cauldron-crane cook-hearth-spit elemental-brazier fire-basket-stand fire-ring-iron firepit-log-spit firepit-stone-round firepit-sunken fireplace-grand fireplace-marble fireplace-wall forge hearth-central hearth-central-hood hearth-raised-square mil-boiling-oil-pot mil-signal-beacon pig-on-spit rite-sacred-flame-bowl',
+  fire: 'brazier-irons brazier-large brazier-standing brazier-tripod cauldron-crane cook-hearth-spit elemental-brazier fire-basket-stand fire-ring-iron firepit-log-spit firepit-stone-round firepit-sunken fireplace-grand fireplace-marble fireplace-wall forge hearth-central hearth-central-hood hearth-raised-square mde-coffee-brazier mes-brazier mes-comal-hearth mil-boiling-oil-pot mil-signal-beacon nrs-forge nrs-long-hearth oil-drum-fire pig-on-spit rite-sacred-flame-bowl',
   chandelier: 'chandelier-grand chandelier-ring',
-  oven: 'alch-athanor bread-oven bread-oven-open brew-copper dutch-oven kiln-pottery smelter',
-  glow: 'arcane-pylon crystal-formation crystal-glowing kebab-grill pumpkin-carved sconce-reflector stew-pot-full',
+  oven: 'alch-athanor bread-oven bread-oven-open brew-copper dutch-oven kiln-pottery rus-banya-heater rus-stove rus-tiled-stove smelter',
+  // 2026-11-07: the cyberpunk pack's wave 2: the caged strip light, the surgical lamp, a capsule's hatch, the stair hut's lamp, the noodle counter and the curio shelf's bulbs are lamps; the burning drum a fire; screens, racks, readers, the billboard, the crystal and the mast glow
+  // 2026-11-07: the modern city's electric pieces (screens and neon glow; a fluorescent tube or floor lamp is a lamp; a streetlight a lantern) and the culture packs' braziers, hearths, stoves and lanterns
+  glow: 'fridge-reach-in range-commercial antenna-mast arcane-pylon atm billboard-roof cooling-unit crystal-display crystal-formation crystal-glowing dj-booth drinks-cooler drone-parked jukebox kebab-grill med-monitor-rig pumpkin-carved reception-desk sconce-reflector server-rack sign-neon stew-pot-full terminal-desk turnstile-gate tv-stand vending-machine video-screen',
 };
 
 test('every catalog light lands in its row of the table (lamps are not lanterns)', () => {

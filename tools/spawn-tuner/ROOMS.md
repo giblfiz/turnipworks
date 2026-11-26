@@ -348,6 +348,19 @@ Harry is designing **flavors**: a short list of symbol-themes, never named gods,
 
 - **As built with the cult batch (2026-10-12):** the shared code is the block `// >>> types:flavor` in `js/solver2.js` (`withFlavor(ctx, FLAVORS.evil | FLAVORS.good, forced)`, `flavorOf`, `flavorHas`). In the game, rooms of one BUILDING take one flavor (a seeded pick among the list's flavors that have an idol; `engine/core/roomgen.js` passes `building` and `flavor`), so rooms side by side never disagree; a room outside any building takes the first of its list. `devils` and `spiders` are filled: idol, sculpture, buttress, altar-piece and censer as meshes; banner, relief and sigil flat. The cult's relief cards are 1 in deep (their own box; the catalog line is the 8-in tablet). The cult's `flavor-buttress` pieces are Harry-approved 9-ft upright carved piers. Keep their existing meshes and each SKU’s measured box; use them as interior piers in large sanctums, not as promised replacements for the vertical kit's outside supports.
 
+### The four real-world faiths (2026-11-07, lane faith-factions)
+
+Harry, 2026-11-07: "creating 'factions' for the real world religions (Christian, Buddhist, Hindu, Muslim) so people who want to build historical have no problem... Right there next to spider cult." They are four more factions (group `faith`, `reverent`), in the same picker, shelf and command bar. Roster, periods and the codex sensitivity read that changed it: `experiments/2026-11-07-faith-factions/DESIGN.md` and `SENSITIVITY-codex.txt`.
+
+- **Each is ONE named tradition, not the whole faith**: Christian = a Latin High Gothic church (northern France / England, c. 1250-1400); Buddhist = a Tibetan monastery assembly hall (c. 1400-1800); Hindu = a North Indian Nagara Ganesha temple (central / western India, c. 950-1100); Muslim = Mamluk Cairo (1250-1517), aniconic.
+- **What the faith uses, not the fantasy slot list.** A core slot a faith does not use is deliberately empty (`omit`: a mosque has no idol, altar piece or banner); what it uses that no core slot fits is one of nine new roles only the faiths fill (`ownSlots`): `flavor-altar` (the Buddhist offering table), `flavor-mat` (seating runners, prayer carpets), `flavor-pulpit` (the minbar), `flavor-stand` (the thurible on its stand, the empty rehal), `flavor-font` (the baptismal font; the ablution fountain, placed by hand), `flavor-lamp` (the mosque lamp), `flavor-wheel` (the prayer wheel), `flavor-bell` (the Hindu temple bell), `flavor-gate` (the torana, placed by hand). The idol slot is the room's FOCUS: the crucifix, the Buddha, the Ganesha sanctum, the mihrab.
+- **Names**: every faith piece has its own (`names` in factions.py): "Mihrab", "Minbar", "Prayer wheel"; never "Muslim idol". Search words for a faith piece never include "idol" or "cult".
+- **No text in any script** on any piece; the Om sign on the Hindu roundel and emblem is the one symbol that is a written syllable, asked for by name. Where real objects carry inscriptions (Mamluk mosque lamps, prayer-wheel drums) the text-free piece is an adaptation. No crescent-and-star: it predates Islam and is not a symbol of the faith (its link is chiefly Ottoman and later); the Muslim emblem is a decorative eight-pointed interlaced star.
+- **The halls** (`js/solver2.js`, block `faith:solver2`): the nave, cathedral and shrine follow the faction's `rite`. Christian runs the church as it is with five differences (no confessionals, benches not pews, an altar cloth, the baptismal font by the door beside the stoup, the labyrinth in the nave floor at the door end, the Virgin against a side wall near the altar end with candles, the thurible in a corner of the altar wall). Buddhist, Hindu and Muslim halls are NOT churches (`faithHall`): no pews, organ, confessionals, choir, font, kneeling desks, alms box, candle racks, pulpit or lectern. Buddhist: the Buddha, the offering table with the vajra and bell before him, incense burners, the lotus, seating runners along the hall either side of the aisle, prayer wheels along the side walls, the stupa at the door end clear all round, thangkas. Hindu: the Ganesha sanctum (off the end wall with a walk-round path when the hall is 24 ft deep and 16 across), the offering plate before it, brass lamps flanking, the mandana beside the approach, OPEN floor, the bell inside the door, Om roundels on walls only. Muslim: the mihrab on the end wall (the qibla wall: the GM orients the room), candlesticks flanking, the minbar to the WORSHIPPER'S right (halls 16 ft across), the empty rehal at its left, prayer carpets in rows across the hall, mosque lamps over the rows, geometric panels, muqarnas corbels; no altar, no seats, no fountain on the prayer floor.
+- **Never a cult room.** A reverent faction never dresses a room type only sinister factions dress (the nine cult sanctum rooms, the dark cathedral): `flavorOf` (and the classic engine's roll) ignores the ask; the client's picker disables the choice (`factionAllowed`, core/factions.js) and `planFactionChange` refuses it; a building's cult rooms keep their own faction when the building takes a faith, and never inherit it.
+- **A change of rite rebuilds the hall** (the codex read: "changing faith must rebuild the layout, not merely swap objects"): a room type marked `rite` (nave, cathedral, shrine) whose faction moves to another rite (the fantasy factions share the temple's own) is re-solved in its new rite, same seed, pinned pieces kept, faction and layouts ONE undo step (`riteChangedRooms`, client `app.setFaction`). A change within one rite is still an asset swap.
+- Tests: `test/faiths.test.mjs` (halls, grisly, the library), `engine/test/faith-factions.test.mjs` (menu, names, shelf rows, apply, rebuild, refusals).
+
 ## Cult sanctum (nine room types, built 2026-10-11)
 
 Wall family `black-stone` (near-black basalt ashlar with one dark red band; corners borrow dressed-stone pillars; slate roof); the hidden entrance is `dressed-stone`, because from outside it is a cellar. **No windows**, so every room ends with at least one light. Doors: black oak (`door-crypt`) inside and out; the hidden entrance has a plain cellar door to outside and to ordinary rooms, and **the bookcase** (`door-secret-bookcase`, a leaf) toward any other sanctum room. Programs: `solver2.js`, the appended `types:clt.solver2` block. Sanctum meshes of roles the library already had (the black pillar) are sku tier `cult`. All iconography is in the flavor slots above; nothing else in these rooms carries a symbol.
@@ -585,6 +598,204 @@ Graph roles and adjacency, for the building generator (as the inn's rooms have t
 - **Tests**: `test/smi.test.mjs` (960 indoor rooms, 144 yards, 12 whole smithies; no workshop holds another craft's signature piece; every skeleton placement in the shop front is the smith's), `test/golden.mjs`, `engine/test/buildings.test.mjs --code=SMI`.
 - **Blind reads at table distance**: `experiments/2026-10-11-types/smi/ROOM_READS.md`.
 
+## City: the Modern genre's first type (eight room types, wave 1 built 2026-11-06)
+
+*2026-11-07: City and Cyberpunk are no longer Build-menu types. The eighteen rooms below keep their keys, recipes and
+tiers, and sit in the Modern genre's six buildings (Apartment block, Office tower, Bar & nightclub, Storefronts,
+Warehouse & garage, Hideout): `engine/tools/modern_buildings.json`, docs/UI.md "Modern is BUILDINGS". "City" and
+"Cyberpunk" below name the two waves, not menu entries. The tuner's palette groups these rooms by building.*
+
+The first type outside fantasy (the sprawl pack, `experiments/2026-11-06-sprawl/`: DESIGN.md has the full roster and the
+waves still to build). In the Build tray it is **Build → Modern → City** (`engine/tools/build_types.py` `GENRE_OF`; the
+type code is `MOD`). Every modern sku carries the exclusive tier `mod`: no fantasy room rolls one, and every City room
+lists `tiers: ['mod']` so a shared role (sofa, bed-double, chair-plain, bar-counter, back-bar-shelves, stool-bar,
+table-billiards, bench-street) rolls its modern sku. The programs (`solver2.js`, appended block `type:mod`) ask only for
+roles that have a modern sku: a role without one would roll a fantasy piece into a flat. `test/mod.test.mjs` holds both
+ways (every placement in a City room is tier `mod`; no fantasy room places one).
+
+Wall families: `drywall` (painted plaster with a skirting board: flats, offices, the shop), `city-brick` (the bar, the
+alley's walls), `concrete` (garage, warehouse). Each borrows what it lacks from a fantasy relative (`FAMILY_FALLBACK`:
+noble-interior, fieldstone, dressed-stone), and that relative decides its corner piece (look.js cornerSpec), so each has a
+corner of its own: `post-timber--drywall`, `pillar-square--city-brick`, `pillar-square--concrete`. The shop glass is a
+special panel of drywall (`wall-storefront--drywall`, PANELS `mod-store`: every panel of the wall with the street door),
+not a family. Roofs are flat sheet metal on a parapet (`ROOF_BY_FAMILY` 'lead'). Doors are leaves (look.js hangs a leaf
+across the whole 5-ft opening; there is no doorway piece where a door hangs): `door-flush` (homes, offices), `door-steel`
+(back doors, working rooms), `door-shopfront` (the shop's glass door), `door-roller-shutter` (10 ft, the garage's and the
+warehouse's vehicle door; it slides UP, openlook.js RIGS). Lights are electric (`fx/fire.js` `tube`, `neon`, `sodium`,
+`bulb`, `screen`: no flame, no flicker, their own colour; `core/darkness.js` reaches: a tube or a lamp 45 ft, a streetlight
+60, neon and screens glow 20).
+
+| room | role | walls | what names it from above (laid first) |
+|---|---|---|---|
+| `mod-apartment` Apartment | terminal | drywall | the TV on the wall facing the door, the sofa facing it over a coffee table; a kitchenette run, a bed |
+| `mod-office` Office floor | hub | drywall | cubicle desks in ranks either side of an aisle on the door's axis, a chair at each; tubes in a grid |
+| `mod-bar` Bar & nightclub | hub | city-brick | the bar along the side wall with the fewest doors, the back bar behind it, stools; booths opposite; the pool table; a DJ booth and speakers from 800 sq ft; neon |
+| `mod-street` City street | outdoor | none | pavements down both long edges, the dashed centre line, cars at one kerb, streetlights on alternate sides, a zebra crossing near one end |
+| `mod-alley` Back alley | outdoor | city-brick wall sections laid along the long edges (as a yard's fence) | the dumpster against a wall, trash bags heaped beside it |
+| `mod-garage` Parking garage | hub | concrete | bays 10 ft wide between painted lines along a long wall (both from 42 ft deep), cars nose-in, square columns between the bays and the aisle |
+| `mod-store` Convenience store | terminal | drywall + shop glass | lit drinks coolers along the wall facing the door, shelving aisles running toward them, the checkout by the door |
+| `mod-warehouse` Warehouse | hub | concrete | pallet racking along the side walls, a shipping container on the far wall, the forklift, pallets staged inside the door |
+
+The near-future layer was built on 2026-11-07 as the **Cyberpunk** type (below). The pack as a whole is the cyberpunk
+pack (Harry 2026-11-07: "let's call it cyberpunk"); City keeps the plain modern rooms for modern-day games.
+
+## Cyberpunk: the Modern genre's second type (ten room types, wave 2 built 2026-11-07)
+
+The cyberpunk pack's near-future layer (`experiments/2026-11-07-cyberpunk-rooms/`), for Shadowrun-style and other cyberpunk
+games; nothing is licensed or official (no logo, no setting's own art, no words on anything). **Build → Modern →
+Cyberpunk** (type code `CYB`). Same rules as City: tier `mod` on every new sku, programs in `solver2.js` block `type:cyb`
+run under `cybOnly` (a role without a modern sku is not asked for). Wave 2 adds LOOKS of two roles that had a City mesh
+(`sign-neon--noodle-bowl`, `sign-neon--flask`, `car-sedan--near-future`): they are tier `cyb`, also exclusive, and the
+Cyberpunk rooms list `tiers: ['cyb', 'mod']`, so a Cyberpunk room rolls the wave-2 look where there is one and every City
+room lays exactly what it laid before (golden.mjs: 0 differences). The shelves follow (library-index.js: a Cyberpunk room
+shows both looks, a City room its own). `test/cyb.test.mjs` holds the rooms, the looks both ways, the leak and the sight rules.
+
+Glass and chain-link are seen through and stop feet (`engine/client/vision.js` GLASS AND CHAIN-LINK): the lobby's street
+wall is the tower's glass (`wall-glass-curtain--drywall`, PANELS `cyb-lobby`, the store's rule); the hideout's lock-up is
+chain-link sections laid on two lines across a far corner with a padlocked gate (`cybRun`). The ROOFTOP is outdoor: laid
+on the ground it is a roof-level scene of its own; laid at a storey's height over a building (a Rooftop at 10 ft over an
+Office floor) it covers the room under it (`engine/client/world.js` roofInputs: an outdoor room above the ground is a
+`none` roof that still covers), so the office gets no roof of its own and the rooftop's things stand on its floor.
+
+| room | role | walls | what names it from above (laid first) |
+|---|---|---|---|
+| `cyb-clinic` Street clinic | terminal | concrete | the surgical chair in the floor, its lamp at the head, the monitor cart beside it; the rack of spare cyber-limbs on the far wall |
+| `cyb-lobby` Corporate lobby | hub | drywall + tower glass | the turnstiles across the room between the door and the lifts, the reception desk on a side wall, a sculpture in the open floor |
+| `cyb-server` Server room | terminal | concrete, no windows | racks in rows across the room either side of an aisle from the door, cooling cabinets on the side walls, a workstation by the door |
+| `cyb-noodle` Noodle bar | terminal | city-brick | the steel counter across the room facing the door, the cook's walk behind it, stools along it; the noodle-bowl neon |
+| `cyb-capsule` Capsule hotel | terminal (entered at an end) | drywall | stacked capsules side by side down both long walls, lockers on the end wall |
+| `cyb-hideout` Gang hideout | hub | concrete | the burning drum in the floor with a sofa and mattresses round it; the chain-link lock-up in the far corner, guns and gear inside |
+| `cyb-talisman` Magic-supply shop | terminal | city-brick | curio shelves on the far and side walls, the glass counter in front of them, the herb rack, the big crystal by the door, the flask neon |
+| `cyb-rigger` Rigger's garage | hub (10-ft shutter) | concrete | a car in the floor with the engine hoist at its nose, the workbench on the far wall, the tool chest, a drone, the deck |
+| `cyb-safehouse` Safehouse | terminal, no windows | drywall | the deck (three screens) on the far wall, mattresses along a side wall, the sofa facing a wall screen, gear and the weapons locker, a safe |
+| `cyb-rooftop` Rooftop | outdoor | a low concrete parapet on every open edge | the stair hut against an edge, the water tank in a far corner, air-conditioning units, a dish, a mast, a billboard on a big roof |
+
+Lights: the burning drum is a brazier; the caged wall strip a tube; the surgical lamp, a capsule's hatch, the stair hut's
+lamp, the noodle counter and the curio shelf bulbs; the billboard, the crystal and the mast glow like neon; screens, racks,
+readers and vending machines are screens (`fx/fire.js`).
+## Modern rooms: five more City rooms and the Cyberpunk exec penthouse (modrooms lane, 2026-11-07)
+
+Harry: "we probably also need a lux apartment option, and definitely need bathroom and fire escape"; then a restaurant
+kitchen; "is there anything we can bring over or re-use from our existing model sets?" (`experiments/2026-11-07-modrooms/`).
+Programs in `solver2.js` block `type:modrooms`, run under `mxOnly`: a role without a modern sku is asked for only when it
+is in `MX_BORROW` (a blind Gemini era read of each: fantasy food, kitchenware, rugs and linen that read as present-day at
+table distance), and then only the vetted looks. The exec penthouse is the penthouse's program filed under Cyberpunk (its
+first recipe `cyb-penthouse-exec`), with tiers `['cyb', 'mod']`. `test/mx.test.mjs` holds the rooms, the walls, the en
+suite door, the leak and the fire escape's climb.
+
+| room | role | walls | what names it from above (laid first) |
+|---|---|---|---|
+| `mod-penthouse` Penthouse | terminal | drywall; GLASS on every outside wall but the door's | the L-shaped sectional out on the floor facing the glass over a rug, the grand piano in a far corner, the fitted kitchen and its island with stools, the dining set, the bed against a side wall in a big room (a loft), art on a wall that is not glass |
+| `mod-penthouse-exec` Exec penthouse (Cyberpunk) | terminal | the same; a steel door | as the penthouse, plus the big wall screen, a sculpture and a parked drone |
+| `mod-bathroom` Bathroom | terminal | drywall (tiles: `MX_TILES`, off) | the tub along the far wall (a shower cubicle in a corner where no tub fits, or beside it in a bigger room), the toilet on a side wall, the basin and its mirror on the other, a towel rail, a bath mat. Drawn against an apartment it opens into it (the en suite) |
+| `mod-restroom` Public restroom | terminal, no windows | drywall | a row of toilet cubicles along the far wall, the three-basin counter with a mirror over each basin on a side wall, urinals on the other side wall in a bigger room, the mop and bucket |
+| `mod-kitchen` Restaurant kitchen | terminal, no windows | drywall; a steel door | the range on the far wall under its canopy hood (drawn from a pawn's eyes only: world.js CEILING_FITTINGS), steel prep tables in a line facing it with the library's own food and knives on them, the dish pit by the door, the reach-in fridge and the walk-in's door, wire shelving and crates of vegetables, pots on a wall rack |
+| `mod-fire-escape` Fire escape | outdoor (a landing, one a storey) | the iron railing on every open edge | ONE steel flight up to the landing above, against the building on an even level and on the outer lane on an odd one; the lowest landing over the street also drops a steel ladder to the ground. A stairwell: `docs/VERTICAL.md` "Fire escapes are stairwells" |
+
+The tiled wall panel (`wall-tiled--drywall`) is OFF by default (walls.js `MX_TILES`): the blind read of the game's stills called it "distressed", "torn, paper-like" in all three wet rooms; it waits for a re-plate (the image quota, 2026-11-11) and stays on their shelves. Rooms are in the Modern buildings (`engine/tools/modern_buildings.json`): penthouse APT, OFC; exec penthouse OFC, APT; bathroom APT, BAR, OFC; restroom BAR, OFC, SHP; kitchen BAR, SHP; fire escape APT.
+
+The ELEVATOR is not a room: a car (`elevator-car`) put down from the City shelf, its shaft built from its ring (`docs/VERTICAL.md` "Elevators").
+
+
+### Denser by default (City and Cyberpunk, 2026-11-07, `experiments/2026-11-07-denserooms/`)
+Harry: "many of the cyberpunk rooms need to default to denser packing as well as with modern rooms". The programs laid a
+fixed count each and `ccmDone()` switches off the generic fill toward `DENSITY`, so these rooms stood at 15-80% of their
+own targets. Now (solver2.js, block `type:mod`): the rooms that are rows in life lay them on the fantasy storeroom's aisle
+grammar (`modAisles` = `aisleStore`): the corner store's shelving (fruit-crate end caps), the server room's racks, the
+warehouse's racking (the storeroom's own rolls and 3.5-4-ft aisles), a curio shelf down a magic shop deep and wide enough (6x5 cells),
+a back-to-back middle row of capsules from a 33-ft-wide hall. Then `modDense` walks the ways (every door, the key piece)
+and fills free walls toward the target, like with like, up to 42% of the floor; `modTops` sets bowls, bottles, jars and
+books on counters and cafe tables (never on desks). Shared roles of the plain set: the modrooms lane's `MX_BORROW` (vetted looks) plus `MOD_SHARED`, the 23 roles these
+fills add (bottles, bowls, books, jars, crate--s4, cabbage crates; `MOD_LOOKS` pins a role to its vetted looks: a read of
+the crate plates called the iron-banded, carved and heraldic crates medieval). An apron inside every door stays clear; the
+magic shop's shelf keeps off the door line (`doorLane`). Targets raised: clinic 5, noodle bar 6, hideout 5,
+rigger's garage 4.5. Open rooms are unchanged: street, alley, parking garage, corporate lobby, rooftop. `test/dense.test.mjs`
+holds it (80% of target, every door and the key piece reachable, the rows, shared roles only).
+<!-- >>> cb:rooms -->
+## Culture packs B (2026-11-06): Norse, Middle East (Mamluk), medieval Rus', Mexica
+
+Harry 2026-11-06: "cultures meaning Japan/China/middle East/mezo America/Russia/India/barbarian north asset packs ... The
+asset packs probably don't need be huge." Each pack is a wall family, a roof style from the existing set (core/height.js
+ROOF_BY_FAMILY), six room types and 18-24 new meshes, under the Build tray's genre **Regional** (it was "Cultures" until 2026-11-07; key `cultures`) (engine/tools/build_types.py
+GENRE_OF; the Japan/China/India lane uses the same genre). Research, the rosters and the deliberate NOTs (no horned
+helmets, no Orientalist bazaar clichés, no sacred text as decoration, no gore at the Mexica shrine):
+`experiments/2026-11-06-cultures-b/ROSTERS.md` and the sensitivity read in `reads/`.
+
+**The culture-room skeleton** (js/solver2.js block cb:solver2): a room is DATA, `cbRegister(key, { name, focal, steps })`,
+each step one of a dozen ops over the helpers above (far, longwall, centre, ends, screen, behind, posts, wall, corner,
+near, front, flank, on, pile, hang, rug, lights; outdoor: ocentre, oedge, ocorner, orows, osides, oplants). The signature
+piece goes down first (`focal: true`), then the hub's swirl and the walks from the doors, then the rest. A piece the
+library lacks, or whose tier the room does not list, is skipped. Every mesh is its pack's EXCLUSIVE tier (nrs, mde, rus, mes),
+so no older room changes. Test: `node test/cultures_b.test.mjs [--pack=nrs] [--fake]`.
+<!-- <<< cb:rooms -->
+
+<!-- >>> nrs:rooms -->
+### Norse steading (NRS; Viking-Age Scandinavia, c. 800-1050)
+
+Walls `norse-stave` (upright staves under a wall plate carved with Mammen/Ringerike interlace, a low carved portal; no
+windows: lit by the hearth, the smoke hole and the doors); roof wood shingle.
+
+| key | room | role | what names it from above |
+|---|---|---|---|
+| `nrs-longhouse` | Longhouse (8x4) | hub | the long hearth down the middle, sleeping platforms with fleeces along both long walls, two rows of roof posts, the loom by an end wall |
+| `nrs-meadhall` | Mead hall (10x5) | hub | the chieftain's high seat in the middle of a long wall facing the long hearth (two hearths from 44 ft), trestle tables, round shields hung in rows |
+| `nrs-smithy` | Norse smithy (4x4) | terminal | the low stone forge with its bellows-shield on the wall facing the door, the anvil a step before it (tiers nrs + smi) |
+| `nrs-boathouse` | Boathouse / naust (8x4) | terminal | the boat on its stocks down the middle, oars racked, the furled striped sail on trestles; a wide door |
+| `nrs-weaving` | Weaving hut (3x3) | terminal | the warp-weighted loom against the far wall, wool baskets, a small fire |
+| `nrs-yard` | Steading yard (7x6) | outdoor | the runestone in the middle, the well, the fish-drying rack, a wattle fence |
+<!-- <<< nrs:rooms -->
+
+<!-- >>> mde:rooms -->
+### Middle East, Mamluk (MDE; Cairo and Damascus, 13th-16th c.)
+
+Walls `mde-plaster` (cream lime plaster over a foot of striped ablaq stone; the second version adds a tile band and a
+muqarnas niche; a pointed striped archway; a mashrabiya lattice window); roof flat whitewash (`plaster`). No mosque, no
+sacred text as decoration, no hookah or "harem" props (ROSTERS.md).
+
+| key | room | role | what names it from above |
+|---|---|---|---|
+| `mde-courtyard` | Caravanserai courtyard (8x8) | outdoor | the fountain in the middle; edge kind `khan arcade` (YARD_EDGES: storeroom bays, square piers, the great gate); bales, saddlebags, water jars |
+| `mde-souk` | Souk shop (3x3) | hub | a TRADE of the market's shop skeleton, tier `mde` (the merchant's platform counter, niche shelves of brass, heaped spice sacks, the carpet stack); not dealt into the European square |
+| `mde-hammam` | Hammam (5x5) | terminal | a marble fountain in the middle, marble benches round the walls, wall basins; no windows |
+| `mde-audience` | Reception hall, qa'a (7x5) | hub | raised carpeted iwan platforms at both short ends (the far one only when the door is in an end), the floor fountain in the low middle, divans along the long walls |
+| `mde-coffee` | Coffee house (5x4; 16th c.) | hub | the coffee-maker's brazier with two copper pots in the far corner, divans, low brass tray tables |
+| `mde-garden` | Courtyard garden (6x6) | outdoor | the fountain, citrus in tubs round it, flower beds and a vine against the house walls |
+<!-- <<< mde:rooms -->
+
+<!-- >>> rus:rooms -->
+### Medieval Rus' (RUS; Novgorod, Vladimir-Suzdal, Muscovy, 11th-16th c.)
+
+Walls `rus-log` (horizontal round logs, a carved board under the wall plate, a carved lintel, a small mica window in a
+plain frame; restrained, not the folkloric 19th-c. izba); roof wood shingle. The church is a place of worship: icons in the
+manner of 15th-c. Novgorod (a Deesis row), the altar behind the screen, no pews.
+
+| key | room | role | what names it from above |
+|---|---|---|---|
+| `rus-izba` | Izba (4x4) | hub | the great white clay stove in the corner by the door (no chimney); the table in the corner diagonal from it under the icon shelf; benches along the walls |
+| `rus-terem` | Terem hall (6x4) | hub | the green tiled stove in a corner, the long table down the middle with the boyar's high chair, benches and chests |
+| `rus-banya` | Banya (3x3) | terminal | the heater of heaped stones in the far corner, the two-step steaming shelf, tub and bucket, birch besoms; no windows |
+| `rus-church` | Wooden church (5x6) | terminal | the iconostasis in a row across the far short wall 6 ft out from it, the altar behind it, the lectern and candle stands before it |
+| `rus-market` | Market row stall (3x3) | hub | a TRADE of the shop skeleton, tier `rus` (the carved plank counter, the shelf of honey, wax and birch-bark boxes, the furs) |
+| `rus-yard` | Stockade yard (7x6) | outdoor | the well-sweep in the middle; edge kind `palisade` (pointed logs, timber posts, the gate under its little roof) |
+<!-- <<< rus:rooms -->
+
+<!-- >>> mes:rooms -->
+### Mexica (MES; Late Postclassic Tenochtitlan and Tlatelolco, c. 1400-1520)
+
+Walls `mes-stucco` (cream-white lime stucco, a red base band; the second version a painted mural band; open doorways under
+a heavy lintel hung with a woven cotton door curtain, `door-curtain--leaf`, never a hinged door; no windows); roof flat
+whitewash (`plaster`). The shrine is a place of offering (maize, flowers, copal): no sacrificial stone, no skull rack.
+
+| key | room | role | what names it from above |
+|---|---|---|---|
+| `mes-shrine` | Temple summit shrine (4x4) | terminal | the altar of offerings on the wall facing the door between two great painted braziers, the chacmool before it |
+| `mes-ballcourt` | Ballcourt (16x6) | outdoor | the I plan (2026-11-07): five sloping stone bench sections down each side of a 50 x 15 ft alley (an odd count: the ring is in the middle one, at mid-court), end zones the plot's full width walled by low plain plaster walls (`mes-court-endwall`, a way in in the middle of each end); the whole court lime-plastered (`floor-ind-lime`), a black-green centre line painted across the alley between the rings (`decal-mes-court-line`; Duran), the rubber ball (`mes-court-ball`) in the alley. Ops: osides `ends`/`rest`/`across`, ofield |
+| `mes-house` | Noble's house (6x4) | hub | the lord's backed reed seat (icpalli) on its mat on the far wall, reed chests; the three-stone hearth with its griddle, the metate and the water jar by the door |
+| `mes-market` | Market plaza (8x7) | outdoor | vendors' spreads (maize, chilies, pottery, cloth) in ROWS with aisles, shade awnings |
+| `mes-chinampa` | Chinampa garden (7x6) | outdoor | long raised maize beds in rows on the water floor, willows at the edges, a dugout canoe |
+| `mes-scribe` | Scribe's room (4x3) | terminal | the screenfold codex unfolded on a reed mat in the middle of the floor, paint pots beside it, chests of books |
+<!-- <<< mes:rooms -->
+
 ## Rooms that are not rectangles (the game, 2026-10-05)
 The tuner draws rectangles. The game also makes L-shaped rooms (docs/UI.md, "Overlapping draws make L-shaped rooms") and furnishes them with this same solver, unchanged:
 - The largest rectangle inside the room is solved as the room it is. The rest is solved as more of the same room with `annex: true`: no second key purpose, just zones, edges and light.
@@ -597,3 +808,57 @@ The tuner draws rectangles. The game also makes L-shaped rooms (docs/UI.md, "Ove
 The user sees **Faction**, never flavor. Building `flavor` → room `recipe.flavor` → object `flavor`, with absent values inherited and explicit overrides retained. The existing room/building/piece ☰, command bar and first-per-type drag-out emblem offer all use the same logged command. Re-dressing swaps only existing faction slots and ordinary wall banners; transforms, pins, other furniture and deletions survive. Missing slots are suppressed reversibly, never filled by another faction. The Build Factions shelf exposes those gaps.
 
 Discovery reads all `flavor-*` roles and their SKU `shape`, not a closed faction/slot list. `library.factions` decorates entries with `label`, optional `pieceLabel`, `group`, optional `aliases`, and optional `emblem` relative to the tuner; metadata maps and Task C's array entries are supported. The display name is faction first; buttress displays as **pier**, sigil as **floor sigil**, altarpiece as **altar piece**. New unknown slots append to the fixed shelf order. Fallback icons crop each faction's sigil. `chooseSku` resolves a single faction even for blind rolls outside a recipe's flavor wrapper, fixing Temple sun/moon mixing. Exact golden scene records: `test/faction-golden.json`.
+
+<!-- >>> jpn:rooms -->
+## Japan (culture pack, seven room types, built 2026-11-06)
+
+Build → Regional → Japan. A Kyoto townhouse, tea house and Shinto shrine of the late Edo period (c. 1800-1850); one period so the pieces agree. Walls: `jpn-shoji` (dark cedar posts and rails, white shoji lattice, earthen plaster, a wooden bar window) for the house, tea house, dojo and shop; `jpn-shrine` (vermilion posts and beams, white plaster, no windows) for the shrine hall. Doors: the wooden lattice street door (koshido) to outside, painted fusuma panels inside (both swing: the engine has no sliding door). Roofs by family: grey tile (`slate` until a kawara style exists) on the house, `shingle` (cypress bark) on the shrine and the tea house. Floors: tatami (composed two mats to a cell), polished cedar, packed earth for the shop's doma, gravel and moss outside. Every mesh is tier `jpn`.
+
+**The culture skeleton** (`solver2.js`, the `ca:solver2` block; each room is a line of data in `jpn:solver2`). An indoor room: the signature piece centred on the wall facing the door (or hung there: the kamidana), the walk from the door to its front, a pair beside it, the pieces on its axis, rows facing it, a table island with seats round it, a kept-clear floor, things down the side walls and by the door, the far corners, hung things, lamps. An outdoor ground: its centre piece, then the path from the gate to the main door kept clear, a piece astride the path inside the gate (the torii), pairs lining the path, things beside it, stepping stones on it, the corners, a fence on the open edges. **Sacred pieces are placed only by their own rooms and on their axis** (test/cultures.test.mjs fails any other placement, in any room of any type).
+
+| room | key | cells | signature from the table camera |
+|---|---|---|---|
+| Tatami room (zashiki, hub) | `jpn-house` | 4x4 | the tokonoma alcove on the far wall, a low table with four cushions, tansu and a gold folding screen along the walls |
+| Tea house (chashitsu) | `jpn-teahouse` | 3x3 | the tokonoma, the sunken hearth and its iron kettle in the mats, the tea things, the host's and guest's cushions |
+| Dojo | `jpn-dojo` | 6x5 | an EMPTY polished floor (the middle 72% x 62% kept clear), the kamidana high and centred on the far wall, wooden-sword racks down the sides, the drum and an armour in the far corners |
+| Shrine hall (haiden) | `jpn-shrine` | 5x4 | the plain offering table before closed sanctum doors (the honden is never shown), the bell rope over the offering box on the axis |
+| Shrine approach (outdoor) | `jpn-shrine-court` | 6x6 | the torii astride the path inside the gate, stone lanterns lining the path in pairs, the purification basin beside it, the komainu pair by the hall's door |
+| Sake merchant's shop (hub) | `jpn-shop` | 4x4 | the raised counting platform with its lattice screen and abacus, straw-wrapped casks and shelves of flasks, the cedar ball over the door |
+| Tea garden (roji, outdoor) | `jpn-garden` | 6x6 | stepping stones on the moss path to the stone basin and its lantern by the tea house door, maple and pine in the corners, a bamboo fence |
+
+A dragged Japan building packs the tatami room and the shop (a machiya); the shrine, the dojo, the tea house and the grounds are drawn on their own (`engine/client/pack.js` APART).
+<!-- <<< jpn:rooms -->
+
+<!-- >>> chn:rooms -->
+## China (culture pack, six room types, built 2026-11-06)
+
+Build → Regional → China. A well-off official's courtyard house (siheyuan) in mid-Qing Beijing (c. 1750-1850) and the main hall of a Buddhist temple of that city. Walls: `chn-brick` (blue-grey brick between dark red-brown columns, timber lattice partitions, a lattice window) for the hall, the study and the tea house; `chn-temple` (red ochre plaster, red columns, a blue-green painted beam; no windows) for the temple hall only: red is the temple's, not the house's (sensitivity read, 2026-11-06). Doors: a dark lacquered street door with bronze studs and a ring knocker to outside, lattice doors inside. Roofs: grey tile (`slate` until a tongwa or glazed style exists). Floors: square grey bricks indoors, herringbone brick in the court. Every mesh is tier `chn`. The culture skeleton is Japan's (`ca:solver2`); the rooms are lines of data in `chn:solver2`.
+
+| room | key | cells | signature from the table camera |
+|---|---|---|---|
+| Courtyard-house hall (tang, hub) | `chn-hall` | 5x4 | the long console table with upturned ends on the back wall under a landscape scroll, the square table between two tall-backed armchairs on the axis, a silk lantern |
+| Tea house (hub) | `chn-teahouse` | 5x5 | square tables in rows either side of the aisle, a long bench each side of each, the counter with its brick stove and copper kettles, steamers by the door |
+| Scholar's study | `chn-study` | 4x3 | the long painting table in the middle with the scholar's chair, a bookcase of cased books on the far wall, a marble screen, a potted landscape |
+| Temple hall | `chn-temple` | 6x5 | the seated Buddha on its lotus throne on the far wall, the offering table before it, kneeling cushions in rows, the great censer on the axis, bell and drum either side of the door |
+| Market street (outdoor) | `chn-market` | 7x4 | stalls under cloth awnings, steamer stacks, a carrying pole set down, red lanterns on posts lining the way |
+| Courtyard (outdoor) | `chn-courtyard` | 6x6 | the Taihu rock in the open, the screen wall (yingbi) inside the gate, lotus vats either side of the hall's door, a stone table with drum stools, pomegranates in tubs |
+
+The Buddha, the offering table, the censer, the bell, the drum and the cushions are placed only by the temple hall. A dragged China building packs the hall and the study; the temple, the tea house and the grounds are drawn on their own.
+<!-- <<< chn:rooms -->
+
+<!-- >>> ind:rooms -->
+## India (culture pack, six room types, built 2026-11-06)
+
+Build → Regional → India. The Jaipur-Amber region of Rajasthan in the 18th century: a Hindu merchant's haveli and its household kitchen, a Rajput palace hall, a Shiva temple's pillared hall (mandapa), a grain-and-spice merchant's bazaar shop, a stepwell (baori). Walls: `ind-lime` (ivory lime plaster with painted borders, an arched niche, the projecting jharokha window) for the shop and the kitchen; `ind-sandstone` (red sandstone, cusped blind arches, a jali window, its own square pillars at the corners) for the palace hall; `ind-temple` (golden sandstone carved in horizontal bands; no windows) for the temple hall. Doors: carved teak with brass studs. Roofs: flat terraces (`plaster` on lime, `flagstone` on sandstone). Floors: red sandstone, golden temple stone, a polished lime floor; a white mandana floor painting and a striped durrie. Every mesh is tier `ind`. The culture skeleton is Japan's (`ca:solver2`); the rooms are lines of data in `ind:solver2`.
+
+| room | key | cells | signature from the table camera |
+|---|---|---|---|
+| Haveli courtyard (outdoor) | `ind-haveli` | 5x5 | the tulsi planter in the centre on its mandana painting, a charpai, a swing, water pots |
+| Palace hall (durbar) | `ind-durbar` | 6x5 | the canopied gaddi with bolsters on the axis between brass lamp stands, a durrie before it, floor seating with bolsters down the side walls |
+| Shiva temple hall (mandapa) | `ind-mandapa` | 6x5 | the sanctum doorway on the far wall with its curtain drawn (no image of the deity is shown), Nandi on the axis facing it, carved pillars in rows either side, the bell over the way in |
+| Bazaar shop (hub) | `ind-bazaar` | 4x4 | the merchant on his white mattress and bolster with his writing chest, baskets of grain and spice before him, brass pots and storage jars along the walls |
+| Stepwell (baori, outdoor) | `ind-stepwell` | 7x7 | the stepped tank with zigzag stairs down to green water, domed pavilions (chhatri) at the corners, water pots |
+| Household kitchen | `ind-kitchen` | 4x3 | the low clay chulha on the far wall, the grinding stone beside it, shelves of brass and copper, grain jars and water pots |
+
+Nandi, the sanctum doorway and the temple bell are placed only by the temple hall; the tulsi only by the courtyard (a household's devotion, never loose decor). A dragged India building packs the shop and the kitchen; the palace hall, the temple and the grounds are drawn on their own.
+<!-- <<< ind:rooms -->

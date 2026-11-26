@@ -1,0 +1,152 @@
+{
+ "file": "cul-rus-tiefling-fighter.glb",
+ "tris": 49717,
+ "kb": 2852,
+ "native_extent": [
+  0.614,
+  1.001,
+  0.482
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0001,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  76,
+  52,
+  39
+ ],
+ "mean_saturation": 0.498,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 42,
+  "main_part_area_share": 0.9979,
+  "floating": [
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.04,
+    "size_ft": 0.02
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 0.0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.007,
+ "y0": -3.0082,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3057,
+   -0.5008,
+   -0.2415
+  ],
+  [
+   0.3082,
+   0.4999,
+   0.2408
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49717,
+   "tex": 2048,
+   "kb": 2852
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1133
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 478
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.81,
+    "z": 0.09,
+    "size_ft": [
+     0.95,
+     1.12
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.77,
+    "sole_p90_ft": 0.083
+   },
+   {
+    "x": 0.94,
+    "z": 0.22,
+    "size_ft": [
+     1.03,
+     1.07
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.77,
+    "sole_p90_ft": 0.081
+   },
+   {
+    "x": 0.02,
+    "z": -1.3,
+    "size_ft": [
+     0.2,
+     0.35
+    ],
+    "off_ground_ft": 0.226,
+    "sole_level_share": 0.13,
+    "sole_p90_ft": 0.502
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.226,
+  "lowest_slab_area_sqft": 1.23,
+  "plan_hull_area_sqft": 6.57,
+  "lowest_slab_share_of_plan": 0.188
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.69,
+   "d": 2.9,
+   "h": 6.0
+  },
+  "centre": [
+   0.115,
+   -0.0
+  ],
+  "contacts_radius_ft": 1.45,
+  "reach_radius_ft": 1.88,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.914,
+  "plate_lost_share": 0.013,
+  "added_share": 0.08,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.914,
+  "view_yaw_deg": 355,
+  "view_elev_deg": 8
+ },
+ "id": "cul-rus-tiefling-fighter",
+ "sha1": "f9199294376a3deebe137d132b999994076e6fd6",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.23 ft off the ground"
+ ],
+ "qa_seconds": 6.9
+}

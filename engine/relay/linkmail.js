@@ -29,7 +29,7 @@
 //   POST /linkmail/optout  a, k, what = ads | news | delete -> the same page, saying what was done
 //   GET  /linkmail/sandbox                                  {sandbox}: the test helper's check
 //
-// THE HANDOFF (2026-10-24; client/phone.js, docs/UI.md "The phone page"): a phone that lands on turnipworks.net is shown
+// THE HANDOFF (2026-10-24; client/phone.js, docs/UI.md "The phone front door"): a phone that lands on turnipworks.net is shown
 // a short page instead of the 3D table, with one ask: email yourself the link, to open on your computer. The same
 // address book, limits, eligibility rules, footer and opt-out page; its link record is { kind:'handoff', h, role:
 // 'handoff', c:null, seat:null, … }. The mailed link is turnipworks.net with the phone visit's utm_* / ref / ad click id
@@ -37,11 +37,20 @@
 //   POST /linkmail/handoff {email, news, gpc, landing, pg}  -> {ok, to (masked), transport}  (400, 429, 502 as above)
 //   POST /linkmail/handoff/shown {pg, landing}              -> {ok}   the funnel's 'phone' line
 //   POST /linkmail/handoff/opened {h, device}               -> {ok, first}   the funnel's 'handoff_open' line
+// THE FRONT DOOR v2 (2026-11-24; client/phone.js "the phone front door"): besides the email, the page hands the link over
+// with NO address: the phone's own share sheet, the clipboard, or a calendar reminder. The page makes that link itself
+// (handoffLink's form, with a handoff id of its own making, so a share sheet opens inside the tap) and then registers it:
+//   POST /linkmail/handoff/link {h, pg, landing, via}  -> {ok, url}   via share | copy | ics: the funnel's 'handoff' line
+//                                                       (via), once per h; the link kept in memory a day for the .ics
+//   POST /linkmail/handoff/step {pg, what}             -> {ok}       the funnel's 'phone_step' line (funnel.js PHONE_STEPS)
+//   GET  /linkmail/handoff/ics?h=&t=                   -> text/calendar: "Try Turnip Works on my computer" at t (ms; the
+//                                                       page picks the next 7 pm at least two hours off), 30 min, the link
+// The same per-network cap as the other funnel lines. Nothing here touches the address book.
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { newId } from '../core/ids.js';
-import { countryOf, adEligibleCountry, cleanLanding, LANDING_KEYS, CLICK_KEYS } from './funnel.js';
+import { countryOf, adEligibleCountry, cleanLanding, LANDING_KEYS, CLICK_KEYS, HANDOFF_VIA } from './funnel.js';
 
 export const LINKMAIL_LIMITS = { perAddressDay: 5, perSeatHour: 4, perIpHour: 12, globalDay: 300 };
 const SID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/;
@@ -100,6 +109,20 @@ export function handoffLink(site, landing, h) {
   q.set('tw_handoff', h);
   return `${site}?${q}`;
 }
+
+// a calendar file (RFC 5545) for the reminder: UTC times, text escaped, lines folded at 75 octets
+export function reminderIcs({ h, link, start, now = Date.now() }) {
+  const ut = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const tx = (v) => String(v).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  const fold = (line) => { const out = []; let b = Buffer.from(line, 'utf8'); while (b.length > 75) { let n = 75; while (n > 0 && (b[n] & 0xc0) === 0x80) n--; out.push(b.subarray(0, n).toString('utf8')); b = Buffer.concat([Buffer.from(' '), b.subarray(n)]); } out.push(b.toString('utf8')); return out.join('\r\n'); };
+  const what = 'Try Turnip Works on my computer';
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Turnip Works//phone front door//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
+    `UID:${h}@turnipworks.net`, `DTSTAMP:${ut(now)}`, `DTSTART:${ut(start)}`, `DTEND:${ut(start + 30 * 60e3)}`, `SUMMARY:${tx(what)}`,
+    `DESCRIPTION:${tx(`Open this on your computer: ${link}\n\nTurnip Works: a free 3D virtual tabletop in your browser. Free, not freemium; no account; players join by link.`)}`,
+    `URL:${link}`, 'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${tx(what)}`, 'TRIGGER:PT0M', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR']
+    .map(fold).join('\r\n') + '\r\n';
+}
+const HANDOFF_ID = /^hd_[0-9a-z]{10,24}$/;
 
 export function makeLinkMail({ dataDir, secret, tokens, mailer, channel = 'dev', log = () => {}, now = Date.now, limits = LINKMAIL_LIMITS, funnel = null }) {
   const root = path.join(dataDir, 'linkmail');
@@ -196,7 +219,7 @@ export function makeLinkMail({ dataDir, secret, tokens, mailer, channel = 'dev',
     if (!sent.ok) { save(b); return [502, { ok: false, code: 'not_sent', why: sent.why || 'the mail could not be sent' }]; }
     L.sent = t; L.n++;
     save(b);
-    try { funnel?.handoffSent({ req, h, pg: body?.pg, landing: body?.landing }); } catch (e) { log(`funnel: ${e.message}`); }
+    try { funnel?.handoffSent({ req, h, pg: body?.pg, landing: body?.landing, via: 'email' }); } catch (e) { log(`funnel: ${e.message}`); }
     log(`linkmail: handoff ${h} -> ${maskEmail(email)} (${country}${a.ad_matching_eligible ? '' : ', not for ads'}${sid ? ', test ' + sid : ''}) via ${sent.transport}`);
     return [200, { ok: true, to: maskEmail(email), transport: sent.transport, news: a.news }];
   }
@@ -242,10 +265,39 @@ export function makeLinkMail({ dataDir, secret, tokens, mailer, channel = 'dev',
   }
   const summary = () => { const A = Object.values(bookOf(null).addrs); return { addresses: A.length, eligible: A.filter(a => a.ad_matching_eligible).length, news: A.filter(a => a.news).length, gm: A.filter(a => a.links.some(l => l.role === 'gm')).length, player: A.filter(a => a.links.some(l => l.role === 'player')).length, handoff: A.filter(a => a.links.some(l => l.role === 'handoff')).length, suppressed: bookOf(null).suppress.size, transport: mailer.describe() }; };
 
+  // the front door's links that went out with no address (THE FRONT DOOR v2, top): h -> { link, at }, a day, in memory
+  const made = new Map();
+  function madeLink({ req, body }) {
+    const h = String(body?.h || ''), via = String(body?.via || '');
+    if (!HANDOFF_ID.test(h) || !HANDOFF_VIA.includes(via) || via === 'email') return [400, { ok: false, why: 'send {h, pg, landing, via: share | copy | ics}' }];
+    const link = handoffLink(siteFor(req, channel), body?.landing, h);
+    for (const [k, v] of made) if (now() - v.at > 86400e3) made.delete(k); else break;
+    if (!made.has(h)) { made.set(h, { link, at: now() }); if (made.size > 5000) made.delete(made.keys().next().value); }
+    try { funnel?.handoffSent({ req, h, pg: body?.pg, landing: body?.landing, via }); } catch (e) { log(`funnel: ${e.message}`); }
+    return [200, { ok: true, url: made.get(h).link }];
+  }
   // the routes; true when this module answered
   async function handle(req, res, { url, parts, send, auth, readBody }) {
     const sendHtml = (status, html) => { res.writeHead(status, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex', 'referrer-policy': 'no-referrer' }); res.end(html); };
     if (parts[0] === 'linkmail' && parts[1] === 'sandbox' && !parts[2]) { send(200, { ok: true, sandbox: sidOf(req) }); return true; }
+    if (parts[0] === 'linkmail' && parts[1] === 'handoff' && parts[2] === 'ics' && !parts[3]) {
+      if (req.method !== 'GET') { send(405, { ok: false, why: 'GET' }); return true; }
+      const m = made.get(String(url.searchParams.get('h') || ''));
+      if (!m) { sendHtml(404, '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><p style="font:16px system-ui;margin:24px">That reminder has expired. Go back and press "Reminder" again.</p>'); return true; }
+      let t = Number(url.searchParams.get('t')); const n = now();
+      if (!Number.isFinite(t) || t < n - 3600e3 || t > n + 14 * 86400e3) t = n + 86400e3;
+      res.writeHead(200, { 'content-type': 'text/calendar; charset=utf-8', 'content-disposition': 'inline; filename="turnip-works-reminder.ics"', 'cache-control': 'no-store', 'x-robots-tag': 'noindex', 'referrer-policy': 'no-referrer' });
+      res.end(reminderIcs({ h: url.searchParams.get('h'), link: m.link, start: Math.round(t / 60e3) * 60e3, now: n })); return true;
+    }
+    if (parts[0] === 'linkmail' && parts[1] === 'handoff' && (parts[2] === 'link' || parts[2] === 'step') && !parts[3]) {
+      if (req.method !== 'POST') { send(405, { ok: false, why: 'POST' }); return true; }
+      let body = {}; try { body = JSON.parse((await readBody(req, 4096)).toString('utf8') || '{}'); } catch { send(400, { ok: false, why: 'send JSON' }); return true; }
+      const pre = sidOf(req) ? `t:${sidOf(req)}|` : '';
+      if (!allow(`${pre}f|${ipOf(req)}`, 120, 3600e3)) { send(429, { ok: false, code: 'too_many' }); return true; }
+      if (parts[2] === 'link') { send(...madeLink({ req, body })); return true; }
+      try { funnel?.phoneStep({ req, pg: String(body?.pg || ''), what: String(body?.what || '') }); } catch (e) { log(`funnel: ${e.message}`); }
+      send(200, { ok: true }); return true;
+    }
     if (parts[0] === 'linkmail' && parts[1] === 'handoff' && (!parts[2] || ((parts[2] === 'shown' || parts[2] === 'opened') && !parts[3]))) {
       if (req.method !== 'POST') { send(405, { ok: false, why: 'POST' }); return true; }
       let body = {}; try { body = JSON.parse((await readBody(req, 4096)).toString('utf8') || '{}'); } catch { send(400, { ok: false, why: 'send JSON' }); return true; }

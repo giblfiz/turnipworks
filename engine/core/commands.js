@@ -20,19 +20,23 @@ import { roofProblem, roofShapeProblem, mergeRoof, heightProblem, spanOfArgs, ro
 import { isStair, isConnector, isPlacedStair, stairRole, stairsTouching, stairLinks, stairTop, stairBase, stairRise, stairRoomAt, stairWarning, STAIR_CODES } from './stairs.js';
 import { isCave } from './caves.js';
 import { MARK_KEYS, sheetProblem, cleanSheet, DAMAGE_LIMIT, attacksProblem } from './pawn.js';
+import { sizeProblem, putSize, sizeField } from './size.js';
 import { infoProblem } from './beyond20.js';
 import { conditionsProblem } from './conditions.js';
 import { auraProblem, storedAura } from './aura.js';
 import { PARTY_NOTES_MAX, DEFS_PER_SEAT, CAST_MAX, GROUP_MAX } from './party.js';
 import * as TU from './turns.js';
 import * as MS from './measure.js';
-import { floorUnder, tokenFloor, levelY } from './height.js';
+import { floorUnder, tokenFloor, levelY, roomAtHeight } from './height.js';
+import { restingOn, goesWith, carryProblem } from './riders.js';
+export { restingOn, goesWith, ridersOf, canCarry, pawnRestsOn, carrierOfPawn } from './riders.js';
 
 import { emptyFog, levelsProblem, exploreFog, unionLevels, mergeFog, exploredFor, hasFogCell } from './fog.js';
 
 export const REGISTRY = {};
 const def = (type, spec) => { REGISTRY[type] = { type, stale: 'reject', touches: () => [], ...spec }; };
 
+export const UPLOAD_ID_RE = /^[0-9a-f]{64}$/; // an uploaded model's id (relay/uploads.js)
 const LIM = 100000; // feet; generous, just keeps junk out
 const put = (area, e) => ({ ...area, entities: { ...area.entities, [e.id]: e } });
 const drop = (area, id) => { const entities = { ...area.entities }; delete entities[id]; return { ...area, entities }; };
@@ -80,7 +84,10 @@ def('fog.view',{level:'area',cls:'campaign.admin',args:{fog:'obj'},internal:true
 // Chat and rolls live in area.chat (last CHAT_KEEP lines).
 const CHAT_KEEP = 100;
 const ownsOrGm = (state, by, e) => { const who = principalOf(state, by); return who.role === 'gm' || e.owner === who.id; };
-const OBJ_ARGS = { fromCave: 'bool?', flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', rise: 'int?', stair: 'str?', down: 'bool?', noteOff: 'str?', fromEdge: 'str?', rule: 'str?', orient: 'str?', lit: 'bool?', name: 'str?', cat: 'str?', sku: 'str?', url: 'url?', flat: 'bool?', place: 'str?', layer: 'str?', y: 'num?', rot: 'num?', yaw: 'num?', tiltZ: 'num?', quat: 'quat?', s: 'vec3?', dims: 'vec3?', room: 'id?', parent: 'id?', color: 'color?', hidden: 'bool?', pinned: 'bool?' };
+const OBJ_ARGS = { fromCave: 'bool?', flavor: 'str?', factionMissing: 'bool?', factionWasHidden: 'bool?', rise: 'int?', stair: 'str?', down: 'bool?', noteOff: 'str?', fromEdge: 'str?', rule: 'str?', orient: 'str?', lit: 'bool?', name: 'str?', cat: 'str?', sku: 'str?', url: 'url?', flat: 'bool?', place: 'str?', layer: 'str?', y: 'num?', rot: 'num?', yaw: 'num?', tiltZ: 'num?', quat: 'quat?', s: 'vec3?', dims: 'vec3?', room: 'id?', parent: 'id?', color: 'color?', hidden: 'bool?', pinned: 'bool?', upload: 'upload?' };
+// AN UPLOADED MODEL (2026-11-06, docs/UPLOADS.md): `upload` = the id of a model the campaign's GM uploaded (relay/uploads.js,
+// 64 hex digits). The mesh comes from the relay, to this campaign's seats only, never from the library; cat and sku are
+// null and `s`/`dims` size it as for any thing. A thing whose upload was deleted or taken down is drawn as a marked box.
 // A THING TIPPED OVER: `quat`, a unit quaternion [x, y, z, w] = its orientation under its Turn (core/orient.js: what is
 // drawn is Ry(rot) · Q(quat)). Absent = upright, so every campaign from before loads unchanged. Named for what it is,
 // never for the button's label ("Roll"); nothing to do with `yaw` (a mesh's alignment correction). It replaced `tiltZ`
@@ -99,6 +106,7 @@ const objectFrom = (a, extra = {}) => ({
   // a stair of the catalog (core/stairs.js STAIR_ROLES): `down` = it was put in for the level at its TOP; `rise` only when it is not the piece's own
   ...(a.place !== 'stair' && a.down && { down: true }), ...(a.place !== 'stair' && a.rise && a.rise !== 10 && { rise: a.rise }),
   ...(STAIR_CODES.includes(a.noteOff) && isConnector({ ...a, kind: 'object' }) && { noteOff: a.noteOff }), // the warning its GM dismissed (core/stairs.js), as a campaign file carries it; anything else in this argument is ignored
+  ...(a.upload && !a.cat && { upload: a.upload }), // an uploaded model (above): never together with a library piece
   ...(a.fromCave && { fromCave: true }), // a cave's own stalagmite, where its rule put it (core/caves.js STALAG_CAT); gone once the GM moves it
   ...extra,
 });
@@ -126,11 +134,12 @@ const LEGACY_HP = 'pawns count damage now, up from 0 (0 = unhurt): send token.da
 const damageProblem = (v) => v !== undefined && (v < 0 || v > DAMAGE_LIMIT) ? `damage is 0 to ${DAMAGE_LIMIT}` : null;
 const withDamage = (e, damage) => { const { damage: _, ...n } = e; return damage > 0 ? { ...n, damage } : n; };
 // A PAWN'S FIGURE (2026-10-06): `fig` is the id of a figure in the figure library (tools/spawn-tuner/data/figures.json);
-// absent = the plain stand-in. `size` is how many 5-ft squares a side its base covers (absent = 1; a large creature 2).
+// absent = the plain stand-in. `size` is how many 5-ft squares a side its base covers (absent = 1; a large creature 2;
+// since 2026-11-06 0.5 for tiny and up to 8: core/size.js, docs/PAWNS.md "A pawn's size").
 // Both are plain pawn data: every seat that sees the pawn sees its figure. The core only checks their shape; which
 // ids exist is the library's business (the relay checks an AI seat's ids against it: relay/llm.js).
 const FIG_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
-const figProblem = (a) => a.fig && !FIG_RE.test(a.fig) ? 'fig: a figure id (lower-case letters, digits and dashes), or none' : a.size != null && !(a.size >= 1 && a.size <= 4) ? 'size: squares a side, 1 to 4' : null;
+const figProblem = (a) => a.fig && !FIG_RE.test(a.fig) ? 'fig: a figure id (lower-case letters, digits and dashes), or none' : sizeProblem(a.size);
 // Room hiding is one command, including its pawns. The relay records the player owners so journal
 // replay and reducers need no campaign state; callers cannot supply this private argument (parseArgs drops it).
 export const HIDE_ROOM_HIDES_PLAYER_PAWNS = false;
@@ -145,7 +154,7 @@ export const roomPlayerPawns = (area, ids, seats) => {
 export function prepareRoomHiding(state, type, args) {
   if (type === 'batch') return { ...args, ops: args.ops.map(op => ({ ...op, args: prepareRoomHiding(state, op.type, op.args) })) };
   if (type === 'pawn.bring' && state.pawns?.[args.def]) args = REGISTRY[type].fill(state, args);
-  return ['entity.flag', 'token.create', 'token.move', 'pawn.bring'].includes(type) ? { ...args, _roomPlayerOwners: playerOwners(state.seats) } : args;
+  return ['entity.flag', 'token.create', 'token.move', 'pawn.bring'].includes(type) || (type === 'object.move' && args?.carry?.length) ? { ...args, _roomPlayerOwners: playerOwners(state.seats) } : args;
 }
 export const pawnIntoRoom = (t, e, a) => {
   const room = tokenFloor(t.entities, e).room;
@@ -170,9 +179,9 @@ export const withPlaceholder = (e, a) => {
 const mainsOf = (t, owner, except) => Object.values(t.entities).filter(o => o.kind === 'token' && o.main && o.owner === owner && o.id !== except);
 def('token.create', {
   level: 'area', cls: 'token.edit',
-  args: { id: 'id', name: 'str', x: 'num', z: 'num', y: 'num?', rot: 'num?', color: 'color?', owner: 'id?', damage: 'int?', hp: 'int?', hpMax: 'int?', hidden: 'bool?', conditions: 'list?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', mark: 'str?', fig: 'str?', size: 'int?', main: 'bool?', def: 'id?', initBonus: 'int?', visionRadius: 'numOrNone?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?', aura: 'obj?' }, // def: the cast entry (or a player's definition) it was placed from
+  args: { id: 'id', name: 'str', x: 'num', z: 'num', y: 'num?', rot: 'num?', color: 'color?', owner: 'id?', damage: 'int?', hp: 'int?', hpMax: 'int?', hidden: 'bool?', conditions: 'list?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', mark: 'str?', fig: 'str?', size: 'num?', main: 'bool?', def: 'id?', initBonus: 'int?', visionRadius: 'numOrNone?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?', aura: 'obj?' }, // def: the cast entry (or a player's definition) it was placed from
   check: ({ state, area, by }, a) => area.entities[a.id] ? `id ${a.id} already exists` : a.owner && !state?.seats[a.owner] ? `unknown owner ${a.owner}` : a.hp !== undefined || a.hpMax !== undefined ? LEGACY_HP : damageProblem(a.damage) || (a.conditions ? conditionsProblem(a.conditions) : null) || (a.aura !== undefined ? auraProblem(a.aura) : null) || (a.visionRadius != null && a.visionRadius < 0 ? 'vision radius must be nonnegative or null (unlimited)' : null) || pawnDarkProblem(a) || pawnExtrasProblem(state, by, a) || figProblem(a),
-  apply: (t, a) => put(t, pawnIntoRoom(t, withExtras({ id: a.id, kind: 'token', name: a.name, x: a.x, z: a.z, ...(a.y && { y: a.y }), rot: a.rot || 0, color: a.color || '#d9a441', owner: a.owner || null, ...(a.damage > 0 && { damage: a.damage }), ...((a.hp !== undefined || a.hpMax !== undefined) && { hp: a.hp ?? null, hpMax: a.hpMax ?? a.hp ?? null }), conditions: a.conditions || [], hidden: !!a.hidden, locked: false, ...(a.fig && a.fig !== 'none' && { fig: a.fig }), ...(a.size > 1 && { size: a.size }), ...(a.main && { main: true }), ...(a.placeholder && { placeholder: true }), ...(Number.isInteger(a.initBonus) && Math.abs(a.initBonus) <= TU.BONUS_MAX && { initBonus: a.initBonus }), ...(a.def && { def: a.def }), ...(a.visionRadius != null && {visionRadius:a.visionRadius}), ...(a.darkvision != null && { darkvision: a.darkvision }), ...(a.lightCarried != null && { lightCarried: a.lightCarried }), ...(storedAura(a.aura) && { aura: storedAura(a.aura) }) }, a), a)),
+  apply: (t, a) => put(t, pawnIntoRoom(t, withExtras({ id: a.id, kind: 'token', name: a.name, x: a.x, z: a.z, ...(a.y && { y: a.y }), rot: a.rot || 0, color: a.color || '#d9a441', owner: a.owner || null, ...(a.damage > 0 && { damage: a.damage }), ...((a.hp !== undefined || a.hpMax !== undefined) && { hp: a.hp ?? null, hpMax: a.hpMax ?? a.hp ?? null }), conditions: a.conditions || [], hidden: !!a.hidden, locked: false, ...(a.fig && a.fig !== 'none' && { fig: a.fig }), ...sizeField(a), ...(a.main && { main: true }), ...(a.placeholder && { placeholder: true }), ...(Number.isInteger(a.initBonus) && Math.abs(a.initBonus) <= TU.BONUS_MAX && { initBonus: a.initBonus }), ...(a.def && { def: a.def }), ...(a.visionRadius != null && {visionRadius:a.visionRadius}), ...(a.darkvision != null && { darkvision: a.darkvision }), ...(a.lightCarried != null && { lightCarried: a.lightCarried }), ...(storedAura(a.aura) && { aura: storedAura(a.aura) }) }, a), a)),
   touches: (a) => [a.id],
 });
 def('token.move', {
@@ -209,7 +218,7 @@ def('token.set', {
   // aura (2026-10-30): { level 0-5, color, emblem? } (core/aura.js; checked strictly); absent on every pawn before.
   // attacks (2026-10-29): its saved attacks, [{ name, hit, dmg }] (core/pawn.js attacksProblem: 8 at most, names and
   // formulas only); [] clears. Absent on every pawn before: old journals replay unchanged.
-  args: { id: 'id', name: 'str?', hp: 'int?', hpMax: 'int?', conditions: 'list?', rot: 'num?', color: 'color?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', fig: 'str?', size: 'int?', main: 'bool?', initBonus: 'intOrNone?', visionRadius: 'numOrNone?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?', target: 'idOrNone?', attacks: 'obj?', aura: 'obj?' }, // darkvision / lightCarried: ft in a dark area (core/darkness.js); null = the default
+  args: { id: 'id', name: 'str?', hp: 'int?', hpMax: 'int?', conditions: 'list?', rot: 'num?', color: 'color?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', fig: 'str?', size: 'num?', main: 'bool?', initBonus: 'intOrNone?', visionRadius: 'numOrNone?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?', target: 'idOrNone?', attacks: 'obj?', aura: 'obj?' }, // darkvision / lightCarried: ft in a dark area (core/darkness.js); null = the default
   check: ({ state, area, by }, a) => {
     const e = ent(area, a.id, 'token');
     if (!e) return `no token ${a.id} in this area`;
@@ -235,7 +244,7 @@ def('token.set', {
     if (main != null) { if (main) e.main = true; else delete e.main; }
     if (main && e.owner) for (const o of mainsOf(t, e.owner, id)) { const { main: _m, ...x } = o; t = put(t, x); }
     if (fig != null) { if (fig !== 'none') e.fig = fig; else delete e.fig; }
-    if (size != null) { if (size > 1) e.size = size; else delete e.size; }
+    if (size != null) putSize(e, size); // (core/size.js: 0.5 to 8; 1 is the field absent)
     e = withPlaceholder(e, a);
     return put(t, withExtras(e, a));
   },
@@ -435,14 +444,43 @@ def('object.place', {
   apply: (t, a) => put(t, objectFrom(a, (a.room && t.entities[a.room]?.hidden) || (isPlacedStair(objectFrom(a)) && stairVeiled(t, objectFrom(a))) ? { hidden: true } : {})), // a thing put into a hidden room is hidden with it (a stair: with either room it joins)
   touches: (a) => [a.id],
 });
+// CARRY (Harry 2026-11-07, core/riders.js): what rides the thing, decided by the mover when the move started (a snapshot),
+// moves with it IN THIS COMMAND, rigidly: each keeps its place on the thing, turned with it about the thing's own middle
+// when the thing turns, raised or lowered with it. One command, so one log entry for every seat and one undo step.
+// The rider moves on the CARRIER's permission (Harry: a pawn standing on a table rides when the table is moved,
+// whoever owns the pawn): its own class is not asked. The relay checks each is something that could have been standing
+// there (carryProblem), never a thing that may not ride (locked, a tile, a stair, a wall piece). A pawn carried into a
+// hidden room hides there as a walked one does (pawnIntoRoom); a hidden rider makes the entry private, so the player
+// side gets only what it may see of it (relay/campaign.js entryFor). Old journals have no carry and replay unchanged.
+const round2 = (v) => Math.round(v * 100) / 100;
+function carried(t, e0, n, carry, a) {
+  const out = [], drot = (n.rot || 0) - (e0.rot || 0), cs = Math.cos(drot), sn = Math.sin(drot), dy = (n.y || 0) - (e0.y || 0);
+  for (const id of new Set(carry || [])) {
+    const r = t.entities[id]; if (!r || id === a.id || (r.kind !== 'token' && r.kind !== 'object')) continue;
+    const dx = r.x - e0.x, dz = r.z - e0.z;
+    const x = round2(n.x + dx * cs + dz * sn), z = round2(n.z - dx * sn + dz * cs), y = round2((r.y || 0) + dy), rot = drot ? (r.rot || 0) + drot : r.rot;
+    if (r.kind === 'token') {
+      const m = { id, x, z, y, ...(drot && { rot }), _roomPlayerOwners: a._roomPlayerOwners }, p = movedPawn(t, m);
+      out.push(p);
+      if (!r.hidden && p.hidden) for (const tp of Object.values(t.entities)) if (tp.kind === 'template' && tp.attach === id && !tp.hidden) out.push({ ...tp, hidden: true }); // (as token.move: an aura never gives away where a hidden pawn went)
+    } else {
+      const room = roomAtHeight(t.entities, x, z, y)?.id || null;
+      out.push({ ...notCaves(r), x, z, y, rot: rot ?? 0, ...(room !== (r.room || null) && { room }) });
+    }
+  }
+  return out;
+}
 def('object.move', {
-  level: 'area', cls: 'object', args: { id: 'id', x: 'num', z: 'num', y: 'num?', rot: 'num?', parent: 'idOrNone?', room: 'idOrNone?' },
-  check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : null; },
+  level: 'area', cls: 'object', args: { id: 'id', x: 'num', z: 'num', y: 'num?', rot: 'num?', parent: 'idOrNone?', room: 'idOrNone?', carry: 'ids?' },
+  check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : a.carry?.length ? carryProblem(area.entities, a.id, a.carry) : null; },
   apply: (t, a) => {
     const e0 = t.entities[a.id], e = e0.x !== a.x || e0.z !== a.z || (a.y ?? e0.y) !== e0.y || (a.rot ?? e0.rot) !== e0.rot ? notCaves(e0) : e0;
-    return put(t, { ...e, x: a.x, z: a.z, y: a.y ?? e.y, rot: a.rot ?? e.rot, ...(a.parent !== undefined && { parent: a.parent || null }), ...(a.room !== undefined && { room: a.room || null }) });
+    const n = { ...e, x: a.x, z: a.z, y: a.y ?? e.y, rot: a.rot ?? e.rot, ...(a.parent !== undefined && { parent: a.parent || null }), ...(a.room !== undefined && { room: a.room || null }) };
+    let out = put(t, n);
+    if (a.carry?.length) for (const r of carried(t, e0, n, a.carry, a)) out = put(out, r);
+    return out;
   },
-  touches: (a) => [a.id],
+  touches: (a, t) => !a.carry?.length ? [a.id] : !t?.entities[a.id] ? [a.id, ...a.carry] : [a.id, ...carried(t, t.entities[a.id], { ...t.entities[a.id], x: a.x, z: a.z, y: a.y ?? t.entities[a.id].y, rot: a.rot ?? t.entities[a.id].rot }, a.carry, a).map(e => e.id)],
 });
 // DISMISSING A STAIR'S WARNING is an argument of object.set, not a command of its own (2026-11-02): noteOff=CODE dismisses
 // the warning the stair shows now, noteOff='' brings it back (core/stairs.js "THE NOTE OVER A STAIR"). A new command type
@@ -519,7 +557,7 @@ def('object.light', {
 def('object.replace', {
   level: 'area', cls: 'object', args: { id: 'id', cat: 'str', sku: 'str?', url: 'url?', flat: 'bool?', s: 'vec3?', dims: 'vec3?', yaw: 'num?', name: 'str?' },
   check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : null; },
-  apply: (t, a) => { const { id, ...rest } = a, e = notCaves(t.entities[id]); if (e.place === 'stair') { delete rest.s; delete rest.dims; delete rest.yaw; } return put(t, { ...e, ...rest }); }, // (a stair keeps its own box: its rise and run)
+  apply: (t, a) => { const { id, ...rest } = a, { upload, ...e } = notCaves(t.entities[id]); if (e.place === 'stair') { delete rest.s; delete rest.dims; delete rest.yaw; } return put(t, { ...e, ...rest }); }, // (a stair keeps its own box: its rise and run; an uploaded model swapped for a library piece is that piece now)
   touches: (a) => [a.id],
 });
 // STAIRS UP / STAIRS DOWN (core/stairs.js "UP OR DOWN"): the same piece, in the same place in plan, moved one flight so
@@ -538,13 +576,7 @@ def('stair.flip', {
 // app.descendants stands on restingOn too, so moving, hiding, copying, deleting and turning cannot disagree about what is on
 // what. goesWith is what actually goes: a LOCKED thing stays, and so does what stands on it. (Hidden things go with their
 // parent: only the GM side holds `object`, and it sees them. A player is refused by class before anything here runs.)
-export const restingOn = (entities, id) => Object.values(entities).filter(e => e.kind === 'object' && e.parent === id);
-export function goesWith(entities, id) {
-  const gone = [], kept = [], seen = new Set([id]);
-  const walk = (at) => { for (const c of restingOn(entities, at)) { if (seen.has(c.id)) continue; seen.add(c.id); if (c.locked) kept.push(c); else { gone.push(c.id); walk(c.id); } } };
-  walk(id);
-  return { gone, kept };
-}
+// (restingOn and goesWith live in core/riders.js since 2026-11-07, with the pawns that ride: imported above)
 def('object.delete', {
   level: 'area', cls: 'object', args: { id: 'id' },
   check: ({ area }, a) => { const e = ent(area, a.id, 'object'); return !e ? `no object ${a.id}` : e.locked ? `${e.name} is locked` : null; },
@@ -1317,10 +1349,10 @@ def('token.lend', {
 // nobody approves it. The relay writes the pawn from the definition (`fill`), so what stands on the table is what was
 // defined, whatever the sender's browser says. One pawn per definition, campaign-wide.
 const benchDef = (state, by, id) => { const d = state?.pawns?.[id]; return d && (isGmSide(state, by) || d.owner === principalOf(state, by)?.id) ? d : null; };
-const fromDef = (d, a, color) => ({ id: a.id, def: d.id, x: a.x, z: a.z, ...(a.y != null && { y: a.y }), ...(a.rot != null && { rot: a.rot }), name: d.name, owner: d.owner, color: color || a.color || '#d9a441', ...(d.fig && { fig: d.fig }), ...(d.size > 1 && { size: d.size }), ...(d.sheet && { sheet: d.sheet }), ...(d.notes && { notes: d.notes }), ...(d.main && { main: true }), ...(d.placeholder && { placeholder: true }), ...(d.darkvision != null && { darkvision: d.darkvision }), ...(d.lightCarried != null && { lightCarried: d.lightCarried }) });
+const fromDef = (d, a, color) => ({ id: a.id, def: d.id, x: a.x, z: a.z, ...(a.y != null && { y: a.y }), ...(a.rot != null && { rot: a.rot }), name: d.name, owner: d.owner, color: color || a.color || '#d9a441', ...(d.fig && { fig: d.fig }), ...sizeField(d), ...(d.sheet && { sheet: d.sheet }), ...(d.notes && { notes: d.notes }), ...(d.main && { main: true }), ...(d.placeholder && { placeholder: true }), ...(d.darkvision != null && { darkvision: d.darkvision }), ...(d.lightCarried != null && { lightCarried: d.lightCarried }) });
 def('pawn.bring', {
   level: 'area', cls: 'pawn',
-  args: { id: 'id', def: 'id', x: 'num', z: 'num', y: 'num?', rot: 'num?', name: 'str?', owner: 'id?', color: 'color?', fig: 'str?', size: 'int?', sheet: 'text?', notes: 'long?', main: 'bool?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?' },
+  args: { id: 'id', def: 'id', x: 'num', z: 'num', y: 'num?', rot: 'num?', name: 'str?', owner: 'id?', color: 'color?', fig: 'str?', size: 'num?', sheet: 'text?', notes: 'long?', main: 'bool?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?' },
   fill: (state, a) => { const d = state.pawns?.[a.def]; return d ? fromDef(d, a, state.seats[d.owner]?.color) : a; },
   check: ({ state, area, by }, a) => {
     if (area.entities[a.id]) return `id ${a.id} already exists`;
@@ -1333,7 +1365,7 @@ def('pawn.bring', {
     let out = t;
     if (a.main && a.owner) for (const o of mainsOf(t, a.owner, a.id)) { const { main: _m, ...x } = o; out = put(out, x); }
     return put(out, pawnIntoRoom(out, { id: a.id, kind: 'token', name: a.name || 'Pawn', x: a.x, z: a.z, ...(a.y && { y: a.y }), rot: a.rot || 0, color: a.color || '#d9a441', owner: a.owner || null, conditions: [], hidden: false, locked: false, def: a.def,
-      ...(a.fig && { fig: a.fig }), ...(a.size > 1 && { size: a.size }), ...(a.sheet && { sheet: a.sheet }), ...(a.notes && { notes: a.notes }), ...(a.main && { main: true }), ...(a.placeholder && { placeholder: true }), ...(a.darkvision != null && { darkvision: a.darkvision }), ...(a.lightCarried != null && { lightCarried: a.lightCarried }) }, a));
+      ...(a.fig && { fig: a.fig }), ...sizeField(a), ...(a.sheet && { sheet: a.sheet }), ...(a.notes && { notes: a.notes }), ...(a.main && { main: true }), ...(a.placeholder && { placeholder: true }), ...(a.darkvision != null && { darkvision: a.darkvision }), ...(a.lightCarried != null && { lightCarried: a.lightCarried }) }, a));
   },
   touches: (a, t) => a.main && a.owner && t ? [a.id, ...mainsOf(t, a.owner, a.id).map(o => o.id)] : [a.id],
 });
@@ -1354,7 +1386,7 @@ def('pawn.bench', {
 // '' clears sheet, notes, fig ('none') and petOf.
 def('pawn.define', {
   level: 'campaign', cls: 'pawn',
-  args: { id: 'id', name: 'str?', fig: 'str?', size: 'int?', sheet: 'text?', notes: 'long?', petOf: 'idOrNone?', main: 'bool?', owner: 'id?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?' },
+  args: { id: 'id', name: 'str?', fig: 'str?', size: 'num?', sheet: 'text?', notes: 'long?', petOf: 'idOrNone?', main: 'bool?', owner: 'id?', darkvision: 'numOrNone?', lightCarried: 'numOrNone?', placeholder: 'bool?' },
   fill: (state, a, by) => { const old = state.pawns?.[a.id], who = principalOf(state, by); return { ...a, owner: old ? old.owner : (who?.role === 'gm' && a.owner) || who?.id, ...(a.sheet && { sheet: cleanSheet(a.sheet) }) }; },
   check: ({ state, by }, a) => {
     const old = state.pawns?.[a.id], who = principalOf(state, by), gm = who?.role === 'gm';
@@ -1371,7 +1403,7 @@ def('pawn.define', {
     const old = s.pawns?.[a.id] || { id: a.id, owner: a.owner }, d = withPlaceholder(withDarkFields(old, a), a);
     if (a.name !== undefined) d.name = a.name.trim();
     if (a.fig !== undefined) { if (a.fig && a.fig !== 'none') d.fig = a.fig; else delete d.fig; }
-    if (a.size !== undefined) { if (a.size > 1) d.size = a.size; else delete d.size; }
+    if (a.size !== undefined) putSize(d, a.size);
     for (const k of ['sheet', 'notes', 'petOf']) if (a[k] !== undefined) { if (a[k]) d[k] = a[k]; else delete d[k]; }
     if (a.main !== undefined) { if (a.main) d.main = true; else delete d.main; }
     const pawns = { ...(s.pawns || {}) };
@@ -1400,7 +1432,7 @@ const castProblem = (a) => {
 };
 def('cast.save', {
   level: 'campaign', cls: 'token.edit',
-  args: { id: 'id', kind: 'enum:one|group?', name: 'str?', fig: 'str?', size: 'int?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', members: 'obj?' },
+  args: { id: 'id', kind: 'enum:one|group?', name: 'str?', fig: 'str?', size: 'num?', sheet: 'text?', notes: 'long?', gmNotes: 'long?', members: 'obj?' },
   check: ({ state, by }, a) => {
     if (!isGmSide(state, by)) return { code: 'forbidden', why: 'the cast is the GM\'s' };
     const old = state.cast?.[a.id];
@@ -1413,10 +1445,10 @@ def('cast.save', {
   apply: (s, a) => {
     const old = s.cast?.[a.id] || { id: a.id, kind: a.kind || 'one' }, c = { ...old, at: s.cseq + 1 };
     if (a.name !== undefined) c.name = a.name.trim();
-    if (c.kind === 'group') { if (a.members) c.members = a.members.map(m => ({ name: m.name.trim(), ...(m.fig && m.fig !== 'none' && { fig: m.fig }), ...(m.size > 1 && { size: m.size }), dx: Math.round(m.dx * 100) / 100, dz: Math.round(m.dz * 100) / 100 })); }
+    if (c.kind === 'group') { if (a.members) c.members = a.members.map(m => ({ name: m.name.trim(), ...(m.fig && m.fig !== 'none' && { fig: m.fig }), ...sizeField(m), dx: Math.round(m.dx * 100) / 100, dz: Math.round(m.dz * 100) / 100 })); }
     else {
       if (a.fig !== undefined) { if (a.fig && a.fig !== 'none') c.fig = a.fig; else delete c.fig; }
-      if (a.size !== undefined) { if (a.size > 1) c.size = a.size; else delete c.size; }
+      if (a.size !== undefined) putSize(c, a.size);
       for (const k of ['sheet', 'notes', 'gmNotes']) if (a[k] !== undefined) { if (a[k]) c[k] = k === 'sheet' ? cleanSheet(a[k]) : a[k]; else delete c[k]; }
     }
     return { ...s, cast: { ...(s.cast || {}), [c.id]: c } };
@@ -1474,6 +1506,7 @@ export function parseArgs(type, raw, { fromQuery = false, depth = 0 } = {}) {
     if (spec === 'text' && !(typeof v === 'string' && v.length <= 500)) return bad('not text (500 characters at most)');
     if (spec === 'long' && !(typeof v === 'string' && v.length <= 4000)) return bad('not text (4000 characters at most)');
     if (spec === 'url' && !(typeof v === 'string' && v.length <= 200 && /^[\w./@-]+$/.test(v) && !v.includes('..'))) return bad('not an asset path');
+    if (spec === 'upload' && !(typeof v === 'string' && UPLOAD_ID_RE.test(v))) return bad('not an uploaded model id (64 hex digits)');
     if (spec === 'color' && !(typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v))) return bad('not a #rrggbb colour');
     if (spec === 'bool' && typeof v !== 'boolean') return bad('not true/false');
     if (spec === 'vec3' && !(Array.isArray(v) && v.length === 3 && v.every(num))) return bad('not [x, y, z]');

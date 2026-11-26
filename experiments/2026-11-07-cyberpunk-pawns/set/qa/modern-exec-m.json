@@ -1,0 +1,133 @@
+{
+ "file": "modern-exec-m.glb",
+ "tris": 47684,
+ "kb": 2332,
+ "native_extent": [
+  0.783,
+  1.0,
+  0.45
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  55,
+  47,
+  41
+ ],
+ "mean_saturation": 0.213,
+ "sized_by": "its highest point",
+ "overall_ft": 4.5,
+ "pieces": {
+  "connected_parts": 9,
+  "main_part_area_share": 1.0,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 4.4991,
+ "y0": -2.2532,
+ "stated_ft": {
+  "body": 4.5,
+  "figure_top": 4.5,
+  "overall": 4.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3907,
+   -0.5008,
+   -0.2231
+  ],
+  [
+   0.3924,
+   0.4995,
+   0.2264
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47684,
+   "tex": 2048,
+   "kb": 2332
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 963
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 423
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -1.09,
+    "z": -0.26,
+    "size_ft": [
+     1.16,
+     1.2
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.9,
+    "sole_p90_ft": 0.06
+   },
+   {
+    "x": 0.51,
+    "z": 0.16,
+    "size_ft": [
+     0.94,
+     1.41
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.91,
+    "sole_p90_ft": 0.059
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.72,
+  "plan_hull_area_sqft": 5.27,
+  "lowest_slab_share_of_plan": 0.327
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.52,
+   "d": 2.02,
+   "h": 4.5
+  },
+  "centre": [
+   -0.339,
+   0.222
+  ],
+  "contacts_radius_ft": 1.35,
+  "reach_radius_ft": 2.11,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.935,
+  "plate_lost_share": 0.011,
+  "added_share": 0.058,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.935,
+  "view_yaw_deg": 10,
+  "view_elev_deg": 8
+ },
+ "id": "modern-exec-m",
+ "sha1": "3e7d79a0e06b30989d9a783ee751d384b26a76a4",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 8.1
+}

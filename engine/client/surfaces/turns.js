@@ -182,7 +182,7 @@ export function turnsSurface(R, app) {
         if (!m) {
           // (in the world's own overlay layer, with the pings and the selection marks: not a thing, so nothing that
           // lights, shadows or picks things ever meets it)
-          const ring = new THREE.Mesh(ringFor(e.size > 1 ? e.size : 1), new THREE.MeshBasicMaterial({ color: TURN_MARK.color, transparent: true, opacity: 1, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }));
+          const ring = new THREE.Mesh(ringFor(app.figures?.sizeOf(e) || 1), new THREE.MeshBasicMaterial({ color: TURN_MARK.color, transparent: true, opacity: 1, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }));
           ring.renderOrder = 4; ring.userData.turnMark = true; ring.userData.halo = true; ring.raycast = () => {}; // never picked
           w.layers.deco.add(ring); m = { ring, layer: w.layers.deco }; marks.set(k, m);
         }

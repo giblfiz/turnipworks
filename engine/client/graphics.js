@@ -150,10 +150,11 @@ export function createGraphics(app, { renderer, canvas, busy = () => false }) {
   const isAuto = () => live() && P().gfx === 'auto';
   const pick = () => GFX_ORDER.includes(P().gfxAuto) ? P().gfxAuto : 'high';
   function setPick(name, why) { app.settings?.setAuto?.(name, why); }
-  function startMeasure(now, then) { auto.phase = 'measure'; auto.hold = true; auto.t0 = now; auto.n = 0; auto.iv = []; auto.then = then; auto.lastT = 0; timing(true); G.ms.length = 0; }
+  function startMeasure(now, then) { if (then === 'first' || then === 'watch') auto.second = false; auto.phase = 'measure'; auto.hold = true; auto.t0 = now; auto.n = 0; auto.iv = []; auto.then = then; auto.lastT = 0; timing(true); G.ms.length = 0; }
   function finishMeasure() {
     auto.hold = false; if (!app.fpsMeter?.on && !app.gfxTiming) timing(false);
-    const iv = median(auto.iv), g = G.ms.length >= 10 ? median(G.ms.slice(-auto.iv.length)) : null;
+    // (and a measurement that caught no frame at all, the frames being slower than its whole time, is the time it ran)
+    const iv = auto.iv.length ? median(auto.iv) : performance.now() - auto.t0, g = G.ms.length >= 10 ? median(G.ms.slice(-auto.iv.length)) : null;
     if (self.fake) return { frames: auto.iv.length, gpu: null, ...self.fake(pick()) }; // (tests: pretend what a preset costs here)
     return { ms: iv == null ? null : +iv.toFixed(1), gpu: g == null ? null : +g.toFixed(1), frames: auto.iv.length };
   }
@@ -167,8 +168,13 @@ export function createGraphics(app, { renderer, canvas, busy = () => false }) {
     }
     // after a step down: did it buy anything?
     const b = auto.before, gained = (b.ms && m.ms < b.ms * AUTO.gain) || (b.gpu != null && m.gpu != null && m.gpu < b.gpu * AUTO.gain);
+    // (2026-11-06, the SPEED lane) one step that bought nothing is not yet "not the picture": Medium keeps what a map
+    // like the front web server's cave country pays for (the fire's shadow, contact shadows, the fog: few fires, so Medium's light
+    // pool saves nothing there), and Low drops them. Seen: High 133 ms, Medium 117 (under the 10% asked), and Auto put
+    // High back. So, still slow and not at Low yet: one more step, judged against the same `before`.
+    if (!gained && bad(m) && pick() !== 'low' && !auto.second) { auto.second = true; setPick(GFX_ORDER[GFX_ORDER.indexOf(pick()) - 1], m); auto.phase = 'settle'; auto.t0 = performance.now(); return; }
     if (!gained) { // not the picture: put it back, and leave it alone for this visit
-      setPick(GFX_ORDER[GFX_ORDER.indexOf(pick()) + 1], null); auto.note = 'not-graphics'; auto.phase = 'stopped'; auto.done = true;
+      setPick(auto.second && auto.from ? auto.from : GFX_ORDER[GFX_ORDER.indexOf(pick()) + 1], null); auto.note = 'not-graphics'; auto.phase = 'stopped'; auto.done = true;
       if (auto.from && auto.from !== pick()) tell(); return;
     }
     if (bad(m) && pick() !== 'low') { auto.before = m; setPick(GFX_ORDER[GFX_ORDER.indexOf(pick()) - 1], m); auto.phase = 'settle'; auto.t0 = performance.now(); return; }
@@ -204,7 +210,11 @@ export function createGraphics(app, { renderer, canvas, busy = () => false }) {
     }
     if (auto.phase === 'settle') { if (t - auto.t0 > 600) startMeasure(t, auto.then); return; }
     if (auto.phase === 'measure') {
-      if (auto.lastT && ++auto.n > AUTO.skip) auto.iv.push(now - auto.lastT);
+      // (2026-11-06, the SPEED lane) the frames thrown away after a change are AUTO.skip frames OR a quarter of the
+      // measurement's time, whichever comes first. Before, they were always 20 frames: on a big map on a weak machine
+      // (the 104-room town on the front web server's HD 4600, ~400 ms a frame on High) 20 frames outlasted the whole 4 s, nothing was
+      // measured, "nothing measured" read as "not slow", and Auto kept High at 2 to 3 frames a second
+      if (auto.lastT && (++auto.n > AUTO.skip || t - auto.t0 > AUTO.maxMs / 4)) auto.iv.push(now - auto.lastT);
       auto.lastT = now;
       if (auto.iv.length >= AUTO.frames || t - auto.t0 > AUTO.maxMs) judge(finishMeasure());
       return;

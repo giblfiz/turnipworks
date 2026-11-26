@@ -12,7 +12,8 @@
 // Two solvers: packed() and carved(). Both work in a canonical frame, cells (u, v), with the STREET at v = D; the plan
 // is turned into the world at the end (opts.front: which side of the dragged rectangle is the street; 'S' unless told).
 //
-//   generate({ code, rect: {x, z, w, d}, seed, storeys?, front?, dials?, types?, roles?, outbuildings?, flavor? }) -> plan
+//   generate({ code, rect: {x, z, w, d}, seed, storeys?, front?, dials?, types?, roles?, outbuildings?, flavor?, cellar? }) -> plan
+//            (cellar: false = the type's cellar is left out; the rest of the plan is exactly what it is with it)
 //   check(plan) -> [{ rule, ok, detail }]          BUILDING_TYPES, programmeFor(code, types, roles)
 export const CELL = 5, STOREY = 10, MAX_SIDE = 16;
 
@@ -163,6 +164,17 @@ export const fitsMin = (key, w, d) => (MIN_FIT[key] || [[2, 2]]).some(([a, b]) =
 const needW = (key, dep) => { for (let w = 1; w <= MAX_SIDE; w++) if (fitsMin(key, w, dep)) return w; return Infinity; }; // the least length along a strip of this depth
 const PRIVATE_RE = /(guest|fine|bed|privy|cell$|relic|vault|treasury|study|sanctum-inner|quarters)/, HALL_RE = /(hallway|passage|corridor|catacomb)/;
 
+// THE ROLES A BUILDING TYPE BUILDS WITH (the Modern buildings, engine/tools/modern_buildings.json): its `hub` is the room the
+// derived programme builds round, whatever its own role (the apartment, the corner store); its `hall` the corridor that is
+// the spine (role passage, hall: true), and every OTHER corridor it lists (a passage whose key reads as one: HALL_RE) is
+// hall: false, a room you draw by hand, never laid as a leaf (client/main.js rolesOf; engine/test/modern_buildings.test.mjs)
+export function buildingRoles(roles, { hub = null, hall = null, rooms = [] } = {}) {
+  if (!hub && !hall) return roles;
+  const R = { ...roles };
+  if (hub && R[hub]?.role !== 'hub') R[hub] = { ...R[hub], role: 'hub' };
+  if (hall) { R[hall] = { ...R[hall], role: 'passage', hall: true }; for (const k of rooms) if (k !== hall && k !== hub && R[k]?.role === 'passage' && HALL_RE.test(k)) R[k] = { ...R[k], hall: false }; }
+  return R;
+}
 // The programme a type builds from: its table entry, else one derived from the rooms it has.
 //   types  [{ key, cells: [w, d], outdoor? }] the rooms the Build menu lists under the type     roles  walls.js ROLES
 export function programmeFor(code, types = [], roles = {}) {
@@ -176,11 +188,13 @@ export function programmeFor(code, types = [], roles = {}) {
   } else {
     const ind = types.filter(t => !t.outdoor && roleOf(t.key) !== 'outdoor');
     const hubT = ind.find(t => roleOf(t.key) === 'hub') || [...ind].filter(t => !HALL_RE.test(t.key)).sort((a, b) => b.cells[0] * b.cells[1] - a.cells[0] * a.cells[1])[0];
-    const hallT = ind.find(t => roleOf(t.key) === 'passage' && HALL_RE.test(t.key)) || ind.find(t => roleOf(t.key) === 'passage' && t !== hubT);
+    // a building that NAMES its corridor (roles[key].hall: true, the Modern buildings' `hall`: client/main.js rolesOf) builds round
+    // that one; a corridor it lists but did not name (hall: false: the hotel corridor in the Apartment block) is no leaf room
+    const hallT = ind.find(t => roles[t.key]?.hall === true) || ind.find(t => roleOf(t.key) === 'passage' && HALL_RE.test(t.key)) || ind.find(t => roleOf(t.key) === 'passage' && t !== hubT);
     const span = (n) => [Math.max(2, n - 1), n, Math.min(MAX_SIDE, n + 2)];
     P.hub = hubT ? { key: hubT.key, w: span(Math.max(hubT.cells[0], 4)), d: span(Math.max(hubT.cells[1], 4)), share: 0.35 } : null;
     P.hall = hallT?.key || null;
-    const leaves = ind.filter(t => t !== hubT && t !== hallT);
+    const leaves = ind.filter(t => t !== hubT && t !== hallT && roles[t.key]?.hall !== false);
     P.rooms = leaves.map((t, i) => { const [w, d] = t.cells, uses = Object.keys(roles).find(k => (roles[k].uses || []).includes(t.key) && have.has(k));
       return { key: t.key, floor: 'gu', zone: roleOf(t.key) === 'uses' ? 'back' : 'wing', w: span(Math.min(w, d) < 3 ? Math.max(w, d) : Math.min(w, d)), ...(uses && { touch: uses }), ...(roleOf(t.key) === 'uses' && { touch: 'hub' }),
         priv: PRIVATE_RE.test(t.key), need: i < 3, set: [Math.max(3, w - 1), Math.min(MAX_SIDE, w + 1), Math.max(3, d - 1), Math.min(MAX_SIDE, d + 1)], weight: 1, ...(i === leaves.length - 1 && { fill: true }) }; });
@@ -478,6 +492,11 @@ function packed(W, D, G, S, R, dials, opts) {
     const st = stairLine(P, C, host, R);
     if (st) { P.stairs.push({ ...st, L: -1, core: 'cellar', from: C.id, to: host.id }); P.block(-1, [st.foot, ...st.steps]); P.block(0, [...st.steps, st.top]); }
     else { P.rooms.pop(); P.notes.push(`no room for a stair down to the ${it.key}: left out`); }
+    // NO CELLAR (opts.cellar === false, 2026-11-12: a new building is one storey and nothing under it until asked, Harry:
+    // "making everything default to layer one until people need to actively request to go multi-layer"). It is still
+    // worked out and THEN taken away, with the squares its stair would use left as they were reserved, so the same seed
+    // with the cellar put back is the same building with a cellar under it: nothing on the ground floor moves.
+    if (opts.cellar === false && P.rooms[P.rooms.length - 1] === C) { P.rooms.pop(); if (st) P.stairs.pop(); P.cellarLeft = (P.cellarLeft || 0) + 1; }
   }
   // the core's flights as stairs (each belongs to the room its foot stands in)
   if (core) for (const f of core.flights) { const lo = P.at(f.L, ...f.steps[0]), up = P.at(f.L + 1, ...f.top); P.stairs.push({ kind: 'straight', L: f.L, foot: f.foot, steps: f.steps, top: f.top, core: 'main', from: lo?.id, to: up?.id }); }
@@ -505,8 +524,48 @@ function packed(W, D, G, S, R, dials, opts) {
       if (wants && !r.priv) { if (front && r === H) continue; P.link(r, yard, R, 'a door onto the ' + o.key); } }
     yard.free = yard.links.size === 0; void exRoom;
   }
+  // ---- the lift (opts.lift: the Apartment block, the Office tower): a shaft square through every storey, beside the stair
+  if (opts.lift && core && levels >= 2) { P.lift = findLift(P, core, levels, H); if (!P.lift) P.notes.push('no square for a lift: left out'); else for (let L = 0; L < levels; L++) P.block(L, [P.lift.cell]); }
   P.core = core; P.hubId = H.id; P.levels = levels;
   return P;
+}
+// THE LIFT (modhalls lane, 2026-11-07; Harry: "oh and elevators!", the modrooms lane's shaft and car): ONE square that is the
+// hub on the ground floor and a corridor on every floor above: the shaft (the car stands in it on the ground, a hole over
+// it on each floor above: core/buildplan.js). Its FRONT square, where the landing doors open, is circulation on every floor
+// too. Never a door's square or the stair core's; and without it every floor's circulation is still one walkable piece
+// (every door, the stair's foot and its landing reached). Best: beside the stair core (one lobby for both), its back
+// against a wall. -> { cell: [u, v], front: [u, v], rooms: [room id on each level] } | null
+function findLift(P, core, levels, H) {
+  const coreCells = new Set(); for (const c of core.line) for (let k = 0; k < core.lanes; k++) coreCells.add(K(c, core.row + k));
+  const doorAt = new Map(), mark = (L, c) => { if (!doorAt.has(L)) doorAt.set(L, new Set()); doorAt.get(L).add(K(...c)); };
+  for (const r of P.rooms) for (const l of r.links.values()) mark(r.L, l.a);
+  for (const c of H.entry?.cells || []) mark(0, c);
+  const circ = (L) => P.rooms.filter(r => r.L === L && !r.outside && (L === 0 ? r === H : r.role === 'hall'));
+  const isCirc = (L, u, v) => { const r = P.at(L, u, v); return !!r && !r.outside && (L === 0 ? r === H : r.role === 'hall'); };
+  const steps = (L) => new Set(core.flights.filter(f => f.L === L || f.L === L - 1).flatMap(f => f.steps).map(c => K(...c))); // a flight's treads, and the hole of the one below
+  const ends = (L) => core.flights.flatMap(f => [...(f.L === L ? [f.foot] : []), ...(f.L === L - 1 ? [f.top] : [])]);
+  const whole = (L, skip) => {
+    const st = steps(L), cells = new Set(circ(L).flatMap(r => r.cells).map(c => K(...c)).filter(k => k !== skip && !st.has(k)));
+    const want = [...[...(doorAt.get(L) || [])].filter(k => cells.has(k)), ...ends(L).map(c => K(...c)).filter(k => k !== skip)];
+    if (!want.length) return true; if (want.some(k => !cells.has(k))) return false;
+    const seen = new Set([want[0]]), q = [want[0]];
+    while (q.length) { const [u, v] = q.pop().split(':').map(Number); for (const [du, dv] of N4) { const k = K(u + du, v + dv); if (cells.has(k) && !seen.has(k)) { seen.add(k); q.push(k); } } }
+    return want.every(k => seen.has(k));
+  };
+  let best = null;
+  for (const [u, v] of H.cells) for (const [du, dv] of N4) {
+    const f = [u + du, v + dv], ck = K(u, v), fk = K(...f); let okAll = true, sc = 0;
+    if (coreCells.has(ck) || coreCells.has(fk)) continue;
+    for (let L = 0; L < levels && okAll; L++) {
+      if (!isCirc(L, u, v) || !isCirc(L, ...f) || P.isBlocked(L, u, v) || P.isBlocked(L, ...f) || doorAt.get(L)?.has(ck) || !whole(L, ck)) okAll = false;
+      else if (!isCirc(L, u - du, v - dv)) sc += 2; // its back against a wall on this floor
+    }
+    if (!okAll) continue;
+    const near = Math.min(...[...coreCells].map(k => { const [a, b] = k.split(':').map(Number); return Math.abs(a - u) + Math.abs(b - v); }));
+    sc -= near * 0.8;
+    if (!best || sc > best.sc) best = { sc, cell: [u, v], front: f };
+  }
+  return best && { cell: best.cell, front: best.front, rooms: Array.from({ length: levels }, (_, L) => P.at(L, ...best.cell).id), frontRooms: Array.from({ length: levels }, (_, L) => P.at(L, ...best.front).id) };
 }
 // a line of cells for a stair between a lower room and the room above it: [top landing, step, step, foot] all inside
 // both rooms, against the lower room's wall, off every door. A ladder ([top, rung, foot]) where no flight fits.
@@ -704,8 +763,10 @@ export function generate(opts) {
     const cx = steps.reduce((t, c) => t + c[0] + 0.5, 0) / n * CELL, cz = steps.reduce((t, c) => t + c[1] + 0.5, 0) / n * CELL;
     return { id: `s${i}`, kind: s.kind, core: s.core, level: s.L, y: s.L * STOREY, rise: STOREY, x: cx, z: cz, rot: q * Math.PI / 2, foot, top, cells: steps, from: s.from, to: s.to };
   });
+  // the lift (packed solver, opts.lift): its shaft square and its front square in the world, the room it is in on each level
+  const lifts = (P.lift ? [P.lift] : []).map(l => ({ cell: T(...l.cell), front: T(...l.front), rooms: l.rooms, frontRooms: l.frontRooms, levels: l.rooms.map((_, L) => L) }));
   const plan = { v: 1, code, label: G.label, solver, seed, rect: { ...rect }, front, storeys: S, levels: [...new Set(rooms.map(r => r.level))].sort((a, b) => a - b), dials, down: !!G.down, derived: !!G.derived,
-    ...(opts.flavor && { flavor: opts.flavor }), hub: P.hubId, entrance: ent?.id || null, corridor: P.cw || 2, rooms, stairs, notes: P.notes };
+    ...(opts.flavor && { flavor: opts.flavor }), ...(P.cellarLeft && { cellar: false }), hub: P.hubId, entrance: ent?.id || null, corridor: P.cw || 2, rooms, stairs, ...(lifts.length && { lifts }), notes: P.notes };
   plan.checks = check(plan);
   return plan;
 }
@@ -776,6 +837,12 @@ export function check(plan) {
     for (const c of [s.foot, ...s.cells]) blocked.set(`${a}|${K(...c)}`, 1); for (const c of s.cells) blocked.set(`${b}|${K(...c)}`, 1); }
   for (const r of rooms) for (const eKey of [...Object.values(r.links), ...(r.entry ? [r.entry] : [])]) { const [dir, gx, gz] = eKey; for (const c of [dir === 'h' ? [gx, gz - 1] : [gx - 1, gz], [gx, gz]]) if (blocked.has(`${r.level}|${K(...c)}`)) onStair++; }
   add('no door opens onto a stair, its foot or its hole', !onStair, onStair ? `${onStair / 2}` : '');
+  // 9b. the lift (modhalls): its shaft and its front square are circulation on every floor it serves; no door opens onto the shaft
+  for (const l of plan.lifts || []) {
+    const inCirc = l.levels.every((L, i) => { const r = byId.get(l.rooms[i]); return r && r.level === L && circ(r) && set.get(r.id).has(K(...l.cell)) && rooms.some(x => x.level === L && circ(x) && set.get(x.id).has(K(...l.front))); });
+    let onShaft = 0; for (const r of rooms) for (const eKey of [...Object.values(r.links), ...(r.entry ? [r.entry] : [])]) { const [dir, gx, gz] = eKey; for (const c of [dir === 'h' ? [gx, gz - 1] : [gx - 1, gz], [gx, gz]]) if (l.levels.includes(r.level) && K(...c) === K(...l.cell)) onShaft++; }
+    add('the lift is circulation on every floor it serves, and no door opens onto its shaft', inCirc && !onShaft, `${inCirc ? '' : 'not in circulation'}${onShaft ? ` ${onShaft} door sides on the shaft` : ''}`);
+  }
   // 10. function: what the type's table says must touch, does
   const T = BUILDING_TYPES[plan.code];
   if (T?.rooms && plan.solver === 'packed') { const miss = [];

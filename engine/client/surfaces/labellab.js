@@ -77,7 +77,7 @@ export function labelLabSurface(R, app) {
     if (what !== 'frame' || performance.now() - last < 250) return; last = performance.now();
     const el = panel.el('[data-role="read"]'); if (!el) return;
     if (!app.can('room')) { el.textContent = 'This seat cannot edit rooms, so it sees no labels (players never do).'; return; }
-    if (!app.labelsOn?.()) { el.textContent = 'Labels are switched off in this browser (L, or Settings ▸ Me).'; return; }
+    if (!app.labelsOn?.()) { el.textContent = 'Labels are switched off in this browser (L, or Settings ▸ Controls).'; return; }
     const L = app.labelInfo(), on = L.filter(l => l.visible), cap = on.filter(l => l.look?.why === 'cap').length, d = app.main?.grab?.dist;
     const fonts = on.map(l => l.font), lo = Math.min(...fonts), hi = Math.max(...fonts);
     el.textContent = `Camera ${d ? Math.round(d) + ' ft away' : '?'} · ${on.length} of ${L.length} labels showing` + (on.length ? ` · text ${Math.round(lo * 10) / 10}${hi > lo ? '–' + Math.round(hi * 10) / 10 : ''} px` : '') + (cap ? ` · ${cap} shrunk to fit their room` : '');

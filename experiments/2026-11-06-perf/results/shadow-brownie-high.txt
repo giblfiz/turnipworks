@@ -1,0 +1,50 @@
+(node:2016688) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+inn: ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW GT2) (0x00000412)), Intel open-source Mesa driver) (up in 7.6 s)
+ok
+
+== the front web server · inn · shadow · round 1 · preset high · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    15   6.9 |133.3   300 300.1   300   11 |     33   51.2 |  93.7  93.7 |139.7  145.6 |  1307   14     0 | lowres 0% tried 
+ orbit   |   138  12.4 | 66.7   150 233.4   433  102 |   32.6   42.6 |  98.7 182.4 | 71.5   99.0 |  1002   36     0 | lowres 99% tried 137,shadow,fog-ha,small-,contac,pixels
+ drag    |   137   9.7 | 83.4 183.2 316.7   383  129 |   39.5  143.3 |  72.2 312.4 | 94.5  149.3 |  1172  122    14 | lowres 85% tried shadow,fog-ha,small-,contac,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 25.5  world 6.5  fxFrame 4.4  emit 0.8
+   orbit   fxRender 19.5  world 7.6  fxFrame 5.9  interact 2.8  emit 2.8  input 1.0
+   drag    fxRender 29.7  world 12.1  emit 5.2  input 5.1  fxFrame 4.2  interact 2.7  under 0.4
+            frame listeners: 1.7 ms (what) => { if (what === 'selection') { expanded = | 1.2 ms (what) => { if (what !== 'frame') return; layer.cl | 0.4 ms (what) => { if (what === 'frame') frame(); }
+
+== the front web server · inn · noshadow · round 1 · preset high · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    16   6.8 |116.8 283.3 283.4   283   10 |   33.4   41.8 | 253.5 253.5 |129.0  131.3 |   900    0     0 | lowres 0% tried 
+ orbit   |   143  11.3 | 66.7 183.3 366.6   400   95 |   29.4  175.6 |  98.9 358.3 | 78.2  171.7 |   792    0     1 | lowres 99% tried 114.2,fog-ha,small-,contac,pixels,fog-ha,small-,contac,pixels
+ drag    |   162  11.2 | 83.2 150.1 283.4   517  113 |   28.1   62.5 |  69.4 249.6 | 78.9  135.8 |   789    0    14 | lowres 87% tried fog-ha,small-,contac,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 23.3  world 5.8  fxFrame 3.7  emit 1.0
+   orbit   emit 17.3  fxRender 15.8  interact 6.1  world 6.0  fxFrame 4.2  input 0.8
+            frame listeners: 14.3 ms (what) => { if (what === 'selection') { expanded = | 2.8 ms (what) => { if (what !== 'frame') return; layer.cl | 0.0 ms (what, d) => { if (what === 'frame') { restore(); 
+   drag    fxRender 18.2  world 7.4  emit 3.3  interact 3.1  fxFrame 2.5  input 1.9  under 0.3
+
+== the front web server · inn · noshadow · round 2 · preset high · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    15   6.8 |133.3   250 266.7   267   12 |   33.6   44.1 | 129.7 129.7 |133.8  171.4 |   900    0     0 | lowres 0% tried 
+ orbit   |   137  12.8 | 66.7   150 166.7   367   89 |   29.8   42.8 |  94.2 183.3 | 68.4   80.9 |   787    0     0 | lowres 99% tried 115.8,fog-ha,small-,contac,pixels
+ drag    |   160  11.4 | 83.2   150 283.5   483  113 |   31.7   75.8 |  65.8 249.7 | 78.0  129.5 |   789    0    14 | lowres 88% tried fog-ha,small-,contac,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 22.5  world 5.6  fxFrame 3.5  emit 1.0
+   orbit   fxRender 16.7  world 5.9  emit 5.2  fxFrame 4.3  interact 2.5  input 0.7
+            frame listeners: 3.1 ms (what) => { if (what !== 'frame') return; layer.cl | 1.9 ms (what) => { if (what === 'selection') { expanded = | 0.0 ms (what, d) => { if (what === 'frame') { restore(); 
+   drag    fxRender 19.4  world 7.9  emit 3.4  fxFrame 2.8  input 2.0  interact 2.0  under 0.3
+
+== the front web server · inn · shadow · round 2 · preset high · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    15   6.8 |133.4   150 166.6   167   14 |     46   49.1 | 124.4 124.4 |132.0  136.3 |  1285   13     0 | lowres 0% tried 
+ orbit   |   136  12.2 | 83.3   150   200   383  104 |   33.7   47.8 | 105.6 182.2 | 72.5  115.1 |   869   33     0 | lowres 99% tried 140.2,shadow,fog-ha,small-,contac,pixels
+ drag    |   140  10.0 | 83.4 166.6   350   517  129 |   39.3   68.7 |  75.6 261.5 | 91.7  142.5 |  1226  131    14 | lowres 85% tried shadow,fog-ha,small-,contac,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 32.9  world 7.3  fxFrame 5.2  emit 0.9
+   orbit   fxRender 19.0  world 7.0  fxFrame 5.3  emit 5.2  interact 2.5  input 0.9
+            frame listeners: 3.1 ms (what) => { if (what !== 'frame') return; layer.cl | 2.0 ms (what) => { if (what === 'selection') { expanded = | 0.0 ms (what, d) => { if (what === 'frame') { restore(); 
+   drag    fxRender 25.5  world 9.6  fxFrame 3.8  interact 3.5  emit 3.2  input 2.4  under 0.3
+wrote experiments/2026-11-06-perf/results/shadow-the front web server-high.json
+tw_sandbox: live house look and ratings unchanged by this run (sandbox lightuse-2016646-6aeee1ed)

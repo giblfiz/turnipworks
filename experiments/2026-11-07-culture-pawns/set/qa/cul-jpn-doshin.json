@@ -1,0 +1,133 @@
+{
+ "file": "cul-jpn-doshin.glb",
+ "tris": 49166,
+ "kb": 2549,
+ "native_extent": [
+  0.539,
+  1.001,
+  0.395
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0426,
+  "seen": 0.0031
+ },
+ "mean_rgb": [
+  58,
+  45,
+  36
+ ],
+ "mean_saturation": 0.335,
+ "sized_by": "its highest point",
+ "overall_ft": 5.6,
+ "pieces": {
+  "connected_parts": 21,
+  "main_part_area_share": 0.9997,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.5937,
+ "y0": -2.8012,
+ "stated_ft": {
+  "body": 5.6,
+  "figure_top": 5.6,
+  "overall": 5.6
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2698,
+   -0.5008,
+   -0.2007
+  ],
+  [
+   0.2688,
+   0.5004,
+   0.194
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49166,
+   "tex": 2048,
+   "kb": 2549
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 998
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 443
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.91,
+    "z": -0.04,
+    "size_ft": [
+     1.03,
+     1.38
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.98,
+    "sole_p90_ft": 0.034
+   },
+   {
+    "x": -0.95,
+    "z": -0.3,
+    "size_ft": [
+     1.1,
+     1.28
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.98,
+    "sole_p90_ft": 0.035
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 1.84,
+  "plan_hull_area_sqft": 5.27,
+  "lowest_slab_share_of_plan": 0.348
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.01,
+   "d": 2.2,
+   "h": 5.6
+  },
+  "centre": [
+   -0.042,
+   0.127
+  ],
+  "contacts_radius_ft": 1.46,
+  "reach_radius_ft": 1.53,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.949,
+  "plate_lost_share": 0.011,
+  "added_share": 0.043,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.949,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 8
+ },
+ "id": "cul-jpn-doshin",
+ "sha1": "617c50ca5526ec929bc749c01e3f9308a9616e16",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 16.5
+}

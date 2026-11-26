@@ -43,7 +43,7 @@ export function cutSurface(R, app) {
   const key = () => `tw.cut.${app.sync.campaign?.id || '-'}.${app.me() || '-'}`;
   const load = () => { try { return JSON.parse(localStorage.getItem(key()) || '{}') || {}; } catch { return {}; } };
   const save = () => { try { const s = load(); s.areas = { ...(s.areas || {}), [app.area()]: { y: app.cut.y, level: app.level } }; s.roofs = app.roofs; localStorage.setItem(key(), JSON.stringify(s)); } catch { } };
-  let loadedFor = null;
+  let loadedFor = null, restoring = false, shownLevel = null; // (shownLevel: the level the meter last showed, for its slide)
   function restore() { // when an area first shows (a reload, or going to another area): its own cut, as it was left
     const id = app.area(), k = `${key()}|${id}`;
     if (!id || !app.sync.campaign || !app.me() || loadedFor === k) return;
@@ -52,7 +52,7 @@ export function cutSurface(R, app) {
     app.roofs = !!s.roofs;
     app.cut = { y: Number.isFinite(c?.y) ? c.y : null, pinned: false };
     // the level you are on: as it was left; a cut saved before 2026-10-06 has none, so it is the level that cut shows
-    app.setLevel(Number.isFinite(c?.level) ? c.level : app.cut.y != null ? app.cut.y + HT.SLAB - HT.STOREY : 0);
+    restoring = true; try { app.setLevel(Number.isFinite(c?.level) ? c.level : app.cut.y != null ? app.cut.y + HT.SLAB - HT.STOREY : 0); } finally { restoring = false; } shownLevel = app.level; app.focusToLevel(); // (a reload puts you back where you were: not a change to show)
     // a cut saved BELOW the level it was saved with is one counted from a hilltop building's own ground (before
     // 2026-10-26, when the cut became the map's): the same level, with the cut at its ceiling now
     if (app.cut.y != null && app.cut.y < app.level) app.cut = { y: levelCut(app.level), pinned: false };
@@ -223,6 +223,11 @@ export function cutSurface(R, app) {
     if (k === shownKey) return; shownKey = k;
     el.classList.toggle('on', I.on); el.classList.toggle('all', !I.on);
     el.classList.toggle('flat', !I.on && !I.roofs && M.levels.filter(l => l.rooms).length <= 1 && !!M.levels.find(l => l.current)?.ground); // (one storey, all showing: a phone hides the meter, style.css "ON A PHONE")
+    // ONLY THE GROUND (2026-11-12, levels are advanced; Harry: "making everything default to layer one until people need
+    // to actively request to go multi-layer"): nothing is built off the ground and you are on it, so the meter folds up to
+    // its Roofs button (style.css "#levelMeter.single"). It opens again by itself the moment a second level is in use or
+    // you go to another level (] [ , the bar, an offer), and each level change opens it for a moment (showLevelChange).
+    el.classList.toggle('single', M.levels.every(l => !l.rooms || l.ground) && !!M.levels.find(l => l.current)?.ground);
     const status = I.on ? `Showing ${I.text}${I.hidden ? ` · ${I.hidden} room${I.hidden === 1 ? '' : 's'} above hidden` : ''}${I.pawnsAbove ? ` · ${I.pawnsAbove} pawn${I.pawnsAbove === 1 ? '' : 's'} above` : ''}` : (I.roofs ? `All levels · roofs on · on ${I.levelLabel}` : `All levels · on ${I.levelLabel}`);
     el.dataset.status = status; el.setAttribute('aria-label', `Levels. ${status}`);
     capEl.classList.toggle('on', !I.on);
@@ -231,7 +236,75 @@ export function cutSurface(R, app) {
     capEl.title = I.on ? `${status}. Show all levels ( \\ )` : `Every level is showing; you are on ${I.levelLabel} and build there. Click for ${I.levelLabel} only ( \\ )`;
     rail.innerHTML = M.levels.map(l => `<div class="lm-n${l.rooms ? ' rooms' : ''}${l.ground ? ' ground' : ''}${l.current ? ' cur' : ''}${l.shown ? '' : ' hid'}" data-y="${l.y}" title="${l.label}${l.ground ? ' (ground)' : ''} · ${l.y} ft${l.rooms ? ` · ${l.rooms} room${l.rooms === 1 ? '' : 's'}` : ' · nothing built'}${l.shown ? '' : ' · hidden'}${l.current ? ' · you are here' : ' · click to go here'}"><i></i>${l.current ? `<em>${num(l.storey)}</em>` : ''}<b>${l.label}${l.ground ? ' · ground' : ''}${l.rooms ? ` · ${l.rooms}` : ''}</b></div>`).join('');
   }
-  app.cutBar = () => { const r = el.getBoundingClientRect(), c = rail.querySelector('.cur em')?.getBoundingClientRect(); return { ...app.cutInfo(), shown: !el.hidden && el.offsetWidth > 0 && el.offsetHeight > 0, textShown: el.dataset.status || '', rect: [r.left, r.top, r.right, r.bottom], marker: c ? { text: rail.querySelector('.cur em').textContent, rect: [c.left, c.top, c.right, c.bottom] } : null, notches: [...rail.children].map(n => { const q = n.getBoundingClientRect(); return { y: +n.dataset.y, cls: n.className, at: [(q.left + q.right) / 2, (q.top + q.bottom) / 2] }; }), cap: (() => { const q = capEl.getBoundingClientRect(); return { on: capEl.classList.contains('on'), at: [(q.left + q.right) / 2, (q.top + q.bottom) / 2] }; })(), roof: (() => { const q = roofEl.getBoundingClientRect(); return { on: roofEl.classList.contains('on'), hid: roofEl.classList.contains('hid'), at: [(q.left + q.right) / 2, (q.top + q.bottom) / 2] }; })() }; };
+  app.cutBar = () => { const r = el.getBoundingClientRect(), c = rail.querySelector('.cur em')?.getBoundingClientRect(); return { ...app.cutInfo(), single: el.classList.contains('single'), flash: el.classList.contains('lm-flash'), railShown: rail.offsetHeight > 0, shown: !el.hidden && el.offsetWidth > 0 && el.offsetHeight > 0, textShown: el.dataset.status || '', rect: [r.left, r.top, r.right, r.bottom], marker: c ? { text: rail.querySelector('.cur em').textContent, rect: [c.left, c.top, c.right, c.bottom] } : null, notches: [...rail.children].map(n => { const q = n.getBoundingClientRect(); return { y: +n.dataset.y, cls: n.className, at: [(q.left + q.right) / 2, (q.top + q.bottom) / 2] }; }), cap: (() => { const q = capEl.getBoundingClientRect(); return { on: capEl.classList.contains('on'), at: [(q.left + q.right) / 2, (q.top + q.bottom) / 2] }; })(), roof: (() => { const q = roofEl.getBoundingClientRect(); return { on: roofEl.classList.contains('on'), hid: roofEl.classList.contains('hid'), at: [(q.left + q.right) / 2, (q.top + q.bottom) / 2] }; })() }; };
+
+  // ---------- A LEVEL CHANGE, SHOWN: THE VIEW MOVES, THE METER MOVES WITH IT, AND SAYS WHERE (2026-11-12) ----------
+  // Harry: "when we change layers ... we want to do a little animation where it opens the levels menu/meter and actually
+  // shows it getting moved", then, on dev, of "Take it underground": "it just looked like it 'jumped' down ... animation
+  // would indicate a number of interim frames ... like at least 0.5 sec worth".
+  // Every change of the level you are on (an offer, a stair, ] [ , the meter, the bar, the storey tour; never a reload
+  // putting you back) plays ONE timeline of VIEW_MS:
+  //   the view   the camera's focus height glides from the old level's floor to the new one (the view itself goes up or
+  //              down a storey; the focus height then stays on the level you are on: a cellar is looked at from 10 ft
+  //              lower, as the ground is from 0)
+  //   the meter  opens as a hover would and a copy of the marker slides old notch -> new on the same curve
+  //   a readout  "Ground → Level −1", small, beside the meter, fading in and out with it
+  // The cut itself is not stepped: a room shows whole or not at all (docs/VERTICAL.md), and what it hides or shows flies
+  // off or lands (cutfly.js) as it always did, from the first frame.
+  // THE CLOCK COUNTS FRAMES DRAWN, not the wall: each frame adds at most STEP_MS, so a long frame (a building made again, a
+  // cave's rock rebuilt at its new depth) pauses the move instead of eating it; there are always interim frames. Nothing
+  // waits on it; a second change in flight starts from where the view and the marker are. Reduced motion: the view and
+  // the marker are simply on the new level (the readout still says where you went, without moving).
+  const VIEW_MS = 800, HOLD_MS = 500, STEP_MS = 34; // (2026-11-13, Harry on dev: "a bit too fast": 600/300 -> 800/500; the shipped 11-12 slide was 420 of 900)
+  const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('reduce-motion');
+  const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const levelName = (y) => { const s = HT.levelAt(y); return s === 0 ? 'Ground' : `Level ${s > 0 ? s + 1 : '\u2212' + -s}`; };
+  app.levelAnims = []; // (tests) { from, to, at, reduced, slid, flashed, railShown, endAt, frames }
+  let wantAnim = null, ghost = null, anim = null;
+  // THE DEMONSTRATING HAND (Harry 2026-11-12: "a big cursor ... grabs the level marker and drags it"): the client's own
+  // pointer and closed-hand icons (icons.js mouse-pointer-2, grab: a blind read took the open hand for pointing, 11-13) at twice a pointer's size. It takes hold of the marker as the
+  // move starts (the pointer becomes the hand, pressed), drags it with the marker, lets go (the pointer again) and fades.
+  const hand = document.createElement('div'); hand.id = 'levelCursor'; hand.setAttribute('aria-hidden', 'true'); hand.hidden = true;
+  hand.innerHTML = `<span class="lc-pointer">${icon('mouse-pointer-2', 40)}</span><span class="lc-hand">${icon('grab', 40)}</span>`; document.body.append(hand);
+  const readout = document.createElement('div'); readout.id = 'levelReadout'; readout.setAttribute('aria-live', 'polite'); readout.hidden = true; document.body.append(readout);
+  const notchCentre = (y) => { let best = null, bd = Infinity; for (const n of rail.children) { const d = Math.abs(+n.dataset.y - y); if (d < bd) { bd = d; best = n; } } if (!best) return null; const q = best.getBoundingClientRect(); return (q.top + q.bottom) / 2 - el.getBoundingClientRect().top; };
+  const grab = () => (app.fpv?.active?.() ? null : app.main?.grab) || null;
+  app.focusToLevel = () => { const g = grab(); if (g && g.focus.y !== app.level) { g.focus.y = app.level; g.update?.(); } }; // (no motion: a reload, another area)
+  function runLevelAnim({ from, to }) {
+    const red = reducedMotion(), g = grab(), rec = { from, to, at: performance.now(), reduced: red, slid: false, endAt: null, frames: 0 };
+    app.levelAnims.push(rec); if (app.levelAnims.length > 40) app.levelAnims.shift();
+    const top0 = ghost ? parseFloat(ghost.style.top) : notchCentre(from), top1 = notchCentre(to); // a move in flight: the next starts where its marker is now
+    const y0 = g ? (g.focus.y ?? from) : from;
+    el.classList.add('lm-flash'); rec.flashed = true; rec.railShown = rail.offsetHeight > 0; // (the meter is open now, whatever it was)
+    readout.textContent = `${levelName(from)} \u2192 ${levelName(to)}`; readout.hidden = false; readout.className = 'show';
+    if (top1 != null) readout.style.top = `${el.getBoundingClientRect().top + top1}px`;
+    if (red) { ghost?.remove(); ghost = null; el.classList.remove('lm-travel'); if (g) { g.focus.y = to; g.update?.(); } }
+    else {
+      if (!ghost && top0 != null && top1 != null && Math.abs(top0 - top1) > 1) { ghost = document.createElement('em'); ghost.className = 'lm-ghost'; ghost.setAttribute('aria-hidden', 'true'); el.append(ghost); }
+      if (ghost) { ghost.textContent = num(HT.levelAt(to)); ghost.style.top = `${top0}px`; el.classList.add('lm-travel'); rec.slid = true; }
+      if (ghost) { hand.hidden = false; hand.className = 'grab'; rec.hand = true; }
+    }
+    if (red || !ghost) { hand.hidden = true; hand.className = ''; }
+    anim = { rec, t: 0, red, y0, y1: to, top0, top1, g };
+  }
+  function stepLevelAnim(dt) {
+    const A = anim; if (!A) return;
+    A.t += Math.min(dt * 1000, STEP_MS); A.rec.frames++;
+    const k = A.red ? 1 : Math.min(1, A.t / VIEW_MS), e = ease(k);
+    const g = grab(); if (g && !A.red) { g.focus.y = A.y0 + (A.y1 - A.y0) * e; g.update?.(); }
+    if (ghost && A.top0 != null && A.top1 != null) {
+      const top = A.top0 + (A.top1 - A.top0) * e; ghost.style.top = `${top}px`;
+      const m = el.getBoundingClientRect(); hand.style.transform = `translate(${Math.round(m.left + 8)}px, ${Math.round(m.top + top - 6)}px)`; // (its tip on the marker)
+    }
+    if (k >= 1 && ghost) { ghost.remove(); ghost = null; el.classList.remove('lm-travel'); hand.className = 'release'; } // let go: the pointer again, fading
+    if (!hand.hidden && hand.className === 'release') hand.style.opacity = String(Math.max(0, 1 - (A.t - VIEW_MS) / HOLD_MS));
+    else if (!hand.hidden) hand.style.opacity = '1';
+    readout.style.opacity = String(A.t < 120 ? A.t / 120 : A.t > VIEW_MS + HOLD_MS - 200 ? Math.max(0, (VIEW_MS + HOLD_MS - A.t) / 200) : 1);
+    if (A.t >= VIEW_MS + HOLD_MS) { anim = null; el.classList.remove('lm-flash', 'lm-travel'); readout.hidden = true; hand.hidden = true; hand.className = ''; A.rec.endAt = performance.now(); dirty = true; }
+  }
+  app.levelFocusY = () => anim ? anim.y1 : wantAnim ? wantAnim.to : (grab()?.focus.y ?? 0); // where the focus height is going: a change asked for this frame (not yet started) or in flight (main.js centreOn)
+  app.levelAnimating = () => el.classList.contains('lm-flash'); // (tests)
+  app.viewAnim = () => anim ? { t: anim.t, y0: anim.y0, y1: anim.y1, focusY: grab()?.focus.y ?? null, hand: hand.hidden ? null : hand.className, handAt: hand.hidden ? null : (() => { const q = hand.getBoundingClientRect(); return [q.left, q.top, q.width]; })() } : null; // (tests)
 
   // ---------- the conditional button "Cut to lv N" (surfaces/condbutton.js; its one fixed slot) ----------
   const cb = () => app.condButtons;
@@ -281,9 +354,9 @@ export function cutSurface(R, app) {
   }
 
   app.on((what, d) => {
-    if (what === 'frame') { restore(); paint(); return; }
+    if (what === 'frame') { restore(); paint(); if (wantAnim) { const a = wantAnim; wantAnim = null; dirty = true; paint(); runLevelAnim(a); } stepLevelAnim(d || 0); return; }
     if (what === 'cut' || what === 'level' || what === 'selection' || what === 'roofs') dirty = true;
-    if (what === 'level') save();
+    if (what === 'level') { save(); const was = shownLevel; shownLevel = app.level; if (was != null && was !== app.level && !restoring && loadedFor) wantAnim = { from: wantAnim?.from ?? was, to: app.level }; }
     if (what === 'change' && d === app.area()) { dirty = true; world()?.setCut(app.cut.y); world()?.setRoofs?.(app.roofs); watchPawns(); return; }
     if (what === 'entry') return onEntry(d);
     if (what === 'refresh') { if (world() && (world().cut !== app.cut.y || !!world().roofsOn !== !!app.roofs)) apply(); }

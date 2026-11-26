@@ -16,6 +16,9 @@ import pathlib
 import sys
 
 from factions import faction_data, add_faction_assets
+from cultures_a import CULTURE_ROOM_TYPES, CULTURE_TIERS, add_cultures_a  # culture packs A: Japan, China, India (2026-11-06)
+from culture_roofs import add_culture_roofs  # culture roofs (2026-11-07): the roof ornament meshes and the ridge skus (culture_roofs.py)
+import culture_packs_b  # culture packs B (2026-11-06): Norse, Mamluk Middle East, medieval Rus', Mexica
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 TOOL = pathlib.Path(__file__).resolve().parent
@@ -92,10 +95,11 @@ ROOM_TYPES = [
     {'key': 'mansion-corridor', 'label': 'Corridor', 'program': 'generic', 'family': 'noble-panel', 'cells': [6, 2], 'floors': ['floor-planks-polished', 'floor-parquet-herringbone', 'floor-checker-bw', 'floor-marble-cabochon'], 'recipes': ['nob-corridor'], 'color': '#cdbb8a', 'group': 'Mansion', 'tiers': ['noble', 'ccm'], 'wealth': 'fine'},
     {'key': 'crypt-passage', 'label': 'Passage', 'program': 'generic', 'family': 'crypt-stone', 'cells': [6, 2], 'floors': ['floor-flagstone-damp', 'floor-flagstone-broken', 'floor-flagstone-large', 'floor-earth-packed'], 'recipes': ['cry-passage'], 'color': '#6b7383', 'group': 'Crypt', 'tiers': ['crypt', 'ccm']},
     # Temple & chapel (2026-10-11): ten rooms, temple-stone walls; `flavors` = which flavor slots dress the room (js/solver2.js, the tem block)
-    {'key': 'temple-nave', 'label': 'Temple nave', 'program': 'generic', 'family': 'temple-stone', 'cells': [5, 8], 'floors': ['floor-checker-stone', 'floor-flagstone-square', 'floor-marble-cabochon', 'floor-tile-encaustic'], 'recipes': ['tem-nave'], 'color': '#d8cfa4', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield']},
-    {'key': 'cathedral', 'label': 'Cathedral', 'program': 'generic', 'family': 'temple-stone', 'cells': [8, 14], 'floors': ['floor-marble-cabochon', 'floor-checker-stone', 'floor-flagstone-square', 'floor-tile-encaustic'], 'recipes': ['tem-nave'], 'color': '#e3d9a8', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield']},
+    # `rite` (2026-11-07, faith-factions): the room's layout follows its faction's rite (church / Buddhist hall / Hindu hall / prayer hall)
+    {'key': 'temple-nave', 'label': 'Temple nave', 'program': 'generic', 'family': 'temple-stone', 'cells': [5, 8], 'floors': ['floor-checker-stone', 'floor-flagstone-square', 'floor-marble-cabochon', 'floor-tile-encaustic'], 'recipes': ['tem-nave'], 'color': '#d8cfa4', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield'], 'rite': True},
+    {'key': 'cathedral', 'label': 'Cathedral', 'program': 'generic', 'family': 'temple-stone', 'cells': [8, 14], 'floors': ['floor-marble-cabochon', 'floor-checker-stone', 'floor-flagstone-square', 'floor-tile-encaustic'], 'recipes': ['tem-nave'], 'color': '#e3d9a8', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield'], 'rite': True},
     {'key': 'cathedral-dark', 'label': 'Dark cathedral', 'program': 'generic', 'family': 'crypt-stone', 'cells': [8, 14], 'floors': ['floor-flagstone-damp', 'floor-tomb-slabs', 'floor-checker-stone', 'floor-flagstone-large'], 'recipes': ['tem-nave'], 'color': '#6f5a6e', 'group': 'Temple', 'tiers': ['crypt', 'ccm'], 'flavors': ['devils', 'spiders', 'skulls', 'dragons', 'tentacles']},
-    {'key': 'temple-shrine', 'label': 'Shrine', 'program': 'generic', 'family': 'temple-stone', 'cells': [3, 4], 'floors': ['floor-checker-stone', 'floor-flagstone-square', 'floor-marble-cabochon', 'floor-tile-encaustic'], 'recipes': ['tem-shrine'], 'color': '#cfc08a', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield']},
+    {'key': 'temple-shrine', 'label': 'Shrine', 'program': 'generic', 'family': 'temple-stone', 'cells': [3, 4], 'floors': ['floor-checker-stone', 'floor-flagstone-square', 'floor-marble-cabochon', 'floor-tile-encaustic'], 'recipes': ['tem-shrine'], 'color': '#cfc08a', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield'], 'rite': True},
     {'key': 'temple-vestry', 'label': 'Vestry', 'program': 'generic', 'family': 'temple-stone', 'cells': [3, 3], 'floors': ['floor-flagstone-square', 'floor-checker-stone', 'floor-tile-encaustic'], 'recipes': ['tem-vestry-room'], 'color': '#c4b79a', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield']},
     {'key': 'temple-cloister', 'label': 'Cloister walk', 'program': 'generic', 'family': 'temple-stone', 'cells': [8, 3], 'floors': ['floor-flagstone-square', 'floor-flagstone-large', 'floor-checker-stone'], 'recipes': ['tem-cloister-walk'], 'color': '#b9c2a0', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield']},
     {'key': 'temple-scriptorium', 'label': 'Scriptorium', 'program': 'generic', 'family': 'temple-stone', 'cells': [5, 5], 'floors': ['floor-flagstone-square', 'floor-tile-encaustic', 'floor-checker-stone'], 'recipes': ['tem-scriptorium-room'], 'color': '#c9b98c', 'group': 'Temple', 'tiers': ['temple', 'ccm'], 'flavors': ['sun', 'moon', 'nature', 'sword-shield']},
@@ -219,6 +223,50 @@ ROOM_TYPES = [
     {'key': 'lair-trophy', 'label': 'Trophy cave', 'program': 'generic', 'family': 'cut-rock', 'cells': [7, 3], 'floors': ['floor-earth-packed', 'floor-flagstone-broken', 'floor-bone-strewn'], 'recipes': ['lai-trophy-cave', 'lai-stone-gaze-gallery'], 'color': '#9c8fb8', 'group': 'Lair', 'tiers': ['lai', 'dun', 'ccm']},
     {'key': 'lair-dragon', 'label': "Dragon's hoard", 'program': 'generic', 'family': 'cut-rock', 'cells': [8, 7], 'floors': ['floor-flagstone-broken', 'floor-earth-packed', 'floor-earth-bare'], 'recipes': ['lai-dragon-lair', 'lai-dragon-hoard'], 'color': '#d0a534', 'group': 'Lair', 'tiers': ['lai', 'dun', 'ccm']},
     # <<< type:lai
+    # >>> type:mod  Modern city (sprawl pack, 2026-11-06): the Modern genre's City type, eight rooms in drywall / city-brick /
+    # concrete; the street and the alley outdoor. tiers ['mod'] only: a shared role (sofa) rolls its modern sku, and a role
+    # with no modern sku is not asked for by these programs (js/solver2.js block type:mod)
+    {'key': 'mod-apartment', 'label': 'Apartment', 'program': 'generic', 'family': 'drywall', 'cells': [6, 5], 'floors': ['floor-planks-laminate', 'floor-tile-carpet'], 'recipes': ['mod-apartment'], 'color': '#9fb4b0', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-office', 'label': 'Office floor', 'program': 'generic', 'family': 'drywall', 'cells': [8, 6], 'floors': ['floor-tile-carpet'], 'recipes': ['mod-office'], 'color': '#8a9bb3', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-bar', 'label': 'Bar & nightclub', 'program': 'generic', 'family': 'city-brick', 'cells': [8, 6], 'floors': ['floor-tile-dark'], 'recipes': ['mod-bar'], 'color': '#b0466d', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-street', 'label': 'City street', 'program': 'outdoors', 'family': 'city-brick', 'cells': [10, 5], 'floors': ['floor-asphalt'], 'recipes': ['mod-street'], 'color': '#6d7178', 'group': 'City', 'outdoor': True, 'tiers': ['mod']},
+    {'key': 'mod-alley', 'label': 'Back alley', 'program': 'outdoors', 'family': 'city-brick', 'cells': [8, 2], 'floors': ['floor-asphalt', 'floor-concrete-garage'], 'recipes': ['mod-alley'], 'color': '#5d5650', 'group': 'City', 'outdoor': True, 'tiers': ['mod']},
+    {'key': 'mod-garage', 'label': 'Parking garage', 'program': 'generic', 'family': 'concrete', 'cells': [8, 6], 'floors': ['floor-concrete-garage'], 'recipes': ['mod-garage'], 'color': '#9a9a92', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-store', 'label': 'Convenience store', 'program': 'generic', 'family': 'drywall', 'cells': [6, 5], 'floors': ['floor-tile-vinyl'], 'recipes': ['mod-store'], 'color': '#d8c25a', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-warehouse', 'label': 'Warehouse', 'program': 'generic', 'family': 'concrete', 'cells': [8, 8], 'floors': ['floor-concrete-polished', 'floor-concrete-garage'], 'recipes': ['mod-warehouse'], 'color': '#b08a52', 'group': 'City', 'tiers': ['mod']},
+    # <<< type:mod
+    # >>> type:cyb  the cyberpunk pack, wave 2 (2026-11-07): the Modern genre's Cyberpunk type, ten rooms on wave 1's wall
+    # families; the rooftop outdoor. tiers ['cyb', 'mod']: a wave-2 look first (the noodle neon, the near-future sedan), else the
+    # Modern genre's sku: js/solver2.js block type:cyb (cybOnly)
+    {'key': 'cyb-clinic', 'label': 'Street clinic', 'program': 'generic', 'family': 'concrete', 'cells': [6, 5], 'floors': ['floor-tile-vinyl'], 'recipes': ['cyb-clinic'], 'color': '#5fb3a8', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-lobby', 'label': 'Corporate lobby', 'program': 'generic', 'family': 'drywall', 'cells': [8, 6], 'floors': ['floor-concrete-polished'], 'recipes': ['cyb-lobby'], 'color': '#6f8fb8', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-server', 'label': 'Server room', 'program': 'generic', 'family': 'concrete', 'cells': [6, 6], 'floors': ['floor-raised-tile'], 'recipes': ['cyb-server'], 'color': '#3f6fa0', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-noodle', 'label': 'Noodle bar', 'program': 'generic', 'family': 'city-brick', 'cells': [5, 4], 'floors': ['floor-tile-dark'], 'recipes': ['cyb-noodle'], 'color': '#d9823b', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-capsule', 'label': 'Capsule hotel', 'program': 'generic', 'family': 'drywall', 'cells': [8, 4], 'floors': ['floor-tile-vinyl'], 'recipes': ['cyb-capsule'], 'color': '#c9c3b2', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-hideout', 'label': 'Gang hideout', 'program': 'generic', 'family': 'concrete', 'cells': [8, 6], 'floors': ['floor-concrete-garage'], 'recipes': ['cyb-hideout'], 'color': '#9b4a5c', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-talisman', 'label': 'Magic-supply shop', 'program': 'generic', 'family': 'city-brick', 'cells': [5, 4], 'floors': ['floor-planks-laminate'], 'recipes': ['cyb-talisman'], 'color': '#8e63b8', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-rigger', 'label': "Rigger's garage", 'program': 'generic', 'family': 'concrete', 'cells': [8, 6], 'floors': ['floor-concrete-garage'], 'recipes': ['cyb-rigger'], 'color': '#c79a3a', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-safehouse', 'label': 'Safehouse', 'program': 'generic', 'family': 'drywall', 'cells': [6, 5], 'floors': ['floor-planks-laminate', 'floor-tile-carpet'], 'recipes': ['cyb-safehouse'], 'color': '#7a8a6e', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    {'key': 'cyb-rooftop', 'label': 'Rooftop', 'program': 'outdoors', 'family': 'concrete', 'cells': [8, 8], 'floors': ['floor-roof-gravel'], 'recipes': ['cyb-rooftop'], 'color': '#7d7f86', 'outdoor': True, 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    # <<< type:cyb
+    # >>> type:modrooms  the modrooms lane (2026-11-07): five more City rooms and the Cyberpunk exec penthouse (experiments/
+    # 2026-11-07-modrooms). A room's FIRST RECIPE names its Build-tray type (cyb-… -> Cyberpunk), so the exec penthouse's key
+    # keeps the mod- prefix (no other lane's cyb- tooling touches it). Programs: js/solver2.js block type:modrooms (mxOnly)
+    {'key': 'mod-penthouse', 'label': 'Penthouse', 'program': 'generic', 'family': 'drywall', 'cells': [8, 6], 'floors': ['floor-marble-slab', 'floor-concrete-polished', 'floor-planks-laminate'], 'recipes': ['mod-penthouse'], 'color': '#c9b28a', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-bathroom', 'label': 'Bathroom', 'program': 'generic', 'family': 'drywall', 'cells': [2, 2], 'floors': ['floor-tile-bath-hex', 'floor-tile-vinyl'], 'recipes': ['mod-bathroom'], 'color': '#9ec9d4', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-restroom', 'label': 'Public restroom', 'program': 'generic', 'family': 'drywall', 'cells': [4, 3], 'floors': ['floor-tile-bath-hex', 'floor-tile-vinyl'], 'recipes': ['mod-restroom'], 'color': '#7fa9b8', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-kitchen', 'label': 'Restaurant kitchen', 'program': 'generic', 'family': 'drywall', 'cells': [6, 4], 'floors': ['floor-quarry-tile', 'floor-tile-vinyl'], 'recipes': ['mod-kitchen'], 'color': '#b8b8ae', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-fire-escape', 'label': 'Fire escape', 'program': 'outdoors', 'family': 'city-brick', 'cells': [4, 2], 'floors': ['floor-grating-steel', 'floor-concrete-garage'], 'recipes': ['mod-fire-escape'], 'color': '#5a4a44', 'group': 'City', 'outdoor': True, 'tiers': ['mod']},
+    {'key': 'mod-penthouse-exec', 'label': 'Exec penthouse', 'program': 'generic', 'family': 'drywall', 'cells': [8, 6], 'floors': ['floor-marble-slab', 'floor-concrete-polished'], 'recipes': ['cyb-penthouse-exec'], 'color': '#8a7fb0', 'group': 'Cyberpunk', 'tiers': ['cyb', 'mod']},
+    # <<< type:modrooms
+    # >>> type:modhalls  the modhalls lane (2026-11-07): the Modern genre's corridors (Harry: "definitely modern hallways as well";
+    # experiments/2026-11-07-modhalls). Each is a PASSAGE: the whole-building generator's spine in the Modern buildings
+    # (engine/tools/modern_buildings.json `hall`). Keys end in -hallway / -corridor (buildings.js HALL_RE). Programs: js/solver2.js block type:modhalls (mxOnly)
+    {'key': 'mod-apartment-hallway', 'label': 'Apartment hallway', 'program': 'generic', 'family': 'drywall', 'cells': [6, 2], 'floors': ['floor-tile-carpet', 'floor-planks-laminate', 'floor-tile-vinyl'], 'recipes': ['mod-apartment-hallway'], 'color': '#b9a58c', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-office-corridor', 'label': 'Office corridor', 'program': 'generic', 'family': 'drywall', 'cells': [6, 2], 'floors': ['floor-tile-carpet', 'floor-tile-vinyl', 'floor-concrete-polished'], 'recipes': ['mod-office-corridor'], 'color': '#a9b3b8', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-hotel-corridor', 'label': 'Hotel corridor', 'program': 'generic', 'family': 'drywall', 'cells': [6, 2], 'floors': ['floor-tile-carpet', 'floor-planks-laminate', 'floor-marble-slab'], 'recipes': ['mod-hotel-corridor'], 'color': '#9c6b62', 'group': 'City', 'tiers': ['mod']},
+    {'key': 'mod-service-corridor', 'label': 'Service corridor', 'program': 'generic', 'family': 'concrete', 'cells': [6, 2], 'floors': ['floor-concrete-garage', 'floor-concrete-polished', 'floor-tile-vinyl'], 'recipes': ['mod-service-corridor'], 'color': '#7d7f78', 'group': 'City', 'tiers': ['mod']},
+    # <<< type:modhalls
     # Terrain (2026-10-24, docs/VERTICAL.md "Hills"): a HILL is a flat terrace of raised ground drawn like a room (outdoor:
     # no walls; its floors are its GROUND, grass first). Its top is at a 5-ft step (10 ft by default); the engine lays the bank
     # down to the lower ground (engine/core/terrain.js). Last, so it is last in every type it is listed under. Its slots only stock its library: its program places nothing (solver2.js KEY.hill).
@@ -231,6 +279,13 @@ ROOM_TYPES = [
     {"key": "cave", "floors": ["floor-cave-rock", "floor-cut-rock", "floor-earth-packed", "floor-earth-bare"], "label": "Cave", "program": "generic", "family": "cut-rock", "cells": [7, 5],
      "recipes": ["lai-cave", "dun-cave", "min-cave"], "color": "#6e6252", "byHand": True},
 ]
+ROOM_TYPES += culture_packs_b.room_types(ROOT)  # culture packs B: the room types of every pack that has landed
+ROOM_TYPES += CULTURE_ROOM_TYPES  # culture packs A (cultures_a.py): Japan, China, India
+for _rt in (rt for rt in ROOM_TYPES if rt.get('group') in ('City', 'Cyberpunk')): _rt['group'] = 'Modern'  # (2026-11-07, Harry: no City / Cyberpunk split a player sees; the AI's room list groups them as Modern. Their Build-menu buildings: engine/tools/modern_buildings.json)
+# type:veh (2026-11-07): the Modern rooms that borrow a Vehicles shelf (catalog/rooms-vehicles.md; the batch block in main())
+VEH_ROOMS = {'mod-street': 'veh-street', 'mod-alley': 'veh-alley', 'mod-garage': 'veh-garage', 'mod-warehouse': 'veh-warehouse', 'cyb-lobby': 'veh-lobby',
+             'cyb-hideout': 'veh-hideout', 'cyb-rigger': 'veh-rigger', 'cyb-safehouse': 'veh-safehouse', 'cyb-rooftop': 'veh-rooftop',
+             'mod-office': 'veh-office', 'mod-store': 'veh-store', 'cyb-server': 'veh-server'}  # (+ the cameras and desk things, catalog/objects-modern-desk.catalog.md)
 SHELL = "any-shell"
 
 # Mesh identity (2026-10-02): orientation corrections belong to one mesh, not to a sku name. inn-02 regenerated 52
@@ -748,8 +803,163 @@ def main() -> None:
                                 **({"own_size": [float(v) for v in row["size"].split("x")]} if row.get("size") else {})}
         if smi_skipped:
             print(f"smithy: {len(smi_skipped)} sku names already in the library, NOT replaced: {', '.join(smi_skipped[:8])}")
+    culture_packs_b.add_cultures_b(skus, ROOT)  # culture packs B: each pack's run manifest (catalog/runs/cultb-<code>-01)
     add_openmesh(skus)
     add_faction_assets(skus, ROOT, mesh_id)
+    add_cultures_a(skus, ROOT, load_manifest)  # culture packs A: their meshes and flats (cultures_a.py)
+    add_culture_roofs(skus, ROOT, load_manifest)  # culture roofs: catalog/runs/croof-01 (culture_roofs.py)
+    # >>> type:mod
+    # Modern city (sprawl pack, 2026-11-06): one run folder (sprawl-01) and its flats, LAST of all the batches (an earlier
+    # batch's `had` must not see a modern sku: the mansion's sofa would turn `noble`). A sku name that exists is never
+    # replaced. EVERY modern sku, meshes and flats alike, wall kit included, carries the exclusive tier `mod`: no fantasy room
+    # rolls one, a role whose every sku is modern (car-sedan, floor-asphalt) is `only` modern (EXCLUSIVE below), and a modern
+    # sku of a shared role (sofa--mod, wall-straight--drywall) is what a modern room prefers (solver.js chooseSku tiers[0]).
+    # The three modern wall families keep their family column; anything else in that column is a shape.
+    MOD = ROOT / "experiments/2026-11-06-sprawl"
+    MOD_FAMILIES = ("drywall", "city-brick", "concrete")
+    for folder, ext, opaque in (("seamless", "png", True), ("decals", "jpg", False)):
+        for path in sorted((MOD / "flats" / folder).glob(f"*.{ext}")):
+            if path.stem in skus:
+                continue
+            obj, _, var = path.stem.partition("--")
+            skus[path.stem] = {"sku": path.stem, "object": obj, "lane": "2d", "family": "", "tier": "mod", "shape": var or ("v1" if opaque else ""),
+                               "src": "sprawl-flats-01", "plate": path, "piece": "", **({"opaque": True} if opaque else {})}
+    mod_manifest = ROOT / "catalog/runs/sprawl-01/manifest.tsv"
+    mod_skipped = []
+    for row in (load_manifest(mod_manifest) if mod_manifest.exists() else []):
+        glb = MOD / "models" / f"{row['source']}.glb"
+        if not glb.exists():
+            continue
+        if row["sku"] in skus:
+            mod_skipped.append(row["sku"])
+            continue
+        row = dict(row)
+        if row["family"] and row["family"] not in MOD_FAMILIES:
+            row["shape"] = "--".join(p for p in (row["family"], row["shape"]) if p)
+            row["family"] = ""
+        row["tier"] = "mod"
+        piece = "leaf" if row["shape"] == "leaf" or row["shape"].endswith("-leaf") else ""
+        flags = set(filter(None, (row.get("flags") or "").split(",")))
+        skus[row["sku"]] = {**row, "src": "sprawl-01", "glb": glb, "piece": piece, "hung": "hung" in flags, "fit": "",
+                            **({"own_size": [float(v) for v in row["size"].split("x")]} if row.get("size") else {})}
+    if mod_skipped:
+        print(f"modern: {len(mod_skipped)} sku names already in the library, NOT replaced: {', '.join(mod_skipped[:8])}")
+    # <<< type:mod
+    # >>> type:cyb
+    # the cyberpunk pack, wave 2 (2026-11-07): one run folder (cyberpunk-02) and its flats, right after wave 1's (same rules:
+    # a sku name that exists is never replaced; tier `mod`, or `cyb` for a new look of a role that has a mesh already;
+    # wave 1's three wall families keep their family column)
+    CYB = ROOT / "experiments/2026-11-07-cyberpunk-rooms"
+    for folder, ext, opaque in (("seamless", "png", True), ("decals", "jpg", False)):
+        for path in sorted((CYB / "flats" / folder).glob(f"*.{ext}")):
+            if path.stem in skus:
+                continue
+            obj, _, var = path.stem.partition("--")
+            skus[path.stem] = {"sku": path.stem, "object": obj, "lane": "2d", "family": "", "tier": "mod", "shape": var or ("v1" if opaque else ""),
+                               "src": "cyberpunk-flats-02", "plate": path, "piece": "", **({"opaque": True} if opaque else {})}
+    cyb_manifest = ROOT / "catalog/runs/cyberpunk-02/manifest.tsv"
+    cyb_skipped = []
+    # (the roles that have a mesh already: in the library now, or in wave 1's manifest, whose GLBs a fresh machine may lack)
+    shared = {r["object"] for r in skus.values() if r.get("lane") != "2d" and r.get("src") not in ("cyberpunk-02",)} | {r["object"] for r in (load_manifest(mod_manifest) if mod_manifest.exists() else [])}
+    for row in (load_manifest(cyb_manifest) if cyb_manifest.exists() else []):
+        glb = CYB / "models" / f"{row['source']}.glb"
+        if not glb.exists():
+            continue
+        if row["sku"] in skus:
+            cyb_skipped.append(row["sku"])
+            continue
+        row = dict(row)
+        if row["family"] and row["family"] not in MOD_FAMILIES:
+            row["shape"] = "--".join(p for p in (row["family"], row["shape"]) if p)
+            row["family"] = ""
+        # a wave-2 LOOK of a role that already has a mesh (sign-neon--s2, car-sedan--s2) is tier `cyb` (exclusive): only a
+        # Cyberpunk room rolls it (its tiers ['cyb', 'mod']: it prefers it), so every City room lays what it laid before
+        row["tier"] = "cyb" if row["object"] in shared else "mod"
+        piece = "leaf" if row["shape"] == "leaf" or row["shape"].endswith("-leaf") else ""
+        flags = set(filter(None, (row.get("flags") or "").split(",")))
+        skus[row["sku"]] = {**row, "src": "cyberpunk-02", "glb": glb, "piece": piece, "hung": "hung" in flags, "fit": "",
+                            **({"own_size": [float(v) for v in row["size"].split("x")]} if row.get("size") else {})}
+    if cyb_skipped:
+        print(f"cyberpunk: {len(cyb_skipped)} sku names already in the library, NOT replaced: {', '.join(cyb_skipped[:8])}")
+    # <<< type:cyb
+    # >>> type:modrooms
+    # the modrooms lane (2026-11-07): one run folder (modrooms-03) and its flats, right after the cyberpunk pack's (same
+    # rules: a sku name that exists is never replaced; tier `mod`; wave 1's three wall families keep their family column)
+    MX = ROOT / "experiments/2026-11-07-modrooms"
+    for folder, ext, opaque in (("seamless", "png", True), ("decals", "jpg", False)):
+        for path in sorted((MX / "flats" / folder).glob(f"*.{ext}")):
+            if path.stem in skus:
+                continue
+            obj, _, var = path.stem.partition("--")
+            skus[path.stem] = {"sku": path.stem, "object": obj, "lane": "2d", "family": "", "tier": "mod", "shape": var or ("v1" if opaque else ""),
+                               "src": "modrooms-flats-03", "plate": path, "piece": "", **({"opaque": True} if opaque else {})}
+    mx_manifest = ROOT / "catalog/runs/modrooms-03/manifest.tsv"
+    mx_skipped = []
+    for row in (load_manifest(mx_manifest) if mx_manifest.exists() else []):
+        glb = MX / "models" / f"{row['source']}.glb"
+        if not glb.exists():
+            continue
+        if row["sku"] in skus:
+            mx_skipped.append(row["sku"])
+            continue
+        row = dict(row)
+        if row["family"] and row["family"] not in MOD_FAMILIES:
+            row["shape"] = "--".join(p for p in (row["family"], row["shape"]) if p)
+            row["family"] = ""
+        row["tier"] = "mod"
+        piece = "leaf" if row["shape"] == "leaf" or row["shape"].endswith("-leaf") else ""
+        flags = set(filter(None, (row.get("flags") or "").split(",")))
+        skus[row["sku"]] = {**row, "src": "modrooms-03", "glb": glb, "piece": piece, "hung": "hung" in flags, "fit": "",
+                            **({"own_size": [float(v) for v in row["size"].split("x")]} if row.get("size") else {})}
+    if mx_skipped:
+        print(f"modrooms: {len(mx_skipped)} sku names already in the library, NOT replaced: {', '.join(mx_skipped[:8])}")
+    # <<< type:modrooms
+    # >>> type:veh
+    # vehicles (2026-11-07, experiments/2026-11-07-vehicles): helicopters, the police cruiser, the armoured SUV and van, the
+    # rigger's drones. One run folder (vehicles-03), after the cyberpunk pack's (same rules: a sku name that exists is never
+    # replaced). Every role is new, so every sku is tier `mod` (exclusive: only a Modern room rolls one). Their shelf is the
+    # Vehicles section: each Modern room in VEH_ROOMS borrows its catalog/rooms-vehicles.md recipe (a `vehicles` slot).
+    VEH = ROOT / "experiments/2026-11-07-vehicles"
+    # (2026-11-07, the same batch) Harry's security cameras and desk things: run folder moddesk-03, the same rules
+    veh_skipped = []
+    for veh_src in ("vehicles-03", "moddesk-03"):
+      veh_manifest = ROOT / f"catalog/runs/{veh_src}/manifest.tsv"
+      for row in (load_manifest(veh_manifest) if veh_manifest.exists() else []):
+        glb = VEH / "models" / f"{row['source']}.glb"
+        if not glb.exists():
+            continue
+        if row["sku"] in skus:
+            veh_skipped.append(row["sku"])
+            continue
+        flags = set(filter(None, (row.get("flags") or "").split(",")))
+        row = {**row, "family": "", "tier": "mod"}
+        skus[row["sku"]] = {**row, "src": veh_src, "glb": glb, "piece": "", "hung": "hung" in flags, "fit": "",
+                            **({"own_size": [float(v) for v in row["size"].split("x")]} if row.get("size") else {})}
+    if veh_skipped:
+        print(f"vehicles: {len(veh_skipped)} sku names already in the library, NOT replaced: {', '.join(veh_skipped[:8])}")
+    for rt in ROOM_TYPES:
+        if rt["key"] in VEH_ROOMS and VEH_ROOMS[rt["key"]] in recipes and VEH_ROOMS[rt["key"]] not in rt.get("borrow", []):
+            rt["borrow"] = rt.get("borrow", []) + [VEH_ROOMS[rt["key"]]]
+    # <<< type:veh
+    # >>> type:modhalls
+    # the modhalls lane (2026-11-07): one run folder (modhalls-01), the modrooms block's rules (a sku name that exists is never replaced; tier `mod`)
+    MH = ROOT / "experiments/2026-11-07-modhalls"
+    mh_manifest = ROOT / "catalog/runs/modhalls-01/manifest.tsv"
+    mh_skipped = []
+    for row in (load_manifest(mh_manifest) if mh_manifest.exists() else []):
+        glb = MH / "models" / f"{row['source']}.glb"
+        if not glb.exists():
+            continue
+        if row["sku"] in skus:
+            mh_skipped.append(row["sku"])
+            continue
+        row = dict(row, tier="mod")
+        flags = set(filter(None, (row.get("flags") or "").split(",")))
+        skus[row["sku"]] = {**row, "src": "modhalls-01", "glb": glb, "piece": "", "hung": "hung" in flags, "fit": "",
+                            **({"own_size": [float(v) for v in row["size"].split("x")]} if row.get("size") else {})}
+    if mh_skipped:
+        print(f"modhalls: {len(mh_skipped)} sku names already in the library, NOT replaced: {', '.join(mh_skipped[:8])}")
+    # <<< type:modhalls
     # a remeshed piece set supersedes the whole-object SKU it was split from (bar-counter pieces)
     pieced = {(r["object"], r["family"], r["tier"]) for r in skus.values() if r.get("piece")}
     for sku in [s for s, r in skus.items() if not r.get("piece") and (r["object"], r["family"], r["tier"]) in pieced]:
@@ -780,6 +990,7 @@ def main() -> None:
             **({"open_of": role["open_of"]} if role.get("open_of") else {}),
             **({"mount": role["mount"]} if role.get("mount") is not None else {})})
         rec = {"sku": sku, "family": r["family"], "tier": r["tier"], "shape": r["shape"], "piece": r.get("piece", ""),
+               **({"slides": True} if "slides" in str(r.get("flags") or "").replace(" ", "").split(",") else {}),  # a sliding door leaf (manifest flag `slides`; client/openlook.js, 2026-11-07)
                "src": r["src"], "model": rating(r["src"], sku, "model"), "plate": rating(r["src"], sku, "plate")}
         if "glb" in r:
             tier = "kit" if role["place"] == "kit" else ("small" if max(w, d, h) <= SMALL_IN else "default")
@@ -814,6 +1025,10 @@ def main() -> None:
     EXCLUSIVE |= {"hut"}  # type:hut (Farmstead, 2026-10-12)
     EXCLUSIVE |= {"smi"}  # smithy & workshop (2026-10-11): every mesh of the batch; the shop front is the trade `smi` of the shop skeleton
     EXCLUSIVE |= {"lai"}  # type:lai (Monster lair, 2026-10-12)
+    EXCLUSIVE |= CULTURE_TIERS  # culture packs A: jpn, chn, ind (every mesh but the wall kit)
+    EXCLUSIVE |= {"mod"}  # type:mod (Modern city, sprawl pack, 2026-11-06)
+    EXCLUSIVE |= {"cyb"}  # type:cyb (the cyberpunk pack's wave-2 looks of shared roles: only a Cyberpunk room rolls them)
+    EXCLUSIVE |= culture_packs_b.TIERS  # culture packs B: every mesh is its pack's tier
     for obj in objects.values():
         tiers = {s["tier"] for s in obj["skus"]}
         if tiers and tiers <= EXCLUSIVE:

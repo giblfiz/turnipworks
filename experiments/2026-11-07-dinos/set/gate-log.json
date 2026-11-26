@@ -1,0 +1,1185 @@
+{
+ "foe-velociraptor": [
+  {
+   "cand": "foe-velociraptor.s101",
+   "matte": {
+    "fg": 0.1735,
+    "soft": 0.0055,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9479,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Velociraptor",
+   "what_i_see": "A lean bipedal raptor dinosaur with green and yellow-tan stripes stands upright with an elongated snout and raised three-clawed hands.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-velociraptor.s102",
+   "matte": {
+    "fg": 0.245,
+    "soft": 0.0067,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9813,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Tyrannosaurus rex",
+   "what_i_see": "A bulky tan-and-brown theropod with green dorsal stripes, a deep blunt snout, and tiny two-clawed arms stands with its tail curling forward between its legs.",
+   "problems": [
+    "Wrong animal: Tyrannosaurus rex instead of a lean raptor",
+    "Missing long arms with clawed hands (features tiny two-clawed arms)",
+    "Heavy stocky build rather than a lean raptor with an elongated snout"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-velociraptor.s103",
+   "matte": {
+    "fg": 0.2476,
+    "soft": 0.0063,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9795,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "same",
+   "species_guess": "Tyrannosaurus rex",
+   "what_i_see": "A green and tan Tyrannosaurus rex with tiny two-clawed forelimbs and a boxy head stands in a side pose, identical to STYLE_A.",
+   "problems": [
+    "Duplicate of existing figure STYLE_A already in the set",
+    "Wrong animal: Tyrannosaurus rex instead of a lean raptor",
+    "Lacks long snout and clawed hands"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-velociraptor.s104",
+   "matte": {
+    "fg": 0.2577,
+    "soft": 0.0058,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9836,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Tyrannosaurus rex",
+   "what_i_see": "A stocky brown-and-tan bipedal dinosaur with green stripes, a heavy blunt skull, and tiny two-clawed arms stands with its tail trailing behind.",
+   "problems": [
+    "Wrong animal: generated a Tyrannosaurus rex instead of a lean raptor",
+    "Missing long arms with clawed hands (has vestigial two-clawed arms)",
+    "Snout is short and blunt rather than long and lean"
+   ],
+   "unread": null
+  }
+ ],
+ "foe-ankylosaurus": [
+  {
+   "cand": "foe-ankylosaurus.s101",
+   "matte": {
+    "fg": 0.3616,
+    "soft": 0.0076,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9837,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Triceratops hybrid",
+   "what_i_see": "A brown and green quadruped dinosaur with a three-horned Triceratops frill, a spiky back, a curled tail without a club, and a dark stump under the belly.",
+   "problems": [
+    "Wrong head type (Triceratops horns and frill instead of an armoured dinosaur)",
+    "Missing bony tail club",
+    "Dark unformed blob under belly instead of a clear leg"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-ankylosaurus.s102",
+   "matte": {
+    "fg": 0.3174,
+    "soft": 0.0063,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.986,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Triceratops hybrid",
+   "what_i_see": "A quadrupedal armoured dinosaur with a horned Triceratops frill, a spiked back, maroon foot wraps, and a curled tail with no club.",
+   "problems": [
+    "Wrong head with Triceratops horns and frill instead of an armoured dinosaur head",
+    "Missing bony tail club"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-ankylosaurus.s103",
+   "matte": {
+    "fg": 0.3141,
+    "soft": 0.0086,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9784,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Triceratops hybrid",
+   "what_i_see": "A low quadrupedal dinosaur with a Triceratops horned head, an armoured spiked carapace, and an upward-curling tail that ends in a blunt socket rather than a club.",
+   "problems": [
+    "Head is a horned Triceratops instead of an armoured dinosaur",
+    "Tail tip lacks a bony club"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-ankylosaurus.s104",
+   "matte": {
+    "fg": 0.3486,
+    "soft": 0.0063,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9864,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Triceratops hybrid",
+   "what_i_see": "A low quadruped dinosaur with a large horned ceratopsian frill, an armoured carapace with spikes, and a tail curled into a hollow circle without a club.",
+   "problems": [
+    "Wrong head featuring a ceratopsian frill and horns instead of an armoured dinosaur head",
+    "Missing bony tail club with tail looped into a ring"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-ankylosaurus.s201",
+   "matte": {
+    "fg": 0.3063,
+    "soft": 0.007,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.982,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 4,
+   "style_match": "close",
+   "species_guess": "Ankylosaurus",
+   "what_i_see": "I see a low quadrupedal Ankylosaurus standing on four separate legs, featuring a green domed carapace with rounded studs and an odd spherical ball club at the tip of its tail.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-ankylosaurus.s202",
+   "matte": {
+    "fg": 0.2758,
+    "soft": 0.0065,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9833,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "close",
+   "species_guess": "Ankylosaurus",
+   "what_i_see": "I see a quadrupedal armoured dinosaur, likely an Ankylosaurus, standing on four legs with a green-striped back and an odd tail that curls upward into a spiral without a tail club.",
+   "problems": [
+    "missing bony tail club at tail tip",
+    "tail curls into a spiral",
+    "back lacks distinct bony armour plates"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-ankylosaurus.s203",
+   "matte": {
+    "fg": 0.312,
+    "soft": 0.0079,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9796,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "close",
+   "species_guess": "Ankylosaurus",
+   "what_i_see": "I see a quadrupedal armoured dinosaur resembling an Ankylosaurus standing on four legs, but oddly covered by a smooth turtle-like carapace and having a curled spiral tail lacking a club.",
+   "problems": [
+    "missing bony tail club at tail tip",
+    "tail curls into a spiral",
+    "carapace resembles a turtle shell rather than dinosaur armour plates"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-ankylosaurus.s204",
+   "matte": {
+    "fg": 0.2544,
+    "soft": 0.006,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9815,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Ankylosaurus",
+   "what_i_see": "I see a low quadrupedal Ankylosaurus standing on four separate legs with a straight tail ending in a large bony club, displaying a green spiked armour plate along its back.",
+   "problems": [],
+   "unread": null
+  }
+ ],
+ "foe-spinosaurus": [
+  {
+   "cand": "foe-spinosaurus.s101",
+   "matte": {
+    "fg": 0.3526,
+    "soft": 0.0083,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9843,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "same",
+   "species_guess": "Theropod hybrid",
+   "what_i_see": "A green theropod dinosaur with a tall back sail, a blunt Tyrannosaurus head, two small forelimbs, and four massive walking legs.",
+   "problems": [
+    "Blunt T-rex snout instead of a long narrow crocodile snout",
+    "Extra limbs with four walking legs plus two arms"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-spinosaurus.s102",
+   "matte": {
+    "fg": 0.2866,
+    "soft": 0.0064,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9845,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Tyrannosaurus",
+   "what_i_see": "A bipedal green Tyrannosaurus rex standing upright with a blunt snout, tiny arms, and a low segmented crest running down its neck and back.",
+   "problems": [
+    "Blunt T-rex snout instead of a long crocodile snout",
+    "Back sail is a low neck crest rather than a tall back sail"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-spinosaurus.s103",
+   "matte": {
+    "fg": 0.2766,
+    "soft": 0.0067,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9818,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Tyrannosaurus",
+   "what_i_see": "A bipedal green Tyrannosaurus rex with clasped two-clawed arms, a blunt deep snout, and a low fin-like crest along its back.",
+   "problems": [
+    "Blunt T-rex snout instead of a long crocodile snout",
+    "Back sail is a low ridge rather than a tall sail"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-spinosaurus.s104",
+   "matte": {
+    "fg": 0.2722,
+    "soft": 0.0062,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9838,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Tyrannosaurus",
+   "what_i_see": "A bipedal green Tyrannosaurus rex in an alert pose with a heavy blunt snout, short arms, and a low dorsal fin along the spine.",
+   "problems": [
+    "Blunt T-rex snout instead of a long crocodile snout",
+    "Back sail is a low ridge rather than a tall sail"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-spinosaurus.s201",
+   "matte": {
+    "fg": 0.3628,
+    "soft": 0.0117,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9744,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Spinosaurus",
+   "what_i_see": "I see a bipedal green Spinosaurus standing upright on two chunky hind legs with hands clasped at its chest, a long crocodile snout, and a tall spiky dorsal sail.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-spinosaurus.s202",
+   "matte": {
+    "fg": 0.3371,
+    "soft": 0.0069,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9854,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 4,
+   "style_match": "same",
+   "species_guess": "Spinosaurus",
+   "what_i_see": "I see a bipedal green Spinosaurus standing with its arms folded across its chest, featuring a long crocodile snout, a tall rounded fan-like back sail, and an upward-curving tail.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-spinosaurus.s203",
+   "matte": {
+    "fg": 0.4646,
+    "soft": 0.0102,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9825,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 4,
+   "style_match": "same",
+   "species_guess": "Spinosaurus",
+   "what_i_see": "I see a bipedal green Spinosaurus standing with arms crossed over its chest and a tall striped dorsal sail, displaying an odd large red paddle-shaped fin at the end of its tail.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-spinosaurus.s204",
+   "matte": {
+    "fg": 0.3556,
+    "soft": 0.0085,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9263,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "close",
+   "species_guess": "Spinosaurus",
+   "what_i_see": "I see a bipedal green Spinosaurus with a crocodile snout and raised fists, standing with circular brown base discs under its feet and bearing an odd split dual dorsal sail.",
+   "problems": [
+    "base discs under feet",
+    "split dual dorsal sail"
+   ],
+   "unread": null
+  }
+ ],
+ "foe-stegosaurus": [
+  {
+   "cand": "foe-stegosaurus.s101",
+   "matte": {
+    "fg": 0.3182,
+    "soft": 0.0076,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9785,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Stegosaurus",
+   "what_i_see": "A green Stegosaurus standing in profile with large dorsal plates, only three visible legs, and a smooth curled tail lacking any spikes.",
+   "problems": [
+    "Missing tail spikes at tail tip",
+    "Missing far front leg"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-stegosaurus.s102",
+   "matte": {
+    "fg": 0.3472,
+    "soft": 0.0063,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9865,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Stegosaurus hybrid",
+   "what_i_see": "A quadrupedal green dinosaur combining a ceratopsian neck frill and beak with Stegosaurus back plates and a tail ending in a single curved blade.",
+   "problems": [
+    "Wrong head featuring a ceratopsian neck frill and beak",
+    "Tail tip has a single curved blade instead of spikes"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-stegosaurus.s103",
+   "matte": {
+    "fg": 0.3291,
+    "soft": 0.0082,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9818,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 3,
+   "style_match": "same",
+   "species_guess": "Stegosaurus",
+   "what_i_see": "A green Stegosaurus standing in profile with upright dorsal plates and tail spikes curling inward, but with only three visible legs.",
+   "problems": [
+    "Missing far front leg (only three legs visible)",
+    "Tail spikes curl inward awkwardly"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-stegosaurus.s104",
+   "matte": {
+    "fg": 0.3395,
+    "soft": 0.0063,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9866,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Stegosaurus",
+   "what_i_see": "A green Stegosaurus walking to the right with four distinct legs, two alternating rows of upright plates, a small nasal horn, and two pairs of tail spikes.",
+   "problems": [],
+   "unread": null
+  }
+ ],
+ "foe-brontosaurus": [
+  {
+   "cand": "foe-brontosaurus.s101",
+   "matte": {
+    "fg": 0.2432,
+    "soft": 0.0051,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9854,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Camarasaurus",
+   "what_i_see": "A chunky green sauropod with a rounded cranial crest standing on four thick pillar legs with a raised neck and a tail curling forward above the ground.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-brontosaurus.s102",
+   "matte": {
+    "fg": 0.253,
+    "soft": 0.0064,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9506,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 4,
+   "style_match": "close",
+   "species_guess": "Camarasaurus",
+   "what_i_see": "A striped green sauropod with a crested head standing on four pillar legs with an upright neck and its tail curled upward into a high spiral.",
+   "problems": [
+    "spiral tail coil forms a delicate loop prone to breakage during 3D fabrication"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-brontosaurus.s103",
+   "matte": {
+    "fg": 0.2187,
+    "soft": 0.0055,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9833,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Brachiosaurus",
+   "what_i_see": "A green and yellow striped Brachiosaurus standing firmly on four huge pillar legs with its long neck held nearly vertically upright and its tail curling down behind its hind leg.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-brontosaurus.s104",
+   "matte": {
+    "fg": 0.2933,
+    "soft": 0.0063,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9862,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 4,
+   "style_match": "close",
+   "species_guess": "Brachiosaurus",
+   "what_i_see": "A smooth green sauropod standing on four thick pillar legs with an upright neck and its tail coiled tightly into a thin circular loop.",
+   "problems": [
+    "skin texture is smoother than the chunky scales of the style yardstick",
+    "tightly coiled tail tip creates a fragile loop for 3D printing"
+   ],
+   "unread": null
+  }
+ ],
+ "foe-pterodactyl": [
+  {
+   "cand": "foe-pterodactyl.s101",
+   "matte": {
+    "fg": 0.3302,
+    "soft": 0.0058,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9901,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 3
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A green and tan Pteranodon standing stably on four separate legs with folded wings, a long serrated beak, and an elongated swept-back crest.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl.s102",
+   "matte": {
+    "fg": 0.2435,
+    "soft": 0.006,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9825,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A green and tan pterosaur crouching with folded wings, a toothed beak, and a swept-back crest, but with only three feet visible on the ground.",
+   "problems": [
+    "fourth leg is missing from the ground view; only three separate legs are visible"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl.s103",
+   "matte": {
+    "fg": 0.2878,
+    "soft": 0.0065,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9849,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A Pteranodon standing on all four distinct legs with folded reddish-purple wings, a finely toothed beak, and a swept-back head crest.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl.s104",
+   "matte": {
+    "fg": 0.2886,
+    "soft": 0.0051,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9879,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 4,
+   "style_match": "same",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A brown and green Pteranodon standing on all four limbs with folded wings and a swept-back crest, showing an anomalous white tooth-like artifact protruding from its lower beak.",
+   "problems": [
+    "stray white tooth artifact on the lower beak"
+   ],
+   "unread": null
+  }
+ ],
+ "foe-quetzalcoatlus": [
+  {
+   "cand": "foe-quetzalcoatlus.s101",
+   "matte": {
+    "fg": 0.3079,
+    "soft": 0.0065,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9843,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 3
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "close",
+   "species_guess": "Quetzalcoatlus",
+   "what_i_see": "A giant long-necked pterosaur with an enormous beak whose folded left wing drags flat onto the ground plane obscuring the fourth leg, alongside a blank unpainted pupil.",
+   "problems": [
+    "wing tip drags to the ground creating an unwanted base contact and obscuring the fourth leg",
+    "eye lacks a painted pupil"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-quetzalcoatlus.s102",
+   "matte": {
+    "fg": 0.2528,
+    "soft": 0.0083,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.978,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "different",
+   "species_guess": "Pterosaur",
+   "what_i_see": "A long-necked pterosaur with an open toothed beak, an upward-spiraled tail, only three visible legs, and wings covered in distinct avian flight feathers.",
+   "problems": [
+    "wings have bird feathers instead of smooth pterosaur membranes",
+    "only three legs are visible instead of four separate legs"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-quetzalcoatlus.s103",
+   "matte": {
+    "fg": 0.2243,
+    "soft": 0.0055,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9825,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Quetzalcoatlus",
+   "what_i_see": "A giant Quetzalcoatlus standing tall on four sturdy pillar legs with a very long upright neck, folded wings along its sides, and an enormous pointed beak with a red crest.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-quetzalcoatlus.s104",
+   "matte": {
+    "fg": 0.2276,
+    "soft": 0.0053,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9842,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "same",
+   "species_guess": "Quetzalcoatlus",
+   "what_i_see": "A giant long-necked pterosaur standing bipedally on only two legs with folded wings, missing two limbs to stand on all fours.",
+   "problems": [
+    "figure is bipedal with only two legs instead of four separate legs standing on all fours"
+   ],
+   "unread": null
+  }
+ ],
+ "foe-pterodactyl-fly": [
+  {
+   "cand": "foe-pterodactyl-fly.s301",
+   "matte": {
+    "fg": 0.3226,
+    "soft": 0.0061,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9866,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 2
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "different",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A Pteranodon flying with wings spread high in a V-pose and its head turned slightly, drawn as a flat 2D cartoon with dark outlines and no visible tail.",
+   "problems": [
+    "2D cartoon illustration with heavy outlines rather than a 3D painted miniature",
+    "missing tail"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s302",
+   "matte": {
+    "fg": 0.2969,
+    "soft": 0.0078,
+    "comps": 1,
+    "border": 0.0393,
+    "chroma_iou": 0.9795,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "different",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A Pteranodon flying with wings raised in a V-shape and a pointed tail, drawn in a 2D cartoon style with both wing tips cut off by the top edge of the image.",
+   "problems": [
+    "both wing tips cut off by the top image edge",
+    "2D cartoon illustration with heavy outlines rather than a 3D painted miniature"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s303",
+   "matte": {
+    "fg": 0.3318,
+    "soft": 0.0063,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9876,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "different",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A Pteranodon flying head-on with wings spread wide, an upright crest, and a tail, rendered as a 2D cartoon drawing with thick outlines.",
+   "problems": [
+    "2D cartoon illustration with heavy outlines rather than a 3D painted miniature",
+    "crest is upright rather than back-swept"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s304",
+   "matte": {
+    "fg": 0.2758,
+    "soft": 0.0069,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9844,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "different",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A Pteranodon flying in three-quarter view with wings spread high, a long beak, and a swept-back crest, illustrated in a flat 2D cartoon style with dark outlines and no visible tail.",
+   "problems": [
+    "2D cartoon illustration with heavy outlines rather than a 3D painted miniature",
+    "missing tail"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s401",
+   "matte": {
+    "fg": 0.3764,
+    "soft": 0.0082,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.982,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "different",
+   "species_guess": "Pterosaur",
+   "what_i_see": "An orange and tan pterosaur flying head-on with wings spread wide, displaying a rounded head without a crest and lacking a tail.",
+   "problems": [
+    "add back-swept head crest",
+    "add visible tail",
+    "match chunky painted 3D miniature style with physical texture"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s402",
+   "matte": {
+    "fg": 0.3774,
+    "soft": 0.0071,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9856,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "different",
+   "species_guess": "Pterosaur",
+   "what_i_see": "A stylized teal and red pterosaur flying straight toward the viewer with wings raised symmetrically, having a smooth dome-shaped head with no crest and no visible tail.",
+   "problems": [
+    "add back-swept head crest",
+    "add visible tail",
+    "match chunky painted 3D miniature style with physical texture"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s403",
+   "matte": {
+    "fg": 0.377,
+    "soft": 0.0071,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9849,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "different",
+   "species_guess": "Pterosaur",
+   "what_i_see": "A green pterosaur flying forward with wings spread wide, showing odd pale ring markings behind the eyes, a completely rounded crestless head, and no tail.",
+   "problems": [
+    "add back-swept head crest",
+    "add visible tail",
+    "remove odd pale ring artifacts behind eyes",
+    "match chunky painted 3D miniature style with physical texture"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s404",
+   "matte": {
+    "fg": 0.378,
+    "soft": 0.0077,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9849,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "different",
+   "species_guess": "Pterosaur",
+   "what_i_see": "An olive-green pterosaur in a rigid frontal gliding pose with wings spread wide, featuring a rounded crestless skull and no tail.",
+   "problems": [
+    "add back-swept head crest",
+    "add visible tail",
+    "match chunky painted 3D miniature style with physical texture"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s501",
+   "matte": {
+    "fg": 0.3908,
+    "soft": 0.0098,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9785,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "close",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A chunky painted pterosaur flying with wings spread wide, but with an unusually short blunt snout and a crest pointing straight up instead of sweeping back.",
+   "problems": [
+    "Beak is short and blunt rather than long",
+    "Crest points straight up rather than swept back"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s502",
+   "matte": {
+    "fg": 0.3864,
+    "soft": 0.0082,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9837,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 1,
+   "style_match": "different",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A flat 2D cartoon pterosaur flying facing directly forward with spread wings, featuring an upright tubular crest and a melted vertical snout running down its chest rather than a protruding beak.",
+   "problems": [
+    "Style is a flat 2D illustration rather than a chunky 3D miniature",
+    "Beak is missing or melted into a vertical bar",
+    "Crest is vertical rather than swept back"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s503",
+   "matte": {
+    "fg": 0.3986,
+    "soft": 0.0087,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.98,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A chunky painted pterosaur flying with wings spread wide, featuring a prominent long yellow beak pointing to the side and a back-swept crest in a sculpted miniature style.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-pterodactyl-fly.s504",
+   "matte": {
+    "fg": 0.4015,
+    "soft": 0.01,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9812,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 3,
+   "style_match": "close",
+   "species_guess": "Pteranodon",
+   "what_i_see": "A chunky painted pterosaur flying with outstretched wings, a pointed beak, and a swept-back crest, but displaying prominent accordion-like segmented rings around its neck.",
+   "problems": [
+    "Neck has unnatural accordion-like segmented rings",
+    "Beak could be longer and more slender"
+   ],
+   "unread": null
+  }
+ ],
+ "foe-quetzalcoatlus-fly": [
+  {
+   "cand": "foe-quetzalcoatlus-fly.s301",
+   "matte": {
+    "fg": 0.3097,
+    "soft": 0.006,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9867,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "different",
+   "species_guess": "Quetzalcoatlus",
+   "what_i_see": "A Quetzalcoatlus flying with wings raised high and a long neck, rendered as a 2D line-art cartoon with a relatively small beak and no visible tail.",
+   "problems": [
+    "2D cartoon illustration with heavy outlines rather than a 3D painted miniature",
+    "beak is small rather than enormous",
+    "missing tail"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-quetzalcoatlus-fly.s302",
+   "matte": {
+    "fg": 0.2553,
+    "soft": 0.0055,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9848,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "close",
+   "species_guess": "Quetzalcoatlus",
+   "what_i_see": "A Quetzalcoatlus flying forward with wings held steeply upright and a long neck, but possessing a tiny blunt beak and no visible tail.",
+   "problems": [
+    "beak is tiny and blunt instead of an enormous beak",
+    "missing tail",
+    "wings are held nearly vertical instead of spread wide"
+   ],
+   "unread": null
+  },
+  {
+   "cand": "foe-quetzalcoatlus-fly.s303",
+   "matte": {
+    "fg": 0.377,
+    "soft": 0.0069,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.986,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": true,
+   "score": 5,
+   "style_match": "same",
+   "species_guess": "Quetzalcoatlus",
+   "what_i_see": "A giant Quetzalcoatlus flying head-on with two huge wings spread wide, an enormous beak pointing downward, a long neck, and a visible tail, rendered as a chunky 3D painted miniature.",
+   "problems": [],
+   "unread": null
+  },
+  {
+   "cand": "foe-quetzalcoatlus-fly.s304",
+   "matte": {
+    "fg": 0.3048,
+    "soft": 0.0058,
+    "comps": 1,
+    "border": 0.0,
+    "chroma_iou": 0.9893,
+    "verdict": "pass",
+    "why": [],
+    "chroma_holes_removed_px": 0
+   },
+   "ok": false,
+   "score": 2,
+   "style_match": "close",
+   "species_guess": "Pterosaur hybrid",
+   "what_i_see": "A pterosaur-like fantasy creature with a short neck, a hooked raptor-like beak, and bat-like wings with multiple radiating bone struts.",
+   "problems": [
+    "beak is short and hooked instead of an enormous beak",
+    "neck is short rather than long",
+    "wings have bat-like multiple finger ribs instead of pterosaur wing structure"
+   ],
+   "unread": null
+  }
+ ]
+}

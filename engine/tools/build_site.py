@@ -33,6 +33,9 @@ address on the page, its file and a "Use it in Turnip Works" link (client/deepli
 docs/site/assets-packs.json (each pack's sentence and hero) + engine/tools/site_assets_data.mjs (the data, run in Node) ->
 assets.html (engine/tools/site_assets.py, engine/tools/site/assets.{css,js} inlined) and assets.json beside it (nginx: /assets
 and /assets.json). Its pictures are git-ignored, in client/site/library/ (tools/site-assets/media.py; engine/deploy.sh).
+Its packs' downloads (2026-11-07): docs/site/asset-release.json, shown only while its `published` is true (site_assets.release).
+  python3 engine/tools/build_site.py --assets-preview DIR   the assets page AS IF its release were published, into DIR
+  (assets.html + assets.json, for a still or a test; never the built site)
 
 THE GUIDE PAGES (2026-11-04, for Google Ads sitelinks: each a distinct page): /features (a tour of what is live), /dice (the
 game-system dice words), /switching (coming from Roll20, Foundry, Owlbear Rodeo or TaleSpire), in the nav row; /export
@@ -174,7 +177,7 @@ def index_data():
     return d
 
 
-def render(name, metas, data=None):
+def render(name, metas, data=None, preview=False):
     meta, body = front(open(os.path.join(SRC, name + '.md'), encoding='utf-8').read())
     body = re.sub(r'^# .*\n', '', body.lstrip('\n'), count=1)  # the template prints the title itself
     updated = metas[name]['updated']
@@ -188,10 +191,11 @@ def render(name, metas, data=None):
         extra['script'] = '\n<script type="module" src="/engine/client/landing.js"></script>'
     if name == ASSETS:
         d, metas_a = assets_data()
-        out = site_assets.body(out, d, metas_a)
+        rel = site_assets.release(force_published=preview)
+        out = site_assets.body(out, d, metas_a, rel)
         desc = meta['description'].replace('[[THINGS]]', f"{d['counts']['things']:,}").replace('[[FIGURES]]', str(d['counts']['figures']))
         meta = {**meta, 'description': desc}
-        extra = {'head_extra': '\n' + site_assets.head_extra(d, desc), 'body_attr': ' class="wide"', 'script': '\n' + site_assets.script(metas_a)}
+        extra = {'head_extra': '\n' + site_assets.head_extra(d, desc, rel), 'body_attr': ' class="wide"', 'script': '\n' + site_assets.script(metas_a, rel)}
     if name == INDEX:
         out = vtt.body(out, data)
         extra = {'head_extra': '\n' + vtt.head_extra(data, meta['description']), 'body_attr': ' class="wide"', 'script': '\n' + vtt.script()}
@@ -233,6 +237,11 @@ def main():
     check = '--check' in sys.argv
     metas = {p: front(open(os.path.join(SRC, p + '.md'), encoding='utf-8').read())[0] for p in NAV + HELP}
     data = index_data()
+    if '--assets-preview' in sys.argv:
+        dst = sys.argv[sys.argv.index('--assets-preview') + 1]; os.makedirs(dst, exist_ok=True)
+        open(os.path.join(dst, ASSETS + '.html'), 'w', encoding='utf-8').write(render(ASSETS, metas, data, preview=True))
+        open(os.path.join(dst, ASSETS + '.json'), 'w', encoding='utf-8').write(json.dumps(assets_data()[0], ensure_ascii=False, separators=(',', ':')))
+        print(f'the assets page as if its release were published: {dst}/{ASSETS}.html'); return
     metas[INDEX]['updated'] = max(metas[INDEX]['updated'], data['updated'])  # the page is as new as its data
     bad = []
     os.makedirs(OUT, exist_ok=True)

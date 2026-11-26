@@ -1,0 +1,187 @@
+{
+ "file": "cul-rus-tiefling-caster.glb",
+ "tris": 49979,
+ "kb": 3060,
+ "native_extent": [
+  0.501,
+  1.0,
+  0.476
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0034,
+  "seen": 0.0003
+ },
+ "mean_rgb": [
+  51,
+  36,
+  19
+ ],
+ "mean_saturation": 0.624,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 531,
+  "main_part_area_share": 0.9579,
+  "floating": [
+   {
+    "area_share": 0.01105,
+    "gap_ft": 0.03,
+    "size_ft": 2.53
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.07,
+    "size_ft": 0.2
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.15
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.13,
+    "size_ft": 0.23
+   },
+   {
+    "area_share": 3e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.07
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.17
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.04
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.03,
+    "size_ft": 0.02
+   }
+  ],
+  "floating_count": 10,
+  "floating_area_share": 0.0112,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.0075,
+ "y0": -3.0069,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2503,
+   -0.5008,
+   -0.2368
+  ],
+  [
+   0.2505,
+   0.4987,
+   0.2387
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49979,
+   "tex": 2048,
+   "kb": 3060
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1207
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 496
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.88,
+    "z": 0.35,
+    "size_ft": [
+     1.0,
+     1.2
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.23,
+    "sole_p90_ft": 0.166
+   },
+   {
+    "x": -1.0,
+    "z": 0.18,
+    "size_ft": [
+     0.93,
+     1.15
+    ],
+    "off_ground_ft": 0.008,
+    "sole_level_share": 0.77,
+    "sole_p90_ft": 0.127
+   },
+   {
+    "x": -0.12,
+    "z": -0.38,
+    "size_ft": [
+     0.3,
+     0.3
+    ],
+    "off_ground_ft": 0.022,
+    "sole_level_share": 0.13,
+    "sole_p90_ft": 0.361
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.022,
+  "lowest_slab_area_sqft": 1.36,
+  "plan_hull_area_sqft": 6.19,
+  "lowest_slab_share_of_plan": 0.219
+ },
+ "plan": {
+  "size_ft": {
+   "w": 3.01,
+   "d": 2.85,
+   "h": 6.0
+  },
+  "centre": [
+   -0.027,
+   0.589
+  ],
+  "contacts_radius_ft": 1.41,
+  "reach_radius_ft": 1.89,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.93,
+  "plate_lost_share": 0.017,
+  "added_share": 0.057,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.93,
+  "view_yaw_deg": 355,
+  "view_elev_deg": 0
+ },
+ "id": "cul-rus-tiefling-caster",
+ "sha1": "7544e8fd50f3466cfaabecde0c8e34b48db8277c",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "3 separate part(s) lying within 0.07 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 7.1
+}

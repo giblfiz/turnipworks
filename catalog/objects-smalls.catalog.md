@@ -275,7 +275,7 @@ Harry, 2026-09-30: small things are individual assets, one mesh each — the kni
 - **feed-bag** — horse feed bag · floor · tiny · size:12x10x16 · cloth · set:TAV,HUT · var:- · aff:carry · mesh · P3 · stables
 - **seed-bag** — seed bag · floor · tiny · size:8x8x12 · cloth · set:HUT · var:open · aff:carry · mesh · P3 · barns
 - **watering-can** — clay watering pot · surface · tiny · size:12x7x10 · ceramic · set:HUT,NOB · var:- · aff:carry · mesh · P3 · gardens
-- **plant-pot** — clay plant pot with herb · surface · tiny · size:6x6x10 · ceramic · set:ANY · var:shape · aff:carry · mesh · P3 · windowsills
+- **plant-pot** — clay plant pot with herb · surface · tiny · size:6x6x10 · ceramic · set:ANY,MOD · var:shape · aff:carry · mesh · P3 · windowsills
 - **bridle-hanging** — bridle on a peg · wall · tiny · size:10x4x28 · organic · set:TAV,HUT,CAS,MKT · var:- · aff:carry · thin · P1 · stables
 - **horse-collar** — padded horse collar · wall · tiny · size:22x6x28 · organic · set:HUT,TAV · var:- · aff:carry · mesh · P3 · barns
 - **saddle** — single saddle on the floor · floor · sub · size:22x16x14 · organic · set:TAV,CAS,CMP,HUT · var:- · aff:carry · mesh · P3 · dropped after a long ride

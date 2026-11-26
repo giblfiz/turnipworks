@@ -158,6 +158,7 @@ Developed on branch `storeys`; not live until the lead lands it. How to use it: 
 - **Reasoning for choices made without Harry:**
   - *The indicator is at the bottom centre.* The top row is full (launchers, bar, roster) and the Build tray runs down the left. The PiP is now kept off the bottom strip, as it already was kept off the command bar.
   - *Rooms wholly under a visible floor carry no label.* Gemini read stacked labels as rooms of the floor on top, twice. The cost: a covered room's label is no longer a way down; floor down is.
+  - *A storey the fog of war keeps from you covers nothing (2026-11-05).* On live Harry, an invited player, looked at a two-storey tavern: the common room he had explored showed its floor and walls but almost none of its furniture. The room was "covered" by the upper storey, so the perf rule (a covered room's things are not drawn: world.js `cutSets` / `unseenThing`) skipped them, but that storey is not drawn for him, so he looked straight down into an emptied room. Now, with fog of war on for a seat, a room above counts as a cover only when its whole floor is drawn for that seat. A partly seen upper room covers nothing yet: a check room by room rather than cell by cell, so the rule can only draw more and never shows what the fog hides. That room's lamps and label come back with it. A fog refresh re-works the covered rooms (fog.js `refreshWorld` sets `cutDirty`). The GM's view, and a player who has seen the upper floor, cull as before. Test: `engine/test/browser_fog_covered.py`.
   - *A building's label still renames on a double-click.* A building has no single ceiling to cut to.
   - *Roofs are a per-seat switch, off by default.* Today's open-topped look and every saved campaign look the same until someone presses "Roofs on".
   - *Lamps under a floor are off even with every level showing.* That is the rule as written; the ground floor of a two-storey inn is dark until you cut to it.
@@ -331,6 +332,7 @@ Harry: "A roof is basically a kind of room! We need those windows that pop out, 
 - **A room under a roof that is showing is covered**: no label over it, its lamps out. The building's label stays.
 - **Where roofs are not drawn:** over a yard or other outdoor room; over a room below ground; over a room whose roof has been removed (open to the sky); over a room hidden from players (players never have the room, and the GM gets no roof for it either).
 - **Standing on roofs is kept simple.** A pawn or thing dropped on a flat roof or deck stands there, at deck height. Dropped on a pitched slope it goes to the nearest point of the ridge. Sloped standing is not solved. The banks demo showed that a ring painted on the slope reads better than a level disc; that is noted, not built.
+  - *(2026-11-06, bug sweep)* With my roofs switched off, a pawn STANDING on a roof is not drawn and cannot be clicked, as a loose thing on a roof already was not (`world.offRoof`): there is no roof under it in that view. A pawn raised over a roof (flying) still shows. Roofs on again, it is back. Test: `engine/test/browser_pickfixes.py` ROOFPAWN.
 - **Choices made on Harry's behalf:**
   - *The GM gets no roof on a hidden room.* The alternative, a roof in the hidden treatment, would cover what the GM is prepping.
   - *Removing a roof deselects it*, since it is no longer there to hold a ring. The room's own menu then offers "Roof back"; undo also brings it back.
@@ -395,6 +397,32 @@ Harry: "We need flat rooves to be more of a thing, it should be a substitute opt
 - **Tests:** `engine/test/roofs.test.mjs` (surfaces, edges, turrets, the defaults), `diceworld.test.mjs` (roof tops, roof edges), `browser_roofflat.py` (the game: defaults, every surface, the controls and words, dice, roof objects). Work log: `experiments/2026-10-27-roofs-flat/LAB_NOTES.md`.
 - **Not done:** the lead picture does not yet read right at table distance (as modern standing-seam metal; six rolls in `experiments/2026-10-27-roofs-flat/textures/`); a flat roof has no modelled section (a texture only); battlement runs are not shortened where a turret stands (the turret covers the end); pawns standing on a roof are still drawn with roofs off (only things are hidden); stairs up to a roof deck (a roof hatch is placed by hand but leads nowhere).
 
+### Culture roofs (2026-11-07)
+
+Harry, answering "should Japan and China get their proper tile roofs?" and the other culture follow-ups: "yes do roofs and such." Lane notes: `experiments/2026-11-07-culture-roofs/` (PLAN.md, LAB_NOTES.md, the sensitivity read in assets/).
+
+- **Five new pitched styles** (`core/height.js` CULTURE_ROOF_STYLES; `client/roofs.js` ROOF_STYLES), each a modelled 5-ft section (`data/roof/roof-section--<style>.glb`, built by `experiments/2026-10-11-roof-sections/build_sections.py`, which now takes a per-style `grid` so a bent roof's base plane has vertices to bend) and a painted picture (`data/roof/roofing-<style>.webp`): **kawara** (Japanese grey pan tiles), **tongwa** (Chinese grey cylinder tiles), **glazed** (Chinese green glazed tiles: the read ruled yellow imperial), **sod** (Norse pitched turf; its flat part is the flat turf), **tes** (Rus' split-plank roof). On the Style lists with swatches, and for AI seats.
+- **A roof's FORM is separate from its style** (`HT.roofFormOf`; `RF.ROOF_FORMS`): how the culture builds it: its usual shape, pitch, how far the eaves reach, and the BEND of its slopes; and whether it may carry European dormers, attic windows and finials (East Asian forms: none). By the room's own type, else the walls of the building's first room, else the style (a kawara roof put on any house is still built the Japanese way). A room's or a building's own Shape still wins.
+
+  | form | who | shape | pitch | eaves | bend (eave lift, corner lift) |
+  |---|---|---|---|---|---|
+  | jpn-house | the Kyoto townhouse, shop, tea house (jpn-shoji walls) | gable (kirizuma) | 28 | 2.5 ft | 0.2 ft, none |
+  | jpn-hall | the dojo and the shrine hall | irimoya | 30 | 3 ft | 0.5, 0.8 |
+  | chn-house | the Beijing courtyard house (chn-brick) | gable (yingshan) | 30 | 1.5 ft | straight |
+  | chn-temple | the temple hall | irimoya | 32 | 3 ft | 0.75, 2.1 |
+  | nrs | Norse halls | gable | 30 | 1.25 ft | straight |
+  | rus | Rus' log houses | gable | 45 | 1.25 ft | straight |
+
+  The sensitivity read (codex, before any plate) split the Japanese and Chinese houses from their halls: an ordinary Kyoto machiya is a plain gable with deep, nearly straight eaves, an ordinary Beijing house a plain hard gable with no curl; the hip-and-gable with curved, upturned eaves "over-monumentalises" an ordinary house and is kept for the dojo, the shrine hall and the temple. **Taste call for Harry:** Harry asked for "hip-and-gable, the eave curve" for Japan; the default follows the read, and Shape ▸ Hip-and-gable turns any townhouse into an irimoya.
+- **A new default** (auto roofs only): Japanese houses go from slate to kawara (kirizuma), the shrine hall keeps its shingle but becomes an irimoya with bent eaves, Chinese houses from slate to tongwa and the temple to glazed irimoya, Norse halls from wood shingle to sod, Rus' log houses from wood shingle to tes (the church keeps steep shingle, `ROOF_BY_TYPE['rus-church']`). Saved maps with those rooms on auto change look.
+- **Irimoya (hip-and-gable)** is a fourth Shape (`room.roof.shape: 'irimoya'`; ring and bar: "Hip-and-gable", "irimoya", "xieshan"). The planner splits the rectangle into three strips across the ridge, each with its own planes: a hipped end, the gabled middle, a hipped end (`dom[].planes`; the height field takes the highest strip at their seam, which is the gable's upright face). The gable stands `IRIMOYA.hip` x half-span in from each end wall, its foot on the hip's top, its face 0.25 ft out over the hip and its foot tucked under the hip's slope. It is a gable end like any other (wall look, verge trim). Tested: 120 random rectangles and an L roofed exactly once.
+- **The bend** (`RF.bendAt`, and the same function in the sections' vertex shader, `twBend`): every vertex is lifted straight up by `eave x (1 - d/reach)^2` near an eave, plus `corner x` the same falloff along the eave toward a corner (the upturned corner); symmetric across a hip line, zero at the ridge, and not at a gable end that runs on into a neighbour's roof. Each section copy carries its part's numbers (`aRoofBend`, 16 floats), so the clip planes, the shadows and both tiers bend together; verges, hip caps and the bounding box follow on the CPU. The painted fallback surface and the pointer's plane stay straight (an eave's lift is under a foot except at a temple's corners).
+- **Seated on the wall's outer face** (a form's `seat`: 0.5 ft): a culture roof's slopes meet the wall's head at its OUTER face, not its grid line, so the outer half of a 12-in wall no longer stands up through the lowest course (Gemini, on the first stills: "dark red slits through the lower slope just above the eaves"; the same seam on the European roofs is older and is left as it was). The roof rises by 0.5 x tan(pitch); its gable ends widen to the walls' outer faces so their sloped edges stay on the roof.
+- **Hip ridges** (a style's `hips`): kawara, tongwa and glazed cap their hips with their ridge pieces in 2.5-ft lengths up each hip line, each tilted to its own stretch (so a bent hip curves up at the eave); a drawn strip until the pieces load. A style names its ridge sku (`ridge`: roof-ridge--kawara / --tongwa / --glazed); sod and tes have none (the drawn cap in their own colour).
+- **Ornaments** (`RF.ROOF_ORNAMENTS`, `HT.roofOrnamentOf`), generated library pieces placed by rule as TRIM (keyed, removable with Delete, movable on the roof, one undo): an **onigawara** on each free end of a kawara ridge, a **chiwen** on each end of a glazed ridge (not where a ridge runs on into a neighbour's); the Rus' church's **onion cupola** (a plain cross) on the middle of its ridge; the Mamluk hammam's **dome** in the middle of its flat roof, sized to it; the qa'a's **wind-catcher** (malqaf) against the roof's north edge, open to the north; a Rajput palace hall's **chhatris** on the outer corners of its terrace, in place of the corner piers (by type ind-durbar, or ind-sandstone walls); the Nagara temple's **shikhara** over its sanctum (the `ind-sanctum*` piece, `world.js ROOF_MARK_RE`), else the middle. An ornament is fitted inside the box the planner gives it at its own proportions (`uniform: 'fit'`). By hand the six generated ornaments are kit THINGS (`client/library-index.js KIT_THINGS`, like the ridge and the dormer: put down on any roof from their culture's shelf; `test/library-index.test.mjs` failed on them as unsorted kit pieces, 2026-11-07).
+- **Not done:** the shrine hall's cypress bark (hiwadabuki) is the wood shingle; a street-front pent roof (hisashi) on a machiya; a smoke opening in a turf roof; a heavy timber ridge for tes (the drawn cap); a Rus' tent roof; a mosque or a minaret (deliberately not in the Mamluk pack). The pointer meets a bent roof's straight plane.
+- **Tests:** `engine/test/cultureroofs.test.mjs` (choice per culture, irimoya, the bend, ornaments), `engine/test/browser_cultureroofs.py` (the game: defaults, sections and bend on the GPU attribute, hip caps, ornaments drawn from the library, the Style and Shape lists, remove/undo; `--shots DIR` for the outside views).
+
 ### Stage G: follow-ons (2026-10-05)
 
 Use in docs/UI.md "Storeys: fog, flyers, tall rooms and the rest". Test: `engine/test/browser_followons.py`.
@@ -408,7 +436,7 @@ Use in docs/UI.md "Storeys: fog, flyers, tall rooms and the rest". Test: `engine
   - How: the game passes the fog only the rooms and walls of that level; the atmosphere gained two options, off by default (`setLevel({ base, indoorOnly })` in `tools/spawn-tuner/js/fx/atmos.js`: the height the sheet lies at, and "rooms' own fog only").
 - **Flyers.** Anything lifted that is selected, and every pawn in the air whether selected or not, has a faint line straight down to the SURFACE below it (the floor of the room it is over, or the top of a thing under it; never just height 0) and a small label with its height above that surface ("12 ft"). The line and label never catch clicks.
   - **A raised PAWN (2026-10-13, Harry: "raise & lower a pawn should leave its base on the ground ... The base should 'fall' to the highest ground it's above and decide what height cutoff hides the pawn").** Its base stays down on the highest ground under it (a thing's top, the floor it is over, the top of a room it is above unless the room is open to the sky, else the ground) and a beam in its seat colour, with the height on it, replaces the faint line. **The cut is decided by the base's level, not the figure's height**: outdoors a dragon 40 ft up shows with the cut at 20 ft; a pawn on the third floor is hidden when looking into the first. docs/PAWNS.md "A raised pawn"; `baseUnder` in `engine/core/height.js`. Things (not pawns) keep the faint line and their own height for the cut.
-- **Cursors.** Another seat's cursor is drawn on the floor it points at (presence carries the height as a third number, left out on the ground). A cursor above your cut is not drawn.
+- **Cursors.** Another seat's cursor is drawn on the floor it points at (presence carries the height as a third number, left out on the ground). A cursor above your cut is not drawn. *(2026-11-06: over a thing, a pawn or a wall it is drawn on what the pointer is over, at its height, not on the floor behind it: a fourth number, `lift`; docs/NETCODE.md.)*
 - **Tall rooms.** A room can span several storeys (`room.tall`, 1 to 6): Taller / Shorter on the room's menu. Its walls and posts are carried up one plain wall piece per storey (no doors or windows above the first). A room beside it at that height shares its wall there. It is refused when a room above is in the way, and no room can be built inside its upper part. A double-click into it cuts at its own ceiling.
 - **The building tool works off the ground.** At another level it builds on the biggest rectangle of the drag that can be built on there (over rooms below plus two squares out; below ground, any free ground), joins the building it stands on, and gets one stair by the stair rule. Open air is refused with a message.
 - **A stair goes with the room it came up into.** Deleting that room deletes the stair in the same step (one undo restores both), unless the stair is pinned or its top is at ground level.
@@ -441,6 +469,7 @@ Harry: "we *have* a few 'pits' and those need to have some of that stair behavio
 - **What the library's pit pieces really are (measured: rays down through each mesh; Gemini blind on in-game shots):** none goes below the floor. Each stands on it with a bottom of its own a few inches up and reads as a pit from above. `trap-spike-pit`: a 1-ft stone kerb round a spiked floor 3 in up, half a broken cover ("a visible floor lined with upward-pointing spikes"). `mine-shaft-collar`: a timber frame round a square opening 0.66 of its width whose bottom is a black disc at floor level ("pitch-black and bottomless"). `pit-open`, `chasm-strip`, `chasm-strip-wide`: flat floor pictures of a drop into black (dungeon layouts lay them; not in the bar). Not pits: `oubliette-hatch` (a closed grate), `floor-trapdoor` (closed, a wall-kit piece with no open state), the well. Asked for and NOT in the library: floor-broken-hole, sinkhole, rural-trap-pit-covered, chasm-edge, floor-pit-edge, sewer-ladder-manhole, stair-rope-trapdoor.
 - **A through pit (the mine shaft) is an opening** (`core/holes.js PIT_CATS` to: 'below'): the floor under its opening is cut like a hole's, and its own black bottom is cut out of its mesh in the shader (`client/holes.js clipPit`, only below 4 in over the floor, so the frame stays), so the floor below shows down the shaft and the pointer goes down it. It goes down on a square's centre so the cut squares are under its frame. A pawn let go over it hangs and is offered "Fall 10 ft?" like any drop. On bare ground with nothing under it, it is a pit with a bottom (below).
 - **A pit with its own bottom (the spike pit, the painted pit and chasms)** cuts nothing. A pawn put down on it is offered **"Fall into the spike pit?"**; taking it puts the pawn in the pit's middle at its bottom and says "Bram falls into the spike pit" (one undo). The bar's "fall" does the same for a pawn standing on one.
+- **A sunken piece: the Indian stepwell (2026-11-07, lane culture-roofs).** `ind-stepwell` (a 15-ft stepped tank, flights of stairs down three sides to green water, a pillared gallery on the fourth) stood ON the ground as a 7-ft box of stairs. It is now a through pit with `sunk` (`core/holes.js PIT_CATS`): the ground on its 3 x 3 squares is cut as the mine shaft's floor is, and its mesh (`client/holes.js sinkPit`) is stretched so its measured SOLID CORE covers exactly those squares (`core`, in GLB units, `experiments/2026-11-07-culture-roofs/such/tools/core_rect.py`: the generated mesh is ragged, with no geometry in its corners and along one side, and stretched by its box it left "large gaps revealing the black void", Gemini, blind), drawn double-sided (stray inward-facing triangles showed the void too) and only inside its cut (the ragged edge stretched past it stood up through the ground round it), and lowered by 0.62 of its height, so its paved rim (measured at 0.56-0.65 of the mesh's height) meets the ground and the stairs go DOWN into it, about 4 ft to the water; only the gallery stands above, under 3 ft. Nothing is clipped. A pawn put on it is offered "Fall into the stepwell?", to its bottom 4 ft down (walking the steps would need the stair rules of `core/height.js`: not done). Test: `engine/test/browser_stepwell_sunk.py` (9; 5 of them fail on the old code; FILL casts 225 rays down the cut, all must meet the tank). Known: at the Low faces tier (`faces=1500`) the decimated mesh has pinholes (10 of 225 rays miss).
 - **Choices made for Harry:** every pit goes through the offer, none straight down like a stair (the shaft has no ladder in its mesh; a ladder or rope piece would be the one to hop straight, as a stair does, and the library has none); the spike pit's fall is a game event more than a move (its floor is 3 in down, so the pawn barely sinks), so no depth is claimed: the button says "into the spike pit", not a number.
 
 ### Hills (2026-10-24)
@@ -460,6 +489,8 @@ Harry, building a one-shot: "a way to raise some earth, maybe by default with gr
   - *(2026-10-26: still true at and above the ground. Below it, what stands on a hill is hidden with everything on the open ground, ~~and the hill opens over a room shown under it~~ (2026-10-27: it is drawn whole and see-through instead): "The cut, one numbering for the map" and "Hills below the ground are see-through", below.)*
 - **Sight and fog of war treat a hill as the ground** (`core/height.js sightLevel`, used by `client/vision.js`, `fog.js`, `darksight.js`): a pawn on a hill sees the ground round it and is seen from it, and the fog over a hill is the ground's. Walls of a ground-floor building still block it. Inside buildings nothing changed.
 - **A bank can cover a pawn's square**: it lies on the lower ground by design, so a hill drawn or raised next to a pawn can lay its bank over it. Nothing moves the pawn (standing on a bank is not built); the GM gets a toast naming it ("Pip stands where the hill's bank now is: drag it up onto the hill or away from it").
+- **(2026-11-06) A hill drawn over a pawn lifts it onto its top.** Before, a pawn (or a loose thing) standing on the ground where a new hill went was left at its old height, inside the earth. Now what stands where the hill's TOP will be goes up with it by the hill's height: a pawn on the ground to 10 ft, a pawn on a barrel 3 ft up to 13, a pawn on a lower hill's top up onto a new terrace. A lifted thing becomes the hill's (it rides with it). It is the same command as the hill (`client/main.js spawnRoom`, `core/height.js hillLifts`): one undo puts the hill, the pawns and the things back. Not lifted: a room's own furniture and the pawns in a room the hill is dug round (they stand on that room's floor), what is beside the hill (on its bank: the toast above), anything at or above the new top or below the ground, stairs, locked things. Tests: `hillground.test.mjs`, `browser_hills.py` ("BURY").
+- **(2026-11-06) A room dug into a hill never has its outside door onto the earth** (it was a known gap, below). Where the map has a hill, a wall whose outside square is solid earth above the room's floor (`earthAt`) is no door candidate (`core/roomgen.js roomsOf`, `walls.js chooseExteriorDoor`'s `closed`); the door goes on an open side by the usual preference. Measured: 556 of 720 dug-in rooms (6 types, 40 seeds, 3 depths) had their door onto the earth before, 0 after. A room dug in on every side has no outside door (its way in is a neighbour, a stair or a cave). On a map without a hill nothing changes; a room on the open ground keeps its door with a hill nearby. An existing dug-in room's door moves to the open side the next time it is drawn (doors are worked out, not stored); its stored furniture is not laid again. Tests: `hillground.test.mjs`.
 - **Not built (out of scope):** standing on a bank (pawns stand on terraces); hollows (negative terrain; caves are rooms below the ground since 2026-10-25, "Caves" below); sculpting; a grid drawn on a hill's top (the 5-ft grid is drawn on the ground only, as on upper storeys); stairs or ramps up a bank (below).
 
 #### Building on and into a hill (2026-10-24)
@@ -476,7 +507,7 @@ Harry, on dev: "I just dropped in a hill, which rendered very nicely, but wouldn
 - **Raising or lowering a hill carries the buildings standing on it** (a room at the hill's top over it, and its whole building: every storey, their things, the pawns in them), in the same one command (`main.js setHillHeight`). A room dug into the hill stays where it is.
 - **Pawns and things:** on the hilltop they are the hill's; in the shrine they stand on its floor (a tie at the same height goes to the room, never the hill); in a dug-in room on its floor, never on the cut-away hilltop above it.
 - **Stairs from the ground up onto a hill: skipped.** The stair offer pairs a room with the room under it; a flight up a hill's side would stand on the bank, which it would cut through, and laying a run of steps into the bank is a terrain change of its own (the "ramps up a bank" item). A stair from the library can still be put down by hand.
-- **Known gaps:** a dug-in room picks its outside door as any ground room does, so it can open onto the earth on its hill side; the whole-building tool still builds on the ground only (on a hill it is dug in, not stood on top); ~~after a reload with the view cut while a hilltop building was in focus, the level you are on comes back as the ground's level of that storey~~ (gone 2026-10-26: the cut is the map's).
+- **Known gaps:** ~~a dug-in room picks its outside door as any ground room does, so it can open onto the earth on its hill side~~ (fixed 2026-11-06, above); a hilltop room whose wall stands on the hill's edge can still put its door over the drop (the outside square is the open ground 10 ft down: not earth, so not closed); "no way up or down a hill's side" (a pawn walks off a bank's edge, and up onto a hill from the plain, but nothing is drawn there: no steps, no ramp) is a feature request, noted 2026-11-06, not built (the "ramps up a bank" item); the whole-building tool still builds on the ground only (on a hill it is dug in, not stood on top); ~~after a reload with the view cut while a hilltop building was in focus, the level you are on comes back as the ground's level of that storey~~ (gone 2026-10-26: the cut is the map's).
 
 ### Caves (2026-10-25)
 
@@ -542,7 +573,7 @@ Harry, after playing on dev: "I noticed bugs around the differing levels for dif
   - **Sight** (`levelY`): outdoors is one surface (0): the open ground, hill tops and rooms that meet the ground. Indoors one level at a time: any other room sees at its own floor height (an upper storey at 10; a hilltop building's upper storey at 20, which was 10 before).
   - **The cut** (`cutRooms`): the covering rule of the morning, judged per STACK of rooms instead of per building. A room above the cut stands clear when it meets the ground above the cut (or stands only on rooms that stand clear) and lies over no room in view. At lv 1 on Harry's map the cathedral and vestry show whole on the hill; the hallway, whose end is over the mansion hall's dug-in end, and the second building's upper hall are cut away. On the open ground it is exactly the old rule (`browser_storeys.py`, eight cuts).
 - **A pawn keeps its level** (`pawnStepTo`). Dragged or nudged, a standing pawn's base goes to its level's floor where it is let go, whatever building is there. It changes level only:
-  - **on a stair**: a flight's treads are ground (`stairWalk`): at a point along its run the height is base + rise x (how far along), measured at the base's uphill edge (`WALK_LIFT`, 1.2 ft: on the slope's own line the higher steps came up through the back of the base, Gemini). A pawn steps onto a flight where its treads are within 5 ft of its feet, so a drag along it carries it smoothly up or down, and one let go halfway stays halfway. Off a stair it steps onto the floor of the nearer end's level. The floor at a flight's top has no ground on its squares: over the hole a pawn is on the treads. A ladder and a spiral are not walked: dropped on one, a pawn still goes to its other end (`stairHop`). A stair that leads nowhere (nothing over it, nothing under it, no way off) is furniture to pawns.
+  - **on a stair**: a flight's treads are ground (`stairWalk`): at a point along its run the height is base + rise x (how far along), measured at the base's uphill edge (`WALK_LIFT`, 1.2 ft: on the slope's own line the higher steps came up through the back of the base, Gemini). A pawn steps onto a flight where its treads are within 5 ft of its feet, so a drag along it carries it smoothly up or down, and one let go halfway stays halfway. Off a stair it steps onto the floor ~~of the nearer end's level~~ it steps out onto (2026-11-24, below: "Backing off a stair"). The floor at a flight's top has no ground on its squares: over the hole a pawn is on the treads. A ladder and a spiral are not walked: dropped on one, a pawn still goes to its other end (`stairHop`). A stair that leads nowhere (nothing over it, nothing under it, no way off) is furniture to pawns.
   - **through the earth**: where its level is solid earth because a hill rises through it, it climbs to the earth's top there: onto the hill, or onto the floor of the room standing on it (`earthAt`). ~~Below the ground with no room, the same.~~
   - **(2026-11-03) never through rock below the ground.** Harry, after a pawn dragged along a one-square passage at lv -2 slipped off it, came up to 0 ft and was left inside a hill's bank: "Nope, dragging thru rock should push back onto legal space on the same level." Below the ground, where no room of the pawn's level stands, the level is solid rock (`pawnStepTo` answers `rock`; the top of a room further down counts as rock too). The pawn never climbs out of it. A drag holds it on the **last floor of its level it crossed**, drawn there while the pointer is over the rock, let go there, and it follows the pointer again once the pointer is back over its level's floor (`client/input.js walkTo`, `endMove`; `main.js moveBy` `at`). The arrow keys and the bar do not step it into rock (a toast says so); first person stops at rock as at a wall. A room of its level with an opening (a hole, a pit) is not rock: over the opening it hangs and is offered the fall, as above the ground (before, there too it climbed to the surface). *Chosen for Harry:* the last floor crossed, not the floor square nearest the pointer: it stays put at the edge it walked off, which reads as being stopped, and never jumps sideways through rock to a passage the pointer happens to be near. Things are not walked (they land on the floor that shows under the pointer) and are unchanged. A pawn lowered into the earth before 2026-10-20 (in rock from the start) stays where it is until it is dragged onto a floor of its level, or picked up by its portrait (docs/UI.md "Getting to any pawn").
   - **off its level**: where its level has no floor (an upper floor's edge, a hole), the highest ground below: walked down to it from the outdoor surface onto the outdoor surface (off a hill's edge), else left hanging at its height and offered the fall (2026-10-22). A hole in a floor that stands on a hill opens onto earth: nothing to fall into (`baseUnder`).
@@ -552,6 +583,33 @@ Harry, after playing on dev: "I noticed bugs around the differing levels for dif
 - **What was deleted:** `storeyHeightOf`, `baseOf`, `storeyOf`, `hillBaseOf`, `groundOf` (core/height.js); building base/storey in the scene key (`world.js`), the storey step of the building in focus (`main.js levelRange`, `surfaces/cut.js`); the per-building ground of the outside door (`core/roomgen.js`), of the stair planner (`core/stairs.js planStair`) and of the upper-room support check (`core/commands.js`); `building.set`'s `base` and `storey`; the drop onto the floor under the pointer for pawns and its `overAir` test (`client/input.js`); the hop for flights; the 5 and 15-ft hill steps. The LLM API's buildings lose `base`; rooms gain `ground`; `storey` is the map's level number now.
 - **Saved campaigns:** nothing is rewritten. Measured on the frozen corpus (266 campaigns): no standing pawn moves when moved nowhere (9 pawns lowered into the earth before 2026-10-20 come up onto the ground when next moved); on maps without hills every room's ground contact is as before.
 - **Not done:** standing on a hill's bank (a pawn walked off a hill's edge stands on the ground the bank lies over, as since 2026-10-24); a knoll or dais object to stand a pawn on (needs a generated asset); a hole in a floor on a hill still draws a dark void (it should show the earth, or not open); walking a pawn along a table top is not tested in a browser.
+
+### Backing off a stair (2026-11-24)
+
+Harry, on dev: "When I bring him forward to stairs, that works great, and he goes up partway. And then when I bring him back from those stairs ... I can back him off the stairs and leave him floating." Foggybottom (Ring lab · design table, Dragon Temple) stood at y 9.17 over the floor at 0, storey 0, and every later move kept him there. Code: `core/height.js` (`pawnStepTo`, `entersStair`, `pawnWalkY`), `core/migrate.js` (`stairFloats`), `relay/campaign.js` (`settleStairFloats`), `relay/llm.js`, `client/input.js`, `client/main.js`. Tests: `levels.test.mjs` 1b, 1c and 2 (fail on the old rule), `llm.test.mjs` (the API), `browser_stairs.py` PAWNS.
+
+- **The cause, two parts.** (1) Off a flight a pawn went to the level of the end NEARER IN HEIGHT, wherever it stepped. Backed off the foot from more than halfway up it was taken to the level of the top: with the hall's roof off at the cut that level had no floor there, so it was left hanging at its height and offered a fall ("falls 9 ft"); with the roof on, the hall's own top was "a floor of that level" and it stood on the ceiling of the room it was in. (2) A quick pull along the flight moved more than 5 ft of height between two pointer samples (the grand stair climbs 10 ft in 15), so the next sample was no longer "treads within 5 ft of its feet": it lost the stair mid-flight and the first rule took over. Once the fall offer had gone, the pawn was 5 ft or more over its base, which is what a raised pawn is, so every later move (drag, arrows, the API) kept its height.
+- **The rule now** (`pawnStepTo`): a pawn on a flight moved to another point of the same flight is walked along it, however far; onto a flight from one of its ends (standing at its top's height or its foot's, within a square of it), the same. Off a flight, by WHERE it goes: beyond the high end, level with the top tread, or from its upper half onto one of its ways out at the top (the grand stair's are beside its top row), the level of the top; beyond the foot, the level of the foot, never a fall (it walked down the treads); off the side, the floor of the foot's level beside it, however high up the flight it was: it just drops to that floor, with no fall offer and no line (Harry 2026-11-25, below).
+- **The API** (`relay/llm.js`, `pawnWalkY`): a `token.move` with no `y` used to keep the height; a standing pawn on or onto a stair now walks there by the same rule (docs/NETCODE.md "Stairs in the commands").
+- **A pawn already left in the air** is settled when its campaign loads (`stairFloats`, run by the relay's `load`): onto the ground under it, as one journaled `token.move` by nobody, with a line in the relay's log and nothing in the chat (it did not fall). Only a pawn the area's own record shows came there that way: it does not stand now (and stands on no thing's top), the last move that gave it its height took it FROM a flight's treads to another place (raise and lower never change x and z), and nothing but moves without `y`, sheet, damage or flag changes touched it since. On copies of every dev and prod campaign (46 and 234) it finds exactly one pawn, Foggybottom; the raised pawns of Harry's maps (Mira at 10, the dragons, the pterodactyl at 40.6, the drone) stay.
+- **Harry's call (2026-11-25):** off a flight's side 5 ft or more up the pawn "just drops to the floor": no "Fall?" offer and no fall message, the same as under 5 ft. (Landed first, 2026-11-24, as the fall offer by the house's 5-ft rule.) How: `pawnStepTo` marks that step `below` and `side`; a drag passing over such a square keeps the pawn where it was on the treads (a diagonal step to the grand stair's way out beside its top row crosses one), and LET GO there it lands on the floor (`client/input.js endMove`, `main.js standY`, `pawnWalkY` for the API). A drop with no stair in it, off a balcony or a terrace, is still offered the fall: that is the other branch of `pawnStepTo` (no floor of its level there), untouched. Also: a drag grazing the sliver of a stair's own squares beside its box (the grand stair is 10 ft wide on three squares) stays on its treads. The API's note now speaks only of that case ("dropped N ft to the ground below").
+
+### A ladder holds a pawn (2026-11-25)
+
+Harry, on dev, Foggybottom in the Dragon Temple's basilisk pit (a cave at -10 with a crypt passage at -20 under it, joined by a wooden ladder whose foot square is in the rock, so it says "Blocked at the foot"): "I can't place him on top of the ladder down inside the basilisk pit. Anytime I try and place him there, it uses the mechanism that shifts people to keep them from being buried inside walls." Code: `core/stairs.js` (`stairWalk` `rungs` / `rungAt`, `stairHop`), `core/height.js` (`baseUnder` `ladder`, `pawnStepTo`), `client/main.js` (`moveBy` `hop`), `client/surfaces/fpv.js`. Tests: `levels.test.mjs` 2c, `stairs.test.mjs`.
+
+- **The cause.** Not the rock hold: a drop on a ladder or a spiral sent the pawn to its OTHER end (`stairHop`, 2026-10-05). From the floor at its top that meant climbing down to the foot, and on a ladder whose foot is blocked (2026-11-03) "the top landing" instead: the square beside it on the same floor, a shift sideways with no climb. Harry's drops landed at (37.5, -12.5), the landing a square east of the ladder, every time. And nothing held a pawn partway up a ladder: put there by raise / lower or the API, it read as up in the air.
+- **Now.** A ladder's or a spiral's rungs are ground at any height between its foot and its top, on its piece (`baseUnder` answers `on: 'ladder'`; a pawn walking its level over the ladder's square is neither lifted nor sunk by them: `pawnStepTo` asks without them). Dropped on one from the floor at its top, the pawn stays there, on top of it; from the floor at its foot it still climbs to the top landing (browser_pawngo); a hop that would keep its level is no hop. Raise / lower takes it down or up the rungs and it holds where it is let go; moved about on the ladder's own square it keeps its hold; off it, onto its level's floor. First person climbs either way by walking onto one. The API stores the `y` it is given, and the rungs hold it there. The rock hold (a drag into solid rock below the ground stays on its level) is unchanged.
+- **Harry's call, open:** whether a drop on a ladder from its foot should also stay at the foot (no climb in one move at all, as the request read "the bottom means the pit floor"); kept as it was, since browser_pawngo's "can't get to the pawn is not ok" relies on it.
+
+### A blocked end steps off beside the stair (2026-11-25)
+
+Harry approved: his basilisk-pit ladder (obj_1bgs4e4fia, in the 5-ft crypt passage at -20, facing east) faced the passage's wall: the square it steps off at its foot, (37.5, -12.5, -20), is rock, so it said "Blocked at the foot", and the API's `stair=…&to=bottom` put a pawn into that rock. Code: `core/stairs.js stairEnds` (`feet`, `exits`); everything that reads an end goes through it (stairStatus and the note, stairInfo for the relay's `stairs` read and the AI card, stairHop for climbing and first person, the API's crossing, the railing). Tests: `stairs.test.mjs` (the corridor ladder at both ends, the open-facing case, an enclosed end), `levels.test.mjs` 2c (Harry's ladder).
+
+- **The rule.** Where the square an end faces is no floor of that end's level (the foot: the floor the stair stands on, the same room; the top: the room it comes up into, not a hole), the end uses the nearest open square next to the piece at that level, by tier: the facing square(s), then those beside its end row, then (a ladder, a spiral) the one behind it. Both ends take the sides in the same fixed order, so a ladder steps off on one side at both ends. Within a tier a pawn's own drop point picks the nearer square, as before; with none, the middle one. Nothing but the rooms (and holes) decides it: every seat and the relay choose the same square, and a pawn standing there changes nothing.
+- **Truly enclosed:** with no open square by an end at all it stays the facing square and stairStatus still says "Blocked at the foot" / "Comes up against a wall".
+- **What changed on the saved maps** (snapshots of every dev and prod campaign, 173 stairs): Harry's ladder now works (foot (32.5, -17.5, -20)); a prod ladder in cmp_fxj8vll94t likewise; a prod grand stair (cmp_5v7odrlr0x) whose middle foot square was over a cellar stair's hole now steps off at the open square of its foot row. Nothing else.
+- **The dismissed note:** Harry's ladder keeps `noteOff: 'foot'` on disk, but it now has no fault, so there is no note and nothing reads as dismissed (stairInfo shows `works: true`, no `problem`). As before, a dismissal is never cleared by the fault going away, so if that ladder were ever blocked at the foot again it would stay quiet; the GM can take it back from the stair's menu.
 
 ### First person (2026-10-29)
 
@@ -601,6 +659,168 @@ Harry, on dev: "Small tweak: the room/building placement highlights don't show o
 - **Below the ground** the squares of a cellar drawn under a hill hid behind the hill's top in the ghost's depth pass (the hill's tiles are shell pieces); the pass now leaves a hill's top out, as it leaves the ground out: the hill is a see-through lid there.
 - **Checked and unchanged:** the floor paint stroke's plates (already at the hilltop's height, drawn over everything), the ghost of a thing being placed and a painted run of edge pieces (real meshes at the height they will stand at). The floor-drop squares (a floor dragged onto a whole room) go through the same cell indicator, so over a room on a hilltop they now lie on its floor too. The marquee is a box of screen pixels. Paste has no preview.
 - **Not done:** the level's ghost grid at lv 2 still lies 0.3 ft under a hill's top (the grid is not drawn on a hill's top: "Hills", not built).
+
+### Fire escapes are stairwells (2026-11-07, modrooms lane)
+
+Harry: "fire escape is basically just a stairwell." *Build → Modern → City → Fire escape* is an outdoor LANDING (4 x 2
+squares by default, its floor steel grating): the GM draws one per storey up a building's side over the alley (`]` to go
+up a level), as rooms are stacked anywhere. Nothing new joins the levels; the stair rules above do. Each landing's
+program (`tools/spawn-tuner/js/solver2.js` block `type:modrooms`, `mxFireEscape`) lays ONE steel flight
+(`stair-fire-escape`, a connector in `core/stairs.js` STAIR_ROLES: walked) up from it, against the building on an even
+level and on the outer lane, climbing back, on an odd one (stairCore's switchback), so each flight's hole in the landing
+above is on the lane the next flight leaves free and you step across from the top of one to the foot of the next. Under
+no landing a flight is rolled furniture and silent ("open"); the day the landing above is drawn it opens that floor and
+pawns walk it. The lowest landing above the street (level 1) also drops a steel ladder (`ladder-fire-escape`: hopped)
+laid a storey down: it stands on the alley and comes up through the landing. An iron railing runs round every open edge;
+each hole is railed by the stair rules. The landing's door into the building is the ordinary door between two rooms on
+one level. Missing (honest version): climbing in through a WINDOW (windows are walls for feet), sight between a landing
+and the alley below (sight is per level), and the 1-ft slab under the landing is drawn as for any upper outdoor room, not
+as an open grate. Tests: `tools/spawn-tuner/test/mx.test.mjs` (climb), `engine/test/browser_modrooms.py` FIRE.
+
+### Elevators: a shaft and a car (2026-11-07, modrooms lane)
+
+Harry: "elevator is maybe just a room and a shaft? or like a shaft and an object, and if a pawn stands on the object
+(car) and you move it up, it takes everything on it up?" (`core/elevator.js`, `client/elevator.js`)
+- **The shaft** is ordinary square HOLES, one on each floor above the bottom one over the car's square(s): you see down it
+  and fall down it where the car is not. **Build the shaft** (the car's ring: Elevator ▸ Build shaft) lays them on every
+  floor above the car that has a room there, one storey after another, and the landing doors (`elevator-doors`) at the
+  car's front on each floor, as one command.
+- **The car** (`elevator-car`, from the library: *Build → Modern → City*) is an ordinary thing. Its DECK is ground: over
+  its squares a pawn stands on it (`baseUnder` `on: 'car'`), at the bottom of the shaft or up in it. **Up a floor / Down a
+  floor** is `object.move` with the next stop's height (the stops are read off the holes over it: `shaftStops`).
+- **Riding**: what stands on the car goes with it by the global rule "things ride what they stand on" (`core/riders.js`,
+  docs/PAWNS.md "Riders"): Up / Down a floor is `app.liftTo`, whose `object.move` carries the riders (one entry, one undo).
+  The car's standing surface is the cab's FLOOR, not the top of its walls: measured on the mesh at 12.4% of its box
+  (`CAR_DECK`, `carDeckY`); the browser's downward look finds it, and `riders.js topOf` asks `carDeckY` for a car, so an
+  AI seat's data agrees. Tests: `engine/test/elevator.test.mjs` (core), `browser_modrooms.py` ELEVATOR (a pawn and a crate
+  ride up and back down, a pawn beside it and one that stepped off stay, one undo).
+- **Missing (honest version):** the doors do not open or shut with the car (they are dressing); the car is called by its
+  ring, not by a pawn at the doors; a lobby bank of several shafts is several cars built one by one.
+- **In a generated building (2026-11-07, modhalls lane).** A Modern building whose map entry says `"lift": true`
+  (engine/tools/modern_buildings.json: the Apartment block, the Office tower) gets ONE lift when it has two storeys or
+  more. The plan (tools/spawn-tuner/js/buildings.js `findLift`) picks a square that is the lobby (the hub) on the ground
+  and the corridor on every floor above, with its front square circulation on every floor too: never a door's square or
+  the stair core's, never a square whose loss would cut a floor's corridor in two (every door, the stair's foot and
+  landing still reached); beside the stair where it can be, its back against a wall where it can be (`plan.lifts`; the
+  check "the lift is circulation on every floor it serves"). core/buildplan.js lays, in the same one-undo batch, the car on
+  the ground floor, a square hole over it on every floor above and the landing doors at its front on every floor (exactly
+  what Build shaft lays), before the furniture: the shaft square and a 1.5-ft strip before its doors are handed to the
+  layout as fixed blocks, so nothing stands there, while the rest of the square in front stays the way past. Test:
+  `engine/test/modhalls_buildings.test.mjs` (the car's stops are every storey; nothing on the shaft or before its doors).
+
+## Levels are advanced (2026-11-12)
+Harry: "something that I see almost everyone struggle with by default is the UI around layers ... think of that as an
+advanced feature ... making everything default to layer one until people need to actively request to go multi-layer."
+- **A new building is ONE storey with nothing under it**, every type (client/main.js spawnBuilding: `storeys: 1`,
+  `cellar: false` in its `gen`). Asked for in words or by a gallery link (`storeys=2`) it is built as before, cellar and
+  all. The type's usual count (tools/spawn-tuner/js/buildings.js `storeys.def`) is unchanged and is the offer's hint.
+- **The offers beside it** (offerBuilding): "2 storeys", "3 storeys" (a down-type: "Go deeper: N levels"), "Add a cellar"
+  (or "Add a dungeon below") where the type has one, "Re-roll". Each makes it again with the same seed. `cellar: false`
+  works the cellar out and then leaves it out, so putting it back moves nothing above the ground. More storeys re-plan
+  the ground floor for some types (an inn's beds go upstairs: TAV keeps it 6 seeds in 30, NOB 25, SMI 13, HUT 11; CAS,
+  ARC, TEM, MKT always); same seed, same result every time.
+- **A cave is drawn on the level you are on** (the Cave tool no longer jumps to lv -1). On the ground it gets "Take it
+  underground" (app.caveUnderground: room.move dy -10 with the pawns in it, one undo; the view goes down with it).
+- **Every change of the level you are on MOVES THE VIEW** (surfaces/cut.js runLevelAnim / stepLevelAnim; Harry on dev:
+  "it just looked like it 'jumped' down ... at least 0.5 sec worth"). One 800 ms eased timeline, then 500 ms to fold (2026-11-13, Harry: "a bit too fast"; was 600 + 300):
+  the camera's focus height glides from the old level's floor to the new one (and then stays at the level you are on);
+  the meter opens wide (150 px, readable labels) and a copy of the marker slides on the same curve; a big hand (the
+  client's own pointer and hand icons, 40 px) grabs the marker, drags it and lets go; a readout beside it says
+  "Ground → Level −1". The clock counts frames drawn (at most 34 ms a frame), so a long frame pauses the move instead
+  of eating it. Nothing takes the pointer or waits; a change in flight retargets from where the view is. The cut is not
+  stepped (rooms whole or not); what it hides or shows flies as before. A reload is not animated (the focus is put on
+  the level at once); reduced motion is instant, no hand. `tw.levelAnims`, `tw.viewAnim()`.
+- **Only the ground in use: the meter folds up to its Roofs button** (`#levelMeter.single`): no rail, no All-levels cap.
+  A second level in use, or going to another level (] [ , the bar, an offer), opens it again. The phone's `flat` rule
+  (the whole meter hidden) is unchanged.
+- Saved maps are untouched: a building's stored `gen` without `cellar` re-rolls with its cellar, and its stored
+  storey count stands. Test: engine/test/browser_levels_advanced.py.
+
+## Exteriors above (2026-11-24)
+Harry on dev (20 Nov), in the Dragon Temple area: "he can't see stuff on level 2 even when there's no roof ... he can't see
+the big temple that's out in the open even when he's standing out in the open. So we need some version of seeing the
+exterior of buildings that are up a level." Then: "there's a hidden sculpture on top of the pillar right out in front of the
+temple that shouldn't be hidden; it's standing out there right out in the open." Code: `core/exterior.js` (the rule, its
+header lists what it gets wrong), `client/vision.js` (`exteriorSegments`, `computeVision`'s `bands`), `client/fog-grid.js`
+(`maskLevels` composition, `clearCovered`), `client/fog-worker.js`, `client/fog.js` (bands, the rule for exposed things and
+for shells), `tools/spawn-tuner/js/fx/atmos.js` (`visSurf`), `fx/fogwar.js` (`visionBands`). Tests: `engine/test/exterior.test.mjs`,
+`engine/test/browser_fog_exterior.py`.
+- **What was wrong.** Sight is worked out per SIGHT LEVEL (`levelY`: the outdoor surface is 0, a hilltop room too; an upper
+  storey its own floor). The fog's picture (`fx/fogwar.js`) chooses a mask by the HEIGHT of each fragment: the highest level
+  at or below it. So in an area with any upper storey (Harry's has one, a little roof-off landing at 10 ft) everything 10 ft
+  or more up read the upper storey's mask, which only pawns standing upstairs write: the temple on its 10-ft hill (it sees
+  at 0), the statue on its pillar (10.75 ft, outdoors, sight level 0), and every roof. They drew as checker. The rule itself
+  (`fogRule`) had them right; the picture did not. On a map with no upper storey there is only level 0 and it worked, which
+  is why hills alone never showed it.
+- **Bands are heights.** The fog's masks are now one per band: every sight level, every room's floor and top, every hill's
+  top (`bandsOf`; Harry's area: -20, -10, 0, 10, 20, 30). A band's mask is composed (`bandParts`): its own sight level; the
+  exterior seen at that height (below); inside a room that spans the band but sees at another level (a hilltop hall, the
+  upper half of a tall room) that room's own level; a hill's top: the ground's level; over a roofed room whose top is the
+  band (its roof), that room's own level, so the roof of a room you stood in is known. Bands that are nobody's sight level
+  are drawn at the stored 1.25-ft cells. The atmosphere judges a surface above the fog's own level by its band too
+  (`visSurf`), so an exterior seen is not sunk under the ground's bank.
+- **The rule for exteriors (chosen for Harry).** A pawn standing UNDER THE SKY (no roofed room around it, nothing over it:
+  the open ground, a hill top, a roof-off room, a roof) sees, at every band from its feet up, what a floor plan at that
+  height lets it see. Everything standing at that height blocks: walls, windows, doors open or shut, bars and glass;
+  nothing lower does, so a one-storey house does not hide the temple's upper storey behind it. That sight is kept as its
+  own key (`b + 0.5`, e.g. "10.5": the outside at 10 ft), remembered and sent to the relay like any level (the relay
+  needed no change), and never inside a roofed room spanning that band (`clearCovered`), whatever got in. So: roofs, upper
+  walls' outer faces, an open-air terrace, a tower's outside and anything standing out in the open up high are seen from
+  below; an upper room's inside, its floor and its things stay the fog's until a pawn has been in it.
+- **Things.** A thing is EXPOSED when nothing covers it at its own height (`underSky`): outside every room, or in a room with
+  no roof, standing on a pillar, a wall top or a roof. An exposed thing is known when the exterior at its own spot (its
+  centre, not its box: a box reaches through a wall) is; a thing under a roof or a ceiling is ruled exactly as before. A
+  piece of a room's shell (a wall, a slab) is known from its outer side; a room from just outside its walls at its floor's
+  band. Pawns: an exposed pawn higher up is seen while the exterior there is in sight.
+- **What the cheap rule gets wrong:** only rooms cover (a canopy, pergola or tent that is a placed object covers nothing;
+  eaves past a wall line cover nothing); a pawn indoors looking out of a ground-floor window sees no exteriors above (only
+  pawns under the sky look up); open doors, windows, bars and glass block the exterior though they pass sight on the pawn's
+  own level; and no exterior sight in a dark area yet (darkness keeps its own rule).
+- **Looking down (2026-11-24, later the same day; Harry: "Line of sight down from a terrace should work too").** The mirror
+  of looking up. A pawn under the sky above the ground (a terrace, a roof, a roof-off room, a hilltop) also sees every band
+  below its own, down to the ground, as far as it can see across its own band: walls and parapets at its own height block
+  as for looking up; nothing lower does (it looks over them). Never shown (`blindAt`): what lies under a floor slab or a
+  hill's earth higher than that band, so you see past the edge of what you stand on, not through it; and the inside of a
+  roofed room (you see its roof). So from a terrace: the ground and terrain, the outsides and roofs of lower buildings,
+  the insides of roof-off rooms below, and exposed things and pawns on them. Remembered in the same keys (`0.5` is the
+  outside at the ground). Not below the ground (a cellar is roofed; an open pit into one is not looked into yet).
+  Things on the ground out in the open are now judged the same way as things up high (exposure at any height). A room's
+  shell pieces are known from the outside only through the remembered cells (cleared of what is under floors and inside
+  roofed rooms), never the live sight polygon, so a roofed room's inner walls never show to a terrace above it.
+- **No holes in a hilltop floor (2026-11-24, later; Harry: "fix the holes in floor bug").** A room standing on a hill takes
+  the hill's top where it stands; its floor pieces the fog kept from a player were not drawn, so each was a hole into the
+  hill, and the atmosphere, which sends a ray to an unseen surface on down to the floor of the fog's level, drew the bank
+  in a pit 10 ft under the floor. Three parts, all in drawing: (1) a known room's floor on a hill's earth is drawn whole
+  (`world.js floorOnEarth`; its unseen part is the fog's checker; it still counts as kept for picking and covering:
+  `fogFloors`, `cutSets`); (2) a room the fog keeps takes nothing from the hill (`takenShell`, `takenShownAt`), so the
+  hill's top is drawn where an unknown building stands instead of a hole its own shape; (3) the atmosphere ends a ray to
+  an unseen surface above the fog's level at that surface's band and draws the bank there as on the ground
+  (`atmos.js visSurfY`). An upper storey's unseen floor stays undrawn as before (a room is under it, not a void), and the
+  exterior rule never makes a floor known (a storey's floor is its inside). Nothing in terrain or the room solve changed.
+- **Holes (2026-11-25; Harry on dev: "the hole is not working great. At the most basic level it's acting like a pillar (you
+  can't see past it onto the same level), and honestly you SHOULD be able to see down into it based on line of sight").**
+  *Why a pillar:* the hole in the Dragon Temple's floor (a 20-ft round hole, floor 10) is over a passage dug into the
+  hill (floor 0), and both rooms see at level 0 (a room on a hill and a room dug into it both meet the ground). Sight is
+  a floor plan per level, so the passage's walls, 10 ft under the temple's floor, stood in the temple as a 30-ft box round
+  the hole (and the passage has a ring of walls round its own hole, a shaft down to the cave). The hole was innocent; the
+  walls under it were not. *Now:* (1) a wall whose top is at or below a viewer's feet and that stands under the floor or
+  hill it is on blocks nothing for it (`vision.js blockingSegments` `above`); (2) where two rooms of one level overlap at
+  different heights (`stackedOverlaps`) no pawn's level sight is kept, and each pawn's is kept again at the band of its
+  feet (`b + 0.75`), so the temple's floor is seen without the passage under it being seen too; (3) LOOKING DOWN AN
+  OPENING (a hole, a through pit, a stairwell's cut in the floor above a flight): a pawn whose opening is in its sight, on
+  the floor it stands on, sees the floor right under it where it lines up through the opening from its eyes (5 ft up):
+  the opening's plan scaled out from the pawn by (eyes - floor below) / (eyes - opening's floor), clipped to what that
+  lower level's walls let be seen from under the opening; where that meets another opening (a shaft), on down through
+  both, three deep at most. Kept as `b + 0.25` of the lower band. So from the edge you see the far part of the floor below
+  and what is on it, not the part under your own side, and from far back only the far wall; the camera, which hangs
+  above, can look straight down the hole at fog where the pawn cannot see. Dark areas keep the old rule (the pillar
+  too). A bottom pit (spikes, the open pit) has its bottom on the floor it stands on and was always seen like the floor.
+- **Measured:** the fog worker on Harry's area (6 bands instead of 4), a pawn on a terrace, same loaded box, back to back:
+  before any of this ~12 ms a vision update, with exteriors above ~22 ms, with looking down too ~24 ms (off the main thread).
+  Quiet box (2026-11-25), back to back: terrace pawn 5 ms before any of this, 10.5 ms before holes, 11 ms with them; Foggy in
+  the temple by its hole (now seeing the whole temple, a cone down the shaft, kept at its feet too) 7 ms before holes, 15 with.
+- **Not touched:** stairs and height snapping (Foggy's floating pawn at 9.17 ft is another agent's fix; a floating pawn on
+  the open ground sees from the ground and looks up like anyone there).
 
 ## Leaning
 

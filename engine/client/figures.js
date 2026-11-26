@@ -4,7 +4,12 @@
 //   the list     loaded once, as data (about 170 KB for 400 figures). NO mesh and NO picture is loaded until a pawn on
 //                the table wears that figure, or its row is drawn in the command bar (a lazy <img>).
 //   a pawn       token.fig = a figure id (plain pawn data through the relay, so every seat sees the same figure);
-//                token.size = squares a side (absent = 1; a large creature 2). No fig = the old stand-in pawn.
+//                token.size = squares a side (absent = 1; a large creature 2; tiny 0.5, up to 8:
+//                core/size.js). The FIGURE is drawn at that size too (figureK: a medium fighter made large is twice as big).
+//                No fig = the old stand-in pawn.
+//   FLYING       a figure with a `fly` row (a second, airborne pose: wings spread) wears it while its pawn is up in the
+//                air (world.js asks setFlying when the figure is PAWN_BEAM.land or more over its base); else the standing
+//                one, lifted. docs/PAWNS.md "A flying pawn".
 //   THE BASE     built here, never in the mesh (Harry: "No bases; let's add the bases ourselves afterwards in engine by
 //                default" and, 2026-10-06, "disk with the colored rim"): a low medium-grey disc, 80% of its square(s)
 //                across (4 ft in a 5-ft square), with a rim in the owner seat's colour. (It was 4.5 ft and near-black
@@ -17,7 +22,8 @@
 //                same day: "Let's make the facing arrow a grab handle for rotation, I noticed I frequently want to do
 //                that"): client/turnhandle.js. An invisible pad a little bigger than the arrow takes the pointer.
 import * as THREE from 'three';
-import { near } from './barwords.js';
+import { figureSearch } from './figsearch.js';
+import { squaresOf, figureK } from '../core/size.js';
 
 export const DISC_H = 0.3;            // feet: the disc's thickness
 // THE FIGURE SCALE (Harry 2026-10-12: "The minis are mostly too big. To scale a hero/guard to a chair correctly I have to
@@ -39,9 +45,7 @@ const PALE = '#f6f0df', INK = '#17140f';
 // Chosen by Gemini at table distance (experiments/2026-10-29-grey-bases/). figures.setArrow({ ... }) redraws every base.
 export const ARROW_DEFAULT = { from: 1.25, out: 0.5, half: 0.42 };
 let ARROW = { ...ARROW_DEFAULT };
-const GROUP_WORDS = { hero: 'hero heroes pc player character adventurer', townsfolk: 'townsfolk npc villager commoner town folk people', foe: 'foe monster enemy creature horde', beast: 'beast animal creature', large: 'large big huge giant boss monster foe' };
-const GENDER_WORDS = { f: 'woman female she lady', m: 'man male he' };
-const GROUP_LABEL = { hero: 'hero', townsfolk: 'townsfolk', foe: 'foe', beast: 'beast', large: 'large' };
+const GROUP_LABEL = { hero: 'hero', townsfolk: 'townsfolk', foe: 'foe', beast: 'beast', large: 'large', runner: 'runner', modern: 'modern', robot: 'robot' };
 
 // THE NAME ON THE BASE (Harry 2026-10-06: "lets start by putting it at their feet, on the base, curlling around the
 // outside edge. far from sure but we can explore as we go"; he expects to "end up tweaking it pretty hard").
@@ -75,43 +79,17 @@ export async function loadFigureList(base, v) {
 
 export function createFigures({ list = [], base = '', look, shadows = () => true, scale = null }) {
   let K = figureScaleOf(scale); const live = new Set(); // WeakRefs of the visuals built, so a change of the dial reaches the pawns on the table
-  const fitScale = (U) => { U.holder.scale.setScalar(K); U.scale = K; U.labelY = DISC_H + Math.max(U.figure.oh, U.rawHeight || 0) * K + 0.95; U.height = (U.rawHeight ?? U.figure.h) * K; };
+  const fitScale = (U) => { const k = K * (U.sizeK || 1); U.holder.scale.setScalar(k); U.scale = K; U.labelY = DISC_H + Math.max(U.flying ? 0 : U.figure.oh, U.rawHeight || 0) * k + 0.95; U.height = (U.rawHeight ?? U.figure.h) * k; }; // (sizeK: the pawn's size over its figure's own, core/size.js figureK)
   function setScale(v) { K = figureScaleOf(v); for (const w of live) { const g = w.deref(); if (!g) { live.delete(w); continue; } fitScale(g.userData); } return K; }
   const byId = new Map(list.map(f => [f.id, f]));
   // ---------- search: name, id, group, class, race, tags, the SRD names ("owlbear", "elf wizard", "goblin spear") ----------
-  // every typed word must be found in some field of the figure; an exact field beats a word start beats a fragment
-  const low = (s) => String(s || '').toLowerCase();
-  const index = list.map(f => ({ f, name: low(f.name), fields: [low(f.name), f.id, f.id.replace(/-/g, ' '), low(f.cls).replace(/-/g, ' '), low(f.race), ...(f.tags || []).map(low), ...(f.srd || []).map(low)], soft: `${GROUP_WORDS[f.group] || f.group} ${GENDER_WORDS[f.gender] || ''}`.split(' ').filter(Boolean) }));
-  const forms = (w) => { const out = [w]; if (w.length > 3 && w.endsWith('ves')) out.push(w.slice(0, -3) + 'f'); if (w.length > 3 && w.endsWith('men')) out.push(w.slice(0, -3) + 'man'); if (w.length > 3 && w.endsWith('ies')) out.push(w.slice(0, -3) + 'y'); if (w.length > 3 && w.endsWith('es')) out.push(w.slice(0, -2)); if (w.length > 2 && w.endsWith('s')) out.push(w.slice(0, -1)); return out; };
-  const wordScore = (w, it) => {
-    let best = 0;
-    for (const t of it.fields) { if (!t) continue; const s = t === w ? 100 : t.startsWith(w) ? 80 : (t.includes(' ' + w) || t.includes('-' + w)) ? 64 : w.length > 2 && t.includes(w) ? 40 : 0; if (s > best) best = s; if (best === 100) break; }
-    if (best < 70) for (const t of it.soft) { const s = t === w ? 70 : w.length > 2 && t.startsWith(w) ? 52 : 0; if (s > best) best = s; }
-    if (!best) for (const t of it.fields) { if (t && (best = near(w, t))) break; } // one slip ("goblinn", "skelton"): the bar's near miss
-    return best;
-  };
-  function search(q, { limit = 8 } = {}) {
-    const words = low(q).split(/[\s,]+/).filter(Boolean);
-    if (!words.length) return [];
-    const out = [];
-    for (const it of index) {
-      let total = 0, ok = true;
-      for (const w of words) { let b = 0; for (const x of forms(w)) { const s = wordScore(x, it); if (s > b) b = s; } if (!b) { ok = false; break; } total += b; }
-      if (!ok) continue;
-      let s = total / words.length;
-      const whole = words.join(' '), singular = words.map(w => forms(w).slice(-1)[0]).join(' ');
-      if (it.name === whole || it.name === singular || (it.f.srd || []).some(x => low(x) === whole || low(x) === singular)) s += 30; // the creature's own name
-      else if (it.name.startsWith(whole) || it.name.startsWith(singular)) s += 12;
-      out.push({ fig: it.f, s: s - it.name.length * 0.02 });
-    }
-    out.sort((a, b) => b.s - a.s || (a.fig.id < b.fig.id ? -1 : 1));
-    return limit ? out.slice(0, limit) : out;
-  }
-  const describe = (f) => [GROUP_LABEL[f.group] || f.group, f.race && f.cls ? `${f.race === 'small' ? 'small-folk' : f.race} ${f.cls}` : null, `${fmtFt(f.h)} tall`, f.size > 1 ? `large: ${f.size} × ${f.size} squares` : null].filter(Boolean).join(' · ');
+  // client/figsearch.js (pure, so node tests load it); a creature's own name beats an SRD name it only lists (2026-11-06)
+  const search = figureSearch(list);
+  const describe = (f) => f.kin ? [f.kin, f.role && f.role !== 'npc' ? f.role : 'townsfolk', `${fmtFt(f.h)} tall`].join(' · ') : [GROUP_LABEL[f.group] || f.group, f.race && f.cls ? `${f.race === 'small' ? 'small-folk' : f.race} ${f.cls}` : null, `${fmtFt(f.h)} tall`, f.size > 1 ? `large: ${f.size} × ${f.size} squares` : null].filter(Boolean).join(' · ');
   const thumbUrl = (f) => f.thumb ? base + f.thumb : null;
 
   // ---------- the base ----------
-  const sizeOf = (e) => Math.max(1, Math.min(4, Math.round(e?.size || (e?.fig && byId.get(e.fig)?.size) || 1)));
+  const sizeOf = (e) => squaresOf(e); // squares a side: 0.5 (tiny) to 8, absent 1 (core/size.js: the same rule as the relay's)
   const radiusOf = (size) => size * 5 * BASE_SHARE / 2;
   const geo = new Map();
   // THE FACING MARK: one small arrowhead in a contrasting tone, lying on the front of the disc, cutting through the rim
@@ -186,7 +164,7 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
     return { canvas: c, shown: t };
   };
   function makeName(text, size) {
-    const P = NAME, r = radiusOf(size), ri = r * 0.9, h = P.height * (size > 1 ? P.largeScale : 1), g = new THREE.Group();
+    const P = NAME, r = radiusOf(size), ri = r * 0.9, h = P.height * (size > 1 ? P.largeScale : size < 1 ? 0.42 : 1), g = new THREE.Group(); // (a tiny base is 2 ft across: its band is a thin one)
     const rOut = P.where === 'side' ? r * 1.005 : ri - P.inset, rMid = P.where === 'side' ? rOut : rOut - h / 2;
     const pxPerFt = 128 / h, maxW = THREE.MathUtils.degToRad(P.arc) * rMid * pxPerFt - 56;
     const { canvas, shown } = nameCanvas(text, maxW), ang = canvas.width / pxPerFt / rMid, N = Math.max(8, Math.ceil(ang * 14));
@@ -260,9 +238,9 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
     const f = byId.get(e.fig); if (!f) return null;
     const size = sizeOf(e), g = new THREE.Group(), baseG = makeBase(size, color, { ghost }), foot = new THREE.Group(); foot.add(baseG); g.add(foot); // foot: what stays on the ground under a raised pawn (the disc, the rim, the arrow, the name): world.js PAWN BASE
     const holder = new THREE.Group(); holder.position.y = DISC_H; g.add(holder);
-    const stand = new THREE.Mesh(new THREE.CapsuleGeometry(Math.min(0.9, f.h * 0.16) * size, Math.max(0.2, f.h - 2 * Math.min(0.9, f.h * 0.16) * size), 4, 12), new THREE.MeshStandardMaterial({ color: '#8b8378', roughness: 0.8, transparent: true, opacity: 0.35, depthWrite: false }));
+    const fs = f.size || 1, stand = new THREE.Mesh(new THREE.CapsuleGeometry(Math.min(0.9, f.h * 0.16) * fs, Math.max(0.2, f.h - 2 * Math.min(0.9, f.h * 0.16) * fs), 4, 12), new THREE.MeshStandardMaterial({ color: '#8b8378', roughness: 0.8, transparent: true, opacity: 0.35, depthWrite: false }));
     stand.position.y = f.h / 2; stand.userData.figureStandIn = true; holder.add(stand);
-    const U = g.userData = { fig: f.id, figure: f, size, base: baseG, foot, top: DISC_H, labelY: DISC_H + f.oh + 0.95, loaded: false, failed: false, holder, ghost, placeholder: !!e.placeholder, setColor: baseG.userData.setColor };
+    const U = g.userData = { fig: f.id, figure: f, size, sizeK: figureK(size, f), base: baseG, foot, top: DISC_H, labelY: DISC_H + f.oh + 0.95, loaded: false, failed: false, holder, ghost, placeholder: !!e.placeholder, main: !!e.main, flying: false, pose: 'stand', setColor: baseG.userData.setColor };
     fitScale(U); live.add(new WeakRef(g)); // the figure scale: the holder stands on the disc top, so the feet stay on it
     U.ready = template(f).then(t => {
       const m = measured.get(f.url), inst = t.clone(true), turn = new THREE.Group();
@@ -271,19 +249,57 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
       turn.add(inst); inst.traverse(o => { if (o.isMesh) { o.castShadow = shadows(); o.receiveShadow = shadows(); o.userData.figureMesh = true; } });
       holder.remove(stand); stand.geometry.dispose(); holder.add(turn);
       if (U.placeholder) blank(turn); else if (ghost) ghostify(turn);
-      U.loaded = true; U.body = turn; U.rawHeight = (m.maxY - m.minY) * f.k; fitScale(U); U.detail = f.tier;
+      U.loaded = true; U.body = turn; U.standBody = turn; U.rawHeight = (m.maxY - m.minY) * f.k; U.standHeight = U.rawHeight; fitScale(U); U.detail = f.tier;
+      if (U.flying) showFly(g); // (it went up before its standing figure arrived)
       onReady?.(g);
       if (e.main && f.full) U.full = template({ id: f.id + '#full', url: f.full }).then(t2 => {
         const m2 = measured.get(f.full), inst2 = t2.clone(true), turn2 = new THREE.Group();
         turn2.rotation.y = turn.rotation.y; turn2.scale.setScalar(f.k); turn2.position.set(-(f.c?.[0] || 0), -m2.minY * f.k, -(f.c?.[1] || 0));
         turn2.add(inst2); inst2.traverse(o => { if (o.isMesh) { o.castShadow = shadows(); o.receiveShadow = shadows(); o.userData.figureMesh = true; } });
         if (ghost) ghostify(turn2);
-        U.before = measure(g); holder.remove(turn); holder.add(turn2); U.body = turn2; U.rawHeight = (m2.maxY - m2.minY) * f.k; fitScale(U); U.detail = 'full'; U.swapped = true;
+        U.before = measure(g); holder.remove(turn); holder.add(turn2); U.standBody = turn2; U.standHeight = (m2.maxY - m2.minY) * f.k; if (U.pose === 'fly') holder.remove(turn2); else { U.body = turn2; U.rawHeight = U.standHeight; } fitScale(U); U.detail = 'full'; U.swapped = true;
         onReady?.(g); return g;
       }).catch(() => g); // the original cannot be had: the game tier stays
       return g;
     }).catch(() => { U.failed = true; stand.material.opacity = 0.8; stand.material.color.set(color); return g; }); // no file: a solid stand-in in the pawn's colour, never nothing
     return g;
+  }
+  // A FLYING PAWN'S POSE (Harry 2026-11-06: "for pawns that often fly (like say a dragon) let's make an alt of them flying
+  // and when they get their vertical set switch to flying mode"). A figure whose list row has `fly` (a second mesh, the
+  // same creature airborne, wings spread: tools/spawn-tuner/build_figures.py) wears it while setFlying(vis, true); the
+  // standing figure comes back with setFlying(vis, false). Nothing is stored: world.js asks from the pawn's height over
+  // its base (FLY_AT), so every seat shows the same pose. The pose that is not worn is taken out of the figure's holder
+  // (so the poses of conditions, the hover outline and the bounds see one figure). Its file is fetched the first time.
+  // A figure with no flying pose stays standing, lifted ('stand-lifted'); a fly file that cannot be had: the same.
+  // U.onPose(vis) is called after every change of the figure worn (world.js redoes the label, halos and conditions).
+  const flyUrl = (f, main) => main && f.fly.full ? f.fly.full : f.fly.url;
+  function wear(U, body, height, pose) {
+    for (const b of [U.standBody, U.flyBody]) if (b && b !== body && b.parent === U.holder) U.holder.remove(b);
+    if (body && body.parent !== U.holder) U.holder.add(body);
+    if (body) { U.body = body; U.rawHeight = height; }
+    U.pose = pose; fitScale(U);
+  }
+  function showFly(g) {
+    const U = g.userData, f = U.figure;
+    if (!f.fly || U.flyFailed) { U.pose = 'stand-lifted'; return; }
+    if (U.flyBody) { wear(U, U.flyBody, U.flyHeight, 'fly'); U.onPose?.(g); return; }
+    if (U.flyLoading) return; U.flyLoading = true;
+    const url = flyUrl(f, U.main);
+    template({ id: `${f.id}#fly${url === f.fly.full ? '-full' : ''}`, url }).then(t => {
+      const m = measured.get(url), F = f.fly, inst = t.clone(true), turn = new THREE.Group();
+      turn.rotation.y = THREE.MathUtils.degToRad(F.yaw || 0); turn.scale.setScalar(F.k); turn.position.set(-(F.c?.[0] || 0), -m.minY * F.k, -(F.c?.[1] || 0)); // its lowest point at the figure's height
+      turn.add(inst); inst.traverse(o => { if (o.isMesh) { o.castShadow = shadows(); o.receiveShadow = shadows(); o.userData.figureMesh = true; o.userData.flyPose = true; } });
+      if (U.placeholder) blank(turn); else if (U.ghost) ghostify(turn);
+      U.flyBody = turn; U.flyHeight = (m.maxY - m.minY) * F.k; U.flyLoading = false;
+      if (U.flying && U.loaded) { wear(U, turn, U.flyHeight, 'fly'); U.onPose?.(g); }
+    }).catch(() => { U.flyLoading = false; U.flyFailed = true; if (U.flying) U.pose = 'stand-lifted'; });
+  }
+  function setFlying(vis, on) {
+    const U = vis?.userData; if (!U?.fig || U.flying === !!on) return false;
+    U.flying = !!on;
+    if (!on) { if (U.standBody) { wear(U, U.standBody, U.standHeight, 'stand'); U.onPose?.(vis); } else U.pose = 'stand'; return true; }
+    if (U.loaded) showFly(vis); else U.pose = U.figure.fly ? 'stand' : 'stand-lifted'; // (before its standing figure arrives: the ready handler puts the flying one on)
+    return true;
   }
   // (tests, and the page's own check) what was built for a pawn visual, measured from the vertices in the world
   function measure(vis) {
@@ -294,14 +310,14 @@ export function createFigures({ list = [], base = '', look, shadows = () => true
     if (U.body) U.body.traverse(o => { if (!o.isMesh) return; const p = o.geometry.attributes.position; for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); if (v.y < lo) lo = v.y; if (v.y > hi) hi = v.y; } });
     const front = new THREE.Vector3(0, 0, 1).transformDirection(vis.matrixWorld), tip = new THREE.Vector3(0, DISC_H * 0.4, U.base.userData.tip).applyMatrix4(vis.matrixWorld), c = new THREE.Vector3().setFromMatrixPosition(vis.matrixWorld);
     let tris = 0, cx = 0, cz = 0, n = 0; if (U.body) U.body.traverse(o => { if (!o.isMesh) return; const p = o.geometry.attributes.position; tris += (o.geometry.index ? o.geometry.index.count : p.count) / 3; const st = Math.max(1, Math.floor(p.count / 4000)); for (let i = 0; i < p.count; i += st) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); cx += v.x; cz += v.z; n++; } });
-    return { fig: U.fig, loaded: U.loaded, failed: U.failed, size: U.size, tier: U.figure.tier, tris: U.figure.tris, detail: U.detail || null, drawn_tris: Math.round(tris), swapped: !!U.swapped, before: U.before ? { feet_above_disc_ft: U.before.feet_above_disc_ft, height_ft: U.before.height_ft, mid: U.before.mid, drawn_tris: U.before.drawn_tris } : null,
+    return { fig: U.fig, loaded: U.loaded, failed: U.failed, size: U.size, size_k: +(U.sizeK || 1).toFixed(4), flying: !!U.flying, pose: U.pose, has_fly: !!U.figure.fly, tier: U.figure.tier, tris: U.figure.tris, detail: U.detail || null, drawn_tris: Math.round(tris), swapped: !!U.swapped, before: U.before ? { feet_above_disc_ft: U.before.feet_above_disc_ft, height_ft: U.before.height_ft, mid: U.before.mid, drawn_tris: U.before.drawn_tris } : null,
       mid: n ? [+(cx / n).toFixed(3), +(cz / n).toFixed(3)] : null, name: U.nameG ? { text: U.nameText, shown: U.nameG.userData.shown, arc_deg: +U.nameG.userData.arcDeg.toFixed(1), at_deg: +THREE.MathUtils.radToDeg(U.nameG.rotation.y).toFixed(1), ends: U.nameG.userData.ends.map(([x, z]) => { const q = new THREE.Vector3(x, DISC_H, z).applyMatrix4(U.nameG.matrixWorld); return [+q.x.toFixed(3), +q.y.toFixed(3), +q.z.toFixed(3)]; }) } : null,
       feet_above_disc_ft: U.body ? +(lo - (baseY + DISC_H)).toFixed(4) : null, height_ft: U.body ? +(hi - lo).toFixed(3) : null, stated_ft: U.figure.h, overall_ft: U.figure.oh, scale: U.scale, // drawn = stated x scale (the figure-scale dial)
      
       disc_top_ft: +(baseY + DISC_H).toFixed(3), base_width_ft: +(U.base.userData.radius * 2).toFixed(3), rim: '#' + U.base.userData.rim.material.color.getHexString(), wedge: '#' + U.base.userData.wedge.material.color.getHexString(), disc: '#' + U.base.userData.disc.material.color.getHexString(), rim_arc_deg: +THREE.MathUtils.radToDeg(U.base.userData.rim.geometry.parameters.phiLength).toFixed(1), arrow_ft: +(U.base.userData.tip - ARROW.from * U.size).toFixed(3),
       facing_deg: +(((Math.atan2(front.x, front.z) * 180 / Math.PI) % 360 + 360) % 360).toFixed(1), point: [+(tip.x - c.x).toFixed(3), +(tip.z - c.z).toFixed(3)] };
   }
-  return { list, byId, get: (id) => byId.get(id) || null, search, describe, thumbUrl, sizeOf, radiusOf, makeBase, pawnVisual, measure, setArrow, arrow: () => ({ ...ARROW }), arrowDefaults: ARROW_DEFAULT, stats, count: list.length, DISC_H, scale: () => K, setScale, drawnFt: (f) => f.h * K,
+  return { list, byId, get: (id) => byId.get(id) || null, search, describe, thumbUrl, sizeOf, radiusOf, makeBase, pawnVisual, measure, setArrow, setFlying, canFly: (id) => !!byId.get(id)?.fly, arrow: () => ({ ...ARROW }), arrowDefaults: ARROW_DEFAULT, stats, count: list.length, DISC_H, scale: () => K, setScale, drawnFt: (f) => f.h * K,
     setNameOn, faceNames, name: () => ({ ...NAME }), setName, onName: (f) => nameListeners.add(f), nameDefaults: NAME_ON_BASE, texBytes: (url) => look.texBytes.get(url) || 0 };
 }
 const fmtFt = (h) => `${Math.round(h * 10) / 10} ft`;

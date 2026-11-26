@@ -1,0 +1,120 @@
+{
+ "names": {
+  "4790c3.jpg": "store-shelving|room-table|after",
+  "d7d367.jpg": "store-shelving|room-table|before",
+  "a183ff.jpg": "store-shelving|room-close|before",
+  "51ec59.jpg": "store-shelving|room-close|after",
+  "d24db5.jpg": "server-rack|room-table|before",
+  "24175b.jpg": "server-rack|room-table|after",
+  "014fb5.jpg": "server-rack|room-close|after",
+  "b1183e.jpg": "server-rack|room-close|before"
+ },
+ "answer": {
+  "images": {
+   "4790c3.jpg": {
+    "text": [
+     "Building 1",
+     "Convenience store"
+    ],
+    "reads_as": 9,
+    "clean": 8,
+    "faces_ok": "yes",
+    "problems": "none"
+   },
+   "d7d367.jpg": {
+    "text": [
+     "Building 1",
+     "Convenience store"
+    ],
+    "reads_as": 5,
+    "clean": 4,
+    "faces_ok": "yes",
+    "problems": "melted blobby geometry, floating artifact debris, sparse layout leaving awkward dead space"
+   },
+   "51ec59.jpg": {
+    "text": [
+     "Convenience store"
+    ],
+    "reads_as": 9,
+    "clean": 8,
+    "faces_ok": "yes",
+    "problems": "none"
+   },
+   "a183ff.jpg": {
+    "text": [
+     "Convenience store"
+    ],
+    "reads_as": 5,
+    "clean": 3,
+    "faces_ok": "yes",
+    "problems": "floating detached mesh pieces/boxes hovering off sides, melted warped shelving"
+   },
+   "24175b.jpg": {
+    "text": [
+     "Building 1",
+     "Server room"
+    ],
+    "reads_as": 8,
+    "clean": 8,
+    "faces_ok": "yes",
+    "problems": "none"
+   },
+   "d24db5.jpg": {
+    "text": [
+     "Building 1",
+     "Server room"
+    ],
+    "reads_as": 5,
+    "clean": 6,
+    "faces_ok": "no",
+    "problems": "wrong way round (turned 90 degrees so rack fronts face walls or adjacent units rather than aisles), clipping into back wall"
+   },
+   "014fb5.jpg": {
+    "text": [
+     "Building 1",
+     "Server room"
+    ],
+    "reads_as": 8,
+    "clean": 8,
+    "faces_ok": "yes",
+    "problems": "none"
+   },
+   "b1183e.jpg": {
+    "text": [
+     "Building 1",
+     "Server room"
+    ],
+    "reads_as": 5,
+    "clean": 6,
+    "faces_ok": "no",
+    "problems": "wrong way round (rotated 90 degrees sideways so front faces and cables point directly into neighboring racks and walls)"
+   }
+  },
+  "pairs": [
+   {
+    "a": "4790c3.jpg",
+    "b": "d7d367.jpg",
+    "better": "4790c3.jpg",
+    "why": "4790c3.jpg provides four realistic, crisp gondola aisles with clear navigable lanes, whereas d7d367.jpg has blobby, melted models and an unnaturally empty layout."
+   },
+   {
+    "a": "51ec59.jpg",
+    "b": "a183ff.jpg",
+    "better": "51ec59.jpg",
+    "why": "51ec59.jpg features crisp, well-structured retail shelving with endcaps, while a183ff.jpg has warped, melted shelves with floating detached artifact geometry."
+   },
+   {
+    "a": "24175b.jpg",
+    "b": "d24db5.jpg",
+    "better": "24175b.jpg",
+    "why": "24175b.jpg features upright server racks facing the central walkway, whereas d24db5.jpg has squat racks rotated sideways facing walls and each other."
+   },
+   {
+    "a": "014fb5.jpg",
+    "b": "b1183e.jpg",
+    "better": "014fb5.jpg",
+    "why": "014fb5.jpg has clean, recognizable upright server racks facing the open floor, while b1183e.jpg has racks turned 90 degrees facing into walls and adjacent units."
+   }
+  ]
+ }
+}

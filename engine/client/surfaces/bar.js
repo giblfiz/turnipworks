@@ -11,6 +11,7 @@ import { playerPortrait } from '../portraits.js';
 import { keyLabel } from '../registry.js';
 import { chordOf } from '../menu.js';
 import { FILLER, forms, near } from '../barwords.js';
+import { NO_PROFILE, tiltOf } from '../genrebias.js';
 
 const SECTIONS = [['cmd', 'Commands'], ['intent', ''], ['figs', 'Figures: Shift-click to pick several · click or drag to place'], ['place', 'Place'], ['world', 'In the world'], ['places', 'Places and areas'], ['people', 'People'], ['cues', 'Cues']];
 const CAP = { cmd: 8, figs: 8, place: 8, world: 6, places: 5, people: 5, cues: 3, intent: 3 };
@@ -105,12 +106,12 @@ export function barSurface(R, app) {
   const heldBack = (r) => !!r && recalled && !!activeQuery && !arrowed && (r.sec === 'intent' || !!r.chips);
   try { hist = JSON.parse(localStorage.getItem('tw.barHistory') || '[]'); } catch { }
 
-  function show(prefill = null) {
+  function show(prefill = null, { quiet = false } = {}) {
     const wasOpen = open;
     open = true; root.classList.add('open'); list.hidden = false;
     lifted = unlifted = null;
     input.value = prefill ?? '';
-    input.focus(); input.select?.();
+    if (!quiet) { input.focus(); input.select?.(); } // (quiet: the phone's mic opens the list without the keyboard)
     if (prefill) input.setSelectionRange(prefill.length, prefill.length);
     histAt = -1;
     if (prefill == null && lastList) {
@@ -204,6 +205,23 @@ export function barSurface(R, app) {
     return counted ? total / counted : 0;
   }
   const boost = (id) => { const u = R.usage(id); const age = (Date.now() - u.last) / 3.6e6; return Math.min(18, u.n * 2) + (u.last ? Math.max(0, 14 - age) : 0); };
+  // THE TABLE'S GENRE (2026-11-08, client/genrebias.js; docs/UI.md "The bar leans to the table's genre"): a catalog or figure
+  // row whose words NAME the thing ("chair": the office chair, the plain chair; not a fragment, "car" in "cart") is tilted
+  // toward the genre of what is on the table. Its words are gathered once per thing (a name's and id's words; its bar words
+  // and figure tags as whole phrases), and only for rows that matched. A row keeps its untilted score (s0) for the order of
+  // the SECTIONS, so the tilt never moves the catalog above a command; on a table with no signal there is no tilt at all.
+  const wordsOf = new WeakMap(), split = (t) => String(t || '').toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+  const words = (x, texts, phrases) => { let W = wordsOf.get(x); if (!W) wordsOf.set(x, W = new Set([...texts.flatMap(split), ...phrases.filter(Boolean).map(t => String(t).toLowerCase())])); return W; };
+  const names = (q, W) => { const ws = q.toLowerCase().split(/\s+/).filter(Boolean), real = ws.filter(w => !FILLER.has(w)); return (real.length ? real : ws).every(w => forms(w).some(f => W.has(f))); };
+  const catWords = (cat) => words(cat, [cat.name, cat.id], cat.terms || []);
+  const figWords = (fig) => words(fig, [fig.name, fig.id, fig.cls, fig.race], [...(fig.tags || []), ...(fig.srd || [])]);
+  // the figure search's rows, tilted (a table with signal: the whole list is ranked, then the top CAP.figs kept, so a modern
+  // guard can come up past the fantasy guards; no signal: the search's own top CAP.figs, exactly as before)
+  const figSearch = (F, text, GP) => {
+    if (!GP.strength) return F.search(text, { limit: CAP.figs });
+    const G = app.genres;
+    return F.search(text, { limit: 0 }).map(({ fig, s }) => ({ fig, s0: s, s: s + tiltOf(GP, G.figGenre(fig.id), names(text, figWords(fig))) })).sort((a, b) => b.s - a.s).slice(0, CAP.figs);
+  };
 
   // ---------- results ----------
   function update(query = line().trim()) {
@@ -249,17 +267,18 @@ export function barSurface(R, app) {
     //   "add pawn …" · "place figure …" · "mini …" · "spawn …"     the same, by the verb
     //   "6 goblins" · "add 6 goblins" · "goblin x6"   a count: one click drops the group, numbered
     //   "change figure …"                             on the selected pawn(s)
+    const GP = q && app.genres ? app.genreProfile?.() || NO_PROFILE : NO_PROFILE; // (the table's genre: genrebias.js)
     const F = app.figures, FQ = F?.count ? figureQuery(q) : null, selPawns = ctx.sel.filter(e => e.kind === 'token');
     if (FQ?.change && selPawns.length && selPawns.length === ctx.sel.length && selPawns.every(p => ctx.gm || app.canTouch(p))) {
       const who = selPawns.length === 1 ? selPawns[0].name : `${selPawns.length} pawns`;
-      for (const { fig, s } of FQ.text ? F.search(FQ.text, { limit: CAP.figs }) : F.list.slice(0, 0)) out.push({ sec: 'figs', s: 900 + s, ref: `fig:${fig.id}`, title: fig.name, chips: ['change figure', who, '→', fig.name], sub: F.describe(fig), pic: F.thumbUrl(fig), icon: 'user', fig, onto: fig, run: () => app.setFigure(selPawns, fig) });
+      for (const { fig, s, s0 } of FQ.text ? figSearch(F, FQ.text, GP) : F.list.slice(0, 0)) out.push({ sec: 'figs', s: 900 + s, ...(s0 != null && { s0: 900 + s0 }), ref: `fig:${fig.id}`, title: fig.name, chips: ['change figure', who, '→', fig.name], sub: F.describe(fig), pic: F.thumbUrl(fig), icon: 'user', fig, onto: fig, run: () => app.setFigure(selPawns, fig) });
       if (selPawns.some(p => p.fig) && (!FQ.text || /^(no|none|plain|remove|stand)/i.test(FQ.text))) out.push({ sec: 'figs', s: 890, title: 'No figure', chips: ['change figure', who, '→', 'the plain pawn'], sub: 'back to the stand-in', icon: 'user', run: () => app.setFigure(selPawns, null) });
       if (!FQ.text) out.push({ sec: 'intent', s: 880, title: `Change figure: type a name (${F.count} figures: owlbear, elf wizard, goblin spear …)`, icon: 'replace', sub: `for ${who}`, disabled: true, run: () => {} });
       intentChips = intentChips || ['change figure', who, '→', out.find(r => r.sec === 'figs')?.fig?.name || '…'];
     } else if (FQ && !FQ.change && app.can('token.edit') && (FQ.text || FQ.explicit)) {
-      const found = FQ.text ? F.search(FQ.text, { limit: CAP.figs }) : [], n = Math.min(30, FQ.count || 1), lead = FQ.explicit || n > 1;
+      const found = FQ.text ? figSearch(F, FQ.text, GP) : [], n = Math.min(30, FQ.count || 1), lead = FQ.explicit || n > 1;
       const named = (fig) => FQ.text.toLowerCase().split(/\s+/).every(w => FILLER.has(w) || forms(w).some(f => fig.name.toLowerCase().includes(f) || near(f, fig.name.toLowerCase())));
-      for (const { fig, s } of found) out.push({ sec: 'figs', s: (lead ? 900 : named(fig) ? 0 : -20) + s, ref: `fig:${fig.id}`, title: n > 1 ? `${n} × ${fig.name}` : fig.name, chips: lead ? ['add pawn', ...(n > 1 ? [`${n} ×`] : []), fig.name, 'click a square'] : null, sub: `${F.describe(fig)}${lead ? '' : ' · click, then a square'}`, pic: F.thumbUrl(fig), icon: 'user', fig, pick: { kind: 'pawn', fig, count: n }, out: () => app.pawnTool.start(fig, { count: n }), run: (ev) => app.pawnTool.start(fig, { count: n, keep: ev?.shiftKey }) });
+      for (const { fig, s, s0 } of found) out.push({ sec: 'figs', s: (lead ? 900 : named(fig) ? 0 : -20) + s, ...(s0 != null && { s0: (lead ? 900 : named(fig) ? 0 : -20) + s0 }), ref: `fig:${fig.id}`, title: n > 1 ? `${n} × ${fig.name}` : fig.name, chips: lead ? ['add pawn', ...(n > 1 ? [`${n} ×`] : []), fig.name, 'click a square'] : null, sub: `${F.describe(fig)}${lead ? '' : ' · click, then a square'}`, pic: F.thumbUrl(fig), icon: 'user', fig, pick: { kind: 'pawn', fig, count: n }, out: () => app.pawnTool.start(fig, { count: n }), run: (ev) => app.pawnTool.start(fig, { count: n, keep: ev?.shiftKey }) });
       if (FQ.explicit && (!FQ.text || /^(plain|blank|pawn|token|stand)/i.test(FQ.text))) out.push({ sec: 'figs', s: 905 - (found.length ? 200 : 0), ref: 'fig:plain', title: n > 1 ? `${n} × plain pawn` : 'Plain pawn (no figure)', chips: ['add pawn', ...(n > 1 ? [`${n} ×`] : []), 'plain pawn', 'click a square'], sub: 'the stand-in', icon: 'user', pick: { kind: 'pawn', fig: null, count: n }, out: () => app.pawnTool.start(null, { count: n }), run: (ev) => app.pawnTool.start(null, { count: n, keep: ev?.shiftKey }) });
       if (FQ.explicit && !FQ.text) out.push({ sec: 'intent', s: 880, title: `Add pawn: type a name (${F.count} figures: owlbear, elf wizard, goblin spear, 6 goblins …)`, icon: 'user-plus', sub: 'name, class, race, hero / townsfolk / foe / beast / large, or an SRD monster name', disabled: true, run: () => {} });
       if (lead && found.length) intentChips = intentChips || ['add pawn', ...(n > 1 ? [`${n} ×`] : []), found[0].fig.name, 'click a square'];
@@ -290,7 +309,8 @@ export function barSurface(R, app) {
       if (app.can('object')) for (const cat of app.assets.catalog) {
         // (a word found only in the description counts three quarters: "peasant" is the figure, not the rye loaf "a peasant's …")
         const s = Math.max(score(q, cat.name, cat.id, ...(cat.terms || [])), 0.75 * score(q, cat.name, cat.id, ...(cat.terms || []), cat.desc, cat.hint)), nm = cat.name.toLowerCase(), qs = forms(q.toLowerCase());
-        if (s) out.push({ sec: 'place', ref: `cat:${cat.id}`, s: s + (qs.includes(nm) ? 100 : qs.some(x => nm.startsWith(x)) ? 10 : 0), title: cat.name[0].toUpperCase() + cat.name.slice(1), sub: `${cat.desc}${cat.place !== 'floor' ? ` · ${cat.place}` : ''}`, cat, pick: { kind: 'object', cat, count: 1 }, run: (ev) => app.modes.place(cat, { keep: ev?.shiftKey }) });
+        const s0 = s && s + (qs.includes(nm) ? 100 : qs.some(x => nm.startsWith(x)) ? 10 : 0), tilt = s && GP.strength ? tiltOf(GP, app.genres.catGenre(cat.id), names(q, catWords(cat))) : 0;
+        if (s) out.push({ sec: 'place', ref: `cat:${cat.id}`, s: s0 + tilt, ...(tilt && { s0 }), title: cat.name[0].toUpperCase() + cat.name.slice(1), sub: `${cat.desc}${cat.place !== 'floor' ? ` · ${cat.place}` : ''}`, cat, pick: { kind: 'object', cat, count: 1 }, run: (ev) => app.modes.place(cat, { keep: ev?.shiftKey }) });
       }
       // things in the world: by name, three-letter tag, or what they are
       for (const e of Object.values(app.entities())) {
@@ -316,7 +336,7 @@ export function barSurface(R, app) {
     // assemble: sections in order, each ranked and capped
     // one ranked list: sections ordered by their best match (typed intents first), each ranked and capped
     rows = [];
-    const best = (sec) => Math.max(-1, ...out.filter(r => r.sec === sec).map(r => r.s));
+    const best = (sec) => Math.max(-1, ...out.filter(r => r.sec === sec).map(r => r.s0 ?? r.s)); // (untilted: the genre tilt orders rows within a section, never the sections)
     const order = SECTIONS.map(([sec]) => sec).sort((x, y) => (y === 'intent') - (x === 'intent') || (q ? best(y) - best(x) : 0));
     for (const sec of order) rows.push(...out.filter(r => r.sec === sec).sort((a, b) => b.s - a.s).slice(0, CAP[sec]));
     render();
@@ -413,6 +433,54 @@ export function barSurface(R, app) {
   placeholder();
   // the bar's shortcut hint
   root.querySelector('.hint').innerHTML = `<kbd>/</kbd>`;
+  if (document.documentElement.classList.contains('tw-hand')) phoneBar();
+  // ON A PHONE (2026-11-11; docs/UI.md "On a phone"). A phone has no Escape and the stranger on the plane had no easy way
+  // to type, so the bar gets three things there, none of them on a computer:
+  //   ✕       while the list is open: closes it (Back does too: client/escapable.js)
+  //   AWAY    a tap anywhere outside the bar and its list closes it (and goes on to whatever was tapped)
+  //   MIC     voice search (Harry: "elf barbarian" opens that part of the menu): the browser's own speech recognition
+  //           (Web Speech API), shown only where the browser has it; what is heard is the query, as if typed, and
+  //           updates as it is heard. No dialog of ours (the browser asks for the microphone itself, once). The words
+  //           are recognised by the browser's speech service, which may send the audio to its maker (the privacy
+  //           page says so).
+  function phoneBar() {
+    const x = document.createElement('button');
+    x.type = 'button'; x.className = 'bx'; x.setAttribute('aria-label', 'Done: close the list'); x.innerHTML = icon('x', 18);
+    x.addEventListener('pointerdown', (ev) => { ev.preventDefault(); ev.stopPropagation(); });
+    x.addEventListener('click', (ev) => { ev.stopPropagation(); clearPick(); close(); });
+    root.append(x);
+    addEventListener('pointerdown', (ev) => {
+      if (!open || dragging || app.draggingOut?.() || root.contains(ev.target) || list.contains(ev.target)) return;
+      if (ev.target.closest?.('#handTool')) return;
+      clearPick(); close();
+    }, true);
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (typeof SR !== 'function') { app.barVoice = { supported: false }; return; }
+    const mic = document.createElement('button');
+    mic.type = 'button'; mic.className = 'bmic'; mic.setAttribute('aria-label', 'Search by voice'); mic.setAttribute('aria-pressed', 'false'); mic.innerHTML = icon('mic', 18);
+    let rec = null, heard = '';
+    const V = app.barVoice = { supported: true, listening: () => !!rec, heard: () => heard, last: null };
+    const done = (why) => { if (!rec) return; rec = null; mic.classList.remove('on'); mic.setAttribute('aria-pressed', 'false'); V.last = why; };
+    mic.addEventListener('pointerdown', (ev) => { ev.preventDefault(); ev.stopPropagation(); });
+    mic.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      if (rec) { try { rec.stop(); } catch { } return; }
+      if (!open) show('', { quiet: true }); else input.blur();
+      const r = rec = new SR();
+      r.lang = navigator.language || 'en-US'; r.interimResults = true; r.continuous = false; r.maxAlternatives = 1;
+      r.onresult = (e) => {
+        if (rec !== r) return;
+        heard = [...e.results].map(x => x[0]?.transcript || '').join(' ').replace(/[.?!,]+$/g, '').replace(/\s+/g, ' ').trim();
+        if (!open) show('', { quiet: true });
+        input.value = heard.toLowerCase(); input.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      r.onerror = (e) => { if (rec === r) { if (e?.error === 'not-allowed' || e?.error === 'service-not-allowed') app.toast('The microphone is off for this site (the browser\'s site settings)', true); done(e?.error || 'error'); } };
+      r.onend = () => { if (rec === r) done('end'); };
+      mic.classList.add('on'); mic.setAttribute('aria-pressed', 'true');
+      try { r.start(); } catch (err) { done('start'); app.toast('Voice search did not start', true); }
+    });
+    root.insertBefore(mic, x);
+  }
   return { name: 'bar', open: show, close, isOpen: () => open };
 }
 const safe = (fn) => { try { return fn(); } catch { return null; } };

@@ -114,3 +114,39 @@ test('iron bars, a barred cage door and a portcullis are seen through, shut or o
  assert.equal(blockingSegments(new Map([[e.key,e]]),{ov:{kind:'edge',key:e.key,doorType:'door-cell-bars'}}).length,0);
  assert.equal(blockingSegments(new Map([[e.key,e]]),{ov:{kind:'edge',key:e.key,doorType:'door-reinforced'}}).length,1);
 });
+// GLASS AND CHAIN-LINK (2026-11-07, the cyberpunk pack): seen through like bars, but they stop FEET (walk) and a die
+test('shop glass, a glass curtain wall, the glass shop door and chain-link are seen through but stop a walker (2026-11-07)',async()=>{
+ const {solidEdges,seeThrough}=await import('../client/vision.js');
+ const wall=(key,gx,panel)=>({key,dir:'h',gx,gz:4,kind:'wall',family:'drywall',sides:[{room:'r'}],owner:{room:'r'},...(panel&&{panel})});
+ for(const panel of ['wall-storefront','wall-glass-curtain']){
+  const E=new Map([['h:0:4',wall('h:0:4',0,panel)],['h:1:4',wall('h:1:4',1)]]);
+  assert.equal(blockingSegments(E,{}).length,1,`${panel}: only the plain wall stops sight`);
+  assert.deepEqual(blockingSegments(E,{})[0],[5,20,10,20]);
+  assert.equal(blockingSegments(E,{},0,{walk:true}).length,1,`${panel}: feet: both segments, merged into one run`);
+  assert.deepEqual(blockingSegments(E,{},0,{walk:true})[0],[0,20,10,20]);
+  assert.deepEqual(blockingSegments(solidEdges(E),{})[0],[0,20,10,20],`${panel}: a die stops at the glass`);
+  // a GM's override that makes it a plain wall again blocks sight
+  assert.equal(blockingSegments(new Map([['h:0:4',wall('h:0:4',0,panel)]]),{ov:{kind:'edge',key:'h:0:4',as:'wall'}}).length,1);
+ }
+ // the glass shop door, shut: seen through; feet stop at it; a die stops at it; open: nothing stops anything
+ const door={key:'v:2:0',dir:'v',gx:2,gz:0,kind:'door',doorType:'door-shopfront',sides:[{room:'r'}],owner:{room:'r'}};
+ assert.equal(blockingSegments([door],{}).length,0);
+ assert.equal(blockingSegments([door],{},0,{walk:true}).length,1);
+ assert.equal(blockingSegments(solidEdges([door]),{}).length,1);
+ assert.equal(blockingSegments([{...door,open:true}],{},0,{walk:true}).length,0);
+ // chain-link laid as a room's furniture (no fromEdge), by hand on the wall line (fromEdge), and its gate
+ const obj=(id,cat,x,z,extra={})=>({id,kind:'object',cat,x,z,y:0,rot:0,dims:[5,8,0.5],layer:'anchor',...extra});
+ const fence={a:obj('a','fence-chain-link',2.5,10),b:obj('b','fence-chain-link',7.5,10,{layer:'walls',fromEdge:'h:1:2'}),g:obj('g','gate-chain-link',12.5,10)};
+ assert.equal(blockingSegments([],fence).length,0,'chain-link: seen through');
+ assert.deepEqual(blockingSegments([],fence,0,{walk:true}),[[0,10,15,10]],'chain-link and its shut gate stop feet');
+ assert.deepEqual(blockingSegments([],{...fence,g:{...fence.g,open:true}},0,{walk:true}),[[0,10,10,10]],'an open gate lets a walker through');
+ // a glass panel turned into a thing (materialised: fromEdge, its look's role as cat)
+ const pane=obj('p','wall-storefront',2.5,10,{layer:'walls',fromEdge:'h:0:2'});
+ assert.equal(blockingSegments([],{p:pane}).length,0); assert.equal(blockingSegments([],{p:pane},0,{walk:true}).length,1);
+ // bars laid by hand off the wall line stop feet too (they used to be walked through); a plain wall section still stops sight
+ assert.equal(blockingSegments([],{c:obj('c','cell-bars',2.5,10)},0,{walk:true}).length,1);
+ assert.equal(blockingSegments([],{w:obj('w','wall-straight',2.5,10)}).length,1);
+ // the rule's words: what is seen through, and what is not
+ for(const c of ['wall-storefront--drywall','wall-glass-curtain--drywall','door-shopfront','fence-chain-link','gate-chain-link','cell-bars','portcullis'])assert.ok(seeThrough(c),c);
+ for(const c of ['wall-straight--drywall','door-steel','door-roller-shutter','fence-post-rail','wall-window-small'])assert.ok(!seeThrough(c),c);
+});

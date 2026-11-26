@@ -22,6 +22,13 @@ const LEAF = { mode: 'leaf', openAngle: -175 };   // a door on its left edge
 const DOUBLE = { mode: 'double', openAngle: 175 }; // two leaves from the middle, each to its own side
 const WALL_FACE = 0.62; // ft from a wall's middle line to its face (world.js OUTSET 0.6, and a hair)
 const SLIDE = { mode: 'slide', lift: 0.8 };                                                                         // up, 80% of its height
+// SLIDING LEAVES (2026-11-07, Harry "yes do roofs and such": the Japanese koshido and fusuma hung on a hinge like a
+// Western door). A leaf whose SKU record says `slides` (library.json; build_data.py takes it from the run manifest's
+// flags column, `slides`) does not swing: it steps out to a track just off the wall's face (as far as a swung leaf
+// rests, so the walker and the wall piece beside it stay clear) and slides one leaf-width along the wall, in the wall's
+// plane, to stand beside its opening (toward its hinge side, where a swung leaf would lie). Any future sliding leaf
+// gets this by data alone; the open state travels as every door's does (only the look differs).
+const SLIDE_ALONG = { mode: 'slide-along', along: 0.98, step: 0.2 }; // 98% of its width along; the first 20% of the move is the step out
 const leafOnly = (rig) => (k) => k?.piece === 'leaf' ? rig : null; // (the frame-and-door pieces open by their twin)
 // by catalog object (a function: by the SKU's record); null = not by motion
 export const RIGS = {
@@ -32,10 +39,16 @@ export const RIGS = {
   'gate-fence': LEAF, 'crypt-gate-iron': LEAF, 'stable-stall-gate': LEAF, 'privy-stall-door': LEAF, 'stable-stall-door': LEAF,
   'tomb-door-sealed': LEAF, 'wall-secret-door': LEAF, // (turned on its middle it read shut to Gemini: both halves still fill the gap; swung whole it leaves the doorway clear)
   'portcullis': SLIDE,
+  // modern city (sprawl pack, 2026-11-06): slab, steel and glass shop doors swing; the roller shutter rolls up (a slide,
+  // nearly all the way: a rolled shutter sits in its box over the opening)
+  'door-flush': LEAF, 'door-steel': LEAF, 'door-shopfront': LEAF, 'door-roller-shutter': { mode: 'slide', lift: 0.92 },
+  'gate-chain-link': LEAF, // the cyberpunk pack (2026-11-07): the chain-link cage's gate swings like the fence gate
 };
 export function motionRig(lib, cat, sku) {
+  const k = lib.objects[cat]?.skus.find(x => x.sku === sku);
+  if (k?.slides && k.piece === 'leaf') return SLIDE_ALONG; // (a sliding leaf of any door kind: by its SKU's data)
   const r = RIGS[cat]; if (!r) return null;
-  return typeof r === 'function' ? r(lib.objects[cat]?.skus.find(k => k.sku === sku)) || null : r;
+  return typeof r === 'function' ? r(k) || null : r;
 }
 
 // the open twin of THIS variant: { id, k } (k: its SKU record) or null. The same suffix first (wardrobe--fine--s2 →
@@ -71,7 +84,8 @@ function rigParts(root, parts, partOf) {
   const nodes = parts.map((p, i) => {
     const P = p.pivot.clone().multiply(S), pivot = new THREE.Group(), inner = new THREE.Group();
     pivot.name = `open_part_${i}`; pivot.position.copy(P); inner.position.copy(P).negate(); pivot.add(inner);
-    return { pivot, inner, base: P.clone(), axis: new THREE.Vector3(...(p.axis || [0, 1, 0])).multiply(S).normalize(), angle: p.angle || 0, lift: p.lift ? p.lift.clone().multiply(S) : null };
+    return { pivot, inner, base: P.clone(), axis: new THREE.Vector3(...(p.axis || [0, 1, 0])).multiply(S).normalize(), angle: p.angle || 0, lift: p.lift ? p.lift.clone().multiply(S) : null,
+      out: p.out ? p.out.clone().multiply(S) : null, step: p.step ?? 0 }; // (out: a first move, over the first `step` of t; the lift then runs over the rest)
   });
   const meshes = []; root.traverse(o => { if (o.isMesh && o !== root) meshes.push(o); }); if (root.isMesh) meshes.push(root);
   const rels = new Map(meshes.map(o => { const r = new THREE.Matrix4(); for (let p = o; p && p !== root; p = p.parent) { if (p.matrixAutoUpdate) p.updateMatrix(); r.premultiply(p.matrix); } return [o, r]; }));
@@ -90,7 +104,10 @@ function rigParts(root, parts, partOf) {
   }
   for (const nd of nodes) root.add(nd.pivot);
   const q = new THREE.Quaternion();
-  const rig = { root, t: 0, set(t) { rig.t = t; for (const nd of nodes) { nd.pivot.quaternion.copy(q.setFromAxisAngle(nd.axis, nd.angle * t)); nd.pivot.position.copy(nd.base); if (nd.lift) nd.pivot.position.addScaledVector(nd.lift, t); nd.pivot.updateMatrixWorld(true); } } };
+  const rig = { root, t: 0, set(t) { rig.t = t; for (const nd of nodes) { nd.pivot.quaternion.copy(q.setFromAxisAngle(nd.axis, nd.angle * t)); nd.pivot.position.copy(nd.base);
+    if (nd.out) { const st = nd.step || 0.0001; nd.pivot.position.addScaledVector(nd.out, Math.min(1, t / st)); if (nd.lift) nd.pivot.position.addScaledVector(nd.lift, Math.max(0, Math.min(1, (t - st) / (1 - st)))); }
+    else if (nd.lift) nd.pivot.position.addScaledVector(nd.lift, t);
+    nd.pivot.updateMatrixWorld(true); } } };
   root.userData.hinge = rig; // (as the tuner's rigHinge marks its root: the bench and the tests read it there)
   return rig;
 }
@@ -122,6 +139,9 @@ function rigOpenRoot(root, rec) {
     const a = THREE.MathUtils.degToRad(rec.openAngle ?? 175);
     return rigParts(root, [{ pivot: new THREE.Vector3(box.min.x, 0, hz), angle: -a }, { pivot: new THREE.Vector3(box.max.x, 0, hz), angle: a }], (p) => p.x < mid.x ? 0 : 1);
   }
+  // a sliding leaf (SLIDE_ALONG): out to just off the wall's face (the same rest a swung leaf takes: its middle WALL_FACE
+  // plus half its depth from the wall's middle line), then along the wall toward its hinge side (-X), its width
+  if (rec.mode === 'slide-along') return rigParts(root, [{ pivot: new THREE.Vector3(0, 0, 0), out: new THREE.Vector3(0, 0, (WALL_FACE + depthFt / 2) / Math.abs(S.z || 1)), lift: new THREE.Vector3(-(rec.along ?? 0.98) * size.x, 0, 0), step: rec.step ?? 0.2 }], () => 0);
   if (rec.mode === 'slide') return rigParts(root, [{ pivot: new THREE.Vector3(0, 0, 0), lift: new THREE.Vector3(0, (rec.lift ?? 0.8) * size.y, 0) }], () => 0);
   return null;
 }

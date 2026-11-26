@@ -60,7 +60,7 @@ def main():
             im.convert("RGB").resize((MAX, MAX), Image.LANCZOS).save(out / f"{job['sku']}.webp", "WEBP", quality=85)
             info[job["sku"]] = {"w": MAX, "h": MAX, "keyed": 0.0}
             continue
-        medallion = job["sku"].startswith(("decal-ritual-circle", "decal-star-floor"))  # wizard's tower: they fill the plate, edge to edge
+        medallion = job["sku"].startswith(("decal-ritual-circle", "decal-star-floor", "decal-mes-court-line"))  # wizard's tower: they fill the plate, edge to edge (and the ballcourt's painted line, 2026-11-07)
         if job.get("native_alpha"):
             rgba = im.convert("RGBA")
             mask = np.asarray(rgba)[..., 3] > 0

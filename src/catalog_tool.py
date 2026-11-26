@@ -19,7 +19,12 @@ SETTINGS = {
     "NOB": "aristocrat-manor", "RUI": "ruins", "HUT": "peasant-hut-farm", "SMI": "blacksmith-workshop",
     "TEM": "temple-chapel", "CRY": "crypt-tomb", "MKT": "market-village", "ARC": "wizard-alchemist-library",
     "CMP": "camp-wilderness", "LAI": "monster-lair", "GRV": "grove-fey", "CLT": "cult-sanctum",
+    "MOD": "modern-city",  # genre modern (the cyberpunk pack, wave 1, 2026-11-06): engine/tools/build_types.py GENRE_OF
+    "CYB": "cyberpunk",  # genre modern (the cyberpunk pack, wave 2, 2026-11-07)
+    # culture packs B (2026-11-06, experiments/2026-11-06-cultures-b): Norse, Mamluk Middle East, medieval Rus', Mexica
+    "NRS": "norse-steading", "MDE": "middle-east", "RUS": "rus-medieval", "MES": "mesoamerica",
 }
+SETTINGS.update({"JPN": "japan", "CHN": "china", "IND": "india"})  # culture packs A (2026-11-06, cultures-a): genre `cultures`
 CORE = list(SETTINGS)  # Harry 2026-09-30: adjacent settings are first-class
 VARS = {"shape": 3, "wealth": 3, "ruin": 2, "open": 1, "lit": 1, "fill": 1, "size": 3, "pile": 2}
 # open/lit/fill are states of one mesh (or a cheap swap), so they don't multiply generation count.

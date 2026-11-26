@@ -2,7 +2,7 @@
 // and maybe you are giving me vision between light sources and the pawn"). A GM-side view: every lit light's reach drawn
 // on its floor as a faint disc with an outline, tinted by kind, so the GM can see which thing lights what.
 //
-//   "light reach" in the command bar  ·  Settings ▸ Me "Show light reach"  ·  tw.lightReach() / tw.setLightReach(on)
+//   "light reach" in the command bar  ·  Settings ▸ Controls "Show light reach"  ·  tw.lightReach() / tw.setLightReach(on)
 //
 // THIS BROWSER ONLY (localStorage `tw.lightReach`, like the labels switch): nothing is sent, nothing is stored in the
 // campaign. Only a GM-side seat has the command and the switch (a player's registry does not list it), and it goes off

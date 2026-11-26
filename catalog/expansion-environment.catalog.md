@@ -134,7 +134,7 @@ Grammar and legend: see `README.md`. Nature, terrain, underground, exteriors and
 - **well-house** — roofed well with windlass · ground · 1 · size:60x60x120 · wood · set:MKT!,HUT,TAV,MIN · var:ruin · aff:use · mesh · P1 · village square centerpiece
 - **lamp-post-iron** — wrought iron lamp post · ground · sub · size:14x14x108 · metal · set:MKT,NOB · var:lit,ruin · aff:lit · thin · P1 · richer streets
 - **lamp-post-wood** — wooden pole with hanging lantern · ground · sub · size:30x14x96 · wood · set:MKT,TAV,HUT,MIN,SMI · var:lit,ruin · aff:lit · mesh · P1 · village lanes
-- **bench-street** — stone or wood street bench · ground · 1 · size:60x18x18 · mixed · set:MKT,NOB,TEM,TAV · var:ruin · aff:sit · mesh · P1 · squares, parks
+- **bench-street** — stone or wood street bench · ground · 1 · size:60x18x18 · mixed · set:MKT,NOB,TEM,TAV,MOD · var:ruin · aff:sit · mesh · P1 · squares, parks
 - **planter-stone** — stone planter with shrub · ground · sub · size:24x24x36~0.7-1.5 · stone · set:MKT,NOB,TAV · var:ruin · aff:cover · mesh · P1 · street dressing
 - **horse-trough-stone** — stone horse trough with spout · ground · 1x2 · size:96x24x24 · stone · set:MKT,TAV,CAS,SMI · var:ruin,fill · aff:cover · mesh · P1 · town squares
 - **market-cross** — carved market cross · ground · sub · size:36x36x144~0.7-1.4 · stone · set:MKT! · var:ruin · aff:cover · mesh · P1 · heart of a market town

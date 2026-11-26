@@ -1,4 +1,4 @@
-CAS — castle-keep: 665 roles (+ ANY-tagged roles) — ! = signature
+CAS — castle-keep: 671 roles (+ ANY-tagged roles) — ! = signature
 
 ! P1  dais                       [floor/2x3] under thrones and altars; lifts the focal object
 ! P1  floor-flagstone-square     [kit/1] dressed-stone default
@@ -30,6 +30,8 @@ CAS — castle-keep: 665 roles (+ ANY-tagged roles) — ! = signature
 ! P2  city-wall-turret           [kit/edge] stands where a city-wall run ends or turns, a little taller than the wall
 ! P2  floor-sand-training        [ground/1] training yards and tilt yards; scuffed with footprints
 ! P2  wall-crenellated-corner    [kit/edge] stands at the corners of a wall-crenellated run
+! P2  roof-bartizan              [floor/1] a roof object: stands on a flat roof, at a corner of the parapet; a lookout's cover (generated 2026-10-27)
+! P2  roof-flagpole              [floor/1] a roof object: stands on a flat roof, the highest one of a keep; plain cloth, no emblem (generated 2026-10-27)
 ! P2  stair-spiral-wide          [kit/2x2] towers; one full turn per storey so copies stack and every floor enters on the same side
 ! P2  fireplace-grand            [wall/2x2] great halls; heraldry above
 ! P2  cauldron-crane             [floor/1] the middle of a castle kitchen, or the courtyard on a feast day; generated unlit, engine fire FX adds the fire
@@ -84,6 +86,7 @@ CAS — castle-keep: 665 roles (+ ANY-tagged roles) — ! = signature
   P1  chest-ironbound-open       [floor/sub] open state of chest-ironbound; looted or searched
   P1  strongbox-open             [surface/tiny] open state of strongbox; robbed
   P1  wardrobe-open              [wall/1] open state of wardrobe; someone hid here
+  P1  casket-ornate-open         [surface/tiny] open state of casket-ornate
   P1  chest-treasure-open        [floor/sub] open state of chest-treasure
   P1  dun-treasure-hoard         [floor/2x2] vault and dragon-lair focus; warm gold
   P1  strongbox-stack            [floor/1] vault walls; counting houses
@@ -130,7 +133,7 @@ CAS — castle-keep: 665 roles (+ ANY-tagged roles) — ! = signature
   P1  table-torture-tools        [floor/1x2] the tools are fused to the top; beside the rack or the chair
   P1  bench-stone                [floor/1] mourners' seats; antechamber walls and chapel rows
   P1  reliquary-shrine           [floor/1] relic chamber focus
-  P1  flavor-buttress            [wall/1] slot 8 (Harry, 2026-10-11); the same box and place as the vertical kit's `buttress`, so it can stand in for it outside, and stands along the walls INSIDE a large nave or sanctum
+  P1  flavor-buttress            [wall/1] slot 8 (Harry, 2026-10-11); a 9-ft upright pier along the walls inside a large nave or sanctum; use each SKU’s measured box, rather than treating it as a vertical-kit replacement
   P1  curtains-drapes            [wall/1] scene state: drawn/open changes light
   P1  rug-runner                 [floor/1x3] hallways and stair landings; tiles end to end
   P1  tapestry                   [wall/1x2] great halls; hides secret doors
@@ -296,6 +299,7 @@ CAS — castle-keep: 665 roles (+ ANY-tagged roles) — ! = signature
   P2  door-tower                 [kit/edge] hangs in `wall-doorway--tower-stone`; a leaf like `door-plank--leaf`
   P2  parapet-corner             [kit/edge] stands at the corners and ends of a parapet run
   P2  parapet-straight           [kit/edge] the ledge round a flat or low roof; half cover in a rooftop chase
+  P2  roof-cistern               [floor/1] a roof object: stands on a flat roof; rain water for the house below, something to crouch behind (generated 2026-10-27)
   P2  roofing-slate              [kit/1] mansion, church and castle-turret roofs
   P2  railing-iron               [kit/edge] round the hole a stair cuts in a stone building's floor (2026-10-06); also a gallery or wall-walk edge
   P2  roof-hatch                 [kit/1] the way onto a roof; sits over the head of a ladder
@@ -453,6 +457,8 @@ CAS — castle-keep: 665 roles (+ ANY-tagged roles) — ! = signature
   P3  cistern-hatch              [floor/1] underworld access
   P3  faldstool                  [floor/sub] commanders' tents
   P3  wine-rack                  [wall/1] cellars
+  P3  oubliette-hatch-open       [floor/1] open state of oubliette-hatch
+  P3  rural-tack-trunk-open      [floor/sub] open state of rural-tack-trunk
   P3  board-game                 [surface/tiny] a quiet corner; aristocrats' table
   P3  drinking-horn              [surface/tiny] feast-hall flavor
   P3  pan-frying                 [surface/tiny] kitchen walls

@@ -3,6 +3,10 @@
 
 The reviewer evaluates the shipping tier rather than the 50k source mesh. Files are
 hard-linked so exposing the queue does not duplicate the roughly 820 MB figure set.
+
+Publishing (2026-11-07): the web folder's review-figures/assets is a link to this tree, but its assets.json and
+meta.json are COPIES: after a run, cp web/review-figures/{assets,meta}.json
+/var/www/implausible-landing/projects/turnip-works/review-figures/ (tools/tool-sweep/check.py reads the published copy).
 """
 
 from __future__ import annotations
@@ -11,6 +15,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import shutil
 
 
 HERE = Path(__file__).resolve().parent
@@ -21,6 +26,9 @@ GROUPS = {
     "foe": ("Foes", "FOE"),
     "large": ("Large creatures", "LARGE"),
     "beast": ("Beasts and mounts", "BEAST"),
+    "runner": ("Cyberpunk runners", "RUNNER"),   # (the cyberpunk pack, 2026-11-07)
+    "modern": ("Modern NPCs", "MODERN"),
+    "robot": ("Robots", "ROBOT"),
 }
 
 
@@ -31,7 +39,10 @@ def hard_link(source: Path, target: Path) -> None:
             target.chmod(0o644)
             return
         target.unlink()
-    os.link(source, target)
+    try:
+        os.link(source, target)
+    except OSError:  # another disk (a later lane's plates live on USB): copy instead
+        shutil.copy2(source, target)
     # nginx serves the review through a symlink and is not in the project group.
     # This changes only the shared inode's mode; the content remains a hard link.
     target.chmod(0o644)
@@ -57,6 +68,9 @@ def main() -> None:
     ap.add_argument("--gate", type=Path, default=HERE / "set/gate-manifest.json")
     ap.add_argument("--output", type=Path, default=ROOT / "web/review-figures")
     ap.add_argument("--run-name", default="figures-01")
+    ap.add_argument("--extra", type=Path, action="append", default=None,
+                    help="a later lane's set folder (set/published/manifest.json, set/gate.json with accepted_try, "
+                         "set/plates.json); default: every experiments/*/set with that shape (2026-11-07)")
     args = ap.parse_args()
 
     manifest = json.loads((args.set / "manifest.json").read_text())
@@ -65,7 +79,25 @@ def main() -> None:
     meta = {}
     seen = set()
 
-    for figure in manifest["figures"]:
+    sources = [(f, args.set, lambda sku: accepted_plate(gate, sku, args.gate.parent / "inputs")) for f in manifest["figures"]]
+    extras = args.extra if args.extra is not None else sorted(
+        p for p in ROOT.glob("experiments/*/set") if p != HERE / "set"
+        and (p / "published/manifest.json").exists() and (p / "gate.json").exists() and (p / "plates.json").exists())
+    for xs in extras:
+        xg = json.loads((xs / "gate.json").read_text()); xp = json.loads((xs / "plates.json").read_text())
+        def lane_plate(sku, xg=xg, xp=xp):
+            t = xg.get(sku, {}).get("accepted_try")
+            tries = [tr for tr in xp.get(sku, {}).get("tries", []) if Path(tr["plate"]).exists()]
+            for tr in tries:
+                if t is not None and tr.get("try") == t:
+                    return Path(tr["plate"])
+            if t is None and tries:  # gated outside gate.json (the grid's later rows): its last try is the one meshed
+                return Path(tries[-1]["plate"])
+            raise FileNotFoundError(f"no accepted concept plate for {sku}")
+        for f in json.loads((xs / "published/manifest.json").read_text())["figures"]:
+            sources.append((f, xs / "published", lane_plate))
+
+    for figure, set_dir, plate_of in sources:
         sku = figure["id"]
         if sku in seen:
             raise ValueError(f"duplicate figure id: {sku}")
@@ -73,8 +105,8 @@ def main() -> None:
 
         tier = figure.get("recommended") or "hero"
         model_rel = figure["files"].get(tier) or figure["files"]["hero"]
-        model = args.set / model_rel
-        plate = accepted_plate(gate, sku, args.gate.parent / "inputs")
+        model = set_dir / model_rel
+        plate = plate_of(figure.get("plate") or sku)   # a row may name another try's plate: a flier standing in its flying pose (2026-11-07)
         if not model.exists():
             raise FileNotFoundError(model)
 
@@ -116,7 +148,7 @@ def main() -> None:
     payload = {
         "run": args.run_name,
         "complete": len(assets),
-        "expectedMeshes": manifest.get("expected_total", len(assets)),
+        "expectedMeshes": manifest.get("expected_total", 0) + (len(sources) - len(manifest["figures"])),
         "flatAssets": 0,
         "assets": assets,
     }

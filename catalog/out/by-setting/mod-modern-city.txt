@@ -1,0 +1,185 @@
+MOD — modern-city: 183 roles (+ ANY-tagged roles) — ! = signature
+
+! P1  door-roller-shutter        [kit/edge] the garage's and the warehouse's 10-ft vehicle door
+! P1  light-fluorescent          [ceiling/sub] offices, shops, garages; steady cool-white light
+! P1  sign-neon                  [wall/sub] bars and clubs; the colour of the night
+! P1  streetlight                [ground/1] along the kerb every 20-30 ft; warm amber light
+! P1  wall-storefront            [kit/edge] the street wall of a shop (walls.js PANELS mod-store)
+! P1  booth-seat                 [floor/1x2] along a bar's or diner's wall
+! P1  checkout-counter           [floor/1x2] by a shop's door
+! P1  cubicle-desk               [floor/1] laid in a grid down an office floor
+! P1  dj-booth                   [floor/1x2] at the head of the dance floor
+! P1  drinks-cooler              [wall/1] the back wall of a shop
+! P1  store-shelving             [floor/1x2] the aisles of a convenience store
+! P1  tv-stand                   [wall/1] the living room's focus; the sofa faces it
+! P1  car-hatchback              [floor/2x3] a second shape so a row of cars is not a row of copies
+! P1  car-sedan                  [floor/2x3] the street's and the garage's signature; full cover
+! P1  dumpster                   [floor/1x2] THE alley signature; full cover, a place to hide
+! P1  forklift                   [floor/2x2] a warehouse's working space
+! P1  pallet-racking             [wall/1x2] rows down a warehouse
+! P1  pillar-concrete            [floor/sub] a parking garage's grid of columns
+! P1  shipping-container         [floor/big] warehouses, docks, yards; a room of its own for a GM
+! P1  road-strip                 [floor/1] laid in a row down the middle of a street
+! P1  elevator-car               [floor/1] rides its shaft (engine/core/elevator.js): moved up or down a floor
+! P1  stair-fire-escape          [kit/1x2] a fire escape: one flight a landing (core/stairs.js STAIR_ROLES: walked)
+! P1  bathtub                    [wall/1x2] THE bathroom's signature, along the far wall
+! P1  piano-grand                [floor/1x2] a penthouse's far corner
+! P1  range-commercial           [wall/1x2] THE kitchen's signature, on the far wall
+! P1  sofa-sectional             [floor/2x2] THE penthouse's signature, facing the glass
+! P1  toilet                     [wall/sub] bathrooms
+! P1  toilet-stall               [floor/1] a restroom's row
+  P1  back-bar-shelves           [wall/1] always behind the counter
+  P1  bar-counter                [kit/1] THE tavern signature; staff side vs customer side
+  P1  bed-double                 [floor/2x2] the good inn room
+  P1  stool-bar                  [floor/sub] line them along the bar counter
+  P1  sofa                       [floor/1x2] the drawing room's seat; first piece of the burgundy suite
+  P1  bread-loaf                 [surface/tiny] any table; basket filler
+  P1  planter-topiary            [floor/sub] terraces, garden edges
+  P1  rug-oval                   [floor/1x2] before hearths and beds
+  P1  rug-round                  [floor/1] under round tables, bedside
+  P1  rug-runner                 [floor/1x3] hallways and stair landings; tiles end to end
+  P1  rug-sheepskin              [floor/sub] bedside, by the fire
+  P1  rug-striped-woven          [floor/1] common rooms, guest rooms
+  P1  vase-flowers               [surface/tiny] side tables, windowsills
+  P1  door-flush                 [kit/edge] the modern default door
+  P1  door-shopfront             [kit/edge] the shop's street door
+  P1  door-steel                 [kit/edge] back doors, garages, warehouses, stairwells
+  P1  camera-security            [wall/tiny] high in a corner: lobbies, shops, garages, server rooms, offices
+  P1  armchair                   [floor/1] beside the sofa, facing the screen
+  P1  coffee-table               [floor/1] between the sofa and the TV
+  P1  filing-cabinet             [floor/sub] along office walls
+  P1  fridge                     [floor/1] at the end of the kitchen run
+  P1  kitchenette                [wall/1x2] along one wall of a flat
+  P1  office-chair               [floor/sub] at every desk
+  P1  table-cafe                 [floor/sub] dotted round a club floor
+  P1  table-dining               [floor/1] flats and break rooms
+  P1  coffee-cup-paper           [surface/tiny] on every worked-at desk
+  P1  keyboard                   [surface/tiny] before a monitor
+  P1  laptop-open                [surface/tiny] any modern desk; a runner's deck
+  P1  monitor-crt                [surface/tiny] old offices, squats, server rooms
+  P1  monitor-flat               [surface/tiny] desks, reception, security posts
+  P1  paper-stack                [surface/tiny] offices, reception, a fixer's desk
+  P1  palm-potted                [floor/sub] the conservatory's signature; hall and ballroom corners
+  P1  cardboard-boxes            [floor/sub] alleys, stockrooms, squats
+  P1  fire-hydrant               [ground/tiny] on the pavement by the kerb
+  P1  jersey-barrier             [floor/1] garages, road works, checkpoints
+  P1  oil-drum                   [floor/sub] alleys, warehouses, garages
+  P1  pallet-boxes               [floor/1] warehouse floors, loading docks
+  P1  pallet-stack               [floor/1] alleys, loading docks, warehouses
+  P1  trash-bags                 [floor/1] beside dumpsters, kerbs on collection day
+  P1  trash-can-city             [ground/sub] pavements and bus stops
+  P1  crosswalk-strip            [floor/1] across a street
+  P1  floor-asphalt              [kit/1] streets, car parks, alleys
+  P1  floor-concrete-garage      [kit/1] garages, loading docks, alleys
+  P1  floor-concrete-polished    [kit/1] warehouses, lofts
+  P1  floor-planks-laminate      [kit/1] apartments
+  P1  floor-tile-carpet          [kit/1] offices
+  P1  floor-tile-dark            [kit/1] bars and clubs
+  P1  floor-tile-pavement        [kit/1] pavements
+  P1  floor-tile-vinyl           [kit/1] shops, clinics
+  P1  parking-line-strip         [floor/1] bay dividers, three in a row
+  P1  bench-street               [ground/1] squares, parks
+  P1  knife-rack-wall            [wall/tiny] butcher and kitchen
+  P1  utensil-rack-wall          [wall/sub] beside the hearth
+  P1  helicopter                 [floor/big] a corporate rooftop's shuttle; a light passenger chopper
+  P1  car-police                 [floor/2x3] the street's patrol car; the sedan's box, so it parks in a sedan's place
+  P1  suv-armoured               [floor/2x3] the executive's ride; the corporate escort
+  P1  van-armoured               [floor/big] the runners' battlewagon; a police or security APC
+  P1  apple                      [surface/tiny] table scatter; bowls; the one the rogue pockets
+  P1  bread-long-loaf            [surface/tiny] under an arm; poking out of baskets
+  P1  cabbage-single             [surface/tiny] prep tables; the cabbage merchant
+  P1  cheese-wheel-cut           [surface/tiny] tables, larders
+  P1  egg                        [surface/tiny] kitchens, nests
+  P1  potato                     [surface/tiny] kitchens, cellars, peasants' tables
+  P1  sausage-link               [surface/tiny] plates, pans
+  P1  vegetable-basket-mixed     [surface/sub] kitchens, stalls, doorsteps
+  P1  sconce-wall-modern         [wall/sub] down a hallway, about every 12 ft
+  P1  elevator-doors             [wall/1] one on each floor the shaft serves
+  P1  ladder-fire-escape         [wall/edge] from the lowest landing down to the street (hopped, as a ladder)
+  P1  wall-tiled                 [kit/edge] bathrooms, restrooms, kitchens (walls.js PANELS: a special panel of drywall)
+  P1  pipe-run-wall              [wall/1] THE service corridor's signature: end to end along one wall, high up
+  P1  cooler-walkin-door         [wall/1] a kitchen's side wall
+  P1  dish-station               [wall/1x2] by the kitchen door
+  P1  fridge-reach-in            [wall/1] kitchens
+  P1  kitchen-island             [floor/1x2] before the fitted kitchen
+  P1  kitchen-run-lux            [wall/1x2] a penthouse's kitchen wall
+  P1  mirror-bathroom            [wall/sub] over a basin
+  P1  shelving-wire              [wall/1] kitchens, storerooms
+  P1  shower-stall               [floor/1] a bathroom's corner
+  P1  sink-row                   [wall/1x2] a restroom's side wall
+  P1  sink-vanity                [wall/sub] bathrooms
+  P1  table-prep-steel           [floor/1x2] the prep line facing the range (a surface: food is set on it)
+  P1  floor-grating-steel        [kit/1] fire escapes, catwalks
+  P1  floor-marble-slab          [kit/1] penthouses, lobbies
+  P1  floor-quarry-tile          [kit/1] restaurant kitchens
+  P1  floor-tile-bath-hex        [kit/1] bathrooms, restrooms
+  P2  railing-iron               [kit/edge] round the hole a stair cuts in a stone building's floor (2026-10-06); also a gallery or wall-walk edge
+  P2  table-billiards            [floor/1x2] big drawing rooms and libraries; needs walking room all round
+  P2  rug-grand                  [floor/2x3] throne-room runner, bedchambers
+  P2  rug-round-fine             [floor/2x2] noble chambers, solars
+  P2  statue-bust                [floor/sub] galleries, libraries
+  P2  lamp-floor                 [floor/sub] beside the sofa or the bed
+  P2  camera-dome                [ceiling/tiny] a lobby's or a shop's ceiling (seen from a pawn's eyes)
+  P2  atm                        [floor/sub] in a shop's corner, in a lobby
+  P2  coffee-station             [wall/1] shops, offices, break rooms
+  P2  houseplant                 [floor/sub] corners of flats, offices and lobbies
+  P2  jukebox                    [floor/sub] against a bar's wall
+  P2  photocopier                [floor/1] an office's alcove
+  P2  speaker-stack              [floor/sub] either side of the DJ booth
+  P2  water-cooler               [floor/sub] the corner where gossip happens
+  P2  whiteboard                 [wall/1] on the meeting wall
+  P2  desk-phone                 [surface/tiny] offices, reception
+  P2  donut                      [surface/tiny] desk debris; the cop's breakfast
+  P2  donut-box                  [surface/tiny] break rooms, police desks, stakeouts
+  P2  mouse-computer             [surface/tiny] beside a keyboard
+  P2  citrus-tree-tub            [floor/sub] conservatories and terraces
+  P2  fern-potted                [floor/sub] conservatories, landings
+  P2  ac-unit                    [wall/sub] alley walls and rooftops
+  P2  newspaper-box              [ground/sub] street corners
+  P2  parking-barrier            [floor/1x2] a garage's way in
+  P2  traffic-cone               [ground/tiny] road works, garages, crime scenes
+  P2  decal-litter               [floor/sub] alleys, pavements, squats
+  P2  decal-oil-stain            [floor/sub] garages, alleys, parked cars
+  P2  manhole-cover              [floor/1] in the road
+  P2  plate-ceramic              [surface/tiny] merchant homes
+  P2  platter-board-handled      [surface/tiny] cheese and bread boards
+  P2  apple-crate                [floor/sub] market stacks, cellars
+  P2  garlic-bulb                [surface/tiny] kitchens; vampire wards
+  P2  ham-sliced                 [surface/tiny] mid-feast
+  P2  meat-raw-joint             [surface/tiny] butcher blocks, kitchens
+  P2  onion-pile                 [floor/sub] kitchens, stalls
+  P2  vegetable-crate-mixed      [floor/sub] deliveries, stall stacks
+  P2  exit-sign                  [wall/tiny] high on a corridor's end wall
+  P2  fire-extinguisher          [wall/tiny] every corridor, by a door
+  P2  breaker-panel              [wall/sub] service corridors, basements
+  P2  housekeeping-cart          [floor/1] a hotel corridor, by an open room
+  P2  ice-machine                [wall/sub] a hotel corridor's alcove
+  P2  laundry-cart               [floor/sub] an apartment hallway, by the laundry
+  P2  luggage-cart               [floor/sub] a hotel corridor
+  P2  mailbox-bank               [wall/sub] the ground-floor hallway of an apartment block
+  P2  mop-bucket                 [floor/tiny] service corridors, janitor's closets
+  P2  notice-board-cork          [wall/sub] an office corridor, by the break area
+  P2  room-service-cart          [floor/sub] outside a hotel room door
+  P2  trash-chute-hatch          [wall/sub] an apartment hallway's wall
+  P2  art-canvas                 [wall/sub] walls that are not glass
+  P2  bar-cart                   [floor/sub] by the sofa
+  P2  bed-platform               [floor/2x2] a penthouse's open loft
+  P2  dining-set-lux             [floor/2x2] by the kitchen
+  P2  lounge-chair               [floor/1] beside the sectional
+  P2  pot-rack-wall              [wall/1] over the prep line
+  P2  range-hood                 [ceiling/1x2] over the range (drawn from a pawn's eyes only)
+  P2  urinal                     [wall/sub] a restroom's other side wall
+  P3  wine-rack                  [wall/1] cellars
+  P3  tea-service-tray           [surface/tiny] drawing-room tables
+  P3  rug-cowhide                [floor/1] farmhouses, rustic inns
+  P3  towel-stack                [surface/tiny] bathhouses, inns, noble chambers
+  P3  roasting-pan               [surface/tiny] under the spit
+  P3  saucepan-copper            [surface/tiny] sauces for the lord
+  P3  towel-hanging              [wall/tiny] washstands
+  P3  carrot-pile                [floor/sub] stalls, root cellars
+  P3  fruit-crate-mixed          [floor/sub] stalls, deliveries
+  P3  herb-pot                   [surface/tiny] windowsills
+  P3  potato-crate               [floor/sub] deliveries
+  P3  plant-pot                  [surface/tiny] windowsills
+  P3  recycling-bins             [floor/sub] office corridors
+  P3  towel-rail                 [wall/sub] bathrooms

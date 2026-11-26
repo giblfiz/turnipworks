@@ -150,8 +150,9 @@ async def main():
         check(seq == [3, 2, 1], 'a move that ends with time to spare gives one stage back for the next (a lighter map is not left short)', str(seq))
         # a stage that buys nothing is put back
         await gm.evaluate("tw.interact.reset(); tw.interact.pretend(40)")
-        g = await drag('right', n=70, pause=22, hold=f"({{ i: {INFO}, f: {FX} }})"); await rest(900)
-        nog = [l[2] for l in g['i']['log'] if l[1] == 'no gain']
+        t0 = await gm.evaluate('performance.now()')
+        g = await drag('right', n=70, pause=22, hold=f"({{ i: {INFO}, f: {FX}, log: tw.interact.state.log.filter(l => l[0] >= {t0}) }})"); await rest(900)
+        nog = [l[2] for l in g['log'] if l[1] == 'no gain']  # (the whole log of this move: since 2026-11-06 the pixel stage is tried on a 1x screen too, and info()'s last 12 lines no longer reach back to the first stage)
         check(not g['i']['shed'] and set(want) <= set(nog) and g['f']['aoOn'] and not g['f']['dance'], 'a stage that buys no time on this machine is put straight back', f"shed {g['i']['shed']}, no gain: {nog}")
 
         # ================= small things =================

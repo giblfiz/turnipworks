@@ -105,7 +105,7 @@ export function createRingRenderer(host, { manifestBase, onAction = () => {}, on
         }
         let suppressClick = false;
         b.addEventListener('click', ev => { ev.stopPropagation(); if (suppressClick) { suppressClick=false; return; } if (pickIcons) { onCycle(it.id); return; } onAction(it, n); });
-        if (!ghost && (it.drag || ['pawn.damage','room.fog','edit.resize','edit.rotate','room.rotate','edit.lift','thing.tilt'].includes(it.id))) {
+        if (!ghost && (it.drag || ['pawn.damage','room.fog','edit.resize','pawn.resize','edit.rotate','room.rotate','edit.lift','thing.tilt'].includes(it.id))) {
           b.addEventListener('pointerdown', ev => {
             if (pickIcons) return; ev.stopPropagation(); b.setPointerCapture(ev.pointerId);
             drag = { id: it.id, n, moved:false, start:{x:ev.clientX,y:ev.clientY}, value:0 };

@@ -9,7 +9,7 @@ import { effectiveFaction, planFactionChange } from './factions.js';
 import { factionPieceName } from './faction-catalog.js';
 import { layoutHash, fnv1a, hex8 } from './hash.js';
 import { cellsOf, rectsOf, hasCell, isShaped, levelSuffix, overlap } from './footprint.js';
-import { isTerrain, hillUnder } from './height.js';
+import { isTerrain, hillUnder, earthAt } from './height.js';
 import { isCave, caveStalagmites, STALAG_CAT } from './caves.js';
 import { stairBlocks, planStair, stairOffer as offerStair, stairCore as coreStairs, stairPieceArgs, STAIR_KINDS, STAIR_ROLES } from './stairs.js';
 
@@ -54,7 +54,7 @@ export function makeRoomGen({ solver, solver2, walls, lib, types, orient, versio
     const recs = Object.values(entities).filter(e => e.kind === 'room').sort((a, b) => a.order - b.order)
       .map(e => ({ id: e.id, order: e.order, building: e.building, ...e.recipe }));
     if (extra) { const i = recs.findIndex(r => r.id === extra.id); if (i >= 0) recs[i] = { ...recs[i], ...extra }; else recs.push(extra); }
-    const rooms = [];
+    const rooms = [], hilly = recs.some(rc => isTerrain(rc.type));
     for (const rc of recs) {
       const flavor = effectiveFaction(entities, { id: rc.id, kind: 'room', building: rc.building, recipe: rc }, lib, types);
       const r = { id: rc.id, type: rc.type, x: rc.x, z: rc.z, w: rc.w, d: rc.d, seed: rc.seed, wallSeed: rc.wallSeed, created: rc.order, wallFamily: rc.wallFamily || 'auto', floor: rc.floor || 'auto', turn: rc.turn || 0,
@@ -74,10 +74,16 @@ export function makeRoomGen({ solver, solver2, walls, lib, types, orient, versio
       // relative to the room's own corner, so the building can be dragged: { b, links: { room: [dir, dx, dz] }, entry: [dir, dx, dz, span] }
       const pl = rc.plan && typeof rc.plan === 'object' ? rc.plan : null, moved = !!rc.turn, abs = (e) => Array.isArray(e) && !moved ? `${e[0]}:${rc.x + e[1]}:${rc.z + e[2]}` : '';
       if (pl) r.plan = { b: pl.b, links: Object.fromEntries(Object.entries(pl.links || {}).map(([id, e]) => [id, abs(e)])) };
-      r.extDoor = r.sealed ? null : pl ? planEntry(r, pl.entry, abs) : walls.chooseExteriorDoor(r, y || rooms.some(o => o.y) ? rooms.filter(o => (o.y || 0) === y) : rooms);
+      // (2026-11-06) a room dug into a hill's side: a wall with solid earth outside it, above this floor, is no door (it
+      // opened onto the earth). Only where the map has a hill: elsewhere the earth is the ground at 0 and nothing changes.
+      const closed = hilly ? (e) => { const [gx, gz] = outsideOf(e); return earthAt(entities, (gx + 0.5) * 5, (gz + 0.5) * 5) > y + 0.5; } : null;
+      r.extDoor = r.sealed ? null : pl ? planEntry(r, pl.entry, abs) : walls.chooseExteriorDoor(r, y || rooms.some(o => o.y) ? rooms.filter(o => (o.y || 0) === y) : rooms, closed);
     }
     return rooms;
   }
+  // the square just outside a perimeter edge (tools/spawn-tuner/js/walls.js perimeter: 'h:gx:gz' runs along x at the
+  // north edge of square gz, 'v:gx:gz' along z at the west edge of square gx)
+  const outsideOf = (e) => { const [, a, b] = e.key.split(':').map(Number); return e.side === 'N' ? [a, b - 1] : e.side === 'W' ? [a - 1, b] : [a, b]; };
   // a planned room's street door: the plan's segment(s) on its own wall, in the shape chooseExteriorDoor returns; none planned = none
   function planEntry(r, entry, abs) {
     if (!Array.isArray(entry)) return null;
@@ -120,6 +126,7 @@ export function makeRoomGen({ solver, solver2, walls, lib, types, orient, versio
     const rooms = roomsOf(entities, recipe);
     const E = levelEdges(rooms, Y);
     const r = rooms.find(x => x.id === a.id);
+    gmOpenings(entities, E, r.id, Y);
     const lock = (o) => ({ id: o.cat, uid: o.id, sku: o.sku, kind: o.flat ? 'flat' : 'mesh', place: o.place, layer: o.layer, x: o.x, y: (o.y || 0) - Y, z: o.z, rot: o.rot, dims: o.dims, parent: o.parent || undefined });
     const roomTypeOf = (id) => rooms.find(x => x.id === id)?.type;
     const parts = isShaped(recipe) ? shapedParts(recipe, r, E.openings.get(r.id), pinned) : [{ room: r, openings: E.openings.get(r.id), pinned }];
@@ -215,6 +222,25 @@ export function makeRoomGen({ solver, solver2, walls, lib, types, orient, versio
     return parts;
   }
   const pinnedOf = (entities, roomId) => Object.values(entities).filter(e => e.kind === 'object' && e.room === roomId && e.pinned);
+
+  // (2026-11-06) THE GM'S WALL EDITS, IN WHAT THE SOLVER IS TOLD (docs/KNOWN_BUGS.md "a re-roll ignores deleted walls"):
+  // the walls engine gives a room's openings from the rooms alone, so a wall the GM had taken away (an 'edge' entity
+  // as 'open') was still a wall to the solver: a re-roll stood a bookcase or a bed against the gap. A segment taken away
+  // is an opening now, kept clear like a doorway (as a shaped room's joins are, below); a door or window put back to
+  // plain wall ('wall') is no opening. Edits on other levels (a different '@y') do not count. In place, on E.openings.
+  function gmOpenings(entities, E, roomId, Y) {
+    const sfx = levelSuffix(Y), edits = new Map();
+    for (const o of Object.values(entities || {})) if (o?.kind === 'edge' && (o.as === 'open' || o.as === 'wall') && typeof o.key === 'string' && o.key.endsWith(sfx) && (sfx || !o.key.includes('@'))) edits.set(sfx ? o.key.slice(0, -sfx.length) : o.key, o.as);
+    if (!edits.size) return;
+    let list = (E.openings.get(roomId) || []).filter(o => !o.key || !edits.has(o.key));
+    for (const e of E.edges.values()) {
+      if (edits.get(e.key) !== 'open') continue;
+      const s = e.sides?.find(x => x.room === roomId); if (!s) continue;
+      const other = e.sides.find(x => x.room !== roomId);
+      list.push({ side: s.side, index: s.index, kind: 'door', to: other ? other.room : null, key: e.key, why: 'open: the wall was taken away', ...(s.line !== undefined && { line: s.line }) });
+    }
+    E.openings.set(roomId, list);
+  }
 
   // Walls, doors and windows for everything in an area (pure function of the rooms).
   // With rooms at several heights: one wall map per height, merged. Off the ground every key carries its level suffix

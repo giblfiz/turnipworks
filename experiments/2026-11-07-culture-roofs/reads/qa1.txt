@@ -1,0 +1,106 @@
+Scanning the scene images and identifying all labels, building geometry, and roof defects. Waiting for background detection to complete.
+### Visual Report & Explicit Labels / Overlays / Text
+
+#### 1. [cbtotl.png](file:///tmp/scratch/agy-cr-u144cohl/cbtotl.png)
+* **In-scene labels (3D floating pills)**:
+  * `Building 7` (centered over foreground-left log house)
+  * `Building 8` (centered over foreground-right log house)
+  * `Building 5` (over midground-center turf house)
+  * `B` (truncated floating pill on far right edge over Building 6)
+  * `Build...` (truncated floating pill at top-right edge over Building 4)
+* **UI chrome & HUD overlays**:
+  * Top-left menu buttons: `Pawns` (`P`), `Build` (`B`), `Settings` (`S`), `Other games / New game`
+  * Top-center search & controls: `Search commands, things to place, people, places... or say / roll` (`/`), `Area 1`, `Open to players`, `Hide`
+  * Top-right avatar & area tag: `H`, `Area 1`
+  * Left-edge floor index: `1`
+  * Bottom-left chat input bar: `say ... or roll d20 in the bar`
+  * Bottom-right status line: `live (ws) · 1 ms · Area 1 seq 14 · 60 fps`
+
+---
+
+#### 2. [ivexhu.png](file:///tmp/scratch/agy-cr-u144cohl/ivexhu.png)
+* **In-scene labels (3D floating pills)**:
+  * `Building 1` (background left/center)
+  * `Building 2` (background right)
+  * `Building 3` (midground left)
+  * `Building 4` (foreground right)
+* **UI chrome & HUD overlays**:
+  * Top-left menu buttons: `Pawns` (`P`), `Build` (`B`), `Settings` (`S`), `Other games / New game`
+  * Top-center search & controls: `Search commands, things to place, people, places... or say / roll` (`/`), `Area 1`, `Open to players`, `Hide`
+  * Top-right avatar & area tag: `H`, `Area 1`
+  * Left-edge floor index: `1`
+  * Bottom-left chat input bar: `say ... or roll d20 in the bar`
+  * Bottom-right status line: `live (ws) · 0 ms · Area 1 seq 14 · 60 fps`
+
+---
+
+#### 3. [lgwurq.png](file:///tmp/scratch/agy-cr-u144cohl/lgwurq.png)
+* **In-scene labels (3D floating pills)**:
+  * `Building 1` (centered over left house)
+  * `Building 2` (centered over right pavilion)
+* **UI chrome & HUD overlays**:
+  * Top-left menu buttons: `Pawns` (`P`), `Build` (`B`), `Settings` (`S`), `Other games / New game`
+  * Top-center search & controls: `Search commands, things to place, people, places... or say / roll` (`/`), `Area 1`, `Open to players`, `Hide`
+  * Top-right avatar & area tag: `H`, `Area 1`
+  * Left-edge floor index: `1`
+  * Bottom-left chat input bar: `say ... or roll d20 in the bar`
+  * Bottom-right status line: `live (ws) · 0 ms · Area 1 seq 14 · 60 fps`
+
+---
+
+#### 4. [qtreuz.png](file:///tmp/scratch/agy-cr-u144cohl/qtreuz.png)
+* **In-scene labels (3D floating pills)**:
+  * `Building 1` (background left)
+  * `Building 2` (background center-right)
+  * `Building 3` (foreground left)
+  * `Building 4` (foreground right)
+* **UI chrome & HUD overlays**:
+  * Top-left menu buttons: `Pawns` (`P`), `Build` (`B`), `Settings` (`S`), `Other games / New game`
+  * Top-center search & controls: `Search commands, things to place, people, places... or say / roll` (`/`), `Area 1`, `Open to players`, `Hide`
+  * Top-right avatar & area tag: `H`, `Area 1`
+  * Left-edge floor index: `1`
+  * Bottom-left chat input bar: `say ... or roll d20 in the bar`
+  * Bottom-right status line: `live (ws) · 0 ms · Area 1 seq 14 · 60 fps`
+
+---
+
+#### 5. [scntpm.png](file:///tmp/scratch/agy-cr-u144cohl/scntpm.png)
+* **In-scene labels (3D floating pills)**:
+  * `Building 5` (foreground left)
+  * `Building 6` (foreground right)
+  * `Building 3` (background left, partially occluded by top search bar UI)
+  * `Building 4` (background right)
+* **UI chrome & HUD overlays**:
+  * Top-left menu buttons: `Pawns` (`P`), `Build` (`B`), `Settings` (`S`), `Other games / New game`
+  * Top-center search & controls: `Search commands, things to place, people, places... or say / roll` (`/`), `Area 1`, `Open to players`, `Hide`
+  * Top-right avatar & area tag: `H`, `Area 1`
+  * Left-edge floor index: `1`
+  * Bottom-left chat input bar: `say ... or roll d20 in the bar`
+  * Bottom-right status line: `live (ws) · 1 ms · Area 1 seq 14 · 60 fps`
+
+---
+
+#### 6. [tmabak.png](file:///tmp/scratch/agy-cr-u144cohl/tmabak.png)
+* **In-scene labels (3D floating pills)**:
+  * `Building 1` (centered over left house)
+  * `Building 2` (centered over right pavilion)
+* **UI chrome & HUD overlays**:
+  * Top-left menu buttons: `Pawns` (`P`), `Build` (`B`), `Settings` (`S`), `Other games / New game`
+  * Top-center search & controls: `Search commands, things to place, people, places... or say / roll` (`/`), `Area 1`, `Open to players`, `Hide`
+  * Top-right avatar & area tag: `H`, `Area 1`
+  * Left-edge floor index: `1`
+  * Bottom-left chat input bar: `say ... or roll d20 in the bar`
+  * Bottom-right status line: `live (ws) · 0 ms · Area 1 seq 14 · 60 fps`
+
+---
+
+### JSON Lines
+
+```jsonl
+{"file": "cbtotl.png", "buildings": 5, "roof_shape": "gable (Buildings 5, 6, 7, 8) and hip-and-gable (Building 4)", "roof_material": "wood plank / split timber (Building 7), wood shingle (Building 8), sod / turf (Buildings 5, 6), green glazed ceramic tile (Building 4)", "eaves": "straight (Buildings 5, 6, 7, 8) and upturned corners (Building 4)", "culture_from_roofline": "Russian / Slavic medieval (foreground izbas 7 & 8), Norse (5 & 6), and East Asian (4), confidence 95", "defects": "Building 8 has a tall untextured grey rectangular column poking directly through the rear roof slope, and horizontal dark red slit gaps poking through the lower roof slope near the eaves. Building 7 has horizontal dark red slit gaps near the lower eaves and ridge cap z-fighting. Building 5 has open gaps under the right gable bargeboard. Buildings 4 and 6 are clipped by the screen edges with truncated labels."}
+{"file": "ivexhu.png", "buildings": 4, "roof_shape": "gable (Buildings 1, 3) and hip-and-gable (Buildings 2, 4)", "roof_material": "dark grey ceramic tile (Buildings 1, 3), brown wood shingle (Building 2), and green glazed ceramic tile (Building 4)", "eaves": "straight (Buildings 1, 3), flared (Building 2), and curved with upturned corners (Building 4)", "culture_from_roofline": "East Asian (Japanese and Chinese), confidence 95", "defects": "Building 4 has a flat, stippled broken texture on its left hip slope, an incomplete corner ridge cap missing its lower half along the bottom-left hip seam, and two untextured grey rectangular blocks standing at the ridge ends. Building 3 has dark red horizontal slits poking through the lower roof slope near the eaves. Building 1 has red dashes poking through the lower roof slope and two untextured grey blocks at the ridge ends. Building 2 walls float slightly above the ground grid at near corners."}
+{"file": "lgwurq.png", "buildings": 2, "roof_shape": "gable (Building 1) and hip-and-gable (Building 2)", "roof_material": "dark grey ceramic tile (Building 1) and brown layered wood shingle (Building 2)", "eaves": "straight (Building 1) and flared / slightly upturned corners (Building 2)", "culture_from_roofline": "East Asian / Japanese, confidence 95", "defects": "Building 1 has red horizontal slits/dashes poking through the lower roof slope (internal wall frames penetrating the tile surface) and two untextured grey rectangular blocks at the ridge ends. Building 2 wall base appears slightly ungrounded / floating above the terrain grid."}
+{"file": "qtreuz.png", "buildings": 4, "roof_shape": "gable (Buildings 1, 3) and hip-and-gable (Buildings 2, 4)", "roof_material": "dark grey ceramic tile (Buildings 1, 3), brown wood shingle (Building 2), and green glazed ceramic tile (Building 4)", "eaves": "straight (Buildings 1, 3), flared (Building 2), and curved with upturned corners (Building 4)", "culture_from_roofline": "East Asian (Chinese and Japanese), confidence 95", "defects": "Building 3 has prominent dark red horizontal slits cutting through the lower roof slope across left, center, and right bays where wall frames penetrate the tiles. Building 4 has two tall untextured grey rectangular blocks at the ridge ends, a seam gap at the left gable wall junction, and shortened corner hip ridge capping. Building 1 has red slits in lower roof tiles and grey ridge blocks. Building 2 wall base floats slightly."}
+{"file": "scntpm.png", "buildings": 6, "roof_shape": "gable (Buildings 1, 3, 5, 6) and hip-and-gable (Buildings 2, 4)", "roof_material": "yellow-green sod / turf (Buildings 5, 6), dark grey tile (Buildings 1, 3), green glazed tile (Building 4), and brown shingle (Building 2)", "eaves": "straight (Buildings 1, 3, 5, 6), flared (Building 2), and curved with upturned corners (Building 4)", "culture_from_roofline": "Norse / Scandinavian (foreground sod longhouses 5 & 6) and East Asian (background buildings 1, 2, 3, 4), confidence 95", "defects": "Building 5 has openings/gaps under the bargeboards on the right gable end and minor ridge z-fighting. Building 6 has an abruptly clipped/sloping left roof end and extends off-screen on the right. Building 4 has untextured grey ridge blocks and a flat texture on the left hip slope. Building 3 floating label is partially occluded by the top search bar UI."}
+{"file": "tmabak.png", "buildings": 2, "roof_shape": "gable (Building 1) and hip-and-gable (Building 2)", "roof_material": "dark grey ceramic tile (Building 1) and brown layered wood shingle (Building 2)", "eaves": "straight (Building 1) and flared / slightly upturned corners (Building 2)", "culture_from_roofline": "East Asian / Japanese, confidence 95", "defects": "Building 1 has red horizontal slits/dashes poking through lower roof tiles near the eaves, two untextured grey rectangular blocks at ridge ends, and rough ridge line z-fighting. Building 2 has a visible step/break between the upper gable slope and lower hip slope, and floating wall bases."}
+```

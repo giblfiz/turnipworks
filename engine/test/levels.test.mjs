@@ -14,6 +14,10 @@ import path from 'node:path';
 import { corpusDir } from './corpus.mjs';
 import * as HT from '../core/height.js';
 import * as S from '../core/stairs.js';
+import os from 'node:os';
+import { CampaignRuntime } from '../relay/campaign.js';
+import { inverseOf } from '../core/commands.js';
+import { stairFloats } from '../core/migrate.js';
 
 let n = 0, fails = 0;
 const ok = (name, cond, got) => { n++; if (!cond) { fails++; console.log('FAIL', name, got === undefined ? '' : JSON.stringify(got)); } else if (process.env.V) console.log('ok  ', name); };
@@ -69,6 +73,72 @@ ok('down it: smoothly from 10 to 0', smooth(dn) && last(dn) === 0, dn.filter((_,
   ok('a pawn halfway up is on lv 1: its base rests on the stair, its room the mansion hall; sight from lv 1\'s surface; shown with the cut at lv 1', b.on === 'stair' && b.y === h && b.room === 'room_mansion' && HT.levelAt(b.y) === 0 && HT.sightLevel(E, 72.5, 57.5, h) === 0 && !HT.cutHidesBase(E, b, 9) && HT.tokenFloor(E, { x: 72.5, z: 57.5, y: h }).level === 'lv 1', b); }
 ok('a stair that is walked is never hopped (a ladder or a spiral still is)', S.stairHop(E, 72.5, 57.5, 0) === null && S.stairWalks({ kind: 'object', cat: 'ladder-wood', place: 'kit', dims: [2, 10, 1] }) === false && S.stairWalks({ kind: 'object', cat: 'stair-spiral-wide', place: 'kit', dims: [8, 10, 8] }) === false);
 
+// ---- 1b. backing a pawn off the grand stair (Harry 2026-11-24: "When I bring him forward to stairs, that works great,
+// and he goes up partway. And then when I bring him back from those stairs ... I can back him off the stairs and leave
+// him floating"; Foggybottom on dev, cmp_q2bjx70ajq, y 9.17 over the floor at 0). A drag as client/input.js carries it:
+// the pointer's samples (k a segment: a quick pull is a few big samples), the base and its place carried from sample to
+// sample, a sample with no floor of its level leaves the pawn hanging where it was (the fall is offered when let go).
+// `open`: the mansion hall's roof is off (the cut at lv 1, world.js isOpenRoom): its top is no ground.
+{
+  const dragOn = (E, pts, y0, k = 20, open = null) => {
+    let [x, z] = pts[0], y = y0, fb = { ...HT.baseUnder(E, x, z, y0, open), x, z }, hang = null; const seen = [];
+    for (let p = 0; p + 1 < pts.length; p++) for (let i = 1; i <= k; i++) {
+      const nx = pts[p][0] + (pts[p + 1][0] - pts[p][0]) * i / k, nz = pts[p][1] + (pts[p + 1][1] - pts[p][1]) * i / k, t = HT.pawnStepTo(E, nx, nz, y, open, fb);
+      if (!t.below || t.walk) { y = t.y; fb = { ...t, x: nx, z: nz }; hang = null; } else hang = { at: y, to: t.y };
+      seen.push(hang ? { hang: y } : y);
+    }
+    return { y, on: fb.on, hang, seen };
+  };
+  const hall = E.room_mansion, open = (r) => r === hall; // (the cut at lv 1 takes the hall's roof off)
+  for (const [name, op] of [['roof on', null], ['roof off (the cut at lv 1)', open]]) {
+    // the move on dev: up to about 9 ft (z 52.5), then pulled back past the foot (z 71) in two samples
+    const h = dragOn(E, [[72.5, 70], [72.5, 52.5], [72.2, 70.96]], 0, 2, op);
+    ok(`${name}: up the grand stair to 9 ft, pulled back past its foot in two samples: on the hall floor at 0, not hanging, not on the hall's ceiling (before: 10 on its top, or hung at 9 and offered a fall)`, h.y === 0 && !h.hang && h.on === 'floor', h);
+    const half = dragOn(E, [[72.5, 70], [72.5, 57.5], [72.5, 75]], 0, 20, op);
+    ok(`${name}: up partway (5 ft) and backed down off it slowly: smooth, at 0 on the floor`, half.y === 0 && !half.hang && smooth(half.seen), half.seen.filter((_, i) => i % 4 === 0));
+    const jump = dragOn(E, [[72.5, 70], [72.5, 51]], 0, 30, op), back = dragOn(E, [[72.5, 51], [72.5, 61], [72.5, 64]], jump.y, 1, op);
+    ok(`${name}: a quick pull down the flight itself (10 ft of run in one sample, more than 5 ft of height) stays on the treads`, jump.y > 9 && back.on === 'stair' && !back.hang && back.y < 3, [jump.y, back]);
+    const full = dragOn(E, [[72.5, 45], [72.5, 72]], 10, 3, op);
+    ok(`${name}: from the hallway at 10 down the whole flight in three samples: at 0 on the hall floor (before: hung over the stairwell)`, full.y === 0 && !full.hang, full);
+    const upTop = dragOn(E, [[72.5, 62], [72.5, 45]], HT.pawnStepTo(E, 72.5, 62, 0).y, 1, op);
+    ok(`${name}: from low on the flight on past its top in one sample: on the floor above at 10`, upTop.y === 10 && !upTop.hang, upTop);
+  }
+  const fl = (x, z, y) => HT.tokenFloor(E, { x, z, y });
+  ok('its level follows its height: halfway up lv 1, on the landing lv 2, backed off lv 1', fl(72.5, 57.5, 5.5).storey === 0 && fl(72.5, 45, 10).storey === 1 && fl(72.2, 70.96, 0).storey === 0);
+}
+
+// ---- 1c. a pawn ALREADY left in the air by the old rule is settled when the campaign loads (relay/campaign.js load,
+// core/migrate.js stairFloats). Foggybottom's record on dev, replayed on the grand stair: up the flight to 6.76 ft, then a
+// move off its foot that left it at 9.17 (the old rule), then two moves without y that kept it there. Beside it: a pawn
+// raised to 9 ft by raise / lower (x and z unchanged) and one moved there with a y from the open floor: both stay.
+{
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'tw-levels-'));
+  try {
+    const { rt, gmSeat } = CampaignRuntime.create({ id: 'cmp_levels1c', dir, name: 'T', tokens: { mint: () => 't' }, log: () => {} });
+    const aid = Object.keys(rt.state.areas)[0];
+    const fx = (type, args) => { const T = rt.state.areas[aid]; rt.commit({ by: gmSeat, fx: [{ area: aid, seq: T.seq + 1, type, args, inv: inverseOf(T, type, args) }] }); };
+    const pawn = (id, x, z, y = 0) => ({ id, kind: 'token', name: id, x, z, y, owner: gmSeat });
+    fx('entities.set', { set: { ...E, tok_fog: pawn('tok_fog', 72.5, 70), tok_fly: pawn('tok_fly', 90, 90), tok_hop: pawn('tok_hop', 90, 100) } });
+    fx('token.move', { id: 'tok_fog', x: 70.58, z: 56.05, y: 6.76 });   // up the treads (a real tread height there)
+    fx('token.move', { id: 'tok_fog', x: 72.2, z: 70.96, y: 9.17 });    // the old rule: off the foot, kept in the air
+    fx('token.move', { id: 'tok_fog', x: 50.08, z: 87.53 });            // later moves give no y
+    fx('token.move', { id: 'tok_fog', x: 84.24, z: 146.71 });
+    fx('token.set', { id: 'tok_fog', conditions: ['prone'] });
+    fx('token.move', { id: 'tok_fly', x: 90, z: 90, y: 9 });            // raise / lower: x and z unchanged
+    fx('token.move', { id: 'tok_hop', x: 95, z: 100, y: 9 });           // moved with a y from the floor (not off a stair)
+    const before = stairFloats(rt.state.areas[aid].entities, rt.tails.get(aid), rt.undo.get(aid));
+    ok('stairFloats finds exactly the pawn left in the air off the stair, landing on the ground under it', before.length === 1 && before[0].id === 'tok_fog' && before[0].y === 0 && before[0].from === 9.17, before);
+    rt.close();
+    const logs = [], rt2 = new CampaignRuntime({ id: 'cmp_levels1c', dir, tokens: null, log: (m) => logs.push(m) }), L = rt2.load({ caves: false }), E2 = rt2.state.areas[aid].entities;
+    ok('on load it is settled onto the ground where it is (y 0), in one journaled move by nobody; the raised pawn and the one moved up from the floor keep 9', L.settled === 1 && E2.tok_fog.y === 0 && E2.tok_fog.x === 84.24 && E2.tok_fly.y === 9 && E2.tok_hop.y === 9 && (rt2.tails.get(aid).at(-1)?.by ?? null) === null && logs.some(m => /left in the air off a stair \(y 9\.17\)/.test(m)), [L, E2.tok_fog, logs]);
+    ok('...its level is then lv 1 by its height and the floor under it (tokenFloor)', HT.tokenFloor(E2, E2.tok_fog).storey === 0 && HT.tokenFloor(E2, E2.tok_fog).y === 0);
+    rt2.close();
+    const rt3 = new CampaignRuntime({ id: 'cmp_levels1c', dir, tokens: null, log: () => {} }), L3 = rt3.load({ caves: false });
+    ok('a second load changes nothing (it stands now)', L3.settled === 0 && rt3.state.areas[aid].entities.tok_fog.y === 0, L3);
+    rt3.close();
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+}
+
 // ---- 2. an inn: stairs inside one building, an upper floor's edge, a hole ----
 {
   const I = ents(room('room_inn', 'common', 0, 0, 6, 4, 0, 'bld_i'), room('room_up', 'guest', 0, 0, 4, 4, 10, 'bld_i'), { id: 'bld_i', kind: 'building', name: 'Inn' },
@@ -84,6 +154,16 @@ ok('a stair that is walked is never hopped (a ladder or a spiral still is)', S.s
   const Ih = { ...I, obj_hole: { id: 'obj_hole', kind: 'object', cat: 'hole', place: 'tile', layer: 'floor', flat: true, x: C(1), y: 10, z: C(1), dims: [5, 0.05, 5], room: 'room_up' } };
   const h = walk(Ih, [C(3), C(1)], 10, [C(1), C(1)]);
   ok('over a hole in the upper floor: it hangs, offered the fall to the floor below (0)', typeof last(h) === 'object' && last(h).to === 0, last(h));
+  // OFF THE FLIGHT'S SIDE (2026-11-24): stood on its treads at x (it climbs toward +x, from 5 to 15, across z 10.3..14.7),
+  // then moved a square sideways (z 7.5) onto the common room's floor
+  const side = (x) => { const y0 = walk(I, [2.5, 12.5], 0, [x, 12.5]).at(-1), fb = { ...HT.baseUnder(I, x, 12.5, y0), x, z: 12.5 }; return { y0, st: HT.pawnStepTo(I, x, 7.5, y0, null, fb) }; };
+  { const { y0, st } = side(7.5); ok('off the side low on the flight (under 5 ft up): it steps down onto the floor, no fall', y0 > 0 && y0 < 5 && st.y === 0 && !st.below, [y0, st]); }
+  { const { y0, st } = side(11); ok('off the side high on the flight (5 ft or more up, under the top tread): marked `side`, so let go there it just drops to the floor at 0, no fall offered (Harry 2026-11-25); a drag passing over it keeps the treads', y0 >= 5 && y0 < 10 && st.y === 0 && st.on === 'floor' && st.below && st.side, [y0, st]);
+    const p = { id: 't', kind: 'token', x: 11, z: 12.5, y: y0 }, w = HT.pawnWalkY(I, p, 11, 7.5); ok('...and by the API the same: on the floor, with nothing to say (drop 0)', w && w.y === 0 && w.drop === 0, w); }
+  { const I2 = { ...I }; delete I2.obj_st; const e = walk(I2, [C(2), C(1)], 10, [C(8), C(1)]); ok('...while a drop with no stair in it (lv 2 off the building\'s edge) is still offered the fall', typeof last(e) === 'object' && last(e).hang === 10, last(e)); }
+  { const { y0, st } = side(14.5); ok('off the side at its top tread: onto the floor above at 10, level with its feet', y0 === 10 && st.y === 10 && !st.below, [y0, st]); }
+  { const b = HT.baseUnder(I, 11, 12.5, 7), st = HT.pawnStepTo(I, 17.5, 12.5, 7, null, { ...b, x: 11, z: 12.5 }), f = HT.pawnStepTo(I, 2.5, 12.5, 7, null, { ...b, x: 11, z: 12.5 });
+    ok('from 7 ft up in one move: beyond its high end onto the landing at 10; beyond its foot onto the floor at 0 (never the nearer end in height)', st.y === 10 && !st.below && f.y === 0 && !f.below, [st, f]); }
   ok('raise / lower is not a walk: a pawn raised 30 ft keeps its base where it is (the highest ground under it)', HT.baseUnder(I, C(1), C(1), 30).y === 20);
 }
 
@@ -110,7 +190,7 @@ ok('a stair that is walked is never hopped (a ladder or a spiral still is)', S.s
   ok('rock: a drag along the one-square passage that slips into the rock beside it stays at -20 the whole way (before: up to 0 ft for good)', along.ever && !along.up && along.seen.every(y => y === -20) && along.y === -20, along);
   ok('...and ends in the passage, on its floor, where the pointer came back to it', !along.rock && HT.floorUnder(R2, ...along.at, -20)?.room === 'room_pass', along.at);
   const fl = HT.floorUnder(R2, ...along.at, along.y)?.y, hop = S.stairHop(R2, 32.5, -21, fl);
-  ok('...so dropped on the ladder there it climbs it, to the cave at -10 (on dev the pawn missed the ladder at 0 ft and was left inside a hill\'s bank)', fl === -20 && hop && hop.y === -10 && HT.floorUnder(R2, hop.x, hop.z, -10)?.room === 'room_cave', hop);
+  ok('...so walked onto the ladder there in first person it climbs it, to the cave at -10 (on dev the pawn missed the ladder at 0 ft and was left inside a hill\'s bank)', fl === -20 && hop && hop.y === -10 && HT.floorUnder(R2, hop.x, hop.z, -10)?.room === 'room_cave', hop);
   const out = drag(R2, [[32.5, 10], [32.5, 0], [60, 0], [90, 5]], -20); // off the passage's side and on through rock with no floor of lv -2 anywhere
   ok('rock with no floor of its level anywhere near: held on the last passage square it crossed, still at -20, over rock (let go: there)', out.rock && out.y === -20 && !out.up && HT.floorUnder(R2, ...out.at, -20)?.room === 'room_pass', out);
   const st = HT.pawnStepTo(R2, 60, 0, -20, null, HT.baseUnder(R2, 32.5, 0, -20));
@@ -124,6 +204,29 @@ ok('a stair that is walked is never hopped (a ladder or a spiral still is)', S.s
     { id: 'obj_pit', kind: 'object', cat: 'hole-round', place: 'floor', layer: 'floor', flat: true, x: 10, y: -10, z: 10, dims: [5, 0.05, 5], room: 'room_cel' });
   const ph = HT.pawnStepTo(R3, 10, 10, -10, null, HT.baseUnder(R3, 2.5, 2.5, -10));
   ok('a hole in a cellar floor is not rock: the pawn hangs over it with the fall to the room under it offered (before: up to the ground at 0)', !ph.rock && ph.below && !ph.climb && ph.y === -20, ph);
+}
+
+// ---- 2c. a ladder holds a pawn where it is put (2026-11-25; Harry: "I can't place him on top of the ladder down inside the
+// basilisk pit. Anytime I try and place him there, it uses the mechanism that shifts people to keep them from being buried
+// inside walls"). His map's shape, by hand: the basilisk pit is a cave at -10, a crypt passage at -20 under it, the ladder
+// (cells [6,-3]) from the passage up to the cave, its foot square in the rock (so it says "Blocked at the foot"). A drop on
+// it from the cave used to hop the pawn to the top landing a square east: a shift with no climb (core/stairs.js stairHop).
+{
+  const P2 = ents(room('room_cave', 'cave', 6, -6, 16, 11, -10), room('room_pass', 'crypt-passage', 6, -6, 1, 4, -20),
+    { id: 'obj_lad', kind: 'object', cat: 'ladder-wood', place: 'wall', layer: 'furnish', x: 31.54, y: -20, z: -12.61, rot: Math.PI / 2, dims: [3.86, 10, 2.07], room: 'room_pass' });
+  const lad = P2.obj_lad;
+  ok('the fixture: the ladder on [6,-3], from the passage up to the cave; facing the passage\'s wall, it steps off at its foot onto the passage beside it (2026-11-25: it said "Blocked at the foot" until then)', S.stairStatus(P2, lad).code === null && JSON.stringify(S.stairCells(lad)) === '[[6,-3]]' && JSON.stringify(S.stairEnds(lad, P2).footCell) === '[6,-4]', [S.stairStatus(P2, lad), S.stairEnds(lad, P2).footCell]);
+  { const h = S.stairHop(P2, 32.5, -12.5, -10), u = S.stairHop(P2, 32.5, -12.5, -20);
+    ok('climbed from the passage it comes out on the cave floor (37.5, -12.5, -10); climbed down (first person) it comes out in the passage (32.5, -17.5, -20), never sideways on its own level', u && u.x === 37.5 && u.y === -10 && h && h.x === 32.5 && h.z === -17.5 && h.y === -20, [u, h]); }
+  const top = HT.baseUnder(P2, 32.5, -12.5, -10), mid = HT.baseUnder(P2, 32.5, -12.5, -15), low = HT.baseUnder(P2, 32.5, -12.5, -20);
+  ok('it stands on the ladder at its top (-10), and put there partway (-15) the rungs hold it (its base is its feet: it is not up in the air, it does not fall), at its foot -20', top.y === -10 && mid.y === -15 && mid.on === 'ladder' && mid.stair === 'obj_lad' && low.y === -20, [top, mid, low]);
+  ok('...partway it is on lv -2 (the passage\'s level, the room it climbs from); at its top on lv -1 (the cave)', HT.levelAt(mid.y) === -2 && mid.room === 'room_pass' && HT.levelAt(top.y) === -1, [mid, top]);
+  const across = walk(P2, [42.5, -12.5], -10, [32.5, -12.5]);
+  ok('a pawn walking the cave floor onto the ladder\'s square stays at -10 (it is not lifted or sunk by the rungs)', across.every(y => y === -10), across);
+  const fb = { ...mid, x: 32.5, z: -12.5 }, st = HT.pawnStepTo(P2, 32.2, -12.8, -15, null, fb), off = HT.pawnStepTo(P2, 32.5, -17.5, -15, null, fb);
+  ok('on the ladder partway, moved about on its own square it keeps its hold; moved off it, onto the passage floor below (-20)', st.y === -15 && st.on === 'ladder' && off.y === -20 && !off.below, [st, off]);
+  ok('a flyer far above the ladder is not caught by it (only between its foot and its top): its base is the ground over the cave', HT.baseUnder(P2, 32.5, -12.5, 5).on !== 'ladder' && HT.baseUnder(P2, 32.5, -12.5, 5).y === 0);
+  ok('a pawn in the solid rock beside the cave at -10 is still rock (the hold that keeps pawns out of walls is unchanged)', HT.pawnStepTo(P2, 22.5, -12.5, -10, null, { ...top, x: 32.5, z: -12.5 }).rock === true);
 }
 
 // ---- 3. the corpus ----

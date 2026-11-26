@@ -16,7 +16,7 @@ import { seesDamageUndo } from '../core/pawn.js';
 import { forPlayers as turnsForPlayers } from '../core/turns.js';
 import { cleanRuler } from '../core/measure.js';
 import { partySignature } from '../core/party.js';
-import { DATA_FORMAT, migrateSnapshot, migrateRecord, migrateCommand, migratePawns, migrateStairs, migrateTilts, migrateCaves } from '../core/migrate.js';
+import { DATA_FORMAT, migrateSnapshot, migrateRecord, migrateCommand, migratePawns, migrateStairs, migrateTilts, migrateCaves, stairFloats } from '../core/migrate.js';
 import { migrateStair } from '../core/stairs.js';
 
 const TAIL = 2000;        // log entries kept per area for reconnect catch-up
@@ -79,7 +79,22 @@ export class CampaignRuntime {
     // engine, for the library's stalagmite; without it an old cave stays as it was and still draws its own)
     const cv = caves && this.roomgen?.caveStalagObjects ? migrateCaves(this, (E, room, idOf) => this.roomgen.caveStalagObjects(E, room, { idOf })) : { caves: 0, things: 0, stored: 0 };
     if (cv.caves) { this.snapshot(); this.log(`${this.id}: ${cv.caves} cave(s) now have their ${cv.things} stalagmites as things (${cv.stored} undo / redo steps amended)`); }
-    return { replayed: records.length, fromSnapshot: !!snap, pawns, stairs: st.stairs, tilts: tl.things, caves: cv.caves };
+    // a pawn left in the air off a stair by the old rule (2026-11-24, core/migrate.js stairFloats): settled onto the ground
+    // under it, one journaled move each, by nobody (no chat line: it did not fall), so every seat sees it land
+    const settled = this.settleStairFloats();
+    return { replayed: records.length, fromSnapshot: !!snap, pawns, stairs: st.stairs, tilts: tl.things, caves: cv.caves, settled };
+  }
+  settleStairFloats() {
+    let n = 0;
+    for (const [aid, A] of Object.entries(this.state.areas || {})) {
+      for (const f of stairFloats(A.entities, this.tails.get(aid) || [], this.undo.get(aid) || [])) {
+        const T = this.state.areas[aid], args = prepareRoomHiding(this.state, 'token.move', { id: f.id, x: f.x, z: f.z, y: f.y });
+        this.commit({ by: null, fx: [{ area: aid, seq: T.seq + 1, type: 'token.move', args, inv: inverseOf(T, 'token.move', args) }] });
+        this.log(`${this.id}: ${T.entities[f.id]?.name || f.id} in ${T.name || aid} was left in the air off a stair (y ${f.from}): settled onto the ground under it (y ${f.y})`);
+        n++;
+      }
+    }
+    return n;
   }
 
   // A new campaign: genesis, the GM's seat and a first area, all journaled like everything else.
@@ -593,7 +608,7 @@ export class CampaignRuntime {
   // lossy and never stored: cursors as ground points, drags in progress. Shed under backpressure.
   presence(conn, m) {
     if (!conn.subs.has(m.area) || !canSee(this.state, conn.seat, m.area)) return;
-    const pt = (v) => Array.isArray(v) && (v.length === 2 || v.length === 3) && v.every(n => typeof n === 'number' && Number.isFinite(n) && Math.abs(n) < 1e5);
+    const pt = (v) => Array.isArray(v) && v.length >= 2 && v.length <= (m.ping ? 3 : 4) && (v.length < 4 || (v[3] >= 0 && v[3] <= 60)) && v.every(n => typeof n === 'number' && Number.isFinite(n) && Math.abs(n) < 1e5);
     const cursor = pt(m.cursor) ? m.cursor : null;
     const drag = m.drag ? [].concat(m.drag).slice(0, 64).filter(d => d && typeof d.id === 'string' && d.id.length < 40 && pt([d.x, d.z])).map(d => ({ id: d.id, x: d.x, z: d.z, ...(Number.isFinite(d.rot) && { rot: d.rot }), ...(Number.isFinite(d.y) && Math.abs(d.y) < 1000 && { y: d.y }), ...(Array.isArray(d.quat) && d.quat.length === 4 && d.quat.every(v => Number.isFinite(v) && Math.abs(v) <= 1.01) && { quat: d.quat }) })) : null;
     if (m.ping && cursor) {

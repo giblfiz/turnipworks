@@ -29,6 +29,8 @@ VISIBLE = """(k) => { const b = document.querySelector(`#palette button[data-typ
 
 
 def group_of(t):
+    for bt in TYPES:  # (a modern building lists its rooms: engine/tools/modern_buildings.json, 2026-11-07; the first that has it)
+        if t['key'] in bt.get('rooms', []): return bt['code']
     for rc in t['recipes']:
         for bt in TYPES:
             if rc.startswith(bt['code'].lower() + '-'): return bt['code']

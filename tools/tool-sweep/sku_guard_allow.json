@@ -8,9 +8,52 @@
    "experiments/2026-09-30-inn-01b-remesh",
    "run:inn-01b",
    "experiments/inn-02"
+  ],
+  [
+   "experiments/2026-11-07-culture-pawns/pod/figs",
+   "experiments/2026-11-07-culture-pawns/pod/grid-ind",
+   "experiments/2026-11-07-culture-pawns/pod/grid-rest",
+   "experiments/2026-11-07-culture-pawns/pod/reroll",
+   "experiments/2026-11-07-culture-pawns/pod/reroll2",
+   "experiments/2026-11-07-culture-pawns/pod/reroll3",
+   "experiments/2026-11-07-culture-pawns/pod/tools",
+   "experiments/2026-11-07-culture-pawns/pod/z-ind2",
+   "experiments/2026-11-07-culture-pawns/pod/zz-fix",
+   "experiments/2026-11-07-culture-pawns/pod2/mes2",
+   "experiments/2026-11-07-culture-pawns/pod2/mesfix",
+   "experiments/2026-11-07-culture-pawns/pod2/tools",
+   "experiments/2026-11-07-culture-pawns/set"
   ]
  ],
  "skus": {
-  "armor-chainmail-heap": "2026-10-12: the castle spec lists it but castle-01 never generated or accepted one (no model, no manifest row); the dungeon's (dun-01) is the only mesh."
+  "armor-chainmail-heap": "2026-10-12: the castle spec lists it but castle-01 never generated or accepted one (no model, no manifest row); the dungeon's (dun-01) is the only mesh.",
+  "store-shelving": "2026-11-07 meshy lane (experiments/2026-11-07-meshy): a Meshy Smart Topology mesh replaces the TRELLIS one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Only on Harry's yes.",
+  "server-rack": "2026-11-07 meshy lane (experiments/2026-11-07-meshy): a Meshy Smart Topology mesh replaces the TRELLIS one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Only on Harry's yes.",
+  "server-rack--s2": "2026-11-07 meshy lane (experiments/2026-11-07-meshy): a Meshy Smart Topology mesh replaces the TRELLIS one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Only on Harry's yes.",
+  "apothecary-drawers--s2": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Blind before/after read: after wins clearly. Harry asked for the batch.",
+  "back-bar-shelves--mod": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Blind before/after read: after wins clearly. Harry asked for the batch.",
+  "organ-pipe": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Blind before/after read: after wins clearly. Harry asked for the batch.",
+  "shelving-wire": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Blind before/after read: after wins clearly. Harry asked for the batch.",
+  "shop-shelf-stocked--apoth": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Blind before/after read: after wins clearly. Harry asked for the batch.",
+  "shop-shelf-stocked--general": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Blind before/after read: after wins clearly. Harry asked for the batch.",
+  "terminal-desk": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Blind before/after read: after wins clearly. Harry asked for the batch.",
+  "alch-reagent-shelf-tall--s1": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "alch-reagent-shelf-tall--s2": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "apothecary-drawers": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "apothecary-drawers--shop": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "back-bar-shelves": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "back-bar-shelves--s2": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "bookcase-ladder": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "bookshelf--arcane": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "bookshelf--arcane--s2": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "bookshelf--fine--s1": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "bookshelf--fine--s2": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "bookshelf--fine--s3": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "cask-rack": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "cask-rack--s2": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "chn-bookcase": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "cooling-unit": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "curio-shelf": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\".",
+  "vending-machine": "2026-11-10 meshy-batch lane (experiments/2026-11-10-meshy-batch): a Meshy Smart Topology mesh replaces the shipped one under the same sku ON PURPOSE (dropin.py; library `was` keeps the old mesh). Flagged by the size check, kept on Harry's review of the before/after pairs: \"none of these should be disqualified\"."
  }
 }

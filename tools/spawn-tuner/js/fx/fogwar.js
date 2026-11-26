@@ -410,6 +410,11 @@ export function createFogWar({ renderer, camera, scene: sourceScene = null, deco
         params:P,
       };
     },
+    // every band in the atlas, lowest first (the atmosphere judges a surface by its band: atmos.js visSurf, 2026-11-24)
+    visionBands(){
+      if(!pass.enabled)return [];
+      return priorLevels.map((L,idx)=>({floorY:L.y,bounds:uniforms.uLevelBounds.value[idx],tile:uniforms.uLevelTiles.value[idx]}));
+    },
     isPointVisible(x,z,y=uniforms.uFloor.value){
       if(!pass.enabled||!priorLevels.length)return true;
       const L=levelForY(y);if(!L)return false;

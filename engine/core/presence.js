@@ -24,7 +24,10 @@ export class PresenceSender {
     const ruler = this.rulerOf?.area === area ? this.rulerOf.ruler : null;
     // FIRST PERSON (client/surfaces/fpv.js): the pawn this seat is looking through, while it is; rides along like the ruler
     const eyes = this.eyesOf?.area === area ? this.eyesOf.id : null;
-    const next = { area, cursor: data.cursor ? [data.cursor[0], data.cursor[1], ...(cy ? [Math.round(cy * 100) / 100] : [])] : null, drag: drag && drag.length ? drag : null, ...(sel?.length && { sel }), ...(ruler && { ruler }), ...(eyes && { eyes }) };
+    // (2026-11-06) and how far above that floor the pointer is, on whatever it is over (a table's top, a pawn, a wall's
+    // face), as a fourth: another seat draws the cursor THERE, not on the floor behind it (client/input.js pointerOn)
+    const lift = data.cursor ? Math.round((+(data.cursor[3] ?? data.cursor.lift ?? 0) || 0) * 100) / 100 : 0;
+    const next = { area, cursor: data.cursor ? [data.cursor[0], data.cursor[1], ...(cy || lift > 0 ? [Math.round(cy * 100) / 100] : []), ...(lift > 0 ? [lift] : [])] : null, drag: drag && drag.length ? drag : null, ...(sel?.length && { sel }), ...(ruler && { ruler }), ...(eyes && { eyes }) };
     const same = this.cur && this.cur.area === area && JSON.stringify(this.cur) === JSON.stringify(next);
     this.cur = next;
     if (!same) { this.dirty = true; this.lastChange = this.now(); }
@@ -69,7 +72,7 @@ export class PresenceView {
     if (!s) { s = { pos: m.cursor ? [...m.cursor] : null, drags: new Map() }; this.seats.set(k, s); }
     Object.assign(s, { area: m.area, seat: m.seat, name: m.name, color: m.color, label: m.label || null, ghost: !!m.ghost, thinking: !!m.thinking, target: m.cursor || s.target, at: this.now(), sel: m.sel || [], away: !m.cursor, ruler: m.ruler || null, eyes: typeof m.eyes === 'string' ? m.eyes : null });
     if (!s.pos && m.cursor) s.pos = [...m.cursor];
-    if (s.pos && m.cursor) s.pos[2] = m.cursor[2] || 0; // its height: the floor it points at (0 from a client that sends none)
+    if (s.pos && m.cursor) { s.pos[2] = m.cursor[2] || 0; s.pos[3] = m.cursor[3] > 0 ? m.cursor[3] : 0; } // its height: the floor it points at (0 from a client that sends none), and how far above it (on a table, a pawn: 2026-11-06)
     // drags in progress (one thing or a whole selection): each glides toward its latest sample
     const list = m.drag ? [].concat(m.drag) : [];
     const keep = new Set(list.map(d => d.id));

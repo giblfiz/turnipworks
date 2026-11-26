@@ -57,11 +57,14 @@ export const MENU = [
   { list: 'pawn.cond.', title: 'Conditions', icon: 'badge-alert', key: 'c' },
   { list: 'pawn.mark.', title: 'Indicators', icon: 'star', key: 'm' },
   { list: 'pawn.aura.', title: 'Aura', icon: 'sparkles', key: 'b' },     // (2026-10-30) Aura up / down / off and the six colours (client/aurafx.js)
+  { list: 'pawn.size.', title: 'Size', icon: 'scaling', key: 'i' },      // (2026-11-06) Bigger, Smaller, tiny to gargantuan (core/size.js): the chord tree's (off the ring: RING_CUT)
+  { cmd: 'pawn.resize', key: 'i' },                 // (2026-11-07) ... and the ring's: one drag button, the props' resize (ringOnly: never in the chord tree)
   { cmd: 'edit.lift', key: 'u' },                   // Raise / lower: a drag button
   { cmd: 'thing.upright', key: 'j' },               // a rolled thing: stand it upright again (the Turn is kept)
   { cmd: 'thing.tilt', key: 'b' },                  // Roll (a thing, not a pawn): a drag button, the turn's gesture about the view's axis
   { cmd: 'stair.flip', key: 'w' },                  // (never offered with a room's Walls) a stair, spiral or ladder: Stairs down / Stairs up
-  { cmd: 'stair.note', key: 'x' },                  // (a stair with a warning, GM) Dismiss stair warning / Show stair warning again
+  { cmd: 'stair.note', key: 'x' },
+  { list: 'elevator.', title: 'Elevator', icon: 'move-vertical', key: 'e' }, // (2026-11-07) an elevator car: Up a floor / Down a floor / Build shaft (client/elevator.js)                  // (a stair with a warning, GM) Dismiss stair warning / Show stair warning again
   { cmd: 'thing.rename', key: 'n' },                // a thing or a building; a pawn's opens its sheet card on the name (off a pawn's ring: RING_NOT_FOR)
   { cmd: 'room.rename', key: 'n' },                 // never offered together with the one above (off the ring)
   { cmd: 'thing.pin', key: 'p' },
@@ -100,7 +103,9 @@ export const NOT_IN_MENU = ['edit.duplicate', 'edit.copy', 'edit.cut', 'room.rot
 //   room drawn off the ground is OFFERED its stair by a button beside it; "add stair" in the bar still plans one
 //   a room's Floor ▸: drag a floor in from the library (it changes the whole room's floor); the bar sets one by name ("floor: cobble")
 // An entry ending in a dot is a whole list, by its prefix.
-export const RING_CUT = ['edit.delete', 'pawn.duplicate', 'pawn.give', 'room.replay', 'room.rename', 'room.floor.', 'room.stair', 'room.roofShow'];
+export const RING_CUT = ['edit.delete', 'pawn.duplicate', 'pawn.give', 'room.replay', 'room.rename', 'room.floor.', 'room.stair', 'room.roofShow', 'pawn.size.'];
+// (2026-11-07) a pawn's Size list is the chord tree's; its ring has the one drag button (pawn.resize), which is `ringOnly`:
+// a command marked ringOnly is never in the chord tree and has no chord (the bar leaves it out too: surfaces/bar.js)
 const offRing = (id) => RING_CUT.some(x => x.endsWith('.') ? id.startsWith(x) : id === x);
 const notInMenu = (id) => NOT_IN_MENU.includes(id);
 // A command that is on the ring for some selections and not for others: true = leave it off the ring for this one.
@@ -139,7 +144,7 @@ function planOf(R) {
 //   ring: true = for the selection ring: without the commands the cuts took off the ring (RING_CUT, RING_NOT_FOR)
 export function menuFor(R, ctx, { skip = new Set(), ring = false } = {}) {
   const plan = planOf(R);
-  const avail = R.available(ctx).filter(c => c.menu && !c.stub && R.isEnabled(c, ctx) && !skip.has(c.id) && plan.place.has(c.id) && !(ring && (offRing(c.id) || RING_NOT_FOR[c.id]?.(ctx))));
+  const avail = R.available(ctx).filter(c => c.menu && !c.stub && R.isEnabled(c, ctx) && !skip.has(c.id) && plan.place.has(c.id) && !(ring && (offRing(c.id) || RING_NOT_FOR[c.id]?.(ctx))) && !(!ring && c.ringOnly));
   const leaf = (c) => ({ cmd: c, key: plan.place.get(c.id).key });
   const out = [];
   const orphans = () => { for (const id of plan.orphans) { const c = avail.find(c => c.id === id); if (c) out.push(leaf(c)); } }; // a command the table forgot: just before Delete, and reported
@@ -160,6 +165,6 @@ export function menuFor(R, ctx, { skip = new Set(), ring = false } = {}) {
 export const menuOrphans = (R) => planOf(R).orphans;
 // the chord a command answers to: ['Space', 'h'], or ['Space', 'f', 'c'] inside a list (for the "?" sheet and the bar);
 // null when it is not in the menu
-export function chordOf(R, id) { const plan = planOf(R), p = plan.place.get(id); return p && p.key ? ['Space', ...p.path.map(g => plan.keys.get(g)), p.key] : null; }
+export function chordOf(R, id) { const plan = planOf(R), p = plan.place.get(id); return p && p.key && !R.get?.(id)?.ringOnly ? ['Space', ...p.path.map(g => plan.keys.get(g)), p.key] : null; }
 export const titleOf = (n, R, ctx) => n.cmd ? String(R.titleOf(n.cmd, ctx)) : n.title;
 export const iconOf = (n, R, ctx) => n.cmd ? R.iconOf(n.cmd, ctx) : n.icon;

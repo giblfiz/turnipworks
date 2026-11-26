@@ -4,7 +4,7 @@
 //   ?pawn=<figure>          the Add pawn tool with that figure: a click on a square puts the pawn down
 //   ?pack=<TYPE>            the Build menu open at that type (its building tool: drag a footprint)
 //   ?pack=<TYPE>/<room>     ... at that room (its room tool, and its library in the picture-in-picture)
-// (TYPE: the Build menu's type code, TAV, CRY ..., or its slug, tavern-inn; room: the room key, common, crypt-vault ...)
+// (TYPE: the Build menu's type code, TAV, CRY ..., or its slug, tavern-inn, or a one-pack genre's slug, modern; room: the room key, common, crypt-vault ...)
 // HARMLESS FOR PLAYERS: it acts only for the GM's seat, and it only arms a tool: nothing is put down, built or changed
 // without the GM's own click. A player's seat gets a toast and nothing else. The address is cleaned as soon as the link
 // is read, so a reload or an invite link copied afterwards does not carry it (app.inviteLink copies location.search).
@@ -24,10 +24,19 @@ export function withoutDeepLink(loc) {
   return `${loc.pathname}${q.toString() ? '?' + q : ''}${loc.hash}`;
 }
 // the Build menu node a ?pack= value names, or null (pure: the node test runs it on the real taxonomy)
+// A GENRE THAT IS ONE PACK (2026-11-07: the assets page's Modern pack; its types are buildings, a room may be in several):
+// ?pack=modern opens the genre, ?pack=modern/<room> the room under the first building that has it. The old slugs and codes
+// (modern-city, cyberpunk, MOD, CYB: the genre's City and Cyberpunk types until then) still land the same way.
 export function packNode(taxonomy, types, value) {
   const [t, room] = String(value).split('/');
   const w = (t || '').toLowerCase(), type = (types || []).find(x => x.code.toLowerCase() === w || x.slug === w);
-  const tn = type && taxonomy.get(`t:${type.code}`); if (!tn || tn.disabled) return null;
+  if (!type) {
+    const g = (taxonomy.genres || []).map(id => taxonomy.get(id)).find(n => n?.pack && (n.pack === w || n.was?.includes(w))); if (!g) return null;
+    if (!room) return g;
+    for (const tid of g.children) { const tn = taxonomy.get(tid), rn = !tn?.disabled && taxonomy.get(`r:${tn.code}:${room}`); if (rn) return rn; }
+    return null;
+  }
+  const tn = taxonomy.get(`t:${type.code}`); if (!tn || tn.disabled) return null;
   if (!room) return tn;
   return taxonomy.get(`r:${type.code}:${room}`) || null;
 }
@@ -68,7 +77,7 @@ export function act(app, { kind, value }, types) {
     const n = packNode(app.taxonomy, types, value);
     if (!n) return { ok: false, msg: `No "${value}" in the Build menu of this version of the game` };
     app.build.restore(app.taxonomy.pathOf(n.id)); app.build.open();
-    return { ok: true, msg: n.level === 'room' ? `${n.label}: drag on the ground to draw it, or take things from its library` : `${n.label}: drag a footprint to build one` };
+    return { ok: true, msg: n.level === 'room' ? `${n.label}: drag on the ground to draw it, or take things from its library` : n.level === 'genre' ? `${n.label}: pick a building` : `${n.label}: drag a footprint to build one` };
   }
   return { ok: false, msg: null };
 }

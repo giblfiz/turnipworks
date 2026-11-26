@@ -41,6 +41,9 @@ def listed(T):
         for f in json.loads(figs.read_text()).get('figures', []):
             out[f['url']] = 'figure ' + f['id']
             if f.get('full'): out[f['full']] = 'figure ' + f['id'] + ' original'
+            fly = f.get('fly') or {}   # its FLYING pose (experiments/2026-11-06-pawns/fly; build_figures.py)
+            if fly.get('url'): out[fly['url']] = 'figure ' + f['id'] + ' flying'
+            if fly.get('full'): out[fly['full']] = 'figure ' + f['id'] + ' flying original'
     return out
 
 

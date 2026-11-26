@@ -1,0 +1,1064 @@
+{
+ "batch": "fth-01",
+ "note": "see spec_fth.py",
+ "assets": [
+  {
+   "id": "flavor-idol--christian",
+   "object": "flavor-idol",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a tall carved oak crucifix of a High Gothic church",
+   "size": [
+    48.0,
+    30.0,
+    108.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a tall carved oak crucifix of a High Gothic church.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A tall CRUCIFIX of a 13th-14th century Gothic church: a thick carved oak cross with trefoil (three-lobed) ends on its three upper arms, painted deep red with gilt edges, standing in a stepped base of pale carved limestone; on it the carved and painted figure of Christ, arms outstretched along the crossbar, head gently inclined, a calm serene face, a white loincloth, NO blood, NO wounds shown. NO plaque, NO titulus, nothing written above the head. Thick, solid, stout proportions. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 48 in wide x 30 in deep x 108 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a tall carved Gothic crucifix with the figure of Christ on a stone base",
+    "must": [
+     "a cross",
+     "a carved figure of Christ on it",
+     "a stone base"
+    ],
+    "must_not": [
+     "blood or gore",
+     "a plaque or sign on the cross",
+     "a second figure",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-altarpiece--christian",
+   "object": "flavor-altarpiece",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a gilt Gothic altar cross between two candlesticks",
+   "size": [
+    30.0,
+    10.0,
+    30.0
+   ],
+   "aspect": "landscape",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a gilt Gothic altar cross between two candlesticks.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: An ALTAR SET of a Gothic church as ONE piece on one narrow plank-like gilt foot: in the middle a gilt brass CROSS (plain Latin cross with small trefoil ends) on a stepped foot, and either side of it a short gilt PRICKET CANDLESTICK holding a thick white candle. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 30 in wide x 10 in deep x 30 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a gilt altar cross between two candlesticks",
+    "must": [
+     "a cross in the middle",
+     "a candlestick each side"
+    ],
+    "must_not": [
+     "a crucifix figure",
+     "flames",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-sculpture--christian",
+   "object": "flavor-sculpture",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Gothic polychrome statue of the Virgin and Child",
+   "size": [
+    30.0,
+    24.0,
+    84.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Gothic polychrome statue of the Virgin and Child.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A standing VIRGIN AND CHILD statue of 14th-century French Gothic painted wood: Mary standing in a gentle S-curve, a deep blue mantle over a red gown with gilt borders, a white veil and a small gilt crown, a calm kind face, holding the Christ Child on her left arm; he raises one hand in blessing. She stands on a carved hexagonal plinth of painted stone with a Gothic arcade moulding. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 30 in wide x 24 in deep x 84 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a painted standing statue of a woman in a blue mantle holding a child, on a plinth",
+    "must": [
+     "a standing woman in a blue mantle",
+     "a small child held on her arm",
+     "a plinth"
+    ],
+    "must_not": [
+     "a warrior",
+     "wings",
+     "a weapon",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-censer--christian",
+   "object": "flavor-censer",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a tall Gothic pricket floor candlestick",
+   "size": [
+    18.0,
+    18.0,
+    66.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a tall Gothic pricket floor candlestick.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A tall PRICKET CANDLESTICK for a Gothic church floor: a stout wrought-iron stem with a brass knop half way up, on three splayed iron feet, a broad brass drip-pan at the top with an iron spike holding a very thick tall white wax candle. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 18 in wide x 18 in deep x 66 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a tall iron floor candlestick with a thick white candle",
+    "must": [
+     "a tall floor candlestick",
+     "a thick candle on top"
+    ],
+    "must_not": [
+     "flames",
+     "several candles",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-font--christian",
+   "object": "flavor-font",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Gothic baptismal font with a pointed wooden cover",
+   "size": [
+    36.0,
+    36.0,
+    54.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Gothic baptismal font with a pointed wooden cover.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A BAPTISMAL FONT of a 14th-century English church: a broad OCTAGONAL bowl of pale carved limestone, each face carved with a plain quatrefoil, on a thick octagonal pedestal and a stepped octagonal plinth; on top a tall pointed CONICAL oak COVER with carved crocket ridges and a small finial. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 36 in wide x 36 in deep x 54 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "an octagonal stone font with a pointed wooden cover",
+    "must": [
+     "an octagonal stone bowl on a pedestal",
+     "a pointed wooden cover"
+    ],
+    "must_not": [
+     "water spilling",
+     "a figure",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-stand--christian",
+   "object": "flavor-stand",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a brass thurible hanging from its iron stand",
+   "size": [
+    18.0,
+    18.0,
+    54.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a brass thurible hanging from its iron stand.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A THURIBLE STAND of a Gothic church: a stout wrought-iron upright on a tripod foot with a hook arm at the top, and hanging from the hook on three THICK straight brass chain rods a brass THURIBLE (a round censer bowl with a domed pierced lid like a little Gothic tower). It is UNLIT: no flames, no glow, no smoke (the game adds the light). No smoke. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 18 in wide x 18 in deep x 54 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass censer hanging from an iron stand",
+    "must": [
+     "an iron stand",
+     "a hanging brass censer"
+    ],
+    "must_not": [
+     "smoke",
+     "flames",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-idol--buddhist",
+   "object": "flavor-idol",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a gilt seated Buddha of a Tibetan monastery",
+   "size": [
+    60.0,
+    48.0,
+    96.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a gilt seated Buddha of a Tibetan monastery.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A SEATED BUDDHA SHAKYAMUNI of a Tibetan monastery, gilt copper: seated cross-legged in meditation, a serene calm face with lowered eyes, the RIGHT hand reaching down over the right knee with the fingertips touching the ground (the earth-touching gesture), the LEFT hand resting palm-up in the lap; a red-and-gold robe over one shoulder; seated on a broad DOUBLE LOTUS THRONE of gilt petals on a stepped red-painted plinth; behind him a plain smooth oval AUREOLE of gold edged with red. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 60 in wide x 48 in deep x 96 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a serene gilt seated Buddha touching the ground with his right hand, on a lotus throne",
+    "must": [
+     "a seated Buddha figure",
+     "a lotus throne",
+     "an aureole behind him"
+    ],
+    "must_not": [
+     "a standing figure",
+     "many arms",
+     "a dragon",
+     "a warrior",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-altar--buddhist",
+   "object": "flavor-altar",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Tibetan offering table with offering bowls and butter lamps",
+   "size": [
+    60.0,
+    24.0,
+    36.0
+   ],
+   "aspect": "landscape",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Tibetan offering table with offering bowls and butter lamps.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Tibetan monastery OFFERING TABLE: a low long table of red-lacquered wood with carved and gilt borders and painted lotus panels on its front; on its top, in one straight row, SEVEN small polished brass OFFERING BOWLS filled with water, and at the two ends two brass BUTTER LAMPS (goblet-shaped). It is UNLIT: no flames, no glow, no smoke (the game adds the light). Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 60 in wide x 24 in deep x 36 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a red lacquered table with a row of brass bowls",
+    "must": [
+     "a low red table",
+     "a row of small brass bowls on it"
+    ],
+    "must_not": [
+     "food heaps",
+     "flames",
+     "a statue",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-altarpiece--buddhist",
+   "object": "flavor-altarpiece",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Tibetan vajra and handbell on a cushion",
+   "size": [
+    16.0,
+    10.0,
+    10.0
+   ],
+   "aspect": "landscape",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Tibetan vajra and handbell on a cushion.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Tibetan VAJRA AND BELL set: on a small square brocade CUSHION of maroon and gold, a brass VAJRA (dorje: a short thick sceptre with two bulbous rounded ends of curving prongs) lying beside a brass HANDBELL (drilbu) standing upright on its rim, its handle topped with a half vajra. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 16 in wide x 10 in deep x 10 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass sceptre and a handbell on a small cushion",
+    "must": [
+     "a small handbell",
+     "a short double-ended brass sceptre",
+     "a cushion"
+    ],
+    "must_not": [
+     "a weapon",
+     "a large bell",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-sculpture--buddhist",
+   "object": "flavor-sculpture",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Tibetan Bodhi-type chorten (stupa)",
+   "size": [
+    48.0,
+    48.0,
+    96.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Tibetan Bodhi-type chorten (stupa).\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Tibetan CHORTEN of the Bodhi (jangchub) type: a whitewashed square base of FOUR receding steps, above it a white rounded vase-shaped dome, a small square gilt box (harmika) on the dome, then a tapering GILT SPIRE of thirteen stacked rings, a small gilt parasol, and on the very top a gilt crescent moon holding a disc with a little flame-drop point. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 48 in wide x 48 in deep x 96 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a white Tibetan stupa with a gilt ringed spire",
+    "must": [
+     "a white stepped base and dome",
+     "a gilt spire of rings"
+    ],
+    "must_not": [
+     "windows",
+     "a door",
+     "a pagoda roof",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-censer--buddhist",
+   "object": "flavor-censer",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Tibetan brass incense burner on a tall stand",
+   "size": [
+    20.0,
+    20.0,
+    48.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Tibetan brass incense burner on a tall stand.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Tibetan brass INCENSE BURNER: a round bulbous brass bowl with a high DOMED PIERCED LID (pierced with lotus and cloud shapes) and a small lotus finial, on a tall stout brass stand with a round foot. It is UNLIT: no flames, no glow, no smoke (the game adds the light). No smoke. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 20 in wide x 20 in deep x 48 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass incense burner with a pierced domed lid on a tall stand",
+    "must": [
+     "a brass bowl with a pierced domed lid",
+     "a tall stand"
+    ],
+    "must_not": [
+     "smoke",
+     "flames",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-wheel--buddhist",
+   "object": "flavor-wheel",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a large standing Tibetan prayer wheel in its frame",
+   "size": [
+    30.0,
+    30.0,
+    72.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a large standing Tibetan prayer wheel in its frame.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A large standing Tibetan PRAYER WHEEL: a tall upright CYLINDER DRUM of polished copper and brass, its surface EMBOSSED WITH LOTUS PETALS and bands of round ornament only (NO letters: the prayer scroll is hidden inside), turning on a thick vertical iron axle, set in a sturdy wooden FRAME painted red with gilt and green trim, a little roof on the frame, on a square wooden plinth. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 30 in wide x 30 in deep x 72 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a tall copper drum in a red wooden frame",
+    "must": [
+     "a tall upright copper drum",
+     "a red painted wooden frame"
+    ],
+    "must_not": [
+     "letters or script on the drum",
+     "a barrel",
+     "a small handheld wheel",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-idol--hindu",
+   "object": "flavor-idol",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a carved sandstone Ganesha sanctum of a medieval North Indian temple",
+   "size": [
+    60.0,
+    54.0,
+    108.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a carved sandstone Ganesha sanctum of a medieval North Indian temple.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A small enclosed SANCTUM (garbhagriha) of an 11th-century central-Indian temple, carved in warm buff SANDSTONE: a cube-like stone cell with a richly carved DOORWAY in its front (stepped carved door jambs and lintel), a short curved beehive-shaped SHIKHARA tower on top with a round ribbed crowning stone. Inside, seen through the open doorway, a seated GANESHA murti of dark stone: elephant head, FOUR arms (upper right holding an axe, upper left a noose, lower right his broken tusk, lower left a bowl of round sweets, toward which his trunk curves to his left), seated at ease on a low pedestal, a small mouse at his feet, a garland of white jasmine flowers round his neck. Nothing else inside. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 60 in wide x 54 in deep x 108 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a carved stone shrine with a seated elephant-headed figure visible through its doorway",
+    "must": [
+     "a carved stone shrine with a curved tower",
+     "a seated elephant-headed figure inside the doorway"
+    ],
+    "must_not": [
+     "marigolds",
+     "a tower taller than the shrine body is wide x3",
+     "a standing figure",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-altarpiece--hindu",
+   "object": "flavor-altarpiece",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a brass Hindu offering plate on a low stand",
+   "size": [
+    18.0,
+    18.0,
+    12.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a brass Hindu offering plate on a low stand.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Hindu OFFERING PLATE (thali): a round polished brass plate on a short brass stand with a round foot; on the plate a small unlit clay oil lamp (diya), a little heap of white jasmine flowers and one pink lotus flower, two bananas, and two tiny brass bowls, one of red kumkum powder and one of rice. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 18 in wide x 18 in deep x 12 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass plate of flowers, fruit and a little lamp on a low stand",
+    "must": [
+     "a round brass plate",
+     "flowers and a little lamp on it"
+    ],
+    "must_not": [
+     "marigolds",
+     "flames",
+     "a bowl of soup",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-censer--hindu",
+   "object": "flavor-censer",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a tall brass standing oil lamp of a Hindu temple",
+   "size": [
+    16.0,
+    16.0,
+    60.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a tall brass standing oil lamp of a Hindu temple.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A tall Hindu temple standing OIL LAMP (dipa) of polished brass: a stout round stepped foot, a thick turned stem with rings, and at the top a broad flat dish with FIVE small pointed spouts round its rim for wicks, a small finial in its centre. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 16 in wide x 16 in deep x 60 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a tall brass lamp stand with a five-spouted dish on top",
+    "must": [
+     "a tall brass stem",
+     "a flat dish with spouts on top"
+    ],
+    "must_not": [
+     "flames",
+     "a candle",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-bell--hindu",
+   "object": "flavor-bell",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a brass Hindu temple bell hanging from its chain",
+   "size": [
+    14.0,
+    14.0,
+    36.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a brass Hindu temple bell hanging from its chain.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Hindu temple BELL (ghanta) of polished brass: a stout bell shape with a thick rim and a heavy clapper inside, hanging from a short THICK brass chain rod with a round hook at the top. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 14 in wide x 14 in deep x 36 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass bell hanging from a short chain",
+    "must": [
+     "a brass bell",
+     "a short chain above it"
+    ],
+    "must_not": [
+     "a handbell with a handle",
+     "a cow bell",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-gate--hindu",
+   "object": "flavor-gate",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a carved sandstone kirti-torana gateway arch",
+   "size": [
+    96.0,
+    24.0,
+    120.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a carved sandstone kirti-torana gateway arch.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A free-standing KIRTI-TORANA gateway of the 11th-century Solanki style (as at Modhera, Gujarat), carved in warm sandstone: two tall square carved PILLARS on moulded bases, carrying a heavy horizontal carved LINTEL across the top, and between the pillars, below the lintel, a CUSPED (scalloped) arch springing from the pillars. Open in the middle so one walks through it. No walls on either side. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 96 in wide x 24 in deep x 120 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a free-standing carved stone gateway of two pillars and a lintel with a scalloped arch",
+    "must": [
+     "two carved pillars",
+     "a lintel on top",
+     "a scalloped arch between them"
+    ],
+    "must_not": [
+     "a door leaf",
+     "walls",
+     "a roof",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-idol--muslim",
+   "object": "flavor-idol",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Mamluk marble mihrab prayer niche",
+   "size": [
+    72.0,
+    24.0,
+    120.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Mamluk marble mihrab prayer niche.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A MIHRAB of a 15th-century Mamluk mosque in Cairo, as a free-standing wall piece with a FLAT BACK: a tall rectangular frame of polychrome MARBLE INLAY (bands of white, black, red and green marble in geometric patterns) around a deep recessed NICHE with a POINTED ARCH, the arch stones alternating light and dark, the niche's half-dome hood fluted, two slender marble COLUMNS with small capitals standing in the niche's corners; the niche's back wall panelled in striped marble. NO inscription band, NO letters. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 72 in wide x 24 in deep x 120 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a marble prayer niche with a pointed arch in a polychrome inlaid frame",
+    "must": [
+     "a deep niche with a pointed arch",
+     "polychrome marble inlay"
+    ],
+    "must_not": [
+     "a statue or figure",
+     "a door",
+     "letters or calligraphy",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-censer--muslim",
+   "object": "flavor-censer",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a tall Mamluk brass mosque candlestick",
+   "size": [
+    18.0,
+    18.0,
+    54.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a tall Mamluk brass mosque candlestick.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A tall MAMLUK MOSQUE CANDLESTICK of brass: a broad bell-shaped BASE, a short thick neck, a round candle socket on top holding a very thick tall white wax candle; the base inlaid with silver and dark bands of GEOMETRIC ornament and roundels of arabesque (NO inscription). It is UNLIT: no flames, no glow, no smoke (the game adds the light). NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 18 in wide x 18 in deep x 54 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass candlestick with a broad bell base and a thick candle",
+    "must": [
+     "a broad bell-shaped brass base",
+     "a thick candle"
+    ],
+    "must_not": [
+     "flames",
+     "letters",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-pulpit--muslim",
+   "object": "flavor-pulpit",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a carved wooden Mamluk minbar",
+   "size": [
+    30.0,
+    96.0,
+    106.0
+   ],
+   "aspect": "landscape",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a carved wooden Mamluk minbar.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A MINBAR (mosque pulpit) of 15th-century Mamluk Cairo, like the minbar of Sultan Qaytbay: carved dark wood, seen from the side so its whole length shows: a straight STAIR of steps rising between two TRIANGULAR SIDE PANELS filled with GEOMETRIC STAR-PATTERN inlay of wood and ivory; at the low end a tall doorway frame with a small cresting; at the top a small open PAVILION of four posts carrying a BULB-SHAPED wooden cupola. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. NO letters. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 30 in wide x 96 in deep x 106 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a long wooden stair pulpit with star-pattern side panels and a little domed top",
+    "must": [
+     "a straight stair between triangular panels",
+     "geometric star-pattern panels",
+     "a small domed pavilion at the top"
+    ],
+    "must_not": [
+     "a staircase to a floor above",
+     "a figure",
+     "letters",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-lamp--muslim",
+   "object": "flavor-lamp",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "an enamelled glass Mamluk mosque lamp hanging on chains",
+   "size": [
+    14.0,
+    14.0,
+    36.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: an enamelled glass Mamluk mosque lamp hanging on chains.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A MAMLUK MOSQUE LAMP of clear enamelled glass: a wide flaring NECK, a round bulbous BODY with six small glass loop handles, a short foot; painted with enamel BANDS of deep blue, red and gold: geometric bands, roundels and floral arabesque only, NO inscription. It HANGS: at the top, three or four THICK straight chain rods (drawn as solid rods, not fine links) rise to one small ceiling ring; nothing below it touches the ground. It is UNLIT: no flames, no glow, no smoke (the game adds the light). NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 14 in wide x 14 in deep x 36 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a glass lamp with a flared neck and enamelled bands hanging on chains",
+    "must": [
+     "a glass lamp with a flared neck",
+     "enamelled blue and red bands",
+     "chains above"
+    ],
+    "must_not": [
+     "letters or calligraphy",
+     "flames",
+     "a lantern box",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-stand--muslim",
+   "object": "flavor-stand",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "an open empty wooden rehal (Qur'an stand)",
+   "size": [
+    12.0,
+    16.0,
+    14.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: an open empty wooden rehal (Qur'an stand).\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A REHAL: a folding wooden book stand made of two thick boards that cross in an X, opened so that it stands with a V-shaped cradle on top, its boards INLAID with a geometric star pattern in light wood and mother-of-pearl. It is EMPTY: NO book on it. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 12 in wide x 16 in deep x 14 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "an empty X-shaped folding wooden stand with geometric inlay",
+    "must": [
+     "an X-shaped folding wooden stand",
+     "geometric inlay"
+    ],
+    "must_not": [
+     "a book",
+     "letters",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-font--muslim",
+   "object": "flavor-font",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "an octagonal marble ablution fountain of a Mamluk mosque courtyard",
+   "size": [
+    48.0,
+    48.0,
+    40.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: an octagonal marble ablution fountain of a Mamluk mosque courtyard.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: An ABLUTION FOUNTAIN of a Mamluk mosque courtyard: a broad OCTAGONAL basin of white and grey marble with a polychrome inlaid band round its rim, small brass SPOUTS set round its sides, a low marble step round its foot for sitting, and in its centre a short marble post. No water spray. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 48 in wide x 48 in deep x 40 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "an octagonal marble basin with small spouts round it",
+    "must": [
+     "an octagonal marble basin",
+     "small spouts round it"
+    ],
+    "must_not": [
+     "a domed roof",
+     "a statue",
+     "water spray",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-corbel--muslim",
+   "object": "flavor-corbel",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a carved stone muqarnas corbel bracket",
+   "size": [
+    24.0,
+    24.0,
+    30.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a carved stone muqarnas corbel bracket.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: One architectural carved CORBEL bracket, not a freestanding statue: a stout block projecting out from a FLAT VERTICAL wall-mounting back, with a wide FLAT HORIZONTAL TOP to carry a beam; under that top its front is carved as stepped tiers of MUQARNAS cells (little niche-like facets stacked in rows, widening upward), pale limestone. Back completely flat; top completely flat. No wall, no beam. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 24 in wide x 24 in deep x 30 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a stone wall bracket carved with stepped honeycomb-like niches",
+    "must": [
+     "a bracket with a flat top",
+     "stepped muqarnas cells"
+    ],
+    "must_not": [
+     "a figure",
+     "a head",
+     "writing or letters"
+    ]
+   }
+  },
+  {
+   "id": "flavor-gate--hindu--v2",
+   "object": "flavor-gate",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a carved sandstone kirti-torana gateway arch",
+   "size": [
+    96.0,
+    24.0,
+    120.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a carved sandstone kirti-torana gateway arch.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, nearly straight-on FRONT view, only slightly from above and a little to one side, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A free-standing KIRTI-TORANA gateway of the 11th-century Solanki style (as at Modhera, Gujarat), carved in warm sandstone: two tall square carved PILLARS on moulded bases, carrying a heavy horizontal carved LINTEL across the top, and between the pillars, below the lintel, a CUSPED (scalloped) arch springing from the pillars. Open in the middle so one walks through it. It is THIN: the pillars and lintel are only about 2 ft deep, like a doorway frame standing alone; seen from the front so that its thinness is plain. Nothing behind it, nothing in front of it, no walls on either side, no roof, no steps. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 96 in wide x 24 in deep x 120 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a free-standing carved stone gateway of two pillars and a lintel with a scalloped arch",
+    "must": [
+     "two carved pillars",
+     "a lintel on top",
+     "a scalloped arch between them"
+    ],
+    "must_not": [
+     "a door leaf",
+     "walls",
+     "a roof",
+     "writing or letters"
+    ]
+   },
+   "parent_of": "flavor-gate--hindu",
+   "note": "v2 (2026-11-07): the v1 mesh came out as deep as it is wide (9.3 x 9.5 ft, a cube); re-plated near front-on"
+  },
+  {
+   "id": "flavor-censer--buddhist--v2",
+   "object": "flavor-censer",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Tibetan brass incense burner on a tall stand",
+   "size": [
+    20.0,
+    20.0,
+    48.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Tibetan brass incense burner on a tall stand.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Tibetan brass INCENSE BURNER: a round bulbous brass bowl with a high DOMED PIERCED LID (pierced with simple round and lotus-petal openings) and a small lotus finial, on a tall stout brass stand with a round foot. The stem and the foot are PLAIN smooth polished brass with only simple raised rings: NO engraving, NO bands of marks, NO patterns that could look like writing. It is UNLIT: no flames, no glow, no smoke (the game adds the light). No smoke. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 20 in wide x 20 in deep x 48 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass incense burner with a pierced domed lid on a tall stand",
+    "must": [
+     "a brass bowl with a pierced domed lid",
+     "a tall stand"
+    ],
+    "must_not": [
+     "smoke",
+     "flames",
+     "writing or letters"
+    ]
+   },
+   "note": "v2 (2026-11-07): the v1 mesh read: garbled writing-like markings on the stem band"
+  },
+  {
+   "id": "flavor-censer--muslim--v2",
+   "object": "flavor-censer",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a tall Mamluk brass mosque candlestick",
+   "size": [
+    18.0,
+    18.0,
+    54.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a tall Mamluk brass mosque candlestick.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A tall MAMLUK MOSQUE CANDLESTICK of brass: a broad bell-shaped BASE, a short thick neck, a round candle socket on top holding a very thick tall white wax candle; the base decorated ONLY with a few broad bold bands of simple geometric pattern (large interlocking eight-pointed stars and plain chevrons in silver inlay), big and clear; NO roundels, NO knotwork, NO fine arabesque, NOTHING that could look like writing (real Mamluk candlesticks carry inscriptions: this one deliberately has none). It is UNLIT: no flames, no glow, no smoke (the game adds the light). NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 18 in wide x 18 in deep x 54 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass candlestick with a broad bell base and a thick candle",
+    "must": [
+     "a broad bell-shaped brass base",
+     "a thick candle"
+    ],
+    "must_not": [
+     "flames",
+     "letters",
+     "writing or letters"
+    ]
+   },
+   "note": "v2 (2026-11-07): the v1 mesh read: garbled writing-like knotwork in the base medallions"
+  },
+  {
+   "id": "flavor-bell--hindu--v2",
+   "object": "flavor-bell",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a brass Hindu temple bell hanging from its chain",
+   "size": [
+    14.0,
+    14.0,
+    36.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a brass Hindu temple bell hanging from its chain.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Hindu temple BELL (ghanta) of polished brass: a stout SOLID bell shape, its outline a clean smooth curve, its bottom rim a THICK clean round ring seen level (the mouth not shown, the bell seen from the side at eye level), hanging from a short THICK brass rod with a round hook at the top. Simple and whole: no clapper showing, no dents. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 14 in wide x 14 in deep x 36 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a brass bell hanging from a short chain",
+    "must": [
+     "a brass bell",
+     "a short chain above it"
+    ],
+    "must_not": [
+     "a handbell with a handle",
+     "a cow bell",
+     "writing or letters"
+    ]
+   },
+   "note": "v2 (2026-11-07): the v1 mesh read: melted, blobby closed bottom, warped rim"
+  },
+  {
+   "id": "flavor-corbel--muslim--v2",
+   "object": "flavor-corbel",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a carved stone muqarnas corbel bracket",
+   "size": [
+    24.0,
+    24.0,
+    30.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a carved stone muqarnas corbel bracket.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: One architectural carved CORBEL bracket, not a freestanding statue: a stout block projecting out from a FLAT VERTICAL wall-mounting back, with a wide FLAT HORIZONTAL TOP to carry a beam; under that top its front is carved as THREE bold stepped tiers of LARGE muqarnas cells (big, clean, crisply cut niche-like facets, only three or four to a tier, each tier projecting further than the one below), pale smooth limestone, every edge whole and sharp: a sound, unbroken, freshly carved block, no chips, no cracks. Back completely flat; top completely flat. No wall, no beam. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 24 in wide x 24 in deep x 30 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a stone wall bracket carved with stepped honeycomb-like niches",
+    "must": [
+     "a bracket with a flat top",
+     "stepped muqarnas cells"
+    ],
+    "must_not": [
+     "a figure",
+     "a head",
+     "writing or letters"
+    ]
+   },
+   "note": "v2 (2026-11-07): the v1 mesh read: read as broken: missing chunks, fractured stone"
+  },
+  {
+   "id": "flavor-stand--muslim--v2",
+   "object": "flavor-stand",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "an open empty wooden rehal (Qur'an stand)",
+   "size": [
+    12.0,
+    16.0,
+    14.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: an open empty wooden rehal (Qur'an stand).\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A REHAL: a folding wooden book stand made of two thick boards that cross in an X, opened so that it stands with a V-shaped cradle on top. The boards are PLAIN polished dark walnut, their faces SMOOTH and EMPTY, with only a carved scalloped edge and one small carved eight-pointed star cut through each leg below the cradle. It is EMPTY: NO book, NO pages, NO paper, NO cloth on it, NO pattern on the inner faces of the cradle, nothing that could look like an open book or like writing. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 12 in wide x 16 in deep x 14 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "an empty X-shaped folding wooden stand with geometric inlay",
+    "must": [
+     "an X-shaped folding wooden stand",
+     "geometric inlay"
+    ],
+    "must_not": [
+     "a book",
+     "letters",
+     "writing or letters"
+    ]
+   },
+   "note": "v2 (2026-11-07): in all three prayer-hall stills the blind read saw script-like marks on open book pages: the v1 inlaid cradle read as an open book"
+  },
+  {
+   "id": "flavor-idol--muslim--v2",
+   "object": "flavor-idol",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a Mamluk marble mihrab prayer niche",
+   "size": [
+    72.0,
+    24.0,
+    120.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Mamluk marble mihrab prayer niche.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A MIHRAB of a 15th-century Mamluk mosque in Cairo, as a free-standing wall piece with a FLAT BACK: a tall rectangular frame of plain smooth marble in a few BROAD STRIPES of alternating white and red-brown stone (ablaq), with only BIG simple geometric shapes (a few large interlocking squares and plain chevrons) and wide PLAIN borders, around a deep recessed NICHE. NO narrow bands, NO fine patterns, NO knotwork, NO panels of small ornament: nothing that could look like writing or calligraphy (real mihrabs often carry Qur'anic inscriptions; this one deliberately has none). A solid block, closed and finished on every side, with a POINTED ARCH, the arch stones alternating light and dark, the niche's half-dome hood fluted, two slender marble COLUMNS with small capitals standing in the niche's corners; the niche's back wall panelled in striped marble. NO inscription band, NO letters. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 72 in wide x 24 in deep x 120 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a marble prayer niche with a pointed arch in a polychrome inlaid frame",
+    "must": [
+     "a deep niche with a pointed arch",
+     "polychrome marble inlay"
+    ],
+    "must_not": [
+     "a statue or figure",
+     "a door",
+     "letters or calligraphy",
+     "writing or letters"
+    ]
+   },
+   "note": "v2 (2026-11-07): the v1 mesh read saw garbled pseudo-Arabic calligraphy in the border panels"
+  },
+  {
+   "id": "flavor-wheel--buddhist--v2",
+   "object": "flavor-wheel",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "a large standing Tibetan prayer wheel in its frame",
+   "size": [
+    30.0,
+    30.0,
+    72.0
+   ],
+   "aspect": "portrait",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a large standing Tibetan prayer wheel in its frame.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A large standing Tibetan PRAYER WHEEL: a tall upright CYLINDER DRUM of polished copper and brass, its surface SMOOTH polished copper with only ONE broad ring of a few LARGE simple lotus petals round its middle and plain raised rims at top and bottom; NO bands of small marks, NO embossed patterns, nothing that could look like writing or script (real prayer wheels carry the mantra in Tibetan letters; this one deliberately has none: the prayer scroll is hidden inside), turning on a thick vertical iron axle, set in a sturdy wooden FRAME painted red with gilt and green trim, a little roof on the frame, on a square wooden plinth. Made with reverence: dignified, calm, symmetrical where the real object is, a sacred object treated respectfully, never cartoonish. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 30 in wide x 30 in deep x 72 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "a tall copper drum in a red wooden frame",
+    "must": [
+     "a tall upright copper drum",
+     "a red painted wooden frame"
+    ],
+    "must_not": [
+     "letters or script on the drum",
+     "a barrel",
+     "a small handheld wheel",
+     "writing or letters"
+    ]
+   },
+   "note": "v2 (2026-11-07): the v1 mesh read saw stylized pseudo-script embossed on the drum"
+  },
+  {
+   "id": "flavor-stand--muslim--v3",
+   "object": "flavor-stand",
+   "group": "p1",
+   "source": "generate",
+   "lane": "3d",
+   "route": "trellis",
+   "subject": "an open empty wooden rehal (Qur'an stand)",
+   "size": [
+    12.0,
+    16.0,
+    14.0
+   ],
+   "aspect": "square",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: an open empty wooden rehal (Qur'an stand).\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A REHAL, built very CHUNKY and SOLID for a tabletop miniature: a folding wooden book stand made of two THICK single slabs of wood that cross in an X, joined where they cross by one thick solid wooden peg, no thin struts, no gaps, no separate hinges, every part one solid whole, opened so that it stands with a V-shaped cradle on top. The boards are PLAIN polished dark walnut, their faces SMOOTH and EMPTY, with only a carved scalloped edge and one small carved eight-pointed star cut through each leg below the cradle. It is EMPTY: NO book, NO pages, NO paper, NO cloth on it, NO pattern on the inner faces of the cradle, nothing that could look like an open book or like writing. NO figures, NO faces, NO animals anywhere: geometric and arabesque ornament only. Built CHUNKY for a tabletop miniature: every post, leg, rail, handle and bar is THICK; nothing thin, no wire, no string, no dangling loose parts. Real-world size about 12 in wide x 16 in deep x 14 in tall: keep these proportions. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "refs": [
+    "style-anchor.png"
+   ],
+   "gate": {
+    "desc": "an empty X-shaped folding wooden stand with geometric inlay",
+    "must": [
+     "an X-shaped folding wooden stand",
+     "geometric inlay"
+    ],
+    "must_not": [
+     "a book",
+     "letters",
+     "writing or letters"
+    ]
+   },
+   "note": "v3 (2026-11-07): v2 (plain wood) read clean of text but structurally broken: detached struts, floating hinge joints"
+  }
+ ]
+}

@@ -240,7 +240,7 @@ export function createShare(app, { thumbs }) {
         if (v) { v.position.set(t.x, t.y || 0, t.z); g.add(v); fade(v); }
       }
       Sh.ghost = { name: doc.name, rooms: doc.rooms.length, things: doc.objects.length, pawns: doc.pawns.length, at: null };
-      app.toast(`Place “${doc.name}”: click where it goes · Esc cancels`);
+      if (!app.handheld) app.toast(`Place “${doc.name}”: click where it goes · Esc cancels`); // (a phone: the chip, client/handheld.js)
       app.refresh(); return true;
     },
     clear() { ghost?.parent?.remove(ghost); ghost = null; const w = app.worlds.get(app.area()); for (const k of cellKeys) w?.clearCells(k); cellKeys = new Set(); if (label) { label.hidden = true; label.classList.remove('bad'); } },

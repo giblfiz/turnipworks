@@ -1,8 +1,10 @@
 // The Build launcher and its tray (Harry 2026-10-03, revised 2026-10-04; docs/UI.md "Build menu").
 //   launcher   a floating icon box, upper-left (the painted hammer and saw); B or a click pulls out the tray
 //   tray       ONE panel that pulls out from the left, its left edge on the launcher's, as tall as it needs (up to the
-//              full screen height). The levels above sit at the top as a stacked breadcrumb (click one to go back up
-//              to it); the current level's options fill the rest as a two-column grid of big icon tiles, labels under,
+//              full screen height). The levels above sit at the top as stacked chips, each named for the list it goes
+//              back to ("Genres", "Types") and wearing the icon of that list's owner; under them a header says where you
+//              are (the owner's icon, its parent in grey, the owner big: surfaces/where.js, 2026-11-12); the current
+//              level's options fill the rest as a two-column grid of big icon tiles, labels under,
 //              scrolling. It opens where you left it, per campaign and seat, with that item's tool live.
 //   tree       Genre → Type → Room. Furniture and objects come from the room type's LIBRARY area, which opens in
 //              the PiP whenever a room type is picked (drag a thing out, or copy and paste it).
@@ -16,6 +18,7 @@
 //              So B, Shift+T, c, t = Build, up to types, Castle, Throne room. Level jumps never collide with items.
 import { icon } from '../icons.js';
 import { LEVELS, LEVEL_LABEL, LEVEL_KEY } from '../taxonomy.js';
+import { whereHead, navChip } from './where.js';
 
 const COLS = 2;
 
@@ -34,7 +37,9 @@ export function buildSurface(R, app) {
     current: () => { load(); return S.path.slice(); },
     restore: (path) => { S.path = path.filter(id => X.get(id)); S.active = Math.max(0, S.path.length - 1); save(); },
     ownsKey: (k) => S.isOpen && listAt(S.active).some(n => n.hot === k), // (surfaces/tray.js: the launcher's own letter, when it is an item of the list)
-    state: () => ({ open: S.isOpen, path: S.path.map(id => X.get(id).label), levels: S.path.map(id => X.get(id).level), active: LEVELS[S.active], tool: app.mode?.tool ? app.mode.kind : null, list: listAt(S.active).map(n => `${n.hot || '·'}:${n.label}`) }),
+    state: () => ({ chips: [...menu.querySelectorAll('.bchip')].map(c => ({ text: c.querySelector('span:not(.nic)').textContent, key: c.querySelector('kbd')?.textContent || '', icon: c.querySelector('.nic')?.getAttribute('src') || null })),
+      where: S.isOpen ? { path: menu.querySelector('.bwhere .wpath')?.textContent || '', label: menu.querySelector('.bwhere b')?.textContent || '', icon: menu.querySelector('.bwhere .nic')?.getAttribute('src') || null } : null,
+      open: S.isOpen, path: S.path.map(id => X.get(id).label), levels: S.path.map(id => X.get(id).level), active: LEVELS[S.active], tool: app.mode?.tool ? app.mode.kind : null, list: listAt(S.active).map(n => `${n.hot || '·'}:${n.label}`) }),
   };
   function load() {
     if (S.loadedFor === storeKey()) return;
@@ -57,6 +62,10 @@ export function buildSurface(R, app) {
     const fb = n.level === 'genre' ? 'sparkles' : n.level === 'type' ? 'house' : 'square-dashed';
     return `<img class="nic" src="data/icons/${key}.png?v=${window.TW_V || 'dev'}" alt="" width="${size}" height="${size}" data-fb="${fb}" data-fbs="${Math.round(size * 0.6)}">`;
   };
+
+  // the Genres list's own icon: all the genres at once (a dragon and a spaceship, 2026-11-12); it never changes
+  const allIcon = (size) => `<img class="nic" src="data/icons/genres-all.png?v=${window.TW_V || 'dev'}" alt="" width="${size}" height="${size}" data-fb="sparkles" data-fbs="${Math.round(size * 0.6)}">`;
+  const ownerIcon = (i, size) => i ? nodeIcon(X.get(S.path[i - 1]), size) : allIcon(size); // the icon of whatever owns list i
 
   // ---------- open / close ----------
   function open() {
@@ -123,12 +132,17 @@ export function buildSurface(R, app) {
   }
   function render() {
     menu.hidden = false;
-    const ancestors = S.path.slice(0, S.active).map(id => X.get(id));
     const list = listAt(S.active), sel = S.path[S.active], selNode = sel && X.get(sel), level = LEVELS[S.active];
+    // THE BREADCRUMB RULE (surfaces/where.js): a chip per level above, named for the list it opens and wearing its owner's
+    // icon; the header says where you are (the owner of this list, its parent in grey)
+    const chips = S.path.slice(0, S.active).map((_, i) => { const lv = LEVELS[i], owner = i && X.get(S.path[i - 1]);
+      return navChip({ attrs: `data-anc="${i}"`, pic: ownerIcon(i, 32), label: LEVEL_LABEL[lv], key: `⇧${LEVEL_KEY[lv]}`, tip: `Back to the ${LEVEL_LABEL[lv].toLowerCase()}${owner ? ` of ${owner.label}` : ''}` }); });
+    const owner = S.active ? X.get(S.path[S.active - 1]) : null;
+    const where = whereHead(owner ? { pic: nodeIcon(owner, 32), trail: S.path.slice(0, S.active - 1).map(id => X.get(id).label), label: owner.label } : { label: LEVEL_LABEL[level] });
     menu.innerHTML = `
       <div class="thead"><b>Build</b><button data-factions title="Browse faction pieces">Factions</button>${app.tray.pinButton('build')}</div>
-      <div class="banc">${ancestors.map((n, i) => `<button class="bchip" data-anc="${i}" title="Back to ${LEVEL_LABEL[n.level].toLowerCase()} (⇧${LEVEL_KEY[n.level]})">${nodeIcon(n, 32)}<span><small>${LEVEL_LABEL[n.level]}</small>${esc(n.label)}</span><kbd>⇧${LEVEL_KEY[n.level]}</kbd></button>`).join('')}</div>
-      <header class="blevel"><b>${LEVEL_LABEL[level]}</b><kbd>⇧${LEVEL_KEY[level]}</kbd></header>
+      ${chips.length ? `<div class="banc">${chips.join('')}</div>` : ''}
+      ${where}
       <div class="bgrid clip">${list.map(n => tile(n, n.id === sel)).join('')}</div>
       <footer>${stopHint(selNode || X.get(S.path[S.active - 1]))}<br><kbd>⇧G T R</kbd> levels · <kbd>⌫</kbd> up · <kbd>${app.tray.pinned('build') ? 'B' : 'Esc'}</kbd> close</footer>`;
     app.tray.wirePin(menu);

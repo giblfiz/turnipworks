@@ -1,0 +1,94 @@
+### Text and Labels
+
+Across all four images (**img1.png**, **img2.png**, **img3.png**, and **img4.png**), there is **no readable text, numbers, or labels** visible anywhere on the tabletop grid, the circular bases, the flight rods, or the miniature figures.
+
+---
+
+### Image-by-Image Analysis
+
+#### **img1.png**
+* **Creature Identification:**
+  * **Best guess:** Red dragon (specifically a young red dragon or wyrmling).
+  * **Second guess:** Wyvern (or pseudodragon / drake).
+* **Posture & Flight:** **FLYING** (airborne, hovering with wings spread upward and backward in a V-shape).
+* **Colours:** Red body and wing membranes; pale cream / white horns and underbelly; mounted on a peach / light orange rod with a matching peach rim around a flat grey base.
+* **Condition / Faults:** None. The model is intact, fully opaque, correctly proportioned, and clearly readable.
+
+---
+
+#### **img2.png**
+* **Creature Identification:**
+  * **Best guess:** Red dragon (or crimson drake).
+  * **Second guess:** Wyvern (or spined devil / winged demon).
+* **Posture & Flight:** **FLYING** (airborne, wings spread in an active swooping / banking maneuver with one wing arched high).
+* **Colours:** Crimson / dark red body and wings with black edging/talons along the wing spines and tips; tan / lighter facial highlights; peach / light orange flight rod and base rim; flat grey base.
+* **Condition / Faults:** None broken or missing; slightly hard to read fine anatomical details due to the sharp banking angle and foreshortened sculpt.
+
+---
+
+#### **img3.png**
+* **Creature Identification:**
+  * **Best guess:** Bird of prey (hawk, falcon, or eagle).
+  * **Second guess:** Bat (or brown / copper dragon wyrmling).
+* **Posture & Flight:** **FLYING** (airborne, wings spread upward in mid-stroke).
+* **Colours:** Dark brown / bronze body and wings; peach / light orange tall flight rod and rim; flat grey base.
+* **Condition / Faults:** Hard to read due to very small scale relative to the base and distance, elevated on an unusually tall flight rod.
+
+---
+
+#### **img4.png**
+* **Creature Identification:**
+  * **Best guess:** Red dragon (or dragon wyrmling).
+  * **Second guess:** Wyvern (or pterosaur / imp).
+* **Posture & Flight:** **FLYING** (airborne, wings spread wide horizontally in a flat soaring/gliding glide).
+* **Colours:** Bright red body and wings; peach / light orange tall flight rod and rim; flat grey base.
+* **Condition / Faults:** Hard to read fine facial and body features due to small miniature scale and high elevation on the tall flight rod.
+
+---
+
+```json
+{
+  "images": [
+    {
+      "image": "img1",
+      "creature": "Red dragon",
+      "second": "Wyvern",
+      "flying": true,
+      "wings": "spread",
+      "colours": "Red body, cream horns and underbelly, peach rod and rim, grey base",
+      "faults": "none",
+      "blind": "A red dragon miniature with backward-sweeping horns and cream underbelly flying with wings spread upward atop an orange rod on a round grey base."
+    },
+    {
+      "image": "img2",
+      "creature": "Red dragon",
+      "second": "Wyvern",
+      "flying": true,
+      "wings": "spread",
+      "colours": "Crimson red with black wing trim, peach rod and rim, grey base",
+      "faults": "Hard to read due to steep banking pose",
+      "blind": "A crimson dragon miniature with black-tipped wings sculpted in an aggressive banking dive on an orange flight stand over a round grey base."
+    },
+    {
+      "image": "img3",
+      "creature": "Bird of prey",
+      "second": "Bat",
+      "flying": true,
+      "wings": "spread",
+      "colours": "Dark brown body and wings, peach rod and rim, grey base",
+      "faults": "Hard to read due to very small scale and high altitude",
+      "blind": "A tiny dark brown winged creature flying with wings held high atop a tall orange flight rod mounted in a round grey base."
+    },
+    {
+      "image": "img4",
+      "creature": "Red dragon",
+      "second": "Wyvern",
+      "flying": true,
+      "wings": "spread",
+      "colours": "Bright red body and wings, peach rod and rim, grey base",
+      "faults": "Hard to read due to small scale and high altitude",
+      "blind": "A small red dragon miniature gliding with wings spread horizontally flat atop a tall orange flight rod on a round grey base."
+    }
+  ]
+}
+```

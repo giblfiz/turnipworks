@@ -1,0 +1,32 @@
+sku	object	group	lane	gen	family	tier	shape	place	fp	mat	pri	desc	hint	open_of	mount	flags	note	size	source
+art-canvas	art-canvas		3d	mesh				wall	sub	mixed	P2	large abstract painting on a deep canvas	walls that are not glass		54	hung	mesh gate: accepted; notes: footprint proportion 1.63x off the catalog (5.0 x 0.5 ft)		art-canvas
+bar-cart	bar-cart		3d	mesh				floor	sub	metal	P2	brass bar cart with decanters	by the sofa				mesh gate: accepted		bar-cart
+bathtub	bathtub		3d	mesh				wall	1x2	ceramic	P1	white enamel bathtub	THE bathroom's signature, along the far wall				mesh gate: accepted		bathtub
+bed-platform	bed-platform		3d	mesh				floor	2x2	cloth	P2	low king-size platform bed with an upholstered headboard	a penthouse's open loft				mesh gate: accepted		bed-platform
+cooler-walkin-door	cooler-walkin-door		3d	mesh				wall	1	metal	P1	walk-in cooler door in its insulated front	a kitchen's side wall				mesh gate: accepted; notes: footprint proportion 2.37x off the catalog (5.9 x 2.3 ft)		cooler-walkin-door
+dining-set-lux	dining-set-lux		3d	mesh				floor	2x2	stone	P2	long stone dining table with six chairs	by the kitchen				mesh gate: accepted		dining-set-lux
+dish-station	dish-station		3d	mesh				wall	1x2	metal	P1	restaurant dish pit with sinks and a dishwasher	by the kitchen door				mesh gate: accepted		dish-station
+elevator-car	elevator-car		3d	mesh				floor	1	metal	P1	open-topped elevator cab, a platform pawns stand on	rides its shaft (engine/core/elevator.js): moved up or down a floor				mesh gate: an open-topped cab; sized to its own proportions at a 5-ft width (the catalog box 60x60x96 made it 8 ft wide: it would not fit a shaft square); its floor is 12.4% of its height (measured: core/elevator.js CAR_DECK)	60x51x58	elevator-car
+elevator-doors	elevator-doors		3d	mesh				wall	1	metal	P1	elevator landing doors in a steel frame	one on each floor the shaft serves				mesh gate: accepted		elevator-doors
+fridge-reach-in	fridge-reach-in		3d	mesh				wall	1	metal	P1	two-door steel reach-in fridge	kitchens				mesh gate: accepted; notes: footprint proportion 1.49x off the catalog (4.1 x 3.7 ft)		fridge-reach-in
+kitchen-island	kitchen-island		3d	mesh				floor	1x2	stone	P1	marble-topped kitchen island with a breakfast bar	before the fitted kitchen				mesh gate: accepted		kitchen-island
+kitchen-run-lux	kitchen-run-lux		3d	mesh				wall	1x2	mixed	P1	luxury fitted kitchen run with an oven column	a penthouse's kitchen wall				mesh gate: accepted		kitchen-run-lux
+ladder-fire-escape	ladder-fire-escape		3d	thin				wall	edge	metal	P1	steel fire-escape drop ladder	from the lowest landing down to the street (hopped, as a ladder)				mesh gate: accepted; notes: footprint proportion 2.41x off the catalog (2.6 x 2.1 ft)		ladder-fire-escape
+lounge-chair	lounge-chair		3d	mesh				floor	1	cloth	P2	leather lounge chair with its ottoman	beside the sectional				mesh gate: accepted; notes: 1 separate piece(s) standing on the floor (24%)		lounge-chair
+mirror-bathroom	mirror-bathroom		3d	mesh				wall	sub	glass	P1	bathroom mirror with a light bar	over a basin		52	hung	mesh gate: accepted; notes: footprint proportion 2.99x off the catalog (2.5 x 1.0 ft)		mirror-bathroom
+piano-grand	piano-grand		3d	mesh				floor	1x2	wood	P1	black grand piano with its bench	a penthouse's far corner				mesh gate: accepted; notes: height proportion 1.49x off the catalog		piano-grand
+pot-rack-wall	pot-rack-wall		3d	mesh				wall	1	metal	P2	wall rack of hanging pots and pans	over the prep line		60	hung	mesh gate: accepted		pot-rack-wall
+range-commercial	range-commercial		3d	mesh				wall	1x2	metal	P1	commercial six-burner gas range	THE kitchen's signature, on the far wall				mesh gate: accepted		range-commercial
+range-hood	range-hood		3d	mesh				ceiling	1x2	metal	P2	stainless canopy extractor hood	over the range (drawn from a pawn's eyes only)				mesh gate: accepted; notes: height proportion 1.9x off the catalog		range-hood
+shelving-wire	shelving-wire		3d	mesh				wall	1	metal	P1	wire shelving of dry goods	kitchens, storerooms				mesh gate: accepted		shelving-wire
+shower-stall	shower-stall		3d	mesh				floor	1	glass	P1	glass-walled shower cubicle	a bathroom's corner				mesh gate: accepted		shower-stall
+sink-row	sink-row		3d	mesh				wall	1x2	stone	P1	restroom counter with three basins	a restroom's side wall				mesh gate: accepted		sink-row
+sink-vanity	sink-vanity		3d	mesh				wall	sub	ceramic	P1	bathroom vanity with a basin	bathrooms				mesh gate: accepted		sink-vanity
+sofa-sectional	sofa-sectional		3d	mesh				floor	2x2	cloth	P1	big L-shaped sectional sofa	THE penthouse's signature, facing the glass				mesh gate: accepted		sofa-sectional
+stair-fire-escape	stair-fire-escape		3d	kit				kit	1x2	metal	P1	steel fire-escape stair flight with handrails, one storey	a fire escape: one flight a landing (core/stairs.js STAIR_ROLES: walked)				mesh gate: accepted; notes: height proportion 1.85x off the catalog | underside: the mesh's middle is not over what touches the floor (leaning or cantilevered)		stair-fire-escape
+table-prep-steel	table-prep-steel		3d	mesh				floor	1x2	metal	P1	stainless steel kitchen prep table	the prep line facing the range (a surface: food is set on it)				mesh gate: accepted		prep-table-steel
+toilet	toilet		3d	mesh				wall	sub	ceramic	P1	white porcelain toilet	bathrooms				mesh gate: accepted		toilet
+toilet-stall	toilet-stall		3d	mesh				floor	1	mixed	P1	public restroom toilet cubicle	a restroom's row				mesh gate: accepted; notes: height proportion 1.52x off the catalog		toilet-stall
+towel-rail	towel-rail		3d	mesh				wall	sub	metal	P3	chrome towel rail with towels	bathrooms		40	hung	mesh gate: accepted		towel-rail
+urinal	urinal		3d	mesh				wall	sub	ceramic	P2	wall urinal with a privacy divider	a restroom's other side wall				mesh gate: accepted		urinal
+wall-tiled--drywall	wall-tiled		3d	kit	drywall			kit	edge	stone	P1	wall section tiled in white subway tiles with a sage band	bathrooms, restrooms, kitchens (walls.js PANELS: a special panel of drywall)				mesh gate: accepted; notes: wall solid: w:h 0.50, depth:h 0.13, largest opening 0% x 0%, filled 99%		wall-tiled--drywall

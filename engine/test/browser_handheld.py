@@ -160,7 +160,7 @@ async def phone(p, page, W, H):
     await bar_pick('chair plain')
     st = await pg.evaluate("({ mode: tw.mode?.kind, chip: tw.handTool, chipShown: !document.getElementById('handTool').hidden, results: document.getElementById('results').hidden, settings: !!document.querySelector('.smodal') && getComputedStyle(document.querySelector('#settingsModal') || document.body).display !== 'none' && !document.querySelector('#settingsModal')?.hidden })")
     cancel = await pg.evaluate(f"({BOX})('#handTool button')")
-    check(st['mode'] == 'place' and st['chipShown'] and 'lift your finger' in (st['chip'] or '') and st['results'] and cancel and min(cancel[2] - cancel[0], cancel[3] - cancel[1]) >= 40, f'PLACE {tag}: a tapped bar row arms the tool; the chip says what to do and has Cancel (>= 40 px)', {**st, 'cancel': cancel})
+    check(st['mode'] == 'place' and st['chipShown'] and 'tap the table' in (st['chip'] or '') and st['results'] and cancel and min(cancel[2] - cancel[0], cancel[3] - cancel[1]) >= 40, f'PLACE {tag}: a tapped bar row arms the tool; the chip says what to do and has Cancel (>= 40 px)', {**st, 'cancel': cancel})
     check(not st['settings'], f'PLACE {tag}: the row\'s ghost click did not open Settings underneath', st)
     await shot('place-armed')
     n0 = await pg.evaluate(COUNT('object'))

@@ -1,0 +1,98 @@
+(node:1550902) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+inn: ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW GT2) (0x00000412)), Intel open-source Mesa driver) (up in 7.5 s)
+ok
+  Auto: low ({'phase': 'watch', 'last': {'ms': 66.7, 'gpu': 56.8, 'frames': 41, 'preset': 'low', 'at': 1794034754912}, 'note': '', 'told': {'from': 'high', 'to': 'low', 'why': 'frames took 133.3 ms', 'at': 1794034754912}, 'done': True})
+  GPU by pass, inn · asis · moving: total 61.6 ms = RenderPass 39.4, EffectPass 14.4, under 4.4, AtmosPass 2.6, WaterPass 0.9
+  GPU by pass, inn · asis · still: total 57.2 ms = RenderPass 39.4, EffectPass 14.4, AtmosPass 2.5, WaterPass 0.9
+
+== the front web server · inn · asis · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | shed
+ rest    |    32  14.9 | 66.6 133.3 133.4   133   20 |   23.7   28.5 |  48.5  48.5 | 57.7   58.9 |   787    0     0 | 
+ pan     |   171  13.4 | 66.6   150 166.7   217   95 |   26.3     39 |  83.9 182.5 | 63.1   71.7 |   668    5   163 | fog-ha,contac
+ orbit   |   138  12.8 | 66.7 150.1 166.7   167   84 |   25.5     38 |  85.1 183.9 | 66.7   76.1 |   791    0   130 | fog-ha,contac
+ zoom    |    69  13.4 | 66.7 149.9   150   167   46 |   20.9   72.2 | 174.6 284.5 | 61.4   66.9 |   708    0    24 | fog-ha,contac
+ hover   |   158  13.5 | 66.7   150 216.7   233  106 |   17.8  123.7 |  84.1 226.5 | 64.2   77.7 |   789    0    29 | 
+ select  |   117  11.8 | 83.3   150 216.6   300   92 |   66.8  122.3 | 143.9 246.3 | 66.2   76.1 |   789    0    23 | 
+ place   |   150  12.6 | 66.7 150.1   250   333   87 |   23.2   37.2 |  86.4 184.1 | 65.2   74.7 |   789    0   129 | 
+ drag    |   342   6.5 |  150 183.3   200   383  332 |    151  180.7 | 301.7 344.5 | 82.4  110.6 |   787    0    18 | shadow,fog-ha,small-,contac
+ ring    |    56   5.7 |150.1 283.4 533.3   550   52 |  150.1  261.3 | 323.9 506.8 | 88.0  126.8 |   790    0    18 | 
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 18.4  world 2.5  emit 0.9  fxFrame 0.8
+   pan     fxRender 17.8  world 4.0  under 3.4  emit 3.0  input 1.1  fxFrame 0.9
+   orbit   fxRender 16.1  under 3.5  emit 2.7  world 2.5  input 1.0  fxFrame 0.8
+   zoom    fxRender 15.7  world 7.7  input 1.9  emit 1.4  under 1.2  fxFrame 0.8
+   hover   fxRender 20.2  input 11.4  world 10.1  emit 0.8  under 0.7  fxFrame 0.7
+   select  emit 31.2  fxRender 14.8  input 12.7  world 12.2  fxFrame 0.7  under 0.7
+            frame listeners: 28.4 ms (what) => { if (what === 'selection') { expanded = | 0.4 ms (what) => { if (what !== 'frame') return; layer.cl | 0.2 ms (what) => { if (what === 'frame' || what === 'chan
+   place   fxRender 17.5  under 3.7  world 3.4  input 1.8  emit 1.4  fxFrame 0.7
+   drag    emit 128.7  fxRender 13.7  world 4.9  input 1.5  fxFrame 1.2
+            frame listeners: 127.0 ms (what) => { if (what === 'selection') { expanded = | 0.5 ms (what) => { if (what !== 'frame') return; layer.cl | 0.3 ms (what) => { if (what === 'frame') frame(); }
+   ring    emit 131.5  fxRender 12.1  input 11.7  world 10.1  under 1.2  fxFrame 0.9
+            frame listeners: 127.5 ms (what) => { if (what === 'selection') { expanded = | 0.4 ms (what) => { if (what !== 'frame') return; layer.cl | 0.0 ms (what, d) => { if (what === 'frame') { restore(); 
+  idle 60 s: long tasks [[173957.2, 73, None], [175604.3, 347, None]]
+town: ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW GT2) (0x00000412)), Intel open-source Mesa driver) (up in 6.8 s)
+ok
+  Auto: high ({'phase': 'watch', 'last': {'ms': None, 'gpu': None, 'frames': 0, 'preset': 'high', 'at': 1794035003595}, 'note': '', 'told': None, 'done': True})
+  GPU by pass, town · asis · moving: total 392.5 ms = RenderPass 317.0, Pass 27.5, EffectPass 15.4, AtmosPass 11.6, shadow 11.5, under 7.2, pre 1.5, WaterPass 0.9
+  GPU by pass, town · asis · still: total 394.5 ms = RenderPass 322.3, Pass 27.7, shadow 15.6, EffectPass 15.4, AtmosPass 11.6, WaterPass 0.9, pre 0.9
+
+== the front web server · town · asis · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | shed
+ rest    |     6   2.5 |399.9   400   400   400    5 |   80.7   89.7 | 401.7 401.7 |381.9  395.0 |  1474    3     0 | 
+ pan     |   164   2.8 |366.7 533.3 716.7   817  163 |   95.5    114 | 455.8 646.6 |350.6  411.7 |  1308   89   162 | shadow,fog-ha,contac
+ orbit   |   133   1.9 |483.2 999.9 1299.9  1367  132 |  121.2  632.3 | 686.6 1327.7 |509.2  686.6 |  2883   79   132 | shadow,fog-ha,contac
+ zoom    |    61   2.5 |  400 766.6 799.9   833   60 |   74.5  101.4 |1109.3 1306.6 |399.2  457.4 |  1072   41    27 | shadow,fog-ha,contac
+ hover   |   156   2.7 |383.3   450 650.1   783  155 |   80.8  114.3 | 458.1 785.7 |356.0  407.0 |  1483  112    12 | 
+ select  |    85   3.0 |316.7 533.4 616.7   750   84 |  114.4    338 |   425   702 |320.2  424.4 |  1551   58    11 | 
+ place   |    97   2.6 |333.3 466.7 783.3  3166   96 |   91.5    142 | 408.8 658.2 |344.3  448.4 |  1420   67    89 | 
+ drag    |   144   3.3 |283.3 433.3 583.4   617  143 |  219.3  288.2 | 285.1 540.6 |287.1  400.1 |  1443  129    11 | 
+ ring    |    42   2.9 |300.1 599.9 633.4   633   41 |    242    342 | 527.4 803.9 |300.1  339.7 |  1482   29    14 | 
+ main-thread ms a frame (mean), by piece:
+   rest    world 40.8  fxFrame 32.4  fxRender 29.9  emit 2.3
+   pan     world 50.5  fxFrame 38.6  fxRender 30.6  under 5.5  emit 4.5  input 0.9
+   orbit   fxRender 113.0  world 56.1  fxFrame 42.0  under 29.9  emit 6.1  input 0.5
+            frame listeners: 4.6 ms (what) => { if (what !== 'frame') return; layer.cl | 1.2 ms (what) => { if (what === 'frame' || what === 'chan | 0.1 ms (what, d) => { if (what === 'frame') { restore(); 
+   zoom    world 41.8  fxFrame 29.1  fxRender 26.6  emit 3.6  under 2.3  input 1.6
+   hover   fxRender 42.4  world 41.9  fxFrame 30.6  input 5.8  emit 2.4  under 0.7
+   select  fxRender 43.9  world 40.1  emit 39.7  fxFrame 26.4  input 15.5  under 1.0
+            frame listeners: 33.0 ms (what) => { if (what === 'selection') { expanded = | 1.3 ms (what) => { if (what === 'frame' || what === 'chan | 0.8 ms (what) => { if (what !== 'frame') return; layer.cl
+   place   world 43.7  fxRender 39.6  fxFrame 29.4  input 9.9  under 8.7  emit 7.1  cut 4.1
+            frame listeners: 1.3 ms (what) => { if (what === 'frame' || what === 'chan | 1.3 ms (what) => { if (what !== 'frame') return; layer.cl | 0.1 ms (what, d) => { if (what === 'frame') { restore(); 
+   drag    emit 141.7  fxRender 30.8  world 30.5  fxFrame 20.9  input 6.8  cut 0.9  under 0.6  interact 0.3
+            frame listeners: 136.2 ms (what) => { if (what === 'selection') { expanded = | 1.6 ms (what) => { if (what !== 'frame') return; layer.cl | 1.3 ms (what) => { if (what === 'frame' || what === 'chan
+   ring    emit 168.3  world 35.7  fxRender 31.5  fxFrame 20.6  input 16.9  under 2.8
+            frame listeners: 160.0 ms (what) => { if (what === 'selection') { expanded = | 1.3 ms (what) => { if (what !== 'frame') return; layer.cl | 1.2 ms (what) => { if (what === 'frame' || what === 'chan
+  idle 60 s: long tasks [[592445.2, 98, None], [592749, 115, None], [593039.7, 58, None], [593333, 90, None], [593927.9, 98, None], [594515.3, 95, None], [594808.4, 65, None], [595104.7, 85, None], [595394.2, 83, None], [595684.5, 99, None]]
+cave: ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW GT2) (0x00000412)), Intel open-source Mesa driver) (up in 5.8 s)
+ok
+  Auto: low ({'phase': 'watch', 'last': {'ms': 66.6, 'gpu': 55.4, 'frames': 40, 'preset': 'low', 'at': 1794035640414}, 'note': '', 'told': {'from': 'high', 'to': 'low', 'why': 'the picture took 94.4 ms of GPU time a frame', 'at': 1794035640414}, 'done': True})
+  GPU by pass, cave · asis · moving: total 67.1 ms = RenderPass 38.6, EffectPass 15.1, under 10.0, AtmosPass 2.5, WaterPass 0.9
+  GPU by pass, cave · asis · still: total 59.8 ms = RenderPass 41.3, EffectPass 15.1, AtmosPass 2.5, WaterPass 0.9
+
+== the front web server · cave · asis · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | shed
+ rest    |    30  13.7 | 66.6   150   150   150   17 |   14.1   19.2 |  79.7  79.7 | 60.2   63.9 |   369    0     0 | 
+ pan     |   173  12.5 | 66.7 150.1 166.7   200  100 |   24.1   32.7 |  77.3 185.9 | 68.5   87.9 |   333    0   159 | contac
+ orbit   |   137  12.7 | 66.7 150.1 166.7   167   88 |   24.3   33.5 |  87.7 184.5 | 67.5   75.0 |   367    0   130 | contac
+ zoom    |    73  13.6 | 66.7 149.9 166.7   183   46 |     14   28.9 | 149.3 306.9 | 63.5   90.0 |   343    0    16 | contac
+ hover   |   156  14.6 | 66.6 133.4   150   200   91 |   14.7   21.8 |  71.5 153.7 | 58.1   67.0 |   369    0     6 | 
+ select  |   107  14.3 | 66.6 133.4 199.9   217   65 |   14.6   18.8 |  72.6 190.3 | 59.7   80.0 |   369    0     4 | 
+ place   |   139  11.6 | 66.7 183.3 199.9   283   92 |   19.3   31.6 |  93.8 193.8 | 71.7   97.4 |   372    0   116 | 
+ drag    |   342   7.0 |  150 166.6 166.7   450  332 |  142.3    153 | 281.5 301.8 | 79.0  107.5 |   367    0     8 | 
+ ring    |    56   6.4 |  150 283.3 516.6   533   50 |  142.5  227.2 | 286.1 446.4 | 83.3  115.5 |   370    0     7 | 
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 10.7  world 1.2  emit 0.9  fxFrame 0.5
+   pan     fxRender 9.5  under 8.3  emit 3.5  world 1.1  fxFrame 0.5  input 0.4
+   orbit   fxRender 9.7  under 8.3  emit 4.3  world 1.0  fxFrame 0.4  input 0.3
+   zoom    fxRender 9.2  under 1.9  emit 1.6  world 1.0  input 0.6  fxFrame 0.4
+   hover   fxRender 11.2  world 3.5  emit 0.8  input 0.7  fxFrame 0.4  under 0.4
+   select  fxRender 13.0  world 2.6  emit 0.9  input 0.8  fxFrame 0.3  under 0.3
+   place   fxRender 10.6  under 7.4  input 2.2  emit 2.0  world 2.0  fxFrame 0.3
+   drag    emit 126.2  fxRender 7.3  world 2.0  input 0.9  fxFrame 0.4
+            frame listeners: 124.5 ms (what) => { if (what === 'selection') { expanded = | 0.5 ms (what) => { if (what !== 'frame') return; layer.cl | 0.4 ms (what) => { if (what === 'frame') frame(); }
+   ring    emit 125.1  input 7.8  fxRender 6.5  world 4.7  under 0.8  fxFrame 0.5
+            frame listeners: 122.0 ms (what) => { if (what === 'selection') { expanded = | 0.4 ms (what) => { if (what !== 'frame') return; layer.cl | 0.0 ms (what, d) => { if (what === 'frame') { restore(); 
+  idle 60 s: long tasks [[168687.7, 258, None]]
+wrote experiments/2026-11-06-perf/results/baseline-the front web server-auto.json
+tw_sandbox: live house look and ratings unchanged by this run (sandbox lightuse-1550821-6aeecc25)

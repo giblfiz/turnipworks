@@ -12,7 +12,7 @@
 // SECRECY: nothing hidden from players is ever a collider, even when the GM rolls in public: a die that bounced off a
 // hidden pawn or a hidden room's wall would show the players where it stands. So hidden rooms, their walls (an edge
 // whose every side is a hidden room), hidden things, things inside a hidden room and hidden pawns are all left out.
-import { blockingSegments, seeThrough } from './vision.js';
+import { blockingSegments, seeThrough, solidEdges } from './vision.js';
 import { baseUnder, roomTop } from '../core/height.js';
 
 const WALL_T = 0.6, STOREY = 10;
@@ -48,7 +48,7 @@ export function diceWorld({ entities = {}, edges = null, from, level = 0, reach 
   if (edges) {
     const all = edges instanceof Map ? [...edges.values()] : Object.values(edges);
     const vis = all.filter(e => { const hid = (e.sides || []).length > 0 && e.sides.every(s => hiddenRooms.has(s.room)); if (hid) out.left.walls++; return !hid; });
-    for (const [x0, z0, x1, z1] of blockingSegments(vis, known, level)) {
+    for (const [x0, z0, x1, z1] of blockingSegments(solidEdges(vis), known, level)) { // (shop glass and a glass wall: seen through, but a die stops at them)
       const cx = (x0 + x1) / 2, cz = (z0 + z1) / 2; if (!near(cx, cz, from, reach + 10)) continue;
       const len = Math.hypot(x1 - x0, z1 - z0); if (len < 0.01) continue;
       out.boxes.push({ x: cx, y: level + STOREY / 2, z: cz, hx: len / 2 + WALL_T / 2, hy: STOREY / 2, hz: WALL_T / 2, yaw: -Math.atan2(z1 - z0, x1 - x0), wall: true });

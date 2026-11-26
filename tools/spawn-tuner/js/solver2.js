@@ -1104,6 +1104,7 @@ function aisleStore(ctx, kind, feature = null, cfg = {}) {
   };
   if (cfg.receiving === false) choice.receiving = false;
   if (cfg.orient) choice.orient = cfg.orient; // dorms: rows run along the long axis, parallel to the wall beds
+  if (cfg.rows) choice.rows = cfg.rows; // a server room's racks stand back to back (2026-11-07: City / Cyberpunk rows)
   const aisle = choice.aisle;
   // axes: rows (and aisles) run along u; v is across the rows
   const u = choice.orient === 'door' ? (d.side === 'N' || d.side === 'S' ? 'z' : 'x') : (ctx.W >= ctx.D ? 'x' : 'z');
@@ -1149,7 +1150,7 @@ function aisleStore(ctx, kind, feature = null, cfg = {}) {
   const endMargin = (end) => end === doorEnd ? doorExtra + aisle + (choice.receiving ? RECV : 0) + 0.3 : (cfg.endBand ?? band(end === 'min' ? wallOf.uMin : wallOf.uMax)) + 0.3;
   const u0 = uMin + endMargin('min'), u1 = uMax - endMargin('max');
   const v0 = vMin + bandVLo + aisle, v1 = vMax - bandVHi - aisle;
-  if (u1 - u0 < 6 || v1 - v0 < 2) return null;
+  if (u1 - u0 < (cfg.minRun ?? 6) || v1 - v0 < 2) return null; // (minRun: a shop's one-unit gondola is a row)
   const info0 = {};
   // plan the rows first (ids, grid-snapped depths) so a room too narrow for one row gets no phantom aisles
   const snap = (x) => Math.ceil(x / RES - 1e-6) * RES; // whole occupancy cells: faces butt without sharing a cell
@@ -1321,7 +1322,7 @@ function aisleStore(ctx, kind, feature = null, cfg = {}) {
   }
   // wall shelving on every wall but the door's
   const wallSides = ['N', 'S', 'E', 'W'].filter(x => !d || x !== d.side);
-  for (let k = 0, miss = 0; k < 60 && miss < 6; k++) {
+  for (let k = 0, miss = 0; k < (cfg.wallMax ?? 60) && miss < 6; k++) {
     const id = wallPool[k % wallPool.length]; if (!id) break;
     const p = ctx.put(id, (dm) => ctx.wallGen(dm, wallSides), (c) => c.t * 0.01 + wallSides.indexOf(c.side) * 1000, { layer: 'store', rule: 'wall-shelving', why: 'wall shelving (every wall but the door\'s)', failWhy: 'wall full' });
     if (!p) miss++;
@@ -1330,11 +1331,12 @@ function aisleStore(ctx, kind, feature = null, cfg = {}) {
   // receiving area: a few crates and sacks waiting to be shelved
   const inLane = (x, zz, aw, ad) => laneRects.some(r => x + aw / 2 > r[0] && x - aw / 2 < r[2] && zz + ad / 2 > r[1] && zz - ad / 2 < r[3])
     || (d && ctx.inBlast(d, x, zz, Math.max(aw, ad) / 2 + 0.5) && ctx.axis(d, x, zz).along < RECV + 1.5); // stock flanks a clear corridor from the door through the receiving area
-  if (recv) for (const id of ctx.pick(['crate', 'crate', 'sack', 'barrel', 'potato-sack-open'], ctx.ri(3, 5))) ctx.put(id, function* (dm) { for (const c of ctx.rectGen(dm, recv, [0, 0.4, Math.PI / 2], 0.5)) { const [aw, ad] = ctx.aabb(dm.w, dm.d, c.rot); if (!inLane(c.x, c.z, aw, ad)) yield c; } }, () => ctx.r(0, 1), { layer: 'store', rule: 'receiving', why: 'receiving area: waiting to be shelved', allowKeep: true, failWhy: 'receiving area full' });
+  if (recv) for (const id of ctx.pick(cfg.recvIds || ['crate', 'crate', 'sack', 'barrel', 'potato-sack-open'], ctx.ri(3, 5))) ctx.put(id, function* (dm) { for (const c of ctx.rectGen(dm, recv, [0, 0.4, Math.PI / 2], 0.5)) { const [aw, ad] = ctx.aabb(dm.w, dm.d, c.rot); if (!inLane(c.x, c.z, aw, ad)) yield c; } }, () => ctx.r(0, 1), { layer: 'store', rule: 'receiving', why: 'receiving area: waiting to be shelved', allowKeep: true, failWhy: 'receiving area full' });
   ctx.unplaced = ctx.unplaced.filter(x => x.why !== 'receiving area full');
   // lanterns over the aisles, ~every 16 ft
   let lamps = 0;
-  for (const lv of lanes) for (let t = Math.min(ua, ub) + 6; t < Math.max(ua, ub) - 2 && lamps < 16; t += 16) { ctx.ceiling('lantern-hanging', { at: P(t, lv), why: 'lantern over the aisle' }); lamps++; }
+  const lampId = cfg.lamp === undefined ? 'lantern-hanging' : cfg.lamp; // (null: the room lights itself, as a City room's tubes do)
+  if (lampId) for (const lv of lanes) for (let t = Math.min(ua, ub) + 6; t < Math.max(ua, ub) - 2 && lamps < 16; t += 16) { ctx.ceiling(lampId, { at: P(t, lv), why: 'lantern over the aisle' }); lamps++; }
   if (cfg.hang?.length) { // things hung over the working aisles (kitchen: hams, onion strings, kettles), between the lanterns
     let n = 0;
     for (const lv of lanes) for (let t = Math.min(ua, ub) + 3; t < Math.max(ua, ub) - 2 && n < (cfg.hangMax ?? 40); t += cfg.hangEvery ?? 5) {
@@ -1951,7 +1953,7 @@ function attempt(args, k) {
   // 5. edges toward the density target
   fillDensity(ctx);
   // lights for big rooms: a chandelier per ~350 sq ft over zone centres
-  if (ctx.role === 'hub' || area > 300) for (const z of ctx.zones.slice(0, Math.max(1, Math.round(area / 350)))) {
+  if (ctx.role === 'hub' || area > 300) for (const z of ctx.zones.filter(z => !z.noLamp).slice(0, Math.max(1, Math.round(area / 350)))) { // (noLamp: a zone whose room lit it itself)
     const m = 2.6, at = [Math.min(ctx.X1 - m, Math.max(ctx.X0 + m, (z.rect[0] + z.rect[2]) / 2)), Math.min(ctx.Z1 - m, Math.max(ctx.Z0 + m, (z.rect[1] + z.rect[3]) / 2))];
     const hang = ctx.slot('light').filter(id => ctx.lib.objects[id]?.place === 'ceiling');
     const lamp = (ctx.role === 'hub' || key === 'fine') && ctx.has('chandelier-ring') ? 'chandelier-ring' : (hang.find(i => i !== 'chandelier-ring') || 'lantern-hanging');
@@ -2031,7 +2033,7 @@ function finish(ctx, kp, args) {
   const cmdScore = ctx.primary.length ? ctx.primary.reduce((a, c) => a + c.score, 0) / ctx.primary.length : 1;
   const pathOk = ctx.paths.length ? ctx.paths.filter(p => p.ok).length / ctx.paths.length : 1;
   const grammarLost = ctx.expectRows && !(ctx.kitchenRows && ctx.kitchenRows.units >= 4) ? 15 : 0; // an industrial kitchen whose rows collapsed loses to one that kept them
-  const score = (ctx.purposeFail ? 0 : 100) - grammarLost + 20 * cmdScore + 15 * pathOk + 10 * Math.min(1, density / target) + 3 * ctx.zones.length + (visible === false ? -30 : 0) - 0.3 * ctx.unplaced.length;
+  const score = (ctx.purposeFail ? 0 : 100) - grammarLost + 20 * cmdScore + 15 * pathOk + 10 * Math.min(1, density / target) + 3 * ctx.zones.length + (visible === false ? -30 : 0) - 0.3 * ctx.unplaced.length - (ctx.scorePenalty || 0); // (scorePenalty: modKeepWalks, no way to the key piece)
   return {
     engine: 'v2', role: ctx.role, who: ctx.roleInfo.who, purposeFail: ctx.purposeFail, score: +score.toFixed(1),
     room: { id: args.room.id, type: args.type.key, label: args.type.label, cells: [args.room.w, args.room.d], feet: [args.room.w * CELL, args.room.d * CELL], seed: args.room.seed, family: args.room.family },
@@ -2040,7 +2042,8 @@ function finish(ctx, kp, args) {
     zones: ctx.zones, paths: ctx.paths, store: ctx.storeInfo || undefined, stable: ctx.stableInfo || undefined,
     kitchen: ctx.kitchenInfo ? { ...ctx.kitchenInfo, ovens: ctx.placements.filter(p => p.id === 'bread-oven').length, rowsInfo: ctx.kitchenRows ? { rows: ctx.kitchenRows.rows + (ctx.kitchenRows.mixedRows ? ' + single' : '') + (ctx.kitchenRows.rowsDowngraded ? ' (rolled double, room for single)' : ''), orient: ctx.kitchenRows.orient, aisle: ctx.kitchenRows.aisle, axis: ctx.kitchenRows.axis, cross: ctx.kitchenRows.crossAisles, hung: ctx.kitchenRows.hung || 0 } : undefined } : undefined,
     focal: ctx.focal || undefined, wealth: ROOM_WEALTH[args.type.key] || args.type.wealth || 'common',
-    yard: ctx.yardInfo || undefined, dorm: ctx.dormInfo || undefined, rows: ctx.kitchenRows || ctx.dormRows || undefined,
+    yard: ctx.yardInfo || undefined, dorm: ctx.dormInfo || undefined, modInfo: ctx.modInfo || undefined, cybInfo: ctx.cybInfo || undefined, mxInfo: ctx.mxInfo || undefined, // (modInfo: type:mod, what a City room's program laid; cybInfo: type:cyb, a Cyberpunk room's)
+    rows: ctx.kitchenRows || ctx.dormRows || undefined,
     growth: ctx.growth, rolls: ctx.rolls,
     anatomy: { companions: ctx.placements.filter(p => p.rule === 'companion').length, faces: ctx.faces.length, dividers: ctx.placements.filter(p => p.rule === 'zone-divider').length, likeWithLike: ctx.placements.filter(p => p.rule === 'like-with-like').length },
     checks: { purpose: { ok: !ctx.purposeFail, what: kp.what || '—', feature: kp.feature?.uid || null, visibleFromDoor: visible, view: viewNote || undefined, privacy: !!kp.privacy }, command: ctx.primary, paths: ctx.paths.map(p => ({ kind: p.kind, ok: p.ok, len: p.len })), density: { value: +density.toFixed(1), target } },
@@ -4061,7 +4064,7 @@ function templeNave(ctx) { return temWith(ctx, (flavor) => {
     if (ccmHas(ctx, 'pillar-round')) for (let s = 12; s <= deep - 7; s += 11) for (const sg of [-1, 1]) { const [x, z] = axis(s, L / 2 + sg * off); if (ccmQuiet(ctx, () => ccmAt(ctx, 'pillar-round', [x, z, toDoor], { layer: 'anchor', rule: 'colonnade', why: 'a column of the nave arcade: two rows, the seats between them, an aisle outside each' }))) cols++; }
     const dw = OPP_SIDE[far];
     if (ccmHas(ctx, 'organ-pipe')) organ = ccmQuiet(ctx, () => ctx.put('organ-pipe', (dm) => ctx.wallGen(dm, [dw], { gap: 0.05 }), (c) => Math.min(c.t, L - c.t), { layer: 'furnish', rule: 'organ', why: 'the organ: against the door wall, in a corner of the west end', unique: true }));
-    for (const sg of [-1, 1]) { const near = axis(deep - 9, sg < 0 ? 0 : L); if (ccmHas(ctx, 'confessional') && ccmQuiet(ctx, () => ctx.put('confessional', (dm) => ctx.wallGen(dm, [lat[sg < 0 ? 0 : 1], dw], { gap: 0.05 }), (c) => Math.hypot(c.x - near[0], c.z - near[1]), { layer: 'furnish', rule: 'confessional', why: 'a confessional against the aisle wall, near the door end' }))) booths++; }
+    for (const sg of [-1, 1]) { const near = axis(deep - 9, sg < 0 ? 0 : L); if (ctx.rite !== 'christian' /* (faith:solver2: a medieval church has none) */ && ccmHas(ctx, 'confessional') && ccmQuiet(ctx, () => ctx.put('confessional', (dm) => ctx.wallGen(dm, [lat[sg < 0 ? 0 : 1], dw], { gap: 0.05 }), (c) => Math.hypot(c.x - near[0], c.z - near[1]), { layer: 'furnish', rule: 'confessional', why: 'a confessional against the aisle wall, near the door end' }))) booths++; }
     // slot 8: flying buttresses along the aisle walls, inside, one about every 20 ft (the plain kit buttress where the flavor has none)
     for (const sg of [-1, 1]) for (let s = 17.5; s <= deep - 12; s += 22) { const id = ccmFirst(ctx, ['flavor-buttress', 'buttress']), near = axis(s, sg < 0 ? 0 : L); if (id && temUnder(ctx, id, 8.98, () => ccmQuiet(ctx, () => ctx.put(id, (dm) => ctx.wallGen(dm, [lat[sg < 0 ? 0 : 1]], { gap: 0.02 }), (c) => Math.hypot(c.x - near[0], c.z - near[1]), { layer: 'anchor', rule: 'buttress', why: 'slot 8: a flying buttress against the aisle wall, inside' })))) butts++; }
     // slot 7: the sculpture at the head of each side aisle, facing down it
@@ -4070,7 +4073,7 @@ function templeNave(ctx) { return temWith(ctx, (flavor) => {
   }
   const tiny = !useDais && altarGap < 3; // a roadside chapel: no room to flank the altar, the idol takes one corner of the altar wall and a light the other
   const kp = chapel(ctx, { ...TEM_NAVE, ...(flavorNeutralCenser(ctx) ? { altarFlank: null } : {}), ...(tiny ? { altarFlank: null } : {}), ...(useDais ? { dais: ['dais'] } : {}), altarGap, firstRow: chancel, pitch: deep >= 30 ? 4.6 : 4, backGap: deep >= 30 ? 5 : 3.5, maxRows: big ? 9 : 6,
-    hung: flavor ? ['flavor-banner'] : [], hangMax: big ? 8 : 4, lectern: big || mid ? null : 'lectern', byDoor: [['font-holy', 0], ['rite-alms-box', 0], ['prayer-candle-rack', 28]] });
+    hung: flavor ? ['flavor-banner'] : [], hangMax: big ? 8 : 4, lectern: big || mid ? null : 'lectern', byDoor: [['font-holy', 0], ['rite-alms-box', 0], ['prayer-candle-rack', 28]], ...(ctx.rite === 'christian' ? faithChurchCfg(deep) : {}) });
   if (kp.fail) return kp;
   const sideDoor = big && d && (d.side !== OPP_SIDE[far] || Math.abs(d.tc - L / 2) > 3); // (or off the axis: a door shared with a passage)
   if (sideDoor) { ctx.sight = null; ctx.sightFeature = null; } // entered from the side (a transept door): the arcade stands between the door and the altar, as it should
@@ -4090,8 +4093,9 @@ function templeNave(ctx) { return temWith(ctx, (flavor) => {
       if (fit >= 0.55) { const sized = temMul(dm, fit), [x, z] = axis(0.12 + sized.d / 2); idol = ctx.record('flavor-idol', sk, sized, x, dais ? dais.dims[1] : 0, z, toDoor, 'anchor', 'flavor-idol', 'slot 2: the idol fitted uniformly behind the altar after its corner was occupied', { ...(dais ? { on: dais.uid } : {}), side: far, slot: 'idol' }); }
     }
   });
-  // slot 5: the sigil in the chancel floor, on the axis
-  temSigil(ctx, axis(frontS + chancel / 2), toDoor, big ? 7.6 : mid ? 5.6 : 4, 'slot 5: the faith\'s emblem in the floor before the altar');
+  // slot 5: the sigil in the chancel floor, on the axis (the Christian labyrinth: large, in the nave floor at the door end)
+  if (ctx.rite === 'christian' && deep >= 34) temSigil(ctx, axis(deep - 1.2 - Math.min(9, L - 8) / 2), toDoor, Math.min(9, L - 8), 'the pavement labyrinth in the nave floor at the door end (faith:solver2)');
+  else temSigil(ctx, axis(frontS + chancel / 2), toDoor, big ? 7.6 : mid ? 5.6 : 4, 'slot 5: the faith\'s emblem in the floor before the altar');
   // the chancel: choir stalls facing each other across the axis (cathedral), the pulpit one side and the lectern the other
   let stalls = 0;
   if (big && ccmHas(ctx, 'rite-choir-stall')) { const [sl, sd] = ccmSize(ctx, 'rite-choir-stall'); for (const sg of [-1, 1]) { const [x, z] = axis(frontS + 2 + sl / 2, L / 2 + sg * (4.2 + sd / 2)), [ax, az] = axis(frontS + 2 + sl / 2);
@@ -4103,7 +4107,8 @@ function templeNave(ctx) { return temWith(ctx, (flavor) => {
   // slot 4: medallions on the end wall either side of the idol (one on the door wall of a small chapel)
   temMount(ctx, 'flavor-relief', L >= 19 ? [far] : [OPP_SIDE[far]], L >= 19 ? 2 : 1, 6.2, 'slot 4: the faith\'s medallion on the wall');
   if (big) for (const sg of [-1, 1]) { const id = ccmFirst(ctx, ['candle-tree', 'candelabra-standing']), [x, z] = axis(frontS + 1.2, L / 2 + sg * (off - 2.2)); if (id) ccmQuiet(ctx, () => ccmAt(ctx, id, [[x, z, toDoor]], { layer: 'light', rule: 'chancel-light', why: 'a tall light at the chancel step' })); }
-  if (!big && deep >= 24 && d && ccmHas(ctx, 'flavor-sculpture') && ccmQuiet(ctx, () => ctx.wall('flavor-sculpture', { sides: [d.side], prefer: 'corner', layer: 'anchor', rule: 'sculpture', why: 'slot 7: the sculpture at the door end, in a corner' }))) sculpt++;
+  if (ctx.rite === 'christian') sculpt += faithChurchExtras(ctx, { far, lat, L, axis, frontS, tiny, big });
+  else if (!big && deep >= 24 && d && ccmHas(ctx, 'flavor-sculpture') && ccmQuiet(ctx, () => ctx.wall('flavor-sculpture', { sides: [d.side], prefer: 'corner', layer: 'anchor', rule: 'sculpture', why: 'slot 7: the sculpture at the door end, in a corner' }))) sculpt++;
   ctx.templeInfo = { buttresses: butts, sculptures: sculpt, flavor, scale: big ? 'cathedral' : mid ? 'nave' : 'chapel', columns: cols, stalls, organ: !!organ, booths, dais: !!dais, idol: idol ? (idol.on ? 'dais' : idol.rule === 'corner' ? 'corner' : 'floor') : null, pulpit: !!pulpit, seats: ctx.chapelInfo?.seats || 0 };
   if (cols) ctx.growth.push(`${cols} columns in two rows`);
   // a chapel too narrow for seats either side of the aisle: benches along the side walls instead
@@ -6043,7 +6048,9 @@ Object.assign(KEY_RE, { 'min-tunnel': null, 'min-junction': null, 'min-face': /^
 const FLAVORS = { evil: ['devils', 'spiders', 'dragons', 'skulls', 'tentacles'], good: ['sun', 'moon', 'nature', 'sword-shield'] };
 const FLAVOR_SLOTS = ['flavor-altarpiece', 'flavor-idol', 'flavor-banner', 'flavor-relief', 'flavor-sigil', 'flavor-censer', 'flavor-sculpture', 'flavor-buttress', 'flavor-corbel'];
 function flavorOf(ctx, list) {
-  const all = [...FLAVORS.evil, ...FLAVORS.good, 'death', 'scales-coin', 'forge-hammer', 'sea-storm'], ask = ctx.room.flavor || ctx.opts?.flavor;
+  const all = [...FLAVORS.evil, ...FLAVORS.good, 'death', 'scales-coin', 'forge-hammer', 'sea-storm'];
+  let ask = ctx.room.flavor || ctx.opts?.flavor;
+  if (ask && faithBarred(ctx, ask, list)) ask = null; // faith:solver2 (2026-11-07): a real-world faith never dresses a cult room
   if (ask && (all.includes(ask) || Object.entries(ctx.lib.objects).some(([id, o]) => id.startsWith('flavor-') && o.skus.some(s => s.shape === ask)))) return ask; // asked for by name: any flavor, in any type (a temple of spiders)
   const defaults = list.filter(f => ['sun', 'moon', 'devils', 'spiders'].includes(f));
   const made = defaults.filter(f => ctx.lib.objects['flavor-idol']?.skus.some(s => s.shape === f)), pool = made.length ? made : defaults.length ? defaults : list;
@@ -7863,3 +7870,2158 @@ Object.assign(KEY, { hill: () => ({ feature: null, what: 'a hill: bare raised gr
 // the cave's squares and seed (engine/core/caves.js, engine/client/caves.js), never furniture; its floor is bare rock the
 // GM furnishes by hand. So its program places nothing.
 Object.assign(KEY, { cave: () => ({ fail: null, feature: null, what: 'a cave: bare rock (the engine stands its walls, pillars and stalagmites)' }) });
+// >>> type:modrooms
+// ---------------- the modrooms lane (2026-11-07): five more rooms of the Modern genre ----------------
+// Harry: "we probably also need a lux apartment option, and definitely need bathroom and fire escape"; then a restaurant
+// kitchen, and "is there anything we can bring over or re-use from our existing model sets?". City (MOD): penthouse,
+// bathroom, public restroom, restaurant kitchen, fire escape; Cyberpunk (CYB): the exec penthouse (the penthouse's program
+// with the near-future dressing). One program a room, on the kit above (ccm* / dun* / castle* / mod*), self-contained
+// here so the City and Cyberpunk blocks are untouched. What names each room from the table camera, the thing laid first:
+//   penthouse  the sectional facing the glass, the grand piano     bathroom  the tub along the far wall, toilet and basin
+//   restroom   a row of toilet cubicles, the sink counter          kitchen   the range under its hood, steel prep tables
+//   fire escape  a steel flight against the building, iron railing round the landing
+// REUSE (Harry: "fantasy surely has some useful stuff"): a role with no modern sku is asked for only when it is in
+// MX_BORROW (experiments/2026-11-07-modrooms/reuse-borrow.json: a blind Gemini era read of each one, at table distance),
+// and then only the looks listed there (a pewter or wicker look of the same role never rolls in a modern room).
+// THE FIRE ESCAPE IS A STAIRWELL (Harry: "fire escape is basically just a stairwell"): one landing room per storey, drawn
+// by the GM up the building's side (`]` to go up a level); each landing's program lays ONE steel flight up to the next,
+// on alternate lanes (core/stairs.js stairCore's switchback), so the flight opens the floor above the day the next
+// landing is drawn and pawns walk it (stairWalk); the lowest landing over the street also drops a steel ladder to the
+// ground (laid a storey down, p.y = -10: it stands on the alley and comes up through the landing).
+const mxSeed = (ctx, ...k) => hash(ctx.baseSeed ?? ctx.room.seed, 'mx', ...k);
+// >>> mx:borrow
+export const MX_BORROW = { // (generated by experiments/2026-11-07-modrooms/integration/borrow_sync.py from reuse-borrow.json: edit there)
+  "cabbage-single": ["cabbage-single"],
+  "carrot-pile": ["carrot-pile"],
+  "onion-pile": ["onion-pile"],
+  "potato": ["potato"],
+  "bread-loaf": ["bread-loaf--s1", "bread-loaf--s2", "bread-loaf--s3"],
+  "bread-long-loaf": ["bread-long-loaf"],
+  "cheese-wheel-cut": ["cheese-wheel-cut"],
+  "meat-raw-joint": ["meat-raw-joint"],
+  "garlic-bulb": ["garlic-bulb"],
+  "apple": ["apple"],
+  "sausage-link": ["sausage-link"],
+  "egg": ["egg"],
+  "ham-sliced": ["ham-sliced"],
+  "saucepan-copper": ["saucepan-copper"],
+  "roasting-pan": ["roasting-pan"],
+  "plate-ceramic": ["plate-ceramic"],
+  "platter-board-handled": ["platter-board-handled"],
+  "vegetable-crate-mixed": ["vegetable-crate-mixed"],
+  "potato-crate": ["potato-crate"],
+  "apple-crate": ["apple-crate"],
+  "fruit-crate-mixed": ["fruit-crate-mixed"],
+  "vegetable-basket-mixed": ["vegetable-basket-mixed"],
+  "knife-rack-wall": ["knife-rack-wall"],
+  "utensil-rack-wall": ["utensil-rack-wall", "utensil-rack-wall--s2"],
+  "rug-round-fine": ["rug-round-fine"],
+  "rug-round": ["rug-round"],
+  "rug-oval": ["rug-oval"],
+  "rug-grand": ["rug-grand"],
+  "rug-striped-woven": ["rug-striped-woven"],
+  "rug-cowhide": ["rug-cowhide"],
+  "rug-sheepskin": ["rug-sheepskin"],
+  "fern-potted": ["fern-potted"],
+  "palm-potted": ["palm-potted--s1", "palm-potted--s2"],
+  "citrus-tree-tub": ["citrus-tree-tub"],
+  "planter-topiary": ["planter-topiary--s1"],
+  "statue-bust": ["statue-bust--s1"],
+  "vase-flowers": ["vase-flowers"],
+  "tea-service-tray": ["tea-service-tray"],
+  "wine-rack": ["wine-rack"],
+  "towel-hanging": ["towel-hanging"],
+  "towel-stack": ["towel-stack--s2"],
+  "rug-runner": ["rug-runner--common"],
+  "plant-pot": ["plant-pot--s1", "plant-pot--s2"],
+  "herb-pot": ["herb-pot"],
+  "railing-iron": ["railing-iron"],
+};
+// <<< mx:borrow
+const MX_TIERS = new Set(['mod', 'cyb']);
+const mxOnly = (fn, { cyb = false } = {}) => (ctx) => {
+  const has = ctx.has, ch = ctx.chooseSku, pool = ctx.skuPool;
+  const modern = (id) => pool.call(ctx, id).some(s => MX_TIERS.has(s.tier));
+  ctx.has = (id) => has.call(ctx, id) && (modern(id) || !!MX_BORROW[id]);
+  ctx.skuPool = (id) => { const p = pool.call(ctx, id); if (modern(id) || !MX_BORROW[id]?.length) return p; const ok = new Set(MX_BORROW[id]); return p.filter(s => ok.has(s.sku)); };
+  ctx.chooseSku = (id, w = {}) => w.tiers ? ch.call(ctx, id, w) : ch.call(ctx, id, { ...w, tiers: cyb && pool.call(ctx, id).some(s => s.tier === 'cyb') ? ['cyb'] : modern(id) ? ['mod'] : [] });
+  try { return fn(ctx); } finally { ctx.has = has; ctx.chooseSku = ch; ctx.skuPool = pool; }
+};
+// a hung thing directly over a piece that stands against a wall (the mirror over the basin, the pot rack over the table)
+function mxOver(ctx, id, base, height, why, layer = 'dress') {
+  if (!base || !ccmHas(ctx, id)) return null;
+  const sk = ctx.chooseSku(id); if (!sk) return null;
+  const dm = ctx.dims(id, sk), [fx, fz] = ctx.facingVec(base.rot), back = base.dims[2] / 2 - dm.d / 2 - 0.02;
+  const side = base.side || null;
+  return ctx.record(id, sk, dm, base.x - fx * back, Math.max(2.5, height - dm.h / 2), base.z - fz * back, base.rot, layer, 'over', why, side ? { side } : {});
+}
+// a run of things side by side against one wall, from its corner (the cubicles, the sinks): `n` at most, `w` ft each
+function mxRunOn(ctx, id, side, n, why, { from = 'start', gap = 0.05, layer = 'anchor', rule = 'mx-run', w = null } = {}) {
+  if (!ccmHas(ctx, id)) return [];
+  const L = ctx.sideLen(side), out = [], [cw, cd] = modBox(ctx, id), each = w || cw; // (the mesh's real box: a cubicle came out deeper than its catalog line)
+  for (let i = 0; i < n; i++) {
+    const step = each * 1.12 + 0.05, t = from === 'start' ? 0.2 + step * (i + 0.5) : L - 0.2 - step * (i + 0.5); // (each roll's own scale varies by up to 10%)
+    if (t - step / 2 < 0 || t + step / 2 > L) break;
+    const [x, z] = ctx.sidePoint(side, t, cd / 2 + gap);
+    const p = castlePut(ctx, id, [[x, z, SIDES[OPP_SIDE[side]].rot]], { layer, rule, why });
+    if (!p) break; p.side = side; out.push(p);
+  }
+  return out;
+}
+
+// PENTHOUSE (terminal): glass walls on every outside wall but the door's (walls.js PANELS); the L-shaped sectional out
+// on the floor facing the glass across a rug and a coffee table, a lounge chair beside; the grand piano in a far corner;
+// the fitted kitchen along a side wall with the island before it and stools at the island; the dining set by the kitchen;
+// the bed against the other side wall in a big room (an open loft); art on a wall that is not glass; plants in corners;
+// a bar cart by the sofa. The exec's (Cyberpunk) adds the wall screen, the sculpture and a parked drone.
+function mxPenthouse(ctx, { exec = false } = {}) {
+  ccmPanels(ctx);
+  const far = ccmFar(ctx), lat = ctx.shuffle(ccmLat(far)), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W, L = ctx.sideLen(far);
+  const glass = new Set((ctx.room.panels || []).map(p => p.side));
+  let screen = null;
+  if (exec && ccmHas(ctx, 'video-screen')) screen = ccmQuiet(ctx, () => ctx.mount('video-screen', { sides: [far, ...lat].filter(s => !glass.has(s)), height: 5.6, layer: 'light', why: 'the big wall screen' }));
+  // the kitchen FIRST (the only tall run, it needs a wall that is not glass): the fitted run along a side wall, the island before it, stools at the island's far side
+  const solid = [lat[0], lat[1], OPP_SIDE[far]].filter(s => !glass.has(s)); // (a tall run never stands against the glass)
+  const kitchen = solid.length ? ccmQuiet(ctx, () => ctx.wall('kitchen-run-lux', { sides: solid, prefer: 'random', layer: 'anchor', why: 'the fitted kitchen along a wall that is not glass' })) : null;
+  let island = null, stools = 0;
+  if (kitchen) {
+    const [kx, kz] = ctx.facingVec(kitchen.rot), dI = modBox(ctx, 'kitchen-island')[1];
+    island = castlePut(ctx, 'kitchen-island', [4, 4.5, 5].map(g => [kitchen.x + kx * (kitchen.dims[2] / 2 + g + dI / 2), kitchen.z + kz * (kitchen.dims[2] / 2 + g + dI / 2), kitchen.rot]), { layer: 'anchor', rule: 'island', why: 'the island before the kitchen run, a walk between' });
+    if (island) for (const e of [-0.33, 0, 0.33]) if (castlePut(ctx, 'stool-bar', [[island.x + kx * (island.dims[2] / 2 + 1) + kz * e * island.dims[0], island.z + kz * (island.dims[2] / 2 + 1) - kx * e * island.dims[0], island.rot + Math.PI]], { why: 'a stool at the island\'s breakfast bar' })) stools++;
+  }
+  // the sectional: out on the floor, its back to the door, facing the far wall (the view) about 9 ft off it
+  let sofa = null;
+  if (ccmHas(ctx, 'sofa-sectional')) {
+    const sd = modBox(ctx, 'sofa-sectional')[1], spots = [9, 10.5, 7.5, 12, 6.5].filter(g => g + sd < deep - 3).map(g => [...ctx.sidePoint(far, L / 2 + (mxSeed(ctx, 'sofa') % 3 - 1) * 1.5, g + sd / 2), SIDES[far].rot]);
+    sofa = spots.length ? castlePut(ctx, 'sofa-sectional', spots, { layer: 'anchor', rule: 'key-sofa', why: 'the sectional: out on the floor, facing the glass', extra: { focal: true } }) : null;
+  }
+  if (!sofa) sofa = dunFocal(ctx, far, ['sofa-sectional', 'sofa'], { label: 'the sectional', rule: 'key-sofa', why: 'the sofa against the far wall' });
+  if (!sofa) return { fail: 'penthouse: the sectional does not fit' };
+  ctx.focal = { label: 'the sectional facing the glass', id: sofa.id, ok: true };
+  const [fx, fz] = ctx.facingVec(sofa.rot);
+  const table = castlePut(ctx, 'coffee-table', [[sofa.x + fx * (sofa.dims[2] / 2 + 2.2), sofa.z + fz * (sofa.dims[2] / 2 + 2.2), sofa.rot]], { why: 'the coffee table before the sectional' });
+  for (const id of ['rug-round-fine', 'rug-round', 'rug-oval', 'rug-grand', 'rug-striped-woven']) if (ccmHas(ctx, id) && castleRug(ctx, id, sofa.x + fx * (sofa.dims[2] / 2 + 1.5), sofa.z + fz * (sofa.dims[2] / 2 + 1.5), sofa.rot, null, 'a rug under the coffee table')) break;
+  const chair = modBeside(ctx, 'lounge-chair', table || sofa, mxSeed(ctx, 'lc') % 2 ? 1 : -1, 1.2, 'the lounge chair beside the coffee table');
+  if (sofa) ccmFlank(ctx, sofa, ['lamp-floor'], { n: 1, off: 0.4, why: 'a floor lamp at the end of the sectional' });
+  const cart = modBeside(ctx, 'bar-cart', sofa, chair ? -1 : 1, 0.8, 'the bar cart by the sectional', { turn: Math.PI });
+  const piano = ccmQuiet(ctx, () => ccmCorner(ctx, 'piano-grand', [far, lat[1]], { why: 'the grand piano in a far corner, by the glass', inset: 1.2 }));
+  const dining = ctx.area() >= 700 ? dunFree(ctx, 'dining-set-lux', island ? front(island, 6) : kitchen ? front(kitchen, 10) : null, 14, 'the dining table by the kitchen', { margin: 1.2 }) : null;
+  const bed = ctx.area() >= 1100 ? ccmQuiet(ctx, () => ctx.wall('bed-platform', { sides: [lat[1]], prefer: 'random', why: 'the bed against the other side wall: an open loft' })) : null;
+  let art = 0; for (const s of [OPP_SIDE[far], ...lat, far].filter(s => !glass.has(s))) if (art < 2 && ccmHas(ctx, 'art-canvas') && ccmQuiet(ctx, () => ctx.mount('art-canvas', { sides: [s], height: 5.4, why: 'a big painting on a wall that is not glass' }))) art++;
+  // plants: the exec's are the tower's (wave 2: planter-modern); a City penthouse's the library's own (MX_BORROW)
+  const PLANTS = exec ? ['planter-modern', 'houseplant'] : ['citrus-tree-tub', 'palm-potted', 'fern-potted', 'planter-topiary', 'houseplant'];
+  let plants = 0; for (const c of [[far, lat[0]], [OPP_SIDE[far], lat[1]], [OPP_SIDE[far], lat[0]]]) { const id = ccmAny(ctx, PLANTS); if (id && ccmCorner(ctx, id, c, { why: 'a plant in the corner' })) plants++; }
+  let sculpture = null, drone = null;
+  if (exec || ctx.area() >= 1000) sculpture = dunFree(ctx, exec ? 'sculpture-abstract' : 'statue-bust', null, 99, exec ? 'a sculpture on its plinth' : 'a marble bust', { margin: 1.5 });
+  const wine = ccmQuiet(ctx, () => ctx.wall('wine-rack', { sides: [OPP_SIDE[far], ...lat].filter(s => !glass.has(s)), prefer: 'random', why: 'a wine rack by the kitchen' }));
+  if (exec) drone = dunFree(ctx, 'drone-parked', null, 99, 'a parked drone', { margin: 1 });
+  for (const [id, fx] of [['vase-flowers', -0.25], ['tea-service-tray', 0.2]]) if (table && ccmHas(ctx, id)) ccmOn(ctx, id, table, fx, 0, 'on the coffee table');
+  ccmEnsureLight(ctx, [], ['lamp-floor']);
+  ctx.mxInfo = { kind: exec ? 'exec-penthouse' : 'penthouse', wine: !!wine, glass: glass.size, sofa: !!sofa, table: !!table, chair: !!chair, cart: !!cart, piano: !!piano, kitchen: !!kitchen, island: !!island, stools, dining: !!dining, bed: !!bed, art, plants, sculpture: !!sculpture, screen: !!screen, drone: !!drone };
+  ccmDone(ctx);
+  return { feature: sofa, what: `a penthouse: the sectional facing the glass${piano ? ', the grand piano' : ''}${kitchen ? ', the fitted kitchen' : ''}${island ? ' and its island' : ''}`, approach: null, passage: true };
+}
+
+// BATHROOM (terminal): its walls tiled (walls.js PANELS, outside walls), the tub along the far wall (a shower cubicle in
+// a far corner where no tub fits, or beside it in a bigger room), the toilet against a side wall, the basin and its mirror
+// against the other side wall (beside the toilet in a narrow room), a towel rail, a bath mat.
+function mxBathroom(ctx) {
+  // (no ccmPanels: tiles are a wall to stand and hang things against, not a window: walls.js PANELS wall-tiled)
+  const far = ccmFar(ctx), lat = ctx.shuffle(ccmLat(far));
+  const tub = ccmQuiet(ctx, () => ctx.wall('bathtub', { sides: [far], prefer: 'random', layer: 'anchor', rule: 'key-tub', why: 'the bathtub along the far wall', unique: true }));
+  const shower = (!tub || ctx.area() >= 150) ? ccmQuiet(ctx, () => ccmCorner(ctx, 'shower-stall', [tub ? OPP_SIDE[far] : far, lat[1]], { layer: 'anchor', why: 'the shower cubicle in a corner' })) : null;
+  if (!tub && !shower) return { fail: 'bathroom: neither the tub nor the shower fits' };
+  ctx.focal = { label: tub ? 'the tub along the far wall' : 'the shower cubicle', id: (tub || shower).id, ok: true };
+  const toilet = ccmQuiet(ctx, () => ctx.wall('toilet', { sides: [lat[0]], prefer: 'random', layer: 'anchor', why: 'the toilet against a side wall' })) || ccmQuiet(ctx, () => ctx.wall('toilet', { sides: [lat[1], OPP_SIDE[far]], why: 'the toilet against a wall' }));
+  const sink = ccmQuiet(ctx, () => ctx.wall('sink-vanity', { sides: [lat[1], lat[0], OPP_SIDE[far]], prefer: 'random', layer: 'anchor', why: 'the basin against a wall' }));
+  const mirror = sink ? mxOver(ctx, 'mirror-bathroom', sink, 5.2, 'the mirror over the basin', 'light') : null;
+  const rail = ccmHas(ctx, 'towel-rail') ? ccmQuiet(ctx, () => ctx.mount('towel-rail', { sides: [OPP_SIDE[far], ...lat], height: 4, why: 'a towel rail' })) : null;
+  for (const id of ['rug-runner']) if (ccmHas(ctx, id) && (tub || shower) && castleRug(ctx, id, ...front(tub || shower, 1.4), (tub || shower).rot, null, 'the bath mat')) break;
+  if (sink) for (const [id, fx] of [['towel-stack', 0.3], ['plant-pot', -0.3]]) if (ccmHas(ctx, id)) ccmOn(ctx, id, sink, fx, 0, 'on the basin\'s counter');
+  if (ccmHas(ctx, 'towel-hanging')) ccmQuiet(ctx, () => ctx.mount('towel-hanging', { sides: [OPP_SIDE[far], ...lat], height: 4.2, why: 'a towel on a hook' }));
+  ccmEnsureLight(ctx, ['mirror-bathroom'], []);
+  ctx.mxInfo = { kind: 'bathroom', tub: !!tub, shower: !!shower, toilet: !!toilet, sink: !!sink, mirror: !!mirror, rail: !!rail };
+  ccmDone(ctx);
+  return { feature: tub || shower, what: `a bathroom: ${tub ? 'the tub' : 'the shower'}${toilet ? ', the toilet' : ''}${sink ? ', the basin and its mirror' : ''}`, approach: null, passage: true };
+}
+
+// PUBLIC RESTROOM (terminal): a row of toilet cubicles along the far wall, the sink counter with a mirror over each basin
+// along a side wall, urinals along the other side wall in a bigger room; tiled walls; fluorescent fittings.
+function mxRestroom(ctx) {
+  // (no ccmPanels: tiles are a wall to stand and hang things against, not a window: walls.js PANELS wall-tiled)
+  const far = ccmFar(ctx), lat = ctx.shuffle(ccmLat(far)), L = ctx.sideLen(far);
+  const stalls = mxRunOn(ctx, 'toilet-stall', far, Math.max(1, Math.floor((L - 1) / 3.05)), 'a toilet cubicle in the row along the far wall', { from: mxSeed(ctx, 'st') % 2 ? 'start' : 'end', gap: 0.05, rule: 'key-stalls' });
+  if (!stalls.length) return { fail: 'restroom: no toilet cubicle fits' };
+  ctx.focal = { label: 'the row of cubicles', id: stalls[0].id, ok: true };
+  const sinks = ccmQuiet(ctx, () => ctx.wall('sink-row', { sides: [lat[0]], prefer: 'centre', layer: 'anchor', why: 'the sink counter along a side wall' })) || ccmQuiet(ctx, () => ctx.wall('sink-row', { sides: [lat[1], OPP_SIDE[far]], why: 'the sink counter' })) || ccmQuiet(ctx, () => ctx.wall('sink-vanity', { sides: lat, why: 'a basin' }));
+  let mirrors = 0;
+  if (sinks) { const [fx, fz] = ctx.facingVec(sinks.rot), [ax, az] = [fz, -fx], n = sinks.id === 'sink-row' ? 3 : 1;
+    for (let i = 0; i < n; i++) { const e = n === 1 ? 0 : (i - 1) * sinks.dims[0] / 3, m = mxOver(ctx, 'mirror-bathroom', { ...sinks, x: sinks.x + ax * e, z: sinks.z + az * e }, 5.2, 'a mirror over a basin', 'light'); if (m) mirrors++; } }
+  const urinals = ctx.area() >= 250 ? mxRunOn(ctx, 'urinal', sinks ? (sinks.side === lat[0] ? lat[1] : lat[0]) : lat[1], 3, 'a urinal along the other side wall', { from: 'end', layer: 'furnish', w: 2.4 }) : [];
+  modTubes(ctx, 10);
+  ctx.mxInfo = { kind: 'restroom', stalls: stalls.length, sinks: sinks?.id || null, mirrors, urinals: urinals.length };
+  ccmDone(ctx);
+  return { feature: stalls[0], what: `a public restroom: ${stalls.length} cubicles${sinks ? ', the sink counter' : ''}${urinals.length ? `, ${urinals.length} urinals` : ''}`, approach: null, passage: true };
+}
+
+// RESTAURANT KITCHEN (terminal): the range line on the far wall under its canopy hood (drawn from a pawn's eyes only:
+// world.js CEILING_FITTINGS), steel prep tables in a row before it with the work on them (the library's own food and
+// knives: MX_BORROW), the dish pit by the door, the reach-in fridge and the walk-in's door on a side wall, wire shelving
+// of dry goods and crates of vegetables, pots on a wall rack; tiled walls; fluorescent fittings.
+// (every one of these is the library's own, vetted for a modern room: MX_BORROW, experiments/2026-11-07-modrooms/reuse-borrow.json)
+const MX_PREP = ['cabbage-single', 'carrot-pile', 'onion-pile', 'potato', 'bread-loaf', 'bread-long-loaf', 'cheese-wheel-cut', 'meat-raw-joint', 'garlic-bulb', 'apple', 'sausage-link', 'egg', 'ham-sliced', 'saucepan-copper', 'roasting-pan', 'plate-ceramic', 'platter-board-handled'];
+const MX_STOCK = ['vegetable-crate-mixed', 'potato-crate', 'apple-crate', 'fruit-crate-mixed', 'vegetable-basket-mixed'];
+function mxKitchen(ctx) {
+  // (no ccmPanels: tiles are a wall to stand and hang things against, not a window: walls.js PANELS wall-tiled)
+  const far = ccmFar(ctx), lat = ctx.shuffle(ccmLat(far)), L = ctx.sideLen(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W;
+  const ranges = [];
+  const r0 = dunFocal(ctx, far, ['range-commercial'], { label: 'the range under its hood', rule: 'key-range', why: 'the range: centred on the far wall' });
+  if (!r0) return { fail: 'kitchen: the range does not fit' };
+  ranges.push(r0);
+  if (L >= 24) { const r1 = modBeside(ctx, 'range-commercial', r0, mxSeed(ctx, 'r1') % 2 ? 1 : -1, 0.05, 'a second range beside the first', { layer: 'anchor', rule: 'key-range', turn: Math.PI }); if (r1) { r1.rot = r0.rot; ranges.push(r1); } }
+  let hoods = 0;
+  for (const r of ranges) if (ccmHas(ctx, 'range-hood')) { const sk = ctx.chooseSku('range-hood'); if (sk) { const dm = ctx.dims('range-hood', sk), [fx, fz] = ctx.facingVec(r.rot), back = r.dims[2] / 2 - dm.d / 2; ctx.record('range-hood', sk, dm, r.x - fx * back, Math.max(0.5, CEIL - dm.h - 0.1), r.z - fz * back, r.rot, 'light', 'ceiling-hood', 'the canopy hood over the range'); hoods++; } }
+  // the prep line: steel tables in a row across the room, 5 ft out from the ranges (the cooks' aisle between)
+  const tables = [];
+  if (ccmHas(ctx, 'table-prep-steel') && deep >= 14) {
+    const [tw, td] = modBox(ctx, 'table-prep-steel'), n = Math.max(1, Math.min(3, Math.floor((L - 6) / (tw + 0.3)))), off = r0.dims[2] + 5 + td / 2;
+    for (let i = 0; i < n; i++) { const t = L / 2 + (i - (n - 1) / 2) * (tw + 0.3), [x, z] = ctx.sidePoint(far, t, off); const p = castlePut(ctx, 'table-prep-steel', [[x, z, SIDES[far].rot + Math.PI]], { layer: 'anchor', rule: 'prep-line', why: 'a steel prep table in the line facing the range' }); if (p) tables.push(p); }
+  }
+  let work = 0;
+  for (const t of tables) for (const id of ctx.pick(MX_PREP.filter(id => ccmHas(ctx, id)), 5)) if (ccmQuiet(ctx, () => ctx.surface(id, { on: s => s.uid === t.uid, why: 'work in progress on the prep table' }))) work++;
+  const dish = ccmQuiet(ctx, () => ctx.wall('dish-station', { sides: [OPP_SIDE[far], lat[0]], prefer: 'random', layer: 'furnish', why: 'the dish pit by the door' }));
+  const fridge = ccmQuiet(ctx, () => ctx.wall('fridge-reach-in', { sides: [lat[1]], prefer: 'random', why: 'the reach-in fridge on a side wall' }));
+  const walkin = ccmQuiet(ctx, () => ctx.wall('cooler-walkin-door', { sides: [lat[1], lat[0]], prefer: 'random', why: 'the walk-in cooler\'s door' }));
+  let shelves = 0; for (let i = 0; i < Math.max(1, Math.round(ctx.area() / 300)); i++) if (ccmQuiet(ctx, () => ctx.wall('shelving-wire', { sides: [lat[0], lat[1], OPP_SIDE[far]], prefer: 'random', layer: 'store', why: 'wire shelving of dry goods' }))) shelves++;
+  const rack = ccmHas(ctx, 'pot-rack-wall') ? ccmQuiet(ctx, () => ctx.mount('pot-rack-wall', { sides: [lat[0], lat[1], far], height: 6.2, why: 'pots and pans on a wall rack' })) : null;
+  let stock = 0; for (const id of ctx.pick(MX_STOCK.filter(id => ccmHas(ctx, id)), Math.max(2, Math.round(ctx.area() / 200)))) if (ccmQuiet(ctx, () => ctx.wall(id, { sides: [lat[0], lat[1], OPP_SIDE[far]], prefer: 'corner', layer: 'store', why: 'stock waiting by the shelving' }))) stock++;
+  let racks = 0; for (const id of ['knife-rack-wall', 'utensil-rack-wall']) if (ccmHas(ctx, id) && ccmQuiet(ctx, () => ctx.mount(id, { sides: [lat[0], lat[1], far], height: 5.4, why: 'knives and utensils on a wall rack' }))) racks++;
+  modTubes(ctx, 10);
+  ctx.mxInfo = { kind: 'kitchen', racks, ranges: ranges.length, hoods, tables: tables.length, work, dish: !!dish, fridge: !!fridge, walkin: !!walkin, shelves, rack: !!rack, stock };
+  ccmDone(ctx);
+  return { feature: r0, what: `a restaurant kitchen: ${ranges.length} range${ranges.length > 1 ? 's' : ''} under the hood, ${tables.length} prep tables${dish ? ', the dish pit' : ''}`, approach: null, passage: true };
+}
+
+// FIRE ESCAPE (outdoor, one landing a storey): which long side is the building's (the side with the most built wall of a
+// room beside it; else a seeded long side). The landing is two lanes along it: the lane against the building and the outer
+// lane. The flight from this landing climbs on lane (level parity): an even level's on the building lane toward +along,
+// an odd level's on the outer lane back the other way, so each flight's hole in the landing above is over the lane the
+// next flight does not use, and you step across from the top of one to the foot of the next (core/stairs.js stairCore).
+// The lowest landing above the ground (level 1) also drops the steel ladder to the ground at its outer lane's start.
+// An iron railing runs round every open edge (not the building's side); stairRails rails each hole by itself.
+export const MX_FIRE_FLIGHT = 'stair-fire-escape', MX_FIRE_LADDER = 'ladder-fire-escape';
+function mxFireEscape(ctx) {
+  const horiz = modHoriz(ctx), long = horiz ? ['N', 'S'] : ['W', 'E'], L = horiz ? ctx.W : ctx.D, D = horiz ? ctx.D : ctx.W;
+  const built = ctx.openings.filter(o => o.to && /^(wall|window|door)$/.test(o.kind)), score = (s) => built.filter(o => o.side === s).length;
+  const wallSide = score(long[0]) === score(long[1]) ? long[mxSeed(ctx, 'side') % 2] : score(long[0]) > score(long[1]) ? long[0] : long[1], outSide = OPP_SIDE[wallSide];
+  const level = Math.round((ctx.room.y || 0) / 10), odd = ((level % 2) + 2) % 2 === 1;
+  const lanes = Math.max(1, Math.round(D / CELL)), cells = Math.round(L / CELL);
+  // a lane's centre: ft out from the building's side; a cell's: ft along the long axis from its start (the W or N end)
+  // (in the room's own squares, not the inset wall line: a flight must stand square on its cells for its hole)
+  const R = ctx.room, rx0 = R.x * CELL, rz0 = R.z * CELL, rx1 = (R.x + R.w) * CELL, rz1 = (R.z + R.d) * CELL, laneOut = (k) => (Math.min(k, lanes - 1) + 0.5) * CELL;
+  const across = (k) => wallSide === 'N' ? rz0 + laneOut(k) : wallSide === 'S' ? rz1 - laneOut(k) : wallSide === 'W' ? rx0 + laneOut(k) : rx1 - laneOut(k);
+  const at = (k, t) => horiz ? [rx0 + t, across(k)] : [across(k), rz0 + t];
+  const up = (sgn) => horiz ? (sgn > 0 ? Math.PI / 2 : -Math.PI / 2) : (sgn > 0 ? 0 : Math.PI); // the turn whose +z points along the axis (a catalog stair climbs AWAY from its front: rot + PI)
+  let flight = null, ladder = null, edge = 0;
+  if (cells >= 4 && ccmHas(ctx, MX_FIRE_FLIGHT)) {
+    const lane = odd && lanes > 1 ? 1 : 0, sgn = odd ? -1 : 1, mid = sgn > 0 ? 2 * CELL : cells * CELL - 2 * CELL; // (in whole squares: L is the inset floor) // the flight takes cells 1-2 (or the last two but one): its foot square before it, its top square beyond
+    const [x, z] = at(lane, mid), sk = ctx.chooseSku(MX_FIRE_FLIGHT);
+    if (sk) { const dm = ctx.dims(MX_FIRE_FLIGHT, sk); flight = ctx.record(MX_FIRE_FLIGHT, sk, { ...dm, w: Math.min(dm.w, CELL - 0.4), d: 2 * CELL }, x, 0, z, up(-sgn), 'anchor', 'fire-flight', 'the steel flight up to the landing above (it opens that floor when the landing is drawn)', { lane, level });
+      ctx.mark(x, z, horiz ? 3 * CELL : CELL, horiz ? CELL : 3 * CELL, KEEP); }
+  }
+  // the ladder stands in the building lane's first square, its back to the building: its foot (and its way off at the
+  // top: a ladder is left on the side it was climbed from) is the outer lane's first square, on the street below and on
+  // the landing above. (A foot beyond the landing's end would be on the open ground, not the alley the ladder stands in:
+  // core/stairs.js stairStatus calls that "blocked at the foot".)
+  if (level === 1 && lanes > 1 && ccmHas(ctx, MX_FIRE_LADDER)) {
+    const [x, z] = at(0, CELL / 2), sk = ctx.chooseSku(MX_FIRE_LADDER), inward = { S: Math.PI, N: 0, E: 3 * Math.PI / 2, W: Math.PI / 2 }[wallSide];
+    if (sk) { const dm = ctx.dims(MX_FIRE_LADDER, sk); ladder = ctx.record(MX_FIRE_LADDER, sk, dm, x, -10, z, inward, 'anchor', 'fire-ladder', 'the drop ladder down to the street (it stands on the ground and comes up through the landing)', { lane: 0, level }); }
+  }
+  if (ccmHas(ctx, 'railing-iron')) for (const s of ['N', 'S', 'E', 'W']) { if (s === wallSide) continue; const n = Math.round(ctx.sideLen(s) / CELL);
+    for (let i = 0; i < n; i++) { if (built.some(o => o.side === s && o.index === i)) continue; const sk = ctx.chooseSku('railing-iron'); if (!sk) break;
+      const [x, z] = ctx.sidePoint(s, i * CELL + CELL / 2, 0.15); ctx.record('railing-iron', sk, { ...ctx.dims('railing-iron', sk), w: CELL }, x, 0, z, SIDES[s].rot, 'anchor', 'yard-edge', 'the iron railing round the landing', { side: s, edge: 'railing' }); edge++; } }
+  const extra = level > 0 ? ['ac-unit', mxSeed(ctx, 'pl') % 2 ? 'plant-pot' : 'herb-pot', 'houseplant'] : [];
+  for (const id of extra) ccmQuiet(ctx, () => id === 'ac-unit' ? ctx.mount(id, { sides: [wallSide], height: 6.5, why: 'an air conditioner in the building\'s wall over the landing' }) : dunFree(ctx, id, null, 99, 'a potted plant on the landing', { margin: 0.3 }));
+  ctx.focal = { label: 'the steel flight and the railing', id: flight ? flight.id : 'railing-iron', ok: !!(flight || edge) };
+  ctx.yardInfo = { vibe: 'fire-escape', edge: 'railing', edgePieces: edge, wallFt: built.length * CELL, gate: null, focal: flight ? { id: flight.id, kind: 'flight' } : null, signs: 0, wear: 0, doors: [], plants: { placed: 0, slot: [], waiting: [] } };
+  ctx.mxInfo = { kind: 'fire-escape', level, wallSide, flight: !!flight, lane: flight?.lane ?? null, ladder: !!ladder, edge };
+  ccmDone(ctx);
+  if (!flight && !edge) return { fail: 'fire escape: no flight and no railing fit (a landing is at least 4 squares long)' };
+  return { feature: flight, what: `a fire-escape landing (level ${level}): ${flight ? 'a steel flight up' : 'no flight'}${ladder ? ', the drop ladder to the street' : ''}, ${edge} sections of railing`, outdoor: true };
+}
+
+function mxAnnex(ctx, { wall = ['cardboard-boxes'], tubes = true } = {}) {
+  dunWalls(ctx, wall, ctx.shuffle(['N', 'S', 'E', 'W']), Math.max(1, Math.round(ctx.area() / 150)), 'against the wall');
+  if (tubes) modTubes(ctx, 10);
+}
+export const MX_ROOMS = ['mod-penthouse', 'mod-penthouse-exec', 'mod-bathroom', 'mod-restroom', 'mod-kitchen', 'mod-fire-escape'];
+Object.assign(KEY, { 'mod-penthouse': mxOnly(mxPenthouse), 'mod-penthouse-exec': mxOnly((ctx) => mxPenthouse(ctx, { exec: true }), { cyb: true }), 'mod-bathroom': mxOnly(mxBathroom), 'mod-restroom': mxOnly(mxRestroom),
+  'mod-kitchen': mxOnly(mxKitchen), 'mod-fire-escape': mxOnly(mxFireEscape) });
+Object.assign(MENUS, {
+  'mod-penthouse': ccmAnnex(mxOnly((ctx) => mxAnnex(ctx, { wall: ['houseplant', 'fern-potted'], tubes: false }))), 'mod-penthouse-exec': ccmAnnex(mxOnly((ctx) => mxAnnex(ctx, { wall: ['planter-modern', 'houseplant'], tubes: false }), { cyb: true })),
+  'mod-bathroom': ccmAnnex(mxOnly((ctx) => mxAnnex(ctx, { wall: ['towel-rail'], tubes: false }))), 'mod-restroom': ccmAnnex(mxOnly((ctx) => mxAnnex(ctx, { wall: ['sink-vanity'] }))),
+  'mod-kitchen': ccmAnnex(mxOnly((ctx) => mxAnnex(ctx, { wall: ['shelving-wire', 'vegetable-crate-mixed', 'potato-crate'] }))),
+});
+Object.assign(DENSITY, { 'mod-penthouse': 3.5, 'mod-penthouse-exec': 3.5, 'mod-bathroom': 5, 'mod-restroom': 4.5, 'mod-kitchen': 5 }); // (no indoor target under 3.5: test/yard.test.mjs)
+Object.assign(FOCAL, { 'mod-penthouse': 'the sectional facing the glass', 'mod-penthouse-exec': 'the sectional facing the glass and the wall screen', 'mod-bathroom': 'the tub along the far wall', 'mod-restroom': 'the row of cubicles',
+  'mod-kitchen': 'the range under its hood', 'mod-fire-escape': 'the steel flight against the building' });
+Object.assign(KEY_RE, { 'mod-penthouse': /^(sofa-sectional|sofa)$/, 'mod-penthouse-exec': /^(sofa-sectional|sofa)$/, 'mod-bathroom': /^(bathtub|shower-stall)$/, 'mod-restroom': /^toilet-stall$/, 'mod-kitchen': /^range-commercial$/, 'mod-fire-escape': null });
+// <<< type:modrooms
+
+// >>> type:modhalls
+// ---------------- the modhalls lane (2026-11-07): the Modern genre's four corridors ----------------
+// Harry: "definitely modern hallways as well". In a Modern building the corridor is the generator's spine (docs/BUILDINGS.md:
+// engine/tools/modern_buildings.json `hall`), so like the fantasy halls (buildings:solver2.halls) it is what is LEFT after
+// the rooms are placed and is dressed LIGHTLY: the through-line first, door to door, kept clear; the lights down it; the
+// few things every real corridor has once (the extinguisher by a door, the exit sign high on an end wall); its own things
+// on the walls; and only in a corridor two cells wide (10 ft) now and then something standing against a wall, out of the
+// line. 1 cell wide: nothing on the floor but the runner. What names each from the table camera:
+//   apartment hallway  the runner down the middle, sconces, unit doors both sides, the trash chute, the mailboxes (ground floor)
+//   office corridor    carpet tiles under the strip lights, the notice board, the water cooler, the vending machine
+//   hotel corridor     the runner and the sconces, the room-service cart outside a door, the ice machine, a luggage trolley
+//   service corridor   bare concrete, pipes end to end high on one wall, the breaker panel, the mop bucket, steel doors
+// The drop ceiling of an office corridor is its fluorescent panels (ceiling fittings: drawn from a pawn's eyes only, never
+// from the table camera). The library's own runner and potted palm come in by MX_BORROW (borrow_sync.py).
+const MH = {
+  'mod-apartment-hallway': { runner: true, lights: ['sconce-wall-modern'], lightEvery: 12, once: [['fire-extinguisher', 3.5], ['trash-chute-hatch', 3.6], ['mailbox-bank', 4.1, { ground: true }]],
+    hung: ['art-canvas'], hangEvery: 20, stand: ['laundry-cart', 'houseplant', 'planter-modern'], standChance: 0.5 },
+  'mod-office-corridor': { tubes: true, lights: [], once: [['fire-extinguisher', 3.5], ['notice-board-cork', 4.9]], hung: ['whiteboard', 'art-canvas'], hangEvery: 22,
+    wallStand: ['water-cooler', 'vending-machine', 'recycling-bins'], stand: ['houseplant', 'planter-modern', 'lobby-bench'], standChance: 0.6 },
+  'mod-hotel-corridor': { runner: true, lights: ['sconce-wall-modern'], lightEvery: 10, once: [['fire-extinguisher', 3.5]], hung: ['art-canvas'], hangEvery: 12,
+    wallStand: ['ice-machine'], stand: ['room-service-cart', 'housekeeping-cart', 'luggage-cart', 'planter-modern', 'palm-potted'], standChance: 0.7 },
+  'mod-service-corridor': { tubes: true, lights: ['light-wall-strip'], lightEvery: 16, pipes: 'pipe-run-wall', once: [['fire-extinguisher', 3.5], ['breaker-panel', 4.5]], hung: [], hangEvery: 99,
+    wallStand: ['shelving-wire', 'locker-bank'], stand: ['mop-bucket', 'cardboard-boxes', 'oil-drum', 'tool-chest-rolling'], standChance: 0.6 },
+};
+export const MH_ROOMS = Object.keys(MH);
+// a run of one wall piece end to end along a side at a height (the pipes): from one end, broken at each door
+function mhRun(ctx, id, side, centre, why) {
+  if (!ccmHas(ctx, id)) return 0;
+  const L = ctx.sideLen(side); let n = 0;
+  for (let t = 0.1; ; ) {
+    const sk = ctx.chooseSku(id); if (!sk) break;
+    const dm = ctx.dims(id, sk); if (t + dm.w > L - 0.1) break;
+    const door = ctx.doorT[side].find(([a, b]) => t < b + 0.3 && a - 0.3 < t + dm.w); // (never over a door: its frame stands as tall as the pipes hang low)
+    if (door) { t = door[1] + 0.35; continue; }
+    const [x, z] = ctx.sidePoint(side, t + dm.w / 2, dm.d / 2 + 0.02);
+    ctx.record(id, sk, dm, x, Math.min(CEIL - 0.1 - dm.h, Math.max(2.5, centre - dm.h / 2)), z, SIDES[side].rot, 'anchor', 'mh-run', why, { side });
+    ctx.mounts[side].push([t, t + dm.w]); t += dm.w; n++;
+  }
+  return n;
+}
+function mhHall(ctx, cfg, line = null) {
+  const long = ctx.longSides(), short = ctx.shortSides(), Lr = Math.max(ctx.W, ctx.D), wide = Math.min(ctx.W, ctx.D) >= 8.5, along = ctx.W >= ctx.D;
+  const info = { runner: 0, pipes: 0, once: [], hung: 0, stood: [], lights: 0, tubes: 0 };
+  // the runner down the middle: end to end, in pieces, the length of the corridor; a runner wider than a narrow corridor
+  // allows (the library's is a 6-ft flat) is laid smaller, its proportions kept, so more pieces go end to end
+  if (cfg.runner && ccmHas(ctx, 'rug-runner')) {
+    const sk = ctx.chooseSku('rug-runner'), dm0 = sk && ctx.dims('rug-runner', sk);
+    if (dm0) {
+      const inner = Math.min(ctx.W, ctx.D), k = Math.min(1, (inner - 1.2) / Math.min(dm0.w, dm0.d)), dm = { ...dm0, w: dm0.w * k, d: dm0.d * k };
+      const len = Math.max(dm.w, dm.d), n = Math.max(1, Math.floor((Lr - 1) / len)), cx = (ctx.X0 + ctx.X1) / 2, cz = (ctx.Z0 + ctx.Z1) / 2, rot = (dm.d >= dm.w) === along ? Math.PI / 2 : 0;
+      if (k > 0.3 && len <= Lr - 0.4) for (let i = 0; i < n; i++) {
+        const o = (i - (n - 1) / 2) * len, [x, z] = along ? [cx + o, cz] : [cx, cz + o], [aw, ad] = ctx.aabb(dm.w, dm.d, rot);
+        if (ctx.rugs.some(q => Math.abs(q.x - x) < (q.w + aw) / 2 - 0.05 && Math.abs(q.z - z) < (q.d + ad) / 2 - 0.05)) continue;
+        ctx.rugs.push({ x, z, w: aw, d: ad }); ctx.record('rug-runner', sk, dm, x, 0.03 + ctx.rugs.length * 0.01, z, rot, 'floor-dress', 'rug', 'the runner down the corridor', { orient: 'floor' }); info.runner++;
+      }
+    }
+  }
+  // the service corridor's pipes: end to end high along ONE long wall (the other long wall takes the lights)
+  if (cfg.tubes && cfg.pipes) info.tubes = modTubes(ctx, 10, 'a fluorescent fitting on the ceiling'); // (before the pipes: modTubes keeps off anything that reaches the ceiling)
+  // (the long wall with the most room between its doors for whole 5-ft runs; the seed breaks a tie)
+  const runRoom = (sd) => { const L = ctx.sideLen(sd), cuts = [[-1, 0.1], ...[...ctx.doorT[sd]].sort((p, q) => p[0] - q[0]).map(([a, b]) => [a - 0.3, b + 0.35]), [L - 0.1, L + 1]]; let n = 0; for (let i = 1; i < cuts.length; i++) n += Math.max(0, Math.floor((cuts[i][0] - cuts[i - 1][1]) / 5)); return n; };
+  const pipeSide = cfg.pipes ? [...long].sort((p, q) => runRoom(q) - runRoom(p) || (mxSeed(ctx, 'pipes') % 2 ? 1 : -1))[0] : null;
+  if (pipeSide) info.pipes = mhRun(ctx, cfg.pipes, pipeSide, 7.7, 'pipes along the wall, high up');
+  if (cfg.pipes && !info.pipes) ctx.notes.push('service corridor: no pipes (none fit, or no mesh)');
+  // the lights: sconces (or strip lights) about every N ft along the long walls in turn; fluorescent panels on the ceiling
+  const lsides = (Lr >= 9 ? ctx.shuffle([...long]) : ctx.shuffle(['N', 'S', 'E', 'W'])).filter(s => s !== pipeSide && ctx.sideLen(s) >= 6); // (a 4-ft strip light never on a 4-ft end wall)
+  if (cfg.lights.length && lsides.length) info.lights = ccmWallLights(ctx, cfg.lights, lsides, { every: lsides.length * (cfg.lightEvery || 12), height: 6, min: 1, why: 'wall light along the corridor' });
+  if (cfg.tubes && !cfg.pipes) info.tubes = modTubes(ctx, 10, 'a fluorescent panel in the ceiling (drawn from a pawn\'s eyes only)');
+  // then the things every corridor has ONCE (after the lights: a light is what a windowless corridor cannot do without): the exit sign high on an end wall (a short stub: any wall), the extinguisher, ...
+  // (an end wall that is all door, as a 5-ft corridor's is: the sign goes high on a long wall instead)
+  if (ccmHas(ctx, 'exit-sign') && ccmQuiet(ctx, () => ctx.mount('exit-sign', { sides: Lr >= 9 ? ctx.shuffle([...short]) : ctx.shuffle(['N', 'S', 'E', 'W']), height: 7.4, layer: 'light', rule: 'exit-sign', why: 'the exit sign high on the end wall' })
+    || ctx.mount('exit-sign', { sides: ctx.shuffle([...long]), height: 7.4, layer: 'light', rule: 'exit-sign', why: 'the exit sign high on the corridor wall' }))) info.once.push('exit-sign');
+  const level = Math.round((ctx.room.y || 0) / 10);
+  for (const [id, h, o = {}] of cfg.once) { if (o.ground && level !== 0) continue; if (ccmHas(ctx, id) && ccmQuiet(ctx, () => ctx.mount(id, { sides: ctx.shuffle(long.filter(s => s !== pipeSide).concat(pipeSide ? [pipeSide] : [])), height: h, why: `the corridor's ${id.replace(/-/g, ' ')}` }))) info.once.push(id); }
+  // things to look at along the walls (never in anyone's way)
+  if (cfg.hung.length) info.hung = castleHang(ctx, cfg.hung, long.filter(s => s !== pipeSide), Math.max(Lr >= 14 ? 1 : 0, Math.round(Lr / cfg.hangEvery)), { height: 5.4, why: 'on the corridor wall' });
+  // two cells wide: now and then something against a wall, the sides taking turns, out of the through-line
+  if (wide) {
+    if (cfg.wallStand?.length && Lr >= 12) { const id = ccmAny(ctx, cfg.wallStand); if (id && ccmQuiet(ctx, () => ctx.wall(id, { sides: ctx.shuffle([...long]), prefer: 'random', why: `the corridor's ${id.replace(/-/g, ' ')}, against the wall` }))) info.stood.push(id); }
+    for (let i = 0, n = Math.max(1, Math.round(Lr / 15)); i < n; i++) {
+      if (!ctx.chance(cfg.standChance ?? 0.6)) continue;
+      const side = long[i % 2], t = Lr * (i + 0.5) / n, id = ccmAny(ctx, cfg.stand); if (!id) break;
+      if (ccmQuiet(ctx, () => ctx.put(id, (dm) => ctx.wallGen(dm, [side], { tRange: [t - 4, t + 4] }), (c) => Math.abs(c.t - t), { layer: 'furnish', rule: 'hall-niche', why: 'against the wall, out of the through-line' }))) info.stood.push(id);
+    }
+  }
+  if (!ccmLit(ctx)) ccmEnsureLight(ctx, cfg.lights.length ? cfg.lights : ['sconce-wall-modern'], []);
+  if (!ccmLit(ctx) && !info.tubes) modTubes(ctx, 10);
+  return info;
+}
+function mhProgram(ctx) {
+  const cfg = MH[ctx.type.key];
+  ccmPanels(ctx);
+  // as the fantasy halls: one door in a LONG wall (a dead-end spur) runs the line to the corridor's farther end
+  const d = ctx.doors.length === 1 ? ctx.doors[0] : null, Lr = Math.max(ctx.W, ctx.D);
+  let end = null;
+  if (d && Lr > Math.min(ctx.W, ctx.D) + 1 && ctx.longSides().includes(d.side)) {
+    const pts = ctx.shortSides().map(s => ctx.sidePoint(s, ctx.sideLen(s) / 2, Math.min(2, Lr / 4))), at = d.inner || d.at;
+    end = pts.sort((p, q) => Math.hypot(q[0] - at[0], q[1] - at[1]) - Math.hypot(p[0] - at[0], p[1] - at[1]))[0];
+  }
+  const line = throughLine(ctx, end);
+  if (end) ctx.notes.pop();
+  if (!line.path.ok) return { fail: 'corridor: the through-line is blocked' };
+  const info = mhHall(ctx, cfg, line);
+  ctx.mxInfo = { kind: ctx.type.key, ...info, lit: ccmLit(ctx) };
+  ctx.hallInfo = { stood: info.stood.length, lit: ccmLit(ctx) };
+  ccmDone(ctx);
+  return { feature: null, what: 'a clear through-line', approach: null, passage: true };
+}
+for (const k of MH_ROOMS) { KEY[k] = mxOnly(mhProgram); MENUS[k] = ccmAnnex(mxOnly((ctx) => mhHall(ctx, MH[k]))); DENSITY[k] = 3.5; KEY_RE[k] = null; FOCAL[k] = 'a clear through-line'; }
+// <<< type:modhalls
+// >>> type:mod
+// ---------------- modern city (sprawl pack, 2026-11-06): eight rooms of the Modern genre's City type ----------------
+// One self-contained program a room, on the ccm* / dun* / castle* kit above. Every room type lists tiers ['mod'], so a
+// shared role (sofa, bar-counter) rolls its modern sku; the programs ask ONLY for roles that have one (a role with no
+// modern sku would roll a fantasy piece). What names each room from the table camera, the thing laid first:
+//   apartment  a sofa facing a TV          office  a grid of cubicle desks     bar     the long bar and its stools
+//   street     parked cars on asphalt      alley   the dumpster                garage  cars in painted bays, pillars
+//   store      aisles and lit coolers      warehouse  tall racking, a forklift, a shipping container
+// The lights are electric (fx/fire.js ELECTRIC): fluorescent fittings laid square to the room on the ceiling, neon on
+// the wall, streetlights on the pavement.
+const modSeed = (ctx, ...k) => hash(ctx.baseSeed ?? ctx.room.seed, 'mod', ...k);
+const modHoriz = (ctx) => ctx.W >= ctx.D;
+// a modern piece's real box in feet [w, d, h] (its own size where the batch gave one, else the catalog's)
+function modBox(ctx, id) { const sk = ccmHas(ctx, id) && ctx.chooseSku(id); if (!sk) return ccmSize(ctx, id); const dm = ctx.dims(id, sk); return [dm.w, dm.d, dm.h]; }
+// fluorescent fittings on the ceiling, square to the room, about every `every` ft each way (never random turns)
+function modTubes(ctx, every = 10, why = 'a fluorescent fitting on the ceiling') {
+  if (!ccmHas(ctx, 'light-fluorescent')) return 0;
+  const nx = Math.max(1, Math.round(ctx.W / every)), nz = Math.max(1, Math.round(ctx.D / every)), rot = modHoriz(ctx) ? Math.PI / 2 : 0; let n = 0;
+  for (let i = 0; i < nx; i++) for (let j = 0; j < nz; j++) {
+    const sk = ctx.chooseSku('light-fluorescent'); if (!sk) return n;
+    const dm = ctx.dims('light-fluorescent', sk), tx = ctx.X0 + ctx.W * (i + 0.5) / nx, tz = ctx.Z0 + ctx.D * (j + 0.5) / nz;
+    if (ctx.placements.some(p => p.y + p.dims[1] > CEIL - dm.h - 0.6 && Math.abs(p.x - tx) < (ctx.aabb(p.dims[0], p.dims[2], p.rot)[0] + dm.w) / 2 && Math.abs(p.z - tz) < (ctx.aabb(p.dims[0], p.dims[2], p.rot)[1] + dm.w) / 2)) continue; // never into something that reaches the ceiling (racking, a container)
+    ctx.record('light-fluorescent', sk, dm, ctx.X0 + ctx.W * (i + 0.5) / nx, Math.max(0.5, CEIL - dm.h - 0.1), ctx.Z0 + ctx.D * (j + 0.5) / nz, rot, 'light', 'ceiling-tube', why); n++;
+  }
+  return n;
+}
+// a thing set down beside another, turned to face it (an armchair at the coffee table, a chair at the dining table)
+function modBeside(ctx, id, base, lateral, gap, why, o = {}) {
+  if (!base || !ccmHas(ctx, id)) return null;
+  const [fx, fz] = ctx.facingVec(base.rot), lx = fz, lz = -fx, [w, d] = modBox(ctx, id), out = [];
+  for (const e of [0, 0.4, 0.8, 1.3]) { const r = base.dims[0] / 2 + gap + Math.max(w, d) / 2 + e; out.push([base.x + lx * r * lateral + fx * (o.fwd || 0), base.z + lz * r * lateral + fz * (o.fwd || 0), Math.atan2(base.x - (base.x + lx * r * lateral), base.z - (base.z + lz * r * lateral)) + (o.turn || 0)]); }
+  return castlePut(ctx, id, out, { layer: o.layer || 'furnish', rule: o.rule || 'beside', why, sku: o.sku });
+}
+// a row of flat tiles (strip pictures, pavement) along a line: `n` tiles of `size` [along, across] ft from p0 in direction (ux, uz)
+function modRow(ctx, id, p0, [ux, uz], n, size, rot, why, o = {}) {
+  let k = 0;
+  for (let i = 0; i < n; i++) if (dunFlat(ctx, id, p0[0] + ux * size[0] * (i + 0.5), p0[1] + uz * size[0] * (i + 0.5), rot, why, { size: o.ns ? [size[1], size[0]] : size, layer: o.layer || 'floor-dress', rule: o.rule || 'floor-row', sku: o.sku, over: o.over })) k++;
+  return k;
+}
+const modWallsOf = (ctx, far) => [OPP_SIDE[far], ...ccmLat(far)]; // the walls other than the focal one
+
+// ---- DENSER BY DEFAULT (2026-11-07, experiments/2026-11-07-denserooms) ----
+// Harry: "many of the cyberpunk rooms need to default to denser packing as well as with modern rooms", and "note some of
+// our isle-packing options". Every program below laid a fixed count, so the City and Cyberpunk rooms stood at 30-80% of
+// their own DENSITY target (the fantasy rooms meet theirs). Two existing mechanisms close the gap, room by room:
+//   ROWS where the room is rows in life: aisleStore() (the storeroom's grammar; its cfg already serves industrial kitchens
+//     and dormitories) lays the corner store's shelving, the server room's racks, the warehouse's racking and the magic
+//     shop's middle shelves; ccmRanks() the office's cubicles a little tighter.
+//   modDense(): the room's own things against its free walls (like with like), toward the DENSITY target: the target the
+//     generic fillDensity() fills toward in every fantasy room, which ccmDone() switches off for a program's room.
+// Open rooms (street, alley, parking garage, corporate lobby, rooftop) are left as they were: open is what they are.
+// THE WHOLE LIBRARY (Harry: "is there anything we can bring over or re-use from our existing model sets? ... all those
+// vegetables"): roles of the plain (fantasy) set that read as nothing medieval at table distance are ALSO members of the
+// modern set: a City or Cyberpunk program may ask for them (modOnly / cybOnly admit them) and rolls only their vetted looks.
+// One role, one mesh, two sets: no copies. Two lists: the modrooms lane's MX_BORROW (above; a blind era read of each look)
+// and MOD_SHARED, the roles this lane's fills added on top (read in the rooms themselves, five blind reads of before/after
+// stills: bottles, bowls, books, jars on counters; nothing called medieval), with MOD_LOOKS pinning a role to its vetted
+// looks where only some pass (a read of the ten crate plates: crate--s1/s2/s3/s5 carry iron bands, padlocks, carving or
+// heraldry; the slatted, bolted crate--s4 reads modern).
+export const MOD_SHARED = new Set(['crate', 'cabbage-crate', 'book-pile-floor', 'rug-small', 'bottle', 'bottle-cluster', 'bottle-broken', 'bowl', 'bowl-stack', 'dumplings-bowl',
+  'book-stack', 'books-row-bookends', 'book-open', 'apple-pile', 'pear-pile', 'fish', 'jar-pickles', 'jars-preserves', 'jam-jar', 'honey-jar-dipper', 'dried-herbs-jar', 'flowers-dried', 'cup-glass-green']);
+export const MOD_LOOKS = { crate: ['crate--s4'] };
+export const modShared = (id) => MOD_SHARED.has(id) || !!MX_BORROW[id];
+export const modLooks = (id) => MX_BORROW[id] || MOD_LOOKS[id] || null; // (null: every plain look of a MOD_SHARED role)
+// while a City / Cyberpunk program runs, a shared role's pool holds only its vetted looks (as mxOnly does for MX_BORROW)
+const modSharedPool = (pool, modern) => function (id) { const p = pool.call(this, id), ok = !modern(id) && modLooks(id); return ok ? p.filter(s => ok.includes(s.sku)) : p; };
+// things set on the top of a piece the solver keeps no surface for (a cafe table, a noodle counter, a glass counter). Never
+// on the desks (office cubicles, the server room's workstation, the safehouse deck): their debris is another lane's
+function modTops(ctx, bases, ids, per, why = 'set down on top') {
+  let n = 0;
+  for (const b of bases) { if (!b) continue; const mine = [];
+    for (let k = 0, tries = 0; k < per && tries < per * 4; tries++) {
+      const id = ccmAny(ctx, ids); if (!id) return n; const [w, d, h] = ccmSize(ctx, id);
+      if (b.y + b.dims[1] + h > CEIL - 0.3 || w > b.dims[0] * 0.8 || d > b.dims[2] * 0.8) continue;
+      const fx = ctx.r(-0.35, 0.35) * (1 - (w + 0.2) / b.dims[0]), fz = ctx.r(-0.3, 0.3) * (1 - (d + 0.2) / b.dims[2]); // (the middle of the top: a counter's back edge is a lip, a blind read saw a bowl floating there)
+      if (mine.some(([x, z, r]) => Math.hypot(x - fx * b.dims[0], z - fz * b.dims[2]) < r + Math.max(w, d) / 2 + 0.1)) continue;
+      if (ccmOn(ctx, id, b, fx, fz, why, 'dress')) { mine.push([fx * b.dims[0], fz * b.dims[2], Math.max(w, d) / 2]); k++; n++; }
+    } }
+  return n;
+}
+const MOD_LIKE = /^(cardboard-boxes|oil-drum|pallet-|trash-bags|gear-case-stack|mattress-floor|filing-cabinet)/;
+const modCover = (ctx) => ctx.placements.filter(p => !p.parent && p.y < 0.5 && p.orient !== 'floor' && p.rule !== 'wall-mount' && p.rule !== 'wall-light').reduce((a, p) => { const [aw, ad] = ctx.aabb(p.dims[0], p.dims[2], p.rot); return a + aw * ad; }, 0) / ctx.area();
+// the walks a denser room must keep, reserved BEFORE the fill (walk() marks them KEEP, so nothing below stands in them) and
+// recorded (the checks see them): a hub's swirl through its doors (cbLoop: the loop attempt() walks after the program),
+// the main door to standing room beside the key piece (the nearest side it can be reached from), every other door to it
+function modKeepWalks(ctx, feature) {
+  const d = ctx.mainDoor; if (!d || ctx.modWalked) return; ctx.modWalked = true; // (once: a program may walk them early, before its own furniture)
+  for (const o of ctx.doors) { const [x, z] = ctx.sidePoint(o.side, o.tc, 2.2), ns = o.side === 'N' || o.side === 'S', w = (o.width || CELL) + 0.5; ctx.mark(x, z, ns ? w : 4.4, ns ? 4.4 : w, KEEP); } // (the whole opening: a 10-ft shutter's apron is 10 ft) // the apron inside every door (a blind read: a table and stool just inside the doorway)
+  if (ctx.role === 'hub' && !ctx.modLooped) cbLoop(ctx);
+  if (feature) { const [aw, ad] = ctx.aabb(feature.dims[0], feature.dims[2], feature.rot), pass = ctx.passable(1.25);
+    const spots = [];
+    for (let a = 0; a < 16; a++) { const ux = Math.sin(a * Math.PI / 8), uz = Math.cos(a * Math.PI / 8), k = Math.min(Math.abs(ux) > 1e-6 ? (aw / 2 + 1.5) / Math.abs(ux) : 1e9, Math.abs(uz) > 1e-6 ? (ad / 2 + 1.5) / Math.abs(uz) : 1e9);
+      const x = feature.x + ux * k, z = feature.z + uz * k; if (x > ctx.X0 + 0.8 && x < ctx.X1 - 0.8 && z > ctx.Z0 + 0.8 && z < ctx.Z1 - 0.8) spots.push([x, z]); }
+    spots.sort((p, q) => Math.hypot(p[0] - d.inner[0], p[1] - d.inner[1]) - Math.hypot(q[0] - d.inner[0], q[1] - d.inner[1]));
+    spots.unshift(front(feature, 1.5)); // its front first: where audit() walks to (you use a thing from its front)
+    const at = spots.find(pt => { const [i, j] = ctx.rc(...pt); return i >= 0 && j >= 0 && i < ctx.nx && j < ctx.nz && pass[j * ctx.nx + i] && ctx.astar(pass, d.inner, pt); });
+    if (at) ccmWalk(ctx, 'approach', [d.inner, at]);
+    else { ctx.scorePenalty = (ctx.scorePenalty || 0) + 15; ctx.notes.push(`no 3-ft way from the door to the ${feature.id}`); } } // (this candidate loses to one with a way)
+  for (const o of ctx.doors) if (o !== d) ccmWalk(ctx, 'branch', [o.inner, d.inner]);
+}
+// toward the room's DENSITY target: `ids` against the free walls in turn (another of a kind beside the first), `hung` on
+// them after; stops at the target, when the walls are full, or at `cap` of the floor covered (the floor stays a floor)
+function modDense(ctx, ids, { feature = null, hung = [], cap = 0.42, why = 'against a free wall: the room lived in' } = {}) {
+  const target = DENSITY[ctx.type.key]; if (!target) return 0;
+  const want = Math.round(target * ctx.area() / 100), n0 = ccmCount(ctx);
+  modKeepWalks(ctx, feature);
+  let miss = 0;
+  for (let k = 0; ccmCount(ctx) < want && miss < ids.length + 3 && modCover(ctx) < cap; k++) {
+    const id = ids[k % ids.length]; if (!ccmHas(ctx, id)) { miss++; continue; }
+    const mates = MOD_LIKE.test(id) ? ctx.placements.filter(q => q.id === id && !q.parent && q.y < 0.5) : [];
+    const p = ccmQuiet(ctx, () => (mates.length ? ctx.nearMates(id, mates, `${why} (with the others of its kind)`) : null) || ctx.wall(id, { prefer: 'random', layer: 'furnish', rule: 'dense-wall', why }));
+    if (p) { p.zone = p.zone || 'edge'; miss = 0; } else miss++;
+  }
+  for (let k = 0, m = 0; ccmCount(ctx) < want && m < 3 && hung.length; k++) { if (castleHang(ctx, [hung[k % hung.length]], ['N', 'S', 'E', 'W'], 1, { height: 6.4, why: 'on a free wall' })) m = 0; else m++; }
+  return ccmCount(ctx) - n0;
+}
+// a City / Cyberpunk room's rows on the storeroom's grammar: no lanterns (the room has its tubes), its own stock
+function modAisles(ctx, cfg, feature = null) {
+  const d = ctx.mainDoor, lane = cfg.doorLane && d ? (() => { const ns = d.side === 'N' || d.side === 'S', s0 = 4.6, L = Math.max(1, cfg.doorLane - s0), [x, z] = ctx.sidePoint(d.side, ns ? d.inner[0] - ctx.X0 : d.inner[1] - ctx.Z0, s0 + L / 2), w = 2.6; // (from past the door's cross aisle, which the grammar keeps itself)
+    const [i0, i1, j0, j1] = ctx.cells(x, z, ns ? w : L, ns ? L : w), was = []; for (let j = Math.max(0, j0); j < Math.min(ctx.nz, j1); j++) for (let i = Math.max(0, i0); i < Math.min(ctx.nx, i1); i++) { const k = j * ctx.nx + i; was.push([k, ctx.grid[k]]); ctx.grid[k] = BLOCK; } return was; })() : null;
+  const unlane = () => { if (lane) for (const [k, g] of lane) if (ctx.grid[k] === BLOCK) ctx.grid[k] = g === BLOCK ? BLOCK : KEEP; }; // (then a walkway)
+  try { return modAislesIn(ctx, cfg, feature); } finally { unlane(); }
+}
+function modAislesIn(ctx, cfg, feature) {
+  const snap = { grid: ctx.grid.slice(), n: ctx.placements.length, surf: ctx.surfaces.length, un: ctx.unplaced.length, paths: ctx.paths.length, zones: ctx.zones.length, info: ctx.storeInfo };
+  const out = aisleStore(ctx, 'mod-rows', feature, { receiving: false, lamp: null, capIds: [], wallPool: [], avoidBlocked: true, ...cfg });
+  if (out && out.units < (cfg.minUnits ?? 1)) { // rows of one: not rows. Undo them whole (the program's own layout follows)
+    ctx.grid.set(snap.grid); ctx.placements.length = snap.n; ctx.surfaces.length = snap.surf; ctx.unplaced.length = snap.un; ctx.paths.length = snap.paths; ctx.zones.length = snap.zones; ctx.storeInfo = snap.info;
+    return null; }
+  for (const z of ctx.zones.slice(snap.zones)) z.noLamp = true; // (attempt() hangs a fantasy lantern over every zone of a big room)
+  return out;
+}
+
+// APARTMENT (terminal): the TV on the wall facing the door, the sofa facing it across a coffee table, an armchair beside;
+// the kitchenette run along one side wall with the fridge at its end and a small dining table; the bed against the other
+// side wall; a floor lamp by the sofa, a house plant in a corner.
+function modApartment(ctx) {
+  const far = ccmFar(ctx), lat = ctx.shuffle(ccmLat(far)), L = ctx.sideLen(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W;
+  const tv = dunFocal(ctx, far, ['tv-stand'], { label: 'the television', rule: 'key-tv', why: 'the screen: on the wall facing the door' });
+  let sofa = null, table = null, chair = null;
+  if (tv && ccmHas(ctx, 'sofa')) { const [fx, fz] = ctx.facingVec(tv.rot), sd = modBox(ctx, 'sofa')[1];
+    const spots = [6.5, 7.5, 5.5, 8.5, 4.6].filter(g => g + tv.dims[2] + sd < deep - 2).map(g => [tv.x + fx * (tv.dims[2] / 2 + g + sd / 2), tv.z + fz * (tv.dims[2] / 2 + g + sd / 2), tv.rot + Math.PI]);
+    sofa = spots.length ? castlePut(ctx, 'sofa', spots, { layer: 'anchor', rule: 'key-sofa', why: 'the sofa: facing the screen across the room' }) : null; }
+  if (!tv && !sofa) sofa = dunFocal(ctx, far, ['sofa'], { label: 'the sofa', rule: 'key-sofa', why: 'the sofa: on the wall facing the door' });
+  if (!sofa && !tv) return { fail: 'apartment: neither the screen nor the sofa fits' };
+  if (tv && sofa) { const mx = (tv.x + sofa.x) / 2, mz = (tv.z + sofa.z) / 2; table = castlePut(ctx, 'coffee-table', [[mx, mz, sofa.rot], [mx * 0.9 + sofa.x * 0.1, mz * 0.9 + sofa.z * 0.1, sofa.rot]], { layer: 'furnish', rule: 'coffee-table', why: 'the coffee table: between the sofa and the screen' }); }
+  if (table || sofa) chair = modBeside(ctx, 'armchair', table || sofa, modSeed(ctx, 'arm') % 2 ? 1 : -1, 1.4, 'an armchair beside the coffee table, facing it');
+  if (sofa) ccmFlank(ctx, sofa, ['lamp-floor'], { n: 1, off: 0.4, why: 'a floor lamp at the end of the sofa' });
+  const kitchen = ccmQuiet(ctx, () => ctx.wall('kitchenette', { sides: [lat[0]], prefer: 'random', why: 'the kitchenette run along a side wall' }));
+  const fridge = kitchen ? castleNear(ctx, ['fridge'], [lat[0]], [kitchen.x, kitchen.z], { why: 'the fridge at the end of the kitchen run' })[0] || null : ccmQuiet(ctx, () => ctx.wall('fridge', { sides: [lat[0], OPP_SIDE[far]], why: 'the fridge against a wall' }));
+  let dining = null, seats = 0;
+  if (ctx.area() >= 300) { dining = dunFree(ctx, 'table-dining', kitchen ? front(kitchen, 3.5) : null, 9, 'a small dining table by the kitchen', { margin: 1.2 });
+    if (dining) for (const s of [1, -1]) if (modBeside(ctx, 'chair-plain', dining, s, 0.15, 'a chair at the dining table')) seats++; }
+  const bed = ccmQuiet(ctx, () => ctx.wall('bed-double', { sides: [lat[1]], prefer: 'random', why: 'the bed, its head to the other side wall' }));
+  const plant = ccmCorner(ctx, 'houseplant', [far, lat[1]], { why: 'a house plant in the corner' }) || ccmCorner(ctx, 'houseplant', [OPP_SIDE[far], lat[0]], { why: 'a house plant in the corner' });
+  ccmEnsureLight(ctx, [], ['lamp-floor']);
+  const dense = modDense(ctx, ['houseplant', 'book-pile-floor', 'armchair', 'cardboard-boxes', 'fern-potted', 'lamp-floor', 'chair-plain'], { feature: tv || sofa, why: 'a lived-in flat: against a free wall' });
+  if (table) castleRug(ctx, ccmAny(ctx, ['rug-oval', 'rug-round', 'rug-striped-woven']), table.x, table.z, table.rot, {}, 'a rug under the coffee table');
+  modTops(ctx, [table], ['book-stack', 'book-open', 'bottle', 'cup-glass-green', 'plant-pot'], 3, 'on the coffee table'); modTops(ctx, [dining], ['plate-ceramic', 'bowl', 'bottle', 'vase-flowers', 'bread-loaf', 'apple-pile', 'cup-glass-green'], 4, 'on the dining table');
+  modTops(ctx, [kitchen], ['bowl-stack', 'bottle', 'jars-preserves', 'bread-loaf', 'cup-glass-green'], 3, 'on the kitchen counter');
+  ctx.modInfo = { kind: 'apartment', tv: !!tv, sofa: !!sofa, table: !!table, armchair: !!chair, kitchen: !!kitchen, fridge: !!fridge, dining: !!dining, seats, bed: !!bed, plant: !!plant, dense };
+  ccmDone(ctx);
+  return { feature: tv || sofa, what: `a flat: ${tv ? 'the screen on the far wall, ' : ''}${sofa ? 'the sofa facing it' : ''}${kitchen ? ', a kitchenette' : ''}${bed ? ', a bed' : ''}`, approach: null, passage: true };
+}
+
+// OFFICE FLOOR (hub): cubicle desks in ranks either side of a central aisle on the door's axis, a chair at each; the
+// whiteboard on the wall facing the door; filing cabinets along the side walls, the copier and the water cooler by the
+// door, plants in the far corners; fluorescent fittings in a grid.
+function modOffice(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W;
+  if (!ccmHas(ctx, 'cubicle-desk')) return { fail: 'office: no cubicle desk' };
+  const board = ccmQuiet(ctx, () => ctx.mount('whiteboard', { sides: [far], height: 5, layer: 'furnish', why: 'the whiteboard on the wall facing the door' }));
+  const [cw, cd] = modBox(ctx, 'cubicle-desk');
+  const ranks = ccmRanks(ctx, { far, s0: 2.2, s1: deep - 4.5, gap: 3.2, aisle: 4.5, margin: 2.6, turn: Math.PI, proto: 'cubicle-desk', choose: () => 'cubicle-desk', layer: 'anchor', rule: 'cubicle', why: 'a cubicle desk in the ranks' });
+  let chairs = 0;
+  for (const p of ranks.placed) { const [fx, fz] = ctx.facingVec(p.rot); if (castlePut(ctx, 'office-chair', [[p.x + fx * (p.dims[2] / 2 + 1.0), p.z + fz * (p.dims[2] / 2 + 1.0), p.rot + Math.PI], [p.x + fx * (p.dims[2] / 2 + 1.4), p.z + fz * (p.dims[2] / 2 + 1.4), p.rot + Math.PI]], { layer: 'furnish', rule: 'desk-chair', why: 'the chair at a cubicle desk' })) chairs++; }
+  if (!ranks.placed.length) return { fail: 'office: no cubicle desk fits' };
+  ctx.focal = { label: 'the cubicle ranks', id: 'cubicle-desk', ok: true, centre: true };
+  const cabinets = dunWalls(ctx, ['filing-cabinet'], lat, Math.max(2, Math.round(deep / 9)), 'filing cabinets along the side wall').length;
+  const d = ctx.mainDoor, byDoor = d ? [d.side] : [OPP_SIDE[far]];
+  for (const id of ['photocopier', 'water-cooler', 'coffee-station']) ccmQuiet(ctx, () => ctx.wall(id, { sides: byDoor, prefer: 'random', why: 'by the door' }));
+  for (const c of [[far, lat[0]], [far, lat[1]]]) ccmCorner(ctx, 'houseplant', c, { why: 'a plant in a far corner' });
+  const tubes = modTubes(ctx, 10);
+  const dense = modDense(ctx, ['filing-cabinet', 'houseplant', 'cardboard-boxes', 'palm-potted', 'water-cooler', 'book-pile-floor'], { feature: ranks.placed[0], why: 'office clutter along a free wall' });
+  ctx.modInfo = { kind: 'office', desks: ranks.placed.length, chairs, cabinets, board: !!board, tubes, dense };
+  ccmDone(ctx);
+  return { feature: ranks.placed[0], what: `an office floor: ${ranks.placed.length} cubicle desks in ranks, ${chairs} chairs, ${cabinets} filing cabinets`, approach: null, passage: true };
+}
+
+// BAR & NIGHTCLUB (hub): the bar along the side wall with no door, the back bar against that wall behind it and stools in
+// front; booths along the other side wall; the pool table in the floor; in a big room the DJ booth on the wall facing the
+// door between two speaker stacks; small round tables; neon on the walls, the jukebox by the door.
+function modBar(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), d = ctx.mainDoor;
+  const barWall = [...lat].sort((a, b) => ctx.doorT[a].length - ctx.doorT[b].length || modSeed(ctx, 'bar', a) % 2 - 0.5)[0], other = OPP_SIDE[barWall];
+  const Lb = ctx.sideLen(barWall), [bw, bd] = modBox(ctx, 'bar-counter'), [, sd] = modBox(ctx, 'back-bar-shelves');
+  const backs = dunWalls(ctx, ['back-bar-shelves'], [barWall], Math.max(1, Math.min(3, Math.floor((Lb - 6) / Math.max(5, modBox(ctx, 'back-bar-shelves')[0])))), 'the back bar: bottles against the wall behind the counter', { prefer: 'centre' });
+  const n = Math.max(1, Math.min(3, Math.floor((Lb - 8) / bw))), counters = [], s = sd + 3.4 + bd / 2;
+  for (let i = 0; i < n; i++) { const t = Lb / 2 + (i - (n - 1) / 2) * bw; const p = castlePut(ctx, 'bar-counter', [[...ctx.sidePoint(barWall, t, s), SIDES[barWall].rot], [...ctx.sidePoint(barWall, t, s + 0.5), SIDES[barWall].rot]], { layer: 'anchor', rule: 'key-bar', why: 'the bar counter: along the side wall, staff behind it' }); if (p) counters.push(p); }
+  if (!counters.length) return { fail: 'bar: the counter does not fit' };
+  ctx.focal = { label: 'the bar', id: 'bar-counter', side: barWall, ok: true };
+  const [ln] = ctx.sidePoint(barWall, 0, s), behind = ctx.sidePoint(barWall, Lb / 2, (sd + s - bd / 2) / 2), horizB = barWall === 'N' || barWall === 'S';
+  ctx.mark(behind[0], behind[1], horizB ? n * bw : s - bd / 2 - sd, horizB ? s - bd / 2 - sd : n * bw, KEEP); // the staff's walk behind the bar
+  let stools = 0;
+  for (const c of counters) { const [fx, fz] = ctx.facingVec(c.rot), lx = fz, lz = -fx; for (const k of [-0.32, 0, 0.32]) if (castlePut(ctx, 'stool-bar', [[c.x + fx * (c.dims[2] / 2 + 1.25) + lx * k * c.dims[0], c.z + fz * (c.dims[2] / 2 + 1.25) + lz * k * c.dims[0], c.rot + Math.PI]], { layer: 'furnish', rule: 'bar-stool', why: 'a stool at the bar', allowKeep: true })) stools++; }
+  const booths = dunWalls(ctx, ['booth-seat'], [other], Math.max(1, Math.min(4, Math.floor(ctx.sideLen(other) / 7))), 'a booth along the wall').length;
+  cbLoop(ctx); ctx.modLooped = true; modKeepWalks(ctx, counters[0]); // the swirl and the way to the bar, walked now: the tables and their stools below leave them free
+  let dj = null, speakers = 0;
+  if (ctx.area() >= 800 && ccmHas(ctx, 'dj-booth')) { dj = dunFocal(ctx, far, ['dj-booth'], { label: 'the DJ booth', rule: 'dj', layer: 'furnish', why: 'the DJ booth at the head of the floor' }); if (dj) speakers = ccmFlank(ctx, dj, ['speaker-stack'], { off: 0.5, layer: 'furnish', why: 'a speaker stack each side of the DJ' }).length; }
+  const pool = ctx.area() >= 600 ? ccmCentre(ctx, ['table-billiards'], { label: 'the pool table', rule: 'pool', layer: 'furnish', rot: SIDES[barWall].rot + Math.PI / 2, off: [0, 0], why: 'the pool table in the floor' }) : null;
+  if (pool) ccmClearRound(ctx, pool, 3);
+  let tables = 0; for (let i = 0; i < Math.max(2, Math.round(ctx.area() / 170)); i++) { const t = dunFree(ctx, 'table-cafe', null, 99, 'a small round table on the floor', { margin: 1.6 }); if (!t) continue; tables++; for (const sg of [1, -1]) modBeside(ctx, 'stool-bar', t, sg, 0.2, 'a stool at the table'); }
+  const juke = d ? ccmQuiet(ctx, () => ctx.wall('jukebox', { sides: [d.side, other], prefer: 'random', why: 'the jukebox against the wall' })) : null;
+  const neon = castleHang(ctx, ['sign-neon'], [barWall, far, other], Math.max(1, Math.min(3, Math.round(ctx.area() / 400))), { height: 6.8, why: 'a neon sign on the wall' });
+  ccmEnsureLight(ctx, ['sign-neon'], ['jukebox']);
+  const dense = modDense(ctx, ['booth-seat', 'speaker-stack', 'houseplant', 'cardboard-boxes'], { feature: counters[0], hung: ['sign-neon'], why: 'along a free wall of the bar' });
+  modTops(ctx, counters, ['bottle', 'bottle-cluster', 'cup-glass-green', 'bowl'], 3, 'on the bar'); modTops(ctx, ctx.placements.filter(p => p.id === 'table-cafe'), ['bottle', 'cup-glass-green', 'bowl'], 2, 'on the table');
+  ctx.modInfo = { kind: 'bar', counters: counters.length, backs: backs.length, stools, booths, dj: !!dj, speakers, pool: !!pool, tables, jukebox: !!juke, neon, dense };
+  ccmDone(ctx);
+  return { feature: counters[0], what: `a bar: ${counters.length} counter section${counters.length === 1 ? '' : 's'} with ${stools} stools along the ${SIDE_LABEL[barWall]} wall, ${booths} booths${pool ? ', the pool table' : ''}${dj ? ', the DJ booth' : ''}`, approach: null, passage: true };
+}
+
+// CITY STREET (outdoor): pavements down both long edges, the road between with its dashed centre line, cars parked at
+// the kerb along one side, streetlights on the pavements every ~25 ft on alternate sides, a hydrant, bins and a newspaper
+// box on the pavement, a zebra crossing near one end, a manhole cover in the road.
+function modStreet(ctx) {
+  const horiz = modHoriz(ctx), Lr = horiz ? ctx.W : ctx.D, across = horiz ? ctx.D : ctx.W, long = horiz ? ['N', 'S'] : ['W', 'E'];
+  const along = horiz ? [1, 0] : [0, 1], rotAlong = horiz ? 0 : Math.PI / 2, nT = Math.max(1, Math.round(Lr / CELL)), tile = Lr / nT;
+  const walk = across >= 18 ? 5 : across >= 12 ? 3 : 0; // pavement width each side
+  let pave = 0; if (walk) for (const s of long) pave += modRow(ctx, 'floor-tile-pavement', ctx.sidePoint(s, 0, walk / 2), along, nT, [tile, walk], rotAlong, 'the pavement along the edge of the street', { rule: 'pavement', layer: 'floor-dress', over: true });
+  const road = across - 2 * walk, mid = ctx.sidePoint(long[0], 0, across / 2);
+  const centre = road >= 8 ? modRow(ctx, 'road-strip', mid, along, nT, [tile, Math.min(5, road / 2)], rotAlong, 'the dashed centre line of the road', { rule: 'key-road', layer: 'anchor', over: true }) : 0;
+  // the kerb's parking lane: cars nose to tail, the side picked by seed
+  const kerb = long[modSeed(ctx, 'kerb') % 2], cars = [], [carW, carL] = modBox(ctx, 'car-sedan');
+  const kerbFlip = modSeed(ctx, 'traffic') % 2 === 1; // every car at a kerb faces the way the traffic in its lane goes (Gemini read random facings as cars head-on)
+  if (road >= 9 && ccmHas(ctx, 'car-sedan')) { const n = Math.max(1, Math.floor((Lr - 6) / (carL + 4))), sLane = walk + carW / 2 + 0.5;
+    for (let i = 0; i < n; i++) { if (!ctx.chance(0.8) && i) continue; const id = ccmAny(ctx, ['car-sedan', 'car-hatchback']); const t = (Lr / n) * (i + 0.5) + ctx.r(-1.5, 1.5);
+      const p = castlePut(ctx, id, [[...ctx.sidePoint(kerb, t, sLane), rotAlong + Math.PI / 2 + (kerbFlip ? Math.PI : 0)]], { layer: 'anchor', rule: 'parked-car', why: 'a car parked at the kerb' }); if (p) cars.push(p); } }
+  // the driving lanes stay clear
+  const laneS0 = walk + (cars.length ? carW + 1.2 : 0.5), laneS1 = across - walk - 0.5; if (laneS1 - laneS0 > 3) { const c = ctx.sidePoint(long[0], Lr / 2, (laneS0 + laneS1) / 2); ctx.mark(c[0], c[1], horiz ? Lr : laneS1 - laneS0, horiz ? laneS1 - laneS0 : Lr, KEEP); }
+  // a zebra crossing near one end
+  const xt = ctx.chance(0.5) ? 7.5 : Lr - 7.5, nX = Math.max(1, Math.round(road / CELL)), xw = road / nX;
+  const cross = road >= 9 && Lr >= 30 ? modRow(ctx, 'crosswalk-strip', ctx.sidePoint(long[0], xt, walk), horiz ? [0, 1] : [1, 0], nX, [xw, 5], rotAlong + Math.PI / 2, 'a zebra crossing across the road', { rule: 'crosswalk', over: true, ns: false }) : 0;
+  let lamps = 0; const nL = Math.max(1, Math.round(Lr / 25));
+  if (walk) for (let i = 0; i < nL; i++) { const s = long[i % 2], t = Lr * (i + 0.5) / nL; if (castlePut(ctx, 'streetlight', [[...ctx.sidePoint(s, t, 1.0), SIDES[s].rot], [...ctx.sidePoint(s, t + 2, 1.0), SIDES[s].rot]], { layer: 'light', rule: 'streetlight', why: 'a streetlight on the pavement' })) lamps++; }
+  const onWalk = (id, why) => { if (!walk) return null; const s = long[modSeed(ctx, id) % 2]; for (let k = 0; k < 6; k++) { const t = ctx.r(3, Lr - 3), p = castlePut(ctx, id, [[...ctx.sidePoint(s, t, Math.min(walk - 0.8, 1.4)), SIDES[s].rot]], { layer: 'furnish', rule: 'on-pavement', why }); if (p) return p; } return null; };
+  const kit = ['fire-hydrant', 'trash-can-city', 'newspaper-box', 'bench-street', 'trash-can-city'].map(id => onWalk(id, `a ${id.replace(/-/g, ' ')} on the pavement`)).filter(Boolean).length;
+  if (road >= 9) dunFlat(ctx, 'manhole-cover', ...ctx.sidePoint(long[1], ctx.r(5, Lr - 5), across - walk - road * 0.3), 0, 'a manhole cover in the road', { over: true });
+  dunScatter(ctx, ['decal-oil-stain', 'decal-litter'], Math.max(1, Math.round(Lr / 20)), 'on the road and the pavement');
+  ctx.yardInfo = { vibe: 'city street', edge: 'none', edgePieces: 0, wallFt: 0, gate: null, focal: null, signs: 0, wear: 0, doors: [], lamps, plants: { placed: 0, slot: [], waiting: [] } };
+  ctx.modInfo = { kind: 'street', pave, centre, cars: cars.length, cross, lamps, kit };
+  ccmDone(ctx);
+  return { feature: cars[0] || null, what: `a city street ${Math.round(Lr)} ft long: ${cars.length} parked car${cars.length === 1 ? '' : 's'}, ${lamps} streetlight${lamps === 1 ? '' : 's'}${cross ? ', a zebra crossing' : ''}`, outdoor: true };
+}
+
+// BACK ALLEY (outdoor): brick walls along both long edges where no building stands (laid like a yard's edge), open at the
+// ends; the dumpster against one wall with trash bags heaped beside it, pallets, boxes and an oil drum along the walls,
+// an air-conditioning unit on a wall, litter and an oil stain on the asphalt, one streetlight at an end.
+function modAlley(ctx) {
+  const horiz = modHoriz(ctx), Lr = horiz ? ctx.W : ctx.D, long = horiz ? ['N', 'S'] : ['W', 'E'];
+  const built = ctx.openings.filter(o => o.to && /^(wall|window|door)$/.test(o.kind));
+  let walls = 0; const wallSides = [];
+  for (const s of long) { const n = Math.round(ctx.sideLen(s) / CELL + 2 * INSET / CELL);
+    for (let i = 0; i < n; i++) { if (built.some(o => o.side === s && o.index === i)) continue; const sk = ctx.chooseSku('wall-straight', { family: 'city-brick' }); if (!sk || sk.family !== 'city-brick') break;
+      const [x, z] = ctx.sidePoint(s, i * CELL - INSET + CELL / 2, -INSET); ctx.record('wall-straight', sk, ctx.dims('wall-straight', sk), x, 0, z, SIDES[s].rot, 'anchor', 'yard-edge', 'the brick wall along the alley', { side: s, edge: 'brick wall' }); walls++; }
+    wallSides.push(s); }
+  // how far a laid wall reaches into the alley's ground (a piece is up to ~2 ft thick on its grid line): things stand clear of it
+  const band = Math.max(0.1, ...ctx.placements.filter(p => p.rule === 'yard-edge').map(p => p.dims[2] / 2 - INSET + 0.15));
+  const sideA = long[modSeed(ctx, 'dump') % 2], sideB = OPP_SIDE[sideA];
+  const dump = ccmQuiet(ctx, () => ctx.wall('dumpster', { sides: [sideA], prefer: 'random', layer: 'anchor', rule: 'key-dumpster', gap: band + 0.3, why: 'the dumpster against the alley wall' }));
+  if (dump) ctx.focal = { label: 'the dumpster', id: dump.id, side: sideA, ok: true };
+  const bags = dump ? ccmFlank(ctx, dump, ['trash-bags'], { n: 1 + (modSeed(ctx, 'bags') % 2), off: 0.1, layer: 'furnish', why: 'trash bags heaped beside the dumpster' }).length : 0;
+  let stuff = 0; for (let i = 0; i < Math.max(2, Math.round(Lr / 9)); i++) { const id = ccmAny(ctx, ['pallet-stack', 'cardboard-boxes', 'oil-drum', 'trash-bags']); if (id && ccmQuiet(ctx, () => ctx.wall(id, { sides: [[sideB, sideA][i % 2]], gap: band + 0.1, prefer: 'random', why: 'left against the alley wall' }))) stuff++; }
+  let ac = 0; if (ccmHas(ctx, 'ac-unit')) { const sk = ctx.chooseSku('ac-unit'); const dm = ctx.dims('ac-unit', sk), t = ctx.r(4, Lr - 4), [x, z] = ctx.sidePoint(sideB, t, dm.d / 2 + band + 0.05); if (!ctx.placements.some(p => p.rule !== 'yard-edge' && Math.hypot(p.x - x, p.z - z) < 3)) { ctx.record('ac-unit', sk, dm, x, 4.2, z, SIDES[sideB].rot, 'dress', 'wall-unit', 'an air-conditioning unit on the wall'); ac++; } }
+  const lamp = castlePut(ctx, 'streetlight', [[...ctx.sidePoint(sideB, 2.5, 1.2), SIDES[sideB].rot], [...ctx.sidePoint(sideA, Lr - 2.5, 1.2), SIDES[sideA].rot]], { layer: 'light', rule: 'streetlight', why: 'a streetlight at the end of the alley' });
+  dunScatter(ctx, ['decal-litter', 'decal-oil-stain'], Math.max(1, Math.round(Lr / 14)), 'on the alley floor');
+  ctx.yardInfo = { vibe: 'back alley', edge: 'brick wall', edgePieces: walls, wallFt: built.length * CELL, gate: null, focal: dump ? { id: dump.id, kind: 'dumpster' } : null, signs: 0, wear: 0, doors: [], plants: { placed: 0, slot: [], waiting: [] } };
+  ctx.modInfo = { kind: 'alley', walls, dumpster: !!dump, bags, stuff, ac, lamp: !!lamp };
+  ccmDone(ctx);
+  return { feature: dump, what: `a back alley: ${walls} sections of brick wall${dump ? ', the dumpster' : ''}, ${bags + stuff} things against the walls`, outdoor: true };
+}
+
+// PARKING GARAGE (hub): a row of bays along a long wall (two rows from 42 ft deep), each 10 ft wide between painted lines,
+// most with a car nose-in; square concrete columns on the line between the bays and the aisle; the aisle clear; a jersey
+// barrier and cones at its end, the entry barrier by the vehicle door, fluorescent tubes over the aisle, oil on the floor.
+function modGarage(ctx) {
+  const horiz = modHoriz(ctx), Lr = horiz ? ctx.W : ctx.D, across = horiz ? ctx.D : ctx.W, long = horiz ? ['N', 'S'] : ['W', 'E'];
+  const [, carL] = modBox(ctx, 'car-sedan'), bayD = Math.max(13, carL + 1.2), rows = across >= 2 * bayD + 11 ? 2 : across >= bayD + 7.5 ? 1 : 0;
+  if (!rows) return { fail: 'garage: too narrow for a bay and an aisle' };
+  const sides = rows === 2 ? long : [long[modSeed(ctx, 'bays') % 2]], nB = Math.max(1, Math.floor((Lr - 1) / 10)), bw = (Lr - 1) / nB;
+  let lines = 0, cars = 0, pillars = 0;
+  for (const s of sides) {
+    for (let i = 0; i <= nB; i++) { const t = 0.5 + i * bw; if (ctx.overlapsT(ctx.doorT[s], t - 1, t + 1)) continue; const nl = Math.max(1, Math.round(bayD / CELL)); lines += modRow(ctx, 'parking-line-strip', ctx.sidePoint(s, t, 0), [SIDES[s].n[0], SIDES[s].n[1]], nl, [bayD / nl, 2.5], (s === 'N' || s === 'S') ? Math.PI / 2 : 0, 'a painted bay line', { rule: 'bay-line', over: true }); }
+    for (let i = 0; i < nB; i++) { if (!ctx.chance(0.72)) continue; const t = 0.5 + (i + 0.5) * bw; if (ctx.overlapsT(ctx.doorT[s], t - 3, t + 3)) continue; const id = ccmAny(ctx, ['car-sedan', 'car-hatchback']);
+      if (castlePut(ctx, id, [[...ctx.sidePoint(s, t, carL / 2 + 1.2), SIDES[s].rot + (ctx.chance(0.7) ? Math.PI : 0)]], { layer: 'anchor', rule: 'parked-car', why: 'a car in its bay' })) cars++; }
+    for (let i = 1; i < nB; i += 2) { const t = 0.5 + i * bw + bw / 2 - bw / 2; if (castlePut(ctx, 'pillar-concrete', [[...ctx.sidePoint(s, 0.5 + i * bw, bayD + 0.9), 0]], { layer: 'anchor', rule: 'column', why: 'a concrete column between the bays and the aisle' })) pillars++; }
+  }
+  if (!cars && !pillars) return { fail: 'garage: no car and no column fits' };
+  ctx.focal = { label: 'the bays', id: 'car-sedan', ok: true };
+  const aisle0 = rows === 2 ? bayD + 1.5 : (sides[0] === long[0] ? bayD + 1.5 : 1), aisle1 = rows === 2 ? across - bayD - 1.5 : (sides[0] === long[0] ? across - 1 : across - bayD - 1.5);
+  const ac = ctx.sidePoint(long[0], Lr / 2, (aisle0 + aisle1) / 2); ctx.mark(ac[0], ac[1], horiz ? Lr - 6 : aisle1 - aisle0, horiz ? aisle1 - aisle0 : Lr - 6, KEEP);
+  const d = ctx.mainDoor; let barrier = null;
+  if (d) barrier = castleNear(ctx, ['parking-barrier'], [d.side], d.inner, { why: 'the entry barrier inside the vehicle door' })[0] || null;
+  const end = horiz ? (d && d.side === 'W' ? 'E' : 'W') : (d && d.side === 'N' ? 'S' : 'N');
+  dunWalls(ctx, ['jersey-barrier', 'traffic-cone', 'oil-drum'], [end], 2, 'at the end of the aisle');
+  const tubes = (() => { if (!ccmHas(ctx, 'light-fluorescent')) return 0; let n = 0; const nT = Math.max(1, Math.round(Lr / 12)); for (let i = 0; i < nT; i++) { const sk = ctx.chooseSku('light-fluorescent'), dm = ctx.dims('light-fluorescent', sk), [x, z] = ctx.sidePoint(long[0], Lr * (i + 0.5) / nT, (aisle0 + aisle1) / 2); ctx.record('light-fluorescent', sk, dm, x, Math.max(0.5, CEIL - dm.h - 0.1), z, horiz ? Math.PI / 2 : 0, 'light', 'ceiling-tube', 'a fluorescent tube over the aisle'); n++; } return n; })();
+  dunScatter(ctx, ['decal-oil-stain'], Math.max(1, Math.round(cars / 2)), 'oil on the concrete');
+  ctx.modInfo = { kind: 'garage', rows, bays: nB * sides.length, lines, cars, pillars, barrier: !!barrier, tubes };
+  ccmDone(ctx);
+  return { feature: dunSeen(ctx, ctx.placements.filter(p => p.rule === 'parked-car' || p.rule === 'column')) || ctx.placements.find(p => p.rule === 'parked-car'), what: `a parking garage: ${rows} row${rows === 1 ? '' : 's'} of bays, ${cars} cars, ${pillars} columns`, approach: null, passage: true };
+}
+
+// CONVENIENCE STORE (terminal): the glass front is the street wall (walls.js PANELS); the lit drinks coolers along the wall
+// facing it; shelving aisles running from the front toward the coolers, so you look down them from the door; the checkout
+// counter beside the door, the cash machine and the coffee station on the side walls; fluorescent tubes overhead.
+function modStore(ctx) {
+  ccmPanels(ctx);
+  const far = ccmFar(ctx), lat = ccmLat(far), L = ctx.sideLen(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W, d = ctx.mainDoor;
+  const [cw] = modBox(ctx, 'drinks-cooler'), coolers = dunWalls(ctx, ['drinks-cooler'], [far], Math.max(1, Math.min(5, Math.floor((L - 2) / (cw + 0.2)))), 'a lit drinks cooler along the back wall', { layer: 'anchor', prefer: 'centre' });
+  const counter = d ? ccmQuiet(ctx, () => ctx.put('checkout-counter', (dm) => ctx.wallGen(dm, [lat[0], lat[1]], { gap: 0.6, windows: false }), (c) => Math.hypot(c.x - d.inner[0], c.z - d.inner[1]), { layer: 'furnish', rule: 'checkout', why: 'the checkout counter beside the door' })) : null;
+  if (counter) ctx.mark(...front(counter, 1.6), ...ctx.aabb(counter.dims[0], 3, counter.rot), KEEP); // the till's queue stays clear
+  const atm = ccmQuiet(ctx, () => ctx.wall('atm', { sides: lat, prefer: 'random', why: 'the cash machine against a side wall' }));
+  const coffee = ccmQuiet(ctx, () => ctx.wall('coffee-station', { sides: lat, prefer: 'random', why: 'the coffee station on a side wall' }));
+  // the aisles (Harry: "note some of our isle-packing options"): rows of shelving units end to end running from the front
+  // toward the coolers, so you look down them from the door; boxes of stock as end caps; shelving on the free side walls.
+  // The storeroom's own parameters (3.5-4-ft aisles); single rows and no end caps (a blind read took back-to-back units for
+  // "shelves clipping into each other" and wooden end caps by the door for "counters in front of the entrance"); the
+  // wall band 3.7 ft clears the checkout, the cash machine and the coffee station already against the side walls
+  const rows = ccmHas(ctx, 'store-shelving') ? modAisles(ctx, { rowPool: ['store-shelving'], wallPool: ['store-shelving'], capIds: [], rows: 'single', orient: 'door', rule: 'key-aisle', layer: 'anchor', wallMax: 6, wallBand: 3.7, zone: { kind: 'aisles', label: 'shelving aisles' }, why: (i) => `shelving aisle ${i + 1}: running from the front toward the coolers`, capWhy: 'stock boxes at the end of the aisle', failNote: 'store too small for shelving rows: one unit an aisle' }) : null;
+  const [gw, gd] = modBox(ctx, 'store-shelving'), rot = SIDES[far].rot + Math.PI / 2, gaps = 4.2, sMid = 3.5 + (deep - 3.5 - 7) / 2;
+  const nA = Math.max(1, Math.floor((L - 4) / (gd + gaps))), aisles = ctx.placements.filter(p => p.id === 'store-shelving' && p.rule === 'key-aisle');
+  if (!rows && ccmHas(ctx, 'store-shelving') && deep >= gw + 11) for (let i = 0; i < nA; i++) { const t = L / 2 + (i - (nA - 1) / 2) * (gd + gaps); const p = castlePut(ctx, 'store-shelving', [[...ctx.sidePoint(far, t, sMid), rot], [...ctx.sidePoint(far, t, sMid + 0.6), rot]], { layer: 'anchor', rule: 'key-aisle', why: 'a shelving aisle running from the front to the coolers' }); if (p) aisles.push(p); }
+  if (!aisles.length && !coolers.length) return { fail: 'store: no shelving and no cooler fits' };
+  ctx.focal = { label: 'the aisles', id: aisles.length ? 'store-shelving' : 'drinks-cooler', ok: true };
+  ccmCorner(ctx, 'cardboard-boxes', [far, lat[modSeed(ctx, 'box') % 2]], { why: 'stock boxes waiting in the corner' });
+  const tubes = modTubes(ctx, 9);
+  const dense = modDense(ctx, ['cabbage-crate', 'potato-crate', 'cardboard-boxes', 'crate', 'store-shelving', 'drinks-cooler'], { feature: aisles[0] || coolers[0], why: 'produce and stock along a free wall' });
+  modTops(ctx, [counter], ['bottle', 'jar-pickles', 'jam-jar', 'honey-jar-dipper'], 2, 'by the till');
+  ctx.modInfo = { kind: 'store', coolers: coolers.length, aisles: aisles.length, rows: rows ? rows.rowsCount : 0, counter: !!counter, atm: !!atm, coffee: !!coffee, tubes, dense, glass: (ctx.room.panels || []).length };
+  ccmDone(ctx);
+  return { feature: aisles[0] || coolers[0], what: `a convenience store: ${aisles.length} shelving aisle${aisles.length === 1 ? '' : 's'}, ${coolers.length} lit cooler${coolers.length === 1 ? '' : 's'}${counter ? ', the checkout by the door' : ''}`, approach: null, passage: true };
+}
+
+// WAREHOUSE (hub): tall pallet racking along the side walls (and a back-to-back run down the middle of a big floor); a
+// shipping container along the wall facing the vehicle door; the forklift in the open; pallets of boxes in a staging area
+// inside the door, oil drums against a wall; fluorescent tubes high overhead.
+function modWarehouse(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W, L = ctx.sideLen(far), d = ctx.mainDoor;
+  const [rw] = modBox(ctx, 'pallet-racking'), racks = [];
+  for (const s of lat) racks.push(...dunWalls(ctx, ['pallet-racking'], [s], Math.max(1, Math.min(4, Math.floor((ctx.sideLen(s) - 8) / (rw + 0.3)))), 'pallet racking along the side wall', { layer: 'anchor' }));
+  const container = L >= 22 ? dunFocal(ctx, far, ['shipping-container'], { label: 'the shipping container', rule: 'key-container', gap: 1.5, why: 'a shipping container along the wall facing the door', k: 1 }) : null;
+  if (container) { const [cl, cd] = [container.dims[0], container.dims[2]]; if (Math.max(cl, cd) > L - 2) { /* (laid along the wall: the box rule turns a long thing) */ } }
+  if (!racks.length && !container) return { fail: 'warehouse: no racking and no container fits' };
+  ctx.focal = container ? { label: 'the shipping container', id: container.id, side: far, ok: true } : { label: 'the racking', id: 'pallet-racking', ok: true };
+  const near = d ? front({ x: d.inner[0], z: d.inner[1], rot: SIDES[d.side].rot, dims: [0, 0, 0] }, 6) : null;
+  if (near) ctx.mark(near[0], near[1], 9, 9, KEEP); // the staging ground inside the door, before the rows take the floor
+  const walksLater = () => modKeepWalks(ctx, container || racks[0]); // (the ways, before the staged pallets: a blind read had them "in the walking route in front of the doorway")
+  // racking ROWS down the floor, the fantasy storeroom's own grammar and parameters (Harry: "look at how storage rooms are
+  // done in fantasy (aisles)"; the warehouse is the modern storeroom): its rolls (single or back to back, along the room or
+  // away from the door), its 3.5-4-ft aisles and cross aisles, end caps of stock; a double row with room for a single only
+  // lays the single (the dormitory's downgrade). The staging ground inside the door is the program's own (no receiving roll)
+  const rows = ccmHas(ctx, 'pallet-racking') ? modAisles(ctx, { rowPool: ['pallet-racking'], wallBand: modBox(ctx, 'pallet-racking')[1] + 0.3, downgrade: true, rule: 'rack-row', layer: 'anchor', capIds: ['pallet-boxes', 'crate', 'oil-drum'],
+    zone: { kind: 'racking', label: 'racking rows' }, why: (i, ch) => `racking row ${i + 1} (${ch.rows === 'double' ? 'back to back' : 'single'}), facing the aisle`, capWhy: 'stock at the end of the row', failNote: 'warehouse too small for a row of racking down the floor' }, container) : null;
+  const fork = dunFree(ctx, 'forklift', null, 99, 'the forklift parked in the open', { margin: 2 }); // (before the walks and the staging: the floor's one big free thing)
+  walksLater();
+  let staged = 0; for (const id of ['pallet-boxes', 'pallet-boxes', 'pallet-stack', 'pallet-boxes', 'cardboard-boxes']) if (dunFree(ctx, id, near, 14, 'a pallet staged inside the door, beside the way in', { margin: 1.0 })) staged++;
+  const drums = dunWalls(ctx, ['oil-drum', 'oil-drum', 'jersey-barrier'], d ? [d.side] : [OPP_SIDE[far]], 2, 'against the wall by the door').length;
+  const tubes = modTubes(ctx, 13, 'a fluorescent fitting high under the roof');
+  const dense = modDense(ctx, ['pallet-boxes', 'crate', 'pallet-stack', 'oil-drum', 'cardboard-boxes', 'crate'], { feature: container || racks[0], cap: 0.45, why: 'stock along a free wall' });
+  ctx.modInfo = { kind: 'warehouse', racks: racks.length + ctx.placements.filter(p => p.rule === 'rack-row').length, rows: rows ? rows.rowsCount : 0, container: !!container, forklift: !!fork, staged, drums, tubes, dense };
+  ccmDone(ctx);
+  return { feature: container || racks[0], what: `a warehouse: ${racks.length} runs of racking${container ? ', a shipping container' : ''}${fork ? ', the forklift' : ''}, ${staged} pallets staged by the door`, approach: null, passage: true };
+}
+
+// the leg of a shaped room: a couple of the room's own things against the wall and a light, never the key piece
+function modAnnex(ctx, { wall = ['cardboard-boxes'], tubes = true } = {}) {
+  dunWalls(ctx, wall, ctx.shuffle(['N', 'S', 'E', 'W']), Math.max(1, Math.round(ctx.area() / 150)), 'against the wall');
+  if (tubes) modTubes(ctx, 10);
+}
+// a City room asks for nothing that has no modern sku: while its program runs, a role is in the library only if it has one
+// (a shared role whose modern sku is missing or hidden would otherwise roll the fantasy piece into a flat or a bar)
+const modOnly = (fn) => (ctx) => { const has = ctx.has, pool = ctx.skuPool, modern = (id) => pool.call(ctx, id).some(s => s.tier === 'mod');
+  ctx.has = (id) => has.call(ctx, id) && (modern(id) || modShared(id)); ctx.skuPool = modSharedPool(pool, modern); // (shared roles of the plain set too, in their vetted looks)
+  try { return fn(ctx); } finally { ctx.has = has; ctx.skuPool = pool; } };
+Object.assign(KEY, Object.fromEntries(Object.entries({ 'mod-apartment': modApartment, 'mod-office': modOffice, 'mod-bar': modBar, 'mod-street': modStreet, 'mod-alley': modAlley, 'mod-garage': modGarage, 'mod-store': modStore, 'mod-warehouse': modWarehouse }).map(([k, f]) => [k, modOnly(f)])));
+Object.assign(MENUS, {
+  'mod-apartment': ccmAnnex(modOnly((ctx) => modAnnex(ctx, { wall: ['houseplant', 'armchair'], tubes: false }))), 'mod-office': ccmAnnex(modOnly((ctx) => modAnnex(ctx, { wall: ['filing-cabinet', 'houseplant'] }))),
+  'mod-bar': ccmAnnex(modOnly((ctx) => modAnnex(ctx, { wall: ['booth-seat', 'table-cafe'], tubes: false }))), 'mod-garage': ccmAnnex(modOnly((ctx) => modAnnex(ctx, { wall: ['oil-drum', 'jersey-barrier'] }))),
+  'mod-store': ccmAnnex(modOnly((ctx) => modAnnex(ctx, { wall: ['drinks-cooler', 'cardboard-boxes'] }))), 'mod-warehouse': ccmAnnex(modOnly((ctx) => modAnnex(ctx, { wall: ['pallet-racking', 'pallet-boxes'] }))),
+});
+Object.assign(DENSITY, { 'mod-apartment': 4.5, 'mod-office': 5, 'mod-bar': 4.5, 'mod-garage': 3.5, 'mod-store': 5, 'mod-warehouse': 3.5 }); // (no indoor target under 3.5: test/yard.test.mjs holds the yard's against 0.6x of every other)
+Object.assign(FOCAL, { 'mod-apartment': 'the TV on the wall facing the door, the sofa facing it', 'mod-office': 'the cubicle ranks', 'mod-bar': 'the bar along a side wall', 'mod-street': 'cars parked at the kerb',
+  'mod-alley': 'the dumpster', 'mod-garage': 'the bays and their cars', 'mod-store': 'the aisles and the lit coolers', 'mod-warehouse': 'the racking and the shipping container' });
+Object.assign(KEY_RE, { 'mod-apartment': /^(tv-stand|sofa)$/, 'mod-office': /^cubicle-desk$/, 'mod-bar': /^bar-counter$/, 'mod-street': null, 'mod-alley': /^dumpster$/, 'mod-garage': /^(car-sedan|car-hatchback|pillar-concrete)$/,
+  'mod-store': /^(store-shelving|drinks-cooler)$/, 'mod-warehouse': /^(pallet-racking|shipping-container)$/ });
+// <<< type:mod
+// >>> type:cyb
+// ---------------- the cyberpunk pack, wave 2 (2026-11-07): ten rooms of the Modern genre's Cyberpunk type ----------------
+// One program a room, on the kit above (ccm* / dun* / castle* / mod*). Every room lists tiers ['cyb', 'mod']: `mod` is the
+// Modern genre's exclusive tier, `cyb` the wave-2 LOOK of a shared role (sign-neon--s2/--s3, car-sedan--s2, also exclusive,
+// so a City room never rolls one and lays exactly what it laid before). While a Cyberpunk program runs, a role is in the
+// library only if it has a modern sku (cybOnly), and it rolls its wave-2 look where it has one. What names each room:
+//   clinic   the surgical chair under its lamp     lobby   the reception desk, turnstiles, the glass front
+//   server   rows of racks                         noodle  the steel counter and its stools
+//   capsule  rows of stacked sleeping pods         hideout the burning drum, the chain-link lock-up
+//   talisman shelves of jars and herbs, the counter   rigger  a car, the hoist, the workbench
+//   safehouse  the screens on the far wall, mattresses, gear     rooftop  the stair hut, the water tank, AC units
+const cybSeed = (ctx, ...k) => hash(ctx.baseSeed ?? ctx.room.seed, 'cyb', ...k);
+// a wall thing with a named look (the noodle bar's bowl sign, the shop's flask sign): chooseSku told the shape for one id
+function cybHang(ctx, id, shape, sides, n, { height = 6.6, why = 'on the wall' } = {}) {
+  if (!ccmHas(ctx, id)) return 0;
+  const ch = ctx.chooseSku; ctx.chooseSku = (i, w = {}) => ch.call(ctx, i, i === id && ctx.skuPool(i).some(s => s.shape === shape) ? { ...w, shape } : w);
+  try { return castleHang(ctx, [id], sides, n, { height, why }); } finally { ctx.chooseSku = ch; }
+}
+// a run of 5-ft kit sections laid straight from (x, z) along (ux, uz): fence or parapet. `gate` = the index laid as the gate
+// (trimEnd ft off the last section: where it meets another run at a corner, so the two never stand in each other)
+function cybRun(ctx, id, gateId, x, z, [ux, uz], n, why, { gate = -1, rule = 'cyb-run', layer = 'anchor', inward = 0, trimStart = 0, trimEnd = 0 } = {}) {
+  const rot = Math.atan2(ux, uz) - Math.PI / 2 + inward, out = [];
+  for (let i = 0; i < n; i++) {
+    const cid = i === gate && ccmHas(ctx, gateId) ? gateId : id; if (!ccmHas(ctx, cid)) continue;
+    const sk = ctx.chooseSku(cid); if (!sk) continue; const a0 = i === 0 ? trimStart : 0, dm = ctx.dims(cid, sk), w = CELL - a0 - (i === n - 1 ? trimEnd : 0);
+    const cx = x + ux * (CELL * i + a0 + w / 2), cz = z + uz * (CELL * i + a0 + w / 2);
+    out.push(ctx.record(cid, sk, { ...dm, w }, cx, 0, cz, rot, layer, rule, why, { edge: cid === gateId ? 'gate' : 'run' }));
+  }
+  return out.filter(Boolean);
+}
+
+// STREET CLINIC (terminal): the surgical chair in the middle of the floor, its long side along the room, the lamp at its
+// head and the monitor cart at its side, the tool cart at its foot; the rack of spare limbs on the wall facing the door,
+// medicine cabinets on the side walls, a bench by the door for whoever waits. Fluorescent tubes (seen from a pawn's eyes).
+function cybClinic(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), horiz = far === 'N' || far === 'S';
+  const chair = ccmCentre(ctx, ['surgical-chair'], { label: 'the surgical chair', rule: 'key-chair', rot: SIDES[lat[0]].rot, off: [0, 0], why: 'the surgical chair in the middle of the floor' });
+  if (!chair) return { fail: 'clinic: the surgical chair does not fit' };
+  ccmClearRound(ctx, chair, 1.4);
+  const [fx, fz] = ctx.facingVec(chair.rot), lx = fz, lz = -fx, half = chair.dims[2] / 2;
+  const lamp = castlePut(ctx, 'surgical-light', [[chair.x + fx * (half + 1.4), chair.z + fz * (half + 1.4), chair.rot + Math.PI], [chair.x + fx * (half + 1.8) + lx * 1.5, chair.z + fz * (half + 1.8) + lz * 1.5, chair.rot + Math.PI]], { layer: 'light', rule: 'surgery-lamp', why: 'the surgical lamp at the head of the chair', allowKeep: true });
+  const dd = ctx.mainDoor, away = dd ? (((chair.x + lx - dd.inner[0]) ** 2 + (chair.z + lz - dd.inner[1]) ** 2) > ((chair.x - lx - dd.inner[0]) ** 2 + (chair.z - lz - dd.inner[1]) ** 2) ? 1 : -1) : (cybSeed(ctx, 'rig') % 2 ? 1 : -1);
+  const rig = modBeside(ctx, 'med-monitor-rig', chair, away, 0.9, 'the monitor cart beside the chair, on the side away from the door (the chair stays in sight of it)', { fwd: half * 0.4 });
+  const tray = castlePut(ctx, 'tool-tray-cart', [[chair.x - fx * (half + 1.3), chair.z - fz * (half + 1.3), chair.rot], [chair.x - fx * (half + 1.3) - lx * 1.2, chair.z - fz * (half + 1.3) - lz * 1.2, chair.rot]], { layer: 'furnish', rule: 'tool-tray', why: 'the tool cart at the foot of the chair', allowKeep: true });
+  const rack = dunFocal(ctx, far, ['cyberware-rack'], { label: 'the rack of spare limbs', rule: 'cyberware', layer: 'furnish', why: 'the rack of spare robotic limbs on the wall facing the door' });
+  const cabinets = dunWalls(ctx, ['med-cabinet'], lat, Math.max(1, Math.min(3, Math.round(ctx.area() / 260))), 'a medicine cabinet against a side wall').length;
+  const d = ctx.mainDoor, bench = d ? ccmQuiet(ctx, () => ctx.wall('lobby-bench', { sides: [d.side, ...lat], prefer: 'random', why: 'a bench for whoever waits' })) : null;
+  ccmQuiet(ctx, () => ctx.wall('gear-case-stack', { sides: lat, prefer: 'corner', why: 'cases of parts in a corner' }));
+  const tubes = modTubes(ctx, 10);
+  ccmEnsureLight(ctx, ['light-wall-strip'], ['surgical-light']);
+  const dense = modDense(ctx, ['med-cabinet', 'gear-case-stack', 'cardboard-boxes', 'fridge', 'crate', 'chair-plain', 'filing-cabinet', 'tool-chest-rolling'], { feature: chair, why: 'a cramped back-room clinic: against a free wall' });
+  modTops(ctx, [tray], ['bottle', 'bowl'], 2, 'on the tool cart');
+  ctx.cybInfo = { kind: 'clinic', chair: !!chair, lamp: !!lamp, rig: !!rig, tray: !!tray, rack: !!rack, cabinets, bench: !!bench, tubes, dense };
+  ccmDone(ctx);
+  return { feature: chair, what: `a street clinic: the surgical chair${lamp ? ' under its lamp' : ''}${rack ? ', a rack of spare limbs' : ''}, ${cabinets} cabinets`, approach: null, passage: true };
+}
+
+// CORPORATE LOBBY (hub): the street wall is glass (walls.js PANELS). The turnstiles stand across the room two thirds of the
+// way in, between the door and the lifts (the far wall), the reception desk against a side wall facing into the room, the
+// sculpture in the open floor between the door and the turnstiles, benches along the other side wall, planters in the
+// corners, a big screen on the far wall.
+function cybLobby(ctx) {
+  ccmPanels(ctx);
+  const far = ccmFar(ctx), lat = ctx.shuffle(ccmLat(far)), L = ctx.sideLen(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W;
+  const s = Math.max(4, Math.min(deep * 0.33, 10)), [tw] = modBox(ctx, 'turnstile-gate'), nT = Math.max(1, Math.min(2, Math.floor((L - 10) / (tw + 0.2)))), gates = []; // (two banks at most: Gemini read three as "an unnaturally long barrier")
+  for (let i = 0; i < nT; i++) { const t = L / 2 + (i - (nT - 1) / 2) * (tw + 0.2); const p = castlePut(ctx, 'turnstile-gate', [[...ctx.sidePoint(far, t, s), SIDES[far].rot], [...ctx.sidePoint(far, t, s + 0.8), SIDES[far].rot]], { layer: 'anchor', rule: 'key-turnstile', why: 'the turnstiles across the lobby, between the door and the lifts' }); if (p) gates.push(p); }
+  const desk = ccmQuiet(ctx, () => ctx.wall('reception-desk', { sides: [lat[0]], prefer: 'centre', layer: 'anchor', rule: 'key-desk', gap: 2.6, why: 'the reception desk against a side wall, the receptionist behind it' }));
+  if (!desk && !gates.length) return { fail: 'lobby: neither the desk nor the turnstiles fit' };
+  ctx.focal = { label: 'the reception desk and the turnstiles', id: desk ? desk.id : 'turnstile-gate', ok: true };
+  const mid = ctx.sidePoint(far, L / 2, s + (deep - s) / 2);
+  const art = deep - s >= 14 ? castlePut(ctx, 'sculpture-abstract', [[mid[0], mid[1], 0], [mid[0] + 2, mid[1], 0], [mid[0] - 2, mid[1], 0]], { layer: 'furnish', rule: 'sculpture', why: 'the sculpture in the open floor' }) : null;
+  if (art) ccmClearRound(ctx, art, 1.5);
+  const benches = dunWalls(ctx, ['lobby-bench'], [lat[1]], Math.max(1, Math.min(3, Math.floor(ctx.sideLen(lat[1]) / 10))), 'a bench along the wall').length;
+  let planters = 0; for (const c of [[far, lat[0]], [far, lat[1]], [OPP_SIDE[far], lat[1]]]) if (ccmCorner(ctx, 'planter-modern', c, { why: 'a planter in the corner' })) planters++;
+  const screen = ccmQuiet(ctx, () => ctx.mount('video-screen', { sides: [far], height: 5.2, layer: 'light', why: 'a big screen on the wall by the lifts' }));
+  const d = ctx.mainDoor, vend = d ? ccmQuiet(ctx, () => ctx.wall('vending-machine', { sides: [lat[1], d.side], prefer: 'random', why: 'a vending machine by the door' })) : null;
+  ccmQuiet(ctx, () => ctx.wall('atm', { sides: [lat[1]], prefer: 'random', why: 'a cash machine in the lobby' }));
+  const tubes = modTubes(ctx, 12);
+  ccmEnsureLight(ctx, ['video-screen'], ['vending-machine']);
+  ctx.cybInfo = { kind: 'lobby', gates: gates.length, desk: !!desk, sculpture: !!art, benches, planters, screen: !!screen, vending: !!vend, tubes, glass: (ctx.room.panels || []).length };
+  ccmDone(ctx);
+  return { feature: desk || gates[0], what: `a corporate lobby: ${gates.length} turnstile banks${desk ? ', the reception desk' : ''}${(ctx.room.panels || []).length ? ', a glass front' : ''}`, approach: null, passage: true };
+}
+
+// SERVER ROOM (terminal): racks in rows across the room either side of a centre aisle from the door (the raised floor is
+// the room's floor), cooling cabinets at the side walls, the technicians' workstation by the door with its chair.
+function cybServer(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W;
+  if (!ccmHas(ctx, 'server-rack')) return { fail: 'server room: no server rack' };
+  const d = ctx.mainDoor, desk = d ? ccmQuiet(ctx, () => ctx.wall('terminal-desk', { sides: [d.side, ...lat], prefer: 'near', near: d.inner, maxDist: 16, layer: 'furnish', why: 'the workstation by the door' })) : null;
+  const chair = desk ? castlePut(ctx, 'office-chair', [[...front(desk, 1.1), desk.rot + Math.PI], [...front(desk, 1.5), desk.rot + Math.PI]], { layer: 'furnish', rule: 'desk-chair', why: 'the chair at the workstation' }) : null;
+  if (chair) ctx.mark(...front(desk, 1.3), ...ctx.aabb(desk.dims[0], 2.6, desk.rot), KEEP); // (the operator's seat stays clear of the rows)
+  // the racks in ROWS, end to end, on the storeroom's aisle grammar (its own rolls: single or back to back, along the
+  // room or away from the door; 3.5-4-ft aisles; cross aisles in a long room); cooling cabinets are its wall stock
+  const rows = modAisles(ctx, { rowPool: ['server-rack'], wallPool: ['cooling-unit'], wallMax: Math.max(2, Math.min(4, Math.round(deep / 12))), rule: 'rack-row', layer: 'anchor',
+    minUnits: 2, zone: { kind: 'racks', label: 'rows of racks' }, why: (i, ch) => `server rack row ${i + 1} (${ch.rows === 'double' ? 'back to back' : 'single'}), facing the aisle`, failNote: 'server room too small for rows: racks in ranks' });
+  const ranks = rows ? { placed: ctx.placements.filter(p => p.id === 'server-rack'), rows: rows.rowsCount } : ccmRanks(ctx, { far, s0: 1.2, s1: deep - 6.5, gap: 3.4, aisle: 4.2, margin: 3.4, turn: Math.PI / 2, proto: 'server-rack', choose: () => 'server-rack', layer: 'anchor', rule: 'rack-row', why: 'a server rack in its row' });
+  if (!ranks.placed.length) return { fail: 'server room: no rack fits' };
+  ctx.focal = { label: 'the rows of racks', id: 'server-rack', ok: true, centre: true };
+  const cool = rows ? ctx.placements.filter(p => p.id === 'cooling-unit').length : dunWalls(ctx, ['cooling-unit'], lat, Math.max(1, Math.min(4, Math.round(deep / 12))), 'a cooling cabinet against the side wall').length;
+  const tubes = modTubes(ctx, 10);
+  ccmEnsureLight(ctx, ['light-wall-strip'], ['terminal-desk']);
+  const dense = modDense(ctx, ['gear-case-stack', 'cardboard-boxes', 'cooling-unit'], { feature: ranks.placed[0], why: 'spares along a free wall' });
+  ctx.cybInfo = { kind: 'server', racks: ranks.placed.length, rows: ranks.rows, aisles: !!rows, cooling: cool, desk: !!desk, chair: !!chair, tubes, dense };
+  ccmDone(ctx);
+  return { feature: dunSeen(ctx, ranks.placed) || ranks.placed[0], what: `a server room: ${ranks.placed.length} racks in rows, ${cool} cooling cabinets${desk ? ', a workstation by the door' : ''}`, approach: null, passage: true };
+}
+
+// NOODLE BAR (terminal): the steel counter across the room facing the door, the cook's walk behind it, stools along its
+// front; two or three small tables with stools in the room; the vending machine by the door; the noodle-bowl neon on the
+// wall; bags of rubbish in a corner.
+function cybNoodle(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), L = ctx.sideLen(far), [cw, cd] = modBox(ctx, 'noodle-counter'), s = 3.6 + cd / 2;
+  const n = L >= 32 ? Math.max(1, Math.min(2, Math.floor((L - 4) / cw))) : 1, counters = []; // (two only on a long wall: two side by side read as duplicates)
+  for (let i = 0; i < n; i++) { const t = L / 2 + (i - (n - 1) / 2) * cw; const p = castlePut(ctx, 'noodle-counter', [[...ctx.sidePoint(far, t, s), SIDES[far].rot], [...ctx.sidePoint(far, t, s + 0.5), SIDES[far].rot]], { layer: 'anchor', rule: 'key-counter', why: 'the noodle counter across the room, the cook behind it' }); if (p) counters.push(p); }
+  if (!counters.length) return { fail: 'noodle bar: the counter does not fit' };
+  ctx.focal = { label: 'the noodle counter', id: 'noodle-counter', side: far, ok: true };
+  const behind = ctx.sidePoint(far, L / 2, (s - cd / 2) / 2), ns = far === 'N' || far === 'S'; ctx.mark(behind[0], behind[1], ns ? n * cw : s - cd / 2 - 0.2, ns ? s - cd / 2 - 0.2 : n * cw, KEEP); // the cook's walk
+  let stools = 0;
+  for (const c of counters) { const [fx, fz] = ctx.facingVec(c.rot), lx = fz, lz = -fx; for (const k of [-0.4, -0.2, 0, 0.2, 0.4]) if (castlePut(ctx, 'stool-bar', [[c.x + fx * (c.dims[2] / 2 + 1.2) + lx * k * c.dims[0], c.z + fz * (c.dims[2] / 2 + 1.2) + lz * k * c.dims[0], c.rot + Math.PI]], { layer: 'furnish', rule: 'counter-stool', why: 'a stool at the counter' })) stools++; }
+  let tables = 0; for (let i = 0; i < Math.max(2, Math.min(6, Math.round(ctx.area() / 110))); i++) { const t = dunFree(ctx, 'table-cafe', null, 99, 'a small table in the room', { margin: 1.4 }); if (!t) continue; tables++; for (const sg of [1, -1]) modBeside(ctx, 'stool-bar', t, sg, 0.2, 'a stool at the table'); }
+  const d = ctx.mainDoor, vend = d ? ccmQuiet(ctx, () => ctx.wall('vending-machine', { sides: [d.side, ...lat], prefer: 'random', why: 'a vending machine by the door' })) : null;
+  const neon = cybHang(ctx, 'sign-neon', 's2', [lat[0], lat[1], far], Math.max(1, Math.min(2, Math.round(ctx.area() / 300))), { height: 6.6, why: 'the noodle-bowl neon on the wall' });
+  ccmCorner(ctx, 'trash-bags', [OPP_SIDE[far], lat[cybSeed(ctx, 'bags') % 2]], { why: 'bags of rubbish in a corner' });
+  const tubes = modTubes(ctx, 10);
+  ccmEnsureLight(ctx, ['sign-neon'], ['vending-machine']);
+  const dense = modDense(ctx, ['cabbage-crate', 'crate', 'trash-bags', 'vending-machine', 'cardboard-boxes'], { feature: counters[0], hung: ['sign-neon'], why: 'stock and rubbish along a free wall' });
+  modTops(ctx, counters, ['dumplings-bowl', 'bowl', 'bowl-stack', 'bottle', 'cup-glass-green'], 4, 'on the counter'); modTops(ctx, ctx.placements.filter(p => p.id === 'table-cafe'), ['dumplings-bowl', 'bowl', 'cup-glass-green', 'bottle'], 2, 'on the table');
+  ctx.cybInfo = { kind: 'noodle', counters: counters.length, stools, tables, vending: !!vend, neon, tubes, dense };
+  ccmDone(ctx);
+  return { feature: counters[0], what: `a noodle bar: the counter with ${stools} stools, ${tables} small tables`, approach: null, passage: true };
+}
+
+// CAPSULE HOTEL (terminal, entered at an end): stacked sleeping pods side by side down both long walls, the aisle between
+// them clear; lockers on the wall facing the door; a vending machine by the door.
+function cybCapsule(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), [pw] = modBox(ctx, 'capsule-pod');
+  if (!ccmHas(ctx, 'capsule-pod')) return { fail: 'capsule hotel: no capsule' };
+  const pods = [];
+  for (const sd of lat) { const n = Math.max(1, Math.floor((ctx.sideLen(sd) - 3) / (pw + 0.15))); pods.push(...dunWalls(ctx, ['capsule-pod'], [sd], n, 'a stack of capsules against the long wall', { layer: 'anchor', prefer: 'centre' })); }
+  if (!pods.length) return { fail: 'capsule hotel: no capsule fits' };
+  ctx.focal = { label: 'the rows of capsules', id: 'capsule-pod', ok: true };
+  const rows = modAisles(ctx, { rowPool: ['capsule-pod'], rows: 'double', orient: 'long', wallBand: modBox(ctx, 'capsule-pod')[1] + 0.15, endBand: 0.3, rule: 'capsule-row', layer: 'anchor', min: { area: 600, side: 33 },
+    zone: { kind: 'capsules', label: 'capsule rows' }, why: () => 'a stack of capsules in the middle row, back to back', failNote: 'capsule hall too narrow for a middle row' });
+  if (rows) pods.push(...ctx.placements.filter(p => p.rule === 'capsule-row'));
+  const lockers = dunWalls(ctx, ['locker-bank'], [far], Math.max(1, Math.min(3, Math.floor(ctx.sideLen(far) / 8))), 'lockers on the end wall').length;
+  const d = ctx.mainDoor, vend = d ? ccmQuiet(ctx, () => ctx.wall('vending-machine', { sides: [d.side], prefer: 'random', why: 'a vending machine by the door' })) : null;
+  const tubes = modTubes(ctx, 10);
+  ccmEnsureLight(ctx, ['light-wall-strip'], ['vending-machine']);
+  const dense = modDense(ctx, ['locker-bank', 'vending-machine', 'cardboard-boxes'], { feature: pods[0], why: 'along a free wall' });
+  ctx.cybInfo = { kind: 'capsule', pods: pods.length, rows: rows ? rows.rowsCount : 0, lockers, vending: !!vend, tubes, dense };
+  ccmDone(ctx);
+  return { feature: dunSeen(ctx, pods) || pods[0], what: `a capsule hotel: ${pods.length} stacks of capsules down both walls, ${lockers} banks of lockers`, approach: null, passage: true };
+}
+
+// GANG HIDEOUT (hub): the burning drum in the middle, a battered sofa and mattresses round it; in the corner farthest from
+// the door a chain-link LOCK-UP (a cage of fence sections on two sides, the room's walls the other two, a padlocked gate)
+// with the guns and the gear inside; motorbikes by the door; junk along the walls; caged strip lights on the walls.
+function cybHideout(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), d = ctx.mainDoor;
+  // the lock-up: the corner farthest from the door, 10 ft a side (5 ft in a small room)
+  const corners = [[ctx.X0, ctx.Z0, 1, 1], [ctx.X1, ctx.Z0, -1, 1], [ctx.X0, ctx.Z1, 1, -1], [ctx.X1, ctx.Z1, -1, -1]];
+  const at = d ? d.inner : [(ctx.X0 + ctx.X1) / 2, ctx.Z1];
+  corners.sort((a, b) => Math.hypot(b[0] - at[0], b[1] - at[1]) - Math.hypot(a[0] - at[0], a[1] - at[1]));
+  const a = Math.min(ctx.W, ctx.D) >= 25 ? 2 : 1, side = a * CELL; let cage = [], cageAt = null;
+  if (ccmHas(ctx, 'fence-chain-link')) for (const [cx, cz, sx, sz] of corners) {
+    // its two runs: along x at z = cz + sz*side, and along z at x = cx + sx*side; no door of the room may open into it
+    const box = [Math.min(cx, cx + sx * side), Math.min(cz, cz + sz * side), Math.max(cx, cx + sx * side), Math.max(cz, cz + sz * side)];
+    if (ctx.doors.some(o => o.inner && o.inner[0] > box[0] - 2.5 && o.inner[0] < box[2] + 2.5 && o.inner[1] > box[1] - 2.5 && o.inner[1] < box[3] + 2.5)) continue;
+    const t = Math.max(0.5, ctx.dims('fence-chain-link', ctx.chooseSku('fence-chain-link')).d) + 0.05; // (run 2 stops short of run 1 by the fence's own thickness)
+    cage = [...cybRun(ctx, 'fence-chain-link', 'gate-chain-link', sx > 0 ? cx : cx - side, cz + sz * side, [1, 0], a, 'the chain-link lock-up', { gate: sx > 0 ? 0 : a - 1, rule: 'lock-up' }), // (the gate: the section against the wall, away from the corner)
+            ...cybRun(ctx, 'fence-chain-link', null, cx + sx * side, sz > 0 ? cz : cz - side, [0, 1], a, 'the chain-link lock-up', { rule: 'lock-up', ...(sz > 0 ? { trimEnd: t } : { trimStart: t }) })]; // (it meets run 1 at its far end, or at its start)
+    cageAt = { cx, cz, sx, sz, box }; break;
+  }
+  if (cageAt) { // inside the lock-up: the weapons locker on a wall, the gear stacked beside it
+    const { cx, cz, sx, sz } = cageAt, mx = cx + sx * side / 2, mz = cz + sz * side / 2;
+    castlePut(ctx, 'weapon-locker', [[cx + sx * 0.9, mz, sx > 0 ? Math.PI / 2 : -Math.PI / 2], [mx, cz + sz * 0.9, sz > 0 ? 0 : Math.PI]], { layer: 'furnish', rule: 'in-lock-up', why: 'the weapons locker inside the lock-up', allowKeep: true });
+    if (a >= 2) castlePut(ctx, 'gear-case-stack', [[mx + sx * 0.8, mz + sz * 0.8, 0], [mx, mz, 0]], { layer: 'furnish', rule: 'in-lock-up', why: 'gear stacked inside the lock-up', allowKeep: true }); // (a 5-ft lock-up holds the locker alone)
+    ctx.mark(...[(cageAt.box[0] + cageAt.box[2]) / 2, (cageAt.box[1] + cageAt.box[3]) / 2], side + 1.2, side + 1.2, KEEP); // (the cage and its fence line, and a little more: nothing else stands in it or against it)
+  }
+  const fire = ccmCentre(ctx, ['oil-drum-fire'], { label: 'the burning drum', rule: 'key-fire', layer: 'light', why: 'the burning drum in the middle of the floor', off: cageAt ? [-cageAt.sx * 2, -cageAt.sz * 2] : [0, 0] });
+  if (!fire && !cage.length) return { fail: 'hideout: neither the drum nor the lock-up fits' };
+  if (fire) ctx.focal = { label: 'the burning drum', id: fire.id, ok: true, centre: true };
+  modKeepWalks(ctx, fire || cage[0]); // the way to the fire first: the sofa, mattresses and chairs round it leave it
+  const sofa = fire ? castlePut(ctx, 'sofa-salvaged', [5, 6, 4.4, 7].flatMap(r => [0, 1, 2, 3].map(q => { const ang = q * Math.PI / 2 + (cybSeed(ctx, 'sofa') % 4) * Math.PI / 2; return [fire.x + Math.sin(ang) * r, fire.z + Math.cos(ang) * r, ang + Math.PI]; })), { layer: 'furnish', rule: 'round-fire', why: 'a battered sofa facing the fire' }) : null;
+  let beds = 0; for (let i = 0; i < Math.max(3, Math.round(ctx.area() / 350)); i++) if (dunFree(ctx, 'mattress-floor', fire ? [fire.x, fire.z] : null, 12, 'a mattress near the fire', { margin: 0.8 })) beds++;
+  if (fire) castlePut(ctx, 'chair-plain', [4.5, 5.5].flatMap(r => [0.5, 1.5, 2.5, 3.5].map(q => { const ang = q * Math.PI / 2 + (cybSeed(ctx, 'sofa') % 4) * Math.PI / 2; return [fire.x + Math.sin(ang) * r, fire.z + Math.cos(ang) * r, ang + Math.PI]; })), { layer: 'furnish', rule: 'round-fire', why: 'a chair pulled up to the fire' });
+  let bikes = 0; if (d) for (let i = 0; i < (ctx.area() >= 1200 ? 2 : 1); i++) if (ccmQuiet(ctx, () => ctx.wall('motorbike', { sides: [d.side, ...lat], prefer: 'near', near: d.inner, maxDist: 18, why: 'a motorbike parked by the door' }))) bikes++;
+  let junk = 0; for (let i = 0; i < Math.max(3, Math.round(ctx.area() / 150)); i++) { const id = ccmAny(ctx, ['cardboard-boxes', 'pallet-stack', 'trash-bags', 'oil-drum']); if (id && ccmQuiet(ctx, () => ctx.wall(id, { sides: [...lat, far], prefer: 'random', why: 'junk against the wall' }))) junk++; }
+  const lights = castleHang(ctx, ['light-wall-strip'], [lat[0], far, lat[1]], Math.max(1, Math.min(3, Math.round(ctx.area() / 400))), { height: 7, why: 'a caged strip light on the wall' });
+  dunScatter(ctx, ['decal-litter', 'decal-oil-stain'], Math.max(1, Math.round(ctx.area() / 250)), 'on the concrete');
+  ccmEnsureLight(ctx, ['light-wall-strip'], ['oil-drum-fire']);
+  const dense = modDense(ctx, ['cardboard-boxes', 'crate', 'pallet-stack', 'trash-bags', 'oil-drum', 'mattress-floor', 'gear-case-stack'], { feature: fire || cage[0], why: 'junk against the wall' });
+  modTops(ctx, ctx.placements.filter(p => p.id === 'crate' || p.id === 'oil-drum'), ['bottle', 'bottle-broken', 'cup-glass-green', 'bowl'], 1, 'left on top');
+  ctx.cybInfo = { dense, kind: 'hideout', cage: cage.length, gate: cage.some(p => p.id === 'gate-chain-link'), fire: !!fire, sofa: !!sofa, beds, bikes, junk, lights };
+  ccmDone(ctx);
+  return { feature: fire || cage[0], what: `a gang hideout: ${fire ? 'the burning drum, ' : ''}a chain-link lock-up of ${cage.length} sections${bikes ? `, ${bikes} motorbike${bikes === 1 ? '' : 's'}` : ''}`, approach: null, passage: true };
+}
+
+// MAGIC-SUPPLY SHOP, the talismonger (terminal): shelves crammed with jars, herbs and bones down the side walls and on the
+// wall facing the door, the glass counter across the room in front of them (the shopkeeper behind it), the herb rack in a
+// corner, the big crystal by the door, the flask neon on the wall.
+function cybTalisman(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), L = ctx.sideLen(far), [, sd] = modBox(ctx, 'curio-shelf');
+  const back = dunWalls(ctx, ['curio-shelf'], [far], Math.max(1, Math.min(3, Math.floor((L - 2) / 5.5))), 'a shelf of curios on the wall behind the counter', { layer: 'anchor', prefer: 'centre' });
+  const [cw, cd] = modBox(ctx, 'display-counter-glass'), s = sd + 3.2 + cd / 2;
+  const counter = castlePut(ctx, 'display-counter-glass', [[...ctx.sidePoint(far, L / 2, s), SIDES[far].rot], [...ctx.sidePoint(far, L / 2, s + 0.6), SIDES[far].rot], [...ctx.sidePoint(far, L / 2 + 2, s), SIDES[far].rot]], { layer: 'anchor', rule: 'key-counter', why: 'the glass counter in front of the shelves, the shopkeeper behind it' });
+  if (!counter && !back.length) return { fail: 'magic-supply shop: neither the counter nor a shelf fits' };
+  ctx.focal = { label: 'the counter and the shelves', id: counter ? counter.id : 'curio-shelf', side: far, ok: true };
+  if (counter) { const b = ctx.sidePoint(far, L / 2, (sd + s - cd / 2) / 2), ns = far === 'N' || far === 'S'; ctx.mark(b[0], b[1], ns ? cw : s - cd / 2 - sd - 0.2, ns ? s - cd / 2 - sd - 0.2 : cw, KEEP); }
+  const side = dunWalls(ctx, ['curio-shelf'], lat, Math.max(1, Math.min(4, Math.round(ctx.area() / 150))), 'a shelf of curios down the side wall').length;
+  // a double shelf of curios down the shop on the storeroom's aisle grammar; the rows stop short of the counter (room to stand at it)
+  const curioRow = (orient, endBand) => modAisles(ctx, { doorLane: (far === 'N' || far === 'S' ? ctx.D : ctx.W) - 3, rowPool: ['curio-shelf'], downgrade: true, orient, rule: 'curio-row', layer: 'furnish', endBand, minRun: modBox(ctx, 'curio-shelf')[0] + 0.3,
+    zone: { kind: 'shelves', label: 'shelves of curios' }, why: (i, ch) => `a ${ch.rows === 'double' ? 'double ' : ''}shelf of curios ${orient === 'door' ? 'down' : 'across'} the shop, an aisle each side`, failNote: 'shop too small for a middle shelf' });
+  // (down the shop from the door; a shop under ~22 ft from the door to the back wall has no room for one before the counter)
+  const rows = curioRow('door', counter ? s + cd / 2 + 1.2 : sd + 3);
+  const rack = ccmCorner(ctx, 'herb-drying-rack', [OPP_SIDE[far], lat[cybSeed(ctx, 'herb') % 2]], { why: 'the herb rack in a front corner' }) || dunFree(ctx, 'herb-drying-rack', null, 99, 'the herb rack in the floor', { margin: 1 });
+  const d = ctx.mainDoor, crystal = d ? ccmQuiet(ctx, () => ctx.wall('crystal-display', { sides: [d.side, ...lat], prefer: 'near', near: d.inner, maxDist: 12, gap: 0.3, why: 'the big crystal against the wall by the door, where a passer-by sees it (in the floor it stood in the way in: Gemini)' })) : null;
+  const neon = cybHang(ctx, 'sign-neon', 's3', [OPP_SIDE[far], lat[0], lat[1], far], 1, { height: 6.6, why: 'the flask neon on the wall' });
+  if (!ccmLit(ctx) && !neon && !crystal && ccmHas(ctx, 'crystal-display')) ccmQuiet(ctx, () => ctx.wall('crystal-display', { layer: 'light', prefer: 'corner', why: 'the one light a windowless room must have', allowKeep: true }));
+  const dense = modDense(ctx, ['herb-drying-rack', 'book-pile-floor', 'crate', 'fern-potted', 'curio-shelf', 'cardboard-boxes'], { feature: counter || back[0], why: 'crammed against a free wall' });
+  modTops(ctx, [counter], ['dried-herbs-jar', 'jar-pickles', 'herb-pot', 'book-open', 'flowers-dried', 'honey-jar-dipper', 'bottle'], 4, 'on the glass counter');
+  ctx.cybInfo = { kind: 'talisman', back: back.length, side, rows: rows ? rows.rowsCount : 0, counter: !!counter, rack: !!rack, crystal: !!crystal, neon, dense };
+  ccmDone(ctx);
+  return { feature: counter || back[0], what: `a magic-supply shop: ${back.length + side} shelves of curios${counter ? ', the glass counter' : ''}${crystal ? ', a big crystal by the door' : ''}`, approach: null, passage: true };
+}
+
+// RIGGER'S GARAGE (hub): a car in the middle of the floor with the engine hoist at its nose, the workbench on the wall
+// facing the shutter with the tool chest beside it and a drone on the floor in front, the deck (the workstation) on a side
+// wall, gear and drums along the walls, oil on the concrete; a motorbike against a side wall.
+function cybRigger(ctx) {
+  const far = ccmFar(ctx), lat = ccmLat(far), d = ctx.mainDoor, horiz = far === 'N' || far === 'S';
+  const car = ccmCentre(ctx, ['car-sedan', 'car-hatchback'], { label: 'the car on the floor', rule: 'key-car', rot: SIDES[far].rot, off: [0, 0], why: 'the car being worked on, nose to the bench' });
+  const bench = dunFocal(ctx, far, ['workbench-garage'], { label: 'the workbench', rule: 'bench', layer: car ? 'furnish' : 'anchor', why: 'the workbench on the wall facing the shutter' });
+  if (!car && !bench) return { fail: "rigger's garage: neither the car nor the bench fits" };
+  if (!car) ctx.focal = { label: 'the workbench', id: bench.id, side: far, ok: true };
+  if (car) ccmClearRound(ctx, car, 1.2);
+  const hoist = car ? castlePut(ctx, 'engine-hoist', [1, -1].map(sg => { const [fx, fz] = ctx.facingVec(car.rot); return [car.x - fx * (car.dims[2] / 2 + 3.2) + fz * sg * 2, car.z - fz * (car.dims[2] / 2 + 3.2) - fx * sg * 2, car.rot + Math.PI]; }), { layer: 'furnish', rule: 'hoist', why: 'the engine hoist at the car\'s nose', allowKeep: true }) : null;
+  const chest = bench ? ccmFlank(ctx, bench, ['tool-chest-rolling'], { n: 1, off: 0.4, layer: 'furnish', why: 'the tool chest beside the bench' }).length : 0;
+  const drone = bench ? dunFree(ctx, 'drone-parked', front(bench, 2.5), 6, 'a drone on the floor by the bench', { margin: 0.6 }) : dunFree(ctx, 'drone-parked', null, 99, 'a drone on the floor', { margin: 0.6 });
+  const deck = ccmQuiet(ctx, () => ctx.wall('terminal-desk', { sides: lat, prefer: 'random', why: 'the rigger\'s deck on a side wall' }));
+  const bike = ccmQuiet(ctx, () => ctx.wall('motorbike', { sides: lat, prefer: 'random', why: 'a motorbike against the wall' }));
+  let kit = 0; for (const id of ['gear-case-stack', 'oil-drum', 'cardboard-boxes', 'oil-drum']) if (ccmQuiet(ctx, () => ctx.wall(id, { sides: [...lat, far], prefer: 'random', why: 'along the wall' }))) kit++;
+  dunScatter(ctx, ['decal-oil-stain'], 2, 'oil on the concrete');
+  const tubes = modTubes(ctx, 11);
+  ccmEnsureLight(ctx, ['light-wall-strip'], ['terminal-desk']);
+  const dense = modDense(ctx, ['gear-case-stack', 'oil-drum', 'crate', 'tool-chest-rolling', 'cardboard-boxes', 'pallet-stack'], { feature: car || bench, why: 'parts and kit along a free wall' });
+  ctx.cybInfo = { dense, kind: 'rigger', car: !!car, hoist: !!hoist, bench: !!bench, chest, drone: !!drone, deck: !!deck, bike: !!bike, kit, tubes };
+  ccmDone(ctx);
+  return { feature: car || bench, what: `a rigger's garage: ${car ? 'a car on the floor, ' : ''}${bench ? 'the workbench' : ''}${drone ? ', a drone' : ''}`, approach: null, passage: true };
+}
+
+// SAFEHOUSE (terminal): the deck (screens) on the wall facing the door with its chair, mattresses along a side wall, the
+// battered sofa facing the wall screen, gear cases stacked and the weapons locker by the other side wall, the safe in a
+// corner, a kitchenette run with the fridge, boxes not yet unpacked.
+function cybSafehouse(ctx) {
+  const far = ccmFar(ctx), lat = ctx.shuffle(ccmLat(far));
+  const deck = dunFocal(ctx, far, ['terminal-desk'], { label: 'the deck on the far wall', rule: 'key-deck', why: 'the screens on the wall facing the door' });
+  if (!deck) return { fail: 'safehouse: the deck does not fit' };
+  castlePut(ctx, 'office-chair', [[...front(deck, 1.1), deck.rot + Math.PI], [...front(deck, 1.5), deck.rot + Math.PI]], { layer: 'furnish', rule: 'desk-chair', why: 'the chair at the deck' });
+  let beds = 0; for (let i = 0; i < 3; i++) if (ccmQuiet(ctx, () => ctx.wall('mattress-floor', { sides: [lat[0]], prefer: 'random', why: 'a mattress on the floor along the wall' }))) beds++;
+  const screen = ccmQuiet(ctx, () => ctx.mount('video-screen', { sides: [lat[1]], height: 4.8, layer: 'light', why: 'a screen on the wall' }));
+  let sofa = null; if (screen) { const [fx, fz] = ctx.facingVec(screen.rot), sd = modBox(ctx, 'sofa-salvaged')[1]; sofa = castlePut(ctx, 'sofa-salvaged', [6, 7, 5, 8].map(g => [screen.x + fx * (g + sd / 2), screen.z + fz * (g + sd / 2), screen.rot + Math.PI]), { layer: 'furnish', rule: 'sofa', why: 'the sofa facing the screen' }); }
+  const gear = dunWalls(ctx, ['gear-case-stack', 'weapon-locker', 'gear-case-stack'], [lat[1], far], 3, 'the crew\'s gear against the wall').length;
+  const safe = ccmCorner(ctx, 'safe-floor', [far, lat[0]], { why: 'the safe in the corner' }) || ccmCorner(ctx, 'safe-floor', [OPP_SIDE[far], lat[1]], { why: 'the safe in the corner' });
+  const d = ctx.mainDoor, kitchen = ccmQuiet(ctx, () => ctx.wall('kitchenette', { sides: d ? [d.side] : [OPP_SIDE[far]], prefer: 'random', why: 'a kitchenette run by the door' }));
+  if (kitchen) castleNear(ctx, ['fridge'], [kitchen.side || (d ? d.side : OPP_SIDE[far])], [kitchen.x, kitchen.z], { why: 'the fridge at the end of the kitchen run' });
+  ccmQuiet(ctx, () => ctx.wall('cardboard-boxes', { sides: [OPP_SIDE[far], lat[0]], prefer: 'corner', why: 'boxes nobody has unpacked' }));
+  const lamp = ccmQuiet(ctx, () => ctx.wall('lamp-floor', { sides: [lat[0]], prefer: 'corner', layer: 'light', why: 'a floor lamp' }));
+  ccmEnsureLight(ctx, ['light-wall-strip', 'video-screen'], ['lamp-floor', 'terminal-desk']);
+  const dense = modDense(ctx, ['gear-case-stack', 'cardboard-boxes', 'crate', 'book-pile-floor', 'chair-plain'], { feature: deck, why: 'the crew\'s things against a free wall' });
+  modTops(ctx, [kitchen], ['bowl-stack', 'bottle', 'cup-glass-green', 'bread-loaf'], 3, 'on the kitchen counter');
+  ctx.cybInfo = { dense, kind: 'safehouse', deck: !!deck, beds, screen: !!screen, sofa: !!sofa, gear, safe: !!safe, kitchen: !!kitchen, lamp: !!lamp };
+  ccmDone(ctx);
+  return { feature: deck, what: `a safehouse: the deck on the far wall, ${beds} mattresses, ${gear} cases and lockers${safe ? ', a safe' : ''}`, approach: null, passage: true };
+}
+
+// ROOFTOP (outdoor): a flat roof of tar and gravel. A low concrete parapet on every edge where no building stands (laid
+// like the alley's walls); the stair hut against one edge (the way down), the water tank on its stand in a far corner,
+// air-conditioning units in the open, a satellite dish and an antenna mast near the edges, vents scattered; on a big roof a
+// billboard screen along the edge facing the hut. The parapet is half cover and never stops sight (it is no wall).
+function cybRooftop(ctx) {
+  const horiz = modHoriz(ctx), Lr = horiz ? ctx.W : ctx.D, long = horiz ? ['N', 'S'] : ['W', 'E'], ALL = ['N', 'S', 'E', 'W'];
+  const built = ctx.openings.filter(o => o.to && /^(wall|window|door)$/.test(o.kind));
+  let edge = 0;
+  if (ccmHas(ctx, 'parapet-roof-low')) for (const s of ALL) { const n = Math.round(ctx.sideLen(s) / CELL + 2 * INSET / CELL);
+    for (let i = 0; i < n; i++) { if (built.some(o => o.side === s && o.index === i)) continue; const sk = ctx.chooseSku('parapet-roof-low'); if (!sk) break;
+      const [x, z] = ctx.sidePoint(s, i * CELL - INSET + CELL / 2, -INSET); ctx.record('parapet-roof-low', sk, { ...ctx.dims('parapet-roof-low', sk), w: CELL }, x, 0, z, SIDES[s].rot, 'anchor', 'yard-edge', 'the low parapet along the roof\'s edge', { side: s, edge: 'parapet' }); edge++; } }
+  const band = Math.max(0.1, ...ctx.placements.filter(p => p.rule === 'yard-edge').map(p => p.dims[2] / 2 - INSET + 0.15));
+  const hutSide = long[cybSeed(ctx, 'hut') % 2];
+  const hut = ccmQuiet(ctx, () => ctx.wall('roof-access-hut', { sides: [hutSide], prefer: 'random', layer: 'anchor', rule: 'key-hut', gap: band + 0.3, why: 'the stair hut: the way down, against the roof\'s edge' }));
+  const tank = ccmCorner(ctx, 'water-tank-roof', [OPP_SIDE[hutSide], horiz ? (cybSeed(ctx, 't') % 2 ? 'W' : 'E') : (cybSeed(ctx, 't') % 2 ? 'N' : 'S')], { why: 'the water tank on its stand in a far corner', inset: band + 0.5 });
+  if (!hut && !tank) return { fail: 'rooftop: neither the stair hut nor the water tank fits' };
+  ctx.focal = { label: 'the stair hut and the water tank', id: hut ? hut.id : tank.id, ok: true };
+  if (hut) { const [fx, fz] = ctx.facingVec(hut.rot); ctx.mark(hut.x + fx * (hut.dims[2] / 2 + 2.5), hut.z + fz * (hut.dims[2] / 2 + 2.5), 5, 5, KEEP); } // the ground before its door
+  let ac = 0; for (let i = 0; i < Math.max(1, Math.min(3, Math.round(ctx.area() / 500))); i++) if (dunFree(ctx, 'hvac-unit', null, 99, 'an air-conditioning unit out on the roof', { margin: 2 })) ac++;
+  const dish = ccmQuiet(ctx, () => ctx.wall('satellite-dish', { sides: ALL, prefer: 'random', gap: band + 0.4, why: 'a satellite dish near the edge' }));
+  const mast = ccmQuiet(ctx, () => ctx.wall('antenna-mast', { sides: ALL, prefer: 'corner', gap: band + 1.4, layer: 'light', why: 'the antenna mast near the edge (clear of the parapet: Gemini read one standing on it)' }));
+  const bill = Lr >= 30 ? ccmQuiet(ctx, () => ctx.wall('billboard-roof', { sides: [OPP_SIDE[hutSide]], prefer: 'centre', layer: 'light', gap: band + 0.3, why: 'a billboard screen along the edge, lit for the street below' })) : null;
+  let vents = 0; for (let i = 0; i < Math.max(1, Math.round(ctx.area() / 350)); i++) if (dunFree(ctx, 'roof-vent', null, 99, 'vents on the roof', { margin: 1 })) vents++;
+  ccmEnsureLight(ctx, [], ['antenna-mast']);
+  ctx.yardInfo = { vibe: 'rooftop', edge: 'parapet', edgePieces: edge, wallFt: built.length * CELL, gate: null, focal: hut ? { id: hut.id, kind: 'stair hut' } : null, signs: 0, wear: 0, doors: [], plants: { placed: 0, slot: [], waiting: [] } };
+  ctx.cybInfo = { kind: 'rooftop', edge, hut: !!hut, tank: !!tank, ac, dish: !!dish, mast: !!mast, billboard: !!bill, vents };
+  ccmDone(ctx);
+  return { feature: hut || tank, what: `a rooftop: ${hut ? 'the stair hut, ' : ''}${tank ? 'the water tank, ' : ''}${ac} AC units, ${edge} sections of parapet`, outdoor: true };
+}
+
+function cybAnnex(ctx, { wall = ['cardboard-boxes'], tubes = true } = {}) {
+  dunWalls(ctx, wall, ctx.shuffle(['N', 'S', 'E', 'W']), Math.max(1, Math.round(ctx.area() / 150)), 'against the wall');
+  if (tubes) modTubes(ctx, 10);
+}
+// a Cyberpunk room asks only for roles with a modern sku (tier mod, or cyb: a wave-2 look), as modOnly; it rolls the wave-2
+// look of a shared role where there is one (its tiers ['cyb', 'mod']), else the Modern genre's sku, never a fantasy one
+// (chooseSku honours only tiers[0], so a role without a cyb look is asked for with ['mod'], as a City room asks)
+const CYB_TIERS = new Set(['mod', 'cyb']);
+const cybOnly = (fn) => (ctx) => {
+  const has = ctx.has, ch = ctx.chooseSku, pool = ctx.skuPool, modern = (id) => pool.call(ctx, id).some(s => CYB_TIERS.has(s.tier));
+  ctx.has = (id) => has.call(ctx, id) && (modern(id) || modShared(id)); ctx.skuPool = modSharedPool(pool, modern); // (shared roles of the plain set too, in their vetted looks)
+  ctx.chooseSku = (id, w = {}) => w.tiers ? ch.call(ctx, id, w) : ch.call(ctx, id, { ...w, tiers: pool.call(ctx, id).some(s => s.tier === 'cyb') ? ['cyb'] : modern(id) ? ['mod'] : [] });
+  try { return fn(ctx); } finally { ctx.has = has; ctx.chooseSku = ch; ctx.skuPool = pool; }
+};
+Object.assign(KEY, Object.fromEntries(Object.entries({ 'cyb-clinic': cybClinic, 'cyb-lobby': cybLobby, 'cyb-server': cybServer, 'cyb-noodle': cybNoodle, 'cyb-capsule': cybCapsule, 'cyb-hideout': cybHideout,
+  'cyb-talisman': cybTalisman, 'cyb-rigger': cybRigger, 'cyb-safehouse': cybSafehouse, 'cyb-rooftop': cybRooftop }).map(([k, f]) => [k, cybOnly(f)])));
+Object.assign(MENUS, {
+  'cyb-clinic': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['med-cabinet', 'gear-case-stack'] }))), 'cyb-lobby': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['lobby-bench', 'planter-modern'] }))),
+  'cyb-server': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['server-rack', 'cooling-unit'] }))), 'cyb-noodle': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['vending-machine', 'trash-bags'] }))),
+  'cyb-capsule': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['capsule-pod', 'locker-bank'] }))), 'cyb-hideout': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['cardboard-boxes', 'mattress-floor'], tubes: false }))),
+  'cyb-talisman': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['curio-shelf', 'herb-drying-rack'], tubes: false }))), 'cyb-rigger': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['oil-drum', 'gear-case-stack'] }))),
+  'cyb-safehouse': ccmAnnex(cybOnly((ctx) => cybAnnex(ctx, { wall: ['mattress-floor', 'cardboard-boxes'], tubes: false }))),
+});
+Object.assign(DENSITY, { 'cyb-clinic': 5, 'cyb-lobby': 3.5, 'cyb-server': 5, 'cyb-noodle': 6, 'cyb-capsule': 5, 'cyb-hideout': 5, 'cyb-talisman': 5, 'cyb-rigger': 4.5, 'cyb-safehouse': 4.5 }); // (no indoor target under 3.5: test/yard.test.mjs. Denser 2026-11-07: clinic 4 -> 5, noodle 5 -> 6, hideout 4 -> 5, rigger 3.5 -> 4.5; the programs now fill toward them, modDense)
+Object.assign(FOCAL, { 'cyb-clinic': 'the surgical chair under its lamp', 'cyb-lobby': 'the reception desk and the turnstiles', 'cyb-server': 'the rows of racks', 'cyb-noodle': 'the noodle counter and its stools',
+  'cyb-capsule': 'the rows of capsules', 'cyb-hideout': 'the burning drum and the chain-link lock-up', 'cyb-talisman': 'the counter and the shelves of curios', 'cyb-rigger': 'the car on the floor and the workbench',
+  'cyb-safehouse': 'the deck on the far wall', 'cyb-rooftop': 'the stair hut and the water tank' });
+Object.assign(KEY_RE, { 'cyb-clinic': /^surgical-chair$/, 'cyb-lobby': /^(reception-desk|turnstile-gate)$/, 'cyb-server': /^server-rack$/, 'cyb-noodle': /^noodle-counter$/, 'cyb-capsule': /^capsule-pod$/,
+  'cyb-hideout': /^(oil-drum-fire|fence-chain-link|gate-chain-link)$/, 'cyb-talisman': /^(display-counter-glass|curio-shelf)$/, 'cyb-rigger': /^(car-sedan|car-hatchback|workbench-garage)$/, 'cyb-safehouse': /^terminal-desk$/,
+  'cyb-rooftop': /^(roof-access-hut|water-tank-roof)$/ });
+// <<< type:cyb
+
+// >>> cb:solver2
+// ======================= culture packs B: THE CULTURE-ROOM SKELETON (2026-11-06) =======================
+// experiments/2026-11-06-cultures-b. Norse steading, Middle East (Mamluk), medieval Rus', Mexica: small packs, so their
+// rooms are DATA, not programs: CB[room key] is a list of steps, each a few words for one of the helpers above (ccm*,
+// hut*, the outdoor plot hutPlot). A culture is told from another by a few big signature pieces seen from above (the
+// long hearth, the iconostasis, the floor fountain, the altar): every room puts its signature down FIRST, keeps the walks
+// from the doors to it open, then fills walls and corners with the culture's own pieces and the library's generic ones
+// (benches, barrels, rugs) by name. A program's ids are wishes: a piece the library lacks (or a tier the room does not
+// list) is skipped silently, so a room solves while its meshes are still being made. Hooks: KEY / MENUS / DENSITY /
+// FOCAL / KEY_RE as every appended type (cbRegister below).
+//   step ops, indoor:  far (centred on the wall facing the door) · longwall (middle of the long wall away from the door)
+//     centre (middle of the floor; along: turned down the long axis; n: that many down the axis) · ends (both short walls
+//     that have no main door) · screen (a row across the room `depth` ft before the far wall) · behind (between the screen
+//     and the far wall) · posts (two rows down the long axis) · wall (against walls: sides long|lat|far|door|all, `per` ft
+//     of wall per piece or `n`) · corner (door|far) · near (round a named piece) · front (on its front, `dist` ft) ·
+//     flank (one each side) · on (on its top) · pile · hang (mounted) · rug · lights
+//   outdoor (hutPlot): yard (the plot, its edge kinds) · ocentre · oedge (at the edge: near the door|gate, or far) ·
+//     ocorner · orows (rows with aisles) · osides (sections lined along both long sides facing in, a middle piece; ends/rest/
+//     across: a court's I, its end zones walled wider than the alley) · ofield (a painted field on that alley) · oplants
+//   common fields: ids, as (a name later steps use: to), min (cells at least), n, why, layer, rule, focal (this is the key piece)
+const CB = {};
+const CB_LIGHTS = {};          // room key -> [wall light ids, floor light ids] (the light a room must have)
+const cbSidesOf = (ctx, E, s) => {
+  const d = E.d, L = ctx.longSides(), all = ['N', 'S', 'E', 'W'];
+  const pick = { long: L, short: ctx.shortSides(), lat: E.lat, far: [E.far], door: d ? [d.side] : [], all, nodoor: all.filter(x => !d || x !== d.side), longfar: L.filter(x => !d || x !== d.side) }[s || 'all'];
+  return pick && pick.length ? pick : all;
+};
+const cbAlongRot = (ctx) => (ctx.W >= ctx.D ? 0 : Math.PI / 2);      // a piece's width (x) down the room's long axis
+const cbPt = (p) => [p.x, p.z];
+function cbCornerSides(ctx, E, which) {
+  const d = E.d, far = E.far, lat = E.lat;
+  if (!d) return [far, lat[0]];
+  const dp = d.inner, corners = lat.flatMap(l => [[far, l], [OPP_SIDE[far], l]]).map(([a, b]) => { const [x] = ctx.sidePoint(a, 0, 0); return [a, b]; });
+  const at = ([a, b]) => [b === 'W' || a === 'W' ? ctx.X0 : b === 'E' || a === 'E' ? ctx.X1 : (ctx.X0 + ctx.X1) / 2, b === 'N' || a === 'N' ? ctx.Z0 : b === 'S' || a === 'S' ? ctx.Z1 : (ctx.Z0 + ctx.Z1) / 2];
+  corners.sort((p, q) => Math.hypot(...at(p).map((v, i) => v - dp[i])) - Math.hypot(...at(q).map((v, i) => v - dp[i])));
+  return which === 'door' ? corners[0] : corners[corners.length - 1];
+}
+const CB_OPS = {
+  far: (ctx, st, E) => ccmFocalOn(ctx, E.far, st.ids, { label: st.label || st.ids[0], rule: st.rule || 'key-focal', why: st.why, layer: st.layer || 'anchor' }),
+  longwall: (ctx, st, E) => { const sides = cbSidesOf(ctx, E, 'long').sort((a, b) => (E.d && a === E.d.side ? 1 : 0) - (E.d && b === E.d.side ? 1 : 0)); for (const s of sides) { const p = ccmFocalOn(ctx, s, st.ids, { label: st.label || st.ids[0], rule: st.rule || 'key-focal', why: st.why }); if (p) return p; } return null; },
+  centre: (ctx, st, E) => {
+    const rot = st.along ? cbAlongRot(ctx) : (st.rot || 0), n = Math.max(1, typeof st.n === 'function' ? st.n(ctx) : st.n || 1), Lx = ctx.W >= ctx.D, len = Math.max(ctx.W, ctx.D);
+    let first = null;
+    for (let i = 0; i < n; i++) { const u = n === 1 ? 0 : (i - (n - 1) / 2) * (len / n), off = Lx ? [u, 0] : [0, u];
+      const p = i === 0 ? ccmCentre(ctx, st.ids, { label: st.label || st.ids[0], rot, off, rule: st.rule || 'key-focal', why: st.why, layer: st.layer || 'anchor' })
+        : hutAt(ctx, ccmFirst(ctx, st.ids), [[(ctx.X0 + ctx.X1) / 2 + off[0], (ctx.Z0 + ctx.Z1) / 2 + off[1], rot]], { layer: st.layer || 'anchor', rule: st.rule || 'key-focal', why: st.why });
+      if (p && !first) first = p; }
+    return first;
+  },
+  ends: (ctx, st, E) => { let first = null; for (const s of ctx.shortSides()) { if (E.d && s === E.d.side) continue; const p = ccmFocalOn(ctx, s, st.ids, { label: st.label || st.ids[0], rule: first ? 'furnish' : st.rule || 'key-focal', why: st.why }); if (p && !first) first = p; } return first; },
+  screen: (ctx, st, E) => {
+    const id = ccmFirst(ctx, st.ids); if (!id) return null;
+    const [w] = hutDims(ctx, id), L = ctx.sideLen(E.far), k0 = Math.max(1, Math.floor((L - 0.4) / w)), k = k0 - (k0 % 2 ? 0 : 1), t0 = (L - k * w) / 2 + w / 2, out = []; // (an ODD count: a section's doors stand on the room's axis, never a seam; the side sections' doors are the deacons' doors)
+    for (let i = 0; i < k; i++) { const [x, z] = ctx.sidePoint(E.far, t0 + i * w, st.depth); const p = hutExact(ctx, () => hutAt(ctx, id, [[x, z, SIDES[E.far].rot]], { layer: 'anchor', rule: i ? 'screen' : st.rule || 'key-focal', why: st.why })); if (p) out.push(p); }
+    if (out.length) ctx.focal = { label: st.label || id, id, side: E.far, ok: true };
+    return out[Math.floor(out.length / 2)] || null;
+  },
+  behind: (ctx, st, E) => { const [x, z] = ctx.sidePoint(E.far, ctx.sideLen(E.far) / 2, st.depth); return hutAt(ctx, ccmFirst(ctx, st.ids), [[x, z, SIDES[E.far].rot], [x, z, SIDES[E.far].rot + Math.PI / 2]], { layer: 'anchor', rule: st.rule || 'behind-screen', why: st.why, allowKeep: true }); },
+  posts: (ctx, st, E) => {
+    const id = ccmFirst(ctx, st.ids); if (!id) return null; const Lx = ctx.W >= ctx.D, len = Lx ? ctx.W : ctx.D, wid = Lx ? ctx.D : ctx.W, every = st.every || 10, out = [];
+    if (wid < (st.minWidth || 14)) return null;
+    const k = Math.max(1, Math.floor((len - 6) / every)), u0 = -((k - 1) * every) / 2, v = wid / 2 - (st.inset || 4.6);
+    for (let i = 0; i < k; i++) for (const sg of [-1, 1]) { const u = u0 + i * every, x = (ctx.X0 + ctx.X1) / 2 + (Lx ? u : sg * v), z = (ctx.Z0 + ctx.Z1) / 2 + (Lx ? sg * v : u);
+      const p = ccmQuiet(ctx, () => hutAt(ctx, id, [[x, z, 0]], { layer: 'furnish', rule: 'roof-post', why: st.why || 'the roof posts, two rows down the room' })); if (p) out.push(p); }
+    return out[0] || null;
+  },
+  wall: (ctx, st, E) => {
+    const sides = cbSidesOf(ctx, E, st.sides), out = [];   // per: one piece every `per` ft of EACH side; n: n pieces in all, the sides in turn
+    if (st.per) { for (const s of sides) { const k = Math.max(1, Math.floor(ctx.sideLen(s) / st.per));
+      for (let i = 0; i < k; i++) { const p = hutWall(ctx, st.ids, [s], { any: true, at: (i + 0.5) / k, sideCost: 0, why: st.why, layer: st.layer, rule: st.rule }); if (p) out.push(p); } } }
+    else for (let i = 0; i < (st.n || 1); i++) { const ss = [...sides.slice(i % sides.length), ...sides.slice(0, i % sides.length)]; const p = hutWall(ctx, st.ids, ss, { any: true, at: st.at ?? 0.5, sideCost: 1, why: st.why, layer: st.layer, rule: st.rule }); if (p) out.push(p); }
+    return out[0] || null;
+  },
+  corner: (ctx, st, E) => { const c0 = cbCornerSides(ctx, E, st.which || 'far'), all = [c0, ...[['N', 'W'], ['N', 'E'], ['S', 'W'], ['S', 'E']].filter(q => !(q.includes(c0[0]) && q.includes(c0[1])))]; // (the corner asked for first, then any other)
+    for (const c of all) for (const id of st.ids) { const p = ccmCorner(ctx, id, c, { why: st.why, layer: st.layer || 'anchor' }) || hutWall(ctx, [id], c, { near: ctx.sidePoint(c[0], c[1] === 'W' || c[1] === 'N' ? 1 : ctx.sideLen(c[0]) - 1, 1), layer: st.layer || 'anchor', rule: st.rule || 'corner', why: st.why }); if (p) return p; } return null; },
+  near: (ctx, st, E) => { const to = E.P[st.to]; if (!to && st.to) return null; const pt = to ? (st.dist ? front(to, st.dist) : cbPt(to)) : [(ctx.X0 + ctx.X1) / 2, (ctx.Z0 + ctx.Z1) / 2]; let first = null;
+    for (let i = 0; i < (st.n || 1); i++) { const p = hutNear(ctx, st.ids, pt, { r0: st.r0 ?? (to ? Math.max(to.dims[0], to.dims[2]) / 2 + 0.6 : 0), r1: st.r1 ?? (to ? Math.max(to.dims[0], to.dims[2]) / 2 + 3 : 4), why: st.why, layer: st.layer || 'furnish', rule: st.rule || 'near', face: st.face !== false }); if (p && !first) first = p; }
+    return first; },
+  front: (ctx, st, E) => { const to = E.P[st.to]; if (!to) return null; const [x, z] = front(to, st.dist || 3); return hutAt(ctx, ccmFirst(ctx, st.ids), [[x, z, to.rot + (st.turn || 0)]], { layer: st.layer || 'furnish', rule: st.rule || 'before', why: st.why, allowKeep: true }) || hutNear(ctx, st.ids, [x, z], { r0: 0, r1: 2, why: st.why, layer: st.layer || 'furnish', face: false, rots: [to.rot + (st.turn || 0)], allowKeep: true }); }, // (on the approach: the walk from the door ends at it)
+  flank: (ctx, st, E) => { const to = E.P[st.to]; if (!to) return null; return ccmFlank(ctx, to, st.ids, { off: st.off ?? 1, why: st.why, layer: st.layer || 'furnish', n: st.n || 2 })[0] || null; },
+  on: (ctx, st, E) => { const to = E.P[st.to]; if (to) hutOnto(ctx, to, st.ids, st.n || 1, st.why || 'on it'); return null; },
+  pile: (ctx, st) => { hutPile(ctx, st.ids, st.n || Math.max(2, Math.min(5, Math.round(ccmCells(ctx) / 5))), st.why || 'stores in the corner'); return null; },
+  hang: (ctx, st, E) => { const sides = cbSidesOf(ctx, E, st.sides); let first = null; for (let i = 0; i < (st.n || 1); i++) { const id = ccmAny(ctx, st.ids); if (!id) break; const p = ccmQuiet(ctx, () => ctx.mount(id, { sides: [sides[i % sides.length]], height: st.height ?? 5.2, layer: st.layer || 'dress', why: st.why || 'on the wall' })); if (p && !first) first = p; } return first; },
+  rug: (ctx, st, E) => { const to = E.P[st.to], id = ccmAny(ctx, st.ids); if (!id) return null; return ccmQuiet(ctx, () => ctx.rug(id, { ...(to ? { at: st.dist ? front(to, st.dist) : cbPt(to), rot: to.rot } : {}), why: st.why || 'a rug' })); },
+  lights: (ctx, st, E) => { hutLights(ctx, cbSidesOf(ctx, E, st.sides), { ids: st.ids, every: st.every || 16, min: st.n ?? 1, max: st.max || 4, why: st.why }); return null; },
+};
+// a hub's swirl, walked FIRST (attempt() walks the same closed loop after the program: through the doors and, in a room of
+// 900 sq ft or more, the inset corners), so the furniture leaves it free
+function cbLoop(ctx) {
+  if (ctx.role !== 'hub' || !ctx.doors.length) return;
+  const c = [(ctx.X0 + ctx.X1) / 2, (ctx.Z0 + ctx.Z1) / 2], ins = Math.max(3, Math.min(6, Math.min(ctx.W, ctx.D) * 0.18));
+  const corners = ctx.area() >= 900 ? [[ctx.X0 + ins, ctx.Z0 + ins], [ctx.X1 - ins, ctx.Z0 + ins], [ctx.X1 - ins, ctx.Z1 - ins], [ctx.X0 + ins, ctx.Z1 - ins]] : [];
+  const way = [...ctx.doors.map(o => o.inner), ...corners].filter(p => p[0] > ctx.X0 && p[0] < ctx.X1 && p[1] > ctx.Z0 && p[1] < ctx.Z1).sort((p, q) => Math.atan2(p[1] - c[1], p[0] - c[0]) - Math.atan2(q[1] - c[1], q[0] - c[0]));
+  if (way.length >= 2) ctx.walk('loop', way, { closed: true, quietSkips: true });
+}
+function cbRoom(ctx) {
+  const key = ctx.type.key, R = CB[key], d = ctx.mainDoor, far = ccmFar(ctx, { shortEnd: !!R.shortEnd }), E = { d, far, lat: ccmLat(far), P: {} };
+  let focal = null, looped = false;
+  for (const st of R.steps) {
+    if ((st.min && ccmCells(ctx) < st.min) || (st.unless && E.P[st.unless])) continue; // (unless: a fallback step, skipped when the named piece stands)
+    const p = CB_OPS[st.op](ctx, st, E);
+    if (st.as && p) E.P[st.as] = p;
+    if (st.focal && p && !focal) { focal = p; if (d) { ctx.sight = [d.inner, cbPt(p)]; ctx.sightFeature = p.id; hutWalks(ctx, st.op === 'far' || st.op === 'longwall' || st.op === 'ends' || st.op === 'screen' ? front(p, st.op === 'screen' ? 3.2 : 2.4) : cbPt(p)); } }
+    if (st.focal && !looped) { cbLoop(ctx); looped = true; } // (the signature piece first, then the hub's swirl, then the rest round both)
+  }
+  if (!focal && R.need !== false) { ccmDone(ctx); return { fail: `${R.name} has no ${R.focal || 'focal piece'} (no room for it)` }; }
+  const [wl, fl] = CB_LIGHTS[key] || [[], []]; ccmEnsureLight(ctx, wl, fl);
+  ccmDone(ctx);
+  return { feature: focal, what: `${R.name}: ${R.focal || (focal && focal.id)}`, approach: null, passage: true };
+}
+// the outdoor plots: the plot (its edge kinds, the gate, the way in) and then the same steps on Y
+const CB_OOPS = {
+  ocentre: (ctx, st, E, Y) => ccmCentre(ctx, st.ids, { label: st.label || st.ids[0], rot: st.along ? cbAlongRot(ctx) : 0, rule: st.rule || 'key-focal', why: st.why, layer: st.layer || 'anchor' }),
+  oedge: (ctx, st, E, Y) => { let first = null; const ref = st.near === 'gate' ? (Y.gate ? Y.gate.inner : Y.start) : (Y.start || (Y.gate && Y.gate.inner)), to = st.to && E.P[st.to] ? cbPt(E.P[st.to]) : null;
+    for (let i = 0; i < (st.n || 1); i++) { const p = Y.atEdge(st.ids, { any: true, ...(st.far ? { far: ref || [Y.cx, Y.cz] } : (to || ref) ? { near: to || ref } : {}), ...(st.built !== undefined ? { built: st.built } : {}), layer: st.layer || 'furnish', rule: st.rule || 'yard-edge-thing', why: st.why }); if (p && !first) first = p; } return first; },
+  ocorner: (ctx, st, E, Y) => { const fc = Y.farCorner(); return Y.corner(st.ids, fc[st.i || 0], { layer: st.layer || 'furnish', why: st.why }); },
+  orows: (ctx, st, E, Y) => {   // rows of pieces with aisles between them, down the plot's long axis (a market's spreads, chinampa beds)
+    const id0 = ccmFirst(ctx, st.ids); if (!id0) return null; const [bw, bd] = hutDims(ctx, id0), gap = st.gap ?? 3, rect = Y.rect, Lx = ctx.W >= ctx.D;
+    const turn = st.across ? !Lx : Lx, pw = turn ? bw : bd, pd = turn ? bd : bw;   // the piece's size along x / z as laid
+    const nx = Math.max(1, Math.floor((rect[2] - rect[0] + gap) / (pw + gap))), nz = Math.max(1, Math.floor((rect[3] - rect[1] + gap) / (pd + gap)));
+    const x0 = (rect[0] + rect[2]) / 2 - (nx - 1) * (pw + gap) / 2, z0 = (rect[1] + rect[3]) / 2 - (nz - 1) * (pd + gap) / 2, line = Y.gate ? [Y.start || [Y.cx, Y.cz], Y.gate.inner] : null, out = [];
+    for (let i = 0; i < nx; i++) for (let j = 0; j < nz; j++) { const x = x0 + i * (pw + gap), z = z0 + j * (pd + gap);
+      if (line && segHitsRect(line[0], line[1], x, z, pw / 2 + 1.2, pd / 2 + 1.2)) continue;
+      const id = st.mix ? ctx.pick(st.ids.filter(k => ccmHas(ctx, k)))[0] : id0; if (!id) continue;
+      const p = ccmQuiet(ctx, () => hutExact(ctx, () => hutAt(ctx, id, [[x, z, turn ? 0 : Math.PI / 2]], { layer: out.length ? 'furnish' : 'anchor', rule: st.rule || 'row', why: st.why })));
+      if (p) out.push(p); if (st.max && out.length >= st.max) break; }
+    E.rows = out; return out[0] || null;
+  },
+  osides: (ctx, st, E, Y) => {  // sections lined along both long sides, facing in; the middle section of each side is `mid`
+    // (2026-11-07, the ballcourt's I: `ends` sections at each end of a long side are left to `rest` (a low wall, the end
+    // zone's side; none: open), so the sections between narrow the middle into an alley and the end zones stand wider;
+    // `across`: sections across both short sides (the end zones' end walls), the middle one left open as the way in.
+    // E.P.alley: the open middle (x, z, rot down the long axis, dims), for a painted field, a ball)
+    const id = ccmFirst(ctx, st.ids); if (!id) return null; const [w, dd] = hutDims(ctx, id), out = [], Lx = ctx.W >= ctx.D;
+    const restId = st.rest ? ccmFirst(ctx, st.rest) : null, [, rd] = restId ? hutDims(ctx, restId) : [0, 0];
+    let k = 0, nEnd = 0;
+    for (const s of ctx.longSides()) { const L = ctx.sideLen(s); k = Math.max(1, Math.floor(L / w)); if (st.ends && k % 2 === 0) k--; const t0 = (L - k * w) / 2 + w / 2; nEnd = st.ends && k >= 2 * st.ends + 1 ? st.ends : 0; // (a court: an odd count, so its ring is at mid-court, on the centre line)
+      for (let i = 0; i < k; i++) { const end = i < nEnd || i >= k - nEnd;
+        if (end && !restId) continue;
+        const mid = !end && st.mid && i === Math.floor(k / 2) && ccmHas(ctx, st.mid), pid = end ? restId : mid ? st.mid : id, [x, z] = ctx.sidePoint(s, t0 + i * w, (end ? rd : dd) / 2 + 0.05);
+        const rule = mid ? 'key-focal' : end ? 'end-zone-wall' : 'side-wall', why = end ? st.whyRest || st.why : st.why;
+        const p = ccmQuiet(ctx, () => hutExact(ctx, () => st.ends ? hutLay(ctx, pid, x, z, SIDES[s].rot, 'anchor', rule, why) : hutAt(ctx, pid, [[x, z, SIDES[s].rot]], { layer: 'anchor', rule, why }))); if (p) out.push(p); } } // (a court's sections touch end to end: laid by measurement, as crop patches are; the grid's fit test sees shared edges as overlaps and dropped a bench in three)
+    const acrossId = st.across ? ccmFirst(ctx, st.across) : null;
+    if (acrossId) { const [aw, ad] = hutDims(ctx, acrossId);
+      for (const s of ctx.shortSides()) { const L = ctx.sideLen(s) - 2 * rd, m = Math.max(1, Math.floor(L / aw)), t0 = rd + (L - m * aw) / 2 + aw / 2; // (between the end zone's side walls; what is left over opens at the corners)
+        for (let i = 0; i < m; i++) { if (m >= 3 && i === Math.floor(m / 2)) continue; // (the way in, in the middle of each end)
+          const [x, z] = ctx.sidePoint(s, t0 + i * aw, ad / 2 + 0.05);
+          const p = ccmQuiet(ctx, () => hutExact(ctx, () => hutLay(ctx, acrossId, x, z, SIDES[s].rot, 'anchor', 'end-zone-wall', st.whyAcross || st.why))); if (p) out.push(p); } } }
+    const cx = (ctx.X0 + ctx.X1) / 2, cz = (ctx.Z0 + ctx.Z1) / 2, len = (k - 2 * nEnd) * w, wid = (Lx ? ctx.D : ctx.W) - 2 * dd;
+    E.P.alley = { x: cx, z: cz, rot: Lx ? 0 : Math.PI / 2, dims: Lx ? [len, 0, wid] : [wid, 0, len], len, wid };
+    return out.find(p => p.rule === 'key-focal') || out[0] || null;
+  },
+  // paint on a court's alley (E.P.alley, from osides), at its middle: a field down it, or (across) a line across it from
+  // bench to bench; placed only where it fits the alley (within `slack` ft of its width, and of its length for a field)
+  ofield: (ctx, st, E) => { const a = E.P.alley, id = a && ccmFirst(ctx, st.ids); if (!id) return null; const [w, d] = hutDims(ctx, id), sl = st.slack ?? 1.5;
+    if (st.across ? Math.abs(w - a.wid) > sl : (w > a.len + sl || d > a.wid + sl || w < a.len - 3 * sl || d < a.wid - 3 * sl)) return null;
+    return ccmQuiet(ctx, () => ctx.rug(id, { at: [a.x, a.z], rot: a.rot + (st.across ? Math.PI / 2 : 0), layer: 'floor-dress', rule: 'court-field', why: st.why || 'the painted field' })); },
+  oplants: (ctx, st, E, Y) => { Y.plants(st.ids, st.n || 2, { why: st.why }); return null; },
+  near: (ctx, st, E) => CB_OPS.near(ctx, st, E), on: (ctx, st, E) => CB_OPS.on(ctx, st, E), flank: (ctx, st, E) => CB_OPS.flank(ctx, st, E),
+  front: (ctx, st, E) => CB_OPS.front(ctx, st, E), pile: (ctx, st) => CB_OPS.pile(ctx, st), rug: (ctx, st, E) => CB_OPS.rug(ctx, st, E),
+};
+function cbPlot(ctx) {
+  const key = ctx.type.key, R = CB[key], Y = hutPlot(ctx, R.name, R.edges || ['none']), E = { d: ctx.mainDoor, far: null, lat: [], P: {} };
+  let focal = null;
+  for (const st of R.steps) {
+    if (st.min && ctx.area() < st.min * 25) continue;
+    const p = CB_OOPS[st.op](ctx, st, E, Y);
+    if (st.as && p) E.P[st.as] = p;
+    if (st.focal && p && !focal) { focal = p; if (st.path !== false) Y.path(false); } // (the signature piece, then the way from the door to the gate round it)
+  }
+  if (!focal && R.need !== false) return hutPlotFail(ctx, `${R.name} has no ${R.focal || 'focal piece'}`);
+  return hutPlotDone(ctx, Y, focal, `${R.name}: ${R.focal || (focal && focal.id)}`);
+}
+// cbRegister(key, R): one room of a culture pack. R = { name, focal (words), steps, outdoor, density, keyRe, lights: [wall ids, floor ids], annex: [wall ids] }
+function cbRegister(key, R) {
+  CB[key] = R; KEY[key] = R.outdoor ? cbPlot : cbRoom; FOCAL[key] = R.focal || '';
+  KEY_RE[key] = R.keyRe === undefined ? null : R.keyRe;
+  if (!R.outdoor) { DENSITY[key] = R.density || 5; CB_LIGHTS[key] = R.lights || [[], []];
+    MENUS[key] = ccmAnnex((ctx) => { const sides = ctx.shuffle(['N', 'S', 'E', 'W']); for (const id of R.annex || []) hutWall(ctx, [id], sides, { why: 'against the wall' }); const [wl, fl] = CB_LIGHTS[key]; if (wl.length) hutLights(ctx, sides.slice(0, 2), { ids: wl, min: 1, max: 2 }); }); }
+}
+// <<< cb:solver2
+
+// >>> nrs:solver2
+// ======================= Norse steading (NRS, 2026-11-06): six rooms on the culture-room skeleton (cb:solver2) =======================
+// Viking-Age Scandinavia, c. 800-1050. From above a Norse hall is named by its LONG HEARTH down the middle with platforms
+// along both long walls; the mead hall by the high seat in the middle of a long wall facing the hearth; the boathouse by the
+// boat; the yard by the runestone. Lit by the hearth and horn lanterns (no windows: walls.js NO_WINDOWS).
+const NRS_LAMP = [['lantern-wall-horn', 'torch-bracket-rough'], ['torch-stand', 'lantern-hand']];
+const NRS_FLOOR = ['rug-sheepskin', 'rug-fur', 'rug-hay-scatter'];
+cbRegister('nrs-longhouse', { name: 'longhouse', focal: 'the long hearth down the middle', density: 5, lights: NRS_LAMP, keyRe: /^nrs-long-hearth$/, annex: ['nrs-sleeping-platform', 'barrel'],
+  steps: [
+    { op: 'centre', ids: ['nrs-long-hearth', 'hearth-central'], along: true, as: 'hearth', focal: true, label: 'long hearth', why: 'the long hearth: down the middle of the hall, the smoke going up to the roof' },
+    { op: 'posts', ids: ['nrs-roof-post'], every: 10, inset: 4.9, why: 'the roof posts: two rows down the hall, between the hearth and the platforms' },
+    { op: 'wall', ids: ['nrs-sleeping-platform'], sides: 'long', per: 11, layer: 'anchor', rule: 'platform', why: 'the raised platforms along both long walls: seats by day, beds by night' },
+    { op: 'near', ids: ['cauldron-crane', 'cauldron', 'pot-iron-large'], to: 'hearth', n: 1, why: 'the cauldron on its crane at the end of the hearth' },
+    { op: 'wall', ids: ['nrs-loom'], sides: 'lat', n: 1, rule: 'loom', why: 'the loom by the end wall, where the door lets in the light' },
+    { op: 'near', ids: ['nrs-wool-baskets'], to: 'hearth', n: 1, r0: 3.5, r1: 7, why: 'wool and spindles by the fire' },
+    { op: 'wall', ids: ['nrs-sea-chest', 'chest-plain'], sides: 'long', n: 1, rule: 'chest', why: 'a chest at the end of a platform' },
+    { op: 'corner', ids: ['nrs-quern'], which: 'far', layer: 'furnish', why: 'the hand quern in the far corner' },
+    { op: 'pile', ids: ['barrel', 'sack', 'grain-sack-open', 'barley-sack', 'crate'], n: 3, why: 'the stores, heaped at the far end' },
+    { op: 'near', ids: ['stool-three-leg', 'log-seat'], to: 'hearth', n: 2, r0: 2.4, r1: 4, why: 'a stool by the fire' },
+    { op: 'rug', ids: NRS_FLOOR, why: 'a fleece on the floor' },
+    { op: 'hang', ids: ['nrs-shield-row'], sides: 'long', n: 1, height: 5.4, min: 30, why: 'the household\'s shields on the wall' },
+    { op: 'lights', ids: NRS_LAMP[0], sides: 'long', every: 20, n: 1, max: 2 },
+  ] });
+cbRegister('nrs-meadhall', { name: 'mead hall', focal: "the high seat in the middle of a long wall, facing the hearth", density: 5, lights: NRS_LAMP, keyRe: /^nrs-high-seat$/, annex: ['bench-long', 'table-trestle'],
+  steps: [
+    { op: 'centre', ids: ['nrs-long-hearth', 'hearth-central'], along: true, n: (ctx) => Math.max(ctx.W, ctx.D) >= 44 ? 2 : 1, as: 'hearth', label: 'long hearth', why: 'the long hearth down the middle of the hall' },
+    { op: 'longwall', ids: ['nrs-high-seat', 'throne', 'chair-armed'], as: 'seat', focal: true, label: 'high seat', why: "the chieftain's high seat: in the middle of a long wall, between its carved pillars, facing the hearth" },
+    { op: 'posts', ids: ['nrs-roof-post'], every: 11, inset: 6, minWidth: 18, why: 'the roof posts, two rows down the hall' },
+    { op: 'wall', ids: ['table-trestle'], sides: 'long', per: 13, rule: 'feast-table', why: 'the long trestle tables down both sides of the hall' },
+    { op: 'wall', ids: ['bench-long'], sides: 'long', per: 9, rule: 'bench', why: 'benches along the walls' },
+    { op: 'wall', ids: ['nrs-sleeping-platform'], sides: 'short', n: 1, rule: 'platform', why: 'a platform at the end of the hall' },
+    { op: 'hang', ids: ['nrs-shield-row'], sides: 'long', n: 4, height: 5.4, why: 'the warband\'s round shields, hung in rows on the walls' },
+    { op: 'wall', ids: ['nrs-spear-rack', 'weapon-rack'], sides: 'door', n: 1, why: 'spears and axes racked by the door' },
+    { op: 'near', ids: ['barrel', 'nrs-sea-chest'], to: 'seat', n: 2, r0: 2.6, r1: 5, why: "the chieftain's chest and the ale cask beside the high seat" },
+    { op: 'rug', ids: ['rug-bearskin', 'rug-fur', 'rug-wolfskin'], to: 'seat', dist: 3, why: "a bearskin before the high seat" },
+    { op: 'near', ids: ['horn-drinking-banded', 'tankard-horn', 'tankard-wooden'], to: 'seat', n: 1, r0: 1.2, r1: 3, layer: 'dress', why: "the chieftain's drinking horn" },
+    { op: 'lights', ids: NRS_LAMP[0], sides: 'long', every: 18, n: 2, max: 4 },
+  ] });
+cbRegister('nrs-smithy', { name: 'Norse smithy', focal: 'the low stone forge on the wall facing the door', density: 6, lights: NRS_LAMP, keyRe: /^nrs-forge$/, annex: ['woodpile', 'barrel'],
+  steps: [
+    { op: 'far', ids: ['nrs-forge', 'forge'], as: 'forge', focal: true, label: 'forge', why: 'the forge: a low stone hearth with its bellows-shield, on the wall facing the door' },
+    { op: 'front', ids: ['anvil'], to: 'forge', dist: 3.4, as: 'anvil', why: 'the anvil on its stump, a step from the forge' },
+    { op: 'near', ids: ['quench-trough', 'bucket'], to: 'anvil', n: 1, r0: 1.6, r1: 3.4, why: 'the quench tub within reach of the anvil' },
+    { op: 'wall', ids: ['nrs-spear-rack'], sides: 'lat', n: 1, why: 'finished spears and axes racked against the wall' },
+    { op: 'wall', ids: ['grindstone', 'table-work'], sides: 'lat', n: 1, why: 'the grindstone against the other wall' },
+    { op: 'corner', ids: ['smith-coal-heap', 'coal-bin', 'woodpile'], which: 'door', layer: 'furnish', why: 'charcoal heaped by the door' },
+    { op: 'wall', ids: ['nrs-sea-chest', 'chest-ironbound'], sides: 'far', n: 1, why: "the smith's tool chest" },
+    { op: 'hang', ids: ['tool-rack-smith'], sides: 'lat', n: 1, why: 'tongs and hammers on the wall' },
+    { op: 'lights', ids: NRS_LAMP[0], sides: 'lat', every: 20, n: 1, max: 1 },
+  ] });
+cbRegister('nrs-boathouse', { name: 'boathouse', focal: 'the boat on its stocks down the middle', density: 4, lights: NRS_LAMP, keyRe: /^nrs-boat$/, annex: ['nrs-oar-rack', 'barrel'],
+  steps: [
+    { op: 'centre', ids: ['nrs-boat'], along: true, as: 'boat', focal: true, label: 'boat', why: 'the boat, laid up on its stocks down the middle of the naust' },
+    { op: 'wall', ids: ['nrs-oar-rack'], sides: 'long', n: 1, why: 'the oars racked against the long wall' },
+    { op: 'wall', ids: ['nrs-sail-trestle'], sides: 'long', n: 1, why: 'the furled sail on its trestles along the wall' },
+    { op: 'wall', ids: ['nrs-sea-chest'], sides: 'long', per: 14, why: "the crew's sea chests" },
+    { op: 'pile', ids: ['barrel', 'rope-coil', 'crate', 'barrel'], n: 3, why: 'tar barrels and rope in the corner' },
+    { op: 'hang', ids: ['nrs-shield-row'], sides: 'long', n: 1, height: 5.4, min: 24, why: 'the crew\'s shields on the wall' },
+    { op: 'near', ids: ['rope-coil', 'bucket'], to: 'boat', n: 1, r0: 2.5, r1: 5, layer: 'dress', why: 'a coil of rope by the boat' },
+    { op: 'lights', ids: NRS_LAMP[0], sides: 'long', every: 22, n: 1, max: 2 },
+  ] });
+cbRegister('nrs-weaving', { name: 'weaving hut', focal: 'the loom against the wall facing the door', density: 6, lights: NRS_LAMP, keyRe: /^nrs-loom$/, annex: ['nrs-wool-baskets'],
+  steps: [
+    { op: 'far', ids: ['nrs-loom', 'spinning-wheel'], as: 'loom', focal: true, label: 'loom', why: 'the warp-weighted loom against the wall facing the door' },
+    { op: 'near', ids: ['nrs-wool-baskets'], to: 'loom', n: 1, r0: 1.5, r1: 3.5, why: 'wool and spindles beside the loom' },
+    { op: 'near', ids: ['stool-three-leg'], to: 'loom', n: 1, dist: 2.2, r0: 0, r1: 1.6, why: "the weaver's stool before the loom" },
+    { op: 'centre', ids: ['hearth-central', 'firepit-stone-round'], off: [0, 0], as: 'fire', why: 'a small fire in the floor' },
+    { op: 'wall', ids: ['nrs-sea-chest', 'chest-plain'], sides: 'lat', n: 1, why: 'the cloth chest' },
+    { op: 'corner', ids: ['nrs-quern'], which: 'door', layer: 'furnish', why: 'the quern by the door' },
+    { op: 'pile', ids: ['sack', 'barrel'], n: 2, why: 'stores in the corner' },
+  ] });
+cbRegister('nrs-yard', { name: 'steading yard', focal: 'the runestone', outdoor: true, edges: ['wattle fence', 'post-and-rail fence', 'none'], keyRe: /^nrs-runestone$/,
+  steps: [
+    { op: 'ocentre', ids: ['nrs-runestone'], as: 'stone', focal: true, label: 'runestone', why: 'the runestone, standing in the middle of the yard' },
+    { op: 'oedge', ids: ['well'], far: true, why: 'the well' },
+    { op: 'oedge', ids: ['nrs-fish-rack'], far: true, why: 'stockfish drying on the rack' },
+    { op: 'oedge', ids: ['woodpile'], built: true, why: 'firewood stacked against the house wall' },
+    { op: 'oedge', ids: ['hay-bale', 'hay-pile'], n: 2, far: true, why: 'hay for the beasts' },
+    { op: 'oedge', ids: ['cart-hand', 'wheelbarrow'], near: 'gate', why: 'the handcart inside the gate' },
+    { op: 'oedge', ids: ['chopping-block', 'log-seat'], built: true, why: 'the chopping block' },
+    { op: 'oplants', ids: ['bush', 'tree-birch'], n: 2, why: 'birch and scrub at the edge' },
+  ] });
+// <<< nrs:solver2
+
+// >>> mde:solver2
+// ======================= Middle East / Mamluk (MDE, 2026-11-06): six rooms on the culture-room skeleton (cb:solver2) =======================
+// The Mamluk Near East, Cairo and Damascus, 13th-16th c. From above: the reception hall (qa'a) by its floor fountain in the
+// low middle between raised platforms (iwans) at both ends; the hammam by its fountain ringed with marble benches and wall
+// basins; the caravanserai by its court ringed with arched storerooms; the coffee house by its brazier and divans. The souk
+// shop is a trade of the market's shop skeleton. No mosque and no sacred text as decoration (ROSTERS.md).
+const MDE_LAMP = [['lantern-pierced-tin', 'lantern-wall-brass'], ['oil-lamp', 'lantern-hand']];
+// the caravanserai's edge: an arcade of storeroom bays, square piers at its corners and ends, the great gate where the plot has one
+YARD_EDGES['khan arcade'] = ['mde-arcade', 'mde-arcade-pier', 'mde-khan-gate'];
+cbRegister('mde-courtyard', { name: 'caravanserai courtyard', focal: 'the fountain in the middle of the court', outdoor: true, edges: ['khan arcade', 'none'], keyRe: /^(mde-floor-fountain|well)$/,
+  steps: [
+    { op: 'ocentre', ids: ['mde-floor-fountain', 'well'], as: 'fount', focal: true, label: 'fountain', why: 'the fountain in the middle of the court, where the caravan waters' },
+    { op: 'oedge', ids: ['water-trough'], to: 'fount', why: 'the water trough for the beasts' },
+    { op: 'oedge', ids: ['mde-bales'], n: 3, why: 'bales of cloth, unloaded by the storerooms' },
+    { op: 'oedge', ids: ['mde-saddle-packs'], n: 2, why: 'saddlebags and pack saddles where the caravan unloaded' },
+    { op: 'oedge', ids: ['mde-water-jar'], n: 2, why: 'water jars in the shade' },
+    { op: 'oedge', ids: ['hitching-post'], near: 'gate', why: 'a tethering post by the gate' },
+    { op: 'near', ids: ['mde-bales', 'mde-saddle-packs'], to: 'fount', n: 1, r0: 5, r1: 9, why: 'a load set down in the court' },
+  ] });
+cbRegister('mde-hammam', { name: 'hammam', focal: 'the fountain in the middle, ringed by marble benches and wall basins', density: 4.5, lights: MDE_LAMP, keyRe: /^mde-floor-fountain$/, annex: ['mde-hammam-bench', 'mde-wall-basin'],
+  steps: [
+    { op: 'centre', ids: ['mde-floor-fountain', 'basin-stone'], as: 'fount', focal: true, label: 'fountain', why: 'the marble fountain in the middle of the bath' },
+    { op: 'wall', ids: ['mde-hammam-bench'], sides: 'nodoor', per: 14, layer: 'anchor', rule: 'bench', why: 'the marble benches round the walls' },
+    { op: 'wall', ids: ['mde-wall-basin'], sides: 'all', per: 9, rule: 'basin', why: 'the wall basins, a bowl on each' },
+    { op: 'corner', ids: ['mde-water-jar'], which: 'door', layer: 'furnish', why: 'the cool-water jar by the door' },
+    { op: 'near', ids: ['bucket', 'bowl-wood-large'], to: 'fount', n: 1, layer: 'dress', why: 'a bathing bowl by the fountain' },
+    { op: 'hang', ids: MDE_LAMP[0], sides: 'all', n: 2, height: 6.5, layer: 'light', why: 'pierced lanterns on the walls' },
+  ] });
+cbRegister('mde-audience', { name: "reception hall (qa'a)", focal: 'the raised platforms at both ends of the hall, the fountain in the low middle', density: 4.5, lights: MDE_LAMP, keyRe: /^mde-dais$/, annex: ['mde-divan'],
+  steps: [
+    { op: 'ends', ids: ['mde-dais', 'dais'], as: 'iwan', focal: true, label: 'iwan platform', why: 'a raised carpeted platform (iwan) at each end of the hall: where the host and his guests sit' },
+    { op: 'centre', ids: ['mde-floor-fountain'], as: 'fount', why: 'the fountain in the low middle of the hall (the durqa\'a)' },
+    { op: 'wall', ids: ['mde-divan'], sides: 'long', per: 7, rule: 'divan', why: 'divans along the long walls' },
+    { op: 'front', ids: ['mde-tray-table'], to: 'iwan', dist: 4.6, why: 'a tray table before the platform' },
+    { op: 'wall', ids: ['mde-inlaid-chest'], sides: 'door', n: 1, why: 'an inlaid chest by the door' },
+    { op: 'corner', ids: ['mde-water-jar'], which: 'door', layer: 'furnish', why: 'the water jar by the door' },
+    { op: 'rug', ids: ['rug-grand', 'rug-striped-woven'], to: 'fount', dist: 0, why: 'a carpet by the fountain' },
+    { op: 'hang', ids: MDE_LAMP[0], sides: 'long', n: 2, height: 6.5, layer: 'light', why: 'pierced lanterns on the walls' },
+  ] });
+cbRegister('mde-coffee', { name: 'coffee house', focal: "the coffee-maker's brazier in the far corner", density: 5, lights: MDE_LAMP, keyRe: /^mde-coffee-brazier$/, annex: ['mde-divan'],
+  steps: [
+    { op: 'corner', ids: ['mde-coffee-brazier'], which: 'far', as: 'brazier', focal: true, label: 'coffee brazier', why: "the coffee-maker's brazier in the far corner, the pots on the coals" },
+    { op: 'wall', ids: ['mde-divan'], sides: 'nodoor', per: 7, rule: 'divan', why: 'divans along the walls' },
+    { op: 'near', ids: ['mde-tray-table'], n: 3, r0: 2, r1: 7, why: 'low tray tables before the divans' },
+    { op: 'near', ids: ['pillows-cushions'], n: 2, r0: 1, r1: 6, layer: 'dress', why: 'cushions on the floor' },
+    { op: 'near', ids: ['mde-water-jar'], to: 'brazier', n: 1, why: 'the water jar by the brazier' },
+    { op: 'rug', ids: ['rug-striped-woven', 'rug-grand'], why: 'a carpet' },
+    { op: 'hang', ids: MDE_LAMP[0], sides: 'all', n: 2, height: 6.5, layer: 'light', why: 'pierced lanterns on the walls' },
+  ] });
+cbRegister('mde-garden', { name: 'courtyard garden', focal: 'the fountain in the middle, citrus round it', outdoor: true, edges: ['none'], keyRe: /^(mde-floor-fountain|fountain-courtyard)$/,
+  steps: [
+    { op: 'ocentre', ids: ['mde-floor-fountain', 'fountain-courtyard'], as: 'fount', focal: true, label: 'fountain', why: 'the fountain in the middle of the courtyard' },
+    { op: 'near', ids: ['citrus-tree-tub'], to: 'fount', n: 4, r0: 5, r1: 8, why: 'citrus trees in tubs round the fountain' },
+    { op: 'oedge', ids: ['flowerbed'], n: 2, built: true, why: 'flower beds against the house walls' },
+    { op: 'oedge', ids: ['bench-stone', 'bench-garden'], n: 2, why: 'a stone bench in the shade' },
+    { op: 'oedge', ids: ['trellis-vine'], built: true, why: 'a vine on a trellis up the wall' },
+    { op: 'oedge', ids: ['mde-water-jar'], why: 'a water jar' },
+    { op: 'oplants', ids: ['palm-potted', 'planter-stone'], n: 2, why: 'potted palms at the edge' },
+  ] });
+// the souk shop: a trade of the market's shop skeleton (counter, niche shelves of brass, spice sacks, the carpet stack)
+mktRegisterTrade('mde-souk', { tier: 'mde', name: 'souk shop', hero: [['mde-inlaid-chest', 'wall']], floor: ['mde-bales', 'mde-water-jar', 'mde-saddle-packs'], by: ['mde-bales'], sign: null, rug: ['rug-striped-woven', 'rug-grand'] });
+MKT_TIERS.splice(MKT_TIERS.indexOf('mde'), 1); // (the market square deals its stalls from MKT_TIERS: the souk is not in the European market)
+// <<< mde:solver2
+
+// >>> rus:solver2
+// ======================= Medieval Rus' (RUS, 2026-11-06): six rooms on the culture-room skeleton (cb:solver2) =======================
+// Novgorod, Vladimir-Suzdal and Muscovy, 11th-16th c. From above: the izba by its great white stove in the corner by the
+// door with the table in the corner diagonal from it, under the icon shelf (the "beautiful corner"); the church by the
+// iconostasis across its east end with the altar behind it and NO pews; the banya by its heater of heaped stones and the
+// steaming shelf; the yard by the well-sweep inside a palisade. The market stall is a trade of the shop skeleton.
+const RUS_LAMP = [['candle-box-sconce', 'lantern-wall-horn'], ['candlestick-floor', 'lantern-hand']];
+YARD_EDGES['palisade'] = ['rus-palisade', 'post-timber', 'rus-yard-gate'];
+cbRegister('rus-izba', { name: 'izba', focal: 'the great stove in the corner by the door', density: 5.5, lights: RUS_LAMP, keyRe: /^rus-stove$/, annex: ['bench-long', 'rus-chest'],
+  steps: [
+    { op: 'corner', ids: ['rus-stove'], which: 'door', as: 'stove', focal: true, label: 'stove', why: 'the great stove in the corner by the door: the family sleeps on it' },
+    { op: 'wall', ids: ['rus-stove'], sides: 'lat', n: 1, unless: 'stove', as: 'stove', focal: true, layer: 'anchor', why: 'the great stove against a side wall (no corner free)' },
+    { op: 'centre', ids: ['rus-stove'], unless: 'stove', as: 'stove', focal: true, why: 'the great stove standing free (a small izba with doors on every wall)' },
+    { op: 'corner', ids: ['table-square', 'table-trestle'], which: 'far', as: 'table', layer: 'furnish', why: 'the table in the "beautiful corner", diagonal from the stove' },
+    { op: 'hang', ids: ['rus-icon-corner'], sides: 'far', n: 1, height: 5.6, why: 'the icon shelf over the table, in the beautiful corner' },
+    { op: 'wall', ids: ['bench-long'], sides: 'far', n: 1, rule: 'bench', why: 'the bench built along the wall at the table' },
+    { op: 'wall', ids: ['bench-long'], sides: 'lat', n: 2, rule: 'bench', why: 'benches along the walls' },
+    { op: 'on', ids: ['bread-loaf', 'bowl-wood-small', 'jug-clay', 'porridge-bowl'], to: 'table', n: 3, why: 'bread and bowls on the table' },
+    { op: 'wall', ids: ['rus-chest'], sides: 'lat', n: 1, why: 'the family chest by the bench' },
+    { op: 'near', ids: ['stool-three-leg'], to: 'table', n: 1, why: 'a stool at the table' },
+    { op: 'near', ids: ['firewood-basket', 'kindling-bundle', 'bucket'], to: 'stove', n: 1, layer: 'dress', why: 'firewood by the stove' },
+    { op: 'rug', ids: ['rug-rush-mat', 'rug-braided-round'], why: 'a woven mat on the floor' },
+  ] });
+cbRegister('rus-terem', { name: 'terem hall', focal: 'the tiled stove in the corner and the long table', density: 5, lights: RUS_LAMP, keyRe: /^rus-tiled-stove$/, annex: ['bench-long', 'rus-chest'],
+  steps: [
+    { op: 'corner', ids: ['rus-tiled-stove'], which: 'door', as: 'stove', focal: true, label: 'tiled stove', why: 'the tiled stove in the corner by the door' },
+    { op: 'centre', ids: ['table-trestle', 'table-feast'], along: true, as: 'table', why: 'the long table down the middle of the chamber' },
+    { op: 'on', ids: ['table-runner-embroidered', 'goblet', 'bread-loaf', 'jug-clay', 'bowl-wood-small'], to: 'table', n: 4, why: 'an embroidered cloth, bread and cups on the table' },
+    { op: 'near', ids: ['rus-high-chair'], to: 'table', n: 1, why: "the boyar's high chair at the head of the table" },
+    { op: 'wall', ids: ['bench-long'], sides: 'long', per: 9, rule: 'bench', why: 'benches along the walls, under carpets' },
+    { op: 'wall', ids: ['rus-chest'], sides: 'short', n: 2, why: 'chests against the end walls' },
+    { op: 'hang', ids: ['rus-icon-corner'], sides: 'far', n: 1, height: 5.6, why: 'the icon shelf in the corner' },
+    { op: 'rug', ids: ['rug-striped-woven', 'rug-runner'], to: 'table', dist: 0, why: 'a carpet under the table' },
+    { op: 'lights', ids: ['sconce-candle-single', 'candle-box-sconce'], sides: 'long', every: 14, n: 1, max: 3 },
+  ] });
+cbRegister('rus-banya', { name: 'banya', focal: 'the heater of heaped stones in the far corner', density: 6, lights: RUS_LAMP, keyRe: /^rus-banya-heater$/, annex: ['bench-long'],
+  steps: [
+    { op: 'corner', ids: ['rus-banya-heater'], which: 'far', as: 'heater', focal: true, label: 'heater', why: 'the heater: stones heaped over the firebox, in the far corner' },
+    { op: 'wall', ids: ['rus-banya-shelf'], sides: 'lat', n: 1, layer: 'anchor', why: 'the steaming shelf along the wall' },
+    { op: 'near', ids: ['washtub', 'bathtub-wood', 'bucket'], to: 'heater', n: 1, why: 'the water tub by the heater' },
+    { op: 'near', ids: ['bucket'], to: 'heater', n: 1, layer: 'dress', why: 'a bucket and ladle by the heater' },
+    { op: 'hang', ids: ['rus-besom-rack'], sides: 'nodoor', n: 1, height: 4.6, why: 'birch besoms on their pegs' },
+    { op: 'wall', ids: ['bench-long'], sides: 'door', n: 1, why: 'a bench by the door, for cooling off' },
+  ] });
+cbRegister('rus-church', { name: 'wooden church', focal: 'the iconostasis across the east end, the altar behind it', shortEnd: true, density: 3, lights: RUS_LAMP, keyRe: /^rus-iconostasis$/, annex: [],
+  steps: [
+    { op: 'screen', ids: ['rus-iconostasis'], depth: 6.2, as: 'screen', focal: true, label: 'iconostasis', why: 'the iconostasis: a screen of icons across the east end, the sanctuary behind it' },
+    { op: 'behind', ids: ['altar-stone'], depth: 2.6, as: 'altar', why: 'the altar, in the sanctuary behind the screen' },
+    { op: 'on', ids: ['rite-altar-cloth', 'candlestick'], to: 'altar', n: 1, why: 'the altar cloth' },
+    { op: 'near', ids: ['rus-lectern'], to: 'screen', dist: 5, r0: 0.8, r1: 3, why: 'the lectern with its icon, before the screen' },
+    { op: 'flank', ids: ['candlestand-pricket', 'candle-tree'], to: 'screen', off: 1.2, n: 2, layer: 'light', why: 'candle stands before the screen, one each side' },
+    { op: 'wall', ids: ['candlestand-pricket'], sides: 'lat', n: 2, layer: 'light', why: 'candle stands by the side walls' },
+    { op: 'wall', ids: ['bench-long'], sides: 'door', n: 1, why: 'a bench by the door for the old and the sick (no pews: the faithful stand)' },
+  ] });
+cbRegister('rus-yard', { name: 'stockade yard', focal: 'the well-sweep in the middle of the yard', outdoor: true, edges: ['palisade', 'wattle fence'], keyRe: /^rus-well-sweep$/,
+  steps: [
+    { op: 'ocentre', ids: ['rus-well-sweep', 'well'], as: 'well', focal: true, label: 'well-sweep', why: 'the well-sweep in the middle of the yard' },
+    { op: 'oedge', ids: ['rus-sledge'], far: true, why: 'the sledge, laid up at the far side' },
+    { op: 'oedge', ids: ['woodpile'], built: true, n: 2, why: 'firewood stacked against the house wall' },
+    { op: 'oedge', ids: ['hay-pile', 'hay-bale'], far: true, n: 2, why: 'hay for the winter' },
+    { op: 'oedge', ids: ['cart-hand', 'wheelbarrow'], near: 'gate', why: 'the cart inside the gate' },
+    { op: 'oedge', ids: ['chopping-block', 'log-seat'], built: true, why: 'the chopping block' },
+    { op: 'oplants', ids: ['tree-birch', 'bush'], n: 2, why: 'birches in the corner of the yard' },
+  ] });
+// the market row stall: a trade of the shop skeleton (the plank counter, the shelf of honey, wax and birch-bark boxes, the furs)
+mktRegisterTrade('rus-market', { tier: 'rus', name: 'market row stall', hero: [['rus-chest', 'wall']], floor: ['barrel', 'sack', 'rus-chest'], by: ['barrel'], sign: null });
+MKT_TIERS.splice(MKT_TIERS.indexOf('rus'), 1); // (not dealt into the European market square)
+// <<< rus:solver2
+
+// >>> mes:solver2
+// ======================= Mexica (MES, 2026-11-06): six rooms on the culture-room skeleton (cb:solver2) =======================
+// Late Postclassic Tenochtitlan and Tlatelolco, c. 1400-1520. From above: the shrine by its altar of offerings between two
+// great braziers, the chacmool before it; the ballcourt by its two long sloping benches with the stone rings at mid-court;
+// the house by the lord's backed seat on reed mats and the three-stone hearth; the market by vendors' spreads in ROWS; the
+// chinampa by long raised maize beds on the water. Offerings are maize, flowers and copal: no gore (ROSTERS.md).
+const MES_LIGHT = [['torch-bracket-rough'], ['mes-brazier', 'brazier-tripod']]; // (pine-resin torches, ocotl, on the wall)
+cbRegister('mes-shrine', { name: 'temple summit shrine', focal: 'the altar of offerings between two great braziers', density: 4, lights: MES_LIGHT, keyRe: /^mes-altar$/, annex: ['mes-water-jar'],
+  steps: [
+    { op: 'far', ids: ['mes-altar', 'altar-stone'], as: 'altar', focal: true, label: 'altar', why: 'the altar with its offerings of maize, flowers and copal, on the wall facing the door' },
+    { op: 'flank', ids: ['mes-brazier'], to: 'altar', off: 0.8, n: 2, layer: 'light', why: 'a great brazier each side of the altar' },
+    { op: 'front', ids: ['mes-chacmool'], to: 'altar', dist: 5.2, min: 16, as: 'chac', why: 'the chacmool before the altar, its dish for offerings' },
+    { op: 'near', ids: ['mes-chacmool'], to: 'altar', unless: 'chac', r0: 3, r1: 5.5, why: 'the chacmool beside the altar (a small shrine: the way to the altar stays clear)' },
+    { op: 'rug', ids: ['rug-rush-mat'], to: 'altar', dist: 2.6, why: 'reed mats before the altar' },
+    { op: 'corner', ids: ['mes-water-jar'], which: 'door', layer: 'furnish', why: 'a water jar by the door' },
+  ] });
+cbRegister('mes-ballcourt', { name: 'ballcourt', focal: 'the stone rings in the middle of the two long sloping benches', outdoor: true, edges: ['none'], keyRe: /^mes-court-ring$/,
+  steps: [ // (2026-11-07, lane culture-roofs: blind reads called it a "council chamber": benches round an empty floor. Now the I plan,
+    // the plastered court with its centre line painted between the rings, and the rubber ball)
+    { op: 'osides', ids: ['mes-court-wall'], mid: 'mes-court-ring', ends: 1, rest: ['mes-court-endwall'], across: ['mes-court-endwall'], as: 'ring', focal: true, path: false,
+      why: 'the sloping stone benches down both sides of the alley, a ring set high in the middle of each', whyRest: 'the low wall round an end zone, wider than the alley', whyAcross: 'the low wall closing the end zone, a way in in its middle' },
+    { op: 'ofield', ids: ['decal-mes-court-line'], across: true, slack: 2.5, why: 'the centre line painted across the plastered alley, from ring to ring (Duran: a black or green line)' },
+    { op: 'near', ids: ['mes-court-ball'], to: 'alley', n: 1, r0: 2, r1: 5, layer: 'dress', face: false, why: 'the rubber ball, in play in the alley' },
+  ] });
+cbRegister('mes-house', { name: "noble's house", focal: "the lord's backed seat on its mats, facing the door", density: 5, lights: MES_LIGHT, keyRe: /^mes-icpalli$/, annex: ['mes-reed-chest', 'mes-water-jar'],
+  steps: [
+    { op: 'far', ids: ['mes-icpalli'], as: 'seat', focal: true, label: 'icpalli', why: "the lord's backed reed seat, on the wall facing the door" },
+    { op: 'rug', ids: ['rug-rush-mat'], to: 'seat', dist: 2.4, why: 'a reed mat before the seat' },
+    { op: 'near', ids: ['mes-reed-chest'], to: 'seat', n: 2, r0: 2.6, r1: 5, why: 'reed chests beside the seat' },
+    { op: 'corner', ids: ['mes-comal-hearth'], which: 'door', as: 'hearth', layer: 'furnish', why: 'the cooking place by the door: three stones and the griddle' },
+    { op: 'near', ids: ['mes-metate'], to: 'hearth', n: 1, why: 'the grinding stone by the hearth' },
+    { op: 'near', ids: ['mes-water-jar'], to: 'hearth', n: 1, why: 'the water jar by the hearth' },
+    { op: 'wall', ids: ['mes-reed-chest', 'storage-jar'], sides: 'lat', n: 2, why: 'stores against the walls' },
+    { op: 'wall', ids: ['mes-brazier'], sides: 'lat', n: 1, layer: 'light', why: 'a brazier against the wall' },
+    { op: 'rug', ids: ['rug-rush-mat'], why: 'reed mats on the floor' },
+  ] });
+cbRegister('mes-market', { name: 'market plaza', focal: "vendors' spreads in rows", outdoor: true, edges: ['none'], keyRe: /^mes-spread-/,
+  steps: [
+    { op: 'orows', ids: ['mes-spread-maize', 'mes-spread-chilies', 'mes-spread-pottery', 'mes-spread-cloth'], mix: true, gap: 3.5, as: 'row', focal: true, path: false, why: "vendors' spreads in rows, an aisle between every two" },
+    { op: 'oedge', ids: ['mes-awning'], n: 2, why: 'a shade awning over a stall' },
+    { op: 'oedge', ids: ['mes-water-jar'], n: 2, why: 'water jars' },
+  ] });
+cbRegister('mes-chinampa', { name: 'chinampa garden', focal: 'long raised maize beds on the water, in rows', outdoor: true, edges: ['none'], keyRe: /^mes-chinampa-bed$/,
+  steps: [
+    { op: 'orows', ids: ['mes-chinampa-bed'], gap: 3, as: 'bed', focal: true, path: false, why: 'the raised beds in rows, canals between them' },
+    { op: 'oedge', ids: ['mes-ahuejote'], n: 3, why: 'willows at the edges of the beds' },
+    { op: 'oedge', ids: ['mes-canoe'], far: true, why: 'the canoe, tied at the edge' },
+  ] });
+cbRegister('mes-scribe', { name: "scribe's room", focal: 'the codex unfolded on its mat in the middle of the floor', density: 5, lights: MES_LIGHT, keyRe: /^mes-codex-mat$/, annex: ['mes-reed-chest'],
+  steps: [
+    { op: 'centre', ids: ['mes-codex-mat'], as: 'codex', focal: true, label: 'codex', why: 'the codex, unfolded on a reed mat in the middle of the floor where the painter kneels' },
+    { op: 'near', ids: ['mes-paint-pots'], to: 'codex', n: 1, why: 'the paint pots beside the codex' },
+    { op: 'wall', ids: ['mes-reed-chest'], sides: 'nodoor', n: 2, why: 'chests of finished books against the walls' },
+    { op: 'far', ids: ['mes-icpalli'], why: "the master's seat on the far wall" },
+    { op: 'corner', ids: ['mes-water-jar'], which: 'door', layer: 'furnish', why: 'water for the paints' },
+  ] });
+// <<< mes:solver2
+
+// >>> ca:solver2
+// ======================= culture packs A: the room skeleton (2026-11-06, cultures-a) =======================
+// Japan, China and India rooms are each ONE line of data run by two programs (the smithy's lesson: a room is data on a
+// skeleton). Helpers ccm* / castle* are the ones above; this block stands after them.
+//
+// caRoom(ctx, S): an INDOOR room read from the door down one axis.
+//   focal   [ids]   the room's signature piece, centred on the wall facing the door (focalAt 'centre': mid-floor)
+//   flank   { ids, off }       a mirrored pair either side of it (lamps, guardians, vases)
+//   before  [{ id, s, dx, rot, layer }]  pieces on the axis in front of it: `s` ft out from the focal's front, mirrored
+//           at +-dx when dx is given; rot 'door' faces the door, 'focal' faces the focal piece (worshippers, the offering box)
+//   ranks   { id, gap, aisle, turn, s0, per }   rows of one thing facing the focal (temple cushions, teahouse tables)
+//   island  { id, seats, n, at }  a table in the floor with seats round it, facing it (at: 'centre' or ft out from the focal)
+//   clear   [w, d]     a rectangle in the middle kept EMPTY (the dojo's practice floor), in ft (fractions of the room <= 1)
+//   walls   [ids]      down the side walls, in turn, repeating with size;   doorWall [ids]: by the main door
+//   corners [ids]      in the two far corners;   hung [{ ids, sides: 'far'|'lat'|'all', n, height }]
+//   ceiling [{ id, s, dx }]  hung from the ceiling on the axis;   lamps { wall, floor, every };   rugs [{ id, s }]: flats on the axis
+// caYard(ctx, S): an OUTDOOR room (no walls): the path from the gate to the main door laid and kept clear first.
+//   focal   [ids] in the open (centre), before the path;   gatePiece id: astride the path just inside the gate
+//   line    { ids, every, off }  pairs lining the path;   beside [{ id, at: 'door'|'gate'|'mid', off }] beside the path
+//   steps   id: a flat laid along the path every 2.5 ft (stepping stones);   corners [ids]; edge: fence id on open sides
+//   edgeItems [ids] against the open edges and building walls;   n: how many edgeItems as the yard grows
+const CA = {}; // room key -> its line of data (the jpn / chn / ind blocks below fill it)
+function caNear(ctx, id, at, rot, { why = '', layer = 'furnish', rule = 'placed', reach = 3, step = 0.5, extra = {}, unique = false } = {}) {
+  if (!ccmHas(ctx, id)) return null;
+  return ccmQuiet(ctx, () => ctx.put(id, function* () { for (let dx = -reach; dx <= reach + 1e-6; dx += step) for (let dz = -reach; dz <= reach + 1e-6; dz += step) yield { x: at[0] + dx, z: at[1] + dz, rot, r: Math.hypot(dx, dz) }; }, (c) => c.r, { layer, rule, why, extra, unique }));
+}
+// a hung thing at (or as near as it fits to) a point along one wall, its bottom at `bottom` ft and its top under the
+// ceiling (ctx.mount rolls a random spot: a focal piece needs the middle of its wall). Same clearances as ctx.mount.
+function caMountAt(ctx, id, side, tWant, { bottom = 6.5, layer = 'dress', rule = 'wall-mount', why = '', extra = {}, reach = 3 } = {}) {
+  if (!ccmHas(ctx, id)) return null;
+  const sku = ctx.chooseSku(id); if (!sku) return null;
+  const dm = ctx.dims(id, sku), flat = sku.kind === 'flat', w = dm.w, d = flat ? 0.05 : dm.d, L = ctx.sideLen(side);
+  for (let k = 0; k <= reach * 2; k++) { const off = (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 0.5;
+    const t = tWant + off;
+    if (t - w / 2 < 0.3 || t + w / 2 > L - 0.3) continue;
+    if (ctx.overlapsT(ctx.doorT[side], t - w / 2 - 0.4, t + w / 2 + 0.4) || ctx.overlapsT(ctx.windowT[side], t - w / 2, t + w / 2)) continue;
+    if (ctx.mounts[side].some(([a, b]) => t - w / 2 < b + 0.3 && a - 0.3 < t + w / 2)) continue;
+    ctx.mounts[side].push([t - w / 2, t + w / 2]);
+    const [x, z] = ctx.sidePoint(side, t, d / 2 + 0.02);
+    return ctx.record(id, sku, dm, x, Math.max(2.5, Math.min(bottom, CEIL - 0.25 - dm.h)), z, SIDES[side].rot, layer, rule, why, { side, orient: flat ? 'wall' : undefined, ...extra });
+  }
+  return null;
+}
+const caLayer = (id) => /lamp|lantern|andon|toro|candle|diya|dipa/.test(id) ? 'light' : 'furnish';
+function caRoom(ctx, S) {
+  ccmPanels(ctx);
+  const d = ctx.mainDoor, far = castleFar(ctx, 2.5, { shortEnd: !!S.shortEnd }), L = ctx.sideLen(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W, lat = ccmLat(far), cells = ccmCells(ctx), ALL = ['N', 'S', 'E', 'W'];
+  const axis = (s, t = L / 2) => ctx.sidePoint(far, t, s), toDoor = SIDES[far].rot, toFar = toDoor + Math.PI;
+  // 1. the signature piece
+  let focal = null;
+  if (S.focalHung) for (const id of S.focal) { // a HUNG signature piece (the kamidana): centred high on the wall facing the door
+    if (focal || !ccmHas(ctx, id)) continue;
+    for (const s of [far, ...lat]) { if (focal) break; // (a window or a door in the middle of the far wall: as near the middle as it fits, then a side wall's middle)
+      focal = caMountAt(ctx, id, s, ctx.sideLen(s) / 2, { bottom: (ctx.lib.objects[id].mount ?? 78) / 12, layer: 'anchor', rule: 'key-focal', reach: ctx.sideLen(s) / 2, why: `the ${S.label}: high on the ${s === far ? 'wall facing the door' : 'side wall'}, as near its middle as it fits`, extra: { focal: true } }); }
+  }
+  else if (S.focalAt === 'centre') focal = ccmCentre(ctx, S.focal, { label: S.label, rot: toDoor, rule: 'key-focal', why: `the ${S.label}: in the middle of the floor` });
+  else {
+    focal = ccmFocalOn(ctx, far, S.focal, { label: S.label, rule: 'key-focal', gap: S.gap ?? 0.05, slack: Math.max(0.5, L / 2 - 3), why: `the ${S.label}: centred on the wall facing the door` });
+    if (!focal) for (const id of S.focal) { if (focal) break; focal = ccmQuiet(ctx, () => ctx.wall(id, { sides: [far, ...lat], layer: 'anchor', rule: 'key-focal', why: `the ${S.label}, against a wall` })); }
+  }
+  if (!focal) return { fail: `${S.name} has no ${S.label} (${S.focal.some(i => ccmHas(ctx, i)) ? 'nothing fits' : 'no mesh'})` };
+  ctx.focal = { label: S.label, id: focal.id, side: S.focalAt === 'centre' ? null : far, ok: true, centre: S.focalAt === 'centre' };
+  dunSight(ctx, focal);
+  const fs = S.focalHung ? 0.5 : S.focalAt === 'centre' ? deep / 2 + focal.dims[2] / 2 : focal.dims[2] + (S.gap ?? 0.05); // ft out from the far wall to the focal's front
+  // 2. the walking line from the door to the front of the focal piece, and every other door to it
+  const stand = S.focalAt === 'centre' ? front(focal, 1.5) : axis(Math.min(deep - 2, fs + 1.6));
+  if (d) { ccmWalk(ctx, 'approach', [d.inner, stand], { width: S.aisle ?? 3 }); for (const o of ctx.doors) if (o !== d) ccmWalk(ctx, 'branch', [o.inner, stand]); }
+  // 3. the pair beside it, and the pieces on the axis before it
+  if (S.flank) ccmFlank(ctx, focal, S.flank.ids, { off: S.flank.off ?? 0.6, why: S.flank.why || `either side of the ${S.label}`, layer: S.flank.layer || caLayer(S.flank.ids[0]), rule: 'flank' });
+  const placed = { focal: 1, before: 0, ranks: 0, seats: 0, walls: 0, door: 0, hung: 0, lights: 0, rugs: 0 };
+  for (const g of S.rugs || []) { const s = fs + g.s; if (s < deep - 1 && castleRug(ctx, g.id, ...axis(s), toDoor + (g.turn || 0), {}, g.why || `laid on the axis before the ${S.label}`)) placed.rugs++; }
+  for (const b of S.before || []) for (const sg of b.dx ? [-1, 1] : [0]) {
+    const s = fs + b.s, rot = b.rot === 'focal' ? toFar : b.rot === 'side' ? toDoor + sg * Math.PI / 2 : toDoor;
+    if (s > deep - 1) continue;
+    const p = caNear(ctx, b.id, axis(s, L / 2 + sg * (b.dx || 0) + (b.dt || 0)), b.face === 'in' && sg ? toDoor - sg * Math.PI / 2 : rot, { layer: b.layer || caLayer(b.id), rule: 'axis', reach: b.reach ?? 1.5, why: b.why || `before the ${S.label}, on its axis` });
+    if (p) placed.before++;
+  }
+  // 4. ranks of one thing facing the focal piece, either side of the aisle
+  if (S.ranks && ccmHas(ctx, S.ranks.id)) {
+    const r = S.ranks, rk = ccmRanks(ctx, { far, s0: fs + (r.s0 ?? 3), s1: deep - (r.s1 ?? 4), gap: r.gap ?? 3, aisle: r.aisle ?? 4, turn: r.turn ?? 0, proto: r.id, choose: () => r.id, limit: Math.max(2, Math.round(cells / (r.per ?? 2))), layer: 'furnish', rule: 'rank', why: r.why || `in rows facing the ${S.label}` });
+    placed.ranks = rk.placed.length;
+    if (r.seats) for (const t of rk.placed) for (const sg of [-1, 1]) { const [fx, fz] = ctx.facingVec(t.rot), lx = fz, lz = -fx, off = t.dims[0] / 2 + 0.9;
+      if (caNear(ctx, r.seats, [t.x + lx * sg * off, t.z + lz * sg * off], t.rot - sg * Math.PI / 2, { rule: 'seat', reach: 0.5, why: 'a seat at the table' })) placed.seats++; }
+    if (placed.ranks > 1) ctx.growth.push(`${r.id} repeat in rows: ${placed.ranks}`);
+  }
+  // 5. the island: a table in the floor, seats round it
+  if (S.island && ccmHas(ctx, S.island.id)) {
+    const I = S.island, at = I.at === 'centre' || I.at == null ? [(ctx.X0 + ctx.X1) / 2, (ctx.Z0 + ctx.Z1) / 2] : axis(Math.min(deep - 3, fs + I.at));
+    // (the walk from the door to the focal piece usually crosses the middle: the island steps aside, left or right, as little as it must)
+    const [iw] = ccmSize(ctx, I.id), [lx0, lz0] = [Math.cos(toDoor), -Math.sin(toDoor)];
+    let t = null;
+    for (const k of [0, 1, -1, 1.6, -1.6]) { if (t) break; const sh = k * (iw / 2 + 1.7); t = caNear(ctx, I.id, [at[0] + lx0 * sh, at[1] + lz0 * sh], toDoor, { layer: 'furnish', rule: 'island', reach: k ? 1.2 : 2, why: I.why || 'in the middle of the floor, room to sit all round it' }); }
+    if (t && I.seats) { const [fx, fz] = ctx.facingVec(t.rot), lx = fz, lz = -fx, n = I.n ?? 4;
+      const spots = [[0, 1], [0, -1], [1, 0], [-1, 0], [0.5, 1], [-0.5, 1], [0.5, -1], [-0.5, -1]].slice(0, n);
+      for (const [u, v] of spots) { const ox = u * (t.dims[0] / 2 + 0.9) * (v ? 0.6 : 1), oz = v * (t.dims[2] / 2 + 0.9), x = t.x + lx * ox + fx * oz, z = t.z + lz * ox + fz * oz;
+        if (caNear(ctx, I.seats, [x, z], Math.atan2(t.x - x, t.z - z), { rule: 'seat', reach: 0.4, step: 0.2, why: `a seat at the ${I.id.replace(/^[a-z]+-/, '').replace(/-/g, ' ')}` })) placed.seats++; } }
+  }
+  // 6. the floor kept clear (a practice floor; a hall's open middle)
+  if (S.clear) { const [cw, cd] = S.clear.map((v, i) => v <= 1 ? v * (i ? deep : L) : v), [cx, cz] = axis(fs + (deep - fs) / 2); ctx.mark(cx, cz, far === 'N' || far === 'S' ? cw : cd, far === 'N' || far === 'S' ? cd : cw, KEEP); }
+  const clearOfDoors = ([a, b]) => { const x = [a, b].includes('W') ? ctx.X0 + 1 : ctx.X1 - 1, z = [a, b].includes('N') ? ctx.Z0 + 1 : ctx.Z1 - 1; return !ctx.doors.some(o => Math.hypot(o.inner[0] - x, o.inner[1] - z) < 5); }; // (a corner a door opens beside takes nothing: it would stand in the doorway)
+  // floor lamps first, in the corners (the door wall's first), before the walls fill them: never a corner a door opens beside
+  if (S.lamps?.floor) for (const c of [...(d ? ccmLat(d.side).map(s => [d.side, s]) : []), ...lat.map(s => [far, s])].filter(clearOfDoors)) { if (placed.lights >= 2) break; if (ccmCorner(ctx, ccmAny(ctx, S.lamps.floor), c, { why: 'a lamp in a corner', layer: 'light' })) placed.lights++; }
+  // 7. the walls: side walls in turn, then by the door; the far corners
+  const wallN = Math.max(1, Math.round((S.walls || []).length * Math.min(2, cells / 14)));
+  const fside = focal.side || far, wsides = S.focalHung ? ALL.filter(s => s !== fside && (!d || s !== d.side)) : [lat[0], lat[1], far]; // (nothing stands under a hung signature piece)
+  for (let k = 0; k < wallN && (S.walls || []).length; k++) { const id = S.walls[k % S.walls.length], sides = k % 2 ? [...wsides].reverse() : wsides;
+    const p = isHung(ctx.lib.objects[id], id) ? ccmQuiet(ctx, () => ctx.mount(id, { sides, height: 5.2, why: 'on the side wall' })) : ccmQuiet(ctx, () => ctx.wall(id, { sides, layer: /chest|tansu|shelf|shelves|rack|cask|sack|jar|bin|pot/.test(id) ? 'store' : 'furnish', why: S.wallWhy || 'against the side wall' }));
+    if (p) placed.walls++; }
+  if (d && S.doorWall) placed.door = castleNear(ctx, S.doorWall, [d.side, ...ccmLat(d.side)], d.inner, { layer: 'store', why: 'by the door' }).length;
+  for (const [i, s] of lat.entries()) { const id = (S.corners || [])[i % Math.max(1, (S.corners || []).length)]; if (id && clearOfDoors([far, s])) ccmCorner(ctx, id, [far, s], { why: 'in a far corner', layer: caLayer(id) }); }
+  // 8. hung things and ceiling things
+  for (const h of S.hung || []) { const sides = h.sides === 'far' ? [far] : h.sides === 'lat' ? lat : h.sides === 'door' && d ? [d.side] : ALL; placed.hung += castleHang(ctx, h.ids, sides, h.n ?? 1, { height: h.height ?? 5.6, why: h.why || 'on the wall' }); }
+  for (const c of S.ceiling || []) for (const sg of c.dx ? [-1, 1] : [0]) { const s = fs + c.s; if (s > deep - 1 || !ccmHas(ctx, c.id)) continue; if (ccmQuiet(ctx, () => ctx.ceiling(c.id, { at: axis(s, L / 2 + sg * (c.dx || 0)), layer: caLayer(c.id) === 'light' ? 'light' : 'dress', why: c.why || 'hung from the ceiling' }))) placed.hung++; }
+  // 9. light
+  if (S.lamps?.wall) placed.lights += ccmWallLights(ctx, S.lamps.wall, lat, { every: S.lamps.every ?? 14, height: 6.2, why: 'a lamp on the wall', min: 1, max: 4 });
+  if (!ccmLit(ctx) && S.lamps?.floor) for (const c of [['N', 'W'], ['N', 'E'], ['S', 'E'], ['S', 'W']].filter(clearOfDoors)) { if (ccmLit(ctx)) break; ccmCorner(ctx, ccmAny(ctx, S.lamps.floor), c, { why: 'the one light the room must have, in a corner clear of its doors', layer: 'light' }); }
+  if (!ccmLit(ctx) && S.lamps?.floor && S.focalAt !== 'centre' && !S.focalHung) ccmFlank(ctx, focal, S.lamps.floor, { n: 1, off: 0.3, why: 'the one light, beside the ' + S.label + ' (a small room: its corners are taken)' });
+  if (!ccmLit(ctx) && S.lamps?.floor) { const id = ccmAny(ctx, S.lamps.floor); // (still dark: the floor spot farthest from every door that takes it)
+    if (id) ccmQuiet(ctx, () => ctx.put(id, function* (dm) { for (let x = ctx.X0 + dm.w / 2 + 0.2; x <= ctx.X1 - dm.w / 2 - 0.2; x += 0.5) for (let z = ctx.Z0 + dm.d / 2 + 0.2; z <= ctx.Z1 - dm.d / 2 - 0.2; z += 0.5) { const dd = Math.min(99, ...ctx.doors.map(o => Math.hypot(o.inner[0] - x, o.inner[1] - z))); if (dd >= 3.5) yield { x, z, rot: toDoor, dd }; } }, (c) => -c.dd, { layer: 'light', rule: 'lamp', why: 'the one light the room must have, as far from its doors as it fits' })); }
+  ccmEnsureLight(ctx, S.lamps?.wall || ['lantern-wall-iron'], S.lamps?.floor || ['candlestick-floor']);
+  ctx.caInfo = { culture: S.culture, room: S.name, ...placed };
+  ccmDone(ctx);
+  return { feature: focal, what: `${S.name}: the ${S.label}${placed.before ? `, ${placed.before} before it` : ''}${placed.ranks ? `, ${placed.ranks} in rows` : ''}${placed.seats ? `, ${placed.seats} seats` : ''}`, approach: null, passage: true };
+}
+// the stretches of each side that are a building's wall (the rest is open ground); open stretches take no wall things
+function caYardSides(ctx) {
+  const ALL = ['N', 'S', 'E', 'W'], built = ctx.openings.filter(o => o.to && /^(wall|window|door)$/.test(o.kind));
+  for (const s of ALL) { const n = Math.round((ctx.sideLen(s) + 2 * INSET) / CELL); for (let i = 0; i < n; i++) if (!built.some(o => o.side === s && o.index === i)) ctx.mounts[s].push([i * CELL - INSET, (i + 1) * CELL - INSET]); }
+  return { built, backSides: ALL.filter(s => built.some(o => o.side === s)) };
+}
+function caYard(ctx, S) {
+  const ALL = ['N', 'S', 'E', 'W'], A = ctx.area(), cx = (ctx.X0 + ctx.X1) / 2, cz = (ctx.Z0 + ctx.Z1) / 2;
+  const { built, backSides } = caYardSides(ctx);
+  const gate = ctx.openings.find(o => o.kind === 'gate') || null, openSegs = gate?.open || [];
+  const gateT = gate ? gate.index * CELL - INSET + CELL / 2 : 0, gatePt = gate ? ctx.sidePoint(gate.side, gateT, 2.6) : null;
+  const target = ctx.densityTarget = S.density ?? Math.max(1.6, yardTarget(A) * 1.2), want = Math.max(5, Math.round(target * A / 100));
+  const count = () => ctx.placements.filter(p => p.orient !== 'floor' && p.rule !== 'yard-edge').length, room = () => count() < want;
+  const doors = [...ctx.doors].sort((a, b) => b.width - a.width);
+  ctx.mainDoor = doors[0] || ctx.mainDoor || null;
+  const d = ctx.mainDoor, end = d ? d.inner : [cx, cz], start = gatePt || (d ? [cx, cz] : null);
+  if (gate) ctx.keepClear(gate.side, gateT, 5, 3.5);
+  // 1. the focal piece in the open (before the path, so the path goes round it), on its floor painting when it has one
+  let focal = null;
+  if (S.centreRug) castleRug(ctx, S.centreRug, cx, cz, 0, {}, `the floor painting under the ${S.label}`);
+  if (S.focal) { const rot = gate ? SIDES[gate.side].rot : 0;
+    for (const id of S.focal) { if (focal || !ccmHas(ctx, id)) continue;
+      focal = ccmQuiet(ctx, () => ctx.put(id, function* () { for (let r = 0; r <= 8; r += 0.5) for (const [ux, uz] of r ? [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]] : [[0, 0]]) yield { x: cx + ux * r, z: cz + uz * r, rot, r }; }, (c) => c.r, { layer: 'anchor', rule: 'yard-focal', unique: true, why: `the ${S.label}: in the open`, extra: { focal: true } })); }
+    if (focal) { ctx.focal = { label: S.label, id: focal.id, ok: true, centre: true }; ccmClearRound(ctx, focal, S.round ?? 1.2); } }
+  // 2. the path: gate -> main door (with no gate: the middle -> the door), kept clear; every other door joins it
+  const path = start && Math.hypot(end[0] - start[0], end[1] - start[1]) >= 4 ? [start, end] : null;
+  if (path) ccmWalk(ctx, 'path', path, { width: S.pathW ?? 4 });
+  for (const o of ctx.doors) if (o !== d && start) ccmWalk(ctx, 'path', [o.inner, start], { width: 3.5 });
+  const along = (f) => path ? [path[0][0] + (path[1][0] - path[0][0]) * f, path[0][1] + (path[1][1] - path[0][1]) * f] : [cx, cz];
+  const pathRot = path ? Math.atan2(path[1][0] - path[0][0], path[1][1] - path[0][1]) : 0, plen = path ? Math.hypot(path[1][0] - path[0][0], path[1][1] - path[0][1]) : 0;
+  const lx = Math.cos(pathRot), lz = -Math.sin(pathRot); // the path's left
+  // 3. what stands astride the path just inside the gate (the torii): its legs either side, the path through it
+  let gp = null;
+  if (S.gatePiece && path && ccmHas(ctx, S.gatePiece)) { let [x, z] = along(Math.min(0.35, 3.5 / Math.max(plen, 1)));
+    const sk = ctx.chooseSku(S.gatePiece); if (sk) { const dm = ctx.dims(S.gatePiece, sk), rot = pathRot + Math.PI, [aw, ad] = ctx.aabb(dm.w, dm.d, rot);
+      // (a gate near a corner: slide it along its own width until it stands on the ground; too wide for the ground: none)
+      x = Math.min(ctx.X1 - aw / 2 - 0.1, Math.max(ctx.X0 + aw / 2 + 0.1, x)); z = Math.min(ctx.Z1 - ad / 2 - 0.1, Math.max(ctx.Z0 + ad / 2 + 0.1, z));
+      if (aw <= ctx.W - 0.2 && ad <= ctx.D - 0.2) { gp = ctx.record(S.gatePiece, sk, dm, x, 0, z, rot, 'anchor', 'yard-gatepiece', `the ${S.gatePiece.replace(/^[a-z]+-/, '')}: astride the way in, the path through it`, { focal: !focal });
+        for (const sg of [-1, 1]) ctx.mark(x + lx * sg * (dm.w / 2 - 0.4), z + lz * sg * (dm.w / 2 - 0.4), 1.2, 1.2); } }
+    if (!focal) { focal = gp; ctx.focal = { label: S.label, id: gp?.id, ok: !!gp }; } }
+  // 4. pairs lining the path; things beside it
+  let lined = 0;
+  if (S.line && path) { const n = Math.max(1, Math.floor((plen - 4) / (S.line.every ?? 8)));
+    for (let i = 0; i < n && room(); i++) { const f = (i + 1) / (n + 1), [x, z] = along(f);
+      for (const sg of [-1, 1]) { const id = ccmAny(ctx, S.line.ids); if (id && caNear(ctx, id, [x + lx * sg * (S.line.off ?? 3.2), z + lz * sg * (S.line.off ?? 3.2)], pathRot + sg * Math.PI / 2, { layer: caLayer(id), rule: 'path-line', reach: 1, why: 'lining the path, in pairs' })) lined++; } } }
+  for (const b of S.beside || []) { if (!room() && !b.must) break; const f = b.at === 'door' ? 0.82 : b.at === 'gate' ? 0.18 : typeof b.at === 'number' ? b.at : 0.5, [x, z] = along(f), sg0 = b.side ?? (hash(ctx.baseSeed ?? ctx.room.seed, 'ca-beside', b.id) % 2 ? 1 : -1);
+    const off = (S.pathW ?? 4) / 2 + (b.off ?? 2.5);
+    for (const sg of b.pair ? [-1, 1] : [sg0]) caNear(ctx, b.id, [x + lx * sg * off, z + lz * sg * off], b.face === 'path' ? pathRot - sg * Math.PI / 2 : b.face === 'gate' ? pathRot + Math.PI : pathRot - sg * Math.PI / 2, { layer: caLayer(b.id), rule: 'beside-path', reach: b.reach ?? 3, why: b.why || 'beside the path' }); }
+  // 5. stepping stones laid along the path (a flat), every 2.5 ft
+  let steps = 0;
+  if (S.steps && path && ccmHas(ctx, S.steps)) for (let s = 2; s < plen - 1; s += 2.5) { const [x, z] = along(s / plen); if (castleRug(ctx, S.steps, x, z, pathRot + (steps % 2 ? 0.3 : -0.2), {}, 'a stepping stone on the path')) steps++; }
+  // 6. the corners and the edges; the fence on the open sides (not across the gate)
+  for (const [a, b] of [['N', 'W'], ['N', 'E'], ['S', 'E'], ['S', 'W']]) { if (!room()) break; const id = ccmAny(ctx, S.corners || []); if (id) ccmCorner(ctx, id, [a, b], { why: 'in a corner of the ground', layer: caLayer(id), inset: 0.6 }); }
+  let edge = 0;
+  if (S.edge && ccmHas(ctx, S.edge)) for (const s of openSegs) { if (gate && s.side === gate.side && s.index === gate.index) continue; const t0 = s.index * CELL - INSET, [x, z] = ctx.sidePoint(s.side, t0 + CELL / 2, -INSET), sk = ctx.chooseSku(S.edge); if (!sk) break;
+    ctx.record(S.edge, sk, ctx.dims(S.edge, sk), x, 0, z, SIDES[s.side].rot, 'anchor', 'yard-edge', 'a fence along the open edge', { side: s.side }); edge++; }
+  const atEdge = (id, why) => ccmHas(ctx, id) ? ccmQuiet(ctx, () => ctx.put(id, (dm) => ctx.wallGen(dm, ALL, { gap: 0.5, windows: false }), () => ctx.rng() * 30, { layer: caLayer(id) === 'light' ? 'light' : /tree|pine|maple|bush|plant/.test(id) ? 'furnish' : 'store', rule: 'at-edge', why })) : null;
+  for (let k = 0, n = Math.max(2, Math.round(A / (S.per ?? 150))); k < n && room() && (S.edgeItems || []).length; k++) atEdge(S.edgeItems[k % S.edgeItems.length], 'at the edge of the ground');
+  if (S.lamp && !ccmLit(ctx)) for (const id of S.lamp) if (!ccmLit(ctx)) atEdge(id, 'a light at the edge');
+  ctx.yardInfo = { vibe: S.name, edge: S.edge && edge ? S.edge : 'none', edgePieces: edge, wallFt: built.length * CELL, gate: gate ? gate.side : null, focal: focal ? { id: focal.id, kind: S.label } : null, lined, steps, doors: [], signs: 0, wear: 0, plants: { placed: 0, slot: [], waiting: [] } };
+  ccmDone(ctx);
+  return { feature: focal, what: `${S.name}: ${focal ? `the ${S.label}` : 'no centre piece'}${lined ? `, ${lined} lining the path` : ''}${steps ? `, ${steps} stepping stones` : ''}`, approach: null, passage: true, outdoor: true };
+}
+// hook a culture's rooms into the dispatcher: KEY (the program), DENSITY (the target finish() reports), KEY_RE (audit:
+// the piece that proves the room's purpose) and an annex menu (an L-shaped room's leg: lights and wall things only)
+function caRegister(rooms) {
+  for (const [key, S] of Object.entries(rooms)) {
+    CA[key] = S;
+    KEY[key] = S.outdoor ? (ctx) => caYard(ctx, S) : (ctx) => caRoom(ctx, S);
+    DENSITY[key] = S.density ?? (S.outdoor ? 2 : 5);
+    KEY_RE[key] = S.proof ? new RegExp(S.proof) : null;
+    if (!S.outdoor) MENUS[key] = ccmAnnex((ctx) => { if (S.lamps?.wall) ccmWallLights(ctx, S.lamps.wall, ['N', 'S', 'E', 'W'], { every: 16, height: 6.2, why: 'a lamp on the wall', min: 1, max: 2 }); for (const id of (S.walls || []).slice(0, 2)) ccmQuiet(ctx, () => ctx.wall(id, { why: 'against the wall' })); });
+  }
+}
+// <<< ca:solver2
+
+// >>> jpn:solver2
+// ---- Japan (culture pack, 2026-11-06): seven rooms, each one line of the culture skeleton (caRoom / caYard above).
+// Read from the table camera by ONE signature each (the mine's lesson): the tatami floor and the tokonoma alcove (a
+// tatami room), the sunken kettle on four and a half mats (the tea house), an EMPTY polished floor under the kamidana
+// (the dojo), the offering table, bell rope and offering box on one axis (the shrine hall), the torii and paired stone
+// lanterns on the path (the shrine approach), the raised counting platform among straw-wrapped casks (the sake
+// merchant), stepping stones to the stone basin under a maple (the tea garden). Sacred pieces are placed only here:
+// the kamidana high and centred on the dojo's front wall, nothing beneath it but the clear floor; the shrine's pieces on
+// the hall's axis; komainu as a pair by the hall's door on the approach, the purification basin beside the path before it.
+const JPN_LAMP = ['jpn-andon'];
+caRegister({
+  'jpn-house': { culture: 'japan', name: 'tatami room', label: 'tokonoma', focal: ['jpn-tokonoma'], proof: '^jpn-tokonoma$', density: 2.2,
+    before: [{ id: 'jpn-zabuton', s: 0.9, rot: 'door', why: 'the guest of honour\'s cushion, back to the tokonoma' }],
+    island: { id: 'jpn-low-table', seats: 'jpn-zabuton', n: 4, at: 'centre' },
+    walls: ['jpn-tansu', 'jpn-byobu', 'jpn-armour-chest'], corners: ['jpn-andon'], lamps: { wall: [], floor: JPN_LAMP } },
+  'jpn-teahouse': { culture: 'japan', name: 'tea house', label: 'tokonoma', focal: ['jpn-tokonoma'], proof: '^(jpn-tokonoma|jpn-ro-kama)$', density: 2,
+    before: [{ id: 'jpn-zabuton', s: 0.9, rot: 'door', why: 'the principal guest\'s place, by the tokonoma' }, { id: 'jpn-ro-kama', s: 3.0, dt: 2.2, why: 'the sunken hearth and its kettle, in the mats beside the way in' },
+      { id: 'jpn-tea-utensils', s: 3.0, dt: 4.2, why: 'the tea things beside the hearth' }, { id: 'jpn-zabuton', s: 5.0, dt: 2.2, rot: 'focal', why: 'the host\'s place, across the hearth' }],
+    walls: [], corners: ['jpn-andon'], lamps: { wall: [], floor: JPN_LAMP } },
+  'jpn-dojo': { culture: 'japan', name: 'dojo', label: 'kamidana', focal: ['jpn-kamidana'], focalHung: true, proof: '^jpn-kamidana$', density: 0.5,
+    clear: [0.72, 0.62], walls: ['jpn-bokken-rack', 'jpn-bokken-rack'], wallWhy: 'the practice weapons along the side wall',
+    corners: ['jpn-taiko', 'jpn-armour-chest'], lamps: { wall: [], floor: JPN_LAMP } },
+  'jpn-shrine': { culture: 'japan', name: 'shrine hall', label: 'offering table', focal: ['jpn-shinsen-altar'], shortEnd: true, proof: '^jpn-shinsen-altar$', density: 1.2,
+    before: [{ id: 'jpn-saisen-bako', s: 3.6, rot: 'door', why: 'the offering box: where worshippers stand, under the bell' }],
+    ceiling: [{ id: 'jpn-bell-rope', s: 2.4, why: 'the bell and its rope, over the offering box' }],
+    walls: ['jpn-taiko'], lamps: { wall: [], floor: JPN_LAMP } },
+  'jpn-shrine-court': { culture: 'japan', outdoor: true, name: 'shrine approach', label: 'torii', gatePiece: 'jpn-torii', proof: '^jpn-torii$', density: 1.6,
+    line: { ids: ['jpn-toro'], every: 8, off: 3.4 },
+    beside: [{ id: 'jpn-chozuya', at: 0.4, off: 3, must: true, why: 'the purification basin: wash before worship' }, { id: 'jpn-komainu', at: 'door', pair: true, off: 1.6, face: 'gate', must: true, why: 'the guardian lion-dogs, a pair by the hall\'s door' }],
+    corners: ['jpn-pine'], edgeItems: ['jpn-pine'], per: 260 },
+  'jpn-shop': { culture: 'japan', name: 'sake merchant\'s shop', label: 'counting platform', focal: ['jpn-shop-platform'], proof: '^jpn-shop-platform$', density: 3.5,
+    walls: ['jpn-sake-casks', 'jpn-shop-shelves', 'jpn-sake-casks', 'jpn-tansu'], doorWall: ['jpn-sake-casks'],
+    hung: [{ ids: ['jpn-sugidama'], sides: 'door', n: 1, height: 6.6, why: 'the cedar ball: the sake shop\'s sign, over its door' }], lamps: { wall: [], floor: JPN_LAMP } },
+  'jpn-garden': { culture: 'japan', outdoor: true, name: 'tea garden', label: 'stone basin', proof: '^(jpn-tsukubai|jpn-toro)$', density: 1.4, pathW: 3, steps: 'decal-stepping-stones',
+    beside: [{ id: 'jpn-tsukubai', at: 'door', off: 1.4, must: true, why: 'the stone basin: guests rinse their hands before tea' }, { id: 'jpn-toro', at: 0.68, off: 1.8, must: true, why: 'the lantern that lights the basin' }],
+    corners: ['jpn-maple', 'jpn-pine'], edge: 'fence-bamboo', edgeItems: ['jpn-maple', 'jpn-pine'], per: 220 },
+});
+// <<< jpn:solver2
+
+// >>> chn:solver2
+// ---- China (culture pack, 2026-11-06): six rooms on the culture skeleton. Signatures from the table camera: the long
+// console table with upturned ends on the hall's back wall, the square table between two tall-backed armchairs under a
+// silk lantern (the hall); square tables in rows with long benches and the copper kettles on the counter (the tea house);
+// the long painting table among cased books (the study); the seated Buddha on its lotus throne, the offering table and
+// the great censer on one axis, kneeling cushions in rows, bell and drum by the door (the temple hall); awnings and
+// steamer stacks (the market street); the Taihu rock, the lotus vats either side of the hall's door, the screen wall by
+// the gate (the courtyard). The Buddha is placed ONLY on the temple hall's axis.
+const CHN_LANTERN = ['chn-palace-lantern'];
+caRegister({
+  'chn-hall': { culture: 'china', name: 'courtyard-house hall', label: 'console table', focal: ['chn-console-table'], proof: '^chn-console-table$', density: 3.5,
+    before: [{ id: 'chn-square-table', s: 2.4, why: 'the square table before the console table, on the axis' }, { id: 'chn-armchair', s: 2.4, dx: 3.1, rot: 'door', why: 'an armchair either side of the square table, facing the door' }],
+    hung: [{ ids: ['chn-scroll-landscape'], sides: 'far', n: 1, height: 4.2, why: 'the landscape scroll over the console table' }],
+    walls: ['chn-standing-screen', 'chn-porcelain-jars', 'chn-penjing'], ceiling: [{ id: 'chn-palace-lantern', s: 5.5, why: 'a silk lantern over the tables' }], lamps: { wall: [], floor: [] } },
+  'chn-teahouse': { culture: 'china', name: 'tea house', label: 'tea counter', focal: ['chn-tea-counter'], proof: '^chn-tea-counter$', density: 3.5,
+    ranks: { id: 'chn-square-table', seats: 'chn-bench', gap: 4.2, aisle: 4.5, s0: 3.5, s1: 3, per: 5, why: 'tea tables in rows, a bench either side' },
+    doorWall: ['chn-steamer-stack'], walls: ['chn-porcelain-jars'], ceiling: [{ id: 'chn-palace-lantern', s: 5 }, { id: 'chn-palace-lantern', s: 13 }], lamps: { wall: [], floor: [] } },
+  'chn-study': { culture: 'china', name: 'scholar\'s study', label: 'bookcase', focal: ['chn-bookcase'], proof: '^(chn-painting-table|chn-bookcase)$', density: 3.5,
+    island: { id: 'chn-painting-table', seats: 'chn-armchair', n: 1, at: 'centre', why: 'the painting table in the middle of the study, the scholar\'s chair at it' },
+    walls: ['chn-bookcase', 'chn-standing-screen'], corners: ['chn-penjing'], hung: [{ ids: ['chn-scroll-landscape'], sides: 'lat', n: 1, height: 4.0 }], lamps: { wall: [], floor: [] }, ceiling: [{ id: 'chn-palace-lantern', s: 6 }] },
+  'chn-temple': { culture: 'china', name: 'temple hall', label: 'Buddha', focal: ['chn-buddha-altar'], shortEnd: true, proof: '^chn-buddha-altar$', density: 2,
+    before: [{ id: 'chn-offering-table', s: 0.8, why: 'the offering table before the Buddha' }, { id: 'chn-incense-burner', s: 6.5, why: 'the great censer on the axis, between the cushions and the door' }],
+    ranks: { id: 'chn-kneeling-cushion', gap: 1.6, aisle: 4.5, s0: 3.2, s1: 7, per: 3, why: 'kneeling cushions in rows facing the Buddha' },
+    doorWall: ['chn-temple-bell', 'chn-temple-drum'], ceiling: [{ id: 'chn-palace-lantern', s: 2.5, dx: 4 }], lamps: { wall: [], floor: [] } },
+  'chn-market': { culture: 'china', outdoor: true, name: 'market street', label: 'market stall', proof: '^chn-market-stall$', density: 2.2, pathW: 5,
+    line: { ids: ['chn-lantern-pole'], every: 14, off: 4.5 }, beside: [{ id: 'chn-market-stall', at: 0.5, off: 2.5, must: true, reach: 5, why: 'a stall beside the way, its awning over the street' }], edgeItems: ['chn-market-stall', 'chn-steamer-stack', 'chn-market-stall', 'chn-carrying-pole', 'chn-porcelain-jars'], per: 70,
+    lamp: ['chn-lantern-pole'] },
+  'chn-courtyard': { culture: 'china', outdoor: true, name: 'courtyard', label: 'Taihu rock', focal: ['chn-taihu-rock'], proof: '^(chn-taihu-rock|chn-screen-wall)$', density: 1.6,
+    beside: [{ id: 'chn-screen-wall', at: 0.12, off: 2.5, must: true, face: 'gate', why: 'the screen wall inside the gate, keeping the court from the street\'s eye' }, { id: 'chn-goldfish-vat', at: 'door', pair: true, off: 1.4, must: true, why: 'a lotus vat either side of the hall\'s door' },
+      { id: 'chn-stone-table', at: 0.5, off: 4, why: 'the stone table and its drum stools' }],
+    corners: ['chn-pomegranate-tub'], per: 300 }, // (pomegranates in the corners only: an edge one beside a corner one read as doubled)
+});
+// <<< chn:solver2
+
+// >>> ind:solver2
+// ---- India (culture pack, 2026-11-06): six rooms on the culture skeleton. Signatures from the table camera: the tulsi
+// planter on its mandana floor painting in the open court, a charpai and a swing (the haveli courtyard); the canopied
+// gaddi with bolsters on the axis, floor seating along the walls, brass lamp stands (the palace hall); the pillared hall
+// with Nandi facing the curtained sanctum door (the Shiva temple); the merchant on his white mattress behind baskets
+// of grain (the bazaar shop); the stepped tank (the stepwell); the clay chulha and the shelves of brass (the kitchen).
+// Nandi, the sanctum door and the temple bell are placed ONLY by the temple hall, the tulsi only by the courtyard.
+const IND_LAMP = ['ind-lamp-stand'];
+caRegister({
+  'ind-haveli': { culture: 'india', outdoor: true, name: 'haveli courtyard', label: 'tulsi planter', focal: ['ind-tulsi'], centreRug: 'decal-mandana', proof: '^ind-tulsi$', density: 1.8, round: 1.6,
+    corners: ['ind-water-pots', 'ind-charpai'], edgeItems: ['ind-charpai', 'ind-jhula', 'ind-water-pots'], per: 120 },
+  'ind-durbar': { culture: 'india', name: 'palace hall', label: 'gaddi throne', focal: ['ind-gaddi-throne'], shortEnd: true, proof: '^ind-gaddi-throne$', density: 2,
+    flank: { ids: IND_LAMP, off: 0.6 }, rugs: [{ id: 'rug-ind-durrie', s: 5.5, turn: Math.PI / 2, why: 'the durrie before the throne' }],
+    walls: ['ind-floor-seating', 'ind-floor-seating', 'ind-floor-seating'], wallWhy: 'floor seating for the court along the side wall', corners: IND_LAMP, lamps: { wall: [], floor: IND_LAMP } },
+  'ind-mandapa': { culture: 'india', name: 'Shiva temple hall', label: 'sanctum doorway', focal: ['ind-sanctum-door'], shortEnd: true, proof: '^ind-sanctum-door$', density: 1.5, aisle: 4,
+    flank: { ids: IND_LAMP, off: 0.4 }, before: [{ id: 'ind-nandi', s: 5.5, rot: 'focal', reach: 1, why: 'Nandi on the worship axis, facing the sanctum' }],
+    ranks: { id: 'ind-temple-pillar', gap: 5.5, aisle: 7, s0: 2.5, s1: 3, per: 4, why: 'the pillared hall: carved pillars in rows either side of the axis' },
+    ceiling: [{ id: 'ind-temple-bell', s: 9, why: 'the bell over the way in, rung on entering' }], rugs: [{ id: 'decal-mandana', s: 2.2, why: 'a floor painting before the sanctum' }], lamps: { wall: [], floor: IND_LAMP } },
+  'ind-bazaar': { culture: 'india', name: 'bazaar shop', label: 'merchant\'s seat', focal: ['ind-merchant-seat'], proof: '^ind-merchant-seat$', density: 4,
+    before: [{ id: 'ind-grain-baskets', s: 1.4, why: 'baskets of grain and spice before the merchant' }],
+    walls: ['ind-brass-pots', 'ind-grain-jars', 'ind-water-pots'], doorWall: ['ind-grain-baskets'], corners: ['ind-grain-jars'], lamps: { wall: [], floor: IND_LAMP } },
+  'ind-stepwell': { culture: 'india', outdoor: true, name: 'stepwell', label: 'stepped tank', focal: ['ind-stepwell'], proof: '^ind-stepwell$', density: 0.9, round: 1.2,
+    corners: ['ind-chhatri'], edgeItems: ['ind-water-pots'], per: 400 },
+  'ind-kitchen': { culture: 'india', name: 'household kitchen', label: 'chulha', focal: ['ind-chulha'], proof: '^ind-chulha$', density: 4,
+    before: [{ id: 'ind-grinding-stone', s: 1.2, dt: 2.2, why: 'the grinding stone beside the stove' }],
+    walls: ['ind-niche-shelf', 'ind-grain-jars', 'ind-water-pots', 'ind-niche-shelf'], corners: ['ind-grain-jars', 'ind-brass-pots'], lamps: { wall: [], floor: IND_LAMP } },
+});
+// <<< ind:solver2
+
+// >>> faith:solver2
+// ======================= FAITH HALLS (2026-11-07, lane faith-factions; experiments/2026-11-07-faith-factions/DESIGN.md) =======================
+// Four real-world faiths are factions (Christian, Buddhist, Hindu, Muslim: tools/spawn-tuner/factions.py FAITHS). Each has a
+// `rite`: the CHURCH rite is the temple's own program (templeNave) with five small differences (ctx.rite === 'christian':
+// no confessionals, benches not pews, an altar cloth, the baptismal font by the door beside the stoup, the labyrinth in the
+// nave floor at the door end, the Virgin in a devotional place near the altar end, the thurible on its stand). The other
+// three rites are not a church at all, so the nave, the cathedral and the shrine run faithHall() instead (no pews, organ,
+// confessionals, choir, font, kneeling desks, alms box, candle racks, pulpit or lectern):
+//   buddhist  the Buddha on the end wall, the offering table before him (the vajra and bell on it), incense burners
+//             flanking, the lotus in the floor, seating runners in lines either side of the aisle, prayer wheels along the
+//             side walls with turning room, the stupa at the door end clear all round, thangkas and wheel roundels
+//   hindu     the Ganesha sanctum on the end wall (off it with a walk-round path when the hall allows), the offering plate
+//             before it, brass lamps flanking, the mandana beside the approach (never on the walking line), OPEN floor, the
+//             bell hung inside the door, Om roundels on the walls (never the floor)
+//   muslim    the mihrab centred on the end wall (the qibla wall: the GM orients the room), candlesticks flanking it, the
+//             minbar to the WORSHIPPER'S right (a hall 16 ft across or more), the empty rehal at its left, prayer carpets in
+//             rows across the hall, mosque lamps hung over the rows, geometric panels, muqarnas corbels. No altar, no seats.
+// And none of the four ever dresses a room only sinister flavors dress (faithBarred: flavorOf ignores the ask).
+const faithMeta = (ctx, f) => { const F = ctx.lib?.factions; return !f || !F ? null : (Array.isArray(F) ? F.find(x => x.id === f) : F[f]) || null; };
+const faithRite = (ctx, f) => faithMeta(ctx, f)?.rite || null;
+function faithBarred(ctx, f, list) { return !!faithMeta(ctx, f)?.reverent && (list || []).length > 0 && list.every(x => FLAVORS.evil.includes(x)); }
+const faithChurchCfg = (deep) => ({ seats: ['bench-long', 'bench-stone'], cloth: 'rite-altar-cloth', byDoor: [['font-holy', 0], ['flavor-font', 0], ['rite-alms-box', 0], ['prayer-candle-rack', 28]], ...(deep >= 34 ? { backGap: 11 } : {}) });
+// the Virgin against a side wall near the altar end with a candle stand beside her; the thurible in a corner of the altar wall
+function faithChurchExtras(ctx, { far, lat, L, axis, frontS, tiny, big }) {
+  let n = 0;
+  // the crucifix's arms are broad: a small chapel's corner may refuse it; the other corner, then a smaller crucifix (the church
+  // without its crucifix is the one thing a Christian chapel cannot be)
+  if (!ctx.placements.some(p => p.id === 'flavor-idol') && ccmHas(ctx, 'flavor-idol'))
+    for (const [k, side] of [[1, lat[1]], [0.75, lat[0]], [0.75, lat[1]]]) if (temScaled(ctx, 'flavor-idol', k, () => ccmCorner(ctx, 'flavor-idol', [far, side], { why: 'the crucifix in a corner of the altar wall (a small chapel)', inset: 0.4, layer: 'anchor' }))) break;
+  if (!big && ccmHas(ctx, 'flavor-sculpture')) {
+    const near = axis(frontS + 3, L), v = ccmQuiet(ctx, () => ctx.wall('flavor-sculpture', { sides: [lat[1]], prefer: 'near', near, layer: 'anchor', rule: 'sculpture', why: 'the Virgin and Child against the side wall near the altar end: a devotional place' }));
+    if (v) { n++; temWall(ctx, ['prayer-candle-rack', 'candlestick-floor'], [lat[1]], { prefer: 'near', near: [v.x, v.z], layer: 'light', why: 'candles before the Virgin' }); }
+  }
+  if (!tiny) ccmCorner(ctx, 'flavor-stand', [far, lat[1]], { why: 'the thurible on its stand in the corner of the altar wall', inset: 0.6 });
+  // the baptismal font stands by the door (chapel(): byDoor); a big church whose door walls are full keeps it free-standing in a corner of the door end
+  if (!ctx.placements.some(p => p.id === 'flavor-font') && ccmHas(ctx, 'flavor-font')) {
+    let f = null; for (const s of lat) if ((f = ccmCorner(ctx, 'flavor-font', [OPP_SIDE[far], s], { why: 'the baptismal font in a corner of the door end', inset: 1.2 }))) break;
+    const deep = far === 'N' || far === 'S' ? ctx.D : ctx.W; // (else free-standing near the door, beside the walk, as a Gothic font stands)
+    if (!f) for (const [s, dt] of [[5.5, 6], [5.5, -6], [7.5, 8], [7.5, -8]]) if ((f = ccmQuiet(ctx, () => ccmAt(ctx, 'flavor-font', [[...axis(deep - s, L / 2 + dt), SIDES[far].rot]], { why: 'the baptismal font free-standing near the door, beside the walk' })))) break;
+  }
+  return n;
+}
+const FAITH_FOCUS = { buddhist: 'Buddha', hindu: 'sanctum', muslim: 'mihrab' };
+// rows of the faith's mats (flat): never under a standing thing; the door end stays clear
+function faithMats(ctx, { far, L, deep, s0, rite, aisle }) {
+  if (!ccmHas(ctx, 'flavor-mat')) return 0; // (a library without the role: nothing to lay, never a crash)
+  const sk = ctx.chooseSku('flavor-mat'); if (!sk) return 0;
+  const dm = ctx.dims('flavor-mat', sk), toDoor = SIDES[far].rot, end = deep - 3.5, out = [];
+  const standing = (x, z, w, d) => ctx.placements.some(p => p.layer !== 'floor-dress' && p.orient !== 'floor' && p.y < 1 && (() => { const [pw, pd] = ctx.aabb(p.dims[0], p.dims[2], p.rot); return Math.abs(p.x - x) < (pw + w) / 2 - 0.05 && Math.abs(p.z - z) < (pd + d) / 2 - 0.05; })());
+  const lay = (s, t, rot, why) => { if (out.length >= 48) return; const [x, z] = ctx.sidePoint(far, t, s), [aw, ad] = ctx.aabb(dm.w, dm.d, rot); if (standing(x, z, aw, ad)) return; const p = ccmQuiet(ctx, () => ctx.rug('flavor-mat', { at: [x, z], rot, rule: 'mat', why })); if (p) out.push(p); };
+  // (a flat's w and d follow its picture's own aspect: take its long and short sides, and turn it so the long side lies where the rite wants it)
+  const long = Math.max(dm.w, dm.d), short = Math.min(dm.w, dm.d), dLong = dm.d >= dm.w;
+  if (rite === 'muslim') { // the prayer rows: carpets ACROSS the hall end to end, one row behind another, facing the mihrab
+    const rot = dLong ? toDoor + Math.PI / 2 : toDoor, n = Math.floor((L - 3 + 0.15) / (long + 0.15)), t0 = L / 2 - (n * (long + 0.15) - 0.15) / 2 + long / 2;
+    for (let s = s0 + short / 2; s + short / 2 <= end; s += short + 1.3) for (let i = 0; i < n; i++) lay(s, t0 + i * (long + 0.15), rot, 'a prayer carpet: the rows face the mihrab');
+  } else { // the assembly hall: seating runners in lines along the hall, either side of the aisle, the wall runs left for the wheels
+    const rot = dLong ? toDoor : toDoor + Math.PI / 2;
+    for (const sg of [-1, 1]) for (let k = 0; k < 4; k++) { const t = L / 2 + sg * (aisle / 2 + 0.4 + short / 2 + k * (short + 2.6)); if (Math.abs(t - L / 2) + short / 2 > L / 2 - 3.6) break;
+      for (let s = s0 + long / 2; s + long / 2 <= end; s += long + 0.5) lay(s, t, rot, 'a seating runner along the hall, facing the aisle and the Buddha'); }
+  }
+  return out.length;
+}
+// (every standing piece of a hall stays under the 9-ft ceiling whatever the size-variety roll says; hung pieces are their own)
+function faithHall(ctx, key, rite) { return temWith(ctx, (flavor) => temDims(ctx, (dm, i) => dm.h > 8.9 && ctx.lib.objects[i]?.place !== 'ceiling' && ctx.lib.objects[i]?.gen !== 'flat' ? temMul(dm, 8.9 / dm.h) : dm, () => faithHallBody(ctx, key, rite, flavor))); }
+function faithHallBody(ctx, key, rite, flavor) {
+  ccmPanels(ctx);
+  const shrine = key === 'temple-shrine', d = ctx.mainDoor, far = ccmFar(ctx, { shortEnd: !shrine }), L = ctx.sideLen(far), deep = far === 'N' || far === 'S' ? ctx.D : ctx.W;
+  const lat = ccmLat(far), toDoor = SIDES[far].rot, axis = (s, t = L / 2) => ctx.sidePoint(far, t, s), big = L >= 34 && deep >= 45, label = FAITH_FOCUS[rite], aisle = 5;
+  const info = ctx.templeInfo = { flavor, rite, scale: big ? 'cathedral' : shrine ? 'shrine' : 'hall', columns: 0, mats: 0, lamps: 0, wheels: 0, pulpit: false, walkRound: false };
+  // 1. the focus, centred on the end wall facing the door (the Hindu sanctum stands off it, a path round it, when the hall allows)
+  const walkRound = rite === 'hindu' && !shrine && deep >= 24 && L >= 16, gap = walkRound ? 3.2 : rite === 'muslim' ? 0.05 : 0.15;
+  const focus = ccmFocalOn(ctx, far, ['flavor-idol'], { label, rule: 'key-idol', gap, why: `the ${label}: centred on the wall facing the door` });
+  if (!focus) return { fail: `${ctx.type.label.toLowerCase()} has no ${label} (${ctx.focal?.why || 'no mesh'})` };
+  if (walkRound) { ccmClearRound(ctx, focus, 2.6); info.walkRound = true; }
+  dunSight(ctx, focus);
+  let fs = gap + focus.dims[2] + (walkRound ? 2.7 : 0.2); // where the open floor before the focus starts, ft from the end wall
+  // 2. before it: the offering table with the vajra and bell (Buddhist); the offering plate on its stand (Hindu)
+  if (rite === 'buddhist') { const sk = ccmHas(ctx, 'flavor-altar') && ctx.chooseSku('flavor-altar'), dm = sk && ctx.dims('flavor-altar', sk);
+    const table = dm && ccmQuiet(ctx, () => ccmAt(ctx, 'flavor-altar', [[...axis(fs + 0.5 + dm.d / 2), toDoor], [...axis(fs + 1.2 + dm.d / 2), toDoor]], { layer: 'anchor', rule: 'key-altar', why: 'the offering table before the Buddha, on the axis' }));
+    if (table) { ccmOn(ctx, 'flavor-altarpiece', table, 0, 0.05, 'the vajra and bell on the offering table'); fs = Math.hypot(table.x - axis(0)[0], table.z - axis(0)[1]) + table.dims[2] / 2 + 0.2; } }
+  if (rite === 'hindu') { const [x, z] = axis(fs + 0.9); if (ccmQuiet(ctx, () => ccmAt(ctx, 'flavor-altarpiece', [[x, z, toDoor]], { layer: 'dress', rule: 'offering', why: 'the offering plate on its stand before the sanctum', allowKeep: true }))) fs += 1.9; }
+  // 3. a pair of floor lights flanking the focus (in front of the sanctum's walk-round path)
+  ccmFlank(ctx, focus, ['flavor-censer'], { off: 0.6, fwd: walkRound ? focus.dims[2] + 3.2 : 0, why: `a ${rite === 'muslim' ? 'candlestick' : rite === 'hindu' ? 'brass lamp' : 'incense burner'} each side of the ${label}` });
+  // 4. the walk down the axis, kept clear
+  { const [ax, az] = axis((fs + deep) / 2), lenS = deep - fs, horiz = far === 'N' || far === 'S'; ctx.mark(ax, az, horiz ? 3 : lenS, horiz ? lenS : 3, KEEP); }
+  if (d) { ccmWalk(ctx, 'aisle', [d.inner, axis(deep - 2.5), axis(fs + 1.2)], { width: 3 }); for (const o of ctx.doors) if (o !== d) ccmWalk(ctx, 'branch', [o.inner, axis(deep - 2.5)]); }
+  // 5. a big hall: two rows of columns either side of the axis
+  const off = Math.min(L / 2 - 6, 9);
+  if (big && rite !== 'hindu' /* (the mandapa has its own carved pillars: 7b) */ && ccmHas(ctx, 'pillar-round')) for (let s = fs + 6; s <= deep - 7; s += 11) for (const sg of [-1, 1]) { const [x, z] = axis(s, L / 2 + sg * off); if (ccmQuiet(ctx, () => ccmAt(ctx, 'pillar-round', [x, z, toDoor], { layer: 'anchor', rule: 'colonnade', why: 'a column of the hall' }))) info.columns++; }
+  // 6. Muslim: the minbar to the worshipper's RIGHT of the mihrab (the worshipper faces -n; right = (nz, -nx)), the rehal at its left
+  if (rite === 'muslim') {
+    const [nx, nz] = ctx.facingVec(toDoor), [tx, tz] = (([ax, az], [bx, bz]) => [bx - ax, bz - az])(axis(0, L / 2), axis(0, L / 2 + 1)), rightUp = tx * nz + tz * -nx > 0, sgR = rightUp ? 1 : -1;
+    if (L >= 16 && ccmHas(ctx, 'flavor-pulpit')) { const [w] = ccmSize(ctx, 'flavor-pulpit'), a = L / 2 + sgR * (focus.dims[0] / 2 + 0.8 + w / 2), lo = Math.max(w / 2 + 0.3, Math.min(a, L - w / 2 - 0.3));
+      const mb = ccmQuiet(ctx, () => ctx.put('flavor-pulpit', (dm) => ctx.wallGen(dm, [far], { gap: 0.05, tRange: rightUp ? [L / 2 + focus.dims[0] / 2 + 0.4 + dm.w / 2, L - dm.w / 2 - 0.2] : [dm.w / 2 + 0.2, L / 2 - focus.dims[0] / 2 - 0.4 - dm.w / 2], step: 0.25, windows: false }), (c) => Math.abs(c.t - lo), { layer: 'anchor', rule: 'minbar', unique: true, why: 'the minbar against the qibla wall, to the right of the mihrab as the worshipper faces it' }));
+      info.pulpit = !!mb; }
+    ccmQuiet(ctx, () => ccmAt(ctx, 'flavor-stand', [[2.2, 2.6], [2.2, 3.6], [3.4, 2.6], [1.2, 4.4], [3.4, 4.4]].map(([ds, dt]) => [...axis(fs + ds, L / 2 - sgR * (focus.dims[0] / 2 + dt)), toDoor]), { layer: 'furnish', rule: 'rehal', why: 'the empty rehal near the mihrab, to its left (clear of the candlestick)' }));
+  }
+  // 7. Buddhist: the stupa at the door end, clear all round; the thangkas on the side walls; THEN the prayer wheels along
+  // the walls between them, room to turn each (the wheels first took every wall: no thangka, no stupa)
+  if (rite === 'buddhist') {
+    if (!shrine && deep >= 24 && d && ccmHas(ctx, 'flavor-sculpture')) { let st = null;
+      for (const s of [lat[1], lat[0]]) if ((st = ccmCorner(ctx, 'flavor-sculpture', [OPP_SIDE[far], s], { why: 'the stupa at the door end, clear all round to walk round it', inset: 2.2, layer: 'anchor' }))) break;
+      if (!st) for (const sg of [1, -1]) if ((st = ccmQuiet(ctx, () => ccmAt(ctx, 'flavor-sculpture', [[...axis(deep - 5.5, L / 2 + sg * (L / 2 - 4.5)), toDoor], [...axis(deep - 7, L / 2 + sg * (L / 2 - 5)), toDoor]], { layer: 'anchor', rule: 'stupa', why: 'the stupa at the door end of the hall, clear all round' })))) break;
+      if (st) ccmClearRound(ctx, st, 1.8); }
+    temMount(ctx, 'flavor-banner', lat, Math.max(2, Math.min(6, 2 * Math.round(deep / 12))), 5.4, 'a thangka of the Buddha on the side wall');
+    info.wheels = ccmAlong(ctx, ['flavor-wheel'], lat, Math.max(2, Math.min(8, 2 * Math.round(deep / 14))), { why: 'a prayer wheel along the side wall, room to turn it', rule: 'wheel' }).length;
+    for (const p of ctx.placements.filter(p => p.rule === 'wheel')) ccmClearRound(ctx, p, 1.2);
+  }
+  // 7b. Hindu: the mandapa is a PILLARED hall: two rows of carved pillars (the India pack's temple pillar) either side of the walk
+  if (rite === 'hindu' && !shrine && deep >= 20 && L >= 14) {
+    const pid = ctx.lib.objects['ind-temple-pillar'] ? 'ind-temple-pillar' : 'pillar-round', own = Object.prototype.hasOwnProperty.call(ctx, 'has'), has1 = ctx.has;
+    ctx.has = function (id) { return id === 'ind-temple-pillar' ? !!this.lib.objects[id] : has1.call(this, id); }; // (its mesh is the India pack's exclusive tier: asked for by name here)
+    try { for (const off of [5.5, 11, 16.5].filter(o => o <= L / 2 - 3.5).concat(L / 2 - 3.5 < 5.5 ? [L / 2 - 3.5] : [])) for (let s = fs + 3.5; s <= deep - 4; s += 8) for (const sg of [-1, 1]) { const [x, z] = axis(s, L / 2 + sg * off); if (ccmQuiet(ctx, () => ccmAt(ctx, pid, [x, z, toDoor], { layer: 'anchor', rule: 'colonnade', why: 'a carved pillar of the mandapa', sku: { tiers: ['ind'] } }))) info.columns++; } }
+    finally { if (own) ctx.has = has1; else delete ctx.has; }
+  }
+  // 8. the floor emblem: before the focus (Hindu: beside the approach, off the walking line)
+  const sig = Math.max(4, Math.min(shrine ? 6 : 7, L - 8, deep - fs - 6));
+  const sigil = rite === 'hindu' ? temSigil(ctx, axis(fs + sig / 2 + 0.5, L / 2 + (L >= 14 ? -(sig / 2 + 2.2) : 0)), toDoor, sig, 'the mandana beside the approach to the sanctum, off the walking line')
+    : temSigil(ctx, axis(fs + 0.6 + sig / 2), toDoor, sig, `the ${rite === 'muslim' ? 'marble inlay' : 'lotus'} in the floor before the ${label}`);
+  // 9. where the faithful sit: rows of mats (the Hindu hall stays OPEN floor: people stand)
+  if (rite !== 'hindu') info.mats = faithMats(ctx, { far, L, deep, s0: fs + (sigil && rite !== 'hindu' ? sig + 1.2 : 1), rite, aisle });
+  // 10. overhead: the Hindu bell inside the door; Muslim lamps over the rows (and one before the mihrab)
+  if (rite === 'hindu' && d && ccmHas(ctx, 'flavor-bell')) { const [ax, az] = d.at, [bx, bz] = d.inner, k = 1.5 / (Math.hypot(bx - ax, bz - az) || 1); ctx.ceiling('flavor-bell', { at: [bx + (bx - ax) * k, bz + (bz - az) * k], layer: 'dress', rule: 'ceiling', why: 'the temple bell hung inside the door, rung on entering' }); }
+  if (rite === 'muslim' && ccmHas(ctx, 'flavor-lamp')) { const spots = [axis(fs + 1.2)]; for (let s = fs + 5; s <= deep - 3; s += 7) for (let t = L / 2 - Math.floor((L / 2 - 3) / 7) * 7; t <= L - 3 + 1e-6; t += 7) spots.push(axis(s, t));
+    for (const at of spots.slice(0, 16)) if (ctx.ceiling('flavor-lamp', { at, layer: 'light', rule: 'ceiling' /* (look.js draws the chain up to the ceiling only for this rule: without it the lamp read as standing on the carpets) */, why: 'a mosque lamp hung over the prayer rows' })) info.lamps++; }
+  // 11. the walls: medallions (either side of the focus on a wide end wall; else the door wall), thangkas on the side walls
+  const reliefSides = rite === 'muslim' ? lat : L >= 19 ? [far] : [OPP_SIDE[far]];
+  temFinish(ctx, { relief: reliefSides, reliefN: rite === 'muslim' ? Math.max(2, Math.min(6, 2 * Math.round(deep / 16))) : L >= 19 ? 2 : 1, banner: lat, bannerN: 0, // (the Buddhist thangkas went up before the wheels: step 7)
+    lights: rite === 'muslim' ? [] : TEM_SCONCE, lightSides: lat, floorLights: ['flavor-censer', 'candlestick-floor', 'candle-tree'] });
+  flavorCorbels(ctx);
+  return { feature: focus, what: `${label} facing the door${info.mats ? `, ${info.mats} ${rite === 'muslim' ? 'prayer carpets in rows' : 'seating runners'}` : ''}${info.columns ? `, ${info.columns} columns` : ''}, dressed ${flavor}`, approach: null, passage: true };
+}
+for (const k of ['temple-nave', 'temple-shrine']) { const base = KEY[k]; KEY[k] = (ctx, ...a) => { const rite = faithRite(ctx, temFlavor(ctx)); if (rite && rite !== 'christian') return faithHall(ctx, k, rite); ctx.rite = rite; try { return base(ctx, ...a); } finally { delete ctx.rite; } }; }
+// <<< faith:solver2
+
+// >>> veh:solver2
+// ======================= vehicles (2026-11-07): helicopters, a police cruiser, drones in the rooms that have them ==========
+// experiments/2026-11-07-vehicles; Harry: "we maybe need a few more vehicle options ... choppers, APC, cop car". The rooms'
+// own programs are NOT edited (another lane tunes their density): each hook WRAPS a program, so it rebases on whatever the
+// program becomes. A hook lays a vehicle only where it already has the room (else the program runs as before):
+//   mod-street   about one street in three: one parked car at the kerb is the police cruiser (same spot, same facing; the
+//                cruiser's catalog box is the sedan's, so nothing else moves). No rng is drawn: the rest of the street is as it was.
+//   cyb-rooftop  on a roof with room for its rotor, half the time a helicopter stands on the roof first (the gunship on a roof
+//                with room for its 36-ft rotor, one in four of those), off-centre away from the stair hut's edge and the water
+//                tank's corner; its body blocks the floor, its rotor disc is kept clear (KEEP), so the program lays the rest
+//                around it. If the program then lacks the stair hut (the way down) or fails, the roof is solved again without it.
+//   cyb-rigger   one of the rigger's gun or utility drones on the floor beside the parked one (a second drone).
+// Everything else about vehicles is shelf data: the Vehicles section (catalog/rooms-vehicles.md, build_data.py type:veh).
+const VEH_TIER = (ctx, id) => ctx.skuPool(id).find(s => s.tier === 'mod') || null;
+const vehSeed = (ctx, ...k) => hash(ctx.baseSeed ?? ctx.room.seed, 'veh', ...k);
+function vehPolice(ctx) {
+  const cars = ctx.placements.filter(p => p.rule === 'parked-car' && /^car-(sedan|hatchback)$/.test(p.id));
+  if (!cars.length || vehSeed(ctx, 'police') % 100 >= 35 || !ccmHas(ctx, 'car-police')) return null;
+  const p = cars[vehSeed(ctx, 'which') % cars.length], sk = VEH_TIER(ctx, 'car-police'); if (!sk) return null;
+  const dm = ctx.dims('car-police', sk), [aw, ad] = ctx.aabb(dm.w, dm.d, p.rot), [bw, bd] = ctx.aabb(p.dims[0], p.dims[2], p.rot);
+  if (aw > bw + 0.4 || ad > bd + 0.4) return null; // (only into a sedan-sized space: the grid marks the old car's box)
+  const o = ctx.lib.objects['car-police'];
+  ctx.used.set(p.id, Math.max(0, (ctx.used.get(p.id) || 1) - 1)); ctx.used.set('car-police', (ctx.used.get('car-police') || 0) + 1);
+  Object.assign(p, { id: 'car-police', sku: sk.sku, kind: sk.kind, url: sk.url, place: o.place, s: dm.s, dims: [+dm.w.toFixed(2), +dm.h.toFixed(2), +dm.d.toFixed(2)], catalog: o.size, why: 'a police cruiser parked at the kerb' });
+  if (dm.yaw) p.yaw = dm.yaw; else delete p.yaw;
+  return p;
+}
+function vehHeli(ctx) {
+  const W = ctx.X1 - ctx.X0, D = ctx.Z1 - ctx.Z0, short = Math.min(W, D);
+  const pick = ['helicopter-gunship', 'helicopter'].filter(id => ccmHas(ctx, id) && VEH_TIER(ctx, id)).map(id => { const sk = VEH_TIER(ctx, id), dm = ctx.dims(id, sk); return { id, sk, dm, disc: Math.max(dm.w, dm.d) }; })
+    .filter(c => short >= c.disc + 8);
+  if (!pick.length || vehSeed(ctx, 'heli') % 100 >= 50) return null;
+  const c = pick.length > 1 && vehSeed(ctx, 'gunship') % 4 === 0 ? pick[0] : pick[pick.length - 1];
+  // where the rooftop program will put its stair hut (a long side) and its tank (a far corner): stand clear of both
+  const horiz = modHoriz(ctx), long = horiz ? ['N', 'S'] : ['W', 'E'], hutSide = long[cybSeed(ctx, 'hut') % 2];
+  const tankLat = horiz ? (cybSeed(ctx, 't') % 2 ? 'W' : 'E') : (cybSeed(ctx, 't') % 2 ? 'N' : 'S');
+  const r = c.disc / 2, m = r + 1.6, cx = (ctx.X0 + ctx.X1) / 2, cz = (ctx.Z0 + ctx.Z1) / 2;
+  let x = cx, z = cz; const away = OPP_SIDE[hutSide], awayLat = OPP_SIDE[tankLat];
+  for (const s of [away, awayLat]) { if (s === 'N') z = ctx.Z0 + m; else if (s === 'S') z = ctx.Z1 - m; else if (s === 'W') x = ctx.X0 + m; else x = ctx.X1 - m; }
+  x = Math.min(Math.max(x, ctx.X0 + m), ctx.X1 - m); z = Math.min(Math.max(z, ctx.Z0 + m), ctx.Z1 - m);
+  const rot = horiz ? Math.PI / 2 : 0, [bw, bd] = ctx.aabb(Math.min(c.dm.w, 9), c.dm.d * 0.82, rot);
+  if (!ctx.fits(x, z, bw, bd)) return null;
+  const p = ctx.record(c.id, c.sk, c.dm, x, 0, z, rot, 'anchor', 'helicopter', `the ${c.id === 'helicopter' ? 'helicopter' : 'gunship'} parked on the roof, clear of the stair hut and the tank`);
+  ctx.mark(x, z, bw, bd);
+  for (const k of [0.995, 0.97, 0.93, 0.88, 0.82, 0.76, 0.707]) { const h = r * Math.sqrt(1 - k * k) * 2; ctx.mark(x, z, 2 * r * k, h, KEEP); ctx.mark(x, z, h, 2 * r * k, KEEP); } // (the rotor disc, as a stack of crosses: the roof's corners stay free)
+  return p;
+}
+function vehDrone(ctx) {
+  const ids = ['drone-quad-light', 'drone-rover-arm', 'drone-rover-sentry', 'drone-quad-heavy'].filter(id => ccmHas(ctx, id) && VEH_TIER(ctx, id));
+  if (!ids.length || vehSeed(ctx, 'drone') % 100 >= 85) return null;
+  const id = ids[vehSeed(ctx, 'which') % ids.length], near = ctx.placements.find(p => p.id === 'drone-parked') || ctx.placements.find(p => p.id === 'workbench-garage');
+  const why = 'a second drone on the floor: a rigger\'s gun or utility drone', o = { margin: 0.6, sku: { tiers: ['mod'] } };
+  return (near && dunFree(ctx, id, [near.x, near.z], 7, why, o)) || dunFree(ctx, id, null, 99, why, o) || (id !== 'drone-quad-light' && dunFree(ctx, 'drone-quad-light', null, 99, why, o)); // (a dense garage: anywhere free, else the smallest drone)
+}
+const vehHook = (key, { before, after }) => { const run = KEY[key]; if (!run) return; KEY[key] = (ctx, ...a) => {
+  if (before) { const snap = { n: ctx.placements.length, grid: ctx.grid.slice(), used: new Map(ctx.used), s: ctx.surfaces.length, uid: ctx.uid, un: ctx.unplaced.length };
+    const pre = before(ctx);
+    if (pre) { const res = run(ctx, ...a); if (res && !res.fail && (ctx.cybInfo?.kind !== 'rooftop' || ctx.cybInfo.hut)) return res;
+      ctx.placements.length = snap.n; ctx.grid.set(snap.grid); ctx.used = snap.used; ctx.surfaces.length = snap.s; ctx.uid = snap.uid; ctx.unplaced.length = snap.un; ctx.focal = null; } }
+  const res = run(ctx, ...a); if (after && res && !res.fail) after(ctx, res); return res; }; };
+// SECURITY CAMERAS AND DESK THINGS (Harry 2026-11-07: "for modern, we need security cameras for the wall. Also a bunch of
+// desk debris (laptop, CRT, mouse, donut)"; catalog/objects-modern-desk.catalog.md). Hooks of the same kind, after the program:
+//   cameras  one wall camera high on a wall (two in a room over 600 sq ft) in the lobby, store, garage, server room and office,
+//            facing into the room; a dome on the ceiling of half the lobbies and stores (a ceiling fitting: world.js draws it
+//            from a pawn's eyes only)
+//   desks    on the work top of each cubicle, terminal and reception desk and the garage workbench the program laid: a
+//            keyboard and mouse or a laptop, a coffee cup, now and then papers, a phone, a donut; one box of donuts per office.
+//            The work tops were MEASURED (experiments/2026-11-07-vehicles/tools/desk_tops.py: rays down on each mesh, as a share
+//            of its height and box; +v is the desk's front): DESK_TOPS. A thing stands on the top facing the desk's front.
+const DESK_TOPS = { // id: [height share, [u0, u1, v0, v1], ...]
+  'cubicle-desk': [0.55, [-0.13, 0.45, -0.23, -0.05], [-0.45, -0.24, -0.04, 0.22]], 'terminal-desk': [0.55, [-0.4, 0.4, -0.1, 0.3]],
+  'reception-desk': [0.61, [-0.18, 0.4, -0.46, -0.22], [-0.45, 0.45, -0.05, 0.14]], 'workbench-garage': [0.45, [-0.3, 0.4, 0.05, 0.36]] };
+const DESK_WANTS = { // room key: [[ids (first that fits), chance], ...] per desk
+  'mod-office': [[['keyboard'], 0.85], [['mouse-computer'], 0.75], [['coffee-cup-paper'], 0.7], [['paper-stack'], 0.5], [['desk-phone'], 0.35], [['donut'], 0.15], [['laptop-open'], 0.2], [['monitor-crt'], 0.08]],
+  'cyb-server': [[['keyboard'], 0.9], [['coffee-cup-paper'], 0.6], [['laptop-open'], 0.4], [['paper-stack'], 0.3], [['monitor-crt'], 0.3]],
+  'cyb-lobby': [[['monitor-flat'], 0.9], [['keyboard'], 0.85], [['desk-phone'], 0.7], [['paper-stack'], 0.5], [['coffee-cup-paper'], 0.5]],
+  'cyb-safehouse': [[['laptop-open'], 0.8], [['keyboard'], 0.6], [['coffee-cup-paper'], 0.8], [['donut-box'], 0.35], [['monitor-crt'], 0.3], [['paper-stack'], 0.3]],
+  'cyb-rigger': [[['laptop-open'], 0.6], [['monitor-crt'], 0.4], [['coffee-cup-paper'], 0.6], [['donut'], 0.25]] };
+function deskPut(ctx, desk, id, top) {
+  if (!ccmHas(ctx, id) || desk.yaw) return null; // (a desk turned by the box rule: its measured top is not where u, v say)
+  const sk = ctx.chooseSku(id, { tiers: ['mod'] }); if (!sk) return null;
+  const dm = ctx.dims(id, sk), [hs, ...rects] = top, W = desk.dims[0], D = desk.dims[2], c = Math.cos(desk.rot), sn = Math.sin(desk.rot);
+  const mine = desk.deskItems ||= [];
+  for (let k = 0; k < 24; k++) {
+    const [u0, u1, v0, v1] = rects[k % rects.length], hw = dm.w / 2 / W, hd = dm.d / 2 / D;
+    if (u1 - u0 < 2 * hw || v1 - v0 < 2 * hd) continue;
+    const u = ctx.r(u0 + hw, u1 - hw), v = ctx.r(v0 + hd, v1 - hd);
+    if (mine.some(b => Math.abs(b.u - u) < b.hw + hw + 0.01 && Math.abs(b.v - v) < b.hd + hd + 0.01)) continue;
+    mine.push({ u, v, hw, hd });
+    const x = desk.x + (u * W) * c + (v * D) * sn, z = desk.z - (u * W) * sn + (v * D) * c, rot = desk.rot + ctx.r(-0.18, 0.18);
+    return ctx.record(id, sk, dm, x, desk.y + hs * desk.dims[1], z, rot, 'dress', 'on-desk', `on the ${desk.id}'s work top`, { parent: desk.uid });
+  }
+  return null;
+}
+function vehDesks(ctx, key) {
+  const wants = DESK_WANTS[key]; if (!wants) return 0;
+  let n = 0, box = false;
+  for (const desk of ctx.placements.filter(p => DESK_TOPS[p.id] && !p.parent)) for (const [ids, ch] of wants) {
+    if (!ctx.chance(ch)) continue;
+    for (const id of ids) if (deskPut(ctx, desk, id, DESK_TOPS[desk.id])) { n++; break; }
+  }
+  if (key === 'mod-office' && n) box = !!ctx.placements.filter(p => p.id === 'cubicle-desk').some(d => deskPut(ctx, d, 'donut-box', DESK_TOPS[d.id]));
+  for (const p of ctx.placements) delete p.deskItems;
+  return n + box;
+}
+const CAM_ROOMS = new Set(['cyb-lobby', 'mod-store', 'mod-garage', 'cyb-server', 'mod-office']);
+function vehCameras(ctx, key) {
+  if (!CAM_ROOMS.has(key) || !ccmHas(ctx, 'camera-security')) return 0;
+  const d = ctx.mainDoor, sides = ctx.shuffle(['N', 'S', 'E', 'W']).sort((a, b) => (d && a === d.side) - (d && b === d.side)); let n = 0;
+  for (let i = 0; i < (ctx.area() > 600 ? 2 : 1); i++) if (ccmQuiet(ctx, () => ctx.mount('camera-security', { sides: sides.slice(i % 2 ? 1 : 0), height: 7.9, rule: 'wall-mount', why: 'a security camera high on the wall, watching the room' }))) n++;
+  if (/^(cyb-lobby|mod-store)$/.test(key) && ccmHas(ctx, 'camera-dome') && vehSeed(ctx, 'dome') % 2) if (ccmQuiet(ctx, () => ctx.ceiling('camera-dome', { layer: 'dress', why: 'a dome camera on the ceiling' }))) n++;
+  return n;
+}
+for (const k of new Set([...CAM_ROOMS, ...Object.keys(DESK_WANTS)])) vehHook(k, { after: (ctx) => { vehCameras(ctx, k); vehDesks(ctx, k); } });
+vehHook('mod-street', { after: vehPolice });
+vehHook('cyb-rooftop', { before: vehHeli });
+vehHook('cyb-rigger', { after: vehDrone });
+// <<< veh:solver2

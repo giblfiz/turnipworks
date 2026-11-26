@@ -20,8 +20,13 @@ const APART = new Set(['stable', 'barn', 'cellar', 'hallway', 'yard', // (a yard
 for (const k of ['min-tunnel', 'min-junction', 'min-face', 'min-collapsed', 'min-flooded', 'min-pithead']) APART.add(k); // type:min: tunnels join chambers and the yard lies outside; never packed as cells
 const GROW = 1.5;      // recipe sizes are minimums; an inn's rooms run larger
 const REPEAT = 'guest'; // a big inn has many guest rooms
+for (const k of ['mod-street', 'mod-alley', 'mod-garage', 'mod-warehouse']) APART.add(k); // type:mod (sprawl pack): streets and alleys lie outside, a garage or a warehouse is a building of its own
+APART.add('cyb-rooftop'); // type:cyb (the cyberpunk pack, 2026-11-07): a rooftop is outdoor ground of its own, never packed as cells
 for (const k of ['lair-mouth', 'lair-passage', 'lair-trophy']) APART.add(k); // type:lai: the ground before a lair and its passages are drawn (or laid by the layout generator), never packed as cells
 
+for (const k of ['jpn-shrine-court', 'jpn-garden', 'jpn-shrine', 'jpn-dojo', 'jpn-teahouse']) APART.add(k); // jpn: the grounds and the buildings that stand alone (culture packs A) are drawn, never packed as cells of a house
+for (const k of ['chn-market', 'chn-courtyard', 'chn-temple', 'chn-teahouse']) APART.add(k); // chn: the grounds and the buildings that stand alone (culture packs A) are drawn, never packed as cells of a house
+for (const k of ['ind-haveli', 'ind-stepwell', 'ind-mandapa', 'ind-durbar']) APART.add(k); // ind: the grounds and the buildings that stand alone (culture packs A) are drawn, never packed as cells of a house
 export function packRooms(rect, rooms) {
   if (rect.w < MIN || rect.d < MIN || !rooms.length) return [];
   const list = [...rooms].filter(r => !APART.has(r.key) || rooms.every(x => APART.has(x.key))).sort((a, b) => rank(a.key) - rank(b.key));

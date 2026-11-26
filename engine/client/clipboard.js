@@ -1,7 +1,19 @@
 // Copy/paste: relative layout around the selection's centre, pasted at the cursor, across areas and campaigns.
 // The clipboard text is plain: a human line, then one "TW1:<base64url JSON>" token. Pasting finds the token anywhere
 // in the text, so a selection survives a trip through Discord, an email or a text box (whitespace and all).
+//
+// THE LEVEL A PASTE LANDS ON (2026-11-25, Harry on dev: "Those mimics got pasted, but not onto the level that I was acting
+// on"). A paste at the pointer lands where a fresh placement from the tray would at that spot: on the floor under the
+// pointer at the level in view (app.cursor.y, input.js groundOf: the cut's level, a cellar, a cave, an upper storey), and
+// then settles like any placement (main.js pawnLandY). Each pawn or thing carries `lift`, its height above what it stood
+// on when copied: a standing pawn 0, a raised or flying one its height, a thing its height above its floor; so a flying
+// pawn stays that far above the floor it is pasted onto. Until then the paste sent no height and everything landed on
+// the ground (y 0): a mimic copied in the Dragon Temple's vault (lv -2) went into the forge above it, where the cut hid
+// it and the selection dropped it, so nothing seemed to happen. A ROOM lands on the level you are on (app.level), the
+// level the room tool draws on. A paste with no pointer over the table keeps the heights it was copied at.
+import * as HT from '../core/height.js';
 const CELL = 5;
+const r2 = (v) => Math.round(v * 100) / 100;
 
 export function clipFrom(app, things) {
   const ents = things.filter(e => e && e.kind !== 'wall');
@@ -20,9 +32,56 @@ export function clipFrom(app, things) {
     if (e.kind === 'room') {
       const objects = Object.values(E).filter(o => o.kind === 'object' && o.room === e.id).map(({ noteOff, ...o }) => o); // (a copy of a stair shows its own warning: a dismissal belongs to the stair it was made on, core/stairs.js)
       items.push({ kind: 'room', e: { id: e.id, recipe: e.recipe }, dx: (e.recipe.x + e.recipe.w / 2) * CELL - cx, dz: (e.recipe.z + e.recipe.d / 2) * CELL - cz, objects });
-    } else items.push({ kind: e.kind, e: { ...e }, dx: e.x - cx, dz: e.z - cz });
+    } else items.push({ kind: e.kind, e: { ...e }, dx: e.x - cx, dz: e.z - cz, lift: liftOf(app, E, e) });
   }
   return { v: 1, items };
+}
+
+// how far above what it stands on a pawn or thing was copied (feet): a standing pawn 0 (it lands on what is at the new
+// spot), a raised or flying pawn its height over its base, a thing its height over its floor (a lamp on a wall, a cup on
+// a table copied with it)
+function liftOf(app, E, e) {
+  if (e.kind === 'token') { if (app.pawnStands ? app.pawnStands(e) : true) return 0; return r2(Math.max(0, app.pawnDropAt(e, e.x, e.y || 0, e.z).drop)); }
+  const fy = HT.floorUnder(E, e.x, e.z, e.y || 0)?.y ?? Math.min(0, e.y || 0);
+  return r2(Math.max(0, (e.y || 0) - fy));
+}
+
+// the middle of what was copied, where it was (a paste with no pointer over the table lands next to it)
+export function clipOrigin(clip) {
+  const it = clip?.items?.[0]; if (!it) return null;
+  if (it.kind === 'room') { const r = it.e.recipe; return [(r.x + r.w / 2) * CELL - it.dx, (r.z + r.d / 2) * CELL - it.dz]; }
+  return Number.isFinite(it.e.x) && Number.isFinite(it.e.z) ? [it.e.x - it.dx, it.e.z - it.dz] : null;
+}
+
+// THE HEIGHT A PASTED PAWN OR THING IS SENT AT. floorY: the floor the paste lands on (the pointer's, see above), or null
+// to keep the height it was copied at. A clip from before `lift` (text from an older build) lands on that floor.
+export function pasteY(it, floorY) {
+  if (floorY == null || !Number.isFinite(floorY)) return r2(it.e.y || 0);
+  return r2(floorY + (Number.isFinite(it.lift) ? it.lift : 0));
+}
+
+// NO EXACT STACKING (2026-11-25): a paste whose pawns or things would land on top of the same kind of thing already there
+// (the original, or the last paste at the same pointer) moves to the nearest square (5 ft steps, ring by ring, nearest
+// first, as a group of pawns is placed: pawns.js pawnFormation) where nothing of its kind stands AND each lands on the
+// same floor, in the same room, as it would at the pointer (never out of a cellar into the rock, off a hilltop, into the
+// room below or out through a wall onto the open ground).
+// spots([dx, dz]) -> [{ kind, cat, x, y, z, y0, room, room0 }] for the paste moved by that much (y0, room0: where it
+// lands at the pointer); free(spot) -> nothing of its kind there.
+// -> the [dx, dz] to move by ([0, 0] when nothing is in the way, or when there is nowhere better within PASTE_RINGS)
+export const PASTE_STEP = CELL, PASTE_RINGS = 4;
+export function pasteOffsets(rings = PASTE_RINGS) {
+  const out = [[0, 0]];
+  for (let r = 1; r <= rings; r++) {
+    const ring = [];
+    for (let i = -r; i <= r; i++) for (let j = -r; j <= r; j++) if (Math.max(Math.abs(i), Math.abs(j)) === r) ring.push([i, j]);
+    ring.sort((a, b) => (a[0] ** 2 + a[1] ** 2) - (b[0] ** 2 + b[1] ** 2) || Math.atan2(a[1], a[0]) - Math.atan2(b[1], b[0]));
+    out.push(...ring);
+  }
+  return out.map(([i, j]) => [i * PASTE_STEP, j * PASTE_STEP]);
+}
+export function pasteStep(spots, free, rings = PASTE_RINGS) {
+  for (const off of pasteOffsets(rings)) if (spots(off).every(s => free(s) && Math.abs(s.y - s.y0) < 0.5 && (s.room0 === undefined || s.room === s.room0))) return off;
+  return [0, 0];
 }
 
 export function copyText(clip) {

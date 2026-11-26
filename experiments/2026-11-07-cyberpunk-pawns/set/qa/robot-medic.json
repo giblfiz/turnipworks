@@ -1,0 +1,176 @@
+{
+ "file": "robot-medic.glb",
+ "tris": 49393,
+ "kb": 3068,
+ "native_extent": [
+  0.812,
+  1.002,
+  0.415
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.198,
+  "seen": 0.0005
+ },
+ "mean_rgb": [
+  108,
+  87,
+  68
+ ],
+ "mean_saturation": 0.358,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 119,
+  "main_part_area_share": 0.7485,
+  "floating": [
+   {
+    "area_share": 0.00089,
+    "gap_ft": 0.06,
+    "size_ft": 0.33
+   },
+   {
+    "area_share": 0.00082,
+    "gap_ft": 0.09,
+    "size_ft": 0.35
+   },
+   {
+    "area_share": 0.00026,
+    "gap_ft": 0.04,
+    "size_ft": 0.26
+   },
+   {
+    "area_share": 5e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.18
+   },
+   {
+    "area_share": 4e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.1
+   },
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.05,
+    "size_ft": 0.08
+   },
+   {
+    "area_share": 1e-05,
+    "gap_ft": 0.04,
+    "size_ft": 0.04
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.03,
+    "size_ft": 0.05
+   }
+  ],
+  "floating_count": 10,
+  "floating_area_share": 0.00209,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.9917,
+ "y0": -3.0012,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.4057,
+   -0.5009,
+   -0.2075
+  ],
+  [
+   0.4059,
+   0.5006,
+   0.2077
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49393,
+   "tex": 2048,
+   "kb": 3068
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1190
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 508
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.85,
+    "z": -0.5,
+    "size_ft": [
+     1.28,
+     1.5
+    ],
+    "off_ground_ft": 0.026,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.052
+   },
+   {
+    "x": 0.75,
+    "z": -0.01,
+    "size_ft": [
+     1.15,
+     1.58
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.02
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.026,
+  "lowest_slab_area_sqft": 2.86,
+  "plan_hull_area_sqft": 8.66,
+  "lowest_slab_share_of_plan": 0.33
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.86,
+   "d": 2.49,
+   "h": 6.0
+  },
+  "centre": [
+   -0.059,
+   -0.094
+  ],
+  "contacts_radius_ft": 1.44,
+  "reach_radius_ft": 2.5,
+  "share_outside_2p5ft": 0.002
+ },
+ "silhouette": {
+  "iou": 0.891,
+  "plate_lost_share": 0.03,
+  "added_share": 0.088,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.841,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 0
+ },
+ "id": "robot-medic",
+ "sha1": "0a987dab68e129541b8e4ca2fc843ffcf053320e",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "4 separate part(s) lying within 0.09 ft of the body (not joined to it)"
+ ],
+ "qa_seconds": 8.2
+}

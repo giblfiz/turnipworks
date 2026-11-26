@@ -1,0 +1,133 @@
+{
+ "file": "cul-rus-small-rogue.glb",
+ "tris": 48443,
+ "kb": 2684,
+ "native_extent": [
+  0.681,
+  1.001,
+  0.483
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  77,
+  49,
+  29
+ ],
+ "mean_saturation": 0.628,
+ "sized_by": "its highest point",
+ "overall_ft": 3.0,
+ "pieces": {
+  "connected_parts": 142,
+  "main_part_area_share": 0.9994,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 2.9961,
+ "y0": -1.5006,
+ "stated_ft": {
+  "body": 3.0,
+  "figure_top": 3.0,
+  "overall": 3.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3393,
+   -0.5008,
+   -0.2408
+  ],
+  [
+   0.3412,
+   0.5005,
+   0.2418
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48443,
+   "tex": 2048,
+   "kb": 2684
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1087
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 457
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.2,
+    "z": -0.25,
+    "size_ft": [
+     0.59,
+     0.73
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.94,
+    "sole_p90_ft": 0.039
+   },
+   {
+    "x": 0.66,
+    "z": 0.35,
+    "size_ft": [
+     0.46,
+     0.75
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.92,
+    "sole_p90_ft": 0.041
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 0.5,
+  "plan_hull_area_sqft": 1.72,
+  "lowest_slab_share_of_plan": 0.29
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.04,
+   "d": 1.44,
+   "h": 3.0
+  },
+  "centre": [
+   0.179,
+   0.193
+  ],
+  "contacts_radius_ft": 0.81,
+  "reach_radius_ft": 1.14,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.914,
+  "plate_lost_share": 0.031,
+  "added_share": 0.06,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.892,
+  "view_yaw_deg": 10,
+  "view_elev_deg": 16
+ },
+ "id": "cul-rus-small-rogue",
+ "sha1": "ccde4eb124222111262a0bcd52fd71e96f222c43",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 7.2
+}

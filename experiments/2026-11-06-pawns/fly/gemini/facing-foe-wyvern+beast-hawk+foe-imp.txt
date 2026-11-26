@@ -1,0 +1,58 @@
+The labels visible in the top-left corner of the panels across all three image sheets are: **A**, **B**, **C**, and **D**.
+
+---
+
+### Image 1 (`img1.png`)
+* **Panel A**: Front view showing the dragon's chest, spread wings, and face pointing directly toward the viewer.
+* **Panel B**: Right-side profile view with the dragon's head facing left.
+* **Panel C**: Rear view showing the dragon's back, wings, and tail pointing away from the viewer.
+* **Panel D**: Left-side profile view with the dragon's head facing right.
+
+**Panel showing the face pointing most directly toward the viewer**: **A**
+
+---
+
+### Image 2 (`img2.png`)
+* **Panel A**: Frontal head-on view of the bird in flight with wings outstretched and beak/face directed straight toward the viewer.
+* **Panel B**: Right-side profile view facing left.
+* **Panel C**: Dorsal/rear view showing the back of the head, wings, and tail feathers.
+* **Panel D**: Left-side profile view facing right.
+
+**Panel showing the face pointing most directly toward the viewer**: **A**
+
+---
+
+### Image 3 (`img3.png`)
+* **Panel A**: Frontal view of the winged imp figure with eyes, horns, chest, and face oriented directly forward toward the viewer.
+* **Panel B**: Right-side profile view facing left.
+* **Panel C**: Rear view showing the back of the imp's head, wings, and back.
+* **Panel D**: Left-side profile view facing right.
+
+**Panel showing the face pointing most directly toward the viewer**: **A**
+
+---
+
+```json
+{
+  "images": [
+    {
+      "image": "img1",
+      "front": "A",
+      "confidence": 1.0,
+      "panels": "A: front view with face directly toward viewer, B: right profile facing left, C: rear view from behind, D: left profile facing right"
+    },
+    {
+      "image": "img2",
+      "front": "A",
+      "confidence": 1.0,
+      "panels": "A: front view with face directly toward viewer, B: right profile facing left, C: rear view from behind, D: left profile facing right"
+    },
+    {
+      "image": "img3",
+      "front": "A",
+      "confidence": 1.0,
+      "panels": "A: front view with face directly toward viewer, B: right profile facing left, C: rear view from behind, D: left profile facing right"
+    }
+  ]
+}
+```

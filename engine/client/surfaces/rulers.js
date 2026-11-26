@@ -678,7 +678,7 @@ export function rulersSurface(R, app) {
       let r = rings.get(id);
       if (!r || r.layer !== w.layers.deco) {
         if (r) dropRing(id);
-        const [geo, backGeo] = ringFor(e.size > 1 ? e.size : 1), g = new THREE.Group();
+        const [geo, backGeo] = ringFor(app.figures?.sizeOf(e) || 1), g = new THREE.Group(); // (tiny 0.5 to 8: core/size.js)
         const back = flat(new THREE.Mesh(backGeo, new THREE.MeshBasicMaterial({ color: L.casing, transparent: true, opacity: L.casingOpacity, depthTest: false, depthWrite: false, side: THREE.DoubleSide, toneMapped: false })), 32);
         const ring = flat(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: L.caught, transparent: true, opacity: 1, depthTest: false, depthWrite: false, side: THREE.DoubleSide, toneMapped: false })), 33);
         g.add(back, ring); g.userData.ruler = true; w.layers.deco.add(g); r = { g, ring, back, layer: w.layers.deco }; rings.set(id, r);

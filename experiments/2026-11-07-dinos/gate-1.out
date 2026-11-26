@@ -1,0 +1,9 @@
+Loading weights:   0%|          | 0/754 [00:00<?, ?it/s]Loading weights:  70%|██████▉   | 525/754 [00:00<00:00, 5209.08it/s]Loading weights: 100%|██████████| 754/754 [00:00<00:00, 5613.45it/s]
+4 candidates to gate
+batch 1: 4/4 read in 85s
+  foe-velociraptor.s101: ok=True score=5 style=same species=Velociraptor | A lean bipedal raptor dinosaur with green and yellow-tan stripes stands upright with an elongated snout and raised three-clawed hands. | []
+  foe-velociraptor.s102: ok=False score=2 style=same species=Tyrannosaurus rex | A bulky tan-and-brown theropod with green dorsal stripes, a deep blunt snout, and tiny two-clawed arms stands with its tail curling forward between its legs. | ['Wrong animal: Tyrannosaurus rex instead of a lean raptor', 'Missing long arms with clawed hands (features tiny two-clawed arms)', 'Heavy stocky build rather than a lean raptor with an elongated snout']
+  foe-velociraptor.s103: ok=False score=1 style=same species=Tyrannosaurus rex | A green and tan Tyrannosaurus rex with tiny two-clawed forelimbs and a boxy head stands in a side pose, identical to STYLE_A. | ['Duplicate of existing figure STYLE_A already in the set', 'Wrong animal: Tyrannosaurus rex instead of a lean raptor', 'Lacks long snout and clawed hands']
+  foe-velociraptor.s104: ok=False score=2 style=same species=Tyrannosaurus rex | A stocky brown-and-tan bipedal dinosaur with green stripes, a heavy blunt skull, and tiny two-clawed arms stands with its tail trailing behind. | ['Wrong animal: generated a Tyrannosaurus rex instead of a lean raptor', 'Missing long arms with clawed hands (has vestigial two-clawed arms)', 'Snout is short and blunt rather than long and lean']
+foe-velociraptor ACCEPTED foe-velociraptor.s101 (score 5, Velociraptor)
+{'foe-velociraptor': 'accepted'}

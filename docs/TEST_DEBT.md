@@ -388,3 +388,30 @@ transmittance 0.772 versus 0.598 at different phases. It now alternates the
 capture order within the same twelve-second interval; its 0.12 tolerance is
 unchanged and ten full 12/12 runs pass. The final 152-suite inventory and raw
 logs are in `~/task-f-evidence/report-final/`.
+
+## Resting and reaching: what the room roll draws (2026-11-06)
+
+`tools/spawn-tuner/test/resting.test.mjs` judges every room type's roll (3 sizes x 4 seeds,
+1,764 rooms, about 32,000 placed meshes, 37 s) by the meshes the game draws, not the catalog
+boxes. REST: a standing mesh's drawn bottom (its y plus its scale times the shipped GLB's
+real lowest point) is on the floor, or no more than 0.12 ft above the top of what it stands
+on. REACH: its drawn footprint (the GLB's x/z bounds turned by its rot and the yaw it is
+drawn at, `data/orient.json` first, as `js/look.js` `meshYawDeg`) stays inside the room's
+inner wall faces within 2 in. Self-tests in the suite prove it bites: the Mine still's
+wheelbarrow lifted 0.4 ft, the same wheelbarrow pushed 0.4 ft into its wall, and a candle
+0.4 ft above its parent are each caught. It needs `tools/spawn-tuner/assets/m` (git-ignored;
+link it in a fresh worktree) and fails if most GLBs are missing.
+
+It was written for the two 2026-11-04 lines in KNOWN_BUGS.md (Mine wheelbarrow "floats",
+Monster lair skeleton "pokes through a wall"). Measured, neither reproduces: the rolled
+wheelbarrows stand on the floor (drawn bottom 0.00 ft, the GLB a tripod on its origin), and
+the lair's dragon skull ends 0.17 ft short of the wall face with no wall geometry inside its
+box. Close-up blind reads agree for the wheelbarrow; for the skull they still say the horn
+tips touch the rock. Evidence: `experiments/2026-11-06-room-dressing/LAB_NOTES.md`.
+
+Known debt, listed in the suite as `DEBT` (each may float up to its measured amount and no
+more). All three are data: `build_data.py` takes `bounds` from `prep/blender_runtime.py`
+rather than from the shipped GLB, and nothing grounds a mesh by its own lowest point.
+`table-feast--fine`: its catalog height is 0.250 but the GLB's is 0.234, so the plates,
+goblets, candelabra and epergne put on it sit 0.19 ft above its drawn top. `linen-chest` and
+`statue-rotating--s2` have GLB bottoms 0.13 and 0.16 ft above their origins.

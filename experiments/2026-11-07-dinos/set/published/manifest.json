@@ -1,0 +1,550 @@
+{
+ "updated": "2026-11-07T19:13:51-08:00",
+ "expected_total": 7,
+ "batch": 2,
+ "figures": [
+  {
+   "id": "foe-ankylosaurus",
+   "name": "Ankylosaurus",
+   "group": "large",
+   "race": null,
+   "gender": null,
+   "cls": "ankylosaurus",
+   "family": "figures",
+   "tags": [
+    "ankylosaurus",
+    "ankylosaur",
+    "armored dinosaur",
+    "armoured dinosaur",
+    "club tail",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "ankylosaurus"
+   ],
+   "height_ft": 6.5,
+   "overall_ft": 6.5,
+   "base_ft": 15,
+   "facing_deg": 0,
+   "scale": 13.9662,
+   "y0": -3.2402,
+   "centre": [
+    -0.004,
+    1.123
+   ],
+   "native_bounds": [
+    [
+     -0.2298,
+     -0.232,
+     -0.5007
+    ],
+    [
+     0.2294,
+     0.2341,
+     0.5008
+    ]
+   ],
+   "files": {
+    "full": "models/foe-ankylosaurus.glb",
+    "hero": "tiers/foe-ankylosaurus--20k1024.glb",
+    "horde": "tiers/foe-ankylosaurus--8k512.glb"
+   },
+   "tris": {
+    "full": 48070,
+    "hero": 20000,
+    "horde": 8000
+   },
+   "kb": {
+    "full": 2265,
+    "hero": 903,
+    "horde": 402
+   },
+   "recommended": "hero",
+   "sha1": "c571fa3078aacd40d6ac45c8abcf43e3ee9b94b8",
+   "thumb": "thumbs/foe-ankylosaurus.webp",
+   "batch": 1,
+   "published_at": "2026-11-07T18:51:23-08:00",
+   "qa": {
+    "verdict": "accept",
+    "unpainted_seen": 0.0002,
+    "floating": 6,
+    "contacts": 4,
+    "reach_ft": 8.04,
+    "feet_base_ft": 8.52,
+    "notes": [
+     "2 separate part(s) lying within 0.05 ft of the body (not joined to it)",
+     "one foot is 0.17 ft off the ground"
+    ]
+   },
+   "gemini": null
+  },
+  {
+   "id": "foe-brontosaurus",
+   "name": "Brontosaurus",
+   "group": "large",
+   "race": null,
+   "gender": null,
+   "cls": "brontosaurus",
+   "family": "figures",
+   "tags": [
+    "brontosaurus",
+    "apatosaurus",
+    "brachiosaurus",
+    "diplodocus",
+    "sauropod",
+    "long neck",
+    "longneck",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "brontosaurus",
+    "apatosaurus",
+    "brachiosaurus"
+   ],
+   "height_ft": 24.0,
+   "overall_ft": 24.0,
+   "base_ft": 20,
+   "facing_deg": 0,
+   "scale": 30.4752,
+   "y0": -11.9389,
+   "centre": [
+    -0.518,
+    -4.768
+   ],
+   "native_bounds": [
+    [
+     -0.2558,
+     -0.3918,
+     -0.5005
+    ],
+    [
+     0.2636,
+     0.3958,
+     0.5007
+    ]
+   ],
+   "files": {
+    "full": "models/foe-brontosaurus.glb",
+    "hero": "tiers/foe-brontosaurus--20k1024.glb",
+    "horde": "tiers/foe-brontosaurus--8k512.glb"
+   },
+   "tris": {
+    "full": 49830,
+    "hero": 19999,
+    "horde": 7999
+   },
+   "kb": {
+    "full": 2101,
+    "hero": 759,
+    "horde": 351
+   },
+   "recommended": "hero",
+   "sha1": "3ccb5f1d6bdacc93140fb5c9159978b9b9c895cb",
+   "thumb": "thumbs/foe-brontosaurus.webp",
+   "batch": 1,
+   "published_at": "2026-11-07T18:51:23-08:00",
+   "qa": {
+    "verdict": "accept",
+    "unpainted_seen": 0.0,
+    "floating": 1,
+    "contacts": 5,
+    "reach_ft": 19.73,
+    "feet_base_ft": 19.98,
+    "notes": [
+     "1 separate part(s) lying within 0.04 ft of the body (not joined to it)",
+     "one foot is 1.09 ft off the ground",
+     "REACH: 9.7 ft outside its 20-ft square"
+    ]
+   },
+   "gemini": null
+  },
+  {
+   "id": "foe-pterodactyl",
+   "name": "Pterodactyl",
+   "group": "large",
+   "race": null,
+   "gender": null,
+   "cls": "pterodactyl",
+   "family": "figures",
+   "tags": [
+    "pterodactyl",
+    "pteranodon",
+    "pterosaur",
+    "flying reptile",
+    "flier",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "pteranodon"
+   ],
+   "height_ft": 9.2,
+   "overall_ft": 9.2,
+   "base_ft": 10,
+   "facing_deg": 0.0,
+   "scale": 11.5591,
+   "y0": -0.3981,
+   "centre": [
+    -0.097,
+    -0.73
+   ],
+   "native_bounds": [
+    [
+     -0.5007,
+     -0.3981,
+     -0.2565
+    ],
+    [
+     0.5008,
+     0.3975,
+     0.2576
+    ]
+   ],
+   "files": {
+    "full": "fly/models/foe-pterodactyl-fly.glb",
+    "hero": "fly/tiers/foe-pterodactyl-fly--20k1024.glb",
+    "horde": "fly/tiers/foe-pterodactyl-fly--8k512.glb"
+   },
+   "tris": {
+    "full": 49604,
+    "hero": 20000,
+    "horde": 7999
+   },
+   "kb": {
+    "full": 2370,
+    "hero": 938,
+    "horde": 420
+   },
+   "recommended": "hero",
+   "sha1": "5866ba96432aa07e1613bdfc2b815014144c8c87",
+   "thumb": "fly/thumbs/foe-pterodactyl-fly.webp",
+   "batch": 1,
+   "published_at": "2026-11-07T18:51:23-08:00",
+   "qa": {
+    "verdict": "accept",
+    "unpainted_seen": null,
+    "floating": 20,
+    "contacts": null,
+    "reach_ft": 6.03,
+    "feet_base_ft": null,
+    "notes": [
+     "stands in its FLYING pose (Harry 2026-11-07: the standing mesh was thrown away)",
+     "reaches 1.0 ft outside its square"
+    ]
+   },
+   "gemini": null,
+   "stands_as": "fly",
+   "plate": "foe-pterodactyl-fly"
+  },
+  {
+   "id": "foe-quetzalcoatlus",
+   "name": "Quetzalcoatlus",
+   "group": "large",
+   "race": null,
+   "gender": null,
+   "cls": "quetzalcoatlus",
+   "family": "figures",
+   "tags": [
+    "quetzalcoatlus",
+    "azhdarchid",
+    "pterosaur",
+    "giant pterosaur",
+    "flying reptile",
+    "flier",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "quetzalcoatlus"
+   ],
+   "height_ft": 16.0,
+   "overall_ft": 16.0,
+   "base_ft": 15,
+   "facing_deg": 0,
+   "scale": 16.5551,
+   "y0": -8.0035,
+   "centre": [
+    0.001,
+    -1.021
+   ],
+   "native_bounds": [
+    [
+     -0.2358,
+     -0.4835,
+     -0.5006
+    ],
+    [
+     0.2356,
+     0.483,
+     0.5008
+    ]
+   ],
+   "files": {
+    "full": "models/foe-quetzalcoatlus.glb",
+    "hero": "tiers/foe-quetzalcoatlus--20k1024.glb",
+    "horde": "tiers/foe-quetzalcoatlus--8k512.glb"
+   },
+   "tris": {
+    "full": 46454,
+    "hero": 20000,
+    "horde": 8000
+   },
+   "kb": {
+    "full": 2194,
+    "hero": 886,
+    "horde": 396
+   },
+   "recommended": "hero",
+   "sha1": "5c6c3ae9c190454c71a5c9460611838058eee566",
+   "thumb": "thumbs/foe-quetzalcoatlus.webp",
+   "batch": 2,
+   "published_at": "2026-11-07T19:13:48-08:00",
+   "qa": {
+    "verdict": "accept",
+    "unpainted_seen": 0.0,
+    "floating": 0,
+    "contacts": 5,
+    "reach_ft": 8.8,
+    "feet_base_ft": 11.44,
+    "notes": [
+     "one foot is 1.32 ft off the ground",
+     "reaches 1.3 ft outside its square"
+    ]
+   },
+   "gemini": null
+  },
+  {
+   "id": "foe-spinosaurus",
+   "name": "Spinosaurus",
+   "group": "large",
+   "race": null,
+   "gender": null,
+   "cls": "spinosaurus",
+   "family": "figures",
+   "tags": [
+    "spinosaurus",
+    "spinosaur",
+    "sail-back dinosaur",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "spinosaurus"
+   ],
+   "height_ft": 15.0,
+   "overall_ft": 15.0,
+   "base_ft": 15,
+   "facing_deg": 0,
+   "scale": 18.7141,
+   "y0": -7.5015,
+   "centre": [
+    -0.001,
+    -2.152
+   ],
+   "native_bounds": [
+    [
+     -0.2752,
+     -0.4014,
+     -0.5006
+    ],
+    [
+     0.2755,
+     0.4008,
+     0.4993
+    ]
+   ],
+   "files": {
+    "full": "models/foe-spinosaurus.glb",
+    "hero": "tiers/foe-spinosaurus--20k1024.glb",
+    "horde": "tiers/foe-spinosaurus--8k512.glb"
+   },
+   "tris": {
+    "full": 48073,
+    "hero": 19999,
+    "horde": 8000
+   },
+   "kb": {
+    "full": 2436,
+    "hero": 944,
+    "horde": 414
+   },
+   "recommended": "hero",
+   "sha1": "9768a441685a9cb9c1fc9a8125eb7a153a0b011f",
+   "thumb": "thumbs/foe-spinosaurus.webp",
+   "batch": 2,
+   "published_at": "2026-11-07T19:13:48-08:00",
+   "qa": {
+    "verdict": "accept",
+    "unpainted_seen": 0.0,
+    "floating": 4,
+    "contacts": 3,
+    "reach_ft": 11.26,
+    "feet_base_ft": 14.64,
+    "notes": [
+     "1 separate part(s) lying within 0.03 ft of the body (not joined to it)",
+     "one foot is 0.16 ft off the ground",
+     "REACH: 3.8 ft outside its 15-ft square"
+    ]
+   },
+   "gemini": null
+  },
+  {
+   "id": "foe-stegosaurus",
+   "name": "Stegosaurus",
+   "group": "large",
+   "race": null,
+   "gender": null,
+   "cls": "stegosaurus",
+   "family": "figures",
+   "tags": [
+    "stegosaurus",
+    "stegosaur",
+    "plated dinosaur",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "stegosaurus"
+   ],
+   "height_ft": 12.0,
+   "overall_ft": 12.0,
+   "base_ft": 15,
+   "facing_deg": 0,
+   "scale": 20.4725,
+   "y0": -5.9933,
+   "centre": [
+    0.01,
+    -1.021
+   ],
+   "native_bounds": [
+    [
+     -0.2191,
+     -0.2927,
+     -0.5006
+    ],
+    [
+     0.2195,
+     0.2936,
+     0.5007
+    ]
+   ],
+   "files": {
+    "full": "models/foe-stegosaurus.glb",
+    "hero": "tiers/foe-stegosaurus--20k1024.glb",
+    "horde": "tiers/foe-stegosaurus--8k512.glb"
+   },
+   "tris": {
+    "full": 49400,
+    "hero": 20000,
+    "horde": 8000
+   },
+   "kb": {
+    "full": 2279,
+    "hero": 884,
+    "horde": 404
+   },
+   "recommended": "hero",
+   "sha1": "2877b19d85700b899bcec0eb02b8f8c9e48bbc3c",
+   "thumb": "thumbs/foe-stegosaurus.webp",
+   "batch": 1,
+   "published_at": "2026-11-07T18:51:23-08:00",
+   "qa": {
+    "verdict": "accept",
+    "unpainted_seen": 0.0,
+    "floating": 0,
+    "contacts": 5,
+    "reach_ft": 11.1,
+    "feet_base_ft": 16.4,
+    "notes": [
+     "one foot is 0.97 ft off the ground",
+     "REACH: 3.6 ft outside its 15-ft square",
+     "its feet need a base 16.4 ft across"
+    ]
+   },
+   "gemini": null
+  },
+  {
+   "id": "foe-velociraptor",
+   "name": "Velociraptor",
+   "group": "foe",
+   "race": null,
+   "gender": null,
+   "cls": "velociraptor",
+   "family": "figures",
+   "tags": [
+    "velociraptor",
+    "raptor",
+    "deinonychus",
+    "utahraptor",
+    "pack hunter",
+    "dinosaur",
+    "dino",
+    "monster"
+   ],
+   "srd": [
+    "velociraptor",
+    "deinonychus"
+   ],
+   "height_ft": 5.0,
+   "overall_ft": 5.0,
+   "base_ft": 5,
+   "facing_deg": 0,
+   "scale": 4.997,
+   "y0": -2.5014,
+   "centre": [
+    0.109,
+    -0.296
+   ],
+   "native_bounds": [
+    [
+     -0.3225,
+     -0.5007,
+     -0.3666
+    ],
+    [
+     0.3214,
+     0.5001,
+     0.3674
+    ]
+   ],
+   "files": {
+    "full": "models/foe-velociraptor.glb",
+    "hero": "tiers/foe-velociraptor--20k1024.glb",
+    "horde": "tiers/foe-velociraptor--8k512.glb"
+   },
+   "tris": {
+    "full": 48060,
+    "hero": 19999,
+    "horde": 8000
+   },
+   "kb": {
+    "full": 2647,
+    "hero": 1011,
+    "horde": 443
+   },
+   "recommended": "horde",
+   "sha1": "97a6ed1f571494337975b694163c635cb68745f1",
+   "thumb": "thumbs/foe-velociraptor.webp",
+   "batch": 2,
+   "published_at": "2026-11-07T19:13:48-08:00",
+   "qa": {
+    "verdict": "accept",
+    "unpainted_seen": 0.0,
+    "floating": 0,
+    "contacts": 2,
+    "reach_ft": 2.11,
+    "feet_base_ft": 3.82,
+    "notes": []
+   },
+   "gemini": null
+  }
+ ]
+}

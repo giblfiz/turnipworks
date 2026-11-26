@@ -54,7 +54,7 @@ said = lambda pg, n: pg.evaluate(f"(tw.view()?.chat || []).filter(c => (c.text |
 async def boot(browser, name, errors, **kw):
     ctx = await browser.new_context(reduced_motion='reduce', permissions=['clipboard-read', 'clipboard-write'], **kw)
     pg = await ctx.new_page(); pg.on('pageerror', lambda e: errors.append(f'{name}: {e}'))
-    await pg.goto(PAGE)
+    await pg.goto(PAGE + ('&phone=0' if kw.get('is_mobile') else ''))  # (a phone at the bare front door gets the front door page: browser_phone.py)
     await pg.fill('#newCampaign input[name=name]', f"TEST long bar {name} {time.strftime('%H:%M:%S')} (throwaway)"); await pg.fill('#newCampaign input[name=gm]', 'Fauna-test'); await pg.click('#newCampaign button')
     check(await wait(pg, 'window.tw && tw.ready && tw.ready()', 60000), f'{name}: live')
     await pg.evaluate("document.querySelector('.lmcard .lm-x')?.click()"); await pg.wait_for_timeout(400)

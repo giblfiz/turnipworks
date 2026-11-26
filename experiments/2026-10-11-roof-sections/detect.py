@@ -4,7 +4,8 @@ import numpy as np
 from PIL import Image
 from scipy import ndimage, signal
 
-COURSES = {'thatch': 3, 'tile': 6, 'slate': 8, 'shingle': 6, 'marble': 4}
+COURSES = {'thatch': 3, 'tile': 6, 'slate': 8, 'shingle': 6, 'marble': 4,
+           'kawara': 6, 'tongwa': 6, 'glazed': 6, 'sod': 4, 'tes': 2}  # (the culture roofs, 2026-11-07)
 
 def load(path, n=1024):
     return np.asarray(Image.open(path).convert('RGB').resize((n, n), Image.LANCZOS)).astype(float) / 255

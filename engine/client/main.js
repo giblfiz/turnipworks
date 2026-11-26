@@ -17,7 +17,8 @@ import { autoTransport } from '../core/transport.js';
 import { withNetSim } from '../core/netsim.js';
 import { PresenceSender, PresenceView } from '../core/presence.js';
 import { makeRoomGen, SOLVER_OPTS } from '../core/roomgen.js';
-import { REGISTRY, turnPlan, canTilt, applyArea, roomPlayerPawns, HIDE_ROOM_HIDES_PLAYER_PAWNS, restingOn, goesWith } from '../core/commands.js';
+import { REGISTRY, turnPlan, canTilt, applyArea, roomPlayerPawns, HIDE_ROOM_HIDES_PLAYER_PAWNS, restingOn, goesWith, ridersOf, canCarry, carrierOfPawn } from '../core/commands.js';
+import { over as overThing } from '../core/riders.js';
 import { quatOfEntity, rollQuat, foldTurn, Q_ID } from '../core/orient.js';
 import { ROLL_AXIS } from './commands.js';
 import { newArea } from '../core/state.js';
@@ -34,11 +35,13 @@ import * as TILES from './tiles.js';
 import { createThumbs } from './thumbs.js';
 import { createUvtt } from './uvtt.js';
 import { createShare } from './share.js';
+import { createUploads } from './uploads.js';
 const { isFloorCat, tileSize, tilesAt, TILE } = TILES;
 import { T, loadTuner } from './tuner.js';
 import { AreaWorld, PAWN_BEAM } from './world.js';
 import { bandKeyAt } from './bands.js';
 import { createInteraction } from './interact.js';
+import { lever } from './levers.js';
 import { View, swapPoses } from './views.js';
 import { createAssets } from './assets.js';
 import { createPreviews } from './previews.js';
@@ -46,9 +49,10 @@ import { createRegistry } from './registry.js';
 import { defineCommands } from './commands.js';
 import { installInput } from './input.js';
 import { installHandheld } from './handheld.js';
+import { installEscapable } from './escapable.js';
 import { installEdgePan } from './edgepan.js';
 import { createModes } from './modes.js';
-import { copyText, parseClip, clipFrom } from './clipboard.js';
+import { copyText, parseClip, clipFrom, clipOrigin, pasteY, pasteStep } from './clipboard.js';
 import { parseDice, rollDice } from './dice.js';
 import { barSurface } from './surfaces/bar.js';
 import { ringSurface } from './surfaces/ring.js';
@@ -89,18 +93,20 @@ import { rulersSurface } from './surfaces/rulers.js';
 import { moveRingsSurface } from './surfaces/moverings.js';
 import { fpvSurface } from './surfaces/fpv.js';
 import { installStairs } from './stairs.js';
+import { installElevator } from './elevator.js'; // (2026-11-07, modrooms) the elevator car's shaft and its moves
 import * as ST from '../core/stairs.js';
 import { buildTaxonomy } from './taxonomy.js';
 import { packRooms } from './pack.js';
 import { planOps, genOf, roomsOfBuilding } from '../core/buildplan.js';
 import { createLibrary } from './library.js';
-import { planFactionChange } from '../core/factions.js';
+import { planFactionChange, riteChangedRooms, withFaction } from '../core/factions.js';
 import { setupFactionUI } from './surfaces/factions.js';
 import { createIntro } from './intro.js';
 import { installFog } from './fog.js';
 import { installMusic } from './music.js';
 import { showNotice, noticeLive, currentNotice } from './notice.js';
 import { showKicked, hideKicked, kickedShown } from './kicked.js';
+import { genreIndex, areaMass, tableProfile } from './genrebias.js';
 
 const qs = new URLSearchParams(location.search);
 const deepLink = readDeepLink(location.search); // (read before anything cleans the address)
@@ -193,7 +199,7 @@ async function boot(token) {
   const roomgen = makeRoomGen({ solver: T.solver, solver2: T.solver2, walls: T.walls, lib, types: T.types, orient: T.orient, version: T.version, newId });
   const sizeOf0 = roomgen.sizeOf; roomgen.sizeOf = (cat, sku) => isFloorCat(cat) ? tileSize(lib, cat, sku) : sizeOf0(cat, sku); // floors place as 5-ft tiles (client/tiles.js)
   // ?faces=1500 (tests and slow machines only): a lighter LOD tier than the tuner's default 10k
-  const facesWanted = qs.get('faces') || prefFaces(); // ?faces= wins; else Settings ▸ Me ▸ Graphics (applies at load)
+  const facesWanted = qs.get('faces') || prefFaces(); // ?faces= wins; else Settings ▸ Graphics (applies at load)
   const assets = createAssets({ base: tunerBase, dials: facesWanted && facesWanted !== T.look.LOOK_DIALS.faces ? { ...T.look.LOOK_DIALS, faces: facesWanted } : null });
   if (qs.has('boxes')) assets.visualFor = async () => null; // tests: catalog boxes only
   // FIGURES (client/figures.js): the list is data; a mesh loads only when a pawn on the table wears it
@@ -287,6 +293,15 @@ async function boot(token) {
   app.derived = (name, fn, ents = app.entities()) => { let m = derivedOf.get(ents); if (!m) derivedOf.set(ents, m = new Map()); let v = m.get(name); if (v === undefined) m.set(name, v = fn(ents)); return v; };
   app.roomList = (ents = app.entities()) => app.derived('rooms', (E) => Object.values(E).filter(e => e.kind === 'room'), ents);
   app.pawnList = (ents = app.entities()) => app.derived('pawns', (E) => Object.values(E).filter(e => e.kind === 'token'), ents);
+  // THE TABLE'S GENRE (2026-11-08, client/genrebias.js; docs/UI.md "The bar leans to the table's genre"): each catalog thing,
+  // figure and room type's genre, once; and the mix the area in view is made of (the campaign's other areas the client
+  // holds, lighter), kept against each area's entities object like the lists above, so the bar asks it on every keystroke
+  // for nothing. A seat counts only what it may see (a player: never a hidden or fogged thing).
+  app.genres = genreIndex({ types: typesData, lib, figures: assets.figures?.list || [], shared: T.solver2?.modShared || (() => false),
+    rooms: [...taxonomy.nodes.values()].filter(n => n.level === 'room').map(n => [n.roomKey, String(n.parent || '').replace(/^t:/, '')]) });
+  const seenForGenre = (e) => app.gm() || !(e.hidden || app.fog?.hidden?.(e));
+  const massOf = (ents) => app.derived(app.gm() ? 'genreMass' : 'genreMassSeen', (E) => areaMass(E, app.genres, seenForGenre), ents);
+  app.genreProfile = () => { const here = app.main?.area, others = []; for (const [id, A] of sync.areas) if (id !== here && A.view?.entities) others.push(massOf(A.view.entities)); return tableProfile(massOf(app.entities()), others); };
   app.roomsByBuilding = (ents = app.entities()) => app.derived('byBuilding', (E) => { const m = new Map(); for (const r of app.roomList(E)) if (r.building) { const a = m.get(r.building); if (a) a.push(r); else m.set(r.building, [r]); } return m; }, ents);
   const labelPts = new WeakMap(); // a room's label point (the middle of the largest rectangle inside it), per recipe object
   app.labelPointOf = (rc) => { let p = labelPts.get(rc); if (!p) labelPts.set(rc, p = FP.labelPoint(rc)); return p; };
@@ -306,6 +321,7 @@ async function boot(token) {
     if (!app.worlds.has(area)) {
       const w = new AreaWorld(area, { roomgen, assets, renderer, camera: app.main.camera, focus: () => app.main?.grab.focus, fx: !qs.has('nofx') });
       w.setPerf(app.perf.get()); w.busy = () => !!app.interact?.busy();
+      w.underMoveSkip = () => w.areaId === app.area() && !!app.interact?.lean?.() && lever(app, 'underMove'); // (the underground is left out while the hand moves: world.js underPrepass, levers.js)
       // conditions on the table (client/statusfx.js): whose invisible pawn this seat sees as glass; when the orbiters park
       w.statusViewer = () => app.me(); w.statusStill = statusStill;
       // and where the open ring covers the main view (nothing of a condition is drawn under a ring button; not the PiP's)
@@ -316,7 +332,7 @@ async function boot(token) {
     return app.worlds.get(area);
   }
   app.worldOf = worldOf;
-  // THE ORBITERS PARK (Harry's design of 2026-10-15): "reduce motion" (the system's or Settings ▸ Me) and the Low graphics preset
+  // THE ORBITERS PARK (Harry's design of 2026-10-15): "reduce motion" (the system's or Settings ▸ Controls) and the Low graphics preset
   function statusStill() { const p = app.prefs || {}; return matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('reduce-motion') || p.gfx === 'low' || (p.gfx === 'auto' && p.gfxAuto === 'low'); }
   // HOVER NAMES: the pointer over a SELECTED pawn's conditions names them (the orbiter under it, else the whole list)
   { const tip = document.createElement('div'); tip.id = 'statustip'; tip.hidden = true; tip.setAttribute('role', 'tooltip'); document.body.append(tip);
@@ -340,7 +356,7 @@ async function boot(token) {
     app.auraScreen = (id) => rawWorldOf(app.area()).auraFx?.screenOf(id, app.main.camera, canvas.getBoundingClientRect()) || null; // (tests) its column's box on screen
     app.statusScreen = (id) => rawWorldOf(app.area()).statusFx?.screenOf(id, app.main.camera, canvas.getBoundingClientRect()) || null; // (tests)
   }
-  // Settings ▸ Me ▸ Graphics: a new geometry tier applies at once, every world's visuals swapped in place (no reload)
+  // Settings ▸ Graphics: a new geometry tier applies at once, every world's visuals swapped in place (no reload)
   app.setFaces = (faces) => { faces = String(faces); if (!faces || faces === String(app.facesUsed)) return false; assets.setFaces(faces); app.facesUsed = faces; for (const w of app.worlds.values()) w.refreshVisuals?.(); app.refresh(); return true; };
   app.THREE = THREE; // (tests)
   app.tiles = TILES; // floor tiles (client/tiles.js), for the paint tool and tests
@@ -435,10 +451,20 @@ async function boot(token) {
       if (prev && prev !== app.pip?.area) sync.unsubscribe(prev);
       sync.subscribe(area);
       if (prev && !sync.view(area)) { loadUp = true; LOAD.wait('travel', `Travelling to ${app.areaName?.(area) || 'the area'}`, { delay: TRAVEL_GRACE_MS }); } // an area not loaded yet: the loading screen, if it takes more than a moment. (loadUp is set HERE, not by a frame noticing the empty view: the state can arrive before any frame is drawn, and the screen would then come up after the area's first frame and never leave)
-      if (sync.campaign && sync.campaign.my.location !== area) sync.submit('seat.locate', { area });
+      app.locate(area);
       app.sel.clear(); app.mode = null;
     }
     app.refresh();
+  };
+  // WHERE MY SEAT IS, on the relay (2026-11-06; docs/NETCODE.md "Where a seat is"): tell it when I go somewhere else.
+  // The campaign's location is the CONFIRMED one, so it lags a trip still in flight: A -> B -> A inside one round trip
+  // used to skip the trip home (A is where the relay still had me) and the relay then stored B, so a reload landed on
+  // B (found 2026-11-01). The last area I asked for counts too: a trip that differs from it is always sent.
+  let locAsked = null;
+  app.locate = (area) => {
+    if (!sync.campaign) return;
+    if (sync.campaign.my.location === area && (locAsked == null || locAsked === area)) return;
+    locAsked = area; sync.submit('seat.locate', { area });
   };
   // NO PICTURE-IN-PICTURE ON A PHONE (Harry 2026-10-24: "we can't really afford the real estate for picture in picture.
   // Let's just turn it off"; docs/UI.md "On a phone"): openPip and openLocalPip open nothing there, whoever asks (the
@@ -662,8 +688,8 @@ async function boot(token) {
   app.parentOf = (e) => {
     if (!e) return null;
     const E = app.entities();
-    if (e.kind === 'object') return E[e.parent] || E[e.room] || roomAt(e.x, e.z);
-    if (e.kind === 'token') return roomAt(e.x, e.z);
+    if (e.kind === 'object') return E[e.parent] || E[e.room] || roomAt(e.x, e.z, e.y || 0);
+    if (e.kind === 'token') return roomAt(e.x, e.z, e.y || 0); // (at its height: a pawn in a cellar is in the cellar, not the room over it)
     if (e.kind === 'wall') return E[e.room] || null;
     if (e.kind === 'room') return E[e.building] || null;
     return null;
@@ -677,6 +703,36 @@ async function boot(token) {
     return [];
   };
   app.descendants = (e) => { const out = []; const walk = (x) => { for (const c of app.childrenOf(x)) { out.push(c); walk(c); } }; walk(e); return out; };
+  // RIDERS (Harry 2026-11-07, core/riders.js: "If I stand a pawn on a table, and then I move the table, it should move the
+  // pawn with it"). The thing a PAWN stands on is what its base is drawn on: the same downward look (world.surfaceBelow)
+  // that put its base there (world.pawnBaseAt) and that lands a released thing. Its feet at a thing's top (within
+  // RIDE_TOP ft) = on it; nothing drawn under it at all (a mesh not loaded, asleep far away) = the data's answer
+  // (core carrierOfPawn: the thing's box). -> the thing's id, or null (on a floor, or up in the air).
+  const RIDE_TOP = 0.35;
+  app.pawnCarrier = (p) => {
+    if (p?.kind !== 'token') return null;
+    const E = app.entities(), y = p.y || 0, fy = HT.floorUnder(E, p.x, p.z, y)?.y ?? Math.min(0, y);
+    if (y - fy < 0.2) return null; // (on its floor)
+    let s = null; try { s = app.worldOf(app.area())?.surfaceBelow(p.x, y, p.z, new Set([p.id]), fy); } catch { s = null; }
+    if (s) return Math.abs(s.y - y) <= RIDE_TOP && canCarry(E[s.parent]) ? s.parent : null;
+    return carrierOfPawn(E, p)?.id || null;
+  };
+  // WHAT RIDES these things, decided NOW (a snapshot, at the start of a move: a table dragged under a pawn does not scoop
+  // it up): Map(carrier id -> [rider ids]), the riders of riders included (a mug on a tray on a table). Only things carry;
+  // a carrier that is itself riding another of them is left out (it goes with that one). A pawn far from every carrier
+  // is not even looked at.
+  app.ridersSnapshot = (things) => {
+    const E = app.entities(), out = new Map(), cs = things.filter(e => e?.kind === 'object' && E[e.id]);
+    if (!cs.length) return out;
+    const near = cs.flatMap(c => [c, ...goesWith(E, c.id).gone.map(id => E[id])]).filter(canCarry), memo = new Map();
+    const pawnOn = (p) => { if (!memo.has(p.id)) memo.set(p.id, near.some(c => overThing(c, p.x, p.z, 1)) ? app.pawnCarrier(p) : null); return memo.get(p.id); };
+    const all = new Map(cs.map(c => [c.id, ridersOf(E, c.id, { pawnOn })]));
+    const riding = new Set([...all.values()].flat());
+    for (const [id, r] of all) if (!riding.has(id) && r.length) out.set(id, r);
+    return out;
+  };
+  // where an op list puts each thing (an object.move's riders too): for the previews of a drag, a turn or a lift
+  app.posesOf = (ops) => { const out = new Map(); let v = app.view(); for (const o of ops) { try { v = applyArea(v, o.type, o.args); } catch { continue; } for (const id of [o.args.id, ...(o.args.carry || [])]) { const e = v.entities[id]; if (e) out.set(id, { x: e.x, z: e.z, y: e.y || 0, rot: e.rot || 0 }); } } return out; };
   app.crumbs = (e) => { const out = []; let x = e; for (let i = 0; x && i < 8; i++) { out.unshift(x); x = app.parentOf(x); } return out; };
   // THE SELECTION FOLDS UP (Harry 2026-11-02, from Nick's note: "a desk should get grabbed rather than individual objects
   // on the desk"): of these ids, drop any thing whose carrier is also among them. "Sits on" is exactly what `descendants`
@@ -739,8 +795,8 @@ async function boot(token) {
     if (opened.length && opened.length === ops.length) app.toast(opened.length > 1 ? `${opened.length} roofs removed: open to the sky (undo puts them back)` : 'Roof removed: open to the sky. Undo, or "roof back" in the command bar, puts it back');
   };
   app.selectAll = () => {
-    const r = app.selected()[0]?.kind === 'room' ? app.selected()[0] : (app.cursor && roomAt(app.cursor[0], app.cursor[1]));
-    const ids = Object.values(app.entities()).filter(e => (e.kind === 'object' || e.kind === 'token') && (!r || (e.kind === 'object' ? e.room === r.id : roomAt(e.x, e.z)?.id === r.id))).map(e => e.id);
+    const r = app.selected()[0]?.kind === 'room' ? app.selected()[0] : (app.cursor && roomAt(app.cursor[0], app.cursor[1], app.cursor.y || 0));
+    const ids = Object.values(app.entities()).filter(e => (e.kind === 'object' || e.kind === 'token') && (!r || (e.kind === 'object' ? e.room === r.id : roomAt(e.x, e.z, e.y || 0)?.id === r.id))).map(e => e.id);
     app.select(ids);
   };
   // move a set of things by (dx, dz) feet as ONE step; contents ride along (moving a parent moves its contents)
@@ -758,8 +814,8 @@ async function boot(token) {
   // where a STANDING pawn walks to on its level (core/height.js pawnStepTo): the height of its figure at (nx, nz)
   // over SOLID ROCK below the ground at (nx, nz) on its level (core/height.js pawnStepTo `rock`; Harry 2026-11-03: "dragging thru
   // rock should push back onto legal space on the same level"): a standing pawn does not go there
-  const rockAt = (E, e, nx, nz) => { const fig = e.y || 0, op = openOf(), fb = HT.baseUnder(E, e.x, e.z, fig, op); return !!HT.pawnStepTo(E, nx, nz, fb.y, op, fb).rock; };
-  const standY = (E, e, nx, nz) => { const fig = e.y || 0, op = openOf(), fb = HT.baseUnder(E, e.x, e.z, fig, op), st = HT.pawnStepTo(E, nx, nz, fb.y, op, fb); return !st.below || st.walk ? st.y + Math.max(0, fig - fb.y) : fig; };
+  const rockAt = (E, e, nx, nz) => { const fig = e.y || 0, op = openOf(), fb = { ...HT.baseUnder(E, e.x, e.z, fig, op), x: e.x, z: e.z }; return !!HT.pawnStepTo(E, nx, nz, fb.y, op, fb).rock; };
+  const standY = (E, e, nx, nz) => { const fig = e.y || 0, op = openOf(), fb = { ...HT.baseUnder(E, e.x, e.z, fig, op), x: e.x, z: e.z }, st = HT.pawnStepTo(E, nx, nz, fb.y, op, fb); return !st.below || st.walk ? st.y + Math.max(0, fig - fb.y) : st.side ? st.y : fig; }; // (side: off a stair's side, it just drops to the floor: Harry 2026-11-25)
   // ONE STRETCH OF A WALK (first person, client/surfaces/fpv.js): pawn e (where the walker is: its x, z, y) going on to
   // (nx, nz) by moveBy's own rule, below. -> { y, over, pit }: the figure's height there; over = it stood and is now out
   // over open air (moveBy offers the fall); pit = it is now on a pit it was not on (the fall into it is offered)
@@ -774,7 +830,9 @@ async function boot(token) {
   // (core/height.js pawnStepTo, 2026-10-26: universal levels): up and down a stair's treads, onto a hill from its foot,
   // off its edge onto the ground below; where its level has no floor it stays at its height and is offered the fall.
   // (walk: a first-person walk's id, client/surfaces/fpv.js: its moves join one undo step on the relay, relay/campaign.js)
-  app.moveBy = (things, dx, dz, { rot = null, dy = 0, ys = null, walk = null, at = null } = {}) => {
+  // riders: what rides each thing (app.ridersSnapshot, taken when the move started; a drag passes the one it took at the
+  // grab). Each thing's riders go IN its object.move (core `carry`): one entry, one undo, on the thing's permission.
+  app.moveBy = (things, dx, dz, { rot = null, dy = 0, ys = null, walk = null, at = null, riders = null, hop = false } = {}) => {
     const ops = [], seen = new Set();
     const cdx = Math.round(dx / CELL), cdz = Math.round(dz / CELL);
     const rooms = roomsIn(things);
@@ -785,8 +843,9 @@ async function boot(token) {
       for (const r of [...rooms].sort((a, b) => ((b.recipe.x + b.recipe.w / 2) * cdx + (b.recipe.z + b.recipe.d / 2) * cdz) - ((a.recipe.x + a.recipe.w / 2) * cdx + (a.recipe.z + a.recipe.d / 2) * cdz))) ops.push({ type: 'room.move', args: { id: r.id, dx: cdx, dz: cdz } });
     }
     for (const r of rooms) seen.add(r.id);
-    const moving = [], over = [], rocked = []; // over: pawns that stood where they were and are now over open air (the fall offer); rocked: kept off solid rock
-    for (const e of things) if ((e.kind === 'object' || e.kind === 'token') && !seen.has(e.room)) { moving.push(e); for (const d of app.descendants(e)) moving.push(d); }
+    const moving = [], over = [], rocked = [], cramped = []; // cramped: a big base kept out of a place too narrow for it (core/size.js); over: pawns that stood where they were and are now over open air (the fall offer); rocked: kept off solid rock
+    const R = riders || app.ridersSnapshot(things.filter(e => e.kind === 'object' && !seen.has(e.room))), carried = new Set([...R.values()].flat());
+    for (const e of things) if ((e.kind === 'object' || e.kind === 'token') && !seen.has(e.room) && !carried.has(e.id)) moving.push(e); // (a thing riding another that moves goes in that one's move)
     for (const e of new Set(moving)) {
       if (seen.has(e.id)) continue; seen.add(e.id);
       if (e.kind === 'token') {
@@ -795,12 +854,16 @@ async function boot(token) {
         let ny = (e.y || 0) + dy;
         if (ys?.has(e.id)) ny = ys.get(e.id);
         else if (!dy && !rooms.length && app.pawnStands(e)) { if (rockAt(E, e, nx, nz)) { rocked.push(e); continue; } ny = standY(E, e, nx, nz); } // (the arrow keys, the bar: never into rock)
+        if (!A && !ys?.has(e.id) && !rooms.length && app.pawnFits && app.pawnStands(e)) { const sz = app.figures?.sizeOf(e) || 1; if (sz > 1 && !app.pawnFits(nx, nz, sz, ny) && app.pawnFits(e.x, e.z, sz, e.y || 0)) { cramped.push(e); continue; } } // (the arrow keys, the bar: a big base never into a gap narrower than itself; one already squeezed may move)
         if (A && Math.abs(nx - e.x) < 1e-6 && Math.abs(nz - e.z) < 1e-6 && Math.abs(ny - (e.y || 0)) < 1e-6) continue; // (held on the spot it started from: nothing to send)
-        // A PAWN THAT LANDS ON A LADDER OR A SPIRAL GOES TO ITS OTHER END (core/stairs.js stairHop: dropped on it from the floor
-        // it stands on, it arrives on the landing upstairs; dropped on the hole from above, at its foot). A flight is walked.
-        const fl = HT.floorUnder(E, nx, nz, ny)?.y ?? Math.min(0, ny);
-        const hop = things.length === 1 && Math.abs(ny - fl) < 1 ? app.stairHop(nx, nz, fl) : null;
-        if (hop) { ops.push({ type: 'token.move', args: { id: e.id, x: r2(hop.x), z: r2(hop.z), y: r2(hop.y), ...(rot != null && { rot }), ...(walk && { walk }) } }); app.lastHop = { token: e.id, ...hop }; continue; }
+        // A LADDER OR A SPIRAL (2026-11-25; Harry: "I can't place him on top of the ladder down inside the basilisk pit. Anytime
+        // I try and place him there, it uses the mechanism that shifts people"). Dropped on one from the floor at its FOOT, the
+        // pawn climbs it to its top landing, as before (browser_pawngo: "can't get to the pawn is not ok"). Dropped on one from
+        // the floor at its TOP it stays there, on top of the ladder: until then it was sent to the foot, or, the foot blocked,
+        // shifted sideways onto the top landing with no climb at all (core/stairs.js stairHop, Harry's pit). Down it, or partway,
+        // raise / lower: the rungs hold it at any height (core/height.js baseUnder `ladder`). A flight is walked (pawnStepTo).
+        // FIRST PERSON climbs one either way by walking onto it (`hop`, surfaces/fpv.js: the eyes have no raise and lower).
+        if (things.length === 1) { const fl = HT.floorUnder(E, nx, nz, ny)?.y ?? Math.min(0, ny), h = Math.abs(ny - fl) < 1 ? app.stairHop(nx, nz, fl) : null; if (h && (hop || h.y > fl + 0.5)) { ops.push({ type: 'token.move', args: { id: e.id, x: r2(h.x), z: r2(h.z), y: r2(h.y), ...(rot != null && { rot }), ...(walk && { walk }) } }); app.lastHop = { token: e.id, ...h }; continue; } }
         const ly = app.pawnLandY(e, nx, ny, nz); // (a pawn under 5 ft up where it arrives settles there: a float left by an old lowering too)
         ops.push({ type: 'token.move', args: { id: e.id, x: r2(nx), z: r2(nz), ...((dy || r2(ly) !== r2(e.y || 0)) && { y: r2(ly) }), ...(rot != null && { rot }), ...(walk && { walk }) } });
         // OUT OVER OPEN AIR (2026-10-22): it stood where it was and stands on nothing now: it stays at its height, hovering
@@ -812,10 +875,11 @@ async function boot(token) {
         continue;
       }
       // a thing belongs to the room it stands in (so it turns, moves and hides with that room): keep that current
-      { const now = roomAt(e.x + dx, e.z + dz, (e.y || 0) + dy)?.id || ''; ops.push({ type: 'object.move', args: { id: e.id, x: r2(e.x + dx), z: r2(e.z + dz), ...(dy && { y: r2((e.y || 0) + dy) }), ...(now !== (e.room || '') && { room: now }) } }); }
+      { const now = roomAt(e.x + dx, e.z + dz, (e.y || 0) + dy)?.id || '', carry = R.get(e.id); ops.push({ type: 'object.move', args: { id: e.id, x: r2(e.x + dx), z: r2(e.z + dz), ...(dy && { y: r2((e.y || 0) + dy) }), ...(now !== (e.room || '') && { room: now }), ...(carry?.length && { carry }) } }); }
     }
     const cid = ops.length ? app.batch(ops) : null;
     if (rocked.length) app.toast(rocked.length > 1 ? `Solid rock there: ${rocked.length} pawns stay on their level` : `Solid rock there: ${app.nameOf(rocked[0])} stays where it is`);
+    if (cramped.length) { app.toast(`${app.tooBig(cramped.length > 1 ? `${cramped.length} pawns` : app.nameOf(cramped[0]), app.figures.sizeOf(cramped[0]))}: ${cramped.length > 1 ? 'they stay' : 'it stays'} where ${cramped.length > 1 ? 'they are' : 'it is'}`, true); app.lastRefusal = { what: 'pawn.fit', ids: cramped.map(e => e.id), at: Date.now() }; }
     if (cid && over.length) app.falls?.offer(over);
     return cid;
   };
@@ -847,15 +911,20 @@ async function boot(token) {
   app.nudge = (dx, dz) => app.moveBy(selOf(e => movable(e) || (app.gm() && (e.kind === 'room' || e.kind === 'building'))), dx, dz);
   // A THING'S TURN, WITH WHAT STANDS ON IT (Harry 2026-11-02): every one keeps its place on the thing, turned with it about
   // the pivot, its own centre unless it turns as one of a group. A locked thing stays, and what stands on it (core goesWith).
-  app.turnOps = (e, a, [px, pz] = [e.x, e.z]) => {
-    const E = app.entities(), cs = Math.cos(a), sn = Math.sin(a);
-    return [e, ...goesWith(E, e.id).gone.map(id => E[id])].map(x => { const dx = x.x - px, dz = x.z - pz, still = !dx && !dz; return { type: x.kind === 'token' ? 'token.move' : 'object.move', args: { id: x.id, x: still ? x.x : r2(px + dx * cs + dz * sn), z: still ? x.z : r2(pz - dx * sn + dz * cs), rot: (x.rot || 0) + a } }; });
+  // (2026-11-07) What stands on it, pawns too, goes IN its object.move (core `carry`: each turned with it about its middle,
+  // which with the thing's own move about the pivot is the turn about the pivot). riders: a snapshot (app.ridersSnapshot).
+  app.turnOps = (e, a, [px, pz] = [e.x, e.z], riders = null) => {
+    const cs = Math.cos(a), sn = Math.sin(a), dx = e.x - px, dz = e.z - pz, still = !dx && !dz;
+    const args = { id: e.id, x: still ? e.x : r2(px + dx * cs + dz * sn), z: still ? e.z : r2(pz - dx * sn + dz * cs), rot: (e.rot || 0) + a };
+    if (e.kind === 'token') return [{ type: 'token.move', args }];
+    const carry = (riders || app.ridersSnapshot([e])).get(e.id);
+    return [{ type: 'object.move', args: { ...args, ...(carry?.length && { carry }) } }];
   };
   app.rotateSelection = (deg) => {
-    const ops = [], tops = new Set(app.foldUp(selOf(movable).map(e => e.id)));
+    const ops = [], tops = new Set(app.foldUp(selOf(movable).map(e => e.id))), R = app.ridersSnapshot(selOf(movable).filter(e => tops.has(e.id))), carried = new Set([...R.values()].flat());
     for (const e of selOf(movable)) {
-      if (!tops.has(e.id)) continue; // (it turns with what it stands on)
-      ops.push(...app.turnOps(e, (ST.isConnector(e) ? Math.sign(deg) * 90 : deg) * Math.PI / 180)); // a stair stands on whole squares: quarter turns
+      if (!tops.has(e.id) || carried.has(e.id)) continue; // (it turns with what it stands on)
+      ops.push(...app.turnOps(e, (ST.isConnector(e) ? Math.sign(deg) * 90 : deg) * Math.PI / 180, undefined, R)); // a stair stands on whole squares: quarter turns
     }
     app.batch(ops);
   };
@@ -916,34 +985,65 @@ async function boot(token) {
     const things = app.selected().filter(e => e.kind !== 'wall'); if (!things.length) return null; app.clip = clipFrom(app, things); return copyText(app.clip);
   };
   app.pasteText = (text, at) => { const c = parseClip(text); if (!c) return false; app.pasteData(c, at); return true; };
-  app.pasteData = (clip, at = app.cursor) => {
+  // at: where the middle of the paste goes. Not given (Ctrl/⌘+V, the bar's "Paste at cursor"): the pointer, on the floor
+  // under it at the level in view (clipboard.js "The level a paste lands on"); the pointer off the table (out of the
+  // window, or over no floor at all): beside the copied things where they were. Either way it never lands exactly on the
+  // same kind of thing (clipboard.js pasteStep), and it gets a cue (a ring at the spot, "Pasted N things"). Given
+  // (duplicate, an Alt-drag): exactly there, at the heights it was copied at unless `at.y` names a floor.
+  app.pasteData = (clip, at, { avoid = at === undefined, cue = at === undefined } = {}) => {
     if (!clip?.items?.length) return;
-    let [x, z] = at || centroid(app.selected()) || [0, 0];
-    if (clip.items.some(i => i.kind === 'room')) { x = Math.round(x / CELL) * CELL; z = Math.round(z / CELL) * CELL; }
+    if (at === undefined) at = app.pointerOff ? null : app.cursor || null; // (the pointer gone out of the window, input.js; cursor null: over no floor, at the sky)
+    const hasRoom = clip.items.some(i => i.kind === 'room');
+    let [x, z] = at || clipOrigin(clip) || centroid(app.selected()) || [0, 0];
+    // the floor it lands on: the pointer's (a room: the level you are on, as the room tool draws), or null = as copied
+    const floorY = at && Number.isFinite(at.y) ? (hasRoom ? app.level || 0 : at.y) : null;
+    if (hasRoom) { x = Math.round(x / CELL) * CELL; z = Math.round(z / CELL) * CELL; }
     else { const t = clip.items.find(i => i.kind === 'object' && i.e.place === 'tile'); if (t) { const tx = x + t.dx, tz = z + t.dz; x += Math.floor(tx / TILE) * TILE + TILE / 2 - tx; z += Math.floor(tz / TILE) * TILE + TILE / 2 - tz; } } // floor tiles land on the 5-ft grid
+    // a pawn lands as a placement does: on what is at its spot when it stands (a table top, a tread, a ladder's rungs),
+    // never under the lowest floor there (pawnLandY); a raised one keeps its height over the floor it is pasted onto
+    const pawnY = (it, px, pz) => { const y = pasteY(it, floorY); return floorY == null ? y : r2(app.pawnLandY({ ...it.e, id: null, x: px, z: pz, y }, px, y, pz)); };
+    if (avoid && !hasRoom) {
+      const others = Object.values(app.entities()).filter(e => e.kind === 'token' || e.kind === 'object');
+      const moved = clip.items.filter(i => i.kind === 'token' || (i.kind === 'object' && i.e.place !== 'tile')); // (a tile replaces the tile there)
+      const yOf = (i, px, pz) => i.kind === 'token' ? pawnY(i, px, pz) : pasteY(i, floorY);
+      const at0 = moved.map(i => { const px = x + i.dx, pz = z + i.dz, y = yOf(i, px, pz); return { y, room: roomAt(px, pz, y)?.id || null }; });
+      const spots = ([ox, oz]) => moved.map((i, k) => { const px = x + i.dx + ox, pz = z + i.dz + oz, y = yOf(i, px, pz); return { kind: i.kind, cat: i.e.cat, x: px, z: pz, y, y0: at0[k].y, room: roomAt(px, pz, y)?.id || null, room0: at0[k].room }; });
+      const free = (s) => !others.some(o => o.kind === s.kind && (s.kind === 'token' || o.cat === s.cat) && Math.abs(o.x - s.x) < 0.5 && Math.abs(o.z - s.z) < 0.5 && Math.abs((o.y || 0) - s.y) < 2);
+      const [ox, oz] = pasteStep(spots, free); x += ox; z += oz;
+    }
     const ops = [], newIds = [], idMap = new Map();
     for (const it of clip.items) idMap.set(it.e.id, newId(it.kind === 'room' ? 'room' : it.kind === 'token' ? 'tok' : 'obj'));
-    const E = app.entities();
+    const E = app.entities(), gm = app.gm();
     for (const it of clip.items) {
       const id = idMap.get(it.e.id); newIds.push(id);
       if (it.kind === 'room') {
         const rc = it.e.recipe, dx = Math.round((x + it.dx) / CELL - rc.w / 2), dz = Math.round((z + it.dz) / CELL - rc.d / 2);
+        const ry = floorY == null ? HT.roomY(rc) : floorY, sy = ry - HT.roomY(rc); // (a room's things go up or down with it)
         const sx = (dx - rc.x) * CELL, sz = (dz - rc.z) * CELL;
-        const objects = (it.objects || []).map(o => ({ ...o, id: newId('obj'), x: r2(o.x + sx), z: r2(o.z + sz) }));
+        const objects = (it.objects || []).map(o => ({ ...o, id: newId('obj'), x: r2(o.x + sx), z: r2(o.z + sz), y: r2((o.y || 0) + sy) }));
         const om = new Map((it.objects || []).map((o, i) => [o.id, objects[i].id])); for (const o of objects) if (o.parent) o.parent = om.get(o.parent) || undefined;
-        ops.push({ type: 'room.spawn', args: { id, ...app.buildingFor(dx, dz, rc.w, rc.d), type: rc.type, ...(rc.flavor && { flavor: rc.flavor }), x: dx, z: dz, w: rc.w, d: rc.d, seed: rc.seed, wallFamily: rc.wallFamily, floor: rc.floor, ...(rc.turn && { turn: rc.turn }), ...(rc.outline && { outline: rc.outline }), engine: 'v2', engineVersion: roomgen.version, layout: { hash: 'copy', summary: 'pasted', objects: objects.map(o => ({ ...stripObj(o), ...(o.fromCave && { fromCave: true }) })) }, ...(rc.stalagObjects && { stalagObjects: true }) } }); // (a cave copied with its stalagmites as things: they come with it, not drawn again)
+        ops.push({ type: 'room.spawn', args: { id, ...app.buildingFor(dx, dz, rc.w, rc.d, ry), type: rc.type, ...(rc.flavor && { flavor: rc.flavor }), x: dx, z: dz, w: rc.w, d: rc.d, ...(ry && { y: ry }), seed: rc.seed, wallFamily: rc.wallFamily, floor: rc.floor, ...(rc.turn && { turn: rc.turn }), ...(rc.outline && { outline: rc.outline }), engine: 'v2', engineVersion: roomgen.version, layout: { hash: 'copy', summary: 'pasted', objects: objects.map(o => ({ ...stripObj(o), ...(o.fromCave && { fromCave: true }) })) }, ...(rc.stalagObjects && { stalagObjects: true }) } }); // (a cave copied with its stalagmites as things: they come with it, not drawn again)
       } else if (it.kind === 'token') {
-        ops.push({ type: 'token.create', args: { id, name: it.e.name, x: r2(x + it.dx), z: r2(z + it.dz), rot: it.e.rot || 0, color: it.e.color, owner: E[it.e.id]?.owner && it.e.owner ? it.e.owner : undefined, ...(it.e.damage > 0 && { damage: it.e.damage }), ...(it.e.conditions?.length && { conditions: CO.cleanConditions(it.e.conditions) }), ...(it.e.sheet && { sheet: it.e.sheet }), ...(it.e.notes && { notes: it.e.notes }), ...(it.e.gmNotes && app.gm() && { gmNotes: it.e.gmNotes }), ...(it.e.mark && { mark: it.e.mark }), ...(it.e.aura && { aura: it.e.aura }), fig: it.e.fig || undefined, size: it.e.size > 1 ? it.e.size : undefined } });
+        const px = r2(x + it.dx), pz = r2(z + it.dz), py = pawnY(it, px, pz);
+        ops.push({ type: 'token.create', args: { id, name: it.e.name, x: px, z: pz, ...(py && { y: py }), rot: it.e.rot || 0, color: it.e.color, owner: E[it.e.id]?.owner && it.e.owner ? it.e.owner : undefined, ...(it.e.hidden && gm && { hidden: true }), ...(it.e.damage > 0 && { damage: it.e.damage }), ...(it.e.conditions?.length && { conditions: CO.cleanConditions(it.e.conditions) }), ...(it.e.sheet && { sheet: it.e.sheet }), ...(it.e.notes && { notes: it.e.notes }), ...(it.e.gmNotes && gm && { gmNotes: it.e.gmNotes }), ...(it.e.mark && { mark: it.e.mark }), ...(it.e.aura && { aura: it.e.aura }), fig: it.e.fig || undefined, size: it.e.size ?? undefined } }); // (a hidden pawn's copy is hidden: a GM's paste never shows the players what the original kept from them)
       } else {
         const parent = it.e.parent && idMap.get(it.e.parent);
-        const nx = r2(x + it.dx), nz = r2(z + it.dz);
+        const nx = r2(x + it.dx), nz = r2(z + it.dz), ny = pasteY(it, floorY);
         if (it.e.place === 'tile') for (const o of tilesAt(app, nx, nz)) ops.unshift({ type: 'object.delete', args: { id: o.id } }); // one tile per cell
-        ops.push({ type: 'object.place', args: { ...stripObj(it.e), id, x: nx, z: nz, parent: parent || undefined, room: roomAt(nx, nz)?.id } });
+        ops.push({ type: 'object.place', args: { ...stripObj(it.e), id, x: nx, y: ny, z: nz, parent: parent || undefined, room: roomAt(nx, nz, ny)?.id, ...(it.e.hidden && gm && { hidden: true }) } });
       }
     }
     // rooms must not overlap: refuse locally rather than half-paste
     const cid = app.batch(ops);
-    if (cid) app.select(newIds.filter(id => !id.startsWith('room') || true));
+    if (cid) app.select(newIds);
+    if (cid && cue) {
+      // THE CUE: a ring at the spot, for me only (no presence: a GM's paste of a hidden mimic tells nobody), and a word
+      const lead = ops.find(o => o.type === 'token.create' || o.type === 'object.place')?.args, ly = lead ? lead.y || 0 : floorY ?? app.level ?? 0;
+      worldOf(app.area())?.ping?.(lead ? lead.x : x, lead ? lead.z : z, app.myColor(), ly);
+      const n = clip.items.length, cut = newIds.filter(id => { const e = app.ent(id); return e && app.cutHides?.(e); }).length;
+      app.toast(cut ? `Pasted ${n} thing${n === 1 ? '' : 's'}, ${cut === n ? 'not' : `${n - cut} of them`} on the level in view` : `Pasted ${n} thing${n === 1 ? '' : 's'}`, !!cut);
+      app.lastPaste = { ids: newIds, x, z, floorY, at: at ? [at[0], at[1], at.y] : null }; // (tests)
+    }
     return cid;
   };
   const stripObj = (o) => ({ ...(o.flavor && { flavor: o.flavor }), ...(o.factionMissing && { factionMissing: true, factionWasHidden: !!o.factionWasHidden, hidden: true }), name: o.name, cat: o.cat || undefined, sku: o.sku || undefined, url: o.url || undefined, flat: o.flat || undefined, place: o.place, layer: o.layer, x: o.x, y: o.y || 0, z: o.z, rot: o.rot || 0, yaw: o.yaw || 0, ...(o.quat && { quat: o.quat }), ...(o.tiltZ && !o.quat && { tiltZ: o.tiltZ }), s: o.s || undefined, dims: o.dims, parent: o.parent || undefined, id: o.id, ...(ST.stairRole(o) && { down: o.down || undefined, rise: o.rise || undefined }) }); // (a stair keeps which way it leads)
@@ -980,7 +1080,10 @@ async function boot(token) {
     // target below"). Stairs are in the library. Only when a flight lines up with a hallway or common room is one
     // OFFERED, by a conditional button beside the room (core/stairs.js stairOffer; client/stairs.js takeStairOffer).
     const L = roomgen.solve(v.entities, { id, type, x, z, w, d, seed, outline, ...(y && { y }), building: b.building }, v.order + 1);
-    const cid = app.batch([{ type: 'room.spawn', args: { id, ...b, type, x, z, w, d, ...(y && { y }), seed, ...(caveJag && { floor: 'floor-cave-rock' }), ...(outline && { outline }), engine: 'v2', engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects }, ...(L.stalagObjects && { stalagObjects: true }) } }]); // (a cave: its stalagmites are things of its layout, core/caves.js STALAG_CAT: one undo takes the cave and them)
+    // (2026-11-06) a HILL drawn over pawns and loose things on the ground lifts them onto its top in the same command (one
+    // undo takes both back): before, they were left at their old height inside the earth (core/height.js hillLifts)
+    const lifts = terrain ? HT.hillLifts(v.entities, { id, x, z, w, d, y, ...(outline && { outline }) }).map(l => { const e = v.entities[l.id]; return l.kind === 'token' ? { type: 'token.move', args: { id: l.id, x: e.x, z: e.z, y: l.y } } : { type: 'object.move', args: { id: l.id, x: e.x, z: e.z, y: l.y, room: l.room } }; }) : [];
+    const cid = app.batch([{ type: 'room.spawn', args: { id, ...b, type, x, z, w, d, ...(y && { y }), seed, ...(caveJag && { floor: 'floor-cave-rock' }), ...(outline && { outline }), engine: 'v2', engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects }, ...(L.stalagObjects && { stalagObjects: true }) } }, ...lifts]); // (a cave: its stalagmites are things of its layout, core/caves.js STALAG_CAT: one undo takes the cave and them)
     app.lastStair = null; app.lastStairOffer = null; // (tests)
     if (cid && y && !terrain) {
       const room = app.entities()[id], P = room && app.stairOffer(room);
@@ -995,7 +1098,30 @@ async function boot(token) {
     if (cid && !terrain) queueMicrotask(() => app.offerFaction?.(id));
     if (cid && terrain) setTimeout(() => app.warnBuried(), 60);
     if (cid && caveJag) { app.lastCave = { id, jagged: caveJag.jagged, cells: app.footprint.cellsOf(app.entities()[id]?.recipe || {}).length }; } // (tests)
+    if (cid && caveJag && !y) queueMicrotask(() => app.offerCaveUnder(id));
     return id;
+  };
+  // A CAVE IS DRAWN ON THE GROUND (2026-11-12, Harry: "caves by default will build actually at ground level, and again our
+  // little pop-up asks if they want to go underground"). Levels are an advanced thing: nothing goes below the ground until
+  // it is asked for. A cave drawn on the ground gets one conditional button beside it, "Take it underground": the cave,
+  // its things and the pawns standing in it go down one storey (lv -1, core/caves.js CAVE_DEPTH) in ONE command (one
+  // undo), into the cut ground every cave below the ground has always had, and the view goes down with it.
+  app.caveUnderground = (id) => {
+    const E = app.entities(), r = E[id]; if (!r || !CV.isCave(r.recipe)) return null;
+    const y0 = HT.roomY(r.recipe), dy = CV.CAVE_DEPTH - y0; if (!dy) return null;
+    const pawns = Object.values(E).filter(t => t.kind === 'token' && app.footprint.hasCell(r.recipe, Math.floor(t.x / CELL), Math.floor(t.z / CELL)) && Math.abs((t.y || 0) - y0) < HT.STOREY);
+    const cid = app.batch([{ type: 'room.move', args: { id, dx: 0, dz: 0, dy } }, ...pawns.map(t => ({ type: 'token.move', args: { id: t.id, x: t.x, z: t.z, y: (t.y || 0) + dy } }))]);
+    if (!cid) return null;
+    app.goLevel?.(CV.CAVE_DEPTH, 'offer');
+    return cid;
+  };
+  app.offerCaveUnder = (id) => {
+    const r = app.entities()[id], cb = app.condButtons; if (!r || !cb) return;
+    const rc = r.recipe, area = app.area();
+    cb.show('cave-under', { icon: 'chevrons-down', text: 'Take it underground', anchor: [(rc.x + rc.w) * CELL, rc.z * CELL, HT.roomY(rc)], life: 14000, area, data: { room: id },
+      when: () => { const e = app.entities()[id]; return !!e && HT.roomY(e.recipe) === 0; },
+      run: () => { app.caveUnderground(id); }, doneText: 'Underground: lv -1',
+      lineText: `${app.nameOf(r) || 'A cave'}: on the ground`, lineButton: 'Take it underground' }); // (missed: down into the chat, condbutton.js rule 6)
   };
   // A HILL'S HEIGHT (2026-10-24, docs/VERTICAL.md "Terrain"): its top moves by whole 5-ft steps (core room.move dy; its
   // own things ride with it, as a room's always do), and the pawns standing on it are carried up or down with it, all
@@ -1038,8 +1164,14 @@ async function boot(token) {
   app.setRoom = (r, k, v) => app.dispatch('room.set', { id: r.id, [k]: v });
   app.setFaction = (id, flavor) => {
     try {
-      const args = planFactionChange(app.entities(), id, flavor, lib, T.types);
-      return app.dispatch('faction.set', args);
+      const E = app.entities(), args = planFactionChange(E, id, flavor, lib, T.types), halls = riteChangedRooms(E, id, flavor, lib, T.types);
+      if (!halls.length) return app.dispatch('faction.set', args);
+      // a hall whose rite changes (a church becoming a prayer hall) is re-solved in its new rite, same seed, pinned pieces
+      // kept: the faction and the new layouts are ONE step to undo (core/factions.js riteChangedRooms)
+      const E2 = { ...E, [id]: withFaction(E[id], flavor) }, ops = [{ type: 'faction.set', args }];
+      for (const r of halls) { const L = roomgen.solve(E2, { id: r.id, type: r.recipe.type, seed: r.recipe.seed }, r.order, roomgen.pinnedOf(E2, r.id));
+        ops.push({ type: 'room.reroll', args: { id: r.id, seed: r.recipe.seed, engineVersion: roomgen.version, layout: { hash: L.hash, summary: L.summary, objects: L.objects }, ...(L.stalagObjects && { stalagObjects: true }) } }); }
+      return app.dispatch('batch', { ops });
     } catch (err) { app.toast(err.message, true); return null; }
   };
   // the building tool: a rectangle becomes the type's rooms (client/pack.js), each solved against the ones before it,
@@ -1048,10 +1180,16 @@ async function boot(token) {
   // WHOLE BUILDINGS (docs/BUILDINGS.md, Harry 2026-10-11): on the ground a dragged footprint becomes a PLAN (the tuner's
   // js/buildings.js: rooms, doors, the stair core, storeys) and the plan becomes one batch (core/buildplan.js).
   const typesOfNode = (node) => roomsOfType(node).map(r => ({ ...r, outdoor: roomgen.isOutdoor(r.key) }));
-  const nodeOfCode = (code) => [...taxonomy.nodes.values()].find(n => n.level === 'type' && n.code === code) || null;
+  // (2026-11-07) an old saved building's code that is no type now (gen.code MOD / CYB: the Modern genre's City and Cyberpunk,
+  // before it became buildings) re-rolls as the building types.json `legacy` names (engine/tools/modern_buildings.json)
+  const codeOf = (code) => taxonomy.legacy?.[code] || code;
+  const nodeOfCode = (code) => [...taxonomy.nodes.values()].find(n => n.level === 'type' && n.code === codeOf(code)) || null;
+  // a building type's `hub` (modern_buildings.json): the room the whole-building generator builds round, whatever its role
+  // and its `hall` (2026-11-07, modhalls): the corridor that is its spine; another corridor it lists is drawn by hand, never laid as a room (buildings.js buildingRoles)
+  const rolesOf = (node) => T.buildings.buildingRoles(T.walls.ROLES, { hub: node?.hub, hall: node?.hall, rooms: node ? roomsOfType(node).map(r => r.key) : [] });
   app.buildingNode = (word) => { const w = String(word || '').trim().toLowerCase(); return [...taxonomy.nodes.values()].find(n => n.level === 'type' && !n.disabled && (n.code.toLowerCase() === w || n.label.toLowerCase() === w || T.buildings.BUILDING_TYPES[n.code]?.label.toLowerCase() === w || n.label.toLowerCase().split(/[^a-z]+/).includes(w))) || null; };
-  app.buildingProgramme = (code) => { const node = nodeOfCode(code); return node && T.buildings.programmeFor(code, typesOfNode(node), T.walls.ROLES); };
-  app.buildingPlan = (gen) => { const node = nodeOfCode(gen.code); return node ? T.buildings.generate({ code: gen.code, rect: { x: gen.x, z: gen.z, w: gen.w, d: gen.d }, seed: gen.seed, storeys: gen.storeys, front: gen.front || 'S', dials: gen.dials, outbuildings: gen.outbuildings, flavor: gen.flavor, types: typesOfNode(node), roles: T.walls.ROLES }) : null; };
+  app.buildingProgramme = (code) => { const node = nodeOfCode(code); return node && T.buildings.programmeFor(node.code, typesOfNode(node), rolesOf(node)); };
+  app.buildingPlan = (gen) => { const node = nodeOfCode(gen.code); return node ? T.buildings.generate({ code: node.code, rect: { x: gen.x, z: gen.z, w: gen.w, d: gen.d }, seed: gen.seed, storeys: gen.storeys, front: gen.front || 'S', dials: gen.dials, outbuildings: gen.outbuildings, flavor: gen.flavor, ...(gen.cellar === false && { cellar: false }), types: typesOfNode(node), roles: rolesOf(node), lift: !!node.lift }) : null; }; // (lift: modern_buildings.json, the Apartment block and the Office tower)
   let pv = { key: '', n: 0 };
   app.packPreview = (rect) => {
     const m = app.mode, r = m?.node && app.buildableRect(rect); if (!r) return 0;
@@ -1111,21 +1249,32 @@ async function boot(token) {
   // be 1 story? 3?)"): conditional buttons beside it, one per other storey count and a re-roll. Never the only way: the
   // same are in the command bar and on the building's own menu. A storey offer that times out goes down into the chat.
   const BLD_OFFER_MS = 14000;
+  // (2026-11-12, levels are advanced) A new building is ONE storey with nothing under it, so these offers are how a
+  // second level is asked for: "2 storeys" and "3 storeys" (for a type that goes DOWN, a crypt, a mine: "2 levels deep"),
+  // and "Add a cellar" for a type that has one. Each makes it again with the SAME seed. A cellar put back changes nothing
+  // above it (buildings.js: the cellar is worked out and then left out); more storeys re-plan the ground floor for some
+  // types (an inn's beds go upstairs), always the same way for the same seed.
+  const CELLAR_WORD = { dungeon: 'Add a dungeon below' };
   app.offerBuilding = (id, gen) => {
     const P = app.buildingProgramme(gen.code), cb = app.condButtons; if (!P || !cb) return;
     if (!app.offerBuilding.kind && app.actionLines) { app.offerBuilding.kind = true; app.actionLines.kind('building-storeys', { restorable: true,
-      valid: (d) => { const b = app.entities()[d.building]; return d.area && d.area !== app.area() ? 'in another area' : !b ? 'that building is gone' : !b.gen ? 'not a generated building' : b.gen.seed !== d.seed || b.gen.storeys !== d.was ? 'changed since' : null; },
-      run: (d) => app.regenBuilding(d.building, { storeys: d.storeys }) }); }
+      valid: (d) => { const b = app.entities()[d.building]; return d.area && d.area !== app.area() ? 'in another area' : !b ? 'that building is gone' : !b.gen ? 'not a generated building' : b.gen.seed !== d.seed || b.gen.storeys !== d.was || (d.cellar && b.gen.cellar !== false) ? 'changed since' : null; },
+      run: (d) => app.regenBuilding(d.building, d.cellar ? { cellar: true } : { storeys: d.storeys }) }); }
     for (const k of cb.list().map(x => x.key)) if (k.startsWith('bld-')) cb.hide(k);
-    const word = (n) => `${n} ${P.down ? 'level' : 'storey'}${n === 1 ? '' : 's'}`, anchor = [(gen.x + gen.w) * 5, gen.z * 5, 0], area = app.area();
+    const word = (n) => P.down ? (n === 1 ? '1 level' : n > gen.storeys ? `Go deeper: ${n} levels` : `${n} levels`) : `${n} storey${n === 1 ? '' : 's'}`, anchor = [(gen.x + gen.w) * 5, gen.z * 5, 0], area = app.area();
     let i = 0;
     // with every level showing, a new two-storey inn is seen from above its top floor: offer the floor people walk in at
     // (the view never moves by itself: docs/VERTICAL.md "Only four things write the cut")
-    if (!P.down && gen.storeys > 1 && app.cut?.y == null && app.goLevel) cb.show('bld-cut', { icon: 'layers', text: 'Cut to lv 1', anchor, nudge: [0, 34 * i++], life: BLD_OFFER_MS, area, when: () => app.cut?.y == null, run: () => { app.goLevel(0, 'offer'); }, doneText: 'Showing lv 1' });
-    for (let n = P.storeys.min; n <= P.storeys.max; n++) if (n !== gen.storeys) cb.show(`bld-st-${n}`, { icon: 'layers', text: word(n), anchor, nudge: [0, 34 * i++], life: BLD_OFFER_MS, area, data: { building: id, storeys: n },
+    if (!P.down && gen.storeys > 1 && app.cut?.y == null && app.goLevel) cb.show('bld-cut', { icon: 'layers', text: 'Cut to lv 1', anchor, nudge: [0, 34 * i++], life: BLD_OFFER_MS, area, when: () => app.cut?.y == null, run: () => { app.goLevel(0, 'offer'); }, doneText: 'Showing lv 1', lineText: `${gen.name}: seen from above its top floor` });
+    for (let n = P.storeys.min; n <= P.storeys.max; n++) if (n !== gen.storeys) cb.show(`bld-st-${n}`, { icon: P.down ? 'chevrons-down' : 'layers', text: word(n), anchor, nudge: [0, 34 * i++], life: BLD_OFFER_MS, area, data: { building: id, storeys: n },
       run: () => { app.regenBuilding(id, { storeys: n }); }, doneText: word(n),
-      line: { kind: 'building-storeys', text: `${gen.name}: ${word(gen.storeys)}`, button: word(n), data: { building: id, storeys: n, seed: gen.seed, was: gen.storeys } } });
-    cb.show('bld-reroll', { icon: 'dice-5', text: 'Re-roll', anchor, nudge: [0, 34 * i], life: BLD_OFFER_MS, area, data: { building: id }, run: () => { app.regenBuilding(id, { seed: 1 + Math.floor(Math.random() * 1e6) }); return 'keep'; } });
+      line: { kind: 'building-storeys', text: `${gen.name}: ${word(gen.storeys)}`, button: word(n), data: { building: id, storeys: n, seed: gen.seed, was: gen.storeys } } }).el.title = P.storeys.why ? `${P.storeys.why} (usually ${P.storeys.def})` : ''; // (the type's own reason for its usual count, buildings.js storeys.why: the offer's hint)
+    const cellarKey = gen.cellar === false && (P.rooms || []).find(r => (r.floor || '').includes('c'))?.key;
+    if (cellarKey) { const text = CELLAR_WORD[cellarKey] || 'Add a cellar';
+      cb.show('bld-cellar', { icon: 'chevrons-down', text, anchor, nudge: [0, 34 * i++], life: BLD_OFFER_MS, area, data: { building: id, cellar: true },
+        run: () => { app.regenBuilding(id, { cellar: true }); }, doneText: text,
+        line: { kind: 'building-storeys', text: `${gen.name}: nothing below the ground`, button: text, data: { building: id, cellar: true, storeys: gen.storeys, seed: gen.seed, was: gen.storeys } } }); }
+    cb.show('bld-reroll', { icon: 'dice-5', text: 'Re-roll', anchor, nudge: [0, 34 * i], life: BLD_OFFER_MS, area, data: { building: id }, when: () => !!app.entities()[id], run: () => { app.regenBuilding(id, { seed: 1 + Math.floor(Math.random() * 1e6) }); return 'keep'; }, lineText: `${gen.name}: a new layout` });
   };
   // a footprint for a building made without a drag (the command bar, a link from the gallery): the free ground nearest the middle of the view
   app.freeGroundFor = (w, d) => {
@@ -1142,7 +1291,13 @@ async function boot(token) {
   app.spawnBuilding = (node, rect0, opts = {}) => {
     if (!(app.level || 0) && T.buildings) { // on the ground: the whole-building generator
       const seed = opts.seed || app.mode?.seed || 1 + Math.floor(Math.random() * 1e6); if (app.mode) app.mode.seed = null;
-      return app.makeBuilding({ code: node.code, x: rect0.x, z: rect0.z, w: rect0.w, d: rect0.d, seed, storeys: opts.storeys, front: opts.front || 'S', dials: opts.dials, outbuildings: opts.outbuildings, flavor: opts.flavor }, { name: node.label });
+      // ONE STOREY AND NOTHING UNDER IT BY DEFAULT (2026-11-12, Harry: "all the buildings build one story by default, and
+      // then our little contextual pop-up will ask them if they want to go 2 or 3 stories"). Levels are an advanced thing
+      // people ask for: the offers beside the new building (offerBuilding) make it again, same seed, with more. A storey
+      // count asked for in words or by a gallery link (storeys=2) is built as before, cellar and all. The type's own
+      // usual count (buildings.js storeys.def) is no longer the default; it is what the offer marks as usual.
+      const storeys = opts.storeys || 1, cellar = opts.cellar ?? (opts.storeys > 1 ? undefined : false);
+      return app.makeBuilding({ code: node.code, x: rect0.x, z: rect0.z, w: rect0.w, d: rect0.d, seed, storeys, front: opts.front || 'S', dials: opts.dials, outbuildings: opts.outbuildings, flavor: opts.flavor, ...(cellar === false && { cellar: false }) }, { name: node.label });
     }
     const y = app.level || 0, rect = app.buildableRect(rect0, y);
     if (!rect) { app.toast(app.unbuildableWords(app.unbuildableWhy(rect0, y)), true); return null; }
@@ -1257,10 +1412,10 @@ async function boot(token) {
     const n = new THREE.Vector3(p.x, p.y || 0, p.z).project(cam);
     if (Math.hypot(n.x * W / 2, n.y * H / 2) < NEAR_CENTRE * Math.min(W, H)) return false;
     // the focus lies on the ground plane; a point up on a floor is centred when the view line through it meets the focus
-    const dir = new THREE.Vector3().subVectors(g.focus, cam.position).normalize(), t = Math.abs(dir.y) > 1e-4 ? -((p.y || 0) - g.focus.y) / dir.y : 0;
+    const dir = new THREE.Vector3().subVectors(g.focus, cam.position).normalize(), fy = view === app.main && app.levelFocusY ? app.levelFocusY() : g.focus.y, t = Math.abs(dir.y) > 1e-4 ? -((p.y || 0) - fy) / dir.y : 0; // (fy: a level change asked for or in flight glides the focus height to its END, surfaces/cut.js levelFocusY: centre for where it lands)
     const x = p.x + dir.x * t, z = p.z + dir.z * t;
     if (view === app.main) view.rule = 'free'; else if (view.rule === 'follow') view.rule = 'pinned';
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('reduce-motion') || ms <= 0) { g.focus.x = x; g.focus.z = z; g.update(); view.glide = null; } // (or Settings ▸ Me ▸ reduce motion)
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('reduce-motion') || ms <= 0) { g.focus.x = x; g.focus.z = z; g.update(); view.glide = null; } // (or Settings ▸ Controls ▸ reduce motion)
     else view.glideTo(x, z, ms);
     app.lastCentre = { x, z, point: [p.x, p.y || 0, p.z], view: view === app.main ? 'main' : 'pip', at: performance.now() }; // (tests)
     return true;
@@ -1279,7 +1434,7 @@ async function boot(token) {
   // of it, it stands on it; raised through a ceiling into the room above, it becomes that room's.
   app.floorYOf = (e) => { const ents = app.entities(); if (e.kind === 'token') { const b = HT.baseUnder(ents, e.x, e.z, e.y || 0); if (b.on === 'stair') return b.y; } /* (a pawn on a stair: its treads, 2026-10-26) */ return e.room && ents[e.room] ? HT.roomY(ents[e.room].recipe) : HT.floorUnder(ents, e.x, e.z, e.y || 0)?.y ?? Math.min(0, e.y || 0); };
   // DOES A DRAGGED PAWN SNAP TO THE SQUARES NOW? One answer for the pawn drag (input.js) and the placing ghost of a figure
-  // dragged out of a list (pawns.js). Settings ▸ Me ▸ "Pawns snap to squares": 'shift' (the default since 2026-10-11:
+  // dragged out of a list (pawns.js). Settings ▸ Controls ▸ "Pawns snap to squares": 'shift' (the default since 2026-10-11:
   // free, Shift snaps: "Shift should be 'snap to steps' across the board") or 'always' (snaps, Shift frees).
   app.pawnSnaps = (shift) => (app.prefs?.pawnSnap || 'shift') === 'always' ? !shift : !!shift;
   // ROLL THINGS (the ☰ menu's Roll, the bar's "roll 90"). Harry 2026-10-12: "I was hoping for roll to always be relative
@@ -1301,18 +1456,42 @@ async function boot(token) {
   };
   app.rolled = (e, axis, angle) => foldTurn(e.rot || 0, rollQuat(quatOfEntity(e), e.rot || 0, axis, angle));
   app.rollSelection = (angle, { axis = app.viewRollAxis(), things = app.selected() } = {}) => {
-    const ops = [];
+    const ops = [], poses = new Map();
     for (const e of things) {
       if (e.kind !== 'object' || !canTilt(e) || e.locked) continue;
       const was = quatOfEntity(e), now = app.rolled(e, axis, angle);
-      if (JSON.stringify(now.quat) !== JSON.stringify(was)) ops.push({ type: 'object.set', args: { id: e.id, quat: now.quat || Q_ID } });
+      if (JSON.stringify(now.quat) !== JSON.stringify(was)) { ops.push({ type: 'object.set', args: { id: e.id, quat: now.quat || Q_ID } }); if (Math.abs(now.rot - (e.rot || 0)) < 1e-9) poses.set(e.id, now.quat || null); }
       if (Math.abs(now.rot - (e.rot || 0)) > 1e-9) ops.push({ type: 'object.move', args: { id: e.id, x: e.x, z: e.z, rot: now.rot } });
     }
+    ops.push(...app.tiltLandings(poses));
     return ops.length ? app.batch(ops) : null;
   };
   app.standUpright = (things = app.selected()) => {
-    const ops = things.filter(e => e.kind === 'object' && quatOfEntity(e) && !e.locked).map(e => ({ type: 'object.set', args: { id: e.id, quat: Q_ID } }));
+    const up = things.filter(e => e.kind === 'object' && quatOfEntity(e) && !e.locked);
+    const ops = [...up.map(e => ({ type: 'object.set', args: { id: e.id, quat: Q_ID } })), ...app.tiltLandings(new Map(up.map(e => [e.id, null])))];
     return ops.length ? app.batch(ops) : null;
+  };
+  // (2026-11-06) WHAT STANDS ON A THING THAT IS TIPPED comes down onto what is under it once the thing lies as it will:
+  // the tipped top if it is still under the spot and faces up (a table at 15°: on its slope, still on it), else what is
+  // below (the floor, another thing). It used to stay where the top had been, in the air ("things on a tilted table
+  // float", docs/KNOWN_BUGS.md). Each is asked from just over the posed thing's top down, so a cup left on a slope comes
+  // back up onto the top when the table is stood up again. Everything that rides is left out of what can be landed on
+  // (a cup on a plate on the table: both come down). Sent in the same batch as the tip: one undo step. A locked thing
+  // stays where it is (core goesWith).
+  app.tiltLandings = (poses) => {
+    if (!poses.size) return [];
+    const E = app.entities(), w = app.worldOf(app.area()), riders = new Map();
+    for (const id of poses.keys()) for (const r of goesWith(E, id).gone) if (!poses.has(r) && E[r]?.kind === 'object') riders.set(r, id);
+    if (!riders.size) return [];
+    return w.withTilts(poses, (bounds) => {
+      const out = [], skip = new Set(riders.keys());
+      for (const [id, under] of riders) {
+        const e = E[id], y = e.y || 0, top = bounds.get(under)?.max.y ?? y, from = Math.max(y, top + 0.05), fy = HT.floorUnder(E, e.x, e.z, y)?.y ?? Math.min(0, y);
+        const s = w.surfaceBelow(e.x, from, e.z, skip, fy), ny = r2(s && s.y > fy ? s.y : fy), parent = s && s.y > fy ? s.parent || '' : '';
+        if (Math.abs(ny - y) > 0.02 || parent !== (e.parent || '')) out.push({ type: 'object.move', args: { id, x: e.x, z: e.z, y: ny, parent } });
+      }
+      return out;
+    });
   };
   // A PAWN LESS THAN PAWN_BEAM.land (5 ft) ABOVE ITS BASE SETTLES ONTO IT (Harry 2026-10-19, D&D: under 5 ft is on the ground).
   // Its base: the highest ground at or below the figure at (x, z): a floor, a room's top, a thing's top (world.pawnBaseAt).
@@ -1347,14 +1526,16 @@ async function boot(token) {
     if (y < from) { const base0 = pawnBase(e, e.x, from, e.z); if (y < base0 - 0.01) y = Math.max(low, pawnBase(e, e.x, y, e.z)); }
     return app.pawnLandY(e, e.x, y, e.z);
   };
-  app.liftTo = (e, y) => {
+  // riders: a snapshot taken when the raise / lower began (the ring's drag); what stands on the thing rises and falls with
+  // it IN its object.move (core `carry`): a lift car carries its passengers (2026-11-07)
+  app.liftTo = (e, y, riders = null) => {
     if (e.kind === 'token') return app.dispatch('token.move', { id: e.id, x: e.x, z: e.z, y: r2(app.pawnLowerY(e, y)) });
     const fy = HT.floorUnder(app.entities(), e.x, e.z, y)?.y ?? Math.min(0, y);
     const s = app.worldOf(app.area()).surfaceBelow(e.x, y, e.z, new Set([e.id, ...app.descendants(e).map(d => d.id)]), fy);
     const land = s && y - s.y < 1.5 ? s : null, ny = r2(land ? land.y : y - fy < 0.05 ? fy : y), now = roomAt(e.x, e.z, ny)?.id || '';
-    const E = app.entities(), rise = ny - (e.y || 0), riders = rise ? goesWith(E, e.id).gone.map(id => ({ type: 'object.move', args: { id, x: E[id].x, z: E[id].z, y: r2((E[id].y || 0) + rise) } })) : []; // (what stands on it rises with it)
-    const move = { id: e.id, x: e.x, z: e.z, y: ny, parent: land?.parent || '', ...(now !== (e.room || '') && !(e.fromEdge) && { room: now }) };
-    return riders.length ? app.batch([{ type: 'object.move', args: move }, ...riders]) : app.dispatch('object.move', move);
+    const rise = ny - (e.y || 0), carry = rise ? (riders || app.ridersSnapshot([e])).get(e.id) : null; // (what stands on it rises with it)
+    const move = { id: e.id, x: e.x, z: e.z, y: ny, parent: land?.parent || '', ...(now !== (e.room || '') && !(e.fromEdge) && { room: now }), ...(carry?.length && { carry }) };
+    return app.dispatch('object.move', move);
   };
 
   // ---------- THE LEVEL (storeys; one level, Harry 2026-10-06) ----------
@@ -1409,6 +1590,7 @@ async function boot(token) {
   installEdgePan(app, canvas); // (before the pawns, the surfaces and the input: every drag registers itself with it)
   installPawns(app); // figures as pawns: place one or a group, change a pawn's figure (client/pawns.js)
   installStairs(app, { roomgen, toast: (m, bad) => app.toast(m, bad) }); // core/stairs.js for the client: plan, add, a pawn's hop
+  installElevator(app, { roomgen, toast: (m, bad) => app.toast(m, bad) }); // core/elevator.js for the client: the shaft, up / down a floor
   app.modes = createModes(app);
   app.registry = createRegistry(app);
   defineCommands(app.registry, app);
@@ -1418,6 +1600,7 @@ async function boot(token) {
   app.thumbs = createThumbs(app, { renderer });
   app.uvtt = createUvtt(app, { renderer }); // Universal VTT (.dd2vtt) export of the storey in view (uvtt.js; Settings ▸ Invites and exports)
   app.share = createShare(app, { thumbs: app.thumbs }); // shared builds: export, share links, import with a ghost (share.js, core/share.js)
+  app.uploads = createUploads(app); // uploaded models: Settings ▸ Uploaded models, placing, drawing (uploads.js, relay/uploads.js; docs/UPLOADS.md)
   app.intro = createIntro(app);
   for (const s of [fpvSurface /* first: its keys, while looking, come before every other surface's (the launchers' letters too) */, traySurface, buildSurface, pawnsSurface, settingsSurface, turnsSurface, targetSurface, attacksSurface, beyond20Surface, xraySurface, lightReachSurface, moveRingsSurface, rulersSurface /* all before the keys surface, which reads the key map once */, keysSurface, barSurface, ringSurface, rosterSurface, diceSurface, announceSurface, chatSurface, crumbsSurface, cursorSurface, labelsSurface, stairNotesSurface, undoChipsSurface, floorDropSurface, fallsSurface, cutSurface, fpsSurface, areasSurface]) app.registry.use(s);
   installLinkMail(app, { lab: ringLab || labelLab }); // "email yourself your link": the card, its chat line, the bar's "email my link" (surfaces/linkmail.js)
@@ -1428,6 +1611,7 @@ async function boot(token) {
   setupFactionUI(app);
   installInput(app, canvas);
   installHandheld(app); // on a phone: the live tool's chip and Cancel, trays out of the way (client/handheld.js)
+  if (app.handheld) installEscapable(app); // on a phone: Back closes what is open, as Escape does (client/escapable.js)
   // links and cards the GM/players need to hand on (invite links, agent rules cards)
   app.on((what, d) => {
     if (what !== 'output') return;

@@ -1,4 +1,4 @@
-DUN — dungeon-prison: 307 roles (+ ANY-tagged roles) — ! = signature
+DUN — dungeon-prison: 312 roles (+ ANY-tagged roles) — ! = signature
 
 ! P1  door-cell-bars             [kit/edge] blocks movement, not sight
 ! P1  chest-treasure             [floor/sub] the reward shot
@@ -39,6 +39,7 @@ DUN — dungeon-prison: 307 roles (+ ANY-tagged roles) — ! = signature
 ! P2  gibbet-cage-standing       [floor/sub] the floor-standing gibbet; `cage-hanging` is the one on a chain
 ! P2  puzzle-dial-pillar         [floor/sub] the combination lock of a puzzle hall
 ! P2  jug-of-water-cell          [surface/tiny] prison ration
+! P3  oubliette-hatch-open       [floor/1] open state of oubliette-hatch
 ! P3  oubliette-hatch            [floor/1] the forgotten cell
 ! P3  bed-cell-stone             [floor/1x2] built into a cell wall
 ! P3  hood-executioner           [surface/tiny] torture rooms, scaffolds
@@ -65,6 +66,8 @@ DUN — dungeon-prison: 307 roles (+ ANY-tagged roles) — ! = signature
   P1  chest-ironbound            [floor/sub] locked; worth a check
   P1  coin-pile                  [floor/sub] hoards; tip of a dragon's pile
   P1  chest-ironbound-open       [floor/sub] open state of chest-ironbound; looted or searched
+  P1  casket-ornate-open         [surface/tiny] open state of casket-ornate
+  P1  floor-trapdoor-open        [kit/1] open state of floor-trapdoor; the way down
   P1  chest-treasure-open        [floor/sub] open state of chest-treasure
   P1  strongbox-stack            [floor/1] vault walls; counting houses
   P1  brazier-standing           [floor/sub] throne rooms, torture chambers, shrines
@@ -85,7 +88,9 @@ DUN — dungeon-prison: 307 roles (+ ANY-tagged roles) — ! = signature
   P1  mine-tool-rack             [wall/1] tool stores, working faces; reads as "picks" from above
   P1  powder-keg-stack           [floor/1] the powder store; the fuse everyone watches
   P1  weapon-rack                [wall/1] armories, guard rooms
+  P1  floor-cave-rock            [kit/1] natural caves, caverns, dens
   P1  cage-floor                 [floor/1] menageries, slavers' camps
+  P1  cell-bars-post             [kit/edge] stands where two bar sections meet at a corner and at a run's free end; snaps like a post; seen through like the bars (generated 2026-10-27)
   P1  iron-maiden                [floor/sub] horror beat
   P1  pressure-plate             [floor/1] trap trigger (GM-hidden)
   P1  skull-pile                 [floor/sub] ossuaries, cult sites

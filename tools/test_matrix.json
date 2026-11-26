@@ -1,10 +1,74 @@
 {
   "suites": [
     {
+      "suite": "engine/test/paste.test.mjs",
+      "command": [
+        "node",
+        "engine/test/paste.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_paste.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_paste.py",
+        "--local"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_levels_advanced.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_levels_advanced.py",
+        "--local"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/uploads.test.mjs",
+      "command": [
+        "node",
+        "engine/test/uploads.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_uploads.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_uploads.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": [
+        18461,
+        18464
+      ]
+    },
+    {
       "suite": "engine/test/areas.test.mjs",
       "command": [
         "node",
         "engine/test/areas.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/vehicles.test.mjs",
+      "command": [
+        "node",
+        "engine/test/vehicles.test.mjs"
       ],
       "asserting": true
     },
@@ -531,6 +595,31 @@
       ]
     },
     {
+      "suite": "engine/test/browser_size.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_size.py",
+        "--local"
+      ],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [
+        18619,
+        19219
+      ]
+    },
+    {
+      "suite": "engine/test/size.test.mjs",
+      "command": [
+        "node",
+        "engine/test/size.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
       "suite": "engine/test/browser_pawnring.py",
       "env": {
         "TW_GPU": "1"
@@ -594,6 +683,57 @@
       "ports": [
         18097,
         18722
+      ]
+    },
+    {
+      "suite": "engine/test/browser_cultureroofs.py",
+      "env": {
+        "TW_GPU": "1",
+        "TW_PORTS": "18473,18974"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_cultureroofs.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": [
+        18473,
+        18974
+      ]
+    },
+    {
+      "suite": "engine/test/browser_sliding_doors.py",
+      "env": {
+        "TW_GPU": "1",
+        "TW_PORTS": "18477,18978"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_sliding_doors.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": [
+        18477,
+        18978
+      ]
+    },
+    {
+      "suite": "engine/test/browser_stepwell_sunk.py",
+      "env": {
+        "TW_GPU": "1",
+        "TW_PORTS": "18485,18988"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_stepwell_sunk.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": [
+        18485,
+        18988
       ]
     },
     {
@@ -827,6 +967,19 @@
       ]
     },
     {
+      "suite": "engine/test/browser_ghostdrag.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_ghostdrag.py",
+        "--local"
+      ],
+      "asserting": true,
+      "ports": [
+        19571,
+        19572
+      ]
+    },
+    {
       "suite": "engine/test/browser_tilt.py",
       "env": {
         "TW_GPU": "1"
@@ -956,6 +1109,14 @@
       "asserting": true
     },
     {
+      "suite": "engine/test/faith-factions.test.mjs",
+      "command": [
+        "node",
+        "engine/test/faith-factions.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
       "suite": "engine/test/factions.test.mjs",
       "command": [
         "node",
@@ -1075,6 +1236,50 @@
       ]
     },
     {
+      "suite": "engine/test/browser_levers.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_levers.py",
+        "--local"
+      ],
+      "asserting": true,
+      "timeout": 900,
+      "port_env": "TW_PORTS",
+      "ports": [
+        17641,
+        17642
+      ]
+    },
+    {
+      "suite": "engine/test/ring_frame_cost.test.mjs",
+      "command": [
+        "node",
+        "engine/test/ring_frame_cost.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/perf-bench/lightuse.py",
+      "command": [
+        "{python}",
+        "tools/perf-bench/lightuse.py",
+        "--maps",
+        "inn",
+        "--json",
+        "{out}/lightuse.json"
+      ],
+      "asserting": false,
+      "timeout": 1200,
+      "port_env": "TW_PERF_PORTS",
+      "ports": [
+        17631,
+        17632
+      ]
+    },
+    {
       "suite": "engine/test/notice.test.mjs",
       "command": [
         "node",
@@ -1095,6 +1300,14 @@
       "command": [
         "node",
         "engine/test/llm.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/cultureroofs.test.mjs",
+      "command": [
+        "node",
+        "engine/test/cultureroofs.test.mjs"
       ],
       "asserting": true
     },
@@ -1463,6 +1676,16 @@
       "asserting": true
     },
     {
+      "suite": "tools/spawn-tuner/test/faiths.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/faiths.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true,
+      "timeout": 1200
+    },
+    {
       "suite": "tools/spawn-tuner/test/delivery_net.py",
       "asserting": true,
       "timeout": 600,
@@ -1642,6 +1865,16 @@
       "asserting": true
     },
     {
+      "suite": "tools/spawn-tuner/test/cultures.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/cultures.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true,
+      "timeout": 1800
+    },
+    {
       "suite": "tools/spawn-tuner/test/kit_accept.py",
       "asserting": true,
       "env": {
@@ -1699,6 +1932,76 @@
       "command": [
         "node",
         "tools/spawn-tuner/test/min.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/mod.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/mod.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/flats.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/flats.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/cyb.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/cyb.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/elevator.test.mjs",
+      "command": [
+        "node",
+        "engine/test/elevator.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/mh.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/mh.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/modhalls_buildings.test.mjs",
+      "command": [
+        "node",
+        "engine/test/modhalls_buildings.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/mx.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/mx.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/dense.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/dense.test.mjs",
         "tools/spawn-tuner"
       ],
       "asserting": true
@@ -1814,6 +2117,24 @@
       "command": [
         "node",
         "tools/spawn-tuner/test/smi.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/cultures_b.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/cultures_b.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/ballcourt_i.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/ballcourt_i.test.mjs",
         "tools/spawn-tuner"
       ],
       "asserting": true
@@ -2105,6 +2426,24 @@
       "timeout": 1500
     },
     {
+      "suite": "engine/test/browser_fog_covered.py",
+      "command": ["{python}", "engine/test/browser_fog_covered.py", "--local"],
+      "asserting": true,
+      "env": { "TW_GPU": "1" },
+      "port_env": "TW_PORTS",
+      "ports": [18558, 18958],
+      "timeout": 900
+    },
+    {
+      "suite": "engine/test/browser_fog_exterior.py",
+      "command": ["{python}", "engine/test/browser_fog_exterior.py", "--local"],
+      "asserting": true,
+      "env": { "TW_GPU": "1" },
+      "port_env": "TW_PORTS",
+      "ports": [18764, 18964],
+      "timeout": 900
+    },
+    {
       "suite": "engine/test/browser_fogwar_game.py",
       "command": ["{python}", "engine/test/browser_fogwar_game.py", "--local"],
       "asserting": true,
@@ -2172,6 +2511,14 @@
       "command": [
         "node",
         "engine/test/foggrid.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/exterior.test.mjs",
+      "command": [
+        "node",
+        "engine/test/exterior.test.mjs"
       ],
       "asserting": true
     },
@@ -2366,6 +2713,31 @@
       "asserting": true
     },
     {
+      "suite": "engine/test/riders_relay.test.mjs",
+      "command": [
+        "node",
+        "engine/test/riders_relay.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_riders.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_riders.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        18417,
+        18418
+      ]
+    },
+    {
       "suite": "engine/test/browser_rotatepivot.py",
       "command": [
         "{python}",
@@ -2535,6 +2907,319 @@
         18131,
         18732
       ]
+    },
+    {
+      "suite": "engine/test/browser_pickfixes.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_pickfixes.py",
+        "--local"
+      ],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [
+        23117,
+        23118
+      ],
+      "timeout": 900
+    },
+    {
+      "suite": "engine/test/rerollwalls.test.mjs",
+      "command": [
+        "node",
+        "engine/test/rerollwalls.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_travelback.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_travelback.py",
+        "--local"
+      ],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [
+        23301,
+        23302
+      ]
+    },
+    {
+      "suite": "engine/test/dinos.test.mjs",
+      "command": [
+        "node",
+        "engine/test/dinos.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_dinos.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_dinos.py",
+        "--local"
+      ],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [
+        18661,
+        18667
+      ]
+    },
+    {
+      "suite": "engine/test/genrebias.test.mjs",
+      "command": [
+        "node",
+        "engine/test/genrebias.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_genrebias.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_genrebias.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        18447,
+        18448
+      ],
+      "timeout": 600
+    },
+    {
+      "suite": "engine/test/figsearch.test.mjs",
+      "command": [
+        "node",
+        "engine/test/figsearch.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/pawntree_genres.test.mjs",
+      "command": [
+        "node",
+        "engine/test/pawntree_genres.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/build_figures_sets.py",
+      "command": [
+        "{python}",
+        "tools/spawn-tuner/test/build_figures_sets.py"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/pawntree.test.mjs",
+      "command": [
+        "node",
+        "engine/test/pawntree.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/modern_buildings.test.mjs",
+      "command": [
+        "node",
+        "engine/test/modern_buildings.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/assets_page.test.mjs",
+      "command": [
+        "node",
+        "engine/test/assets_page.test.mjs"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/asset_release_test.py",
+      "command": [
+        "python3",
+        "engine/test/asset_release_test.py"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_keysettings.py",
+      "env": {
+        "TW_GPU": "1"
+      },
+      "command": [
+        "{python}",
+        "engine/test/browser_keysettings.py",
+        "--local"
+      ],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [
+        23311,
+        23312
+      ]
+    },
+    {
+      "suite": "tests/test_publish_tree.py",
+      "command": [
+        "{python}",
+        "tests/test_publish_tree.py"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/test_tunnel_noise.py",
+      "command": [
+        "{python}",
+        "engine/test/test_tunnel_noise.py"
+      ],
+      "asserting": true,
+      "port_env": "TW_PORTS",
+      "ports": [
+        23313
+      ]
+    },
+    {
+      "suite": "tools/spawn-tuner/test/resting.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/resting.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "engine/test/browser_fogspin.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_fogspin.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        23409,
+        23410
+      ],
+      "timeout": 900
+    },
+    {
+      "suite": "engine/test/hillground.test.mjs",
+      "command": [
+        "node",
+        "engine/test/hillground.test.mjs"
+      ],
+      "asserting": true
+    }
+,
+    {
+      "suite": "engine/test/browser_cyberpunk.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_cyberpunk.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        19661,
+        19662
+      ],
+      "timeout": 900
+    },
+    {
+      "suite": "engine/test/browser_modrooms.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_modrooms.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        19743,
+        19744
+      ],
+      "timeout": 1200
+    },
+    {
+      "suite": "engine/test/browser_modhalls.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_modhalls.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        19761,
+        19762
+      ],
+      "timeout": 1200
+    },
+    {
+      "suite": "engine/test/browser_fpv.py",
+      "command": [
+        "{python}",
+        "engine/test/browser_fpv.py",
+        "--local"
+      ],
+      "asserting": true,
+      "env": {
+        "TW_GPU": "1"
+      },
+      "port_env": "TW_PORTS",
+      "ports": [
+        19663,
+        19664
+      ],
+      "timeout": 1800
+    },
+    {
+      "suite": "tools/spawn-tuner/test/meshy_dropin.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/meshy_dropin.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
+    },
+    {
+      "suite": "tools/spawn-tuner/test/meshy_dropin2.test.mjs",
+      "command": [
+        "node",
+        "tools/spawn-tuner/test/meshy_dropin2.test.mjs",
+        "tools/spawn-tuner"
+      ],
+      "asserting": true
     }
   ],
   "excluded": {
@@ -2551,6 +3236,7 @@
     "tools/tool-sweep/sweep.py": "Build/publish utility; coverage is asserted by check.py.",
     "tools/tool-sweep/membership.mjs": "Queue enumeration helper for check.py.",
     "tools/tool-sweep/sku_free.py": "Preflight utility requiring a proposed asset manifest; sku_guard.py tests existing claims.",
-    "tools/spawn-tuner/test/building_debt.mjs": "Imported exact-case expected failure accounting; tested by building-debt.test.mjs."
+    "tools/spawn-tuner/test/building_debt.mjs": "Imported exact-case expected failure accounting; tested by building-debt.test.mjs.",
+    "engine/test/tunnel_noise.py": "Imported filter for the dev tunnel's websocket 404 (browser_dice_wall W7); tested by test_tunnel_noise.py."
   }
 }

@@ -95,8 +95,39 @@ const TYPES = {
   candelabra: { kind: 'small', flames: 'row3', fy: 1.0, size: 0.24, light: 5, reach: 10, scaleKey: 'candle' },
   stubs:   { kind: 'small', flames: 'cluster4', fy: 1.0, size: 0.16, light: 2.5, reach: 8, scaleKey: 'candle' },
   chandelier: { kind: 'small', flames: 'ring8', fy: 1.0, size: 0.24, light: 34, reach: 22, scaleKey: 'candle' },
+  // ELECTRIC lights (modern city, sprawl pack, 2026-11-06): a small light with NO flame. The shared pool light that holds
+  // them takes their own colour (RGB, not a flame temperature) and does not flicker, and the body glows that colour
+  // (as a lantern's does). fy: the light's height as a fraction of the item's height.
+  tube:   { kind: 'small', flames: 'none', electric: [0.86, 0.95, 1.0], fy: 0.0, size: 0, light: 7, reach: 20, glow: 0.9 },   // a fluorescent fitting: cool white, from the ceiling
+  neon:   { kind: 'small', flames: 'none', electric: [1.0, 0.32, 0.74], fy: 0.5, size: 0, light: 3, reach: 10, glow: 1.2 },  // a neon sign (and a club's glowing kit): hot pink
+  sodium: { kind: 'small', flames: 'none', electric: [1.0, 0.66, 0.32], fy: 0.95, size: 0, light: 9, reach: 28, glow: 0.8 }, // a streetlight's lamp head: warm amber
+  bulb:   { kind: 'small', flames: 'none', electric: [1.0, 0.84, 0.62], fy: 0.88, size: 0, light: 3, reach: 11, glow: 0.7 },  // a lamp's shade
+  screen: { kind: 'small', flames: 'none', electric: [0.62, 0.8, 1.0], fy: 0.6, size: 0, light: 1.6, reach: 7, glow: 0.45 }, // a screen, a lit cooler, a cash machine
+  exit:   { kind: 'small', flames: 'none', electric: [0.42, 1.0, 0.52], fy: 0.5, size: 0, light: 0.9, reach: 6, glow: 1.1 },   // an emergency exit sign: a small green glow (modhalls, 2026-11-07)
 };
+export const isElectric = (type) => !!TYPES[type]?.electric;
 export function fireType(id = '') {
+  // modern city (sprawl pack): electric lights, before the /lamp/ rule below (a floor lamp has no flame)
+  if (/^light-fluorescent/.test(id)) return 'tube';
+  if (/^(sign-neon|jukebox|dj-booth)/.test(id)) return 'neon';
+  if (/^streetlight/.test(id)) return 'sodium';
+  if (/^lamp-floor/.test(id)) return 'bulb';
+  if (/^(tv-stand|drinks-cooler|atm)$/.test(id)) return 'screen';
+  // the cyberpunk pack, wave 2 (2026-11-07): the burning drum is a brazier; the caged wall strip a tube; the surgical lamp, a
+  // capsule's lit hatch, the stair hut's door lamp, the noodle counter's strip and the curio shelf's bulbs are bulbs; the
+  // billboard, the glowing crystal and the mast's red light glow like neon; every screen, rack and reader is a screen
+  if (/^oil-drum-fire/.test(id)) return 'brazier';
+  if (/^light-wall-strip/.test(id)) return 'tube';
+  if (/^(surgical-light|capsule-pod|roof-access-hut|noodle-counter|curio-shelf)/.test(id)) return 'bulb';
+  if (/^(billboard-roof|crystal-display|antenna-mast)/.test(id)) return 'neon';
+  if (/^(video-screen|med-monitor-rig|terminal-desk|server-rack|reception-desk|turnstile-gate|vending-machine|cooling-unit|drone-parked)/.test(id)) return 'screen';
+  // the modrooms lane (2026-11-07): the bathroom mirror's light bar and the lift's arrow lamp are bulbs; the range's blue
+  // burner and the reach-in fridge's readout glow like a screen (no flame: a gas ring is drawn by the mesh)
+  if (/^(mirror-bathroom|elevator-doors)/.test(id)) return 'bulb';
+  if (/^(range-commercial|fridge-reach-in)/.test(id)) return 'screen';
+  // the modhalls lane (2026-11-07): the corridors' wall sconce is a bulb (warm, its frosted shade); the exit sign glows green
+  if (/^sconce-wall-modern/.test(id)) return 'bulb';
+  if (/^exit-sign/.test(id)) return 'exit';
   if (/^(fireplace|cook-hearth|hearth)/.test(id) || /-hearth$|^hearth-/.test(id)) return 'hearth';
   if (/rug|rake|mat\b/.test(id)) return null; // hearth rugs, oven rakes: named after fire, not on fire
   if (/oven/.test(id)) return 'oven';
@@ -117,6 +148,10 @@ export function fireType(id = '') {
   if (/^smelter/.test(id)) return 'oven';         // mine: the smelting furnace (a fire behind its tap hole, low in the front) (type:min)
   if (/^forge$/.test(id)) return 'brazier';      // smithy: the forge's coal bed, an open fire on a waist-high hearth (type:smi)
   if (/^kiln-/.test(id)) return 'oven';           // smithy: the potter's kiln, a fire behind its stoke hole (type:smi)
+  if (/^nrs-forge$/.test(id)) return 'brazier';   // culture packs B: the Norse forge's charcoal bed (type:nrs)
+  if (/^mde-coffee-brazier$/.test(id)) return 'brazier'; // culture packs B: the coffee-maker's charcoal (type:mde)
+  if (/^rus-(stove|tiled-stove|banya-heater)$/.test(id)) return 'oven'; // culture packs B: fires behind a stoke hole (type:rus)
+  if (/^jpn-(andon|toro)$/.test(id)) return 'lantern'; // culture packs A: the paper floor lamp and the stone lantern (jpn)
   return null;
 }
 // small-flame offsets in item-local feet, from the item's footprint
@@ -481,7 +516,7 @@ export function createFire({ scene, camera, onLights = () => {}, meshOf = () => 
     small.geo.instanceCount = smalls.length;
   }
 
-  const lightCol = new THREE.Color(), flameCol = new THREE.Color(); let glowTick = 0;
+  const lightCol = new THREE.Color(), flameCol = new THREE.Color(); let glowTick = 0; const seenElectric = new Set();
   function frame(dt, now) {
     const t = now / 1000, k = intensityK(), fl = lite ? 0 : P.flame.flicker, sp = P.flame.flickerSpeed; // (lite: a steady flame and a steady light)
     const wind = P.draft.strength;
@@ -548,11 +583,11 @@ export function createFire({ scene, camera, onLights = () => {}, meshOf = () => 
       const lit = g && g.visible && (g.parent || s.item.asleep) && sc > 0.01 && isLit(s.item) ? 1 : 0, alive = lit && !s.item.asleep ? 1 : 0; // (asleep: lit for the shared lights, not drawn)
       if (lit) anchorWorld(s.item, s.u, s.off, s.world);
       small.iPos.setXYZ(i, s.world.x, s.world.y, s.world.z);
-      small.iData.setXYZW(i, s.size * sc * (0.8 + 0.35 * k) * (g?.scale.y ?? 1), s.phase, alive, glowOn ? 0 : s.gk || 0); // (with a stand-in drawn the holder is lit by that: no wider halo)
+      small.iData.setXYZW(i, s.size * sc * (0.8 + 0.35 * k) * (g?.scale.y ?? 1), s.phase, TYPES[s.type].electric ? 0 : alive, glowOn ? 0 : s.gk || 0); // (an electric light draws no flame) // (with a stand-in drawn the holder is lit by that: no wider halo)
       s.alive = alive; s.lit = lit;
     }
     small.iPos.needsUpdate = true; small.iData.needsUpdate = true;
-    for (const s of smalls) if (s.alive && s.gk > 0.02) glowAt(s.world.x, s.world.y, s.world.z, TYPES[s.type], (s.type === 'lantern' ? ls : cs) * P.flame.size, Math.max(-1, Math.min(1, flicker(t, s.phase, sp) * fl * 1.8)), s.gk);
+    for (const s of smalls) if (s.alive && s.gk > 0.02 && !TYPES[s.type].electric) glowAt(s.world.x, s.world.y, s.world.z, TYPES[s.type], (s.type === 'lantern' ? ls : cs) * P.flame.size, Math.max(-1, Math.min(1, flicker(t, s.phase, sp) * fl * 1.8)), s.gk);
     glows.geo.instanceCount = glowN; glows.mesh.visible = glowN > 0;
     if (glowN) { glows.iPos.needsUpdate = true; glows.iData.needsUpdate = true; kelvin(P.flame.temperature - 200, glows.mat.uniforms.tint.value); }
     const mu = small.mat.uniforms;
@@ -566,11 +601,13 @@ export function createFire({ scene, camera, onLights = () => {}, meshOf = () => 
       _s.set(0, 0, 0); let sum = 0, reach = 0;
       for (const s of live) { _s.add(s.world); const T0 = TYPES[s.type]; sum += T0.light * (s.type === 'lantern' ? ls : cs); reach = Math.max(reach, T0.reach); }
       _s.divideScalar(live.length);
-      const f = Math.max(-1, Math.min(1, flicker(t, live[0].phase, sp) * fl * 1.8));
-      l.position.set(_s.x, _s.y + 0.35, _s.z);
+      const el = live.filter(s => TYPES[s.type].electric), wired = el.length === live.length; // all electric: their own colour, steady (no flicker)
+      const f = wired ? 0 : Math.max(-1, Math.min(1, flicker(t, live[0].phase, sp) * fl * 1.8));
+      l.position.set(_s.x, _s.y + (wired ? -0.4 : 0.35), _s.z);
       l.intensity = Math.min(70, sum * Math.pow(live.length, -0.15)) * P.light.strength * (1 + 0.25 * f);
       l.distance = (reach + Math.sqrt(live.length) * 2) * P.light.reach;
-      l.color.copy(kelvin(P.flame.temperature - 150 + 120 * f, lightCol));
+      if (wired) { let r = 0, g = 0, b = 0; for (const s of el) { const c = TYPES[s.type].electric; r += c[0]; g += c[1]; b += c[2]; } l.color.setRGB(r / el.length, g / el.length, b / el.length); }
+      else l.color.copy(kelvin(P.flame.temperature - 150 + 120 * f, lightCol));
     }
     // ---- lanterns: own light inside the body, beam shape, glow on the body, optional (patterned) shadows
     const LP = P.lantern;
@@ -588,6 +625,17 @@ export function createFire({ scene, camera, onLights = () => {}, meshOf = () => 
         l.angle = THREE.MathUtils.degToRad(LP.angle / 2); l.penumbra = 0.55;
       }
     }
+    // ---- electric lights: the body glows its own colour while it is on (a lantern's glow, without the flame or the flicker)
+    for (const s of smalls) {
+      const T0 = TYPES[s.type]; if (!T0.electric || seenElectric.has(s.item)) continue; seenElectric.add(s.item);
+      const rootE = rootOf(s.item); if (!rootE) continue;
+      rootE.traverse(o => { if (!o.isMesh) return; for (const mat of Array.isArray(o.material) ? o.material : [o.material]) {
+        if (!mat?.emissive) continue;
+        if (!mat.userData.fxGlow) { mat.userData.fxGlow = true; if (mat.map && !mat.emissiveMap) { mat.emissiveMap = mat.map; mat.needsUpdate = true; } }
+        if (s.alive) { mat.emissive.setRGB(T0.electric[0], T0.electric[1], T0.electric[2]); mat.emissiveIntensity = T0.glow; mat.userData.fxGlowAt = glowTick + 0.5; }
+        else if (mat.userData.fxGlowAt !== glowTick + 0.5) mat.emissiveIntensity = 0; } });
+    }
+    seenElectric.clear();
     const castMode = LP.shadows ? (LP.pattern ? 'pattern' : 'clear') : 'normal';
     const seenItems = new Set(); glowTick++;
     for (const s of smalls) {

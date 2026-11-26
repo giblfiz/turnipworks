@@ -1,0 +1,567 @@
+[
+ {
+  "key": "nrs-longhouse",
+  "label": "Longhouse",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   8,
+   4
+  ],
+  "floors": [
+   "floor-earth-straw",
+   "floor-earth-packed",
+   "floor-planks-rushes",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "nrs-longhouse"
+  ],
+  "color": "#8a6a48",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ]
+ },
+ {
+  "key": "nrs-meadhall",
+  "label": "Mead hall (high seat)",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   10,
+   5
+  ],
+  "floors": [
+   "floor-earth-straw",
+   "floor-earth-packed",
+   "floor-planks-rushes",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "nrs-meadhall"
+  ],
+  "color": "#a0603a",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ]
+ },
+ {
+  "key": "nrs-smithy",
+  "label": "Norse smithy",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-earth-bare",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "nrs-smithy"
+  ],
+  "color": "#6f5f55",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs",
+   "smi"
+  ]
+ },
+ {
+  "key": "nrs-boathouse",
+  "label": "Boathouse (naust)",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   8,
+   4
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-gravel",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "nrs-boathouse"
+  ],
+  "color": "#6d7f86",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ]
+ },
+ {
+  "key": "nrs-weaving",
+  "label": "Weaving hut",
+  "program": "generic",
+  "family": "norse-stave",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-earth-straw",
+   "floor-earth-packed",
+   "floor-planks-rushes",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "nrs-weaving"
+  ],
+  "color": "#b0835c",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ]
+ },
+ {
+  "key": "nrs-yard",
+  "label": "Steading yard (runestone)",
+  "program": "outdoors",
+  "family": "norse-stave",
+  "cells": [
+   7,
+   6
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-grass-worn",
+   "floor-earth-bare",
+   "floor-gravel"
+  ],
+  "recipes": [
+   "nrs-yard"
+  ],
+  "color": "#7f9455",
+  "group": "Norse steading",
+  "tiers": [
+   "nrs"
+  ],
+  "outdoor": true
+ },
+ {
+  "key": "mde-courtyard",
+  "label": "Caravanserai courtyard",
+  "program": "outdoors",
+  "family": "mde-plaster",
+  "cells": [
+   8,
+   8
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-setts-courtyard",
+   "floor-flagstone-square",
+   "floor-cobble"
+  ],
+  "recipes": [
+   "mde-courtyard"
+  ],
+  "color": "#c9a66b",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ],
+  "outdoor": true
+ },
+ {
+  "key": "mde-souk",
+  "label": "Souk shop",
+  "program": "generic",
+  "family": "mde-plaster",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-terracotta",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "mde-souk"
+  ],
+  "color": "#c46a3a",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde",
+   "mkt"
+  ]
+ },
+ {
+  "key": "mde-hammam",
+  "label": "Hammam (bathhouse)",
+  "program": "generic",
+  "family": "mde-plaster",
+  "cells": [
+   5,
+   5
+  ],
+  "floors": [
+   "floor-marble-cabochon",
+   "floor-flagstone-large",
+   "floor-tile-hex"
+  ],
+  "recipes": [
+   "mde-hammam"
+  ],
+  "color": "#9fc2c0",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ]
+ },
+ {
+  "key": "mde-audience",
+  "label": "Reception hall (qa'a)",
+  "program": "generic",
+  "family": "mde-plaster",
+  "cells": [
+   7,
+   5
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-square",
+   "floor-marble-cabochon",
+   "floor-tile-hex"
+  ],
+  "recipes": [
+   "mde-audience"
+  ],
+  "color": "#b7894f",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ]
+ },
+ {
+  "key": "mde-coffee",
+  "label": "Coffee house",
+  "program": "generic",
+  "family": "mde-plaster",
+  "cells": [
+   5,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-terracotta",
+   "floor-tile-hex"
+  ],
+  "recipes": [
+   "mde-coffee"
+  ],
+  "color": "#8c5a3c",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ]
+ },
+ {
+  "key": "mde-garden",
+  "label": "Courtyard garden",
+  "program": "outdoors",
+  "family": "mde-plaster",
+  "cells": [
+   6,
+   6
+  ],
+  "floors": [
+   "floor-setts-courtyard",
+   "floor-flagstone-large",
+   "floor-grass-worn"
+  ],
+  "recipes": [
+   "mde-garden"
+  ],
+  "color": "#7fa060",
+  "group": "Middle East (Mamluk)",
+  "tiers": [
+   "mde"
+  ],
+  "outdoor": true
+ },
+ {
+  "key": "rus-izba",
+  "label": "Izba (log house)",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-boards-rough",
+   "floor-planks-worn",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "rus-izba"
+  ],
+  "color": "#a4783f",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ]
+ },
+ {
+  "key": "rus-terem",
+  "label": "Terem hall",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   6,
+   4
+  ],
+  "floors": [
+   "floor-planks-polished",
+   "floor-planks-worn",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "rus-terem"
+  ],
+  "color": "#a9473c",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ]
+ },
+ {
+  "key": "rus-banya",
+  "label": "Banya (bathhouse)",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-boards-rough",
+   "floor-planks-worn"
+  ],
+  "recipes": [
+   "rus-banya"
+  ],
+  "color": "#8aa0a6",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ]
+ },
+ {
+  "key": "rus-church",
+  "label": "Wooden church",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   5,
+   6
+  ],
+  "floors": [
+   "floor-planks-worn",
+   "floor-planks-dark",
+   "floor-boards-rough"
+  ],
+  "recipes": [
+   "rus-church"
+  ],
+  "color": "#d2a640",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ]
+ },
+ {
+  "key": "rus-market",
+  "label": "Market row stall",
+  "program": "generic",
+  "family": "rus-log",
+  "cells": [
+   3,
+   3
+  ],
+  "floors": [
+   "floor-boards-rough",
+   "floor-planks-worn",
+   "floor-planks-dark"
+  ],
+  "recipes": [
+   "rus-market"
+  ],
+  "color": "#8b6a3d",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus",
+   "mkt"
+  ]
+ },
+ {
+  "key": "rus-yard",
+  "label": "Stockade yard",
+  "program": "outdoors",
+  "family": "rus-log",
+  "cells": [
+   7,
+   6
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-earth-bare",
+   "floor-grass-worn",
+   "floor-boards-rough"
+  ],
+  "recipes": [
+   "rus-yard"
+  ],
+  "color": "#7c8b5a",
+  "group": "Medieval Rus'",
+  "tiers": [
+   "rus"
+  ],
+  "outdoor": true
+ },
+ {
+  "key": "mes-shrine",
+  "label": "Temple summit shrine",
+  "program": "generic",
+  "family": "mes-stucco",
+  "cells": [
+   4,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-flagstone-square"
+  ],
+  "recipes": [
+   "mes-shrine"
+  ],
+  "color": "#c8423a",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ]
+ },
+ {
+  "key": "mes-ballcourt",
+  "label": "Ballcourt",
+  "program": "outdoors",
+  "family": "mes-stucco",
+  "cells": [
+   10,
+   4
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-flagstone-large",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "mes-ballcourt"
+  ],
+  "color": "#d1b07a",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "outdoor": true
+ },
+ {
+  "key": "mes-house",
+  "label": "Noble's house",
+  "program": "generic",
+  "family": "mes-stucco",
+  "cells": [
+   6,
+   4
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-earth-packed",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "mes-house"
+  ],
+  "color": "#c98a4a",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ]
+ },
+ {
+  "key": "mes-market",
+  "label": "Market plaza",
+  "program": "outdoors",
+  "family": "mes-stucco",
+  "cells": [
+   8,
+   7
+  ],
+  "floors": [
+   "floor-earth-packed",
+   "floor-flagstone-large",
+   "floor-earth-bare"
+  ],
+  "recipes": [
+   "mes-market"
+  ],
+  "color": "#c9a052",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "outdoor": true
+ },
+ {
+  "key": "mes-chinampa",
+  "label": "Chinampa garden",
+  "program": "outdoors",
+  "family": "mes-stucco",
+  "cells": [
+   7,
+   6
+  ],
+  "floors": [
+   "floor-water-flooded"
+  ],
+  "recipes": [
+   "mes-chinampa"
+  ],
+  "color": "#4f8f6a",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ],
+  "outdoor": true
+ },
+ {
+  "key": "mes-scribe",
+  "label": "Scribe's room",
+  "program": "generic",
+  "family": "mes-stucco",
+  "cells": [
+   4,
+   3
+  ],
+  "floors": [
+   "floor-flagstone-large",
+   "floor-earth-packed",
+   "floor-flagstone-irregular"
+  ],
+  "recipes": [
+   "mes-scribe"
+  ],
+  "color": "#3f8f8f",
+  "group": "Mexica (Aztec)",
+  "tiers": [
+   "mes"
+  ]
+ }
+]

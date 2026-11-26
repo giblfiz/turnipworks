@@ -28,7 +28,7 @@
 // A gesture keeps its kind; one decisive event of the other kind inside it (deltaX, or lines) changes it for the rest.
 // A wheel-looking event within STICKY ms of a trackpad gesture stays trackpad unless the evidence is strong (the
 // tail of a momentum scroll can pass through a round number).
-// Where this guesses wrong (a Magic Mouse or a free-spinning MX wheel looks like a trackpad), Settings ▸ Me ▸ Scroll
+// Where this guesses wrong (a Magic Mouse or a free-spinning MX wheel looks like a trackpad), Settings ▸ Controls ▸ Scroll
 // wheel says which it is: auto / zoom / pan.
 // Pure: no DOM, so the node tests feed it recorded and synthesized streams.
 export const GAP = 180, STICKY = 350;

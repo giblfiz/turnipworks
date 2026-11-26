@@ -46,6 +46,8 @@ export function pawnsSurface(R, app) {
     isOpen: false, open: () => open(), close: () => close(), toggle: () => P.isOpen ? close() : open(),
     ownsKey: (k) => k !== 'p' && keymap.has(k), // (surfaces/tray.js) a letter that is an item's here; P never is
     state: () => state(),
+    hasPop: () => !!pop, // (client/escapable.js: the little menu counts as open)
+    goTree: (ids) => { if (!P.isOpen) open(); view = 'tree'; tree.go(ids); }, // (tests and stills) the tree of minis at a path of node ids
   };
   b.onclick = (ev) => { ev.stopPropagation(); P.toggle(); };
   app.tray.register('pawns', () => tray);
@@ -316,12 +318,12 @@ export function pawnsSurface(R, app) {
   function saveGroup(name) {
     const sel = selPawns(); if (sel.length < 2) { app.toast('Select two or more pawns to save as a group', true); return null; }
     const lead = sel[0], id = newId('cast');
-    app.sync.submit('cast.save', { id, kind: 'group', name: (name || `${pawnKindLabel(lead)} group`).slice(0, 80), members: sel.slice(0, 30).map(e => ({ name: pawnKindLabel(e), ...(e.fig && { fig: e.fig }), ...(F.sizeOf(e) > 1 && { size: F.sizeOf(e) }), dx: Math.round((e.x - lead.x) * 100) / 100, dz: Math.round((e.z - lead.z) * 100) / 100 })) });
+    app.sync.submit('cast.save', { id, kind: 'group', name: (name || `${pawnKindLabel(lead)} group`).slice(0, 80), members: sel.slice(0, 30).map(e => ({ name: pawnKindLabel(e), ...(e.fig && { fig: e.fig }), ...(F.sizeOf(e) !== 1 && { size: F.sizeOf(e) }), dx: Math.round((e.x - lead.x) * 100) / 100, dz: Math.round((e.z - lead.z) * 100) / 100 })) });
     P.lastSaved = id; return id;
   }
   function saveOne(e, name) {
     if (!e) return null; const id = newId('cast');
-    app.sync.submit('cast.save', { id, kind: 'one', name: (name || e.name).slice(0, 80), ...(e.fig && { fig: e.fig }), ...(F.sizeOf(e) > 1 && { size: F.sizeOf(e) }), ...(e.sheet && { sheet: e.sheet }), ...(e.notes && { notes: e.notes }), ...(e.gmNotes && { gmNotes: e.gmNotes }) });
+    app.sync.submit('cast.save', { id, kind: 'one', name: (name || e.name).slice(0, 80), ...(e.fig && { fig: e.fig }), ...(F.sizeOf(e) !== 1 && { size: F.sizeOf(e) }), ...(e.sheet && { sheet: e.sheet }), ...(e.notes && { notes: e.notes }), ...(e.gmNotes && { gmNotes: e.gmNotes }) });
     P.lastSaved = id; return id;
   }
   app.saveGroup = saveGroup; app.saveCast = saveOne;
@@ -451,6 +453,32 @@ export function pawnsSurface(R, app) {
   // the sections of the home view, in order; each returns '' when it has nothing for this seat
   const SECTIONS = [['turns', () => { const T = turns(); return T ? turnHtml(T) : ''; }], ['mine', mineHtml], ['party', () => turns() ? partyHeadOnly() : partyHtml()], ['measure', measureHtml], ['cast', castHtml], ['place', placeHtml], ['table', () => turns() ? '' : tableHtml()], ['gm', gmToolsHtml]];
   P.sections = SECTIONS;
+  // ON A PHONE (2026-11-11; docs/PAWNS.md "On a phone"). The stranger on the plane wanted to put some pawns down and the
+  // whole top of the menu was the blank "Mine: New pawn" tile. So, on a phone only (a computer keeps SECTIONS as they are):
+  //   GM      the catalog first: one wide Search row (the bar, "place pawn …"; it has the mic), then the kinds with
+  //           monsters, animals and townsfolk first and heroes after them; then the turn order, what is on the table,
+  //           the groups, the party, Measure; MINE is one row near the end (my pawns as small chips, and "Make your own
+  //           pawn" / "New pawn"); the GM tools last
+  //   PLAYER  my own pawn stays first (Mine, as it is), then the turn order, the party, Measure; placing (a seat that may)
+  //           after those
+  const HAND = () => document.documentElement.classList.contains('tw-hand');
+  const PHONE_FIRST = ['monsters', 'animals', 'townsfolk', 'heroes'];
+  const phoneRank = (n) => { const i = PHONE_FIRST.indexOf(n.id); return i < 0 ? PHONE_FIRST.length : i; };
+  function phonePlaceHtml() {
+    if (!canPlace()) return '';
+    const roots = tree.roots().map((n, i) => [n, i]).sort((a, b) => phoneRank(a[0]) - phoneRank(b[0]) || a[1] - b[1]).map(([n]) => n);
+    return `<header class="blevel"><b>Place a pawn</b></header><button class="phsearch" data-search tabindex="-1" aria-label="Search the figures">${icon('search', 18)}<span>Search ${F.count} figures</span></button><div class="bgrid">${roots.map(tree.nodeTile).join('')}</div>`;
+  }
+  function mineRowHtml() {
+    const items = mineItems();
+    const chip = (it, i) => { const name = it.rec?.name || it.def.name, fig = it.rec?.fig || it.def?.fig; return `<div class="mchip mine ${it.kind}" role="button" tabindex="-1" data-mine="${i}">${figThumb(fig, 30)}<span class="bl">${esc(name)}</span></div>`; };
+    return `<div class="mrow"><b>Mine</b>${items.map(chip).join('')}<button class="mnew" data-newpawn tabindex="-1">${icon('plus', 18)}<span>${items.length ? 'New pawn' : 'Make your own pawn'}</span></button></div>`;
+  }
+  const fn = (id) => SECTIONS.find(([k]) => k === id)[1];
+  const PHONE_GM = [['place', phonePlaceHtml], ['turns', fn('turns')], ['table', fn('table')], ['cast', fn('cast')], ['party', fn('party')], ['measure', fn('measure')], ['mine', mineRowHtml], ['gm', fn('gm')]];
+  const PHONE_PLAYER = [['mine', fn('mine')], ['turns', fn('turns')], ['party', fn('party')], ['measure', fn('measure')], ['place', phonePlaceHtml], ['cast', fn('cast')], ['table', fn('table')], ['gm', fn('gm')]];
+  const sectionsNow = () => !HAND() ? SECTIONS : app.gm() ? PHONE_GM : PHONE_PLAYER;
+  P.sectionsNow = () => sectionsNow().map(([k]) => k); // (tests)
 
   let lastHtml = '', pressed = false, deferred = false;
   tray.addEventListener('pointerdown', () => { pressed = true; }, true);
@@ -468,7 +496,7 @@ export function pawnsSurface(R, app) {
       <div class="pbody clip tree"><section class="psec" data-sec="tree">${tree.html()}</section></div>
       <footer>Click a figure, then a square (Shift: keep placing), or drag it onto the map · <kbd>⌫</kbd> up · <kbd>${pinned ? 'P' : 'Esc'}</kbd> close</footer>`
       : `<div class="thead"><b>Pawns</b>${app.tray.pinButton('pawns')}</div>
-      <div class="pbody clip">${SECTIONS.map(([id, fn]) => { const h = fn(); return h ? `<section class="psec" data-sec="${id}">${h}</section>` : ''; }).join('')}</div>
+      <div class="pbody clip">${sectionsNow().map(([id, fn]) => { const h = fn(); return h ? `<section class="psec" data-sec="${id}">${h}</section>` : ''; }).join('')}</div>
       <footer><kbd>1</kbd>–<kbd>9</kbd> go to a pawn · drag a row: ${turns() ? (canOrder() ? 'the turn order' : 'the GM orders the turns') : 'marching order'} · <kbd>${pinned ? 'P' : 'Esc'}</kbd> close</footer>`;
     const r = b.getBoundingClientRect(), lr = launch.getBoundingClientRect();
     Object.assign(tray.style, { left: `${lr.left}px`, top: `${r.bottom + 8}px`, maxHeight: `${innerHeight - r.bottom - 16}px` });
@@ -591,7 +619,7 @@ export function pawnsSurface(R, app) {
       cast: [...tray.querySelectorAll('[data-cast]')].map(el => ({ id: el.dataset.cast, name: el.querySelector('.bl').textContent, group: el.classList.contains('group'), n: el.querySelector('.fsz')?.textContent || '' })),
       saveRow: tray.querySelector('.psave')?.textContent.replace(/\s+/g, ' ').trim() || null,
       placeRoots: [...tray.querySelectorAll('.psec[data-sec="place"] [data-node]')].map(el => `${el.querySelector('kbd')?.textContent || '·'}:${el.querySelector('.bl').textContent}`),
-      tree: view === 'tree' ? { ...tree.state(), chips: [...tray.querySelectorAll('.bchip')].map(x => x.querySelector('span').textContent), tiles: [...tray.querySelectorAll('.bgrid .btile')].map(el => ({ label: el.querySelector('.bl').textContent, fig: el.dataset.fig || null, key: el.querySelector('kbd')?.textContent || '', size: el.querySelector('.fsz')?.textContent || '', pic: el.querySelector('img')?.getAttribute('src') || null })) } : null,
+      tree: view === 'tree' ? { ...tree.state(), chips: [...tray.querySelectorAll('.bchip')].map(x => x.querySelector('span:not(.nic)').textContent), chipPics: [...tray.querySelectorAll('.bchip')].map(x => x.querySelector('img')?.getAttribute('src') || null), chipKeys: [...tray.querySelectorAll('.bchip')].map(x => x.querySelector('kbd')?.textContent || ''), where: { path: tray.querySelector('.bwhere .wpath')?.textContent || '', label: tray.querySelector('.bwhere b')?.textContent || '', pic: tray.querySelector('.bwhere img')?.getAttribute('src') || null }, tiles: [...tray.querySelectorAll('.bgrid .btile')].map(el => ({ label: el.querySelector('.bl').textContent, fig: el.dataset.fig || null, key: el.querySelector('kbd')?.textContent || '', size: el.querySelector('.fsz')?.textContent || '', pic: el.querySelector('img')?.getAttribute('src') || null })) } : null,
       kinds: [...tray.querySelectorAll('.krow')].map(el => ({ key: el.dataset.kind, name: el.querySelector('.kname b').textContent, n: el.querySelector('.kname small')?.textContent || '', hidden: el.classList.contains('hid'), damage: [...el.querySelectorAll('.kdmg b')].map(x => x.textContent), acts: [...el.querySelectorAll('[data-kact]')].map(x => x.dataset.kact), pic: el.querySelector('img')?.getAttribute('src') || null })),
       turns: [...tray.querySelectorAll('.trow')].map(el => ({ key: el.dataset.tkey, cur: el.classList.contains('cur'), text: (el.querySelector('.pname, .kname b')?.textContent || '').trim(), init: el.querySelector('.tinit')?.textContent || '' })),
       gmTools: [...tray.querySelectorAll('.gmtool')].map(el => el.dataset.cmd),

@@ -126,6 +126,28 @@ ok('... and no faction piece is mixed into its other sections', contents.get(nav
 // looks: every look of a thing (a plain chair and a fine one), not every re-generation of it
 const chairs = itemsOf(common.id).filter(it => it.cat === 'chair-plain');
 ok('a thing with several looks shows each look once (the plain chair: common and fine), not each re-generation', chairs.length === 2 && new Set(chairs.map(c => c.label)).size === 2, chairs.map(c => `${c.label} (${c.sku})`).join(', '));
+// genre on the shelves (sprawl pack, 2026-11-06): a modern look (tier mod) is on no fantasy room's shelf, and a modern
+// room shows the modern look of a shared thing alone (the modern sofa, not the mansion's)
+const tierOf = new Map(); for (const o of Object.values(lib.objects)) for (const k of o.skus) tierOf.set(k.sku, k.tier || '');
+const mixedCat = (cat) => { const ks = lib.objects[cat]?.skus || []; return ks.some(k => k.tier === 'mod') && ks.some(k => k.tier !== 'mod'); };
+const modNode = (n) => (recipeOf(n.roomKey).tiers || []).includes('mod');
+const leak = roomNodes.filter(n => !modNode(n)).flatMap(n => itemsOf(n.id).filter(it => it.place !== 'kit').filter(it => (it.sku && tierOf.get(it.sku) === 'mod') || (!it.sku && mixedCat(it.cat))).map(it => `${n.roomKey}:${it.sku || it.cat}`));
+ok('no fantasy room\'s shelf shows a modern look of a thing (or leaves a thing that has one unnamed; the kit lists every wall family, modern ones too)', !leak.length, short([...new Set(leak)]));
+if (lib.objects.sofa?.skus.some(k => k.sku === 'sofa--mod')) {
+  const flat = roomNodes.find(n => n.roomKey === 'mod-apartment'), sofas = flat ? itemsOf(flat.id).filter(it => it.cat === 'sofa') : [];
+  ok('the modern apartment\'s shelf shows the modern sofa, alone', sofas.length === 1 && sofas[0].sku === 'sofa--mod', sofas.map(s => s.sku).join(', '));
+  const mansionSofas = roomNodes.filter(n => !modNode(n)).flatMap(n => itemsOf(n.id).filter(it => it.cat === 'sofa'));
+  ok('... and the mansion\'s sofa shelf never shows it', mansionSofas.length > 0 && mansionSofas.every(s => s.sku !== 'sofa--mod'), `${mansionSofas.length} sofa entries`);
+}// (2026-11-07) the cyberpunk pack's wave-2 looks (tier cyb: the noodle bowl's neon, the near-future sedan): a Cyberpunk room's
+// shelf shows them beside the City look, a City room's shelf never does, a fantasy room's neither
+if (lib.objects['sign-neon']?.skus.some(k => k.tier === 'cyb')) {
+  const cybTier = (n) => (recipeOf(n.roomKey).tiers || []).includes('cyb');
+  const cybLeak = roomNodes.filter(n => !cybTier(n)).flatMap(n => itemsOf(n.id).filter(it => it.sku && tierOf.get(it.sku) === 'cyb').map(it => `${n.roomKey}:${it.sku}`));
+  ok('no City or fantasy room\'s shelf shows a wave-2 cyberpunk look', !cybLeak.length, short([...new Set(cybLeak)]));
+  const noodle = roomNodes.find(n => n.roomKey === 'cyb-noodle'), signs = noodle ? itemsOf(noodle.id).filter(it => it.cat === 'sign-neon').map(it => it.sku) : [];
+  ok('the noodle bar\'s shelf shows the neon signs, its own looks among them', signs.includes('sign-neon--noodle-bowl') && signs.length >= 2, signs.join(', ') || (noodle ? itemsOf(noodle.id).map(it => `${it.cat}/${it.sku || ''}`).slice(0, 30).join(' ') : 'no noodle bar node'));
+}
+
 // a thing whose name ends in "-open" but is no open state (an open book) is placeable and shelved
 const opens = ['book-open', 'flour-sack-open', 'helm-open'].filter(id => lib.objects[id]);
 ok('an open book, an open flour sack, an open helm (things of their own, not open states) are placeable and on a shelf', opens.every(id => placeableIds.has(id) && shown.has(id)) && !placeableIds.has('door-plank-open'), opens.join(', '));

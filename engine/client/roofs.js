@@ -41,6 +41,16 @@ export const ROOF_STYLES = {
   // rectangle of a room in that style). Its painted picture is not in the library: `file` is beside the roof sections
   // (data/roof/, built by experiments/2026-10-27-roofs-temple). No dormers on a temple.
   marble: { cat: 'roofing-marble', file: 'roof/roofing-marble.webp', color: '#e6dccb', label: 'Marble', pitch: 22, dormers: false },
+  // CULTURE STYLES (2026-11-07, Harry: "yes do roofs and such"; core/height.js CULTURE_ROOF_STYLES): each a modelled section
+  // and its painted picture beside the roof sections (data/roof/, experiments/2026-11-07-culture-roofs/assets). How a
+  // culture BUILDS its roof (shape, pitch, eaves, the bend) is its FORM (ROOF_FORMS below), not the style. `ridge`: the
+  // ridge sku the cap is laid in (roof-ridge--<ridge>; none: no kit cap); `ridgeEnd`: the ornament on each free end of a
+  // ridge (ROOF_KIT); `hips`: hip ridges are capped too.
+  kawara: { cat: null, file: 'roof/roofing-kawara.webp', color: '#6b6f74', label: 'Kawara tile', dormers: false, ridge: 'kawara', ridgeEnd: 'onigawara', hips: true, ridgeColor: '#4a4d52' },
+  tongwa: { cat: null, file: 'roof/roofing-tongwa.webp', color: '#6f6d6a', label: 'Grey cylinder tile', dormers: false, ridge: 'tongwa', hips: true, ridgeColor: '#4e4c49' },
+  glazed: { cat: null, file: 'roof/roofing-glazed.webp', color: '#3f7451', label: 'Glazed tile', dormers: false, ridge: 'glazed', ridgeEnd: 'chiwen', hips: true, ridgeColor: '#2f5a3e' },
+  sod: { cat: null, file: 'roof/roofing-sod.webp', color: '#5d7a3a', label: 'Turf (pitched)', dormers: false, ridge: 'none', ridgeColor: '#4d6a30' },
+  tes: { cat: null, file: 'roof/roofing-tes.webp', color: '#7b6650', label: 'Plank (tes)', dormers: false, ridge: 'none', ridgeColor: '#5a4632' }, // (its ridge: the heavy timber cover, the drawn cap in wood; no kit ridge yet)
   // FLAT SURFACES (2026-10-27; core/height.js FLAT_STYLES): a generated seamless 5-ft texture each, a client data file
   // (`tex`, under engine/client/data/: experiments/2026-10-27-roofs-flat/textures), an existing floor texture as the
   // stand-in until it loads, else the plain colour. `skirt`: the colour of the slab's sides. `ft`: how many feet one picture
@@ -55,7 +65,7 @@ export const ROOF_STYLES = {
 };
 // the surface the FLAT part of a roof wears (a lower storey's open deck, a flat-shaped roof): a flat style is its own; a
 // pitched style has its usual flat: lead with slate (the mansion's leads), stone with marble, a plank deck with the rest
-export const FLAT_FOR = { slate: 'lead', marble: 'flagstone' };
+export const FLAT_FOR = { slate: 'lead', marble: 'flagstone', sod: 'turf', kawara: 'plaster', tongwa: 'plaster', glazed: 'plaster' };
 export const flatSurfaceOf = (style) => { const s = roofStyleKey(style); return ROOF_STYLES[s]?.flat ? s : FLAT_FOR[s] || 'deck'; };
 // what runs round a flat roof's open edges (core/height.js ROOF_EDGES; roofEdgeOf picks the default): the trim role laid
 // along each 5-ft edge, the role at each outer corner, and their stand-in boxes (ft: height, thickness; corner side, height,
@@ -68,7 +78,55 @@ export const EDGE_KIT = {
 };
 // a client data file (a flat surface's own texture), cache-stamped like the roof sections (world.js roofSections)
 export const roofDataUrl = (path) => new URL(`./data/${path}?v=${globalThis.TW_V || 'dev'}`, import.meta.url).href;
-export const TURRET = { w: 4.5, h: 11, inset: 1, min: 10 }; // ft: a corner turret's box, how far in from the corner its middle stands, the smallest roof side that gets them
+export const TURRET = { w: 4.5, h: 11, inset: 1, min: 10 };
+// HOW A CULTURE BUILDS ITS ROOF (2026-11-07; core/height.js roofFormOf picks the form by the walls, else by the style).
+//   shape     its usual shape where neither the room nor the building chose one: 'irimoya' is hip-and-gable (IRIMOYA)
+//   pitch     degrees (a room's own pitch and a style's (marble) still win)
+//   overhang  ft: how far the eaves and verges reach past the wall line (East Asian eaves reach far: they keep the rain off
+//             timber and paper walls)
+//   bend      the curve of the slopes (BEND below): `eave` ft the eave line is lifted, the lift dying away quadratically
+//             over `reach` ft up the slope (a concave slope, shallow at the eaves); `corner` ft MORE at the corners, dying
+//             away over `creach` ft along the eave (the upturned corner). Absent: straight slopes.
+//   dormers, openings, finials   false: none (a European dormer or attic window does not belong on a kawara roof)
+export const ROOF_FORMS = {
+  // (the sensitivity read, 2026-11-07: an ordinary Kyoto machiya is a plain gable, kirizuma, with deep, nearly straight eaves;
+  // the hip-and-gable with the eave curve is the dojo's and the shrine hall's; core/height.js ROOF_FORM_BY_TYPE)
+  'jpn-house': { seat: 0.5, shape: 'gable', pitch: 28, overhang: 2.5, bend: { eave: 0.2, corner: 0 }, dormers: false, openings: false, finials: false },
+  'jpn-hall': { seat: 0.5, shape: 'irimoya', pitch: 30, overhang: 3, bend: { eave: 0.5, corner: 0.8 }, dormers: false, openings: false, finials: false },
+  // (an ordinary Beijing house: a plain hard gable, yingshan, no curl; the temple hall keeps the bend)
+  'chn-house': { seat: 0.5, shape: 'gable', pitch: 30, overhang: 1.5, dormers: false, openings: false, finials: false },
+  'chn-temple': { seat: 0.5, shape: 'irimoya', pitch: 32, overhang: 3, bend: { eave: 0.75, corner: 2.1 }, dormers: false, openings: false, finials: false },
+  nrs: { seat: 0.5, pitch: 30, overhang: 1.25, dormers: false, finials: false },
+  rus: { seat: 0.5, pitch: 45, overhang: 1.25, dormers: false },
+};
+// IRIMOYA (hip-and-gable): the lower part of the roof is hipped all round; above the hip's top a small upright gable
+// stands over each end. `hip`: how far in from each end wall the gable stands, as a share of the half-span (so the
+// gable is the top half of the end's triangle); `face`: the gable's face, ft out from its line over the hip.
+export const IRIMOYA = { hip: 0.5, face: 0.25 };
+// the bend's lift (ft) at a point (plan x, z) of a part: the same function the sections' vertex shader runs
+// (sectionMats twBend), so the CPU-built pieces (hip caps, verges) follow the slopes exactly.
+//   B = { x0, z0, x1, z1 (the eaves' rectangle), eave, corner, reach, creach, axisX (1: the ridge runs along x), ends (1: hipped ends are eaves too) }
+export function bendAt(B, x, z) {
+  if (!B || !(B.reach > 0)) return 0;
+  const dx = Math.max(0, Math.min(x - B.x0, B.x1 - x)), dz = Math.max(0, Math.min(z - B.z0, B.z1 - z));
+  const da = B.axisX ? dz : dx, db = B.axisX ? dx : dz, e = (d, R) => { const t = Math.max(0, 1 - d / R); return t * t; };
+  let y = e(da, B.reach) * (B.eave + B.corner * e(db, B.creach));
+  if (B.ends) y = Math.max(y, e(db, B.reach) * (B.eave + B.corner * e(da, B.creach)));
+  return y;
+}
+// ORNAMENTS a roof carries by its room's type (core/height.js roofOrnamentOf) or on its ridge's ends by its style: generated
+// library pieces (catalog/objects-culture-roofs.catalog.md), placed by rule as trim (keyed, removable, movable on the roof)
+//   at: 'ridge'   on the ridge, at its middle (a church's cupola);  'centre': the middle of the flat roof, scaled to it;
+//       'edge'    on the flat roof, against its north (-z) edge, facing north (a wind-catcher takes the north wind);
+//       'mark'    over the room's sanctum (opts.marks), else the middle;  'corners': every outer corner of the flat roof
+//   dims [w, h, d] ft, or `size(lx, lz)` from the roof's flat part
+export const ROOF_ORNAMENTS = {
+  cupola: { role: 'cupola', at: 'ridge', dims: [7, 14, 7] }, // (the mesh: 83 x 84 x 168 in, a plain cross on top)
+  dome: { role: 'dome', at: 'centre', size: (lx, lz) => { const w = Math.max(8, Math.min(16, Math.min(lx, lz) * 0.6)); return [w, w * 0.67, w]; } },
+  malqaf: { role: 'malqaf', at: 'edge', dims: [4, 6, 4] }, // (the mesh's open mouth faces its +z: turned to face north)
+  shikhara: { role: 'shikhara', at: 'mark', size: (lx, lz) => { const w = Math.max(8, Math.min(14, Math.min(lx, lz) * 0.6)); return [w, w * 1.8, w]; } },
+  chhatris: { role: 'chhatri', at: 'corners', dims: [3.5, 6.5, 3.5] },
+}; // ft: a corner turret's box, how far in from the corner its middle stands, the smallest roof side that gets them
 // the trim: each role is the first of these catalog ids the library has; anything after the first is a stand-in
 export const ROOF_KIT = {
   chimney: ['chimney-stack', 'pillar-square', 'post-timber'],
@@ -81,6 +139,9 @@ export const ROOF_KIT = {
   railing: ['railing-wood'],                               //   a deck's timber railing
   ridge: ['roof-ridge'],
   finial: ['roof-finial', 'weathervane'],
+  // (2026-11-07) culture roofs: ridge-end ornaments by style, ornaments by room type (ROOF_ORNAMENTS)
+  onigawara: ['roof-onigawara'], chiwen: ['roof-chiwen'],
+  cupola: ['roof-cupola-onion'], dome: ['roof-dome'], malqaf: ['roof-malqaf'], shikhara: ['roof-shikhara'], chhatri: ['ind-chhatri'],
 };
 export function resolveKit(has = () => false) {
   const out = {};
@@ -126,7 +187,8 @@ const strSeed = (s) => { let h = 2166136261; for (const ch of String(s)) { h ^= 
 //           style (ROOF_STYLES: a pitched or a flat surface; 'flat' = 'deck'), kind? ('gable' | 'hip' | 'flat': its SHAPE, room.roof.shape;
 //           absent = gable), axis? ('x' | 'z': the way its ridge runs, room.roof.axis; absent = automatic), seed,
 //           covered?: [[gx, gz]...], props?: false, none?: true (no roof: open to the sky), trim?: room.roof.trim (below),
-//           edge? (EDGE_KIT: round the open edges of its flat part; default 'parapet'), turrets? (bartizans on its flat part's outer corners) }]
+//           edge? (EDGE_KIT: round the open edges of its flat part; default 'parapet'), turrets? (bartizans on its flat part's outer corners),
+//           form? (ROOF_FORMS: how its culture builds a roof; 2026-11-07), ornament? (ROOF_ORNAMENTS: what its type carries) }]
 // SHAPE AND STYLE ARE SEPARATE (2026-10-27): kind 'flat' makes a flat roof whatever the style (it is drawn with the flat
 // surface); a FLAT STYLE (deck, flagstone, lead, turf, plaster; 'flat' = deck) makes a flat roof whatever the kind, as 'flat' always did.
 // A FORCED AXIS (a roof turned 90 degrees, Harry 2026-10-27: "rotate able on the 90 degree, so profiles can work") wins for
@@ -135,10 +197,13 @@ const strSeed = (s) => { let h = 2166136261; for (const ch of String(s)) { h ^= 
 // (the highest field wins), so a turned wing meets its neighbour in valleys or as a cross gable as the axes fall out.
 // Each roof reports `axis` (as planned) and `autoAxis` (what it would have been without the force).
 // opts:  { fires: [{ id, x, z }] (ft: fireplaces and hearths; each gets a chimney straight above it),
-//          has: (catalogId) => bool, pitch, maxRise, overhang, dormers: bool, finials: bool }
+//          has: (catalogId) => bool, pitch, maxRise, overhang, dormers: bool, finials: bool,
+//          marks: [{ room?, x, z }] (ft: where a room's 'mark' ornament stands: a temple's sanctum; no room: whichever room it is in) }
 export function planRoofs(rooms, opts = {}) {
   const O = { ...ROOF_DEFAULTS, ...opts }, C = O.cell, kit = resolveKit(O.has);
-  const tanOf = (r) => Math.tan((r.pitch ?? ROOF_STYLES[r.style]?.pitch ?? O.pitch) * Math.PI / 180); // a room's own pitch, else its style's (marble: 22), else the default
+  const formOf = (r) => ROOF_FORMS[r.form] || null;
+  const tanOf = (r) => Math.tan((r.pitch ?? ROOF_STYLES[r.style]?.pitch ?? formOf(r)?.pitch ?? O.pitch) * Math.PI / 180); // a room's own pitch, else its style's (marble: 22), else its culture's form's, else the default
+  const ohOf = (r) => formOf(r)?.overhang ?? O.overhang; // (2026-11-07) a culture's eaves reach further
   const R = rooms.map((r, order) => normalRoom(r, C, order));
   // covered cells: under a room that stands higher (its floor at or above this room's wall top), or stated outright
   for (const r of R) {
@@ -159,7 +224,9 @@ export function planRoofs(rooms, opts = {}) {
       const lx = p.x1 - p.x0, lz = p.z1 - p.z0;
       p.cx = (p.x0 + p.x1) / 2; p.cz = (p.z0 + p.z1) / 2;
       // a rectangle the solver left as scraps (a one-cell stub of a staircase shape) is roofed flat rather than as a tiny gable
-      p.kind = flat || q.scrap ? 'flat' : r.kind === 'hip' ? 'hip' : 'gable';
+      const shape = r.kind || formOf(r)?.shape; // the room's or its building's shape, else its culture's (an East Asian hall: irimoya)
+      p.kind = flat || q.scrap ? 'flat' : shape === 'hip' ? 'hip' : shape === 'irimoya' ? 'irimoya' : 'gable';
+      p.oh = ohOf(r);
       p.axis = lx >= lz ? 'x' : 'z'; // the ridge runs along the long side
       p.half = Math.min(lx, lz) / 2; p.tan = Math.min(tanOf(r), O.maxRise / p.half); p.rise = p.tan * p.half;
       p.ridgeY = p.kind === 'flat' ? p.top + 1 : p.top + p.rise;
@@ -182,19 +249,28 @@ export function planRoofs(rooms, opts = {}) {
   const setAxis = (p, ax) => { const lx = p.x1 - p.x0, lz = p.z1 - p.z0; p.axis = ax; p.half = (ax === 'x' ? lz : lx) / 2; p.tan = Math.min(tanOf(p.room), O.maxRise / p.half); p.rise = p.tan * p.half; p.ridgeY = p.top + p.rise; };
   for (const p of parts) { p.autoAxis = p.axis; if (p.kind !== 'flat' && (p.room.axis === 'x' || p.room.axis === 'z') && p.room.axis !== p.axis) setAxis(p, p.room.axis); }
   for (const p of parts) {
-    const oh = O.overhang, t = p.tan, T = p.top;
+    // (2026-11-07, a form's `seat`) the slopes meet the wall's OUTER face at the wall's head, not its grid line: a wall is
+    // 12 in thick, so a roof seated on the grid line leaves the outer half of the wall's head standing through its lowest
+    // course (Gemini: "dark slits through the lower slope just above the eaves"). Raised by seat x tan; the gable widens to meet it.
+    p.lift = p.kind === 'flat' ? 0 : (formOf(p.room)?.seat ?? 0) * p.tan; if (p.lift) p.ridgeY = p.top + p.lift + p.rise;
+    const oh = p.oh, t = p.tan, T = p.top + p.lift;
     if (p.kind === 'flat') { p.planes = [{ a: 0, b: 0, c: T + 1, face: 'flat' }]; p.dom = [{ x0: p.x0, z0: p.z0, x1: p.x1, z1: p.z1 }]; p.ends = []; continue; }
     const X = p.axis === 'x';
     // the two slopes (and a hip's two ends): height rises from each wall line towards the middle
     p.planes = X
       ? [{ a: 0, b: t, c: T - t * p.z0, face: 'N', u: [1, 0], eave: p.z0, across: 'z', sign: 1 }, { a: 0, b: -t, c: T + t * p.z1, face: 'S', u: [-1, 0], eave: p.z1, across: 'z', sign: -1 }]
       : [{ a: t, b: 0, c: T - t * p.x0, face: 'W', u: [0, -1], eave: p.x0, across: 'x', sign: 1 }, { a: -t, b: 0, c: T + t * p.x1, face: 'E', u: [0, 1], eave: p.x1, across: 'x', sign: -1 }];
-    if (p.kind === 'hip') p.planes.push(...(X
+    if (p.kind === 'hip' || p.kind === 'irimoya') p.planes.push(...(X
       ? [{ a: t, b: 0, c: T - t * p.x0, face: 'W', u: [0, -1], eave: p.x0, across: 'x', sign: 1 }, { a: -t, b: 0, c: T + t * p.x1, face: 'E', u: [0, 1], eave: p.x1, across: 'x', sign: -1 }]
       : [{ a: 0, b: t, c: T - t * p.z0, face: 'N', u: [1, 0], eave: p.z0, across: 'z', sign: 1 }, { a: 0, b: -t, c: T + t * p.z1, face: 'S', u: [-1, 0], eave: p.z1, across: 'z', sign: -1 }]));
     // its ground: the rectangle plus the overhang, and (a gable) on into a neighbour whose side its end meets
     const [lo, hi, alo, ahi] = X ? ['z0', 'z1', 'x0', 'x1'] : ['x0', 'x1', 'z0', 'z1'];
     const main = { x0: p.x0 - oh, z0: p.z0 - oh, x1: p.x1 + oh, z1: p.z1 + oh }; p.dom = [main]; p.ends = [];
+    if (p.kind === 'irimoya') { // three strips across the ridge: a hipped end, the gabled middle, a hipped end; each its own planes
+      const L = p[ahi] - p[alo], g = Math.min(p.half * IRIMOYA.hip, L * 0.3), [S1, S2, Elo, Ehi] = p.planes, a0 = p[alo] + g, a1 = p[ahi] - g;
+      const strip = (from, to, planes) => ({ ...main, [alo]: from, [ahi]: to, planes });
+      p.gab = { a0, a1, g, Hc: T + t * g }; p.dom = [strip(main[alo], a0, [S1, S2, Elo]), strip(a0, a1, [S1, S2]), strip(a1, main[ahi], [S1, S2, Ehi])];
+    }
     if (p.kind === 'gable') for (const end of [alo, ahi]) {
       const at = p[end], nbs = parts.filter(b => sameGroup(p, b) && Math.abs(b[end === alo ? ahi : alo] - at) < 1e-6 && touch(p, b, lo, hi));
       const E = { end, at, joined: nbs.length > 0, to: at, lo: p[lo], hi: p[hi] };
@@ -209,7 +285,8 @@ export function planRoofs(rooms, opts = {}) {
     }
   }
   const byGroup = new Map(); for (const p of parts) { if (!byGroup.has(p.group)) byGroup.set(p.group, []); byGroup.get(p.group).push(p); }
-  const fieldOf = (p, x, z) => p.dom.some(r => inRect(r, x, z)) ? Math.min(...p.planes.map(pl => hOf(pl, x, z))) : -Infinity;
+  // (a dom rectangle may carry its own planes: an irimoya's hipped ends and gabled middle; at their seam the higher wins: the gable's face)
+  const fieldOf = (p, x, z) => { let h = -Infinity; for (const r of p.dom) if (inRect(r, x, z)) { let m = Infinity; for (const pl of r.planes || p.planes) m = Math.min(m, hOf(pl, x, z)); if (m > h) h = m; } return h; };
   const othersAt = (p, x, z) => Math.max(-Infinity, ...byGroup.get(p.group).filter(b => b !== p).map(b => fieldOf(b, x, z)));
   // the roof's height over a point (the highest roof there), or null where there is none
   const heightAt = (x, z) => { let h = -Infinity; for (const p of parts) if (inRect(p, x, z)) h = Math.max(h, Math.max(...byGroup.get(p.group).map(b => fieldOf(b, x, z)))); return Number.isFinite(h) ? h : null; };
@@ -220,11 +297,11 @@ export function planRoofs(rooms, opts = {}) {
     p.pieces = [];
     for (const pl of p.planes) {
       let polys = [];
-      for (const r of p.dom) { let poly = rectPoly(r); for (const m of p.planes) if (m !== pl && poly.length) poly = clip(poly, [m.a - pl.a, m.b - pl.b, m.c - pl.c], p.planes.indexOf(pl) < p.planes.indexOf(m)); if (poly.length) polys.push(poly); }
+      for (const r of p.dom) { const P = r.planes || p.planes; if (!P.includes(pl)) continue; let poly = rectPoly(r); for (const m of P) if (m !== pl && poly.length) poly = clip(poly, [m.a - pl.a, m.b - pl.b, m.c - pl.c], p.planes.indexOf(pl) < p.planes.indexOf(m)); if (poly.length) polys.push(poly); }
       if (p.dom.length > 1) polys = disjoint(polys);
       for (const b of byGroup.get(p.group)) {
         if (b === p || !polys.length) continue;
-        for (const r of b.dom) { const halves = [...rectHalves(r).map(h => ({ h, tie: true })), ...b.planes.map(m => ({ h: [m.a - pl.a, m.b - pl.b, m.c - pl.c], tie: b.i < p.i }))]; polys = polys.flatMap(poly => subtract(poly, halves)); }
+        for (const r of b.dom) { const halves = [...rectHalves(r).map(h => ({ h, tie: true })), ...(r.planes || b.planes).map(m => ({ h: [m.a - pl.a, m.b - pl.b, m.c - pl.c], tie: b.i < p.i }))]; polys = polys.flatMap(poly => subtract(poly, halves)); }
       }
       for (const b of taller(p)) polys = polys.flatMap(poly => subtract(poly, rectHalves(b).map(h => ({ h, tie: true }))));
       for (const poly of polys) p.pieces.push({ plane: pl, poly });
@@ -233,10 +310,20 @@ export function planRoofs(rooms, opts = {}) {
 
   // one roof per room
   const roofs = [], byRoom = new Map();
-  for (const r of R) { if (!r.open.length || r.none) continue; const roof = { room: r.id, building: r.building ?? null, style: r.style, flatStyle: flatSurfaceOf(r.style), edge: r.edge, turrets: r.turrets, family: r.family ?? null, kind: null, ...((r.axis === 'x' || r.axis === 'z') && { forced: r.axis }), top: r.top, ridgeY: r.top, seed: r.seed, planes: [], gables: [], gableEnds: [], verges: [], skirts: [], ridges: [], standable: [], props: [] }; roofs.push(roof); byRoom.set(r.id, roof); }
+  for (const r of R) { if (!r.open.length || r.none) continue; const roof = { room: r.id, building: r.building ?? null, style: r.style, flatStyle: flatSurfaceOf(r.style), edge: r.edge, turrets: r.turrets, family: r.family ?? null, kind: null, ...(r.form && { form: r.form }), ...(r.ornament && { ornament: r.ornament }), hips: [], ...((r.axis === 'x' || r.axis === 'z') && { forced: r.axis }), top: r.top, ridgeY: r.top, seed: r.seed, planes: [], gables: [], gableEnds: [], verges: [], skirts: [], ridges: [], standable: [], props: [] }; roofs.push(roof); byRoom.set(r.id, roof); }
   const anyTaller = (p, x, z) => taller(p).some(b => inRect(b, x, z, -1e-6));
   for (const p of parts) {
     const roof = byRoom.get(p.room.id), sec = Math.sqrt(1 + p.tan * p.tan);
+    // THE BEND (2026-11-07, ROOF_FORMS): the eaves' rectangle of this part and its culture's curve; a gable end that runs on
+    // into a neighbour's roof is not an eave, so the rectangle is carried on past it (no upturn where two rooms meet)
+    const FB = p.kind === 'flat' ? null : formOf(p.room)?.bend;
+    if (FB) {
+      const X = p.axis === 'x', far = 1e4, L = (X ? p.x1 - p.x0 : p.z1 - p.z0) + 2 * p.oh;
+      p.bend = { x0: p.x0 - p.oh, z0: p.z0 - p.oh, x1: p.x1 + p.oh, z1: p.z1 + p.oh, eave: FB.eave || 0, corner: FB.corner || 0,
+        reach: Math.max(2, Math.min(8, (p.half + p.oh) * 0.55)), creach: Math.max(3, Math.min(12, L * 0.3)), axisX: X ? 1 : 0, ends: p.kind === 'gable' ? 0 : 1 };
+      for (const E of p.ends || []) if (E.joined) p.bend[E.end] = E.end.endsWith('0') ? -far : far;
+      roof.bent = true;
+    }
     roof.kind = roof.kind && roof.kind !== p.kind ? 'mixed' : p.kind; roof.ridgeY = Math.max(roof.ridgeY, p.ridgeY); roof.axis ||= p.kind === 'flat' ? undefined : p.axis; roof.autoAxis ||= p.kind === 'flat' ? undefined : p.autoAxis;
     for (const { plane: pl, poly } of p.pieces) {
       const flat = pl.face === 'flat', pts = poly.map(([x, z]) => [x, hOf(pl, x, z), z]);
@@ -245,7 +332,7 @@ export function planRoofs(rooms, opts = {}) {
       const uv = poly.map(([x, z]) => flat ? [x / FT, -z / FT] : [(x * pl.u[0] + z * pl.u[1]) / C, ((pl.across === 'z' ? z : x) - pl.eave) * pl.sign * sec / C]);
       // lay: how roof sections are laid on this plane (sectionLayout): feet along the eave (world-aligned, so the courses of joined
       // rooms line up) and feet up the slope from the eave's EDGE (the overhang), so every slope starts with a whole course
-      const lay = flat ? null : { u: pl.u, across: pl.across, sign: pl.sign, edge: pl.eave - pl.sign * O.overhang, tan: p.tan, a: pl.a, b: pl.b, c: pl.c };
+      const lay = flat ? null : { u: pl.u, across: pl.across, sign: pl.sign, edge: pl.eave - pl.sign * p.oh, tan: p.tan, a: pl.a, b: pl.b, c: pl.c, ...(p.bend && { bend: p.bend }) };
       roof.planes.push({ face: pl.face, flat, poly: pts, uv, normal: flat ? [0, 1, 0] : norm([-pl.a, 1, -pl.b]), u: flat ? [1, 0] : pl.u, pitch: flat ? 0 : Math.atan(p.tan) * 180 / Math.PI, ...(lay && { lay }) });
     }
     if (p.kind === 'flat') {
@@ -262,19 +349,42 @@ export function planRoofs(rooms, opts = {}) {
       const [px, pz] = X ? [probe, mid] : [mid, probe];
       E.free = !E.joined; E.shown = othersAt(p, px, pz) < p.ridgeY - 0.05 && !anyTaller(p, px, pz);
       if (!E.shown) continue;
-      const lo = p[X ? 'z0' : 'x0'], hi = p[X ? 'z1' : 'x1'], tri = [P3(at, p.top, lo), P3(at, p.top, hi), P3(at, p.ridgeY, mid)];
+      const sw = p.lift / p.tan || 0, lo = p[X ? 'z0' : 'x0'] - sw, hi = p[X ? 'z1' : 'x1'] + sw, tri = [P3(at, p.top, lo), P3(at, p.top, hi), P3(at, p.ridgeY, mid)]; // (sw: a seated roof's gable reaches the walls' outer faces)
       roof.gables.push(tri);
       // what the gable END is made of (gableEnd below): the triangle, which way it faces, and (a free end, with a verge
       // overhang) the two sloped edges of the roof above it, where its trim goes
-      const G = gableEnd(p, E, tri, { X, out, at, lo, hi, mid, oh: E.free ? O.overhang : 0 }); E.g = G; roof.gableEnds.push(G);
+      const G = gableEnd(p, E, tri, { X, out, at, lo, hi, mid, oh: E.free ? p.oh : 0 }); E.g = G; roof.gableEnds.push(G);
       if (E.free) roof.verges.push(...G.verges);
     }
+    // IRIMOYA (hip-and-gable): a small upright gable over each hipped end, standing on the hip's top (p.gab); its face a
+    // little out over the hip, its foot tucked just under the hip's slope so no slit shows beneath it
+    if (p.kind === 'irimoya') for (const [k, at] of [p.gab.a0, p.gab.a1].entries()) {
+      const out = k ? 1 : -1, g = p.gab.g, Hc = p.gab.Hc, probe = at + out * (IRIMOYA.face + 0.05), [px, pz] = X ? [probe, mid] : [mid, probe];
+      if (!(othersAt(p, px, pz) < p.ridgeY - 0.05) || anyTaller(p, px, pz)) continue;
+      const lo = p[X ? 'z0' : 'x0'] + g, hi = p[X ? 'z1' : 'x1'] - g, base = Hc - IRIMOYA.face * p.tan - 0.05;
+      const tri = [P3(at, base, lo), P3(at, base, hi), P3(at, p.ridgeY, mid)], o = X ? [out, 0] : [0, out], trim = gableTrim(p.room.family, p.room.style);
+      roof.gables.push(tri);
+      const G = { tri, at, out: o, axis: p.axis, lo, hi, mid, base, apex: p.ridgeY, span: hi - lo, rise: p.ridgeY - base, tan: p.tan, free: true, oh: 0, face: IRIMOYA.face, trim, family: p.room.family ?? null, style: p.room.style,
+        verges: [{ a: tri[0], b: tri[2], out: o, trim }, { a: tri[1], b: tri[2], out: o, trim }], opening: null, irimoya: true, ...(p.bend && { bend: p.bend }) };
+      roof.gableEnds.push(G); roof.verges.push(...G.verges); p.ends.push({ end: (X ? ['x0', 'x1'] : ['z0', 'z1'])[k], at, to: at, free: true, shown: true, joined: false, g: G, irimoya: true });
+    }
+    // HIP RIDGES (2026-11-07; a style with `hips`): the lines from each eave corner up to the ridge's end (a hip) or to the
+    // foot of the gable (irimoya), where they are the top of the roof; capped like the ridge (world.js, buildRoof)
+    if ((p.kind === 'hip' || p.kind === 'irimoya') && ROOF_STYLES[p.room.style]?.hips) {
+      const top = p.kind === 'hip' ? p.half : p.gab.g, yTop = p.kind === 'hip' ? p.ridgeY : p.gab.Hc, oh = p.oh, yEave = p.top + p.lift - p.tan * oh;
+      const A0 = X ? p.x0 : p.z0, A1 = X ? p.x1 : p.z1, B0 = X ? p.z0 : p.x0, B1 = X ? p.z1 : p.x1;
+      for (const [ea, sa] of [[A0 - oh, 1], [A1 + oh, -1]]) for (const [eb, sb] of [[B0 - oh, 1], [B1 + oh, -1]]) {
+        const ta = (sa > 0 ? A0 : A1) + sa * top, tb = (sb > 0 ? B0 : B1) + sb * top, a = P3(ea, yEave, eb), b = P3(ta, yTop, tb);
+        let ok = true; for (let i = 1; i < 10 && ok; i++) { const f = i / 10, x = a[0] + (b[0] - a[0]) * f, z = a[2] + (b[2] - a[2]) * f, y = a[1] + (b[1] - a[1]) * f; ok = (heightAt(x, z) ?? -1e9) <= y + 0.02 && !anyTaller(p, x, z); }
+        if (ok) roof.hips.push({ a, b, ...(p.bend && { bend: p.bend }) });
+      }
+    }
     // the ridge, where it is the top of the roof: capped, and a place to stand
-    const a0 = p.kind === 'hip' ? (X ? p.x0 : p.z0) + p.half : Math.min(...p.dom.map(r => X ? r.x0 : r.z0)), a1 = p.kind === 'hip' ? (X ? p.x1 : p.z1) - p.half : Math.max(...p.dom.map(r => X ? r.x1 : r.z1));
+    const a0 = p.kind === 'hip' ? (X ? p.x0 : p.z0) + p.half : p.kind === 'irimoya' ? p.gab.a0 : Math.min(...p.dom.map(r => X ? r.x0 : r.z0)), a1 = p.kind === 'hip' ? (X ? p.x1 : p.z1) - p.half : p.kind === 'irimoya' ? p.gab.a1 : Math.max(...p.dom.map(r => X ? r.x1 : r.z1));
     let run = null; const flush = () => { if (run && run[1] - run[0] > 0.2) roof.ridges.push({ a: P3(run[0], p.ridgeY, mid), b: P3(run[1], p.ridgeY, mid) }); run = null; };
     for (let s = a0; s <= a1 + 1e-6; s += 0.25) { const [x, z] = X ? [s, mid] : [mid, s]; const top = fieldOf(p, x, z) > -Infinity && othersAt(p, x, z) <= p.ridgeY + 1e-6 && !anyTaller(p, x, z); if (top) run = run ? [run[0], s] : [s, s]; else flush(); }
     flush();
-    for (let s = (X ? p.x0 : p.z0) + C / 2; s < (X ? p.x1 : p.z1); s += C) { const [x, z] = X ? [s, mid] : [mid, s]; if (othersAt(p, x, z) <= p.ridgeY + 1e-6 && (p.kind !== 'hip' || (s >= a0 - 1e-6 && s <= a1 + 1e-6))) roof.standable.push({ kind: 'ridge', x, y: p.ridgeY, z }); }
+    for (let s = (X ? p.x0 : p.z0) + C / 2; s < (X ? p.x1 : p.z1); s += C) { const [x, z] = X ? [s, mid] : [mid, s]; if (othersAt(p, x, z) <= p.ridgeY + 1e-6 && ((p.kind !== 'hip' && p.kind !== 'irimoya') || (s >= a0 - 1e-6 && s <= a1 + 1e-6))) roof.standable.push({ kind: 'ridge', x, y: p.ridgeY, z }); }
   }
   function edgeOfFlat(p, x, z) { // is the far side of this flat roof's edge open air (or a lower roof), so the slab's side shows?
     if (anyTaller(p, x, z)) return false;
@@ -306,14 +416,15 @@ export function planRoofs(rooms, opts = {}) {
       for (const c of corners.values()) {
         if (c.dirs.size !== 2) continue;
         const sx = c.x > p.cx ? -1 : 1, sz = c.z > p.cz ? -1 : 1;
-        if (turrets) place(roof, 'turret', { x: c.x + sx * TURRET.inset, y: p.top + 1, z: c.z + sz * TURRET.inset, rot: Math.atan2(-sx, -sz), dims: [TURRET.w, TURRET.h, TURRET.w], out: [-sx, -sz], key: `turret:${rel(r, c.x, c.z)}`, slide: { on: 'roof', sink: 0 } }); // (a turret is touchable: selected, slid along the roof, removed)
+        if (r.ornament === 'chhatris' && Math.min(p.x1 - p.x0, p.z1 - p.z0) >= TURRET.min - 1e-6) { const D = ROOF_ORNAMENTS.chhatris.dims, ins = D[0] / 2 + 0.25; place(roof, 'chhatri', { x: c.x + sx * ins, y: p.top + 1, z: c.z + sz * ins, rot: Math.atan2(-sx, -sz), dims: D, out: [-sx, -sz], fit: 'ornament', key: `chhatri:${rel(r, c.x, c.z)}`, slide: { on: 'roof', sink: 0 } }); } // (2026-11-07) a Rajput terrace's corner pavilions, in place of the piers
+        else if (turrets) place(roof, 'turret', { x: c.x + sx * TURRET.inset, y: p.top + 1, z: c.z + sz * TURRET.inset, rot: Math.atan2(-sx, -sz), dims: [TURRET.w, TURRET.h, TURRET.w], out: [-sx, -sz], key: `turret:${rel(r, c.x, c.z)}`, slide: { on: 'roof', sink: 0 } }); // (a turret is touchable: selected, slid along the roof, removed)
         else if (K?.corner) place(roof, K.corner, { x: c.x + sx * K.ci, y: p.top + 1, z: c.z + sz * K.ci, dims: [K.cw, K.ch, K.cw] });
       }
       continue;
     }
     // dormers: only on big slopes, at most one per ~20 ft of eave, and then only sometimes
     const L = X ? p.x1 - p.x0 : p.z1 - p.z0;
-    if (O.dormers !== false && ROOF_STYLES[r.style]?.dormers !== false && p.kind === 'gable' && L >= O.dormerEvery && p.half >= 7.5) for (const pl of p.planes) {
+    if (O.dormers !== false && ROOF_STYLES[r.style]?.dormers !== false && formOf(r)?.dormers !== false && p.kind === 'gable' && L >= O.dormerEvery && p.half >= 7.5) for (const pl of p.planes) {
       const n = Math.floor(L / O.dormerEvery);
       for (let k = 0; k < n; k++) {
         const roll = rnd(), jit = rnd(); if (roll >= O.dormerChance) continue;
@@ -326,12 +437,41 @@ export function planRoofs(rooms, opts = {}) {
       }
     }
     // a finial on a free gable peak, rarely
-    if (O.finials !== false && p.kind === 'gable') for (const E of p.ends) { const roll = rnd(); if (E.free && E.shown && roll < O.finialChance) { const [x, z] = X ? [E.at, p.cz] : [p.cx, E.at]; place(roof, 'finial', { x, y: p.ridgeY, z, dims: [0.8, 2.2, 0.8], key: `finial:${rel(r, p.x0, p.z0)}:${E.end}`, slide: { on: 'roof', sink: 0 } }); } }
+    if (O.finials !== false && formOf(r)?.finials !== false && p.kind === 'gable') for (const E of p.ends) { const roll = rnd(); if (E.free && E.shown && roll < O.finialChance) { const [x, z] = X ? [E.at, p.cz] : [p.cx, E.at]; place(roof, 'finial', { x, y: p.ridgeY, z, dims: [0.8, 2.2, 0.8], key: `finial:${rel(r, p.x0, p.z0)}:${E.end}`, slide: { on: 'roof', sink: 0 } }); } }
     // what is in a free gable: a window, a louvred vent, a round oculus (by the wall family), the carved tympanum of a temple's
     // pediment; only where the triangle has room for it. Its own generator, so the dormers' and finial's rolls are as they were.
     // Trim like the rest (keyed by its room's part, its end and its kind; a window / vent / oculus slides along its gable)
-    if (O.gableOpenings !== false && p.kind === 'gable') { const grnd = rng(strSeed(`${r.seed}|${r.id}|${p.x0}:${p.z0}|gable`)), roll = [grnd(), grnd()];
+    if (O.gableOpenings !== false && formOf(r)?.openings !== false && (p.kind === 'gable' || p.kind === 'irimoya')) { const grnd = rng(strSeed(`${r.seed}|${r.id}|${p.x0}:${p.z0}|gable`)), roll = [grnd(), grnd()];
       for (const E of p.ends) { if (!E.g || !E.free) continue; const o = gableOpening(E.g, roll); E.g.opening = o; if (o) roof.props.push({ ...o, room: r.id, key: `gable:${rel(r, p.x0, p.z0)}:${E.end}:${o.kind}` }); } } // (one roll for both ends: a house's two gables match)
+  }
+  // ---------------- CULTURE ORNAMENTS (2026-11-07): by the style on its ridges' free ends, by the room's type on the roof ----------------
+  for (const roof of roofs) {
+    const r = R.find(q => q.id === roof.room); if (r.props === false) continue;
+    // a ridge-end ornament (onigawara, chiwen) on every END of a ridge run where the roof stops (not where it runs on into
+    // a neighbour's), standing on the ridge cap, its front looking out along the ridge
+    const RE = ROOF_STYLES[r.style]?.ridgeEnd;
+    if (RE) for (const { a, b } of roof.ridges) for (const [q, o] of [[a, b], [b, a]]) {
+      const d = [q[0] - o[0], q[2] - o[2]], L = Math.hypot(d[0], d[1]); if (L < 1) continue; const u = [d[0] / L, d[1] / L];
+      const beyond = heightAt(q[0] + u[0] * 0.6, q[2] + u[1] * 0.6); if (beyond != null && beyond > q[1] - 0.5) continue; // the roof runs on there
+      // (the meshes' own frames, assets/TO_ENGINE.md: an onigawara faces +z, so +z looks out along the ridge; a chiwen lies along
+      // x with its MOUTH at -x gripping the ridge and its tail curling up at +x, so +x points out along the ridge)
+      const chi = RE === 'chiwen', D = chi ? [4.25, 4, 1.42] : [2.75, 2.5, 1.83], inset = chi ? 1.2 : 0.5;
+      place(roof, RE, { x: q[0] - u[0] * inset, y: q[1] - 0.15, z: q[2] - u[1] * inset, rot: chi ? Math.atan2(-u[1], u[0]) : Math.atan2(u[0], u[1]), dims: D, out: u, fit: 'ornament', key: `${RE}:${rel(r, q[0], q[2])}`, slide: { on: 'roof', sink: 0.15 } });
+    }
+    // the room type's ornament (ROOF_ORNAMENTS; 'corners' were laid with the flat roof's edge above)
+    const OR = ROOF_ORNAMENTS[r.ornament]; if (!OR || OR.at === 'corners') continue;
+    const mine = parts.filter(p => p.room === r).sort((p, q) => (q.x1 - q.x0) * (q.z1 - q.z0) - (p.x1 - p.x0) * (p.z1 - p.z0)), P = mine[0]; if (!P) continue;
+    const lx = P.x1 - P.x0, lz = P.z1 - P.z0, dims = OR.size ? OR.size(lx, lz).map(v => +v.toFixed(3)) : OR.dims;
+    let at = null, rot = 0;
+    if (OR.at === 'ridge') { // the middle of the room's longest ridge (else the middle of its roof)
+      const rg = roof.ridges.slice().sort((p, q) => Math.hypot(q.b[0] - q.a[0], q.b[2] - q.a[2]) - Math.hypot(p.b[0] - p.a[0], p.b[2] - p.a[2]))[0];
+      at = rg ? [(rg.a[0] + rg.b[0]) / 2, (rg.a[2] + rg.b[2]) / 2] : [P.cx, P.cz];
+    } else if (OR.at === 'edge') { at = [P.cx, P.z0 + dims[2] / 2 + 1.2]; rot = Math.PI; } // against the north edge, open to the north
+    else if (OR.at === 'mark') { const m = (O.marks || []).find(m => (m.room == null || m.room === r.id) && inRect(P, m.x, m.z)); at = m ? [Math.max(P.x0 + dims[0] / 2, Math.min(P.x1 - dims[0] / 2, m.x)), Math.max(P.z0 + dims[2] / 2, Math.min(P.z1 - dims[2] / 2, m.z))] : [P.cx, P.cz]; }
+    else at = [P.cx, P.cz];
+    const h = heightAt(at[0], at[1]); if (h == null) continue;
+    const sink = P.kind === 'flat' ? 0.3 : 0.6; // (on a ridge: sunk a little into the cap; on a deck a little into it, so a generated piece's ragged foot is hidden)
+    place(roof, OR.role, { x: at[0], y: h - sink, z: at[1], rot, dims, fit: 'ornament', key: `${OR.role}:${rel(r, at[0], at[1])}`, slide: { on: 'roof', sink } });
   }
   // ---------------- THE TRIM IS TOUCHABLE (Harry 2026-10-27: "those chimneys and windows and stuff that stick out of roofs
   // should be selectable & moveable objects as well") ----------------
@@ -397,9 +537,9 @@ export const gableOpeningsFor = (family) => STONE_FAMILIES.has(family) ? OPENING
 function gableEnd(p, E, tri, { X, out, at, lo, hi, mid, oh }) {
   const r = p.room, o = X ? [out, 0] : [0, out], trim = gableTrim(r.family, r.style), face = E.free ? GABLE.face : 0;
   const P3 = (along, y, across) => X ? [along, y, across] : [across, y, along], v = at + out * oh; // the verge line: where the roof's end stands
-  const eave = (side) => { const e = side < 0 ? lo - oh : hi + oh; return P3(v, p.top - p.tan * oh, e); };
+  const eave = (side) => { const e = side < 0 ? lo - oh : hi + oh; return P3(v, p.top - p.tan * oh, e); }; // (lo, hi: the triangle's foot, on the roof plane at the wall's head)
   const verges = E.free ? [{ a: eave(-1), b: P3(v, p.ridgeY, mid), out: o, trim }, { a: eave(1), b: P3(v, p.ridgeY, mid), out: o, trim }] : [];
-  return { tri, at, out: o, axis: p.axis, lo, hi, mid, base: p.top, apex: p.ridgeY, span: hi - lo, rise: p.ridgeY - p.top, tan: p.tan, free: !!E.free, oh, face, trim, family: r.family ?? null, style: r.style, verges, opening: null };
+  return { tri, at, out: o, axis: p.axis, lo, hi, mid, base: p.top, apex: p.ridgeY, span: hi - lo, rise: p.ridgeY - p.top, tan: p.tan, free: !!E.free, oh, face, trim, family: r.family ?? null, style: r.style, verges, opening: null, ...(p.bend && { bend: p.bend }) };
 }
 // the opening of one gable end, seeded (re-roll changes it), as a piece of the roof's TRIM (roof.props, beside the dormers
 // and the finial; `key` names it stably: room, which end, what it is): { role: 'gable-window' | 'gable-vent' | 'gable-oculus' |
@@ -501,11 +641,13 @@ function inPoly(poly, x, z) { const s = Math.sign(area2(poly)) || 1; for (let i 
 // sectionLayout is pure (node tests): roof -> where each copy stands and its planes, as flat arrays ready for
 // InstancedMesh. Local frame of a section (feet): x along the eave, y the relief off the roof plane, z up the slope.
 export const SECTION = { size: 5, near: 170, far: 190 }; // ft: a section's side; within `near` of the camera a roof wears the modelled tier, beyond `far` the flat one (between: as it was)
-const NO_PLANE = [0, 0, 0, 1];
+const NO_PLANE = [0, 0, 0, 1], NO_BEND = new Array(16).fill(0);
 export function sectionLayout(roof, { size = SECTION.size, sink = 0 } = {}) {
-  const mats = [], clips = [], cells = []; let split = 0, whole = 0;
+  const mats = [], clips = [], bends = [], cells = []; let split = 0, whole = 0;
   for (const pl of roof.planes) {
     const L = pl.lay; if (!L) continue;
+    // (2026-11-07) the bend each copy carries (16 floats, aRoofBend; zeros: straight): the part's eaves rectangle, its curve
+    const B = L.bend, BEND = B ? [B.x0, B.z0, B.x1, B.z1, B.eave, B.corner, B.reach, B.creach, B.axisX, B.ends, 0, 0, 0, 0, 0, 0] : NO_BEND;
     const X = L.across === 'x', sec = Math.sqrt(1 + L.tan * L.tan), cos = 1 / sec, sin = L.tan / sec;
     // plan (x, z) -> (U: feet along the eave, S: feet up the slope from the eave's edge)
     const US = ([x, , z]) => [x * L.u[0] + z * L.u[1], ((X ? x : z) - L.edge) * L.sign * sec];
@@ -532,13 +674,13 @@ export function sectionLayout(roof, { size = SECTION.size, sink = 0 } = {}) {
         if (cuts.length > 4 && P.length > 3 && depth < 4) { const m = P.length >> 1; split++; emit(P.slice(0, m + 1), depth + 1); emit([...P.slice(m), P[0]], depth + 1); return; }
         if (!cuts.length) whole++;
         while (cuts.length < 4) cuts.push(NO_PLANE);
-        mats.push(...M); for (const c of cuts.slice(0, 4)) clips.push(...c);
+        mats.push(...M); for (const c of cuts.slice(0, 4)) clips.push(...c); bends.push(...BEND);
         cells.push({ face: pl.face, i, j, area: Math.abs(area2(P)) / 2, cuts: cuts.filter(c => c !== NO_PLANE).length });
       };
       emit(Q, 0);
     }
   }
-  return { style: roof.style, count: cells.length, whole, split, matrix: new Float32Array(mats), clip: new Float32Array(clips), cells };
+  return { style: roof.style, count: cells.length, whole, split, matrix: new Float32Array(mats), clip: new Float32Array(clips), bend: new Float32Array(bends), bent: !!roof.bent, cells };
 }
 
 // One style's section ready to draw: the two tiers' geometry out of its GLB (`near`: the wedges; `far`: one quad with
@@ -549,8 +691,16 @@ function sectionMats(THREE) {
   if (sectionClasses.has(THREE)) return sectionClasses.get(THREE);
   // (flat: the SHADOW a roof casts is the planned plane's, the relief pressed flat. The sun's shadow map has a texel of about
   // two inches: wedges that cast on each other came out as black slits and lit scraps on the slopes turned from the sun.)
+  // THE BEND (2026-11-07, ROOF_FORMS): after the clip (which is in the section's own frame) every vertex is lifted
+  // straight up by twBend, the same function as bendAt above, at its place on the roof; the lift is turned into the
+  // copy's frame (its rotation is orthonormal: the inverse is the transpose), so the clip planes stay where they were.
+  const BEND_GLSL = 'attribute mat4 aRoofBend;\nfloat twE(float d, float R) { float t = max(0.0, 1.0 - d / R); return t * t; }\n' +
+    'float twBend(vec2 p) { vec4 rc = aRoofBend[0], k = aRoofBend[1], m = aRoofBend[2]; if (k.z <= 0.0) return 0.0;\n' +
+    '  float dx = max(0.0, min(p.x - rc.x, rc.z - p.x)), dz = max(0.0, min(p.y - rc.y, rc.w - p.y)); float da = m.x > 0.5 ? dz : dx, db = m.x > 0.5 ? dx : dz;\n' +
+    '  float y = twE(da, k.z) * (k.x + k.y * twE(db, k.w)); if (m.y > 0.5) y = max(y, twE(db, k.z) * (k.x + k.y * twE(da, k.w))); return y; }\n';
+  const LIFT = '\n#ifdef USE_INSTANCING\n  { vec3 ip = (instanceMatrix * vec4(transformed, 1.0)).xyz; transformed += twBend(ip.xz) * vec3(instanceMatrix[0][1], instanceMatrix[1][1], instanceMatrix[2][1]); }\n#endif';
   const patch = (sh, flat) => {
-    sh.vertexShader = 'attribute mat4 aRoofClip;\nvarying vec4 vRoofClip;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vRoofClip = vec4(position, 1.0) * aRoofClip;' + (flat ? '\n  transformed.y = 0.0;' : ''));
+    sh.vertexShader = 'attribute mat4 aRoofClip;\nvarying vec4 vRoofClip;\n' + BEND_GLSL + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vRoofClip = vec4(position, 1.0) * aRoofClip;' + (flat ? '\n  transformed.y = 0.0;' : '') + LIFT);
     sh.fragmentShader = 'varying vec4 vRoofClip;\n' + sh.fragmentShader.replace('void main() {', 'void main() {\n  if (any(lessThan(vRoofClip, vec4(0.0)))) discard;');
   };
   // (classes, not onBeforeCompile set on an instance: the fly-away fades a CLONE of a material, and a clone keeps its class)
@@ -575,11 +725,11 @@ export function roofSectionKit(THREE, scene, info = {}) {
 // the two tiers of one roof: InstancedMeshes that share the kit's vertex buffers and each other's per-copy buffers
 function sectionMeshes(THREE, roof, kit) {
   const lay = sectionLayout(roof, { sink: kit.sink }); if (!lay.count) return null;
-  const im = new THREE.InstancedBufferAttribute(lay.matrix, 16), ic = new THREE.InstancedBufferAttribute(lay.clip, 16);
-  const box = new THREE.Box3(); for (const pl of roof.planes) if (pl.lay) for (const q of pl.poly) box.expandByPoint(new THREE.Vector3(q[0], q[1], q[2])); box.max.y += kit.top; box.expandByScalar(0.05);
+  const im = new THREE.InstancedBufferAttribute(lay.matrix, 16), ic = new THREE.InstancedBufferAttribute(lay.clip, 16), ib = new THREE.InstancedBufferAttribute(lay.bend, 16);
+  const box = new THREE.Box3(); for (const pl of roof.planes) if (pl.lay) for (const q of pl.poly) box.expandByPoint(new THREE.Vector3(q[0], q[1], q[2])); box.max.y += kit.top + (roof.bent ? 3 : 0); box.expandByScalar(0.05); // (a bent roof's corners rise: up to ~3 ft)
   const one = (src, material, name) => {
     const geo = new THREE.BufferGeometry(); geo.setIndex(src.index); for (const k of ['position', 'normal', 'uv']) geo.setAttribute(k, src.attributes[k]);
-    geo.setAttribute('aRoofClip', ic);
+    geo.setAttribute('aRoofClip', ic); geo.setAttribute('aRoofBend', ib);
     // (the shared buffers belong to the kit: whoever disposes this geometry, the cut's fly-away included, frees only what is this roof's)
     geo.dispose = function () { if (!this.index) return; this.setIndex(null); for (const k of ['position', 'normal', 'uv']) this.deleteAttribute(k); THREE.BufferGeometry.prototype.dispose.call(this); m.dispose(); };
     const m = new THREE.InstancedMesh(geo, material, lay.count); m.instanceMatrix = im; m.name = name;
@@ -627,7 +777,7 @@ export function buildRoof(roof, { THREE, textures = {}, sections = null, gables 
   for (const pl of roof.planes) fan(pl.poly, pl.uv, pl.flat ? ft : st, pl.flat ? fu : su, true);
   const flatStyle = roof.flatStyle || flatSurfaceOf(roof.style), style = ROOF_STYLES[roof.style]?.flat ? 'thatch' : roof.style, kit = sections?.[style] || null, sec = kit && st.length ? sectionMeshes(THREE, roof, kit) : null;
   mesh(st, su, sec ? mat('unseen', () => new THREE.MeshBasicMaterial({ visible: false, side: THREE.DoubleSide })) : surface(style), 'surface');
-  if (sec) { const s = g.children[g.children.length - 1]; s.castShadow = false; s.userData.noCast = true; g.add(sec.near, sec.far); g.userData.roofTiers = { near: sec.near, far: sec.far, isNear: true, count: sec.lay.count, whole: sec.lay.whole, split: sec.lay.split, tris: kit.tris }; }
+  if (sec) { const s = g.children[g.children.length - 1]; s.castShadow = false; s.userData.noCast = true; g.add(sec.near, sec.far); g.userData.roofTiers = { near: sec.near, far: sec.far, isNear: true, bend: sec.lay.bent, count: sec.lay.count, whole: sec.lay.whole, split: sec.lay.split, tris: kit.tris }; }
   mesh(ft, fu, surface(flatStyle), 'flat');
   // THE GABLE ENDS: the triangle at the wall's outer face (and its inner face), in the wall family's look, world-aligned so
   // its 5-ft panels stand over the wall's; the trim along the verges; a pediment's level cornice (gableMeshes below)
@@ -641,7 +791,20 @@ export function buildRoof(roof, { THREE, textures = {}, sections = null, gables 
     const A = [a[0] - o[0], y0, a[2] - o[1]], B = [b[0] - o[0], y0, b[2] - o[1]], Cc = [b[0] + o[0], y0, b[2] + o[1]], D = [a[0] + o[0], y0, a[2] + o[1]], E = [a[0], y1, a[2]], F = [b[0], y1, b[2]];
     rt.push(A, B, F, A, F, E, D, E, F, D, F, Cc, A, E, D, B, Cc, F);
   }
-  mesh(rt, null, plain(ridgeColor || shade(ROOF_STYLES[roof.style]?.color || '#666', 0.62)), 'ridge');
+  mesh(rt, null, plain(ridgeColor || ROOF_STYLES[roof.style]?.ridgeColor || shade(ROOF_STYLES[roof.style]?.color || '#666', 0.62)), 'ridge');
+  // (2026-11-07) HIP RIDGES the same way: a low strip along each hip line, following the bend (in short pieces); the game
+  // lays the style's ridge pieces over it and takes the strip away (world.js addRidge)
+  const ht = [];
+  for (const { a, b, bend } of roof.hips || []) {
+    const n = bend ? 8 : 1, P = (f) => { const x = a[0] + (b[0] - a[0]) * f, z = a[2] + (b[2] - a[2]) * f; return [x, a[1] + (b[1] - a[1]) * f + bendAt(bend, x, z), z]; };
+    const dx = b[0] - a[0], dz = b[2] - a[2], l = Math.hypot(dx, dz) || 1, o = [-dz / l * w, dx / l * w];
+    for (let i = 0; i < n; i++) {
+      const p0 = P(i / n), p1 = P((i + 1) / n);
+      const A = [p0[0] - o[0], p0[1] - drop, p0[2] - o[1]], B = [p1[0] - o[0], p1[1] - drop, p1[2] - o[1]], Cc = [p1[0] + o[0], p1[1] - drop, p1[2] + o[1]], D = [p0[0] + o[0], p0[1] - drop, p0[2] + o[1]], E = [p0[0], p0[1] + hgt, p0[2]], F = [p1[0], p1[1] + hgt, p1[2]];
+      ht.push(A, B, F, A, F, E, D, E, F, D, F, Cc);
+    }
+  }
+  mesh(ht, null, plain(ridgeColor || ROOF_STYLES[roof.style]?.ridgeColor || shade(ROOF_STYLES[roof.style]?.color || '#666', 0.62)), 'hip');
   return g;
 }
 // ---------------- the gable kit (2026-10-27): what the gable ends and their trim wear ----------------
@@ -674,7 +837,9 @@ function gableMeshes(roof, kit, wallColor) {
   const std = (pic, color, rough = 0.95) => (THREE, plain) => pic ? new THREE.MeshStandardMaterial({ map: pic.map, normalMap: pic.normal || null, roughness: rough, metalness: 0, side: THREE.DoubleSide }) : plain(color);
   for (const G of roof.gableEnds || roof.gables.map(tri => ({ tri, face: 0, out: [0, 0], verges: [] }))) {
     const [ox, oz] = G.out, right = [oz, -ox]; // the way an onlooker outside reads left to right
-    const wallPic = kit?.wall(G.family) || null, ft = wallPic?.ft || [5, 7.6];
+    // (2026-11-07) an irimoya's small gable high up is a timber gable (the boarded or latticed tsuma), not the wall carried up:
+    // the wall's picture there read as "a roof slope in a flat cobblestone texture" (Gemini). The kit's wood, the bargeboard's.
+    const wallPic = (G.irimoya ? kit?.trim('wood') : null) || kit?.wall(G.family) || null, ft = wallPic?.ft ? (Array.isArray(wallPic.ft) ? wallPic.ft : [wallPic.ft, wallPic.ft]) : [5, 7.6];
     const uvOf = (q) => [(q[0] * right[0] + q[2] * right[1]) / ft[0], (q[1] - (G.base ?? q[1])) / ft[1]];
     const faces = G.face ? [G.face, -G.face] : [0];
     for (const f of faces) {
@@ -696,7 +861,9 @@ function gableMeshes(roof, kit, wallColor) {
       const sides = [[c(A, oi, -low), c(B, oi, -low), c(B, oi, high), c(A, oi, high)], [c(A, oi, high), c(B, oi, high), c(B, oo, high), c(A, oo, high)], [c(A, oi, -low), c(B, oi, -low), c(B, oo, -low), c(A, oo, -low)], [c(A, oi, -low), c(A, oo, -low), c(A, oo, high), c(A, oi, high)]];
       for (const q of sides) add('verge', body, bodyMat, quad(...q), fu(0, L / tft, 0, (low + high) / tft));
     };
-    for (const v of G.verges || []) beam(v.a, v.b, [-T.in, T.out], T.below, T.above);
+    // (2026-11-07) on a BENT roof the verge follows the slope's lift (bendAt): in short straight pieces
+    const bent = (A, B) => { if (!G.bend) return [[A, B]]; const n = 6, P = (f) => { const x = A[0] + (B[0] - A[0]) * f, z = A[2] + (B[2] - A[2]) * f; return [x, A[1] + (B[1] - A[1]) * f + bendAt(G.bend, x, z), z]; }; return Array.from({ length: n }, (_, i) => [P(i / n), P((i + 1) / n)]); };
+    for (const v of G.verges || []) for (const [a, b] of bent(v.a, v.b)) beam(a, b, [-T.in, T.out], T.below, T.above);
     // a pediment's level cornice along its foot, eave edge to eave edge, its top level with the raking cornice's at the corners
     if (G.trim === 'cornice' && G.verges?.length === 2) {
       const [a, b] = [G.verges[0].a, G.verges[1].a], drop = G.base - a[1];

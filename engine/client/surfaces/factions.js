@@ -1,11 +1,12 @@
 // One data-driven two-row emblem grid, shared by the ring and the fading drag-out offer.
 import { factionCatalog } from '../../core/faction-catalog.js';
-import { effectiveFaction, explicitFaction } from '../../core/factions.js';
+import { effectiveFaction, explicitFaction, factionAllowed } from '../../core/factions.js';
 import { T } from '../tuner.js';
 import { icon } from '../icons.js';
 
 export const factionTarget = (e) => !!e && (e.kind === 'room' || e.kind === 'building' || (e.kind === 'object' && e.cat?.startsWith('flavor-')));
-export const factionRows = (factions) => [factions.filter(f => f.group !== 'sinister'), factions.filter(f => f.group === 'sinister')];
+// (the real-world faiths lead the first row, together, and are never among the sinister factions: faith-factions, 2026-11-07)
+export const factionRows = (factions) => [factions.filter(f => f.group !== 'sinister').sort((a, b) => !!b.reverent - !!a.reverent), factions.filter(f => f.group === 'sinister')];
 const emblemUrl = (src) => !src ? '' : /^(?:https?:|data:|\/)/.test(src) ? src : T.base + src;
 
 export function factionGrid(app, entity, { choose, conditional = false } = {}) {
@@ -28,6 +29,7 @@ export function factionGrid(app, entity, { choose, conditional = false } = {}) {
       if (f.emblem) { const img = document.createElement('img'); img.src = emblemUrl(f.emblem); img.alt = ''; img.draggable = false; b.append(img); }
       else b.innerHTML = icon('sun', 28);
       if (entity.kind === 'object' && !f.slots[entity.cat]) { b.disabled = true; b.title += ' — this slot is missing'; b.setAttribute('aria-label', b.title); }
+      else if (!factionAllowed(app.entities(), entity.id, f.id, T.lib, T.types)) { b.disabled = true; b.title += ' — never dresses a cult sanctum or a dark cathedral'; b.setAttribute('aria-label', b.title); }
       b.addEventListener('click', (ev) => { ev.stopPropagation(); choose(f.id); }); row.append(b);
     }
     grid.append(row);
@@ -49,6 +51,7 @@ export function setupFactionUI(app) {
     if (seen.has(key)) return; seen.add(key);
     app.condButtons.show('faction', { cls: 'faction-offer', dock: 'top', text: '', life: 10000, area: app.area(), data: { id },
       when: () => !!app.ent(id),
+      lineText: `${app.nameOf?.(e) || e.gen?.name || 'This place'}: no faction yet`, lineButton: 'Choose a faction', lineRun: () => { seen.delete(key); app.offerFaction(id); }, // (missed: down into the chat, condbutton.js rule 6)
       render: (el) => el.append(factionGrid(app, e, { conditional: true, choose: (flavor) => { app.setFaction(id, flavor); app.condButtons.hide('faction'); } })),
     });
   };

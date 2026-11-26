@@ -28,6 +28,7 @@
 import { factionGrid } from './factions.js';
 import * as THREE from 'three';
 import { makeTrack } from './track.js';
+import { SIZE_STEPS, squaresOf, sizeWord, feetOf } from '../../core/size.js';
 import { canTilt } from '../../core/commands.js';
 import { quatOfEntity, rollStops, Q_ID } from '../../core/orient.js';
 import { icon } from '../icons.js';
@@ -41,7 +42,7 @@ import { buildArcItems, fitToScreen, worldScale, rowOf, warnings as ringWarnings
 import { BUILTINS, normalize } from '../ringlab/presets.js';
 import { slide, reducedMotion, sameCurve, manifestPaths, loadManifest } from '../ringlab/renderer.js';
 import { factionCatalog } from '../../core/faction-catalog.js';
-import { explicitFaction, effectiveFaction } from '../../core/factions.js';
+import { explicitFaction, effectiveFaction, factionAllowed } from '../../core/factions.js';
 
 // A PAWN'S DAMAGE HANDLE: a FIXED number of pixels per point on every pawn (Harry and Fauna 2026-10-06: "the same hand
 // motion should mean the same damage on any pawn": take 7 is the same drag on a goblin and a dragon).
@@ -52,7 +53,7 @@ const SLOT_DEG = (h) => ((h % 12) * 30 + 360) % 360 > 180 ? ((h % 12) * 30) - 36
 // expanded circle all scale with it, so the spacing stays proportional. CSS reads it as --rs.
 export const RING_SCALE = 1.2;
 let S_ = RING_SCALE, BIG = Math.round(56 * S_), ICON = Math.round(26 * S_);
-// Settings ▸ Me ▸ Ring size: a personal multiplier on the one token (redrawn at the next rebuild)
+// Settings ▸ Controls ▸ Ring size: a personal multiplier on the one token (redrawn at the next rebuild)
 export function setRingScale(k = 1) { S_ = RING_SCALE * Math.max(0.5, Math.min(2, +k || 1)); BIG = Math.round(56 * S_); ICON = Math.round(26 * S_); }
 // `ring.only(ctx)`: a main button for SOME selections only (first person's Eyes: on a player's own pawn; the GM finds it
 // in ☰). Where it says no, the command is an ordinary ☰ entry (client/menu.js), as any command that is not on the ring.
@@ -245,7 +246,7 @@ export function ringSurface(R, app) {
   // A button that carries its own picture (img.pic: an Indicator's shape, a thumbnail, an emblem) keeps it and is not
   // painted: painting it put the set's picture on top and pushed the item's own out under the button (2026-10-29,
   // Harry: "why are you drawing the indicators under the indicator buttons").
-  const PAINT_AS = { 'hand.delete': 'template.remove' };
+  const PAINT_AS = { 'hand.delete': 'template.remove', 'pawn.resize': 'edit.resize' }; // (a pawn's Size wears the props' resize picture: Harry 2026-11-07, "same image")
   function paint(S) {
     for (const b of layer.querySelectorAll('.rbtn[data-id]')) {
       if (b.classList.contains('pill') || b.querySelector('.ini, .pvw, img.pic')) continue;
@@ -493,6 +494,7 @@ export function ringSurface(R, app) {
   //   only Escape cancels (nothing is sent; the thing goes back);
   //   if committing throws, or the relay refuses, the reason is shown (a toast), never a silent snap-back.
   const K_LO = 0.2, K_HI = 5, BAND_LO = 0.15, BAND_HI = 1;
+  const PAWN_PITCH = [22, 56]; // a pawn's size track: pixels between two sizes (as wide as fits, at most 56: about a button)
   const NOTCH = Math.PI / 4, NOTCH_DEG = 4, NOTCH_CATCH = NOTCH_DEG * Math.PI / 180;
   app.ringNotch = { every: 45, catch: NOTCH_DEG }; // (tests, docs)
   // monotonic, slope 1 in the middle, easing into the stops (continuous value and slope at the joins)
@@ -501,6 +503,22 @@ export function ringSurface(R, app) {
   app.ringDamage = { px: DAMAGE_PX }; // (tests, docs)
   app.ringDrag = () => drag && { kind: drag.kind, k: drag.k, delta: drag.delta, axis: drag.axis || null, stop: drag.stop || null, y: drag.y, damage: drag.dmg ?? null, centre: drag.c, dir: drag.u, d0: drag.d0, notch: drag.notch ?? null, ticks: layer.querySelectorAll('.guide .tick').length, track: drag.track?.info() || null }; // (tests)
   app.ringTrack = makeTrack; // (tests, and the next handle that slides: surfaces/track.js)
+  // HOW FAR A TRACK MAY RUN out from (cx, cy) along the unit ray (ux, uy), at most `cap` px (2026-11-07): `edge` is the
+  // room to 24 px inside the screen's edges; `reach` is that, stopped 16 px short of the top chrome the ray would pass
+  // under (the command bar, the launchers, the avatars, the area pills and crumbs: a blind read found a pawn's
+  // "gargantuan" under the Hide pill). A bar counts where the ray crosses its bottom edge within 60 px of it (labels and
+  // the readout chip sit beside the rail). Both the pawn's Size track and the props' resize track use it.
+  function trackRoom(cx, cy, ux, uy, cap) {
+    const edge = Math.min(...[ux > 0.05 ? (innerWidth - 24 - cx) / ux : ux < -0.05 ? (24 - cx) / ux : Infinity, uy > 0.05 ? (innerHeight - 24 - cy) / uy : uy < -0.05 ? (24 - cy) / uy : Infinity].filter(v => v > 0), cap);
+    let reach = edge;
+    if (uy < -0.05) for (const id of ['bar', 'launchers', 'roster', 'underBar']) {
+      const el = document.getElementById(id); if (!el || el.hidden) continue; const r = el.getBoundingClientRect();
+      if (!r.height || !r.width || r.top >= innerHeight / 3) continue;
+      const t = (r.bottom + 16 - cy) / uy, x = cx + ux * t; if (t > 0 && r.left < x + 60 && r.right > x - 60) reach = Math.min(reach, t);
+    }
+    return { reach, edge };
+  }
+  app.ringTrackRoom = trackRoom; // (tests)
   // the distance along the resize ray (in units of the grab distance) at which the size is k: softK turned round
   const softKInv = (k) => { let lo = 0, hi = 12; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (softK(m) < k) lo = m; else hi = m; } return (lo + hi) / 2; };
   function startDrag(ev, kind, c) {
@@ -581,9 +599,29 @@ export function ringSurface(R, app) {
           marks: [{ v: 0, label: '0 · unhurt', cls: 'base' }], format: (v) => `${damageReadout(d0v, Math.round(v))} damage` }); }; // (the words are there because a bare number by a heart reads as hit points: Gemini, blind, 2026-10-06)
       track = mk(endFor(d0v));
       me.grow = (v) => { if (v > me.dmgEnd - 5 && me.dmgEnd < DAMAGE_LIMIT) { track.remove(); track = me.track = mk(endFor(v)); } }; // the rail extends with the value
+    } else if (e0.kind === 'token') { // A PAWN'S SIZE (Harry 2026-11-07: "the 'size' options on pawns should just use the same
+      // design language as the object resize (same image, and drag in&out on track)"): the props' track along the handle's
+      // ray, but its stops are the sizes a pawn may have (core/size.js SIZE_STEPS: tiny, medium, large, huge, gargantuan,
+      // then 25 to 40 ft), one PITCH apart, the size it has where it was grabbed. The handle follows the pointer; the dot,
+      // the readout and what a release commits are the nearest stop (as the props' track with Shift). Bigger outward.
+      // (its far end stays clear of the command bar, the area pills and the crumbs under it: a blind read, 2026-11-07, found
+      // "gargantuan" under the Hide pill. trackRoom, shared with the props' track)
+      const { reach } = trackRoom(cx, cy, ux, uy, 520);
+      const i0 = Math.max(0, SIZE_STEPS.indexOf(squaresOf(e0))), up = Math.max(1, SIZE_STEPS.indexOf(4) - i0); // (gargantuan always fits, if the screen allows)
+      const pitch = Math.max(PAWN_PITCH[0], Math.min(PAWN_PITCH[1], i0 ? (d0 - 14) / i0 : Infinity, (reach - d0) / up));
+      const lo = Math.max(0, i0 - Math.floor((d0 - 6) / pitch)), hi = Math.max(i0, Math.min(SIZE_STEPS.length - 1, i0 + Math.floor((reach - d0) / pitch)));
+      me.pawnSize = { i0, pitch, lo, hi, to: SIZE_STEPS[i0] };
+      track = makeTrack(guide, { min: lo, max: hi, value: i0, layer, direction: { from: [cx + ux * (d0 + (lo - i0) * pitch), cy + uy * (d0 + (lo - i0) * pitch)], to: [cx + ux * (d0 + (hi - i0) * pitch), cy + uy * (d0 + (hi - i0) * pitch)] },
+        ticks: SIZE_STEPS.map((sq, i) => ({ v: i, major: sq <= 4 })),
+        marks: SIZE_STEPS.map((sq, i) => sq <= 4 ? { v: i, label: sizeWord(sq), cls: i === i0 ? 'start' : 'base' } : null).filter(Boolean),
+        format: (i) => { const sq = SIZE_STEPS[Math.round(i)]; return sq > 4 ? `${feetOf(sq)} ft` : `${sizeWord(sq)} · ${feetOf(sq)} ft`; } });
     } else { // out along the handle's ray: smaller toward the centre, bigger away; 100% is where it was grabbed
-      const reach = Math.min(...[ux > 0.05 ? (innerWidth - 24 - cx) / ux : ux < -0.05 ? (24 - cx) / ux : Infinity, uy > 0.05 ? (innerHeight - 24 - cy) / uy : uy < -0.05 ? (24 - cy) / uy : Infinity].filter(v => v > 0), 420);
-      const kMin = softK(0), kMax = Math.max(1.25, softK(Math.max(1.3, reach / d0))), cat0 = (() => { try { return app.roomgen?.sizeOf?.(e0.cat, e0.sku)?.dims || null; } catch { return null; } })(), orig = cat0 ? Math.max(...cat0) / size0 : 1; // the catalog's size for this thing, as a share of its size now (a room lays things out a few percent off it: that still counts as 100%)
+      // (2026-11-07, lane trackclear: its far end stops short of the top chrome as the pawn's does. Only the rail's END
+      // moves: where the bars cut it short of the usual 130% it ends below them, even at 101%; the mapping, softK(d / d0),
+      // is untouched, and a drag past the rail's end still grows it as before, the readout saying how much. A handle
+      // grabbed in among the bars themselves (no clear room past it) keeps the old rail: shortening it would clear nothing)
+      const { reach, edge } = trackRoom(cx, cy, ux, uy, 420);
+      const kMin = softK(0), kMax = Math.min(Math.max(1.25, softK(Math.max(1.3, edge / d0))), reach < edge && reach > d0 ? softK(Math.max(1.01, reach / d0)) : Infinity), cat0 = (() => { try { return app.roomgen?.sizeOf?.(e0.cat, e0.sku)?.dims || null; } catch { return null; } })(), orig = cat0 ? Math.max(...cat0) / size0 : 1; // the catalog's size for this thing, as a share of its size now (a room lays things out a few percent off it: that still counts as 100%)
       track = makeTrack(guide, { min: kMin, max: kMax, value: 1, layer, direction: { at: (k) => { const dd = d0 * softKInv(Math.max(kMin, Math.min(kMax, k))); return [cx + ux * dd, cy + uy * dd]; } },
         ticks: [0.25, 0.5, 0.75, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4, 4.5].map(v => ({ v, major: v === 0.5 || v === 2 || v === 3 || v === 4 })),
         marks: Math.abs(orig - 1) < 0.06 ? [{ v: 1, label: '100%', cls: 'base' }] : [{ v: 1, label: 'now', cls: 'start' }, { v: orig, label: 'catalog size', cls: 'base' }],
@@ -607,7 +645,8 @@ export function ringSurface(R, app) {
         for (const tk of guide.querySelectorAll('.tick')) tk.classList.toggle('on', drag.notch != null && +tk.dataset.k === drag.notch);
         drag.delta = d;
         const cc = app.centroid(sel); app.localDrags.clear();
-        for (const o of turnAll(sel, d, cc)) app.localDrags.set(o.args.id, { x: o.args.x, z: o.args.z, rot: o.args.rot }); // (what stands on it turns with it)
+        drag.riders ||= app.ridersSnapshot(sel.filter(x => app.foldUp(sel.map(y => y.id)).includes(x.id)));
+        for (const [id, p] of app.posesOf(turnAll(sel, d, cc, drag.riders))) app.localDrags.set(id, { x: p.x, z: p.z, rot: p.rot }); // (what stands on it turns with it, pawns too)
         app.ps.set(app.area(), { cursor: app.cursor, drag: [...app.localDrags].map(([id, p]) => ({ id, ...p })) });
         const rr = Math.hypot(hx - cx, hy - cy), aa = Math.atan2(e.clientX - cx, -(e.clientY - cy));
         put(cx + rr * Math.sin(aa), cy - rr * Math.cos(aa), -d * 180 / Math.PI);
@@ -655,8 +694,16 @@ export function ringSurface(R, app) {
         } else if (e.shiftKey) y = Math.round(y * 2) / 2;
         drag.y = y;
         app.localDrags.set(e0.id, { x: e0.x, z: e0.z, y });
-        app.ps.set(app.area(), { cursor: app.cursor, drag: [{ id: e0.id, x: e0.x, z: e0.z, y }] });
+        // what stands on it goes up and down with it (2026-11-07: decided at the grab, carried in the one move on release)
+        if (e0.kind === 'object') { drag.riders ||= app.ridersSnapshot([e0]); const E = app.entities(); for (const id of drag.riders.get(e0.id) || []) { const r = E[id]; if (r) app.localDrags.set(id, { x: r.x, z: r.z, y: (r.y || 0) + y - y0w }); } }
+        app.ps.set(app.area(), { cursor: app.cursor, drag: [...app.localDrags].map(([id, p]) => ({ id, x: p.x, z: p.z, y: p.y })) });
         put(hx, hy + (e.clientY - y0), y);
+      } else if (drag.pawnSize) { // a pawn: the nearest size stop; every selected pawn previewed at it (its base and figure)
+        const P = drag.pawnSize, d = (e.clientX - cx) * ux + (e.clientY - cy) * uy;
+        const i = Math.max(P.lo, Math.min(P.hi, Math.round(P.i0 + (d - d0) / P.pitch))); P.to = SIZE_STEPS[i]; drag.k = P.to;
+        app.localDrags.clear(); for (const p of sel) app.localDrags.set(p.id, { x: p.x, z: p.z, scale: P.to / squaresOf(p) });
+        const hd = Math.max(0, Math.min(d, d0 + (P.hi - P.i0) * P.pitch + P.pitch / 2)); // the handle stays on its ray, never past the centre or far off the rail's end
+        put(cx + ux * hd, cy + uy * hd, i);
       } else {
         const d = (e.clientX - cx) * ux + (e.clientY - cy) * uy; // along the handle's ray only
         let k = softK(d / d0);
@@ -690,19 +737,21 @@ export function ringSurface(R, app) {
       if (!d.moved) { // a click on the handle, not a drag
         if (how === 'up') { if (kind === 'rotate') R.run(c.id);
           else if (kind === 'tilt') app.toast('Drag the roll button round to tip it over (Shift: 15° steps)');
+          else if (kind === 'size' && d.pawnSize) app.toast('Drag Size outward for bigger, inward for smaller: tiny, medium, large, huge, gargantuan');
           else if (kind === 'fog') app.toast('Drag Fog height outward for more fog, inward for less; let go on "type default" to put the room back (Shift: 6 in steps)'); // (no click action: a click that lays the thing over steals the short drags. "roll 90" in the bar does it)
            else if (kind === 'damage') { done(); openDamageEdit(); return; } else app.toast(kind === 'lift' ? (d.sel?.[0]?.kind === 'token' ? 'Drag the raise / lower button up or down: a pawn under 5 ft settles to the ground (Shift: 5 ft steps)' : 'Drag the raise / lower button up or down (Shift: 6 in steps)') : 'Drag the resize button outward to grow, inward to shrink (Shift: 25% steps)'); }
         return done();
       }
       try {
         const now = (x) => app.selected().find(y => y.id === x.id) || x; // the thing as it is now (another seat may have changed it mid-drag)
-        if (kind === 'lift' && d.y != null) { app.liftTo(now(d.sel[0]), d.y); log.committed = true; }
+        if (kind === 'lift' && d.y != null) { app.liftTo(now(d.sel[0]), d.y, d.riders || null); log.committed = true; }
         if (kind === 'tilt' && d.delta) { app.rollSelection(d.delta, { axis: d.axis, things: d.sel.map(now) }); log.committed = true; } // one command for the gesture: one undo step
-        if (kind === 'rotate' && d.delta) { app.batch(turnAll(d.sel, d.delta, app.centroid(d.sel))); log.committed = true; }
+        if (kind === 'rotate' && d.delta) { app.batch(turnAll(d.sel, d.delta, app.centroid(d.sel), d.riders || undefined)); log.committed = true; }
         // damage: the change, applied to every selected pawn as it is NOW (another seat may have hit it mid-drag)
         if (kind === 'fog' && (d.fogDefault ? d.fogOwn || d.fogDef > 0 : d.fog !== d.fog0)) { app.dispatch('room.set', { id: e0.id, fog: d.fogDefault ? -1 : +(+d.fog).toFixed(2) }); log.committed = true; }
         if (kind === 'damage' && d.dmg != null && d.dmg !== d.dmg0) { app.damageDelta(d.sel.map(now), d.dmg - d.dmg0); log.committed = true; }
-        if (kind === 'size' && d.k !== 1) { const e = now(d.sel[0]); app.dispatch('object.set', { id: e.id, s: (e.s || [1, 1, 1]).map(v => v * d.k), dims: e.dims.map(v => v * d.k) }); log.committed = true; }
+        if (kind === 'size' && d.pawnSize) { const to = d.pawnSize.to, ps = d.sel.map(now); if (ps.some(p => squaresOf(p) !== to)) log.committed = app.setSize(ps, to) != null; } // a pawn: app.setSize (its squares, the room it needs, one undo, every seat)
+        else if (kind === 'size' && d.k !== 1) { const e = now(d.sel[0]); app.dispatch('object.set', { id: e.id, s: (e.s || [1, 1, 1]).map(v => v * d.k), dims: e.dims.map(v => v * d.k) }); log.committed = true; }
       } catch (err) { // never a silent snap-back
         log.error = String(err?.message || err); console.error(`ring: the ${kind} drag could not be sent`, err);
         app.toast(`That ${kind === 'lift' ? 'raise / lower' : kind === 'rotate' ? 'turn' : kind === 'damage' ? 'damage change' : kind === 'tilt' ? 'tilt' : kind === 'fog' ? 'fog height' : 'resize'} could not be sent: ${log.error}`, true);
@@ -799,7 +848,8 @@ export function ringSurface(R, app) {
     listen(true); app.escapeStack.push(onEsc);
   }
   // a turn of these things: each about its own centre, or as one about the group's centre; what stands on them with them
-  const turnAll = (sel, a, c) => { const tops = new Set(app.foldUp(sel.map(x => x.id))); return sel.filter(x => tops.has(x.id)).flatMap(x => sel.length > 1 ? app.turnOps(x, a, c) : app.turnOps(x, a)); };
+  // (riders: what stands on them, decided once at the grab: app.ridersSnapshot, 2026-11-07; it turns in their moves)
+  const turnAll = (sel, a, c, R = app.ridersSnapshot(sel.filter(x => app.foldUp(sel.map(y => y.id)).includes(x.id)))) => { const tops = new Set(app.foldUp(sel.map(x => x.id))), carried = new Set([...R.values()].flat()); return sel.filter(x => tops.has(x.id) && !carried.has(x.id)).flatMap(x => sel.length > 1 ? app.turnOps(x, a, c, R) : app.turnOps(x, a, undefined, R)); };
 
   // ---------- sub-menus: one component, opened AT the button that asked for it ----------
   // Harry 2026-10-05: "when a sub-menu spawns it should spawn near the button that spawned it (covering that part of
@@ -852,7 +902,7 @@ export function ringSurface(R, app) {
       const cat = factionCatalog(T.lib), own = explicitFaction(e), eff = own ? null : effectiveFaction(app.entities(), e, T.lib, T.types), url = (src) => !src ? '' : /^(?:https?:|data:|\/)/.test(src) ? src : T.base + src;
       openNest({ key: 'faction', title: 'Faction', children: [
         ...(e.kind !== 'building' ? [{ id: 'faction.inherit', faction: 'inherit', label: e.kind === 'room' ? "As the building's" : "As the room's", icon: 'undo-2', pressed: !own, run: () => { app.setFaction(e.id, 'inherit'); done(); } }] : []),
-        ...cat.factions.map(f => ({ id: `faction.${f.id}`, faction: f.id, label: f.label, ...(eff === f.id && { title: `${f.label} (inherited)`, cls: 'inherited' }), pic: f.emblem ? url(f.emblem) : null, icon: 'sun', pressed: own === f.id, /* (the emblem it has now through its building / room: dashed, as in the old picker) */ disabled: e.kind === 'object' && !f.slots?.[e.cat], why: `${f.label}: this thing has no ${f.label} version`, run: () => { app.setFaction(e.id, f.id); done(); } })),
+        ...cat.factions.map(f => ({ id: `faction.${f.id}`, faction: f.id, label: f.label, ...(eff === f.id && { title: `${f.label} (inherited)`, cls: 'inherited' }), pic: f.emblem ? url(f.emblem) : null, icon: 'sun', pressed: own === f.id, /* (the emblem it has now through its building / room: dashed, as in the old picker) */ disabled: (e.kind === 'object' && !f.slots?.[e.cat]) || !factionAllowed(app.entities(), e.id, f.id, T.lib, T.types), why: !factionAllowed(app.entities(), e.id, f.id, T.lib, T.types) ? `${f.label} never dresses a cult sanctum or a dark cathedral` : `${f.label}: this thing has no ${f.label} version`, run: () => { app.setFaction(e.id, f.id); done(); } })),
       ] });
     }
     if (what === 'ring.fog' && e) { if (!expanded) expand(); app.toast('Drag Fog height outward for more fog, inward for less'); } // (asked from the bar: the track is on the ring)

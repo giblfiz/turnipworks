@@ -432,7 +432,8 @@ async def main():
             check(await kit.evaluate("window.__defs.length === 0 && (tw.sync.campaign.pawns || []).length === 0"), 'an untouched "New pawn" left behind creates nothing (no pawn.define)', await kit.evaluate('window.__defs'))
             await kit.evaluate("tw.settings.editPawn('new')"); await kit.wait_for_timeout(400)
             roots =await kit.evaluate("[...document.querySelectorAll('.mptree .btile')].map(b => b.querySelector('.bl').textContent)")
-            check(roots == ['Heroes', 'Townsfolk', 'Monsters', 'Animals'], 'the figure picker is the Build-style tree: Heroes, Townsfolk, Monsters, Animals', roots)
+            cul_root = await kit.evaluate("tw.figures.list.some(f => f.setting) ? [tw.taxonomy.nodes.get('g:cultures')?.label] : []")   # (the culture pawns, 2026-11-07: their genre's root last)
+            check(roots == ['Heroes', 'Townsfolk', 'Monsters', 'Animals', 'Modern'] + cul_root, f"the figure picker is the Build-style tree: Heroes, Townsfolk, Monsters, Animals, Modern (no Cyberpunk root since 2026-11-07){', ' + cul_root[0] if cul_root else ''}", roots)
             await kit.click(".mptree .btile:has-text('Heroes')"); await kit.wait_for_timeout(200)
             classes = await kit.evaluate("[...document.querySelectorAll('.mptree .btile')].map(b => b.querySelector('.bl').textContent)")
             await kit.click(".mptree .btile:has-text('Rogue')"); await kit.wait_for_timeout(250)
@@ -582,16 +583,20 @@ async def main():
             print('TREE: placing a pawn is a tree, like Build')
             await view_home(gm); await open_p(gm)
             st = await gm.evaluate(ST)
-            check(st['placeRoots'] == ['H:Heroes', 'T:Townsfolk', 'M:Monsters', 'A:Animals'] and {'h', 't', 'm', 'a', 'f'} <= set(st['keys']), 'Place a pawn: Heroes, Townsfolk, Monsters, Animals, each with its key; the search button (F)', st['placeRoots'])
+            cul_root = await gm.evaluate("tw.figures.list.some(f => f.setting) ? [tw.pawnTree.get('cultures').hot.toUpperCase() + ':' + tw.taxonomy.nodes.get('g:cultures')?.label] : []")   # (the culture pawns, 2026-11-07)
+            check(st['placeRoots'] == ['H:Heroes', 'T:Townsfolk', 'M:Monsters', 'A:Animals', 'D:Modern'] + cul_root and {'h', 't', 'm', 'a', 'd', 'f'} | ({cul_root[0][0].lower()} if cul_root else set()) <= set(st['keys']), 'Place a pawn: Heroes, Townsfolk, Monsters, Animals, Modern (and the regional genre), each with its key; the search button (F)', st['placeRoots'])
             await shot(gm, 'pawnsmenu-home-gm.png', await tray_clip(gm))
             await gm.mouse.move(100, 400); await gm.keyboard.press('m'); await gm.wait_for_timeout(250)
             st = await gm.evaluate(ST); T = st['tree']
-            check(st['view'] == 'tree' and T['chips'][0].endswith('Pawns') and 'Monsters' in T['chips'][-1] and len(T['tiles']) >= 20 and all(t['pic'] for t in T['tiles']) and all(t['key'] for t in T['tiles']) and any(t['label'] == 'Goblins' for t in T['tiles']), 'M: Monsters > its families, each a picture tile with a key; the levels above are chips, as in Build', [T['chips'], len(T['tiles'])])
+            check(st['view'] == 'tree' and T['chips'] == ['Pawns'] and T['where']['label'] == 'Monsters' and len(T['tiles']) >= 20 and all(t['pic'] for t in T['tiles']) and all(t['key'] for t in T['tiles']) and any(t['label'] == 'Goblins' for t in T['tiles']), 'M: Monsters > its families, each a picture tile with a key; the list above is a chip ("Pawns"), the header says Monsters, as in Build', [T['chips'], T['where'], len(T['tiles'])])
             await shot(gm, 'pawnsmenu-tree-families.png', await tray_clip(gm))
             gk = next(t['key'] for t in T['tiles'] if t['label'] == 'Goblins')
             await gm.keyboard.press(gk.lower()); await gm.wait_for_timeout(250)
             T = (await gm.evaluate(ST))['tree']
-            check(len(T['chips']) == 3 and 'Goblins' in T['chips'][-1] and len(T['tiles']) == 12 and all(t['fig'] and t['fig'].startswith('foe-goblin') and t['pic'] for t in T['tiles']), 'its letter: Goblins > a grid of the twelve goblins\' thumbnails (two levels, then the grid)', [t['label'] for t in T['tiles']][:4])
+            check(T['chips'] == ['Pawns', 'Families'] and T['where']['label'] == 'Goblins' and len(T['tiles']) == 12 and all(t['fig'] and t['fig'].startswith('foe-goblin') and t['pic'] for t in T['tiles']), 'its letter: Goblins > a grid of the twelve goblins\' thumbnails (two levels, then the grid)', [t['label'] for t in T['tiles']][:4])
+            # THE BREADCRUMB RULE (Harry 2026-11-12, surfaces/where.js): the icons sit one row down (a chip wears its list's owner)
+            check(T['chipPics'][0] and 'tool-pawns' in T['chipPics'][0] and T['chipPics'][1] and 'foe-owlbear' in T['chipPics'][1] and T['where']['pic'] and T['where']['pic'] == next(t['pic'] for t in (await gm.evaluate("tw.pawnTree.get('monsters').children.map(c => ({ id: c.id, pic: tw.figures.thumbUrl(c.pic) }))")) if t['id'] == 'monsters/goblins') and T['where']['path'] == 'Monsters ›' and T['chipKeys'] == ['', '⌫'],
+                  'the icon shift: "Pawns" wears the Pawns icon, "Families" wears Monsters\' picture (it goes back to the families OF Monsters), the header wears Goblins\' and reads "Monsters ›" grey, "Goblins" big; only the nearest chip says ⌫', [T['chipPics'], T['where'], T['chipKeys']])
             check(await wait(gm, "[...document.querySelectorAll('#pawnsTray .bgrid img')].every(i => i.complete && i.naturalWidth > 0)", 8000, 'thumbs'), 'the thumbnails load')
             await shot(gm, 'pawnsmenu-tree-grid.png', await tray_clip(gm))
             await gm.click("#pawnsTray .btile[data-fig='foe-goblin-spear']"); await gm.wait_for_timeout(300)
@@ -603,11 +608,11 @@ async def main():
             await gm.evaluate("tw.undo()"); await gm.wait_for_timeout(400); await view_home(gm)
             await gm.keyboard.press('p'); await gm.wait_for_timeout(250)
             st = await gm.evaluate(ST)
-            check(st['view'] == 'tree' and 'Goblins' in st['tree']['chips'][-1], 'P again: the menu is where it was left, in the goblins')
+            check(st['view'] == 'tree' and st['tree']['where']['label'] == 'Goblins', 'P again: the menu is where it was left, in the goblins')
             await gm.mouse.move(100, 400); await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(150); a = (await gm.evaluate(ST))['tree']['chips']
             ik = next(t['key'] for t in (await gm.evaluate(ST))['tree']['tiles'] if t['label'] == 'Giants'); await gm.keyboard.press(ik.lower()); await gm.wait_for_timeout(200)
             T = (await gm.evaluate(ST))['tree']; ogre = next(t for t in T['tiles'] if t['fig'] == 'foe-ogre')
-            check(len(a) == 2 and ogre['size'] == '2×2' and next(t for t in T['tiles'] if t['fig'] == 'foe-minotaur') is not None, 'Backspace goes up a level; a large creature sits in its family (Giants) with a size mark', ogre)
+            check(a == ['Pawns'] and ogre['size'] == '2×2' and next(t for t in T['tiles'] if t['fig'] == 'foe-minotaur') is not None, 'Backspace goes up a level; a large creature sits in its family (Giants) with a size mark', ogre)
             await gm.keyboard.press('Backspace'); await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(200)
             check((await gm.evaluate(ST))['view'] == 'home', 'Backspace at the top goes back to the menu')
             await gm.keyboard.press('a'); await gm.wait_for_timeout(250); T = (await gm.evaluate(ST))['tree']
@@ -625,6 +630,34 @@ async def main():
             await gm.keyboard.press('t'); await gm.wait_for_timeout(200); T = (await gm.evaluate(ST))['tree']
             check('Innkeeper' in [t['label'] for t in T['tiles']] and 'Tavern' in [t['label'] for t in T['tiles']], 'Townsfolk > roles', [t['label'] for t in T['tiles']][:6])
             await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(200)
+            # MODERN (2026-11-07; one root since Harry's "we basically don't need to distinguish between cyberpunk and modern
+            # now"): D = Modern > Runners, the NPC groups, Robots; Runners > the archetypes; a troll's tile has its 2x2 mark
+            await gm.keyboard.press('d'); await gm.wait_for_timeout(250); T = (await gm.evaluate(ST))['tree']
+            labels = [t['label'] for t in T['tiles']]
+            check(T['labels'] == ['Modern'] and labels == ['Runners', 'Law and security', 'Corporate', 'Streets', 'Robots'] and all(t['pic'] and t['key'] for t in T['tiles']), 'D: Modern > Runners, Law and security, Corporate, Streets, Robots, each a picture tile with a key', labels)
+            await shot(gm, 'pawnsmenu-tree-modern.png', await tray_clip(gm))
+            rk = next(t['key'] for t in T['tiles'] if t['label'] == 'Runners'); await gm.keyboard.press(rk.lower()); await gm.wait_for_timeout(250)
+            T = (await gm.evaluate(ST))['tree']; labels = [t['label'] for t in T['tiles']]
+            check(T['labels'] == ['Modern', 'Runners'] and labels == ['Street samurai', 'Decker', 'Rigger', 'Mage', 'Shaman', 'Physical adept', 'Face', 'Technomancer', 'Mercenary'] and all(t['pic'] and t['key'] for t in T['tiles']) and T['chips'] == ['Pawns', 'Groups'] and T['where']['path'] == 'Modern ›' and T['where']['label'] == 'Runners', 'Runners: the nine archetypes, a level down (chips: Pawns, Groups; header: "Modern ›" Runners)', [T['chips'], T['where'], labels])
+            await shot(gm, 'pawnsmenu-tree-runners.png', await tray_clip(gm))
+            sk = next(t['key'] for t in T['tiles'] if t['label'] == 'Street samurai'); await gm.keyboard.press(sk.lower()); await gm.wait_for_timeout(250)
+            T = (await gm.evaluate(ST))['tree']
+            check(T['labels'] == ['Modern', 'Runners', 'Street samurai'] and len(T['tiles']) >= 3 and 'Troll man' in [t['label'] for t in T['tiles']] and next(t for t in T['tiles'] if t['label'] == 'Troll man')['size'] == '2×2', 'Street samurai: a grid by metatype; the troll is Large (2×2)', [(t['label'], t['size']) for t in T['tiles']])
+            line = await gm.evaluate("(() => { const h = document.querySelector('#pawnsTray .bwhere'), p = h.querySelector('.wpath').getBoundingClientRect(), b = h.querySelector('b').getBoundingClientRect(); return Math.abs((p.top + p.bottom) - (b.top + b.bottom)) < 6 && h.getBoundingClientRect().height < 40; })()")
+            check(T['where']['path'] == '… › Runners ›' and T['where']['label'] == 'Street samurai' and line and T['chips'] == ['Pawns', 'Groups', 'Archetypes'] and T['chipKeys'] == ['', '', '⌫'], 'a deep path: the header shows only the immediate parent in grey, an ellipsis for anything higher ("… › Runners ›" Street samurai), on one line; every level above is still a chip (Pawns, Groups, Archetypes)', [T['where'], T['chips'], line])
+            check(await wait(gm, "[...document.querySelectorAll('#pawnsTray .bgrid img')].every(i => i.complete && i.naturalWidth > 0)", 8000, 'thumbs'), 'their thumbnails load')
+            await shot(gm, 'pawnsmenu-tree-samurai.png', await tray_clip(gm))
+            await gm.keyboard.press('Backspace'); await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(200); T = (await gm.evaluate(ST))['tree']
+            rk = next(t['key'] for t in T['tiles'] if t['label'] == 'Robots'); await gm.keyboard.press(rk.lower()); await gm.wait_for_timeout(250)
+            T = (await gm.evaluate(ST))['tree']
+            check(T['labels'] == ['Modern', 'Robots'] and len(T['tiles']) >= 8 and all(t['fig'] and t['fig'].startswith('robot-') for t in T['tiles']) and 'Combat robot' in [t['label'] for t in T['tiles']], 'Modern > Robots: the robot people in one grid, by their own names', [t['label'] for t in T['tiles']])
+            check(await wait(gm, "[...document.querySelectorAll('#pawnsTray .bgrid img')].every(i => i.complete && i.naturalWidth > 0)", 8000, 'thumbs'), 'and theirs')
+            await shot(gm, 'pawnsmenu-tree-robots.png', await tray_clip(gm))
+            await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(200); T = (await gm.evaluate(ST))['tree']
+            lk = next(t['key'] for t in T['tiles'] if t['label'] == 'Law and security'); await gm.keyboard.press(lk.lower()); await gm.wait_for_timeout(250)
+            T = (await gm.evaluate(ST))['tree']
+            check(T['labels'] == ['Modern', 'Law and security'] and len(T['tiles']) >= 3 and all(t['fig'] and t['fig'].startswith('modern-') for t in T['tiles']), 'Modern > Law and security: the police and guards, right below Modern', [t['label'] for t in T['tiles']])
+            await gm.keyboard.press('Backspace'); await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(200)
             await gm.keyboard.press('f'); await gm.wait_for_timeout(300)
             bar = await gm.evaluate("({ v: document.querySelector('#bar textarea').value, focus: document.activeElement === document.querySelector('#bar textarea'), chips: document.querySelector('#bar .chips').textContent, open: tw.pawns.isOpen })")
             check(bar['v'] == '' and bar['focus'] and bar['chips'] == 'place pawn' and not bar['open'], 'the search button (F) opens the command bar on its "place pawn" chip and puts the cursor after it', bar)
@@ -651,6 +684,34 @@ async def main():
             await gm.mouse.move(100, 400); await gm.keyboard.press('Backspace'); await gm.keyboard.press('Backspace'); await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(200); await closed(gm)
             src = open(os.path.join(ENGINE, 'client', 'pawntree.js')).read()
             check('export const PAWN_TREE = [' in src and await gm.evaluate("tw.pawnTree.roots.reduce((a, r) => a + r.n, 0) === tw.figures.count"), 'the tree\'s shape is one table (client/pawntree.js PAWN_TREE), and every published figure has a place in it')
+            # PAWNS BY CULTURE (2026-11-07; docs/PAWNS.md): the culture figures under the Build tray's own genre word, a heading each
+            cul = await gm.evaluate("""(() => { const C = tw.pawnTree.get('cultures'), g = tw.taxonomy.nodes.get('g:cultures'), H = tw.pawnTree.get('heroes');
+              const inH = (n) => (n.figs || []).concat(...(n.children || []).map(inH));
+              return { any: tw.figures.list.some(f => f.setting), root: C ? { label: C.label, hot: C.hot, kids: C.children.map(k => k.label), n: C.n } : null, glabel: g && g.label,
+                       want: tw.figures.list.filter(f => f.setting).length, inHeroes: inH(H).filter(f => f.setting).length,
+                       taken: tw.pawnTree.roots.filter(r => 'cfgnop'.includes(r.hot)).map(r => r.label) }; })()""")
+            if cul['any']:
+                r = cul['root'] or {}
+                check(r.get('label') == cul['glabel'] and r.get('n') == cul['want'] and cul['inHeroes'] == 0, f"Place a pawn ▸ {cul['glabel']}: the Build tray's genre word, all {cul['want']} culture figures, none also under Heroes", cul)
+                check(r.get('hot') and r['hot'] not in 'bcfgnop' and not cul['taken'] and len(r.get('kids') or []) >= 7, f"its key is {str(r.get('hot')).upper()} (never one of the menu's own B, C, F, G, N, O, P), a heading per culture", r)
+                await view_home(gm); await open_p(gm); await gm.keyboard.press(r['hot']); await gm.wait_for_timeout(250)
+                tiles = await gm.evaluate("[...document.querySelectorAll('#pawnsTray .btile[data-node]')].map(b => b.querySelector('.bl').textContent)")
+                check(tiles == r.get('kids'), 'its key opens it: a tile per culture', tiles)
+                # the grid's third level (2026-11-07): India ▸ a tile per race ▸ fighter, rogue, caster; no horizontal scroll at any level
+                ind = await gm.evaluate("(() => { const n = tw.pawnTree.get('cultures/ind'); return n && n.children ? { hot: n.hot, races: n.children.map(c => c.label), tief: n.children.find(c => c.id.endsWith('/tiefling'))?.hot } : null; })()")
+                if ind:
+                    await gm.keyboard.press(ind['hot']); await gm.wait_for_timeout(250)
+                    tiles = await gm.evaluate("[...document.querySelectorAll('#pawnsTray .btile[data-node]')].map(b => b.querySelector('.bl').textContent)")
+                    hs = await gm.evaluate("(() => { const t = document.querySelector('#pawnsTray'); return [...t.querySelectorAll('*')].filter(e => e.scrollWidth > e.clientWidth + 1 && getComputedStyle(e).overflowX !== 'hidden' && getComputedStyle(e).overflowX !== 'visible').length + (t.scrollWidth > t.clientWidth + 1 ? 1 : 0); })()")
+                    check(tiles == ind['races'] and 'Tiefling' in tiles and hs == 0, 'India: a tile per race, Townsfolk last; nothing scrolls sideways', {'tiles': tiles, 'hscroll': hs})
+                    await shot(gm, 'pawnsmenu-regional-india.png', await tray_clip(gm))
+                    await gm.keyboard.press(ind['tief']); await gm.wait_for_timeout(250)
+                    figs = await gm.evaluate("[...document.querySelectorAll('#pawnsTray .btile[data-fig]')].map(b => b.dataset.fig)")
+                    check(figs == ['cul-ind-tiefling-fighter', 'cul-ind-tiefling-rogue', 'cul-ind-tiefling-caster'] and await wait(gm, "[...document.querySelectorAll('#pawnsTray .bgrid img')].every(i => i.complete && i.naturalWidth > 0)", 8000, 'thumbs'), 'India ▸ Tiefling: the warrior, the rogue, the caster, with their pictures (the Indian tiefling warrior exists)', figs)
+                    await shot(gm, 'pawnsmenu-regional-india-tiefling.png', await tray_clip(gm))
+                    await gm.keyboard.press('Backspace'); await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(150)
+                await gm.keyboard.press('Backspace'); await gm.wait_for_timeout(150); await closed(gm)
+            else: print('  (no culture figures in this catalog: the culture checks are skipped)')
 
         # ================= CAST =================
         if want('CAST'):

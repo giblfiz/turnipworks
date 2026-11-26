@@ -6,7 +6,7 @@
 //   node engine/tools/funnel_report.mjs --dev           the dev relay's (/var/lib/tw-relay-dev/data)
 //     --days N   --tz Area/City   --json   --tables (every table, the excluded ones too, with why)   --data DIR
 //     --by utm_content                 rows per utm_content (or utm_source, utm_campaign, …) and the ad click id's platform
-//                                      (google | meta | reddit | …), with the same counts and the phone page's
+//                                      (google | meta | reddit | …), with the same counts and the phone front door's
 //     --emails                         the address book's counts (no addresses)
 //     --exclude <cmp_id> "why"         take a table out of the count by hand (our own test); --include <cmp_id> puts it back
 //                                      (also a phone page's pg_… or a handoff's hd_…)
@@ -43,7 +43,12 @@ for (const d of R.days) console.log([d.day, ...cols.map(c => String(d[c]).padSta
 console.log(['total     ', ...cols.map(c => String(R.totals[c]).padStart(8)), ' |', ...pcols.map(c => String(R.totals[c]).padStart(9))].join(' '));
 console.log(`played = a GM opened the table and another person joined it.  together = both on at once.  sameNet = the player came from the GM's network.`);
 console.log(`engaged = the GM was on the table 180 s and placed, moved or built something, rolled or invited.`);
-console.log(`phone = the phone page shown.  handoff = its link emailed.  opened = that link opened on a computer.  fromPhone = tables started from it (phone ad -> desktop).`);
+console.log(`phone = a phone at the front door (since 2026-11-24 the front door page itself; before, the banner over the game).  tapped = it pressed one of its buttons.`);
+console.log(`handoff = a link sent to a computer (email, share sheet, copy, calendar).  opened = that link opened on a computer.  fromPhone = tables started from it (phone ad -> desktop).`);
+if (R.steps && Object.values(R.steps).some(Boolean)) {
+  console.log(`front door steps (pages, once each): ${Object.entries(R.steps).map(([k, n]) => `${k} ${n}`).join(' · ')}`);
+  console.log(`handoffs by way: ${Object.entries(R.via).map(([k, n]) => `${k} ${n}`).join(' · ')}`);
+}
 if (R.by) {
   const w = Math.max(12, ...R.by.map(g => String(g[by] ?? '(none)').length)) + 1;
   console.log(`\nby ${by} and ad click platform:`);

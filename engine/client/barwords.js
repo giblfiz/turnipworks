@@ -10,7 +10,7 @@
 const n = (k) => ['one', 'two', 'three'][k - 1];
 export const COMMAND_WORDS = {
   // ---- whole buildings (the Build tray's Type level) and the room types the generic words most often mean ----
-  'build.type.t:TAV': ['tavern', 'inn', 'pub', 'alehouse', 'taproom', 'hostel', 'bar'],
+  'build.type.t:TAV': ['tavern', 'inn', 'pub', 'alehouse', 'taproom', 'hostel'], // ("bar" alone: the modern bar, below; the tavern answers to "bar room")
   'build.type.t:NOB': ['mansion', 'manor', 'manor house', 'estate', 'villa', 'noble house', 'stately home'],
   'build.type.t:CAS': ['castle', 'keep', 'fort', 'fortress', 'stronghold', 'citadel', 'palace'],
   'build.type.t:TEM': ['temple', 'church', 'chapel', 'monastery', 'abbey', 'priory', 'holy place'],
@@ -46,7 +46,45 @@ export const COMMAND_WORDS = {
   'build.lair-mouth': ['cave', 'cave entrance'], 'build.lair-passage': ['cave', 'tunnel'], 'build.lair-warren': ['goblin cave', 'goblin den', 'warren'],
   'build.lair-spider': ['spider lair', 'spider cave'], 'build.lair-dragon': ['dragon lair', 'dragon cave', 'hoard'],
   'build.mansion-garden': ['garden'], 'build.hut-garden': ['garden', 'vegetable patch'],
-  'build.privy': ['toilet', 'bathroom', 'latrine', 'loo', 'outhouse', 'restroom', 'water closet'],
+  'build.privy': ['toilet', 'latrine', 'loo', 'outhouse', 'water closet'], // ('bathroom' and 'restroom' are the modern rooms' since 2026-11-07, as 'bar' is)
+  // ---- the Modern genre's city rooms (the cyberpunk pack, wave 1, 2026-11-06). Only words no fantasy room already answers
+  // to: "street", "alley" and "shop" keep their fantasy meanings. "bar" moved here on 2026-11-07 (wave 1's open note: "bar"
+  // opened the tavern): a bar is the modern word, "tavern", "pub", "inn" and "bar room" are the fantasy one ----
+  'build.mod-apartment': ['apartment', 'condo', 'studio apartment', 'modern flat'], 'build.mod-office': ['office', 'cubicles', 'office floor', 'open plan office'],
+  'build.mod-bar': ['bar', 'nightclub', 'night club', 'dance club', 'dive bar', 'cocktail bar', 'modern bar'], 'build.mod-street': ['city street', 'modern street', 'asphalt road', 'parked cars'],
+  'build.mod-alley': ['back alley', 'city alley', 'dumpster'], 'build.mod-garage': ['parking garage', 'car park', 'parking structure', 'garage'],
+  'build.mod-store': ['convenience store', 'corner shop', 'mini mart', 'bodega', 'gas station store'], 'build.mod-warehouse': ['warehouse', 'storage depot', 'loading dock'],
+  // ---- the Modern genre's cyberpunk rooms (the cyberpunk pack, wave 2, 2026-11-07; Harry: "It is ok to use TM words, as long
+  // as we don't pretend we have a license": "shadowrun" is a word people type, not a claim) ----
+  'build.cyb-clinic': ['street clinic', 'ripperdoc', 'ripper doc', 'street doc', 'street doctor', 'cyber clinic', 'back room surgery', 'chop doc'],
+  'build.cyb-lobby': ['corporate lobby', 'corp lobby', 'lobby', 'office lobby', 'reception', 'megacorp', 'corporate tower', 'corp tower'],
+  'build.cyb-server': ['server room', 'data center', 'data centre', 'data vault', 'mainframe', 'servers', 'server farm'],
+  'build.cyb-noodle': ['noodle bar', 'noodle shop', 'noodles', 'ramen bar', 'street food', 'food counter', 'diner counter'],
+  'build.cyb-capsule': ['capsule hotel', 'coffin hotel', 'pod hotel', 'sleep pods', 'capsules', 'flophouse'],
+  'build.cyb-hideout': ['gang hideout', 'gang den', 'gang hangout', 'squat', 'gang turf', 'crash den'],
+  'build.cyb-talisman': ['talismonger', 'magic supply shop', 'magic supplies', 'occult shop', 'reagent shop', 'street magic', 'herbalist'],
+  'build.cyb-rigger': ['rigger garage', "rigger's garage", 'riggers garage', 'drone workshop', 'vehicle workshop', 'mechanic', 'auto shop', 'chop shop'],
+  'build.cyb-safehouse': ['safehouse', 'safe house', 'hideaway', 'bolt hole', 'crash pad'],
+  'build.cyb-rooftop': ['rooftop', 'roof top', 'building roof', 'on the roof', 'roof of a building', 'rooftops'],
+  // ---- the Modern genre's BUILDINGS (2026-11-07, Harry: "types should be kinds of *building* not kinds of sub-genre", and
+  // "we basically don't need to distinguish between cyberpunk and modern now": engine/tools/modern_buildings.json). The
+  // genre's own words (the old City and Cyberpunk types' words) answer with every modern building; each adds its own ----
+  ...Object.fromEntries(Object.entries({
+    APT: ['apartment block', 'apartment building', 'block of flats', 'tenement', 'high rise', 'housing block', 'arcology', 'condo tower'],
+    OFC: ['office tower', 'office building', 'skyscraper', 'corporate tower', 'corp tower', 'megacorp', 'corporate hq', 'headquarters'],
+    BAR: ['nightclub', 'night club', 'club', 'dance club', 'bar building'],
+    SHP: ['storefront', 'store front', 'shopfronts', 'shop fronts', 'strip mall', 'shopping street', 'mall', 'stores'],
+    WHS: ['warehouse', 'garage', 'depot', 'industrial', 'industrial unit', 'docks'],
+    HID: ['hideout', 'hide out', 'gang hideout', 'den', 'hidey hole'],
+  }).map(([code, own]) => [`build.type.t:${code}`, [...own, 'modern', 'modern city', 'city block', 'downtown', 'urban', 'contemporary', 'cyberpunk', 'cyber punk', 'shadowrun', 'shadowrun style', 'sprawl', 'the sprawl', 'near future', 'neon city', 'dystopia', 'megacity']])),
+  // ---- the modrooms lane (2026-11-07): five more City rooms and the Cyberpunk exec penthouse. "bathroom" and "restroom"
+  // are the modern words (moved from the tavern's privy, which keeps "toilet", "latrine", "privy" ...), as "bar" was ----
+  'build.mod-penthouse': ['penthouse', 'luxury apartment', 'lux apartment', 'luxury flat', 'loft apartment', 'high rise apartment'],
+  'build.mod-penthouse-exec': ['exec penthouse', 'executive penthouse', 'corp penthouse', 'corporate penthouse', 'exec suite', 'megacorp penthouse'],
+  'build.mod-bathroom': ['bathroom', 'bath room', 'en suite', 'ensuite', 'washroom', 'shower room'],
+  'build.mod-restroom': ['restroom', 'public restroom', 'public toilets', 'restrooms', 'mens room', "men's room", 'ladies room', 'washrooms', 'toilet stalls'],
+  'build.mod-kitchen': ['restaurant kitchen', 'commercial kitchen', 'back of house', 'kitchen line', 'galley kitchen', 'diner kitchen'],
+  'build.mod-fire-escape': ['fire escape', 'fire stairs', 'fire stair', 'escape stairs', 'iron stairs', 'outside stairs'],
   // ---- a whole building, selected ----
   ...Object.fromEntries([1, 2, 3].map(k => [`building.storeys.${k}`, [`${k} storeys`, `${k} stories`, `${n(k)} floors`, `${n(k)} storeys`, `${n(k)} stories`, `${n(k)} levels`]])),
   'building.reroll': ['reroll', 're-roll', 'regenerate', 'shuffle', 'redo building'],
@@ -136,6 +174,33 @@ export const CATALOG_WORDS = [
   [/^pew$/, ['pews', 'church bench']], [/^font-holy$/, ['holy water', 'font', 'baptism']], [/^decal-ritual-circle$/, ['pentagram', 'summoning circle', 'ritual circle', 'magic circle']], [/^decal-star-floor$/, ['pentagram']],
   [/^(feast-platter-meats|plate-roast-veg|bread-loaf)$/, ['food', 'meal']], [/^(gibbet-cage-standing|block-headsman)$/, ['gallows', 'execution']], [/^mine-cart$/, ['minecart']], [/^mine-rail/, ['rails', 'track', 'mine track']],
   [/^(counter-shop|back-bar-shelves)$/, ['bar counter', 'bar']], [/^chest-treasure$/, ['treasure chest', 'loot']], [/^(treasure-hoard-heap|dun-treasure-hoard|coin-pile)$/, ['treasure', 'loot', 'gold']], [/^potion-bottles$/, ['potion', 'potions']],
+  // the cyberpunk pack, wave 2 (2026-11-07): what people call its pieces
+  [/^fence-chain-link$/, ['chain link', 'chainlink', 'chain-link', 'chain link fence', 'wire fence', 'cage', 'cage wall', 'fence']], [/^gate-chain-link$/, ['chain link gate', 'chainlink gate', 'cage door', 'fence gate', 'gate']],
+  [/^wall-glass-curtain$/, ['glass wall', 'window wall', 'curtain wall', 'glass front', 'office glass']], [/^wall-storefront$/, ['shop window', 'glass front', 'storefront', 'glass wall']],
+  [/^surgical-chair$/, ['operating table', 'surgery chair', 'dentist chair', 'ripperdoc chair', 'operating chair']], [/^cyberware-rack$/, ['cyberware', 'cyber arms', 'robot arms', 'cyberlimbs', 'implants']],
+  [/^capsule-pod$/, ['capsule', 'coffin', 'sleep pod', 'pod bed', 'bunk']], [/^server-rack$/, ['server', 'servers', 'mainframe', 'computer rack', 'data rack']], [/^terminal-desk$/, ['computer', 'terminal', 'hacker desk', 'workstation', 'deck']],
+  [/^vending-machine$/, ['vending machine', 'soda machine', 'drinks machine']], [/^oil-drum-fire$/, ['burning barrel', 'fire barrel', 'barrel fire', 'brazier', 'trash fire']], [/^motorbike$/, ['motorcycle', 'bike', 'motor bike']],
+  [/^billboard-roof$/, ['billboard', 'advert', 'big screen', 'sign']], [/^video-screen$/, ['tv', 'screen', 'monitor', 'display', 'telescreen']], [/^roof-access-hut$/, ['roof door', 'stairwell', 'roof access', 'bulkhead']],
+  [/^hvac-unit$/, ['air conditioner', 'ac unit', 'air con', 'hvac']], [/^parapet-roof-low$/, ['parapet', 'roof edge', 'roof wall', 'low wall']], [/^drone-parked$/, ['drone', 'quadcopter']],
+  // vehicles (2026-11-07, Harry: "choppers, APC, cop car"): what people call them, and the words of the game players have in
+  // mind (Shadowrun's "battlewagon", "rigger") as SEARCH words only; the things' own names stay generic
+  [/^(car-(sedan|hatchback|police)|suv-armoured|van-armoured|motorbike|helicopter(-gunship)?|forklift)$/, ['vehicle', 'vehicles']], [/^car-(sedan|hatchback)$/, ['car', 'auto', 'automobile']],
+  [/^helicopter(-gunship)?$/, ['helicopter', 'chopper', 'copter', 'heli', 'helo', 'aircraft', 'rotorcraft', 'whirlybird']], [/^helicopter$/, ['dragonfly', 'air taxi', 'corporate helicopter', 'passenger helicopter']],
+  [/^helicopter-gunship$/, ['gunship', 'attack helicopter', 'attack chopper', 'military helicopter', 'helicopter gunship']],
+  [/^car-police$/, ['police car', 'cop car', 'patrol car', 'cruiser', 'squad car', 'police cruiser', 'cop', 'police', 'car']],
+  [/^suv-armoured$/, ['suv', 'armored suv', 'armoured suv', 'armored car', 'armoured car', 'saferide', 'limo', 'limousine', 'corporate car', 'car']],
+  [/^van-armoured$/, ['apc', 'armored van', 'armoured van', 'armored personnel carrier', 'armoured personnel carrier', 'battlewagon', 'battle wagon', 'van', 'truck', 'swat van', 'armored truck', 'armoured truck']],
+  [/^drone-/, ['drone', 'drones', 'robot', 'rigger', 'bot']], [/^drone-quad-/, ['quadcopter', 'quad copter', 'quadrotor', 'gun drone', 'combat drone', 'flying drone']],
+  [/^drone-hexapod$/, ['hexapod', 'walker', 'spider robot', 'spider drone', 'mech', 'gun platform', 'robot walker', 'six legged robot']],
+  [/^drone-rover-(arm|sentry)$/, ['rover', 'rc car', 'remote control car', 'ground drone', 'robot car']], [/^drone-rover-arm$/, ['robot arm', 'bomb robot', 'bomb disposal', 'manipulator', 'gripper']],
+  [/^drone-rover-sentry$/, ['sentry', 'sentry gun', 'gun car', 'turret', 'sentry drone', 'armed rover']],
+  // security cameras and desk things (2026-11-07, Harry: "security cameras for the wall ... desk debris (laptop, CRT, mouse, donut)")
+  [/^camera-(security|dome)$/, ['camera', 'security camera', 'cctv', 'surveillance camera', 'cam', 'security']], [/^camera-dome$/, ['dome camera', 'ceiling camera']],
+  [/^laptop-open$/, ['laptop', 'computer', 'notebook computer', 'cyberdeck', 'deck']], [/^monitor-(crt|flat)$/, ['monitor', 'screen', 'computer', 'computer screen', 'display']], [/^monitor-crt$/, ['crt', 'old monitor', 'tube monitor']],
+  [/^keyboard$/, ['computer keyboard', 'keys']], [/^mouse-computer$/, ['mouse', 'computer mouse']], [/^donut(-box)?$/, ['donut', 'doughnut', 'donuts', 'doughnuts', 'pastry', 'snack']],
+  [/^coffee-cup-paper$/, ['coffee', 'coffee cup', 'cup', 'takeaway cup', 'latte']], [/^desk-phone$/, ['phone', 'telephone', 'desk phone', 'office phone']],
+  [/^paper-stack$/, ['papers', 'paperwork', 'folders', 'files', 'documents', 'paper stack']],
+  [/^(laptop-open|monitor-crt|monitor-flat|keyboard|mouse-computer|donut|donut-box|coffee-cup-paper|desk-phone|paper-stack)$/, ['desk clutter', 'desk debris', 'office clutter']],
 ];
 // what a floor or wall material is, in plain words: the room's Floor ▸ / Walls ▸ commands and the floor tiles both
 export const MATERIAL_WORDS = [
@@ -148,6 +213,16 @@ export const FIGURE_WORDS = [
   [/child/, 'kid kids'], [/^hero-rogue-/, 'thief burglar'], [/noble/, 'lord lady'],
   // players type the publisher's name for it; the figure itself is our own eye tyrant and its tags never say it (2026-10-24)
   [/^foe-eye-tyrant$/, 'beholder'],
+  // the cyberpunk pack (2026-11-07): the game players have in mind, and its jargon, as SEARCH words only (our UI code);
+  // the figures are generic cyberpunk-fantasy, and their own names, tags and manifest never say these
+  [/^(cyber|modern|robot)-/, 'shadowrun'], [/^cyber-/, 'shadowrunner runners'], [/^cyber-decker-/, 'netrunner'], [/^cyber-street-samurai-/, 'sammy'],
+  [/^modern-streetdoc-/, 'ripperdoc'], [/^modern-fixer-/, 'johnson'], [/^robot-infiltrator$/, 'replicant'], [/^robot-/, 'bot droid automaton mech'],
+  // the dinosaurs (2026-11-07): what a table calls them. The tyrannosaur's own tags say t-rex; these are the spellings and
+  // nicknames, and the "long neck" kin a GM reaches for when the table wants a sauropod (brachiosaurus, diplodocus: one figure)
+  [/^foe-(tyrannosaur|triceratops|velociraptor|ankylosaurus|stegosaurus|spinosaurus|brontosaurus|pterodactyl|quetzalcoatlus)$/, 'dinosaurs dinos prehistoric'],
+  [/^foe-tyrannosaur$/, 'trex rex tyrannosaurus'], [/^foe-triceratops$/, 'trike'], [/^foe-velociraptor$/, 'raptors'],
+  [/^foe-brontosaurus$/, 'sauropod longneck diplodocus brachiosaur'], [/^foe-stegosaurus$/, 'stego'], [/^foe-ankylosaurus$/, 'anky'], [/^foe-spinosaurus$/, 'spino'],
+  [/^foe-pterodactyl$/, 'pterodactyls pteranodons pterosaurs'], [/^foe-quetzalcoatlus$/, 'quetzal pterosaurs'],
 ];
 
 // apply the vocabulary: commands (after every surface has added its own), the catalog, and figures (before their index)

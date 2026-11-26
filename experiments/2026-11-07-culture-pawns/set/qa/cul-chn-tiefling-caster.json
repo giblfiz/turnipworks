@@ -1,0 +1,144 @@
+{
+ "file": "cul-chn-tiefling-caster.glb",
+ "tris": 46514,
+ "kb": 2135,
+ "native_extent": [
+  0.489,
+  0.998,
+  0.375
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  105,
+  80,
+  33
+ ],
+ "mean_saturation": 0.67,
+ "sized_by": "its highest point",
+ "overall_ft": 6.0,
+ "pieces": {
+  "connected_parts": 8,
+  "main_part_area_share": 0.9877,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.0192,
+ "y0": -2.9893,
+ "stated_ft": {
+  "body": 6.0,
+  "figure_top": 6.0,
+  "overall": 6.0
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2438,
+   -0.4977,
+   -0.1868
+  ],
+  [
+   0.2449,
+   0.5006,
+   0.1881
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 46514,
+   "tex": 2048,
+   "kb": 2135
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 878
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 388
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.81,
+    "z": 0.38,
+    "size_ft": [
+     0.88,
+     1.12
+    ],
+    "off_ground_ft": 0.005,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.039
+   },
+   {
+    "x": 0.79,
+    "z": 0.38,
+    "size_ft": [
+     0.88,
+     1.12
+    ],
+    "off_ground_ft": 0.005,
+    "sole_level_share": 0.97,
+    "sole_p90_ft": 0.039
+   },
+   {
+    "x": 0.01,
+    "z": -0.12,
+    "size_ft": [
+     0.25,
+     0.38
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.18,
+    "sole_p90_ft": 0.423
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.005,
+  "lowest_slab_area_sqft": 1.26,
+  "plan_hull_area_sqft": 5.4,
+  "lowest_slab_share_of_plan": 0.234
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.94,
+   "d": 2.25,
+   "h": 6.0
+  },
+  "centre": [
+   -0.001,
+   0.649
+  ],
+  "contacts_radius_ft": 1.23,
+  "reach_radius_ft": 1.9,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.935,
+  "plate_lost_share": 0.009,
+  "added_share": 0.06,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.935,
+  "view_yaw_deg": 0,
+  "view_elev_deg": 8
+ },
+ "id": "cul-chn-tiefling-caster",
+ "sha1": "6aa99838bfd273301cc9aea6c58605c9008802a8",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 9.1
+}

@@ -20,7 +20,7 @@ export function announceSurface(R, app) {
   const pending = new Set(); // ids whose log line is held invisible until their announce lands
   let cur = null, waitT = 0; // { c, el, content, timer, phase: 'dwell' | 'fly' }; waitT: a roll waiting for its dice
   const log = [];         // (tests) what happened: { id, shownAt, dwell, landedAt, box, line, mode }
-  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('reduce-motion'); // (or Settings ▸ Me)
+  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('reduce-motion'); // (or Settings ▸ Controls)
 
   const name = (seat) => app.sync.campaign?.seats.find(s => s.id === seat)?.name || 'someone';
   const words = (s) => String(s || '').trim().split(/\s+/).filter(Boolean).length;
@@ -28,7 +28,7 @@ export function announceSurface(R, app) {
   const dwellOf = (c, backlog) => {
     const w = c.roll ? 4 + words(c.text) : words(c.text);
     const base = Math.min(MAX_DWELL, 1 + w / 4);
-    return (backlog ? Math.max(0.8, base / (1 + 0.6 * backlog)) : base) / (app.prefs?.announceSpeed || 1); // Settings ▸ Me ▸ Announcement speed
+    return (backlog ? Math.max(0.8, base / (1 + 0.6 * backlog)) : base) / (app.prefs?.announceSpeed || 1); // Settings ▸ Controls ▸ Announcement speed
   };
   const nat = (c) => { const r = c.roll; if (r?.info?.part && r.info.part !== 'damage' && r.info.part !== 'healing' && (r.info.crit || r.info.fumble)) return r.info.crit ? 'nat20' : 'nat1'; // (a Beyond20 roll says so itself: advantage is two d20s)
     if (!r || !/^d20(\s|[+-]|$)/i.test(r.expr) || r.rolls.length !== 1) return null; return r.rolls[0] === 20 ? 'nat20' : r.rolls[0] === 1 ? 'nat1' : null; };
@@ -48,7 +48,7 @@ export function announceSurface(R, app) {
       if (s.has(c.id)) continue;
       s.add(c.id);
       if (!c.roll && !String(c.text || '').trim()) continue;
-      if (app.prefs?.announce === false) continue; // Settings ▸ Me: announcements off (the line just appears in the log)
+      if (app.prefs?.announce === false) continue; // Settings ▸ Controls: announcements off (the line just appears in the log)
       queue.push({ c, area }); pending.add(c.id);
     }
     // a backlog arrived while one is up: it hurries too (its dwell shortens, never below what it has already had)

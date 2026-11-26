@@ -1,4 +1,4 @@
-import { factionCatalog, factionSearchItems, factionSlotName } from '../core/faction-catalog.js';
+import { factionCatalog, factionSearchItems, factionSlotName, factionRowSlots } from '../core/faction-catalog.js';
 import { T } from './tuner.js';
 
 // A shelf is a view of the same SKU catalog the command bar places; holes remain visible in every row.
@@ -21,14 +21,18 @@ export function createFactionShelf(app) {
     const byKey = new Map(items.map(c => [`${c.faction}|${c.id}`, c]));
     app.previews.detachAll(panel);
     panel.innerHTML = `<header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b>Factions</b><button data-close aria-label="Close factions library">×</button></header><div style="font-size:12px;margin-bottom:10px">Click a piece, then place it in the world · or drag it out</div>`;
-    for (const f of factions) {
+    // the real-world faiths first, together under their own heading (faith-factions, 2026-11-07), then the fantasy factions
+    const ordered = [...factions].sort((a, b) => !!b.reverent - !!a.reverent);
+    for (const f of ordered) {
+      if (f === ordered[0] || !!f.reverent !== !!ordered[ordered.indexOf(f) - 1].reverent) { const h = document.createElement('div'); h.className = 'faction-shelf-group'; h.textContent = f.reverent ? 'Historical faiths' : 'Fantasy factions'; Object.assign(h.style, { fontSize: '12px', fontWeight: '600', margin: '4px 0 6px', opacity: '.75' }); panel.append(h); }
       const row = document.createElement('div'); row.className = 'faction-shelf-row'; row.dataset.faction = f.id;
       Object.assign(row.style, { display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center', paddingBottom: '10px' }); // (a narrow window wraps a faction's pieces: Nick's rule, docs/UI.md)
       row.innerHTML = `<div style="flex:0 0 100px;display:flex;align-items:center;gap:6px">${f.emblem ? `<img src="${esc(new URL(f.emblem, T.base).href)}" alt="" width="32" height="32" style="object-fit:cover;border-radius:50%">` : ''}<b>${esc(f.label)}</b></div>`;
-      for (const cat of slots) {
+      for (const { cat, state } of factionRowSlots(app.lib, f, slots)) { // (a faith's own roles only in its row; a slot it does not use: a blank spacer)
         const item = byKey.get(`${f.id}|${cat}`), cell = document.createElement(item ? 'button' : 'div');
         Object.assign(cell.style, { width: '82px', minHeight: '94px', fontSize: '11px', padding: '4px', textAlign: 'center' });
-        if (!item) { cell.className = 'faction-gap'; cell.setAttribute('aria-label', `${f.label}: missing ${factionSlotName(cat)}`); cell.title = cell.getAttribute('aria-label'); cell.style.opacity = '.45'; cell.innerHTML = `—<br>${esc(factionSlotName(cat))}`; }
+        if (!item && state === 'omit') { cell.className = 'faction-omit'; cell.setAttribute('aria-hidden', 'true'); }
+        else if (!item) { cell.className = 'faction-gap'; cell.setAttribute('aria-label', `${f.label}: missing ${factionSlotName(cat)}`); cell.title = cell.getAttribute('aria-label'); cell.style.opacity = '.45'; cell.innerHTML = `—<br>${esc(factionSlotName(cat))}`; }
         else {
           cell.dataset.sku = item.sku; cell.title = item.name; cell.setAttribute('aria-label', item.name);
           cell.innerHTML = `${item.flat ? `<img class="faction-flat" src="${esc(new URL(item.url, T.base).href)}" alt="" draggable="false" style="display:block;width:72px;height:64px;object-fit:contain">` : '<span data-preview style="display:block;width:72px;height:64px"></span>'}<span>${esc(item.name)}</span>`;

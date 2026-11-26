@@ -1,4 +1,4 @@
-TAV — tavern-inn: 849 roles (+ ANY-tagged roles) — ! = signature
+TAV — tavern-inn: 853 roles (+ ANY-tagged roles) — ! = signature
 
 ! P1  floor-planks-rushes        [kit/1] medieval hall floor
 ! P1  floor-planks-worn          [kit/1] tavern default; tiles seamlessly
@@ -99,6 +99,7 @@ TAV — tavern-inn: 849 roles (+ ANY-tagged roles) — ! = signature
   P1  linen-chest-open           [floor/sub] open state of linen-chest
   P1  strongbox-open             [surface/tiny] open state of strongbox; robbed
   P1  wardrobe-open              [wall/1] open state of wardrobe; someone hid here
+  P1  floor-trapdoor-open        [kit/1] open state of floor-trapdoor; the way down
   P1  candelabra                 [surface/tiny] feasts and chapels
   P1  lantern-hanging            [ceiling/tiny] beams, mine timbers, porches
   P1  lantern-post               [ground/sub] streets, manor drives
@@ -326,6 +327,7 @@ TAV — tavern-inn: 849 roles (+ ANY-tagged roles) — ! = signature
   P2  wall-drystone              [kit/edge] countryside boundaries
   P2  jetty-bracket              [wall/sub] one under each joist end where an upper storey oversails the lower by 2.5 ft
   P2  wall-shop-window           [kit/edge] the apothecary's street wall; a special panel in the `half-timber` family
+  P2  roof-cistern               [floor/1] a roof object: stands on a flat roof; rain water for the house below, something to crouch behind (generated 2026-10-27)
   P2  roofing-shingle-wood       [kit/1] middle-wealth and woodland roofs
   P2  roofing-thatch             [kit/1] cottage and poor-inn roofs
   P2  roofing-tile-clay          [kit/1] town roofs and better inns
@@ -362,6 +364,7 @@ TAV — tavern-inn: 849 roles (+ ANY-tagged roles) — ! = signature
   P2  rural-grooming-box-open    [surface/tiny] open state of rural-grooming-box
   P2  salt-box-open              [wall/tiny] open state of salt-box
   P2  smith-farrier-box-open     [floor/tiny] open state of smith-farrier-box
+  P2  trunk-travel-open          [floor/sub] open state of trunk-travel
   P2  candle-box-sconce          [wall/tiny] cottage and back-room walls; generated unlit, engine fire FX adds the flame
   P2  cresset-wall               [wall/tiny] yards and great halls; cold charred wood, no fire, engine fire FX adds it
   P2  lantern-wall-horn          [wall/tiny] cheap medieval light; generated unlit, engine fire FX adds the flame
@@ -526,6 +529,7 @@ TAV — tavern-inn: 849 roles (+ ANY-tagged roles) — ! = signature
   P3  stool-upholstered          [floor/tiny] at the harpsichord, the vanity, the harp
   P3  rain-barrel                [ground/sub] exteriors
   P3  tun-large                  [floor/2x2] brewery corner, cellar drama
+  P3  rural-tack-trunk-open      [floor/sub] open state of rural-tack-trunk
   P3  board-game                 [surface/tiny] a quiet corner; aristocrats' table
   P3  drinking-horn              [surface/tiny] feast-hall flavor
   P3  kettle                     [surface/tiny] hearthside

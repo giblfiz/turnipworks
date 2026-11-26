@@ -56,7 +56,7 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 .hint { color: var(--mute); font-size: 12px; }
 
 #app { position: fixed; inset: 0; }
-#c { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: default; }
+#c { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: default; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; } /* never part of a text selection, never a native drag (input.js, 2026-11-07: Firefox's ghost of the whole table) */
 #c.panning { cursor: grab; }
 #pv { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: var(--z-pipview); }
 
@@ -272,9 +272,19 @@ kbd { display: inline-block; min-width: 18px; padding: 1px 5px; border-radius: 5
 .bchip span { display: flex; flex-direction: column; font-weight: 650; font-size: 13px; line-height: 1.15; flex: 1; min-width: 0; }
 .bchip small { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
 .bchip kbd { font-size: 9.5px; }
-#buildMenu .blevel { display: flex; align-items: baseline; justify-content: space-between; padding: 2px 2px 0; }
-#buildMenu .blevel b { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
-#buildMenu .blevel kbd { font-size: 10px; }
+/* THE BREADCRUMB RULE (Harry 2026-11-12; surfaces/where.js): a chip is a BUTTON that goes back to a list, named for it
+   ("Genres", "Types": bold, one line) and wearing its owner's icon; the header says where you are, quietly (no border, no
+   fill: it is not a button): the owner's icon, its parent in grey (an ellipsis for anything higher), the owner big.
+   One line, never wrapping: the grey path and the name each shorten with an ellipsis when the tray is narrow. */
+.bchip.nav span { display: block; flex-direction: row; font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bchip.nav::before { content: '‹'; order: -1; font-size: 18px; line-height: 1; color: var(--mute); margin: 0 -2px 0 2px; }
+.bchip.nav:hover::before { color: var(--accent); }
+.bwhere { display: flex; align-items: center; gap: 7px; min-width: 0; padding: 2px 2px 0; white-space: nowrap; }
+.bwhere .nic { width: 32px; height: 32px; border-radius: 8px; flex: none; }
+.bwhere .wpath { flex: 0 1 auto; min-width: 0; max-width: 48%; overflow: hidden; text-overflow: ellipsis; font-size: 11.5px; color: var(--mute); }
+.bwhere .wmore { font-style: normal; }
+.bwhere b { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 16px; font-weight: 750; line-height: 1.2; color: var(--ink); }
+.bwhere.top b { font-size: 15px; }
 /* (fluid tracks, not 104 px: a classic vertical scrollbar takes its width out of these columns; fixed ones then overflow sideways. Nick's rule, docs/UI.md) */
 .bgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; flex: 1; padding-bottom: 2px; }
 .btile { position: relative; width: 100%; height: 112px; border-radius: 12px; border: 1px solid var(--line); background: var(--raised); color: var(--ink); display: grid; grid-template-rows: 70px 1fr; justify-items: center; align-items: center; padding: 6px 4px 4px; cursor: pointer; transition: border-color .1s, transform .1s, background .1s; }
@@ -678,7 +688,7 @@ html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after 
    The PiP window is kept off this strip (main.js PIP_EDGE). */
 #levelMeter { position: absolute; z-index: var(--z-levels); left: 0; top: 0; bottom: 0; width: 20px; box-sizing: border-box; display: flex; flex-direction: column; padding: 4px 0 6px; overflow: hidden; background: color-mix(in srgb, var(--surface-solid) 62%, transparent); border-right: 1px solid var(--line); color: var(--mute); font: 600 10px/1 Inter, system-ui, sans-serif; white-space: nowrap; user-select: none; -webkit-user-select: none; touch-action: none; transition: width .12s ease-out, background .12s; }
 body.drag-in-hand #levelMeter { pointer-events: none; } /* something is in the hand (edgepan.js): the left edge is the map's */
-#levelMeter:hover, #levelMeter.scrub { width: 104px; background: var(--surface-solid); border-right-color: var(--line-strong); box-shadow: var(--shadow); color: var(--ink-2); }
+#levelMeter:hover, #levelMeter.scrub, #levelMeter.lm-flash { width: 104px; background: var(--surface-solid); border-right-color: var(--line-strong); box-shadow: var(--shadow); color: var(--ink-2); }
 #levelMeter .lm-roof { flex: none; height: 20px; display: flex; align-items: center; gap: 6px; padding: 0 0 0 3px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; opacity: .55; } /* the roofs position: above the highest level */
 #levelMeter .lm-roof.on { color: var(--accent); opacity: 1; } #levelMeter .lm-roof.on.hid { opacity: .55; }
 #levelMeter .lm-roof:hover { color: var(--accent); opacity: 1; } #levelMeter .lm-roof svg { flex: none; }
@@ -702,6 +712,30 @@ body.drag-in-hand #levelMeter { pointer-events: none; } /* something is in the h
 #levelMeter .lm-n.cur b { color: var(--ink); }
 #levelMeter .lm-ping { position: absolute; left: 5px; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; pointer-events: none; box-shadow: 0 0 0 2px var(--surface-solid); animation: lm-ping 0.8s ease-out 3; } /* another seat pinged a level this view is not showing */
 @keyframes lm-ping { from { transform: scale(0.6); opacity: 1; } to { transform: scale(1.9); opacity: 0.15; } }
+/* A LEVEL CHANGE, SHOWN (2026-11-12, surfaces/cut.js runLevelAnim): the meter opens for a moment (.lm-flash, as a hover
+   does) and a copy of the marker slides from the old notch to the new; the real marker waits under it (.lm-travel) */
+#levelMeter .lm-ghost { position: absolute; left: 2px; z-index: 2; transform: translateY(-50%); min-width: 17px; height: 15px; box-sizing: border-box; padding: 0 2px; display: grid; place-items: center; border-radius: 4px; border: 1.5px solid var(--accent); background: var(--accent); color: #1b1608; font: 700 10px/1 Inter, system-ui, sans-serif; font-style: normal; pointer-events: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+#levelMeter.lm-travel .lm-n.cur em { opacity: 0; }
+/* the readout of a level change ("Ground → Level −1"), beside the opened meter at the new level, for the length of the move (surfaces/cut.js) */
+#levelReadout { position: fixed; z-index: var(--z-levels); left: 112px; transform: translateY(-50%); padding: 4px 9px; border-radius: 7px; background: var(--surface-solid); border: 1px solid var(--line-strong); box-shadow: var(--shadow); color: var(--ink); font: 600 12.5px/1.2 Inter, system-ui, sans-serif; white-space: nowrap; pointer-events: none; }
+#levelReadout[hidden] { display: none; }
+/* while a level change plays, the meter opens WIDER than a hover, its notches and labels large enough to read at a glance */
+#levelMeter.lm-flash { width: 150px; font-size: 12px; }
+#levelMeter.lm-flash .lm-n b { left: 30px; } #levelMeter.lm-flash .lm-n.rooms i, #levelMeter.lm-flash .lm-n.ground i { width: 18px; }
+#levelMeter.lm-flash ~ #levelReadout, #levelReadout { left: 158px; }
+/* the demonstrating hand: the pointer and hand icons at twice a pointer's size; it takes nothing, blocks nothing */
+#levelCursor { position: fixed; left: 0; top: 0; z-index: calc(var(--z-levels) + 1); pointer-events: none; width: 40px; height: 40px; color: #fff; filter: drop-shadow(0 1px 0 #000) drop-shadow(0 0 2px rgba(0,0,0,.8)); will-change: transform; }
+#levelCursor[hidden] { display: none; }
+#levelCursor > span { position: absolute; inset: 0; } #levelCursor svg { fill: #fff; stroke: #111; stroke-width: 1.6; }
+#levelCursor .lc-hand { display: none; } #levelCursor.grab .lc-hand { display: block; } #levelCursor.grab .lc-pointer { display: none; }
+#levelCursor.grab .lc-hand svg { animation: lc-press .14s ease-out; } @keyframes lc-press { from { transform: scale(1.25); } to { transform: none; } }
+html.tw-fpv #levelCursor { display: none; }
+html.tw-fpv #levelReadout { display: none; }
+#levelMeter.lm-flash .lm-n.cur b { color: var(--accent); }
+/* ONLY THE GROUND (2026-11-12, levels are advanced): nothing built off the ground and you are on it: the meter folds up to
+   its Roofs button. A level change (] [ , an offer) opens it, and a second level in use keeps it open (surfaces/cut.js) */
+#levelMeter.single:not(.lm-flash) { bottom: auto; padding-bottom: 0; border-bottom: 1px solid var(--line); border-bottom-right-radius: 6px; }
+#levelMeter.single:not(.lm-flash) .lm-all, #levelMeter.single:not(.lm-flash) .lm-rail { display: none; }
 /* the meter owns the left edge: the launchers (and the Build tray under them) and the chat log sit beside it */
 #launchers { left: calc(30px / var(--ts, 1)); }
 #chat { left: calc(30px / var(--ts, 1)); width: min(340px, calc(100% - 42px)); }
@@ -954,6 +988,23 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
 .tw-hand #otherGames { min-height: 40px; padding: 0 12px; font-size: 12px; }
 .tw-hand #areaState button { min-height: 40px; padding: 0 12px; }
 .tw-hand .tpin { width: 40px; height: 40px; }
+/* (2026-11-11: a phone has no Escape) Done ✕ on the trays and the bar's open list; the bar's mic (surfaces/bar.js) */
+.tw-hand .tdone { flex: none; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; margin-left: 2px; border-radius: 9px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); cursor: pointer; }
+.tw-hand #bar .bx, .tw-hand #bar .bmic { flex: none; width: 40px; height: 40px; margin-right: -8px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 0; background: transparent; color: var(--ink); opacity: .8; }
+.tw-hand .thead:has(.tdone) { justify-content: flex-start; gap: 4px; } .tw-hand .thead:has(.tdone) > b { margin-right: auto; }
+.tw-hand #bar .bx { display: none; } .tw-hand #bar.open .bx { display: inline-flex; }
+.tw-hand #bar .bmic.on { opacity: 1; color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); animation: tw-mic 1.2s ease-in-out infinite; }
+/* the Pawns tray on a phone (surfaces/pawns.js "On a phone"): the catalog first, Mine one row, thumb-sized targets */
+.tw-hand #pawnsTray .phsearch { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; margin: 2px 0 8px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink-2); font: 600 15px Inter, system-ui, sans-serif; text-align: left; }
+.tw-hand #pawnsTray .mrow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 4px 0; }
+.tw-hand #pawnsTray .mrow > b { font-size: 12px; color: var(--ink-3, var(--ink-2)); margin-right: 4px; }
+.tw-hand #pawnsTray .mchip, .tw-hand #pawnsTray .mnew { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px 0 6px; border-radius: 22px; border: 1px solid var(--line); background: var(--raised); color: var(--ink); font: 600 13px Inter, system-ui, sans-serif; }
+.tw-hand #pawnsTray .mnew { padding: 0 14px 0 10px; color: var(--ink-2); }
+.tw-hand #pawnsTray .mchip .nic { width: 30px; height: 30px; border-radius: 50%; }
+.tw-hand #pawnsTray .pact, .tw-hand #pawnsTray .phbtn { min-width: 40px; min-height: 40px; }
+.tw-hand #pawnsTray .pface, .tw-hand #pawnsTray .kface { min-width: 44px; min-height: 44px; }
+.tw-hand #pawnsTray .bchip, .tw-hand #buildMenu .bchip, .tw-hand .mptree .bchip { min-height: 44px; }   /* (a thumb's target; the breadcrumb chips too, 2026-11-12) */
+@keyframes tw-mic { 50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent); } }
 .tw-hand .lmcard .lm-x { width: 40px; height: 40px; top: 4px; right: 4px; }
 .tw-hand .lmcard .lm-email, .tw-hand .lmcard .lm-send { min-height: 44px; }
 .tw-hand .lmcard .lm-news { min-height: 36px; }
@@ -975,7 +1026,7 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
 .tw-hand .rlabel .hid { display: none !important; }     /* a hidden room's eye-off mark (its label keeps the hidden colour) */
 .tw-hand .av .where { display: none; }                  /* the avatars' area tags: the avatar's own tip, Pawns ▸ Party */
 .tw-hand #hud.ok { display: none; }                     /* the connection line: only when something is wrong (not live, unconfirmed) */
-.tw-hand #levelMeter.flat { display: none; }            /* one storey, all showing: no levels to pick (it comes back with a second storey) */
+.tw-hand #levelMeter.flat:not(.lm-flash) { display: none; }            /* one storey, all showing: no levels to pick (it comes back with a second storey) */
 @media (orientation: portrait) {
   .tw-hand #bar, .tw-hand #bar.open { top: 8px; left: 30px; right: 54px; width: auto; transform: none; }
   .tw-hand #roster { top: 12px; right: 8px; }
@@ -987,7 +1038,7 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
   .tw-hand #results { top: calc((58px + var(--bar-grow, 0px)) * var(--ts, 1)); left: 30px; width: calc(100% - 38px); transform: none; }
   .tw-hand #crumbs { top: auto; bottom: 120px; left: 30px; transform: none; max-width: calc(100% - 38px); }
   .tw-hand #buildMenu, .tw-hand #pawnsTray { max-height: 62vh !important; }   /* (the map stays below an open tray) */
-  .tw-hand #handTool { left: 50%; bottom: 84px; transform: translateX(-50%); }
+  .tw-hand #handTool { left: 0; right: 0; margin-inline: auto; width: fit-content; bottom: 84px; } /* (centred without translate: left 50% left it half the screen to wrap in, and its words were cut) */
 }
 @media (orientation: landscape) {
   .tw-hand #chat { left: auto; right: 12px; bottom: 26px; width: min(300px, 36vw); }
@@ -1003,23 +1054,7 @@ html.tw-hand, html.tw-hand body { touch-action: pan-x pan-y; } /* (a pinch that 
 #handTool .ht-what { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #handTool button { flex: none; min-height: 40px; padding: 0 14px; border-radius: 9px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font: 650 13px Inter, system-ui, sans-serif; display: inline-flex; align-items: center; gap: 6px; }
 
-/* ---------- the phone banner (2026-10-24; client/phone.js, docs/UI.md "The phone banner"): the front door on a phone,
-   once per visit, over the bottom of the screen; open, it is the "email yourself your link" card's own form ---------- */
-#phoneBanner { position: fixed; z-index: var(--z-modal); left: 50%; bottom: max(12px, env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(420px, calc(100% - 24px)); transition: opacity .35s, transform .35s; font-size: 14px; }
-#phoneBanner.away { opacity: 0; transform: translate(-50%, 16px); pointer-events: none; }
-#phoneBanner .pb-shut { display: flex; align-items: center; gap: 4px; padding: 2px; border-radius: 12px; background: var(--surface-solid); border: 1px solid var(--line-strong); box-shadow: var(--shadow); }
-#phoneBanner .pb-shut[hidden] { display: none; }
-#phoneBanner .pb-open { flex: 1; min-width: 0; min-height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 10px; border: 0; background: none; color: var(--ink-2); font: inherit; text-align: left; cursor: pointer; }
-#phoneBanner .pb-open svg { flex: none; color: var(--accent); }
-#phoneBanner .pb-open b { color: var(--ink); font-weight: 650; }
-#phoneBanner .pb-x { flex: none; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 10px; background: none; color: var(--mute); cursor: pointer; }
-#phoneBanner .lmcard.pb-card { position: static; width: 100%; zoom: 1; border: 2px solid var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent), var(--shadow); }
-#phoneBanner .lmcard[hidden] { display: none; }
-#phoneBanner .lmcard .lm-email { font-size: 16px; min-height: 44px; }
-#phoneBanner .lmcard .lm-email::placeholder { color: var(--mute); opacity: 1; } /* (the browser's grey was 3.9:1 on the light field; --mute is 5.8:1) */
-#phoneBanner .lmcard .lm-send { min-height: 44px; font-size: 14.5px; }
-#phoneBanner .lmcard .lm-news { min-height: 32px; }
-#phoneBanner .lmcard .lm-x { width: 40px; height: 40px; top: 4px; right: 4px; }
+/* (the phone banner, 2026-10-24 to 11-24, is gone: a new phone at the front door gets index.html #front, styled there) */
 
 /* SHARE A BUILD (2026-10-29; client/share.js): the Export / Share link window, in the Settings window's own parts */
 #shareModal { position: fixed; inset: 0; z-index: var(--z-modal); display: grid; place-items: center; background: rgba(8, 9, 7, .55); backdrop-filter: blur(2px); }
@@ -1082,3 +1117,22 @@ html.tw-fpv #c { cursor: grab; } html.tw-fpv #c:active { cursor: grabbing; }
 #musicNote .mn-mute { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface-solid); color: var(--accent); font-size: 13px; line-height: 1; cursor: pointer; padding: 0; }
 #musicNote .mn-mute:hover { border-color: var(--accent); }
 html.reduce-motion #musicNote { transition: none; }
+
+/* UPLOADED MODELS (2026-11-06, client/uploads.js): Settings ▸ Uploaded models */
+.upform { display: grid; gap: 10px; min-width: 0; }
+.upfname { color: var(--mute); font-size: 13px; overflow-wrap: anywhere; min-width: 0; }
+.upgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px 12px; min-width: 0; }
+.upgrid select { box-sizing: border-box; width: 100%; min-width: 0; height: 32px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font: inherit; font-size: 14px; }
+.upattest, .upchk { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; line-height: 1.45; color: var(--ink-2); min-width: 0; overflow-wrap: anywhere; }
+.upattest input, .upchk input { margin-top: 3px; flex: none; }
+.uplist li.upitem { flex-wrap: nowrap; }
+.uppic { flex: none; width: 52px; height: 52px; border-radius: 8px; background: var(--paper, #fff); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--mute); }
+.uppic img { width: 100%; height: 100%; object-fit: contain; }
+.upmid { display: grid; gap: 1px; flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.upmid small { color: var(--mute); }
+.upmid small.bad, .upform .bad { color: #b4232a; }
+.upbtns { display: flex; gap: 6px; flex: none; flex-wrap: wrap; justify-content: flex-end; }
+.uplist li.upitem.removed .uppic { opacity: .45; }
+.uplist li.upcounterli { display: block; }
+.upcounter { display: grid; gap: 8px; min-width: 0; }
+.upcounter textarea { box-sizing: border-box; width: 100%; min-height: 4.5em; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--raised); color: var(--ink); font: inherit; font-size: 14px; }

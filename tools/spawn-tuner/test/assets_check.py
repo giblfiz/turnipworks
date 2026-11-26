@@ -41,13 +41,17 @@ if figs_file.exists():
         tuner.append(f['url']); why[f['url']] = f"figure {f['id']}"
         if f.get('thumb'): tuner.append(f['thumb']); why[f['thumb']] = f"figure {f['id']} thumbnail"
         if f.get('full'): tuner.append(f['full']); why[f['full']] = f"figure {f['id']} original (main pawns)"
+        # its FLYING pose (experiments/2026-11-06-pawns/fly): the same three files
+        for k, w in (('url', 'flying'), ('thumb', 'flying thumbnail'), ('full', 'flying original')):
+            u = (f.get('fly') or {}).get(k)
+            if u: tuner.append(u); why[u] = f"figure {f['id']} {w}"
 problems = []
 fams = re.search(r"WALL_FAMILIES\s*=\s*\[([^\]]*)\]", (T / 'js/walls.js').read_text()); fams = re.findall(r"'([^']+)'", fams.group(1)) if fams else []
 fams += re.findall(r"WALL_FAMILIES\.push\(([^)]*)\)", (T / 'js/walls.js').read_text()) and [f for m in re.findall(r"WALL_FAMILIES\.push\(([^)]*)\)", (T / 'js/walls.js').read_text()) for f in re.findall(r"'([^']+)'", m)]
 for f in sorted(set(fams)):
     if not any(s.get('family') == f and s.get('bounds') and s.get('url') for s in lib.get('wall-straight', {}).get('skus', [])): problems.append(f"wall family {f}: no wall-straight piece with bounds in the library")
 types = json.loads((ENG / 'data/types.json').read_text())
-icons = [f"data/icons/room-{r['key']}.png" for r in rooms] + [f"data/icons/type-{t['code']}.png" for t in types.get('types', [])] + [f"data/icons/genre-{g['key']}.png" for g in types.get('genres', []) if isinstance(g, dict) and g.get('key')]
+icons = [f"data/icons/room-{r['key']}.png" for r in rooms] + [f"data/icons/type-{t['code']}.png" for t in types.get('types', [])] + [f"data/icons/genre-{g['key']}.png" for g in types.get('genres', []) if isinstance(g, dict) and g.get('key')] + ['data/icons/genres-all.png']   # (the Genres chip's own icon, the breadcrumb rule 2026-11-12)
 
 # the roof sections (2026-10-11): every file engine/client/data/roofsections.json names (checked with the icons: same folder, same hosts)
 rs = ENG / 'data/roofsections.json'

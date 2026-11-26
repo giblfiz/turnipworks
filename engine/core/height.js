@@ -15,9 +15,10 @@
 // from its height (Foundry stores both, and its worst bugs come from the two disagreeing).
 //
 // Pure data, no three.js, no DOM: the relay and the browser run the same code. `entities` is an area's entity map.
+import { carDeckAt } from './elevator.js';
 import { contains, overlap as footprintsOverlap, hasCell, cellsOf } from './footprint.js';
 import { openingIndex, openAtFast } from './holes.js';
-import { stairWalk } from './stairs.js'; // (a cycle, stairs.js imports this file: both only call each other at run time)
+import { stairWalk, isConnector, stairEnds, WALK_LIFT } from './stairs.js'; // (a cycle, stairs.js imports this file: both only call each other at run time)
 
 export const STOREY = 10, SLAB = 1, STEP = 5, MAX_Y = 200, MAX_TALL = 6;
 
@@ -232,11 +233,16 @@ export function lowestFloorAt(entities, x, z) {
 // stairWalk), and the floor at its top has no ground on the stair's squares (the hole), so over the hole the base is on
 // the treads under it. `on: 'stair'`, `stair`: its id; `room`: the room it stands in, or at its very top the room it
 // comes up into (what the level's sight and the cut go by).
-export function baseUnder(entities, x, z, y = 0, isOpen = null) {
+export function baseUnder(entities, x, z, y = 0, isOpen = null, rungs = true) {
   let best = null; y = y || 0;
   const holes = openingIndex(entities), W = stairWalk(entities), sq = W.holes.size ? `${Math.floor(x / 5 + 1e-6)}:${Math.floor(z / 5 + 1e-6)}` : null;
   const gone = (h) => (holes ? openAtFast(entities, x, z, h) : false) || (sq != null && !!W.holes.get(h)?.has(sq));
   for (const t of W.at(x, z)) if (t.y <= y + 0.5 && (!best || t.y > best.y)) best = { y: t.y, room: t.room, on: 'stair', stair: t.id };
+  // A LADDER'S RUNGS (2026-11-25; Harry: "I can't place him on top of the ladder down inside the basilisk pit"): on a ladder
+  // or a spiral, between its foot and its top, a pawn is held at its own height (`on: 'ladder'`): put there partway up, it
+  // stays there; at its top or its foot it stands level with that floor. `rungs` false: a pawn WALKING on its level is not
+  // lifted onto a ladder it passes over (pawnStepTo).
+  if (rungs) { const g = W.rungAt(x, z, y); if (g && (!best || g.y > best.y)) best = { y: g.y, room: g.room, on: 'ladder', stair: g.id }; }
   for (const e of Object.values(entities || {})) {
     if (e.kind !== 'room' || !e.recipe) continue;
     const ry = roomY(e.recipe); if (ry > y + 0.5) continue;
@@ -247,6 +253,14 @@ export function baseUnder(entities, x, z, y = 0, isOpen = null) {
     const by = onTop ? top : ry;
     if (best && (by < best.y || (by === best.y && (onTop || best.on === 'floor')))) continue; // (a tie: the upper room's floor, not the lower room's top; a floor, not the stair's foot)
     if (contains(e.recipe, x, z)) best = { y: by, room: e.id, on: onTop ? 'top' : 'floor' };
+  }
+  // AN ELEVATOR CAR'S DECK IS GROUND (2026-11-07, core/elevator.js): over the car's squares a pawn stands on the car,
+  // at the bottom of the shaft or up in it (where the floor it is level with has its hole), if the deck is the highest
+  // ground at or below the figure. `on: 'car'`, `car`: its id; `room`: the room whose floor is at that height there.
+  const deck = carDeckAt(entities, x, z, y);
+  if (deck && (!best || deck.y >= best.y)) { // (a tie: the deck, not the floor it stands on; the riders lane asks on === 'car')
+    let room = null; for (const e of Object.values(entities || {})) if (e.kind === 'room' && e.recipe && roomY(e.recipe) === deck.floor && contains(e.recipe, x, z)) { room = e.id; break; }
+    best = { y: deck.y, room, on: 'car', car: deck.car };
   }
   const out = best || { y: Math.min(0, y), room: null, on: 'ground' };
   // A HOLE OVER SOLID EARTH (2026-10-26; Harry's cathedral on its hill has a 20-ft round hole in its floor): under it is
@@ -281,6 +295,30 @@ export function earthAt(entities, x, z) {
   }
   return top;
 }
+// WHAT A NEW HILL LIFTS (2026-11-06: a hill drawn over a pawn left it at its old height, inside the earth). A hill is
+// drawn over the ground; what stands on that ground where its TOP will be (a pawn, a loose thing, a pawn on that thing)
+// goes up with it by the same amount, onto the top, and a lifted thing becomes the hill's (it rides with it, as a thing
+// put down on a hill does). Not lifted: what a room takes the hill from (a pawn in a room the hill is dug round stands on
+// that room's floor), what is beside it (its bank lies on the lower ground: standing on a bank is not built, the GM is
+// told), anything at or above the new top, anything under the ground, a stair, a locked thing (object.move
+// refuses it, which would refuse the hill with it). `hill`: the new hill, { id, x, z, w, d, y,
+// outline? } (room.spawn's args) or a room entity. -> [{ id, kind: 'token' | 'object', y, room? }] (room: objects only)
+// The room tool sends these as token.move / object.move in the same command as the hill (client/main.js spawnRoom).
+export function hillLifts(entities, hill) {
+  const rc = hill?.recipe || hill, top = roomY(rc), id = hill?.id || null, out = [];
+  if (!rc || !(top > 0)) return out;
+  for (const e of Object.values(entities || {})) {
+    if (e.kind !== 'token' && e.kind !== 'object') continue;
+    if (e.kind === 'object' && (e.locked || e.place === 'ceiling' || e.place === 'wall' || isConnector(e))) continue;
+    const owner = e.kind === 'object' && e.room ? entities[e.room] : null;
+    if (owner && !isTerrain(owner.recipe)) continue; // a room's own furniture stays with its room
+    if (!contains(rc, e.x, e.z) || terrainTakenAt(entities, rc, e.x, e.z)) continue;
+    const y = e.y || 0, g = earthAt(entities, e.x, e.z); // (the ground it stood on there: 0, or a lower hill's top)
+    if (y < g - 0.01 || y >= top - 0.01 || g >= top) continue;
+    out.push({ id: e.id, kind: e.kind, y: Math.round((y + top - g) * 100) / 100, ...(e.kind === 'object' && { room: id }) });
+  }
+  return out;
+}
 // does a base rest on the OUTDOOR surface (the open ground, a hill's top, the floor of a room that meets the ground)?
 export const outdoorBase = (entities, b) => { const r = b?.room && entities?.[b.room]; return !r?.recipe ? b?.on === 'ground' && (b.y || 0) === 0 : b.on === 'floor' && (isTerrain(r.recipe) || meetsGround(entities, r)); };
 
@@ -300,14 +338,59 @@ export const outdoorBase = (entities, b) => { const r = b?.room && entities?.[b.
 //   -> { y, room, on, stair?, below?, walk?, climb? }
 // a room (not a hill) whose height takes in the level whose floor is at `lo`, with (x, z) in its footprint
 const levelRoomAt = (entities, x, z, lo) => Object.values(entities || {}).some(e => e.kind === 'room' && e.recipe && !isTerrain(e.recipe) && roomY(e.recipe) <= lo + 0.5 && roomTop(entities, e) > lo + 0.5 && contains(e.recipe, x, z));
+// where (x, z) is along a walked stair's climb, from its middle (a), and across it (b), feet (core/stairs.js stairWalk)
+const alongStair = (t, x, z) => { const ux = x - t.s.x, uz = z - t.s.z; return [ux * t.dx + uz * t.dz, Math.abs(ux * t.dz - uz * t.dx)]; };
+// A DRAG ONTO A FLIGHT FROM ONE OF ITS ENDS (2026-11-24): a pawn standing at the height of a flight's top (its landing
+// upstairs, beside its top row) or its foot, within a square of the flight, steps onto the treads wherever the pointer
+// next is on it, however far down (or up) the run that is: a drag samples the pointer, and a quick pull down a 15-ft
+// flight goes more than 5 ft of height between two samples. Without its own place (fromBase.x/z) this is not asked.
+function entersStair(t, from, fb) {
+  if (!fb || fb.x == null || fb.on === 'stair') return false;
+  const [a, b] = alongStair(t, fb.x, fb.z);
+  if (Math.abs(a) > t.run / 2 + 5 || b > t.wide / 2 + 5) return false;
+  return (Math.abs(from - t.top) < 0.5 && a >= 0) || (Math.abs(from - t.base) < 0.5 && a <= 0);
+}
 export function pawnStepTo(entities, x, z, from = 0, isOpen = null, fromBase = null) {
   from = from || 0;
-  for (const t of stairWalk(entities).at(x, z)) if (Math.abs(t.y - from) <= STEP + 1e-9) return { y: t.y, room: t.room, on: 'stair', stair: t.id }; // (treads within 5 ft of its feet: under 5 ft is standing, the house's D&D rule; a stairwell further down is a drop)
-  // off a stair it steps onto the floor of the NEARER end's level (just under the top tread it is all but upstairs; a pawn
-  // standing on a stair is on the lower level until its feet reach the top: levelAt, for the cut, sight and the labels)
-  const ws = fromBase?.on === 'stair' ? stairWalk(entities).list.find(t => t.id === fromBase.stair) : null;
-  const lo = levelFloor(ws ? (from - ws.base <= ws.top - from ? ws.base : ws.top) : from), hi = lo + STOREY, earth = earthAt(entities, x, z);
-  const b = baseUnder(entities, x, z, hi - 1, isOpen); // (a foot under the next level: baseUnder takes floors half a foot over what it is given)
+  const W = stairWalk(entities), here = W.at(x, z);
+  const ws = fromBase?.on === 'stair' ? W.list.find(t => t.id === fromBase.stair) : null;
+  const onStair = (t) => ({ y: t.y, room: t.room, on: 'stair', stair: t.id });
+  for (const t of here) if (Math.abs(t.y - from) <= STEP + 1e-9) return onStair(t); // (treads within 5 ft of its feet: under 5 ft is standing, the house's D&D rule; a stairwell further down is a drop)
+  // STILL ON THE SAME FLIGHT (2026-11-24, Harry: "I can back him off the stairs and leave him floating"): a pawn on a
+  // flight that is moved to another point of the same flight is walked along it, however far that is (a quick drag back
+  // down the grand stair's 15-ft run went more than 5 ft of height between two samples, lost the stair and was left in
+  // the air). Onto it from one of its ends, the same (entersStair, above).
+  for (const t of here) if (ws && t.id === ws.id) return onStair(t);
+  // ...and on the sliver of its own squares beside its box (the grand stair is 10 ft wide on three 5-ft squares): a drag
+  // that grazes it is still on the treads, at their height along the run (2026-11-25: once a step off the side drops
+  // straight to the floor, a graze of that sliver dropped the pawn mid-climb)
+  if (ws && ws.cells.some(c => c[0] === Math.floor(x / 5 + 1e-6) && c[1] === Math.floor(z / 5 + 1e-6))) {
+    const [a] = alongStair(ws, x, z), k = Math.min(1, Math.max(0, (a + WALK_LIFT + ws.run / 2) / ws.run)), y = Math.round((ws.base + (ws.top - ws.base) * k) * 100) / 100;
+    return { y, room: y >= ws.top - 0.5 ? (ws.upper || ws.lower) : ws.lower, on: 'stair', stair: ws.id };
+  }
+  for (const t of here) if (entersStair(W.list.find(w => w.id === t.id), from, fromBase)) return onStair(t);
+  // ON A LADDER, moved about on its own piece: it keeps its hold where it is (2026-11-25)
+  if (fromBase?.on === 'ladder') { const g = W.rungAt(x, z, from); if (g && g.id === fromBase.stair) return { y: g.y, room: g.room, on: 'ladder', stair: g.id }; }
+  // OFF A STAIR IT STEPS ONTO THE FLOOR IT STEPS OUT ONTO (2026-11-24). Until then it went to the floor of the end NEARER
+  // IN HEIGHT, wherever it stepped: backed off the foot of a flight from more than halfway up, the pawn was taken to the
+  // level above, where that level has no floor (the hall's roof off at the cut) it was left hanging at its height and
+  // offered a fall, and where it has (the hall's own top) it stood on the ceiling of the room it was in. Now by WHERE it
+  // goes: beyond the high end, the level of the top (the landing); level with the top tread, or from its upper half onto
+  // one of its ways out at the top (stairEnds exits: the grand stair's are beside its top row), the same; anywhere else (beyond the foot, off the side) the level of the foot. Off the SIDE 5 ft
+  // or more up it is `below` and `side`: a drag passing over that square keeps the pawn on the treads (a diagonal step to
+  // the grand stair's way out beside its top row crosses a square beside it), and LET GO there it just drops to that
+  // floor (Harry 2026-11-25: "just drop to the floor": no fall offer, no line; client/input.js endMove, main.js standY,
+  // pawnWalkY). A drop off a balcony or a terrace, with no stair in it, is still offered the fall (the `below` further down). A pawn standing on a stair is on the lower level until its feet reach the top (levelAt: the cut, sight, labels).
+  let side = false, lo;
+  if (ws) {
+    const [a] = alongStair(ws, x, z), past = ws.run / 2 - 1e-6, gx = Math.floor(x / 5 + 1e-6), gz = Math.floor(z / 5 + 1e-6);
+    const exit = () => stairEnds(ws.s, entities).exits.some(c => c[0] === gx && c[1] === gz); // (its way out at the top: straight on, or beside its top row)
+    const up = a >= -past && (a > past || from >= ws.top - 0.5 || (from - ws.base > ws.top - from && exit()));
+    side = !up && a >= -past;
+    lo = levelFloor(up ? ws.top : ws.base);
+  } else lo = levelFloor(from);
+  const hi = lo + STOREY, earth = earthAt(entities, x, z);
+  const b = baseUnder(entities, x, z, hi - 1, isOpen, false); // (a foot under the next level: baseUnder takes floors half a foot over what it is given)
   // a floor of this level: a room's floor or top, a stair; the ground or a hill's top only where no higher earth is over it
   // (inside a hill there is no ground at 0; a terrace on a terrace buries the lower top), and never the ground below 0
   const br = b.room && entities?.[b.room], earthy = !br?.recipe || isTerrain(br.recipe);
@@ -319,10 +402,25 @@ export function pawnStepTo(entities, x, z, from = 0, isOpen = null, fromBase = n
   // hole, a pit's opening) is not rock: the highest ground below, as above the ground.
   if (lo < 0 && !levelRoomAt(entities, x, z, lo)) return { y: from, room: null, on: 'rock', below: true, rock: true };
   const real = b.y >= lo - 0.5 && !(earthy && earth > b.y + 0.5) && !(b.on === 'ground' && b.y < 0);
-  if (real) return b;
-  if (lo >= 0 && earth > lo + 0.5) { const u = baseUnder(entities, x, z, earth + 0.5, isOpen); return { ...u, climb: true }; } // (terrain is walked: a hill rises through the level)
+  if (real) return side && from - b.y >= STEP - 1e-9 ? { ...b, below: true, side: true } : b; // (off a flight's side, high up: `side`, below)
+  if (lo >= 0 && earth > lo + 0.5) { const u = baseUnder(entities, x, z, earth + 0.5, isOpen, false); return { ...u, climb: true }; } // (terrain is walked: a hill rises through the level)
   const walk = !!fromBase && outdoorBase(entities, fromBase) && outdoorBase(entities, b);
   return { ...b, below: true, ...(walk && { walk: true }) };
+}
+
+// A MOVE THAT GIVES NO HEIGHT, ON OR OFF A STAIR (2026-11-24): an AI seat's token.move&x=&z= (relay/llm.js) used to keep the
+// pawn's height whatever was there, so one moved off a stair halfway up was left in the air, and one moved onto a flight
+// stood at the height it had. A STANDING pawn p (its figure under 5 ft over its base) moved to (x, z) where a stair is
+// part of it (it is on one now, or goes onto one) walks there by the rule a drag follows (pawnStepTo), from where it is.
+// -> null (nothing to do: raised, no stair in it, or rock) or { y, drop }: drop > 0, it went out over nothing at its level
+// and lands that far below (the API has no fall to offer: the answer says so). Off a flight's side it simply lands (drop 0).
+export function pawnWalkY(entities, p, x, z) {
+  const fig = p?.y || 0, fb = baseUnder(entities, p.x, p.z, fig);
+  if (fig - fb.y >= STEP || !Number.isFinite(x) || !Number.isFinite(z)) return null;
+  const st = pawnStepTo(entities, x, z, fb.y, null, { ...fb, x: p.x, z: p.z });
+  if ((fb.on !== 'stair' && st.on !== 'stair') || st.rock) return null;
+  const y = Math.max(st.y, lowestFloorAt(entities, x, z));
+  return { y, drop: st.below && !st.walk && !st.side ? Math.round((fig - y) * 100) / 100 : 0 };
 }
 
 // AN UPPER ROOM MUST STAND ON SOMETHING: every one of its cells within `reach` cells (two: a jetty, or posts) of a cell
@@ -356,7 +454,7 @@ export function slabRects(w, d, cells, open = null, cell = 5, rim = SLAB_RIM) {
   if (!cells && !(open && list.some(([i, j]) => open(i, j)))) return [[-R, -R, w * cell + R, d * cell + R]];
   return list.filter(([i, j]) => !(open && open(i, j))).map(([i, j]) => [i * cell - (has(i - 1, j) ? 0 : R), j * cell - (has(i, j - 1) ? 0 : R), (i + 1) * cell + (has(i + 1, j) ? 0 : R), (j + 1) * cell + (has(i, j + 1) ? 0 : R)]);
 }
-export const isStoneFamily = (family) => /stone|castle|crypt/.test(family || '');
+export const isStoneFamily = (family) => /stone|castle|crypt|concrete|brick/.test(family || ''); // (concrete, city-brick: the modern families, sprawl pack 2026-11-06)
 
 // WHAT HOLDS AN OVERHANG UP (Harry 2026-10-05: "one square out is a jetty that gets brackets underneath automatically;
 // two squares out gets posts or flying buttresses filled in automatically"). Worked out from the rooms, like walls;
@@ -466,7 +564,10 @@ export function heightProblem(a) {
 // journals load and replay: it means the plank deck (ROOF_ALIAS).
 export const FLAT_STYLES = ['deck', 'flagstone', 'lead', 'turf', 'plaster'];
 export const ROOF_ALIAS = { flat: 'deck' };
-export const ROOF_STYLE_KEYS = ['thatch', 'tile', 'slate', 'shingle', 'marble', ...FLAT_STYLES, 'flat']; // marble: the temple roof (2026-10-27)
+// CULTURE STYLES (2026-11-07, Harry: "yes do roofs and such"): kawara (Japan), tongwa (China, grey), glazed (China, the
+// temple), sod (Norse pitched turf), tes (Rus' plank). Pitched: client/roofs.js ROOF_STYLES, each with its modelled section.
+export const CULTURE_ROOF_STYLES = ['kawara', 'tongwa', 'glazed', 'sod', 'tes'];
+export const ROOF_STYLE_KEYS = ['thatch', 'tile', 'slate', 'shingle', 'marble', ...CULTURE_ROOF_STYLES, ...FLAT_STYLES, 'flat']; // marble: the temple roof (2026-10-27)
 export const roofStyleKey = (s) => ROOF_ALIAS[s] || s; // the style a word means ('flat' -> 'deck')
 export const isFlatStyle = (s) => FLAT_STYLES.includes(roofStyleKey(s));
 // THE EDGE OF A FLAT ROOF (2026-10-27, Harry: "Some like castles want like edges with crenellations (basically as
@@ -480,13 +581,30 @@ ROOF_BY_FAMILY['cut-rock'] = 'turf'; // type:dun (2026-10-11): a hewn dungeon ha
 ROOF_BY_FAMILY['tower-stone'] = 'slate'; // wizard's tower (2026-10-11)
 ROOF_BY_FAMILY['mine-timbered'] = 'turf'; // type:min (2026-10-11): rock over a mine too (turf since 2026-10-27)
 ROOF_BY_FAMILY['black-stone'] = 'slate'; // cult sanctum (2026-10-11, types:clt)
+// modern city (sprawl pack, 2026-11-06): flat roofs of sheet metal on a parapet (the 'lead' picture reads as modern standing-seam
+// metal at table distance, which is what a city roof is)
+for (const f of ['drywall', 'city-brick', 'concrete']) ROOF_BY_FAMILY[f] = 'lead';
 export const ROOF_DEFAULT = 'thatch';
+ROOF_BY_FAMILY['mes-stucco'] = 'plaster'; // Mexica: flat plastered roofs on stone houses (culture packs B, 2026-11-06)
+ROOF_BY_FAMILY['rus-log'] = 'shingle'; // medieval Rus': a plank-and-shingle roof (culture packs B, 2026-11-06; plank, tes, since 2026-11-07: below)
+ROOF_BY_FAMILY['mde-plaster'] = 'plaster'; // Mamluk Middle East: flat whitewashed roofs (culture packs B, 2026-11-06)
+ROOF_BY_FAMILY['norse-stave'] = 'shingle'; // Norse steading: a steep roof of wood shingles (culture packs B, 2026-11-06; turf, sod, since 2026-11-07: below)
 ROOF_BY_FAMILY['cut-rock'] ??= 'turf'; // type:lai (2026-10-11): a lair is under rock; cut-rock is shared with the dungeon, which sets the same
 ROOF_BY_FAMILY['wattle-daub'] = 'thatch'; // type:hut (hut-01): the farm's own wall family
 // type:hut (2026-10-11): a room type whose roof does not follow its wall family. The farmstead's rooms roll half-timber (tile by
 // family) or fieldstone (shingle) and are thatched all the same: wattle-and-daub under thatch is the look. A building's own
 // roof (building.roof) and a room's own (room.roof.style) still win. Decided by the building's first room (its keep).
 export const ROOF_BY_TYPE = Object.fromEntries(['hut-cottage', 'hut-kitchen', 'hut-bedroom', 'hut-loft', 'hut-passage', 'hut-byre', 'hut-coop', 'hut-barn', 'hut-granary', 'hut-dairy'].map(k => [k, 'thatch']));
+// jpn: grey kawara tile on the house (slate until 2026-11-07), cypress-bark-like shingle on the shrine and the tea house
+ROOF_BY_FAMILY['jpn-shoji'] = 'kawara'; ROOF_BY_FAMILY['jpn-shrine'] = 'shingle'; ROOF_BY_TYPE['jpn-teahouse'] = 'shingle';
+// chn: grey tongwa on the house, glazed tile on the temple (both slate until 2026-11-07)
+ROOF_BY_FAMILY['chn-brick'] = 'tongwa'; ROOF_BY_FAMILY['chn-temple'] = 'glazed';
+// (2026-11-07, culture roofs: a NEW DEFAULT for 'auto' roofs over these walls; a building's or a room's own style still
+// wins) the Norse hall turf (it was wood shingle), the Rus' house plank, tes (it was wood shingle)
+ROOF_BY_FAMILY['norse-stave'] = 'sod'; ROOF_BY_FAMILY['rus-log'] = 'tes';
+// the Rus' church keeps its steep wood shingle (its cupola: client/roofs.js ROOF_ORNAMENTS)
+ROOF_BY_TYPE['rus-church'] = 'shingle';
+ROOF_BY_FAMILY['ind-lime'] = 'plaster'; ROOF_BY_FAMILY['ind-sandstone'] = 'flagstone'; ROOF_BY_FAMILY['ind-temple'] = 'flagstone'; // ind: flat terraces (lime on the haveli and bazaar, stone on palace and temple)
 ROOF_BY_TYPE.cathedral = 'slate'; // (2026-10-27) a Gothic cathedral is steep and slated, not a marble temple, though its walls are the temple's
 // FLAT BY DEFAULT (2026-10-27, Harry: "Many building types and room types should default to flat roofs as well"; the
 // list is docs/VERTICAL.md "Flat roofs"). A CASTLE: its keep is flagstoned and battlemented, whichever stone its first
@@ -503,7 +621,7 @@ const BATTLED_TYPES = new Set([...CASTLE_TYPES, 'mkt-watch']);
 // turf roof with no rim as "a floating patch of terrain", 2026-10-27)
 export const EDGE_BY_SURFACE = { deck: 'railing', flagstone: 'parapet', lead: 'parapet', turf: 'parapet', plaster: 'parapet' };
 // a room.set / building.set roof argument: null, or why it is refused
-export const ROOF_SHAPES = ['gable', 'hip', 'flat'];
+export const ROOF_SHAPES = ['gable', 'hip', 'flat', 'irimoya']; // irimoya (2026-11-07): hip-and-gable, the East Asian hall roof (a small gable high up over hipped ends)
 export const ROOF_AXES = ['x', 'z'];
 const ROOF_FIELDS = ['style', 'seed', 'off', 'shape', 'axis', 'trim', 'edge', 'turrets'];
 const TRIM_KEY = /^[a-z][a-z-]{0,23}:[A-Za-z0-9_.:-]{1,80}$/;
@@ -586,6 +704,32 @@ export function roofEdgeOf(entities, room, flatSurface, familyOf = null) {
 export function roofTurretsOf(entities, room, edge, familyOf = null) {
   if (typeof room?.roof?.turrets === 'boolean') return room.roof.turrets;
   return edge === 'battlements' && castleRoof(entities, room, familyOf);
+}
+// THE FORM OF A CULTURE'S ROOF (2026-11-07, Harry: "yes do roofs and such"): not what it is covered with (the style) but
+// how it is built: its usual shape (a Japanese or Chinese temple hall is hip-and-gable, irimoya), its pitch, how far its
+// eaves reach, and the BEND of its slopes (the curved, upturned eaves of East Asia). client/roofs.js ROOF_FORMS has the
+// numbers. By the walls of the building's first room, else by the roof's style (a kawara roof put on any house is still
+// built the Japanese way); a room's or a building's own SHAPE still wins over the form's. Never stored.
+// The sensitivity read (experiments/2026-11-07-culture-roofs/assets/sensitivity-codex.md) split Japan and China: an
+// ordinary Kyoto townhouse or shop is a plain gable (kirizuma) with deep, nearly straight eaves, an ordinary Beijing house
+// a plain hard gable (yingshan) with no curl; the hip-and-gable with bent, upturned eaves is for the dojo, the shrine
+// hall and the temple (irimoya on an ordinary house "over-monumentalises" it). So the room's OWN TYPE comes first.
+export const ROOF_FORM_BY_TYPE = { 'jpn-dojo': 'jpn-hall', 'jpn-shrine': 'jpn-hall', 'chn-temple': 'chn-temple' };
+export const ROOF_FORM_BY_FAMILY = { 'jpn-shoji': 'jpn-house', 'jpn-shrine': 'jpn-hall', 'chn-brick': 'chn-house', 'chn-temple': 'chn-temple', 'norse-stave': 'nrs', 'rus-log': 'rus' };
+export const ROOF_FORM_BY_STYLE = { kawara: 'jpn-house', tongwa: 'chn-house', glazed: 'chn-temple', sod: 'nrs', tes: 'rus' };
+export function roofFormOf(entities, room, style, familyOf = null) {
+  const own = ROOF_FORM_BY_TYPE[room?.recipe?.type]; if (own) return own;
+  const { lead } = roofLead(entities, room);
+  const fam = familyOf ? familyOf(lead) : null;
+  return ROOF_FORM_BY_FAMILY[fam] || ROOF_FORM_BY_STYLE[roofStyleKey(style)] || null;
+}
+// THE ORNAMENT A ROOM'S ROOF CARRIES BY ITS TYPE (2026-11-07): the Rus' church's cupola, the hammam's dome, the qa'a's
+// wind-catcher, the temple's shikhara over its sanctum; chhatris on the corners of a Rajput palace's terrace (by type or
+// by the red sandstone walls). client/roofs.js places them (ROOF_ORNAMENTS); this only says which.
+export const ROOF_ORNAMENT_BY_TYPE = { 'rus-church': 'cupola', 'mde-hammam': 'dome', 'mde-audience': 'malqaf', 'ind-mandapa': 'shikhara', 'ind-durbar': 'chhatris' };
+export const ROOF_ORNAMENT_BY_FAMILY = { 'ind-sandstone': 'chhatris' };
+export function roofOrnamentOf(room, familyOf = null) {
+  return ROOF_ORNAMENT_BY_TYPE[room?.recipe?.type] || ROOF_ORNAMENT_BY_FAMILY[familyOf ? familyOf(room) : null] || null;
 }
 
 // FOG AND STOREYS (Harry 2026-10-06: "No fog on 2nd story or higher by default"). A room a storey or more up that does

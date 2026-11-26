@@ -1,0 +1,1082 @@
+{
+ "beast-hawk": {
+  "id": "beast-hawk",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A stylized painted tabletop miniature of a hawk or falcon depicted in mid-flight against a plain magenta background.",
+     "creature": "Hawk",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (airborne with wings spread wide vs. perched standing with wings folded) and background color (magenta vs. blue)"
+    },
+    "raw": "### Text, Labels, and Watermarks\n* **Text / labels / watermarks:** None. There is no visible text, label, or watermark anywhere in the image.\n\n---\n\n### Analysis of img1\n\n* **Number of separate figures/objects:** 1 (a single avian figure).\n* **Creature:**\n  * **Best name:** Hawk (or Falcon / Bird of prey).\n  * **Second guess:** Eagle.\n* **Flight and wings:** It is **FLYING / airborne**, with its wings **spread open** upward and outward, tail fanned out, and talons tucked under its body.\n* **Directly under it:** **Nothing at all** (it floats against a plain, solid magenta background without a base, stand, rod, shadow, rock, or ground).\n* **Cropping / image edge:** **No part is cut off**; the entire figure (wings, head, tail, and feet) is fully within the frame.\n* **Paint style:** It is painted in **full colour** (brown plumage, cream breast with brown barring, yellow eyes, yellow beak with a dark tip, and yellow feet).\n* **Wing structure:** The wings are **thick solid shapes** (cleanly sculpted stylised feathers, not thin, translucent, or perforated).\n* **Anatomy / defects:** **None malformed, fused, or missing** (head, eyes, beak, two wings, tail, and both tucked feet are intact and anatomically complete).\n\n---\n\n### Comparison with img2\n\n* **Same creature and paint scheme:** **Yes.** `img1` represents the same creature as `img2`, painted with identical colours, plumage patterns, and markings (brown dorsal feathers, pale cream underside with brown horizontal chevron stripes, brown cap with a pale superciliary eyebrow stripe, yellow iris, and yellow beak/talons).\n* **Differences:**\n  * **Pose:** In `img1`, the bird is in flight with its wings spread wide, tail fanned, and feet tucked up. In `img2`, it is perched/standing upright on large extended talons with its wings folded against its flanks.\n  * **Background:** `img1` has a solid magenta/pink background, while `img2` has a solid blue background.\n\n---\n\n```json\n{\n  \"what\": \"A stylized painted tabletop miniature of a hawk or falcon depicted in mid-flight against a plain magenta background.\",\n  \"creature\": \"Hawk\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"Pose (airborne with wings spread wide vs. perched standing with wings folded) and background color (magenta vs. blue)\"\n}\n```\n",
+    "matte": {
+     "fg": 0.2762,
+     "soft": 0.0048,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9914,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 0
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-imp": {
+  "id": "foe-imp",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A stylized painted red imp miniature hovering in mid-air with wings spread wide against a magenta background.",
+     "creature": "imp",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying vs. standing), wings (spread vs. folded), tail position, and background color"
+    },
+    "raw": "### Analysis of img1\n\n* **Text, labels, or watermarks:** None visible.\n* **Number of separate figures or objects:** 1 figure (no other objects).\n* **Creature identification:**\n  * **Best name:** Imp\n  * **Second guess:** Demon (or Devil / Gargoyle)\n* **Stance & wings:** It is **FLYING / airborne** (hovering mid-air with legs dangling). Its wings are **spread open**.\n* **Directly under it:** **Nothing at all** (only the solid plain magenta background; no base, stand, shadow, or ground).\n* **Cropping / cutoff:** **No part is cut off**; all wingtips, horns, feet, and tail are fully within the frame.\n* **Paint style:** Painted in **full colour** (reddish-orange skin, tan/yellowish underbelly, tan horns, dark claws, yellow eyes).\n* **Wing structure:** **Thick solid shapes** (fully opaque, sculpted 3D surfaces with no holes or transparency).\n* **Malformed, fused, or missing parts:** **None** (two arms, two legs, two horns, two wings, and one tail, all properly formed and distinct).\n\n---\n\n### Comparison with img2\n\n* **Same creature & paint job:** **Yes**, img1 is the same creature type as img2 and painted in the exact same colors and markings (same red-orange skin tone, cream/tan chest and horn coloring, yellow eyes, and dark claws).\n* **What differs:**\n  * **Pose:** img1 is hovering/airborne in flight with legs dangling; img2 is standing upright firmly on its feet.\n  * **Wings:** img1 has its wings spread wide open; img2 has its wings folded downward behind its back.\n  * **Tail position:** In img1 the tail curls downward centrally under the torso; in img2 the tail sweeps outward to the side.\n  * **Background:** img1 has a magenta background; img2 has a blue background.\n\n```json\n{\"what\": \"A stylized painted red imp miniature hovering in mid-air with wings spread wide against a magenta background.\", \"creature\": \"imp\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"pose (flying vs. standing), wings (spread vs. folded), tail position, and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.2512,
+     "soft": 0.0066,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9886,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 1
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-wyvern": {
+  "id": "foe-wyvern",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted reddish-brown dragon tabletop miniature flying mid-air with wings spread wide against a solid magenta background.",
+     "creature": "dragon",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with spread wings vs. standing with folded wings) and background color (magenta vs. blue)"
+    },
+    "raw": "### Analysis of img1\n\n**Text, labels, or watermarks:**\n* None visible anywhere in the image.\n\n**Questions on img1:**\n* **Separate figures or objects:** 1 figure.\n* **Creature identification:** Best name: **Dragon** (Second guess: **Wyvern**).\n* **Flight and wings:** It is **flying / airborne**, with its wings **spread open**.\n* **Directly under it:** **Nothing at all** (there is no base, shadow, flight stand, rod, rock, cloud, or ground\u2014only the solid magenta background).\n* **Cropping / cut off:** **No**, no part of the figure (wing tips, tail, horns, or head) is cut off by the edge of the image; the entire miniature is fully visible with clear margins around it.\n* **Color / finish:** It is **painted in full colour** (reddish-brown scales, cream/tan underbelly and wing membranes, dark grey horns, spikes, talons, and tail spade, and yellow eyes).\n* **Wing structure:** The wings are **thick solid shapes** (opaque sculpted miniature material, not see-through and with no holes).\n* **Malformed / fused / missing parts:** **None** (the sculpt is anatomically intact with no missing limbs, fused wings, or extra heads).\n\n---\n\n### Comparison with img2\n\n* **Same creature and paint scheme:** **Yes**, img1 depicts the same creature painted in the exact same color scheme, style, and markings (identical horn shape, cream underbelly plates, reddish-brown scales, dark grey ridge spikes, and bladed tail tip).\n* **What differs:**\n  1. **Pose:** In img1 the creature is airborne/flying horizontally with wings outstretched, whereas in img2 it is standing upright on its hind legs with wings folded at its sides and its tail curled along the ground.\n  2. **Background:** img1 has a magenta/fuchsia background, while img2 has a blue background.\n\n```json\n{\n  \"what\": \"A painted reddish-brown dragon tabletop miniature flying mid-air with wings spread wide against a solid magenta background.\",\n  \"creature\": \"dragon\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"pose (flying with spread wings vs. standing with folded wings) and background color (magenta vs. blue)\"\n}\n```\n",
+    "matte": {
+     "fg": 0.2668,
+     "soft": 0.0068,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9891,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 12
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-dragon-young-red": {
+  "id": "foe-dragon-young-red",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature figure of a stylized red dragon flying in mid-air with spread wings against a solid magenta background.",
+     "creature": "Dragon",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with wings spread vs sitting with wings folded) and background color"
+    },
+    "raw": "### Inspection of img1\n\n**Text, labels, or watermarks:**\n* None visible anywhere in the image.\n\n**Questions on img1 alone:**\n* **Number of separate figures/objects:** 1 figure.\n* **Creature:** \n  * *Best name:* Dragon (Red Dragon)\n  * *Second guess:* Wyvern / Drake\n* **Flight and wings:** It is **FLYING / airborne**; its wings are **spread open**.\n* **Directly under it:** **nothing at all** (only the solid magenta background; no shadow, base, or flight rod).\n* **Cropped/cut off:** No part is cut off; the entire figure is fully within the frame.\n* **Paint style:** Painted in **full colour** (reddish-orange scales, cream underbelly/horns/claws, amber eye).\n* **Wings:** **Thick solid shapes** (opaque and solid, stylized).\n* **Malformed / fused / missing parts:** **None** (all four limbs, wings, horns, and tail are intact and cleanly defined).\n\n---\n\n### Comparison with img2\n\n* **Same creature & paint scheme:** Yes, img1 represents the **same creature** painted the same way (identical reddish-orange scale coloring, segmented tan/cream belly plates, horns, and claws).\n* **What differs:**\n  * **Pose:** img1 is flying in mid-air with wings spread wide open and legs tucked up; img2 is sitting upright on its haunches with wings folded back.\n  * **Background:** img1 is set against magenta, while img2 is against blue.\n\n---\n\n```json\n{\"what\": \"A painted tabletop miniature figure of a stylized red dragon flying in mid-air with spread wings against a solid magenta background.\", \"creature\": \"Dragon\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying with wings spread vs sitting with wings folded) and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.1744,
+     "soft": 0.0048,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9863,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 7
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-dragon-wyrmling": {
+  "id": "foe-dragon-wyrmling",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A stylized painted miniature figure of a baby red dragon flying with spread wings on a solid magenta background.",
+     "creature": "dragon",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with spread wings vs standing with folded wings) and background color"
+    },
+    "raw": "### Analysis of `img1`\n\n* **Text, labels, or watermarks**: None (no text, labels, or watermarks are visible).\n* **Number of figures/objects**: 1 (a single figure).\n* **Creature identification**:\n  * **Best name**: Dragon (baby dragon / red dragon whelp)\n  * **Second guess**: Drake (or wyvern / horned reptilian fantasy creature)\n* **Posture & wings**: It is **FLYING / airborne** with its legs tucked up; its wings are **spread wide open**.\n* **Directly under it**: **Nothing at all** (only the solid plain magenta background; no shadow, base, stand, or ground).\n* **Cropping / edges**: No part is cut off (all wingtips, horns, tail, and limbs are fully within the frame).\n* **Painting / coloration**: Painted in **full colour** (terracotta/red-orange scales, warm cream/tan underbelly, horns, and wing membranes, with painted eyes).\n* **Wing structure**: **Thick solid shapes** (smooth, opaque, stylized surfaces; not thin, translucent, or perforated).\n* **Anatomy & defects**: **None** (all four limbs, two wings, tail, head, and horns are intact, correctly formed, and anatomically coherent).\n\n---\n\n### Comparison with `img2`\n\n* **Same creature and paint scheme**: Yes, it is the **same creature** painted with the same palette and markings (identical red-orange scaly skin, cream/tan horns and segmented belly plates, and eye style).\n* **What differs**: \n  * **Pose**: In `img1`, the dragon is airborne/flying with its wings spread wide open and legs tucked under. In `img2`, it is standing on all four legs on the ground with its wings folded back.\n  * **Background color**: Magenta in `img1` vs. blue in `img2`.\n\n```json\n{\"what\": \"A stylized painted miniature figure of a baby red dragon flying with spread wings on a solid magenta background.\", \"creature\": \"dragon\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"pose (flying with spread wings vs standing with folded wings) and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.2326,
+     "soft": 0.0055,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9894,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 5
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-dragon-young-green": {
+  "id": "foe-dragon-young-green",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A stylized green dragon miniature airborne in mid-flight with spread wings against a solid magenta background.",
+     "creature": "Dragon",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with wings spread vs. sitting with wings folded) and background color (magenta vs. blue)"
+    },
+    "raw": "**Text, labels, or watermarks in img1:**\nNone (there are no visible text, labels, or watermarks).\n\n**Analysis of img1:**\n- **Number of separate figures or objects:** 1 figure (a single creature).\n- **Creature identification:**\n  - *Best name:* Dragon (specifically a green dragon / baby dragon)\n  - *Second guess:* Drake (or wyrm / gargoyle)\n- **Posture & Wings:** It is **FLYING / airborne** (suspended mid-air in flight pose). Its wings are **spread open**.\n- **Directly under it:** **Nothing at all** (only the solid magenta background).\n- **Cropping:** **No**, no part of it is cut off by the image edge (all wingtips, tail, feet, and head are fully within frame).\n- **Coloration:** It is **painted in full colour** (textured green scales, yellowish-tan underbelly and wing webbing, cream/tan horns and claws, brown eyes).\n- **Wing structure:** The wings are **thick solid shapes** (chunky, opaque, stylized miniature sculpture with no holes or transparency).\n- **Anatomy / Deformities:** **None**; there are no missing, malformed, or fused body parts.\n\n**Comparison with img2:**\n- **Same creature & paint job:** Yes, img1 depicts the **same creature** design painted the exact same way (identical green scales, tan belly plates, cream horn/crest structures, and brown eye coloration).\n- **What differs:**\n  - **Pose:** In img1 the dragon is airborne in mid-flight with its wings spread wide open and legs tucked up. In img2 it is sitting upright on its hindquarters with its wings folded down behind its back and tail curled forward.\n  - **Background color:** img1 has a magenta/fuchsia background; img2 has a bright blue background.\n\n```json\n{\n  \"what\": \"A stylized green dragon miniature airborne in mid-flight with spread wings against a solid magenta background.\",\n  \"creature\": \"Dragon\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"Pose (flying with wings spread vs. sitting with wings folded) and background color (magenta vs. blue)\"\n}\n```\n",
+    "matte": {
+     "fg": 0.156,
+     "soft": 0.0045,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9865,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 12
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-dragon-young-black": {
+  "id": "foe-dragon-young-black",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a black-and-red dragon flying with spread wings against a solid magenta background.",
+     "creature": "dragon",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "img1 is airborne with wings spread open on magenta; img2 is sitting upright with wings folded on blue"
+    },
+    "raw": "### Image Analysis: `img1.jpg`\n\n* **Text, labels, or watermarks:** None. The background is a clean, solid magenta with no visible text, logos, or watermarks.\n* **Number of separate figures or objects:** 1 figure.\n* **Creature identification:**\n  * **Best name:** Dragon (or Dragon Whelp / Wyrmling)\n  * **Second guess:** Drake / Wyvern\n* **Flight and wing posture:** It is **FLYING / airborne**; its wings are **spread open** in a wide flight posture.\n* **Directly under it:** **Nothing at all** (it is floating against the solid background with no base, rod, flight stand, rock, cloud, or shadow).\n* **Cropping / Edge cut-off:** No part of it is cut off by the image edge (the full miniature is completely visible within the frame).\n* **Paint style:** Painted in **full colour** (dark charcoal/brown scales, reddish-brown/terracotta belly plates, horn/tan horns and claws, and an amber eye).\n* **Wing structure:** **Thick solid shapes** (opaque, chunky stylized tabletop sculpt; not thin, translucent, or perforated).\n* **Anatomy / Malformations:** **None** (all four limbs, wings, tail, horns, and head are fully formed, cleanly separated, and properly sculpted).\n\n---\n\n### Comparison with `img2.jpg`\n\n* **Same creature & paint scheme:** **Yes**, it is the same creature type/character painted in the exact same colour scheme and markings (matching charcoal scales, segmented reddish-brown underbelly plates, tan horns/claws, and amber eye).\n* **What differs:** \n  * **Pose:** In `img1`, the dragon is airborne in flight with wings spread wide and legs pulled up; in `img2`, it is seated upright on its haunches with wings folded back against its body.\n  * **Background:** `img1` has a solid magenta background, whereas `img2` has a solid blue background.\n\n---\n\n```json\n{\n  \"what\": \"A painted tabletop miniature of a black-and-red dragon flying with spread wings against a solid magenta background.\",\n  \"creature\": \"dragon\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"img1 is airborne with wings spread open on magenta; img2 is sitting upright with wings folded on blue\"\n}\n```\n",
+    "matte": {
+     "fg": 0.2022,
+     "soft": 0.0055,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9875,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 12
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-dragon-young-white": {
+  "id": "foe-dragon-young-white",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A cream-colored tabletop miniature of a baby dragon flying horizontally against a plain magenta background.",
+     "creature": "Dragon",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with spread wings vs. sitting with folded wings) and background color (magenta vs. blue)"
+    },
+    "raw": "### Analysis of img1\n\n**Text, labels, or watermarks:**\n* None visible.\n\n**From img1 alone:**\n* **Number of figures/objects:** 1 figure (no other objects, bases, or accessories).\n* **Creature identification:**\n  * *Best name:* Dragon (baby dragon / dragon whelp)\n  * *Second guess:* Wyvern (or drake)\n* **Flight and wings:** It is **flying / airborne** in a horizontal gliding posture. Its wings are **spread open** reaching upward.\n* **Directly under it:** **Nothing at all** (only the solid magenta background; no shadow, base, disc, rod, rock, cloud, or ground).\n* **Cropping:** No part is cut off; the entire miniature is fully framed with empty space around all sides.\n* **Paint:** Painted in colour (cream/ivory scales, tan belly plates, brown horns, and painted amber/brown eyes).\n* **Wings:** Thick, solid shapes made of overlapping scute/scale-like plates (not thin, translucent, or perforated).\n* **Malformed or missing parts:** None. Head, horns, eyes, wings, all four legs, and tail are intact and cleanly sculpted.\n\n---\n\n### Comparison with img2\n\n* **Same creature & paint:** **Yes.** It represents the exact same creature species/character, finished with the same paint scheme (cream/ivory body scales, tan segmented belly, light-brown horns, and amber eyes with dark pupils).\n* **What differs:**\n  * **Pose:** In `img1`, the dragon is airborne in flight with wings spread high and limbs tucked; in `img2`, it is seated upright on its haunches with wings folded along its sides.\n  * **Background:** `img1` is set against solid magenta, whereas `img2` is against solid blue.\n\n```json\n{\"what\": \"A cream-colored tabletop miniature of a baby dragon flying horizontally against a plain magenta background.\", \"creature\": \"Dragon\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying with spread wings vs. sitting with folded wings) and background color (magenta vs. blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.1341,
+     "soft": 0.0042,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9853,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 7
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-griffon": {
+  "id": "foe-griffon",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A stylized painted miniature figure of a flying griffin with outstretched wings against a solid magenta background.",
+     "creature": "griffin",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with wings spread vs. standing with wings folded) and background color (magenta vs. blue)"
+    },
+    "raw": "### Text, Labels, and Watermarks\n* **Text / labels / watermarks:** None visible.\n\n---\n\n### Analysis of img1 Alone\n\n* **Number of separate figures or objects:** 1 (a single creature figure).\n* **Creature identity:**\n  * **Best name:** Griffin (Gryphon)\n  * **Second guess:** Hippogriff\n* **Flight and wings:** It is **FLYING / airborne**; its wings are **spread open**.\n* **Directly under it:** **Nothing at all** (only the solid plain magenta background; no base, rod, shadow, or terrain).\n* **Cropping:** **No** (no part is cut off by the image edge; head, wing tips, talons, and tail are completely within frame).\n* **Coloration:** **Painted in full colour** (white feathered head/neck, yellow beak and talons, brown wings, golden-tan lion body and tail).\n* **Wing structure:** **Thick solid shapes** (stylized, opaque sculpted feathers with no transparency or holes).\n* **Anatomy / defects:** **None** (no malformed, fused, or missing parts; complete with two eagle forelegs/talons, two wings, two lion hind legs, head, and tufted tail).\n\n---\n\n### Comparison with img2\n\n* **Same creature and paint scheme:** **Yes**, img1 depicts the same creature (griffin) painted in the exact same color scheme, style, and markings (white head/chest feathers, yellow beak and front talons, brown wings, and tawny lion hindquarters).\n* **What differs:**\n  * **Pose:** In `img1`, the creature is in mid-air flight with wings spread wide and legs drawn up/forward, whereas in `img2`, it is standing on all four legs with its wings folded against its sides.\n  * **Background color:** `img1` has a solid magenta background, while `img2` has a solid blue background.\n\n```json\n{\"what\": \"A stylized painted miniature figure of a flying griffin with outstretched wings against a solid magenta background.\", \"creature\": \"griffin\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying with wings spread vs. standing with wings folded) and background color (magenta vs. blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.3772,
+     "soft": 0.0072,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9901,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 10
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-hippogriff": {
+  "id": "foe-hippogriff",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a hippogriff flying with wings spread wide against a solid magenta background.",
+     "creature": "Hippogriff",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with spread wings vs. standing with folded wings) and background colour (magenta vs. blue)"
+    },
+    "raw": "### Text, Labels, and Watermarks\n* **Text / labels / watermarks:** None.\n\n---\n\n### Analysis of img1\n\n* **Number of separate figures or objects:** 1 figure.\n* **Creature identity:** \n  * *Best name:* **Hippogriff** (features the head, wings, and forelegs of an eagle, with the hindquarters, hooves, and tail of a horse).\n  * *Second guess:* **Griffin** (gryphon).\n* **Pose & wings:** It is **flying / airborne** with its wings **spread open**.\n* **Directly under it:** **Nothing at all** (floats against a plain solid magenta background; no base, stand, shadow, rock, or ground).\n* **Cropping:** No, no part of it is cut off by the image edge.\n* **Paint:** Painted in **full colour** (cream and brown feathers, yellow beak and talons, golden-tan coat, brown tail, and dark hooves/claws).\n* **Wing structure:** The wings are **thick solid shapes** (sculpted feathered wings, not thin, translucent, or perforated).\n* **Defects / malformations:** **None** (all four limbs, hooves, talons, wings, tail, and head are properly formed and intact).\n\n---\n\n### Comparison with img2\n\n**img1** depicts the **same creature** painted in the **same way** (identical colour palette, feather gradients, beak/talon coloration, and markings) as **img2**. \n\n**What differs:**\n* **Pose:** In **img1**, the hippogriff is airborne/flying with its wings spread wide open and legs tucked in flight; in **img2**, it is standing on all four feet with its wings folded back against its body.\n* **Background:** Solid magenta in **img1** versus solid blue in **img2**.\n\n---\n\n```json\n{\"what\": \"A painted tabletop miniature of a hippogriff flying with wings spread wide against a solid magenta background.\", \"creature\": \"Hippogriff\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying with spread wings vs. standing with folded wings) and background colour (magenta vs. blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.3148,
+     "soft": 0.0072,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9889,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 2
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-pegasus": {
+  "id": "foe-pegasus",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A stylized painted tabletop miniature of a cream-colored Pegasus flying mid-air with wings spread wide against a solid magenta background.",
+     "creature": "Pegasus",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with spread wings vs standing with folded wings) and background color (magenta vs blue)"
+    },
+    "raw": "### Text, Labels, and Watermarks\n* **Text / Labels / Watermarks**: None visible.\n\n---\n\n### Analysis of `img1`\n\n* **Number of separate figures or objects**: 1 figure.\n* **Creature**: \n  * **Best name**: Pegasus\n  * **Second guess**: Winged horse / Alicorn\n* **Flight and wings**: It is **flying / airborne** (legs tucked mid-stride in flight). Its wings are **spread open** wide and upward.\n* **Directly under it**: **Nothing at all** (only the solid magenta background; no shadow, dark blob, disc, base, flight stand/rod, rock, cloud, or ground).\n* **Cut off / cropped by image edge**: **No**. All parts (wing tips, hooves, tail, and head) fit completely within the frame.\n* **Paint**: Painted in **full colour** (cream/ivory coat, grey mane and tail, brown hooves, brown eyes, and pink inner ears).\n* **Wing structure**: **Thick solid shapes** (opaque, fully sculpted feather layers; not thin, see-through, or holey).\n* **Malformed, fused, or missing parts**: **None** (all four limbs, two wings, head, ears, and tail are cleanly sculpted and anatomically intact).\n\n---\n\n### Comparison with `img2`\n\n* **Same creature and paint?**: **Yes**. Both depict the same Pegasus design painted in identical colours and markings (cream coat, grey wavy mane/tail, brown hooves, and dark eyes).\n* **What differs**:\n  * **Pose**: In `img1`, the Pegasus is airborne with wings spread open and legs drawn up in flight. In `img2`, it is standing upright on all four hooves with wings folded down at its sides.\n  * **Background color**: `img1` has a solid magenta/fuchsia background, whereas `img2` has a solid royal blue background.\n\n---\n\n```json\n{\"what\": \"A stylized painted tabletop miniature of a cream-colored Pegasus flying mid-air with wings spread wide against a solid magenta background.\", \"creature\": \"Pegasus\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying with spread wings vs standing with folded wings) and background color (magenta vs blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.3517,
+     "soft": 0.007,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9898,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 0
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-giant-eagle": {
+  "id": "foe-giant-eagle",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A stylized painted tabletop miniature of a bald eagle banking in flight with wings spread wide on a solid magenta background.",
+     "creature": "Eagle",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with wings spread vs. standing with wings folded) and background color"
+    },
+    "raw": "**Text, labels, or watermarks:**\nNone.\n\n**Analysis of img1:**\n- **Number of separate figures/objects:** 1 (a single bird figure).\n- **Creature identity:** \n  - Best name: **Eagle** (or Bald Eagle)\n  - Second guess: **Hawk** (or Falcon / Bird of prey)\n- **Flight & wings:** It is **FLYING / airborne**, with its wings **spread open** wide and upward.\n- **Directly under it:** **Nothing at all** (only the solid magenta background; no base, stand, shadow, or ground).\n- **Cropping:** **No**, no part of it is cut off by the image edges.\n- **Paint style:** Painted in **full colour** (brown plumage, cream/white head and barred chest, yellow beak and feet, dark talons).\n- **Wing structure:** **Thick solid shapes** (chunky, opaque stylized feathers with no transparency or holes).\n- **Malformed / missing parts:** **None** (two legs tucked, two distinct wings, normal head and tail, no fused or missing parts).\n\n**Comparison with img2:**\nYes, img1 is the **same creature** painted the **same way** (identical colour palette and feather patterns: white/cream head, brown chevron striping across the breast, brown body and wing feathers, and yellow beak/talons). \n**What differs:**\n- **Pose:** In img1, the eagle is in flight with wings spread wide open and talons tucked back; in img2, it is standing upright on its feet with wings folded at its sides.\n- **Background:** Solid magenta in img1 versus solid royal blue in img2.\n\n```json\n{\n  \"what\": \"A stylized painted tabletop miniature of a bald eagle banking in flight with wings spread wide on a solid magenta background.\",\n  \"creature\": \"Eagle\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"Pose (flying with wings spread vs. standing with wings folded) and background color\"\n}\n```\n",
+    "matte": {
+     "fg": 0.3058,
+     "soft": 0.0053,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9908,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 2
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-giant-bat": {
+  "id": "foe-giant-bat",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a stylized brown bat flying horizontally with its wings spread wide against a plain magenta background.",
+     "creature": "Bat",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with spread wings vs. standing with folded wings) and background color (magenta vs. blue)"
+    },
+    "raw": "### Text, Labels, and Watermarks\n- **None**: There are no visible text, labels, numbers, or watermarks in `img1`. The background is a solid flat magenta.\n\n---\n\n### Analysis of `img1`\n- **Number of separate figures/objects**: Exactly 1 figure.\n- **Creature identity**:\n  - **Best name**: Bat (or giant/dire bat).\n  - **Second guess**: Gargoyle (or pig-nosed bat beast).\n- **Flight & wing state**: It is **flying / airborne** in a horizontal flight posture. Its wings are **spread open** wide.\n- **Directly under it**: **Nothing at all** (only the uniform magenta background; no base, disc, shadow, flight rod/stand, rock, cloud, or ground).\n- **Cropping**: **No**; no part of the creature (ears, wing tips, feet, snout) is cut off by the image edges.\n- **Painting**: Painted in **full colour** (warm brown layered fur, tan leathery wings with subtle shading, fleshy pink/tan inner ears and snout, ivory fangs and claws).\n- **Wing structure**: The wings are **thick, solid shapes** (typical of miniature sculpts; opaque with no holes, tears, or transparency).\n- **Malformed / fused / missing parts**: **None**; anatomy is complete and deliberate (symmetrical wings with finger bones and knuckle claws, intact ears, face with tusks and eyes, feet tucked below/behind).\n\n---\n\n### Comparison with `img2`\n- **Same creature & paint style**: **Yes**. It is the same creature design painted in the exact same color scheme (identical fur tone, tan wing membranes, pink snout/ears, and ivory claws/fangs).\n- **What differs**:\n  - **Pose**: In `img1`, the creature is in mid-flight with wings fully extended horizontally. In `img2`, it is standing upright on its hind legs with wings folded downward against its sides.\n  - **Background**: `img1` is isolated on a magenta background; `img2` is on a bright blue background.\n\n```json\n{\n  \"what\": \"A painted tabletop miniature of a stylized brown bat flying horizontally with its wings spread wide against a plain magenta background.\",\n  \"creature\": \"Bat\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"Pose (flying with spread wings vs. standing with folded wings) and background color (magenta vs. blue)\"\n}\n```\n",
+    "matte": {
+     "fg": 0.2739,
+     "soft": 0.0049,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9921,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 17
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-harpy": {
+  "id": "foe-harpy",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a winged female harpy flying mid-air with outstretched wings against a solid magenta background.",
+     "creature": "harpy",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with spread wings vs. standing with folded wings) and background colour"
+    },
+    "raw": "### Text, Labels, and Watermarks\n* **Text / Labels / Watermarks:** None visible.\n\n---\n\n### Analysis of img1\n* **Number of figures or objects:** 1 figure (a single creature, with no other objects).\n* **Creature identification:**\n  * **Best name:** Harpy\n  * **Second guess:** Siren (classical avian form)\n* **Flight and wing state:** Flying / airborne. Its wings are spread wide open, and its legs/talons are hanging down mid-air.\n* **Directly under it:** Nothing at all (only the plain magenta background; no base, stand, shadow, rock, cloud, or ground).\n* **Cropping / cut off:** No parts are cut off; the entire figure (wings, head, tail, and talons) is fully within the frame with clear margin around it.\n* **Paint state:** Painted in full colour (brown feathers and hair, beige/off-white cloth wrap, fair skin tone, reddish-brown leg feathers, yellow scaly bird legs, and dark claws).\n* **Wing structure:** Thick, solid shapes (fully opaque, sculpted layered feathers).\n* **Anatomy anomalies:** None (no malformed, fused, or missing parts; limbs, wings, tail, and features are intact and correctly proportioned).\n\n---\n\n### Comparison with img2\n* **Same creature and paint scheme:** Yes. Both represent the exact same creature (harpy) painted with identical colours, textures, and markings (same brown feathers/hair, pale wraps, reddish plumage, yellow bird legs, and facial detailing).\n* **What differs:**\n  * **Pose:** In **img1**, she is airborne/flying with wings spread wide open and talons extended downwards; in **img2**, she is standing grounded on her talons with wings folded along her sides.\n  * **Background:** Plain magenta in **img1** versus plain blue in **img2**.\n\n---\n\n```json\n{\n  \"what\": \"A painted tabletop miniature of a winged female harpy flying mid-air with outstretched wings against a solid magenta background.\",\n  \"creature\": \"harpy\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"pose (flying with spread wings vs. standing with folded wings) and background colour\"\n}\n```\n",
+    "matte": {
+     "fg": 0.3016,
+     "soft": 0.0078,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9886,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 2
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-angel": {
+  "id": "foe-angel",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a blonde angel in a cream and gold robe hovering in mid-air with wings spread and sword raised upright.",
+     "creature": "Angel",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with wings spread and sword pointed up vs standing with wings folded and sword pointed down) and background color."
+    },
+    "raw": "### Analysis of `img1`\n\n* **Text, labels, or watermarks**: None visible.\n* **Number of separate figures or objects**: 1 figure (a winged humanoid holding a sword).\n* **Creature identity**:\n  * *Best name*: Angel\n  * *Second guess*: Archangel (or Celestial warrior)\n* **Posture and wings**: It is **FLYING / airborne** (feet dangling freely with toes pointed down). Its wings are **spread open**.\n* **Directly under it**: **Nothing at all** (only the solid magenta background; no base, stand, shadow, ground, or cloud).\n* **Cropping / cut off**: No part is cut off; the entire figure, wings, and sword are fully within the image frame.\n* **Paint**: Painted in **full colour** (blonde hair, skin tones, white/cream robe, golden armor trim, and silver steel sword).\n* **Wings texture/shape**: **Thick solid shapes** (sculpted feathered wings, opaque, not see-through, no holes).\n* **Malformed or missing parts**: **None** (all limbs, wings, sword, and features are intact and well-formed).\n\n---\n\n### Comparison with `img2`\n\n* **Same creature / paint scheme**: **Yes**, it is the same angel creature painted in the exact same colors and markings (blonde hair, golden pauldrons, cream robe with gold trim, bare feet, feathered cream wings).\n* **What differs**: \n  * **Pose**: In `img1`, the angel is airborne/flying with wings spread wide and holding the sword upright pointing skyward. In `img2`, the angel is standing firmly with wings folded down behind his back, resting his hands on the sword hilt with the blade pointed downward.\n  * **Background**: `img1` has a magenta background, whereas `img2` has a blue background.\n\n```json\n{\"what\": \"A painted tabletop miniature of a blonde angel in a cream and gold robe hovering in mid-air with wings spread and sword raised upright.\", \"creature\": \"Angel\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying with wings spread and sword pointed up vs standing with wings folded and sword pointed down) and background color.\"}\n```\n",
+    "matte": {
+     "fg": 0.2924,
+     "soft": 0.0067,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9876,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 5
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-pixie": {
+  "id": "foe-pixie",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted miniature of a winged fairy dressed in green leaves holding a dagger while hovering mid-air against a magenta background.",
+     "creature": "Fairy",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "img1 is airborne with wings spread; img2 is standing with wings folded back; backgrounds differ (magenta vs blue)"
+    },
+    "raw": "### Observations from img1\n\n- **Text, labels, or watermarks**: None visible anywhere in the image.\n- **Separate figures or objects**: 1 figure (a winged humanoid holding a bone/thorn dagger in hand).\n- **Creature identity**:\n  - *Best name*: Fairy (or Pixie)\n  - *Second guess*: Sprite (or Winged Elf)\n- **Stance & wings**: It is **FLYING / airborne** (hovering mid-air with legs extended downward). Its wings are **spread open** wide to both sides.\n- **Directly under it**: **Nothing at all** (only the solid magenta background; no shadow, base, flight stand, or ground).\n- **Image edge cropping**: **No**, no part of the figure is cut off.\n- **Painting**: **Painted in full colour** (auburn hair, green leaf tunic, flesh tones, yellowish/tan wings with cream markings, bone dagger).\n- **Wing structure**: **Thick solid shapes** (opaque, sculpted 3D forms, not see-through or perforated).\n- **Malformed / missing parts**: **None** (anatomy is fully intact: 2 arms, 2 legs, 2 pointed ears, 4 wings, no fused or missing parts).\n\n---\n\n### Comparison with img2\n\n- **Same creature & paint scheme**: **Yes**, it is the same creature painted in the exact same colours and markings (same leaf attire, auburn swept hair, pointed ears, bone dagger, and wing patterning).\n- **What differs**: \n  - **Pose**: In `img1`, the creature is airborne/flying with legs dangling and wings fully spread wide; in `img2`, the creature is standing firmly on its feet with wings tucked back/folded.\n  - **Background colour**: Magenta in `img1` versus blue in `img2`.\n\n---\n\n```json\n{\"what\": \"A painted miniature of a winged fairy dressed in green leaves holding a dagger while hovering mid-air against a magenta background.\", \"creature\": \"Fairy\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"img1 is airborne with wings spread; img2 is standing with wings folded back; backgrounds differ (magenta vs blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.2559,
+     "soft": 0.0068,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9865,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 0
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-stirge": {
+  "id": "foe-stirge",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a winged, needle-beaked fantasy creature flying with its wings spread wide against a plain magenta background.",
+     "creature": "Stirge",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with wings spread vs standing with wings folded) and background color"
+    },
+    "raw": "### Text, Labels, and Watermarks\n* **Text / Labels / Watermarks:** None visible.\n\n---\n\n### Analysis of img1\n* **Number of separate figures or objects:** 1 figure.\n* **Creature identity:**\n  * **Best name:** Stirge (D&D / fantasy tabletop miniature).\n  * **Second guess:** Giant mosquito (or bat-kiwi chimera / bloodsucker).\n* **Flight / Posture & Wings:** It is **FLYING / airborne**, with its wings **spread open**.\n* **Directly under it:** **Nothing at all** (only the solid plain magenta background; no shadow, base, or stand).\n* **Cropping / Edge cut-off:** No parts are cut off by the image edge.\n* **Paint finish:** It is painted in **full colour** (rust-red feathers/fur, tan bone proboscis, amber/yellow eyes, tan belly plates, and tan/reddish wing membranes).\n* **Wing structure:** The wings are **thick solid shapes** (opaque, stylized miniature sculpt; not see-through and no holes).\n* **Anomalies / Malformations:** **None** (all limbs, wings, beak, eyes, and body features are cleanly and properly sculpted).\n\n---\n\n### Comparison with img2\n* **Same creature and paint scheme:** Yes, img1 depicts the same creature as img2, painted in the identical colour scheme and markings (same rust-red body, tan segmented proboscis, amber eyes, and tan-boned wings).\n* **Differences:** \n  * **Pose:** In img1 the creature is airborne/flying with its wings spread wide open and legs dangling; in img2 it is standing on the ground on all four feet with its wings folded back.\n  * **Background:** img1 has a magenta background; img2 has a blue background.\n\n```json\n{\"what\": \"A painted tabletop miniature of a winged, needle-beaked fantasy creature flying with its wings spread wide against a plain magenta background.\", \"creature\": \"Stirge\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying with wings spread vs standing with wings folded) and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.2713,
+     "soft": 0.0062,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9895,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 1
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-giant-wasp": {
+  "id": "foe-giant-wasp",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a stylized giant wasp hovering in flight with spread wings against a solid magenta background.",
+     "creature": "Wasp",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "img1 is flying with wings spread; img2 is standing with wings folded"
+    },
+    "raw": "### Text, Labels, and Watermarks\n- **None**: There is no visible text, label, or watermark anywhere in **img1**.\n\n---\n\n### Analysis of img1 Alone\n- **Separate figures or objects**: Exactly 1 figure (a single miniature insect figure).\n- **Creature**:\n  - *Best name*: **Wasp** (or Giant Wasp)\n  - *Second guess*: **Hornet** (or Bee)\n- **Flight & wings**: It is **FLYING / airborne** (legs suspended mid-air). Its wings are **spread wide open**.\n- **Directly under it**: **Nothing at all** (only the solid magenta background; no shadow, base, disc, rod, or ground).\n- **Cut off / cropped**: **No**, no part of the figure (wings, legs, antennae, head, or tail/stinger) is cut off by the image edge.\n- **Painting**: **Painted in full colour** (rich yellow/amber, dark brown/black striping, tan/cream wings, brown eyes and feet).\n- **Wing structure**: **Thick solid shapes** (opaque sculpted plastic/resin with raised vein detailing; not thin, see-through, or perforated).\n- **Malformed, fused, or missing parts**: **None** (anatomically complete with 6 distinct legs, 4 separate wings, 2 antennae, mandibles, compound eyes, and stinger).\n\n---\n\n### Comparison with img2\n- **Same creature & paint scheme**: **Yes**. Both figures depict the exact same creature design painted with the same colors and markings (yellow and dark brown striped body, tan/cream wings, brown joints/eyes).\n- **What differs**:\n  - **Pose**: In **img1**, the wasp is flying/airborne with wings spread wide and legs curled underneath. In **img2**, the wasp is standing on its six legs with its wings folded back across its abdomen.\n  - **Background color**: **img1** has a magenta background, whereas **img2** has a bright blue background.\n\n---\n\n```json\n{\"what\": \"A painted tabletop miniature of a stylized giant wasp hovering in flight with spread wings against a solid magenta background.\", \"creature\": \"Wasp\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"img1 is flying with wings spread; img2 is standing with wings folded\"}\n```\n",
+    "matte": {
+     "fg": 0.2768,
+     "soft": 0.0083,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9851,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 1
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-vulture-demon": {
+  "id": "foe-vulture-demon",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of an anthropomorphic vulture airborne with its wings spread open against a solid magenta background.",
+     "creature": "vulture",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with wings spread vs. standing with wings folded) and background color (magenta vs. blue)"
+    },
+    "raw": "### Text, Labels, or Watermarks\n- **None**: There is no visible text, label, or watermark anywhere in `img1`.\n\n---\n\n### Analysis of `img1`\n\n- **Number of separate figures/objects:** 1 (a single creature figure).\n- **Creature identity:**\n  - *Best name:* Anthropomorphic Vulture (Vulturefolk / Vulture)\n  - *Second guess:* Condor (or Turkey Vulture / Harpy)\n- **Stance & Wings:** It is **FLYING / airborne** (suspended mid-air with legs dangling); its wings are **spread open** wide and raised.\n- **Directly under it:** **Nothing at all** (only the solid plain magenta background; no base, flight stand, shadow, or ground).\n- **Cropping:** **No**; all parts (wing tips, head, claws) are fully within the frame and not cut off.\n- **Paint style:** Painted in **full colour** (brown feathers, beige ruff, red head/neck, yellow beak and talons, black claws).\n- **Wing structure:** The wings are **thick, solid shapes** (opaque and fully sculpted).\n- **Anomalies / malformations:** **None**; all limbs, wings, talons, and head features are intact, properly formed, and distinct.\n\n---\n\n### Comparison with `img2`\n\n- **Same creature & paint:** **Yes**, it is the same creature painted in the exact same color scheme and markings (red bald head, cream neck ruff, brown plumage, yellow beak/talons).\n- **Differences:**\n  - **Pose:** In `img1`, the figure is in flight with wings spread wide open and talons dangling; in `img2`, it is standing upright with its wings folded down at its sides and feet planted.\n  - **Background:** `img1` has a magenta/fuchsia background, whereas `img2` has a royal blue background.\n\n```json\n{\"what\": \"A painted tabletop miniature of an anthropomorphic vulture airborne with its wings spread open against a solid magenta background.\", \"creature\": \"vulture\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"pose (flying with wings spread vs. standing with wings folded) and background color (magenta vs. blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.3861,
+     "soft": 0.0082,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9898,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 0
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-manticore": {
+  "id": "foe-manticore",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a manticore flying with its wings spread open against a solid magenta background.",
+     "creature": "Manticore",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "img1 is airborne with wings spread open, whereas img2 is standing on all fours with wings folded; background color differs (magenta vs blue)."
+    },
+    "raw": "mg1.jpg`\n\n* **Text, labels, or watermarks:**\n  * None visible anywhere in the image.\n\n* **Number of separate figures or objects:**\n  * Exactly 1 figure (a single creature on a plain magenta background).\n\n* **Creature identification:**\n  * **Best name:** Manticore (lion body, humanoid face with tusks, bat/dragon wings, segmented tail with a spiked ball/stinger).\n  * **Second guess:** Chimera (or Sphinx).\n\n* **Stance and wings:**\n  * It is **FLYING / airborne** (hovering/gliding in mid-air with legs pulled in).\n  * Its wings are **spread wide open**.\n\n* **What is directly UNDER it:**\n  * **Nothing at all** (no shadow, dark blob, base, disc, flight stand, rod, rock, cloud, or ground; completely isolated on the magenta background).\n\n* **Cropping:**\n  * No part of it is cut off by the image edge; the entire figure (wings, tail club, head, and paws) is fully within the frame.\n\n* **Paint status:**\n  * It is painted in **full colour** (warm orange fur, tan/cream belly and tusks, dark reddish-brown mane and wing membranes, tan/bone spikes, dark brown claws).\n\n* **Wing structure:**\n  * The wings are **thick solid shapes** (opaque, stylized tabletop miniature sculpt, not thin, see-through, or holey).\n\n* **Anatomy anomalies:**\n  * **None** (no missing legs, no malformations, no fused parts, no extra heads).\n\n---\n\n### Comparison with `img2.jpg`\n\n* **Same creature and paint scheme:**\n  * **Yes**, `img1` is the same creature as `img2`, painted in the exact same colors and markings (identical facial features with bottom tusks, reddish-brown mane, orange-brown pelt with tan chest fur, segmented tail with spiked ball, dark claws, and reddish-brown bat wings).\n* **Differences:**\n  * **Pose:** In `img1`, the manticore is airborne/flying with wings outstretched and legs tucked in. In `img2`, it is standing firmly on all four paws with its wings folded back against its body.\n  * **Background:** `img1` has a solid magenta background, while `img2` has a solid blue background.\n\n---\n\n```json\n{\n  \"what\": \"A painted tabletop miniature of a manticore flying with its wings spread open against a solid magenta background.\",\n  \"creature\": \"Manticore\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"img1 is airborne with wings spread open, whereas img2 is standing on all fours with wings folded; background color differs (magenta vs blue).\"\n}\n```\n",
+    "matte": {
+     "fg": 0.2099,
+     "soft": 0.005,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9885,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 4
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-gargoyle": {
+  "id": "foe-gargoyle",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": false,
+    "problems": [
+     "fully painted in full colour"
+    ],
+    "read": {
+     "what": "A stylized sandstone gargoyle miniature figure flying with wings spread wide against a plain magenta background.",
+     "creature": "Gargoyle",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": false,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "img1 is flying with spread wings; img2 is standing with folded wings"
+    },
+    "raw": "### Analysis of img1\n\n**Text, labels, or watermarks:**\n- None visible anywhere in the image.\n\n**Questions on img1 alone:**\n- **Separate figures or objects:** 1 figure (no base, stand, or other objects).\n- **Creature identification:**\n  - **Best name:** Gargoyle\n  - **Second guess:** Winged demon / Horned devil\n- **Flight & wings:** It is **FLYING / airborne** (suspended mid-air with legs bent and feet dangling). Its wings are **spread open**.\n- **Directly under it:** **Nothing at all** (only the solid plain magenta background; no shadow, dark blob, disc, base, flight rod, rock, cloud, or ground).\n- **Cropping / edges:** No part is cut off; the entire figure (wings, horns, tail, claws) is completely within the frame.\n- **Painting style:** It is in a **stone-statue unpainted** style (monochromatic warm beige/sandstone carved stone appearance rather than full-colour painted).\n- **Wing structure:** **Thick solid shapes** (blocky, faceted stone).\n- **Malformed, fused, or missing parts:** **None** (anatomy is fully intact: two arms, two legs, two horns, two ears, tail, and two wings).\n\n---\n\n### Comparison with img2\n\n- **Same creature & paint scheme:** **Yes.** img1 is the same gargoyle creature painted/textured in the identical sandstone/stone finish, highlights, and markings as img2.\n- **What differs:**\n  - **Pose:** In img1, the creature is airborne/flying with its legs trailing in the air; in img2, it is standing upright planted on both feet.\n  - **Wings:** In img1, the wings are spread wide open; in img2, they are folded down behind its back.\n  - **Background:** Magenta in img1 vs. blue in img2.\n\n```json\n{\n  \"what\": \"A stylized sandstone gargoyle miniature figure flying with wings spread wide against a plain magenta background.\",\n  \"creature\": \"Gargoyle\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": false,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"img1 is flying with spread wings; img2 is standing with folded wings\"\n}\n```\n",
+    "matte": {
+     "fg": 0.3299,
+     "soft": 0.0067,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9915,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 9
+    }
+   },
+   {
+    "try": 2,
+    "ok": false,
+    "problems": [
+     "fully painted in full colour"
+    ],
+    "read": {
+     "what": "A stone gargoyle miniature figure flying with wings spread open against a solid magenta background.",
+     "creature": "Gargoyle",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": false,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying vs standing), wings (spread vs folded), and background color (magenta vs blue)"
+    },
+    "raw": "### Observations on `img1`\n\n* **Text, labels, or watermarks:** None. There is no text, label, watermark, or UI overlay present.\n* **Number of separate figures or objects:** 1 figure.\n* **Creature identity:**\n  * **Best name:** Gargoyle (or Stone Gargoyle)\n  * **Second guess:** Winged Demon (or Grotesque / Stone Golem)\n* **Flight and posture / Wings:** It is **FLYING / airborne** (suspended mid-air with legs dangling down). Its wings are **spread open** (outstretched).\n* **Directly under it:** **Nothing at all** (only the solid plain magenta background; no base, stand, shadow, rock, or ground).\n* **Image cropping:** **No**. The entire figure is completely within the frame; no part (wing tips, horns, tail, or feet) is cut off by the image boundary.\n* **Coloration:** **Stone-statue unpainted** / monochrome carved sandstone texture (not painted in full colour; it has a uniform chiseled tan/buff rock finish).\n* **Wing structure:** The wings are **thick, solid shapes** (blocky carved stone slabs with surface cracks, not thin, see-through, or holey).\n* **Malformed, fused, or missing parts:** **None**. Anatomy is clean and complete (two clawed hands, two clawed feet, tail, two horns, intact head and torso, two properly attached wings).\n\n---\n\n### Comparison with `img2`\n\n* **Same creature and paint scheme:** **Yes**, it is the same creature model and painted/textured the exact same way (same chiseled tan sandstone material, stone texture, facial features, and horn sculpt).\n* **What differs:**\n  * **Pose:** In `img1`, the creature is airborne/flying with feet dangling; in `img2`, it is standing upright with feet planted flat on the ground.\n  * **Wings:** In `img1`, the wings are spread wide open; in `img2`, the wings are folded back down behind its shoulders.\n  * **Background:** `img1` has a solid magenta/fuchsia background, while `img2` has a solid blue background.\n\n```json\n{\"what\": \"A stone gargoyle miniature figure flying with wings spread open against a solid magenta background.\", \"creature\": \"Gargoyle\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": false, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"pose (flying vs standing), wings (spread vs folded), and background color (magenta vs blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.2318,
+     "soft": 0.0053,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9899,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 4
+    }
+   },
+   {
+    "try": 3,
+    "ok": false,
+    "problems": [
+     "fully painted in full colour"
+    ],
+    "read": {
+     "what": "A miniature stone gargoyle flying with wings spread open against a solid magenta background.",
+     "creature": "Gargoyle",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": false,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with wings spread vs standing with wings folded) and background color"
+    },
+    "raw": "### Text, Labels, or Watermarks\n* **None visible** (no text, labels, or watermarks appear anywhere in `img1`).\n\n---\n\n### Analysis of `img1` Alone\n* **Number of separate figures or objects:** 1 figure (no other objects).\n* **Creature identification:**\n  * **Best name:** Gargoyle (or Stone Gargoyle)\n  * **Second guess:** Demon (or Winged Golem)\n* **Flight and wings:** It is **FLYING / airborne**; its wings are **spread open**.\n* **Directly under it:** **nothing at all** (only the solid magenta background; no base, stand, shadow, or ground).\n* **Cut off / cropped:** **No** (no part is cut off by the image edge; generous margins surround the entire figure).\n* **Paint style:** **stone-statue unpainted** (monochrome tan/sandstone sculpted stone texture, not painted in full colour).\n* **Wing structure:** **thick solid shapes** (chunky, chiseled stone slabs with carved facets).\n* **Malformed, fused, or missing elements:** **None** (all limbs, claws, wings, horns, and tail are cleanly rendered and properly attached).\n\n---\n\n### Comparison with `img2`\n* **Same creature and paint:** **Yes**, `img1` depicts the **same creature** with the identical sculpted stone material, tan/sandstone coloring, and markings as `img2`.\n* **What differs:**\n  * **Pose:** In `img1`, the creature is airborne/flying with wings outstretched and legs dangling; in `img2`, it is standing upright on its feet with wings folded behind its back.\n  * **Background:** `img1` has a solid magenta/fuchsia background, whereas `img2` has a solid blue background.\n\n```json\n{\"what\": \"A miniature stone gargoyle flying with wings spread open against a solid magenta background.\", \"creature\": \"Gargoyle\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": false, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"pose (flying with wings spread vs standing with wings folded) and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.3343,
+     "soft": 0.0068,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9911,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 7
+    }
+   }
+  ],
+  "status": "accepted",
+  "by_hand": "try 1: refused only for painted:false; a stone creature painted as stone (LAB_NOTES)"
+ },
+ "foe-chimera": {
+  "id": "foe-chimera",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a multi-headed chimera flying with wings outstretched against a plain magenta background.",
+     "creature": "Chimera",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with wings spread vs. standing with wings folded) and background color"
+    },
+    "raw": "### Text, Labels, and Watermarks\n* **Text / Labels / Watermarks:** None visible anywhere in the image.\n\n---\n\n### Questions on `img1`\n* **How many separate figures or objects:** 1 figure (a single multi-headed hybrid creature).\n* **Creature:** \n  * **Best name:** Chimera (Chimaera)\n  * **Second guess:** Manticore\n* **Flight and wings:** It is **FLYING / airborne** (floating in mid-air with limbs tucked in a gliding/flying pose). Its wings are **spread open** wide above its back.\n* **Directly under it:** **Nothing at all** (only the solid plain magenta background; no shadow, base, flight stand, rock, or ground).\n* **Cropping:** **No**; no part of the figure (wings, horns, tail, or paws) is cut off by the image edge.\n* **Painting:** **Painted in full colour** (golden-tawny lion body and mane, black goat head with grey-tan horns, red scaled dragon head and tail with pale horns/underbelly plates, and orange/red wings).\n* **Wing structure:** The wings are **thick solid shapes** (opaque, fully sculpted surfaces without holes or transparency).\n* **Malformed, fused, or missing parts:** **None** (the creature exhibits the standard classical chimera anatomy: central lion head/body, side goat head, side dragon head, two wings, four intact limbs, and a reptilian tail).\n\n---\n\n### Comparison with `img2`\n* **Same creature and paint scheme:** **Yes**, `img1` represents the exact same creature design painted with the identical color palette and markings (same lion features, black goat head with ribbed horns, red dragon head and tail with identical plating, and wing coloration).\n* **What differs:** \n  * **Pose:** In `img1`, the chimera is airborne/flying with its wings spread open high and legs tucked up, whereas in `img2`, it is standing upright on all four legs with its wings folded back along its torso.\n  * **Background:** `img1` has a magenta background, whereas `img2` has a blue background.\n\n```json\n{\n  \"what\": \"A painted tabletop miniature of a multi-headed chimera flying with wings outstretched against a plain magenta background.\",\n  \"creature\": \"Chimera\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"pose (flying with wings spread vs. standing with wings folded) and background color\"\n}\n```\n",
+    "matte": {
+     "fg": 0.1818,
+     "soft": 0.0049,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9876,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 24
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-kobold-winged": {
+  "id": "foe-kobold-winged",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a winged red kobold flying while holding a boulder overhead against a solid magenta background.",
+     "creature": "Winged Kobold",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying holding boulder overhead with wings spread vs. standing holding boulder at chest with wings folded) and background color (magenta vs. blue)"
+    },
+    "raw": "lysis of `img1`\n\n* **Number of separate figures or objects:** \n  One creature holding one object (a large round stone/boulder overhead).\n* **Creature identity:** \n  * *Best name:* **Winged Kobold** (or **Urd** / **Dragonkin**)\n  * *Second guess:* **Red Dragon Wyrmling** (or **Baby Dragon**)\n* **Stance and wings:** \n  It is **FLYING / airborne** (legs and tail dangling freely in mid-air). Its wings are **spread wide open**.\n* **Directly under it:** \n  **Nothing at all** (only the solid magenta background; no shadow, base, disc, flight stand, rock, cloud, or ground).\n* **Cropping / Edge cutoffs:** \n  **No**. All parts (wing tips, horns, tail, claws, boulder) are completely within the frame with ample margin on all sides.\n* **Painting / Finish:** \n  **Painted in full colour** (orange-red scales, cream underbelly and wing membranes, tan ragged tunic, brown rope belt, olive green neck cowl, grey stone, and yellow eyes).\n* **Wing structure:** \n  **Thick, solid shapes** (opaque, stylized tabletop miniature sculpt with no holes or transparency).\n* **Malformed, fused, or missing parts:** \n  **None**. Anatomy is clean and complete (two arms, two legs, two wings, one tail, proper claws and horns).\n\n---\n\n### Comparison with `img2`\n\n* **Same creature and painting?** \n  **Yes**. It is the same creature sculpt design and painted in the exact same color scheme and markings (orange-red body, tan underbelly, green cowl, ragged cream tunic with rope belt, yellow eyes, and grey boulder).\n* **What differs:**\n  * **Pose:** In `img1`, the creature is airborne/flying with wings outstretched, holding the stone high overhead above its head. In `img2`, it is standing upright on the ground with wings folded back, clutching the stone against its chest.\n  * **Facing:** `img1` faces forward/downward toward the viewer; `img2` has its head turned in a three-quarter profile to the right.\n  * **Background:** `img1` has a plain magenta background; `img2` has a plain blue background.\n\n---\n\n```json\n{\"what\": \"A painted tabletop miniature of a winged red kobold flying while holding a boulder overhead against a solid magenta background.\", \"creature\": \"Winged Kobold\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying holding boulder overhead with wings spread vs. standing holding boulder at chest with wings folded) and background color (magenta vs. blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.1667,
+     "soft": 0.0053,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9851,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 5
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-couatl": {
+  "id": "foe-couatl",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a winged feathered serpent (couatl) airborne with its wings spread wide against a plain magenta background.",
+     "creature": "Couatl",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (airborne with wings spread vs. coiled on ground with wings folded) and background color"
+    },
+    "raw": "### Analysis of img1\n\n* **Text, labels, or watermarks:** None visible anywhere in the image.\n* **Number of separate figures or objects:** 1 figure.\n* **Creature identification:**\n  * **Best name:** Couatl (feathered serpent)\n  * **Second guess:** Winged serpent / Quetzalcoatl (or Amphiptere)\n* **Flight and wings:** It is **FLYING / airborne** (suspended in mid-air in an upright S-curve); its wings are **spread open**.\n* **Directly UNDER it:** **Nothing at all** (only the solid plain magenta background; no shadow, disc, base, flight stand/rod, rock, or ground).\n* **Cut off / cropping:** **No**, no part of the figure is cut off by the image boundary.\n* **Painting:** Painted in **full colour** (vibrant yellow/gold, forest green, rust red, and cream/tan belly scales).\n* **Wing structure:** The wings are **thick solid shapes** (sculpted feathered wings, opaque with no holes or transparency).\n* **Malformed, fused, or missing parts:** **None** (clean, intact anatomy with two attached wings, crest, serpentine body, and feathered tail).\n\n---\n\n### Comparison with img2\n\n* **Is it the same creature painted the same way?** **Yes.** Both depict the same creature design (feathered serpent / couatl) painted in the exact same color palette and feather pattern (rust red, green, and gold feather layers with cream/tan ventral scales and dark eyes).\n* **What differs:** \n  1. **Pose:** In `img1`, the creature is airborne in a dynamic S-curve with its wings spread wide. In `img2`, it is resting coiled into a tight spiral base on the ground with its wings folded down along its sides.\n  2. **Background color:** `img1` has a magenta background, whereas `img2` has a royal blue background.\n\n```json\n{\"what\": \"A painted tabletop miniature of a winged feathered serpent (couatl) airborne with its wings spread wide against a plain magenta background.\", \"creature\": \"Couatl\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (airborne with wings spread vs. coiled on ground with wings folded) and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.2176,
+     "soft": 0.0065,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9861,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 9
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-succubus": {
+  "id": "foe-succubus",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A full-color painted tabletop miniature of a red-skinned winged female tiefling hovering mid-air against a magenta background.",
+     "creature": "Tiefling",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with wings spread vs standing with wings folded) and background color"
+    },
+    "raw": "### Analysis of img1\n\n**Text, labels, or watermarks:**\n* None visible.\n\n**img1 Assessment:**\n* **Number of figures/objects:** 1 figure (no other objects).\n* **Creature identity:** \n  * *Best name:* Tiefling (female tiefling)\n  * *Second guess:* Succubus (or Cambion)\n* **Stance & wings:** It is **FLYING / airborne** (hovering with legs dangling). Its wings are **spread open**.\n* **Directly under it:** **Nothing at all** (only the solid magenta background).\n* **Cropped / cut off:** **No**, all parts (wingtips, tail, horns, boots) are fully within the frame.\n* **Paint status:** **Painted in full colour** (red skin, black hair, black/cream dress with gold trim, brown leather boots/bracers).\n* **Wing structure:** **Thick solid shapes** (opaque, solid bat-like fiendish wings).\n* **Malformed, fused, or missing elements:** **None**.\n\n---\n\n### Comparison with img2\n\n* **Same creature & paint job:** **Yes**, it is the exact same creature model and paint scheme (same red skin, facial features, horns, hair, outfit, and gold/leather detailing).\n* **Differences:**\n  * **Pose:** In **img1**, she is hovering/flying mid-air with wings spread wide and arms extended down. In **img2**, she is standing upright with wings folded behind her back, her right hand resting on her hip, and her left hand raised in a gesturing pose.\n  * **Background:** Solid magenta in **img1** vs solid blue in **img2**.\n\n```json\n{\"what\": \"A full-color painted tabletop miniature of a red-skinned winged female tiefling hovering mid-air against a magenta background.\", \"creature\": \"Tiefling\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"pose (flying with wings spread vs standing with wings folded) and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.2973,
+     "soft": 0.0088,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9869,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 4
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-mephit": {
+  "id": "foe-mephit",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a winged magma imp hovering in mid-air against a solid magenta background.",
+     "creature": "Magma Imp",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "Pose (flying with spread wings vs standing with folded wings) and background color (magenta vs blue)"
+    },
+    "raw": "### Text, Labels, or Watermarks\n* **None**: There is no visible text, label, watermark, or logo in `img1`.\n\n---\n\n### Analysis of `img1`\n* **Number of figures/objects:** 1 (a single miniature figure).\n* **Creature identity:** \n  * *Best name:* Magma Imp (or Fire Imp)\n  * *Second guess:* Gargoyle (or Fire Mephit)\n* **Stance and wings:** It is **flying / airborne** (hovering mid-air with legs dangling down). Its wings are **spread open**.\n* **Directly under it:** **Nothing at all** (only the solid magenta background; no base, stand, shadow, or ground).\n* **Cropping:** **No**; no part of the figure (wings, tail, horns/hair, or claws) is cut off by the image edges.\n* **Paint style:** **Painted in full colour** (brown/grey cracked rocky skin with glowing molten lava/magma seams, fiery orange flame hair, amber eyes, and orange wing membranes).\n* **Wing structure:** **Thick solid shapes** (opaque, solid miniature sculpting with no holes or transparency).\n* **Anatomy/deformities:** **None**; there are no malformed, fused, or missing parts (two complete arms, two legs, two wings, one tail, and one head).\n\n---\n\n### Comparison with `img2`\n* **Same creature and paint scheme?** **Yes.** It depicts the same creature type/character painted in the exact same color scheme (cracked volcanic rock plates over glowing orange magma veins, flaming orange crest, amber eyes, and brown/orange wings).\n* **What differs:**\n  * **Pose:** In `img1`, the creature is airborne/flying facing forward with wings spread wide open and legs dangling. In `img2`, it is standing upright on its feet in a three-quarter turn, with its wings folded down behind its back and its tail curled upward.\n  * **Background:** `img1` has a solid magenta background, whereas `img2` has a solid blue background.\n\n```json\n{\"what\": \"A painted tabletop miniature of a winged magma imp hovering in mid-air against a solid magenta background.\", \"creature\": \"Magma Imp\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"Pose (flying with spread wings vs standing with folded wings) and background color (magenta vs blue)\"}\n```\n",
+    "matte": {
+     "fg": 0.2599,
+     "soft": 0.0076,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9892,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 17
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "foe-homunculus": {
+  "id": "foe-homunculus",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted tabletop miniature of a winged imp holding a large golden key, airborne with open wings against a magenta background.",
+     "creature": "Imp",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying vs standing), wings (spread vs folded), and background color"
+    },
+    "raw": "### Text, Labels, and Watermarks\n* **Text / labels / watermarks:** None visible.\n\n---\n\n### Analysis of `img1`\n* **Separate figures or objects:** 1 figure (a winged creature) holding 1 object (a large golden key); no separate or detached figures/objects.\n* **Creature type:**\n  * **Best name:** Imp\n  * **Second guess:** Gargoyle (or Winged Goblin)\n* **Flight and wings:** It is **flying / airborne** (hovering with legs dangling downwards). Its wings are **spread open**.\n* **Directly under it:** **Nothing at all** (only the solid magenta background; no shadow, base, disc, rod, ground, or cloud).\n* **Cropping / cutoff:** **No**. The entire figure, wingtips, head, and feet are fully inside the frame with clear margin around them.\n* **Painting:** **Painted in full colour** (flesh-toned body, tan/pinkish leathery wings, red and gold loincloth, and a gold/brass key).\n* **Wing structure:** The wings are **thick, solid shapes** (opaque, non-translucent, with no holes).\n* **Anatomy anomalies:** **None** (no missing limbs, no merged wings, no extra heads; fully formed and intact).\n\n---\n\n### Comparison with `img2`\n* **Same creature & paint scheme:** **Yes**, `img1` depicts the same creature as `img2`, painted in the exact same colours and markings.\n* **What differs:**\n  * **Pose / flight:** In `img1`, the creature is airborne with legs hanging down, whereas in `img2` it is standing flat on its feet.\n  * **Wings:** In `img1`, the wings are spread open wide; in `img2`, the wings are folded down behind its back.\n  * **Background:** `img1` has a magenta background, while `img2` has a blue background.\n\n---\n\n```json\n{\"what\": \"A painted tabletop miniature of a winged imp holding a large golden key, airborne with open wings against a magenta background.\", \"creature\": \"Imp\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"pose (flying vs standing), wings (spread vs folded), and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.2614,
+     "soft": 0.006,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9889,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 0
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "beast-owl": {
+  "id": "beast-owl",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A stylized painted tabletop miniature figure of an owl flying with wings spread wide against a solid magenta background.",
+     "creature": "owl",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with spread wings vs standing with folded wings) and background color"
+    },
+    "raw": "### Analysis of img1\n\n- **Text, labels, or watermarks:** None visible.\n- **Number of separate figures or objects:** 1 figure.\n- **Creature:**\n  - *Best name:* Owl (such as a horned owl or screech owl).\n  - *Second guess:* Hawk / bird of prey (or fantasy owlbear cub).\n- **Stance & wings:** Airborne / FLYING; wings are spread wide open, with talons tucked underneath.\n- **Directly under it:** Nothing at all (only the solid magenta background; no base, rod, shadow, or ground).\n- **Cropping / cut off:** No, no part is cut off (wing tips, tail, and head are completely within the frame).\n- **Paint status:** Painted in full colour (shades of brown, tan, cream, yellow eyes, dark beak and claws).\n- **Wing structure:** Thick, solid sculpted shapes with defined feather layering (not thin, translucent, or perforated).\n- **Malformed, fused, or missing parts:** None.\n\n---\n\n### Comparison with img2\n\n- **Same creature & paint scheme:** Yes, img1 represents the same creature as img2, painted using the identical palette and feather markings (tan/brown feather patterns, creamy facial disc, yellow eyes with dark rims, dark beak and talons).\n- **What differs:**\n  - **Pose:** In [img1](file:///tmp/flyread-gp0ie41b/img1.jpg), the owl is in flight with wings spread wide and talons tucked; in [img2](file:///tmp/flyread-gp0ie41b/img2.jpg), the owl is standing/perched upright on its feet with wings folded against its body.\n  - **Background:** Magenta in img1 vs. blue in img2.\n\n```json\n{\n  \"what\": \"A stylized painted tabletop miniature figure of an owl flying with wings spread wide against a solid magenta background.\",\n  \"creature\": \"owl\",\n  \"flying\": true,\n  \"wings_spread\": true,\n  \"under\": \"nothing at all\",\n  \"cropped\": false,\n  \"painted\": true,\n  \"wings_solid\": true,\n  \"malformed\": \"none\",\n  \"same_as_img2\": true,\n  \"differs\": \"pose (flying with spread wings vs standing with folded wings) and background color\"\n}\n```\n",
+    "matte": {
+     "fg": 0.3571,
+     "soft": 0.0055,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9918,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 3
+    }
+   }
+  ],
+  "status": "accepted"
+ },
+ "beast-raven": {
+  "id": "beast-raven",
+  "attempts": [
+   {
+    "try": 1,
+    "ok": true,
+    "problems": [],
+    "read": {
+     "what": "A painted stylized miniature figure of a raven flying with wings spread wide against a solid magenta background.",
+     "creature": "Raven",
+     "flying": true,
+     "wings_spread": true,
+     "under": "nothing at all",
+     "cropped": false,
+     "painted": true,
+     "wings_solid": true,
+     "malformed": "none",
+     "same_as_img2": true,
+     "differs": "pose (flying with wings spread vs standing with wings folded) and background color"
+    },
+    "raw": "### Image Analysis: `img1`\n\n**Text, labels, or watermarks:**\n* None visible anywhere in the image.\n\n**Questions on `img1`:**\n* **Number of separate figures/objects:** 1 figure.\n* **Creature:** Best name: **Raven**; Second guess: **Crow**.\n* **Flight / Posture & Wings:** It is **flying / airborne** with its talons tucked up; its wings are **spread open**.\n* **Directly under it:** **Nothing at all** (only the solid magenta background).\n* **Cropped / Cut off by image edge:** No, the entire figure is cleanly framed within the image with no parts cut off.\n* **Paint style:** Painted in **full colour** (dark brownish-black feathers with reddish/burgundy highlights, amber eye, shaded beak and claws).\n* **Wing structure:** The wings are **thick solid shapes** (stylized, solid sculpted feathers with no holes or transparency).\n* **Malformed, fused, or missing parts:** **None** (anatomy is complete and intact: two spread wings, head, beak, tail, and two tucked feet).\n\n---\n\n### Comparison with `img2`\n\n* **Same creature & paint scheme:** **Yes**, `img1` depicts the same creature (raven/crow) painted in the same colours and markings (dark brownish-black with reddish-brown feather tiers, dark beak, and amber eye).\n* **Differences:**\n  * **Pose:** In `img1`, the bird is airborne/flying with wings spread wide and legs tucked; in `img2`, it is standing upright on its feet with wings folded against its body.\n  * **Background colour:** Solid magenta/pink in `img1` versus solid blue in `img2`.\n\n---\n\n```json\n{\"what\": \"A painted stylized miniature figure of a raven flying with wings spread wide against a solid magenta background.\", \"creature\": \"Raven\", \"flying\": true, \"wings_spread\": true, \"under\": \"nothing at all\", \"cropped\": false, \"painted\": true, \"wings_solid\": true, \"malformed\": \"none\", \"same_as_img2\": true, \"differs\": \"pose (flying with wings spread vs standing with wings folded) and background color\"}\n```\n",
+    "matte": {
+     "fg": 0.2884,
+     "soft": 0.0049,
+     "comps": 1,
+     "border": 0.0,
+     "chroma_iou": 0.9926,
+     "verdict": "pass",
+     "why": [],
+     "chroma_holes_removed_px": 6
+    }
+   }
+  ],
+  "status": "accepted"
+ }
+}

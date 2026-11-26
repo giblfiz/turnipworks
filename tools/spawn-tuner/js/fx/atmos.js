@@ -168,6 +168,28 @@ vec2 visAt(vec2 w) {
   vec2 texel = 1.0 / uVisAtlas;
   return texture2D(uVisMask, clamp(uVisTile.xy + q * uVisTile.zw, uVisTile.xy + texel * 0.5, uVisTile.xy + uVisTile.zw - texel * 0.5)).rg;
 }
+// EXTERIORS ABOVE (2026-11-24; engine core/exterior.js): a SURFACE is judged by the band it stands in (the fog-of-war pass's
+// own rule: fx/fogwar.js), so a temple's upper storey, a roof or a statue on a pillar that the viewer sees from below is not
+// sunk under the bank of the ground under it; and (2026-11-25) a floor seen down a hole below the fog's level likewise.
+uniform int uVisUpN; uniform float uVisUpY[8]; uniform vec4 uVisUpB[8], uVisUpT[8];
+vec2 visSurf(vec3 P) {
+  if (uVisOn < 0.5) return vec2(1.0, 1.0);
+  vec4 B = uVisBounds, T = uVisTile;
+  for (int i = 0; i < 8; i++) { if (i >= uVisUpN) break; if (P.y + 0.08 >= uVisUpY[i]) { B = uVisUpB[i]; T = uVisUpT[i]; } }
+  vec2 q = (P.xz - B.xy) / B.zw;
+  if (q.x < 0.0 || q.y < 0.0 || q.x > 1.0 || q.y > 1.0) return vec2(0.0, 0.0);
+  vec2 texel = 1.0 / uVisAtlas;
+  vec2 uv = clamp(T.xy + q * T.zw, T.xy + texel * 0.5, T.xy + T.zw - texel * 0.5);
+  return texture2D(uVisMask, (floor(uv * uVisAtlas) + 0.5) * texel).rg;
+}
+// the floor of the band visSurf judges P by (base: the fog's own level). An UNSEEN surface up there (a hilltop hall's floor, a
+// hill's top) is fogged as unseen ground is, but ON IT (2026-11-24, Harry: "fix the holes in floor bug"): rays to it end at
+// that band's floor, and the bank is drawn as if that floor were the ground, never in a pit 10 ft under it
+float visSurfY(vec3 P, float base) {
+  float y = base;
+  for (int i = 0; i < 8; i++) { if (i >= uVisUpN) break; if (P.y + 0.08 >= uVisUpY[i]) y = uVisUpY[i]; }
+  return y;
+}
 vec2 visCell(vec2 w) {
   if (uVisOn < 0.5) return vec2(1.0, 1.0);
   vec2 q = (w - uVisBounds.xy) / uVisBounds.zw;
@@ -456,8 +478,9 @@ const FS = {
     void main() {
       float d = texture2D(uDepth, vUv).x;
       vec4 v = uProjInv * vec4(vUv * 2.0 - 1.0, d * 2.0 - 1.0, 1.0); v /= v.w; vec3 P = (uCamWorld * v).xyz;
-      P.y -= uBase; vec3 ro = uCam; ro.y -= uBase; vec3 rd = normalize(P - ro); float tMax = d >= 1.0 ? 1e5 : length(P - ro);
-      if (uVisOn > 0.5 && d < 1.0 && visCell(P.xz).y < 0.5 && knownAt(vUv) < 0.5) { tMax = rd.y < -1e-5 ? max(0.0, -ro.y / rd.y) : 1e5; }
+      bool hid = uVisOn > 0.5 && d < 1.0 && visSurf(P).y < 0.5 && knownAt(vUv) < 0.5; float lift = hid ? max(0.0, visSurfY(P, uBase) - uBase) : 0.0;
+      P.y -= uBase + lift; vec3 ro = uCam; ro.y -= uBase + lift; vec3 rd = normalize(P - ro); float tMax = d >= 1.0 ? 1e5 : length(P - ro);
+      if (hid) { tMax = rd.y < -1e-5 ? max(0.0, -ro.y / rd.y) : 1e5; }
       if (uView > 0) { // debug views: the field on the floor
         float t = -ro.y / rd.y; if (rd.y >= 0.0 || t > tMax + 0.5) { gl_FragColor = vec4(0.0); return; }
         vec2 uv = (ro.xz + rd.xz * t - uOrigin) / uSize; if (uv.x < 0.0 || uv.y < 0.0 || uv.x > 1.0 || uv.y > 1.0) { gl_FragColor = vec4(0.0); return; }
@@ -476,7 +499,7 @@ const FS = {
   // there, as the volume used, so the upsample below is never steered by hidden walls or furniture)
   lowz: `precision highp float; varying vec2 vUv; ${VIS} ${KNOWN} uniform sampler2D uDepth; uniform vec2 uNF; uniform mat4 uProjInv, uCamWorld; uniform vec3 uCam; uniform float uBase;
     float rayLen(float d) { if (d >= 1.0) return uNF.y; vec4 v = uProjInv * vec4(vUv * 2.0 - 1.0, d * 2.0 - 1.0, 1.0); v /= v.w; vec3 P = (uCamWorld * v).xyz; vec3 rd = normalize(P - uCam);
-      if (uVisOn > 0.5 && visCell(P.xz).y < 0.5 && knownAt(vUv) < 0.5) return rd.y < -1e-5 ? (uBase - uCam.y) / rd.y : uNF.y; return length(P - uCam); }
+      if (uVisOn > 0.5 && visSurf(P).y < 0.5 && knownAt(vUv) < 0.5) return rd.y < -1e-5 ? (max(visSurfY(P, uBase), uBase) - uCam.y) / rd.y : uNF.y; return length(P - uCam); }
     void main() { float d = texture2D(uDepth, vUv).x; gl_FragColor = vec4(uVisOn > 0.5 ? rayLen(d) : (uNF.y * uNF.x) / (uNF.y - d * (uNF.y - uNF.x)), 0.0, 0.0, 1.0); }`,
   // (vision fog of war) a depth-aware blur of the low-res volume, one axis at a time: the dense bank's top, seen at a
   // grazing angle, is sampled a few feet apart along each ray and its jittered start shows as a dot screen without it
@@ -492,7 +515,7 @@ const FS = {
       bool unseen = false;
       if (uVisOn > 0.5 && d < 1.0) {
         vec4 v = uProjInv * vec4(vUv * 2.0 - 1.0, d * 2.0 - 1.0, 1.0); v /= v.w; vec3 P = (uCamWorld * v).xyz;
-        unseen = visCell(P.xz).y < 0.5 && knownAt(vUv) < 0.5;
+        unseen = visSurf(P).y < 0.5 && knownAt(vUv) < 0.5;
       }
       vec2 p = vUv / uTexel - 0.5, f = fract(p), b = (floor(p) + 0.5) * uTexel;
       if (uBilateral < 0.5) { gl_FragColor = texture2D(uFx, vUv); return; }
@@ -941,6 +964,7 @@ export function createAtmos({ renderer, scene, camera, hemi = null, sun = null, 
     blending: THREE.CustomBlending, blendSrc: THREE.OneFactor, blendDst: THREE.OneMinusSrcAlphaFactor, blendSrcAlpha: THREE.ZeroFactor, blendDstAlpha: THREE.OneFactor,
     uniforms: { uFx: { value: null }, uLowZ: { value: null }, uDepth: { value: null }, uTexel: { value: new THREE.Vector2() }, uNF: { value: new THREE.Vector2() }, uBilateral: { value: 1 }, uBase: { value: 0 }, uProjInv: { value: new THREE.Matrix4() }, uCamWorld: { value: new THREE.Matrix4() }, uVisOn: { value: 0 }, uVisMask: { value: black }, uVisBounds: { value: new THREE.Vector4(0, 0, 1, 1) }, uVisTile: { value: new THREE.Vector4(0, 0, 1, 1) }, uVisAtlas: { value: new THREE.Vector2(1, 1) }, uKnownMask: { value: black }, uHasKnown: { value: 0 } } });
   const lowzMat = new THREE.ShaderMaterial({ vertexShader: VS_FS, fragmentShader: FS.lowz, depthTest: false, depthWrite: false, uniforms: { uKnownMask: { value: black }, uHasKnown: { value: 0 }, uDepth: { value: null }, uNF: { value: new THREE.Vector2() }, uProjInv: { value: new THREE.Matrix4() }, uCamWorld: { value: new THREE.Matrix4() }, uCam: { value: new THREE.Vector3() }, uBase: { value: 0 }, uVisOn: { value: 0 }, uVisMask: { value: black }, uVisBounds: { value: new THREE.Vector4(0, 0, 1, 1) }, uVisTile: { value: new THREE.Vector4(0, 0, 1, 1) }, uVisAtlas: { value: new THREE.Vector2(1, 1) } } });
+  for (const m of [lowzMat, compMat]) U(m, { uVisUpN: 0, uVisUpY: new Array(8).fill(0), uVisUpB: Array.from({ length: 8 }, () => new THREE.Vector4(0, 0, 1, 1)), uVisUpT: Array.from({ length: 8 }, () => new THREE.Vector4(0, 0, 1, 1)) }); // (exteriors above: visSurf)
   const fxRT = makeRT(4, 4), lowZ = makeRT(4, 4), fxBlur = makeRT(4, 4);
   const blurMat = new THREE.ShaderMaterial({ vertexShader: VS_FS, fragmentShader: FS.blur, depthTest: false, depthWrite: false, uniforms: { uSrc: { value: null }, uLowZ: { value: null }, uStep: { value: new THREE.Vector2() } } });
   const size = new THREE.Vector2(1, 1);
@@ -986,8 +1010,15 @@ export function createAtmos({ renderer, scene, camera, hemi = null, sun = null, 
   const knownU = () => { const t = visOn() ? fogwar.knownTexture?.() : null; return { uKnownMask: t || black, uHasKnown: t ? 1 : 0 }; };
   const visU = () => {
     const vs = visOn() ? fogwar.visionState(level.base) : null;
-    if (!vs) return { uVisOn: 0, uVisMask: black, uVisBounds: new THREE.Vector4(0, 0, 1, 1), uVisTile: new THREE.Vector4(0, 0, 1, 1), uVisAtlas: new THREE.Vector2(1, 1) };
+    const up = { uVisUpN: 0, uVisUpY: new Array(8).fill(0), uVisUpB: Array.from({ length: 8 }, () => new THREE.Vector4(0, 0, 1, 1)), uVisUpT: Array.from({ length: 8 }, () => new THREE.Vector4(0, 0, 1, 1)) };
+    if (!vs) return { uVisOn: 0, uVisMask: black, uVisBounds: new THREE.Vector4(0, 0, 1, 1), uVisTile: new THREE.Vector4(0, 0, 1, 1), uVisAtlas: new THREE.Vector2(1, 1), ...up };
+    // the bands above the fog's own level (fogwar.visionBands: absent in an older pass = none, the old rule)
+    // (2026-11-25: every band, the fog's own among them, nearest it first if more than 8: a surface BELOW the fog's level seen
+    // down a hole is judged by its own band too; visSurf takes the highest band at or below the surface)
+    const above = (fogwar.visionBands?.() || []).slice().sort((a, b) => Math.abs(a.floorY - vs.floorY) - Math.abs(b.floorY - vs.floorY)).slice(0, 8).sort((a, b) => a.floorY - b.floorY);
+    above.forEach((b, i) => { up.uVisUpY[i] = b.floorY; up.uVisUpB[i].copy(b.bounds); up.uVisUpT[i].copy(b.tile); }); up.uVisUpN = above.length;
     return {
+      ...up,
       uVisOn: 1,
       uVisMask: vs.texture || black,
       uVisBounds: vs.bounds.clone(),
@@ -1015,6 +1046,22 @@ export function createAtmos({ renderer, scene, camera, hemi = null, sun = null, 
   const splatA = Array.from({ length: MAX_SPLATS }, () => new THREE.Vector4()), splatB = Array.from({ length: MAX_SPLATS }, () => new THREE.Vector4());
   const lpA = Array.from({ length: MAX_LIGHTS }, () => new THREE.Vector4()), lcA = Array.from({ length: MAX_LIGHTS }, () => new THREE.Vector4());
   const srcA = Array.from({ length: MAX_SPLATS }, () => new THREE.Vector4());
+  // the window moved (or is new): re-read every field from where it was; uncovered ground starts calm, at its bank.
+  // A zoom step first keeps the old fog for a short cross-fade. Done the frame the window moves, step or no step
+  // (2026-11-06): the picture, the fog of war's roll and flow seams and the probes all read the fields through the NEW
+  // window, so a frame that moved it without re-reading them drew the bank a cell or more off and then back again. That
+  // was the fog "a little janky while the view rotates" (Nick 2026-11-01): turning the view swings the visible ground
+  // round the focus, the window follows it (fitWindow), and at Medium and Low the fluid steps every other frame
+  // (graphics.js softHalf: setViewEvery(2); the governor's 'fog-half' shed too). engine/test/browser_fogspin.py
+  function regrid() {
+    if (!(needsInit || pendingMove) || !vel) return;
+    const texel = vec2(1 / dom.gw, 1 / dom.gd), sz = vec2(dom.W, dom.D), org = vec2(dom.x0, dom.z0);
+    const common = { texel, uMask: maskTex }, where = whereU(), bank = bankU(), vis = visU();
+    const old = needsInit ? { x0: 1e7, z0: 1e7, W: 1 } : pendingMove;
+    if (!needsInit && zoomSnap) { run(U(mats.scale, { ...common, uSrc: den.read.texture, uK: 1 }), prevDen); prevWin = { ...old }; xfade = 0; }
+    needsInit = false; pendingMove = null; zoomSnap = false;
+    for (const [f, kind] of [[vel, 0], [den, 1], [prs, 2], [pool, 2]]) { run(U(mats.scroll, { ...common, ...where, ...bank, ...vis, uSrc: f.read.texture, uSize: sz, uOrigin: org, uOldOrigin: vec2(old.x0, old.z0), uOldSize: vec2(old.W, old.W), uKind: kind }), f.write); f.swap(); }
+  }
   function step(dtS) {
     const t0 = performance.now(), calls0 = simCalls;
     const texel = vec2(1 / dom.gw, 1 / dom.gd), sz = vec2(dom.W, dom.D), org = vec2(dom.x0, dom.z0);
@@ -1023,14 +1070,7 @@ export function createAtmos({ renderer, scene, camera, hemi = null, sun = null, 
     const spillCap = fp?.spill?.cap ?? 0;
     const dt = Math.min(1 / 20, dtS) * P.flow.speed;
     const relaxNow = 1 - Math.exp(-P.flow.recover * dt);
-    // the window moved (or is new): re-read every field from where it was; uncovered ground starts calm, at its bank.
-    // A zoom step first keeps the old fog for a short cross-fade
-    if (needsInit || pendingMove) {
-      const old = needsInit ? { x0: 1e7, z0: 1e7, W: 1 } : pendingMove;
-      if (!needsInit && zoomSnap) { run(U(mats.scale, { ...common, uSrc: den.read.texture, uK: 1 }), prevDen); prevWin = { ...old }; xfade = 0; }
-      needsInit = false; pendingMove = null; zoomSnap = false;
-      for (const [f, kind] of [[vel, 0], [den, 1], [prs, 2], [pool, 2]]) { run(U(mats.scroll, { ...common, ...where, ...bank, ...vis, uSrc: f.read.texture, uSize: sz, uOrigin: org, uOldOrigin: vec2(old.x0, old.z0), uOldSize: vec2(old.W, old.W), uKind: kind }), f.write); f.swap(); }
-    }
+    regrid();
     if (xfade < 1) xfade = Math.min(1, xfade + dtS / 0.4);
     // splats (velocity, then density)
     if (splats.length) {
@@ -1124,7 +1164,7 @@ export function createAtmos({ renderer, scene, camera, hemi = null, sun = null, 
     const rt = renderer.getRenderTarget(), ac = renderer.autoClear, cc = renderer.getClearColor(new THREE.Color()), ca = renderer.getClearAlpha();
     renderer.autoClear = false;
     // (shedEvery > 1: the host is short of time, the game while the hand is moving; the simulation takes one longer step every few frames)
-    shedAcc += dt / 1000; if (++shedN % Math.max(shedEvery, viewEvery) !== 0) { renderer.setRenderTarget(rt); renderer.autoClear = ac; renderer.setClearColor(cc, ca); return; }
+    shedAcc += dt / 1000; if (++shedN % Math.max(shedEvery, viewEvery) !== 0) { regrid(); renderer.setRenderTarget(rt); renderer.autoClear = ac; renderer.setClearColor(cc, ca); return; } // (no step this frame, but a moved window is re-read now: regrid)
     const h = tBegin('sim'); step(Math.min(0.1, shedAcc)); shedAcc = 0; tEnd(h);
     renderer.setRenderTarget(rt); renderer.autoClear = ac; renderer.setClearColor(cc, ca);
     if (tq) tPoll();
@@ -1181,7 +1221,7 @@ export function createAtmos({ renderer, scene, camera, hemi = null, sun = null, 
       const cc = r.getClearColor(new THREE.Color()), ca = r.getClearAlpha();
       if (this.depth) { const lu = lowzMat.uniforms, vz = visU(); lu.uDepth.value = this.depth; lu.uNF.value.set(camera.near, camera.far);
         lu.uProjInv.value.copy(camera.projectionMatrixInverse); lu.uCamWorld.value.copy(camera.matrixWorld); camera.getWorldPosition(lu.uCam.value); lu.uBase.value = level.base;
-        lu.uVisOn.value = vz.uVisOn; lu.uVisMask.value = vz.uVisMask; lu.uVisBounds.value.copy(vz.uVisBounds); lu.uVisTile.value.copy(vz.uVisTile); lu.uVisAtlas.value.copy(vz.uVisAtlas); { const k = knownU(); lu.uKnownMask.value = k.uKnownMask; lu.uHasKnown.value = k.uHasKnown; }
+        lu.uVisOn.value = vz.uVisOn; lu.uVisMask.value = vz.uVisMask; lu.uVisBounds.value.copy(vz.uVisBounds); lu.uVisTile.value.copy(vz.uVisTile); lu.uVisAtlas.value.copy(vz.uVisAtlas); U(lowzMat, { uVisUpN: vz.uVisUpN, uVisUpY: vz.uVisUpY, uVisUpB: vz.uVisUpB, uVisUpT: vz.uVisUpT }); { const k = knownU(); lu.uKnownMask.value = k.uKnownMask; lu.uHasKnown.value = k.uHasKnown; }
         r.setRenderTarget(lowZ); fsMesh.material = lowzMat; r.render(fsScene, fsCam); }
       r.setRenderTarget(fxRT); r.setClearColor(0x000000, 0); r.clear(true, false, false);
       const volume = !off && vel && this.depth && (fogOn() || airOn() || heavyOn() || P.quality.view !== 'fog');
@@ -1195,7 +1235,7 @@ export function createAtmos({ renderer, scene, camera, hemi = null, sun = null, 
         const cu = compMat.uniforms, vu = visU();
         cu.uFx.value = fxRT.texture; cu.uLowZ.value = lowZ.texture; cu.uDepth.value = this.depth; cu.uTexel.value.set(1 / w, 1 / hh); cu.uNF.value.set(camera.near, camera.far); cu.uBilateral.value = this.depth && w < size.x * 0.99 ? 1 : 0;
         cu.uBase.value = level.base; cu.uProjInv.value.copy(camera.projectionMatrixInverse); cu.uCamWorld.value.copy(camera.matrixWorld);
-        cu.uVisOn.value = vu.uVisOn; cu.uVisMask.value = vu.uVisMask; cu.uVisBounds.value.copy(vu.uVisBounds); cu.uVisTile.value.copy(vu.uVisTile); cu.uVisAtlas.value.copy(vu.uVisAtlas); { const k = knownU(); cu.uKnownMask.value = k.uKnownMask; cu.uHasKnown.value = k.uHasKnown; }
+        cu.uVisOn.value = vu.uVisOn; cu.uVisMask.value = vu.uVisMask; cu.uVisBounds.value.copy(vu.uVisBounds); cu.uVisTile.value.copy(vu.uVisTile); cu.uVisAtlas.value.copy(vu.uVisAtlas); U(compMat, { uVisUpN: vu.uVisUpN, uVisUpY: vu.uVisUpY, uVisUpB: vu.uVisUpB, uVisUpT: vu.uVisUpT }); { const k = knownU(); cu.uKnownMask.value = k.uKnownMask; cu.uHasKnown.value = k.uHasKnown; }
         r.setRenderTarget(inputBuffer); fsMesh.material = compMat; r.render(fsScene, fsCam);
       }
       r.setClearColor(cc, ca);

@@ -14,12 +14,18 @@ import { installPicks } from './picks.js';
 import { newId } from '../core/ids.js';
 import { arrivalPoint, freeSquare } from '../core/travel.js';
 import { floorUnder } from '../core/height.js';
+import { crampedAt, sizeStep, sizeLabel as sizeName, sizeWord, feetOf } from '../core/size.js';
 
 const CELL = 5, MAX_GROUP = 30;
 const r2 = (v) => Math.round(v * 100) / 100;
-// where a pawn stands: a 1-square pawn on a square's centre, a 2-square one where four squares meet (and so on)
-export const pawnPoint = (v, size = 1) => size % 2 ? (Math.floor(v / CELL) + 0.5) * CELL : Math.round(v / CELL) * CELL;
-export const pawnCells = (x, z, size = 1) => { const out = [], x0 = Math.round((x - size * CELL / 2) / CELL), z0 = Math.round((z - size * CELL / 2) / CELL); for (let i = 0; i < size; i++) for (let j = 0; j < size; j++) out.push([x0 + i, z0 + j]); return out; };
+// where a pawn stands: a 1-square pawn on a square's centre, a 2-square one where four squares meet (and so on); a TINY
+// one (0.5: 2.5 ft, core/size.js) on the middle of a quarter of a square, so four share one square as in D&D
+export const pawnPoint = (v, size = 1) => size < 1 ? (Math.floor(v / (CELL * size)) + 0.5) * CELL * size : size % 2 ? (Math.floor(v / CELL) + 0.5) * CELL : Math.round(v / CELL) * CELL;
+// the 5-ft squares its base covers (a tiny pawn: the square it is in)
+export const pawnCells = (x, z, size = 1) => { if (size < 1) return [[Math.floor(x / CELL), Math.floor(z / CELL)]]; const out = [], x0 = Math.round((x - size * CELL / 2) / CELL), z0 = Math.round((z - size * CELL / 2) / CELL); for (let i = 0; i < size; i++) for (let j = 0; j < size; j++) out.push([x0 + i, z0 + j]); return out; };
+// what it OCCUPIES, in quarter squares (2.5 ft): a medium pawn 2 x 2 of them, a large 4 x 4, a tiny one (one quarter)
+const Q = CELL / 2;
+export const pawnQuarters = (x, z, size = 1) => { const n = Math.max(1, Math.round(size * 2)), x0 = Math.round((x - size * Q) / Q), z0 = Math.round((z - size * Q) / Q), out = []; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) out.push(`${x0 + i}:${z0 + j}`); return out; };
 
 // a pawn's label from its figure: the name up to its first comma or bracket ("Goblin, spear" -> "Goblin";
 // "Elf wizard (woman)" -> "Elf wizard"), so a group reads Goblin 1, Goblin 2 …
@@ -42,18 +48,24 @@ export function installPawns(app) {
   const tokens = () => Object.values(app.entities()).filter(e => e.kind === 'token');
   const sizeOf = (e) => F.sizeOf(e);
 
-  // the squares taken by pawns standing on this floor (within half a storey of y)
+  // the quarter squares taken by pawns standing on this floor (within half a storey of y)
   function taken(y, except = null) {
     const out = new Set();
-    for (const t of tokens()) if (!except?.has(t.id) && Math.abs((t.y || 0) - y) < 5) for (const [gx, gz] of pawnCells(t.x, t.z, sizeOf(t))) out.add(`${gx}:${gz}`);
+    for (const t of tokens()) if (!except?.has(t.id) && Math.abs((t.y || 0) - y) < 5) for (const k of pawnQuarters(t.x, t.z, sizeOf(t))) out.add(k);
     return out;
   }
+  // A BIG BASE IN A NARROW PLACE (core/size.js crampedAt): does a pawn of `size` squares fit with its middle at (x, z), at
+  // height y, among the walls its feet meet there (the movement rings' walls: surfaces/moverings.js app.pawnWalls)? A pawn of
+  // one square or less always does (nothing changes for it). -> true, or false (too big to fit there)
+  app.pawnFits = (x, z, size, y = 0, area = app.area()) => size <= 1 || !app.pawnWalls || crampedAt(x, z, size, app.pawnWalls(x, z, y, area)) == null;
+  app.sizeName = (e) => sizeName(sizeOf(e));
+  const tooBig = (name, size) => `${name} is too big to fit there (${sizeWord(size)}: ${feetOf(size)} ft across)`;
   // where a group of n would stand round a clicked point: the lead on the clicked square(s), the rest on the nearest
   // free squares (ring by ring, nearest first), kept in the lead's room when they fit there
   app.pawnFormation = (x, z, { size = 1, n = 1, y = 0, free = false } = {}) => {
     const lx = pawnPoint(x, size), lz = pawnPoint(z, size), step = size * CELL, busy = taken(y), room = app.roomAt(lx, lz, y)?.id || null;
-    const isFree = (px, pz) => pawnCells(px, pz, size).every(([gx, gz]) => !busy.has(`${gx}:${gz}`));
-    const claim = (px, pz) => { for (const [gx, gz] of pawnCells(px, pz, size)) busy.add(`${gx}:${gz}`); return [px, pz]; };
+    const isFree = (px, pz) => pawnQuarters(px, pz, size).every(k => !busy.has(k)) && app.pawnFits(px, pz, size, y); // (and a big base has room there)
+    const claim = (px, pz) => { for (const k of pawnQuarters(px, pz, size)) busy.add(k); return [px, pz]; };
     const out = [claim(lx, lz)]; // the lead goes where it was clicked, whatever stands there (the click is the choice)
     const cands = [];
     for (let ring = 1; ring <= 9 && cands.length < n * 6; ring++) for (let i = -ring; i <= ring; i++) for (let j = -ring; j <= ring; j++) if (Math.max(Math.abs(i), Math.abs(j)) === ring) cands.push([i, j]);
@@ -81,7 +93,7 @@ export function installPawns(app) {
   app.addPawns = (fig, x, z, { count = 1, y = 0, rot = 0, owner = null, name = null, select = true, numbered = false, free = false } = {}) => {
     const f = typeof fig === 'string' ? F.get(fig) : fig, size = f?.size || 1, n = Math.max(1, Math.min(MAX_GROUP, count | 0));
     const spots = app.pawnFormation(x, z, { size, n, y, free }), names = app.pawnNames(name || pawnLabel(f), spots.length, numbered), color = app.myColor();
-    const ops = spots.map(([px, pz], i) => ({ type: 'token.create', args: { id: newId('tok'), name: names[i], x: r2(px), z: r2(pz), ...(y && { y: r2(y) }), rot: r2(rot), color, ...(owner && { owner }), ...(f && { fig: f.id }), ...(size > 1 && { size }) } }));
+    const ops = spots.map(([px, pz], i) => ({ type: 'token.create', args: { id: newId('tok'), name: names[i], x: r2(px), z: r2(pz), ...(y && { y: r2(y) }), rot: r2(rot), color, ...(owner && { owner }), ...(f && { fig: f.id }), ...(size !== 1 && { size }) } }));
     app.batch(ops);
     const ids = ops.map(o => o.args.id);
     if (select) app.select(ids);
@@ -100,23 +112,55 @@ export function installPawns(app) {
       const bases = new Map(); for (const m of ms) bases.set(m.name, (bases.get(m.name) || 0) + 1);
       const names = new Map([...bases].map(([b, n]) => [b, app.pawnNames(b, n, n > 1)]));
       // (each spot is the middle of an S x S block of squares: a smaller pawn stands in the block's first square)
-      ms.slice(0, spots.length).forEach((m, i) => { const [px, pz] = spots[i], off = (m.size - S) * 2.5; ops.push({ type: 'token.create', args: { id: newId('tok'), name: names.get(m.name).shift(), x: r2(px + off), z: r2(pz + off), ...(y && { y: r2(y) }), rot: r2(rot), color, ...(m.f && { fig: m.f.id }), ...(m.size > 1 && { size: m.size }) } }); });
+      ms.slice(0, spots.length).forEach((m, i) => { const [px, pz] = spots[i], off = (m.size - S) * 2.5; ops.push({ type: 'token.create', args: { id: newId('tok'), name: names.get(m.name).shift(), x: r2(px + off), z: r2(pz + off), ...(y && { y: r2(y) }), rot: r2(rot), color, ...(m.f && { fig: m.f.id }), ...(m.size !== 1 && { size: m.size }) } }); });
     } else {
       const f = F.get(cast.fig), size = cast.size || f?.size || 1, [px, pz] = app.pawnFormation(x, z, { size, n: 1, y, free })[0];
-      ops.push({ type: 'token.create', args: { id: newId('tok'), def: cast.id, name: app.pawnNames(cast.name, 1)[0], x: r2(px), z: r2(pz), ...(y && { y: r2(y) }), rot: r2(rot), color, ...(f && { fig: f.id }), ...(size > 1 && { size }), ...(cast.sheet && { sheet: cast.sheet }), ...(cast.notes && { notes: cast.notes }), ...(cast.gmNotes && { gmNotes: cast.gmNotes }) } });
+      ops.push({ type: 'token.create', args: { id: newId('tok'), def: cast.id, name: app.pawnNames(cast.name, 1)[0], x: r2(px), z: r2(pz), ...(y && { y: r2(y) }), rot: r2(rot), color, ...(f && { fig: f.id }), ...(size !== 1 && { size }), ...(cast.sheet && { sheet: cast.sheet }), ...(cast.notes && { notes: cast.notes }), ...(cast.gmNotes && { gmNotes: cast.gmNotes }) } });
     }
     app.batch(ops); app.sync.submit('cast.use', { id: cast.id });
     const ids = ops.map(o => o.args.id); if (select) app.select(ids);
     app.lastPawns = { ids, names: ops.map(o => o.args.name), cast: cast.id }; // (tests)
     return ids;
   };
+  // A SIZE (Harry 2026-11-06: "doing resizing for pawns (which should also change their footprint)"; core/size.js): each pawn
+  // takes the size (squares a side) or steps one size bigger / smaller ({ step: 1 | -1 }). Its base goes onto the squares
+  // the new base covers (when it stood on squares: a large one where four meet, a tiny one on a quarter), and, if a big
+  // base has no room there among the walls, onto the nearest place that has. ONE command, one undo, every seat. A pawn
+  // with no room anywhere near is left as it was and said so. The definition (the bench) keeps its own size: this is the
+  // pawn on the table (Enlarge, Reduce, the GM's "make it huge"). -> the command id, or null
+  app.setSize = (pawns, want) => {
+    const ops = [], none = [], moved = [];
+    for (const p of pawns) {
+      if (p.kind !== 'token') continue;
+      const cur = sizeOf(p), to = typeof want === 'number' ? want : sizeStep(cur, want?.step || 0);
+      if (to === cur) continue;
+      const y = p.y || 0, onSquares = Math.abs(pawnPoint(p.x, cur) - p.x) < 0.02 && Math.abs(pawnPoint(p.z, cur) - p.z) < 0.02;
+      let x = onSquares ? pawnPoint(p.x, to) : p.x, z = onSquares ? pawnPoint(p.z, to) : p.z;
+      if (app.pawnStands?.(p) !== false && !app.pawnFits(x, z, to, y)) {
+        const busy = taken(y, new Set([p.id])), stepFt = Math.min(to, 1) * Q, cands = [];
+        for (let i = -12; i <= 12; i++) for (let j = -12; j <= 12; j++) if (i || j) cands.push([x + i * stepFt, z + j * stepFt]);
+        cands.sort((a, b) => Math.hypot(a[0] - x, a[1] - z) - Math.hypot(b[0] - x, b[1] - z));
+        const fit = (c) => app.pawnFits(c[0], c[1], to, y), free = (c) => pawnQuarters(c[0], c[1], to).every(k => !busy.has(k));
+        const best = cands.find(c => fit(c) && free(c)) || cands.find(fit);
+        if (!best) { none.push(p); continue; }
+        [x, z] = best; moved.push(p);
+      }
+      ops.push({ type: 'token.set', args: { id: p.id, size: to } });
+      if (Math.abs(x - p.x) > 1e-6 || Math.abs(z - p.z) > 1e-6) ops.push({ type: 'token.move', args: { id: p.id, x: r2(x), z: r2(z) } });
+    }
+    app.lastSize = { want, ops: ops.map(o => ({ ...o.args, type: o.type })), none: none.map(p => p.id), moved: moved.map(p => p.id) }; // (tests)
+    if (none.length) app.toast(none.length > 1 ? `No room for ${none.length} of them at that size here` : `No room for ${none[0].name} ${typeof want === 'number' ? `at ${sizeName(want)}` : 'that size'} here: it stays as it was`, true);
+    return ops.length ? app.batch(ops) : null;
+  };
+  app.tooBig = tooBig;
   app.setFigure = (pawns, fig) => {
     const f = typeof fig === 'string' ? F.get(fig) : fig;
     // a PLACEHOLDER pawn given a figure (the bar's "change figure", a figure dropped on it) is chosen: its definition is
     // told too, so the pawn does not come back from the bench as a placeholder (the pawn's own flag goes with the figure)
     for (const p of pawns) if (p.placeholder && p.def && app.sync.campaign?.pawns?.some(d => d.id === p.def)) app.dispatch('pawn.define', { id: p.def, fig: f ? f.id : 'none', size: f?.size || 1 });
     return app.batch(pawns.map(p => {
-      const size = f?.size || 1, moved = size !== sizeOf(p); // a pawn that changes size goes onto the squares its new base covers
+      // a size CHOSEN for this pawn (not its old figure's own: Enlarge, a huge goblin) stays; else it takes the new figure's
+      const chosen = sizeOf(p) !== (F.get(p.fig)?.size || 1), size = chosen ? sizeOf(p) : f?.size || 1, moved = size !== sizeOf(p); // a pawn that changes size goes onto the squares its new base covers
       return [{ type: 'token.set', args: { id: p.id, fig: f ? f.id : 'none', size } }, ...(moved ? [{ type: 'token.move', args: { id: p.id, x: pawnPoint(p.x, size), z: pawnPoint(p.z, size) } }] : [])];
     }).flat());
   };
@@ -196,22 +240,26 @@ export function installPawns(app) {
       app.refresh(); return true;
     },
     clear() { if (ghost) { ghost.parent?.remove(ghost); ghost = null; } app.worlds.get(app.area())?.clearCells('pawn-tool'); },
+    ghostInfo: () => ghost ? { visible: ghost.visible, x: ghost.position.x, z: ghost.position.z } : null, // (tests)
     plan(ground, free = false) { const m = app.mode?.pawn; if (!m || !ground) return null; const y = ground.y || 0; return { y, spots: app.pawnFormation(ground[0], ground[1], { size: m.size, n: m.n, y, free }) }; },
     hover(ray, ground, ev) {
       const m = app.mode?.pawn, drag = !!app.mode?.viaDrag, P = T.plan(ground, drag && !app.pawnSnaps(!!ev?.shiftKey)); if (!ghost || !m) return; // (dragged out of a list: on the squares or off them by the same rule as a dragged pawn)
       ghost.visible = !!P;
       if (!P) { world().clearCells('pawn-tool'); sizeLabel.hidden = true; return; }
       ghost.position.set(P.spots[0][0], P.y, P.spots[0][1]); ghost.rotation.y = app.mode.rot;
-      world().showCells('pawn-tool', { lit: P.spots.flatMap(([x, z]) => pawnCells(x, z, m.size)), dim: [], color: app.myColor(), y: P.y });
-      if (ev) { sizeLabel.hidden = false; sizeLabel.classList.remove('bad'); sizeLabel.textContent = `${m.n > 1 ? `${P.spots.length} × ` : ''}${app.mode.cat.name}${m.size > 1 ? ` · ${m.size * 5} ft base` : ''} · ${drag ? (app.pawnSnaps(!!ev.shiftKey) ? 'let go on a square' : app.pawnSnaps(true) ? 'let go anywhere · Shift: on a square' : 'let go anywhere') : 'click a square'} · R turns`; sizeLabel.style.left = `${ev.clientX + 40}px`; sizeLabel.style.top = `${ev.clientY + 40}px`; }
+      const cramped = !app.pawnFits(P.spots[0][0], P.spots[0][1], m.size, P.y); app.mode.cramped = cramped; // (a big base where it has no room: red, and a click is refused)
+      world().showCells('pawn-tool', { lit: P.spots.flatMap(([x, z]) => pawnCells(x, z, m.size)), dim: [], color: cramped ? '#e5484d' : app.myColor(), y: P.y });
+      if (ev && cramped) { sizeLabel.hidden = false; sizeLabel.classList.add('bad'); sizeLabel.textContent = tooBig(app.mode.cat.name, m.size); sizeLabel.style.left = `${ev.clientX + 40}px`; sizeLabel.style.top = `${ev.clientY + 40}px`; return; }
+      if (ev) { sizeLabel.hidden = false; sizeLabel.classList.remove('bad'); sizeLabel.textContent = `${m.n > 1 ? `${P.spots.length} × ` : ''}${app.mode.cat.name}${m.size !== 1 ? ` · ${feetOf(m.size)} ft base` : ''} · ${drag ? (app.pawnSnaps(!!ev.shiftKey) ? 'let go on a square' : app.pawnSnaps(true) ? 'let go anywhere · Shift: on a square' : 'let go anywhere') : 'click a square'} · R turns`; sizeLabel.style.left = `${ev.clientX + 40}px`; sizeLabel.style.top = `${ev.clientY + 40}px`; }
     },
     placeAt(ray, ground, ev) {
       const m = app.mode?.pawn; if (!m || !ground) return;
       // DRAGGED OUT OF A LIST (app.dragPawnOut): one drop, never "keep placing"; Shift is off the squares instead
       const drag = !!app.mode.viaDrag, free = drag && !app.pawnSnaps(!!ev?.shiftKey); if (drag) ev = null;
+      { const at = app.pawnFormation(ground[0], ground[1], { size: m.size, n: 1, y: ground.y || 0, free })[0]; if (!app.pawnFits(at[0], at[1], m.size, ground.y || 0)) { app.toast(tooBig(app.mode.cat.name, m.size), true); app.lastRefusal = { what: 'pawn.place', size: m.size, at, at_: Date.now() }; return false; } } // (a big base with no room there: refused, as a blocked move is)
       if (m.def) { // from my bench: the relay writes the pawn from the definition (what is sent here is only for drawing it at once)
         const d = m.def, [x, z] = app.pawnFormation(ground[0], ground[1], { size: m.size, n: 1, y: ground.y || 0, free })[0], id = newId('tok');
-        app.dispatch('pawn.bring', { id, def: d.id, x: r2(x), z: r2(z), ...(ground.y && { y: r2(ground.y) }), rot: r2(app.mode.rot), name: d.name, owner: d.owner, color: app.seatColor(d.owner), ...(d.fig && { fig: d.fig }), ...(m.size > 1 && { size: m.size }), ...(d.sheet && { sheet: d.sheet }), ...(d.notes && { notes: d.notes }), ...(d.main && { main: true }) });
+        app.dispatch('pawn.bring', { id, def: d.id, x: r2(x), z: r2(z), ...(ground.y && { y: r2(ground.y) }), rot: r2(app.mode.rot), name: d.name, owner: d.owner, color: app.seatColor(d.owner), ...(d.fig && { fig: d.fig }), ...(m.size !== 1 && { size: m.size }), ...(d.sheet && { sheet: d.sheet }), ...(d.notes && { notes: d.notes }), ...(d.main && { main: true }) });
         app.select([id]); app.lastPawns = { ids: [id], names: [d.name], fig: d.fig || null, def: d.id }; app.modes.cancel(); return;
       }
       if (m.cast) { const ids = app.dropCast(m.cast, ground[0], ground[1], { y: ground.y || 0, rot: app.mode.rot, free }); if (ids.length < m.n) app.toast(`Room for ${ids.length} of ${m.n} there`, true); if (!(ev?.shiftKey || (app.mode.keep && !drag))) app.modes.cancel(); return; }

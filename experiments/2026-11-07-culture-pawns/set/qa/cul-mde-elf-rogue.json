@@ -1,0 +1,133 @@
+{
+ "file": "cul-mde-elf-rogue.glb",
+ "tris": 48942,
+ "kb": 2711,
+ "native_extent": [
+  0.435,
+  1.001,
+  0.284
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  92,
+  45,
+  24
+ ],
+ "mean_saturation": 0.777,
+ "sized_by": "its highest point",
+ "overall_ft": 5.9,
+ "pieces": {
+  "connected_parts": 58,
+  "main_part_area_share": 0.9996,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.8935,
+ "y0": -2.9515,
+ "stated_ft": {
+  "body": 5.9,
+  "figure_top": 5.9,
+  "overall": 5.9
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2175,
+   -0.5008,
+   -0.1441
+  ],
+  [
+   0.2171,
+   0.5004,
+   0.1402
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 48942,
+   "tex": 2048,
+   "kb": 2711
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1045
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 434
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.85,
+    "z": 0.22,
+    "size_ft": [
+     0.89,
+     0.96
+    ],
+    "off_ground_ft": 0.002,
+    "sole_level_share": 0.88,
+    "sole_p90_ft": 0.069
+   },
+   {
+    "x": -0.79,
+    "z": -0.06,
+    "size_ft": [
+     0.79,
+     0.98
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.052
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.002,
+  "lowest_slab_area_sqft": 0.96,
+  "plan_hull_area_sqft": 3.08,
+  "lowest_slab_share_of_plan": 0.312
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.56,
+   "d": 1.67,
+   "h": 5.9
+  },
+  "centre": [
+   0.057,
+   0.304
+  ],
+  "contacts_radius_ft": 1.23,
+  "reach_radius_ft": 1.44,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.891,
+  "plate_lost_share": 0.022,
+  "added_share": 0.098,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.891,
+  "view_yaw_deg": 345,
+  "view_elev_deg": 8
+ },
+ "id": "cul-mde-elf-rogue",
+ "sha1": "530c3fb80e2a91f57ed2c43e03d2727a1c9c3e8b",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 9.1
+}

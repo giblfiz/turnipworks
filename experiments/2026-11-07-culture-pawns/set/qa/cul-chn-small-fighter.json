@@ -1,0 +1,139 @@
+{
+ "file": "cul-chn-small-fighter.glb",
+ "tris": 49932,
+ "kb": 2738,
+ "native_extent": [
+  0.495,
+  1.001,
+  0.54
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0024,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  61,
+  39,
+  35
+ ],
+ "mean_saturation": 0.368,
+ "sized_by": "its highest point",
+ "overall_ft": 3.1,
+ "pieces": {
+  "connected_parts": 11,
+  "main_part_area_share": 0.9965,
+  "floating": [
+   {
+    "area_share": 0.00028,
+    "gap_ft": 0.04,
+    "size_ft": 0.08
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 0.00028,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 3.0968,
+ "y0": -1.5511,
+ "stated_ft": {
+  "body": 3.1,
+  "figure_top": 3.1,
+  "overall": 3.1
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2459,
+   -0.5009,
+   -0.2802
+  ],
+  [
+   0.2489,
+   0.5002,
+   0.2597
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49932,
+   "tex": 2048,
+   "kb": 2738
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1011
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 446
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.21,
+    "z": -0.43,
+    "size_ft": [
+     0.46,
+     0.71
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.037
+   },
+   {
+    "x": -0.3,
+    "z": 0.38,
+    "size_ft": [
+     0.49,
+     0.68
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.95,
+    "sole_p90_ft": 0.033
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 0.44,
+  "plan_hull_area_sqft": 1.74,
+  "lowest_slab_share_of_plan": 0.256
+ },
+ "plan": {
+  "size_ft": {
+   "w": 1.53,
+   "d": 1.67,
+   "h": 3.1
+  },
+  "centre": [
+   0.105,
+   0.036
+  ],
+  "contacts_radius_ft": 0.77,
+  "reach_radius_ft": 0.93,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.927,
+  "plate_lost_share": 0.021,
+  "added_share": 0.057,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.927,
+  "view_yaw_deg": 285,
+  "view_elev_deg": 8
+ },
+ "id": "cul-chn-small-fighter",
+ "sha1": "7972d6215420c3d47c1b380ffdf6f233ee8c42dc",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 9.6
+}

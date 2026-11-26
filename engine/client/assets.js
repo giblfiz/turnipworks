@@ -89,7 +89,8 @@ export function createAssets({ base, dials = null }) {
   const specBase = (e, cat, sku, url, s, dims) => ({ id: cat, sku, url, kind: e.flat ? 'flat' : 'mesh', place: e.place, layer: e.layer, rule: e.rule || undefined, orient: e.orient || (e.flat ? (e.place === 'wall' ? 'wall' : 'floor') : undefined),
     s: s || [1, 1, 1], dims: dims || [2, 2, 2], yaw: e.yaw || 0, y: e.y || 0 });
   // floor tiles: the tuner's floor code for the tile's world cell (client/tiles.js), so patterns continue across tiles
-  const visualFor = (e) => isHoleCat(e.cat) || /^hole-round-/.test(e.cat || '') ? Promise.resolve(e.id ? holeVisual(e) : holeGhost(/^hole-round/.test(e.cat) ? 'hole-round' : 'hole', e.dims?.[0] || 10)) : !e.url ? Promise.resolve(null) : (isTile(e) || (e.place === 'tile' && isFloorCat(e.cat))) ? tileVisual(look, e) : meshVisual(specOf(e));
+  // an UPLOADED model (client/uploads.js sets uploadVisual: the relay's mesh, at the thing's size; a marked box once it is gone)
+  const visualFor = (e) => e.upload ? (A.uploadVisual ? A.uploadVisual(e) : Promise.resolve(null)) : isHoleCat(e.cat) || /^hole-round-/.test(e.cat || '') ? Promise.resolve(e.id ? holeVisual(e) : holeGhost(/^hole-round/.test(e.cat) ? 'hole-round' : 'hole', e.dims?.[0] || 10)) : !e.url ? Promise.resolve(null) : (isTile(e) || (e.place === 'tile' && isFloorCat(e.cat))) ? tileVisual(look, e) : meshVisual(specOf(e));
 
   // a mesh, rigged to open when it moves to open (openlook.js); the rig (look.js's hinge, or ours) is v.userData.openRig
   const meshVisual = (spec) => look.makeVisual(spec, false).then(v => {
@@ -152,6 +153,7 @@ export function createAssets({ base, dials = null }) {
     return out.slice(0, limit);
   }
 
-  return { look, lib, setFaces, faces: () => (D || T.look.LOOK_DIALS).faces, specOf, visualFor, placeholder, catalog, catById, openable, openLook, lightable, lightKind, lightRadius, similar,
+  const A = { uploadVisual: null, look, lib, setFaces, faces: () => (D || T.look.LOOK_DIALS).faces, specOf, visualFor, placeholder, catalog, catById, openable, openLook, lightable, lightKind, lightRadius, similar,
     template: (url) => look.loadGLB(url), texture: (url) => look.loadTex(url), meshYaw: (sku, yaw) => look.meshYawDeg({ sku, yaw }) * Math.PI / 180 };
+  return A;
 }

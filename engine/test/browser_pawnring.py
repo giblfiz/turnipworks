@@ -184,10 +184,10 @@ async def main():
         check(ring == ['edit.rotate', 'pawn.sheet', 'pawn.damage', 'pawn.attack', 'pawn.eyes', 'menu'], 'the pawn\'s owner gets all five (Attack included), and Eyes (first person, 2026-10-29: on a player\'s own pawn)', ring)
         await sel(gm, BR); await gm.click('#ring .rbtn[data-menu]'); await gm.wait_for_timeout(350)
         menu = await gm.evaluate("tw.ringMenu().map(n => n.cmd || '▸' + n.group)")
-        check(menu == ['pawn.eyes', '▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'edit.lift', 'thing.hide', 'pawn.travel'], 'open, exactly (the cuts of 2026-10-11, First person since 2026-10-29, Aura since 2026-10-30): First person, Conditions ▸, Indicators ▸, Aura ▸, raise / lower, hide, send to area', menu)
+        check(menu == ['pawn.eyes', '▸pawn.cond.', '▸pawn.mark.', '▸pawn.aura.', 'pawn.resize', 'edit.lift', 'thing.hide', 'pawn.travel'], 'open, exactly (the cuts of 2026-10-11, First person since 2026-10-29, Aura since 2026-10-30, Size as the resize drag since 2026-11-07): First person, Conditions ▸, Indicators ▸, Aura ▸, Size, raise / lower, hide, send to area', menu)
         # (2026-10-20: the names are drawn in the ring's label style from each button's data-tip, not in a .cap inside it)
         caps = await gm.evaluate("[...document.querySelectorAll('#ring .rbtn.ex')].map(b => [b.dataset.tip || '', b.title || ''])")
-        check(len(caps) == 7 and all(c[0] for c in caps) and [c[0] for c in caps] == ['First person', 'Conditions', 'Indicators', 'Aura', 'Raise / lower', 'Hide from players', 'Send to area'], 'the open circle shows names, not only icons', [c[0] for c in caps])
+        check(len(caps) == 8 and all(c[0] for c in caps) and [c[0] for c in caps] == ['First person', 'Conditions', 'Indicators', 'Aura', 'Size', 'Raise / lower', 'Hide from players', 'Send to area'], 'the open circle shows names, not only icons', [c[0] for c in caps])
         check(not any('HP' in c[0] or 'Damage' in c[0] or 'Delete' in c[0] or 'Lock' in c[0] or 'Duplicate' in c[0] for c in caps) and await gm.evaluate("!tw.registry.get('pawn.hp-5') && !tw.registry.get('pawn.hp+1') && !tw.registry.get('pawn.hp')"), 'no Delete, Lock or Duplicate on the ring; the four HP buttons are gone', caps)
         # Delete left the ring: its key must still be findable. The "?" sheet lists it, with the pawn selected.
         await gm.keyboard.press('Escape'); await gm.evaluate("tw.emit('sheet.toggle')"); await gm.wait_for_timeout(250)

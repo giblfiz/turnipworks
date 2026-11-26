@@ -1,0 +1,153 @@
+{
+ "file": "cul-chn-swordswoman.glb",
+ "tris": 47385,
+ "kb": 2850,
+ "native_extent": [
+  0.547,
+  1.001,
+  0.393
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0015,
+  "seen": 0.0009
+ },
+ "mean_rgb": [
+  90,
+  68,
+  43
+ ],
+ "mean_saturation": 0.496,
+ "sized_by": "the figure's own top, weapon left out",
+ "shaft": {
+  "thin_run_ft": 2.68,
+  "length_ft": 2.89,
+  "low_end_ft": [
+   -1.14,
+   2.64,
+   0.46
+  ],
+  "high_end_ft": [
+   -1.39,
+   5.47,
+   1.0
+  ],
+  "tilt_from_upright_deg": 12.0,
+  "thickness_ft": 0.23,
+  "clear_share": 0.81,
+  "joined_share": 0.19,
+  "broken_share": 0.0,
+  "walk_low_to_high": "--######------------------------"
+ },
+ "overall_ft": 5.41,
+ "pieces": {
+  "connected_parts": 31,
+  "main_part_area_share": 0.9935,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.4195,
+ "y0": -2.7146,
+ "stated_ft": {
+  "body": 5.3,
+  "figure_top": 5.3,
+  "overall": 5.3
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2731,
+   -0.5009,
+   -0.1946
+  ],
+  [
+   0.2735,
+   0.5004,
+   0.1983
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47385,
+   "tex": 2048,
+   "kb": 2850
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 1116
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 486
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": -0.9,
+    "z": -0.11,
+    "size_ft": [
+     0.92,
+     1.01
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.021
+   },
+   {
+    "x": 0.78,
+    "z": 0.09,
+    "size_ft": [
+     0.68,
+     1.13
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.96,
+    "sole_p90_ft": 0.016
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.001,
+  "lowest_slab_area_sqft": 1.12,
+  "plan_hull_area_sqft": 4.49,
+  "lowest_slab_share_of_plan": 0.25
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.96,
+   "d": 2.13,
+   "h": 5.41
+  },
+  "centre": [
+   -0.101,
+   0.199
+  ],
+  "contacts_radius_ft": 1.24,
+  "reach_radius_ft": 1.55,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.906,
+  "plate_lost_share": 0.047,
+  "added_share": 0.051,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.87,
+  "view_yaw_deg": 25,
+  "view_elev_deg": 0
+ },
+ "id": "cul-chn-swordswoman",
+ "sha1": "381d595a11027b512972c2cda30e32ffed667d0f",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 9.5
+}

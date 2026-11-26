@@ -1,0 +1,102 @@
+{
+ "calls": [
+  {
+   "skus": [
+    "cooling-unit",
+    "shelving-wire"
+   ],
+   "names": {
+    "4790c3.jpg": "cooling-unit|room-high|before",
+    "d7d367.jpg": "cooling-unit|room-high|after",
+    "a183ff.jpg": "shelving-wire|room-high|after",
+    "51ec59.jpg": "shelving-wire|room-high|before"
+   },
+   "answer": {
+    "images": {
+     "4790c3.jpg": {
+      "text": [
+       "Server room"
+      ],
+      "reads_as": 9,
+      "clean": 8,
+      "detail": 8,
+      "problems": "none"
+     },
+     "d7d367.jpg": {
+      "text": [],
+      "reads_as": 4,
+      "clean": 5,
+      "detail": 4,
+      "problems": "severe clipping through the partition wall, duplicated instances clipping through boundary, rounded glowing handles instead of cooling vents"
+     },
+     "51ec59.jpg": {
+      "text": [],
+      "reads_as": 3,
+      "clean": 3,
+      "detail": 2,
+      "problems": "melted and indistinct wire frame, amorphous blobby items on shelves, lacks recognizable dry goods"
+     },
+     "a183ff.jpg": {
+      "text": [],
+      "reads_as": 8,
+      "clean": 8,
+      "detail": 7,
+      "problems": "slight clipping into adjacent partition wall"
+     }
+    },
+    "pairs": [
+     {
+      "a": "4790c3.jpg",
+      "b": "d7d367.jpg",
+      "better": "4790c3.jpg",
+      "clarity": "clear",
+      "why": "4790c3.jpg features a crisp, realistic data-centre cooling unit with twin top exhaust grilles, whereas d7d367.jpg has blobby glowing handles and severely clips through the room wall."
+     },
+     {
+      "a": "51ec59.jpg",
+      "b": "a183ff.jpg",
+      "better": "a183ff.jpg",
+      "clarity": "clear",
+      "why": "a183ff.jpg has well-defined wire posts, clear shelving tiers, and recognizable dry goods including a top storage tub, while 51ec59.jpg is dark, melted, and blobby."
+     }
+    ]
+   }
+  }
+ ],
+ "summary": {
+  "cooling-unit": {
+   "pairs": [
+    {
+     "view": "room-high",
+     "before": 8.33,
+     "after": 4.33,
+     "better": "before",
+     "clarity": "clear",
+     "why": "4790c3.jpg features a crisp, realistic data-centre cooling unit with twin top exhaust grilles, whereas d7d367.jpg has blobby glowing handles and severely clips through the room wall.",
+     "problems_after": "severe clipping through the partition wall, duplicated instances clipping through boundary, rounded glowing handles instead of cooling vents",
+     "text_after": []
+    }
+   ],
+   "before": 8.33,
+   "after": 4.33,
+   "win": false
+  },
+  "shelving-wire": {
+   "pairs": [
+    {
+     "view": "room-high",
+     "before": 2.67,
+     "after": 7.67,
+     "better": "after",
+     "clarity": "clear",
+     "why": "a183ff.jpg has well-defined wire posts, clear shelving tiers, and recognizable dry goods including a top storage tub, while 51ec59.jpg is dark, melted, and blobby.",
+     "problems_after": "slight clipping into adjacent partition wall",
+     "text_after": []
+    }
+   ],
+   "before": 2.67,
+   "after": 7.67,
+   "win": true
+  }
+ }
+}

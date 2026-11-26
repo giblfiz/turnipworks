@@ -133,13 +133,22 @@ async def main():
           const cols = new Set(ts.map(t => Math.round(t.left))).size, anc = [...document.querySelectorAll('#buildMenu .bchip')].map(c => c.getBoundingClientRect().bottom), grid = document.querySelector('#buildMenu .bgrid').getBoundingClientRect().top;
           return { left: m.left, ll: l.left, top: m.top, lb: l.bottom, cols, anc: anc.length, above: anc.every(b => b <= grid + 1), flyouts: document.querySelectorAll('#buildMenu .casc, #buildMenu .kids').length, imgs: [...document.querySelectorAll('#buildMenu .btile')].every(t => t.querySelector('.nic') && t.querySelector('.bl').textContent) }; })()""")
         check(abs(geo['left'] - geo['ll']) < 1 and geo['top'] > geo['lb'] and geo['cols'] == 2 and geo['anc'] == 2 and geo['above'] and geo['flyouts'] == 0 and geo['imgs'], 'ONE tray: left edge on the Build button\'s, the levels above as a stacked breadcrumb, the options as a two-column grid of big icon tiles (labels under), no fly-outs', geo)
+        # THE BREADCRUMB RULE (Harry 2026-11-12, surfaces/where.js): chips are named for the list they open, wearing that
+        # list's OWNER's icon (the icons one row down); the header says where you are, on one line, with no level key
+        s = await state(gm); w = s['where']; ch = s['chips']
+        line = await gm.evaluate("(() => { const h = document.querySelector('#buildMenu .bwhere'), p = h.querySelector('.wpath').getBoundingClientRect(), b = h.querySelector('b').getBoundingClientRect(); return { one: Math.abs((p.top + p.bottom) - (b.top + b.bottom)) < 6 && h.getBoundingClientRect().height < 40, kbd: !!h.querySelector('kbd'), button: h.tagName !== 'BUTTON' && !h.querySelector('button') }; })()")
+        check([c['text'] for c in ch] == ['Genres', 'Types'] and [c['key'] for c in ch] == ['⇧G', '⇧T'], 'the chips are back-navigation, named for the LIST each opens: "Genres", "Types", each with its ⇧ key', ch)
+        check('genres-all.png' in (ch[0]['icon'] or '') and 'genre-fantasy.png' in (ch[1]['icon'] or ''), 'the icons shift down one row: "Genres" wears the permanent all-genres icon, "Types" wears Fantasy\'s (it goes back to the types OF Fantasy)', [c['icon'] for c in ch])
+        check(w and w['path'] == 'Fantasy ›' and w['label'] == 'Tavern & inn' and 'type-TAV.png' in (w['icon'] or '') and line['one'] and not line['kbd'] and line['button'], 'the header says where you are: the Tavern & inn icon, "Fantasy ›" small grey, "Tavern & inn" big, on one line; no ⇧R in it, and it is not a button', [w, line])
         c_room = await curs()
         await gm.keyboard.press('Shift+G'); await gm.wait_for_timeout(250)
         s = await state(gm); c_none = await curs()
         check(s['active'] == 'genre' and s['tool'] is None and 'cursors/' not in c_none, 'Shift+G jumps to the genres: no tool, the ordinary pointer', [s['path'], c_none[:40]])
+        check(s['chips'] == [] and s['where'] == {'path': '', 'label': 'Genres', 'icon': None}, 'at the top: no chips; the header reads "Genres" with no owner icon', [s['chips'], s['where']])
         await gm.keyboard.press('f'); await gm.wait_for_timeout(200)
         s = await state(gm); types = s['list']
         check(s['active'] == 'type' and len(types) >= 10 and any('Tavern' in t for t in types), 'a letter picks the genre and its types become the current list (every type has a letter)', f"{len(types)} types: {types[:4]}")
+        check([c['text'] for c in s['chips']] == ['Genres'] and 'genres-all.png' in (s['chips'][0]['icon'] or '') and s['where']['label'] == 'Fantasy' and s['where']['path'] == '' and 'genre-fantasy.png' in (s['where']['icon'] or ''), 'choosing a type in Fantasy: one chip, [all genres] "Genres"; the header is the Fantasy icon and "Fantasy"', [s['chips'], s['where']])
         hot_t = next(t.split(':')[0] for t in types if 'Tavern' in t)
         await gm.keyboard.press(hot_t); await gm.wait_for_timeout(300)
         s = await state(gm); cur = await gm.evaluate('tw.cursorState'); c_build = await curs()
@@ -577,7 +586,7 @@ async def main():
         check(st['p'] and 'PAWNS' in st['t'].upper() and 'PARTY' in st['t'].upper() and not st['b'], 'Pawns opens its tray (the Pawns menu: docs/PAWNS.md, engine/test/browser_pawnsmenu.py), and the open Build tray closes', st['t'].replace('\n', ' ')[:80])
         await tap(gm, ".launcher[data-l=settings]"); await gm.wait_for_timeout(300)
         st = await gm.evaluate("({ ...tw.settings.state(), pawns: !document.getElementById('pawnsTray').hidden, shown: !document.getElementById('settingsModal').hidden, cats: [...document.querySelectorAll('#settingsModal .scat')].map(c => c.textContent.trim()) })")
-        check(st['open'] and st['shown'] and not st['pawns'] and st['sections'] == ['nav', 'admin', 'campaign', 'defaults', 'area', 'house', 'me', 'graphics', 'controls', 'feedback'] and st['section'] == 'nav', 'Settings opens a modal window with its ten categories on the left in Harry\'s order (2026-11-01: World navigation first, Feedback last); Pawns closes', st['cats'])
+        check(st['open'] and st['shown'] and not st['pawns'] and st['sections'] == ['nav', 'admin', 'campaign', 'defaults', 'area', 'house', 'models', 'me', 'graphics', 'controls', 'feedback'] and st['section'] == 'nav', 'Settings opens a modal window with its categories on the left in Harry\'s order (2026-11-01: World navigation first, Feedback last; Uploaded models after House look, 2026-11-06, where the relay takes uploads); Pawns closes', st['cats'])
         await tap(gm, '#settingsModal .scat[data-sec=me]'); await gm.wait_for_timeout(200)
         check(await gm.evaluate("tw.settings.state().section === 'me' && !!document.querySelector('#settingsModal .myname')"), 'a category on the left switches the pane (Me: name, colour, controls…)')
         await gm.keyboard.press('Escape'); await gm.wait_for_timeout(150)

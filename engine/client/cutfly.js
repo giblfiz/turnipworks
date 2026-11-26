@@ -14,8 +14,8 @@
 //   world.cutFly.commit()                                     one batch per pass: staggered by the house preset's order
 //   world.cutFly.frame(now, camera)                           steps; with nothing in flight it does nothing at all
 //   world.cutFly.flush()                                      everything lands now (an area picture is being taken)
-// Off (everything is instant, as before 2026-10-06): the browser asks for reduced motion, Settings ▸ Me ▸ Reduced
-// motion, Settings ▸ Me ▸ "Levels fly away" off, the house preset says off, or the tuner's runner is not there.
+// Off (everything is instant, as before 2026-10-06): the browser asks for reduced motion, Settings ▸ Controls ▸ Reduced
+// motion, Settings ▸ Controls ▸ "Levels fly away" off, the house preset says off, or the tuner's runner is not there.
 import * as THREE from 'three';
 
 let pointer = null; // the last press on the canvas, in client pixels: pieces leave outward from it

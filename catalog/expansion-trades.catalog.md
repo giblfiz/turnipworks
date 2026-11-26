@@ -74,7 +74,7 @@ Grammar and legend: see `README.md`. Roles that a trade shares with the core lis
 - **surgeon-tools-tray** — tray of saws, knives and pincers · surface · tiny · size:16x10x2 · metal · set:MKT,DUN,CAS · var:- · aff:carry · mesh · P3 · barber-surgeon; grim interrogation
 - **barber-chair** — reclining barber chair · floor · sub · size:28x40x42 · wood · set:MKT! · var:- · aff:sit · mesh · P3 · barber-surgeon shop
 - **leech-jar** — jar of leeches · surface · tiny · size:5x5x8 · glass · set:MKT,ARC · var:- · aff:carry · mesh · P3 · period medicine, played for laughs
-- **herb-drying-rack** — tiered herb drying rack · floor · 1 · size:36x18x60 · wood · set:MKT,HUT,TEM,GRV · var:fill · aff:- · mesh · P3 · herbalist cottages
+- **herb-drying-rack** — tiered herb drying rack · floor · 1 · size:36x18x60 · wood · set:MKT,HUT,TEM,GRV,CYB · var:fill · aff:- · mesh · P3 · herbalist cottages
 
 ### S10. Scribe, cartographer & bookbinder
 - **scriptorium-desk** — slanted copying desk · floor · 1 · size:30x24x44 · wood · set:TEM!,ARC,CAS · var:ruin · aff:use · mesh · P1 · monastery scriptoria; rows of them
@@ -148,7 +148,7 @@ Grammar and legend: see `README.md`. Roles that a trade shares with the core lis
 ### S20. Bathhouse
 - **bath-pool-tiled** — sunken tiled bathing pool · kit · 2x2 · size:108x108x30~0.7-1.5 · stone · set:MKT,NOB,RUI · var:fill,ruin · aff:hazard · kit · P2 · bathhouses; ruined baths later
 - **steam-bench** — slatted steam room bench · floor · 1x2 · size:72x18x18 · wood · set:MKT,NOB · var:- · aff:sit · mesh · P3 · sweat rooms
-- **towel-stack** — stack of folded linens · surface · tiny · size:12x10x8 · cloth · set:MKT,NOB,TAV · var:- · aff:carry · mesh · P3 · bathhouses, inns, noble chambers
+- **towel-stack** — stack of folded linens · surface · tiny · size:12x10x8 · cloth · set:MKT,NOB,TAV,MOD · var:- · aff:carry · mesh · P3 · bathhouses, inns, noble chambers
 - **water-heater-copper** — copper water boiler with firebox · floor · 1 · size:30x30x42 · metal · set:MKT,NOB,CAS · var:lit · aff:lit,hazard · mesh · P3 · bathhouse back room
 - **bath-screen-cloth** — cloth privacy screen · floor · 1 · size:60x12x66 · cloth · set:MKT,TAV · var:- · aff:los,hide · mesh · P3 · bath cubicles
 

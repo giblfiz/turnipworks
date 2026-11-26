@@ -13,6 +13,13 @@ one asset from it. Every view has its own address on the page (the fragment):
   /assets#figure/<id>             one figure (/?pawn=<id>)
   /assets#find/<words>            a search
 The pictures (engine/client/site/library/, git-ignored) are made by tools/site-assets/media.py.
+
+THE PACKS' DOWNLOADS (2026-11-07, Harry: "deeplink to the release packs we host on GitHub"): docs/site/asset-release.json
+names a GitHub release of giblfiz/turnipworks and each pack's zips on it (game and HD editions; the figures' HD one zip per
+group), written by tools/asset-packs/build_packs.py --site-json from the build's packs.json. Its `published` flag gates
+every link: false (a DRAFT release, whose download addresses answer 404 to the public) shows none; true shows each pack's
+zips with their sizes on its card and in its view, and one "all packs" link to the release page. Flip it only once
+`gh release view <tag>` says the release is not a draft (engine/test/asset_release_test.py fails otherwise).
 """
 import html, json, os
 
@@ -52,23 +59,73 @@ def counts(p):
     return f'{rooms} {word} · {n} things'
 
 
-def overview(d, metas):
+RELEASE = os.path.join(os.path.dirname(os.path.dirname(HERE)), 'docs', 'site', 'asset-release.json')
+
+
+def release(path=None, force_published=False):
+    """the release the page links (docs/site/asset-release.json), or None while it is not published (no links at all).
+    force_published: a local preview of the published page (build_site.py --assets-preview), never the built site."""
+    path = path or RELEASE
+    if not os.path.exists(path): return None
+    rel = json.load(open(path, encoding='utf-8'))
+    if not (rel.get('published') or force_published): return None
+    base = f"https://github.com/{rel['repo']}/releases"
+    files = {}
+    for slug, zs in rel['packs'].items():
+        files[slug] = [{**z, 'url': f"{base}/download/{rel['tag']}/{z['file']}"} for z in zs]
+    return {**rel, 'page': f"{base}/tag/{rel['tag']}", 'links': files}
+
+
+def size(b):
+    return f'{b / 1e9:.1f} GB' if b >= 1e9 else f'{b / 1e6:,.0f} MB' if b >= 10e6 else f'{b / 1e6:.1f} MB'
+
+
+def zip_label(z):
+    return ('HD' if z['edition'] == 'hd' else 'Game') + (f" · {z['label']}" if z.get('label') else '')
+
+
+def downloads(rel, slug):
+    """the pack card's download row: its game zip and its HD zip(s), each with its size (the figures' HD zips by group
+    are on the pack's own view; the card names their total)"""
+    zs = (rel or {}).get('links', {}).get(slug)
+    if not zs: return ''
+    game = [z for z in zs if z['edition'] == 'game']; hd = [z for z in zs if z['edition'] == 'hd']
+    links = [f'<a class="dl" href="{E(z["url"])}" download><span aria-hidden="true">↓</span> Game <small>{E(size(z["bytes"]))}</small></a>' for z in game]
+    if len(hd) == 1:
+        links.append(f'<a class="dl" href="{E(hd[0]["url"])}" download><span aria-hidden="true">↓</span> HD <small>{E(size(hd[0]["bytes"]))}</small></a>')
+    elif hd:
+        links.append(f'<a class="dl" href="#pack/{E(slug)}">HD, {len(hd)} zips <small>{E(size(sum(z["bytes"] for z in hd)))}</small></a>')
+    return f'<span class="pkdl"><span class="sr">Download the {E(slug)} pack: </span>' + ''.join(links) + '</span>'
+
+
+def overview(d, metas, rel=None):
     cards = []
     for p in d['packs']:
         m = metas.get(p['slug'], {})
         rooms = ', '.join(r['label'] for r in p['rooms'])
-        cards.append(f'<li><a class="pk" id="pack/{E(p["slug"])}" href="#pack/{E(p["slug"])}">{pack_pic(d, p, m)}'
+        dl = downloads(rel, p['slug']); cls = ' class="has-dl"' if dl else ''
+        cards.append(f'<li{cls}><a class="pk" id="pack/{E(p["slug"])}" href="#pack/{E(p["slug"])}">{pack_pic(d, p, m)}'
                      f'<span class="pkt"><strong>{E(p["label"])}</strong><small>{E(counts(p))}</small></span>'
-                     f'<span class="pkb">{E(m.get("blurb", ""))}</span><span class="sr"> Rooms: {E(rooms)}.</span></a></li>')
+                     f'<span class="pkb">{E(m.get("blurb", ""))}</span><span class="sr"> Rooms: {E(rooms)}.</span></a>{dl}</li>')
     return '<ul class="packs" id="packs" aria-label="The packs">' + ''.join(cards) + '</ul>'
 
 
-def browser(d, metas):
+def release_note(rel):
+    """one line above the packs: every pack's zips on GitHub (the release page), and what the two editions are"""
+    if not rel: return ''
+    zs = [z for v in rel['links'].values() for z in v]
+    g = sum(z['bytes'] for z in zs if z['edition'] == 'game'); h = sum(z['bytes'] for z in zs if z['edition'] == 'hd')
+    return (f'<p class="rel"><a class="btn" href="{E(rel["page"])}">All packs on GitHub</a> <span>Every pack as a zip, '
+            f'in two editions: <strong>Game</strong>, the models the game draws ({E(size(g))} in all), and <strong>HD</strong>, '
+            f'full detail with 2048-px textures ({E(size(h))}). Each GLB is at real size, in metres, with its credit line and licence.</span></p>')
+
+
+def browser(d, metas, rel=None):
     c = d['counts']
     tools = ('<div class="libtools" role="search"><label class="sr" for="q">Search the assets</label>'
              f'<input id="q" type="search" placeholder="Search {c["things"] + c["figures"]:,} assets" title="A name: barrel, owlbear, throne, candle…" autocomplete="off" enterkeyhint="search">'
              '<span class="count" id="count" aria-live="polite"></span></div>')
-    return ('<div class="lib" id="lib">' + tools + overview(d, metas) +
+    return ('<div class="lib" id="lib">' + tools + release_note(rel) + overview(d, metas, rel) +
             '<section class="view" id="view" aria-live="polite" hidden></section>'
             '<noscript><p class="small">Browsing inside a pack, search and the asset pages need JavaScript; every asset is also listed in '
             '<a href="/assets.json">the catalogue (JSON)</a>.</p></noscript></div>'
@@ -80,18 +137,18 @@ def credit(d):
             f'<code id="creditline">{E(d["credit"])}</code> <button type="button" class="copy" data-copy="#creditline">Copy</button></p></div>')
 
 
-def body(md_html, d, metas):
+def body(md_html, d, metas, rel=None):
     c = d['counts']
     out = md_html
     for k, v in {'THINGS': f'{c["things"]:,}', 'LOOKS': f'{c["looks"]:,}', 'ROOMS': c['rooms'], 'FIGURES': c['figures']}.items():
         out = out.replace(f'[[{k}]]', str(v))
-    out = out.replace('<p>[[CREDIT]]</p>', credit(d)).replace('<p>[[BROWSER]]</p>', browser(d, metas))
+    out = out.replace('<p>[[CREDIT]]</p>', credit(d)).replace('<p>[[BROWSER]]</p>', browser(d, metas, rel))
     out = out.replace('<p>[[CREDITLINE]]</p>', f'<pre><code>{E(d["credit"])}</code></pre>')
     assert '[[' not in out, 'an unreplaced marker in docs/site/assets.md'
     return out
 
 
-def head_extra(d, desc):
+def head_extra(d, desc, rel=None):
     c = d['counts']
     ld = {
         '@context': 'https://schema.org', '@type': 'Dataset', 'name': 'Turnip Works assets',
@@ -100,7 +157,9 @@ def head_extra(d, desc):
         'creator': {'@type': 'Organization', 'name': 'Turnip Works', 'url': 'https://turnipworks.net/'},
         'keywords': ['3D models', 'GLB', 'tabletop RPG', 'virtual tabletop', 'fantasy props', 'miniatures', 'CC BY 4.0', 'D&D'],
         'variableMeasured': [f'{c["things"]} props', f'{c["figures"]} figures'],
-        'distribution': [{'@type': 'DataDownload', 'encodingFormat': 'application/json', 'contentUrl': 'https://turnipworks.net/assets.json'}],
+        'distribution': [{'@type': 'DataDownload', 'encodingFormat': 'application/json', 'contentUrl': 'https://turnipworks.net/assets.json'}] +
+                        [{'@type': 'DataDownload', 'encodingFormat': 'application/zip', 'contentUrl': z['url'], 'contentSize': size(z['bytes'])}
+                         for zs in ((rel or {}).get('links') or {}).values() for z in zs],
     }
     js = json.dumps(ld, ensure_ascii=False).replace('</', '<\\/')
     return (f'<link rel="alternate" type="application/json" href="/assets.json" title="The catalogue (JSON)">\n'
@@ -108,9 +167,10 @@ def head_extra(d, desc):
 
 
 # landing.js: this is a page an ad can land on, like /features (build_site.py LANDING)
-def script(metas):
+def script(metas, rel=None):
     heroes = {k: v['hero'] for k, v in metas.items() if v.get('hero')}
     blurbs = {k: v.get('blurb', '') for k, v in metas.items()}
-    cfg = json.dumps({'heroes': heroes, 'blurbs': blurbs}, ensure_ascii=False).replace('</', '<\\/')
+    extra = {'release': {'page': rel['page'], 'packs': rel['links']}} if rel else {}
+    cfg = json.dumps({'heroes': heroes, 'blurbs': blurbs, **extra}, ensure_ascii=False).replace('</', '<\\/')
     return (f'<script>window.TW_ASSETS = {cfg};</script>\n<script>' + asset('assets.js').strip() + '</script>\n'
             '<script type="module" src="/engine/client/landing.js"></script>')

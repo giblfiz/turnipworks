@@ -148,9 +148,14 @@ export function createLook({ lib, types, orient, wallfit = {}, base = '', dials 
   const chainGeo = new THREE.CylinderGeometry(0.04, 0.04, 1, 5); chainGeo.translate(0, 0.5, 0);
   const chainMat = new THREE.MeshStandardMaterial({ color: '#2b2622', roughness: 0.6, metalness: 0.3 });
   const flatMats = new Map();
-  async function flatMat(url, opaque, soft = false) {
-    const key = soft ? url + '|soft' : url;
+  // over = a flat laid ON the floor (a strip row, a decal, a rug picture: not a floor tile itself): its material draws a few
+  // depth steps nearer than its plane (polygonOffset), so it never fights the floor tiles for a pixel even where it was
+  // saved at their very height (streetfix 2026-11-07: the city street's pavement, centre line and crossing were laid at
+  // 0.02, the tiles' own height, until solver.js Ctx.flatHeight). Two flats over each other still need two heights.
+  async function flatMat(url, opaque, soft = false, over = false) {
+    const key = url + (soft ? '|soft' : '') + (over ? '|over' : '');
     if (!flatMats.has(key)) {
+      if (over) { const base = await flatMat(url, opaque, soft); flatMats.set(key, Object.assign(base.clone(), { polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -4 })); return flatMats.get(key); }
       const map = await loadTex(url);
       // soft = floor scatter decals: alpha-blended edges (no hard cut-out silhouette to recognise when it repeats)
       flatMats.set(key, soft ? new THREE.MeshStandardMaterial({ map, roughness: 0.95, transparent: true, opacity: 0.88, depthWrite: false, alphaTest: 0.02, side: THREE.DoubleSide, forceSinglePass: true }) // (one pass: a flat is one plane, so back faces then front faces is the same picture, and three.js looks a two-pass material's program up again for every draw of it)
@@ -170,7 +175,7 @@ export function createLook({ lib, types, orient, wallfit = {}, base = '', dials 
       return m;
     }
     if (spec.kind === 'flat') {
-      const mat = await flatMat(spec.url, spec.opaque, spec.soft);
+      const mat = await flatMat(spec.url, spec.opaque, spec.soft, spec.orient !== 'wall' && spec.place !== 'tile');
       const m = new THREE.Mesh(planeGeo, mat);
       if (spec.soft) m.renderOrder = 1;
       if (spec.orient === 'wall') { m.scale.set(w, h, 1); m.position.y = h / 2; }

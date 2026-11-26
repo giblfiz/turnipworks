@@ -1,0 +1,5 @@
+You are doing a SENSITIVITY READ of a roster of painted tabletop-miniature figures before any image is generated. The pack is generic cyberpunk-fantasy (a near-future city where magic returned; metatypes human, elf, dwarf, ork, troll; plus modern NPCs and a robot people). The full design text of every figure is in roster.md in this folder. Read only that file. Do not run other commands or open other files.
+
+Check every figure for: caricature or stereotype of any real culture, ethnicity, people or religion (watch the shaman, the "samurai", skin tones assigned to the fantasy peoples, any gang/police depiction that maps onto real-world ethnic stereotypes); real sacred objects or religious symbols; real-world police/military/medical insignia (e.g. the Red Cross emblem) or brand/publisher trademarks or logos; anything that would read as a specific real person.
+
+Reply with: one line per figure that needs a change (id, the problem, the exact replacement wording you suggest), then a line "OK: <count> figures need no change". Be concrete and brief. End with a JSON object {"changes": [{"id": "...", "problem": "...", "suggest": "..."}], "ok_count": N}.

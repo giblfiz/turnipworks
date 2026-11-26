@@ -33,6 +33,30 @@ export function fireType(id = '', extra = []) {
   for (const [re, kind] of extra) if (re.test(id)) return kind;
   return null;
 }
+// WALKING, measured on the finished layout alone (2026-11-07, the denserooms lane: denser rooms must stay walkable): a
+// walker `r` ft in radius on a 0.5-ft grid, every standing footprint a wall. Returns { doors: every door reaches the
+// main door, focal: the main door reaches standing room within `near` ft of the focal piece (null: no focal) }.
+export function walkCheck(r, openings, L, focalRe, { radius = 1.0, near = 2.0 } = {}) {
+  const X0 = r.x * CELL + INSET, Z0 = r.z * CELL + INSET, X1 = (r.x + r.w) * CELL - INSET, Z1 = (r.z + r.d) * CELL - INSET, G = 0.5;
+  const nx = Math.round((X1 - X0) / G), nz = Math.round((Z1 - Z0) / G), free = new Uint8Array(nx * nz).fill(1);
+  const boxes = standing(L).filter(p => p.rule !== 'yard-edge').map(p => { const [aw, ad] = aabb(p); return [p.x - aw / 2, p.z - ad / 2, p.x + aw / 2, p.z + ad / 2, p]; });
+  const cx = (i) => X0 + (i + 0.5) * G, cz = (j) => Z0 + (j + 0.5) * G;
+  const gap = (b, x, z) => Math.hypot(Math.max(b[0] - x, 0, x - b[2]), Math.max(b[1] - z, 0, z - b[3]));
+  for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const x = cx(i), z = cz(j); if (x - X0 < radius - 0.3 || X1 - x < radius - 0.3 || z - Z0 < radius - 0.3 || Z1 - z < radius - 0.3 || boxes.some(b => gap(b, x, z) < radius)) free[j * nx + i] = 0; }
+  const doorPt = (o) => { const t = o.index * CELL - INSET + CELL / 2; return o.side === 'N' ? [X0 + t, Z0 + 1.2] : o.side === 'S' ? [X0 + t, Z1 - 1.2] : o.side === 'W' ? [X0 + 1.2, Z0 + t] : [X1 - 1.2, Z0 + t]; };
+  const seed = ([x, z]) => { let best = -1, bd = 1.6; for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) if (free[j * nx + i]) { const d = Math.hypot(cx(i) - x, cz(j) - z); if (d < bd) { bd = d; best = j * nx + i; } } return best; };
+  const doors = (openings || []).filter(o => o.kind === 'door' && !o.part).map(doorPt);
+  if (!doors.length) return { doors: true, focal: null, n: 0 };
+  const main = L.mainDoor ? L.mainDoor.inner : doors[0], s0 = seed(main);
+  if (s0 < 0) return { doors: false, focal: false, n: doors.length };
+  const seen = new Uint8Array(nx * nz), q = [s0]; seen[s0] = 1;
+  while (q.length) { const k = q.pop(), i = k % nx, j = (k - i) / nx; for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const a = i + di, b = j + dj, kk = b * nx + a; if (a >= 0 && b >= 0 && a < nx && b < nz && free[kk] && !seen[kk]) { seen[kk] = 1; q.push(kk); } } }
+  const doorsOk = doors.every(pt => { const k = seed(pt); return k >= 0 && seen[k]; });
+  let focal = null;
+  const fb = focalRe ? boxes.filter(b => focalRe.test(b[4].id)) : [];
+  if (fb.length) { focal = false; for (let j = 0; j < nz && !focal; j++) for (let i = 0; i < nx && !focal; i++) if (seen[j * nx + i] && fb.some(b => gap(b, cx(i), cz(j)) <= near)) focal = true; }
+  return { doors: doorsOk, focal, n: doors.length };
+}
 export function makeHarness(S) {
   let fails = 0, checks = 0; const seen = new Map();
   const ok = (c, m) => { checks++; if (!c) { fails++; const k = m.replace(/[\d.]+/g, '#'); seen.set(k, (seen.get(k) || 0) + 1); if (fails <= 30) console.log('FAIL', m); } return c; };

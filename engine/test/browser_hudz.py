@@ -71,7 +71,7 @@ async def main():
         await gm.evaluate("tw.sync.submit('campaign.set', { defaults: { fogOfWar: false } })")
         await wait(gm, "tw.sync.campaign.defaults.fogOfWar === false && tw.sync.pendingCount() === 0", 15000, 'open table')
         await gm.evaluate("tw.setLabels(true)")
-        await gm.evaluate("tw.buildAt(tw.buildingNode('inn'), 12, 8, { seed: 7 })")
+        await gm.evaluate("tw.buildAt(tw.buildingNode('inn'), 12, 8, { seed: 7, storeys: 2 })")
         built = await wait(gm, "Object.values(tw.entities()).filter(e => e.kind === 'room').length >= 6 && Object.values(tw.entities()).some(e => e.kind === 'building') && tw.sync.pendingCount() === 0", 60000, 'inn built')
         await wait(gm, "tw.spawningNow().anims === 0 && !tw.spawningNow().last?.loading", 60000, 'spawn over'); await gm.wait_for_timeout(400)
         bid = await gm.evaluate("Object.values(tw.entities()).find(e => e.kind === 'building').id")

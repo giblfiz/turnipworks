@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 nav: Privacy
-updated: 2026-10-29
+updated: 2026-11-24
 description: What Turnip Works, a free 3D virtual tabletop in a browser tab, collects, what it does with it, and what's coming.
 ---
 
@@ -32,11 +32,15 @@ Turnip Works (turnipworks.net and the game served there) is run by Implausible E
 - **Global Privacy Control and Do Not Track.** If your browser sends either signal when you give us your address, we treat that as an opt-out from ads from the start.
 - **Opting out and deleting.** Every email we send has a link to a page where, with one press, you can stop us ever using your address for ads, stop news, or delete your address altogether. You can also ask us (see "Contact"). When you opt out of ads or delete your address, we keep only a hashed copy, so the address never goes back into our ad lists.
 
-**On a phone: "email yourself the link."** If you open turnipworks.net on a phone, the page offers to email you a link to open later on your computer. It works like "Email yourself your link" above, with the same address book, uses, limits and choices, except that it's for no table or seat: the link we send carries the campaign tags and any ad click code of the link you arrived by (our server keeps a click code only where ads are allowed, as above), and a code that lets our server note, with no address, that the page was shown, that the link was sent and that it was later opened, so we can count a phone visit that became a table on a computer.
+**On a phone: "send yourself the link."** If you open turnipworks.net on a phone, the page offers ways to get a link to open later on your computer: email it to yourself, send it with your phone's own share menu, copy it, or add a calendar reminder. Emailing works like "Email yourself your link" above, with the same address book, uses, limits and choices, except that it's for no table or seat. Sharing, copying and the reminder give us no address: where you send the link stays on your phone, and the reminder is a file your calendar opens. Every one of these links carries the campaign tags and any ad click code of the link you arrived by (our server keeps a click code only where ads are allowed, as above), and a code that lets our server note, with no address, that the link was made and that it was later opened, so we can count a phone visit that became a table on a computer. On that page our server also notes, under a random code for the visit and with no address, name or IP address: that the page was shown, whether its short film started and played through, whether its buttons came into view, and which button was pressed. That tells us where the page loses people. Nothing on the page sends anything anywhere but our own server.
 
 To stop the link email being used to flood someone's inbox, we limit how many link emails go to one address, from one seat and from one network; the network part is held in memory for up to a day and not written down.
 
 **Counting tables that get played.** To know whether Turnip Works is any use (and whether our ads are), our game server notes, for each new table: when it was started, how many invites were made, when someone other than the GM first joined, whether the GM stayed on the table for at least three minutes and did something there (placed, moved or built something, rolled a die or sent an invite), the country Cloudflare reports for the GM's connection, and the campaign tags on the link the GM arrived by, if it had any (for example "utm_source=reddit", and the address of the site that linked to us). If the GM's country may be used for ads (see above), it also keeps the ad click code an ad link carries, so a future ad report can say "this ad led to a table being played". It keeps no IP address, no name and no email for this. This happens on our own server; there are no trackers in the game.
+
+**Models you upload.** If you upload a model, we keep converted copies of it, the time, your seat and campaign, a fingerprint of the file and a keyed, one-way fingerprint of your network address, to run the game and our copyright policy. We use the fingerprint of your address only for our [repeat-infringer policy](/dmca#repeat-infringers). We don't keep the original file, and we don't ask for your email to upload. The [Terms of Use](/terms) (section 8) say what you may upload.
+
+**Copyright notices and counter-notices.** If you send a copyright notice with the form on our [Copyright Policy](/dmca) page, we keep what you write in it, the time, your browser's user agent and a keyed, one-way fingerprint of your network address (never the address itself), to handle the notice and to limit abuse of the form. If you send a counter-notice from the game, we keep what you write in it and forward it to the person who sent the notice, as the law requires and as the Copyright Policy says.
 
 **A code library from jsDelivr.** The game loads its 3D library (three.js) from jsDelivr, a public code delivery network, which sees your IP address and browser like any web server does.
 
@@ -53,7 +57,9 @@ We don't put ad pixels or tracking scripts on any of our pages, and none in the 
 - **The people at your table** see what's on it, except what the GM hides from players.
 - **Companies that run parts of the service for us**, such as Cloudflare (which delivers the site) and Google (Google Workspace, which delivers our emails, so it sees the address and the email). They handle data to provide their service to us.
 - **jsDelivr**, which delivers the game's 3D code library and so sees your IP address and browser.
+- **Your browser's speech service**, if you tap the microphone in the command bar on a phone: your browser turns what you say into words, and its maker (for example Google or Apple) may process the audio to do it. We only get the words, as if you had typed them.
 - **Meta, Google and Reddit**, as advertisers' platforms: hashed email addresses as described in "Email yourself your link".
+- **The person who sent a copyright notice** gets any counter-notice about it, as described in "Copyright notices and counter-notices".
 - **The AI services you choose** to give a seat link to.
 - **If the law requires it,** or to protect someone's safety, or to protect Turnip Works and its users from fraud or abuse.
 - **Whoever takes over Turnip Works,** if it's ever transferred to another company, which would have to keep this policy's promises for information collected under it.
@@ -65,6 +71,7 @@ We don't put ad pixels or tracking scripts on any of our pages, and none in the 
 - **Tables** stay on our server until they're deleted. There's no delete button in the game yet: the GM asks us. A deleted table is first moved aside, in case the deletion was a mistake, and stays there until we clear it out; we don't do that on a fixed schedule yet. If you ask us to delete a table for good, we remove it from both places. Inactive tables may be deleted some day (see the [Terms of Use](/terms)).
 - **Backups:** we keep the most recent 30 backup copies of the server's tables and delete older ones, so something deleted stays in the backups until the copies made before its deletion have all been replaced. That isn't a fixed number of days.
 - **Server logs** last about 14 days.
+- **Uploaded models**: until no table lists them, then about two weeks more. A model removed after a copyright notice is kept out of service for a year (longer while a counter-notice or lawsuit about it is open, or if the law requires it), so it can be restored; the record of the notice and of what was confirmed at upload is kept longer, as part of our copyright records. The [Terms of Use](/terms) (section 8) have the details.
 - **Feedback** and **corrections** are kept as long as they're useful for fixing things.
 - **Email addresses**: until you delete yours (the link in any of our emails) or ask us to. A deleted address stays in our backup copies until the copies made before its deletion have all been replaced, as for tables.
 - **The table counts** (when a table was started, invited, joined and played): as long as they're useful for counting; they hold no name, email or IP address.

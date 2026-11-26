@@ -1,0 +1,133 @@
+{
+ "file": "cul-chn-vegetable-seller.glb",
+ "tris": 49980,
+ "kb": 2948,
+ "native_extent": [
+  0.521,
+  1.001,
+  0.468
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0035,
+  "seen": 0.0053
+ },
+ "mean_rgb": [
+  99,
+  62,
+  33
+ ],
+ "mean_saturation": 0.681,
+ "sized_by": "its highest point",
+ "overall_ft": 5.5,
+ "pieces": {
+  "connected_parts": 251,
+  "main_part_area_share": 0.979,
+  "floating": [],
+  "floating_count": 0,
+  "floating_area_share": 0,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 5.4943,
+ "y0": -2.7503,
+ "stated_ft": {
+  "body": 5.5,
+  "figure_top": 5.5,
+  "overall": 5.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.261,
+   -0.5006,
+   -0.2323
+  ],
+  [
+   0.2603,
+   0.5006,
+   0.2361
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49980,
+   "tex": 2048,
+   "kb": 2948
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1098
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 461
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.75,
+    "z": -0.2,
+    "size_ft": [
+     0.82,
+     1.26
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.053
+   },
+   {
+    "x": -0.92,
+    "z": -0.35,
+    "size_ft": [
+     0.92,
+     1.15
+    ],
+    "off_ground_ft": 0.004,
+    "sole_level_share": 0.84,
+    "sole_p90_ft": 0.073
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.004,
+  "lowest_slab_area_sqft": 1.36,
+  "plan_hull_area_sqft": 5.34,
+  "lowest_slab_share_of_plan": 0.255
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.86,
+   "d": 2.57,
+   "h": 5.5
+  },
+  "centre": [
+   -0.098,
+   0.009
+  ],
+  "contacts_radius_ft": 1.26,
+  "reach_radius_ft": 1.52,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.942,
+  "plate_lost_share": 0.006,
+  "added_share": 0.054,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.942,
+  "view_yaw_deg": 15,
+  "view_elev_deg": 8
+ },
+ "id": "cul-chn-vegetable-seller",
+ "sha1": "31808f97658420af592558fd8a555afa3bd65091",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 7.1
+}

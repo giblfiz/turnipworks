@@ -1,6 +1,11 @@
 {
-  "_about": "The assets page's words and hero pictures per pack (engine/tools/site_assets.py). A pack is a Build-menu type with rooms (its slug: engine/client/data/types.json), or one of the page's own packs (building-kit, faction-pieces, figures). blurb: one or two sentences. hero: the still's name stem in the masters' h/ (tools/site-assets/media.py; <stem>-600.webp and <stem>-1200.webp), made by tools/promo/capture.py --probe --shot <shot>. A new still gets a new stem (Cloudflare keeps a picture about 4 hours).",
+  "_about": "The assets page's words and hero pictures per pack (engine/tools/site_assets.py). A pack is a Build-menu type with rooms (its slug: engine/client/data/types.json), or a whole genre that is one pack (its `pack`: the Modern genre is `modern`, 2026-11-07), or one of the page's own packs (building-kit, faction-pieces, figures). blurb: one or two sentences. hero: the still's name stem in the masters' h/ (tools/site-assets/media.py; <stem>-600.webp and <stem>-1200.webp), made by tools/promo/capture.py --probe --shot <shot>. A new still gets a new stem (Cloudflare keeps a picture about 4 hours).",
   "packs": {
+    "modern": {
+      "blurb": "Modern: the everyday city and its neon cyberpunk underside, for modern-day, near-future and Shadowrun-style games (not an official or licensed product). Apartment blocks with a capsule hotel and a safehouse, an office tower with its glass lobby and server room, a bar and nightclub, storefronts (the corner store, a magic-supply shop, a street clinic, a noodle bar), a warehouse and garages and a gang hideout, with the street, the back alley and the rooftop outside. A glass-walled penthouse (an executive's too), bathrooms and public restrooms, a restaurant kitchen, a fire escape you can climb floor to floor, and an elevator car that rides its shaft. And its vehicles (a helicopter and a gunship, a police cruiser, an armoured SUV and van, a rigger's drones), security cameras and desk clutter.",
+      "hero": null,
+      "shot": null
+    },
     "tavern-inn": {
       "blurb": "Common rooms, kitchens, cellars, guest rooms and the stable yard: the bar counter and casks, trestle tables, tankards and dice cups, all the clutter of a busy inn.",
       "hero": "tavern-inn-20261104",
@@ -66,13 +71,33 @@
       "hero": "monster-lair-20261104",
       "shot": "site-hero-lai"
     },
+    "norse-steading": {
+      "blurb": "A Viking-Age steading: the longhouse with its long hearth and sleeping platforms, the mead hall's high seat, a smithy, a boathouse with its boat on stocks, a weaving hut and a yard with a runestone.",
+      "hero": null,
+      "shot": null
+    },
+    "middle-east": {
+      "blurb": "The Mamluk Near East of Cairo and Damascus: a caravanserai court ringed by storeroom arches, a souk shop, a hammam, a reception hall with its floor fountain and raised iwans, a coffee house and a courtyard garden.",
+      "hero": null,
+      "shot": null
+    },
+    "rus-medieval": {
+      "blurb": "Medieval Rus': the log izba with its great stove and icon corner, a boyar's terem hall, a banya, a wooden church with its iconostasis, a market stall and a stockade yard with a well-sweep.",
+      "hero": null,
+      "shot": null
+    },
+    "mesoamerica": {
+      "blurb": "Mexica Tenochtitlan: a temple summit shrine with its altar of offerings and chacmool, a ballcourt with its stone rings, a noble's house, a market of vendors' spreads, a chinampa garden and a scribe's room.",
+      "hero": null,
+      "shot": null
+    },
     "building-kit": {
       "blurb": "The pieces every room is built from: walls, doors and windows in each wall style, stairs, and every floor as a 5-ft tile.",
       "hero": null,
       "shot": null
     },
     "faction-pieces": {
-      "blurb": "Thirteen factions' banners, altarpieces, idols, censers, reliefs and sigils, to give a temple, a cult or a castle its allegiance.",
+      "blurb": "Seventeen factions' banners, altarpieces, idols, censers, reliefs and sigils, to give a temple, a cult or a castle its allegiance, and four historical faiths (a Gothic church, a Tibetan monastery hall, a Nagara Ganesha temple, a Mamluk mosque) with the things each faith really uses.",
       "hero": null,
       "shot": null
     },
@@ -80,6 +105,15 @@
       "blurb": "Miniatures for the table: heroes of every class, townsfolk, foes and monsters, large creatures on bigger bases, and beasts and mounts.",
       "hero": null,
       "shot": null
+    },
+    "japan": {
+      "blurb": "A Kyoto townhouse, tea house and Shinto shrine of the late Edo period: tatami rooms with their alcove, a sunken tea hearth, a dojo, a sake merchant's counting platform, a torii and stone lanterns, a tea garden."
+    },
+    "china": {
+      "blurb": "A Beijing courtyard house and a Buddhist temple hall of the Qing: a long console table between armchairs, a scholar's painting table, tea house benches and copper kettles, a Taihu rock, lotus vats and a market street."
+    },
+    "india": {
+      "blurb": "Eighteenth-century Rajasthan: a haveli courtyard with its tulsi, a palace hall with a canopied throne, a Shiva temple's pillared hall with Nandi, a grain merchant's shop, a household kitchen and a stepwell."
     }
   }
 }

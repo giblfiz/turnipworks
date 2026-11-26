@@ -1,0 +1,347 @@
+(node:1916461) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+inn: ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW GT2) (0x00000412)), Intel open-source Mesa driver) (up in 7.1 s)
+ok
+  Auto: low ({'phase': 'watch', 'last': {'ms': 66.6, 'gpu': 57, 'frames': 46, 'preset': 'low', 'at': 1794038822670}, 'note': '', 'told': {'from': 'high', 'to': 'low', 'why': 'the picture took 126.5 ms of GPU time a frame', 'at': 1794038822670}, 'done': True})
+
+== the front web server · inn · off · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    31  14.6 |   50 133.4 133.4   133   13 |   21.2   25.8 |  42.8  42.8 | 57.1   57.7 |   787    0     0 | lowres 0% tried 
+ pan     |   171  14.2 | 66.6 133.4   150   183  106 |   27.9   39.9 |  89.7 168.3 | 59.4   62.0 |   663    5   163 | lowres 0% tried shadow,fog-ha,small-,contac NOGAIN shadow,fog-ha
+ orbit   |   136  13.4 | 66.6   150 166.7   167   88 |   28.8   38.2 |  93.8   179 | 63.6   71.1 |   785    0   131 | lowres 0% tried small-,contac
+ zoom    |    74  13.9 | 66.6   150   150   150   45 |   25.3   72.4 | 204.6 293.7 | 62.1   71.0 |   721    0    29 | lowres 0% tried small-,contac
+ hover   |   159  14.1 | 66.6 149.9   200   217  100 |   18.2  133.2 |  81.9 220.3 | 61.3   69.7 |   789    0    29 | lowres 0% tried 
+ select  |   109  12.3 | 66.7 166.6 233.2   233   69 |   21.4  126.3 |    94 265.3 | 68.8   79.9 |   787    0    31 | lowres 0% tried small-,contac,small-,contac,small-,contac,small-,contac
+ place   |   141  11.5 | 83.3 166.7 233.4   283  100 |   23.8   38.6 | 105.4 194.7 | 71.8   84.2 |   789    0   120 | lowres 0% tried small-,contac,small-,contac
+ drag    |   158  13.5 | 66.7 133.4 166.6   317  113 |   28.7   76.7 |  60.7 212.3 | 60.8   73.0 |   787    0    19 | lowres 0% tried small-,contac,shadow,fog-ha NOGAIN fog-ha
+ ring    |    61  12.2 | 66.7   150 166.7   233   41 |   26.8  108.9 |  97.8 237.6 | 68.1   80.6 |   791    0    18 | lowres 0% tried shadow,small-,contac
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 16.8  world 2.5  fxFrame 0.9  emit 0.7
+   pan     fxRender 17.0  world 4.2  under 3.6  emit 2.8  fxFrame 1.1  input 1.0
+   orbit   fxRender 17.8  under 4.0  emit 3.0  world 2.7  fxFrame 1.0  input 0.6
+   zoom    fxRender 17.6  world 7.5  input 1.8  under 1.7  emit 1.2  fxFrame 0.9
+   hover   fxRender 21.6  input 10.9  world 9.7  under 0.8  fxFrame 0.7  emit 0.6
+   select  fxRender 20.3  world 12.6  input 12.4  emit 2.6  under 1.1  fxFrame 0.8
+   place   fxRender 17.9  under 3.9  world 3.0  emit 2.0  input 1.9  fxFrame 0.8
+   drag    fxRender 20.0  world 6.9  emit 5.2  input 4.0  fxFrame 0.8  under 0.5
+            frame listeners: 1.7 ms (what) => { if (what === 'selection') { expanded = | 1.1 ms (what) => { if (what !== 'frame') return; layer.cl | 0.5 ms (what) => { if (what === 'frame') frame(); }
+   ring    fxRender 20.6  world 11.5  input 4.9  emit 2.9  under 1.3  fxFrame 0.8
+
+== the front web server · inn · underMove · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    31  14.6 | 50.1 133.4 150.1   150   16 |     22   29.9 |  40.2  40.2 | 58.5   60.2 |   789    0     0 | lowres 0% tried 
+ pan     |   171  14.0 | 66.6   150 150.1   183   95 |     26   37.5 |  82.7 176.9 | 58.7   66.6 |   665    5     1 | lowres 0% tried shadow,fog-ha,small-,contac NOGAIN shadow
+ orbit   |   140  14.8 | 66.6 133.4   150   150   79 |   25.3   33.8 |  84.8 160.5 | 59.8   62.2 |   784    0     0 | lowres 0% tried fog-ha,small-,contac
+ zoom    |    68  11.8 | 66.7 183.4 216.7   217   44 |   23.6   98.6 | 242.7 290.8 | 70.4   88.8 |   704    0    10 | lowres 0% tried fog-ha,small-,contac,fog-ha,small-,contac,fog-ha,small-,contac
+ hover   |   159  13.7 | 66.6   150 216.7   233  100 |   17.7  122.5 |  85.5 239.2 | 63.4   75.8 |   789    0    29 | lowres 0% tried 
+ select  |   111  13.3 | 66.7 149.9 216.7   217   75 |   19.8  121.7 |  85.8 239.6 | 64.2   98.8 |   787    0    24 | lowres 0% tried fog-ha,small-,contac,fog-ha,small-,contac,fog-ha,small-,contac,fog-ha,small-,contac
+ place   |   144  12.0 | 66.7 166.7   200   200  101 |   25.1   37.6 |  98.6 187.9 | 68.9   92.6 |   788    0   114 | lowres 0% tried fog-ha,small-,contac,fog-ha,small-,contac,fog-ha,small-,contac,shadow
+ drag    |   176  13.1 | 66.6   150 150.1   233  105 |   27.9   61.1 |  74.2 163.7 | 62.9   68.3 |   786    0    14 | lowres 0% tried shadow,fog-ha,small-,contac
+ ring    |    64  13.7 | 66.6 149.9 150.1   200   40 |   23.8     84 |  88.6 206.6 | 60.4   65.8 |   790    0    16 | lowres 0% tried shadow,fog-ha,small-,contac
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 17.9  world 2.4  fxFrame 0.8  emit 0.7
+   pan     fxRender 21.1  world 3.6  emit 3.1  input 0.8  fxFrame 0.7
+   orbit   fxRender 18.1  emit 2.9  world 2.2  fxFrame 0.7  input 0.7
+   zoom    fxRender 19.8  world 8.1  input 1.8  emit 1.3  fxFrame 0.9  under 0.8
+   hover   fxRender 22.5  input 10.8  world 9.2  under 0.7  fxFrame 0.6  emit 0.6
+   select  fxRender 20.1  world 11.3  input 9.1  emit 1.0  under 0.8  fxFrame 0.6
+   place   fxRender 17.2  under 3.8  world 2.5  emit 1.9  input 1.7  fxFrame 0.8
+   drag    fxRender 20.2  world 6.2  emit 3.3  input 2.1  fxFrame 0.8  under 0.3
+   ring    fxRender 18.2  world 9.3  input 3.6  emit 2.7  under 1.0  fxFrame 0.7
+
+== the front web server · inn · early · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    31  14.4 | 66.6 133.4 133.4   133   20 |   24.7   31.8 |  72.6  72.6 | 58.9   60.3 |   789    0     0 | lowres 0% tried 
+ pan     |   169  12.8 | 66.7   150 166.7   200   96 |   27.9   38.2 |  91.5 179.9 | 64.9   83.6 |   666    5   164 | lowres 0% tried 76,small-
+ orbit   |   138  12.7 | 66.7 166.6   200   200   84 |   30.2     37 |  98.9 188.2 | 67.9   88.8 |   785    0   132 | lowres 0% tried small-
+ zoom    |    74  13.6 | 66.7   150   150   150   51 |     25     65 | 191.9 310.9 | 61.7   67.1 |   715    0    28 | lowres 0% tried small-
+ hover   |   157  13.0 | 66.7 166.6 233.3   233  103 |   20.3  148.6 |  90.6 262.5 | 66.4   79.6 |   789    0    29 | lowres 0% tried 
+ select  |   107  13.2 | 66.7   150   200   217   71 |   21.3  122.1 |  85.5 232.5 | 62.7   84.7 |   787    0    31 | lowres 0% tried small-,small-,small-,small-
+ place   |   143  11.9 | 83.3 166.7 233.4   250  104 |   25.9   39.3 | 102.9   190 | 70.0   90.9 |   788    0   119 | lowres 0% tried small-,small-
+ drag    |   163  13.3 | 66.7 133.4   150   233  112 |   29.8   67.7 |  66.1 180.3 | 61.4   67.7 |   787    0    18 | lowres 0% tried small-
+ ring    |    64  13.6 | 66.6   150 150.1   217   40 |   24.8   81.6 |  88.8 215.2 | 60.5   65.9 |   790    0    18 | lowres 0% tried small-
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 20.2  world 2.3  fxFrame 0.7  emit 0.7
+   pan     fxRender 18.4  world 3.7  under 3.7  emit 2.7  input 0.8  fxFrame 0.8
+   orbit   fxRender 18.6  under 4.1  emit 2.8  world 2.4  fxFrame 0.8  input 0.7
+   zoom    fxRender 18.4  world 6.7  under 1.8  input 1.4  emit 1.2  fxFrame 0.8
+   hover   fxRender 24.7  input 11.3  world 9.7  under 0.8  fxFrame 0.7  emit 0.6
+   select  fxRender 19.8  world 11.2  input 9.3  under 1.1  emit 0.9  fxFrame 0.6
+   place   fxRender 18.8  under 4.1  world 3.2  emit 2.1  input 1.9  fxFrame 0.9
+   drag    fxRender 20.5  world 6.3  emit 3.5  input 2.2  fxFrame 0.8  under 0.5
+   ring    fxRender 18.7  world 9.2  input 3.8  emit 2.7  under 0.9  fxFrame 0.6
+
+== the front web server · inn · dynearly · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    31  14.3 | 66.6 133.4   150   150   19 |   23.7   27.8 |  91.4  91.4 | 59.4   63.1 |   789    0     0 | lowres 0% tried 
+ pan     |   172  16.2 |   50 133.3 166.7   183   78 |   25.8   35.7 |  74.1 160.4 | 50.4   65.7 |   661    5   164 | lowres 0% tried 77,small-,pixels
+ orbit   |   142  18.0 |   50 116.6 116.8   250   47 |   24.6   32.1 |  69.7 135.5 | 46.1   49.6 |   786    0   132 | lowres 0% tried small-,pixels
+ zoom    |    76  15.0 |   50 133.4 183.3   300   32 |   22.5  107.3 | 190.4 333.9 | 56.1   73.5 |   733    0    28 | lowres 0% tried small-,pixels
+ hover   |   158  13.9 | 66.7 149.9   200   234  110 |   18.5  112.3 |    85 204.1 | 63.0   72.0 |   789    0    29 | lowres 0% tried 
+ select  |   109  11.8 | 66.8   200   200   267   74 |   19.9  187.7 | 101.9 258.5 | 72.6  150.0 |   788    0    31 | lowres 15% tried small-,pixels,small-,pixels,small-,pixels,small-,pixels
+ place   |   142  11.6 | 83.3 166.7 283.4   283  102 |   25.6   87.4 |  95.9 247.2 | 71.3  108.5 |   789    0   119 | lowres 4% tried small-,pixels,small-,pixels,small-,pixels
+ drag    |   211  16.9 | 49.9 116.7 133.4   283   87 |   24.4   50.8 |    80 198.2 | 48.0   63.8 |   786    0    18 | lowres 0% tried small-,pixels
+ ring    |    64  12.2 | 66.7   150   200   300   44 |   27.1  106.8 | 111.8 255.3 | 70.6   98.7 |   790    0    18 | lowres 3% tried small-,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 18.8  world 2.3  fxFrame 0.7  emit 0.7
+   pan     fxRender 16.8  under 3.5  world 3.3  emit 2.5  interact 0.8  input 0.7  fxFrame 0.7
+   orbit   fxRender 15.5  under 3.3  emit 2.4  world 2.0  interact 1.6  fxFrame 0.7  input 0.5
+   zoom    fxRender 19.0  world 7.4  interact 3.7  input 1.7  under 1.6  emit 1.1  fxFrame 0.8
+   hover   fxRender 21.1  input 10.8  world 9.4  under 0.7  fxFrame 0.6  emit 0.6
+   select  fxRender 17.4  interact 12.6  world 11.1  input 9.6  under 1.0  emit 0.9  fxFrame 0.7
+   place   fxRender 16.9  interact 7.2  under 3.9  world 3.7  input 1.6  emit 1.2  fxFrame 0.8
+   drag    fxRender 18.2  world 4.9  emit 2.6  input 1.6  interact 1.3  fxFrame 0.7  under 0.3
+   ring    fxRender 17.2  world 10.9  interact 5.7  input 4.8  emit 2.7  under 1.1  fxFrame 0.8
+
+== the front web server · inn · on · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    32  14.4 | 66.6 133.3 149.9   150   22 |   24.2   32.7 | 124.4 124.4 | 59.5   61.3 |   789    0     0 | lowres 0% tried 
+ pan     |   176  17.8 |   50 133.3   150   150   63 |   22.1   30.2 |  62.5   161 | 46.0   64.0 |   656    5     1 | lowres 0% tried 75.9,small-,pixels
+ orbit   |   142  19.4 |   50   100 133.3   167   42 |   22.3   30.9 |  62.3 128.6 | 43.2   44.8 |   785    0     0 | lowres 0% tried small-,pixels
+ zoom    |    78  15.6 |   50 116.7 166.7   300   36 |   19.5  119.9 | 165.2 448.2 | 54.0   79.9 |   744    0     9 | lowres 0% tried small-,pixels,small-,pixels
+ hover   |   159  14.0 | 66.6 149.9 216.6   233  106 |   19.4  130.1 |    85 208.5 | 61.8   70.3 |   789    0    29 | lowres 0% tried 
+ select  |   109  12.4 | 66.7 166.7 216.7   283   74 |   20.5  150.6 |  94.1 259.1 | 68.6  123.8 |   787    0    24 | lowres 11% tried small-,pixels,small-,pixels,small-,pixels
+ place   |   149  11.6 | 83.3 166.7 283.3   317  107 |   25.1   40.5 | 101.4 236.2 | 71.6   95.4 |   790    0   118 | lowres 3% tried small-,pixels,small-,pixels
+ drag    |   192  16.8 |   50 116.7 133.3   283   67 |   23.9   76.2 |  59.8 181.5 | 47.2   64.8 |   786    0    15 | lowres 88% tried small-,pixels
+ ring    |    63  12.3 | 66.7   150 150.1   283   42 |   24.1  106.6 |  96.1 259.7 | 68.1   80.0 |   790    0    16 | lowres 3% tried small-,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 20.2  world 2.3  fxFrame 0.8  emit 0.7
+   pan     fxRender 16.7  world 3.2  emit 2.4  interact 0.8  input 0.7  fxFrame 0.6
+   orbit   fxRender 16.9  emit 2.4  world 2.1  interact 1.0  fxFrame 0.7  input 0.6
+   zoom    fxRender 16.3  world 7.0  interact 6.6  input 1.5  emit 1.0  fxFrame 0.7  under 0.4
+   hover   fxRender 21.8  input 10.3  world 9.2  under 0.7  fxFrame 0.6  emit 0.6
+   select  fxRender 17.4  world 11.3  input 9.4  interact 9.1  emit 0.9  under 0.8  fxFrame 0.6
+   place   fxRender 17.1  interact 4.9  world 3.8  under 3.8  input 1.6  emit 1.3  fxFrame 0.8
+   drag    fxRender 18.2  world 5.1  emit 2.7  interact 2.6  input 1.7  fxFrame 0.7  under 0.3
+   ring    fxRender 16.4  world 10.5  interact 5.3  input 4.2  emit 2.6  under 0.9  fxFrame 0.7
+town: ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW GT2) (0x00000412)), Intel open-source Mesa driver) (up in 4.7 s)
+ok
+  Auto: low ({'phase': 'watch', 'last': {'ms': 66.7, 'gpu': None, 'frames': 45, 'preset': 'low', 'at': 1794039281366}, 'note': '', 'told': {'from': 'high', 'to': 'low', 'why': 'frames took 283.4 ms', 'at': 1794039281366}, 'done': True})
+
+== the front web server · town · off · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    33  15.2 | 66.6 133.3 133.4   133   21 |   30.6   44.8 |    95    95 | 57.2   59.9 |   978    0     0 | lowres 0% tried 
+ pan     |   171  13.2 | 66.7   100 166.6   183  159 |     42   62.8 |   112 184.2 | 65.6   73.2 |  1067    0   162 | lowres 0% tried shadow,fog-ha,small-,contac NOGAIN shadow,small-,contac
+ orbit   |   137   8.5 |116.6 199.9 300.1   333  132 |   65.7  146.6 | 174.6   322 |103.8  141.6 |  2641    0   132 | lowres 0% tried fog-ha
+ zoom    |    77  16.1 | 66.6 116.7 133.4   150   39 |   35.9   51.8 | 172.4 330.3 | 52.0   60.8 |   716    0    19 | lowres 0% tried fog-ha
+ hover   |   157  13.5 | 66.7 133.2   150   217  121 |   36.1   57.9 |  96.5 170.3 | 64.0   85.0 |   980    0    12 | lowres 0% tried 
+ select  |   115  13.7 | 66.7 133.4 183.3   233   93 |   32.5   99.6 |  99.7 181.9 | 62.9   68.6 |   981    0    11 | lowres 0% tried fog-ha,fog-ha,fog-ha,fog-ha,fog-ha
+ place   |   164  12.1 | 66.7 166.6 233.4   333  140 |   41.7   89.3 | 111.7 197.9 | 65.3   80.2 |   981    0   133 | lowres 0% tried fog-ha,fog-ha,fog-ha
+ drag    |   137  12.6 | 66.7 116.7 266.7   350  123 |   35.7  102.9 |  64.6 175.5 | 65.6   88.0 |   983    0    11 | lowres 0% tried fog-ha,shadow,small-,contac NOGAIN small-,contac
+ ring    |    69  14.0 | 66.7 133.4 133.4   150   47 |   40.6  106.1 | 105.7 182.2 | 59.5   67.3 |   981    0    11 | lowres 0% tried shadow,fog-ha
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 17.6  world 9.7  fxFrame 4.5  emit 1.0
+   pan     fxRender 20.5  world 12.5  fxFrame 4.8  under 4.8  emit 3.9  input 0.7
+   orbit   fxRender 39.1  world 15.3  under 14.0  fxFrame 5.4  emit 5.2  input 0.4
+            frame listeners: 5.0 ms (what) => { if (what !== 'frame') return; layer.cl | 0.1 ms (what, d) => { if (what === 'frame') { restore();  | 0.0 ms (what) => { if (what === 'frame') frame(); }
+   zoom    fxRender 17.4  world 12.3  fxFrame 4.8  emit 2.0  under 1.3  input 0.6
+   hover   fxRender 20.2  world 12.8  fxFrame 4.5  input 3.5  emit 1.2  under 0.9
+   select  fxRender 20.1  world 14.4  input 7.5  fxFrame 4.2  emit 3.7  under 1.0
+   place   fxRender 18.9  world 14.6  under 7.5  fxFrame 4.7  input 4.7  cut 2.9  emit 2.8
+   drag    fxRender 19.2  world 14.6  input 6.6  emit 6.0  fxFrame 4.4  cut 1.1  under 0.8
+            frame listeners: 1.8 ms (what) => { if (what !== 'frame') return; layer.cl | 1.6 ms (what) => { if (what === 'selection') { expanded = | 0.5 ms (what) => { if (what === 'frame') frame(); }
+   ring    fxRender 20.5  world 16.6  fxFrame 4.7  emit 3.7  input 2.9  under 1.7
+
+== the front web server · town · underMove · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    23  10.8 | 83.4 183.3 183.4   183   18 |   35.1   55.4 |  50.9  50.9 | 85.7  115.4 |   980    0     0 | lowres 0% tried 
+ pan     |   170  14.2 | 66.7 133.3 133.4   183  132 |   35.6     54 |  97.6 173.3 | 60.8   82.4 |  1066    0     1 | lowres 0% tried shadow,fog-ha,small-,contac NOGAIN shadow,small-
+ orbit   |   138   9.7 |  100 166.6 216.6   217  128 |   52.6  136.9 | 145.2 275.9 | 92.3  126.9 |  2640    0     1 | lowres 0% tried fog-ha,contac
+ zoom    |    77  15.1 | 66.6 133.3 133.4   150   43 |     32   54.7 |   164 277.8 | 56.1   71.0 |   779    0     3 | lowres 0% tried fog-ha,contac
+ hover   |   157  14.4 | 66.7 116.7 133.4   150  128 |   31.6   92.3 |  95.3 168.1 | 60.1   67.6 |   980    0    12 | lowres 0% tried 
+ select  |   113  13.7 | 66.7 133.3   150   150  100 |   32.8     94 | 101.2   178 | 63.5   68.6 |   981    0    11 | lowres 0% tried fog-ha,contac,fog-ha,contac,fog-ha,contac,fog-ha,contac,fog-ha,contac
+ place   |   165  12.3 | 66.7 166.6 233.3   283  135 |   43.8  105.4 | 111.6 191.3 | 63.3   99.0 |   981    0   130 | lowres 0% tried fog-ha,contac,fog-ha,contac,fog-ha,contac
+ drag    |   133  13.2 | 66.7 116.6 166.6   267  124 |   35.7   93.8 |  62.7 182.1 | 63.2   68.2 |   982    0     6 | lowres 0% tried fog-ha,contac,shadow,small- NOGAIN small-
+ ring    |    65  13.1 | 66.7 133.4   150   150   45 |   41.6  113.5 | 108.3 194.1 | 63.2   68.9 |   981    0    11 | lowres 0% tried shadow,fog-ha,contac
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 21.4  world 10.9  fxFrame 5.0  emit 1.0
+   pan     fxRender 19.4  world 11.5  fxFrame 4.5  emit 3.8  input 0.4
+   orbit   fxRender 37.5  world 13.7  fxFrame 5.8  emit 4.8  input 0.4
+   zoom    fxRender 17.4  world 11.9  fxFrame 4.9  emit 1.7  input 0.8  under 0.4
+   hover   fxRender 19.6  world 12.5  fxFrame 4.3  input 3.4  emit 1.2  under 0.9
+   select  fxRender 19.9  world 14.4  input 6.1  fxFrame 4.1  emit 2.3  under 1.0
+   place   fxRender 20.0  world 15.1  under 7.5  fxFrame 4.8  input 4.7  cut 2.9  emit 2.7
+   drag    fxRender 18.8  world 14.7  input 5.5  fxFrame 4.3  emit 4.1  cut 1.2  under 0.4
+   ring    fxRender 21.6  world 17.2  fxFrame 4.6  emit 3.5  input 2.9  under 1.6
+
+== the front web server · town · early · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    29  13.7 | 66.7 116.7 133.3   133   27 |   33.5   40.7 |  50.2  50.2 | 64.3   92.9 |   980    0     0 | lowres 0% tried 
+ pan     |   171  14.2 | 66.7   100 149.9   300  149 |   39.7   61.6 |   103 157.6 | 61.1   76.0 |  1032    0   163 | lowres 0% tried 70.5,small-
+ orbit   |   138   8.1 |116.7 216.6 299.9   300  133 |   66.3  147.3 |   184 321.2 |112.1  145.9 |  2513    0   134 | lowres 0% tried small-,small-
+ zoom    |    76  15.5 | 66.6 116.6 116.7   133   51 |   34.2   65.4 | 158.1 288.8 | 54.3   65.4 |   740    0    23 | lowres 0% tried small-
+ hover   |   156  13.3 | 66.7 116.7 133.3   133  133 |   34.7   57.4 |  98.2 160.3 | 65.4   84.3 |   980    0    12 | lowres 0% tried 
+ select  |   108  12.3 | 83.3 133.3 149.9   200   89 |   35.2  112.5 | 103.5 198.8 | 69.0   98.7 |   972    0    20 | lowres 0% tried small-,small-,small-,small-,small-
+ place   |   165  12.3 | 66.7 150.1 233.3   317  135 |   41.4   91.7 | 110.4 196.4 | 63.4   77.0 |   977    0   138 | lowres 0% tried small-,small-,small-
+ drag    |   135  13.4 | 66.7 116.6 166.7   183  125 |   33.3   94.3 |  56.4 175.2 | 61.8   84.4 |   953    0    10 | lowres 0% tried small-
+ ring    |    68  13.3 | 66.7 133.4 149.9   150   55 |   37.3  104.5 | 101.3 195.5 | 61.8   70.4 |   981    0    13 | lowres 0% tried small-
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 19.3  world 9.7  fxFrame 4.5  emit 0.9
+   pan     fxRender 19.0  world 11.8  under 4.5  fxFrame 4.2  emit 4.1  interact 0.6  input 0.5
+   orbit   fxRender 38.7  world 15.9  under 12.1  fxFrame 5.5  emit 4.6  interact 0.5  input 0.4
+   zoom    fxRender 17.3  world 12.4  fxFrame 4.6  under 2.0  emit 1.9  input 0.6  interact 0.4
+   hover   fxRender 20.6  world 12.7  fxFrame 4.5  input 3.0  emit 1.2  under 0.8
+   select  fxRender 20.8  world 16.1  input 6.6  fxFrame 4.5  emit 2.5  under 1.8
+   place   fxRender 19.0  world 14.4  under 7.6  input 4.5  fxFrame 4.3  emit 2.7  cut 2.7
+   drag    fxRender 17.7  world 13.7  input 4.7  fxFrame 4.2  emit 4.2  cut 1.0  under 0.7
+   ring    fxRender 20.9  world 17.2  fxFrame 4.7  emit 3.3  input 3.2  under 1.6
+
+== the front web server · town · dynearly · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    24  11.2 | 83.4 116.7 183.3   183   21 |   35.2   47.4 |  61.7  61.7 | 76.5   93.9 |   980    0     0 | lowres 0% tried 
+ pan     |   173  17.6 |   50   100 116.7   167   73 |   41.7   57.7 |  91.5 130.2 | 48.0   54.9 |  1037    0   164 | lowres 0% tried 79.3,small-,pixels
+ orbit   |   138   9.2 |  100 183.3 283.4   617  126 |   59.8  134.8 | 160.6 285.4 | 95.7  129.8 |  2513    0   133 | lowres 0% tried small-,pixels
+ zoom    |    81  19.3 | 49.9   100 133.4   217   26 |   30.6   52.7 | 126.3 317.2 | 42.6   59.1 |   764    0    23 | lowres 0% tried small-,pixels
+ hover   |   157  14.3 | 66.7   100 133.3   133  138 |   32.7     59 |    98 168.4 | 61.8   68.6 |   980    0    12 | lowres 0% tried 
+ select  |   103  11.6 | 66.7 166.7 233.3   233   82 |   34.9  168.4 | 103.4 275.4 | 74.6  188.9 |   975    0    21 | lowres 15% tried small-,pixels,small-,pixels,small-,pixels,small-,pixels,small-,pixels
+ place   |   164  11.3 | 83.2 233.3   250   267  142 |   42.2  131.6 | 114.6 236.1 | 71.2  116.2 |   977    0   138 | lowres 4% tried small-,pixels,small-,pixels,small-,pixels
+ drag    |   187  16.7 |   50 100.1   150   267   77 |   34.7   54.7 |  56.2 163.1 | 47.8   58.8 |   953    0    10 | lowres 0% tried small-,pixels
+ ring    |    64  11.8 | 66.7   150   200   267   49 |   38.9  113.4 | 112.1 276.5 | 71.0  129.7 |   981    0    13 | lowres 3% tried small-,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 21.0  world 12.2  fxFrame 5.3  emit 1.1
+   pan     fxRender 18.5  world 10.6  under 4.7  emit 4.4  fxFrame 3.9  interact 0.9  input 0.4
+   orbit   fxRender 33.1  world 14.3  under 11.3  fxFrame 5.2  emit 4.5  interact 1.0  input 0.3
+   zoom    fxRender 15.8  world 11.0  fxFrame 3.9  interact 2.2  under 1.8  emit 1.5  input 0.5
+   hover   fxRender 19.9  world 12.3  fxFrame 4.2  input 3.8  emit 1.2  under 0.8
+   select  fxRender 19.2  world 15.4  interact 12.5  input 6.8  fxFrame 4.2  emit 2.1  under 1.9
+   place   fxRender 20.2  world 14.7  under 7.9  fxFrame 4.7  input 4.5  interact 4.1  emit 2.7  cut 2.4
+   drag    fxRender 18.5  world 11.6  fxFrame 3.8  emit 3.8  input 3.4  interact 1.1  cut 0.8  under 0.5
+   ring    fxRender 20.1  world 16.4  interact 5.2  fxFrame 4.8  emit 3.4  input 2.4  under 1.9
+
+== the front web server · town · on · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    32  14.8 | 66.7  83.4 133.3   133   25 |   32.8   43.3 |  90.7  90.7 | 58.0   59.9 |   980    0     0 | lowres 0% tried 
+ pan     |   173  17.4 |   50   100 133.4   167   64 |   35.3   53.2 |  86.6 141.8 | 48.1   72.2 |  1036    0     1 | lowres 0% tried 62.8,small-,pixels
+ orbit   |   139  11.0 | 83.3 166.7 316.7   567  109 |   49.8  119.8 |   120 292.2 | 78.8  153.7 |  2496    0     1 | lowres 0% tried small-,pixels
+ zoom    |    82  20.1 | 49.9   100 133.3   200   21 |   30.7   60.6 | 140.2 226.8 | 42.9   62.6 |   757    0     4 | lowres 0% tried small-,pixels
+ hover   |   157  13.7 | 66.7 133.3 133.4   150  132 |   32.8   68.4 |  98.8 178.3 | 63.6   89.5 |   980    0    12 | lowres 0% tried 
+ select  |   107  12.7 | 66.7 150.1 233.3   283   81 |   31.7    150 |  93.5 278.1 | 66.9  184.7 |   975    0    13 | lowres 16% tried small-,pixels,small-,pixels,small-,pixels,small-,pixels,small-,pixels
+ place   |   161  11.0 | 83.3 216.6 266.6   283  135 |   42.5  132.6 | 115.8   238 | 74.3  122.3 |   977    0   130 | lowres 4% tried small-,pixels,small-,pixels,small-,pixels
+ drag    |   188  16.8 |   50 100.1 150.1   267   67 |   35.2   56.1 |  58.8 166.9 | 47.4   58.5 |   952    0     6 | lowres 0% tried small-,pixels
+ ring    |    67  13.8 | 66.7 133.3 133.4   183   48 |   37.5  115.8 |  99.6 185.9 | 60.7   63.6 |   981    0    11 | lowres 9% tried small-,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 18.1  world 10.0  fxFrame 4.1  emit 0.9
+   pan     fxRender 18.9  world 11.1  fxFrame 4.0  emit 3.9  interact 0.9
+   orbit   fxRender 32.5  world 13.7  fxFrame 4.8  emit 4.8  interact 0.9  input 0.3
+   zoom    fxRender 15.9  world 11.6  fxFrame 4.2  interact 2.0  emit 1.4  input 0.5  under 0.4
+   hover   fxRender 20.5  world 12.5  fxFrame 4.4  input 3.5  emit 1.2  under 0.7
+   select  fxRender 18.1  world 14.8  interact 12.6  input 6.3  fxFrame 3.8  emit 2.2  under 1.1
+   place   fxRender 19.2  world 15.0  under 7.6  fxFrame 4.8  input 4.6  interact 4.5  emit 2.7  cut 2.5
+   drag    fxRender 18.7  world 11.8  fxFrame 4.0  emit 3.8  input 3.4  interact 1.2  cut 0.8  under 0.3
+   ring    fxRender 19.1  world 16.6  fxFrame 4.5  interact 3.4  emit 3.1  input 2.8  under 1.4
+cave: ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW GT2) (0x00000412)), Intel open-source Mesa driver) (up in 4.5 s)
+ok
+  Auto: low ({'phase': 'watch', 'last': {'ms': 66.7, 'gpu': 56.8, 'frames': 46, 'preset': 'low', 'at': 1794039784499}, 'note': '', 'told': {'from': 'high', 'to': 'low', 'why': 'the picture took 97.7 ms of GPU time a frame', 'at': 1794039784499}, 'done': True})
+
+== the front web server · cave · off · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    31  14.4 | 66.7 133.3 133.4   133   24 |   15.8   17.9 |  51.9  51.9 | 57.0   58.0 |   369    0     0 | lowres 0% tried 
+ pan     |   169  12.2 | 66.7 166.7 199.9   217  115 |     25     34 |  94.6   192 | 70.8   90.0 |   335    0   159 | lowres 0% tried shadow,fog-ha,small-,contac NOGAIN shadow,small-,contac
+ orbit   |   137  12.2 | 66.7 166.6 166.7   167   87 |   26.6     35 |  97.8   186 | 70.4   95.1 |   367    0   130 | lowres 0% tried fog-ha
+ zoom    |    72  15.5 | 66.6 133.3   150   150   41 |   14.4   25.4 | 150.2 249.5 | 55.2   63.9 |   345    0    16 | lowres 0% tried fog-ha
+ hover   |   156  13.7 | 66.7   150 183.3   183  104 |   14.6   21.3 |  79.1 170.1 | 62.2   80.1 |   369    0     6 | lowres 0% tried 
+ select  |   109  14.7 | 66.6 133.4   150   183   65 |   14.6   21.8 |  74.6 160.7 | 58.0   63.1 |   369    0     4 | lowres 0% tried fog-ha,fog-ha,fog-ha
+ place   |   146  12.5 | 66.7 166.7 183.3   200   96 |     20   32.3 |  94.2 196.1 | 67.2   77.2 |   372    0   116 | lowres 0% tried fog-ha,fog-ha,shadow
+ drag    |   185  13.3 | 66.6   150   150   400   97 |   19.1     27 |  84.5 145.1 | 61.0   65.2 |   367    0     6 | lowres 0% tried shadow,fog-ha,small-,contac
+ ring    |    64  13.4 | 66.6 150.1 166.7   250   34 |   17.7   46.2 |  83.5 183.4 | 62.5   72.0 |   370    0     7 | lowres 0% tried shadow,fog-ha,small-,contac
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 11.4  world 1.4  emit 0.9  fxFrame 0.6
+   pan     fxRender 9.4  under 9.0  emit 3.5  world 1.2  fxFrame 0.5  input 0.4
+   orbit   fxRender 10.4  under 8.7  emit 4.5  world 1.1  fxFrame 0.5  input 0.3
+   zoom    fxRender 8.9  under 1.8  emit 1.4  world 1.0  input 0.6  fxFrame 0.4
+   hover   fxRender 10.9  world 3.4  emit 0.8  input 0.8  fxFrame 0.4  under 0.4
+   select  fxRender 11.3  world 3.0  emit 0.8  input 0.7  fxFrame 0.4  under 0.3
+   place   fxRender 10.7  under 7.5  input 2.0  world 2.0  emit 1.8  fxFrame 0.4
+   drag    fxRender 11.8  emit 5.5  world 3.1  input 2.4  fxFrame 0.5  under 0.3
+            frame listeners: 1.9 ms (what) => { if (what === 'selection') { expanded = | 1.3 ms (what) => { if (what !== 'frame') return; layer.cl | 0.6 ms (what) => { if (what === 'frame') frame(); }
+   ring    fxRender 12.3  world 6.7  emit 3.6  input 1.1  under 0.8  fxFrame 0.4
+
+== the front web server · cave · underMove · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    30  14.1 | 66.7 133.4 150.1   150   23 |   16.3   19.2 |  37.5  37.5 | 60.2   63.3 |   369    0     0 | lowres 0% tried 
+ pan     |   169  14.9 | 66.6 133.4   150   167   98 |   17.5   23.4 |  70.4 155.9 | 55.7   66.0 |   335    0     0 | lowres 0% tried shadow,fog-ha,small-,contac NOGAIN shadow,small-,contac
+ orbit   |   141  15.5 | 50.1 133.3 133.4   133   72 |   19.3   25.3 |  69.3 148.8 | 55.5   60.1 |   366    0     0 | lowres 0% tried fog-ha
+ zoom    |    69  13.2 | 66.7   150 150.1   167   44 |   14.6   21.6 | 164.4 296.4 | 63.0   79.7 |   310    0     0 | lowres 0% tried fog-ha
+ hover   |   158  14.8 | 66.6 133.4   150   167   84 |   15.2     20 |  71.7 154.4 | 57.2   63.8 |   369    0     6 | lowres 0% tried 
+ select  |   107  13.6 | 66.6 166.7 183.3   184   66 |   15.9   22.3 |  77.7 186.9 | 62.1   82.1 |   369    0     4 | lowres 0% tried fog-ha,fog-ha,fog-ha,fog-ha
+ place   |   138  11.8 | 83.3 166.7 216.6   217   90 |   21.4     31 |  91.5 192.7 | 70.8   89.4 |   372    0   114 | lowres 0% tried fog-ha,fog-ha
+ drag    |   183  14.9 |   50 133.3   150   200   91 |     18   26.5 |  64.3 136.7 | 55.8   60.9 |   366    0     3 | lowres 0% tried fog-ha,shadow,small-,contac
+ ring    |    65  12.6 | 66.7 166.7 183.3   183   41 |   16.8   34.6 |  82.2 193.8 | 67.3   82.9 |   370    0     5 | lowres 0% tried shadow,fog-ha,small-,contac
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 12.3  world 1.1  emit 0.8  fxFrame 0.4
+   pan     fxRender 11.1  emit 3.6  world 1.2  fxFrame 0.5  input 0.3
+   orbit   fxRender 12.2  emit 4.4  world 1.2  fxFrame 0.4
+   zoom    fxRender 10.1  emit 1.4  world 1.1  input 0.6  fxFrame 0.4
+   hover   fxRender 11.8  world 3.0  emit 0.9  input 0.6  fxFrame 0.4  under 0.3
+   select  fxRender 12.8  world 2.8  emit 0.9  input 0.7  fxFrame 0.4  under 0.4
+   place   fxRender 9.8  under 8.1  input 2.1  emit 1.9  world 1.0  fxFrame 0.4
+   drag    fxRender 11.8  emit 3.8  world 2.7  input 0.9  fxFrame 0.4
+   ring    fxRender 10.7  world 6.5  emit 3.3  input 0.9  under 0.8  fxFrame 0.4
+
+== the front web server · cave · early · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    31  14.5 | 66.6 133.4 133.4   133   17 |   16.3   20.7 |  47.4  47.4 | 56.4   57.7 |   369    0     0 | lowres 0% tried 
+ pan     |   171  12.9 | 66.7 166.6 166.7   233  106 |   24.2   32.1 |  87.9 182.3 | 66.9   88.0 |   327    0   160 | lowres 0% tried 75.5,small-
+ orbit   |   138  12.4 | 66.7 166.6 216.7   317   90 |   26.1     34 |  93.3 191.5 | 69.9   88.4 |   359    0   131 | lowres 0% tried small-
+ zoom    |    75  14.7 | 66.6 133.4 150.1   167   38 |     15   27.5 | 174.7 259.6 | 57.7   81.6 |   340    0    19 | lowres 0% tried small-
+ hover   |   156  14.2 | 66.6 133.4   150   183   95 |     15   19.4 |  75.9 155.2 | 58.9   66.0 |   369    0     6 | lowres 0% tried 
+ select  |   104  13.8 | 66.6   150 216.6   217   59 |   15.8   27.8 |  77.9 174.2 | 61.2   71.0 |   367    0    10 | lowres 0% tried small-,small-,small-
+ place   |   137  11.5 | 83.3 183.4 233.3   233  104 |   21.9   31.7 | 105.5 196.5 | 73.5   96.4 |   372    0   115 | lowres 0% tried small-
+ drag    |   195  14.2 |   50 133.4   150   183   89 |   17.2   25.2 | 110.5 148.6 | 58.3   64.4 |   367    0     7 | lowres 0% tried small-
+ ring    |    65  13.8 | 66.7   150 166.7   250   43 |     16   32.8 |  79.2 171.7 | 62.3   72.2 |   370    0     7 | lowres 0% tried small-
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 12.9  world 1.2  emit 0.8  fxFrame 0.5
+   pan     fxRender 9.3  under 8.8  emit 3.0  world 1.0  fxFrame 0.4
+   orbit   fxRender 10.2  under 9.6  emit 3.5  world 1.0  fxFrame 0.4
+   zoom    fxRender 9.6  under 2.3  emit 1.2  world 1.1  input 0.6  fxFrame 0.4
+   hover   fxRender 11.8  world 3.0  emit 0.8  input 0.5  fxFrame 0.4  under 0.4
+   select  fxRender 13.8  world 3.0  under 1.0  emit 0.9  input 0.7  fxFrame 0.4
+   place   fxRender 10.1  under 8.3  world 3.3  input 2.1  emit 1.8  fxFrame 0.4
+   drag    fxRender 11.4  emit 3.6  world 2.6  input 0.8  fxFrame 0.4  under 0.3
+   ring    fxRender 12.2  world 6.2  emit 3.6  under 0.8  input 0.8  fxFrame 0.4
+
+== the front web server · cave · dynearly · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    27  12.6 | 66.7 183.3   200   200   21 |   15.8   18.4 |    47    47 | 68.2   89.6 |   369    0     0 | lowres 0% tried 
+ pan     |   172  18.2 | 49.9 116.6 116.7   250   67 |   21.8   29.6 |    54 133.8 | 44.6   51.9 |   327    0   159 | lowres 0% tried 76.8,small-,pixels
+ orbit   |   140  15.9 |   50 133.4 166.6   300   59 |   23.4   32.7 |    67 159.6 | 53.7   76.0 |   359    0   131 | lowres 0% tried small-,pixels
+ zoom    |    83  19.9 | 49.9 116.6 133.3   283   27 |   11.6   25.7 | 118.1 352.3 | 44.2   56.7 |   346    0    19 | lowres 0% tried small-,pixels
+ hover   |   157  13.9 | 66.7 150.1 183.3   200   93 |   15.3   21.3 |  77.5 176.9 | 61.4   83.8 |   369    0     6 | lowres 0% tried 
+ select  |   109  13.1 | 66.7   150 299.9   300   70 |     14  156.3 |  78.4 278.3 | 66.1  169.9 |   368    0    12 | lowres 11% tried small-,pixels,small-,pixels,small-,pixels,small-,pixels
+ place   |   143  12.1 | 66.8 166.7   200   300   99 |   22.2   32.7 |  85.9 191.4 | 68.7   77.4 |   372    0   117 | lowres 1% tried small-,pixels
+ drag    |   203  18.7 | 33.4   100 150.1   233   81 |   16.3     24 |  68.2 152.4 | 42.4   66.2 |   366    0     7 | lowres 0% tried small-,pixels
+ ring    |    64  13.3 | 66.6 150.1 166.8   200   39 |   17.3  124.2 |  73.9 245.1 | 63.8   73.2 |   370    0     7 | lowres 6% tried small-,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 12.1  world 1.0  emit 0.8  fxFrame 0.4
+   pan     fxRender 8.6  under 7.6  emit 2.8  interact 1.2  world 0.9  fxFrame 0.3
+   orbit   fxRender 9.6  under 8.1  emit 3.2  interact 0.9  world 0.9  fxFrame 0.3
+   zoom    fxRender 7.9  interact 3.2  under 1.8  emit 1.1  world 0.9  input 0.4  fxFrame 0.3
+   hover   fxRender 12.2  world 2.9  emit 0.8  input 0.6  fxFrame 0.4  under 0.4
+   select  interact 14.8  fxRender 10.8  world 2.5  emit 0.8  under 0.8  input 0.6  fxFrame 0.4
+   place   fxRender 9.7  under 7.8  world 3.1  interact 2.7  input 1.9  emit 1.8  fxFrame 0.4
+   drag    fxRender 10.6  emit 3.3  world 2.5  interact 1.2  input 0.7  fxFrame 0.3  under 0.3
+   ring    fxRender 10.6  world 6.1  interact 4.3  emit 3.4  input 1.1  under 0.9  fxFrame 0.4
+
+== the front web server · cave · on · round 1 · preset auto · ANGLE (Intel, Vulkan 1.2.318 (Intel(R) HD Graphics 4600 (HSW
+ phase   | frames  fps |  p50   p95   p99   max long | work50 work95 | lat50 lat95 |  gpu  gpu95 | calls shad under | governor
+ rest    |    29  13.6 | 66.7 133.4   200   200   17 |   14.9     21 |  30.8  30.8 | 62.1   87.2 |   369    0     0 | lowres 0% tried 
+ pan     |   176  22.8 | 33.4  99.9 100.1   183   46 |   14.4   21.1 |  43.6 102.7 | 35.1   41.8 |   325    0     0 | lowres 0% tried 74.2,small-,pixels
+ orbit   |   141  20.3 | 33.4   100 116.7   200   44 |     16   22.4 |  56.1 116.2 | 40.5   44.8 |   358    0     0 | lowres 0% tried small-,pixels
+ zoom    |    80  18.5 |   50   100 133.4   233   35 |   11.7   17.7 | 107.5 240.2 | 46.1   62.6 |   350    0     0 | lowres 0% tried small-,pixels
+ hover   |   157  14.6 | 66.6 133.4   150   217   97 |   14.8     20 |    75 151.9 | 57.8   65.0 |   369    0     6 | lowres 0% tried 
+ select  |   107  13.3 | 66.7 166.6   250   267   71 |   15.2    152 |  78.2 240.3 | 65.0   95.0 |   369    0     6 | lowres 7% tried small-,pixels,small-,pixels
+ place   |   140  11.4 | 83.3 183.4 233.4   300   97 |   20.9   31.6 |  90.1 238.9 | 73.1   99.4 |   372    0   113 | lowres 1% tried small-,pixels
+ drag    |   201  19.2 | 33.4 100.1 133.4   233   74 |     16   22.9 |  66.1   140 | 40.9   56.2 |   365    0     3 | lowres 0% tried small-,pixels
+ ring    |    63  12.8 | 66.7 166.6 166.7   233   37 |   16.8  142.3 |  79.7 245.4 | 65.4  126.2 |   370    0     5 | lowres 3% tried small-,pixels
+ main-thread ms a frame (mean), by piece:
+   rest    fxRender 11.6  world 1.1  emit 0.7  fxFrame 0.5
+   pan     fxRender 9.3  emit 3.1  interact 0.9  world 0.9  fxFrame 0.3
+   orbit   fxRender 10.3  emit 3.9  interact 1.2  world 1.0  fxFrame 0.4
+   zoom    fxRender 8.3  interact 2.6  emit 1.1  world 1.1  input 0.5  fxFrame 0.4
+   hover   fxRender 12.0  world 3.2  emit 0.8  input 0.5  fxFrame 0.4  under 0.3
+   select  fxRender 12.0  interact 7.2  world 2.7  emit 0.8  input 0.6  under 0.5  fxFrame 0.4
+   place   fxRender 9.5  under 7.6  world 2.9  interact 2.6  input 2.0  emit 1.8  fxFrame 0.3
+   drag    fxRender 10.5  emit 3.3  world 2.4  interact 1.2  input 0.7  fxFrame 0.4
+   ring    fxRender 10.3  world 6.5  interact 5.6  emit 3.4  input 0.9  under 0.7  fxFrame 0.5
+wrote experiments/2026-11-06-perf/results/final-the front web server.json
+tw_sandbox: live house look and ratings unchanged by this run (sandbox lightuse-1916316-6aeedc0b)

@@ -1,0 +1,4 @@
+You are looking at pictures from a 3D tabletop game (a hand-painted miniature style), seen from a table camera; each shows one or two buildings from outside. The files in this folder are: {FILES}.
+For EACH file, first list every explicit label or text you can see (or "none"). Then judge ONLY FROM THE ROOFS AND WHAT STANDS ON THEM (ignore the walls as far as you can):
+{"file": ..., "roofs": "shape, material, eaves, anything standing on the roof", "culture_from_roofline": "the culture, region and rough period the roofline suggests", "confidence": 0-100, "why": "the roof features that decide it", "wrong_notes": "anything on the roofs that looks out of place for that culture, or broken"}
+One JSON line per file. Do not guess from file names.

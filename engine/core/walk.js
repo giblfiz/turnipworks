@@ -15,12 +15,17 @@
 // line is clear, so in the open the distance is the true straight-line distance (round rings, not octagons) and round a
 // corner it is the length of a taut string. Diagonals cost their length (no 5/10 rule), size, stairs, hills, furniture
 // and other pawns are ignored. A corner where two walls meet is never squeezed through; the end of a lone wall is.
+//
+// A BIG BASE (2026-11-06, core/size.js clearanceOf): `clear` feet. Every cell whose middle is nearer a wall than that is a
+// wall too, so a large pawn's rings (clear 4 ft: its disc's radius) flow through a 10-ft opening and stop at a 5-ft door.
+// 0 (a pawn of one square or less) changes nothing.
+import { segDistance } from './size.js';
 export const WALK = { cell: 1.25, margin: 3 }; // margin: cells past `reach` still worked out, so the last ring is whole
 export const FAR = 1e4; // the distance written for a cell that is not reached (a float texture holds it as it is)
 
 const EPS = 1e-4; // a point on a grid line (a pawn on a square's centre or corner) is nudged into one cell, always the same way
 
-export function walkField({ origin, reach = 40, cell = WALK.cell, segments = [], known = null, margin = WALK.margin } = {}) {
+export function walkField({ origin, reach = 40, cell = WALK.cell, segments = [], known = null, margin = WALK.margin, clear = 0 } = {}) {
   const t0 = typeof performance !== 'undefined' ? performance.now() : Date.now();
   const ox0 = origin[0], oz0 = origin[1], ox = ox0 + EPS, oz = oz0 + EPS, R = reach + margin * cell;
   const X0 = Math.floor((ox - R) / cell) * cell, Z0 = Math.floor((oz - R) / cell) * cell;
@@ -46,6 +51,11 @@ export function walkField({ origin, reach = 40, cell = WALK.cell, segments = [],
       const len = Math.hypot(bx - ax, bz - az), k = Math.max(1, Math.ceil(len / (cell * 0.25)));
       for (let q = 0; q <= k; q++) markCell(ax + (bx - ax) * q / k, az + (bz - az) * q / k);
     }
+  }
+  if (clear > 0) for (const s of segments) { // a big base: the cells too near this wall for its middle (the walls stay on the grid's lines too)
+    const [ax, az, bx, bz] = s, i0 = Math.max(0, Math.floor((Math.min(ax, bx) - clear - X0) / cell)), i1 = Math.min(n - 1, Math.floor((Math.max(ax, bx) + clear - X0) / cell));
+    const j0 = Math.max(0, Math.floor((Math.min(az, bz) - clear - Z0) / cell)), j1 = Math.min(n - 1, Math.floor((Math.max(az, bz) + clear - Z0) / cell));
+    for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) if (st[j * n + i] !== 2 && segDistance(X0 + (i + 0.5) * cell, Z0 + (j + 0.5) * cell, s) < clear - 1e-6) st[j * n + i] = 2;
   }
   const oi = Math.floor((ox - X0) / cell), oj = Math.floor((oz - Z0) / cell), O = oj * n + oi;
   st[O] = 1; // the pawn's own place is always open (a seat always knows where its own pawn stands)

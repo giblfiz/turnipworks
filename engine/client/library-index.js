@@ -19,6 +19,10 @@ export const KIT_PIECES = ['wall-straight', 'wall-window-small', 'wall-doorway',
 // the clipped hedge, its end block (a post) and its arch, the dry-stone wall, its pier (a post) and its gate. (The
 // 5x5-ft L of `hedge-corner` is left out: it does not sit on an edge or a point; a run turns at an end block.)
 export const HAND_KIT = [...KIT_PIECES, 'door-barn-double', 'railing-wood', 'railing-iron', 'balustrade-stone', 'balustrade-stone-pier', 'fence-post-rail', 'fence-post-corner', 'cell-bars', 'cell-bars-post', 'door-cell-bars', 'portcullis', 'fence-picket', 'fence-wattle', 'gate-fence', 'hedge-straight', 'hedge-end-block', 'hedge-gap-arch', 'wall-drystone', 'wall-drystone-pier', 'wall-drystone-gate'];
+HAND_KIT.push('fence-bamboo'); // culture packs A (jpn): the tea garden's bamboo fence, a hand kit piece like the wattle fence
+HAND_KIT.push('mde-arcade', 'mde-arcade-pier', 'mde-khan-gate'); // culture packs B (mde): the khan arcade, its piers, its gate
+HAND_KIT.push('rus-palisade', 'rus-yard-gate'); // culture packs B (rus): the stockade palisade and its gate
+HAND_KIT.push('door-curtain'); // culture packs B (mes): the woven door curtain (Mexica doorways have no hinged door)
 // ROOF OBJECTS (2026-10-27, Harry: "little turret type things and such. Basically roof objects"): pieces of the vertical
 // kit that stand on a roof (or a floor) by themselves, placed by hand as ordinary THINGS (moved, turned, deleted like
 // furniture; not snapped to an edge): the roof hatch, a chimney stack, the skylight. The generated roof objects (the
@@ -36,7 +40,13 @@ export const ROOF_THINGS = ['roof-hatch', 'chimney-stack', 'roof-skylight'];
 //   (left out)  an open state (shown, and switched, closed: `-open`, `open_of`) and the roof materials (`roofing-*`, flat
 //               pictures the roof styles use). test/library-index.test.mjs fails on a kit piece that is none of these.
 export const ROOM_KIT = ['door-glazed', 'door-panelled', 'door-tower', 'door-crypt', 'door-face-carved', 'door-rune-sealed', 'door-secret-bookcase', 'crypt-gate-iron', 'tomb-door-sealed', 'gate-double-timber', 'window-stained-glass', 'wall-shop-window', 'wall-window-shop', 'wall-secret-door', 'wall-alcove', 'wall-crypt-niches', 'ossuary-wall', 'cell-holding-wood', 'city-wall', 'city-wall-turret', 'wall-crenellated', 'wall-crenellated-corner', 'parapet-straight', 'parapet-corner', 'wall-corner-inner', 'wall-corner-outer', 'stable-stall', 'stable-stall-partition', 'stable-stall-back', 'stable-stall-door', 'stable-stall-gate', 'privy-stall-door'];
-export const KIT_THINGS = [...ROOF_THINGS, 'bar-counter', 'balcony-wood', 'porch-covered', 'gallery-interior', 'plank-bridge', 'bridge-stone-natural', 'cave-mouth', 'sewer-outflow', 'floor-trapdoor', 'floor-hayloft', 'hedge-corner', 'privy-stall-partition', 'roof-dormer', 'roof-ridge', 'roof-shingle-wood', 'rune-tile'];
+ROOM_KIT.push('door-flush', 'door-steel', 'door-shopfront', 'door-roller-shutter', 'wall-storefront'); // modern city (sprawl pack, 2026-11-06): its doors and the shop glass
+ROOM_KIT.push('wall-glass-curtain', 'fence-chain-link', 'gate-chain-link', 'parapet-roof-low'); // the cyberpunk pack (2026-11-07): the lobby's glass wall, the chain-link fence and its gate (seen through, they stop feet: vision.js), the rooftop's low parapet: on the Cyberpunk rooms' shelves, never a tavern's
+ROOM_KIT.push('wall-tiled'); // (2026-11-07, modrooms) the wet rooms' tiled wall panel: on the bathroom's, restroom's and kitchen's shelves
+export const KIT_THINGS = [...ROOF_THINGS, 'bar-counter', 'balcony-wood', 'porch-covered', 'gallery-interior', 'plank-bridge', 'bridge-stone-natural', 'cave-mouth', 'sewer-outflow', 'floor-trapdoor', 'floor-hayloft', 'hedge-corner', 'privy-stall-partition', 'roof-dormer', 'roof-ridge', 'roof-shingle-wood', 'rune-tile',
+  // the culture roofs' ornaments (2026-11-07, lane culture-roofs): the roof builder puts them by rule (roofs.js ROOF_ORNAMENTS);
+  // by hand they are things like the ridge and the dormer (a dome on any flat roof, a cupola on a church), on their culture's shelves
+  'roof-onigawara', 'roof-chiwen', 'roof-cupola-onion', 'roof-dome', 'roof-malqaf', 'roof-shikhara'];
 // AN OPEN STATE of another thing (a door swung open, an open chest: shown, and switched, as the closed one). Not every
 // name ending in "-open" is one: an open book, an open sack of flour, an open helm are things of their own, with no
 // closed twin (11 of them were left off every shelf and out of the command bar until 2026-10-29)
@@ -72,7 +82,12 @@ export function handPlaceable(lib, usable = () => true) {
 }
 
 // a library's sections of things, in order (plants: the yard's slot)
-export const SECTIONS = [['anchor', 'Centrepieces'], ['furnish', 'Furniture'], ['store', 'Storage'], ['light', 'Lights'], ['dress', 'Dressing'], ['plants', 'Plants'], ['*', 'Table and tools']];
+// VEHICLES (2026-11-07, catalog/rooms-vehicles.md): a Modern room's cars, helicopters and drones are one section of their own,
+// even where the room's anchor slot names one too (the street's parked cars: slotOf below looks at `vehicles` first)
+export const SECTIONS = [['anchor', 'Centrepieces'], ['vehicles', 'Vehicles'], ['furnish', 'Furniture'], ['store', 'Storage'], ['light', 'Lights'], ['dress', 'Dressing'], ['plants', 'Plants'], ['*', 'Table and tools']];
+// a recipe slot shelved in another slot's section (2026-11-07, catalog/rooms-vehicles.md: the Modern rooms' cameras and desk
+// things are `gadgets`, a slot no engine's generic dressing reads, shown under Dressing)
+const SLOT_ALIAS = { gadgets: 'dress' };
 const cap = (s) => s ? s[0].toUpperCase() + s.slice(1).replace(/-/g, ' ') : s;
 const famName = (f) => f ? f.replace(/-/g, ' ') : '';
 
@@ -121,9 +136,18 @@ export function poseOf(it, dims, tallLies = TALL_LIES) {
 //   A floor is { place: 'tile' } (sized as a 5-ft tile); the rest are sized by the catalog (roomgen.sizeOf).
 //   opts.ordered: lay the section out in its own order (the kit: by family), not biggest first.
 export function libraryContents(roomNode, { lib, recipe = { slots: {} }, usable = () => true, factionName = (cat) => cat }) {
-  const sec = (k) => SECTIONS.some(([s]) => s === k) ? k : '*';
-  const slotOf = (id) => { for (const [k, ids] of Object.entries(recipe.slots || {})) if (k !== 'sets' && ids.includes(id)) return sec(k); return sec(roomNode.slotOf?.[id]); }; // (a set's member, a spawned thing: the taxonomy's slot)
-  const looks = (it) => { const ls = looksOf(lib, it.cat, usable, recipe.family); return ls.length > 1 ? ls.map(({ look, sku }) => ({ ...it, sku: sku.sku, label: look ? `${it.label} · ${look}` : it.label })) : [it]; };
+  const sec = (k) => SECTIONS.some(([s]) => s === k) ? k : SLOT_ALIAS[k] || '*';
+  const slotOf = (id) => { if (recipe.slots?.vehicles?.includes(id)) return 'vehicles'; for (const [k, ids] of Object.entries(recipe.slots || {})) if (k !== 'sets' && ids.includes(id)) return sec(k); return sec(roomNode.slotOf?.[id]); }; // (a set's member, a spawned thing: the taxonomy's slot)
+  // GENRE ON THE SHELVES (sprawl pack, 2026-11-06): a modern look (sku tier `mod`) shows only in a modern room (one whose
+  // type rolls tier mod), and there the modern look of a shared thing (the modern sofa, not the mansion's) stands alone
+  // when it has one; the look shown is always named (sku), so the size lookup cannot pick a look of the other genre
+  // (2026-11-07) the cyberpunk pack's wave-2 looks of shared roles are tier `cyb`: a Cyberpunk room (tiers cyb, mod) shows
+  // both its looks, a City room only its own, a fantasy room neither
+  const MODERN = (t) => t === 'mod' || t === 'cyb', modT = new Set((recipe.tiers || []).filter(MODERN)), mod = modT.size > 0, use = (k) => usable(k) && (mod ? !MODERN(k.tier) || modT.has(k.tier) : !MODERN(k.tier));
+  const looks = (it) => { let ls = looksOf(lib, it.cat, use, recipe.family); if (mod && ls.some(l => modT.has(l.sku.tier))) ls = ls.filter(l => modT.has(l.sku.tier));
+    const mixed = (lib.objects[it.cat]?.skus || []).some(k => MODERN(k.tier)) && (lib.objects[it.cat]?.skus || []).some(k => !MODERN(k.tier));
+    return ls.length > 1 ? ls.map(({ look, sku }) => ({ ...it, sku: sku.sku, label: look ? `${it.label} · ${look}` : it.label })) : ls.length === 1 && mixed ? [{ ...it, sku: ls[0].sku.sku }] : [it]; };
+  const one = (it) => { const ls = looks(it); return ls.length > 1 ? [ls[0]] : ls; }; // (a bare room's borrowed shelves: one look each, of its own genre)
   const items = [...(roomNode.furniture || []).filter(n => !n.kit).map(n => ({ cat: n.cat, label: n.label, place: n.place })), ...(roomNode.objects || []).map(id => ({ cat: id, label: cap(id), place: 'surface' }))].filter(it => !isFactionSlot(it.cat)).flatMap(looks);
   const bySec = new Map(SECTIONS.map(([k]) => [k, []]));
   for (const it of items) bySec.get(slotOf(it.cat)).push(it);
@@ -131,13 +155,13 @@ export function libraryContents(roomNode, { lib, recipe = { slots: {} }, usable 
   // the faction pieces, where they come up (taxonomy.js factionSlots), grouped under each faction
   out.push(...factionSections(lib, roomNode.factionSlots || [], usable, factionName));
   // the things no room's recipe or rules list, from each of this room's types, a section per type
-  for (const m of roomNode.more || []) out.push([`more:${m.code}`, m.title, m.ids.map(id => ({ cat: id, label: cap(id), place: placeOf(lib.objects[id]) })).flatMap(roomNode.bare ? (it) => [it] : looks)]); // (a bare room's borrowed shelves: one look each)
+  for (const m of roomNode.more || []) out.push([`more:${m.code}`, m.title, m.ids.map(id => ({ cat: id, label: cap(id), place: placeOf(lib.objects[id]) })).flatMap(roomNode.bare ? one : looks)]); // (a bare room's borrowed shelves: one look each)
   // floors: every floor material as a 5-ft tile, the room type's own floors first (Harry 2026-10-04)
   const all = floorCats(lib), own = (recipe.floors || []).filter(f => all.includes(f)), tile = (id) => ({ cat: id, label: cap(id.replace(/^floor-/, '')), place: 'tile' });
   if (own.length) out.push(['floors', 'Floors', own.map(tile)]);
   // walls; doors and windows; stairs (every wall family's, the room's own first, then the room's own special pieces)
   const kitLabel = (id) => (roomNode.furniture || []).find(f => f.cat === id)?.label || cap(id);
-  out.push(...kitSections(lib, recipe.family, usable, kitLabel, roomNode.roomKit || []));
+  out.push(...kitSections(lib, recipe.family, usable, kitLabel, roomNode.roomKit || [])); // (every wall family's kit in every room, the modern ones too: walls are chosen by family, not by look)
   const rest = all.filter(f => !own.includes(f));
   if (rest.length) out.push(['floors-more', own.length ? 'More floors' : 'Floors', rest.map(tile)]);
   return out.filter(([, , list]) => list.length);

@@ -1,0 +1,149 @@
+{
+ "file": "cyber-rigger-ork-m.glb",
+ "tris": 49917,
+ "kb": 3225,
+ "native_extent": [
+  0.708,
+  1.001,
+  0.45
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  87,
+  63,
+  24
+ ],
+ "mean_saturation": 0.693,
+ "sized_by": "its highest point",
+ "overall_ft": 6.5,
+ "pieces": {
+  "connected_parts": 441,
+  "main_part_area_share": 0.9446,
+  "floating": [
+   {
+    "area_share": 2e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.07
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.08,
+    "size_ft": 0.0
+   },
+   {
+    "area_share": 0.0,
+    "gap_ft": 0.08,
+    "size_ft": 0.0
+   }
+  ],
+  "floating_count": 3,
+  "floating_area_share": 2e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 6.4947,
+ "y0": -3.2527,
+ "stated_ft": {
+  "body": 6.5,
+  "figure_top": 6.5,
+  "overall": 6.5
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.3563,
+   -0.5008,
+   -0.2244
+  ],
+  [
+   0.3514,
+   0.5002,
+   0.2254
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49917,
+   "tex": 2048,
+   "kb": 3225
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1225
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 518
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.96,
+    "z": -0.1,
+    "size_ft": [
+     1.33,
+     1.71
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.73,
+    "sole_p90_ft": 0.111
+   },
+   {
+    "x": -1.29,
+    "z": -0.19,
+    "size_ft": [
+     1.27,
+     1.71
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.74,
+    "sole_p90_ft": 0.102
+   }
+  ],
+  "contact_count": 2,
+  "max_off_ground_ft": 0.0,
+  "lowest_slab_area_sqft": 2.67,
+  "plan_hull_area_sqft": 9.71,
+  "lowest_slab_share_of_plan": 0.275
+ },
+ "plan": {
+  "size_ft": {
+   "w": 4.59,
+   "d": 2.92,
+   "h": 6.5
+  },
+  "centre": [
+   -0.137,
+   0.284
+  ],
+  "contacts_radius_ft": 1.76,
+  "reach_radius_ft": 2.39,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.907,
+  "plate_lost_share": 0.016,
+  "added_share": 0.085,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.907,
+  "view_yaw_deg": 345,
+  "view_elev_deg": 8
+ },
+ "id": "cyber-rigger-ork-m",
+ "sha1": "3333c06cbfe81f629d9343157297d134d81d37c6",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [],
+ "qa_seconds": 8.1
+}

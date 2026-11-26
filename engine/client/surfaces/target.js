@@ -97,7 +97,9 @@ export function targetSurface(R, app) {
   function frame() {
     const area = app.area(), w = area && app.worldOf?.(area); if (!w?.scene) return;
     const ents = E(), keep = new Set();
-    for (const a of Object.values(ents)) {
+    // (2026-11-06, the SPEED lane) the pawns, not every entity: this runs every frame, and on the 104-room town that was
+    // 3,700 entities walked a frame for the few pawns (app.pawnList is worked out once per state, main.js app.derived)
+    for (const a of (app.pawnList ? app.pawnList(ents) : Object.values(ents))) {
       if (a.kind !== 'token' || !a.target) continue;
       const t = ents[a.target];
       if (t?.kind !== 'token' || !visible(a, area) || !visible(t, area)) continue;
@@ -115,7 +117,7 @@ export function targetSurface(R, app) {
       const col = new THREE.Color(app.seatColor(a.owner) || app.myColor());
       if (!a.owner) col.set('#e5484d'); // (the GM's pawns: red)
       d.ret.material.color.copy(col); d.line.material.color.copy(col);
-      const s = RETICLE.scale * 5 * Math.max(1, t.size || 1), ty = footY(ents, t) + RETICLE.lift, ay = footY(ents, a) + RETICLE.lift;
+      const s = RETICLE.scale * 5 * (app.figures?.sizeOf(t) || t.size || 1), ty = footY(ents, t) + RETICLE.lift, ay = footY(ents, a) + RETICLE.lift;
       d.ret.scale.set(s, s, 1); d.ret.position.set(t.x, ty, t.z);
       const p = d.line.geometry.attributes.position; p.setXYZ(0, a.x, ay + 0.25, a.z); p.setXYZ(1, t.x, ty + 0.25, t.z); p.needsUpdate = true; d.line.geometry.computeBoundingSphere();
       d.line.visible = !!(app.sel?.has(a.id) || app.sel?.has(t.id));

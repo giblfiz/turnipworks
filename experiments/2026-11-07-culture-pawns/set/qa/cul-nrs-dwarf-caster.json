@@ -1,0 +1,152 @@
+{
+ "file": "cul-nrs-dwarf-caster.glb",
+ "tris": 47606,
+ "kb": 2721,
+ "native_extent": [
+  0.512,
+  1.001,
+  0.447
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.027,
+  "seen": 0.0001
+ },
+ "mean_rgb": [
+  69,
+  37,
+  21
+ ],
+ "mean_saturation": 0.703,
+ "sized_by": "its highest point",
+ "overall_ft": 4.3,
+ "pieces": {
+  "connected_parts": 46,
+  "main_part_area_share": 0.996,
+  "floating": [
+   {
+    "area_share": 8e-05,
+    "gap_ft": 0.03,
+    "size_ft": 0.07
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 8e-05,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 4.2958,
+ "y0": -2.1507,
+ "stated_ft": {
+  "body": 4.3,
+  "figure_top": 4.3,
+  "overall": 4.3
+ },
+ "base_ft": 5,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2555,
+   -0.5006,
+   -0.2226
+  ],
+  [
+   0.2567,
+   0.5004,
+   0.2247
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 47606,
+   "tex": 2048,
+   "kb": 2721
+  },
+  "20k1024": {
+   "tris": 20000,
+   "tex": 1024,
+   "kb": 1138
+  },
+  "8k512": {
+   "tris": 8000,
+   "tex": 512,
+   "kb": 494
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 0.71,
+    "z": 0.17,
+    "size_ft": [
+     0.81,
+     0.97
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.93,
+    "sole_p90_ft": 0.055
+   },
+   {
+    "x": -0.65,
+    "z": -0.03,
+    "size_ft": [
+     0.77,
+     0.91
+    ],
+    "off_ground_ft": 0.001,
+    "sole_level_share": 0.94,
+    "sole_p90_ft": 0.054
+   },
+   {
+    "x": -0.35,
+    "z": 0.85,
+    "size_ft": [
+     0.23,
+     0.23
+    ],
+    "off_ground_ft": 0.137,
+    "sole_level_share": 0.89,
+    "sole_p90_ft": 0.2
+   }
+  ],
+  "contact_count": 3,
+  "max_off_ground_ft": 0.137,
+  "lowest_slab_area_sqft": 0.86,
+  "plan_hull_area_sqft": 3.33,
+  "lowest_slab_share_of_plan": 0.259
+ },
+ "plan": {
+  "size_ft": {
+   "w": 2.2,
+   "d": 1.92,
+   "h": 4.3
+  },
+  "centre": [
+   0.046,
+   0.342
+  ],
+  "contacts_radius_ft": 1.06,
+  "reach_radius_ft": 1.34,
+  "share_outside_2p5ft": 0.0
+ },
+ "silhouette": {
+  "iou": 0.939,
+  "plate_lost_share": 0.017,
+  "added_share": 0.047,
+  "mesh_resized_by": 1.0,
+  "iou_box_fit": 0.939,
+  "view_yaw_deg": 355,
+  "view_elev_deg": 0
+ },
+ "id": "cul-nrs-dwarf-caster",
+ "sha1": "c94f85eb59572978890b2777696b999f1ca5b463",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "one foot is 0.14 ft off the ground"
+ ],
+ "qa_seconds": 8.4
+}

@@ -24,12 +24,13 @@ Two rooms sharing one wall at z = 20; the pawn in the south one, 7.5 ft from it,
   W12 the same upstairs: the hand over that room's top, the dice on its floor
   W13 a pawn on a hilltop, 10 ft up, fog on (same day, same table of places): every throw was "unseen" and set down flat. Sight
       outdoors is one surface, level 0, and the throw asked the fog at the hill's height, 10
-  W7  no page errors
+  W7  no page errors (the tunnel's websocket 404 excepted, matched narrowly: tunnel_noise.py, 2026-11-06)
   local:  python3 engine/test/browser_dice_wall.py --local   (TW_GPU=0: SwiftShader)
 """
 import argparse, asyncio, json, os, subprocess, sys, tempfile, time, urllib.parse, urllib.request
 from playwright.async_api import async_playwright
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'tests')); import tw_sandbox  # test writes go to a sandbox, never the live game
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from tunnel_noise import is_tunnel_ws_404  # the tunnel's websocket 404 is not a page error (2026-11-06)
 tw_sandbox.remove_campaigns()
 SOFT = os.environ.get('TW_GPU', '1') == '0'
 GL = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] if SOFT else ['--use-angle=vulkan', '--enable-features=Vulkan', '--ignore-gpu-blocklist', '--enable-gpu']
@@ -74,7 +75,7 @@ async def main():
         async def tab(url):
             ctx = await browser.new_context(viewport={'width': 1000, 'height': 640}, device_scale_factor=1)
             pg = await ctx.new_page(); pg.on('pageerror', lambda e: errors.append(str(e)))
-            pg.on('console', lambda m: errors.append(m.text[:200]) if m.type == 'error' and 'Failed to load resource' not in m.text else None)
+            pg.on('console', lambda m: errors.append(m.text[:200]) if m.type == 'error' and 'Failed to load resource' not in m.text and not is_tunnel_ws_404(m.text) else None)  # (through the tunnel the websocket is refused 404 and the seat goes on over SSE: tunnel_noise.py)
             await pg.goto(url); return pg
         async def action(pg, code):
             await pg.evaluate(code); await wait(pg, 'tw.sync.pendingCount() === 0', 15000, 'command accepted'); await pg.wait_for_timeout(200)

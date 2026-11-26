@@ -18,9 +18,12 @@
          (nothing placed, the address cleaned, Esc puts it away); ?pawn= = Add pawn with that figure; ?pack=CRY/crypt-vault
          = the Build menu at that room; a player's seat with ?place= gets no tool and changes nothing
   ROUTE+ (--page) /assets and /assets.json answer (JSON, CORS), /assets/ and /assets.html 301 to /assets
+  DL     (2026-11-07) the packs' zips on GitHub (docs/site/asset-release.json): the page as built shows them only if the
+         release is published; --local also draws the page AS published (build_site.py --assets-preview): every card's
+         download row, a pack's and a figure group's download buttons, and nothing scrolls sideways at 1280 or 390 px
 Writes nothing outside a throwaway campaign (named TEST, on a throwaway local relay).
 """
-import argparse, asyncio, atexit, json, os, random, shutil, subprocess, sys, tempfile, time, urllib.parse, urllib.request
+import argparse, asyncio, atexit, json, os, random, re, shutil, subprocess, sys, tempfile, time, urllib.parse, urllib.request
 from playwright.async_api import async_playwright
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ENGINE = os.path.dirname(HERE); REPO = os.path.dirname(ENGINE)
@@ -28,7 +31,7 @@ sys.path.insert(0, os.path.join(REPO, 'tests')); import tw_sandbox  # noqa: E402
 tw_sandbox.remove_campaigns()
 GL = ['--use-angle=vulkan', '--enable-features=Vulkan', '--ignore-gpu-blocklist', '--enable-gpu'] if os.environ.get('TW_GPU', '1') != '0' else ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']
 ap = argparse.ArgumentParser(); ap.add_argument('--local', action='store_true'); ap.add_argument('--page', help='site origin behind nginx, e.g. http://127.0.0.1:8180'); ap.add_argument('--headed', action='store_true')
-ap.add_argument('--only', help='comma list of sections: PAGE,WEIGHT,PICS,ROUTE,PHONE,GAME')
+ap.add_argument('--only', help='comma list of sections: PAGE,WEIGHT,PICS,ROUTE,PHONE,DL,GAME')
 A = ap.parse_args()
 if not A.local and not A.page: ap.error('choose --local or --page ORIGIN')
 ONLY = set(A.only.split(',')) if A.only else None
@@ -46,13 +49,14 @@ def _cleanup():
         except subprocess.TimeoutExpired: pr.kill(); pr.wait()
     for d in tmp: shutil.rmtree(d, ignore_errors=True)
 
+SITE = [None]
 RP, SP = (int(v) for v in os.environ.get('TW_PORTS', '18361,18961').split(','))
 def start_local():
     for port in (RP, SP):
         try: urllib.request.urlopen(f'http://127.0.0.1:{port}/', timeout=0.5); sys.exit(f'port {port} is busy (a stale test server?)')
         except urllib.error.HTTPError: sys.exit(f'port {port} is busy (a stale test server?)')
         except Exception: pass
-    data = tempfile.mkdtemp(prefix='tw-assets-'); site = tempfile.mkdtemp(prefix='tw-assets-site-'); tmp.extend([data, site])
+    data = tempfile.mkdtemp(prefix='tw-assets-'); site = tempfile.mkdtemp(prefix='tw-assets-site-'); tmp.extend([data, site]); SITE[0] = site
     os.symlink(ENGINE, os.path.join(site, 'engine')); os.symlink(os.path.join(REPO, 'tools', 'spawn-tuner'), os.path.join(site, 'tuner'))
     os.symlink(os.path.join(REPO, 'tools', 'spawn-tuner'), os.path.join(site, 'look'))  # (the page's file links: /look/assets/...)
     log = open(os.path.join(data, 'relay.log'), 'a')
@@ -196,6 +200,44 @@ async def main():
                 sw = await pg.evaluate("[document.documentElement.scrollWidth, innerWidth]")
                 check(await pg.evaluate(NOH), f"PHONE no sideways scroll at 390 px: {h or 'the overview'}", f'{sw[0]} / {sw[1]}')
             await pg.close()
+
+        # ---------- DL: the packs' zips (only while the release is published) ----------
+        if want('DL'):
+            print('DL')
+            rel = json.load(open(os.path.join(REPO, 'docs', 'site', 'asset-release.json')))
+            pg = await new_page()
+            await pg.goto(page_url, wait_until='load'); await pg.wait_for_timeout(800)
+            n = await pg.evaluate("[document.querySelectorAll('.pkdl a').length, document.querySelectorAll('a[href*=\"/releases/\"]').length]")
+            check((n[0] > 0) == rel['published'] and (n[1] > 0) == rel['published'], f"DL the page as built shows release links only when published (published: {rel['published']})", f'{n[0]} card links, {n[1]} release links')
+            await pg.evaluate("location.hash = 'pack/tavern-inn'"); await wait(pg, "document.querySelectorAll('#view a.card').length > 0", 8000)
+            m = await pg.evaluate("document.querySelectorAll('#view .dls a').length")
+            check((m > 0) == rel['published'], 'DL and a pack view the same', f'{m} links')
+            await pg.close()
+            if A.local:
+                pv = os.path.join(SITE[0], 'preview')
+                subprocess.run(['python3', os.path.join(ENGINE, 'tools', 'build_site.py'), '--assets-preview', pv], check=True, capture_output=True)  # (the system python: the site build's markdown)
+                purl = origin + '/preview/assets.html'
+                dl = f"https://github.com/{rel['repo']}/releases/download/{rel['tag']}/"
+                files = {z['file'] for zs in rel['packs'].values() for z in zs}
+                for w, h, phone in ((1280, 800, False), (390, 844, True)):
+                    pg = await new_page(w, h, phone=phone)
+                    await pg.goto(purl, wait_until='load'); await pg.wait_for_timeout(900)
+                    cards = await pg.evaluate("""() => [...document.querySelectorAll('#packs > li')].map(li => ({ slug: li.querySelector('a.pk').id.slice(5),
+                        links: [...li.querySelectorAll('.pkdl a')].map(a => ({ href: a.getAttribute('href'), txt: a.innerText, vis: a.getBoundingClientRect().width > 0 })) }))""")
+                    bad = [c['slug'] for c in cards if not c['links'] or not all(l['vis'] and re.search(r'\d (MB|GB)', l['txt']) for l in c['links'])]
+                    check(len(cards) == len(packs) and not bad, f'DL preview {w} px: every pack card shows its downloads with sizes', ', '.join(bad[:5]) or f'{len(cards)} cards')
+                    hrefs = [l['href'] for c in cards for l in c['links'] if l['href'].startswith('https://')]
+                    check(hrefs and all(x[len(dl):] in files for x in hrefs), f'DL preview {w} px: every card link is a release file', f'{len(hrefs)} links')
+                    check(await pg.evaluate(f"document.querySelectorAll('a[href=\"https://github.com/{rel['repo']}/releases/tag/{rel['tag']}\"]').length") == 1, f'DL preview {w} px: one "All packs on GitHub" link on the overview')
+                    check(await pg.evaluate(NOH), f'DL preview {w} px: no sideways scroll on the overview')
+                    for hsh, want_n in (('pack/tavern-inn', 2), ('pack/figures', None), ('pack/figures/hero', 2)):
+                        await pg.evaluate(f"location.hash = '{hsh}'"); await wait(pg, f"location.hash === '#{hsh}' && document.querySelectorAll('#view a.card').length > 0", 8000)
+                        await pg.wait_for_timeout(300)
+                        got = await pg.evaluate("[...document.querySelectorAll('#view .dls a[download]')].map(a => [a.getAttribute('href'), a.textContent])")
+                        exp = 1 + sum(1 for z in rel['packs']['figures'] if z['edition'] == 'hd') if want_n is None else want_n
+                        check(len(got) == exp and all(g[0][len(dl):] in files for g in got) and all(re.search(r'\d (MB|GB)', g[1]) for g in got), f'DL preview {w} px: #{hsh} offers its zips', [g[1].replace('\n', ' ') for g in got][:4])
+                        check(await pg.evaluate(NOH), f'DL preview {w} px: no sideways scroll on #{hsh}')
+                    await pg.close()
 
         # ---------- GAME (--local) ----------
         if want('GAME'):

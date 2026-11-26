@@ -1,0 +1,177 @@
+{
+ "file": "foe-brontosaurus.glb",
+ "tris": 49830,
+ "kb": 2101,
+ "native_extent": [
+  0.519,
+  0.788,
+  1.001
+ ],
+ "texture_px": [
+  2048,
+  2048
+ ],
+ "unpainted": {
+  "all_surface": 0.0,
+  "seen": 0.0
+ },
+ "mean_rgb": [
+  89,
+  84,
+  52
+ ],
+ "mean_saturation": 0.478,
+ "sized_by": "its highest point",
+ "overall_ft": 24.0,
+ "pieces": {
+  "connected_parts": 2,
+  "main_part_area_share": 0.5053,
+  "floating": [
+   {
+    "area_share": 0.49471,
+    "gap_ft": 0.04,
+    "size_ft": 30.4
+   }
+  ],
+  "floating_count": 1,
+  "floating_area_share": 0.49471,
+  "watertight": false
+ },
+ "yaw_deg": 0,
+ "scale": 30.4752,
+ "y0": -11.9389,
+ "stated_ft": {
+  "body": 24.0,
+  "figure_top": 24.0,
+  "overall": 24.0,
+  "length": 17
+ },
+ "base_ft": 20,
+ "route": "fal-ai/trellis-2 1024, 50k faces, 2048 px",
+ "native_bounds": [
+  [
+   -0.2558,
+   -0.3918,
+   -0.5005
+  ],
+  [
+   0.2636,
+   0.3958,
+   0.5007
+  ]
+ ],
+ "tiers": {
+  "full": {
+   "tris": 49830,
+   "tex": 2048,
+   "kb": 2101
+  },
+  "20k1024": {
+   "tris": 19999,
+   "tex": 1024,
+   "kb": 759
+  },
+  "8k512": {
+   "tris": 7999,
+   "tex": 512,
+   "kb": 351
+  }
+ },
+ "ground": {
+  "contacts": [
+   {
+    "x": 6.57,
+    "z": -8.33,
+    "size_ft": [
+     3.3,
+     8.4
+    ],
+    "off_ground_ft": 1.088,
+    "sole_level_share": 0.08,
+    "sole_p90_ft": 2.008
+   },
+   {
+    "x": -5.85,
+    "z": 1.09,
+    "size_ft": [
+     3.9,
+     4.2
+    ],
+    "off_ground_ft": 0.044,
+    "sole_level_share": 0.56,
+    "sole_p90_ft": 0.229
+   },
+   {
+    "x": 1.93,
+    "z": -0.15,
+    "size_ft": [
+     4.1,
+     4.3
+    ],
+    "off_ground_ft": 0.0,
+    "sole_level_share": 0.64,
+    "sole_p90_ft": 0.174
+   },
+   {
+    "x": -5.66,
+    "z": -9.39,
+    "size_ft": [
+     3.8,
+     4.4
+    ],
+    "off_ground_ft": 0.016,
+    "sole_level_share": 0.63,
+    "sole_p90_ft": 0.188
+   },
+   {
+    "x": 2.32,
+    "z": -9.39,
+    "size_ft": [
+     3.7,
+     4.4
+    ],
+    "off_ground_ft": 0.014,
+    "sole_level_share": 0.68,
+    "sole_p90_ft": 0.198
+   }
+  ],
+  "contact_count": 5,
+  "max_off_ground_ft": 1.088,
+  "lowest_slab_area_sqft": 50.71,
+  "plan_hull_area_sqft": 314.13,
+  "lowest_slab_share_of_plan": 0.161
+ },
+ "plan": {
+  "size_ft": {
+   "w": 15.82,
+   "d": 30.51,
+   "h": 24.0
+  },
+  "centre": [
+   -0.518,
+   -4.768
+  ],
+  "contacts_radius_ft": 9.99,
+  "reach_radius_ft": 19.73,
+  "share_outside_2p5ft": 0.96
+ },
+ "silhouette": {
+  "iou": 0.898,
+  "plate_lost_share": 0.047,
+  "added_share": 0.062,
+  "mesh_resized_by": 0.95,
+  "iou_box_fit": 0.83,
+  "view_yaw_deg": 300,
+  "view_elev_deg": 0
+ },
+ "id": "foe-brontosaurus",
+ "sha1": "3ccb5f1d6bdacc93140fb5c9159978b9b9c895cb",
+ "verdict": "accept",
+ "fail": [],
+ "notes": [
+  "1 separate part(s) lying within 0.04 ft of the body (not joined to it)",
+  "one foot is 1.09 ft off the ground",
+  "REACH: 9.7 ft outside its 20-ft square"
+ ],
+ "qa_seconds": 15.4
+}

@@ -68,12 +68,12 @@ async def main():
         check(await gm.evaluate("!!tw.buildingNode('inn') && !!tw.buildingNode('crypt') && !!tw.buildingNode('mansion') && !!tw.buildingNode('castle')"), 'the four types are known by name (inn, mansion, castle, crypt)')
 
         print('INN: one command makes a two-storey inn with a stair core, a cellar and a yard')
-        await gm.evaluate("tw.buildAt(tw.buildingNode('inn'), 12, 8, { seed: 7 })")
+        await gm.evaluate("tw.buildAt(tw.buildingNode('inn'), 12, 8, { seed: 7, storeys: 2 })")  # (2026-11-12: one storey is the default now, browser_levels_advanced.py; asked for two, an inn is built as before)
         ok = await wait(gm, f"{ROOMS}.length >= 8 && Object.values(tw.entities()).filter(e => e.kind === 'object').length > 100", 60000, 'inn built')
         s = await gm.evaluate(SUMMARY)
         check(ok and s['n'] == s['planRooms'] - len(s['left']) and s['buildings'] == 1, 'every room of the plan is in the area, in one building', f"{s['n']} rooms, {s['objects']} things")
         check(s['gen'] and s['gen']['code'] == 'TAV' and s['gen']['storeys'] == 2 and s['gen']['seed'] == 7, 'the building remembers its recipe (type, footprint, seed, storeys)', s['gen'])
-        check(s['ys'] == [-10, 0, 10], 'an inn is two storeys by default, with a cellar under it', s['ys'])
+        check(s['ys'] == [-10, 0, 10], 'an inn asked for two storeys (its usual count) has its cellar under it, as before', s['ys'])
         check({'common', 'kitchen', 'hallway', 'guest', 'cellar'} <= set(s['types']), 'common room, kitchen, hallway, guest rooms, cellar', sorted(set(s['types'])))
         check(s['stairs'] == 2, 'one stair core to the upper storey and a short stair to the cellar: two stairs, not one per room', s['stairs'])
         check(s['planDoors'] >= s['planLinks'] - 1 and s['forced'] == 0 and s['street'] == 1, 'the doors are the plan\'s doors; the wall engine added none; one street door', f"{s['planDoors']} of {s['planLinks']} planned, {s['forced']} forced, {s['street']} street")
@@ -125,7 +125,7 @@ async def main():
         check(all(k[1] for k in c['loops']), 'the plan has a loop and a choice near the door', c['loops'])
         check(not c['fails'] and c['forced'] == 0, 'every crypt room furnished; the wall engine forced no door', c['fails'])
         b = await gm.evaluate("tw.condButtons.list().filter(x => x.key.startsWith('bld-')).map(x => x.text)")
-        check('2 levels' in b and '3 levels' in b, 'a crypt is one level by default and offers "2 levels", "3 levels" (they go DOWN)', b)
+        check(any('2 levels' in t for t in b) and any('3 levels' in t for t in b), 'a crypt is one level by default and offers "Go deeper: 2 levels", "Go deeper: 3 levels" (they go DOWN)', b)
         await gm.locator('.cbtn', has_text='2 levels').click()
         ok = await wait(gm, f"{ROOMS}.some(r => r.building === tw.lastBuilding && (r.recipe.y || 0) === -10)", 60000, 'crypt level 2')
         c2 = await gm.evaluate("(() => { const E = tw.entities(), st = Object.values(E).filter(e => tw.ST.isConnector(e) && E[e.room] && E[e.room].building === tw.lastBuilding); return st.map(x => { const L = tw.ST.stairLinks(E, x); return [E[L.from] && E[L.from].recipe.type, E[L.to] && E[L.to].recipe.type, tw.ST.stairBase(x)]; }); })()")
@@ -134,7 +134,7 @@ async def main():
 
         print('MANSION and CASTLE; then the gallery link')
         for word, w, d, need in [('mansion', 16, 12, {'mansion-hall', 'mansion-dining', 'mansion-kitchen', 'mansion-bedroom', 'mansion-corridor'}), ('castle', 16, 12, {'great-hall', 'castle-kitchen', 'barracks', 'armoury', 'castle-passage', 'throne-room'})]:
-            await gm.evaluate(f"tw.buildAt(tw.buildingNode('{word}'), {w}, {d}, {{ seed: 11 }})")
+            await gm.evaluate(f"tw.buildAt(tw.buildingNode('{word}'), {w}, {d}, {{ seed: 11, storeys: 2 }})")  # (their usual two: one is the default since 2026-11-12)
             ok = await wait(gm, f"tw.lastPlan && tw.lastPlan.label.toLowerCase() === '{word}' && tw.entities()[tw.lastBuilding] && {ROOMS}.filter(r => r.building === tw.lastBuilding).length >= 6", 90000, word)
             m = await gm.evaluate("(() => { const E = tw.entities(), rs = Object.values(E).filter(e => e.kind === 'room' && e.building === tw.lastBuilding); return { types: [...new Set(rs.map(r => r.recipe.type))], ys: [...new Set(rs.map(r => r.recipe.y || 0))].sort((a, b) => a - b), fails: tw.lastBuildOut.fails, left: tw.lastBuildOut.left, bad: tw.lastPlan.checks.filter(k => !k.ok).map(k => k.rule) }; })()")
             check(ok and need <= set(m['types']) and 10 in m['ys'] and not m['bad'], f'{word} {w}x{d}: its rooms, two storeys, every rule kept', f"{sorted(m['types'])} {m['ys']} {m['bad']}")

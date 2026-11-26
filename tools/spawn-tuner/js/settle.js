@@ -29,7 +29,7 @@ function restMatrix(it) {
     new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), it.rest.rot), new THREE.Vector3(1, 1, 1));
 }
 // every mesh under the item's visual, with its matrix relative to the item's group
-function meshesOf(it) {
+function meshesOf(it, tilted = false) { // tilted: as the thing lies (a parent); a rider is sampled upright, as ever (its own tilt is grounded by seatTilt)
   const out = [];
   const walk = (o, rel) => {
     o.updateMatrix();
@@ -37,7 +37,11 @@ function meshesOf(it) {
     if (o.isMesh && o.geometry?.attributes?.position && o.visible !== false && !o.userData.noSettle) out.push({ mesh: o, rel: m });
     for (const c of o.children) walk(c, m);
   };
-  walk(it.visual, new THREE.Matrix4());
+  // (2026-11-06) a thing tipped over (the game's `quat`, engine/client/world.js seatTilt) holds its visual in a tilt node
+  // inside the group: its meshes are where that node puts them. Without it a cup on a tipped table was seated on the
+  // table's UPRIGHT top, in the air or sunk into the slope (docs/KNOWN_BUGS.md "things on a tilted table float")
+  const tilt = tilted && it.visual.parent?.userData?.tilt ? (it.visual.parent.updateMatrix(), it.visual.parent.matrix.clone()) : new THREE.Matrix4();
+  walk(it.visual, tilt);
   return out;
 }
 
@@ -82,7 +86,7 @@ export function createSettler({ itemsOfRoom, onSettled = () => {} }) {
     const cut = minY + BAND + 0.08 * (maxY - minY);
     const low = []; for (let i = 0; i < pts.length; i += 3) if (pts[i + 1] <= cut) low.push(i);
     const stride = Math.max(1, Math.floor(low.length / MAX_SAMPLES));
-    const targets = meshesOf(parent).map(({ mesh, rel }) => proxyFor(mesh, new THREE.Matrix4().multiplyMatrices(RP, rel)));
+    const targets = meshesOf(parent, true).map(({ mesh, rel }) => proxyFor(mesh, new THREE.Matrix4().multiplyMatrices(RP, rel)));
     if (!targets.length) return null;
     let gap = Infinity, hits = 0;
     for (let k = 0; k < low.length; k += stride) {

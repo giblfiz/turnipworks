@@ -1,0 +1,918 @@
+{
+ "assets": {
+  "chn-armchair": {
+   "id": "chn-armchair",
+   "time": "2026-11-07T06:54:38.156716+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese official's hat armchair.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Chinese armchair (guanmao yi) of dark rosewood: a tall S-curved back splat, a top rail whose ends sweep OUTWARD past the posts like the wings of an official's hat, curved arms, a square seat with a thin cushion of deep blue silk, stout legs with a foot rail. Real-world size about 26 in wide x 22 in deep x 44 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-armchair.png",
+   "sha256": "266b3100d2523de24ba5f85cedd16bcc70f8ed5dcbc1007feae827290153e8f5",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     57,
+     117,
+     983,
+     1452
+    ],
+    "margin_px": 41,
+    "semi_alpha_fraction": 0.0084
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-buddha-altar": {
+   "id": "chn-buddha-altar",
+   "time": "2026-11-07T06:54:39.993586+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a seated Buddha on a lotus throne in a Chinese temple hall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A serene SEATED BUDDHA in meditation, legs crossed, hands resting in the lap, eyes lowered, a gentle calm face, gilded in soft gold, sitting on a broad LOTUS THRONE of layered pink-and-gold petals; behind it a tall flame-shaped halo of gold and deep red; all on a broad stepped altar platform of dark red lacquered wood with gold borders. Dignified, calm, symmetrical, with reverence. Real-world size about 96 in wide x 60 in deep x 120 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-buddha-altar.png",
+   "sha256": "4ebb4fdfe6199ef535313b115b172765dd9ab84c3e0920f71e0d28dbe40cfcf9",
+   "measure": {
+    "ok": false,
+    "problems": [
+     "object touches the frame (margin 6px)"
+    ],
+    "size": [
+     1254,
+     1254
+    ],
+    "alpha_box": [
+     133,
+     6,
+     1110,
+     1237
+    ],
+    "margin_px": 6,
+    "semi_alpha_fraction": 0.0059
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-carrying-pole": {
+   "id": "chn-carrying-pole",
+   "time": "2026-11-07T06:54:40.929637+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese carrying pole with two baskets.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A thick bamboo CARRYING POLE about 6 ft long resting across the tops of two round deep bamboo BASKETS set on the ground, one heaped with oranges, one with green vegetables, each hung from the pole by thick ropes. Real-world size about 72 in wide x 22 in deep x 32 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-carrying-pole.png",
+   "sha256": "db9b4f4607c87023a8a22a5181b47646350640bd45651a4117329331b484f3a9",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1536,
+     1024
+    ],
+    "alpha_box": [
+     47,
+     92,
+     1498,
+     969
+    ],
+    "margin_px": 38,
+    "semi_alpha_fraction": 0.0102
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-console-table": {
+   "id": "chn-console-table",
+   "time": "2026-11-07T06:54:42.421713+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese long console table.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A long narrow Chinese console table (qiaotou an) of dark rosewood: a long thick top whose two ends curl UP like scrolls, deep carved aprons and stout legs with carved feet. On it, centred, a tall blue-and-white porcelain vase and at one end a small carved wooden stand with a flat round grey stone disc. Real-world size about 96 in wide x 20 in deep x 40 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-console-table.png",
+   "sha256": "e328a1cae20be0262e49d2a51ede191a270d4e8dd18ea0e4f296c16d73c9f20d",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1536,
+     1024
+    ],
+    "alpha_box": [
+     37,
+     17,
+     1504,
+     1006
+    ],
+    "margin_px": 17,
+    "semi_alpha_fraction": 0.007
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-goldfish-vat": {
+   "id": "chn-goldfish-vat",
+   "time": "2026-11-07T06:54:43.499953+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese courtyard goldfish vat.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A big round glazed ceramic VAT, deep green-brown glaze with a band of raised rings, filled to just below the rim with dark still water on which float three broad round green LOTUS leaves and one pink lotus bud. Real-world size about 36 in wide x 36 in deep x 30 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-goldfish-vat.png",
+   "sha256": "124221daa086d1f318818a77fb003a7be6069576c594ad7e9f173522d0bfa453",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1024
+    ],
+    "alpha_box": [
+     60,
+     55,
+     962,
+     998
+    ],
+    "margin_px": 26,
+    "semi_alpha_fraction": 0.0041
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-incense-burner": {
+   "id": "chn-incense-burner",
+   "time": "2026-11-07T06:54:44.228753+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a great Chinese bronze incense burner.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A great Chinese bronze INCENSE BURNER (ding): a round deep cauldron with two upright handles on its rim, standing on three stout legs, with a tall domed pierced lid crowned by a small seated lion; dark bronze with a soft green patina, a few sticks of incense standing in it. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Real-world size about 40 in wide x 40 in deep x 54 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-incense-burner.png",
+   "sha256": "5bf7bcd13226c082b7697767a646c705ddff99ae55864619bde15c38279c24eb",
+   "measure": {
+    "ok": false,
+    "problems": [
+     "object touches the frame (margin 6px)"
+    ],
+    "size": [
+     1254,
+     1254
+    ],
+    "alpha_box": [
+     141,
+     10,
+     1110,
+     1248
+    ],
+    "margin_px": 6,
+    "semi_alpha_fraction": 0.0057
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-kneeling-cushion": {
+   "id": "chn-kneeling-cushion",
+   "time": "2026-11-07T06:54:45.090578+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese round kneeling cushion.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: ONE round plump kneeling CUSHION (putuan) of woven golden straw with a band of deep yellow cloth round its side, lying flat. Real-world size about 22 in wide x 22 in deep x 8 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-kneeling-cushion.png",
+   "sha256": "dd69eb86083cc6b37a18d8c1b56c342d95a6b46b7c4715949da6e3947c967e6e",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1254,
+     1254
+    ],
+    "alpha_box": [
+     49,
+     199,
+     1200,
+     1109
+    ],
+    "margin_px": 49,
+    "semi_alpha_fraction": 0.0035
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-lantern-pole": {
+   "id": "chn-lantern-pole",
+   "time": "2026-11-07T06:54:46.031079+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese lantern on a post.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A stout dark wooden POST about 8 ft tall on a grey stone foot, with a short arm at its top from which hangs ONE round red paper LANTERN with dark ribs and a short tassel. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Real-world size about 18 in wide x 18 in deep x 96 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-lantern-pole.png",
+   "sha256": "c5a198f8b313197636b9c9f08962a2298335450ee82f00a578784124949f71f0",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     178,
+     31,
+     845,
+     1517
+    ],
+    "margin_px": 19,
+    "semi_alpha_fraction": 0.0051
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-offering-table": {
+   "id": "chn-offering-table",
+   "time": "2026-11-07T06:54:46.978285+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese temple offering table.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A long Chinese temple OFFERING TABLE of red lacquered wood with a gold-bordered yellow silk cloth hanging over its front, and on it, symmetrical: a small bronze tripod incense burner in the middle, a tall bronze candlestick with a red candle each side, plates heaped with oranges and peaches, two vases of lotus flowers. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Real-world size about 84 in wide x 30 in deep x 40 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-offering-table.png",
+   "sha256": "a58f9d2c3af0d1d2d5713566faa6f6304a49d2cab083075ad5cd6804ffb1c41d",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1536,
+     1024
+    ],
+    "alpha_box": [
+     18,
+     12,
+     1517,
+     1007
+    ],
+    "margin_px": 12,
+    "semi_alpha_fraction": 0.0116
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-palace-lantern": {
+   "id": "chn-palace-lantern",
+   "time": "2026-11-07T06:54:48.270067+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese palace lantern.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Chinese PALACE LANTERN (gongdeng) hanging from above: a hexagonal frame of dark carved wood with six panels of cream silk painted with small flowers, a carved wooden crown on top with a short thick hanging hook, and a short thick red silk tassel hanging from each of the six lower corners. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Real-world size about 20 in wide x 20 in deep x 36 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-palace-lantern.png",
+   "sha256": "7ad631e2c7e11fa6237878f1cff71a3600ece208b7a1ba8a800dd5581f9080f5",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     50,
+     10,
+     975,
+     1524
+    ],
+    "margin_px": 10,
+    "semi_alpha_fraction": 0.0078
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-penjing": {
+   "id": "chn-penjing",
+   "time": "2026-11-07T06:54:49.531493+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese penjing potted landscape.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A PENJING potted landscape: a shallow oval celadon-green ceramic tray holding a little craggy grey rock and one small twisted pine with flat pads of needles, standing on a tall slender carved dark wooden stand. Real-world size about 24 in wide x 18 in deep x 36 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage you can see through, nothing floating free. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-penjing.png",
+   "sha256": "c7a1611c9e8e576d9e720d517c8bc5cd5d46c2d718beaab0dc6f0324ae9702a9",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     101,
+     16,
+     976,
+     1527
+    ],
+    "margin_px": 9,
+    "semi_alpha_fraction": 0.0126
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-pomegranate-tub": {
+   "id": "chn-pomegranate-tub",
+   "time": "2026-11-07T06:54:51.003307+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a pomegranate tree in a big tub.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A small POMEGRANATE tree in a big round deep blue-green glazed ceramic tub: a short twisting trunk and a round crown of glossy dark green leaves in big soft masses, dotted with a few round red pomegranates. Real-world size about 54 in wide x 54 in deep x 96 in tall: keep these proportions. Foliage is painted as a FEW big solid masses with broad leaf shapes on their surface, never as separate thin leaves or twigs; no gaps in the foliage you can see through, nothing floating free. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-pomegranate-tub.png",
+   "sha256": "18ef88fe21d9bbf9f13bec0b945a9c5b9110de7dede19e688eb4c4d6f724e5d0",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     38,
+     28,
+     978,
+     1518
+    ],
+    "margin_px": 18,
+    "semi_alpha_fraction": 0.0064
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-porcelain-jars": {
+   "id": "chn-porcelain-jars",
+   "time": "2026-11-07T06:54:52.210245+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a group of Chinese blue-and-white porcelain jars.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: THREE big round-shouldered porcelain JARS with domed lids standing close together, white glazed and painted in cobalt blue with bold lotus scrolls and wave bands (no writing). Real-world size about 40 in wide x 24 in deep x 30 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-porcelain-jars.png",
+   "sha256": "f3c0ffe1c1e2237d2831abddc6a5c23a0ef9de5a412e680aa504396ee8142071",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1024
+    ],
+    "alpha_box": [
+     24,
+     101,
+     1003,
+     960
+    ],
+    "margin_px": 21,
+    "semi_alpha_fraction": 0.0047
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-screen-wall": {
+   "id": "chn-screen-wall",
+   "time": "2026-11-07T06:54:52.956161+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese courtyard screen wall (yingbi).\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A free-standing Chinese SCREEN WALL (yingbi): a broad short wall of dark blue-grey brick on a stone plinth, about 10 ft wide and 9 ft tall, with a carved grey brick panel in its middle (a square frame with a lotus-and-scroll medallion in the centre and floral corner pieces) and a little roof of dark grey cylindrical tiles along its top with gently upturned ends. It stands alone. Real-world size about 120 in wide x 24 in deep x 108 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-screen-wall.png",
+   "sha256": "d402ec7636c3786e5829d0cc1e4bf8cf4ce117fe6f33fdb99d29154c0f59f2f3",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1536,
+     1024
+    ],
+    "alpha_box": [
+     193,
+     9,
+     1343,
+     1015
+    ],
+    "margin_px": 9,
+    "semi_alpha_fraction": 0.0042
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-square-table": {
+   "id": "chn-square-table",
+   "time": "2026-11-07T06:54:53.966766+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese square table.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A square Chinese table (baxian zhuo) of dark rosewood: a thick square top, a carved openwork apron under each edge, four stout straight legs with a stretcher between them. On it a small teapot and two cups. Real-world size about 40 in wide x 40 in deep x 32 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-square-table.png",
+   "sha256": "fe2d99e76f8636f6117eee1d6424d708ea4c8d33ef583fc822f83e60ce3374f3",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1254,
+     1254
+    ],
+    "alpha_box": [
+     49,
+     93,
+     1188,
+     1195
+    ],
+    "margin_px": 49,
+    "semi_alpha_fraction": 0.0077
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-standing-screen": {
+   "id": "chn-standing-screen",
+   "time": "2026-11-07T06:54:54.821716+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese standing screen.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Chinese standing SCREEN (zuoping): ONE broad upright panel of pale marble whose natural grey veins look like misty mountains, framed in dark carved rosewood, standing in a heavy carved wooden base with two broad feet. Real-world size about 60 in wide x 20 in deep x 72 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-standing-screen.png",
+   "sha256": "95de906ed666c64fe43eefa3519fe582c12984ff09027d67ceeff5d887b2ed09",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     19,
+     80,
+     1006,
+     1506
+    ],
+    "margin_px": 18,
+    "semi_alpha_fraction": 0.0052
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-stone-table": {
+   "id": "chn-stone-table",
+   "time": "2026-11-07T06:54:56.082449+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese round stone table with drum stools.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A round Chinese garden TABLE of pale grey stone with a thick top on a round carved pedestal, and four squat round drum-shaped STONE STOOLS standing round it, each carved with two bands of studs like a drum. Real-world size about 72 in wide x 72 in deep x 32 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-stone-table.png",
+   "sha256": "300c240afd041924080cec2ec5f2424a4a0f81a3012bffed3380ed7cbe193c5b",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1024
+    ],
+    "alpha_box": [
+     21,
+     189,
+     1003,
+     892
+    ],
+    "margin_px": 21,
+    "semi_alpha_fraction": 0.0064
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-taihu-rock": {
+   "id": "chn-taihu-rock",
+   "time": "2026-11-07T06:54:56.695234+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese Taihu garden rock.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A tall Chinese TAIHU garden rock: a craggy pale grey limestone rock, taller than a man, twisting upward, eroded into smooth rounded hollows and several deep holes right through it, standing on a low carved grey stone base. Real-world size about 48 in wide x 36 in deep x 96 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-taihu-rock.png",
+   "sha256": "1123d8c7ebf46c0d901aec0e1e069474a82174fff029a362dc972136b2266bba",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     128,
+     28,
+     894,
+     1514
+    ],
+    "margin_px": 22,
+    "semi_alpha_fraction": 0.0063
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "door-panelled--chn-lattice-leaf": {
+   "id": "door-panelled--chn-lattice-leaf",
+   "time": "2026-11-07T06:54:57.855310+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese lattice door (geshan men) used between rooms.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A lattice door leaf: a dark red-brown frame, the upper two thirds a THICK geometric wooden lattice of interlocking squares backed by cream paper, the lower third a solid wooden panel with one carved plain rectangle. It is ONE flat door leaf, a slab about 4 ft wide, 4 in thick and 8 ft tall, standing upright on its bottom edge, seen from the front, a little from one side and slightly above, so its face and one edge show. No frame, no wall, no hinges sticking out, no floor. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Keep the WHOLE leaf well inside the frame with a generous margin.\n",
+   "plate": "plates/door-panelled--chn-lattice-leaf.png",
+   "sha256": "07a3b6f99857b295664d887e3a780d03a0f8befd350530e92397f9a517c5cc78",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     201,
+     84,
+     809,
+     1465
+    ],
+    "margin_px": 71,
+    "semi_alpha_fraction": 0.0038
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "door-plank--chn-gate-leaf": {
+   "id": "door-plank--chn-gate-leaf",
+   "time": "2026-11-07T06:54:58.983006+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese courtyard-house street door leaf.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A thick plank door leaf lacquered dark red-black, with two rows of round domed bronze studs and ONE round bronze knocker ring hanging from a lion-mask plate at the middle height. It is ONE flat door leaf, a slab about 4 ft wide, 4 in thick and 8 ft tall, standing upright on its bottom edge, seen from the front, a little from one side and slightly above, so its face and one edge show. No frame, no wall, no hinges sticking out, no floor. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Keep the WHOLE leaf well inside the frame with a generous margin.\n",
+   "plate": "plates/door-plank--chn-gate-leaf.png",
+   "sha256": "f7949b906c7e06e849ab50fb9aca43fb954d5958f5e7d77cce085e0ed0e2a745",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     173,
+     60,
+     838,
+     1486
+    ],
+    "margin_px": 50,
+    "semi_alpha_fraction": 0.0037
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "post-timber--chn-brick": {
+   "id": "post-timber--chn-brick",
+   "time": "2026-11-07T06:55:00.140413+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a round dark red-brown lacquered column on a stone drum base.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: One tall round timber column lacquered dark red-brown, about 12 in thick, standing on a round carved grey stone drum base, with a plain flared top. Real-world size about 14 in wide x 14 in deep x 108 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/post-timber--chn-brick.png",
+   "sha256": "88f759d74115050fadee3bee6ba99e7ffa736645175e760faa31e09a9dee3a57",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     321,
+     12,
+     699,
+     1523
+    ],
+    "margin_px": 12,
+    "semi_alpha_fraction": 0.0037
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "wall-doorway--chn-brick": {
+   "id": "wall-doorway--chn-brick",
+   "time": "2026-11-07T06:55:00.881479+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Edit task. The supplied image is an accepted piece of this same set (a Qing courtyard house wall of grey brick). The new piece must look built by the same hands from the same materials: the SAME colours, timber, plaster or stone, thicknesses, painting style and camera angle. Change ONLY what is described below. Keep the transparent background.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a Qing courtyard house wall section with an empty doorway.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: The same grey brick wall section with an EMPTY door opening through it from the very bottom: about 3.5 ft wide and 7 ft tall, centred, framed by two dark red-brown lacquered door posts, a dark lintel beam and a low grey stone threshold. Grey brick either side and above. NO door, NO curtain. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab under it, NO roof, NO corner return, NO lamp, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it.\n",
+   "plate": "plates/wall-doorway--chn-brick.png",
+   "sha256": "8613c9d58427773beefccf0baa9f403ad170d43af2c3552d2e524d579c8ae345",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     162,
+     38,
+     861,
+     1497
+    ],
+    "margin_px": 38,
+    "semi_alpha_fraction": 0.0055
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "wall-doorway--chn-temple": {
+   "id": "wall-doorway--chn-temple",
+   "time": "2026-11-07T06:55:02.016506+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Edit task. The supplied image is an accepted piece of this same set (a red-ochre Chinese temple wall). The new piece must look built by the same hands from the same materials: the SAME colours, timber, plaster or stone, thicknesses, painting style and camera angle. Change ONLY what is described below. Keep the transparent background.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a Chinese temple hall wall section with an empty doorway.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: The same red temple wall section with an EMPTY opening through it from the very bottom: about 4 ft wide and 7.5 ft tall, centred, framed by two red lacquered posts and a red lintel under the painted beam, a raised grey stone threshold. NO door. You can see straight through the opening. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab under it, NO roof, NO corner return, NO lamp, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it.\n",
+   "plate": "plates/wall-doorway--chn-temple.png",
+   "sha256": "77b1d64062206f32e16dcc2217f7af6dc963201293f8737ef238350f43d16be4",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     146,
+     65,
+     868,
+     1481
+    ],
+    "margin_px": 55,
+    "semi_alpha_fraction": 0.0063
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "wall-straight--chn-brick--s2": {
+   "id": "wall-straight--chn-brick--s2",
+   "time": "2026-11-07T06:55:02.959315+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Edit task. The supplied image is an accepted piece of this same set (a Qing courtyard house wall of grey brick). The new piece must look built by the same hands from the same materials: the SAME colours, timber, plaster or stone, thicknesses, painting style and camera angle. Change ONLY what is described below. Keep the transparent background.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a timber lattice partition wall of a Qing-dynasty courtyard house.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: The same wall section, the same dark red-brown columns, grey stone plinth and grey brick cornice, but between the columns a timber PARTITION of tall lattice panels (geshan): a dark red-brown frame, the upper two thirds a THICK geometric wooden lattice in a step-and-square pattern backed by warm cream paper, the lower third a solid dark wooden panel with one plain carved rectangle. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab under it, NO roof, NO corner return, NO lamp, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it.\n",
+   "plate": "plates/wall-straight--chn-brick--s2.png",
+   "sha256": "69a972bdf147dc4d15d0728e1a220cd543eac51fd1284bee67657c973d3c54b2",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     162,
+     41,
+     860,
+     1509
+    ],
+    "margin_px": 27,
+    "semi_alpha_fraction": 0.0039
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "wall-straight--chn-brick": {
+   "id": "wall-straight--chn-brick",
+   "time": "2026-11-07T06:55:04.082149+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a straight wall section of a Qing-dynasty Beijing courtyard house.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: ONE straight wall section of a north-Chinese courtyard house: a wall of dark blue-grey bricks with thin pale mortar joints laid in neat courses, a slightly projecting plinth of larger grey stone blocks along the bottom foot, a moulded grey brick cornice band along the top, and at each side edge a round timber column lacquered DARK RED-BROWN, half set into the wall. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab under it, NO roof, NO corner return, NO lamp, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it.\n",
+   "plate": "plates/wall-straight--chn-brick.png",
+   "sha256": "888d374d2ffe53aa487b18df78d32ff397139791abc061b978f455dce9e68585",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     168,
+     43,
+     855,
+     1510
+    ],
+    "margin_px": 26,
+    "semi_alpha_fraction": 0.0038
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "wall-straight--chn-temple": {
+   "id": "wall-straight--chn-temple",
+   "time": "2026-11-07T06:55:05.206394+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a straight wall section of a Chinese Buddhist temple hall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: ONE straight wall section of a Chinese Buddhist temple hall: a smooth wall plastered deep RED OCHRE, standing on a plinth of pale grey stone, at each side edge a round column lacquered bright red; along the top a broad beam painted with a band of blue-green and gold geometric ornament (no figures, no writing). It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab under it, NO roof, NO corner return, NO lamp, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it.\n",
+   "plate": "plates/wall-straight--chn-temple.png",
+   "sha256": "4866ddd24143fb57c7e4450377f49de4faa27ba5fc63b37130f61da4209da85a",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     159,
+     71,
+     865,
+     1504
+    ],
+    "margin_px": 32,
+    "semi_alpha_fraction": 0.0041
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "wall-window-small--chn-brick": {
+   "id": "wall-window-small--chn-brick",
+   "time": "2026-11-07T06:55:06.574643+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Edit task. The supplied image is an accepted piece of this same set (a Qing courtyard house wall of grey brick). The new piece must look built by the same hands from the same materials: the SAME colours, timber, plaster or stone, thicknesses, painting style and camera angle. Change ONLY what is described below. Keep the transparent background.\n\nCreate a single asset in the Turnip Works house style (heroic hand-painted): a Qing courtyard house wall section with a lattice window.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: The same grey brick wall section with ONE square window in its middle at chest height, about 3 ft across: a dark red-brown timber frame filled with a THICK geometric wooden lattice (interlocking squares and rectangles) backed by warm cream paper. It is a TALL, NARROW upright slab, almost TWICE as tall as it is wide (portrait format, like a wide door standing on end). It must NOT be square and must NOT be wider than it is tall. Real-world size about 60 in wide x 12 in deep x 108 in tall: keep these proportions. Nothing else: NO floor, NO ground, NO base slab under it, NO roof, NO corner return, NO lamp, banner, furniture or decoration attached. Both side edges are clean flat vertical cuts so that copies butt together into a longer wall. Seen from its broad side, three-quarter view from slightly above. Keep the WHOLE object well inside the frame with a generous margin. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it.\n",
+   "plate": "plates/wall-window-small--chn-brick.png",
+   "sha256": "bb87dc5fecff20d3c1274d47cd7879c02bf9c862f24ddb16218f6c44a3596e08",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     166,
+     43,
+     859,
+     1509
+    ],
+    "margin_px": 27,
+    "semi_alpha_fraction": 0.0037
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-bench": {
+   "id": "chn-bench",
+   "time": "2026-11-07T07:03:06.927423+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese long narrow bench.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A long narrow Chinese bench (changdeng) of honey-brown elm: a thick plank seat, four splayed stout legs joined by stretchers. Real-world size about 48 in wide x 10 in deep x 18 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-bench.png",
+   "sha256": "ea5887ea89f581461295d6813113fc3a625e16c08be4ce4d825095b49cc93f5a",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1536,
+     1024
+    ],
+    "alpha_box": [
+     57,
+     143,
+     1484,
+     904
+    ],
+    "margin_px": 52,
+    "semi_alpha_fraction": 0.0064
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-bookcase": {
+   "id": "chn-bookcase",
+   "time": "2026-11-07T07:03:08.325366+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese scholar's bookcase.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Chinese open BOOKCASE (wanli gui) of dark wood with three open shelves holding stacks of thin string-bound books lying FLAT in deep blue cloth cases with ivory clasps, one small blue-and-white vase and a little carved box; a closed cabinet with two plain doors below. Real-world size about 48 in wide x 18 in deep x 72 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-bookcase.png",
+   "sha256": "44b5f2b31f5cf75b848af36dc8e37e10f98b173b0854f80c26e40557e596fe7c",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     55,
+     34,
+     970,
+     1527
+    ],
+    "margin_px": 9,
+    "semi_alpha_fraction": 0.0089
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-market-stall": {
+   "id": "chn-market-stall",
+   "time": "2026-11-07T07:03:09.519772+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese market stall.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Chinese MARKET STALL: a wooden counter on trestles with round bamboo baskets of red chillies, green vegetables and dried mushrooms and a stack of bowls, under a slanting awning of indigo-blue cotton cloth stretched on four stout bamboo poles. Real-world size about 96 in wide x 60 in deep x 96 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-market-stall.png",
+   "sha256": "18b27733ab2279f61941ebfdf492da9004cc7610c191432554220364e1370694",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1254,
+     1254
+    ],
+    "alpha_box": [
+     27,
+     26,
+     1230,
+     1242
+    ],
+    "margin_px": 12,
+    "semi_alpha_fraction": 0.0114
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-painting-table": {
+   "id": "chn-painting-table",
+   "time": "2026-11-07T07:03:10.418499+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese scholar's painting table.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Chinese scholar's long PAINTING TABLE of dark rosewood with plain straight legs, on it: a sheet of cream paper weighted with a dark wooden paperweight bar, a big rectangular black ink stone, a round porcelain brush pot holding thick brushes, a wooden brush rack with brushes hanging, a small water dropper. Few big pieces. Real-world size about 72 in wide x 30 in deep x 32 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-painting-table.png",
+   "sha256": "a14eb86cde226635c5c2b63212185357406ffd7f1e158322675222b47f6af4bb",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1536,
+     1024
+    ],
+    "alpha_box": [
+     63,
+     28,
+     1473,
+     1013
+    ],
+    "margin_px": 11,
+    "semi_alpha_fraction": 0.0088
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-steamer-stack": {
+   "id": "chn-steamer-stack",
+   "time": "2026-11-07T07:03:11.522465+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a stack of Chinese bamboo steamers.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A tall stack of FIVE round BAMBOO STEAMER baskets with a domed woven lid, standing on a round squat clay stove with an iron pan rim. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Real-world size about 30 in wide x 30 in deep x 48 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-steamer-stack.png",
+   "sha256": "5611909934ac08e4c82431a13be0656c3ab087ac2f2664017c4d31e82e34f100",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     108,
+     24,
+     915,
+     1512
+    ],
+    "margin_px": 24,
+    "semi_alpha_fraction": 0.0042
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-tea-counter": {
+   "id": "chn-tea-counter",
+   "time": "2026-11-07T07:03:12.663349+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese tea house counter with its stove.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A tea house COUNTER of dark wood with a grey brick stove built into one end, two big round COPPER kettles with long spouts standing on the stove's two fire holes, and on the counter a row of round ceramic tea jars with lids, a stack of small cups and a wooden tray of teapots. It is UNLIT: no flames, no glow, no smoke (the game adds the light). Real-world size about 72 in wide x 30 in deep x 48 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-tea-counter.png",
+   "sha256": "2783f736e4cbfc231144d9427e26baf55a4fdb8623c66d103c31389030cd1eb7",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1536,
+     1024
+    ],
+    "alpha_box": [
+     135,
+     9,
+     1400,
+     1015
+    ],
+    "margin_px": 9,
+    "semi_alpha_fraction": 0.006
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-temple-bell": {
+   "id": "chn-temple-bell",
+   "time": "2026-11-07T07:03:13.852847+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese bronze temple bell in its frame.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A Chinese bronze TEMPLE BELL: a tall round-shouldered bell with straight sides and a flat rim, its surface in raised bands and panels of knobs, dark bronze with green patina, hanging from a thick red lacquered wooden frame of two posts and a cross beam, a short thick wooden striking log hung beside it. Real-world size about 48 in wide x 36 in deep x 84 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-temple-bell.png",
+   "sha256": "a7e67d627bf29c5afc0d43a6e59fc7d82252935afeda4fea987be9a5b7109291",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1024,
+     1536
+    ],
+    "alpha_box": [
+     10,
+     31,
+     1016,
+     1513
+    ],
+    "margin_px": 8,
+    "semi_alpha_fraction": 0.0113
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  },
+  "chn-temple-drum": {
+   "id": "chn-temple-drum",
+   "time": "2026-11-07T07:03:14.963364+00:00",
+   "generator": "Codex built-in image_gen (ChatGPT plan)",
+   "prompt": "Using the supplied image only as a visual style guide for the Turnip Works house style (heroic hand-painted), create a new, distinct single asset: a Chinese temple drum on its stand.\n\nGeometry: stout, miniature-compatible proportions; thick functional parts and rails; broad soft bevels; where the object genuinely has handles, hinges or fittings, make them chunky, but NEVER add handles, rings, loops, straps or fittings the real object would not have; deep readable carving rather than fine detail; slightly exaggerated, sturdy construction that could survive as a printed tabletop piece. Every part thick enough to reconstruct as 3D geometry.\nFinish: diffuse-first hand-painted game art with broad soft gradients, subtle brush texture, sparing painted edge highlights and gentle wear, low-frequency surface detail, mostly matte.\nPalette: rich but softened burgundy, moss green, dusty teal, ochre, cream, warm honey wood and blue-gray stone, used where they suit the object; avoid an all-brown result.\nAvoid: invented handles or ring pulls on food, bottles, beds, textiles and other objects that don't have them; multiple views, variants or a grid of the object in one image; photorealism, plastic toy gloss, strong reflections, fine scratches, tiny wood pores, black outlines, hard cel-shading bands, comic inking, flat vector art, thin fragile parts, text, logos, emblems.\n\nPresentation for image-to-3D: exactly one complete asset, centered, three-quarter view from slightly above, clear space around every edge, a genuinely TRANSPARENT background (PNG alpha), no horizon, no floor plane, no cast shadow, neutral even lighting with no colored light casts, no environment, no people, no additional loose objects. Keep supports and important sides unoccluded.\n\nSpecific design: A large Chinese temple DRUM: a fat barrel drum lacquered bright red with two rows of brass studs holding pale hide heads, standing upright on edge in a stout dark wooden stand with four legs, two thick wooden drumsticks in the stand. Real-world size about 48 in wide x 36 in deep x 60 in tall: keep these proportions. It stands on nothing: NO floor, NO rug, NO ground, NO base slab, platform or plinth under it that the real object would not have. NO writing, letters, characters, calligraphy or symbols that look like script anywhere on it. Show exactly this one object and nothing else, whole and well inside the frame. Prioritize a clean silhouette readable from an elevated game camera.\n",
+   "plate": "plates/chn-temple-drum.png",
+   "sha256": "bd25053f1ce0b51ab268d69d0bc777d1ccb41c623d084601afef90cb17927e8f",
+   "measure": {
+    "ok": true,
+    "problems": [],
+    "size": [
+     1254,
+     1254
+    ],
+    "alpha_box": [
+     176,
+     15,
+     1078,
+     1240
+    ],
+    "margin_px": 14,
+    "semi_alpha_fraction": 0.0052
+   },
+   "gate": "deferred: the blind mesh read decides (tools/mesh_read.py)",
+   "status": "accepted"
+  }
+ }
+}

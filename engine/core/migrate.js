@@ -103,6 +103,8 @@ export function migrateClaims(claims) { return claims && typeof claims.sc === 'o
 // stored inverse (an undo or a redo kept from that time must not put the lock back). The same pass as the one above,
 // with the same rules: pure, idempotent, the same object back when there is nothing to do.
 import { isStair, migrateStair } from './stairs.js';
+import { baseUnder, lowestFloorAt, STEP } from './height.js';
+import { carrierOfPawn } from './riders.js';
 export function migratePawn(e) {
   if (!e || typeof e !== 'object' || e.kind !== 'token' || !('hp' in e || 'hpMax' in e || e.locked)) return e;
   if (!('hp' in e || 'hpMax' in e)) return { ...e, locked: false };
@@ -257,4 +259,44 @@ export function migrateCaves(rt, make) {
   for (const list of rt.undo?.values() || []) for (const it of list) inv(it);
   for (const list of rt.redo?.values() || []) for (const it of list) inv(it);
   return { caves, things, stored };
+}
+
+// ---------------- a pawn left in the air off a stair (2026-11-24) ----------------
+// Harry: "I can back him off the stairs and leave him floating." Until that day a pawn backed off a flight from more
+// than halfway up was taken to the level of its top (core/height.js pawnStepTo: the end nearer in height): with the hall's
+// roof off at the cut there was no floor there, so it was left hanging at its height and offered a fall, and once that
+// offer had gone it was a pawn in the air, kept at that height by every later move (a raised pawn keeps its height).
+// Foggybottom on dev (cmp_q2bjx70ajq) stood at y 9.17 over the floor at 0. Such a pawn is SETTLED when the campaign loads
+// (relay/campaign.js load), onto the ground under it, as one move by nobody (no chat line: it did not fall, it never
+// left the stair's foot). Only a pawn the area's own record shows came there that way, never a raised one:
+//   it does not stand now (its figure 5 ft or more over its base, on no thing's top),
+//   the last move that gave it its height (the area's log: a token.move, alone or in a batch, with y) took it from a
+//     STAIR'S TREADS (its place before that move, from the move's undo step, stood on a walked flight) to somewhere else
+//     (x or z changed: raise / lower never does), and nothing since changed its height (later moves without y, and
+//     changes of its sheet, damage or flags, are passed over; anything else and it is left alone).
+// tail: the area's log entries (oldest first); undo: its undo steps. -> [{ id, x, z, y, from }] (y: where it lands)
+const PASS = new Set(['token.set', 'token.damage', 'entity.flag']);
+const opFor = (e, id) => e.type === 'token.move' ? (e.args?.id === id ? e.args : null) : e.type === 'batch' ? (e.args?.ops || []).find(o => o.type === 'token.move' && o.args?.id === id)?.args || null : null;
+const priorOf = (inv, id) => !inv ? null : inv.type === 'entities.set' ? inv.args?.set?.[id] || null : inv.type === 'batch' ? (inv.args?.ops || []).map(o => priorOf(o, id)).find(Boolean) || null : null;
+export function stairFloats(entities, tail = [], undo = []) {
+  const out = [];
+  for (const p of Object.values(entities || {})) {
+    if (p.kind !== 'token') continue;
+    const y = p.y || 0, b = baseUnder(entities, p.x, p.z, y);
+    if (y - b.y < STEP || carrierOfPawn(entities, p)) continue;
+    let set = null;
+    for (let i = tail.length - 1; i >= 0 && !set; i--) {
+      const e = tail[i]; if (!(e.ids || []).includes(p.id)) continue;
+      const a = opFor(e, p.id);
+      if (a) { if (a.y != null) set = { e, a }; continue; }
+      if (!PASS.has(e.type)) break;
+    }
+    if (!set || Math.abs(Number(set.a.y) - y) > 0.01) continue;
+    const before = priorOf(undo.find(u => u.seq === set.e.seq)?.inv, p.id);
+    if (!before || (Math.abs((before.x ?? 0) - set.a.x) < 0.01 && Math.abs((before.z ?? 0) - set.a.z) < 0.01)) continue;
+    const bb = baseUnder(entities, before.x, before.z, before.y || 0);
+    if (bb.on !== 'stair' || Math.abs((before.y || 0) - bb.y) > 0.5) continue;
+    out.push({ id: p.id, x: p.x, z: p.z, y: Math.max(b.y, lowestFloorAt(entities, p.x, p.z)), from: y });
+  }
+  return out;
 }

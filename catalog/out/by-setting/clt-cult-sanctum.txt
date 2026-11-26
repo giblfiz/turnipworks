@@ -1,4 +1,4 @@
-CLT — cult-sanctum: 203 roles (+ ANY-tagged roles) — ! = signature
+CLT — cult-sanctum: 208 roles (+ ANY-tagged roles) — ! = signature
 
 ! P1  floor-basalt-dark          [kit/1] sanctum floors; dark charcoal, never pure black, so furniture reads on it
 ! P1  wall-secret-door           [kit/edge] the hidden way in, found open
@@ -7,8 +7,9 @@ CLT — cult-sanctum: 203 roles (+ ANY-tagged roles) — ! = signature
 ! P1  statue-hooded              [floor/1] in pairs down a processional way and either side of a door
 ! P1  flavor-altarpiece          [surface/sub] slot 1; one per altar, centred
 ! P1  flavor-banner              [wall/1] slot 3; on the long walls and behind the idol
-! P1  flavor-buttress            [wall/1] slot 8 (Harry, 2026-10-11); the same box and place as the vertical kit's `buttress`, so it can stand in for it outside, and stands along the walls INSIDE a large nave or sanctum
+! P1  flavor-buttress            [wall/1] slot 8 (Harry, 2026-10-11); a 9-ft upright pier along the walls inside a large nave or sanctum; use each SKU’s measured box, rather than treating it as a vertical-kit replacement
 ! P1  flavor-censer              [floor/sub] slot 6; in pairs flanking the altar or the idol
+! P1  flavor-corbel              [wall/sub] slot 9; front faces away from the wall, top at beam height; a line along the long walls of large naves and sanctums
 ! P1  flavor-idol                [floor/1] slot 2; on the end wall behind the altar, or alone in an inner shrine
 ! P1  flavor-relief              [wall/1] slot 4 (a type with windows may fill this slot with a `flavor-window` kit panel instead)
 ! P1  flavor-sculpture           [floor/1] slot 7 (Harry, 2026-10-11); at the door end of a nave, in a side aisle, a cloister or an antechamber
@@ -51,6 +52,8 @@ CLT — cult-sanctum: 203 roles (+ ANY-tagged roles) — ! = signature
   P1  chest-ironbound            [floor/sub] locked; worth a check
   P1  chest-treasure             [floor/sub] the reward shot
   P1  chest-ironbound-open       [floor/sub] open state of chest-ironbound; looted or searched
+  P1  cage-sacrifice-open        [floor/1] open state of cage-sacrifice; the captive got away
+  P1  floor-trapdoor-open        [kit/1] open state of floor-trapdoor; the way down
   P1  chest-treasure-open        [floor/sub] open state of chest-treasure
   P1  brazier-large              [floor/1] courtyards, ritual sites
   P1  brazier-standing           [floor/sub] throne rooms, torture chambers, shrines
@@ -65,6 +68,7 @@ CLT — cult-sanctum: 203 roles (+ ANY-tagged roles) — ! = signature
   P1  book-stack                 [surface/tiny] desks, floors of messy studies
   P1  cage-floor                 [floor/1] menageries, slavers' camps
   P1  cell-bars                  [kit/edge] pairs with door-cell-bars; blocks moves, not sight
+  P1  cell-bars-post             [kit/edge] stands where two bar sections meet at a corner and at a run's free end; snaps like a post; seen through like the bars (generated 2026-10-27)
   P1  manacles-wall              [wall/sub] cells, torture rooms
   P1  skull-pile                 [floor/sub] ossuaries, cult sites
   P1  chair-interrogation        [floor/sub] interrogation room focus
@@ -74,6 +78,7 @@ CLT — cult-sanctum: 203 roles (+ ANY-tagged roles) — ! = signature
   P1  embalming-table            [floor/1x2] embalming room focus; `rite-corpse-on-slab` is the same table occupied
   P1  ossuary-pillar             [floor/sub] ossuary supports; stands where a `pillar-square` would
   P1  ossuary-shrine             [wall/1x2] ossuary focus, centred on the wall facing the door
+  P1  flavor-pillar              [floor/sub] slot 10 (Harry, 2026-10-24: pillars for each faction); placed by hand, snaps like a post (a grid cross or an edge midpoint); one storey tall; no room recipe rolls it
   P1  rug-runner                 [floor/1x3] hallways and stair landings; tiles end to end
   P1  decal-cobweb               [wall/sub] corners of anything abandoned
   P1  fx-colored-flame           [attach/sub] evil braziers, necromancer candles

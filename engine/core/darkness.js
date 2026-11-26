@@ -36,7 +36,10 @@ export const LIGHT_BRIGHT = { candle: 5, lamp: 15, torch: 20, lantern: 30, fire:
 export const LIGHT_REACH_MAX = 120;              // ft, a slider's top
 export const LIGHT_SCALE_MIN = 0.25, LIGHT_SCALE_MAX = 1.5;
 // the fire FX's own types (tuner fx/fire.js fireType) -> a row of the table
-const FIRE_TO_LIGHT = { hearth: 'fire', brazier: 'fire', oven: 'oven', torch: 'torch', lantern: 'lantern', candle: 'candle', candelabra: 'candle', stubs: 'candle', chandelier: 'chandelier' };
+const FIRE_TO_LIGHT = { hearth: 'fire', brazier: 'fire', oven: 'oven', torch: 'torch', lantern: 'lantern', candle: 'candle', candelabra: 'candle', stubs: 'candle', chandelier: 'chandelier',
+  // electric (modern city, sprawl pack 2026-11-06): a fluorescent fitting or a floor lamp lights a room as a lamp does, a
+  // streetlight as a lantern on a post does; neon, a screen or a lit cooler only glows
+  tube: 'lamp', bulb: 'lamp', sodium: 'lantern', neon: 'glow', screen: 'glow' };
 // An oil LAMP is not a lantern (Harry 2026-10-21: "a tiny one-candle lamp is doing like 40 foot circle"): every catalog id
 // with "lamp" in it, except the street lights (lamp-post-*, lamp-pole), which are lanterns on a post. The fire FX still
 // draws a lamp's flame as a lantern's; only its reach differs. Today: oil-lamp, lamp-oil-brass, lamp-wall-bracket,

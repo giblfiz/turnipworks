@@ -24,6 +24,9 @@ client/ceilings.js; docs/UI.md "First person". A GM tab and two players (Mira, B
   OWNER   Mira cannot look through Bo's pawn (no Eyes, no First person, enter refused)
   TAG     the other seats see "in first person" over the pawn while Mira looks through it, and not after
   DICE    a roll in first person throws its dice from the pawn, ahead of it
+  CEILING (2026-11-07, the cyberpunk pack; wave 1's blind read: from the table a ceiling fluorescent fitting read as
+          "capsules on the floor") a fluorescent fitting in the common room: from the table its MESH is not drawn but it
+          still lights (its group shown, among the lit things); from Mira's eyes it is drawn; back at the table, hidden again
 """
 import argparse, asyncio, json, math, os, subprocess, sys, tempfile, time, urllib.parse, urllib.request
 from playwright.async_api import async_playwright
@@ -35,7 +38,7 @@ tw_sandbox.pawn_snap('always')
 tw_sandbox.remove_campaigns()
 GL = ['--use-angle=vulkan', '--enable-features=Vulkan', '--ignore-gpu-blocklist', '--enable-gpu'] if os.environ.get('TW_GPU', '1') != '0' else ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']
 ap = argparse.ArgumentParser(); ap.add_argument('--local', action='store_true'); ap.add_argument('--page'); ap.add_argument('--stills'); ap.add_argument('--headed', action='store_true')
-ap.add_argument('--only', default='enter,key,door,walk,drag,stairs,fog,gm,owner,tag,dice,phone,look'); ap.add_argument('--keep', action='store_true'); ap.add_argument('--probe', action='store_true')
+ap.add_argument('--only', default='enter,key,door,walk,drag,stairs,fog,gm,owner,tag,dice,phone,ceiling,look'); ap.add_argument('--keep', action='store_true'); ap.add_argument('--probe', action='store_true')
 A = ap.parse_args(); ONLY = set(A.only.split(','))
 results = []; procs = []
 def check(ok, name, detail=''):
@@ -529,6 +532,29 @@ async def main():
               return out; })()""")
             for c in col: print('    above door', c)
             await pl.evaluate("tw.fpv.exit()")
+
+        # ================= CEILING: a fluorescent fitting is drawn from the eyes, not from the table =================
+        if 'ceiling' in ONLY:
+            print('CEILING: a fluorescent fitting on the ceiling: its light from the table, its mesh from the eyes')
+            FL = 'obj_fpvtube001'
+            placed = await gm.evaluate(f"""(() => {{ const sz = tw.roomgen.sizeOf('light-fluorescent'); if (!sz) return 'no size'; const r = tw.dispatch('object.place', {{ id: '{FL}', name: 'light fluorescent', cat: 'light-fluorescent', sku: sz.sku, url: sz.url, place: 'ceiling', x: 12.5, z: 7.5, y: Math.max(0, 9 - sz.dims[1]), dims: sz.dims, s: sz.s || undefined, yaw: sz.yaw }}); return String(r); }})()""")
+            print('    place:', placed)
+            await idle(gm); await idle(pl)
+            got = await gm.evaluate(f"(() => {{ const e = tw.entities()['{FL}']; return e ? {{ cat: e.cat, sku: e.sku, y: e.y, room: e.room }} : null; }})()")
+            check(got and got['sku'], 'the fitting is placed (GM side)', got)
+            await wait(pl, f"!!tw.worldOf(tw.area())?.recs.get('{FL}')?.settled", 60000, 'the fitting loaded')
+            SEEN = f"""(() => {{ const w = tw.worldOf(tw.area()), r = w.recs.get('{FL}'); return r && {{ mesh: !!r.visual?.visible, group: !!r.group.visible, lit: w.fxItems().includes(r.it), placeholder: !!r.visual?.userData?.placeholder }}; }})()"""
+            await pl.wait_for_timeout(800); t0 = await pl.evaluate(SEEN)
+            check(t0 and not t0['placeholder'], 'the fitting has its mesh', t0 or 'not on Mira\'s page')
+            check(t0 and not t0['mesh'] and t0['group'] and t0['lit'], 'from the table: the fitting is not drawn, but it is shown and lit (its light)', t0)
+            await gm.evaluate(f"tw.dispatch('token.move', {{ id: '{MI}', x: 17.5, z: 7.5 }})"); await idle(gm); await idle(pl)
+            await pl.evaluate(f"tw.fpv.enter('{MI}')"); await pl.wait_for_timeout(1500)
+            t1 = await pl.evaluate(SEEN)
+            check(t1 and t1['mesh'] and t1['group'], 'from Mira\'s eyes: the fitting is drawn', t1)
+            await pl.evaluate("tw.fpv.exit()"); await pl.wait_for_timeout(1200)
+            t2 = await pl.evaluate(SEEN)
+            check(t2 and not t2['mesh'] and t2['lit'], 'back at the table: hidden again, still lit', t2)
+            await gm.evaluate(f"tw.dispatch('object.delete', {{ id: '{FL}' }})"); await idle(gm)
 
         # ================= LOOK: stills for the vision critic (only with --stills) =================
         if A.stills and 'look' in ONLY:

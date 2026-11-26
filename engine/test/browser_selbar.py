@@ -87,7 +87,7 @@ async def main():
         check(await wait(gm, 'window.tw && tw.ready && tw.ready()', 60000), 'GM tab live', NAME)
         await gm.evaluate("tw.sync.submit('campaign.set', { defaults: { fogOfWar: false } })")
         await gm.evaluate("document.querySelector('.lmcard .lm-x')?.click()")
-        await gm.evaluate("tw.buildAt(tw.buildingNode('inn'), 12, 8, { seed: 7 })")
+        await gm.evaluate("tw.buildAt(tw.buildingNode('inn'), 12, 8, { seed: 7, storeys: 2 })")
         built = await wait(gm, "Object.values(tw.entities()).filter(e => e.kind === 'room').length >= 4 && Object.values(tw.entities()).some(e => e.kind === 'building') && tw.sync.pendingCount() === 0", 60000, 'inn built')
         await wait(gm, "tw.spawningNow().anims === 0 && !tw.spawningNow().last?.loading", 60000, 'spawn over')
         check(built, 'an inn to select things in')

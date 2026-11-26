@@ -7,6 +7,7 @@ import { T } from './tuner.js';
 import { MARKS, parseDamage, CONDITIONS } from '../core/pawn.js';
 import * as CO from '../core/conditions.js';
 import * as AU from '../core/aura.js';
+import * as SZ from '../core/size.js';
 const OTHER_SLOTS = 6; // a pawn's own words (text labels) shown in its Conditions arc, each a press to take it off
 import { markUrl } from './marks.js';
 import * as DK from '../core/darkness.js';
@@ -209,7 +210,6 @@ export function defineCommands(R, app) {
     ['thing.fill', 'Fill', 'droplet', 'Look', ['prop', 'openable']], ['thing.break', 'Break', 'hammer', 'Look', ['prop', 'openable']],
     ['thing.contents', 'Contents', 'package', 'Use', ['openable', 'prop']], ['thing.notes', 'Description and notes', 'notebook-pen', 'Edit', ['prop', 'openable', 'pawn', 'room']],
     ['pawn.vision', 'Vision', 'eye', 'Pawn', ['pawn']], ['pawn.elevation', 'Elevation', 'layers', 'Pawn', ['pawn']],
-    ['pawn.size', 'Enlarge / reduce', 'maximize-2', 'Pawn', ['pawn']],
     ['wall.door', 'Add a door', 'door-closed', 'Wall', ['wall']],
   ]) add({ id, title: `${title} (later)`, icon, group, menu: true, stub: true, enabled: STUB, when: is(...kinds), run: () => {} });
 
@@ -264,6 +264,25 @@ export function defineCommands(R, app) {
     parse: (text, ctx) => { const a = AU.parseAura(text); return a && ctx.sel.length && ctx.sel.every(e => e.kind === 'token') ? { change: a } : null; },
     chips: (a) => ['aura', a.change.level != null ? lvName(a.change.level) : a.change.delta > 0 ? 'up' : a.change.delta < 0 ? 'down' : '', a.change.color ? AU.AURA_COLORS[a.change.color].name : '', a.change.emblem != null ? `emblem ${a.change.emblem || 'none'}` : ''].filter(Boolean),
     when: auraWhen, run: (ctx, a) => a?.change ? app.setAura(ctx.sel, a.change) : app.emit('bar.open', 'aura ') });
+  // A PAWN'S SIZE (Harry 2026-11-06: "doing resizing for pawns (which should also change their footprint)"; core/size.js,
+  // docs/PAWNS.md "A pawn's size"). Space ▸ Size (the chord tree; the ring has the resize drag, pawn.resize below): Bigger, Smaller, and the five D&D sizes (✓ on the one it has); the figure,
+  // its base and the squares it takes change together (app.setSize: one undo). Typed: "size large", "make it huge",
+  // "tiny", "15 ft", "size 3", "bigger", "smaller", "enlarge", "reduce". Its owner and the GM, as conditions.
+  const sizesOf = (ctx) => ctx.sel.map(p => app.figures?.sizeOf(p) || 1);
+  const sizeWhen = (ctx) => is('pawn')(ctx) && touchable(ctx);
+  add({ id: 'pawn.size.bigger', title: (ctx) => { const n = Math.max(...sizesOf(ctx)); return n >= SZ.SIZE_MAX ? `Bigger (${SZ.sizeLabel(n)}: the most)` : `Bigger: ${SZ.sizeLabel(SZ.sizeStep(n, 1))}`; }, short: 'Bigger', synonyms: ['bigger', 'grow', 'enlarge', 'size up', 'larger'], icon: 'maximize-2', group: 'Pawn ▸ Size', menu: true, cls: 'pawn', when: (ctx) => sizeWhen(ctx) && sizesOf(ctx).some(n => n < SZ.SIZE_MAX), run: (ctx) => app.setSize(ctx.sel, { step: 1 }) });
+  add({ id: 'pawn.size.smaller', title: (ctx) => { const n = Math.min(...sizesOf(ctx)); return n <= SZ.SIZE_MIN ? `Smaller (${SZ.sizeLabel(n)}: the least)` : `Smaller: ${SZ.sizeLabel(SZ.sizeStep(n, -1))}`; }, short: 'Smaller', synonyms: ['smaller', 'shrink', 'reduce', 'size down'], icon: 'minimize-2', group: 'Pawn ▸ Size', menu: true, cls: 'pawn', when: (ctx) => sizeWhen(ctx) && sizesOf(ctx).some(n => n > SZ.SIZE_MIN), run: (ctx) => app.setSize(ctx.sel, { step: -1 }) });
+  for (const s0 of SZ.SIZES.filter(x => x.key !== 'small')) { const Nm = s0.key[0].toUpperCase() + s0.key.slice(1), ft = SZ.feetOf(s0.squares);
+    add({ id: `pawn.size.${s0.key}`, title: (ctx) => `${sizesOf(ctx).every(n => n === s0.squares) ? '✓ ' : ''}${Nm} (${ft} ft)`, short: Nm, synonyms: [`size ${s0.key}`, `make it ${s0.key}`, `${s0.key} size`], icon: 'scaling', group: 'Pawn ▸ Size', menu: true, cls: 'pawn', when: sizeWhen, run: (ctx) => app.setSize(ctx.sel, s0.squares) }); }
+  // ON THE RING the size is ONE DRAG BUTTON, the props' resize (Harry 2026-11-07: "the 'size' options on pawns should just
+  // use the same design language as the object resize (same image, and drag in&out on track)"): the same picture, the same
+  // track along the handle's ray, stepping through the sizes (surfaces/ring.js startDrag, a pawn's 'size'). ringOnly: the
+  // chord tree (Space ▸ i) and the bar keep the list above, the keyboard's way to the same sizes.
+  add({ id: 'pawn.resize', title: 'Size (drag)', short: 'Size', icon: 'scaling', group: 'Pawns', menu: true, ringOnly: true, cls: 'pawn', ring: { drag: 'size' }, when: sizeWhen, run: () => app.toast('Drag Size outward for bigger, inward for smaller: tiny, medium, large, huge, gargantuan') });
+  add({ id: 'pawn.size', title: 'Size…', synonyms: ['size', 'resize', 'enlarge', 'reduce', 'bigger', 'smaller', 'make it', 'grow', 'shrink'], icon: 'scaling', group: 'Pawns', cls: 'pawn', args: [{ name: 'size' }],
+    parse: (text, ctx) => { const z = SZ.parseSize(text); return z && ctx.sel.length && ctx.sel.every(e => e.kind === 'token') ? z : null; },
+    chips: (a) => ['size', a.step ? (a.step > 0 ? 'bigger' : 'smaller') : SZ.sizeLabel(a.squares)],
+    when: sizeWhen, run: (ctx, a) => a?.step ? app.setSize(ctx.sel, { step: a.step }) : a?.squares ? app.setSize(ctx.sel, a.squares) : app.emit('bar.open', 'size ') });
   const otherWords = (ctx) => { const seen = new Map(); for (const p of ctx.sel) for (const w of p.conditions || []) { if (CONDITIONS.includes(w) || CO.exhaustionLevel(w)) continue; const k = CO.condKey(w); if (!seen.has(k)) seen.set(k, w); } return [...seen.values()]; };
   for (let i = 0; i < OTHER_SLOTS; i++) add({ id: `pawn.cond.other.${i}`, title: (ctx) => { const w = otherWords(ctx)[i]; return w ? `✓ ${w}` : ''; }, short: undefined, synonyms: [], icon: 'tag', group: 'Pawn ▸ Conditions', menu: true, cls: 'pawn', hidden: true, when: (ctx) => is('pawn')(ctx) && touchable(ctx) && otherWords(ctx).length > i, run: (ctx) => { const w = otherWords(ctx)[i]; if (w) app.setCondition(ctx.sel, w, false); } });
   add({ id: 'pawn.cond.other', title: 'Other… (type a condition)', short: 'other…', synonyms: ['other condition', 'type a condition'], icon: 'pencil', group: 'Pawn ▸ Conditions', menu: true, cls: 'pawn', when: (ctx) => is('pawn')(ctx) && touchable(ctx), run: () => app.emit('bar.open', 'condition ') });
@@ -370,6 +389,13 @@ export function defineCommands(R, app) {
   // switches it to lead down from that level instead (same place in plan, one flight lower), and back. The button names
   // what you would GET. Counted from the level you are on (core/stairs.js stairSide).
   add({ id: 'stair.flip', toggle: { of: (ctx) => ctx.sel.filter(app.ST.isConnector), is: (e) => app.stairSide(e) === 'down', on: ['Stairs up (it leads up from this level)', 'arrow-up'], off: ['Stairs down (it leads down from this level)', 'arrow-down'], mix: 'Switch stairs up / down' }, short: 'Stairs up / down', synonyms: ['stairs down', 'stairs up', 'flip stair', 'go down', 'go up', 'downstairs', 'upstairs', 'ladder down', 'switch direction'], group: 'Arrange', menu: true, cls: 'object', when: (ctx) => ctx.sel.length > 0 && ctx.sel.every(app.ST.isConnector), run: (ctx) => app.flipStairs(ctx.sel.filter(app.ST.isConnector)) });
+  // THE ELEVATOR (2026-11-07, modrooms; core/elevator.js, client/elevator.js): a car's shaft is built once (holes over the car
+  // on every floor above it that has a room there, doors on each floor); then the car goes up or down a floor. What stands
+  // on it rides along (the riders lane: things ride what they stand on).
+  const cars = (ctx) => ctx.sel.filter(e => app.EL?.isCar(e) && !e.locked);
+  add({ id: 'elevator.up', title: 'Up a floor (the car and what stands on it)', short: 'Up a floor', synonyms: ['elevator up', 'lift up', 'ride up', 'next floor', 'call elevator'], icon: 'arrow-up', group: 'Elevator', menu: true, cls: 'object', when: (ctx) => cars(ctx).length === 1 && app.elevatorNext(cars(ctx)[0], 1) != null, run: (ctx) => app.elevatorMove(cars(ctx)[0], 1) });
+  add({ id: 'elevator.down', title: 'Down a floor (the car and what stands on it)', short: 'Down a floor', synonyms: ['elevator down', 'lift down', 'ride down', 'floor below'], icon: 'arrow-down', group: 'Elevator', menu: true, cls: 'object', when: (ctx) => cars(ctx).length === 1 && app.elevatorNext(cars(ctx)[0], -1) != null, run: (ctx) => app.elevatorMove(cars(ctx)[0], -1) });
+  add({ id: 'elevator.shaft', title: 'Build the shaft (holes up through the floors above, doors on each floor)', short: 'Build shaft', synonyms: ['elevator shaft', 'lift shaft', 'elevator doors', 'build elevator'], icon: 'move-vertical', group: 'Elevator', menu: true, cls: 'object', when: (ctx) => ctx.gm && cars(ctx).length === 1 && app.elevatorShaftOps(cars(ctx)[0]).ops.length > 0, run: (ctx) => app.elevatorShaft(cars(ctx)[0]) });
   // A STAIR'S WARNING (Harry 2026-11-02): the same as the × on the note (surfaces/stairnotes.js), without a small target to
   // hit, and the only way back for a warning already dismissed. Offered only for a stair that has a warning right now.
   const warned = (ctx) => ctx.sel.filter(e => app.ST.isConnector(e) && app.stairWarning(e));
@@ -384,6 +410,8 @@ export function defineCommands(R, app) {
   // the pitched styles (marble: the temple roof), then the five FLAT SURFACES (2026-10-27: a flat style makes the roof flat; core/height.js
   // FLAT_STYLES). 'flat', the one stand-in deck before, is a word for the plank deck: it has no command of its own.
   const ROOFS = [['thatch', 'Thatch', 'roofing-thatch'], ['tile', 'Clay tile', 'roofing-tile-clay'], ['slate', 'Slate shingle', 'roofing-slate'], ['shingle', 'Wood shingle', 'roofing-shingle-wood'], ['marble', 'Marble', 'roofing-marble', 'roof/roofing-marble.webp'],
+    // (2026-11-07) the culture styles: their pictures live beside the roof sections too (RF.ROOF_STYLES[k].file)
+    ...HT.CULTURE_ROOF_STYLES.map(k => [k, RF.ROOF_STYLES[k].label, null, RF.ROOF_STYLES[k].file]),
     ...HT.FLAT_STYLES.map(k => [k, `Flat: ${RF.ROOF_STYLES[k].label.toLowerCase()}`, null, RF.ROOF_STYLES[k].tex])];
   // (a style's picture is the library's flat; marble's and the flat surfaces' live beside the roof sections, data/roof)
   const swatch = (cat, file) => { const k = cat && app.lib.objects[cat]?.skus.find(x => x.kind === 'flat' && x.url); return k ? `${T.base}${T.look.deliver?.(k.url) ?? k.url}` : file ? RF.roofDataUrl(file) : null; };
@@ -440,7 +468,7 @@ export function defineCommands(R, app) {
   // A ROOF'S SHAPE (2026-10-27): gable, hip or flat, or the automatic choice (room.roof.shape). Separate from its STYLE (what
   // it is covered with): a flat-shaped roof wears the flat surface whatever its style; the style 'flat' is flat whatever
   // the shape. A building's: every roof of it whose room has no shape of its own (building.set roofShape).
-  const SHAPES = [['gable', 'Gable', 'Gable roof (two slopes, a triangle at each end)', ['gable', 'gabled', 'gable roof', 'pitched', 'pitched roof', 'a-frame', 'peaked']], ['hip', 'Hip', 'Hip roof (slopes on all four sides)', ['hip', 'hipped', 'hip roof', 'hipped roof', 'four sided']], ['flat', 'Flat', 'Flat roof (a deck to stand on)', ['flat', 'flat roof', 'flat top', 'deck', 'roof deck']]];
+  const SHAPES = [['gable', 'Gable', 'Gable roof (two slopes, a triangle at each end)', ['gable', 'gabled', 'gable roof', 'pitched', 'pitched roof', 'a-frame', 'peaked']], ['hip', 'Hip', 'Hip roof (slopes on all four sides)', ['hip', 'hipped', 'hip roof', 'hipped roof', 'four sided']], ['irimoya', 'Hip-and-gable', 'Hip-and-gable roof (irimoya: a small gable high up over hipped ends)', ['irimoya', 'hip and gable', 'hip-and-gable', 'xieshan', 'japanese roof', 'chinese roof', 'temple roof', 'pagoda roof']], ['flat', 'Flat', 'Flat roof (a deck to stand on)', ['flat', 'flat roof', 'flat top', 'deck', 'roof deck']]];
   const roofOwnShape = (ctx) => roof(ctx)?.ownShape || null;
   for (const [key, label, title, syn] of SHAPES) {
     add({ id: `roof.shape.${key}`, short: label, title: `Shape: ${title.toLowerCase()}`, synonyms: ['roof shape', 'shape', ...syn], icon: key === 'flat' ? 'square-dashed' : 'house', group: 'Roof ▸ Shape', menu: true, cls: 'room',
@@ -549,7 +577,7 @@ export function defineCommands(R, app) {
 
   // ---------------- Settings: its sections, and the switches in Me (this browser) ----------------
   // (the list's own order, surfaces/settings.js SECTIONS; Harry 2026-11-01. The old names stay findable: "campaign admin", "campaign rules")
-  for (const [sec, label, syn, gm] of [['nav', 'World navigation', ['areas', 'maps', 'world'], false], ['admin', 'Invites and exports', ['campaign admin', 'admin', 'snapshots', 'save', 'export', 'import', 'invites', 'seats', 'backup'], true], ['campaign', 'Vision, distance & rules', ['campaign rules', 'vision', 'rules', 'campaign settings', 'house rules', 'distance', 'units', 'rolls', 'fog of war default', 'shared vision', 'travel'], true], ['defaults', 'Area defaults', ['area defaults', 'campaign defaults', 'global defaults', 'defaults'], true], ['area', 'Area settings', ['area', 'play rules', 'lighting'], true], ['house', 'House look', ['house look', 'spawn animation', 'selection style', 'house lighting'], true], ['me', 'Me', ['my settings', 'my name', 'name', 'colour', 'color', 'my pawns', 'my agents'], false], ['graphics', 'Graphics', ['graphics', 'graphics settings', 'quality', 'performance', 'video', 'display', 'frame rate', 'fps'], false], ['controls', 'Controls', ['controls', 'preferences', 'zoom speed', 'rotate speed', 'invert', 'scroll wheel', 'keyboard shortcuts', 'shortcuts', 'hotkeys', 'keys', 'text size', 'ring size', 'sound', 'interface'], false]])
+  for (const [sec, label, syn, gm] of [['nav', 'World navigation', ['areas', 'maps', 'world'], false], ['admin', 'Invites and exports', ['campaign admin', 'admin', 'snapshots', 'save', 'export', 'import', 'invites', 'seats', 'backup'], true], ['campaign', 'Vision, distance & rules', ['campaign rules', 'vision', 'rules', 'campaign settings', 'house rules', 'distance', 'units', 'rolls', 'fog of war default', 'shared vision', 'travel'], true], ['defaults', 'Area defaults', ['area defaults', 'campaign defaults', 'global defaults', 'defaults'], true], ['area', 'Area settings', ['area', 'play rules', 'lighting'], true], ['house', 'House look', ['house look', 'spawn animation', 'selection style', 'house lighting'], true], ['models', 'Uploaded models', ['upload', 'upload a model', 'upload model', 'my models', 'models', 'uploads', 'import a model', 'glb', 'stl'], true], ['me', 'Me', ['my settings', 'my name', 'name', 'colour', 'color', 'my pawns', 'my agents'], false], ['graphics', 'Graphics', ['graphics', 'graphics settings', 'quality', 'performance', 'video', 'display', 'frame rate', 'fps'], false], ['controls', 'Controls', ['controls', 'preferences', 'zoom speed', 'rotate speed', 'invert', 'scroll wheel', 'keyboard shortcuts', 'shortcuts', 'hotkeys', 'keys', 'text size', 'ring size', 'sound', 'interface'], false]])
     add({ id: `settings.${sec}`, title: `Settings: ${label}`, synonyms: ['settings', label, ...syn], icon: 'layout-grid', group: 'Settings', cls: gm ? (ctx) => ctx.gm ? true : null : null, run: () => app.settings.show(sec) });
   // SHARED BUILDS (2026-10-29; client/share.js, core/share.js): the WHOLE AREA out as a .turnip.json or an unlisted
   // share link (Settings ▸ Area settings ▸ Export this area…, and the bar: "export", "export area", "share link");

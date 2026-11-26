@@ -126,8 +126,8 @@ async def main():
         await gm.bring_to_front(); await gm.evaluate("tw.settings.close()"); await gm.mouse.move(640, 420)
         await gm.keyboard.press('s')
         st = await gm.evaluate("({ ...tw.settings.state(), keys: [...document.querySelectorAll('#settingsModal .scat kbd')].map(k => k.textContent), labels: [...document.querySelectorAll('#settingsModal .scat span')].map(k => k.textContent) })")
-        check(st['open'] and st['section'] == 'nav' and st['keys'] == ['N', 'I', 'V', 'D', 'A', 'H', 'M', 'G', 'K', 'F'] and not any(l[:1].isdigit() for l in st['labels']), 'S opens Settings on World navigation; each section shows its letter (N I V D A H M G K F: Invites and exports I, Vision, distance & rules V since 2026-11-01), no numbers', st)
-        check(st['labels'] == ['World navigation', 'Invites and exports', 'Vision, distance & rules', 'Area defaults', 'Area settings', 'House look', 'Me', 'Graphics', 'Controls', 'Feedback'], "the list is in Harry's order, 2026-11-01, as read off the page", st['labels'])
+        check(st['open'] and st['section'] == 'nav' and st['keys'] == ['N', 'I', 'V', 'D', 'A', 'H', 'U', 'M', 'G', 'K', 'F'] and not any(l[:1].isdigit() for l in st['labels']), 'S opens Settings on World navigation; each section shows its letter (N I V D A H M G K F: Invites and exports I, Vision, distance & rules V since 2026-11-01), no numbers', st)
+        check(st['labels'] == ['World navigation', 'Invites and exports', 'Vision, distance & rules', 'Area defaults', 'Area settings', 'House look', 'Uploaded models', 'Me', 'Graphics', 'Controls', 'Feedback'], "the list is in Harry's order, 2026-11-01, as read off the page (Uploaded models, U, after House look since 2026-11-06, where the relay takes uploads)", st['labels'])
         seen = []
         for k in ('m', 'a', 'v', 'd', 'h', 'i', 'f', 'n'):
             await gm.keyboard.press(k); seen.append(await gm.evaluate('tw.settings.state().section'))

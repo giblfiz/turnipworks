@@ -13,6 +13,7 @@ import { openGames } from '../games.js';
 //   5 Area settings      GM, the area in the main view: open to players or hidden, play settings (each "using default"
 //                        or "overridden here", with a reset)
 //   6 House look         GM: spawn animation, house lighting, selection style, below the ground: hills and ground see-through
+//   6b Uploaded models   GM (U): upload a model file, the campaign's models (place, delete, counter-notice): client/uploads.js
 //   7 Me                 everyone: name and seat colour, my pawns, my agents, my requests (players)
 //   8 Graphics           everyone: the picture and what it costs this machine
 //   9 Controls           everyone: mouse and keys, UI size, announcements, cursors, motion, sound (music: client/music.js;
@@ -33,6 +34,7 @@ import { setRingScale } from './ring.js';
 import { figTree } from './figtree.js';
 import { pawnLabel } from '../pawns.js';
 import { cleanSheet, sheetProblem } from '../../core/pawn.js';
+import * as SZ from '../../core/size.js';
 import { LIB_EVEN } from '../library.js';
 import { noGlow, HILL_SEE, GROUND_SEE, UNDER_SEE } from '../world.js';
 import { PPG_CHOICES } from '../../core/uvtt.js';
@@ -112,6 +114,9 @@ export function settingsSurface(R, app) {
     { id: 'defaults', label: 'Area defaults', icon: 'layout-template', key: 'D' },
     { id: 'area', label: 'Area settings', icon: 'layers', key: 'A' },
     { id: 'house', label: 'House look', icon: 'sparkles', key: 'H' },
+    // UPLOADED MODELS (2026-11-06, client/uploads.js; docs/UPLOADS.md): the GM's own models, private to the campaign. Shown only
+    // where the relay takes uploads (a dev relay; prod once the safe-harbour record is complete)
+    { id: 'models', label: 'Uploaded models', icon: 'box', key: 'U', when: () => app.uploads?.on !== false },
     // Me was split in three (Harry 2026-10-24: "overwhelming, and a little confusing"): Me is who you are and what is
     // yours; Graphics (G, freed when Global defaults split) is the picture and what it costs this machine; Controls (K, for
     // keys) is how the game answers your hands, eyes and ears.
@@ -129,7 +134,7 @@ export function settingsSurface(R, app) {
     open: (opts = {}) => { fbPreset = { ...opts, fresh: true }; lastSec = null; lastHtml = ''; S.show('feedback'); },
     loaded: () => !!fbMod,
   };
-  const sectionsFor = () => SECTIONS.filter(s => s.all || app.gm());
+  const sectionsFor = () => SECTIONS.filter(s => (s.all || app.gm()) && (!s.when || s.when()));
   const cur = () => sectionsFor().some(s => s.id === section) ? section : 'nav';
 
   const S = app.settings = {
@@ -197,7 +202,7 @@ export function settingsSurface(R, app) {
   function render() {
     if (pressed && S.isOpen && !modal.hidden) { deferred = true; return; }
     const sec = cur(), secs = sectionsFor();
-    const body = { nav: navBody, me: meBody, controls: controlsBody, graphics: graphicsBody, area: areaBody, campaign: campaignBody, defaults: defaultsBody, house: houseBody, admin: adminBody, feedback: () => '<div class="fbroot"><p class="snote">Loading…</p></div>' }[sec]();
+    const body = { nav: navBody, me: meBody, controls: controlsBody, graphics: graphicsBody, area: areaBody, campaign: campaignBody, defaults: defaultsBody, house: houseBody, admin: adminBody, models: () => app.uploads ? app.uploads.sectionHtml() : '', feedback: () => '<div class="fbroot"><p class="snote">Loading…</p></div>' }[sec]();
     const html = `<div class="smodal" role="dialog" aria-modal="true" aria-label="Settings">
       <nav class="scats"><div class="stitle">Settings</div>${secs.map((s, i) => `<button class="scat${s.id === sec ? ' sel' : ''}" data-sec="${s.id}">${icon(s.icon, 18)}<span>${esc(s.label)}</span><kbd>${s.key}</kbd>${s.id === 'admin' && pendingCount() ? `<i class="badge">${pendingCount()}</i>` : ''}</button>`).join('')}<button class="scat other-games" type="button">Other games / New game</button>${metaLinks()}</nav>
       <section class="spane" data-sec="${sec}"><header class="sph"><h2>${esc(secs.find(s => s.id === sec).label)}</h2><span class="sphb">${app.tray.pinButton('settings')}<button class="sx" title="Close (${app.tray.pinned('settings') ? 'S' : 'Esc'})" aria-label="Close">${icon('x', 18)}</button></span></header><div class="spb">${body}</div></section></div>`;
@@ -344,13 +349,16 @@ export function settingsSurface(R, app) {
   // ever sent her own (core/party.js defsFor), so nothing of anyone else's can reach a player's editor.
   const defsOf = (owner) => (C()?.pawns || []).filter(d => d.owner === owner);
   const seatName = (id) => C()?.seats.find(s => s.id === id)?.name || 'Player';
-  const PAWN_FIELDS = ['name', 'fig', 'sheet', 'notes', 'petOf', 'main', 'darkvision', 'lightCarried'];
+  const PAWN_FIELDS = ['name', 'fig', 'size', 'sheet', 'notes', 'petOf', 'main', 'darkvision', 'lightCarried'];
+  // A PAWN'S SIZE (2026-11-06, core/size.js): '' = its figure's own; else squares a side. The DEFAULT: what it is when it
+  // comes on from the bench (a pawn on the table may be resized on its own: ☰ ▸ Size, "size large")
+  const sizeOwn = (d) => { const f = d?.fig && F.get(d.fig), have = d?.size ?? 1; return have === (f?.size || 1) ? '' : String(have); };
   function startPawnEdit(id) {
     flushPawn(); // what was typed into the pawn open before goes in first
     const d = id && id !== 'new' ? (C()?.pawns || []).find(x => x.id === id && (x.owner === myId() || app.gm())) : null;
     const ft = (v) => Number.isFinite(v) ? String(v) : ''; // '' = the default (darkvision 30 ft, no carried light)
-    pawnEdit = d ? { id: d.id, isNew: false, owner: d.owner, placeholder: !!d.placeholder, name: d.name, fig: d.fig || '', sheet: d.sheet || '', notes: d.notes || '', petOf: d.petOf || '', main: !!d.main, named: true, darkvision: ft(d.darkvision), lightCarried: ft(d.lightCarried) }
-      : { id: null, isNew: true, owner: myId(), name: '', fig: '', sheet: '', notes: '', petOf: '', main: !myDefs().length, named: false, darkvision: '', lightCarried: '' };
+    pawnEdit = d ? { id: d.id, isNew: false, owner: d.owner, placeholder: !!d.placeholder, name: d.name, fig: d.fig || '', size: sizeOwn(d), sheet: d.sheet || '', notes: d.notes || '', petOf: d.petOf || '', main: !!d.main, named: true, darkvision: ft(d.darkvision), lightCarried: ft(d.lightCarried) }
+      : { id: null, isNew: true, owner: myId(), name: '', fig: '', size: '', sheet: '', notes: '', petOf: '', main: !myDefs().length, named: false, darkvision: '', lightCarried: '' };
     // what the table holds, as this editor last knew it (a change is sent only where it differs: nothing else is touched,
     // so the GM and the player editing one pawn at once do not undo each other); a new pawn has none until it is kept.
     // `opened` is the pawn as it was when the editor opened, for "Put it back as it was".
@@ -378,6 +386,7 @@ export function settingsSurface(R, app) {
     const editor = !e ? '' : `<div class="mped${e.placeholder ? ' placeholder' : ''}" data-edit="${e.isNew ? 'new' : e.id}"${foreign ? ` data-owner="${esc(e.owner)}"` : ''}><div class="mphd"><h4>${head}</h4><small class="mpstat${pawnStat === 'refused' ? ' bad' : ''}" aria-live="polite">${esc(statText())}</small></div>${phNote}
       <div class="mpfig"><div class="mpprev">${figPic(e.fig, 112)}<b>${f ? esc(f.name) : 'No figure yet'}</b><small>${f ? esc(F.describe(f)) : 'pick one from the pictures'}</small>${f ? `<button class="sbtn tiny" data-act="pawn-nofig">No figure</button>` : ''}</div><div class="mptree clip">${picker.html()}</div></div>
       ${row('Name', `<input class="mpname" value="${esc(e.name)}" maxlength="80" placeholder="What it is called on the table">${err('name')}`)}
+      ${row('Size', select('class="mpsize"', [['', `Its figure's own${f ? `: ${SZ.sizeLabel(f.size || 1)}` : ''}`], ...SZ.SIZE_STEPS.map(n => [String(n), n > 4 ? `${SZ.feetOf(n)} ft` : `${SZ.sizeWord(n)[0].toUpperCase()}${SZ.sizeWord(n).slice(1)} (${SZ.feetOf(n)} ft)`])], e.size), 'the figure, its base and the squares it takes (a pawn on the table can still be resized on its own)')}
       ${row('Sheet link', `<input class="mpsheet" value="${esc(e.sheet)}" maxlength="500" placeholder="https://… (its character sheet; optional)">${err('sheet')}`)}
       ${row('Notes', `<textarea class="mpnotes" maxlength="4000" rows="3" placeholder="Everyone at the table can read these (optional)">${esc(e.notes)}</textarea>`)}
       ${row('Pet or familiar of', select('class="mppet"', [['', 'Nobody: it is its own pawn'], ...odefs.filter(d => d.id !== e.id).map(d => [d.id, d.name])], e.petOf))}
@@ -406,7 +415,7 @@ export function settingsSurface(R, app) {
     const f = e.fig && F.get(e.fig), bad = {}, p = {};
     const name = e.name.trim();
     if (name) p.name = name; else if (e.base) bad.name = `A pawn needs a name: it is still “${e.base.name}” on the table`; else if (e.fig) bad.name = 'Give it a name to keep it';
-    p.fig = f ? f.id : 'none'; p.size = f?.size || 1;
+    p.fig = f ? f.id : 'none'; p.size = e.size !== '' && SZ.isSize(+e.size) ? +e.size : f?.size || 1;
     const sheet = cleanSheet(e.sheet), sp = sheetProblem(sheet);
     if (sp) bad.sheet = `Not kept: ${sp}`; else p.sheet = sheet;
     p.notes = e.notes; p.petOf = e.petOf || ''; p.main = !!e.main;
@@ -568,6 +577,7 @@ export function settingsSurface(R, app) {
   const $$ = (s) => [...modal.querySelectorAll(s)];
   const dispatchC = (type, args) => app.sync.submit(type, args);
   function wire(sec) {
+    if (sec === 'models') app.uploads?.wire(modal.querySelector('.uproot'), () => { if (S.isOpen && section === 'models') render(); });
     if (sec === 'feedback') {
       const root = modal.querySelector('.fbroot'), preset = fbPreset || (lastSec !== 'feedback' ? { fresh: true } : null); fbPreset = null;
       loadFb().then(m => { if (root.isConnected) m.mountFeedback(app, root, preset); }).catch(e => { root.innerHTML = `<p class="snote">Feedback could not load (${esc(e.message)}). Reload the page and try again.</p>`; });
@@ -655,6 +665,7 @@ export function settingsSurface(R, app) {
         };
         bind('.mpname', 'name', () => { pawnEdit.named = true; }); bind('.mpsheet', 'sheet'); bind('.mpnotes', 'notes'); bind('.mpdark', 'darkvision'); bind('.mplight', 'lightCarried');
         const pet = ed.querySelector('.mppet'); if (pet) pet.onchange = () => { pawnEdit.petOf = pet.value; flushPawn(); render(); };
+        const sz = ed.querySelector('.mpsize'); if (sz) sz.onchange = () => { pawnEdit.size = sz.value; flushPawn(); render(); };
         const mt = ed.querySelector('[data-mpmain]'); if (mt) mt.onclick = () => { pawnEdit.main = !pawnEdit.main; flushPawn(); render(); };
         ed.querySelector('.mpname').onkeydown = (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); flushPawn(); } };
       }

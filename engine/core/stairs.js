@@ -11,7 +11,7 @@
 //
 // Pure data: the relay and the browser run the same code. `entities` is an area's entity map.
 import { hasCell, cellsOf } from './footprint.js';
-import { roomY, roomTop, roomHeight, meetsGround, STEP, isStoneFamily, levelOf, levelLabel } from './height.js';
+import { roomY, roomTop, roomHeight, meetsGround, STEP, isStoneFamily, levelOf, levelLabel, isTerrain, hillUnder } from './height.js';
 import { holeCellsAt } from './holes.js';
 
 const CELL = 5;
@@ -37,6 +37,8 @@ export const isStair = (e) => e?.kind === 'object' && e.place === 'stair';
 export const STAIR_ROLES = {
   'stair-straight': { rise: 10 }, 'stair-exterior-wood': { rise: 10 }, 'stair-wall-hugging': { rise: 10 }, 'stair-grand': { rise: 10, focal: true },
   'stair-half': { rise: 5 }, 'stair-spiral-wide': { rise: 10, turn: true }, 'ladder-wood': { rise: 10, turn: true },
+  // (2026-11-07, modrooms: the fire escape is a stairwell, one steel flight a landing; the lowest drops a steel ladder to the street)
+  'stair-fire-escape': { rise: 10 }, 'ladder-fire-escape': { rise: 10, turn: true },
 };
 export const stairRole = (e) => (e?.kind === 'object' && e.place !== 'stair' && !e.parent && !e.flat && STAIR_ROLES[e.cat]) || null;
 export const isConnector = (e) => isStair(e) || !!stairRole(e); // anything that joins two floors
@@ -103,15 +105,31 @@ export function stairEnds(s, entities = null, near = null) {
   const ahead = outRow.map(c => [c[0] + ox, c[1] + oz]);
   const across = (c) => c[0] * -oz + c[1] * ox, a0 = Math.min(...outRow.map(across)), a1 = Math.max(...outRow.map(across));
   const beside = [outRow.find(c => across(c) === a0), outRow.find(c => across(c) === a1)].map((c, i) => [c[0] + (i ? 1 : -1) * -oz, c[1] + (i ? 1 : -1) * ox]);
+  // A BLOCKED END STEPS OFF BESIDE IT (2026-11-25; Harry's basilisk-pit ladder: in a 5-ft passage, facing its wall, "Blocked
+  // at the foot"). Where the square an end faces is no floor, the end uses the nearest open square of that level next to
+  // the piece: the facing square(s) first, then those beside its row, then (a ladder, a spiral) the one behind it. One
+  // tier at a time, each tier in a fixed order (along the row's sides: the lower `across` side first), so every seat and
+  // the relay choose the same square for the same rooms; pawns never change it. With no open square at all the end
+  // stays the facing square, and stairStatus still says it is blocked.
+  const mine = new Set(cells.map(c => key(...c))), notMine = (c) => !mine.has(key(...c));
+  const firstOpen = (tiers, ok) => { for (const t of tiers) { const f = t.filter(c => notMine(c) && ok(c)); if (f.length) return f; } return null; };
+  const behind = R?.turn ? outRow.map(c => [c[0] - ox, c[1] - oz]) : [];
   let exits = ahead;
   const U = entities && cells.map(c => roomWithCell(entities, top, ...c)).find(Boolean);
   if (U) {
     const holes = holesAt(entities, top), floor = (c) => hasCell(U.recipe, ...c) && !holes.has(key(...c));
-    const A = ahead.filter(floor), B = beside.filter(floor);
-    exits = A.length ? A : B.length ? B : ahead;
+    exits = firstOpen([ahead, beside, behind], floor) || ahead;
   }
-  const footCell = pick(footCells, near), topCell = pick(exits, near);
-  return { foot: centreOf(footCell, base), top: centreOf(topCell, top), footCell, topCell, exits, floor: !!U }; // floor: there is a room's floor at its top
+  let feet = footCells;
+  if (entities) { // the foot: a square of the floor the stair stands on (the same room, or the open ground at 0)
+    const fy = base, ground = (c) => roomWithCell(entities, fy, ...c)?.id || (fy === 0 ? 'ground' : null), L = ground(cells[0]), fh = holesAt(entities, fy);
+    const l0 = Math.min(...lowRow.map(across)), l1 = Math.max(...lowRow.map(across)); // (the same sides, in the same order, as the top's: a ladder steps off on one side at both ends)
+    const fside = [lowRow.find(c => across(c) === l0), lowRow.find(c => across(c) === l1)].map((c, i) => [c[0] + (i ? 1 : -1) * -oz, c[1] + (i ? 1 : -1) * ox]);
+    const fback = R?.turn ? lowRow.map(c => [c[0] + dx, c[1] + dz]) : [];
+    if (L) feet = firstOpen([footCells, fside, fback], (c) => ground(c) === L && !fh.has(key(...c))) || footCells;
+  }
+  const footCell = pick(feet, near), topCell = pick(exits, near);
+  return { foot: centreOf(footCell, base), top: centreOf(topCell, top), footCell, topCell, exits, feet, floor: !!U }; // floor: there is a room's floor at its top
 }
 // every stair of an area: the planned ones and the catalog pieces alike.
 // ONE EXCEPTION, so that maps made before 2026-10-11 keep their floors: a flight or ladder that a room's LAYOUT put
@@ -344,6 +362,25 @@ export function stairPieceArgs(lib, sizeOf, kind = 'straight', family = '', rise
 //   wall-above     it comes up through a wall, or half outside the room above
 //   no-exit        it comes up against a wall with no floor to step off onto
 const DEAD = new Set(['open', 'nothing-below', 'no-exit']); // a pawn does not cross these
+// A FLIGHT THAT COMES UP ONTO A HILL'S EDGE (2026-11-06; the Dragon Temple's grand stair wore "Comes up through a wall"
+// for reaching into the hill's edge). A hill has no walls, so a flight whose squares at its top are partly the hill and
+// partly the open air beyond its bank is a stair cut into the bank, not one through a wall. -> the one room it comes up
+// into, or null (then the old rule stands: "wall-above"). It holds when every square of the flight that has anything
+// over it at its top has the SAME thing, the rest is open air, and that thing is
+//   the hill itself (its bare top), with at least one of the flight's top squares on it, or
+//   a room standing ON a hill (its floor is the hill's top), with the whole top row in it: the open part is the bank below.
+// A real room anywhere else (on the plain, upstairs, two rooms over one flight) still says "wall-above": its walls are real.
+// Over a square a room on the hill wins over the hill under it (the room takes the hill's ground there).
+function ontoHill(entities, s, top) {
+  if (!(top > 0)) return null;
+  const [dx, dz] = stairDir(s), cells = stairCells(s), along = (c) => c[0] * dx + c[1] * dz, hi = Math.max(...cells.map(along));
+  const over = ([gx, gz]) => { let h = null; for (const e of Object.values(entities)) if (e.kind === 'room' && e.recipe && roomY(e.recipe) === top && hasCell(e.recipe, gx, gz)) { if (!isTerrain(e.recipe)) return e; h ||= e; } return h; };
+  const ov = cells.map(over), ids = new Set(ov.filter(Boolean).map(e => e.id));
+  if (ids.size !== 1) return null;
+  const U = ov.find(Boolean), topRow = cells.map((c, i) => along(c) === hi ? ov[i] : undefined).filter(v => v !== undefined);
+  if (isTerrain(U.recipe)) return topRow.some(Boolean) ? U : null;
+  return hillUnder(entities, U.recipe) === top && topRow.every(Boolean) ? U : null;
+}
 export function stairStatus(entities, s) {
   const base = baseOf_(s), top = stairTop(s), cells = stairCells(s), ground = (y, r) => r ? r.id : y === 0 ? 'ground' : null;
   const low = cells.map(c => ground(base, roomWithCell(entities, base, ...c))), up = cells.map(c => roomWithCell(entities, top, ...c));
@@ -355,8 +392,12 @@ export function stairStatus(entities, s) {
     if (top === 0) return footOk ? { code: null, why: '' } : { code: 'foot', why: 'there is no floor to step on at its foot' }; // it comes up onto open ground
     return { code: 'open', why: 'no floor is built over it yet: it will open the floor above when there is one' };
   }
-  if (up.some(v => !v) || new Set(up.map(r => r.id)).size > 1) return { code: 'wall-above', why: 'it comes up through a wall of the floor above' };
-  if (!E.exits.some(c => hasCell(up[0].recipe, ...c) && !holes.has(key(...c)))) return { code: 'no-exit', why: 'it comes up against a wall: there is no floor to step off onto' };
+  let U = up[0];
+  if (up.some(v => !v) || new Set(up.map(r => r.id)).size > 1) {
+    U = ontoHill(entities, s, top);
+    if (!U) return { code: 'wall-above', why: 'it comes up through a wall of the floor above' };
+  }
+  if (!E.exits.some(c => hasCell(U.recipe, ...c) && !holes.has(key(...c)))) return { code: 'no-exit', why: 'it comes up against a wall: there is no floor to step off onto' };
   if (!footOk) return { code: 'foot', why: 'there is no floor to step on at its foot' };
   return { code: null, why: '' };
 }
@@ -469,13 +510,14 @@ export const stairWalks = (s) => stairKind(s) !== 'ladder' && !stairRole(s)?.tur
 // lower one; on the slope's own line the higher steps came up through the back of the base (Gemini, 2026-10-26: "sunk
 // into the staircase, with the higher rising steps clipping directly through the back of the base")
 export const WALK_LIFT = 1.2;
-const WALK = new WeakMap(), NO_WALK = { list: [], holes: new Map(), at: () => [] };
+const WALK = new WeakMap(), NO_WALK = { list: [], holes: new Map(), at: () => [], rungs: [], rungAt: () => null };
 export function stairWalk(entities) {
   if (!entities || typeof entities !== 'object') return NO_WALK;
   let W = WALK.get(entities); if (W) return W;
-  const list = [];
+  const list = [], rungs = [];
   for (const s of Object.values(entities).some(isConnector) ? stairsOf(entities) : []) {
-    if (!stairWalks(s) || DEAD.has(stairStatus(entities, s).code)) continue;
+    if (DEAD.has(stairStatus(entities, s).code)) continue;
+    if (!stairWalks(s)) { const L = stairLinks(entities, s); rungs.push({ id: s.id, s, base: baseOf_(s), top: stairTop(s), lower: L.from, upper: L.to, cells: stairCells(s) }); continue; }
     const [dx, dz] = stairDir(s), base = baseOf_(s), top = stairTop(s), L = stairLinks(entities, s);
     const run = s.dims?.[2] || CELL, wide = s.dims?.[0] || CELL; // (a piece's box: [across, height, along its run])
     list.push({ id: s.id, s, base, top, dx, dz, run, wide, lower: L.from, upper: L.to, cells: stairCells(s) });
@@ -493,7 +535,18 @@ export function stairWalk(entities) {
     }
     return out;
   };
-  W = { list, holes, at }; WALK.set(entities, W); return W;
+  // A LADDER OR A SPIRAL HOLDS A PAWN AT ANY HEIGHT ALONG IT (2026-11-25, rungAt): on its piece, from its foot to its top
+  // -> { id, y, room } (y: the height asked, never above its top) or null
+  const rungAt = (x, z, y) => {
+    if (!rungs.length) return null;
+    const gx = Math.floor(x / CELL + 1e-6), gz = Math.floor(z / CELL + 1e-6);
+    for (const t of rungs) {
+      if (y < t.base - 0.01 || y > t.top + 0.5 || !t.cells.some(c => c[0] === gx && c[1] === gz) || !onPiece(t.s, x, z)) continue;
+      const ry = Math.round(Math.min(y, t.top) * 100) / 100; return { id: t.id, y: ry, room: ry >= t.top - 0.5 ? (t.upper || t.lower) : t.lower };
+    }
+    return null;
+  };
+  W = { list, holes, at, rungs, rungAt }; WALK.set(entities, W); return W;
 }
 
 // A PAWN DROPPED ON A LADDER OR A SPIRAL GOES TO ITS OTHER END: from the lower floor (dropped on the piece) to the top
@@ -512,7 +565,9 @@ export function stairHop(entities, x, z, y = 0) {
     }
     // (2026-11-03) from above onto one whose FOOT is blocked (stairStatus 'foot': a wall or rock where its foot landing
     // would be) it is not climbed down into that: the pawn stays at the end it was dropped on, on the top landing
-    if (Math.abs(stairTop(s) - y) < 0.5) { const E = stairEnds(s, entities, near); return { ...(stairStatus(entities, s).code === 'foot' ? E.top : E.foot), stair: s.id }; }
+    // (2026-11-25) and a hop that would not change its level is no hop: the pawn stays where it was put (it was a shift sideways
+    // to the top landing: Harry's pawn on the basilisk pit's ladder)
+    if (Math.abs(stairTop(s) - y) < 0.5) { if (stairStatus(entities, s).code === 'foot') return null; const E = stairEnds(s, entities, near); return { ...E.foot, stair: s.id }; }
   }
   return null;
 }

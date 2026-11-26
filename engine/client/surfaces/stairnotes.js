@@ -3,8 +3,9 @@
 // world.js syncStairNotes), and sprites are never picked. So the button is the room label's pattern, not a pick: a real
 // DOM button laid over the canvas and moved to the note every frame (surfaces/labels.js). It has every bit of a button
 // (hover, a title, a real tap on a phone) and the 3D hit-test stays out of it.
-//   Who: the GM side only, and not while the GM previews what players see. A player sees the note and no ×; the relay
-//        refuses the command anyway (object.set is class 'object').
+//   Who: the GM side only, and not while the GM previews what players see. Since 2026-11-06 a player never sees the
+//        note at all (world.js syncStairNotes draws them on the GM side only); the relay refuses the command anyway
+//        (object.set is class 'object').
 //   Where: just past the note's right end, so it never covers the words. The note is a constant size on screen for a
 //        given window height, so that end is worked out from the sprite's scale, as statusfx.js boxOfSprite does.
 //   Always showing, not on hover: a phone has no hover. On a coarse pointer the disc is larger and the target is 44 px

@@ -10,6 +10,7 @@ import { CELL, hash, meshFamily } from './walls.js';
 export const RES = 0.5;      // occupancy grid, feet
 export const INSET = 0.5;    // half wall thickness (walls are 12 in thick, centred on the grid line)
 export const CEIL = 9;       // wall height 108 in
+export const FLAT_MIN_Y = 0.03, FLAT_STEP = 0.01, FLAT_TOP = 0.5; // flats on the floor: Ctx.flatHeight (the floor tiles lie at 0.02)
 const FREE = 0, BLOCK = 1, KEEP = 2; // KEEP = keep clear (door approach, bar lane); small clutter may not use it
 
 export function mulberry32(seed) {
@@ -125,7 +126,9 @@ export class Ctx {
     // else the same seeded building choice as v2, else the first available faction on the type's list.
     if (want.shape === undefined && id.startsWith('flavor-')) {
       const list = (this.type.flavors || []).filter(f => ['sun', 'moon', 'devils', 'spiders'].includes(f)), made = list.filter(f => this.lib.objects['flavor-idol']?.skus.some(s => s.shape === f)), available = made.length ? made : list;
-      const one = this.room.flavor || this.opts?.flavor || this.flavor || available[this.room.building ? hash(this.room.building, 'flavor') % available.length : 0];
+      const F = this.lib.factions, reverent = (f) => !!(Array.isArray(F) ? F.find(x => x.id === f) : F?.[f])?.reverent, evilOnly = (this.type.flavors || []).length > 0 && this.type.flavors.every(f => ['devils', 'spiders', 'dragons', 'skulls', 'tentacles'].includes(f));
+      const asked = [this.room.flavor, this.opts?.flavor, this.flavor].find(f => f && !(evilOnly && reverent(f))); // (2026-11-07: a real-world faith never dresses a cult room)
+      const one = asked || available[this.room.building ? hash(this.room.building, 'flavor') % available.length : 0];
       if (one) { pool = pool.filter(s => s.shape === one); if (!pool.length) return null; }
     }
     if (id.startsWith('flavor-') && want.shape !== undefined) { pool = pool.filter(s => s.shape === want.shape); if (!pool.length) return null; }
@@ -227,8 +230,28 @@ export class Ctx {
   overlapsT(ranges, a, b) { return ranges.some(([t0, t1]) => a < t1 && t0 < b); }
 
   // ---------- records ----------
+  // THE HEIGHT OF A FLAT ON THE FLOOR (streetfix, 2026-11-07; Harry on dev: the street's crossings and pavements "glitchy
+  // ... not drawn above the floor but equal to it"). A flat is one plane; two planes at one height fight for each pixel
+  // (z-fighting). So every flat on the floor (orient 'floor', on the ground, not on a table) stands at least FLAT_MIN_Y
+  // (one FLAT_STEP above the floor tiles, look.floorSpecs y 0.02), and at least FLAT_STEP above every flat already laid
+  // that it overlaps, so the later one is drawn over the earlier (the zebra crossing over the centre line, the manhole over
+  // the road, litter over the pavement). A height the caller asked for that is already clear of the rest is kept. In steps of 0.01 ft
+  // because a placement keeps two decimals (the stacking schemes of 0.002 / 0.004 / 0.006 that rounded to one height are
+  // what this replaces). 0.01 ft is twice the depth step at the far edge of a table view (near 0.5 ft, 24-bit depth).
+  flatHeight(dm, x, z, rot, y) {
+    let h = Math.max(FLAT_MIN_Y, Math.round(y * 100) / 100);
+    const [aw, ad] = this.aabb(dm.w, dm.d, rot), lap = [];
+    for (const q of this.placements) {
+      if (q.orient !== 'floor' || q.parent || !(q.y < FLAT_TOP)) continue;
+      const [qw, qd] = this.aabb(q.dims[0], q.dims[2], q.rot);
+      if (Math.abs(q.x - x) < (aw + qw) / 2 - 0.02 && Math.abs(q.z - z) < (ad + qd) / 2 - 0.02) lap.push(q.y);
+    }
+    while (lap.some(v => Math.abs(v - h) < FLAT_STEP - 1e-6)) h = Math.round((Math.max(h, ...lap.filter(v => Math.abs(v - h) < FLAT_STEP - 1e-6)) + FLAT_STEP) * 100) / 100;
+    return h;
+  }
   record(id, sku, dm, x, y, z, rot, layer, rule, why, extra = {}) {
     const o = this.lib.objects[id];
+    if (extra.orient === 'floor' && !extra.parent && y < FLAT_TOP) y = this.flatHeight(dm, x, z, rot, y);
     const p = {
       uid: this.nextUid(), id, sku: sku.sku, kind: sku.kind, url: sku.url, place: o.place, layer, rule, why,
       x: +x.toFixed(2), y: +y.toFixed(2), z: +z.toFixed(2), rot: +rot.toFixed(4), s: dm.s, dims: [+dm.w.toFixed(2), +dm.h.toFixed(2), +dm.d.toFixed(2)],

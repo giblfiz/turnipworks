@@ -35,7 +35,7 @@ export function installPicks(app) {
     return out;
   };
   const footprint = (e, x = e.x, z = e.z, rot = e.rot || 0) => {
-    if (e.kind === 'pawn' || e.kind === 'token') return pawnCells(x, z, e.size || F.sizeOf(e));
+    if (e.kind === 'pawn' || e.kind === 'token') return pawnCells(x, z, F.sizeOf(e));
     const dims = e.size?.dims || e.dims || [5, 1, 5], c = Math.abs(Math.cos(rot)), s = Math.abs(Math.sin(rot));
     return cells(x, z, Math.max(.1, dims[0] * c + dims[2] * s), Math.max(.1, dims[0] * s + dims[2] * c));
   };
@@ -121,7 +121,7 @@ export function installPicks(app) {
       for (const {m,p} of plan) {
         if (m.kind === 'pawn') {
           const id = newId('tok'); ids.push(id);
-          ops.push({ type: 'token.create',args: { id,name: names.get(pawnLabel(m.fig)).shift(),x: round(p.x),z: round(p.z),...(p.y && {y: round(p.y)}),rot: round(p.rot),color: app.myColor(),...(m.fig && {fig: m.fig.id}),...(m.size > 1 && {size: m.size}) } });
+          ops.push({ type: 'token.create',args: { id,name: names.get(pawnLabel(m.fig)).shift(),x: round(p.x),z: round(p.z),...(p.y && {y: round(p.y)}),rot: round(p.rot),color: app.myColor(),...(m.fig && {fig: m.fig.id}),...(m.size !== 1 && {size: m.size}) } });
         } else if (m.cat.place === 'tile') {
           const tileOps = paintOps(app,m.cat.id,[p.cell],{size:m.size,y:p.y}); ops.push(...tileOps); ids.push(...tileOps.filter(o => o.type === 'object.place').map(o => o.args.id));
         } else {
